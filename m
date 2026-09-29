@@ -1,1203 +1,260 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60527525A70
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:06:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FEF526AB8;
+	Tue, 29 Sep 2026 13:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687194; cv=none; b=Pq9KWwDSIzJRAdZ9pLByfiDYwpKGjpzhK55Si30ScsOVx5O982zX/FAXW74ONbLXK351yKtCsMRw8c2C7eZLEuYBe7NsQ7aWuo1bLg/S67fRPhCTppdkWFTKpJfPhVyXMJyztP1ARYCfj3v6bfTUJ+D63RTFarhSeGSCbAwjdmI=
+	t=1790687199; cv=none; b=r7tiaI0hvPQGCvtEYstOLOUiV/n2QcK2zc+HNbwAXz0uA4TvfAbZ/FvyTqIaCLGYQ7Ya+r+6TirWwdJbrEPVa8cthu31d+/ywljXkUFqLz2ZUrMSyo5cLpq9sOjYkFkrGbo1D9ukiK5DYunKNQX7fkTztpukglrt59b0ztCqat8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687194; c=relaxed/simple;
-	bh=ZNe84ljPzXNxqUN8DASQuu/7aMLz6SRglrGz42+dU+I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oQKUH7GLH36F/9Umpb5wTJN4EhIX2ex/F0RIADR6Vsok14q2vDELaNBJ9ifCdgM5MsLlSFGPx6QMaKJgDoZKDbQgCR9GDyDOU7L/6r2wZpPZr2dUhUhZmxYkBH6jd0ks1Ta+BqBi3lLXnNa0H3lRItMrNjTTCP6pr3YFE+ZQSes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=kPQqoD+x; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1790687199; c=relaxed/simple;
+	bh=HbiHSu1gZj2M8LqxK6m7VoynE0Pu4uWXZhWKhFZhqw4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iezoeaC/+yg5BtnCqjsOmWvGWFsqwI2DSW48ClTnBF93Ul6QH/j1/VN9e5R6FmglbL8sW0DKAYSeUDpqms646hkTPRnWjsGi5HRXBATTxdd07AVuEG3eSfEXpabiUNIwn1XeXjhVuRgo/ZXps/Gt4n4crmFM30kotilUTRtpBro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=osEXGjCn; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="kPQqoD+x"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9ab667so3440886fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:06:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1790687186; x=1791291986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jd1zbZdLL50CgURj9sS6n0lKoZ1mUjSAM58E1Zhv5hk=;
-        b=kPQqoD+xv9VUBId8RpmrDQXEmKGe+To6bFjHmFbVxDi/21xaJaZW7vzhF/QJqcgnub
-         w3kM8fmcxBDZQVDkdnZ3viiSWMaN3tFCNNj2NM0Y76Xz0MlsbnBb265/WK6HS32rUN+S
-         dEGg+VisJZrWpNUS4iUcmGrulc0I9zDanrCKZp/sXCQNAk25Ht4EotzN1fsUDJrs7bGm
-         NMKkkh8HUmnqt60ZCuBuvZcwP+EATM0cNmlxQK5uP+idwqBuNGnqLROOPTH4SAaJoV4s
-         pzHIRLNoppBLoomp5dUoyFMEqIoQFKUQ8cKsx3aIuK6fyII67xDe65TV0b0ljAr+wcF2
-         7awg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687186; x=1791291986;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jd1zbZdLL50CgURj9sS6n0lKoZ1mUjSAM58E1Zhv5hk=;
-        b=bSakdC72YzLmV4qWpStHaNtabdRyl/2QXJZ4Ag/wtKhNfEhcnq8JmTzUWu4UREppZ2
-         5mUSu0W7DtavR2x+u1GGBj4StnKxcxE9SzqUfPH6pG6OuxiKaCGYnjjyQof9MmAHnS+6
-         PLNQ07JOQPQh6S7zJA3raA70fTGWioEM2uxHj6xUuZ6N2BA4WFq964KXWFPCs3VBINYP
-         B6djXcIqCJhE8bKG+N3GU01V0uzTSdXBypmoWHtIqKhtXVBS6aKjzNFaBoOzxRjLsw5x
-         oPgA7i0tjKZhhE5gTN6GkmQAZBjDqAweOK2mghnhmalvl98a4eG/lRrpWtKHhjZ+tW5r
-         thrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvANwbRZXlipnemGOV1VKAEOQDShGaBxJXed7j3kWUZIaOiFF9kSBlF2Tlpd4++earfrbCegXyzTcXMvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLRzPy0JgZArGrvdLiMBhjJyyeGaPWxyU2GCiyi/4pdksa7WvL
-	+nEXS7sck/qknjRVm4QVGthU0P9khBu/Yb2bDwT2Bs/B3Zd+ZzkFmjsO8X49rj+sR+A=
-X-Gm-Gg: AYBFou3Jt+sCjp2E/TyMU3K/JbKPS2OC7MgfmjOwP7ot6nyG8eVKbbGlqKYXgFShfob
-	8QQu698CYCMxlBhMfpdTQAyUBEHwLz5w+uV3MoyWFTETRcTI5dpJlU4tQh4GpRW33J/yMBPo+0h
-	TcBPPT93dXyoSxhA2Hn+Q8ee1P5fkhDJdsMlkiDchcyPMpV1ujjAgxq4W17FSEpKtsjRgU0G2CP
-	oGfyKaLBEGH9sHuq6BMni62shbyAUGYk5qcrn/8NMxD99i3kNrjPecLUbHpWhDxfem3ewA0xWpK
-	+GUAYyPtSJLj8iWLGIPJ4n1CwZRjMumC5ag99eZ9He0w/+17TlsxE46RkHst8asH4SwRjF133MH
-	TCriBroLyXBB/hfqlCZPwR8MRCnknZ8kZZ7wJ5vvHghFxiAAKCslK9EDOVYhEGgctjPNkRqbeq/
-	3wbrmaqENWSsz276wad/3Hl8vTLCSah6Q26Dge4VHbzvWMmLnLecFcBBefVayTK4NvHgcXcZX/1
-	XLsq9chG0xr8kZB8j66sQ==
-X-Received: by 2002:a05:6870:3453:b0:475:a153:2dc3 with SMTP id 586e51a60fabf-491e9fcab5bmr13126204fac.25.1790687185857;
-        Tue, 29 Sep 2026 06:06:25 -0700 (PDT)
-Received: from [100.64.0.1] ([170.85.13.74])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49aa22c264fsm933437fac.2.2026.09.29.06.06.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 06:06:25 -0700 (PDT)
-Message-ID: <b7428a65-b303-4ed4-bdc0-caf5a89b4712@sifive.com>
-Date: Tue, 29 Sep 2026 08:06:22 -0500
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="osEXGjCn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=wRSt/Q6yL3SDX46AhVe25U0RS95EF+oV/KiE0w+aORw=; b=osEXGjCn0/ckjUE2/hg7eBqEST
+	8zqyyJUe5AY1bBn2Hj5VMj54znztgcnubR77+KJ06+YQfC5BksZVElPIvvNiNFr+KSqre02RoSz/8
+	qUyHeYlcP99c4DuNxM7sFs1kCQ1HgGPHjQPkbJwIyNjka1EuPun5fmR3lDvjZFwI8U2IweRGxci0O
+	6cPRxFMKxgQlhwsd2CZscfMLg/xc4CPEAknnZArSgF5KlOnHqE3iwEd4YI4vsmzEerJhTR8UvEnUm
+	8SHZ7Ol2V39O+WSVf5lc5BcH8D21tH/aV/iIBGRFGXLB2whP58fUfkAdph34K8MbtwZi6soecVqak
+	k4LOIfMA==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xBXXE-008vkJ-Tt; Tue, 29 Sep 2026 15:06:16 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Russell Harmon <russ@har.mn>,  miklos@szeredi.hu,  corbet@lwn.net,
+  skhan@linuxfoundation.org,  rdunlap@infradead.org,
+  fuse-devel@lists.linux.dev,  linux-doc@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Bernd Schubert <bernd@bsbernd.com>
+Subject: Re: [PATCH v2] fuse: add inode generation number support
+In-Reply-To: <CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
+References: <20260927141437.1432584-1-russ@har.mn>
+	<20260928014357.2285448-1-russ@har.mn>
+	<CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
+Date: Tue, 29 Sep 2026 14:07:17 +0100
+Message-ID: <87tsn89pfe.fsf@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] riscv: dts: eswin: eic7700: add pinctrl support
-To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-Cc: Yulin Lu <luyulin@eswincomputing.com>,
- Darshan Prajapati <darshan.prajapati@einfochips.com>,
- Pritesh Patel <pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Andi Shyti <andi.shyti@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Min Lin <linmin@eswincomputing.com>
-References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
- <20260814070007.1662455-4-pinkesh.vaghela@einfochips.com>
-From: Samuel Holland <samuel.holland@sifive.com>
-Content-Language: en-US
-In-Reply-To: <20260814070007.1662455-4-pinkesh.vaghela@einfochips.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Pinkesh,
+On Mon, Sep 28 2026, Amir Goldstein wrote:
 
-On 2026-08-14 2:00 AM, Pinkesh Vaghela wrote:
-> From: Yulin Lu <luyulin@eswincomputing.com>
-> 
-> Add pinctrl node and related pin configuration for EIC7700 SoC
-> 
-> Co-developed-by: Pritesh Patel <pritesh.patel@einfochips.com>
-> Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
-> Signed-off-by: Yulin Lu <luyulin@eswincomputing.com>
-> Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-> ---
->  .../dts/eswin/eic7700-hifive-premier-p550.dts | 119 +++
->  .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 888 ++++++++++++++++++
->  arch/riscv/boot/dts/eswin/eic7700.dtsi        |   5 +
->  3 files changed, 1012 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-> 
-> diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-> index a5c76b14a38f..3101fd90d171 100644
-> --- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-> +++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-> @@ -6,6 +6,7 @@
->  /dts-v1/;
->  
->  #include "eic7700.dtsi"
-> +#include "eic7700-pinctrl.dtsi"
->  
->  / {
->  	compatible = "sifive,hifive-premier-p550", "eswin,eic7700";
-> @@ -18,6 +19,15 @@ aliases {
->  	chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
-> +
-> +	vcc_1v8: regulator-vcc1v8 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vcc1v8";
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +	};
->  };
->  
->  &osc {
-> @@ -25,10 +35,119 @@ &osc {
->  	clock-output-names = "osc_24m";
->  };
->  
-> +&gpio0_pins {
-> +	bias-disable;
-> +	input-enable;
-> +};
+> On Mon, Sep 28, 2026 at 3:44=E2=80=AFAM Russell Harmon <russ@har.mn> wrot=
+e:
+>>
+>> This patch adds support for propagating the inode generation number from
+>> the FUSE server to the kernel.
+>
+> Incomplete statement.
+> Without the mention of GETATTR/SETATTR this is a misleading statement.
+>
+>> This is useful for exporting FUSE
+>> filesystems over NFS, where the generation number is used to detect
+>> stale file handles (ESTALE) when inodes are recycled.
+>
+> How exactly does it help?
+> I am not trying to troll you, I am really curious. how?
+>
+> Context: I have been trying to improve FUSE NFS export support for a while
+> I have built a library that provides reliable NFS export for FUSE passthr=
+ough fs
+> for specific backing file system types [1].
+>
+> [1] https://github.com/amir73il/libfuse/tree/libfuse_passthrough/passthro=
+ugh
+>
+> It is broadly understood that real NFS export support requires extending =
+the
+> FUSE protocol to identify objects using file handles and Luis has
+> already started
+> with this work [2]
 
-Node references should be kept sorted (these go above "osc").
+I just want to add that this work is mostly stale at the moment.  It was
+decided that it needs to be done on top of fusex, the next major protocol
+version bump.  Also note that the initial draft of fusex lacked a bunch of
+features (e.g., it was available for local-filesystems only), so it may
+take a while before a LOOKUP_HANDLE operation is available.
 
-> +
-> +&gpio5_pins {
-> +	bias-disable;
-> +	input-enable;
-> +};
-> +
-> +&gpio11_pins {
-> +	bias-disable;
-> +	input-enable;
-> +};
-> +
-> +&gpio14_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio15_pins {
-> +	bias-disable;
-> +	input-enable;
-> +};
-> +
-> +&gpio28_pins {
-> +	bias-disable;
-> +	input-enable;
-> +};
-> +
-> +&gpio43_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio71_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio74_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio76_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio77_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio79_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio80_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio82_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio84_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio85_pins {
-> +	bias-pull-up;
-> +	input-disable;
-> +};
-> +
-> +&gpio94_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio106_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&gpio111_pins {
-> +	bias-disable;
-> +	input-disable;
-> +};
-> +
-> +&pinctrl {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gpio0_pins>, <&gpio5_pins>, <&gpio11_pins>,
-> +		    <&gpio14_pins>, <&gpio15_pins>, <&gpio28_pins>, <&gpio43_pins>,
-> +		    <&gpio71_pins>, <&gpio74_pins>, <&gpio76_pins>, <&gpio77_pins>,
-> +		    <&gpio79_pins>, <&gpio80_pins>, <&gpio82_pins>, <&gpio84_pins>,
-> +		    <&gpio85_pins>, <&gpio94_pins>, <&gpio106_pins>, <&gpio111_pins>;
+Cheers,
+--=20
+Lu=C3=ADs
 
-Generally the pinctrl for GPIOs should be referenced by the actual consumer, for
-example GPIO_084 controls an onboard LED, so the pinctrl should be referenced by
-the gpio-leds node.
-
-> +	vrgmii-supply = <&vcc_1v8>;
-> +};
-> +
->  &uart0 {
->  	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&uart0_pins>;
->  };
->  
->  &uart2 {
->  	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&uart2_pins>;
->  };
-> diff --git a/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-> new file mode 100644
-> index 000000000000..2d655b442982
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-> @@ -0,0 +1,888 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/*
-> + * Copyright (c) 2025 Beijing ESWIN Computing Technology Co., Ltd.
-> + *
-> + * ESWIN's EIC7700 SoC pin-mux and pin-config options are listed as
-> + * device tree nodes in this file.
-> + *
-> + * Authors: Yulin Lu <luyulin@eswincomputing.com>
-> + */
-> +
-> +&pinctrl{
-
-Missing space here (and check other lines below).
-
-> +	default-pins-grp {
-
-My assumption is that there would be one group per peripheral (e.g. SPI bus,
-eMMC, UART) that groups all of the pins used by that peripheral, with multiple
-"-pins" nodes in the case that subsets of those pins need different pinconf
-settings.
-
-> +		sata_act_led_pins: sata-act-led-pins{
-
-All of these -pins nodes should be annotated with /omit-if-no-ref/.
-
-> +			pins = "gpio27";
-> +			function = "sata";
-> +		};
-> +
-> +		emmc_led_ctrl_pins: emmc-led-ctrl-pins {
-> +			pins = "gpio29";
-> +			function = "emmc";
-> +		};
-> +
-> +		sd0_led_ctrl_pins: sd0-led-ctrl-pins {
-> +			pins = "gpio34";
-> +			function = "sdio";
-> +		};
-> +
-> +		sd1_led_ctrl_pins: sd1-led-ctrl-pins {
-> +			pins = "spi1_d2";
-> +			function = "sdio";
-> +		};
-> +
-> +		i2c6_pins: i2c6-pins {
-> +			pins = "uart1_cts", "uart1_rts";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c7_pins: i2c7-pins {
-> +			pins = "uart2_tx", "uart2_rx";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c9_pins: i2c9-pins {
-> +			pins = "spi1_d0", "spi1_d1";
-> +			function = "i2c";
-> +		};
-> +
-> +		pwm1_pins: pwm1-pins {
-> +			pins = "spi1_d3";
-> +			function = "pwm";
-> +		};
-> +
-> +		pwm2_pins: pwm2-pins {
-> +			pins = "spi1_cs1_n";
-> +			function = "pwm";
-> +		};
-> +
-> +		mipi_csi_xtrig0_pins: mipi-csi-xtrig0-pins {
-> +			pins = "gpio92";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi_xtrig1_pins: mipi-csi-xtrig1-pins {
-> +			pins = "gpio93";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		dual_spi2_pins: dual-spi2-pins {
-> +			pins = "spi2_cs0_n", "jtag0_tck", "jtag0_tms", "jtag0_tdi";
-> +			function = "spi";
-> +		};
-> +
-> +		quad_spi2_pins: quad-spi2-pins {
-> +			pins = "spi2_cs0_n", "spi2_cs1_n", "jtag0_tck", "jtag0_tms",
-> +			       "jtag0_tdi", "jtag0_tdo", "gpio5";
-> +			function = "spi";
-> +		};
-
-A peripheral can reference several pinctrl nodes, so generally we wouldn't
-duplicate the pins here. Only the additional pins would go in quad-spi2-pins,
-and the controller would reference both it and dual-spi2-pins for a quad bus.
-
-> +
-> +		gpio1_pins: gpio1-pins {
-> +			pins = "jtag0_tck";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio2_pins: gpio2-pins {
-> +			pins = "jtag0_tms";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio3_pins: gpio3-pins {
-> +			pins = "jtag0_tdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio4_pins: gpio4-pins {
-> +			pins = "jtag0_tdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio6_pins: gpio6-pins {
-> +			pins = "spi2_cs0_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio7_pins: gpio7-pins {
-> +			pins = "jtag1_tck";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio8_pins: gpio8-pins {
-> +			pins = "jtag1_tms";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio9_pins: gpio9-pins {
-> +			pins = "jtag1_tdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio10_pins: gpio10-pins {
-> +			pins = "jtag1_tdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio12_pins: gpio12-pins {
-> +			pins = "spi2_cs1_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio13_pins: gpio13-pins {
-> +			pins = "mode_set0";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio14_pins: gpio14-pins {
-> +			pins = "mode_set1";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio15_pins: gpio15-pins {
-> +			pins = "mode_set2";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio16_pins: gpio16-pins {
-> +			pins = "mode_set3";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio17_pins: gpio17-pins {
-> +			pins = "jtag2_trst";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio18_pins: gpio18-pins {
-> +			pins = "i2s0_bclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio19_pins: gpio19-pins {
-> +			pins = "i2s0_wclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio20_pins: gpio20-pins {
-> +			pins = "i2s0_sdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio21_pins: gpio21-pins {
-> +			pins = "i2s0_sdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio22_pins: gpio22-pins {
-> +			pins = "i2s_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio23_pins: gpio23-pins {
-> +			pins = "i2s2_bclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio24_pins: gpio24-pins {
-> +			pins = "i2s2_wclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio25_pins: gpio25-pins {
-> +			pins = "i2s2_sdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio26_pins: gpio26-pins {
-> +			pins = "i2s2_sdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio29_pins: gpio29-pins {
-> +			pins = "gpio29";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio30_pins: gpio30-pins {
-> +			pins = "i2s1_bclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio31_pins: gpio31-pins {
-> +			pins = "i2s1_wclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio32_pins: gpio32-pins {
-> +			pins = "i2s1_sdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio33_pins: gpio33-pins {
-> +			pins = "i2s1_sdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio34_pins: gpio34-pins {
-> +			pins = "gpio34";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio35_pins: gpio35-pins {
-> +			pins = "spi1_cs0_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio36_pins: gpio36-pins {
-> +			pins = "spi1_clk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio37_pins: gpio37-pins {
-> +			pins = "spi1_d0";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio38_pins: gpio38-pins {
-> +			pins = "spi1_d1";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio39_pins: gpio39-pins {
-> +			pins = "spi1_d2";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio40_pins: gpio40-pins {
-> +			pins = "spi1_d3";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio41_pins: gpio41-pins {
-> +			pins = "spi1_cs1_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio42_pins: gpio42-pins {
-> +			pins = "usb0_pwren";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio43_pins: gpio43-pins {
-> +			pins = "usb1_pwren";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio44_pins: gpio44-pins {
-> +			pins = "i2c0_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio45_pins: gpio45-pins {
-> +			pins = "i2c0_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio46_pins: gpio46-pins {
-> +			pins = "i2c1_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio47_pins: gpio47-pins {
-> +			pins = "i2c1_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio48_pins: gpio48-pins {
-> +			pins = "i2c2_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio49_pins: gpio49-pins {
-> +			pins = "i2c2_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio50_pins: gpio50-pins {
-> +			pins = "i2c3_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio51_pins: gpio51-pins {
-> +			pins = "i2c3_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio52_pins: gpio52-pins {
-> +			pins = "i2c4_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio53_pins: gpio53-pins {
-> +			pins = "i2c4_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio54_pins: gpio54-pins {
-> +			pins = "i2c5_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio55_pins: gpio55-pins {
-> +			pins = "i2c5_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio56_pins: gpio56-pins {
-> +			pins = "uart0_tx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio57_pins: gpio57-pins {
-> +			pins = "uart0_rx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio58_pins: gpio58-pins {
-> +			pins = "uart1_tx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio59_pins: gpio59-pins {
-> +			pins = "uart1_rx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio60_pins: gpio60-pins {
-> +			pins = "uart1_cts";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio61_pins: gpio61-pins {
-> +			pins = "uart1_rts";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio62_pins: gpio62-pins {
-> +			pins = "uart2_tx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio63_pins: gpio63-pins {
-> +			pins = "uart2_rx";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio64_pins: gpio64-pins {
-> +			pins = "jtag2_tck";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio65_pins: gpio65-pins {
-> +			pins = "jtag2_tms";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio66_pins: gpio66-pins {
-> +			pins = "jtag2_tdi";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio67_pins: gpio67-pins {
-> +			pins = "jtag2_tdo";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio68_pins: gpio68-pins {
-> +			pins = "fan_pwm";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio69_pins: gpio69-pins {
-> +			pins = "fan_tach";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio70_pins: gpio70-pins {
-> +			pins = "mipi_csi0_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio71_pins: gpio71-pins {
-> +			pins = "mipi_csi0_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio72_pins: gpio72-pins {
-> +			pins = "mipi_csi0_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio73_pins: gpio73-pins {
-> +			pins = "mipi_csi1_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio74_pins: gpio74-pins {
-> +			pins = "mipi_csi1_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio75_pins: gpio75-pins {
-> +			pins = "mipi_csi1_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio76_pins: gpio76-pins {
-> +			pins = "mipi_csi2_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio77_pins: gpio77-pins {
-> +			pins = "mipi_csi2_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio78_pins: gpio78-pins {
-> +			pins = "mipi_csi2_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio79_pins: gpio79-pins {
-> +			pins = "mipi_csi3_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio80_pins: gpio80-pins {
-> +			pins = "mipi_csi3_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio81_pins: gpio81-pins {
-> +			pins = "mipi_csi3_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio82_pins: gpio82-pins {
-> +			pins = "mipi_csi4_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio83_pins: gpio83-pins {
-> +			pins = "mipi_csi4_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio84_pins: gpio84-pins {
-> +			pins = "mipi_csi4_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio85_pins: gpio85-pins {
-> +			pins = "mipi_csi5_xvs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio86_pins: gpio86-pins {
-> +			pins = "mipi_csi5_xhs";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio87_pins: gpio87-pins {
-> +			pins = "mipi_csi5_mclk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio88_pins: gpio88-pins {
-> +			pins = "spi3_cs_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio89_pins: gpio89-pins {
-> +			pins = "spi3_clk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio90_pins: gpio90-pins {
-> +			pins = "spi3_di";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio91_pins: gpio91-pins {
-> +			pins = "spi3_do";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio92_pins: gpio92-pins {
-> +			pins = "gpio92";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio93_pins: gpio93-pins {
-> +			pins = "gpio93";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio94_pins: gpio94-pins {
-> +			pins = "s_mode";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio95_pins: gpio95-pins {
-> +			pins = "gpio95";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio96_pins: gpio96-pins {
-> +			pins = "spi0_cs_n";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio97_pins: gpio97-pins {
-> +			pins = "spi0_clk";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio98_pins: gpio98-pins {
-> +			pins = "spi0_d0";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio99_pins: gpio99-pins {
-> +			pins = "spi0_d1";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio100_pins: gpio100-pins {
-> +			pins = "spi0_d2";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio101_pins: gpio101-pins {
-> +			pins = "spi0_d3";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio102_pins: gpio102-pins {
-> +			pins = "i2c10_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio103_pins: gpio103-pins {
-> +			pins = "i2c10_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio104_pins: gpio104-pins {
-> +			pins = "i2c11_scl";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio105_pins: gpio105-pins {
-> +			pins = "i2c11_sda";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio107_pins: gpio107-pins {
-> +			pins = "boot_sel0";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio108_pins: gpio108-pins {
-> +			pins = "boot_sel1";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio109_pins: gpio109-pins {
-> +			pins = "boot_sel2";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio110_pins: gpio110-pins {
-> +			pins = "boot_sel3";
-> +			function = "gpio";
-> +		};
-> +
-> +		uart3_pins: uart3-pins {
-> +			pins = "gpio92", "gpio93";
-> +			function = "uart";
-> +		};
-> +
-> +		uart4_pins: uart4-pins {
-> +			pins = "spi1_d0", "spi1_d1";
-> +			function = "uart";
-> +		};
-> +
-> +		gpio0_pins: gpio0-pins {
-> +			pins = "gpio0";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio5_pins: gpio5-pins {
-> +			pins = "gpio5";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio11_pins: gpio11-pins {
-> +			pins = "gpio11";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio27_pins: gpio27-pins {
-> +			pins = "gpio27";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio28_pins: gpio28-pins {
-> +			pins = "gpio28";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio106_pins: gpio106-pins {
-> +			pins = "gpio106";
-> +			function = "gpio";
-> +		};
-> +
-> +		gpio111_pins: gpio111-pins {
-> +			pins = "gpio111";
-> +			function = "gpio";
-> +		};
-> +
-> +		chip_mode_pins: chip-mode-pins {
-> +			pins = "chip_mode";
-> +			function = "chip_mode";
-> +		};
-> +
-> +		sdio0_pins: sdio0-pins {
-> +			pins = "mode_set0", "mode_set1";
-> +			function = "sdio";
-> +		};
-> +
-> +		sdio1_pins: sdio1-pins {
-> +			pins = "mode_set2", "mode_set3";
-> +			function = "sdio";
-> +		};
-> +
-> +		jtag0_pins: jtag0-pins {
-> +			pins = "jtag0_tck", "jtag0_tms", "jtag0_tdi", "jtag0_tdo";
-> +			function = "jtag";
-> +		};
-> +
-> +		jtag1_pins: jtag1-pins {
-> +			pins = "jtag1_tck", "jtag1_tms", "jtag1_tdi", "jtag1_tdo";
-> +			function = "jtag";
-> +		};
-> +
-> +		jtag2_pins: jtag2-pins {
-> +			pins = "jtag2_trst", "jtag2_tck", "jtag2_tms", "jtag2_tdi",
-> +			       "jtag2_tdo";
-> +			function = "jtag";
-> +		};
-> +
-> +		pcie_pins: pcie-pins {
-> +			pins = "pcie_clkreq_n", "pcie_wake_n", "pcie_perst_n";
-> +			function = "pcie";
-> +		};
-> +
-> +		hdmi_pins: hdmi-pins {
-> +			pins = "hdmi_scl", "hdmi_sda", "hdmi_cec";
-> +			function = "hdmi";
-> +		};
-> +
-> +		rgmii0_pins: rgmii0-pins {
-> +			pins = "rgmii0_clk_125", "rgmii0_txen", "rgmii0_txclk", "rgmii0_txd0",
-> +			       "rgmii0_txd1", "rgmii0_txd2", "rgmii0_txd3", "rgmii0_rxclk",
-> +			       "rgmii0_rxdv", "rgmii0_rxd0", "rgmii0_rxd1", "rgmii0_rxd2",
-> +			       "rgmii0_rxd3", "rgmii0_mdc", "rgmii0_mdio", "rgmii0_intb";
-> +			function = "rgmii";
-> +		};
-> +
-> +		rgmii1_pins: rgmii1-pins {
-> +			pins = "rgmii1_clk_125", "rgmii1_txen", "rgmii1_txclk", "rgmii1_txd0",
-> +			       "rgmii1_txd1", "rgmii1_txd2", "rgmii1_txd3", "rgmii1_rxclk",
-> +			       "rgmii1_rxdv", "rgmii1_rxd0", "rgmii1_rxd1", "rgmii1_rxd2",
-> +			       "rgmii1_rxd3", "rgmii1_mdc", "rgmii1_mdio", "rgmii1_intb";
-> +			function = "rgmii";
-> +		};
-> +
-> +		i2s0_pins: i2s0-pins {
-> +			pins = "i2s0_bclk", "i2s0_wclk", "i2s0_sdi", "i2s0_sdo", "i2s_mclk";
-> +			function = "i2s";
-> +		};
-> +
-> +		i2s1_pins: i2s1-pins {
-> +			pins = "i2s1_bclk", "i2s1_wclk", "i2s1_sdi", "i2s1_sdo", "i2s_mclk";
-> +			function = "i2s";
-> +		};
-> +
-> +		i2s2_pins: i2s2-pins {
-> +			pins = "i2s2_bclk", "i2s2_wclk", "i2s2_sdi", "i2s2_sdo", "i2s_mclk";
-> +			function = "i2s";
-> +		};
-> +
-> +		usb0_pwren_pins: usb0-pwren-pins {
-> +			pins = "usb0_pwren";
-> +			function = "usb";
-> +		};
-> +
-> +		usb1_pwren_pins: usb1-pwren-pins {
-> +			pins = "usb1_pwren";
-> +			function = "usb";
-> +		};
-> +
-> +		i2c0_pins: i2c0-pins {
-> +			pins = "i2c0_scl", "i2c0_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c1_pins: i2c1-pins {
-> +			pins = "i2c1_scl", "i2c1_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c2_pins: i2c2-pins {
-> +			pins = "i2c2_scl", "i2c2_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c3_pins: i2c3-pins {
-> +			pins = "i2c3_scl", "i2c3_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c4_pins: i2c4-pins {
-> +			pins = "i2c4_scl", "i2c4_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c5_pins: i2c5-pins {
-> +			pins = "i2c5_scl", "i2c5_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c8_pins: i2c8-pins {
-> +			pins = "gpio92", "gpio93";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c10_pins: i2c10-pins {
-> +			pins = "i2c10_scl", "i2c10_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		i2c11_pins: i2c11-pins {
-> +			pins = "i2c11_scl", "i2c11_sda";
-> +			function = "i2c";
-> +		};
-> +
-> +		uart0_pins: uart0-pins {
-> +			pins = "uart0_tx", "uart0_rx";
-> +			function = "uart";
-> +		};
-> +
-> +		uart1_pins: uart1-pins {
-> +			pins = "uart1_tx", "uart1_rx", "uart1_cts", "uart1_rts";
-> +			function = "uart";
-> +		};
-
-RTS/CTS pins should be separate, so it is possible to use the UART without them.
-
-> +
-> +		uart2_pins: uart2-pins {
-> +			pins = "uart2_tx", "uart2_rx";
-> +			function = "uart";
-> +		};
-> +
-> +		fan_pwm_pins: fan-pwm-pins {
-> +			pins = "fan_pwm";
-> +			function = "pwm";
-> +		};
-> +
-> +		fan_tach_pins: fan-tach-pins {
-> +			pins = "fan_tach";
-> +			function = "fan_tach";
-> +		};
-> +
-> +		mipi_csi0_pins: mipi-csi0-pins {
-> +			pins = "mipi_csi0_xvs", "mipi_csi0_xhs", "mipi_csi0_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi1_pins: mipi-csi1-pins {
-> +			pins = "mipi_csi1_xvs", "mipi_csi1_xhs", "mipi_csi1_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi2_pins: mipi-csi2-pins {
-> +			pins = "mipi_csi2_xvs", "mipi_csi2_xhs", "mipi_csi2_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi3_pins: mipi-csi3-pins {
-> +			pins = "mipi_csi3_xvs", "mipi_csi3_xhs", "mipi_csi3_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi4_pins: mipi-csi4-pins {
-> +			pins = "mipi_csi4_xvs", "mipi_csi4_xhs", "mipi_csi4_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		mipi_csi5_pins: mipi-csi5-pins {
-> +			pins = "mipi_csi5_xvs", "mipi_csi5_xhs", "mipi_csi5_mclk";
-> +			function = "mipi_csi";
-> +		};
-> +
-> +		s_mode_pins: s-mode-pins {
-> +			pins = "s_mode";
-> +			function = "s_mode";
-> +		};
-> +
-> +		boot_sel0_pins: boot-sel0-pins {
-> +			pins = "boot_sel0";
-> +			function = "boot_sel";
-> +		};
-> +
-> +		boot_sel1_pins: boot-sel1-pins {
-> +			pins = "boot_sel1";
-> +			function = "boot_sel";
-> +		};
-> +
-> +		boot_sel2_pins: boot-sel2-pins {
-> +			pins = "boot_sel2";
-> +			function = "boot_sel";
-> +		};
-> +
-> +		boot_sel3_pins: boot-sel3-pins {
-> +			pins = "boot_sel3";
-> +			function = "boot_sel";
-> +		};
-> +
-> +		ddr_ref_clk_sel_pins: ddr-ref-clk-sel-pins {
-> +			pins = "gpio95";
-> +			function = "ddr_ref_clk_sel";
-> +		};
-> +
-> +		lpddr_ref_clk_pins: lpddr-ref-clk-pins {
-> +			pins = "lpddr_ref_clk";
-> +			function = "lpddr_ref_clk";
-> +		};
-> +
-> +		spi0_pins: spi0-pins {
-> +			pins = "spi0_cs_n", "spi0_clk", "spi0_d0", "spi0_d1", "spi0_d2",
-> +			       "spi0_d3";
-> +			function = "spi";
-> +		};
-> +
-> +		dual_spi1_pins: dual-spi1-pins {
-> +			pins = "spi1_cs0_n", "spi1_clk", "spi1_d0", "spi1_d1";
-> +			function = "spi";
-> +		};
-> +
-> +		quad_spi1_pins: quad-spi1-pins {
-> +			pins = "spi1_cs0_n", "spi1_cs1_n", "spi1_clk", "spi1_d0", "spi1_d1",
-> +			       "spi1_d2", "spi1_d3";
-> +			function = "spi";
-> +		};
-
-Same comments apply here.
-
-Regards,
-Samuel
-
-> +
-> +		spi3_pins: spi3-pins {
-> +			pins = "spi3_cs_n", "spi3_clk", "spi3_di", "spi3_do";
-> +			function = "spi";
-> +		};
-> +	};
-> +};
-> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> index b3a230870315..b16e3e28632c 100644
-> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> @@ -349,6 +349,11 @@ gpioD: gpio-port@3 {
->  			};
->  		};
->  
-> +		pinctrl: pinctrl@51600080 {
-> +			compatible = "eswin,eic7700-pinctrl";
-> +			reg = <0x0 0x51600080 0x0 0x1fff80>;
-> +		};
-> +
->  		clk: clock-controller@51828000 {
->  			compatible = "eswin,eic7700-clock";
->  			reg = <0x0 0x51828000 0x0 0x300>;
+> [2] https://lore.kernel.org/linux-fsdevel/20260225112439.27276-1-luis@iga=
+lia.com/
+>
+> So my question is, what does adding generation id to GETATTR/SETATTR
+> improve for FUSE filesystem writers that wish to export their filesystem =
+to NFS?
+>
+>>
+>> Key changes:
+>> - Bump FUSE protocol version to 7.47.
+>> - Repurpose the unused `dummy` field in `struct fuse_attr_out` as
+>>   `generation`.
+>> - Add a `FUSE_ATTR_GENERATION` INIT flag with which the filesystem opts
+>>   into the kernel consuming that field. Gating on the protocol minor
+>>   version alone would break existing filesystems: the minor version only
+>>   reflects the library, not whether the individual filesystem fills the
+>>   field, and a zero there would look like a generation change for any
+>>   filesystem that reports nonzero generations in LOOKUP.
+>> - Update `fuse_change_attributes` and related functions to accept and set
+>>   `inode->i_generation`.
+>> - Populate `i_generation` from `LOOKUP`, `GETATTR`, and `READDIRPLUS`
+>>   responses.
+>> - Detect nodeid recycling on `GETATTR` and `SETATTR` responses via
+>>   `fuse_stale_inode()`, the same check already used by the `LOOKUP` and
+>>   `READDIRPLUS` paths, and mark the inode bad (EIO) instead of merging
+>>   the recycled file's attributes into the existing, possibly still-open,
+>>   inode.
+>> - Update `fuse_get_dentry` to validate the generation number against the
+>>   file handle, returning ESTALE on mismatch.
+>> - Maintain backward compatibility: without `FUSE_ATTR_GENERATION` the
+>>   generation field in attr replies is ignored.
+>>
+>> Verification:
+>> Tested with a QEMU harness in fuse-generation-qemu against a patched
+>> libfuse (FUSE_CAP_ATTR_GENERATION, fuse_reply_attr_with_generation) and
+>> its passthrough_ll example reporting real backing-filesystem generation
+>> numbers. The suite verifies that:
+>> 1.  The generation from `LOOKUP` reaches `name_to_handle_at()` file
+>>     handles and matches the backing filesystem's FS_IOC_GETVERSION.
+>> 2.  `open_by_handle_at()` succeeds for a valid handle and fails with
+>>     ESTALE for a handle whose generation does not match, both while the
+>>     inode is cached and after cache eviction.
+>
+> 1 and 2 should work on upstream FUSE right?
+> This is something worth mentioning.
+>
+>> 3.  When a `GETATTR` reply reports a new generation for a cached inode
+>>     (inode recycling), the kernel marks the inode bad: fstat() on an
+>>     open fd fails with EIO, while a fresh path lookup recovers and
+>>     pre-recycling file handles fail with ESTALE.
+>
+> How did the inode recycle happen with passtrhough_ll which keeps
+> open fds for fuse inodes?
+> Something is missing from this test report.
+> If you just used a mock filesystem which makes no sense in the real world
+> then the value of this change is questionable.
+>
+>>
+>> Signed-off-by: Russell Harmon <russ@har.mn>
+>> Assisted-by: Gemini:gemini-3.1
+>> ---
+>> v2:
+>> - Bump FUSE_KERNEL_MINOR_VERSION to 47 to match the new 7.47 changelog
+>>   entry (v1 added the entry but left the minor at 46).
+>>
+>> v1: https://lore.kernel.org/all/20260927141437.1432584-1-russ@har.mn/
+>>
+>>  Documentation/filesystems/fuse/fuse.rst | 32 +++++++++++++++++++++++++
+>>  fs/fuse/dir.c                           | 21 +++++++++++-----
+>>  fs/fuse/fuse_i.h                        | 10 ++++++--
+>>  fs/fuse/inode.c                         | 23 ++++++++++++------
+>>  fs/fuse/readdir.c                       |  2 +-
+>>  include/uapi/linux/fuse.h               | 11 +++++++--
+>>  6 files changed, 81 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/Documentation/filesystems/fuse/fuse.rst b/Documentation/fil=
+esystems/fuse/fuse.rst
+>> index 0fbd5a03fdc9..f67bc9fc6316 100644
+>> --- a/Documentation/filesystems/fuse/fuse.rst
+>> +++ b/Documentation/filesystems/fuse/fuse.rst
+>> @@ -49,6 +49,38 @@ using the sftp protocol.
+>>  The userspace library and utilities are available from the
+>>  `FUSE homepage: <https://github.com/libfuse/>`_
+>>
+>> +NFS export support
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +FUSE filesystems can be exported via NFS if the filesystem daemon suppo=
+rts it.
+>> +For reliable NFS export, the filesystem should provide a unique inode
+>> +generation number for each inode. This generation number is used by the
+>> +NFS server to distinguish between different file instances that may
+>> +share the same inode number (e.g. after an inode number is reused).
+>> +
+>> +The inode generation number is provided by the filesystem daemon in the
+>> +following messages:
+>> +
+>> +- `FUSE_LOOKUP`
+>> +- `FUSE_GETATTR` (see below)
+>> +- `FUSE_SETATTR` (see below)
+>> +- `FUSE_READDIRPLUS`
+>> +- `FUSE_CREATE` / `FUSE_TMPFILE` / `FUSE_MKNOD` / `FUSE_MKDIR` / `FUSE_=
+SYMLINK` / `FUSE_LINK`
+>> +
+>> +A daemon that keeps the generation number in its `FUSE_GETATTR` and
+>> +`FUSE_SETATTR` replies (the `generation` field of `fuse_attr_out`,
+>> +protocol 7.46) must announce this by setting `FUSE_ATTR_GENERATION` in
+>> +its `FUSE_INIT` reply flags. When the flag is negotiated, the kernel
+>> +compares the generation in every getattr/setattr reply against the
+>> +cached inode: a mismatch means the daemon has reused the node ID for a
+>> +different file, and the cached inode is marked bad (subsequent
+>> +operations on it fail with EIO). Without the flag, the field is ignored
+>> +and the generation is only taken from lookup-type replies, preserving
+>> +the behavior of existing filesystems.
+>> +
+>> +If the filesystem daemon does not provide a generation number, the kern=
+el
+>> +will use a default value of 0.
+>> +
+>
+> On the one hand, I still need to understand the value of reporting genera=
+tion
+> in GETATTR/SETATTR.
+>
+> On the other hand, I do see the value in the server negotiating at init t=
+ime the
+> fact that "Generation values are reliable".
+>
+> What happens today is that NFS exporting is allowed for all FUSE filesyst=
+ems
+> regardless of the reliability of generation id, so after inode evict
+> and recycle,
+> an NFSv3 client  that had access to inode X.Y may get access to a complet=
+ely
+> different file or even a directory with inode X.Y, where X is the recycle=
+ nodeid
+> and Y is an unreliable generation provided by the server.
+>
+> The problem is that FUSE does not require opt-in for NFS export, it only
+> allows servers to opt-out of NFS export (FUSE_NO_EXPORT_SUPPORT).
+>
+> So what can be done given a declaration of the server that generation
+> is reliable?
+>
+> One option is to set a non-zero uuid/fsid to the fuse filesystem.
+> This will allow exporting the fuse filesystem without the opt-in uuid/fsi=
+d=3D
+> in /etc/exports.
+> This will also allow setting fanotify FAN_MARK_FILESYSTEM watches
+> on this fuse filesystem, whose file handles could be trusted to be a genu=
+ine
+> unique identity of the filesystem objects.
+>
+> But if we take this route, it is better to take it one step further
+> and allow the
+> server to determine the filesystem uuid/fsid during negotiation.
+>
+> In any case, I am not convinced there is value in doing all this
+> without extending
+> the protocol with LOOKUP_HANDLE/LOOKUPX lookup by file handle, so if you
+> have compelling use cases, please spell them out.
+>
+> Thanks,
+> Amir.
 
