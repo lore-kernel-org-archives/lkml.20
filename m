@@ -1,56 +1,56 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EB841CB2E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EF741C2E4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790663392; cv=none; b=EAH+gLz7UU8N3V+ireKczxi4vNeJhocZrOzZe/G+wN3JHW5TowtraIv7jGvh6TlbSzeUHYjfY0JDXag+qTO6HhbOeqD4kuFmUlyRmz3oyzAalsnl83e9rP/8tJ3ziUxOUXHPvIwx9TQJKlq4rSVUukQIIydjMBtiyelkYVdDCEI=
+	t=1790663395; cv=none; b=ROZ7d99zYWnM8frc4ObPf1XqEoU7ZU6z9OohB25JOYWED51b5yEAIjM7F3UuOwEvDOg5J4bFs7xjzZmFG92yVnMKepiLTgq3KMinoAyEsqNVJto7lE12Iyuhevdr0gLeFiJWG6jA6zSj5jtTsJu5Tjk3fMoXCkjyYiFwoU3bmfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790663392; c=relaxed/simple;
-	bh=9dnCnm0obUdo2EqOcPv85Krg2CWY6/1fPUxNbupSKAU=;
+	s=arc-20240116; t=1790663395; c=relaxed/simple;
+	bh=HM7ic7PGenayO74KX5wwd+deFrOxwbJv6wWm51CDm0c=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=L2bhTt+yqzDT5Dr0eCtuzCuvqEEsjx9pjYqiVLxDepFNGp4zEPzu8BNB2nY74pSabgVmHnVJdPTAuSE7EAETmbszE73PBk86CIRQCsgb0rYxTYcW0spbPrd9erhT5XpeOwnPXoFJbssnUM/kj1H5orCE7u5T0E4iMrB2nak1COQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=K/uZ5Kzb; arc=none smtp.client-ip=74.125.82.70
+	 To:Cc:Content-Type; b=tWKq5U0MlJiqd+dXxglFUi5yJL79HxWckzJhMytCFICoAJnP9u6lxOn3LB4gOzVKP3KkcWys1TAgPs3ELbejVoKMnv8fr7mNL83B223ZqqQoJfhSA2lpGBdlPhBKrph+H7j0k5V5ECTFSIjtPr0rpGUkw01orMeTTvyQp6IV8ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mPKDcyb7; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="K/uZ5Kzb"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1384427c3efso5846426c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:29:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mPKDcyb7"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-146e698b8adso18353c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:29:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790663390; x=1791268190; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790663392; x=1791268192; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dnibIJ+lZBQ1CeVh0g9DN0YYOUBh+70fdfgpvSaop2o=;
-        b=K/uZ5KzbV/jq0+d8Pjzng9cSPShP+6vy/hmT2kHBFdsD97P3ZxmyjKmQejnBlzhcz3
-         1r+N/IKSR5ssyIL/HbbEQn2F+A5k+qXhkCoL0I6eqKZhFE7mFhdXc71BNv7waGu4tpv3
-         teZD7yaCbjfotlV/OH+jySeMKuOf7DfBu97xUxwm/jHHdYd9kUOtTSSjG6QvvUvsPXfH
-         8VRW8DAJelq4DcbyxQW98jDfDTBMQnjuE5S7OQQNXZgpsIMo9xe79epNZLxNDjzFGipN
-         F/XN3w8lgzckj5qhoTv05OvXtIXqSgWy4fGo0hX2+iQl6tBAhnACVLVAKXcuiIqwPyHN
-         faGQ==
+        bh=9IGzOIODGES3gOAt25C9qV3mqPw8mWSQSxSfj3N8hBo=;
+        b=mPKDcyb7MJPHLeDkL5Y5RsshskRMLxMWCsyTinVi/nFMBluzPEaSI3CjToL4vy0Fcq
+         w+rAuujRSLIVrKy7q7XxtSreoll1TsVfLU366Z6pZhh1u2XM3wgt2FsOq8Lb+u5Tnd+j
+         0uTdtRoJADv2sryHSvpWvGskZ/j2JmvNsBkbYHMzHPz9UcHJOCuSQLnn2ylKE8su/ha1
+         /5RIjmFfTSCTIvx0JPOlwjEZWAUQJVxm13XpLH8TACSttK6oYyV53fK0uaQF04xlLuYy
+         JJedSeTBmQsG9sw+ODeIBzxhVeehMHoCa+8sEuynCeWSxAZ0631sOxZ1bccZqOq3gtjQ
+         5nWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790663390; x=1791268190;
+        d=1e100.net; s=20260707; t=1790663392; x=1791268192;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dnibIJ+lZBQ1CeVh0g9DN0YYOUBh+70fdfgpvSaop2o=;
-        b=iyfopdrIrGRFVZ2CZRTajTjFL0cLl77VxdomEYA13ugvvMKoa5mEbI01nc6RaFY0Gu
-         N8yqBU5Oz+24NNqfZS402ATiDDhPma3l0pyp58DGMxfi+QCgMhYP9q2wH3QcP3u4+fcv
-         c9Kxdk7WOdCevANF8uCHTd63Gpd37yp1+pwwoGMV1lWJbH3X+dJVk4cwsINZQ/g2wwvl
-         i3EEIp8hZV1EVMTiwxB4Hu/9LNNaWFiyia73y8JWxYWHGrVVVZm/73sK+hZKgEoL8OF4
-         KAaCGT9KOfvrycLs45xkE1MwrTHN9kpNgv6uVnxd0eXb+9oR/8P4IiqUOGH6ZrJK728c
-         DpPw==
-X-Forwarded-Encrypted: i=1; AKwUvByB1lIyNtntMSHiQt1s4+1zZOsrdPPxDZfYKmshrh3g46/bUzUWchArLqbJhFT3kKK3K7+3IBSES1zoRxI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/YWnGitVqzXqMMcLsF+tdKlAJ/uD5dQbkh+R9pvyrhVY+ir79
-	mtTw6dxclFWljYYqdPRCvex37l3s7/nndOmeWMuPQRxDkTyvtGJMu+3B1WD6w8jEIgNfsP9IIcq
-	ARfpujMKI4Q==
-X-Received: from dlbox1.prod.google.com ([2002:a05:7022:1201:b0:144:bba4:7daa])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:b044:10b0:147:9ad0:cf32
- with SMTP id a92af1059eb24-1479ad0d333mr11842878c88.31.1790663389876; Mon, 28
- Sep 2026 23:29:49 -0700 (PDT)
-Date: Mon, 28 Sep 2026 23:29:31 -0700
+        bh=9IGzOIODGES3gOAt25C9qV3mqPw8mWSQSxSfj3N8hBo=;
+        b=OnBnMbcmOSZihZ20wo4MawaJIHsC+7+Z+JTRVwDq89yoXNq1GGYE3HZH50D6EPJf/y
+         9koWykCx5xDXhcTPH/i7KlQN5iQKDwip/oOsk1kPu6wlGNo4LTg/LbaLDWR7Jw/brqma
+         j80xXLjZ8s7IKMw6V4sRUWqzx/Vl6AOeIwDrh2AQMVFD3VPQyRtIKnJIF5t6+UHwYc0T
+         d5w0VFjW3shJR/m9W+IzbM27Je0oERsOXv6vFZaw0SRFSXdYozPWg0PyQzZT3WEHgx0a
+         8mkZPGP5+JAV8tMzCPRJWCQ60XOiYqR27yvp+lmumZCutRLsGztnnjKhNOjfaLZ6c0UD
+         NTSg==
+X-Forwarded-Encrypted: i=1; AKwUvByMH7CXT09fjXv6Gb32ID5yeyUoVUf/uBoyzPgmlAqiFdy4Nxp531S+uUN9VYQrSmntqhiPp9d4l9kpMMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3K8qKIf3EWTpLhh9ttLOo+zHUJvnJhsLgQfROYPMaMVLh4EsY
+	4/Y9n66Aqtg8FIwfI+VSbN/mgEe+oboYtGO20AVa9MRsEkn1VncAGA/BnttltuKlTNtyxIUcB9f
+	Q3zs7rtS1kg==
+X-Received: from dybb26.prod.google.com ([2002:a05:693c:609a:b0:343:520f:7a80])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1219:b0:143:1bb1:3305
+ with SMTP id a92af1059eb24-14b2ea054f6mr1783309c88.22.1790663392067; Mon, 28
+ Sep 2026 23:29:52 -0700 (PDT)
+Date: Mon, 28 Sep 2026 23:29:32 -0700
 In-Reply-To: <20260929062937.374137-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929021913.56010-1-irogers@google.com> <20260929062937.374137-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929062937.374137-4-irogers@google.com>
-Subject: [PATCH v2 3/9] perf python stat-cpi: Fix live mode signal races and
- test flakiness
+Message-ID: <20260929062937.374137-5-irogers@google.com>
+Subject: [PATCH v2 4/9] perf test: Deflake Intel PT Python shell tests under load
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -70,111 +69,237 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-In test_stat_cpi_python.sh, 'perf test -w noploop &' defaults to a
-1-second duration and can exit under heavy parallel load before
-'perf stat -p' and 'perf script stat-cpi' finish starting up. In
-addition, the fixed 'sleep 0.5' before sending SIGINT can fire before
-Python finishes importing the perf module, opening the live evlist, and
-flushing the first interval.
+In test_intel_pt_events_python.sh, test_export_to_sqlite_python.sh, and
+test_export_to_postgresql_python.sh, 'sh -c "uname; true"' uses the
+shell builtin 'true' and exits within microseconds of 'uname', sending
+SIGCHLD to 'perf record' before the Intel PT AUX buffer is always
+flushed under heavy parallel load (~5-10% drop rate).
 
-In stat-cpi.py, register SIGINT and SIGTERM handlers before calling
-_open_live_evlist() and pass flush=True when printing live output so
-redirected stdout is flushed immediately after each interval.
+Sleep 0.05s in the subshell after 'uname' ('sh -c "uname; sleep 0.05"')
+so 'uname' completely exits and flushes its AUX trace before 'sh' exits,
+and wrap the record and verification step in a bounded retry loop (up to
+5 attempts). Also pass '-B -N --no-bpf-event' to 'perf record -g' in
+test_export_to_sqlite_python.sh and test_export_to_postgresql_python.sh
+to avoid build-id cache and BPF synthesis overhead.
 
-In test_stat_cpi_python.sh, run 'perf test -w noploop 60 &' so the
-target workload stays alive until killed, and poll the output file for
-'cpi' (up to 5 seconds) before sending SIGINT.
-
-Fixes: 4425182d426b ("perf python: Port stat-cpi to perf module")
+Fixes: d4ce72e9e238 ("perf python: Port intel-pt-events and libxed to perf module")
+Fixes: 62d350135e67 ("perf python: Port export-to-sqlite to perf module")
+Fixes: b1f968c9656a ("perf python: Port export-to-postgresql to perf module")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/stat-cpi.py                 | 19 ++++++++++---------
- .../perf/tests/shell/test_stat_cpi_python.sh  | 12 +++++++++---
- 2 files changed, 19 insertions(+), 12 deletions(-)
+ .../shell/test_export_to_postgresql_python.sh | 49 ++++++++++--------
+ .../shell/test_export_to_sqlite_python.sh     | 50 +++++++++++--------
+ .../shell/test_intel_pt_events_python.sh      | 43 +++++++++-------
+ 3 files changed, 79 insertions(+), 63 deletions(-)
 
-diff --git a/tools/perf/python/stat-cpi.py b/tools/perf/python/stat-cpi.py
-index 0b7d76876a6c..da92cf560067 100755
---- a/tools/perf/python/stat-cpi.py
-+++ b/tools/perf/python/stat-cpi.py
-@@ -106,7 +106,8 @@ class StatCpiAnalyzer:
-             if ins != 0:
-                 cpi = cyc / float(ins)
-             t_sec = timestamp / 1000000000.0
--            print(f"{t_sec:15f}: cpu {cpu}, thread {thread} -> cpi {cpi:f} ({cyc:.0f}/{ins:.0f})")
-+            print(f"{t_sec:15f}: cpu {cpu}, thread {thread} -> cpi {cpi:f} ({cyc:.0f}/{ins:.0f})",
-+                  flush=True)
+diff --git a/tools/perf/tests/shell/test_export_to_postgresql_python.sh b/tools/perf/tests/shell/test_export_to_postgresql_python.sh
+index 350813466700..835f48f002e9 100755
+--- a/tools/perf/tests/shell/test_export_to_postgresql_python.sh
++++ b/tools/perf/tests/shell/test_export_to_postgresql_python.sh
+@@ -61,9 +61,10 @@ test_file_mode() {
+ 	fi
  
-     def read_counters(self, evlist: Any) -> None:
-         """Read counters live."""
-@@ -173,19 +174,19 @@ class StatCpiAnalyzer:
+ 	# Generate events with callchains and context switches
+-	if ! perf record -g --switch-events -o "${temp_data}" \
++	if ! perf record -B -N --no-bpf-event -g --switch-events -o "${temp_data}" \
+ 	     -- perf test -w noploop >/dev/null 2>&1 && \
+-	   ! perf record -g -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++	   ! perf record -B -N --no-bpf-event -g -o "${temp_data}" \
++	     -- perf test -w noploop >/dev/null 2>&1; then
+ 		echo "Skipping test, perf record failed"
+ 		exit 2
+ 	fi
+@@ -92,29 +93,33 @@ test_file_mode() {
+ test_intel_pt() {
+ 	echo "Testing export-to-postgresql.py with intel_pt..."
  
-     def run_live(self) -> None:
-         """Read counters live."""
--        try:
--            evlist = self._open_live_evlist()
--        except OSError as e:
--            print(f"Failed to open events: {e}", file=sys.stderr)
--            sys.exit(1)
--
-         def handle_signal(_signum: int, _frame: Any) -> None:
-             raise KeyboardInterrupt
+-	psql -c "DROP DATABASE IF EXISTS ${temp_db}" postgres >/dev/null 2>&1 || true
+-	rm -f "${temp_data}"
+-	# Generate some intel_pt events; use a subshell that waits for uname
+-	if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
+-		-- sh -c "uname; true" >/dev/null 2>&1; then
+-		echo "Skipping intel_pt test, intel_pt not available."
+-		return 0
+-	fi
++	# Generate some intel_pt events; sleep briefly after uname in the subshell
++	# so uname's AUX buffer is flushed before SIGCHLD stops perf record.
++	passed=0
++	for _ in 1 2 3 4 5; do
++		psql -c "DROP DATABASE IF EXISTS ${temp_db}" postgres >/dev/null 2>&1 || true
++		rm -f "${temp_data}"
++		if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
++			-- sh -c "uname; sleep 0.05" >/dev/null 2>&1; then
++			echo "Skipping intel_pt test, intel_pt not available."
++			return 0
++		fi
  
-         signal.signal(signal.SIGINT, signal.default_int_handler)
-         signal.signal(signal.SIGTERM, handle_signal)
- 
--        print("Live mode started. Press Ctrl+C to stop.")
-+        try:
-+            evlist = self._open_live_evlist()
-+        except OSError as e:
-+            print(f"Failed to open events: {e}", file=sys.stderr)
-+            sys.exit(1)
+-	# Run the script with --itrace cr to synthesize call_returns
+-	if ! perf script export-to-postgresql -i "${temp_data}" \
+-		-o "${temp_db}" --itrace cr >/dev/null; then
+-		echo "intel_pt file mode test failed."
+-		err=1
+-	else
+-		# Check DB for calls
+-		if ! psql -d "${temp_db}" -t -c 'SELECT COUNT(*) FROM calls WHERE id > 0;' | \
++		# Run the script with --itrace cr to synthesize call_returns
++		if perf script export-to-postgresql -i "${temp_data}" \
++			-o "${temp_db}" --itrace cr >/dev/null && \
++		   psql -d "${temp_db}" -t -c 'SELECT COUNT(*) FROM calls WHERE id > 0;' | \
+ 			grep -q '[1-9]'; then
+-			echo "PostgreSQL intel_pt validation failed (no calls found)."
+-			err=1
+-		else
+-			echo "intel_pt test passed (cr validated)."
++			passed=1
++			break
+ 		fi
++	done
 +
-+        print("Live mode started. Press Ctrl+C to stop.", flush=True)
-         try:
-             while True:
-                 time.sleep(self.args.interval)
-@@ -195,7 +196,7 @@ class StatCpiAnalyzer:
-                 self.data.clear()
-                 self.recorded_pairs.clear()
-         except KeyboardInterrupt:
--            print("\nStopped.")
-+            print("\nStopped.", flush=True)
-         finally:
-             evlist.close()
- 
-diff --git a/tools/perf/tests/shell/test_stat_cpi_python.sh b/tools/perf/tests/shell/test_stat_cpi_python.sh
-index fe7562307634..6cb376c92e2f 100755
---- a/tools/perf/tests/shell/test_stat_cpi_python.sh
-+++ b/tools/perf/tests/shell/test_stat_cpi_python.sh
-@@ -50,7 +50,7 @@ test_live_mode() {
- 		echo "perf stat failed (permissions?), skipping live mode test."
- 		return 0
++	if [ "$passed" -eq 0 ]; then
++		echo "PostgreSQL intel_pt validation failed (no calls found)."
++		err=1
++	else
++		echo "intel_pt test passed (cr validated)."
  	fi
--	perf test -w noploop &
-+	perf test -w noploop 60 &
- 	workload_pid=$!
- 	if ! perf stat -e cycles,instructions -p "$workload_pid" -- sleep 0.05 2>/dev/null && \
- 	   ! perf stat -e cycles:u,instructions:u -p "$workload_pid" -- sleep 0.05 2>/dev/null; then
-@@ -61,10 +61,16 @@ test_live_mode() {
- 	fi
- 	ran=1
+ }
  
--	# Run live mode for 1 interval in the background, give it a tiny sleep, then interrupt
-+	# Run live mode in the background, wait until at least one interval is
-+	# printed, then interrupt.
- 	perf script stat-cpi -I 0.1 -p "$workload_pid" > "${temp_out}" &
- 	pid=$!
--	sleep 0.5
-+	for _ in $(seq 1 50); do
-+		if grep -q "cpi" "${temp_out}"; then
+diff --git a/tools/perf/tests/shell/test_export_to_sqlite_python.sh b/tools/perf/tests/shell/test_export_to_sqlite_python.sh
+index d3c5e22a0754..19ca7c539cf7 100755
+--- a/tools/perf/tests/shell/test_export_to_sqlite_python.sh
++++ b/tools/perf/tests/shell/test_export_to_sqlite_python.sh
+@@ -47,9 +47,10 @@ test_file_mode() {
+ 	echo "Testing export-to-sqlite.py..."
+ 
+ 	# Generate events with callchains and context switches if supported
+-	if ! perf record -g --switch-events -o "${temp_data}" \
++	if ! perf record -B -N --no-bpf-event -g --switch-events -o "${temp_data}" \
+ 	     -- perf test -w noploop >/dev/null 2>&1 && \
+-	   ! perf record -g -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++	   ! perf record -B -N --no-bpf-event -g -o "${temp_data}" \
++	     -- perf test -w noploop >/dev/null 2>&1; then
+ 		echo "Skipping test, perf record failed"
+ 		exit 2
+ 	fi
+@@ -77,29 +78,34 @@ test_file_mode() {
+ test_intel_pt() {
+ 	echo "Testing export-to-sqlite.py with intel_pt..."
+ 
+-	rm -f "${temp_db}" "${temp_data}"
+-	# Generate some intel_pt events; use a subshell that waits for uname
+-	if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
+-		-- sh -c "uname; true" >/dev/null 2>&1; then
+-		echo "Skipping intel_pt test, intel_pt not available."
+-		return 0
+-	fi
++	query="import sqlite3; c = sqlite3.connect('${temp_db}'); "
++	query="${query}r = c.execute('SELECT COUNT(*) FROM calls').fetchone()[0]; "
++	query="${query}exit(1 if r == 0 else 0)"
++
++	# Generate some intel_pt events; sleep briefly after uname in the subshell
++	# so uname's AUX buffer is flushed before SIGCHLD stops perf record.
++	passed=0
++	for _ in 1 2 3 4 5; do
++		rm -f "${temp_db}" "${temp_data}"
++		if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
++			-- sh -c "uname; sleep 0.05" >/dev/null 2>&1; then
++			echo "Skipping intel_pt test, intel_pt not available."
++			return 0
++		fi
+ 
+-	# Run the script with --itrace cr to synthesize call_returns
+-	if ! perf script export-to-sqlite -i "${temp_data}" -o "${temp_db}" --itrace cr; then
+-		echo "intel_pt file mode test failed."
++		# Run the script with --itrace cr to synthesize call_returns
++		if perf script export-to-sqlite -i "${temp_data}" -o "${temp_db}" --itrace cr && \
++		   "$PYTHON" -c "$query" >/dev/null 2>&1; then
++			passed=1
 +			break
 +		fi
-+		sleep 0.1
 +	done
- 	kill -INT "$pid" 2>/dev/null || true
- 	set +e
- 	wait "$pid"
++
++	if [ "$passed" -eq 0 ]; then
++		echo "SQLite intel_pt validation failed (no calls found)."
+ 		err=1
+ 	else
+-		# Check DB for calls
+-		query="import sqlite3; c = sqlite3.connect('${temp_db}'); "
+-		query="${query}r = c.execute('SELECT COUNT(*) FROM calls').fetchone()[0]; "
+-		query="${query}exit(1 if r == 0 else 0)"
+-		if ! "$PYTHON" -c "$query" >/dev/null 2>&1; then
+-			echo "SQLite intel_pt validation failed (no calls found)."
+-			err=1
+-		else
+-			echo "intel_pt test passed (cr validated)."
+-		fi
++		echo "intel_pt test passed (cr validated)."
+ 	fi
+ }
+ 
+diff --git a/tools/perf/tests/shell/test_intel_pt_events_python.sh b/tools/perf/tests/shell/test_intel_pt_events_python.sh
+index b5c3173fa2db..9754b9125da1 100755
+--- a/tools/perf/tests/shell/test_intel_pt_events_python.sh
++++ b/tools/perf/tests/shell/test_intel_pt_events_python.sh
+@@ -30,7 +30,8 @@ cleanup() {
+ 	[ -n "${temp_dir}" ] && rm -rf "${temp_dir}"
+ }
+ 
+-trap 'cleanup' EXIT TERM INT
++trap 'cleanup' EXIT
++trap 'cleanup; exit 1' TERM INT
+ 
+ temp_dir=$(mktemp -d /tmp/perf.ipt.XXXXXX)
+ temp_data="${temp_dir}/perf.data"
+@@ -39,27 +40,31 @@ temp_out="${temp_dir}/perf.out"
+ test_intel_pt() {
+ 	echo "Testing intel-pt-events.py with intel_pt..."
+ 
+-	rm -f "${temp_data}" "${temp_out}"
+-	# Generate some intel_pt events; use a subshell that waits for uname so
+-	# uname's AUX buffer is flushed before the parent workload exits.
+-	if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
+-		-- sh -c "uname; true" >/dev/null 2>&1; then
+-		echo "Skipping intel_pt test, intel_pt not available."
+-		exit 2
+-	fi
++	# Generate some intel_pt events; sleep briefly after uname in the subshell
++	# so uname's AUX buffer is flushed before SIGCHLD stops perf record.
++	passed=0
++	for _ in 1 2 3 4 5; do
++		rm -f "${temp_data}" "${temp_out}"
++		if ! perf record -B -N --no-bpf-event -e intel_pt//u -o "${temp_data}" \
++			-- sh -c "uname; sleep 0.05" >/dev/null 2>&1; then
++			echo "Skipping intel_pt test, intel_pt not available."
++			exit 2
++		fi
+ 
+-	# Run the script and check output
+-	if ! perf script intel-pt-events -i "${temp_data}" > "${temp_out}"; then
+-		echo "intel-pt-events.py test failed."
++		# Run the script and check output
++		if perf script intel-pt-events -i "${temp_data}" > "${temp_out}" && \
++		   grep -q "Intel PT Branch Trace" "${temp_out}" && \
++		   grep -q "uname" "${temp_out}"; then
++			passed=1
++			break
++		fi
++	done
++
++	if [ "$passed" -eq 0 ]; then
++		echo "Failed to find expected output: $(cat "${temp_out}" 2>/dev/null)"
+ 		err=1
+ 	else
+-		if ! grep -q "Intel PT Branch Trace" "${temp_out}" || \
+-		   ! grep -q "uname" "${temp_out}"; then
+-			echo "Failed to find expected output: $(cat "${temp_out}")"
+-			err=1
+-		else
+-			echo "intel-pt-events test passed."
+-		fi
++		echo "intel-pt-events test passed."
+ 	fi
+ 	rm -f "${temp_out}"
+ }
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
