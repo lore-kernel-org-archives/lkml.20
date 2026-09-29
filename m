@@ -1,153 +1,98 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DEB3B9DA2;
-	Tue, 29 Sep 2026 20:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5467B53B33E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714189; cv=none; b=di6QnL6M3HUmzPMjFZBRaODKAUg3icwPCcqP2OmAAEuh/fw2bQ0A35YI0jqpSr42cPmJ/3Ps2lEG073srXf2x593tWNH6KONzQqHwxQdKHTHR7eHPdfkxLvKlthwzGvwXfta/rBe1XFRwJrv9X0Tofir/Y1U7YiGAAbnGMxUT60=
+	t=1790714194; cv=none; b=sARK4GWLCpRaVqpNjRFEqWy5sicAlUsvez3zGfUc0m7SHUcXLGX6QBvwHXlrml7jz6XiP7RWACAw6NZJcSMs/NEJC227TF0aFqmfmK8EDZFLYyes6URHQWlKf4w1RrQJTE2laIBka0akt41DLaFf89I5Ms18hCHEr+W2tf8VymU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714189; c=relaxed/simple;
-	bh=Bal+15pWIXPbOBMDO0JB6y85o6OXOA/w+zuFR1fOkVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=efEld1EmHG3RbSgPwc7rc/rUMtCQVp4QQP6mO4GrMfKeOOjxiViimZqEiPU/w37vxTIl3xZADeocFAnIRBTR2ly4dONDexkPoYrPazTE/Xy4UWFYcLX3ipNXQn7db57TmxrGR1aBrOWPq3I2gDMPcOrgqe3uevfmNcrPaxparF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=kZkrKxH/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=X2GWcpKP; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1790714194; c=relaxed/simple;
+	bh=d1KbSzL7wbUeQWAqRwALt8wrw8AGHHea3aEV7/CG66o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iILJaOHpUOgsMq4zOWHG7ny+MaBdg+KcvTVwo9IUmMshSedsLPNuw7NXAWCmCGespGXycYONEEyaONF09luXar4zMlvTahO5JTT/3BF6xbFwkdp+umDBF6m7wb16Uc/2Rw6Mlv/MfOoooKtoRJgN+7r8JXARA8geQi/M+TFNxHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OXLDzNgK; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="kZkrKxH/";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X2GWcpKP"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id C4FCCEC03EC;
-	Tue, 29 Sep 2026 16:36:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 29 Sep 2026 16:36:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790714184;
-	 x=1790800584; bh=hPljVbvi9YmYO5n6/3vPCJL28ZVMOVnjPDx3oAhNDf4=; b=
-	kZkrKxH/tcJ3Bwe3yKzFjma+sc4cU9QyUAwGFAjr1qZUde0THh7TOAj9cZEvIXWv
-	YemftTI9MR0cax2QO0VttIzqudrSTDx94jZPM4ypy2bFmJCNValDlJmfUseNrDEy
-	7QdaQJ0w2iU3UOniRxy10B5DU8cbsy33C9Uh8tOkhxa/C56JjlSyfAb6ljTttQDO
-	TUCfhbbKnSKDJ+TIzXtUQd4diQJG4b0a0DVBOvk13qzaYxjpI2onpYEumwKksoch
-	a37c2u2dhKIdJ3rvdKrCm3AC7DHSmvdkcyyCsW3HC0PYMtphwLr4b/LBgJL99h9X
-	odM+65FsldD40w9Ye13mkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790714184; x=
-	1790800584; bh=hPljVbvi9YmYO5n6/3vPCJL28ZVMOVnjPDx3oAhNDf4=; b=X
-	2GWcpKPwSTO2CGt3Wyap0FicJYE65Ge1DbcoXsiJhiFGEPxMRWZHUzd86/L/B86y
-	soflAHjzi+I7XNhx9RcghSFHgBV/AXugPotbH7KsjZknn9QXclN9Z5OLHEFAejUB
-	RxnsNXuTNHHxGk1vUPMHEEk27cK6KuIxz0w0SDiJ/jPJAMQkDPbuwQB2jUdiT4+C
-	12we8CX3Qy9/1bclynLqlN0UofJuADHDvcIIZwfsAuGb928mRqyuJS9BNd0/Vgrg
-	cSY1PotamYUNmT4hQDnqweV2wnxvBRd2NSRHgmhzFwKIYhMzL2NlXmbH60Y6Cyhi
-	PYz4yf1muUbUWV4j1V2Hg==
-X-ME-Sender: <xms:SCG8amBQNgBNv6ByTqvsLozMjp6ElmOFkyL8CM_eggtdep9bGP-YAw>
-    <xme:SCG8ajl6S2xvJpsboV9xEoemYEoizn2FIZtXHyQnzg0HFbbl8MmhlmY53GfUmRmCb
-    pDmqPmJuaQf52O21KIG1jFxu9sTQ_DeWX9gdgi70uayh_AQ9BOnHw>
-X-ME-Received: <xmr:SCG8akMYnGIP5N-48uRHdqFyIOrdI4bPY9E5bBT_rZ3axrk61hYS08-tK9a0Kg>
-X-ME-Proxy-Cause: dmFkZTEF7y/Vd9T7x0lvwKUs+zAlBpBJBmZOrI5bicHq7BacDUrtEVBdsb5un5RsTkgvSB
-    fRtMFGKkDKE8DS/DisoEcnVefJST+rlZFImVxTIq5lpt0ypiAGg/EK24XXcp6pmJKDJyUJ
-    GbZkQdCCzlmi2QdVqYxEr9n5BnPqgbYDuuSGUnAh+0+twh2PDwi6HbNRiomNaW1F6C5kL5
-    hns15P83zYEHn9btkdeA/+C3zP+ff7S6sZKsX2e7vDWX7iM+YEVjqjcSRpLRBRPv5TC5T3
-    slVHt2US7n9VbP2Jpm+RrGPopBw7z9AIatbBN2S/dtkOpwiZtBdw+h/YfcMs7M/S4c6GCO
-    j5lAXOoin6L307XBEOKLkggK3FD9aYqSrw1uP/kNzd1eZdqYz0+D5LvHMMVUHm3s0YaDqS
-    BjSdB2jtrVHLPlVfltsyJbvERWiKHpnTNSaWi0W9iHrBQ9ciXA2qn1y4gwsx0ospYFyFvs
-    wtnFgVDvQ3XU2N+7rX8sXjqmyCJSeqphvVr8KwzcPlEiy1aLt+RTVuiBY4jgWxxG3bbg8b
-    sU3a2tRsX+G+6Mt0ANE3RgPhc7MezvT8eNeAb+F11Gvb7axHCIxGgg/ndiC8O4JLn6PrAa
-    pYVYzMFKey08lXK3sgOeajHQmjVF/QG+Y1ndjHLQfh4DiTEgg+v3kIBjifVQ
-X-ME-Proxy: <xmx:SCG8ag_-CItjmffFUtobdRgdhuaQOpwp31kEhYc4P3rxey9DQDs4Xw>
-    <xmx:SCG8amEPqhL0-hUo4M7AaBk-RCMbMLD5lv7IJBW1DDhCQUytZxQY3w>
-    <xmx:SCG8avjCF8oDsK8Fc2OFMEf4A37maYf0wsCLFrU4SJ1qAk0dxuSOow>
-    <xmx:SCG8aruVY7tBFUzfoyT0DleRGh7qGwC8Hi3lxUlEeRbszGSXfQo1BQ>
-    <xmx:SCG8arPM4vlPCuvaXg6mQVNr_ebrGlzhU26mOaogtab3f6rxoF97XpF7>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 16:36:23 -0400 (EDT)
-Date: Tue, 29 Sep 2026 14:36:21 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- eric.auger@redhat.com, smostafa@google.com, praan@google.com,
- ioana.ciornei@nxp.com, nipun.gupta@amd.com, nikhil.agarwal@amd.com,
- alex@shazbot.org
-Subject: Re: [PATCH v2 7/7] vfio/cdx: reject non-shared MMIO mmaps
-Message-ID: <20260929143621.540f0024@shazbot.org>
-In-Reply-To: <20260929094848.7439-8-suruurism@gmail.com>
-References: <20260929094848.7439-1-suruurism@gmail.com>
-	<20260929094848.7439-8-suruurism@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OXLDzNgK"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso4411385e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:36:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790714191; x=1791318991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HY+uK+9mHQGUTtMN3D118HnRijdv0U2Tb9WBorVAJXM=;
+        b=OXLDzNgK5Id2GAaTa3qJn5JYZ/yDM74qbu8jfE2Eb8ISskglksyCZ8cdnSDBuraUMu
+         KTi/gOWCbeSVWqcMjdoK66NLtNBvff58Yc1Z7cCpUVlhaWnuXDmLua9fp2wOSHl5zwHG
+         1MdyEhfUvsIZqbE4l4fXZJ11Fw7kTXbMlJnAumYKLAdPWi3nesCPOlqYNRZUGl648QAj
+         D0IyNo6kc3btkHJgTR2tRaRPArN3wm0jXHO9uvsH8mBT3FpjKabMZshaZAje0cXzU7DK
+         zg9wq1u/LQTt02gyvzkiQAtg8vdFV0OgoXWQO9gQd9MOS3byeFzDa/RKYm7mbKtK80+l
+         6pTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790714191; x=1791318991;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HY+uK+9mHQGUTtMN3D118HnRijdv0U2Tb9WBorVAJXM=;
+        b=QFslSjgMvs9on3K/VkxvwA1IIow7ZNdEvPwbjjaiPtgrUD1NwQZSSrsrVKV99q3JBq
+         IuZwhcUjkK096AOe3IseCaaIy+Gp/4ElE58lIifMbkTa3IwXRdYT2QDPh/CBZorWlf/6
+         /fuTgRE8dmta3dIzE6bsoPXv9zfg3QFV+EKfGMoZGUUW6X9+FwRzuAsUt5FMjBgZQVOk
+         tdK0J7AViloYgqq2NdWdRbq9Xq5rQ3jad5OI7SlChr8VRyOZGRTWb++tJ6mwLw/vpfYZ
+         n55o5s6txMm+zrG3Am2DLhEkjV71f1o0SJQSYPN2BX5SlHGkEyBE2BsBkZWojMqtF8fd
+         3htw==
+X-Forwarded-Encrypted: i=1; AKwUvBycvgBSPErAVk0J+oXCNdduHIRK1a6RyBjoNF9hLHxCTcWSGLfdu/xQi+EmBRLjOm73fHPsM8KTgo470cs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHiaqbi3/GE9wLgIdDwG8Xw4aYXhlGTmFd9eLXdjIzTzsSagXp
+	XmoNpn5Bf4YWL95JYl7NA9Pa8LIEiFU2iOvK9f1TvqZKEoLjmvde/FM=
+X-Gm-Gg: AYBFou0llMUbcRe4gNS53CIkUeimdt4I9QtQNyJrTXSxDTJbu56nKgtF//n+R62gj/C
+	DpQ7fPXqxJN7xKa0hPO5t9WFk2wwWQvuAgQV+KWD5lSJ4Ce2vkLr7+RoQfX4XnxtbLc0wNYfFFi
+	qvO1crQOjeTRp6GjNDX2o49yVllPRc8hhCL1ANS0EF7zez3x6kB/F33+RUgU5mUX0VUUc6SVni/
+	WnuMiJY+wzJyIskYO2OuSkesgEKkeDJ+RlC4Vr2iCu85MPv0+GXsToZ/ea2qtk35MlKhAeoKLOJ
+	uPWQb0EPfN6XHyxjZP3m0lAMN6zPSmOk+VN/Fq41kgzXtgsJdN0e8Rati2BVwaLDrJArw4tq7sU
+	XRjZvClXXq7l8hSWK3wevFkTbSsSkXJO7zIYvqNBvOljLwxxlB0ENqkkgIUamw4MFQqFoTNLvXL
+	YmSxYMw4bPGEEzXeWguCEEBdQawQuRdf1lLlKTOhszQJtVESn70WA4NaKQ473fZd0TiJW5i+ov3
+	hX5BFyyLwAGd9cKFlzvBk2WzqEBsS+rJzGsMTfMmB8f97G/tY489bzFGNFaOIVuH/LOqeAqLqvQ
+	lXH2IKs=
+X-Received: by 2002:a05:600c:a08:b0:49f:d69a:1a04 with SMTP id 5b1f17b1804b1-4a015141deemr4262055e9.16.1790714191554;
+        Tue, 29 Sep 2026 13:36:31 -0700 (PDT)
+Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015019e5asm13682155e9.2.2026.09.29.13.36.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 13:36:31 -0700 (PDT)
+From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+To: akpm@linux-foundation.org
+Cc: hnkz.64@gmail.com,
+	gabriel@krisman.be,
+	krisman@suse.de,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] shmem: fix unicode_map leak on remount with casefold=
+Date: Tue, 29 Sep 2026 22:35:46 +0200
+Message-ID: <20260929203547.229191-1-med08elkadiri@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929132129.f22de2069651aa2eaf56bf7c@linux-foundation.org>
+References: <20260929132129.f22de2069651aa2eaf56bf7c@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 29 Sep 2026 12:48:48 +0300
-Abdifatah Suruur <suruurism@gmail.com> wrote:
+On Tue, 29 Sep 2026 13:21:29 -0700 Andrew Morton wrote:
+> I recently merged
+> https://lore.kernel.org/20260827152516.805622-1-hnkz.64@gmail.com
+>
+> Which is preferable?
 
-> vfio_cdx_mmap() accepts MAP_PRIVATE mappings.  A non-shared mapping
-> with VM_MAYWRITE is a COW mapping, and remap_pfn_range()'s COW special
-> case in get_remap_pgoff() then overwrites vma->vm_pgoff with the
-> physical frame number:
-> 
-> 	if (is_cow) {
-> 		if (addr != vm_start || end != vm_end)
-> 			return -EINVAL;
-> 		*vm_pgoff_p = pfn;
-> 	}
-> 
-> The VMA is inserted into the device file's mapping->i_mmap interval
-> tree keyed by vm_pgoff, which VFIO expects to be the logical file
-> offset: the core links every device mmap to the device inode's
-> i_mapping precisely so that unmap_mapping_range() can revoke all
-> mappings associated with a device (see vfio_device_cdev_open()).
+Kazuki's.  It came first and also covers the repeated casefold= leak
+I sent separately today, so please drop both of mine:
 
-It's actually vfio_device_open_file() and vfio_device_fops_cdev_open(),
-vfio_device_cdev_open() doesn't exist.
- 
-> A raw PFN in vm_pgoff lands the interval tree entry in the wrong
-> coordinate space, so unmap_mapping_range() cannot find the VMA and a
-> stale MMIO mapping survives any revocation attempt.  Without this
-> check, a MAP_PRIVATE mapping reintroduces that corruption even with
-> the logical-vm_pgoff fix in place.
-> 
-> Require VM_SHARED as vfio-pci, vfio/fsl-mc and vfio/platform already
+https://lore.kernel.org/all/3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com/
 
-vfio-fsl-mc and vfio-platform for consistency.
-
-Applied series with these changes to vfio next branch for v7.4.  Thanks,
-
-Alex
-
-> do.  This is defensive hygiene: vfio-cdx does not call
-> unmap_mapping_range() today, so no reachable stale-mapping issue
-> exists.
-> 
-> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-> ---
->  drivers/vfio/cdx/main.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/vfio/cdx/main.c b/drivers/vfio/cdx/main.c
-> index ea55b7767672c..28dc8c8256006 100644
-> --- a/drivers/vfio/cdx/main.c
-> +++ b/drivers/vfio/cdx/main.c
-> @@ -271,6 +271,9 @@ static int vfio_cdx_mmap(struct vfio_device *core_vdev,
->  
->  	index = vma->vm_pgoff >> (VFIO_CDX_OFFSET_SHIFT - PAGE_SHIFT);
->  
-> +	if (!(vma->vm_flags & VM_SHARED))
-> +		return -EINVAL;
-> +
->  	if (index >= cdx_dev->res_count)
->  		return -EINVAL;
->  
-
+Thanks,
+Mohammed
