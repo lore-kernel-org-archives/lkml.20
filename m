@@ -1,123 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1DC36EAA8;
-	Tue, 29 Sep 2026 07:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E3B385D8E;
+	Tue, 29 Sep 2026 07:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667911; cv=none; b=lRbcGTxQALjLEAT+JcZbSWXnD5DPxSb3/w19XdEKLDnVsc0JCtPEF5TYYLRvzSPUb9YuIm1oLsPzRQziwKHqrsru4I26m3v8E5D8op3wPdpY+CSXPNdGQsC5BC5ClF02LRxbZ/9MqTXvi8CmUbys7+QB1d7MybHw1sD1qGi8kp8=
+	t=1790667917; cv=none; b=Vyr/xoPJjCLKC+SrK8k/JzSMQW/bxs7QgEApUBXVoMVdEoor8cMvBYVY91dlH4WLJCpuuWtE7QvkvwVAxa32luerYDtXPGfaM0GT621Rw+/FrEVaABsPC3M6NqkJu0z8AA1a6SgdjNqYHMtTbGJtzRd6rlf/rMsF1Uaeqm59dG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667911; c=relaxed/simple;
-	bh=cUf1XBa+U6Ddwsv/SKHT+6dxma1CjeBs+n+WWFmtry4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a8CvFtFZ667LbaO/r433E+rIwXVEuHTGb9V8n0qk6o+JLkW7sr4H8OfA6PsvavbRlGVdFF5FSvSg0WYXb4mcf3gBkOAPc0uGET+OgJ0oE6jGsln7hKkukk22WChEIBbdO+dAdPKeLoGaVz8iQdyhsWl9kBm+wtyGVg2ZlD+4HUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eryQFDsK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667917; c=relaxed/simple;
+	bh=mGEZY/fD7+XQLDfjaIy0mTpiYoeYRKt7VFKYzR+TcYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F4p8m4t1oFxDKR8Eblf5U/iMjnoHTL3Z6AggyRIqO0neGSL1CxfQF1QfPwAMblBqozBmfHhL0bP+PCn85r3aakspEt3WDh+Qx7H0pZnYeFuAHBnom9ucNQ20gHiWUEqVvOum1WbyKBho2mcJKICwqaBXD7hdm5gpglra+bqcU7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBdqiyXd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eryQFDsK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AFF41F000FF;
-	Tue, 29 Sep 2026 07:45:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBdqiyXd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EF21F00893;
+	Tue, 29 Sep 2026 07:45:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667910;
-	bh=VY1SkJGQDmauz4sN7eRcCfUeQO+i8Q4S7HsIT43oUN8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eryQFDsK8XbiERSwR84WHNpDMzE5PzW2Ardhk9RRQOYTsF5ZNYAsYUTNwxnrO8IJs
-	 4pF3o24oJ+dNKTsPvIBFa7CvmvfCowlF+wh5oBUBDLz4duFK9AGVH8JT/ueUbqsnF7
-	 ZQnN9vpmWzdMu2UbSL9dh0S7xy4SEdCFP0/lBfMYZisKxJkVQFa8adh90Jsp+Hdsdf
-	 grXSyKGdotmj1TjbtLy7memifkUshjvj+fwdD5gII7wv7AEeK82aEZfO0aX8u+5fRk
-	 kHOknkEF+u5bV6GGr3ZC91nkB1aXFNs2e5o4TGWrX/02jSXQmkMK3/Bj+DRvMSofpX
-	 Fgok4KIaAKVaQ==
-Message-ID: <29717e90-4b4c-4ee4-8a17-20a7b1792000@kernel.org>
-Date: Tue, 29 Sep 2026 09:45:04 +0200
+	s=k20260515; t=1790667916;
+	bh=nk5wMiMAX7vmm1Ap7xDUsjodqXNumTEJaxf1IBSHmDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QBdqiyXd4YSEFgEBMn2SLVp2Cy4+10t4naU40ueHRJBEEmrCXXYeFD7I2DW8Fxao0
+	 zhKfE8rVAmOOqJBX355ZAIgrBd1+s/FqzJN1uADcaPTt6Y7wyIWQr2gOXwg4OPp/vz
+	 L7L69bpmnqEX7bogFhChT8TMyfAmMWC0aSApXjiVKHkEXN6PCwmsLZNiYD/dOnIAC8
+	 3NrQ6Dg7v+yEz0HvckJ63xWwOLPNviFTKrijFFjconpxIRa1nglIFl3YFxRJhJ2SkJ
+	 jA604EDyNOQakfcAwLEVj6xdQjMXt9g8QsHJeQuBIpOhfFpWeqqB5GOh+MU93/CLf8
+	 1ahJr9WsSiaqw==
+Date: Tue, 29 Sep 2026 09:45:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Petr Vorel <petr.vorel@gmail.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+Message-ID: <20260929-dramatic-ocelot-of-support-2aa377@quoll>
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/12] mm/sparse-vmemmap: drop the extra tail page from
- device DAX reservation
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
- <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-11-songmuchun@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260927025441.741633-11-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
 
-On 9/27/26 04:54, Muchun Song wrote:
-> The device DAX vmemmap population still reserves one extra tail vmemmap
-> page after the head page.
+On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
+> The reset was introduced with wrong polarity. Correct for the future
+> compatibles and keep current with reverted logic.
 > 
-> Drop that extra reservation and let the shared tail page cover all tail
-> vmemmap pages after the head page, so DAX follows the same reservation
-> model as HugeTLB.
+> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+> gpiod_toggle_active_low() on the deprecated compatible.
 > 
-> This reduces the reserved vmemmap pages for optimized DAX mappings to
-> one and removes the now-unneeded first-tail population from the generic
-> and powerpc paths to simplify the code as well.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+> Assisted-by: LLM
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
+>  drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
+>  1 file changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> index 5e1e997b83b36..99290913de69a 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> @@ -20,16 +20,17 @@
+>  #include "panel-samsung-dsi.h"
+>  
+>  struct s6e3ha8_desc {
+>  	const struct drm_panel_funcs *funcs;
+>  	const struct drm_display_mode *mode;
+>  	unsigned long mode_flags;
+>  	const struct regulator_bulk_data *supplies;
+>  	unsigned int num_supplies;
+> +	bool broken_reset_polarity;
+>  };
+>  
+>  struct s6e3ha8 {
+>  	struct drm_panel panel;
+>  	struct mipi_dsi_device *dsi;
+>  	const struct s6e3ha8_desc *desc;
+>  	struct drm_dsc_config dsc;
+>  	struct gpio_desc *reset_gpio;
+> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
+>  {
+>  	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+>  
+>  	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+>  }
+>  
+>  static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+>  {
+> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> -	usleep_range(5000, 6000);
+>  	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>  	usleep_range(5000, 6000);
+>  	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>  	usleep_range(5000, 6000);
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+This breaks all users and this usage of ABI was already released.
 
--- 
-Cheers,
+NAK
 
-David
+> +	usleep_range(5000, 6000);
+>  }
+>  
+>  static int s6e3ha8_amb577px01_wqhd_on(struct s6e3ha8 *priv)
+>  {
+>  	struct mipi_dsi_device *dsi = priv->dsi;
+>  	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
+>  
+>  	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> @@ -203,17 +204,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
+>  	ret = regulator_bulk_enable(priv->desc->num_supplies, priv->supplies);
+>  	if (ret < 0)
+>  		return ret;
+>  	mipi_dsi_msleep(&ctx, 120);
+>  	s6e3ha8_amb577px01_wqhd_reset(priv);
+>  
+>  	ret = s6e3ha8_amb577px01_wqhd_on(priv);
+>  	if (ret < 0) {
+> -		gpiod_set_value_cansleep(priv->reset_gpio, 0);
+> +		gpiod_set_value_cansleep(priv->reset_gpio, 1);
+
+No, you just changed it!
+
+Implement correct and logical fixes, not half-baked fix which is
+immediately wrong.
+
+Best regards,
+Krzysztof
+
