@@ -1,190 +1,167 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAEE3D45D5;
-	Tue, 29 Sep 2026 14:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3524F3D47DA;
+	Tue, 29 Sep 2026 14:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692973; cv=none; b=rUrcxh0/z024pwevBazG3H+5w3317hEOD4z0XF/+53GEJDgA+kbLcljVzTvXH/ezWrU/y3qSXz5BwwOHGrg3kRYazw18XobaWEPfoGWjxGxPuy0qjsXMKGZy83MMCnao+eednSc6tAnKylRPZTBIWVRzU8SabsliMRa3Hec96V0=
+	t=1790693075; cv=none; b=h7UOYMlzZAp+DjMIhdkoRm/2WHV3KcLj0gXi4UqOuXgM3ibF2PoXRwVKbXFrqDyJBOJ5hq2Q6VnxUgds6KHa0dty5dVeONarumZWwEbWDjrT3PwkV7foMN3TLJmUA5SnPeXVXqk/uQS9gslR7se94rRCLcu12NSS69tqZvGNQRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692973; c=relaxed/simple;
-	bh=BWNukz3gxR4ofTYhCcg6SCY61hjz0FbNIyj2Ss/lLgs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pIG15uUIUjeElW6t9CBGI8oCAcxVx9Er2m9JTfamGF9Y0ZcsxNqBTiNSPNtsKJ83HWdqUZoVv7VT5NYw4ojnhU189QFeliHraUpGkGg4UiAJaxSZNKx2HKIcdyKNj1Twvnd6XisLKVZ0rVSB+plMeJaoJAjTW1S9LvDM1qqiaHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
-	by APP-05 (Coremail) with SMTP id zQCowAC3IDtEzrtqWCqvCQ--.41306S2;
-	Tue, 29 Sep 2026 22:42:15 +0800 (CST)
-Message-ID: <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
- devm_drm_of_get_bridge()
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda	
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Dave Stevenson	
- <dave.stevenson@raspberrypi.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal	
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, kernel test robot <lkp@intel.com>
-Date: Tue, 29 Sep 2026 22:42:12 +0800
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
-References: 
-	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
-	 <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1790693075; c=relaxed/simple;
+	bh=IBivVthD/Ugs6+e9U2MOvI4k1mQbfDqv4RyAKNSKTok=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a6VXee63Fsd8NAEFKPScRKJdI+RjXYcFjR76d1AEYCHXlXzooEtOA4MdGnWKXcDtNttoFfu7yQQaOY/tOIZaGfJCVuETaZEYYb/e/oFYms97x61FlBu195XIl2YPr4wdYPpFCEKJBNm+nd6of8AcmKTrSGDpM4GN9qu0T9y//sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HsyNOqIL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kcbJtTWw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=A+V53BaP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vH5vAmfl; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HsyNOqIL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kcbJtTWw";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="A+V53BaP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vH5vAmfl"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BC17021D20;
+	Tue, 29 Sep 2026 14:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790693056; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YILb/eLgFyt3BW9U3MzwkC5amjY5rBbHrDWNoL5EAGo=;
+	b=HsyNOqILQHuPvpxJXvxaHajvIxE04B6AU6CAFEP/MHUkNRbyldugk3D6K3HudxMlRqoW12
+	JOORELwX/96kCam0deFqXlfBN2QVDjH/oKOSGBq8ZdSNzzsm7FWCccSiJpiLj6KsDRtVOB
+	MltIvy21zTUP1bX9hJEK0EdxQ6EbJSw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790693056;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YILb/eLgFyt3BW9U3MzwkC5amjY5rBbHrDWNoL5EAGo=;
+	b=kcbJtTWwfzCABmFI8ItuisGt4roWB76CcoD/x0Jj2FQN/GwBKA7akGb1baZiQwrjdITIky
+	gw6/Fs+R9av2jOBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790693052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YILb/eLgFyt3BW9U3MzwkC5amjY5rBbHrDWNoL5EAGo=;
+	b=A+V53BaPm9ZrUzV/V0uEwhwIYW4vTQKqJyR8EQxhpr2CkdQnVWOWSS/qN9hQM29CKpgk8j
+	jNl8mW9a/C7tRvCsLAT5ouGWAs8sqC824rs0lsRnBfB8W2Vkz9Q+B0o0zMsXjwi10d8apY
+	kS1RmNhSRyVTix2F00009KYY1WVtfZc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790693052;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YILb/eLgFyt3BW9U3MzwkC5amjY5rBbHrDWNoL5EAGo=;
+	b=vH5vAmfl9nGd/kah3RnT6+O6S8dcfUHOJEQMpaYox6EoyBUQfDUe3KpuP8ihrTmM2rme75
+	0NU4iNvYnxpBKCAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6A9C1133F1;
+	Tue, 29 Sep 2026 14:44:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uFQ6EbzOu2oRbwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 14:44:12 +0000
+Date: Tue, 29 Sep 2026 16:44:12 +0200
+Message-ID: <87tsn8yv5v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Takashi Iwai <tiwai@suse.de>,	Ilya Pavlukhin <i.pavluhin@ya.ru>,	Takashi
+ Iwai <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,	David Rhodes
+ <david.rhodes@cirrus.com>,	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,	Len Brown <lenb@kernel.org>,	Hans
+ de Goede <hansg@kernel.org>,	Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,	linux-acpi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] Add support for the bass speakers of Lenovo Yoga Slim 7 Carbon 14ACN6
+In-Reply-To: <764f8a2d-c949-4297-bb26-af0ba791f331@opensource.cirrus.com>
+References: <20260920092808.17234-1-i.pavluhin@ya.ru>
+	<87a4p02xxs.wl-tiwai@suse.de>
+	<764f8a2d-c949-4297-bb26-af0ba791f331@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-CM-TRANSID:zQCowAC3IDtEzrtqWCqvCQ--.41306S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAry7Jr15Kw43Cw1DZFWkZwb_yoWrJF1rpF
-	40qa98try5XrWxXw42kr4j9FyYya4Dtw4rGFWUt34Fvr1FqF4DGF1kAry5Z3W5CF17GF1r
-	tr4DtFySv3W8Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUv4EEDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[ya.ru];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,ya.ru,suse.com,perex.cz,cirrus.com,opensource.cirrus.com,kernel.org,linux.intel.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-=E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 15:39 +0200=EF=BC=8CLuca Ceresoli=E5=
-=86=99=E9=81=93=EF=BC=9A
-> devm_drm_of_get_bridge() is deprecated, switch to
-> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint()
-> returns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
->=20
-> Fixes build failure when CONFIG_OF is disabled.
->=20
-> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
-> drm_panel.c")
-> Reported-by: Arnd Bergmann <arnd@kernel.org>
-> Closes:
-> https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.com=
-/
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.com=
-/
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Tue, 29 Sep 2026 16:30:42 +0200,
+Stefan Binding wrote:
+> 
+> On 29/09/2026 10:45, Takashi Iwai wrote:
+> > On Sun, 20 Sep 2026 11:28:04 +0200,
+> > Ilya Pavlukhin wrote:
+> >> The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0, Ryzen 5000) has four
+> >> speakers. The two tweeters are driven directly by the ALC287, the two
+> >> bass speakers by a pair of CS35L41 amplifiers on I2C. On Linux only
+> >> the tweeters work [1].
+> >>
+> >> The amplifiers are described by ACPI HID CLSA0102, without _DSD, in a
+> >> single node with both I2C addresses, the same way as CLSA0100/CLSA0101
+> >> on the Legion 7. Patches 1-3 add CLSA0102 next to them. The Windows
+> >> Cirrus driver configures CLSA0102 with an external speaker supply, so
+> >> external boost is used.
+> >>
+> >> Patch 4 adds the codec quirk. The ALC287 only clocks the I2S bus to the
+> >> amplifiers while pin 0x17 is enabled, and the BIOS marks that pin as
+> >> unconnected.
+> >>
+> >> Tested on a Yoga Slim 7 Carbon 14ACN6 (BIOS H5CN42WW) with all four
+> >> speakers playing. The DSP firmware (cs35l41-dsp1-spk-prot-17aa3856*)
+> >> is not in linux-firmware yet. For testing it was taken from the Lenovo
+> >> Windows driver package (tuning "Lenovo-S760-17AA383D"). Without it the
+> >> driver falls back to the default spk-prot firmware.
+> >>
+> >> [1] https://bugzilla.kernel.org/show_bug.cgi?id=215632
+> >>
+> >> Ilya Pavlukhin (4):
+> >>   ACPI: scan: Add CLSA0102 to the serial bus ignore list
+> >>   platform/x86: serial-multi-instantiate: Add CLSA0102
+> >>   ALSA: hda: cs35l41: Add support for CLSA0102
+> >>   ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 Carbon 14ACN6
+> > I can take the series, but before that, I'd like hear a confirmation
+> > from Cirrus people.
+> 
+> Looks all OK to me.
+> I'm going to send up firmware to linux-firmware for this laptop shortly.
 
-Checked the code in drm_bridge.c, and it looks like the lifetime of
-next_bridge should be indirectly managed by devm when
-devm_drm_bridge_alloc() successes and the next_bridge field assigned,
-so the only explicit put needed here should be in the alloc failure
-path.
+Thanks for confirmation.
 
-Patch is:
+Now I applied all patches to sound git tree for-next branch.
 
-```
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
 
->=20
-> ---
->=20
-> Changes in v2:
-> - fix bridge reference leak on attach error path
-
-It should be `bridge alloc error` instead of `attach error`, but I
-don't know how to correct the error in the changelog, and anyway it
-won't be part of the final commit.
-
-Thanks,
-Icenowy
-
-> - mention lkp report
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 11 ++++++-----
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.h |=C2=A0 1 -
-> =C2=A02 files changed, 6 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index dc7c85b07fe3..3a5091c0ac2c 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -29,7 +29,7 @@ static int vs_bridge_attach(struct drm_bridge
-> *bridge,
-> =C2=A0{
-> =C2=A0	struct vs_bridge *vbridge =3D drm_bridge_to_vs_bridge(bridge);
-> =C2=A0
-> -	return drm_bridge_attach(encoder, vbridge->next_bridge,
-> +	return drm_bridge_attach(encoder, vbridge->base.next_bridge,
-> =C2=A0				 bridge, flags);
-> =C2=A0}
-> =C2=A0
-> @@ -303,8 +303,7 @@ struct vs_bridge *vs_bridge_init(struct
-> drm_device *drm_dev,
-> =C2=A0		return NULL;
-> =C2=A0	}
-> =C2=A0
-> -	next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev-
-> >of_node,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 output, intf);
-> +	next =3D of_drm_get_bridge_by_endpoint(drm_dev->dev->of_node,
-> output, intf);
-> =C2=A0	if (IS_ERR(next)) {
-> =C2=A0		ret =3D PTR_ERR(next);
-> =C2=A0		if (ret !=3D -EPROBE_DEFER)
-> @@ -321,12 +320,14 @@ struct vs_bridge *vs_bridge_init(struct
-> drm_device *drm_dev,
-> =C2=A0
-> =C2=A0	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct
-> vs_bridge, base,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bridge_funcs);
-> -	if (IS_ERR(bridge))
-> +	if (IS_ERR(bridge)) {
-> +		drm_bridge_put(next);
-> =C2=A0		return ERR_PTR(PTR_ERR(bridge));
-> +	}
-> =C2=A0
-> =C2=A0	bridge->crtc =3D crtc;
-> =C2=A0	bridge->intf =3D intf;
-> -	bridge->next_bridge =3D next;
-> +	bridge->base.next_bridge =3D next;
-> =C2=A0
-> =C2=A0	if (intf =3D=3D VSDC_OUTPUT_INTERFACE_DPI)
-> =C2=A0		enctype =3D DRM_MODE_ENCODER_DPI;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.h
-> b/drivers/gpu/drm/verisilicon/vs_bridge.h
-> index 70fee1749699..2b0ed94e4520 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.h
-> @@ -25,7 +25,6 @@ struct vs_bridge {
-> =C2=A0	struct drm_connector *conn;
-> =C2=A0
-> =C2=A0	struct vs_crtc *crtc;
-> -	struct drm_bridge *next_bridge;
-> =C2=A0	enum vs_bridge_output_interface intf;
-> =C2=A0};
-> =C2=A0
-
+Takashi
