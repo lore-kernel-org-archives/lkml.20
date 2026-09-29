@@ -1,63 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F365E51D519
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB86351AFFF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686189; cv=none; b=oOSER3zKfCFB5Y91IutArlklUsW0o8OgGE7Lo8WBJdggkn1zkqR+uXK4i5bCrK4kRapng8wdO7TUOQ4XVafcDzduqwLRo0IoRVml2q2E++jaw0euUf6po4hKAPniJqx2ObTJ9VR6F3AABs+t4o75hW/NfgtSyDJRGAs/3abjPWU=
+	t=1790686191; cv=none; b=TyCc/zIMc3i35/rA75MTHRH0fidiDq/Jh5XT8oS8tFexcBJysfRQ7ZVoMY/aiibPKjzw3BUJA4nBwnI5Y5QPFcBf9vT5uCNE7rr2HfOsvH7frEZhPvejYQU2QIhYhFAlvFH8A2iX5OZayFDVmLouJ6ZaifZP0HxAY7AEyb81Auw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686189; c=relaxed/simple;
-	bh=WGJSz4IxfrLPuXYGxmtC6e5IJPW38I2TMWdRht+/YX8=;
+	s=arc-20240116; t=1790686191; c=relaxed/simple;
+	bh=ddPjAgqOAexQn6SiMZ0/vDyDZI//jACyAkgt0yNWJQ4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bw1zSvsBqe9dfN7OzCROZgxDZaEZafNWb2uLaBN84BN3tkLcDb5wjqo10RB7wMNYnGw2wFRdfSaY1kub2vM8Xs7UDDf/JxSTxFBHEY/X6S/tVshYpDk2bDo7NfINpp30VSS+yAQwCniPv15I9h0MaI2W7ATExkeRKRKgQs3M1lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=it3D232i; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=IswlmGttA0f5nHhgVg4o3bWtMPckzg5O79+Q0WRHL7jYr3BRpFXlKTYG8CJGhZO7KuRcDywxDaEVOXSMBk4BrZq7NRHLXnroGM8daQlvjTdl3S1XO1jTPj+ibWevJWeUG6vea70lX9gIUZZzIusqQKHPpLmWsBPOU+DINiYKsD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQ/Bqa+d; arc=none smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="it3D232i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790686186;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4d0CMAc9F0s36zaAcOKJGOijxY4yIzrUKf+H81h664A=;
-	b=it3D232iqA4KdbsLeuXnbnRlgZoTvldtmFlFKAZxf+BW7yq7vdYFSoGCWhsB4Xc1mBMFtl
-	5EDlj9Pqd/aWWghZADDYz6fvhF2Ucc/qn1TV1E0BYhbcDUlP7S0ugrafPU8flLfbhnSCKD
-	xm0JHNsRlk5Mw9bhNxzauSJunfOlIjM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-124-j4g_1McxPYKm5qlxPzaArQ-1; Tue,
- 29 Sep 2026 08:49:44 -0400
-X-MC-Unique: j4g_1McxPYKm5qlxPzaArQ-1
-X-Mimecast-MFC-AGG-ID: j4g_1McxPYKm5qlxPzaArQ_1790686183
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F03BD1800667;
-	Tue, 29 Sep 2026 12:49:42 +0000 (UTC)
-Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 42F1F1956095;
-	Tue, 29 Sep 2026 12:49:40 +0000 (UTC)
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-doc@vger.kernel.org
-Cc: Nam Cao <namcao@linutronix.de>,
-	Wen Yang <wen.yang@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>
-Subject: [PATCH 06/10] rv: Add enqueue/dequeue to snroc monitor
-Date: Tue, 29 Sep 2026 14:49:04 +0200
-Message-ID: <20260929124908.177676-7-gmonaco@redhat.com>
-In-Reply-To: <20260929124908.177676-1-gmonaco@redhat.com>
-References: <20260929124908.177676-1-gmonaco@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQ/Bqa+d"
+Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d8709e0de8so1153072eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:49:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790686189; x=1791290989; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=biINQt2l096Gb8cXBkH2MIBuz9s+X7G+Hedzf/dVVx0=;
+        b=XQ/Bqa+dMsqbiSot+Qri0c5WYlPHDHB8o5zt/TGGZjFDxStpAeVGEIiosygDWUAiV3
+         1JMzA3+6ty68L9GVsHcXxoQlA9/LcFrEm/rliq9cfOHMizgfuXaiQrQteOXRR2B7kGtX
+         N45niRZvpOIzeDBUuSnilUcOGNwSUKVty669YeN6h4KrJQhcVzFT+Jy0nf2CHIVolzIE
+         DABwL32NFM7C9C9FK2Lp28G6W2x2XzG0Cp1TSZxqoZwJRJEAcQ+2TSaQHMennTeBT4zN
+         wUZp6lRI00FrEKj8ascz2O5Tsf8l1abe84xq0uJzboowd8OrNnjwtUJWq2S6y2Abn1K/
+         uh6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790686189; x=1791290989;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=biINQt2l096Gb8cXBkH2MIBuz9s+X7G+Hedzf/dVVx0=;
+        b=fCHaoOB9+bG61qINgoaN/Kj8gXai4B66mpj2rUt1ZK31HTB3OX6VQWLeIz5tVcDMCY
+         VDEN9vkWV5iiuKpHFeuZuvrB6I6d6tXEP7JU8MG9P0bNfm+oOFZ5yGIIzwikRY8NyKCF
+         HYYHiA5wCXS7P3frchbKopepIIXkts2OT8oROuR9n+pH1btnjNLk9tzU1U1uwCla3xno
+         e4az3SVxYr/n8bGfCfZOTgXg7a18gZWByJD4wi9RgZjywkOnq6/XxlSAqtq8fbLzLxeI
+         y1oDroeFphvf1Uq6CJjIUUHIp8ji2DoBkbpIlSOZpwb7Kpr359BtRqWAXR3OZlIkTs9y
+         10Aw==
+X-Forwarded-Encrypted: i=1; AKwUvBwY4GIJczLM5VnKeqwFlEvBZJGIWiu3XEzWp0y3R7+uCdURhqt4jH0/HCfo5sp7lvvdhJjvY7lDaOaHfaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRXppY/ti+YBblg7yPeqX8xcYwHObKMEo7TKxjSw/fr5yN8osG
+	T8GSAxjtetVEZzaw4341GXzfYZRBKD+Ge+xwS/R6atXyF/6OW1/bgQPV
+X-Gm-Gg: AYBFou1zdXNhTiSUP/5ybWydTDPcUh5J1W9ggrlm9daGSpU4KVJCYm/INpCW35C9VG5
+	GJzOSk0DKJ3Ewl3ltR5XZ9GYUNfUN5skTrlse1V42C4uN4v83kWL/I2tdHJ2zpHYVPSV5PpDdtA
+	uSY5C77SLhekhrgK8hwHv4RvgghwxhAxZ3Y4fCavYpm+TslaPiiRE/CmFq0UTp4K/TfikTLtHUj
+	6vC+WD9Ypg+3W7u5uPRe2T66kk8NaBPCSRl9YTy2nmU1/orYbhNF51/TkAfgvzcZFnawyJkdLjr
+	hhAbWFmM1/usLpxme1y4JS0oHSgF0013RN47hA6rnZn3AQx8R1wbwMqzmEMi+IBRODjoFh+o/N1
+	HoC2L31m3gYvsxAochRXrCCFvxNMQnwv5Ps7AcR8lRcjcoCv2ac0ePD4mG6fyoX2BLN3RNH4jRA
+	fpRzG7BlByr436e12r7ni/OdB5oBDVeP+ocCsqT/+ng745O0M0dFPwlRrxO1HDrQX0inMjuicMM
+	MZfZzEynoiqL2EtBUJ+rVi3sb4EL0VtsoI+J5tz
+X-Received: by 2002:a05:6820:c8e:b0:6b3:50e5:c625 with SMTP id 006d021491bc7-6d43f7a70ffmr11792413eaf.32.1790686188675;
+        Tue, 29 Sep 2026 05:49:48 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8830ab0d7sm6781572eaf.11.2026.09.29.05.49.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:49:47 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Calvin Owens <calvin@wbinvd.org>,
+	Yibo Tan <lhfff@tju.edu.cn>,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/4] pps: generators: stop the generator on unregister
+Date: Tue, 29 Sep 2026 07:49:36 -0500
+Message-ID: <20260929124937.51114-4-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929124937.51114-1-danishkhateeb03@gmail.com>
+References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,247 +81,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The snroc monitor is a simple monitor that validates set_state occurs
-only when a task is running. This implicitly validates switch in and out
-follow one another.
+Both generator drivers stop their timer and then call
+pps_gen_unregister_source(): pps_gen_tio_remove() cancels its hrtimer
+and disables the TIO, and pps_gen_dummy_exit() deletes its timer. But
+/dev/pps-genN and the sysfs "enable" attribute are still there until
+the unregister, and a PPS_GEN_SETENABLE or a write to "enable" in
+between starts the timer again. Nothing stops it after that: TIO's
+hrtimer keeps running in the devm memory freed by the unbind, and the
+dummy's timer is left in the unloaded module.
 
-Add enqueue/dequeue to validate they also follow one another without
-duplicated events. Although they are not necessary to define the
-task context, adding the check here saves from adding another simple
-per-task monitor, which would require another slot in the task struct.
+The drivers can't avoid this by unregistering first, as TIO's timer
+callback uses pps_gen, which the unregister may free.
 
-Reviewed-by: Nam Cao <namcao@linutronix.de>
-Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
+Stop the generator in pps_gen_unregister_cdev() instead, under
+info_lock after the device and its sysfs files are gone, when nothing
+can enable it again. pps_gen_unregister_source() then also does what
+its kernel-doc says: "it disables the generator so no pulses are
+generated anymore".
+
+Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Cc: stable@vger.kernel.org
+Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- Documentation/trace/rv/monitor_sched.rst  | 39 ++++++++++++-------
- kernel/trace/rv/monitors/snroc/snroc.c    | 18 ++++++++-
- kernel/trace/rv/monitors/snroc/snroc.h    | 46 ++++++++++++++++++++---
- tools/verification/models/sched/snroc.dot | 30 ++++++++++-----
- 4 files changed, 101 insertions(+), 32 deletions(-)
 
-diff --git a/Documentation/trace/rv/monitor_sched.rst b/Documentation/trace/rv/monitor_sched.rst
-index d3ba7edc202f..6afddedfb202 100644
---- a/Documentation/trace/rv/monitor_sched.rst
-+++ b/Documentation/trace/rv/monitor_sched.rst
-@@ -66,21 +66,32 @@ Monitor snroc
+Notes:
+    Tested in the same setup, with patches 1/4 and 2/4 applied. The test
+    driver got a periodic hrtimer in its devm memory, like TIO's, and a
+    remove() that cancels it and then enables the generator again before
+    unregistering, as a PPS_GEN_SETENABLE landing there would. Without this
+    patch the timer keeps running after the unbind:
+    
+      BUG: KASAN: slab-use-after-free in rb_erase+0x174d/0x1a70
+       __remove_hrtimer+0x138/0x450
+       __hrtimer_run_queues+0x2c5/0x7f0
+       hrtimer_interrupt+0x3db/0x910
+      ...
+      Freed by task 175:
+       kfree+0x25a/0x6d0
+       release_nodes+0xd1/0x140
+       devres_release_all+0x10e/0x1a0
+       device_unbind_cleanup+0x71/0x250
+       device_release_driver_internal+0x41b/0x570
+       unbind_store+0xd9/0x100
+    
+    With it, unregister calls enable(false), the timer is stopped, and
+    there are no reports. Unbinding the test driver while enabled, and
+    unloading pps_gen-dummy while its file is open and enabled, are clean
+    too.
+
+ drivers/pps/generators/pps_gen.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index d80e28dc31dc..452cc12a96f2 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -228,9 +228,18 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ 	 * An open file keeps pps_gen around, but the driver may free info as
+ 	 * soon as we return. The sysfs files are gone now, so wait for the
+ 	 * ioctls using info and make later ones fail.
++	 *
++	 * The driver may have stopped the generator before calling us, but
++	 * userspace could have enabled it again since. Nothing can enable it
++	 * after this point, so stop it here for good.
+ 	 */
+-	scoped_guard(mutex, &pps_gen->info_lock)
++	scoped_guard(mutex, &pps_gen->info_lock) {
++		if (pps_gen->enabled) {
++			pps_gen->info->enable(pps_gen, false);
++			pps_gen->enabled = false;
++		}
+ 		pps_gen->info = NULL;
++	}
  
- The set non runnable on its own context (snroc) monitor ensures changes in a
- task state happens only in the respective task's context. This is a per-task
--monitor::
-+monitor.
-+The monitor also includes enqueue/dequeue events to validate they alternate
-+each other without duplication. Although they are not necessary to define the
-+context, adding the check here saves from adding another simple per-task monitor::
-+
-+              |
-+              |
-+              v
-+         #===============================================================#
-+ +------ H                           enqueued                            H <--+
-+ |       #===============================================================#    |
-+ |         |                  ^                       sched_set_state         |
-+ |  sched_switch_in   sched_switch_out                +--------------+        |
-+ |         v                  |                       v              |        |
-+ |      +-----------------------+   sched_dequeue    +-------------------+    |
-+ |      |                       | -----------------> |                   |    |
-+ |      |     own_context       |                    | dequeued_running  |    |
-+ |      |                       | <----------------- |                   |    |
-+ |      +-----------------------+   sched_enqueue    +-------------------+    |
-+ |          ^   |           |                                                 |
-+ |          +---+           | sched_switch_out                                |
-+ |    sched_set_state       v                                                 |
-+ |                      +-------------------------------------+               |
-+ +--------------------> |              dequeued               | --------------+
-+       sched_dequeue    +-------------------------------------+  sched_enqueue
- 
--                        |
--                        |
--                        v
--                      +------------------+
--                      |  other_context   | <+
--                      +------------------+  |
--                        |                   |
--                        | sched_switch_in   | sched_switch_out
--                        v                   |
--    sched_set_state                         |
--  +------------------                       |
--  |                       own_context       |
--  +----------------->                      -+
- 
- Monitor scpd
- ~~~~~~~~~~~~
-diff --git a/kernel/trace/rv/monitors/snroc/snroc.c b/kernel/trace/rv/monitors/snroc/snroc.c
-index f168b1a4b12c..87f87f479d18 100644
---- a/kernel/trace/rv/monitors/snroc/snroc.c
-+++ b/kernel/trace/rv/monitors/snroc/snroc.c
-@@ -17,6 +17,16 @@
- #include "snroc.h"
- #include <rv/da_monitor.h>
- 
-+static void handle_sched_dequeue(void *data, struct task_struct *tsk, int cpu)
-+{
-+	da_handle_event(tsk, sched_dequeue_snroc);
-+}
-+
-+static void handle_sched_enqueue(void *data, struct task_struct *tsk, int cpu)
-+{
-+	da_handle_event(tsk, sched_enqueue_snroc);
-+}
-+
- static void handle_sched_set_state(void *data, struct task_struct *tsk, int state)
- {
- 	da_handle_event(tsk, sched_set_state_snroc);
-@@ -27,8 +37,8 @@ static void handle_sched_switch(void *data, bool preempt,
- 				struct task_struct *next,
- 				unsigned int prev_state)
- {
--	da_handle_start_event(prev, sched_switch_out_snroc);
--	da_handle_event(next, sched_switch_in_snroc);
-+	da_handle_event(prev, sched_switch_out_snroc);
-+	da_handle_start_run_event(next, sched_switch_in_snroc);
- }
- 
- static int enable_snroc(void)
-@@ -39,6 +49,8 @@ static int enable_snroc(void)
- 	if (retval)
- 		return retval;
- 
-+	rv_attach_trace_probe("snroc", sched_dequeue_tp, handle_sched_dequeue);
-+	rv_attach_trace_probe("snroc", sched_enqueue_tp, handle_sched_enqueue);
- 	rv_attach_trace_probe("snroc", sched_set_state_tp, handle_sched_set_state);
- 	rv_attach_trace_probe("snroc", sched_switch, handle_sched_switch);
- 
-@@ -49,6 +61,8 @@ static void disable_snroc(void)
- {
- 	rv_this.enabled = 0;
- 
-+	rv_detach_trace_probe("snroc", sched_dequeue_tp, handle_sched_dequeue);
-+	rv_detach_trace_probe("snroc", sched_enqueue_tp, handle_sched_enqueue);
- 	rv_detach_trace_probe("snroc", sched_set_state_tp, handle_sched_set_state);
- 	rv_detach_trace_probe("snroc", sched_switch, handle_sched_switch);
- 
-diff --git a/kernel/trace/rv/monitors/snroc/snroc.h b/kernel/trace/rv/monitors/snroc/snroc.h
-index 88b7328ad31a..b5b8c508cd11 100644
---- a/kernel/trace/rv/monitors/snroc/snroc.h
-+++ b/kernel/trace/rv/monitors/snroc/snroc.h
-@@ -8,7 +8,9 @@
- #define MONITOR_NAME snroc
- 
- enum states_snroc {
--	other_context_snroc,
-+	enqueued_snroc,
-+	dequeued_snroc,
-+	dequeued_running_snroc,
- 	own_context_snroc,
- 	state_max_snroc,
- };
-@@ -16,6 +18,8 @@ enum states_snroc {
- #define INVALID_STATE state_max_snroc
- 
- enum events_snroc {
-+	sched_dequeue_snroc,
-+	sched_enqueue_snroc,
- 	sched_set_state_snroc,
- 	sched_switch_in_snroc,
- 	sched_switch_out_snroc,
-@@ -32,18 +36,48 @@ struct automaton_snroc {
- 
- static const struct automaton_snroc automaton_snroc = {
- 	.state_names = {
--		"other_context",
-+		"enqueued",
-+		"dequeued",
-+		"dequeued_running",
- 		"own_context",
- 	},
- 	.event_names = {
-+		"sched_dequeue",
-+		"sched_enqueue",
- 		"sched_set_state",
- 		"sched_switch_in",
- 		"sched_switch_out",
- 	},
- 	.function = {
--		{      INVALID_STATE,  own_context_snroc,       INVALID_STATE },
--		{  own_context_snroc,      INVALID_STATE, other_context_snroc },
-+		{
-+			dequeued_snroc,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			own_context_snroc,
-+			INVALID_STATE,
-+		},
-+		{
-+			INVALID_STATE,
-+			enqueued_snroc,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+		},
-+		{
-+			INVALID_STATE,
-+			own_context_snroc,
-+			dequeued_running_snroc,
-+			INVALID_STATE,
-+			dequeued_snroc,
-+		},
-+		{
-+			dequeued_running_snroc,
-+			INVALID_STATE,
-+			own_context_snroc,
-+			INVALID_STATE,
-+			enqueued_snroc,
-+		},
- 	},
--	.initial_state = other_context_snroc,
--	.final_states = { 1, 0 },
-+	.initial_state = enqueued_snroc,
-+	.final_states = { 1, 0, 0, 0 },
- };
-diff --git a/tools/verification/models/sched/snroc.dot b/tools/verification/models/sched/snroc.dot
-index 8b71c32d4dca..b32e9adfb383 100644
---- a/tools/verification/models/sched/snroc.dot
-+++ b/tools/verification/models/sched/snroc.dot
-@@ -1,18 +1,28 @@
- digraph state_automaton {
- 	center = true;
- 	size = "7,11";
--	{node [shape = plaintext, style=invis, label=""] "__init_other_context"};
--	{node [shape = ellipse] "other_context"};
--	{node [shape = plaintext] "other_context"};
--	{node [shape = plaintext] "own_context"};
--	"__init_other_context" -> "other_context";
--	"other_context" [label = "other_context", color = green3];
--	"other_context" -> "own_context" [ label = "sched_switch_in" ];
-+	{node [shape = circle] "dequeued"};
-+	{node [shape = circle] "dequeued_running"};
-+	{node [shape = plaintext, style=invis, label=""] "__init_enqueued"};
-+	{node [shape = doublecircle] "enqueued"};
-+	{node [shape = circle] "enqueued"};
-+	{node [shape = circle] "own_context"};
-+	"__init_enqueued" -> "enqueued";
-+	"dequeued" [label = "dequeued"];
-+	"dequeued" -> "enqueued" [ label = "sched_enqueue" ];
-+	"dequeued_running" [label = "dequeued_running"];
-+	"dequeued_running" -> "dequeued" [ label = "sched_switch_out" ];
-+	"dequeued_running" -> "dequeued_running" [ label = "sched_set_state" ];
-+	"dequeued_running" -> "own_context" [ label = "sched_enqueue" ];
-+	"enqueued" [label = "enqueued", color = green3];
-+	"enqueued" -> "dequeued" [ label = "sched_dequeue" ];
-+	"enqueued" -> "own_context" [ label = "sched_switch_in" ];
- 	"own_context" [label = "own_context"];
--	"own_context" -> "other_context" [ label = "sched_switch_out" ];
-+	"own_context" -> "dequeued_running" [ label = "sched_dequeue" ];
-+	"own_context" -> "enqueued" [ label = "sched_switch_out" ];
- 	"own_context" -> "own_context" [ label = "sched_set_state" ];
- 	{ rank = min ;
--		"__init_other_context";
--		"other_context";
-+		"__init_enqueued";
-+		"enqueued";
- 	}
+ 	put_device(&pps_gen->dev);
  }
 -- 
 2.55.0
