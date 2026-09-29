@@ -1,105 +1,69 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7454C224C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCBD4ED1A1;
+	Tue, 29 Sep 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677081; cv=none; b=bCeEuN16EQXW5RAsJTK5RJBkIoY6BpasNzt23QnX3+qDrH9bdxWLU6+2HBHKVDd+TbVrFN+JAVXu15Sy97OviApRiHtrWe8KnAnzzaQzIioVEfYLSaGyK0ipnarG3LZmq+xzvmFUx+weYKpzgQb/UzxIe0nrZeEp2k9Qn4IgRNA=
+	t=1790677149; cv=none; b=T7n+2KsjCquDvwQwdzPIzLpjl+V6x/yPIWEx9mkY3V7S1y3OyRoqW2JkS6bvKezfM0t5NBg8zC68oIpr3woVBOROKfMfbqWwZe2pR6lHR1DPqfA9iXUn6LcUYzk9WnmfLBPhrw+08tw0AcQeNbt4DLUQd/Rk22uzh5BOk43Ai9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677081; c=relaxed/simple;
-	bh=An6mkPZDYZWrG8lcKKYm9brAuxjDgA3tyL1/ir2SVvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D2X7k18FYzqjwI/tGT3WhlEe3bOrgdZFLJMbsrVeQHWlLLNeamZwSvbiMoF0VP58NfFhNOfVj14f644/BqMbA9rMdJEKAA9sIeB16nrYU0Iy/E+OyyS3IBD72jw6hSN0ll0g/+pKRw6qexO0Cf9H/KyrRtcMfhpy8qi6ShfC9A0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KVNRMy1W; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790677149; c=relaxed/simple;
+	bh=4Ty815WRXMLUa/jA8uK1KWIIDg2C5Eefw/FpCCiBNp0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bSoUSpKFt+v/EL0WinoWtPB+ori4cO3kIlhuRBXyEdIBbHsClGP1T/TZTZFN/r619PUzaOFYbJd08bbsVahcsaoYhRhmUEdnDE6m5mUxwGVQ0Bf8pZZwJ/LLrtJQGsNZbOLUbS4sGly+undbsLsjoLIruhym3BYSxSQgS/9ITCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZBp1qng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVNRMy1W"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab50so1823289c88.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790677071; x=1791281871; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BBxqqrX6VFrTTZg5kn1+eJIOqRCLIYMSYIE031U9CBQ=;
-        b=KVNRMy1W82VMa6evEJQFwzBGvqNAdhkM9STuV5kF8qrXpCrnfcn9pb/HdkajfYbcDo
-         1fSwlCWD+3WPj3JKwI4bHH5P5mmFlbDvzyGKe5eYQkggUtmRBY6o0Nvelcx/1bBUbZab
-         7PDvyxXzVdpB524q5eqrYYpxQJ3ui2HfR1xwfUpQWhBL53x+YFgyo3+sDEp2BEyA9GHc
-         SKwih4f+aF9w5JVd5yuO0v9Nqo4Zz6kfh6J5pi87Skj4rsK/Rug6xpHcJHFgRxNQrX45
-         9EBod4pDP4PnCx5Bnghe3KC+OuUoSwo9P/KxfNS26LLyPEGNXTxZePvJelzN4MdU6KH9
-         z9kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790677071; x=1791281871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BBxqqrX6VFrTTZg5kn1+eJIOqRCLIYMSYIE031U9CBQ=;
-        b=ywYCQF0bFzXK6piKPdAjAM7/umZBKCMnUHYZGlWc8DMoaYX91Ly4FJT3h8+Kxi418w
-         t4Za94bH5OIZc/gVIGSogrWh1vWXLJErmeJ+K+2iND5QPRTqRx/yL8jkK8R18v8m1yQX
-         IBMs5gO3xQAUky+ZOzC3x8BBBq+7jkUD6prhefWIRK8Z7XxJ91Tqe/xGdYgyHa1M53+E
-         KwVN/UidQheHUdeSYVS63nKdSwJ3qkzF0tbIpK+eMdGdgAmGYWMr38cQ7Pnb7Qyp3YzD
-         kRX/jLavvvhCke632yQCFMThzkd/SpetFncKz2S3gLUyfejQV95v9Uh/eMeJS4GP5czC
-         ddOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwse/X0LlhjKNi9fdKoqDI2YN3Lm8AkoAG7xQ780Zxe7H8i+ukQsyPg11hBFnO6FEG/KKrNsEg7RWAPp+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFKWng4j4cjb1kMT5wcRzKyxQdSBoxAy7fjwO5j3OFzVseFKu6
-	xrFE6S8pVXVTiZzyjgg+iVKJjTqg79XYCQtAxW4Q69jL4kpFE8JLameV
-X-Gm-Gg: AYBFou3e0BfpxZXjehln9bxS0lF8IGpN6PbLbAAAfmtNgTFlr7EE2TST7uOfKTdb4wr
-	CMvL+/Gh+XdRZJDnRkEjhYwmf6HnlTGxzC3Q7BPrNq1C+msYfkL+llab77kxNgW5upQDaufFNVb
-	/T8ZxJfUsB4/mnFzDMkhJXcs7pvG5iIZmA3ALBcN/DikKnox6LpUkMqdQU+R9dqECHIPFjatrS4
-	rx7FC6AsbubCo3Dole/DgG3UWzmw9zLdNkKNoAk6jN16ahlYR9Yy7Y3+0/gUwZPcfhNU+1lBYW+
-	sa+BUUK7lEWJBnJ5JQVEtkRFFedUXhZXQNWozGORKOEetJBT4vNzw1EL+5f2abJb2U2U93frwZ0
-	CN/lkW1KjXORMfHGt5kfJNTAHJiCphmZsUoL/qHOpetLePIT/QdZ7QAxnxQUXe6aL8huFptgkck
-	8FJbpfR2ywd9kbiWEJHwjomgpP5hC7nwCg50XEUmwyjDxDw+9mAG5XsL7+MQ==
-X-Received: by 2002:a05:701b:4344:b0:144:fc5b:2121 with SMTP id a92af1059eb24-146ce67fa31mr13579743c88.17.1790677071222;
-        Tue, 29 Sep 2026 03:17:51 -0700 (PDT)
-Received: from evangelion-g ([2a09:bac5:40e4:11cd::1c6:2])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm34324648c88.13.2026.09.29.03.17.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 03:17:50 -0700 (PDT)
-From: Ayush Yaduvanshi <ayush37735@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel-mentees@lists.linux.dev,
-	Ayush Yaduvanshi <ayush37735@gmail.com>
-Subject: [PATCH net-next] atlx: fix kernel-doc description for atlx_tx_timeout
-Date: Tue, 29 Sep 2026 15:47:13 +0530
-Message-ID: <20260929101714.51579-1-ayush37735@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZBp1qng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D727C1F000FF;
+	Tue, 29 Sep 2026 10:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790677143;
+	bh=woeQLwJ8zy/nxVZgjqm/ZAltmJh8LE7sLrIC8/Tt350=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SZBp1qngjocFHQgDiYcdRimMUuly/gj9OKiZuPzKVlvIWH4FLxMFj86coU+QnMBT1
+	 zkxqqhAn7Bqif3RFQUJ1SMcOeQVJUj10Pjhbb/pKnO1ozty/6+J4RtYIG0gxP0iIG0
+	 boJcKf8+12/D7yPrkRKqYQtQktbS8JIXAAGa+oydhU9TpW+84XEIhWBk+rRepPaMNz
+	 g9StLQXazmOS5MYSrTm3Uf8Bo6/l1CnrpG1rxT0caFEt2ZrqvKmDZOK97yhCHX0+9c
+	 cbgnYlUeD2bxH4dpI2HVJ91do5NWvziXygfGARSXdrlrkWTn6u8Xu5HGZgz9/tjt5C
+	 2jN+V9koogcxA==
+Date: Tue, 29 Sep 2026 11:18:59 +0100
+From: Lee Jones <lee@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	devicetree@vger.kernel.org, mfd@lists.linux.dev,
+	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: mfd: convert lp3943 to DT schema
+Message-ID: <20260929101859.GF2112133@google.com>
+References: <20260922061907.56372-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922061907.56372-1-quchaosheng000406@163.com>
 
-Add missing @txqueue parameter description to atlx_tx_timeout
+On Tue, 22 Sep 2026, Quchaosheng wrote:
 
-to eliminate kernel-doc warning.
+> Convert the LP3943 MFD binding from free-form text to DT schema.
+> 
+> The LP3943 is an I2C LED driver with two sub-devices, lp3943-gpio and
+> lp3943-pwm. The GPIO sub-device is covered by trivial-gpio.yaml, so only
+> the PWM sub-device gets a schema of its own.
+> 
+> The PWM schema documents ti,pwm0 and ti,pwm1, which select the output pins
+> of the two internal PWM channels and are read by pwm-lp3943.c with
+> of_property_read_u32_array().
+> 
+> Assisted-by: LLM
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 
-Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
----
- drivers/net/ethernet/atheros/atlx/atlx.c | 1 +
- 1 file changed, 1 insertion(+)
+You should use your full name for sign-offs.
 
-diff --git a/drivers/net/ethernet/atheros/atlx/atlx.c b/drivers/net/ethernet/atheros/atlx/atlx.c
-index e8cfbf4ff1b5..0a6205e5c19d 100644
---- a/drivers/net/ethernet/atheros/atlx/atlx.c
-+++ b/drivers/net/ethernet/atheros/atlx/atlx.c
-@@ -182,6 +182,7 @@ static void atlx_clear_phy_int(struct atlx_adapter *adapter)
- /**
-  * atlx_tx_timeout - Respond to a Tx Hang
-  * @netdev: network interface device structure
-+ * @txqueue: transmit queue index
-  */
- static void atlx_tx_timeout(struct net_device *netdev, unsigned int txqueue)
- {
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
 -- 
-2.53.0
-
+Lee Jones
