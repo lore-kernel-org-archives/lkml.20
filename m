@@ -1,236 +1,161 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80E3D51476D;
-	Tue, 29 Sep 2026 10:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6882651993C;
+	Tue, 29 Sep 2026 10:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678836; cv=none; b=utLzb39gcypQkjFO22wbnVsQw+by7BkSMWiSTAg4MHd/F7xfkxSenLH28YmbkLQs5n2nCodzJnA0Xm87jouVOKmQFAd95FMizjfZ0Q4Tpx3Jyiggd1x7gN+yGzgE/d8X8yZXTM55TDfWtek13GrRhSYlFdLe5Va6hYGGjqpYwR8=
+	t=1790678854; cv=none; b=IGjQBPs3VZazFeqfJmJqZAowR0HFILOKaLN9PIn6GAoKEX3oEncOo1cvDKA8niKfYGniVANhmUydRY3BwhGXD2MAw8vAfiCZfbBgi8cpH9HxjROZLa9Qvq2tgBif6vAIlDhf7YHKTGyb/+m1nSjxSOnKH9FirQTvVmtBbUnO5nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678836; c=relaxed/simple;
-	bh=hDXphX09qKnZTaJnf2uETn6cTi5T0p2DOBdhFYlOQCQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RfoG+IxXV3bekOwH6qrr58MqhBwRiQ/q6h0Q3VZQy4ObHN8dBrofNSAaiFEsYM8cG6xIpheAG9+55XE2DeZQs9DQrWFkikB4vus+mk6HNi1hzx3sGFIKwhamtq20cmIwV4ADRyaCJdJ+KZYDGwUDNGzwek9UbcHw989915j6tng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lKxkrxDj; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lKxkrxDj"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CFC0143D;
-	Tue, 29 Sep 2026 03:47:02 -0700 (PDT)
-Received: from [10.57.12.116] (unknown [10.57.12.116])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 87A813F86F;
-	Tue, 29 Sep 2026 03:47:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790678825; bh=hDXphX09qKnZTaJnf2uETn6cTi5T0p2DOBdhFYlOQCQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lKxkrxDjvga5FOjH3t6Yj1iKwWagsd/wMmWoA1WYkVLzMM4llvhziG7QgcnfVdXib
-	 tu+C5uVpMbjZ+ckSbcRTtXaNmdq6FjJcWtA3LYkyHniieLc6R7hR35T/CrN9ou94HE
-	 IH6YjWHpRHoYZRCC0zogCsU5b0m6BAEs3zlVuGUQ=
-Message-ID: <26e097b4-58f6-42e1-ad7e-1b5c67673a21@arm.com>
-Date: Tue, 29 Sep 2026 11:47:01 +0100
+	s=arc-20240116; t=1790678854; c=relaxed/simple;
+	bh=lWUhtc2EI4P8iKvvKNVdvZzhVvDwI9XwvEg+J4EFQOk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JIUcymMX51IFkcCP4Cc1ZDJImbNPZBVEQbSbwj265Xqpk3W1jL2x4ymRf+PJcoCMMBWp16oG1UWqPFdzCT92fesbn7SCBTaUAVeM/OkEY+Zt8YW6AynwwIRBnPE1Mba5x5GEn4VVZicy088TBvqHrbGYhbq00Ad7gwmdCoQrsqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-05 (Coremail) with SMTP id zQCowAB34jwXl7tq7fmqCQ--.2307S2;
+	Tue, 29 Sep 2026 18:46:48 +0800 (CST)
+Message-ID: <c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn>
+Subject: Re: [PATCH 0/7] drm: remove deprecated *_of_get_bridge() from
+ non-OF drivers (fixes build regression)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda	
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Dave Stevenson	
+ <dave.stevenson@raspberrypi.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal	
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Tue, 29 Sep 2026 18:46:47 +0800
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com> <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
- <arKVcjCOJf8p9rWL@arm.com> <4e315360-5b7a-4a0e-99c0-679a0271e625@arm.com>
- <aruVrvQcYCGe0HJ6@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aruVrvQcYCGe0HJ6@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:zQCowAB34jwXl7tq7fmqCQ--.2307S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJFWxWFWxCw18Kw13Cry3urg_yoW5Xw1xpF
+	4xtryYyry8JrZaqwsrAF1kAry5A3WDJa4fJr1UtF1Fvr1rZF10qw4q9ryF9ryUAFW8ZFn8
+	tr1DXr1S9F17AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxU3byCDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 29/09/2026 11:40, Catalin Marinas wrote:
-> On Mon, Sep 28, 2026 at 12:01:18PM +0100, Suzuki K Poulose wrote:
->> On 22/09/2026 15:49, Catalin Marinas wrote:
->>> On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
->>>> I had another look and we could handle this via kvm_fault_is_gmem_abort()
->>>> see in arch/arm64/kvm/mmu.c:
->>>>
->>>>
->>>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>>> index 87e49251e0447..af5a4bf961aae 100644
->>>> --- a/arch/arm64/kvm/mmu.c
->>>> +++ b/arch/arm64/kvm/mmu.c
->>>> @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
->>>> *s2fd)
->>>>           gfn_t gfn;
->>>>           int ret;
->>>>
->>>> +       if (!kvm_slot_has_gmem(s2fd->memslot))
->>>> +               return -EINVAL;
->>>
->>> I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
->>> changes, we should never get in this situation. Well, to be revisited
->>> for private devices.
->>>
->>> Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
->>> kvm_fault_is_gmem_abort(). Something like:
->>>
->>> 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
->>> 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
->>> 		return -EIO;
->>>
->>> To me it makes more sense for gmem_abort() to be called only *if* it's a
->>> gmem slot. So any inconsistency, avoiding user_mem_abort() for private
->>> memory, should be done in the caller. I assume the caller will also have
->>> to route the private device path as well rather than rely on
->>> gmem_abort().
->>>
->>>> +
->>>>           if (!perm_fault) {
->>>>                   memcache = get_mmu_memcache(vcpu);
->>>>                   ret = topup_mmu_memcache(vcpu, memcache);
->>>> @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
->>>> phys_addr_t fault_ipa);
->>>>    static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
->>>>                                       const struct kvm_s2_fault_desc *s2fd)
->>>>    {
->>>> -       if (!kvm_slot_has_gmem(s2fd->memslot))
->>>> -               return false;
->>>>           if (kvm_memslot_is_gmem_only(s2fd->memslot))
->>>>                   return true;
->>>> +       /*
->>>> +        * For Realms, all private faults must be backed by GMEM.
->>>> +        * TODO: Handle Trusted device private memory mappings.
->>>> +        */
->>>>           if (private_ipa_fault(kvm, s2fd->fault_ipa))
->>>>                   return true;
->>>>           return false;
->>>>
->>>>
->>>> Also, I have the following hunk for preventing memslot modifications.
->>>> I will add this to v20 integration branch, which is almost ready ;-)
->>>>
->>>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>>> index 582b48e34486b..87e49251e0447 100644
->>>> --- a/arch/arm64/kvm/mmu.c
->>>> +++ b/arch/arm64/kvm/mmu.c
->>>> @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->>>>           }
->>>>    }
->>>>
->>>> +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
->>>> +{
->>>> +       /* Cannot modify memslots once a pVM has run or Realm created */
->>>> +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
->>>> +               return false;
->>>> +
->>>> +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
->>>> +            kvm_realm_is_created(kvm))
->>>> +               return true;
->>>> +       return false;
->>>> +}
->>>> +
->>
->> This needs to be tweaked for Realm to support non-secure device assignment.
->> Aneesh reports that the Device assignment fails now,
->> because the Device BAR reset deletes the memory slot and re-registers
->> it, which the above change prevents.
->>
->> I will modify that to
->> 1. Prevent "Guest-memfd" backed memory slot deletion. Makes sure that
->>     nothing can replace a private memory slot.
->> 2. Allow non-Guest-memfd backed memory slots to be created
->>    after the Realm is created. We anyways prevent "private" memory
->>    to be mapped from a non-Guest-memfd memslot.
-> 
-> Yes, I think this should be fine. But at least with the last version I
-> looked at, we did not prevent private memory from being mapped from
-> non-guest_memfd slots (there was a way to delete the gmem slot, add a
-> normal one while the guest does a private IPA access). If we prevent
-> gmem slot deletion, we no longer have this issue, although we should
-> warn somewhere on the user_mem_abort() both.
-> 
-> Anyway, to be discussed on the KVM patches, not here. I raised it
-> initially here as I was looking whether a non-gmem slot ever ends up
-> private and trigger the GPF.
+=E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 12:36 +0200=EF=BC=8CLuca Ceresoli=E5=
+=86=99=E9=81=93=EF=BC=9A
+> After commit Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code
+> to
+> drm_panel.c") some drivers fail building:
+>=20
+> =C2=A0 error: implicit declaration of function 'devm_drm_of_get_bridge'
+>=20
+> This is because devm_drm_of_get_bridge() (and drmm_of_get_bridge())
+> have
+> been moved to drm-panel.h.
+>=20
+> The affected drivers are those which:
+>=20
+> =C2=A0* can be built without CONFIG_OF, and
+> =C2=A0* don't include drm_panel.h
+>=20
+> The affected drivers are 3, fix them (patches 1-3) by replacing the
+> deprecated *_of_get_bridge() calls with
+> of_drm_get_bridge_by_endpoint().
 
-Agree. For the record here is what the change looks like, to be included
-in v21 kvm-integration. We can discuss it with KVM changes.
+The comment of drm_of_find_panel_or_bridge() still suggests
+devm_of_get_bridge(), and the documentation at the head of drm_bridge.c
+also mentions it.
 
+Should this get fixed?
 
+BTW should drm_of_get_bridge_by_endpoint() has some drmm/devm variant?
 
-KVM: arm64: CCA: Prevent memslot modifications after Realm creation
+Thanks,
+Icenowy
 
-Once the Realm is created, prevent any changes to guest_memfd backed
-memslots, as the private memory is provided by slots backed by gmem.
-This is also validated when we handle a fault for Realm Stage2.
-
-Additionally, similar to pKVM, we do not support dirty logging or
-read-only memslots.
-
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 2e584a187602f..ea14f66ed9f29 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -2726,17 +2726,28 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
-         hva_t hva, reg_end;
-         int ret = 0;
-
-+       if (kvm_vm_is_protected(kvm)) {
-+               if (new &&
-+                   new->flags & (KVM_MEM_LOG_DIRTY_PAGES | 
-KVM_MEM_READONLY)) {
-+                       return -EPERM;
-+               }
-+       }
-+
-         if (kvm_vm_is_protected_pkvm(kvm)) {
-                 /* Cannot modify memslots once a pVM has run. */
-                 if (pkvm_hyp_vm_is_created(kvm) &&
-                     (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
-                         return -EPERM;
-                 }
--
--               if (new &&
--                   new->flags & (KVM_MEM_LOG_DIRTY_PAGES | 
-KVM_MEM_READONLY)) {
-+       } else if (kvm_realm_is_created(kvm)) {
-+               /*
-+                * Once the Realm is created, we cannot modify any slots 
-that
-+                * could be providing private memory. i.e., guest_memfd 
-backed
-+                * slots.
-+                * TODO: Handle trusted device private memory slots
-+                */
-+               if (kvm_slot_has_gmem(old) || kvm_slot_has_gmem(new))
-                         return -EPERM;
--               }
-         }
-
-         if (change != KVM_MR_CREATE && change != KVM_MR_MOVE &&
-diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-index 8756ea4c76619..5755422ddcb49 100644
---- a/arch/arm64/kvm/rmi.c
-+++ b/arch/arm64/kvm/rmi.c
-@@ -1196,6 +1196,7 @@ int kvm_activate_realm(struct kvm *kvm)
-         if (kvm_realm_state(kvm) >= REALM_STATE_ACTIVE)
-                 return 0;
-
-+       guard(mutex)(&kvm->slots_lock);
-         guard(mutex)(&kvm->arch.config_lock);
-         /* Check again with the lock held */
-         if (kvm_realm_state(kvm) >= REALM_STATE_ACTIVE)
-
-> 
+>=20
+> While there, do the same for all drivers which be built without
+> CONFIG_OF,
+> even if they don't fail (patches 4-7).
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> Luca Ceresoli (7):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/imx/lcdc: stop using deprecated devm_d=
+rm_of_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm: verisilicon: stop using deprecated
+> devm_drm_of_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: dw-mipi-dsi: stop using deprec=
+ated
+> devm_drm_of_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: dw-mipi-dsi2: stop using depre=
+cated
+> devm_drm_of_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: dpi: stop using deprecated drmm_o=
+f_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: dsi: stop using deprecated drmm_o=
+f_get_bridge()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm: renesas: shmobile: stop using depreca=
+ted
+> devm_drm_of_get_bridge()
+>=20
+> =C2=A0drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 9 +++------
+> =C2=A0drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 9 +++------
+> =C2=A0drivers/gpu/drm/imx/lcdc/imx-lcdc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c |=C2=A0 5 ++---
+> =C2=A0drivers/gpu/drm/vc4/vc4_dpi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 9 ++-------
+> =C2=A0drivers/gpu/drm/vc4/vc4_dsi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 10 ++++------
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++----
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+> =C2=A08 files changed, 19 insertions(+), 35 deletions(-)
+> ---
+> base-commit: 91ceac83e599c9d48da4c4d2d91410c588a215f7
+> change-id: 20260929-drm-fix-of_get_bridge-build-regression-
+> 98f22f8a1dcc
+>=20
+> Best regards,
+> --=C2=A0=20
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 
