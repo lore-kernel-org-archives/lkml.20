@@ -1,141 +1,121 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDBF4F4024;
-	Tue, 29 Sep 2026 14:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692088; cv=pass; b=mRtFqwUFqlD/7LflY0nS1OP1A10eq6nodhZUl+m3YZRfLLWhMOZaSS6FmKKdQ7q0ZFvKwOEIUOB6rpCgx+2XpP2WHXKghp03LNjBx3gjD05VHQUK88Uvy5lntwgNbSP6AaY/SmGjjpujsAZ94GdrQ4j5QgDJIP9Dd6ybr/4N6uA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692088; c=relaxed/simple;
-	bh=B+7p0nXl2g4IPDqxo0h8dt+McvFM/fu6HfhJRhNjJPE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=E7pJGZtR09KjGgnu37rioagkGQYrofqsxpwDd1WZCkXtei7qox8spxPmbOBCrFAyf7X3Qq6LH223cXvEFhEhTjfl1cH7qdjZDpz31P7ZEB6SOnQ17cgBs4lTHM+Nfa8kkRuenNw3qzIvZr0cqMZL1PFsqpaundhns5YFIhdxduY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=X9fWsRwH; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6F33CF1F0
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790692131; cv=none; b=fsFI7cGa+ksP9146RMQp0gc0zune48DYIVUrwkh3crO6gRnFPQAymTc+IxtHrUbO9asPYmwHEFnMoTQWy1OnwwH1+NkEyIPFCf6DQw2hlzeJV9FzGLtIhrb3cDKo5sHHNneKxnei0XH8evwRGdfe695FoGTELyJLty0kiPlyvNk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790692131; c=relaxed/simple;
+	bh=jcu2GMKtu28GBc+RdTD5vQlHe02uqGPiI12mpG8RfRA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EN+3BixbwS3geGGXHey0ZE9ow5l/EBWWCzUzgnjbc1rneLxzBV7WWGKv6AF0wUkIz3dRzn6uwr1mHnlY571QimyWURe2WlzSoQ262FCm7Wd8lDcfkhJFIxzm/yKFxaIBdiM8IIV4jmGvj28yllkpkhPhA9bJPWt44WECb1a8fAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efCyom0J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="X9fWsRwH"
-ARC-Seal: i=1; a=rsa-sha256; t=1790692060; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ldsP/RLJD8nl19EVItyT4bYblAFBFIOX07oNppxphzZqYGq40JO2K33mg2AtnQeJ45AQT1mlS20O7qr1byLt5TrKGHzUAU/h8e6z6Jmec04JsXLkJ/4cmoTs2jjXIrRU3Gmt1AOKPmjozQb94vOL3+ocMX6Ebg5f9SiLaY684ZY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790692060; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yx24PhUBiZbSsgHhB7AVEx7YIp35K2EBHbfwiSXgi4Y=; 
-	b=bTn2SJ1c3juhJhNXrH52q7NOBSG7JKOF3Y3ntEN5OlsKjBTjNxA48phvDy7RqXATlA1YTfB2liaNZ4Q9Y2wBdNSvinDrdsc2bSpgeLdXkKvil20gxl7GI+UtRTGBVvCWE6S33DphGHe/FR+mChsD/l9dBLn711LdLOIdjqPA8+Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790692060;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
-	bh=yx24PhUBiZbSsgHhB7AVEx7YIp35K2EBHbfwiSXgi4Y=;
-	b=X9fWsRwHlhdq8h1Bl6Hl4vuOWlNcmWmplgiyQ5isjVNr9HImmlFhLBmoiObdo0Vk
-	0xQvGZrtK4/ieXZ+QS2K64WBxtfy44+UyGOpE3K6+P/ecpaU/QF9m7xjXfDTq7ywylL
-	DN5dp1BTnooI0DAsyqCi6fsueRENdFiGgB7paQbU=
-Received: by smtp.zohomail.com with SMTPS id 1790692058044679.6670001196361;
-	Tue, 29 Sep 2026 07:27:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efCyom0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCE61F000FF;
+	Tue, 29 Sep 2026 14:28:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790692129;
+	bh=Byahgp0kQX7I/ehVnTkd/uLe5fVUYBTYCtW56AvyPKg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=efCyom0Jr2MJmKeYvLecAFUZO2m24gS6+7i03WYfOagqUA5REjNJlj8ExiaQaZqkD
+	 YZaWzx9pseXBxaRG0g5YpUPa57Tiuwh04+vf/rNICusKjpj/iohfFSfF4OqD1Ti4ii
+	 wRrFUerKrHSb6AN4Xl4SZo06RFSVjKUF/MKjhXv5LquQRg8Gp0OMeTsB1a27skkqdO
+	 W1hM4ul5Bto3TcR9+9n1O612c7RQiYZJqutSTn43XONbI0Bul9H7opppmdTs4IoFXm
+	 koiqGDRgckCADJ1GT5GUF9bc6nMMiY3fn3vrJlX7fuT7ahRpYuzLNSmHpC1u8YFMGL
+	 pRBRt34fttM5Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xBYp5-0000000EtP2-3hP2;
+	Tue, 29 Sep 2026 14:28:48 +0000
+Date: Tue, 29 Sep 2026 15:28:47 +0100
+Message-ID: <868q4k3zds.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>
+Subject: Re: [PATCH v3 7/8] clocksource/drivers/arm_arch_timer: Expose a direct accessor for the virtual counter
+In-Reply-To: <aru1QvpaQ8A-OnQq@willie-the-truck>
+References: <20260802165327.385217-1-maz@kernel.org>
+	<20260802165327.385217-8-maz@kernel.org>
+	<aru1QvpaQ8A-OnQq@willie-the-truck>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 22:27:30 +0800
-Message-Id: <DLRVCRNJL9VN.1TYGQLOZZVTZA@pigmoral.tech>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>,
- "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>, "Andre
- Przywara" <andre.przywara@arm.com>, <linux-clk@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 7/8] clk: sunxi-ng: a733: Add bus clock gates
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Enzo Adriano" <enzo.adriano.code@gmail.com>, <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.22.0
-References: <20260921-a733-clk-v4-0-9c184ebe9ac1@pigmoral.tech>
- <20260921-a733-clk-v4-7-9c184ebe9ac1@pigmoral.tech>
- <20260921200512.3179109-1-enzo.adriano.code@gmail.com>
- <DLLYUYMR3CZT.17I8APGBH9H8S@pigmoral.tech>
- <20260926020313.911537-1-enzo.adriano.code@gmail.com>
- <DLOXXXFCEB5G.15XI8896GM7B7@pigmoral.tech>
- <20260926210222.283703-1-enzo.adriano.code@gmail.com>
-In-Reply-To: <20260926210222.283703-1-enzo.adriano.code@gmail.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: will@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, mark.rutland@arm.com, tglx@kernel.org, ben.horgan@arm.com, daniel.lezcano@linaro.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Enzo,
-Thank you for the detailed information.
+On Tue, 29 Sep 2026 13:55:30 +0100,
+Will Deacon <will@kernel.org> wrote:
+> 
+> On Sun, Aug 02, 2026 at 05:53:26PM +0100, Marc Zyngier wrote:
+> > We allow access to the architected counter via arch_timer_read_counter().
+> > However, this accessor can either be the virtual or the physical
+> > view of the counter, depending on how the kernel has been booted.
+> > 
+> > At the same time, we have some architectural features (such as WFIT,
+> > WFET) that rely on the virtual counter, and nothing else.
+> > 
+> > If implementations were perfect, we'd rely on reading CNTVCT_EL0,
+> > and be done with it. However, we have a bunch of broken implementations
+> > in the wild, which rely on preemption being disabled and other
+> > costly workarounds.
+> > 
+> > In order to provide decent performance on non-broken HW while still
+> > supporting the legacy horrors, expose arch_timer_read_vcounter() as
+> > a new helper that hides this complexity. Obviously, this is simply
+> > a global alias of arch_counter_get_cntvct().
+> > 
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > ---
+> >  drivers/clocksource/arm_arch_timer.c | 2 ++
+> >  include/clocksource/arm_arch_timer.h | 1 +
+> >  2 files changed, 3 insertions(+)
+> > 
+> > diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm_arch_timer.c
+> > index b3b31d4f4815f..9c7501ce57073 100644
+> > --- a/drivers/clocksource/arm_arch_timer.c
+> > +++ b/drivers/clocksource/arm_arch_timer.c
+> > @@ -128,6 +128,8 @@ static notrace u64 arch_counter_get_cntvct(void)
+> >  	return __arch_counter_get_cntvct();
+> >  }
+> >  
+> > +u64 arch_timer_read_vcounter(void) __attribute__((alias("arch_counter_get_cntvct")));
+> 
+> nit: compiler-attributes.h provides __alias to make this a tiny bit cleaner.
+> 
+> That said, why did you decide on the alias rather than just having this
+> as a wrapper function?
 
-On Sun Sep 27, 2026 at 5:02 AM CST, Enzo Adriano wrote:
-> Hi Junhui,
->
-> Attached are the exact minimal board DTS and SoC DTSI used for both runs,
-> plus the configuration extracted from the tested Image and reproduction
-> notes. I rebuilt the DTB from the recorded source and recovered config;
-> it matches the tested 4497-byte DTB byte-for-byte (SHA-256):
->
->   4c7b762757392334e8b7ac525e60bf5757ec23b34efdcc949d2093c238b1ed16
->
-> The support archive contains the two local integration/comparator diffs,
-> the four A733 clock/reset headers, source history and short UART excerpts=
-.
-> Applying the 19 published patches and these local diffs to v7.3-rc1
-> reproduces the tested source tree. This is the minimal diagnostic DT,
-> not my newer DTS work; its fixed card supply is part of that test setup.
->
-> Both the September 21 failing run and September 26 clk_ignore_unused run
-> report identical firmware banners:
->
->   U-Boot 2018.07-12-boot-aw2501-gb2d229198b2-dirty
->   (Jan 06 2026 - 03:45:33 +0000) Allwinner Technology
->   BL31: v2.5(debug):5fc237a6a
->   BL31: Built : 09:05:28, Feb 26 2025
+No idea. Laziness, probably.
 
-I have now successfully reproduced the issue using the same vendor boot
-firmware version. The root cause is that the vendor U-Boot selects
-pll-periph0-480M as the parent of the GIC clock. However, the current
-Linux A733 CCU driver does not model the GIC clock, so the common clock
-framework considers pll-periph0-480M unused and disables it during late
-initialization. This stops the GIC and causes the system to hang.
+But I've paged most of this stuff out, and I'm not sure it even serves
+a purpose, given that we've lived for about a decade with the problem
+it tries to solve.
 
-I will model the GIC clock properly in the next version and mark it as
-CLK_IS_CRITICAL. Although the GIC node can reference this clock in the
-device tree, the generic GICv3 driver currently ignores the clock
-property and therefore does not acquire or enable it.
+Consider it an abandoned series.
 
->
-> These tests used the vendor firmware already installed on the A7S;
-> I did not build or flash U-Boot or TF-A for them. Unfortunately, I cannot
-> establish the original installation/download image, the U-Boot dirty
-> delta, or the BL31 source/build inputs. I also do not have verified hashe=
-s
-> of the installed firmware binaries. Earlier source-correlation records
-> point to Radxa's downstream U-Boot, but the retained candidate build is
-> a different revision and is not a reproducible source for this firmware.
->
-> reproduce.txt includes the actual ext4load/booti commands and bootargs.
-> In particular, I set the U-Boot environment variable drm_debug=3D1 as wel=
-l
-> as including it in bootargs. U-Boot reports FDT fixup errors and "update
-> dts" before Linux, also on the successful run; the excerpts retain those
-> messages. The DTB hash above describes the file loaded into RAM. I did
-> not capture the final post-fixup tree passed to Linux, so I cannot yet
-> rule out a firmware or DT-fixup difference from your A7A.
+Thanks,
 
-Thanks again for providing the exact test setup. It was essential for
-identifying the difference between the mainline and vendor U-Boot
-behavior.
+	M.
 
->
-> Assisted-by: Codex:gpt-6
->
-> Regards,
-> Enzo
-
---=20
-Best regards,
-Junhui Liu
+-- 
+Without deviation from the norm, progress is not possible.
