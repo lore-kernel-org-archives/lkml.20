@@ -1,66 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6903F3276;
-	Tue, 29 Sep 2026 03:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AF13EC81F;
+	Tue, 29 Sep 2026 03:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651794; cv=none; b=PZJerDyv0u+aOwDQ3yPIzJf/ts9A/zGAJV31hpUFl+qFGwhKN/NeQ3GkDSkxxF7947iy/lbqNn7o4F3nC+fF+YasgEh6MV+T82BjbrnnEWP9se87jKJlqnVA15ipOl94zdgtE7ybYsoizH9962syN7rZ+V6XRhpmgEFCDRqAPTQ=
+	t=1790651793; cv=none; b=bMfxq5nNcoUXDQAz3YuY0VKD0aZVtYRQ2BzoIw/7IrlR0x8NJK+eqBxy0pZOhRZiEyiKEblGzHc6bfWr5YPkAXErEz3xO9pbhpSLgbylgoZQCD/GEv8Ua8ltlP1JZ8zsE4xMvOkSlWMHulHnKEmOWja8Uj7CY6L/1VSxfcrHVI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651794; c=relaxed/simple;
-	bh=58M0gFWWidG/6zbPnFb5epoEJBUF/zkfX0wEx9uuAZ0=;
+	s=arc-20240116; t=1790651793; c=relaxed/simple;
+	bh=gFnD220BeNKBUWaKsKf6HZQ/7TAwWBF1QceriBjugew=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B804fiZVEIkckTm/nymgD0jiujK/oaz4aivFz50GHX35gawiGvG3ifPXKVK5l8Th/t001SdNakwPCeXHmHwJlIoVtGLhhJ7L/8iRB55407u83cS19SuJxeSmby9Daq/+V4EaZhvBWeAIqCP8cFGDVjzGwr9a3kju3d2tnenb6VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oA8CL9vq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tgHNJ0xPm81Q/L5f1Kg3DHAg4lSH+fIv1r6sLXRYwXDR2AvSx1K9TR6sW5dOWm4YYjqQC+g0A4XuAqYYT3vYi+oesDkFrLzoRDdVR/8sYSxoVNHE4K3wX4r8+UYBfgy9Ihz/gmETYb4EcQjpNAJJ0Ua5P/21IpdAzHaHPPPLF5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8Spwgqx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oA8CL9vq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA431F00899;
-	Tue, 29 Sep 2026 03:16:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8Spwgqx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E7C1F0089D;
+	Tue, 29 Sep 2026 03:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651786;
-	bh=F0CTjS7yFkhDUw+iDXIDuiAzpBXHh0hjcv/EEJ3JGDs=;
+	s=k20260515; t=1790651788;
+	bh=CRx6iCjOhvZ36aSsrBvUPVXU+lZVA+MgilIpEDBTfA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oA8CL9vq/wIWnCIlahYuBGTm+51jH6ASoouihS9wSoZq2Xk4mab7ftGB1fRA7AWmX
-	 FpzbT82Yc7snvxzrcs9dwCBTGzU1KduOEYcGr3hkSXr2ncJAJvf7g9M+GGgE9ogYSo
-	 ymzeZD+9kHufCIlWrOw9EKhbErjRKzugXNxDCCzpSVc0T3w2ZCqf/TfxyC+V4to9TF
-	 x0a1NsBJG4ehwvCX+ulpkj+/i/yh5bs8LXoCUs6vRQnsTB6mCLk1u+mEPbg2QXNLqU
-	 1yDxGn4JTCiWs+KB9F9C6/k4EkOomoBK4fD0ruW3TbcmQXqgb7xOK9hfX4W6g9oFBf
-	 6+6EjV1TPeGgQ==
+	b=P8SpwgqxG4Ehec4N04CHAoeUu+dV644wnUf2oQ5yIR8nB6zm/uA8P2sAIXEiyfWHk
+	 eevHODvcboKoxfJo6RfhXPhyyKQivRs41IuQqkZcGMaU4fGa/61WfOSTvOYyy3z4Z9
+	 tm5IGKSkTnsQWDujf678BU6Hx9SD8laKuNcAZUr5YLq+f9+JDtInN4JMmiRdnL+i9R
+	 XEwtoVM64ngFiUmr6rlzdUD1LakPQKf91xRNhgKIi1hhNGNsM7Ps/T4ACAnOabEoGv
+	 yrPuTjexWVQEpsHF3+KWN+9ufyDbLdD8phjvwSizMXH+2I1tXSpkIveqQEjoZXxwFy
+	 iWRgcG+gPtQMg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+	Robin Snyders <robin@snyders.xyz>
 Cc: linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Suresh Vankadara <quic_svankada@quicinc.com>,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/5] Add CAMSS and IMX577 sensor support for Shikra EVK
-Date: Mon, 28 Sep 2026 22:15:14 -0500
-Message-ID: <179065170904.2673486.17917322298927031673.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm8150: describe download mode register
+Date: Mon, 28 Sep 2026 22:15:16 -0500
+Message-ID: <179065170945.2673486.4604711400290292347.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923-shikra-camss-review-v9-0-09f5fbea1309@oss.qualcomm.com>
-References: <20260923-shikra-camss-review-v9-0-09f5fbea1309@oss.qualcomm.com>
+In-Reply-To: <20260811-submit-sm8150-dload-v2-1-fb688ac4896b@snyders.xyz>
+References: <20260811-submit-sm8150-dload-v2-1-fb688ac4896b@snyders.xyz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,36 +51,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 23 Sep 2026 10:27:27 +0530, Nihal Kumar Gupta wrote:
-> Shikra EVK is based on the Qualcomm Shikra SoC.
-> It lacks a camera sensor in its default configuration.
-> This series adds CAMSS driver support, CCI definitions and enables
-> the 22-pin IMX577 sensor via CSIPHY1 through device tree overlays.
+On Tue, 11 Aug 2026 23:39:12 +0200, Robin Snyders wrote:
+> The SM8150 SCM node does not describe the TCSR download-mode register.
+> Without it, the SCM driver falls back to a firmware call and the
+> mode cookie may remain set across a warm reset, causing the next boot to
+> enter the Qualcomm crashdump transport.
 > 
-> We have tested IMX577 Sensor on CCI1 with following commands:
-> - media-ctl --reset
-> - media-ctl -d /dev/media0 -V '"imx577 1-001a":0[fmt:SRGGB10/4056x3040 field:none]'
-> - media-ctl -d /dev/media0 -V '"msm_csiphy1":0[fmt:SRGGB10/4056x3040]'
-> - media-ctl -d /dev/media0 -V '"msm_csid0":0[fmt:SRGGB10/4056x3040]'
-> - media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SRGGB10/4056x3040]'
-> - media-ctl -d /dev/media0 -l '"msm_csiphy1":1->"msm_csid0":0[1]'
-> - media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
-> - yavta -B capture-mplane -c -I -n 5 -f SRGGB10P -s 4056x3040 -F /dev/video0
+> Describe the TCSR window and point qcom,dload-mode at offset 0x13000,
+> matching the layout used by SM8250 and other related Qualcomm platforms.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/5] arm64: dts: qcom: shikra: Add CAMSS node for Shikra
-      commit: f1e325d194fb0d719d848a42ec522e0f70250e44
-[2/5] arm64: dts: qcom: shikra: Add CCI definitions for Shikra
-      commit: 7a3fcdb8d28fa5f162003b4f28f0160c82ee62af
-[3/5] arm64: dts: qcom: shikra: Add mclks pin configuration for Shikra
-      commit: e1f5d59e0eca23e2e69353f769bfaa187ad94ab8
-[4/5] arm64: dts: qcom: shikra-cqm-cqs-evk-imx577-camera: Add DT overlay for Shikra
-      commit: 9cd1efbde98772e08a79a7b5d655cae60b38264e
-[5/5] arm64: dts: qcom: shikra-iqs-evk-imx577-camera: Add DT overlay for Shikra
-      commit: a4be00ccf9e0bdcfd407397368e0599c559d90be
+[1/1] arm64: dts: qcom: sm8150: describe download mode register
+      commit: ab6a07a8de6f4df3eecb733d0620019734592f31
 
 Best regards,
 -- 
