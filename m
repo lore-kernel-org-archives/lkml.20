@@ -1,239 +1,157 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012031.outbound.protection.outlook.com [40.107.200.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686045505E1
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707304; cv=none; b=SbPYuJwayQC8Yxxed2PxZdIfyzykEsnWTDdG6eesEIqcTgm8NQsrJFEpxhRM1da9vP8XaiXlTbiochRz4Eoxo/LEek9uzgL0D8tU0iczYVUWFmAWD7pn9Rmp66VsiA2B0E0K55+8Gd5zt2ep74YQzfT+NxnrLkd1P2QCNfFRceA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707304; c=relaxed/simple;
-	bh=1MiRCRcVjQo2tPKimMHxz9ZnzdJexnBq/Q+79QbFSIQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=W4Oi5C5LqFQR029TDmFjOJiwkem/Rg/b5KUkhw6pY7LYqcbElSxBP3mvVxQWksDWkUNL/dj7QwSH5yqq3yFCnNAMbC/lE9mYE3njaESz62UuKGDuto6FpG21CmbsjA6FKmwL/cibyd57nCwYXr/z825M8T8LTjeBDqsf3BGLWZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=TO2aFk7f; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7815383F8
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790707306; cv=fail; b=qjrQD1Sig/KiRopk4afjCKOlRbFeaJda1X3vXSYeuuBa/ERV5t5iRsFx98ervdvFGC9fvkTXA7kMHceHbrSrlNndA1/uCx330B8CyMWNBX4VdajEh5sqjR0tM+pbgSw9c5SVOo3/osfh1H4KXOzq8MhMyTMCeDCJXsghTH4kVXs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790707306; c=relaxed/simple;
+	bh=fkVDVWXJRezh59onNSNUxnDq9jNWQ9LwRrTcob2nmH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Z0xV2YuH3yXJjz/KsbyRa2MKA7geEgZPe9htDV8bVfr8sPmVDXKei8RXHCa95lefrn+tGWG6bwB1u0qbm46u6jz2xLDjI9iLgzdP6EVqLzhfBsocOhzYPrFj3vkOUhaENwfk3XQqto7MhKIeNWUxEtDk7ERCRZixHWCiFObtIVk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=x8Jwacbi; arc=fail smtp.client-ip=40.107.200.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="TO2aFk7f"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a859892080so37480177b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:41:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790707301; x=1791312101; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0STZbLia+9vH0OMcQlA8OjMvk50duMe8TRp0A+I9r+g=;
-        b=TO2aFk7fJTqECAcqlOvp4rb0cOCJln0kQkthnVTl2LEIIH7u4LLGwPkQKkfEZJ7UtZ
-         SxYlguISFgB9W8noy3LfDozIF84mSPHZskAHmFIMQbHZwgxMxDWNEz+Fm+8HHVdcaAGq
-         U4P/lTzLyl+6W/wnMGseyCz6Hnmj7lsH90OlRJSJD/cnUDAWXrv+jEeFN/K88PRVFERx
-         zdZrmlZGoBtvKpylZK/IoRa3F9n0Iv7WXu/62dzxwOmRD7bQIMlBVdtho0uKoSQJ07qg
-         v5tjmEOaRLIhVZmerv4lVJZNp6dj7E4lM9yVwT6bf1xbeXaLlgnkMRU90M6uATwRrN+S
-         J+fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707301; x=1791312101;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0STZbLia+9vH0OMcQlA8OjMvk50duMe8TRp0A+I9r+g=;
-        b=kweRwBy8VwDYMC/GN/IqXTfBHUIfRfUJVOpxOg0loPSWTfkXIbI/iIeXyzciDejGks
-         wz8Sb5pd62/2ZyqaMipUjC7Xris+obaxJBy90EmPjh7ycZnJTuG6xsBynq8zJ8kA8oeD
-         TzzfgUpuUcztsilWH7F8epke8ZLthvKzXnsZivPwQJVOAKBqcg8XPnq/gWpj/3XujX5w
-         1motqzFgAYMb4zRVT6IS+ttVG25zpk5GyQUHHLThVRs+1/N7hlTc/ZyPwgYCxKjR0BJb
-         AI4tJ3TvWdxefo+Jk2/2e8N51q/tlUB6/pDAzrHOE5kL6aCdvY2k5dRuVgyBjNi5o/D/
-         u14w==
-X-Forwarded-Encrypted: i=1; AKwUvBw43yKWJEJVA+eYPA5RU6prqszVUd43yt9WN34cZprmHLSO7HWTNTOBg9kuO5kJ8feXB+fYLFwXn24xhmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtndDatZYG+gotVjgaY/2fVh40gPS4MgULsv+puMZk9hv8kD/j
-	EQ/67vAn8fKiCZ0ETZpCra3bzDkbHtNKB88vp9y8J8V2T62YHTkC9TwgrJJX3LRf9KnxmoAyVYI
-	FO63oHgY=
-X-Gm-Gg: AYBFou2ZI34tGnYyFsJCtR1NU6X2eEF4SJDEejZuEtgdrdyg2elv4TI8nTMOKLZk6ow
-	BiG+U/vrTOjjaoTNbvOX/QZTrf6ooZKULSpLiukxYAO7HtaSq6pPlmC21n4FmGzMLTyEWEZ1Cfj
-	cb0NjtImrR1JB9YhU2roes6olaOlEuIIM0h0A/w6GOqnYynGWdR+xso+EfzvCXjy0GHRfFqkCJp
-	nj85ZsewsOpurIkxgM5jT+elihNWDLHEaJQGH1OvNqnf5sdfxsmYueH7tpE2ZqQ3b4LQc22aJPO
-	drVk1IFMnR4T7AqThC5sVFfTeguEIyhskWBjLADja497V03rUGmxN1jM1adp2Wz+U/USruzT1DZ
-	juLlAH9vF6/+ZR/cJwOtJRmjs/HRCNThC5EJkPXrjlD9V7IjdRwpTFRiQgX/eiU77dVzxzJBC8L
-	hby/QGgsYtW7W1UNy/9E/UnoO3MRt1f4MVyVn+nIrkL+vqB9WKIWZqeOg6FqFqCAokK+0dBdPzm
-	0gUaYaAkQFcq/xA1HBnYBoAj5U4vgN1eUiX8GhWl0zuleeTZE/iIVQZN3KGJv+VAN5jcoNQJBgo
-	qfjN7yQ8V0pEzz1/BVI2HZMpgRFS+RdwqBiJSpT5SgQ76KKX/cKHBnykbWQJB9Pyq46aZmxV
-X-Received: by 2002:a05:690c:5706:b0:8ab:43f7:f061 with SMTP id 00721157ae682-8ac1acc0d26mr296187b3.34.1790707301224;
-        Tue, 29 Sep 2026 11:41:41 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:ace4:86e:1afc:3c4e? ([2600:1700:6476:1430:ace4:86e:1afc:3c4e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8abcea3142esm2052677b3.43.2026.09.29.11.41.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:41:40 -0700 (PDT)
-Message-ID: <533efce8b12245de484c3fdb9b1931f988c79119.camel@dubeyko.com>
-Subject: Re: [PATCH v6] hfs: handle extent B-tree write errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Davy Felipe <davyfelipe34@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 11:41:39 -0700
-In-Reply-To: <20260929020329.32911-1-davyfelipe34@gmail.com>
-References: <20260924231054.2175660-1-davyfelipe34@gmail.com>
-	 <20260929020329.32911-1-davyfelipe34@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="x8Jwacbi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K0Bqd3IarvfRoCvaIe2vVWcg0npDT6vZZQ7/x3eMH9dp/2usAlBPiiPoMsG4VlesMpqP8hs1kKm/nKFtZWugCWUW+yuK/XtRJIKLPhV5mHFdydd30gMejhxB22/sroWJ/LsPQDmVmiet4nUzkdeEB7OgMLqo0jR8oapCRJZi8YNTZQXtzMAa9s9rgt0M1pVqYQj5kt8rhL2PVo8vaMdSk8MPxgQ59ze7Rpn0UAVFpYonXtfzBnhNvrUaCp/oiOMz9LRxg02aWAT1Bjd2//1YoOWDEQRNcUjkIKuuRV+8m77GNVCiWpvW86Dtl6fl971IkWA5Aww060cYaV4M7LNINw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6rF/7IAqdtXs5RvA0WeK45UzVzHqVHfJk1FJPjxczHY=;
+ b=nE/Zh2A2NS+oAsyvLGpxwDDHdlAlMNsNFGVEGHdHJckpVQnqU8JsJp6c5Q8JFRoauH6XH9Ug/x8VT3V2ST5zgveI1++Qt029B+LlAf1640IC67AAa944eJVjJM/+SUBDdQQP7cG8xK1VmgYOBKiy9n9TOTXCWKBO66Stgfk+EDLUTC29tW0AA1RbkWwSdLbi25Qau0rxVggSVa1gOTk4XvwlNh9ogNyDXtuinJaRLp47ek2FHCVZGvQLagLO4eiFJxNCnVDX9z3nqv5PiGz07ls296xrD8J2o5No4tw9HLEagmaRMyZYH75c8fzpuAKGag5tWso12VCKA7IB83cfJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6rF/7IAqdtXs5RvA0WeK45UzVzHqVHfJk1FJPjxczHY=;
+ b=x8JwacbimBc10tvbgJ/XDodd5Zeo71p7XkuwCTtYlLFqEDDXD/Xr7UQd1vVkHYZMOcmPuilecjpRbpXlYyeTu+sLe+kXw5/S4zP1BFHwt6KYJCiPkNLIleKRemgBO+eVYlNfBY0ZpLCKCykj1ARKGWE0FYHQgOge53At3Q89m+w=
+Received: from BN0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:408:e6::27)
+ by CH3PR12MB363094.namprd12.prod.outlook.com (2603:10b6:610:360::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 18:41:39 +0000
+Received: from BN2PEPF0000A892.namprd04.prod.outlook.com
+ (2603:10b6:408:e6:cafe::76) by BN0PR03CA0022.outlook.office365.com
+ (2603:10b6:408:e6::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Tue,
+ 29 Sep 2026 18:41:39 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A892.mail.protection.outlook.com (10.167.248.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 18:41:39 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 13:41:38 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 13:41:38 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 29 Sep 2026 13:41:37 -0500
+Message-ID: <9238f183-2850-0e39-f029-ccd8284299e1@amd.com>
+Date: Tue, 29 Sep 2026 11:41:38 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V2] accel/amdxdna: Add support for AIE2 revision 9
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260929181459.928468-1-lizhi.hou@amd.com>
+ <aee76270-590d-4d2b-93ca-23e56bc3f482@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <aee76270-590d-4d2b-93ca-23e56bc3f482@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A892:EE_|CH3PR12MB363094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9765c33a-1e58-4578-fff2-08df1e594c7f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	k+yimO/qv3m0PaBGJYU34pdiL0PLdScbPBzKwAhadRRfTt/O5K6yNQ3eEHWpRAvtxFo2atcpZCz6zBCuZyuokjT9Chdp2cUzujZd9zE4JVN6y8zS8fBeHQW4TXZ2tmixkx60h+G2I7Npo3QGjGJKIw7p8C/PDBiH76ponX1ZXVHOCOWrvcH6CTS1kzhbtk7oe00p8Fhja83MFJrRjArECBzxSrPZacCZa0OVWbDSes1vHsmcpvOtuVnBnctCiahudwGu12fRNks4dHt0IFTORP5hSFnu3rr7sazxk9YdDrRMHtbsE4rTCSAkrnakW0IAlX38KzGXxbvwSmctsmovYRx8XO67IWz9/kBn6jL3znwu6qDqfyvc7wWNWZSxmTY0hKPWtMfC3gPVeHrEILggY42DPjiv2o9E4pijQn1Fm2Z68nZznhLLQkdZjwRcYRhmT4NHM0KC3S1uMdc9GtCF+o5y+2jY5eWUuBMvx5A+Xdqu+f2B0fuddKzK7YhGx8f3FgNQv6L/WE2c6m/lr5g4FtERPrNXyiInPaa9Y+Lszp05ZoTYMkVUYK87vKBT0HNEUHfy24PGZIaB4GwvozBrdsGbQVk055NEtfuvnI0v6BCZ55oxVzCzp5PBv44CYjRFoHQ09iRF0cdZKFApyRXIL3837mfQTPjqxKQFX8zCg8Nif71Xf0EGk7W6F6KPMcSiL6lYV842ofaVZ6URKsJ1Zg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WbYpWxy9LfrKBX+90+ieUneBbHEMtfUEWbYQg6iObzU4+hU1S07aMDbMSSAsybFNcVBP2K7ffvEEMK9QaDRl+WENEi11b7Pti/TBkfj12KyNDJH3OZKvkvLhf6a+yZ50/HlqwIxGvQpiWBRZ2IyixygBax7MMpn+qSmWRgTmOqjpahyPUyeuNdDAydfJx7OPUwmDVTRTVDseVnT+AtiMWMIlC/av+pPmVdl8YPVEhhhdbpjcXY7xoyyJw4aoMmHF4lklu4IZC68HsoBR1KAlCkuiL3TQ15lYyca31ljyRTejK0OBv2gKZLIBN7KNRzGCjJXpnIcJhkzZDbjgakr4e2/jW/rPTqcAZZf0audmiIJC3t2UsAZzgQ1JcFyFSdc8sQdAo+Z/FH8T+ZF8qo3d1MMOF3ElH9Vq4gMSLjdv0xwDoEGHQ3AEm+5TcyF2Ks7r
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 18:41:39.3838
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9765c33a-1e58-4578-fff2-08df1e594c7f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A892.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB363094
 
-On Mon, 2026-09-28 at 23:03 -0300, Davy Felipe wrote:
-> hfs_brec_insert() may fail while inserting a new extent record, but
-> __hfs_ext_write_extent() currently ignores its return value and
-> clears
-> HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
-> succeeded.
->=20
-> Propagate errors returned by hfs_brec_insert() and only clear the
-> extent flags after a successful insertion.
->=20
-> When updating an existing extent record, hfs_bnode_write() returns
-> void. Validate the extent write parameters before calling it so an
-> invalid update is reported as -ERANGE instead of being treated as
-> successful.
->=20
-> Use a reusable B-tree node range helper that takes the find data and
-> the expected record size. The helper validates the bnode and tree
-> pointers, entry offset and entry length, and ensures that the write
-> range fits within the node.
->=20
-> Negative-path testing in QEMU confirmed that an insertion error is
-> propagated to the caller. Testing the existing-record path also
-> confirmed that invalid write parameters are rejected before
-> HFS_FLG_EXT_DIRTY is cleared.
->=20
-> Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
-> Changes in v6:
-> - Rename hfs_bnode_is_valid_range() to is_hfs_bnode_range_valid().
-> - Use size_t for the expected record size.
-> - Drop the redundant expected_len validity check.
-> - Return -ERANGE for invalid find-data/range parameters.
-> - Incorporate the final review feedback from Viacheslav Dubeyko.
->=20
-> ---
-> =C2=A0fs/hfs/btree.h=C2=A0 | 19 +++++++++++++++++++
-> =C2=A0fs/hfs/extent.c | 10 ++++++++--
-> =C2=A02 files changed, 27 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
-> index b4c3f2a31471..1f703f2c53d8 100644
-> --- a/fs/hfs/btree.h
-> +++ b/fs/hfs/btree.h
-> @@ -84,6 +84,25 @@ struct hfs_find_data {
-> =C2=A0	int entryoffset, entrylength;
-> =C2=A0};
-> =C2=A0
-> +static inline bool is_hfs_bnode_range_valid(struct hfs_find_data
-> *fd,
-> +					=C2=A0=C2=A0=C2=A0 size_t expected_len)
-> +{
-> +	struct hfs_bnode *node;
-> +
-> +	if (!fd)
-> +		return false;
-> +
-> +	node =3D fd->bnode;
-> +	if (!node || !node->tree)
-> +		return false;
-> +
-> +	if (fd->entryoffset < 0 || fd->entrylength !=3D expected_len)
-> +		return false;
-> +
-> +	return (u64)fd->entryoffset + fd->entrylength <=3D
-> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node->tree->node_size;
-> +}
-> +
-> =C2=A0
-> =C2=A0/* btree.c */
-> =C2=A0extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32
-> id,
-> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-> index f066a99a863b..26357086517f 100644
-> --- a/fs/hfs/extent.c
-> +++ b/fs/hfs/extent.c
-> @@ -121,12 +121,18 @@ static int __hfs_ext_write_extent(struct inode
-> *inode, struct hfs_find_data *fd)
-> =C2=A0		res =3D hfs_bmap_reserve(fd->tree, fd->tree->depth +
-> 1);
-> =C2=A0		if (res)
-> =C2=A0			return res;
-> -		hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
-> sizeof(hfs_extent_rec));
-> +		res =3D hfs_brec_insert(fd, HFS_I(inode)-
-> >cached_extents,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(hfs_extent_rec));
-> +		if (res)
-> +			return res;
-> =C2=A0		HFS_I(inode)->flags &=3D
-> ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
-> =C2=A0	} else {
-> =C2=A0		if (res)
-> =C2=A0			return res;
-> -		hfs_bnode_write(fd->bnode, HFS_I(inode)-
-> >cached_extents, fd->entryoffset, fd->entrylength);
-> +		if (!is_hfs_bnode_range_valid(fd,
-> sizeof(hfs_extent_rec)))
-> +			return -ERANGE;
-> +		hfs_bnode_write(fd->bnode, HFS_I(inode)-
-> >cached_extents,
-> +				fd->entryoffset, fd->entrylength);
-> =C2=A0		HFS_I(inode)->flags &=3D ~HFS_FLG_EXT_DIRTY;
-> =C2=A0	}
-> =C2=A0	return 0;
+Applied to drm-misc-next
 
-Looks good.
-
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-
-Thanks,
-Slava.
+On 9/29/26 11:24, Mario Limonciello wrote:
+>
+>
+> On 9/29/26 13:14, Lizhi Hou wrote:
+>> aie2_get_dev_revision() fails to recognize AIE2 revision 9 hardware.
+>> Add AIE2_DEV_REVISION_GRGH to the list of supported AIE2 revisions.
+>>
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+>> V2:
+>>    Fix sashiko comment: add the revision string.
+>>
+>>   drivers/accel/amdxdna/aie2_msg_priv.h | 1 +
+>>   drivers/accel/amdxdna/npu4_regs.c     | 1 +
+>>   2 files changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h 
+>> b/drivers/accel/amdxdna/aie2_msg_priv.h
+>> index fd65a4236d49..8ed2b5701dcc 100644
+>> --- a/drivers/accel/amdxdna/aie2_msg_priv.h
+>> +++ b/drivers/accel/amdxdna/aie2_msg_priv.h
+>> @@ -530,6 +530,7 @@ enum aie2_dev_revision {
+>>       AIE2_DEV_REVISION_GPT1,
+>>       AIE2_DEV_REVISION_GPT2,
+>>       AIE2_DEV_REVISION_GPT3,
+>> +    AIE2_DEV_REVISION_GRGH,
+>>       AIE2_DEV_REVISION_UNKN,
+>>   };
+>>   diff --git a/drivers/accel/amdxdna/npu4_regs.c 
+>> b/drivers/accel/amdxdna/npu4_regs.c
+>> index 15a161384625..c9648c8032ec 100644
+>> --- a/drivers/accel/amdxdna/npu4_regs.c
+>> +++ b/drivers/accel/amdxdna/npu4_regs.c
+>> @@ -153,6 +153,7 @@ const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[] 
+>> = {
+>>       { AIE2_DEV_REVISION_GPT1, "NPU Gorgon Point 1" },
+>>       { AIE2_DEV_REVISION_GPT2, "NPU Gorgon Point 2" },
+>>       { AIE2_DEV_REVISION_GPT3, "NPU Gorgon Point 3" },
+>> +    { AIE2_DEV_REVISION_GRGH, "NPU Gorgon Halo" },
+>>       { 0 }
+>>   };
+>
