@@ -1,151 +1,187 @@
-Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EF94FDE5A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A363D9DB9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676250; cv=none; b=k0H4BGlECg62tyxoM9nrxUOsaVNZ7LxXDKGCGykMRRZJ9kSUMMBARAjeIXngjxA7IoV5RHlXkXkNbsdlYyfb3AxEKCshlJQ+3UlDiemiXzI9SCbu1j9jvTKa4LOdwzaq1GHv+oxop6Q/bENYoeYYzB7weqS6OE8/B47hFCWCHXw=
+	t=1790676371; cv=none; b=dj5SVJ7qZb1ISn55iC/+DA6PvHYc6dmZBcUZcVrKoADK74QGdKRZ338AVV6LKPOXej8mm5hazGkUmzbRbaKETzBAfQPcmBe3tIuGkAEC5QuaJVmYhWkN9UiHQxRvqiGKfiL+Na+rpfbMaxDkmXxKRNbi7uMdPKC7yw/Xq+2VXWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676250; c=relaxed/simple;
-	bh=4nbqrJ878FZWi0rZ57VBSYZymeJkYo6GGL1ScKrDJ8E=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=ffkyjVPj00AlQY8IT4sIgqiCyzmWESS1x0LaF0Gbl3gxWM+Jmc9RQt/lfwsW7Vt5ahDZfSuC9CPFLlsxGmaPFagL3b8EZu3kwpF6jsbm/TlbfuHOiS3H2kMxC7uVorP4IH+DjBoKXWMoEFtWigUdLLH5UnXoNGlMCVu2SOTcIAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xV2UfU0t; arc=none smtp.client-ip=91.218.175.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790676371; c=relaxed/simple;
+	bh=vuq+i0+bCMQ9/9d/xtbVztfdytZENeiCb9lc3buC0uc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PKei6GTkO8E6uCLzB0dC8npqxKRVVBGzck6KSM6nr0b2QQEgTdfTOgYrmcfgZ8bE7msjD9YiaOPMlDZ15T6SjN8ldZXjpWzzp0sI5ZcxvC1/bfmC2T4knm592WFK5W72AxQFbiJK+YPoAAFNQ31Br71xPojGadOFwKpaJYusjZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=DmJaxyNX; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xV2UfU0t"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4nbqrJ878FZWi0rZ57VBSYZymeJkYo6GGL1ScKrDJ8E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790676234; v=1; x=1791281034;
- b=xV2UfU0tuDjs+vAM8lHyWi44dQsA17pn5uztKuFBNlIe6GwRd2PYsqtyA2scJz1Wj0qol/xS
- fKpCR7C1jmJ0APctIQOMpjalPubX6UCh/TA/Lraz91AVO/LOzU2BBNPDGNjjfJz18B63MgEH4kn
- de+vftwvanmq04h+NbE07hdQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 00c772cd190c1b5f;
-	Tue, 29 Sep 2026 10:03:44 +0000
-X-Mizu-Trace-ID: 00c772cd190c1b5f
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="DmJaxyNX"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso29747515e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1790676360; x=1791281160; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=phJsUqb9NaFMguRfrpAljTIHGvzpGMajrsq7kQa1w8o=;
+        b=DmJaxyNXl0kSXFQW3MwMi0x/90mN6eC20joPOGB8Rv3OpNNPjJt5iJPJQng0/rrVJX
+         bTGY1iArxC56NMPOxL1lsGslMylSHlWKtizF1ootQkPUaUujAsLig9Un0jFT9H/vkmsF
+         53C728alOmkUf7CJBAFXA9Gx55JbMnRLdwo+BHmJJKdNjGHVcIwP2v6BbK+Od8LmMwEm
+         5bviykArwBbMGY0LJQB/vE8soVsLyZ7+QTFpkT3E+yStXPic2DNvTacRaChWQSAXXjrq
+         zOXaVBZfxI7omJ6auc7ISCD45jS/mQBIEVW+1NwdR60kjq37XixmA/apv3XnoQXH5/cw
+         qnBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790676360; x=1791281160;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phJsUqb9NaFMguRfrpAljTIHGvzpGMajrsq7kQa1w8o=;
+        b=kwuAbVQkJbgz9UVtKs1WlYPG2vlgt5pdl9HYLrCd8u1d19L4B4igmzheO0odV6r+UO
+         AnUK7UVQNIhPRyAAeP5YCEfL9g8yuqj4ydCpP57tU3sclWmcDgp0EnuiAVnGkvwr3zEJ
+         ZAqjlWTzI2leYnBJMMzWESXPSMyhu3mJqlaH2Rz2qwY3LjiIhDoHH4MnHO0N5XwfFcbE
+         jcdy+HBUgLT9KXI8Xdz0HTEig8Dll44CHg4Qy5eLUTA+JlseATnQdtpyclwEdzVZoWi5
+         rgSukuLCMLzGimAu9Y0GL/HK3h1VWLSOVg+n9KsNKTlqM+E9Q1ahXsS9w6Wln+cwrUzZ
+         I/+g==
+X-Gm-Message-State: AFuF++lSAqCRrQD9MTnyExDlWj1ZXR5g5BYKQY50M23K+i0gqY3rrRsB
+	XsXkX7l2gkjR81vrehMwXjxIeRtT0bR9yyutv08wIFalPCzEmitA0CKzd3SjFrddqV4=
+X-Gm-Gg: AYBFou2DvO+s/dPIag/C3SEUFZRY5sHVrgmVuRO0LbCzSLROQtC3/f3nBLxMF0Qj5bm
+	AIIkFG2yDZXzzjhTOgAlEPiCXyoj8hMWNh34qnVxgjmDkSJfor+HCeqcmLJoBE1o7aMaJHqDDOm
+	JiVzqdXIZqBsA/FXZNZHShQyYP10ZWFuzwOq1rJg8MSULf+LaXOcl8QjWy7z24j3T+DeoDqhHIW
+	ZbejzVXU0IXJEeOZbbypSURneiG5gUtwGLySesLMYFxl5quS0qtrVBDj+XCT+qu0gGOEPDCNsmb
+	M6u4vD5eoc69cTIPBfh5EZ0hgiZeDn4ixmAfOPH7FEnWtPpNVKhlCGwiXX7Mw+SJI7MxlFSobGq
+	j8s9vEu3yqoQS0gcuBbSi1S0Gf/uwLq7+s5t4OvU9P/ExAQnrdSyuv3dQamiOw0CB9n00luaus8
+	tvyz5FQbvAPsputKpB1z2uVWuYJL30La8P8WnpZMkYkBNCjOUP8zyNw57X/rJZikx760oS4BJP8
+	nKvB68x5NSXjtV+kuRetbYlfhw=
+X-Received: by 2002:a05:600c:4592:b0:49f:ed8c:6cad with SMTP id 5b1f17b1804b1-49fed8c6cccmr258300315e9.19.1790676359994;
+        Tue, 29 Sep 2026 03:05:59 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502f79dsm2954995f8f.6.2026.09.29.03.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 03:05:59 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Tue, 29 Sep 2026 14:05:46 +0400
+Subject: [PATCH 1/4] regulator: of: fill in supply names in
+ of_regulator_bulk_get_all()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v5 08/12] mm/sparse-vmemmap: move vmemmap optimization
- helpers to a public header
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <0481F7BE-F912-4E83-80F1-6E7990B447C1@linux.dev>
-Date: Tue, 29 Sep 2026 18:03:20 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Lance Yang <lance.yang@linux.dev>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9720986C-2DE2-4968-9CA6-7823B1F978C5@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-9-songmuchun@bytedance.com>
- <a31cc06a-c22f-41c2-851e-4827869e9df1@kernel.org>
- <0481F7BE-F912-4E83-80F1-6E7990B447C1@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net>
+References: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
+In-Reply-To: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Corentin Labbe <clabbe@baylibre.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: linux-kernel@vger.kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3165; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=vuq+i0+bCMQ9/9d/xtbVztfdytZENeiCb9lc3buC0uc=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTt7m35+qM7b/X2jd5XvXacmmW2oT1uls1fsQv7tBVbS
+ 8wvW2rKdkxkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkY6xjpGDFycAjDVs50YfjE/mTJ/yhk+2R1bzPNF+T/s5LHd9c9E7eFumzCuDTyPHi1mZLg5P1Y
+ 6MPhi55H+vL3e1zf6BwduLw09l6tb5S6ptjDKiAcA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
+of_regulator_bulk_get_all() returns an array it allocated itself, and
+fills in only the consumer of each entry. Every other way of getting a
+bulk array has the supply name set, because the caller provides it, and
+the core expects it to be there: regulator_bulk_enable() prints it when
+a supply fails to enable, so a caller that hands such an array to it
+dereferences uninitialised memory on that path.
 
+Copy each name into the array's own allocation, right behind the
+entries, so that it shares the array's lifetime and callers still have
+nothing extra to free. That also retires the fixed 64 byte stack buffer
+the names were assembled in, which is_supply_name() never bounded the
+copy against.
 
-> On Sep 29, 2026, at 16:44, Muchun Song <muchun.song@linux.dev> wrote:
->=20
->=20
->=20
->> On Sep 29, 2026, at 15:39, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->>=20
->> On 9/27/26 04:54, Muchun Song wrote:
->>> The vmemmap optimization helpers currently live in mm/sparse.h,
->>> which is an internal MM header. That works for MM code, but
->>> prevents powerpc from using the same interfaces without including a
->>> private header.
->>>=20
->>> Move the declarations and inline helpers to vmemmap-optimization.h.
->>> This is a preparatory change for powerpc, which has its own vmemmap
->>> optimization implementation and needs to use the common vmemmap
->>> optimization interfaces from architecture code.
->>=20
->> Which raises the question why powerpc was special and will remain =
-special. Wha's
->> the big problem here that powerpc must do special things?
->=20
-> Good question. I also don't think PowerPC needs special handling,
-> but when HVO logic was introduced for PowerPC, it handled HVO on
-> its own. =46rom my preliminary analysis, the reason it didn't reuse
-> the generic logic initially may be related to the fact that
-> PowerPC's section size is 16M. With a 64k base page, a single page
-> can cover the vmemmap range of multiple sections, and the current
-> generic logic doesn't cover this case.
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net?part=3
+Fixes: 27b9ecc7a9ba ("regulator: Add of_regulator_bulk_get_all")
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ drivers/regulator/of_regulator.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-I looked at the code in my local branch for removing the PowerPC
-vmemmap optimization handling, and I found another issue that needs
-to be addressed.
+diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
+index c0cc6cc0afd8..785b7a11dfc6 100644
+--- a/drivers/regulator/of_regulator.c
++++ b/drivers/regulator/of_regulator.c
+@@ -935,15 +935,15 @@ static int is_supply_name(const char *name)
+ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 			      struct regulator_bulk_data **consumers)
+ {
+-	int num_consumers = 0;
++	int num_consumers = 0, names_len = 0;
+ 	struct regulator *tmp;
+ 	struct regulator_bulk_data *_consumers = NULL;
+ 	struct property *prop;
++	char *names;
+ 	int i, n = 0, ret;
+-	char name[64];
+ 
+ 	/*
+-	 * first pass: get numbers of xxx-supply
++	 * first pass: get numbers of xxx-supply and the room their names take
+ 	 * second pass: fill consumers
+ 	 */
+ restart:
+@@ -953,16 +953,19 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 			continue;
+ 		if (!_consumers) {
+ 			num_consumers++;
++			names_len += i + 1;
+ 			continue;
+ 		} else {
+-			memcpy(name, prop->name, i);
+-			name[i] = '\0';
+-			tmp = regulator_get(dev, name);
++			memcpy(names, prop->name, i);
++			names[i] = '\0';
++			tmp = regulator_get(dev, names);
+ 			if (IS_ERR(tmp)) {
+ 				ret = PTR_ERR(tmp);
+ 				goto error;
+ 			}
++			_consumers[n].supply = names;
+ 			_consumers[n].consumer = tmp;
++			names += i + 1;
+ 			n++;
+ 			continue;
+ 		}
+@@ -973,9 +976,16 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 	}
+ 	if (num_consumers == 0)
+ 		return 0;
+-	_consumers = kmalloc_objs(struct regulator_bulk_data, num_consumers);
++	/*
++	 * The supply names are kept in the same allocation as the array, so
++	 * that they share its lifetime and the caller has nothing extra to
++	 * free.
++	 */
++	_consumers = kzalloc(size_add(size_mul(num_consumers, sizeof(*_consumers)),
++				      names_len), GFP_KERNEL);
+ 	if (!_consumers)
+ 		return -ENOMEM;
++	names = (char *)(_consumers + num_consumers);
+ 	goto restart;
+ 
+ error:
 
-Since PowerPC vmemmap optimization is restricted to Radix, this only
-needs to cover the Radix page-table implementation.
-
-The generic vmemmap path currently allocates intermediate page-table
-pages with vmemmap_alloc_block_zero(). This bypasses the normal
-page-table constructors.
-
-PowerPC Radix uses early_alloc_pgtable() before slab is available. For
-runtime population, it uses pud_alloc(), pmd_alloc(), and
-pte_alloc_kernel(). These helpers initialize the page-table metadata
-and fragment reference counts expected by pud_free(), pmd_free(), and
-pte_free_kernel() during hot-remove.
-
-To address this, I plan to update the generic path so that it uses
-the normal page-table helpers once slab is available, while retaining
-memblock-backed allocations during early boot. Once allocation and
-teardown are correctly paired, PowerPC Radix should be able to call
-vmemmap_populate_hugepages() directly and remove its duplicate HVO
-page-table walk.
-
-Thanks,
-Muchun
-
->=20
-> However, completely removing PowerPC's special handling is already
-> in my follow-up plan. We need to wait for the current series to enter
-> the mainline, and then we can proceed gradually.
->=20
->>=20
->> Change itself looks good.
->>=20
->> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->=20
-> Thanks for your review.
->=20
-> Muchun,
-> Thanks
->=20
->>=20
->> --=20
->> Cheers,
->>=20
->> David
-
+-- 
+2.55.0
 
