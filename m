@@ -1,336 +1,104 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7AE4CE685
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673778; cv=pass; b=Ny7geAc428nZcPgOtc6vnmBqeRI0jD2L6LnRPtOubH3XPZb3tqOVKYCaSjLbFaa/MI1En6Y9/lpg9f2ausVbaaHbaZ0HbI4sXuu6zJm6h26YXQqhKv+QdTrQ7DWd+2IK7NR0rhXr0YKDitIjsbHIMSV2OUJ09oHSxqpGdTcv1oM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673778; c=relaxed/simple;
-	bh=OKr4fUIPbrOHWUmRo+UKdJkXsZji/RzT6pox/LwWRsM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qFKFWLDKRAAWGGZqQrgK4EC1Kq0S9Wy/btW21UQJGMZ7bb0YmvGaWJZ63BcYlqb+ttLKpjeLZ9AFR+qEnRHNbVe7cG44pdxUD4wBpeXPZhDl/Aoq0DmddkioJ/GsHHtZPo3AtnK/8HyZ6fPPneFOMJFq0fvFyhQBqsdec+Fn1Pc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVZ0zeye; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492F24EC666
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790673788; cv=none; b=lasWrd7hmkn+eLzMj2o+iDM8Tm8xuIIkMvxj2q9TE8JFtswEHVe8y1zcFyiGapPsclJKbZzgxa22SMk7YYYfnSU4Cs/KijWoZEnu9kuH5aLuYJO4KBd/iM8xOXCN6zoN75zbxQSB0WzTAnuUMJys9EgZMGmpr1BGRRdknEsfSyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790673788; c=relaxed/simple;
+	bh=Yvv4offk/A3nngbeY4OC0TNI33ABSFCQo9LNH+QTLbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SbG6ZYOtOt3sZ/OIKmdsmbCAFSKxQ+RVgXMJQZDejipBJPrO5P9Az9QRjpy5FV8WcL6LyLJHHcovocPxKA9kLTB8sTMi6gzeFN5mrNNGSvyWI7Xve6qHNk+UNrp386b0p6IYgixrUNVOpAPPWWfLRY8AoI1WfXWRHeROJ41tinY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Srj2A525; arc=none smtp.client-ip=74.125.230.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVZ0zeye"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso435400366b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:22:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790673768; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DNghn5gUbiLXOXV2wa6VeGEiiKMWIRsSXhutUvaPc2bo0RsHAOahjvQvGf+vFOHEBD
-         8XL5DkG/WVvbY7SWnUYN72ws125U5sK3TxczdJFyHlDdj1iGHX/Dz6XmobXFCBrjzCJd
-         9HKd7cUPuBscbIN/aLg4cX27cpdcXlf4m6az+k9DUJLP53H4h4JZjLq4dHJkU/sgdszg
-         D9Ox6mhGQzQxFf3+gnh2i6FlIG6oOGO+maw4ZqZGJ6w4JmLcREz9URCLWk4cDKaliaKb
-         sN4CKwyCyYimofy1EOfcx7BjyvuBgM4IEaXKzLGP4cVYNfdBdd2GAtMNf2wYC9FsEvIS
-         YhuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IN0tPSzGH98R2Pd3lnF+txldXvSCDJz1o/eX2B23T/w=;
-        fh=Bo8Vf1zFOtcE7H1cpsAqaXL5gaXCizar8rOkuD9+G7g=;
-        b=IBdwfzcT1hu2t+ASxEiSl5Qwsmyc3Gm0UPx/rSK9ik5T3YBxEYiviMBZr6XfStUJ8r
-         6uXc4Fuk9h4jr7m48pS3wKnCHy/N2mjDMyhpBasx8v2EBCJCC+MG74nxVKPLXmOCqjD6
-         KRJBN1s/MVpFvgF+PC+s9ZVZSiy63uz1PIPqLqJ8mZrCloMxcoiTMXqB7sC61sX4KWIr
-         u5k/l34dsur+eyCZvIutHvsm10ly2DR5xegCcTPh3vrjGyXoHZdgCXqotSz/p+0ckZhj
-         NA1sdX53VhUq6WErZgS8YWlSOnWjRzXy3ThgprUNaYfbIf9BJ/JKg0HGgqxTeyTYBdNr
-         qrOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Srj2A525"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a66f8bc23bso20033871fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:23:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790673768; x=1791278568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IN0tPSzGH98R2Pd3lnF+txldXvSCDJz1o/eX2B23T/w=;
-        b=nVZ0zeyeWFLdn0WzLY7jUXm5sM5ARWKDh7fdyeZa0LKnTK7RmyO6Dv3dFe4cGjD6Bs
-         vNBUhMb/wsH9vtRdZtNbfMPSrsR6UFPNx0Qte8TWtqhb2qFMTIiAYgUnquqOdZ8B9Aqg
-         rWhWAnlVuLU7C9djzHN+nU/QnwnxsPu4wxGiv6HAdUbMT+ZVeAzKGFCpsLCodfXsRdWw
-         X3e7iVViU2Sl0XDZb2AhhCT9Sp6ZkQ9kcn0tkp2BjRRLBscOYtcAwxSj5laUlbPd2dDI
-         Kadep9+ngSeQjz9H3tjAeYUv7yA/CaI37T5BNwkDpXnp4gxME7K1Qfqqtq0GP2sBtk58
-         nI2g==
+        d=gmail.com; s=20251104; t=1790673779; x=1791278579; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yvv4offk/A3nngbeY4OC0TNI33ABSFCQo9LNH+QTLbc=;
+        b=Srj2A525OvevwTMHidJmtVDgHePcc17wpKwTu3gLwrb0ogJezUQQllSydx7z9+OkLK
+         qlNt7iHCr6Jgbbx5wxUppI9iDnF2fskOU1exXyqmQg3P/y7EtA4+VTudflh1HqzmaPTl
+         4YbWc08UwAFSWExy2EQzjv+79EDGG2MBWX8KAFseIK3QHT4/bwmxsLa4bQsxBZEj2Ez+
+         Be3i9IOJN5f1LGWkqByA7lWOhRxh6waKXf1tMC2aiNBs2wOv0t4BUqq2dumdGP2ajxEB
+         eoPN5DXT9nuKoGHrHlpGuelrA8b7nv/I2oV2s27eyMq4zGGhkuTYYsHirG8ws8Fx1/1b
+         0gFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790673768; x=1791278568;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IN0tPSzGH98R2Pd3lnF+txldXvSCDJz1o/eX2B23T/w=;
-        b=tIXKBk2xaDcs6XH1dUPv0YkDWyaTtWxSRTFtfia1X2vz7ZKLYClLB0MNw42I+E6r84
-         KCzvsBOx/j0ZTCDoC8gQK7PAY83k+tSF56VY32CsOFZ2hekWdqlpnILEZGIVZfPG7exE
-         nth0ovJyOsoHPNI4l/nHEJhp9K6SiOZZdIVzJUCgkWF3nb6bBxkgZN9v7Oqpf/mH63/i
-         9EQprFN9J7TcdXUXFnwaeJE5h/UFY3m1Fe52NnnZLMkpDHqSIxsOZI14J8OgzDJ+lLWO
-         qZtCEuVNxugLH54f2C4wEOSRgoWYfLMpskTAAcBuy5mp7bY+jIy9kci+97SDpRuXZGyi
-         q/Aw==
-X-Forwarded-Encrypted: i=1; AKwUvByvITFLlp7M7QATrLiqJDi0oQrmRstWoWF20PvYikB/3fyVfUD7IBe6t0sX/VGAUgfDXF91V8JNvBOv7lc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtwDr+q+QY7tcNYc9A1pMOyciTLiyBOH3pdzCvavjyUv0sHBvq
-	NCeLsIPWHmO5d+cH/Ju1MlxYz8oW/ennPwEqsHD2YpAZa5SVIlzvJK502PukLexMD/wF1BZQx1N
-	+zKO/FgN4QXwi+cyiHYLG+APMuXGfRJU=
-X-Gm-Gg: AYBFou1rkMSu5fJ+ahYusZf2BUsNN6E1GsNMgTh3eNj/DoAkJyKTYHnWSk/JEDCyg7M
-	rlzzeE0HWVAbghr4ww5ZDeWTKEfkh9pr3JdaevjQzWncGUf5LRk5A8UC54C//bJa6hoJVuT366t
-	gyhvFNC1iZGlr/b3P225oWgzxzbezc/nEWPi55Ytqpt0g5NMwW+l20SmnFr1Lu/ZiL/GFSyEDiF
-	uXpACpMH/bY0EO9GqZaSyJmZsjsgK+lhU14QBQHxFwmkShNT+REiNcOmHoLBwYsA6H4puHHQlJ7
-	BV+Bj1TE8Vg0/dZq6VtVteBQhMO670ahuxwcjZy0uZxdsq4rgA6++kW9Py4BX3oH1MNLkOBR49R
-	P5F+4RcStiHU=
-X-Received: by 2002:a17:907:e0c7:10b0:c2a:f439:f028 with SMTP id
- a640c23a62f3a-c2af439f86amr589341566b.24.1790673767797; Tue, 29 Sep 2026
- 02:22:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790673779; x=1791278579;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yvv4offk/A3nngbeY4OC0TNI33ABSFCQo9LNH+QTLbc=;
+        b=pFLTOHfNMaBgaT4sDKc7JfEyVQ176wchrGSr69Sh6b7z1zwd31c1IsEym+nRTmi0s0
+         HLOb3IIJUOJ/jtjIyFM+IYYUQHBzmN3mApEGRo5/oVH+AhmEWxZLIFm8ACTolbrEnVEG
+         MRL89LTh7tgpAVdwZyL8LXOyFufd+FBDosa9mBorNhE6xF7EbtruR6nw/WFm/2OpQC53
+         BR67mbssXz/1bjUq8qhY9+K14rYga0vJqfd2SVZNRUajT5lfR8vCCD/eOUBNiMJRO94e
+         BEzppxxMF1E0FvUbV8svCQZRC8M9I1A0f5DOTEWj5ieXv/YinB0l+J2s1DkY8ILxw1j9
+         D3Sg==
+X-Forwarded-Encrypted: i=1; AKwUvByzRNETptHRcxhyMlXI+JwNnYb/B7xInHOCQAPHhIsXBzjieoKDl4gFEiqLfPC6c5D15SctsakVgJ/97EI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInhApjr5W19Yeac3vkixTE8/W52PjgXRHl8f800YBBAFD9qKgb
+	5a7oR6u5IJctRFbOphA+fPGpp88MOzqogYr9xW81w6J+YJ4r6wXEKnTl
+X-Gm-Gg: AYBFou0PxTZBOuGLXI82asQN5U73deH9tq7wlQdf9CM/f8a5PiB5oMRh+3dhxLDdig1
+	l1LBer4L0No2uZzeoBvsxoGLxbB/yoYq/V/ZYD55dodN8fsAsOH5949kYc7JbYsu1gY+fIR36ff
+	bwBcx94C3j78Ds1kWzkM4wXioG4cd+N1y7UWcmU4EyKIVN/d1oTxkNB/KL+s/Aoc9M2M4q8mk47
+	4G3o0SLQf4I5ibh3QFpTb0C7LvIT9P/52zV4zROg8R5GPn3ZUEGRwXSfiot+iUhm19Gb7MHyRYU
+	Z+4DhJrEl2DS6AzEC98jeZtQ6WlMhHRyKvIxKG8oWBP/G1M9xXxbv0Ud/8focZfTRnlYX6wqJHe
+	dZNx4ahl7EFC7Urc82gZJBRky9ZgC2XFs1+ZZziidEc2oEySXk8QDNnDT1Pj0shCe/itEJONmkg
+	GEQYP14RY/Ubflqisu4qr2D3YdGqEQAv8yqZemdtmnj4KcaI9gopgI7QIzPB7n3K3PiLahR0vaR
+	3dkqApMgVo=
+X-Received: by 2002:a05:6512:3096:b0:5b8:ef88:d56b with SMTP id 2adb3069b0e04-5b8ef88d614mr3358193e87.18.1790673778535;
+        Tue, 29 Sep 2026 02:22:58 -0700 (PDT)
+Received: from quietus.tail91f8a6.ts.net ([169.40.47.10])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9d826f9fbsm1262160e87.12.2026.09.29.02.22.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 02:22:58 -0700 (PDT)
+From: Ruslan Koreev <koreev.r@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: benjamin.mugnier@foss.st.com,
+	sylvain.petinot@foss.st.com,
+	dan.scally@ideasonboard.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	pm@petermarshall.ca,
+	Ruslan Koreev <koreev.r@gmail.com>
+Subject: Re: [PATCH 4/4] media: staging/ipu7: Add monochrome pixel formats
+Date: Tue, 29 Sep 2026 12:22:38 +0300
+Message-ID: <20260929092238.1765758-1-koreev.r@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <arY2CULvwXGyVvH_@kekkonen.localdomain>
+References: <arY2CULvwXGyVvH_@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924131106.1730494-1-dev.jain@arm.com> <20260924131106.1730494-3-dev.jain@arm.com>
-In-Reply-To: <20260924131106.1730494-3-dev.jain@arm.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Tue, 29 Sep 2026 17:22:11 +0800
-X-Gm-Features: AclHuK9DUtu6bTuANbbkm9jbY4Kl0z3X9Vvg3pkwBhg5_AJ3Q_VwlHfCh08tAEA
-Message-ID: <CAMgjq7Ab0YwyPU28x+PohS=7ajPC4tguP62NDg748OwnLOx=-Q@mail.gmail.com>
-Subject: Re: [PATCH v3 2/9] mm/swapfile: add batched version of folio_put_swap
-To: Dev Jain <dev.jain@arm.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	hughd@google.com, chrisl@kernel.org, davem@davemloft.net, andreas@gaisler.com, 
-	riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org, 
-	jannh@google.com, lance.yang@linux.dev, baolin.wang@linux.alibaba.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	baohua@kernel.org, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, pfalcato@suse.de, jgg@ziepe.ca, thuth@redhat.com, 
-	sparclinux@vger.kernel.org, ryan.roberts@arm.com, anshuman.khandual@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 9:15=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
->
-> Add folio_put_swap_pages to handle a batch of consecutive pages. Note
-> that folio_put_swap already can handle a subset of this: nr_pages =3D=3D =
-1 and
-> nr_pages =3D=3D folio_nr_pages(folio). Generalize this to any nr_pages.
->
-> Currently we have a not-so-nice logic of passing in subpage =3D=3D NULL i=
-f
-> we mean to exercise the logic on the entire folio, and subpage !=3D NULL =
-if
-> we want to exercise the logic on only that subpage. Remove this
-> indirection: the caller invokes folio_put_swap_pages() if it wants to
-> operate on a range of pages in the folio (i.e nr_pages may be anything
-> between 1 and folio_nr_pages()), and invokes folio_put_swap() if it
-> wants to operate on the entire folio.
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Dev Jain <dev.jain@arm.com>
-> ---
->  mm/memory.c   |  6 +++---
->  mm/rmap.c     |  4 ++--
->  mm/shmem.c    |  6 +++---
->  mm/swap.h     | 17 +++++++++++++++--
->  mm/swapfile.c | 21 ++++++++++-----------
->  5 files changed, 33 insertions(+), 21 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 338fce99e7119..a7e979bfc814b 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5267,7 +5267,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->         if (unlikely(folio !=3D swapcache)) {
->                 folio_add_new_anon_rmap(folio, vma, address, RMAP_EXCLUSI=
-VE);
->                 folio_add_lru_vma(folio, vma);
-> -               folio_put_swap(swapcache, NULL);
-> +               folio_put_swap(swapcache);
->         } else if (!folio_test_anon(folio)) {
->                 /*
->                  * We currently only expect !anon folios that are fully
-> @@ -5276,12 +5276,12 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->                 VM_WARN_ON_ONCE_FOLIO(folio_nr_pages(folio) !=3D nr_pages=
-, folio);
->                 VM_WARN_ON_ONCE_FOLIO(folio_mapped(folio), folio);
->                 folio_add_new_anon_rmap(folio, vma, address, rmap_flags);
-> -               folio_put_swap(folio, NULL);
-> +               folio_put_swap(folio);
->         } else {
->                 VM_WARN_ON_ONCE(nr_pages !=3D 1 && nr_pages !=3D folio_nr=
-_pages(folio));
->                 folio_add_anon_rmap_ptes(folio, page, nr_pages, vma, addr=
-ess,
->                                          rmap_flags);
-> -               folio_put_swap(folio, nr_pages =3D=3D 1 ? page : NULL);
-> +               folio_put_swap_pages(folio, page, nr_pages);
->         }
->
->         VM_BUG_ON(!folio_test_anon(folio) ||
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index a70dbc8d544e1..fa9fc8374fc26 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -2159,13 +2159,13 @@ static bool ttu_anon_swapbacked_folio(struct vm_a=
-rea_struct *vma,
->          * so we'll not check/care.
->          */
->         if (arch_unmap_one(mm, vma, address, pteval) < 0) {
-> -               folio_put_swap(folio, page);
-> +               folio_put_swap_pages(folio, page, 1);
->                 return false;
->         }
->
->         /* See folio_try_share_anon_rmap(): clear PTE first. */
->         if (anon_exclusive && folio_try_share_anon_rmap_pte(folio, page))=
- {
-> -               folio_put_swap(folio, page);
-> +               folio_put_swap_pages(folio, page, 1);
->                 return false;
->         }
->
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index d5bd9506ce500..5f46061c6320c 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1935,7 +1935,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct =
-folio *folio,
->                 /* Swap entry might be erased by racing shmem_free_swap()=
- */
->                 if (!error) {
->                         shmem_recalc_inode(inode, 0, -nr_pages);
-> -                       folio_put_swap(folio, NULL);
-> +                       folio_put_swap(folio);
->                 }
->
->                 /*
-> @@ -2368,7 +2368,7 @@ static void shmem_set_folio_swapin_error(struct ino=
-de *inode, pgoff_t index,
->
->         nr_pages =3D folio_nr_pages(folio);
->         folio_wait_writeback(folio);
-> -       folio_put_swap(folio, NULL);
-> +       folio_put_swap(folio);
->         swap_cache_del_folio(folio);
->         /*
->          * Don't treat swapin error folio as alloced. Otherwise inode->i_=
-blocks
-> @@ -2598,7 +2598,7 @@ static int shmem_swapin_folio(struct inode *inode, =
-pgoff_t index,
->         if (sgp =3D=3D SGP_WRITE)
->                 folio_mark_accessed(folio);
->
-> -       folio_put_swap(folio, NULL);
-> +       folio_put_swap(folio);
->         swap_cache_del_folio(folio);
->         folio_mark_dirty(folio);
->         put_swap_device(si);
-> diff --git a/mm/swap.h b/mm/swap.h
-> index 47290510de264..7ae915f594034 100644
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -246,7 +246,8 @@ extern int swap_retry_table_alloc(swp_entry_t entry, =
-gfp_t gfp);
->  int folio_alloc_swap(struct folio *folio);
->  int folio_dup_swap_pages(struct folio *folio, struct page *page,
->                 unsigned long nr_pages);
-> -void folio_put_swap(struct folio *folio, struct page *page);
-> +void folio_put_swap_pages(struct folio *folio, struct page *page,
-> +               unsigned long nr_pages);
->
->  /* For internal use */
->  extern void __swap_cluster_free_entries(struct swap_info_struct *si,
-> @@ -375,7 +376,8 @@ static inline int folio_dup_swap_pages(struct folio *=
-folio, struct page *page,
->         return -EINVAL;
->  }
->
-> -static inline void folio_put_swap(struct folio *folio, struct page *page=
-)
-> +static inline void folio_put_swap_pages(struct folio *folio, struct page=
- *page,
-> +               unsigned long nr_pages)
->  {
->  }
->
-> @@ -478,6 +480,17 @@ static inline int folio_dup_swap(struct folio *folio=
-)
->                                     folio_nr_pages(folio));
->  }
->
-> +/**
-> + * folio_put_swap() - Decrease swap count of all swap entries of a folio=
-.
-> + * @folio: folio with swap entries bound.
-> + *
-> + * See folio_put_swap_pages() for more information.
-> + */
-> +static inline void folio_put_swap(struct folio *folio)
-> +{
-> +       folio_put_swap_pages(folio, folio_page(folio, 0), folio_nr_pages(=
-folio));
-> +}
-> +
->  extern const struct swap_ops swap_bdev_ops;
->
->  int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 75167b8580cc0..8b47e7f1e1931 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -1831,27 +1831,25 @@ int folio_dup_swap_pages(struct folio *folio, str=
-uct page *page,
->  }
->
->  /**
-> - * folio_put_swap() - Decrease swap count of swap entries of a folio.
-> + * folio_put_swap_pages() - Decrease swap count of swap entries of a fol=
-io.
->   * @folio: folio with swap entries bounded, must be in swap cache and lo=
-cked.
-> - * @page: if not NULL, only decrease the swap count of this page.
-> + * @page: the first page in the folio to decrease the swap count for.
-> + * @nr_pages: the number of pages in the folio to decrease the swap coun=
-t for.
->   *
->   * This won't free the swap slots even if swap count drops to zero, they=
- are
->   * still pinned by the swap cache. User may call folio_free_swap to free=
- them.
->   * Context: Caller must ensure the folio is locked and in the swap cache=
-.
->   */
-> -void folio_put_swap(struct folio *folio, struct page *page)
-> +void folio_put_swap_pages(struct folio *folio, struct page *page,
-> +               unsigned long nr_pages)
->  {
-> -       swp_entry_t entry =3D folio->swap;
-> -       unsigned long nr_pages =3D folio_nr_pages(folio);
-> +       swp_entry_t entry =3D folio_page_swap_entry(folio, page);
->         struct swap_info_struct *si =3D __swap_entry_to_info(entry);
-> +       unsigned long idx =3D folio_page_idx(folio, page);
->
->         VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);
->         VM_WARN_ON_FOLIO(!folio_test_swapcache(folio), folio);
-> -
-> -       if (page) {
-> -               entry =3D folio_page_swap_entry(folio, page);
-> -               nr_pages =3D 1;
-> -       }
-> +       VM_WARN_ON_FOLIO(idx + nr_pages > folio_nr_pages(folio), folio);
->
->         swap_put_entries_cluster(si, swp_offset(entry), nr_pages, false);
->  }
-> @@ -2535,7 +2533,8 @@ static int unuse_pte(struct vm_area_struct *vma, pm=
-d_t *pmd,
->
->  setpte:
->         set_pte_at(vma->vm_mm, addr, pte, new_pte);
-> -       folio_put_swap(swapcache, folio_file_page(swapcache, swp_offset(e=
-ntry)));
-> +       folio_put_swap_pages(swapcache,
-> +                            folio_file_page(swapcache, swp_offset(entry)=
-), 1);
->  out:
->         if (pte)
->                 pte_unmap_unlock(pte, ptl);
-> --
-> 2.43.0
+Hi Sakari,
 
-Reviewed-by: Kairui Song <kasong@tencent.com>
+On Fri, Sep 25, 2026 at 11:51:21AM +0300, Sakari Ailus wrote:
+> Can you try doing this with the ipu6 driver instead? We're about to drop
+> the ipu7 staging driver after some smallish number of kernel releases.
+
+I wasn't aware the ipu6 driver had grown IPU7 support, my base was
+7.3-rc5. Tested now on next-20260924 with the ipu6 driver and patches
+1-3, the vd55g1 one reworked as you suggested: the sensor probes,
+ipu-bridge connects both cameras, libcamera streams Y8 804x704 at 58 fps
+from the VD55G1, and Y10 and Y10P stream with plain V4L2. So this patch
+is not needed there; I'll drop it in v2.
+
+Ruslan
