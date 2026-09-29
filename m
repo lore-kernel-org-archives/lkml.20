@@ -1,116 +1,135 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-vs2-f35.google.com (mail-vs2-f35.google.com [74.125.227.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFCB632
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790643540; cv=none; b=sAPPTqvys5JWrelEBsHzO//siELKCCvx5o4Jo3+o6MzvUmOFLBroubcFYrSEcr8SVT4aFl77GeHn1GBIp7lhrSVWqRu+bBul8YqIqquEeBiAYjjW3j4AY6xp1UNPPjpVN+YRf4zdnRZGUsymOWws7KDZ7bxL27BJubiqwIduKYw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790643540; c=relaxed/simple;
-	bh=QmNge30+mb61r8mkp//EH7IPSYGFg+oxdlOC6/zFrAs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ArM408emDJvbqwtSMZ6AQe4OCfc+Jnh86rDCuguI7ZxFce5bFPi1TqWbX1xFwEZRefUvaZY6fgoB9ZS8egpsrlKnQRQiwq+SdWHS1dQze+6Jc7k1mYEn2w3cr6txruwORdlsqEFygw4V+uUET5ByRIjr091mL6xuIICBP2IChho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bBhWcl29; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3432D32C937
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790643595; cv=pass; b=ZPXx+GqXzuG1nnU4MtQ5RaTnFFKjXUjVbL+DKt+/03D9Co2shePHQZTNyZI3/vhrz0Q48XL6oQuDNHb1NvdxtsOexAUye67cdir9vD9G6JxRMAVzZRcJlo2cUMqH/GKCc3Pv5kOHc7sxl1DM1em555eH4KDn56tex42wmucCwls=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790643595; c=relaxed/simple;
+	bh=kdstfPQgPrtTgN4gUdooa+ekBKEl2NJeeJ4iI2g35zs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oXVkZkKozn9ACrDqNHBrFBPFEGn2T1/ZfKH0bNKoJAqNYydJ+rpgSUb7lK+TU4QwDnMfDVCzpCAajJ6UZMR8Ae37DVZi2mkT4INblPFPDyIwBUqFjIgrz2Vtj1MPaYMLhUjxxKYIvnjnY3kRMAXnPijX9agHg3xS9xeDG0yLARg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sRAWytO9; arc=pass smtp.client-ip=74.125.227.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bBhWcl29"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39512608fb1so5778838a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:58:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sRAWytO9"
+Received: by mail-vs2-f35.google.com with SMTP id ada2fe7eead31-7b2d5062bcaso1533862137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:59:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790643593; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SFd2N3RIVSBwj0UuCnmfsVCzSzPYjVfFir/6/U1jLI5Ql//Odi1wvlF385knGYGb1g
+         74pBex5xjOk6kL9/WmkpqBLBKsl/rJM+TUAgT5FapMEGg70Sl8keR++d3ww/g+RZbHKa
+         CaIDKxHlQRNoL8HnWD5Xcvf5mJPhDuyGtwPZnTCAp/VGRzKLUEMUvS1F50E6z0bAx3j9
+         4f8Ng9IdOj1OqBaQNpUbcvokFt4VdzKWJyBH2AgUHVxwpLZzrBlFMXvdZ1IcDCalTum6
+         i7HBvnlvlw31GgCoxFDIbWF/0tJyJnsr0GinaWvlXj6Dtk82FtFswJrXHV80ohw80kit
+         Z5KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V0ADxDwdLkQq+vcZGCf4NIyg5yF4IrOepz6gtzfzxe0=;
+        fh=R3OTbH0dG4QwIAXIrDodyvyZ8nNWVd0AStjnvH4CSoc=;
+        b=bXkDI1s5LcUH2L2g8mXgPymgk1oxkux9VLu3IVhwoxyDw6bABUlgVXZKZPCFGjxJPd
+         XZfWhdGIyQr+AlLSbKNcKtUnC+qdlwHLUhr7IUGFlwk0vWLxZySPxFkeSY1xLbivGfHm
+         lLnz54FdeyrsRkvrOBIF5tnhUbfwze0uWe1EmKfM1tCrArn4qXOymRp2A65MHHE0unT2
+         z3R+X4RjbnrLHzvn5Z6/dCbNsIL6WDYtESNbBzsZbJo3LHWO2jUTasXTj8A5QbAHmztl
+         6etqbQ/J4YZkPxVcttxvPQYH+hcY5C83516bokt3/OnaPdFfgYcrC8jl1esed+vKTgJ6
+         G14w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790643538; x=1791248338; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2qcic7usam/SHffcGqMIC38VmM+lEsSPmwJ4C5RzOkA=;
-        b=bBhWcl29+kW6i9fXLUhv30ehYNmX9QSiEvCWtkK1cbcaEqoW5zQEInkicFBQXX9eZY
-         iEAWGgLU8jQEItPs2ZRIr03Oc3+59P9kiQb2ZqMe1Lmz3QwliwjYDpNNzWiqG5MzRJ2i
-         S1lWELV2WLpWcjcCLzWeoj9SCcRCWhBKOG+DD9TLVvEPd4OhTENWDZGDBiHWU6UXIJ6t
-         eli+OiM0Y6uR38WJYVduhlsQ3/cpWZ1Gl/RQ1YtwdvGPOJKiiltCNpxnhw6VmcTbdnQZ
-         6//k+DhfuOjMS/3bBYo6jdl62aHIOUEoVdHonpZCucQWymGApcD00E23sjXkTBnD010V
-         7ZSQ==
+        d=google.com; s=20251104; t=1790643593; x=1791248393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V0ADxDwdLkQq+vcZGCf4NIyg5yF4IrOepz6gtzfzxe0=;
+        b=sRAWytO9hW7eRbW6bWWAnf1jOwlXuKHzL7lzqJ0x2Pwcaal0BH44JNDqOGeJRx8WNi
+         RLmERVQHi2fbsA8p5VaAm2ajFK/aFFIGjG1m3lYzajH8PtCS1UoccZmotYlNFqugCiDU
+         SOQzyRlF8cJmbxweUH2Gz1xqkUl6O7oTbYKxue5o6vjBa5MS8QiVUODJw8SbGo/BB1zl
+         Bb0E69uDMm5Ni/w0fMlsc5HvNix+q1H+Pg8RI9B/HqIGgO4ZxBmVv3C5GIHjGvcPC/HA
+         DN8AtXkke6TOnO76wpPYeN8QqR43yN+mVfERbRvuPiMsdVChcCsSr2+fXFfGkBCO3Rwd
+         JB4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790643538; x=1791248338;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2qcic7usam/SHffcGqMIC38VmM+lEsSPmwJ4C5RzOkA=;
-        b=nl09NRSicJoRlOWboI7lRoBPCSOlSYV1bV0HjCbGh8GhRP3Pw2MalAWp3QJrBFmury
-         HEqwTpDMInUwCa4ZJkNBSoZYeOR7vBZL6Rmj/ZhRRRtBZFT1no3w8rPqyHRoYZXf0y7r
-         h4FZzehd1F2Ix1KHXrKonjBaP/E1r0eIuPZrKiSD1NgOSLh2AyM/ovbANXYGRwsd7tUH
-         u3uuvXH6Y2ar6W0dkTBgM4Tje1ZYtos83KVkbELgvMmZSv1M2GZBTyyIxgCii3LqrUAg
-         jD6QWJrPpLWfwzxKYpOwill+rhCEOwTNDOr0Xwb1XUWI8Utd9FBDUOBUOw0ONfMKu/MX
-         R8kw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWEzIk6JSu1fpMfZfMj+KM0uS7+x7qu9oAjHnazQyplwQHacLOojfBzuup8wNaSxUjp2l49mbjXJ30Yi0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkgemBgSR/9XI+McLmJ2Egw15UcpLf+CoA62OY2uUA635+XVaf
-	/q+iS2IYcvfeK36IEu5KgrkCdEefjT8rCsOQy14jlAiQNWIELcmxwVFbA57H76MWgt5kXuYDchY
-	/M5PWPw==
-X-Received: from pjth13.prod.google.com ([2002:a17:90a:c38d:b0:3a4:7cb3:b0be])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:48c9:b0:3a4:7730:33dd
- with SMTP id 98e67ed59e1d1-3a477304d8emr2885569a91.58.1790643537918; Mon, 28
- Sep 2026 17:58:57 -0700 (PDT)
-Date: Mon, 28 Sep 2026 17:58:57 -0700
-In-Reply-To: <20260920022649.3145701-1-peng.fan@oss.nxp.com>
+        d=1e100.net; s=20260707; t=1790643593; x=1791248393;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V0ADxDwdLkQq+vcZGCf4NIyg5yF4IrOepz6gtzfzxe0=;
+        b=yfvyfwlZAnPd3OYW26qoVPY1PGAWEMQnnw9CS1OpKS+tiVNIZzcnTwuMx086vbUpUn
+         6nEQ3yPUHt+OuZTNQQERCDN+J1womWYn5LE01dB2JDdh7fZkes8keVDKbPsZZwBGjj1O
+         1HZSqpm/NLCqR9u9TmqRAXLQ/2lccpxd0KbBDReGvX6zwrZF3pYR8yuiFhlpuaPsxKTI
+         cfiFtQfvbEGDGn5WGy5ueZB4BnbhK8h2jc82fvQeJvbBqX+hOSjsnrh0AXsc0AURXWbU
+         s8Wo+QB9w23gyrdLUIKcHsRT8TJnStg6EhrnMxDuT1xQ5N2kl71YdLuGHuoi8ETghlkB
+         mS4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy3jPtz28+jiBRh6tHcnJrA6l75p+tEssBHrewpCb3hgQ3UosP+gpTAAZ5LGUDqZ79a/LGR1D7iOrjjNr8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvePnWOC/HTcuWR2Qu4nmyKfpk8pA6+xnaYHZoae4XRP97b2uB
+	IwPQ4hJVvf3Mal83exW4uZiYywiAhh34Za6R9kZc0jK2qy8EQwFynm1FKGDbngxLuoZ4N8os+9I
+	OL8fUWVFb24+O04jW2SJQCQvyqeIS5b2D2h4xkzs=
+X-Gm-Gg: AYBFou3Vc/Kjsdi995LALQ5kl9PEpLDBbSe++B8dUMoW+ipCGdAxWk+YBkMxz7gDyri
+	i6V3Q4ehhKW9+Bhv8z1glEJyq9261c+kKWqE4oks9eAmTWq1wvBiiTFRr8AClq1lo53RZv/OZDR
+	4xeJE2l1fgk8idDkYTDpIj0eHphGIDdfdUpo8Rh4jW93ZgoPDZ68X3WhVpjbqQus5+j7oMgUDDm
+	SZUUgQXrAoArVUwinBjiI1HCTgPCXmXx39nZyc9eSYzXP28JA5Y73WwJi4QwhqICh166x4h08yU
+	36hJOq/D19jrtu2O+Vl0XRDD17CgCkSHWG0aY5It4NXD+TnGQj6EVI5Bzw4oT/4k34sFPkdq8SQ
+	wrcIsp8JtXpI7oVX+v8/s
+X-Received: by 2002:a05:6102:8645:10b0:7b2:3925:9587 with SMTP id
+ ada2fe7eead31-7b23925a3b7mr2618011137.17.1790643592416; Mon, 28 Sep 2026
+ 17:59:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260920022649.3145701-1-peng.fan@oss.nxp.com>
-Message-ID: <arsNUfVv0NhKZ6zT@google.com>
-Subject: Re: [PATCH] KVM: x86: use assign_bit() where applicable
-From: Sean Christopherson <seanjc@google.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Vitaly Kuznetsov <vkuznets@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
-	kvm@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260928231737.2092716-1-morbo@google.com> <20260928164235.041803152d3f340d4c59e59e@linux-foundation.org>
+In-Reply-To: <20260928164235.041803152d3f340d4c59e59e@linux-foundation.org>
+From: Bill Wendling <morbo@google.com>
+Date: Mon, 28 Sep 2026 17:59:35 -0700
+X-Gm-Features: AclHuK80UuTfMLELvaE_jdAE5HpgJUaUpVSxG6Fx0aY5YOmC9Nc8zrqkCvUINPE
+Message-ID: <CAGG=3QXLkQKiwb0VfpfWKYwSEaBLp38FAo-P0Nja0Sq8CvBbNA@mail.gmail.com>
+Subject: Re: [PATCH] kasan: add KUnit tests for __counted_by and __counted_by_ptr
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	thomas.weissschuh@linutronix.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
+On Mon, Sep 28, 2026 at 4:42=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Mon, 28 Sep 2026 23:17:37 +0000 Bill Wendling <morbo@google.com> wrote=
+:
+>
+> > The '__counted_by' and '__counted_by_ptr' attributes associate a
+> > flexible array member or pointer member with a struct field that holds
+> > its element count. Supporting compilers use these annotations to
+> > compute dynamic object sizes via '__builtin_dynamic_object_size()' and
+> > perform runtime bounds checking with KASAN.
+> >
+> > Add KUnit tests ('counted_by_flex_oob_access' and
+> > 'counted_by_ptr_oob_access', guarded by CONFIG_CC_HAS_COUNTED_BY and
+> > CONFIG_CC_HAS_COUNTED_BY_PTR respectively) to verify that:
+> >
+> >  - '__builtin_dynamic_object_size()' returns the expected byte size for
+> >    annotated flexible array and pointer members.
+> >  - KASAN detects out-of-bounds read and write accesses beyond the
+> >    annotated count.
+> >
+> > Allocate the test structures in 'noinline' helpers and hide the
+> > returned pointers with OPTIMIZER_HIDE_VAR() so allocation-size
+> > attributes and compiler optimizations do not mask the '__counted_by'
+> > and '__counted_by_ptr' checks.
+>
+> Thanks.  Are any of Sashiko's comments pertinent?
+>         https://sashiko.dev/#/patchset/20260928231737.2092716-1-morbo@goo=
+gle.com
 
-...
+Yes. I found a better place to put these tests. I'll send a v2.
 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  arch/x86/kvm/hyperv.c  | 12 ++++--------
->  arch/x86/kvm/svm/pmu.c |  6 ++----
->  arch/x86/kvm/x86.c     | 11 +++--------
->  3 files changed, 9 insertions(+), 20 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-> index 8d2669d8ef34..c131d9a3c550 100644
-> --- a/arch/x86/kvm/hyperv.c
-> +++ b/arch/x86/kvm/hyperv.c
-> @@ -114,17 +114,13 @@ static void synic_update_vector(struct kvm_vcpu_hv_synic *synic,
->  	if (vector < HV_SYNIC_FIRST_VALID_VECTOR)
->  		return;
->  
-> -	if (synic_has_vector_connected(synic, vector))
-> -		__set_bit(vector, synic->vec_bitmap);
-> -	else
-> -		__clear_bit(vector, synic->vec_bitmap);
-> +	__assign_bit(vector, synic->vec_bitmap,
-> +		     synic_has_vector_connected(synic, vector));
->  
->  	auto_eoi_old = !bitmap_empty(synic->auto_eoi_bitmap, 256);
->  
-> -	if (synic_has_vector_auto_eoi(synic, vector))
-> -		__set_bit(vector, synic->auto_eoi_bitmap);
-> -	else
-> -		__clear_bit(vector, synic->auto_eoi_bitmap);
-> +	__assign_bit(vector, synic->auto_eoi_bitmap,
-> +		     synic_has_vector_auto_eoi(synic, vector));
-
-Am I the only one that finds the assign_bit() code signficantly harder to follow?
-Maybe it's just that I haven't seen assign_bit() much, but I've come back to this
-patch several times, and I've had the same reaction every time.  IMO, this is a
-solution looking for a problem.
+-bw
