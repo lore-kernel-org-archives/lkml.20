@@ -1,93 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFC23F20E8;
-	Tue, 29 Sep 2026 03:16:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFDB45FFDF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651790; cv=none; b=uj8dSg5YJsqzc9qdmz5Ai8PXHZYvki5ueoqG/xaNKeRNuv0vepr2pz7kGGONRa1ydbvS6IZfQA1c7vHIZq6D/uKq2jsfsy4A+TnLKv7bgNDfoSef1w1BOH/IW6B3/uSgdhaMFvyWi5eb2m1ftTIyZLJJbiyEMUrRab31rGCgS9U=
+	t=1790651789; cv=none; b=SpUlFsYuRX80v5ge9mCTu9Ifbguf1Jh77AwuGvXwv0+gIR8Axj35VmOMSOPtPuuIqxxnYYhcV81mt99pPbwAu4+tlrd2Pul+rR9g1aUf7bUM77AdzhAjC6DqoX60A0uoOA0iC6evf/Of5sQQn28ZToSo069UW9+UBw/hsRcW9NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651790; c=relaxed/simple;
-	bh=b5RJ9sSRvN8nN6kM7idvsBgWlwAFW0tRfpe2+ixWxLk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f6crI+x8+c/ViwoT64lvMfS8mFRIrLkMTCc6wpcU14FeuWpQlJI7UyLpRXUQvUp9S1ZPmzhSwXSeW9hZTorvJCAhPHRfFIXfWk/2C6FnxpgVb8SQBXZrCpEYTMWHUewtCVbmzUKXKGv9agAnKWi1XO1DWwl5d6bM/YzZ23VCHQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxR/+LNM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651789; c=relaxed/simple;
+	bh=NQUWQekraRK2R+oQCbO6bqaq/zm+kPTsDnaShbnYVKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=potw6AbHZg6AgN4a8YGRXRt9PARml6NZXv5I1GiKrGnx4HbZXm62hh2ctXcDIsTsZfPTx4fy87qNeDEtzD63m220Oe/pMap2wK1P7IqUjc/2G20JRdxn7EC5QBuPvGnDBRmYYQaqua4nuXyd4veMhcHKGS4oKvvEIBKEj6MyWz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ovno2xc7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxR/+LNM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6681F00893;
-	Tue, 29 Sep 2026 03:16:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651780;
-	bh=Bs6ATfsBCrf3p90aWKR9HsITJdWOgHW1hvwEyCOXOcg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LxR/+LNMidOYwTotQglBPeoZsoWwW6HNZ6dTj1eOKlWt3F4xgIEQ+V6r08xaAwSRj
-	 UoTneGJvFDLpJwGiGRGAgNrYQCAbo/MgeHLQtJLBEWwCJnaRtczNREVxT1MVBs32in
-	 JnrX98cNTCxUQTogsf2rW0tPeQO7KIz8cMV8YmTdmE8qKDSXn/6C0gxdZd+9kwqgjP
-	 DyGZU8ytoakaH5IsuYbEeOwyr6csl0h9iwcjsegfoFowch7HJI5fMkojgb4swb6tll
-	 80D2Yhv3lqRgnJin+Q4ioAAM30GBj6tFPSb4Fd10aue4uJwZpVclOstmfS+3dHTxXD
-	 4upOcbeaZTi7g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Wasim Nazir <wasim.nazir@oss.qualcomm.com>,
-	Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>,
-	Umang Chheda <umang.chheda@oss.qualcomm.com>,
-	Yijie Yang <quic_yijiyang@quicinc.com>,
-	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 0/6] Fix regulator voting for the Qualcomm SGMII SerDes PHY
-Date: Mon, 28 Sep 2026 22:15:11 -0500
-Message-ID: <179065170929.2673486.4107059427681942662.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
-References: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ovno2xc7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790651774;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1bJx4NmG9aDPkafQVKf9yGMg66Bh8HADH48d93MDLfk=;
+	b=Ovno2xc7dKPB0W4jzFsGriC4FTMawLMPLITyz06A9vjk+UsDlOt5EmzhSDmvCDS6AJpsx0
+	yh6TXaZaW/0fZSM3TYZcfhMDTtJWHZ1P1BQWMyi8rkkqHcSscg2u/QcSJyPyRLmq2uD18j
+	HnBO883QONJCdnRywD2twSPC5guJqaw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-580-Ti8NtgbCPsuFN5HK_C_xKA-1; Mon,
+ 28 Sep 2026 23:16:12 -0400
+X-MC-Unique: Ti8NtgbCPsuFN5HK_C_xKA-1
+X-Mimecast-MFC-AGG-ID: Ti8NtgbCPsuFN5HK_C_xKA_1790651771
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 484E81840C74;
+	Tue, 29 Sep 2026 03:16:10 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 857541956045;
+	Tue, 29 Sep 2026 03:16:08 +0000 (UTC)
+Message-ID: <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
+Date: Mon, 28 Sep 2026 23:16:07 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
+ state switching fails
+To: Tejun Heo <tj@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
+ <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928235159.515654-1-longman@redhat.com>
+ <941e5affde16b803741ddaf87b937f3d@kernel.org>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <941e5affde16b803741ddaf87b937f3d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+On 9/28/26 10:07 PM, Tejun Heo wrote:
+> Hello, Waiman.
+>
+> The following is a Claude-generated review.
+>
+> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
+>> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
+>> don't leave any housekeeping"), the partition state can be freely switched
+>> from "root" to "isolated" and vice versa. After that commit, the switch
+>> from "root" to "isolated" can fail if it exhausts all the housekeeping
+>> CPUs. Later on, the switch from "isolated" to "root" can also fail if
+>> some of the partition CPUs are boot-time isolated by "isolcpus".
+> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
+> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
+> add a Fixes: tag for it too?
 
-On Tue, 04 Aug 2026 00:57:56 +0530, Mohd Ayaan Anwar wrote:
-> This is a long overdue v2 of the original patch series which tried to
-> address a SerDes power-up failure observed on the QCS8300 Ride board
-> using the phy-qcom-sgmii-eth driver. After going through a rabbit hole
-> of hardware schematics and power data, I now have a fuller picture of
-> this IP.
-> 
-> The Qualcomm SGMII SerDes PHY (used in Lemans and Monaco SoCs) is
-> powered by two voltage rails. The schematics call them vdda-0p9 and
-> vdda-1p2, so that's what we follow in the series. Additionally, the
-> 0.9V regulator draws a peak current of 46 mA and the 1.2V regulator
-> draws a peak current of 15 mA.
-> 
-> [...]
+Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in 
+root or isolated partition") comes after 103b08709e8a. From my point of 
+view, the first commit is the one that introduces the bug. The second 
+commit comes along assuming the existing code is right. That is why I 
+didn't tag the second one even though the second one is easier to 
+trigger than the first one.
 
-Applied, thanks!
+>> The partition is made invalid when the switch fails. However, the
+>> remote_partition flag for a remote partition can remain set and the CPUs
+>> from the invalidated partition aren't cleared from subpartitions_cpus.
+>> Fix this by properly disable the partition in this case.
+> The reproducer below is a local partition and the fix covers that case
+> too. The CPUs weren't given back to the parent, which is what leaves them
+> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
+> both? Also, "properly disable" -> "disabling".
+OK, will update the commit log.
+>
+>> In the case of remote_partition flag, it should be cleared for a
+>> invalidated remote partition. To be safe, the reset_partition_data() is
+>> now enhanced to always clear the remote_partition flag. So there is no
+>> need to explicitly clear remote_partition in remote_partition_disable().
+> After the update_prstate() change, every path that invalidates a remote
+> partition goes through remote_partition_disable(), so the other
+> reset_partition_data() callers never see the flag set. If one did,
+> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
+> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
+> this part?
+Yes, I can drop this part.
+>> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
+>> and more than 16 cores, the following commands was executed after boot.
+> "a x86" -> "an x86", "commands was" -> "commands were".
+>
+>> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>>   		 */
+>>   		if (((new_prs == PRS_ISOLATED) &&
+>>   		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
+>> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
+>> +		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
+>>   			err = PERR_HKEEPING;
+>> -		else
+>> +			disable_partition = true;
+> If a root -> isolated switch fails isolated_cpus_can_update() under an
+> isolated parent, partcmd_disable hands the CPUs back to the parent and
+> partition_xcpus_del() adds them to isolated_cpus, which is the state the
+> check just rejected. Switching to member ends up in the same place, so
+> this may be fine as is.
+If the parent is a valid isolated partition before the child partition 
+is created, it had passed the isolated_cpus_can_update() check. So 
+returning the CPUs back to its parent is fine.
+>
+>> +	}
+>> +out:
+>> +	if (disable_partition) {
+> The early goto out paths never need the disable. Maybe put this block
+> before out: instead?
+Yes, that made sense though the current placement should cause any problem.
+>
+> Also, update_cpumasks_hier() below gets force only when switching to
+> member, to update effective_xcpus. Now that the failure path disables the
+> partition too, should it pass disable_partition?
+Yes, it should.
+>
+> Separately, a partition invalidated with PERR_HKEEPING can become valid
+> again through partcmd_update without newmask (hotplug, or
+> update_cpumasks_hier() from an ancestor), which doesn't check
+> housekeeping. A failed member -> root enable has the same problem, so it
+> isn't from this patch.
 
-[3/6] arm64: dts: qcom: lemans-evk: fix SerDes PHY regulator supplies
-      commit: 457cf65a7997e398d8d6cef08601b4ea61b58e38
-[4/6] arm64: dts: qcom: lemans-ride-common: fix SerDes PHY regulator supplies
-      commit: 0d567fb7def9564d15c334ec0fa5f5f6a0114ffa
-[5/6] arm64: dts: qcom: monaco-evk: fix SerDes PHY regulator supplies
-      commit: de7bc562fc363421902db7bdda8e347cc78a5173
-[6/6] arm64: dts: qcom: qcs8300-ride: fix SerDes PHY regulator supplies
-      commit: e55080f068f3f6b733235fd7618c12e61744244b
+I need to take a further look at that.
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+Cheers,
+Longman
+
+>
+> Thanks.
+>
+> --
+> tejun
+
