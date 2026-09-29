@@ -1,126 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8AA51589F;
-	Tue, 29 Sep 2026 13:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6664522EE9;
+	Tue, 29 Sep 2026 13:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688192; cv=none; b=iRaQt4WocKPqT4L1QrZBnMV+7tSc7MrBfzKyo2bRO9jMoaaLe/xMM5Pu7i/e5f41PsAMgCSTA0S0wSRZnpQ9mixxMf+SQJSdzPk/nPdkrJ+XU5XDcwxTpERssd48ZIAX/lTuBCmTSgV8DgiZ3NsC7QSVgbN9+LkQajue+x7qNk4=
+	t=1790688204; cv=none; b=tA23I3fxeeLp7rEMK8lEp8KXN0VWdYplCnJnnjLpPP0FpRodbszVwswIIupJenR+A0A19+cvgtaTA9djjEfk5tgy63tggcNuc2ZDt4l6cuFprjYxpO84SMzdV7wSWCpAbcan8q6TRlxMN+t/aAOTZ6dm7lOlxhKzozt4p1dowOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688192; c=relaxed/simple;
-	bh=WhZhvqTid00sGEr6jHmxUxphIyPp2JmfayN14qWNZrU=;
+	s=arc-20240116; t=1790688204; c=relaxed/simple;
+	bh=NJH/Ty8hKP11++YpXLnTJJPsPzbKTq9BBXn27D/ZbSI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RhyJ2rS1VTxzHn6A8NEQxdKDt2riyTU6fUiIMca4G73dy2PUsIhMDyscj4rbk8428tI/eeajLq+Q2CdbHtMi78SlQH53Ic0aCR2fhc3dTW+XQ3H3Sq2YxHj3nsSGdTgqBTAg20bEu8Ou6aXz0NYaCY3bf/1elvcgtU25H0Hb2T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoGTfQTU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FjWamkoe2XYX1p2IB22K5r1COdE3bJDZnpPGpNcduB2qzTrk9wH3bzc51xx2u/BsSa4+tEiIvm/lnjVLHkAU23cCpDYefQQcQCMsEmluOnpbgAOM2FLP1M4FNZGJWatlVR0+oLvBH3kOpbWWf+sbludKVRi8Zu2mvIUlqorP8pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tly6v/su; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoGTfQTU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61431F000FF;
-	Tue, 29 Sep 2026 13:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688190;
-	bh=cBZ5sMUeIN86VkUHCeicPmRVb3a2MPzoImdcUHqRfJ4=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tly6v/su"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC341F000FF;
+	Tue, 29 Sep 2026 13:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790688202;
+	bh=HI4C/jiwYX/N7CjDzRld5LnyGnL1nqi8ibv/C0CS1oA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NoGTfQTUx2Xl1sqyKbpdFhdMZdJ+noWXSNmnHsfFGXavFZTVe1Cx5urvzLzwqn5nr
-	 7mLn4mK8T8/R1zhpXkZdIIbFBOIvoM8jHFvRE6ejsR/Ks3EXaYbGQOU64qUGrhnvtx
-	 vuhP22+ENXCWO9Aypfd3LyPbBzA+dGwphUQM/mo//I9W/U08USHbFfdsBJMauHQL7y
-	 F0E9osDHf6p6oK2fJ5PQElXUNS3f14H9qI328tei2n9Zj0yX3cnBTCuyWdcGfNSa5J
-	 uPFxCo2svfx4VA//t7fsv62syC3K5WdxJo4K67tFjVV3VdcaBMn1xyyTcOcsGpQ+KK
-	 qk29TkAqSezVg==
-Date: Tue, 29 Sep 2026 16:23:05 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20260929132305.GJ563127@unreal>
-References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
- <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
- <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+	b=tly6v/su15EynZHHdSsoPNT7mLwdxusdKLx+1tg4vAYxaU2MqkHBKU/mmo7CxPxWe
+	 TPBrsoh8/rRVY1gepROlqaBHq5m0MgSPWxDEJVQZYy6b6nGLW6AliWpu1Nnlylg8Vu
+	 R0ccA75fBmOyK+WdpIY/HBXMufUN40UbqztET66s=
+Date: Tue, 29 Sep 2026 15:23:16 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: kees@kernel.org, pavel.hofman@ivitera.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+e1d0e66badecc32d45eb@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: gadget: u_audio: reject srate request for
+ unconfigured direction
+Message-ID: <2026092951-catlike-psychic-e321@gregkh>
+References: <20260821114854.12218-1-kartikey406@gmail.com>
+ <CADhLXY7fD6jo+xzPPLTh28n9Rw-yhhKYb6ymcyT8iMUjri_GsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+In-Reply-To: <CADhLXY7fD6jo+xzPPLTh28n9Rw-yhhKYb6ymcyT8iMUjri_GsQ@mail.gmail.com>
 
-On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
-> On 9/28/26 13:19, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Exporters keep the &struct p2pdma_provider backing a buffer in their own
-> > private data. An importer cannot reach it, so it has no way to learn how
-> > its own peer-to-peer traffic would be routed before it programs its
-> > hardware.
-> > 
-> > Add an optional @p2pdma_provider callback for an exporter to hand that
-> > provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
-> > class. Exporters keep the provider where it already lives, so this adds an
-> > operation rather than changing any existing signature or structure.
-> > 
-> > Tested-by: Tushar Dave <tdave@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+On Wed, Sep 23, 2026 at 09:01:22AM +0530, Deepanshu Kartikey wrote:
+> On Fri, Aug 21, 2026 at 5:19â€¯PM Deepanshu Kartikey
+> <kartikey406@gmail.com> wrote:
+> >
+> > u_audio_get_playback_srate() unconditionally locks and reads
+> > uac->p_prm.lock/srate, but g_audio_setup() only initializes
+> > p_prm.lock when p_chmask is set. On a UAC2 instance configured
+> > without a playback direction, this results in acquiring a
+> > never spin_lock_init()'d lock when a GET_CUR sample rate
+> > request targets playback, triggering a lockdep "trying to
+> > register non-static key" warning.
+> >
+> > Reject the request with -EOPNOTSUPP when p_chmask is not set,
+> > before touching prm->lock.
+> >
+> > Fixes: eb3a1ce6f5ed ("usb: gadget: u_audio: Add capture/playback srate getter")
+> > Reported-by: syzbot+e1d0e66badecc32d45eb@syzkaller.appspotmail.com
+> > Closes: http://syzkaller.appspot.com/bug?extid=e1d0e66badecc32d45eb
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 > > ---
-> >  drivers/dma-buf/dma-buf-mapping.c | 39 +++++++++++++++++++++++++++++++++++++++
-> >  include/linux/dma-buf-mapping.h   |  3 +++
-> >  include/linux/dma-buf.h           | 19 +++++++++++++++++++
-> >  3 files changed, 61 insertions(+)
-
-<...>
-
-> > +enum pci_p2pdma_map_type
-> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> > +			unsigned int tlp_flags)
-> > +{
-> > +	struct dma_buf *dmabuf = attach->dmabuf;
-> > +	struct p2pdma_provider *provider;
+> >  drivers/usb/gadget/function/u_audio.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/usb/gadget/function/u_audio.c b/drivers/usb/gadget/function/u_audio.c
+> > index e53f2927b539..ff811ea1e25a 100644
+> > --- a/drivers/usb/gadget/function/u_audio.c
+> > +++ b/drivers/usb/gadget/function/u_audio.c
+> > @@ -575,6 +575,9 @@ int u_audio_get_playback_srate(struct g_audio *audio_dev, u32 *val)
+> >         struct uac_rtd_params *prm;
+> >         unsigned long flags;
+> >
+> > +       if (!audio_dev->params.p_chmask)
+> > +               return -EOPNOTSUPP;
 > > +
-> > +	dma_resv_assert_held(dmabuf->resv);
-> > +
-> > +	if (!dmabuf->ops->p2pdma_provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
-> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
-> > +	if (!provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
+> >         prm = &uac->p_prm;
+> >         spin_lock_irqsave(&prm->lock, flags);
+> >         *val = prm->srate;
+> > --
+> > 2.43.0
+> >
 > 
-> 
-> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
-> 
-> This function call here *must* be in the exporter and not the DMA-buf framework.
-> 
-> So clear NAK to putting that here.
+> Gentle Reminder. Please let me know the status of this patch.
 
-"Look, it is easy to complain you don't like how it looks, but this
-stuff is hard there are lots of competing concerns, if you have a
-better idea now is a good time to present it."
-https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+If you wish to see patches reviewed quicker, please help out and review
+other submissions which will cause your patch to move to the top.
 
-Do you have a viable solution?
+thanks,
 
-Thanks
-
-> 
-> Regards,
-> Christian.
+greg k-h
