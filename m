@@ -1,134 +1,186 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11020130.outbound.protection.outlook.com [52.101.61.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84EE4ED1AC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674916; cv=none; b=rNOkB/+4yZRsGRVBq92keRs8Masd1Re/SQ+ypqpRreNxpqAlxjskGLLZOW813X73AMmO24ANK1cWSO0hG+LhzKfPHKpF4yzVlKj8kHx9Oa+dZz8daBdmtWDz8fJ9igpk2E6wGvzfW0STDexOcWUDwuCfuRLxJdOEd5DeEOW/oOk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674916; c=relaxed/simple;
-	bh=0P2nMJyk5QJYGA4+K5hLhmxCTWy627UxvCFBI5LIYM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mzPEEIdKzoStBceZCR70ZQ+qlcv0ilvxM98Pyc+5e6zW36COAohmfeoDrcT1p75E8+aJS+DhQTmdyS/rmdhO7V+4va5cS+P7r2qBDV+YQOJYwujcOjDa/napdiQOoplHW2yPnH92qfonH/f4/bebroAFm2+WUpRO0BoS+3wCC+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1Cm1QUh; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2131C4F68DA;
+	Tue, 29 Sep 2026 09:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.130
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790674920; cv=fail; b=Xx9Z4n3gjyUp6wSERzhR9iKcbaJxJuRRczEIJPmG2HXkcbjkkk/lOdndpUJQ1cWzaKyZKWg+PAXdll0mXBLKsi0JsVuidCGxOKNvuOjX1fpB1D2Nc1Xoq7Tf15+b5pWhpoQg/ERq3XSGZOGwFR7+4VJIoo7rVGiFM/+7DoZh7R4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790674920; c=relaxed/simple;
+	bh=/Egu4UYxRQbGfphyFjmAaJf4LB7lhVQi4m3eOYundTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Nm9jjUIayGk6ioVDzpB5Bh2XXVvJCciZ4G4Mlj/opcLfuSoleufT6UUliVnzRFg4sz4S2MNOq/FL4kxX/frSe+Uxzylb1wxwkPMDh+GjDkY3LASKkCb/Fw5gPVW7lO33Pr5okiLDuyl2pCwaYZDqPO2MktiSSxYz6R4F3ODol1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inmusicbrands.com; spf=pass smtp.mailfrom=inmusicbrands.com; dkim=pass (1024-bit key) header.d=inmusicbrands.com header.i=@inmusicbrands.com header.b=snw+ZCfk; arc=fail smtp.client-ip=52.101.61.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inmusicbrands.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inmusicbrands.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1Cm1QUh"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so3128797f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:41:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790674913; x=1791279713; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UhT/d71flljW9jNeqH8EFFOweIQ3C2k43Y4Y6+ueZeE=;
-        b=T1Cm1QUhMvOHOsoE/25mc+yKMeANrs509H2KdkE6n/Cky9u/eZaknmHacdahljm2Tr
-         Trw5RJwMUQdwUqgNcZmb6K6aCwq87WLAF+rkiWbwt3I+joDhHzN8gWjTtnYYvjvkLcTA
-         DrVRuVA5fMFkvXB9uZakZtwdhPuuIMbyb2L/i1y++Rf1dcC1DvAqrN0lGOqTqtbERj5n
-         cjPWXBK4R+E02daCFta9ypznAEj23LtH19hvtDid+OnUa6XHtTn5nh5PvALPsKk6PiK7
-         sycmpfQ31QjGASQoHeELrsyYSA7sZiTuKaFddL3hx9+3c0CUIIxK2n3oMr5wBkglspQA
-         Ahng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674913; x=1791279713;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UhT/d71flljW9jNeqH8EFFOweIQ3C2k43Y4Y6+ueZeE=;
-        b=v466uvB3tQg5lE7ooUNtyl++qdKiHypI54rdyoziscJQ0jXbGBhwQdNYnzwA2BqaWT
-         cLCtK2t3vvdjj6cvRvrmVkQXtmDW3u+Q4aOeX27cigbWO8WppgGGItOvnfPxtRsv/HTf
-         NARAkP/htyjg6FMW0vLLW37aixqs2uCyuC+1JxJSugIucaXWXCqgYqgeESISsKKCzjeY
-         +as+1Qkok3fEvkq/SiNZd/hMmzvuMP84c+az8CBKgsoJZtl7TOulo1Ed9L9rBvTuJ3aC
-         Wqf/YJ42GsY8sYUT0uk5uoBBMty1JdWvD9Qk592tpapehSBRyUsN0sD0HRMRNiWOcooe
-         1VSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqFlC+iYmN+3GDINwCalgV8hiEHWkL3E5aoTLPXoCMwwPJGBDhpcer9dZ8JoV+HosESXzjeAomxwL/HjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrv+a6sFzcVfrtBJfhoX11zb3LJoBfj3VUcd6zfmncDmmshlMF
-	27CBX+BmoZo6PgPvVzQraEhIX4XnQdR40k1jl0MYwFR3xfh7ovV4oGWB
-X-Gm-Gg: AYBFou1lshblzHh1430uwrdqfgf/UlPqEEqJfNQQTmgTW4nn0bg+WHT39srol0QuguC
-	oYYYamRpPi1YNp954erNkRVEwXEODstkUvzuBzw/VulnGw3D9PSCqAWosdDBp9Kl941Yu48re6Z
-	MZquXtBoUjyYuRdvmLncaE4CYh6XxigcQ15YGa0OuW8TviP6Ae1vPnmryaX/Y+cT+hgngrSVYtV
-	aqVj64N7Jc5g97vTM+QeOdYLrI17v1xrp6KHU9tAdKOAN4SdjYNSpHXxl5uW7WMZvy+2bZVeo+L
-	OeWpZtyRoKq4D6jVNIOQvjDCgiiWqAUec8vu1J1eNXV5huOhzynJpQwQ8fdw0Y3nGkioBltxPoa
-	aFlQGq/sb3pCbqVQ10mW7w69QQPkTYgkkEhHDsd8poE0STr9QVp148l/bvW6tzwZXwkU3bHjhRq
-	kRMEl5SprH5Kn91pjkV4JIrf30jDfPUr2ZbnzObGoY4p8Z4hZLLcz/tj+2z8tx5JuzeC4KwCdhr
-	s8wKZO0fU3X4bTjK04Ef1FeMamuFsLNqnSFcMp3nvd355teO3q8emdVBg7tOfrLiIYLGNvBByzh
-	yiQa8iEk5jzi6LbsYVyzdlE8CMcK
-X-Received: by 2002:a05:600d:8652:10b0:49f:feca:b3bf with SMTP id 5b1f17b1804b1-49ffecab799mr95152725e9.8.1790674912690;
-        Tue, 29 Sep 2026 02:41:52 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe16a2sm64229765e9.4.2026.09.29.02.41.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:41:52 -0700 (PDT)
-Date: Tue, 29 Sep 2026 11:41:49 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v3 01/12] dt-bindings: arm: fsl: Document Variscite
- i.MX6UL boards
-Message-ID: <aruH3VNnY8rUYJIK@Lord-Beerus.station>
-References: <cover.1790512621.git.stefano.r@variscite.com>
- <a4e262cfb08153c23c80cd3098a684816993f1e9.1790512621.git.stefano.r@variscite.com>
- <20260929-logical-fanatic-quail-2ff20b@quoll>
- <art_faJ7Zx5CaWfW@Lord-Beerus.station>
- <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
+	dkim=pass (1024-bit key) header.d=inmusicbrands.com header.i=@inmusicbrands.com header.b="snw+ZCfk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wc5FoOAq1fL6zS+UOy5JrCA/GGXs8OM01ZuLXDE7u+82w89lpXLlQ5qJ8gv+lrgwb0Map5joWZIMy6feA5iZsYQuwrj2OpnHdma5gA5IkkXIse1Pvi2NJfoPqrBlWPZzUQQ5dxwRII/LBzowC/EM0l+HRydpfQ1xbfwWR9rZBK4h3qCdxqZjt70zd4Mc0HrlN/NsdLjirHrkLbTtG0tzFMJ+EE9xv5VLfcfShZvHEPvRQAryRkit+QVItegji/hroHSZff+avPu5TYtpmj5TIsyMMWWpbGtEAACfE8K4pdNIXf3L4FUZau+yV4agxA7Qya+AX1x3ATJ/hJGOe3llsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lDTU7iO0ZBA4zx/KGe3uDYPq4bgJ/FjxVivfKNmjxPk=;
+ b=IWhieonbGPlKXt9Z1a8Ir0FBIyb3BwexVJb8rWXULT9mfWjIYwcdP4Y4RKsH4VM8IWpIIsSwE/GZxPTLDGqLWqNXT3ITkQIqc3EBN9KDMWTaVQO02B/QKgCK0IaIYjxfSVtUny0774xMEkVGJ55NHu8j18sbCVTjoONTeqOdFlyFf2mLcP9eUZ7HhZYCmG4OGxN6iBusWUL9d0xFW7w+tVn+d48sgc01WUZxZdQDkrljXqp1d3XMpNIGzzKwU31Kbx/izOhcTbcKIviRWQZHIofL+FfO3Yc/zCqEXLO9Y9cjY1csSi4vJXRrs0uwsd22QsBg3QlQSVMtQDqJO1vgug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=inmusicbrands.com; dmarc=pass action=none
+ header.from=inmusicbrands.com; dkim=pass header.d=inmusicbrands.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inmusicbrands.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lDTU7iO0ZBA4zx/KGe3uDYPq4bgJ/FjxVivfKNmjxPk=;
+ b=snw+ZCfkVeaf4egXdL6I61auki/TDP38f+oEw0kC3Z0loZ1bYm12X5Vhww1oeZlt2eFXA8Bh6G9QoSQFqDUqxQdRMDeASwOjrCUc+B5ccV+53j3pIZ8LL8033OfzJxx5oo8AiqV8+R1QrFgY5R3cUKKAJF8Kds3hDNPvgcF6pjs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=inmusicbrands.com;
+Received: from BY1PR08MB10263.namprd08.prod.outlook.com
+ (2603:10b6:a03:5ad::14) by IA3PPF84B6E6F47.namprd08.prod.outlook.com
+ (2603:10b6:20f:fc02::291) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Tue, 29 Sep
+ 2026 09:41:56 +0000
+Received: from BY1PR08MB10263.namprd08.prod.outlook.com
+ ([fe80::399d:caec:5af7:cd51]) by BY1PR08MB10263.namprd08.prod.outlook.com
+ ([fe80::399d:caec:5af7:cd51%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 09:41:56 +0000
+From: John Keeping <jkeeping@inmusicbrands.com>
+To: linux-media@vger.kernel.org
+Cc: John Keeping <jkeeping@inmusicbrands.com>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] media: rockchip: rga: fix rotation on rev0 hardware
+Date: Tue, 29 Sep 2026 10:41:42 +0100
+Message-ID: <20260929094142.928758-1-jkeeping@inmusicbrands.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0010.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::21) To BY1PR08MB10263.namprd08.prod.outlook.com
+ (2603:10b6:a03:5ad::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PR08MB10263:EE_|IA3PPF84B6E6F47:EE_
+X-MS-Office365-Filtering-Correlation-Id: 566849f0-37cd-439f-5972-08df1e0de66b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|23010399003|376014|1800799024|366016|18002099003|38350700014|5023799004|3023799007|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	j53Ph9Yz+ykOXIJUmW4YYd/c02+c98lSeJjHqGccWxyy9ddKVd0YoOI3kyuxVNWzCdrpoGVXekuSOddRfeOwgBvd6hWBNkaRS3l/iEPmKNW2LhdDggJkdbNhNHb0H6/QpopdfexEYCC2uZMqdsygu4a1gH/iTduWAvx2JuZ99fdFa2e4rqrO2mZUq4TFbfec5hdhFyacs4TX7+7CY+gNgyZHQms/CQf4nFNCoMGcc2LLD6FBi1Cl4nneq+eu55EjoWNY/9xW1+ofubcLVDhyhdJvu0O0Ayzghz8E8EGDiEtaLbZ1ylC+HxhTWrdgBLPiiynFZ5TQDnR7A48VLbaMjrL51RG8tEwfF1aVHRxmSc08wi64fRwCfpq2SyHtyJBvZxKZGjLN7NHyy5OpBh/FQAAvjQWoNf2/Z0k9ppO828YKjsQkXiW3nAWmSE4BH/C9vfRyY9ppapqN44G2rZtF8bwEBoQJ1uiH8qahe+76YOQiJimdUu92lQkC3OyBzgSMe/B5DC8qJwJ7d0uO0BemW3ETKVvrdacCKVTszLLUuPFalPJTNqfdVvsUIN/wxsq9zaNnG3aISo/Nau+YcPUlAnACaNrWb1TkT+7hE74v73zKFTOpN7CzsjamkrDEoJrPGSwyGxpALHQ42IHVQSTKNaSsQk+/Rt+I6ojQq/p2KfqDb2E2E5jw/yjJ5BOYUgrwwXY8dqurhMYFYpZ21kGcI3S1Z+E/RH2ja1h5t6Wzj7Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR08MB10263.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(376014)(1800799024)(366016)(18002099003)(38350700014)(5023799004)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sZfhBBfquAQXpTbq/1U2VVfjfqJ7Gkg/uBqkBJpCohqA+eEm53w8h9o8lwOQ?=
+ =?us-ascii?Q?o8VxiOE5vxrIG5Ly6h64YWeSc/2koUnt/ZnXO4Pr1XzfbKHykpPNpKRSbyUR?=
+ =?us-ascii?Q?X0PniUj17tbTHhcbC8B6IZ9cKzgfoPhuzJJa2FtGQhkVu8Vu53g5aKavYyCj?=
+ =?us-ascii?Q?lsFAEAU7NwcuRn9oGuQU0l6urNKSYCBZxH5a6R/RjEIjX2jmW2r4hAh16F7A?=
+ =?us-ascii?Q?SYUQQKDtFPVf6qtHdAcjHf60dAe0yP2cEQDpm9YwPDYCFkIcDCGiPPmO+SQW?=
+ =?us-ascii?Q?pD2WYTmivH3VGchfUW5US40i/hTOaY5U+AArCTE2OrQiguI8ofAPv2Dfn1oe?=
+ =?us-ascii?Q?ewJU2d2LXL4Cf5eW3NtEkDWUDlEBTUaf8c0AT0u6ANu/84o99rhpPH8qkViK?=
+ =?us-ascii?Q?7PEL2TehSnUNGV38bHziPwS17x1ciKspIDQpuQit7WZvZu6vfpWXexyNAyRB?=
+ =?us-ascii?Q?esNnc1SxQG1BbTphetlV5wq4uFZ4V1YDkLV4WyrCu/HP/lGVXtl4pwzu/tNR?=
+ =?us-ascii?Q?c7ZgaHUeAEZ0ZZ1YTiR2mZ42aMcsWE0qmHxvQLY6G3EeefboOWzrEpgt+TcE?=
+ =?us-ascii?Q?jz7VSPCoD30ADgHtR1BH8RWGnnhpNhMlsHS35IHlr8bV6u6YMIiHj8xjexK5?=
+ =?us-ascii?Q?MpyXv2uIjTe15KlF++k4JeDgkGqw7e1Emg8zl+tNv3spCHNe8D1OPIkakdn9?=
+ =?us-ascii?Q?aUguWtlxgVHRnxAEP26cVYfG4Hc6HipJ6dekT0e+cUktqFqVC86vPuZ0SJUE?=
+ =?us-ascii?Q?7OQc9cGoIJtQIKOLsLB46Fbp7G+2n7xXWANOV6ypDw9cChEi67xu7F01/Jy+?=
+ =?us-ascii?Q?4pgY60rzM1cWrAYPEtxd1twoRKGDWk9yfIS3DI8NTiYc1rJSUf8Crm5QLPs3?=
+ =?us-ascii?Q?q1JxxFlflCeBEoJ3FxVF9+DGrZKMeBMUkICiMbwCNmFzRVhFmSZ4wlfj9oX+?=
+ =?us-ascii?Q?Yavt4UvVlaMXr3At9KR+5uzdg4+Y3niOqBjH+OnEoK9UiXqVZpDiNTDqo7og?=
+ =?us-ascii?Q?Dh1xJhSmvZQEis3ztY6YcNtlwH/Kygajb8T4kZV1/rVqZ5iX/g/WmtK/vFjh?=
+ =?us-ascii?Q?4kg60akwku5oxJ/dEmvyGH7V94ZhCLWNODFXqz+cjxZRftVBReikJRT9BT9O?=
+ =?us-ascii?Q?jnW9d5YXtslq86r34oPiidp5wAotubzZ5Jym6rHOi6aP6zVRLf0fdAWnOyYW?=
+ =?us-ascii?Q?AnLRbUtvtNMayX0KlXZ4UZSHcLTheV+jL9lMoGkmUi81GyzzFjNukApms9vl?=
+ =?us-ascii?Q?tbOmUi05VK74SZ7HueBCkwhgwvCv/FWCKQK4AysI+TrsXSOQ/O92fxYnHUh4?=
+ =?us-ascii?Q?PY3tT2Ut02AL7ZGw8srtgNcWJcadFn5WFDgimuwBOqw6KTUB5pCwG8amAM7Z?=
+ =?us-ascii?Q?W8NFcN28UXB43qLZtOPwZVDcO+Aulfmir3V8wy7HTWoZ4XDLXVcE0szOQ/6q?=
+ =?us-ascii?Q?IhSPqTZ0oHN8cK1PVmTIeROmnnZAAMpb9Zk3k8Y0c4qrA5CZ70FE7swJkIR2?=
+ =?us-ascii?Q?kUHXR7dGQUNdWF2sukyUiJeUkLSZgW6+ENVTEFY700kFMOADysiK4elucRmA?=
+ =?us-ascii?Q?JRfytjqVJFeKGW5Q77JLRKkfevulailRoQeYvb6TLF/jZJNY6kslIwqfA/Am?=
+ =?us-ascii?Q?xuXPbQA9kNVqdl0LhPlmlT5l55ExymXwkCroI0mlFzlYSZS2cG6Up3eLEiZm?=
+ =?us-ascii?Q?jfYJjhySBCO/ebIErp1l/FYiGujkDBIuJ1cMRNSTL0tC+Z9tVoq66J4bLSIU?=
+ =?us-ascii?Q?CLuEbptBxomUT9MhH+tOi2oGaHRJ/Gk=3D?=
+X-OriginatorOrg: inmusicbrands.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 566849f0-37cd-439f-5972-08df1e0de66b
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR08MB10263.namprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:41:56.0383
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 24507e43-fb7c-4b60-ab03-f78fafaf0a65
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fGIDVU/eJRt2IANtwLXJOh3q+iGFiA7+6g8QH3rT7RAUP+NobULikAjydgHu/apXrGc6kYda80XmIvqvKCDC/+Ak/VNGJOvOqdFT9HzFpMc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PPF84B6E6F47
 
-On Tue, Sep 29, 2026 at 11:32:45AM +0200, Krzysztof Kozlowski wrote:
-> On 29/09/2026 11:06, Stefano Radaelli wrote:
-> >> Also, look at other examples here, like Toradex. The actual variant
-> >> should be the last.
-> >>
-> > 
-> > Could you clarify what you mean by “the actual variant should be the last”?
-> > For a board with eMMC, SD card and WM8731 mounted on SOM, would you prefer
-> > variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto or
-> > variscite,var-som-imx6ul-concerto-emmc-sd-card-wm8731?
-> > I had used the former ordering following examples such as
-> > toradex,colibri-imx6ull-emmc-aster. (som - som variants - carrier)
-> 
-> Indeed, the carrier board is the last part. Just to be sure - in your
-> case the emmc and WiFi are on the board?
-> 
+On RK3288 where the RGA reports version zero [1], rotating a buffer
+gives corrupt output where one edge will be truncated.  This is a result
+of some adjustment done specifically for hardware revision zero.  But it
+seems this is not necessary and there is no evidence for why this
+adjustment should be applied on these hardware revisions.
 
-Yes, eMMC, WiFi and the audio codec are configurable options on the SoM.
-The carrier boards are shared across our 32-bit and 64-bit SoM families.
+Comparing the TRMs between RK3288 with revision zero and RK3588 with
+revision 3.2 there is evidence of new features supported by later
+hardware, but nothing indicating any difference in behaviour for
+rotation which is supported by all hardware revisions.
 
-Thanks for clarifying,
-Best Regards,
-Stefano
+The logic here looks wrong anyway, since it's bizarre that minor
+revision zero would need the adjustment for _all_ major revisions.  This
+was added with the initial version of the driver in commit f7e7b48e6d796
+("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
+Git history to indicate why this special-case might be needed.
+
+[1] Comparing with the vendor code, it seems this is actually 1.3 with
+    the hardware reporting zero more by coincidence than design since the
+    version register is not defined for RK3288.
+
+Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
+---
+base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
+
+v3:
+- Rebase on media-committers/fixes and add base-commit to hopefully make
+  CI happy (patch content is completely unchanged)
+v2:
+- Remove variable that is unused after this change
+---
+ drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index be1bc8ddbd03b..2e7ec8b7c20f7 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
+ 
+ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+ {
+-	struct rockchip_rga *rga = ctx->rga;
+ 	u32 *dest = ctx->cmdbuf_virt;
+ 	unsigned int scale_dst_w, scale_dst_h;
+ 	unsigned int src_h, src_w, dst_h, dst_w;
+@@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+ 	 */
+ 	if (src_info.data.rot_mode == RGA_SRC_ROT_MODE_90_DEGREE ||
+ 	    src_info.data.rot_mode == RGA_SRC_ROT_MODE_270_DEGREE) {
+-		if (rga->version.major == 0 || rga->version.minor == 0) {
+-			if (dst_w == src_h)
+-				src_h -= 8;
+-			if (abs(src_w - dst_h) < 16)
+-				src_w -= 16;
+-		}
+-
+ 		scale_dst_h = dst_w;
+ 		scale_dst_w = dst_h;
+ 	} else {
+-- 
+2.55.0
+
