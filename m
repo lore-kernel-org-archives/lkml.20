@@ -1,82 +1,81 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144C44F30CF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A978D4E9C2C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673519; cv=none; b=WILQkGtZ8OldqfveHi0QU0g6jDLOzsQsSylewoVw6nDjqSRiuvIw7E7psknVIO3OUsuVl51YzfUMI3c7ry7l5YPhm/p5oCz1a81gjlWtHXTpVI1xVAueMA2C0qLug7BZ7ODmmtT9Jx5jtYDXIbRxzcvbVAMxWJLWyYFo4nc+nsY=
+	t=1790673515; cv=none; b=pK2YPi4YHDzt61/XaQ81Kuf1WWNbf0dt7pW/Gsi+gdU4iisBRE4QCxgAVvaZ5roUktDz4Raw6DHHB0cySeU5MgYh+yujPiXXTlq9rYznBjBhd4pjIwsALBAj8bP7tzgRAw8RibKg7B6f00B0hgEV5gbPRXJ3xSlAKskvIti8wqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673519; c=relaxed/simple;
-	bh=t7S3NB90q4HUpgPLh59sgkTgWMG5rhdWOmHIJwVqATo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DMXzzX3ta1FyMJIBKUPcSqKfLSMIL8GkZdoSWFwfFsOSC3PlQeliLDSNv7VjWVbsGvCqR5t3uSwv/fSux9fCxF0MbZPCEeWDMizAtRmL5QUvYQ4TukhpOfaMdUoa01cZar7vE+aPzYkiPz4bHfdU4wnZSwSkU/iXRz7C/zMaL00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=N9eq3AU3; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1790673515; c=relaxed/simple;
+	bh=Gd5DEslAjp0F3HbJsyLFYAPL42//vOVQ1Ghf2T01Jss=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nAcSQfUuEI1VQq4xMHu800Of8gEMoB+WY7MG7ewQho2R6eLJpQTSTeT0jiPYA6Kb0ttOylh4Az2Yp//FpEUOcNqJYm2DXw+t+JetIkvcLBG+hziGY3pbhZPpG28gZCXGp8D5SI2geLCQOW4RF62FdXrdbMlA4Pv1YGtLGuf0C94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=Ab9oHK2w; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="N9eq3AU3"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso29078725e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="Ab9oHK2w"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f6cf16bso2462089f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1790673504; x=1791278304; darn=vger.kernel.org;
+        d=bynar.io; s=google; t=1790673493; x=1791278293; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fbCtCdN41oUeQDzmeeAwIL8Ae/PndxFH3eQau/EA3HQ=;
-        b=N9eq3AU3cpfAp2+eJVs3YiL5baWuPUxGXJnF0+ikT02HxlwqjfjU0xQ3Kub3rRoy8a
-         D7i3wSbzkWx54OqJu0guHImEoQYzxO5eXY5JVjcOkTyfeufc7vyO3CwQTJhnfvai5Gzs
-         kkiyqP2ZXA3Thgas4ZXw+rZfQ5BKp5f7hNcQA=
+        bh=qV4Q28ZD1a1XczdrerQyg+46L7FroccXV02Vmd8dVAM=;
+        b=Ab9oHK2wGZuF14P1+tZ9tdR4HiUI50h9/U8HVkfPzKHWpXtEkYNxrsAgDTQKlhNBWV
+         tZLpK6nOMk+B8yJwHhSoB2ZzVTwIRoNJFBqs4++Zhijrf3AaG+/HP7uAAyGL1LZXDbb/
+         bfZixi0FYlOPFjGQs12mirDLpn/AHDY8bBdq0izCa9pivXuDxX0mftdkb3PXLVXq5PBV
+         owdx0sgDVUKj/hgKJYdirxAf/dnO4tEIZNsXNZd0sdRD+P3oTWf6AhWeY/gp0nw/KvZE
+         A3D18AxVIsh6bThLmT4xV+sch+vDzBH528II3tngJ1MW96luuep8nkKuOO9sBdFn9okF
+         Dq9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790673504; x=1791278304;
+        d=1e100.net; s=20260707; t=1790673493; x=1791278293;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fbCtCdN41oUeQDzmeeAwIL8Ae/PndxFH3eQau/EA3HQ=;
-        b=FNw/WDn5xj4LSU2Zkkw2FsPTAyxGAwIaJDuOm1Fn2NIg2uBk+7POLB+klHrvJ0fxU0
-         wOZDzq+8qkSouj30ECtxsYeBK8HDc97TahYeW9jFB86atBZXRn4CIiWI6R4dtzpeOS23
-         ufJJyKkrstGNkbyTw1OYWl6h6EhCCbb71n60JCqpyfAIhiAtNZT0s0pDXJByfYkg5GW2
-         OhH9YatHesvYPtPxW8Q2PY6a92K2zXl2+siOPo+34zzYkBplSRw/LAF43Y771Lyp790V
-         pI9SumolFDF7aj3/gT2rGo8hLMRWx9tHzYjVIbr9RLwLLn59rGglHGSjGDVrJ4MYcTyR
-         0INg==
-X-Gm-Message-State: AFuF++l1lVSSgVU/jHYAin2MCrLLSXI3BqkBDPXJQyv/+cqFHutYidDu
-	mvj/EjbK98o1eGoe2WF5FeCz2X3KqbD1/h4GfF0VmmFhh0+zk+5JMKbDsgMgdsP58F8NRy+UiMq
-	3wRZUVaA=
-X-Gm-Gg: AYBFou2rxm+8gjHeRTBHjWTWVa2ugFfAL6YUKb99L/WG0vYSTjYE1KxoAUMdBKt/R7h
-	zKh59I+TTKSbM+T3tOlE+c9qUK5KAiFxmbqgA5QYlAEz+gUZcG5s1NUV349JytEhBdayD1S/rSf
-	uWiMvWttN3N+6XU/YozSuugncYpItxY0V0UXbhQIyYdBnQZmLQo2TomuNIc/wD4UoGACOnvSqUu
-	Ki9M/M2IZ9sTmmx0hnqlsMmbecCeKr8n7c9Cgmv1mEqSy3JxGLZ825s798dO+lP7nxlZ7d4Sy7W
-	e06YkQZGUA9N0lXADJBvxWU8Ouc9mmfiP0FhgelvZK3pdfOFZByN5CpI23CkISy5gy3Faax5Xjm
-	enYDLO+vsWygZPZjU2sErIS4wfQ4sOc6Cc6BZMvcaKdyuEc95qhO4gUJ9GKRaGLV3efzjqWvO1a
-	LkWqh2U4IrwFmmt6HoHj7wbB+KN3SeNRENePu7C6ioiGm4Ai0Ge1EpR4UAfPfPj0TcEz4t02W+t
-	e8C263WHbMdi8U=
-X-Received: by 2002:a05:600c:1d0a:b0:4a0:4cd:7e1d with SMTP id 5b1f17b1804b1-4a004cd886amr76626455e9.8.1790673503618;
-        Tue, 29 Sep 2026 02:18:23 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b150sm59178575e9.7.2026.09.29.02.18.22
+        bh=qV4Q28ZD1a1XczdrerQyg+46L7FroccXV02Vmd8dVAM=;
+        b=kj0PnzHzWk991CWpZa999qTrjZXjZg8eq/+BgQILXlXVVQFubQa1HYkqGrfryOeHTq
+         64DL4KQKdp+1Dnjnp7vt4IvmHYdoiYCRMx/mRMpftXP4pNTCt5OPw0/65jZ5/UCf2x1/
+         04AfkMWcD9H58fGVb+M9cv8pK/dtolXlBOqnwKcqzPQiQBpflsNDuCfURM36kqkwVkrJ
+         MSiigPaJTE38k9nRy0xBQB+X/BJdcUwk2ToEvCq0pNqUfhuNfdNh7h1KhWPehZLpYnUO
+         GWkUwg18gSpsZy4zB6GPChJLIxmGORKEVUhFzZML7bHLuHuebrMa2fS3bhjrexMjvoE9
+         R7xA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8wrS6bcp5Plj/F0QreJmWeNwUwAMarUa1/aizyRicXaQvFOm5UNSmol/eb3iAo6oSO6bBbNloR5yaxqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQopB8VEMfED35XLmDwA7KfMowOZSae36U55Fl9rWsfqvKKGBz
+	4WtucTwAX3xIxE4h+6ljzJRgxL/jP5cx96TPCVJztbx6feWu9Kgzhc9cTtbXk7m+n7Si
+X-Gm-Gg: AYBFou1XXTX6OAhazGD7vX5DlBlYcYxlEiAsyhEzj71KI8+Mb86STDVxE/XTQ8sDJzB
+	QDvGgs+DBj/QOU2SDLd+VAc3urm0mKfrgeSEbCSPyjPlkt052QAL+5GnjDYPipJedr56YJHRWS0
+	n1sCOMOuWf5g0nvLyG9fpeEOZZJEbyIOhQXa1QR+TjdSgk7nNCCXMjEk7PTDBs+9GbM7eUKoUGS
+	98whdBo3Ysg1phwH2xsW67LMnUis0cSWvCXNi3jWmvGKEQJ/3B/YNnWRjbisiHqzeW6K7stjno5
+	cHk+AYZrG+jPDsPb9zshKVB95psuVtQpPMYJaO2q8LHt/D9xzq5bShw9oWLWRmN+TfV0n23pbG8
+	Bi/+hXFY9H88ExT/Plq4ZcuAKKg7BOj8RQMB9JV4oPeKnsCsK43mz9UiYMNn0aaKKakd2YWxgY+
+	HOAwFhjMkrULnuOVrgkbjiri/r3a6NCCfzb1S2vk/5ciJxKXSWfkjuUXwStPmlVRNHP84J+zRlJ
+	vLI45d34I2nLKsa1sBtCH33PzlWqgoSbqFjWw==
+X-Received: by 2002:a05:6000:4a1d:b0:487:1470:52d9 with SMTP id ffacd0b85a97d-4887d9fa527mr21778647f8f.3.1790673492769;
+        Tue, 29 Sep 2026 02:18:12 -0700 (PDT)
+Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:18:23 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v2 2/2] arm: dts: nxp: imx: Add devicetree files for M48
-Date: Tue, 29 Sep 2026 12:18:10 +0300
-Message-ID: <20260929091811.3735201-3-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929091811.3735201-1-petko.manolov@konsulko.com>
-References: <20260929091811.3735201-1-petko.manolov@konsulko.com>
+        Tue, 29 Sep 2026 02:18:11 -0700 (PDT)
+From: Diego Oliva <diego@bynar.io>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	linux-cifs@vger.kernel.org
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/7] smb: client: fix OOB read of the resume name sent in TRANS2_FIND_NEXT2
+Date: Tue, 29 Sep 2026 10:16:32 +0100
+Message-Id: <20260929091636.2618227-4-diego@bynar.io>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260929091636.2618227-1-diego@bynar.io>
+References: <20260929091636.2618227-1-diego@bynar.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,557 +84,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+cifs_fill_dirent() reads the fixed part of a directory entry and the
+name length it holds, or for SMB_FIND_FILE_UNIX scans the name for its
+terminating NUL, without knowing where the response ends.
+cifs_save_resume_key() calls it for the entry at the LastNameOffset the
+server chose, after every FindNext and after the FindFirst of a search
+rewind, and records the name it returns as the resume name of the
+search without bounding it; the next CIFSFindNext() copies up to
+PATH_MAX - 1 bytes from that name into its request and sends them to
+the server. cifs_filldir() bounds
+the name against the end of the response since
+commit f8cf09a53a0d ("smb: client: bound dirent name against end of
+SMB response in cifs_filldir"), but only after cifs_fill_dirent() has
+read the entry, and nxt_dir_entry() checks the entries it walks only
+against sizeof(FILE_DIRECTORY_INFO), for every level but
+SMB_FIND_FILE_INFO_STANDARD, and never sees the first entry of a
+response.
 
-This one adds the DT for the two variants of M48 that are based on
-imx6q and imx6dl.
+Bounding where last_entry starts, as the preceding patch does, does
+not bound the read. A last entry that starts within the final bytes of
+the response still has its fixed part read past the end of the
+received data, and the name length it declares, a __le32 for every
+level but SMB_FIND_FILE_INFO_STANDARD and SMB_FIND_FILE_UNIX, is
+recorded without being checked against anything. CIFSFindNext()
+rejects only a length of PATH_MAX or more, then copies the name, up to
+4095 bytes, into its request and sends it, and as the report below
+shows that copy can run past the end of the cifs_request allocation
+that holds the response. For SMB_FIND_FILE_UNIX the name is in
+addition scanned for its terminating NUL over up to PATH_MAX + 1
+UTF-16 units, or PATH_MAX bytes, before any check. The FindNext that
+carries the name is only sent by the SMB1 dialect, which is not
+negotiated by default; reaching it requires an explicit vers=1.0
+mount.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+With KASAN enabled, a response whose last entry declares a name
+longer than the bytes that follow it gives:
+
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in CIFSFindNext+0x8ca/0x14c0
+ Read of size 4080 at addr ffff88807c823f98 by task ls/83
+
+ CPU: 0 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  kasan_check_range+0x10f/0x1e0
+  __asan_memcpy+0x23/0x60
+  CIFSFindNext+0x8ca/0x14c0
+  cifs_readdir+0xf51/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
+
+ Allocated by task 83 on cpu 1 at 13.497119s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address belongs to the object at ffff88807c820000
+  which belongs to the cache cifs_request of size 16588
+ The buggy address is located 16280 bytes inside of
+  allocated 16588-byte region [ffff88807c820000, ffff88807c8240cc)
+ ==================================================================
+
+The read is the memcpy() that copies the recorded name into the next
+request, so those bytes go to the server.
+
+Pass the end of the response to cifs_fill_dirent() and have it reject
+an entry whose fixed part does not fit or whose name extends past the
+end, before either is used, so that both callers are covered;
+cifs_save_resume_key() computes the end the same way cifs_readdir()
+does. The name bound compares the bytes left between the name and the
+end with the name length rather than adding the length to the name
+pointer, since the length is a 32-bit value taken from the entry and
+the sum could wrap on 32-bit systems. cifs_fill_dirent() is also used
+on the SMB2 readdir path; there smb2_parse_query_directory() has
+already checked every entry against the end of the response, so a
+valid SMB2 response is not rejected by the new checks. The check
+cifs_filldir() applies after the parse is left in place. The NUL scan
+for SMB_FIND_FILE_UNIX names is capped by a separate patch.
+
+An entry and its name lie inside the data area of the response, so a
+server that points LastNameOffset at the entry is not affected. One
+that points it at the file name, as MS-CIFS 2.2.6.2.2 describes, has
+its last entry rejected here; the listing is unaffected, because
+cifs_readdir() records the resume name from an entry it emitted, and
+before this series such a response could instead end the listing early,
+since a name length read from the wrong place is usually PATH_MAX or
+more, which CIFSFindNext() rejects with -EINVAL.
+
+On trees before v6.19 the type for the level 0x105 fixed part is
+spelled SEARCH_ID_FULL_DIR_INFO; adjust when backporting.
+
+Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
+Cc: <stable@vger.kernel.org> # 6.1.x: f8cf09a53a0d: smb: client: bound dirent name against end of SMB response in cifs_filldir
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
 ---
- arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
- .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
- .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
- .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
- .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
- 5 files changed, 495 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+ fs/smb/client/readdir.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 1a2539fa19b4..44b393256235 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6q-dmo-edmqmx6.dtb \
- 	imx6q-dms-ba16.dtb \
- 	imx6q-ds.dtb \
-+	imx6q-draeger-m48.dtb \
-+	imx6dl-draeger-m48.dtb \
- 	imx6q-emcon-avari.dtb \
- 	imx6q-evi.dtb \
- 	imx6dl-b105pv2.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-new file mode 100644
-index 000000000000..45809770d16f
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0+
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 6ab4e687c3e4..fdbe22b24c47 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -586,30 +586,46 @@ static void cifs_fill_dirent_std(struct cifs_dirent *de,
+ }
+ 
+ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+-		u16 level, bool is_unicode)
++		const char *end, u16 level, bool is_unicode)
+ {
++	size_t len = end > (const char *)info ? end - (const char *)info : 0;
 +
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *  Based on work by Russell King
-+ *
-+ *  Device Tree file for Drager M48 Board
-+ */
+ 	memset(de, 0, sizeof(*de));
+ 
+ 	switch (level) {
+ 	case SMB_FIND_FILE_POSIX_INFO:
++		if (len < sizeof(struct smb2_posix_info))
++			goto too_short;
+ 		cifs_fill_dirent_posix(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_UNIX:
++		if (len < offsetof(FILE_UNIX_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_unix(de, info, is_unicode);
+ 		break;
+ 	case SMB_FIND_FILE_DIRECTORY_INFO:
++		if (len < offsetof(FILE_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_dir(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_FULL_DIRECTORY_INFO:
++		if (len < offsetof(FILE_FULL_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_full(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_ID_FULL_DIR_INFO:
++		if (len < offsetof(FILE_ID_FULL_DIR_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_search(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_BOTH_DIRECTORY_INFO:
++		if (len < offsetof(FILE_BOTH_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_both(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_INFO_STANDARD:
++		if (len < offsetof(FIND_FILE_STANDARD_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_std(de, info);
+ 		break;
+ 	default:
+@@ -617,7 +633,17 @@ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+ 		return -EINVAL;
+ 	}
+ 
++	if (de->name && (end < de->name ||
++			 (size_t)(end - de->name) < de->namelen)) {
++		cifs_dbg(VFS, "search entry name extends past end of SMB\n");
++		return -EINVAL;
++	}
 +
-+/dts-v1/;
+ 	return 0;
 +
-+#include "imx6dl.dtsi"
-+/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
-+ * PAD configuration register must not be 0, so it is set to 0xfff
-+ */
-+#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x768 0xfff 0x000 0x000C0000 0x0
-+#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x788 0xfff 0x000 0x00000200 0x0
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 DualLite";
-+	compatible = "draeger,imx6dl-m48", "fsl,imx6dl";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-new file mode 100644
-index 000000000000..1266b8451fa1
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ *  Device Tree file for Drager M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6q.dtsi"
-+/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
-+ * PAD configuration register must not be 0, so it is set to 0xfff
-+ */
-+#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x790 0xfff 0x000 0x000C0000 0x0
-+#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x7ac 0xfff 0x000 0x00000200 0x0
-+
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 Quad";
-+	compatible = "draeger,imx6q-m48", "fsl,imx6q";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-new file mode 100644
-index 000000000000..bcfe7b2556cb
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-@@ -0,0 +1,369 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *  Based on work by Russell King
-+ *
-+ *  Device Tree file for Drager M48 Board
-+ */
-+#include <dt-bindings/clock/imx6qdl-clock.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
-+&iomuxc {
-+	m48 {
-+		pinctrl_m48_uart1: m48-uart1 {
-+			fsl,pins = <
-+				MX6QDL_PAD_SD3_DAT7__UART1_TX_DATA 0x1b010
-+				MX6QDL_PAD_SD3_DAT6__UART1_RX_DATA 0x1b010
-+			>;
-+		};
-+
-+		pinctrl_m48_hdmi: m48-hdmi {
-+			fsl,pins = <
-+				MX6QDL_PAD_EIM_D16__HDMI_TX_DDC_SDA 0x1b0b0
-+				MX6QDL_PAD_EIM_EB2__HDMI_TX_DDC_SCL 0x1b0b0
-+			>;
-+		};
-+
-+		pinctrl_m48_lvds: m48-lvds {
-+			fsl,pins = <
-+				MX6QDL_PAD_EIM_A22__GPIO2_IO16 0x1b010 /* DISPLAY_EN */
-+				MX6QDL_PAD_EIM_A20__GPIO2_IO18 0x1b010 /* BACKLIGHT_EN */
-+				MX6QDL_PAD_EIM_A18__GPIO2_IO20 0x1b010 /* DISP0_CONTRAST */
-+			>;
-+		};
-+
-+		pinctrl_m48_i2c2: m48-i2c2 {
-+			fsl,pins = <
-+				MX6QDL_PAD_KEY_COL3__I2C2_SCL 0x4001b820
-+				MX6QDL_PAD_KEY_ROW3__I2C2_SDA 0x4001b820
-+			>;
-+		};
-+
-+		pinctrl_m48_i2c2_gpio: m48-i2c2_gpio {
-+			fsl,pins = <
-+				MX6QDL_PAD_KEY_COL3__GPIO4_IO12 0x1b820
-+				MX6QDL_PAD_KEY_ROW3__GPIO4_IO13 0x1b820
-+			>;
-+#define GP_I2C2_SCL <&gpio4 12 GPIO_ACTIVE_HIGH>
-+#define GP_I2C2_SDA <&gpio4 13 GPIO_ACTIVE_HIGH>
-+		};
-+
-+		pinctrl_m48_i2c3: m48-i2c3 {
-+			fsl,pins = <
-+				MX6QDL_PAD_EIM_D17__I2C3_SCL 0x4001b820
-+				MX6QDL_PAD_EIM_D18__I2C3_SDA 0x4001b820
-+			>;
-+		};
-+
-+		pinctrl_m48_i2c3_gpio: m48-i2c3_gpio {
-+			fsl,pins = <
-+				MX6QDL_PAD_EIM_D17__GPIO3_IO17 0x1b820
-+				MX6QDL_PAD_EIM_D18__GPIO3_IO18 0x1b820
-+			>;
-+#define GP_I2C3_SCL <&gpio3 17 GPIO_ACTIVE_HIGH>
-+#define GP_I2C3_SDA <&gpio3 18 GPIO_ACTIVE_HIGH>
-+		};
-+
-+		pinctrl_m48_usdhc3: m48-usdhc3 {
-+			fsl,pins = <
-+				MX6QDL_PAD_SD3_CMD__SD3_CMD 0x1B060
-+				MX6QDL_PAD_SD3_CLK__SD3_CLK 0x1B060
-+				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B060
-+				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B060
-+				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B060
-+				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B060
-+				MX6QDL_PAD_NANDF_CS1__SD3_VSELECT 0x1B060
-+			>;
-+		};
-+
-+		pinctrl_m48_enet: enetgrp {
-+			fsl,pins = <
-+				MX6QDL_PAD_KEY_COL1__ENET_MDIO 0x1b0b0
-+				MX6QDL_PAD_ENET_MDC__ENET_MDC 0x1b0b0
-+				MX6QDL_PAD_RGMII_TXC__RGMII_TXC 0x13018
-+				MX6QDL_PAD_RGMII_TD0__RGMII_TD0 0x1B018
-+				MX6QDL_PAD_RGMII_TD1__RGMII_TD1 0x1B018
-+				MX6QDL_PAD_RGMII_TD2__RGMII_TD2 0x1B018
-+				MX6QDL_PAD_RGMII_TD3__RGMII_TD3 0x1B018
-+				MX6QDL_PAD_RGMII_TX_CTL__RGMII_TX_CTL 0x13018
-+				MX6QDL_PAD_ENET_REF_CLK__ENET_TX_CLK 0x1b0b0
-+				MX6QDL_PAD_RGMII_RXC__RGMII_RXC 0x13030
-+				MX6QDL_PAD_RGMII_RD0__RGMII_RD0 0x1B030
-+				MX6QDL_PAD_RGMII_RD1__RGMII_RD1 0x1B030
-+				MX6QDL_PAD_RGMII_RD2__RGMII_RD2 0x1B030
-+				MX6QDL_PAD_RGMII_RD3__RGMII_RD3 0x1B030
-+				MX6QDL_PAD_RGMII_RX_CTL__RGMII_RX_CTL 0x13030
-+				MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII 0x80000000
-+				MX6QDL_PAD_CTL_GRP_RGMII_TERM 0x80000000
-+			>;
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_m48_i2c2>;
-+	pinctrl-1 = <&pinctrl_m48_i2c2_gpio>;
-+	scl-gpios = GP_I2C2_SCL;
-+	sda-gpios = GP_I2C2_SDA;
-+	status = "okay";
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_m48_i2c3>;
-+	pinctrl-1 = <&pinctrl_m48_i2c3_gpio>;
-+	scl-gpios = GP_I2C3_SCL;
-+	sda-gpios = GP_I2C3_SDA;
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_m48_uart1>;
-+	status = "okay";
-+};
-+
-+&usdhc3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_m48_usdhc3>;
-+	non-removable;
-+	fsl,wp-controller;
-+	status = "okay";
-+};
-+
-+&fec {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_m48_enet>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy>;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ethphy: ethernet-phy@0 {
-+			reg = <0>;
-+			rxc-skew-ps = <1380>;
-+			rxd0-skew-ps = <0>;
-+			rxd1-skew-ps = <0>;
-+			rxd2-skew-ps = <0>;
-+			rxd3-skew-ps = <0>;
-+			rxdv-skew-ps = <0>;
-+			txc-skew-ps = <1860>;
-+			txd0-skew-ps = <0>;
-+			txd1-skew-ps = <0>;
-+			txd2-skew-ps = <0>;
-+			txd3-skew-ps = <0>;
-+			txen-skew-ps = <0>;
-+			status = "okay";
-+		};
-+	};
-+};
-+
-+&hdmi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_m48_hdmi>;
-+
-+	display-timings {
-+		native-mode = <&hdmi0>;
-+
-+		hdmi0: hdmi {
-+			clock-frequency = <65000000>;
-+			hactive = <1024>;
-+			vactive = <768>;
-+			hback-porch = <220>;
-+			hfront-porch = <40>;
-+			vback-porch = <21>;
-+			vfront-porch = <7>;
-+			hsync-len = <60>;
-+			vsync-len = <10>;
-+		};
-+
-+		hdmi1: hdmi-1280x800-24@60 {
-+			clock-frequency = <71000000>;
-+			hactive = <1280>;
-+			vactive = <800>;
-+			hback-porch = <80>;
-+			hfront-porch = <48>;
-+			vback-porch = <14>;
-+			vfront-porch = <3>;
-+			hsync-len = <32>;
-+			vsync-len = <6>;
-+		};
-+
-+		hdmi2: hdmi-1366x768-32@60 {
-+			clock-frequency = <72000000>;
-+			hactive = <1366>;
-+			vactive = <768>;
-+			hback-porch = <80>;
-+			hfront-porch = <48>;
-+			vback-porch = <14>;
-+			vfront-porch = <3>;
-+			hsync-len = <32>;
-+			vsync-len = <5>;
-+		};
-+	};
-+};
-+
-+&ldb {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_m48_lvds>;
-+
-+	lvds-channel@0 {
-+		fsl,data-mapping = "spwg";
-+		fsl,default-data-width = <24>;
-+		status = "okay";
-+
-+		display-timings {
-+			native-mode = <&timing0>;
-+
-+			timing0: 1920x1080-32@60 {
-+				fsl,dual-channel;
-+
-+				/* LVDS split mode */
-+				clock-frequency = <71190000>;
-+
-+				/* pixclk /2 */
-+				hactive = <1920>;
-+				vactive = <1080>;
-+				hback-porch = <60>;
-+
-+				/* left * 2 */
-+				hfront-porch = <60>;
-+
-+				/* right * 2 */
-+				vback-porch = <30>;
-+				vfront-porch = <3>;
-+				hsync-len = <60>;
-+
-+				/* hsync * 2 */
-+				vsync-len = <17>;
-+			};
-+
-+			timing1: 1366x768-32@60 {
-+				clock-frequency = <72000000>;
-+				hactive = <1366>;
-+				vactive = <768>;
-+				hback-porch = <80>;
-+				hfront-porch = <48>;
-+				vback-porch = <14>;
-+				vfront-porch = <3>;
-+				hsync-len = <32>;
-+				vsync-len = <5>;
-+			};
-+
-+			timing2: 1280x800-24@60 {
-+				fsl,data-width = <18>;
-+				clock-frequency = <71000000>;
-+				hactive = <1280>;
-+				vactive = <800>;
-+				hback-porch = <80>;
-+				hfront-porch = <48>;
-+				vback-porch = <14>;
-+				vfront-porch = <3>;
-+				hsync-len = <32>;
-+				vsync-len = <6>;
-+			};
-+
-+			timing3: Tianma_1280x800-24@60 {
-+				fsl,data-width = <18>;
-+				clock-frequency = <67254000>;
-+				hactive = <1280>;
-+				vactive = <800>;
-+				hback-porch = <5>;
-+				hfront-porch = <27>;
-+				vback-porch = <2>;
-+				vfront-porch = <26>;
-+				hsync-len = <32>;
-+				vsync-len = <6>;
-+			};
-+
-+			timing4: 1024x768-24@60 {
-+				fsl,data-width = <18>;
-+				clock-frequency = <65000000>;
-+				hactive = <1024>;
-+				vactive = <768>;
-+				hback-porch = <160>;
-+				hfront-porch = <24>;
-+				vback-porch = <29>;
-+				vfront-porch = <3>;
-+				hsync-len = <136>;
-+				vsync-len = <6>;
-+			};
-+
-+			timing5: 800x600-32@60 {
-+				clock-frequency = <40000000>;
-+				hactive = <800>;
-+				vactive = <600>;
-+				hback-porch = <120>;
-+				hfront-porch = <40>;
-+				vback-porch = <28>;
-+				vfront-porch = <13>;
-+				hsync-len = <80>;
-+				vsync-len = <4>;
-+			};
-+
-+			timing6: 800x480-32@60 {
-+				clock-frequency = <25000000>;
-+				hactive = <800>;
-+				vactive = <480>;
-+				hback-porch = <8>;
-+				hfront-porch = <8>;
-+				vback-porch = <8>;
-+				vfront-porch = <8>;
-+				hsync-len = <4>;
-+				vsync-len = <4>;
-+			};
-+
-+			timing7: 640x480-32@60 {
-+				clock-frequency = <25175000>;
-+				hactive = <640>;
-+				vactive = <480>;
-+				hback-porch = <48>;
-+				hfront-porch = <16>;
-+				vback-porch = <33>;
-+				vfront-porch = <10>;
-+				hsync-len = <96>;
-+				vsync-len = <2>;
-+			};
-+		};
-+	};
-+};
-+
-+/ {
-+	aliases {
-+		mmc0 = &usdhc3;
-+		mmc1 = &usdhc4;
-+		eeprom_mac = &eeprom_mac;
-+	};
-+
-+	/* Will be filled by the bootloader */
-+	memory@10000000 {
-+		device_type = "memory";
-+		reg = <0x10000000 0x80000000>;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart1;
-+	};
-+
-+	config {
-+		#ifdef LEGACY_BOOT
-+		bootcmd = "startM48;errorMsg";
-+			bootcmd = "startKernel;errorMsg";
-+		#endif
-+
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
-new file mode 100644
-index 000000000000..ab331596abd9
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ *  Device Tree file for Drager M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6q.dtsi"
-+/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
-+ * PAD configuration register must not be 0, so it is set to 0xfff
-+ */
-+#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x790 0xfff 0x000 0x000C0000 0x0
-+#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x7ac 0xfff 0x000 0x00000200 0x0
-+#define IMX_PAD_SION	                         0x40000000	/* set SION */
-+
-+#include "imx6qdl-draeger-m48.dtsi"
-+#include "imx6qdl-draeger-m48-u-boot.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 Quad Plus";
-+	compatible = "draeger,imx6qp-m48", "fsl,imx6qp";
-+
-+	vccq_sdhc3: regulator-vccq-sdhc3 {
-+		compatible = "regulator-gpio";
-+		regulator-name = "SDHC3 VccQ";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_m48_regulatorvccq_sdhc3>;
-+		gpios = <&gpio6 16 GPIO_ACTIVE_HIGH>;
-+		gpios-states = <1>;
-+		states = <3300000 0>, <1800000 1>;
-+	};
-+};
-+
-+&iomuxc {
-+	m48 {
-+		pinctrl_m48_usdhc3_100mhz: m48-usdhc3_100mhz {
-+			fsl,pins = <
-+				MX6QDL_PAD_SD3_CMD__SD3_CMD    0x1B0E9
-+				MX6QDL_PAD_SD3_CLK__SD3_CLK    0x1B0E9
-+				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B0E9
-+			>;
-+		};
-+		pinctrl_m48_usdhc3_200mhz: m48-usdhc3_200mhz {
-+			fsl,pins = <
-+				MX6QDL_PAD_SD3_CMD__SD3_CMD    0x1B0E9
-+				MX6QDL_PAD_SD3_CLK__SD3_CLK    0x1B0E9
-+				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B0E9
-+				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B0E9
-+			>;
-+		};
-+
-+		pinctrl_m48_regulatorvccq_sdhc3: m48-vccq-sdhc3 {
-+			fsl,pins = <MX6QDL_PAD_NANDF_CS3__GPIO6_IO16 (0x1B0B0 | IMX_PAD_SION)>;
-+		};
-+	};
-+};
-+
-+&usdhc3 {
-+	compatible = "fsl,imx6qp-usdhc";
-+	vqmmc-supply = <&vccq_sdhc3>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_m48_usdhc3>;
-+	pinctrl-1 = <&pinctrl_m48_usdhc3_100mhz>;
-+	pinctrl-2 = <&pinctrl_m48_usdhc3_200mhz>;
-+	sd-uhs-sdr12;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-ddr50;
-+};
++too_short:
++	cifs_dbg(VFS, "search entry extends past end of SMB\n");
++	return -EINVAL;
+ }
+ 
+ #define UNICODE_DOT cpu_to_le16(0x2e)
+@@ -672,10 +698,14 @@ static int is_dir_changed(struct file *file)
+ static int cifs_save_resume_key(const char *current_entry,
+ 	struct cifsFileInfo *file_info)
+ {
++	struct TCP_Server_Info *server = tlink_tcon(file_info->tlink)->ses->server;
++	char *buf = file_info->srch_inf.ntwrk_buf_start;
++	const char *end = buf + server->ops->calc_smb_size(buf);
+ 	struct cifs_dirent de;
+ 	int rc;
+ 
+-	rc = cifs_fill_dirent(&de, current_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, current_entry, end,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (!rc) {
+ 		file_info->srch_inf.presume_name = de.name;
+@@ -977,7 +1007,8 @@ static int cifs_filldir(char *find_entry, struct file *file,
+ 	struct qstr name;
+ 	int rc = 0;
+ 
+-	rc = cifs_fill_dirent(&de, find_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, find_entry, end_of_smb,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (rc)
+ 		return rc;
 -- 
-2.47.3
+2.39.5
 
