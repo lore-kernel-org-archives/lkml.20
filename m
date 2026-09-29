@@ -1,90 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BDE3D88F2;
-	Tue, 29 Sep 2026 15:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968213D8105
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695884; cv=none; b=Yhu0r/Al6BvHlTVgTW+qwIyNmw9KpQHsY/c4Ws+6E6xoCrMoz74sBrevEJTPe/j2LztQ1PtRahSed8RHNkbVrwIIL+TZxKGjW10QhpS8pFjtI5FSZM6W4LivWVynXiPs2dOFrK7gdLbLu5Nl78tT/ppBdR334NRhZc75fyTjbWw=
+	t=1790695914; cv=none; b=sUat38teb0wAnTGq2VzcC5mhlvWedpGiS/uiI+tCSTBSBHGRGWViOfsKL1tZqOS+0IVWVSKFTFi9BnAeBXgUJpGNpFZvCQWFeaMPm5bkCpkueuIHS3qaPcV2NZLg4hJSc9e8uLflJt2pT9vib6cp1PFI5I6fO8UAdgsdfzJ9tJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695884; c=relaxed/simple;
-	bh=2ZewhfadxiSWnz4AaDisoAKtPq56s4kBxyCgZUZbvxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TZWilaAIC5X5ig+6WxeQ6573JnrLqIxlcRnBsSC5unDpdcN3HY1ldBk+CP6wfqdVPeIwAlZPtLg06XbFjfc2OV4DCdDeDCUaCtbr9KPfZtW68SMTTe5rAHsy3mD8WJ4LuZ7Fn+3ifJExbI/2jNFxwZAk7jbPYy+fjqYl1yKBSn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TC9Qgybb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790695914; c=relaxed/simple;
+	bh=xPbWLGY7zm1enSWeIUxEJi4deGkZk+h6h+c+RetpYc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k2Tm8lwb1I74qDgRp+h0mD7E+xETQA7pXeFDJpm7PZro1I/jUv/kOKNUoj4qnurBwSIJ2UNus/XxVnyT6L5MF/G38fIpdpcuPHOGwcbrumIzh1NmqyCIHeR2XKtUR7Zm7c2enpDY94KO/XsPjI7QwUrAsW0Kg4yr443rpXTt0+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mUjBR9lS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TC9Qgybb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2707E1F00899;
-	Tue, 29 Sep 2026 15:31:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790695882;
-	bh=oHuujSasinLI7hEqP77ZK4vcwV+0umrHPRpUO3Iumeo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TC9QgybbOnjrXp5VGy0t4URIje1OCUU3w0BXLWX4GYcVVnu/QB9sgTvo7r1w6hiSP
-	 3f1byAoDAnrAVSp/E5uM+58spjHTArkI3XKpGz+NZ85hrlx92tAxaEqxoJs5el6oCs
-	 hsgPh085ETcZN3pSVAkXNa06bRt5ni8+06JihaFp/tDXqyylISjg8CPR6fEbjKm96O
-	 Yxa3F0KzEXAjkVp5xhyaubeAfTxOHQezLw9YiRLQeu0t8aOMeOT0Rqo0ViJ5NQ5H0U
-	 4QLTk0iquJjorBYbAYvTWejc+J16HbgkJDdYjN2xCj5Q8pFWTBTc0oh0YKCsso37V3
-	 +wrVrX5xjQ1Cw==
-Date: Tue, 29 Sep 2026 16:31:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Corentin Labbe <clabbe@baylibre.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 0/4] regulator: of: Fixes to of_regulator_bulk_get_all()
-Message-ID: <e8e21dc7-7b83-40cf-a006-ac5bdeb54d16@sirena.org.uk>
-References: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mUjBR9lS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so27858685e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:31:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790695911; x=1791300711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0kKztUmQRauzLspAudONYS9350S9maMl64aTwFoNWoc=;
+        b=mUjBR9lSi5FuNcI59FvKsTG08i3JaYS2qqsGqxNt7FZNywDe9EC2zhoILz0t7Z3Pbf
+         RLFycbpDL+wzWFKuSMM8D3tn2/QjHRJlF/EVomsTtQW/eWCXJH/qz8C67ENdx0ow9drF
+         3ku+iaiPGAz8NJBLMcrHk2Bv+PSWxU7aJCSMULj5jw4nVmaWNekuQK8gXVewb60uTNoS
+         bMGXt0m4ySsFEH8bpqK3rPuEHS3/kUcJ9ThgqA+2xae4mnPmGOppdbrEo6sMJNNyFKXu
+         hl7tA4sa4x3rVs9C2ln6d3r4io10THCxgYw40IYJTLTl965cKgvtRl+9eK2Y4V/OAram
+         xUAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790695911; x=1791300711;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0kKztUmQRauzLspAudONYS9350S9maMl64aTwFoNWoc=;
+        b=C3I4AqrY1jwrQ3vUDd3CdFKqOHifiStnGYn7A3TYRDozkv8WghRBF/DAR6aqppahRp
+         O0FuhPsDi8lCtew8oh8gmTAHW1uRvDUUHwmvUCzsZI7KL/Q4rsUnAEFuLaKMMV83On8j
+         +FS2gW4KeU0+0Kj1tEhYKZrhG7NByRdv6M2GQSQSxm+Ud+DUkjB/R5bfC81ex7i6xSZH
+         q1pNm34ilT2U91Xkawe6fI0aFA0TPrGPjl8DGuCdDzSwCH9SvE2txsWVj933cyee1Q+5
+         BrxEN3W+K2GIr9T3IhdPuetGCGCemYcJ7xZeDxc9/SH74jxHg+WvUDsdXulNrpx8k6yU
+         rExQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0D+8PcmuoGCaqrpUcuYIZnLkb/lQjbNKs0WXGbPVf4UXScxbAHwDoFoPn4h7vBfeSs+3BKAEe2w/VGOo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBg3CKZuBq0LU/DbzXCVshIKTdlwtqOhfv07FcbEgit4yShWGz
+	baX+KNY6Ox2uV81zJKqa+Qcf3bImMRoOjfLhoCz1JefDRv6IrA5d/C9CZvfwc77oj/cS25UdCAS
+	DxRQKDsY=
+X-Gm-Gg: AYBFou2Ub6OnaKiF3kxzueygi20qysPT8woRgBXq+RjWeXkMKYin78ifk89pXa+4hLe
+	2QrrDFoV9l3LDDZM/Zw2WaVOEFwmOeMWPHCT8kODZ73QzmSgFNMKrOeKfV5LhDCbc8Db7yAMKPX
+	1+Bchkz0N40u3b70lGBahlYmnx5rQclTyfMlF7O7h8L1BFJokL/SKUkwHjLac3A0ik6IXCjzbE8
+	r+bYCrlyV6gjs6GlCjeXyFEsyurwuJyr7hUTzOcikbTLRZRdSDDoC4CJD4qyqXZuuhFyjq5FgGX
+	2OhzSAOQ34kq3ASIMxM86nusCssRum/0Ldtbmi6zjD/2m/+dvZmDUVU0XOkR/mPO7sW3bGRPDsZ
+	NRYHwVt0enuHxc4Pi08Mcuh/gIcerk+XhmrUeumr/yJFKITucf4VjFo+TJaOBf26i18bm5Az7+h
+	ve3IoNLjvlYe2sFNUw3nutAwjCzL26TFw1eN+qGHvpff8by5XFc8OP2SxWROfoqbPuI1wXAhCpG
+	Es=
+X-Received: by 2002:a05:600c:4f4b:b0:4a0:b9:21b5 with SMTP id 5b1f17b1804b1-4a000d959d2mr144380745e9.30.1790695910824;
+        Tue, 29 Sep 2026 08:31:50 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50923f0sm4866532f8f.31.2026.09.29.08.31.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 08:31:50 -0700 (PDT)
+Message-ID: <0b657642-0770-4fb4-a9d8-4dc59d5407df@linaro.org>
+Date: Tue, 29 Sep 2026 16:31:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PMup6bLNlrwwEGA2"
-Content-Disposition: inline
-In-Reply-To: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
-X-Cookie: 1 bulls, 3 cows.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] perf/core: Fix ITRACE start suppression for inherited
+ events
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>
+References: <20260929-perf_core_itrace_start_fix_inherit_event-v2-1-9361a946ed56@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260929-perf_core_itrace_start_fix_inherit_event-v2-1-9361a946ed56@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---PMup6bLNlrwwEGA2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Sep 29, 2026 at 02:05:45PM +0400, Alexey Charkov wrote:
+On 29/09/2026 16:08, Leo Yan wrote:
+> perf_log_itrace_start() follows event->parent before checking
+> PERF_ATTACH_ITRACE, but perf_event_itrace_started() sets the flag on the
+> event passed by the PMU driver. If an inherited event starts tracing
+> before its parent, the parent's flag remains clear and the child emits
+> redundant ITRACE_START records on subsequent schedule-ins.
+> 
+> Follow event->parent in perf_event_itrace_started() as well, so that the
+> setter and checker use the same event. This preserves the original
+> suppression policy: ITRACE_START supplies the initial task context when
+> tracing begins, while subsequent task switches are tracked through
+> context-switch records or trace context packets.
+> 
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
+> Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+> Changes in v2:
+> - Changed setter to fetch parent event instead (James).
+> - Link to v1: https://lore.kernel.org/r/20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com
+> ---
+>   kernel/events/core.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 634d2ccbab82d8bfe9d1bd7f8c6745f60260dbd9..85d924cce387f88de0c1efe6c22754d38430c9d6 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -10568,6 +10568,9 @@ void perf_event_text_poke(const void *addr, const void *old_bytes,
+>   
+>   void perf_event_itrace_started(struct perf_event *event)
+>   {
+> +	if (event->parent)
+> +		event = event->parent;
+> +
+>   	WRITE_ONCE(event->attach_state, event->attach_state | PERF_ATTACH_ITRACE);
+>   }
+>   
+> 
+> ---
+> base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
+> change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
+> 
+> Best regards,
 
->       regulator: of: fill in supply names in of_regulator_bulk_get_all()
->       regulator: of: state who owns the array from of_regulator_bulk_get_all()
->       power: sequencing: pcie-m2: Fix leaking array from of_regulator_bulk_get_all()
->       PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()
-
-Please don't combine tangentially related patches for multiple
-subsystems into a single series, it just causes problems getting things
-applied.  If there's no actual dependencies send things separately to
-each subsystem.
-
---PMup6bLNlrwwEGA2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq72cQACgkQJNaLcl1U
-h9BW0Af7BmDivtMYIvX97relpTiu+hGwIUb97C8f4oRuS9CugEDtWDvkDSLJ9FYD
-RZxEeI9p8aFc8EBwjEcSU2GxSO/Hq6t9uyEeNa7eoa7Pdrju11VSMShs8XzouzBB
-WLcPckZE/69EctnAvVyg314wF3lKkrIiwOv9i+HWB8kgVGtOtq5hnt9D13DqOxfG
-F1gj5gqAIr7oOtbfY6l+6wiM0loHXsWCVQ7U0hbG+wmfIEeFZajR//idWRwFWFsP
-hA0jtuQJXcXHSrhgqLnTBru3jty5catTK8W5dgqrHFXCEo5PyMj6dP52/+ZSrrWm
-l6/adbk7CKJVZUsPD22bi7d3EjHCuQ==
-=VEi+
------END PGP SIGNATURE-----
-
---PMup6bLNlrwwEGA2--
+Reviewed-by: James Clark <james.clark@linaro.org>
