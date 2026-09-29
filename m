@@ -1,304 +1,449 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010007.outbound.protection.outlook.com [40.93.198.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C7A1624C0;
-	Tue, 29 Sep 2026 07:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666939; cv=fail; b=nMtR/C9NQ9HJrQpb4N0WiLKhfruK5pcTZvYmM5/67RDUhZ8IhXFw2WM7DhYZP/UrujHjlsInXdfTaMY05mdj+ogMJJG33c7f5ZoQ5Q+MCAeTYXaCFw0UTyxIsz911MyBkAewiI5IANZ7sUXhiipc4C79QcKSQdfkNlD+GHZMeWc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666939; c=relaxed/simple;
-	bh=Y88eJ5+9BwxyjQO03JTsavFK3McJIDRZrP4Ss7mKSyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HoqZHdJFTFtiHrewJutv5J4KB1oUP81bhg2IIQp2WKv9iJYdRCaCYUzYPOFJqGOtk/dz1pP5oyBRtjiDPUhchzzXLVRsJNa7IDXbEK58VGAA5On6aIRAbRwRQFremSk9dhbS7kkiUWHYalMvVfMZa/M9QUtzWp3gUwr9LX4PPxU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=agEi3mQc; arc=fail smtp.client-ip=40.93.198.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27313A3E67
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790666969; cv=none; b=fiNeiikK/t/UmfrGC3pOXw5FQfG7EsdLyuMybnJVDzn2jYMJLTjCk61CPuxpcLxozqbuDsUFXY+mSTCeEVxmJIsjkbRhqY/ogjIiU3kVXmjBuT+Gdk6v0XBZKPS1zsjBsqIkjRzolWVgP4cMo0Y4NrKxjqehSNVsjlfFr6EiTw4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790666969; c=relaxed/simple;
+	bh=Lc512+Ll1yMqO8zV0IqSkkPumVwfnnRJuDOeTDyLKgs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mNIP0FrnmPsY5hanTdSoOd1z+nFNQs2EpfQJhw14KYLKiJsFTQTRWgI7EQgbnRF9riOTCICA6vSvQlEz1b7rNpJZSZ3sLZ8ZwohKuEdAucv0ILaSikhy3oIBFuvXBr4Bt9lzFivYSCNtfnZmEP9V+PY/6+kFnOw3d2AXNx62pK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i0QJ86uy; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="agEi3mQc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CRzDOMP6bsDXurS3WjeU9E+IenhSDC5b+hpLGK2qSeeT3mQoiYnggAif8UmC12opseJ27MaeA9VXUerZFVfLOb+Z/v6CcsFG+hJF+mtgihpZjkiWe5fKxyNqA1Ja/xoKn6tm2n7YLhPpLs4ejCCUpFotPfT27FNGIWwUvcPqVxTm0Th2AFmvsBSav+NywR5I0VjpbonDFSx9NwL9CIJwTdQO7MmjSY7vCjdPQUSheWut0xLlURWPgrlly81CxCWK8MUh2bBjn/jTUwX+hMuK9I9TBR0FyJaFPdAnmADJZssP6jThJ2r2gTnY8ro4hqrMeWFxD+6wMJ4BM5kucBJZrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sMDgxOnntUM4Mqp2gyb0ZzF+sPD9Fz6yuDG/SWQ7Q+I=;
- b=O8smkyNWfelNtRlTZbkPqAt8JZMeMYaHtuBQXvDv4af8BXAItvPOKlcIc5hjXKngvuMk3KR79SxhXhNDje4RQ40zyQ6SbnoQzjBvU/iWhvb+F+LGW4sqoh9xAEYYl4G6QQzsgB6UJZ7iOwu0BQ8hylWSlCWwmxVakBpfsPuzSwPJUPXMsA0YWtqBYsuFnvhcOyGgkfsFbb+RWYKA0KoAuRwPKplyFO0SuImSVPu/2q1BXX9J5f7fa5f/FI9yutBFFp7KrXyQGc+wciblWcYJg5FqdYUZijLpRcuH3h6N5EGNuTcbushbesKHLVPMQmiZbm/WxWtrMJxjJ1ToLKMB5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sMDgxOnntUM4Mqp2gyb0ZzF+sPD9Fz6yuDG/SWQ7Q+I=;
- b=agEi3mQcLFQZa7Xd1p9pjBXKqP6n3+BhhhZmrSDOawLT5ufGCZRRahaSHzOfh1D6RRKqF4ynoLWfiioqVHd+eDmbbkgjj0qiitOf2SMzhBgfOJ9pknL+yEOJcHDM9hieL3A79UtWhlx2AiWv7eLSDWjUXLAwIIldyXivy4x76ZIyEnMINNutSiSjunnHknhE3Z7RtO38xGT/TDsS49K6p9vXMR0hBzBHo/PFeYVZbggC3dTzMWRrasJs4yfVIxOn9T0SUdBfOjQrqH+n+sht+jjMAHa4+2uVLqCJ/QBtzSH3kueCFY75DARJrm779Iojz2CTcUr9pYpcjsw5eTng4g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by CY8PR12MB7706.namprd12.prod.outlook.com (2603:10b6:930:85::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
- 2026 07:28:52 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 07:28:52 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
- Thierry Reding <thierry.reding@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Subject:
- Re: [PATCH 00/11] Make the 32-bit ARM DMA API work with normal IOMMU DMA
- default domains (+ Tegra PoC)
-Date: Tue, 29 Sep 2026 16:28:40 +0900
-Message-ID: <fpDSraffSy-uBmhoTN1C9A@nvidia.com>
-In-Reply-To: <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
-References:
- <CGME20260915021542eucas1p254addab18c10cb117f42ccf3d3522883@eucas1p2.samsung.com>
- <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
- <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0143.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31b::19) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i0QJ86uy"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a491fecaa5so542868a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790666967; x=1791271767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DAHZSB2ddBrgCa6V2DPmMYRe8Qgi1eaVASoiFwj/jsU=;
+        b=i0QJ86uyQXFCsdJxkWmH5nVqk5oxcdnQR0/NmQtuzHw4ObG7IblZXyZnPWOfyeVEFT
+         gt1pnrUcztvDYL8vzvwtTgtlOeGZmJNkh68G7M6fynXiaJkcp2xQltj9HYztk+Y/P2xB
+         SfmoqFzKLSvVCQSs38BU8QpH4v2FxfiBpMBVivxbPZKfVY5l8ZAnTj86k9AA5YhLg2HU
+         fHTx7TI2jpdssfxpXHWtBQvU+qRtamKcgk1RtjRoGaKL6oKLzZvGxHzCDMUPWnlHl2PE
+         SAYaswGBG0tk8Y9hNFa7k2C9D2MCAgRrsclSrohf1LIe4DdmRrq2ampXMpj6xsR/BdSl
+         7P7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790666967; x=1791271767;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DAHZSB2ddBrgCa6V2DPmMYRe8Qgi1eaVASoiFwj/jsU=;
+        b=dtTE3BFDVNwGHJzMyaKEbVIjopjBX5SWSTEqzeDxqA0yE+SdwZfFYp+1AcC+vTd9kd
+         Vv1w8wZXpZetlJ8hcZNbPt+5jaUK6/cFRmB9vWc7fXNFdLXaIv8Do1nMik+fxP3rgghB
+         rar4MxH2dSHgGdNqOq4QvknVQ5u4b88eyi55Nv2h9oU3MS/dypKliRkB3o6BdvzX8mXy
+         PIWTezhgBxHUfVJpYWloXYDDmX4gahqCHmaYuHr7idtAO+VjcRUOYzhhAH5wFrMEbJjg
+         zMwMI0WePjjvTh94Tk+XKFsVn5ruEUo0Rx6eCs7OlWDMRjRnLpZeszxuRrqwadcrcYrY
+         X6RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5k4iyF1EEB+zuUrHNFTkUT7gHFBt9GAOLkXtXh4toNvlIsRUc14LJuIxU6LGzNvZhA5+yTg0j72W6Qv4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLI0IhmAWU0/2P2S4bV4ujQCCwKYWlU40uFCXbG1/hWZqH47lPt
+	lpuUSPLxmEtJjl3PIZm/E862dLt4KunRpbsmY5DRyFZt+d7b6/DJdU7/sWMeN/o+rpU=
+X-Gm-Gg: AYBFou0K0f6kQkBeM29O8ogyb6gTHOJWwJXJf76QyiCU/aG+XWbzbpQ5ZtJdWasZ6LO
+	ULkFkeQNUXyHstbUkKMGtf8DeTVpTZpJPrvoezNJECd6w/pG+jxJTFJ7ze+kxxKJTh3RQaqVIIZ
+	DqY7zmB3pVDh0zDP2eA41p1Qh4uQcLS2SUPdsTGteJhss+lg/goHyvDkPV4O781qbYTclcjgOKd
+	NiYXteQk8fQpH1Zc1mkg4591mAuJt5VnZoTbUYFqocLV30uBakqkwjnIVJmVxcy2pZshYfe+9yn
+	GxP7VSa38ptMmU7w2UYvARVWYV8GT7kU3oM0rzPStVlo0vLA8ed8RFTKNkuIuLunwA0ywW4GXYv
+	yltxl5O+SZyOE752guDrqfb+0fD6VJ9hSq8/kJ1LWgyg942HI0kJ+g4wFHLyhqzRqthx1LnskZF
+	3OLooeh10BDBqVbCEqjtTpGdIbyh8nhq0RjvrnI3+9zU2x/OmV9WteF9hGq250BX62wHhr6ubI4
+	206Q/OLm2wE6sMyfgBQURKGEWvrJ6zdg5A=
+X-Received: by 2002:a17:90b:2649:b0:3a0:b223:683e with SMTP id 98e67ed59e1d1-3a0b2236bfbmr10560613a91.48.1790666966647;
+        Tue, 29 Sep 2026 00:29:26 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49804220fsm3900170a91.12.2026.09.29.00.29.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 00:29:26 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Wenjie Qi <qiwenjie@xiaomi.com>
+Subject: [RFC PATCH 0/6] f2fs: retain clean node blocks in a compressed cache
+Date: Tue, 29 Sep 2026 15:29:13 +0800
+Message-ID: <cover.1790665952.git.qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CY8PR12MB7706:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f010b08-d67a-4577-a18d-08df1dfb4f58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|10070799003|366016|921020|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	+qEftXZoHdfYddJ3Puras6jQ0pOwIS/rwrhUt39i+K1HWCJiFFIys/sVWe2TTUQ0UzYt5PyOnOkP7UlUQTRfNR7ijAkr9ZEinnOdcQqZZowNsQvRanv/jMXF/zrosE8Y22DI8M9Aye4CoilX1KcITp0a+OCpQolSL7iXd6SVmQaUSM5yzI9vK8uUesWmIx9Y+5Q65hpYkSZSvUtRFYMi9Suhjv3cRIxQAM8JLZ85SA8EbCqSOchYwPcxQs/QpZIdYB7Nr0/NXc0cTnFRsGad15erjs0JiX6gAIZ2Py29lXhqWYDdqs02SlliJDhZ6v22qqWy7exiv+mt8kD17kbgoWs/9XdJ5Q37H6oFlaSGngq431MwjxzjoQ9/UJju47ciJ5xooMWDI8x8zTLrdiCTPPcLk6Lrat7GHrMaBmzJFNVjezlLXGzxdTYB1kipBrpvJD9C4DJ1TQsmAqmgXQhwZeBJNZDU8ZmKpXN3lZRcyFyssf/8RnH9gth2G9zmUWwrhwN3WZZ1CvotEEBEfddDwR55EKLZq4uZWPnVs7R+Wv8WlG749q0p7CiVW7UBAKhCM2nAuomeo9Tp+msF9lQsjlL6I49fS2xmeSYk8iTHSUe66/v8GHcCb7bcstN+XRilC/SwPoDegH3xrjMRR3Yc6p1AWSR8ETFRcwX9GVVyqTFsNiGJxZVfI0pdIe08O29eQXJQPqI5YHokuR6Fb4l2VQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(10070799003)(366016)(921020)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?elZITmsxMTlTdWsrZ0t4MjVLRWczRFlHRkdoU2Nrb2tpWjVlMFdGWDhzT3dS?=
- =?utf-8?B?S1gwRjF5eG9NTUZmQVQ1Y3d4Y1NNWFIzelhtbGV1N1pNd3h0TjVrWTNqOXU5?=
- =?utf-8?B?QjBlMnBleVljS2tCMjlIZUZoVC93bEhyTHExZjZzbmdDcWppc3NyNExJUXNR?=
- =?utf-8?B?VTgwRW5RMisydDNrNlBNZU5MN0JlcGJiMUI2NHV2aFdVa3lkQXZTbmhPQTFQ?=
- =?utf-8?B?NFZDcWtmOXVZeFp0NHV1bUloQ3hsVTdUUXIvdEJxQ2pOcUVwREgwZTk4NDEw?=
- =?utf-8?B?MGM4NlNocmJOT21XV0lSTmlvU1h1YTIySk0wS1pEK1RLZ1ZFVG9QSkhLdjdD?=
- =?utf-8?B?OU5PSnV5WVQwVW5MN1VocWQ2aWZKMDJiZHNCbUdYMUZhQnZYK3dVSDNkclZo?=
- =?utf-8?B?RkJYVUFYZFpnZGVXUndoNWJYeHpiR3dzcFZKMUtLOVpKcXZCT1hyVFVhTlM5?=
- =?utf-8?B?eTgrSXVjSElxNHNobzAxRUJId21rNTIza3VQdExuenhidjF4ZWFKQTd0NStP?=
- =?utf-8?B?RnA2dXJZM2Z5WmJ1UFpPTFRTUVQ3OUNwTlMyWUFZT3U4eWFoMlRuZUZDWkJU?=
- =?utf-8?B?aFRpUFYra01LemdBWXRSeFpSd0F4YWVKeFdJQ0liK011Y1ZFd1prSFhac1ow?=
- =?utf-8?B?RmNVM0c3QkdSZjR6ZGQyYm9iZlZQSXltNCtkbEFONVJ6WWhRWDRpdU42NSty?=
- =?utf-8?B?QWt1cmtaelFBRDhsOGZTVzl3dkcyNDFWc0w0TjVLdWJnaGx1emFmbzFzVUI3?=
- =?utf-8?B?R3ZYZUNxaGRDRUY3QUd0Y2lrRGIrbW5HM040RC85MWp3NWpTd2l0cjlyMHp3?=
- =?utf-8?B?THRSUVM2K05zZ0d3K0Iza1BvSWlZRjZqUXVrZ0lpQVh1b0Z4aUhva1R5RU9t?=
- =?utf-8?B?Z09IZnFSeWROTnZ1ZFlNZEIzZUN4Mm5QbTZQS1Vzcm8wbXl2bjNUQkxqYnFk?=
- =?utf-8?B?c093Q2dRTXA4VUZjZEd1dzBUckNTeGZqaVBXbEE3Q3hpNkxVS1J1RCtUTGxG?=
- =?utf-8?B?eUdiUGI1T3VsazlFY0c4ZTlIWHRvNlNnN2tuSkV5RFp2TS9rdG5ONUJvUk5N?=
- =?utf-8?B?RzM4OTljYlVlQWxGdFIzMXFvTWgyd1ZObFFPSkpOYTIvMzgrVTBFQnZocVpI?=
- =?utf-8?B?TElzTHc2eWcraGNEQ1ZsdHhLckc0Y0J4QTF6eDFKRUhJYXhBemRSYkR3VjRa?=
- =?utf-8?B?cU0xQS9xRnpTeXIrNEVXdVEzam5yUlJIMlkycjRqbUpiOS9kYkxmNmZJd2Vu?=
- =?utf-8?B?QWdiTGJ3cFpIaWFPNTlnV294dGo3VTU4L0RRQzlORHphTjMvbm5KOVFOQ2Fh?=
- =?utf-8?B?dGtka0VKaUs3YTR4cUljZCt4dHQ1emMxSGlNbkx1endhREFFMC8wVHN0Rmsx?=
- =?utf-8?B?aCtQOGtQNlIwMzFCT1NHaXJObWhUTmhjdnltSnNKdDFvVDI1bXorS2xlMnMz?=
- =?utf-8?B?ZExxdnpOdnJpQ0ROOE04elN2L3h3NTlYa2pYdS8xME5EUTlCMktLSFFyQm9F?=
- =?utf-8?B?VUM1VWlTYi9UTE9UVmVWemx5andKOTRIV3o4MVlUbkRuV2FuUlJUcGZLOUhW?=
- =?utf-8?B?enY2Q3E0SzQxY0kzcGgzQUxSeWJtM0pJeUh5MHRRREx6WXB5Q2JueFFnSThG?=
- =?utf-8?B?Z1RKeFZrampYNERINmlOWUludG82dGxYMmovK25nbXVyN241dithVThRLzJy?=
- =?utf-8?B?NHF5eWkwUFRwU00wY3BRYVFnd09meFNvUDVzYmRRSjhESW1VYmQzOTVwUlZK?=
- =?utf-8?B?YXEvSStuZkdUclRFMHlhUlU1Qmd4UDI0THVJNzZmOUZGZ0tIcklqTmtOb0d0?=
- =?utf-8?B?NTl3UG5ZNkVnVWU3a09saXZCSDZhRVY3Yk9XYjdURmxVc3kzVjRNWVA0am5E?=
- =?utf-8?B?NlZmL1ZRcTFBWng1Wm16Ump2K0dJVXgvQTlIc2V1MGQyVVBmdThIc2lZUC9s?=
- =?utf-8?B?OUtsYnk4T0R3V3FKSzQvNXQ5dTRSeUZEWm84M21XclZZUGVrLzYyUFR5SXZE?=
- =?utf-8?B?TWhvUGJhVmZjRGg2cU5BMm5xZTlRS2JpNXd2RklzYzUrRk5lZmtRdlBPTkZY?=
- =?utf-8?B?WmF3dVJWdjFxdmlDQWUwTTBuUEFvMHQwS1hscU1QNWJsd3FCL2pFb0U3V2Fj?=
- =?utf-8?B?WVZ0OTM4VEJPOHU1QVVlL0Y2Y3B2N0NiWStUVm5UTVpwZ3ovUjF4TjdZMEdN?=
- =?utf-8?B?TjBMTVllam5CRWFaQ0JiWDdET3VjN1d6NEM5ak41bjJDaHAvMlQ4aXZCZU5k?=
- =?utf-8?B?SXZOdkV3MGtENGdWc1pPb2U1dWFpL1pVZk9ya3l1ZFRWYkFUUGYycWcvWUMr?=
- =?utf-8?B?SFpuQWVQTEgrcmRhVnJyNE9NSjJUNisxM1g1WWhONUxDTnllZEFQUUZzNXYy?=
- =?utf-8?Q?qxtY6/XS1JE/90oiKZQWdNMIVBaIQMooJkl5ISQAuvsXy?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7x90EcBWwRMhIw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f010b08-d67a-4577-a18d-08df1dfb4f58
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:28:52.0395
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EnBivfYtFavwTZvq6/k0h29ponIRg8NfCNt342YJoUbeAHtvqdXynbR5tfZo6g+Xn0IiuD5iaZGvScZH0tSmzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7706
+Content-Transfer-Encoding: 8bit
 
-On Saturday, September 26, 2026 12:20=E2=80=AFAM Marek Szyprowski wrote:
-> On 15.09.2026 04:14, Mikko Perttunen wrote:
-> > Depending on the probe ordering, TegraDRM does not currently probe on=20
-> > kernels with CONFIG_ARM_DMA_USE_IOMMU enabled, such as with=20
-> > multi_v7_defconfig. The Tegra SMMU puts several display and 2D/3D=20
-> > clients into one IOMMU group, and the legacy 32-bit ARM DMA API path=20
-> > creates one UNMANAGED domain per device and attaches it with=20
-> > iommu_attach_device(). That only works for one device per group, so=20
-> > every client after the first fails to attach,=20
-> > iommu_device_use_default_domain() rejects the group with -EBUSY, and th=
-e=20
-> > driver goes down with it. tegra_defconfig is currently working by virtu=
-e=20
-> > of not enabling CONFIG_ARM_DMA_USE_IOMMU.
-> >
-> > Robin suggested [1] that instead of teaching the legacy path about=20
-> > groups, we should explore modernizing the 32-bit ARM DMA code a bit by=
-=20
-> > making it use domain cookies and have the core code own the domains, as=
-=20
-> > is the case on other architectures. Still, ARM's own DMA code is kept t=
-o=20
-> > support existing drivers and APIs that expect it, and because dma-iommu=
-=20
-> > is considered too big and unnecessary for 32-bit ARM.
->=20
->=20
-> I agree that such little modernization is the right step to unify a bit
-> ARM 32bit with modern archs and get rid of some workaround in the drivers=
-.
+Hi,
 
-Yes -- certainly TegraDRM's memory management paths have grown to be=20
-rather cumbersome.
+This RFC adds a reclaimable compressed representation for clean node-cache
+entries on top of the F2FS metadata cache.
 
->=20
-> It was me who raised the concern about the drivers depending on the first=
--fit
-> allocation algorithm used in the32-bit ARM DMA code. This is an issue for=
- some
-> legacy Samsung Exynos drivers. I not aware of any other driver used on AR=
-M 32bit
-> SoCs that depends on this behavior.
->=20
-> If one is still interested in switching ARM 32bit to generic IOMMU-DMA co=
-de I
-> can prepare a workaround for those Exynos drivers. I still have it on my =
-todo
-> list, but in meantime there was no interest in updating ARM 32bit DMA cod=
-e.
->=20
+The node cache avoids repeated NAT and node-block reads, but retaining a raw
+node still consumes one filesystem block.  A large raw cache therefore has a
+substantial memory footprint, while reclaiming entries early causes later
+accesses to issue node reads again.
 
-While I don't see any immediate need to touch the allocation algorithm,=20
-being able to get rid of some or all of the arm_iommu_* functions would=20
-be nice. At least for create/attach, there aren't very many callers.=20
-Most drivers just get rid of the ARM mapping.
+This series provides a middle ground:
 
-Thank you!
-Mikko
+  - active or recently accessed nodes remain in the raw representation;
+  - a background worker compresses colder clean nodes into small private-slab
+    objects;
+  - a compressed entry keeps its NID identity;
+  - access restores the raw block before normal node validation;
+  - compressed data remains a discardable optimization, and restore or
+    validation failure falls back to the ordinary disk-read path; and
+  - both raw and compressed entries remain reclaimable by the F2FS shrinker.
 
->=20
-> > The series is in four parts:
-> >
-> > - Patches 1-2 are preparation in the IOMMU core:
-> >   1. Add iommu_teardown_dma_ops, counterpart to iommu_setup_dma_ops.
-> >   2. Add cookie type for ARM's DMA domains.
-> > - Patches 3-6 implement the DMA API side on 32-bit ARM:
-> >   3. Split up domain and address space management code in arch/arm/.
-> >   4. Implement parallel dma_ops / cookie APIs on ARM side.
-> >   5. Avoid domain allocation when IOMMU core does it.
-> >   6. Support foreign-allocated sg_tables.
-> > - Patch 7 enables 32-bit ARM IOMMU drivers to provide a DMA default=20
-> >   domain.
-> > - Patches 8-11 convert Tegra:
-> >   8. Allows deferring translation enable until driver handshake for
-> >      selected devices.
-> >   9-10. Removes code detaching ARM UNMANAGED DMA domains in
-> >         Host1x/TegraDRM.
-> >   11. Enables DMA default domain for selected Tegra devices.
-> >
-> > None of this should have any functional effect on any device other than=
-=20
-> > the Tegra devices enabled in patches 8-11. Other IOMMU drivers can opt=
-=20
-> > in later. The new DMA default domains are enabled only when the IOMMU=20
-> > driver explicitly specifies a DMA domain type, just returning 0 for the=
-=20
-> > default is not enough (unlike on arm64), keeping the current behavior.
-> >
-> > Patches 8-11 are provided for demonstration but we can deal with them=20
-> > separately if the rest of the series is accepted.
-> >
-> > Patches 1,2,3 are applicable independently.
-> > Patches 4,5 depend on the previous patches.
-> > Patch 6 can be applied independently but is only required once
-> >   the whole series lands (by TegraDRM).
-> > Patch 7 depends on patch 4.
-> >
-> > Patches 1-7 only touch drivers/iommu/ and arch/arm/mm/ and associated=20
-> > headers.
-> >
-> > Best regards,
-> > Mikko
-> >
-> > [1] https://lore.kernel.org/linux-tegra/910d1492-ad3b-4201-93c6-208be1d=
-cde7d@arm.com/
-> >
-> > ---
-> > Mikko Perttunen (11):
-> >       iommu: Add iommu_teardown_dma_ops
-> >       iommu: Add cookie type for ARM_DMA_USE_IOMMU
-> >       ARM: dma-mapping: Split mapping allocation from domain allocation
-> >       ARM: dma-mapping: Implement and expose DMA setup functions
-> >       ARM: dma-mapping: Bypass the legacy path for core-owned DMA API d=
-omains
-> >       ARM: dma-mapping: Handle foreign buffers in arm_iommu_get_sgtable
-> >       iommu: Let 32-bit ARM drivers opt into a DMA API default domain
-> >       iommu/tegra-smmu: Defer display client translation to driver hand=
-over
-> >       gpu: host1x: Drop release of legacy 32-bit ARM DMA domain
-> >       drm/tegra: Drop release of legacy 32-bit ARM DMA domain
-> >       iommu/tegra-smmu: Use a DMA API default domain per swgroup
-> >
-> >  arch/arm/include/asm/dma-iommu.h |  17 ++++
-> >  arch/arm/mm/dma-mapping.c        | 209 +++++++++++++++++++++++++++++++=
-+-------
-> >  drivers/gpu/drm/tegra/dc.c       |   8 ++
-> >  drivers/gpu/drm/tegra/drm.c      |  15 ---
-> >  drivers/gpu/host1x/dev.c         |  15 ---
-> >  drivers/iommu/Kconfig            |   1 +
-> >  drivers/iommu/dma-iommu.c        |   5 +
-> >  drivers/iommu/dma-iommu.h        |  52 +++++++---
-> >  drivers/iommu/iommu.c            |  24 ++---
-> >  drivers/iommu/tegra-smmu.c       | 109 +++++++++++++++++++-
-> >  drivers/memory/tegra/tegra114.c  |  15 ++-
-> >  drivers/memory/tegra/tegra124.c  |  12 ++-
-> >  drivers/memory/tegra/tegra210.c  |   6 +-
-> >  drivers/memory/tegra/tegra30.c   |  18 ++--
-> >  include/linux/iommu.h            |   3 +
-> >  include/soc/tegra/mc.h           |  20 ++++
-> >  16 files changed, 410 insertions(+), 119 deletions(-)
-> > ---
-> > base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> > change-id: 20260728-b4-arm32-iommu-dma-cookie-3170e07f9125
-> >
-> >
-> Best regards
-> --=20
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
->=20
->=20
+Compressed representation
+=========================
+
+When the feature is enabled, NODE_CACHE uses an extended entry to retain the
+compressed payload length, private-slab allocation size, CRC of the original
+node block, and compression-context ownership.
+
+Compressed payloads use per-superblock private slabs with three object sizes:
+
+  256 bytes
+  512 bytes
+  1024 bytes
+
+A result that exceeds either the configured threshold or the 1024-byte limit
+is not retained.  Raw entries stay on the existing node LRU.  Compressed
+entries are placed on separate 256-, 512-, and 1024-byte queues according to
+their allocation size.
+
+Ownership and restore
+=====================
+
+The conversion path may briefly hold both the raw block and a newly allocated
+compressed object.  After publication, however, the entry owns only one
+representation.  Compressed bytes are never submitted directly to BIO.
+
+Restore runs while the entry lock and lookup reference still exclude normal
+concurrent byte users.  It validates:
+
+  allocation size
+  compressed payload length
+  LZ4 output length
+  raw-block CRC
+  node footer
+  inode checksum
+  requested node type
+
+A raw-buffer allocation failure leaves the compressed representation intact
+so that a caller may retry.  A malformed payload or later semantic validation
+failure discards the optimization and uses the normal disk-read path.  The
+compressed cache therefore does not replace the on-disk source of truth.
+
+Background worker
+=================
+
+The series reuses the existing per-superblock cache thread instead of adding
+a new kernel thread.  Writeback and compression keep separate due times, but
+execute serially in that shared thread.
+
+Each worker pass is bounded by:
+
+  maximum raw scan:        1024 entries
+  maximum candidates:       256 entries
+  reschedule batch:          32 entries
+
+The series adds two sysfs controls:
+
+  node_compress_threshold
+  node_compress_interval
+
+The threshold is the maximum retained compressed payload as a percentage of
+the original block; zero disables compression.  The interval range is
+100--30000 ms, with a default of 1000 ms.
+
+Reclaim policy
+==============
+
+The series lets the node shrinker reclaim raw and compressed queues
+independently, so every compressed entry created by the worker remains
+reclaimable.
+
+The shrinker uses fixed reclaim weights.  A raw entry has a larger weight
+because it occupies a full block.  Compressed entries are retained
+preferentially, but remain reclaimable under sustained pressure.
+
+The same weights are used for:
+
+  - the effective shrinker count; and
+  - per-queue scan quotas.
+
+Quota rounding credit is carried across shrinker invocations.  If a queue
+reaches its population cap, unused quota is redistributed to the other
+queues.
+
+REFERENCED second chance
+========================
+
+The worker and shrinker use the same REFERENCED rule:
+
+  test REFERENCED
+  clear REFERENCED
+  move the entry to the tail of its current queue
+  skip it in the current pass
+
+The worker remembers the original raw-list tail so entries moved during a
+pass are not revisited in that pass.
+
+If an entry is accessed after compression completes but before publication,
+the temporary compressed object is discarded and the entry receives the same
+second chance.
+
+NVMe-backed QEMU test
+====================
+
+The test environment was:
+
+  x86_64 KVM
+  4 vCPUs
+  3 GiB guest memory
+  2 GiB raw F2FS image
+  host backing filesystem: /dev/nvme0n1p2
+  guest block device: /dev/nvme0n1
+  QEMU device: nvme
+  cache=none
+  aio=native
+
+Each test suite created its own empty, formatted 2 GiB seed image.  For every
+guest boot, the host copied that seed into an independent sparse image, and
+the guest rebuilt the same file set:
+
+  /mnt/bench/
+  |-- files/
+  |   |-- d-0/f-0 ... f-63
+  |   |-- d-1/f-0 ... f-63
+  |   `-- d-255/f-0 ... f-63
+  |-- shaped/
+  |   |-- b-1-0 ... b-1-3
+  |   |-- b-32-0 ... b-32-3
+  |   |-- b-80-0 ... b-80-3
+  |   |-- b-128-0 ... b-128-3
+  |   |-- b-192-0 ... b-192-3
+  |   |-- b-256-0 ... b-256-3
+  |   |-- b-384-0 ... b-384-3
+  |   `-- b-512-0 ... b-512-3
+  `-- sentinel
+
+The files/ tree contains 256 directories with 64 files each, for 16,384
+replay files.  These files build a fixed inode, dentry, and node-page
+population and are accessed later in a fixed manifest order.
+
+The shaped/ tree contains 32 zero-filled files ranging from 1 to 512 blocks.
+Their different extent and block-address densities diversify node-page
+contents and compression outcomes.  They contribute to the initial cache
+population and subsequent compression and reclaim, but are excluded from the
+timed replay, which remains limited to the 16,384 uniform small files.  The
+sentinel is used only for clean unmount, remount, and content verification
+after the measured workload.
+
+The workload compares memory use and replay latency at equal node counts, and
+retained nodes, node reads, and replay latency at equal node-cache memory.
+
+For the results below, compression-off means compression admission is disabled
+at runtime, while compression-on means background conversion is enabled.
+Attributed node-cache memory is the sum of cache-entry bytes, raw block
+buffers or compressed private-slab slots, and known fixed context bytes.  It
+is an accounting metric, not measured physical RSS, and excludes allocator
+metadata.
+
+At equal node counts, both modes retained 16,676 nodes:
+
+  compression-off attributed memory: 69,792,344 bytes
+  compression-on attributed memory:   6,008,152 bytes
+  memory reduction:                      91.391%
+
+The paired median foreground replay regression was 0.845%.
+
+At equal node counts, the compressed representation substantially reduced
+attributed memory while typical replay latency remained close.
+
+At an approximately 3 MiB attributed node-cache budget:
+
+  compression-off:    3,199,800 bytes, 760 nodes
+  compression-on:     3,207,992 bytes, 9,208 nodes
+  retained-node ratio: 12.116x
+
+Node reads were:
+
+  compression-off:  15,668 reads / 64,176,128 bytes
+  compression-on:    7,209 reads / 29,528,064 bytes
+  reduction:         53.989%
+
+The compression-on configuration also completed 9,175 compressed restores.
+For the one-pass foreground replay, those restores plus 7,209 node reads equal
+the 16,384 per-file node retrievals.  These counters cover F2FS node
+retrievals, not all guest filesystem I/O.
+
+The paired median foreground replay delta was -24.984%.
+
+At the same node-cache memory budget, the compressed representation retained
+more nodes, reduced node reads, and improved replay latency in this workload.
+
+Android phone test
+==================
+
+The mechanism was also exercised on a real Android phone with application,
+memory-pressure, and cache-lifecycle workloads.
+
+Each successful trial performed:
+
+  reboot
+  launch 18 applications for a seed pass
+  pre-pressure normalization
+  allocate and hold 1 GiB of memory pressure for 30 seconds
+  release pressure
+  launch 18 applications for measured pass 1
+  launch the same 18 applications for measured pass 2
+  restore the original policy
+  clean up and run an offline audit
+
+The seed pass was excluded from the reported measured launch-time results.  It
+populated the post-reboot F2FS node cache with application-related node
+entries so that background compression, pressure reclaim, and later restore
+operated on a non-empty cache.
+
+The application set included messaging, short-video, shopping, social-media,
+browser, and video applications.  Each application record retained the
+package, Activity, PID, process start time, launch timing, and F2FS node-cache
+counters.
+
+In the snapshot statistics below, attached node entries are the current raw
+and compressed cache entries.  Attached raw bytes count 4 KiB raw buffers,
+while compressed slot bytes count allocated private-slab bucket sizes.
+Node-cache logical bytes combine entry, raw-buffer, and slot accounting; they
+are not measured physical RSS.
+
+After restoring the original sysfs policy, the final snapshots showed these
+trial-level means.  Restoring the policy did not flush existing cache entries:
+
+  compression-off:
+    attached node entries:      14,509
+    compressed entries:              0
+    attached raw bytes:      59,430,229
+    node-cache logical bytes: 60,823,125
+
+  compression-on:
+    attached node entries:      25,331
+    compressed entries:         16,402
+    attached raw bytes:      36,573,184
+    compressed slot bytes:    8,769,877
+    node-cache logical bytes: 47,774,805
+
+At the same final snapshots, the mean compressed-entry distribution per trial,
+rounded to the nearest entry, was:
+
+  256-byte:     373 entries ( 2.27%)
+  512-byte:  15,116 entries (92.16%)
+  1024-byte:    913 entries ( 5.57%)
+
+Under the F2FS node-cache accounting model, compression-on changed the above
+values by:
+
+  retained node entries: +74.59%
+  raw bytes:             -38.46%
+  logical cache bytes:   -21.45%
+
+The node-read count is the filesystem-wide F2FS FS_NODE_READ_IO count for the
+/data mount.  Each event represents a submitted 4 KiB node-block read.  It
+includes activity from the measured applications and concurrent Android
+services, and is neither a per-application attribution nor a count of all
+storage I/O.  The counts were:
+
+  compression-off mean: 309,360
+  compression-on mean:  287,417
+  difference:             -7.09%
+
+The compression-on trials also exercised raw-to-compressed conversion,
+compressed restore, compressed-queue reclaim, and REFERENCED clear-and-move.
+Each compression-on trial completed about 70,441--76,786 conversions and
+retained a mean of 16,402 compressed entries in the final snapshots after
+policy restoration.
+
+In this Android workload, the compressed representation reduced node-cache
+accounting memory, retained more node entries, and showed a lower filesystem-
+wide node-read counter.  Raw and compressed entries continued to be reclaimed
+under pressure, followed by restore and recompression during application
+replay.  The observed node-read reduction describes the direction in this
+workload rather than a strict per-application causal measurement.
+
+Patch layout
+============
+
+Patch 1 generalizes metadata-cache shrinking to accept explicit lists while
+preserving the behavior of existing caches.
+
+Patch 2 adds the extended node entry, private slabs, compressed queues,
+ownership, and memory accounting.
+
+Patch 3 connects queue-aware reclaim, fixed reclaim weights, and carried
+rounding credit.
+
+Patch 4 adds restore, length and CRC validation, complete node validation,
+and disk fallback.
+
+Patch 5 adds the bounded background worker to the cache thread and exposes
+the threshold and interval controls.
+
+Patch 6 gives the worker and shrinker the same REFERENCED clear-and-move
+behavior.
+
+This series is based on F2FS dev-test commit:
+
+  1b629035be4a ("f2fs: rename nr_pages_to_skip with nr_caches_to_skip")
+
+I would especially appreciate feedback on:
+
+  1. whether per-superblock 256-, 512-, and 1024-byte private slabs are an
+     appropriate allocator boundary;
+  2. whether fixed reclaim weights for raw blocks and compressed slots are a
+     reasonable initial reclaim policy; and
+  3. whether the threshold and interval provide a sufficient initial control
+     interface.
+
+Thanks,
+Wenjie
+
+Wenjie Qi (6):
+  f2fs: generalize metadata cache shrinking to explicit lists
+  f2fs: add compressed clean node cache representation
+  f2fs: bias node cache reclaim toward raw entries
+  f2fs: restore compressed node cache entries before access
+  f2fs: compress clean node cache entries in background
+  f2fs: give referenced node cache entries a shared second chance
+
+ Documentation/ABI/testing/sysfs-fs-f2fs |  22 +
+ fs/f2fs/Kconfig                         |  12 +
+ fs/f2fs/Makefile                        |   2 +
+ fs/f2fs/cache.c                         | 145 +++-
+ fs/f2fs/cache.h                         |  52 +-
+ fs/f2fs/data.c                          |   5 +-
+ fs/f2fs/debug.c                         |  47 +-
+ fs/f2fs/f2fs.h                          |  17 +
+ fs/f2fs/inode.c                         |  20 +-
+ fs/f2fs/node.c                          |  55 +-
+ fs/f2fs/node_cache_compress.c           | 915 ++++++++++++++++++++++++
+ fs/f2fs/node_cache_compress.h           | 144 ++++
+ fs/f2fs/node_cache_policy.c             | 211 ++++++
+ fs/f2fs/node_cache_policy.h             |  54 ++
+ fs/f2fs/shrinker.c                      |   3 +-
+ fs/f2fs/super.c                         |   4 +
+ fs/f2fs/sysfs.c                         |  59 ++
+ 17 files changed, 1713 insertions(+), 54 deletions(-)
+ create mode 100644 fs/f2fs/node_cache_compress.c
+ create mode 100644 fs/f2fs/node_cache_compress.h
+ create mode 100644 fs/f2fs/node_cache_policy.c
+ create mode 100644 fs/f2fs/node_cache_policy.h
 
 
-
-
+base-commit: 1b629035be4a085f59d47edc62f4e695c763a94d
+-- 
+2.43.0
