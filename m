@@ -1,106 +1,152 @@
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5DC50B8CB;
-	Tue, 29 Sep 2026 19:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758BB568FA6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710190; cv=none; b=uUcZkiTgRq3qGq4JwumgU5wCbNuCNjGwZlNteUpzklp0o0OkCk9YXTD728PAVp2mU/NDeEy0oy5GBRwIIkbytTh85M6UJhosyA41Vk3Qvb8EgHrehQ1DmQGUSJRbCbUmSyqNcpqWb/DbqAnUxDyhCkEuUZpEYVztakX2ObbofUk=
+	t=1790710209; cv=none; b=c892sSnWNNhakEem5vuK3/UYx2oV2u/gT2BmVcBeL6KC+8t3y06cAVcEYxqG1gAuoA6LQ/bMRHFeSOPbgLjb/w5x/ClpD9yUFhi87dh9OCHznymJV2wjp+F3YfRSJgxCmbQwYRhWzaFmhUhH3q76tBEVDQ5tHq809FL3Fd7fU7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710190; c=relaxed/simple;
-	bh=3z78U6ewUrt+RGwoXgbE78coGKF5z18YOLvbHXnXIUg=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=qZFGXZluHHDr7idZJi8DTcgdWheFD5PbuV6YYDI76ID9sjXlYpEIUhYGSSobgDKybKKG5p1Y2JW24PoT6ViQS4IG43DNh0VoZTbD9Q7W795QuqBEBicsmEcwiV66S87Z3jaSST2Xl3KB/fBXuWXXDocqk4RskGp8tYIEZEu1jRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=BolzSXhn; arc=none smtp.client-ip=109.224.244.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1790710209; c=relaxed/simple;
+	bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lEx7J6UsgoWpHs7EM1N51ZoiIxOnBw0bkKZztKF0jkjZrRySkKnhKtECnbqHaorWWGJQ3t6382D9ZNmil1DISzRp+2hES3hVJfZuiL/m/heU7FoyOT+YFXUzxUoL/a5hLwCkQ91aignpkudwUOkNi84TRlLgIyeAGdg2wgmDbSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fohw24hc; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="BolzSXhn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790710178; x=1790969378;
-	bh=z33BuqQYyeNmXMvblMjr2WqewbZtIRphsrRoxB31ueY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BolzSXhnKIF5z1zkiiYykw5YuJOsZgYk4VjfTEWI9X36hT5xXHID4X7imFfU4vFM1
-	 fa86JeN+BhYBXsOQZlIr1g9QHm3UMmJgRnIHVasCRCwYUdQB+MasNkc/Ayf1nZfIZ0
-	 2nf+9wqNh1rHGFZfkgJ9d9TSdzm7bZU7ZH604Wfpyq4QrLVei3J++CjpwaZBuGE2bJ
-	 2JHWA8qvFHO1/UXN+/ZL9Ud39hFJNwlpSXAmfVw6fsrFuriP5mNQUQLLzwkPhorr/I
-	 Nq2+UcgotYe0AG5ftMkTYS0Wqp3468hMw4kY1TBBQss9ZMZJdmtqBGaUyoHCuGz315
-	 pXXe88c2F/dbg==
-Date: Tue, 29 Sep 2026 19:29:32 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Alex Robinson <alex@ironrobin.net>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3] Lenovo ThinkPad X13s embedded controller support
-Message-ID: <20260929192908.16507-1-alex@ironrobin.net>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: f570a8012b5df92eb02247b46633b3ea7669892c
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fohw24hc"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso339603eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:30:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790710206; x=1791315006; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
+        b=Fohw24hc2TW53G7PfmQZ75qoNqEGDCmAACYcpgcT8T/pXTLi8wmFjjSMIF1nFb6T19
+         lAmwoxUYxrUzWipoJivsl4LXO4mZ6HAouAb+qYjP0EEY4BIhcP4UD2/b4RYwR5cLlS69
+         Bzci079u73stV648rNVEIqfK+0W7ByjQBxurLjascSyL9IIDgLQqDGBT6MAnl3RP34Cw
+         nKqNepjjIUD48TITIkEsY5DGq4e//Uq/J399TLkmK56GyoUhz4aTxWXwmOxYCemVUBLP
+         Y7cjjyAUS17bmywBor0pxF4ho0Zr5BgC2U4EzvHisRUUmLo/avEi68hwREn+BdK2O0dw
+         E/AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790710206; x=1791315006;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
+        b=thoMkeuqRAFrVMJ+vW8J7/w229nP/cCcGfuzMnamVmeCdPQXiSr/Dgksw4Am+9r1om
+         nEWXC8OXfKi4E0bETsMW1ChxQLyX6S5Kxq1syi/7PNmFJljaoXgaF+7+oGdzxM66KW2K
+         lcAc0vr2jCjGC3/eTEsv7WHhHtOGXIGWYaPQV/WyKq1qHXGJIhF73jINuRHZykfPCmb6
+         wS11V6Q8iR+bikLVcUEkmFYI5v+XHPEM6FK7ZZU0uM1gwDzoQo6nQOvf2BzNLZBBd2h8
+         Zue0ONSri3hNBtDcOmuhdXrLFkH7V1C40cs7BlHCffAb4i7CYi+j1lDpkKhsd3VLMfOX
+         Ze1w==
+X-Gm-Message-State: AFq9FYInaNA9jTHvqq/v1eU643YNRm8n5dklgGkZo+JVfoKwl1h/9I2g
+	fkm66/tLKcg3TTROGn0G7P5OK/cOnVVFQ45Xzyq3xvrGye9+i9dQmMEc
+X-Gm-Gg: AYBFou0MVN/fmLuS9/02CO+PvA0IiRfT5dcpNQjfTxbA9M0gE/kzmNEU9D9b+RejTd/
+	3CO+sDyxRmg/y5+vZOEdA/ZEqklcW5jEeCfPeVME89yYsquCWgLj4JqWeiRnW0rJ3sgxfeJcbFB
+	B2Qj36zw4/NhhQT60v1Qk/TiBcJx4d+iLTlBrDMs0YV1SXfwrioIGVUzAxhTDlXFH9oQeXnG+4a
+	Ah2uKSCr+vrKrVYCo3PM6vTHfdXaLetoQfhr8/lrcx7TKbz5vV1KWIBjmiL3yizEfzjbgPAgLbX
+	OOwhQK6T6T1G0lfAHmHu//XTgpCvrWLTGubt/pmarSVQ9CYv2Fv8CS2NBp1d5ImLwyHUc5n0Ljj
+	7Uub7FbOpHrS9YYHHBr1BFGUDjmEAFNQt/heKymgOxaQxsYFMciZIl8lpSjjkl1TTlBLYvIRk39
+	2dpZf8i25B/b039DuuyHtYHXmJzxPvY+tznL5D+7mouhjW+Q70lOYgWXWmRQKEJNhKDbWw1gJQL
+	r7Wp8j67A==
+X-Received: by 2002:a05:7301:4d12:b0:34c:3ae5:ebc with SMTP id 5a478bee46e88-34c6128bdf6mr606357eec.0.1790710206173;
+        Tue, 29 Sep 2026 12:30:06 -0700 (PDT)
+Received: from [10.211.86.252] ([2409:40c2:5054:69f0:5c6b:5195:5b7b:d414])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm1275349eec.16.2026.09.29.12.29.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 12:30:05 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v5 0/2] regulator: dt-bindings: Tegra coupling DT
+ conversions and cleanup
+Date: Wed, 30 Sep 2026 00:59:41 +0530
+Message-Id: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13NQQ6CMBCF4auYrq1hpsNQXHkP44KWVmtUDEWiM
+ dxdqjGCy5fM989TRNcGF8V68RSt60MMzWUc+XIh7KG67J0M9bgFZsiZRpBdkN01cq75Lk1OrgC
+ AEgorRnFtnQ/3d227++x4M0dnu5RIF4cQu6Z9vN/1kO6+ZZyVe5AgS2UNsVFosNjsz1U4rWxzF
+ qnc48+WwHOLMpMe0PraGyK2/1ZNbTm3arSs6hop88Sa/i1NLNLcUrK2qLQ32jDx1A7D8ALJkTC
+ 1bAEAAA==
+X-Change-ID: 20260821-ti-tps6586x-b54e7111917c
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@avionic-design.de>, 
+ Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
+ Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790710190; l=2057;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
+ b=ilhdseio2iTuo0yviwOatf83AM0VBGpCAYeK5Hkt5ozS9PWnQcn/FQ38a6gjWl/sMMFJAv/so
+ Qrz5Kae571TCPLKx5GN5PNmAJHRi2pb4fjqXH7eqQom3wILB2QDreKA
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Add Device Tree support for the ThinkPad X13s embedded controller,
-providing keyboard-backlight control and firmware-driven brightness
-notifications. Its event, backlight and power-management interfaces
-differ from the T14s EC and require a separate driver.
+This series adds a shared DT schema for Tegra regulator coupling, 
+updates relevant PMICs to use it, and converts the TI TPS6586x 
+bindings to DT schema.
 
-EC wakeup remains disabled by default because lid closure can trigger
-an unwanted wakeup and no selective event mask is known. Userspace can
-enable wakeup when desired. Other EC event mappings remain outside the
-scope of this series.
+Summary:
+- Patch 1: Fixes existing TPS65910 validation warnings.
+- Patch 2: Converts Tegra regulator coupling to DT schema.
+- Patch 3: Updates Tegra-related PMICs to reference the new schema.
+- Patch 4: Converts TI TPS6586x to DT schema.
 
-This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
-Development was assisted by an LLM, including analysis of the X13s ACPI
-DSDT and review of the implementation.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v5:
+- Dropped example from nvidia,tegra-regulators-coupling binding.
+- Link to v4: https://lore.kernel.org/r/20260924-ti-tps6586x-v4-0-6c7a8fb8b646@gmail.com
 
 Changes in v4:
-- Set GPIO103 bias-pull-up explicitly, based on its firmware-inherited
-  configuration measured at pinctrl probe before Linux claimed or
-  configured the pin. CTL offset 0x67000 read 0x00000003 (pull field 3).
-  The temporary measurement instrumentation is not included.
-- Remove output-high from the GPIO176 pinctrl state. The driver already
-  requests GPIOD_OUT_HIGH at probe and controls the line during sleep.
-- Restore the suspend brightness snapshot only if it was successfully
-  captured during that suspend, avoiding restoration of a stale value.
-- Use FIELD_MODIFY(), validate brightness against the LED maximum, and
-  simplify transfer error handling and selected mutex-protected paths.
-- Include linux/ratelimit.h explicitly and adjust conditional formatting.
-- Shorten commit messages to focus on rationale rather than the diff.
+- Dropped applied patches 1 and 4
+- Rebased to broonie-regulator/for-7.4 to resolve conflicts
+- Link to v3: https://lore.kernel.org/r/20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com
 
 Changes in v3:
-- Disable EC wakeup by default without disabling runtime IRQ handling.
-- Retain wakeup-source as a description of hardware capability.
-- Remove the Kconfig help text's claim of wake support.
+- Patch 2: Add '>' to description
+- Collect tags
+- Link to v2: https://lore.kernel.org/r/20260916-ti-tps6586x-v2-0-f12cfdfb446c@gmail.com
 
 Changes in v2:
-- Make backlight snapshots and EC power-management operations best-effort.
-- Save firmware- and software-selected brightness in the EC and restore
-  the EC-saved brightness on lid open.
-- Process deferred events after the normal resume brightness restore.
-- Add QUP8 pin configuration verified on hardware and fix DT node ordering.
+- Add patch 1 to resolve warnings from TPS65910.
+- Add patch 2 to convert nvidia,tegra-regulators-coupling to DT schema.
+- Add patch 3 to $ref to shared schema.
+- Patch 4: remove individual properties and add $ref to shared schema.
+- Link to v1: https://lore.kernel.org/r/20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com
 
-Testing:
-- Confirmed GPIO103's firmware-inherited pull-up on a ThinkPad X13s using
-  a vanilla kernel with temporary probe-time instrumentation.
-- Verified that all three v4 patches apply in order to Linux v7.3-rc4
-  without the separate PCI workaround.
-- Earlier v2 hardware testing covered keyboard-backlight control,
-  firmware brightness changes, s2idle, lid-close/open brightness
-  restoration, and EC wake events. Those results are historical and do
-  not establish validation of the complete v4 series or default-off
-  wakeup policy. Full v4 build and runtime validation remain outstanding.
+---
+Bhargav Joshi (2):
+      regulator: dt-bindings: nvidia,tegra-regulators-coupling: Convert to DT schema
+      regulator: dt-bindings: Reference Tegra regulator coupling schema
 
-Earlier series:
-https://lore.kernel.org/all/20260925215358.33417-1-alex@ironrobin.net/
+ .../devicetree/bindings/mfd/ti,tps65910.yaml       | 12 +++-
+ .../regulator/maxim,max77620-regulator.yaml        |  5 +-
+ .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------------
+ .../nvidia,tegra-regulators-coupling.yaml          | 38 +++++++++++++
+ .../devicetree/bindings/regulator/ti,tps62360.yaml |  1 +
+ 5 files changed, 52 insertions(+), 69 deletions(-)
+---
+base-commit: 05a3330f490cfa266831c0fc7f8c6df942866d59
+change-id: 20260821-ti-tps6586x-b54e7111917c
 
-Alex Robinson (3):
-  dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
-  platform: arm64: Add Lenovo ThinkPad X13s EC driver
-  arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+Best regards,
+-- 
+Bhargav
 
