@@ -1,182 +1,151 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B3B1E9B1A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648716; cv=pass; b=is5FzGt2LRbk2rHBmqRjir0jkNxyoPTuR/X4f8jLdcd1dM6SOLa5LM0IsUzxDavJlV8ms6S8FQ5wHSvIpJFjg32MyyP4nXBDRlmTjGd6DeqgK84Z3wEZAeg8Pw3+E4VnDpQoFybVzq1hS/18IFAOavJE3tFK9MgT4Q5DUkQOfoA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648716; c=relaxed/simple;
-	bh=gRofY94116ewXssUMqxmKOiWev4JCA1Bvd0JTvEcWgU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lcJe4oF6woWTsE0zydOKbNfKnvgqoXmbD3P5bRSRVfsAM2XPU9/8czFZcxnRo69XgAc5tKaifv5Secww4OfXlzfFRiAbIeD4noEoSangOPJhIrU3FTqpz/yTWKahrpQxIzsKBdOxNkvOcgw/Y68u9x4CXdAijv/gONcBiPzg45I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgAiUdE7; arc=pass smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6781E9B1A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790648766; cv=none; b=iyqXIQ8E0IzI32GV6RzaaxtINFbKy33SK6NWzmN0lqdcfAyjDkNEh/yFrvBDvt/ngOdPdwWD2ggVa2Iw7qI667QtoVVB8JeVTbAkbUuBjLHrRi9Gn2qAT2eAjTqPD71WCKtK2FRXhGU6BlB1slF1qo25Vil21Ign4x/D3h1k22Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790648766; c=relaxed/simple;
+	bh=RGiJFRN6CzF76TeIenyTuivjmSYoV3fBSmXB6ndMUys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpGCrsPamNVkgQ56wryI2wTpgfjwktf1/hLOBRhGyVCQdKHRuAAzftlHUkER9oVJaSVqnmSECrRDeKNMHxw5XlMUAY+zLgipW+CmqoQV6JedV5LcUy4qcTCA66uc6Awu+i8EDJLumNqBGkZKfbgSR1MgjcwhccgezbLk03jqxQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+iAp1do; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgAiUdE7"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so22194165ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:25:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790648714; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XzrApEBXXKks1lhsUCKb1oeaLCOrIf4l3HP/nm8AHdv/KRJbaTAGD39+nRTXA9pmQh
-         L1Ux0GEyPJok61ZkjZt2zdJIgf6UC/Q5XWfK0plvsWSECh3Q/04taywnD+WrD8J7fadE
-         QnPPFfm/0Ys9buI8hxjG8zc2GNSVcPY7YJmBAloerGce1NuVQ5TjjUiGxF5rJ50E2gqt
-         gd9uHJYJZjLg0LAebnk2Cv8fXNAj0xDzvR2PxA6DYlPa0wD7lV1fIU6U0ujFU/vChV8n
-         WmGpaaHprcsx8W4B1VxjRw37/WUClvQAayqJlLPPHjAozVTDKLSGEtOhxJCuPrirjZN2
-         BUDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nkKvLbzRYukGPbTIPd09ia/Uh277ngkm3fC9shqQYaI=;
-        fh=gbJqrtQ8i2kj37jHjxTbhBEYlOtsfIo5gNefxORKlOk=;
-        b=PUWwZxNMVig2J9odQvKXAPCfJivST9rGi9Z1hEMdQswBV5lzP5O8/X8U+bcacC43BF
-         M40sFJCozGytBRHKDIgNRW31nHqTkAB99G14yMOtf8kOS2ASnyXvGVHlxlsl4booU1wO
-         T92oavTV38iwccbeyQm+LAnxOIe6jFXyFmSeyLqJGjEV6sDHq9GV4v8YxOnRdOT9/ao2
-         vOGix+JIhgyeR/B9HYVCuwsLzP9Wh3ztoRzN64R1H+WDvUY8MI+rzL6gFw9uHKVccS2V
-         +YU3jvABsk6zCY+6PiqpkXtgSu4rQyqEXCKb41Eidjbmh2vl5xUOhUypDWnMH05m5igR
-         ZJiQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+iAp1do"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7b3311d3fso624273a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:26:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790648714; x=1791253514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nkKvLbzRYukGPbTIPd09ia/Uh277ngkm3fC9shqQYaI=;
-        b=lgAiUdE7WwwSrJj+oan6qBylZEEzEJcaNELFxFwTmFzS+L7PBASmGB1vnhazrB1/OG
-         opZUX9WyhXoQkUMEty6q2FcjYTrtWAhpJRbUZNmx12Kb1Fu5yB/np6g1gIE+eZbsYWui
-         UdHaZ3IMhaagoC+k7P+p3Hdua9quDs6zNxgLT3fwzvTAhDmthrMHdLPjCIH8cjpqQ6FY
-         Mm3HoQBNsZSkVS8rW38HSmtq+EiK46+ONoWzwJcE6d8/vphYtMy9UQAKQ1FQg7W0T6R8
-         t5SBuZjJRGkVFfIAmQ5c4b5Vb89WFF8jdjFIbQ+NZ0s2E/XMucEtyCO8F5wo3/xeehBo
-         W2KQ==
+        d=gmail.com; s=20251104; t=1790648765; x=1791253565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WLsU5PROWNjlhFWPCkRAR9UTl0+TaevSxI9W1D+sgh0=;
+        b=G+iAp1domIGFLQ8BKHfppyahvre11JN+guuH2iGN4H42aJumvvSYwzZEbxS5DHSARt
+         j+M4/Xx5Ahp/1vTkLUY9sdggV6ikUE/qkIg41lNTyMB5SYxm0bJ/RTXcpT5kCC1hOdzd
+         kkaeYZvbAZfYIH7KlExU5/YqVQzNasvUyfWOd3m5VKYa+L78Yl8ulH3yTGA1x7tYeRxC
+         Hu3H1mg47+ah00cbyAc0z+EsquBsIEMdIMr/TiYua3OzMB+IdhU7OfpUrZJkWB1+Fhfy
+         vafoOIueZ2XYHy9eY3qQjH1cvz/XzHMBnosPdWQP6aBWUhAT35HgR6NbmOdXHP85JnGU
+         EWYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790648714; x=1791253514;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nkKvLbzRYukGPbTIPd09ia/Uh277ngkm3fC9shqQYaI=;
-        b=EvoE4un8vHz0nHZp/iwJcL+uoxXinC2T7yorRHoTeClymjdKksWzjr88FZcykToO6f
-         XhYmPo/YUVeUOuid8HSwCAXRbn5sNfUSp0dksudmxACPrDCiUnfrKEQzYpDXYgPtdXKd
-         hdCLwRQdpWIOZCOu8IK01vKpWvRBy0yuyqya95eg9UifDbQsmdVzaUZHhE/c7Rz2Nxmb
-         FGPa5MkHA95ATPkjk1RuZMrGoCdwbCe3ddGFQmm7uP0fvtKFT/22KA/jRwuD1XWSCKJK
-         ZvOth+TZXhUiU9lQ26PcohkrIU/SHB6+axUJuKwRsVgE0dtjAEEqEUxHlh/j/X3p4YJ/
-         rRyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwMk+wAecGX3Q3scnyfk8Fcje15oJLkuQop8Hvp6tpBHhKgdqZ51hgYT+Xx2UXrhjeGoePqCSEvc9PxfE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPBWdFd+wAyXxXFKAUG1g7nctBzwGDtGIcIRsZoWwrYG505ab4
-	cwKQUojRfoPHzrIEXx50JD0xQfPZHZW9yMd48LFgxxQBtZGOHxOWqqFxHADmgwt6+ZrhJ+84TzG
-	FDL6UGRHqGi6bOfo46kHGeD1zrOWZDkgeoA==
-X-Gm-Gg: AYBFou2ztWBnlLeHCsBoUYzlzbKazpDxHamzjAob4a2KXKNA/XO1++HvR2IKZQXzNGD
-	Vzzdt16K3MWYNxhRu5wjpPqbezwsJS2QfajqpvKLN/XXZtD8vTH0GC+a9FS5VmRQjtbHx/eC/PK
-	d5L9ishZr1rFvTOjoBb0vUCXCdUOm7gLYu4PUtnvMi9DWCCuyT033qbwR3rCXGLAnr+dfGUeFaW
-	H5L7stdZDM+PrihGav6b12tUabE/Sa3aoTqFKVTVlys0pQ30ThRj5Pxy7yYGNjh5Sg7h9R37NtF
-	s1IV9wDmH+0VnkJjkwFt+7t40Dq9VJ+xuEiG5pTsWZDYrNLHtwH3NeBVRsHdHu8IrsYcIebZFtd
-	lSx/BpbtPuak5hTnYHH3L9KZ1+aMQrt1Kubhy
-X-Received: by 2002:a17:903:2f50:b0:2dd:c0ff:e72a with SMTP id
- d9443c01a7336-2df7dff64ffmr110127895ad.60.1790648713958; Mon, 28 Sep 2026
- 19:25:13 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790648765; x=1791253565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WLsU5PROWNjlhFWPCkRAR9UTl0+TaevSxI9W1D+sgh0=;
+        b=Py+93Pz8s4A4NTcApNKaNeuJb12OmNs2VXuJU0xBop81BfNcFUAveD09IDabgqagfL
+         +PLQhWdsybThb1cByJJ1FS73oo69Ctm5NAi7nAGbKdoqlvME1V3WXEmcS0eAGRL3lMyg
+         3p34VFNMPT9qbP+OOAfS/wK7RwZC26VbqH/W3NMmZmVFn1D9p6pa+uSxcAdIfCRBGrpV
+         x5cICqGkfbDCi7KCc4NxaNNJlWbQuIJaTreSTMjWcTqu+NdSjIr9xoOFalYY7RCy9/KA
+         6b9xx+6mTUSP1+Z4eJzoZYS9Xdrs2iu1t8RIsH+ByBaS6qvvSFA6H+Tp1PlthtQodgrm
+         1fuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFHiM1ybZ2fXa9xUj+SEcSMpVTYmhupnQoCuFzGfNsddgA/4W9LOWcOzs4NlUzwe45JBGka3DYKZaZAx0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU+/AcPEZHbxYXvMaxLsNYrKbv/7ayLobdtx+sLYOyg8GNf5Lc
+	Hh4foKelRCEUYUB3Icl8ZrH1obzd/8RMX+LpwGj0rtQI1G3mTyzRbiJh
+X-Gm-Gg: AYBFou2ddgLCAc/PNSXbfACBC20/grxNAV/ddoP5RN10ROfyvFIRvyMvZAbRkTLbh7d
+	jCtcNZVywNIXPo26AIR3LeVpxObJlbc88LxgWejhVIwBaqJrrB+n9/P6uUi3LKAeWJNh00tcwhh
+	cxYE8hUb6xp6Ojejtam1i1LVYQUKQhEsx4QjZ/J4hpfrhcgjkXTiw5vuomJFhQm6b/W3X92eMjI
+	ANXiXHh7mrlca2zGyI24tT00H+QlcBpE39Tp91dnHaKu5pFsYaczDPctiUdQYMPTGZNgO620f+u
+	hPSdlt9tU7CY+RMbiFD8VJ9/fX+jmoKC4tThetUfzN+Rg5z4k4p/uzO7fJkblECv46YB+B7Nq1L
+	RaODNjGmKInrfCG5RKkW5rDdbfVgdgJ1eKV3W7swk6OuHXA4Ab7CBPnKFgV8i+kEq8Khqrft8TX
+	xO79R2p1Zgc1Xnpxn0RtpKuI0d5fbMiEUVOxGXlpM4V1FGuQChz7B1/P+3EChBnV7nGb8udjWyZ
+	FJdTJLUhrOoyRgRUpaBNc9OHHaT1+tD3LGolYuDjbPd24dCamhFZJNIwbjwBNVu+BE4YbyAYscj
+	Q3j4LvuWwxFgcQrHJPZAeiasPsfNMXHjd9IgaJHupRMi5+iJ
+X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr1691744a91.31.1790648764669;
+        Mon, 28 Sep 2026 19:26:04 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4985fd248sm2324879a91.7.2026.09.28.19.26.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:26:04 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] gpio: mvebu: convert to noirq suspend/resume to prevent interrupt storm on resume
+Date: Mon, 28 Sep 2026 19:26:02 -0700
+Message-ID: <20260929022602.23306-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929005411.4105448-1-vineet.gupta@linux.dev>
- <20260929005411.4105448-2-vineet.gupta@linux.dev> <20260929010327.024281F000FF@smtp.kernel.org>
- <0499fb85-d323-4141-b76e-bc9812b1d142@linux.dev>
-In-Reply-To: <0499fb85-d323-4141-b76e-bc9812b1d142@linux.dev>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Mon, 28 Sep 2026 19:25:00 -0700
-X-Gm-Features: AclHuK8MvjEF6nKkv4Z6ye1ak46nrlLfbKnMlxuKQXs_Elcb-3k7e9WK_870Png
-Message-ID: <CAEf4BzZJL3jkyXo7XwTYwH2St-eiQB_FNCM6ZP=_TzC_McW2zQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: sashiko-reviews@lists.linux.dev, Peter Zijlstra <peterz@infradead.org>, 
-	rostedt@goodmis.org, Andrii Nakryiko <andrii@kernel.org>, bpf@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 6:22=E2=80=AFPM Vineet Gupta <vineet.gupta@linux.de=
-v> wrote:
->
-> On 9/28/26 6:03 PM, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Low] cleanup: mixing goto-based error handling and scope-based clean=
-up
-> > --
-> >
-> > commit a6de528fef00ef67da15965a7a8b3944fa92b053
-> > Author: Vineet Gupta <vineet.gupta@linux.dev>
-> > Subject: tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
-> >
-> > This commit aims to resolve performance regressions with ftrace graph t=
-racing
-> > when there are a large number of tasks. It replaces the pre-allocated b=
-atch
-> > approach with inline allocation using GFP_NOWAIT, avoiding repeated swe=
-eps of
-> > the task list. Additionally, it transitions the RCU read-side section t=
-o use
-> > scoped_guard(rcu) instead of manual rcu_read_lock and rcu_read_unlock c=
-alls.
-> >
-> >> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> >> index 40d373d65f9b9..1c5ccc3f80d53 100644
-> >> --- a/kernel/trace/fgraph.c
-> >> +++ b/kernel/trace/fgraph.c
-> > [ ... ]
-> >> @@ -1057,26 +1056,37 @@ static int alloc_retstack_tasklist(unsigned lo=
-ng **ret_stack_list)
-> >>              }
-> >>      }
-> >>
-> >> -    rcu_read_lock();
-> >> -    for_each_process_thread(g, t) {
-> >> -            if (start =3D=3D end) {
-> >> -                    ret =3D -EAGAIN;
-> >> -                    goto unlock;
-> >> -            }
-> >> +    scoped_guard (rcu) {
-> > [Severity: Low]
-> > Does this mix goto-based error handling and scope-based cleanup within =
-the same
-> > function?
-> >
-> > Looking at alloc_retstack_tasklist(), the function retains the legacy g=
-oto free
-> > path in the initial pre-allocation loop (just before this block), while
-> > introducing scoped_guard(rcu) here.
-> >
-> > The cleanup subsystem guidelines recommend that for a given routine, we=
- should
-> > convert all resources that need a goto cleanup to scope-based cleanup, =
-or
-> > convert none of them. Mixing these paradigms creates confusing ownershi=
-p
-> > semantics and is highly prone to double-free or resource leak regressio=
-ns upon
-> > future modifications.
-> >
-> > Could we either convert the ret_stack_list array cleanup to use scope-b=
-ased
-> > helpers, or stick to the manual rcu_read_lock() and rcu_read_unlock() h=
-ere to
-> > keep the error handling style consistent?
->
-> And a third option is to drop the fallback allocation completely and
-> return -EAGAIN and come back. Granted I don't have much experience of
-> typical handling of GFP_NOWAIT fails and retrying immediately: would
-> that recover at all or does that take us back to where we started ? Peter
->
+The driver uses the legacy .suspend/.resume callbacks, but sets
+IRQCHIP_MASK_ON_SUSPEND on the irq_chip. During resume, the PM core
+runs dpm_resume_noirq() first, which calls irq_pm_resume() to unmask
+interrupts, and only then runs dpm_resume() which invokes the driver's
+.resume callback to restore GPIO registers (GPIO_IN_POL, GPIO_IO_CONF,
+mask registers).
 
-Not Peter, but I don't see a problem with scoped rcu and goto-based
-free/cleanup. Unless Peter objects, let's keep it as is?
+This ordering means interrupts are unmasked while the hardware is still
+in its reset state, potentially with incorrect polarities, causing
+spurious level-triggered interrupts before local IRQs are re-enabled.
 
-> Thx,
-> -Vineet
+Convert the driver from legacy .suspend/.resume callbacks to noirq
+callbacks via dev_pm_ops. The noirq phase runs before resume_device_irqs()
+on resume and after suspend_device_irqs() on suspend, ensuring GPIO
+registers are restored before interrupts are unmasked.
+
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: use NOIRQ_SYSTEM_SLEEP_PM_OPS instead.
+ v2: add __maybe_unused to fix compilation
+ drivers/gpio/gpio-mvebu.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
+index 267e6d5bacd0..27894acf8d34 100644
+--- a/drivers/gpio/gpio-mvebu.c
++++ b/drivers/gpio/gpio-mvebu.c
+@@ -994,9 +994,9 @@ static const struct of_device_id mvebu_gpio_of_match[] = {
+ 	},
+ };
+ 
+-static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
++static int mvebu_gpio_suspend(struct device *dev)
+ {
+-	struct mvebu_gpio_chip *mvchip = platform_get_drvdata(pdev);
++	struct mvebu_gpio_chip *mvchip = dev_get_drvdata(dev);
+ 	int i;
+ 
+ 	regmap_read(mvchip->regs, GPIO_OUT_OFF + mvchip->offset,
+@@ -1046,9 +1046,9 @@ static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
+ 	return 0;
+ }
+ 
+-static int mvebu_gpio_resume(struct platform_device *pdev)
++static int mvebu_gpio_resume(struct device *dev)
+ {
+-	struct mvebu_gpio_chip *mvchip = platform_get_drvdata(pdev);
++	struct mvebu_gpio_chip *mvchip = dev_get_drvdata(dev);
+ 	u32 edge_cache = ~0U, level_cache = ~0U;
+ 	unsigned long flags;
+ 	int i;
+@@ -1369,13 +1369,16 @@ static int mvebu_gpio_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static const struct dev_pm_ops mvebu_gpio_pm_ops = {
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(mvebu_gpio_suspend, mvebu_gpio_resume)
++};
++
+ static struct platform_driver mvebu_gpio_driver = {
+ 	.driver		= {
+ 		.name		= "mvebu-gpio",
+ 		.of_match_table = mvebu_gpio_of_match,
++		.pm		= pm_sleep_ptr(&mvebu_gpio_pm_ops),
+ 	},
+ 	.probe		= mvebu_gpio_probe,
+-	.suspend        = mvebu_gpio_suspend,
+-	.resume         = mvebu_gpio_resume,
+ };
+ builtin_platform_driver(mvebu_gpio_driver);
+-- 
+2.55.0
+
