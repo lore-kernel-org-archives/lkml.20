@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0B518FC97;
-	Tue, 29 Sep 2026 00:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1707318FC97;
+	Tue, 29 Sep 2026 00:31:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790641881; cv=none; b=sQaql1d9+XKRzYcSik2wiuuooeBat4slWg/FgHK+lxt8IGQMYd+qJQOrkEv+FyX4ITbnDgipGqPHkcNIkGFwdLltt49ZN4vMUMP7YSG2rUSn4kDBGJm6y/eozX/Ny3p3p/7F/6/Cy10xWCN2ueYBK90BBXg/SANHdIF9yl73K/c=
+	t=1790641886; cv=none; b=aYJZPA/LXnfFCywy2FGONB2KTJjcz3ATjqsIiBpD7quw4McyDl8LeaLqNwbHRmHBIrPAsFOmMLOPutee4gOPEj+8aplyLI754f0lgNc929CC3MXu7vNHGV1jDy29m1Hojt9XxtKbXkDZXCiQvO9VJUH1izHwjIRLW2gIVApOvVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790641881; c=relaxed/simple;
-	bh=tgapBw0CifW13PMaFWelEGJNx1gEmvR0ZnQf846HvX4=;
+	s=arc-20240116; t=1790641886; c=relaxed/simple;
+	bh=TwcyW0+tWe74bt/DNx20Z+ReO6DASDoME4G8QFiaKHk=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=llZHI+SfizoWu8in5NSrNDGajObZZpQE61dIoQAjVi5qTg34V/k0kvDd8iRw7d7bchGq1PHVT1Y80gBy3PlzcT7NTowcbHErjTVjOHMYSdI7XV7K1rodD5c0x0cbkjJ5z+fF2TUXYhi1zmLKNriTtD+Ikn5Gg73aW1tD/ltl8ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/tQhQSc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=NDjzTzESq01MuSJq0Y+MGFQ6v18Ts+nn5plzrIi+bptSvoT6f0d/6M38mb52MlWrQ1W3c9vqynUuQlOL9AIEaXpDjNGVRTib1VdBsXMSFsioE0D5oJ3jxXTS/b1/cv9dzSI9Zz7C9wynzX8MYeBJG8ArsGbDfsk8tOhZYuoQxfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nd8aF1R2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/tQhQSc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DE991F000FF;
-	Tue, 29 Sep 2026 00:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nd8aF1R2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6BF81F000FF;
+	Tue, 29 Sep 2026 00:31:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790641880;
-	bh=3oql9lElSkZT/4nRtOjsCxreVRAfauJkvJfeyc0WDzc=;
+	s=k20260515; t=1790641884;
+	bh=6VlV7dNyyMTnkdVMSqK3ITVfnIN+OzzOiOTj6sRqCaE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=d/tQhQScliL/KztO32M18o3poCVmf1GCyAE3JNhBFKFHWJSAnC1NIHCiZgWipbSHv
-	 /2oB7Y5Bl9qXZ7+WUjwOQ4/HvSKZ8QteuWM3sndXJubDnD1O6dTLjCygzNRQYXJ1if
-	 J6JqvF+QXVcqok+x8Dr/m9wK8jd4Uszt6TZNtuOsvAwp6xLWFRcwsRu4AxHHGq8Xuf
-	 V0z3lPZnGifKEeW4x3IBYWQg2/ZLsGi9rZ/f6nJEzsincluw1221fgf7/xoBUUhG7u
-	 by0PImLmMNxEUNp2TGQEYXufO4AbhDPxICIOCRaT4zO62lFuXC3Kb+QS8otVju1dks
-	 t5P2LTcPMPO/g==
+	b=nd8aF1R2pZg0X1h4Urs6uRZf10QHsDi28h9FAJTxKzHQtdMN8MKbozjq68dcPm3lO
+	 IlqIGPFd2mwY0LHxDdBPWW9pBnldfeMxF379ybUh7dvjl1FYlBiq7sJue2PUhgtqaI
+	 lz4GL3vfqAxzktjqdjaijTWA2Jxe1ykX2YgW8fvKE3if+JdhAjedt24Q+NXtu2/rDr
+	 04aELDYzeNxhVvv9r44E2ILoRIOwFMV9kvBZT/L3ArWc2T9LxPrFNML3gTsYe3Ky+p
+	 gYG2QYLZN5kt/kneZHVEqR7sBS1DJJZUt1b55SUvt8c2+6paywB9o4/hDnM5GvSMdq
+	 H8tnx9vXHdReg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0AEC3924FE4;
-	Tue, 29 Sep 2026 00:30:05 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5699E3924FE4;
+	Tue, 29 Sep 2026 00:30:10 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,39 +37,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: Fix linked_externs with
- bpf-gcc
+Subject: Re: [PATCH net-next v2 0/2] vsock: receive queue hint for io_uring
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179064180465.191583.15471520718506070506.git-patchwork-notify@kernel.org>
-Date: Tue, 29 Sep 2026 00:30:04 +0000
-References: <20260928231441.4037097-1-vineet.gupta@linux.dev>
-In-Reply-To: <20260928231441.4037097-1-vineet.gupta@linux.dev>
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: bpf@vger.kernel.org, andrii@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ <179064180888.191583.4189311679177858561.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Sep 2026 00:30:08 +0000
+References: <20260923184008.153541-1-devnexen@gmail.com>
+In-Reply-To: <20260923184008.153541-1-devnexen@gmail.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, sgarzare@redhat.com, bobbyeshleman@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, virtualization@lists.linux.dev,
  linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to bpf/bpf-next.git (master)
-by Andrii Nakryiko <andrii@kernel.org>:
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 28 Sep 2026 16:14:41 -0700 you wrote:
-> test_progs-bpf_gcc fails to build:
+On Wed, 23 Sep 2026 19:40:06 +0100 you wrote:
+> AF_VSOCK stream receives never fill msghdr.msg_inq. io_uring initialises the
+> hint to -1 and treats that as "unknown", so it cannot set
+> IORING_CQE_F_SOCK_NONEMPTY, and it speculatively retries a multishot receive
+> after every completion, including when the queue is already empty.
 > 
->   prog_tests/linked_externs.c:17:23: error: 'struct linked_arena' has no
->       member named 'arena'
-> 
-> Several problems, all from bpf-gcc not supporting address_space(1).
+> Patch 1 fills the hint at the common exit of __vsock_connectible_recvmsg(),
+> reusing vsock_stream_has_data(), the transport callback that SIOCINQ already
+> uses. Following tcp_inq_hint(), it reports a terminal hint of 1 once the
+> connection is finished, so the caller still performs the receive that
+> observes EOF. Patch 2 adds selftest coverage.
 > 
 > [...]
 
 Here is the summary with links:
-  - [bpf-next,v2] selftests/bpf: Fix linked_externs with bpf-gcc
-    https://git.kernel.org/bpf/bpf-next/c/61c1e63c9b65
+  - [net-next,v2,1/2] vsock: report pending receive data to io_uring
+    https://git.kernel.org/netdev/net-next/c/608e7f84960b
+  - [net-next,v2,2/2] vsock/test: cover receive queue hints
+    https://git.kernel.org/netdev/net-next/c/c116f78f94a4
 
 You are awesome, thank you!
 -- 
