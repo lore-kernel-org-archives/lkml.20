@@ -1,262 +1,133 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2107651EE0A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:22:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FA55221D5
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684583; cv=none; b=Ep1WxL8/By5ShJgvth8bJjvJdlr6bC16Qkjw+ouNgY2Wcwbhd2HlHmBJW/LtuAQ+m6gqgkVDipKTtwbe9FIzE00mFgrEa8qKqbTDwGItMh6TDhFk5CRIFmcdQkVhbOECEmt4/y0010OKYf9qUzkSQueD62D24JI5gd7L6AF+Tj0=
+	t=1790684670; cv=none; b=r9PDJkKgMq76teodqp4K+WyAh0BiMd47RKmbA44wIMvCbY6XMWm/u/MStrf7eS7NQa/CwNmbv2C7bE4yHqpl27od43yCQTYjXJu4IawUjH0CwOc7E34UlGpBTE4oChm8eXhZH+8DoXqJk9aHV5AM02XAtrEaUHCU0CNlZWPtynI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684583; c=relaxed/simple;
-	bh=WT4gq31nqrP8Fe2y3D59ZEOHqafYjC83nzbUyNfaSfw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mXRqsy+sxxQ8NermyoTpmENTIzuc6MhMw1C7qqG1A0XK6kH7C670RG1MGR0urVHgCo6nXt+CFRgKbvXBiV8ISeDFBsumJCEOtVrddvo1zehw6ownnUrcbMClebu/QBALPY8oklVaVCK2YJUyn5O8XOUF3DwH4I6JGWtfaEZsshA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vtdMnr07; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790684670; c=relaxed/simple;
+	bh=CPEi90r2204QF8UFqqmcvO4LpsvgMZ4QxnHpaWfz53M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nietXnxXRJLUZNnHZzVuIkasJ4W4INPUsIXyLI4bc0R5rxf18QLRKzjAUHdIKa9S+HW35UWXEa0LeySVnrV0+ikmBZMuxPyJ3S8FYYkszMglJ+3ESWctd1s/PbZmfYSSw5UuGzD/nuGvpn6kiZDQGdYC12wB3kT89xFvSGAHWqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+I6aKj/; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vtdMnr07"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so23480815e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+I6aKj/"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so26114565e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790684578; x=1791289378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oAoykZR6asRmW0K7OS4CG9fLxAWwLUV9JiX7VJ+7PxE=;
-        b=vtdMnr07bJcUkuZTfu9JC10LPUaKBIRrSsmVxC5kkk1iT5n2m21mc5ZuluCdy+T6E3
-         Im4/As1WCA7eQQCfr3T7fPHYOLh5Qcz0Xc3MQLeJyKjs3BwBTMC78DmOo8cu/ytx8aQw
-         H2uoLSLmLGGO5qm4svRrQB1yKih2UZ34Qo4MUA/3fatviBBK8SMcn6SyB2TfABkXf9kl
-         x5J2MfrCrM5VhZ/QRsJgHI75aaR7zXUJwc2deU7qkkM4GL6OQBncLhVTmmSRiZuAArd7
-         3cLND1QlTyK5m2UVy0TLa4s9nlxsBjC4AgCy61jvHd3iKHI0/EclMqmTnfJ1zq3w8HHv
-         yxYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790684578; x=1791289378;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790684662; x=1791289462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oAoykZR6asRmW0K7OS4CG9fLxAWwLUV9JiX7VJ+7PxE=;
-        b=mjiy1vFwrs/9Y7LvVNLakQ4r97L7Y9gynvI68mPa16376gGrlKnw66R0zS/2GgXOJh
-         uN+AuAdJzKfiAsmKBJU0xp7TV+XdD34+Ey9l2iyyKqXKw5swCJneKvdo+3ldOC/DHKmU
-         F/h2kmcG0kHn7UdC+/nfvXP87tYL6PhQg1QMmJAHOYi7ivWmvfKmDztDy53f1We46b7D
-         SDCYUVG8pa4KDLABFjxlsaIGDXXgRbVd/YF4u7OPW3HqQskLVsK0+VvlsyqeI/ilBnaE
-         tcJyCUhf3gDlH6mo16P4CJILJVuUwzfKcgaiHIe/zeefd6Mghh2ZNwP5hKEFX79Aupt3
-         NUcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxql3xenOM49LLzUe51sYk8Q0adllGW6zFF6Ue5w17V6070lFEhR4rCI7jAvmFovZKwo1rWWAszDu/6UtA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9gRcs5GIiK1Zu3eohysBCfJLRGBQsOjZxTsvruSJHjJFNJERI
-	LTlpNl3tqHN2OsyyDJyJLBRzh8Og9foj0AS6xDkl7Y2Pr54JFaxms3L4xKNNicTOcnBkvDlw/aV
-	AmzfpvkI=
-X-Gm-Gg: AYBFou0AIlq1d3Z+bm/cyLtkNa5GAty6FeXWiOsCWkeLVCU/K75XaF1zLgfyW4tAclK
-	ttqTpenD6j5ValCCLOCkDioAx6iSnQgGHeZ/cxGkP/UHh9Dy5tmP82xMt+4Rr2OR9IKPpgwFEL9
-	GxOPNjTdjTy21oLcVJh7htv7eZwWCaPp+KjulFPTKKxRJDmOw5MkMp4bDgS7biAQhqO238LJ/f5
-	lH4vu4KOfCqaz2IIWW/2Aca7Wwpsk6n9gmPBoUnZk6VIclcP288AqURrTLFocjnwvc/sF0Pl4xq
-	LbvSaYFwpw7D1oSp6DP5SBLEdmgDp/GCKGTZ9AFpl22YXSo3un+qW82jz5fxvGdv1XpzATI7tK0
-	VHYmr2UqPzxcFJ+8fTjuLDL1bE5qhlg13D03y6seiZnBAi/2s4ibFTB/Kwija1VMjOX2Fs2fE8P
-	NBoyAPP0hAOHLHiP/mmVK6GReheTkwS7Qh36eIAIhRpOmQNezCT5j33BRnziNOARg53/ol2VXbJ
-	Is=
-X-Received: by 2002:a05:600c:4ecf:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a001e8c316mr100957425e9.32.1790684577698;
-        Tue, 29 Sep 2026 05:22:57 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013b8f6f5sm5072545e9.10.2026.09.29.05.22.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 05:22:57 -0700 (PDT)
-Message-ID: <d371220f-9ad2-41ca-a2a5-930c46801c31@linaro.org>
-Date: Tue, 29 Sep 2026 13:22:55 +0100
+        bh=boEWQcjTdM8NwmxpZiqZk6dpdmmjLo9Kr/Z9eFTkwPQ=;
+        b=H+I6aKj/29h2MiSmHjYgjzTrCmW/x6GQaliYZ/UPHR/Bxrftljh8bYWng0wGWtXco+
+         djNFiQ0xWXs+IIr6QPvoBCevf6GGlYpm3ZtNZNiLvntAFKIVFiUg/fKqDCQQCgIrmR7t
+         BDME8DdB6yXTwTK0Kwo0y7vDmniR4nH2khPdBWnY4xF+ar/jbyxg1fiXWi5L/ZrbLBPn
+         lDpYo72UtG0Bm13SyhPpOx4mSM063pojADCpxa1Zl7i5MBtqMqOc7LTM0LYRIW+vD+de
+         aSoY4JdXmTVuFstQYIujl7frmxLaNjLCDZu6+yR9fm37BL0nU9nqK1G7ErfJ2YV4mbVw
+         prfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790684662; x=1791289462;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=boEWQcjTdM8NwmxpZiqZk6dpdmmjLo9Kr/Z9eFTkwPQ=;
+        b=RNtHdCOpJDy+8uu6B0QgyMrllzx/m12dWSxkgiFqIV0g7hWoKpM6Htp4m5eJ2UxZTt
+         5f1NqModSeSCYGbQqQojCEfBnfkikH0TkMMhwsqkhrRS+iuny9M2Kj/liYqrgqLaDLjE
+         gWPtZeJ5qkBbpzzvWzlmB/RWP8+FzcxCc89R8BMQb6FBRSJUQTAW5Fm4lwg9ZAA8cG6M
+         U6iDVJnBYvJNkotPcKTaHg1zj8pyhcbY55YLmCwgFT5zGTxbGD7Bc8XKnjI4GPEDdUcV
+         fAU14bOJwAcUVKLqzYA+QmXecNzrc4gcLoKWToA4qjP/ShwL26lRCeZoWcvzzU7vOaGS
+         egdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsvzUAZV7VsYelfk66BvKu6/EAyD/xSFNmIEAR4RHhOjk0cNLSsZTHthiW+bBEaGcQ5PBJRoSm/5wWQ+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kf9P897qAPyzkACmr28vS++tykNoZLHztvMa90BMeuAZRuIlVz
+	PsXWQYZq9YJI04BUWeeX0pOgmxNFOUFDSw22MLqWxXCnJPfOgFn4f/rS
+X-Gm-Gg: AYBFou1OZOeJ4AYRQjCaRm85OmfjqtDUXGd8LVV5ulRaZRiwxbJl5S0h1TO2WTbO4gD
+	QzfroOagJ0uN40pj7p1KctKUq5mXO/u6MfZrMt4cc1KSs5kQEsQXsenLR5Z+nIJd5czUCBoCm5D
+	wnrlXzWy29AMHPQPuOOcfz8P9qQmwZfup6NtfelQAgHgZK77G1W8axMnE2sDECoC5XsjHNNAlb1
+	/aE42dSGz7G0xz15uingtvA6bAnpb5Y29Un9WTDyyTz3gAwf2sUCz/h72mG3YYNqbdxdZbunp39
+	cMc/1gI6OVxsgwkWrHxLgeAOS12sQ2RDDXW7vUcCm4BlQw0JtIU197OeYKYsqlTvxT/vJQyUlcG
+	xUauHwFkQcbBotyvCSRB3zig2WxxLsLYPQJSy1Wkk9QPVkaRgTETXywSq6BicrN0+ArKgFXkzMA
+	M0ZGw1isdLurqerVYvKDhszg24G01KbK0dPeOJkQeNklduqPXJL4wHT+8AJEUTXD9BJ21kMTMD4
+	XUDunyCwRv6458CBjKXTmJSByTEQWg8taWcNbUtN6AXSRZ45a1DkkEE/1jIo5YvFsUNDhSdiblG
+	OyRRMW6ZIMaiXP2V5w==
+X-Received: by 2002:a05:600c:a09:b0:49f:bcce:13f5 with SMTP id 5b1f17b1804b1-4a0099c361cmr62461925e9.24.1790684661815;
+        Tue, 29 Sep 2026 05:24:21 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:be4b:8730:c872:1736])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfafa23sm70994965e9.14.2026.09.29.05.24.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:24:21 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 2/5] soc: renesas: r9a09g05[67]-sys: Instantiate power sequencer auxiliary device
+Date: Tue, 29 Sep 2026 13:24:04 +0100
+Message-ID: <20260929122407.219448-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929122407.219448-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260929122407.219448-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/14] perf tests: Check CoreSight IRQ entry and exit
-To: Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
- <20260923-perf_cs_etm_fix_non_taken-v2-11-6ab8c07a5455@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-11-6ab8c07a5455@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
+On RZ/V2H(P) and RZ/V2N, the SYS_ADC_CFG.SY_MSTP_ADA bit controls the
+power state of the A/D converter. RZ/V2H(P) has a single A/D converter
+unit, while RZ/V2N has three units sharing the same bit.
 
-On 23/09/2026 16:21, Leo Yan wrote:
-> Add an AArch64 branch_not_taken_loop workload and a CoreSight shell test
-> checking IRQ entry and exit PCs. Use cpu-clock generates timer
-> interrupts.
-> 
-> Retry at different timer frequencies and skip if no complete pair is
-> captured.
+Instantiate the power sequencer auxiliary device for both SoCs and
+provide SoC-specific auxiliary device names so the power sequencer
+driver can manage the shared power state across the ADC instances.
 
-Maybe we need to look into storing existing recordings somewhere or 
-committing small ones into the repo again. This test took 3 minutes to 
-run on my N1SDP, which is 3x longer than the entire Coresight suite, and 
-then it skipped anyway:
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ drivers/soc/renesas/r9a09g056-sys.c | 2 ++
+ drivers/soc/renesas/r9a09g057-sys.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-173: CoreSight IRQ entry and exit:
----- start ----
-test child forked, pid 6804
-Recording timer IRQs at 1000 Hz
-No complete exception entry/exit pair
-No complete IRQ pair in this recording
-Recording timer IRQs at 4000 Hz
-No complete exception entry/exit pair
-No complete IRQ pair in this recording
-Recording timer IRQs at 10000 Hz
-No complete exception entry/exit pair
-No complete IRQ pair in this recording
-[Skip] No complete IRQ pair after three recordings
----- end(-2) ----
-173: CoreSight IRQ entry and exit
-
-
-Really this test is only looking for how a single exception on a single 
-branch is decoded, it shouldn't be affected by how it was recorded. Even 
-a few bytes of trace would be enough to test it. Or maybe we could add 
-some kind of unit test framework that mocks out OpenCSD and allows us to 
-script how different packets affect the decoder?
-
-But we have to be careful to not add slow tests because it means they're 
-much less likely to be run, or results ignored as it's so hard to 
-iterate quickly. Or also in this case, silently skipped if something 
-regresses.
-
-> 
-> For example, an expected hw int/iret pair is:
-> 
->    hw int           5cc928 => ffff800080010c80 insn: 63 04 00 f1
->    ...
->    iret   ffff800080012284 =>           5cc928 insn: e0 03 9f d6
-> 
-> The entry PC is the architectural resume address, here SUBS X3, X3, #1
-> at 0x5cc928. After the IRQ is handled, ERET returns to the same PC to
-> continue execution.
-> 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   tools/perf/tests/builtin-test.c                    |   1 +
->   tools/perf/tests/shell/coresight/irq_entry_exit.sh |  37 +++++
->   tools/perf/tests/shell/lib/coresight_exception.sh  | 165 +++++++++++++++++++++
->   tools/perf/tests/tests.h                           |   1 +
->   tools/perf/tests/workloads/Build                   |   2 +
->   tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++++
->   6 files changed, 239 insertions(+)
-> 
-> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-> index 6259ed805c5f75799d52ac742b77cf278f98bd9d..8eab221f115e75a3ef90be975d4ed0558ceb2b16 100644
-> --- a/tools/perf/tests/builtin-test.c
-> +++ b/tools/perf/tests/builtin-test.c
-> @@ -171,6 +171,7 @@ static struct test_workload *workloads[] = {
->   	&workload__datasym,
->   	&workload__landlock,
->   	&workload__traploop,
-> +	&workload__branch_not_taken_loop,
->   	&workload__inlineloop,
->   	&workload__jitdump,
->   	&workload__context_switch_loop,
-> diff --git a/tools/perf/tests/shell/coresight/irq_entry_exit.sh b/tools/perf/tests/shell/coresight/irq_entry_exit.sh
-> new file mode 100755
-> index 0000000000000000000000000000000000000000..f164daa222b0550ceb106aa6a1215740a1432017
-> --- /dev/null
-> +++ b/tools/perf/tests/shell/coresight/irq_entry_exit.sh
-> @@ -0,0 +1,37 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-2.0
-> +# CoreSight IRQ entry and exit (exclusive)
-> +
-> +# shellcheck source=../lib/coresight_exception.sh
-
-No need for these anymore, see 
-https://lore.kernel.org/linux-perf-users/20260921-james-perf-shellcheck-source-v1-1-adcfc107c997@linaro.org/
-
-> +. "$(dirname "$0")/../lib/coresight_exception.sh"
-> +
-> +test_irq_entry_exit()
-> +{
-> +	# IRQs must return to the interrupted PC. Retry at different timer
-> +	# frequencies if trace gaps leave no complete entry/exit pair.
-> +	for freq in 1000 4000 10000; do
-> +		echo "Recording timer IRQs at $freq Hz"
-> +		if ! record_trace_with_cpu_clock "$freq" branch_not_taken_loop; then
-> +			cat "$tmpdir/record.log"
-> +			echo "Failed to record the IRQ workload"
-> +			return 1
-> +		fi
-> +
-> +		decode_trace || return 1
-> +
-> +		check_exception_pairs "hw int" "iret" 0
-> +		result=$?
-> +		case $result in
-> +		0) return 0 ;;
-> +		1) cat "$tmpdir/script.log"; return 1 ;;
-> +		2) echo "No complete IRQ pair in this recording" ;;
-> +		*) return "$result" ;;
-> +		esac
-> +	done
-> +
-> +	echo "[Skip] No complete IRQ pair after three recordings"
-> +	return 2
-> +}
-> +
-> +setup_exception_test || exit $?
-> +test_irq_entry_exit
-> diff --git a/tools/perf/tests/shell/lib/coresight_exception.sh b/tools/perf/tests/shell/lib/coresight_exception.sh
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..f0133c258625147405ba4641ff7e442437fc66b8
-> --- /dev/null
-> +++ b/tools/perf/tests/shell/lib/coresight_exception.sh
-> @@ -0,0 +1,165 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +# Common helpers for CoreSight exception entry and return tests.
-> +
-> +cleanup()
-> +{
-> +	case $? in
-> +	0|2) rm -rf "$tmpdir" ;;
-> +	*) echo "Test files retained in $tmpdir" ;;
-> +	esac
-> +}
-> +
-> +record_trace_with_cpu_clock()
-> +{
-> +	local clock_opts=()
-> +
-> +	record_freq=$1
-> +	shift
-> +
-> +	# A zero frequency omits the cpu-clock event.
-> +	if [ "$record_freq" -gt 0 ]; then
-> +		# Generate timer IRQs without delivering a signal to the workload.
-> +		clock_opts=(-e cpu-clock:u -F "$record_freq")
-> +	fi
-> +
-> +	# FIFO control bounds the trace to the workload.
-> +	# --kcore supplies the running kernel's instructions for decoding.
-> +	taskset -c "$cpu" perf record -B --no-bpf-event --per-thread --kcore \
-> +		-e cs_etm/timestamp=0/uk "${clock_opts[@]}" \
-> +		-m,4M -D -1 --control fifo:"$tmpdir/ctl","$tmpdir/ack" \
-> +		-o "$tmpdir/data" -- \
-> +		perf test --record-ctl fifo:"$tmpdir/ctl","$tmpdir/ack" -w "$@" \
-> +		> "$tmpdir/record.log" 2>&1
-
-There's a shellcheck warning here:
-
-   (warning): Word is of the form "A"B"C" (B indicated). Did you mean 
-"ABC" or "A\"B\"C"?
-
-You can avoid it by passing the whole path as "$cf" and "$af" like the 
-other coresight tests.
-
+diff --git a/drivers/soc/renesas/r9a09g056-sys.c b/drivers/soc/renesas/r9a09g056-sys.c
+index e6a66688423f..3895583fde07 100644
+--- a/drivers/soc/renesas/r9a09g056-sys.c
++++ b/drivers/soc/renesas/r9a09g056-sys.c
+@@ -86,6 +86,8 @@ static const struct rz_sysc_soc_id_init_data rzv2n_sys_soc_id_init_data __initco
+ 	.revision_mask = GENMASK(31, 28),
+ 	.specific_id_mask = GENMASK(27, 0),
+ 	.print_id = rzv2n_sys_print_id,
++	.pwrrdy_pwrseq = true,
++	.pwrseq_aux_devname = "r9a09g056-pwrseq",
+ };
+ 
+ static bool rzv2n_regmap_readable_writeable_reg(unsigned int reg)
+diff --git a/drivers/soc/renesas/r9a09g057-sys.c b/drivers/soc/renesas/r9a09g057-sys.c
+index 308492c31acb..b9def8dc73ae 100644
+--- a/drivers/soc/renesas/r9a09g057-sys.c
++++ b/drivers/soc/renesas/r9a09g057-sys.c
+@@ -89,6 +89,8 @@ static const struct rz_sysc_soc_id_init_data rzv2h_sys_soc_id_init_data __initco
+ 	.revision_mask = GENMASK(31, 28),
+ 	.specific_id_mask = GENMASK(27, 0),
+ 	.print_id = rzv2h_sys_print_id,
++	.pwrrdy_pwrseq = true,
++	.pwrseq_aux_devname = "r9a09g057-pwrseq",
+ };
+ 
+ static bool rzv2h_regmap_readable_writeable_reg(unsigned int reg)
+-- 
+2.55.0
 
