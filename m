@@ -1,131 +1,81 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDF5514740
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790680527; cv=pass; b=TyR1y6GVXkqEP5Uk3LJupOw77BHb4t2hi/BVLG9r4dKXjqjJlBO7XDEGZo3sMhepnuhQVt1P7EBtDuk+1Ipv3P/wny8PoJMJYCqy5pWgccbD+yqJzaurLCcUqnl1gJBQXmnDwqmd1ser3HHd89cJ7iqSNSh9OLW/lPq5RnNiiL8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790680527; c=relaxed/simple;
-	bh=2Cw/IYS5ZpcKxcOuBKXbmCN8n5qb9dlHBJN4F23RgHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X3S+mPrTDIPdQ4KivE5xX/YRqa49npbZZDri7Aj5nslIUJXI9BtYFTgvoG5DcD8wPDjJpeG6nMvvcAhqu+DBNaaRQuNugimfHbm71gxHZF+DtYOzqZyyFMo9XarqGZbHCHoGqsdCCptomw7VZoltzZRdzsMQnVhaM8lOOObnl2o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rpV38yQW; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 464EC513579;
+	Tue, 29 Sep 2026 11:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790680533; cv=none; b=chg8i5IEPXs49bC9W6ljozLfilsh2VnuCLJi4Co/o9s2vy/GbwsNbS/nnslWf3JxpbX+qYYqZOqIf1+QWlWZ7sE0W/l3FvYFhpsFvhFX/DLVA4fw1SILHmqNTr2JTf5GeMsZQhyHLkTrcnhlsby6goteZyCweBEXGF5yU2or/nw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790680533; c=relaxed/simple;
+	bh=EtNt9F69mUNykSq1XAoSHpVt3uxqbxoxtVDWc5Yc2vI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SFYhA7VqhcIrHz5GpywmYjA+IPy448i8WbhKlLrt4gDRMOHvjRlWXSTuYmd/pOYr3+LaPjGJkAj7IjWQEbm9mHjMNBtEdcTEtE2Rn4VGtfJ/vV2EShazrtqD/4mZGGFOG0+KMXVplrUm6bJ1EkBQW1mCnWFDXIZLe4NrGuZldHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HKKnIXWO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rpV38yQW"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so30297915e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:15:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790680524; cv=none;
-        d=google.com; s=arc-20260327;
-        b=anmt2POyALu4UXxp1EQFezEdr62Ayg7ng4WSY750j/X7JJ0ujukLtafOsZhjQ2QKcR
-         e77P2ezwV4Mk/NYq1Q2szD6oCNcjZhtVyWGi549FF1TmjdlzfCXn6q8SU7y9rBhybo7S
-         v5CXcRIO8obqDuNWXgFq1YYS65CHmH+ULBwUmilyB4Fs0Mai8JORYiLMeHcZjXU+ASfY
-         J5UZ7MD9saOoN5MEWUQ0MGmc65SnmGpYSMkxUWo7SJjKZZHv+JQDbeqCSsT7yBgl9kzK
-         M7YsK99ngckEV5d6bEK7idco/CWHV06Iv9a73E2KVAMFFSn3yoTOhn0/c0MiwbmARz+b
-         4AXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2Cw/IYS5ZpcKxcOuBKXbmCN8n5qb9dlHBJN4F23RgHI=;
-        fh=VWomWgz2laRPP3uisPC7SlX4nT05pSWB2IkvzsavojU=;
-        b=N46hwcWfVBjtk3p+OeB+xH8jusxY7rr/yLOPPOWClI/BnwBkF9miahhY0bHFkdGetY
-         cF/CXZNJFTCI2WCWJ7jmjxqMdUXMYWKcVX/VEoYOxKFft03WvtjziK9KpgVe9IscmDif
-         rbc8feLndf9psxkaRFLP01guMmOncJbncMApq0cWRiym66wEHWfAQyzyDZqlcfygbZYK
-         Tx8LRFHiWnNI9I2EjS32XZDVRxhKq8iwb/YYx4TrqWPQP5IVe5+7kAx0G9TRxzr8w+RR
-         nezZjuAl7bMhSTip1P312TsgtpmhsM/JHLpMQ3InXPwFR559nnR+ZHXbijlkTYFCjSXM
-         zzqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790680524; x=1791285324; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2Cw/IYS5ZpcKxcOuBKXbmCN8n5qb9dlHBJN4F23RgHI=;
-        b=rpV38yQWtOFpUS8caMEJrpkxNtQq47hOTlWvpPER1VUTHzjCVLrA9OO25/NqjcuYyb
-         p9J+ITAp1Z/NgVPrcEhUJsd3+teA3T5jOnsyHuRcLQIdYoNZJJ8HelLaxlhWiCPEzSKP
-         73TIqx95eNYXoLXDOjQcjjUMUXFRtBHMFOD2eRrZdFT1HpAp0T3l0QoteGIDgNCq3rUW
-         Gu9EMi7fGTL/kiHQ+Q9FnqKVOuOuipmXiWEALzRL4k5BJVBWpQOUVyPCyX/JiBLZr/IM
-         jHNGocAU9tcMrAnu4ubt42HC0V2uipKdAA5PPeVIsJu/hDz3cDEl6shy5Rabw/7i58kH
-         htRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790680524; x=1791285324;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Cw/IYS5ZpcKxcOuBKXbmCN8n5qb9dlHBJN4F23RgHI=;
-        b=pDerJw+R/x9KTeZvMD0OSSK+OaU13w4qcXKRHBBelJY1r/C5tZo0QAeHVlgwEPQ3Ig
-         lFU4m/Q1QNHTcSBIVD0TJ1uvqJI1WAeCZA9e01pQqPOksPetqPjcKGwIe8LuaJ1R2IhS
-         jhPOFiBw3ZnaKa2D4nWBXK0LH50r373avOh0d428nW7XOdALb1h6NnRSfJswKxvj5rUD
-         nq01ldIBVNapMLZUTkW0xjSPbUkZK8eeGHUU7abwXW7qKvqs3YM9pu5NMZiNTuk8ErQP
-         d4x8+uzNDqc5JiMzwiKjVJDhLqMaXCYDPrt9B5p/SCw0ggfGkWxhDNk3oChufYym6Wb5
-         MDEw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2uXYAZ5z7//eSH8UcuVST6GF3lF8RMVcZGGNpEq1hV/V7Ha8mah3pojeEGphPNBDUOWZCRuRykNnJJ/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpt9Ox7RJrbFPZZ4TPgR+5YkDO5YOuc97QlyjMKEktWB6wWh9+
-	vccM+TtA0b2luWKYvcRmQ3N/26uh2tcayXUiSizjY81qTJYs9772YAQ3L8kcrTPhZmVZRVnzk6V
-	LiHjoZ5vOIjGca/IER/1h3REZwM6VQqSWJGLiQ2ky
-X-Gm-Gg: AYBFou0wcKWzFCbl8gDeKmPMmkrDfFgJFw2+9WyQRX8bvLzrVRBrWf2fEkMT52Gzq8l
-	ky4BRjcxbDxXFDC2jxnNqse9YQ5ZHSpt8Mjfvf74gjE+bcS4PFil2wAqc7+WCq9jN4YTnYrCzk4
-	m3nwkqJbhHI6chBtXSwD0yp/ooraqe38Ag45CIn5sHYHKtQOLueaUAWVRYMAxA24fpBrMMoYV0r
-	9hYtbfx3o7x6GCkKXz/KLVOs/W4U53bds/abatRdaFF7RxuNduvFU+pglJF4F90edGL0d4h6rxa
-	Rthhx/tAtpYKZBJcQMMuxFlF4LQ4UnGDdMPpiWlHlstbjr+4l2mRwbOcpb/HN69s0CQo12CPDyW
-	W5DjRiIpB3gGfjdLZ/svMSBtJ3TECobIwlGGbyCGF0ITzF5I1diUE
-X-Received: by 2002:a05:600c:8b6e:b0:49c:fc6e:8cbb with SMTP id
- 5b1f17b1804b1-49fe66f9fe3mr278996775e9.31.1790680523000; Tue, 29 Sep 2026
- 04:15:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HKKnIXWO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A4DA1476;
+	Tue, 29 Sep 2026 04:15:27 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF92B3F85F;
+	Tue, 29 Sep 2026 04:15:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790680530; bh=EtNt9F69mUNykSq1XAoSHpVt3uxqbxoxtVDWc5Yc2vI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HKKnIXWO9ePgXYN5lZU7WKIkJ0Y694l06KK62Inm5ufByUbczpRB9bQBMtH9v5bnQ
+	 AQkn5Lmrvfbs93lO7iRfn0fUAa7py5AwI87D0K+JsmeaV7B0LWyNW19HOQLOPTjr9a
+	 oZT4lHdURk5GeAsxycjGKA6wrzyHdzI0gOaRcxuA=
+Date: Tue, 29 Sep 2026 12:15:21 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
+Message-ID: <arudWVBPXcnUvYNh@arm.com>
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-6-suzuki.poulose@arm.com>
+ <arZmXFw5Jw2IbAmA@arm.com>
+ <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+ <araketG70TIKeNuf@arm.com>
+ <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
+ <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
+ <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
+ <arqrZ_Auk9BYOopa@arm.com>
+ <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-cv-v4-0-547ef5727451@nvidia.com> <20260917-cv-v4-1-547ef5727451@nvidia.com>
-In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 29 Sep 2026 13:15:10 +0200
-X-Gm-Features: AclHuK9UFcxmG9GmUlSlAWSVdyiMyuABuak7MzbC2Kn8ucmeQP62kVdtbhyOryQ
-Message-ID: <CAH5fLgjV=qMfG25TQnTruHeVQkVuitzAyUV7frsx0DyGFA8yUQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
- constant expressions
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
 
-On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.c=
-om> wrote:
->
-> Currently, using NonZero/Bounded constants is quite verbose. It's
-> unfortunate because it disincentivizes using it in interface boundaries.
-> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-> value) takes a const integer expression and widens it to i128 (at build
-> time only) before passing it as a const generic value to a new trait
-> `FromConst`. The value is then converted and appears in the
-> associated constant `FromConst::VALUE`. The trait is implemented by
-> NonZero, Bounded, and Alignment and lets values of each be constructed
-> from constants without a verbose turbofish syntax.
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
-> `cv!(1)`.
->
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On Mon, Sep 28, 2026 at 07:28:20PM +0100, Suzuki K Poulose wrote:
+> On 28/09/2026 19:01, Catalin Marinas wrote:
+> > possible, to defer the RMM activation until the first user (still do the
+> > RMI probing as an initcall). If we run on RME-capable hardware and
+> > firmware but don't care about realms or TSM, we still get the normal OS
+> > functionality.
+> 
+> Would you prefer this in the first drop of the RMM ? Or is this
+> something we could add as a separate series ?
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+I think we could add the deferring as a separate patch, maybe together
+with the KVM bits. An advantage of keeping it here if we merge this
+first is that we still exercise the activation path without full realm
+support or TSM. Otherwise a lot of this would be dead code until the
+other series arrive. Either way, do it as as separate patch on top of
+this series.
+
+-- 
+Catalin
