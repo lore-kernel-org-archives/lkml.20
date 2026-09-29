@@ -1,62 +1,62 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10BC526AA8
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871D3524AF4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687190; cv=none; b=tNoLx/5aTQetpi23Vr8cJWW3rk52CGRX5EoCRmDaXhPGRAqeAPVPrtnZRNSYYaWQdT5gHus6ZGcM5m4A3+mxOUpj9RvAkj4TmLQ+8r2nNx6MvCJIcvtYuLPVmquok1k5PK7ZHUcTHFti0XTuuyxlYmeaJo/V8dqgU0dMn3R229M=
+	t=1790687194; cv=none; b=F8d3vi+ldnvLcmMIkr7Mu62rXxF6GGsG2lPJgQavDtUQR3fRCtphNdffIKfY5g6JqnJ40OvIhhUwmxHHQ359+kWJFlX5tzGa3n16szU0Txxd2e44tX4WdP44YnX7i9w46c3gJIBqk+Hj7M76iwABHgZrxt9V5lQ0R9M++2QIvnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687190; c=relaxed/simple;
-	bh=v/r/9WpqeziGia67i7jHFrfYe6j8QVnAAEzTUyaYUzs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bE89RX9AR44n4lQN52/lzet5IhUslVRGooFxO0O9joUNjpfUvZ5kdKFhnTrarkrkoQn+RNrtqiuCea1rCP/RWIfHHlHA8QuBDb2Yixyz3sbvj0nFo4MAeTRMvBC8Mkzfy/GY6TGLlDMBKserTY+X70su+SzalbSUFa0fzYsjIJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nD3y1Rn3; arc=none smtp.client-ip=74.125.227.168
+	s=arc-20240116; t=1790687194; c=relaxed/simple;
+	bh=E+SoyM3wZnYL7zAxxRPMWuhQ88ZtIEqQmaydJIWdN9Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KwNb8/vCpqdpxf8r24rR4EC5ytosoGlXBF1W+EOzr9apaxx2uP0M1MmB39r6yvwgemzyEfSRmgwFAUgQdTaEcPu08ZHcQ5QUVS4pgQeZ0O+AWHMqxaGW/8IxB/4DsWoNc1f1BmV9e+pS1q2muvElqzIYQyDObcE06cM4ETAcQMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qKmQ4hlo; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nD3y1Rn3"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso1323325a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:06:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qKmQ4hlo"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc79c0d2bbbso1491991a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790687185; x=1791291985; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790687191; x=1791291991; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8jE/aJ2E98iI2S/CWQodcOrB8SsgSTcF+14ugT3aOH8=;
-        b=nD3y1Rn3Gbmj5a0MY6ZSHrTnorLshm+tql1EbWEDRPVFQdVy0WUbcI69RJRKsCbtlx
-         DImlNRjcu77QiP5bCFDLFn61L81RfRF77GQlxCsOfCISLRSQxH4BWUXPUXLo+CLfdRJS
-         oGtR4u8xZYb13HWK2lxGKHVFiC5OfiuJ0sLlSQYBnmBKXpNF2ccRtQrPqpTDQdfenmre
-         BZ3LKTvZK+YIBJ1OApDgCII4nGqKDWGzC3cohZIkK8d5SnJZ12Ll+pVQI3r6I6tCY7lL
-         ZYvVQK42EvrHYzXufzJ+gGmDxqLhOiAeiPF6H1oqBN2pcv7eoQmGjdRpS8K3Ypjfef9X
-         +nUw==
+        bh=Y5LyVPNhnJ5Rp7yPTDFXlLblOQWcWIIfQuz7DLHUCd8=;
+        b=qKmQ4hloNMUzClUEeqfv/19VWZaIcU22TAYfSOhnHm4rrYVejrSOxQgpp1pTJF2umC
+         hJmaOaCxucZz+zJnMaSVfDW4MF9Gh2ave8Uty6OPliiH1gbE4IbSx8LOzJYSDcr1ZyAl
+         8lJ35CeSuUvCjKyulyHtuuHLvLep1BcR9gbhkA3Pxe02u9J7QlCQjrDYNdD2tvonZsl7
+         tox4QLZJ1pM4ldwgw2X00QY/LYDnXwTQUuySQNRXnxYcgTntuSb1Xbx247kukrtFeOQe
+         CO5wK9b0JYEn5jdH+lFu9cQtt0eu5OrxGegQE0+je7rPydh/aEm1/PF5axC0ktENaESI
+         9qzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687185; x=1791291985;
+        d=1e100.net; s=20260707; t=1790687191; x=1791291991;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8jE/aJ2E98iI2S/CWQodcOrB8SsgSTcF+14ugT3aOH8=;
-        b=OzIjGoGEVRZnNkrBYyvgAqFhz/Cmel2BpCZudhdLq4UczHlyIDSkVSy0bsWzOvmh3W
-         vm7/6xoPi9zNY5OmmWv88aqhqKizkXggTPKNWBOux/KbQ+X9s2dzdcEeXDOdkSah0TGo
-         dMMSePpv8Lk1q7N8kKQY8lEtP9cbQZICdyfCnWdJ3eIWPcOZC5o7K5O9yh/mhgiIS7iX
-         gQkkiJLPVCFZ+DfIbz2T7MzegpchpY6a5EKfftSS8HR6jKSunN2gLq+3cyZhEs/jqHkc
-         PUsPlnWm0bSYmAHfmlzfYrQuBiW4NcBdcsC26kuxcodG52BkoQCtXV/ilyTrFaGbxREu
-         hhdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymhXy9WR2ftVP8kEiVwht78Hbr5YemPzv4h5zy5tNrqbZhM+CBo7b9YSZQJyMhOeMxg3ptYbnsGxmUhok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJLUu9ZjyUzV6ebjL3tIx+0KAe3trSLh1zIKL7WUZtFIe0AowS
-	ePMlUi4F1D9S8RsAmyMywQoe/3U7Aif5YbeSZqtXrSRZHTY1YUh6BtIZ
-X-Gm-Gg: AYBFou1nUlO0NtYN8D3zSw6V7Z+tjraEIog4IlhynSOw7axgzDhDZ4uYb3ZfVKVM8DL
-	BnKvq5D35iKe9JESyltjCPzrs6lrBvIQjebnIlwm5K16mRMGqeqzPcv3KIve/Bxd/jkdpr6ZDKP
-	2Zd1jB2QlWBeXHN3tIlz4co7txBdPcuXoK53eI+f90ZCmQoVAQl2om374lwoRicIBYn2DA2e4o9
-	uUssRVUrefcg2okXdrZxa43En1ko61RmiNGQIYgVaDJeHi19RxbTq5fjmd+e1OnxbXYjtKK+uMx
-	o4ylYi2kErAyz0n6Kphb6FoO586S7/l06oEebxhHeV9eXXFTqkJ+bNXd/+icFTK6HbiflxOLF8S
-	tbw0jqL2OeNwewE0XdT0qS1BWgFwc0co+kvykdcNNClWd3lXZRVJlFDP11M64cIRn0VHoirNOhp
-	iwU186sRGPIYA8vLlTRY3iit2KSQzOkm4J/b2B+F/McDSb3ED7EviqxpCag8u1/qNFMNbFjCQuo
-	NidUFjHwO6OMWs=
-X-Received: by 2002:a17:90a:d883:b0:3a0:4146:295b with SMTP id 98e67ed59e1d1-3a0987255a0mr10559170a91.17.1790687185233;
-        Tue, 29 Sep 2026 06:06:25 -0700 (PDT)
+        bh=Y5LyVPNhnJ5Rp7yPTDFXlLblOQWcWIIfQuz7DLHUCd8=;
+        b=oFO9vz3Yi3XYTrQtMVP0P5RzJgIVQCeXUF2+XKZ4DdIE2pC+jlGdwQL0ykP8hAzqpf
+         46lvpe63MAZxRPLA39Eonii7VoEnGtTtpAMQXErSNLdR1MaCQfgxxFbt8P+MrjQhO7Zw
+         LRQhpDuibRnzo/j8fQUh0Yq26CBNyNmmp2dw9X3a+iERsRZ9EyLUr1DxE90mm7EDbAoj
+         eWz2O0e04PRCeVD96uL7Zbn+XOvYufun0hMFLO6pU8Y9xyVRafHIMTVZjr4pskdFxskd
+         kcSrUjKN+asYwU0qjMl7ney+WS7P+AEWLBjdAeDI4eT+39NCNi/1hIozJ/J5qslBbOUF
+         yGMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxj6igM2uEbvLor++EhcGmHpejdSkJQ9TNyD1CavhBBtvEQUMFFXFvWZhOqfgXzJzs7p3J1ytkQks60s3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++khL5YpeVAPLfDKFAZ5aqnvuKvsWdZB2GFrKz+c1hXiw9dUO5Vj
+	wF/Q+DR9QskdeclRYhsXty1i5lGJtwtGQBJk5q4gImBca1K1v9qiy3no
+X-Gm-Gg: AYBFou2Q2GgbkKPR6GbSWveEQnqCxD3m6FIgOEsUKzMPen02oq+BWqpq9TAQG1mHUF7
+	D+d8PHk14aptoj8vE3tybAIO2s2uLNVke1+6d6q9lIgcve6ES24PmdKGITHfvxDvfxxe9nedraA
+	9EvgwmT0ci1g0REXpSttgUfAXT2Mk+N5XDewYmfyyygwQ45LZYwZ2E3JMXnhGEfp+zka6jvMAhC
+	YwpVQ85cfZc7kNZOoBpTkTmFcwUadYKik4BXdgr/N7tYeYan+QgqaDz/uEz608DKO0k71CitRkl
+	Lz3utBrgL+TIqVf9IXL31pg37pnPOzAF2d7aaCkZVteHj2tUr74b/hQSLEA8I4WuhnHZdcGtJT1
+	j7AU3/0XmSHziwzGxUh2n5npVeG2CsDiKPS5NMy2mmfENplwhn9KTYumzEMpxNp9cEbPDL0e08o
+	q6+8CqDzO6yztGsnf5HSBd8qcGOAMLJ8tMtEQNeQ7N1LPSWA3v1rY/2u/fbEbHtdUBwtebFKeHc
+	TDUnONsKdV3IQ==
+X-Received: by 2002:a05:6300:44:b0:3dd:85a9:55ac with SMTP id adf61e73a8af0-3de26db6d92mr12641170637.37.1790687191466;
+        Tue, 29 Sep 2026 06:06:31 -0700 (PDT)
 Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49858555csm6107928a91.5.2026.09.29.06.06.22
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e115e41asm841108b3a.10.2026.09.29.06.06.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:06:24 -0700 (PDT)
+        Tue, 29 Sep 2026 06:06:30 -0700 (PDT)
 From: Joonhoe Kim <26rote@gmail.com>
 To: robin.clark@oss.qualcomm.com,
 	lumag@kernel.org
@@ -70,10 +70,11 @@ Cc: abhinav.kumar@linux.dev,
 	dri-devel@lists.freedesktop.org,
 	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
+	yongxing.mou@oss.qualcomm.com,
 	Joonhoe Kim <26rote@gmail.com>
-Subject: [PATCH] drm/msm/dpu: stop all video interfaces before cleaning up a split encoder
-Date: Tue, 29 Sep 2026 22:06:21 +0900
-Message-ID: <20260929130621.943-1-26rote@gmail.com>
+Subject: [PATCH] drm/msm/dp: hold one runtime PM reference per plugged state
+Date: Tue, 29 Sep 2026 22:06:27 +0900
+Message-ID: <20260929130627.959-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,103 +84,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dpu_encoder_virt_atomic_disable() disables the physical encoders one by
-one. For a video-mode master, dpu_encoder_phys_vid_disable() stops its
-timing engine, waits for the frame to finish and then runs
-dpu_encoder_helper_phys_cleanup(), which resets the CTL. With a split
-display (two interfaces driven from one CTL, e.g. bonded DSI) that CTL
-is shared with the slave, whose timing engine is still running at that
-point: the source pipe starts fetching the slave's next frame and is
-left stalled half-way through it (on SM8850, SSPP_CMN_STATUS 0x10030
-with the fetch and unpack counters frozen, where an idle pipe shows
-0x10003).
+The plug handler takes a runtime PM reference every time it runs and
+sets dp->plugged; the unplug handler drops a single reference when
+dp->plugged is set. msm_dp_bridge_detect() also takes a reference and
+marks the sink plugged, and keeps that reference as well -- on every
+detect while the sink stays connected. On top of that, in the current
+tree the plug handler runs more than once per plug:
+drm_bridge_connector_detect() calls .detect() and then .hpd_notify(),
+and pmic_glink altmode reports an IRQ_HPD as "connected" too. Every
+extra reference is leaked on unplug.
 
-The stall is cleared by a power collapse of the MDSS core GDSC, which
-normally happens between a disable and the next enable, so it goes
-unnoticed. When MDSS stays powered across the disable -- a full modeset
-within one commit, or another runtime-active user of MDSS such as the
-DP controller -- the next enable of the bonded DSI panel scans out
-nothing: the DPU keeps committing frames, the layer mixers produce no
-output (CRC 0), and the panel shows black with the backlight on. A CTL
-reset at enable does not clear it.
+On a Lenovo TB323FU (SM8850, DP over the USB-C port via pmic_glink
+altmode) the DP controller's usage count reached 28-34 after a few
+plugs (rpm_usage tracepoint), so the controller never runtime-suspended
+after the display was unplugged. It in turn kept the MDSS core GDSC on
+while all displays were off.
 
-Stop the timing engine of every video interface of the encoder before
-any of them is cleaned up. The master's existing wait for the frame to
-complete then covers both halves.
+Make the plugged state own exactly one reference: the plug handler
+only takes it when the sink was not plugged yet, and detect() returns
+its own reference when the plugged state already holds one, or drops
+both when it finds the sink gone.
 
-Seen on a Lenovo Legion Tab Y700 gen 5 (TB323FU, SM8850) with a bonded
-DSI video-mode panel (CSOT PP8807HB1-1). It reproduces without any
-external display by keeping MDSS runtime-active:
+With this the count stays at 1-3 while a display is connected, the
+controller suspends 3-4 s after unplug, MDSS suspends and its GDSC
+powers off on DPMS off, and replugging (quickly or after 20 s) still
+brings the picture back. Only tested on this device.
 
-  echo on > /sys/bus/platform/devices/9800000.display-subsystem/power/control
-
-then DPMS off and on from the compositor: black 3/3 before this change.
-Every full modeset (e.g. a refresh rate change) went black the same way.
-With this change: DPMS off/on 13/13 and full modesets 4/4 show the
-picture, and an attached DP display is unaffected. Only tested on this
-device.
-
-Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
+Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
 Assisted-by: LLM
 Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
-Saim Shujah's "drm/msm/dpu: clear pending flush state before physical cleanup"
-(https://lore.kernel.org/all/20260826182459.1506522-1-saimzst@gmail.com/)
-alone does not help here: still black 3/3 with only that change.
+Related pending work: "drm: handle IRQ_HPD events correctly" v5
+(https://lore.kernel.org/all/20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com/)
+removes the IRQ_HPD-as-plug path, and MST v7 26/35
+(https://lore.kernel.org/all/20260929-msm-dp-mst-v7-26-4b81473185e7@oss.qualcomm.com/)
+the detect-based hpd_notify for DP; the reference that
+msm_dp_bridge_detect() keeps is leaked either way. MST v7 27/35 touches
+the same lines as the first hunk; happy to rebase on top of it.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1f20695f81e3..a14156408126 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1380,6 +1380,35 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
- 	mutex_unlock(&dpu_enc->enc_lock);
- }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 6abe30bdff12..4e47b659c71d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -412,10 +412,17 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
  
-+/*
-+ * Stop the timing engine of every video-mode interface of the encoder before
-+ * any of them is cleaned up. With a split display (two interfaces on one CTL,
-+ * e.g. bonded DSI) the master's cleanup resets the shared CTL while the
-+ * slave's timing engine would still be running; the source pipes then start
-+ * fetching the slave's next frame and stall half-way through it. The stall
-+ * survives until the MDSS core GDSC is power-collapsed, so when something else
-+ * keeps MDSS powered (an active DP controller) the next enable scans out
-+ * nothing.
-+ */
-+static void dpu_encoder_stop_video_timing(struct dpu_encoder_virt *dpu_enc)
-+{
-+	unsigned long lock_flags;
-+	int i;
-+
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-+
-+		if (phys->intf_mode != INTF_MODE_VIDEO || !phys->hw_intf ||
-+		    !phys->hw_intf->ops.enable_timing ||
-+		    phys->enable_state == DPU_ENC_DISABLED)
-+			continue;
-+
-+		spin_lock_irqsave(phys->enc_spinlock, lock_flags);
-+		phys->hw_intf->ops.enable_timing(phys->hw_intf, 0);
-+		spin_unlock_irqrestore(phys->enc_spinlock, lock_flags);
-+	}
-+}
-+
- static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
- 					struct drm_atomic_commit *state)
- {
-@@ -1412,6 +1441,9 @@ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
+ 	guard(mutex)(&dp->plugged_lock);
  
- 	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
+-	ret = pm_runtime_resume_and_get(&pdev->dev);
+-	if (ret) {
+-		DRM_ERROR("failed to pm_runtime_resume\n");
+-		return ret;
++	/*
++	 * The plugged state holds one runtime PM reference, dropped by the
++	 * unplug handler. The Type-C side repeats "connected" notifications,
++	 * and detect() may have seen the sink first: take it only once.
++	 */
++	if (!dp->plugged) {
++		ret = pm_runtime_resume_and_get(&pdev->dev);
++		if (ret) {
++			DRM_ERROR("failed to pm_runtime_resume\n");
++			return ret;
++		}
+ 	}
  
-+	if (dpu_enc->num_phys_encs > 1)
-+		dpu_encoder_stop_video_timing(dpu_enc);
-+
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
- 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+ 	msm_dp_aux_enable_xfers(dp->aux, true);
+@@ -897,6 +904,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+ 	struct drm_dp_desc desc;
+ 	bool phy_deinit;
++	bool was_plugged;
+ 	int ret;
  
+ 	dp = to_dp_bridge(bridge)->msm_dp_display;
+@@ -910,6 +918,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 		return status;
+ 	}
+ 
++	was_plugged = priv->plugged;
+ 	phy_deinit = msm_dp_display_host_phy_init(priv);
+ 
+ 	msm_dp_aux_enable_xfers(priv->aux, true);
+@@ -960,6 +969,12 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 		}
+ 
+ 		pm_runtime_put_sync(&dp->pdev->dev);
++		/* the sink is gone: drop the plugged state's reference too */
++		if (was_plugged)
++			pm_runtime_put_sync(&dp->pdev->dev);
++	} else if (was_plugged) {
++		/* the plugged state already holds its reference */
++		pm_runtime_put_sync(&dp->pdev->dev);
+ 	}
+ 
+ 	return status;
 
 base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
 -- 
