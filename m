@@ -1,149 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C3B345ED9
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CC534EF0D;
+	Tue, 29 Sep 2026 00:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790641668; cv=none; b=Ex3d1QtiUv3viqqwd3Yh93lfCl3E9ERe0amdxnZ1xSSi+GiuG89KGbgcQyCdb57qFz5m5dunJz5kxDTgdaJW1eXJwZcOXsnCpq98DXCP3Ik2GZnHPQM4Uquba75cQ8Mie2Nt5EHnS0ND+uOxvamYE5VNR0kfz2dooxSO1Kqht6U=
+	t=1790641689; cv=none; b=qxAuzJqk+VN6B5ajm/ncGsPu6Zac6muXGtqC5sO59DWqFdzd97d9HZnZ9j4mlQMdv9he5WX8RPMvyvK2FwwiJ8G7Yj6zkK9D0afomFa/rgcwLlkYY89b5Ckwn9FHOnUQi6qAHWMbuvqlRgmC86Tm/y5bqeJP8JbdwcukkSSTZ7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790641668; c=relaxed/simple;
-	bh=pMvCDTEkuAALUIrceyZBHP9kCx7IfJSFKZfbXoVEGjQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=emSMiKGh9Sie1sGOra2j4k2AcXoz/R6+YoWT1uinwoqnYHvrN8Y+AK286i/vx574V6OhlnW97BBfHElzIRMY6Dhv++eG/Bao88mQ/gXUSejKd4oNi5FOMLxKlX8ugDQbgUz1TF+T/Nfj0ancNZBAks5SzdzYt4yYm4s2B9qO2SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESq97FFa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790641689; c=relaxed/simple;
+	bh=5PVP3FAoXnjZK6gVKBD8/rWFbZ7exuS79R920BDmlBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XWoQtu8kyOprWutKvfduw9ENTu5iKgYWOtf297dWiYWUhYxbQxRHCmUfFkSSWk9+oYt7vB2XZhSxl+xB7IVR0KrO8kw+76LmAQsISE7LuNpcdvgiLjm6t7Arnef2CewjaGZiTazAltthQ0o+czeUiL/gxfNdEiGokniXc+3tuxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=l8Vakiia; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593F61F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790641666;
-	bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
-	 EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
-	 kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
-	 MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
-	 MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
-	 eAfxlQdMmxqdg==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2da4eea067so305553466b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzCfzrO5ESUXHGI8cIURlqjXMJTZ2f5D3im0P1r5zPRKgdpkwrggvn0tYbDmBDTzWXmGH76AP2p9U4IbCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWQTbIAIdMNrZ9oueG1divLw5bHqPvZNz8aS5jSFTLWkYRQZDT
-	zrYTxcIg1hUewPj+UoUL2qPBxCM+zPRYFmxHOEEWTOaDVPK+hlsGxx1fP7CvwDaNJj0I+B8fw+t
-	1L1E2ykcKKxLpTPeKBiQcotAdfimyPU83XGsvyiS8FQ==
-X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
- a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
- 17:27:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="l8Vakiia"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CAC8FC3D;
+	Tue, 29 Sep 2026 02:26:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790641574;
+	bh=5PVP3FAoXnjZK6gVKBD8/rWFbZ7exuS79R920BDmlBo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=l8Vakiia+AfpM3cpQedX9CfqURCJnn8EWmnkxMS1o7P0RcyNPOqRw9+bdDXPPawU5
+	 v3EsRo44C6QDfCa1koY+8776Edq7EdAoo8vUfJ+JYlMqY1rhiOhUKIUrsLHLzvfgfS
+	 DiSrdwzP2EwAQ8xZIY4PSgLH8rHSN7XAmPiGTo3k=
+Date: Tue, 29 Sep 2026 03:28:03 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Lachlan Michael <lachlan.michael@sony.com>
+Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Message-ID: <20260929002803.GC171869@killaraus.ideasonboard.com>
+References: <20260828064843.65047-1-lachlan.michael@sony.com>
+ <20260828064843.65047-2-lachlan.michael@sony.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com> <20260928151924.2686290-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Mon, 28 Sep 2026 14:27:33 -1000
-X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
-	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>, 
-	util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828064843.65047-2-lachlan.michael@sony.com>
 
-On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> Hi Chris,
->
-> Thanks for resolving the conflicts yourself and reviewing it.
->
-> > What is the high-level user-visible impact of this series?
->
-> Being able to use more interesting swap backends and logic when the
-> machine is not under memory pressure.  It is much easier to write a
-> swap backend that may occasionally allocate memory than one that is
-> guaranteed never to, so today such backends are either unsafe as swap
+Hi Lachlan,
 
-I actually don't know of a swap backend that absolutely will not
-allocate memory on swap out yet. Some backends allocate more than
-others. Because the proactive reclaim can write to the non-offloaded
-swap backend. That brings me back to my original question, in what way
-this series helps.
+Thank you for the patch.
 
-So the answer seems to be that previously, some backends were unusable
-by swap, due to possible memory allocation. With this series, those
-back ends are usable for the proactive reclaim now. It is a 0 to 0.5
-improvement because direct reclaim can't use it yet.
+On Fri, Aug 28, 2026 at 03:48:42PM +0900, Lachlan Michael wrote:
+> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+> over 2 or 4 data lanes.
+> 
+> Add device tree bindings for the sensor.
+> 
+> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-> or ruled out (btrfs, for example, refuses swapfiles that are
-> copy-on-write, checksummed or compressed).
->
-> > I am curious: if we never run out of swap file space on the
-> > non-offload swap area, does that mean we don't need this patch series?
->
-> No: running out of conventional swap isn't the point.  Without the
-> series, any active swap area may be written under pressure, so a
-> backend that may allocate can't be used as swap at all, however much
-> conventional swap there is next to it.
+> ---
+> Changes in v3:
+> -  Adjust the binding description to match the actual hardware: the I2C
+>    target address is selected by the SLAMODE pins, not fixed to 0x1A.
+> -  Add the standard video-interface schema reference so the endpoint and
+>    remote-endpoint validation match the media DT conventions.
+> ---
+>  .../bindings/media/i2c/sony,imx908.yaml       | 108 ++++++++++++++++++
+>  MAINTAINERS                                   |   5 +
+>  2 files changed, 113 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> new file mode 100644
+> index 000000000000..828db1175e2f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2026 Sony Semiconductor Solutions
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx908.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sony IMX908 CMOS Image Sensor
+> +
+> +maintainers:
+> +  - Lachlan Michael <Lachlan.Michael@sony.com>
+> +
+> +description:
+> +  Sony IMX908 diagonal 6.42 mm (Type 1/2.8) CMOS active pixel type
+> +  solid-state image sensor with a square pixel array and 8.39 M
+> +  (3856x2176) pixels, supporting MIPI CSI-2 output with
+> +  RAW10 and RAW12 formats, configured as either 2 or 4 data lanes.
+> +  The I2C target address is selected by the SLAMODE0 and SLAMODE1 pins.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sony,imx908
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: Input clock (24 MHz, 27 MHz, 37.125 MHz, 72 MHz or 74.25 MHz)
+> +    maxItems: 1
+> +
+> +  dvdd-supply:
+> +    description: Digital supply voltage (1.1V)
+> +
+> +  ovdd-supply:
+> +    description: Interface supply voltage (1.8V)
+> +
+> +  avdd-supply:
+> +    description: Analog supply voltage (3.3V)
+> +
+> +  reset-gpios:
+> +    description: Sensor reset (XCLR) GPIO. Active low.
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            oneOf:
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - dvdd-supply
+> +  - ovdd-supply
+> +  - avdd-supply
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +         camera@1a {
+> +            compatible = "sony,imx908";
+> +            reg = <0x1a>;
+> +            clocks = <&cdce913_cam0 0>;
+> +            dvdd-supply = <&cam_dvdd_1r1v>;
+> +            ovdd-supply = <&cam_ovdd_1r8v>;
+> +            avdd-supply = <&cam_avdd_3r3v>;
+> +            reset-gpios = <&tca6416_cam0 5 GPIO_ACTIVE_LOW>;
+> +
+> +            port {
+> +                imx908_out: endpoint {
+> +                    data-lanes = <1 2 3 4>;
+> +                    link-frequencies = /bits/ 64 <720000000>;
+> +                    remote-endpoint = <&csi0_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 55b3c2d7a78a..bb7adcfd4767 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25538,6 +25538,11 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+>  F:	drivers/media/i2c/imx678.c
+>  
+> +SONY IMX908 SENSOR DRIVER
+> +M:	Lachlan Michael <lachlan.michael@sony.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> +
+>  SONY MEMORYSTICK SUBSYSTEM
+>  M:	Maxim Levitsky <maximlevitsky@gmail.com>
+>  M:	Alex Dubov <oakad@yahoo.com>
 
-But proactive reclaim can also use the non-offload swap area. So if we
-have plenty of non-offload swap area, both proactive reclaim and
-direct reclaim can use that non-offload area. The value of this series
-isn't apparent. If you don't have a traditional swap-capable backend,
-then your non-offload area is zero.  That is considered a special case
-of running out of non-offload swap area: never having a traditional
-swap area in the first place.
+-- 
+Regards,
 
->
-> > However, direct reclaim can use both types of swap areas.
->
-> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
-
-Sorry I meant proactive reclaim can use both types, nothing constrains
-proactive reclaim.
-
-> debugfs eviction may write new data to an offload-only area; direct
-> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
-> your suggestion to flip it round is closer to what I want: mark the
-
-Flipping it around might provide additional benefit. I know some users
-maintain off tree patches to turn off zswap on the direct reclaim path
-exactly because zswap might allocate more memory before it can free
-some. If the kernel can be smart about it. It provides additional
-value to the status quo.
-
-> areas whose writes may allocate, and keep pressure reclaim away from
-> those, rather than tying it to what started the reclaim.  I'll work
-> that into v3, together with Kairui's suggestion to build on the swap
-> tiers work.
-
-Yes, I feel that cluster-level marking might not be needed, you can
-remember which si has the offload flag. However the per cpu cache
-needs to know which context might require using a different cached
-cluster. That is the trickiest part. The rest of the patch is just
-enough plumbing to preserve whether the swap-out context is proactive
-or not.
-
-Chris
+Laurent Pinchart
