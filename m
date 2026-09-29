@@ -1,193 +1,232 @@
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AB53264C3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854983B19D8;
+	Tue, 29 Sep 2026 21:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715762; cv=none; b=jQ591VorhfCi6LWCgEeqU3Qekxjb4DPGacvtpztICgBldDu5ObzCrGjSHPuh9gHRGeb3CIcKfoimLBdDX6Lbkkc3Auk8T5HwCEfxZgkaW4rvsHEOkfbFoulbupDQovHLrBj/anbxxZIE//CXAozwJpMEw3faneLz8fXRSuHAr+A=
+	t=1790715935; cv=none; b=dtGC8D4qbRl1BL4iLu5sNljJpcZSbc4s5hUK+hNlmAPuQ3eQHueSV16n9cViKYacUZ/24nQNr4zJ7+H7urFiyWE33gqNYSVa1owU3NOxBXd8y/xgrr25yZ0rA9E6rg4PA9sohFtjQ/5uZ14TBEnpgA1vS7fHgDZFFI7esir3Ipg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715762; c=relaxed/simple;
-	bh=bA1AmuGBma/wa/KaBHZxNg5s017qFucc3YuLIpK39SM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iav4qV6NGLtwal0PArn5v0/7+1cbFN5uC2Gh8h+VpLl/KsEvgaSLv5GHfXmDMSI0HUhDpxf/q50xmc7Q7tRfiEYiEhR8HPUxLLhurLrh467/34cOtLDhWf1lsfoeelLiClgNLzihh69RntbwwcwsFBkq9kbz3hS6N8lT6K13+28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFtG7nFs; arc=none smtp.client-ip=74.125.224.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790715935; c=relaxed/simple;
+	bh=PfMwD0BNPzsb9kR4Hq409QO4BgNsB19GJKpJBdH8r0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GAHBYfHOz85gZMSEyhkq0XTJlZaVpeJ7WGYkY/ucVdrKWIxb3dWCtM4saDZ/k1YjKogoRPf7kc1jyvMJxaD5VG1QPaDgv417luzdgJ3z0UPw86MDCkTVHAOUsHUz1RmYGL5baPXvQxIFUt0GYjdRD6UBm+NR5+KC0NjbImitB/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TZIKY46d; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NYzlV6Ff; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YlFe7fYq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RHBKHIYr; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFtG7nFs"
-Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-675617094f5so1267296d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:02:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790715760; x=1791320560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QduLVvo/6LGEURIIdyO8Zm2sFyH0SPaSfM/HS570OMU=;
-        b=OFtG7nFsniaM5QG7eE+dFCgYb7/tuIO+oLpGf7sbOy3XHhwTO9Ox/5D1qAUPWYqTOh
-         YdUTHeIJwE06egmCs1Q+w0zSsLsBSHW+AdA3ybTAPIEAoKavoOH7mHgFio2pQiUVcj8p
-         4/WkYFaKFV8W3+EmqepruKcirqos6tiIHDK9ttvmnmNwoeEacBAzSiQY5KfvGc0MvgWd
-         3EGLqUdM0tkOrtIw1OPdw82cMW8GlvJUG8oMjnMJnXl02wCIWcJlskaTWsZr2XMbgBVB
-         te1iehyWH0A6d9D2/1YEuOSTY0VEggwqp7OBJRVtf5UNrX7/VbTsulSwgTYUnE+yg2fn
-         KkDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790715760; x=1791320560;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QduLVvo/6LGEURIIdyO8Zm2sFyH0SPaSfM/HS570OMU=;
-        b=pIBuHqYs4QsqQ4C+sivb3z+y/QM1xQzTv/x0NCMV9+NeEWwny4JUntFZS5aDsLrrwA
-         yplGtBrnng2xMV8Zpd5zFj1IZbLvlUdQeuuUNGeFY9EYvQhnx1b5ueHF2iTmYWhD6w6y
-         vjs6f2yHQHB2wcwOpA550GQ5GHHbpwI4nEUf2gnYfVqLgk7FKQZCh1Eq7bBZWj8q08fq
-         8tNm3y9pjqBCnf1RYX2phlXlwLSVLz98FcX9P5ZYE656M/Xnvbl/YoFPIxO0/JzwzgCF
-         Nrkko8/AzKX+Vu+iP/OcU7BPMuEMfMy7+yrIQBE9/w63llFsJqWOnUqhVsuGNe6jsKk3
-         nkYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzHErAXHM/6ZaMdQvaZmTa48pUQprWjUJnr8aSvYbQhvXjYy9dFnLf5erPwr1Rm98HINpU+6PXciPIFzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbyNMt4RdCdX7ua2Mbo3p6K7LbuXDudJb3ZD4p0vhR0Bl9ZZhm
-	9sfEfM2CVTO8iwvIDSjLDdXMhB58p8CKgOiNWoSXD3Xno9VFNjRrpWM+
-X-Gm-Gg: AYBFou37F2R8r0O8h7KAqPUmriHJyM3WYYs9tcj6HILyf5sUYP3L5L1fiJiGBF/MUcg
-	ncnKpgacTizX8WSifx8GP7KNDgL/lGyjcIBf1JReZDhkDeG+2n6HlX4/+dAsmAYy53nO4pMpb4G
-	jW3tk/avT7y3ER6ZraS3PVZeMngfxVQCgBooqa/wFeVG6BJb4R/IvO/stQy0z8aXl/m2hjVvc0x
-	Hr2GdZH9IavGTfs2xhJ9d0QUdxWSitR8+mHE2003ZJZjDBsHvGXy8suNwz109eIP5p3MtbU8Z6C
-	W+8vDTlTaZ9GgY5vOib6oPKUxR0yTfZXP/T+3Jo3jlUQqIl15Odg2hGXaz7WF8CGdmgZYejpbi5
-	fIerc2SZ3QcF3NCV1L+89pJNaOjFn/MtJPOi0xH06mop+4uSaDJqHypk3KYIBpB82pluyGGmt66
-	w+SN4XkcEPBPEpphm0F0CGaZtqgtOB2Ls7FuXWzRLjwyuwDzQVx9O/LpuadX7TAczAlx3SgcA0Z
-	E4gPM7zSVabEfXW1OoD+HWFqh+Yvhjc3f2zIT0bjg4hCgiWIetliOSthrU5j6CSDUZhOrNSe5Le
-	ODm4kPdpam4JLsDUjBr7NouBlleMdEq/xtYZzw1b3XGM3IoMrSUzzu6AFh/kIefycda1lw9T1bQ
-	=
-X-Received: by 2002:a05:690e:484a:b0:668:172a:47a7 with SMTP id 956f58d0204a3-67644049386mr127939d50.25.1790715759914;
-        Tue, 29 Sep 2026 14:02:39 -0700 (PDT)
-Received: from fos (107-215-62-97.lightspeed.tukrga.sbcglobal.net. [107.215.62.97])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-675b773e342sm490345d50.20.2026.09.29.14.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 14:02:39 -0700 (PDT)
-From: Adam Lewis <adam.j.lewis@gmail.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ian Forbes <ian.forbes@broadcom.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Adam Lewis <adam.j.lewis@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: release imported dma-buf when the BO is freed
-Date: Tue, 29 Sep 2026 16:59:28 -0400
-Message-ID: <20260929205928.230301-1-adam.j.lewis@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TZIKY46d";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NYzlV6Ff";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YlFe7fYq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RHBKHIYr"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 834D51F397;
+	Tue, 29 Sep 2026 21:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790715924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
+	b=TZIKY46dSaCXxT3weEGA8gcI5YhS170hoSYygbinvJRrTbnhq4RcTN8jY8n+q42Bc+i8sp
+	okpan4h2sv1pBpHZblPK0NF7rrsRE8jlZ33cApZXWXiIG9rG7yGyOyVYj7PWzg1lbInEp4
+	GJvaHTfyGRPI43YYtv9J6qoNdmmHDeI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790715924;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
+	b=NYzlV6FfuT8QByVzPKckKCvqvlIBXil3Yh3BP/XW59+HdptIKSmJCz0CfyQ8SdKmOV13bi
+	A1BMHj+mC3VplqAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790715920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
+	b=YlFe7fYqgQoMs/vwGosxHkXt4z5qQ1JBI4LKzGx6yDp9t69QI/Og9kLloWRCt980Pa7Ta0
+	UaWSaZXxS0IMo116e4xTgfgB+V3lfgM2551R2bnRD1MTEm9PhdrCJZc0BZc7/Hgtqc8ZyM
+	ezSkqKl2vbXR4aBbl30BHxZ9xt9bmI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790715920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
+	b=RHBKHIYrT1xIH6ycSURKGI+aIE7h0nOmHI/CrF7GTLQtu0f31DZxwEj8Ke36o9P0KAm1r1
+	me7U9SrPoyxcRQBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57FB6136E4;
+	Tue, 29 Sep 2026 21:05:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 62ypDBAovGoyBwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 21:05:20 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id DA7E4A133D; Tue, 29 Sep 2026 23:05:15 +0200 (CEST)
+Date: Tue, 29 Sep 2026 23:05:15 +0200
+From: Jan Kara <jack@suse.cz>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] jbd2: fix shrinker scan budget accounting in
+ jbd2_journal_shrink_scan()
+Message-ID: <6dgsbca6nebgc2y2sltw4e4guhb5ewo5crn3zz2u2o5j4om534@5ylgozoppy3b>
+References: <20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.30
+X-Spam-Level: 
 
-vmw_prime_import_sg_table() creates a BO for a foreign dma-buf through
-drm_gem_prime_import_dev(), which attaches to the dma-buf, maps the
-attachment and takes a reference on it.  vmw_bo_free() never undoes
-this, so each foreign import leaks the attachment, its sg table and the
-dma-buf reference, and the exporter's pages stay pinned after the GEM
-handle, the DRM file and the importing process are gone.
+On Mon 28-09-26 22:44:21, Qiliang Yuan wrote:
+> jbd2_journal_shrink_checkpoint_list() already tracks its examined
+> checkpoint buffers accurately: it decrements its nr_to_scan in/out
+> parameter for every journal_head walked, whether or not it gets freed.
+> jbd2_journal_shrink_scan(), the shrinker's scan_objects() callback,
+> never surfaces that into sc->nr_scanned.
+> 
+> Because sc->nr_scanned defaults to sc->nr_to_scan before every call,
+> do_shrink_slab() always assumes a full batch was examined and keeps
+> calling scan_objects() until the one-shot budget derived from the
+> (possibly stale) percpu checkpoint count is drained, even when every
+> buffer in the checkpoint list is busy and nothing gets freed.
+> 
+> Derive sc->nr_scanned from the difference between the nr_to_scan value
+> passed in and the value left behind by
+> jbd2_journal_shrink_checkpoint_list(). Trigger SHRINK_STOP on
+> nr_shrunk == 0 (nothing freed) instead of leaving do_shrink_slab() to
+> keep calling us: a checkpoint list full of buffers that are still busy
+> being written back can honestly report a full batch scanned while
+> freeing nothing, and retrying immediately within the same synchronous
+> reclaim pass will not make any of that in-flight writeback complete
+> sooner.
+> 
+> Tested by creating 20000 small files without an explicit sync (to let
+> jbd2's normal 5-second commit timer move them onto the checkpoint list
+> while their buffers are still busy being written back) and then
+> triggering "echo 2 > /proc/sys/vm/drop_caches", tracing jbd2_shrink_*:
+> 
+>               scan_objects() calls   calls with nr_shrunk == 0
+>   before             176                    176 (100%)
+>   after                8                      8 (100%)
+> 
+> Fixes: 4ba3fcdde7e3 ("jbd2,ext4: add a shrinker to release checkpointed buffers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Any client that can open a render node and obtain a dma-buf from
-another exporter (udmabuf, V4L2, another DRM device) can pin memory
-without bound.  KWin does so on its own in VMware guests: it wraps
-wl_shm client buffers in udmabufs and imports them, leaking gigabytes
-within days.
+And you're back at v1 so my reviewed-by tag still holds :). Feel free to
+add:
 
-Call drm_prime_gem_destroy() for imported objects before releasing the
-GEM object, as amdgpu, radeon and nouveau do.  vmw_bo_free() is TTM's
-destroy callback, so TTM is done with the reservation object shared
-with the dma-buf by then.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Tested on 7.1.13 and 7.2.7 with a udmabuf import reproducer and on a
-Plasma desktop, where KWin's imported client buffers are now released.
-The leak was found and the fix written with the help of an LLM coding
-assistant.
+								Honza
 
-Fixes: b32233accefff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5.1
-Signed-off-by: Adam Lewis <adam.j.lewis@gmail.com>
----
-Notes (dropped on apply):
-
-Security note: per Documentation/process/threat-model.rst an unprivileged
-user must not be able to make the system unresponsive through unbounded
-resource exhaustion.  On a default systemd desktop every logged-in user
-has a render node (0666) and /dev/udmabuf (uaccess ACL), which is all
-this needs, and the pinned memory survives the triggering process.  The
-bug was found with AI assistance, so per security-bugs.rst it is treated
-as public and the reproducer is not attached (available privately).
-A CVE request will follow once the fix is in a released kernel.
-
-Environment: VMware Fusion on an Apple M3 Max host, Fedora 44 aarch64
-guest, vmwgfx 2.21.0, no swap.  Found on 7.1.12/7.1.13 (Mesa 26.1.8,
-KWin 6.7.4), confirmed on 7.2.7 (Mesa 26.2.3, KWin 6.7.5).  The import
-and destructor code is unchanged from v7.1 through v7.3-rc5 and current
-drm-misc-fixes; b32233accefff went to stable # v6.6+.  Not the same
-issue as f739416dc555 ("drm/vmwgfx: drop dma_buf reference on
-foreign-fd prime import"), which covers ttm_prime_fd_to_handle()'s
-error path and was already in the kernels tested.
-
-How it shows up: KWin wraps every wl_shm client buffer in a udmabuf and
-imports it into vmwgfx, for scanout and, when it renders with llvmpipe
-because svga reports "No 3D enabled", as a texture.  Every import
-leaked, so every client buffer stayed pinned: ~6 GB after a few days on
-7.1.  debugfs bufinfo then listed 961 live udmabufs, 954 of them still
-attached to vmwgfx, while kwin_wayland held 35 dma-buf fds.  On an
-unpatched 7.2.7 boot, nr_foll_pin_released did not move at all in four
-hours of desktop use, while MemAvailable fell to 2.8 of 24.5 GB.
-
-Testing:
-  - reproducer (udmabuf -> PRIME_FD_TO_HANDLE -> GEM_CLOSE -> close the
-    dma-buf -> close the DRM fd): unpatched, the dma-buf outlives the
-    process with refcount 1 and vmwgfx still attached; patched (7.1.13
-    and 7.2.7), the pins are released as soon as the dma-buf fd is
-    closed;
-  - imported framebuffer: ADDFB2 + SETPLANE on/off + CLOSEFB through the
-    screen-target path on 7.1.13, and ADDFB2 + CLOSEFB on 7.2.7, both
-    release cleanly;
-  - Plasma desktop on 7.2.7 with the patch, 30 terminal windows opened
-    and closed: KWin created 298 udmabufs and 296 were freed (the other
-    two were still in use), drm_prime_gem_destroy() ran for 85 imported
-    objects, and the pin counters, slab usage and dma-buf census went
-    back to their baseline;
-  - builds without warnings with W=1 on drm-misc-fixes (e78a9fb).
-
-Two related leaks on the same desktop, to be reported separately:
-  - Mesa's kms-dri-sw winsys releases GEM handles with MODE_DESTROY_DUMB,
-    which is EACCES on render nodes, so a compositor rendering with
-    llvmpipe on a render node leaks the handle of every imported buffer
-    (KWin up to 6.7.4; 6.7.5 falls back to the KMS node);
-  - vmw_buffer_prime_to_surface_base() creates a GEM handle the caller
-    never sees and WARNs for every foreign dma-buf.
-With this fix those leaks last until the owning process exits; without
-it they pin memory permanently too.
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c..f226b32 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -31,6 +31,7 @@
- #include "vmwgfx_resource_priv.h"
- 
- #include <drm/ttm/ttm_placement.h>
-+#include <drm/drm_prime.h>
- 
- /**
-  * vmw_bo_free - vmw_bo destructor
-@@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 		vmw_surface_unreference(&vbo->dumb_surface);
- 	}
- 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-+	if (drm_gem_is_imported(&vbo->tbo.base))
-+		drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
- 	drm_gem_object_release(&vbo->tbo.base);
- 	WARN_ON(vbo->dirty);
- 	kfree(vbo);
-
-base-commit: e78a9fb7a40c55ec2a70ae39903dde4f898af2ef
+> ---
+> V2 -> V3:
+> - Rebase onto v7.3-rc5. It already includes Max Kellermann's
+>   "jbd2: bound shrinker scans by examined checkpoint buffers"
+>   (15cb16496446), which independently fixes the busy-buffer
+>   accounting in journal_shrink_one_cp_list()/
+>   jbd2_journal_shrink_checkpoint_list() that v2 also touched. Drop
+>   the now-redundant checkpoint.c changes; this revision only touches
+>   journal.c, reusing the accurate nr_to_scan tracking Kellermann's
+>   fix already provides.
+> - Add a Fixes: tag for the commit that introduced
+>   jbd2_journal_shrink_scan() without ever setting sc->nr_scanned.
+> - Re-measure test data against the new baseline (176 -> 8 calls,
+>   vs the old baseline's 168 -> 7).
+> 
+> V1 -> V2:
+> - Count examined buffers, not just freed ones, in
+>   journal_shrink_one_cp_list() (Sashiko AI review finding).
+> - Trigger SHRINK_STOP on nr_shrunk == 0 instead of
+>   sc->nr_scanned == 0.
+> 
+> v2: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v2-1-7e1efec3afdf@gmail.com
+> v1: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v1-1-e6f4016ec699@gmail.com
+> ---
+>  fs/jbd2/journal.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+> index 00f5a98f3d4fe..a61b7a59c0a0e 100644
+> --- a/fs/jbd2/journal.c
+> +++ b/fs/jbd2/journal.c
+> @@ -1263,10 +1263,27 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+>  	trace_jbd2_shrink_scan_enter(journal, sc->nr_to_scan, count);
+>  
+>  	nr_shrunk = jbd2_journal_shrink_checkpoint_list(journal, &nr_to_scan);
+> +	sc->nr_scanned = sc->nr_to_scan - nr_to_scan;
+>  
+>  	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+>  	trace_jbd2_shrink_scan_exit(journal, nr_to_scan, nr_shrunk, count);
+>  
+> +	/*
+> +	 * Give up on this reclaim pass if this call didn't manage to free
+> +	 * anything. This is deliberately based on nr_shrunk, not on
+> +	 * sc->nr_scanned: a checkpoint list can be full of buffers that are
+> +	 * still busy being written back, in which case a call can
+> +	 * legitimately scan (and correctly report through sc->nr_scanned)
+> +	 * a full batch of them without freeing a single one. Retrying
+> +	 * immediately within the same synchronous reclaim pass is not going
+> +	 * to let any of that in-flight writeback complete any sooner, so
+> +	 * there is nothing to gain from letting do_shrink_slab() keep
+> +	 * calling us against the same stale freeable count until its
+> +	 * one-shot scan budget for this priority level is exhausted.
+> +	 */
+> +	if (nr_shrunk == 0)
+> +		return SHRINK_STOP;
+> +
+>  	return nr_shrunk;
+>  }
+>  
+> 
+> ---
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> change-id: 20260928-fix-jbd2-shrink-scan-nr-scanned-c3098cd901e2
+> 
+> Best regards,
+> -- 
+> Qiliang Yuan <odys.yuan@gmail.com>
+> 
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
