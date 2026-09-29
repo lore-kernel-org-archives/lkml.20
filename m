@@ -1,104 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E986B2931DF;
-	Tue, 29 Sep 2026 08:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC2B3AFD0B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670452; cv=none; b=e8UYthDh43zspQGd60S8UHS8o/4kUse0CTrSfR1ifntXW4K4A0l7NuQ5V07LQB7XCRcjSAFCxqntqtXiQGs+mDkuY4CFHdL2Bh6QTEsSLjKUUkPEAc3apVE6bSrooH4mmcEil4EKi0hLqrmxerNMggLMJx/MXAksDFWwRGUWSZ4=
+	t=1790670473; cv=none; b=HWCofFSXlSex8Gpwe5LC5t9PBsGnXO31KXvvbQ4v2elPqhdYx1NWPWxr0yo/oZ3EfUJM97vZFzop4MV4YgXGSXjJ86r5AjIkp2BlZPm1zeLjrOn8wI1QAFhrpqSSqlR3Q191YuKlZWnNzfTMWCJ1YCo1ewQHp4mjJuv2mSOnk48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670452; c=relaxed/simple;
-	bh=OLyupj4VY2YdQb6ysUVJTbnElUAa+kENmXAjI+Ba+Gk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=piEVOVVICneA58h4yiejEuXKlqdBaAXecf1bl4DrkhPUTZA+LG3T8fbk3kUsXFSuxYnmAaTw6ld6QwcD5keB440bg99HDe8h/d9hVXllfAj7q+vpDl6yRbN2/HhjwL/aAg6pC/k81upjUUHPZsECVTQROF9GueyxSnP2mbJr7h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lKtpxG6J; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lKtpxG6J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790670449; x=1822206449;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=OLyupj4VY2YdQb6ysUVJTbnElUAa+kENmXAjI+Ba+Gk=;
-  b=lKtpxG6JMQsXPfIzWqSA2oHnWjZK2zzq4oGfw+Uyq1Lcq9SEr6eWjo8X
-   TDTiGBt00S3OlB8m7D9Q64haDVtsKbCNMmSHT2K8sWDd0h8DaoBtcykFX
-   5Txsi5zy8A+9L/irDNW6tCNmPaZGJ+8MUjh8o6VOv+HaDW5F5lm8RxqZC
-   z7aXFv8BxPLz8lojGUuJQjc/RVNVjY3MiOP4jspDcVdMsFDK7xuJPmC/R
-   oBwehRxpN9Ee7R6RyveyaNzOHxTH/XZ8gqiB1Ti4CzzQ+MmE6AdeAsnPI
-   CVBHvTLAhaoAHjFYRcy19E1v3DguP9JKTGm4ZHDBnp8a6hZj2UtGSpzv/
-   g==;
-X-CSE-ConnectionGUID: PkC5E9wyQ/yxIATDRs12Zw==
-X-CSE-MsgGUID: rh7lApFZRuOeAT6lQcv98g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="94264651"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="94264651"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:27:28 -0700
-X-CSE-ConnectionGUID: mTZreb/GQQOIAd/exbegJw==
-X-CSE-MsgGUID: zWxYh8ooTQeerp3UuqfzmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="278518144"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 29 Sep 2026 01:27:25 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id D1ECB99; Tue, 29 Sep 2026 10:27:23 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Wen Gu <guwen@linux.alibaba.com>,
-	Philo Lu <lulie@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH net-next v1 1/1] eea: Drop temporary buffer by using %pEp directly
-Date: Tue, 29 Sep 2026 10:27:22 +0200
-Message-ID: <20260929082722.3368741-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1790670473; c=relaxed/simple;
+	bh=4jQ1eZTG5rKiiiDSguf4Mp36fK8Z5+lW5cHeq8EWc58=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=lcgh4Eh4Wky8MsXKWnbp9UKgNQ2SHskubNc1FjnOwRP8aHDtRBYC/dqitN3zfG1kkJyFztSTo1raekNtAzbeC38QQaAzOlMIflKxTp7g7lYBOjjHEvmN5G49e8MaiamY18yiTH9WcBVPptfWmks9Oip8HcackYythA7Eja3whp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 68T8RnWM084549
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:27:49 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 68T8RnJW084545
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:27:49 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <f982152f-ff51-4d31-a17c-bd0d562c1414@I-love.SAKURA.ne.jp>
+Date: Tue, 29 Sep 2026 17:27:48 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v1.1] can: j1939: cancel pending address claim timers on rx
+ release
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <30036c14-ea5f-49ef-b3c1-fe00d1babbf9@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <30036c14-ea5f-49ef-b3c1-fe00d1babbf9@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Virus-Status: clean
+X-Anti-Virus-Server: fsav212.rs.sakura.ne.jp
 
-Instead of calling string_escape_str() followed by %s specifier,
-use %pEp specifier directly. With this being done, drop temporary
-buffer.
+syzbot is reporting "struct j1939_ecu" refcount leak, for
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  j1939_ecu_get(ecu);
+  priv->ents[ecu->addr] = ecu;
+
+in j1939_ecu_map_locked() from j1939_ecu_timer_handler() can succeed
+even after
+
+  priv->ents[ecu->addr] = NULL;
+  j1939_ecu_put(ecu);
+
+in j1939_ecu_unmap_locked() from j1939_ecu_unmap_all() from
+__j1939_rx_release() from j1939_netdev_stop() has completed.
+
+  unregister_netdevice: waiting for vxcan1 to become free. Usage count = 3
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_ecu_create_locked+0x1c9/0x400 net/can/j1939/bus.c:159
+       j1939_local_ecu_get+0xeb/0x220 net/can/j1939/bus.c:293
+       j1939_sk_bind+0x70a/0xc60 net/can/j1939/socket.c:529
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_priv_create net/can/j1939/main.c:140 [inline]
+       j1939_netdev_start+0x387/0xb20 net/can/j1939/main.c:268
+       j1939_sk_bind+0x946/0xc60 net/can/j1939/socket.c:506
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fix this race condition by calling j1939_ecu_timer_cancel() before calling
+j1939_ecu_unmap_all() from __j1939_rx_release() from j1939_netdev_stop().
+Calling j1939_ecu_timer_cancel() here is safe without holding priv->lock
+because the CAN RX path has already been unregistered via
+j1939_can_rx_unregister() followed by synchronize_rcu(), meaning
+no concurrent network events can mutate the priv->ecus list.
+
+Reported-by: syzbot+e2af46126e0644cbebdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e2af46126e0644cbebdd
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928193312.553632-1-mkl%40pengutronix.de # [PATCH net 06/22]
+Assisted-by: Gemini-Pro gpt-6-astra opus-5-5
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 ---
- drivers/net/ethernet/alibaba/eea/eea_adminq.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+Changes in v1.1:
+  Call synchronize_rcu() after j1939_can_rx_unregister().
 
-diff --git a/drivers/net/ethernet/alibaba/eea/eea_adminq.c b/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-index 73d0caf25700..d17575a76890 100644
---- a/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-+++ b/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-@@ -522,16 +522,8 @@ void eea_adminq_config_host_info(struct eea_net *enet)
- 			dev_warn(dev, "The hardware-driven state validation may be abnormal.\n");
+ net/can/j1939/main.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/net/can/j1939/main.c b/net/can/j1939/main.c
+index 5e5e6c228f22..8706680e2458 100644
+--- a/net/can/j1939/main.c
++++ b/net/can/j1939/main.c
+@@ -212,8 +212,23 @@ static void __j1939_rx_release(struct kref *kref)
+ {
+ 	struct j1939_priv *priv = container_of(kref, struct j1939_priv,
+ 					       rx_kref);
++	struct j1939_ecu *ecu, *tmp;
  
- 		if (rep->has_reply) {
--			char buf[EEA_HINFO_MAX_REP_LEN] = {0};
--
- 			rep->reply_str[EEA_HINFO_MAX_REP_LEN - 1] = '\0';
--
--			string_escape_str(rep->reply_str, buf, sizeof(buf),
--					  ESCAPE_NP, NULL);
--
--			buf[EEA_HINFO_MAX_REP_LEN - 1] = '\0';
--
--			dev_warn(dev, "Device replied: %s\n", buf);
-+			dev_warn(dev, "Device replied: %pEp\n", rep->reply_str);
- 		}
- 	}
- 
+ 	j1939_can_rx_unregister(priv);
++
++	/* can_rx_unregister() uses call_rcu() internally and is asynchronous.
++	 * We must wait for an RCU grace period to ensure that any in-flight
++	 * j1939_can_recv() instances on other CPUs have fully completed
++	 * before we safely traverse the priv->ecus list without locks.
++	 */
++	synchronize_rcu();
++	/* Cancel all pending address claim timers before unmapping the ECUs.
++	 * This prevents an orphaned timer from re-mapping an ECU after the
++	 * rx path has been completely torn down.
++	 */
++	list_for_each_entry_safe(ecu, tmp, &priv->ecus, list)
++		j1939_ecu_timer_cancel(ecu);
++
+ 	j1939_ecu_unmap_all(priv);
+ 	j1939_priv_set(priv->ndev, NULL);
+ 	mutex_unlock(&j1939_netdev_lock);
 -- 
-2.50.1
+2.52.0
 
