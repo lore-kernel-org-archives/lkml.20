@@ -1,73 +1,93 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656EC471CE4;
-	Tue, 29 Sep 2026 20:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15BE3B1031;
+	Tue, 29 Sep 2026 20:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713772; cv=none; b=TLLRvkaulE5bOP4cRyIJnIporW7gdmyLa8Jlm2GdBCJwPWO4Fa66rYj46lyvOEn87Nl+e7BWxCIvrOWj3aS+uNdt+khukcbHKJR9miIH8UmA/BMrlHcu/fMKETtK9KpE7SJZPt7ZQTV+VcXJGkXGWpikSt+cxYY3qzUYmEnCkbM=
+	t=1790713829; cv=none; b=Kq1aeICbEhYKAgDtz/vngj/BxQRlos/jdZyAyIze2YaQEoUhsHSW1+jteZVruIUENWJzW+Q2OKIY9izcPNyRj+MT0FdqW/6oKutrEjA+nrsqEGCqQe5IaRtR49ePeI7Qq2Np+7+0uH5txLjCd373O6aSwQgYKxH51t7ZCRfLcr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713772; c=relaxed/simple;
-	bh=xSvW9udmZyzj8NC+S5ap+ZZirj1j3Hj1v0J1GV1rEj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bmA7vOYB9W+8cq5EAVZCpEiduIcFo2D3wgln85OgHKBIi5Ub7WWI8In9Ay7LDfer0SVKWNqDGpiuERa6RAqngCaSn3Ikj+avDzY+gP5ZPED328lB2iDEHY0LUZyaou5OzIIzDq1te/w9XgMffciLvjVNlL+OfBtDE1q7B6BKVUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yPfdCekB; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790713829; c=relaxed/simple;
+	bh=UmHYgNzH8/0CQ579pAUK2zf1mKPTLuZtYZ4fgDHSZDk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WLfBlAlEbukoQZX+o7DWcHSFC4M458g/DL0jKBWOaHiVyP8glNvQzVL7Vmxwk7uR0An3ynqeD4DqYbab5m1kxhB0nRkTCDmmdEZmzeycLMhLa04Q8v3cOcHSgdpk3GX9iznzju4HBJPz55WF2AYix3VHgwA97mZyqBJyvf/uCMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=pXPSOPaI; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yPfdCekB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=qfgtS/3YR6scpKjdET977cAtpN9Rc4jD/Yqb7My/5vA=; b=yPfdCekBA5Kcq5J/6HSwIFdFQo
-	SDnUZT/d8eApuGgo7Btq1y0HrEsVFqW2lss1toVaq8bAjnYxdQ+2qCwjwwKmdXjo99aUqBSeeR2v2
-	NgPXtEgdl9KHgRFc9n2Q5L4s0uj/JBNCtRyg6wHCdWIZUOzGsgtXk9nwaYyCCztFdHYo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xBeRu-0081vz-AK; Tue, 29 Sep 2026 22:29:14 +0200
-Date: Tue, 29 Sep 2026 22:29:14 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: stmmac: Disable checksum insertion for XDP frame TX
-Message-ID: <f0d8c25f-96e1-4da8-af6c-3286610338ba@lunn.ch>
-References: <20260929121025.20821-1-jszhang@kernel.org>
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="pXPSOPaI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1790713465;
+	bh=UmHYgNzH8/0CQ579pAUK2zf1mKPTLuZtYZ4fgDHSZDk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=pXPSOPaIet+6L0vHHtVv804NEJh4OkHs70zFotRO+Fj3Btx6fTbI6zhizRh7utlHi
+	 kEaSJQ1KkyYkt5W3yf7fenyOqx4unix9i+tBRqoYS05slo9TEoCJW44prfmDoQnOD9
+	 8drcAcfVKopVWa7K7NZ8BOEViaPHDBZ3y4e8gyns=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 29 Sep 2026 22:24:21 +0200
+Subject: [PATCH v2 1/3] selftests: vDSO: vdso_test_abi: Also test ALARM
+ clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929121025.20821-1-jszhang@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260929-vdso-alarm-clocks-v2-1-a7af4089a698@weissschuh.net>
+References: <20260929-vdso-alarm-clocks-v2-0-a7af4089a698@weissschuh.net>
+In-Reply-To: <20260929-vdso-alarm-clocks-v2-0-a7af4089a698@weissschuh.net>
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790713464; l=1291;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=UmHYgNzH8/0CQ579pAUK2zf1mKPTLuZtYZ4fgDHSZDk=;
+ b=91paDDqp7nF5oLIw4+L4Jhvp/VG6vbu88wBX+oNAZoPsWsXTKEKMcHbU7gF0a+9eXixw/2y57
+ v017NgAco/bBf8hiMW9gSQL2AvnoY41XiCXXM7IDW9Tc5oj5EUQzVSq
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-On Tue, Sep 29, 2026 at 08:10:25PM +0800, Jisheng Zhang wrote:
-> stmmac enables TX checksum insertion for XDP frames whenever the queue
-> supports it. XDP frames carry no TX checksum offload request, so this
-> can overwrite a checksum already present in the packet.
-> 
-> Pass false to stmmac_prepare_tx_desc() when transmitting an XDP frame
-> so that the packet is sent with its checksum fields unchanged.
+Extend the tests to also handle CLOCK_REALTIME_ALARM and
+CLOCK_BOOTTIME_ALARM. These are currently not handled by the vDSO,
+so will fall through to the system call and succeed.
 
-This seems odd to me.
+The tests will become useful when the vDSO will start handling these
+clocks in later patches.
 
-If the frame contains a checksum, it is either correct, and the
-hardware calculated one will come out the same, not an issue.  Or the
-checksum in the frame is actually wrong, because the frame has got
-mangled by eBPF before sending it out, and you want the hardware to
-calculate the correct value.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ tools/testing/selftests/vDSO/vdso_test_abi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-What an i missing?
+diff --git a/tools/testing/selftests/vDSO/vdso_test_abi.c b/tools/testing/selftests/vDSO/vdso_test_abi.c
+index b162a4ba9c4f..4f538928e1d4 100644
+--- a/tools/testing/selftests/vDSO/vdso_test_abi.c
++++ b/tools/testing/selftests/vDSO/vdso_test_abi.c
+@@ -261,7 +261,7 @@ static inline void vdso_test_clock(clockid_t clock_id)
+ 	vdso_test_clock_getres_time64(clock_id);
+ }
+ 
+-#define VDSO_TEST_PLAN	38
++#define VDSO_TEST_PLAN	46
+ 
+ int main(int argc, char **argv)
+ {
+@@ -284,7 +284,9 @@ int main(int argc, char **argv)
+ 	vdso_test_gettimeofday();
+ 
+ 	vdso_test_clock(CLOCK_REALTIME);
++	vdso_test_clock(CLOCK_REALTIME_ALARM);
+ 	vdso_test_clock(CLOCK_BOOTTIME);
++	vdso_test_clock(CLOCK_BOOTTIME_ALARM);
+ 	vdso_test_clock(CLOCK_TAI);
+ 	vdso_test_clock(CLOCK_REALTIME_COARSE);
+ 	vdso_test_clock(CLOCK_MONOTONIC);
 
-	Andrew
+-- 
+2.55.0
+
