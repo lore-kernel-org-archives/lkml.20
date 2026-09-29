@@ -1,160 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010030.outbound.protection.outlook.com [52.101.201.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91174E0210;
-	Tue, 29 Sep 2026 14:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692829; cv=none; b=qWxCYDqLu5QFFQzI9aG1ZyB+hXCKXwVLD+wRNVFOFPK5GTvwwwIfsMbqpyPHqFhjIi9oTgvQ9DEMQUf081QmmXG2Gz61ogBgQBhwuc2N6WGtIuvY4mz8HVDH45vbN2wlMNZzTKsqwEysIxYOtce/ewYmGv8WSN2N84yi+RLuMj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692829; c=relaxed/simple;
-	bh=bf+J4oky3bF94JcGs4eYrahBGZ1RmSsGSPGHqV+7oGQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=RjUHRYllmwuMKPiHoFA98sR3lnvpUJ7pjaDDgfqNr5FK4Dvwhz5gwRc0lfMrTws32xonL9uR+qFtOMOMuNmS9ac34NfJEIY9P0sOLC2NzZD07PQsk9g5kVctK6RoXJmCkXQJqygw5oUMh0Ho1WeMuvQrhVtrE8UGqQjX7zzz4SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lBcwj+r5; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB18531612;
+	Tue, 29 Sep 2026 14:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790692843; cv=fail; b=Zs2lLIaOEZkxThmU8yyvRshNcx8tMTlonOXVpSv6O6Ii+y6t5JDHN1NYxOmR9R+nKFEBrsl4Q72UiYL5jKYc2XIetBD6o5YB5YNtCC9YVnFdAIZfOFU1xDX+ZAvoiT5YlHVt4d8dFP3u3EJNDxFhW0DkBHO6cAzY9nOhy85K8NM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790692843; c=relaxed/simple;
+	bh=1h3RTlmqFRyw2GwXHbXQJi0s+YR16hRqXIUaeq4eChM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=Tqvtf/AzDRue7sdK1NHvaEcitRfkHYw69AgGn/vlyjP3ODp6EdmclmYysbjiJ5XvhGZ/swogkhKu3uCwXf7mttlkIriyEPEkThmCUMmfpQB38aVFgdG0edunzKOHh2Z/v3g0SaQvtolv5E5qfbeYjDh6J55+E6oO5IPqitB2/Og=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DhLhMNXL; arc=fail smtp.client-ip=52.101.201.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lBcwj+r5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790692825; x=1822228825;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=bf+J4oky3bF94JcGs4eYrahBGZ1RmSsGSPGHqV+7oGQ=;
-  b=lBcwj+r5yN4k6m8NCbxzdX/pL570VCJ+9BWpBr/mCj7+JrUOOTzNPQ/1
-   MhUZpsJ6Li0o2+VKbM44ItdwcaKkXOBES0EmCPABleULB7ZuBOc1JzHzB
-   zNwBrqFDbDFdBjo7sgQ+SIwkes/ty88WSxsEVaZKVfgKe5eHifhMFd97J
-   Ru1ZoPh5+3TWbha/O0MqV0VD3lJXe1xaxIy/r/F4zJluZFCDrnEMVB0bd
-   N7ORs8B9JjieeA9N78Mp28HiD7qXgsr/yGi3QjIqzHSM1YEbGLWtdLLam
-   XiNNk5rJqqE23vk51DeaReHNglAIBr+uB8rtuLOBenFIQibrNNMVL5q8J
-   w==;
-X-CSE-ConnectionGUID: Pw7WcpmlSFiDShBwmcHC1g==
-X-CSE-MsgGUID: EcmX76+wRn+E5q7czOf0IQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90364793"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90364793"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 07:40:23 -0700
-X-CSE-ConnectionGUID: y411HtLjQQ6oWFENc8NpaQ==
-X-CSE-MsgGUID: FALEyBJ+RCqBiW1PFlie9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="301663530"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.233])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 07:40:21 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>, corbet@lwn.net, alexs@kernel.org
-Cc: dzm91@hust.edu.cn, wy@wyuan.org, si.yanteng@linux.dev,
- srcres258@furdevs.cn, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Chen-Yu Yeh <chenyou910331@gmail.com>,
- Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
-In-Reply-To: <20260929131020.266120-5-chenyou910331@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260929131020.266120-1-chenyou910331@gmail.com>
- <20260929131020.266120-5-chenyou910331@gmail.com>
-Date: Tue, 29 Sep 2026 17:40:18 +0300
-Message-ID: <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DhLhMNXL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hcmdD5iTunAhQuOwu3m12USo+2Ev0JW/J4DSQfLiSV//8eibrs+EWmD6KU/QUzM2PtsSlKI1zuTcdwzLm1VGxhpgwBY311SgblrWlgmJ9x99tWoSoVU9DeVUrYjIERZhyVjuMp71hVlOHNG0Apbo0WG65OiNSJIGkR+BEXDHec4FbEcLYFIY+CKo2CA12kn8iX3hPdGqH5XMkv8Q937c/gIjH53763c/IsBpWcwCI/O5TbiVN2xFlPF7vh2D9wA41+REijDX136iE16GXiuNuV9R9eJrJ2vkVQA8+M/cTB9Q+qXT0xcbjs+VzvZmxRNQSxAAiyhBeXGI/wctwCPqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v4aL6GbJ9FiMExmgue30oCHr4+UQLRVfMHX4WMvdwNk=;
+ b=sMRxKUDhFtEbFJ3huBqsKSlI7UvS5M3tvpgAGiV5/IXvXb04d6tRQE2At606n6OrS8QtQZgygQ8eU/eBpwz/2HxtP1OzxQpMQHOsU5xFn6DVkKPrthQb9il/kYk0LAGa9uI7nJt68+vI7E3lmdR01bYBaJyQbqOd+gU9I2QuZIp3fEtViBd0yFJxshKlNphDt1FAjTrRDgzK5vG2R4nea07TEibgomzjeGEA+sqcNe5URx/53n/M378t86yPVJEOyPqpgQjm6ioLqtyrvcDNx53T7XHKxkpMD69WQwEt7lJ82wX8xWAR4IizOxerLfmmGT4ObLwVxlhqK+sB0uGoxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v4aL6GbJ9FiMExmgue30oCHr4+UQLRVfMHX4WMvdwNk=;
+ b=DhLhMNXLlI8Xq1e3JJvzqJZsXP4xMozlLs7pifJP6iGgjgn+6eJK+UZPU3QOs2pwu0uJXefNlYWbFc8z333xk8xOjlkwvmWd4Fys3JTyYhb/gQAZaSxvCZKCqtkhWGunJvtkI17WNT/mp7YEEVDYFD4AHM6ihIAu4+aJxmP2BuSyvX9dWu/R30Yz0jBAv3VUh+0CPw/a9jLHkvQDBtGSKzA5ShBPtHvmF9lgdHxK12v0OPXmtPpuoIYKBNd5eCFuqV9RGrVOT7P+Xh8zwbDSeW19Nm4xOma2hZZGfD9JupjJUhVAj1uj03h2TyZ9ybG83nT6nWHoM2vdJmicw8pEHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH3PR12MB8909.namprd12.prod.outlook.com (2603:10b6:610:179::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 14:40:26 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 14:40:25 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 23:40:22 +0900
+Message-Id: <DLRVMM6HVO54.NV3FUAYPC7UU@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
+ a sub-module
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Zhi Wang" <zhiw@nvidia.com>
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
+ <20260928122015.3df66b3e@inno-dell> <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
+ <20260928181106.06eca8fc@inno-dell>
+In-Reply-To: <20260928181106.06eca8fc@inno-dell>
+X-ClientProxiedBy: TY4P301CA0025.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2b1::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB8909:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9b5581d-4f8b-46b9-d0a3-08df1e37994d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|23010399003|22082099003|18002099003|3023799007|56012099006|10067099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Vq115iPDGFf9oT8nriYZToncQaIah5wf01m4LRuNzy8ur85RVX54gnotZ/t6seHmw0mfikl6/xeslm5Bz43Tynl2vxhQ5n+C4WQTA134ABrQmDNuvv9ulIVyu2sD+LEO6fbiUUHJioJTsyjDtns4ssmqQp2LbGyZKzag1nBmw7jOwSKj61tUYaTnEvIJwj30Kbt98uH31lashWjf+AuoaxvpAdRYLn4/Buk+IGn7bJxEvEQbXJLnxARo1laqHxiW6Vcy6wdqJD6/7XP5j6+A/KlxOYTtL1SOrSUpQ2k40ZycBlBA4+nQtOgn6Ra3vt6xwrxoZDSESQEh1Oa8wT9dXGymAyhjgnuGvWTAFNkqNEDwmd3i6paNcwIBZmkQm/wuKztk7qaptLSwB5c+F8Z9ej+VuOc62mWbcpz/yyv0C41vNSx9tc2o+7D0WrGIUtGfX83LVR76cMlgdpG3ew5tN7R1JkaesniwRUkRs3pnrNIRkE0A9FaP+C2oFDe+v4FYQ2aRmwk3DN7sI9WMWGisum4gCO7q0fmVrgPf1lM2rmX9QVdLd6FSU8qK9adwIDp0lUQhadHtN1aoDrv71/MD1CMFfMtJ1j6vgjzkApan2XHk3XmMn9gHyONi2ZJqUqS0tt/lqJABL9ISViX40wxdWMcwaYxOTN2oG0uW6MYL8G8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(23010399003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bWF5L28zWGtEMjZtajhCWFgrbTlOMlFCbTU0MDdNa1NiTGRHUFRNd0xwR3Mv?=
+ =?utf-8?B?Z1Z2RDZjTnYzdGNpTzVad3ZBdGlUSVBJMjlEWmdtS0liZ3ZZdGV1cmE3K05I?=
+ =?utf-8?B?a1JMMnhFeE1nV1VUSXFXM0lJNzlhaTZFeDlPZldnT1k0d1p5VlJCeitjVWY4?=
+ =?utf-8?B?QW1FMmJObHBQYmVQUHM2YU42UnBqTzkrZ2dRRDF2L1dEbUtVZFl2U3hPUzEy?=
+ =?utf-8?B?djRwNzVEd2lWTS9FM1lma0IwemRwS3ZOOGxTRVpqMXpQRVdPRGZTMmRzZjJx?=
+ =?utf-8?B?ZllpODdVbnpPUTBBVXh2QWZMdEVoaXdOKzQwbUkvb25xVlNPZFJDVFJ5N2R1?=
+ =?utf-8?B?djBnNHhXYWxQSk1ucDdmS2VPVXBTNXcrajh1ZW5NSGUzVFNDc2FhajlNNmZK?=
+ =?utf-8?B?V0RtZ0tQY1dHNkFuRVp4Y0VuV2x1Q2RFQnE0TFRnR291NytoUGowWlhJKytY?=
+ =?utf-8?B?aWZ4TElJNDYvQjlxdjd0YVE3YVZWVU1oVFN3Vk92aGx5OU1IajVPaExEN3By?=
+ =?utf-8?B?THpTa0EwWWdZUkpFbWdlTmd4cXc3WFd2aCtyUTU4TzBuRVNwMmRiQ0ZWR2s0?=
+ =?utf-8?B?ZU5UUFFPTTlRd3RkbTB1WlVpSXRHbDJyaEEzVHlYQWFKMStMOUJ4NFhseHNO?=
+ =?utf-8?B?Q3Y3dHJHdnB3OXQwUkZZVjFuVVEycXVuclhkYk9PYW5IUHNhSzM0K3U2Vzkv?=
+ =?utf-8?B?RFIzS3k3ODIwZkVOSWhlUUJrdm0vOWJ6OU5OR2RMUERKR0lXcUIxaEY2MVB0?=
+ =?utf-8?B?ZEpha3lhcnFJMEpBSWlyNE1NSUkwZWVXOHRhUWxaMlJVMENVM0lZWHVuUFd6?=
+ =?utf-8?B?eDNwYUpkU2UrWVM0QS9EdXA2YS9kVlJYbGRSYjg2YVhJNjJGNmhWR0xtTVBl?=
+ =?utf-8?B?U3hWeTFJR3RmM1hQMWdDMTY5TjhJNWtHc3hzY09LaWNRbDcwSHlaUTJzY2sr?=
+ =?utf-8?B?OHl6S0NzYk1HSzdIZHk3Q1JTb0Z2eVNxTklxS0NvNDlNS0puWGxBb3FTcThP?=
+ =?utf-8?B?VUhtb1NBWHRrQm5Lc2hKVmo3TXlWczg2eElFdGNUeTg4T1kvNllQendaalVP?=
+ =?utf-8?B?M0phNkp1ZVlIbkp6anc1d3ZVOHQvS0IzY0lET1g2S3J0QVc5M3loQkVCMEJI?=
+ =?utf-8?B?SzhpQkpadlBna1psdURBTHRCZFBUOWY0UHhxMTdleFlrcitHTEhZcEF1NTZw?=
+ =?utf-8?B?bkpkQnp2VGlvcE1NVmlwbVUzM0lwV0ozdDA0SVVxSStVbWNndnpnNW56UUdp?=
+ =?utf-8?B?S1RTQmF6SjdBVU9Ecmp5ejg1M2pVVmRWMTV0aWlnYWhndElNeUJXTTJ4TnBn?=
+ =?utf-8?B?ZVFUbWREMUc4YW9NWEptN1JmNVJYQnVDN3JaQ0FrZ0E3TlZSdU5FL0pUdWxX?=
+ =?utf-8?B?dHVKZ3JUSFR1SjhKb1o1aUxWNTZwUmk0QVhtRlV2Y2lURVErbnRJVDJHTDFR?=
+ =?utf-8?B?Zlc4OFhNVFVVdzVySHRtZHg5R2RvcEwzWVA3VXZ0TENxTEsycEp5aHJydWx0?=
+ =?utf-8?B?UnU5dXlQTHJZWG4zVTF5VFdWa2VLWXgydzNLN3llcGUwaW1WM0tmU0JVVFVw?=
+ =?utf-8?B?RXZBWG1HbkdyUllzYWhRci9Zc0VJK2NpdzY4ai84UDNUZWRxWU9NT3ZMRWhl?=
+ =?utf-8?B?aDQ5ZEhwTytkY0tlL1A2aDRXZjdUc3ZFcGY1bjc2eWJ2Rm5SL1ZyMlRwV3BP?=
+ =?utf-8?B?Q3MwcGlzb1lwNnlvcHFiQjVDZlBTT1NJRWdVY251MlN2b2hta3Jpa0hnZmp3?=
+ =?utf-8?B?V2RsRTJIbnV4azRzQ1ZSRXBaNG9Qd2ZUUkVCWUgvcjBSUEw5TGxRL3c5ZGFw?=
+ =?utf-8?B?YkNpSDM2ZEorU1YrZEVhdmxYNmo2ODhHajZOaVpYVlhUd2ZsYW44Tlpmd3B1?=
+ =?utf-8?B?NGFYdVNvYU9yMmN2Q2UyNG9pQjFaM1pUQUV6VDVaWEZDaCs2MjJLUjgrdTNs?=
+ =?utf-8?B?bjQwQWY2UWdlNklFdVA5ZWExWnNKbE8rVURJTjU0cGxCczNQNTZ0L2E5eGZE?=
+ =?utf-8?B?Y3kvZmpwdW56REpwdWtTeDFhaUVLL3V2aDFJWUhGNXArZDZRc0lrMy9DOTBh?=
+ =?utf-8?B?L2JlcGpxUmVTNXBCa2FNSVRSRlRQWm0xUkxueXI1M0ZkQzUrSE9yVlNlcklk?=
+ =?utf-8?B?ZkxoSjRGa2lLNm5GbUkxOVE0UkRwTU9XUlRhNUhZejBlK1NlNUp1T0N4VktF?=
+ =?utf-8?B?OXQzZExZenQ4TGZsZTFmS0Z2b0tYVTNqZkRrM0ZUcEdqTTZVbEx6YWJ2MlI3?=
+ =?utf-8?B?Z21Eb25GaUVORHBPK2RzY3g4bkh4dUJnanduM3FROGx0V1hqYmJjWS9VSW4x?=
+ =?utf-8?B?TWxCUkFCVGRYQ1JISEJDTzMwcUxEbWdKeHlLbUQ2WjFGSlN2aG02REhNU0E2?=
+ =?utf-8?Q?1z3TFB1PLp5IAw4jVldeetR7eAh5tvZOkBEXwuoOpUdGo?=
+X-MS-Exchange-AntiSpam-MessageData-1: ortGOp9YU9TvfQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9b5581d-4f8b-46b9-d0a3-08df1e37994d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:40:25.6855
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XCwsVM4FUaA0T0RgqE5AiwRBWmCvXu2fE1m87dU/KKWJcGEV4rQQMjrK79J4+/rJdURbX0mVFuxi38d+GXpSWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8909
 
-On Tue, 29 Sep 2026, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
-> Every zh_TW translation names the English document it mirrors in an
-> :Original: field, except these four.  Add one to each, in the plain path
-> form that automarkup turns into a link.
-
-I'm wondering, are these :Original: fields useful anymore since the
-translations extension adds the button to switch between languages?
-
-The pretty much hard-coded expectation is that the English version at
-path/to/foo.rst is the original, and its translations are at
-translations/xx_YY/path/to/foo.rst.
-
-I.e. neither the HTML nor the RST benefit from it, and it's just
-repetition.
-
-BR,
-Jani.
-
+On Tue Sep 29, 2026 at 12:11 AM JST, Zhi Wang wrote:
+> On Mon, 28 Sep 2026 20:40:08 +0900
+> "Alexandre Courbot" <acourbot@nvidia.com> wrote:
 >
-> dev-tools/sparse.rst still carries the old plain-text header rather than
-> the disclaimer include, so its field goes at the top of the file.
+>> On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
+>> > On Sun, 27 Sep 2026 22:46:25 +0900
+>> > Alexandre Courbot <acourbot@nvidia.com> wrote:
+>> > =20
+>> >> Move the types and code related to RPC commands into the
+>> >> `rpc` sub-module, and update their users to reference them from
+>> >> their new location.
+>> >>=20
+>> >> This is a pure move commit, with no functional change intended.
+>> >>  =20
+>> >
+>> > Hi Alex:
+>> >
+>> > What would be the plan for commands.rs in the future after the
+>> > movement? I was adopting the similar code structures
+>> > (fw.rs/command.rs) for vGPU manager's RPCs and GSP plugin RPCs,
+>> > e.g. having RPC typed code and function handler(wrapper)s, it would
+>> > be nice that I can align with the idea accordingly. =20
+>>=20
+>> Can you point me to the the structure you have if it is posted?
+>> (sorry, too many series in-flight and I cannot find where it is ^_^;)
+>>=20
 >
-> With this, the only .rst files without the field are index.rst,
-> disclaimer-zh_TW.rst and glossary.rst, none of which translates an
-> English document.
+> No worry.
 >
-> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
-> ---
->  .../translations/zh_TW/admin-guide/clearing-warn-once.rst     | 2 ++
->  Documentation/translations/zh_TW/admin-guide/cpu-load.rst     | 2 ++
->  Documentation/translations/zh_TW/arch/index.rst               | 2 ++
->  Documentation/translations/zh_TW/dev-tools/sparse.rst         | 4 +++-
->  4 files changed, 9 insertions(+), 1 deletion(-)
+> I am trying to maintain vGPU-related RPCs and GSP plugin RPCs in below
+> two files. Basically the maintaining schema is similar to current
+> nova-core fw.rs and commands.rs.=20
 >
-> diff --git a/Documentation/translations/zh_TW/admin-guide/clearing-warn-o=
-nce.rst b/Documentation/translations/zh_TW/admin-guide/clearing-warn-once.r=
-st
-> index 95614600604c..15d54440d224 100644
-> --- a/Documentation/translations/zh_TW/admin-guide/clearing-warn-once.rst
-> +++ b/Documentation/translations/zh_TW/admin-guide/clearing-warn-once.rst
-> @@ -2,6 +2,8 @@
->=20=20
->  .. include:: ../disclaimer-zh_TW.rst
->=20=20
-> +:Original: Documentation/admin-guide/clearing-warn-once.rst
-> +
->  =E6=B8=85=E9=99=A4 WARN_ONCE
->  --------------
->=20=20
-> diff --git a/Documentation/translations/zh_TW/admin-guide/cpu-load.rst b/=
-Documentation/translations/zh_TW/admin-guide/cpu-load.rst
-> index 20ec5bcd5f18..13f03195ac7e 100644
-> --- a/Documentation/translations/zh_TW/admin-guide/cpu-load.rst
-> +++ b/Documentation/translations/zh_TW/admin-guide/cpu-load.rst
-> @@ -2,6 +2,8 @@
->=20=20
->  .. include:: ../disclaimer-zh_TW.rst
->=20=20
-> +:Original: Documentation/admin-guide/cpu-load.rst
-> +
->  =3D=3D=3D=3D=3D=3D=3D=3D
->  CPU =E8=B2=A0=E8=BC=89
->  =3D=3D=3D=3D=3D=3D=3D=3D
-> diff --git a/Documentation/translations/zh_TW/arch/index.rst b/Documentat=
-ion/translations/zh_TW/arch/index.rst
-> index 7c0490589465..724468687c20 100644
-> --- a/Documentation/translations/zh_TW/arch/index.rst
-> +++ b/Documentation/translations/zh_TW/arch/index.rst
-> @@ -1,5 +1,7 @@
->  .. SPDX-License-Identifier: GPL-2.0
->=20=20
-> +:Original: Documentation/arch/index.rst
-> +
->  =E8=99=95=E7=90=86=E5=99=A8=E9=AB=94=E7=B3=BB=E7=B5=90=E6=A7=8B
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20=20
-> diff --git a/Documentation/translations/zh_TW/dev-tools/sparse.rst b/Docu=
-mentation/translations/zh_TW/dev-tools/sparse.rst
-> index 7a3487a7b2c7..7ca7fdf6e1e6 100644
-> --- a/Documentation/translations/zh_TW/dev-tools/sparse.rst
-> +++ b/Documentation/translations/zh_TW/dev-tools/sparse.rst
-> @@ -1,4 +1,6 @@
-> -=EF=BB=BFChinese translated version of Documentation/dev-tools/sparse.rst
-> +=EF=BB=BF:Original: Documentation/dev-tools/sparse.rst
-> +
-> +Chinese translated version of Documentation/dev-tools/sparse.rst
->=20=20
->  If you have any comment or update to the content, please contact the
->  original document maintainer directly.  However, if you have a problem
+> IMO, nova-core and vGPU managers bindings should stay together, but
+> there can be quite many vGPU RPCs. Would it be a good idea to maintain
+> them together with nova-core's fw.rs and commands.rs?
 
---=20
-Jani Nikula, Intel
+Unless there is a good reason not to do so, I'd put all vGPU commands
+into their own submodule. This makes it easier to e.g. create a version
+of the driver without vGPU support, which I feel like we may end up
+putting behind a Kconfig option since it won't be relevant to
+consumer-grade GPUs.
+
+Bindings are a different story, they are generated in one go and unused
+ones are just optimized away, so having them all in the same file is fine.
