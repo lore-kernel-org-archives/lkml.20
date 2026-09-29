@@ -1,138 +1,145 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1384DD3A5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672222; cv=pass; b=Oc3dH289LmX2iF63oxqQIw83KxhsAc5kVVuppeLHQkgvEvWl7L3BmyWSzr9/uoDy4ktiQhTvVdXPvsEZbSm0QPdAts4SBC4NRdBpmpVEX/nlQFLL00wmZnG7xiaABqoneQIryYnYB3J+CSP1iyyLKg4gklAyH7Q+5jdUWEL6oUo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672222; c=relaxed/simple;
-	bh=bTzNqAl7bOHEFXynD4y2LmlWSn2p5vLqLneAHc7FfuA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NvuvKeIDl/8miTKaIeByorjJ/7UmEX3U7nIGmN/hev4yC4Pc0yX0VOxwffizXj6a51z7qG6tL0Th1dI7EZrJ+jd2c8AP8t8/mF0tf+xrVmPgFhh1dYOT7w2WIDPjktuzpuT1NBRmWYebyKkaJUJEqnYosPeUtoX1+NgcgB9GIqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=egkX0bpL; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011B43B1EF2
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790672245; cv=none; b=o4s/vluX+DJdlnCEOKQbatVG9+/WpZ4fMTl2d7LRhjJ+ltnZ6UHv6WtMA1rJKp+ZIjdauoE34lKcLC7cubwXaWKBdO6ChDPRwBmDza3xWZvfGi3D7FmYXq7Mj8DAOgOiUub3q4DvVmakMf8mEo4nMmguyZHjYim4+Skooq6j/gU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790672245; c=relaxed/simple;
+	bh=fn01v37sTX+YflkjNpAtD8uiYjLXgWJk7Gmw9YTWLKA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d6RhvJJ2aTdOy2QbLHztp5y9LHcxPSztSlYlViIaaBXeoxI+CiZphEvQC+sR7+DXUA768PeFNAO+7HZKHtvxB5kS2xWyL+sYJNJUij2bD8tZc/015sq6BOV/5mcaRtT20mx/rwUcq/AfnN2FZqhGa6rfnVG2uCh60iJ3eGTgFcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KgLqauzA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="egkX0bpL"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so6174650a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:56:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790672218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P/O1KHPEu/R8mkJ8LKXbHBS6bl9uKBPlDIqXZ5T0I4agxkeItR/HS+tglcZsJPvqwE
-         JUP83ti0hrxLHQiPykfzM2UHXfBikDTLK5jfV9IkJ8JS1BhQAlUypK6Oh2cOxvmCWKH6
-         HPPU0L49wJGlVy7itoh37NvUKwm5Mng6/pa90Zc73U6A+EF2n2E5Ab7uqVpHxPZX//gQ
-         +QLKm2UXwhMf+tO15jgZbbhKRbMdoPBxdOL+M47RsinDrdzHWcxm35jtM5m+13aoA6Jy
-         0Forss4fbR+7lHCGipidZMfEydHFQNELxtOjOGS2As2PZVUDvhmF1u18MIXW/MCclaRa
-         33kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=bTzNqAl7bOHEFXynD4y2LmlWSn2p5vLqLneAHc7FfuA=;
-        fh=3klVngcJSBymzcmc8K2DfoUuPFyivY24R5N/AyFEYiI=;
-        b=fLX3NkONND034qGnlxWAG0vy9vzrMFPLcMhZHrLcGVknsb66BLltYFKzHRqMJNEJ40
-         Ch00m02dsiKd86Zb7eKzDYqFQ5FhRs9+EBrfY2UgQDDga7eVAFIv6MOjDPGJOK447puo
-         nRWr6vmWfSglDndEAcfRXdbVj8DsfCYQhY6fUO/Mz9S//ceA3wtalsuUmqmXgD+GFGEa
-         x18NXTkCsjvcaUuvldavg/mH6ettP+AGjtdCXepM3AjeeBNgsFSaYFW6eU8gI89vd8hr
-         t+rcEQsGWYyTEIvZ8mw+lrW+//gZndQc7mhqFBUu2+0rRRL27hFJuzrp+Dsb1x3vmbe+
-         dMDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790672218; x=1791277018; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bTzNqAl7bOHEFXynD4y2LmlWSn2p5vLqLneAHc7FfuA=;
-        b=egkX0bpL6rutl34raL6Zr2+yA6+NRhsfdwGss+M1PG3PmWtN5xcj7wyQzmXZM8tOpE
-         k3YPGc4I0soEljUWJp/bjCcfLCFwHPHk2tDNe8OI+B6RiY+zCl+94iHDaEtdMq7pOjq1
-         FA8AWwOZmBiEGsGzDNSpdggISx9rHbM1/OUdkm2fbzMb6hy4baA0vcmxCboLJrha9BhX
-         tbHLJ+AHEr+mPjt3RVqTWMxSKWJoYlz6SpnhUn34zJZFb/XjNTtVk5KfA7ky8NSrWWFx
-         rEbcckJMr7quxmO1VpZon0Lx2Q4p8mq2yGPe/E0pVtpsHe7VgUrQsSjXous/G+/5V2b7
-         f3hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790672218; x=1791277018;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bTzNqAl7bOHEFXynD4y2LmlWSn2p5vLqLneAHc7FfuA=;
-        b=t6uNRSTp1eqVvJPpPOLZISh0xlMJ01ggHnuYogCZdPC09oats/xN/9KGaKnYdKUl9M
-         Czgj/yX/BzIt2586z3qYFTn9dHipf4YwBOX4b9hrjW+wYTh//+Aoy2MRvDc8/NXl+Q/b
-         7iH03ki2D4194YCbKgBzabXQD7gmXks8KbiTqrkutEJMOR8mw09yeVwynnObUIhRWzmK
-         8g6+tqcrfQo9ABOIC/UnJwGL0MTLVsQXxSoG6X7nobtOrOVYeyglPV/4DYUhNdplexsg
-         iZFDgDHP1TIxdM8dShmA/mfviVg2+ddTpgBnP3hrU7mgHpcly5KqS2rnM54V4wSaUTw0
-         prFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhUMrUnk4mQ8HzsmvZYzkYwTma0BfykrNrMu7brHrcM4Opfsok0QM4XSeNjXJbsJuZuXKY2BiSVTsI4C4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqBL0uyaJ9aiS13A2PDl8QmBjez7WmOj4F6j2UWJD5Ft6vS3Vp
-	lFmIUtjhS4EPIzr6nSzaxCmLuP7+Uwln85tExrGxr0iUHnlyw8B9Jwsg4J6x37p8i12b9tGPbDI
-	a3I2CYicCd4n8+9PZztLzIpgMlBDkIqhp/AN0IDrEIQ==
-X-Gm-Gg: AYBFou11W9AUwFRqKXTpv3QlO+fi7CoUH1MjGVe1l826eD4pXk4+Cv483Jmu2QrsZD9
-	rWnyqXOOx41IRluiO62uXMC1f8SQUrmzZMzzqENsdUYtIaya3BbqdoN/dle48E9hXEa540ogbIU
-	6mpcr6yM+ATxCO9RvuW7Dp8t7UFf6weNb5J5EbOtX4y765bupF9XqaLtecrGGTxWJ+19YZnfvMe
-	p55x4pklOMtjMsSQCRj4mlZBGzWhembaSXn1i8BYNb+C7ZZ/1LKNbch4X0PlzLTokWH9wQS6fQn
-	39BAdhzr1koRoo9GlYK2FRDlmlEfBNxL+V+fCvi0SqN2r6q1fFSk3QJkpqqmtiHxhHlNAROCFoJ
-	KqgYgXyqVwKdO
-X-Received: by 2002:a05:6402:1951:b0:6aa:f14f:556f with SMTP id
- 4fb4d7f45d1cf-6aaf14f5874mr8695635a12.43.1790672217943; Tue, 29 Sep 2026
- 01:56:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KgLqauzA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 326BA4E410BA;
+	Tue, 29 Sep 2026 08:57:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EFE24601BD;
+	Tue, 29 Sep 2026 08:57:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AB3F9103297AE;
+	Tue, 29 Sep 2026 10:57:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790672239; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=H5UwJNPGKcha+BEqcOeEOR60KH3Iqw+tbYJAQ8Lz5aY=;
+	b=KgLqauzAR6/y8fJ7UrTmLhZEq9sGDWuoQKVmMLsfIXs8KOxeN/scZ0m7RstahgEovHqcsS
+	RSCf/3vZO1swFxm4mQGCGMHb0ETcOsE4WtUpeAMZ6rfYp6JQbkmnvfG81zT9vDx8y0c/HK
+	b0pwoZ1X3+ZR5hGZtpt2DxAItkfUQ8FYKku9b6bo1UF+brG9hHcRfq0g/mnwU68n7S1s0l
+	MgEKP4EZv92gacR7fL//8mpexu493XGC5kHwsaLYR0v4iXK1+rqEyGk38uam2Cl3WCxAX1
+	Wa/ikYwb6ksKP9OamsQwD1IE6+DQpdve/eKPUC7UhfkrQbr9axcSOu3oeFjOXg==
+Message-ID: <71adb267-2dd9-4225-91e5-19848a87eb49@bootlin.com>
+Date: Tue, 29 Sep 2026 10:57:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
- <20260918-contrib-pg-pixel10-initial-dts-v4-3-745eaca28b1a@linaro.org> <7553dff6-004a-46a7-88c2-728651366113@kernel.org>
-In-Reply-To: <7553dff6-004a-46a7-88c2-728651366113@kernel.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 29 Sep 2026 09:56:46 +0100
-X-Gm-Features: AclHuK-S5lTQAo2phJ3ee1A6qOipGEmCVgzdBHBpPtrnraavkUJzNtrZ-i9YXbY
-Message-ID: <CADrjBPrUr4+oa2jFJw8PkFbO__Ov91Do7A-h8xp3zdePGQcMKg@mail.gmail.com>
-Subject: Re: [PATCH v4 3/4] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
-	Douglas Anderson <dianders@chromium.org>, Juan Yescas <jyescas@google.com>, 
-	RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>, 
-	William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
-	linux-serial@vger.kernel.org, Brian Norris <briannorris@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Don't set or get RSS
+ parameters when not supported
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux@armlinux.org.uk, nb@tipi-net.de, jitendra.vegiraju@broadcom.com,
+ thomas.petazzoni@bootlin.com, alexis.lothore@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, pbrobinson@gmail.com
+References: <20260928145043.1228968-3-maxime.chevallier@bootlin.com>
+ <179067171307.434549.1093187286398187440@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <179067171307.434549.1093187286398187440@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Krzystof,
 
-On Sun, 20 Sept 2026 at 16:16, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 18/09/2026 21:05, Peter Griffin wrote:
-> > From: Douglas Anderson <dianders@chromium.org>
-> >
-> > Add initial device trees for frankel (Pixel 10), blazer (Pixel 10
-> > Pro) and mustang (Pixel 10 Pro XL). These device trees are enough to
-> > boot to a serial prompt using an initramfs.
-> >
-> > Currently only Laguna B0 silicon found in mass production phones is
-> > officially supported. Further revisions such as A0 silicon and EVT
-> > devices maybe added in the future if they are useful. As of today,
-> > these device trees boot fine on EVT devices with A0 silicon.
-> >
-> > A few things can be noted about these device trees:
->
->
-> I actually forgot if you intend me to pick it up. I assume it's not for
-> me to pick up, but nevertheless let me know if something is needed from me.
 
-Thanks Krzysztof. If you could take this via your tree for this cycle
-that would be much appreciated. I will then look to set up my own SoC
-tree moving forward.
+On 9/29/26 10:48, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] This patch makes stmmac_get_rxfh() in
+>   drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c return…
+> - [Low] The commit message describes a user-visible bug: on stmmac
+>   devices without RSS, 'ethtool -x reports an indirection table and a…
+> 
+> --
+> 
+> net: stmmac: Don't set or get RSS parameters when not supported
+> 
+> This commit changes the stmmac ethtool RSS ops to return early when
+> stmmac_rss_is_supported() is false. The key and indirection sizes now
+> report 0, and get_rxfh/set_rxfh return -EOPNOTSUPP. The aim is to stop
+> reporting bogus RSS data and to make the RSS kselftests work on stmmac.
+> 
+>> The RSS kselftests fail on stmmac, and this is partly due to the driver
+>> reporting bogus data for the RSS ops :
+>>
+>>  - ethtool -x reports an indirection table and a key while the hardware
+>>    doesn't have any of that
+>>  - ethtool -X fails with -EINVAL.
+>>
+>> Let's return early in the rss ops if we know the hardware and platform
+>> don't support RSS.
+>>
+>> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> 
+> [Severity: Low]
+> The commit message describes a bug that users can see, but there is no
+> Fixes: tag.
+> 
+> Blame shows that the unconditional stmmac_get_rxfh_key_size(),
+> stmmac_get_rxfh_indir_size(), stmmac_get_rxfh() and stmmac_set_rxfh()
+> logic came from commit 76067459c686. The later refactor fb6e30a72539 only
+> moved these functions to the ethtool_rxfh_param API.
+> 
+> Should this carry the following tag?
+> 
+> Fixes: 76067459c686 ("net: stmmac: Implement RSS and enable it in XGMAC core")
 
-Thanks,
+targetting net-next, problem always existed, doesn't crash the kernel,
+it's just returning bogus harmless stuff
 
-Peter
+> 
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+>> index 1cf0f8820b33..56019683f399 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> 
+> [ ... ]
+> 
+>> @@ -943,6 +949,9 @@ static int stmmac_get_rxfh(struct net_device *dev,
+>>  	struct stmmac_priv *priv = netdev_priv(dev);
+>>  	int i;
+>>  
+>> +	if (!stmmac_rss_is_supported(priv))
+>> +		return -EOPNOTSUPP;
+>> +
+> 
+> [Severity: Medium]
+> Does this -EOPNOTSUPP break namespace-wide ETHTOOL_MSG_RSS_GET dumps?
+
+This was reported by Nicolai already, and other drivers report -EOPNOTSUPP
+here.
+
+If we address that, I'd say we do that in the RSS ethnl code.
+
+Maxime
