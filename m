@@ -1,86 +1,56 @@
-Received: from mail-wr2-f41.google.com (mail-wr2-f41.google.com [74.125.225.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C2051DE00
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB4647B43A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686137; cv=none; b=QWS/iOFM9E4xbiOapkpeFqtwTXiXiyvW3hoOD5F1NnndgPrgM7GKKS/ueQShPBlqx8mUXo5Ao5pI24uMg53N0p6qoGkBDhEKI/QQHBCivwDKWMsd3S42HE8wC6abAm5JYVQ3aSMiyA2GlVcVNRWAq0bQdcT42/XrsyVaEys4q3c=
+	t=1790686165; cv=none; b=Ka0cBgd3kNfPG4jGfmaKVNz3zfkeKU6iNwUki0oEvfLoo+thm3iDvcBVNnR+IZ+oT4aUfuIzNmyL/Q6uwUzNSu1iygOQTx4iuWkZ5veiNgYugpWgxYLCWU2IydkHfq64f10gBxYY+/UlxGWzwV9ewzwHuhkR66jBLwmRCbUG/zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686137; c=relaxed/simple;
-	bh=3wEoFwaO0iFWgcSRe1rBVJm/B3HLnQlNmpfCo2dBkHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sxdl8xOeoXdj1l1ig98ivBtGRJB/J0Zg6Cng4baBfXl1QSpyhRdOW8FRwK89zMCC9FXJGmk+K4a6wOVEQSlHkWq5xfvadm1bfa4OZ+n42r0BS/cJydWAzR6zWnw8NlEPboqkYmwOUNe5wYAB6PNZjq2KmF9t1ab6IWqH9lUqhXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9CHs4Xu; arc=none smtp.client-ip=74.125.225.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790686165; c=relaxed/simple;
+	bh=i/q49x4F/dPhzzkyNCesn7XVzXUo1VjAbq5DNZIo5a4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L44Gexwnm7xr4IQZtNe52tZDU1UNyyA2SykcnRgwPAbxDKm7XE+kUZHSQZVYlMqGUMf5/fFh7n8y0hq2aL8xttw9IOdSAR90+fM7+frtGYpDlsnTdUJh1Xbx8j/lDkUA+T9+FwsiKOspXu4JqxPSc82j52iUlT1pXGg+ayedzmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hWJAN4Ai; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9CHs4Xu"
-Received: by mail-wr2-f41.google.com with SMTP id ffacd0b85a97d-4834977ae75so2473698f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790686133; x=1791290933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3wGmpRNkgFTWQDnXT7MrfhvAHxqpIIx/rDduJ3KFylU=;
-        b=R9CHs4Xuryuj1LFejH3ldj7l2/tBZl9TZJIT5uWwtRSy/SoPpKeekG4zrmDd4hTNqC
-         HZu+kd3lD0Mj99MSY2TlEWvMhvfcDhrl7r0gkWXidQdWQHl8V8Q+uPcuQEHMFDp0PdOi
-         9Qzr61dHBBHxAbNHmVdNbEnY9xqV4/3QnzCNSRXNNFCjllZKkPIQaiiFoLdhhrsFYIDr
-         EwB5yi5xpWC4G2Ur2A80AYNtJBWHt62Lc954U/m2bgCDoafs7wZoJo2ufD4OWEktkhpO
-         Rfz0AiPLDFSB9T20IcIRbhmS5mixIXIkdoLU1ixtEi4ycYIXj3qgjOIn+Jja5dFFORQe
-         m26w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790686133; x=1791290933;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3wGmpRNkgFTWQDnXT7MrfhvAHxqpIIx/rDduJ3KFylU=;
-        b=ObCEnORXwSeLxdZI/TOpR1qDq4BZy3dUL0f7mMjXEfeQVmLRRk1H/9Le06MbqyX/0m
-         QtXo5kWyPD1VlUFbgdo0IdDjZXIyBRKYRuSbZoxapiF/o68x39zTglpgRrcO2cxQzjFl
-         FwZWMltUzo1pR3pcMbG/sQf02IgGH9lAdhi5t7gMzwBTWA87Ntg4xJoxWyeDOgJj4HKd
-         Sa0S2HnUrMRfZV1+QONzdy20m1WUK91QfujYyNYr8eXPkEhOgpr/W/6F7vSIgUFipBWV
-         jiGAmj9urA8tvZGNCimv01uFZgb53u3i8gEdMpny9yK3yhmW06rgHV+8mDdoMx1ldy7a
-         xZYw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhiPZ7BW3Bq5uvaP8dSpTN2NKKWx8OI71XQahbePjJq93ho8wc+YevVflDX0hmIj9fXFUwa9Sddkn2D7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTS1+v6yllH8zTuB3/M0yL1P28AloMz/W4Z1IU8sVaCSpLcHq6
-	o1GW1fG0kLwvtwaTNftsUtcDOphrbZcL0g39xzbJ+W8bQV4v4zU5B34a
-X-Gm-Gg: AYBFou0Uv4wKmlDdQt6X93EeMv+xJM7MuQvnzOZqAwh7+BMKWtJUGGQ2+FyYalfVZwC
-	WHEb6oaG1XGnbsWeLkUgN1bH9+GSsf3hWhl53PMEwXuo+Y540LW2BRyDG8i1Hvmy43bGAyxBBI2
-	1UljqiBP5WelLESaDWPzscHiVBtEc/AqYkQ9U8+TwhX5lgBo+yRRDa475kArGJJBOxgFrLf8XIi
-	AJqyCjkKZiTXhH1Xwvj9ISqSWOx5zENsP6XiMeY866E2YZiA4jysB4gXkJr7VwLr1Enm8qYtJ1p
-	erDtcb5WIsVHioXkSLtXEcYXvhzpGu4MTKpqocClhb0L6RRFvmj2Ty3qAn+riKDooy6oUDkYStY
-	+U4j+LQbhNc/SSUPpdh0cmxr8gdk2w7x4zTe7B7D1iY0of5d3gHKp8L4U4rBJUgvNj+yxDsDeWM
-	Dnm4cDuC07iMHnu71lUyew6qqj/Tadn5hBfE5HIeK0xf3sYOew75GMUs5guEWXD0KGKSTHY5NcN
-	uqekaavu5ZdjPvDQXq9TY0d4rQZeUzqDyuQQi+1ohtpE4C8MKwxtAov/WJm03Mpv3Ou2GIlIujN
-	j+EjPAhDnTVc70FctQ==
-X-Received: by 2002:a05:6000:40e1:b0:487:62d:37d9 with SMTP id ffacd0b85a97d-488716a5e3amr29250652f8f.27.1790686133236;
-        Tue, 29 Sep 2026 05:48:53 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:be4b:8730:c872:1736])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50abad2sm3439942f8f.37.2026.09.29.05.48.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:48:52 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 4/4] arm64: dts: renesas: r9a09g056n48-rzv2n-evk: Enable ADC
-Date: Tue, 29 Sep 2026 13:48:29 +0100
-Message-ID: <20260929124829.237997-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929124829.237997-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260929124829.237997-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hWJAN4Ai"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790686162;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rqo8Qfv+Yic2liv5cliRHnbM2cSeEarVnkvLudFMrNA=;
+	b=hWJAN4AiUlW+tMbgkCPlCJEPqr9xYyJfFpyq34oF0xQidB4KJ0Nv2+fMh7uFZzuJxXBKDu
+	X8PxrEAp1LyJeQ/f90GxWio0te5MpiYbL3HaW5cFc4Ac1gf3nHw1VdmVRcYZmFrInaLdtP
+	U8uCih33k30q357Gy3kAxlnPcCK0Dl4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-456-JydbV8kmOtyxZAn932xLSQ-1; Tue,
+ 29 Sep 2026 08:49:19 -0400
+X-MC-Unique: JydbV8kmOtyxZAn932xLSQ-1
+X-Mimecast-MFC-AGG-ID: JydbV8kmOtyxZAn932xLSQ_1790686158
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2521E1800764;
+	Tue, 29 Sep 2026 12:49:18 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 72CF01956095;
+	Tue, 29 Sep 2026 12:49:15 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: Gabriele Monaco <gmonaco@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Nam Cao <namcao@linutronix.de>,
+	Wen Yang <wen.yang@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>
+Subject: [PATCH 00/10] rv: Add remaining deadline monitors
+Date: Tue, 29 Sep 2026 14:48:58 +0200
+Message-ID: <20260929124908.177676-1-gmonaco@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,39 +58,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Add the following deadline monitors as already sent in [1]:
+* throttle:
+    validate dl entities are throttled when they use up their runtime
+* boost
+    fair tasks run either independently or boosted
+* laxity
+    deferrable servers wait for zero-laxity and run
 
-Enable the ADCs on the RZ/V2N EVK.
+Monitors are adapted to the new upstream but mostly unmodified.
+Except:
+* Remove enqueue/resume from laxity model
+* Special idle -> throttled in boost and add period invariant in
+  throttled states too
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- .../boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts      | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Additionally apply some fixes and simplifications to the hybrid
+automata infrastructure and other changes:
+* Reset on monitor start and drop checks for invalid variable
+* Store timer wheel budget to allow checking for invariants without
+  needing to know how the timer was set
+* Add enqueue/dequeue tracepoints and check them in snroc
+* Add KUnit tests for throttle
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-index c43325dd1c55..5daad7f37e3d 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-@@ -122,6 +122,18 @@ y1: y1-clock {
- 	};
- };
- 
-+&adc0 {
-+	status = "okay";
-+};
-+
-+&adc1 {
-+	status = "okay";
-+};
-+
-+&adc2 {
-+	status = "okay";
-+};
-+
- &audio_extal_clk {
- 	clock-frequency = <22579200>;
- };
+[1] - https://lore.kernel.org/lkml/20260310105627.332044-1-gmonaco@redhat.com
+
+To: linux-trace-kernel@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>
+Cc: Wen Yang <wen.yang@linux.dev>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+
+Gabriele Monaco (9):
+  rv: Force environment reset action on HA monitor start
+  rv: Remove unused ha_monitor_env_invalid()
+  rv: Cache timer budget when starting HA timers
+  tools/rvgen: Default to HA_TIMER_WHEEL for jiffy clocks
+  rv: Add enqueue/dequeue to snroc monitor
+  rv: Add throttle deadline monitor
+  rv: Add dl_server specific monitors
+  rv: Add KUnit test for throttle monitor
+  selftests/verification: Lower stressor priority in rv_deadline
+
+Nam Cao (1):
+  sched: Add task enqueue/dequeue trace points
+
+ Documentation/trace/rv/monitor_deadline.rst   | 201 ++++++++++++
+ Documentation/trace/rv/monitor_sched.rst      |  39 ++-
+ include/linux/rv.h                            |   5 +-
+ include/rv/ha_monitor.h                       |  73 ++---
+ include/trace/events/sched.h                  |   8 +
+ kernel/sched/core.c                           |  12 +-
+ kernel/sched/sched.h                          |   2 +
+ kernel/trace/rv/Kconfig                       |   3 +
+ kernel/trace/rv/Makefile                      |   3 +
+ kernel/trace/rv/monitors/boost/Kconfig        |  15 +
+ kernel/trace/rv/monitors/boost/boost.c        | 276 ++++++++++++++++
+ kernel/trace/rv/monitors/boost/boost.h        | 146 +++++++++
+ kernel/trace/rv/monitors/boost/boost_trace.h  |  19 ++
+ kernel/trace/rv/monitors/laxity/Kconfig       |  14 +
+ kernel/trace/rv/monitors/laxity/laxity.c      | 253 +++++++++++++++
+ kernel/trace/rv/monitors/laxity/laxity.h      | 133 ++++++++
+ .../trace/rv/monitors/laxity/laxity_trace.h   |  19 ++
+ kernel/trace/rv/monitors/nomiss/nomiss.c      |   4 +-
+ kernel/trace/rv/monitors/opid/opid.h          |   1 +
+ kernel/trace/rv/monitors/snroc/snroc.c        |  18 +-
+ kernel/trace/rv/monitors/snroc/snroc.h        |  46 ++-
+ kernel/trace/rv/monitors/stall/stall.c        |   2 +-
+ kernel/trace/rv/monitors/throttle/Kconfig     |  15 +
+ kernel/trace/rv/monitors/throttle/throttle.c  | 302 ++++++++++++++++++
+ kernel/trace/rv/monitors/throttle/throttle.h  | 116 +++++++
+ .../rv/monitors/throttle/throttle_kunit.c     |  44 +++
+ .../rv/monitors/throttle/throttle_kunit.h     |  34 ++
+ .../rv/monitors/throttle/throttle_trace.h     |  19 ++
+ kernel/trace/rv/rv_monitors_test.c            |   2 +
+ kernel/trace/rv/rv_trace.h                    |   3 +
+ .../verification/test.d/rv_deadline.tc        |   4 +-
+ tools/verification/models/deadline/boost.dot  |  48 +++
+ tools/verification/models/deadline/laxity.dot |  36 +++
+ .../verification/models/deadline/throttle.dot |  44 +++
+ tools/verification/models/sched/snroc.dot     |  30 +-
+ tools/verification/rvgen/rvgen/dot2c.py       |   2 +
+ tools/verification/rvgen/rvgen/dot2k.py       |  18 +-
+ .../rvgen/tests/golden/ha_percpu/ha_percpu.c  |  17 +-
+ .../rvgen/tests/golden/test_ha/test_ha.c      |  17 +-
+ .../golden/test_ha_kunit/test_ha_kunit.c      |  17 +-
+ 40 files changed, 1939 insertions(+), 121 deletions(-)
+ create mode 100644 kernel/trace/rv/monitors/boost/Kconfig
+ create mode 100644 kernel/trace/rv/monitors/boost/boost.c
+ create mode 100644 kernel/trace/rv/monitors/boost/boost.h
+ create mode 100644 kernel/trace/rv/monitors/boost/boost_trace.h
+ create mode 100644 kernel/trace/rv/monitors/laxity/Kconfig
+ create mode 100644 kernel/trace/rv/monitors/laxity/laxity.c
+ create mode 100644 kernel/trace/rv/monitors/laxity/laxity.h
+ create mode 100644 kernel/trace/rv/monitors/laxity/laxity_trace.h
+ create mode 100644 kernel/trace/rv/monitors/throttle/Kconfig
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle.c
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle.h
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle_kunit.c
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle_kunit.h
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle_trace.h
+ create mode 100644 tools/verification/models/deadline/boost.dot
+ create mode 100644 tools/verification/models/deadline/laxity.dot
+ create mode 100644 tools/verification/models/deadline/throttle.dot
+
+
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 -- 
 2.55.0
 
