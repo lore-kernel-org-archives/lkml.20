@@ -1,31 +1,36 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC2B3AFD0B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5790F3ACEFF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670473; cv=none; b=HWCofFSXlSex8Gpwe5LC5t9PBsGnXO31KXvvbQ4v2elPqhdYx1NWPWxr0yo/oZ3EfUJM97vZFzop4MV4YgXGSXjJ86r5AjIkp2BlZPm1zeLjrOn8wI1QAFhrpqSSqlR3Q191YuKlZWnNzfTMWCJ1YCo1ewQHp4mjJuv2mSOnk48=
+	t=1790670472; cv=none; b=rtsXrWW676H/vk25Wmhy6+bnDnDYWxD3reQV5gHPzLKV++CC0tMaqhZTPzH+iXngZFpvN8bzQOzTQxzS/aXHjLfAZo1APMbGlTunXd6ERWnttkVJo31G44ACUo8G/HclUz0ab4ViCcAOg7EmsYb0wQeEQLvjCXVIG76jm0AiZIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670473; c=relaxed/simple;
-	bh=4jQ1eZTG5rKiiiDSguf4Mp36fK8Z5+lW5cHeq8EWc58=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=lcgh4Eh4Wky8MsXKWnbp9UKgNQ2SHskubNc1FjnOwRP8aHDtRBYC/dqitN3zfG1kkJyFztSTo1raekNtAzbeC38QQaAzOlMIflKxTp7g7lYBOjjHEvmN5G49e8MaiamY18yiTH9WcBVPptfWmks9Oip8HcackYythA7Eja3whp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 68T8RnWM084549
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:27:49 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 68T8RnJW084545
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:27:49 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <f982152f-ff51-4d31-a17c-bd0d562c1414@I-love.SAKURA.ne.jp>
-Date: Tue, 29 Sep 2026 17:27:48 +0900
+	s=arc-20240116; t=1790670472; c=relaxed/simple;
+	bh=hc4h/kvHWGvaNo1pJZ/tYxpgeXysmHfvzY1S7Hs/p0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JYxAp0eQGMNs3eVWOa0NfIVjORBLhcPGBylZkhyiL/g/Rj2UYOynfh8qiq23YQ5E2iwm1ZAcKkU16PxH8LKhHN1elBpAWzkOHmZIbmb/gwfAIH5a573jVOKUCu3B4Ui/MfK+5r1Cbhgr/Ess0kZMRdS20CdplWLOzWMf5v2wssc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eHqG7ZjU; arc=none smtp.client-ip=91.218.175.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eHqG7ZjU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hc4h/kvHWGvaNo1pJZ/tYxpgeXysmHfvzY1S7Hs/p0I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790670468; v=1; x=1791275268;
+ b=eHqG7ZjUFKbbCPFO+k/fPKhIWrJ6nqdscW0NL6AIy2EL9CIXp8tMAXk8hOrS8bAAbxBbUP9I
+ EB0D8Zlz+pYRc/SLJJkfqD1dP8a8oKB9i+N6yRC2fmoinGolU4HhVh9z9gLYKViA4wi01iPh5WP
+ egs/8g9+WD95Mu6zQiOnPSMY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f1ea05f0f1f24b17;
+	Tue, 29 Sep 2026 08:27:47 +0000
+X-Mizu-Trace-ID: f1ea05f0f1f24b17
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <978154c0-d919-4e78-9ece-30f1739d6c51@linux.dev>
+Date: Tue, 29 Sep 2026 16:28:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -33,110 +38,268 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v1.1] can: j1939: cancel pending address claim timers on rx
- release
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: LKML <linux-kernel@vger.kernel.org>
-References: <30036c14-ea5f-49ef-b3c1-fe00d1babbf9@I-love.SAKURA.ne.jp>
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+To: Suren Baghdasaryan <surenb@google.com>,
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
+ <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+ <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+ <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+ <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev> <arpK2bQrrUMvEvTP@milan>
+ <arqDHnBFGKQZm7VU@milan>
+ <CAJuCfpHuTzFBUm2uAbkFsKF85GxcqFATmKgT50AQgWkLjf7NMw@mail.gmail.com>
+ <arqoPs4ZplfcGmLo@milan>
+ <CAJuCfpFT=QKy_5G6GYQ1OHhvjXt807jn0pUq-eF9QonNKhx=aQ@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <30036c14-ea5f-49ef-b3c1-fe00d1babbf9@I-love.SAKURA.ne.jp>
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpFT=QKy_5G6GYQ1OHhvjXt807jn0pUq-eF9QonNKhx=aQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav212.rs.sakura.ne.jp
+Content-Transfer-Encoding: 8bit
 
-syzbot is reporting "struct j1939_ecu" refcount leak, for
+Hi Suren and Uladzislau
 
-  j1939_ecu_get(ecu);
-  priv->ents[ecu->addr] = ecu;
+On 2026/9/29 01:54, Suren Baghdasaryan wrote:
+> On Mon, Sep 28, 2026 at 10:47 AM Uladzislau Rezki <urezki@gmail.com> wrote:
+>>
+>> On Mon, Sep 28, 2026 at 08:16:18AM -0700, Suren Baghdasaryan wrote:
+>>> On Mon, Sep 28, 2026 at 8:09 AM Uladzislau Rezki <urezki@gmail.com> wrote:
+>>>>
+>>>> On Mon, Sep 28, 2026 at 01:09:13PM +0200, Uladzislau Rezki wrote:
+>>>>> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
+>>>>>> Hi Suren、David、Lorenzo
+>>>>>>
+>>>>>> On 2026/9/17 09:12, Hao Ge wrote:
+>>>>>>> Hi Suren
+>>>>>>>
+>>>>>>> On 2026/9/17 03:07, Suren Baghdasaryan wrote:
+>>>>>>>> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
+>>>>>>>>>
+>>>>>>>>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>>>>>>>>>
+>>>>>>>>>> Hi Suren
+>>>>>>>>>>
+>>>>>>>>>> Thanks for you review.
+>>>>>>>>>>
+>>>>>>>>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+>>>>>>>>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>>>>>>>>>>>
+>>>>>>>>>>>> The reservation is already stored in the maple tree when
+>>>>>>>>>>>> vm_module_tags_populate() fails. A failed load never unloads the
+>>>>>>>>>>>> module, so nothing releases the entry. Release it and roll
+>>>>>>>>>>>> module_tags.size back. Without the rollback a concurrent load that
+>>>>>>>>>>>> already passed needs_section_mem() can reuse the freed gap, skip
+>>>>>>>>>>>> vm_module_tags_populate() and write to unmapped memory.
+>>>>>>>>>>>>
+>>>>>>>>>>>> vmap_pages_range() may have installed some PTEs before failing. A
+>>>>>>>>>>>> retry to populate the same range would BUG on them, so undo them,
+>>>>>>>>>>>> but only if vmap actually ran.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>>>>>>>>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+>>>>>>>>>>>
+>>>>>>>>>>> If a patch fixes two other patches, it likely needs to be split so
+>>>>>>>>>>> that each part fixes one patch only. But read on please. I'm not sure
+>>>>>>>>>>> if one of the fixes is correct.
+>>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Kept them in one patch because they only make sense together.
+>>>>>>>>>>
+>>>>>>>>>> After a failed populate the reservation is released and the
+>>>>>>>>>> size rolled back, so the next load takes the same gap and calls
+>>>>>>>>>> vm_module_tags_populate() again, and that retry would trip over
+>>>>>>>>>> the PTEs the failed vmap left behind.
+>>>>>>>>>>
+>>>>>>>>>> Without the rollback a load that already passed needs_section_mem()
+>>>>>>>>>> just reuses the gap, skips populate and writes to unmapped memory.
+>>>>>>>>>> So splitting them leaves each half broken.
+>>>>>>>>>
+>>>>>>>>> Yeah, that's why I think vmap_pages_range() cleanup should be a
+>>>>>>>>> completely separate patch with vmap_pages_range() doing cleanup
+>>>>>>>>> itself.
+>>>>>>>>>
+>>>>>>>
+>>>>>>> I think I get where you're coming from now.
+>>>>>>> Thanks for taking the time to explain.
+>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>>>>>>>>>> Cc: stable@vger.kernel.org
+>>>>>>>>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>>>>>>>>>>> ---
+>>>>>>>>>>>>  mm/alloc_tag.c | 10 ++++++++++
+>>>>>>>>>>>>  1 file changed, 10 insertions(+)
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+>>>>>>>>>>>> index 2070e682fe10..95ddf5b743d0 100644
+>>>>>>>>>>>> --- a/mm/alloc_tag.c
+>>>>>>>>>>>> +++ b/mm/alloc_tag.c
+>>>>>>>>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+>>>>>>>>>>>>                                      next_page, PAGE_SHIFT) < 0) {
+>>>>>>>>>>>>                         release_pages_arg arg = { .pages = next_page };
+>>>>>>>>>>>>
+>>>>>>>>>>>> +                       /*
+>>>>>>>>>>>> +                        * vmap_pages_range() only runs once all pages were
+>>>>>>>>>>>> +                        * allocated, and it may have installed some mappings
+>>>>>>>>>>>> +                        * before failing. Undo them.
+>>>>>>>>>>>
+>>>>>>>>>>> If vmap_pages_range() failed to map the range, why should we need to
+>>>>>>>>>>> undo it? If it indeed leaves some partial mapping when failing then I
+>>>>>>>>>>> would argue that vmap_pages_range() should be undoing these partial
+>>>>>>>>>>> mappings itself before returning the error.
+>>>>>>>>>>>
+>>>>>>>>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
+>>>>>>>>>
+>>>>>>>>> Hmm. I wonder if this behavior is intentional or requires a fix. The
+>>>>>>>>> only possible reason I can think of is performance but I can't imagine
+>>>>>>>>> a failure to map is a performance-critical case.
+>>>>>>>>>
+>>>>>>>>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+>>>>>>>>
+>>>>>>>> Huh, my gmail thinks you are still at your previous companies :)
+>>>>>>>>
+>>>>>>>
+>>>>>>> I manually fixed it on the mailing list for this thread.
+>>>>>>>
+>>>>>>>>> guys think? Shouldn't vmap_pages_range() undo its possible partial
+>>>>>>>>> mapping when it fails?
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
+>>>>>>>>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+>>>>>>>>>> so I did the same here.
+>>>>>>>>>>
+>>>>>>>>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
+>>>>>>>>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
+>>>>>>>>>> the current behaviour for now.
+>>>>>>>>>
+>>>>>>>>> Yeah, I understand it would require a deeper cut but if that's the
+>>>>>>>>> right way to handle this we might as well do that. Let's see what MM
+>>>>>>>>> folks think.
+>>>>>>>>>
+>>>>>>>
+>>>>>>> Sounds good to me. Let's wait and hear what the MM folks say.
+>>>>>>>
+>>>>>>
+>>>>>> I just looked into the call sites for __vmap_pages_range.
+>>>>>> And I found there's a bug in one vmalloc caller [1].
+>>>>>> When gfp_mask has __GFP_NOFAIL, the code keeps retrying
+>>>>>> __vmap_pages_range. If there are leftover PTE mappings,
+>>>>>> this can trigger a BUG(); [2]
+>>>>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
+>>>>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+>>>>>>
+>>>>> Indeed the below code is incomplete:
+>>>>>
+>>>>> <snip>
+>>>>>       /*
+>>>>>        * page tables allocations ignore external gfp mask, enforce it
+>>>>>        * by the scope API
+>>>>>        */
+>>>>>       flags = memalloc_apply_gfp_scope(gfp_mask);
+>>>>>       do {
+>>>>>               ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+>>>>>                               page_shift, nested_gfp);
+>>>>>               if (nofail && (ret < 0))
+>>>>>                       schedule_timeout_uninterruptible(1);
+>>>>>       } while (nofail && (ret < 0));
+>>>>>       memalloc_restore_scope(flags);
+>>>>> <snip>
+>>>>>
+>>>>> and it should be fixed. As the __vmap_pages_range() can actually fail
+>>>>> and leave some installed mappings, we have to perform some cleanups
+>>>>> on failure or on repeat(if nofail is true).
+>>>>>
+>>>>> Below code:
+>>>>>
+>>>>> +                     /*
+>>>>> +                      * vmap_pages_range() only runs once all pages were
+>>>>> +                      * allocated, and it may have installed some mappings
+>>>>> +                      * before failing. Undo them.
+>>>>> +                      */
+>>>>> +                     if (nr == more_pages)
+>>>>> +                             vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
+>>>>>
+>>>>> we can use but we need to check if partially mapped space is not an
+>>>>> issue for the vunmap_range(). And it looks like it is not.
+>>>>>
+>>>>> <snip>
+>>>>> @@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+>>>>>         do {
+>>>>>                 ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+>>>>>                                 page_shift, nested_gfp);
+>>>>> -               if (nofail && (ret < 0))
+>>>>> -                       schedule_timeout_uninterruptible(1);
+>>>>> +               if (ret < 0) {
+>>>>> +                       /*
+>>>>> +                        * __vmap_pages_range() may have installed some mappings
+>>>>> +                        * before failing. Undo them before returning or retrying.
+>>>>> +                        */
+>>>>> +                       vunmap_range(addr, addr + size);
+>>>>> +                       if (nofail)
+>>>>> +                               schedule_timeout_uninterruptible(1);
+>>>>> +               }
+>>>>>         } while (nofail && (ret < 0));
+>>>>>         memalloc_restore_scope(flags);
+>>>>> <snip>
+>>>>>
+>>>> And looking further. If the __vmap_pages_range()/__vmap_pages_range_noflush()
+>>>> and friends fail, a proper cleanups should be done inside, IMO.
+>>>
+>>> Sounds like we are in agreement.
+>>>
+>>>>
+>>>> But i am checking callers and see that some do some not:
+>>>>
+>>>> <snip hooks.c>
+>>>>         __vunmap_range_noflush(
+>>>>                 vmalloc_shadow(start),
+>>>>                 vmalloc_shadow(start + clean * PAGE_SIZE));
+>>>>         __vunmap_range_noflush(
+>>>>                 vmalloc_origin(start),
+>>>>                 vmalloc_origin(start + clean * PAGE_SIZE));
+>>>> <snip hooks.c>
+>>>>
+>>>> kmsan_ioremap_page_range() it does clean ups;
+>>>> kmsan_vmap_pages_range_noflush() looks like does not care in shadow.c;
+>>>> __vmalloc_area_node() as noted, it is broken as there is a BUG() on next try if nofail;
+>>>> pcpu_map_pages() it does cleanups.
+>>>> ...
+>>>>
+>>>> and so on.
+>>>
+>>> Yeah, the callers that do the cleanup should stop doing that once the
+>>> vmap functions handle it themselves. I expect an overall reduction in
+>>> code size.
+>>>
+>> Agree. If mapping API is called and it fails the caller should expect
+>> the state as it was before calling that API function, IMO.
+> 
+> Thanks for confirmation!
+> 
+> Hao, do you need help with making the change in vmap functions to
+> cleanup upon a failure?
+>
 
-in j1939_ecu_map_locked() from j1939_ecu_timer_handler() can succeed
-even after
+Thanks everyone for your help. I think we have reached a consensus.
+I spent a day sorting out the logic and generated the patches below:
+https://lore.kernel.org/all/20260929082014.160587-3-hao.ge@linux.dev/
+Some edge cases might still be missing, please kindly review.
 
-  priv->ents[ecu->addr] = NULL;
-  j1939_ecu_put(ecu);
+Thanks
+Best Regards
+Hao
 
-in j1939_ecu_unmap_locked() from j1939_ecu_unmap_all() from
-__j1939_rx_release() from j1939_netdev_stop() has completed.
-
-  unregister_netdevice: waiting for vxcan1 to become free. Usage count = 3
-  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
-       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
-       netdev_hold include/linux/netdevice.h:4525 [inline]
-       j1939_ecu_create_locked+0x1c9/0x400 net/can/j1939/bus.c:159
-       j1939_local_ecu_get+0xeb/0x220 net/can/j1939/bus.c:293
-       j1939_sk_bind+0x70a/0xc60 net/can/j1939/socket.c:529
-       __sys_bind_socket net/socket.c:1920 [inline]
-       __sys_bind+0x2e3/0x410 net/socket.c:1951
-       __do_sys_bind net/socket.c:1956 [inline]
-       __se_sys_bind net/socket.c:1954 [inline]
-       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
-       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
-       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
-       netdev_hold include/linux/netdevice.h:4525 [inline]
-       j1939_priv_create net/can/j1939/main.c:140 [inline]
-       j1939_netdev_start+0x387/0xb20 net/can/j1939/main.c:268
-       j1939_sk_bind+0x946/0xc60 net/can/j1939/socket.c:506
-       __sys_bind_socket net/socket.c:1920 [inline]
-       __sys_bind+0x2e3/0x410 net/socket.c:1951
-       __do_sys_bind net/socket.c:1956 [inline]
-       __se_sys_bind net/socket.c:1954 [inline]
-       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
-       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fix this race condition by calling j1939_ecu_timer_cancel() before calling
-j1939_ecu_unmap_all() from __j1939_rx_release() from j1939_netdev_stop().
-Calling j1939_ecu_timer_cancel() here is safe without holding priv->lock
-because the CAN RX path has already been unregistered via
-j1939_can_rx_unregister() followed by synchronize_rcu(), meaning
-no concurrent network events can mutate the priv->ecus list.
-
-Reported-by: syzbot+e2af46126e0644cbebdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e2af46126e0644cbebdd
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928193312.553632-1-mkl%40pengutronix.de # [PATCH net 06/22]
-Assisted-by: Gemini-Pro gpt-6-astra opus-5-5
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
----
-Changes in v1.1:
-  Call synchronize_rcu() after j1939_can_rx_unregister().
-
- net/can/j1939/main.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/net/can/j1939/main.c b/net/can/j1939/main.c
-index 5e5e6c228f22..8706680e2458 100644
---- a/net/can/j1939/main.c
-+++ b/net/can/j1939/main.c
-@@ -212,8 +212,23 @@ static void __j1939_rx_release(struct kref *kref)
- {
- 	struct j1939_priv *priv = container_of(kref, struct j1939_priv,
- 					       rx_kref);
-+	struct j1939_ecu *ecu, *tmp;
- 
- 	j1939_can_rx_unregister(priv);
-+
-+	/* can_rx_unregister() uses call_rcu() internally and is asynchronous.
-+	 * We must wait for an RCU grace period to ensure that any in-flight
-+	 * j1939_can_recv() instances on other CPUs have fully completed
-+	 * before we safely traverse the priv->ecus list without locks.
-+	 */
-+	synchronize_rcu();
-+	/* Cancel all pending address claim timers before unmapping the ECUs.
-+	 * This prevents an orphaned timer from re-mapping an ECU after the
-+	 * rx path has been completely torn down.
-+	 */
-+	list_for_each_entry_safe(ecu, tmp, &priv->ecus, list)
-+		j1939_ecu_timer_cancel(ecu);
-+
- 	j1939_ecu_unmap_all(priv);
- 	j1939_priv_set(priv->ndev, NULL);
- 	mutex_unlock(&j1939_netdev_lock);
--- 
-2.52.0
-
+>>
+>> --
+>> Uladzislau Rezki
