@@ -1,78 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2260A3A71A8;
-	Tue, 29 Sep 2026 07:38:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73F339CD0D;
+	Tue, 29 Sep 2026 07:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667516; cv=none; b=RM2UUD4AAU5XTzvbHsjbqAJNnJXhqYYWmkjxoW7h4bxjQPt3R8fRK3tpqlIrVJRgNKhlxLFZXGwr2hCICiSX+RcSWQ7+hzSaC90LXzt/PJpa13X1C0mVSvmISqNGxYNFLpwncnOHwDa1ZG4Q5FwSHrY+FVSsrsbSO618qJHGdHA=
+	t=1790667566; cv=none; b=eJSqO/VCq3LgSB7ihAF+keR2b/NStCzOMfv9kqI0ZfSoJqZv+ADrtBdDWIykQ/5HPhgtwQsjtrlGH6GvrzKgdVs85Q0Y1JFFPOFIVtIfK8OWku9WwT1vhLL4oUGwbpwzze/5+adXTmIWW5qiFnoFv5Lt26yIrLL1PijwF/Zcues=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667516; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EPx2MrvsAl0XHr04mZUk7FRwXtwDITJvIvPjqUP3BqluUP0ioVDJdhQo3nCaNQJWzWYEfV/j1le+bEQE4ehieZusHLEpcTxUyiDg3J6t1r3Ad1TyMM4gFlPitdBoBN8AI/OTP7IwA42am3cBUg88AI74nYJaMLJBCx1Pb8fesNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcSU90Ad; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667566; c=relaxed/simple;
+	bh=kHczxQIhar+3hTedxOPpdeuURuyFZHYgP2oSr202qIg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lb4pkaehBoGzMhxbFNBHOpJRArGCwq/kljO0so5MQ/rsXcz+T0kHaq6yMWrrc3dZZCUKjNag8+BHBXQNHca9W1D4iPTk7uroyqaqL4r6UVKZr46iLtuvGcRRt8wfnrR2spMrD7t0y5rSVu+e4aPPgJyjgfOJ50qdPVbqNdbtX8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUzdntVT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcSU90Ad"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BFD81F000FF;
-	Tue, 29 Sep 2026 07:38:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUzdntVT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7251F000FF;
+	Tue, 29 Sep 2026 07:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667514;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fcSU90Adnp98yCJypomf3WB79+psLhtiUWYQ2ZPgHod2TnBC7PWDOGjmnQJakhUnA
-	 xehASfu9CifQ8FjnnBACDMXF5XgdZmQJ1pt1fH6lteSzXpnWCXHiW2wP0vQTahX0xA
-	 lOcWZksHU/+kw2grns45lRdWhootoyjgQ5KPVP1gxcd8+DXiSXtkR9fMWypZRUKOkO
-	 CRAco2xaK+0XYpkte8QBNJbdFlRizCSdtXC/qdPCNJGS2YoKoUiT9lN0E2FX9C0LDN
-	 eFYJSafWvy91n4hZBfMvTI/7CA1UQsxMh65Jl2PIvZwnPtRUrLulCb9KYuG96/g3MW
-	 RC03Gv2ud+eZA==
-From: netdev-bot+sinfo@kernel.org
-To: Zxyan Zhu <zxyan0222@gmail.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, richardcochran@gmail.com,
- maxime.chevallier@bootlin.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v6 0/3] net: stmmac: dwxgmac2: timestamp
- interrupt support + Agilex5 fix
-Date: Tue, 29 Sep 2026 07:38:32 +0000
-Message-ID: <179066751275.31693.16105226302048502437@kernel.org>
-In-Reply-To: <20260929073553.4136336-1-zxyan0222@gmail.com>
-References: <20260929073553.4136336-1-zxyan0222@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1790667565;
+	bh=kHczxQIhar+3hTedxOPpdeuURuyFZHYgP2oSr202qIg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iUzdntVTNNaa7QriEIAQl0CTMAZghah28bwQeZqG+C6lKgkdL3AOeJjVcHSUcBgqf
+	 XUryiy5cfEBzqUW05v1B+9a4/gy+SDqtqjHjlAoXPnS2E+uWmT1J/uYoL4JhU26v6m
+	 QGeOVdqyI+m+TwOsuHYlFDfcMsVUGdxpk9LsAhgXLH91Fe45ll81tyUGzuYM/pQlr6
+	 WLYG0vuSR69+VkiGYsK1uravZ/rM/Z7X6DizwCTsy6jJyzLZ3XPHYyoq3sGLWiaPzB
+	 9PBcYeGjPT/MzC/SZYtf/PLfAYFl9Vmj9uktHX6w5efjopuC6mznbLdWju39s/1oen
+	 KIlD7cloe/Fig==
+Date: Tue, 29 Sep 2026 09:39:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Petr Vorel <petr.vorel@gmail.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 01/11] dt-bindings: display: panel: s6e3ha8: Adjust to
+ reflect the DDIC and panel used
+Message-ID: <20260929-eager-heavy-ibex-2c959d@quoll>
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
 
-Hi!
+On Thu, Sep 24, 2026 at 04:01:29PM +0200, David Heidelberg wrote:
+> S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
+> the Samsung AMB577PX01. Introduce a compatible reflecting that, adjust
+> the example, and deprecate the DDIC-only samsung,s6e3ha8 compatible.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+You need to explain why. The difference in panel might completely not
+matter if DDIC is always used with that panel. Why do we need more
+precise compatible?
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Best regards,
+Krzysztof
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
