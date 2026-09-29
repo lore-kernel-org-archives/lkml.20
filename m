@@ -1,183 +1,190 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31D25383F3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAEE3D45D5;
+	Tue, 29 Sep 2026 14:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692942; cv=none; b=do+pThJ5qg4187osQRe3shci03SKqEn2X7f7ggEIonglIKw0h44Zv4u5Id4ruTobRgzfOz0nfGVv3byzTE8NqeW7sXHitGLqRZTjsWTRRmprX0vlIhwAa9CjJpBt1TXtnyz3cc+FvH46E1mcFSrqORyFsfR9RaEIqI5T78SgGdI=
+	t=1790692973; cv=none; b=rUrcxh0/z024pwevBazG3H+5w3317hEOD4z0XF/+53GEJDgA+kbLcljVzTvXH/ezWrU/y3qSXz5BwwOHGrg3kRYazw18XobaWEPfoGWjxGxPuy0qjsXMKGZy83MMCnao+eednSc6tAnKylRPZTBIWVRzU8SabsliMRa3Hec96V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692942; c=relaxed/simple;
-	bh=QPhGD2tzq/MohOfOyWKlfII/ivWJ/1HwH7q4f0v8GH0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WaR34rdR7zvmOoegEtLyjOVdcDujcy1ebFUy4R/Er6xymwapTd6r5nqNepGFoiX4SZlGeG2jhwf94364tDkbI8ddLfKNLmwFLSGYEncMGe++lt4Pt82KTe3q4/xfVC9QFVfwmXehDFs8AgeV4Jfuud2uSvt39FviQvGMAYll3ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ek7XAPuO; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ek7XAPuO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B52454E410BE;
-	Tue, 29 Sep 2026 14:42:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 82584601BD;
-	Tue, 29 Sep 2026 14:42:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5262A103297F7;
-	Tue, 29 Sep 2026 16:42:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790692929; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=tc1nEVZolmCCR2ZFwJ+f5R5PC/tPEHSlzkXfC/LcRKA=;
-	b=ek7XAPuO1G7nNgqyPmnGpWp22ylr5Zdpydl4tYrkQ8CwHDtO9qSK2tj+umhPnUlPjoGAAo
-	kZX0ZM9hokjIoYu3zS6INykyiC8C7nvMrGFDgHDJIDjRQHQF1wQLlKR70pMsep2w9rz8Db
-	xbzK2IcBs0dSzdv1wzeRDtQUXRMLDYGCZkWHvNG2GrhPOMkKyofpMT8NEmQm9TRgv0y90e
-	nfCqZ4eeFKMHi0r/V6VaFaMgQ9GNb3LppmiBRmOPT+eTYqrpvg6oGw3IweFUDwV2ckTnW7
-	bzNk603rjnAzoREbiOhLqmXKgSsJMBPd79wTYizp6zeDcnN4xldTD6dihcGNwA==
-Message-ID: <dc37c03d-b604-404d-af90-18d617c96f37@bootlin.com>
-Date: Tue, 29 Sep 2026 16:42:03 +0200
+	s=arc-20240116; t=1790692973; c=relaxed/simple;
+	bh=BWNukz3gxR4ofTYhCcg6SCY61hjz0FbNIyj2Ss/lLgs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pIG15uUIUjeElW6t9CBGI8oCAcxVx9Er2m9JTfamGF9Y0ZcsxNqBTiNSPNtsKJ83HWdqUZoVv7VT5NYw4ojnhU189QFeliHraUpGkGg4UiAJaxSZNKx2HKIcdyKNj1Twvnd6XisLKVZ0rVSB+plMeJaoJAjTW1S9LvDM1qqiaHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
+	by APP-05 (Coremail) with SMTP id zQCowAC3IDtEzrtqWCqvCQ--.41306S2;
+	Tue, 29 Sep 2026 22:42:15 +0800 (CST)
+Message-ID: <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
+ devm_drm_of_get_bridge()
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda	
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Dave Stevenson	
+ <dave.stevenson@raspberrypi.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal	
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, kernel test robot <lkp@intel.com>
+Date: Tue, 29 Sep 2026 22:42:12 +0800
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+	 <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 01/11] net: dsa: microchip: fully save the
- periodic output request
-To: netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- pascal.eberhard@se.com, miquel.raynal@bootlin.com,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260925-ksz-perout-v4-1-d675bd21ce49@bootlin.com>
- <179068487632.434549.12891294812675724957@kernel.org>
-Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <179068487632.434549.12891294812675724957@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:zQCowAC3IDtEzrtqWCqvCQ--.41306S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAry7Jr15Kw43Cw1DZFWkZwb_yoWrJF1rpF
+	40qa98try5XrWxXw42kr4j9FyYya4Dtw4rGFWUt34Fvr1FqF4DGF1kAry5Z3W5CF17GF1r
+	tr4DtFySv3W8Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUv4EEDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Hi all,
+=E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 15:39 +0200=EF=BC=8CLuca Ceresoli=E5=
+=86=99=E9=81=93=EF=BC=9A
+> devm_drm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint()
+> returns
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>=20
+> Fixes build failure when CONFIG_OF is disabled.
+>=20
+> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
+> drm_panel.c")
+> Reported-by: Arnd Bergmann <arnd@kernel.org>
+> Closes:
+> https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes:
+> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.com=
+/
+> Closes:
+> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.com=
+/
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-On 9/29/26 2:27 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 0 (1)
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The patch keeps one saved request (ptp_data->perout_request) and
->    one device-wide tou_mode, but the driver allows several trigger output…
-> - [Medium] This patch fixes a user-visible bug that already exists on the
->    switches supported today (KSZ9477 family), but the commit message does…
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but it is serious.
-> - [Medium] This problem wasn't introduced by this patch, but the restart
->    path calls ptp_find_pin() without holding ptp_clock::pincfg_mux, which…
-> - [Low] ksz_ptp_enable_perout() selects the TOU and resets it with
->    ksz_ptp_tou_reset(), which clears TRIG_ENABLE, before validation,…
-> 
-> --
-> 
-> net: dsa: microchip: fully save the periodic output request
-> 
-> This commit replaces the saved start time and period in struct
-> ksz_ptp_data with a full copy of the last successful struct
-> ptp_perout_request. After settime/adjtime, ksz_ptp_restart_perout() now
-> reuses that saved request, including its index and flags, instead of
-> forcing both to zero.
-> 
->> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
->> index 39cc70d65900b..47cf397481d5e 100644
->> --- a/drivers/net/dsa/microchip/ksz_ptp.c
->> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
-> 
-> [ ... ]
-> 
->> @@ -263,6 +261,8 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
->>   	if (ret)
->>   		return ret;
->>   
->> +	memcpy(&ptp_data->perout_request, request,
->> +	       sizeof(struct ptp_perout_request));
->>   	ptp_data->tou_mode = KSZ_PTP_TOU_PEROUT;
->>   
->>   	return 0;
-> 
-> [Severity: High]
-> struct ksz_ptp_data has only one perout_request and one tou_mode. What
-> happens when more than one periodic output is active?
-> 
+Checked the code in drm_bridge.c, and it looks like the lifetime of
+next_bridge should be indirectly managed by devm when
+devm_drm_bridge_alloc() successes and the next_bridge field assigned,
+so the only explicit put needed here should be in the alloc failure
+path.
 
-Indeed, this patch series supports only one periodic output at a time, 
-as is already the case for the others switches (which also have several 
-output pins). This is sufficient for my use case, and it doesn't prevent 
-more advanced support from being added later.
-[...]
+Patch is:
 
-> 
-> [Severity: Low]
-> This isn't a bug introduced by this patch,
+```
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
 
-[...]
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch,
+>=20
+> ---
+>=20
+> Changes in v2:
+> - fix bridge reference leak on attach error path
 
-[...]
-> 
-> [Severity: Medium]
-> The commit message says:
-> 
->    I don't know if other switches use non-zero indexes but the KSZ8463 has
->    twelve periodic outputs, so this index has to also be saved from now on.
-> 
-> Doesn't the removed request.index = 0 already break restart on the
-> KSZ9477-family switches supported today? ksz_ptp_clock_register()
-> advertises:
-> 
-> 	ptp_data->caps.n_per_out	= 3;
-> 
-> ptp_perout_request() in drivers/ptp/ptp_chardev.c only rejects
-> perout->index >= n_per_out, so indexes 1 and 2 reach
-> ksz_ptp_enable_perout().
-> 
-> With the old code, a clock step through ksz_ptp_settime() or
-> ksz_ptp_adjtime() while channel 1 or 2 is running goes one of two ways:
-> 
-> - If no pin is assigned to PEROUT channel 0, ptp_find_pin() fails and
->    ksz_ptp_enable_perout() returns -EINVAL. settime/adjtime then returns
->    an error and the real channel is never re-armed.
-> 
-> - If a pin is assigned to channel 0, TOU0 is re-armed on that pin with
->    the other channel's period.
-> 
-> Could the commit message describe this? Should it also carry a Fixes: tag
-> for 1f12ae5b67608f ("net: dsa: microchip: ptp: add periodic output
-> signal") so it can be considered for stable?
->
+It should be `bridge alloc error` instead of `attach error`, but I
+don't know how to correct the error in the changelog, and anyway it
+won't be part of the final commit.
 
-I had sent a fix for this but we agreed to handle this directly in 
-net-next (cf 
-https://lore.kernel.org/all/ee69ae01-97ab-470c-ba1d-658f1700463c@bootlin.com/)
+Thanks,
+Icenowy
 
->>   
->>   	return ksz_ptp_enable_perout(dev, &request, 1);
-> 
-> [Severity: Medium]
-> This is a pre-existing issue,
+> - mention lkp report
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 11 ++++++-----
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.h |=C2=A0 1 -
+> =C2=A02 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> index dc7c85b07fe3..3a5091c0ac2c 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> @@ -29,7 +29,7 @@ static int vs_bridge_attach(struct drm_bridge
+> *bridge,
+> =C2=A0{
+> =C2=A0	struct vs_bridge *vbridge =3D drm_bridge_to_vs_bridge(bridge);
+> =C2=A0
+> -	return drm_bridge_attach(encoder, vbridge->next_bridge,
+> +	return drm_bridge_attach(encoder, vbridge->base.next_bridge,
+> =C2=A0				 bridge, flags);
+> =C2=A0}
+> =C2=A0
+> @@ -303,8 +303,7 @@ struct vs_bridge *vs_bridge_init(struct
+> drm_device *drm_dev,
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> -	next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev-
+> >of_node,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 output, intf);
+> +	next =3D of_drm_get_bridge_by_endpoint(drm_dev->dev->of_node,
+> output, intf);
+> =C2=A0	if (IS_ERR(next)) {
+> =C2=A0		ret =3D PTR_ERR(next);
+> =C2=A0		if (ret !=3D -EPROBE_DEFER)
+> @@ -321,12 +320,14 @@ struct vs_bridge *vs_bridge_init(struct
+> drm_device *drm_dev,
+> =C2=A0
+> =C2=A0	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct
+> vs_bridge, base,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bridge_funcs);
+> -	if (IS_ERR(bridge))
+> +	if (IS_ERR(bridge)) {
+> +		drm_bridge_put(next);
+> =C2=A0		return ERR_PTR(PTR_ERR(bridge));
+> +	}
+> =C2=A0
+> =C2=A0	bridge->crtc =3D crtc;
+> =C2=A0	bridge->intf =3D intf;
+> -	bridge->next_bridge =3D next;
+> +	bridge->base.next_bridge =3D next;
+> =C2=A0
+> =C2=A0	if (intf =3D=3D VSDC_OUTPUT_INTERFACE_DPI)
+> =C2=A0		enctype =3D DRM_MODE_ENCODER_DPI;
+> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.h
+> b/drivers/gpu/drm/verisilicon/vs_bridge.h
+> index 70fee1749699..2b0ed94e4520 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_bridge.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.h
+> @@ -25,7 +25,6 @@ struct vs_bridge {
+> =C2=A0	struct drm_connector *conn;
+> =C2=A0
+> =C2=A0	struct vs_crtc *crtc;
+> -	struct drm_bridge *next_bridge;
+> =C2=A0	enum vs_bridge_output_interface intf;
+> =C2=A0};
+> =C2=A0
 
-[...]
-
-
-Best regards,
-Bastien
