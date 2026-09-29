@@ -1,57 +1,101 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1351AFF5;
-	Tue, 29 Sep 2026 12:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4475A3F327A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683970; cv=none; b=SPOMOVpxCbst2/Sivr4lmmsJ/61sx4srbIuH8VltiEbOTXMYriBHSgen6UbK+xX0iNdjeUlNBXZWx1pP4oVVzxiqaoF2H2FzhLhfbPMI5Ed1V8zs89dDxdQpM/4TZYgy7uLN2hFJcaFFysn4vzEkFYvLY3bgPtYBm0aRG1KpzzY=
+	t=1790683973; cv=none; b=oqQg7Y/L4/HdubwmctCIuZnjyoZ8+sjLURfHPUeGqRwd5m/hlJn/2PgrcJZ0dJDlhJHzqQwAQzRNf7//9bhcK7r+eVVwNh0LlNKrhSICKJCO4PxQ+ZLeqKwTf47BlR2LqVThRVuXIM5SVxJ+30u4/j7wz8+Be8Mo84spCYSMvTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683970; c=relaxed/simple;
-	bh=U/ZHELYrFaEQ3sMrE4JTj1Tft7dlNbybWNXd2onWZC4=;
+	s=arc-20240116; t=1790683973; c=relaxed/simple;
+	bh=aOHR2S9JoDTNHa4EinckRR5sM8LP9tsgVirzxTuKr0g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CslMGZpN5LDIforK7ulBlIqzGbnilhSif0egrBcXPHU5E15Uf/afLRFxESKNFc0PSxIkKfwxE4pOhNF9CuyPbr1IhtQANXucrHOQSiaGzRgBiFOgliAyPPvGCJU//HM5Tg7GnEB8bkRRMq9KpBgzZvJXULdqDtLzKYg04kNtvDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=TVoQZoOV; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=IcrplY78umwkSQS2t4VDROcGDMGsr2z8KNFv94Ma1RYxaKjZXTP1RqSToDGV7k/WLKDymdbdk3Bv0NhHuJ/jCptCtiPLuS4bMKg04aaqRvOcZiWy3rkotlxRHRC2g7wF2EOJzRxby4ehcINMyuXfYfR0dcVc1zItlF/CQZ1M1xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bsn3FYPi; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TVoQZoOV"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB7A1C3D;
-	Tue, 29 Sep 2026 14:10:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790683846;
-	bh=U/ZHELYrFaEQ3sMrE4JTj1Tft7dlNbybWNXd2onWZC4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TVoQZoOVXSlL3imsxqA+YRdzmqVNKSSBcyPWf0ItcyDgxMXTB+5QfgN1koH048ewZ
-	 LplOn4ENq5q8R/xUvbiMQT683fj65wqVWu1PG8ks6E8kXrtnFQ/ESYJU6wAof0ZnYk
-	 0pS8WNIHQuKJml/psm1hVLdZbz34gzwlgU0e3uOo=
-Date: Tue, 29 Sep 2026 15:12:35 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20260929121235.GF171869@killaraus.ideasonboard.com>
-References: <20260915120327.47114-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bsn3FYPi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso15277285e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:12:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790683969; x=1791288769; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=paQ2/onKT319WLEUhupq6lCWp4YbjzVGMuOnFcHWo94=;
+        b=Bsn3FYPiNhIp2HBDQV/+jwpbyP000Xi2mEKEkhMsMnM8swD4yjc/vttTBIclQvIwHT
+         2rvOWBKPZgVT1YMjv+XgD5tacsIjNUp2H+6ZMJ75vXTIGrkaRMl+DIjzqMUe6gwPaGs+
+         t8hWrrlLb5EKIyvR3AonglQ2WH6k+2BNm60aimiPsoPgV/Mq9puUSJhAsdgXzQaJLrTQ
+         NY3UPjbA6SjgoKYK5kqyvr5QZqMSplltvmh/pNTiwfdxt0mtx8yBQJRBi6pRmkhujNwG
+         S+kmXuMdgu2jlS4TX/K6ndqUmW8B2TlzQqpcGrez9r+TvVVRIZxi8U7Qz3ykH0bKNVVS
+         Z5KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790683969; x=1791288769;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=paQ2/onKT319WLEUhupq6lCWp4YbjzVGMuOnFcHWo94=;
+        b=0MNzD5XJsqmB9qTjtf5EkdWGdudhWwpcJ7t7tXz9gdvYndApxKqpdlXAosrQpZxG/m
+         kLRLElyqWUHewn+lX7bSjlJnQ3uO/GRJnI3enwoWSOUDysH6UpEKRffcY/ZHT2D75FMW
+         K1ch+vWFamFSCIYpf1/FVJOUoqsr7923otml8KZaY53oFEva/KmXlo+Bnu/GDyAe5TVC
+         IUnNUHeAnJkpX7YyDpI0paGpzzP9VR7sbiPD2g3sbz7D2FnZBvGDtYMUYETLXKS40jk3
+         G230DtokRDPDM5pDI1X/sjGCuD7VKQ61gb36YP+6njRJZgtMKzemYJlEgEmHhWCbhKCA
+         1uCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxvECcLM4KgrKE6RmZDQ3VdK9G+aH5r0+dat/+bUrqyq7Ii23qjKNQt8NSa5N3wMZrZR/p4oYIB5qujn14=@vger.kernel.org
+X-Gm-Message-State: AFuF++kG0e8565suugE2aXonc3lUM3Uq82JQPyQyVfi3VF1akGD4ljL5
+	TuA4+PzN4fVhCVUovy78DWsyODFDQ4ZFOv4olGINhmehjAwtU8SPUGSTPxBEt02KzA==
+X-Gm-Gg: AYBFou0UAvBC5OBS8KZox1JxUGq3jQOVnjzi+yIFIGAabSbhTFLZgxxTOWo7NQujCad
+	nbc6DaFHZHqYMPpvHqgTpSKzx++X/Gw4PZ+vSb0SuEb77KxKzaBjG7ikktUv+RET+25yr+8tnw8
+	cjPPJT5AZ1fkFIgx1LrvtTjcYh1QgRHkP+wegjaP4ZZstFPP7Nor86c3yJqCrtPIm1zG11/QnL+
+	NwjmjAx58uJ+6Cnvd1aoNo/Ijl1F/sCoZ8gJyFX/uKbrpdHI6Ny8O7CV9s+vG7zZEjTDjoIrOoj
+	oNVHPzOxAmXlGWzCp0tbwzsnnncw3olYIQwW9x54BKPjeeIv6K1diYCP/c55ePYuq1vO58OpJ9s
+	Dc+Qh7c7D4hxeliF7R6q+KrXCLcw3Qy+zu4dOLLOA3yN97iT3NCQD/0+hFXHiaxIYwFfBI4t/z5
+	Pv6y+5uKzpRygPCeLSK6JRzHerXr5CU+Lp0S7+c/mhcyokxkTF3se5N/4ilb+rnoSLLcgatvLng
+	6JoyWGLHBLePPxJUBckqUDKA2yiww==
+X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr302281505e9.33.1790683968737;
+        Tue, 29 Sep 2026 05:12:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:ce20:1d4f:298a:2070])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013b8f6f5sm4087715e9.10.2026.09.29.05.12.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:12:48 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:12:42 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>,
+	Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net,
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+	dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk,
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
+	dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org,
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com,
+	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org,
+	neil@brown.name, okorniev@redhat.com, Dai.Ngo@oracle.com,
+	tom@talpey.com, miklos@szeredi.hu, amir73il@gmail.com,
+	senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com,
+	zohar@linux.ibm.com, roberto.sassu@huawei.com,
+	dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com,
+	stephen.smalley.work@gmail.com, omosnacek@gmail.com,
+	casey@schaufler-ca.com, nanx95726@gmail.com, djwong@kernel.org,
+	daniel@iogearbox.net, linux-security-module@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+	ecryptfs@vger.kernel.org, exfat@lists.linux.dev,
+	linux-nfs@vger.kernel.org, linux-unionfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
+	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	xiujianfeng@huawei.com, lujialin4@huawei.com
+Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
+ WRITE_METADATA access rights
+Message-ID: <arurOphe6QIx2Zr8@google.com>
+References: <20260924104831.1081137-1-caixinchen1@huawei.com>
+ <araxO4ze0KZBz756@suesslenovo>
+ <20260926.255b951d3013@gnoack.org>
+ <arqcbjWLN1CLkL_Y@suesslenovo>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,189 +104,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915120327.47114-1-quchaosheng000406@163.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arqcbjWLN1CLkL_Y@suesslenovo>
 
-On Tue, Sep 15, 2026 at 08:03:26PM +0800, Quchaosheng wrote:
-> Convert the TPD12S015 HDMI level shifter binding to DT schema.
+On Mon, Sep 28, 2026 at 01:13:35PM -0400, Justin Suess wrote:
+> On Sat, Sep 26, 2026 at 09:56:28AM +0200, Günther Noack wrote:
+> > Hello!
+> > 
+> > On Fri, Sep 25, 2026 at 02:03:05PM -0400, Justin Suess wrote:
+> > > On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
+> > > > This series adds two new Landlock filesystem access rights,
+> > > > LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
+> > > > which control access to file and directory metadata such as inode
+> > > > attributes (mode, ownership, timestamps), extended attributes and POSIX
+> > > > ACLs.  It picks up the work from the "landlock: add chmod and chown
+> > > > support" series [1] and follows the coarse-grained grouping discussed in
+> > > > that thread [2]: instead of separate chmod/chown rights, metadata
+> > > > operations are grouped into one read and one write right.
+> > > > 
+> > > > Landlock evaluates access rights on a per-path basis, but the metadata
+> > > > related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
+> > > > inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
+> > > > inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
+> > > > object.  Patches 1-7 therefore first pass struct path instead of dentry
+> > > > through the metadata-related VFS helpers and LSM hooks.  This is a pure
+> > > > refactoring with no behavior change, split so that every patch builds
+> > > > and works on its own:
+> > > >
+> > > I like these patches, but is the ability to read metadata already
+> > > sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
+> > > directory?
+> > > 
+> > > The one case I see this being different is:
+> > > 
+> > > 1. if you wanted to grant read access to the file, but not metadata
+> > > read access, but I can't think of any usecase for being able to read
+> > > the contents of a file, but not the metadata. (see below)
+> > > 
+> > > 2. If you had the absolute path already and didn't need READ_DIR.
+> > > 
+> > > I see introducing this READ_METADATA as causing potential
+> > > hard-to-diagnose issues.
+> > > 
+> > > Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
+> > > 
+> > > The program can technically open the file with the READ_FILE permission,
+> > > but it may error out because the stat() on it beforehand failed.
+> > > It's pretty common for programs to do that kind of thing (stat before
+> > > open), like for checking for config files (strace bash and you see it
+> > > stat .profile, /etc/profile)
+> > > 
+> > > There may be other bugs, because being able to set permissions to read
+> > > a file *but not read it's metadata* isn't possible currently in posix
+> > > acl and userspace may not work well if that assumption no longer holds.
+> > >
+> * posix acl and linux DAC.
 > 
-> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-> and ESD protection circuitry. Document the two ports it exposes between
-> the HDMI transmitter and the connector.
+> > > So maybe WRITE_METADATA is good enough?
+> > 
+> > The existing use cases are the combinations of (a) READ_DIR
+> > allowed/denied and (b) READ_METADATA allowed/denied.  Because these
+> > two access rights overlap slightly, it seems likely that for a given
+> > directory or file, users will want to either grant both, or deny both.
+> > 
+> > At the moment, where the (not yet existing) READ_METADATA is
+> > implicitly always allowed, the problematic case is the one where the
+> > Landlock user wants to deny READ_DIR, but where much of the same
+> > metadata is still available through stat() and the various
+> > get-attribute syscalls.  (c.f. the warning box in the Landlock docs
+> > [1])
+> > 
+> > In my view the READ_METADATA right closes a gap that READ_DIR left
+> > open (which is also potentially surprising to callers if they did not
+> > read the docs closely).  Also, if its implementation is symmetric to
+> > WRITE_METADATA, I feel that it's worth having it in the same patch
+> > set.
+> > 
+> > –Günther
+> > 
+> > P.S.: I know, even after we can control stat(), there are likely ways
+> > to infer the presence of a file by observing Landlock error codes.
+> > This would be nice to fix as well, but is harder to do without
+> > controlling the path walk itself [2].  But also, the fact that this is
+> > currently not controllable is not an excuse for leaving READ_METADATA
+> > open IMHO.
+> >
+> I'm still sort of concerned about the case where read access is allowed,
+> but metadata isn't, due to how many applications will not cleanly handle
+> such an unexpected condition. You can reproduce this with a seccomp
+> policy forbidding stat().
 > 
-> The tpd12s016 is described as software compatible with the tpd12s015 and
-> is listed as a fallback compatible by am57xx-idk-common.dtsi, so accept
-> both orderings. Boards that also route the DDC lines through the chip
-> pass five GPIOs rather than three.
+> Would it make sense to have the existing READ rights
+> (READ_DIR/READ_FILE) imply READ_METADATA on the files/directories 
+> if READ_METADATA is handled? Reading a file's contents should always
+> imply that you can read the metadata.
 
-Assisted-by tag missing.
+I am wary of situations where the handling of access rights implicity
+implies other access rights.  We have discussed such schemes in the
+past (e.g. we considered a design for RESOLVE_UNIX where we'd have
+both a "scoped" and a "access_fs" right that would interact with each
+other), but in the end we always settled for approaches where such
+interactions would not be necessary.  One of the concerns was that it
+would complicate "best effort" fallback logic in all Landlock
+libraries and in the countless places where people use the syscalls
+directly.
 
-This patch also seems to be missing understanding of what you're doing.
-Not only does it combine conversion to YAML and changes to the bindings
-in one patch, it also gives no rationale for the changes.
+To throw another option in the mix.  (To be clear, I have only 70%
+confidence, so feel free to push back, but it feels like it might
+work?):
 
-Please don't waste maintainer's time with LLM-generated patches that you
-haven't tried to understand.
+Is this similar to the "truncate" right?
+----------------------------------------
 
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 93 +++++++++++++++++++
->  2 files changed, 93 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> deleted file mode 100644
-> index 26e6d32e3..000000000
-> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -TPD12S015 HDMI level shifter and ESD protection chip
-> -====================================================
-> -
-> -Required properties:
-> -- compatible: "ti,tpd12s015"
-> -
-> -Optional properties:
-> -- gpios: CT CP HPD, LS OE and HPD gpios
-> -
-> -Required nodes:
-> -- Video port 0 for HDMI input
-> -- Video port 1 for HDMI output
-> -
-> -Example
-> --------
-> -
-> -tpd12s015: encoder@1 {
-> -	compatible = "ti,tpd12s015";
-> -
-> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> -
-> -	ports {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -
-> -		port@0 {
-> -			reg = <0>;
-> -
-> -			tpd12s015_in: endpoint@0 {
-> -				remote-endpoint = <&hdmi_out>;
-> -			};
-> -		};
-> -
-> -		port@1 {
-> -			reg = <1>;
-> -
-> -			tpd12s015_out: endpoint@0 {
-> -				remote-endpoint = <&hdmi_connector_in>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 000000000..b3351b601
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> @@ -0,0 +1,93 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
-> +
-> +maintainers:
-> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> +
-> +description: |
-> +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-> +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-> +  connector, and provides control over the level shifter enable and the
-> +  hot-plug detect signals.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first GPIO
-> +      controls the level shifter, the second enables the level shifter
-> +      outputs and the third reads the hot-plug detect line. Boards that
-> +      also route the DDC lines through the chip use five entries, with
-> +      the SCL and SDA GPIOs appended.
-> +    minItems: 3
-> +    maxItems: 5
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI input from the transmitter.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI output to the connector.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    encoder1 {
-> +        compatible = "ti,tpd12s015";
-> +
-> +        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-> +                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-> +                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +
-> +                tpd12s015_in: endpoint {
-> +                    remote-endpoint = <&hdmi_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +
-> +                tpd12s015_out: endpoint {
-> +                    remote-endpoint = <&hdmi_connector_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
+With "truncate", there was an existing common operation (open(2) with
+O_TRUNC, a.k.a. creat(2)) which called the truncation hook and checked
+for the truncation access right.  But that was in fact OK.  The way we
+resolved it at the time was by documenting very loudly that WRITE_FILE
+and TRUNCATE access rights should always be requested in lockstep, if
+TRUNCATE is handled.
 
--- 
-Regards,
+If READ_DIR and READ_FILE do in fact read and return metadata to the
+user, maybe the right thing would be to do it the same way here and
+*require* that we have READ_METADATA to do these operations?
 
-Laurent Pinchart
+(READ_METADATA is automatically allowed as long as it's not handled,
+so that approach does not break existing programs.  Programs who
+consciously start handling READ_METADATA must simply take into account
+that reading directories and opening files for reading requires
+READ_METADATA.)
+
+(BTW, I can see it for reading directories, but I am not sure I fully
+follow the argument why opening files for reading means that you can
+read the metadata?  Can't that be guarded on fstat()-like operations?)
+
+—Günther
