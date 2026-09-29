@@ -1,272 +1,236 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3156349CF4D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F3A489FC7;
+	Tue, 29 Sep 2026 09:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674335; cv=none; b=aCJR72Lux26vf0bmj+IYWaPiQPcs++/LYrr+uYejaippBElrJ6KnLRdHqcNoaWn2x3lI/hb9ukv/49WFuX41CLrcxLfnLE7+RlDzzM3nj1M1kSGmSKiMugyT4jNC59WN6jlQT5BJFqbZH/e0trlNryjQtStpYpQMrr5Hn3pCujo=
+	t=1790674377; cv=none; b=mWpgmVMg2GOcY/l7L8gfvexCFZgzi5kggOxiCKC75shmUvvxKnwanuRDVFcti21AwLn8QkTBIWu213ktDAVBqfs/9zZ42T/6xpljOi/zmwS9MjGidF634/limc3bSOsLV8IYd7GAAQMsiFMDgy8ubmeU3TmWAmOJg8CHcbmMeH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674335; c=relaxed/simple;
-	bh=DTjSlV6Ex5aB5PkWfcFbdvjY6j3SyeF2W6Lop83NDnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TwEt63PMk1xdOaYHYod8T/IpstItjbjlMRkoiW5osjgSDbDu/52RodsA9OGwfxEwiS0fwr2UbC42Wp3izjJBl1IBfwmrfRQPdVv+aYJfG/1OECq+LhcvijW3XVT0MXcK3tmiHAguQf64nL4K5jNpGn94Aj68lZ1ZCYFd9JcCmyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZVsIotOD; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790674377; c=relaxed/simple;
+	bh=OSd43S7B34Gj0qjpkLqz3AQttKxZOJiXa3F/k88aeik=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=g1rGOni+gxvWiAUsCCNVkoudegS+iJlgnD+Wu8W8fEXq8t6h7dMcwzLzv5PT8mcWWeO/P1PZhTMxB2JgQcUJKWGl593bqlP5KJJQlHwNXVPm1ntzhJffrwb62mB9OetFbZMpQuIn8NLhT/hnFWc86raImeboL4fbXbYTog76l2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=fADCS8dK; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZVsIotOD"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso9347775e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:32:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790674331; x=1791279131; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X3rrKkxMUYz3653irVlWjfKST08JJhw2SgEUVXi66Jg=;
-        b=ZVsIotOD6ABIvrQ+WX0uSGykXPQ4G6nUZ8sVVqdhph2TrsLBvfzvWGIGq6UUdcpOkp
-         sulZFzPv0FqlW0pPxtZoREWEQOhkSyGXTrjJUlbBaZ0iK7pbrXKat+JNkNuj5+i8+8tB
-         cTIQVDAYJtP6KKTeLjPIARhb5B0CZnmm0dCPRHnnSfKHIbv3ryn4orNjOZ1X35l/2hiE
-         6B33Crdf9jvUeIjBODEdNz2XnNHQ6456uTRLrydegJxdlkzZJ4/GznifpeHzOtxVY3zo
-         J486M0rR2WG1+jABOHso0lGHgqOkNqLauJzYitWp/6qi/ik0oK/kwlDSJmgZjzc7F/WF
-         bJCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674331; x=1791279131;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X3rrKkxMUYz3653irVlWjfKST08JJhw2SgEUVXi66Jg=;
-        b=OHnnZ2f8KCvupE/FNU/Z8bXXGDfantvCnr4neoK6QOrLimvj2b6LPI15HPSymQVL7B
-         7t2NAc4gxuR1RV7aB8JRkWADyIUvn2h+M7I461sZsfQ72rOFAwuHEsJ95wct/ANigmNB
-         LM9Z04yMssTQgTgwEZPaU6PKsrfKPA9gi3HIKLRnjz3NHpCDSaGx5cGSGs712hm+8PDf
-         +FrjNV94oO0OVYxxuMq/dr5cyNQOBGqwuP3HhWK5LTIFkEckT5rTsKSzP1MtklVHI8JR
-         4woG0YVU7lcZFV8yMCRZUP2IzWQtRmaK1+ArHxXKbNaArIKm6kddkx5P4HLVDaJ18FIM
-         lxoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcQccDpmsOpB0YbOXl5lyCf+qviVfDn33AOCZrUHbz0+VDJQ12/O+IgibIt7RtYeAICCNax20wRqgmza8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQd172aRo7Wv+tXN9LZ3fyPiwvWdjSli4Wjt5i6/jaCsn8uMzz
-	8puYdvlsjrs2UvW/+/yHqs49HcXqwtvtNU4gJ39Gsrn8I8u7S3VrKG7tCza7CKakUcw=
-X-Gm-Gg: AYBFou2wvjXCBUAl+i50ggvJceMiuFUCe3HmDXcD9MlP+Y4epJEB374iYNWQzg9MwtV
-	+Pg7oRnrBBzvqu9HJ/GiY7IV+yeImTr5qi354MHbMtdKoRMJuFvI44PISVwlDWrMvYIxGDYY+aD
-	uOH8NGq2lKB6qSuL0lFVLwijWB1Cehk3b1Er9IBrXofC+D4ERsBbSh2dIxBtm+1WRZRNYT36KEZ
-	HYZo4EMQNUU9ngRYgBsu+mwzN8roOgLwB05lqGpsBXXq98Z5iX67/AhUHLycQnLap2vnG+emsVo
-	iDK9zMKAt9svLqhuVuOWIxj81+6CuBOfOhupMKOaKquHfskYkCXnd2Br/OuDqbbk8gmxitPxgWp
-	YQH5vEjnAOMqHnY1fuBJSL4yn70Fftn2GQKVMuLFW0XYumHjKepg7NFZVlNsD/+QnoQ3bj6Zh1K
-	r3H2qXhvEIydDVzKStdETEA8v/92rMcP8/lSW5d8K3BJXWTgpoNsPBAnzeWASsyUUxEepULNhlJ
-	K78l4RDJQ==
-X-Received: by 2002:a05:600c:3513:b0:49e:816a:9bae with SMTP id 5b1f17b1804b1-49fe66f7198mr283609425e9.28.1790674331237;
-        Tue, 29 Sep 2026 02:32:11 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:e613:f8b0:9fed:6cf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8fa5bsm74550505e9.6.2026.09.29.02.32.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:32:10 -0700 (PDT)
-Date: Tue, 29 Sep 2026 11:31:56 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-Message-ID: <aruFjEq4AfcIOxa3@linaro.org>
-References: <20260922181818.5503-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="fADCS8dK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OSd43S7B34Gj0qjpkLqz3AQttKxZOJiXa3F/k88aeik=; b=fADCS8dKww1ApQmGbDzNeecQRH
+	bg8rMOAVPjXqKN6aDbAf8qjGXKapXujFMxKIRcANID5jEUlOhXUwnZcmZ/GQoKvlNXWSnM/CxIHL+
+	pfk/SMFDKvI0JLe/p887/ZneNYST1CHVdMZ8+fXnEZnMaE3xbuX/c+q0MPZA3SXCrJUwV4Ox7FAp9
+	SFtoRvdr6TE8tJCwLnZWsuT1d7oXSnZe/2tQz86qr25uFN0YMTxBXKp4D6807j3uphbubpqDSrl5s
+	RAw8DXiIrvPDbCoRbjyoox/gZzghNcoHMyAylt/c6qna6WdROpg3JZR0QUPck2zLTe6po5A7Y7gYR
+	mI2DeVVQ==;
+Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBUCd-0000000C342-21w8;
+	Tue, 29 Sep 2026 09:32:47 +0000
+Message-ID: <7f98cef0918465e8d6bc9e76d26afb8b12471773.camel@infradead.org>
+Subject: Re: [PATCH v4 2/4] pps: Drop the !NO_HZ_COMMON dependency from
+ NTP_PPS
+From: David Woodhouse <dwmw2@infradead.org>
+To: Rodolfo Giometti <giometti@enneenne.com>, Richard Cochran	
+ <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, John Stultz
+ <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,  Stephen Boyd
+ <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ linux-kernel@vger.kernel.org, 	netdev@vger.kernel.org, Alexander Gordeev
+ <agordeev@linux.ibm.com>
+Date: Tue, 29 Sep 2026 10:32:46 +0100
+In-Reply-To: <decd5d05-1373-4ddc-95bc-46b73d6f6b99@enneenne.com>
+References: <20260829210041.40649-1-dwmw2@infradead.org>
+	 <20260829210041.40649-3-dwmw2@infradead.org>
+	 <f6e90a49-8c68-42e6-bdff-ea9b3ecbaf7b@enneenne.com>
+	 <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
+	 <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
+	 <cb992b22907085c4ced8d9a35cd1c8836aad20ad.camel@infradead.org>
+	 <decd5d05-1373-4ddc-95bc-46b73d6f6b99@enneenne.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-bBRt8UOKx9uXLl8Y6vTL"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922181818.5503-1-daniel.lezcano@oss.qualcomm.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 22, 2026 at 08:18:18PM +0200, Daniel Lezcano wrote:
-> Add the thermal zones for the ThinkPad T14s and describe the board
-> temperature sensors exposed through the PMK8550 VADC.
-> 
-> The keyboard area is the main thermal constraint under sustained CPU
-> load. Add a passive thermal zone for it and progressively throttle the
-> three CPU groups as the temperature approaches the 53°C limit. The
-> groups are activated at 49°C, 51°C and 53°C respectively, with a
-> 1000 m°C hysteresis and a 500 ms passive polling interval.
-> 
-> The cooling maps limit each CPU cooling device to state 6, which
-> corresponds to approximately 1.9 GHz. Testing showed that the system can
-> sustain the workload with all three CPU clusters capped at this
-> frequency while maintaining the expected performance, making it a
-> suitable upper cooling state for thermal regulation.
-> 
-> Several configurations were evaluated while tuning the keyboard zone.
-> Using a single 53°C trip for all CPUs allowed the temperature to rise
-> quickly but resulted in a stable operating point around 54.3°C, about
-> 1.3°C above the intended limit. Introducing staged cooling before the
-> target significantly reduced the thermal overshoot. A 49/51/53°C
-> configuration kept the steady-state temperature close to 53°C, while a
-> later 49.5/51.5/53°C configuration improved the heating response but
-> shifted the equilibrium slightly above the target. Based on these
-> results, keep the earlier 49/51/53°C staging.
-> 
-> Also add a passive back-cover thermal zone which uses the GPU as a
-> cooling device at 64°C, together with a 73°C critical shutdown trip.
-> 
-> Describe the remaining SMB, SDX, east and west board temperature
-> sensors as monitoring-only thermal zones, and enable ADC thermal
-> monitoring on the corresponding PMK8550 VADC channels.
-> 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->  .../qcom/x1e78100-lenovo-thinkpad-t14s.dts    | 142 ++++++++++++++++++
->  1 file changed, 142 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> index 5cc6a63d1ef6..9407868864ad 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> @@ -10,6 +10,117 @@ / {
->  	compatible = "lenovo,thinkpad-t14s-lcd", "lenovo,thinkpad-t14s",
->  		     "qcom,x1e78100", "qcom,x1e80100";
->  
-> +	thermal-zones {
-> +		soc-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> +		};
-> +
-> +		keyboard-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <500>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
 
-I believe this is "towards back cover next to heat pipe" on T14s, not
-"keyboard".
+--=-bBRt8UOKx9uXLl8Y6vTL
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SYS_THERM1 is RT8502 and you can find that labelled on the top bottom
-right in this mainboard picture:
-https://download.lenovo.com/Images/Parts/5B21P83385/5B21P83385_A.jpg
-
-In the T14s, the mainboard is mounted 180° rotated, you can see the same
-part of the mainboard in the top middle here, above the heat pipe,
-facing towards the back cover:
-https://www.notebookcheck.net/fileadmin/_processed_/d/c/csm_DSC_0003_aadae1ddd2.jpg
-
-> +
-> +			trips {
-> +
-> +				keyboard_alert0: trip-point0 {
-> +					temperature = <49000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-
-If I'm reading the Windows ACPI setup correctly, it starts throttling
-much later. The main thermal zone used for throttling on Windows is
-TZ40, which is thermistor 2 read through the qcom-hamoa-ec interface
-(b94000.i2c, 'i2cget -y N 0x36 0x2a b'). TZ39 with thermistor 1 looks
-like the SoC thermistor, so TZ40 could be the EC equivalent of
-SYS_THERM1, i.e. RT8202 also visible in the mainboard picture above.
-
-On Windows, TZ40 is configured as follows on my T14s:
-
-Passive throttling starting at:
- - 3310 dK (57.85°C), power mode "balanced" (current default for EC)
- - 3330 dK (59.85°C), power mode "performance"
- - 3230 dK (49.85°C), power mode "low power"
-
-Cooling devices:
- - CLS0.CPU0-3
- - CLS1.CPU0-3
- - CLS2.CPU0-3
- - GPU0
-
-If we start throttling earlier than Windows, I would be worried that the
-EC will not reach the trip point for maximum fan speed, and we'll end up
-overly throttling the device.
-
-> +
-> +				keyboard_alert1: trip-point1 {
-> +					temperature = <51000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				keyboard_alert2: trip-point2 {
-> +					temperature = <53000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				keyboard-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&keyboard_alert0>;
-> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu1 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu2 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu3 THERMAL_NO_LIMIT 6>;
-> +				};
-> +
-> +				map1 {
-> +					trip = <&keyboard_alert1>;
-> +					cooling-device = <&cpu4 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu5 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu6 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu7 THERMAL_NO_LIMIT 6>;
-> +				};
-> +
-> +				map2 {
-> +					trip = <&keyboard_alert2>;
-> +					cooling-device = <&cpu8 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu9 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu10 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu11 THERMAL_NO_LIMIT 6>;
-> +
-> +				};
-> +			};
-> +		};
-> +
-> +		backcover-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <400>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-
-If the keyboard-thermal above is "towards back cover next to heat pipe",
-I'm not sure what this is. I've been trying to figure it out but no luck
-so far. Maybe someone would need to sacrifice a T14s and take a look at
-the mainboard markings after removing all these thermal tapes ... :/
-
-https://download.lenovo.com/Images/Parts/5B21P83377/5B21P83377_B.jpg
-
-If this sensor is equivalent to EC thermistor 3 (TZ41) in ACPI, then
-Windows does not use this for throttling at all.
-
+On Tue, 2026-09-29 at 08:33 +0200, Rodolfo Giometti wrote:
+> On Mon, 2026-09-28 at 20:28 +0100, David Woodhouse wrote:
+> > Yeah, working on that now. My first soak test on the nohz_full build
+> > didn't have nohz_idle, so it wasn't really very tickless.
 > [...]
-> +		smb-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-> +		};
-> +
-> +		sdx-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-> +		};
-> +
-> +		east-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-> +		};
-> +
-> +		west-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-> +		};
+> > More data, and pretty graphs, when I'm confident of the results and hav=
+e the
+> > A/B testing.
+>=20
+> Thanks, looking forward to it.
 
-FWIW, there is also ssd/wlan-thermal (SYS_THERM7)
-thermal-sensors = <&pmk8550_adc_tm ADC5_GEN3_AMUX6_THM_100K_PU(1)>;
+It took some side quests to make the thing actually quiesce for 5
+seconds at a time. Runtime PM waking the CPU twice a second just to
+decide whether it should put some device to sleep is ironic, Ethernet
+stuff with *two* timers when I hadn't even brought it up (and crashing
+when I unbind it!), and some other stuff around the 1 second period.
 
-Thanks,
-Stephan
+And of course the "PPS" actually being "PPfiveS".
+
+Two things I learned from the overnight run:
+
+When second_overflow() is delivering skew, timekeeping_max_deferment()
+should trigger a wakeup at the end of the second to ensure that the
+skew gets recalculated =E2=80=94 rather than leaving it active indefinitely=
+.
+That's true even without hardpps, but with STA_PPSTIME causing
+ntp_offset_chunk() to deliver the *entire* phase offset each second, it
+gets more important.
+
+My overnight results were perturbed by a patch I'd intended to drop
+from my tree (deliberately skewing to eliminate ntp_error, which has
+exactly the same problem as above). Although the same fix addresses
+both, and I *am* seeing residue left in ntp_error from the way that
+hardpps overwrites the time_offset even while it's being skewed in the
+opposite direction, so I'm restarting the run with that corrected.
+
+So the results at https://david.woodhou.se/ntptest-r64/tickless/ need
+to be redone, but you can take a look and shout if you want me to
+change what I'm capturing or how I'm doing it.
+
+The test case is
+https://david.woodhou.se/ntptest-r64//initramfs/src/init.c
+
+It first sets the clock roughly from NMEA and then lets the kernel
+hardpps discipline loose on it to do the whole of the frequency
+correction from the nominal crystal frequency, and the phase error from
+NMEA. (I did have it handling a few pulses in userspace and priming the
+frequency and phase, to skip to the steady state. But that's cheating.)
+
+
+--=-bBRt8UOKx9uXLl8Y6vTL
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+ngFL06HPwBDdhJeOcwZeuU4AAAAAAAA=
+
+
+--=-bBRt8UOKx9uXLl8Y6vTL--
