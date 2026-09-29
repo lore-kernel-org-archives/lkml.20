@@ -1,65 +1,64 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528534EBAE4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89654ABBAD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673499; cv=none; b=D7ncP2Um9f1+ohEvqYxChCj/9rNOXjnFDfGxBUOsEzcLlvFbSoZMWrlcxy/tcg7AJvmIvsyYVvscIJX/Ej7PN3qCxvOVadOXU3kHXqL3x8o8vxdvTlWJHl0Uak3Sl4DOfJc4c0GmGZoME66fZuU0RGOQFADTXHMDwm1z1ew0niM=
+	t=1790673505; cv=none; b=pp75priAmRTF74waPQhpKhBEi0gmkIJ77X14+fpO8AO+/DIJ8fdWZdMoIGffGYUP37UYWexRuYks3J+tvVEAQxGj7qQ1jBMorV/PwiHZ1rUZPmW05sPQgjkIIb3xekej2t/pVV+J5+9uRML1jXboEZqp01SR1pzggEJYxxD4KzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673499; c=relaxed/simple;
-	bh=Oc5+m+0waFnTNHvgcr2mgu5TTazhGdM4vf3aK8aZ9FQ=;
+	s=arc-20240116; t=1790673505; c=relaxed/simple;
+	bh=bS5Bl0xa81rzIkxNbApegWs2WZzqmBmCIE8TNuw54Pc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uTmvcwnGlgwNPbaXRt+B6Tv4qLpxiUcDRFteZtPax9HpF0lWhCT2kqaWZGBVajNPD+m4NqVqS4hWY0qqCK9kIVTbOd5gG5dUQYKb/M3wF9K4HeM9Wz+yYJ2HOJWOUxujKIzJUetplNRRZCDJXA5lQcSQgVgdouDRigToN3BS3P8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=KHZ0yoCE; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=NaGg4pGzMRqtMvTTL6pYT4l1c8DzAqj7unS4z0100+xtciYL9u1zWxbWaglSU3N8DFuQRS0dbRL5LyslDDmZ4jGk8TfwYYBK1fsbLtsOaHYqZh/kNZQycakj/O9AKPLHruI/pg8icTlZCnrhguHYtS4OBCFMwROCrIUSneM2y6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=j9O14ToK; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="KHZ0yoCE"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso2381579f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="j9O14ToK"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so1383756f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1790673491; x=1791278291; darn=vger.kernel.org;
+        d=bynar.io; s=google; t=1790673496; x=1791278296; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gy8M9IcJOjQGerNQOszCI6du9tK0xE+gWxQhuH6f0Rg=;
-        b=KHZ0yoCE7vwKiaKUqEdgxwVS5sr7dmPNp2PlefP/Mn4eEwb8x8t10zEg7jR3HNJAjQ
-         zrytvyYxiuU+qezqq5G6+qrDX0VAGnAiBZfGbcyCtlYUhVblCMtCGiuJSvyTI+CDyv1R
-         sN/ja3M4sK8W9iseo+uZmpBR+eUUv5UmrNhwdo8QBM6c1ylZqTgts5u/IjL1v5jP7zEa
-         P0g4YWOZAmYYqvpfW9xnGg37BZgEm7+fI9bgja7+bce281NsxyT1lYbXnCY1iCI7ZcgK
-         /Vnx0NR6kxGlP4TybzHdbPS+QrQPq8shZpX2PvkyPoZI2G7MvFyJkqmp5j5SrqnZlWwu
-         kCdQ==
+        bh=UwebXvzDIraGE65KpDBsvLxOFDUyckzx1+RkdFrULNo=;
+        b=j9O14ToK61ZEHyLSgktne67vMgvUXX2wobpBc+69iuPOYNrv/E981ATSbE/EiS2osg
+         MNBxHeafkpZCPcndngKT+CawhQHG86Jb8xeHyfIF6/StLNC8rMTSREiXYlvmagE7n39w
+         2ZWUOXVnJghxTJORPyyE0WP/ocnUf41m2s/eA7ct5l/TZGkL/lZYj+TOJygWPn3kg/Xz
+         uhme4ygPKWH7fxxIh1KQbm9gfWIpc0L68w77OtNSQt/pZ88Kb42zhYd+7qAmqfKIo5db
+         3I7urDwhDfW1gtmKvnfRuJpKbgy4WoVxB+4iIdVX2LcuseZkEMBZhMsb11IeEvHfFVHi
+         hpNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790673491; x=1791278291;
+        d=1e100.net; s=20260707; t=1790673496; x=1791278296;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gy8M9IcJOjQGerNQOszCI6du9tK0xE+gWxQhuH6f0Rg=;
-        b=KV5H4PfxLn45EwRp9QUhUE8fwBTBsUBFuIAtgGt/f0zpkTQR3X3nBKtHNck8S73frL
-         /y3qbxQXIN4IVfblKNRM5zPpgY/J8t2EAd15IWNoHk5tXp3LU+rAaNG92oXCPduXBYCk
-         2Ny3IYOrCmMlA8LQfqiV5AfdEDHNPybNOyv/pop1R63ektQSiFGLNrekQzDoZTo+gNSE
-         74QBBWkmr7wXmP9anNMSXPD3LXqtMmmjMAFL8EMZcKGdYKnAcPHUtxtaAAp3QTwOyF0o
-         Igr4Smngt7P/ML8XkXCdyhiw8/tBADXFgH0AX2cc0TVdWJr1NYAAXHNumDcBgwUG/ctF
-         S7rg==
-X-Forwarded-Encrypted: i=1; AKwUvBwc0jLLqrUKobIlsYmNP1LN9ovHH18c3zCBJed34OCQjIvYJmiVksGFfmmfmkpJp4fpUjZqTJJi4MAmVnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTAB6cltFOQh5PDx7YJ9Sal9Vw7F2tjth7QPpdxIN7VRYvPzdB
-	O4k9KFSfIf15mMDRys5/wIx2YgzoStPBxGeEYYDue3qOdWnOlheFNcBwQGRc+sCPqxKZvrCaWEh
-	r9JhTmG8h
-X-Gm-Gg: AYBFou29UEfJlXlg7jmk2ifHJJh28dlaFSf9v/Ryxm1oTouuwpL6AJZxhMgHuwBYwu2
-	aAAHd0veM9n17/N97YdMoqSNuZ02wQ5YdfS7qGw1j7L/jW1ZAZuN/hdM+PCTXs12m7NM9hLNW+L
-	aYipdmIotD8HlUNupjXFXRfq+SwrbZ5YGG9DE6fMk8pcHkUTzNRpnKGDLD52k6CS3eJkpwayWTm
-	mrB1vZKZTrZOV4cGVYYHVjsIZCb2dlrgtOll5zRHrUhuwgCs0Ch4P0ir8SkpfZxQx48Lc1Fysyy
-	+rz2u+z2eOKv2i6r9NE1UOPYWt9uxQ+MT08D+vUDWIzubeDbcY1QGdDCoUKdsiZaE2g9ni9t/P2
-	UWdERRdKTT5zNnMrP5NGhka9oG+aG0KyHvqdDhpqpzpvLPZcQiSzCN9ebSy3RCip1/KdRBE6vOK
-	bEyVN9q+SL41kdoZ3yKB0u2Uqf3W2ULRXPvjAPhIkzsrfDJPfB7ZAXmldm6kCbzjRXyJc1cp3Qw
-	fWxudLtLN3quXNzatOTYuo9CvU=
-X-Received: by 2002:a5d:5f05:0:b0:488:82c5:ee4a with SMTP id ffacd0b85a97d-48882c5eed0mr17621546f8f.7.1790673490767;
-        Tue, 29 Sep 2026 02:18:10 -0700 (PDT)
+        bh=UwebXvzDIraGE65KpDBsvLxOFDUyckzx1+RkdFrULNo=;
+        b=MytSCgcQX9h+47mp6FNIowTnCCcSydbIWise67dKVg4DmRobXClebAK3w/h4qnD+9R
+         VSVdVjQH0joieQ0IcAth5aQC6d+JwAeNhzXOE3aQXuJnaGdIgTfcAu+lWWiqkQ2jkEmj
+         l18RiiJ+jcMuzEgo/N7EziWQwiWJFeZtu+p+bpML5IE1zEMcXIDr/HgIFjZzsUXGxicT
+         h3YdNOiHAYHASWz892VVA0CZrMrHFYkwk1TUlQBNUGClVfSMcTbH78vlUGzZO16hbQEf
+         ZAoV3Y2JYSq399k5V5Yhu8C57Y/eWRdxU8du2rxaaVpfTcnG+8AqQPJTTt2FEnCtyY+m
+         aFcA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTZEIclTwJ1VVLWJO3pvoxfsrojDBu1XC2wcewzrNK5lid5a4pmTJMa8EEA0O/mbQR2+z6EP/lHCVmdzE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcBQc6odWBiaVLk4KxUWdEiRbbDQqwGTurJRujExIfa00Ldddi
+	G2ez9mKJ7UD8A+GSaAnlzKmmwc71RPJT/B2xSD27OcyfM/ckmVbS8HNA3JegkgLGiTlc
+X-Gm-Gg: AYBFou0vLU1turVpRKQnxjJrmXDMjX+b8IY4+5sBBvJkqJ8DYMrHbdNWUKy4+XsB7CO
+	+GsnPP2LHYk/2xWO/GnqzBzhxamQVyd9gwBAe8CJ0svCBR1ABzB0D3dSi2hBhwQiSlf3OibBau3
+	S3hFfUg+auFB82HPzPcI6hU9BuUJ4066i1l4CgtD5s/IMTbYdLFfZnWRW8QIpwHes+D6QVFaBE7
+	SmAwVZ7w/+YavS81vhRzPlTgqTwd3+du1o9zNMBuBbBgpJUpwnO+JbaokeM5CiCPmJU81o4KwH3
+	KbH0dwrr3oRGWfWAKTOlaFZ2U8XmeLG6ahFYmCaDoxCC0MXDzJO8CRTyJBRASyzHY+dxJ7OvORA
+	I66Jzh2dOSCU0bc4+2MtJMER+9HDkADTMworp5v/BzNaCEGBqwelLycJKpbSbUDa+EMwvgiQlAC
+	qSOg5emfW2I7uZsyoE9GBlCtqGnLYHwZ9OiLL5wNeidadNLEzAcxwUWdX2n8HGdHA5NuDxuCEEj
+	U5i6WbePncxrI+tvY07nQFSQGj5
+X-Received: by 2002:a05:6000:1446:b0:487:a87:24c9 with SMTP id ffacd0b85a97d-48af1a8f14dmr3594245f8f.3.1790673496044;
+        Tue, 29 Sep 2026 02:18:16 -0700 (PDT)
 Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:18:10 -0700 (PDT)
+        Tue, 29 Sep 2026 02:18:15 -0700 (PDT)
 From: Diego Oliva <diego@bynar.io>
 To: Paulo Alcantara <pc@manguebit.org>,
 	Namjae Jeon <linkinjeon@kernel.org>,
@@ -71,9 +70,9 @@ Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
 	Jeff Layton <jlayton@kernel.org>,
 	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/7] smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
-Date: Tue, 29 Sep 2026 10:16:31 +0100
-Message-Id: <20260929091636.2618227-3-diego@bynar.io>
+Subject: [PATCH 7/7] smb: client: drop the redundant name bounds in cifs_filldir()
+Date: Tue, 29 Sep 2026 10:16:36 +0100
+Message-Id: <20260929091636.2618227-8-diego@bynar.io>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260929091636.2618227-1-diego@bynar.io>
 References: <20260929091636.2618227-1-diego@bynar.io>
@@ -85,158 +84,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CIFSFindFirst() and CIFSFindNext() locate the last entry of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response by adding the
-LastNameOffset of the response parameters to the start of the data
-area, and store the result in psrch_inf->last_entry. MS-CIFS 2.2.6.2.2
-defines that offset as the offset of the entry's file name; the client
-follows the reading of NT and Samba servers, which point it at the
-entry. LastNameOffset is only checked against CIFSMaxBufSize, which
-says nothing about the response actually received: validate_t2() lets
-the data area start up to 1024 bytes into the buffer, and SendReceive()
-copies at most CIFSMaxBufSize + MAX_CIFS_HDR_SIZE bytes of a response,
-16468 by default, into a cifs_request allocation of CIFSMaxBufSize +
-MAX_SMB2_HDR_SIZE bytes, 16588 by default. The pointer itself can
-therefore be placed anywhere from the end of the received data to 820
-bytes past the end of the allocation.
+cifs_fill_dirent() rejects an entry whose name extends past the end of
+the response before it returns, for both of its callers. The two
+checks cifs_filldir() applies after the parse can no longer fail: the
+one that commit f8cf09a53a0d ("smb: client: bound dirent name against
+end of SMB response in cifs_filldir") added tests the same name
+against the same end, and the older one, which compares the name
+length with the length of the response, is implied by it because the
+name starts inside the response. Remove both.
 
-The read through that pointer is far larger than its displacement.
-find_cifs_entry() hands last_entry to cifs_save_resume_key() after every
-FindNext and after the FindFirst of a search rewind, and
-cifs_fill_dirent() takes the length of the name from the entry itself: a
-__le32 FileNameLength for most levels, a __u8 for
-SMB_FIND_FILE_INFO_STANDARD, and for SMB_FIND_FILE_UNIX the result of a
-scan for the terminating NUL over up to PATH_MAX + 1 UTF-16 units. The
-name is recorded as the resume name of the search, and the next
-CIFSFindNext() rejects only a recorded length of PATH_MAX or more before
-copying the name into the ResumeFileName of its request and sending it
-with the resume key taken from the same entry: up to 4 KiB of memory
-from past the end of the allocation leaks to the server, and for
-SMB_FIND_FILE_UNIX the NUL scan runs about twice as far before the
-length is even known. The entry does not have to lie outside the
-response for that either: a maximal response ends about 120 bytes before
-the end of the allocation, so an entry in its last bytes with a name
-just under PATH_MAX has nearly all of that name copied from past the
-allocation.
+This patch depends on "smb: client: fix OOB read of the resume name
+sent in TRANS2_FIND_NEXT2", which added the check to
+cifs_fill_dirent().
 
-It needs nothing unusual from the client: a FindNext response that
-reports no entries and does not end the search makes find_cifs_entry()
-send the next FindNext at once, carrying whatever was parsed at
-LastNameOffset, and a search rewind can do the same after its
-FindFirst. SMB1 is not negotiated by default: this takes a malicious
-or compromised server, a mount of it with an explicit vers=1.0, which
-CONFIG_CIFS_ALLOW_INSECURE_LEGACY (default y) permits, and a directory
-listing on that mount.
+No functional change intended.
 
-With KASAN enabled, a response that places the last entry past the
-buffer, with a large DataOffset and a LastNameOffset near the end of
-its range, gives:
-
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in cifs_save_resume_key.isra.0+0x7aa/0x7f0
- Read of size 4 at addr ffff88807b55c33b by task ls/83
-
- CPU: 1 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  cifs_save_resume_key.isra.0+0x7aa/0x7f0
-  cifs_readdir+0x1ed6/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
-
- Allocated by task 83 on cpu 0 at 19.317556s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
-
- The buggy address belongs to the object at ffff88807b558000
-  which belongs to the cache cifs_request of size 16588
- The buggy address is located 623 bytes to the right of
-  allocated 16588-byte region [ffff88807b558000, ffff88807b55c0cc)
- ==================================================================
-
-The four bytes read there are the FileNameLength of the entry, which
-cifs_fill_dirent() takes before anything checks where the entry lies.
-
-Ignore the last entry when it does not start inside the received
-response or the response holds no entries; for a response without
-entries, last_entry pointed into or past its empty data area and
-cifs_save_resume_key() parsed whatever the buffer held there. The
-entry is bounded by the response that was received, which is what the
-buffer holds, rather than by the data area the response declares,
-which a later patch checks against the received length. Record the
-search handle before the last entry is examined, since a response
-without a usable last entry still carries the handle that the search
-is continued and closed with; leaving the assignment in the else
-branch would drop the handle of every response without entries.
-
-This bounds where the last entry starts, not how far it is parsed: an
-entry that starts within the final bytes of the response still has
-its fixed part read past the end of the received data and its name,
-up to 4095 bytes, copied from past the end of the allocation, until
-the following patch bounds the parse itself. A response without a
-usable last entry continues the search with an empty resume name,
-since the preceding patch, "smb: client: fix use-after-free infoleak
-via the readdir resume name", drops the recorded name whenever a new
-response is installed. This patch applies on top of that one and
-relies on it: without it, every response rejected here would leave
-the previous name in place, pointing into a buffer that has been
-released.
-
-A conforming server is not affected: the last entry lies inside the
-data area of the response.
-
-Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
-Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
-Cc: <stable@vger.kernel.org>
 Assisted-by: Bynario AI
 Signed-off-by: Diego Oliva <diego@bynar.io>
 ---
- fs/smb/client/cifssmb.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ fs/smb/client/readdir.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 67f033b960e6..7eb83dd737fc 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -4546,14 +4546,17 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->presume_name = NULL;
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
-+	if (pnetfid)
-+		*pnetfid = parms->SearchHandle;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
- 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
--		if (pnetfid)
--			*pnetfid = parms->SearchHandle;
- 	}
- 	return 0;
- }
-@@ -4670,7 +4673,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 1e121c970685..569efdfb7360 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -1016,17 +1016,6 @@ static int cifs_filldir(char *find_entry, struct file *file,
+ 	if (rc)
+ 		return rc;
+ 
+-	if (de.namelen > max_len) {
+-		cifs_dbg(VFS, "bad search response length %zd past smb end\n",
+-			 de.namelen);
+-		return -EINVAL;
+-	}
+-
+-	if (de.name + de.namelen > end_of_smb) {
+-		cifs_dbg(VFS, "search entry name extends past end of SMB\n");
+-		return -EINVAL;
+-	}
+-
+ 	/* skip . and .. since we added them first */
+ 	if (cifs_entry_is_dot(&de, file_info->srch_inf.unicode))
+ 		return 0;
 -- 
 2.39.5
 
