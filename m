@@ -1,272 +1,122 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621A651AFFD;
-	Tue, 29 Sep 2026 10:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0108351122E;
+	Tue, 29 Sep 2026 10:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678254; cv=none; b=AccAXsi+50/MxC0JQWPkyjMcSlmL7LStguFpmM6KIfQXcxzqvvviIY80OimDS8nnGCZAzDUndtzqH4JjrHDvQO91VW+feT1VZJJf86BVjL/qpDawWEcQ4EwK90wczc4ehkvYbM3oFMuL23/ASu9f6K5+G0gxFzAtwh6tfv3Pv0g=
+	t=1790678255; cv=none; b=FSkVJyIQTnfqwJJkgbOmvz24COUSWM3wB7UaE23kCfHAWLhRS5q7e0DOOpIqOCLcNgbUtZdNom4JuTaH2I+MN7b+Nk9BQII/5OiHC90x0s8/fcvFtLBdbfDKRHuiCXaxiKA7ZGpDakRrO+HFT5RPzJGxFabfIxCsZpjTz+ppO4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678254; c=relaxed/simple;
-	bh=tgG+2nD/E61nkV/W3IiYt7H0jtYf+9wl3Uv9RGfHQJA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Egh4bNhFPyQ8p1k2QmHtCLOuUXSfwxsPkwXd2Q+SorvMIK0R2pJbZhz+H/ufxTR952/7SAqbmOsY1WGThoo5gSASokPH10sgT7NTjU0bgyhgG2DEiLTexiRbEmIacJ6/tPkct+gOq8RIGx2zaH0SCG9Hp0csAtA28obNU7PfooI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=QPNRPNxj; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790678255; c=relaxed/simple;
+	bh=zk/sW/7dKyqBBddE4Q1iLVHl5U2i7wrfyuso679Wkys=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oYzOZ1cwoBL8vqdFf1i/359LyKXC75zeihddeFo7vvBbJv4JPOKDR4sbCY1sRbkVkIkzicZAx9mqzxSHWy172dse0RwpGRE+pbaKQegP2LGPSdMbGszrw1CWKI15M1XVU+HvpN1phMe/2PHN9AS4e4M6JApDpxkvcNvHyBBxmKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=awY69VGz; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="QPNRPNxj"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=76CIBP4H7EHvQiPkpaJ4BZqjj5jFIlrcHq0F+WJzE3o=;
-	b=QPNRPNxj53Z83AQ082PUc0ysOfKsvgBR9/nwqNMuCIFcP1D27lpB6ny4oQ8PPiispsxpANzQK
-	rqrssDfkVBe5YZvgbZ+3VoL9aHeYvSItzkxP7CdzrWJ5gHFh7de0LomBLtjnc8VSHcqrR0J2R0p
-	VmLHvAt9Irm0Y+jPbxXKxwM=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hvDpv6k1sz1cyVf;
-	Tue, 29 Sep 2026 18:25:59 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 064BB40578;
-	Tue, 29 Sep 2026 18:37:06 +0800 (CST)
-Received: from huawei.com (10.50.163.32) by kwepemr100010.china.huawei.com
- (7.202.195.125) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 18:37:05 +0800
-From: Tian Zheng <zhengtian10@huawei.com>
-To: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
-	<zhengtian10@huawei.com>, <leo.bras@arm.com>
-CC: <yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>,
-	<yangjinqian1@huawei.com>, <caijian11@h-partners.com>,
-	<liuyonglong@huawei.com>, <tangchengchang@huawei.com>,
-	<yezhenyu2@huawei.com>, <yubihong@huawei.com>, <linuxarm@huawei.com>,
-	<joey.gouly@arm.com>, <kvmarm@lists.linux.dev>, <kvm@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>,
-	<mark.rutland@arm.com>, <seanjc@google.com>, <rdunlap@infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<skhan@linuxfoundation.org>
-Subject: [PATCH v5 12/15] KVM: arm64: Derive the VM hardware dirty mode from dirty logging
-Date: Tue, 29 Sep 2026 18:36:52 +0800
-Message-ID: <20260929103655.85107-13-zhengtian10@huawei.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20260929103655.85107-1-zhengtian10@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="awY69VGz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E38334E410B8;
+	Tue, 29 Sep 2026 10:37:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AD3D7601BD;
+	Tue, 29 Sep 2026 10:37:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57982103297DC;
+	Tue, 29 Sep 2026 12:37:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790678235; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iOxyCS599oVo+AZS8JSoUu6X3bzbx9qa/yjHz16Q5+8=;
+	b=awY69VGzxHFCSZVboz5MVQUhK4Yr4tWBaJBBGV2WWHGpRF2fiN9X93UAm6z/xxKWWR703v
+	PTnDrGxLz/JSdWFilMw0GAFq/bsoXyeLMIy8r1Qi18WJnmEn/NYsN7z8a0gnzCofpOxoYJ
+	mej1BnLsULUJBvjTbXYPgNQwhf7aG+0kxntKvibiHYprvaL1AwH5UhwWobx3b7Zq5kqDgX
+	Wg6hJskBRWE8K/y/ap3/HaFIuGdHBdJ1CJPHredDsXnkX2kperR4I1w1g4gNUv5C8UmvKp
+	L0z2Sb24I7wSb9Lh9HFrM/Q5AkXxf2+T+40sTf50p3knnZqXg11V7qcoYsupMg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Tue, 29 Sep 2026 12:36:37 +0200
+Subject: [PATCH 5/7] drm/vc4: dpi: stop using deprecated
+ drmm_of_get_bridge()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-drm-fix-of_get_bridge-build-regression-v1-5-ccb7e602daad@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Both HAFDBS and HDBSS flip VTCR_EL2.HD at memslot-update time. Two
-independent toggles allow an intermediate HDBSS-set/HD-clear state,
-an illegal combination, and need locking against concurrent updates.
+devm_drm_of_get_bridge() is deprecated, switch to
+of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
+a refcounted bridge, ensure it is put.
 
-Replace both with kvm_arch_update_hw_dirty_mode(), a pure function
-of the static capabilities and the number of logging memslots:
+drm_panel.h becomes unused, drop the include.
 
-  - logging && HDBSS-capable  -> HD|HA|HDBSS
-  - logging, no HDBSS         -> off
-  - !logging && HAFDBS-cap.   -> HD|HA
+Also remove a comment that is now obvious: now panels are just bridges.
 
-Recomputing rather than toggling needs no locking against racing
-writers, and a vCPU created mid-migration inherits the current mode
-from the shared VTCR at its first vcpu_load().
-
-The HAFDBS leg is not gated on nested virtualization: shadow MMUs
-build their own VTCR without HD, and the L1-visible HAFDBS ID is
-capped at AF-only. The HDBSS leg stays gated for now, as the nested
-exit-flush and harvest paths are unaudited.
-
-kvm_s2_fault_compute_prot() consults the live HD state of the target
-MMU rather than the canonical VTCR, so a nested read fault does not
-install a writable-clean shadow entry, which is read-only under the
-HD-less shadow VTCR.
-
-The mode switch issues one KVM_REQ_RELOAD_STAGE2 followed by a
-VMID-wide TLB invalidation, as the request only reloads VTCR_EL2 and
-cached translations outlive the old mode. HA is always set together
-with HD, as FEAT_HDBSS requires VTCR_EL2.{HDBSS,HA,HD}.
-
-Also factor kvm_has_nv() out of vcpu_has_nv() for the VM-level HDBSS
-check.
-
-This is a rework of Leonardo Bras' "Enable HAFDBS for guests not on
-migration".
-
-Link: https://lore.kernel.org/all/20260901171558.2674031-6-leo.bras@arm.com/
-Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- arch/arm64/include/asm/kvm_mmu.h    | 18 ++++++++++
- arch/arm64/include/asm/kvm_nested.h |  9 +++--
- arch/arm64/kvm/hyp/pgtable.c        | 14 ++++++--
- arch/arm64/kvm/mmu.c                | 56 ++++++++++++++++++++++++++++-
- 4 files changed, 91 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/vc4/vc4_dpi.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
-index 6eae7e7e2a68..24407194444a 100644
---- a/arch/arm64/include/asm/kvm_mmu.h
-+++ b/arch/arm64/include/asm/kvm_mmu.h
-@@ -390,6 +390,24 @@ static inline bool kvm_supports_cacheable_pfnmap(void)
- 	       cpus_have_final_cap(ARM64_HAS_CACHE_DIC);
- }
-
-+static inline bool kvm_supports_hafdbs(void)
-+{
-+	return IS_ENABLED(CONFIG_ARM64_HW_AFDBM) && has_vhe() &&
-+		cpus_have_final_cap(ARM64_HW_DBM);
-+}
-+
-+static inline bool kvm_supports_hdbss(struct kvm *kvm)
-+{
-+	return system_supports_hdbss() && !kvm_has_nv(kvm);
-+}
-+
-+void kvm_arch_update_hw_dirty_mode(struct kvm *kvm);
-+
-+static inline bool kvm_hw_dirty_enabled(struct kvm_s2_mmu *mmu)
-+{
-+	return mmu->vtcr & VTCR_EL2_HD;
-+}
-+
- #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
- void kvm_s2_ptdump_create_debugfs(struct kvm *kvm);
- void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu);
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 586026e85903..6226b330d7c8 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -7,11 +7,16 @@
- #include <asm/kvm_emulate.h>
- #include <asm/kvm_pgtable.h>
-
--static inline bool vcpu_has_nv(const struct kvm_vcpu *vcpu)
-+static inline bool kvm_has_nv(const struct kvm *kvm)
+diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
+index 53f36626a50d..5060eb463704 100644
+--- a/drivers/gpu/drm/vc4/vc4_dpi.c
++++ b/drivers/gpu/drm/vc4/vc4_dpi.c
+@@ -16,7 +16,6 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+@@ -279,16 +278,12 @@ static const struct of_device_id vc4_dpi_dt_match[] = {
+ 	{}
+ };
+ 
+-/* Sets up the next link in the display chain, whether it's a panel or
+- * a bridge.
+- */
+ static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
  {
- 	return (!__is_defined(__KVM_NVHE_HYPERVISOR__) &&
- 		cpus_have_final_cap(ARM64_HAS_NESTED_VIRT) &&
--		vcpu_has_feature(vcpu, KVM_ARM_VCPU_HAS_EL2));
-+		kvm_vcpu_has_feature(kvm, KVM_ARM_VCPU_HAS_EL2));
-+}
-+
-+static inline bool vcpu_has_nv(const struct kvm_vcpu *vcpu)
-+{
-+	return kvm_has_nv(vcpu->kvm);
- }
+-	struct drm_device *drm = dpi->encoder.base.dev;
+ 	struct device *dev = &dpi->pdev->dev;
+-	struct drm_bridge *bridge;
+ 
+-	bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
++	struct drm_bridge *bridge __free(drm_bridge_put) =
++		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+ 	if (IS_ERR(bridge)) {
+ 		/* If nothing was connected in the DT, that's not an
+ 		 * error.
 
- /* Translation helpers from non-VHE EL2 to EL1 */
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index 9dde7e779699..0472edcb63b9 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -1313,9 +1313,17 @@ static int stage2_wrprotect_walker(const struct kvm_pgtable_visit_ctx *ctx,
- 		ctx->mm_ops->mark_page_dirty(kvm_pte_to_phys(ctx->old));
-
- 	/*
--	 * We may race with the CPU trying to set the access flag here,
--	 * but worst-case the access flag update gets lost and will be
--	 * set on the next access instead.
-+	 * The plain WRITE_ONCE races with hardware updates; both are
-+	 * benign.
-+	 *
-+	 * AF: the update may be lost, and is set on the next access.
-+	 *
-+	 * Dirty state: we only rewrite entries whose old value had S2AP[1]
-+	 * set, while hardware only promotes entries with S2AP[1] clear, so
-+	 * the two never touch the same entry. The one overlap is DBM removal
-+	 * on writable-clean blocks: a racing promotion is demoted back to
-+	 * read-only, but the write is still recorded in the HDBSS buffer and
-+	 * the folio was marked dirty at fault-in, so nothing is lost.
- 	 */
- 	if (kvm_pte_valid(ctx->old) && ctx->old != new)
- 		WRITE_ONCE(*ctx->ptep, new);
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index c1e09ba98d48..17786453c004 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -2022,7 +2022,19 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
- 	if (s2vi->map_writable) {
- 		*prot |= KVM_PGTABLE_PROT_W;
-
--		if (s2vi->device || !memslot_is_logging(s2fd->memslot) ||
-+		/*
-+		 * Check the live HD state of the MMU being installed
-+		 * into, not the static capability: HD is off for the
-+		 * whole VM as soon as any memslot logs, and under HD=0 a
-+		 * writable-clean entry behaves as read-only, costing an
-+		 * extra permission fault per page. Shadow MMUs never
-+		 * carry HD, so nested installs are always writable-dirty.
-+		 * A racing flip is benign: at worst one page takes one
-+		 * extra fault.
-+		 */
-+		if (s2vi->device ||
-+		    !(memslot_is_logging(s2fd->memslot) ||
-+		      kvm_hw_dirty_enabled(s2fd->vcpu->arch.hw_mmu)) ||
- 		    kvm_is_write_fault(s2fd->vcpu))
- 			*prot |= KVM_PGTABLE_PROT_DIRTY;
- 	}
-@@ -2617,6 +2629,45 @@ int __init kvm_mmu_init(u32 hyp_va_bits)
- 	return err;
- }
-
-+/*
-+ * The VM's hardware dirty-management mode is a derived value, a pure
-+ * function of the static capabilities and the number of logging
-+ * memslots, so recomputing it on every event cannot lose an update
-+ * and needs no locking against racing writers:
-+ *
-+ *   logging && HDBSS-capable  ->  HD|HA|HDBSS (hardware tracking)
-+ *   logging, no HDBSS         ->  off (write-protect faults)
-+ *   !logging && HAFDBS-cap.   ->  HD|HA (only written pages go dirty)
-+ */
-+void kvm_arch_update_hw_dirty_mode(struct kvm *kvm)
-+{
-+	unsigned long cur, target;
-+	bool logging = atomic_read(&kvm->nr_memslots_dirty_logging) != 0;
-+
-+	if (logging && kvm_supports_hdbss(kvm))
-+		target = VTCR_EL2_HD | VTCR_EL2_HA | VTCR_EL2_HDBSS;
-+	else if (logging || !kvm_supports_hafdbs())
-+		target = 0;
-+	else
-+		target = VTCR_EL2_HD | VTCR_EL2_HA;
-+
-+	cur = kvm->arch.mmu.vtcr & (VTCR_EL2_HD | VTCR_EL2_HA | VTCR_EL2_HDBSS);
-+	if (cur == target)
-+		return;
-+
-+	kvm->arch.mmu.vtcr = (kvm->arch.mmu.vtcr &
-+			      ~(VTCR_EL2_HD | VTCR_EL2_HA | VTCR_EL2_HDBSS)) |
-+			     target;
-+
-+	kvm_make_all_cpus_request(kvm, KVM_REQ_RELOAD_STAGE2);
-+
-+	/*
-+	 * The request only reloads VTCR_EL2; cached translations keep
-+	 * the old permissions until invalidated.
-+	 */
-+	kvm_flush_remote_tlbs(kvm);
-+}
-+
- void kvm_arch_commit_memory_region(struct kvm *kvm,
- 				   struct kvm_memory_slot *old,
- 				   const struct kvm_memory_slot *new,
-@@ -2624,6 +2675,9 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
- {
- 	bool log_dirty_pages = new && new->flags & KVM_MEM_LOG_DIRTY_PAGES;
-
-+	/* Derive the hardware dirty mode from the new logging state. */
-+	kvm_arch_update_hw_dirty_mode(kvm);
-+
- 	/*
- 	 * At this point memslot has been committed and there is an
- 	 * allocated dirty_bitmap[], dirty pages will be tracked while the
---
-2.43.0
+-- 
+2.55.0
 
