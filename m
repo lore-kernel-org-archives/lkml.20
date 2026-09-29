@@ -1,62 +1,62 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865F44EE84F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868F24EE865
 	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673508; cv=none; b=kzriu3Xn3ydU1E6RS/eAK1dMDallQf7h10g9gALgDc/lcOe3rzt1/8iCJ2qFZkRyi/WAInyLtX+F4VYUyM5iFxPYEwrV2FSKOQtzL7f09P1HG44eenFiOIe5qHIV705YIr5+FVWGsmu4WV2K3MGRh885nvIQnWscNPsJqAxa6BU=
+	t=1790673515; cv=none; b=QMOOaGuwH3ei9UoXqBfpNVFnnunetHxzQN4YKemrbwHOCJ2cmTrZWyLlAkwUoL3L8Qi8ft172HZk6eMGtG3T1PIq3bKkikAsex47zcJ2O/O2CL6FytvUoPCn6nKUBEk4cxJdvZ/lTmc4xc+lkmlous3ryLjeB75vpyO7tNqjp9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673508; c=relaxed/simple;
-	bh=TFS0KzSBTe+S2D+lLJyxokiAq25/7TBHzphsYGycxAs=;
+	s=arc-20240116; t=1790673515; c=relaxed/simple;
+	bh=fjiiQ7LA0S7RXPrgY3FJlekVz55rKmd/+xO/QtpP1O0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rjr4zbC/MpYWtIIp6CKiHqFKWVRiJr2pExD+ylP05sh0JFUSBoT3Jp6I0mM64nCsYMYShBTzhGM7ii0hZZjcdaFggi0oGmVILBWNQiyrjdzMMNtTccnYO1Z2ymVhWZCEqX+KNt/zUXOAshcxO8JLBnPshCn7mO1TILMEo8rBQ3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=WwfWrdsd; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=opc/tobeufZuffZLGy7jPxXdER5kvVl5aPgU/E/a600tE2BYm1gMdRtKbePqVIhG1Tba/ZowUETVFKihMg5KXIqgrEBtxs8IATZHWiCLDbw+AyGqv0lvjvf9YmCGOpzkmh77MIEi8lgjG1SKVbkxukzeo497csIkRi/7xWkuvmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=YVGDuPLX; arc=none smtp.client-ip=74.125.225.106
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="WwfWrdsd"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b0219bso1880494f8f.2
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="YVGDuPLX"
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-4888598e4f9so2534622f8f.0
         for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=bynar.io; s=google; t=1790673495; x=1791278295; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m3AWyU/VDrri+MrqCxkbSv5Eh7dGQEH+AnIW5hjUsVA=;
-        b=WwfWrdsdv/fv+p43Vcbs4zUCligH+2eOAbX19mg+Pj1NccqlVH2fXeSFeNaa5q4yk1
-         bUTmxC3ehV+fv4eB1ZHYyKia8aHcdNo3ve4UJlUM4ZDMQZuz6mG9Gh5uqVrDUMNMKPrT
-         UnpYIgRjH0g24YWP7a0r4Nz2rV51T4khp645jIOctXRCAMo7I36mVM5htNq5Az4/l4K+
-         D+XaA2J3OsJvebhfmnDKf8qcXmo6tNumyfxInUJStfYK0uMIT2s/1iEeEO2BxTyxkxxO
-         J1NINDtZ3iogyPIV+yQa8VS1Yn5xywNaYLnF4cBDtJigTD2VXrhVSYeLnPi2h+R2b+qD
-         L9sQ==
+        bh=+i37X05YOrrrsDgR8gYA21Y+/dcyavCXFAZHJfMa4iE=;
+        b=YVGDuPLXnPOBIORxcNv2PPZQ649JbGFuEksuftqRdwNSVqMktPWPBeNAnDhmwavINF
+         c6iRWNFBuPYLzXBv1QduJYWFKQ52uh5AebbRQqRc3WjUNLfpUZHHSB/dxhHqoGKzKX1u
+         j4YJi7Jtbgq9dsgGlpnx4HPNCurN8rzwTX0+E2APifVfCpjFjSoNkplcn7XHWh+TPzYY
+         aP0iQF6lQoP+JUCBaAqziF8Lg9IJt86QhwCNBGm5vLmZ9sA6HApP30SVOLOWJQo7VHF5
+         fl6JtxoFVODk21LG7gTVgk4oj2t1Q935QbSQBcQVHtqRPQPLU2U5THnJnCr32m1iJMJK
+         3Y4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790673495; x=1791278295;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m3AWyU/VDrri+MrqCxkbSv5Eh7dGQEH+AnIW5hjUsVA=;
-        b=J75Gmm9ouzhA1XDcmeP20zhFMSp6KV5V7VAN9sG/iROKO8fN7L1D1h7w4dMH4XGCvs
-         SDUrGS3c/GlyTDMXOV5VnTF9sY+1mNfdKKH8vY1MQs2fVVTWFzuaJ4qcp0cm4ZVNHhZb
-         BtsEpQ3V9V2x8OfaC0FxCkU1ptgQrcpv4W4fSkq5DXLJVwq894s9f+o7nabO/zrp9H4P
-         TW//SyOrqWNvjfAZml3jXsdG2Y1T7DtIGX8TQZJ2qgBtGUFUepSnJvzo9cV8jAlZIAcF
-         eFiQzoTCEYJuF1P2FoBJ1bTzQrdMqaT94INJRQoBtaAKmyH/zZvQuBqFFWZrLZScy5ue
-         nFxw==
-X-Forwarded-Encrypted: i=1; AKwUvBz5XPgVFYUAo3eTD+IbX5Ta2bsO8r7iYphZtwqJs6BmU+cdN93IBWWqaV7dEbrK9DOqg0cuBHxJiQKqabw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nf2ugleY3xUmDhnm7liW02Hggqb/4vS5pHBEuAzCJb00Nb4fVf
-	EUvrJ9ulU3ib2akKvtLdALSFrXrhYE1E5bveaWozJ1ZQF21lUTVPPv6JncBqpmOfwK1e
-X-Gm-Gg: AYBFou1jTIDcMBqX7Jnsr9oOGfHwuiKoSdSIrqdVmtk61sbp0j3/zTdaEgYp+rI8Mhr
-	z/EW1gllPfBbvfDoO29B3/xYhNPDSKrjxUL69OghprxJ/teR2N2JgH/xzb4FIVfYmgzxc2bzoVJ
-	ik9Ddxee4ERRyaiaVrJJhOrGWXTcUJRze0yyP0wQzt8TXY00mMkzY/8lSQEnzWsTNJfMePeZh/R
-	A11jJs9o5P8Dgd+f5DMhFZP9V2j2Dxq4hVdgEUQv80zfYZdWdPig0vtijZq7vv+0U3m1MYblzt0
-	rTSw8ASDGraUH9qaSjW9wvjEAarcTB88ECFGgU25pAvfjoLP48Pm/hsx+VCfywbYE8QJK/6GOx8
-	vNIEkplJB+XTdtBWQxohAWfyd9IXxNO+KplDF00Bp6+X9gYM5PuXQwsQa+UGKbqbMqSq2Lm8BWD
-	g4+La0wy7TicAksP2Q71E23pCyLILH0gJwszVUAR27RwyYsMXhZLFBeNXyvjdByGKjQhSJGZzUs
-	vyiOqXIfWQzCqQuUN5cV0Uq5zI=
-X-Received: by 2002:a05:600c:a012:b0:49f:ce73:7ac with SMTP id 5b1f17b1804b1-49ff06fc82emr203552445e9.35.1790673494401;
-        Tue, 29 Sep 2026 02:18:14 -0700 (PDT)
+        bh=+i37X05YOrrrsDgR8gYA21Y+/dcyavCXFAZHJfMa4iE=;
+        b=eQNj7V5bvRi6vWGAk08DFt4PlEdRsUdSf+2BUn1rkQ1Q8TcyV38YF1nXRwIdjfFTxN
+         K7YcD8Py/ZmqPMttQZh+ttBEg0ocp7hWl9ta1ZU6FJKuTKl2hHj3QCKyTv8Z787xAfkl
+         0JqsebmxwhR6Wu4XNqhOyhCwhA8Uu0TZzhIPDfV234WPvSWzCHPq7slF0+smMkU4rbgn
+         hetfZkffxpJHKZYmeHLfhilAN/b7omShsvNMib0PmN1Nw8aOeomIG/bpA3wFebSRp9ru
+         aKplPHukrLM+TotvljAK+byMliMx3y6B7ksJwOc3Yq5ch5vQGX7RojM7CQSp9Pje7ceD
+         jvrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPKYNm4HHkAK3v0TcPJn6HwI9f1zhwofnMFMd1l76wzww865CK4hGqcrryOEpwxDbjFDH4571VlbK1CuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNwLg7ypSYiQjv7TLRkPX/jWivuDwcNu5/EANEIFhfCNXDeDA4
+	3Mmopmi6VSnigPOyZJFlHS/7VeY8FPN8Hb8TT12Juyz1YS4SuKFlTtVwzTvjwxBJ/hum
+X-Gm-Gg: AYBFou2wUkNIa9kqrRvthi0/2gWQh+VV27CNiXa36z6PRba837ST788/SW7GSQYbXJT
+	dCPcbv0RhsEsddZwd4x0lQV/28UY0p6EUCnDISwf8FVEK3r9Efww4A0cujKC85aMwU9gMUULq13
+	QfPS3/DC3BF+IM/XyN6XEh8G2PwVejSLnF4Kp+srZSyIHm32vpQbeSYfHCvpi+3VA67RLwzfXRN
+	3fS5BkqtSBTvdVD64tOBtzW9lani13boVt4jb47qxIZLXp1pkSb3SMri36nDvh854Bmsz4rW8Nj
+	bhL4zc8ESudzPoPdkEkI9wy69l5PZsFql6d+3nIxLXkqT8JGgyeLGsU+FmR86u1gVM/pNNki/Lz
+	EGlzBvgPkTHCfkVqbCRvLtMIeAFizMI5ENDtqNiuVvxSBZZNJgx00ew5ZFfEIk1XYYzvV1N4U2m
+	1Z3Sbw6jw1Skm8eyIO7BQiOzXCAHvLDacewolyeH6CGLIUOa+FDCUl03SIQjdhHbweWXPkQFCHW
+	i8hrukKIdPJvYki2HwNz81yZbGSxSFZbe1L1A==
+X-Received: by 2002:adf:e18d:0:b0:48a:f8dc:ae14 with SMTP id ffacd0b85a97d-48af8dcaea8mr384644f8f.2.1790673495246;
+        Tue, 29 Sep 2026 02:18:15 -0700 (PDT)
 Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 29 Sep 2026 02:18:14 -0700 (PDT)
 From: Diego Oliva <diego@bynar.io>
@@ -70,9 +70,9 @@ Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
 	Jeff Layton <jlayton@kernel.org>,
 	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/7] smb: client: reject FIND data areas that run past the received response
-Date: Tue, 29 Sep 2026 10:16:34 +0100
-Message-Id: <20260929091636.2618227-6-diego@bynar.io>
+Subject: [PATCH 6/7] smb: client: reject short or out-of-range FIND response parameters
+Date: Tue, 29 Sep 2026 10:16:35 +0100
+Message-Id: <20260929091636.2618227-7-diego@bynar.io>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260929091636.2618227-1-diego@bynar.io>
 References: <20260929091636.2618227-1-diego@bynar.io>
@@ -84,119 +84,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CIFSFindFirst() and CIFSFindNext() take the directory entries of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response from DataOffset for
-DataCount bytes. validate_t2() bounds DataOffset at 1024 and
-ParameterCount + DataCount by the byte count, and nothing compares
-DataOffset + DataCount with the number of bytes SendReceive() copied
-into the buffer.
-
-smb_init() places the request and the response in the same
-cifs_request allocation and cifs_buf_get() clears only the start of
-it, so a short response whose data area extends past its end has
-srch_entries_start point at bytes of the request that was just sent,
-or at whatever the allocation held before, and those bytes are parsed
-as directory entries. cifs_readdir() and find_cifs_entry() walk the
-entries with nxt_dir_entry(), which checks every entry but the first
-of a response against the end of the SMB; cifs_query_path_info() and
-cifs_backup_query_path_info() read the first entry with no check at
-all. Those reads stay inside the allocation, but what they return is
-not part of the response. The last entry, which LastNameOffset locates
-relative to the data area, is bounded against the received response
-by an earlier patch of this series, as is every entry that
-cifs_fill_dirent() parses; the walk itself and the two query functions
-are not.
+CIFSFindFirst() and CIFSFindNext() read the SearchHandle, SearchCount,
+EndofSearch and LastNameOffset of a TRANS2_FIND_FIRST2 or
+TRANS2_FIND_NEXT2 response at ParameterOffset. validate_t2() bounds
+the offset at 1024 and ParameterCount below 512, and nothing compares
+them with the number of bytes SendReceive() copied into the buffer or
+with the size of the response parameters. smb_init() places the
+request and the response in the same cifs_request allocation and
+cifs_buf_get() clears only the start of it, so a short response with a
+ParameterOffset past its end has the search handle, the entry count,
+the end-of-search flag and the last-entry offset read out of the
+request that was just sent, or out of whatever the allocation held
+before, and a ParameterCount smaller than the parameters has them read
+past the end of the parameter block. The reads stay inside the
+allocation, but what they return is not part of the response, and
+CIFSFindFirst() then hands back a search handle the server never sent.
+That handle is sent back to the server in the next FIND_NEXT2 or
+FIND_CLOSE2, so two bytes of the buffer leak at an offset the server
+picks.
 
 SMB1 is not negotiated by default; reaching this code requires an
 explicit vers=1.0 mount.
 
-Reject a response whose data area extends past the received length,
-with the -EINVAL that validate_t2() returns for the other malformed
-transaction responses. cifs_query_path_info() and
-cifs_backup_query_path_info() still read a whole entry from a data
-area that may be smaller than one; that is not changed here.
+Reject a response whose parameter area is smaller than the response
+parameters or extends past the received length, returning smb_EIO2()
+with a new smb_eio_traces value for each of the two responses, like
+the other response checks this file gained since v6.19. Backports to
+trees before v6.19 need smb_EIO2() replaced with -EINVAL and the
+trace.h hunk dropped.
 
-A conforming server is not affected. The data block of a transaction
-response is part of the SMB, so DataOffset + DataCount cannot exceed
-the smbCalcSize() bytes that SendReceive() copies; coalesce_t2()
-appends each secondary response to the data area and adds its length
-to both DataCount and the byte count, which keeps that relation.
+A conforming server is not affected. The parameter block of a
+transaction response is part of the SMB, so ParameterOffset +
+ParameterCount cannot exceed the smbCalcSize() bytes that
+SendReceive() copies, and the response parameters are 10 bytes for
+FIND_FIRST2 and 8 bytes for FIND_NEXT2, which is what
+T2_FFIRST_RSP_PARMS and T2_FNEXT_RSP_PARMS hold.
+
+This patch depends on "smb: client: reject FIND data areas that run
+past the received response", whose declarations it extends.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: <stable@vger.kernel.org>
+Cc: <stable@vger.kernel.org> # 6.19.x
 Assisted-by: Bynario AI
 Signed-off-by: Diego Oliva <diego@bynar.io>
 ---
- fs/smb/client/cifssmb.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ fs/smb/client/cifssmb.c | 32 ++++++++++++++++++++++++++------
+ fs/smb/client/trace.h   |  2 ++
+ 2 files changed, 28 insertions(+), 6 deletions(-)
 
 diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 7eb83dd737fc..107ca76e53d1 100644
+index 107ca76e53d1..962877450eca 100644
 --- a/fs/smb/client/cifssmb.c
 +++ b/fs/smb/client/cifssmb.c
-@@ -4412,6 +4412,7 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -4412,7 +4412,7 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
  	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
  	T2_FFIRST_RSP_PARMS *parms;
  	struct nls_table *nls_codepage;
-+	unsigned int data_off, data_count;
+-	unsigned int data_off, data_count;
++	unsigned int parm_off, parm_count, data_off, data_count;
  	unsigned int in_len, lnoff;
  	__u16 params, byte_count;
  	int bytes_returned = 0;
-@@ -4530,11 +4531,19 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -4531,6 +4531,17 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
  		return rc;
  	}
  
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
++	parm_off = le16_to_cpu(pSMBr->t2.ParameterOffset);
++	parm_count = le16_to_cpu(pSMBr->t2.ParameterCount);
++	if (parm_count < sizeof(*parms) ||
++	    parm_off + parm_count > (unsigned int)bytes_returned) {
++		cifs_dbg(FYI, "%s: bad parameter area offset %u count %u for response of %d\n",
++			 __func__, parm_off, parm_count, bytes_returned);
++		rc = smb_EIO2(smb_eio_trace_ffirst_param_area, parm_off, parm_count);
 +		cifs_buf_release(pSMB);
-+		return -EINVAL;
++		return rc;
 +	}
 +
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
+ 	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
+ 	data_count = le16_to_cpu(pSMBr->t2.DataCount);
+ 	if (data_off + data_count > (unsigned int)bytes_returned) {
+@@ -4545,8 +4556,7 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
  	psrch_inf->smallBuf = false;
--	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
+ 	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
  
- 	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
- 					le16_to_cpu(pSMBr->t2.ParameterOffset));
-@@ -4568,6 +4577,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+-	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
+-					le16_to_cpu(pSMBr->t2.ParameterOffset));
++	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol + parm_off);
+ 	psrch_inf->endOfSearch = !!parms->EndofSearch;
+ 
+ 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
+@@ -4577,7 +4587,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
  	TRANSACTION2_FNEXT_REQ *pSMB = NULL;
  	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
  	T2_FNEXT_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
+-	unsigned int data_off, data_count;
++	unsigned int parm_off, parm_count, data_off, data_count;
  	unsigned int name_len, in_len;
  	unsigned int lnoff;
  	__u16 params, byte_count;
-@@ -4650,13 +4660,22 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_buf_release(pSMB);
+@@ -4661,6 +4671,17 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
  		return rc;
  	}
-+
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
+ 
++	parm_off = le16_to_cpu(pSMBr->t2.ParameterOffset);
++	parm_count = le16_to_cpu(pSMBr->t2.ParameterCount);
++	if (parm_count < sizeof(*parms) ||
++	    parm_off + parm_count > (unsigned int)bytes_returned) {
++		cifs_dbg(FYI, "%s: bad parameter area offset %u count %u for response of %d\n",
++			 __func__, parm_off, parm_count, bytes_returned);
++		rc = smb_EIO2(smb_eio_trace_fnext_param_area, parm_off, parm_count);
 +		cifs_buf_release(pSMB);
-+		return -EINVAL;
++		return rc;
 +	}
 +
+ 	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
+ 	data_count = le16_to_cpu(pSMBr->t2.DataCount);
+ 	if (data_off + data_count > (unsigned int)bytes_returned) {
+@@ -4672,8 +4693,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 
  	/* BB fixme add lock for file (srch_info) struct here */
  	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	response_data = (char *)&pSMBr->hdr.Protocol +
- 		le16_to_cpu(pSMBr->t2.ParameterOffset);
- 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
 -	response_data = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
+-		le16_to_cpu(pSMBr->t2.ParameterOffset);
++	response_data = (char *)&pSMBr->hdr.Protocol + parm_off;
+ 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
+ 	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
  
- 	if (psrch_inf->smallBuf)
- 		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
+diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
+index bb8d0197cb54..2708bedb49ab 100644
+--- a/fs/smb/client/trace.h
++++ b/fs/smb/client/trace.h
+@@ -30,6 +30,8 @@
+ 	EM(smb_eio_trace_ea_next_offset,		"ea_next_offset") \
+ 	EM(smb_eio_trace_ea_overrun,			"ea_overrun") \
+ 	EM(smb_eio_trace_extract_will_pin,		"extract_will_pin") \
++	EM(smb_eio_trace_ffirst_param_area,		"ffirst_param_area") \
++	EM(smb_eio_trace_fnext_param_area,		"fnext_param_area") \
+ 	EM(smb_eio_trace_forced_shutdown,		"forced_shutdown") \
+ 	EM(smb_eio_trace_getacl_bcc_too_small,		"getacl_bcc_too_small") \
+ 	EM(smb_eio_trace_getcifsacl_param_count,	"getcifsacl_param_count") \
 -- 
 2.39.5
 
