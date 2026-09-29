@@ -1,125 +1,189 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBA33DCD99
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A5A3ED13B;
+	Tue, 29 Sep 2026 05:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661179; cv=none; b=Bf/QjwpjZyrVNK0OvIbbWMIz/x4AHh38CHY2nq9uZTuhibdMfm0aiT2N3RVhV6aYiEHgv4P96nlV1KCFEZY6QDIygBicPwR7aK+HRuQnGnK9orYIbRO/obIWvd+fB8BcZhSIzBzZDhpOJta01iSsjewaRwwyf3O0O1P1L4P07Jk=
+	t=1790661188; cv=none; b=TWCiUBK6sbWq1b4gUbGBcEYx6Yw25cPAmMDmmMh1D2jo+6cf432O/aORxt7c/fdW4T3gql3ok5vgFcp5bm13MzplMoeB6YMoL2oDc9U/FAo0BOtiWmNc3TumfnQHJ5lPDVOuXwiJuZyMNF6CmHfazascPeGLwRiMCGQBTRkT5cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661179; c=relaxed/simple;
-	bh=7e4sXeFJ3QQFNwKsifPZ++1Lx7HnmX4ToYVT7DdVoRI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=l6QRoUvzJTGAvAzuameoPYORKiQWw+0OPsd27CprkpaGNwHhizVEfKm1nlb/6U7brhePaLRen70bMeJ9YZdnnaV2kz7dsYS5ekBJJ2NENfz7C0pn0RHzPD5r0gx7liRzd+D3MVgPmbBTSH+cBX8ryxEUp0XU9KJfZe7AttKoR1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shrutiss.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gOJnlLgG; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shrutiss.bounces.google.com
+	s=arc-20240116; t=1790661188; c=relaxed/simple;
+	bh=hdiw/cx57zLV8lZTgOQgYHpUTK4mxZfBLNG2/XidObk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eMQog9kIqDprIVzQow7udhbq8ZDrMpZDYJQZvKErVRhD5rRHSZnsyZeUIaBk8Y18XIcDT0h+rhKNxjSQBg3mK3hqD1MJdXCdmRTU2yysCPAB0CBW3IJsbJTLG6bVPBlr5HMiI+QoKSfT8QyE2n7sx1r5uNIeWHQKBDpi02gJVkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ftJVfGfC; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gOJnlLgG"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8696b921ac0so3186756b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:52:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790661177; x=1791265977; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fd7XnyqI//p9q3JxaL37a85VvYx8Nu6XtCLQZOYJTA4=;
-        b=gOJnlLgGRN4pFi1AZ1GYgm92IO62uj3oLEVwXcH0Ue4bYcjH78mvM+AkFonFOSYMGz
-         CN2xCg2DjFvx2UOZYBMhpOv0j5hG9r3zEYLh6MVVvKZ2/ByEbeWWl2RgXhxXUOwuwRyA
-         MgXFSFOdEpKwOgc90Jt7WCsw/Yy/q3zYkTVerSjLDiZsYK8g7zqjMMpwdB5H29SzVlvb
-         LK0uVMLLrmWjlovXZNcnBB1dwh+2Ye7WxNAKOiBbBLQyepsZh52bj3izHxj2DRdKsAlZ
-         4eJLreKwlnhjvqyieqrbTPPmKel29uKHp+BO93uZChhaZnz3DDrVxdD0RbgmTk70IvVK
-         3y8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790661177; x=1791265977;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fd7XnyqI//p9q3JxaL37a85VvYx8Nu6XtCLQZOYJTA4=;
-        b=cZK6nPkCnCqEb8DjIicCZIarC7+vQCxX7dtp2EEAFRbozSb/3n5UPIkKcuvrxpyK6W
-         BzmIKZYLwQ6qNUemm3YyploiA31Xp8m6S/UPTX/XVZXWwJWJlWUXlHJsZv7ZUadBv0Qh
-         YpufAOgOEmmSzkW9orUJDnBqrttk7pTkBShXsjGbwHpGNTANHa1BcGcY+7gs+VQUu5sq
-         y/08bYj15Dm1mcfaY+38MZUkyE54A5i2Ctia/FufVGEwXPbyvCwDUiyk1/XKPr8SDSnt
-         E0vOHHP2ByP2I1uighT39u/tNvw4eWoUVfgwIe+qX2a8SgN9iOCbXC0EkywiTens9Vd+
-         sv0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxOatIHlfJKC0A+airQuCeFPo5GEuGNeuaS6UAt8+Kj2wj6XXnxta60ucRZMjPT58ghPvvi3lf5KU87jsU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n02HaYAgrlW8S7XRBhzf3Z3Wt4dcx/dsJ3+TsZg3MR7pHH32sC
-	1PSBfoRTmr7Ef6qULEHTnhBZ65iMpDGOuzyT01FrINI6PpYrMp6u48e/VKV6QvV7J2jBMJou6tN
-	piSHC1CJhIN53PQ==
-X-Received: from pfje18.prod.google.com ([2002:a05:6a00:d2:b0:880:eb99:bc26])
- (user=shrutiss job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:408e:b0:87d:f382:14af with SMTP id d2e1a72fcca58-87e9cc174b4mr12314938b3a.1.1790661177115;
- Mon, 28 Sep 2026 22:52:57 -0700 (PDT)
-Date: Tue, 29 Sep 2026 05:52:55 +0000
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ftJVfGfC"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T46M793038796;
+	Tue, 29 Sep 2026 05:52:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=P987f/yZghlhn2ST0
+	DlRSIwmMcf2TOfcVXIj1HTBByc=; b=ftJVfGfCQso8fjBcaIjBCI2kUjuUzbauk
+	S1HnpWjW949/iRN/M2k4OiH/4aAfT42W+RuYYYkjgVRzwpBsWMjhibDIa286J2hY
+	gfa2/oiDmpo4WekCgPryD2GxIsshBtkqaJ5SkQcIPV0QFsbrrNITomtQNyI7K0yo
+	pbJeQYbEYdaFgMqPlMDX5QZsRV0zWRdHTzZ+Pwr9v+4BDEvlcU7xUfO6cSzjfJ1e
+	4LhQMVxeX1iHlTSn89R3t3JUfxXHkZnOI8U2J86XqhiC4u4qexXRlonJufUUzJsJ
+	yWZgj0tCfH0S3t6wJkxBLJNY1EbBrFt0kHpth95zGdneh6gOyb2pA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5pt4qds-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 05:52:17 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T4HU0U1134104;
+	Tue, 29 Sep 2026 05:52:16 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck8d8a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 05:52:16 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T5qBLA40239580
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 05:52:11 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E402D20043;
+	Tue, 29 Sep 2026 05:52:10 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D43F92004D;
+	Tue, 29 Sep 2026 05:52:03 +0000 (GMT)
+Received: from shivang.bl1-in.ibm.com (unknown [9.123.12.247])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 05:52:03 +0000 (GMT)
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
+To: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: sv@linux.ibm.com, alexandre.chartre@oracle.com, alexghiti@rivosinc.com,
+        aliceryhl@google.com, ardb@kernel.org, bp@alien8.de,
+        chleroy@kernel.org, elver@google.com, ihor.solodrai@linux.dev,
+        jpoimboe@kernel.org, kees@kernel.org, legion@kernel.org,
+        lossin@kernel.org, maddy@linux.ibm.com, masahiroy@kernel.org,
+        mpe@ellerman.id.au, nathan@kernel.org, npiggin@gmail.com,
+        nsc@kernel.org, ojeda@kernel.org, peterz@infradead.org,
+        pmladek@suse.com, rostedt@goodmis.org, tamird@kernel.org,
+        thomas.weissschuh@linutronix.de, thuth@redhat.com,
+        yuxuan.zuo@outlook.com, sourabhjain@linux.ibm.com,
+        Shivang Upadhyay <shivangu@linux.ibm.com>
+Subject: [PATCH v2 3/6] objtool: Fix "can't find starting instruction" warnings on vmlinux
+Date: Tue, 29 Sep 2026 11:21:34 +0530
+Message-ID: <20260929055138.43489-4-shivangu@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260929055138.43489-1-shivangu@linux.ibm.com>
+References: <20260929055138.43489-1-shivangu@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929055255.1380202-1-shrutiss@google.com>
-Subject: [PATCH] x86/apic/savic: Forward APIC_SPIV writes to the hypervisor
-From: shrutiss@google.com
-To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
-Cc: "H . Peter Anvin" <hpa@zytor.com>, Kishon Vijay Abraham I <kvijayab@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
-	stable@vger.kernel.org, jxgao@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: dtNBs1tTRsTlifrsy0KA5NR2oD89gKo5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyMiBTYWx0ZWRfX0vNK6LsN4jFK
+ gX0rH2gqCDP+Nb2HO/+cfDbuoZV4qzp1pdanmCAR1w/1PbNuKKnQnkTxuVseTLGRpLQdgnrxsYM
+ wjcEaH3mBanO0m7G42kn+y6W4WpX9bw1PiQDtBW+2bber9ARqe1G4NHYbCAVAViyLtptqoVu236
+ 3DGgICdtRDCJbBwsttwgNo46SmpIeXivC2xZYjHFBulueLbJ04ER5f/aY1ktV4yF7haFIYSfTQc
+ 5MYMFeJbv+D33zSwHHXz5mpXqHrunK3tUP7paIapTh02h2y/NysT4lx+Bo5IFecXhCrfCrcr88Y
+ pF7TEsxSgMt3Mmkoo+QEWbCLSk7gkB5JhwjRWmo/sRoR8N7GV+M9oNfbo34VDiAye7RoLOXEOjs
+ lC3mfQaVOX/PMFT6U31t60/pdIb/vDRjwmId5gru6Sjg6GFA10noRoSrRYFvwvcKiFeUempMe6f
+ 0E2RQ27Nf6Lg7V8W3ew==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyMiBTYWx0ZWRfX/76DjdaUfFeS
+ 8mH3qN/2rYeo/Hoqpi0TWfs7BFh0r7UWHL3YqrL45CtRI75dXFdGgxCq00ayxF861GfrBcx1Tyi
+ ccu+P7LROV7WBJnR3QYKQn7+Wt6MFKg=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abb5211 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=kT97ooqaMeLRiaEWO4oA:9
+X-Proofpoint-GUID: oba_ClxiN0h4fp6kZfESTnXqWi5qydMN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290022
 
-From: Shruti <shrutiss@google.com>
+From: Sathvika Vasireddy <sv@linux.ibm.com>
 
-For Secure AVIC (SAVIC) guests, the hypervisor (KVM) emulates the LAPIC
-timer and LVT registers, while the guest's APIC backing page is kept in
-encrypted guest-private memory that the hypervisor cannot read.
+Objtool throws a lot of can't find starting instruction warnings
+when run on vmlinux with --ftr-fixup option.
 
-Currently, savic_write() updates APIC_SPIV (Spurious Interrupt Vector
-Register) only in the guest's private APIC backing page without
-notifying the hypervisor. Because the hypervisor never sees the guest
-set the APIC Software Enable bit (APIC_SPIV_APIC_ENABLED) in APIC_SPIV,
-it continues to treat the vCPU's Local APIC as software-disabled.
+These warnings are seen because find_insn() function looks for
+instructions at offsets that are relative to the start of the section.
+In case of individual object files (.o), there are no can't find
+starting instruction warnings seen because the actual offset
+associated with an instruction is itself a relative offset since the
+sections start at offset 0x0.
 
-When the hypervisor sees a vCPU's APIC as software-disabled, it forcibly
-masks all LVT writes (including APIC_LVTT for the local timer) and drops
-timer and fixed interrupts for that vCPU. On SMP guests, where secondary
-CPUs (APs) start with their emulated APIC reset to software-disabled,
-this prevents APs from receiving local timer interrupts and leaves them
-hung in idle (HLT) during boot.
+However, in case of vmlinux, find_insn() function fails to find
+instructions at the actual offset associated with an instruction
+since the sections in vmlinux do not start at offset 0x0. Due to
+this, find_insn() will look for absolute offset and not the relative
+offset. This is resulting in a lot of can't find starting instruction
+warnings when objtool is run on vmlinux.
 
-Forward APIC_SPIV writes to the hypervisor via savic_ghcb_msr_write() in
-addition to updating the guest's APIC backing page so the hypervisor's
-APIC state stays in sync with the guest.
+To fix this, pass offset that is relative to the start of the section
+to find_insn().
 
-Fixes: c822f58a4fab ("x86/apic: Populate .read()/.write() callbacks of Secure AVIC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shruti <shrutiss@google.com>
+find_insn() is also looking for symbols of size 0. But, objtool does
+not store empty STT_NOTYPE symbols in the rbtree. Due to this,
+for empty symbols, objtool is throwing can't find starting
+instruction warnings. Fix this by ignoring symbols that are of
+size 0 since objtool does not add them to the rbtree.
+
+Signed-off-by: Sathvika Vasireddy <sv@linux.ibm.com>
+Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
 ---
- arch/x86/kernel/apic/x2apic_savic.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ tools/objtool/check.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kernel/apic/x2apic_savic.c b/arch/x86/kernel/apic/x2apic_savic.c
-index dbc5678bc3b6..1ef4c5b6c494 100644
---- a/arch/x86/kernel/apic/x2apic_savic.c
-+++ b/arch/x86/kernel/apic/x2apic_savic.c
-@@ -214,7 +214,6 @@ static void savic_write(u32 reg, u32 data)
- 		break;
- 	case APIC_TASKPRI:
- 	case APIC_EOI:
--	case APIC_SPIV:
- 	case SAVIC_NMI_REQ:
- 	case APIC_ESR:
- 	case APIC_ECTRL:
-@@ -223,6 +222,10 @@ static void savic_write(u32 reg, u32 data)
- 	case APIC_EILVTn(0) ... APIC_EILVTn(3):
- 		apic_set_reg(ap, reg, data);
- 		break;
-+	case APIC_SPIV:
-+		savic_ghcb_msr_write(reg, data);
-+		apic_set_reg(ap, reg, data);
-+		break;
- 	case APIC_ICR:
- 		savic_icr_write(data, 0);
- 		break;
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 2e875ac9175e..7662e990cb13 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -411,7 +411,7 @@ static int decode_instructions(struct objtool_file *file)
+ {
+ 	struct section *sec;
+ 	struct symbol *func;
+-	unsigned long offset;
++	unsigned long offset, func_off;
+ 	struct instruction *insn;
+ 
+ 	for_each_sec(file->elf, sec) {
+@@ -493,17 +493,26 @@ static int decode_instructions(struct objtool_file *file)
+ 			if (func->embedded_insn || is_alias_sym(func))
+ 				continue;
+ 
+-			if (!find_insn(file, sec, func->offset)) {
++			if (func->len == 0 && is_notype_sym(func))
++				continue;
++
++			func_off = opts.ftr_fixup ?
++				func->offset - sec->sh.sh_addr : func->offset;
++
++			if (!find_insn(file, sec, func_off)) {
+ 				ERROR("%s(): can't find starting instruction", func->name);
+ 				return -1;
+ 			}
+ 
+-			sym_for_each_insn(file, func, insn) {
++			for (insn = find_insn(file, sec, func_off);
++				insn && insn->offset < func_off + func->len;
++				insn = next_insn_same_sec(file, insn)) {
+ 				insn->_sym = func;
++
+ 				if (is_func_sym(func) &&
+ 				    insn->type == INSN_ENDBR &&
+ 				    list_empty(&insn->call_node)) {
+-					if (insn->offset == func->offset) {
++					if (insn->offset == func_off) {
+ 						list_add_tail(&insn->call_node, &file->endbr_list);
+ 						file->nr_endbr++;
+ 					} else {
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.54.0
 
