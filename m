@@ -1,177 +1,126 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5811A0BD0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790640774; cv=pass; b=rhsS1IXDMxSCRJ9e+aKqETwMsjwns9kB60GITmiIbENmqFLKVEEu94nxTMIVUU8GywznpHi+aBGaaBUrNdsl116H+oHtmqt1Iz3QBdW8ZSwhdtAR+Fe9/0USXIB/0Xacst4NIhmvBhrkRl/LTr5oS6UMLPuqdseD8OLO8XhZfM0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790640774; c=relaxed/simple;
-	bh=WCpEwYm2pg45X09DYVeAAYbJ6niAepsozXrMLCbrTfM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZKYcsILDs1pCjZ2n+JQw69Th/0/OBPlK8SpQjTMECTD2NfrF/lLJWbyeCqNVYy61yU7NsPHIhPS9T+sXNCYwWI/1xJ/uXjreqsE3hBrOBr6JPvoxwFbiE+66S2KLtoPIKJaPPLm37oSK7Xi3aY/XdX1T51TbakAN/X2fueaKaLI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=R9MTlx+R; arc=pass smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171082AEEB;
+	Tue, 29 Sep 2026 00:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790640826; cv=none; b=sYIH32M159thkv+I4fVLJDQl8xnpN9GJKzEuKIqiOU530GCnBjR3hxb61FtMVVLxoCg8glFDLOKtgUiFOnJXfrfThZ2ngtIxPBm8nJcJkB2X14U5urIvMdpkl8GDwAT/pNkz1/01hT744gTogM53ZmY1YEvIo2pbsJgi29/8yhU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790640826; c=relaxed/simple;
+	bh=q6Amrpzcs+pPIKhuhzv79d5INvSYcKLlmlQbb0pLAD8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GjcM8rTzd01Czsbr1KHAiV9vaRIQdAN8J+Lajt42DO6Xcu2MWU7CG6u8OxlY9vXy20laNm9WGAGshoPO23PTVi/hCsl0Cro1JKoLz5djamA9/61e4EXMLY/SOyd6cSzJPuk+8s00mjc3OHAUXFyQm86KX87gPEqIpn8Vt4pPonk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nk+aPYHo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="R9MTlx+R"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-67559a09ec2so847145d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:12:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790640772; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W6znUbbcr2wS+nVUfYvJnVDmyPtzt2wNBL0Ht1QmDpNXeDqKbWEsSKlmWu/4gZNBn7
-         wrKeQH+nR1ck5ZBVvAYBzms9cgHA8Ozd950EOssmmhGOekcrOl/ll6emDFbq33HS1bvb
-         tSJ413z07WvZehS8hkZezrY0piN55kKP8fKQd//N1kqLP5hcybgRwCChoxF+8+FTd4rr
-         HIcA88DP24jGTwJYulWKNW7qC6DfIOQZod6yT2u9FpVjXjvUTpkllA2XFKngI0Qa7Lbw
-         7G6dTrhOkoqQdL23POyrmpTjv3mXrDvxuVgy6GcQk9le6lNz8ZtI5vEIicdoQRMQkCPQ
-         xoMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Sy5nnA4WXY2yLs1s40a3tAQdL7ZO3e0dbOF3g9DpCc0=;
-        fh=qCaeiFiiksb9buVMozB4Tv0hP4nYaNEW+kAjzG5WNCQ=;
-        b=JmBblaYI6RSRNlWWI1JjIve/Vwjc3J1Q1EpQaFp5wAgq10ghBfRV+RGDn4xbPHxUtM
-         t5q4kM+6pCnFL39spaK8JZtaLufdZ6PyjrwKIPl0KCwYkCcRG2uS+apvL3EiHbpuTogB
-         8//8sQPMiVsfMoh6oBLec+IK+E0qGxgxmcM6JkGZjjy4/KffG9P7YqytPz3TkvstminA
-         TgCvuro4uJ432TddBLt3F603/v3S6VgaVDjDeo+DiFeIqmFpJAHpEv3xkDXU/EttFQ4H
-         +Yu4p1jUVu/3sVb51yauSnaUJptd+caEnBjp0yR7tQToOvdYwJT/JFy6Bk4QcZ7im6jh
-         zt8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790640772; x=1791245572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sy5nnA4WXY2yLs1s40a3tAQdL7ZO3e0dbOF3g9DpCc0=;
-        b=R9MTlx+REOvfDxlIKDkAkJpGlX1CxGpmAydaEhVOXoALAKaXrDKbF6zdgRa2DsDbgZ
-         mSPAe1SptBMiMZZ5i6llfF3QgjweS+5btwZpe1AXhO5Svk+H4Sb2TPRWJszJvyHVnGSv
-         MKMibcoojejmh+YQUAbfIAGfK0gLP27Jz1Oeo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790640772; x=1791245572;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sy5nnA4WXY2yLs1s40a3tAQdL7ZO3e0dbOF3g9DpCc0=;
-        b=xENUC2vbrYFZUkSYeDuHqSiA3LhicElnrO2iVlGieh/y+943Bh/OIpVI2ZDJXD7zvC
-         jGzd+griEGYtG9bjTdOtj+L/6rk9T1qJ0F8vVeBw0hMboucZ9B0+erYiri9892QCiEH4
-         TQWzboxMdf34K84BUP9w6V1z+jsdpYrflejl2e8xv/fk4L/JPNye9QAn4dnwd+CS+0sj
-         DdsEm6p8FNqMP6aYntpSSB7KNZaFCY7VZOC23AJblN2YpUkrPY4EK0viGc/B0fsFaHuh
-         Rkvc9TZ42kHqIVUpOAiL47Wqi4g+pdrRwBJsVNMrPNUBTc9pH/4vsd6BwPzI4m4YPubx
-         K+xA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsn2PLFIEIGPAZfblmgh7NsVsY3h6EbYCHeB4xfOWWL4UcCJBweRRvKOXqw4cd1tdAjct1ovEzExDLeiM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItyHVjuanbIeH3nZd6kWAQRjY2gHZxVtmrU3++sQy+B0a43t8D
-	D9awIZmjy3dA5StRqDiGZ5JQbI088VS3lLaU1WDTks1hWP0Nk8rv5E4pVCCVhNY5Nafq3Ki1ptR
-	q6JuLkat/scnykAsPh5kx9VM2Y88Dm1+7nBDQK81XFg==
-X-Gm-Gg: AYBFou1fhvdRDhk87mR4bzPQjMD0Xa7QbHxDUTnuYcD3vrysjLqJvYDoMecCNYwyms4
-	1n1TrvCHEzzD4mMrDck/zjEchVuP3/rFhX6zhzzPvU3OqE2k5lirLrCPrd7tCl/EkeTaCxqHV+L
-	VsljWohEvdOT33Ety9NiCpcvRRCYvR/A6xRzpKk13moL2AEf4W9qk0uY9NljUfJcqAlde/qvW1I
-	6LUguOOVxDBazfG2bOTsQB/iOCSJ8WkMBRUVjLsHzVr0ayAxQdgn0bv/8MIreLxuPwNZT9eBTKn
-	cfvTfDMBqHemN79qc+iUeyoUPtrwm1iRmUSKeACeVmEk8NyxLH0+2yvY4zoEv/dZls5FiVSqwJJ
-	F1G6TTEbsKCU=
-X-Received: by 2002:a05:690e:1487:b0:672:e7e1:f3de with SMTP id
- 956f58d0204a3-672ed46d694mr5866366d50.73.1790640771260; Mon, 28 Sep 2026
- 17:12:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nk+aPYHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2EB1F000FF;
+	Tue, 29 Sep 2026 00:13:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790640824;
+	bh=j49xaGsGy2twAzmXe3ZozmMuRWN3oLxvd9EP8vDBGA0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nk+aPYHop+a6FGy1wV3/K58Fm+b99ZG3F/S0E+UzbloqNAyiFCYqrOo5/XwXh8BUi
+	 oj+bqkzw9nWN4KyAnGpSYrdrjV+DEr/duj9Xx8/hsQJUgPERovRo+EkCTsh33dJ6su
+	 3x1Vi3CPMnV0tYjuCE9KBor0MxlJBZdRIgoj6SyPi2hEOQeZ/dAElYCXzN8yvsDebK
+	 wFJASH6xn2eF0F5xW9LhoZYCe2GkYEfFtlJ8Ul2n/nzjNB+LwnWGWuVJujvifoyTq3
+	 WVr7eqZidrLN1n1uEe1ltKD6/l2hofJw8oZI3qv4cy80i14H7c+8wgkzD81RLqUC8i
+	 B27RPfzUiXrIg==
+Date: Tue, 29 Sep 2026 09:13:40 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: paulmck@kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, Frederic Weisbecker
+ <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Josef Bacik
+ <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, rcu@vger.kernel.org
+Subject: Re: [PATCH] fprobe: Protect fprobe_return() with guard(rcu)()
+Message-Id: <20260929091340.2a3832ebd5089cb30dfb83f0@kernel.org>
+In-Reply-To: <1c2a58be-0c8d-45b1-a803-85480e976e11@paulmck-laptop>
+References: <179055575009.241711.6358052647499787191.stgit@devnote2>
+	<179055575973.241711.6618845269004184577.stgit@devnote2>
+	<1c2a58be-0c8d-45b1-a803-85480e976e11@paulmck-laptop>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
- <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com>
- <arrhc_7jvX_W2uXS@google.com> <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
-In-Reply-To: <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Mon, 28 Sep 2026 17:12:35 -0700
-X-Gm-Features: AclHuK_Gi0q6KGkG-TKV-EY-cBXKPRFfaW4yfy4rNdbodkBmzTyCOdxEyH18vSo
-Message-ID: <CA+w=M=S3USeLyFNaHSjHL+cmzssWk2Bygahetzr0dNU55TZEMw@mail.gmail.com>
-Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
- storage, and LRU shrinking
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 3:05=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
-te:
-> > I think many of this memory overhead come from the symbol string.
-> > Probably we don't use most of them.  Then would it be nice if we can
-> > lazy-load the strings?
+On Mon, 28 Sep 2026 09:10:10 -0700
+"Paul E. McKenney" <paulmck@kernel.org> wrote:
 
-Namhyung, your guess is right. I counted live symbol allocations in eager m=
-ode
-on the sample fixture. At the peak, 986,688 symbols take 258 MiB:
+> On Mon, Sep 28, 2026 at 09:35:59AM +0900, Masami Hiramatsu (Google) wrote:
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > In fprobe_return(), the shadow-stack iteration and exit_handler
+> > invocations were protected by preempt_disable_notrace().
+> > However, unregister_fprobe() and unregister_fprobe_async() (used
+> > by BPF kprobe-multi) rely on standard RCU grace periods (synchronize_rcu()
+> > and call_rcu()) to wait until the fprobe is no longer in use before
+> > freeing it.
+> > 
+> > In preemptible kernels (CONFIG_PREEMPT_RCU=y), standard RCU grace
+> > periods do not wait for pure preempt_disable_notrace() critical
+> > sections. Consequently, an unregistered fprobe may be freed while
+> > a concurrent CPU executing fprobe_return() is still running
+> > fp->exit_handler(), causing a use-after-free.
+> 
+> Actually, standard RCU grace periods wait for preemption-disabled regions
+> of code regardless of kernel configuration.  So if the original code
+> below was broken, that indicates a bug in RCU.
 
-   names (demangled, avg 210 bytes)   197 MiB   77%
-   struct symbol (48 bytes each,       45 MiB   18%
-     24 of them the rb_node)
-   malloc overhead                     15 MiB    6%
+Thanks for pointing, this was my mistake. Sorry about that.
+And I still think we need a fix to add rcu_is_watching() check.
 
-That is most of the 335 MiB max RSS. With --lazy-load-symbols, only
-2,928 symbols are created (0.5 MiB), with identical output, and max
-RSS is 108 MiB.
+Thank you,
 
-> > Without the string (and the priv part), now it has a fixed size so it
-> > should be saved in an array directly.
+> 
+> So do you have a reproducer for this?
+> 
+> 							Thanx, Paul
+> 
+> > To resolve this, protect fprobe_return() with guard(rcu)() matching
+> > fprobe_fgraph_entry(). This ensures both synchronous unregister_fprobe()
+> > and asynchronous unregister_fprobe_async() safely wait for in-flight
+> > exit_handlers to complete via standard RCU grace periods.
+> > 
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://sashiko.dev/#/bug/linux-e46bcd68-4a56-4f19-a255-e3772980e5e3
+> > Fixes: 657b594b2084 ("fprobe: Fix unregister_fprobe() to wait for RCU grace period")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > ---
+> >  kernel/trace/fprobe.c |    3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> > 
+> > diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+> > index 9f2d98181779..c3e1580bc648 100644
+> > --- a/kernel/trace/fprobe.c
+> > +++ b/kernel/trace/fprobe.c
+> > @@ -671,7 +671,7 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+> >  	size_words = SIZE_IN_LONG(size);
+> >  	ret_ip = ftrace_regs_get_instruction_pointer(fregs);
+> >  
+> > -	preempt_disable_notrace();
+> > +	guard(rcu)();
+> >  
+> >  	curr = 0;
+> >  	while (size_words > curr) {
+> > @@ -687,7 +687,6 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+> >  		}
+> >  		curr += size;
+> >  	}
+> > -	preempt_enable_notrace();
+> >  }
+> >  NOKPROBE_SYMBOL(fprobe_return);
+> >  
+> > 
 
-That is close to what patch 5/6 of my v3 does. Its index is a sorted
-array of fixed-size entries:
 
-   struct sym_idx {
-           u64     start;
-           u64     end;
-           u32     name_off;
-           u8      binding;
-           u8      type;
-           u8      flags;
-   };
-
-That is 24 bytes per symbol. The name is read from the string table
-and demangled only when a sample lands in the symbol. The difference
-from your description is that v3 then creates a regular struct symbol
-for the hit and inserts it in the rb-tree, because the rest of perf
-holds struct symbol pointers. If the entry itself were the symbol,
-with the name as a pointer/offset union, that extra step would go
-away. Ian's patch 1 would help: once every name access goes through
-symbol__name(), that accessor is the only place that has to resolve
-an offset.
-
-> > Probably we can add a limit there
-> > and print it with offset when it doesn't have the name.
-
-Agreed, that is better than [unknown]. The symbol boundaries are still
-known, so the frame can be printed as an offset and resolved offline.
-I can do the same for the byte cap in v4.
-
->
-> We load all symbols instead of lazily because we need the end of a
-> symbol, which we can only determine by processing the entire symbol
-> table as the end of one symbol is the start of the next.
->
-
-Ian, I think most symbols don't need the next one for their end. ELF
-symbols have st_size, so the end is start + st_size. Only zero-size
-symbols take the next symbol's start. The whole table still has to be
-scanned to find the symbol for an address, because .symtab isn't
-sorted by address, so an address window would scan it again each time
-it grows. The v3 index scans it once, sorts the entries and fixes up
-the ends there, but keeps only the 24-byte entries, not the names.
-
-On which kernel symbol is right in the nf_tables example: the sample
-is at 0xffffffffc0c4b280, and /proc/kallsyms has nft_do_chain at
-0xffffffffc0c4b0b0 and the next nf_tables symbol at
-0xffffffffc0c4b4e0, so your series is right. The last dca symbol
-starts at 0xffffffffc0c4aa50, and symbols__fixup_end() extends it to
-0xffffffffc0c4c000, over the first page of nf_tables. I've sent the
-fix separately:
-https://lore.kernel.org/all/20260928-haghdoost-perf-symbols-fixup-module-en=
-d-v1-1-0a70d1edd401@uber.com/
-
-Thanks
-Alireza
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
