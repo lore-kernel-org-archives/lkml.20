@@ -1,132 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A777A1D416C;
-	Tue, 29 Sep 2026 23:46:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D3A38DC78;
+	Tue, 29 Sep 2026 23:48:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790725584; cv=none; b=e/9v84vGCp3oud/T53Gqd9AnjP8uSKi1HR9uInNot1WxyGbMo6oLEgGrOdHcRuKVCiD4OQtBOo+hL3luiMGKwxlkUOaj6objG0RnsdJxD/9p3fEytUCiI0DImRaHPV0zFyTVRwoIf1KbzNed4PgJlHUimxp0qyVOzwSf3XNlBJA=
+	t=1790725696; cv=none; b=s0H1SHj1rmGduMpKZOVfg7ZonrClKnIMeMCXHf1DgpZVk07FaPXoctD/V4V4/0vJ0ASwaRefmXjT13L533ajEe3hzltM2uqZbjwR1f+aCLTH8rZPlN3kGVN3WZxU0q3+sD0FLsyxFJDuJrDWCK18HewENRNbi+835+BmuRqcrrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790725584; c=relaxed/simple;
-	bh=LRq4vU2UaNtO/ieQAH8HDx9+750FfkGFV8Zr+vB8jWw=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=X+4N43FUROXPisi8e4+5L9Xfaxkcq+OnfoHpQS2/07JsgyP11ZSfSyDr0IwGrExQnic90x44o3AiBX0TzZdeHuaeTL65CWnfdNmV76bV9DSIt8CPn/DpgOpaYFSTlNZSxkxMmCXEQ9BbOGoxdcuUv8JL0dpRorhS73j9Qh4/e+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etKZjUUL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790725696; c=relaxed/simple;
+	bh=IeLpjxVDA3GrnDgmvTeCyQjgNOUdg4es+X/2CCUKubU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g9bb/sYsMvtW0QHTihBDp+BR0u1EJeDa/s8EthtidHeqLJ44SWRbzgvRXiXCheLh+by1WhgCZSjk5lWZw+MR63xYjp6bnUDxPKwkcitKSB7KzDwPH9ZjnrCK+CDTgNIorCtBFV61uG7aC3YjxDHW0gSetbUtsgx3WW8foqJPN1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhzkGaRe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etKZjUUL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783C01F000FF;
-	Tue, 29 Sep 2026 23:46:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhzkGaRe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4E61F000FF;
+	Tue, 29 Sep 2026 23:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790725582;
-	bh=eUgBSVCxg479HmVb1My7cssnKyEELh39OZi+wobzssQ=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=etKZjUULIUryUFPFnSFpQgqe7lgC025pLBPcfJBgF7EIj6RaQUqZQ9lhv5XN8CyaA
-	 +yX9+Emy+4optmeHZfwi3fDFg1Aa7/+1YBXdwQ2Ckg948/SfDYt2Awk/2GMKWHoiYh
-	 /LtK9tB+/lO6D/tmanLNFiHlETt9k7+MYxFBAZFt/4aFeAcFUDnwhDcEUe6KV8stEN
-	 JJmS8poo2aZDL13MgKszUJdqFmnsOWFoD8teIhI0mr2KHBTJDtraL8SUnDeFRt0By7
-	 O4jmVK4ksdsABn2xdPjH1ny3i0pgiS5DQagH3NU2493hELsyE8ZJU0D1eXGYSXNsd6
-	 T3NVyX0leAAnw==
-Content-Type: multipart/mixed; boundary="===============5723665362160622272=="
+	s=k20260515; t=1790725694;
+	bh=gIqFVKJu6AToIPs1PJ0I4keo47YZu7KeaLmxN+BVCuI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VhzkGaReqEEO2XgPU/r2WxwZs5SREUmfSQgiINcUoXIv8bBkXCl/itC0FnAJhcF8n
+	 Tz+4njQV8/Wgfcl43M937K7PtNuNSkcGEXjt3HUaVepxjLJcyrhqL2+36zcl7IyBHH
+	 jbsE8zfLCs6qhqBfgUTtJhqNRxkRwcsi184Gp+TemzUMEBuS628poVt66JzIIL4yry
+	 49uRU97VXmCzeR4F6TYSr2gMQFr2uHv8fjuk9UI29dF4bxd8hN+WyweFY7EjOE8Txh
+	 dAUolPFB7vgrvHbuKDJpZODJWAwXCrV7wIX0Q45KTU1L0jJ2Wr8fVUtoAdNoCM8sFE
+	 0quruYrLofanw==
+Date: Tue, 29 Sep 2026 16:48:12 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 3/5] perf report: Add --no-progress option
+Message-ID: <arxOPEU1bCePHzVx@google.com>
+References: <20260929212246.2532021-1-acme@kernel.org>
+ <20260929212246.2532021-4-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <2dc04cf6f1e0c474da152cb4afcd0e264930b4d1d9b969de1b7cfbdd50b1bd35@mail.kernel.org>
-In-Reply-To: <20260929005411.4105448-2-vineet.gupta@linux.dev>
-References: <20260929005411.4105448-2-vineet.gupta@linux.dev>
-Subject: Re: [PATCH v2 1/1] tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
-From: bot+bpf-ci@kernel.org
-To: vineet.gupta@linux.dev,rostedt@goodmis.org,mhiramat@kernel.org
-Cc: mark.rutland@arm.com,mathieu.desnoyers@efficios.com,andrii@kernel.org,peterz@infradead.org,linux-trace-kernel@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,kernel-team@meta.com,vineet.gupta@linux.dev,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 29 Sep 2026 23:46:21 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929212246.2532021-4-acme@kernel.org>
 
---===============5723665362160622272==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Sep 29, 2026 at 11:22:44PM +0200, Arnaldo Carvalho de Melo wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> Add the counterpart of --progress: the TUI and GTK browsers present
+> progress of their own and there is no way to turn it off, while the
+> option just added allows asking for it when there is none.  Install the
+> no-op ui_progress ops, the ones already used until a backend sets
+> theirs, after setup_browser() installed them.  The phases are still
+> counted, nothing is shown for them, and --no-progress takes precedence
+> over --progress.
 
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index ed455b53513b..336f40dc6618 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
->  /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
->  static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+Hmm.. I mean --progress already gives --no-progress for free.  We just
+need to handle that for TUI and GTK.
+
+Thanks,
+Namhyung
+
+> 
+> Suggested-by: Namhyung Kim <namhyung@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> ---
+>  tools/perf/Documentation/perf-report.txt |  5 +++++
+>  tools/perf/builtin-report.c              | 17 ++++++++++++++---
+>  tools/perf/ui/progress.c                 |  6 ++++++
+>  tools/perf/ui/progress.h                 |  2 ++
+>  4 files changed, 27 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
+> index a7429a30ec28f903..bc0f2031b100f425 100644
+> --- a/tools/perf/Documentation/perf-report.txt
+> +++ b/tools/perf/Documentation/perf-report.txt
+> @@ -43,6 +43,11 @@ OPTIONS
+>  	present progress information, or when --quiet is used, that asks
+>  	for no messages at all.
+>  
+> +--no-progress::
+> +	Do not show progress while processing the perf.data file.  It
+> +	also turns off the progress the TUI and GTK browsers present,
+> +	which is their own, and takes precedence over --progress.
+> +
+>  -n::
+>  --show-nr-samples::
+>  	Show the number of samples for each symbol
+> diff --git a/tools/perf/builtin-report.c b/tools/perf/builtin-report.c
+> index 963808b561e547c3..8d23c077fab5f874 100644
+> --- a/tools/perf/builtin-report.c
+> +++ b/tools/perf/builtin-report.c
+> @@ -88,6 +88,7 @@ struct report {
+>  #endif
+>  	bool			use_stdio;
+>  	bool			progress;
+> +	bool			no_progress;
+>  	bool			show_full_info;
+>  	bool			show_threads;
+>  	bool			inverted_callchain;
+> @@ -1385,8 +1386,16 @@ int cmd_report(int argc, const char **argv)
+>  		    "Use the stdio interface"),
+>  	OPT_BOOLEAN(0, "weights", &symbol_conf.annotate_weight,
+>  			"Show or hide weight columns in annotation. Default show if non-zero."),
+> -	OPT_BOOLEAN(0, "progress", &report.progress,
+> -		    "Show progress while processing the perf.data file"),
+> +	/*
+> +	 * Not auto negatable: parse-options turns --no-progress into the
+> +	 * negation of this option before it ever reaches the --no-progress
+> +	 * below, which is the one that also turns off the TUI and GTK progress.
+> +	 */
+> +	OPT_BOOLEAN_FLAG(0, "progress", &report.progress,
+> +			 "Show progress while processing the perf.data file",
+> +			 PARSE_OPT_NOAUTONEG),
+> +	OPT_BOOLEAN(0, "no-progress", &report.no_progress,
+> +		    "Do not show progress while processing the perf.data file"),
+>  	OPT_BOOLEAN(0, "header", &report.header, "Show data header."),
+>  	OPT_BOOLEAN(0, "header-only", &report.header_only,
+>  		    "Show only data header."),
+> @@ -1798,7 +1807,9 @@ int cmd_report(int argc, const char **argv)
+>  	 * processed so far for each processing phase.  --quiet asks for no
+>  	 * messages at all, so it leaves the phases uncounted.
+>  	 */
+> -	if (report.progress && !quiet && use_browser == 0)
+> +	if (report.no_progress)
+> +		ui_progress__noop_init();
+> +	else if (report.progress && !quiet && use_browser == 0)
+>  		stdio_progress__init();
+>  
+>  	if (report.data_type && use_browser == 1) {
+> diff --git a/tools/perf/ui/progress.c b/tools/perf/ui/progress.c
+> index 99d60223c74b2957..362680989ace606a 100644
+> --- a/tools/perf/ui/progress.c
+> +++ b/tools/perf/ui/progress.c
+> @@ -13,6 +13,12 @@ static struct ui_progress_ops null_progress__ops =
+>  
+>  struct ui_progress_ops *ui_progress__ops = &null_progress__ops;
+>  
+> +/* Everything counts but nothing is shown, the way it starts out. */
+> +void ui_progress__noop_init(void)
+> +{
+> +	ui_progress__ops = &null_progress__ops;
+> +}
+> +
+>  void ui_progress__update(struct ui_progress *p, u64 adv)
 >  {
-
-Does this comment still match the function's behavior? Before the patch,
-alloc_retstack_tasklist() assigned at most FTRACE_RETSTACK_ALLOC_SIZE
-stacks per call and returned -EAGAIN to trigger another batch. After the
-patch, it walks every thread in one pass, allocating inline with
-GFP_NOWAIT. The FTRACE_RETSTACK_ALLOC_SIZE pre-allocated entries are now
-only a fallback when GFP_NOWAIT fails, and in the normal case they're all
-freed at the free: label.
-
-> -	int i;
-> -	int ret = 0;
->  	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
->  	struct task_struct *g, *t;
-> +	int i, ret = 0;
->
->  	if (WARN_ON_ONCE(!fgraph_stack_cachep))
->  		return -ENOMEM;
-> @@ -1054,26 +1053,37 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  		}
->  	}
->
-> -	rcu_read_lock();
-> -	for_each_process_thread(g, t) {
-> -		if (start == end) {
-> -			ret = -EAGAIN;
-> -			goto unlock;
-> -		}
-> +	scoped_guard (rcu) {
-> +		for_each_process_thread(g, t) {
-> +			unsigned long *rs;
+>  	u64 last = p->curr;
+> diff --git a/tools/perf/ui/progress.h b/tools/perf/ui/progress.h
+> index 03f1a8bb260ba076..e8c4f9f768aaf12b 100644
+> --- a/tools/perf/ui/progress.h
+> +++ b/tools/perf/ui/progress.h
+> @@ -25,6 +25,8 @@ void ui_progress__update(struct ui_progress *p, u64 adv);
+>  
+>  void stdio_progress__init(void);
+>  
+> +void ui_progress__noop_init(void);
 > +
-> +			if (t->ret_stack)
-> +				continue;
-> +
-> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-> +			if (!rs) {
-> +				/*
-> +				 * Returning from inside scoped_guard() drops
-> +				 * the RCU read lock, but skips the free loop
-> +				 * below. That is only safe because start ==
-> +				 * end here, which leaves that loop nothing to
-> +				 * free. Keep the two in step if this
-> +				 * exhaustion check ever changes.
-> +				 */
-> +				if (start == end)
-> +					return -EAGAIN;
-> +				rs = ret_stack_list[start++];
-> +			}
->
-> -		if (t->ret_stack == NULL) {
->  			atomic_set(&t->trace_overrun, 0);
-> -			ret_stack_init_task_vars(ret_stack_list[start]);
-> +			ret_stack_init_task_vars(rs);
->  			t->curr_ret_stack = 0;
->  			t->curr_ret_depth = -1;
->  			/* Make sure the tasks see the 0 first: */
-> -			smp_wmb();
-> -			t->ret_stack = ret_stack_list[start++];
-> +			smp_store_release(&t->ret_stack, rs);
->  		}
->  	}
->
-> -unlock:
-> -	rcu_read_unlock();
->  free:
->  	for (i = start; i < end; i++)
->  		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36644771324
---===============5723665362160622272==--
+>  struct ui_progress_ops {
+>  	void (*init)(struct ui_progress *p);
+>  	void (*update)(struct ui_progress *p);
+> -- 
+> 2.55.0
+> 
