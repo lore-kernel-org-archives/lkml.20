@@ -1,697 +1,255 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013016.outbound.protection.outlook.com [40.107.162.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEE33BB100;
-	Tue, 29 Sep 2026 08:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670087; cv=none; b=cahI1QeSfpFFH8vDQTbUfDSgCVggJoO4wYBTeuK25FKmN1WP3XmZp0mzYnJ+oBo4uUVtAhE9YSssTvPcKJW+ZRNTj+eO/78CjTDgcnvp6fhvosTAaBqDaeRLGU9HuDAq9+yaNz2Us0k6JmYh3HWElddw73X9G9ax6g86BcNrzCE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670087; c=relaxed/simple;
-	bh=tsNi91vKlhYDlsbL6Ugg0qFw2igZef3Z6JYRD8oRWAs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JG9XUMGzOkesWlotgwcttlxeSdnSQw9nv73J3P/R4yXhiQDaAFx6YM+ZykuJo0yK3MN4lgl+M4ae5bqzP04/nyVIZlud5skplynN0JO6D4sgzOwyFgkTHeQ2k68uODo8t5oyL4XsD5kBHdanv+0n3sUFc1gCZNB/m5M+QUAm3vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=simAiXG9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iGEpZFhi; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Pp5Q9I/U; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=014etUHY; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B4F3C0626;
+	Tue, 29 Sep 2026 08:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790670098; cv=fail; b=EfFlO47bJv0AONNr7CQ4YhKbVLddKdHLlSijWD9WSFUJNSXA7IBZGBdoCxCyFkqOc/m3ZplDJzzgTM7vMb8tHfKwmZdDI4ZcXLe7X79uZgDtaXZQIF/yONrVYkTPHVDfcKQNyOGY/G27gDkF20jhteaTIrv9zfSoWZm6ecJv+/I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790670098; c=relaxed/simple;
+	bh=ac+jUFEbR/mXp02Zpq8kngJgCneknD972S1WO6PVHkU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KwnpoBT1X1KVWEYsflxokK8g3adsF7fpHXvykZXG9JFQmH8tW29sR0nVtjPpZ7J4vVAq2PgOlbwAJ3ydfS/dep61I1QrtU2KsXDBNP6Xlc/oRCvUNszwA/TP+886UMVGEF455p64Z9m13SqMNf9cA8GoTANXrDQBpw6khvMfAfc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=inY1DGds; arc=fail smtp.client-ip=40.107.162.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="simAiXG9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iGEpZFhi";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Pp5Q9I/U";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="014etUHY"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F0D821F7B1;
-	Tue, 29 Sep 2026 08:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790670076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ze4dRe5kebYmxs7Gcd2E/t3UK7Z2MpBLPtgJWt59l+s=;
-	b=simAiXG9IsLL+O1IyHMfju3iugATKQ25lKSGyYcmvxCoF+wS7joD2pwhAr8SgKvsT+5eTR
-	7NB5TsUpTq2YoWDzVj/IDweehhRiNXZRDFOevWg15XYR165pTYWtfqD9iGW7tEUU6RkZAh
-	XsovVo+zMT5AHMrZh32PwnoAxQEFRwY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790670076;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ze4dRe5kebYmxs7Gcd2E/t3UK7Z2MpBLPtgJWt59l+s=;
-	b=iGEpZFhiFfd6oQu63FrHmWdTGDg2Q/4bVuLEgAWs+n34NJGfb2nwqMrVGZROKq7xH1f/TB
-	QskVTePTMKc/upAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Pp5Q9I/U";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=014etUHY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790670071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ze4dRe5kebYmxs7Gcd2E/t3UK7Z2MpBLPtgJWt59l+s=;
-	b=Pp5Q9I/UYUdwxXaj2gVhO8jyFgI3QNYVS6G0RfF1PuCDW6VhTEaGUG8EgZK5YulBzSiPrn
-	SY3FE/LtisFAMYMIQhQvptEXTAo5lB0Y6riCXJUI//DaaQVvlMjvHQXtAFWhs6BJUVDNvW
-	6GXkIW04gLd6NTTd0tJ8tXEemZBMSqY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790670071;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ze4dRe5kebYmxs7Gcd2E/t3UK7Z2MpBLPtgJWt59l+s=;
-	b=014etUHYN2pFXOWygbKwPVER0wGy265Ze8qT3gBYHwtr+1tM4MV3czur/JSVYwO+2lQ7UC
-	FpwusayF+F9Jc0AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1AFB2136E4;
-	Tue, 29 Sep 2026 08:21:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id raxsNvZ0u2qtSAAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Tue, 29 Sep 2026 08:21:11 +0000
-Message-ID: <5cdbc432-7d7e-47f7-897d-2b71a1a4a7a4@suse.de>
-Date: Tue, 29 Sep 2026 10:20:16 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="inY1DGds"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B4ARimgWCMWzKu2QP2Hge6kzm7z2c+JKD/xcDFIKgKBKb+gI68n2/kO+kfsnYjPuCbbrJbGrwczKZS4NO7YO7nOlaHvSToY9dZfRH5TQ3kS54bjOKaYoGh1zAKeG8DAIgk3lQ7xXdM0MclbsxS3GnVOWIKzYpAzXw1nHyLso0p+UJMasybecFF9gt9C6FHp2dbvoj6/UwsQZs+ZCfG8VVKKwnURfsfLWXhZblGajwwwLlZmMdLxxLlSox1GgJBK+YpPxvVmgmfS63rYFIFFtb8O9rZtCZKudL5on2FJr8YEToanpKdz2xVD7sjHugQZdmSGf79DmO+IZwxzktXdNiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=txdTA7em48h6GOrh2iixmpFaXq5fgiNRDJsqCgtdz/Q=;
+ b=mBPjkgR41W31URhgLV58IR5LLpjQwhyQDj5BmU55Y5X+ReFWC8icA/rtgva+9j3Ip/tcNvqUwOThQNofq7fvSLi9/xgfOc4DtQRgrZL0gTVQWbcAYOobmgTfpEXo5yR6R8C3vxvE6lmHuNkc3WqTeBC3gQq8A6axIPSZyDmyYmnBjLw57yojIVyH7a1BWJIEoedM3zn5nJRKrFdm9SSxDBsX3X+vNIB9jdHlRi6sBtRmhAMazcg8Gz9P7fG2kNKRKuuanJcPDcpvzsd9zW5vcaygQpjyVE3YB/SxHfqkFY637Z/2HznSK+80aExt4YRhL4FXE6i4NbXJDc/ulA5fTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=txdTA7em48h6GOrh2iixmpFaXq5fgiNRDJsqCgtdz/Q=;
+ b=inY1DGds5gjBhp1kUhlfQh7GERz541V02XKx/g5YqeJpG3QwsyFFtiNxsjMAjobirCuGGKp2dEzy3vMNy2L4wN5v5rWqcFcMed4n6z2M91GHyDL6HTdksy6TCpBz5bdtsc1DdTljbZfJYKIWGG4IZtj1fSf8/Uox6GBkZ3mQM/77cHixkdeHRYEB57rZ4PkZ/j8u7k8WBrUUQP9CE+NX6G+FFQr5xhpjIRIOBpzHf+8wHozTD4V28cEm5FIqVBn/rYgZhy2gd9XdWjwMyElGaqWcZFb6AKr6IAQYKCVP54Nmh1LNMfgK5ph1oVfLZ+dZBivH075NMjQvZZN9GcZnog==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
+ by MRWPR04MB12120.eurprd04.prod.outlook.com (2603:10a6:501:97::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 08:21:25 +0000
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 08:21:25 +0000
+Message-ID: <dd896eed-5bdc-48b8-ab6c-4a65fba14a88@oss.nxp.com>
+Date: Tue, 29 Sep 2026 11:21:21 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] can: rx-offload: add a per-IRQ receive context
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Max Staudt <max@enpas.org>, Markus Schneider-Pargmann <msp@baylibre.com>,
+ Heiko Stuebner <heiko@sntech.de>, Manivannan Sadhasivam <mani@kernel.org>,
+ Thomas Kopp <thomas.kopp@microchip.com>, Ming Yu <tmyu0@nuvoton.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
+ imx@lists.linux.dev, Haibo Chen <haibo.chen@nxp.com>,
+ Enric Balletbo <eballetb@redhat.com>
+References: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
+Content-Language: en-US
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+In-Reply-To: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0168.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::17) To AM0PR04MB5858.eurprd04.prod.outlook.com
+ (2603:10a6:208:132::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/16 net-next v2] ipv4: disable IPv4-only sysctls when
- CONFIG_IPV4=n
-To: Joel Granados <joel.granados@kernel.org>
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>,
- Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
- <yuuchihsu@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
- linux-kernel@vger.kernel.org
-References: <20260928193046.6698-1-fmancera@suse.de>
- <20260928193046.6698-12-fmancera@suse.de>
- <merysy6sadsrrmkiswnxlaohuftbvtaslbqhdhg5o57a7fxnkd@fkjcxi2cv2zs>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <merysy6sadsrrmkiswnxlaohuftbvtaslbqhdhg5o57a7fxnkd@fkjcxi2cv2zs>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,redhat.com,davemloft.net,google.com,nokia-bell-labs.com,icloud.com,gmail.com,nvidia.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: F0D821F7B1
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|MRWPR04MB12120:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0c94a8f-dbf7-465c-9236-08df1e02a6f3
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|19092799006|1800799024|18002099003|22082099003|921020|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	7xOmWgltwokYLGdfaD4CeVEVNtHIp0/4dTnNFylQQz4m+udi6AQx0m5yFY+982ZRFrcxFccKe9W08rVey2gQVrwMzhxlBeRf1y7izeW6zbz95Er+hqeNAsDSD6REtECiTcB8tM+QvqxAiY2umIjytBvCANDeCoBmlHe43ky8NBMfxGEwA+mOjCAg53Cew2QrxDGY7O0tkE3KwDOS4wjP909fIt1N1C0SO4fTo5bbxcyR+iuamUc2Y3MGvv5wD0vXprzShgZcFYSI9QRG06nDRWs0ERJVjBqrXcK/KhgLHNaFbDRxaW1kVtMDdTAr8ZG63AIScCnM/s3haik5KqFaocoVOafPeYIvCYxT/SwaILRG/lrFRhOLJZDsNvZx4QasPl1kHPomhkMDj4E65p6KXED6yjCVUSEX+DMeHxbJ+/SHyaNS4ExvKTrxhBktxvzYVzjWHxfF3kmRUVItRh0+FWixcqEAKc8Yv+ViaI0WCeQy9t09WLHnUSu0cwl0rT5gr+2tM+7OVzyH17n2Uq/To/YvymJUH9OlZgT9nvN01aZJEIKgJXHOqhZVSaH+WzB6yUjd84ge0NT9C5G02/y3sTa4gRo0JNctygImKmbbAd+/QQ9J+OKNQx1IgV+28+9g2AiQDni3HWfr9wH1hXxWXgif6KsFwKOx0HflaRgcmw9q1wiXez8wwRFLVpJuvEq3pr5OkY7RTR5hbLb5kbtfSA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(19092799006)(1800799024)(18002099003)(22082099003)(921020)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3FsN01xMEJ2dmtETTlDUHJXOVk2THdHbHVibUF0OUdBWVlFWndiY2JzYXlh?=
+ =?utf-8?B?RFdaZUtLZUJXcVNIMll2M3JvbWVhRDFtSmxRQXQrY0dFRzFQZnB6Um1vV1dk?=
+ =?utf-8?B?MkcraStoRDRxVWhxV042MGFjQ1ZER3ZnTW9ERmpDNkdVZkg1YTNOY3FjYmtz?=
+ =?utf-8?B?OW9ELzhlNmdOTG5QQ1VhYnhDSUlQRFVJNmxMQmZnK1hqb29UZSt1QlBJSENE?=
+ =?utf-8?B?NDZkbFI3VkNqWSt1OXI2b2sxb0pCdlpBcDRtdlFXcjFYWlRodFlWMGlKZUda?=
+ =?utf-8?B?M3pBVGJPWGxYbTlFc3I3OGRGR3p3Y216dmlQd25majkvRHF4SXFBNFhQM0Jo?=
+ =?utf-8?B?RWVYcE91RWZrTXVlRXRGVVZGbTlZeFlHMlBaRUZEZ0RGeWZDcEt1L3dnak42?=
+ =?utf-8?B?N2tTWWoxdkh4VUJWUHZkVXR2RHZrSjFQZ0F6K21BMy9vajBUSy9DWmFKTmV2?=
+ =?utf-8?B?TjMrSENCazIzVTI4OGhrWVplcW5FL2pOcTF4TjhQVTZqU3pJVElIeXc5d2pT?=
+ =?utf-8?B?TjhXRmw2bHI4QldNOVFjTDd1amlxUzFuSlkya0JQcWZBRHhxZkp4VjlERE5P?=
+ =?utf-8?B?NDlQaitOTUFQeFdoaEh2R2M5ZVRwcDhza2ZVVW11NXFld0NCM1FQd09qbXda?=
+ =?utf-8?B?eUZnKzc5RFdMT2cyb3h2Z0xRMHFPNDFvWGxEU3J3OHNzbDI0SXV4VG43dXZH?=
+ =?utf-8?B?ZmtGdDVrdmo2YXpHWlM2SjBZWTEyNFVxcjZTMGg0VlpXY3RsdHpNb0dIKzNH?=
+ =?utf-8?B?OWpIbk9INTMrWXpFUkRCa0prY0haV2lmbnZ5amRXendLQitJQWRoYnM3MWt2?=
+ =?utf-8?B?K0FuNjJxamFPSmh1K3NnQitPQ1NYTS9FK01ZNWRHbU5GblhheE04dmdISTdJ?=
+ =?utf-8?B?dEt3ckUzUVdEay8wY3BsYVViRTdiTzhpaDJIc01oaEw3MEswOXVFN1ZZb2tu?=
+ =?utf-8?B?RGEzSlA2K1ZRNEoybjlZOTU1a3I1OWNuWlNHbGpXTHo5SnlDeDhHWDg3Ti9V?=
+ =?utf-8?B?RjlwNFlVeHFmbGo2VkZpaU04akdkdlpXNUhFZGlMSnMyOExSc0MvTmRUbER6?=
+ =?utf-8?B?ZmxNdkRGT0V4RDlNbThDekV5cW9MTmlPa3BUSDdlbWp5eHpGVTRzYVo3T3FE?=
+ =?utf-8?B?Um5QbHA0cUFnL3RveVNCcDhjd0tZeUtORzVzc1c0b1BwMStVSE84NU1aSnJN?=
+ =?utf-8?B?c0V3T3VETTBDSW1VeXl4Rjg0MUphZGNvRkc0eEpVMFgyUEhQc2t6WlBNakUv?=
+ =?utf-8?B?eGp1SDRpR25NdU1HUWZIVzh6SnMvWWdMaTdMWitvRzlXVVlSeHFVYnZ4STBn?=
+ =?utf-8?B?RGNXNU1kbmFKSU9JdmN3SUZ4YVNoVnZUWmN2eFNhckwxeGhPU2pkbnQzcWlw?=
+ =?utf-8?B?c3Z1a25LeE9idG9EWjRPZnN2T3FtS0Y5YWZpMDFvYjJiU2xSWDNaenlnL2Rz?=
+ =?utf-8?B?TzVNOEttdVV6NmdSWXlWZ1NSWXpVbkUyMWF6NmNrcm1KdnNuK3B4R0JzUTQz?=
+ =?utf-8?B?VW81QnVZNXFaRmVsWlNUMzluajVVTzVDT0wyYUlaMXo0V0g3U2lwVC9zQTlH?=
+ =?utf-8?B?S3Nka2FwcUhBN3UvN1V2dlM3M0czNUc5bFhFVTdnampyajVVaUI2SjBmTmFT?=
+ =?utf-8?B?N1UvdkZjSWRCNnNrVXlaeG5oQWhkWWxWZVFydE1Pc3FiUEE0N3BvWjNmRnc0?=
+ =?utf-8?B?YUdVSGh3SUxWNXl4SWExVyt3UGJsRkJZNi9aVm51cXk3em5qeGx6b0JBN0RO?=
+ =?utf-8?B?UlVZNnJWR0JCWUpmclN5R1kveEREaGtHVklNTTYwalc5REZ1OGl6d2JCa2JB?=
+ =?utf-8?B?WERNNVNWMUxqU0kwd2pOYWRxOUloQVZNbEhzb05iM1J4QmFoUUJYMUh3ZGVa?=
+ =?utf-8?B?VUlQTzZFelNIS0xJc0FtOFFsUVJGbkxCWXhOdjY0aElsdjZVajRCeDBwMkEz?=
+ =?utf-8?B?ZTBzMDFVM1I2anNWZ0Vta2x0U0laSGY0cDV3M1RIbXVmdUdQV1BmNi83dFZ3?=
+ =?utf-8?B?NXJ6aEMrOW8ySHpZcnJDLzVpSnpSUjg0Z1ZVUUJJQnFDMVRkdVNBQm00SnIr?=
+ =?utf-8?B?TCtyU0dOZVcrNXpNOHpTK3E2ZWRzU1FqSXZWWlVuMUFhSW5GSWRaMjhpbDZs?=
+ =?utf-8?B?OU5ibkhqb3EwVDBOR2pldVp0TmpkbzFRRU9lZ0VneDVXaFdhNFdQMmZQRG54?=
+ =?utf-8?B?cDBPbHBNM01HT010OE8vM05vY1pPUTZCZ3VmYk51WC9aUVNKRlRTRUhvaFRI?=
+ =?utf-8?B?QzRqdzF6Y2xJV0R6YVRCVHhyRWRXd2N6ZitOY1MxRXZoMXFWdkVRV2xhOTlv?=
+ =?utf-8?B?NjM3WmVMOVl4WHgranR0Nlk2NWtqUGxSdnFxbjJhblJkMEFzOVNlYTFkemJM?=
+ =?utf-8?Q?2XuVqkANvj8A5dqM=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0c94a8f-dbf7-465c-9236-08df1e02a6f3
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:21:25.2200
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: juxPTrqEtlZZl5KIFWlm+9fxq2a/aRSpeXj0LY6wubpRRxp/zAQE4HlpHUwCaMDGGt3EZPH7ionX4p/61NGZKgAADqwNsoKlNUfI6gdG1Tc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12120
 
-On 9/29/26 9:14 AM, Joel Granados wrote:
-> On Mon, Sep 28, 2026 at 09:30:07PM +0200, Fernando Fernandez Mancera wrote:
->> To avoid noise and unexpected problems, let's hide all the sysctls that
->> are related to IPv4 only when the kernel is compiled without IPv4
->> support.
+On 9/25/2026 5:45 PM, Ciprian Costea wrote:
+> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 > 
-> You are hiding the IPV4 sysctl with "#if IS_ENABLED(CONFIG_IPV4)" inside
-> the sysctl_net_ipv4.c file. That is confusing as I would expect all
-> sysctl_net_ipv4.c to be ipv4 specific. Wouldn't it be cleaner to just
-> have an "ipv4" sysctl file and compile that when CONFIG_IPV4 is enabled?
+> The rx-offload IRQ handler fills skb_irq_queue without a lock and the
+> finish helpers splice it into skb_queue under skb_queue.lock. This only
+> works with a single producer. flexcan requests the same handler on every
+> IRQ line: the mailbox line, the bus off and error lines
+> (FLEXCAN_QUIRK_NR_IRQ_3) and a second mailbox line
+> (FLEXCAN_QUIRK_SECONDARY_MB_IRQ). On NXP S32G2 all four are used, so the
+> handlers can run at the same time on different CPUs and corrupt the queue.
 > 
-> I might be missing something obvious as I just got to see 3 patches of
-> the series. Ignore, if this is addressed at some other point.
+> As Marc suggested, each IRQ line now gets its own receive context, similar
+> to NAPI. struct can_rx_offload_irq holds skb_irq_queue, skb_queue_len_max
+> and the mailbox range, skb_queue and napi stay in struct can_rx_offload.
+> With a single context the finish helpers still use
+> skb_queue_splice_tail_init(), with more than one the skbs are sorted into
+> skb_queue.
+> 
+> Patch 1 is an at91_can fix, independent of the rest. Patch 2 adds the
+> per-IRQ context and converts all rx-offload users. Patch 3 gives each
+> flexcan IRQ line its own context.
+> 
+> All lines still read the whole mailbox range, so two of them can read the
+> same mailbox. This series does not change that, the range split is part
+> of the flexcan multi-IRQ patches along with the S32N79 FlexCAN support.
+> 
+> Testing on S32G2 is in progress, I will follow up in this thread.
 > 
 
-Unfortunately, under net.ipv4.* sysctls there are plenty of them that 
-are not exclusively related to IPv4. For example tcp_* or udp_* ones. 
-These cannot be moved out of there because it would break plenty of 
-systems.  I think it is good to have them all at sysctl_net_ipv4.c and 
-guard them with ifdefs..
+Finished testing on the S32G274A-RDB2 board between can0 and can1 on the
+same bus, CAN FD + classic CAN, with the IRQ lines pinned to different
+CPUs. The rx-offload queue works fine with the series applied.
 
-Technically, nothing prevent us to split the generic ones to net/ipv4 
-sysctl_net.c or similar.
+As mentioned in patch 3, the handlers still process all mailboxes and
+the ESR on every line. With the lines on different CPUs, a frame can
+rarely be received twice and a state change can be reported twice. This
+is a pre-existing issue and will be fixed in a follow-up flexcan series
+that splits the handling per IRQ line, along with the S32N79-RDB FlexCAN
+support [1] (needs a new version once the current rx-offload patchset
+gets accepted).
 
-Thanks,
-Fernando.
+[1] 
+https://lore.kernel.org/all/20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com/
 
-> Best
+> Changes since v5:
 > 
->>
->> Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
->> ---
->>   net/ipv4/sysctl_net_ipv4.c | 407 +++++++++++++++++++------------------
->>   1 file changed, 205 insertions(+), 202 deletions(-)
->>
->> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
->> index 0e7fef5973db..6096e9e4d82d 100644
->> --- a/net/ipv4/sysctl_net_ipv4.c
->> +++ b/net/ipv4/sysctl_net_ipv4.c
->> @@ -31,8 +31,8 @@ static int tcp_min_snd_mss_max = 65535;
->>   static int tcp_rto_max_max = TCP_RTO_MAX_SEC * MSEC_PER_SEC;
->>   static int ip_privileged_port_min;
->>   static int ip_privileged_port_max = 65535;
->> -static int ip_ttl_min = 1;
->> -static int ip_ttl_max = 255;
->> +static int ip_ttl_min __maybe_unused = 1;
->> +static int ip_ttl_max __maybe_unused = 255;
->>   static int tcp_syn_retries_min = 1;
->>   static int tcp_syn_retries_max = MAX_TCP_SYNCNT;
->>   static int tcp_syn_linear_timeouts_max = MAX_TCP_SYNCNT;
->> @@ -48,7 +48,7 @@ static int tcp_plb_max_rounds = 31;
->>   static int tcp_plb_max_cong_thresh = 256;
->>   static unsigned int tcp_tw_reuse_delay_max = TCP_PAWS_MSL * MSEC_PER_SEC;
->>   static int tcp_ecn_mode_max = 5;
->> -static u32 icmp_errors_extension_mask_all =
->> +static u32 icmp_errors_extension_mask_all __maybe_unused =
->>   	GENMASK_U8(ICMP_ERR_EXT_COUNT - 1, 0);
->>   
->>   static int tcp_min_rcvbuf = 4096;
->> @@ -201,8 +201,9 @@ static int ipv4_ping_group_range(const struct ctl_table *table, int write,
->>   	return ret;
->>   }
->>   
->> -static int ipv4_fwd_update_priority(const struct ctl_table *table, int write,
->> -				    void *buffer, size_t *lenp, loff_t *ppos)
->> +static int __maybe_unused
->> +ipv4_fwd_update_priority(const struct ctl_table *table, int write,
->> +			 void *buffer, size_t *lenp, loff_t *ppos)
->>   {
->>   	struct net *net;
->>   	int ret;
->> @@ -441,9 +442,9 @@ static int proc_udp_hash_entries(const struct ctl_table *table, int write,
->>   }
->>   
->>   #ifdef CONFIG_IP_ROUTE_MULTIPATH
->> -static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
->> -					  void *buffer, size_t *lenp,
->> -					  loff_t *ppos)
->> +static int __maybe_unused
->> +proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
->> +			       void *buffer, size_t *lenp, loff_t *ppos)
->>   {
->>   	struct net *net = container_of(table->data, struct net,
->>   	    ipv4.sysctl_fib_multipath_hash_policy);
->> @@ -456,9 +457,9 @@ static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int wri
->>   	return ret;
->>   }
->>   
->> -static int proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
->> -					  void *buffer, size_t *lenp,
->> -					  loff_t *ppos)
->> +static int __maybe_unused
->> +proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
->> +			       void *buffer, size_t *lenp, loff_t *ppos)
->>   {
->>   	struct net *net;
->>   	int ret;
->> @@ -492,9 +493,9 @@ static void proc_fib_multipath_hash_set_seed(struct net *net, u32 user_seed)
->>   	WRITE_ONCE(net->ipv4.sysctl_fib_multipath_hash_seed.mp_seed, new.mp_seed);
->>   }
->>   
->> -static int proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
->> -					void *buffer, size_t *lenp,
->> -					loff_t *ppos)
->> +static int __maybe_unused
->> +proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
->> +			     void *buffer, size_t *lenp, loff_t *ppos)
->>   {
->>   	struct sysctl_fib_multipath_hash_seed *mphs;
->>   	struct net *net = table->data;
->> @@ -636,15 +637,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.mode		= 0644,
->>   		.proc_handler	= proc_dointvec
->>   	},
->> -	{
->> -		.procname	= "icmp_echo_ignore_all",
->> -		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE
->> -	},
->>   	{
->>   		.procname	= "icmp_echo_enable_probe",
->>   		.data		= &init_net.ipv4.sysctl_icmp_echo_enable_probe,
->> @@ -654,56 +646,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.extra1		= SYSCTL_ZERO,
->>   		.extra2		= SYSCTL_ONE
->>   	},
->> -	{
->> -		.procname	= "icmp_echo_ignore_broadcasts",
->> -		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE
->> -	},
->> -	{
->> -		.procname	= "icmp_ignore_bogus_error_responses",
->> -		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE
->> -	},
->> -	{
->> -		.procname	= "icmp_errors_use_inbound_ifaddr",
->> -		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE
->> -	},
->> -	{
->> -		.procname	= "icmp_errors_extension_mask",
->> -		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= &icmp_errors_extension_mask_all,
->> -	},
->> -	{
->> -		.procname	= "icmp_ratelimit",
->> -		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
->> -		.maxlen		= sizeof(int),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dointvec_ms_jiffies,
->> -	},
->> -	{
->> -		.procname	= "icmp_ratemask",
->> -		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
->> -		.maxlen		= sizeof(int),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dointvec
->> -	},
->>   	{
->>   		.procname	= "icmp_msgs_per_sec",
->>   		.data		= &init_net.ipv4.sysctl_icmp_msgs_per_sec,
->> @@ -774,13 +716,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.extra1		= SYSCTL_ZERO,
->>   		.extra2		= SYSCTL_ONE,
->>   	},
->> -	{
->> -		.procname	= "ip_dynaddr",
->> -		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->>   	{
->>   		.procname	= "ip_early_demux",
->>   		.data		= &init_net.ipv4.sysctl_ip_early_demux,
->> @@ -811,15 +746,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.extra1		= SYSCTL_ZERO,
->>   		.extra2		= SYSCTL_ONE,
->>   	},
->> -	{
->> -		.procname	= "ip_default_ttl",
->> -		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= &ip_ttl_min,
->> -		.extra2		= &ip_ttl_max,
->> -	},
->>   	{
->>   		.procname	= "ip_local_port_range",
->>   		.maxlen		= 0,
->> @@ -841,36 +767,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.mode		= 0644,
->>   		.proc_handler	= proc_do_large_bitmap,
->>   	},
->> -	{
->> -		.procname	= "ip_no_pmtu_disc",
->> -		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->> -	{
->> -		.procname	= "ip_forward_use_pmtu",
->> -		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->> -	{
->> -		.procname	= "ip_forward_update_priority",
->> -		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler   = ipv4_fwd_update_priority,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE,
->> -	},
->> -	{
->> -		.procname	= "ip_nonlocal_bind",
->> -		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->>   	{
->>   		.procname	= "ip_autobind_reuse",
->>   		.data		= &init_net.ipv4.sysctl_ip_autobind_reuse,
->> @@ -880,13 +776,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.extra1         = SYSCTL_ZERO,
->>   		.extra2         = SYSCTL_ONE,
->>   	},
->> -	{
->> -		.procname	= "fwmark_reflect",
->> -		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->>   	{
->>   		.procname	= "tcp_fwmark_accept",
->>   		.data		= &init_net.ipv4.sysctl_tcp_fwmark_accept,
->> @@ -952,37 +841,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.proc_handler	= proc_douintvec_minmax,
->>   		.extra2		= &u32_max_div_HZ,
->>   	},
->> -	{
->> -		.procname	= "igmp_link_local_mcast_reports",
->> -		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -	},
->> -	{
->> -		.procname	= "igmp_max_memberships",
->> -		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
->> -		.maxlen		= sizeof(int),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dointvec
->> -	},
->> -	{
->> -		.procname	= "igmp_max_msf",
->> -		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
->> -		.maxlen		= sizeof(int),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dointvec
->> -	},
->> -#ifdef CONFIG_IP_MULTICAST
->> -	{
->> -		.procname	= "igmp_qrv",
->> -		.data		= &init_net.ipv4.sysctl_igmp_qrv,
->> -		.maxlen		= sizeof(int),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dointvec_minmax,
->> -		.extra1		= SYSCTL_ONE
->> -	},
->> -#endif
->>   	{
->>   		.procname	= "tcp_congestion_control",
->>   		.data		= &init_net.ipv4.tcp_congestion_control,
->> @@ -1154,42 +1012,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.proc_handler	= proc_tfo_blackhole_detect_timeout,
->>   		.extra1		= SYSCTL_ZERO,
->>   	},
->> -#ifdef CONFIG_IP_ROUTE_MULTIPATH
->> -	{
->> -		.procname	= "fib_multipath_use_neigh",
->> -		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_ONE,
->> -	},
->> -	{
->> -		.procname	= "fib_multipath_hash_policy",
->> -		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_fib_multipath_hash_policy,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_THREE,
->> -	},
->> -	{
->> -		.procname	= "fib_multipath_hash_fields",
->> -		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
->> -		.maxlen		= sizeof(u32),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_fib_multipath_hash_fields,
->> -		.extra1		= SYSCTL_ONE,
->> -		.extra2		= &fib_multipath_hash_fields_all_mask,
->> -	},
->> -	{
->> -		.procname	= "fib_multipath_hash_seed",
->> -		.data		= &init_net,
->> -		.maxlen		= sizeof(u32),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_fib_multipath_hash_seed,
->> -	},
->> -#endif
->>   	{
->>   		.procname	= "ip_unprivileged_port_start",
->>   		.maxlen		= sizeof(int),
->> @@ -1563,15 +1385,6 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.proc_handler	= proc_dointvec_minmax,
->>   		.extra1		= SYSCTL_ONE
->>   	},
->> -	{
->> -		.procname	= "fib_notify_on_flag_change",
->> -		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
->> -		.maxlen		= sizeof(u8),
->> -		.mode		= 0644,
->> -		.proc_handler	= proc_dou8vec_minmax,
->> -		.extra1		= SYSCTL_ZERO,
->> -		.extra2		= SYSCTL_TWO,
->> -	},
->>   	{
->>   		.procname       = "tcp_plb_enabled",
->>   		.data           = &init_net.ipv4.sysctl_tcp_plb_enabled,
->> @@ -1656,6 +1469,196 @@ static const struct ctl_table ipv4_net_table[] = {
->>   		.extra1		= SYSCTL_ONE_THOUSAND,
->>   		.extra2		= &tcp_rto_max_max,
->>   	},
->> +#if IS_ENABLED(CONFIG_IPV4)
->> +	{
->> +		.procname	= "icmp_echo_ignore_all",
->> +		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE
->> +	},
->> +	{
->> +		.procname	= "icmp_echo_ignore_broadcasts",
->> +		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE
->> +	},
->> +	{
->> +		.procname	= "icmp_ignore_bogus_error_responses",
->> +		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE
->> +	},
->> +	{
->> +		.procname	= "icmp_errors_use_inbound_ifaddr",
->> +		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE
->> +	},
->> +	{
->> +		.procname	= "icmp_errors_extension_mask",
->> +		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= &icmp_errors_extension_mask_all,
->> +	},
->> +	{
->> +		.procname	= "icmp_ratelimit",
->> +		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
->> +		.maxlen		= sizeof(int),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dointvec_ms_jiffies,
->> +	},
->> +	{
->> +		.procname	= "icmp_ratemask",
->> +		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
->> +		.maxlen		= sizeof(int),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dointvec
->> +	},
->> +	{
->> +		.procname	= "ip_dynaddr",
->> +		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "ip_default_ttl",
->> +		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= &ip_ttl_min,
->> +		.extra2		= &ip_ttl_max,
->> +	},
->> +	{
->> +		.procname	= "ip_no_pmtu_disc",
->> +		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "ip_forward_use_pmtu",
->> +		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "ip_forward_update_priority",
->> +		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler   = ipv4_fwd_update_priority,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE,
->> +	},
->> +	{
->> +		.procname	= "ip_nonlocal_bind",
->> +		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "fwmark_reflect",
->> +		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "igmp_link_local_mcast_reports",
->> +		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +	},
->> +	{
->> +		.procname	= "igmp_max_memberships",
->> +		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
->> +		.maxlen		= sizeof(int),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dointvec
->> +	},
->> +	{
->> +		.procname	= "igmp_max_msf",
->> +		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
->> +		.maxlen		= sizeof(int),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dointvec
->> +	},
->> +#ifdef CONFIG_IP_MULTICAST
->> +	{
->> +		.procname	= "igmp_qrv",
->> +		.data		= &init_net.ipv4.sysctl_igmp_qrv,
->> +		.maxlen		= sizeof(int),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dointvec_minmax,
->> +		.extra1		= SYSCTL_ONE
->> +	},
->> +#endif
->> +#ifdef CONFIG_IP_ROUTE_MULTIPATH
->> +	{
->> +		.procname	= "fib_multipath_use_neigh",
->> +		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_ONE,
->> +	},
->> +	{
->> +		.procname	= "fib_multipath_hash_policy",
->> +		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_fib_multipath_hash_policy,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_THREE,
->> +	},
->> +	{
->> +		.procname	= "fib_multipath_hash_fields",
->> +		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
->> +		.maxlen		= sizeof(u32),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_fib_multipath_hash_fields,
->> +		.extra1		= SYSCTL_ONE,
->> +		.extra2		= &fib_multipath_hash_fields_all_mask,
->> +	},
->> +	{
->> +		.procname	= "fib_multipath_hash_seed",
->> +		.data		= &init_net,
->> +		.maxlen		= sizeof(u32),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_fib_multipath_hash_seed,
->> +	},
->> +#endif
->> +	{
->> +		.procname	= "fib_notify_on_flag_change",
->> +		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
->> +		.maxlen		= sizeof(u8),
->> +		.mode		= 0644,
->> +		.proc_handler	= proc_dou8vec_minmax,
->> +		.extra1		= SYSCTL_ZERO,
->> +		.extra2		= SYSCTL_TWO,
->> +	},
->> +#endif
->>   };
->>   
->>   static const struct ctl_table *ipv4_net_table_dup(struct net *net)
->> -- 
->> 2.55.0
->>
+> - Replaced the per-CPU skb_irq_queue, which does not work in preemptible
+>    context, with a per-IRQ receive context, as suggested by Marc Kleine-Budde.
+> - Added patch 3 with the flexcan conversion. The bus off and error lines get
+>    their own context too, not only the mailbox lines.
+> - Moved the at91_can fix to its own patch.
+> - Dropped the gs_usb can_rx_offload_add_manual() return value check, the
+>    NULL pointer dereference it guarded against went away with the per-CPU
+>    allocation.
+> - Dropped Haibo's Reviewed-by from the rx-offload patch, since it was
+>    rewritten.
+> - Added Assisted-by tags.
+> 
+> Changes since v4:
+> - rx-offload: expand the comment above the for_each_possible_cpu() loop
+>    in can_rx_offload_threaded_irq_finish() to add the single-producer
+>    assumption (IRQ requested with IRQF_ONESHOT / handler non-reentrant).
+>    Suggested by Haibo Chen.
+> - rx-offload: add Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
+> 
+> Changes since v3:
+> 
+> - In gs_usb driver, check the can_rx_offload_add_manual() return value,
+>    the same NULL-deref the per-CPU change exposes.
+> 
+> Changes since v2:
+> 
+> - at91_can: also add can_rx_offload_del() on the register_candev() error
+>    path and check the can_rx_offload_add_timestamp() return value.
+> 
+> Changes since v1:
+> 
+> - The enqueue helpers used this_cpu_ptr() without disabling preemption.
+>    All four enqueue helpers now use get_cpu_ptr()/put_cpu_ptr().
+> - Guard can_rx_offload_del() against skb_irq_queue == NULL.
+> - Fix 'at91_can' memory leak by adding missing 'can_rx_offload_del'.
+> 
+> Ciprian Marian Costea (3):
+>    can: at91_can: release the rx-offload on teardown
+>    can: rx-offload: add a per-IRQ receive context
+>    can: flexcan: use one rx-offload context per IRQ line
+> 
+>   drivers/net/can/at91_can.c                    |  28 ++-
+>   drivers/net/can/bxcan.c                       |  14 +-
+>   drivers/net/can/can327.c                      |   8 +-
+>   drivers/net/can/dev/rx-offload.c              | 196 ++++++++++++------
+>   drivers/net/can/flexcan/flexcan-core.c        | 109 ++++++++--
+>   drivers/net/can/flexcan/flexcan-ethtool.c     |   4 +-
+>   drivers/net/can/flexcan/flexcan.h             |   4 +
+>   drivers/net/can/m_can/m_can.c                 |   7 +-
+>   drivers/net/can/m_can/m_can.h                 |   1 +
+>   .../net/can/rockchip/rockchip_canfd-core.c    |   9 +-
+>   drivers/net/can/rockchip/rockchip_canfd-rx.c  |   2 +-
+>   drivers/net/can/rockchip/rockchip_canfd-tx.c  |   2 +-
+>   drivers/net/can/rockchip/rockchip_canfd.h     |   1 +
+>   .../net/can/spi/mcp251xfd/mcp251xfd-core.c    |  13 +-
+>   drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c  |   2 +-
+>   drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c |   2 +-
+>   drivers/net/can/spi/mcp251xfd/mcp251xfd.h     |   1 +
+>   drivers/net/can/ti_hecc.c                     |  18 +-
+>   drivers/net/can/usb/gs_usb.c                  |  23 +-
+>   drivers/net/can/usb/nct6694_canfd.c           |  20 +-
+>   include/linux/can/rx-offload.h                |  48 ++++-
+>   21 files changed, 349 insertions(+), 163 deletions(-)
+> 
 
