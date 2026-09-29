@@ -1,119 +1,80 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9E95187FC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2160519934;
+	Tue, 29 Sep 2026 11:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682852; cv=none; b=Y3IzcbIGtch0n8cWifBvsxWWdVby6S2q2KONM6YHoWcm0H8PVsEH1a2gJw+aYEYs7AT4icGN6YVLBlEtQw+zBZCcJTO+nSUHg6qw+ir0xzcbqgs8tpypq7E9ZqvpMvshloN2HkU1k1ndrLUnYLsj+Ruvy4E24drYky0Wjpqo+Tk=
+	t=1790682893; cv=none; b=OoqMDnfS+7sljRRhlqvithOuPkVMLhPluEXeuN84/A4MoWCRgk9giTX9///v9WGF9j8S1KKdbnrRzwCRDGAXfuo8jtbW6jACKL+oDi9Py3aclUzhbhBGbo3Su2YCPBl2mevWsAh4ubzwAj2WSbUf/fHweS9Zk7Aw/86Rb5ksWvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682852; c=relaxed/simple;
-	bh=6sziIVdTu4ZPVOjNw6ZKDgiA/Sqd6hn3LEOmfZ9gpBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RI+bym300eB3yrS5rrDD3GFC/1BiQeCYZEUD87RZGPfkZwI7pfighnxE567bwgeKOPRMVrRQ4R7ga8YoJEzPs39NeExu6yRb6OC6Ej1Cpq7kqxvM4goteBiE80vNu1I+BrK/WezXIkCh+dm5rEa2cyzXjZIQ4OXmE90/B4EOknQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cFnD2yCT; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790682893; c=relaxed/simple;
+	bh=DtqkbPUa81FQQrzsYaoaL1FIE2UdQgTyoycbJmy1bmA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oDrB0/T7idW7NLpPX/NFrOwkwJqrCEKS6qfxDY5y842H7bxdkaCkWkyV4z5v292wkqgjpqQ3jo8Knzm3PzRxp9B41DCNnsqTzeop6vm9iJD6zs3WEqiAgpxL+7pj1kRfJqafaQk3HJeyGtbKjtoPytGfBWUZLTR7XMo5gjvxAuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=B8GD4qiK; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cFnD2yCT"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae359e2c0so6077926a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:54:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790682849; x=1791287649; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c84a9eMo0Dm/JWepc2tnRlDWvnvh5DqhzAwWVPo2EM0=;
-        b=cFnD2yCTEuYHI4SMsphhngDTAkQO+fRn0xwOYR9HOwfhj2woeS3yPUW9XdpqY9gvWn
-         hdpjOrmmghQWOVHvU4AjJXnxvJKtht0IV6zyosG0wEYrGfzsPmsPHUm3sr2SZJTS7em9
-         hKeE0v/tEJHr6ecjVVfOUQHpMxXHcpCaPs8e8/f8b3yB8UPdjJxY3MQOpNqD53M018gS
-         vE+MF2t0pwylxnEARYETbgSh4FaFm/0fNSIccYrzWs1Tc/aqRB1tHN59gdb9EHPYu8Oj
-         5ATCHWMvdKdEKr0qzXvZtCZoAL6DqyI+DIkHujznFeqAXU2hNlCcbITyAjKL3Qxm7rXI
-         /ceg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790682849; x=1791287649;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c84a9eMo0Dm/JWepc2tnRlDWvnvh5DqhzAwWVPo2EM0=;
-        b=Iar0KBeDUO2P5MRBF0d8rGm466/FXzMduM6uZC/PX6pWFcJelvYe8rJ/JFUqx+V04F
-         guN1jXgVdT/XdvLmaoRf5bhg7u6Ib+a2RMTRBBbPSOAuUCx872O2lexB6zMgbssttx6n
-         Tm57h9ONdyXzzQMKMyb04yxKL9PoIrZ792+8Brx/LJ15FJpLe133xbmllc05DUQhvFsI
-         wZzv85alfFHyQRAoVh/BYrb0EUDOs/O+HDCkW22VSHrspE4hXOW+IgEuFqT8yXd9hpRL
-         PfJ5Umb0gPgKwFbCkgt0iV9Q6Uw/9zQa5B9zGbb9xKjSD6aXqEjHjcHKFGOF3cVSDz9Q
-         qUxg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGVF7tgPcb7wcRT0RBKac6aD+/KCVomSe/QHN641m4jJ15+MGRXkmwkeDawAnUoA4eejwwAkmLffmFi+w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCi0rXEiZ5RZTHxcVA9coPbB/rDqCf/JY2z900pnrMQu/iOFOQ
-	0HHlSUp1trEfYcnQjBEOmiAt0AKpDPb+MUTkB2PmIszMPmCbBRtLElalDMz0s8V/zk0=
-X-Gm-Gg: AYBFou2mDdaKwS4HW2ipyv36jho+tju6bus4A+U5JcrVNOzwWZT82Ua0un2A+hADdw9
-	GtuKmuI5i+/WUFNMS/PcA0d0faX4Li/QxCqGnovl0I6BTjFAFK0HBb5HSQmWihezCYRYFj7mgvM
-	SlQMmiEanIKMB/FIl10Dxso+Xz1uyJH/lXNRLLNnUFg8HxJGBOCb6iIOJ2R+IoH1Lw/fjv+hNrR
-	qDcLVkUYIlEaEHqvaQeZJjdXUySLQvNTFk+pqXJO/UXga6LUVAmILtGNMf8BqqfTOHPUmN5mVty
-	GbgLA/xN0NxwnIsHMHZ07SDBsifj0dfc6/wL6Mjuz7f2J7pLSxcXcQbjYgL/XPy4nmd9g4gtomo
-	1dkmEXzRu2TORv44ikFpmXD68gDBwRhnirsIPB7WdmIdNHuOkO4gIFVGEyHKC2uq4kil32ZdhPw
-	IQ50dpazHUGRIviikiXgUx0zLc3VfEJkWVS0epV+07oIZW51IGjpNzQULsMrW/jCqIBviFiKn74
-	8w=
-X-Received: by 2002:a05:6402:27cd:b0:6aa:f129:b193 with SMTP id 4fb4d7f45d1cf-6aaf129c2ebmr9300291a12.22.1790682848790;
-        Tue, 29 Sep 2026 04:54:08 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb9048ebfsm707949a12.30.2026.09.29.04.54.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 04:54:07 -0700 (PDT)
-Message-ID: <50a0338e-e395-407c-bccd-cfb90f113e58@linaro.org>
-Date: Tue, 29 Sep 2026 12:54:06 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="B8GD4qiK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=E5+DOXgoT9iAoCF5tpbNaYvfjMDSAHAT56qKN1IGRIM=; b=B8GD4qiKYcgBmoI6UBQO0tLNeF
+	exB4SQZ3F2yX8xK0wBIa1eLDjwMAWlebcegGhh/Wy2G+HJA4wvERgY9arbv7oXE5ub+4IbUQZcthl
+	gcM61MiyEKZWGIKNXy+qnm/riQL9Jirq6zJh0plkTGyvFbuX+LbGiPzLfONKcKYWAOCk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBWPk-007wQt-7x; Tue, 29 Sep 2026 13:54:28 +0200
+Date: Tue, 29 Sep 2026 13:54:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	Jerry Ray <jerry.ray@microchip.com>
+Subject: Re: [PATCH net-next v8 07/11] net: phy: ncn26000: Support for
+ onsemi's S2500 internal phy
+Message-ID: <e8959c33-1b50-46e1-b9b1-029f5fec81f5@lunn.ch>
+References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
+ <20260928-s2500-mac-phy-support-v8-7-7e011aacc309@onsemi.com>
+ <CH0PR02MB78673D8A3CF809B016983DAC838D2@CH0PR02MB7867.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf arm-spe: Add Neoverse V3AE data source decoding
-To: Leo Yan <leo.yan@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Kieran Hejmadi <kieran.hejmadi@arm.com>
-References: <20260928-perf_arm_spe_add_neoverse_v3ae-v1-1-738c9ed12d31@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260928-perf_arm_spe_add_neoverse_v3ae-v1-1-738c9ed12d31@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CH0PR02MB78673D8A3CF809B016983DAC838D2@CH0PR02MB7867.namprd02.prod.outlook.com>
 
-
-
-On 28/09/2026 17:12, Leo Yan wrote:
-> Add all Neoverse V3AE revisions to the list so the common decoder can
-> populate the memory source and snoop information.
+On Mon, Sep 28, 2026 at 10:50:00PM +0000, Selvamani Rajagopal wrote:
+> Andrew,
 > 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   tools/perf/util/arm-spe.c | 1 +
->   1 file changed, 1 insertion(+)
+> Thinking that I don't need to remove "Reviewed by" tag for minor changes, I kept it.
+> .read_mmd, and write_mmd callback was changed to use newer callsbacks
+> recently introduced in the in the kernel.
 > 
-> diff --git a/tools/perf/util/arm-spe.c b/tools/perf/util/arm-spe.c
-> index 7805a1a98a89a2853ad02ee7751472eddb1054ed..8d95df23be6f654caee77e9d155af7ebf5129c91 100644
-> --- a/tools/perf/util/arm-spe.c
-> +++ b/tools/perf/util/arm-spe.c
-> @@ -626,6 +626,7 @@ static const struct midr_range common_ds_encoding_cpus[] = {
->   	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V1),
->   	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V2),
->   	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
-> +	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
->   	MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
->   	{},
->   };
-> 
-> ---
-> base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
-> change-id: 20260928-perf_arm_spe_add_neoverse_v3ae-917f280b2c7c
-> 
-> Best regards,
+> Let me know if you want me to remove "Reviewed by: tag for this change.
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+Minor changes like this are fine.
 
+      Andrew
