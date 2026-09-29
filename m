@@ -1,148 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012014.outbound.protection.outlook.com [40.93.195.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AA451C078;
-	Tue, 29 Sep 2026 12:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683361; cv=none; b=ThwS7p1HtwX8gojfqHZKj6ZDZshlMLq/DyJr/NFIBVZRZje4VsRUskbdqJbDJ1bVbjd/pR6vm2Y6AkqAjY17EQd6JjQDu8aWLMU9d2RBU3VX/CP+byBQMv3GCPwJPhxmMbs287PZ/ebQSvdx8COIFZL39OJqox7UUjqagw7STDM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683361; c=relaxed/simple;
-	bh=wYZehBAjqyNGIu7WW6UnGNszJFmz0RoqfTC/yl6Y8fE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NnLGaj+UnVY7XInSSYadMmLFEfqLrVfJVIClv3PBrNd+AjJcztLLrpqjPqWkw0k89eh1XkVCwGq6OaWunBmjwA+LKvC93NE4gKa5gQXx8Jqo6I+aRhaQICu99FyJQGHf1KYEHZ5u0tMz3VTLo6G5JmbCP8osg+dFqGJBv0v1M0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbkOLnXK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FFE34EEEE;
+	Tue, 29 Sep 2026 12:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790683404; cv=fail; b=jC1bqUuCpWaKtb8P7bW8WsSKI3PgKTXNSU52A0LL8VZsJg393aWFW3PHwSW3A9ScaH5a/wDV0WXNgcLb5DECPJJR56l26+1oTgdFfYPGKdl8VtPz3E4650pnwSUOURiUo2/czz/93jbWOSZBZ/9VcKKH5TzwRc6M+dXYX565yoM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790683404; c=relaxed/simple;
+	bh=+WnZcngnrvAMCiVbjmk5xXWyT8Ktm7D9vahJsfsBiko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=RVI+epErxzDepoLhc8fjEo6q1zprv9ZyvygN7QifXDtGbHQpWJzNo6rKy/WQiHlip125ckFEV3Wy1bvDE8Fda5Vvybu6gbUXnQVxmhsjcKk60yRNuqucsUtZ02rMlEPdZEy8d2z2E/ggiQmnu7VLp60/cMYBauYHvxRqO20IkLQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=di+LRluI; arc=fail smtp.client-ip=40.93.195.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbkOLnXK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C671F000FF;
-	Tue, 29 Sep 2026 12:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790683359;
-	bh=ZNbktM4rdDlTOXn5AkewGLya/WjhaRKxrshTNFUu64s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BbkOLnXK4gqfrgu88BLpIhWwfft7ikWIvxZ7mdMdDzrSvBTqUXxKp+w47qRwfA5N/
-	 DUGlv1F0ORp/8fifPbpo24fsTMb4Xm9n0Mw5+YbMnBhwReNk72quln+o2tYTpvUnaP
-	 PuAUp5BdYV6FZGickNPe2JvGIvafFj2eFBbFzL9j9ymu0/cG/t+rkt2D9tgCF5ijuU
-	 L2Ag6t56qKjMS446d5OY8f0pnEszeWGyYB7tqzew6yFkpugmf47B/4tJHlrjVY6qoo
-	 Lo0WswzxekG8ZSe2zbhKKVn1eSu0RPqEonGxSJVfCUIl8oVQqiH97CYDOdTmfGTsP9
-	 vc/1T8Bogq2nA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 29 Sep 2026 14:02:26 +0200
-Subject: [PATCH 3/3] media: mali-c55: Keep ISP powered while IRQ wake is
- armed
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="di+LRluI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EueHNRcVQac84xhTf5mGEcwMUSXc+64uiCNfAMQ/WYaEro0wxZmE+Q8SwlbznWZNi4PhbQiNRiGls5sNNKjr3BNJ9Mg9Rfg5zGMqd3wca/iyuYP0eC9RWlR/WMDsj1l/IA22DXLRk2AoZ4piZ64P+7AcnrxN8ivCHR1DF4C59L04e/A7cg2n0OzBumzRmXglm/KDcUe3b8ZG435gd3QTpQS5u/z6pUvSAhBZlhhy40KrZGrOvASOnSzMnJ78Iq+Ynes9BIUYj3lFE38+k9vE8iLlrS4SZr9BTEeNUaQl4qHltt0osdH8CQiGuSjFycptUKflSPNgRSrhmYcGPIpYDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=al/UBYHE+/xo9e5AfOmSk1P7TrhRh5H1m/yoTabharw=;
+ b=eKIu4pSav6YcL1oJOrkKIcwP01PvoRmoXtQgwvmt5lIlUy5T2AJQcuGQJxm/zkd391NDa2dKbXks7b8yGf1JvwHVIBGR8ejAQAOrHA/c/oqoX9d14a616UC/+kWNPiveWfThswR4Oq2xKL6UK4hf+fwo0ADj3PCNnH8dgYLe1LNuZ7ndl+8mhKX70H4rlWe9zV0kV1UhC4UY8/yLeH6fEmlkNIO2skxPIxi7PffE2O6hU3QRRVV/DYhjP2jWtR57efB/iJiVMC1kQiM5b1nEeR22kMFbb4SNE6xym9nWILllp21ssT2GRK4B4lVb1W0dOT+VpFAzurkz2EM65Fsydg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=al/UBYHE+/xo9e5AfOmSk1P7TrhRh5H1m/yoTabharw=;
+ b=di+LRluIdURrpxsABOB1oWi5L51I1NtizpnBY7u2JKw1xCZVAiZTRSRefF5i/MNCxTGVD1A33yqLjUT4dV16YJ1NaXGWtq5l12/X/GpliaeodN6NfQ2AhUtE/+sZIwPVn7JgXarKAmqXuLl/J2PFcvNFprTHWOcI5+9TBk5twZH1j6ntDCUszkXXrqErkCj8BOqqaP/eMRhfP74Z5H1UBC5dsKXAv/7BwMXGK/TOHa0g+I1doBbyG36f/oDCOs0R6LZwHkMIUqZzuFUaGVcqiHs1u/QZWjDJ1Oejgw75nrYGsNTR2kzllIh2g00D5g7Et/EKv2otc1vYlp9BeU9/Xg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA0PPF0C93AC97B.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Tue, 29 Sep
+ 2026 12:03:18 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 12:03:18 +0000
+Date: Tue, 29 Sep 2026 09:03:17 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: sashiko-bot@kernel.org, Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] udmabuf: respect the device's maximum segment size
+Message-ID: <20260929120317.GH1616761@nvidia.com>
+References: <20260929054835.94118-1-kmehltretter@gmail.com>
+ <20260929060028.371041F00893@smtp.kernel.org>
+ <20260929065601.99518-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929065601.99518-1-kmehltretter@gmail.com>
+X-ClientProxiedBy: BL1PR13CA0228.namprd13.prod.outlook.com
+ (2603:10b6:208:2bf::23) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-mali-c55-irq-supend-resume-v1-3-e3af34afff12@kernel.org>
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
-In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
-To: Li Youhong <dayou5941@163.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Nayden Kanchev <nayden.kanchev@arm.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA0PPF0C93AC97B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56cbfd87-9cc0-49be-30eb-08df1e21a670
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|23010399003|376014|4143699003|22082099003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ttpBtk++R6iRJ2y0jgacfzYo5A2CdWflHtQU+gi932an65oixACI2xSFJez9cBPFLE73GZcz3XnZSwAg/d605l896q5z1vko6HH4ZpGV105Kuwv14JNI1MN+NoS5y6Wq71bP3dxiv134h/uRP3ulGI9aasKAM1AZdlORAxAnjN2JaLWr3Yw2v308vRQ39sUY4IDf5zWMblcU9Uwy//1uQTehONf7hAmjJTckc4KXUVTXHfomvaipRmgXKikrp2yVousuPkjdB6vuH15ZGj5lEWw0IYdJlYiVDXiCT2RB+UIz2njdfMNwEZLP3qEOc92IQx294daqxmQhRCko65NNSBOSk+vTptTAdCAAyHanPfZTFQLWbck2zf/paOSRgr7mkhJ2jldnVu8hmbTJqYMvEJN1RO5ShkeUpVxwDGFD93tEXG+jphzAZ9+MnZxXwoApkwvvRjBu2OSO+bH2U5wdZM/5IGjR0YuLTxLvf+Ee826SmrVBgPszNHHysTktwyH1CSAU2JsotJPj1D/7aFcqEj/ZGEkUyAGbYMRWFtY0s2jh53iaIsRbc0vWh/fPuAZhJvMmdpyprIPWk3jXWo4wDTDIu4/ZnfvPgZc8dw+WbvrL4PUS3CPCba4Noa2zvtAvbOUWT+ki/2kjKBed01dAYPkpHeDMMKbhCk0Y96ArO5I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(4143699003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5fHCFwXod6qKncq59WtT4XPVLnsS8o3zt2UORQIjlg2f6QtmouO5WhVA3hNu?=
+ =?us-ascii?Q?IBUh+lE37aSvm3XU1cAReunJQZUOkiUqGY+bRQb58GszP+Mzt5oIigcnWZnH?=
+ =?us-ascii?Q?Yh9FkUETnIbLBWkv74Gq5vv7Y+e/OBqFFX2QdmY+N6jApwVPoPkNSuSFTNPx?=
+ =?us-ascii?Q?RpTuXxJ0EG1476IeSGFD799bb3zneuDIfAVWxerUel9a4EocgT6098wx8/PE?=
+ =?us-ascii?Q?Grb/i+WycR9zbMWLJ6ohBr6sPbHtqCIWjDmQeRF3cR/3kAknSZrYQ3LcxgLZ?=
+ =?us-ascii?Q?wVmJGsFE17x6rBm4pVilyK0qfYSNjquf6ql8z4ztZV0WP3NHUn7v5se1wo4f?=
+ =?us-ascii?Q?0Xs6OSzJvUExVx5OXZg0tm1PeFLmX48X+TqkWbiv0M2lXHctMsSiYoDJF+RH?=
+ =?us-ascii?Q?iqN1ul8iRvYNV6+FtKrgWPQaX4DhSXt5yPk1+OwiqeLNWGNMjhUo9Sp7Ooy/?=
+ =?us-ascii?Q?8EXkMnosuu2FheXvmwLKH9uoJ+IGqPRsiCryL10pXUbTwAv2ZpGZczk9lfec?=
+ =?us-ascii?Q?q3j+qv2RbC57o9Y/piJRV2I4/szxAd4TSEYNfHwMkwA4aFOG3KxxIyBHA4Tz?=
+ =?us-ascii?Q?9qnOlcp3hZjfeFx9uQu+wOm5nBqzo879MYFl9lGVogp0P4E6Wze4obPbviOv?=
+ =?us-ascii?Q?fwbg/0VIWozm0Jy3wOFztY0lXtgJQySwDSJtQ9zeJdYw5MeWPpdnVsSwL0Cm?=
+ =?us-ascii?Q?/gYTD+nFRiNhZq8G5ZjgyLXDNvZkTcW9vSXAM2+DD9UUfmy/gMwIZ4wL2AOQ?=
+ =?us-ascii?Q?g8/YMi/3AnkBWHNsK+lr7+PGYUQbAMP4TsBRgl3oC5KG8aCKc5y6srROkA/s?=
+ =?us-ascii?Q?p/rH0wUZC48jQLAZyNjy26biXsyOholdngZxr3Bk4ASJ9wEbtmirs4e17Jon?=
+ =?us-ascii?Q?uL6my3hDVR8sj4b6MRWf0is4cN4FY8Wt3I80f0Ksg1mD2WWUJoLSrb8gC5uS?=
+ =?us-ascii?Q?ZzOtqsR4w+vAIjAyjSLWX9ilMF5x6bwqJwE8q2kkANUmbiLnBSOjrX/gJqx/?=
+ =?us-ascii?Q?F2N6JpBMHKSDTACYS/Ao0JgDquTPK86J+CgIXCYGPD7fmAVSC4sNJJpiLBG3?=
+ =?us-ascii?Q?3HeODP4l3WHJyoBpk9ZAy0NazNrR2rTasfvfTkyI/n5shU0/DAKNDRT27ew/?=
+ =?us-ascii?Q?o2sgT93JKf0NDJ3H62ikBrw7oPRW8Ljvlc/6dlGH16s4udfJTe5XqPDa9X91?=
+ =?us-ascii?Q?aLFCCP3S9Mb5NVqRtu/W0XE2/3KLGCEM9ZbntBDpPN/F9TAfCVcOWjXqeOhR?=
+ =?us-ascii?Q?aKGodkjy6i2f3YCuk8pOpcWtDCowMXppKingTNOWZrT1DBYK/M2bcLsHcLLd?=
+ =?us-ascii?Q?QFWajYqsWjb7Y1tAQvXo+NvfPlKEJ+do4v3csn6zeM/fN6o/qUHlVmEakiAo?=
+ =?us-ascii?Q?uwOBaQ7FUt5EwjMU2JG5WMzESEo4KeaxlGZRD5rP3PHITGNiRgfyJiv7Er+C?=
+ =?us-ascii?Q?RXfkeh1B8glZQmggJiCYqeXxkTdduEe4XowGuvRTe7/3cCXobf0/8ZiyIA6Y?=
+ =?us-ascii?Q?aPsorCtZpinhvzRtSx9pST5n4lTBpOBFHO7mPisXmfmFJ7eDG/r4DiUb9+P/?=
+ =?us-ascii?Q?CLGjgPznHqymmUYH2l4/1Lzgd0KwIHRdg1XqYFT1t8scwEYQv6TGl8IzyFqr?=
+ =?us-ascii?Q?xJKlmDsfRHqffcaQlENaMRIQ/u9essuGDzXPvaV00fY0/wWdxMJjI2D1JEs+?=
+ =?us-ascii?Q?K9RjkMSjvcNXfuHdDQbF34Oxst1LSji9LOjEdCOwLZ09p8qz?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56cbfd87-9cc0-49be-30eb-08df1e21a670
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:03:18.5770
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ODHmMjz7E2aHPCqIkFU6tI9oSrCOPT+XUnOsBaGb5U163cdeYxJpWGiGz6KoG+YI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF0C93AC97B
 
-System suspend enables IRQ wake and then calls pm_runtime_force_suspend().
+On Tue, Sep 29, 2026 at 08:56:01AM +0200, Karl Mehltretter wrote:
+> On Tue, Sep 29, 2026 at 06:00:27AM +0000, sashiko-bot@kernel.org wrote:
+> > On architectures with a 256KB PAGE_SIZE (such as Hexagon or PowerPC), this
+> > new validation evaluates to 65536 < 262144, unconditionally returning
+> > -EINVAL and breaking all CPU mappings.
+> 
+> Right, the misc device has no dma_parms, so it gets the 64K default and
+> sync fails with 256K pages
 
-For an active ISP this asserts its resets and disables its clocks, so it
-can no longer generate frame interrupts. An already runtime-suspended ISP
-is left powered off as well.
-
-Take a runtime PM reference before arming IRQ wake and retain it until
-resume. This powers up an idle ISP and keeps an active ISP's configuration
-intact. Release the reference if arming wake fails, and use the PM wake
-policy in both suspend and resume to balance the reference. Continue to
-use forced runtime suspend and resume when wake is disabled.
-
-Use the forced power-down path for hibernation freeze and power-off even
-when wake is enabled. Capture must not remain active while a hibernation
-image is created.
-
-Wake events require a configured stream and an input source that
-remains operational during system sleep.
-
-The internal TPG shares the ISP's power state. External sensor and
-receiver drivers will need their own system-sleep wake support.
-
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- .../media/platform/arm/mali-c55/mali-c55-core.c    | 38 ++++++++++++++--------
- 1 file changed, 25 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index 07267b79801b..2629bb3aa628 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -756,31 +756,43 @@ static int __maybe_unused mali_c55_suspend(struct device *dev)
- 	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
- 	int ret;
+I would ignore this, it seems fictional to me, and if someone really
+needs to support this rediculous combination it should be done inside
+sg_alloc_table_from_pages_segment(:)
  
--	if (device_may_wakeup(dev)) {
--		ret = enable_irq_wake(mali_c55->irqnum);
--		if (ret)
--			return ret;
--	}
-+	if (!device_may_wakeup(dev))
-+		return pm_runtime_force_suspend(dev);
- 
--	ret = pm_runtime_force_suspend(dev);
--	if (ret && device_may_wakeup(dev))
--		disable_irq_wake(mali_c55->irqnum);
-+	/* Keep the ISP clocked and out of reset while it can wake the system. */
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	ret = enable_irq_wake(mali_c55->irqnum);
-+	if (ret) {
-+		pm_runtime_put_autosuspend(dev);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static int __maybe_unused mali_c55_resume(struct device *dev)
- {
- 	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
- 
--	if (device_may_wakeup(dev))
--		disable_irq_wake(mali_c55->irqnum);
-+	if (!device_may_wakeup(dev))
-+		return pm_runtime_force_resume(dev);
- 
--	return pm_runtime_force_resume(dev);
-+	disable_irq_wake(mali_c55->irqnum);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
- }
- 
- static const struct dev_pm_ops mali_c55_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(mali_c55_suspend, mali_c55_resume)
-+	.suspend = pm_sleep_ptr(mali_c55_suspend),
-+	.resume = pm_sleep_ptr(mali_c55_resume),
-+	.freeze = pm_sleep_ptr(pm_runtime_force_suspend),
-+	.thaw = pm_sleep_ptr(pm_runtime_force_resume),
-+	.poweroff = pm_sleep_ptr(pm_runtime_force_suspend),
-+	.restore = pm_sleep_ptr(pm_runtime_force_resume),
- 	SET_RUNTIME_PM_OPS(mali_c55_runtime_suspend, mali_c55_runtime_resume,
- 			   NULL)
- };
+> The misc device has no real segment limit, so for v3 I'll give it
+> dma_parms with an unlimited max segment size and keep the -EINVAL for
+> importers that report a limit below PAGE_SIZE.
 
--- 
-2.55.0
+The params have to come from the *importing* device, not the udmabuf
+misc device. You don't get to control what they are, and there is no
+reason to put a dma_parms on a misc deivce.
 
+Jason
