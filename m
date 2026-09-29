@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB79426431
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380974C2242
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651879; cv=none; b=retlZj7V1M7mQ+QMKCSUHR42zFJJJnP1asKzvz8JvnQefBtviHspwSxJ/w+aC0mvXi+h0oCgADWbmqHaAE9rTF5gDvzulNJp8ld2t194VmaWYuraNc5E8oH/4q40v5II8DCpzzSBoTHYm4GxvevcCPQYwsnyx6SA9YZrZdlDBaA=
+	t=1790651883; cv=none; b=pAKy0xxkvE0XOzNtb4y0McH0O4TXJs6mK6+RQu5tav0iTCl1V+3yXb1dFa5HZOlEJBctaI0E9vhXhvhzuIww5oukG7EmUlEzpuJWPDmOMpZ1Axu+hgVGX78MwJMZsZEH4K6wTQSSFCo7Sh0r2ji6U3TMIQ+RbMOHM3UAEWew+x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651879; c=relaxed/simple;
-	bh=ND+eFkDAA6lA1Hvzr2cEf42GsP5u1CTq/6obWXCSr2g=;
+	s=arc-20240116; t=1790651883; c=relaxed/simple;
+	bh=oTy1duB6jN3k5Bp37ZNFZXzeLVSqBJv4Ke1sGvrI5PY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jMMYM3neUadP63ulzGaP2prAlsYajyK2NWVHEGzKH3z3kp1NwNb7n/4IpD8hBHsuEHIYy5NAOFSOwiKhZDYbgLUOIpF1l9F5My3M1L77zuWehTYBDYwEMnDZu1NgipvPlWRCa323oU57H/fnQ2y0xAZ2IpeurhtospoyIM/nLmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aBaK3aEH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EKuE81ZV; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=OowswdWRGeQSI13aUhPWJWEzqKr/TV6UrJOC+QeBRSpu/cfrSh+EBZbFS0doKN1xptRpQIz4+76JojZgywnZ4vwVg9koKy5z2Ywx1ObQHMcgKHy6UKqKH/CmR8f9eRel0bjzdsDO0Cqq/RnRglq+Bv+lk4t6bdljTSrR2IdrnxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KeU2pJTo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kMvW+Ppw; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aBaK3aEH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EKuE81ZV"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T0j6P02557708
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:50 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KeU2pJTo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kMvW+Ppw"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T0kg1Z3623773
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MYZA6IzfrtVXBF8cqfLfidDynaxNcZHoZMTCP6wtXsw=; b=aBaK3aEHCjfBukWV
-	NM5mou+lpo+pfd+0PuWXPIDZ0vJ2DlvOXJhbHqmgnFxc5fb6D04tb53FpG2Q/YEL
-	50JnAIKzOemLiPr9ugGIlhhjqt/v/eR9U6YjqJRFRpLL7LACiaW2dgnj+2vXh0uj
-	A1cfjRlm03FcyrTeEtvsmm5AzZahadCCwWVGw9uqrybliON8MGKfGND9Do4I/XeH
-	RNPuzeT9vq4si1iTjXIJNd5N+C8do3ovbFxMVpf1wUwJmouxDTIK44U7RDHDx2f9
-	cJH/hENLiuX03M5b8NKaPlWjrv0pSnFlYEYuogk5XQwb/514iL4fiiZS1aE7kyks
-	VhoTxg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyvwn9vgj-1
+	aCUHYK+w4BDMVrp4w2bXUwotIcGHHJCYmu108KdLKKU=; b=KeU2pJToCBgVGDtb
+	l2KtoBHgPRgiyunO+KHMzrEeKafoEfIOX9XBJlls+lJA8/9RnSnaT8FxYIkUaWHI
+	WIL4u2//qOjR4SSqyhDLWPSe7s+xQ437Uu9cYmLky4D7sSdkZK44A+OEVBizZ9Ro
+	aCEwd24IZ7zouG9puTvNgf0TyjVbtTuUYHgQOx/x6aZj0oaKwi5zJgi9X9Ms34Qk
+	gLJcHOWOMCb/pp9bJ2EseOB0REnbRAwvXiu7gtUg1cZgb1Mxp7fx6MBylgG77/Cn
+	783E9shzCBqnHN9B0eNA84bYh/CwBJqajdnDWNF76DpWfTDyioMpyGF8MYpkLUmd
+	uqjFTw==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynb6ky16-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:49 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-349ffa249bdso2374136eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:17:49 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:52 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14388664b04so431589c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790651869; x=1791256669; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790651871; x=1791256671; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MYZA6IzfrtVXBF8cqfLfidDynaxNcZHoZMTCP6wtXsw=;
-        b=EKuE81ZVGENa6WvCx6GSzR8Zzpu5NBKHSvBatSFWSi0QVVrFfOgshZGCzezsb8BX+H
-         yu3VqGlc5O+ORtH8lki+G8vGHkTjeCNVOzQ4qsKhwA8Hd1WPkKvfiJk4XoAMfNewNhLG
-         Vxg8Ww05xoc+VXH2jJkbc8dqkdVtYM3m0SNhOkMiWg/P4pRVUx8yw0507eoNrQR6YrLc
-         eEu6MvFhepOdjIwgYhoagiL6mv3K80wAEy/g9fbPDxj4EatbWUglDqyv22X2UJZBJNsH
-         PYG4yblHntPe+SQNNvZDg2g2QVHDqJP1oUFAkzfPCF+P2DAdR98E6d1xEtTNCp0s0mY4
-         2rPQ==
+        bh=aCUHYK+w4BDMVrp4w2bXUwotIcGHHJCYmu108KdLKKU=;
+        b=kMvW+PpweigzihV2cJXggJUKO5fC+nGxaUSxm3kJblZEaYaKN4EVCAyIfVSarQs+r5
+         P11SnHUdWzjr0XMEERJYgc7XdxfH4YIav7/zOX+Nn4V112d4UMkiuNPjasZZmUUoBFRb
+         Oy6hE9AwU0cwjYn0mKEs7yP9xrUoEZFHCtiGRRiHIzpVasUcMF1SpDXqfkupKuuRp1UA
+         242m7MXG1YkPEmyRXg0d59rLZjN0UgTLJnB6sHOSvc/mRXFQGzG/GUZ5yx1/8AMvrcPz
+         f3bnNACzh9t59lpXZRwjOD+bIQ4wfIuW2L8NdpXnF5MXqmUKhmyI1ofC4XxqhYTj4zDC
+         x6SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651869; x=1791256669;
+        d=1e100.net; s=20260707; t=1790651871; x=1791256671;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MYZA6IzfrtVXBF8cqfLfidDynaxNcZHoZMTCP6wtXsw=;
-        b=zM5HqRyQWWd2Vb6NnOfkiQQeGGsbg2dyLVqBFYCrlJbou3x66/PO4rsibFK/bqF1ii
-         Pu5foQ64RYp6vQUm6MtDYmbFtbFhV3tkPNwyQodHlcZazqsT3L2MzVeBy4gLpsMXcDPf
-         nkX+hfMFZ0BIZ3JZw98Vk3e4StC6v1gGFCgDWXxm1LowJR9RKJzdi08yDxC3JkbjqU0K
-         QPzMxjvgN3vUfhz18nZzZeHJdAIBHVUh1ImyTwDT9Jfj9LaFRKMXupyQAQzjJrwTSoB5
-         6DtaQPQr/l69x6Aei7V3+uhaegQ81nRRDYQepRQU1pqKVU+H4RsWM5plZtTz5LLra45Y
-         dlNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzg/3d5tr4v4Q4iKnNoqQ1/903KHNGZ+YQJy/XnIThdNCsxMWlY9mQstG6d0RgPuWDX8FYvmbR/NHSVpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmoN0MBy7tNQPVOtwOZwM0IugiJeqAJCjzZCV9CFnJ3RtIEHxc
-	7LjkSnwReoCKNvX3Ro03yFzkp+9HA0Q8pYQHtI9YGWfoqy9NmPcUr3UsNhKxGmsXRKMp2DCAIVF
-	kl0J0s4N9jXs/HTrdSjt2P840+VPEdFAWPAv4+ktHEJbBXvrmGp+mzxipFYQ0m2ttQw==
-X-Gm-Gg: AYBFou2Q5JoEF7wroCJo8ttitDKkqlkixlJNINvw2rw+2wC9Qbu3j7Nl6XUDkdWoYkV
-	BVHFVtledBexTvZQ7wWEmI+6lbNb8RXze3tLChDzGlurYjxh41PmDJNK/X1/V+4t0X/maZ+CXp0
-	NrKXBjMwlpcL7lxG51mb8oErLWBpjDsAA6DYdMjUS1QF2nQuoLxEwzPZQzeFIlj2LheahwYZvlM
-	gsWf7Q54BEiG61Zu7BywE0lokCATZ9WdBHzctmbO1GJ9k/OUzxAs7/77fp6OAaEjn64z89nYYBb
-	FFPtOPa9+6NNFTQ1ihD/EcHYylRweJqZJCzYKMOKaWxvH+OKBnsyR2b33EiMP5deIhv+6UsWNWF
-	dtSuGBD+7E1usaRVcEWPX0njuWa6KmvIjkWB3Qk4n8/N6WlariuEwnyfhBMk=
-X-Received: by 2002:a05:701b:4250:20b0:143:298f:33b7 with SMTP id a92af1059eb24-146d096d14amr11692147c88.47.1790651869005;
-        Mon, 28 Sep 2026 20:17:49 -0700 (PDT)
-X-Received: by 2002:a05:701b:4250:20b0:143:298f:33b7 with SMTP id a92af1059eb24-146d096d14amr11692120c88.47.1790651868128;
-        Mon, 28 Sep 2026 20:17:48 -0700 (PDT)
+        bh=aCUHYK+w4BDMVrp4w2bXUwotIcGHHJCYmu108KdLKKU=;
+        b=AzcC/T0CnJJDaA377Dz3jtuuF8TvHq734N7lYzMKOki5FFCOUw1+H/6i3jCxzIaunE
+         GR13E3vWf7Bvfrb26N+lWX5y/d89GnPjUx13gfthvPZ8BLIz9PVsIJLws5BerqYzXxPv
+         3qPsrkRfIhbfsh4hyH5+QBmhmarKpjZcgWVb8PpRaeXiQv6weE7I/CYeZ/Fc2abiiPz5
+         dMYNxQfyWdgSCYH954D+8wk41nZSbp/ohvLsL3Rpkg7IRy7ZmDweKfrHwsfe/eU96qNk
+         JZbl8QfnBHpNv1ftfhQyUU0/Tbi7MEdF4Ffcpg2MAj3KLXzlkzeoOS5JP1Ntm6B9xGtW
+         cvvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwX3Z4Swhtn63XVyPbLm0QpzNEbe8hMn/9oQT0XjpMqbk5P9MvlCFacGDdnvM+n7ILT1ZyOe1Y0hf59zN0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjW4Zta6jGPHOXH+XMpJ7l9cjet6c8izJNwspoL/iAqhEG36lq
+	O6mzcWYd73mbkcTjvhaACZ+EPCUM6MR7+PKlmvRdpOMUNCLk/jHwQkMt+eY9k2bGida89BWJeZM
+	c5ukJxF1Nle21xAPfMH/KPWs15KtH9IrR/wKREKUS+GyLFig11vHgs2Jy+2cJeGIomg==
+X-Gm-Gg: AYBFou3tx+bygr7al2/esFR8mykGdyGQlmOTewIS4oWFZVIGYiHuHqPEdnRkFcT+4ve
+	E42qxDEpg5xsArRplohBznPWfdyIxjwsXyhyaPg13WQwdnR3C69BNlapV23AMEXIN/b1Nagu7mD
+	aU1rGmNAtUitrcjvrbIIVNW5DoUBZZRT0mv+s6YtT/Yu2wj6U4Y7CDsXjl+D3dohoZlZ2UA6ynz
+	jKPNNuZrGcT2cwuJ62e+qmJpSBVOOECWjoLtDKowKm6aEJCcqT4reQJVhh7R2BmrFt7d6rZeywd
+	qlP/pHnwkx7wmLx09Qo+BiTan/JEwDzkXB3wxC210KiVgQqCcs1VS94NZZsyYNmV2ouzc8Ma4yj
+	f1TyhFs1hxt9NXOjoGuWIvjCj8ik5CTFitibB/E6SUrRcD5/8MnXTBLjD17I=
+X-Received: by 2002:a05:701b:424f:20b0:136:4bbe:9524 with SMTP id a92af1059eb24-14b2df6149dmr1530575c88.10.1790651871189;
+        Mon, 28 Sep 2026 20:17:51 -0700 (PDT)
+X-Received: by 2002:a05:701b:424f:20b0:136:4bbe:9524 with SMTP id a92af1059eb24-14b2df6149dmr1530549c88.10.1790651870575;
+        Mon, 28 Sep 2026 20:17:50 -0700 (PDT)
 Received: from hu-azarrabi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad4028a9sm24789368c88.11.2026.09.28.20.17.47
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad4028a9sm24789368c88.11.2026.09.28.20.17.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 20:17:47 -0700 (PDT)
+        Mon, 28 Sep 2026 20:17:50 -0700 (PDT)
 From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 20:16:54 -0700
-Subject: [PATCH RFC 03/10] firmware: add RPMI TEE bus support
+Date: Mon, 28 Sep 2026 20:16:56 -0700
+Subject: [PATCH RFC 05/10] firmware: add RPMI TEE transport core
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-riscv-rpmi-tee-abi-v1-3-04908b81d885@oss.qualcomm.com>
+Message-Id: <20260928-riscv-rpmi-tee-abi-v1-5-04908b81d885@oss.qualcomm.com>
 References: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
 In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
 To: Jassi Brar <jassisinghbrar@gmail.com>, Paul Walmsley <pjw@kernel.org>,
@@ -106,396 +106,210 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 X-Mailer: b4 0.13.0
-X-Proofpoint-ORIG-GUID: WLxDDlet1L8JW8sm7FWFLUDjV6emIK4i
-X-Authority-Analysis: v=2.4 cv=W42txhWk c=1 sm=1 tr=0 ts=6abb2ddd cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxMiBTYWx0ZWRfX50+K0E+nqgLp
+ An/b+bfYO7tapE1IqonCypI8MTeqyYcnuEI2X3s0WR0GxkF6vM1mCgAG8tVkVOppovKC145lz+0
+ 6yNLnhcjaWK4QDBAuMK2Fw7foXHvG7oVyIIJVjR9gVfM40VAiHTo9QhJnphriGW9wAYAMUuwMrs
+ rXHFD0wI1cj1MWUn6gpvzXju7Q11vA6sGy14Pc6Hi89ya84ZeJ7fLchPth3XEKybGTVu/mP9qaJ
+ F5RhjV4ENx+sCjUyVkefS12vWjNZYUU1rT0d5gxdalcyi2v7okJrRbVE4y6rERxCe/cdf74vosM
+ 7ZFgsv8UtWF8sTs5K2YUHC2A2zCCHbgGBM/Q4ZNKq0+jvyrp0LpRRonZ04uOX+vV7oibdgSn+Cb
+ gG4cL42B1vAEN+NDrODir7lcDGuR9ASwGSeJ5KrBgUjD3Ss9R9a+I/qnJETJ0T8dciJvGAcSDJ0
+ zDTGNnNz2N9IpbO8Riw==
+X-Authority-Analysis: v=2.4 cv=K+e3jCWI c=1 sm=1 tr=0 ts=6abb2de0 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=8-py22VFfN3kZz82q70A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxMiBTYWx0ZWRfX3ZC3E6RY76MS
- buiox8A3vJUM/ZO5km06LEYsr+KiCewgTeztPLFBomv7qNteiJ39UTcfm/l9Lj2zOTv49KfgRAi
- U+1tKG8HoeVgCSXKc0ZWU52tdsiLUmkCofTQQzurZscVKbVKQrd9SqPy5eTo40BV7/Dd9I28EFa
- sscoAfz2T7tZHAQ3TA4g+Jugo0uPtinXjEV2Anoq6Zdn7r/2YW1xqR7c02TFb6hd1yXnh3t1KwF
- EGyDBFMF8tuBFTGaW5gHNSIys6NU6Bjrk0B2hzUHy+RAM1379WBzjYIBR2JK/Q/1+8CgrXTJ5vX
- R20pG59EkfJMrTfscQAqM5paDiIuKnE41zk4BQOJV9mhyUHxiGc2HWnp4A1oeVFzRGkECFRjSb9
- 0fNB2ziHO1eHGsnFI8b0a4tPf72WrazbQzbDK+uSibz8XfSUi0ksU6VtCCWhuvM8IlECnj4vGZc
- PvqBVRY1l2A0IicInzw==
-X-Proofpoint-GUID: WLxDDlet1L8JW8sm7FWFLUDjV6emIK4i
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxMiBTYWx0ZWRfX6Z5DPke3BoGd
- 8umXFrqJ7OMXc4RNWP0gtZOxWL6hNp3u+AS2lxg2OgP8pvBeKZ4er8LOp/5VriT15IH/reZAoJg
- 100vtCFDLRC9ys15ZqVC/2V59dOcXPI=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=5numxkeOl0lsm_bA3l4A:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxMiBTYWx0ZWRfX++O4jDWLJeDm
+ bTMW17hIbl52jfBRdeyO7aSeeBfT8d5liPkszsMUlwTIKfDUhxwGBdNKidsp5RjCYHBBo6HNM/I
+ 6gz6DVVPgwyppzVz8lYGkVDDAQPPAlw=
+X-Proofpoint-ORIG-GUID: qpsy2GHfZRHeFvF7ceY_BotpAbQEeeys
+X-Proofpoint-GUID: qpsy2GHfZRHeFvF7ceY_BotpAbQEeeys
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_01,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290012
+ clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290012
 
-Add a bus for RISC-V RPMI TEE services. Each service exposed by a
-TEE endpoint is registered as its own device on this bus, identified
-by a UUID, so that a single physical TEE can host multiple
-independently-bindable service drivers.
+Add the RISC-V RPMI TEE platform driver and bind it to a direct
+synchronous mailbox channel via tx_sync.
+
+Before retaining the channel, validate the RPMI spec version, the
+TEE service-group identifier and version, and cache the negotiated
+maximum message data size, so later discovery, memory, and
+notification support can rely on a checked transport.
 
 Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 ---
- drivers/firmware/Kconfig                 |   2 +
- drivers/firmware/Makefile                |   1 +
- drivers/firmware/riscv_rpmi_tee/Kconfig  |   8 ++
- drivers/firmware/riscv_rpmi_tee/Makefile |   5 +
- drivers/firmware/riscv_rpmi_tee/bus.c    | 202 +++++++++++++++++++++++++++++++
- include/linux/rpmi_tee.h                 |  83 +++++++++++++
- 6 files changed, 301 insertions(+)
+ drivers/firmware/riscv_rpmi_tee/Makefile |   3 +
+ drivers/firmware/riscv_rpmi_tee/driver.c | 144 +++++++++++++++++++++++++++++++
+ 2 files changed, 147 insertions(+)
 
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index c183d98c1e8f..46297332288f 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -6,6 +6,8 @@
- 
- menu "Firmware Drivers"
- 
-+source "drivers/firmware/riscv_rpmi_tee/Kconfig"
-+
- source "drivers/firmware/arm_scmi/Kconfig"
- 
- config ARM_SCPI_PROTOCOL
-diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-index a855d3696173..772fe024baab 100644
---- a/drivers/firmware/Makefile
-+++ b/drivers/firmware/Makefile
-@@ -26,6 +26,7 @@ obj-$(CONFIG_TURRIS_MOX_RWTM)	+= turris-mox-rwtm.o
- 
- obj-y				+= arm_ffa/
- obj-y				+= arm_scmi/
-+obj-y				+= riscv_rpmi_tee/
- obj-y				+= broadcom/
- obj-y				+= cirrus/
- obj-y				+= meson/
-diff --git a/drivers/firmware/riscv_rpmi_tee/Kconfig b/drivers/firmware/riscv_rpmi_tee/Kconfig
-new file mode 100644
-index 000000000000..b0396183b87d
---- /dev/null
-+++ b/drivers/firmware/riscv_rpmi_tee/Kconfig
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config RISCV_RPMI_TEE_TRANSPORT
-+	tristate "RISC-V RPMI TEE service group transport"
-+	depends on RISCV && OF && RISCV_SBI_MPXY_MBOX
-+	help
-+	  Say Y or M here to enable the transport for services provided by the
-+	  RISC-V RPMI TEE service group.
 diff --git a/drivers/firmware/riscv_rpmi_tee/Makefile b/drivers/firmware/riscv_rpmi_tee/Makefile
-new file mode 100644
-index 000000000000..d80ab5bc9dc4
---- /dev/null
+index d80ab5bc9dc4..8984127535ed 100644
+--- a/drivers/firmware/riscv_rpmi_tee/Makefile
 +++ b/drivers/firmware/riscv_rpmi_tee/Makefile
-@@ -0,0 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+rpmi-tee-bus-y = bus.o
-+rpmi-tee-core-objs := $(rpmi-tee-bus-y)
-+obj-$(CONFIG_RISCV_RPMI_TEE_TRANSPORT) = rpmi-tee-core.o
-diff --git a/drivers/firmware/riscv_rpmi_tee/bus.c b/drivers/firmware/riscv_rpmi_tee/bus.c
+@@ -3,3 +3,6 @@
+ rpmi-tee-bus-y = bus.o
+ rpmi-tee-core-objs := $(rpmi-tee-bus-y)
+ obj-$(CONFIG_RISCV_RPMI_TEE_TRANSPORT) = rpmi-tee-core.o
++rpmi-tee-driver-y = driver.o
++rpmi-tee-module-objs := $(rpmi-tee-driver-y)
++obj-$(CONFIG_RISCV_RPMI_TEE_TRANSPORT) += rpmi-tee-module.o
+diff --git a/drivers/firmware/riscv_rpmi_tee/driver.c b/drivers/firmware/riscv_rpmi_tee/driver.c
 new file mode 100644
-index 000000000000..32f555c2f1f2
+index 000000000000..633dba116584
 --- /dev/null
-+++ b/drivers/firmware/riscv_rpmi_tee/bus.c
-@@ -0,0 +1,202 @@
++++ b/drivers/firmware/riscv_rpmi_tee/driver.c
+@@ -0,0 +1,144 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * RISC-V RPMI TEE bus
++ * RISC-V RPMI TEE transport
 + *
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
-+#include <linux/device.h>
-+#include <linux/ida.h>
-+#include <linux/kernel.h>
++#include <linux/mailbox_client.h>
++#include <linux/mailbox/riscv-rpmi-message.h>
 +#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
 +#include <linux/rpmi_tee.h>
-+#include <linux/slab.h>
 +
-+#define RPMI_TEE_UEVENT_MODALIAS_FMT	"rpmi_tee:%pUb"
++#define RPMI_SRVGRP_TEE		0x10
 +
-+static DEFINE_IDA(rpmi_tee_bus_id);
++struct rpmi_tee_mbox {
++	struct mbox_client client;
++	struct mbox_chan *chan;
++	u32 max_msg_data_size;
++};
 +
-+static int rpmi_tee_device_match(struct device *dev,
-+				 const struct device_driver *drv)
++struct rpmi_tee_transport {
++	struct device *dev;
++	struct rpmi_tee_mbox mbox;
++};
++
++/**
++ * rpmi_tee_get_attr() - Get an RPMI mailbox attribute
++ * @priv: RPMI TEE transport
++ * @id: Attribute identifier
++ * @value: Returned attribute value
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++static int rpmi_tee_get_attr(struct rpmi_tee_transport *priv,
++			     enum rpmi_mbox_attribute_id id, u32 *value)
 +{
-+	const struct rpmi_tee_device_id *id_table;
-+	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++	struct rpmi_mbox_message msg;
++	int ret;
 +
-+	id_table = to_rpmi_tee_drv(drv)->id_table;
-+	if (!id_table)
-+		return 0;
++	rpmi_mbox_init_get_attribute(&msg, id);
++	ret = rpmi_mbox_send_message_sync(priv->mbox.chan, &msg);
++	if (ret)
++		return ret;
 +
-+	while (!uuid_is_null(&id_table->uuid)) {
-+		if (uuid_equal(&rdev->uuid, &id_table->uuid))
-+			return 1;
-+		id_table++;
-+	}
++	*value = msg.attr.value;
 +
 +	return 0;
 +}
 +
-+static int rpmi_tee_device_probe(struct device *dev)
++/* Validate the RPMI mailbox transport and cache its message size. */
++static int rpmi_tee_check_transport(struct rpmi_tee_transport *priv)
 +{
-+	struct rpmi_tee_driver *rdrv = to_rpmi_tee_drv(dev->driver);
-+
-+	return rdrv->probe(to_rpmi_tee_dev(dev));
-+}
-+
-+static void rpmi_tee_device_remove(struct device *dev)
-+{
-+	struct rpmi_tee_driver *rdrv = to_rpmi_tee_drv(dev->driver);
-+
-+	if (rdrv->remove)
-+		rdrv->remove(to_rpmi_tee_dev(dev));
-+}
-+
-+static int rpmi_tee_device_uevent(const struct device *dev,
-+				  struct kobj_uevent_env *env)
-+{
-+	const struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
-+
-+	return add_uevent_var(env, "MODALIAS=" RPMI_TEE_UEVENT_MODALIAS_FMT,
-+			      &rdev->uuid);
-+}
-+
-+static ssize_t endpoint_id_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
-+
-+	return sysfs_emit(buf, "0x%x\n", rdev->endpoint_id);
-+}
-+static DEVICE_ATTR_RO(endpoint_id);
-+
-+static ssize_t uuid_show(struct device *dev, struct device_attribute *attr,
-+			 char *buf)
-+{
-+	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
-+
-+	return sysfs_emit(buf, "%pUb\n", &rdev->uuid);
-+}
-+static DEVICE_ATTR_RO(uuid);
-+
-+static ssize_t modalias_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
-+
-+	return sysfs_emit(buf, RPMI_TEE_UEVENT_MODALIAS_FMT, &rdev->uuid);
-+}
-+static DEVICE_ATTR_RO(modalias);
-+
-+static struct attribute *rpmi_tee_device_attrs[] = {
-+	&dev_attr_endpoint_id.attr,
-+	&dev_attr_uuid.attr,
-+	&dev_attr_modalias.attr,
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(rpmi_tee_device);
-+
-+const struct bus_type rpmi_tee_bus_type = {
-+	.name		= "rpmi_tee",
-+	.match		= rpmi_tee_device_match,
-+	.probe		= rpmi_tee_device_probe,
-+	.remove		= rpmi_tee_device_remove,
-+	.uevent		= rpmi_tee_device_uevent,
-+	.dev_groups	= rpmi_tee_device_groups,
-+};
-+EXPORT_SYMBOL_GPL(rpmi_tee_bus_type);
-+
-+int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
-+			     struct module *owner, const char *mod_name)
-+{
-+	if (!driver->probe || !driver->id_table)
-+		return -EINVAL;
-+
-+	driver->driver.bus = &rpmi_tee_bus_type;
-+	driver->driver.name = driver->name;
-+	driver->driver.owner = owner;
-+	driver->driver.mod_name = mod_name;
-+
-+	return driver_register(&driver->driver);
-+}
-+EXPORT_SYMBOL_GPL(rpmi_tee_driver_register);
-+
-+void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver)
-+{
-+	driver_unregister(&driver->driver);
-+}
-+EXPORT_SYMBOL_GPL(rpmi_tee_driver_unregister);
-+
-+static void rpmi_tee_device_release(struct device *dev)
-+{
-+	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
-+
-+	ida_free(&rpmi_tee_bus_id, rdev->id);
-+	kfree(rdev);
-+}
-+
-+struct rpmi_tee_device *
-+rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
-+			 const struct rpmi_tee_ops *ops, struct device *parent)
-+{
-+	struct rpmi_tee_device *rdev;
-+	int id;
++	u32 value;
 +	int ret;
 +
-+	if (!uuid || !ops)
-+		return ERR_PTR(-EINVAL);
++	ret = rpmi_tee_get_attr(priv, RPMI_MBOX_ATTR_SPEC_VERSION, &value);
++	if (ret)
++		return ret;
++	if (value < RPMI_MKVER(1, 0))
++		return -EPROTONOSUPPORT;
 +
-+	id = ida_alloc_min(&rpmi_tee_bus_id, 1, GFP_KERNEL);
-+	if (id < 0)
-+		return ERR_PTR(id);
++	ret = rpmi_tee_get_attr(priv, RPMI_MBOX_ATTR_SERVICEGROUP_ID, &value);
++	if (ret)
++		return ret;
++	if (value != RPMI_SRVGRP_TEE)
++		return -ENODEV;
 +
-+	rdev = kzalloc_obj(*rdev, GFP_KERNEL);
-+	if (!rdev) {
-+		ida_free(&rpmi_tee_bus_id, id);
-+		return ERR_PTR(-ENOMEM);
-+	}
++	ret = rpmi_tee_get_attr(priv, RPMI_MBOX_ATTR_SERVICEGROUP_VERSION,
++				&value);
++	if (ret)
++		return ret;
++	if (value < RPMI_MKVER(1, 0))
++		return -EPROTONOSUPPORT;
 +
-+	rdev->dev.parent = parent;
-+	rdev->dev.bus = &rpmi_tee_bus_type;
-+	rdev->dev.release = rpmi_tee_device_release;
-+	dev_set_name(&rdev->dev, "rpmi-tee-%d", id);
++	ret = rpmi_tee_get_attr(priv, RPMI_MBOX_ATTR_MAX_MSG_DATA_SIZE, &value);
++	if (ret)
++		return ret;
 +
-+	rdev->id = id;
-+	rdev->endpoint_id = endpoint_id;
-+	rdev->ops = ops;
-+	uuid_copy(&rdev->uuid, uuid);
++	priv->mbox.max_msg_data_size = value;
 +
-+	ret = device_register(&rdev->dev);
++	return 0;
++}
++
++static int rpmi_tee_transport_probe(struct platform_device *pdev)
++{
++	struct rpmi_tee_transport *priv;
++	int ret;
++
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->dev = &pdev->dev;
++	platform_set_drvdata(pdev, priv);
++	priv->mbox.client.dev = &pdev->dev;
++	priv->mbox.client.tx_sync = true;
++	priv->mbox.chan = mbox_request_channel(&priv->mbox.client, 0);
++	if (IS_ERR(priv->mbox.chan))
++		return dev_err_probe(&pdev->dev, PTR_ERR(priv->mbox.chan),
++				     "failed to request mailbox channel\n");
++
++	ret = rpmi_tee_check_transport(priv);
 +	if (ret) {
-+		put_device(&rdev->dev);
-+		return ERR_PTR(ret);
++		dev_err_probe(&pdev->dev, ret,
++			      "invalid RPMI TEE mailbox channel\n");
++		goto out_failed;
 +	}
 +
-+	return rdev;
-+}
-+EXPORT_SYMBOL_GPL(rpmi_tee_device_register);
++	return 0;
 +
-+void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev)
++out_failed:
++	mbox_free_channel(priv->mbox.chan);
++
++	return ret;
++}
++
++static void rpmi_tee_transport_remove(struct platform_device *pdev)
 +{
-+	if (rdev)
-+		device_unregister(&rdev->dev);
-+}
-+EXPORT_SYMBOL_GPL(rpmi_tee_device_unregister);
++	struct rpmi_tee_transport *priv = platform_get_drvdata(pdev);
 +
-+static int __init rpmi_tee_bus_init(void)
-+{
-+	return bus_register(&rpmi_tee_bus_type);
++	mbox_free_channel(priv->mbox.chan);
 +}
 +
-+subsys_initcall(rpmi_tee_bus_init);
++static const struct of_device_id rpmi_tee_transport_match[] = {
++	{ .compatible = "riscv,rpmi-tee" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, rpmi_tee_transport_match);
 +
-+static void __exit rpmi_tee_bus_exit(void)
-+{
-+	bus_unregister(&rpmi_tee_bus_type);
-+	ida_destroy(&rpmi_tee_bus_id);
-+}
++static struct platform_driver rpmi_tee_transport_driver = {
++	.probe = rpmi_tee_transport_probe,
++	.remove = rpmi_tee_transport_remove,
++	.driver = {
++		.name = "riscv-rpmi-tee",
++		.of_match_table = rpmi_tee_transport_match,
++	},
++};
 +
-+module_exit(rpmi_tee_bus_exit);
++module_platform_driver(rpmi_tee_transport_driver);
 +
-+MODULE_DESCRIPTION("RISC-V RPMI TEE bus");
++MODULE_DESCRIPTION("RISC-V RPMI TEE service group transport");
 +MODULE_LICENSE("GPL");
-diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
-new file mode 100644
-index 000000000000..c499f0427833
---- /dev/null
-+++ b/include/linux/rpmi_tee.h
-@@ -0,0 +1,83 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * RISC-V RPMI TEE transport interface
-+ */
-+
-+#ifndef _LINUX_RPMI_TEE_H
-+#define _LINUX_RPMI_TEE_H
-+
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/types.h>
-+#include <linux/uuid.h>
-+
-+struct rpmi_tee_ops;
-+
-+struct rpmi_tee_device {
-+	struct device dev;
-+	u32 id;
-+	u32 endpoint_id;	/* RPMI endpoint identifier of the TEE. */
-+	uuid_t uuid;		/* UUID identifying the TEE service. */
-+	const struct rpmi_tee_ops *ops;
-+};
-+
-+#define to_rpmi_tee_dev(d) container_of(d, struct rpmi_tee_device, dev)
-+
-+struct rpmi_tee_device_id {
-+	uuid_t uuid;
-+};
-+
-+struct rpmi_tee_driver {
-+	const char *name;
-+	int (*probe)(struct rpmi_tee_device *rdev);
-+	void (*remove)(struct rpmi_tee_device *rdev);
-+	/* NULL-UUID-terminated list of supported service UUIDs. */
-+	const struct rpmi_tee_device_id *id_table;
-+	struct device_driver driver;
-+};
-+
-+#define to_rpmi_tee_drv(d) \
-+	container_of_const(d, struct rpmi_tee_driver, driver)
-+
-+extern const struct bus_type rpmi_tee_bus_type;
-+
-+#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
-+struct rpmi_tee_device *
-+rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
-+			 const struct rpmi_tee_ops *ops, struct device *parent);
-+void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev);
-+int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
-+			     struct module *owner, const char *mod_name);
-+void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver);
-+#else
-+static inline struct rpmi_tee_device *
-+rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
-+			 const struct rpmi_tee_ops *ops, struct device *parent)
-+{
-+	return NULL;
-+}
-+
-+static inline void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev)
-+{
-+}
-+
-+static inline int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
-+					   struct module *owner,
-+					   const char *mod_name)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static inline void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver)
-+{
-+}
-+#endif
-+
-+#define rpmi_tee_register(driver) \
-+	rpmi_tee_driver_register(driver, THIS_MODULE, KBUILD_MODNAME)
-+#define rpmi_tee_unregister(driver) \
-+	rpmi_tee_driver_unregister(driver)
-+
-+#endif /* _LINUX_RPMI_TEE_H */
 
 -- 
 2.34.1
