@@ -1,185 +1,118 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E0234EF03;
-	Tue, 29 Sep 2026 08:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CDB49892B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672056; cv=none; b=Two0IPY2pqhfRiZhYfb3Bb9oa3wY72Kttyzdn1lgzI6QZU6TAPn16KtYXR1UBUMM5N5rIGqOS/GOecIQNgQ18uaJMqmeob3Q4ll7fGb0iggBHooxznOJEmSH5r6qvuJXDvbOHN2iJaqzfEMEdhnWmODGgD8DN88446w5YCDRN4s=
+	t=1790672120; cv=none; b=hYN2FsxLg/BeKca59QCdAuMKOpgDOTb5rmlxICgTrIlIlsemV/N/9r8R8Q+UjxoepdZpa0fUxiJ9zTmMzIYFDWx80kVK+E5QKOa+Q7JivkmniajJInkwuuTRTzY8UxzkuODoLE3txOJS7GMjDxZGF0jKrwXoZ6jnRXZOagjJlmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672056; c=relaxed/simple;
-	bh=lUrySG/jm80puZrcq02QzsRK7Mp2Ld9acO27B5sNS5w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ac9KHXtGYWnzb0xb3/w+Op5heNqXCMGdYptRYaAVMNebF96LwduJP0qaSAekx3YmP3ZBfpY75+8Bm/dkEuSPE+Sm37ECSx/Ecaah+2VkGfY89C99VKzCox+/VD309bEJztwmKp6vqxCivVs2AMV1lS7mdc5+F7nghPCgwtalcOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GSjuP/oO; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790672120; c=relaxed/simple;
+	bh=5M/KPCjOb0npjy4tdO8guwlLO2nblTzRF09cmm03tDM=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=RRTS/FCM+3/qXhnTzrd4jS/Urwrr3i7sD9VViW8umDZkrCm8fraM8TrFZtUaMoMIMVIsyyL7a8Z6uKMG/mj+4sk92dAZKqzmcj94WPP6gs8+dzvQMGfw0Uk1dbKcGuGRmLqpNsbMza5SjKHgdJ8aUnwvwmagG5g1qIjRR4lUFp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Tdf/pTJI; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GSjuP/oO"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7b7026e;
-	Tue, 29 Sep 2026 16:54:08 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] m68k: dmasound: Keep the Q40 IRQ handler registered
-Date: Tue, 29 Sep 2026 16:54:00 +0800
-Message-Id: <20260929085400.2068977-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Tdf/pTJI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:In-Reply-To;
+	bh=fZFYe1NfdTaUDslomStKThI9EcPWJaaP46XuSQJfzqI=; b=Tdf/pTJIbl5IpoTrbLIfKqo0hz
+	rmjnydDFbfv8qTmo4hP1ul3MPuAPkfcQ47V9bTOmJ4Eo45mZCRSMLwoYAj5c//uQa7Bl+dHUSjVht
+	bVDShip85G8/fGXrhiI7EOvwB+8AlrEufpa5xRgaekfvHLWQ1TSTDFDNwo4Wm2LNtHoEc+BM1NKd/
+	OAJ3scJMn2IVmjCbD6J+e6Rxi7tZFAUGSQdgd0BU1/WezFNIJXR9yCmQkcFAIJvTaxLFNdieqD3dx
+	b41UbM+JKrnOoph7JmlMRusLqULxZVp9T4xeI/arvarBRjXmuBnVGO5jiWtNt1AHSVev9tafkri01
+	7ZJ+7x+A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBTcF-0000000BsLW-3AVU;
+	Tue, 29 Sep 2026 08:55:12 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
+	id B518F3010E3; Tue, 29 Sep 2026 10:55:10 +0200 (CEST)
+Message-ID: <20260929085320.209298048@infradead.org>
+User-Agent: quilt/0.68
+Date: Tue, 29 Sep 2026 10:49:26 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: mingo@kernel.org
+Cc: peterz@infradead.org,
+ juri.lelli@redhat.com,
+ vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com,
+ rostedt@goodmis.org,
+ bsegall@google.com,
+ mgorman@suse.de,
+ vschneid@redhat.com,
+ kprateek.nayak@amd.com,
+ tj@kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/4] sched/fair: Extend for_each_sched_entity() with a back-link
+References: <20260929084923.092062266@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ec5f110a03a1kunma537a55d232819
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaThoZVhkfTkwfQ0ofT0JKGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=GSjuP/oOg5AurSnebE2QRMIF3Bi8wTRrs0eBFtIY+Z9uK7pclQWL8Xfnv6JJfZCbzC7Y0X1prwI/bQmUJf4QWzTDSFx9oyLuEvoOWd67OhIa26U2l1Ob8P3t3iaN2rwYUmTmMnKs2226SbwKKWu/9XzaXtOf+y90oIzY0P0AI/w=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=AoWEI7pahTOAco4vMxztOXzb5FoJIqqWUv3rtaSs8rg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=UTF-8
 
-Q40PlayNextFrame() re-registers the sample IRQ after stopping it. This
-function can be called with dmasound.lock held and from the sample IRQ
-handler, so free_irq() and request_irq() can sleep or deadlock. A failed
-re-registration can also leave playback without an IRQ.
+Leave a trail of bread crumbs, such that we can find our way back down the
+hierarchy. No actual users yet, but split out because its a bit tricky.
 
-Register one handler for the lifetime of the driver and select mono or
-stereo sample handling inside that handler. Call the frame completion
-path after releasing dmasound.lock so it can refill the queue safely.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- sound/oss/dmasound/dmasound_q40.c | 65 ++++++++++++++-----------------
- 1 file changed, 29 insertions(+), 36 deletions(-)
+ kernel/sched/fair.c  |   14 +++++++++++---
+ kernel/sched/sched.h |    1 +
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/sound/oss/dmasound/dmasound_q40.c b/sound/oss/dmasound/dmasound_q40.c
-index e25a78dd1..339311e5d 100644
---- a/sound/oss/dmasound/dmasound_q40.c
-+++ b/sound/oss/dmasound/dmasound_q40.c
-@@ -49,9 +49,8 @@ static int Q40SetFormat(int format);
- static int Q40SetVolume(int volume);
- static void Q40PlayNextFrame(int index);
- static void Q40Play(void);
--static irqreturn_t Q40StereoInterrupt(int irq, void *dummy);
--static irqreturn_t Q40MonoInterrupt(int irq, void *dummy);
--static void Q40Interrupt(void);
-+static irqreturn_t q40_audio_interrupt(int irq, void *dummy);
-+static void q40_frame_done(void);
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -318,8 +318,13 @@ const struct sched_class fair_sched_clas
+ #ifdef CONFIG_FAIR_GROUP_SCHED
  
- 
- /*** Mid level stuff *********************************************************/
-@@ -372,8 +371,8 @@ static void Q40Free(void *ptr, unsigned int size)
- static int __init Q40IrqInit(void)
- {
- 	/* Register interrupt handler. */
--	if (request_irq(Q40_IRQ_SAMPLE, Q40StereoInterrupt, 0,
--		    "DMA sound", Q40Interrupt))
-+	if (request_irq(Q40_IRQ_SAMPLE, q40_audio_interrupt, 0,
-+			"DMA sound", q40_frame_done))
- 		return 0;
- 
- 	return(1);
-@@ -384,7 +383,7 @@ static int __init Q40IrqInit(void)
- static void Q40IrqCleanUp(void)
- {
-         master_outb(0,SAMPLE_ENABLE_REG);
--	free_irq(Q40_IRQ_SAMPLE, Q40Interrupt);
-+	free_irq(Q40_IRQ_SAMPLE, q40_frame_done);
- }
- #endif /* MODULE */
- 
-@@ -403,7 +402,6 @@ static void Q40PlayNextFrame(int index)
- 	u_char *start;
- 	u_long size;
- 	u_char speed;
--	int error;
- 
- 	/* used by Q40Play() if all doubts whether there really is something
- 	 * to be played are already wiped out.
-@@ -420,15 +418,6 @@ static void Q40PlayNextFrame(int index)
- 	speed=(dmasound.hard.speed==10000 ? 0 : 1);
- 
- 	master_outb( 0,SAMPLE_ENABLE_REG);
--	free_irq(Q40_IRQ_SAMPLE, Q40Interrupt);
--	if (dmasound.soft.stereo)
--		error = request_irq(Q40_IRQ_SAMPLE, Q40StereoInterrupt, 0,
--				    "Q40 sound", Q40Interrupt);
--	  else
--		error = request_irq(Q40_IRQ_SAMPLE, Q40MonoInterrupt, 0,
--				    "Q40 sound", Q40Interrupt);
--	if (error && printk_ratelimit())
--		pr_err("Couldn't register sound interrupt\n");
- 
- 	master_outb( speed, SAMPLE_RATE_REG);
- 	master_outb( 1,SAMPLE_CLEAR_REG);
-@@ -456,31 +445,35 @@ static void Q40Play(void)
- 	spin_unlock_irqrestore(&dmasound.lock, flags);
- }
- 
--static irqreturn_t Q40StereoInterrupt(int irq, void *dummy)
--{
--	spin_lock(&dmasound.lock);
--        if (q40_sc>1){
--            *DAC_LEFT=*q40_pp++;
--	    *DAC_RIGHT=*q40_pp++;
--	    q40_sc -=2;
--	    master_outb(1,SAMPLE_CLEAR_REG);
--	}else Q40Interrupt();
--	spin_unlock(&dmasound.lock);
--	return IRQ_HANDLED;
--}
--static irqreturn_t Q40MonoInterrupt(int irq, void *dummy)
-+static irqreturn_t q40_audio_interrupt(int irq, void *dummy)
- {
-+	bool frame_done = false;
+ /* Walk up scheduling entities hierarchy */
+-#define for_each_sched_entity(se, cfs_rq)				\
+-	for (; (se) && ((cfs_rq) = cfs_rq_of(se)); (se) = (se)->parent)
++#define for_each_sched_entity(se, cfs_rq)					\
++	for (struct sched_entity *_BL = NULL;					\
++	     (se) && ((cfs_rq) = cfs_rq_of(se), (cfs_rq)->backlink = _BL, true);\
++	     (se) = (se)->parent, _BL = (se))
 +
- 	spin_lock(&dmasound.lock);
--        if (q40_sc>0){
--            *DAC_LEFT=*q40_pp;
--	    *DAC_RIGHT=*q40_pp++;
--	    q40_sc --;
--	    master_outb(1,SAMPLE_CLEAR_REG);
--	}else Q40Interrupt();
-+	if (dmasound.hard.stereo) {
-+		if (q40_sc > 1) {
-+			*DAC_LEFT = *q40_pp++;
-+			*DAC_RIGHT = *q40_pp++;
-+			q40_sc -= 2;
-+			master_outb(1, SAMPLE_CLEAR_REG);
-+		} else {
-+			frame_done = true;
-+		}
-+	} else if (q40_sc > 0) {
-+		*DAC_LEFT = *q40_pp;
-+		*DAC_RIGHT = *q40_pp++;
-+		q40_sc--;
-+		master_outb(1, SAMPLE_CLEAR_REG);
-+	} else {
-+		frame_done = true;
-+	}
- 	spin_unlock(&dmasound.lock);
-+	if (frame_done)
-+		q40_frame_done();
- 	return IRQ_HANDLED;
- }
--static void Q40Interrupt(void)
-+
-+static void q40_frame_done(void)
++#define for_each_sched_entity_bl(se, cfs_rq) \
++	for (; ((se) = (cfs_rq)->backlink); (cfs_rq) = group_cfs_rq(se))
+ 
+ static inline bool list_add_leaf_cfs_rq(struct cfs_rq *cfs_rq)
  {
- 	if (!write_sq.active) {
- 	          /* playing was interrupted and sq_reset() has already cleared
--- 
-2.34.1
+@@ -456,6 +461,9 @@ static int se_is_idle(struct sched_entit
+ #define for_each_sched_entity(se, cfs_rq) \
+ 	for (; (se) && ((cfs_rq) = cfs_rq_of(se)); (se) = NULL)
+ 
++#define for_each_sched_entity_bl(se, cfs_rq) \
++	for (; ((se) = NULL);)
++
+ static inline bool list_add_leaf_cfs_rq(struct cfs_rq *cfs_rq)
+ {
+ 	return true;
+@@ -15233,7 +15241,7 @@ static inline void task_tick_core(struct
+ /*
+  * se_fi_update - Update the cfs_rq->zero_vruntime_fi in a CFS hierarchy if needed.
+  */
+-static void se_fi_update(const struct sched_entity *se, unsigned int fi_seq,
++static void se_fi_update(struct sched_entity *se, unsigned int fi_seq,
+ 			 bool forceidle)
+ {
+ 	struct cfs_rq *cfs_rq;
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -726,6 +726,7 @@ struct cfs_rq {
+ 	unsigned long		tg_runnable_avg_contrib;
+ 	long			propagate;
+ 	long			prop_runnable_sum;
++	struct sched_entity	*backlink;
+ 
+ 	/*
+ 	 *   h_load = weight * f(tg)
+
+
