@@ -1,130 +1,118 @@
-Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.holtmann.org (mail.holtmann.org [81.169.141.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C064BB5B9
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCCA3B2D1A;
+	Tue, 29 Sep 2026 20:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=81.169.141.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714244; cv=none; b=mQ4qynbmVXEvRBolSH+92aGjMH99LTVAg4svyXcu0vlqgPdUXUlFXzsS2M3KIlUP6xTjWkt5TdL2Oqz5lNHw2fR+FOmn1msJOmvYr2AopPAfj8On0OHQ7lGLkVCl8pOWJHM8Koc0BdgLUmd1jsNUFk5JpLfiWDiZzUz7hKrbzY0=
+	t=1790714268; cv=none; b=D83u9ZmBYzkecdT9uzI1AE96TXchXWCReVulUkK0K+tkHRuRBmJZVJ7xfkVdMgwOt29CqkZOfxZBsKArlWo1IECPOnBq1faSj5uwbde31l9ebsLKT6FPRB2Orr/oTvueIEGHs+CMroYquavC89BYcS6J7c/NJyCVvNRtgdnz/rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714244; c=relaxed/simple;
-	bh=Gqvcy2MOOYrL8Gno0HNWN9hEb57iEhrmpV/Bp5STDho=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNfvDnSv2pn+hI5Nmj+D9eDlHjUbct5sYDPtoid4DLRSzUO7VINFyjAUhcuNO2P8OYu6xN3DBG5yAj6XObyf5a8gBYbOO46g67EY+ZFvZ/VCKsnpr9NBtzXc0IoiH5iuW0qJKCR8/wetDvNuok/UP24FKlssLy5AiOAr1B/c+6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZYF45M+; arc=none smtp.client-ip=74.125.225.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZYF45M+"
-Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-4888598e4f9so3142171f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:37:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790714241; x=1791319041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uc6m/QNpalNv4a9wmqg9O0BMMr47ojwjmucGyrpTpAA=;
-        b=QZYF45M+ITdIzIGzHNdTvT9VMVQTEs9FcQrsXorTsfQfM5EgTro2DOlqZDLX+S6BR8
-         KGA+xUWIZNbDnfIFlLUO8BtNNV9DZc1owqnYEthMAn+V4CjNOpRXywrkZKHXagGnw3o9
-         60FkZ97e7XCCuCQ0SA8tZn+WwuQP25rRLNKhJLPYsrX8XncqDxEBRv/RobJ8/9Go9FFK
-         9NwqbtrLsxZpyKqDj8AAA4YRkVyrpWLVncWPrZhnZvW7mOej3fQqppjz+T5K4Dd3cecy
-         NZdyGNSjomNdwB72S7O0iD6SDc6/WwFoXunnFghk+BKuyO3Cf4dtiCVDYXmEi1zbmj/i
-         zBjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790714241; x=1791319041;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uc6m/QNpalNv4a9wmqg9O0BMMr47ojwjmucGyrpTpAA=;
-        b=nVxlw6kMM8pmf9TlulDIXgf8AtWdMIhFRWWpSTOvVCsVOGQK3SIvBRpkpv+lsn+8pd
-         1jgZukDDUbtaCyZ8BopVteP2xkcDaLvpAUcXdWkQLabysivLwWA6cj4KellJMK/u/glv
-         9kAZB0YVDwdUQ22PPyFk8eFw7tsPJhs1Gceaj0vaHRn0XlCP8Vk87hxuiS50kzEe7NCz
-         RlYaW5nAulIOAz7apjM30d7PtAAciO819ADDire5qFYFSXvxjzcFjCJdSSwkeIQGS9nK
-         A2DMSnDmtUzfzbGHY3E8QCRWSVK2fUwHbTh32oCBefuia119IzmajyoFWIGPSvdLSbFT
-         jfGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwveTCS0nySiaYUspW1oVZRbtTi/GcR+A8lFXIiBYjDyORe2u1G3a04LiOKS+MVN+wSTyPgiSxsH73wjAY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvGjM/i65DFads3Ab2GFPkF4UrBzI1MKd/+6x8BtqxGv2+6LRj
-	hSL1CMzE+B492PlY+BTX4OGEjOMLlxEVc/P3O0UUF22hd+lnn6PSYkpy
-X-Gm-Gg: AYBFou1wZ/NS8p1RHZn659J0+VriglJbyMxPP6m8OL4ONezJIgvK4ygSkhElN6aUX3B
-	uOCMHqQqi/X7wuaTFCYrF+Iqwcinf+KdbwWxXYKRmk9fKd4R16uARfWm3AQQBoGnkIxHQMKvqVX
-	fBnNYoMAg2rLRzylTs98+nqq+9afQ6jJUZAVryUmKOHES8o0IHP/0uzwZK+2XKq2tOwXFh/pNxq
-	Yvyozs81EP3REhw+avzJcht8hE8jkHlb6wQnv7Ut+3Z0olBaADPSI2Upu8BEUJ8MgGYBr/vGqZL
-	3R5NwNKOJTNAE1W+JaK5vJM3vrzIlms2paTL2DRj/qv1anCUb3gALqgg44qBeccPG5FLeVe9c3t
-	FqHRmUkLuStru6g1YgFWDEkfbNdD7bu1mKIRaO+kNXjEy7Ikxzfqe4jpHjGwurKaLtGyXmx2Gnn
-	Whe2iAFXf9xw7phSSJjin27kP4/xuOPXU/fpJ9qMSUr1zlVAAhUJEnpNeHTLWiXe7ZWsSGCENxp
-	tpKDxm0CKxfoiPK/30y5SPUIC3E4vVKtWly9qM6Usn4
-X-Received: by 2002:a05:6000:381:b0:487:27f9:83d with SMTP id ffacd0b85a97d-48afe782c3amr766701f8f.50.1790714241257;
-        Tue, 29 Sep 2026 13:37:21 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe6a9624sm1237578f8f.24.2026.09.29.13.37.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 13:37:20 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: sunxi: dt: number the IRQ banks from the first one that has IRQs
-Date: Tue, 29 Sep 2026 21:36:34 +0100
-Message-ID: <20260929203634.32998-1-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790714268; c=relaxed/simple;
+	bh=D76+O3ZMCQadvcJz+XOKNWC2ilHPP4lTIXNv9esP98g=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=m9eGSFMarfH95b8QZbpM9IttAocMviRjL0KTCij7GVSWX9dncsVDqEu0y7lUKtyCXHEavqDW7DpvXT9Y+D59oqi9+PgUmXPVtXXrd7Eu6dhqriieLa4yphUTdaVyFinusCR8dXESFHydNer0dZREQhHM1D67Hli0q57dfjR1Wfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=holtmann.org; spf=pass smtp.mailfrom=holtmann.org; arc=none smtp.client-ip=81.169.141.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=holtmann.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=holtmann.org
+Received: from smtpclient.apple (p5b0a9ac0.dip0.t-ipconnect.de [91.10.154.192])
+	by mail.holtmann.org (Postfix) with ESMTPSA id 73FF2FF13C;
+	Tue, 29 Sep 2026 22:37:44 +0200 (CEST)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
+From: Marcel Holtmann <marcel@holtmann.org>
+In-Reply-To: <m657dtesuagn7vdajsuzjb4mfysf5xabsu3s6n6lujj7yb3z4p@m2e7e3n4zyev>
+Date: Tue, 29 Sep 2026 22:37:34 +0200
+Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+ Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Chris Lew <christopher.lew@oss.qualcomm.com>,
+ Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <10091679-7567-42C2-B77E-EFD95CEDD649@holtmann.org>
+References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
+ <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
+ <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
+ <13BFC5B0-77E6-48F2-B857-37686EA1DB2C@holtmann.org>
+ <05e539f8-bb7c-4038-8a83-8ab0d1a5b917@app.fastmail.com>
+ <m657dtesuagn7vdajsuzjb4mfysf5xabsu3s6n6lujj7yb3z4p@m2e7e3n4zyev>
+To: Manivannan Sadhasivam <mani@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-prepare_function_table() assumes the first pin is in bank 0. On the
-A523, which has no PA pins, every IRQ bank is numbered one too high:
-the last bank writes past the end of irq_array, and interrupts are
-looked up at the wrong offsets.
+Hi Mani,
 
-Count the IRQ banks from the first bank that has interrupts.
+>>>>> +#define QRTR_NODE_HOST_BASE 0x10000u
+>>>>=20
+>>>> Can it be exposed with include/uapi/linux/qrtr.h also. There are =
+user space clients like modem manager
+>>>> which need to calculate modified node id to distinguish same =
+service from multi modem over mhi.
+>>>> This is same as wlan use case.
+>>>=20
+>>> did anybody actually looked at the proposal that Denis and I came up =
+with. It was exactly addressing this properly.
+>>>=20
+>>> It seems you guys came up with some hot fix and want to run with it. =
+After month and month of silence and not bothering to review the =
+proposal, you are trying to push your thing?
+>>>=20
+>>> If you don=E2=80=99t support userspace, your proposal is broken. =
+Plain and simple.
+>>=20
+>> I'm still willing to submit a new version of that patchset originally =
+by
+>> Denis, if the kernel devs so decide that it's the way. For example, =
+the
+>> "radix tree of radix trees" approach could be replaced with a hash
+>> table.
+>>=20
+>> There was also some criticism about a layering violation in storing =
+the
+>> endpoint id to mhi controller. However, maybe that could be reduced =
+by
+>> providing a correct abstraction around it, so that other code doesn't
+>> touch the mhi controller structure directly.
+>>=20
+>> Other criticism for that patchset by Denis was its overt complexity.
+>> Yes, it has more lines of code changed.
+>>=20
+>> This dual-card setup needs to be handled somehow, either by Denis's
+>> patchset or by Manivannan's patchset.
+>>=20
+>=20
+> I wish to go ahead with my series as it is simple and tested across =
+the
+> multi-WLAN setups. For concern around exposing the nid to userspace, =
+I'll
+> implement it in next version, thanks!
 
-Fixes: f5e2cd34b12f ("pinctrl: sunxi: allow reading mux values from DT")
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+actually no. Seems you have no plan on how to address the userspace =
+problem.
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
-index 50a16f3bd131..9c5eb21a86a5 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
-@@ -208,7 +208,7 @@ static int prepare_function_table(struct device *dev, struct device_node *pnode,
- 	 * The extra functions will be filled in later.
- 	 */
- 	irq_bank = 0;
--	last_bank = 0;
-+	last_bank = -1;
- 	for (i = 0; i < npins; i++) {
- 		struct sunxi_desc_pin *pin = &pins[i];
- 		int bank = (pin->pin.number - pin_base) / PINS_PER_BANK;
-@@ -221,16 +221,14 @@ static int prepare_function_table(struct device *dev, struct device_node *pnode,
- 		func[1].muxval = 1;
- 
- 		if (irq_mux) {
--			if (bank > last_bank)
-+			if (last_bank >= 0 && bank > last_bank)
- 				irq_bank++;
- 			func[lastfunc].muxval = irq_mux;
- 			func[lastfunc].irqbank = irq_bank;
- 			func[lastfunc].irqnum = pin->pin.number % PINS_PER_BANK;
- 			func[lastfunc].name = "irq";
--		}
--
--		if (bank > last_bank)
- 			last_bank = bank;
-+		}
- 
- 		pin->functions = func;
- 
--- 
-2.53.0
+It would be useful to actually review the endpoint_id concept introduced =
+by Denis since it has a userspace facing API. What is your plan? Are you =
+planning to break all existing userspace code?
+
+Regards
+
+Marcel
 
