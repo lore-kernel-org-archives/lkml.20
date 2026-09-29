@@ -1,73 +1,73 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2821B3AFAE0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C643AB5DA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668510; cv=none; b=BjprWda82DxwRD2Jo52IMPRmDCLZ5D/Dj2DIhpTLSuO78D9/olbzXGu8gM80VcAoIFuYusI/MCPPg8RZXiU0oINbGRCHdtTzJUdwrU/lC6QGvANCbvb7ApI4gc+ZdK5daq0IYughQR6na05J9dq7THlBg2GYKxXMmOEJRpKUlAU=
+	t=1790668516; cv=none; b=WchU2SA+8I6mhw4jKyq36/a9WGKqYaeDiymLh04C674jFC2IsBbmE/CMYyqlo59RFQDmUJooYI3BprjN5QXGxpBucNiyE8S9XboKpawwECfm27miCI9m2/wGSGpVKZI4enbnam0KW0JOTct5xowmRXFyzuuUEUjNIAPHhlxMsnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668510; c=relaxed/simple;
-	bh=qn7wtcfgDw/6beT448h0KJEg9pz+lSdTAFzpYAW/PFE=;
+	s=arc-20240116; t=1790668516; c=relaxed/simple;
+	bh=TLmtPSWepcn7rEhYmjGCvbmnajWcRQcalYXntALHW1I=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aCkJvQ5HJz+cOdXFoVlZVICqyFTXqlEuBfmk7lbJal3q2gXbz/WBsbS0T/HunBeYmLYlAF1r/NB495ZsLP9K4kAWUpwx70yW3P1n3ZgXOuPCxgyCMpZBuT+3di9jC30S+ov9HAmb6M+57NfO5wsDCCOnxjGGuIgYFkLKaObxi0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H10cLDnY; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=F9pdLpbBDtaVzvvi6M2DIOC7FGL0RhRF/XLk31initsO0llLPnrEbvsbrHXj8/RPbuenPQHVN2xoSDLKPREnPK2VUvJLWdsxDqddCYC4HkbBJchHOoUs4RBlA2mqZI3mdJ6ZOSNGESDwYbTZsh9f3WcGE7Y7E2UWUrC17jjsicw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJ0rOYMc; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H10cLDnY"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86dd69a1b15so762933b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:55:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJ0rOYMc"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-88272e1d069so1609099b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:55:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790668507; x=1791273307; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790668514; x=1791273314; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8pfy9hR5slGa9UAqwLWXi7fOEG2lvxFxA+B3Iz6PFlw=;
-        b=H10cLDnYsvWuF70iR+Qt5oNua62dkuwuO0tIX50dUItHNtbwIBIzqIIyRu0wZKeeyt
-         CO0rNl4qecczJHmqMPJcjSQMDS7DWiadwfTQwSAaWWQFxwYir+P0jGjmuO5XSrbY2+Ya
-         2G3Vc5c7B3EtBwtMdX/6YhbdEQkvetK5OPkQNcCy0Dqe5C+w/fkH98Ljkm9nfsCSJvG1
-         nIup+snR7A0mhUMQYKgead2aVKhrHiWU0mHLi1i7Sm1tY7UV4sUC1/p7kxzFs+6Br3sX
-         hzomTY7bS/4/Z9qN9jecAXOE4MZXsVw0lOED+5KPjMNaR2dIXAZ2O9RguyvpkaBC2icf
-         P2dg==
+        bh=bO/dnbIluSZBxDsguugBt2mCZ2F4+x9OSDZJiC/GO6g=;
+        b=LJ0rOYMcft5mt8PFZqf+0w+D5HEljFlmaqGg4ltP+kKX1JJ9jh4fG25XsArNSC3OnF
+         9wVDDLBfwnrP3zo7trQe4dedNcLdIN4AT1TqREt97Pz1QmTU8ZvRrF27wLRLqDHrBfGq
+         8Mub1s9FwZsAM3vd92svv4hOzm6LYl0lqnKglPwwITtPsrV91WVOOeIVTk4xIznghu6d
+         Pv2wBEPRHt/E+LlT2WPI/VHSTKaAodJAkdoxUXzaj8WMuFdc6MV+r6Qb0CqBYM1C1Ilt
+         vlN84BVDAjeDPx+la/jcHWsPopNndZUOBEyoG/vD1bbQYZyS8kUXDogEIj10bUy7VBz4
+         6ziw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790668507; x=1791273307;
+        d=1e100.net; s=20260707; t=1790668514; x=1791273314;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8pfy9hR5slGa9UAqwLWXi7fOEG2lvxFxA+B3Iz6PFlw=;
-        b=UjKPMfvlUaMufgq2amMYybgHoQ03b0RxS4Sjgc7idM85aPRA44GQhvO5mkM5HhxGoI
-         f3wTIHtJt3w+kBxPhVn9rLZk8YgZQsmm/3giQhICVsLn+OiwLDG4JejT3TlBRMxLLw5l
-         M6jVDhY2axt+AS6eMjTgMyWfagM5OuYhDmC7d7xGUz3lIgTja+JYc9yTo2cOhqJTevWh
-         9D53peKZs7HiXxMjlYMq5bFEIaKVVL9oXcEW4qGPf6X9UkwMl1cgo+3NXi15UYEeZDAa
-         A4U2HYnq3g5sgUGo8itIC0avFP7bH7IZdhKQpTtdYjb3kHa7JYJB3m3vYeX7u1NWzvls
-         SpFA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0VaBZO/Deye10BmUzItwZ55yeZJYgTrOpG0ytg5qvVpFT2ZLVMeInqDaDYeeMQ9wsSNxf4zUikJvIOKQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+GD2WcPBpAwMq0ESa3Brb5Qiuo5smvXwQTI+MZ/8HTjIrWln6
-	Aq7R34MZoPrdYQC2p52KgG5nydhD0q9qPsPJfAMQlCci56rhTXEksZFC
-X-Gm-Gg: AYBFou3UHuHl2um74CJDDxsUNHBRHlWbjZ5KgYnmMkb5ecKx6JzR1B/fW0rekBrHsNb
-	MRXHOp/Rb4fzenIfyT38drTGuTPgn399y5ziPARbDpNyXnxNtD+mj6vBuGxcRAAVV0GT+nmnz4/
-	qWbmtcecyP3+xRyfgDWb2K9LKx/zc/VpDmX7R3jyA/E06SWFl4UCXe6JWtZ9Wpw0gZYgQoHyQuB
-	x/fPPF+kS0Mlh5a6Wt3hsHvLE4uDVaDajYPOXzSFnMaGCwme8rUY8baUqaItCCOdEGHRxKCZEJA
-	f/aLa9wzySEeWOmndnRTYeT8C4SkIsaH43K9sFx4wb6iJBslssUXuKUqTKiu+XnOppx635U5hul
-	xFvQE5k1AXHmGMgQqBo91J8OsD7HCJ2advRGLMZw/hKkHTrgfXdvxQ/I4XBInu9GrPpZHow1mG1
-	cdW0+qX3WlKUqoUPT+yfuVHyh4dbe01e/twVYP71NqRABbKAqDoH1TW/OGsLgVyE4f7PK/AxpBz
-	rio5klnffKdWPNhMkc=
-X-Received: by 2002:a05:6a20:4308:b0:3de:3ed1:48e2 with SMTP id adf61e73a8af0-3de7ca70908mr1405251637.2.1790668507391;
-        Tue, 29 Sep 2026 00:55:07 -0700 (PDT)
+        bh=bO/dnbIluSZBxDsguugBt2mCZ2F4+x9OSDZJiC/GO6g=;
+        b=1bZQITceIW/XByOprZVkWaIsy7WymLM3newxZTJwhf1iNdSTxZMIvQFiByFUIoKwuD
+         n/zAw4+Y/gt49uh30jsjRHR54uI7y+enIUAA6GjrvRTIfH30CYa0RAY5gLl2LBFCLoB0
+         jmlSGJgaAQP0t70IoT3if6HWztMYK6nDkyrWasks8LfgSX0SAw27rBBl+AanuwH35+55
+         OPahuKmXE2Q54AetcScTVkxbHld6tslHygmNg4MCXaWWaSLTLDAjcaBzYsSgO/W9pvDa
+         tXZfkq4O6r1IXVZafb4CB4ulkrBFwTjINHNh0MqMvKWqYz/4MR4byQ6nU8p4s4hMdo+F
+         u3Ww==
+X-Forwarded-Encrypted: i=1; AKwUvByDGNcBqW8lSB6/4S9PA86Ofci6HfAdeoBPn/wgQHuUCPxVO+6L0pvGTAm81cdNX6mtIZT4XsYV90Up1oc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nL4kNAQr8Jm4R2CnCdGscGpfLzpPd0L7CqqdAZ++4YCr4CDvzv
+	+JPybgItYPOQ/qxNsOFcyo11XbdvDmuXoLmf33iIX6TDeKFP1RU6AGna
+X-Gm-Gg: AYBFou1Ww5xJaLuZ4qHDFQBR/KemY4JH+ir6o/+BDSIein4Ys0wKorBabaZY+JazqdW
+	nlm4xT+9BSUta/OOaB2D8QYoJw5K8mh0Q+aJgwty3cidLGVghBIKgbfju9H5KWtl/f6w/BvOP5Y
+	GGWucOHWsxPON9grKZN2VkMNqcwnYyM5MQBzbR4OobJzE17dx+iMjAvW1ZHpfJ+jCEoDvXKmpk6
+	ZBaxviEFGCtXYvyqo86eVJFc8oFXDDBqap4OO+xrk8dAn+mxmOC2Ss136QtSwbU2f6DWpF4bHpP
+	5F46+UXVbcj6gkN+fQNsit3L6w0gZjDr4mtgObQvzs/2MYO7TLOaJ4d/tyu1rmdbk5WS4VuYfNZ
+	IdwGWoxVzHsBQfG8rgWzAydaN/qd5FImtACio4qN1A+y1t30bKm3ppKOakDGI1iTpy12L0P1dlV
+	dNcJY6m3GLKfYMuXdDHwuNBDUyz43/RroUVffqm2T2W5vxNahX9wAKHLbvJRONCzfpmp3eT+7q6
+	U+znalYF5Wyu3HKcIc51vhe/ook
+X-Received: by 2002:a05:6a00:2d19:b0:878:34d7:6977 with SMTP id d2e1a72fcca58-8802ba90ea9mr8821978b3a.37.1790668513942;
+        Tue, 29 Sep 2026 00:55:13 -0700 (PDT)
 Received: from embedsky001.tail6d6b2f.ts.net ([183.12.106.39])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e22ee338sm351772b3a.45.2026.09.29.00.55.04
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e22ee338sm351772b3a.45.2026.09.29.00.55.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:55:07 -0700 (PDT)
+        Tue, 29 Sep 2026 00:55:10 -0700 (PDT)
 From: Yonghao Zhang <hyz3367@gmail.com>
 To: andersson@kernel.org,
 	mathieu.poirier@linaro.org
 Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yonghao Zhang <hyz3367@gmail.com>
-Subject: [PATCH 2/4] remoteproc: core: Guard against a missing stop() in rproc_start()
-Date: Tue, 29 Sep 2026 15:54:51 +0800
-Message-Id: <20260929075453.2324597-3-hyz3367@gmail.com>
+Subject: [PATCH 3/4] remoteproc: core: Roll a failed attach back with detach() when available
+Date: Tue, 29 Sep 2026 15:54:52 +0800
+Message-Id: <20260929075453.2324597-4-hyz3367@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260929075453.2324597-1-hyz3367@gmail.com>
 References: <20260929075453.2324597-1-hyz3367@gmail.com>
@@ -79,49 +79,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the subdevice registration fails after a successful ops->start(),
-rproc_start() unrolls with an unconditional ops->stop() call: an
-implementation without stop() turns that error path into a NULL
-dereference, and there is no other way to undo a start once the
-processor is up.
+When the subdevice registration that follows ops->attach() fails,
+__rproc_attach() rolls back with an unconditional ops->stop() call.
+That is wrong on three counts.
 
-Nothing rules that implementation out.  rproc_validate() checks the
-callbacks against the state a processor registers in: start() for
-an offline one, attach() for a detached one, which never look at
-stop(); the only written rule, Documentation/staging/remoteproc.rst
-("Every remoteproc implementation should at least provide the ->start
-and ->stop handlers"), is a should the core does not enforce.  The
-in-tree implementations all provide both, or neither when they only
-attach (commit 1168af40b1ad ("remoteproc: k3-r5: Add support for
-IPC-only mode for all R5Fs")), so none of them can reach the call
-today.
+An attach-only implementation, one without stop() such as
+commit 1168af40b1ad ("remoteproc: k3-r5: Add support for IPC-only
+mode for all R5Fs"), dereferences NULL right there.  A processor that
+is being attached to was started by another entity and is not ours to
+power off: detach() is the matching undo of attach(), and stop()
+should only be used as a last resort, when there is no detach() or
+it fails.  This is reachable today: when the re-attach of an
+RPROC_FEAT_ATTACH_ON_RECOVERY processor fails (imx_rproc and
+xlnx_r5 use the feature), the unwind stops a processor which,
+per the feature's own contract, "does not need help from Linux to
+recover... Linux just needs to attach".  And the unwind leaves
+the accounting inconsistent -- no resource table bookkeeping
+is done, unlike on the rproc_stop() and __rproc_detach() paths,
+and a processor powered off through the fallback keeps its
+RPROC_DETACHED state, so the next rproc_boot() tries to attach to a
+core that is no longer running.
 
-Skip the rollback call when there is no stop(): with nothing to roll
-the start back with, the processor stays running and the failure is
-reported by the boot attempt itself.
+Roll the attach back with detach() first, along with the same
+rproc_reset_rsc_table_on_detach() bookkeeping __rproc_detach() does,
+and fall back to stop() only when detach() is unavailable or failed.
+A failed resource table reset does not abort the unwind: this is an
+error path, and detaching from the remote processor, or powering it
+off as the last resort, takes precedence over the bookkeeping.  A
+successful fallback moves the processor to RPROC_OFFLINE so the next
+boot reloads firmware instead of attaching to a dead core;
+implementations with neither handler keep the processor running and
+untouched, which is all an attach-only core needs.  The rollback is
+factored into rproc_unwind_attach().
 
-Fixes: 7bdc9650f036 ("remoteproc: Introduce subdevices")
+The unwind runs the same resource table resets as the detach and
+stop paths, which free clean_table and leave a cached copy of the
+installed table in rproc->cached_table.  Make rproc_attach()'s error
+cleanup, which runs right after, null clean_table after freeing it
+and release that copy along with table_ptr, or a failed attach
+double-frees clean_table and leaks the copy.
+
+Fixes: d848a4819d85 ("remoteproc: Introducing function rproc_attach()")
 Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
 ---
- drivers/remoteproc/remoteproc_core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/remoteproc/remoteproc_core.c | 65 ++++++++++++++++++++++++++--
+ 1 file changed, 62 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 123aadb467a0..19e0ea3e7240 100644
+index 19e0ea3e7240..c52212a1d180 100644
 --- a/drivers/remoteproc/remoteproc_core.c
 +++ b/drivers/remoteproc/remoteproc_core.c
-@@ -1336,7 +1336,10 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+@@ -1348,6 +1348,59 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+ 	return ret;
+ }
+ 
++static int rproc_reset_rsc_table_on_detach(struct rproc *rproc);
++static int rproc_reset_rsc_table_on_stop(struct rproc *rproc);
++
++/*
++ * Undo an attach whose subdevice registration failed.  The remote
++ * processor was started by another entity and is not ours to power
++ * off, so roll back with detach() when available and fall back to
++ * stop() when there is no detach() or when it failed.  stop() is
++ * the only rollback that does not rely on the remote side.  A
++ * processor powered off through the fallback is marked RPROC_OFFLINE,
++ * so the next boot reloads firmware instead of attaching to a dead
++ * core; with neither handler there is nothing to roll back with and
++ * the processor is left running.
++ *
++ * The resource table resets are best-effort: when one fails, the
++ * unwind carries on with detach()/stop() anyway.  Unlike
++ * __rproc_detach() and rproc_stop(), which bail out before touching
++ * the processor when their reset fails, this is already an error
++ * path, and detaching the remote processor -- or, failing that,
++ * powering it off -- is the minimum it must still deliver.
++ */
++static void rproc_unwind_attach(struct rproc *rproc)
++{
++	struct device *dev = &rproc->dev;
++	int ret;
++
++	if (rproc->ops->detach) {
++		ret = rproc_reset_rsc_table_on_detach(rproc);
++		if (ret)
++			dev_err(dev, "can't reset rsc table on detach: %d\n",
++				ret);
++
++		ret = rproc->ops->detach(rproc);
++		if (!ret)
++			return;
++
++		dev_err(dev, "can't detach from rproc %s: %d\n",
++			rproc->name, ret);
++	}
++
++	if (rproc->ops->stop) {
++		ret = rproc_reset_rsc_table_on_stop(rproc);
++		if (ret)
++			dev_err(dev, "can't reset rsc table on stop: %d\n",
++				ret);
++
++		if (rproc->ops->stop(rproc))
++			dev_err(dev, "can't stop rproc %s\n", rproc->name);
++		else
++			rproc->state = RPROC_OFFLINE;
++	}
++}
++
+ static int __rproc_attach(struct rproc *rproc)
+ {
+ 	struct device *dev = &rproc->dev;
+@@ -1373,7 +1426,7 @@ static int __rproc_attach(struct rproc *rproc)
+ 	if (ret) {
+ 		dev_err(dev, "failed to probe subdevices for %s: %d\n",
+ 			rproc->name, ret);
+-		goto stop_rproc;
++		goto unwind_attach;
+ 	}
+ 
+ 	rproc->state = RPROC_ATTACHED;
+@@ -1382,8 +1435,8 @@ static int __rproc_attach(struct rproc *rproc)
+ 
  	return 0;
  
- stop_rproc:
+-stop_rproc:
 -	rproc->ops->stop(rproc);
-+	if (rproc->ops->stop)
-+		rproc->ops->stop(rproc);
-+	else
-+		dev_err(dev, "can't roll %s back: no stop()\n", rproc->name);
++unwind_attach:
++	rproc_unwind_attach(rproc);
  unprepare_subdevices:
  	rproc_unprepare_subdevices(rproc);
- reset_table_ptr:
+ out:
+@@ -1562,6 +1615,7 @@ static int rproc_reset_rsc_table_on_detach(struct rproc *rproc)
+ 	 * rproc_set_rsc_table().
+ 	 */
+ 	kfree(rproc->clean_table);
++	rproc->clean_table = NULL;
+ 
+ 	return 0;
+ }
+@@ -1597,6 +1651,7 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+ 	 * won't be needed.  Allocated in rproc_set_rsc_table().
+ 	 */
+ 	kfree(rproc->clean_table);
++	rproc->clean_table = NULL;
+ 
+ out:
+ 	/*
+@@ -1675,6 +1730,10 @@ static int rproc_attach(struct rproc *rproc)
+ 	/* release HW resources if needed */
+ 	rproc_unprepare_device(rproc);
+ 	kfree(rproc->clean_table);
++	rproc->clean_table = NULL;
++	kfree(rproc->cached_table);
++	rproc->cached_table = NULL;
++	rproc->table_ptr = NULL;
+ disable_iommu:
+ 	rproc_disable_iommu(rproc);
+ 	return ret;
 -- 
 2.34.1
 
