@@ -1,106 +1,75 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4314E1C80
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AD338B14B;
+	Tue, 29 Sep 2026 21:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790717369; cv=none; b=RCGdPSiP896s/V3bd1eVN0VudKSF2IIoAml9GWQk2GRWLxvaGj1gYYCjE5xiQm/JzlnuRjVqFqfw4V+nluwj1wXO3lvyfoIa86vSUM6LWK32WT2MxbHQykMfaHPoDy+lt6pE3xDFBH5A0xDXg2U+ThOecp3BIWCcik7fbFUQ+MA=
+	t=1790717509; cv=none; b=DJ/Nt1Pe/CCcMT/Rn2RF29QxP+BIoDkI8A9+sHyP2eSbAuzzMo15U4feL/Ac7Jw+sDkRwxI8V5+f6mFQ6wkDl/bfglSr7ghg1ynU/WYioWkl1STYEwldT5YFIDKJD8WUeSBA1Kaz2noFv79j14uQstw3xdQpH2XFkCU+0oNTw+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790717369; c=relaxed/simple;
-	bh=ySN2jKS9dHhRYoH81doQjhzbQkfdJK+9O/ToilcRwv8=;
+	s=arc-20240116; t=1790717509; c=relaxed/simple;
+	bh=IjnfLL/m4Yheyu1gj3NKdKMK8iiY/3W9pMxeghlxdQw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WL1Qt5Pyh6vWugoSOpR3kmS9lN+UMs6SQ9INTDV/vncwYlmnyk5RGpGBbVRcNYz7MeK1ohZ4Gtd0tf6kzmy7GaDltZR6eIeS7NOSU79Lax3ve4zazvgJHMEoLBHsRARW4aNY6NBz3mgfraYZPx45HefH8w6Ngoy8g/pHluSz/Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=qGfmpJKz; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=KghpxMCM6vhlh3LHd1NU3BHnZ/5Ipbx0JCZ46Q7GlwoDIx01lVWob3WLrslVtG473nys0XUIWoEFENfIbMG5ql3c0weuw0wi8h27DOAMm5cHf9S6oLFylZygoIKOhdmyVTIOz/q2BYGYYEeOI2w2Mzah+TKq/7bcCc70htFkW2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImbjBSkc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="qGfmpJKz"
-Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-88103e47f72so3238460b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:29:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790717367; x=1791322167; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EyT+xHf5qLUoWCtLPqQerMtkJAwK/AAEHgHwEUT5UR4=;
-        b=qGfmpJKz22igcyl9HcOLCLgvlRDeS/1M3cjnnD4BXcDLJflIYjqgJs3Ut7SfZCklSJ
-         km1knV6Gi+pPUH2b1/jCh2b/Da3tCx4bOtQkQfS6E/EQSce2+MrvaQhMz1PeXhQ5cUU6
-         wRpKipD7qRJFrGzliGOQbzw88Jkc7tO9uSuMTQN0TQLkQs8txBZppFw2/u9LMNN0h6oj
-         htqKYumDqoTygRGUiQKONS44Bo+pTDkTV0YbKTOcSHXBONRtzjW6D+rAgl/CcFIhxG6D
-         WDzJpHB/1Ec04i1nC7KXTCxJ/Qs5aHNYmfqtLVacUBb+mcF2iVCeP9yJHj8gmJVpq37p
-         OEAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790717367; x=1791322167;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EyT+xHf5qLUoWCtLPqQerMtkJAwK/AAEHgHwEUT5UR4=;
-        b=zN7o7am2IFH30sFpNfgItzIJiDU+rYG/E1CPaGmE3tGVI26bgIMfAmKJWkQd6ErwwP
-         s4N5dw1JdiMAjvygp7Su5pOtkHbg1SGSW594+psqnj2KXdCyI902EqsrADP7SapI9/Hk
-         Qu+gEINIxevMoUoXK0hYQ43m8lEusalOX2+PtgaLld3SxEhO/7nu4PHdZfBETD8dbziE
-         SpRmi8gqxUy6ASO1aTxq9DbtjCiiqJRbHKub1aWoUAUyHmEndA3EdWk00NauQNy9QKAv
-         YGxV2aSOkqEdTSXR0hrI5T4jeFUUmte2vURzah5neLA0qpAd0E+Uj27dbbPc4NXSlicU
-         ODeg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXhI/rDg/dhxX60Akw6IIMlVsl+I9fPKSknNysrMDJZyPm5FKZwfMGH7dyc+8UF53J10pwhUBKDRPCp0o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuZhOdtP4b+MJU2UreL8ii8oLt4UTq7IQPqyyxUZx79qHnqeZz
-	ijxRpDIUv4mz6vRzP/AZt46HR+GaACt92/uBSXkdHEZ0LjFE2l58W+ObY0jqo1JQU4Q=
-X-Gm-Gg: AYBFou1/FhL3IKcm1sm4nv5M6j2sKLMVkUc0D6T3x1ZF58hcSWn7uOMOTG5P2nXfqvt
-	oTdQDrThospveL72TRsuiQF8Yv99VJmWWaK2NNn93U8QceQYjEqb0y6pU8QuSd8nFXB+ouMB8fB
-	rhBzRn6b2irVz5T847qdcM1Msg5iMUGcmeUx7Wq7mywMS7j8stZVL/ClWmFT+IBEuo/gKMLsE5h
-	39otZnkoEI1ZW4dzKWs5R1slgaawamNI8RRr5AdaYIiikbx4kKKAv6SfDYKD0SaVbbFhooRaFw/
-	+5zJxeN8LuIdLNsdbAiWsELHr24zfTK9YCnZ+a/uqK9b1Amjahgokm8o28MlXtW+W8Ims85Qgjo
-	mG3Z4NZIWxjvUcdE3ktkFKy6d0D7m5Sv5mL2bRwEKZokSv+u5GfU6QhpixpqixnBODB/Gv0mm2i
-	y3OpjvV2rq03Bewr00a4I3GRAJ/lpIewcf8x9l6jSyUOfzEWEyV33OSCcvgfGdcPBh3arHVeZnv
-	5n38msOgYU3
-X-Received: by 2002:a05:6a00:4186:b0:881:f5e1:6e7f with SMTP id d2e1a72fcca58-886c48b54bcmr338925b3a.31.1790717366754;
-        Tue, 29 Sep 2026 14:29:26 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:57::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868866150bsm495163b3a.3.2026.09.29.14.29.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 14:29:26 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:29:25 -0700
-From: Joe Damato <joe@dama.to>
-To: Frank.Li@oss.nxp.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImbjBSkc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2BF31F000FF;
+	Tue, 29 Sep 2026 21:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790717508;
+	bh=R5j+6LYMMJZY9MNPTlC5mVgKgI6GPvSLq1ObM+lpJGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ImbjBSkcOU61+57dg13SS0sVfvDjpN/rEWW7THOLCk6E6Nxs4VPjJHzZO2j5+fDkX
+	 TfTf75iO2Y6BdNjdUWXJWsbTiEqfWrlzQEGKOTe217sW/+R+PYhNrXc3Kcyn4uSv8L
+	 fs4E52O2mRmO7rHKLqwREziJnRIT1RPwlGs7AfcUSZgH69XyPAlnNTaBt1qBZu1sCG
+	 /E5HWQ6e7Sg5ocwxIL4R3qR7/vK5Y0ONLTtptiNdyacQ8N/KdUHTpQGL1naUUruJDc
+	 8eIS+HB1CMJOiH2ZJxaQWnvcn9gSjrWtmkQkis5JDRoappoAHcmdmWK6Pho0jj1uu1
+	 FYNlzkmofuYlw==
+Date: Tue, 29 Sep 2026 16:31:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	bui duc phuc <phucduc.bui@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
-	Kees Cook <kees@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
-	Frank Li <Frank.Li@nxp.com>,
-	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
-	"moderated list:ARM/Allwinner sunXi SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] net: allwinner: remove dmaengine_desc_free()
-Message-ID: <arwttakXqJndFXGe@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, Frank.Li@oss.nxp.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	bui duc phuc <phucduc.bui@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
-	Kees Cook <kees@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
-	Frank Li <Frank.Li@nxp.com>,
-	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
-	"moderated list:ARM/Allwinner sunXi SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org,
-	imx@lists.linux.dev
-References: <20260929190640.3516766-1-Frank.Li@oss.nxp.com>
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dominique Belhachemi <db@domibel.de>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v5 04/21] dt-bindings: soc: starfive: Add
+ starfive,jh7110-hdmi-subsystem
+Message-ID: <20260929213147.GA2831360-robh@kernel.org>
+References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103210eucas1p2d7e77f1147a03dac0536f6069505ea51@eucas1p2.samsung.com>
+ <20260929-jh7110-clean-send-v5-4-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -109,23 +78,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929190640.3516766-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260929-jh7110-clean-send-v5-4-82b4d8e3c6c7@samsung.com>
 
-On Tue, Sep 29, 2026 at 03:06:36PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Tue, Sep 29, 2026 at 12:31:01PM +0200, Michal Wilczynski wrote:
+> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
 > 
-> dmaengine_desc_free() is designed for DMA_CTRL_REUSE. If DMA_CTRL_REUSE
-> is not set, dmaengine_desc_free() will return -EPERM.
+> The JH7110 HDMI IP is a monolithic block containing both the digital
+> controller and analog PHY in a single register space. This binding
+> defines the parent device, which holds the shared register map and
+> populates its two children: the PHY and the controller. This is
+> necessary to resolve a circular clock dependency between the HDMI block
+> and the VOUT clock generator.
 > 
-> 	if (!dmaengine_desc_test_reuse(desc))
-> 		return -EPERM;
-> 
-> So calling dmaengine_desc_free() does nothing.
-> dmaengine_terminate_(a)sync() will free all already allocated descriptors.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 > ---
->  drivers/net/ethernet/allwinner/sun4i-emac.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
+>  1 file changed, 95 insertions(+)
 
-Reviewed-by: Joe Damato <joe@dama.to>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
