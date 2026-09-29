@@ -1,69 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDD9370AE0;
-	Tue, 29 Sep 2026 08:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D3439AD34
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669780; cv=none; b=GceLoIJ+JaD9rLcfg9VbJJ+k5f23MEIalsWsqqcr5j2dqbXLGS6BmwYc0y1CfNjGKos7ji+qkiCxv78XG0lvMgyHRg+ePHxBMdOCNQ07KkAFmcTNJOjIoItoLGUL9pHDbZpTap9+k3uCa54UFNBXaaBjSPKg67LRN5Ng85MxIVU=
+	t=1790669791; cv=none; b=V0UYwKPxjEGmy+XFxK8+Lqmws8cLElwDs8FQPiQjuB/HpYFA5Kmpfebua3xBPgoqKj6uH+vx6eXSCGW+3VLF1x+pHyiIBcrx6BQ0+J12t8OkNkIENs0u7jQcIMCjYgZZb7nAshKlF4jTbQJ16uWzxzaj9r6bmgZSozRL88oL1sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669780; c=relaxed/simple;
-	bh=66HRjhKLAJ6uPXz3VliDoKzODGayGuh0qwuwW7KDOc0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k8g06OHNC0Pt9rbWKshfiPEjmh2xDc+YK3BNaS3jptT+RLDOcG0YfLs/iu6Ky5moj3H6pgrBqAYiRyuqcZzRdB3XgSN0m3CkQPyfyYGnoMIRjHjl0xbMHTODIsXkVKEd6FSH51eb+j9n3FmJBV1E2qKd1UAYN1/tAX0ZhwNc+ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FB1NVZv6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669791; c=relaxed/simple;
+	bh=Sz1JmCKBZu7fltXb2NbvPIDp3GGnx7GfjB0icQIxMP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EyPRpC9DKCX2WSDsGix4ZYpgigJuqPClrXScLOKcPcTBGDTYIyam3OnetW1RpgIwfTfMU3A7NVQxCHL0j7MKknAQyAkpZTsqaj/SUk1CjhKgjstwI9NnKLTMH9krJcYAj6PntrQ9ZckVOvAYbibI6MmLKQSfYEuWpcbZ8CFbhgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8rcy+m6; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FB1NVZv6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665DD1F000FF;
-	Tue, 29 Sep 2026 08:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790669776;
-	bh=u85DHQjzFjhjJwGM5qYe2m+Wu3+JBRzNXyLVLc7SDKQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FB1NVZv6x3IyrLnfD9QkqxVp+v39HFsLNCR/yEaV9MTzxg1D+S9IF31eEhnh9QIGh
-	 EPjeUJt5QWFa/+fL46Y6mbxuFMCE2Vnmqd0U8fV2sdhlDLz2M2x0qYDoop4cyJgRCg
-	 3lj5ImVnZ41dAPNPPBP2QYfYCgA4u/q2FpqfBdUtUVv5iCne7oiI2Q2NGVIa5+p8CC
-	 oX+JmZwQajW7NFfcaOmUTLRAnBToqghXGZ5UPvX1q2lyHub/7KMdDHhzonCYKQSFIt
-	 kJq1tS0Xhiqnue7d2sUvYJnqZj0Vahl2PoZKnxcaF48Nnp+20eZMNS2xEbInUgnH4X
-	 SNt7abk6wfIIw==
-Date: Tue, 29 Sep 2026 10:16:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Janne Grunau <j@jannau.net>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Jens Axboe <axboe@kernel.dk>, linux-nvme@lists.infradead.org, 
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [PATCH 2/7] dt-bindings: mailbox: Add Apple M3 compatibles
-Message-ID: <20260929-debonair-busy-hamster-be2fda@quoll>
-References: <20260925-apple-m3-nvme-v1-0-5e832e2f4aa9@jannau.net>
- <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8rcy+m6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso23212885e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:16:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790669788; x=1791274588; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DneU6OYsM/0OepyIfW6Zz603NV6AMxXwLJIXPeol2ys=;
+        b=Y8rcy+m652p0mlgwK7oPpdOWivZQ2H6f+qakgFL1LKSn+jsQXBkM8kbsxCJr6ikgCQ
+         sjq28b0++Hhszwkr7JMMycq3oIGsLVAY9+TilfzGoDcZlNhqROpLuABymg7EHr3qVuvT
+         QWQM/wFi/0ncEOkgRzf0YvF91NIwsU7Xt69RcPWVx8Q+3O1L7SG/UJfesalkc+JHrSC3
+         oQvSB/FW+ZDdJ2cjIapKv2JbGr4DmHC9B6RxWjSAfWECccXo6grEVAQ0URpc2iLlFoOI
+         VEbF6l6RsKpMFBBnam0r1wUOu9yT+EIzMBVY44j9Vmt+G24/LxWq4VtHKkd8k+ojroIb
+         57eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790669788; x=1791274588;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DneU6OYsM/0OepyIfW6Zz603NV6AMxXwLJIXPeol2ys=;
+        b=D9YC5BfMDnU6AnCVEdSPQSvvm6GeZMiQDkPzuSfM0He/3S35/H6ThVmL42G6RFbrD8
+         Duyx8G25aKKjkIzX5tnfopK1gZgJYJkRYd8ohuldVXY6TxBmIJTwNb3/WwFxhe+soemA
+         Z6fHWWxHjbugQzJ4fPgKmmH4u1bZhzX4WjndQx6Neywy24ytHuO74AZ2WkhCbcdwEWxx
+         78ise3XnSQWPJiT0wL5rGR1FlQhjmFpZFbXl/DsmK8Gr+zzY26Du8eL3YIYVMK0TNe68
+         jI1+RzphFiJw50+a55Xk5EAzVdNb65+nWHr9eBBnGaypgKsf3vYGTFTdfquez+YRrYCR
+         xJrw==
+X-Forwarded-Encrypted: i=1; AKwUvByNH1dvRNcnhbW7wGRJ6ix+odNJ+RnlSgoCtLjTlozKKOajrTcCtOZKpMYWxQS/yzcsKqKDfpWtSeeY/60=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWgYMRcBoBaoAjUMgVAvp/km5ZRitlJFPM2o24SB+bQAa8BDm6
+	X+HwxJ4FU9wJ4bdsW0zCFwXNnmJmYrufqKgXc/9U4v3RFcOPSXuU2DzSdGfRCz3SQRCD6g==
+X-Gm-Gg: AYBFou1VT1qbnB2uP/XQ6duHDJZXUMgyAoILrFac/aFhrMhdg1nVAjeCo9dlK2ccLFy
+	xLw5PKjg+jpWT68gkJVzMpnzpiw39smUh1RABK3QlTnUyyJfSbUwsrp0fAJKCjz61u3wPBui3Dl
+	KFLSow1RIRKTRQXDkvF63l5WVDWQNdGVSNDa2FZ8F4SbiXLsjTic1f0yv+fvVdr1dRBE0+WtHAE
+	gs9abyjcHibpZHIWEDpHH5Z5c9iIp63EeTkeppkH8ZxDth2w0WKUDXlC9CQ/IN7Rq7Mha2aNuS3
+	OncYmmLvlP/qOoycYT9rhBr8RveukeNae6HsAh4iNORqqmpBvIdm64Lj1o+9c+VoOyistvHrZws
+	KwHAeauFqFdUczbT6j2GvdV/IW6k36gk5cBE0SMR47k76QOmuO8GX0A19F1C1xPI5LguX6KNq4M
+	yK3DQ74vtU1rNsbJfyEAg0SaT5cvP5XarqLOTAHsrMVPNBkIlkT+x2nS25UPmaCY5EcNGb0SYHK
+	S6Ps/Y=
+X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fe66f4c72mr267527685e9.19.1790669788138;
+        Tue, 29 Sep 2026 01:16:28 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d453badsm38333395e9.2.2026.09.29.01.16.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 01:16:27 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Cc: andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
+	syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
+Subject: [PATCH bpf v2] bpf: Fix missing migration protection in __rhtab_map_lookup_and_delete_batch()
+Date: Tue, 29 Sep 2026 11:10:34 +0300
+Message-ID: <20260929081609.557899-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 10:22:49AM +0200, Janne Grunau wrote:
-> The ASC mailbox on Apple M3, M3 Pro and M3 Max/Ultra is compatible to
-> the mailbox on M1 ("apple,asc-mailbox-v4"). Add their per-SoC
-> compatibles "apple,t8122-asc-mailbox", "apple,t6030-asc-mailbox" and
-> "apple,t6031-asc-mailbox" to its dt-bindings.
-> 
-> Signed-off-by: Janne Grunau <j@jannau.net>
-> ---
->  Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+bpf_mem_cache_free_rcu() uses this_cpu_ptr() which requires migration
+to be disabled. All callers of rhtab_delete_elem() disable migration
+except __rhtab_map_lookup_and_delete_batch(), which calls it under
+rcu_read_lock() only.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On CONFIG_PREEMPT_RCU, rcu_read_lock() does not disable preemption or
+migration, so the task can migrate between CPUs during the delete loop,
+causing this_cpu_ptr() to trigger:
 
-Best regards,
-Krzysztof
+  BUG: using smp_processor_id() in preemptible [00000000] code
+
+Fix by wrapping the delete loop in migrate_disable()/migrate_enable()
+in __rhtab_map_lookup_and_delete_batch(), matching the migration
+protection that the other callers already provide.
+
+Fixes: 818e00848227 ("bpf: Implement iteration ops for resizable hashtab")
+Reported-by: syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fd7e415d891073b83e1f
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+Changes in v2:
+  - Fix root cause in __rhtab_map_lookup_and_delete_batch() with
+    migrate_disable()/migrate_enable() instead of stretching
+    bpf_disable_instrumentation() in rhtab_delete_elem().
+  - Fix Fixes: tag to 818e00848227.
+  - Fix commit message: migration disabled, not preemption.
+
+Tested with syzkaller:
+  - Before the fix: the reported warning was reproduced reliably.
+  - After the fix: the warning was no longer reproducible.
+
+ kernel/bpf/hashtab.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+index f744a42bb813..2bb9ac7fc73e 100644
+--- a/kernel/bpf/hashtab.c
++++ b/kernel/bpf/hashtab.c
+@@ -3369,8 +3369,10 @@ static int __rhtab_map_lookup_and_delete_batch(struct bpf_map *map,
+ 	}
+
+ 	if (do_delete) {
++		migrate_disable();
+ 		for (i = 0; i < total; i++)
+ 			rhtab_delete_elem(rhtab, del_elems[i], NULL, 0);
++		migrate_enable();
+ 	}
+
+ 	rcu_read_unlock();
+--
+2.55.0
 
