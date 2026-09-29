@@ -1,88 +1,39 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905DB4FD7B8
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15FF4F4746;
+	Tue, 29 Sep 2026 09:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675901; cv=none; b=Z890KHlQjoR/r5iXkoMtvfmqGo/IyZ4QYzos8uL+602hRlXAlcH7tvTb7s1xwODNoMxcmK+UskeUI8h0647znwEE8TxnsGX9TZlzc6IQjqpdPX1Lz2Zu3QY0ebHVFYfbNgKBZJplh1AGg39sjhHDPJ0q0r7+REnY+iesaYlsSXI=
+	t=1790675949; cv=none; b=rFRSd8H0Q3OSQ8BE0wuatb66ujrjFLQ9lPPq67bWjh9wr73dWBvmeILfu3WYG0x6kgjwRfv2/GrHcAlTOde1j3zUq5hLjkkQ0+gDlonie6aTTcNnqoSE2XavBa3bwKlFyER5QIFo/zliUxFrC3AS0QCQUNiD4Ksxz9DH0741Y/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675901; c=relaxed/simple;
-	bh=AyQlhHn/ZGofFAIPNVNLtAHbPpfbmqfVZrPlxdgxWDU=;
+	s=arc-20240116; t=1790675949; c=relaxed/simple;
+	bh=H1ubWGVZudozaTwHoxQRcAvtFvrYuFbe1gCFrJb0zCc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GOntJt3myToWe1lHyobsr9hWfejIZNR40Ei7eYDcB0Ou/zlUrgPvWc6qeKWbXbSc2C56eAaBY75ZhXuWyUtAXRGR8qPbRyEqXcDAujMXmcU3zff5WUa4rTxZUtR+bnbfVm8TT3gzTAlDYpw+fsGu2DJHSgI+qstuq9HCn/2ammI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QK5JIihT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UP4Qsvup; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=fkfoixgb7SCP8FiNEJ7kjnHisXc1lFsmftHOZnghA1QPdtyNcE6zOqrgTg/QAi9L7FWr2Nv4bMdKFUVL3h2eV/lTQFk2IXMBf4s5yb52P2gWGMkseHVCBhBQ9v+OpToBwFdkMrrxQ4AIIPdLPyTaGK7son9V3EUFm3IchB8OArE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=UUnihWFa; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QK5JIihT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UP4Qsvup"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TiwF300796
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:58:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Hrf/BRu9vxuRgHvHJCDyLhP6Fml6xeXWnXwjv05Uq5M=; b=QK5JIihTRv/kofqt
-	4QaoUpy65LqzTQHfXDhdtFjOwFKUi6/+nsI95VEXDSggZ6Vc9mnegaKosyoeccz/
-	FhGi/AKvkoqLzJtIDjpJ1DdwBoIR1gxXqFLYpz9n2yNbqfMpuBlhVwqVykDWWGgO
-	lRVFWKWRqUj9gFFdfJxdwvD5glXbu90v8CaRD+zz1DEiXOJmGXpHtdV3kIVxaOKI
-	m0R4Y7o+Tj2ulR5f8dDNeSeWvX+bKhSECwaSUT43d5g9yhzn6GwdKpNBnGqcfPjQ
-	Zd6/gS8utn/fuhwPpsZM1L/t2KeCMG4GhjnF2baHaDUkLpiEamySAi85hRi0AwdL
-	nKkJHw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h05yxhbba-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:58:18 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so8974070a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:58:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790675897; x=1791280697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hrf/BRu9vxuRgHvHJCDyLhP6Fml6xeXWnXwjv05Uq5M=;
-        b=UP4Qsvuplc3TWyDX7e9qHDigqDhHaPfPJAWb0zOJxuQz8fk3b87R0NMvnwH7DCcCAu
-         dKFFRmjJMzXV09C6rXSXFiCyJH0OXtRePLbYpiuo0R7N/PWnggYc+pvNZTJEea/KiEbU
-         RTAcFG4aba29vgFdGwwvMMN290Vtai4iodeQPkQl/5ooTzKruwLZjF5eWQgDcuPoSvLg
-         WUeCEZdKfqrkznMx3JAadB75IqLBti2mRpRzYQmpeML3b6ddie9gdIX+ShO+rLnmJo78
-         iI3jE/LXX6JpvPKI41t+X2LfuD1gaCQNkGwlKEhL2Pt4ZJOQalMWfYmtqn5TwKsU+2gG
-         gbeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790675897; x=1791280697;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hrf/BRu9vxuRgHvHJCDyLhP6Fml6xeXWnXwjv05Uq5M=;
-        b=iD74qoUfo2nK/mRJRlMxlBTjF8Vo8CQPOfoD1qCP4woS/iDxFyhKE/d9Y/xEJPg/9L
-         hD7X0Vr568c/DrSxgZWqTb6rjdfqBfwB0o8rlgO7MfNrpNBntE6nsk0hPMLuJsGP8sC4
-         +c6KplCk1h3GoNWpkM2rgGEyOMllwmf86wX/CjkX03/1FgvgQdFxLSp/GyMWMPRiUmm2
-         Ob11PJh/nkXHDsl4gzKrz3rxt5oXHu82HJD7ynVSllBZgNESWHRDNRs28ObjnZTYAWQy
-         dkM1ZV6sSX4V5IWxVB8AqS+Gze7qPEXj4ajepXEgVxgA5mvMSkDHdJUMSxfxjo4ihHTv
-         ltFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2KiL+YECl6O+mtqEKQ/Wt5UPD7ldccpaJbh69cAhtsPypqvlRAfrbdnZs9G75k+3BDyGebizyuBzYDBc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmqiHRQ6clnotzv47CybPkt1HZ0k38DJUNKdKcqlKr2HZGwFfB
-	rjbuX5bmAXVufMRX/aCDFiZE2dkFf6PZwxQD5Bc8h48zbn++2sqMmzmdsIxVXGCdOlwtvCIfiDG
-	a289ff8YB3pZp3YhEXWW0WQobW1NHrjQnORggoFNSKrFZuNXcpZqeNdn3LGR+dq45+lg=
-X-Gm-Gg: AYBFou02ETA4LC4RophgZmPRgvmJYKwZj+gzY4U4iB/FIIjYjS/Tfp/F2chwInZphkf
-	Q3ITH39AMCEJdJaklstkhqJateE71Du3ndoKVAOv6ScTDmCSzvCYrTnThB1fAo9D927xBaPpnH9
-	CSAo12kLz77bQu8ilDwCtI7cB38NNz5mRwEVROmt9tyKxpj3aT8voesMFZa4itNMMet2z8O7UlR
-	3rMwNP4t8a9+Kk5UmkFM1r9urDMdqsdig45Mc07C9uTa1AiXA1pAvHYgzG2Somq++euBQVgOZrj
-	3UDIkcMoSQMfVKM7/oX4yXrJdNZmn3cCayGwkWpnzTObCrmzxb0klVifJ01sBKPPBsn/9yvVcQr
-	MSG0fDX5KE5HwH5II6vIsMXENSAI5MIHEJEIUnOF8Tdry5yti4Yf3OemJPTxqpdzTJrgFRsDQii
-	umwjgyihQkW9lJHZKrpoSy
-X-Received: by 2002:a17:90a:ec8c:b0:39e:2e7c:d43c with SMTP id 98e67ed59e1d1-3a0bb552ff6mr9601341a91.7.1790675897477;
-        Tue, 29 Sep 2026 02:58:17 -0700 (PDT)
-X-Received: by 2002:a17:90a:ec8c:b0:39e:2e7c:d43c with SMTP id 98e67ed59e1d1-3a0bb552ff6mr9601308a91.7.1790675897013;
-        Tue, 29 Sep 2026 02:58:17 -0700 (PDT)
-Received: from [10.149.102.240] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498057a62sm4634983a91.13.2026.09.29.02.58.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 02:58:16 -0700 (PDT)
-Message-ID: <ca8e656a-50b5-4cb2-a2e6-c6b275fb7b5d@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 15:28:07 +0530
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="UUnihWFa"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 231C453423B2;
+	Tue, 29 Sep 2026 11:59:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790675945;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ypdC/Y2QVx/ngT6s7C2ZYMJtG1EVfJBgff5dSYAsDyM=;
+	b=UUnihWFaiIBdBuw1X4/ZWiK2h/izidM1d1G12sFqC6r+Xf256X0zxskEsNLnPQBFHUnYPF
+	aBhNcEMIgkUQO3hlC9MB0hHSVkoTyiZl8Rd09nBnT2lKfGjWhX3SJTE9XKhyYanhioi//d
+	fMVE5rs/3gKV972jwoB/8wO88C0e0bE=
+Message-ID: <739ce9f4-8bdb-4bc4-9cc1-9a1a7eba80ce@ixit.cz>
+Date: Tue, 29 Sep 2026 11:59:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,103 +41,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/15] ARM: dts: qcom: Add initial device tree for Kuno
- SoC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
- <97fd5a30-9469-482b-be0c-0ed6da6424e8@oss.qualcomm.com>
- <5a55edf8-bbcd-4e2e-aa08-c9b62e527a43@oss.qualcomm.com>
- <c341b7ab-fc59-4234-a25f-715035fc1779@oss.qualcomm.com>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <c341b7ab-fc59-4234-a25f-715035fc1779@oss.qualcomm.com>
+Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
+ <20260929-dramatic-ocelot-of-support-2aa377@quoll>
+ <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
+ <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfXyJhPDoDd/VbU
- J2YoZuDXcyWuSor2j7xu8k9+En9GysnoHe+vKPPkwp7/rkZWv9w2sLCfpaUlHoEfePLsHSihF8h
- bGBkiRveca1QzyJjdhurk3rdO3DYRCA=
-X-Proofpoint-GUID: yjR2Kyimb3UxosB9kfTfoF__Pmo0oBuD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfX/KeXomaL2jQM
- OpBChtwmRehsoIVIuPB6V4Pic36ZZ29gCHfrX1HCR1MzhjiPrDmCBCiZJPoh+vkblh8B/xW6X27
- 47yRGktzL1F4Kday9DUD0hvoa3vqTBFJDr6kbHbC4o6t8xp0fOMxxeBSg8W2gwywLfmyB3xFBM4
- qs0jYAqQxxvU9E8hk6WqKtGrF3AYoF9Jh/aG3XeU1LNHqPWUY3Yjrx5WqioiI1jOxlQAfkXGakd
- Rn54CzAoZCXxnGCzi82joQR+pYzBxcqVZMA03hm5kq8k/JN/fsgwBzxxdqbnebb4t1eYR5W+T+s
- fGduKMg0uIRFL77hPXCbLYjyusazEzah/NNgKM9rSJsGW2JOHiM71cquGHpgQiO0BV5dAzrLLDp
- 4V9bVbxK+WO6/8Oc9SE827hykZV5qLWM0zPU4UzmI9FUPQVVUgOJryvM44PPKa7Fgnp35S/mPEu
- oTNeH9OaDIg8K2WEPFA==
-X-Proofpoint-ORIG-GUID: yjR2Kyimb3UxosB9kfTfoF__Pmo0oBuD
-X-Authority-Analysis: v=2.4 cv=SaFi5fRu c=1 sm=1 tr=0 ts=6abb8bba cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=eAyIkxj0YKcLyhwK4dIA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290039
+Content-Transfer-Encoding: 7bit
 
-
-On 9/29/2026 1:56 PM, Konrad Dybcio wrote:
-> On 9/29/26 8:59 AM, Hardeep Sharma wrote:
->> On 9/3/2026 4:27 PM, Konrad Dybcio wrote:
->>> On 8/27/26 7:51 PM, Hardeep Sharma wrote:
->>>> Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
->>>> (qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
-> [...]
->
->>>> +            ranges = <0x0 0x0 0x0 0x0 0x1000000>;
->>> likewise here, you don't need to precisely limit this.
+On 29/09/2026 11:51, Krzysztof Kozlowski wrote:
+> On 29/09/2026 11:41, David Heidelberg wrote:
+>> On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
+>>> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
+>>>> The reset was introduced with wrong polarity. Correct for the future
+>>>> compatibles and keep current with reverted logic.
+>>>>
+>>>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+>>>> gpiod_toggle_active_low() on the deprecated compatible.
+>>>>
+>>>> Assisted-by: LLM
+>>>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>> ---
+>>>>    drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
+>>>>    1 file changed, 19 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>> index 5e1e997b83b36..99290913de69a 100644
+>>>> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>> @@ -20,16 +20,17 @@
+>>>>    #include "panel-samsung-dsi.h"
+>>>>    
+>>>>    struct s6e3ha8_desc {
+>>>>    	const struct drm_panel_funcs *funcs;
+>>>>    	const struct drm_display_mode *mode;
+>>>>    	unsigned long mode_flags;
+>>>>    	const struct regulator_bulk_data *supplies;
+>>>>    	unsigned int num_supplies;
+>>>> +	bool broken_reset_polarity;
+>>>>    };
+>>>>    
+>>>>    struct s6e3ha8 {
+>>>>    	struct drm_panel panel;
+>>>>    	struct mipi_dsi_device *dsi;
+>>>>    	const struct s6e3ha8_desc *desc;
+>>>>    	struct drm_dsc_config dsc;
+>>>>    	struct gpio_desc *reset_gpio;
+>>>> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
+>>>>    {
+>>>>    	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+>>>>    
+>>>>    	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+>>>>    }
+>>>>    
+>>>>    static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+>>>>    {
+>>>> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>>> -	usleep_range(5000, 6000);
+>>>>    	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>>>>    	usleep_range(5000, 6000);
+>>>>    	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>>>    	usleep_range(5000, 6000);
+>>>> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
 >>>
->>> Konrad
->> Hi Konrad
+>>> This breaks all users and this usage of ABI was already released.
 >>
->> Here I cannot use ranges;
+>> See the gpiod_toggle_active_low() usage later in the patch which keep the logic
+>> for the original compatible as intended.
 >>
->> An empty ranges; only works when the child node uses the same number of address and size cells as its parent. That can't happen here:
->>    - The binding fixes qup0 at 2/2. qcom,geni-se.yaml requires #address-cells and #size-cells to be 2.
-> Fix the binding please
->
-> Konrad
+> 
+> OK, I went way too fast, that's correct part. But splitting fix is still
+> just confusing. Backporting to stable is a different thing than fixing
+> issues.
 
-Thanks Konrad for review.
+Sure, I already droped the previous commit changing it for stable.
 
-Fixed in v7 : 
-https://lore.kernel.org/all/20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com/
+Btw. looking at gpiod_toggle_active_low(), would it make sense to do a series 
+correcting panel reset logic? I see many panels keep "reset asserted" in the 
+driver (but ofc not in the reality).
 
-Best Wishes
+Thanks
+David
 
-Hardeep Sharma
+> 
+> Best regards,
+> Krzysztof
 
->
->>    - soc is 1/1. It uses 1 cell for addresses and sizes, like the other 32-bit Qualcomm SoCs.
->>
->> Best Wishes
->>
->> Hardeep Sharma
