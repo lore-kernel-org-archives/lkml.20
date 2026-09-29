@@ -1,162 +1,77 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954945304BB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84AC5427E5;
+	Tue, 29 Sep 2026 17:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702224; cv=none; b=RuDo8gxepiKbcW1w4WUYAn3OSqoKpD6baiaznuywVm42/qb05lTa53Ksu/RAE0oiXEudCve9/J6xNfek9BmIvW1pweCYK2SDs0WHB/58DtkPapbv13ZQKtVRmhDN6bopBDmmI5u7il55JyxUHF//piMzDo1MrjDEPOkhT9hhN8E=
+	t=1790702231; cv=none; b=ZCcirEFGNZkMzSDfuUoJ3OV1pMHc8Ig3xMtdHzqWONWC5IqcAHVFMyF9BcwAddgdblVyGqgVU9VJAeywC8GOGr4xKFzk1wvhDgYWZR94wZEa7vBqUUlZC3AqzmvseSVUS18TNkzafCqEprYazv7dyDjxZBGF8qgXX4xsSxk0F00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702224; c=relaxed/simple;
-	bh=9eonOuXlSQQB3Y2602KC+0v/4Sir9GpsZC1qHWJlG3E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TsAovtR7rKrD4md7dGmcMrJKtXQsasO3z272BrI4oHc2vmkQRV6FpKDPDvqw19fc4v5wyJSfCL/Y0uTpd9JC2LVQIV0UX+LQ7H/xrhPCIX41VumLHdI70sj/ZXQg3pGl0m+muxKcOJeEj5fpQ62OoNRK9172brnYrVnkH9W0QnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=SQD1EBjl; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="SQD1EBjl"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab4620ecf9so7173997b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790702222; x=1791307022; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZIjCkz8UNvA2qIG9dz45tzUD6Rja3Nkqz84a93dGRfU=;
-        b=SQD1EBjlv4XoWaGABcvXaPK2dC61YMStmF4HH6asFVT1DivmbHU01hP0ZGhNLmAdKR
-         XgnC7APbnYs/gVjOSDlBwJUoRPpUnRDjm0NAt6MdipmtxXLDJnd7z+U0FHiULwsCt/yP
-         L4K5YYyeRCFmomgjc2KNjyLi7ZU6yR2e09G0/9mHZTLFBN6aRQ39Qel2Hjbnj4j7laRC
-         l0rT0o6Bu974EIWsYDn4mgvG/BMNBxmrYr6axcMA1DSG0DNQgF3w+kCqfZHJyrxuCB4t
-         ZnrnwvcamAb+20cRiXtdkPFokmpog5HphLud6YzwCVMDWW/93byU1iq0Yyu1eYLErrQo
-         Ujew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790702222; x=1791307022;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZIjCkz8UNvA2qIG9dz45tzUD6Rja3Nkqz84a93dGRfU=;
-        b=aGrXqeKT7OwnRTeKA0ZE+nq0gVvriSlpFxNNY/s0XblSqzsxuWpZPlqHlRewWKD9Ao
-         LgP0HuGXvwzb4j2plpzFCTgN3CQwIzNM4dWQJSzS2jH7AlvqDdhHbv/GymGEdWobeW1F
-         kATVI9WOoKjSkfH14UYLw8Q4UrbaIerWKdl9BELu3UE8b8ZSOy3gGRo6x64vtOBKEnFs
-         mmSlXhQiI0nSCdr3WUNlGpP9MpfIlB5+BfpdVzUzvWAyoHTXZkc0YHtDyANHeMtjYYWe
-         e2WIvhGsB8I8Qpljw+wHAwap+WPRUBhTUuNQpvFZt/VqKtIAwCFHMSFRpNUPqct2eEOu
-         sv/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxDL3IHTQYxSz6+Rqu7spykXW7UbWtms3zuB4zYiY8nalqC7GIlnRj8cmf8Syp866T4pB1T/jllpATz5U0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqiRhqd9g+/BSWhr+tv36u6DavOTBiw2/TevwGvlpT/v33WlWQ
-	wOHBdFIu85OpatzwSaK0hZ3vz2Da8WZ3ekxbuqYVYm0yDAsvoEHD1rqllNH9wOW/ecU=
-X-Gm-Gg: AYBFou0P1ggNgMH6vtEPRLcFtYao295ug8u6IreKwvXtHhvo/sJf7HDQF9tU9tCD3aN
-	jmaoTw8h32dvShQr+kWyCzh0DBAHbNvVMz5irO+fkZh2Etvzwz48px//zqk0KAEqF1baO6AQUYo
-	ZHA2QCbnNRmMT1C4RGjWaE+MhB+el4h3AdTSAK17dk7dLTHbdhNK3dF22C+XyECcepjtoqrIXfy
-	zxEzJoH3+AVtvKnQAiyfyUxcy7jA+UJAues54kEjkbg8ET9+8tXCwYtqSKTFoFUCyOYdEhPU2Lu
-	zbSF7M+ShsLKjfOLVY9O+HVHDrBrD3Qmi/pey3uM7IOu4/fOgmcod4N54cLn41yinKsZgb4374/
-	MTRXbtRsNFobOvsIMjSoGsal2yregbll87X2xld1gNfMHq3GzKQi/xrBnmDokXDZseyE8jrkk5o
-	N7affRTLC6v6VpEGwSnjAMaiJQPytCV7XvvMP9n/d1sbNsqeF2hN6W+9aKdC4hbDhhyFRKbF+5w
-	C+3/AiinXAXOmE=
-X-Received: by 2002:a05:690c:85:b0:877:6e47:19ab with SMTP id 00721157ae682-8a6464b0faemr71025527b3.30.1790702222256;
-        Tue, 29 Sep 2026 10:17:02 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f54529asm16493985a.37.2026.09.29.10.17.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:17:01 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 29 Sep 2026 17:07:30 +0000
-Subject: [PATCH v6 13/14] rcu-tasks-trace: Assert no reader is held on
- return to userspace
+	s=arc-20240116; t=1790702231; c=relaxed/simple;
+	bh=/pHfoKgokia/MdRzHNMrVcLo021G7LgctLnT21f/BYM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=R3ZMmBxX036blnkwAHxMyYblginm7xEiH6hfTMisSIMq+jANnX02v5w7i9QJ5gehGAz43W+J7mpiIwzaIVSj+uX7VnXES6yem9FLP7qBluzSvkCv8GSGhdG91maKgPi+S6vrGCB2Tk5JNrIEYV9AoxRVHaJE7KSx4gVEeXbpjww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 93e4361ebc2911f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2b340d9d-b854-44b7-b308-5ce70dc73aaa,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:916476fa9f55dfc2dc4ea2b3266bf061,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
+	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 93e4361ebc2911f19a56ed5b684f684d-20260930
+X-User: huangwei@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huangwei@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 152541326; Wed, 30 Sep 2026 01:16:58 +0800
+From: Huang Wei <huangwei@kylinos.cn>
+To: Fabricio Akio <fabricioakio@gmail.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	huangwei@kylinos.cn
+Subject: Re: [PATCH] usb: dwc3: qcom: Check for L2 only when suspending a host with wakeup
+Date: Wed, 30 Sep 2026 01:16:53 +0800
+Message-Id: <20260929171653.3167156-1-huangwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
+References: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-b4-rcu-tasks-preempt-qs-v6-13-c111ee02caca@toxicpanda.com>
-References: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
-In-Reply-To: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- rcu@vger.kernel.org, bpf@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790701682; l=2562;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=9eonOuXlSQQB3Y2602KC+0v/4Sir9GpsZC1qHWJlG3E=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QGoTKCIpQWSPmmHIgYeGWzOz9qPWtP0J1Kgb5uyXWGZow9k+9qCcB70+Tvs9+2GkLFx/pkl6RW8
- XzN5ugLYM/Aw=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-With trampolines now taking rcu_read_lock_trace() open-coded from
-assembly and JIT-emitted code, an unbalanced reader would silently
-turn every later Tasks Trace grace period on that task into a stall.
-No task can legitimately reach userspace with current->trc_reader_nesting
-non-zero, so under CONFIG_PROVE_RCU check it in the generic entry
-code's return-to-user validation, next to the existing kmap and lockdep
-assertions.  Compiles away otherwise.
+Hi Fabricio,
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- include/linux/irq-entry-common.h | 2 ++
- include/linux/rcupdate_trace.h   | 7 +++++++
- 2 files changed, 9 insertions(+)
+This matches what I'd expect from the PHY behaviour - in peripheral
+mode the device disconnects before the glue suspends, so there is no
+link left to park in L2, and the unconditional check is just log noise
+on every suspend. Restricting it to the host-with-wakeup case that
+actually relies on L2 retention looks right.
 
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index e19b41ee6b18..bfcfa2ee9498 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -5,6 +5,7 @@
- #include <linux/context_tracking.h>
- #include <linux/hrtimer_rearm.h>
- #include <linux/kmsan.h>
-+#include <linux/rcupdate_trace.h>
- #include <linux/rseq_entry.h>
- #include <linux/static_call_types.h>
- #include <linux/syscalls.h>
-@@ -214,6 +215,7 @@ static __always_inline void __exit_to_user_mode_validate(void)
- {
- 	/* Ensure that kernel state is sane for a return to userspace */
- 	kmap_assert_nomap();
-+	rcu_tasks_trace_assert_not_held();
- 	lockdep_assert_irqs_disabled();
- 	lockdep_sys_exit();
- }
-diff --git a/include/linux/rcupdate_trace.h b/include/linux/rcupdate_trace.h
-index dcdb11643496..fed84052bce2 100644
---- a/include/linux/rcupdate_trace.h
-+++ b/include/linux/rcupdate_trace.h
-@@ -214,6 +214,12 @@ static inline void rcu_tasks_trace_expedite_current(void)
- 
- unsigned long rcu_tasks_trace_batches_completed(void);
- 
-+/* A task must never reach userspace inside an rcu_read_lock_trace() reader. */
-+static inline void rcu_tasks_trace_assert_not_held(void)
-+{
-+	WARN_ON_ONCE(IS_ENABLED(CONFIG_PROVE_RCU) && READ_ONCE(current->trc_reader_nesting));
-+}
-+
- // Placeholders to enable stepwise transition.
- void __init rcu_tasks_trace_suppress_unused(void);
- 
-@@ -226,6 +232,7 @@ static inline unsigned long rcu_tasks_trace_batches_completed(void) { return 0;
- static inline void call_rcu_tasks_trace(struct rcu_head *rhp, rcu_callback_t func) { BUG(); }
- static inline void rcu_read_lock_trace(void) { BUG(); }
- static inline void rcu_read_unlock_trace(void) { BUG(); }
-+static inline void rcu_tasks_trace_assert_not_held(void) { }
- #endif /* #ifdef CONFIG_TASKS_TRACE_RCU */
- 
- DEFINE_LOCK_GUARD_0(rcu_tasks_trace,
+The untested host path is low risk in a specific way: for host with
+wakeup the check runs exactly as before, so the patch only silences
+the cases where L2 is not expected. And since the runtime PM paths
+pass wakeup unconditionally, host runtime suspend still gets the
+check, which seems to be the intended behaviour.
 
--- 
-2.55.0
+Tested on real hardware in the mode that was noisy - nice.
 
+Reviewed-by: Huang Wei <huangwei@kylinos.cn>
+
+Thanks,
+Huang Wei
