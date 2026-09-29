@@ -1,187 +1,188 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF933451BB;
-	Tue, 29 Sep 2026 15:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790697451; cv=none; b=Qx4M5wAgI4Tbbv8PEWCV1M+78osup+JX2CIPJ/7vvX2Tjs+uRWWmcAEUe2zhH1PHRdD77j3Vs8+DCR4dIsR0aAmw5jSZpjGSywoLNETPs0bQWGDMPS1urx4nJ7fNGj8YzhzS4aLj/4r59E/SUsgemwI1MTeLuSgldv3I/CfP2pw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790697451; c=relaxed/simple;
-	bh=nplzv4/H8WZJY03fdbtUd2cEkHTRbiZvUXdyFwV5sHg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WmIqCOuxZoc83X6VzgQWDjonIKmF+hD75WEOP2wsacxF+Ov4qsaAa+bnE0zkRo80xVu9AX/oVFEteTHQ0DRnZ+5AjYXCiSnP7xLVEFBQhPgO6dUyurXW6u4oLbvVFUFoAnFaT3LmNkw6w1m40HyR/V3a2qOHxmS5b40p10UP1Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nbx553qb; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E783F58EA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790697476; cv=pass; b=BXC56BE4pSG+7Tbt6HVqCVQoPrDyulR4VQQOKwb6Sko91Z8kUFItUIt+9T8M3wSfF6vXiUMhFDLBU2Qb4vnIPJgwKIyZ6ocH9m09O0bZI906SOc+cgl7uJ7T3zNxNFQi2Kd6XWk69dW2u505WHMH8ODSjXQr+uEionJwAMljCRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790697476; c=relaxed/simple;
+	bh=0Xkn/B6B8q84wCCaWbE9AN1vjBCvBec6bVUfEV+VNJo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bS9ONcHLrXV3u2ohkUaEVBUOOhDH4n/EuEWUN80lCuw6s4iHqx3CHHMlrYu1MfKzLl8svPTQLmRL/TOD5V553K2gzDhMLPDOrKO0PKyg6e909fDIZ58Vjkkhg/yINAGSNsR6QRPLq/bDt78gg9grVbrhC/TUCb6bRMffDXR2cGA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flocksafety.com; spf=pass smtp.mailfrom=flocksafety.com; dkim=pass (2048-bit key) header.d=flocksafety.com header.i=@flocksafety.com header.b=WunLYUD0; arc=pass smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flocksafety.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flocksafety.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nbx553qb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790697450; x=1822233450;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nplzv4/H8WZJY03fdbtUd2cEkHTRbiZvUXdyFwV5sHg=;
-  b=Nbx553qbPD4H6BzU6AFt0BDNH70JIlDJr458rGueChI6vtWO9VevpKVQ
-   5SwoBoMcgr6GtdwU/A8wSd21DdqWCg2oySrzJDSJlLstjoKyzyUySWG7V
-   K/X7irBoGkoisN1eAm06d+2BNEVm21T2lDv7YgQ7uOTNS9N4LYTdNHVI0
-   EZlBcs8HjqxFFzTWwTrzVq4jW+nMMLJfuttwpPEoCd2qgQfMBaN3EcJKY
-   q9XsessI7hThrWq+gtL/PxgtTTl0NBcTmoyIUEd4Uczd23s2OvntyZ3Gq
-   lHb83ESzmQFKGefKNh2YSNB3RK3i8O9Mcbv54AWkeIvYpQFYc5fpQVeyF
-   Q==;
-X-CSE-ConnectionGUID: /1FAHWpeTpSw0VGfwDsGig==
-X-CSE-MsgGUID: 4r6415SVSgy5mLMqBhMtxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90282900"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90282900"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 08:57:29 -0700
-X-CSE-ConnectionGUID: qf/DA3rNT7uy8Fa4pxV3+A==
-X-CSE-MsgGUID: YRELTodrRCGppx+aCplGWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="279223578"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 08:57:29 -0700
-Message-ID: <92104265-aaa2-4594-aea0-29fd1841157e@intel.com>
-Date: Tue, 29 Sep 2026 08:57:28 -0700
+	dkim=pass (2048-bit key) header.d=flocksafety.com header.i=@flocksafety.com header.b="WunLYUD0"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97ea5bd53b4so1043741241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:57:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790697473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eTq4l36FY2KoI9mavXqLPZSgjup/wba4E4pZhdHmlNi8MWT90cbnHnnBwk+d2rFBgo
+         XBrI6fdNIc/f82X1mNBfb2XKnkNHz3rtpoBRwfm6KW5DyX3g+vxGgzRsE5XxKwuxEGoO
+         DZ9CZ6z502hEu49u4O5D7p9XwCSR/3ubOisWGzrRVtuVm4Ae2KxH+AYWBjmIW0tSIhv7
+         6oH1lRUbLTu9hdVrfZrag+yXhiCFwFYUp1rlewvlzvlsJQLH7ZD0Y13xTmpTB+gSJgrM
+         AVX1+A3KGr/zDICdCoXHWov8AHNdXWu4qN2j1iOcp6ujsHcFDmSJvFoIXyvB8RwLLlzu
+         6k9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9ANnzi1cug5jRVn6Pwq9l+PSbd41x7msP2E04gg5u6E=;
+        fh=B+lo17n6240EOexnYbZszniTkMeP16iP6BMgTDzFz7c=;
+        b=n9FuslOFboCvMyNEmVg8OeCPM955tqp31WWN092Wze0MsRHOhat4c51cM2Me4VMSQa
+         A+6P8Jl6dIitYDv28GuEyci0u6m27YJEaQpe++SYX3zdNq4ahEAVH/0IOrPiydUnxVY0
+         1n7D0SU9/mAzh6BwqcvUnFyFM4IjSA8uTseyhQVuBG1Ra25o5gKmg4X6Hf2hudJckBTk
+         3ieE6es4qT0NZgraU9qPDAw7lCv3bCOaf60SeXqDeZnL8+XEifYbwd2B19aZGqpNrMkC
+         ADyPOmsSByLErOdAeJbiMnjs6WMv1CnImUIZZPBCGXdINts2Fdo8O5jfF1gJJzqJY5i3
+         0jiQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flocksafety.com; s=google; t=1790697473; x=1791302273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9ANnzi1cug5jRVn6Pwq9l+PSbd41x7msP2E04gg5u6E=;
+        b=WunLYUD0F+AhGsuScM1HX0vyD6QPF2loXjURSPiNBHwpJvdpm1s7B1LZi9jPtK/eW+
+         JjFbFoCOO1CxNGa4GxjtzxKQ0MHAfiFSF9U0B0Om/3GDF+42+C24oYgPseY98/B36JCr
+         H4lNjRiro2PtiUshMh35ZK0U/FJzYUxRVv1vv4KWpI38xrPt6U5dOWCS1aaUlCGbnWNp
+         8Me1EsBnl2UMxZ1Zd+Xz/MRS1pmuefqYVeHloT3uc9XzTWTsvZhYymtNNYEDG6Kk9bUR
+         /4IP5B0hpYBh0T6xcxHaFzxn+TA+r6yhaUCAbATZuub/wEEwGji/Es3e5+Hh0r3rY4fo
+         cTIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790697473; x=1791302273;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ANnzi1cug5jRVn6Pwq9l+PSbd41x7msP2E04gg5u6E=;
+        b=QZD8D+JC8kV14NDJBh/4q0PQ+CzfpxOw7jwpujYnqqHp8FLkvm8b04QJln/7IL61Gk
+         4V3A/xSODjVU7xrsYztBPg3XedbIbjqHVK+09uQqGI1pkeMYjhL5F4jGpCR5OxzGzSki
+         TghHxuTCOZXa9p6FIiHk8H5lBPD9Inf2GG4UwvXzX5159QEoh2LaeLyjOjbDsUkHGrOF
+         RDYKYrmSp8cw5bbQ3EzBMtBUP71g97rvRAhbqU8aj4knsfproE2vlRE2X/T4qpu130At
+         MRuXyVkc7h0bujd5/4L/r9b9axdOcYsEs0S2GiifywNW385PrvZSWs1DA8GN2id+LjCF
+         e2Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKE/sSuaqJhqhbK13Rx/FR7nHDRuxfGJBF9usUGcSuPIS+ECHvoGkKvwo762U9KrKbjuIxETU4GkBHLfo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7W1pponDigAKMTHGPsviYGW1KTIAcBhxZ5HtB0JlyrouOHr6f
+	3w33V9COIZxHxTtxWZaksJ7Hl4gB31wtqnHHw1JvICW/eHCe+7OCa34FXXGrPp5tzfTMtVuHjkW
+	DYIssmXE1+jFoIVkt8W2od5eR4qwMJIxNYhJYv4GfMQ==
+X-Gm-Gg: AYBFou0E7rfN2tDaYBw/D27UhseW+kZZvrH1ANaDRSAXznJQ399ybSTSgyaNDbin3Sg
+	bhr03Nt2ZeQEBUx69fOIPWh5i9C0ZZCSx0SeotAPu57f5IbIa/DPvW07UpeVovY8Us99do4QZZE
+	dyHv8L1G/HEolXauekAMvyAHhCOKitriYJ02rSr3efySNB3yE4wBO9wORNFYpJvR5k/3TzMMC11
+	g5UoG56L447xIB4//JG2cYyI7DbtTgjpbTw/lxKBtIaSMggflwh0hwgnjqrrAGkVAigUt/pVgW3
+	LDgWv72Wk9+SLJp1vuq44uRZSZfiWEy7vqwJOJfOjmdddvgo2E5EWwU=
+X-Received: by 2002:a05:6102:5707:b0:7a4:85a8:fbc5 with SMTP id
+ ada2fe7eead31-7af1d1bb461mr5221468137.16.1790697472984; Tue, 29 Sep 2026
+ 08:57:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-To: Guixiong Wei <weiguixiong@bytedance.com>, x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, "Chang S . Bae"
- <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260929151013.81562-2-weiguixiong@bytedance.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260922-upstream-can-rx-offload-batching-v1-1-099e7ca12c91@flocksafety.com>
+ <20260929-intrepid-hopping-ibex-f5349c-mkl@pengutronix.de>
+In-Reply-To: <20260929-intrepid-hopping-ibex-f5349c-mkl@pengutronix.de>
+From: Chris Strong <chris.strong@flocksafety.com>
+Date: Tue, 29 Sep 2026 11:57:41 -0400
+X-Gm-Features: AclHuK8iY9QtdGOUHMH7zCl-KAW0zQEGd3GX_tnL_qvKVNzOTjheFapgAU19FNg
+Message-ID: <CAFe7wHOKH8my0zXRNsLNf_vHeiP+ZoZi=Qa-X6CiJ0FkSVZYNw@mail.gmail.com>
+Subject: Re: [PATCH net] can: mcp251xfd: flush RX offload queue during long IRQs
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Chris Strong via B4 Relay <devnull+chris.strong.flocksafety.com@kernel.org>, 
+	Vincent Mailhol <mailhol@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Thomas Kopp <thomas.kopp@microchip.com>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/29/26 08:10, Guixiong Wei wrote:
-> Make fpstate_free() operate on the fpstate pointer itself so it can
-> free the detached allocation. Use it for the existing reallocation
-> and task release paths as well.
+Hi Marc,
 
-I had to stare at this for a moment to get what was going on. This is
-trying to say something like:
+Great! Thanks for the review and feedback. I made the changes and sent
+the v2 patch series as suggested.
 
-	fpstate_free() only frees the fpstate currently associated with
-	a 'struct fpu'. It is unable to free an fpstate that has been
-	detached from the fpu, such as after a reset.
+Best regards,
 
-> On an AMX-capable system, 1000 iterations of requesting XTILEDATA
-> permission, executing TILEZERO and calling execve() on the same image
-> left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
-> /proc/vmallocinfo. None remained after this change.
+Chris
 
-I really value being succinct in these changelogs. Both the subject and
-the changelog don't really get to the point. Shouldn't this be:
 
-	x86/fpu: Fix memory leak with dynamic fpstate and exec()
+On Tue, Sep 29, 2026 at 10:49=E2=80=AFAM Marc Kleine-Budde <mkl@pengutronix=
+.de> wrote:
+>
+> On 22.09.2026 00:01:06, Chris Strong via B4 Relay wrote:
+> > From: Chris Strong <chris.strong@flocksafety.com>
+> >
+> > Under sustained receive traffic, the threaded interrupt handler can
+> > continue draining the controller indefinitely. Received SKBs accumulate
+> > in skb_irq_queue, but can_rx_offload_threaded_irq_finish() only splices
+> > them into the NAPI-visible skb_queue when the handler finishes.
+> >
+> > The RX-offload overflow checks inspect skb_queue rather than
+> > skb_irq_queue. If the handler does not return, the IRQ-local queue can
+> > therefore grow without bound while NAPI remains unscheduled. This can
+> > exhaust memory and prevent received frames from reaching the networking
+> > stack.
+> >
+> > Add a small RX-offload predicate that reports when the IRQ-local queue
+> > has reached the NAPI weight. Use it to stop the dedicated RX interrupt
+> > loop, process TEF and the other pending interrupt sources, and then
+> > publish the batch. Publish additional batches from the main interrupt
+> > loop while the controller remains busy. Since one RX pass can enqueue a
+> > complete hardware ring, this keeps each splice near the NAPI weight
+> > rather than enforcing a strict limit.
+> >
+> > Keep this policy in mcp251xfd because its controller-draining loops are
+> > the source of the unbounded handler. Accounting for skb_irq_queue in th=
+e
+> > generic overflow check would cap memory use by dropping frames, but
+> > would still leave NAPI unscheduled.
+> >
+> > Publishing smaller batches narrows the timestamp sorting window.
+> > Ordering across batches is already best-effort; RX and TEF events from
+> > each controller-status pass are processed before the batch is published=
+.
+> >
+> > Fixes: c757096ea103 ("can: rx-offload: add skb queue for use during ISR=
+")
+> > Assisted-by: LLM
+> > Signed-off-by: Chris Strong <chris.strong@flocksafety.com>
+> > ---
+> > Hi all,
+> >
+> > This is my first upstream Linux kernel patch submission, so feedback on=
+ both
+> > the implementation and the submission format would be appreciated.
+>
+> You're using b4, this is a good choice and the best tool for this job.
+>
+> Please split the changes into 2 patches, first add the rx-offload
+> helper, then the mcp251xfd changes.
+>
+> The changes look pretty good to me! Good Work!
+>
+> If you want to improve you can shorten the patch description. The
+> subject already states what you do, the patch description should explain
+> in more detail (if needed) and why. Finish with describing your changes
+> in imperative mood. See [1] for details.
+>
+> [1] https://github.com/torvalds/linux/blob/master/Documentation/process/s=
+ubmitting-patches.rst#describe-your-changes
+>
+> regards,
+> Marc
+>
+> --
+> Pengutronix e.K.                 | Marc Kleine-Budde          |
+> Embedded Linux                   | https://www.pengutronix.de |
+> Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+> Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-?
 
-In the changelog, shouldn't it say "leak" somewhere?
 
->  void fpu_flush_thread(void)
->  {
-> -	fpstate_reset(x86_task_fpu(current));
-> +	struct fpu *fpu = x86_task_fpu(current);
-> +	struct fpstate *oldfpstate = fpu->fpstate;
-> +
-> +	fpstate_reset(fpu);
->  	fpu_reset_fpstate_regs();
-> +
-> +	/*
-> +	 * Free the old state only after register state ownership has been
-> +	 * invalidated. Otherwise, a context switch could save into it.
-> +	 */
-> +	fpstate_free(oldfpstate);
->  }
-
-I'm not sure I like where this lands.
-
-The problem with the code now is that it expects it is always OK to call
-fpstate_reset(). In fact, it is dangerous to call fpstate_reset() on any
-fpu that has dynamic state allocated because it will be leaked.
-
-The patch fixes one of the call sites of fpstate_reset() but didn't make
-fpstate_reset() itself any safer.
-
-Wouldn't this be simpler and more foolproof against new users?
-
- void fpstate_reset(struct fpu *fpu)
- {
-+	/* Free dynamic fpstate (if any) before resetting pointer: */
-+	fpstate_free(fpu);
-
-        /* Set the fpstate pointer to the default fpstate */
-        fpu->fpstate = &fpu->__fpstate;
-        __fpstate_reset(fpu->fpstate);
-
-It will mean one more change in fpu_clone(), but I think that's OK:
-
- int fpu_clone(struct task_struct *dst, u64 clone_flags, bool minimal,
-               unsigned long ssp)
- {
-
-        /* The new task's FPU state cannot be valid in the hardware. */
-        dst_fpu->last_cpu = -1;
-
-+	/* Break the link to the other FPU's fpstate:  */
-+	dst_fpu->fpstate = NULL;
-        fpstate_reset(dst_fpu);
-
-I'd much rather special case clone() than the other paths.
+--=20
+Chris Strong
+Software Engineer III
+flocksafety.com
+chris.strong@flocksafety.com
