@@ -1,179 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF355372FF;
-	Tue, 29 Sep 2026 16:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D035335B6;
+	Tue, 29 Sep 2026 16:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701190; cv=none; b=Z3+F6t2pH7aTDs8UntIe12efOW2koUfC17w40ifY28KeJqroo1oVcLzZAu4zJONsTvl1Gg13S4+zGi9TktpyKpyfHKm0Y/cIPXBjHkjsKRJCrQYHD0cJumtFHcS/6zMnERa3K1ZBU3VoMs0BMSJPCuFp7uyl1CnmysBnzsk6OWE=
+	t=1790701191; cv=none; b=gWoL6CHAHwiNN2YM4JwtnGh+Y9BdME5tbEZVxr4aZUd24C0u9wtZ4qWrRVeQexnk2xPraAtmLuhI5n7MMkUZPxEeyarlsLF88i9kBGgmHwBXSGqnji3TFUfgpC/mjsbGUw6tZQgmAi5fFD3K3fu89V4NgBLhmSzaMMggc5HZfig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701190; c=relaxed/simple;
-	bh=J1+6xwDV8EuHmy0sQKPAFEPOWIsDzRc5ctVmlv0ovDI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PY3xcl8OXC6iQXcxc3OMGVHBiuxKthpZwV16BmrQkF6J0Os27h/XTgHXcJzex/tDS6LWYK2bYbZawcFK3qhFth+QE2tttiST/n8jJcXVE+8qePi/8QcuGY8QGgFqSH/OlFs74HKKqfD7vLoRxKDQABQ1ADvNvMz4VfbcN/QpMeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3ujcfgR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790701191; c=relaxed/simple;
+	bh=Kqj6KV4ty0Cf9LzChQtzVbl7VP0gUL4ZFCNlHxFRHsI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UYtPo0di0BpMu6hDxqmUHRFtUvdfNlJ830ZNdumBNdd7s0bnq3ZVevATNYRF3+MyqjwrKqmd5XM2pXVne32y0KlbzerUWGtHWCabxSL0+AlL3h4TpuFgczxDWoKiucUvaZJ5QTvJs3FQyv2nQ4hkH2RCUPrNYgm153IZCpBQZGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjePm7x0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3ujcfgR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B930A1F00893;
-	Tue, 29 Sep 2026 16:59:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjePm7x0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153C71F000FF;
+	Tue, 29 Sep 2026 16:59:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790701189;
-	bh=QZCLRTQ9xYI/d2c42h8rqFs6nxa/dYI93im2TcbUTcw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R3ujcfgR2PhlrEWvK2Fz43EnykvZXb9i7ct9vUqm4tt/x9X0llbqvJW/kuGR+6m3+
-	 qK9ofHj498e3z5s+O9sSr4YMbkqIO0rqOulaRX6lpDioxmaJeNVhiWao0Kg9YdsMPQ
-	 gtCgFFHSrXDWOwK/8ie5UrAWoXQ2Ynr+9+48aFZh6IGRUuqpaMIrRBDcJBdEuZqybu
-	 XpsOk1FQYh4kZ9wmKcDVa9LGABbzYaZwCN+RhXcJFmBZaNRcCTAosfAa4EpsD7L5Ww
-	 TF8LKCvws/qLpyH6rdqGGrrjKikwsIYDBrDAgLQGczKi9js0ohlSz2ngIkJgCijvWE
-	 JK5oGG45PIIwQ==
-Message-ID: <5245043a-e24f-438b-9ddb-7dd3f6fd6b18@kernel.org>
-Date: Tue, 29 Sep 2026 11:59:47 -0500
+	s=k20260515; t=1790701190;
+	bh=MGBWHHaEJganj8D1yagMHRlcdsNEyTtM3iC7GV8hUXU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SjePm7x02Lah5vOELf9ce4YUO5z/8quB47KG1ZoIMK72aUNVrPrCdr0c0MhVEUCct
+	 e/pjkzplRRlc+iDw8myI00JnCkhOCgIGqKVjqAEmF68e1bsSBFWkNDo/dnGaHUUbmN
+	 gGTfswdR99FIW24ZhkxFSWQUM+NnT0oWNEgj5t/DAU3kIqebd4giVteYXHP1sJE9R7
+	 LMnUflkro8TfjhlCllhq8FQKM35R/YNnamS2pvqYaCoDITHJ1zkhAY1dQR0e4Sb4q1
+	 loj77pP8vyLLK7xfd/8pczOKmPjnIREFvATiAc8+2ruPOGvW7PPEKs8kujnvVWWvGM
+	 j5+6rTn2iVdcw==
+Date: Tue, 29 Sep 2026 18:59:39 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <20260929165939.GA1890629@ax162>
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+ <87zex4ic68.fsf@linux-m68k.org>
+ <20260926121927.GA1486962@ax162>
+ <are7cfMIHZZn6jLz@zx2c4.com>
+ <20260927080225.37534e7c@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Content-Language: en-US
-To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnemaximilian.richter@draeger.com,
- martynas.grybauskas@draeger.com
-References: <20260929134058.819371-1-petko.manolov@konsulko.com>
- <20260929134058.819371-4-petko.manolov@konsulko.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20260929134058.819371-4-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927080225.37534e7c@pumpkin>
 
-
-
-On 9/29/26 08:40, Petko Manolov wrote:
-> M48 is a heterogeneous board made by Draeger that is based on two
-> independent cpus, that are monitoring each other.  One of them is
-> imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-> independently off qspi.
+On Sun, Sep 27, 2026 at 08:02:25AM +0100, David Laight wrote:
+> On Sat, 26 Sep 2026 14:32:49 +0200
+> "Jason A. Donenfeld" <Jason@zx2c4.com> wrote:
+> > Do we even need to return a value at all? Might as well just make the
+> > function two lines:
+> > 
+> > +       for (char *d = dst; size--;)
+> > +               *d++ = value;
 > 
-> This one adds the DT for the Altera SoCFPGA part of M48.
-> 
-> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
-> ---
->   arch/arm/boot/dts/intel/socfpga/Makefile      |  1 +
->   .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 91 +++++++++++++++++++
->   2 files changed, 92 insertions(+)
->   create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> 
-> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-> index 8df0976da01c..cdcea11abdfa 100644
-> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
-> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
->   	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
->   	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
->   	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-> +	socfpga_cyclone5_draeger_m48.dtb \
->   	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
->   	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
->   	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> new file mode 100644
-> index 000000000000..85daa839c314
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> @@ -0,0 +1,91 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> + */
-> +#include "socfpga_cyclone5.dtsi"
-> +
-> +/ {
-> +	model = "Draeger M48 Cyclone V SoC";
-> +	compatible = "draeger,socfpga-m48", "altr,socfpga-cyclone5", "altr,socfpga";
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	memory@0 {
-> +		name = "memory";
+> Wouldn't it be better to add a barrier() or similar in there to
+> stop the compiler playing unwanted games>
 
-Sashiko's comment about this is true.
+Wouldn't that just result in the same code generation issue that Jason
+pointed out on my v1?
 
-> +		device_type = "memory";
-> +		reg = <0x0 0x40000000>;
-> +	};
-> +
-> +	aliases {
-> +		/* this allow the ethaddr uboot environmnet variable contents
+  https://lore.kernel.org/aquyVkdYceiWdckX@zx2c4.com/
 
-s/environmnet/environment
+Maybe that doesn't matter because modern compilers have better options?
 
-> +		 * to be added to the gmac0 device tree blob.
-> +		 */
-> +		ethernet0 = &gmac0;
-> +	};
-> +};
-> +
-> +&gmac0 {
-> +	status = "okay";
-> +	phy-mode = "rgmii-id";
-> +	rxc-skew-ps = <1860>;
-> +	rxd0-skew-ps = <0>;
-> +	rxd1-skew-ps = <0>;
-> +	rxd2-skew-ps = <0>;
-> +	rxd3-skew-ps = <0>;
-> +	rxdv-skew-ps = <0>;
-> +	txc-skew-ps = <900>;
-> +	txd0-skew-ps = <0>;
-> +	txd1-skew-ps = <0>;
-> +	txd2-skew-ps = <0>;
-> +	txd3-skew-ps = <0>;
-> +	txen-skew-ps = <0>;
-
-Sashiko's comment about these PHY properties is also correct. Take a 
-look at commit dabb5db17c06 ("ARM: dts: imx6qdl: move phy properties 
-into phy device node").
-
-
-> +};
-> +
-> +&gpio0 {
-> +	status = "okay";
-> +};
-> +
-> +&gpio1 {
-> +	status = "okay";
-> +};
-> +
-> +&gpio2 {
-> +	status = "okay";
-> +};
-> +
-> +&i2c0 {
-> +	status = "okay";
-> +	clock-frequency = <100000>;
-> +
-> +	eeprom_mac: eeprom@50 {
-> +		compatible = "atmel,24c08";
-> +		reg = <0x50>;
-> +		pagesize = <16>;
-> +	};
-> +};
-> +
-> +&mmc0 {
-> +	status = "okay";
-> +};
-> +
-> +&qspi {
-> +	status = "okay";
-> +
-> +	flash: flash@0 {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-Sashiko's message here is a false positive. You can ignore.
-
-Thanks,
-Dinh
+-- 
+Cheers,
+Nathan
