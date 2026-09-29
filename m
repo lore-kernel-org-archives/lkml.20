@@ -1,201 +1,272 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBF05476C3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92853D9027
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790704293; cv=none; b=UR03QxRHYdHabBZTl/wvkpMBoY5PLg9GbaraCSRYMdMVyy+qBDxqPekljXcwhmgwmeSnvlMsI0DQDHeQ9Q0FhbCY2cQU2i5cebEl0wZR/cm8KqlqTkilXs/DH/WC7yJRTsXTGOgOIcrX67vO44jG/Gv+lV2X68SwVCqrOtrUwp0=
+	t=1790704354; cv=none; b=E/uXQEffJeTW9NLF8tIIoWHcJS5EGtq7c+EB4wEoEBS3QRtEP1xYYzs6qx0Ayp74TfVqbaTEU2SnLVEgwtdRKQuTc+UynTSedH5/41rIngIlYaqbfR4Li6Yprq57BWwNF4K7bJgp2r0slDlK2AIdhqEBHOF9S4dzsSrCA3pEr3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790704293; c=relaxed/simple;
-	bh=09Z+uTdHfchfL4xuufQr94ZP8PzrYoCa8k2iVK5RaJM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HFP/sksijBKq6DBiWe9XOOnVEo+b39wJ4v0UVfuiBIH9ov2woCL1QvUyOjCEUHPTIRgYF6EZCqz8CQXwLcqvb9+jB9zTnN41xVx8mMW6quf8yLAHNi0SLIHcOBhY/cFiwTzQGdo/qGOicBl98n95aF2FjhoIOyvp3LzgUh5hcj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=QTb2sAp9; arc=none smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790704354; c=relaxed/simple;
+	bh=j1Z5bfCxqQ914Rixqv/n9+8vAenQaHc/PM2jNbZaxy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AmhFpfg8QohWAozfe+mC/ZVT9v6G+NOBFVmOgkzw4+LR1oBrkWGaHujIw1Y/Ir4bblivz2gWj03zpqyXpYLVT2SRgKejmYdtKGQF8gMHcJoafuK6DX+/tX+NwbHlDyGBBQ6wvym6K7qq3uhmi4KZm0/fPLhZuu6n3LJmvquHOUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RSKoUOzC; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="QTb2sAp9"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6714595153cso887325d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:51:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790704290; x=1791309090; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MlVSbPAEtcbAsb28VdXRdcpAlGUVjZXNvGC4S7YBHhc=;
-        b=QTb2sAp9HByaCmhld2xtkn06qXCnmhnKJs96Cdkk4shnGmA/QXwrSovkzaCQt6IEY5
-         eW+URgSm3+EJUFNQL+4SfoeUzha8FVq4iqz95xqM3T+MqCdPILh1hJ3Grx1vM7XjAVf8
-         kdeFLvCbwkkEZJ/R5xPGam9TTiZSuNeW5xfZZFuCGS9zGHCuUMZ2u/P1JQN6s2EJtfSo
-         pZnJoVwIRzWZz4d1RTgF2VLpZcOayOGLSp34Og43AYCsl8dN3tRvQ/4HFRz95sojJ1gm
-         KkO9qe8r/DuX3QbcOVhOUdXpvLPHohYG7A+qSaBxi2B4NV4w0jPZ5EEQMSyDfeZwnZlI
-         K8LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790704290; x=1791309090;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MlVSbPAEtcbAsb28VdXRdcpAlGUVjZXNvGC4S7YBHhc=;
-        b=S9Yw8VCV8NFYxeVcVxYUh90JRy1dtc1ibURdXP9wO7cwKfj2dIVkOWqOuvPHwyw21C
-         7bszvohnG8/YdfzcFXT7xM5+cFbJM8BePwQuE+6kp6Lqvx5Z1TQp4RvwyKV+HAu9o1QQ
-         Zd1XKnbm/+KZPt4U05mhvTza0LuNlCl8nt8Sj+yXKu+yJrgP+sNuqJbOlppX500Htaim
-         /ApgMlufTkpezTPeHRc8sO/Gx7ci+f+VVyWvUgVVptHUSfJ9kH/20+VWwyKCKThXLOcj
-         0qwVWwvedwca3ZSkFvzHXmWINIEBf3XCGBam/fIk3DTrBFoMZHEAak+u527j8RIh/i39
-         T9nA==
-X-Forwarded-Encrypted: i=1; AKwUvBznP/dOadm9hIFHIt7cFyyce8osETOH7s7efBFr6yIWGs2fHCEQp8xNJqC0v8aDn8BLdgeyRyJg7KbZWcs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZNdTJu7lBg9P5vPkQkf/2th+qvpzuJpeU3Nspkpy6FIfnCDTC
-	LPZQkXKWifYE7FtvvIIij4fKjSLN3XdFwF7YTsjtKMXrchZ5j0FA7VLKdwzAT7VP0aU=
-X-Gm-Gg: AYBFou34batbt/n3PngrLNeA3Wb6n+DwOz+9YRgT/C0WoVSK10N7Xjx0/0/zDhYcQjl
-	0p6dM3S80BI9QmpH16D6SPzeXFjuxWdBE4MMiqgbKoTYHShOJKztnePw9yO4DGWeo8Rmx00Ct8v
-	Hyldj06Qu9se+ym60Va/miHaM7/E4XlBNqE4rzBPSGDzlL1xVrEEzyq290MQFKut/qhxk1uogVf
-	tzJnvO9Lueh2RKNl2ByOKcmlDtlT8PvD71LBnyTuc0V8KzCz5HHb4THk7RXgvVAeoi/QGCBgEV1
-	HY0SP/r7BO/jJlGVQwMGLBAlNNPGrfJJTha2ELhoAcdFYdFuUBxZhe7MIENBjGv7R2FJc+RI5nj
-	gfbefrlUmjQhGGLZHH+ArM4HB7cKQ0x9s/QWmbQ77yztgG9V0beg0bZ9tT5laQnh9Po/DBD0teP
-	cUw6tHYpssRWS8BTUa9d/fExj8R5yMy6E0+QwDD6SBPtFzGjXu2fJALYzs/czUgt6oIDDHW6WV5
-	ovkicTw64c0WwkpJfxRWlDd7OTh4tPgWe3GM+r7IBMdXwRw8+HZ7rIASNZFbklA/2LzepzWsLh+
-	lg2+bd8+ZUIks/E0OHUT8abfCPw=
-X-Received: by 2002:a53:d019:0:b0:675:300c:3938 with SMTP id 956f58d0204a3-67560b590aamr1051413d50.14.1790704290177;
-        Tue, 29 Sep 2026 10:51:30 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:ace4:86e:1afc:3c4e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8abcea200f2sm1644747b3.39.2026.09.29.10.51.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:51:29 -0700 (PDT)
-Message-ID: <6d6806e28eb00bee6a3e895fd73b7c67270f014f.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: clear dirty flag on bdev buffers on log write
- failure
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>, LKML
-	 <linux-kernel@vger.kernel.org>
-Date: Tue, 29 Sep 2026 10:51:27 -0700
-In-Reply-To: <20260929064001.94261-1-konishi.ryusuke@gmail.com>
-References: <20260929064001.94261-1-konishi.ryusuke@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RSKoUOzC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790704352; x=1822240352;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=j1Z5bfCxqQ914Rixqv/n9+8vAenQaHc/PM2jNbZaxy0=;
+  b=RSKoUOzCZf+WVsDqJ/CNz+uTp8ajcNz2oLtShdn3sHYS86cnbSsD+79t
+   BrqGyFUzjk+zXZdgxELWuN+IhrIDzpG1RsmHFwUyX+8WxHFjot+Pnmrpu
+   AJkpyijyBlLiTZG9LBDRc1MIOY+SHggWUT5QLFMmC0rV3IcJ5veso0+h5
+   rKDdY7lV1AYFv8U/B63MSoPW39t9/mHsEvkGcQ8qSd7MizqXHdonI2q/t
+   O4TYk6FxTgXGjDYggCB+cvh3SETk03F4MGIzhERGkprlOsb5dM94tDgQN
+   kt5Y+bxog6eS0IfpEK96rzt5qdU3/stQExG5GGuR1CyXa5pDY6LZNjUbk
+   g==;
+X-CSE-ConnectionGUID: qmZKrugwRcizc1O73AciOg==
+X-CSE-MsgGUID: F+nZxbb6RqmtrZH9rTm6fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90198055"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="90198055"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 10:52:31 -0700
+X-CSE-ConnectionGUID: 3IHIoIpaQk2J/KjSeizPvQ==
+X-CSE-MsgGUID: grBByMTfQxaVhI9nr17OCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274542425"
+Received: from aschofie-mobl2.amr.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.222.232])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 10:52:31 -0700
+From: Tony Luck <tony.luck@intel.com>
+To: tony.luck@intel.com
+Cc: Dave.Martin@arm.com,
+	babu.moger@amd.com,
+	david.e.box@intel.com,
+	dfustini@baylibre.com,
+	fenghuay@nvidia.com,
+	hch@infradead.org,
+	james.morse@arm.com,
+	linux-kernel@vger.kernel.org,
+	maciej.wieczor-retman@intel.com,
+	patches@lists.linux.dev,
+	peternewman@google.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	yu.c.chen@intel.com
+Subject: [PATCH v14.1 18/25] x86/resctrl: Use registered function pointers for AET enumeration
+Date: Tue, 29 Sep 2026 10:52:24 -0700
+Message-ID: <20260929175224.16565-1-tony.luck@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928221509.68002-19-tony.luck@intel.com>
+References: <20260928221509.68002-19-tony.luck@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-29 at 15:38 +0900, Ryusuke Konishi wrote:
-> Since the commit referenced in the Fixes tag stopped directly calling
-> inode_attach_wb(), a dirty flag is set on buffers (with
-> mark_buffer_dirty()) allocated to the backing device for segment
-> summaries and the super root block during log writes.
->=20
-> While this dirty flag is cleared upon a successful log write, it
-> remains
-> uncleared if the log write fails.
->=20
-> Consequently, when a log write fails, these backing device buffers
-> are
-> left in an inconsistent state where their uptodate flag and the dirty
-> flag of the containing page/folio are cleared, but the buffer's dirty
-> flag remains as stale garbage.
->=20
-> Particularly when the block size is smaller than the page size, if
-> other
-> buffers on the same page/folio become dirty, this buffer unexpectedly
-> becomes a target for writeback again.=C2=A0 As a result, if the block is
-> later reused for other data or metadata, that contents risks being
-> corrupted.
->=20
-> Fix this issue by calling clear_buffer_dirty() for the backing device
-> buffers when aborting log writes in nilfs_abort_logs().
->=20
-> Fixes: 68142cb628f7 ("nilfs2: do not call inode_attach_wb()
-> directly")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> ---
-> Hi Viacheslav,
->=20
-> Please apply this bug fix.
->=20
-> This fixes an omitted clear of the dirty flag on backing device
-> buffers,
-> which could cause an abnormal buffer state and potential block
-> overwriting data corruption.
->=20
-> Thanks,
-> Ryusuke Konishi
->=20
-> =C2=A0fs/nilfs2/segment.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-> index 829573cb6131..2f0e59847d02 100644
-> --- a/fs/nilfs2/segment.c
-> +++ b/fs/nilfs2/segment.c
-> @@ -1829,6 +1829,7 @@ static void nilfs_abort_logs(struct list_head
-> *logs, int err)
-> =C2=A0	list_for_each_entry(segbuf, logs, sb_list) {
-> =C2=A0		list_for_each_entry(bh, &segbuf->sb_segsum_buffers,
-> =C2=A0				=C2=A0=C2=A0=C2=A0 b_assoc_buffers) {
-> +			clear_buffer_dirty(bh);
-> =C2=A0			clear_buffer_uptodate(bh);
-> =C2=A0			if (bh->b_folio !=3D bd_folio) {
-> =C2=A0				if (bd_folio)
-> @@ -1840,6 +1841,7 @@ static void nilfs_abort_logs(struct list_head
-> *logs, int err)
-> =C2=A0		list_for_each_entry(bh, &segbuf->sb_payload_buffers,
-> =C2=A0				=C2=A0=C2=A0=C2=A0 b_assoc_buffers) {
-> =C2=A0			if (bh =3D=3D segbuf->sb_super_root) {
-> +				clear_buffer_dirty(bh);
-> =C2=A0				clear_buffer_uptodate(bh);
-> =C2=A0				if (bh->b_folio !=3D bd_folio) {
-> =C2=A0					folio_end_writeback(bd_folio
-> );
+The pmt_telemetry driver registers enumeration functions with resctrl
+Application Energy Telemetry (AET) code.
 
-Applied.
+Use the function pointers instead of direct function calls in preparation
+for the telemetry driver to be a loadable module.
 
-Thanks,
-Slava.
+The pmt_telemetry is forced to be built-in to the kernel, so it does not matter
+at this point that there is no matching module_put() for the try_module_get()
+in intel_aet_pre_mount(). This must be resolved with additions in the file
+system unmount path before pmt_telemetry can be configured as a module.
+
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+---
+v14:
+	Updates to resolve locking problems reported by Sashiko in v13.
+
+	AET is now going to use a single mutex for both registration
+	and in a later patch for device removal. So change the name
+	from aet_register_lock to just aet_lock.
+
+	Reverse locking hierarchy between AET and pmt_telemetry.
+	No longer OK to call into pmt_telemetry to enumerate
+	features with the aet_lock held. Instead, make use of
+	module pinning while holding aet_lock.
+---
+ arch/x86/kernel/cpu/resctrl/internal.h  |  4 +-
+ arch/x86/kernel/cpu/resctrl/core.c      |  2 +-
+ arch/x86/kernel/cpu/resctrl/intel_aet.c | 59 ++++++++++++++++++++++---
+ 3 files changed, 57 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+index c038b7d80ce3..8406addc05f5 100644
+--- a/arch/x86/kernel/cpu/resctrl/internal.h
++++ b/arch/x86/kernel/cpu/resctrl/internal.h
+@@ -234,15 +234,15 @@ void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
+ void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
+ 
+ #ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
+-bool intel_aet_get_events(void);
+ void __exit intel_aet_exit(void);
++bool intel_aet_pre_mount(void);
+ int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
+ void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
+ 				struct list_head *add_pos);
+ bool intel_handle_aet_option(bool force_off, char *tok);
+ #else
+-static inline bool intel_aet_get_events(void) { return false; }
+ static inline void __exit intel_aet_exit(void) { }
++static inline bool intel_aet_pre_mount(void) { return false; }
+ static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
+ {
+ 	return -EINVAL;
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 0262174df7ad..ac67b4523b2d 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -795,7 +795,7 @@ void resctrl_arch_pre_mount(void)
+ 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
+ 	int cpu;
+ 
+-	if (!intel_aet_get_events())
++	if (!intel_aet_pre_mount())
+ 		return;
+ 
+ 	/*
+diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+index 6c4f0bf3b876..d79c459f4c54 100644
+--- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
++++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt)   "resctrl: " fmt
+ 
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/compiler_types.h>
+ #include <linux/container_of.h>
+ #include <linux/cpumask.h>
+@@ -25,6 +26,7 @@
+ #include <linux/io.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/printk.h>
+ #include <linux/rculist.h>
+ #include <linux/rcupdate.h>
+@@ -293,6 +295,18 @@ static enum pmt_feature_id lookup_pfid(const char *pfname)
+ 	return FEATURE_INVALID;
+ }
+ 
++/*
++ * Serialises AET's view of pmt_telemetry:
++ *   - pmt_module, get_feature, put_feature
++ *   - every event_group's ->pfg
++ *
++ * Lock ordering with pmt/telemetry.c's ep_lock is ep_lock -> aet_lock.
++ * AET therefore must not call get_feature() (which takes ep_lock) while
++ * holding aet_lock. put_feature() does not take ep_lock and may be
++ * invoked with aet_lock held.
++ */
++static DEFINE_MUTEX(aet_lock);
++
+ static struct module *pmt_module;
+ static struct pmt_feature_group *(*get_feature)(enum pmt_feature_id id);
+ static void (*put_feature)(struct pmt_feature_group *p);
+@@ -308,7 +322,8 @@ static void (*put_feature)(struct pmt_feature_group *p);
+  * struct pmt_feature_group to indicate that its events are successfully
+  * enabled.
+  */
+-bool intel_aet_get_events(void)
++static bool aet_get_events(struct pmt_feature_group *(*get)(enum pmt_feature_id id),
++			   void (*put)(struct pmt_feature_group *p))
+ {
+ 	struct pmt_feature_group *p;
+ 	enum pmt_feature_id pfid;
+@@ -317,14 +332,16 @@ bool intel_aet_get_events(void)
+ 
+ 	for_each_event_group(peg) {
+ 		pfid = lookup_pfid((*peg)->pfname);
+-		p = intel_pmt_get_regions_by_feature(pfid);
++		p = get(pfid);
+ 		if (IS_ERR_OR_NULL(p))
+ 			continue;
+ 		if (enable_events(*peg, p)) {
+-			(*peg)->pfg = p;
++			scoped_guard(mutex, &aet_lock) {
++				(*peg)->pfg = p;
++			}
+ 			ret = true;
+ 		} else {
+-			intel_pmt_put_feature_group(p);
++			put(p);
+ 		}
+ 	}
+ 
+@@ -335,6 +352,7 @@ void intel_aet_register_enumeration(struct module *module,
+ 				    struct pmt_feature_group *(*get)(enum pmt_feature_id id),
+ 				    void (*put)(struct pmt_feature_group *p))
+ {
++	guard(mutex)(&aet_lock);
+ 	get_feature = get;
+ 	put_feature = put;
+ 	pmt_module = module;
+@@ -343,19 +361,50 @@ EXPORT_SYMBOL_NS_GPL(intel_aet_register_enumeration, "INTEL_PMT");
+ 
+ void intel_aet_unregister_enumeration(void)
+ {
++	guard(mutex)(&aet_lock);
+ 	pmt_module = NULL;
+ 	get_feature = NULL;
+ 	put_feature = NULL;
+ }
+ EXPORT_SYMBOL_NS_GPL(intel_aet_unregister_enumeration, "INTEL_PMT");
+ 
++bool intel_aet_pre_mount(void)
++{
++	struct pmt_feature_group *(*get)(enum pmt_feature_id id);
++	void (*put)(struct pmt_feature_group *p);
++	struct module *mod;
++
++	/*
++	 * Snapshot the callbacks and pin the pmt_telemetry module under
++	 * aet_lock. The module reference keeps pmt_telem_exit() from
++	 * running intel_aet_unregister_enumeration() and changing these
++	 * pointers, so the snapshot remains valid after dropping aet_lock.
++	 */
++	scoped_guard(mutex, &aet_lock) {
++		if (!get_feature || !put_feature)
++			return false;
++		if (!try_module_get(pmt_module))
++			return false;
++		mod = pmt_module;
++		get = get_feature;
++		put = put_feature;
++	}
++
++	if (!aet_get_events(get, put)) {
++		module_put(mod);
++		return false;
++	}
++
++	return true;
++}
++
+ void __exit intel_aet_exit(void)
+ {
+ 	struct event_group **peg;
+ 
+ 	for_each_event_group(peg) {
+ 		if ((*peg)->pfg) {
+-			intel_pmt_put_feature_group((*peg)->pfg);
++			put_feature((*peg)->pfg);
+ 			(*peg)->pfg = NULL;
+ 		}
+ 	}
+-- 
+2.55.0
+
