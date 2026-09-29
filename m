@@ -1,112 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF994F3912
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:30:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD834F3912;
+	Tue, 29 Sep 2026 12:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685022; cv=none; b=ryhm4m20+v1P7pXqnaWFiHBhtONUc7jwJsSGYGVn+3vMkc14a9VxaSo67GaQPC5eS027Gv6QsigWZW/YFRH3CXnMjpkdNFEO87lW3R3B6k8M/5omh92AJMXMnXZIMhtzv2IgugYw0DoxnpEuMkR/cDdNgLq+0qbfz2BdZ2qxLcA=
+	t=1790685029; cv=none; b=bRz9n8+uI9ZDz5I1MDx2TbEK9zE1FEhgmkVk/yGbapk1zQrTywrcA0+pLdIAwvrQWCv+uZ7zHMjkcEk5RELVJMYwFmVVgjNF9odlJYyQy6BzS6uxAol1euKzb/srjoKezXD6uB0REGgdCtM3UsmjEp3djRxVR2/C571SiLyHdYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685022; c=relaxed/simple;
-	bh=TT3Ezw8uMk6ihkrB83jG6PetC2CUsZO/OnzOh3O2VNs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YRrZSKjv1lFkOkiD+SU4Jlp0WpExb6qZKC99X1a4OVOD9s2//wsltw6xbiw8CmtkoxXTkFPR8Ks6dWgMKmc8aWRzGp52GhZOPFAtfobDZtxBRVB4A5p6WiLeTily6IpjICB8dAV0csoqyFeP2l+H9svXUToqybqo4NC8Q4ditJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3hcjsuh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790685029; c=relaxed/simple;
+	bh=Aq/tmaEKqwRFEfxw28bga1z9wMlgj3PNCZGYQOXUyO0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JInZqC/T9MqBNuLUGbpdgOB/nTWsB+WWmIxRkCGrH2CRvBwunwN5uGXbyIp+ClJObHucccEa2Y0h3q3gXJYw9Gxn9Qeu01CsjjtKFnkc8FtV3FF6ZeDh9UmRDzqtPsGjoDpmV5M5cjs0GqwiHtVwUgugg7BX/F7lXpG0kTVb0vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqBJnEEb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3hcjsuh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448CA1F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqBJnEEb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C231F000FF;
+	Tue, 29 Sep 2026 12:30:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790685021;
-	bh=Ffx5iJJQQI8+oq7N+TFeO/aFkaW6Y6DByPQ5OFdmPbs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=k3hcjsuhqOXdntA6oKtsZdcRq8OPBPv1scP5hVc773xC2Vq5o568JE0lOXpkiYaSe
-	 dMDMPrSKxRynnsze1Ws/7ip9T7CkYyU9siXMGvP0EbxXSe9v2rby2Do55Z2MnxN8JD
-	 ak30Ytfmo0GJvav8fEi5UsBI0YN/XipzdASdMHAZzJlD60kqfQ9hMJyfiQlNkJcMmC
-	 xYvIxXg9PxB1X8GAcO02bDlT0S2FIVyOetGrxyYSwJVKJGOEMIg0rianif2OsVK3iZ
-	 736BxOAJqjKHVIGqTJHVc9MAjwfFEkzZBYPtGjuj/pc09gOTnNp4lAEOql2xSdb5TA
-	 BBG7eFv0zzVjA==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a65fd1534aso19684931fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:30:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOKO21p7bt3riary1m5CgSZcbt9+w6LxlQs5iwLua2A3IfOS/pYOAzk6wr0Hi77wao+BK3HXY9jlmvoRg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiOllDzo2q4BGpsJspGAHQgSPacHzFMccR2duuLdmlzV8AJeCc
-	eVzMjNXjTR3J1FV9dTcXShDXHKkNFlr4f6gRyxvwETJ1IQekfiyEJgrr0bhvFAvcfC2O9vTvkoC
-	Qw/omXAzm3GPcgqbvEmQm0/t6rjy7i0w=
-X-Received: by 2002:a2e:a99c:0:b0:3a4:8913:a259 with SMTP id
- 38308e7fff4ca-3a63c42a68bmr43318821fa.29.1790685019644; Tue, 29 Sep 2026
- 05:30:19 -0700 (PDT)
+	s=k20260515; t=1790685028;
+	bh=OdWMiN2jy8drBuF4VcdQsXqyjFoMik5zdyy8hzyUDhs=;
+	h=From:To:Cc:Subject:Date;
+	b=XqBJnEEbUt3oKV0abXmH2olHDmY+UxSrhGgS48apvMIfxMxajtovtT1nl8H3oacX4
+	 Wxf8KGySXgKIMW6IlIfbfYBb9+yRU7EIYGZFMzJY5ynMgFtNlwodTCM4XlEIwuznNz
+	 o9OcT8LSA5u7H2JuXdlSbikTAIY1LquP8XR8j64Gcxrl1L31EEFpLShB/fCHF/gFek
+	 G+E+hSI0Xop/7Z4MnIvFRn+u6wFCDlsH/OQYvBUu4brLeep0G+7D0jCVuXfzqvSgRy
+	 hWXEQiUlJINKA+FlIaDmxgYJGMJo93bjcBRcPxjh5mHhb9nRgg6y+hhCoxaNXAqnQp
+	 YhGjNrTvQY4jA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: stmmac: Disable unsolicited checksum insertion for AF_XDP TX
+Date: Tue, 29 Sep 2026 20:10:32 +0800
+Message-ID: <20260929121032.20835-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929121348.109556-1-yubowen8@huawei.com> <20260929121348.109556-2-yubowen8@huawei.com>
-In-Reply-To: <20260929121348.109556-2-yubowen8@huawei.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 29 Sep 2026 14:28:36 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iCnT-47ar_fMwML_Qo_nsgc6xPrE4ha=zERoQ2P+0Rsw@mail.gmail.com>
-X-Gm-Features: AclHuK8oY0e0bz6e3NL6F7Df6n9DeKajYeBoXSsjfqEZswV4mCHzOyYX_kQvez0
-Message-ID: <CAJZ5v0iCnT-47ar_fMwML_Qo_nsgc6xPrE4ha=zERoQ2P+0Rsw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] ACPI: Add stub for acpi_has_method() for !CONFIG_ACPI
-To: Bowen Yu <yubowen8@huawei.com>
-Cc: linuxarm@huawei.com, liudingyuan@h-partners.com, andi.shyti@kernel.org, 
-	linux-i2c@vger.kernel.org, acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rafael@kernel.org, lenb@kernel.org, zhanjie9@hisilicon.com, 
-	prime.zeng@hisilicon.com, wanghuiqiang@huawei.com, xuwei5@huawei.com, 
-	ouyiyong1@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 2:13=E2=80=AFPM Bowen Yu <yubowen8@huawei.com> wrot=
-e:
->
-> acpi_has_method() is declared in <acpi/acpi_bus.h>, which is only
-> included by <linux/acpi.h> when CONFIG_ACPI is enabled. Unlike the
-> ACPICA core helpers (acpi_evaluate_object(), acpi_format_exception(),
-> ...) that get automatic static-inline stubs via the
-> ACPI_EXTERNAL_RETURN_* macros when !CONFIG_ACPI, acpi_has_method() is
-> Linux glue and has no stub in the #else section of <linux/acpi.h>.
->
-> This forces drivers referencing acpi_has_method() to wrap the call
-> site in #ifdef CONFIG_ACPI to avoid -Werror=3Dimplicit-function-declarati=
-on
-> on !CONFIG_ACPI builds -- a valid config for drivers that
-> "depends on ARM64 || COMPILE_TEST" with no ACPI dependency.
->
-> Add a static inline stub returning false, consistent with the existing
-> stubs for acpi_check_dsm() and friends, so drivers can drop the #ifdef
-> and rely on the runtime acpi_disabled check instead.
->
-> Signed-off-by: Bowen Yu <yubowen8@huawei.com>
-> ---
->  include/linux/acpi.h | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-> index ddacac812094..141a322435c2 100644
-> --- a/include/linux/acpi.h
-> +++ b/include/linux/acpi.h
-> @@ -1028,6 +1028,11 @@ static inline bool acpi_driver_match_device(struct=
- device *dev,
->         return false;
->  }
->
-> +static inline bool acpi_has_method(acpi_handle handle, char *name)
-> +{
-> +       return false;
-> +}
-> +
->  static inline bool acpi_check_dsm(acpi_handle handle, const guid_t *guid=
-,
->                                   u64 rev, u64 funcs)
->  {
-> --
+stmmac enables TX checksum insertion for every AF_XDP packet on queues
+that support it. The driver does not implement tmo_request_checksum(), so
+it enables the offload regardless of whether the application requested it
+and ignores the requested checksum offsets.
 
-Please see
+Disable checksum insertion in the AF_XDP TX path. Applications must supply
+complete checksums until the driver can honor AF_XDP checksum metadata.
 
-https://lore.kernel.org/linux-acpi/3717753.iIbC2pHGDl@rafael.j.wysocki/
+Fixes: 132c32ee5bc0 ("net: stmmac: Add TX via XDP zero-copy socket")
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-in linux-next now.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 8fe75b00974f..2db862f5abdb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2683,7 +2683,6 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 	struct netdev_queue *nq = netdev_get_tx_queue(priv->dev, queue);
+ 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
+ 	struct stmmac_txq_stats *txq_stats = &priv->xstats.txq_stats[queue];
+-	bool csum = !priv->plat->tx_queues_cfg[queue].coe_unsupported;
+ 	struct xsk_buff_pool *pool = tx_q->xsk_pool;
+ 	unsigned int entry = tx_q->cur_tx;
+ 	struct dma_desc *tx_desc = NULL;
+@@ -2762,7 +2761,7 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		}
+ 
+ 		stmmac_prepare_tx_desc(priv, tx_desc, 1, xdp_desc.len,
+-				       csum, priv->descriptor_mode, true, true,
++				       false, priv->descriptor_mode, true, true,
+ 				       xdp_desc.len);
+ 
+ 		stmmac_enable_dma_transmission(priv, priv->ioaddr, queue);
+-- 
+2.53.0
 
-Thanks!
