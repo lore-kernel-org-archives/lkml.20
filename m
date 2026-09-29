@@ -1,157 +1,116 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1D43DEAD
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4B24349B0;
+	Tue, 29 Sep 2026 03:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651958; cv=none; b=g7XXLymP02L1A8a6gVEXom0tkffULwWAconx8Q2Nd90nHYmj5WiRlv4yTC97tsB5LtrBQj+vmZtS1rPhQmBa7XamfBA8PYcyrJ71kt9aWUf2OkSJ+qFhSJiRXD64LR/BMD1U+gAtfoU1Rki+kE+VNCvezXUh+S796XIptHRHW+k=
+	t=1790651960; cv=none; b=g9U5W1jas5Y1gDC7elh94NjK7AxCetJ7NLjjOtoGhfSKHZuQkovDszkjZXKJCuuhsI3AYujVYK9YoXc9/ZsJ/U5JAPQDDMmnkTiC4809mlEbi0Q3ajNk7mJ+t/K+sx/n1FXEJvntHfZTg0ULkY7cZhIXemve07HcKbTI1Z/Op4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651958; c=relaxed/simple;
-	bh=cvniDiIc4764cA34CKQl6/w0r0WGSY5lKDDOdu/oDKA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pphhDlkB/1Qf68j2aXF3bAtD/QqjAbNIsQad0tWP6DktS9tbrL3ozpArRE6EYHRmBqPYmcWMYWwJFIJ2ALw8Y2chiBdJkEiYh5yJq9WfOS6bPA+tBqPfS0SKQLyyJuqYeHWIwd8PQOL5QjNkTFfeT8hbftrvcq5jEBOghIaSsug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ilGLmRAP; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790651960; c=relaxed/simple;
+	bh=IW0//u1gpMevyolcBWeSbUdau23fguyuh11+5qqrMgQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EdAL08jGK3LX2ypAC6vtlvN0o6wUFfVrW/F3d5JDFBlnOIyE8d7tA+o/LY55eg895codEr3f8xvaH6ai9TN6TwdaeJmAaHITd5Sed98vOemY4dfsn2P4gcndAgXrEwVxlD5OZitVpvsTuZAEmObU9SxrR8MNVXt/X6culrd+xIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=A6u2RN3R; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=cVaUuEvi; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ilGLmRAP"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-3468ec309afso1318102eec.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:19:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790651946; x=1791256746; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
-        b=ilGLmRAPqOBK7k5WLuDEdicdftpiXadYdpaMfw+p/Qad9Ip96GFXDbsuQNb36SYEfe
-         qhK1ttpwhAe6ob08aP7YX9JB5fUQDGk8x/IHbHD5n+ypJUIu3ScPI3ZtBSOy8Zzb5wKX
-         A5c74BWAwkH+bZgXFDU1oT0QXj7+/BnLcr6/A1XcsU6XToLIV7YjwLNP7Z3dcLujsHrG
-         643v/husILaQL5gQ+EB5n3uaRHT1Jl1m72NAIJWHedeAm3m0giMN+vYQaTUo35AgiD8K
-         Kfde5SfHeZgfZST3CGHA+xSyvCNzahQ4C8FSTs+VfBff7jZ3EdA5IEUW0UPDjU0Lg5gK
-         Lklg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651946; x=1791256746;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
-        b=FTemOXuKMQq2Z5xx8jM2iwLuDnJjunFCasgIPNBrIhPi+xhfBFLc/7rBXj98tOlyoX
-         J+y3KTYo+gTsY+qCSJ/+W+qsuzqfzmICJW4df74YfkxCIRmVu4ZbYeTEpU6y5TB8SWWr
-         DXIiN+mqYDHwbr2EVBGxSLizISYuxBC2d6WTIivT60dJ+RCTeXpJEcG0G7FdHgE0mb7b
-         qP51wOx4e/kTsJeIOBdbf2THv6hpUTiHtku6EcR+0F/x7wuKj+RvBihAIwsPthJ3CsdV
-         7r9HGjMvJj8bV74VrJELnNT4AR+ttCXZQF/ozc4TbH555ivnKxCJfD6FXcOfmbJKDFm4
-         cvMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnRUHsjB/lUT8E8zA6Xuok0R054s+eUQ/5sr5eRXW7kbeNeBHQfAJL699AjBd9gM6mNubwKuruWkoldJg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLud7KWX9BWfWDZmTi0017uko4jHNgUupNhzOLWRtv8yw3z0yuH
-	L32F0Q3SOlZC8AWmb0So7heOWEsaoe+7RLtZ0RjNv1xIk1gb836WAYvrJH9W7pjxhQc=
-X-Gm-Gg: AYBFou0q6k+qdQF02BZseM/jFc9xq6bZLwcP4lriVMfQfmhXICqAsf6mhT0vsyOFd+D
-	JAbmObo9Ha3zPUhStZuG+EDJKO4bzoVa26j8Tzp9i2YSPhv8fd2cHsvy0C9WdZut4sh3P1tRJGV
-	eBXlmQGADUZImISf17BwMwJkNQR+EAE7nZkW/JJtha1uyS29phyQvlkeUeSBtSZTvzVifNZJIJf
-	DaHvUnYsTgyMzl74BIR97NXddlHqxfobCpigSlOhz6DnN/YYZZ8cB4gCVNnWgP3CPmXFNLBRTu4
-	sQY3KMVLMKVrJQZopN2/6aEj8UVnQiJ1wZ0bb1zccMrDqVyEGPyb5Q8HBmVizeDONgyMHBkodp1
-	658EWlz/YVqPSCTDxC1dGAMINX2Ez9X1KoDrpHmWroLrs+31e8lujZAs5D2EvchcBYXK9smCyqD
-	JmoDwjAHRgAe90KrMfUr6Qk/e/VOb/6vUXNhf+UzqOIj7Xp2zgMkW1P+30wSoz39P2T86CaEvwf
-	D3pArgwDQdfpAbrTOI+bAz6yCaw7R/N12Ss7Kkc9dzIkfv1JEecnGlRWbQi4CP5CQ==
-X-Received: by 2002:a05:693c:62dc:b0:33b:ef1f:14b9 with SMTP id 5a478bee46e88-34271a92cb8mr10274241eec.15.1790651946136;
-        Mon, 28 Sep 2026 20:19:06 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a4a00dsm33740601eec.1.2026.09.28.20.19.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 20:19:05 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Simona Vetter <simona@ffwll.ch>,
-	jason-jh.lin@mediatek.com
-Subject: [PATCH 6.6.y] drm/mediatek: Fix potential NULL dereference in mtk_crtc_destroy()
-Date: Mon, 28 Sep 2026 23:19:01 -0400
-Message-ID: <20260929031902.88182-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="A6u2RN3R";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="cVaUuEvi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790651943;
+	bh=IW0//u1gpMevyolcBWeSbUdau23fguyuh11+5qqrMgQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=A6u2RN3RuVhRjmp4vmTis7OiYInkz6fdqhdGMerOARAc2vlhJSDMVUTroWaUxjJAo
+	 njON0MPE4QvGsdTlZr9q8iGoT+RNejMJLp7iIsz01iLlj2g+8lBiz3hnnHpFKRYDkp
+	 J0hp4q29uERoU7za0rdGFt7Ut5VzrrW6xg7srLqFqqKZLiavTBcuLdVjBoNpv5jRGn
+	 qMiC5qsRQnh9wAo3pSX276nDOQemJ/py9rpZmwC/1noSySQUMbcu/VeBw8iynqx4yO
+	 nwv6HWC7zrCrFG0aRTkLthGVhfKVNzlV8xfqp1JPdRBfMW01XhQDXEKsP5e6y91VKM
+	 gZzTTi02nMQsw==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 87C55422C4; Tue, 29 Sep 2026 03:19:03 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1790651938;
+	bh=IW0//u1gpMevyolcBWeSbUdau23fguyuh11+5qqrMgQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=cVaUuEviMGaiJCFmUF3/xJdcGw7ZCUz7qPQwBgH9shQYSVR8OvqbME8+FSeOZG8zO
+	 JqJcIqQjZGK6qxMMBvxsVPC4gCGQ/DZHsWWpbzZL5lOXgdcPSOF6jR0HMJpdm9G1ER
+	 iFSJ5YRJksSnGlfco1oSQJZChw7YRgpo5HjfKfbVcLGPiIiqmASQRq8XoPVpO4h8Lq
+	 XzNK4riQ6ekrsYGc80H7O8ngDHeBT4fpzdINrQQK0jjoYo/mcnynW7IeoOaM+BFSs/
+	 x8IQIOUnAAYNUbQQU4cx7vvn03U2usU8Lfc9Yv7kA0r32supDq9NB7pYkfXIJL9mUc
+	 COxcxFaqcfWGQ==
+Received: from AMDDesktop.lan (p5dd1eaf2.dip0.t-ipconnect.de [93.209.234.242])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 5484942257;
+	Tue, 29 Sep 2026 03:18:58 +0000 (UTC)
+From: Birger Koblitz <mail@birger-koblitz.de>
+Date: Tue, 29 Sep 2026 05:18:50 +0200
+Subject: [PATCH net-next v14 02/14] phylib: Add support for PHYs with
+ broken forced mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-ax88179a-v14-2-a1f2249e42ea@birger-koblitz.de>
+References: <20260929-ax88179a-v14-0-a1f2249e42ea@birger-koblitz.de>
+In-Reply-To: <20260929-ax88179a-v14-0-a1f2249e42ea@birger-koblitz.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ Jianhui Xu <neuromoments@gmail.com>, 
+ Birger Koblitz <mail@birger-koblitz.de>, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.14.2
 
-From: Dan Carpenter <dan.carpenter@linaro.org>
+Add support for PHYs which only supported auto-negotiated
+speed modes. This prevents a kernel warning and stack-trace within the
+phy_state_machine when PHYs return -EOPNOTSUPP from config_aneg()
+because they do not support forced modes.
 
-[ Upstream commit 4018651ba5c409034149f297d3dd3328b91561fd ]
-
-In mtk_crtc_create(), if the call to mbox_request_channel() fails then we
-set the "mtk_crtc->cmdq_client.chan" pointer to NULL.  In that situation,
-we do not call cmdq_pkt_create().
-
-During the cleanup, we need to check if the "mtk_crtc->cmdq_client.chan"
-is NULL first before calling cmdq_pkt_destroy().  Calling
-cmdq_pkt_destroy() is unnecessary if we didn't call cmdq_pkt_create() and
-it will result in a NULL pointer dereference.
-
-[ Backport to 6.6.y: used the older Mediatek CRTC file and helper names. ]
-
-Fixes: 7627122fd1c0 ("drm/mediatek: Add cmdq_handle in mtk_crtc")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: CK Hu <ck.hu@mediatek.com>
-Link: https://patchwork.kernel.org/project/dri-devel/patch/cc537bd6-837f-4c85-a37b-1a007e268310@stanley.mountain/
-Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
-Hi Greg, Sasha, and drm mediatek maintainers,
+ drivers/net/phy/phy.c | 4 ++++
+ include/linux/phy.h   | 1 +
+ 2 files changed, 5 insertions(+)
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-53056. It skips command-packet destruction when
-channel setup failed before packet creation.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-53056
-Upstream: 4018651ba5c409034149f297d3dd3328b91561fd
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/gpu/drm/mediatek/mtk_drm_crtc.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-index 859dffe4513722..1e8052a0425ee5 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-@@ -163,9 +163,8 @@ static void mtk_drm_crtc_destroy(struct drm_crtc *crtc)
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index fce9bc7be3304b408c9f3ec9b5b95c76d3680a88..b83f938fe7c3bd619ae453434fd9582c0a055a57 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -1190,6 +1190,10 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+ 	      duplex != DUPLEX_FULL)))
+ 		return -EINVAL;
  
- 	mtk_mutex_put(mtk_crtc->mutex);
- #if IS_REACHABLE(CONFIG_MTK_CMDQ)
--	mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
--
- 	if (mtk_crtc->cmdq_client.chan) {
-+		mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
- 		mbox_free_channel(mtk_crtc->cmdq_client.chan);
- 		mtk_crtc->cmdq_client.chan = NULL;
- 	}
++	if (autoneg == AUTONEG_DISABLE &&
++	    (phydev->drv->flags & PHY_BROKEN_FORCED))
++		return -EOPNOTSUPP;
++
+ 	mutex_lock(&phydev->lock);
+ 	phydev->autoneg = autoneg;
+ 
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 5f8d65868e0ff558c163421cfea5a6f3bd73a53e..d5f8e527ce8dfefd40a8b34e7c2f9adbcd6c87c1 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -64,6 +64,7 @@ extern const int phy_basic_ports_array[3];
+ #define PHY_RST_AFTER_CLK_EN	0x00000002
+ #define PHY_POLL_CABLE_TEST	0x00000004
+ #define PHY_ALWAYS_CALL_SUSPEND	0x00000008
++#define PHY_BROKEN_FORCED	0x00000010
+ #define MDIO_DEVICE_IS_PHY	0x80000000
+ 
+ /**
+
 -- 
-2.39.5
+2.47.3
 
