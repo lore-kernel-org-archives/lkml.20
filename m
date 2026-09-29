@@ -1,134 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF4F517BA0;
-	Tue, 29 Sep 2026 11:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924493DC856;
+	Tue, 29 Sep 2026 11:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682247; cv=none; b=asGIRt6wo2UozkwyBaW/CwKdHzvIm9iT9xFzZcR8U2ZGk3VTEn4pU5+01ZppBMR90Azzey0T8sLrJ/JefCqa8C4lM3bNnBstNhJ9bXz8ClvM23d1QQukyLpNOcsyogzLCslnKgEt17czzeJKrAEWOER3gVbpMkTzGh2iNGmd27c=
+	t=1790682298; cv=none; b=ZDuA1/PNjb7KQY/KN8MJdH+5S9lq6njiTbaXhUQeorRwUuhEHcc9vliht/EJTe+piSnZaQObmBi3uloZV/KTy/ZrVJqc5YEFoHTHCUb3piP2q4ymGQJvfLAjv9Jas9mYtBv+1RPbmdDX6hymuYtou9NjUwTTJrorGLl5yY54IxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682247; c=relaxed/simple;
-	bh=W+KCnZ/8/YZgnJzNW3EAgvngp53lMdxenDXSaBIk6HY=;
+	s=arc-20240116; t=1790682298; c=relaxed/simple;
+	bh=5BwuNLumvwnLJvANXEf0gbKEoPE/6sb4nYobupI5XrI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i4cMF1VUbPZ+npqnFo+GBcUsflvXUO9oVPsHyEyWn4HUVJkbeP2yPnGQlnwPh6jTeAfy6m+c1IMaH6LbLfOu7q8qqV2kTQdt7mYG1bobYhy2blRo1bA0zagqPwHzyVLkctKC8cb1B8XAORlv3Kg4XoZ8xyVKU2+fcwFZThFj5RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fj4X+yZ5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jQsJ0Z402gc0f6Kmu56Xnt9oeWLW2iVhfuCilHs7iJDuxnOy/8A2wEvuRZbFl3iC69tTv1u/cK+vP+//RJhngVQUA2puBBRpM2unlNlNzg6kK7H02nWCkT3BkHwIbVr/sijo1V9btgUMx+kBpD1isFaq9knXIoE6ioWkrEu186E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeO9+Qgp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fj4X+yZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400A61F00899;
-	Tue, 29 Sep 2026 11:44:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeO9+Qgp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAF11F00893;
+	Tue, 29 Sep 2026 11:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790682246;
-	bh=JupBWX5Dgm/XapolKaVNX89w3aaQEMjgcwgvyhJcaKU=;
+	s=k20260515; t=1790682297;
+	bh=RtJYB+Pl9ynxw35Fyg+zXtll53++J5Xy7Hr5WNfcZ88=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fj4X+yZ5nn4k+cLEiL2kKRq/ZLId3xzZ1TtrXnvnz6oyTRR9SiGtndisyhUv7Gahn
-	 oSt2r4vbBBpQ1RgLMsnp8Z2Zgu8L0XHxhZv/rJXenox8fk2ey39U+H37ranOlf2oZo
-	 aJmzPDhKOG5FYTh6+v+hhrFJTl7Y8MTT1FlNrCNFjh6KsMu9GgjKxrDSpuZwTG2MCJ
-	 94QxjRJ7A5JMXzBAzZ8U9sjI/nyYST6jM9t7OWW6vF4tlITQnWQSxEZTKpuCyG9yV5
-	 ItVM8X3RCemKdMqwHRGmDhoAs3fj/+OTrqUN+pyJdgT1RZL0TdAXXkbHUxoQfQ0O9l
-	 /kPEIRUoMZxOA==
-Date: Tue, 29 Sep 2026 12:43:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	"Gregory Price (Meta)" <gourry@gourry.net>
-Subject: Re: [PATCH v4 2/2] kselftest: mm: fix intermittent failure
- khugepaged test
-Message-ID: <arukdavnogCNfrzm@gremlin>
-References: <20260929-fix_khugepagd_fail-v4-0-2169c18f2576@arm.com>
- <20260929-fix_khugepagd_fail-v4-2-2169c18f2576@arm.com>
+	b=DeO9+Qgpo0OwN6Fqs0tWqwcMwVlsQkjfxWi8f/Oktstl3AZ9QFtGXpU7JW3toKHzB
+	 gbHwJxVSrvJ+BiYpXFZedAhExwGqhIorXRQWhl99W17kXk+wd3Tg8Q59rIKT5Ah7iQ
+	 ufoEfyQyF3m+ERKz6aEJVXOdRzKcI6sUzU6OKAhvLwCQmOKK13X7ftvWIbVxRtqyWN
+	 uH0POFwTw+7XpHXj0yfhga6dXQ8FqYh5bjREGaDmxoGqJR+G0QeVV1vCk/sR0zMk84
+	 oZXqRwkVjTdvefPC9zkqZ2MLzApoz/1fbSWcqgUIO4+hemz1WulcQ3mdXYDraQCXE7
+	 TsgBORfJL1/8w==
+Date: Tue, 29 Sep 2026 13:44:54 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
+	linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/2] dt-bindings: sound: tegra-ahub: Convert to
+ json-schema
+Message-ID: <arugF4OhAMqzGith@orome>
+References: <20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com>
+ <20260928-as3722-bindings-v1-2-35f423a9f2b2@nvidia.com>
+ <d5ebde9e-29be-47ab-b74e-63a6bda079a4@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qgm63f4y6y5lsrev"
 Content-Disposition: inline
-In-Reply-To: <20260929-fix_khugepagd_fail-v4-2-2169c18f2576@arm.com>
+In-Reply-To: <d5ebde9e-29be-47ab-b74e-63a6bda079a4@sirena.org.uk>
 
-On Tue, Sep 29, 2026 at 11:33:19AM +0100, Yeoreum Yun wrote:
-> There are intermittent failures in collapse_max_ptes_swap() and
-> collapse_max_ptes_shared() when using the khugepaged_context:
->
->   // while running ./khugepaged -s 2
->
->   # Run test: collapse_max_ptes_shared (khugepaged:anon)
->   # Allocate huge page... OK
->   # Share huge page over fork()... OK
->   # Trigger CoW on page 1023 of 2048... OK
->   # Maybe collapse with max_ptes_shared exceeded.... OK
->   # Trigger CoW on page 1024 of 2048... Fail
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 23)
->   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
->
->   # Run test: collapse_max_ptes_swap (khugepaged:anon)
->   # Swapout 257 of 2048 pages... OK
->   # Maybe collapse with max_ptes_swap exceeded.... OK
->   # Swapout 256 of 2048 pages... OK
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 17)
->   # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
->
-> This happens because khugepaged may collapse the pages before wait_for_scan()
-> is called, causing a sanity check that expects uncollapsed pages to fail.
->
-> For example, in collapse_max_ptes_swap(), after faulting the pages back in
-> and paging out up to max_ptes_swap pages, khugepaged may collapse them again
-> before c->collapse() is called.
->
-> To prevent this, mark the VMA with MADV_NOHUGEPAGE after it has been
-> collapsed by wait_for_scan() for anon. This prevents khugepaged from
-> collapsing it again before c->collapse() is called.
->
-> This failure was observed on NVIDIA Spark with 16KB page.
->
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 
-Looks sensible to me so:
+--qgm63f4y6y5lsrev
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] dt-bindings: sound: tegra-ahub: Convert to
+ json-schema
+MIME-Version: 1.0
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Mon, Sep 28, 2026 at 08:23:45PM +0100, Mark Brown wrote:
+> On Mon, Sep 28, 2026 at 06:24:41PM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > Convert Tegra AHUB bindings from the free-form text format to
+> > json-schema.
+>=20
+> > -- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For T=
+egra114,
+> > -  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
+> > -  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub=
+",
+> > -  plus at least one of the above, where <chip> is tegra132.
+>=20
+> This documents fallbacks...
+>=20
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - nvidia,tegra30-ahub
+> > +      - nvidia,tegra114-ahub
+> > +      - nvidia,tegra124-ahub
+>=20
+> ...but this does not.
 
-> ---
->  tools/testing/selftests/mm/khugepaged.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index 2aa7c9197158..4e888b7bf310 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -618,6 +618,16 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
->  		usleep(TICK);
->  	}
->
-> +	/*
-> +	 * The file and shmem tests rely on refaults to install PMD mappings
-> +	 * after collapse. MADV_NOHUGEPAGE would prevent those mappings.
-> +	 *
-> +	 * Apply MADV_NOHUGEPAGE only to anonymous VMAs to prevent khugepaged
-> +	 * from unexpectedly collapsing pages during the test.
-> +	 */
-> +	if (is_anon(ops))
-> +		madvise(p, len, MADV_NOHUGEPAGE);
-> +
->  	return timeout == -1;
->  }
->
->
-> --
-> 2.43.0
->
+In device tree we never used nvidia,tegra132-ahub, but I guess it's
+technically necessary, so I'll add that combination here, exactly as
+described in the original bindings, and fix up the device tree to use
+that instead.
 
---
-Cheers, Lorenzo
+>=20
+> > +  resets:
+> > +    minItems: 11
+> > +    maxItems: 21
+> > +
+> > +  reset-names:
+> > +    minItems: 11
+> > +    maxItems: 21
+>=20
+> Ideally there'd be per-SoC constraints but meh.
+
+They are there, further down below, though maybe somewhat hidden. The
+per-SoC constraints define the exact items that need to go into each of
+these. Though I guess I could expand a bit more and narrow down the
+minItems and maxItems for each compatible.
+
+Thierry
+
+--qgm63f4y6y5lsrev
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq7pLMACgkQ3SOs138+
+s6F0IQ/9GBOhoiLn6+F/S0+LoMKX+d72dvzXdgEsQWHzfaZBgg6kPR38IuGkNI5+
+jHJkfnf3nx0QFCzcDK34/RPlZZTwJsAhX5hNRjBoxG8mtPuPFzQxOSa0KidmNUE5
+ojDY2PxYjMNTqnsz2FR14cfqKX79grRYW8xIXIHUtVhCkAlA3A2+HlPuq/bxCu9/
+vFWT1J26YR2UG/761VWesNcu0LxWLPv4iZwJ4b6rZogO1CXnOIsD+mLnCqIkEuwj
+HqgHn5dp+PrBCBdKDoVjg8KnMD/4b4HOrHmKuiXs3jsIvZPArSROYC9mrzvtCYjK
+uyT8U/vJ6qnKJdUadqyFAtztDZ71VVozYMTCJRHafgJ/b3I3VJjYyot8jt9aUWGZ
+9jWA4Ks4W2HQC+Jr36v145tVQn/UVFmzUqQatKJlJ+fjKNp2gLKkw6G3C2fEvpIM
+Djo4Vtk7eecKihntpFmRxCEm/Qm7GuzYNp7MKzEDznezANZhiU/YOqV4diqiEkxA
+xuZ5saOzyxjMttajnDl8zMqlz2//E68YIPv2eniNeZnHqJnIqLfO6RrufhW0XHdT
+E2+jC+LxS53UCUU8i1t+OXcpzpZ6icFSKaie9pdpjQdHkMPFE1c2PPcHOC/Ii1Lw
+IHiGpZ6r7j8ApGakw2nUv7qXs1u1GPn/pqBzOQHA9pAYxDTowB4=
+=bNkn
+-----END PGP SIGNATURE-----
+
+--qgm63f4y6y5lsrev--
