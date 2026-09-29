@@ -1,238 +1,252 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B8747DF86;
-	Tue, 29 Sep 2026 06:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790663876; cv=fail; b=Oew33PBKjP2bsmLni5bx3nC0T/sm6PY/aGVczbc14jyDFx0W7T6Rb6PDqbmeWpwe/7HIDuzXX1zgLb85o+d6JndAmbz814M+5qpl6DhT19yrvLcCQL+j20htlLQAF1HMc/H5vweaA63QWuvY4ce2DyhcM3CfmvV7yer9Wsx0MzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790663876; c=relaxed/simple;
-	bh=owzxzQGTsYdiA0OkV1pD4UnirazoxYOsFxi2BCks5V4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pl5MxybcAAqVKmKwkWlHuVjVJC/VKjTaJAKxJTNSRWs3Apg5kG9N4ArliY+Gpv/m7Ntupc/w6A9cqkMeb9liHCxpJRo1TU5UNBCIwybfO7H68fqncENRt6O88VAR3zNjwDOI2km6i3YoegIFaBBh8OS87mogNuimhUqIHw95iV0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=lcrXabhe; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=jJXVPj/W; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B40472072
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790663883; cv=none; b=Tvg18LlP8m4ZNbjlBeZ9DjxanbC9ZsfSJO/DGQ31nRBfVs04n5OEF/xtNv+mGoxr9cMUJlXh3sCs4mCnYqtpKiau/TK7NagzcrtbRNlgqYbEEfq9zkKtSvc2GkMkYXdxvH4GzaQgKvp1vfVeHJwClUfv0WrZdnX5o+t02tBBw70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790663883; c=relaxed/simple;
+	bh=bqhULqgYPRmo0s4rEMZ5rCjpuavKM/NbPA3+QVXdkZ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f9gB/bLEYN0PaJ93Bd9d9wYy1+WGY1FkMscKq8jo/ZF/oqGilngAA4btVHzsmirZyvAi+9mtSs/4b69+QXwDXotBHMuY95l7ftMQOeL60FZ/NvZVMAP1jAqPZ9CFrN9xlnfvdEmFXXYqev8HjkuyGT/KWwxkwigHgQzfZ3hH2NI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XAvXtaRF; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="lcrXabhe";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="jJXVPj/W"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68T46SFH037366;
-	Tue, 29 Sep 2026 01:37:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=spQHzhOfFeDqkPLM/aeMmqMvqF1SPf9wS/eqYEWDj
-	Yc=; b=lcrXabhejrK6GnR7aFTP455mQU7CeJiI3LeCcsvwrtHKR1Y3x9OTxX6JS
-	6A1JswRFQj7HXXO1zDrLqa60mvoMDcwGr2AOHiHnqH+64mA+5nJ4Y9+VtMHN01Ui
-	zQ87wfeTjp0zHSkB26zhRs/A8iNEZMUNjoaNzHlNGrxtQ25A5OPTjF5TfUeHZ03t
-	4yL6ZAq8cbxem2USxNuEyZxcNamUqW3RVnwDM0WlCDV2Rt061XMSqE93DYzYIiMt
-	H0B72TJoLNiFSBqYGsV0kkCi9LaRou2O6ws/W7KDXiQICG9MdSTNAPzZqitFDEi5
-	2VVm0600b/oC6Q2E7uzUl2NaAsKVw==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4h02j69x25-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 01:37:39 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l7rbYEIP+7qm6HugZyx8CmvTm1sLoL7f2Y793TLvkksFW4MAEHXfMdqpOO+/ZCFwlLZR9d8X/Ru5zC7Ra+suPSeKhGEahza07P5PkEgb6DwBex4b3IcjXy9mL4J/a6/pTthToyWOpqpi2NIdK+M2bytVi5Rqg9W0ju2sunlZNBxQpzqux7sMZuIrGHuEKoxyPHFBIWch9pSTVYMJUgzfqKQkqAxWDGlkrbzh+BmGpDO5Tf7cBOcZ5+NQZxwW+Uhk4jdagPOWcQejCX55//IA/cp1zA27TBSL7nZq7fnZKLWcHbNJ2W8Q+ooGcTtLZ8oEJyMKW59jBIuh5q6cC3SzQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spQHzhOfFeDqkPLM/aeMmqMvqF1SPf9wS/eqYEWDjYc=;
- b=StEnKix/EmGUm52Hd3BP3LBnBv7/Lz/PkecFea/eYed3gttsDxe3Wy/DmqiTE5Cw8nqEd1CNn5/+3l7uYPkiJaxQgpiiv6gwPe82R+/2hQgMBdrzSrAiQzEMRd4pj9XjvEaJNgmn7K3+FjPLUVzqzt7JCmETNYPNicD+S8PSKaPc8cjiWJjw2+as/KXtp4f6BgmqtcHETO05RfrlJAWOicULoZtQWum3S6kr70quYz2pv4fmEH9taJxqGS9oSUwVcR6AyoA5s2nmApz7v9xP4w8LUn+a2QVdqUmeQjAknmO41brcUx1wvASKrcwLz0Bhyz9dHw2dAiImiUWNVpszRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XAvXtaRF"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso1906741b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:38:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=spQHzhOfFeDqkPLM/aeMmqMvqF1SPf9wS/eqYEWDjYc=;
- b=jJXVPj/WvlD+vIhjQDkA84LMuTjVbWPksARhkvgy2tyS5/T0KdUPVtXKEE8DIWSNnpc8zuTJTSdofq0s8BKRmW8xkJKXKFKuieSwig3QgZ9MG1YLO5tqawKCrUUiJWcI6gyzfLkF61wQaQGoBdyBuB8of2maFxjWc42ovxSoG2E=
-Received: from BY1P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::7)
- by DS7PR10MB4878.namprd10.prod.outlook.com (2603:10b6:5:3a8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Tue, 29 Sep
- 2026 06:37:35 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::29) by BY1P220CA0020.outlook.office365.com
- (2603:10b6:a03:5c3::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 06:37:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 06:37:33 +0000
-Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 01:36:59 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE214.ent.ti.com
- (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 01:36:59 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 29 Sep 2026 01:36:59 -0500
-Received: from santhoshkumark.dhcp.ti.com (santhoshkumark.dhcp.ti.com [10.24.52.55])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68T6ZZnE1395904;
-	Tue, 29 Sep 2026 01:36:54 -0500
-From: Santhosh Kumar K <s-k6@ti.com>
-To: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
-        <vigneshr@ti.com>, <pratyush@kernel.org>, <mwalle@kernel.org>,
-        <takahiro.kuwano@infineon.com>
-CC: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-        <praneeth@ti.com>, <sebin.francis@ti.com>, <u-kumar1@ti.com>,
-        <a-dutta@ti.com>, <s-k6@ti.com>
-Subject: [PATCH v10 14/19] spi: cadence-quadspi: reprogram PHY DLL on runtime resume
-Date: Tue, 29 Sep 2026 12:05:24 +0530
-Message-ID: <20260929063529.1235417-15-s-k6@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929063529.1235417-1-s-k6@ti.com>
-References: <20260929063529.1235417-1-s-k6@ti.com>
+        d=gmail.com; s=20251104; t=1790663881; x=1791268681; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ggM22qaVGaHjihmi1lkkmx3+x10+vUrFkk5gh3pgiME=;
+        b=XAvXtaRFqjtQfpNUucK4IWoph5FZxOxOgsTOpisWDbqArOa5ynjKkEyFobVqo0Iuk1
+         rH/eQ3VqKnNqLI9vdkjXzgBDEOuiRVzOJCyBMrM3XU/oaup1wNgmjBU3QY4Dg0Hc6BMP
+         JIENQj4mODKnnLieJRrBpVYNkCGCs5ZMLPtY8VF1VeV4TyfILmZD6EK3aCS+x2NR0IPx
+         0AW6DsM+gIuWkZaHxhXNo7u6uersMyQbKZBGByh0UQZ5LU4oK07RG7w6YTp/TLAnKqxS
+         bKePvm2b0ksqSUMIV13Q4ARbwzWwARxoi9NPUzwgVtq0MKQcdU8XPq2s3OnjL+Us2qU6
+         67LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790663881; x=1791268681;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ggM22qaVGaHjihmi1lkkmx3+x10+vUrFkk5gh3pgiME=;
+        b=0R9AL9doduHT2AtV/B21+atdxBrdHrqwlPcd044rT5+l4yMbu/4Jd/hVrWAD3s9FCV
+         BBWln1pC5KEzxJMlzp/IMylfyYcKn7+s6Mfkt7FCb3TpyEaXLcjskDNPZs0t6O/c2Z/n
+         JRlnGea1a83lSRCzGolzTezpPtwGhgjaxpgyaaKNYnCDBpMhQA6Sp+vM/VOEPsbyekSs
+         T3qEMK5uwfUCvtiQR9JHQXD2np00OIMiFNl7kblZYicfGYcH0ikhPUj0jWlX1M8gVPue
+         KlAgaMxZexk5+mD2agwl/lWci1fW/VB1imMky0hcSWZ3xX1XcAsQlRSALT5R0JeGvGul
+         6bJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNRUBi++0o4yrsmjEG9v34OVgRdgkP+J7Y94v19FIVLpX51Y4ymDYTds7NlrchhWScst0GTak8H5627dg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwmUxVH6oD/PNIVy9jtpcp+8YDasw8Zbyw+St9h75Unzw7Kn0C
+	kwl4Kiu01jjcOOQPZ8rVz9AwR/EtJm/c5Z2iYWDJOyA305pf44QpPzhm
+X-Gm-Gg: AYBFou3l0ZDbeAQTAqLxb5wUjE0NHhtldavZ5GVfMDjvHKsVVfhodupblGI4IpKx0Ho
+	nw20A2yAIwG6MMOTUGInKf8EK7MwbguVsLlGkQPATWi7VzqaVqlifIhwmnl2HebAQJ5JIVMl7wV
+	D8A0ReJmfeM+znYzpNFv8C7LvvloJJKHGzraDTjbehXhf5WgduSSjG60o5uqx0LhlJo6gH+86Si
+	DZ/rz7BW4PYxAhbZgfWV+GqD9JMowr/W5Br8bAwbuX9a3p8NSYzrxi1YqQPsFQA4O/GqlLjreAI
+	B6+V3jh4GW/XtGsSaBmuJ6Bm0owcjTiAxVh9PrfPZnLqszKRlRjYw2SzAA2Z3LDdjrjujD3JX/z
+	O5UZfwhe1kIqKO7eKPguEV0PC+EE932kMJyBmEdY8M40A1RR47oP60aNcakH7WSyrFTBIQVG2be
+	eWzr97FPEZkjBFD/tiAMlUid73ri1jckpkOyJMfl0pKnlVmbEIP0WW3zKf3VzS2b2ymHToXjKrC
+	hJoHPDG5IEfy80XjC7sDyt6Oh9IMJXxfcbSeIrYf9TroGQ=
+X-Received: by 2002:a05:6a20:2450:b0:3d3:ad3c:49a9 with SMTP id adf61e73a8af0-3de0e744e71mr14694613637.23.1790663880945;
+        Mon, 28 Sep 2026 23:38:00 -0700 (PDT)
+Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e20f2068sm246849b3a.42.2026.09.28.23.37.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 23:38:00 -0700 (PDT)
+Message-ID: <c382ec53-dae0-45eb-86ca-de04f5b42360@gmail.com>
+Date: Tue, 29 Sep 2026 14:37:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
+ support
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+References: <20260921083753.1109826-1-zychennvt@gmail.com>
+ <20260921083753.1109826-3-zychennvt@gmail.com>
+ <aro-QitaRwK87gdO@zenone.zhora.eu>
+Content-Language: en-US
+From: zychen <zychennvt@gmail.com>
+In-Reply-To: <aro-QitaRwK87gdO@zenone.zhora.eu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|DS7PR10MB4878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a35dfb0-242c-49a3-a743-08df1df4250c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|7416014|376014|36860700016|22082099003|18002099003|921020|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	b7FHYB3XZqxqIhMvA4jb4nF32m6HTtnZaIJxRUNvsNYnAKsD+il48ccfp4vUlo0jl77TMZ/UIK9Z7EpQLhXfniV0XxpFopVP32NCqc7+RSAE0Ltn8EGefRSrNyu/3oXdpM9rJDyFmcQdwM/RXbD8sJv3vaFSkHk1tTwTbHe9HQtfa0K/TAhkbDRb8Sl8nFkhtILkjuwFy7i7cd/u/oyFEwAFNm3XBm/jKT+kOYEGOlxzJIHL01ZFvuq6GF533jzkmG+0Y3cxDOxBREmz/cEvDmuKYwnGqFyhYCMH46aKvPtitQeLn0Wfo0VVTEOedc+AR7R+KWe5iKZQHk4cL3tOeFjqH+tsKgLeLAvgjqi2KHolNic154xZWqFDYV/wrbVqfWbFzJNe4gX6YRxrQf3/If223+rYSb97mpVc0+MeK6VmDEv168OZDQcmOpTGp1FJr5FAIlVfsFufv0gCG2Rb4Kh0yzbJZQjILg44ArIqdKMeBfbh3AXTSML/14BPHB/qUPOtd93s3Q3IwlD4CodXncKfHUBTDX/1XaC4ktdPb4p79FyQy+PB9xaJkC0GzLw6FBgvrmc3q/HHfKu2Ty+KwRC/saWk1GKL5ttLiRLCMb9+KgDbaiHNPJGEQBnNFiO7aR28tX75VMgQ+NXe82mFOp0o1KlJwOcn2JiK6I2M4MNnTP7qruw5xV4BEro/uqMhjbX3yj2/1FdIG7bm33Pi2L31yEI2L0VWHnWUzLw+rx8ZwIY/N8wYVhxXpi2WCAZk
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(7416014)(376014)(36860700016)(22082099003)(18002099003)(921020)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vx6VOHdBvI7HmjlkQjg/mnQ9BYn04LAUQftGpWkeXtYrcGEm5C+QlSgVJdtU+pNOAwEkJZOr1Jjm+nkEjlor6zbOyc8NxLlQf4+HhCu0d/xxFlOX45BCE5IU00Kr3FvSUMVc9ebQ8dTWWPLmH6w7GiUmuzR8Hb6l8QARhdCWCU/Pp/AOAyE6WUmnucLXfTFFwxegOow2/oeyKGUxNjMCeg3Iqmh2qByDYucopvR2DtMTmdq2U+zVPfiqJ0MYSx7tpo+vklRa+8GOvfvHWpqwTE3M2jH2JRQmHEaxGjv73xHaNMcP1xx3g88wN5ZIjLITP826Q2fLsXjDnMqLFO6pJSqcLjF5juNQRG45DcUhczniJNB1n3XTkM2hjyyz3n+IRTYRwG1YoozMrWACv2VkgVPrcz//W80ZQ0lVSHgEFV4b90EPOHI7YO/ZfmJUN2Np
-X-Exchange-RoutingPolicyChecked:
-	ReRg/EZA3B0m8hRBJKDEEoCfBWLgHU3Bx8RQPsWhiBA9HvuDGDEHCJPd+juEo1cQ/yK2lkS8yHzGSCVyq+wdqfm49cTAxsVaqErJCrV6v6sux+As+KJhWOFMxhpl3v2MXT+qMzazEXGO3mNw7b2jWyKfnrCiUH5MB+rmzm/4Qn0zzG5bJvYusiOWbev+i4qiRMJSHgi9omriMqL+bxP3A2YgebsAqr6nwNsHyGbWp1SOaf8FzljZmnuL28Vvkp3SMxesrHBz4KgmtmPkKxK7Cjcemt7SQ9AoERa2B8jmdv3u3Ron+6Zr4k6KOdU/o41cOCGB48V1c+TzNIlI4qpZhA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 06:37:33.9362
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a35dfb0-242c-49a3-a743-08df1df4250c
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB4878
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyNiBTYWx0ZWRfX4XMAf3XIHFqM
- nKVlhJ3gLdPTNUlmpx4SkAA+yhruY75mr2tBc7O8fAHIResTmcokwmqF7jd2bTapcpz+HgpB8ca
- W0FrQ/RYttrbiPrb4zeN7mXzEDElSgQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyNiBTYWx0ZWRfX6NRSCBZIv6l8
- zS3sBbYWjLOaUpLV1xEz8BiQo4HjlD41tcc0Kit0hiXhU7LsXg7gVCkJCBRwBBVXHTN9gspqorD
- n7qbcN/WtuNMwXt7LGbNtE969taiizf74JkWheN/ifaUV0yGvFxNZzSvIIHmWRQETDX5QQjPCNU
- +CWwteaxQycEYDziXSya0DQQK6s1GEaQV6JMZH/xU8Lv0ZGA5QWbAvjLrUQi0mUMSpPMjK6/KMY
- 9vRwtyF8mOrGWNCa6APwB5eOVl9HtOqd/FfYGR21b9TXBc+qgOJtlLs+2pEdV28y63X/My6C1cb
- cZw3oK6TzX1U88ESutIJr8ZEXkrwEFhkmpAH1cUI9Lz9ykfkrUQ2b213xwPIuTPFqHIzc50Nm9w
- WsGJPn6plDkMeP8lS7oy5OKckyApLanv6foZu9dvllju68t5/C7haNT4IyNtNBn/uJrUVReYl2S
- Ixp4VVRIVWU1w5Xq6Yw==
-X-Authority-Analysis: v=2.4 cv=Z4p5j3RA c=1 sm=1 tr=0 ts=6abb5cb3 cx=c_pps
- a=G+edI3GLQse3gACT8XNfSw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=00RIKaukA23DCyUQAnoA:9
-X-Proofpoint-GUID: inSlRfopg7Cfbie-58mAyvR_l30oiNCX
-X-Proofpoint-ORIG-GUID: inSlRfopg7Cfbie-58mAyvR_l30oiNCX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290026
 
-The PHY DLL loses its programmed delay values and lock when the OSPI
-controller is power-gated during runtime suspend. On resume,
-cqspi_controller_init() reinitialises the controller but does not
-touch the PHY DLL registers, leaving the DLL unlocked. Any subsequent
-PHY read or write would then fail at the cqspi_resync_dll() call
-inside cqspi_tune_phy_read()/cqspi_tune_phy_write(), because
-CQSPI_REG_PHY_DLL_MASTER -- a prerequisite for cqspi_resync_dll() to
-succeed -- is never reprogrammed after the power cycle.
+Hi Andi,
+Thanks for your review. 
 
-Restore CQSPI_REG_PHY_DLL_MASTER and confirm the DLL can still lock
-once per resume, not once per chip-select: CQSPI_REG_PHY_DLL_MASTER
-and CQSPI_REG_PHY_CONFIG are both global, not per-CS, so iterating
-over every tuned chip-select to resync its own RX/TX delay taps would
-just have each iteration overwrite the last. Instead, mark every
-tuned chip-select's DLL as unlocked so cqspi_phy_reprogram_dll()
-reprograms its specific taps lazily the next time it is actually used.
-If the one-time resync fails, disable PHY tuning for every tuned
-chip-select, since the failure reflects the shared DLL mechanism
-rather than any one flash's calibration.
+Andi Shyti 於 2026/9/28 下午 08:24 寫道:
+> Hi Zi-Yu,
+> 
+> ...
+> 
+>> +/* Constants */
+>> +#define MA35_CLKDIV_MSK		GENMASK(9, 0)
+>> +#define I2C_PM_TIMEOUT_MS	5000
+>> +#define STOP_TIMEOUT_MS		50
+> 
+> these two defines are the only ones without the MA35 prefix.
 
-Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
----
- drivers/spi/spi-cadence-quadspi.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+Will add the MA35 prefix to these two definitions.
+> 
+> ...
+> 
+>> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
+>> +					     unsigned long i2c_status)
+>> +{
+>> +	unsigned char byte = 0;
+>> +
+>> +	switch (i2c_status) {
+>> +	case MA35_S_RECE_ARB_LOST:
+>> +		/*
+>> +		 * Arbitration lost during address transmission phase.
+>> +		 * The hardware switches to Target Transmitter mode when
+>> +		 * our own SLA+W is detected on the bus.
+>> +		 */
+>> +		i2c->err = -EAGAIN;
+>> +		ma35d1_i2c_controller_complete(i2c);
+>> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+> 
+> All the return values of these i2c_slave_event()'s are ignored.
+> 
+>> +		break;
+>> +
+>> +	case MA35_S_RECE_ADDR_ACK:
+>> +		/* Own SLA+W has been receive; ACK has been return */
+>> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+>> +		break;
+>> +
+>> +	case MA35_S_TRAN_DATA_NACK:
+>> +	case MA35_S_RECE_DATA_NACK:
+>> +		/*
+>> +		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
+>> +		 * or previously addressed with own SLA address and NACK returned.
+>> +		 */
+>> +		break;
+>> +
+> 
+> ...
+> 
+>> +	default:
+>> +		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
+>> +			i2c_status);
+>> +		ma35d1_i2c_restore_idle(i2c);
+>> +		return IRQ_NONE;
+>> +	}
+>> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
+> 
+> As far as I understood, this this is an unconditional ACK enabled
+> for the next bytes received, right? In that case are we ignoring
+> failed communications as above where we are supposed to send
+> NACKs?
+> 
+Regarding the two comments above:
+I will add handling for the return value of `I2C_SLAVE_WRITE_REQUESTED`. When it returns an error, subsequent bytes will be NACKed until the transfer ends.
 
-diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-index 10a393105ca1..e4a06ef02d44 100644
---- a/drivers/spi/spi-cadence-quadspi.c
-+++ b/drivers/spi/spi-cadence-quadspi.c
-@@ -4076,7 +4076,7 @@ static int cqspi_runtime_suspend(struct device *dev)
- static int cqspi_runtime_resume(struct device *dev)
- {
- 	struct cqspi_st *cqspi = dev_get_drvdata(dev);
--	int ret;
-+	int cs, ret;
- 
- 	ret = clk_bulk_prepare_enable(CLK_QSPI_NUM, cqspi->clks);
- 	if (ret)
-@@ -4089,6 +4089,31 @@ static int cqspi_runtime_resume(struct device *dev)
- 
- 	cqspi->current_cs = -1;
- 	cqspi->sclk = 0;
-+
-+	for (cs = 0; cs < CQSPI_MAX_CHIPSELECT; cs++) {
-+		if (cqspi->f_pdata[cs].use_tuned_phy)
-+			break;
-+	}
-+	if (cs == CQSPI_MAX_CHIPSELECT)
-+		return 0;
-+
-+	/* PHY_DLL_MASTER and PHY_CONFIG are global; resync once, not per-CS. */
-+	cqspi_phy_set_dll_master(cqspi);
-+	ret = cqspi_resync_dll(cqspi);
-+	if (ret)
-+		dev_warn(dev, "PHY DLL resync failed on resume: %d, disabling PHY\n", ret);
-+
-+	for (; cs < CQSPI_MAX_CHIPSELECT; cs++) {
-+		struct cqspi_flash_pdata *f_pdata = &cqspi->f_pdata[cs];
-+
-+		if (!f_pdata->use_tuned_phy)
-+			continue;
-+
-+		f_pdata->dll_locked = false;
-+		if (ret)
-+			f_pdata->use_tuned_phy = false;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.34.1
+For `I2C_SLAVE_WRITE_RECEIVED`, the MA35D1 hardware has already generated the ACK when this event is reported, so it is not possible to NACK the received byte at this point. Therefore, its return value can only be temporarily ignored.
+
+>> +	return IRQ_HANDLED;
+>> +}
+> 
+> ...
+> 
+>> +	i2c->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+>> +	if (IS_ERR(i2c->regs))
+>> +		return PTR_ERR(i2c->regs);
+>> +
+>> +	i2c->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+>> +	if (IS_ERR(i2c->rst))
+>> +		return dev_err_probe(dev, PTR_ERR(i2c->rst),
+>> +				     "failed to get reset control\n");
+>> +
+>> +	ret = reset_control_deassert(i2c->rst);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
+>> +
+>> +	/* Setup info block for the I2C core */
+>> +	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
+>> +	i2c->adap.owner = THIS_MODULE;
+>> +	i2c->adap.algo = &ma35d1_i2c_algorithm;
+>> +	i2c->adap.quirks = &ma35d1_i2c_quirks;
+>> +	i2c->adap.retries = 2;
+>> +	i2c->adap.algo_data = i2c;
+>> +	i2c->adap.dev.parent = &pdev->dev;
+>> +	i2c->adap.dev.of_node = pdev->dev.of_node;
+>> +	i2c_set_adapdata(&i2c->adap, i2c);
+>> +
+>> +	if (!device_property_read_u32(dev, "clock-frequency", &val)) {
+>> +		if (val != 0 && val <= MEGA)
+>> +			busfreq = val;
+>> +	}
+>> +	/* Calculate divider based on the current peripheral clock rate */
+>> +	clkdiv = DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
+>> +	if (clkdiv < 0 || clkdiv > 0x3ff)
+>> +		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
+>> +				     clkdiv);
+>> +
+>> +	i2c->irq = platform_get_irq(pdev, 0);
+>> +	if (i2c->irq < 0)
+>> +		return dev_err_probe(dev, i2c->irq, "failed to get irq\n");
+>> +
+>> +	platform_set_drvdata(pdev, i2c);
+>> +
+>> +	pm_runtime_set_autosuspend_delay(dev, I2C_PM_TIMEOUT_MS);
+>> +	pm_runtime_use_autosuspend(dev);
+>> +	pm_runtime_set_active(dev);
+>> +	pm_runtime_enable(dev);
+>> +
+>> +	ret = devm_add_action_or_reset(dev, ma35d1_i2c_pm_cleanup, dev);
+>> +	if (ret)
+>> +		return ret;
+> 
+> you are printing an error message everywhere, except of here.
+
+Right. I’ll add an error message here as well.
+
+> 
+>> +
+>> +	writel(MA35_CTL_I2CEN | MA35_CTL_INTEN, i2c->regs + MA35_CTL0);
+>> +	writel(FIELD_PREP(MA35_CLKDIV_MSK, clkdiv), i2c->regs + MA35_CLKDIV);
+>> +
+>> +	ret = devm_request_irq(dev, i2c->irq, ma35d1_i2c_irq, 0, dev_name(dev),
+>> +			       i2c);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "cannot claim IRQ %d\n", i2c->irq);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = devm_i2c_add_adapter(dev, &i2c->adap);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "failed to add bus to i2c core\n");
+>> +		return ret;
+> 
+> return dev_err_probe(...)
+will do.
+
+> 
+> Thanks,
+> Andi
+> 
+>> +	}
+>> +
+>> +	dev_info(&i2c->adap.dev, "%pa MA35D1 I2C adapter registered\n",
+>> +		 &res->start);
+>> +	return 0;
+>> +}
 
