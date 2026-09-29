@@ -1,59 +1,58 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5099A4F96A5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FE251B196
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686178; cv=none; b=e7b+mSwgz2PFG/ioAG5sGF9fYQgLSqgiTUG2ZpxD5VApFeUd7WseIS301ZIMVXetnaqx6g7L1wIBmZreV10fooeaJuBOgqyvV8Rp4VEuO9sKV5rMy6CoDk2JabKerLhKwYoOHCYFVFXDJcoRPXBGLgajPMN3xjqrbMqc+XBEV9s=
+	t=1790686181; cv=none; b=XxkslvEyX8ijtN5TaJwzvluSDqKOhrZMqvo+1c8iC7qVB1RaW6qqVw4XjF8NfQ+B4MECuOe/r+2LdmhfLOh8uoxVV2l49FxPN3qIFAUtcwoa0KdJj1x3ei1bmJOv4uYDTCzpgujIuYFWJ/8FRZUzEYayDQeghEPYLppuS7MtXsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686178; c=relaxed/simple;
-	bh=h1vntD0dUm5YFZVRDlORAyrgjaEwR2iXEp/QOFZOhrk=;
+	s=arc-20240116; t=1790686181; c=relaxed/simple;
+	bh=pnek/z8jxQn/VD8dAPg5/TP3YGb++H6KlWA3Mwbt7JI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d+IjC33Q6XGc1AVrQiu8f7svcMWTawzpDPJee0FUu/jrsXcJipiotQXe6MtZoNsijTnueP/X+TJHYtm3VZh3kpluM18pg29u0icSK4LZniB3y8WbMGm29vA5KI4S3vidK4kjs5R8ikDXAzOH8o61sfOSaU6zgoM+dm/0t1gv998=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NcTvadAR; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=WnJUNOakyp6VFEu9HusQJBF5D5SEJB/Ic4cJho4A2up8wv82FfFgWJ/q0aUdBReL7+uFy4kldIlaRM/S333bxyCM25P4ADRjAcN09pzDD5cYNLnRFWh3lgLmlgAXdffYlQ1gFEW/2eIGkfxfa1HT4Lp67wm2brgW9HSUEnqr3sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DickJw3C; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NcTvadAR"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DickJw3C"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790686175;
+	s=mimecast20190719; t=1790686179;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vFzUvFk/DbwXgA3IS3H0RYPvtLbNIXbGn1aNWF/jVOY=;
-	b=NcTvadAR8a9Xw0cJYhf7y9+2eINRDyPtXI4fBmNLX4vHBy/M5nK8wPhCFwnaBC+OdxAo+0
-	oHSKTEcJ8Tbjf3PVeG0W7/ORAdPtp0h7w6IslGj8nriLEvs1BADbGlvY1yF5zG43WvgDbr
-	5RnTv0pKDaxfqICX3zcCo1jMTLV3E68=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=oBebhacO09D0g9Rsrj+rBtPy7Gg8a/+4S+y1fDgrNuE=;
+	b=DickJw3CiKo7G6+pLna25dnEWBQHYtrDFYOHNC5ZgfoPxG5uAbUodvQpVsjy8qrUSPhcAm
+	ldMcrTU5ylm7K1odOBwMEg3GSo9SJqlGxt3tT1+t/xwLJrfXetGdUYsMF9kG8EnN7oCLua
+	b6xVMjBhoZGnn2T090ivQLCbT5NIFZE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-tQ2OtxXHO-idFyVF_kjgfQ-1; Tue,
- 29 Sep 2026 08:49:31 -0400
-X-MC-Unique: tQ2OtxXHO-idFyVF_kjgfQ-1
-X-Mimecast-MFC-AGG-ID: tQ2OtxXHO-idFyVF_kjgfQ_1790686170
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-118-n6ngbFj8NaKtcSL4CBtJhw-1; Tue,
+ 29 Sep 2026 08:49:35 -0400
+X-MC-Unique: n6ngbFj8NaKtcSL4CBtJhw-1
+X-Mimecast-MFC-AGG-ID: n6ngbFj8NaKtcSL4CBtJhw_1790686174
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9E3D0195DE3F;
-	Tue, 29 Sep 2026 12:49:30 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8778F1805A2E;
+	Tue, 29 Sep 2026 12:49:34 +0000 (UTC)
 Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 363AF19560AB;
-	Tue, 29 Sep 2026 12:49:28 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 794B11956095;
+	Tue, 29 Sep 2026 12:49:31 +0000 (UTC)
 From: Gabriele Monaco <gmonaco@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
 	Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>
+	Gabriele Monaco <gmonaco@redhat.com>
 Cc: Nam Cao <namcao@linutronix.de>,
 	Wen Yang <wen.yang@linux.dev>,
 	Juri Lelli <juri.lelli@redhat.com>
-Subject: [PATCH 03/10] rv: Cache timer budget when starting HA timers
-Date: Tue, 29 Sep 2026 14:49:01 +0200
-Message-ID: <20260929124908.177676-4-gmonaco@redhat.com>
+Subject: [PATCH 04/10] tools/rvgen: Default to HA_TIMER_WHEEL for jiffy clocks
+Date: Tue, 29 Sep 2026 14:49:02 +0200
+Message-ID: <20260929124908.177676-5-gmonaco@redhat.com>
 In-Reply-To: <20260929124908.177676-1-gmonaco@redhat.com>
 References: <20260929124908.177676-1-gmonaco@redhat.com>
 Precedence: bulk
@@ -65,253 +64,35 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Commit ab2900ae252b ("rv: Simplify hybrid automata monitors's clock
-variables") simplified storage but introduces the assumption that the
-expires value passed to ha_check_invariant() is the same used to arm the
-timer, this may not always be true.
-The invariant needs to act on a constant value and that needs to be
-retrievable somewhere.
+HA_TIMER_HRTIMER now requires a ns base also if the clock is in jiffy,
+defaulting to using it in that case adds no precision while increasing
+complexity.
 
-Cache the armed budget to ensure invariant checks remain consistent with
-the timer's duration. For the timer wheel, add an expire field to the
-ha_monitor union, this allows to store ns-granularity values if needed.
-For hrtimers, use hrtimer_get_expires() to retrieve the internal
-absolute expiration time.
-
-The expire field is used also for jiffy granularity clock to avoid
-accessing private fields and hrtimers always use a ns base to avoid
-inconsistencies with the jiffies.
-
-Also remove the now superfluous ha_inv_to_guard().
+Use HA_TIMER_HRTIMER as default in the generated code only for ns based
+clocks and use HA_TIMER_WHEEL otherwise.
 
 Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
- include/linux/rv.h                            |  5 +-
- include/rv/ha_monitor.h                       | 53 ++++++++++---------
- kernel/trace/rv/monitors/nomiss/nomiss.c      |  4 +-
- kernel/trace/rv/monitors/stall/stall.c        |  2 +-
- tools/verification/rvgen/rvgen/dot2k.py       |  4 +-
- .../rvgen/tests/golden/ha_percpu/ha_percpu.c  |  4 +-
- .../rvgen/tests/golden/test_ha/test_ha.c      |  4 +-
- .../golden/test_ha_kunit/test_ha_kunit.c      |  4 +-
- 8 files changed, 41 insertions(+), 39 deletions(-)
+ tools/verification/rvgen/rvgen/dot2k.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/rv.h b/include/linux/rv.h
-index 541ba404926a..723cc62d11d8 100644
---- a/include/linux/rv.h
-+++ b/include/linux/rv.h
-@@ -109,7 +109,10 @@ struct ha_monitor {
- 	u64 env_store[MAX_HA_ENV_LEN];
- 	union {
- 		struct hrtimer hrtimer;
--		struct timer_list timer;
-+		struct {
-+			struct timer_list timer;
-+			u64 expire;
-+		};
- 	};
- };
- 
-diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
-index 87cf91abdf67..332671f3ce2c 100644
---- a/include/rv/ha_monitor.h
-+++ b/include/rv/ha_monitor.h
-@@ -129,9 +129,10 @@ static enum hrtimer_restart ha_monitor_timer_callback(struct hrtimer *hrtimer);
-  * ktime_get_ns is expensive, since we usually don't require precise accounting
-  * of changes within the same event, cache the current time at the beginning of
-  * the constraint handler and use the cache for subsequent calls.
-- * Monitors without ns clocks automatically skip this.
-+ * Monitors without ns clocks automatically skip this, unless they use
-+ * hrtimers, which require a ns base.
-  */
--#ifdef HA_CLK_NS
-+#if defined(HA_CLK_NS) || HA_TIMER_TYPE == HA_TIMER_HRTIMER
- #define ha_get_ns() ktime_get_ns()
- #else
- #define ha_get_ns() 0
-@@ -341,9 +342,13 @@ static inline void ha_reset_clk_ns(struct ha_monitor *ha_mon, enum envs env, u64
- 	WRITE_ONCE(ha_mon->env_store[env], time_ns);
- }
- static inline bool ha_check_invariant_ns(struct ha_monitor *ha_mon, enum envs env,
--					 u64 time_ns, u64 expire_ns)
-+					 u64 time_ns)
- {
--	return READ_ONCE(ha_mon->env_store[env]) >= time_ns - expire_ns;
-+	if (HA_TIMER_TYPE == HA_TIMER_WHEEL)
-+		return time_ns - READ_ONCE(ha_mon->env_store[env]) <= ha_mon->expire;
-+	if (HA_TIMER_TYPE == HA_TIMER_HRTIMER)
-+		return time_ns <= ktime_to_ns(hrtimer_get_expires(&ha_mon->hrtimer));
-+	return true;
- }
- /*
-  * ha_invariant_passed_ns - prepare the invariant and return the time since reset
-@@ -367,9 +372,14 @@ static inline void ha_reset_clk_jiffy(struct ha_monitor *ha_mon, enum envs env)
- 	WRITE_ONCE(ha_mon->env_store[env], get_jiffies_64());
- }
- static inline bool ha_check_invariant_jiffy(struct ha_monitor *ha_mon, enum envs env,
--					    u64 time_ns, u64 expire_jiffy)
-+					    u64 time_ns)
- {
--	return time_after64(READ_ONCE(ha_mon->env_store[env]), get_jiffies_64() - expire_jiffy);
-+	if (HA_TIMER_TYPE == HA_TIMER_WHEEL)
-+		return time_after64(READ_ONCE(ha_mon->env_store[env]) + ha_mon->expire,
-+				    get_jiffies_64());
-+	if (HA_TIMER_TYPE == HA_TIMER_HRTIMER)
-+		return time_ns <= ktime_to_ns(hrtimer_get_expires(&ha_mon->hrtimer));
-+	return true;
- }
- /*
-  * ha_invariant_passed_jiffy - prepare the invariant and return the time since reset
-@@ -381,23 +391,6 @@ static inline u64 ha_invariant_passed_jiffy(struct ha_monitor *ha_mon, enum envs
- 	return ha_get_env(ha_mon, env, time_ns);
- }
- 
--/*
-- * Retrieve the last reset time (guard representation) from the invariant
-- * representation (expiration).
-- * It the caller's responsibility to make sure the storage was actually in the
-- * invariant representation (e.g. the current state has an invariant).
-- * The provided value must be the same used when starting the invariant.
-- *
-- * This function's access to the storage is NOT atomic, due to the rarity when
-- * this is used. If a monitor allows writes concurrent to this, likely
-- * other things are broken and need rethinking the model or additional locking.
-- */
--static inline void ha_inv_to_guard(struct ha_monitor *ha_mon, enum envs env,
--				   u64 value, u64 time_ns)
--{
--	WRITE_ONCE(ha_mon->env_store[env], READ_ONCE(ha_mon->env_store[env]) - value);
--}
--
- #if HA_TIMER_TYPE == HA_TIMER_WHEEL
- /*
-  * Helper functions to handle the monitor timer.
-@@ -420,22 +413,30 @@ static inline void ha_setup_timer(struct ha_monitor *ha_mon)
- 
- 	if (RV_MON_TYPE == RV_MON_PER_CPU)
- 		mode |= TIMER_PINNED;
-+	ha_mon->expire = ENV_INVALID_VALUE;
- 	timer_setup(&ha_mon->timer, ha_monitor_timer_callback, mode);
- }
-+static inline void _ha_start_timer(struct ha_monitor *ha_mon, u64 expire,
-+				   u64 time_ns)
-+{
-+	mod_timer(&ha_mon->timer, get_jiffies_64() + expire);
-+}
- static inline void ha_start_timer_jiffy(struct ha_monitor *ha_mon, enum envs env,
- 					u64 expire, u64 time_ns)
- {
- 	u64 passed = ha_invariant_passed_jiffy(ha_mon, env, time_ns);
- 
--	mod_timer(&ha_mon->timer, get_jiffies_64() + expire - passed);
-+	ha_mon->expire = expire;
-+	_ha_start_timer(ha_mon, expire - passed, time_ns);
- }
- static inline void ha_start_timer_ns(struct ha_monitor *ha_mon, enum envs env,
- 				     u64 expire, u64 time_ns)
- {
- 	u64 passed = ha_invariant_passed_ns(ha_mon, env, time_ns);
- 
--	ha_start_timer_jiffy(ha_mon, ENV_MAX_STORED,
--			     nsecs_to_jiffies(expire - passed + TICK_NSEC - 1), time_ns);
-+	ha_mon->expire = expire;
-+	_ha_start_timer(ha_mon, nsecs_to_jiffies(expire - passed + TICK_NSEC - 1),
-+			      time_ns);
- }
- /*
-  * ha_cancel_timer - Cancel the timer
-diff --git a/kernel/trace/rv/monitors/nomiss/nomiss.c b/kernel/trace/rv/monitors/nomiss/nomiss.c
-index 6e47d379f777..5e72df87b23a 100644
---- a/kernel/trace/rv/monitors/nomiss/nomiss.c
-+++ b/kernel/trace/rv/monitors/nomiss/nomiss.c
-@@ -57,9 +57,9 @@ static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
- 					enum states next_state, u64 time_ns)
- {
- 	if (curr_state == ready_nomiss)
--		return ha_check_invariant_ns(ha_mon, clk_nomiss, time_ns, DEADLINE_NS(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_nomiss, time_ns);
- 	else if (curr_state == running_nomiss)
--		return ha_check_invariant_ns(ha_mon, clk_nomiss, time_ns, DEADLINE_NS(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_nomiss, time_ns);
- 	return true;
- }
- 
-diff --git a/kernel/trace/rv/monitors/stall/stall.c b/kernel/trace/rv/monitors/stall/stall.c
-index b265578f845c..3c38fb1a0159 100644
---- a/kernel/trace/rv/monitors/stall/stall.c
-+++ b/kernel/trace/rv/monitors/stall/stall.c
-@@ -38,7 +38,7 @@ static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
- 					enum states next_state, u64 time_ns)
- {
- 	if (curr_state == enqueued_stall)
--		return ha_check_invariant_jiffy(ha_mon, clk_stall, time_ns, threshold_jiffies);
-+		return ha_check_invariant_jiffy(ha_mon, clk_stall, time_ns);
- 	return true;
- }
- 
 diff --git a/tools/verification/rvgen/rvgen/dot2k.py b/tools/verification/rvgen/rvgen/dot2k.py
-index 0b4e19ad9bd5..c8109f3602a6 100644
+index c8109f3602a6..5d60b1b9fa28 100644
 --- a/tools/verification/rvgen/rvgen/dot2k.py
 +++ b/tools/verification/rvgen/rvgen/dot2k.py
-@@ -248,9 +248,7 @@ class ha2k(dot2k):
-         if inv.unit == "j":
-             clock_type = "jiffy"
+@@ -495,8 +495,10 @@ f"""static bool ha_verify_constraint(struct ha_monitor *ha_mon,
  
--        value = self.__adjust_value(inv.val, inv.unit)
--
--        return f"return ha_check_invariant_{clock_type}(ha_mon, {inv.env}_{self.name}, time_ns, {value})"
-+        return f"return ha_check_invariant_{clock_type}(ha_mon, {inv.env}_{self.name}, time_ns)"
- 
-     def __parse_invariant(self, inv):
-         # by default assume the timer has ns expiration
-diff --git a/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c b/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
-index 7357e182e487..5aa7e64467f5 100644
---- a/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
-+++ b/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
-@@ -87,9 +87,9 @@ static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
- 					enum states next_state, u64 time_ns)
- {
- 	if (curr_state == S0_ha_percpu)
--		return ha_check_invariant_ns(ha_mon, clk_ha_percpu, time_ns, bar_ns(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_ha_percpu, time_ns);
- 	else if (curr_state == S2_ha_percpu)
--		return ha_check_invariant_ns(ha_mon, clk_ha_percpu, time_ns, BAR_NS(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_ha_percpu, time_ns);
- 	return true;
- }
- 
-diff --git a/tools/verification/rvgen/tests/golden/test_ha/test_ha.c b/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
-index a2bd1eb93b03..3852337dc675 100644
---- a/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
-+++ b/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
-@@ -87,9 +87,9 @@ static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
- 					enum states next_state, u64 time_ns)
- {
- 	if (curr_state == S0_test_ha)
--		return ha_check_invariant_ns(ha_mon, clk_test_ha, time_ns, bar_ns(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_test_ha, time_ns);
- 	else if (curr_state == S2_test_ha)
--		return ha_check_invariant_ns(ha_mon, clk_test_ha, time_ns, BAR_NS(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_test_ha, time_ns);
- 	return true;
- }
- 
-diff --git a/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c b/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
-index 61446e7f32c4..1fd524f95c07 100644
---- a/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
-+++ b/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
-@@ -87,9 +87,9 @@ static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
- 					enum states next_state, u64 time_ns)
- {
- 	if (curr_state == S0_test_ha_kunit)
--		return ha_check_invariant_ns(ha_mon, clk_test_ha_kunit, time_ns, bar_ns(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_test_ha_kunit, time_ns);
- 	else if (curr_state == S2_test_ha_kunit)
--		return ha_check_invariant_ns(ha_mon, clk_test_ha_kunit, time_ns, BAR_NS(ha_mon));
-+		return ha_check_invariant_ns(ha_mon, clk_test_ha_kunit, time_ns);
- 	return true;
- }
- 
+     def _fill_timer_type(self) -> list:
+         if self.has_invariant:
+-            return [
++            if {"ns", "us", "ms", "s"}.intersection(self.env_types.values()):
++                return [
+                     "/* XXX: If the monitor has several instances, consider HA_TIMER_WHEEL */",
+                     "#define HA_TIMER_TYPE HA_TIMER_HRTIMER"
+-                    ]
++                ]
++            return ["#define HA_TIMER_TYPE HA_TIMER_WHEEL"]
+         return []
 -- 
 2.55.0
 
