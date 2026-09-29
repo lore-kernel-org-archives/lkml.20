@@ -1,137 +1,131 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AADA3B52FA
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4314E1C80
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790717230; cv=none; b=uwde3oF2hFEmzoJ1KvaI3JKtjLdjqH8qOuNkV0g/RTMKAonc+I6fO9DLLzue+Cf28ki/U71z79nHp6n306uIe6Kdc+IS5Z3GJIjgMnCYGF81CjIqSctOhI70PcmpPhQdXY1u/KkyDWOIwBtufQ1do4V2QjIGsMicgIB2XZVBGXg=
+	t=1790717369; cv=none; b=RCGdPSiP896s/V3bd1eVN0VudKSF2IIoAml9GWQk2GRWLxvaGj1gYYCjE5xiQm/JzlnuRjVqFqfw4V+nluwj1wXO3lvyfoIa86vSUM6LWK32WT2MxbHQykMfaHPoDy+lt6pE3xDFBH5A0xDXg2U+ThOecp3BIWCcik7fbFUQ+MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790717230; c=relaxed/simple;
-	bh=tyCWPKcs7/u/awFV7vdEON0Q6Y8m/fWoaG5L+nCraDc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=MChE3Sf4Ya27BugJVGmNELfjOp6X8iWxEbS0xZXzBYxapkaczs0FbxQkDGIvZ0HBoGhclQvvsFNJjSoNsJA6n5MOVdYtcQ00TQ6Cyp1NCnLecf8fpb6xVykKDTlwpujyiNXH9dDswi2/lv2cX3Uha9CH9YOufw9bqgQZqI9ceg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hEDAHwYa; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790717369; c=relaxed/simple;
+	bh=ySN2jKS9dHhRYoH81doQjhzbQkfdJK+9O/ToilcRwv8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WL1Qt5Pyh6vWugoSOpR3kmS9lN+UMs6SQ9INTDV/vncwYlmnyk5RGpGBbVRcNYz7MeK1ohZ4Gtd0tf6kzmy7GaDltZR6eIeS7NOSU79Lax3ve4zazvgJHMEoLBHsRARW4aNY6NBz3mgfraYZPx45HefH8w6Ngoy8g/pHluSz/Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=qGfmpJKz; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hEDAHwYa"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9F2604E410BD;
-	Tue, 29 Sep 2026 21:27:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 527F9601BD;
-	Tue, 29 Sep 2026 21:27:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42A3E103295D5;
-	Tue, 29 Sep 2026 23:26:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790717218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tyCWPKcs7/u/awFV7vdEON0Q6Y8m/fWoaG5L+nCraDc=;
-	b=hEDAHwYakn5fRG4BUqIJO2Nc30p4PMlNz2fj/hv9u5oIYxFTNITCpy13PVRNtyY3TfIP4D
-	k7jJU1roWG08YKb+1I8DM4KpYXcjGdkvBVVnmNFMn5+EBn9jC6Uh0jXXV5PKV+GhHpJQsT
-	S9iWGlmrD0ZOKOKCkpyyRoR7Ao382WBj9MX7dbQoYWZHjooOEl+IQvBYTAOTixSWzsHJc9
-	e5d+9lXIl5FrPOnUx1GVztDB5fjD4JBjpieZrAZa/M4aJuOhVPcFY0tDHEAl5pfc5S6c9p
-	WxdZmPtYu1kfOZIBzqMvqblrCge95WF2E0SmMoPMsQqDkPM0SRajhSjVeMKaHg==
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="qGfmpJKz"
+Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-88103e47f72so3238460b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790717367; x=1791322167; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EyT+xHf5qLUoWCtLPqQerMtkJAwK/AAEHgHwEUT5UR4=;
+        b=qGfmpJKz22igcyl9HcOLCLgvlRDeS/1M3cjnnD4BXcDLJflIYjqgJs3Ut7SfZCklSJ
+         km1knV6Gi+pPUH2b1/jCh2b/Da3tCx4bOtQkQfS6E/EQSce2+MrvaQhMz1PeXhQ5cUU6
+         wRpKipD7qRJFrGzliGOQbzw88Jkc7tO9uSuMTQN0TQLkQs8txBZppFw2/u9LMNN0h6oj
+         htqKYumDqoTygRGUiQKONS44Bo+pTDkTV0YbKTOcSHXBONRtzjW6D+rAgl/CcFIhxG6D
+         WDzJpHB/1Ec04i1nC7KXTCxJ/Qs5aHNYmfqtLVacUBb+mcF2iVCeP9yJHj8gmJVpq37p
+         OEAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790717367; x=1791322167;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EyT+xHf5qLUoWCtLPqQerMtkJAwK/AAEHgHwEUT5UR4=;
+        b=zN7o7am2IFH30sFpNfgItzIJiDU+rYG/E1CPaGmE3tGVI26bgIMfAmKJWkQd6ErwwP
+         s4N5dw1JdiMAjvygp7Su5pOtkHbg1SGSW594+psqnj2KXdCyI902EqsrADP7SapI9/Hk
+         Qu+gEINIxevMoUoXK0hYQ43m8lEusalOX2+PtgaLld3SxEhO/7nu4PHdZfBETD8dbziE
+         SpRmi8gqxUy6ASO1aTxq9DbtjCiiqJRbHKub1aWoUAUyHmEndA3EdWk00NauQNy9QKAv
+         YGxV2aSOkqEdTSXR0hrI5T4jeFUUmte2vURzah5neLA0qpAd0E+Uj27dbbPc4NXSlicU
+         ODeg==
+X-Forwarded-Encrypted: i=1; AKwUvBwXhI/rDg/dhxX60Akw6IIMlVsl+I9fPKSknNysrMDJZyPm5FKZwfMGH7dyc+8UF53J10pwhUBKDRPCp0o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuZhOdtP4b+MJU2UreL8ii8oLt4UTq7IQPqyyxUZx79qHnqeZz
+	ijxRpDIUv4mz6vRzP/AZt46HR+GaACt92/uBSXkdHEZ0LjFE2l58W+ObY0jqo1JQU4Q=
+X-Gm-Gg: AYBFou1/FhL3IKcm1sm4nv5M6j2sKLMVkUc0D6T3x1ZF58hcSWn7uOMOTG5P2nXfqvt
+	oTdQDrThospveL72TRsuiQF8Yv99VJmWWaK2NNn93U8QceQYjEqb0y6pU8QuSd8nFXB+ouMB8fB
+	rhBzRn6b2irVz5T847qdcM1Msg5iMUGcmeUx7Wq7mywMS7j8stZVL/ClWmFT+IBEuo/gKMLsE5h
+	39otZnkoEI1ZW4dzKWs5R1slgaawamNI8RRr5AdaYIiikbx4kKKAv6SfDYKD0SaVbbFhooRaFw/
+	+5zJxeN8LuIdLNsdbAiWsELHr24zfTK9YCnZ+a/uqK9b1Amjahgokm8o28MlXtW+W8Ims85Qgjo
+	mG3Z4NZIWxjvUcdE3ktkFKy6d0D7m5Sv5mL2bRwEKZokSv+u5GfU6QhpixpqixnBODB/Gv0mm2i
+	y3OpjvV2rq03Bewr00a4I3GRAJ/lpIewcf8x9l6jSyUOfzEWEyV33OSCcvgfGdcPBh3arHVeZnv
+	5n38msOgYU3
+X-Received: by 2002:a05:6a00:4186:b0:881:f5e1:6e7f with SMTP id d2e1a72fcca58-886c48b54bcmr338925b3a.31.1790717366754;
+        Tue, 29 Sep 2026 14:29:26 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:57::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868866150bsm495163b3a.3.2026.09.29.14.29.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 14:29:26 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:29:25 -0700
+From: Joe Damato <joe@dama.to>
+To: Frank.Li@oss.nxp.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	Kees Cook <kees@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
+	Frank Li <Frank.Li@nxp.com>,
+	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+	"moderated list:ARM/Allwinner sunXi SoC support" <linux-arm-kernel@lists.infradead.org>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] net: allwinner: remove dmaengine_desc_free()
+Message-ID: <arwttakXqJndFXGe@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, Frank.Li@oss.nxp.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	Kees Cook <kees@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
+	Frank Li <Frank.Li@nxp.com>,
+	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+	"moderated list:ARM/Allwinner sunXi SoC support" <linux-arm-kernel@lists.infradead.org>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org,
+	imx@lists.linux.dev
+References: <20260929190640.3516766-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 23:26:43 +0200
-Message-Id: <DLS49QCTEANL.D6E2UDEOG4O9@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
- devm_drm_of_get_bridge()
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
- <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- "kernel test robot" <lkp@intel.com>
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave
- Stevenson" <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>
-X-Mailer: aerc 0.22.0
-References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com> <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com> <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
-In-Reply-To: <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929190640.3516766-1-Frank.Li@oss.nxp.com>
 
-Hello,
+On Tue, Sep 29, 2026 at 03:06:36PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> dmaengine_desc_free() is designed for DMA_CTRL_REUSE. If DMA_CTRL_REUSE
+> is not set, dmaengine_desc_free() will return -EPERM.
+> 
+> 	if (!dmaengine_desc_test_reuse(desc))
+> 		return -EPERM;
+> 
+> So calling dmaengine_desc_free() does nothing.
+> dmaengine_terminate_(a)sync() will free all already allocated descriptors.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  drivers/net/ethernet/allwinner/sun4i-emac.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
 
-On Tue Sep 29, 2026 at 4:42 PM CEST, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 15:39 +0200=EF=BC=8CLuca Ceresoli=
-=E5=86=99=E9=81=93=EF=BC=9A
->> devm_drm_of_get_bridge() is deprecated, switch to
->> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint()
->> returns
->> a refcounted bridge, ensure it is put by using bridge.next_bridge.
->>
->> Fixes build failure when CONFIG_OF is disabled.
->>
->> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
->> drm_panel.c")
->> Reported-by: Arnd Bergmann <arnd@kernel.org>
->> Closes:
->> https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes:
->> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.co=
-m/
->> Closes:
->> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.co=
-m/
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> Checked the code in drm_bridge.c, and it looks like the lifetime of
-> next_bridge should be indirectly managed by devm when
-> devm_drm_bridge_alloc() successes and the next_bridge field assigned,
-> so the only explicit put needed here should be in the alloc failure
-> path.
-
-Exactly.
-
-I think vs_bridge_init() could be simplified a bit by moving the 'next =3D
-...;' statement (with error management trailer) to after
-devm_drm_bridge_alloc. This would avoid the explicit drm_bridge_put() call
-added by this patch.
-
-However for this regression fix I preferred to keep the diff minimal. The
-cleanup mentioned above can be done later.
-
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
-Thanks for reviewing!
-
->> Changes in v2:
->> - fix bridge reference leak on attach error path
->
-> It should be `bridge alloc error` instead of `attach error`, but I
-> don't know how to correct the error in the changelog, and anyway it
-> won't be part of the final commit.
-
-Ah, right, that's a copy-paste leftover. It's correct that it won't appear
-in the commit, so I won't sent a new iteration for this.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Reviewed-by: Joe Damato <joe@dama.to>
