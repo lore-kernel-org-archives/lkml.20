@@ -1,733 +1,277 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3229A5448AE;
-	Tue, 29 Sep 2026 17:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702885; cv=pass; b=Fv7MrgGejo1d6VtGLe7twqGXUkzkuOb3g9NUlrGqQ6uioYkWqTNSMvy5MCzqE8Wd4ric3gy1GNw4I6pVfEXDZT+EtyAlreLSCF2wIpcMEjcL0vgqmO0NImXB54ZqQrctYe0ClXJZRu62tTtPW6kfd0k8IBgi2SV1E4EENU2S78Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702885; c=relaxed/simple;
-	bh=1cP073HIImaw3ZiVwgmRggGJhj2m9mgBKHFD2A/HHrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NN4LrRlK2KdeIUE0Lbqlrxy8LbUIAmpt2+mBe1xM1Nu92GksINkSWFrEpTJifiQIzzAdbFmfIrsyiCbevT9sqpsH049QWPlwlINQcc7Whkrpzdibvx/xj/ODKVj8tQkEEENGcrGihf4YETm7Fo9Doffytg/3kYUX1rRP0Gehf10=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=hwgFAcM4; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A2B545291
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790702904; cv=none; b=WiipQ/erP8HveYpB1s7aOZd9T9U2WxlW/qQI3kYVkxnPiM/2605jPd8ikC01I+FSmsapInqtx2cQBx8z0C96dkDoylWW79qfgf604nwAKkmXLCS6AKGE1ZtJUqNHikhuGhHnMwHTGLDo+5cQKceWZ5G3HksE6Xs+K3xCYitIKQE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790702904; c=relaxed/simple;
+	bh=8j0qcZ7vyE2oW02nLC5r3IqAcVdJURVPkUEwZFw3aeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tot//HfipVU0ZwY4a9IZIKCCbOsc0bj/QocqzgPXen8sNHdG2jM+fm5Ch1eB7X5QBxTedf4GYexyyYZkR7vcMhckQPb5VrLRPfeuCbueOIHA0S17et6IQhlk6nLjyy1bqPd3yZ01dBMfu+vEWNphO+eqRfOya9GH0f3Q0xUTIkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuWEDymd; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="hwgFAcM4"
-ARC-Seal: i=1; a=rsa-sha256; t=1790702849; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=j9Mnre4q+1k7QE/GqOGOIIt55bqjVCbh/NcjdYbHFRD6vym5dkkTVc8KNvTXhnjhqrtBxi63M8d345EG3mj3R2c+c5lqsl04ng6ON8oWFJFm9Y8m3hmDqZmcZuOYau+/Ju8iWccdqEaqvFhDE3mrJfK6JB8XRf5aoCWmFtMdSTE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790702849; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=PudNG+XVT3U+Gi3sveS4dzKNoVM7hldiJl4WMaRn+L0=; 
-	b=HcfvthrTC9eF/Wix/W+s1HW4IEotBmD2+TPb7+zS7j6gwJ5QkXpRd+mvmVUeNnN2qcxiCU7ms54hx6Y8AWrYMybZKNKa2ynbajB7FV0fy6uJJAcxwWeq8LfllNJ1KhDA6g9fHen/i1mjFPYRzXpnPcw35cX/2XSbGh4MtiQ+u8I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790702849;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=PudNG+XVT3U+Gi3sveS4dzKNoVM7hldiJl4WMaRn+L0=;
-	b=hwgFAcM4KeinuqpuEN/FgsDRyImdKYMnyydzz6O651xPbP5bQZ6rklGuLzoRqox/
-	KuuVXbhPI/u8GxDd+jav9K7l6l41f/4oeugEX/SWT6838lDTxASyBWtuEOO6MM8RZaX
-	iVMaKx9cnvvTez7gHLAAjzDBgQllUCBdvZFU8mxs=
-Received: by smtp.zohomail.com with SMTPS id 1790702848884861.7395732620867;
-	Tue, 29 Sep 2026 10:27:28 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Wed, 30 Sep 2026 01:26:11 +0800
-Subject: [PATCH v5 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuWEDymd"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8aa75b338d6so22630717b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790702896; x=1791307696; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H7AYhx7OwLQEIiRZQ0G71SBDDoW0tSj1yBVOElXugj8=;
+        b=KuWEDymdiwdfVJ+EH2ZF2DY4ncLmtSEi40hLkedWoCLdRBIFtIpQF3GpSRwcBAwON/
+         Po5VFohtZQtw6RPv8jyV9rRURSfsLUxPgoQbi3Q7Y1yPvuRxsoeaVshN+StFlEMygbZ6
+         G5AWu6F8gGCnlnqqj6TYMl6cqr598P4g5szJXWgLHnuL8++1R6WFFUiPX2pXaZ0TWAI3
+         aBKv3slex/fG4nDdfvbnB2rUNIuycMRXhZNiripawtUWKp2KVMgKlSFsjIfY1dmXsVXa
+         uPnhaer3iXqbyvHEwhOkZ+XnXgZ7wf93fB8K3L7S4C6O7GKRZUTobcDNsOq0aNCvVFAH
+         g7jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790702896; x=1791307696;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H7AYhx7OwLQEIiRZQ0G71SBDDoW0tSj1yBVOElXugj8=;
+        b=HKDPpuJmWPqYuOYEhwCF3TUq03i6sCqBmozVRT2Lyy2g/ikpd+sog+r+AWJIwuK3fu
+         bPFkXn6XngSrU2h3bgpZe+wP8/LPMhYsBQk5r9Oc+UbFIgUJ2LTbkwUfid+Yl9+Q3f72
+         /gzFzhE68WT1MOf4Pef/8xpZXxBNQjANQsdFUSyvqtdeO8vsvduZP8LCrU4paiCdVhwL
+         Q3GXyrM8g1jWJ9MC4BttmHqSY7tRADLf4WKm7ZWj3s1rJPIpNz/zQOtwXifBa2EEnWwJ
+         iV15HxGz9EJeoNoYgVIYMfo5GUGSvL29jzpCuxcFQ51foxG6fnhhkAj90mttVJNvZ5by
+         4lqg==
+X-Forwarded-Encrypted: i=1; AKwUvByEu3jCCofQ284hhNtoKq7OjlLpWOl6KpMJKdUq1zVNS4b+STs+2ZsmP6CzOMJoBFwc3UTG0ZOekgpK4s8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIA/KT9s4Bxyf8uckBhoVffzwKLKAHxmlHo0X8gDhY5eyfP89WK
+	aueY4zjn5FB7IQJGoDYdIxR+lpj8dC90Q50kdsrZUopsOHidRmA2vCDl
+X-Gm-Gg: AYBFou2ryF+WxKJP0ffg5E+SzUqFM0A7PBLJQbgYZvJ02r4ulyHIHNmhxIJlXIRhYsq
+	Ej2aEHoHwhUJOlSMrzRmAvm5EF/ZJ5xM42lBPqNqdIsxte7GZs+7L+8Z8LpbAFKHja5joIFYsed
+	Xj9VCVgDjSwuOnS4hRZqxWE4H1uXjREHAzQaWgPEwIw55PJGwqActH3GIsI9p63auE7267LJDyM
+	qpJ6iDhb0sTPgCnvbuaZOxDfVf0yxXg6F9Q9lS0AJFLs32t9TuCLJf8R35VRnbnj+7biXEs6+mi
+	YnOKe2ShTKCPSlFffRaFoqK4HM9zt3JJcO+sDky4/A2hEU0xlxkZHG8jcoG2THi0zoRVPzcMwOW
+	t72+WtovJpg9X8tI6FFjye/MAdTOfeydxtvUmaI4+IOa6umdSDyJvoVJIJh+oAZz4vKrX6LyjtM
+	zxYrCRA5BdDuzJpmemByU0qcazrUknfm+CkC7RFFUvAO81PL+s5lihezv+v8ZGYGqAurA49zWfn
+	KI3VgcmkFdVqQ==
+X-Received: by 2002:a05:690c:348a:b0:8a8:889d:2db with SMTP id 00721157ae682-8a8889d085amr56610267b3.34.1790702896362;
+        Tue, 29 Sep 2026 10:28:16 -0700 (PDT)
+Received: from suesslenovo ([71.132.185.69])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8abce9ead49sm1450107b3.28.2026.09.29.10.28.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 10:28:15 -0700 (PDT)
+Date: Tue, 29 Sep 2026 13:27:44 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
+	Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net, paul@paul-moore.com, jmorris@namei.org, 
+	serge@hallyn.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, dlemoal@kernel.org, 
+	hch@lst.de, axboe@kernel.dk, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	jack@suse.cz, dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org, 
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com, hirofumi@mail.parknet.co.jp, 
+	cel@kernel.org, jlayton@kernel.org, neil@brown.name, okorniev@redhat.com, 
+	Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, amir73il@gmail.com, 
+	senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com, zohar@linux.ibm.com, 
+	roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, 
+	stephen.smalley.work@gmail.com, omosnacek@gmail.com, casey@schaufler-ca.com, nanx95726@gmail.com, 
+	djwong@kernel.org, daniel@iogearbox.net, linux-security-module@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev, 
+	ecryptfs@vger.kernel.org, exfat@lists.linux.dev, linux-nfs@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, xiujianfeng@huawei.com, 
+	lujialin4@huawei.com
+Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
+ WRITE_METADATA access rights
+Message-ID: <arvjb0HJYh1KyEBB@suesslenovo>
+References: <20260924104831.1081137-1-caixinchen1@huawei.com>
+ <araxO4ze0KZBz756@suesslenovo>
+ <20260926.255b951d3013@gnoack.org>
+ <arqcbjWLN1CLkL_Y@suesslenovo>
+ <arurOphe6QIx2Zr8@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-a733-clk-v5-4-11175b41cd2d@pigmoral.tech>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
-In-Reply-To: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
- Enzo Adriano <enzo.adriano.code@gmail.com>, 
- Andre Przywara <andre.przywara@arm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22921;
- i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
- bh=1cP073HIImaw3ZiVwgmRggGJhj2m9mgBKHFD2A/HHrk=;
- b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLJ2fznwz8NqM0vuPqf9n23nr68zWvTz8u7n4pd0vabWz
- 9jCvPB6V0cpC4MYF4OsmCILl7/4P2sdnm9HBFrvw8xhZQIZwsDFKQAT+XyY4b9HtLVXy+dZ/U1h
- D33lGNPLa1cv3zWly1vYalV8u1DYYWdGhkfv5Hg9/u9+vt7plva/4tMb3XpLYqPUPKawLIurmRC
- kzAkA
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
- fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arurOphe6QIx2Zr8@google.com>
 
-Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
-structure is mostly similar to the sun55i, with the addition of a
-PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
-(19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
-subsequent PLLs.
+On Tue, Sep 29, 2026 at 02:12:42PM +0200, Günther Noack wrote:
+> On Mon, Sep 28, 2026 at 01:13:35PM -0400, Justin Suess wrote:
+> > On Sat, Sep 26, 2026 at 09:56:28AM +0200, Günther Noack wrote:
+> > > Hello!
+> > > 
+> > > On Fri, Sep 25, 2026 at 02:03:05PM -0400, Justin Suess wrote:
+> > > > On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
+> > > > > This series adds two new Landlock filesystem access rights,
+> > > > > LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
+> > > > > which control access to file and directory metadata such as inode
+> > > > > attributes (mode, ownership, timestamps), extended attributes and POSIX
+> > > > > ACLs.  It picks up the work from the "landlock: add chmod and chown
+> > > > > support" series [1] and follows the coarse-grained grouping discussed in
+> > > > > that thread [2]: instead of separate chmod/chown rights, metadata
+> > > > > operations are grouped into one read and one write right.
+> > > > > 
+> > > > > Landlock evaluates access rights on a per-path basis, but the metadata
+> > > > > related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
+> > > > > inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
+> > > > > inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
+> > > > > object.  Patches 1-7 therefore first pass struct path instead of dentry
+> > > > > through the metadata-related VFS helpers and LSM hooks.  This is a pure
+> > > > > refactoring with no behavior change, split so that every patch builds
+> > > > > and works on its own:
+> > > > >
+> > > > I like these patches, but is the ability to read metadata already
+> > > > sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
+> > > > directory?
+> > > > 
+> > > > The one case I see this being different is:
+> > > > 
+> > > > 1. if you wanted to grant read access to the file, but not metadata
+> > > > read access, but I can't think of any usecase for being able to read
+> > > > the contents of a file, but not the metadata. (see below)
+> > > > 
+> > > > 2. If you had the absolute path already and didn't need READ_DIR.
+> > > > 
+> > > > I see introducing this READ_METADATA as causing potential
+> > > > hard-to-diagnose issues.
+> > > > 
+> > > > Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
+> > > > 
+> > > > The program can technically open the file with the READ_FILE permission,
+> > > > but it may error out because the stat() on it beforehand failed.
+> > > > It's pretty common for programs to do that kind of thing (stat before
+> > > > open), like for checking for config files (strace bash and you see it
+> > > > stat .profile, /etc/profile)
+> > > > 
+> > > > There may be other bugs, because being able to set permissions to read
+> > > > a file *but not read it's metadata* isn't possible currently in posix
+> > > > acl and userspace may not work well if that assumption no longer holds.
+> > > >
+> > * posix acl and linux DAC.
+> > 
+> > > > So maybe WRITE_METADATA is good enough?
+> > > 
+> > > The existing use cases are the combinations of (a) READ_DIR
+> > > allowed/denied and (b) READ_METADATA allowed/denied.  Because these
+> > > two access rights overlap slightly, it seems likely that for a given
+> > > directory or file, users will want to either grant both, or deny both.
+> > > 
+> > > At the moment, where the (not yet existing) READ_METADATA is
+> > > implicitly always allowed, the problematic case is the one where the
+> > > Landlock user wants to deny READ_DIR, but where much of the same
+> > > metadata is still available through stat() and the various
+> > > get-attribute syscalls.  (c.f. the warning box in the Landlock docs
+> > > [1])
+> > > 
+> > > In my view the READ_METADATA right closes a gap that READ_DIR left
+> > > open (which is also potentially surprising to callers if they did not
+> > > read the docs closely).  Also, if its implementation is symmetric to
+> > > WRITE_METADATA, I feel that it's worth having it in the same patch
+> > > set.
+> > > 
+> > > –Günther
+> > > 
+> > > P.S.: I know, even after we can control stat(), there are likely ways
+> > > to infer the presence of a file by observing Landlock error codes.
+> > > This would be nice to fix as well, but is harder to do without
+> > > controlling the path walk itself [2].  But also, the fact that this is
+> > > currently not controllable is not an excuse for leaving READ_METADATA
+> > > open IMHO.
+> > >
+> > I'm still sort of concerned about the case where read access is allowed,
+> > but metadata isn't, due to how many applications will not cleanly handle
+> > such an unexpected condition. You can reproduce this with a seccomp
+> > policy forbidding stat().
+> > 
+> > Would it make sense to have the existing READ rights
+> > (READ_DIR/READ_FILE) imply READ_METADATA on the files/directories 
+> > if READ_METADATA is handled? Reading a file's contents should always
+> > imply that you can read the metadata.
+> 
+> I am wary of situations where the handling of access rights implicity
+> implies other access rights.  We have discussed such schemes in the
+> past (e.g. we considered a design for RESOLVE_UNIX where we'd have
+> both a "scoped" and a "access_fs" right that would interact with each
+> other), but in the end we always settled for approaches where such
+> interactions would not be necessary.  One of the concerns was that it
+> would complicate "best effort" fallback logic in all Landlock
+> libraries and in the countless places where people use the syscalls
+> directly.
+> 
+> To throw another option in the mix.  (To be clear, I have only 70%
+> confidence, so feel free to push back, but it feels like it might
+> work?):
+> 
+> Is this similar to the "truncate" right?
+> ----------------------------------------
+> 
+> With "truncate", there was an existing common operation (open(2) with
+> O_TRUNC, a.k.a. creat(2)) which called the truncation hook and checked
+> for the truncation access right.  But that was in fact OK.  The way we
+> resolved it at the time was by documenting very loudly that WRITE_FILE
+> and TRUNCATE access rights should always be requested in lockstep, if
+> TRUNCATE is handled.
+> 
+> If READ_DIR and READ_FILE do in fact read and return metadata to the
+> user, maybe the right thing would be to do it the same way here and
+> *require* that we have READ_METADATA to do these operations?
+> 
+> (READ_METADATA is automatically allowed as long as it's not handled,
+> so that approach does not break existing programs.  Programs who
+> consciously start handling READ_METADATA must simply take into account
+> that reading directories and opening files for reading requires
+> READ_METADATA.)
+> 
+> (BTW, I can see it for reading directories, but I am not sure I fully
+> follow the argument why opening files for reading means that you can
+> read the metadata?  Can't that be guarded on fstat()-like operations?)
+>
+Many standard libraries will call stat before / after opening a file to
+allocate a buffer matching the file size. Or to figure out if mmap
+is more efficient than opening it directly.
 
-Model the independently gated outputs of the peripheral, video, and DE
-PLLs as programmable-divider child clocks, with each output gate modeled
-separately. Follow the documented hierarchy for the derived peripheral
-PLL outputs.
+So Python's open().read() or Go's os.ReadFile they may throw an error
+when opening the file, making it look as if the file is inaccessible
+when its contents are. They make the assumption that if a file is
+readable, the metadata is too.
 
-PLL_AUDIO0 uses SDM parameters from the vendor driver to provide a
-22.5792MHz * 4 output. PLL_AUDIO1 provides fixed /2 and /5 outputs and
-does not expose fractional rates, but its SDM controls are modeled so
-that stale firmware settings can be disabled when an integer rate is
-programmed.
+There's also a lot of metadata that is already leaked by just having
+READ_FILE. FS_IOC_GETFLAGS/FS_IOC_FSGETXATTR ioctl / fileattr_get are
+unrestrictable and allow you to see inode attributes. There's also
+access(2) which isn't restricted here and allows you to see your rights
+on the file. The size can be found by simply seeking to the beginning
+and end. So much of the metadata is obtainable with just READ_DIR/READ_FILE.
 
-Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
- drivers/clk/sunxi-ng/Kconfig           |   5 +
- drivers/clk/sunxi-ng/Makefile          |   2 +
- drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 582 +++++++++++++++++++++++++++++++++
- 3 files changed, 589 insertions(+)
+...
 
-diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
-index 202e793dc754..cffa83056934 100644
---- a/drivers/clk/sunxi-ng/Kconfig
-+++ b/drivers/clk/sunxi-ng/Kconfig
-@@ -67,6 +67,11 @@ config SUN55I_A523_R_CCU
- 	default ARCH_SUNXI
- 	depends on ARM64 || COMPILE_TEST
- 
-+config SUN60I_A733_CCU
-+	tristate "Support for the Allwinner A733 CCU"
-+	default ARCH_SUNXI
-+	depends on ARM64 || COMPILE_TEST
-+
- config SUN60I_A733_R_CCU
- 	tristate "Support for the Allwinner A733 PRCM CCU"
- 	default ARCH_SUNXI
-diff --git a/drivers/clk/sunxi-ng/Makefile b/drivers/clk/sunxi-ng/Makefile
-index d3702bdb7a23..3a39eb9287da 100644
---- a/drivers/clk/sunxi-ng/Makefile
-+++ b/drivers/clk/sunxi-ng/Makefile
-@@ -36,6 +36,7 @@ obj-$(CONFIG_SUN50I_H616_CCU)	+= sun50i-h616-ccu.o
- obj-$(CONFIG_SUN55I_A523_CCU)	+= sun55i-a523-ccu.o
- obj-$(CONFIG_SUN55I_A523_MCU_CCU)	+= sun55i-a523-mcu-ccu.o
- obj-$(CONFIG_SUN55I_A523_R_CCU)	+= sun55i-a523-r-ccu.o
-+obj-$(CONFIG_SUN60I_A733_CCU)	+= sun60i-a733-ccu.o
- obj-$(CONFIG_SUN60I_A733_R_CCU)	+= sun60i-a733-r-ccu.o
- obj-$(CONFIG_SUN4I_A10_CCU)	+= sun4i-a10-ccu.o
- obj-$(CONFIG_SUN5I_CCU)		+= sun5i-ccu.o
-@@ -65,6 +66,7 @@ sun50i-h616-ccu-y		+= ccu-sun50i-h616.o
- sun55i-a523-ccu-y		+= ccu-sun55i-a523.o
- sun55i-a523-mcu-ccu-y		+= ccu-sun55i-a523-mcu.o
- sun55i-a523-r-ccu-y		+= ccu-sun55i-a523-r.o
-+sun60i-a733-ccu-y		+= ccu-sun60i-a733.o
- sun60i-a733-r-ccu-y		+= ccu-sun60i-a733-r.o
- sun4i-a10-ccu-y			+= ccu-sun4i-a10.o
- sun5i-ccu-y			+= ccu-sun5i.o
-diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-new file mode 100644
-index 000000000000..430a535919c6
---- /dev/null
-+++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-@@ -0,0 +1,582 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2023 rengaomin@allwinnertech.com
-+ * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
-+ * Based on the A523 CCU driver:
-+ *   Copyright (C) 2023-2024 Arm Ltd.
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+
-+#include <dt-bindings/clock/allwinner,sun60i-a733-ccu.h>
-+#include <dt-bindings/reset/allwinner,sun60i-a733-ccu.h>
-+
-+#include "ccu_common.h"
-+
-+#include "ccu_div.h"
-+#include "ccu_gate.h"
-+#include "ccu_mult.h"
-+#include "ccu_nkmp.h"
-+#include "ccu_nm.h"
-+
-+/*
-+ * The DCXO oscillator, the root of most of the clock tree, which may be
-+ * 19.2MHz, 24MHz, or 26MHz.
-+ */
-+static const struct clk_parent_data hosc[] = {
-+	{ .fw_name = "hosc" }
-+};
-+
-+/**************************************************************************
-+ *                              PLLs                                      *
-+ **************************************************************************/
-+
-+/*
-+ * Undocumented, taken from the vendor kernel.
-+ * PLL_REF normalizes the DCXO frequency to a 24MHz reference for downstream
-+ * PLLs.
-+ */
-+#define SUN60I_A733_PLL_REF_REG		0x000
-+static struct ccu_nkmp pll_ref_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT(8, 8),
-+	.m		= _SUNXI_CCU_DIV(16, 7), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_REF_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_DATA("pll-ref", hosc,
-+							   &ccu_nkmp_ops,
-+							   CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+/*
-+ * Most clock-defining macros expect an *array* of parent clocks, even if
-+ * they do not contain a muxer to select between different parents.
-+ * The macros ending in just _HW take a simple clock pointer, but then create
-+ * a single-entry array out of that. The macros using _HWS take such an
-+ * array (even when it is a single entry one), this avoids having those
-+ * helper arrays created inside *every* clock definition.
-+ * This means for every clock that is referenced more than once it is
-+ * useful to create such a dummy array and use _HWS.
-+ */
-+static const struct clk_hw *pll_ref_hws[] = {
-+	&pll_ref_clk.common.hw
-+};
-+
-+#define SUN60I_A733_PLL_DDR_REG		0x020
-+static struct ccu_nkmp pll_ddr_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(20, 3), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_DDR_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-ddr", pll_ref_hws,
-+							 &ccu_nkmp_ops,
-+							 CLK_SET_RATE_GATE |
-+							 CLK_IS_CRITICAL),
-+	},
-+};
-+
-+/*
-+ * There is no actual clock output with that frequency (2.4 GHz), instead it
-+ * has multiple outputs with adjustable dividers from that base frequency.
-+ * Model them separately as divider clocks based on that parent here.
-+ */
-+#define SUN60I_A733_PLL_PERIPH0_REG	0x0a0
-+static struct ccu_nm pll_periph0_4x_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_PERIPH0_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-periph0-4x",
-+							 pll_ref_hws, &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_periph0_4x_hws[] = {
-+	&pll_periph0_4x_clk.common.hw
-+};
-+
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph0_2x_clk, "pll-periph0-2x",
-+				 pll_periph0_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH0_REG,
-+				 20, 3, BIT(27), 0);
-+static const struct clk_hw *pll_periph0_2x_hws[] = {
-+	&pll_periph0_2x_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph0_800M_clk, "pll-periph0-800M",
-+				 pll_periph0_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH0_REG,
-+				 16, 3, BIT(26), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph0_480M_clk, "pll-periph0-480M",
-+				 pll_periph0_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH0_REG,
-+				 2, 3, BIT(25), 0);
-+static const struct clk_hw *pll_periph0_480M_hws[] = {
-+	&pll_periph0_480M_clk.common.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_600M_clk, "pll-periph0-600M",
-+			    pll_periph0_2x_hws, 2, 1, 0);
-+static const struct clk_hw *pll_periph0_600M_hws[] = {
-+	&pll_periph0_600M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_400M_clk, "pll-periph0-400M",
-+			    pll_periph0_2x_hws, 3, 1, 0);
-+static const struct clk_hw *pll_periph0_400M_hws[] = {
-+	&pll_periph0_400M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_300M_clk, "pll-periph0-300M",
-+			    pll_periph0_600M_hws, 2, 1, 0);
-+static const struct clk_hw *pll_periph0_300M_hws[] = {
-+	&pll_periph0_300M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_200M_clk, "pll-periph0-200M",
-+			    pll_periph0_400M_hws, 2, 1, 0);
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_150M_clk, "pll-periph0-150M",
-+			    pll_periph0_300M_hws, 2, 1, 0);
-+static CLK_FIXED_FACTOR_HWS(pll_periph0_160M_clk, "pll-periph0-160M",
-+			    pll_periph0_480M_hws, 3, 1, 0);
-+
-+#define SUN60I_A733_PLL_PERIPH1_REG	0x0c0
-+static struct ccu_nm pll_periph1_4x_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_PERIPH1_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-periph1-4x",
-+							 pll_ref_hws, &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_periph1_4x_hws[] = {
-+	&pll_periph1_4x_clk.common.hw
-+};
-+
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph1_2x_clk, "pll-periph1-2x",
-+				 pll_periph1_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH1_REG,
-+				 20, 3, BIT(27), 0);
-+static const struct clk_hw *pll_periph1_2x_hws[] = {
-+	&pll_periph1_2x_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph1_800M_clk, "pll-periph1-800M",
-+				 pll_periph1_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH1_REG,
-+				 16, 3, BIT(26), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_periph1_480M_clk, "pll-periph1-480M",
-+				 pll_periph1_4x_hws,
-+				 SUN60I_A733_PLL_PERIPH1_REG,
-+				 2, 3, BIT(25), 0);
-+static const struct clk_hw *pll_periph1_480M_hws[] = {
-+	&pll_periph1_480M_clk.common.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_600M_clk, "pll-periph1-600M",
-+			    pll_periph1_2x_hws, 2, 1, 0);
-+static const struct clk_hw *pll_periph1_600M_hws[] = {
-+	&pll_periph1_600M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_400M_clk, "pll-periph1-400M",
-+			    pll_periph1_2x_hws, 3, 1, 0);
-+static const struct clk_hw *pll_periph1_400M_hws[] = {
-+	&pll_periph1_400M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_300M_clk, "pll-periph1-300M",
-+			    pll_periph1_600M_hws, 2, 1, 0);
-+static const struct clk_hw *pll_periph1_300M_hws[] = {
-+	&pll_periph1_300M_clk.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_200M_clk, "pll-periph1-200M",
-+			    pll_periph1_400M_hws, 2, 1, 0);
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_150M_clk, "pll-periph1-150M",
-+			    pll_periph1_300M_hws, 2, 1, 0);
-+static CLK_FIXED_FACTOR_HWS(pll_periph1_160M_clk, "pll-periph1-160M",
-+			    pll_periph1_480M_hws, 3, 1, 0);
-+
-+#define SUN60I_A733_PLL_GPU_REG		0x0e0
-+static struct ccu_nkmp pll_gpu0_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(20, 3), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_GPU_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-gpu0", pll_ref_hws,
-+							 &ccu_nkmp_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+#define SUN60I_A733_PLL_VIDEO0_REG	0x120
-+static struct ccu_nm pll_video0_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_VIDEO0_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-video0", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_video0_hws[] = {
-+	&pll_video0_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video0_4x_clk, "pll-video0-4x",
-+				 pll_video0_hws, SUN60I_A733_PLL_VIDEO0_REG,
-+				 20, 3, BIT(27), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video0_3x_clk, "pll-video0-3x",
-+				 pll_video0_hws, SUN60I_A733_PLL_VIDEO0_REG,
-+				 16, 3, BIT(26), 0);
-+
-+#define SUN60I_A733_PLL_VIDEO1_REG	0x140
-+static struct ccu_nm pll_video1_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_VIDEO1_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-video1", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_video1_hws[] = {
-+	&pll_video1_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video1_4x_clk, "pll-video1-4x",
-+				 pll_video1_hws, SUN60I_A733_PLL_VIDEO1_REG,
-+				 20, 3, BIT(27), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video1_3x_clk, "pll-video1-3x",
-+				 pll_video1_hws, SUN60I_A733_PLL_VIDEO1_REG,
-+				 16, 3, BIT(26), 0);
-+
-+#define SUN60I_A733_PLL_VIDEO2_REG	0x160
-+static struct ccu_nm pll_video2_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_VIDEO2_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-video2", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_video2_hws[] = {
-+	&pll_video2_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video2_4x_clk, "pll-video2-4x",
-+				 pll_video2_hws, SUN60I_A733_PLL_VIDEO2_REG,
-+				 20, 3, BIT(27), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_video2_3x_clk, "pll-video2-3x",
-+				 pll_video2_hws, SUN60I_A733_PLL_VIDEO2_REG,
-+				 16, 3, BIT(26), 0);
-+
-+#define SUN60I_A733_PLL_VE0_REG		0x220
-+static struct ccu_nkmp pll_ve0_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(20, 3), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_VE0_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-ve0", pll_ref_hws,
-+							 &ccu_nkmp_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+#define SUN60I_A733_PLL_VE1_REG		0x240
-+static struct ccu_nkmp pll_ve1_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(20, 3), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_VE1_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-ve1", pll_ref_hws,
-+							 &ccu_nkmp_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+/*
-+ * PLL_AUDIO0 has a m1 divider in addition to the usual N, M factors.
-+ * Since we only need some fixed frequency from this PLL (22.5792MHz x 4),
-+ * ignore the divider and force it to 1 (encoded as 0), in the probe function
-+ * below.
-+ * The M factor must be an even number to produce a 50% duty cycle output.
-+ */
-+#define SUN60I_A733_PLL_AUDIO0_REG	0x260
-+static struct ccu_sdm_setting pll_audio0_sdm_table[] = {
-+	{ .rate = 90316800, .pattern = 0xa002872b, .m = 20, .n = 75 }, /* 22.5792 * 4 */
-+};
-+
-+static struct ccu_nm pll_audio0_4x_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(16, 7),
-+	.sdm		= _SUNXI_CCU_SDM_DUAL_PAT(pll_audio0_sdm_table, 0,
-+						  0x268, BIT(31),
-+						  0x26c, BIT(27) | BIT(31)),
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_AUDIO0_REG,
-+		.features	= CCU_FEATURE_SIGMA_DELTA_MOD,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-audio0-4x", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+#define SUN60I_A733_PLL_AUDIO1_REG	0x280
-+static struct ccu_nm pll_audio1_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1),	/* input divider */
-+	.sdm		= {
-+		/* PLL_AUDIO1 does not use fractional rates. */
-+		.pat0_enable	= BIT(31),
-+		.pat0_reg	= 0x288,
-+		.pat1_enable	= BIT(27) | BIT(31),
-+		.pat1_reg	= 0x28c,
-+	},
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_AUDIO1_REG,
-+		.features	= CCU_FEATURE_SIGMA_DELTA_MOD,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-audio1", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_audio1_hws[] = {
-+	&pll_audio1_clk.common.hw
-+};
-+static CLK_FIXED_FACTOR_HWS(pll_audio1_div2_clk, "pll-audio1-div2",
-+			    pll_audio1_hws, 2, 1, CLK_SET_RATE_PARENT);
-+static CLK_FIXED_FACTOR_HWS(pll_audio1_div5_clk, "pll-audio1-div5",
-+			    pll_audio1_hws, 5, 1, CLK_SET_RATE_PARENT);
-+
-+#define SUN60I_A733_PLL_NPU_REG		0x2a0
-+static struct ccu_nkmp pll_npu_clk = {
-+	.enable		= BIT(27),
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(20, 3), /* output divider */
-+	.p		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_NPU_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-npu", pll_ref_hws,
-+							 &ccu_nkmp_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+#define SUN60I_A733_PLL_DE_REG		0x2e0
-+static struct ccu_nm pll_de_clk = {
-+	.lock		= BIT(28),
-+	.n		= _SUNXI_CCU_MULT_MIN(8, 8, 11),
-+	.m		= _SUNXI_CCU_DIV(1, 1), /* input divider */
-+	.common		= {
-+		.reg		= SUN60I_A733_PLL_DE_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_HW("pll-de", pll_ref_hws,
-+							 &ccu_nm_ops,
-+							 CLK_SET_RATE_GATE),
-+	},
-+};
-+
-+static const struct clk_hw *pll_de_hws[] = {
-+	&pll_de_clk.common.hw
-+};
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
-+				 SUN60I_A733_PLL_DE_REG,
-+				 20, 3, BIT(27), 0);
-+static SUNXI_CCU_M_HWS_WITH_GATE(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
-+				 SUN60I_A733_PLL_DE_REG,
-+				 16, 3, BIT(26), 0);
-+
-+/*
-+ * Contains all clocks that are controlled by a hardware register. They
-+ * have a (sunxi) .common member, which needs to be initialised by the common
-+ * sunxi CCU code, to be filled with the MMIO base address and the shared lock.
-+ */
-+static struct ccu_common *sun60i_a733_ccu_clks[] = {
-+	&pll_ref_clk.common,
-+	&pll_ddr_clk.common,
-+	&pll_periph0_4x_clk.common,
-+	&pll_periph0_2x_clk.common,
-+	&pll_periph0_800M_clk.common,
-+	&pll_periph0_480M_clk.common,
-+	&pll_periph1_4x_clk.common,
-+	&pll_periph1_2x_clk.common,
-+	&pll_periph1_800M_clk.common,
-+	&pll_periph1_480M_clk.common,
-+	&pll_gpu0_clk.common,
-+	&pll_video0_clk.common,
-+	&pll_video0_4x_clk.common,
-+	&pll_video0_3x_clk.common,
-+	&pll_video1_clk.common,
-+	&pll_video1_4x_clk.common,
-+	&pll_video1_3x_clk.common,
-+	&pll_video2_clk.common,
-+	&pll_video2_4x_clk.common,
-+	&pll_video2_3x_clk.common,
-+	&pll_ve0_clk.common,
-+	&pll_ve1_clk.common,
-+	&pll_audio0_4x_clk.common,
-+	&pll_audio1_clk.common,
-+	&pll_npu_clk.common,
-+	&pll_de_clk.common,
-+	&pll_de_4x_clk.common,
-+	&pll_de_3x_clk.common,
-+};
-+
-+static struct clk_hw_onecell_data sun60i_a733_hw_clks = {
-+	.hws	= {
-+		[CLK_PLL_REF]		= &pll_ref_clk.common.hw,
-+		[CLK_PLL_DDR]		= &pll_ddr_clk.common.hw,
-+		[CLK_PLL_PERIPH0_4X]	= &pll_periph0_4x_clk.common.hw,
-+		[CLK_PLL_PERIPH0_2X]	= &pll_periph0_2x_clk.common.hw,
-+		[CLK_PLL_PERIPH0_800M]	= &pll_periph0_800M_clk.common.hw,
-+		[CLK_PLL_PERIPH0_480M]	= &pll_periph0_480M_clk.common.hw,
-+		[CLK_PLL_PERIPH0_600M]	= &pll_periph0_600M_clk.hw,
-+		[CLK_PLL_PERIPH0_400M]	= &pll_periph0_400M_clk.hw,
-+		[CLK_PLL_PERIPH0_300M]	= &pll_periph0_300M_clk.hw,
-+		[CLK_PLL_PERIPH0_200M]	= &pll_periph0_200M_clk.hw,
-+		[CLK_PLL_PERIPH0_160M]	= &pll_periph0_160M_clk.hw,
-+		[CLK_PLL_PERIPH0_150M]	= &pll_periph0_150M_clk.hw,
-+		[CLK_PLL_PERIPH1_4X]	= &pll_periph1_4x_clk.common.hw,
-+		[CLK_PLL_PERIPH1_2X]	= &pll_periph1_2x_clk.common.hw,
-+		[CLK_PLL_PERIPH1_800M]	= &pll_periph1_800M_clk.common.hw,
-+		[CLK_PLL_PERIPH1_480M]	= &pll_periph1_480M_clk.common.hw,
-+		[CLK_PLL_PERIPH1_600M]	= &pll_periph1_600M_clk.hw,
-+		[CLK_PLL_PERIPH1_400M]	= &pll_periph1_400M_clk.hw,
-+		[CLK_PLL_PERIPH1_300M]	= &pll_periph1_300M_clk.hw,
-+		[CLK_PLL_PERIPH1_200M]	= &pll_periph1_200M_clk.hw,
-+		[CLK_PLL_PERIPH1_160M]	= &pll_periph1_160M_clk.hw,
-+		[CLK_PLL_PERIPH1_150M]	= &pll_periph1_150M_clk.hw,
-+		[CLK_PLL_GPU0]		= &pll_gpu0_clk.common.hw,
-+		[CLK_PLL_VIDEO0]		= &pll_video0_clk.common.hw,
-+		[CLK_PLL_VIDEO0_4X]	= &pll_video0_4x_clk.common.hw,
-+		[CLK_PLL_VIDEO0_3X]	= &pll_video0_3x_clk.common.hw,
-+		[CLK_PLL_VIDEO1]		= &pll_video1_clk.common.hw,
-+		[CLK_PLL_VIDEO1_4X]	= &pll_video1_4x_clk.common.hw,
-+		[CLK_PLL_VIDEO1_3X]	= &pll_video1_3x_clk.common.hw,
-+		[CLK_PLL_VIDEO2]		= &pll_video2_clk.common.hw,
-+		[CLK_PLL_VIDEO2_4X]	= &pll_video2_4x_clk.common.hw,
-+		[CLK_PLL_VIDEO2_3X]	= &pll_video2_3x_clk.common.hw,
-+		[CLK_PLL_VE0]		= &pll_ve0_clk.common.hw,
-+		[CLK_PLL_VE1]		= &pll_ve1_clk.common.hw,
-+		[CLK_PLL_AUDIO0_4X]	= &pll_audio0_4x_clk.common.hw,
-+		[CLK_PLL_AUDIO1]	= &pll_audio1_clk.common.hw,
-+		[CLK_PLL_AUDIO1_DIV2]	= &pll_audio1_div2_clk.hw,
-+		[CLK_PLL_AUDIO1_DIV5]	= &pll_audio1_div5_clk.hw,
-+		[CLK_PLL_NPU]		= &pll_npu_clk.common.hw,
-+		[CLK_PLL_DE]		= &pll_de_clk.common.hw,
-+		[CLK_PLL_DE_4X]		= &pll_de_4x_clk.common.hw,
-+		[CLK_PLL_DE_3X]		= &pll_de_3x_clk.common.hw,
-+	},
-+	.num	= CLK_FANOUT3 + 1,
-+};
-+
-+static const struct sunxi_ccu_desc sun60i_a733_ccu_desc = {
-+	.ccu_clks	= sun60i_a733_ccu_clks,
-+	.num_ccu_clks	= ARRAY_SIZE(sun60i_a733_ccu_clks),
-+
-+	.hw_clks	= &sun60i_a733_hw_clks,
-+};
-+
-+static const u32 pll_regs[] = {
-+	SUN60I_A733_PLL_REF_REG,
-+	SUN60I_A733_PLL_DDR_REG,
-+	SUN60I_A733_PLL_PERIPH0_REG,
-+	SUN60I_A733_PLL_PERIPH1_REG,
-+	SUN60I_A733_PLL_GPU_REG,
-+	SUN60I_A733_PLL_VIDEO0_REG,
-+	SUN60I_A733_PLL_VIDEO1_REG,
-+	SUN60I_A733_PLL_VIDEO2_REG,
-+	SUN60I_A733_PLL_VE0_REG,
-+	SUN60I_A733_PLL_VE1_REG,
-+	SUN60I_A733_PLL_AUDIO0_REG,
-+	SUN60I_A733_PLL_AUDIO1_REG,
-+	SUN60I_A733_PLL_NPU_REG,
-+	SUN60I_A733_PLL_DE_REG,
-+};
-+
-+static int sun60i_a733_ccu_probe(struct platform_device *pdev)
-+{
-+	void __iomem *reg;
-+	u32 val;
-+	int i, ret;
-+
-+	reg = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(reg))
-+		return PTR_ERR(reg);
-+
-+	/*
-+	 * The CCU framework only models one enable bit per PLL, while the
-+	 * hardware has separate PLL, LDO, lock, and output gate controls.
-+	 * Enable the common PLL, LDO, and lock controls here.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(pll_regs); i++) {
-+		val = readl(reg + pll_regs[i]);
-+		val |= BIT(31) | BIT(30) | BIT(29);
-+		writel(val, reg + pll_regs[i]);
-+	}
-+
-+	/* Enforce m1 = 0 for PLL_AUDIO0. */
-+	val = readl(reg + SUN60I_A733_PLL_AUDIO0_REG);
-+	val &= ~BIT(1);
-+	writel(val, reg + SUN60I_A733_PLL_AUDIO0_REG);
-+
-+	/* Enforce the named /2 and /5 outputs for PLL_AUDIO1. */
-+	val = readl(reg + SUN60I_A733_PLL_AUDIO1_REG);
-+	val &= ~(GENMASK(22, 20) | GENMASK(18, 16));
-+	val |= (1 << 20) | (4 << 16);
-+	writel(val, reg + SUN60I_A733_PLL_AUDIO1_REG);
-+
-+	ret = devm_sunxi_ccu_probe(&pdev->dev, reg, &sun60i_a733_ccu_desc);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id sun60i_a733_ccu_ids[] = {
-+	{ .compatible = "allwinner,sun60i-a733-ccu" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, sun60i_a733_ccu_ids);
-+
-+static struct platform_driver sun60i_a733_ccu_driver = {
-+	.probe	= sun60i_a733_ccu_probe,
-+	.driver	= {
-+		.name			= "sun60i-a733-ccu",
-+		.suppress_bind_attrs	= true,
-+		.of_match_table		= sun60i_a733_ccu_ids,
-+	},
-+};
-+module_platform_driver(sun60i_a733_ccu_driver);
-+
-+MODULE_IMPORT_NS("SUNXI_CCU");
-+MODULE_DESCRIPTION("Support for the Allwinner A733 CCU");
-+MODULE_LICENSE("GPL");
+Another problem I'm just realizing is that this READ_METADATA
+right is inconsistent with open file descriptor behavior. With most
+rights, already open file descriptors are exempted, but here, fstat,
+(and the other stat-family calls which takes a file descriptor) become
+denied even on already open files. It's a catch 22 here, if you change
+the fstat to not apply to opened files, then READ_FILE becomes a bypass
+for READ_METADATA. But if you leave it as is, then it's inconsistent with
+the other Landlock rights wrt already opened files.
 
--- 
-2.55.0
+Which isn't the end of the world, but just shows that either
+approach is going to have it's quirks. 
 
+I think it would be better to just avoid the cat and mouse game here
+of trying to seperate READ_FILE/READ_METADATA and either require
+READ_METADATA be specified with READ_FILE if READ_METADATA is handled
+like Gunther proposed, or have READ_FILE imply READ_METADATA.
+
+Documenting it strongly is OK too, but really there are really zero
+usecases where you'd want to grant READ_FILE without READ_METADATA
+so it would need to be made extremely clear.
+
+Thanks,
+Justin
+
+> —Günther
