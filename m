@@ -1,103 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A8443C056;
-	Tue, 29 Sep 2026 06:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEC137B02A;
+	Tue, 29 Sep 2026 06:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664188; cv=none; b=FigQnJLracuFkRUE+INQ2/Y+tiST71IIYKMSxLt8flifbTGbngBWHxycyr0yzjJflYcswb3ATA3FMGEjrgUDsfoRHAt0PxRpFq/QQtbxvOJj58nnb8EUPeFJVjhIjzanAFjASg47ubRWdIpVhRNU7ZUfkU0NHxhgKm3gbieyPbw=
+	t=1790664343; cv=none; b=iEgqx+OgSI0ghJBrJ5vCAIVKNlUDL6lurg9E8TkkWjOrmcFLrpdgSnlYAx6eWVni84+QQsPVbY4MZF+xd4VoY5PFwbwfGGXTvxtaN70R3SsJG6Ot2RX618zY2NkY2d8/hPxLFZ6etZX4C9lvUz6vyAZiNjbwgwyAGW7jEAQXVB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664188; c=relaxed/simple;
-	bh=C2nRmWD9empFXA+WPGdaDn6XwvjH0JpFUGAtGdDltDc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ltPdC7V7+j25xc9grEf6hfgJHy0zv10cLVNPYoAMfl/tFmL7XTcifEDta/AfP9PuEs1ANQFUsFlm7dUmq1PIg3EVgN1V2Yyqo+Z/sLUIydN6h7DcMCH56/V/PKRj+GN05V043UzoEpnG9aOikltySszvA0M0nNBCTL/6M6x+JF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEY5syIs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664343; c=relaxed/simple;
+	bh=VF8d+U2wiYQ+1X6jc3qJpV8gnJ8ocQiQ21uPgsx84JM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WNe2/GhMkb9ojoYxEjGZe5aS05EG+FZ+tYVCWsylMN3dgc7myJCm1HQVsW9I+bIfdlErGzOAdt/w0VMWJm1I4er+MFOePFIbqBKKjFiPgj9ZcqS8YWgnfhhRDjFsGGEm+zUSaow+zuuGOLvekPfTdkdo8HCZpmjT9mHYMm0Bh6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vqQtGsLt; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEY5syIs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569CE1F000FF;
-	Tue, 29 Sep 2026 06:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790664187;
-	bh=RjtGT9UV8snzEnfpyf+twE1cQRKeeOlW2EZvEmvRVco=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SEY5syIsgcpWYh7ixiUldPRFNbc4IW6+cE54JmtecY7YqSzpaYB3cd7r0QHH/pcS7
-	 8XGi1n+oawf3NV54M7l9/009N/4ymoVMs4Qm7+k5aVpicDFoJtVPEFma8yqIpTZmoB
-	 ohSIGblC+0DO6E4JzHhG66gGQWcGMs1SUpEulJfi2MV32mXvWOVRpImlU+ubM7GSYg
-	 iCtSXX3k38ikuoS74OmFNzBFvV9J9Sz9+AjWUx00Vweedk8P2IXRaK9EPn/Q21Gq1G
-	 0FdX7K7PqHtcJXgxIl391saKvT0DLSSIF3XoFPfRpaI35FKB1M9rm657ecFLyCISNq
-	 ZO5nYEkxWPN/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net 2/2] netpoll: avoid blocking on the transmit lock in
- queue_process
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260928064239.32456-3-kmehltretter@gmail.com>
-References: <20260928064239.32456-1-kmehltretter@gmail.com>
- <20260928064239.32456-3-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 06:43:06 +0000
-Message-Id: <20260929064307.569CE1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vqQtGsLt"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790664332; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=2hovsts/EP2rMWjzeBEfd5QEScwbOvRyI+VdMh5XzkE=;
+	b=vqQtGsLtDRqEsDbP+XNhImvjchcmqIbDtwSZcELQ8lbw6FrQPDOu5siF6GcFJja8CcOzXkGX4wW7sIwjxjnwjUOtb6pwMUne+avRYwBNT1AR/gyQIc6eECApHBONAFYph+1MTj9/P7uBRv6KltgRT7Nnp4Ae6+yUfXPfQPKbiW0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBsIIbV_1790664329;
+Received: from 30.74.144.142(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBsIIbV_1790664329 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 14:45:30 +0800
+Message-ID: <3c14bfb1-1c0c-42c7-b202-7647e71252f5@linux.alibaba.com>
+Date: Tue, 29 Sep 2026 14:45:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/4] kselftest: mm: integrate huge page checks
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
+ <20260924-fix_split-v8-3-cba7359d882a@arm.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260924-fix_split-v8-3-cba7359d882a@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] net: severe latency in netpoll queue_process on lock contention
---
 
-commit eadeea48c72992b0b24239d8a823d8f836b84527
-Author: Karl Mehltretter <kmehltretter@gmail.com>
 
-netpoll: avoid blocking on the transmit lock in queue_process
+On 9/25/26 3:11 AM, Yeoreum Yun wrote:
+> check_large_folios() only checks for large folios without distinguishing
+> between anonymous and file-backed huge pages.
+> 
+> To add huge page type checking, integrate the huge page checks into
+> __check_huge():
+> 
+>    1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of using
+>       check_large_folios(), since only the mapping type matters. This
+>       identifies PMD-mapped huge pages.
+> 
+>    2. Otherwise, use check_large_folios() to detect large folios. This
+>       covers mTHP cases.
+> 
+>    3. Check the folio flags according to the huge page type.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
 
-This commit replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK() in queue_process=
-()
-to fix a sleeping-in-atomic bug on PREEMPT_RT. If the lock is held, it requ=
-eues
-the skb and schedules a delayed work retry after HZ / 10.
-
-> diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-> index e0cfcb05468e2..a3c94f0b3f764 100644
-> --- a/net/core/netpoll.c
-> +++ b/net/core/netpoll.c
-> @@ -166,7 +166,13 @@ static void queue_process(struct work_struct *work)
->  			skb_set_queue_mapping(skb, q_index);
->  		}
->  		txq =3D netdev_get_tx_queue(dev, q_index);
-> -		HARD_TX_LOCK(dev, txq, smp_processor_id());
-> +		if (!HARD_TX_TRYLOCK(dev, txq)) {
-> +			netpoll_txq_queue_head(npinfo, skb);
-> +			local_irq_restore(flags);
-> +
-> +			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
-> +			return;
-
-[Severity: High]
-Does this schedule an excessively long delay when encountering a transient
-spinlock contention?
-
-When queue_process() attempts to transmit a deferred skb, it uses
-HARD_TX_TRYLOCK(). If another CPU is actively transmitting on the same queu=
-e,
-the TX lock is transiently held and the trylock fails.
-
-The TX spinlock is typically held for just a few microseconds during normal
-network operations, but this introduces a 100ms (HZ / 10) delay upon lock
-contention. Will this cause netpoll to stall for 100ms every time it
-encounters a busy TX lock, dropping throughput drastically (e.g., to ~10
-pkts/sec) and likely causing the deferred queue to overflow resulting in
-lost kernel logs?
-
-> +		}
->  		if (netif_xmit_frozen_or_stopped(txq) ||
->  		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
->  			netpoll_txq_queue_head(npinfo, skb);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928064239.3245=
-6-1-kmehltretter@gmail.com?part=3D2
+LGTM, with nits from Sarthak addressed,
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
