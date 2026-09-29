@@ -1,41 +1,81 @@
-Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366973E40FE;
-	Tue, 29 Sep 2026 08:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B435D3E6DEB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668901; cv=none; b=LZZpb9n/eTXaXfFWNfZ5h+TZiiDIKUrv9ylJenifB7Gdg73olZ3jn8/cw/Fh9W3YY33uQmcsKEo/OmNkZokWW8TKrr2Wd+A00tldO+1yOnqVV6apdUsEruRbbKQnEykgMZfMpiZkIx1Aj0LDeXHhekRbGFSKm8ovDDbhjcSLkWI=
+	t=1790668901; cv=none; b=YEvpkP59IIoCihpMGt+Xgp9C9THp+xg6w841OjlqmrWtLegSg9/8aTVzEv7crJ7BzRYOIRnevUxe1vaJ/Iawq8GwbXT8PqVgGlymmgtDt5S0fdm5yv7vDhNgy6H5LGqjpswmGBdWFYnX1CdCsUU48MG8AhMUM6Jpm/i2aBiCboY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790668901; c=relaxed/simple;
-	bh=FevbvR1Zg9k5Qy6r7fWziA3yOcFsBtehL5Iq3oXCDN8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Frpx3rQ18uRzBxedZbM28FldtMolQXvm/OjJuHzRSQt0w6IbQqSl0JG9ljvNCsrJuUHNA87YUo2Tq0P/SMEXOFWwCUkb8SPALLcm2VQEXHob5MiEGi2s2+Lumeo0xbd+bFPMntTup4UyhHgWeFHvc+g3gWB4HG0+02LEzrdl/eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=uDnfHbSd; arc=none smtp.client-ip=115.124.28.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	bh=2B/TYTbXRt8Au18SrvGStmKpgErFqex+vncLzTx34D4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I23NHz+5FQJljpwuvVysjsbBxsuIPShQEiS58TycRY04973xT2YFnLDH+YO1+trdf7VpKDICd9ZiEbVYO9LnQl4jolyr9LpSO9OeFOWSPR3xAMkwwgFXaXxm3UU9cEKmqyGw+MSdOZhReA5k2934m03r7vbHMJG3Ah/nF+kHDc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e98g66sm; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="uDnfHbSd"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790668888; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Ocj5Dw2czsY2Kug2CQGjyPGMTvL96e0VdEymMseMCB8=;
-	b=uDnfHbSd4ebfTvRnS0IYB23Tm/VBlrFCfkUll0hxX9P4ZgA+B58atZjjry/5SOoRT4lcGH6icwWAoapGhX63gBG6m7kdYduG/iM2+9kYpnz1vkSrr1U0JTPauYpS36FIv5lXDeDeqoe0IqzLd52X3sqW5TpcXO5QMz829j85ZxI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437829|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0106428-0.00121216-0.988145;FP=10218751077233724657|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jR9XL0d_1790668886;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jR9XL0d_1790668886 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 29 Sep 2026 16:01:27 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: broonie@kernel.org
-Cc: wentong.wu@intel.com,
-	lixu.zhang@intel.com,
-	sakari.ailus@linux.intel.com,
-	linux-spi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e98g66sm"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso28451705e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:01:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790668897; x=1791273697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x1zLcvYZn4VZi4U5hyO63YaC+RdJzk1Ftxp9O+4KGx0=;
+        b=e98g66smWK0rFXlzdw+vW7LEKmGKzn41ToitJ1U5iLWqqSrWZr2ikeEyku2uYffHdL
+         ihy1noBHvDToVTUYcTGNegrlgR2wGUnEMvmNq5w20FvO6y4IXOsVi8LI0yusEqIjF4mc
+         q2/BMyypaYZ9hsvV8YUomFkueTHfPgUKWG8j9t/igdmHPdIatii9hKyGPiRZZ0n474NW
+         CrrvYGHG/Ww1/4izr6/7tqZOdv0zGHYHfDJC99/S7cgrwzxNwiQsmhoZEODuRU0+YHM/
+         3rLTcMfa0r46+eJ6QxFQS6g9YgztXLcNgQcSSBoyqMvkrdygOH6NdFhZ64ca0OeNDfWV
+         Lsug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790668898; x=1791273698;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x1zLcvYZn4VZi4U5hyO63YaC+RdJzk1Ftxp9O+4KGx0=;
+        b=VM4W96D+Z0RfrmVb+MCpCF3zzZhJt5eVjrkpB7vb0RHY9kNcILrXEkh4Di1TwQnwE/
+         SsjWIsb9DQgCDnjb9fq7PYXc+1Klz4XRodEF8ssbKBNhIPRb0WLC9c2ZzR6mmzv96C/1
+         Wcl1oMCIVyfNz4xv2c+b3z4KRG2Nu5SepJFStDdLYUUqvDNG+q7b3yB17SK44sEuLXJQ
+         OY9OeD5WnjYHVm95/6nCNaPnQpbX8aoxWWsaO0wi8HzxeP/yRrU7eOWs6xRGTdTj/j09
+         2FcAgWL4pnIxJjX+VVoanV/4zgVa7hDJsUpqC3s2gqg8CgXsKcDl3le1GjlRtkOrQ5Th
+         ZDVw==
+X-Forwarded-Encrypted: i=1; AKwUvByFrFwmCCr8j0UpYE8OsdkXNkIea15OyhxK8MCYK7u4E6Qz2/swfIb+Jjfr1OXeUdJAMWgkZ5e2ycxFEhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nm5DVVR0KQhM4whM+u4hQ5M68tKzp331tr8xwNRSZFx5xCTMzB
+	UsaBBAIGNV7YzsHqyQpdw9yCfxGFL3NKArpJC6ers8i0ZZgSsAr+8z3y
+X-Gm-Gg: AYBFou2GZXjSg2F+hUi8ALtnmHYygShO/o8Y/8NPk2o11+YqhGL1oNQnlSB93Th8pcM
+	2CQ0kDvH+bq2suCltwRvGlPRWp6mOnEjak4/qydgzM3KRlv+nZChQhiWt2H0d5i34EkcEJKS66s
+	AkR6ZyVZBpjJNK2wJaHKK/USacyruOcudZygvGsjgYnaPJoPPdthlhPZdhFotqihe63RIolnhx+
+	qyDqB0xhXiEFEw/T+wVQVA0Y7YCY77GjoPSv0hnOfJAYIqoK1XfcsiyB7EkD8wv7TiIjxmRXgpH
+	iYY2WtXFrYEPfjtoHx+AHRXRKGniov77OKNr69R4RAxqAdAy6jX63pHyU4zSwI8yPaLsWcHwjS8
+	gR2ldGtzJsT+USOv+2+cI8dmZYY3SaPUf/rRsw58dLi1V9F2XqsGey4graKrnJrAiA7AbXpDQvI
+	v6577gdo834TZ5l5wzeO4h0u5eMO96h3AidOlJtGxS9g8rOfljiOe52q7zhjr3UHa+kBtMQmWYt
+	+PgITGhl9OMgVkN71dKlFvxvHCb6vR2KYFFtAKO+09rOSq1wLnSjkSOp15GdGdN9xX4BuTG
+X-Received: by 2002:a05:600d:8643:10b0:49f:bb8a:b4ce with SMTP id 5b1f17b1804b1-49fe67bc26fmr190990405e9.28.1790668897384;
+        Tue, 29 Sep 2026 01:01:37 -0700 (PDT)
+Received: from corecachy.localdomain (p200300eca748c8fc021d81db54571dff.dip0.t-ipconnect.de. [2003:ec:a748:c8fc:21d:81db:5457:1dff])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d46548fsm39832425e9.4.2026.09.29.01.01.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 01:01:36 -0700 (PDT)
+From: Andreas Wild <andiwild@gmail.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: ljca: validate the response length before copying the data
-Date: Tue, 29 Sep 2026 16:01:26 +0800
-Message-ID: <20260929080126.4168981-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	regressions@lists.linux.dev,
+	M M <restafvalendergelijke@outlook.com>,
+	blaat windows <blaaaat@hotmail.com>,
+	edwardmalik95@icloud.com
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no link
+Date: Tue, 29 Sep 2026 09:59:16 +0200
+Message-ID: <20260929080109.53944-1-andiwild@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
+References: <20260801201244.4421-1-andiwild@gmail.com> <20260917233355.GA1115024@bhelgaas> <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info> <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk> <1b2cceea-8da4-4239-a955-e0c6b475a227@leemhuis.info> <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,62 +84,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ljca_spi_read_write() only checks that the response from the adapter
-carries the packet header and a non-zero payload length before copying
-r_packet->len bytes from the response into the transfer buffer.
+On Tue, 29 Sep 2026, Thorsten Leemhuis wrote:
 
-The payload length is taken from the packet the device sent back and is
-neither bounded by the number of bytes actually received nor by the
-size of the requested transfer: a misbehaving adapter can announce a
-payload larger than what it actually sent, and the memcpy then reads
-past the end of the 60-byte input buffer and writes past the end of the
-caller's transfer buffer.
+> No reason given, just a link to a diagnostic file that from a very quick
+> look showed an Oops from the Nvidia driver:
+> https://paste.cachyos.org/p/49a2487.log
+>
+> So maybe it's a problem in that OOT driver, maybe not. [...]
 
-Reject responses whose announced payload is not fully contained in the
-received data or exceeds the requested transfer length.
+I had a look at that log, and I don't think it points at the patch.
 
-Fixes: caee8e38da67 ("spi: Add support for Intel LJCA USB SPI driver")
-Cc: stable@vger.kernel.org # 6.8+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
-Reviewer notes:
+It covers two boots, both on the same 7.2.2-1-cachyos build, which
+carries the patch.  The second one, from which the report was taken,
+came up normally.
 
-- r_packet->len is a device-controlled field; the old code only
-  required it to be non-zero before memcpy()ing that many bytes into
-  the caller's buffer. The receive buffer is LJCA_SPI_BUF_SIZE (60)
-  bytes, so an announced payload larger than what the adapter actually
-  sent already reads past the end of the input buffer, independently
-  of the transfer length.
-- The new check bounds the payload by both the number of bytes
-  actually received (ret) and the requested transfer length (len), so
-  the copy stays inside both buffers.
+In the failing boot the NVIDIA driver fails to initialise the GPU
+("RmInitAdapter failed! (0x24:0x72:1281)"), and about a second later
+modprobe takes a general protection fault in __refill_objects_node(),
+reached from mas_preallocate(): an object still on the maple_node free
+list had a zeroed free pointer, as if it had been allocated or written
+to while still free.  The journal ends a second after that, so this is
+presumably the hang the revert mentions.
 
-Tested on x86_64: with this patch applied the driver builds, loads and
-unloads cleanly; no LJCA adapter is available to exercise the SPI
-transfer path on hardware.
+That looks like slab corruption, which usually shows up in a victim
+rather than the culprit, so the lack of NVIDIA frames in the trace
+doesn't clear the driver: its failed-init teardown reported leaked
+objects just before.  Another candidate is 4a724bcf5d70 ("mm/slab: take
+n->list_lock in __slab_try_return_freelist() to avoid race"), which only
+reached stable in 7.2.7.
 
- drivers/spi/spi-ljca.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Nothing in the log implicates the patch, but it can't clear it either:
+the patch's early return is silent, and the report only has warnings
+and errors from the failing boot.  One unexplained difference between
+the boots: the r8169 NIC is at 33:00.0 in the failing one and at
+30:00.0 in the good one.
 
-diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
-index 0c6e6248d..bd07e5df9 100644
---- a/drivers/spi/spi-ljca.c
-+++ b/drivers/spi/spi-ljca.c
-@@ -105,7 +105,8 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
- 			    (u8 *)r_packet, LJCA_SPI_BUF_SIZE);
- 	if (ret < 0)
- 		return ret;
--	else if (ret < sizeof(*r_packet) || r_packet->len <= 0)
-+	else if (ret < sizeof(*r_packet) + r_packet->len ||
-+		 r_packet->len <= 0 || r_packet->len > len)
- 		return -EIO;
- 
- 	if (r_data)
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-prerequisite-patch-id: e48582f6ffe124b3806593af6e22b74682c8a83f
-prerequisite-patch-id: 369f74b9a7ecde56141b13ec671f9200345a3bab
-prerequisite-patch-id: cbf6f60473c80add5b2cddf22d142f35a4e3c834
--- 
-2.50.1
-
+Best regards,
+Andreas
