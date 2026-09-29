@@ -1,229 +1,238 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7409145041C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711040; cv=fail; b=O8JtCL3XVr5mb4/xGu26IZfO8wKtfNGEiLkHRp6rbeE3ck6zDZfLWRKTGEhrisnNeni9HPcSmx5oD77s6zwujtIXPYtO4zCuN0cqqJcgOifH78K6+NG2/eteE5ICAHjKq1uKa1Hi1v/4KcOmKyTSqr14BRD0jp4b3z4dJvrcqvo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711040; c=relaxed/simple;
-	bh=riEC/lRFmyAuK/D32G+sFGkoSh9Hto3iKrDIOkPHRno=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=B6hFA3hXCrfoRJuQxBQgqslomqSeYZAfMUh660td0EyTwI+WsI3EWUx7xtaIygmr3cXood0sVNemLQ22TocCuTx3/a0j7QoIgcZ6DnWPYhRyPGOa0LK1iTSQ1z1AFdlcBL3zqukmk9bWil2lt4JPqcVKILQgyBUiG/lhKkd6KOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gUs02GNC; arc=fail smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125C53D47AB;
+	Tue, 29 Sep 2026 19:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790711062; cv=none; b=duOciSDFB1BdugwEFjOTzBXRsls3L3CjjpWkiusA2jUlj6EWW1/G2Bw4BPXBkrXxSEKsKC0GJdwyKYyFq3zczr1CTkHDmeKUyM+UVueiVf2yq4RrCBD48FTwMCWP5lHNpE2RiyoC0nj2/ATWc1+1DabmGStnqlg+KD68Hnh48Bc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790711062; c=relaxed/simple;
+	bh=Q4BPCRwbTR7n23+GnQ0TvWEr+3voAJfiGzKEGdJnkOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HoACk5TfLuKk0cGOLybks0usEVYPzQasJNN4T3D2x3P38RgtdR6wMwbqsdsxx3oja76mJX4QLOvTcx2feLDPbSOa1BsisG7YuLFIdTdZZDDrGvuP8VwDIFUZYbh7vQs0mGG1vqKF66iYAglQpNJ0kRcW6vb3xLwNO++GlN2EyeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3CdhxMv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gUs02GNC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790711038; x=1822247038;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=riEC/lRFmyAuK/D32G+sFGkoSh9Hto3iKrDIOkPHRno=;
-  b=gUs02GNCR0mQMM73B0d1zpF1UHWfHdmBNTG0NcRuKKbVj68eptDijplT
-   9JIThoxErIpcgfVKR+FKik945HJerqTkLNHdcXpZ/0EiWiO3HWZb670ZN
-   bgTrfZw4oAPV1iEq2j2ifGUNNTo89AgVFaESMJM47Tmmq2Ev585AJUcSG
-   zX9cm9vzVdNbYbi0dWscXZ9trbIBew+Q/xE6wpNGtbXV4xbqHtwI4SUz2
-   BWijg77JpTx4/qJTA9pXB/FGRtxpgqP5c6VPzRloL5MvvVIIZvihyIYJ2
-   zMpUBphaaocfPlSykKWs6ZtdArNKBdKYbcvWYt2C8VUbA1EOWMUEr80uT
-   w==;
-X-CSE-ConnectionGUID: vgkfC58nRLSr1rHwwTJ3Iw==
-X-CSE-MsgGUID: fVW6tcbnTcOuC5g1D5nHvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90390502"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90390502"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 12:43:57 -0700
-X-CSE-ConnectionGUID: L5yZvVi3RVK0sxN+55+Feg==
-X-CSE-MsgGUID: W9PcimQVSf+sXz0Zn9f7+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="273572661"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 12:43:55 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 12:43:55 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 12:43:55 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.35) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 12:43:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hDKy+sQWS4DZFDQ+k3/dz/mnfT1ChxFk2LtmU/FbhQ+0FEZJtDLJOndP8hnPaqk7gErDTLOMjHR7JSCBjjpg3zUVLByf8wHYyZs04WS3sueb+Rc65HVNSVzN7XO1r+3ISlrvSyYWLuSP5O2AuUYwP+OpG+o5No7NBFCkyd1WxOIqNtqiPlva99JAy+XvKFDfTpF2adaqOR5A7Sgt0mCLo7lZZYWniR+UzrYQmKfvhmWNQjanIYYEMXK8PKECVv7XwGMbW6mGjEO/rTEs7oJScsDiE11NSJJKwv5rU3fPnFpiOOXHtVuixrZXE2aC2txkR8S0RMpGdW9DEHFvxjEt1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KYjCzAYckoRypguN5cXE+4yx2tPuGS15hJ/3MZK65qY=;
- b=zQSOl+hAIh/oPf+ZtuYrNUAUfBnFiObqFh2te2ZcJun6HwhZHNPf4yxci3bvoj9qjqxh3IiS3qoJbV/OHsfVJuqZg5N+agrspyvIKApWXZqE5IOaZ61nszRV+dslM4U7uxHGiLaHB53xreB4adqXQXvQkCbJqMgBpMfWuTt2H9BnNiUL+0TpH+gWtxavp8+lHOYXyA+LVX9T9Ji5gUp7S2CKjj3q9a0qu5+kuiifrMX5enVa5oHVgSRNFReZCvKKDi/zMIEvWQmsnB/PZdWE66MunxCu9D9EIGsi5/b3S6b3yJIxSujtsPneTo+FI0exZbXLlkBjI7I5IjlWexJCuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by LV2PR11MB370525.namprd11.prod.outlook.com (2603:10b6:408:422::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 19:43:49 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 19:43:48 +0000
-Date: Tue, 29 Sep 2026 12:43:46 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
-	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v13 00/25] Allow AET to use PMT as loadable module
-Message-ID: <arwU8iggI6ugi1x8@agluck-desk3>
-References: <20260928221509.68002-1-tony.luck@intel.com>
- <arsGXbwHSwqmI3Q0@agluck-desk3>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <arsGXbwHSwqmI3Q0@agluck-desk3>
-X-ClientProxiedBy: BY3PR05CA0050.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::25) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3CdhxMv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB941F000FF;
+	Tue, 29 Sep 2026 19:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790711060;
+	bh=q3QKjMvgAUkuQ17t6YdqoLww5IfrGk8hudIFHctZSl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z3CdhxMvpO05S2GgF2NZcveZP8lKIPhs7HlQHh6JwjS1CdumoqzZY3CzYY0Dy12x+
+	 FqbBLDsmkXJBRJsPr5MEuclQkEbdHXeibLfySXgXA4FSqzSrTjG8+unEq2/mnNe9MY
+	 Z6101ZT+tNWCw/LONh33tvF4SUb1OXgrcNT+tDRfievI3hEMYcPyI68GX0ziI9050k
+	 IcwWnZyUg2tDZPaYu1JNMEDYZSEiNwtM4Y8WYz+FZvu+gto+yzQeKLTEjjIc8n+w6Q
+	 fyuIqGlEQgpeV/GQwMvAyQRVR7kSMBQH6qR/9hF46TZ6Uen9cy5H+12FYsUSXQoj3K
+	 oN/Er3jEluMng==
+Date: Tue, 29 Sep 2026 20:44:13 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
+Message-ID: <20260929-sprang-stir-af07a907ccb2@spud>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-9-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|LV2PR11MB370525:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09486f96-1682-4065-5f0d-08df1e61fb4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|10067099003|4143699003|11063799006|56012099006|921020|3023799007|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 4x9ul/5mu07mN5ypDqoxvn6QJLsIEfz4xzn9dRxhaM33adaOQ0PH5GOmue9ajVuJgcs6U7BbXw5QFespjuRtCD/cOikCiVgAfrhPto0E0Wk2dp0sbA/VXnQkkwlO3hm6eJn7RFvjS0KL6CFAZt3zromXpcdsdzopMZsDVgJylAyKG6RvPWZqBuxfJyGBjhasG3/yPOMybgSjSan/DFZpoe4A/DgcHeMz9ylzvkNYU01T+KByPE6g0x4jYeLK8JPkjbnTCi4lojE+cZjLTf7lXBVcC3+t0LrUdjCcb+bc4FkH0vbJGCehlRttXQioc06a4NuyWYpWvIPNsS3EsvrTduUM4/luXejvV9SQENhT74NhEvffpVUGkUqraxzRvC418QtlBoX4I4AhJABaQZeug8yT3ZRpWaL5jKGfQT0Ou1qk03bIziZCxiiB8gyHFqoRDo50d3UujnR8HaSF4KcW85ST+klkvK/A1ool6Wp0Ds4L5o108AAbplW1MI3krIDCMM3STD48aVnLY1cNVK0AIMytsphpU1m8IbXEYAoRbjVh5ZPqlTskbTiG7BbI5WZ13nQn6Hq2yuSDdKzo5ramO8HN03AeztBkQF10NgvOcc0TP4FNsvnIEuBUH/Sp6zvNE8Gc93zsCUYl8ETsTT+OUw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(921020)(3023799007)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?JABI33Avl4gAeUt6Tv2LNaahe65r3MlYEgsWWQwdlivjLtPsZdn62dDjDaWl?=
- =?us-ascii?Q?toRCzBAPS7NYT8rasAiIYrOv6yPfp8lvNsJdrxCy0rkyCy5FvfEIV3USLmcY?=
- =?us-ascii?Q?sOObL4CjM+L7xYnkeJfDCuR7M9bjs5MZl80MwuX5g3rha3MNonpj6pOxsLme?=
- =?us-ascii?Q?vKMnv5XxcRp2Cf9pSeksTTKwY1wZeZhGYWpi4LFHMj9LpDNQt9QtruhcxRE5?=
- =?us-ascii?Q?a3H2vX/Mxl6n2B1saGOssB8mkswifxF/QMyrAHFX8SWgQ+kK4/DP6k9pOOZ7?=
- =?us-ascii?Q?5WhgE9mdJLeg8mx4/5/hm0RpNqgKc0iEnLFAHFLgxsX/JqixeOSoncEeP0MM?=
- =?us-ascii?Q?yQbURZwyMqJdK/nGCtP+9erWpMOVlKgITYPSArF1K6QlOhkXog+6Ob1G1LA9?=
- =?us-ascii?Q?MeOiJeI6JwWnRmCUTKL/s5vrNLziKRkG50wTF94WZ67FfWLHGPER7wSitM8c?=
- =?us-ascii?Q?UEk99h4ZMzhR0vZmqiU0TzBY6x/a9G+MFgC5FrFCs4GVFUtxefv06Q9/0laC?=
- =?us-ascii?Q?pfVL/MipIdNiojfGRGh/sr6flKCCXmnGDpASRGa/+jVJmZTyKvQTCcIk9N/I?=
- =?us-ascii?Q?pWgFjIVxiHJhHv2yeQQCcVNZ50PNzcApQYPpEUM9QYfmdKIetWfIe9JyluM1?=
- =?us-ascii?Q?Yowrsk/sjeGLuknYmSa6yRcZA5ELdzdT7bJbYG9x0RY17owINfRgLBxESaOd?=
- =?us-ascii?Q?CcIFMJZ/pdjkfI+Fq8fwLkJjEVrwQ25DKPi9zHpwF/F9UOXdEY+Ut+c08n1H?=
- =?us-ascii?Q?Oy5bQnNryyr1w8R2dfu65vZFuJkv+swq1Hr1xxaMS2CQz90/wajdWmhT4HpD?=
- =?us-ascii?Q?cPEMNa2pxKEy2kqTv8rix6f5+9LOgIMpSh14EOANRRjC1IAAbzK6Sn2Addov?=
- =?us-ascii?Q?gwudpe4qvX3xgkI1E1eDnwXuZCuFeo1gg/IWyIPvAkX45JRLeAZN8fr/7DLI?=
- =?us-ascii?Q?qPbRuyuOG6bTMlegJzQ6fqwTzxWFzgX7UFfQ/wpGTSQ6I5Z36OdopgQGGOLo?=
- =?us-ascii?Q?nqsk/BJ4+eaTEZ2vmpRvgTnxN7XuIEW6aBddbCnsFgNYxyjA7OYOeepjzQUv?=
- =?us-ascii?Q?gECp0ye3TCp5i3Y0CEkmiICZcwD+6h2yWjXm9yJirrURrIWhmp2zq9IEuP5S?=
- =?us-ascii?Q?0sMi072g8CQbKonlKb1IuSedhcwPQaqxe3gXeocymxAAfAAYFCtGG0+ur/4r?=
- =?us-ascii?Q?L5gcLv18+WiMRPx+E8zXJ4pO6SkNUrBe90gqcgy8GRjHwhZjrPRpx8Tc3I6p?=
- =?us-ascii?Q?sPUp0h9BMFmopp3UIMWFoFKglVXAP6DM99cYK2ONv/n5xPjyCrO7GzeRVoBU?=
- =?us-ascii?Q?eBDGPKDPON4hY4uDRjDt12R5f8GLNJQQQmP0CGFnKwyvBLaNJNrqxEnQ+wfi?=
- =?us-ascii?Q?py0DgHbIFbk83tBLBmQykAz3M2Q4PJFYaOcgCSnoyYbL9NQu3oAn/53d3OLd?=
- =?us-ascii?Q?/Asfk6Fe8x9yh17zqlDG5IpFnorjeQjjHdEhvtjcwTcnr0/rciiVfUX70CoA?=
- =?us-ascii?Q?c7ugKtY5a3PLr6a6fG4p2vW2jaS0eDt2F/EWWaxq4E8AgdSMX0suzuIogh4g?=
- =?us-ascii?Q?Ue0ZAdmmlN8E4jUe1qR5PrP70EenV7cdGcIdNl+HuR1iOOJ187s/QeoSvqZP?=
- =?us-ascii?Q?gZSAlCIdn30g5Yj4+NiiDeAta15IhuP6TI6R7Od70FTVbTbM1p2Gtf/HoSd+?=
- =?us-ascii?Q?exI0metqFJUJ37Jcev8t06qUawgAGsgas2VpDfyktx+siSz5wGBZ9EGsCqYH?=
- =?us-ascii?Q?nYEnpgNk5A=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Dbl/LLXptgjv/yBPm8DJe+/s3kUInJIicLbhVFpfhC5ODN3KJDI0UgcZXUgu1EiZ+X7dnAwtQhyeeMdwnXFG2X3nR4hvxrTD+aVqY0jj6AlW6bRO4OTV4V14dpR3xjekbINGruFuuUby8gnnDyD/zMGpCY5u1VxoQxM6DxZK8crd+eyuJXm6ApJ1ZDuzeikcNgmY4dYE6Ts6RNrDP0oLqz4nVN6O+HULixlhgOZmroKpQu+2rDkmzyFYWvU9zS+RN8oNAggrE6Ep2H/BRsYW6Ud6gLRlrE0mriXuS9mOSmFLv9tv5i0XimZBixmPMzn0/Ruwp/6fIF8Ac6RXy1aFWw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09486f96-1682-4065-5f0d-08df1e61fb4d
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 19:43:48.8685
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CPQcx0HetOXazvEkZ84646QjOc98POaRSz5ZpG2nHka4SXr2il7RGGzpK/b27A4jvPGO7zD3Xs/g+ife/WCK7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB370525
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/eZs2VEqyPUB++Zv"
+Content-Disposition: inline
+In-Reply-To: <20260929061417.20733-9-jszhang@kernel.org>
 
-On Mon, Sep 28, 2026 at 05:29:17PM -0700, Luck, Tony wrote:
-> Sashiko summary (full version: https://sashiko.dev/#/patchset/20260928221509.68002-1-tony.luck%40intel.com)
-> 
-> Patch 4: [PATCH v13 04/25] x86/resctrl: Centralize monitoring feature enumeration
-> 
-> 	Sashiko thinks I broke AMD & Hygon by adding the dependency:
-> 
-> 		{ X86_FEATURE_CQM_LLC,			X86_FEATURE_CQM       }
-> 
-> 	and this code:
-> 
-> 		> +	/* Any monitoring at all? */
-> 	> +	if (!cpu_feature_enabled(X86_FEATURE_CQM))
-> 	> +		return false;
-> 
-> 	But Babu said he tested v12 which had this same change. So perhaps bogus?
+--/eZs2VEqyPUB++Zv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sashiko is definitely confused about this. The specific detail from its
-report says this:
-
-	While Intel uses CPUID.(EAX=7, ECX=0):EDX[12] to indicate RDT-M capability,
-	AMD and Hygon specifications mark this bit as strictly Reserved, and instead
-	enumerate L3 QoS capabilities via CPUID leaf 0xF.
-
-But the first part of this is wrong. Sashiko says Intel uses EDX[12],
-but the actual bit is in EBX, not EDX. I confirmed that the AMD manual
-defines the same CPUID(0x7,0x0)EBX[12] bit to enumerate monitoring.
-> 
-> 
-> Patch 21: [PATCH v13 21/25] x86/resctrl: Export interface to report telemetry unbind/remove
-> 
-> 	Sashiko says my new locks still have races. This one looks real.  See below(*).
-> 
-> 	But also a bogus warning that intel_aet_read_event() may be called from
-> 	IPI handler on nohz CPUs. All AET events are read from MMIO, so can be
-> 	accessed on any CPU, so there is never an smp_call_*() via IPI.
-> 
-> Patch 22: [PATCH v13 22/25] platform/x86/intel/pmt: Inform resctrl when MMIO maps are being removed
-> 
-> 	Bogus concern about ACPI telemetry devices. They don't exist.
-> 
+On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
+> Add device tree bindings for the resets on Synaptics SL261X SoCs.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 > ---
-> 
-> * I asked another AI if it could fix my locking issue. It's given me some
->   slightly complicated code that has some scoped_guard() bits to hold and
->   release locks. I'm staring at it now to see if I like it.
+>  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
+>  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++++
+>  2 files changed, 120 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-r=
+eset.yaml
+>  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
+>=20
+> diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-reset.ya=
+ml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> new file mode 100644
+> index 000000000000..8cfec17df800
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> @@ -0,0 +1,40 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +# Copyright (C) 2026 Synaptics Incorporated
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Synaptics SL261X reset controller
+> +
+> +maintainers:
+> +  - Jisheng Zhang <jszhang@kernel.org>
+> +
+> +description: The reset controller node must be a sub-node of the chip
+> +  controller node on SL261X SoCs.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - syna,sl261x-soc-reset
+> +      - syna,sl261x-system-reset
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - "#reset-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    chip: chip-control@f7e10000 {
+> +        reg =3D <0xf7e10000 0x1000>;
+> +
+> +        chip_rst: reset {
+> +            compatible =3D "syna,sl261x-soc-reset";
+> +            #reset-cells =3D <1>;
+> +        };
 
-The AI suggestion seems good. I updated patches 18..21 based on the
-suggestion and posted as replies to parts 18..21 of this series. Change
-log for those since v13 is:
+Why can't this just be part of the parent node?
+=46rom a quick check of the dts, the node with this subnode didn't also
+have a system-reset node too, so there's no conflict or anything of that
+nature.
 
-[PATCH v14.1 18/25] x86/resctrl: Use registered function pointers for AET enumeration
-	Updates to resolve locking problems reported by Sashiko in v13.
+> +    };
+> diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/dt-b=
+indings/reset/syna,sl261x-reset.h
+> new file mode 100644
+> index 000000000000..7034f58aae5b
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
+> @@ -0,0 +1,80 @@
+> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
+> +/*
+> + * Copyright (C) 2026 Synaptics Incorporated
+> + *
+> + * Author: Jisheng Zhang <jszhang@kernel.org>
+> + */
+> +
+> +#ifndef _DT_BINDINGS_SL261X_RESET_H
+> +#define _DT_BINDINGS_SL261X_RESET_H
+> +
+> +/* ACPU subsystem */
+> +#define RST_SOC_SDIO0		0
+> +#define RST_SOC_USB0		1
+> +#define RST_SOC_EMMC		2
+> +#define RST_SOC_GETH0		3
+> +#define RST_SOC_SDIO1		4
+> +#define RST_SOC_USB1		5
+> +#define RST_SOC_GETH1		6
+> +#define RST_SOC_USB0PHY		7
+> +#define RST_SOC_USB0CORE	8
+> +#define RST_SOC_USB0MAHB	9
+> +#define RST_SOC_USB1PHY		10
+> +#define RST_SOC_USB1CORE	11
+> +#define RST_SOC_USB1MAHB	12
+> +#define RST_SOC_UART0		13
+> +#define RST_SOC_UART1		14
+> +#define RST_SOC_UART2		15
+> +#define RST_SOC_UART3		16
+> +#define RST_SOC_I2C0		17
+> +#define RST_SOC_I2C1		18
+> +#define RST_SOC_SPI0		19
+> +#define RST_SOC_SPI1		20
+> +#define RST_SOC_SPI2		21
+> +#define RST_SOC_SPI3		22
+> +#define RST_SOC_APBTIMERS	23
+> +#define RST_SOC_APBSYSCNT	24
+> +#define RST_SOC_APBWDT		25
+> +#define RST_SOC_APBGPIO		26
+> +#define RST_SOC_APBDMA		27
+> +#define RST_SOC_GPUCORE		28
+> +#define RST_SOC_NPUCORE		29
+> +#define RST_SOC_AVIOAIOG	30
+> +#define RST_SOC_AVIOVPPG	31
+> +#define RST_SOC_AVIOVIPG	32
+> +
+> +/* system subsystem */
+> +#define RST_SM_ADCCORE		0
+> +#define RST_SM_ADCPRST		1
+> +#define RST_SM_CAN0PRST		2
+> +#define RST_SM_CAN0SRST		3
+> +#define RST_SM_CAN1PRST		4
+> +#define RST_SM_CAN1SRST		5
+> +#define RST_SM_GPIOPRST		6
+> +#define RST_SM_GPIOSRST		7
+> +#define RST_SM_I2CM0PRST	8
+> +#define RST_SM_I2CM0SRST	9
+> +#define RST_SM_I2CM1PRST	10
+> +#define RST_SM_I2CM1SRST	11
+> +#define RST_SM_I3CPRST		12
+> +#define RST_SM_I3CSRST		13
+> +#define RST_SM_PDMPRST		14
+> +#define RST_SM_PDMSRST		15
+> +#define RST_SM_PVTHSRST		16
+> +#define RST_SM_PVTPRST		17
+> +#define RST_SM_PWMPERIRST	18
+> +#define RST_SM_PWMPRST		19
+> +#define RST_SM_SPIMPRST		20
+> +#define RST_SM_SPIMSRST		21
+> +#define RST_SM_SPISPRST		22
+> +#define RST_SM_SPISSRST		23
+> +#define RST_SM_UART0PRST	24
+> +#define RST_SM_UART0SRST	25
+> +#define RST_SM_UART1PRST	26
+> +#define RST_SM_UART1SRST	27
+> +#define RST_SM_UART2PRST	28
+> +#define RST_SM_UART2SRST	29
+> +#define RST_SM_UART3PRST	30
+> +#define RST_SM_UART3SRST	31
+> +
+> +#endif /* _DT_BINDINGS_SL261X_RESET_H */
+> --=20
+> 2.53.0
+>=20
 
-	AET is now going to use a single mutex for both registration
-	and in a later patch for device removal. So change the name
-	from aet_register_lock to just aet_lock.
+--/eZs2VEqyPUB++Zv
+Content-Type: application/pgp-signature; name=signature.asc
 
-	Reverse locking hierarchy between AET and pmt_telemetry.
-	No longer OK to call into pmt_telemetry to enumerate
-	features with the aet_lock held. Instead, make use of
-	module pinning while holding aet_lock.
+-----BEGIN PGP SIGNATURE-----
 
-[PATCH v14.1 19/25] arm,x86,fs/resctrl: Enumerate AET on every resctrl mount
-	aet_register_lock name changed to aet_lock.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwVDQAKCRB4tDGHoIJi
+0hGwAP4ptyfAiZ/Hyv5m5DXC1l4L5OIOyvVbaRVAxy6CVrteRgD7BDhIbPYIHQMg
+hqZCgq4VRutWdr432OpL5OAfu0MmLQM=
+=RY0u
+-----END PGP SIGNATURE-----
 
-[PATCH v14.1 20/25] x86/resctrl: Enforce system RMID limit on AET
-	No change
-
-[PATCH v14.1 21/25] x86/resctrl: Export interface to report telemetry unbind/remove
-	Dropped aet_mmio_lock. Now safe to use aet_lock.
-
--Tony
+--/eZs2VEqyPUB++Zv--
