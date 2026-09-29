@@ -1,54 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8DC3EC810;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E746E3DC4DD;
 	Tue, 29 Sep 2026 03:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651751; cv=none; b=JHBSHE6FQhQD6n/5mgS2/6AvimNZN3g2OIfbQPY0DhgWxm/2eiRCV629cAVSBlnmOijz3lCYYpEu5HnNs9Yu12AnpiXyG3IzH+/Sq2sM3VPfv8cIIEqyPZ7aP38Y+nviH0yPd5s2x2qldbyfN8ZfsokESSQAnBKYwRjmZ8q1NxM=
+	t=1790651751; cv=none; b=jU52oJX9y/SUauZ3Q4tPUSQSOGu+8wkgo05TF6IoPhOY90AqJOCXsQRwKVC3333/iOxmfk16uQmjK/zfCUeDoa2WnBALOv7c4kmqPqX2GIEulrcD0BFqclA6Tp7YsLQV8fXMVO7a6lCY5v5vpNVPI5EZ+x96RT07/HeThkdspCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790651751; c=relaxed/simple;
-	bh=JvIk8cGWvFYlUdnU1mzs5gNGzb+vemyTsGs1/mYNUTo=;
+	bh=rzeRpF09s/thKlIjv77qUB7JCKtF8fBFDOVUd1fAntU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Mw/PEbAFnUiNAEaVIVKuyggzQ+jwtZwJSUpzPMtlpaVGSbCoKDp/VN3sHC+0YHcO5RghTIPcLfzfI64C3zVIpi+AX8boevNPUGL93Izy6T4iiVlNrdvNRM6KGTXnzW2LXaXivPb17UoY8qS2xhEY0gPYKG4oYRM7CCS789ylltg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEHHFuAu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oyE6WG/sTJf9AuSTFY1XqsBNKIUDuXr17refxR9pB+ya93/mBFggHjpvmJMzOPOq7kxIMgSGCD63C2/9tJm1/px/P8YLOowuGEOFx/8oCMM4TWhryjxmKGu5qtQp0fvIYNzH7AsGIwp9MT0Jp2Yz1QphOMNQpdsARomgOUVKMOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4EdEIeG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEHHFuAu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FB21F0089B;
-	Tue, 29 Sep 2026 03:15:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4EdEIeG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAFD1F00893;
+	Tue, 29 Sep 2026 03:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651746;
-	bh=E37Lm/6ycJKqFZ/gqmGthLRMJOnLdjFVZQMCvSelV+I=;
+	s=k20260515; t=1790651747;
+	bh=x02v9lYImerXfecy7cxoXIGqHCUHwmqRCjNJ6gPzsKk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EEHHFuAuAr2WGu/9iSzkc3zL9lJUgoInj62fWmPubn2p+VOFe4dC9z/Jr51k5SiU6
-	 G5C2TD6gSgFv/94j/dazJ7R0AEkUl74KTjntPguqCmUtCvqvqK/CxacN67og8Mvu0A
-	 of2eHhWp6yMqGI/HKuY8q+NUiQ41n0WIPYQJMfH4HahsxIFIjQMpUTzYX++3b/T3Fh
-	 qu3OBR5QVynlkqCTc7hPLy6J4JhVdPxnHc5eUKOEH/45RtXv0F1uIb2b1oxVGf59ZD
-	 ve7GKDVhXtAXRNERK5YsjCtK3PzfaqIb6mf7ouADbOx+Yt5cvtvPnIA4JSkqcVXvGi
-	 m6p7DT4zQhlwQ==
+	b=X4EdEIeGVHL3WpS+RFlPkFfnko1VPNEPnI4ThUp+kSR4zTGzTUDlbEyQNuj7AoBRK
+	 fnK70PsB/blziapUWfcFebrMmAcL9ONBy3vPiy2ZsJUO+jfRYLb4YEPV/fAcwUKV1p
+	 5z/AElp1K5xZSiAzVO6FfQIul0tnZtWwcyn/r5PSWlQ45P4dB42Y4vEer5twSRDJBU
+	 eDOdvl5a6BqlXiLxo1LdkbQEXSDLl156fQiOeJow0rJoOgfiQXIZWjbfsjegUpJfpo
+	 mBwtoZBQhQ7THYdY6CcJuiLz68e3svtzm3+H1UiIw73MzPPgQr441uZTOIYi8Gy7CZ
+	 gBrlX7dBUmaeg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v7 0/5] arm64: dts: qcom: Add Kalambo SoC and CRD
-Date: Mon, 28 Sep 2026 22:14:44 -0500
-Message-ID: <179065170979.2673486.6848499438612886113.b4-ty@b4>
+	Hemanth Selam <hemanth.selam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] firmware: fix typos in comments
+Date: Mon, 28 Sep 2026 22:14:45 -0500
+Message-ID: <179065170966.2673486.16315687113712437439.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909-b4-kalambo-crd-v7-0-f5685804478a@oss.qualcomm.com>
-References: <20260909-b4-kalambo-crd-v7-0-f5685804478a@oss.qualcomm.com>
+In-Reply-To: <20260907061742.10954-1-hemanth.selam@gmail.com>
+References: <20260907061742.10954-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,21 +47,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 09 Sep 2026 00:18:13 -0700, Gopikrishna Garmidi wrote:
-> Qualcomm Kalambo SoC is derived from Mahua SoC with CPU cluster 0
-> removed,leaving only cluster 1 present.
+On Mon, 07 Sep 2026 11:47:40 +0530, Hemanth Selam wrote:
+> This corrects 2 misspellings in comments.  Each is a separate patch so
+> that any one of them can be dropped without touching the rest.
 > 
-> This series documents the board compatibles and adds the SoC and
-> Compute Reference Device (CRD) device trees. It also adds the Kalambo
-> compatible to the UBWC configuration table and allowlists the Kalambo
-> CRD for QSEECOM to enable access to efivars.
+> Nothing outside comments changes.  Every touched C file was checked by
+> dropping its comments, replacing each string literal with a placeholder
+> and collapsing whitespace; what remained was identical before and after,
+> so the compiled code cannot differ.
 > 
 > [...]
 
 Applied, thanks!
 
-[5/5] soc: qcom: ubwc: Add Kalambo UBWC config
-      commit: d9df37ba39ea32f834800103d1a3e62ced8525b8
+[1/2] firmware: qcom: fix typo "uninterruptable" in comment
+      commit: 6359904fbd19a18c267f63e51061c275ddfef647
+[2/2] soc: qcom: fix typo "upto" in comment
+      commit: 5a174856d0ac97699b07cdbf09e0c251b3a60034
 
 Best regards,
 -- 
