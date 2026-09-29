@@ -1,150 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8F53BBFD5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E773B14D6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790716375; cv=none; b=frJFvEoEbUn4fvbtb4IIv+bRsJZDVke7ztbgCOyQNg/cSjsLuCmGOJ/7tg5MVugY1n/oWAwHBfTnLhx8iZXHZVTIo/NNXs6d0ld/ocLy8ArwI9c7lZDRrnvGPoIctO2NbEpfQX+qPkKUmaf8MVLeMODgLiCVFdKzwQS0hEo8HUA=
+	t=1790716471; cv=none; b=DZnmOUtlOU9yQpPyH9iVuB64BjO8weGt6o4jFN4jGQXhMLa0PCuW8Udris25pqHc02ONnuauZa1NU1Ogv4mqCHgf+FpiOoDdOCFPFVST+ypazscxpIszxUj1E3rDynka49/dzHd5xnSi+EkQ/j/Wlfnm9o2xwHvCGnogui/G2cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790716375; c=relaxed/simple;
-	bh=n32Wso1nvIOz97wzPTl7+x6dFwPv5V9yh+Im3nJ8K20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HKUVaPjLMJD2jA08tm+pClczOzuJDd1cl4Sc/KOvlM09iq+Tzg+b/5piWjroEnMmpa1/N5Lugh7Ey1dB0+NoPLxwpWy+GK2Oal5wearJ96u645c1IxwzIR/ERoPRDob6J1RMiAKORXA5fy7yu/ZM7/prh79Amrj9D3Wdu3T9gxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvfcNIyB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790716471; c=relaxed/simple;
+	bh=5/togg/DPk0r7Ug8UPLdLx052cH0w1RAr3Q+/KhfwSI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KetpPJhzfhUQWvccdX1Gk0eEodV6ChQ34XU+RWJlJRrfRShMEsHhLd89LiUGZZs1DpG8TELlFhCuAf2mDsY8rJL2nSBfFa6S3YmTAHINpEhQGWFoLqV+NKLU3PQJbNadO3oJXcBeutxnmxOvJZN/XTHjWx8C/XSB9PPVNy8fRNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KhkW4pZg; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvfcNIyB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E21E1F000FF;
-	Tue, 29 Sep 2026 21:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790716374;
-	bh=0Lpcx1HP/y+MUkTbUdvnEkaGYMJ8tt1DVZq1CrvHB68=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=HvfcNIyBslgzGO7OsnQ7Yk47UvFVBn/G7UcfDoOczq+p6jlKVs8C6sjUzEtSw8eHB
-	 DPvTaPQo9zSCuyC5gi+eiLY/wy/6jPMSjnSHh3owOifwv3YbtoHcZCWbipeg2kWsM3
-	 UYViwvoKpYx+U76W2femKcyQPUKn2rYZH+KF2dcbsp2A0YvEsN5QPLgWx8x0OvQChN
-	 4La0upn4dtoxMXZ8WGkSoc7w/krQESvbDenvHStzfkS+F4t5lv0P/vKq5r8CUfb24t
-	 iPa8itcr3nKPgSBFOUtLIa7GVWSMYthS/6DSC2Y6k3lY4yTA7mQsFISm5NFqnoVxIg
-	 CccmYJUdGvrvQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id EFB52CE3A57; Tue, 29 Sep 2026 14:12:53 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:12:53 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Chris Mason <mason@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] futex: sample poll cookie after publishing new hash
-Message-ID: <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260818011036.1138213-1-mason@kernel.org>
- <20260818011036.1138213-2-mason@kernel.org>
- <20260820104015.GE687043@noisy.programming.kicks-ass.net>
- <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KhkW4pZg"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so26328355e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:14:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790716468; x=1791321268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sHIA1C0brtLm631UlMCeHLnUCZCnWiJvHiU+FJfuc6o=;
+        b=KhkW4pZgUg6TiFYMOVKH+LthuvHRINrTWEQwsyA37RNaAvEVTjs6YgRMTQ5xDmuUPp
+         G4MaJ7+43FSbqeYQ/hkNFJGTlHNv4Y8KYpK3cUYPgHQuu5S7tDptdVQHCCwPPYV2CjdE
+         zPkVFJIe3B41jUSKab7YWnNldj3VS/a2ELXPY365Uvm/Ur9AOSZyxE2/fDNv9ChpFiK1
+         jPSMJourB6EJWIKVsdqj6E/mFwCCm/0Cj9zKDC4oXY1HUKo9bE5TyxfKwRyNbZrjoKxy
+         o7VJYkHTCbZr7IWS11MMHLGbhGvwqs0MFJObrzarJ8Nh9ct6hIaNUsWx5K1OTv8oDF+a
+         GwQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790716468; x=1791321268;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sHIA1C0brtLm631UlMCeHLnUCZCnWiJvHiU+FJfuc6o=;
+        b=TctMP8oaZzl2mn9lKbJHqrHh7BulJ1YmCtD7DAV5oT5hbBDj1bQ4088wobwlVfB6Tf
+         vVsRRhgJSrnwGbmrOiwyrV4pL5uTlnI2D4JABMhL3xeC3taMP2FWIRCDoSS97R7HmWoT
+         l5NduFutXlMQ954VrWs4b9oVwK/+EM+Z3ec02VqswYADlj3Hvtj+UqlA8zopEsN7/La1
+         GZqTXwwZpM8we1ahz/tMn1BxhcuwDrX3YAj6HGeUHAWIUyqOcVI2I4rzL5xPf/g5zzjI
+         qM7WrCEakXfToRDHcTLlZMXj+s7BhdAYaljb/5NCpgfeNP3IcNJPgUPe05uoP3qNzjan
+         QHYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxv4rMmgMriF/B/oKw7I0HHYYcolfs9lh2WptVjlZYDdU7ot1n3cb4p+OcvA1XUDcrHm5PuqnRhGwBiDhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJyDvB9bL6pcvvqbu/Rw2+ewr1IDzDWV7MvjJmoE/XkCkAckRS
+	K+zYo7SVJwM3T9FRliHYbm0Gfz6rJ/qbLi3q7BHq6ZGu7NEOzPkkNHLV
+X-Gm-Gg: AYBFou0ABtMDgm2CHkDMmEQbh5ZL/JbO4srckxSFeEyKtbywde1w0L17ksouv5/3eqp
+	ZDKdMcKHasD/HlL9GyXhdvdfuhDbrMDqwQBvm/ftSKsoe//qCNeB/TQ+hmoCSTegDB+5BdOrb8+
+	6jdlbrIax2WpKpAA//ajY1AdcYsjRe3aTnPzZPZXZVP+e1qshCuZq01NAPskq7Z4KUGs7Mgz6P/
+	8g3aR5nGK6yXc9UzN+Xofb9vBj62Y9YYucpWUYlpXYam20erqqgVrbTLr29uVgLDlZSDBPFJicd
+	zvqp+2fPqM+LOsyXqgTI2tYUpNcKo4HuFFwRmnEu/wlPmbLciOcMN8tv0/LaGIEBUxkcKDVz9Xc
+	ERb+rDmeLOKsDC2N5Ox6YNp3TLmBwgKgj4stWpc9Bi4L2PUWQUylOfYsHKcyuS1YwiHz6XSujKS
+	11m5+7K2XNImhRke7YFSfAMi8LpAl3IjQ82cSu5HIcD+xyMU2xhOmGftEJmdx+0JzcrKritD0h/
+	g97MBFpk+y/X0pcqdRgUivZbtIli5/ZzEzfbw0W7lmpBeZk/S/pfp0z/3cnplJUK/sq2iA+gxoN
+	/J9evgX/ARphui/n
+X-Received: by 2002:a05:600d:444c:20b0:4a0:151e:f72b with SMTP id 5b1f17b1804b1-4a0151efbb4mr3025585e9.12.1790716468039;
+        Tue, 29 Sep 2026 14:14:28 -0700 (PDT)
+Received: from ?IPV6:2a00:1358:e0fb:c500:351f:e304:7fce:781b? ([2a00:1358:e0fb:c500:351f:e304:7fce:781b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015cbc3basm366305e9.2.2026.09.29.14.14.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 14:14:27 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <f3a26a6d-e2ea-4d84-9e3f-fa8e0d891728@gmail.com>
+Date: Tue, 29 Sep 2026 22:14:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] kconfig: tests: Reset all KCONFIG_* env variables
+ by default
+To: Nicolas Schier <n.schier@fritz.com>, Nathan Chancellor
+ <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, Ulf Magnusson <ulfalizer@gmail.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260929-kconfig-tests-minor-updates-v2-0-c5902bee1d0c@fritz.com>
+ <20260929-kconfig-tests-minor-updates-v2-1-c5902bee1d0c@fritz.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260929-kconfig-tests-minor-updates-v2-1-c5902bee1d0c@fritz.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 05:58:13PM +0000, Chris Mason wrote:
-> On Thu Aug 20, 2026 at 10:40 AM UTC, Peter Zijlstra wrote:
-> > On Mon, Aug 17, 2026 at 06:01:42PM -0700, Chris Mason wrote:
-> >> futex_ref_drop() may only skip its grace period when one has already
-> >> elapsed since the current private hash was published:
-> >>
-> >>     kernel/futex/core.c:futex_ref_drop
-> >>         if (poll_state_synchronize_rcu(mm->futex.phash.batches)) {
-> >>                 /*
-> >>                  * There was a grace-period, we can begin now.
-> >>                  */
-> >>                 __futex_ref_atomic_begin(fph);
-> >>                 return;
-> >>         }
-> >>
-> >> The cookie it polls is sampled one statement before that publication:
-> >>
-> >>     kernel/futex/core.c:__futex_pivot_hash
-> >>         new->state = FR_PERCPU;
-> >>         scoped_guard(rcu) {
-> >>                 mmph->batches = get_state_synchronize_rcu();
-> >>                 rcu_assign_pointer(mmph->hash, new);
-> >>         }
-> >>         kvfree_rcu(fph, rcu);
-> >>
-> >> get_state_synchronize_rcu() anchors its guarantee at the snapshot, so
-> >> the cookie is cleared by the first grace period that starts from there
-> >> on, including one starting between the two stores which never waited
-> >> for a reader that loaded the old hash after it began.
-> >>
-> >>     CPU 0 (resize)                    CPU 1 (futex_hash)
-> >>     ==============                    ==================
-> >>     __futex_pivot_hash()
-> >>       batches = get_state_...()
-> >>                                       grace period starts
-> >>                                       guard(rcu)
-> >>                                       fph = old hash
-> >>       rcu_assign_pointer(hash, new)
-> >>       kvfree_rcu(old hash)
-> >>     futex_hash_allocate()
-> >>       futex_ref_drop(new hash)
-> >>         poll_state_...() -> true
-> >>         __futex_ref_atomic_begin()
-> >>           atomic = LONG_MAX
-> >>                                       futex_ref_get(old hash) -> true
-> >>                                       spin_lock(&fph->queues[i].lock)
-> >>
-> >> The reference count lives in the mm and has just been biased for the
-> >> new generation, so the stalled reader pins and then locks the retired
-> >> hash that is already queued for free, and its later put is charged
-> >> against the live generation.
-> >>
-> >> Fix by sampling the cookie after rcu_assign_pointer() publishes the
-> >> new hash. Drop the surrounding scoped_guard(rcu) while at it: it only
-> >> delayed completion of the prematurely anchored grace-period and serves
-> >> no purpose once the cookie is sampled after publication. The writer
-> >> side is serialized by mm->futex.phash.lock and neither
-> >> rcu_assign_pointer() nor kvfree_rcu() requires a read-side section.
-> >
-> > God, how I hate reading AI output :-(
-> >
-> > Anyway, the thinking was that by holding rcu_read_lock(), the current
-> > RCU-GP cannot change and the cookie and assignment are effectively
-> > 'atomic'.
+On 9/29/26 08:59, Nicolas Schier wrote:
+> Reset all environment variables with names starting with 'KCONFIG_' from
+> the user-provided environment.
 > 
-> >From what I can tell there are a few ways for new grace periods to start
-> while we're holding rcu_read_lock(), synchronize_rcu_expedited() if no
-> GP is currently in flight being the easiest?
+> This fixes the 'warn_changed_input' test on systems with
+> KCONFIG_WARN_CHANGED_INPUT=1 and ensures a cleaner test environment.
 > 
-> Anyway, this BUG_ON() fires for me:
-> 
-> diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-> index a061f54b6..18d51c145 100644
-> --- a/kernel/futex/core.c
-> +++ b/kernel/futex/core.c
-> @@ -215,6 +215,14 @@ static bool __futex_pivot_hash(struct mm_struct *mm, struct futex_private_hash *
->  	new->state = FR_PERCPU;
->  	scoped_guard(rcu) {
->  		mmph->batches = get_state_synchronize_rcu();
-> +		/*
-> +		 * Fires only if a grace period started after the cookie
-> +		 * above was taken, although rcu_read_lock() is held. That
-> +		 * grace period then satisfies the stored cookie, yet it began
-> +		 * before the new hash is published below.
-> +		 */
-> +		BUG_ON(!same_state_synchronize_rcu(mmph->batches,
-> +						   get_state_synchronize_rcu()));
->  		rcu_assign_pointer(mmph->hash, new);
->  	}
->  	kvfree_rcu(fph, rcu);
-> 
-> -chris
-
-This matches my understanding of RCU.  Although rcu_read_lock() will
-prevent a *new* RCU grace period from ending, it will not prevent an *old*
-one from ending or a new one from starting.
-
-							Thanx, Paul
+> Fixes: 645323a7f4e5 ("kconfig: add optional warnings for changed input values")
+> Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+Reviewed-by: Julian Braha <julianbraha@gmail.com>
