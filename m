@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7825C3B0ADE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7813D3AFD18;
 	Tue, 29 Sep 2026 20:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715118; cv=none; b=RTtY1DFNEvy6+Q0XTHJ6Yl0HWKIgTLLrvn+mKIKxTLsoMQFOB/P+TmIzxvFetmUrlIhIELKr06CwbcjQx27HyaDhqD7UWaA3bycVg5H9GfcTWzI1qBZXQbKkxmFCmzxfVUNoum7H+kwaCMx8yI8p7gzafcAJChY9wa16boSXmME=
+	t=1790715118; cv=none; b=ILHoELzfvQDhb0E0lIW0hd2m5h7gfl+f4wcnNupBQVfG2mQ1T9Hl4f7LQLj8LIdEAro0Sildg75RBVcHvqO1c2EsAkcoO61bkAFe9n82WvM6or5xPtiXaa0/pQTA9wiXi4yX5IwbQ4EkK+EXWUGMp8l9ekN+hqqmBbLiQAfV4Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790715118; c=relaxed/simple;
-	bh=yMXlm7fl8wPjVC8wr1zDe/3bBhAXU0dk9oPkRIGtYbo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Fkjh8Y6y0XJLNee9VmTBSDsWNm7gmdkNpofxDvDuGYsND9TduOHK6cb7ZFIT6ufEontsvTZ5FJUB2vJgq6Z5U+NC1qogT5QIUDfXtDGPl9XBJCoLAwk+SmOpul8XvcqDaYulERywZCzecWmeqnCXmuDrGWNJapwd9CvQCA3lBYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrF+oqSI; arc=none smtp.client-ip=10.30.226.201
+	bh=Po8Iu8ke9WuoNZA0H28y5N7b4qHGP69FGvXHpdPUr5M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AD74Vyr2mBYjnuSYlD9+uBVLOINZgerGRZf/ciFOt7amOC1oolWoSpZOLVaqApcrW0pC+jF7i8PTETl/HRz4xqhHZP2bRkbb8TYlx+5Z9jv3zCPEImQM3FOGqsqj2pcmXukO+sGa/lVLgmy61VFY8SsKqwT5uB+ug2kh9J9R2bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3vaxc04; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrF+oqSI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A9DDC4AF0B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3vaxc04"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 48751C4AF15;
 	Tue, 29 Sep 2026 20:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790715118;
-	bh=yMXlm7fl8wPjVC8wr1zDe/3bBhAXU0dk9oPkRIGtYbo=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=WrF+oqSIrj1h/LfB3N/GfBA3AbAptzRUAdrMaxXSD6IPuQhN51GLXMTYsP+KorDa4
-	 Sc96thbiEoyPACcBXliECuI21+zMxc0tTIT6uqeOKgIz11yX8uBJpJC0D+UbnzLjF0
-	 omXqO2UfjddcY0Cyhy04gtIgC9f8txyFEVC3Sn4SRGqcC0jXVIKGepBi4Pooi+m288
-	 xgRMkLPhT916Wx/yH3cAK/A6v9YZdg4508XxvnmiHqPvFfl5TuqAql7wrs9kAkoHwf
-	 lFdRxyy59YJkfmRUqsV3bNQkZvJmCA4ASmKS0ohwIfGKNvuuoOE2HxhtXlxrc1COdA
-	 geRYweKToprOQ==
+	bh=Po8Iu8ke9WuoNZA0H28y5N7b4qHGP69FGvXHpdPUr5M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=U3vaxc04JXfFtYOzlZ1cRcekrT/N9wZ7XfzPSrunM6FLgnilDAwIN0t9JNw3u8M+P
+	 nsNSuRaRvAJPX4nupOsV3JPZoVjZmA11Vk3aBdcyXTS2MIBRL/Xbyo7lC8RPX+Vr7E
+	 gAiO7TQ5O8W77aMfl4BKpG9mw8z491HJYH9+nExb/8lh0yBP7sdnEDn7qjmmi+1Eq4
+	 zI94hVRd1OkzHzAjwRHZvP6sjaXoY95nshBAeqST5+sFvu/YRqOWjU8I8WGLxCvW/B
+	 lMoirBbq2tA9ZzvdHZU8Se22ihrKQIICUOQJVf8e4OYadnoXt7gFQ03e5Z/Hy31Q30
+	 XY2s1Af21Np+g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06E10CA5FA5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 312D4CA5FB3;
 	Tue, 29 Sep 2026 20:51:58 +0000 (UTC)
 From: Fabio Forni via B4 Relay <devnull+development.redaril.me@kernel.org>
-Subject: [PATCH v3 0/3] Migrate the multiplexer subsystem to fwnode
-Date: Tue, 29 Sep 2026 22:51:45 +0200
-Message-Id: <20260929-mux_fwnode-v3-0-9b3b9ae1334e@redaril.me>
+Date: Tue, 29 Sep 2026 22:51:48 +0200
+Subject: [PATCH v3 3/3] mux: Avoid use-after-free of args.fwnode in
+ mux_get()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,25 +40,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MQQ6CMBBFr0JmbQ0ttqGuvIcxpjJTmUTBtFoxh
- LtbWEni8v2f90aIFJgi7IsRAiWO3HcZqk0BTeu6KwnGzKBKZUortbi/hrN/dz2ScNJoWzWV9R4
- hC49Anocldjxlbjk++/BZ2knO699MkkIKQu0M1vnH3SEQusC37Z1g7iT165qVq7Kray+x1heLS
- Ct3mqYvpzksaOEAAAA=
-X-Change-ID: 20260915-mux_fwnode-a16593c39ffd
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-mux_fwnode-v3-3-9b3b9ae1334e@redaril.me>
+References: <20260929-mux_fwnode-v3-0-9b3b9ae1334e@redaril.me>
+In-Reply-To: <20260929-mux_fwnode-v3-0-9b3b9ae1334e@redaril.me>
 To: Peter Rosin <peda@lysator.liu.se>, Linus Walleij <linusw@kernel.org>
 Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
  xu.yang_2@nxp.com, 
  =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
  Fabio Forni <development@redaril.me>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1874;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2785;
  i=development@redaril.me; h=from:subject:message-id;
- bh=yMXlm7fl8wPjVC8wr1zDe/3bBhAXU0dk9oPkRIGtYbo=;
- b=owGbwMvMwCXWeKho1tqFWemMp9WSGLL2qLxZdVdt8c6NVcu6tcrsIu+tNl7gH/TIQeuaDOvV5
- oL1bwRbOkpZGMS4GGTFFFn+Oxlt6jYzMbrVL1ELM4eVCWQIAxenAEwkeQfD/1ANw/TrhtvyDmW7
- rZ95id+442Dtzp3p7IptArE9R1x3mjAynL4amXfmx/klC7bKrmhrfT3VyfxqBcvz+eee7n+c7/S
- giwkA
+ bh=e0+O4F+HF3uayRpoSd/VVnjt9CLFt59iD9UZlQ8qXHY=;
+ b=owGbwMvMwCXWeKho1tqFWemMp9WSGLL2qLxZsfDG1lcLwz1W5IVfbumxdMll5NAvrThvXcj0Y
+ QbH4RttHaUsDGJcDLJiiiz/nYw2dZuZGN3ql6iFmcPKBDKEgYtTACYiWc7wPzxXeNcJZYc169IX
+ f3z//tPf1I1NjO5vwrUYPhUtbfVbVMjIcG5WA+d/uas6Z2fcWV+pYdf+nGVi9a7UdXPDnYo6VLT
+ N+QA=
 X-Developer-Key: i=development@redaril.me; a=openpgp;
  fpr=FF4232B28B363432DA8F187D81C2729AADA16A67
 X-Endpoint-Received: by B4 Relay for development@redaril.me/default with
@@ -65,47 +64,91 @@ X-Endpoint-Received: by B4 Relay for development@redaril.me/default with
 X-Original-From: Fabio Forni <development@redaril.me>
 Reply-To: development@redaril.me
 
-This patch migrates the multiplexer subsystem from using the of_*          
-family of functions and structs, to the more generic fwnode framework.     
-                                                                           
-It is a rebase of a single commit[1] contained in a old patch series[2]
-submitted by Xu Yang. The original commit plus follow-up comments were
-tested on kernel v6.12 on an arm64-based board, but this current rebase
-isn't tested yet.                                                  
+From: Fabio Forni <development@redaril.me>
 
-While at it, a use-after-free bug was fixed in mux_get(), as suggested by
-Alvin Šipraga.
-                                                                           
-Link: https://lore.kernel.org/all/20220823195429.1243516-3-xu.yang_2@nxp.com [1]
-Link: https://lore.kernel.org/all/20220823195429.1243516-1-xu.yang_2@nxp.com [2]
+fwnode_handle_put(args.fwnode) was called right after
+mux_chip_find_by_fwnode(), but it was too early because the error
+handling code below would pass args.fwnode to dev_err().
+Let's move all freeing functions to the bottom of mux_get() to avoid
+use-after-free bugs.
 
 Signed-off-by: Fabio Forni <development@redaril.me>
 ---
-Changes in v3:
-- Expand documentation of mux_chip_find_by_fwnode().
-- Fix use-after-free bug in mux_get().
-- Link to v2: https://lore.kernel.org/r/20260916-mux_fwnode-v2-1-58f1d85b9dde@redaril.me
+ drivers/mux/core.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-Changes in v2:
-- Rename devm_mux_state_get_from_swnode into devm_mux_state_get_from_fwnode
-- Link to v1: https://lore.kernel.org/r/20260915-mux_fwnode-v1-1-ed5a6d8202d4@redaril.me
+diff --git a/drivers/mux/core.c b/drivers/mux/core.c
+index d5121772c483..8bf8c79bc634 100644
+--- a/drivers/mux/core.c
++++ b/drivers/mux/core.c
+@@ -545,6 +545,9 @@ static struct mux_chip *mux_chip_find_by_fwnode(struct fwnode_handle *fwnode)
+  * @optional: Whether to return NULL and silence errors when mux doesn't exist.
+  * @node: the device nodes, use dev's fwnode if it is NULL.
+  *
++ * When a mux-control is found, it is the caller's responsibility to call
++ * mux_control_put() on it when it is no longer needed.
++ *
+  * Return: Pointer to the mux-control on success, an ERR_PTR with a negative
+  * errno on error, or NULL if optional is true and mux doesn't exist.
+  */
+@@ -597,9 +600,10 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
+ 	}
+ 
+ 	mux_chip = mux_chip_find_by_fwnode(args.fwnode);
+-	fwnode_handle_put(args.fwnode);
+-	if (!mux_chip)
+-		return ERR_PTR(-EPROBE_DEFER);
++	if (!mux_chip) {
++		ret = -EPROBE_DEFER;
++		goto end;
++	}
+ 
+ 	controller = 0;
+ 	if (state) {
+@@ -607,8 +611,8 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
+ 		    (args.nargs < 2 && mux_chip->controllers > 1)) {
+ 			dev_err(dev, "%pfw: wrong #mux-state-cells for %pfw\n",
+ 				fwnode, args.fwnode);
+-			put_device(&mux_chip->dev);
+-			return ERR_PTR(-EINVAL);
++			ret = -EINVAL;
++			goto end;
+ 		}
+ 
+ 		if (args.nargs == 2) {
+@@ -623,8 +627,8 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
+ 		    (!args.nargs && mux_chip->controllers > 1)) {
+ 			dev_err(dev, "%pfw: wrong #mux-control-cells for %pfw\n",
+ 				fwnode, args.fwnode);
+-			put_device(&mux_chip->dev);
+-			return ERR_PTR(-EINVAL);
++			ret = -EINVAL;
++			goto end;
+ 		}
+ 
+ 		if (args.nargs)
+@@ -634,10 +638,17 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
+ 	if (controller >= mux_chip->controllers) {
+ 		dev_err(dev, "%pfw: bad mux controller %u specified in %pfw\n",
+ 			fwnode, controller, args.fwnode);
+-		put_device(&mux_chip->dev);
+-		return ERR_PTR(-EINVAL);
++		ret = -EINVAL;
++		goto end;
+ 	}
+ 
++end:
++	fwnode_handle_put(args.fwnode);
++	if (ret < 0) {
++		if (mux_chip)
++			put_device(&mux_chip->dev);
++		return ERR_PTR(ret);
++	}
+ 	return &mux_chip->mux[controller];
+ }
+ 
 
----
-Fabio Forni (3):
-      mux: convert to use fwnode interface
-      mux: Document mux_chip_find_by_fwnode()
-      mux: Avoid use-after-free of args.fwnode in mux_get()
-
- drivers/mux/core.c                    | 134 ++++++++++++++++++++--------------
- drivers/pinctrl/pinctrl-generic-mux.c |   4 +-
- include/linux/mux/consumer.h          |   6 +-
- 3 files changed, 86 insertions(+), 58 deletions(-)
----
-base-commit: f6e7b42bf05b2427fb8a7a1d1c387a86638bb413
-change-id: 20260915-mux_fwnode-a16593c39ffd
-
-Best regards,
 -- 
-Fabio Forni <development@redaril.me>
+2.55.0
 
 
