@@ -1,303 +1,289 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E2D31E831;
-	Tue, 29 Sep 2026 00:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790641924; cv=none; b=rsV6nYtzZLZEkEBL3OOGLRZT8yuHHkXwDVaxkdqNTOOCt5K3b08Bt9iez7pgo0Z+2+RBIoBL5nXBXCdUgfyczt90QOrRG3a0GycBBf9oNLuxvF6r1NgOEQWnyVFVUpfUsED4/xrUXoVpd1ZpKgforrVVUTD6XAlXkEvxHhtX0hM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790641924; c=relaxed/simple;
-	bh=UXA5wu3CPeF7BOYx+25TH+fwtBXd4GyFGZsJDj0EmOc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ddao9zLuJkRxQRuv2hjn/ePJJVul2eoAJTKhOJGeSSj+XUK0BRVbF0KNjcxELWmXAurQKcsFGjMMX+64NreSUptuy+LiVZvDkexlvznyuS4AWNRh7H4JpbbO1+Cp5CJryKp3dTiyDZae6gTwyUny6fX9SFpr70lvWAY4mBUULi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAxO1vpp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49DE339394
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790642046; cv=pass; b=cP+a+5Ycr6G4COZap+0LrcpT6L2eR7DP4TsTuJijfOYQYPGPfYG67d/Q8/lWG1tZcFruZx+ENv32Ahjv9uvrx6uapWLs1QVUYaYwN3aaiy0Q3XkWrou8uczzL1SKdipjgXGwwGpodCdvFQyVqgtuhEWTf+qTQw3aoZpQP3AVIxg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790642046; c=relaxed/simple;
+	bh=mqqf+qQWt+Rbqdkot/GN8JguHjkq9KCxIN9/UveGBuw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Fq3AUgNT2DaVyzv59ZIEJH+u5aZ2myyi4Aiw8K8t3I9e7zGATHdcaH4gepWJkHWkSJwU88XE6tFWzMA7tJ8Z+l1eNSBcp9Crk/jd1RcLz70R0AFKAGRGzqIc+s5fA3Ip0iUH465Qm6G1eVsCCSfJuYn/sYEq4Vnja4tpY9vvg6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n7iBESiK; arc=pass smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAxO1vpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210E31F00893;
-	Tue, 29 Sep 2026 00:32:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790641923;
-	bh=YZi1ypieVFvTNbRUJLyNDXRClXWjs3iDMCHGJQWrE/8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BAxO1vpp0GmfaW7ho7ka6JvRhmzh1DzOpd4Wrlmv/2gsZVyZUUhkzHBznPhlfxTQZ
-	 llj6q9TD4B65BZBT7jHA+Yo9FNAMVLNSGRvDCNoldX4MZwaYXq06txMR1UBsjURSdT
-	 8GR2sWgF9HJaGzK7fD8h67DA/P+qNxlRNPwEW3qvebwC5AX+qdZGgL6tg86pmqZaeY
-	 fkBIoILmwrJg/KPRXHjqLIJBkCYpfirIVI5AZDAero0PvSjizhib6+FF8NP0qyj5QP
-	 b5IrrHsTmTs9WJmu6xwxjjWdIte72oKDNPf2ao1MIN6xbgc5obqlsq/pdIJE1tSQXM
-	 3Hx/b74YEfjuQ==
-Subject: Re: [PATCH net-next v4 2/2] net: phylink: wait for PHYs that are
- known to probe late
-From: netdev-bot+sashiko@kernel.org
-To: f@lex.la
-Cc: netdev@vger.kernel.org, linux@armlinux.org.uk, andrew@lunn.ch,
- andrew+netdev@lunn.ch, hkallweit1@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, conor@kernel.org,
- f.fainelli@gmail.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 00:32:01 +0000
-Message-ID: <179064192169.3145.15914679496475412857@kernel.org>
-In-Reply-To: <20260925001209.2334139-3-f@lex.la>
-References: <20260925001209.2334139-3-f@lex.la>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n7iBESiK"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334e72so14565345ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:34:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790642044; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nO6urufgWwmxxQFTW4eSBzoL843tWVCgJWcN2M0ivUkM6aNoaPSAcOSvhdFucV5r4X
+         ckcoSIspq7MoiifITjL9V5eEDz9OCE/60I5yIinGy3QJCT+UC+2rvy+hH96m3dHrooRd
+         qFrc9e17deT0in/vq/b8PHjkM62ExIWaPzZLShSplFlFSIRHrJwezpRmCHUaDgUXFAw7
+         4UoHXggKQkFIYDV0Oki5Wwj5g3ApjegUs1mmhcdpg8SMFKVxvuLGvJq+SBeCPkhjHUSN
+         ch+jBp2U42anlMLrtztalcYnjTBWiHfKM+wStPikCfSwV5uqIQMNzF1eTNlxhm7x94R3
+         vsxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
+        fh=qUVtq3TaYu3ln/t6v/bGDAIHXnHlKKaTWDM47SCuM9A=;
+        b=nfGPmuHWVJ5yde5n/yjO+h0CslHAWuOSHn4OL6GGYqn0wsa7z/ikHkuLr4y2/jIes5
+         3KwxPGZLrsDGKtzKN35DKvdntbjk6To/LkahmV83h6BCjHBTX8KX6IvFDwXW8OHuzQoE
+         P1VsMNOeH9DRA39DPZljbdVT30f35XCDVBTh5RyvF0R/uUf1oOKAFFwCTc4uDYlNm81t
+         Y8E/MfHa5UkRNWdG9QUxqNMAy0RpF0ZGSOKSg0M/5y5ySblRGfpC/uE5vUib2dnriWUj
+         Xlj6DTSb66fyv4LVAEUEoFRUs9GdO0kg1UH7maC/xaf6mu2deTStERJIc8F2HjJG/Dfl
+         uwfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790642044; x=1791246844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
+        b=n7iBESiKQuXPl+D1SnhYCYUtZp8c2Ol/jzYYR/hVn8ErMURwt82lFz12MoGlOwaRdk
+         nteXEKXL2S825s+ImVdSJZYoSF2q+w4EmE1BXPwa8Gh7qAV8tU0tiaWeQQA2jDirFk49
+         f5brpDOXk1KWrsoldKuyCojmftqwTPQSvnOXRRb+8QIAIqBsaub1HF0qPT0DlnZxKwcM
+         nb+ZSg+/CsOY9aWUIdux3RhV0zAQPkw+dw+gkmIjpFFf7neewsWZuI7/9w6cgDjLM2j5
+         OHApmLI7jCSj9Lv7sNLQUug3/dbuX+9qLEmZLsxHLhVWU0twhGysgqhJlyY4Tirtju7k
+         CkfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790642044; x=1791246844;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
+        b=SIr1u1XmnUyEynayhxFlFezGsb4MSUmg5dAceuwgLIn/SdGIkuxAj8crhLC3iARrhd
+         RH23RYQ2itc/NCXZRObBkMROwTjMNqNu7DD7LIsoUbyXimh/Y9+qHfTfMAd5ZZXORUpo
+         vSbT8h4STUf5FaN/Z+AOZgA8LQ8gfADdZZwo47C1PXf9jDTouiwBn4k9baSEe+ZOB99x
+         ClGEWZfZmbSY+CtW52z3kGV/cCkuHmFAgKGeSKT3L14NAglVNhLuM00dRg9lBgaPyC4X
+         ZqVcmcjk0Q5bDzlOQmsjDjULawo75kY5zeOV9Kk3yHaMxY7T4Lb/LCuolmwUtBn/IYMT
+         iCUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF2b9s1aLDGMCk4YnPFOCVg9IR6a95Aw64cH+Z1i+RxJk5UJT+tT787+ickYWEQ4O4gCPVP1dBEhAot2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFFsxhLyiGlVMXGt2KJJesWKzqrEWp9OdQmGkARVhD8PFP35Xs
+	vPBYRS50vcvQsrgJlwhbWkybWMajaUc548AhR2keeJsoJNePV9xnu0JAI9Xh5TghghjV9Nz/bZJ
+	q/iFjbhenTMPKR+goNVlwjyFp0Mr2/qk=
+X-Gm-Gg: AYBFou23VAnN67xcUf0imyry23nDnVZVFcy4w+q8wD5U9nIQkCMbsccVN8tFzqF3wmf
+	e95Ta5RCfHBG9v2ZEIKWBnpNwMXEBcviGWwmDpGgRly9gi/VyhKv6qveUYXvpIaYiuE3JoqR8d7
+	ELmV0hudrM3tlDnQWymdWFD0cSENSiF5Axz123S8p0KkOyO/RBbvFlANR90M81j+lcN9fbhOdSm
+	IxGVb6vs2p9oO/u+9L26TONpn8MZp9E6O35FPoakTO09Svtg0oU+7DP8BCngBGdQ137SHynSkq7
+	s5IA7LuUJPrqsXUkJHk6FhJrO45WwP5lpjxkoqYVryRWt0qd47Kw1vQDBDj0qwB3XDGWAJOTE0Q
+	otUgHhvpa2BOsTrgAG/P3ygjv2spmrvLPPjGN
+X-Received: by 2002:a17:903:1b2e:b0:2df:9e2d:862a with SMTP id
+ d9443c01a7336-2df9e2d8d3fmr73249655ad.54.1790642044011; Mon, 28 Sep 2026
+ 17:34:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <179060575297.372125.10581329083761385407.stgit@devnote2>
+ <f593867e-dcef-4f68-b609-a253f489f7b8@paulmck-laptop> <20260929082828.cd9844b5e632a23fd8308dbf@kernel.org>
+ <b39d3368-fc5c-49a6-b47e-c58224a23e07@paulmck-laptop>
+In-Reply-To: <b39d3368-fc5c-49a6-b47e-c58224a23e07@paulmck-laptop>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Mon, 28 Sep 2026 17:33:50 -0700
+X-Gm-Features: AclHuK_dKxBmfWWtMMiZMhNO8faLQ6MSkCT-v4tR7n5AaQQqt0IRUGrLd9FCGkc
+Message-ID: <CAEf4BzZGdpbX5TdtgbDvDZEsj4wDQiLX94dz-wKfM9aCQJHzzg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] fprobe, rcu/tasks, rhashtable: Switch fprobe and
+ BPF kprobe-multi to Tasks-Rude RCU
+To: paulmck@kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Thomas Graf <tgraf@suug.ch>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Chris Mason <clm@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On Mon, Sep 28, 2026 at 5:04=E2=80=AFPM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
+>
+> On Tue, Sep 29, 2026 at 08:28:28AM +0900, Masami Hiramatsu wrote:
+> > On Mon, 28 Sep 2026 09:25:02 -0700
+> > "Paul E. McKenney" <paulmck@kernel.org> wrote:
+> >
+> > > On Mon, Sep 28, 2026 at 11:29:13PM +0900, Masami Hiramatsu (Google) w=
+rote:
+> > > > Hi,
+> > > >
+> > > > Here is an RFC patch series which removes standard RCU read lock
+> > > > (guard(rcu) and rcu_read_lock()) from fprobe callback paths
+> > > > by switching fprobe and BPF multi-kprobe to Tasks-Rude RCU.
+> > > >
+> > > > Motivation & Problem
+> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > >
+> > > > Currently, fprobe entry and exit callbacks (fprobe_fgraph_entry,
+> > > > fprobe_return, and fprobe_ftrace_entry) execute in the tracing hot
+> > > > path where preemption is disabled.
+> > > >
+> > > > However, fprobe was forced to wrap hash lookups with guard(rcu)() a=
+nd
+> > > > rcu_read_lock() because:
+> > > >
+> > > > - rhashtable defers bucket table deallocation using standard RCU
+> > > > - unregister_fprobe() and BPF waited for a standard RCU grace perio=
+d
+> > > >
+> > > > Taking standard RCU read locks in the tracing fast path introduces
+> > > > several drawbacks:
+> > > >
+> > > > 1. Unnecessary Runtime Overhead:
+> > > >    Every probe hit manipulates current->rcu_read_lock_nesting with
+> > > >    memory barriers, and rcu_read_unlock() adds conditional branches
+> > > >    to check for special quiescent processing.
+> > > >    On debug kernels with CONFIG_PROVE_RCU=3Dy or CONFIG_LOCKDEP=3Dy=
+,
+> > > >    this additionally acquires and releases lockdep maps on every hi=
+t,
+> > > >    introducing severe lockdep hashing overhead and tracer recursion=
+ risks.
+> > > >
+> > > > 2. Fragile Dependency on rcu_is_watching():
+> > > >    Standard RCU treats idle CPUs (and user-space on nohz_full CPUs)=
+ as
+> > > >    Extended Quiescent States (EQS). If a function is traced while
+> > > >    rcu_is_watching() is false, standard RCU is blind to the read-si=
+de
+> > > >    critical section. In such contexts, synchronize_rcu() does not w=
+ait
+> > > >    for the reader (risking Use-After-Free), and lockdep emits an
+> > > >    "RCU-illegal: rcu_read_lock() used while not watching!" warning.
+> > > >    To avoid this, ftrace callbacks normally require FTRACE_OPS_FL_R=
+CU,
+> > > >    adding extra trampoline check overhead.
+> > > >
+> > > > 3. Asymmetric Synchronization with fprobe_return():
+> > > >    fprobe_return() executes under preempt_disable_notrace() without
+> > > >    holding rcu_read_lock(). Prior to this series, unregister_fprobe=
+()
+> > > >    only waited on synchronize_rcu(), which does NOT wait for pure
+> > > >    preempt-disabled sections, leaving a potential Use-After-Free wi=
+ndow
+> > > >    during probe unregistration.
+> > > >
+> > > > I've tried to fix the last UAF with simply introducing guard(rcu)()=
+[1]
+> > > > but Sashiko found the 2nd problem [2]. So I decided to implement th=
+is
+> > > > series.
+> > >
+> > > Unless I am missing something subtle, Sashiko needs to be taught a
+> > > little bit more about RCU.  Preemption-disabled regions of code reall=
+y
+> > > are valid RCU readers.  If you have a reproducer showing that this is
+> > > not the case in some situation, that would be a bug in RCU.
+> >
+> > Thanks for the clarification!
+> > So I think we can replace rcu_read_lock() with rcu_read_lock_sched_notr=
+ace()?
+> > (also, maybe we need to add rcu_is_watching() check)
+>
+> That would work, and yes, you are quite right that if !rcu_is_watching(),
+> RCU is studiously ignoring you completely, no matter what your preemption
+> state is.
+>
+> > Current code may involves lockdep in fprobe, that is not good.
+>
+> Agreed, that could be problematic in any number of contexts.  ;-)
+>
+> > BTW, if we want to trace some code in extended quiescent state, do we
+> > still need this Tasks-Rude RCU?
+>
+> Well, you need something other than vanilla RCU, anyway.  And Tasks Rude
+> RCU is one candidate, though it is also a candidate that might annoy
+> people wishing to minimize IPIs.
+>
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 2
+Would RCU Tasks Trace be a better candidate given uprobes and
+sleepable BPF depends on it? Would it work here?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Returning success before the PHY is attached causes a NULL
-  pointer dereference in ucc_geth_open() on CONFIG_PPC_85xx.
-- [Medium] The patch changes what a 0 return from
-  phylink_fwnode_phy_connect()/phylink_of_phy_connect() means: it can…
-- [Medium] The poller attaches the PHY based on a lockless readiness
-  check, phylink_phy_is_usable() (`device_is_bound()` &&…
-- [Low] Before this patch, a successful phylink_fwnode_phy_connect() in
-  MLO_AN_PHY mode always replaced a PHY_INTERFACE_MODE_NA link_interface…
-- [Low] The new kernel-doc of phylink_fwnode_phy_connect() says that for
-  a needs-host-firmware PHY that is not usable yet, 'a poller connects…
-
---
-
-net: phylink: wait for PHYs that are known to probe late
-
-This commit changes phylink_fwnode_phy_connect() for PHYs whose DT node
-has needs-host-firmware and whose driver has not bound yet. It now
-returns 0 and arms a delayed work poller, which attaches the PHY once
-the driver binds. Until then, the ethtool paths report no link modes and
-refuse configuration changes.
-
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index a7d086cdc9b25..4a5b98b558891 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-
-[ ... ]
-
-> +/* Stale the moment it returns: the device lock this wants cannot be held
-> + * across the attach, whose own failure path takes it again.
-> + */
-> +static bool phylink_phy_is_usable(struct phy_device *phy_dev)
-> +{
-> +	return phy_dev && device_is_bound(&phy_dev->mdio.dev) && phy_dev->drv;
-> +}
-
-[ ... ]
-
-> +	ret = phylink_attach_phy(pl, phy_dev, pl->link_interface,
-> +				 pl->late_phy_flags);
-> +	if (!ret && phy_driver_is_genphy(phy_dev)) {
-> +		/* Lost the race: the attach bound the generic driver, which
-> +		 * is the outcome this poller exists to avoid.
-> +		 */
-> +		phy_detach(phy_dev);
-> +		lost_race = true;
-> +		ret = -EAGAIN;
-> +	}
-> +	if (!ret) {
-> +		ret = phylink_bringup_phy(pl, phy_dev,
-> +					  pl->link_config.interface);
-
-[Severity: Medium]
-What happens if an unbind of the PHY driver overlaps this attach? Sysfs
-unbind, rmmod and MDIO bus teardown take only the device lock, not rtnl.
-__device_release_driver() runs its steps in this order:
-
-__device_release_driver()
-    device_remove(dev)
-        phy_remove()
-            phydev->drv = NULL;
-    ...
-    device_unbind_cleanup(dev)          <- clears dev->driver
-    klist_remove(&dev->p->knode_driver);
-
-In that window phy_attach_direct() still sees d->driver non-NULL. It
-does not select genphy and leaves is_genphy_driven at 0. Then it calls:
-
-	if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
-
-That dereferences the NULL drv.
-
-If the attach does get through, phy_driver_is_genphy() is false here, so
-the lost_race recovery does not run. phylink_bringup_phy() then does:
-
-	phylink_info(pl,
-		     "PHY [%s] driver [%s] (irq=%s)\n",
-		     dev_name(&phy->mdio.dev), phy->drv->name, irq_str);
-
-Under rmmod, try_module_get(d->driver->owner) fails with -EIO instead.
-That uses up one of the bounded retries as if the connect had really
-failed.
-
-The commit message says the attach-versus-unbind window is phylib's to
-close. But the poller decides when to attach, based on a check it
-documents as stale. Could this oops the work item while it holds rtnl?
-
-[ ... ]
-
-> @@ -2418,7 +2578,13 @@ EXPORT_SYMBOL_GPL(phylink_of_phy_connect);
->   * Connect the phy specified @fwnode to the phylink instance specified
->   * by @pl.
->   *
-> - * Returns 0 on success or a negative errno.
-> + * If the PHY node carries the needs-host-firmware property and the
-> + * PHY is not usable yet, 0 is returned with no PHY connected: a poller
-> + * connects it once its driver has probed. Until then the MAC runs
-> + * without a PHY and ethtool reports no link modes.
-
-[Severity: Low]
-Is this description complete? phylink_late_phy_poll() can stop for good
-after PHYLINK_LATE_PHY_RETRIES + 1 failed connects with the real driver
-bound:
-
-		} else {
-			/* Silence from here reads as success otherwise. */
-			phylink_err(pl, "giving up on %pfw after %u attempts\n",
-				    pl->late_phy_fwnode,
-				    PHYLINK_LATE_PHY_RETRIES + 1);
-		}
-
-That branch leaves pl->late_phy_fwnode set, so
-phylink_late_phy_pending() stays true. The ethtool paths then keep
-reporting no link modes and returning -EOPNOTSUPP until the MAC calls
-disconnect and connect again. Rebinding the PHY driver does not restart
-the poller.
-
-Could the kernel-doc mention this terminal state?
-
-[ ... ]
-
-> @@ -2440,6 +2608,23 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
->  	}
->  
->  	phy_dev = fwnode_phy_find_device(phy_fwnode);
-> +	if (fwnode_property_present(phy_fwnode, "needs-host-firmware") &&
-> +	    !phylink_phy_is_usable(phy_dev)) {
-> +		/* -ENODEV here would also send DSA to the switch's own bus. */
-> +		if (phy_dev)
-> +			phy_device_free(phy_dev);
-> +
-> +		pl->late_phy_fwnode = phy_fwnode;
-> +		pl->late_phy_flags = flags;
-> +		pl->late_phy_poll_ms = PHYLINK_LATE_PHY_POLL_MS;
-> +		pl->late_phy_waited_ms = 0;
-> +		pl->late_phy_retries = PHYLINK_LATE_PHY_RETRIES;
-> +		pl->late_phy_warned = false;
-> +		queue_delayed_work(system_freezable_power_efficient_wq,
-> +				   &pl->late_phy_poll, 0);
-> +		return 0;
-> +	}
-
-[Severity: High]
-Can this leave dev->phydev NULL for callers that take 0 to mean the PHY
-is attached? ucc_geth_open() is one of them:
-
-	err = phylink_of_phy_connect(ugeth->phylink, ugeth->dev->of_node, 0);
-	if (err) {
-		dev_err(&dev->dev, "Could not attach to PHY\n");
-		return -ENODEV;
-	}
-	...
-	device_set_wakeup_capable(&dev->dev,
-			qe_alive_during_sleep() || dev->phydev->irq);
-
-With CONFIG_PPC_85xx, qe_alive_during_sleep() always returns 0, so
-dev->phydev->irq is evaluated. The deferral branch never calls
-phy_attach_direct(), so dev->phydev is still NULL at that point.
-
-Would this oops in ndo_open with rtnl held on an 85xx QE board? The
-conditions are a PHY node with needs-host-firmware and a PHY driver that
-is not loaded yet.
-
-Before this patch, the same situation either bound genphy or returned
--ENODEV, and ucc_geth_open() handles both.
-
-[Severity: Medium]
-A related question: several callers do one-time PHY setup right after a
-successful connect. The late attach in phylink_late_phy_poll() only does
-phylink_attach_phy(), phylink_bringup_phy() and phy_start(), so that
-setup is never repeated.
-
-enetc_phylink_connect():
-
-	/* disable EEE autoneg, until ENETC driver supports it */
-	memset(&edata, 0, sizeof(struct ethtool_keee));
-	phylink_ethtool_set_eee(priv->phylink, &edata);
-
-With pl->phydev NULL, phylink_ethtool_set_eee() returns -EOPNOTSUPP and
-changes nothing. ENETC has no LPI mac ops, so phylink_bringup_phy() does
-not touch EEE either. Does the late PHY end up advertising EEE on a MAC
-that explicitly tries to turn it off?
-
-stmmac_init_phy() passes priv->tx_lpi_timer to phylib through
-phylink_ethtool_get_eee() and phylink_ethtool_set_eee(). Both fail when
-there is no PHY, so a timer set before the first open looks to be lost.
-
-mvneta_mdio_probe() calls device_set_wakeup_capable() once, from
-phylink_ethtool_get_wol(), right after the connect. Nothing updates it
-after the late attach, so PHY WoL would never be reported.
-
-sparx5_port_open() takes a NULL phydev after a successful connect to
-mean the port has no PHY, and powers up the SerDes:
-
-	if (!ndev->phydev) {
-		/* power up serdes */
-		port->conf.power_down = false;
-
-The phylink_of_phy_connect() kernel-doc also still says "Actions
-specified in phylink_connect_phy() will be performed". That is not true
-on the deferred path.
-
-Is there a way for these callers to learn that the connect was deferred,
-or for the poller to re-run their post-connect setup?
-
-[Severity: Low]
-Does returning here skip the PHY_INTERFACE_MODE_NA fix-up that the
-non-deferred path does further down?
-
-	/* Use PHY device/driver interface */
-	if (pl->link_interface == PHY_INTERFACE_MODE_NA) {
-		pl->link_interface = phy_dev->interface;
-		pl->link_config.interface = pl->link_interface;
-	}
-
-A DSA user port with no phy-mode in DT gets PHY_INTERFACE_MODE_NA from
-dsa_port_phylink_create():
-
-	err = of_get_phy_mode(dp->dn, &mode);
-	if (err)
-		mode = PHY_INTERFACE_MODE_NA;
-
-Before this patch, a successful connect in MLO_AN_PHY mode meant the
-interface was set before phylink_start() ran. Now
-phylink_start()->phylink_mac_initial_config() copies pl->phy_state with
-the interface still NA. phylink_major_config() then passes it to
-mac_select_pcs(), mac_prepare() and mac_config().
-
-The poller's forced major config fixes this later. In the meantime, can
-the MAC/PCS be programmed with PHY_INTERFACE_MODE_NA, or fail on it and
-set major_config_failed?
-
->  	/* We're done with the phy_node handle */
->  	fwnode_handle_put(phy_fwnode);
->  	if (!phy_dev)
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925001209.2334139-1-f%40lex.la
+>                                                         Thanx, Paul
+>
+> > Thank you,
+> >
+> > >
+> > > Adding Roman Gushchin and Chris Mason on CC for their thoughts.
+> > >
+> > >                                                     Thanx, Paul
+> > >
+> > > > [1] https://lore.kernel.org/all/179055575009.241711.635805264749978=
+7191.stgit@devnote2/
+> > > > [2] https://lore.kernel.org/all/20260928005114.9C9FC1F000FF@smtp.ke=
+rnel.org/
+> > > >
+> > > >
+> > > > Solution: Tasks-Rude RCU
+> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> > > >
+> > > > Because fprobe callbacks already run strictly within preempt-disabl=
+ed
+> > > > contexts, we can transition fprobe and its deferred table reclamati=
+on
+> > > > to Tasks-Rude RCU:
+> > > >
+> > > > - Tasks-Rude RCU detects grace periods via schedule_on_each_cpu(),
+> > > >   forcing a schedule on every online CPU. This guarantees that all
+> > > >   preempt-disabled sections that began prior to the grace period ha=
+ve
+> > > >   completed before memory is reclaimed.
+> > > > - Unlike standard RCU, Tasks-Rude RCU does not rely on dyntick-idle=
+ /
+> > > >   EQS tracking. It does NOT require rcu_is_watching() to be true an=
+d
+> > > >   does not trigger lockdep warnings in pre-RCU/idle execution paths=
+.
+> > > > - Within fprobe, guard(rcu)() is replaced with guard(rcu_sched_notr=
+ace)(),
+> > > >   reducing the lookup lock to pure, non-tracing preempt counter
+> > > >   increments without lockdep or RCU state manipulation.
+> > > >
+> > > > Feedback and suggestions from RCU, BPF, and tracing maintainers are=
+ welcome!
+> > > >
+> > > > Thank you,
+> > > >
+> > > > ---
+> > > > base-commit: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
+> > > >
+> > > > Masami Hiramatsu (Google) (3):
+> > > >       rcu/tasks: Export call_rcu_tasks_rude()
+> > > >       rhashtable: Add use_tasks_rude parameter to defer bucket tabl=
+e free
+> > > >       fprobe: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
+> > > >
+> > > >
+> > > >  include/linux/rcupdate.h         |    6 +++
+> > > >  include/linux/rhashtable-types.h |    2 +
+> > > >  kernel/bpf/syscall.c             |    2 +
+> > > >  kernel/rcu/tasks.h               |    8 ++---
+> > > >  kernel/trace/fprobe.c            |   66 +++++++++++++++++++++-----=
+------------
+> > > >  lib/rhashtable.c                 |    5 ++-
+> > > >  6 files changed, 54 insertions(+), 35 deletions(-)
+> > > >
+> > > > --
+> > > > Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> >
+> >
+> > --
+> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
