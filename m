@@ -1,223 +1,127 @@
-Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2F05304D6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5A550276A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700620; cv=none; b=i8mOYnPalLcRXgOfpKbnRioTmeTVkScU4AO+20xkiVITurA6eTOK7MMxLBXMjV4+chcdQLN9bm3WshUmpb6GF0UFQAizk59j2SutPPkWXWfwE81BGaPSLYNVQmXiSMC3v2yYI/YGVZ9EACk0sKdmGxni9KXfNK3PU/WkGfjvtTw=
+	t=1790700640; cv=none; b=QBiWFEOti/3Eym02y+AZL4byoRNnEs0IXY03Qrkz3nq3VrVaEtvD09cj/IjiFwZQ+PXycMuBEv2NBNbntOGQeHmXTsjeewkuGiNiAZSRRt7bNnk5uRY6OzMWBcJASmdCYSNyvAlW61vRdu5rHu2Wk+JkZI6/9iiYgbCg/2FDouw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700620; c=relaxed/simple;
-	bh=NsD4u1KD0ML9C5RRwuJTBf1tlKoOOz1dTzox0/5Xacs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AnDAk04FtT+fHs36nZj8KVw8AAtBmWrOGEuOEa/h969WOWkDvSBvaSnof0XP1gvbhp+mYadAWY5jlLbmSL04whvMhdpLtr6g+8PGs+tGphroPBgeN0BXYygoz9cCxljlyUOZ3IWxAEpLhm1QYPPXGg2CvwVBF7Zvyy3Is9lD+DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nNFnlmd0; arc=none smtp.client-ip=95.215.58.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790700640; c=relaxed/simple;
+	bh=+iUVjaJjZ1yPmy/n1mBGSq2N3Fdav7GrK5Nuqm42rSw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Tqf8/ywZOVOJdWzbdABuzKNfioe3bjs3QodFTBuPGsM4ZfWT62dW9En7mY9Y31+UHkROeAL461p2Apfde/u64vwUYK9bHJuS498gcEBDV/YV9Z1s5Z4WKnME2Tuu8IZqB73IXkzoZlrIKn8p3FbrdXSNkOPxrgozH9E2xiPyY2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YHQGMEH7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=bluIUX13; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nNFnlmd0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NsD4u1KD0ML9C5RRwuJTBf1tlKoOOz1dTzox0/5Xacs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790700616; v=1; x=1791305416;
- b=nNFnlmd0/nHNXaRWoiMejXtYJbrZGwJoiUBBCSFGy128LXhqUCLidZcNKtuA7xDenijbHhT+
- 0h3B/K5CE+4CkunODjdkM6mR59X9wcaaDyfFjYojyDCpaORF2b3qkIVXshq01fftLwepVwI7LAp
- jdeHEEe3Sj5VKa7zSa5kMMhk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ffec101f3beee8d0;
-	Tue, 29 Sep 2026 16:50:15 +0000
-X-Mizu-Trace-ID: ffec101f3beee8d0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c037f1a6-6cf1-4c9b-bf63-c01105c1dce7@linux.dev>
-Date: Tue, 29 Sep 2026 09:50:07 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YHQGMEH7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="bluIUX13"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790700638;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xMwQUEL2z0fBdiJE0fwkPV0jsOeJv+8B2BQVgLXNy4g=;
+	b=YHQGMEH7W5cyG5Q8/Sd6OkmhEgAqeJ33E/QylALEQDu88mQuQuVtavzYbJyMFuKX1lWh6t
+	3Try60+yhubbRIlhbv+H5tbi4pme8saDhUgDGAXb7A+SMYgMZVy1BvhXH8l6iFcSIUqneC
+	wJ6QmtS7jdtFzBsJQXM1wzCfrBXFCAI=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-516-X1Q3Viy1O52Jy2ACYMtYOQ-1; Tue, 29 Sep 2026 12:50:36 -0400
+X-MC-Unique: X1Q3Viy1O52Jy2ACYMtYOQ-1
+X-Mimecast-MFC-AGG-ID: X1Q3Viy1O52Jy2ACYMtYOQ_1790700636
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-53323d5b9ffso60423481cf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790700636; x=1791305436; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xMwQUEL2z0fBdiJE0fwkPV0jsOeJv+8B2BQVgLXNy4g=;
+        b=bluIUX13KVPLn//j5As3xtdQzZ3HIju8gOfYBgKl8BdDUS91yJ5kvSHIVRRlxj5gfY
+         hcPQXyoXoLMh/+8mAAss2lw1sq1Qoh1PawCfYkMrxKgGk6bebkAMEGW/xPeCl3h3eikX
+         VEVSDTHXS+m9FBXcqPWvkmuS1Xp+s5XPOTXlMoNCmHXzuKofKsbIsL6axBC1BIsuorLi
+         LWOJvaXBvxQVsdAhopkvxyxfcSGGPxjRGDs7pUaprt3mWT6tyo/Bl88W/I0vuLYspo7n
+         +U4DrYZ8af/F77RKpz6nHfvgDjnPBhSlqUS++J0wupUTnjup/G4Vo+bAAEcPqqXKGkFA
+         ++/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790700636; x=1791305436;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xMwQUEL2z0fBdiJE0fwkPV0jsOeJv+8B2BQVgLXNy4g=;
+        b=TgWilmKkB+BgL2o/3uAZCouIaXT3hFoKZLbT+Q7f+UklXjcupyX3mic7fu8v9lnb1+
+         h1ch3zkTdWYVpnVLgbEy5djD0CM1fRV3qBzpuPexkgBz59s8Hjor2AUhw7pxGsHB6a9g
+         qUrqyjkunlolCLNW5VMks5KRAG/ACGPjTeUmk3jEzzlmTNzih000Zo37dtP16pYc039v
+         dc7ETmRfELNm0jEl4IHM1lRdV1R9oVUDECgfjPzGhiciYWJRgzw4slIl1Bq7ZWWm31+B
+         mCSaPMhPrhj4L+WXrPTTxdIV4kKKZT+Os0lDqYDULwfMCKcO/hVnG+zUrPxk3Fq8xQGY
+         5dbw==
+X-Forwarded-Encrypted: i=1; AKwUvByYAwcMQ5PRvmKNioBkZR7SSwe4wZlUxwbkhlWHVsFJx30HnNV/wPbicQPExt2io3RPzgHpXM328iMQFY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++loswhsTqplkUWbRbYQIXR5x/cFMy0gPqKJj2JG2HqOkZb2SbsM
+	4HloGY819ktbtizlBuLoKSy+76bI9jRDTApjkNZ2/iWxOWYgUHTIBr8+Cf/NMnx1KyqfyBvT60H
+	snCFGTL2/HnGuoLTgPTqG6qyBvasNWl383tXZAMsoqurf+guoQkTGYQabVUkz+6mlZQ==
+X-Gm-Gg: AYBFou0xMfEne2GtZkQFzwpBV6fwu8XOdsF2Avv6SbexGf3n0SZAv9Pu5KqBv95W2AO
+	i0lJ1abU+9dXNqdI0V87FJp1Z5vmcEY2OEbgYPzKLvrKEVke4+UIRRfNWU+6RDzsnhOkrWQlS/p
+	dbeVo1HZbx+Tt4avirrzmS4XuKQugduRpPfBoAciYX24GRBMJ1QKV0tvHb+XQpjGUcFqSkNq9Kl
+	fkExMx3A5i6JiPMd3ky/ju9gTuodyHGHn3LXCa3Ambb8vrVPENFtSmp/vpQMTtodwbti0LWHBLh
+	QJA5CgzaoG/MMoF1Og0WrnmHQwx01o5Bop5hv9NS+ItdHcKOzjsIxwC+9tfplaUpKzWwIRAjvhL
+	Y9oK+PMjtBqA6+ohiKNYqA5tY18b4zYhBb337dFF486VXJGykCI8=
+X-Received: by 2002:a05:622a:99a:b0:533:3af3:43ba with SMTP id d75a77b69052e-5333af34e9emr150728511cf.37.1790700636102;
+        Tue, 29 Sep 2026 09:50:36 -0700 (PDT)
+X-Received: by 2002:a05:622a:99a:b0:533:3af3:43ba with SMTP id d75a77b69052e-5333af34e9emr150727971cf.37.1790700635522;
+        Tue, 29 Sep 2026 09:50:35 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d303573sm14401716d6.11.2026.09.29.09.50.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:50:33 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: David Lechner <david@lechnology.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com
+In-Reply-To: <20260906-ti-pll-v3-1-d1751f4648f0@gmail.com>
+References: <20260906-ti-pll-v3-1-d1751f4648f0@gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: clock: ti,da850-pll: Convert to DT
+ schema
+Message-Id: <179070062597.199845.8971764534799721184.b4-ty@b4>
+Date: Tue, 29 Sep 2026 12:50:25 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] RDMA/rxe: Fix out-of-range unsigned-to-signed
- conversion for RDMA message in 2GiB size
-To: Honggang LI <honggangli@163.com>, zyjzyj2000@gmail.com, jgg@ziepe.ca,
- leon@kernel.org
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260929055853.164026-1-honggangli@163.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260929055853.164026-1-honggangli@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=313; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=7sbHWudVkJN1j/cQcAiFsKbxRWcoILZnVP9RoCk0sEY=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2vwk/XPP95fJvi1/uPNa9MlF3bbnGkoVrt5Y/Kn1Z9
+ eC/5pck/Y5SFgYxLgZZMUWWJblGBRGpq2zv3dFkgZnDygQyhIGLUwAm4vOckeHZIfX9Pyv5Ypf6
+ 2ASvm6DBFy+0LvPjBOsmN6/PfNf/xP9j+O8eHDC90e7jCiXNGSxCtx09OU3/l9Su8GuwnVP5tK7
+ /KA8A
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-在 2026/9/28 22:58, Honggang LI 写道:
-> When RDMA READ request for 2GiB in single WR, res->read.resid is u32
-> 0x80000000, which is INT_MIN (-2147483648).
->
->      payload = min_t(int, res->read.resid, mtu);
->
-> The `min_t` function will return -2147483648 for payload. The wrong
-> size is propagated through call chain, `read_reply` -> `prepare_ack_packet`
-> -> `rxe_init_packet` -> `alloc_skb` . `alloc_skb` failed because of
-> invalid size. The passive side failed to emit response packet for RDMA
-> READ request.
->
-> After fixed it, the active side of RDMA READ failed with error code
-> "IB_WC_LOC_PROT_ERR". When RDMA_READ_RESPONSE_FIRST packet recived by
-> the active side, `do_read` call `copy_data`. dma->resid is u32 0x80000000.
->
->     int resid	= dma->resid;
->
-> This conversion set resid to -2147483648. `copy_data` abort as length
-> greater than resid.
->
-> RDMA SEND and WRITE 2GiB message works too, after fixed these two bugs.
->
-> Fixes: 8700e3e7c485 ("Soft RoCE driver")
-> Signed-off-by: Honggang LI <honggangli@163.com>
-> ---
-> Change log:
-> v2 -> v1:
-> Use u32 for must-be-unsized quantities, no unsigned-to-signed conversion
+On Sun, 06 Sep 2026 03:10:31 +0530, Bhargav Joshi wrote:
+> dt-bindings: clock: ti,da850-pll: Convert to DT schema
 
-Using u32 instead of int for payload and buffer lengths makes sense here 
-to prevent
+Applied, thanks!
 
-negative conversion on 2GiB boundary transfers. u32 is sufficient to 
-hold length up to 4GiB.
+[1/1] dt-bindings: clock: ti,da850-pll: Convert to DT schema
+      commit: 93e5dc301c87fe6b7bae0b087a15be69e521e657
 
-I am fine with this commit. Wait for feedback from Leon and Jason.
-
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-
-Zhu Yanjun
-
->
->   drivers/infiniband/sw/rxe/rxe_loc.h  |  4 ++--
->   drivers/infiniband/sw/rxe/rxe_mr.c   |  8 ++++----
->   drivers/infiniband/sw/rxe/rxe_net.c  |  2 +-
->   drivers/infiniband/sw/rxe/rxe_resp.c | 17 +++++++++--------
->   4 files changed, 16 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
-> index 64d636bf80fd..b5aaba7cf76f 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_loc.h
-> +++ b/drivers/infiniband/sw/rxe/rxe_loc.h
-> @@ -64,7 +64,7 @@ int rxe_flush_pmem_iova(struct rxe_mr *mr, u64 iova, unsigned int length);
->   int rxe_mr_copy(struct rxe_mr *mr, u64 iova, void *addr,
->   		unsigned int length, enum rxe_mr_copy_dir dir);
->   int copy_data(struct rxe_pd *pd, int access, struct rxe_dma_info *dma,
-> -	      void *addr, int length, enum rxe_mr_copy_dir dir);
-> +	      void *addr, u32 length, enum rxe_mr_copy_dir dir);
->   int rxe_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg,
->   		  int sg_nents, unsigned int *sg_offset);
->   enum resp_states rxe_mr_do_atomic_op(struct rxe_mr *mr, u64 iova, int opcode,
-> @@ -91,7 +91,7 @@ void rxe_mw_cleanup(struct rxe_pool_elem *elem);
->   
->   /* rxe_net.c */
->   struct sk_buff *rxe_init_packet(struct rxe_dev *rxe, struct rxe_av *av,
-> -				int paylen, struct rxe_pkt_info *pkt);
-> +				u32 paylen, struct rxe_pkt_info *pkt);
->   int rxe_prepare(struct rxe_av *av, struct rxe_pkt_info *pkt,
->   		struct sk_buff *skb);
->   int rxe_xmit_packet(struct rxe_qp *qp, struct rxe_pkt_info *pkt,
-> diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-> index 71d9ea477289..f2ffbefb9675 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_mr.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-> @@ -418,13 +418,13 @@ int copy_data(
->   	int			access,
->   	struct rxe_dma_info	*dma,
->   	void			*addr,
-> -	int			length,
-> +	u32			length,
->   	enum rxe_mr_copy_dir	dir)
->   {
-> -	int			bytes;
-> +	u32			bytes;
->   	struct rxe_sge		*sge	= &dma->sge[dma->cur_sge];
-> -	int			offset	= dma->sge_offset;
-> -	int			resid	= dma->resid;
-> +	u32			offset	= dma->sge_offset;
-> +	u32			resid	= dma->resid;
->   	struct rxe_mr		*mr	= NULL;
->   	u64			iova;
->   	int			err;
-> diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-> index 53daaf4c1eb2..f548f312b393 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_net.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_net.c
-> @@ -536,7 +536,7 @@ int rxe_xmit_packet(struct rxe_qp *qp, struct rxe_pkt_info *pkt,
->   }
->   
->   struct sk_buff *rxe_init_packet(struct rxe_dev *rxe, struct rxe_av *av,
-> -				int paylen, struct rxe_pkt_info *pkt)
-> +				u32 paylen, struct rxe_pkt_info *pkt)
->   {
->   	unsigned int hdr_len;
->   	struct sk_buff *skb = NULL;
-> diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-> index 02b16e2b49b8..4e71bc985721 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_resp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-> @@ -612,7 +612,7 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
->   }
->   
->   static enum resp_states send_data_in(struct rxe_qp *qp, void *data_addr,
-> -				     int data_len)
-> +				     u32 data_len)
->   {
->   	int err;
->   
-> @@ -827,20 +827,21 @@ static enum resp_states atomic_write_reply(struct rxe_qp *qp,
->   static struct sk_buff *prepare_ack_packet(struct rxe_qp *qp,
->   					  struct rxe_pkt_info *ack,
->   					  int opcode,
-> -					  int payload,
-> +					  u32 payload,
->   					  u32 psn,
->   					  u8 syndrome)
->   {
->   	struct rxe_dev *rxe = to_rdev(qp->ibqp.device);
->   	struct sk_buff *skb;
-> -	int paylen;
-> -	int pad;
-> +	u32 paylen;
-> +	u32 pad = 0;
->   	int err;
->   
->   	/*
->   	 * allocate packet
->   	 */
-> -	pad = (-payload) & 0x3;
-> +	if (payload % 4)
-> +		pad = 4 - payload % 4;
->   	paylen = rxe_opcode[opcode].length + payload + pad + RXE_ICRC_SIZE;
->   
->   	skb = rxe_init_packet(rxe, &qp->pri_av, paylen, ack);
-> @@ -934,9 +935,9 @@ static enum resp_states read_reply(struct rxe_qp *qp,
->   {
->   	struct rxe_pkt_info ack_pkt;
->   	struct sk_buff *skb;
-> -	int mtu = qp->mtu;
-> +	u32 mtu = qp->mtu;
->   	enum resp_states state;
-> -	int payload;
-> +	u32 payload;
->   	int opcode;
->   	int err;
->   	struct resp_res *res = qp->resp.res;
-> @@ -982,7 +983,7 @@ static enum resp_states read_reply(struct rxe_qp *qp,
->   
->   	res->state = rdatm_res_state_next;
->   
-> -	payload = min_t(int, res->read.resid, mtu);
-> +	payload = min(res->read.resid, mtu);
->   
->   	skb = prepare_ack_packet(qp, &ack_pkt, opcode, payload,
->   				 res->cur_psn, AETH_ACK_UNLIMITED);
-
+Best regards,
 -- 
-Best Regards,
-Yanjun.Zhu
+Brian Masney <bmasney@redhat.com>
 
