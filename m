@@ -1,132 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D8D486422;
-	Tue, 29 Sep 2026 21:22:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE30B47043B;
+	Tue, 29 Sep 2026 21:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790716928; cv=none; b=n2qfnFHY5pT269qCY1YLS8/VVgQq9TY4WKPl6OoW0OjFk/9Aegq8fziyX2v0Cbic2lrl2BEJ9/AmNBla4SHkb90Y8xJsVhchUUp6i2Tu2ZTXhxYkaqEgEfg/vbBmZiU9b5fd+HUszcD3UhS5v+HHTaCV/IS2YbSq0NMC1rcSK04=
+	t=1790716975; cv=none; b=RPky524sVTN5BGkoe+K0TQQ+WLPez/Cv5LoFUziTEoDZwixpQlfAA2Ae/i9ZP8ck1+kWlMjjfRQcBUXoJcPoxrgbHkGntScrZf9AWi+v5OoVDrUH+v8mvezDlLnr+XPm0LyV7++dVPiwqtSbf4z/0oTfWAf83aUSaLheqUmRdiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790716928; c=relaxed/simple;
-	bh=zTqy30vqknuSyleVsDDMUFWuh/A2u/sfpJyIYOVlSdo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JQ4rq90T5w/K90aWlcBU2O0rdxFy1wd+P+4fnRgEohlsoe7pONOZCMn7V2k1GqBe44DGXRviQQ4+PQdVdcM4lpNKq/f3mXbosBiwg2QefO2imjaQUUQyS9CiYvVuCOy/SpaouzYgW0BvrDfvzAmUC8XszD86aFedjtoTNP+WL/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/DeIdLr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790716975; c=relaxed/simple;
+	bh=JOqd+l9NBa5TbLWf6r3BVRwflWjOvxThIxo/m9KNXT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JZUodJ1JjUPSNU0SjFGA8j1QJaz/7kiodjdazS33Cj7qrrX7P1oTxBlpFPeTHxE7XmWkvLjaNDSCvkFwpSmztOwyj9kIE5o7X/6KIJzLOmqtzPP/MsM8NtyTxWpDcXOi1nn7xwjdO35RigBSHcCLXrn0gM88QfQsdzOOYUnAxFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+n5tnjT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/DeIdLr"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 943B31F000FF;
-	Tue, 29 Sep 2026 21:22:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+n5tnjT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57521F000FF;
+	Tue, 29 Sep 2026 21:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790716927;
-	bh=dCT0JyM1L7y46G+ANqsfvbzWXFF4/9rwphu+Qnh5z88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D/DeIdLrWzrfMmjvwps2rjaIR2QBXwmKtXq0C1BZuWNut2naCX2sXgC1gJOtOzEQA
-	 5WGwecSvzcXbynEIzTJMALovkS9644T6MMjk31dQtB2kqGHgDQ4h0sqPIOHv3bIV1u
-	 JPcUleX4ttaM2tc2xBJTZQu6gJUKRCAQuqAo4J/rkxnuwZdzyHSgXMMzVf82OyrfwT
-	 7rqvmnRoAqsfeSC36JXBJmes2Uqwyda8pMDI3SYbZdG1OmqxqqkCr7Zv4+t7F+BGmC
-	 7JkAfkZy6mTqdHqLjUnbqA42hReI8Doutd0bQ6M9o16bZe+V6hpsqtfenWUOgfEQSO
-	 pfA2hJxtUzWMA==
-Date: Wed, 30 Sep 2026 00:22:03 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Andrew Morton <akpm@linux-foundation.org>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] keys: Fix key_user use-after-free during ownership
- changes
-Message-ID: <arwr-80xENDNBNLp@kernel.org>
-References: <20260904080940.575882-1-nicoyip.dev@gmail.com>
- <aqHhZO0GjMTOer4j@kernel.org>
- <CAAo+4rW_kT_GL_3cr8aSHkAM29yQQgNL4EJktfTirOi4nHwOOA@mail.gmail.com>
+	s=k20260515; t=1790716973;
+	bh=ZFHH33FycVFTGXzAbpzu/RLTG3INlTscWx1A0ts6z3Q=;
+	h=From:To:Cc:Subject:Date;
+	b=M+n5tnjTbzuc4oYNvD/SJb24FVoa5iM6gGoKmJHYtL37jFuO9CBfUWICF86btbaUe
+	 aa2s3DiGRw1inAPQ+j654PVxVJgl1ZugtngHpZjuY9d5aMbGEHfmX94YmzBKi0SY88
+	 8NpkTlyHpfXWbZYlJJEt12hfUoFc8VPt0OSUAgnXoNo74s1jXIwSUDXeBot5ZNcL0C
+	 mHNRbc/ETSKUwpjmM3tbYfh9cGHKfTD/3CbCSXlRHJbICl5gba2fgiipFJ+1xK6XxO
+	 NOtFQeyYchyIa0DmsQk2fCrKOHwmKwKzT3stLxWB8Zm8CdliVdpkeEvxp6RDiFdr+h
+	 3YV1BEHVAWvuQ==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Subject: [PATCH v5 0/5] perf tools: Add progress diagnostics and a false-sharing workload
+Date: Tue, 29 Sep 2026 23:22:41 +0200
+Message-ID: <20260929212246.2532021-1-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAo+4rW_kT_GL_3cr8aSHkAM29yQQgNL4EJktfTirOi4nHwOOA@mail.gmail.com>
 
-On Mon, Sep 28, 2026 at 01:19:44AM +0800, Chengfeng Ye wrote:
-> On Thu, Sep 10, 2026 at 6:44 AM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> >
-> > On Fri, Sep 04, 2026 at 04:09:40PM +0800, Chengfeng Ye wrote:
-> > > keyctl_chown_key() replaces key->user and then drops the key's
-> > > reference to the previous key_user. Several paths access key->user
-> > > without any common synchronization with this replacement, including
-> > > the /proc/keys iterators, find_keyring_by_name(), quota accounting, and
-> > > key instantiation.
-> > >
-> > > This allows an ownership change to free the previous key_user while a
-> > > reader is still accessing it:
-> > >
-> > >   CPU 0 (/proc/keys)            CPU 1 (KEYCTL_CHOWN)
-> > >   user = key->user
-> > >                                 old = key->user
-> > >                                 key->user = newowner
-> > >                                 key_user_put(old)
-> > >                                   kfree(old)
-> > >   uid = user->uid
-> > >
-> > > The same missing synchronization also can corrupt instantiated-key
-> > > accounting. KEY_LOOKUP_PARTIAL allows keyctl_chown_key() to change the
-> > > owner of a key while it is still being instantiated:
-> > >
-> > >   CPU 0 (instantiate)           CPU 1 (KEYCTL_CHOWN)
-> > >   atomic_inc(old->nikeys)
-> > >                                 observe KEY_IS_UNINSTANTIATED
-> > >                                 skip the nikeys transfer
-> > >                                 key->user = newowner
-> > >   mark key instantiated
-> > >
-> > > The increment remains charged to the previous owner. Quota reservation
-> > > can similarly select one owner for its quota limit and another owner
-> > > for the usage update, or access an owner that has already been freed.
-> > >
-> > > The existing locks do not provide common exclusion for these
-> > > operations. keyctl_chown_key() holds key->sem, key construction uses
-> > > key_construction_mutex, and the affected readers hold their respective
-> > > tree or list locks.
-> > >
-> > > Use key_user_lock to serialize access to key ownership. Hold it across
-> > > the accounting transfer and key->user replacement in keyctl_chown_key().
-> > > Use the same lock while readers copy the owner's UID, while quota usage
-> > > is updated, and while the instantiated-key count and key state are
-> > > committed.
-> > >
-> > > key_user_lock already serializes final key_user removal, so an old
-> > > owner cannot be freed while one of these readers is accessing it.
-> > >
-> > > Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> > > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> > > ---
-> > > Changes in v2:
-> > > - Audit every user->uid occurrence and all direct key->user accesses.
-> > > - Take key_user_lock explicitly at each namespace-filtering reader instead
-> > >   of hiding the lock acquisition in an accessor.
-> > > - Serialize quota reservation and construction accounting with ownership
-> > >   changes while preserving the existing direct key->user accesses.
-> > > - Use the commit that introduced ownership changes as the Fixes target.
-> > >
-> > > Link: https://lore.kernel.org/keyrings/20260823170448.3856516-1-nicoyip.dev@gmail.com/ [v1]
-> >
-> > https://www.kernel.org/doc/html/latest/process/submitting-patches.html#separate-your-changes
-> >
-> > I.e. no bundle commits. This unreviewable.
-> 
-> Thanks for the review. I have split the changes into two patches
-> and sent them as v3:
-> 
-> https://lists.openwall.net/linux-kernel/2026/09/27/734
+Hi,
 
-Thank you, it is just what SubmittingPatches says about commits :-)
+This series adds progress and stuck-process diagnostics to perf, and a
+workload that makes false sharing visible to data type profiling.
 
-> 
-> Best regards,
-> Chengfeng
+The changes are:
 
-Br, Jarkko
+  - move perf_config__set_variable() to util/config.c and serialize config
+    parser and read-modify-write state, so non-builtin perf code can persist
+    configuration changes safely;
+
+  - add 'perf report --progress' for stdio users, showing the current phase,
+    percentage, and counts while a session is processed;
+
+  - add 'perf report --no-progress', the counterpart above for the TUI and
+    GTK browsers, whose progress there is no other way to turn off;
+
+  - add the prototype tools/perf/scripts/perf-stuck.sh helper, which samples
+    a running perf process and can invoke the accompanying GDB commands when
+    progress stops;
+
+  - add 'perf test -w false_sharing', a synthetic TCP-shaped workload with
+    identity and packet counters sharing a cacheline, and include it in the
+    data type profiling shell test.
+
+The progress backend handles nested phases and completes them on error paths
+as well as successful paths. The false-sharing workload uses a shared
+volatile instance so the data type profiler can resolve direct accesses to
+the individual members.
+
+The perf-stuck helper is intentionally a prototype and requires the usual
+/proc access; its optional GDB mode additionally requires gdb and suitable
+debug information. When only one CPU is available, the false-sharing
+workload warns that it cannot produce cross-CPU traffic but still runs.
+
+Best regards,
+
+- Arnaldo
+
+What changed from v4:
+
+  - tools/perf/builtin-report.c: mark --progress PARSE_OPT_NOAUTONEG.
+    parse_long_opt() claims "--no-progress" for it as soon as any option
+    without that flag is tried, before the --no-progress option itself is
+    ever reached, so report.no_progress stayed false and patch 3/5 did not
+    do what it promises: `--no-progress --progress` printed the phases, and
+    the TUI and GTK progress it exists to turn off stayed on.  Checked with
+    the option values printed at the hook, and again with a two-option
+    program linking the same libsubcmd.  Sashiko found this reviewing v4,
+    asking whether the option was shadowed and the branch dead code;
+
+  - tools/perf/util/config.c: format the path buffer inside the critical
+    section.  It is shared by every caller, unchanged by the static storage
+    it got addressing v3, and mkpath() ran before the lock was taken: two
+    callers could still interleave their vsnprintf() there.  Nothing calls
+    it from more than one thread today.  Sashiko pointed out the window,
+    reviewing v4;
+
+  - tools/perf/tests/workloads/false_sharing.c: look at every bit of the
+    affinity mask instead of bounding the walk by
+    sysconf(_SC_NPROCESSORS_CONF), that counts configured CPUs, not the
+    highest ID allowed.  A cpuset restricted to high numbered ones is then
+    smaller than the IDs in it, and no allowed CPU is found at all, which
+    unpins every thread: reproduced with a mask holding only CPU 20 and a
+    count of 4, where the old bound finds none and the new one finds it.
+    Sashiko asked about sparse topologies reviewing v4;
+
+What changed from v3:
+
+  - tools/perf/util/config.c: keep the buffer perf_config__set_variable()
+    hands to the parser in static storage.  The parser publishes that
+    pointer as config_file_name, and every reader currently only stays
+    clear of it by taking config_mutex on the way in, which is too easy to
+    lose: nothing reachable races today, a getter would have to run outside
+    a parse for that, but the change costs nothing and removes the class.
+    Reported by Sashiko while reviewing v3;
+
+  - tools/perf/scripts/perf-stuck.gdb: perf-dso now walks each candidate
+    for the dso until one evaluates, so it resolves the REFCNT_CHECKING
+    proxy of an ASan/LSan build too instead of aborting there with "There
+    is no member named dso", which the previous version could only point
+    at in a comment.  Reported by Sashiko while reviewing v3;
+
+  - tools/perf/tests/workloads/false_sharing.c: put sum before cpu in
+    struct fs_reader, the implicit padding after cpu pushed the struct to
+    68 bytes and aligning it rounded that up to 128, twice the cacheline
+    the padding arithmetic was written for.  Reported by Sashiko while
+    reviewing v3.
+
+  - tools/perf/builtin-report.c: --quiet asks for no messages at all, so
+    --progress leaves the phases uncounted when both are given, documented
+    next to --progress in perf-report.txt.  Namhyung Kim asked, reviewing
+    v3, what combining them should do;
+
+  - tools/perf/builtin-report.c, tools/perf/ui/progress.c: add
+    --no-progress, installing the no-op ui_progress ops after
+    setup_browser() installed the ones of the TUI or GTK browser.  Suggested
+    by Namhyung Kim while reviewing v3: their progress has had no way to be
+    turned off, and the option just added asks for it where there is none.
+    It takes precedence over --progress;
+
+  - tools/perf/scripts/perf-stuck.sh: check that gdb is there before
+    watching instead of failing when -g first fires, two samples in, which
+    can be minutes apart.  Namhyung Kim pointed it out reviewing v3;
+
+What changed from v2:
+
+  - tools/perf/util/config.c: perf_etc_perfconfig() returned NULL when the
+    allocation in system_path() fails, and none of its callers check for
+    that.  Reported by Sashiko while reviewing v2: the deref reached from
+    this series was fixed, and since the same unchecked deref is already
+    reachable from the three callers predating it, perf_config_from_file()
+    and 'perf daemon' among them, the opportunity was taken to make the
+    accessor total as well, falling back to the unresolved path, which for
+    the usual absolute ETC_PERFCONFIG is the same string;
+
+  - tools/perf/scripts/perf-stuck.gdb: don't dereference map_symbol.sym
+    without checking it for NULL, printing "(no symbol)" instead.  Reported
+    by Sashiko while reviewing v2;
+
+  - tools/perf/scripts/perf-stuck.gdb: note next to the structure walks
+    that a REFCNT_CHECKING build wraps some structs in a proxy holding the
+    original, where this has to read map->orig->dso->orig->name;
+
+  - tools/perf/scripts/perf-stuck.sh: count the samples showing no progress
+    when there is no progress to look at, as an empty or missing progress
+    log reset the counter on every sample and never fired -g;
+
+  - tools/perf/scripts/perf-stuck.sh: use `--` for pgrep and tail, as a
+    process name starting with a hyphen was taken as an option and had the
+    script attach to an unrelated process, gdb included when -g is used;
+
+  - tools/perf/scripts/perf-stuck.sh: bound the gdb run with
+    `timeout --signal=INT 30`, as the script makes inferior calls and one
+    into a perf wedged in a loop never returns, while SIGINT lets gdb
+    release the inferior instead of leaving perf stopped.
+
+What changed from v1:
+
+  - avoid calling CPU_SET() with -1 when false_sharing runs with only one
+    CPU available in its affinity mask.
+
+      tools/perf/Documentation/perf-report.txt      |  19 ++
+  tools/perf/builtin-config.c                   |  70 +----
+  tools/perf/builtin-report.c                   |  22 ++
+  tools/perf/scripts/perf-stuck.gdb             | 129 +++++++++
+  tools/perf/scripts/perf-stuck.sh              | 188 +++++++++++++
+  tools/perf/tests/builtin-test.c               |   1 +
+  tools/perf/tests/shell/data_type_profiling.sh |   9 +-
+  tools/perf/tests/tests.h                      |   1 +
+  tools/perf/tests/workloads/Build              |   2 +
+  tools/perf/tests/workloads/false_sharing.c    | 250 ++++++++++++++++++
+  tools/perf/ui/Build                           |   1 +
+  tools/perf/ui/progress.c                      |   6 +
+  tools/perf/ui/progress.h                      |   4 +
+  tools/perf/ui/stdio/progress.c                | 162 ++++++++++++
+  tools/perf/util/config.c                      | 144 +++++++++-
+  tools/perf/util/config.h                      |   2 +
+  tools/perf/util/ordered-events.c              |  16 +-
+  tools/perf/util/session.c                     |  12 +-
+  18 files changed, 955 insertions(+), 83 deletions(-)
+  create mode 100644 tools/perf/scripts/perf-stuck.gdb
+  create mode 100755 tools/perf/scripts/perf-stuck.sh
+  create mode 100644 tools/perf/tests/workloads/false_sharing.c
+  create mode 100644 tools/perf/ui/stdio/progress.c
+
+base-commit: 0ae6fc78c5ce0dfd
+v1-head: 45d7917f7e05e8a29828ed5f0bbdc94fc938f79f
+v2-head: d4f84e4de8890194924ccd897a8e6773e7d4240b
+v3-head: 485532296710225862daf8ffb19802ae327efe2a
+v4-head: 38193635508e0a5f04a6ebf70db27534b68b2d5b
+--
+Assisted-by: OpenCode: GPT-5.6 Luna
