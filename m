@@ -1,204 +1,151 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480923E51E4;
-	Tue, 29 Sep 2026 16:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699790; cv=fail; b=M4chsfR3WgpzUHObKS5RAmI0KGfN/WlqxehlKep+GOhrxXLV/dQbPo8tQDWV3jdI3cBEYPNtkukUm4QrXJOAUD4w+xIkQkOuaQzyKcqEqjJu2A5rF+xIsGg3n0mBtmcbscGGAteuaYSmNsLgbc2e3zfIl7SX7iuL6nyTg3MgZIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699790; c=relaxed/simple;
-	bh=TEEtM6X9M7bQN/WsmbE0dXvk0sAHCc/1AlnNpPv6TKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=cB9pQs/2Sy7I3xeLFghU99/jAWWPLnTDreS3VLmIifGPzEOCPxwOEp5BRGZMXNcLEa7RzUn4mYEP0TlO8imHrMgAfR5LoFQtvE8727NvObt9VsexP7BsRurtCVZrC+h2i/3or4aCJQ2tbIjE6zqM59rE9H3mbbGvhHZHkVbYx6w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CTwfnz+7; arc=fail smtp.client-ip=52.101.48.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B446E5335B6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790699793; cv=none; b=a2dq1+SWHUPUVZvpzfw72nZC1b/j9avQ5Hk7MOYVUAe1bLYboQ7pXJvqKYuLvyxAeOQTMGWXxOEyX1cpn3vh2M+95nyTaRBwtTN/9KxDJyk7J0GLbI+kNkTOMWHjHozAziPQ7+k+3qVP2HjnJjdinLIr9TWVCd8RwPTOjZsFjmo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790699793; c=relaxed/simple;
+	bh=pjYrJ9i0qHLTf9O3mi8TxMKUEWpf47OoDqxCYILUe3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l9XR12c9fHpt8VE/GjnvUnypVduftnJNoMnyUC88jBOXvHchOuo3uQZZJ436SWzrSZVIkwIR4mW9wcceCQBbFgxFDsS8N8NsQnXDh0ObKvu2CLSG+oeiXqkdNB8HDDjRmFgKqgRjhcYnZqbpM/v5DDBnauJRYDrQl1EGAXIqGPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNTZD5aV; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CTwfnz+7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZkKF2/Be6n2ccUk+Tp/eAihIO2NBgFyun61+th/5HzIphRjdYwPH0jGW7bgCNXBrHogeahaf7q/9u1n8WG172SaPd4lnzWuc57Ac6v7i0vYHaYt/mt/qwQsn1Qh7kQ2ZtQgzD8O+QrgSpqdmMEiL1Ww0x/teQTywhgT2RjaNumSWsEaCMPxsxTuUaSHMkGsY7LvbfkNTNvQZ67OwsfDJMwuaaYfhJA06nfI36hulGi/ucwPBDYqMqhZVua04a1fJkySMmpejIfJ01HPOEAwHKuINn/4c1NZyRdfa9DbJHup1QpTRBzs25f/feQ5KQhGZI6B7TsA4h31N7gpfqmDjOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1VWHZaqYM6zRruPUI51ZS0FKaFdS3Dkcq3Dk4RgjWt8=;
- b=VTb0c3chHNEdau6HrHdVHt4uY5MSHl6+Fx3B/BVumpczegtuxzlaqrDHLw/FWQ5iXdWGlP5MBU0+O0Rd7odpOOyFciZF0VGAsEu/oQuexO4Mp+UkZoybr9bvexKiFZyyJ6Zhqdbw9oacpTsIaJH242jGW37mE9aa8pQ8EiS0CMmSzPe+oNWC1XaWzCreWlB++Xyw80PUIYMcz/xlFByPj5NuiJFcfvb1/wDvQCFi0un8oKjrwSbsamRZ3fX8TPHCRqjNLV2UIW4JZ+ex2hZljxSzGkCcbx8jg34JaC04w0ADWYtqoYtku/a5mE3t70eebX9fLdN8MZ7GNeLNzo55zQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1VWHZaqYM6zRruPUI51ZS0FKaFdS3Dkcq3Dk4RgjWt8=;
- b=CTwfnz+7k4Tj4L66e6Mmi0EUmekGM+tBHXDXQvUD7b1FF2oYvBkrA4WxN2t72yN6nQC2VmhXG/XpUq3tpYr3CRIUWcc3ka5EcToyxPynuj8NgqUYX9HyIRPWy3QNXjGozDvYqlsCCq/0S+pmiiwrjjLXKRNdaO1rs88pUSq8nKxRCtjQ1+9u4qOFPUCvAGtAGgGqgfdGHcIvayyvmLvw01WLZEXFvEsyVfT8yblnJfR1XCOwagYPmm5nsdEu3k5LqI4mPe2wqbz35daCR76/kfyhCnon11FBJR4DgPFo/pLWkMVrkmVvwqWZumH7OkQzPSCIj7sfQ6embB+NPPRhXQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 16:36:26 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 16:36:25 +0000
-Date: Tue, 29 Sep 2026 19:36:14 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
-	Wei Wang <weiwan@google.com>, Hangbin Liu <hangbin.liu@linux.dev>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipv4: Fix device use-after-free in ip_mc_output()
-Message-ID: <20260929163614.GA905623@shredder>
-References: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
-X-ClientProxiedBy: FR0P281CA0007.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::12) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNTZD5aV"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666ee9b3bso34660847b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:36:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790699790; x=1791304590; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v87Cgp68PWMd8kFdgdgVYnaWP/CXIf2dW1oTwO9m/XY=;
+        b=LNTZD5aV7IMmmnDEIdaTXnRIyuV2vY/1f5AgHux8GY6Ex/ox8iDUhrQveaHZyTNzjX
+         Y4UusdUBRYouAjQcI0XzFlwwxRMBesofftzpoAgVQ0E3J9944wUD9XwvkWgsnwyTFGN3
+         nHmy0tQXkmqao6fE6xOQa1Qkv6OEwtlgBRPfd09EbkrvonHJznH5/b97+fYo6VPEQ0Bd
+         LE1Grrbao0Ua57FPBaaaPsi/ieWjsj6B63tEr6lSCfuelboofSIeChjOpyVGPvn9gtpx
+         oLYFsJ0CPp8EaLY9tzGypVpzJ7ViT50+8EIuNJAd68V1pY3VW5SMwQxBqT2xwvxzpkgQ
+         S45A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790699790; x=1791304590;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v87Cgp68PWMd8kFdgdgVYnaWP/CXIf2dW1oTwO9m/XY=;
+        b=1aMmNKT2Tn4YvvVSWStNdKWjvgzTGDkoFtNewe2kMkQrSwU+CF45/HzaEC+wwX3+LQ
+         mlVOwhXK24qeWMunAj5YoY/UFJT3amnr6MZ+6nyM54Z44IIPwA1m8k2IYOy0SMr3326V
+         QLy18RJEciceVqVn6qWxx7zSHQXLDNPkGjjVscXNnPFjwxZ+L1S3z97GtydUHZKUoPay
+         U+UCvEJkD1SXLXHa43nIJhqhtm9Br9esB5/QV4sGfz8tyoOIXBuSQSSmLltuTcvTaaBB
+         UjoLv5S0TiKVnbLBGDhBvU5GUefGutw0rmUK1bT58FEwY00nxFLGBqpfcUKUNTuQJjG9
+         hryw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUaTiTXXKPOzTW0qK1pR2hx5Ci3oNIv3Y8z9YpTm+83XUFI//5q3yIMuFS7tu+wXP3NPzpOSws5p1MrWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9oCbglo/bM1tLqbYqsw/P6wE8KHnHwELNm1jfFlZODCJjCjOq
+	1PDC5dpC4WYCbyayBxcQ6kcSkysTTzik+yEgOHIv/oMqv1ED3sMyLw08
+X-Gm-Gg: AYBFou1dgjg6yXWGudtXLZj01CO+pyxX6ggyVedxmKdG/Bq9MsA2fU0Yb754OchPmgk
+	DQTUmnyeP17UI8fqg1qy/9PCkU1K2U286Uzvlg7dYrC0eDMVeB3Rn70kWtvO2jKuGOfiJ2Dw7Gy
+	0/SsYNdzEtA+I0+U1aM/mTbzWAfRPS8EORHksmpteGL/5A5TV0Qw95PkA79gClJSekJzO1z71to
+	ad154hIQmt65OXiDqhwjBhOX1qrizlixnlvgeyGJZUgB3jWfO1s9520L/GcqgxmlJIXoDGWsVY3
+	w0nX+fuZ5b5NVL+MZb8kl6eKuIorqC1Akxdsz46d37mYO3Y5a+KlZGYq9RdSLBL3oQfMYlmt/zz
+	AyBsKFG1XjUMk6AukxOFA8VUSna74/8VVkvPUVW0pXkoqvRPgcckBgPm4CaX0jc+vGoJimbPBSm
+	tu/vAANjQFp2hMEc/99UyCsoqZgqPsGue25xoI1+XotwQwSDAH08DiBsG35b6wYXYhyflzveAft
+	vVlnJ/XI9WzCUS8ULVRB8GCZnCxakrJyWD4TAw2uqk2lwEa3uzYJg==
+X-Received: by 2002:a05:690c:9d:b0:820:1014:526a with SMTP id 00721157ae682-8a649591e12mr103054527b3.29.1790699790606;
+        Tue, 29 Sep 2026 09:36:30 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8abc8549056sm1027117b3.0.2026.09.29.09.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:36:29 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Jordan <jordan.mymail@gmail.com>
+Subject: [PATCH v5] media: uvcvideo: report AUTO_UPDATE controls as volatile
+Date: Tue, 29 Sep 2026 12:36:28 -0400
+Message-ID: <20260929163628.1004589-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|PH7PR12MB8177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c7fdbf-b5ce-45c1-61a0-08df1e47cd8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|11063799006|56012099006|3023799007|6133799003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	hQXBmDIfKNsc1lNrUxmU2UZ8fC3DtFhqH7sZi/e1tocGiNYzubsJpY3Py5IVafERwvtYZxwFDWtOcRgvyXjuQwkfwFRIDrUz/ugQYGdVOACefE8Z/0M3yGb6bTJ5HDd9w3aDHfQ8xYqTTd4nyC0x6UJMvbC/SP5Ua+qba57jMMsdQONmxxAxYr8n3oUqpBBbVKOAFUTmgF5fcl15trGicCWuthVoF+xE+SaY8BWoDc9fya5Owp5kJanO46mByCYPrSPf8kaH7zb7MWmxpNlDaLqhG5jmEF1J2ieXZ6q4AfK9nJut5Zvx7nZukZy9fLEyKRD5TRik+FYVzQAog774wICHul2Fw7amNipbqfGBHnVpVw/FGSE737r6WG01lGrBbS4Uyj2Jt+LU3UXDhWjZN6R3hGTg12CP0hhUOrrDihw9giyFxgCbjbYeacjt+4dHHlPcaRVth6/P8sSVIwOOACHvhaoktJlASixBJAFdGAapdmup44qBb7kE+anITkiPFUBHGBMy5NqH5bkcdlTHAnsnmSEElNejM5q+T0YCdJ9/etLDOTxPeaWZby5BkYDBmsKwSDmU219PJNINUgDbV/EIrYv1BBmJDro2WgIj7mOmI9+TXkjgByVtig1PNO1D+JtqgWjzaSRugz94aqPGfAY/BFcW24RFCxGSUDDrr7s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zNZR01vbqMJX9M3oFQRoe8GitQ8B+GBXijjos8CJKuIwQ5kihn4ZXQw+NZPu?=
- =?us-ascii?Q?JZRCAa/0CDAOmPQHMIvve/MOgPDmwrm5KsDYArO+fZMN8HjGb/n95le9K7Jx?=
- =?us-ascii?Q?jwguFBH2hwrpho05dcLeHbl+Iu5F/EoX9rNHoLD0gn2LHRexm0tB04iMcv7w?=
- =?us-ascii?Q?fh35xs6w2SLuSZXIF15cuKY9lxjkMtE8wKXyKZVfRSunqd0GciJ8D2bYXJA+?=
- =?us-ascii?Q?BY8WL5+CDNvRtGXrWg3D2WecP5YAdXPuDw0qephv+qKoKM6y8hFleP8KP888?=
- =?us-ascii?Q?xCr3czxK4M8kCxNOGDb4UdFu16OgaeixQ5O7KLwFlfbEQKAFyUaT7Iq1jXc7?=
- =?us-ascii?Q?Rw8ZZSpf//2/fF0Zqd0wTImxtjyyABZtVlWpcY0YYyxB0XzPFrjt87NZLaE1?=
- =?us-ascii?Q?DfA9Sms9XkX4GknXYG9+3NlSriHmsupKfGdlLkkDaFUaWz2Kv8o2aPSSfw4c?=
- =?us-ascii?Q?5Fbvkhz9BXkE47joYF9K/cBYFV22pmOf1qM3RX1Fd77yFDoHcDrMV+fq0Y5y?=
- =?us-ascii?Q?f24iu3Qs6u4d0gZt6VTA9/5VZcdx88UfP37iWNnWIjmTmjIXyXLxeXl6BNOj?=
- =?us-ascii?Q?zNURXCwAhpBI6O6iyj8lojIVEAq6BUS3g6rWjnxrQUMUWRav+w7zddQvtUcp?=
- =?us-ascii?Q?0eM0YKTifut5TchtZflMAjE6a57MdqbI/zpt2Kc2NeDl0S5HfvBdwRvCn9n9?=
- =?us-ascii?Q?Spd3WL/HZ7tG377nIJkxSg3Rt7IK4BaJYkcmoTFbSHVbChnWrQg1ScvQ3gQJ?=
- =?us-ascii?Q?IcNPBjz2QESNh0iOL3EvAuhyk2fBcSJOvCFCIEskxc4pxc7jGMJG8+mylkdE?=
- =?us-ascii?Q?lA7m2Zj5iaoF6xg050ZryaQH9V1nrkHCYvyrK8h9d2pXBtYf336QkK0ouu6n?=
- =?us-ascii?Q?to1MOFb0oIthd1rtmwNqt1UDg2iC5Lu3om4dzkAZQnr/CqDvpQ6CfmjyIheT?=
- =?us-ascii?Q?eT9URFpm81aQLdl1a9wz1/cZsO7I7dUHv+VEgpDxAY2z0oy9YJCEgF/7B5gB?=
- =?us-ascii?Q?t0PAYRUUNVne7oWDgqY+Ia2YZL1UbqTj7kjbO+cD07TD2FrJUUUb8sG5hQD+?=
- =?us-ascii?Q?VrqncQzSkVeG3pu176uYk0OATXv0ec5rgWozGFhnIP55zPPOsqnd5mg8WQRB?=
- =?us-ascii?Q?8+jFx4QGs5VEM+b/dO7a/DbhzFTD7rU4xzPCat5Nw3mHn568xERJATAYoetM?=
- =?us-ascii?Q?pY6YFLPehdWpUtCeZ0/qt3sOHp2JaKSpvYfdfS2gXll0CTNxnGpRyOS0BLpK?=
- =?us-ascii?Q?PKfGdy56Y9D8dMqfzjmd4Luhr3RmMOClCiyfnZKNn67+LYJXRiZzzwo1FBzi?=
- =?us-ascii?Q?wrRAe2MBDLhab6QPzEwECQCuxHMSfhBynm0M4CNCx0kr4bBT2HVlysapQo4Q?=
- =?us-ascii?Q?gIGU4hr3Eo8bDing++KW2OeObmCV50lWYjznbtKtlN6SNjNzf95vX17HteXu?=
- =?us-ascii?Q?fFYCIzIqHlTZ6TBhKeK8qQ0qxXuvEbOoHywTk6tdMb27y1wr13BVJj2RfzIL?=
- =?us-ascii?Q?dIATBAZIawx6J+9CHJfnWBwOI7SC3kOm7ICVJ6/puWFaEhjOo2yEBf9ibPrf?=
- =?us-ascii?Q?289wTmly1/Ib+VTEnLTTVgNAIx177yti4zzQ41DuxH15W2fZwp1A2TtXKSAl?=
- =?us-ascii?Q?c01BqhHauGfHgKXJyxQp+rGz0TTYSu6dQOENfEraGZZmiPUTHrTfKNuVepbJ?=
- =?us-ascii?Q?5yV4ULCkc8oFkpqQLyflTrwsRh5ED5naElVQQr1FBUD9SivT?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c7fdbf-b5ce-45c1-61a0-08df1e47cd8f
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:36:25.1930
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L3kqvOrRWbBdahPHDlRc6dGAJ/bTvcmRyrykT+Fy6VMrUDgiwgTvOQmIvZ7X9HJqkOR1MNpJjJjBmB5WA6SFIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 12:25:34AM +0800, Chengfeng Ye wrote:
-> ip_mc_output() reads rt->dst.dev and stores it in skb->dev without RCU
-> protection.  dst_dev_put() can concurrently replace the destination device
+Report AUTO_UPDATE controls as VOLATILE, and EXECUTE_ON_WRITE when
+writable, to describe the driver's existing read and write behaviour.
 
-It can also be rt_flush_dev(), if the dst entry is uncached.
+Volatile controls must not generate CH_VALUE notifications. Filter that
+bit in the shared event path for writes and device-status notifications,
+including asynchronous completions. Keep flag-change notifications and
+initial subscription snapshots.
 
-> and release the old device after an RCU grace period, leaving the multicast
+Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+Assisted-by: LLM
+Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
+---
+Changes since v4:
+- Resend only former patch 1; Hans merged patches 2-4 into uvc/for-next.
+- Fix the EXECUTE_ON_WRITE explanation and spacing (Laurent).
+- Filter CH_VALUE in the common event path, retaining other change bits.
+- Drop the Reviewed-by tags because the event handling changed.
 
-The reference release is immediate, only the free happens after a GP.
+Tests on 7.2.0-rc4+ with the rebased UVC driver:
+- Tiny 2: 31/31 PTZ/event checks pass during a 302-frame stream. Live pan,
+  tilt, zoom and speed readback work. The same probe records 32 unwanted
+  volatile value events with v4 and none with v5.
+- Sunplus 1bcf:28cc: 17/17 ioctl event checks pass (v4: 11/17).
+- Synthetic controls using the production event functions and real V4L2
+  queues: 34/34 checks pass, including async completion (v4: 22/34).
 
-> output path with a stale skb->dev.
-> 
-> The stale device can be dereferenced by the post-routing path.  In
-> particular, a socket using IP_PMTUDISC_PROBE reaches ip_skb_dst_mtu() from
-> ip_finish_output() and reads the freed device's MTU.
+v4: https://lore.kernel.org/linux-media/20260928215021.819064-2-jordan.mymail@gmail.com/
 
-ip_skb_dst_mtu() reads the device from the dst entry, not from skb->dev.
+ drivers/media/usb/uvc/uvc_ctrl.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-> 
-> KASAN reported:
-> 
->   BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
->   Read of size 4 at addr ffff88810921c038 by task poc/98
->   Call Trace:
->    ip_skb_dst_mtu+0x634/0x740
->    __ip_finish_output.part.0+0x22/0x2c0
->    ip_mc_output+0x287/0x930
->    ip_send_skb+0x11d/0x150
->    udp_send_skb+0x63e/0xdf0
->    udp_sendmsg+0x1235/0x1da0
->    __sys_sendto+0x32c/0x3a0
-> 
->   Freed by task 99:
->    kfree+0x131/0x3c0
->    device_release+0xc8/0x240
->    kobject_put+0x14d/0x280
->    netdev_run_todo+0x4cb/0xc70
->    rtnl_dellink+0x362/0xa90
-> 
-> Protect the whole multicast output path with an RCU read-side critical
-> section, as ip_output() already does.  Load the destination device through
-> skb_dst_dev_rcu() and keep it protected through the post-routing hooks and
-> ip_finish_output().
-> 
-> Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v2:
-> - Protect the whole ip_mc_output() path instead of only the MTU read.
-> - Load the destination device with skb_dst_dev_rcu(), matching ip_output().
-> - Use the commit that made dst device replacement RCU-protected as Fixes.
-> 
-> Link: https://lore.kernel.org/r/20260927071051.3693368-1-nicoyip.dev@gmail.com/ [v1]
-> 
->  net/ipv4/ip_output.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index c633ff7dbe72..70f724d5ec6d 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -1841,6 +1841,16 @@ static int __uvc_query_v4l2_ctrl(struct uvc_video_chain *chain,
+ 	    (ctrl->info.flags & UVC_CTRL_FLAG_GET_MIN))
+ 		v4l2_ctrl->flags |= V4L2_CTRL_FLAG_HAS_WHICH_MIN_MAX;
+ 
++	if (ctrl->info.flags & UVC_CTRL_FLAG_AUTO_UPDATE) {
++		v4l2_ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE;
++		/*
++		 * The driver sends every write to the device, even if the value
++		 * is unchanged. Report this behaviour for writable controls.
++		 */
++		if (ctrl->info.flags & UVC_CTRL_FLAG_SET_CUR)
++			v4l2_ctrl->flags |= V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
++	}
++
+ 	if (mapping->master_id)
+ 		__uvc_find_control(ctrl->entity, mapping->master_id,
+ 				   &master_map, &master_ctrl, 0, 0);
+@@ -2060,6 +2070,13 @@ static void uvc_ctrl_send_event(struct uvc_video_chain *chain,
+ 	if (list_empty(&mapping->ev_subs))
+ 		return;
+ 
++	/* Volatile controls do not generate value-change events. */
++	if (ctrl->info.flags & UVC_CTRL_FLAG_AUTO_UPDATE)
++		changes &= ~V4L2_EVENT_CTRL_CH_VALUE;
++
++	if (!changes)
++		return;
++
+ 	uvc_ctrl_fill_event(chain, &ev, ctrl, mapping, value, changes);
+ 
+ 	list_for_each_entry(sev, &mapping->ev_subs, node) {
 
-The diff itself looks fine.
-
-FTR, I'm aware of the discussion that wants an RCU critical section in
-ip_local_out(), but:
-
-1. Adding one in ip_mc_output() is consistent with other output
-functions: ip_output(), ip6_output(), ip_mr_output(), ip6_mr_output(),
-etc.
-
-2. This patch doesn't affect the fast path, unlike an RCU critical
-section in ip_local_out() [1].
-
-3. Patching ip_local_out() doesn't cover all the process context callers
-of dst_output() either.
-
-And yes, I'm aware that more places suffer from this "problem". I opened
-an internal ticket after seeing [2]. I will get to it eventually and
-will target it at net-next since these UAFs are not very realistic as
-evident from [2].
-
-[1] https://lore.kernel.org/netdev/85c6016d-fb15-4c61-aab9-61448911f934@redhat.com/
-[2] https://lore.kernel.org/netdev/20260819164528.3761320-1-jjy600901@snu.ac.kr/
+base-commit: 7a7c915d6bae574d8f43a205d566a837af0d0868
+-- 
+2.43.0
