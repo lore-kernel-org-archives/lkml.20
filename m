@@ -1,176 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925CD37A821;
-	Tue, 29 Sep 2026 07:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055313A640C;
+	Tue, 29 Sep 2026 07:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667599; cv=none; b=O8s+NoTuL/ClzgQfult4fpTFCpJ9P5eCjNC4MGbkXmw5wS8LqdXkVUxG0Oq8OHqgPV9lYHibv9cl1pAfIMkkamIfOZYByUSfahh5xfKUzhnS1ipC8HY9FnRxBnLfUlLagaPYy+kB51rOzNHUWixBqOo+APxAqXtnVKpvBcyw88I=
+	t=1790667601; cv=none; b=JY4Po1lMUv9jqfbvzPAM0YfP3pQWG9VRk/+XKiBRt2sng8PNPgFUGiVuHcKEV/spYwME3VpCzSpGHPoswP4dJzkighVmHTozptt8EDlS8JsYK7TkFhUd4bYXdBDetyQ2w14EDk2fLSMzow9G5h5X8MdCXwc3RF1h7jFYSpVRUyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667599; c=relaxed/simple;
-	bh=y0dzu7ob3UmPk/H1zTfNyDfnolxfGhUWR2dqtm3KL1g=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Vfb7RWCPwGzj7nlHyeh6FyseWlMiy068f6VzLAeQKFI6cbuv63CMztRc/FMm8cbTicm3jawl+YojyWagYnVqqthdVNUD7Ddg/wWIadMPeqtMJHUAdHQZZ1KpMD98xBz+bMHdI04GExSyBeLqXiBXnNMR/ZVPxi7yIAjwM1XX/EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEJ7zX5b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667601; c=relaxed/simple;
+	bh=tqDW8EPgpTuBsz5qUkBZX8c9BkMTlGA45n9YAvX0SKk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hSHUdJPTd97pvQ58w6jcqPsmfnE+MZI2FO5RB0nDuDqO1Y/hmw9C8dECq4FUFuXWFbw1zqTFzWRA33C1C/vLvijfUgLpcpj7twhqVEIaLI2+0EZHf7jM6BEY4Wb9PKMZjTahOkjRuvzoSPf3vu81t2rgVi+HTR2BRtTeeJzTtUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIPigIjl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEJ7zX5b"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D039B1F00898;
-	Tue, 29 Sep 2026 07:39:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIPigIjl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3991F000FF;
+	Tue, 29 Sep 2026 07:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667598;
-	bh=vDL0qwhi/Q8PBC/n1Ot2vI5BEahLy6mimceHsqZsJiM=;
-	h=From:To:Cc:Subject:Date;
-	b=oEJ7zX5bpahzWjFnsSca/uOGkdgYKDhQd7dQcuuDE8kGLBJJ7u7cugyIhChJ72KqP
-	 smiWlSdQhhTHsY1m1ZeW9ODCuhvjfblrOH1i2R7sqkVbWxfvSAUH900TK8kcPaVs2u
-	 lEE0BvtvpHmoF3uCVUh5JvgCsETGT/tdjmoMeczyfKXHESVs2IQs3WLwTtdaPaSjEj
-	 8ZrCgHkdR4nVOl1P9fuVzg7Q6+JFcJAWcEZhjpYR3ZtNNd8aSsIPJWeinKv+zpQous
-	 eBAon51s1RlyDIGiV/yxcllw91O0wbwOsweuZifV7iHhNQzrrCdiLvDXQ7BMzrJGLv
-	 K+MDccY6zVGcQ==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Slawomir Stepien <sst@poczta.fm>, "Henk Vergonet" <Henk.Vergonet@gmail.com>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, <linux-input@vger.kernel.org>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] Input: yealink - abort URB submission on fatal errors
-Message-ID: <fcf3ed99-54ce-4049-9f7d-611827e7adad@mail.kernel.org>
+	s=k20260515; t=1790667599;
+	bh=G3EVKaVLylqb9RWBjtjzgElhNbiD4VmAvFVDm8rDfD4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HIPigIjlsAUgH2jHDO9FkW0Y8+CWBqCvft5W6cCrP5+fYqW/khvQic3GSlV0DZDGd
+	 Yzxjn0LLsdXvtpNd1OTY8YAjKFv1ThHYFUTY0cM0DUJj2GDhA0iExCdDLfIw2hT6HR
+	 SsdBTLb4xeYO76hMr6zhJ0D94UZqpa4yqeLSG28mS0hX257UBTf4CbWYeYD9/WYbP4
+	 Er7hHht/rArymYXeCoIyQfCNorypWHmHtzLTXYC+Ey4jV9Xf/p61MdSJNTdMCwKkT/
+	 RZhSbxga5O0aBiH4/K0wTR6ycSjijqr8blTJtnk7AwRyX5LwzY2hWpI5gI0Y+LVRvy
+	 QzEXoBo+iTp+w==
+Message-ID: <a31cc06a-c22f-41c2-851e-4827869e9df1@kernel.org>
+Date: Tue, 29 Sep 2026 09:39:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/12] mm/sparse-vmemmap: move vmemmap optimization
+ helpers to a public header
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
+ <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260927025441.741633-9-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260927025441.741633-9-songmuchun@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Tue, 29 Sep 2026 07:39:57 +0000 (UTC)
+Content-Transfer-Encoding: 7bit
 
-From: Slawomir Stepien <sst@poczta.fm>
+On 9/27/26 04:54, Muchun Song wrote:
+> The vmemmap optimization helpers currently live in mm/sparse.h,
+> which is an internal MM header. That works for MM code, but
+> prevents powerpc from using the same interfaces without including a
+> private header.
+> 
+> Move the declarations and inline helpers to vmemmap-optimization.h.
+> This is a preparatory change for powerpc, which has its own vmemmap
+> optimization implementation and needs to use the common vmemmap
+> optimization interfaces from architecture code.
 
-The yealink driver uses two URBs (interrupt and control) to communicate
-with the device. When an URB completes with an error status (such as
--EPROTO), the completion handlers (urb_irq_callback and urb_ctl_callback)
-log the error but do not abort. Instead, they proceed to process the
-potentially invalid data and unconditionally resubmit the URB.
+Which raises the question why powerpc was special and will remain special. Wha's
+the big problem here that powerpc must do special things?
 
-Because control URBs are not rate-limited by the USB core, resubmitting a
-failing control URB in a tight loop floods the console with error messages
-and keeps the CPU completely busy in the softirq context. This eventually
-triggers an RCU preempt stall:
+Change itself looks good.
 
-yealink 3-1:36.0: unexpected response 0
-yealink 3-1:36.0: urb_ctl_callback - urb status -71
-rcu: INFO: rcu_preempt self-detected stall on CPU
-Call Trace:
- __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
- console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
- dev_vprintk_emit+0x338/0x400 drivers/base/core.c:4996
- dev_printk_emit+0xee/0x140 drivers/base/core.c:5007
- usb_generic_driver_probe+0x10b/0x150 drivers/usb/core/generic.c:252
- ...
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5953
- worker_thread+0x92d/0xe10 kernel/workqueue.c:3486
- kthread+0x388/0x470 kernel/kthread.c:436
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Fix this by checking the URB status for fatal errors (-ECONNRESET, -ENOENT,
--ESHUTDOWN, -ENODEV) in both urb_irq_callback() and urb_ctl_callback(). If
-a fatal error is detected, the callback now returns early, breaking the
-resubmission loop. For other non-zero statuses, skip processing the
-response data and jump directly to resubmission. Additionally, use
-dev_err_ratelimited() instead of dev_err() to prevent flooding the console
-and triggering an RCU stall.
-
-Fixes: aca951a22a1d ("[PATCH] input-driver-yealink-P1K-usb-phone")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+78e2288f58b881ed3c45@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=78e2288f58b881ed3c45
-Link: https://syzkaller.appspot.com/ai_job?id=89a6c0c7-a0c4-4f05-b1b1-e36a92e373e0
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
-
----
-diff --git a/drivers/input/misc/yealink.c b/drivers/input/misc/yealink.c
-index 560f895a0..f0ec4c5ea 100644
---- a/drivers/input/misc/yealink.c
-+++ b/drivers/input/misc/yealink.c
-@@ -405,9 +405,19 @@ static void urb_irq_callback(struct urb *urb)
- 	struct yealink_dev *yld = urb->context;
- 	int ret, status = urb->status;
- 
--	if (status)
--		dev_err(&yld->intf->dev, "%s - urb status %d\n",
--			__func__, status);
-+	switch (status) {
-+	case 0:
-+		break;
-+	case -ECONNRESET:
-+	case -ENOENT:
-+	case -ESHUTDOWN:
-+	case -ENODEV:
-+		return;
-+	default:
-+		dev_err_ratelimited(&yld->intf->dev, "%s - urb status %d\n",
-+				    __func__, status);
-+		goto resubmit;
-+	}
- 
- 	switch (yld->irq_data->cmd) {
- 	case CMD_KEYPRESS:
-@@ -429,12 +439,13 @@ static void urb_irq_callback(struct urb *urb)
- 
- 	yealink_do_idle_tasks(yld);
- 
-+resubmit:
- 	if (!yld->shutdown) {
- 		ret = usb_submit_urb(yld->urb_ctl, GFP_ATOMIC);
- 		if (ret && ret != -EPERM)
--			dev_err(&yld->intf->dev,
--				"%s - usb_submit_urb failed %d\n",
--				__func__, ret);
-+			dev_err_ratelimited(&yld->intf->dev,
-+					    "%s - usb_submit_urb failed %d\n",
-+					    __func__, ret);
- 	}
- }
- 
-@@ -443,9 +454,21 @@ static void urb_ctl_callback(struct urb *urb)
- 	struct yealink_dev *yld = urb->context;
- 	int ret = 0, status = urb->status;
- 
--	if (status)
--		dev_err(&yld->intf->dev, "%s - urb status %d\n",
--			__func__, status);
-+	switch (status) {
-+	case 0:
-+		break;
-+	case -ECONNRESET:
-+	case -ENOENT:
-+	case -ESHUTDOWN:
-+	case -ENODEV:
-+		return;
-+	default:
-+		dev_err_ratelimited(&yld->intf->dev, "%s - urb status %d\n",
-+				    __func__, status);
-+		if (!yld->shutdown)
-+			ret = usb_submit_urb(yld->urb_ctl, GFP_ATOMIC);
-+		goto out;
-+	}
- 
- 	switch (yld->ctl_data->cmd) {
- 	case CMD_KEYPRESS:
-@@ -462,9 +485,11 @@ static void urb_ctl_callback(struct urb *urb)
- 		break;
- 	}
- 
-+out:
- 	if (ret && ret != -EPERM)
--		dev_err(&yld->intf->dev, "%s - usb_submit_urb failed %d\n",
--			__func__, ret);
-+		dev_err_ratelimited(&yld->intf->dev,
-+				    "%s - usb_submit_urb failed %d\n",
-+				    __func__, ret);
- }
- 
- /*******************************************************************************
-
-
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
 -- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Cheers,
+
+David
