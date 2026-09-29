@@ -1,412 +1,197 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012057.outbound.protection.outlook.com [52.101.43.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5508A5208A2;
-	Tue, 29 Sep 2026 12:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684177; cv=none; b=VKUFvZyRSQpOTwbABVjFLvioEm3lejjsxKjFaUpXhcj5hwpjwa6QUaPlPkyNXdV1pUwwSGyTRDfE9/DzZwuksCuM9QoSf03RztP0JazrMe6a0EHCxOwcUZDtVx70tK+Rca9vLR7QgpQtSgGreW0p110WjX/Vny2z+WkBNDceGlk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684177; c=relaxed/simple;
-	bh=ff9YVygyxz9FYcalm3McsaaAl3z/AyWCNSjHjvE+iZU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eH6swTNbUgnAut+jIFjXYmdZpzpSK3zDd22SQLFK+xCqw44AawVSihQhh5dpynv2lU6yK82cXgZTlUo+49ScfGMatsRC9WZfLFn7TADp3CYfioM2qFcEjhSwr5fzwFvBGUmWNP/dylKpft0tvV9OX+BjQGF9uX3EbCZrmk2PUuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ly9UqRUo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HHzoQgF3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tTO14c0W; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3APgEsDL; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432D23A901D;
+	Tue, 29 Sep 2026 12:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790684254; cv=fail; b=pxTbAOJ8pIUt2v9Suj49OtTB7PSXCVySiJfLmWeF9nunjgr9TO7BGIFWCUImKRrYx9FRONkM/UEgvo2eLvrgcBiqIVd6GJtvXPqIhESVu8OHW4mH7LmyjLrnwUiLKFipEWjCAitf6rYQBMq+moj7EJf1kSrBVmsoZ93r/4CXotw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790684254; c=relaxed/simple;
+	bh=LEVfnFlSG/BfRwDOok7l6G7jF3Hv3MCl4Gz4ivyPTaQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=F6NrL+67hgGtki+ZPTzdFEvrsnRvKCoydE7sg9PHM1ANYx31mdJh33XyfW18YrLdg4VD4ruprsHSk7t4sF6ofPqGcFZhXPpMxv/GWRW8WZXWZM3KOnqVzBN4AZmovgZBnXFcToudqLcrJG/PcO1t2XJVWLc/CAS5UrRSCsAM0e8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=karV9SRp; arc=fail smtp.client-ip=52.101.43.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ly9UqRUo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HHzoQgF3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tTO14c0W";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3APgEsDL"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1B78721D8F;
-	Tue, 29 Sep 2026 12:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790684169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2tq37xcKs+joy7UoSAj9zu5oXmEj6LViRWbZf0oatY=;
-	b=Ly9UqRUodRV7aNkje1j+RcANrFCHkzo4aJ569VrpuURrPo/OYFMCiqJqBKXH6+Q1WL3PYf
-	CL4XnRmkFA+cFKa+1m4fU/hpUe4yW0QuysWFi9RDJ8hTOgsSDm7DBgpptGZIT3AfJkdO9n
-	9T+R1jrOHDIN61JIOsAUafkK4HXX93c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790684169;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2tq37xcKs+joy7UoSAj9zu5oXmEj6LViRWbZf0oatY=;
-	b=HHzoQgF3loVK78gp8uYd4Mm3TjVQvmr24dcu1VYzaJJUJCfb8i+d6s2JOgLHXSFEwsysLL
-	1NKEhgh6ygZNzPBQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tTO14c0W;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3APgEsDL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790684165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2tq37xcKs+joy7UoSAj9zu5oXmEj6LViRWbZf0oatY=;
-	b=tTO14c0WrcKF4o73bkj6yGEH+Ubom4j0tOvLTMFAOQTVMj/xM8KK84FxuGpiiGXVG0EJwt
-	xgPx1qtEJBUtAtyjJpsHPJhqBtwLi3WJYXVRtFvAfKho489o80w+7UmpmM+hyfQUbWA/oe
-	4VAFVD6N92/CkIkbarTDW9EKZ5ivGAQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790684165;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2tq37xcKs+joy7UoSAj9zu5oXmEj6LViRWbZf0oatY=;
-	b=3APgEsDL12FW/lsHKkSZB8r73FWApXHv6axxF2hWxgJYH62QMJ/R+noK2CWwZwR4Fe2tMO
-	hte9YvxbwXNP2YBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D70713710;
-	Tue, 29 Sep 2026 12:16:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DPV9DQSsu2r/SgAAD6G6ig:T4
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 12:16:04 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Zipdox <zipdox@zipdox.net>
-Subject: [PATCH 3/3] ALSA: usb-audio: Optimize min/max/res parse for UAC2
-Date: Tue, 29 Sep 2026 14:15:56 +0200
-Message-ID: <20260929121558.1464094-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929121558.1464094-1-tiwai@suse.de>
-References: <20260929121558.1464094-1-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="karV9SRp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qUy9XS83qLwqX7s7vy2i76CGaaTspPCOvJxUGzVuG/AcsyTNIHjvc2OMlJzTCxHLhKa4IlzXZ4YpvX9nUI6uU5PjlWqwF1Ec+X9qrC6X4OCpWtNCw7WzwA5htsfl+oLOoxqSXHRCypIFf1luRSOGXE11vrgSFkk3VkWMBMsryHNT9qAbjvW8avvHzRrAllaoM5xR0SKWkZl2osGQonYZyzUhjDrAI71aXMcZQaHiX2qAJRhTIRHSEbxm3CK3VAV8N3rx9iTdHgmYqgYccLGicGXGSkQh7i68o+PjAUf9tK9EV5zSRgcalAGoU68p7rIFGSZCF77frS4dtODtyVJU/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LEVfnFlSG/BfRwDOok7l6G7jF3Hv3MCl4Gz4ivyPTaQ=;
+ b=nM1t0gxyooPXtLeys7QqrzeFMQMAHaF6dsWlIE8JgRwiyCkOOSbhKEp5cc8Unc5Q1+lbHkVXDueFzNpj4S9kS8utlkV+C3r7ClWiiPktVphII/YA4bs4GFNigwOJUwop9rto++aG7wu2YefK5UVdqXoqc55bNrUowoKMmH/LJ+Zd35uca5rb9OTHA64w8kmHxGQoyICeXVM9XE+rplwzXK8et49M2B/tzPJebwrd2+vpwuuln8vUhW9CSXYqMhuG/ilBfOpIpzcudPj/8juTfF/v0+Y/2CiUHrekCHjCd5kD4O/RwiRmVFXgYu6fuGsdbxxOeDutUM4WJTB7vsHcGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LEVfnFlSG/BfRwDOok7l6G7jF3Hv3MCl4Gz4ivyPTaQ=;
+ b=karV9SRpqyd27DTVVJmUi9B+wioeiG0/bvC5HoUevkqcQM48SmnVZVTHUkNvToQwiZbQa5qhJesAtrBf1xHKHTzp8TqBYe85RDkEfNBi7OYNUVJxGj0tNmGm6wpfA6zPMWmEO5oVA2OrlEINSf+qSyjUCMLbYZjsuy+zyscPZ+HEpQnwPG98pWps7qJKKvrCQHH9S+5318NXyYOhmXLxAOFPmqlcEsO60pFycmMzMl85u8n7BcgIiDcK5DSSvRSpKsZPdqEv+H0/w+eS9uxq0ONjnjYw9a8/n9S9GG68TVIduKPyx1NcaQtDGUQeAV9B3Xk928hrgtFCey9VBwtNfg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CH3PR12MB8584.namprd12.prod.outlook.com
+ (2603:10b6:610:164::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 12:17:26 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 12:17:26 +0000
+Date: Tue, 29 Sep 2026 09:17:23 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: "Tian, Kevin" <kevin.tian@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [RFC PATCH v6 08/11] iommufd: Add vIOMMU provider support
+Message-ID: <20260929121723.GI1616761@nvidia.com>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260917140159.1163281-9-aneesh.kumar@kernel.org>
+ <179027891417.104879.5995584402952067518.b4-review@b4>
+ <yq5acxu1kgmo.fsf@kernel.org>
+ <20260925123918.GI9354@nvidia.com>
+ <CO1PR11MB483580AB119687B7EC2DD8518C8D2@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <yq5atsn8posb.fsf@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5atsn8posb.fsf@kernel.org>
+X-ClientProxiedBy: SJ0P220CA0013.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:41b::20) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.984];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_THREE(0.00)[3];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 1B78721D8F
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB8584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 978f6e9c-40fa-4e38-69dc-08df1e239f81
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sCyWFD9vH99OE4ZNjkkYrSWQVDp0dTmfLX7q2J/GlaaA7ikFAjW4QsOynPjBVyo1yIla9bYCoJYGvOCwzJpJf1loJJPI9KZLvInhx4RrbwY2Pqy/tWgVmEoUJAr9FUCubQjUvjSrD+a/9jn/2atq09sAQFmgtMdP25Kl943xGHGR6MeoUigFLxvWoVywr9lB3hEfdwS772nzP9Yz+YNAefEt6HY8p/wwCjAXgDlzdPB6Aohv9W2AHYF5TfgQT7yNhsYuWxchPt4EKli5QqbTbLuiwD8M1oh2Up9h/mrgGKYo6sjW3n5n0bJ/BUSzLLPkq5X+F4LtnqT6tD7icibWNyOVZ1S9u4i6Lzm10p2I8/mWyG+Bn1Q+sd+iNcPThGPhiQ9RSrj85XSL5U3jfPU7FABmrTb4PpNJ3zcj6lqOEmtIz8c9ToZNgzhNTJIHcGFP9rI9xChRmxMuNEFWqx4E9gpWMCiS/VntrBqhiw7IEAue8I+IrWSZau+aOixpamvECF88qMgj79iZbdTcUhl1I7W0FPP4KK+tdChJTcGutw4/FTCqZzUQ22R6zlGXC/rGrft3Q5rvQN1+bwypifsVC5ipL/27GsDTZiuMPz8OiM+A/75ZOCm2OEG4zZXTtJSc9ObH+qnUJtV+XVbJQ56T1GAZeTVuze5WhwXXqrTsdAY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?pMmXkP7AsKUQH6p2+QDlcfbL3TE2LfIRZqX7IyJrquJJIRpkKlLtPJxsDHrA?=
+ =?us-ascii?Q?qc6h4g//Yi7joMzStKzkizTzLcwtNfU/DCTUO6hrBYDb/rd0g8YJN8Hx1urB?=
+ =?us-ascii?Q?ON9Klf4pN0oemo0IAyy++slBzcIF4IxiiRHu2LWh0gQYYiqE6Aatao7gKCdE?=
+ =?us-ascii?Q?9tNUVEw16ADV3CsW6as2GuwWtCZL+uk0ow4zpHIpTq0EFVxjdf4TW5BL44L8?=
+ =?us-ascii?Q?0ASFeDewMTk81KIlrzLDQb14i9Iyzp0HHNUOAp/0R0FkWLmCSFHvSLoFcWpq?=
+ =?us-ascii?Q?0qhUJdEV3C/ukRosk81OyfN5Zt23/VviM7rlzlqZNgNRu9WdwpHnQE9VErVD?=
+ =?us-ascii?Q?gvs/tBDNKUnH1VQ8+dXAaEUgxl1wLYDZSHcCoh8zOgXnkG8w8sPmh85BEuOt?=
+ =?us-ascii?Q?XiJFi0WF/v6QHd6OEX36Afn/H9ceiSCsmbaW2lHc8V+26y3i7AjsPPMMqjpX?=
+ =?us-ascii?Q?oNDRtC1xl9Cw62NwDNPPZ9f+MuWXAmIo2xkfWV+SeVEKAxdaFFhhQSzqP/IO?=
+ =?us-ascii?Q?/uo2niVUWwdfJaBqNBDvK42G0o43GQdhlqzufEhvF7pzTKMAgCVjQe0/gPYd?=
+ =?us-ascii?Q?C2UURs+6jWhZnC9Jy+w+fVeTTUI+1QarqMe92IqWib88N984zrVBIRSOztRt?=
+ =?us-ascii?Q?qU9AghgMPugek0dYKnjkOfuAGSC7FNVvQ4lNbeSGS5+7thfC7KpEsHbaaXrJ?=
+ =?us-ascii?Q?5sUlJbiHJLmbIqgaqqgMvG2cDVdKQX3HIvOls8dRisHdxVswkpG4YtY1BCEi?=
+ =?us-ascii?Q?Y4dS1TmvgcQX2cmBT57N8b8sZ+66QBDK38SEob28PSlMYGj1Np8ZXI2LVJDk?=
+ =?us-ascii?Q?1zydiaEW1Nfdp5iWX53Lr2hBqCUjnRlbOiG4gq6D7WhYADyfn8TySMhQld4N?=
+ =?us-ascii?Q?KHCEFATC+9vich05NmJFStlfGA7uUVa0oBBFHaGIq9OwyU8rHSeOCfjOa22g?=
+ =?us-ascii?Q?ET3GcYSOodcQvepV3f+oHzG8sLMIkOCIgWdJV5SHxKlFFG8pSXXjMx5U4bFM?=
+ =?us-ascii?Q?N24n8aQpmrDlfdrMoX86bdFBw+iwtrIDRHKwxPtFd50BiFT+o2Dp3AztB/NG?=
+ =?us-ascii?Q?qXSNtchmNrKoaTObPMo3oJzvI55ISqTvdDySmuD1Ynj8lxvNes83bYUV/xgT?=
+ =?us-ascii?Q?XX9aV7x2QaAN31Kl6rOa7WcMFamVaMBRb/zz1PX7atbBVrj2VuvT4E1srUFs?=
+ =?us-ascii?Q?o4ob9Yu0GEXhod48n3cnTKHccizI7PgiNFFGZPnXU+C2T7M2ByrgCsrQIGpn?=
+ =?us-ascii?Q?bhyFm60m9K0csKRjS+jMsTWKgzTKhMreZmqFmG3TKEQ9IemBz/HNJPjcjBcC?=
+ =?us-ascii?Q?iFg4OkHROgznRqrKZ7IXH5LIK7MPCwYJtz6x2a80RCR4ilapSQ499VpkyEaL?=
+ =?us-ascii?Q?qXznrmyDSsrEG97088QoR17jQHK9ULi0/6Ha56nA5mQa9BS7Eu7AgZULw3Q3?=
+ =?us-ascii?Q?J4ycnM0NLYvDA2Ah7DKFK2cy2jjDlTY0xKmXs/kqK0o9GDkyDXX2jvD9ii6i?=
+ =?us-ascii?Q?XDlnUQgUkpikyJ7O0Tk6FM5qa+tofZoD1ERahFGQrNjZp46zn0fJoVf9GKvB?=
+ =?us-ascii?Q?YfWxxWvOa/56kgHqg+wTTTDK1W4k4nlaQ690dVkqBryJJO6rMKgMSkMs0Nf2?=
+ =?us-ascii?Q?9n0yR/Vt10P+hhTq+Q/uyE/26fk2iyUb3MrkM1kHRN7I9O+VwOKEQY8xBojU?=
+ =?us-ascii?Q?wg0n58ATNhzAv5Pb0bJd7dq3XdO8OSbDEBeyMVZO5eaj4WKH?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 978f6e9c-40fa-4e38-69dc-08df1e239f81
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:17:25.9541
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t/wgnJiEVgUyq5E8X1iOjEh2DLj0/EAbt8F8mGjgcGVZ1NSxvHAzf89JuqBs8bzY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
 
-UAC2 feature and mixer units provide the mixer information about
-minimum and max channels as well as the resolution in a single
-UAC2_CS_RANGE request, but the current code tries to extract each of
-them in an old way of UAC1.
+On Tue, Sep 29, 2026 at 11:44:28AM +0530, Aneesh Kumar K.V wrote:
 
-This patch refactors the code to optimize the range info extraction
-for UAC2.  Now the code for obtaining min/max/res info is done in
-get_ctl_range() function.  For UAC1, this will call UAC_GET_MIN,
-UAC_GET_MAX and UAC_GET_RES requests, while it calls a single
-UAC2_CS_RANGE for UAC2/3.
+> tsm_viommu_get_ops() runs with pci_tsm_rwsem held for read and takes a
+> temporary reference on the backend module (the CCA module). This keeps
+> the selected ops callable until vIOMMU initialization completes. iommufd
+> then drops the reference. This does not pin a particular TSM
+> registration or prevent tsm_unregister().
 
-Link: https://lore.kernel.org/d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c | 209 ++++++++++++++++++++++++++--------------------
- 1 file changed, 117 insertions(+), 92 deletions(-)
+That seems over complicated. Maybe we can't get to the sane locking I
+suggested earlier where TSM module is stable while a driver is bound,
+but we absolutely must have sane locking where we can "pin" the tsm
+for a pdev and it cannot be unregistered for long periods of time,
+such as while a viommu/vdev exists.
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 54a512fb5fa8..6af51c50a542 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -304,8 +304,9 @@ static inline int mixer_ctrl_intf(struct usb_mixer_interface *mixer)
- 	return get_iface_desc(mixer->hostif)->bInterfaceNumber;
- }
- 
--static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
--			    int validx, int *value_ret)
-+/* send a request for UAC1 feature & mixer unit */
-+static int request_ctl_v1(struct usb_mixer_elem_info *cval, u8 request,
-+			  int validx, int *value_ret)
- {
- 	struct snd_usb_audio *chip = cval->head.mixer->chip;
- 	unsigned char buf[2];
-@@ -345,98 +346,72 @@ static unsigned int to_mcn(const struct usb_mixer_elem_info *cval,
- 	return (m - 1) * cval->num_outputs + (v - 1);
- }
- 
--static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
--			    int validx, int *value_ret)
-+/* send a request for UAC2 feature & mixer unit */
-+static int request_ctl_v2(struct usb_mixer_elem_info *cval, u8 request,
-+			  int validx, unsigned char *buf, int size)
- {
- 	struct snd_usb_audio *chip = cval->head.mixer->chip;
--	/* enough space for one range */
--	unsigned char buf[sizeof(__u16) + 3 * sizeof(__u32)];
--	unsigned char *val;
--	int idx = 0, ret, val_size, size;
--	__u8 bRequest;
-+	int idx, ret;
- 
--	val_size = uac2_ctl_value_size(cval->val_type);
-+	CLASS(snd_usb_lock, pm)(chip);
-+	if (pm.err)
-+		return -EIO;
- 
- 	/* correct wValue for UAC2 mixer control with MCN */
- 	if (cval->v2_mixer)
- 		validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
- 
--	if (request == UAC_GET_CUR) {
--		bRequest = UAC2_CS_CUR;
--		size = val_size;
--	} else {
--		bRequest = UAC2_CS_RANGE;
--		size = sizeof(__u16) + 3 * val_size;
--	}
--
--	memset(buf, 0, sizeof(buf));
--
--	{
--		CLASS(snd_usb_lock, pm)(chip);
--		if (pm.err)
--			return -EIO;
--
--		idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
--		ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), bRequest,
--				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
--				      validx, idx, buf, size);
--	}
--
--	if (ret < 0) {
-+	memset(buf, 0, size);
-+	idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
-+	ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0),
-+			      request,
-+			      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
-+			      validx, idx, buf, size);
-+	if (ret < 0)
- 		usb_audio_dbg(chip,
- 			"cannot get ctl value: req = %#x, wValue = %#x, wIndex = %#x, type = %d\n",
- 			request, validx, idx, cval->val_type);
-+
-+	return ret;
-+}
-+
-+/* read the current value for UAC2 */
-+static int get_ctl_value_v2(struct usb_mixer_elem_info *cval,
-+			    int validx, int *value_ret)
-+{
-+	/* enough space for one value */
-+	unsigned char buf[sizeof(__u32)];
-+	int ret, val_size;
-+
-+	val_size = uac2_ctl_value_size(cval->val_type);
-+
-+	ret = request_ctl_v2(cval, UAC2_CS_CUR, validx, buf, val_size);
-+	if (ret < 0)
- 		return ret;
--	}
--
--	/* FIXME: how should we handle multiple triplets here? */
--
--	switch (request) {
--	case UAC_GET_CUR:
--		val = buf;
--		break;
--	case UAC_GET_MIN:
--		val = buf + sizeof(__u16);
--		break;
--	case UAC_GET_MAX:
--		val = buf + sizeof(__u16) + val_size;
--		break;
--	case UAC_GET_RES:
--		val = buf + sizeof(__u16) + val_size * 2;
--		break;
--	default:
--		return -EINVAL;
--	}
- 
- 	*value_ret = convert_signed_value(cval,
--					  snd_usb_combine_bytes(val, val_size));
--
-+					  snd_usb_combine_bytes(buf, val_size));
- 	return 0;
- }
- 
--static int get_ctl_value(struct usb_mixer_elem_info *cval, int request,
--			 int validx, int *value_ret)
-+/* read the current value */
-+static int get_cur_ctl_value(struct usb_mixer_elem_info *cval,
-+			     int validx, int *value_ret)
- {
- 	validx += cval->idx_off;
- 
- 	return (cval->head.mixer->protocol == UAC_VERSION_1) ?
--		get_ctl_value_v1(cval, request, validx, value_ret) :
--		get_ctl_value_v2(cval, request, validx, value_ret);
--}
--
--static int get_cur_ctl_value(struct usb_mixer_elem_info *cval,
--			     int validx, int *value)
--{
--	return get_ctl_value(cval, UAC_GET_CUR, validx, value);
-+		request_ctl_v1(cval, UAC_GET_CUR, validx, value_ret) :
-+		get_ctl_value_v2(cval, validx, value_ret);
- }
- 
- /* channel = 0: master, 1 = first channel */
- static inline int get_cur_mix_raw(struct usb_mixer_elem_info *cval,
- 				  int channel, int *value)
- {
--	return get_ctl_value(cval, UAC_GET_CUR,
--			     (cval->control << 8) | channel,
--			     value);
-+	return get_cur_ctl_value(cval,
-+				 (cval->control << 8) | channel,
-+				 value);
- }
- 
- int snd_usb_get_cur_mix_value(struct usb_mixer_elem_info *cval,
-@@ -466,6 +441,77 @@ int snd_usb_get_cur_mix_value(struct usb_mixer_elem_info *cval,
- 	return 0;
- }
- 
-+/* extract the mixer min/max/res info from UAC1 feature / mixer unit */
-+static int get_ctl_range_v1(struct usb_mixer_elem_info *cval, int validx)
-+{
-+	int last_valid_res = cval->res;
-+
-+	if (request_ctl_v1(cval, UAC_GET_MAX, validx, &cval->max) < 0 ||
-+	    request_ctl_v1(cval, UAC_GET_MIN, validx, &cval->min) < 0) {
-+		usb_audio_err(cval->head.mixer->chip,
-+			      "%d:%d: cannot get min/max values for control %d (id %d)\n",
-+			      cval->head.id, mixer_ctrl_intf(cval->head.mixer),
-+			      cval->control, cval->head.id);
-+		return -EAGAIN;
-+	}
-+
-+	if (request_ctl_v1(cval, UAC_GET_RES, validx, &cval->res) < 0) {
-+		cval->res = 1;
-+		return 0;
-+	}
-+
-+	last_valid_res = cval->res;
-+	while (cval->res > 1) {
-+		if (snd_usb_mixer_set_ctl_value(cval, UAC_SET_RES,
-+						validx, cval->res / 2) < 0)
-+			break;
-+		cval->res /= 2;
-+	}
-+	if (request_ctl_v1(cval, UAC_GET_RES, validx, &cval->res) < 0)
-+		cval->res = last_valid_res;
-+
-+	return 0;
-+}
-+
-+/* extract the mixer min/max/res info from UAC2 feature / mixer unit */
-+static int get_ctl_range_v2(struct usb_mixer_elem_info *cval, int validx)
-+{
-+	/* enough space for one range */
-+	unsigned char buf[sizeof(__u16) + 3 * sizeof(__u32)];
-+	unsigned char *val;
-+	int ret, val_size, size;
-+
-+	val_size = uac2_ctl_value_size(cval->val_type);
-+	size = sizeof(__u16) + 3 * val_size;
-+
-+	ret = request_ctl_v2(cval, UAC2_CS_RANGE, validx, buf, size);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* FIXME: how should we handle multiple triplets here? */
-+	val = buf + 2;
-+	cval->min = convert_signed_value(cval, snd_usb_combine_bytes(val, val_size));
-+	val += val_size;
-+	cval->max = convert_signed_value(cval, snd_usb_combine_bytes(val, val_size));
-+	val += val_size;
-+	cval->res = convert_signed_value(cval, snd_usb_combine_bytes(val, val_size));
-+	return 0;
-+}
-+
-+/* extract the mixer min/max/res info */
-+static int get_ctl_range(struct usb_mixer_elem_info *cval, int validx)
-+{
-+	switch (cval->head.mixer->protocol) {
-+	case UAC_VERSION_1:
-+		return get_ctl_range_v1(cval, validx);
-+	case UAC_VERSION_2:
-+	case UAC_VERSION_3:
-+		return get_ctl_range_v2(cval, validx);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- /*
-  * set a mixer value
-  */
-@@ -1362,32 +1408,11 @@ static int get_min_max_with_quirks(struct usb_mixer_elem_info *cval,
- 					break;
- 				}
- 		}
--		if (get_ctl_value(cval, UAC_GET_MAX, (cval->control << 8) | minchn, &cval->max) < 0 ||
--		    get_ctl_value(cval, UAC_GET_MIN, (cval->control << 8) | minchn, &cval->min) < 0) {
--			usb_audio_err(cval->head.mixer->chip,
--				      "%d:%d: cannot get min/max values for control %d (id %d)\n",
--				   cval->head.id, mixer_ctrl_intf(cval->head.mixer),
--							       cval->control, cval->head.id);
--			return -EAGAIN;
--		}
--		if (get_ctl_value(cval, UAC_GET_RES,
--				  (cval->control << 8) | minchn,
--				  &cval->res) < 0) {
--			cval->res = 1;
--		} else if (cval->head.mixer->protocol == UAC_VERSION_1) {
--			int last_valid_res = cval->res;
- 
--			while (cval->res > 1) {
--				if (snd_usb_mixer_set_ctl_value(cval, UAC_SET_RES,
--								(cval->control << 8) | minchn,
--								cval->res / 2) < 0)
--					break;
--				cval->res /= 2;
--			}
--			if (get_ctl_value(cval, UAC_GET_RES,
--					  (cval->control << 8) | minchn, &cval->res) < 0)
--				cval->res = last_valid_res;
--		}
-+		ret = get_ctl_range(cval, (cval->control << 8) | minchn);
-+		if (ret < 0)
-+			return ret;
-+
- 		if (cval->res == 0)
- 			cval->res = 1;
- 
--- 
-2.55.0
+That period should start right before getting the ops and continue to
+until the viommu is destroyed.
 
+No hot unplug of tsm modules while things are active.
+
+> CCA vIOMMU initialization takes a tsm_dev reference, keeping the TSM
+> object and its PCI/TSM resources alive until the vIOMMU is
+> destroyed.
+
+iommufd should do this, so long as the viommu object exists the tsm
+for it exists. It should not be inside tsm drivers.
+
+> The initialization callback also takes a reference on the CCA module so
+> that the vIOMMU callbacks remain available after iommufd drops the
+> temporary discovery reference described above.
+
+The initial pin should do this since it is the only way to prevent
+unregistration.
+
+> For a link TSM-connected device, a vdevice holds a pci_tsm_context
+> reference. The context holds device references and increments PF0's
+> context_users under the PF0 mutex. PCI/TSM disconnect checks that count
+> under the same mutex and returns -EBUSY while contexts remain. The
+> context is released during vdevice teardown. This prevents link
+> disconnect while a vdevice is active without blocking tsm_unregister().
+
+This one seems reasonable, but not sure a mutex is needed on top of a
+a simple refcount scheme.
+
+> A new unregistering state is added to tsm_dev. tsm_unregister() sets it,
+> unregisters the class device, and drops the registration reference. New
+> vIOMMU allocations, vdevice contexts, and PCI TSM connect/lock
+> operations reject the TSM once this state is set. Existing users retain
+> their references and can be torn down normally, so tsm_unregister() does
+> not need to wait for them. PCI/TSM teardown occurs when the last active
+> tsm_dev reference is dropped.
+
+This seems over complicated, tsm unregistration should be made
+impossible while it is not able to complete. We shouldn't need the
+complexity of states here when we don't need to support tsm
+hot-unplug.
+
+ideally the module refcount handles this and the only way to trigger a
+tsm remove is through module unload, with no sysfs path?
+
+Jason
