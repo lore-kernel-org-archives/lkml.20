@@ -1,41 +1,41 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31D150E5B4;
-	Tue, 29 Sep 2026 10:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A777350B8AA;
+	Tue, 29 Sep 2026 10:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678229; cv=none; b=trb8Qq54AzL1HYw9G4Rs045QGPfdORROK3HzKcFxHMCN+AE5hdk+zr7SHn958fKSybsCu/LUX4EQlCRdh+Ks1MeXB7uQ14wf+kS1V2udf+V/5tKCxS1PUay9JKirT3pnlsatrqMVdl4k0TNYbV+mVzc/2x0HnLkXPvaJIPEO8Jw=
+	t=1790678236; cv=none; b=HraTIYDagKUjGXB8lBjuW9RmUKPhA7VUwG8mcEm1qLmfn9RBVJvS3rpKtBnInNhDl2f0P9vkBGVo34vdN6jS/E4FLsKPnsJ3vDwNanrxrK0hBZYIxsCeTNI5oqJzLEHcWZGSdrxtvPYtvfaanSQCrodZ1l9Sa3Z3huxJCflIdAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678229; c=relaxed/simple;
-	bh=fAJCR/ZroPy+oJUNxMd85Nr72/31bKeldozY5NBeAX0=;
+	s=arc-20240116; t=1790678236; c=relaxed/simple;
+	bh=HtwDjQr4lHW4v0AAIfkxnycfHcHkTwWJC1qzXRAMG/s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oUqHt+j2t9vl242aB/xp3khQy4aA49E7laqf29Fxvq/API4Kasbwl3s+vg6c2qFBaK07oe8+zW5skW6PhILjmZkjcfMjx5kgMDoQ894VSq+bxmpcnWtUVL+zPGG9m0IMG2XYyjvmesg4Vj2eZRyvrzoUCswjO4a6xvPIM6VXRg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MqTojPzP; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=uubb2zIEiEv4+G3JKsLFYLGAu4Y0Iy9eNQbc6NL47JS0i2AIcOTuIo94HFauw0RMgNBjNHBEob/thdGBZ5JssAAWxaFjBTMrKM2G+Eo6705AJpt9oqqELYqoaxTeLnSmSK+bwwHLXdG5TQpQk3f9W9WY0aZJsV2ASq3NPQggafs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=M6cmUKKy; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MqTojPzP"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="M6cmUKKy"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7844A4E410B7;
-	Tue, 29 Sep 2026 10:36:53 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 38E2B1A1058;
+	Tue, 29 Sep 2026 10:37:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4B7CF601BD;
-	Tue, 29 Sep 2026 10:36:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3BB42103297D9;
-	Tue, 29 Sep 2026 12:36:46 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A3ED601BD;
+	Tue, 29 Sep 2026 10:37:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D870103297AF;
+	Tue, 29 Sep 2026 12:36:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790678211; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790678221; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=032h6Th8l7IfQBTnPLHPYTAaN8pOyDuaC0Ayd1z2gxI=;
-	b=MqTojPzPfPXSqJtTFCsEBbmgmp2/5X3w9gioa23m3HV0/eMECBU2ebNCtd9XTNUzkQdqIs
-	VWYwkl/6StrQcAEB4FA1iXQVJu6wYSJgcPSH4mlngku+IWWWS7rSv2lRe7TOPW7GbXKZKx
-	Iyqaq0TsNIR/XQJrCLkf4ZgW9aW/UbXhgX4bsR0UnupObu7Tx3lyyNMXEj9pDzyq7EK7Hn
-	3jyGYyYML3DrDj6k3EdlDMBEzXKuyn5dTTHbE6wUI1Mn7272M3LnO4NLB5Dm/mURWCHjTN
-	07Y3JY2pIwLlRRCvaMaqfb08+MhUu98xTpXbKd8JmW1MHGLSkDQB+6Qamoeu4g==
+	bh=km5I+JcME5UXy42DduLtW/ez3raaO2PXP1hBWyAnM64=;
+	b=M6cmUKKytgaFYQa8+E9bIANqk5CVnrl8p2/pBEXQ2Rd8TD1c2EKhiqJQT8S2z3yFYpn5mx
+	iEsPFKoTpQkDbTjEcnq7rTpJCsQsdUC6opEFXMLZOjR0yBVtIX9cCLA1PftaKHPAy/nFxS
+	MdKqQrRc2+Ex/I6xBHn+4NZJXz2ZqEiz+mfNOkjLLZXAhgfPmsVH5cy2QWu88MMKpMIaKa
+	xsEvSWMi5SjnpbMtdTKTQM1xbaUddpnrbX0/ZQeRNDAndzL1cG+815Ped/EC065nADJEIo
+	VxbTKHM64MgtHi0vbBEk4aNMdAD/JbwISQKnfNCvRW+v3Lz/HZqFPcopetndWw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 29 Sep 2026 12:36:33 +0200
-Subject: [PATCH 1/7] drm/imx/lcdc: stop using deprecated
+Date: Tue, 29 Sep 2026 12:36:35 +0200
+Subject: [PATCH 3/7] drm/bridge: dw-mipi-dsi: stop using deprecated
  devm_drm_of_get_bridge()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-drm-fix-of_get_bridge-build-regression-v1-1-ccb7e602daad@bootlin.com>
+Message-Id: <20260929-drm-fix-of_get_bridge-build-regression-v1-3-ccb7e602daad@bootlin.com>
 References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
 In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,7 +74,7 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 devm_drm_of_get_bridge() is deprecated, switch to
 of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-a refcounted bridge, ensure it is put.
+a refcounted bridge, ensure it is put by using bridge.next_bridge.
 
 Fixes build failure when CONFIG_OF is disabled.
 
@@ -83,30 +83,53 @@ Reported-by: Arnd Bergmann <arnd@kernel.org>
 Link: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-index c67fe80b8115..805a659e3f85 100644
---- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-+++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-@@ -385,7 +385,6 @@ static int imx_lcdc_probe(struct platform_device *pdev)
- {
- 	struct imx_lcdc *lcdc;
- 	struct drm_device *drm;
--	struct drm_bridge *bridge;
- 	int irq;
- 	int ret;
- 	struct device *dev = &pdev->dev;
-@@ -401,7 +400,8 @@ static int imx_lcdc_probe(struct platform_device *pdev)
- 	if (IS_ERR(lcdc->base))
- 		return dev_err_probe(dev, PTR_ERR(lcdc->base), "Cannot get IO memory\n");
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index 5dd475fcaacf..fad6c3f71032 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -244,7 +244,6 @@ struct debugfs_entries {
+ struct dw_mipi_dsi {
+ 	struct drm_bridge bridge;
+ 	struct mipi_dsi_host dsi_host;
+-	struct drm_bridge *panel_bridge;
+ 	struct device *dev;
+ 	void __iomem *base;
  
--	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-+	struct drm_bridge *bridge __free(drm_bridge_put) =
-+		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+@@ -333,12 +332,12 @@ static int dw_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+ 	dsi->format = device->format;
+ 	dsi->mode_flags = device->mode_flags;
+ 
+-	bridge = devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node, 1, 0);
++	bridge = of_drm_get_bridge_by_endpoint(dsi->dev->of_node, 1, 0);
  	if (IS_ERR(bridge))
- 		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to find bridge\n");
+ 		return PTR_ERR(bridge);
+ 
+ 	bridge->pre_enable_prev_first = true;
+-	dsi->panel_bridge = bridge;
++	dsi->bridge.next_bridge = bridge;
+ 
+ 	drm_bridge_add(&dsi->bridge);
+ 
+@@ -368,8 +367,6 @@ static int dw_mipi_dsi_host_detach(struct mipi_dsi_host *host,
+ 			return ret;
+ 	}
+ 
+-	drm_of_panel_bridge_remove(host->dev->of_node, 1, 0);
+-
+ 	drm_bridge_remove(&dsi->bridge);
+ 
+ 	return 0;
+@@ -1086,7 +1083,7 @@ static int dw_mipi_dsi_bridge_attach(struct drm_bridge *bridge,
+ 	encoder->encoder_type = DRM_MODE_ENCODER_DSI;
+ 
+ 	/* Attach the panel-bridge to the dsi bridge */
+-	return drm_bridge_attach(encoder, dsi->panel_bridge, bridge,
++	return drm_bridge_attach(encoder, dsi->bridge.next_bridge, bridge,
+ 				 flags);
+ }
  
 
 -- 
