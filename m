@@ -1,170 +1,266 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C83E44F8;
-	Tue, 29 Sep 2026 22:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A63B3280A56;
+	Tue, 29 Sep 2026 22:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790720143; cv=none; b=oJ8xp8ifqDgMl4hDCGEtEWAK4KAjMo4K1cvFW62LATYmGLsEmIFr+oBhJuu69L2UiWc82tzTifzuCfRIEBw0gHZDb6aQkypNgIrXECbp+Dnx3RQzrYR/IYI3VDq/g0h7Orq7QqqNmVSQwFUFjEJZbkNWuHPwqPskBrWXQn2KCZE=
+	t=1790720202; cv=none; b=l3qGvzOQalx04XBP/8n11r7E4LhWeNyT0eqFNuGKCbBVNrMmcOMRDKZ21o93vprpr2kez5ognvwCq6JV8IMUnxARB/6PYADlRDKw5POcLIjcpeID0+RNCSVPf38sKiIT/hZABg1uf7AsGE/UvZQfivK1MDVYrW8NZHmR72kun/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790720143; c=relaxed/simple;
-	bh=lA8OIGpr+3IoFNeyfse31X5HT+AJVfGcyMWh/vW1LT0=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=a3ELxzoSWV38ryPd+O719lnP5Ipa2+fbl1Utz1UmghTjb08D/ftHkZgKyWnOAzWKAQgJyUP+8JcmtEIujNGowfZR6vgUG7m0Km9kU0iFsQKltUrwQJCP5dWdooEXxz5LAB0cB0b+lJAmfvTYUZS3xeRTPfQOhk/yTJudTm6hq2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=egL6wDpx; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JjMrI3GO; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1790720202; c=relaxed/simple;
+	bh=1NT+wfwfNpVcFzjc6PeZ85Jz2K91YU1fR6/05gtWZGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h1G0QyvbzLpCalyXwTDT0oyHN/r0uA/D7FgwfiejYcJhWk76alIcj/YwyfcHIv3/T94hl9yA6FdDFzfhOOhe8lw7COO/Man7BSdtrAUoqz1cA21lZneezBQ/2wt5Dvs5MUkLdN0U8c6bK1pigkBxz932r9piPGQ0U8LarqYbT7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OGIHiMQi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="egL6wDpx";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JjMrI3GO"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 422F5EC03D1;
-	Tue, 29 Sep 2026 18:15:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 29 Sep 2026 18:15:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1790720141; x=1790806541; bh=ECZwRXFI7wxFvuUVQQBk9tWmQ4CQX/umKjr
-	mqyu1z/A=; b=egL6wDpxYbbEaZ2Wu1NSMbYrtJszLskmRKFQc7Apn7ZwcVN+d2b
-	7d/atozANqH6yHKOBjczc03tuU7xUFMO4WZ9CC9EfjgapzMFkOuxPJpbHNt2rUeq
-	reX0Cz1tZei1ibrLtyZuriwJb/pabatPqq9UHqXRsC16maS9o5Kar77C3kHh56tX
-	xBDW15NY11kKRLThDkYNXIZ1IatesyyVCIWutW2yWFdcbidsplyp6oGbOPhf26G+
-	J46UyNaVdvUWxurBfzEGykChueIDu0lBMlB16Uqv/5p1NLzN9LOPNCov5iAOzkjG
-	h6CIqrw9j15rvgdKYudIFChWrT6sJZy9lmA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790720141; x=
-	1790806541; bh=ECZwRXFI7wxFvuUVQQBk9tWmQ4CQX/umKjrmqyu1z/A=; b=J
-	jMrI3GO/sP7zgRMSqyODMbjxD5lwdJnVwxnijglxgWUq8ckSs9vZyM9TmTEwTByg
-	5Hs3DYXzIf+eBWunOD67TG5o9dwrzZkxpXM+a5rZyDaZgVqFq18U+h3FjcNFy2Me
-	fT7AOVHrjxdAhYPGOFEY82tsEo8LDYqec7AVeLv263uKcYZsDXyy6Lc81tSUxrsk
-	pKoCjqIwQTTI4EwcPL/Tw3Mc9VfJlGCbZrvHW+xfF5vkOd4LKaQ4EQaoB4Aa3PWP
-	SJnjmxBMDdDu/teEzra1cWV/CwakEMzgkLF7J/vzBQyiNuVhFnoj8kdwNnSqOGJn
-	aLEuUjlbZO7fXXncrpdCw==
-X-ME-Sender: <xms:jDi8aq4U2CAFQbh-yk-WUXf8QfmRm2_hA1Jugr9Npd1QcnW5jdrtvQ>
-    <xme:jDi8agcJyYp-LCWyMkiCvQDTymumBxyid4M_lW99eWpQGhvLJAd_Vs4rR_VhlZVyn
-    DVoKxLcyR44flc-YFe06qTpnheS0C_AbCiCvTUNqKWh-nel3bs>
-X-ME-Received: <xmr:jDi8at5az42ryhWom9BZVG4L8GPBEmzjXwq7tbWVtv1ccZ8nO-rJmz6rXeD946rk4h2lsp3vKJRlWkHUJ3bsdUcG42In7us>
-X-ME-Proxy-Cause: dmFkZTE8marj7DVr8hg1dxlC9utcvKFkho3si1jq9DAv1zFhVKum0yYAwPlc3PrSQ2jgD4
-    b5aTj2x/l8XyGdReNrwPtKAeEUtcZlsWCYt6f68RbEckrAiHLyLes3uBHOy1WFPKXioaGd
-    2uXbprb6PKe+QKDMWlHyDbk94bTJ/o1eRm73JZ7+GGH+BPsYTMEdeb11OsWFFiJtz0ropY
-    A5BJe+4UilyOJf2kQslC0vvWvvKItw7nCNKM3QCdpLFRvVK//KyRxOd1OaF6MLTzzKXk9K
-    DYO8WEh+Y23Y95oi4bGvUDdYtD8x5VOgRxqf/RsAX7zpZMZUUOo8jcGJDBGTRAy1zQNMdZ
-    /72w5NpzSUDnAtlCiyaXcmmHmQzNeZ8Cot1STLMho1mEOhPwTFNsNE0mHjpHwqjp1AfYcT
-    p++ekDTpNjzK5vunCKjT442JOHxtvoT+sO22UzPODaTYChCAD7IRlIopghtQHNUXA7yf4N
-    NRO1AYJnAiCMOupisgTl/iH/G5WpnXkvXwG0ExaR4yiL6HpCirnAUU4eY1k8nvoo+Vr/rP
-    JiGYnp8ln18TYO7965wZ8OVr+BZbFg3Of3lFfqyjgbbRHRmivaZJHeCX6mk6WBIGqEoD8b
-    hrMhHatjMqljiH06Vnk5iffMOgpe59XbfqYrQbx2atLtQ2kwUVVW9TP7wSFA
-X-ME-Proxy: <xmx:jDi8at8lCiY0LfqOE1qMyp7kmhr1u8yMw07dEcZUc0Hms0l2ilWuHQ>
-    <xmx:jDi8avFRCvgUjGMXEFaWqZ3BcMBD7SBO3NGRAnwoNe5Fak3-fAio1Q>
-    <xmx:jDi8aiXhMUPCA4NGy6fajk7vV49cpL03WZJhxB9sT5EQS-DcWF9oxQ>
-    <xmx:jDi8ar-DYKSmHeTXT_NYbTuvn46ZaTIjhBZ7b2RlOft5EdlX1DMlaw>
-    <xmx:jTi8atwIepATOJfUFycg2qPMfoILpMnJVKlN4kolCjeMhCqxacL_7j6j>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 18:15:37 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OGIHiMQi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61C831477;
+	Tue, 29 Sep 2026 15:16:34 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3C1C73F85F;
+	Tue, 29 Sep 2026 15:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790720197; bh=1NT+wfwfNpVcFzjc6PeZ85Jz2K91YU1fR6/05gtWZGE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OGIHiMQisZDZhWt1prJPC3NgAe/eKDAcWfRt35iNiYlrAin18Z8p8K1LJ+SeJ3qDJ
+	 JqIhrGRO3ZbivEhd4G6zzhesGjOqbsK2amXJ5lko2N6gifeVRv8zxda2GkeR3abtkb
+	 gzmlP4Evd0gNCpJqPPQ3x9Ne7RTcYxjE+MjIXN3U=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v20 0/9] firmware: arm_rmm: Add RMM v2.0 base RMI support
+Date: Tue, 29 Sep 2026 23:16:14 +0100
+Message-ID: <20260929221623.1342076-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Jori Koolstra" <jkoolstra@xs4all.nl>
-Cc: "Christian Brauner" <brauner@kernel.org>,
- "Jeff Layton" <jlayton@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>,
- "Aleksa Sarai" <aleksa@amutable.com>, "Amir Goldstein" <amir73il@gmail.com>,
- "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
-In-reply-to: <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
-  <20260913185016.523376-8-jkoolstra@xs4all.nl>
-  <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
-  <178972607557.207413.4312278359822083538@noble.neil.brown.name>
-  <178977609418.207413.15011378414000392029@noble.neil.brown.name>
-  <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
-Date: Wed, 30 Sep 2026 08:15:34 +1000
-Message-id: <179072013439.37859.465558431050704411@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Transfer-Encoding: 8bit
 
-On Tue, 29 Sep 2026, Jori Koolstra wrote:
-> > Op 19-09-2026 02:01 CEST schreef NeilBrown <neilb@ownmail.net>:
-> > 
-> > > 
-> > > nfsd_create_locked() used to do that before vfs_mkdir() could return a
-> > > dentry, but it doesn't any more.  The reason was because
-> > > d_splice_alias() on might return a different dentry. 
-> > > In this case we want the same dentry, but we need to do a lookup on it.
-> > > 
-> > > I'd rather fix this in kernfs, but maybe that is a longer-term goal.
-> > > 
-> > > The comment in kernfs_dop_revalidate() suggests the we should d_drop()
-> > > the negative dentry and d_alloc_parallel() a new one and ->lookup that.
-> > > I'm not certain that is needed if we keep the parent locked, but we
-> > > would need to be certain.
-> > > We at least need to d_drop() the dentry before ->lookup as ->lookup
-> > > cannot handle hashed dentries and a hashed-negative dentry is passed
-> > > to ->mkdir.
-> > > 
-> > > I wonder if we could just disable O_CREATE|O_DIRECTORY on kernfs ....
-> > > probably not.
-> > > 
-> > > Summary: I think that if vfs_mkdir() returns NULL (success) but the
-> > > dentry is negative, we need to d_drop() and call ->lookup with a big
-> > > comment about kernfs.  But we need to double-check that this will do the
-> > > right thing with ->d_time (I think it will).
-> > > We also need to think carefully about races with
-> > > kernfs_dop_revalidate(), which could happen concurrently with the
-> > > ->lookup.
-> > 
-> > I've thought a bit more about this ...  I think that doing a lookup after
-> > the vfs_mkdir() results in a negative is a bit ugly.  It assumes things
-> > about the fs that I would rather not assume.
-> > 
-> > I would rather have the current proposed code check for a negative
-> > dentry, and fail with -EIO or similar.
-> > 
-> 
-> I just noticed that there's precedent for this in overlayfs in super.c:
-> 
-> 		/* Weird filesystem returning with hashed negative (kernfs)? */
-> 		err = -EINVAL;
-> 		if (d_really_is_negative(work))
-> 			goto out_dput;
-> 
-> Shall we just do this for current kernel release, then we can add support
-> later if wanted.
-> 
-> (But let's do EOPNOTSUPP instead of EINVAL)
-> 
-> What do you think?
+This series adds the generic firmware layer for talking to the Realm
+Management Monitor (RMM), as specified by the RMM v2.0-bet3
+specification[1]. It is the first part of the Arm CCA host support that
+was previously posted as part of the larger KVM series.
 
-The problem with this approach is that open(.., O_CREAT|O_DIRECTORY)
-might create the directory, then return -EOPNOTSUPP.  This is weird and
-I'd rather it not be visible.
+The split allows this RMM support to be used as a base for other work,
+including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
+ without depending on the KVM Realm support that will follow as separate
+ series. (See more on that below)
 
-Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather it
-remain a -EINVAL on any filesystem which doesn't completely support
-the functionality.
+The series adds:
 
-To do that we need some way to detect kernfs and tracefs.  I think
-the only way we can do that is to make some change to those two
-filesystems.
-Maybe a new  SB_I_ flag in sb->s_iflags would be ok in the short term.
+ * The RMI SMC definitions and direct-call wrappers.
 
-NeilBrown
+ * RMM discovery and version checks during firmware init.
+
+ * RMM host configuration, including the host page size.
+
+ * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
+   can complete across multiple SMC calls while requesting or returning
+   memory to the host.
+
+ * Verification that granule tracking is available at fine granularity.
+   Fine-grained tracking allows each granule in the system to be tracked
+   independently, which is required before individual granules can be
+   delegated. A future series will add support for dynamically supplying
+   memory to the RMM for this tracking.
+
+ * Support for fully firmware-managed systems, where the Granule Protection
+   Tables for memory regions are allocated and managed by firmware. RMM v2.0
+   also allows dynamic GPT creation on demand; support for that will be added
+   in a later series.
+
+ * Wrappers for the RMI commands that are used for managing the "Realm VM"
+   lifecycle. This is added in to make it easier for the on-going KVM support
+   to evolve in parallel pieces.
+
+If the platform firmware cannot manage the granule tracking or the GPTs, we
+bail out and deactivate the RMM, reclaiming any memory that we have donated.
+
+The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
+the RMM to complete an operation over several SMC calls while requesting
+or returning memory to the host. This allows interrupts to be handled in
+the middle of an operation and lets the RMM dynamically allocate memory
+for internal tracking purposes. For example, RMI_REC_CREATE no longer
+needs auxiliary granules to be provided up front, and can instead
+request memory during the operation.
+
+This series applies on v7.3-rc2 and a branch is available at [2]. The KVM
+CCA support that builds on this series is available at [3] as an integration
+branch. The KVM support depends on guest-memfd-in-place conversion support v13
+from Ackerley [4], we plan to split that into parts, which apply cleanly on
+v7.3-rcx without any dependency and is in progress. This will be made available
+as soon as it is ready. Until then [3] shows how this base series enables KVM
+CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
+The kvm integration branch has been tested with kvm-unit-tests [7] and Linux
+kernel booting with PCI device assigned as an untrusted device.
+
+[1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+[2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v20
+[3] KVM CCA v21 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca/cca-host/kvm-v21/integration
+[4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v13
+[5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+[6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git tag:cca-kvm-v20 (Also cca/kvm-v18)
+[7] kvm-unit-tests https://gitlab.arm.com/linux-arm/kvm-unit-tests-cca.git tag: cca-rmm-v2.0
+
+Known issues: RMMv2.0 spec.
+==========================
+Here are some of the known issues affecting the code here. I have included the
+ticket number associated with the issues, which will be available in the RMM
+spec, when a public release is available. (So that it is easier to see if the
+issues has been fixed in the spec and easily spot them)
+
+ * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
+  (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
+  may not be satisfiable by the host. This is resolved in the RMM spec, by clamping
+  the upper limit on the number to match the RmiAddrRangeDesc* and will be published
+  in the next release. (FENIMORE-1744)
+ * RMM to clarify the scenarios that triggers the RMI_BLOCKED and the
+   recommendations to limit the cases. (FENIMORE-1783)
+ * RMM to clarify the "PE bound" SRO context pool to really mean global pool
+   (FENIMORE-1802)
+ * Clarify RMI_RTT_DATA_UNMAP, output_count, output_range are only valid when
+   result is RMI_SUCCESS (FENIMORE-1746)
+
+Changes since v19:
+ https://lore.kernel.org/all/0260924135201.850038-1-suzuki.poulose@arm.com
+
+ ** Patch 1 - RMI SMCCC definitions
+  - Fold 'padding' only union in rec_exit to the previous group of fields
+  - Add static_assert to make sure the struct field offsets match the spec
+  - Rename 'padding' fields to 'sizer' which they really are
+  - Add MAINTAINERS entry for the new header file under ARM64
+ ** Patch 2 - firmware: arm_rmm: Check for RMI support at init
+  - Fix comment : s/RmiFeatureRegister5/RmiFeatureRegister4/
+  - rmi_feat_reg() s/unsigned long/unsigned int for index
+  - linux/arm-rmi-cmds.h -> Mark the "#endif"
+  - Use += rmi.o in Makefile
+  - Mask the ID_AA64PFR0_EL1_RME field for KVM guests
+  - Add MAINTAINERS entry for header file and arm_rmm directory
+ ** Patch 3 - firmware: arm_rmm: Configure the RMM with the host's page size
+  - Don't initialize 'ret' in rmi_configure, add explicit return 0/-EINVAL
+ ** Patch 4 - firmware: arm_rmm: Add support for SRO
+  - Fix typos s/-ECANCELLED/ECANCELED/ rmi_sro_execute()
+  - Drop duplicate, incorrect assignment of sro_handle in rmi_sro_execute()
+  - Drop int i, redeclartion in for() for rmi_sro_donate_noncontig()
+  - Drop donated_granules for rmi_sro_donate_contig()
+  - Drop "inline" and be consistent with the rest of the code
+  - Avoid nesting if..else in rmi_*delegate_range by breaking out on error
+  - Consistent styling in comments, wrap to 80space, spelling corrections
+  - s/\*\*/\*/ for comment above functions
+  - Reorder the functions to appear as rmi_*_delegate* followed by rmi_*_undelegate*
+  - WARN_ON if the RMM MemDonateReq:count exceeds the RmiAddrRangeDesc:count
+  - Reject requests larger than MAX_PAGE_ORDER
+  - Reject "donate" requests with states other than DELEGATED or UNDELEGATED
+ ** Patch 6 - firmware: arm_rmm: Ensure the RMM has GPT entries for memory
+  - Wrap comments to 80spaces.
+  - Add a comment on ALIGN_DOWN the end of memory range.
+  - Add is_rmm_active() to report if the RMM is in ACTIVE state
+  - Switch errors to -ENODEV from -ENOMEM when RMM doesn't manage the region
+  - Print error messages when RMI_GPT_INFO/RMI_GRANULE_TRACKIN_GET fails
+ ** Patch 7 : arm64: Block hibernate and kexec while RMM is active
+  - New patch in v20.
+ ** Patch 8 : firmware: arm_rmm: Add wrappers for Realm related RMI commands
+  - Use rmi_sro_memxfr_command() for rec_create - Catalin
+ ** Patch 9 : firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
+  - New patch in v20, relax the memory hotplug checking
+
+Changes since v18:
+ - Use _ULL version for masks spanning beyond 32bits
+ - Add GENMASK, FIELD_* friends for RMI_ABI_VERSION_*
+ - Consistent naming for masks and order the fields by MSB to LSB (missed out
+   ones.
+ - Rename RMI_RETURN_ => RMI_RESULT, RMI_RETURN_INDEX => RMI_RESULT_DATA_LEVEL
+   and add relevant Rmi types for clear indication on what they represent.
+ - Read and cache all implemented RmiFeatureRegisters (5), use ARRAY_SIZE()
+   droping the macro for the number of registers.
+ - Fold sinlge caller rmi calls to the caller (rmi_features)
+ - Drop "default y" from Kconfig
+ - Don't loop forever with RMI_BLOCKED, instead retry once and return to the
+   caller.
+ - Move rmi_config_set closer to rmi_configure.
+ - Use __free() cleanup for rmm_config object
+ - SRO: Clamp the mem donate request count to RMI_MAX_ADDR_LIST (the max we can
+   hold in the struct sro, to prevent overflows in handling non_contig requests
+ - Donate gathered memory when sro list runs out of space for non_contig case
+   and donate the rest in the next iteration
+ - Fix handling of buggy RMM for rmi_delegate_range()
+ - Add comments for the exported interfaces rmi_delegate_range(), rmi_undelegate_range()
+ - Move rmi_granule_{,un}delegate_range() closer to their callers
+ - Clarify the requirements for rmi_granule_delegate_range()
+ - Fix return result to -ENXIO if the MEM_OP is unknown
+ - Handle unsupported RMI_OP_MEM_CONDITIONAL, bail out early
+ - Rename "out" lable to mem_donate, where the actual donation happens
+ - Switch to use readable loop construct in donate_noncontig, add comments
+   to explain what we do.
+ - Add comment, make the code reader friendly for caching the entries not
+   consumed by RMM.
+ - Add documentatoin for rmi_sro_execute()
+ - Avoid mixing gotos with __free cleanups for arm64_init_rmi()
+ - Convert the remaining nested if for results to early return based.
+ - Pass out_top for RMI_ERROR_RTT in rmi_rtt_destroy() [ This boosts the
+   Realm tear down ]
 
 
-> 
-> Thanks,
-> Jori.
-> 
+Steven Price (7):
+  firmware: arm_rmm: Add SMC definitions for calling the RMM
+  firmware: arm_rmm: Check for RMI support at init
+  firmware: arm_rmm: Configure the RMM with the host's page size
+  firmware: arm_rmm: Add support for SRO
+  firmware: arm_rmm: Activate the RMM
+  firmware: arm_rmm: Ensure the RMM has GPT entries for memory
+  firmware: arm_rmm: Add wrappers for Realm related RMI commands
+
+Suzuki K Poulose (2):
+  arm64: Block hibernate and kexec while RMM is active
+  firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
+
+ MAINTAINERS                       |    3 +
+ arch/arm64/Kconfig                |    1 +
+ arch/arm64/kernel/cpufeature.c    |    1 +
+ arch/arm64/kernel/hibernate.c     |    6 +
+ arch/arm64/kernel/machine_kexec.c |   11 +
+ arch/arm64/kvm/sys_regs.c         |    2 +
+ drivers/firmware/Kconfig          |    1 +
+ drivers/firmware/Makefile         |    1 +
+ drivers/firmware/arm_rmm/Kconfig  |   25 +
+ drivers/firmware/arm_rmm/Makefile |    1 +
+ drivers/firmware/arm_rmm/rmi.c    | 1129 +++++++++++++++++++++++++++++
+ include/linux/arm-rmi-cmds.h      |  567 +++++++++++++++
+ include/linux/arm-smccc-rmi.h     |  516 +++++++++++++
+ 13 files changed, 2264 insertions(+)
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ create mode 100644 drivers/firmware/arm_rmm/rmi.c
+ create mode 100644 include/linux/arm-rmi-cmds.h
+ create mode 100644 include/linux/arm-smccc-rmi.h
+
+-- 
+2.43.0
 
