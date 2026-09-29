@@ -1,189 +1,135 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC54518157;
-	Tue, 29 Sep 2026 12:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685701; cv=none; b=hgLYl0H0f8QhXDOZfYkQRUCwIF0+zna8Kdu5HHCx/GT98fJnVttJOswX/2dLZ0pzDhHp5q1r3TBIAom24p7O+e/wN+gH8EADylR+LjGX/m9P+gJzmM8eOu/pXoCA5JiiK0l0DaCshzcLy0weIuP8goUIth77Ps/5kT7qslxtVp0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685701; c=relaxed/simple;
-	bh=+RA796l8y0h3TtAaMlF+VTLFAgSF++zb5iVAwixVlrI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHba7tc7/ORd5SNqlTrY+sIliEC5czbD1dAcr2ge5rt4qHV92Ib+L+wdCXGqged7N9+4kkji1LEf6Z1+xfg+wU9yQBo9XsGU8m/s/6G01WNCcmCH81yorlnxFCw4dFZQ2diH6RN5zompStXrZRABs1OlP77Ns1jPbkTynb7/Zms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ph88FjMk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ttEXdjYm; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=d3oTUhTb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=zsOfsKrY; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE0D3A9605
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790685756; cv=pass; b=hR5Cxit7hhbC2pZMTmacmZ0Y8Z44c4HkslGzk+kbNC6Y15NJaElVwPHXNg7KFzQluAc+3ZpyWVnz6AHPq0gelBdRe7PEweuFkYN+oyRS/YqST2N+epgfJoczhcwFjbbYQPPByrCF0II+I1OvTPQC9idfbDu7KnNtskCkspwDF50=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790685756; c=relaxed/simple;
+	bh=iq3GbAK47H30JK1jVq1SeyMIDhRJ3YWEUcfYw18Hn+8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KO00X34kmXrOhPMavPbL4syxEGziSc0yct5zHdzATJdc5Q4ruD63NAVcGcHZNOV1spT0kMTjBGN3IJOxWQA1370+VQtApfBqg0/TcpeGGncZXG9QbkIEKRlGS1ZE7887XgH2+NswTyoMUENIVgtL2jSYnCabmbLpC/tYHHLjB8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hVg9Xk6V; arc=pass smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ph88FjMk";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ttEXdjYm";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="d3oTUhTb";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="zsOfsKrY"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A87E521D17;
-	Tue, 29 Sep 2026 12:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790685693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=55/2lX3bGJC03ruhSqshzW6AM6EExmqxv6eNV1YUNTE=;
-	b=ph88FjMkXvrDdHFjJUoJzTlnZFMqlNSRwVwzSsl1B96jBrbZ5Wm2bt9Ln4tgsKwOknfHId
-	xjNVK+fR414bMUp51TNNT0naDCOdN4i3ZD5LTcn63obaUiKQy8uEVNXBb+hLdV2rfyurZ+
-	g6cho1iBImSYdFzV8VD8Uk2exQGyKRM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790685693;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=55/2lX3bGJC03ruhSqshzW6AM6EExmqxv6eNV1YUNTE=;
-	b=ttEXdjYmvTCKK/oHRMZ7yJG1VeHADcRgqgApurJJPt/NEqnHeG8lFsLXVYfH8CEbTQuhL2
-	DHHoZUJkpYqUyGBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=d3oTUhTb;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=zsOfsKrY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790685689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=55/2lX3bGJC03ruhSqshzW6AM6EExmqxv6eNV1YUNTE=;
-	b=d3oTUhTbmKLAEjzIOmLWTMQYOAKAAgqUO9xubEWfzOI5efIBPQUaAW/QxaSE8Objcab8Ho
-	pigpG9P2Eemj20aLXIQYfEkYJbsm6E930PZw8CgWp6g+fx/GI+/dN8V6JVJZ21Ke0BkNiX
-	y/wFSWgs4T16hQwrgczCKM1GEbmaLng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790685689;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=55/2lX3bGJC03ruhSqshzW6AM6EExmqxv6eNV1YUNTE=;
-	b=zsOfsKrYoXuujalFXA6sRsq+Asnza4kEMcxmMBG1yb+b5rzwnGPsiBne7yANM0JjM2JByV
-	dR3g7fb5jXLc1GBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 80488133F1;
-	Tue, 29 Sep 2026 12:41:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ddUQF/mxu2rYZgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 12:41:29 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id EA284A132A; Tue, 29 Sep 2026 14:41:28 +0200 (CEST)
-Date: Tue, 29 Sep 2026 14:41:28 +0200
-From: Jan Kara <jack@suse.cz>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Jan Kara <jack@suse.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] ext2: drain in-flight DIO before buffered write
- fallback
-Message-ID: <4dsgjjkjt5b545rck35cx5h3c7snddvclke4sxobymy5fsbrbw@s5xwbrmx47bi>
-References: <20260926072612.3022680-1-yaojiale02@163.com>
- <20260926072612.3022680-2-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hVg9Xk6V"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae359e2c0so6146642a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:42:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790685752; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZVRLHrHWKbHPjiIRF0n+Coq6Rm2FbMBtyxtvbTJE40wQwGZBGszKOsNi7j1xpWg5Ox
+         uFn8f6TP3M50E1hgL+TkKfSVipKtZSk4YftQbTTFDTV1kF3zq0pAHZqyvalAsnsLmgjx
+         3qouO8aXPQVhF6MrTe4ZV+CbP0BU+r7CVFD35rMP5zknOBorZ8SxXYYfwkcaF8qEwM+l
+         l29pz/RyPUIBRdFN59AdUN2P66Zbq3zBild4mWFUbHeCojQYmSvNgxYki8WJgh7fHL2/
+         N/R7mwwnEma2gmp7SjSimI+oQ6apOzmW1rKmxatXhQttrxzdh5HjAw2tAdRD6CjvikI5
+         xjIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=sZ9HAdMHdCGAdirZA5ny7SnQw/sDx70uomcyeoC8sHA=;
+        fh=krNeUuXQCE3RVzcoUYv7tBQJsAmFWT+hI6gFBfYrWWQ=;
+        b=a3vkB6d/SsvNB3S0RWYG1WpvOXxsaQr1UHE0yU7sqTsaE8OogPwsKUw6xsKaOrX9vh
+         +17OGCfdw4VgOqs1pOuzD8FcwFAEF3zWT+uSvYCqJnniiwCNgMyq35AvDEMN1aXrjbI0
+         6FGS64X0xCoJtUZNWauJr2+RyciYhztsmrpTfEo8xtxmFQkE8BBbfTLX86J1w67+qm0Z
+         tWU5rtnOf+XZE+kQ8P5vdCejdlX42Chd8yhR2sRVYX1ks0UJ85Zf8svpaEOAizPlVU2A
+         803Q7aNgil1jDOArPpHR95FlToh2T05QC3ZG2uPEKrNQJWhQHE/L/RB50NYMc3JxF6UZ
+         nKpg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790685752; x=1791290552; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sZ9HAdMHdCGAdirZA5ny7SnQw/sDx70uomcyeoC8sHA=;
+        b=hVg9Xk6V+R0rYO3xgsEtgeKmjEZ90r1n9pgm+SPdqOTW+0z3GXYZfLyVy06ObVNQzf
+         szhBeOcjWbCs+4Vcq1HCCmQR8KHt9rI9vXeQFZNe81WlSQ7DelwaYzUDd83zDKHlC0gt
+         YrsR1/L64NpHU/3pOsseT1X2gNSeANFo3OIFQz3h7JP4tkUChBGZlLY3nSxqGi+BRMCf
+         r3TfHknGG7oZxWO13mzlURkTAdlIoctXULLgajwKvrN0TgENCSmoQdfoHvSuYAbRYs4+
+         1uXzAgKoSkcZdl8zt7iDzuy+SFDMsqV/LMQI/KalImgT3rD0Quj/FhSHyLnDZ62+KjZr
+         xC7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790685752; x=1791290552;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sZ9HAdMHdCGAdirZA5ny7SnQw/sDx70uomcyeoC8sHA=;
+        b=WAkWUxMLKvtIKVxLURPbuZuLcXDcN9cf8yWLl7yHaXt442Ah/zp0iYGo7H+b05hwog
+         lTjq+ynYuUPPOJOZVQ7DHO8rzeSumB6BFhFtYVtve23EGkCN85g/k1toyFcRHtzukfvY
+         J5kF/P8zlBACxy+MW+lcJ+Z6jjHj2zxjx+/Q4ZnjtrcQGxzu8lIyig+1xCnwsEnQ/EZ2
+         4EN0VDvUVtsxgoL7x4LEPd81US/Aceo8+J1gVMf4122KHf6O1VIKa17JOsp4Zhzmm4x+
+         aKiOIcqr7CgXYcq1LxfWNrzHmOXsD6CmuPveTCextb4evHTOCNCI51TlbqBn/qM6/HRx
+         hLbA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSFPZpVPS8Txh4TY7Ky4ROX75aMXgHhDxyO4V4mlvHn7chmlGqPLkKsEKRHRPAHxB9sLQ5R82nT/BKTBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOU1Vl1eChMc5eARx6JRdKq8jOg4p05LfaDXoYyLLBCOccP39w
+	FRI71RUj4jNsEeTLZeSaTtHjLtJks6Duvy5QPdvBCGwDFz6TblsOdbF2K7rEElpwNPwS/FigVgY
+	erkqMj7JW4VbJVDIS9lbsM3fXeH8EH53WsopQrdjr5g==
+X-Gm-Gg: AYBFou1W9+VA0/Yc+mOYtxgUNJ9sY8yHJG+Sgf0ImOrlxVprGjenHRrj9YuAnauLB5v
+	ictFplQEQ5b7Vpw2ZyLLFHort4QCkHeVHWanv8wDIau90zM0uh90zqXfrMF/390nLUvcTpIADEM
+	b0wI0tm2aO1Tz8l4ohdwXAavgHEvf/O9/bwd/aFlzatMF2oO6LTYEHumz4bg7qHSAdznNd121Y8
+	1bT3oJ3lbTZec5Wux7Hx9Oi9ZGRYvmPl2KklENnIm78HuoM7bbOUdYARVWKDlXNHLzYTZl/MqBg
+	7PQ0bb8QJewI7UFZLVVA99LKhogLHqIfyc3tcTN1JbnVVn1JkicrepJIhGvQ1UczR10NyVvfRRG
+	/CX8Sq5G84taC
+X-Received: by 2002:a05:6402:4551:b0:6aa:fd94:4e61 with SMTP id
+ 4fb4d7f45d1cf-6aafd945156mr6626649a12.42.1790685752363; Tue, 29 Sep 2026
+ 05:42:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926072612.3022680-2-yaojiale02@163.com>
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[163.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Score: -2.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: A87E521D17
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+References: <CAKfTPtBAhMVa02Z23=nNZkx7Qum0x=U_KDCn=Gr6Pnf-SG4N5Q@mail.gmail.com>
+ <20260927074523.14558-1-kayracizmeci@gmail.com>
+In-Reply-To: <20260927074523.14558-1-kayracizmeci@gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 29 Sep 2026 14:42:19 +0200
+X-Gm-Features: AclHuK99krqbLsQUNGGdR09oHfnv0p3X8gPykqTe2kwbPQPcgUONaOnaO5vOsOM
+Message-ID: <CAKfTPtCyZRjjDWQxoHjG-SdJueTXBCZ4HesjPT0sPikb_dQtEw@mail.gmail.com>
+Subject: Re: [PATCH 8/8] sched/eevdf: Add min slice check when selecting CPU
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: bsegall@google.com, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, mgorman@suse.de, 
+	mingo@redhat.com, peterz@infradead.org, qyousef@layalina.io, 
+	rostedt@goodmis.org, vschneid@redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat 26-09-26 15:26:10, Jiale Yao wrote:
-> An asynchronous direct write can remain in flight after the inode lock is
-> released.  If another direct write falls back to buffered I/O while the
-> first write is still pending, generic_perform_write() can dirty pages
-> before the first write completes its post-I/O page cache invalidation.
-> The invalidation then finds dirty pages, reports a page cache invalidation
-> failure, and records -EIO in the mapping error sequence.  A later fsync()
-> therefore returns -EIO.
-> 
-> Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
-> in-flight DIO before buffered write fallback") fixed the same race in
-> ext4.  Ext2 has an equivalent fallback after iomap_dio_rw() returns
-> -ENOTBLK or a short write, but does not drain other in-flight DIO before
-> dirtying the page cache.
-> 
-> Wait for in-flight DIO before calling generic_perform_write() in the
-> fallback path.
-> 
-> A reproducer using concurrent AIO direct writes and buffered fallback
-> triggered the following warning and made a subsequent fsync() return
-> -EIO:
-> 
->   Page cache invalidation failure on direct I/O.  Possible data corruption
->   due to collision with buffered I/O!
-> 
-> Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
-> Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+On Sun, 27 Sept 2026 at 09:45, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+>
+> Hi Vincent,
+>
+> > > > Add a new level for selecting CPU when select_task_rq_fair() fails to find
+> > > > an idle CPU. This last level will compare the slice to select a CPU where
+> > > > the task could run 1st.
+> > > > This helps a waking task to select a CPU where a longer slice runs
+> > > > instead of one where a task with the same or shorter slice already runs.
+>
+> > > > +     if (sched_feat(SIS_UTIL) && sd->shared) {
+> > > > +             /*
+> > > > +              * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
+> > > > +              * the scan when not preferring an idle core.
+> > > > +              */
+> > > > +             nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
+> > > > +             /* overloaded domain is unlikely to have idle cpu/core */
+> > > > +             if (nr == 1)
+> > > > +                     return -1;
+> > > > +     }
+>
+> Ain't nr_idle_scan shows load of the system? Even the comment at top talks about
+> idle CPU's, but we're not looking for a idle CPU right now.
 
-This patch is already merged in my tree. You can drop it from the series.
+The comment needs updating because we are no longer looking for an
+idle CPU, but we are keeping the same limitation for the number of
+loops.
+By the way, I'm going to merge this with searching idle CPU
 
-								Honza
-
-> ---
->  fs/ext2/file.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/fs/ext2/file.c b/fs/ext2/file.c
-> index b9020df7d89e..67fe423c3828 100644
-> --- a/fs/ext2/file.c
-> +++ b/fs/ext2/file.c
-> @@ -135,6 +135,13 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
->  		int ret2;
->  
->  		iocb->ki_flags &= ~IOCB_DIRECT;
-> +
-> +		/*
-> +		 * Prevent concurrent direct I/O and buffered I/O to the same file
-> +		 * range. Wait for in-flight DIO to finish before dirtying pages.
-> +		 */
-> +		inode_dio_wait(inode);
-> +
->  		pos = iocb->ki_pos;
->  		status = generic_perform_write(iocb, from);
->  		if (unlikely(status < 0)) {
-> -- 
-> 2.34.1
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>
+> I may be getting something wrong, so please correct me so.
+>
+>
+> Thanks,
+> Kayra
+>
