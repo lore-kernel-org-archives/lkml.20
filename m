@@ -1,151 +1,130 @@
-Received: from outbound.ms.icloud.com (ms-2004f-snip4-6.eps.apple.com [57.103.74.207])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56F541C2E4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C064BB5B9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714236; cv=none; b=ODuanxzWK09CEg2QJ+hSVzQQNdmD13aAtCPE4TEwOTvyaeAZqQmry6PznltX94UtqX6rU0ctoBOXmzgS2XfqhS3qEKwqwgmZUt5LAZ6oRaqwRGeUM9gQVZtIOl33w/YxjveZgrS+6u9JuK/EuVmrRnZyrxdr7yxA33wHTQF7VnE=
+	t=1790714244; cv=none; b=mQ4qynbmVXEvRBolSH+92aGjMH99LTVAg4svyXcu0vlqgPdUXUlFXzsS2M3KIlUP6xTjWkt5TdL2Oqz5lNHw2fR+FOmn1msJOmvYr2AopPAfj8On0OHQ7lGLkVCl8pOWJHM8Koc0BdgLUmd1jsNUFk5JpLfiWDiZzUz7hKrbzY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714236; c=relaxed/simple;
-	bh=CmlE80pSLORwSx812eu1SFv+69BqG+tG5JfC1lXaUWw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gFPAdpgtpupFGJc4xuIWC7sV20iKjVrOgqsbBk8qWjKYG9z/rxoM0Po9GpZsvVDPFE1MLDCJ/laaJXHlMQdG7JDlTSryseMgovdk6lUWTpiHVxQqnmNustGI02bkIkE3XV3ZDlseAgI70P9uH57RCxRJv4e/YbTsapJtUt/Zpqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=Hmma00I1; arc=none smtp.client-ip=57.103.74.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
+	s=arc-20240116; t=1790714244; c=relaxed/simple;
+	bh=Gqvcy2MOOYrL8Gno0HNWN9hEb57iEhrmpV/Bp5STDho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNfvDnSv2pn+hI5Nmj+D9eDlHjUbct5sYDPtoid4DLRSzUO7VINFyjAUhcuNO2P8OYu6xN3DBG5yAj6XObyf5a8gBYbOO46g67EY+ZFvZ/VCKsnpr9NBtzXc0IoiH5iuW0qJKCR8/wetDvNuok/UP24FKlssLy5AiOAr1B/c+6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZYF45M+; arc=none smtp.client-ip=74.125.225.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="Hmma00I1"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPS id 1D75818001DC;
-	Tue, 29 Sep 2026 20:37:10 +0000 (UTC)
-X-ICL-RepId: 01a0eee2-b8c6-701d-bd84-4469f180ccb1
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FD15UCFZGWhsCQAMJBEkUTAIJVEYKFgsaHl5UXFFBWhwCWwVdVzBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1790714234; x=1793306234; bh=zmp8SFl84gZRi5OkpkQVvlEiTxHsOKWX9tq1JueGvnA=; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type:x-icloud-hme; b=Hmma00I1iCTJetJLa+4lEcU2IJz2CTZSLyP1/eSX7O2Hin+njeiX/5qIFzrt+kQDK74uL3SnlcUh04MdlhLy+vnTjVqWijHsko8nXx0qy0a8+RCxN+3PYVD2Y69zNbWLRuUrTvLUxDZmGGTQmytTTxtliHu8e71gBk+v1SvjlPKUWIOBA/sSihPvkfrmdXYF3cNvP25Dg1dZjV+3f97zit0hRXHLuSOe/i9h90i3kmWTHuNQPVD/gbSvPHDaTh62yeey/PV3n1JSKWy+uTUAWmFPm9cIX4IgY1BRCQlpo2lGHKlOoogPYRN9xls7jzVByl8ZrUj1269tsPCKVBZJ9w==
-mail-alias-created-date: 1748381178872
-Received: from [10.69.1.69] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPSA id 07A2C1800128;
-	Tue, 29 Sep 2026 20:37:08 +0000 (UTC)
-Message-ID: <3ccd6cc1-4b69-41dc-8f2b-3c7c1cd1626e@lcb.to.it>
-Date: Tue, 29 Sep 2026 22:37:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZYF45M+"
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-4888598e4f9so3142171f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:37:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790714241; x=1791319041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uc6m/QNpalNv4a9wmqg9O0BMMr47ojwjmucGyrpTpAA=;
+        b=QZYF45M+ITdIzIGzHNdTvT9VMVQTEs9FcQrsXorTsfQfM5EgTro2DOlqZDLX+S6BR8
+         KGA+xUWIZNbDnfIFlLUO8BtNNV9DZc1owqnYEthMAn+V4CjNOpRXywrkZKHXagGnw3o9
+         60FkZ97e7XCCuCQ0SA8tZn+WwuQP25rRLNKhJLPYsrX8XncqDxEBRv/RobJ8/9Go9FFK
+         9NwqbtrLsxZpyKqDj8AAA4YRkVyrpWLVncWPrZhnZvW7mOej3fQqppjz+T5K4Dd3cecy
+         NZdyGNSjomNdwB72S7O0iD6SDc6/WwFoXunnFghk+BKuyO3Cf4dtiCVDYXmEi1zbmj/i
+         zBjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790714241; x=1791319041;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uc6m/QNpalNv4a9wmqg9O0BMMr47ojwjmucGyrpTpAA=;
+        b=nVxlw6kMM8pmf9TlulDIXgf8AtWdMIhFRWWpSTOvVCsVOGQK3SIvBRpkpv+lsn+8pd
+         1jgZukDDUbtaCyZ8BopVteP2xkcDaLvpAUcXdWkQLabysivLwWA6cj4KellJMK/u/glv
+         9kAZB0YVDwdUQ22PPyFk8eFw7tsPJhs1Gceaj0vaHRn0XlCP8Vk87hxuiS50kzEe7NCz
+         RlYaW5nAulIOAz7apjM30d7PtAAciO819ADDire5qFYFSXvxjzcFjCJdSSwkeIQGS9nK
+         A2DMSnDmtUzfzbGHY3E8QCRWSVK2fUwHbTh32oCBefuia119IzmajyoFWIGPSvdLSbFT
+         jfGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwveTCS0nySiaYUspW1oVZRbtTi/GcR+A8lFXIiBYjDyORe2u1G3a04LiOKS+MVN+wSTyPgiSxsH73wjAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvGjM/i65DFads3Ab2GFPkF4UrBzI1MKd/+6x8BtqxGv2+6LRj
+	hSL1CMzE+B492PlY+BTX4OGEjOMLlxEVc/P3O0UUF22hd+lnn6PSYkpy
+X-Gm-Gg: AYBFou1wZ/NS8p1RHZn659J0+VriglJbyMxPP6m8OL4ONezJIgvK4ygSkhElN6aUX3B
+	uOCMHqQqi/X7wuaTFCYrF+Iqwcinf+KdbwWxXYKRmk9fKd4R16uARfWm3AQQBoGnkIxHQMKvqVX
+	fBnNYoMAg2rLRzylTs98+nqq+9afQ6jJUZAVryUmKOHES8o0IHP/0uzwZK+2XKq2tOwXFh/pNxq
+	Yvyozs81EP3REhw+avzJcht8hE8jkHlb6wQnv7Ut+3Z0olBaADPSI2Upu8BEUJ8MgGYBr/vGqZL
+	3R5NwNKOJTNAE1W+JaK5vJM3vrzIlms2paTL2DRj/qv1anCUb3gALqgg44qBeccPG5FLeVe9c3t
+	FqHRmUkLuStru6g1YgFWDEkfbNdD7bu1mKIRaO+kNXjEy7Ikxzfqe4jpHjGwurKaLtGyXmx2Gnn
+	Whe2iAFXf9xw7phSSJjin27kP4/xuOPXU/fpJ9qMSUr1zlVAAhUJEnpNeHTLWiXe7ZWsSGCENxp
+	tpKDxm0CKxfoiPK/30y5SPUIC3E4vVKtWly9qM6Usn4
+X-Received: by 2002:a05:6000:381:b0:487:27f9:83d with SMTP id ffacd0b85a97d-48afe782c3amr766701f8f.50.1790714241257;
+        Tue, 29 Sep 2026 13:37:21 -0700 (PDT)
+Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe6a9624sm1237578f8f.24.2026.09.29.13.37.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 13:37:20 -0700 (PDT)
+From: Pablo Mazzini <pmazzini@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>
+Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: sunxi: dt: number the IRQ banks from the first one that has IRQs
+Date: Tue, 29 Sep 2026 21:36:34 +0100
+Message-ID: <20260929203634.32998-1-pmazzini@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-From: Martino Papero <martino.papero@lcb.to.it>
-To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
- <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
- <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Content-Language: en-US, it-IT
-In-Reply-To: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MiBTYWx0ZWRfXzX4PcDGFh85E
- GiqboE8JyjiohHnoEtkhUvhRVaVCRL10/aWKG9PFm+QJogYvicTUtlu0V8BBkjFOx3noM20blfZ
- AzPxJ1jG6IeR4QklnnZzZKgmer6gbQYkkj0KM983MU5qB8loOXIyd+GggkHd6jvv9vHnGvtj8Iw
- rqv2fvdEWiVJ11cKqscjiMqCBoeX3J2KTwqTe4G0rMaAl8PjmcnFcOicDorFkkrevGNf8m4V3vB
- llCzz3WaFNbNaDcdzSYbgjgipip2mCEUZU9GH6zGsRToebWtnLJ+qgB/xP4esIWHHviya6Ck9Vv
- o+4CgMfnaFb8wBX3LGV+8iFibDYxoayUoosjo4G/VJaZwUEXsIoY2vY2GiWcKM=
-X-Authority-Info-Out: v=2.4 cv=K4Ev3iWI c=1 sm=1 tr=0 ts=6abc2177
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=3zCP-tckM5ql3hE0fiwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
-X-JNJ: AAAAAAABvqZ69FQdBawXlj+s49PQOgiboPcUwYZUMrWYErmdxHFYAdED5eSlp3rj3Y6HN/4Y6WIozw5nZpuw5Vz+kkhZ2YHbFKhCDx9DlF1EmoGF5/X+RgqiTm7lOqddiSeOr5GSlQ2LXaRXTjEF3P2myJRkYJNgvgcKvN6hr4veke+YcuyUKZQVUGv1VTH8bpQTPsciTCUUf6PB+5hkq6+bEallsgChhFJovl2dyWMop2JjBYT/aLH7mKixGPf+1+mCpT0XT/Zr9n09LJFdbbb4fm97OC9yMXZaZarjWqEgdE1uCYG8HFbgZYurEneiy1fqgHg+7cHGgsusIRPVclbiDjVQPVxIpd+BAOSorCTcCw+QAwCiqYeFlsoT5gwjCX5K4uOfzXwEwFXMNubyJHt699gFiF1nsqgUIJSGB4RKsHxfz846iuSXgGYCHV7GJti9ZKPZTYGZezoX++bEeBYAuuJGuTRy1Nep341R2Tum9T13i/zHHN8krmy4a0VyVaX4AWePAy4qo6U5KT71JM12efGSB5tSST+kW8+6gcxZOXef269sNn9zfRjlV1GeasMMuIvMbu7pa2QBylipMwtcVzsxC3dQ0AqCXOsMZH2kqxiXQs03TABFXdHQ1eNSx7uo2jduzfdY8hlZTN3XJsra2padRSKUFdUPWLCeo2Yt9meTcZElfbWx2OX7D7vxtfENlRIhpbbRDpRshCPhEmbAzCzVM37XCrVqFv0T8423O6K9PVT+G86Y1D4VZ2SHJzdPLSW+DDQgROfrK/o8BIuvKLVFG3LaFiXmBn7egxsiIMpbVNBjDy9IwrhTfUwo3bwein15YmWomTnhT2PUCzwpLMUPhD77DFRs9W+2qNHNMCnK6IeWuHykdT63Au9rrJ25s6j6MJhArV26jtUs7Ts/VpMzuIq/7PyuXC4z2LkmruN30tYQtIrGXzl2tOGXvrzRU/xiLqYuH5PavjnjU2Cj5uvtHjC
- U/wAXfKodBAOShx/MlYMZsfU5dQDrJIZ4bdzIBWUQrtABxU1evpcnhFJn/QOclohbQ4IpdKX/0+sto12UQDpD/fHZjegn4DiREimci4SIWM41QSNz2COuNVPH928HSpQFvYdHE37g6E2/xfICk93dcJHdiEQ9xuA2kMe/JEX+a/XsPnwic2sAZffcK7SnqQeTAL1+UbaU0S/eKTawLKQ4Mx0imrsUi19ck1/idm+5LV+ylZfbrVxHI+j6PJ/3zkGVNjB75szX37X0O1h8Iqd60MHu3zS7cz0EXPG7ppWOVGPO7lFLJ0wvCZ4ACuxT8Q+3i2h67xrFcfIOyYjUW+xD/qDchj1vLtCcA9uR4L5tl/KKwPmTr6rK7zQB
 
+prepare_function_table() assumes the first pin is in bank 0. On the
+A523, which has no PA pins, every IRQ bank is numbered one too high:
+the last bank writes past the end of irq_array, and interrupts are
+looked up at the wrong offsets.
 
-Il 19/09/26 02:09, Martino Papero ha scritto:
->
-> Il 11/09/26 20:52, Hans de Goede ha scritto:
->> Hi,
->> I'm starting to wonder if we should not just make this behavior the 
->> default.
->>
->> IIRC the whole deactivate thing was added as a workaround for 
->> multi-byte scancodes
->> getting split-up during suspend/resume. I wonder if we can come-up 
->> with some
->> better fix for that ?
->>
->> Regards,
->>
->> Hans
->
->
-> Hi,
->
-> I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
-> 15IWC11 (83RR), which was affected by the keyboard issue previously 
-> discussed here:
->
-> https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
-> <https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/> 
->
->
-> Without any kernel quirk, the internal keyboard does not work. I had 
-> been using:
->
-> |i8042.nopnp=1 i8042.dumbkbd=1|
->
-> which makes the keyboard work, but prevents the Caps Lock LED from 
-> working.
->
-> I built Fedora kernel 7.2.5 with the following additional DMI entry:
->
-> {
->     /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
->     .matches = {
->     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->     DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
->     },
->     .callback = atkbd_deactivate_fixup,
-> },|
->
-> I booted this kernel without any i8042 command-line parameters.
->
-> The internal keyboard and Caps Lock LED both work correctly. I also 
-> tested suspend/resume and a cold boot, with no issues so far.
->
-> DMI:
-> LENOVO 83RR
-> LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
->
-> So it looks like the 83RR can use the same atkbd_deactivate_fixup as 
-> the 83RQ.
->
-> I can test a revised patch if needed.
->
-> Regards,
-> Martino
+Count the IRQ banks from the first bank that has interrupts.
 
+Fixes: f5e2cd34b12f ("pinctrl: sunxi: allow reading mux values from DT")
+Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+---
+ drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Hi,
-
-Just following up on this.
-
-The 83RR is still working reliably with atkbd_deactivate_fixup after 
-further use, without i8042.nopnp or i8042.dumbkbd.
-
-Would it be useful for me to submit a separate patch adding the Lenovo 
-IdeaPad Slim 3 15IWC11 (83RR) to the atkbd_deactivate_fixup DMI table?
-
-I can prepare and test the patch on the affected hardware. 
-Alternatively, if the generic solution discussed above is preferred, I 
-am happy to test that as well.
-
-Regards,
-Martino
-
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+index 50a16f3bd131..9c5eb21a86a5 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+@@ -208,7 +208,7 @@ static int prepare_function_table(struct device *dev, struct device_node *pnode,
+ 	 * The extra functions will be filled in later.
+ 	 */
+ 	irq_bank = 0;
+-	last_bank = 0;
++	last_bank = -1;
+ 	for (i = 0; i < npins; i++) {
+ 		struct sunxi_desc_pin *pin = &pins[i];
+ 		int bank = (pin->pin.number - pin_base) / PINS_PER_BANK;
+@@ -221,16 +221,14 @@ static int prepare_function_table(struct device *dev, struct device_node *pnode,
+ 		func[1].muxval = 1;
+ 
+ 		if (irq_mux) {
+-			if (bank > last_bank)
++			if (last_bank >= 0 && bank > last_bank)
+ 				irq_bank++;
+ 			func[lastfunc].muxval = irq_mux;
+ 			func[lastfunc].irqbank = irq_bank;
+ 			func[lastfunc].irqnum = pin->pin.number % PINS_PER_BANK;
+ 			func[lastfunc].name = "irq";
+-		}
+-
+-		if (bank > last_bank)
+ 			last_bank = bank;
++		}
+ 
+ 		pin->functions = func;
+ 
+-- 
+2.53.0
 
