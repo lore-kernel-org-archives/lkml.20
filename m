@@ -1,585 +1,227 @@
-Received: from mail-10626.protonmail.ch (mail-10626.protonmail.ch [79.135.106.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2536568FDA;
-	Tue, 29 Sep 2026 19:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D90D50B8CB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710207; cv=none; b=PGEPaPgBT4W93dimA4KYyGAK5Zamp8sofPLv11Ds4V7DKYzFnSmNv5kFV9jF2WghrIDwzLvlzkJVS8k5yoHpSEcAbJgcdRHpPQZkfD5OFQ4pE79gV70fELDVTYJrxauFazXTxXAA0vJ9azrSU4nIB66lfGaG9OsAG5RokZ6p/1s=
+	t=1790710226; cv=none; b=sRFQZn95xUt+P8JhgT8Er+Hrk+6SlmprwAR1uZs7yMJakvZoZ/zvGWPSArH1Sf/WTxd/CMZj8Rkp2EQZ/+IaB19uhuCQ1IjN8N2v1N+PlBP3dbwhqY9D81vBVw79Ur/IkKKDD/1u5WsAkMvjwkdzI6mLBR+UPpDQq/euHuZqsqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710207; c=relaxed/simple;
-	bh=sOJf/1ziyr8pkAgSka2Rtrdqt7ClR1I2ocQDeQyd3+8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=adIOr7psMFenM4ImoGvBfCuZdK1FGVCAenE6VBS2k2+m5bsz2LzoROSst0HrL91+z+VqL/HcCM5x88srNttm/QjmC70/xV9CX1cpoKBJG8xqFcnlrRK0GFVYK9d1ib2FbjS1dNHx3S841S8mXFUmVT5vcQ+MzVeMimQGPuvEuvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=FmLlfS50; arc=none smtp.client-ip=79.135.106.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1790710226; c=relaxed/simple;
+	bh=6D/zV/BjV8cJK2Je+v+NtgU8vRbHOOzx39ErHS1L0wg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QchIfKUSPcclpy7PqXyrh0aWBXhmKdQqZtbpd2Pts7/rbBq+ou7zvAuXKGCOnYgofj2xgJbTh2PGrwjFhX029IF35A49sNOUMCGj30Ibgtddio9DuCSuhNlhaCu65tNDqCUyn+2e4xBj8s4QPK6WkEOlaf8fT5/Q3HNtW85Wy3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eogtCSYG; arc=none smtp.client-ip=74.125.229.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="FmLlfS50"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790710190; x=1790969390;
-	bh=F9j0/+7Xv4yRrgJj+VWZr5D6InPCNq57wcxJYH7iFRc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FmLlfS50j0uZUk1HIWTJUJO6syiuV/+9BaxtnYQB/rrvXgVVn25KClivrn2/Ljm+k
-	 p6zxtm3YAiLD8R3ef0zoKY2/8hw5F+XwwJB0MblYZAVAljNtmdjqJVpdR7Bd6Fffaq
-	 hhlINQLcSpnRKc9TAt+LJDQ8uWw9jSfi1iTzii6sqs5+Qjdpe8xsY6zDjIneukHy99
-	 m3POdqSDaAjYiUThioyI8owV/40Yfkhr9CKTdYrIm2XBfbRupdSCvmjKbOLTtyrHuv
-	 ta5hSuj0OxLHUCh3beSb3ZMyj4Ni05yIWPh5G+EunFby1JYruUWe+ApDcuh6LSENR+
-	 tKjwikGOmAK4g==
-Date: Tue, 29 Sep 2026 19:29:45 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Alex Robinson <alex@ironrobin.net>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC driver
-Message-ID: <20260929192908.16507-3-alex@ironrobin.net>
-In-Reply-To: <20260929192908.16507-1-alex@ironrobin.net>
-References: <20260929192908.16507-1-alex@ironrobin.net>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: 7891f257e72c92714c957448ded969ca1d59e5d3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eogtCSYG"
+Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14c96a4b7c7so16425c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790710223; x=1791315023; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/UG3W2zvz26cOj2el4KNelGNWjE9fyh79XyScbN/3K0=;
+        b=eogtCSYGHV1QGIJ/cCszlUKCbzy8uUN6gdfY802OW604IsNG6nFNeq7UjdsL3lU47U
+         VHM2rF5bqGHmnOjDPwrbYRAZljXlRdjBdDEzJyqa/k2lqNt2YhpVVKRdN0F9nf8sx9xI
+         Z0x3wCIxJkaF8rzg6j6Ma1ClH8w+zSApjULHe+coVbQtR4afqcRI6SFxnDTa+CHFeh6P
+         oGwKj0PblchQ3rboeiQYpd00AO1Ql4MwmYE40HAZYxhXRo1JZGS0UXzCr33a4+jBHn8G
+         wOAkH7pE6sUidAuGbSJCLZWwLLqwESSygl8OgCrFaM+0EPVLJSBxEOkeJxp3jtNANE9k
+         f1Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790710223; x=1791315023;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/UG3W2zvz26cOj2el4KNelGNWjE9fyh79XyScbN/3K0=;
+        b=gM7U037O6d5sV6WnG5SaspFpM9QdhcKGrw0OvuwOcOVp3CVmzLhf2UNgct1m+YMJco
+         G2gGHEwPBYFUePcM1B6DCCopIxJyf7wsV7o5nSGj0ONKcb76T6YWu29ssbhXXNrcG8je
+         Sf+B7Rt65jOgLUY03bi1+JxHF1IyvF58kSfJ16OM9ziY8lULecWx2PJbAfxNenIcWBMi
+         6JeurS0X7DEmF8MMYUA3xIGx8h46H3DWiRSeAy1FglKQY2ejPPDNGFFg8lsTHmEOIg4u
+         GTtPyesGGiAS5rPralI9DzSrST+sZu626h5XO+0zpjFLzba4ZpXu2T6LupWZL04mvfV+
+         3X1w==
+X-Gm-Message-State: AFuF++lBf7i2LxUhD8leiPJoPv3Nobx3QseMsWVQP+F/jStb06LuY/Y4
+	ECyND76SSwHOPYcFwWKTENYfNRfSDMYbY8eYAlrZ7UFjxM9Qq3Lbh7np
+X-Gm-Gg: AYBFou2FcRuWrNu6UbAyCzfl6bgvpcvbUd/xDQ69CA03VB582yufaZPv2ijwjcQDA+w
+	wRF6Sy9ZFswLpt6FEm+mW4gqqidH2SkyAHpSLARvQhn06hvVJ9nbJRWIHTJgkOdhagTTgmryHYC
+	hIFdsLRaglly9mSlgCNE/vluGuB5cVtEbpLc3VEjKFpOW7ci9aCILJw3hdylcgKdqAL1s8IDADL
+	9udai+mGjiHw6lwFYVySl+Es1sZkw/JTiBINqwtNNmyff1JM6k1QnxyYOjTAWnj08ZZzQyBcnka
+	L7xuax9w7nTetqrVRN1mGwzdnLSSMs3kvTzu+amoT/uvA3ED1T6yEtPXN1P9ND3jm469XeZKZDA
+	H+mCvARAjYZTV4Ce60PIKXrfb9iJPhUejoa/+65SjJxhSx1Kfsgz3Lyd+TWOVkMBK6EDe/AXq1W
+	arOTn1qdY7K1N5WfuWv2QLyJyNIg1ELymWvjTv/hEp5W65b0ESQkXVVwRmRJMVnyY4mwH0IWxOH
+	/2Y3wYRzA==
+X-Received: by 2002:a05:7301:7004:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34c65f5670bmr486208eec.2.1790710223113;
+        Tue, 29 Sep 2026 12:30:23 -0700 (PDT)
+Received: from [10.211.86.252] ([2409:40c2:5054:69f0:5c6b:5195:5b7b:d414])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm1275349eec.16.2026.09.29.12.30.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 12:30:22 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Wed, 30 Sep 2026 00:59:42 +0530
+Subject: [PATCH v5 1/2] regulator: dt-bindings:
+ nvidia,tegra-regulators-coupling: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-ti-tps6586x-v5-1-aac0273b5da3@gmail.com>
+References: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+In-Reply-To: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@avionic-design.de>, 
+ Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
+ Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790710190; l=4808;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=6D/zV/BjV8cJK2Je+v+NtgU8vRbHOOzx39ErHS1L0wg=;
+ b=bwFqmRHQ2OhNrqZV6NuV1o8SI1SN6Vo3ifa/hs6HvYRQ03J66So8GHbsMHHMQqbWeIKbHcAtU
+ dr7iYLy4qpEAkQCTMuryNhdPTSCLUgJS+vWyhQ28jyIe5EecStBVQzO
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Add support for the ThinkPad X13s embedded controller to expose keyboard
-backlight control and firmware-driven brightness changes when booting
-with Device Tree. Its backlight, event and power-management interfaces
-differ from the T14s EC and require separate handling.
+Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
+Set additionalProperties true as this is shared schema.
 
-Preserve brightness across lid and system-sleep transitions using the
-sequences described by the X13s ACPI firmware.
-
-Leave EC wakeup disabled by default because the shared interrupt can
-wake the system on lid closure and no selective event mask is known.
-Userspace can enable wakeup when desired.
-
-This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
-
-Assisted-by: LLM
-Signed-off-by: Alex Robinson <alex@ironrobin.net>
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b34aeb705cef654c720ca9f2ba223..86ae65ac93e7575815f34dbc7a6=
-90042ad9ca3b0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27177,6 +27177,12 @@ S:=09Maintained
- F:=09Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad=
--t14s-ec.yaml
- F:=09drivers/platform/arm64/lenovo-thinkpad-t14s.c
-=20
-+THINKPAD X13S EMBEDDED CONTROLLER DRIVER
-+M:=09Alex Robinson <alex@ironrobin.net>
-+S:=09Maintained
-+F:=09Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad=
--x13s-ec.yaml
-+F:=09drivers/platform/arm64/lenovo-thinkpad-x13s.c
-+
- THINKPAD LMI DRIVER
- M:=09Mark Pearson <mpearson-lenovo@squebb.ca>
- L:=09platform-driver-x86@vger.kernel.org
-diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfi=
-g
-index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..eb0b84e5a93733ca16fc871ea94=
-eda30f5760b3c 100644
---- a/drivers/platform/arm64/Kconfig
-+++ b/drivers/platform/arm64/Kconfig
-@@ -90,6 +90,22 @@ config EC_LENOVO_THINKPAD_T14S
-=20
- =09  Say M or Y here to include this support.
-=20
-+config EC_LENOVO_THINKPAD_X13S
-+=09tristate "Lenovo ThinkPad X13s Embedded Controller driver"
-+=09depends on ARCH_QCOM || COMPILE_TEST
-+=09depends on I2C
-+=09depends on GPIOLIB
-+=09select NEW_LEDS
-+=09select LEDS_CLASS
-+=09select LEDS_BRIGHTNESS_HW_CHANGED
-+=09help
-+=09  Driver for the embedded controller in the Lenovo ThinkPad X13s.
-+=09  Provides keyboard backlight control, hardware brightness change
-+=09  notifications and system sleep power sequencing.
-+
-+=09  To compile this driver as a module, choose M here: the module will
-+=09  be called lenovo-thinkpad-x13s.
-+
- config EC_QCOM_HAMOA
- =09tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur referenc=
-e devices"
- =09depends on ARCH_QCOM || COMPILE_TEST
-diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makef=
-ile
-index 7681be4a46e94e7cb80e50bcc5b724cb0961357b..23ed6eef7ce41a5f45d48f5f83b=
-281ebbca94cbb 100644
---- a/drivers/platform/arm64/Makefile
-+++ b/drivers/platform/arm64/Makefile
-@@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)=09+=3D acer-aspire1-ec.o
- obj-$(CONFIG_EC_HUAWEI_GAOKUN)=09+=3D huawei-gaokun-ec.o
- obj-$(CONFIG_EC_LENOVO_YOGA_C630) +=3D lenovo-yoga-c630.o
- obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) +=3D lenovo-thinkpad-t14s.o
-+obj-$(CONFIG_EC_LENOVO_THINKPAD_X13S) +=3D lenovo-thinkpad-x13s.o
- obj-$(CONFIG_EC_QCOM_HAMOA) +=3D qcom-hamoa-ec.o
-diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/platfo=
-rm/arm64/lenovo-thinkpad-x13s.c
+ .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------------
+ .../nvidia,tegra-regulators-coupling.yaml          | 38 +++++++++++++
+ 2 files changed, 38 insertions(+), 65 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
+deleted file mode 100644
+index 4bf2dbf7c6cc0..0000000000000
+--- a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-NVIDIA Tegra Regulators Coupling
+-================================
+-
+-NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators.
+-Thus on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30
+-there are 2.
+-
+-Tegra20 voltage coupling
+-------------------------
+-
+-On Tegra20 SoC's there are 3 coupled regulators: CORE, RTC and CPU.
+-The CORE and RTC voltages shall be in a range of 170mV from each other
+-and they both shall be higher than the CPU voltage by at least 120mV.
+-
+-Tegra30 voltage coupling
+-------------------------
+-
+-On Tegra30 SoC's there are 2 coupled regulators: CORE and CPU. The CORE
+-and CPU voltages shall be in a range of 300mV from each other and CORE
+-voltage shall be higher than the CPU by N mV, where N depends on the CPU
+-voltage.
+-
+-Required properties:
+-- nvidia,tegra-core-regulator: Boolean property that designates regulator
+-  as the "Core domain" voltage regulator.
+-- nvidia,tegra-rtc-regulator: Boolean property that designates regulator
+-  as the "RTC domain" voltage regulator.
+-- nvidia,tegra-cpu-regulator: Boolean property that designates regulator
+-  as the "CPU domain" voltage regulator.
+-
+-Example:
+-
+-	pmic {
+-		regulators {
+-			core_vdd_reg: core {
+-				regulator-name = "vdd_core";
+-				regulator-min-microvolt = <950000>;
+-				regulator-max-microvolt = <1300000>;
+-				regulator-coupled-with = <&rtc_vdd_reg &cpu_vdd_reg>;
+-				regulator-coupled-max-spread = <170000 550000>;
+-
+-				nvidia,tegra-core-regulator;
+-			};
+-
+-			rtc_vdd_reg: rtc {
+-				regulator-name = "vdd_rtc";
+-				regulator-min-microvolt = <950000>;
+-				regulator-max-microvolt = <1300000>;
+-				regulator-coupled-with = <&core_vdd_reg &cpu_vdd_reg>;
+-				regulator-coupled-max-spread = <170000 550000>;
+-
+-				nvidia,tegra-rtc-regulator;
+-			};
+-
+-			cpu_vdd_reg: cpu {
+-				regulator-name = "vdd_cpu";
+-				regulator-min-microvolt = <750000>;
+-				regulator-max-microvolt = <1125000>;
+-				regulator-coupled-with = <&core_vdd_reg &rtc_vdd_reg>;
+-				regulator-coupled-max-spread = <550000 550000>;
+-
+-				nvidia,tegra-cpu-regulator;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
 new file mode 100644
-index 0000000000000000000000000000000000000000..4a7d5d03690955ba6fd3760a8af=
-4e76b999a68bc
+index 0000000000000..f5637a5772137
 --- /dev/null
-+++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
-@@ -0,0 +1,435 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Lenovo ThinkPad X13s embedded controller */
++++ b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
+@@ -0,0 +1,38 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/container_of.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/leds.h>
-+#include <linux/lockdep.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/pm.h>
-+#include <linux/pm_wakeup.h>
-+#include <linux/ratelimit.h>
-+#include <linux/slab.h>
++title: NVIDIA Tegra Regulators Coupling
 +
-+#define X13S_EC_CMD_READ=09=090x02
-+#define X13S_EC_CMD_WRITE=09=090x03
-+#define X13S_EC_CMD_EVENT=09=090xf0
-+#define X13S_EC_REG_POWER_STATE=090x80
-+#define X13S_EC_POWER_STATE_ENTER=090x55
-+#define X13S_EC_POWER_STATE_EXIT=090xaa
-+#define X13S_EC_REG_KBD_BACKLIGHT=090xc0
-+#define X13S_EC_BACKLIGHT_MASK=09GENMASK(5, 4)
-+#define X13S_EC_REG_KBD_BACKLIGHT_SAVED=090x15
-+#define X13S_EC_BACKLIGHT_SAVED_MASK=09GENMASK(2, 1)
-+#define X13S_EC_EVENT_FN_SPACE=090x1f
-+#define X13S_EC_EVENT_LID_OPEN=090x52
++description: >
++  NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators. Thus
++  on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30 there are 2.
 +
-+struct x13s_ec {
-+=09struct i2c_client *client;
-+=09struct gpio_desc *power_state;
-+=09/* Serializes EC transactions, backlight RMW and suspend/event state. *=
-/
-+=09struct mutex lock;
-+=09struct led_classdev led;
-+=09enum led_brightness saved_brightness;
-+=09bool saved_brightness_valid;
-+=09bool suspended;
-+=09bool event_pending;
-+};
++  On Tegra20 SoC's - there are 3 coupled regulators:CORE, RTC and CPU. The CORE
++  and RTC voltages shall be in a range of 170mV from each other and they both
++  shall be higher than the CPU voltage by at least 120mV.
 +
-+/*
-+ * Each single-message transfer ends in STOP. Hold the bus segment across
-+ * both halves so another client cannot interleave them. Keep the 10 ms
-+ * post-command settling delay, including on failure.
-+ */
-+static int x13s_read(struct x13s_ec *ec, u8 cmd, u8 reg, u8 *value)
-+{
-+=09struct i2c_client *client =3D ec->client;
-+=09u8 buf[] =3D { cmd, reg, 0, 1 };
-+=09struct i2c_msg request =3D {
-+=09=09.addr =3D client->addr,
-+=09=09.flags =3D I2C_M_STOP,
-+=09=09.len =3D sizeof(buf),
-+=09=09.buf =3D buf,
-+=09};
-+=09struct i2c_msg response =3D {
-+=09=09.addr =3D client->addr,
-+=09=09.flags =3D I2C_M_RD,
-+=09=09.len =3D 1,
-+=09=09.buf =3D value,
-+=09};
-+=09int ret;
++  On Tegra30 SoC's - there are 2 coupled regulators:CORE and CPU. The CORE and
++  CPU voltages shall be in a range of 300mV from each other and CORE voltage
++  shall be higher than the CPU by N mV, where N depends on the CPU voltage.
 +
-+=09lockdep_assert_held(&ec->lock);
-+=09if (ec->suspended)
-+=09=09return -EBUSY;
++maintainers:
++  - Dmitry Osipenko <digetx@gmail.com>
++  - Thierry Reding <treding@nvidia.com>
 +
-+=09i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+=09ret =3D __i2c_transfer(client->adapter, &request, 1);
-+=09if (ret =3D=3D 1)
-+=09=09ret =3D __i2c_transfer(client->adapter, &response, 1);
-+=09i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+=09fsleep(10000);
++properties:
++  nvidia,tegra-core-regulator:
++    description: designates regulator as the "Core domain" voltage regulator.
++    type: boolean
 +
-+=09if (ret < 0)
-+=09=09return ret;
-+=09if (ret !=3D 1)
-+=09=09return -EIO;
++  nvidia,tegra-rtc-regulator:
++    description: designates regulator as the "RTC domain" voltage regulator.
++    type: boolean
 +
-+=09return 0;
-+}
++  nvidia,tegra-cpu-regulator:
++    description: designates regulator as the "CPU domain" voltage regulator.
++    type: boolean
 +
-+/* Also used by normal PM callbacks while ordinary EC access is blocked. *=
-/
-+static int x13s_write(struct x13s_ec *ec, u8 reg, u8 value)
-+{
-+=09u8 buf[] =3D { X13S_EC_CMD_WRITE, reg, 0, 1, value };
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+
-+=09ret =3D i2c_master_send(ec->client, buf, sizeof(buf));
-+=09fsleep(10000);
-+
-+=09if (ret < 0)
-+=09=09return ret;
-+=09if (ret !=3D sizeof(buf))
-+=09=09return -EIO;
-+
-+=09return 0;
-+}
-+
-+static int x13s_brightness(struct x13s_ec *ec)
-+{
-+=09u8 value;
-+=09int brightness, ret;
-+
-+=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &val=
-ue);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09brightness =3D FIELD_GET(X13S_EC_BACKLIGHT_MASK, value);
-+=09if (brightness > ec->led.max_brightness)
-+=09=09return -EINVAL;
-+
-+=09return brightness;
-+}
-+
-+static enum led_brightness x13s_brightness_get(struct led_classdev *led)
-+{
-+=09struct x13s_ec *ec =3D container_of(led, struct x13s_ec, led);
-+=09int ret;
-+
-+=09mutex_lock(&ec->lock);
-+=09ret =3D x13s_brightness(ec);
-+=09mutex_unlock(&ec->lock);
-+=09return ret;
-+}
-+
-+static int x13s_set_brightness_locked(struct x13s_ec *ec,
-+=09=09=09=09      enum led_brightness brightness)
-+{
-+=09u8 value;
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09if (brightness > ec->led.max_brightness)
-+=09=09return -EINVAL;
-+
-+=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &val=
-ue);
-+=09if (ret)
-+=09=09return ret;
-+=09/* Never interpret or overwrite a reserved current brightness. */
-+=09if (FIELD_GET(X13S_EC_BACKLIGHT_MASK, value) > ec->led.max_brightness)
-+=09=09return -EINVAL;
-+=09FIELD_MODIFY(X13S_EC_BACKLIGHT_MASK, &value, brightness);
-+=09return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT, value);
-+}
-+
-+/* SCMS(0x20): save the brightness obtained from C0 in the EC. */
-+static int x13s_save_brightness_locked(struct x13s_ec *ec,
-+=09=09=09=09       enum led_brightness brightness)
-+{
-+=09u8 value;
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED=
-,
-+=09=09=09&value);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09FIELD_MODIFY(X13S_EC_BACKLIGHT_SAVED_MASK, &value, brightness);
-+=09return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT_SAVED, value);
-+}
-+
-+/* SCMS(0x21): restore C0 from the EC's saved brightness. */
-+static int x13s_restore_brightness_locked(struct x13s_ec *ec)
-+{
-+=09u8 value;
-+=09int brightness, ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED=
-,
-+=09=09=09&value);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09brightness =3D FIELD_GET(X13S_EC_BACKLIGHT_SAVED_MASK, value);
-+=09ret =3D x13s_set_brightness_locked(ec, brightness);
-+=09return ret ? ret : brightness;
-+}
-+
-+static int x13s_brightness_set(struct led_classdev *led,
-+=09=09=09       enum led_brightness brightness)
-+{
-+=09struct x13s_ec *ec =3D container_of(led, struct x13s_ec, led);
-+=09int ret;
-+
-+=09guard(mutex)(&ec->lock);
-+=09ret =3D x13s_set_brightness_locked(ec, brightness);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09/* Keep software selections across the EC's lid blank/restore cycle. */
-+=09return x13s_save_brightness_locked(ec, brightness);
-+}
-+
-+static void x13s_refresh_brightness(struct x13s_ec *ec)
-+{
-+=09int brightness, ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09/* Firmware owns the transition; save its result as _Q1F does. */
-+=09brightness =3D x13s_brightness(ec);
-+=09if (brightness < 0) {
-+=09=09dev_err_ratelimited(&ec->client->dev,
-+=09=09=09=09    "Backlight refresh failed: %d\n", brightness);
-+=09=09return;
-+=09}
-+=09ret =3D x13s_save_brightness_locked(ec, brightness);
-+=09if (ret) {
-+=09=09dev_err_ratelimited(&ec->client->dev,
-+=09=09=09=09    "Backlight save failed: %d\n", ret);
-+=09}
-+=09led_classdev_notify_brightness_hw_changed(&ec->led, brightness);
-+}
-+
-+static void x13s_query_event(struct x13s_ec *ec)
-+{
-+=09u8 event;
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09/* One query per interrupt, with no event-draining loop or retry. */
-+=09ret =3D x13s_read(ec, X13S_EC_CMD_EVENT, 0, &event);
-+=09if (ret) {
-+=09=09dev_err_ratelimited(&ec->client->dev, "Event query failed: %d\n", re=
-t);
-+=09=09return;
-+=09}
-+=09if (event =3D=3D X13S_EC_EVENT_FN_SPACE) {
-+=09=09x13s_refresh_brightness(ec);
-+=09} else if (event =3D=3D X13S_EC_EVENT_LID_OPEN) {
-+=09=09ret =3D x13s_restore_brightness_locked(ec);
-+=09=09if (ret < 0) {
-+=09=09=09dev_err_ratelimited(&ec->client->dev,
-+=09=09=09=09=09    "Backlight lid restore failed: %d\n", ret);
-+=09=09=09return;
-+=09=09}
-+=09=09ec->led.brightness =3D ret;
-+=09=09led_classdev_notify_brightness_hw_changed(&ec->led, ret);
-+=09}
-+}
-+
-+static void x13s_process_pending_event(struct x13s_ec *ec)
-+{
-+=09lockdep_assert_held(&ec->lock);
-+=09if (ec->event_pending) {
-+=09=09ec->event_pending =3D false;
-+=09=09x13s_query_event(ec);
-+=09}
-+}
-+
-+static irqreturn_t x13s_irq(int irq, void *data)
-+{
-+=09struct x13s_ec *ec =3D data;
-+
-+=09mutex_lock(&ec->lock);
-+=09/* Coalesce suspended IRQs into one query; never access I2C here. */
-+=09if (ec->suspended)
-+=09=09ec->event_pending =3D true;
-+=09else
-+=09=09x13s_query_event(ec);
-+=09mutex_unlock(&ec->lock);
-+=09return IRQ_HANDLED;
-+}
-+
-+static int x13s_probe(struct i2c_client *client)
-+{
-+=09struct device *dev =3D &client->dev;
-+=09struct x13s_ec *ec;
-+=09int ret;
-+
-+=09if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+=09=09return -EOPNOTSUPP;
-+=09if (client->irq <=3D 0)
-+=09=09return dev_err_probe(dev, -EINVAL, "Missing event IRQ\n");
-+=09if (irq_get_trigger_type(client->irq) !=3D IRQ_TYPE_EDGE_FALLING)
-+=09=09return dev_err_probe(dev, -EINVAL, "Expected falling-edge IRQ\n");
-+
-+=09ec =3D devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-+=09if (!ec)
-+=09=09return -ENOMEM;
-+=09ec->client =3D client;
-+=09ret =3D devm_mutex_init(dev, &ec->lock);
-+=09if (ret)
-+=09=09return ret;
-+=09i2c_set_clientdata(client, ec);
-+
-+=09ec->power_state =3D devm_gpiod_get(dev, "power-state", GPIOD_OUT_HIGH);
-+=09if (IS_ERR(ec->power_state)) {
-+=09=09return dev_err_probe(dev, PTR_ERR(ec->power_state),
-+=09=09=09=09     "Failed to acquire power-state GPIO high\n");
-+=09}
-+
-+=09ec->led.name =3D "platform::kbd_backlight";
-+=09ec->led.max_brightness =3D 2;
-+=09ec->led.flags =3D LED_BRIGHT_HW_CHANGED | LED_RETAIN_AT_SHUTDOWN;
-+=09ec->led.brightness_get =3D x13s_brightness_get;
-+=09ec->led.brightness_set_blocking =3D x13s_brightness_set;
-+=09ret =3D devm_led_classdev_register(dev, &ec->led);
-+=09if (ret)
-+=09=09return dev_err_probe(dev, ret, "Failed to register keyboard backligh=
-t\n");
-+
-+=09/* Devres synchronizes the IRQ before unregistering the LED. */
-+=09ret =3D devm_request_threaded_irq(dev, client->irq, NULL, x13s_irq,
-+=09=09=09=09=09IRQF_ONESHOT, dev_name(dev), ec);
-+=09if (ret)
-+=09=09return dev_err_probe(dev, ret, "Failed to request event IRQ\n");
-+
-+=09/*
-+=09 * As on the T14s, disable wakeup by default since selective EC event
-+=09 * masking is not known. Keep runtime IRQ handling enabled.
-+=09 */
-+=09device_wakeup_disable(dev);
-+
-+=09return 0;
-+}
-+
-+static int x13s_power_gpio(struct x13s_ec *ec, int value)
-+{
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09ret =3D gpiod_set_value_cansleep(ec->power_state, value);
-+=09if (ret) {
-+=09=09dev_err(&ec->client->dev, "Failed to set power-state GPIO to %d: %d\=
-n",
-+=09=09=09value, ret);
-+=09}
-+=09return ret;
-+}
-+
-+static void x13s_exit_low_power(struct x13s_ec *ec)
-+{
-+=09int ret;
-+
-+=09lockdep_assert_held(&ec->lock);
-+=09x13s_power_gpio(ec, 1);
-+=09/* DSDT: GPIO176 high, Sleep(10), then register 0x80 <- 0xaa. */
-+=09fsleep(10000);
-+=09ret =3D x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_EXI=
-T);
-+=09if (ret)
-+=09=09dev_err(&ec->client->dev, "Failed to exit low power: %d\n", ret);
-+
-+=09/* Resume ordinary access even if the EC exit attempt failed. */
-+=09ec->suspended =3D false;
-+}
-+
-+static int x13s_suspend(struct device *dev)
-+{
-+=09struct x13s_ec *ec =3D dev_get_drvdata(dev);
-+=09int ret;
-+
-+=09/* Finish in-flight access while the GENI parent is still usable. */
-+=09guard(mutex)(&ec->lock);
-+=09if (ec->suspended)
-+=09=09return 0;
-+=09/* Only restore a snapshot captured during this suspend. */
-+=09ec->saved_brightness_valid =3D false;
-+=09ret =3D x13s_brightness(ec);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "Failed to save backlight brightness: %d\n", ret);
-+=09} else {
-+=09=09ec->saved_brightness =3D ret;
-+=09=09ec->saved_brightness_valid =3D true;
-+=09}
-+
-+=09/* DSDT: register 0x80 <- 0x55, then GPIO176 low. */
-+=09ret =3D x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_ENT=
-ER);
-+=09if (ret)
-+=09=09dev_err(dev, "Failed to enter low power: %d\n", ret);
-+=09else
-+=09=09x13s_power_gpio(ec, 0);
-+=09/* Defer event queries throughout host suspend, even on EC failure. */
-+=09ec->suspended =3D true;
-+=09return 0;
-+}
-+
-+static int x13s_resume(struct device *dev)
-+{
-+=09struct x13s_ec *ec =3D dev_get_drvdata(dev);
-+=09int ret;
-+
-+=09/*
-+=09 * Normal resume runs after the adapter and its GENI parent. In
-+=09 * particular, device_resume_early() has re-enabled runtime PM:
-+=09 * GENI's resume_noirq() alone is not sufficient for I2C transfers.
-+=09 * Consume the pending query under the IRQ thread's mutex, without
-+=09 * a worker that could race a new IRQ or the next suspend.
-+=09 */
-+=09mutex_lock(&ec->lock);
-+=09x13s_exit_low_power(ec);
-+=09if (ec->saved_brightness_valid) {
-+=09=09ret =3D x13s_set_brightness_locked(ec, ec->saved_brightness);
-+=09=09if (ret) {
-+=09=09=09dev_err(dev, "Failed to restore backlight brightness: %d\n", ret)=
-;
-+=09=09} else {
-+=09=09=09/* A software restore is not a hardware brightness change. */
-+=09=09=09ec->led.brightness =3D ec->saved_brightness;
-+=09=09}
-+=09=09ec->saved_brightness_valid =3D false;
-+=09}
-+
-+=09/* A deferred lid-open restore must supersede the PM snapshot. */
-+=09x13s_process_pending_event(ec);
-+=09mutex_unlock(&ec->lock);
-+=09return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(x13s_pm_ops, x13s_suspend, x13s_resume);
-+
-+static const struct of_device_id x13s_of_match[] =3D {
-+=09{ .compatible =3D "lenovo,thinkpad-x13s-ec" },
-+=09{ }
-+};
-+MODULE_DEVICE_TABLE(of, x13s_of_match);
-+
-+static struct i2c_driver x13s_driver =3D {
-+=09.probe =3D x13s_probe,
-+=09.driver =3D {
-+=09=09.name =3D "thinkpad-x13s-ec",
-+=09=09.of_match_table =3D x13s_of_match,
-+=09=09.pm =3D pm_sleep_ptr(&x13s_pm_ops),
-+=09},
-+};
-+module_i2c_driver(x13s_driver);
-+
-+MODULE_DESCRIPTION("Lenovo ThinkPad X13s Embedded Controller");
-+MODULE_LICENSE("GPL");
++additionalProperties: true
+
+-- 
+2.55.0
 
