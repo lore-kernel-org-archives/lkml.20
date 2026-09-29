@@ -1,78 +1,63 @@
-Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C328F528425
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AD7528430
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686194; cv=none; b=ZKlu1vv4VpKDKrfGV7ov04mcmPofQg3E13Lx1Od5KA/psyGZtzIw+7MIHPSLtEzcDU3mocgdsQomSQeSSBnj1X2YHyqsayh76Cr4V2uok/sho5tLsr3Rdn/eJZUGW8DfiEwImb5vHzbagfRCrUxgNq/BqKnFLiv22/Gj9egTfDE=
+	t=1790686197; cv=none; b=SO3NhV6JzZ6yyfpr5auCM2h9L1BzNyKj+ORTuIq4ijTjf1/sDPo45L54k39BFKBZUIE25J6KpV7CQrcUuexOsrZ84KLuwODH87/oMUtIaEo3SXkxrXsf6KVY1KG9chcw0U18R52EvQiClD3KT8PQGdwICjkaspiiRM+lQM/ALw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686194; c=relaxed/simple;
-	bh=c8f1eqX7udRQUkjxP8hlmLfKMtqZm1LdPotaFvOnBzc=;
+	s=arc-20240116; t=1790686197; c=relaxed/simple;
+	bh=KK3lR+nEzyfeOrJgrex4gj/VThGCdvhlvkZCbC2Moyg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tqw1jPCknIoU1g7X9z9lao5eVY9ASMLzRH0c52lmrqr0GxNLP0+vB69BaHqtXh73c6yUNUKmvG6vRqaXFFfx3R5BXRDUt2kaFQkWEM1gtdLKeFiWaTZ7o6JK8wfSl6W9cXkPe7fp84KCv9L8d5PlC580oHxsCj4PYF5/rOIfD2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MX0Yh6EC; arc=none smtp.client-ip=74.125.231.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=C41dieW+m75QElfTZgYveNsTD/u9cCCCtUi6UQw21f8zWWbc8jiXttm0G1Qn71hDBHHSZpm2z3KRzzm04oKBoO8H4so6RdVzGrOgXVtYB8iMElAkJFiRBWtOIvt22wEx1/OasHE/FYDvs1UPqCv/IDkeqxzMpVxWHumFHtH7vus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QTdm5Vyq; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MX0Yh6EC"
-Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-8137b129131so2718688a34.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790686192; x=1791290992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gK9kuE3ZJKv9P0L8HyUR2jEufhxAadJU9kTc40xDD5w=;
-        b=MX0Yh6ECPGTh4UkDSO/FPgBDQpqQbkR/PaEbgm5dq2Tsy20gFdPHml29kPeM0P3Dav
-         zN+Ul9kEX4WK11MDcjoayXmCX+YmqcYUdF42KhffULL8cwZe8Rtcypl1e+7XeCNpa6Qg
-         Ozn5G8XxL5ac3Aiy3N+3V3EvcECQ8Q3JmCfNco/bmSKVY4+2RCGYFg8NS+cG0n0xYY24
-         zeIE5TUuHJKzyOT83ojaBRvB+3s5QKs2qadAheIwjjeHpFE4uJXUxRo0UR4T8tFCn6c0
-         IM7+wURS+/BJ53sNpl3nH48fmcvxi6ULW5Zsa5YGwMjzrLk+ZvFO5VwSQg42oKTUwSvc
-         mg/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790686192; x=1791290992;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gK9kuE3ZJKv9P0L8HyUR2jEufhxAadJU9kTc40xDD5w=;
-        b=hXTP7CD0uoGJtHLDk2v5sgTiNvsKKOX0Mku/XxdsvMVFMUBt65euheV8Oa1qwrcsh5
-         T2iOIlznwA1ywM4PB4/3z4jmRUNdLTLNr97MOIKpXINRMgrUloJ21ypsntSeMZFyF4Kd
-         9lmKmW/kPp9lVVtwIZE815OQt+qW/Bmy6/6Ysbyx/5abQ3udLo+8jN7QM6vUoVb5LxHG
-         UzpJoP61IWSI+0E6FESwoEkg6Dq4maHHWMqGYCoMKCxb6yAP7J0V/dLYbr609CCuIuWs
-         Vu2/MlaM6a4XE9R1MsJg/JwB2DZQFFba5rkd7g5LCmz22El7rrgyNToitq0dSX9Fcahh
-         2ixw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqtXBFFOlKtnS1vf4/0zzb59ezVUu3N6KMmUCXwsk1jkMnY9DjAoM8TiawYO3Ne3BBJrT0KDtf3urPZFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRpbr1tMPCZhjLx8ToIIRELGaBBISZMhJVQ/MzmS+MrVdGnJIC
-	C0I0/gk62qk/uxHI57doLYUN3PkolItA2hMKB/f6PQecKvnmKKIdrUDX
-X-Gm-Gg: AYBFou2ocd0nntfuKFUEpNqh2xkvE7jo3kHFFd1C+nYJrai9uuM/54b9Zj/HbGAsr+F
-	PTdfjtHFWTCbdDp6JCt99YEsR0RGxzmCNAc+7OgPKUMqiUSDC1X6Q9QG2EUd96hrzTA3Ml2Dpod
-	4vhUYkxh9DuLIe+AEWZrQtJzi8/fremeJPjnK95TBpcdBVQD8JlofbCpnW5fgD5jiKA7u/7XFaf
-	/2mIutljMQB864ZXYJ2i3vXwjTGeP6Nk3L+FNc55fj+rPf+xkichpd5+OYTi3Yb3fQuagPeMDz0
-	mRFigkI6vF9ENcQjww7vLAXcUBe6Qg76dP6wimv/9PONX6D1/gPbattZGIQ/luluGXJaPKI2PN9
-	xue4ogUD66jsa/fFCpfvBLDsFE9zTnUksOQNNiHdvadjvPi/zJhycB+44K+/PUXZDXRQfxKqkmJ
-	Bza2+64byAaoAZUyqRgtY9fHmaDAIQ5LeOtaSe3+TD9xG4ZRBlPoOTeMAHuM67S3E3AASWfz99p
-	se/UN1YFQyxn1tXpUXws8zFKynPLfnqrMlMPnde
-X-Received: by 2002:a05:6820:61a:b0:6ca:4a52:797b with SMTP id 006d021491bc7-6d4411d248emr14131280eaf.50.1790686191517;
-        Tue, 29 Sep 2026 05:49:51 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8830ab0d7sm6781572eaf.11.2026.09.29.05.49.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:49:50 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Rodolfo Giometti <giometti@enneenne.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Calvin Owens <calvin@wbinvd.org>,
-	Yibo Tan <lhfff@tju.edu.cn>,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH v2 4/4] pps: generators: wake up PPS_GEN_FETCHEVENT readers on unregister
-Date: Tue, 29 Sep 2026 07:49:37 -0500
-Message-ID: <20260929124937.51114-5-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929124937.51114-1-danishkhateeb03@gmail.com>
-References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QTdm5Vyq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790686194;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CcRh3KvoTuTU5robGFFmH46A8mOpByTK/Vk4+RYAYiQ=;
+	b=QTdm5VyqXnJTK866zYovkgTPpFC+Z8Zr9bCwvGug7t23IYsSDBm7KBnV7Upw8AtBtYjkZ6
+	dWiH0c2cKXWjHxcGIw5RGq1VJZ2psBMvByjgl6ZM5rcrVWSuD9fFnIJkN7a7K7R3Sy2MSP
+	Mm+bPnXy3VekBRzR4yWNxj8E0awNVgY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-gnSN5C7QOACjzpyVVfnluA-1; Tue,
+ 29 Sep 2026 08:49:49 -0400
+X-MC-Unique: gnSN5C7QOACjzpyVVfnluA-1
+X-Mimecast-MFC-AGG-ID: gnSN5C7QOACjzpyVVfnluA_1790686188
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1FCEA180059F;
+	Tue, 29 Sep 2026 12:49:48 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 189801956095;
+	Tue, 29 Sep 2026 12:49:44 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Gabriele Monaco <gmonaco@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-doc@vger.kernel.org
+Cc: Nam Cao <namcao@linutronix.de>,
+	Wen Yang <wen.yang@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>
+Subject: [PATCH 07/10] rv: Add throttle deadline monitor
+Date: Tue, 29 Sep 2026 14:49:05 +0200
+Message-ID: <20260929124908.177676-8-gmonaco@redhat.com>
+In-Reply-To: <20260929124908.177676-1-gmonaco@redhat.com>
+References: <20260929124908.177676-1-gmonaco@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,66 +65,659 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-A reader sleeping in PPS_GEN_FETCHEVENT waits for the next event, but
-no event comes after pps_gen_unregister_source(), so the reader sleeps
-until it gets a signal. A PPS_GEN_FETCHEVENT issued after the
-unregister sleeps the same way.
+Add a monitor to validate the behaviour of the deadline scheduler.
 
-Wake up the readers on unregister, and make PPS_GEN_FETCHEVENT fail
-with -ENODEV once the generator is gone, like the other ioctls. The
-wait checks info without info_lock, so clear it with WRITE_ONCE().
+* throttle:
+    validate dl entities are throttled when they use up their runtime
 
-Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
-Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Reviewed-by: Nam Cao <namcao@linutronix.de>
+Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
+ Documentation/trace/rv/monitor_deadline.rst   |  74 +++++
+ kernel/trace/rv/Kconfig                       |   1 +
+ kernel/trace/rv/Makefile                      |   1 +
+ kernel/trace/rv/monitors/throttle/Kconfig     |  15 +
+ kernel/trace/rv/monitors/throttle/throttle.c  | 285 ++++++++++++++++++
+ kernel/trace/rv/monitors/throttle/throttle.h  | 116 +++++++
+ .../rv/monitors/throttle/throttle_trace.h     |  19 ++
+ kernel/trace/rv/rv_trace.h                    |   1 +
+ .../verification/models/deadline/throttle.dot |  44 +++
+ 9 files changed, 556 insertions(+)
+ create mode 100644 kernel/trace/rv/monitors/throttle/Kconfig
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle.c
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle.h
+ create mode 100644 kernel/trace/rv/monitors/throttle/throttle_trace.h
+ create mode 100644 tools/verification/models/deadline/throttle.dot
 
-Notes:
-    Tested in the same setup. With a reader asleep in PPS_GEN_FETCHEVENT,
-    unbinding the test driver used to leave it asleep until its alarm(5)
-    fired (-EINTR after 5 s), and a PPS_GEN_FETCHEVENT after the unbind
-    did the same. With this patch both return -ENODEV right away. Normal
-    use of pps_gen-dummy, including PPS_GEN_FETCHEVENT, is unchanged.
-
- drivers/pps/generators/pps_gen.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-index 452cc12a96f2..474e17c36458 100644
---- a/drivers/pps/generators/pps_gen.c
-+++ b/drivers/pps/generators/pps_gen.c
-@@ -103,11 +103,14 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 		dev_dbg(&pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
- 
- 		ret = wait_event_interruptible(pps_gen->queue,
--				ev != pps_gen->last_ev);
-+				ev != pps_gen->last_ev ||
-+				!READ_ONCE(pps_gen->info));
- 		if (ret == -ERESTARTSYS) {
- 			dev_dbg(&pps_gen->dev, "pending signal caught\n");
- 			return -EINTR;
- 		}
-+		if (!READ_ONCE(pps_gen->info))
-+			return -ENODEV;
- 
- 		spin_lock_irq(&pps_gen->lock);
- 		info.sequence = pps_gen->sequence;
-@@ -238,9 +241,12 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
- 			pps_gen->info->enable(pps_gen, false);
- 			pps_gen->enabled = false;
- 		}
--		pps_gen->info = NULL;
-+		WRITE_ONCE(pps_gen->info, NULL);
- 	}
- 
-+	/* Wake up the readers in PPS_GEN_FETCHEVENT, they fail now as well */
-+	wake_up_interruptible_all(&pps_gen->queue);
+diff --git a/Documentation/trace/rv/monitor_deadline.rst b/Documentation/trace/rv/monitor_deadline.rst
+index 84506ed1e293..e88f631d8387 100644
+--- a/Documentation/trace/rv/monitor_deadline.rst
++++ b/Documentation/trace/rv/monitor_deadline.rst
+@@ -82,3 +82,77 @@ server can run from sleeping without being ready::
+  +--------------+ <---------+                                        ^
+         |                                                            |
+         +------ dl_throttle;is_constr_dl == 1 || is_defer == 1 ------+
 +
- 	put_device(&pps_gen->dev);
- }
++Monitor throttle
++~~~~~~~~~~~~~~~~
++
++The throttle monitor ensures deadline entities are throttled when they use up
++their runtime. Deadline tasks can be only ``running``, ``preempted`` and
++``throttled``, the runtime is enforced only in ``running`` based on an internal
++clock and the runtime value in the deadline entity.
++On systems with CPU frequency scaling or turbo boost, deadline tasks can run
++longer than their runtime as this is scaled according to the frequency. In this
++scenario, the monitor allows to skip the runtime check with the module
++parameter ``throttle.skip_runtime_check``.
++
++Servers can be also in the ``armed`` state, which represents when the
++server is consuming bandwidth in background (e.g. idle or normal tasks are
++running without any boost). From this state the server can be throttled but it
++can also use more runtime than available. A server is considered ``running``
++when it's actively boosting a task, only there the runtime is enforced. The
++server is preempted if the running task is not in the server's runqueue (e.g. a
++FIFO task for the fair server).
++Events like ``dl_armed`` and ``sched_switch_in`` can occur sequentially for
++servers since they are related to the current task (e.g. a 2 fair tasks can be
++switched in sequentially, that corresponds to multiple ``dl_armed``).
++
++Any task or server in the ``throttled`` state must leave it shortly, e.g.
++become ``preempted``::
++
++                                     |
++                                     |
++      dl_replenish;reset(clk)        v
++              sched_switch_in   #=========================# sched_switch_in;
++               +--------------- H                         H   reset(clk)
++               |                H                         H <----------------+
++               +--------------> H         running         H                  |
++    dl_throttle;reset(clk)      H clk < runtime_left_ns() H                  |
++   +--------------------------- H                         H sched_switch_out |
++   |       +------------------> H                         H -------------+   |
++   | dl_replenish;reset(clk)    #=========================#              |   |
++   |       |                         |             ^                     |   |
++   v       |                  dl_defer_arm         |                     |   |
++ +-------------------------+         |             |                     |   |
++ |       throttled         |         |    sched_switch_in;reset(clk)     |   |
++ | clk < THROTTLED_TIME_NS |         v             |                     |   |
++ +-------------------------+        +----------------+                   |   |
++   |    |                           |                | sched_switch_out  |   |
++   |    |               +---------- |                | -------------+    |   |
++   |    |          dl_replenish     |     armed      |              |    |   |
++   |    |          dl_defer_arm     |                | <--------+   |    |   |
++   |    |               +---------> |                | dl_defer_arm |    |   |
++   |    |                           +----------------+          |   |    |   |
++   |    |                            |         ^                |   |    |   |
++   |    |                        dl_throttle  dl_replenish      |   |    |   |
++   |    |                            v         |                |   |    |   |
++   |    |     dl_defer_arm  +-------------------+               |   v    v   |
++   |    |       +---------- |                   |             +--------------+
++   |    |       |           |                   |             |              |
++   |    |       +---------> |  armed_throttled  |             |  preempted   |
++   |    |                   |                   |             |              |
++   |    +-----------------> |                   |             +--------------+
++   |          dl_defer_arm  +-------------------+   sched_switch_out ^   |  ^
++   |                            |              ^        dl_replenish |   |  |
++   |                  sched_switch_out    dl_defer_arm          +----+   |  |
++   |                            v              |                         |  |
++   |       sched_switch_out  +-----------------------+                   |  |
++   |         +-------------- |                       | dl_throttle;      |  |
++   |         |               |                       |  is_constr_dl==1  |  |
++   |         +-------------> |  preempted_throttled  | <-----------------+  |
++   |                         |                       |                      |
++   +-----------------------> |                       | -- dl_replenish -----+
++         sched_switch_out    +-----------------------+
++
++The value of ``runtime_left_ns()`` is directly read from the deadline entity
++and updated as the task runs. It is increased by 1 tick to account for the
++maximum delay to throttle (not valid if ``sched_feat(HRTICK_DL)`` is active).
+diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
+index efa930f94ea4..cdb851c7cceb 100644
+--- a/kernel/trace/rv/Kconfig
++++ b/kernel/trace/rv/Kconfig
+@@ -82,6 +82,7 @@ source "kernel/trace/rv/monitors/wakeup/Kconfig"
+ source "kernel/trace/rv/monitors/stall/Kconfig"
+ source "kernel/trace/rv/monitors/deadline/Kconfig"
+ source "kernel/trace/rv/monitors/nomiss/Kconfig"
++source "kernel/trace/rv/monitors/throttle/Kconfig"
+ # Add new deadline monitors here
  
+ # Add new monitors here
+diff --git a/kernel/trace/rv/Makefile b/kernel/trace/rv/Makefile
+index cdbf68c84f5a..1387082dc490 100644
+--- a/kernel/trace/rv/Makefile
++++ b/kernel/trace/rv/Makefile
+@@ -21,6 +21,7 @@ obj-$(CONFIG_RV_MON_STALL) += monitors/stall/stall.o
+ obj-$(CONFIG_RV_MON_DEADLINE) += monitors/deadline/deadline.o
+ obj-$(CONFIG_RV_MON_NOMISS) += monitors/nomiss/nomiss.o
+ obj-$(CONFIG_RV_MON_WAKEUP) += monitors/wakeup/wakeup.o
++obj-$(CONFIG_RV_MON_THROTTLE) += monitors/throttle/throttle.o
+ # Add new monitors here
+ obj-$(CONFIG_RV_REACTORS) += rv_reactors.o
+ obj-$(CONFIG_RV_REACT_PRINTK) += reactor_printk.o
+diff --git a/kernel/trace/rv/monitors/throttle/Kconfig b/kernel/trace/rv/monitors/throttle/Kconfig
+new file mode 100644
+index 000000000000..d9bd2dc903cd
+--- /dev/null
++++ b/kernel/trace/rv/monitors/throttle/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++config RV_MON_THROTTLE
++	depends on RV
++	depends on HAVE_SYSCALL_TRACEPOINTS
++	depends on RV_MON_DEADLINE
++	default y
++	select HA_MON_EVENTS_ID
++	bool "throttle monitor"
++	help
++	  Monitor to ensure dl entities are throttled when they use up their runtime.
++	  This monitor is part of the deadline monitors collection.
++
++	  For further information, see:
++	    Documentation/trace/rv/monitor_deadline.rst
+diff --git a/kernel/trace/rv/monitors/throttle/throttle.c b/kernel/trace/rv/monitors/throttle/throttle.c
+new file mode 100644
+index 000000000000..b22a2abe59fe
+--- /dev/null
++++ b/kernel/trace/rv/monitors/throttle/throttle.c
+@@ -0,0 +1,285 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/ftrace.h>
++#include <linux/tracepoint.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/init.h>
++#include <linux/rv.h>
++#include <rv/instrumentation.h>
++
++#define MODULE_NAME "throttle"
++
++#include <uapi/linux/sched/types.h>
++#include <trace/events/syscalls.h>
++#include <trace/events/sched.h>
++#include <trace/events/task.h>
++#include <rv_trace.h>
++
++#define RV_MON_TYPE RV_MON_PER_OBJ
++#define HA_TIMER_TYPE HA_TIMER_WHEEL
++/* The start condition is on sched_switch, it's dangerous to allocate there */
++#define DA_SKIP_AUTO_ALLOC
++typedef struct sched_dl_entity *monitor_target;
++#include "throttle.h"
++#include <rv/ha_monitor.h>
++#include <monitors/deadline/deadline.h>
++
++#define THROTTLED_TIME_NS TICK_NSEC
++/* with sched_feat(HRTICK_DL) the threshold can be lower */
++#define RUNTIME_THRESH TICK_NSEC
++/*
++ * On systems with CPU frequency scaling or turbo boost, deadline tasks can run
++ * longer than their runtime as this is scaled according to the frequency. As a
++ * result, this constraint cannot work.
++ */
++static bool skip_runtime_check;
++module_param(skip_runtime_check, bool, 0644);
++
++static inline u64 runtime_left_ns(struct ha_monitor *ha_mon)
++{
++	return ha_get_target(ha_mon)->runtime + RUNTIME_THRESH;
++}
++
++static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_throttle env, u64 time_ns)
++{
++	if (env == clk_throttle)
++		return ha_get_clk_ns(ha_mon, env, time_ns);
++	else if (env == is_constr_dl_throttle)
++		return !dl_is_implicit(ha_get_target(ha_mon));
++	return ENV_INVALID_VALUE;
++}
++
++static void ha_reset_env(struct ha_monitor *ha_mon, enum envs_throttle env, u64 time_ns)
++{
++	if (env == clk_throttle)
++		ha_reset_clk_ns(ha_mon, env, time_ns);
++}
++
++static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
++					enum states curr_state, enum events event,
++					enum states next_state, u64 time_ns)
++{
++	if (curr_state == running_throttle && !skip_runtime_check)
++		return ha_check_invariant_ns(ha_mon, clk_throttle, time_ns);
++	else if (curr_state == throttled_throttle)
++		return ha_check_invariant_ns(ha_mon, clk_throttle, time_ns);
++	return true;
++}
++
++static inline bool ha_verify_guards(struct ha_monitor *ha_mon,
++				    enum states curr_state, enum events event,
++				    enum states next_state, u64 time_ns)
++{
++	bool res = true;
++
++	if (curr_state == armed_throttle && event == sched_switch_in_throttle)
++		ha_reset_env(ha_mon, clk_throttle, time_ns);
++	else if (curr_state == preempted_throttle && event == dl_throttle_throttle)
++		res = ha_get_env(ha_mon, is_constr_dl_throttle, time_ns) == 1ull;
++	else if (curr_state == preempted_throttle && event == sched_switch_in_throttle)
++		ha_reset_env(ha_mon, clk_throttle, time_ns);
++	else if (curr_state == running_throttle && event == dl_replenish_throttle)
++		ha_reset_env(ha_mon, clk_throttle, time_ns);
++	else if (curr_state == running_throttle && event == dl_throttle_throttle)
++		ha_reset_env(ha_mon, clk_throttle, time_ns);
++	else if (curr_state == throttled_throttle && event == dl_replenish_throttle)
++		ha_reset_env(ha_mon, clk_throttle, time_ns);
++	return res;
++}
++
++static inline void ha_setup_invariants(struct ha_monitor *ha_mon,
++				       enum states curr_state, enum events event,
++				       enum states next_state, u64 time_ns)
++{
++	if (next_state == curr_state && event != dl_replenish_throttle)
++		return;
++	if (next_state == running_throttle && !skip_runtime_check)
++		ha_start_timer_ns(ha_mon, clk_throttle, runtime_left_ns(ha_mon), time_ns);
++	else if (next_state == throttled_throttle)
++		ha_start_timer_ns(ha_mon, clk_throttle, THROTTLED_TIME_NS, time_ns);
++	else if (curr_state == running_throttle)
++		ha_cancel_timer(ha_mon);
++	else if (curr_state == throttled_throttle)
++		ha_cancel_timer(ha_mon);
++}
++
++static bool ha_verify_constraint(struct ha_monitor *ha_mon,
++				 enum states curr_state, enum events event,
++				 enum states next_state, u64 time_ns)
++{
++	if (!ha_verify_invariants(ha_mon, curr_state, event, next_state, time_ns))
++		return false;
++
++	if (!ha_verify_guards(ha_mon, curr_state, event, next_state, time_ns))
++		return false;
++
++	ha_setup_invariants(ha_mon, curr_state, event, next_state, time_ns);
++
++	return true;
++}
++
++static void handle_dl_replenish(void *data, struct sched_dl_entity *dl_se,
++				int cpu, u8 type)
++{
++	if (is_supported_type(type))
++		da_handle_event(EXPAND_ID(dl_se, cpu, type), dl_replenish_throttle);
++}
++
++static void handle_dl_throttle(void *data, struct sched_dl_entity *dl_se,
++			       int cpu, u8 type)
++{
++	if (is_supported_type(type))
++		da_handle_event(EXPAND_ID(dl_se, cpu, type), dl_throttle_throttle);
++}
++
++static void handle_dl_server_stop(void *data, struct sched_dl_entity *dl_se,
++				  int cpu, u8 type)
++{
++	if (is_supported_type(type))
++		da_handle_start_run_event(EXPAND_ID(dl_se, cpu, type), sched_switch_out_throttle);
++}
++
++static inline void handle_server_switch(struct task_struct *next, int cpu, u8 type)
++{
++	struct sched_dl_entity *dl_se = get_server(next, type);
++
++	if (!dl_se)
++		return;
++	if (get_server_type(next) == type || is_idle_task(next))
++		da_handle_event(EXPAND_ID(dl_se, cpu, type), dl_defer_arm_throttle);
++	else
++		da_handle_event(EXPAND_ID(dl_se, cpu, type), sched_switch_out_throttle);
++}
++
++static void handle_sched_switch(void *data, bool preempt,
++				struct task_struct *prev,
++				struct task_struct *next,
++				unsigned int prev_state)
++{
++	int cpu = task_cpu(next);
++
++	if (prev->policy == SCHED_DEADLINE)
++		da_handle_event(EXPAND_ID_TASK(prev), sched_switch_out_throttle);
++	if (next->policy == SCHED_DEADLINE)
++		da_handle_start_event(EXPAND_ID_TASK(next), sched_switch_in_throttle);
++
++	/*
++	 * The server is available in next only if the next task is boosted,
++	 * otherwise we need to retrieve it.
++	 * Here the server continues in the state running/armed until actually
++	 * stopped, this works since we continue expecting a throttle.
++	 */
++	if (next->dl_server) {
++		da_handle_start_event(EXPAND_ID(next->dl_server, cpu,
++						get_server_type(next)),
++				      sched_switch_in_throttle);
++	} else {
++		handle_server_switch(next, cpu, DL_SERVER_FAIR);
++		if (IS_ENABLED(CONFIG_SCHED_CLASS_EXT))
++			handle_server_switch(next, cpu, DL_SERVER_EXT);
++	}
++}
++
++static void handle_sched_enqueue(void *data, struct task_struct *tsk, int cpu)
++{
++	struct sched_dl_entity *dl_se = NULL;
++	u8 type = get_server_type(tsk);
++
++	if (is_server_type(type))
++		dl_se = get_server(tsk, type);
++	/*
++	 * An enqueue is counted as server arming only in case of a change in
++	 * scheduler where the task is moved to another scheduler's runqueue.
++	 */
++	if (dl_se && task_is_running(tsk) && sched_task_on_rq(tsk))
++		da_handle_event(EXPAND_ID(dl_se, cpu, type), dl_defer_arm_throttle);
++}
++
++static void handle_sys_enter(void *data, struct pt_regs *regs, long id)
++{
++	struct task_struct *p;
++	int new_policy = -1;
++	pid_t pid = 0;
++
++	new_policy = extract_params(regs, id, &pid);
++	if (new_policy < 0)
++		return;
++	guard(rcu)();
++	p = pid ? find_task_by_vpid(pid) : current;
++	if (unlikely(!p) || new_policy == p->policy)
++		return;
++
++	if (p->policy == SCHED_DEADLINE)
++		da_reset(EXPAND_ID_TASK(p));
++	else if (new_policy == SCHED_DEADLINE)
++		da_create_or_get(EXPAND_ID_TASK(p));
++}
++
++static int enable_throttle(void)
++{
++	int retval;
++
++	retval = ha_monitor_init();
++	if (retval)
++		return retval;
++
++	retval = init_storage(false);
++	if (retval)
++		return retval;
++	rv_attach_trace_probe("throttle", sched_dl_replenish_tp, handle_dl_replenish);
++	rv_attach_trace_probe("throttle", sched_dl_throttle_tp, handle_dl_throttle);
++	rv_attach_trace_probe("throttle", sched_enqueue_tp, handle_sched_enqueue);
++	rv_attach_trace_probe("throttle", sched_switch, handle_sched_switch);
++	if (!should_skip_syscall_handle())
++		rv_attach_trace_probe("throttle", sys_enter, handle_sys_enter);
++	rv_attach_trace_probe("throttle", task_newtask, handle_newtask);
++	rv_attach_trace_probe("throttle", sched_dl_server_stop_tp, handle_dl_server_stop);
++	rv_attach_trace_probe("throttle", sched_process_exit, handle_exit);
++
++	return 0;
++}
++
++static void disable_throttle(void)
++{
++	rv_this.enabled = 0;
++
++	/* Those are RCU writers, detach earlier hoping to close a bit faster */
++	rv_detach_trace_probe("throttle", task_newtask, handle_newtask);
++	rv_detach_trace_probe("throttle", sched_process_exit, handle_exit);
++	if (!should_skip_syscall_handle())
++		rv_detach_trace_probe("throttle", sys_enter, handle_sys_enter);
++
++	rv_detach_trace_probe("throttle", sched_dl_replenish_tp, handle_dl_replenish);
++	rv_detach_trace_probe("throttle", sched_dl_throttle_tp, handle_dl_throttle);
++	rv_detach_trace_probe("throttle", sched_dl_server_stop_tp, handle_dl_server_stop);
++	rv_detach_trace_probe("throttle", sched_enqueue_tp, handle_sched_enqueue);
++	rv_detach_trace_probe("throttle", sched_switch, handle_sched_switch);
++
++	ha_monitor_destroy();
++}
++
++static struct rv_monitor rv_this = {
++	.name = "throttle",
++	.description = "throttle dl entities when they use up their runtime.",
++	.enable = enable_throttle,
++	.disable = disable_throttle,
++	.reset = da_monitor_reset_all,
++	.enabled = 0,
++};
++
++static int __init register_throttle(void)
++{
++	return rv_register_monitor(&rv_this, &rv_deadline);
++}
++
++static void __exit unregister_throttle(void)
++{
++	rv_unregister_monitor(&rv_this);
++}
++
++module_init(register_throttle);
++module_exit(unregister_throttle);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Gabriele Monaco <gmonaco@redhat.com>");
++MODULE_DESCRIPTION("throttle: throttle dl entities when they use up their runtime.");
+diff --git a/kernel/trace/rv/monitors/throttle/throttle.h b/kernel/trace/rv/monitors/throttle/throttle.h
+new file mode 100644
+index 000000000000..3ab6d73280d2
+--- /dev/null
++++ b/kernel/trace/rv/monitors/throttle/throttle.h
+@@ -0,0 +1,116 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Automatically generated C representation of throttle automaton
++ * For further information about this format, see kernel documentation:
++ *   Documentation/trace/rv/deterministic_automata.rst
++ */
++
++#define MONITOR_NAME throttle
++
++enum states_throttle {
++	running_throttle,
++	armed_throttle,
++	armed_throttled_throttle,
++	preempted_throttle,
++	preempted_throttled_throttle,
++	throttled_throttle,
++	state_max_throttle,
++};
++
++#define INVALID_STATE state_max_throttle
++
++enum events_throttle {
++	dl_defer_arm_throttle,
++	dl_replenish_throttle,
++	dl_throttle_throttle,
++	sched_switch_in_throttle,
++	sched_switch_out_throttle,
++	event_max_throttle,
++};
++
++enum envs_throttle {
++	clk_throttle,
++	is_constr_dl_throttle,
++	env_max_throttle,
++	env_max_stored_throttle = is_constr_dl_throttle,
++};
++
++_Static_assert(env_max_stored_throttle <= MAX_HA_ENV_LEN, "Not enough slots");
++#define HA_CLK_NS
++
++struct automaton_throttle {
++	char *state_names[state_max_throttle];
++	char *event_names[event_max_throttle];
++	char *env_names[env_max_throttle];
++	unsigned char function[state_max_throttle][event_max_throttle];
++	unsigned char initial_state;
++	bool final_states[state_max_throttle];
++};
++
++static const struct automaton_throttle automaton_throttle = {
++	.state_names = {
++		"running",
++		"armed",
++		"armed_throttled",
++		"preempted",
++		"preempted_throttled",
++		"throttled",
++	},
++	.event_names = {
++		"dl_defer_arm",
++		"dl_replenish",
++		"dl_throttle",
++		"sched_switch_in",
++		"sched_switch_out",
++	},
++	.env_names = {
++		"clk",
++		"is_constr_dl",
++	},
++	.function = {
++		{
++			armed_throttle,
++			running_throttle,
++			throttled_throttle,
++			running_throttle,
++			preempted_throttle,
++		},
++		{
++			armed_throttle,
++			armed_throttle,
++			armed_throttled_throttle,
++			running_throttle,
++			preempted_throttle,
++		},
++		{
++			armed_throttled_throttle,
++			armed_throttle,
++			INVALID_STATE,
++			INVALID_STATE,
++			preempted_throttled_throttle,
++		},
++		{
++			armed_throttle,
++			preempted_throttle,
++			preempted_throttled_throttle,
++			running_throttle,
++			preempted_throttle,
++		},
++		{
++			armed_throttled_throttle,
++			preempted_throttle,
++			INVALID_STATE,
++			INVALID_STATE,
++			preempted_throttled_throttle,
++		},
++		{
++			armed_throttled_throttle,
++			running_throttle,
++			INVALID_STATE,
++			INVALID_STATE,
++			preempted_throttled_throttle,
++		},
++	},
++	.initial_state = running_throttle,
++	.final_states = { 1, 0, 0, 0, 0, 0 },
++};
+diff --git a/kernel/trace/rv/monitors/throttle/throttle_trace.h b/kernel/trace/rv/monitors/throttle/throttle_trace.h
+new file mode 100644
+index 000000000000..7e376d3aec60
+--- /dev/null
++++ b/kernel/trace/rv/monitors/throttle/throttle_trace.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++/*
++ * Snippet to be included in rv_trace.h
++ */
++
++#ifdef CONFIG_RV_MON_THROTTLE
++DEFINE_EVENT(event_da_monitor_id, event_throttle,
++	     TP_PROTO(int id, char *state, char *event, char *next_state, bool final_state),
++	     TP_ARGS(id, state, event, next_state, final_state));
++
++DEFINE_EVENT(error_da_monitor_id, error_throttle,
++	     TP_PROTO(int id, char *state, char *event),
++	     TP_ARGS(id, state, event));
++
++DEFINE_EVENT(error_env_da_monitor_id, error_env_throttle,
++	     TP_PROTO(int id, char *state, char *event, char *env),
++	     TP_ARGS(id, state, event, env));
++#endif /* CONFIG_RV_MON_THROTTLE */
+diff --git a/kernel/trace/rv/rv_trace.h b/kernel/trace/rv/rv_trace.h
+index 2f8a932432c9..9896beae73af 100644
+--- a/kernel/trace/rv/rv_trace.h
++++ b/kernel/trace/rv/rv_trace.h
+@@ -189,6 +189,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor_id,
+ 
+ #include <monitors/stall/stall_trace.h>
+ #include <monitors/nomiss/nomiss_trace.h>
++#include <monitors/throttle/throttle_trace.h>
+ // Add new monitors based on CONFIG_HA_MON_EVENTS_ID here
+ 
+ #endif
+diff --git a/tools/verification/models/deadline/throttle.dot b/tools/verification/models/deadline/throttle.dot
+new file mode 100644
+index 000000000000..c24fc3f291a9
+--- /dev/null
++++ b/tools/verification/models/deadline/throttle.dot
+@@ -0,0 +1,44 @@
++digraph state_automaton {
++	center = true;
++	size = "7,11";
++	{node [shape = circle] "armed"};
++	{node [shape = circle] "armed_throttled"};
++	{node [shape = circle] "preempted"};
++	{node [shape = circle] "preempted_throttled"};
++	{node [shape = plaintext, style=invis, label=""] "__init_running"};
++	{node [shape = doublecircle] "running"};
++	{node [shape = circle] "running"};
++	{node [shape = circle] "throttled"};
++	"__init_running" -> "running";
++	"armed" [label = "armed"];
++	"armed" -> "armed" [ label = "dl_replenish\ndl_defer_arm" ];
++	"armed" -> "armed_throttled" [ label = "dl_throttle" ];
++	"armed" -> "preempted" [ label = "sched_switch_out" ];
++	"armed" -> "running" [ label = "sched_switch_in;reset(clk)" ];
++	"armed_throttled" [label = "armed_throttled"];
++	"armed_throttled" -> "armed" [ label = "dl_replenish" ];
++	"armed_throttled" -> "armed_throttled" [ label = "dl_defer_arm" ];
++	"armed_throttled" -> "preempted_throttled" [ label = "sched_switch_out" ];
++	"preempted" [label = "preempted"];
++	"preempted" -> "armed" [ label = "dl_defer_arm" ];
++	"preempted" -> "preempted" [ label = "dl_replenish\nsched_switch_out" ];
++	"preempted" -> "preempted_throttled" [ label = "dl_throttle;is_constr_dl == 1" ];
++	"preempted" -> "running" [ label = "sched_switch_in;reset(clk)" ];
++	"preempted_throttled" [label = "preempted_throttled"];
++	"preempted_throttled" -> "armed_throttled" [ label = "dl_defer_arm" ];
++	"preempted_throttled" -> "preempted" [ label = "dl_replenish" ];
++	"preempted_throttled" -> "preempted_throttled" [ label = "sched_switch_out" ];
++	"running" [label = "running\nclk < runtime_left_ns()", color = green3];
++	"running" -> "armed" [ label = "dl_defer_arm" ];
++	"running" -> "preempted" [ label = "sched_switch_out" ];
++	"running" -> "running" [ label = "dl_replenish;reset(clk)\nsched_switch_in" ];
++	"running" -> "throttled" [ label = "dl_throttle;reset(clk)" ];
++	"throttled" [label = "throttled\nclk < THROTTLED_TIME_NS"];
++	"throttled" -> "armed_throttled" [ label = "dl_defer_arm" ];
++	"throttled" -> "preempted_throttled" [ label = "sched_switch_out" ];
++	"throttled" -> "running" [ label = "dl_replenish;reset(clk)" ];
++	{ rank = min ;
++		"__init_running";
++		"running";
++	}
++}
 -- 
 2.55.0
 
