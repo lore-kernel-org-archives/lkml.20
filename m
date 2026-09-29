@@ -1,121 +1,179 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D80554145F;
-	Tue, 29 Sep 2026 17:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BE154146B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790703752; cv=none; b=kbKBG4NQ11gg5y0nJBQAnQnMx1DfBSTcf+cE7DX4uwjDtLnrlaMz4uj1AWwXmnX4+ZuFvCcy/GlBUk6eldsyZZauB8F2r9XukHKnDbCFc32eIBo8XVkk4VAndJfT+VqnncIw55G1hhO4FBjN7Y6Wbu6ppfVmJ0k8zubTrRnvY4U=
+	t=1790703825; cv=none; b=YhiEyK9yIKyDHMPJ4/kGKy+PQgMWAVagCFGFks+l4TU+/QSfhlve8HFeFTZu9u2pBQKaQvIDr7bwl+RqS2p9BVJLKigDdj2y9blWKosuYaq0rxIkDyIaqvEy8/+PLN1hVYtEl1eLklRIiEOjhkUJxbpKHKKV+gd9aigo/QU05LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790703752; c=relaxed/simple;
-	bh=nRyD4a/hB8am2cmvhjozymSRZLwXE8yMvtgh2kC5rx4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G55y9Zt1oMQDXJtX57nZGLH50UtF+5y8J7bigey9RA9D+V0cL+8mN+uwPAKkHgLDy62ttE9+HYfH2w1T8GHLW4ikVVnPlCTk1fwrosI3spLfUvgZEs/i0PTy+O1CvDDPa8dZx8izEoalmzBE+T00CJZ+7awkaBq84QePmAeMMYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VoNR+EWI; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VoNR+EWI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790703750; x=1822239750;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nRyD4a/hB8am2cmvhjozymSRZLwXE8yMvtgh2kC5rx4=;
-  b=VoNR+EWIwwPLVqxWPcT1GsCNuGhMgcp7SwjS1D/nyIhvi/xs8gm1R8+9
-   xEapHWdJPp+6R4LwxZVvXxW35UObP40uSKpZ89lyQZC3XMt7+WcGckNN/
-   Cp+OMkZlK0TYI3ByjEtCC1Z+/VYdzA3djuzGqtmR4oSeLqTaanqhCcgh7
-   oWhoyM4LnxtX6/A0HoVx+2Yl7sdOESxtNZjolX85MPFGNKd6uf1QjYAUG
-   yUwMVq1U78EPxRjqs/kJt19A+fkz0m1VJIYfjqx05hee7l+tU0iO2Suv/
-   svm+KxmL2ucuW+gC6/RJM+vvnwzm7AqyjZVcpFem51ZPheiG96iYSz3AW
-   A==;
-X-CSE-ConnectionGUID: O8V7RQAGSAiccygWz9OzTA==
-X-CSE-MsgGUID: UY8qubdwQlyd86i4WK1ovA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90484680"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90484680"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 10:42:29 -0700
-X-CSE-ConnectionGUID: iqj9BKCGRWWgCg4P7qDSAQ==
-X-CSE-MsgGUID: 0GrdSjn4Q/u+9LmgjfF48g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="271923181"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 10:42:29 -0700
-Message-ID: <53b1d658-9b37-4721-b6bc-b1f0379c5649@linux.intel.com>
-Date: Tue, 29 Sep 2026 10:42:28 -0700
+	s=arc-20240116; t=1790703825; c=relaxed/simple;
+	bh=To2pz33WHeqtYIBpo3tdxLVVXHw7FWx2+MU4WwcX1A0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ji8NEXgqEPjMTPHQQJI6Fo3sa6Q3yKRX3Y2Nik7279Sav7tZGwLs3/QHmEog15OfeZC79PfUnYnDnwOrEVRzkM0L5u+1Iwd4IIR+LfoFzZqRjU/SiQsG9wxqPdiMxbrvYX3qv+IMSrh+mf/QNkaRcpmSAp7W7tB5AbBZw9a6bWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e529da9so1464471e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:43:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790703821; x=1791308621;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K3FpjckKknSKtbxyzZ5D1wObsYxIm/YvEg91ak3C6aI=;
+        b=0a9IcWyOGo4dWRSI16nXeVgO043pyhZfiJIJJ0VRC2zKP+cK1V8SWMKeZl/Ace4S1E
+         v3OKp10bAW1qa8JlZR4HOJ2NokjGNrH4H2pQJWfZ4KO3Egxe94jmyqpOx5rPYNu7uGPa
+         jn9PkLzGKczQJ8ojgxAELGCGsJtJohRu92QcIIeN4HcIbABIzqOBxNSXekKluvHcaLkE
+         rd++1F9atmMX0Mg6wyrBx9OfZriISjq/c2/M8r1SAj3NENaOrsYjy9hmx1SPhRDRihqs
+         upvbv+T/CVRnMYehyPcOJSqwC4TsdXyRzC3BT5chW4ZB+5otAHrfGRZ+p1ofE0Fll+oC
+         FtvA==
+X-Forwarded-Encrypted: i=1; AKwUvBznempnKMBZ4xr5Ku2Vn3Z4+WtcqQ43cFk0rUQlznelWQcyZdzYUV01GOCYO0deuE37704eWZG7LoO3p+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiI3jW7jFejRvcg+3NJm6APfs0HxXZUeiPcYEpyOjbAj+neB/g
+	DgUD69RJSh+uiVkypxYfI0Vr1dlKv19hLYs2hprg5fsFi6YA0M9VE7Y15TDCnlmf
+X-Gm-Gg: AYBFou2qEaavIujvBLNO9s2mh089UdkNmkiv+pZo0qjVAKAerwnZz/cHm0PtOQDaNNY
+	erbWHRXgzscowZJ71L/ZmCtCqjjOubAY217jumtxMWZLk9eK2FaJsn8HjOJ/aAkAfaVT3AQyUjN
+	0Q9u1BLUUDjPWa7esvoaAfouxVUJsfziG6vkavmB223Zw4wYrA9Hx7s1sFz+coV6XgzmJgEg4nf
+	WMMGESiwcXLDGkfFabAM7aghWNBmMuGH6V6QEep9NiVLaZFc2XIDZblHsA6Rx93Za5GRRQmM440
+	/gS+qTtAcqEIfUEuJFCmnLmz0DhKNH4HsGWOpaQOeR720yQ3Bi29lUcfWjPmyQ1douQB7PDbEqH
+	Jqh9Lh07wtor+E4y8x+uM2kD2hk2dmx02j8oeYkhXFUWw/b+ecuwIDvI5+1dn81Mh3U19j6vTm0
+	Wr+DotkUD+EBWFIcfQhWJTipbcrkRqV5GxY/uH6NAdJSslk5H5/qFp4pMy8BEeqY0aXGCTxzK9V
+	YCcYMWjrTg71p7HmieFBLBRnDj4meaEFF3B
+X-Received: by 2002:a05:6122:da3:b0:5cd:575f:93c7 with SMTP id 71dfb90a1353d-5d518a32d77mr46362e0c.6.1790703821387;
+        Tue, 29 Sep 2026 10:43:41 -0700 (PDT)
+Received: from mail-vs2-f37.google.com (mail-vs2-f37.google.com. [74.125.227.37])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d4e88f57f6sm411628e0c.8.2026.09.29.10.43.41
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:43:41 -0700 (PDT)
+Received: by mail-vs2-f37.google.com with SMTP id ada2fe7eead31-7b9c8db8c4eso362445137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:43:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzAtkOYq3Bc8AE79tzwW2DcbdV72U+rYhy5+iaEkamFgRO6L+Uh308ROZeWs6TNuZLKXw4E/fjvDJ1l8o4=@vger.kernel.org
+X-Received: by 2002:a05:6102:f91:b0:79a:21f6:20fc with SMTP id
+ ada2fe7eead31-7bc3b59255fmr83403137.10.1790703820885; Tue, 29 Sep 2026
+ 10:43:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: pciehp: Fix hotplug on Catlow Lake with
- unreliable PME status
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
- Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <5d6d94b4-458f-473c-84df-c6fab7805dbe@linux.intel.com>
- <20260326061200.GA3552@black.igk.intel.com>
- <3a97fb38-70c7-4ca9-8c49-4c95e1623c91@linux.intel.com>
- <20260327111616.GC3552@black.igk.intel.com>
- <633cef07-2991-4ce8-b8c6-6b091deaeb0b@linux.intel.com>
- <20260407070800.GF3552@black.igk.intel.com>
- <bd8e9c59-afd8-48ac-ad54-64abad8bfbd1@linux.intel.com>
- <161e11c7-af4c-4cc7-8ad5-a5901f231d54@linux.intel.com>
- <20260925051922.GU106095@black.igk.intel.com>
- <c5754240-1768-44a2-869c-6b159fd54907@linux.intel.com>
- <ara-_IPXV_i90if1@wunner.de>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <ara-_IPXV_i90if1@wunner.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260928165230.3397664-1-den@valinux.co.jp> <20260928165230.3397664-11-den@valinux.co.jp>
+In-Reply-To: <20260928165230.3397664-11-den@valinux.co.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 29 Sep 2026 19:43:28 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXoKFCroL1d6-fLwYR0UkLBL7suKy=rOFavioLd7rC4OA@mail.gmail.com>
+X-Gm-Features: AclHuK8JzfDwBbpW5Y3ODVdWtxAiX7XsdrE_LjubbR8Xd7qhHEJIEFJLyf_DRos
+Message-ID: <CAMuHMdXoKFCroL1d6-fLwYR0UkLBL7suKy=rOFavioLd7rC4OA@mail.gmail.com>
+Subject: Re: [PATCH v2 10/15] PCI: rcar-gen4: Take over the iMSI-RX interrupt
+To: Koichiro Den <den@valinux.co.jp>, Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, 
+	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Den-san, Marek,
 
+On Mon, 28 Sept 2026 at 18:53, Koichiro Den <den@valinux.co.jp> wrote:
+> On R-Car Gen4, intreq_pcim_sub ("msi") carries more than the integrated
+> MSI receiver: the controller's reset requests and the Root Port's PME
+> and bandwidth notifications are signalled on the same line, and the
+> following patches need to handle them. With the DesignWare core owning
+> the line through its chained handler, the driver would have to hook into
+> that handler when iMSI-RX is used and request the line itself otherwise.
+>
+> Instead, request the interrupt in the driver in all configurations and
+> set pp->msi_irq[0] to -ENODEV so the core does not install its chained
+> handler, as spear13xx, keembay and dra7xx do. The handler demultiplexes
+> the MSIs through dw_handle_msi_irq() when the APP block reports
+> msi_ctrl_int. With an external MSI controller or pci=nomsi the iMSI-RX
+> is not set up, so keep msi_ctrl_int masked rather than enabled, and the
+> handler has nothing to do there yet. Request the interrupt before
+> enumeration, as endpoint drivers may use MSIs from their probe, with
+> IRQF_NO_THREAD so the MSIs are demultiplexed in hard IRQ context like
+> the chained handler did. The interrupt is required by the binding.
+>
+> Release the interrupt in .deinit, before asserting the controller reset
+> and disabling its clocks. Disable it around a Root Port reset because
+> the handler accesses the MSI status registers through DBI.
+>
+> The DT routes downstream INTx to the same line, but the driver has never
+> supported INTx (no INTx domain, INTx enables never set), so requesting
+> the line exclusively takes nothing away.
+>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-On 9/25/2026 11:35 AM, Lukas Wunner wrote:
-> On Fri, Sep 25, 2026 at 10:38:08AM -0700, Kuppuswamy Sathyanarayanan wrote:
->> Once the port is in D3hot, pciehp has cleared HPIE and depends on PME.
->> That is where Catlow breaks. The PME interrupt arrives, but PME Status in
->> Root Status is never set. pcie_pme_irq() returns IRQ_NONE, the port stays
->> in D3hot and the hot-add event is lost.
-> 
-> If a device below the Root Port (instead of the Root Port itself)
-> signals PME, does the Root Port misbehave in the same way?
-> I.e. is the PME Status bit clear in that case as well?
-> 
-> If so, the proper solution might be to add a quirk to the PME driver,
-> not the PCIe hotplug driver.
+Thanks for your patch!
 
-I don't know, since my test only ever exercises the Port's own PME.  I will
-collect that data and get back to you.
+FTR, this interacts badly with "[PATCH v2] PCI: rcar-gen4: Add missing
+PM ops"[1] during resume from s2idle:
 
-> 
-> pcie_pme_irq() checks PME Status and bails out if it's not set.
-> That would need an amendment such that Root Ports with broken PME
-> would always assume it's set if they receive a PME.  I think that
-> would be safe because even though PME is shared with other interrupts
-> such as hotplug, I think it's the only interrupt source once the port
-> is in D3hot.
-> 
-> There's another check for PME Status in pcie_pme_work_fn().
-> This one is tricky because it uses the PME Status bit to jump
-> out of the for-loop.  Does the Root Port at least set the
-> Requester ID to an appropriate value?  If so maybe that can be
-> used as an indicator whether the loop should be terminated.
-> 
-> Or maybe the PME Pending bit can be used in lieu of PME Status?
-> 
-> Thanks,
-> 
-> Lukas
+    Unbalanced enable for IRQ 57
+    WARNING: kernel/irq/manage.c:775 at __enable_irq+0x38/0x64, CPU#3:
+s2idle/686
+    Modules linked in:
+    CPU: 3 UID: 0 PID: 686 Comm: s2idle Not tainted
+7.3.0-rc5-rcar3-09216-ga295839bfe55 #696 PREEMPT
+    Hardware name: Renesas Gray Hawk Single board based on r8a779h0 (DT)
+    pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+    pc : __enable_irq+0x38/0x64
+    lr : __enable_irq+0x38/0x64
+    sp : ffffffc08904bab0
+    x29: ffffffc08904bab0 x28: ffffff8446a4a880 x27: ffffffc084e64828
+    x26: ffffffc084e64838 x25: ffffffc08069e630 x24: ffffff8443ad7cb0
+    x23: 0000000000000000 x22: 0000000000000000 x21: 0000000000000070
+    x20: 0000000000000039 x19: ffffff8443ad7c00 x18: 00000000e630bb27
+    x17: 0000000000000000 x16: 0000000000000000 x15: 0720072007200720
+    x14: 0720072007200720 x13: 0720072007200720 x12: 0000000000000566
+    x11: 0000000000000000 x10: ffffffc08418a038 x9 : ffffffc08158a090
+    x8 : ffffffc08904b798 x7 : ffffffc08904b7a0 x6 : 3ffffffffff7ffff
+    x5 : fffffffffff7ffff x4 : 0000000000000000 x3 : 0000000000000000
+    x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffff8446a4a880
+    Call trace:
+     __enable_irq+0x38/0x64 (P)
+     resume_irqs+0xf0/0x130
+     resume_device_irqs+0x10/0x18
+     dpm_resume_noirq+0xe8/0x190
+     suspend_devices_and_enter+0x524/0x594
+     pm_suspend+0x22c/0x270
+     state_store+0xa8/0xe8
+     kobj_attr_store+0x14/0x24
+     sysfs_kf_write+0x4c/0x64
+     kernfs_fop_write_iter+0x13c/0x184
+     vfs_write+0x148/0x1b4
+     ksys_write+0x78/0xe0
+     __arm64_sys_write+0x14/0x1c
+     invoke_syscall+0xa0/0x100
+     el0_svc_common.constprop.0+0xb0/0xcc
+     do_el0_svc+0x18/0x20
+     el0_svc+0x3c/0x114
+     el0t_64_sync_handler+0x58/0x134
+     el0t_64_sync+0x158/0x15c
+    irq event stamp: 0
+    hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+    hardirqs last disabled at (0): [<ffffffc080092a2c>]
+copy_process+0x9e0/0x17b8
+    softirqs last  enabled at (0): [<ffffffc080092a34>]
+copy_process+0x9e8/0x17b8
+    softirqs last disabled at (0): [<0000000000000000>] 0x0
+    ---[ end trace 0000000000000000 ]---
+
+[1] https://lore.kernel.org/20260907153711.653861-1-marek.vasut+renesas@mailbox.org/
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
