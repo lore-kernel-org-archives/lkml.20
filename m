@@ -1,201 +1,177 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012065.outbound.protection.outlook.com [52.101.43.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707641F30A9
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790645536; cv=fail; b=Utm4PtWnh9ZEcUN2sUdgAqTy2gHw+jouhGJPWzSZ9LtZmMruFrKFA84cVK7alRKfMIgQ0ZYrq/0rMveAtbDGveFO364WuPg1R8ckdIZxzFeo8ISh8NF34xyH2DuKc4re5otvcRKhV5YEd38UAnmrvsu4dTHqKG2p3hVj34eriK0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790645536; c=relaxed/simple;
-	bh=NAFEeZTYCpM5mWT2648a+02DT8QCS43xfbvmH1Uwn8E=;
-	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
-	 In-Reply-To:MIME-Version; b=FVo03bMOpY5gdtPLFmwn85YJvjTAToIjGY1C/B8LCBs2/wdo8hZ2lHZ4cW3KfRA/Bij5RqUMbZ/evBjYL/IGdDQ8PYFMegQ4Jsiz7X+vnfymFDhyn7gt6mCTEIKNww4LjLVCByyn8vBMqqHyylrIAAayAkXvhkgVsQc4wBxKzrM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FsqJYPA3; arc=fail smtp.client-ip=52.101.43.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C41B29AAEA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790645638; cv=none; b=UD+qQwalJIRmdY2ivBmxKE8vvfOSzSlp1c0QP9zzQKZ5uUDI/2OXyWf6vpTXaDsSl5qphXE1kgrfkvCl1jIW3J4vRikwbwOSac9F2Ocht4ZYQzV8gDGzFe2KBz+tyY2KzhqpSkvLZWd/o/kvFKATggKdXNFlXYyuWWqLGZtaWTc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790645638; c=relaxed/simple;
+	bh=kxGNE40utXqOB/ZP/mcvhOu56gwEzydqUUJpeOle4aY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Shq0OPVeRSayhXxrxwNXvoM5Glmq4xq52LDvqUOHCBrASGRreFhtMS1wBPayu9TdPaDWCGSK0aajBbkHUQM3oC6HqJQuoi0FWXjnbEGnzDcRTNSv7jODw0PLAXnqZiqv/6BPAycReomTETt7E7BbX0qCCydFsUEeIMuxTt89uvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxEiB5GV; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FsqJYPA3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Voau+ZjtAe21d+UAhwY4Hw3WzZtC7lXdfigu3ObljTMqvo6wK1waSGDAQIT2D/18TFwXSkx2Q/kGlE/t5C+NXl01U6YNc3p2OkZe4sfNkBfNxMPXof/yXu7YqfWhaTUBjPRSNtknl5MdX1MRzHd4OygYi6/zAYreUVemtBeb7LqLJK0U2iIMq4ABY7COQmKX/5LizfBY72Bj6bPv15zFdRGMRsqiAPLPVqMrze/nePN3Nkdj8AepiLa/x4u6P1EQ7wn40AeRZjTzVF40jod31WDuLxcFkE+Y/VG53VvaOYCcu8pbfxPy2jiz65e1I7PAZ4AFTLJcnZvPTYPpTe4QJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pf0GkTnLlHiWt4mL8a/7+3oGCx8v2zLK2KW2fRFVQYw=;
- b=cYj0qaP2Y/lwygPq+Edd/kTrJgX/+ypGy68khh5Uq8TuILeIsyUHAUz2RmyLkOIF0WbDk9nxX73dUXnsnRq6ev8T9S+kf5UFaL1mBqld+dhNLGRWYUknHzrzlOx90mahMRcwQ8BWjzj8D+zcBkIeKb+kN7G2WCG7MVxQA9rCL8t+n7hyXqsuQCm+2A++wavHJ6J4S+iS/MZWHXKPkzzxwTQ1sYHU24evkCS9tXlZZZXFj8/WHOKWYYZ/Z3mJZ0hhV+ww+lqrkZjL8tCzeoHoJ+LtPc33jZpt554EowCZxUxo4h3Mws009cZaxZnELyrYhAEkBvfhHeH+avjgwcqxkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pf0GkTnLlHiWt4mL8a/7+3oGCx8v2zLK2KW2fRFVQYw=;
- b=FsqJYPA35I6jOI9IT7YW+E+4zrgjrm0W3H+0nM9qjHky4SeeSled6X01rgbss+9dPHDoyWEBN2WmZVLLwn0XnYKMFnJC/ncNs22PiU24EcUmuPEW8FHn6WBo5ALGPXksu8+0EABFrs0mznji0fPuwXkTfdY4SIXdCjLYEaIWLhbch/Tha2/AOETvqiK3Nmc60xFGxnZVgZt5HxrbSTRkK/R4v9DlEwDwYiUXiIX8w4DXttrjW8wKyKEWyFEXrPiureFn2jJZDiFMXk8Pw/vEJKIU6M8brnqwLfpy862rbKdXrnu2lbrkzy7wbJHRoQxYf/RSkgVyBmhLxufi3UvSYw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA4PR12MB187965.namprd12.prod.outlook.com (2603:10b6:207:105::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 01:32:11 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 01:32:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 21:32:09 -0400
-Message-Id: <DLREV455LG7C.2RKNAXC92UCCN@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v4 05/13] mm/collapse: state what a collapse may do in
- the policy
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R. Howlett"
- <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
- <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
- <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
- <jannh@google.com>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>
-X-Mailer: aerc 0.22.0
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-6-kirill@shutemov.name>
-In-Reply-To: <20260928100630.21870-6-kirill@shutemov.name>
-X-ClientProxiedBy: YQBP288CA0008.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::20) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxEiB5GV"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d06so2608699c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:33:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790645636; x=1791250436; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZzdBs4uL28XU4a9dZRzwsUcYZMoE3Q6Rk7PhwLzbkoU=;
+        b=KxEiB5GVti091qrkdEoltwpfex+tcD525Bi6QhejHUvimokPQA02dirb2B6Zh6qpyL
+         HM09k3RJ7RFLdlcQa5u6hpVKSeVsgCmKMIWRQtmrgU4BjM/bNcbNblqhixZeYieMh4la
+         zORV/BuPtUCzQ1LDehxwHnrSY/b8D+0y3+mS6haUrF5X2w8GMo4MUGm35hLJYNSSWYDl
+         0Q3nEuXIz2TuYa20FvifP2Hw6FZ4qkqYw//5K3jVdDSFK0OFX0bI2cudKcnmQef6y5Nf
+         2mOYHo0MOP4ODUrPAWiIi8J6/c60fXQtl+Jo2J2tBN4rXimKnLUcYf/hvEihX2+Gr1kX
+         i9OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790645636; x=1791250436;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZzdBs4uL28XU4a9dZRzwsUcYZMoE3Q6Rk7PhwLzbkoU=;
+        b=cUDdZ20l3EjfMcKQjyopcarzuy1iw3hN+z1XHMF5bks201jbbE7H2TBOT1+W6fVU6b
+         gJjC7Qlnnq1WA3/Vms0t4DsYX9lqUUMB3YFH7cpsf4x3h4GoO7Tb14Q78+bM7sKtmhQi
+         ujyjkNQIae9SaqL+Wb7g0Obfot46xBDh29dubIi9OO8LPm6GFXdglK5sIGUOgy9Atrkb
+         wUNtxivQXjpC7Mbw45cIkYwsV7MRkVlaOrafWz79S5C3r1URbz+vLPqVAieEzzkFwV+t
+         FXqVi//SdJf9gaqhDEQdNENH6GBQ5/kCnG1FtRR/E5NdzxO/HAt6A98FYQhGHbtw6B3/
+         pUZw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4fiV2kPh8GfNH2QbVdy7qnhSQrivWEHe/TTPOMgn80y3v8s2W9cX1aownCtNhIPK2xyMi76tfcmfzwqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3N9zPOstblmDcArWZASpIOr1KyFmKyCwSxbDX37yMT1kkyQcq
+	YoCgwVw/XFBYPsSo7Vi1aEPm0ErXA5HGXYs93r+yY9aRAeob+2xYB1SL
+X-Gm-Gg: AYBFou0SDbzYyevmQCFfqgJfJ+v+VOQJKvWkWzUw8TJHVQhNALpzMISlBV2Vv0aGAhq
+	p1P1LQJD1Gg++8jOFU9nB4ur0GvGzZ63Mje4j4fCEM+8vR0J8v9xoEnJXSWYI7y5u9xLD8dguGl
+	o+l0ilL81Gyiq0LG0faN05QSOe4IzDx96pKf3sm+Sv1ymovDR1Gt1Az4zhDYGcxEJwKKm65abo+
+	Wuqa1tFEuEvI/tIBuy4zDCmH4nVh/qiWm4tYCamuuryi+fYDrVZYpJnLMWvw1C4OBykymck3/V3
+	+/ziHx+fXoUeT7zrajv0hP7yKtpHScvQizcRsrqDsml71yPlWmGhFRIsod07yDEHI6BXAtfsG4k
+	9hHXcc1k4mZWk6ETCC95XRPf2sw/P4N2zmhFCkR8BPDC/tjLuk8WX0SEx6qqmJmEpeUQbS799Mm
+	1ynJURp7zBHShFZPAU6t2a0hJ8VAJ2D3Jlu9Gspo/ZGQKxw1IGTkXAZfptSZxn54ZIkIF3Iij+R
+	F4=
+X-Received: by 2002:a05:7300:3395:b0:33e:3f5b:3ff6 with SMTP id 5a478bee46e88-342710b5401mr10486609eec.18.1790645636296;
+        Mon, 28 Sep 2026 18:33:56 -0700 (PDT)
+Received: from wujing.localdomain ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3433628f5basm23265646eec.18.2026.09.28.18.33.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 18:33:55 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Tue, 29 Sep 2026 09:33:47 +0800
+Subject: [PATCH v2] KVM: x86: Clear CR3[63:32] on SMM entry when running on
+ Hyper-V
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA4PR12MB187965:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3cdb189-dc1d-4d74-9f4b-08df1dc97c04
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|5023799004|11063799006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	OC6OsApnTVTOfq17uS43Eu9iueM6z0PXtPfxnxWN+u/wWlh4OmarmgHDnGXR+TluN8imr6evdDKSFTUXBspJSU3PPratoa+M0TsKd5GLaCEHWhrDcTenhUTnggmbEsghh+u7/OUgHB1WvoC//tSFxy69h/7Cj72BvB1JIs9SPyznc6Jq0MGNRINJC4mhpMFN5JXiehTOajv7D6k595EnI5Bg1xS2j4xc5B2b33aEdWZafhXhTBBHaS7QAexcyeiJgMzVoWbIxQwNzOdgRAOC320GOdU3DYUgFLpaUOiedMLZd7fzmbSIT9aHUNQzCRWv6Lct1YDngyyykxgRri+ZWE4VKu3vqdsluL/IvCQzcWKfV+HtkAqt1zp8UbcSMk0amBpQhVowgaDm1pZ/98WjAwOkfOji5QGIwVvoWx256jlyecaJlBFK7SZKIeUQifcmGcl11tS3aA1cGq1gg02O+bS6VnycrEEn8ULXrQapXzEnJAZV/D8VRd5TLLdZaWxsPj+AL43xd0KKWkz/MMaYjf355FhTcVIM0mIyjBcMAeq+8CvUlbjPK52NtjvzHtrTLcyycsvAqZ72WVx/6GmKOUW/a9TZAFDgr40gcvRepwv4yVOkoDzq5wRNTSXEh06JUMx1k9/4crPSJriFqHufQz4OIhABCkd2tINa2lKIXCY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aW1LZkJtSDJEbTRodnpFMktTTXBJWUxvdzN4RXVlamJVNGM4bHlXcXdoYnYw?=
- =?utf-8?B?TXFzR09ZUlVZVGE0cWF6eDZoaGhmbFBFTzJwWDltU0Z2T0tLSzhFSWJDYmpt?=
- =?utf-8?B?emNzVW5yMmZqQUZWWnBOYWxEc2FockZHZmpGRjBRbWp2WVc0YlRyV3NvK0ti?=
- =?utf-8?B?RDFNM25rQnlCQ0tXTkRCdGRWRER4VXdBMVpkL0dMMkNESnFrbFVBRnpqYTMz?=
- =?utf-8?B?a0h0Y2R3NXA5dy8yVTloUmh4cGJjbWgwSFdpdUEvai9rTXMzc3FsSjVYZzE3?=
- =?utf-8?B?SmRBbGNKYWZPbURaa2Nnc1lvTCthM01uT2NoMXo0YWd0UE9qRHQ5ZjNyYXVn?=
- =?utf-8?B?WVNURTZtTlZVeS9yVjgvL0JVTXh6NHJLUmp0QTExbmpRWnlBZHp6OGhuM1RP?=
- =?utf-8?B?djZhVXUwRWJMZURxUVFicW41Uyt2ZnNtZFZMRnQ2L0hZbWdFL2RXMXoycTlh?=
- =?utf-8?B?K2FWMkJsZjRRYzRKcitCM1RiMlRQQWhtcUZieU5XY2x3UUE2RHRNd0lrS3k1?=
- =?utf-8?B?dGRZNitiU1dSZ0xGTWx5K25KcUlUeHdSSnVBRVBLYUdnTTFONDV2TzJyTDM1?=
- =?utf-8?B?WWdsQXlkdytZbVl0WXNpM2UydWtSbk45Snd3TXdoUWNPN2hZcTVPQitmelE1?=
- =?utf-8?B?d0xFMTdtZjFtODY0L3d4a1JTUVBzOTZjbnZCWVQwckxsck8zWEpXbnVyRUR5?=
- =?utf-8?B?c3dXZ3NueWZOMWJTd2M3bm9hWnNtbjY5QnM5TS9QRVdaeTM1Qis5MkZuK2NP?=
- =?utf-8?B?YUdQcWd3ckdINzFxWnVoTlFNNER1RjlOcmlaZTBoeUtYN2ZrRDJSWXUrZlV6?=
- =?utf-8?B?RnVVU3EzK2tJUlVtNkprUkQ0OVdqSEg3ZEk1T1k5N2cvQVFNa2ptbnVHQkR2?=
- =?utf-8?B?NVlwMXZrd3dLNVV6Y1JUM013VXRwYUMxTStyRnhhWFdCNnprS3Z6S25aaG13?=
- =?utf-8?B?QnR2Z3hZdmgxNXRJMy8yV2FseUJTSGtuVFZUWFFHVllna3hJNFVJdHc2VVV0?=
- =?utf-8?B?V3d1RkNPT0NSckFHbU0ycDdDTEUrNUZvK3BCNlRqWW1XMTVHYmN2eDdJYjFO?=
- =?utf-8?B?U2t0R0k5TzFzQVNiM2FZNHY2ekZONCtiK0hHZUpLVEswYXFEaVk0c2pDQU1w?=
- =?utf-8?B?bGd6WkN2U214NjQzMlkvbDIvZHIzSWhCaUtuOHJranE2RW1hODZNSnNVZ2pM?=
- =?utf-8?B?elVTVVFHa2FTUENkZ2tWQWJETmh3WWpIbWZ3aXhZR011UlN3K2g1UHhSczE5?=
- =?utf-8?B?YUtrZVZhYXhFOTRJY1RPbEl0L2Q3bUsxMng3Y3QwSTVXczFDS1M5N096Zitx?=
- =?utf-8?B?UWE0NGJleVB5SWlwSFI1YTRqSC9GQ3RiWDI4QklqUTgwVEt1V1JOSHhiWU1Q?=
- =?utf-8?B?QnF5RmdSSm80eUtmeTZxbUQwbUxpWjQxRDZZU3F6Sk5UOVM1SjhZNCtLd1g3?=
- =?utf-8?B?ZjkwMG83c3Yvd3ZkN1BadTloMW95dTFDbUdpMHd3Q0J5U3pNUWJvbTd3NVJa?=
- =?utf-8?B?enoxZHhrcmNUa1RSNTlFSzZIVTZNS2VXVkhWU1BuMFp3ckdHa2JQUEF4bTM5?=
- =?utf-8?B?RS96SVBYME51WnZ5S21SQjF4ODFKZ1NWdlRXWWtnQ3VBVW44QUg3ZitOTkd6?=
- =?utf-8?B?NVJSTzdvSDg5dkRoUDV2cjE2QlNSVmNCTC9GZnNyamRvSmQ1M1h2VFVmSnN6?=
- =?utf-8?B?cXhBZjdUQVhMTEVhVHEyZW9YSURMcG5Kc0R0aGlmaUdJWUFlYm1VMXVvdjVz?=
- =?utf-8?B?a0RrYktMY0lLZVNIZ2tCSTZwN2dKMFgrRm94eGtHclFiZ3I1YUxwcis5U3ZN?=
- =?utf-8?B?ME1sUnoxR2ZjY3F1MW80SkNXTHVaQzBwNmF3SzZWdFFPaThRdTVta01td2xt?=
- =?utf-8?B?QllZcFROSkg1cThFTUFkc1B4TVVHMk4vVnJ2QWdlYzJkd2ZhbXBObWNqeEUz?=
- =?utf-8?B?cjgzNG00cUVUQ3hlVzdIRExMckxuaG9xRkdwSVZiV2dNdXZSVm9lSW9lUHlY?=
- =?utf-8?B?M3FJNnlQN2dicXFXN04rYi8xT0trTFUvKzhvSEJIeTBkSklvUkQ2UXAzR2VO?=
- =?utf-8?B?dFhHMUhwVm81eEFLRHFjVFhUM1RnODc2TVUxdjVSYjI0dlhoNEQyMHg0RjZK?=
- =?utf-8?B?c1RudDl5VHZIdFE1cC9jeE1hUVpadWJvOWhuV0I0UGovVnZiMmZiQjNhQ3RF?=
- =?utf-8?B?SU84cEt2d2pVRklVNk5rSi9tc3YwVmx2bXJqWGcwZEtIY0xXK1NtUmNYWktp?=
- =?utf-8?B?UjhuRlhjR3YzUnhmUHFFUE9pd2FQVFNKc2JwK090OVFuYlZiQU9BRW55aFJT?=
- =?utf-8?Q?/FBTISzurvENYQD6Mh?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3cdb189-dc1d-4d74-9f4b-08df1dc97c04
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:32:11.7732
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1S0tNC5S0jSOe30vOzfq97s4td22QsdEAEFWJ7OApDa4qFqNslXjmLw6AsDubxtF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB187965
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-kvm-smm-cr3-upper-bits-v2-1-622429d0cd3c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7RjaBgVX3sOwqDCFiZY2LTYa0
+ rtbuYD5q/eT//4GkQJThEu1QaDEkd1SQB4qGGa9TIQ8FgZZy1PdyRYfyWK0Foeg8OU9BbzzGrF
+ rRaeFlkapM5SxD2T4vYtvfeGZ4+rCZ/9J4tf+VSaBJao1jRzHRgm6Tlbz8zg4C33O+QtF1ipav
+ AAAAA==
+X-Change-ID: 20260928-kvm-smm-cr3-upper-bits-9819a1a2f337
+To: Sean Christopherson <seanjc@google.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vitaly Kuznetsov <vkuznets@redhat.com>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ linux-hyperv@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Mon Sep 28, 2026 at 6:06 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> Tests scattered through the collapse path decide what a collapse is
-> allowed to do by asking whether khugepaged started it.  Between them they
-> settle:
->
->  - which VMAs are eligible, and how hard to try for a folio;
->  - how many empty, swapped-out or shared PTEs a window may contain, and
->    whether a sub-PMD window is held to a stricter rule than a PMD;
->  - whether a range has to look used, and whether a MADV_FREE'd page is
->    left alone;
->  - whether the PMD is mapped as part of the request, and whether dirty
->    pages are worth writing back and retrying.
->
-> None of those is a fact about khugepaged.  Each is something the caller
-> decided before asking, and the collapse code should not have to look up
-> who called to find out.
->
-> Add struct collapse_policy for the caller to fill: khugepaged from its
-> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
-> Every test becomes a read of a field, and cc->is_khugepaged goes, having
-> no reader left.
->
-> The PTE limits come as two sets, one for a PMD-sized window and one for
-> anything smaller, so that the helpers pick a set for the order and read
-> it.  khugepaged takes no swapped-out or shared PTE into a sub-PMD window,
-> and empty PTEs only when the knob says all or nothing; the warning for a
-> knob value in between moves to where khugepaged fills its policy.  The
-> fields only one side reads say which: anon_ or file_.  David Hildenbrand
-> asked for both.
->
-> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
-> call.  That is the one change in behaviour.  The max_ptes_* limits and th=
-e
-> defrag setting behind the allocation mask are sampled once per pass rathe=
-r
-> than on every table.  A table scanned early in a pass and one scanned lat=
-e
-> are then treated alike.
->
-> collapse_file() also drops a NULL check on the collapse_control.  It has
-> one call site, reached only from collapse_single_pmd(), which dereference=
-s
-> cc unconditionally, so the check was already dead.
->
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/collapse.h   |  41 +++++++++++++-
->  mm/khugepaged.c | 147 +++++++++++++++++++++++++-----------------------
->  2 files changed, 118 insertions(+), 70 deletions(-)
->
-LGTM.
+enter_smm() clears CR0.PG and EFER.LMA/LME but leaves CR3 as-is, so a
+64-bit guest whose page tables live above 4GiB enters SMM with
+CR3[63:32] != 0 while outside of long mode.  Bare-metal SVM accepts that
+state, but Hyper-V's emulation of VMRUN for a nested hypervisor rejects
+it as an invalid VMCB, and the vCPU dies on the very first instruction
+of the SMI handler:
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+  KVM: entry failed, hardware error 0xffffffff
+  EIP=00008000 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=1 HLT=0
+  CS =f900 7bff9000 ffffffff 00809300
+  CR0=00050032 CR2=2a91044a CR3=77681000 CR4=00000000
+  EFER=0000000000000000
 
+QEMU prints only CR3[31:0] here; the CR3 saved in SMRAM for this vCPU
+was 0x277681000.  All vCPUs that failed had a CR3 above 4GiB, while the
+one vCPU whose CR3 was below 4GiB entered SMM without issue.
 
---=20
-Best Regards,
-Yan, Zi
+This reproduces reliably when booting a Windows 11 guest (8GiB of RAM)
+with Secure Boot OVMF, i.e. with SMM enabled, in KVM on WSL2 on an AMD
+host, with Windows 11 25H2 build 26200.9457, the latest released build.
+
+With paging disabled outside of long mode, only CR3[31:0] is
+reachable: a MOV to CR3 can only write 32 bits, and the SMI handler
+must load its own CR3 before enabling paging.  RSM restores the full
+CR3 from the SMRAM state-save area, which was written before this point.
+Clear the upper 32 bits when KVM runs on Hyper-V, so that the SMM entry
+state passes Hyper-V's VMRUN consistency checks.  Leave the behavior on
+other hosts unchanged, as the problem belongs to Hyper-V and should be
+fixed there.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+V1 -> V2:
+- Only clear CR3[63:32] when KVM runs on Hyper-V, leave other hosts
+  unchanged (Sean)
+- Note in the changelog that the latest released Windows 11 build
+  (25H2, 26200.9457) is still affected
+- Cc Hyper-V maintainers and linux-hyperv
+
+v1: https://lore.kernel.org/r/20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com
+---
+ arch/x86/kvm/smm.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/x86/kvm/smm.c b/arch/x86/kvm/smm.c
+index f623c5986119..34c16b8c2c0b 100644
+--- a/arch/x86/kvm/smm.c
++++ b/arch/x86/kvm/smm.c
+@@ -2,6 +2,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/kvm_host.h>
++#include <asm/hypervisor.h>
+ #include "x86.h"
+ #include "kvm_cache_regs.h"
+ #include "kvm_emulate.h"
+@@ -361,6 +362,20 @@ void enter_smm(struct kvm_vcpu *vcpu)
+ 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_LM))
+ 		if (kvm_x86_call(set_efer)(vcpu, 0))
+ 			goto error;
++
++	/*
++	 * Work around Hyper-V rejecting VMRUN for a nested hypervisor when
++	 * CR3[63:32] != 0 with EFER.LMA=0, which is exactly the state left
++	 * behind by entering SMM with page tables above 4GiB.  CR3 is
++	 * unmodified on SMM entry, but with paging disabled and outside of
++	 * long mode bits 63:32 are unreachable, and RSM restores the full
++	 * value from SMRAM, so clearing them is invisible to the guest.
++	 */
++	if (hypervisor_is_type(X86_HYPER_MS_HYPERV) &&
++	    kvm_read_cr3(vcpu) >> 32) {
++		vcpu->arch.cr3 = (u32)vcpu->arch.cr3;
++		kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
++	}
+ #endif
+ 
+ 	vcpu->arch.cpuid_dynamic_bits_dirty = true;
+
+---
+base-commit: eb3f4b7426cfd2b79d65b7d37155480b32259a11
+change-id: 20260928-kvm-smm-cr3-upper-bits-9819a1a2f337
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
