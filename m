@@ -1,149 +1,90 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE29D516174
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE2750E5A0
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683708; cv=none; b=EfZ9f4yLwGcbTM+oceV3IpxOU/qUggpzIdGdYohFYPj5klkAav5KA3M8FCCHk2VXxnyaHtqIbmbjR7q2J7BbvjA+IKjlLzOwoFhRkmc3gHs0KtTiqyvh6rADDfKzln83kGbp7fmcn9/URknHtJfk0+T42IGEVuXDBTHkxoOH5D0=
+	t=1790683699; cv=none; b=cdlY9b7kj3aA786UBu99gMnaTjxXA55eRiThAcjFqCRQK5bQp83XEP2hUbkQ5DQQMAeU6emZHJlgEWD0hiNkRZTm6MBKSRgVUjTXkaWfjxhW44Bi6KtXhmiwvuMCFp4Uyzh6ElYWnpIM/g8Tfv0Lf/bSldrk8/4BXpIOMibtY1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683708; c=relaxed/simple;
-	bh=QUUrAmQgZ0jIM3+2g14XGoQu1q/tC6nhLzshruGZqyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u3UMTiqMluK0OguW42rrGr7Echbzg1P25Oxz3SRZDYqS1V4gMWb6bY9NNSW1J2Le34AnPOPBGEgSETt3i7ArWuy3TrxrGKmeVqJASUHCRrpXYCEJBzIiRQ2FG07flpjaOLg0wk2kV65Dx1F5LCE9fyackwn9hzd6gxmFyI9tlDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gazKcSCi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790683699; c=relaxed/simple;
+	bh=+VcecVkrJmOeZYvZbQBA7c3562muptPNCkTt8WujQYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lvmHd42QTiUDE2402E9gjtXJBd5gFVvrY6yvaLE1iCwnmbCjSjwJWq/IXTGjO47Z9nOZ3XvdIuT2+ZRPs+ao1Lmi/jbSavz0O6xLqz00PS7UrCw9Qawp8CXObpdDWrnLHmF4/jg+0SASiPkowTjlHBycnzhEYRrtD9FLZVl/JlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=oKWfA0/G; arc=none smtp.client-ip=185.136.64.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gazKcSCi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so18329935e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:08:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790683705; x=1791288505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dz8/exrfMqkUxfF+LKzpfkVXvHUn4Wq6vR1Sr0EbrhI=;
-        b=gazKcSCiWelMJ3MpZKR/MyQw2qZSieg6gm2ld5NeZTG/k0h44TzfxLcLNdmfjF9rKg
-         hPJVY+mm7rdiV+qX7AmcInkso/BdTHiWaaFdQ5355mC/szlJzfBgOyfYx63WovX5gYQp
-         Nqg+wLl9YUPj9a4DmjxGED+mszhnoxurQGfgVNxGmCVfdOYveSlFybA2vEtPbx80jd8p
-         lNEEGb9NQ0qgsuTm+JPwexN/hehI4EJUuSINUPvHFG78QCj2CY2Wgt5UOSYFTDdnlN1N
-         AYFGr3+EcQwawUB02ThGqtagtibWXu+HL6VTF0XPV5Ti+hEwO/I6j0wLyKQzQEwM3bQB
-         YJZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683705; x=1791288505;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dz8/exrfMqkUxfF+LKzpfkVXvHUn4Wq6vR1Sr0EbrhI=;
-        b=iVKfV7OsVjqx6JvpnbSZvmrJGpudwuiDHG48M4g7Wq8KRxzkME68y3lOOo6Xqboki5
-         6Llq7NVbQ0K2ij2NAgIUayz8sHW4ilT6jXqBQjCcXpgCs4C1442MY6ZIsRQF9ZdgRri9
-         3Zp+ieTFPc3SRHD0m6hqGP52Rh6lxO6zC2adTMve4WXL/NQa+zsSJGA8him9FfKAyscD
-         n9GKWCunBItpLLmL7Ilyn9UCs18AdY54N9cNWudiSNAS7OBwESLTynXiVwEVw2A8MtLy
-         0AR6oDgYi01Kv82pl0jN3Znj/LIAS8bRukd4OqiI1bThvd0f+4a5yY0JwWKW3aaKeY88
-         zwVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdu+D/t3CVbl7YO96unBSCulCz2umpEtTgLl328It3Gs/F/SPOaWEp3j9j/rS/yL+CoSPLuQqNXObkWWg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwiiA3s0No3lE0ejsd33YdXhOSUhs0hm9OcvkC5FhOzBQB45sS
-	GoxeBaOltUYx78xSuGPt5+shF43qEutLOKZap4IZlo0dDubMUjPFK7cw
-X-Gm-Gg: AYBFou0QFXgAsdET9h0GJIer08oQunyRigKd1m8LDWPV2cYuE/qZkX+PZ1ckiNz50HJ
-	81AO2c09YF3jraiqU6FMKYbCeiwlYh64M0ORs4o4e/XnoTjEKI6QBfOqyktWq+oTlNqzO9+iEtb
-	kQuBY+/deFsQXA05jvPTSbM4xy7x1kFn6DeMgiCAJe8C/qMWqFw7uvW2zfj2pqI0VtIZMcUlZzd
-	CjzFxFZ4VcMdIlBKnPXVkSim1+3qYUdX8xiTEvGWbQaRQ2TAzrprMnUbGVAc1e6yIqnQg0FfKqS
-	ROBu9R1qIJk2ehdaUcYvhtvrRchL3B3FOb5CXoVngiRmb0JdMqH7SmWty1A9A2QyZTTD3+4B6JN
-	kKeOPMbvQGsYVBtOoVXxG6xNvf6Iu364KksyKb245/jiWyFUJv3tX9fglCFE0gxsIeoraSndfnP
-	KjySwiQM44sYaGI0g567lgbBQbEukBgWzQLiH6A0tBaz5MpyC7As+pVFTYsVt6ORoUnroF0vIa6
-	QwPWmVqpDH3NJRmUt7aMfPJAojrBEhSceT/tMOvnl97RI8=
-X-Received: by 2002:a05:600c:348e:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49ff06b2ef6mr221635255e9.5.1790683705081;
-        Tue, 29 Sep 2026 05:08:25 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1126:4:bbf9:6e62:677e:7b50? ([2620:10d:c092:500::5:e8fd])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfae123sm80415185e9.13.2026.09.29.05.08.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 05:08:24 -0700 (PDT)
-Message-ID: <3fff6732-025c-46e8-b3d5-320bd74a87a4@gmail.com>
-Date: Tue, 29 Sep 2026 13:08:23 +0100
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="oKWfA0/G"
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 20260929120810f03752590400020758
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 29 Sep 2026 14:08:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=Kax74zXCxtPAbpTr1V6NBQYRh6q4iQaKKcO5IgxtslY=;
+ b=oKWfA0/GAs7LaWlq7k+pknMp/aWFhvvvx/fHUFgipwR7Unn/hB/WwSXc0sDj5/oRc5cvjP
+ cC2/Gopgd0hnkDqtMY5iZ0LsAPVFOhqzeBwxOCLrfWjB5pzYWZ+d6WTHUqe0TVyI3L7BshPm
+ kk3L5ljYwdAI02a11AuQmDYEg+c7XStBInrrkhzYCpsH7Z1Wz3uiZZGXgBRkMLPobqiCWKD+
+ ObyswWmuhIYGWB9HRfFp20a/GbsdssNRG9mMlA18FaOzM8+VpNQuavNAj4g9dt5Tele5b1uz
+ T2DqWpfLbLJvFgiXa9q9YuIqXBhmoKMwVjpTu6dCbwmtlunCy4PQk0/Q==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-pwm@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	"Philip, Avinash" <avinashphilip@ti.com>,
+	Thierry Reding <thierry.reding@avionic-design.de>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] pwm: tiehrpwm: Clear period on disable to allow reconfiguration
+Date: Tue, 29 Sep 2026 14:08:02 +0200
+Message-ID: <20260929120806.2790355-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf: Fix missing migration protection in
- __rhtab_map_lookup_and_delete_batch()
-To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
- ast@kernel.org, daniel@iogearbox.net
-Cc: andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
-References: <20260929081609.557899-1-omermetekaya0@gmail.com>
-Content-Language: en-US
-From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-In-Reply-To: <20260929081609.557899-1-omermetekaya0@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
+Both channels share one period register, so ehrpwm_pwm_config() rejects a
+period differing from the sibling's period_cycles[]. That value was cleared
+only in .free(), not in .disable(), so a stopped channel kept blocking the
+sibling from switching to a new frequency. Clear it in .disable() too.
 
-On 9/29/26 9:10 AM, Ömer Mete Kaya wrote:
-> bpf_mem_cache_free_rcu() uses this_cpu_ptr() which requires migration
-> to be disabled. All callers of rhtab_delete_elem() disable migration
-> except __rhtab_map_lookup_and_delete_batch(), which calls it under
-> rcu_read_lock() only.
-> 
-> On CONFIG_PREEMPT_RCU, rcu_read_lock() does not disable preemption or
-> migration, so the task can migrate between CPUs during the delete loop,
-> causing this_cpu_ptr() to trigger:
-> 
->   BUG: using smp_processor_id() in preemptible [00000000] code
-> 
-> Fix by wrapping the delete loop in migrate_disable()/migrate_enable()
-> in __rhtab_map_lookup_and_delete_batch(), matching the migration
-> protection that the other callers already provide.
-> 
-> Fixes: 818e00848227 ("bpf: Implement iteration ops for resizable hashtab")
-> Reported-by: syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=fd7e415d891073b83e1f
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
-> ---
+Testcase:
 
-Acked-by: Mykyta Yatsenko <yatsenko@meta.com>
+  cd /sys/class/pwm/pwmchip0; echo 0 > export; echo 1 > export
+  for p in pwm0 pwm1; do
+    echo 1000000 > $p/period; echo 500000 > $p/duty_cycle
+    echo 1 > $p/enable; echo 0 > $p/enable; echo 2000000 > $p/period
+  done
+  echo 1 > pwm0/enable	# before: -EINVAL, after: succeeds
 
-> Changes in v2:
->   - Fix root cause in __rhtab_map_lookup_and_delete_batch() with
->     migrate_disable()/migrate_enable() instead of stretching
->     bpf_disable_instrumentation() in rhtab_delete_elem().
->   - Fix Fixes: tag to 818e00848227.
->   - Fix commit message: migration disabled, not preemption.
-> 
-> Tested with syzkaller:
->   - Before the fix: the reported warning was reproduced reliably.
->   - After the fix: the warning was no longer reproducible.
-> 
->  kernel/bpf/hashtab.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-> index f744a42bb813..2bb9ac7fc73e 100644
-> --- a/kernel/bpf/hashtab.c
-> +++ b/kernel/bpf/hashtab.c
-> @@ -3369,8 +3369,10 @@ static int __rhtab_map_lookup_and_delete_batch(struct bpf_map *map,
->  	}
-> 
->  	if (do_delete) {
-> +		migrate_disable();
->  		for (i = 0; i < total; i++)
->  			rhtab_delete_elem(rhtab, del_elems[i], NULL, 0);
-> +		migrate_enable();
->  	}
-> 
->  	rcu_read_unlock();
-> --
-> 2.55.0
-> 
-> 
+Fixes: 01b2d4536f02 ("pwm: pwm-tiehrpwm: Fix conflicting channel period setting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/pwm/pwm-tiehrpwm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pwm/pwm-tiehrpwm.c b/drivers/pwm/pwm-tiehrpwm.c
+index 3a53489f0b982..e3407d0a1f7fe 100644
+--- a/drivers/pwm/pwm-tiehrpwm.c
++++ b/drivers/pwm/pwm-tiehrpwm.c
+@@ -358,6 +358,9 @@ static void ehrpwm_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
+ 
+ 	/* Disable clock on PWM disable */
+ 	pm_runtime_put_sync(pwmchip_parent(chip));
++
++	/* A disabled channel must not constrain the sibling's period */
++	pc->period_cycles[pwm->hwpwm] = 0;
+ }
+ 
+ static void ehrpwm_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+-- 
+2.55.0
 
