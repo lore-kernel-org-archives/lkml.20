@@ -1,473 +1,395 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005BC37A851
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691603; cv=pass; b=t4UouNDb7+o0HBOH89EnLDeIaBDmNqMhDTVTPrWZy2TywSMEHjAL8Ve/v6xodu04ikUA4yWJfgXfF9Px41lvAlXbIL2IuNxep7WcIYsudF/IOP8xiM9bOe3N4a3YE6hq7PrNgw8nBEQ9Ms7WXm5JI8WvNbEv6YxG9Joetd14n+8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691603; c=relaxed/simple;
-	bh=1ZNMDJbD7Asz8bOY1FPsr9LYzcspyLVGgXYKGJ326Ns=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kE3ZswLOYIsQJO08ajiuBa6WWfFCnilAX+Y6GsvwVEn8W0/DW0UxxCT7baDRUPvShWwd6BDyvrei9qbGZeER/eYLAIXb/4aWuucgCiCGtbAi1hcPzN3V2wmgk6jMTOnsJAGmHiufCWEjF1iKNwOe+UHHKfat7bEHVM2G46eY7lU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VVubQVCZ; arc=pass smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF65B2E8B83
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790691636; cv=none; b=EOECMxmXBdEKjdYLCsZ/YlNdfabA9u8whnAS2N4q6rWLTTYaMf/1vBNDovnXvuHGD6zr42i2jbK42VawPn8JKvcPJivSC+yyqyZpKkznGqe9lf4NL3F04SuwDBlUEa6UHh129xtKxg13V7JzGcvNqo2kE/EFfUJDt+CcEBPlSZA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790691636; c=relaxed/simple;
+	bh=ufJqfa+oiEOwsgdeUzWaYtVTw5tOePOVt/Efvhke2A8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=KfPgBosDZAcDMvKSH0Ano4iWJsabNpC5NOOlaH17XazI9ukE+5+M9nv0zwDFJY1lOf9BWqcPQvk8bPQaLBK6bOVRVucQJP0SqwT31oTLn76cHdGyJw6KHXTXXY/hxFWOoZAAsGLrFz4FELDodM8t+36mcBmZdDl6VPmzoAuorfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z6w6kPjA; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VVubQVCZ"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2da4eea067so391803766b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:20:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790691599; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Fmk9JReKYSzPLwNoO2P2ieHHprKfvumag2f6pDA2g/zUKhXu6PO280va3H0WytSvDC
-         g83Z8uhOIVXV/BSSh0G2iMecUIHKvJD7ZyGrRYWZDLUWWnQaCiiUgtHgT9NStH9dd5bq
-         nCRWCFIvDVrrGjXejBgi6PfdR0IB0HPlXcaFAI6VAProD5pmplDKa7YpH7PiYZOqY55E
-         /LZzkgxBojXS0/Bwh/RE4o2kU5v64BjVbMdjcse2hlKeLh31PMcipS04Nxwym/aEMQjA
-         n0XKR4B99nIwLX6cuhbtkBzOrNJ6GanuooZbMnRhA7WDi+qdfG9oemS7dHLYA/QovyHg
-         SnWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VZpjYb6hPh+5qFcb/iVJHG9jrAivdx0dpQXp2FDHj3w=;
-        fh=XsXS0fv0GqlKTI42UZohbzW8qF5hmqXp+W1IaPCap0I=;
-        b=tDZ++EELL3BIsq2v8RkvHVImJ/GI4FzcjE6kTiE87fxsr2qgjiKB/u/0IgGTJkTVkC
-         Jh2fk//WcMFf+LypPKoHrTX0cGnjGRwNFtGelPWoTQpHgMOPvqP9O6BHs69eS5FyYH6y
-         4rSAgdK9ZYVMHm93OCvBlhnAPuMqyG4WyheOKGcMxCY+HL5sxLWsRicnXdc0kQojjWnu
-         UjRd42Dh0vDfOiq6s246CaBFBl/p4ncH+0KAgb5gd4/0D/LwgZH19nAm8KOD2tatCqKM
-         qYV3lDpCnhQZVlIkv8Ew+7inrTUkfOq1nH/h0N70z2A5KWhkXb/arO3e3HnzYiqnw/Ui
-         VPqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790691599; x=1791296399; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VZpjYb6hPh+5qFcb/iVJHG9jrAivdx0dpQXp2FDHj3w=;
-        b=VVubQVCZL6NBzRpH3ERlHh1S8fUH4UoRsxX0pMheH+AR3mQmWaTwvno7Z5wP9F/nAf
-         BbFCAuIhODwdEDHjQC4lstJ0QKGZMeTL2kg6NU7S7YZHwDrpT5g8Nktdda7ngvklPe9i
-         5CSnrVUljLghtQHPAdYyMBC2ZPlZlWZ8sbNINabuaJ5/od0qrlD79aPVn5i9DoLWfn+o
-         Ng41cYx6KIpPJS35KtAX0715CMTCazrFkQfhG1wAl4bZ9Xxo/Q7EJ4kIj0Gw4eAI0lDn
-         zS10d0JwPZ9IZQEI+Dr3tyKxfW/9q5G+0KHlk4EwJHXaXsRl5jxSVaI8VMErCydjn0H9
-         vIAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790691599; x=1791296399;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VZpjYb6hPh+5qFcb/iVJHG9jrAivdx0dpQXp2FDHj3w=;
-        b=mZy32N3QClGb4NmNgS9/imVHEoq9uLdoT/K4N0ebZ/Y12TMY4UGRaNdQbFE6DN5HFJ
-         Hq7VwHlUX0/2HRT6TfZIfdNG/CadrOdVYHCAMo7MbW6DB7TN5UrJiFDjykLUrsawJkiC
-         fZBQZGCSAU7ey5LUZEo2XC9sVGiWIZvAItQd2PCw3YLrq9NJtAm90N81Nv29mDLUnj9J
-         xE47REARDAnx7KvT8w1W7c7TAtSvzo04/M7831Q2VVsusTQoJsjHo4DshiPCb8iRs1oG
-         PwoyGSB5d8LJ0D+NW5w+q6+w34X6beJLN4mQrmFqXq4pbO0aISe9m87b92FAyuheqaUs
-         P7qA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDmfSeAieSz7JjFHx5D972GWA0g5yTuMiylvmk3WqjDc94yW4qbl3SpI7kFZbAOavfenyLNFDNVJRSfQg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5eCkceQnTEJrahIvGl9CJpl0gdi793js9hbexKMrrA5Rpo0I2
-	O8fCQBI5V5JB0xA5YK2h5FUikQ4lc/ZKffIWWNkwjvh4p4QttazDaq9/XHUD4qEDKoPLXmFDLqD
-	pJG2cQHlG2V0qb21ECWBsFDE5BStV5bk=
-X-Gm-Gg: AYBFou17HgGZA8WPwEpc1T04jf1ArIu3yi3h0GTpUB2n3t6laHW5Z2PL8HNOpMxQI2O
-	hsBG32dTKEVDZleRkcP0dORUTXDDyATNw3l7TcKoqkgFbbwGyHTfFSGcdY4SX3UpQWKBJXgZlFx
-	x6thd9dFusMIh22vp2s3O6oaqxaLMe6Tj8bucuAFv7U7SnKsIPLG7npet98YdyEiQBZjl4swXqJ
-	nihsN2vp1MrR+Lj5/RQIP4VhHBYgaFKZMXrek8xVh4dDzt/TUuVwp0cjPsIvvq/ZO9u0uY76q4q
-	OliO12DmTYD40xMI0In+n9XgqzcOUoYBhwwwc031XRG7vtih4giy+5w9
-X-Received: by 2002:a17:906:a348:20b0:c29:5340:182e with SMTP id
- a640c23a62f3a-c2ac525f2cemr886013966b.2.1790691598377; Tue, 29 Sep 2026
- 07:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z6w6kPjA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790691635; x=1822227635;
+  h=date:from:to:cc:subject:message-id;
+  bh=ufJqfa+oiEOwsgdeUzWaYtVTw5tOePOVt/Efvhke2A8=;
+  b=Z6w6kPjAHAb1BYFV5Vz4ixGw8ZouFoXo5EM51mtsdTcgwiGLPbfSeXoH
+   3u9GHiOVOT1vl2Vp3WbVAgh/mZAqGjxe0HobofcrDZfZrwOtQGDuB9L+m
+   1463woJQ2k82wNXlmn0hjvDFbx41XZ4+EN9L06fU4zryIAIMEg7eoWT/N
+   8jUWgqYoyfWhfA+aU8+4UUfxgGd7XdfkArZHxLj3S/LoZPoBYXqAxlfgj
+   ZdMkFPBJmtASDhdTp3dY6o456FiV5mmhTwE3VgUibmTPD44YkqdZopa9i
+   3SFX24GPbepCuxjbfpEHwyJi3DZo/3De+2p+nFS2eGoUaiA86jw8Bz8rr
+   Q==;
+X-CSE-ConnectionGUID: IPRWx0qSQQ6niqJg48/MSQ==
+X-CSE-MsgGUID: jJYB4qViS9ujaXpPhp421w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101936660"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="101936660"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 07:20:35 -0700
+X-CSE-ConnectionGUID: enDZhaiPTduGqZZMqyBHDQ==
+X-CSE-MsgGUID: 3wKZok5nQCKb07CgvK2mkw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274931308"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 29 Sep 2026 07:20:33 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xBYh5-00000000PP3-0H5V;
+	Tue, 29 Sep 2026 14:20:31 +0000
+Date: Tue, 29 Sep 2026 22:20:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:tip:urgent] BUILD SUCCESS
+ e72a1cb2b33e5006c51f06293ee0885ef3e00888
+Message-ID: <202609292215.hlrhE88j-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260929122226.98970-1-mikhail.v.gavrilov@gmail.com>
-In-Reply-To: <20260929122226.98970-1-mikhail.v.gavrilov@gmail.com>
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Tue, 29 Sep 2026 22:19:10 +0800
-X-Gm-Features: AclHuK9SxdkZ7NL-t5yQszsaST46CKZ58kNaZqB8TFkYGfaujrXcoKF4lJCRxA4
-Message-ID: <CANypQFbYeAtYjQzrYd+tsjauOtgfx77aw2UP_nEza6DU4P5TLQ@mail.gmail.com>
-Subject: Re: [PATCH v4] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, nicoyip.dev@gmail.com, 
-	pav@iki.fi, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=
-=9C=8829=E6=97=A5=E5=91=A8=E4=BA=8C 20:22=E5=86=99=E9=81=93=EF=BC=9A
->
-> An RFCOMM connect() issued while a BR/EDR link is being authenticated
-> makes lockdep report a circular dependency, and the reported cycle is a
-> real AB/BA between rfcomm_mutex and hdev->lock.
->
-> rfcomm_security_cfm() is called from the HCI event path, which already
-> holds hdev->lock:
->
->   hci_rx_work()
->     hci_event_packet()
->       hci_cc_read_enc_key_size()   [hdev->lock]
->         hci_encrypt_cfm()          [hci_cb_list_lock]
->           rfcomm_security_cfm()    [rfcomm_mutex]
->
-> while an RFCOMM connect() from userspace takes the same two locks the
-> other way round:
->
->   rfcomm_sock_connect()
->     rfcomm_dlc_open()              [rfcomm_mutex]
->       __rfcomm_dlc_open()
->         rfcomm_session_create()
->           kernel_connect()
->             l2cap_sock_connect()
->               l2cap_chan_connect() [hdev->lock]
->
->   WARNING: possible circular locking dependency detected
->   kworker/u131:1/1128 is trying to acquire lock:
->   rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
->   but task is already holding lock:
->   hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
->   Chain exists of:
->     rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
->
-> hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
-> the same way.
->
-> Both orders have to be seen in the same boot, which is why a BR/EDR
-> connection alone is not enough to show it: a session set up by the
-> remote side is created by rfcomm_accept_connection() in krfcommd, which
-> calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
-> Connecting a device that authenticates and encrypts the link and then
-> calling connect() on an RFCOMM socket towards any address - the connect
-> does not have to succeed, the order is recorded before the page timeout
-> - reports it every time.
->
-> Only the session socket has to be connected with the lock held, and it
-> does not: nothing else can see the socket before it is put on the
-> session list.  So connect it first and take rfcomm_mutex afterwards,
-> which removes the rfcomm_mutex -> hdev->lock order for good, rather
-> than keeping the HCI event path out of rfcomm_mutex.
->
-> rfcomm_session_create() becomes rfcomm_session_connect(), which returns
-> the connected socket without touching the session list, and
-> rfcomm_dlc_open() adds the session once it holds the lock again.  If
-> another opener added a session for the same pair while this socket was
-> connecting, that session is used and this socket is dropped.
-> __rfcomm_dlc_open() now takes the session it should use, and its state
-> check runs after the lock is re-acquired, so a DLC that was opened or
-> closed in the meantime is still handled.
->
-> Over an existing ACL link the connection can complete before the
-> session reaches the list, and the wakeup from the socket callback is
-> then lost, so krfcommd is woken once the session is visible.
->
-> Connecting without the lock opens a window in which the socket can be
-> closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
-> nothing to do and returns without touching it, and rfcomm_dlc_open()
-> would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
-> marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
-> mark once it holds rfcomm_mutex again and drops the socket instead of
-> attaching the DLC.  The mark is cleared when an open starts, so a DLC
-> that is reused is not affected.  This covers both callers of
-> rfcomm_dlc_open(), the socket and the tty layer.
->
-> Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation =
-handling")
-> Suggested-by: Pauli Virtanen <pav@iki.fi>
-> Reported-by: Pauli Virtanen <pav@iki.fi>
-> Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db288=
-27c2d64af5a88be.camel@iki.fi/
-> Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.0=
-08f.GAE@google.com/
-> Reported-by: Jiaming Zhang <r772577952@gmail.com>
-> Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1=
-qdTOqkw6gAL3hw@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> ---
->
-> The commit this fixes is in v7.3-rc1 and is marked for stable, so this
-> probably wants the bluetooth fixes tree rather than -next.
->
-> v4:
->  - rfcomm_dlc_close() marks a DLC that is not on a session yet, and
->    rfcomm_dlc_open() drops the socket instead of attaching the DLC when
->    it finds the mark after taking rfcomm_mutex again (Luiz, and the
->    Sashiko review of v3)
->  - Reported-by/Closes for Jiaming Zhang's report, which hits the same
->    cycle from the connect side: rfcomm_dlc_open() holding rfcomm_mutex
->    while l2cap_chan_connect() takes hdev->lock
->  - syzbot tested v3 with its reproducer, no issue:
->    https://lore.kernel.org/all/6ab100d7.71f81b7d.15fa6d.0029.GAE@google.c=
-om/
->
-> Tested on 7.3.0-rc5 with an MT7922 controller (btusb) and a JBL Tour
-> Pro 3 headset.  An RFCOMM connect() towards an address that does not
-> answer, run after the headset has authenticated its link, reports the
-> inversion without the patch (checked on 7.3-rc2); with v4 it stays quiet
-> and the validator is still armed afterwards (debug_locks: 1).  A connect
-> towards the connected headset is answered in 23 ms with ECONNREFUSED -
-> the session is established over the existing ACL link and the peer
-> rejects the channel - and towards an idle one it fails with EHOSTDOWN
-> after the page timeout.  The reproducer is in the v3 posting.
->
-> v3: https://lore.kernel.org/linux-bluetooth/20260912100315.151674-1-mikha=
-il.v.gavrilov@gmail.com/
-> v2: https://lore.kernel.org/linux-bluetooth/20260904012028.77590-1-mikhai=
-l.v.gavrilov@gmail.com/
-> v1: https://lore.kernel.org/linux-bluetooth/20260902235132.453044-1-mikha=
-il.v.gavrilov@gmail.com/
->
->  include/net/bluetooth/rfcomm.h |   1 +
->  net/bluetooth/rfcomm/core.c    | 134 +++++++++++++++++++++++----------
->  2 files changed, 96 insertions(+), 39 deletions(-)
->
-> diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcom=
-m.h
-> index 102c278e3..9dc5fd4cb 100644
-> --- a/include/net/bluetooth/rfcomm.h
-> +++ b/include/net/bluetooth/rfcomm.h
-> @@ -207,6 +207,7 @@ struct rfcomm_dlc {
->  #define RFCOMM_AUTH_REJECT  7
->  #define RFCOMM_DEFER_SETUP  8
->  #define RFCOMM_ENC_DROP     9
-> +#define RFCOMM_CLOSED       10
->
->  /* Scheduling flags and events */
->  #define RFCOMM_SCHED_WAKEUP 31
-> diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
-> index d91e2a6ee..54ec1136f 100644
-> --- a/net/bluetooth/rfcomm/core.c
-> +++ b/net/bluetooth/rfcomm/core.c
-> @@ -62,10 +62,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 ad=
-dr);
->
->  static void rfcomm_process_connect(struct rfcomm_session *s);
->
-> -static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
-> -                                                       bdaddr_t *dst,
-> -                                                       u8 sec_level,
-> -                                                       int *err);
-> +static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *ds=
-t,
-> +                                            u8 sec_level, int *err);
-> +static struct rfcomm_session *rfcomm_session_add(struct socket *sock, in=
-t state);
->  static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t=
- *dst);
->  static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *=
-s);
->
-> @@ -365,28 +364,17 @@ static int rfcomm_check_channel(u8 channel)
->         return channel < 1 || channel > 30;
->  }
->
-> -static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr=
-_t *dst, u8 channel)
-> +static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session=
- *s,
-> +                            u8 channel)
->  {
-> -       struct rfcomm_session *s;
-> -       int err =3D 0;
->         u8 dlci;
->
-> -       BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
-> -              d, d->state, src, dst, channel);
-> -
-> -       if (rfcomm_check_channel(channel))
-> -               return -EINVAL;
-> +       BT_DBG("dlc %p state %ld session %p channel %d",
-> +              d, d->state, s, channel);
->
->         if (d->state !=3D BT_OPEN && d->state !=3D BT_CLOSED)
->                 return 0;
->
-> -       s =3D rfcomm_session_get(src, dst);
-> -       if (!s) {
-> -               s =3D rfcomm_session_create(src, dst, d->sec_level, &err)=
-;
-> -               if (!s)
-> -                       return err;
-> -       }
-> -
->         dlci =3D __dlci(__session_dir(s), channel);
->
->         /* Check if DLCI already exists */
-> @@ -421,14 +409,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, =
-bdaddr_t *src, bdaddr_t *dst,
->
->  int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, =
-u8 channel)
->  {
-> -       int r;
-> +       struct rfcomm_session *s;
-> +       struct socket *sock;
-> +       int err;
-> +
-> +       BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
-> +              d, d->state, src, dst, channel);
-> +
-> +       if (rfcomm_check_channel(channel))
-> +               return -EINVAL;
->
->         rfcomm_lock();
->
-> -       r =3D __rfcomm_dlc_open(d, src, dst, channel);
-> +       clear_bit(RFCOMM_CLOSED, &d->flags);
->
-> +       /* Do not page the remote device for a DLC that cannot be opened
-> +        * anyway.  __rfcomm_dlc_open() looks at the state again once the
-> +        * lock has been re-acquired below.
-> +        */
-> +       if (d->state !=3D BT_OPEN && d->state !=3D BT_CLOSED) {
-> +               rfcomm_unlock();
-> +               return 0;
-> +       }
-> +
-> +       s =3D rfcomm_session_get(src, dst);
-> +       if (s) {
-> +               err =3D __rfcomm_dlc_open(d, s, channel);
-> +               rfcomm_unlock();
-> +               return err;
-> +       }
->         rfcomm_unlock();
-> -       return r;
-> +
-> +       /* There is no session for this pair yet.  kernel_connect() ends =
-up in
-> +        * l2cap_chan_connect(), which takes hdev->lock, and the HCI even=
-t
-> +        * path takes rfcomm_mutex while holding hdev->lock, so the socke=
-t has
-> +        * to be connected with rfcomm_mutex released.
-> +        */
-> +       sock =3D rfcomm_session_connect(src, dst, d->sec_level, &err);
-> +       if (!sock)
-> +               return err;
-> +
-> +       rfcomm_lock();
-> +
-> +       /* The DLC may have been closed while the socket was connecting. =
- It
-> +        * was not on a session, so rfcomm_dlc_close() could only mark it=
-;
-> +        * attaching it now would leave it with no owner.
-> +        */
-> +       if (test_bit(RFCOMM_CLOSED, &d->flags)) {
-> +               rfcomm_unlock();
-> +               sock_release(sock);
-> +               return -ECONNRESET;
-> +       }
-> +
-> +       /* Another opener may have added a session for the same pair in t=
-he
-> +        * meantime; that one is used and this socket is dropped.
-> +        */
-> +       s =3D rfcomm_session_get(src, dst);
-> +       if (!s) {
-> +               s =3D rfcomm_session_add(sock, BT_BOUND);
-> +               if (s) {
-> +                       s->initiator =3D 1;
-> +                       sock =3D NULL;
-> +               }
-> +       }
-> +
-> +       err =3D s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
-> +
-> +       rfcomm_unlock();
-> +
-> +       if (sock)
-> +               sock_release(sock);
-> +
-> +       /* Over an existing ACL link the connection can complete before t=
-he
-> +        * session reaches the list, and that wakeup is then lost, so let
-> +        * krfcommd look at the socket state now.
-> +        */
-> +       rfcomm_schedule();
-> +
-> +       return err;
->  }
->
->  static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
-> @@ -508,8 +566,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
->         rfcomm_lock();
->
->         s =3D d->session;
-> -       if (!s)
-> +       if (!s) {
-> +               /* Not on a session yet: rfcomm_dlc_open() may be connect=
-ing a
-> +                * socket for it with rfcomm_mutex released.  Leave a mar=
-k so
-> +                * that it does not attach the DLC once it holds the lock=
- again.
-> +                */
-> +               set_bit(RFCOMM_CLOSED, &d->flags);
->                 goto no_session;
-> +       }
->
->         /* after waiting on the mutex check the session still exists
->          * then check the dlc still exists
-> @@ -757,12 +821,12 @@ static struct rfcomm_session *rfcomm_session_close(=
-struct rfcomm_session *s,
->         return rfcomm_session_del(s);
->  }
->
-> -static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
-> -                                                       bdaddr_t *dst,
-> -                                                       u8 sec_level,
-> -                                                       int *err)
-> +/* Creates the L2CAP socket a new session will run on and starts connect=
-ing
-> + * it.  Must be called with rfcomm_mutex released.
-> + */
-> +static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *ds=
-t,
-> +                                            u8 sec_level, int *err)
->  {
-> -       struct rfcomm_session *s =3D NULL;
->         struct sockaddr_l2 addr;
->         struct socket *sock;
->         struct sock *sk;
-> @@ -792,24 +856,16 @@ static struct rfcomm_session *rfcomm_session_create=
-(bdaddr_t *src,
->                 l2cap_pi(sk)->chan->mode =3D L2CAP_MODE_ERTM;
->         release_sock(sk);
->
-> -       s =3D rfcomm_session_add(sock, BT_BOUND);
-> -       if (!s) {
-> -               *err =3D -ENOMEM;
-> -               goto failed;
-> -       }
-> -
-> -       s->initiator =3D 1;
-> -
->         bacpy(&addr.l2_bdaddr, dst);
->         addr.l2_family =3D AF_BLUETOOTH;
->         addr.l2_psm    =3D cpu_to_le16(L2CAP_PSM_RFCOMM);
->         addr.l2_cid    =3D 0;
->         addr.l2_bdaddr_type =3D BDADDR_BREDR;
->         *err =3D kernel_connect(sock, (struct sockaddr_unsized *)&addr, s=
-izeof(addr), O_NONBLOCK);
-> -       if (*err =3D=3D 0 || *err =3D=3D -EINPROGRESS)
-> -               return s;
-> +       if (*err && *err !=3D -EINPROGRESS)
-> +               goto failed;
->
-> -       return rfcomm_session_del(s);
-> +       return sock;
->
->  failed:
->         sock_release(sock);
-> --
-> 2.43.0
->
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tip/urgent
+branch HEAD: e72a1cb2b33e5006c51f06293ee0885ef3e00888  Merge branch into tip/master: 'x86/mm'
 
-After applying the patch and running my reproducer, no issues were triggere=
-d.
+elapsed time: 736m
 
-Tested-by: Jiaming Zhang <r772577952@gmail.com>
+configs tested: 318
+configs skipped: 123
+
+The following configs have been built successfully.
+More configs may be tested in the coming days.
+
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+alpha                randconfig-r2107-20260929    gcc-15.2.0 cocci
+alpha                randconfig-r2200-20260929    gcc-11.5.0 smatch
+alpha                randconfig-r2307-20260928    gcc-15.2.0 sparse
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    clang-24
+arc                                  defconfig    gcc-16.1.0
+arc                         nsim_700_defconfig    gcc-16.1.0
+arc                   randconfig-1000-20260929    clang-17
+arc                   randconfig-1001-20260929    clang-17
+arc                  randconfig-r2106-20260928    clang-17   cocci
+arc                  randconfig-r2107-20260928    gcc-9.5.0  cocci
+arc                  randconfig-r2303-20260929    gcc-8.5.0  sparse
+arc                            tb10x_defconfig    gcc-16.1.0
+arc                     vdk_hs38_smp_defconfig    gcc-16.1.0
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                          assabet_defconfig    gcc-16.1.0
+arm                         clps711x_defconfig    gcc-16.1.0
+arm                                  defconfig    gcc-16.1.0
+arm                              mxs_defconfig    gcc-16.1.0
+arm                          orion5x_defconfig    gcc-16.1.0
+arm                   randconfig-1000-20260929    clang-17
+arm                   randconfig-1001-20260929    clang-17
+arm                   randconfig-1002-20260929    clang-17
+arm                   randconfig-1003-20260929    clang-17
+arm                  randconfig-r2100-20260929    gcc-9.5.0  cocci
+arm                  randconfig-r2103-20260928    clang-24   cocci
+arm                  randconfig-r2202-20260928    gcc-8.5.0  smatch
+arm                  randconfig-r2303-20260928    gcc-8.5.0  sparse
+arm                         spear6xx_defconfig    gcc-16.1.0
+arm64                             allmodconfig    clang-24
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20260929    clang-24
+arm64                 randconfig-1001-20260929    clang-24
+arm64                 randconfig-1002-20260929    clang-24
+arm64                 randconfig-1003-20260929    clang-24
+arm64                randconfig-r2306-20260928    gcc-14.3.0 sparse
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20260929    clang-24
+csky                  randconfig-1001-20260929    clang-24
+csky                 randconfig-r2107-20260928    clang-17   cocci
+csky                 randconfig-r2200-20260928    gcc-16.1.0 smatch
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20260929    gcc-8.5.0
+hexagon               randconfig-1001-20260929    gcc-8.5.0
+hexagon              randconfig-r2102-20260928    clang-24   cocci
+hexagon              randconfig-r2102-20260928    gcc-11.5.0 cocci
+hexagon              randconfig-r2104-20260928    gcc-9.5.0  cocci
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20260929    clang-22
+i386        buildonly-randconfig-1001-20260929    clang-22
+i386        buildonly-randconfig-1002-20260929    clang-22
+i386        buildonly-randconfig-1003-20260929    clang-22
+i386        buildonly-randconfig-1004-20260929    clang-22
+i386        buildonly-randconfig-1005-20260929    clang-22
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20260929    gcc-13
+i386                  randconfig-1001-20260929    gcc-13
+i386                  randconfig-1002-20260929    gcc-13
+i386                  randconfig-1003-20260929    gcc-13
+i386                  randconfig-1004-20260929    gcc-13
+i386                  randconfig-1005-20260929    gcc-13
+i386                  randconfig-1006-20260929    gcc-13
+i386                  randconfig-1007-20260929    gcc-14
+i386                  randconfig-1008-20260929    gcc-14
+i386                  randconfig-1009-20260929    gcc-14
+i386                  randconfig-1010-20260929    gcc-14
+i386                  randconfig-1011-20260929    gcc-14
+i386                  randconfig-1012-20260929    gcc-14
+i386                  randconfig-1013-20260929    gcc-14
+i386                  randconfig-2100-20260928    gcc-14     cocci
+i386                  randconfig-2100-20260929    clang-22   cocci
+i386                  randconfig-2101-20260928    gcc-14     cocci
+i386                  randconfig-2101-20260929    clang-22   cocci
+i386                  randconfig-2102-20260928    gcc-14     cocci
+i386                  randconfig-2102-20260929    clang-22   cocci
+i386                  randconfig-2103-20260928    gcc-14     cocci
+i386                  randconfig-2103-20260929    clang-22   cocci
+i386                  randconfig-2200-20260928    clang-22   smatch
+i386                  randconfig-2200-20260929    gcc-14     smatch
+i386                  randconfig-2300-20260928    clang-22   sparse
+i386                  randconfig-2300-20260929    gcc-14     sparse
+i386                  randconfig-2301-20260928    clang-22   sparse
+i386                  randconfig-2301-20260929    gcc-14     sparse
+i386                  randconfig-2302-20260928    clang-22   sparse
+i386                  randconfig-2302-20260929    gcc-14     sparse
+i386                 randconfig-r2202-20260928    gcc-14     smatch
+i386                 randconfig-r2300-20260928    gcc-12.5.0 sparse
+loongarch                         allmodconfig    clang-24
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20260929    gcc-8.5.0
+loongarch             randconfig-1001-20260929    gcc-8.5.0
+loongarch            randconfig-r2304-20260928    gcc-12.5.0 sparse
+loongarch            randconfig-r2306-20260928    gcc-15.2.0 sparse
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                          amcore_defconfig    gcc-16.1.0
+m68k                        bvme6000_defconfig    gcc-16.1.0
+m68k                                 defconfig    clang-24
+m68k                 randconfig-r2105-20260928    gcc-9.5.0  cocci
+m68k                 randconfig-r2201-20260928    gcc-12.5.0 smatch
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+microblaze           randconfig-r2103-20260928    gcc-11.5.0 cocci
+microblaze           randconfig-r2302-20260928    gcc-12.5.0 sparse
+microblaze           randconfig-r2309-20260928    gcc-14.3.0 sparse
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                            ip30_defconfig    gcc-16.1.0
+mips                       loongson3_defconfig    gcc-16.1.0
+mips                       malta_kvm_defconfig    gcc-16.1.0
+mips                 randconfig-r2300-20260929    gcc-8.5.0  sparse
+mips                 randconfig-r2302-20260928    gcc-8.5.0  sparse
+mips                 randconfig-r2308-20260929    gcc-11.5.0 sparse
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20260929    gcc-8.5.0
+nios2                 randconfig-1001-20260929    gcc-8.5.0
+nios2                randconfig-r2101-20260929    gcc-9.5.0  cocci
+nios2                randconfig-r2304-20260928    gcc-8.5.0  sparse
+nios2                randconfig-r2308-20260928    gcc-15.2.0 sparse
+openrisc                          alldefconfig    gcc-16.1.0
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+openrisc             randconfig-r2104-20260928    clang-17   cocci
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20260929    gcc-8.5.0
+parisc                randconfig-1001-20260929    gcc-8.5.0
+parisc               randconfig-r2200-20260928    gcc-8.5.0  smatch
+parisc               randconfig-r2300-20260928    gcc-8.5.0  sparse
+parisc               randconfig-r2309-20260929    gcc-11.5.0 sparse
+parisc64                             defconfig    clang-24
+powerpc                            allnoconfig    clang-24
+powerpc                       chrp32_defconfig    gcc-16.1.0
+powerpc                     gamecube_defconfig    gcc-16.1.0
+powerpc                      ksi8560_defconfig    gcc-16.1.0
+powerpc                    motionpro_defconfig    gcc-16.1.0
+powerpc                  mpc837x_rdb_defconfig    gcc-16.1.0
+powerpc               randconfig-1000-20260929    gcc-8.5.0
+powerpc               randconfig-1001-20260929    gcc-8.5.0
+powerpc              randconfig-r2201-20260928    gcc-8.5.0  smatch
+powerpc              randconfig-r2202-20260929    clang-24   smatch
+powerpc              randconfig-r2307-20260928    gcc-14.3.0 sparse
+powerpc                     socrates_defconfig    gcc-16.1.0
+powerpc64             randconfig-1000-20260929    gcc-8.5.0
+powerpc64             randconfig-1001-20260929    gcc-8.5.0
+powerpc64            randconfig-r2101-20260928    clang-24   cocci
+powerpc64            randconfig-r2104-20260929    gcc-15.2.0 cocci
+powerpc64            randconfig-r2105-20260928    clang-17   cocci
+powerpc64            randconfig-r2106-20260929    gcc-15.2.0 cocci
+powerpc64            randconfig-r2305-20260928    gcc-8.5.0  sparse
+powerpc64            randconfig-r2307-20260929    gcc-11.5.0 sparse
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20260929    clang-24
+riscv                 randconfig-1001-20260929    clang-24
+riscv                 randconfig-2000-20260928    gcc-8.5.0
+riscv                 randconfig-2000-20260929    gcc-11.5.0
+riscv                 randconfig-2001-20260928    gcc-8.5.0
+riscv                 randconfig-2001-20260929    gcc-11.5.0
+riscv                randconfig-r2102-20260929    gcc-9.5.0  cocci
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20260929    clang-24
+s390                  randconfig-1001-20260929    clang-24
+s390                  randconfig-2000-20260928    gcc-8.5.0
+s390                  randconfig-2000-20260929    gcc-11.5.0
+s390                  randconfig-2001-20260928    gcc-8.5.0
+s390                  randconfig-2001-20260929    gcc-11.5.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                                   defconfig    gcc-14
+sh                              espt_defconfig    gcc-16.1.0
+sh                           kfr2r09_defconfig    gcc-16.1.0
+sh                    randconfig-1000-20260929    clang-24
+sh                    randconfig-1001-20260929    clang-24
+sh                    randconfig-2000-20260928    gcc-8.5.0
+sh                    randconfig-2000-20260929    gcc-11.5.0
+sh                    randconfig-2001-20260928    gcc-8.5.0
+sh                    randconfig-2001-20260929    gcc-11.5.0
+sh                   randconfig-r2100-20260928    clang-24   cocci
+sh                   randconfig-r2106-20260928    gcc-9.5.0  cocci
+sh                   randconfig-r2201-20260929    gcc-16.1.0 smatch
+sh                   randconfig-r2303-20260928    gcc-12.5.0 sparse
+sh                   randconfig-r2305-20260929    gcc-8.5.0  sparse
+sh                            se7343_defconfig    gcc-16.1.0
+sh                            se7721_defconfig    gcc-16.1.0
+sh                            se7722_defconfig    gcc-16.1.0
+sh                    secureedge5410_defconfig    gcc-16.1.0
+sh                            sh2007_defconfig    gcc-16.1.0
+sh                         sh7757lcr_defconfig    gcc-16.1.0
+sh                         sh7785lcr_defconfig    gcc-16.1.0
+sh                              shx3_defconfig    gcc-16.1.0
+sh                             titan_defconfig    gcc-16.1.0
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20260929    gcc-14
+sparc                 randconfig-1001-20260929    gcc-14
+sparc                 randconfig-2000-20260928    gcc-13.4.0
+sparc                 randconfig-2000-20260929    gcc-12.5.0
+sparc                 randconfig-2001-20260928    gcc-13.4.0
+sparc                 randconfig-2001-20260929    gcc-12.5.0
+sparc                randconfig-r2100-20260928    gcc-11.5.0 cocci
+sparc                randconfig-r2309-20260928    gcc-15.2.0 sparse
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20260929    gcc-14
+sparc64               randconfig-1001-20260929    gcc-14
+sparc64               randconfig-2000-20260928    gcc-13.4.0
+sparc64               randconfig-2000-20260929    gcc-12.5.0
+sparc64               randconfig-2001-20260928    gcc-13.4.0
+sparc64               randconfig-2001-20260929    gcc-12.5.0
+sparc64              randconfig-r2103-20260929    gcc-9.5.0  cocci
+sparc64              randconfig-r2305-20260928    gcc-12.5.0 sparse
+sparc64              randconfig-r2308-20260928    gcc-14.3.0 sparse
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20260929    gcc-14
+um                    randconfig-1001-20260929    gcc-14
+um                    randconfig-2000-20260928    gcc-13.4.0
+um                    randconfig-2000-20260929    gcc-12.5.0
+um                    randconfig-2001-20260928    gcc-13.4.0
+um                    randconfig-2001-20260929    gcc-12.5.0
+um                   randconfig-r2306-20260929    gcc-11.5.0 sparse
+um                            x86_64_defconfig    gcc-14
+x86_64                            allmodconfig    clang-22
+x86_64                             allnoconfig    clang-24
+x86_64                            allyesconfig    clang-22
+x86_64      buildonly-randconfig-1000-20260929    clang-22
+x86_64      buildonly-randconfig-1001-20260929    clang-22
+x86_64      buildonly-randconfig-1002-20260929    clang-22
+x86_64      buildonly-randconfig-1003-20260929    clang-22
+x86_64      buildonly-randconfig-1004-20260929    clang-22
+x86_64      buildonly-randconfig-1005-20260929    clang-22
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20260929    clang-22
+x86_64                randconfig-1001-20260929    clang-22
+x86_64                randconfig-1002-20260929    clang-22
+x86_64                randconfig-1003-20260929    clang-22
+x86_64                randconfig-1004-20260929    clang-22
+x86_64                randconfig-1005-20260929    clang-22
+x86_64                randconfig-1006-20260929    gcc-13
+x86_64                randconfig-1007-20260929    gcc-13
+x86_64                randconfig-1008-20260929    gcc-13
+x86_64                randconfig-1009-20260929    gcc-13
+x86_64                randconfig-1010-20260929    gcc-13
+x86_64                randconfig-1011-20260929    gcc-13
+x86_64                randconfig-1012-20260929    clang-22
+x86_64                randconfig-1013-20260929    clang-22
+x86_64                randconfig-1014-20260929    clang-22
+x86_64                randconfig-1015-20260929    clang-22
+x86_64                randconfig-1016-20260929    clang-22
+x86_64                randconfig-1017-20260929    clang-22
+x86_64                randconfig-2100-20260928    gcc-12     cocci
+x86_64                randconfig-2100-20260929    clang-22   cocci
+x86_64                randconfig-2101-20260928    gcc-12     cocci
+x86_64                randconfig-2101-20260929    clang-22   cocci
+x86_64                randconfig-2102-20260928    gcc-12     cocci
+x86_64                randconfig-2102-20260929    clang-22   cocci
+x86_64                randconfig-2103-20260928    gcc-12     cocci
+x86_64                randconfig-2103-20260929    clang-22   cocci
+x86_64                randconfig-2200-20260928    gcc-14     smatch
+x86_64                randconfig-2200-20260929    clang-22   smatch
+x86_64                randconfig-2300-20260928    clang-22   sparse
+x86_64                randconfig-2300-20260929    gcc-14     sparse
+x86_64                randconfig-2301-20260928    clang-22   sparse
+x86_64                randconfig-2301-20260929    gcc-14     sparse
+x86_64                randconfig-2302-20260928    clang-22   sparse
+x86_64                randconfig-2302-20260929    gcc-14     sparse
+x86_64               randconfig-r2301-20260928    gcc-8.5.0  sparse
+x86_64               randconfig-r2302-20260929    gcc-8.5.0  sparse
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    clang-22
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20260929    gcc-14
+xtensa                randconfig-1001-20260929    gcc-14
+xtensa                randconfig-2000-20260928    gcc-13.4.0
+xtensa                randconfig-2000-20260929    gcc-12.5.0
+xtensa                randconfig-2001-20260928    gcc-13.4.0
+xtensa                randconfig-2001-20260929    gcc-12.5.0
+xtensa               randconfig-r2101-20260928    gcc-11.5.0 cocci
+xtensa               randconfig-r2105-20260929    gcc-15.2.0 cocci
+xtensa               randconfig-r2301-20260928    gcc-12.5.0 sparse
+xtensa               randconfig-r2301-20260929    gcc-8.5.0  sparse
+xtensa               randconfig-r2304-20260929    gcc-8.5.0  sparse
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
