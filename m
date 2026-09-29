@@ -1,163 +1,145 @@
-Received: from mta0.migadu.com (out-43.mta0.migadu.com [91.218.175.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507E941A92C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925EF3B8D78
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790663188; cv=none; b=Rz78eG+daIU8lFVOKjwLq+TeF4IpRpu1Hp6HwpGj65/bVle8pP8NW/cHmo/NkYOg3IRPowvMlCra5S2OQsWGLiiRXkmU/O7aDLk6pjCyMUGhVlh/+OfDyZSsh7csNj3Lbh12tLMYqRZVV5r4Gy3ze3o1XrETcfO185ktr4nnEE8=
+	t=1790663276; cv=none; b=trJXMvzWoifQQ9nSbFRN5x8E3wv5T6VbZAhNnvBxGi3bwHbxfZOCjBuZf3/cD0F6ExrwyXRWg5rAWZosK9Pq5khff1AX2PAENUSfJ5x+loVYxMQSmVj03By/kOZbDuo/PuklA/FlPTwJTkx4LSiBcu3ArwV3QoDJVwcZCG3+cwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790663188; c=relaxed/simple;
-	bh=jUvogs66QM3UZRwtzv4kECXAX0N6N/SMMnyGrD9T0CA=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=hivPaJ87lpWA+nI9F/ER7oGlneIePWcpa9ltY7jU5t02KknEAAkugmzJejpG7UYVKe1xaya9J4RZxeK3XZ9KMAvSDzxbqXFDjKM/VeSVH1+aKr5KTc8GkrpM54GBXx+s+MNGfR3iz2469euuPFjoa16znGvIM5+kiZ52KOWrjBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tX35khiy; arc=none smtp.client-ip=91.218.175.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790663276; c=relaxed/simple;
+	bh=mHq5AtvkEH8OOCTTKtooA5QyWIUV6+CR4Scingzbq54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o2c+PrI5LebQNs+inkpCOpyVxSikrwPXprKKxFVOqpMIne6t/hYmjJP4s2WWAoXgq3A7YT6p4skWgzLkzPownjA4eY3eYNxWqIr3n/W06phw9m0GXC3Qz4O3kXNrMmWwDVEyIaOkTtYIqJ1KWv82TBLTOkicyHV8ImlZAk8wHB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aiuaXYBu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WhH1PKA0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tX35khiy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jUvogs66QM3UZRwtzv4kECXAX0N6N/SMMnyGrD9T0CA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790663184; v=1; x=1791267984;
- b=tX35khiydvqA9iiJWTKsPwJZ+EXl/6OhY/22BHbmsX/L3K8BPqsY8fMgLxbgCVEL/nUhziNg
- E7yA8OwYJBHcJrAcDkQtFFC3Plci/w4kW09A2qooJL/5kzIKTqGsnvOuruNVumP3BLfA9mXjenD
- Dvk/xi+BEyGhM8yM6p+jexvQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d177fc393ae7c2b3;
-	Tue, 29 Sep 2026 06:26:24 +0000
-X-Mizu-Trace-ID: d177fc393ae7c2b3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aiuaXYBu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WhH1PKA0"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47LKU2127187
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:27:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Fkg6HeiiW5RKTN6ZHxqHbSLxB7wGEE3Tjdoly/CGbPY=; b=aiuaXYBuq49qryCB
+	Aqu1fpOn45GeH7ZvBLR2g7C6TOHGSWW34mcrWXDJNVsInMVBpq4LlDw3OOdBGAFd
+	9O9Mm5HIO4S1PnGAqisYPhJTBNxCaVbfZtRznWG/7yD+DjqWs5/lOF3wNiC6E+pL
+	yOEfPot4wbHuNmj6JkrdFUZMpHV16/CMjiFOyeoSpdZfV0QF71YGCuPta3NjjZ4K
+	xe4f7u+CRqWvR/1s/J9Gw9VtowY8SKt5863klrd4V+eE6S51xTCpaVLINU0jJnmJ
+	oPqtam/c7CuAoSEU1blY6F+tHrUrawfZYnXpYZK1hrQNwNA7sRGMzfGGXtXq7Hxs
+	dRHSUQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn951h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:27:54 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso2533699a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:27:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790663274; x=1791268074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fkg6HeiiW5RKTN6ZHxqHbSLxB7wGEE3Tjdoly/CGbPY=;
+        b=WhH1PKA0MPYsIcJshSK4V91UjP2ov/Up+gBn4br7xV9ukYNRi8CgUDijRO2rYqa0J7
+         8p3m/eRMnQNoUKj+Yk9zyAENs+1t0JdVz2yKb6wj08jaPpCohalcxKO+gPmtVPBYt/15
+         jIJgx19nVuvvOqGUzgEXEkxs4O6C0dPHYatVxIqBzf3TM+OeG/P7lwSzA8JXsyjhVj4x
+         6ZPxqi8O5BvJSWmKQeHbWScpzorDTG3UE/9sqeMnzDb6usgjDm1mYDYNu4WFmpxmNX6+
+         sr3UlWFrc6zbyq4ImidTWZngXIbGpKMMKTqCct9SScueCNmTHhYMMuFYjlIR595BU5sP
+         mVeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790663274; x=1791268074;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fkg6HeiiW5RKTN6ZHxqHbSLxB7wGEE3Tjdoly/CGbPY=;
+        b=m3MsAh7wX7LuGfTor5KcAf1tQudfyUsRTIIagtZqVC5rAkcxl+nqhxxfC4yP7O3uGR
+         sGI/Eac8/OaqPcfc1ucNfMYsLeNNcav9+EsDQ4RE48w9f+tiKcFNg9IvLBDJC3nPYfEc
+         O3PVWb39UmEmc8bgO8Xm8BVH5zijEqSMb9GhxttWZ5sTZSg338OyasYCReeXgwccDqH8
+         t7DFBtQIce3z2o4BC29Q6+BoEm/ku/nOFk9+oJ7kXbtwr3GkYW5LqU7yd1F+z10TSX3/
+         s7eravDTt+7udnqQEnHmYhKfTnpGboWG3H+q9Pa+nXpuqTq3XWY79wsotmlfhH2ZOaK/
+         h9tw==
+X-Forwarded-Encrypted: i=1; AKwUvBxik60ehL77jERWuLmGSq2FE5SeLbIoFRp6UdQsBnNA+SxtlR/oHfyvdgFRU8Dbp7w9008FjU64id7ZSYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdro5q+ziF22rnfBebEWYAVZApV4YkY4+QyiU3WvYppNEAAU2i
+	3+ag0PsleM4W2+vUtkNX/dKyc1ig1C7RLCt9YveH/FfQjZ+qqqzrbzu/d4fAOcvtCwvQ7QDsryv
+	3/B0H6A72yxVTYQhWhjQYboGQXEXOXbpf4DhT0CYhzZMpldNnNFVQ1DDCAJTvbd7iUPY=
+X-Gm-Gg: AYBFou3RtMCcCVObf/4tiCHAVmiEFcTJSqD5cKxF/CCeRtc5zAZE/eJQL6J+Dq4sSo2
+	mpXet36L2kLcMv7V7PULF8POzJd+Y5S6pX2BsOLruOkYoZHMGBKXc/W4mdK7n/xYP4zOt2Ysor7
+	KcLbv9hIeLIU8xZvTV733NfkiUyNtbNgvxEe7Hj8BpR7KRicVR4D/mHsyU5CKesWX3GGh5+vXln
+	VK5V4xdNIxGYAqwczB+Ym3BlFcxlPkF1msrKvoXcjl921mHBOk3i0aGAN2gIjWUXlJmZOi8mkgU
+	tQaR8UxchdxE0VfazmLa+K8dbO7Fh+TscbeByV7kMeaDJfancxA0p5J5XLqQvQ/FXwD/NwOUJmb
+	ikntqrt+CzQ9CG8F51GTl3et46uk97Xhx
+X-Received: by 2002:a05:6a20:6a04:b0:3dd:5844:c95e with SMTP id adf61e73a8af0-3de0e772ee0mr13779075637.27.1790663273723;
+        Mon, 28 Sep 2026 23:27:53 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a04:b0:3dd:5844:c95e with SMTP id adf61e73a8af0-3de0e772ee0mr13779051637.27.1790663273253;
+        Mon, 28 Sep 2026 23:27:53 -0700 (PDT)
+Received: from [10.217.219.98] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a3b8d70csm3523812a12.9.2026.09.28.23.27.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 23:27:52 -0700 (PDT)
+Message-ID: <141f72bc-72ad-4e14-ae0c-b221a8e3711b@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 11:57:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 06:26:19 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <a941bc47f9ba62ca4f360e9552df1ff80a08a388@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-To: "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- luka.gejak@linux.dev
-In-Reply-To: <78faacdc2ba04d48b663c91194f04bc8@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-4-luka.gejak@linux.dev>
- <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
- <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
- <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
- <92337f29a7dd8d517c2037e857e13eb2612e10e7@linux.dev>
- <78faacdc2ba04d48b663c91194f04bc8@realtek.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: nord: add GPI DMA controller
+ nodes
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shawnguo@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260924-nord-gpi-dts-v3-0-74a85134699f@oss.qualcomm.com>
+ <20260924-nord-gpi-dts-v3-1-74a85134699f@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <20260924-nord-gpi-dts-v3-1-74a85134699f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb5a6a cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=svJ9ipqeD9EGsNKrb54A:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: LLgnnKpSP4OS77vpsE9wA4vNT-ZNjBJ6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyNSBTYWx0ZWRfX/syK7megKfkX
+ UoNCme643wI28XRbcOytx6GbgPXIcOZt7culpHKz8z8RBMkntwNvN3XK4q20ZfGmt0/TjS1X7ob
+ Ql13ErNVOjJAXnFsUjIGC4Qi8QooYKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyNSBTYWx0ZWRfXxF2Lbv0R/FXe
+ hi2GgiU+SJrw9p6T6zXB7vBjhA2OKSreM6qrE2rYT43F9gRAbzA5GKJ4gLtk2VnwGYkWImI4j06
+ d8B3aVx5yAoG9mhyzYx/tIaQi+tvGtgMNEsuWIvEMqRLJF0/mMUidmg4adnizy4lj4OPhtcR0St
+ RvzeD/yqEM3csLVFbrhiRaeH0EJE/6KNMtW7S+u2Hv3qyhoxY2sLsc89tpj7F/mLek+OTjTYdBF
+ nBtPR86w0UZfjx2OoHgDhWeBlzsHFV0PUzgNb6zp84CBgULsAv9VbmRbqxmB3yMaO2vZgU8ICdT
+ m3jVZevww7nrOwu0y7OgpLlEdPHTyO6LiJ/bIreWbBzNGppaJHOkAS/P2xgxWAUtGWTR9wK7Mx1
+ G6/sLnf6wiNd+S3t9Lz4PUo/F4Q7zKfCnVFkgoKXZ/LtiFRAI1EWcXHz+LYBh4GXbyQoTHbv1LY
+ RNhbZ1TyRFv/aEnJ97A==
+X-Proofpoint-ORIG-GUID: LLgnnKpSP4OS77vpsE9wA4vNT-ZNjBJ6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290025
 
-September 29, 2026 at 04:04, "Ping-Ke Shih" <pkshih@realtek.com mailto:pk=
-shih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E >=
- wrote:
 
 
->=20
->=20Luka Gejak <luka.gejak@linux.dev> wrote:
->=20
->=20>=20
->=20> Hi Ping-Ke,
-> >=20=20
->=20>  September 24, 2026 at 06:11, "Ping-Ke Shih" <pkshih@realtek.com> w=
-rote:
-> >=20
->=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
-> >=20=20
->=20>  Answers in the order of your mail. The MAINTAINERS point is in a
-> >  separate reply.
-> >=20=20
->=20>  Can you also review other RTL8723B specific functions? I didn't re=
-view
-> >  them one by one by v3, but I wonder why it needs specific functions,
-> >  not common flow. If any of them is necessary, please point out reaso=
-ns.
-> >=20
->=20>  By the way, I didn't only mention these three functions. At here t=
-here
-> >  are many specific functions. Please analyze them.
-> >  (Honestly, I don't fully re-examinate your analysis in detail, and
-> >  believe your results.)
-> >=20=20
->=20>  I went through the whole file. The part that is already common flo=
-w can
-> >  be listed exactly, because those ops point at shared code:
-> >=20=20
->=20>  power_on, power_off rtw_power_on, rtw_power_off
-> >  mac_postinit rtw8723x_mac_postinit
-> >  set_tx_power_index rtw8723x_set_tx_power_index
-> >  false_alarm_statistics rtw8723x_false_alarm_statistics
-> >  read_rf, write_rf rtw_phy_read_rf_sipi,
-> >  rtw_phy_write_rf_reg_sipi
-> >  read_efuse rtw8723x_read_efuse, plus the hardware
-> >  capability, because this chip has no
-> >  hardware feature report: the firmware
-> >  reports id 0xfd instead of the C2H
-> >  efuse_grant rtw8723x_efuse_grant, plus the 0x6b BT
-> >  power cut and output isolation write that
-> >  the vendor efuse path does
-> >=20
->=20I think you have checked them. Please reconsider to rewrite them.=20
->=20
-> As Johannes mentioned, LLM is a tool, but please not fully believe
-> and rely on it. LLM can generate a lot of stuff, but I read by my
-> eyes and then think and type by my hands. To understand and rework
-> stuff generated by LLM is submitter's business.
->=20
->=20>=20
->=20> I think the better way is to assign proper rtwdev->hal.rcr per chip
-> >  in rtw_core_init().
-> >=20
->=20[..]
->=20
->=20>=20
->=20> If you prefer, I can put the core change in a small patch before th=
-e
-> >  chip series rather than in patch 3, so the chip series stays free of
-> >  core changes.
-> >=20
->=20Yes, that'd be good.=20
->=20
-> The 8723BS specific stuff should do in the kind of rewriting.=20
-
-Understood,=20already did while addressing Bitterblue's comments.
-
->=20
->=20>=20
->=20> Can you reuse the existing since they are the same?
-> >=20
->=20I think I can refer a common rule...=20
->=20
-> >=20
->=20> (Please quote the code; to reply to this, I need to switch to your
-> >  patches again).
-> >  On your last sentence, that the reason is hard to explain later if i=
-t is
-> >  not written down: whatever we change will carry its reason in the co=
-de
-> >  or in the commit message, not only in this mail. The same goes for t=
-he
-> >  two things I am asking to keep, cfg_ldo25() and the RESP_SIFS writes=
-,
-> >  which will say why they are there.
-> >=20
->=20It is still hard to me to recall what I wrote at last sentence...
->=20
->=20Let's follow Bitterblue's comments on v4, and move to v5.
->=20
->=20I noted the copyright aren't all consistent. Check them yourself.
-
-I noticed that too, and fixed it in v5. I will send it together with
-other replys to Bitterblue's comments today.
-
->=20
->=20Ping-Ke
->
+On 9/24/2026 5:40 PM, Bartosz Golaszewski wrote:
+> Add GPI DMA controller nodes for all three QUPv3 engines.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
