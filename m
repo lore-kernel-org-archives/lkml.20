@@ -1,127 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E249C51AEC7;
-	Tue, 29 Sep 2026 12:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8815111AE;
+	Tue, 29 Sep 2026 12:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685396; cv=none; b=YGMOjVM5J1qlXI6mPe/Xb4MMTPfrZnZz5+kO/2IqCPN4eS8Iy56rZgquJlGSPDwiLWgGdH3NVGgbB/yslGoCJUg90NgDkMWtGS2jbB+8aQoFERUB30yRGXT+IKo518OXWj/n8vOX8M/dFm4nH/KHKC7wFOdY/W2/loQ4AWhtsTE=
+	t=1790685430; cv=none; b=pQgOS3SZMpn4FfHx3jl1o0WhgT5ELJ2qtVgBqByJMJK+rrscJtqJu513JZlosz7MNZQuQIP7boU22S2IJT7aXuWBU34X8StGYgUhMx1eMeQB21utcMpdiAe215BQWWGF2X6xqki/d3o2pdGzcRo2Ub8Bs6+aIZ1bcyuKS6wzlWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685396; c=relaxed/simple;
-	bh=bmBBlXJUGQ7njJjiDQqU6/nJ0qeXLnyewGYp077riLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rfTIaBGKLH5VJkvGo0tuXyg5nt6UlVr/9L0OfgT07yGf4cN9QZFxM3tTQP17LqDsBL6FKwysDrFSSHcoYykJsDfLFvGYO6JkEFI1jk1YO1slitA4rCER95ROFiw5tsW9KFSE+88veZ0+aQuM2Gs+uzsJXOnFthNnPPkt7ixuFec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KJsgL5jW; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790685430; c=relaxed/simple;
+	bh=+r26wpA4P8dpYkJJg5U2bzHvUaibn2zioBBwg1ndoug=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=iOUnxfTFrDs9hjCk+M9RGzx2uIcKPdzX2BQ5+lcf+PawdwR+G8Blner90O2UCnV5RwVHy+8g3lyKIxFaSJvrglNXDJuKISdzfKllSQooCvEAvxWxdtgN+uHbcvTpEPVFqEsChuQIjTO2OpiAmrqdyX1bBx0gPMdLHb7vYUBLwD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SI5hCyBx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KJsgL5jW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ok
-	7gh8hzf9xWkM6boOicySDPEGNZXm3WdCWyqq9eqXo=; b=KJsgL5jWNmsytuwUBj
-	7BVcIDzXgJpwvj9bUwxhPx+8JaUJPIQwWBSrCmd6aVRyxO463KCn9ZKTJUfOz9yr
-	5YtNzy9AdAMVI2t+6NhK5FYzS8BI5rT2neu9IDyRw7Rj6RwN/Q70fJw1QQ9akm6a
-	XbSu5sx3R7vCzFwf1ds+TyNfE=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3FxTCsLtq_tizBg--.36992S2;
-	Tue, 29 Sep 2026 20:36:19 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: dsterba@suse.com
-Cc: linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] btrfs: wait for a grace period before freeing a new device
-Date: Tue, 29 Sep 2026 20:36:16 +0800
-Message-ID: <20260929123616.139759-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SI5hCyBx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9760B1F000FF;
+	Tue, 29 Sep 2026 12:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790685429;
+	bh=0QGuLOj+qfCT9MeLPF6Bs9UcGV8S4px66Fx6N5h4OwU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SI5hCyBxXD75oO5/nJotFR6aqc2H3Vld8OAQHT0WrxlaJEmRlBU7FLF3Afe9h03Sa
+	 e7LmhI8soyJd/YETyJvMirpH0/Yv7NbVESVaciPWtiDIy8ZMBbK7wcnR0PP4y3ItEt
+	 vCuZd8EQ/n72URmBMWbLz10KWiZCFr3K/1b+51VTkExkexnUhseDAFWWrLJHqqBO1L
+	 fSomSTpvMqWwf4VaOgrzYj8gaplAQ8mDzE8wkK/oTggBCLh6+i2lqxSRxPXVuKCGxv
+	 qHtR8H/pL6tRWXVPuwXG6BTgjbR7qdl3Ne56rFgHm5FeQ28Jf7J/mz/7elv08X/gM3
+	 IjdpdGwksMgtg==
+From: Mark Brown <broonie@kernel.org>
+To: Gabor Juhos <j4g8y7@gmail.com>
+Cc: Md Sadre Alam <md.alam@oss.qualcomm.com>, 
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ linux-spi@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260929-qpic-snand-drop-ecc_buf_cfg-v1-1-c9de93142815@gmail.com>
+References: <20260929-qpic-snand-drop-ecc_buf_cfg-v1-1-c9de93142815@gmail.com>
+Subject: Re: [PATCH] spi: spi-qpic-snand: remove 'ecc_buf_cfg' member of
+ struct 'qpic_ecc'
+Message-Id: <179068160040.115027.11339777816056138235.b4-ty@b4>
+Date: Tue, 29 Sep 2026 12:33:20 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3FxTCsLtq_tizBg--.36992S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5WryUpr
-	9Iga45JFyDJr1kAr4xCw4I9r1rX39Y9a9Ikrn3Kr4I9a4fA34Yvryvk34UuasxCrWrJFyU
-	Za4DJwn8Jw4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRtxhXUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4APlyWq7sMOBsAAA3c
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1151; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=+r26wpA4P8dpYkJJg5U2bzHvUaibn2zioBBwg1ndoug=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu7DxcVUd8Gt+fX+EAAKOxEC/rwVnAnwsjuCgo
+ zGZyxycIZqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaruw8QAKCRAk1otyXVSH
+ 0KP7B/9UrVJTPvmWOsMdy6fn6IjljnT+NNlr6OUWX/Yvq4ewVOnfqOpbX9NbEXeDX1S5VthSd4v
+ rv+Ay4/jObW03uaxR51RuRYhdDKAOnfw13eJhWTJp+cnQ6J8rsfueckkbQ0lpq92baq1eDezjRa
+ m3uphKoAUyxzo3uGMZhVPZqwZgCZlWOeuF4C7WzUT6NBEbWhU8eKWikfdzvqmxOZ4vKcUAzGryg
+ XsLFbeGer5z6C1Tebh6plCVqclagKI1F9kjZ3s1zEsZGjUL50qau7Hhy141oJMk/n00MTxC09c/
+ nLarhD5SnbvsfdU3ya+CaD/pLEhQSEaW9a74Riyomwh2ju3Z
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-KASAN reports a slab-use-after-free in btrfs_statfs() walking
-fs_devices->devices. btrfs_init_new_device() publishes the new device
-with list_add_rcu() and can fail afterwards, for example with -ENOSPC
-in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
-that is too small to a seeding filesystem mounted read-only. The error
-path removes the entry with list_del_rcu() and frees the object in
-btrfs_free_device() without waiting for a grace period, while
-btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
-the device list under rcu_read_lock().
+On Tue, 29 Sep 2026 13:04:00 +0200, Gabor Juhos wrote:
+> spi: spi-qpic-snand: remove 'ecc_buf_cfg' member of struct 'qpic_ecc'
 
-BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
-Read of size 8 at addr ffff8880096be858 by task poc/252
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? filename_lookup+0x1a9/0x540
- ? btrfs_statfs+0x11af/0x14a0
- kasan_report+0xce/0x100
- ? btrfs_statfs+0x11af/0x14a0
- btrfs_statfs+0x11af/0x14a0
- statfs_by_dentry+0x117/0x1e0
- user_statfs+0xac/0x130
- ? __pfx_user_statfs+0x10/0x10
- __do_sys_statfs+0x80/0xe0
- ? __pfx___do_sys_statfs+0x10/0x10
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Applied to
 
-Allocated by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- __kmalloc_cache_noprof+0x158/0x370
- btrfs_alloc_device+0xad/0x3e0
- btrfs_init_new_device+0x3e8/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Freed by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x121/0x380
- btrfs_init_new_device+0x4a0/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Thanks!
 
-Fix by waiting for an RCU grace period after the device is removed
-from the list and before it is freed.
+[1/1] spi: spi-qpic-snand: remove 'ecc_buf_cfg' member of struct 'qpic_ecc'
+      https://git.kernel.org/broonie/spi/c/1f07c6fecb38
 
-Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- fs/btrfs/volumes.c | 1 +
- 1 file changed, 1 insertion(+)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 85ea9c5d4536..2693dacd1da7 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 	btrfs_update_per_profile_avail(fs_info);
- 	mutex_unlock(&fs_info->chunk_mutex);
- 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
-+	synchronize_rcu();
- error_trans:
- 	if (trans)
- 		btrfs_end_transaction(trans);
--- 
-2.43.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
