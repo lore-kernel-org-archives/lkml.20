@@ -1,62 +1,46 @@
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2C54CDDEF;
-	Tue, 29 Sep 2026 14:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.89.141.173
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F22451990B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693654; cv=none; b=PRF+8Sx+JAy4f6LmsVD20MgGwwyi70jZeFJV5CBqmyDN/XZXzKsp3xMP20ZVtxL30EujaLQ3fk08u51BykMiOYagr5/3m2/Fy2wMGGM9ajX13QPrzaRG6SYjKzd9OLFjZPCjnEPIWjXpj9TYuIoczRF1DYUlPOZKMFXWLbqVbiM=
+	t=1790693663; cv=none; b=tupEC4fWeokhRLPHu3GuIh35Xkofjexu8LuDLCxi8b/YeWqo3P8SxS4A8fQq84xqrZqMDV5XkOAeTV/vO4QlKb5EI5JqKsp7pwUukfQKwO16gqKuVX8y1twi37TOp7opD57ywIanT6yk5rVZRqHoibw+Dokl/8eaE/kb0hf66fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693654; c=relaxed/simple;
-	bh=YjJznT4b0xAdGZ2PiRCaweISyYHg5n6lSKL0jyLHXAE=;
+	s=arc-20240116; t=1790693663; c=relaxed/simple;
+	bh=esoyENbZ44GNKmeZsIgGCCMJABdw5rCYrI7Eyyadykg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rGxO9AHjd4p4TqT8paBBqn3MaLxAKsUfAD09UY9j6aM69EcPJbyLnnO3E14uDYl0U0yppOLb/Ttxy+Pf8J+z0AzEe9HLhsXRdLitn9JMvpKfVX5OrrdgNhrHoxlUIv995q9vAXC4o33G/3m/y8xmjUME+37k7738zgafj8XO+wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk; spf=none smtp.mailfrom=ftp.linux.org.uk; dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b=W4NvXe3S; arc=none smtp.client-ip=62.89.141.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ftp.linux.org.uk
+	 Content-Type:Content-Disposition:In-Reply-To; b=DnLKkZifkvjYwZebo35TYXfq+cWQAa6j/qxyI/fZwie3mBps+uk+/ytKCXY5y5KTN4hYK3bhCChCpPCTQ/TZDkcjUUD+UXnO3PNcitXyOirWvcy1+2c8phS3pNyeoEzsMugX09AqY6WET+e9jQz6Zj05jpYfbnAOcaBgllpwj5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=usQQfmYl; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b="W4NvXe3S"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=cSs4Fxg3+Gv+8PrdKz5gHVkl12+opkOvD2Y/1wSCg1U=; b=W4NvXe3SsF07/exlGJuu7PFGcr
-	oqJNY4ii6Pa+mC1AsWqbfSQb1SkF+u8EyvwtRxE/mrN7nTHS9Az3CRxSfukMnzPQm1Y7qkMuBMEFO
-	HTd8ZV7WYtilYUrqoUQaHMTiQxYs8c5jQBZgVn8JtHIhrjnN1AhT49SknvhGLuLhba/XnOGN7M3XQ
-	TFTrFl6IrOEH1jA+33xeoUtX+U3f0wUa0QdUJO2DHpXn54Mft0Tbn3lZdMjdOWgx3nIjRDihdOdsD
-	+5Au6QmfFGbZkFkviLoDr8Z3+YjtjLDq93Wcout5uxJKzL4GxRF7h5dE/yPBWZXKRUo2BmvYBMWbd
-	I8aN0YxA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xBZDS-0000000D1nR-1pym;
-	Tue, 29 Sep 2026 14:53:59 +0000
-Date: Tue, 29 Sep 2026 15:53:58 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
- descriptor APIs
-Message-ID: <20260929145358.GC989762@ZenIV>
-References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
- <arThye_219ruNbM2@google.com>
- <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
- <20260929044843.GA3909609@ZenIV>
- <art7swUNAa3AyUrL@google.com>
- <20260929132839.GA989762@ZenIV>
- <CAH5fLgis-9ibYAEK-shQtwg_08Le-JDYChS77LugEhgZ=T+z8Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="usQQfmYl"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2AFA61516;
+	Tue, 29 Sep 2026 07:54:16 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E16CE3F86F;
+	Tue, 29 Sep 2026 07:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790693659; bh=esoyENbZ44GNKmeZsIgGCCMJABdw5rCYrI7Eyyadykg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=usQQfmYlajLnTt3wS3Cpwl1JJlsmTCBvkV00hc0gHLiKtTq9D21EFhHZpHrol63Sw
+	 ezI/oqCtiJZ8fufONKeFniRYVyI4Ec4TQisPUmWTJIa8uZ0Wo5croexuMueCHlBgA8
+	 inet1daapOv/NeaB2yMOTurFhSXlLm+d5NL/+PXE=
+Date: Tue, 29 Sep 2026 15:54:05 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Quentin Perret <qperret@google.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>, Fuad Tabba <tabba@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] KVM: arm64: Apply the fine-grained UNDEFs without
+ FEAT_FGT
+Message-ID: <lfkiqqw72uqjih442pozc3gsydxwmdj3kacgl7c2572kxzx3sf@vivqilohtwqn>
+References: <20260929090031.3829185-1-fuad.tabba@linux.dev>
+ <20260929090031.3829185-2-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,27 +49,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAH5fLgis-9ibYAEK-shQtwg_08Le-JDYChS77LugEhgZ=T+z8Q@mail.gmail.com>
-Sender: Al Viro <viro@ftp.linux.org.uk>
+In-Reply-To: <20260929090031.3829185-2-fuad.tabba@linux.dev>
 
-On Tue, Sep 29, 2026 at 03:35:13PM +0200, Alice Ryhl wrote:
+On Tue, Sep 29, 2026 at 10:00:28AM +0100, Fuad Tabba wrote:
+> triage_sysreg_trap() applies the FGU bits through the encoding's FGT
+> entry in the trap xarray, and populate_nv_trap_config() only adds those
+> entries on a CPU with FEAT_FGT. Without it, a hidden feature that still
+> traps reaches its handler instead: a TLBI OS trapped through
+> HCR_EL2.TTLBOS lands in handle_tlbi_el1(), which expects an EL1 TLBI
+> only from vEL2 and WARNs before the guest gets its UNDEF. A VMM can
+> trigger the WARN by hiding TLBI OS and having the guest execute one.
+> 
+> kvm_calculate_traps() computes the FGU bits with or without FEAT_FGT,
+> and the entries map an encoding to its FGT bit whatever the CPU
+> implements. Add them unconditionally, so that a hidden feature that
+> traps is UNDEFINED on any CPU.
 
-> Sorry I mixed it up ... the code called file_close_fd() and then
-> filp_close() with current->files. The important call here is the
-> file_close_fd() one, not the filp_close() one.
+This reads a bit mechanical to me, can I suggest:
 
-Er...  But that would *not* see NULL ->files in case of workqueue -
-you'd get init_files instead.  vhost_task_create() is the only
-thing that creates threads with NULL ->files; it might or might
-not make sense to have the same for workqueue worker threads,
-but that wouldn't change anything in that bug anyway.
+```
+FGUs don't actually require hardware support, so don't gate fgt trap
+config insertion on FGT. This is the only action required to allow FGUs
+always, as kvm_calculate_traps() already computes the FGU bits with or
+without FEAT_FGT.
 
-When you want to change the state of a thread component, be it
-descriptor table, cwd, umask, etc., you'd better do that in
-a thread that *does* share that component with the thread you
-want to have affected.
+This also fixes a spurious WARN when a TLBI OS is run on a guest in vEL1
+without FEAT_TLBIOS on non FEAT_FGT hardware. In this configuration the
+course-grained HCR_EL2.TTLBOS trap reaches the handler handle_tlbi_el1(),
+which expects an EL1 TLBI only from vEL2. With FGUs enabled the UNDEF
+will be injected without needing the specific handler.
+```
 
-It's not a matter of race with exiting thread - closing a descriptor
-via schedule_work() is _always_ wrong.
+Other than that, this is very nice! Sorry for missing this. It's way
+better to have FGU regardless of FGT and handle unexposed TLBIOS with
+FGU always. Thanks Oliver for suggesting this instead, and thanks Fuad
+for digging in.
 
-I really don't get it...
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
+
+Thanks,
+Wei-Lin Chang
+
+> 
+> Fixes: f5a5a406b4b8b ("KVM: arm64: Propagate and handle Fine-Grained UNDEF bits")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+> ---
+> 
+> Notes:
+>     For a nested guest on a CPU without FGT, check_fgt_bit() now runs too,
+>     but it forwards nothing: a guest without FEAT_FGT has its FGT registers
+>     RES0.
+>     
+>     f5a5a406b4b8b added the FGU check to triage_sysreg_trap() behind an
+>     ARM64_HAS_FGT gate that populate_nv_trap_config() already had, so the
+>     check never fired without FGT.
+> 
+>  arch/arm64/kvm/emulate-nested.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+> index 625604019fb32..b8529532b6e78 100644
+> --- a/arch/arm64/kvm/emulate-nested.c
+> +++ b/arch/arm64/kvm/emulate-nested.c
+> @@ -2386,9 +2386,6 @@ int __init populate_nv_trap_config(void)
+>  				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
+>  			}
+>  
+> -			if (!cpus_have_final_cap(ARM64_HAS_FGT))
+> -				continue;
+> -
+>  			prev = xa_store(&sr_forward_xa, enc,
+>  					xa_mk_value(tc.val), GFP_KERNEL);
+>  
+> -- 
+> 2.39.5
+> 
