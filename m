@@ -1,38 +1,38 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9D84FD7B2;
-	Tue, 29 Sep 2026 13:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FA85275B5;
+	Tue, 29 Sep 2026 13:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686929; cv=none; b=a0kLlaCNtuRbrbskGoBmyNRESY5EO33nWXQBPeWj6svDCONJ4BzB14r+2WtRu0tqM5nJ29+YVB2RPs+kASjr5F7idHMGnh7v6RBo60PewhL7sPoiLd5cjzH/oZbHJVSOaVNBHU9Oh4HuH6wFEcYfXcuv0dBIFBauWImzAsUhgcs=
+	t=1790686934; cv=none; b=c71JWZOnAjFQORVC1p0ZgoeyvZWam/GSU9K9zvPw7khO/MvvdoPl9X9uuIKtf2UuJe1hoSLi3EzQMiyVmeef6xoe8QFQUYlnAHJ46Eu886Vy7CsJImv5is7muXKizKb4IPHpk1U0MQIIkdcmiAwCxaMnqWazRqd9YTWYTN9N6Jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686929; c=relaxed/simple;
-	bh=WS7/rv+1j4KLhRVMYVbQpJXVGNgIjE+6F3oidp07VCE=;
+	s=arc-20240116; t=1790686934; c=relaxed/simple;
+	bh=fmvSzqSz7oK6q5pj0w5zX9ertE1cTqQk+cSXid1Av10=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mKuEvrAezEeE7cD9RKFl9qFAOID8Q37IG1YEFGO9SUb22yb7G0vv2VvqpsJeIG6DwhDKQgGUBd5TKOl983TBlMJ1DkFJEkc59pinMyKHDKNXW0d+qFfmMHEY8tKtAk4OuYPOorSBKTmffy4T/39seUa608Hiqy5KBl0xeYp3oOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=nm9PVa8x; arc=none smtp.client-ip=113.46.200.220
+	 MIME-Version:Content-Type; b=GHYhsxk+h6O1AQNR+Fu+TU36ZNWffGS250+WrxhCgNaLdg7Wysn+Db6eKEQlAC8A018Pb4q8mquIPXNSgfBkyCfdVXtjMHaWk3K5uHa8y3uauJmnjJ4ZI1NhnmoMX0RjVS9iAv6a5tx1S8SS7tjCxew1iUnscQ6YH59pB/mJmBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VFCnV2kg; arc=none smtp.client-ip=113.46.200.223
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="nm9PVa8x"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VFCnV2kg"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=5XAn6zhR8TlnHteI0nnuYbqgMQj+LJ5WKgZIIVFlK7s=;
-	b=nm9PVa8xFIBgUvAqkBLN7U2om6/WJA5JNCCyDV+s5uzWQHz03DBdIBMFb0HAwGv9MnRPg1eEz
-	gVd9nay2uVFictUymaPVaIUKvkWZmAvVDBfFKelpSTOJzglAbY1t3IU5jAjTHYQz71Fsr04ru4A
-	JvPKxJRp6w8eG0sExmy57zk=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hvJ126fKHz12LHn;
-	Tue, 29 Sep 2026 20:49:58 +0800 (CST)
+	bh=qqS7a9MwZbdqkkqEe8Dg53UzLbjTTNtbenRt5JmZLaQ=;
+	b=VFCnV2kgxBl6apxhR7or5eplhLI46uWy7dZVbOpdKTqohSpxqRXYh3LGVrJYkZiHOoFnFZHY9
+	MYNoKNB5gJPuaCZG+yrw50uvhR2u0qi1XRiViXLbQtsoM+AWRHkv4qDIBnXUPZ0cB8IjCc41YUc
+	/HvqyNawaVja64Qch8kGdJs=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hvJ0y2Mj0zmV7C;
+	Tue, 29 Sep 2026 20:49:54 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 884D24057D;
-	Tue, 29 Sep 2026 21:02:01 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id A60C54056C;
+	Tue, 29 Sep 2026 21:02:02 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 21:02:00 +0800
+ 2026 21:02:01 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <serge@hallyn.com>, <kees@kernel.org>, <akpm@linux-foundation.org>,
 	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
@@ -50,9 +50,9 @@ To: <serge@hallyn.com>, <kees@kernel.org>, <akpm@linux-foundation.org>,
 	<linux-fsdevel@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
 	<linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>, <morgan@kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 2/3] security: Add PR_CAPBSET_DROP_MASK for process-wide bounding-set drops
-Date: Tue, 29 Sep 2026 21:01:59 +0800
-Message-ID: <20260929130200.1638343-3-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v2 3/3] selftests: prctl: add process-wide bounding-set drop tests
+Date: Tue, 29 Sep 2026 21:02:00 +0800
+Message-ID: <20260929130200.1638343-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260929130200.1638343-1-ruanjinjie@huawei.com>
 References: <20260929130200.1638343-1-ruanjinjie@huawei.com>
@@ -67,289 +67,701 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-PR_CAPBSET_DROP only affects the calling thread. Process-wide capability
-dropping requires user space to loop over every thread and every
-capability, which is highly expensive. For instance, long-lived
-multi-threaded processes (like gVisor's sentry) spend milliseconds
-trimming the bounding set because the runtime has to coordinate
-and signal every thread.
+Add tests for PR_CAPBSET_DROP_MASK covering:
+- Argument validation
+- Permission checking
+- Process-wide application of the drop, including:
+  - The calling thread
+  - Blocked sibling threads
+  - Threads created afterwards
+  - Children forked by a sibling that has not materialized the drop yet
+- Concurrent thread creation (clone() races)
+- Concurrent callers with different masks and both words
+  of the capability mask
+- Ignore behavior for bits representing capabilities unknown to the kernel
 
-Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
-capabilities from the entire thread group's bounding set in a single call.
-The capabilities are specified via a 64-bit mask across arg2 (low 32 bits)
-and arg3 (high 32 bits).
-
-The drop is recorded in a per-thread-group mask,
-signal_struct::cap_bset_pending, under sighand->siglock. This pending drop
-is dynamically folded into the bounding set in critical paths:
-cap_capset(), PR_CAPBSET_READ(), and cap_bprm_creds_from_file().
-Running, concurrently created, or future threads within the group will
-all immediately observe the drop. A forked child inherits this mask
-in cap_bset_drop_fork() under siglock to close the race window
-against clone().
-
-The operation is drop-only, so concurrent callers commute and a single
-atomic OR is the linearization point.  It performs no per-thread allocation
-and only the caller's replacement cred can fail, reported synchronously as
--ENOMEM before anything changes.
-
-In an arm64 KVM guest, trimming 41 capabilities of a multi-threaded Go
-process takes ~8.5-23.6ms with the per-thread PR_CAPBSET_DROP loop and
-~11-14us with PR_CAPBSET_DROP_MASK, independent of the thread count.
-
+Assisted-by: DeepSeek:DeepSeek-v4 flash
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- fs/proc/array.c              |  3 +-
- include/linux/capability.h   |  5 ++
- include/linux/sched/signal.h |  8 ++++
- include/uapi/linux/prctl.h   |  1 +
- kernel/fork.c                |  1 +
- security/commoncap.c         | 91 ++++++++++++++++++++++++++++++++++--
- 6 files changed, 105 insertions(+), 4 deletions(-)
+ tools/testing/selftests/prctl/Makefile        |  12 +-
+ .../selftests/prctl/cap-bset-drop-test.c      | 641 ++++++++++++++++++
+ 2 files changed, 649 insertions(+), 4 deletions(-)
+ create mode 100644 tools/testing/selftests/prctl/cap-bset-drop-test.c
 
-diff --git a/fs/proc/array.c b/fs/proc/array.c
-index f6f75d206762..f1cde26d079c 100644
---- a/fs/proc/array.c
-+++ b/fs/proc/array.c
-@@ -63,6 +63,7 @@
- #include <linux/tty.h>
- #include <linux/string.h>
- #include <linux/mman.h>
-+#include <linux/capability.h>
- #include <linux/sched/mm.h>
- #include <linux/sched/numa_balancing.h>
- #include <linux/sched/task_stack.h>
-@@ -318,7 +319,7 @@ static inline void task_cap(struct seq_file *m, struct task_struct *p)
- 	cap_inheritable	= cred->cap_inheritable;
- 	cap_permitted	= cred->cap_permitted;
- 	cap_effective	= cred->cap_effective;
--	cap_bset	= cred->cap_bset;
-+	cap_bset	= cap_bset_effective(p, cred);
- 	cap_ambient	= cred->cap_ambient;
- 	rcu_read_unlock();
+diff --git a/tools/testing/selftests/prctl/Makefile b/tools/testing/selftests/prctl/Makefile
+index e770e86fad9a..583e8775be1f 100644
+--- a/tools/testing/selftests/prctl/Makefile
++++ b/tools/testing/selftests/prctl/Makefile
+@@ -1,14 +1,18 @@
+ # SPDX-License-Identifier: GPL-2.0
+-ifndef CROSS_COMPILE
+ ARCH ?= $(shell uname -m 2>/dev/null || echo not)
+ override ARCH := $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64/x86/)
  
-diff --git a/include/linux/capability.h b/include/linux/capability.h
-index 7921a0b3b04a..6413c7fedb69 100644
---- a/include/linux/capability.h
-+++ b/include/linux/capability.h
-@@ -38,6 +38,7 @@ struct file;
- struct inode;
- struct dentry;
- struct task_struct;
-+struct cred;
- struct user_namespace;
- struct mnt_idmap;
- 
-@@ -197,6 +198,10 @@ bool capable_wrt_inode_uidgid(struct mnt_idmap *idmap,
- 			      const struct inode *inode, int cap);
- extern bool file_ns_capable(const struct file *file, struct user_namespace *ns, int cap);
- extern bool ptracer_capable(struct task_struct *tsk, struct user_namespace *ns);
-+extern kernel_cap_t cap_bset_effective(const struct task_struct *task,
-+				       const struct cred *cred);
-+extern void cap_bset_drop_fork(struct task_struct *p);
++TEST_GEN_PROGS := cap-bset-drop-test
++LDLIBS += -lpthread
 +
- static inline bool perfmon_capable(void)
- {
- 	return capable(CAP_PERFMON) || capable(CAP_SYS_ADMIN);
-diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-index d45a5476b97d..bda6f18b65b9 100644
---- a/include/linux/sched/signal.h
-+++ b/include/linux/sched/signal.h
-@@ -98,6 +98,14 @@ struct signal_struct {
- 	int			quick_threads;
- 	struct list_head	thread_head;
- 
-+	/*
-+	 * Capabilities being removed from the bounding set of every thread in
-+	 * this group by PR_CAPBSET_DROP_MASK.  Read on capability-transition
-+	 * paths without sighand->siglock, hence atomic64 (a 64-bit value would
-+	 * otherwise tear on 32-bit).
-+	 */
-+	atomic64_t		cap_bset_pending;
++# The tests below are x86-only and embed x86 assembly, so they can only be
++# built when not cross-compiling.
++ifndef CROSS_COMPILE
+ ifeq ($(ARCH),x86)
+ TEST_PROGS := disable-tsc-ctxt-sw-stress-test disable-tsc-on-off-stress-test \
+ 		disable-tsc-test set-anon-vma-name-test set-process-name
+ all: $(TEST_PROGS)
+-
+-include ../lib.mk
+-
+ endif
+ endif
 +
- 	wait_queue_head_t	wait_chldexit;	/* for wait4() */
- 
- 	/* current thread group signal load-balancing target: */
-diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-index b6ec6f693719..85ac71897070 100644
---- a/include/uapi/linux/prctl.h
-+++ b/include/uapi/linux/prctl.h
-@@ -70,6 +70,7 @@
- /* Get/set the capability bounding set (as per security/commoncap.c) */
- #define PR_CAPBSET_READ 23
- #define PR_CAPBSET_DROP 24
-+#define PR_CAPBSET_DROP_MASK 82
- 
- /* Get/set the process' ability to use the timestamp counter instruction */
- #define PR_GET_TSC 25
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 5ef413368912..bf671a85d39d 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2504,6 +2504,7 @@ __latent_entropy struct task_struct *copy_process(
- 	 * before holding sighand lock.
- 	 */
- 	copy_seccomp(p);
-+	cap_bset_drop_fork(p);
- 
- 	if (clone_flags & CLONE_NNP)
- 		task_set_no_new_privs(p);
-diff --git a/security/commoncap.c b/security/commoncap.c
-index 3399535808fe..3bec15d43731 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -3,6 +3,7 @@
-  */
- 
- #include <linux/capability.h>
-+#include <linux/cred.h>
- #include <linux/audit.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
-@@ -19,6 +20,7 @@
- #include <linux/hugetlb.h>
- #include <linux/mount.h>
- #include <linux/sched.h>
-+#include <linux/sched/signal.h>
- #include <linux/prctl.h>
- #include <linux/securebits.h>
- #include <linux/user_namespace.h>
-@@ -30,6 +32,25 @@
- #define CREATE_TRACE_POINTS
- #include <trace/events/capability.h>
- 
-+/**
-+ * Effective bounding set of @cred in @task's thread group
-+ * @task: task whose thread group's pending drop applies
-+ * @cred: credentials to read the bounding set from
-+ *
-+ * A drop recorded by PR_CAPBSET_DROP_MASK is authoritative on the thread group
-+ * and may not have been materialized into every thread's cred yet, so the
-+ * effective bounding set is the cred's own set minus the group's pending drop.
++include ../lib.mk
+diff --git a/tools/testing/selftests/prctl/cap-bset-drop-test.c b/tools/testing/selftests/prctl/cap-bset-drop-test.c
+new file mode 100644
+index 000000000000..d0432f9b5837
+--- /dev/null
++++ b/tools/testing/selftests/prctl/cap-bset-drop-test.c
+@@ -0,0 +1,641 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Tests for PR_CAPBSET_DROP_MASK: argument validation, permission checking,
++ * and process-wide application of the bounding set drop to sibling threads
++ * and to threads created afterwards.
 + */
-+kernel_cap_t cap_bset_effective(const struct task_struct *task,
-+				const struct cred *cred)
-+{
-+	kernel_cap_t pending = {
-+		.val = atomic64_read(&task->signal->cap_bset_pending),
-+	};
 +
-+	return cap_drop(cred->cap_bset, pending);
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <pthread.h>
++#include <sched.h>
++#include <stdatomic.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/prctl.h>
++#include <sys/syscall.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include <linux/capability.h>
++
++#include "../kselftest.h"
++
++#ifndef PR_CAPBSET_DROP_MASK
++#define PR_CAPBSET_DROP_MASK 82
++#endif
++
++#define N_THREADS 4
++
++#define CHILD_PASS	0
++#define CHILD_FAIL	1
++#define CHILD_SKIP	2
++
++static int pipe_fd[2];
++static atomic_int threads_ready;
++static atomic_int threads_ok;
++static unsigned long dropped_cap;
++
++static atomic_int fork_go;
++static atomic_int fork_ok;
++
++static atomic_int conc_stop;
++static atomic_int conc_dropped;
++static atomic_int conc_bad;
++
++#define MULTI_DROP 8
++static int multi_caps[MULTI_DROP];
++static int multi_n;
++static pthread_barrier_t multi_start;
++static atomic_int multi_done;
++static atomic_int multi_bad;
++
++static int last_cap;
++
++static int read_last_cap(void)
++{
++	char buf[32];
++	int fd, n, v = -1;
++
++	fd = open("/proc/sys/kernel/cap_last_cap", O_RDONLY);
++	if (fd < 0)
++		return -1;
++	n = read(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (n <= 0)
++		return -1;
++	buf[n] = '\0';
++	v = atoi(buf);
++	return v;
 +}
 +
- /*
-  * If a non-root user executes a setuid-root binary in
-  * !secure(SECURE_NOROOT) mode, then we raise capabilities.
-@@ -284,8 +305,8 @@ int cap_capset(struct cred *new,
- 
- 	if (!cap_issubset(*inheritable,
- 			  cap_combine(old->cap_inheritable,
--				      old->cap_bset)))
- 		/* no new pI capabilities outside bounding set */
-+				      cap_bset_effective(current, old))))
- 		return -EPERM;
- 
- 	/* verify restrictions on target's new Permitted set */
-@@ -849,7 +870,7 @@ static void handle_privileged_root(struct linux_binprm *bprm, bool has_fcap,
- 	 */
- 	if (__is_eff(root_uid, new) || __is_real(root_uid, new)) {
- 		/* pP' = (cap_bset & ~0) | (pI & ~0) */
--		new->cap_permitted = cap_combine(old->cap_bset,
-+		new->cap_permitted = cap_combine(new->cap_bset,
- 						 old->cap_inheritable);
- 	}
- 	/*
-@@ -925,6 +946,8 @@ int cap_bprm_creds_from_file(struct linux_binprm *bprm, const struct file *file)
- 	int ret;
- 	kuid_t root_uid;
- 
-+	new->cap_bset = cap_bset_effective(current, new);
-+
- 	if (WARN_ON(!cap_ambient_invariant_ok(old)))
- 		return -EPERM;
- 
-@@ -1283,6 +1306,63 @@ static int cap_prctl_drop(unsigned long cap)
- 	return commit_creds(new);
- }
- 
-+static int cap_bset_drop_process(kernel_cap_t mask)
++static int bset_has(unsigned long cap)
 +{
-+	kernel_cap_t pending;
-+	struct cred *new;
++	return prctl(PR_CAPBSET_READ, cap, 0, 0, 0) > 0;
++}
 +
-+	new = prepare_creds();
-+	if (!new)
-+		return -ENOMEM;
++static int drop_cap(unsigned long cap)
++{
++	unsigned long low = cap < 32 ? 1UL << cap : 0;
++	unsigned long high = cap < 32 ? 0 : 1UL << (cap - 32);
 +
-+	/*
-+	 * Record the drop before committing the caller's cred, so that a
-+	 * thread created from now on is guaranteed to observe it.  Apply the
-+	 * current union, not just this call's mask, to the caller's cred.
-+	 */
-+	spin_lock_irq(&current->sighand->siglock);
-+	atomic64_or(mask.val, &current->signal->cap_bset_pending);
-+	pending.val = atomic64_read(&current->signal->cap_bset_pending);
-+	spin_unlock_irq(&current->sighand->siglock);
++	return prctl(PR_CAPBSET_DROP_MASK, low, high, 0, 0);
++}
 +
-+	new->cap_bset = cap_drop(new->cap_bset, pending);
-+	commit_creds(new);
++static int run_child(int (*fn)(void))
++{
++	pid_t pid;
++	int status;
 +
-+	return 0;
++	pid = fork();
++	if (pid < 0)
++		return CHILD_FAIL;
++	if (pid == 0)
++		_exit(fn());
++	if (waitpid(pid, &status, 0) < 0 || !WIFEXITED(status))
++		return CHILD_FAIL;
++	return WEXITSTATUS(status);
++}
++
++static void report_child(int ret, const char *name)
++{
++	if (ret == CHILD_PASS)
++		ksft_test_result_pass("%s\n", name);
++	else if (ret == CHILD_SKIP)
++		ksft_test_result_skip("%s\n", name);
++	else
++		ksft_test_result_fail("%s\n", name);
++}
++
++static void run_test(int cond, int (*fn)(void), const char *name)
++{
++	if (!cond) {
++		ksft_test_result_skip("%s\n", name);
++		return;
++	}
++	report_child(run_child(fn), name);
 +}
 +
 +/*
-+ * Propagate a pending process-wide bounding-set drop to @p, a task being
-+ * created by the current thread.  Threads sharing the group read
-+ * current->signal->cap_bset_pending directly; a forked child gets its own
-+ * signal_struct and must carry the mask itself.  Called under
-+ * current->sighand->siglock, which serializes it with cap_bset_drop_process().
++ * Return the first capability in [lo, hi] that is set in the bounding set,
++ * or -1 if there is none.
 + */
-+void cap_bset_drop_fork(struct task_struct *p)
++static int pick_cap(int lo, int hi)
 +{
-+	kernel_cap_t mask = {
-+		.val = atomic64_read(&current->signal->cap_bset_pending),
++	int cap;
++
++	for (cap = lo; cap <= hi; cap++)
++		if (bset_has(cap))
++			return cap;
++	return -1;
++}
++
++static int have_cap_setpcap(void)
++{
++	struct __user_cap_header_struct hdr = {
++		.version = _LINUX_CAPABILITY_VERSION_3,
 +	};
++	struct __user_cap_data_struct data[2];
 +
-+	if (cap_isclear(mask) || p->signal == current->signal)
-+		return;
-+
-+	atomic64_or(mask.val, &p->signal->cap_bset_pending);
-+}
-+
-+static int cap_prctl_drop_mask(unsigned long low, unsigned long high)
-+{
-+	kernel_cap_t mask = mk_kernel_cap((u32)low, (u32)high);
-+
-+	if (cap_isclear(mask))
++	if (syscall(SYS_capget, &hdr, data))
 +		return 0;
-+
-+	if (!ns_capable(current_user_ns(), CAP_SETPCAP))
-+		return -EPERM;
-+
-+	return cap_bset_drop_process(mask);
++	return !!(data[0].effective & (1U << CAP_SETPCAP));
 +}
 +
- /**
-  * cap_task_prctl - Implement process control functions for this security module
-  * @option: The process control function requested
-@@ -1308,11 +1388,16 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
- 	case PR_CAPBSET_READ:
- 		if (!cap_valid(arg2))
- 			return -EINVAL;
--		return !!cap_raised(old->cap_bset, arg2);
-+		return !!cap_raised(cap_bset_effective(current, old), arg2);
- 
- 	case PR_CAPBSET_DROP:
- 		return cap_prctl_drop(arg2);
- 
-+	case PR_CAPBSET_DROP_MASK:
-+		if (arg4 || arg5)
-+			return -EINVAL;
-+		return cap_prctl_drop_mask(arg2, arg3);
++static int drop_effective_cap_setpcap(void)
++{
++	struct __user_cap_header_struct hdr = {
++		.version = _LINUX_CAPABILITY_VERSION_3,
++	};
++	struct __user_cap_data_struct data[2];
 +
- 	/*
- 	 * The next four prctl's remain to assist with transitioning a
- 	 * system from legacy UID=0 based privilege (when filesystem
++	if (syscall(SYS_capget, &hdr, data))
++		return -1;
++	data[0].effective &= ~(1U << CAP_SETPCAP);
++	return syscall(SYS_capset, &hdr, data);
++}
++
++static void *blocked_worker(void *arg)
++{
++	char c;
++
++	(void)arg;
++
++	atomic_fetch_add(&threads_ready, 1);
++
++	/*
++	 * Block until the main thread has issued the drop.  The drop is made
++	 * effective for the whole group through the thread group's pending
++	 * mask, so it must be visible here once we run again.
++	 */
++	for (;;) {
++		ssize_t n = read(pipe_fd[0], &c, 1);
++
++		if (n == 1)
++			break;
++		if (n < 0 && errno == EINTR)
++			continue;
++		return NULL;
++	}
++
++	if (prctl(PR_CAPBSET_READ, dropped_cap, 0, 0, 0) == 0)
++		atomic_fetch_add(&threads_ok, 1);
++	return NULL;
++}
++
++static void *late_worker(void *arg)
++{
++	(void)arg;
++
++	/* Must inherit the reduced bounding set of the parent thread. */
++	if (prctl(PR_CAPBSET_READ, dropped_cap, 0, 0, 0) == 0)
++		atomic_fetch_add(&threads_ok, 1);
++	return NULL;
++}
++
++/*
++ * Child for the functional tests: drop @cap with PR_CAPBSET_DROP_MASK and
++ * verify that the calling thread, all blocked sibling threads and a thread
++ * created afterwards lose it from their bounding sets.
++ */
++static int drop_test_child(void)
++{
++	unsigned long cap = dropped_cap;
++	pthread_t t[N_THREADS], late;
++	char c = 'x';
++	int i, ret;
++
++	atomic_store(&threads_ready, 0);
++	atomic_store(&threads_ok, 0);
++
++	if (pipe(pipe_fd))
++		return CHILD_FAIL;
++
++	for (i = 0; i < N_THREADS; i++) {
++		if (pthread_create(&t[i], NULL, blocked_worker, NULL)) {
++			close(pipe_fd[0]);
++			close(pipe_fd[1]);
++			return CHILD_FAIL;
++		}
++	}
++	while (atomic_load(&threads_ready) < N_THREADS)
++		sched_yield();
++
++	ret = drop_cap(cap);
++	if (ret) {
++		ksft_print_msg("PR_CAPBSET_DROP_MASK(cap %lu) failed: %s\n",
++			       cap, strerror(errno));
++		ret = CHILD_FAIL;
++		goto out;
++	}
++
++	for (i = 0; i < N_THREADS; i++) {
++		if (write(pipe_fd[1], &c, 1) != 1) {
++			ksft_print_msg("pipe write failed: %s\n",
++				       strerror(errno));
++			/* Close the write end so the workers see EOF. */
++			close(pipe_fd[1]);
++			pipe_fd[1] = -1;
++			ret = CHILD_FAIL;
++			goto out_join;
++		}
++	}
++out_join:
++	for (i = 0; i < N_THREADS; i++)
++		pthread_join(t[i], NULL);
++
++	if (atomic_load(&threads_ok) != N_THREADS) {
++		ksft_print_msg("only %d of %d sibling threads saw the drop\n",
++			       atomic_load(&threads_ok), N_THREADS);
++		ret = CHILD_FAIL;
++		goto out;
++	}
++
++	/* The calling thread must have dropped it synchronously. */
++	if (bset_has(cap)) {
++		ksft_print_msg("calling thread still has capability %lu\n",
++			       cap);
++		ret = CHILD_FAIL;
++		goto out;
++	}
++
++	/* A thread created afterwards must inherit the reduced set. */
++	if (pthread_create(&late, NULL, late_worker, NULL))
++		goto out_ok;
++	pthread_join(late, NULL);
++	if (atomic_load(&threads_ok) != N_THREADS + 1) {
++		ksft_print_msg("late thread did not inherit the drop\n");
++		ret = CHILD_FAIL;
++		goto out;
++	}
++
++out_ok:
++	ret = CHILD_PASS;
++out:
++	if (pipe_fd[1] >= 0)
++		close(pipe_fd[1]);
++	close(pipe_fd[0]);
++	return ret;
++}
++
++/*
++ * A sibling thread that did not call PR_CAPBSET_DROP_MASK has not had its own
++ * cred updated, but it must still observe the drop and must pass the reduced
++ * bounding set to any child it forks.
++ */
++static void *fork_sibling(void *arg)
++{
++	pid_t pid;
++	int status;
++
++	(void)arg;
++
++	while (!atomic_load(&fork_go))
++		sched_yield();
++
++	if (bset_has(dropped_cap))
++		atomic_store(&fork_ok, 0);
++
++	pid = fork();
++	if (pid == 0)
++		_exit(bset_has(dropped_cap) ? 1 : 0);
++	if (pid < 0) {
++		atomic_store(&fork_ok, 0);
++		return NULL;
++	}
++	if (waitpid(pid, &status, 0) < 0 || !WIFEXITED(status) ||
++	    WEXITSTATUS(status) != 0)
++		atomic_store(&fork_ok, 0);
++	return NULL;
++}
++
++static int fork_test_child(void)
++{
++	pthread_t sib;
++
++	atomic_store(&fork_go, 0);
++	atomic_store(&fork_ok, 1);
++
++	if (pthread_create(&sib, NULL, fork_sibling, NULL))
++		return CHILD_FAIL;
++
++	if (drop_cap(dropped_cap)) {
++		atomic_store(&fork_go, 1);
++		pthread_join(sib, NULL);
++		return CHILD_FAIL;
++	}
++	atomic_store(&fork_go, 1);
++	pthread_join(sib, NULL);
++
++	return atomic_load(&fork_ok) ? CHILD_PASS : CHILD_FAIL;
++}
++
++/*
++ * Threads created while the drop is in flight (or immediately after) must all
++ * observe it: the pending mask is shared by the whole group, so a thread can
++ * never be born with a capability that a concurrent drop removed.
++ */
++static void *conc_worker(void *arg)
++{
++	(void)arg;
++
++	while (!atomic_load(&conc_dropped))
++		sched_yield();
++	if (bset_has(dropped_cap))
++		atomic_fetch_add(&conc_bad, 1);
++	return NULL;
++}
++
++static void *conc_spawner(void *arg)
++{
++	(void)arg;
++
++	while (!atomic_load(&conc_stop)) {
++		pthread_t t;
++
++		if (pthread_create(&t, NULL, conc_worker, NULL) == 0)
++			pthread_join(t, NULL);
++	}
++	return NULL;
++}
++
++static int conc_test_child(void)
++{
++	pthread_t sp[4];
++	int i;
++
++	atomic_store(&conc_stop, 0);
++	atomic_store(&conc_dropped, 0);
++	atomic_store(&conc_bad, 0);
++
++	for (i = 0; i < 4; i++) {
++		if (pthread_create(&sp[i], NULL, conc_spawner, NULL))
++			return CHILD_FAIL;
++	}
++
++	if (drop_cap(dropped_cap)) {
++		atomic_store(&conc_stop, 1);
++		for (i = 0; i < 4; i++)
++			pthread_join(sp[i], NULL);
++		return CHILD_FAIL;
++	}
++	atomic_store(&conc_dropped, 1);
++	usleep(20000);
++	atomic_store(&conc_stop, 1);
++	for (i = 0; i < 4; i++)
++		pthread_join(sp[i], NULL);
++
++	return atomic_load(&conc_bad) ? CHILD_FAIL : CHILD_PASS;
++}
++
++/*
++ * Several threads invoke PR_CAPBSET_DROP_MASK concurrently with different
++ * masks while other threads are cloning.  The primitive is drop-only, so
++ * concurrent calls commute and the result is always the union of the requested
++ * drops, regardless of who "wins"; every thread, including ones created during
++ * the race, must end up without any of them.
++ */
++static int multi_bset_has_any(void)
++{
++	int i;
++
++	for (i = 0; i < multi_n; i++)
++		if (bset_has(multi_caps[i]))
++			return 1;
++	return 0;
++}
++
++static void *multi_reader(void *arg)
++{
++	(void)arg;
++
++	while (!atomic_load(&multi_done))
++		sched_yield();
++	if (multi_bset_has_any())
++		atomic_fetch_add(&multi_bad, 1);
++	return NULL;
++}
++
++static void *multi_spawner(void *arg)
++{
++	(void)arg;
++
++	while (!atomic_load(&multi_done)) {
++		pthread_t t;
++
++		if (pthread_create(&t, NULL, multi_reader, NULL) == 0)
++			pthread_join(t, NULL);
++	}
++	return NULL;
++}
++
++static void *multi_dropper(void *arg)
++{
++	long i = (long)arg;
++
++	pthread_barrier_wait(&multi_start);
++	/* Drop its own cap, then immediately race a second time. */
++	drop_cap(multi_caps[i]);
++	drop_cap(multi_caps[(i + 1) % multi_n]);
++	return NULL;
++}
++
++static int multi_drop_test_child(void)
++{
++	pthread_t dr[MULTI_DROP], sp[4], late;
++	int i;
++
++	multi_n = 0;
++	for (i = 0; i <= last_cap && multi_n < MULTI_DROP; i++) {
++		if (i == CAP_SETPCAP)
++			continue;
++		if (bset_has(i))
++			multi_caps[multi_n++] = i;
++	}
++	if (multi_n < 2)
++		return CHILD_SKIP;
++
++	atomic_store(&multi_done, 0);
++	atomic_store(&multi_bad, 0);
++	pthread_barrier_init(&multi_start, NULL, multi_n + 1);
++
++	for (i = 0; i < 4; i++) {
++		if (pthread_create(&sp[i], NULL, multi_spawner, NULL))
++			return CHILD_FAIL;
++	}
++	for (i = 0; i < multi_n; i++) {
++		if (pthread_create(&dr[i], NULL, multi_dropper,
++				   (void *)(long)i))
++			return CHILD_FAIL;
++	}
++	pthread_barrier_wait(&multi_start);
++	for (i = 0; i < multi_n; i++)
++		pthread_join(dr[i], NULL);
++	atomic_store(&multi_done, 1);
++	for (i = 0; i < 4; i++)
++		pthread_join(sp[i], NULL);
++
++	if (multi_bset_has_any()) /* the calling thread itself */
++		return CHILD_FAIL;
++	if (atomic_load(&multi_bad))
++		return CHILD_FAIL;
++
++	pthread_create(&late, NULL, multi_reader, NULL);
++	pthread_join(late, NULL);
++	if (atomic_load(&multi_bad))
++		return CHILD_FAIL;
++
++	return CHILD_PASS;
++}
++
++/*
++ * With CAP_SETPCAP dropped from the effective set, a non-empty mask must be
++ * rejected with EPERM.
++ */
++static int eperm_child(void)
++{
++	if (drop_effective_cap_setpcap()) {
++		ksft_print_msg("capset failed: %s\n", strerror(errno));
++		return CHILD_FAIL;
++	}
++
++	if (prctl(PR_CAPBSET_DROP_MASK, 1, 0, 0, 0) == 0 ||
++	    errno != EPERM) {
++		ksft_print_msg("PR_CAPBSET_DROP_MASK without CAP_SETPCAP: %s\n",
++			       strerror(errno));
++		return CHILD_FAIL;
++	}
++	return CHILD_PASS;
++}
++
++/*
++ * An empty mask is a no-op and must succeed even without CAP_SETPCAP: the
++ * "nothing to drop" check precedes the permission check.
++ */
++static int empty_child(void)
++{
++	if (drop_effective_cap_setpcap()) {
++		ksft_print_msg("capset failed: %s\n", strerror(errno));
++		return CHILD_FAIL;
++	}
++
++	if (prctl(PR_CAPBSET_DROP_MASK, 0, 0, 0, 0) != 0) {
++		ksft_print_msg("empty mask without CAP_SETPCAP: %s\n",
++			       strerror(errno));
++		return CHILD_FAIL;
++	}
++	return CHILD_PASS;
++}
++
++int main(void)
++{
++	int privileged = have_cap_setpcap();
++	int cap_lo, cap_hi;
++	unsigned long long unknown;
++
++	last_cap = read_last_cap();
++
++	ksft_print_header();
++	ksft_set_plan(10);
++
++	/* Argument validation, independent of privileges. */
++	if (prctl(PR_CAPBSET_DROP_MASK, 0, 0, 1, 0) == 0 ||
++	    errno != EINVAL)
++		ksft_test_result_fail("PR_CAPBSET_DROP_MASK nonzero arg4\n");
++	else
++		ksft_test_result_pass("PR_CAPBSET_DROP_MASK nonzero arg4\n");
++
++	if (prctl(PR_CAPBSET_DROP_MASK, 0, 0, 0, 1) == 0 ||
++	    errno != EINVAL)
++		ksft_test_result_fail("PR_CAPBSET_DROP_MASK nonzero arg5\n");
++	else
++		ksft_test_result_pass("PR_CAPBSET_DROP_MASK nonzero arg5\n");
++
++	/*
++	 * An empty mask is a no-op and succeeds even without CAP_SETPCAP,
++	 * because the emptiness check comes before the permission check.
++	 */
++	if (privileged) {
++		ksft_test_result(run_child(empty_child) == CHILD_PASS,
++				 "empty mask without CAP_SETPCAP\n");
++	} else if (prctl(PR_CAPBSET_DROP_MASK, 0, 0, 0, 0) != 0) {
++		ksft_test_result_fail("empty mask without CAP_SETPCAP (errno=%d, old kernel?)\n",
++				      errno);
++	} else {
++		ksft_test_result_pass("empty mask without CAP_SETPCAP\n");
++	}
++
++	/* A non-empty mask without CAP_SETPCAP must fail with EPERM. */
++	if (privileged) {
++		ksft_test_result(run_child(eperm_child) == CHILD_PASS,
++				 "EPERM without CAP_SETPCAP\n");
++	} else if (prctl(PR_CAPBSET_DROP_MASK, 1, 0, 0, 0) == 0 ||
++		   errno != EPERM) {
++		ksft_test_result_fail("EPERM without CAP_SETPCAP (errno=%d, old kernel?)\n",
++				      errno);
++	} else {
++		ksft_test_result_pass("EPERM without CAP_SETPCAP\n");
++	}
++
++	/* Bits for capabilities unknown to the kernel are silently ignored. */
++	unknown = (last_cap >= 0 && last_cap < 63) ? (~0ULL << (last_cap + 1)) : 0;
++	if (unknown) {
++		unsigned long low = (unsigned int)unknown;
++		unsigned long high = (unsigned int)(unknown >> 32);
++
++		if (!privileged) {
++			ksft_test_result_skip("unknown capabilities ignored (needs CAP_SETPCAP)\n");
++		} else if (prctl(PR_CAPBSET_DROP_MASK, low, high, 0, 0)) {
++			ksft_test_result_fail("unknown capabilities ignored (errno=%d)\n",
++					      errno);
++		} else {
++			ksft_test_result_pass("unknown capabilities ignored\n");
++		}
++	} else {
++		ksft_test_result_skip("unknown capabilities ignored\n");
++	}
++
++	/*
++	 * Functional tests, each in a child so the parent keeps its own
++	 * bounding set.  A low-word and a high-word capability cover the
++	 * arg2/arg3 split.
++	 */
++	cap_lo = last_cap >= 0 ? pick_cap(0, last_cap < 31 ? last_cap : 31) : -1;
++	cap_hi = last_cap > 31 ? pick_cap(32, last_cap) : -1;
++
++	dropped_cap = cap_lo;
++	run_test(privileged && cap_lo >= 0, drop_test_child,
++		 "PR_CAPBSET_DROP_MASK drops all threads");
++
++	dropped_cap = cap_hi;
++	run_test(privileged && cap_hi >= 0, drop_test_child,
++		 "PR_CAPBSET_DROP_MASK high word");
++
++	dropped_cap = cap_lo;
++
++	/*
++	 * A child forked by a sibling thread that has not materialized the
++	 * drop into its own cred must still inherit the reduced bounding set.
++	 */
++	run_test(privileged && cap_lo >= 0, fork_test_child,
++		 "PR_CAPBSET_DROP_MASK inherited by forked child");
++
++	/*
++	 * Threads created concurrently with the drop must all observe it.
++	 */
++	run_test(privileged && cap_lo >= 0, conc_test_child,
++		 "PR_CAPBSET_DROP_MASK concurrent threads");
++
++	/*
++	 * Concurrent callers with different masks, racing with thread
++	 * creation: the drop-only primitive must commute and the union of all
++	 * requested drops must be enforced on every thread.
++	 */
++	run_test(privileged, multi_drop_test_child,
++		 "PR_CAPBSET_DROP_MASK concurrent masks");
++
++	ksft_finished();
++}
 -- 
 2.34.1
 
