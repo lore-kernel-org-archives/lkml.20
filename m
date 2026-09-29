@@ -1,67 +1,63 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B251357C;
-	Tue, 29 Sep 2026 11:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4384EC650;
+	Tue, 29 Sep 2026 11:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.35
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682692; cv=fail; b=g1DILbbLl6vjvD6p6gMSRfU19H4o20MCdwuB5TOrvz1uBY8xndifPozBd1tW/SlNqbcmfoYMR0rqcgibU+ZDLFpE5Ia3rVafZ6J5ldscRaCUcdfkIaUCFLcRZfLm4fzdU5rhtrjIW5uny6kf70JzceDW5zhQYQt2zJRqtXf0f2s=
+	t=1790682701; cv=fail; b=eSlwkh7FvTB5T/xcXoCiKI89eZ7bgTgb4g0k5SgJJPJIkzMBLFY69Jo1djLse4ucDKHTUP0pB/x4fMZC6saSsPJGMp54oxM0d7Fr9Kt4QRpfPoeIQvZ+x+68zYtgqRCADR5BTIb/VRKt/0ZNYWX0m4WBhjuQzLKzgPZ2Uxg/jcQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682692; c=relaxed/simple;
-	bh=w5O/H19STnzcGBXx8jVQXUnT82ZrqIZWkZcxbsX2VGs=;
+	s=arc-20240116; t=1790682701; c=relaxed/simple;
+	bh=Feu6GO3aUVa/ljso/jSUF5gCVvOnHNJpaC1jgFuRh5s=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mliXdN8D8viduMxNOTy1fBMG84CdGC/9qkASXzn/0aEOEpHm7ZxN6FXSf+eb0eEjFzHyz/KwYsir/Tyk+jdQ7fCIkwiFwcgo4fdWkK49v9r50ZlEEZi3nsHiYxoMuHkxy5YJr+94g0Uj+WrhzWY9l6bVvfqrNQXwVv01UuZPK14=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Dr1o1WI9; arc=fail smtp.client-ip=52.101.48.27
+	 MIME-Version:Content-Type; b=SRJPhpp780HvlPnQQJs4PIVH++H1VvYeWsi0X3hgxzIfADTzArv0TT59EA6+wQQpJOFdW6A+vxBJeBOPntDE3qmeH0MwXNMktBm1xIw5Iaupu/2YD0+Phd0npR1e5t9iStpOdQRuuEXB8H9OervjjqyIWaG9PAUdInV9C2F8F7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=yObn8ZAK; arc=fail smtp.client-ip=52.101.61.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Dr1o1WI9"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="yObn8ZAK"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pGN/9+DmkDu2Q3+7jFWGnqhjnAzdwthIdsShrt+FBssyiqlshLCPC/wTlVVKGnFlMkkYlGuA2Sm71jsrLw5CRMGQgxOEQ+HsDCZCJbcZ4SXcfnf0fSvcBNQK8RlQkgrDmixNCa45bVxejVumP3GIg1OT5b2Dkbk5uEqiZ9iLiVQUr0U0WjUz/g82tl5YPp/XTOeA/UvqkvUHCWAb30IYQ7pPm/IZ/O3BD3FvrzTE/BlBTBy1KtVldHgLAQQzhuIZnIcO0CWTJzv3bRK56hkNTVHdfOOEywE/M31sP7nbalhH/sC4iIkmHEW3jSNkZL7/OsDQNP+sIY1C3N5D7Dz0Dg==
+ b=XAhAMemRJRu+yYEs84S4QIlM8fx4JG+PCvvLq0vMiWL/+jAer3d+rTEv6bP2BV8JJ0UfIufem2WW2E9iqrkpRPeU+DEkXJjVkBf16qfB0iM6rgHFFSjnJuDr4do35g80posnzN929tfsbNBld7pZDbErJtzYOlYEPXBDE9WE94f7PcSWq/UlunRlKutr6DVXt2NSedztBd9Gq10bSIr9ZdZEWSJUWWONUBSVT9j9Vpy86IK6fYb7b7kONzbpis0oMxrbIZrSH/aVyC6674O8DguKfwfKZOjAsEaOz+RomYod0+jYh4kLB//jY2KzCyeGwrbNFfiJeAfO94ZQPBxiaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R1zARlC7Nn8ZE6QMQRZ/r6Tqg2N5Imn7X+XpzmNW01Q=;
- b=UL2vJJ1AdJO3HPPv4IBHHLcAb1yEBjInulp0qxsYk8FNfXnltlfCHuHhBRzGwYmK9sK7l5/qU7ykgBmiq1UZ3zR8HP60DFeFxcfpRxswWDIA/uXxQdGSVSibkF0E3Gqu1pgBnYIXEbqxuMc/zHf2usJqsybErdXJx55KkSO5Pn3y8p45XSAykB5GNUagWieQJvQqDloh+dLeIeKvd8P0JOiF1HV6/VVJRBv4qZ/s5QoAsQyx0FKk0ek4fnr0CGGon/+lzAxrM6NGC9K2tgmFRZ9ukW+eNRWPxZ/rt837tiKY72MiMnc/pH836+3oKedIMLSGP0ypg8goNqgj0wqNDQ==
+ bh=fJbl8VPQG6YgsDdEs0TKYBnliPQIz5AbzwwnPCwRrG4=;
+ b=Nph/xZ8bsYLUJ+ceB1HxRaZ+hFiIzU48jTphDSyjEl3fw0eZSgtXZZFuMac763NB8xTYAqyvJmVshz9nSDWKzsL/sS0sW8AleiBavNaSi0rb1VMwuBr1j4Opu4MiUtRiY9eoREFH9/ugMi+3Kit7hnD1/9TsXyzzHUeZTwfVmQyPZ/XqUVss0SeJkTo4DrUb2M6Vz5+bb4w1F8AUXRVbJorW3WbRyEUzGYpRtUGQPcrDK3DoRjLm9JrVghn94mr8keYqmpTm40cVIQxoK/2PweQxSpd2zh0NFPdHf2tP5UsFtTWfgv/AIdpNnfJC3NUSGMdhiNdFWy5JjiNZ1hUeGQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R1zARlC7Nn8ZE6QMQRZ/r6Tqg2N5Imn7X+XpzmNW01Q=;
- b=Dr1o1WI9ETPiTt9N1hsqAHhS/SKEfw/kk0bxHu8J/YIoYZz9dfbmeexSNMA1egZL8tFFU7ILWyaekq4fOxupRVb3WPzSoWr5V+7Hsl6WOb2PiZ/hz+PbH+MVrydJ1j870OQeUe19I/yjZcnvJgt0bD2nrRYIu6aeHgxqL8vNz/s=
-Received: from PH7PR17CA0050.namprd17.prod.outlook.com (2603:10b6:510:325::22)
- by CH1PPFA0A5C3BCA.namprd12.prod.outlook.com (2603:10b6:61f:fc00::61f) with
+ bh=fJbl8VPQG6YgsDdEs0TKYBnliPQIz5AbzwwnPCwRrG4=;
+ b=yObn8ZAKT//DChJ6+2THl0v9JVmCmokI1hvaRp2jpyvwQT7MWcXKRsRG7o5/g6aD2HWqYUJGjuXV//K9zV5yzmYiKtKxb6dAJTQioUzGqAnw8lwJGdEctlRbnz2kTaDT/yTI95D4snQ/B8zCn8eOA//biv4PnfHhZTeZVWM4mVI=
+Received: from BN9PR03CA0610.namprd03.prod.outlook.com (2603:10b6:408:106::15)
+ by PH7PR12MB6787.namprd12.prod.outlook.com (2603:10b6:510:1ad::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 11:51:26 +0000
-Received: from SA2PEPF00003AE4.namprd02.prod.outlook.com
- (2603:10b6:510:325:cafe::3a) by PH7PR17CA0050.outlook.office365.com
- (2603:10b6:510:325::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 11:51:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 11:51:16 +0000
+Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
+ (2603:10b6:408:106:cafe::79) by BN9PR03CA0610.outlook.office365.com
+ (2603:10b6:408:106::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
+ 29 Sep 2026 11:51:15 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE4.mail.protection.outlook.com (10.167.248.4) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 11:51:24 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 11:51:15 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 06:51:24 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 06:51:23 -0500
+ 2026 06:51:14 -0500
 Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 29 Sep 2026 06:51:15 -0500
+ Transport; Tue, 29 Sep 2026 06:51:06 -0500
 From: Syed Saba Kareem <syed.sabakareem@amd.com>
 To: <vkoul@kernel.org>
 CC: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
@@ -71,9 +67,9 @@ CC: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
 	<Syed.SabaKareem@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, "open
  list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>, open list
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 3/5] soundwire: stream: allow flagged BPT firmware download while streams are idle
-Date: Tue, 29 Sep 2026 17:20:36 +0530
-Message-ID: <20260929115052.247086-4-syed.sabakareem@amd.com>
+Subject: [PATCH v2 2/5] soundwire: intel_ace2x: order bpt_stream publish/clear against refcount
+Date: Tue, 29 Sep 2026 17:20:35 +0530
+Message-ID: <20260929115052.247086-3-syed.sabakareem@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260929115052.247086-1-syed.sabakareem@amd.com>
 References: <20260929115052.247086-1-syed.sabakareem@amd.com>
@@ -87,278 +83,212 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|CH1PPFA0A5C3BCA:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4a4c9b3-d712-48fb-84b5-08df1e1ffd14
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|PH7PR12MB6787:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebc167cb-3822-44a0-4af2-08df1e1ff76f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|56012099006|11063799006|10067099003|5023799004|22082099003|18002099003|3023799007;
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	1JdwkqiKiwrgI5ks6vrJ69ExafNRTlA7kjZBEv/xJrvtaQt6l9RzrZ6b/4KnCe+X2Pvf8Z0WTfXRC7pYsfbFd2mrYpcanBHdddFpw0py5+UIJI04G5+vfA2QPymppVWlnLL713rVJ0qe7cv6QlZtvzrvQzL1Nw9ZokxcCiktVP4JRG//0Jp+HwwN3j0FMdwrfTNzuQNVexo93b9aYgIf/gQF9WVX4Oh8lcTnnUVmKsrzw8VUwn0Jlu/or/67gMmQQY1g33QCoRRoRagzHh8KGX/uXNViYze7pg/wIdYhLogdhNIEDH94CkMmqJnG4qyqshIymxKo5mw7/tlnwLFSbbM6r0jSJA9CIfmI/UdmGh1HThPt10y6hDr5rcRJet5m6fRHRzJmRlALjpMN6GLEIaM2uKREHW9ifKUwF7gSS+NEoOsiAJVjJG7hqaifAdaoVXmUIyeg0l3idDetLvZ3YtfwLbyEBJmwTAiJ/+ukboQMt1xYogLM91Lxg7m4pcE1xC3Qyusp9EzsDDQEvahYjANd79t/trZA1ZlFRxehcmOP2VZZON5tGYDy72Xf0Q7l3pYJE+2XGBnGb0cuCZhyWR3+d1leJMOy4iGqz3pD5EOA+gNoplqx/0UDP6E9012ojHE6HUqaqMvH9V+4bG6tgi9NVaCjJUvRY1mjHSxZKFwbl0U2scGldz9/g0D09QqXKeR9d7fQDo2uK73ptYqo0Q==
+	BViQs5iMIB6bupHSJKzrq+PbYxqM7reBKWdNZJNpvjbZZfTygdJRsRh5NrOHTBiQIF2uu9QPovhChnLH9RQt7UQnnlnmHrjlSInwflH3OeCq8H3S8NLyOOhCALj+MTJz5Q5Q7N5dipXzzeoGTwSds8y9wuLh2C3z/NIhvtiFCvBzUZ+kPI5REnjg6pyHrN0N6U3ArGV1KGmLL78mNA7hjHt7mt7+LoxBevRjEMweF+MHaCrSNP089XA02X41fTOTawUW8RTvk1ZbWEiktk9ovF4wqQH9n3jrZRYbVg2Y3Z21h6BuLgkpUj3eiGCJhYSZQSUJswU49fGArvIemeoVNNvQyCYlVeix0/2mGjsXcQK+hPQaVNTV0NtFkq7ahMSjYa6u78rYW9HFfKVlbF50F1NOX00HFLimWYfDBg+QAhp/nJnHXo0x8g9jIZEeyj6UeJXwFFjbtD04k+JXUs1fyjQ9e2YyqvFx1emd+VDQnW0LqwbVX3wRZy2lom4Nm98tdxalsogbRMBVdJX+yeZLvLFGgyUAUyIHuzfPOfITdD2o6Z3OLM9l1lXJMtDux3PunnEVZNI++R4dct2aSS1GgtE+wXh8HpKgBqdrNq68b8E8rcO4PM0+cf7zEAQ6ntKPFPh8fXDJHLjZKiN6o4zAGeinIv/ek689ttZDAtidzt1sz2InW+CKpv+qhiSil8SKqMu7TgGv4kBGQfWpHF/8Mg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(56012099006)(11063799006)(10067099003)(5023799004)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	q9LiX5wI9roSbjelY+6uPNLFqoT1YGToJVJN7UV4a6GR9V/T66aGoCBOxDhsYW/k/ulcurfKUGOkWU/aQJCUTBylBm9p9p+AXPprGHvYDM4yX7GTEEya7E73pm840X3hZqkbEIxA+XvGXE7bmJmgxMYvwWlJzsABxVhJhbHg0e1cT5S6oJJJqpaWpjGrfg/DKxXRZz//Bh32ZpKzTyGGyHyFBGrfqrtXItndNEUUBPcsu+wnfBJEjK8i9HtNr+7cD0RSSW0tkbSAbqxikZHVh8rf3VLSV4CCXOcJG0sv+eDEtfCqnjsw7PPmmvVQMJiKRPMOrWQXTZLpMTuhlD3knriiKXJLGta8q49lDrB0dFfbAObbL5ir+aJ8uu0Ez8r5rOn/7gt1v5Fals0owEu0gTVkGC0plTCfZVRrC6yKsNP4wERyQi2iuYRWN0KrLLV6
+	hAT46dTczCEHCNd3hZMMlkB+sgxIHbJ3it4ZukpyqCtvNM/mHhSnQJJDSLlFxaPSSt3h3QAB8QLSsLF5mUsCjz9gcXPBKQAvgL9kr/LYOhQN17evU31mvc9XgJUe/PmS4dlY65Fz0Tu1DuACwgnp766zDm392P118S0/yXXwUTwErR5Bkc+qL5K4xJRf28607HfR7Pq/+rHDjlLuVAKergw6uvmUvRTMPcVDuc2rcQRjgqI49V3s0mg4iNS+ZgGJ919MtbENBTBhc+U6PZw8tzK8NXIka81D2hO++D07g9LNqmJOAAwbHaQ0mPF862YUSCk9nHt2UE4eKEgCri7MDOBddvPB9Zp2sjGbatl+7fZq6GhdAQMNNHErkyQPSDmn0aiLW7AxmYMJkd/OucLIrism/WkWIeaZzbZe2p3Up6OoU0/uvCvb8ryUnSb5gQE0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 11:51:24.8082
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 11:51:15.3556
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4a4c9b3-d712-48fb-84b5-08df1e1ffd14
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebc167cb-3822-44a0-4af2-08df1e1ff76f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE4.namprd02.prod.outlook.com
+	BN1PEPF0000468B.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFA0A5C3BCA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6787
 
 From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-sdw_master_rt_alloc() rejected a BPT (Bulk Payload Transport) stream
-allocation whenever any audio stream was allocated on the bus
-(bus->stream_refcount > 0). On a power-off-mode platform, an amplifier
-that was left DISABLED across system suspend still holds an allocated
-but idle stream runtime, yet it must re-download its firmware over BPT
-on resume before that stream can be re-enabled. The blanket refcount
-check made the resume-time BPT transfer fail with -EBUSY.
+The BPT (Bulk Payload Transport) stream pointer bus->bpt_stream is read
+locklessly by the SoundWire core to tell whether a BPT transfer owns the
+bus. For those readers to be safe the pointer and bus->bpt_stream_refcount
+must stay consistent: an observer that sees refcount == 0 under bus_lock
+must also see bpt_stream == NULL.
 
-Rather than key this off the audio stream state - which would relax the
-policy for every caller and every scenario, not just a controlled
-firmware download - let the manager explicitly flag the transfer. Add
-bus->bpt_fw_download, which a BPT-capable manager sets around a firmware
-download that it knows may coexist with allocated-but-idle audio streams
-and for which it guarantees no audio stream is made active on the bus for
-the duration.
+Make intel_ace2x maintain that ordering:
 
-sdw_master_rt_alloc() now rejects a BPT allocation when:
+ - Publish bus->bpt_stream with WRITE_ONCE() only after the master
+   runtime has been added and bpt_stream_refcount raised, and (on the
+   open path) before the in-open sdw_prepare_stream().
 
- - another BPT transfer is already allocated, or
- - an audio stream is actively using the bus (PREPARED/ENABLED), or
- - an audio stream is merely allocated but idle and the manager has not
-   set bus->bpt_fw_download.
+ - Clear it with WRITE_ONCE() before sdw_stream_remove_master() drops the
+   refcount on the close and error paths. Add a clear_bpt_stream label so
+   paths that already published the pointer clear it, while the
+   pre-publish failure paths skip the clear.
 
-Add sdw_bus_has_active_stream() for the active-stream test; it returns
-true only for streams in the PREPARED or ENABLED state. When
-bpt_fw_download is clear (the default, and the only possibility for
-managers that do not opt in) the three checks together reproduce the
-original strict policy exactly: any allocated stream, active or idle,
-still blocks BPT. Only a manager that sets the flag can allocate BPT
-alongside idle audio streams, and even then an actively streaming stream
-still blocks it.
+ - Snapshot the pointer into a local once (READ_ONCE()) so the
+   open/close/error paths act on a single stable value instead of
+   repeatedly re-reading the shared field.
 
-The audio path is still protected while a flagged download runs:
-sdw_program_params() skips master runtimes other than the active BPT
-stream while bus->bpt_stream is set, so BPT preparation does not rewrite
-the transport/port parameters of idle audio runtimes or deliver BPT bus
-parameters to their peripherals via sdw_notify_config(). The bus-wide
-SDW_SCP_BUSCLOCK_SCALE programming is intentionally left unfiltered, as
-every attached peripheral must track the actual bus clock. The filter
-keys off bus->bpt_stream, which managers publish with WRITE_ONCE() only
-after raising bpt_stream_refcount and clear before dropping it;
-sdw_program_params() reads it with READ_ONCE(). So an audio path that
-sees refcount == 0 under bus_lock also sees bpt_stream == NULL and
-programs its own parameters instead of being skipped.
-
-BPT and active audio are mutually exclusive on the bus: a flagged
-download is only started while all audio streams are idle, and the
-manager that sets bpt_fw_download guarantees that no audio stream is
-made active (PREPARED/ENABLED) on the bus for the transfer's duration.
-Serialising the two is the manager's/codec's responsibility (for
-example, the codec completes its firmware download before starting its
-own stream). In practice the flagged download runs in the codec's
-power-off-mode resume path, before its stream - left DISABLED across
-suspend - is re-enabled, and while userspace tasks are still frozen for
-system resume, so no userspace PCM operation (prepare, enable or hw_free)
-can race the download window. Because of that guarantee, the only
-sdw_program_params() passes while bus->bpt_stream is set are the BPT
-stream's own prepare/enable/disable/deprepare passes; the filter above
-keeps those passes from reprogramming or re-notifying the idle audio
-runtimes that remain allocated on the bus. It is not a mechanism for
-running audio traffic concurrently with a download.
-
-While at it, make the allocation-time rejection messages state the
-actual reason instead of printing the now-misleading stream_refcount.
+This is a no-op under the current policy, where BPT and audio streams are
+mutually exclusive, but establishes the ordering the core relies on once
+BPT is allowed to run alongside idle audio streams.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 ---
- drivers/soundwire/stream.c    | 97 +++++++++++++++++++++++++++++++++--
- include/linux/soundwire/sdw.h | 14 +++++
- 2 files changed, 108 insertions(+), 3 deletions(-)
+ drivers/soundwire/intel_ace2x.c | 63 ++++++++++++++++++++++++---------
+ 1 file changed, 46 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index fb5fdafe1999..5162c9cd327f 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -674,9 +674,11 @@ static int sdw_notify_config(struct sdw_master_runtime *m_rt)
- static int sdw_program_params(struct sdw_bus *bus, bool prepare)
- {
- 	struct sdw_master_runtime *m_rt;
-+	struct sdw_stream_runtime *bpt;
- 	struct sdw_slave *slave;
- 	int ret = 0;
- 	u32 addr1;
-+	bool bpt_seen = false;
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index 96940779fdec..65d3630c2822 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -83,7 +83,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
+ 	int len;
+ 	int i;
  
- 	/* Check if all Peripherals comply with SDCA */
- 	list_for_each_entry(slave, &bus->slaves, node) {
-@@ -719,7 +721,21 @@ static int sdw_program_params(struct sdw_bus *bus, bool prepare)
+-	if (cdns->bus.bpt_stream) {
++	if (READ_ONCE(cdns->bus.bpt_stream)) {
+ 		dev_err(cdns->dev, "%s: BPT stream already exists\n", __func__);
+ 		return -EAGAIN;
+ 	}
+@@ -92,8 +92,6 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
+ 	if (!stream)
+ 		return -ENOMEM;
+ 
+-	cdns->bus.bpt_stream = stream;
+-
+ 	ret = sdw_slave_bpt_stream_add(slave, stream);
+ 	if (ret < 0)
+ 		goto release_stream;
+@@ -152,9 +150,25 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
+ 		goto remove_master;
  	}
  
- manager_runtime:
+-	ret = sdw_prepare_stream(cdns->bus.bpt_stream);
 +	/*
-+	 * Read bus->bpt_stream once so the whole programming pass uses a
-+	 * consistent snapshot. While a BPT transfer owns the bus, only its own
-+	 * runtime may be (re)programmed. Any audio runtimes still allocated
-+	 * during a flagged resume-time download are idle by contract; skip them
-+	 * so BPT preparation does not rewrite their transport/port parameters or
-+	 * deliver BPT bus parameters to their Slaves via sdw_notify_config().
++	 * Publish bus->bpt_stream now that the BPT master runtime is fully
++	 * built and bpt_stream_refcount has been raised. The increment happens
++	 * in sdw_slave_bpt_stream_add() above, via sdw_stream_add_slave() ->
++	 * sdw_master_rt_alloc(); sdw_stream_add_master() then reuses that same
++	 * runtime through sdw_master_rt_find() without incrementing it again.
++	 * Publish before sdw_prepare_stream() below: the prepare runs
++	 * sdw_program_params(), whose filter skips idle audio runtimes only
++	 * while bus->bpt_stream is set, so publishing here (rather than after
++	 * the DMA setup) keeps that filter active for the BPT prepare. Ordering
++	 * the publish after the refcount is raised keeps the pointer and
++	 * refcount consistent for lockless observers, mirroring amd_manager.c
++	 * and pairing with the READ_ONCE() in sdw_program_params().
 +	 */
-+	bpt = READ_ONCE(bus->bpt_stream);
- 	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-+		if (bpt) {
-+			if (m_rt->stream != bpt)
-+				continue;
-+			bpt_seen = true;
-+		}
- 
- 		/*
- 		 * this loop walks through all master runtimes for a
-@@ -756,6 +772,24 @@ static int sdw_program_params(struct sdw_bus *bus, bool prepare)
- 		}
- 	}
- 
-+	/*
-+	 * bpt_stream is published only while its runtime is on m_rt_list: the
-+	 * manager adds the runtime before prepare and clears bpt_stream before
-+	 * removing it at teardown, so a non-NULL bpt must always be matched in
-+	 * the loop above. If it was not, a BPT teardown left a dangling pointer
-+	 * on an error path (or a manager violated the exclusivity contract):
-+	 * every audio runtime was filtered out and nothing was programmed.
-+	 * Fail loudly rather than return success for Slave registers that were
-+	 * never written, which would let the stream state machine advance to
-+	 * the bank switch on stale hardware.
-+	 */
-+	if (bpt && !bpt_seen) {
-+		dev_err(bus->dev,
-+			"BPT stream set but its runtime is absent; skipped programming\n");
-+		WARN_ON_ONCE(1);
-+		return -EINVAL;
-+	}
++	WRITE_ONCE(cdns->bus.bpt_stream, stream);
 +
++	ret = sdw_prepare_stream(stream);
+ 	if (ret < 0)
+-		goto remove_master;
++		goto clear_bpt_stream;
+ 
+ 	command = (msg->flags & SDW_MSG_FLAG_WRITE) ? 0 : 1;
+ 
+@@ -285,22 +299,30 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
+ 			__func__, ret1);
+ 
+ deprepare_stream:
+-	sdw_deprepare_stream(cdns->bus.bpt_stream);
++	sdw_deprepare_stream(stream);
++
++clear_bpt_stream:
++	/*
++	 * Paths that jump here published bus->bpt_stream above; clear it before
++	 * sdw_stream_remove_master() drops bpt_stream_refcount so the pointer and
++	 * refcount stay consistent for lockless observers. The pre-publish failure
++	 * paths jump to remove_master and skip this clear.
++	 */
++	WRITE_ONCE(cdns->bus.bpt_stream, NULL);
+ 
+ remove_master:
+-	ret1 = sdw_stream_remove_master(&cdns->bus, cdns->bus.bpt_stream);
++	ret1 = sdw_stream_remove_master(&cdns->bus, stream);
+ 	if (ret1 < 0)
+ 		dev_err(cdns->dev, "%s: remove master failed: %d\n",
+ 			__func__, ret1);
+ 
+-	ret1 = sdw_stream_remove_slave(slave, cdns->bus.bpt_stream);
++	ret1 = sdw_stream_remove_slave(slave, stream);
+ 	if (ret1 < 0)
+ 		dev_err(cdns->dev, "%s: remove slave failed: %d\n",
+ 			__func__, ret1);
+ 
+ release_stream:
+-	sdw_release_stream(cdns->bus.bpt_stream);
+-	cdns->bus.bpt_stream = NULL;
++	sdw_release_stream(stream);
+ 
  	return ret;
  }
+@@ -309,6 +331,7 @@ static void intel_ace2x_bpt_close_stream(struct sdw_intel *sdw, struct sdw_slave
+ 					 struct sdw_bpt_msg *msg)
+ {
+ 	struct sdw_cdns *cdns = &sdw->cdns;
++	struct sdw_stream_runtime *stream = READ_ONCE(cdns->bus.bpt_stream);
+ 	int ret;
  
-@@ -1234,6 +1268,33 @@ static struct sdw_master_runtime
- 	return NULL;
+ 	ret = hda_sdw_bpt_close(cdns->dev->parent /* PCI device */, sdw->instance,
+@@ -319,23 +342,29 @@ static void intel_ace2x_bpt_close_stream(struct sdw_intel *sdw, struct sdw_slave
+ 		dev_err(cdns->dev, "%s:  hda_sdw_bpt_close failed: ret %d\n",
+ 			__func__, ret);
+ 
+-	ret = sdw_deprepare_stream(cdns->bus.bpt_stream);
++	ret = sdw_deprepare_stream(stream);
+ 	if (ret < 0)
+ 		dev_err(cdns->dev, "%s: sdw_deprepare_stream failed: ret %d\n",
+ 			__func__, ret);
+ 
+-	ret = sdw_stream_remove_master(&cdns->bus, cdns->bus.bpt_stream);
++	/*
++	 * Clear bus->bpt_stream before sdw_stream_remove_master() drops
++	 * bpt_stream_refcount, so the pointer is never visible while the
++	 * refcount reads zero (mirrors the open path and amd_manager.c).
++	 */
++	WRITE_ONCE(cdns->bus.bpt_stream, NULL);
++
++	ret = sdw_stream_remove_master(&cdns->bus, stream);
+ 	if (ret < 0)
+ 		dev_err(cdns->dev, "%s: remove master failed: %d\n",
+ 			__func__, ret);
+ 
+-	ret = sdw_stream_remove_slave(slave, cdns->bus.bpt_stream);
++	ret = sdw_stream_remove_slave(slave, stream);
+ 	if (ret < 0)
+ 		dev_err(cdns->dev, "%s: remove slave failed: %d\n",
+ 			__func__, ret);
+ 
+-	sdw_release_stream(cdns->bus.bpt_stream);
+-	cdns->bus.bpt_stream = NULL;
++	sdw_release_stream(stream);
  }
  
-+/*
-+ * sdw_bus_has_active_stream() - check for an audio stream actively using the bus
-+ *
-+ * Returns true if any master runtime on @bus has a stream in the PREPARED or
-+ * ENABLED state, i.e. one that is reserving or moving data over the bus. BPT
-+ * and active audio are mutually exclusive, so a BPT transfer must not be
-+ * started while this returns true. Allocated-but-idle streams
-+ * (ALLOCATED/CONFIGURED/DISABLED/DEPREPARED) are not reported here; whether
-+ * they permit BPT is decided by the caller and gated on the
-+ * bus->bpt_fw_download resume flag.
-+ *
-+ * Must be called with bus_lock held.
-+ */
-+static bool sdw_bus_has_active_stream(struct sdw_bus *bus)
-+{
-+	struct sdw_master_runtime *m_rt;
-+
-+	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-+		if (m_rt->stream &&
-+		    (m_rt->stream->state == SDW_STREAM_PREPARED ||
-+		     m_rt->stream->state == SDW_STREAM_ENABLED))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * sdw_master_rt_alloc() - Allocates a Master runtime handle
-  *
-@@ -1250,9 +1311,39 @@ static struct sdw_master_runtime
- 	struct list_head *insert_after;
+ #define INTEL_BPT_MSG_BYTE_MIN 16
+@@ -374,7 +403,7 @@ static int intel_ace2x_bpt_send_async(struct sdw_intel *sdw, struct sdw_slave *s
+ 		return ret;
+ 	}
  
- 	if (stream->type == SDW_STREAM_BPT) {
--		if (bus->stream_refcount > 0 || bus->bpt_stream_refcount > 0) {
--			dev_err(bus->dev, "%s: %d/%d audio/BPT stream already allocated\n",
--				__func__, bus->stream_refcount, bus->bpt_stream_refcount);
-+		/*
-+		 * BPT and audio are mutually exclusive on the bus: BPT needs
-+		 * exclusive bandwidth, so it must never run while another BPT
-+		 * transfer is allocated or while an audio stream is actively using
-+		 * the bus (PREPARED/ENABLED).
-+		 *
-+		 * The one exception is resume-time firmware download, flagged by the
-+		 * manager via bus->bpt_fw_download: on a power-off-mode platform the
-+		 * codec loses power across system suspend and must re-download its
-+		 * firmware over BPT before its stream (left DISABLED across suspend)
-+		 * can be re-enabled. In that window the manager guarantees no audio
-+		 * stream is made active, so there is no concurrent audio and no
-+		 * bandwidth to share; only then may BPT proceed while an idle
-+		 * allocated stream exists. Without the flag such a stream blocks BPT.
-+		 * This is not a mechanism for running audio concurrently with a
-+		 * download.
-+		 */
-+		if (bus->bpt_stream_refcount > 0) {
-+			dev_err(bus->dev,
-+				"%s: BPT rejected: another BPT transfer active\n",
-+				__func__);
-+			return ERR_PTR(-EBUSY);
-+		}
-+		if (sdw_bus_has_active_stream(bus)) {
-+			dev_err(bus->dev,
-+				"%s: BPT rejected: audio stream active\n",
-+				__func__);
-+			return ERR_PTR(-EBUSY);
-+		}
-+		if (bus->stream_refcount > 0 && !READ_ONCE(bus->bpt_fw_download)) {
-+			dev_err(bus->dev,
-+				"%s: BPT rejected: audio stream allocated\n",
-+				__func__);
- 			return ERR_PTR(-EBUSY);
- 		}
- 	} else {
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index f710e5932b4b..9a3904f42078 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -1005,6 +1005,19 @@ struct sdw_stream_runtime {
-  * @bpt_stream_refcount: number of BTP streams currently using this bus (should
-  * be zero or one, multiple streams per link is not supported).
-  * @bpt_stream: pointer stored to handle BTP streams.
-+ * @bpt_fw_download: set by a BPT-capable manager to flag a resume-time firmware
-+ * download (BPT/BRA). BPT and active audio are mutually exclusive on the bus;
-+ * this flag marks the one narrow exception -- a power-off-mode resume where the
-+ * codec must re-download firmware over BPT before its stream (left DISABLED
-+ * across suspend) is re-enabled. The manager guarantees no audio stream is made
-+ * active on the bus for the duration, so sdw_master_rt_alloc() permits the BPT
-+ * allocation even when idle audio streams are still allocated; an actively
-+ * streaming audio stream (PREPARED/ENABLED) still blocks BPT. It is not a
-+ * mechanism for running audio concurrently with a download. Written with
-+ * WRITE_ONCE() by the manager before it enters the stream allocation path and
-+ * cleared (also WRITE_ONCE()) after the transfer; read with READ_ONCE() in
-+ * sdw_master_rt_alloc() under bus_lock. Single-BPT exclusivity
-+ * (bpt_stream_refcount) means no concurrent writer races the lock-protected read.
-  * @ops: Master callback ops
-  * @port_ops: Master port callback ops
-  * @prop: Master properties
-@@ -1045,6 +1058,7 @@ struct sdw_bus {
- 	int stream_refcount;
- 	int bpt_stream_refcount;
- 	struct sdw_stream_runtime *bpt_stream;
-+	bool bpt_fw_download;
- 	const struct sdw_master_ops *ops;
- 	const struct sdw_master_port_ops *port_ops;
- 	struct sdw_master_prop prop;
+-	ret = sdw_enable_stream(cdns->bus.bpt_stream);
++	ret = sdw_enable_stream(READ_ONCE(cdns->bus.bpt_stream));
+ 	if (ret < 0) {
+ 		dev_err(cdns->dev, "%s: sdw_stream_enable failed: %d\n",
+ 			__func__, ret);
+@@ -397,7 +426,7 @@ static int intel_ace2x_bpt_wait(struct sdw_intel *sdw, struct sdw_slave *slave,
+ 	if (ret < 0)
+ 		dev_err(cdns->dev, "%s: hda_sdw_bpt_wait failed: %d\n", __func__, ret);
+ 
+-	ret = sdw_disable_stream(cdns->bus.bpt_stream);
++	ret = sdw_disable_stream(READ_ONCE(cdns->bus.bpt_stream));
+ 	if (ret < 0) {
+ 		dev_err(cdns->dev, "%s: sdw_stream_enable failed: %d\n",
+ 			__func__, ret);
 -- 
 2.43.0
 
