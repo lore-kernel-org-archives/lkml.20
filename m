@@ -1,166 +1,93 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255FA3DEAC8;
-	Tue, 29 Sep 2026 06:08:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0143E6394;
+	Tue, 29 Sep 2026 06:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662104; cv=none; b=P9sfA14bzQX4O2Bsd7z2Z9eHHKwzgZMCprmiV6Jj/V8nJcrpH7Il+4yY/XbxC3otxcy/GOFxwIDCkzOI1DyNuDKHsdg6HirWWtPG/cPFJ4ijj0w/JAWYf8h+Ukf2mOpjDedM0VuzYrq0jprZDWd9Q12Vcj4azaF4GKxZk+ztWdM=
+	t=1790662140; cv=none; b=FMHEB2Oqd3c8at4LwTK1pgSVXhvsUSrjbUvBSiC0yzj7wfvKz04Ifxs0TbUU68YyhL18GFSUUwsVQ20EgCEhyr5LtrSUDN+Y8tj6Eu+RnUZfAmGa7KcxEcgknOubYMrA++P671D5P5OaKlUTVvBSX8WoAo9hhqwTOG1t6oEmOeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662104; c=relaxed/simple;
-	bh=k2bYglX9n5ZhP9Olp6WrZrXFMEcPUzsPwZS1+kslqcQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AriWZIEjC7P/8hBgPpNXVEHIbrGtxHk7i05W/Le4axvrp3lNTr9yhNjN2rtI7EcOuJmoCHDbcj/BB4PnhwizALI46QXkNC8qAfSYkX0kIQ/OEnm5KOTGMeIQbLUuaapAnBZGRjQQNOzG3Tlw/XldCt+X+6rxKOQl1nZ4qR+RRqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
-Received: from localhost.localdomain (unknown [159.226.228.11])
-	by APP-05 (Coremail) with SMTP id zQCowABn1T+2VbtqJzOmCQ--.4354S2;
-	Tue, 29 Sep 2026 14:08:13 +0800 (CST)
-From: Gaobin Huang <huanggaobin23@semi.ac.cn>
-To: linux-cxl@vger.kernel.org
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] cxl/mbox: bound the device-supplied command return code
-Date: Tue, 29 Sep 2026 14:07:47 +0800
-Message-Id: <20260929060747.3550005-1-huanggaobin23@semi.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790662140; c=relaxed/simple;
+	bh=sneyS2U9Lco6BpqXd8UUbg+c5joetV4+6duZvo5fpIQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=XeplENv4XOuNDNF8JtWmwnYXxkIJzkoni9/xvGjvNTucxeCiMdkrTb/HdFgNtHtBijmU2OnIq1Jm7haL8ACAuhMkkWJDoGhqnq7jqUJBuVl7vGR1+QiAXpQ6voNsS5xwCgLhkC1vGAkIN0f61CpZsonQPYFZflln6mMvNoJEEMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=D5A4UZvh; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="D5A4UZvh"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790662131; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=bFv0wob4XHJ5pGfQQypbVS1ZQLGGrZOj5GdLUdoZp2Y=;
+	b=D5A4UZvh2XQMzBOrwa2eAk3+5tXDfj+3UNz6UVmGL7+UmGiJIRbGk/IuAtOuB5+DMKgYavZN3MxItqTrGU6zSDq4huxEQOgLBzk0nRJzdSXupHuQDzwebNXgY62j08Rp+SeyBgLjAFuIeGZQMePT8An6ldF1GkfuqkJjBgRxh38=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R931e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XBsCxhu_1790662129;
+Received: from 30.74.144.142(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBsCxhu_1790662129 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 14:08:50 +0800
+Message-ID: <bf74f2a0-bc38-44f9-a54a-2e213b78f6f6@linux.alibaba.com>
+Date: Tue, 29 Sep 2026 14:08:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn1T+2VbtqJzOmCQ--.4354S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF47Gw4UAr47try7Cw4rKrg_yoWrWF1kpF
-	WDCa4jkrZxta47ArsrCayYk3y5ZF4ft34UA34qga9rA34ayr4jqrWkJ34YgwnI9rW8Ww17
-	Aw4Yga1ruF4UZ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBCb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF
-	1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
-	rwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GF
-	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
-	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
-	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUypnQDUUUU
-X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiBwMFDGq7TSQcvgABsW
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] pinctrl: sprd: free maps on DT map failure
+To: Jiale Yao <yaojiale02@163.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linusw@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+References: <20260924111856.622898-1-yaojiale02@163.com>
+ <20260924111856.622898-2-yaojiale02@163.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260924111856.622898-2-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cxl_pci_mbox_send() takes the command return code straight out of the
-mailbox status register:
 
-	mbox_cmd->return_code =
-		FIELD_GET(CXLDEV_MBOX_STATUS_RET_CODE_MASK, status_reg);
 
-The field is 16 bits wide and nothing validates it.  It is read the same
-way from the background command status register when a background
-operation completes (CXLDEV_MBOX_BG_CMD_COMMAND_RC_MASK, also 16 bits).
-Both consumers then index a table with it:
+On 9/24/26 7:18 PM, Jiale Yao wrote:
+> sprd_dt_node_to_map() reserves map storage before adding mux and
+> configuration entries.  If a later operation fails, the error path only
+> frees the temporary configurations and leaves the map allocation reachable
+> through the output pointer.
+> 
+> Free the partially built map and clear the output parameters on failure.
+> 
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
 
-	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].err;
+LGTM. Please add the Fixes tag:
 
-and that table, built from CMD_CMD_RC_TABLE, has 31 entries (SUCCESS(0)
-through EXTLIST(0x1e)).  A device that reports 0x1f or above therefore
-reads past the end of a global array.
+Fixes: 41d32cfce1ae ("pinctrl: sprd: Add Spreadtrum pin control driver")
 
-cxl_mbox_cmd_rc2errno() is called for every non-success, non-background
-return code, which makes this reachable during probe with no host action:
-answering Get Supported Logs (0x0400) with return code 0x1f is enough.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-Reproduced with a QEMU Type-3 device that reports a chosen return code,
-against this tree:
-
-	BUG: KASAN: global-out-of-bounds in cxl_internal_send_cmd+0x11d/0x190
-	Read of size 4 at addr ffffffffa5212c10 by task kworker/u8:2/37
-	Call Trace:
-	 cxl_internal_send_cmd+0x11d/0x190
-	 cxl_enumerate_cmds+0x12c/0x980
-	 cxl_pci_probe+0x84a/0x11e0
-
-Return codes that are in the table take the ordinary error path and
-report nothing, which is what makes the out-of-range case attributable
-rather than just "the device reported an error".
-
-Validate once, in a helper that both accessors use, rather than at the
-two register read sites: the same bound then covers the foreground and
-the background path, and any future consumer of the field.  An undefined
-code is still a failure, and -ENXIO is what every non-success entry in
-the table already maps to, so callers cannot tell the difference in a way
-that matters.
-
-Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
-Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
----
- drivers/cxl/cxlmem.h | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-index c401e3a1a..7f89dc4fc 100644
---- a/drivers/cxl/cxlmem.h
-+++ b/drivers/cxl/cxlmem.h
-@@ -6,6 +6,7 @@
- #include <linux/pci.h>
- #include <linux/cdev.h>
- #include <linux/uuid.h>
-+#include <linux/array_size.h>
- #include <linux/node.h>
- #include <cxl/event.h>
- #include <cxl/mailbox.h>
-@@ -205,14 +206,39 @@ static const
- struct cxl_mbox_cmd_rc cxl_mbox_cmd_rctable[] ={ CMD_CMD_RC_TABLE };
- #undef C
- 
-+/*
-+ * The return code comes straight out of a device register: the low 16 bits of
-+ * CXL_DEV_MAILBOX_STS.ERRNO for a foreground command, and the same width of
-+ * CXL_DEV_BG_CMD_STS.RET_CODE for a background one.  Nothing validates it, so
-+ * a device that reports an undefined code would index past the end of the
-+ * table above with both of the accessors below.
-+ */
-+static inline const struct cxl_mbox_cmd_rc *
-+cxl_mbox_cmd_rc_entry(struct cxl_mbox_cmd *mbox_cmd)
-+{
-+	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
-+		return NULL;
-+
-+	return &cxl_mbox_cmd_rctable[mbox_cmd->return_code];
-+}
-+
- static inline const char *cxl_mbox_cmd_rc2str(struct cxl_mbox_cmd *mbox_cmd)
- {
--	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].desc;
-+	const struct cxl_mbox_cmd_rc *rc = cxl_mbox_cmd_rc_entry(mbox_cmd);
-+
-+	return rc ? rc->desc : "undefined command return code";
- }
- 
- static inline int cxl_mbox_cmd_rc2errno(struct cxl_mbox_cmd *mbox_cmd)
- {
--	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].err;
-+	const struct cxl_mbox_cmd_rc *rc = cxl_mbox_cmd_rc_entry(mbox_cmd);
-+
-+	/*
-+	 * Unknown codes are still failures, and -ENXIO is what every
-+	 * non-success entry in the table maps to, so the caller cannot tell
-+	 * an undefined code from a defined error in a way that matters.
-+	 */
-+	return rc ? rc->err : -ENXIO;
- }
- 
- /*
-base-commit: 999811aca000b0d3d1c838c60dc9db7c72eb0c73
--- 
-2.34.1
+>   drivers/pinctrl/sprd/pinctrl-sprd.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/pinctrl/sprd/pinctrl-sprd.c b/drivers/pinctrl/sprd/pinctrl-sprd.c
+> index 16cf9d15f247..218ac5236e95 100644
+> --- a/drivers/pinctrl/sprd/pinctrl-sprd.c
+> +++ b/drivers/pinctrl/sprd/pinctrl-sprd.c
+> @@ -326,6 +326,12 @@ static int sprd_dt_node_to_map(struct pinctrl_dev *pctldev,
+>   
+>   out:
+>   	kfree(configs);
+> +	if (ret < 0) {
+> +		pinctrl_utils_free_map(pctldev, *map, *num_maps);
+> +		*map = NULL;
+> +		*num_maps = 0;
+> +	}
+> +
+>   	return ret;
+>   }
+>   
 
