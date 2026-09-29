@@ -1,69 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752DF386C17;
-	Tue, 29 Sep 2026 00:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C1D1DA57;
+	Tue, 29 Sep 2026 00:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790642546; cv=none; b=aVzkweuNHp4TxN8m94YBvEe1sKCggZXViIKNUb8SZyAoowEmiNy14yl4lEKXgERWkTmi5k9xTUMAMHYzd0YsokoN8oq3ht5if2KoZYNeLphQy/Y9lPX1FGGl4CVw2KVgZ5GILij4gV225MBuykPRGholcxpqdKHvpv3XDyMDTRs=
+	t=1790642565; cv=none; b=CcFkzd1iX6rNSIoFDwBk1bIU2uVB2/sYCZERmq/7VyTQGQqw0JkCznJoJKzfdmpVEwS8TpMPNy/sRd85zQRPcBLy4mRYHQ0PGAjsT3DA8HQzZGaSJvFKoWrFhjm3cVry1WWGTu3lvyUAcm8dF8Ez0jDLwgPo2B35Xn0cp7nVAPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790642546; c=relaxed/simple;
-	bh=S9xPAU/9/TKIf6DgBdZhMLcz2QhAmyPlTKG+BECZji4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fAlIb+OLD+J5YyE9Hh2Ays6uTENJt6fZXiqcVBlBmqODDVnymA+9wJwtIDDtfY1vCkKfF3CBWFu20xowHJ8vMOTcwx+YVh+beC32iwU5FhTl6QIQ9a3h1hpL6v1m38N4X2DrBXDD8RtQ7kCvFG7XwAzFFE6eGvHntNtEekIfDaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZnlEW6h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790642565; c=relaxed/simple;
+	bh=OWhcwknLRyPzDmXgalH6NabLxd+2MPu1XxuBbMgZxsY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QH0/YG0ITOIGnuZYFO/7UtZgD5wr8MZgGGrTOUJfoK6oaHy2XH8eNP63C6J5Z0kgEM1eGDSzojDmcM1QIwTG7TQER99J+z1yiA3tarW6D88xPCGz9yQ3ZFe2vwaUKC8UJrdfLCtci8xIQGNcg/9zChHmEiQHa8IPxXOXV+zjWr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ysoZstVY; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZnlEW6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4BBE1F00898;
-	Tue, 29 Sep 2026 00:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790642544;
-	bh=ZSkuFme1leGMg1COAGhFiRyunbh28v3KGifLjAR+V7s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bZnlEW6hDCC0qhf2Df3A+4KYxgsloJMp2cghtj4Zl4YDXBep7rfOBipzv4z/XKb7g
-	 1ZsUmkk7wWzsFoYxnIdxoHkL9uSQvqBTmYQnBbdBdh5Lax9NSzd5vN3kFy4yBcicem
-	 EYFiDPL2XacWkURHY+7kYGSk29PFwKQWecyhTuXjpn8hLPUypZRgGqLaQ1I7l7sohz
-	 yX5TK4ooH4WaqAQ8J7sh6BPPtKATbM7ay/4ouCS/azCpCIAL7ZBoUiz2I6uPRZDxoq
-	 mKxO3z/pcrkp4bIFAyH0IKHEIpjsW+g7JquhYF+pu+t0EHAhNWLttTKkeIBQQmas4Z
-	 IZehZPghSATbA==
-Date: Mon, 28 Sep 2026 14:42:23 -1000
-Message-ID: <4af70c48e8c7d1eac1425d368be92dcb@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org,
- daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
- Tao Cui <cuitao@kylinos.cn>, ameryhung@gmail.com,
- alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v7 3/4] blk-iocost: add iocost_ioc_tick tracepoint
- for per-period device summary
-In-Reply-To: <20260924054549.2271705-4-cui.tao@linux.dev>
-References: <20260924054549.2271705-1-cui.tao@linux.dev>
- <20260924054549.2271705-4-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ysoZstVY"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4htzsj020ZzKn2J;
+	Tue, 29 Sep 2026 02:42:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790642553;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qYZdjHSXMYQifjl/oycijS7tIo3obhxZW530Z+Tdr74=;
+	b=ysoZstVYT9kJZ0p+C3oJMwuX/R3prdjcwqklLJ814vDuPxUJYwk4I4JlifmfqZK1II4bCG
+	GPQ0F2CaCZrjdgdqAuBJbOI699d2+3nkumTLGq3T9nedDKQ9jnGcqX3trKwK0S0z/sCXCc
+	Oc8Wcq1yoNLWXlhz8XzumjosPwTfw3jvCDnJ5Spa4qHHuICNvkyQ1ckUa8ep2efdqqsZO+
+	y46vKlbRu5FePJ0R7oYr64FkyltPdSuwpKgwqouS+Pe4ABfCWLZOREm+fZcb1ATaAxjTB+
+	F4qZiFhtd+K0Anf4Mc7ubjkP7slLdSydqPsae0IyQiWliQm0CoVhEM7VvS4JOg==
+Message-ID: <d4cab7d0-23d7-4998-8957-b879382395b9@mailbox.org>
+Date: Tue, 29 Sep 2026 02:42:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
+ PCIe4
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260928222442.GA2266778@bhelgaas>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260928222442.GA2266778@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: n5r3abih9upesd63k85pf9uic4hcaarb
+X-MBO-RS-ID: 56a18349aca01d73551
 
-Hello, Tao.
+On 9/29/26 12:24 AM, Bjorn Helgaas wrote:
 
-On Thu, 24 Sep 2026 13:45:48 +0800, Tao Cui wrote:
+Hello Bjorn,
 
-> +	trace_iocost_ioc_tick(ioc, nr_active, usage_us_sum,
-> +			      ioc->period_us, ioc->vtime_base_rate,
-> +			      ioc->busy_level, ioc->running,
-> +			      now.now - ioc->period_at);
+>>> The gen5/pcie4 usage is confusing.
+>>>
+>>> I often push back on things like "PCIe Gen4" because it's ambiguous
+>>> (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
+>>> something else), but it's so widely used to mean transfer rate that
+>>> it's hard to resist, and the best I can hope for is clarification.
+>>>
+>>> But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
+>>> mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
+>>> is something like "PCIe Gen4, i.e., 16 GT/s"?
+>>
+>> Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
+>>
+>> PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also PCIe
+>> Gen6 core in the same SoC, but that will require a different driver and
+>> different compatible string.
+>>
+>> Since none of this shipped in any kernel version yet, would you prefer some
+>> sort of rename ? I can send patches.
+> 
+> Huh.  TIL that pcie-rcar-gen4.c refers to the 4th generation R-Car
+> SoCs
 
-These are still passed in. Can you pass only ioc, &now, nr_active and
-usage_us_sum and read the rest from ioc in TP_fast_assign() like the
-other iocost events do?
+Yes.
 
-Thanks.
+> (and, I guess the point of this series is to add support for 5th
+> generation SoCs), not to PCIe Gen4 link speeds.
 
---
-tejun
+Correct.
+
+> I see that
+> "renesas,rcar-genX" is all over the place in 'compatible' strings, so
+> I guess we should follow that precedent.
+
+Yes.
+
+> If the "renesas,rcar-gen5" SoC includes both PCIe Gen4 and PCIe Gen6
+> cores, I suppose everybody refers to them as pcie-gen4 and pcie-gen6,
+> so the "renesas,rcar-gen5-pcie4" you used is probably the obvious
+> choice.
+
+Right, and also the least cumbersome compatible string I could come up with.
+
+> But maybe we can make commit logs less confusing by saying things
+> like:
+> 
+>    - R-Car Gen4 SoCs S4/V4H/V4M
+>    - R-Car Gen5 SoC X5H
+>    - the R-Car Gen5 SoC PCIe Gen4 core
+>    - the R-Car R8A78000 X5H PCIe Gen4 core, which supports a x8 link at
+>      16 GT/s
+
+Understood, I'll expand future patches to be more explicit about this.
+
+Does that work for you ?
+
+-- 
+Best regards,
+Marek Vasut
