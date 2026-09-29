@@ -1,238 +1,286 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE77753FD40;
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E032B542EF4;
 	Tue, 29 Sep 2026 15:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695208; cv=fail; b=Bn9OsyHPI6b4HTg6QbCtrWuVyLXDIYbQHdWAO+OTGcXvvPCW+cGrYzE45AyJYzmaPxMJ1b1at2/El5n4FvAnqSL7ChrML07/wpL8nTSvb43P2pOgOHPAEP/rlp4Q6cVaM5R99SFWhBS1ErMB2zVMqvchNaZSBmOlhcI8fZyev+o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695208; c=relaxed/simple;
-	bh=BYlvJis91oQPmfjO96JBt+6ueaQTCn+zE+x+Bx6DML4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=R4k5zjkrKBCzKYX7YFr2JLXJB0XPfGiehhUYr4yVzC+xqQeQ6f6zJmWOtzMfQGcheKhB+QJ961vUc0+MBwCxGflpgatIKosnUbkB6gshi+NEmoEYZwjteDoGppdHhkOmVB5aRAcbmi5doJw45lwnVhldbHhGeY+8ZmzbthZJez8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OMxKAmbC; arc=fail smtp.client-ip=40.107.159.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OMxKAmbC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P437U1MVYT7ftxteZNwEJ/pBQJrCyUcPwBe+bNomjGLKId0nPtbQJ3fqG744wL6cw9cpzQiwVwzIBQreaw2fCailT2XnnbIRumMixS5Mx82a6eCNDa5RBiKTjuRYcbXzzL9sTYTuSSKghF0m973NKqsBqWHeV4FwGmi6wLxelYo/oh+kogcEIYxYtatrzuQn3KqcO6TUPLkcfNZpKh7uev4fkcXqj4ZG8NrAMWvFZnT2pXwHiiY5EqapdldyAIT3VJeMNkclKZfuUFxL8PQL+ugBTGd057UK/DnvftO7Fxyeh+T+w4q1OT4q64SlYTuTGMUhVpnl/Gogw7uuIJEZ2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BYlvJis91oQPmfjO96JBt+6ueaQTCn+zE+x+Bx6DML4=;
- b=xAAbhAeFgemXPKlCGWCZuOgG+/cQCaut5Zswc1Slwv89Vl+HcWqI15vc/cRkj66G0vD2SEx87A/yecCR2ZOHIErOhyTxOIQsfbEIe4s9Y7UlPRJUjG4QFxR1QOCOIUwuBcDkmUA0HXBMHTohbExtrP3Os2sqmlJW+mwkfQHZAUVvkzBvygaWHILm5G/nSh6aRHOf2U3T3PajFtk/tCLq3e3cPnt4Pav1Qex9VXe2DyKrCQcftwzoRDpeV5jT1ujvxmEC0ReS8OkOos4L3HcNivmpTMET2jlYckyNF6wvBUhcdlrlTuh+1+UR1aVO8rBUNjLoq98SFiqjqyojSYOjYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BYlvJis91oQPmfjO96JBt+6ueaQTCn+zE+x+Bx6DML4=;
- b=OMxKAmbCMGJUGqLrBMBDy7SOHV76Y7MifZPq5npyGRJnnFHnqiW7gjjmCJUoLwnl4cm4qRhMyxdZ84ZDowfEf7N1nJFN76eQz7cYITM2e6BCHGRCwN1/idztJbt8JH73ycOZqnzRf6u6+dDDtOV2Dn96PCz3pLuh/ahk66foSpzon1qfcZsBVvp8My/hlWHIZcHP9XjRHovrJmWhDlHLWWCx8QVnqsgxJZ4KdlGK2uSORNYS/3m2GGlPNeIxiTbyQ9HOgrRilkWlzgzYHLqvGc+BVZLjnDaFpV87zxbT8+t7Iq5jHRO9JQma4j4m2dD/Jvk7m8ICCL8NwjVIu9qa4A==
-Received: from DB9PR04MB8139.eurprd04.prod.outlook.com (2603:10a6:10:248::17)
- by AS8PR04MB8865.eurprd04.prod.outlook.com (2603:10a6:20b:42c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 15:19:50 +0000
-Received: from DB9PR04MB8139.eurprd04.prod.outlook.com
- ([fe80::97c8:7d82:e34b:3d43]) by DB9PR04MB8139.eurprd04.prod.outlook.com
- ([fe80::97c8:7d82:e34b:3d43%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 15:19:50 +0000
-From: "Sahil Malhotra (OSS)" <sahil.malhotra@oss.nxp.com>
-To: Changwei Zou <changwei.zou@canonical.com>, Horia Geanta
-	<horia.geanta@nxp.com>, Pankaj Gupta <pankaj.gupta@nxp.com>,
-	"gaurav.jain@nxp.com" <gaurav.jain@nxp.com>, "herbert@gondor.apana.org.au"
-	<herbert@gondor.apana.org.au>, "davem@davemloft.net" <davem@davemloft.net>
-CC: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lukas@wunner.de" <lukas@wunner.de>
-Subject: RE: [EXT] [PATCH 1/2] crypto: caam - Fix wrong unmap operations
-Thread-Topic: [EXT] [PATCH 1/2] crypto: caam - Fix wrong unmap operations
-Thread-Index: AQHdMSl1cKneYvuEZEOVob4RxDRUurblsErQ
-Date: Tue, 29 Sep 2026 15:19:50 +0000
-Message-ID:
- <DB9PR04MB8139513BA24CDF15DDC44B8D828C2@DB9PR04MB8139.eurprd04.prod.outlook.com>
-References: <20260821045555.806471-1-changwei.zou@canonical.com>
- <20260821045555.806471-2-changwei.zou@canonical.com>
-In-Reply-To: <20260821045555.806471-2-changwei.zou@canonical.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-09-29T11:54:39.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
- Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR04MB8139:EE_|AS8PR04MB8865:EE_
-x-ms-office365-filtering-correlation-id: 2d128b47-c8fd-4ae8-2982-08df1e3d1adf
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|376014|10067099003|11063799006|56012099006|6133799003|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- tqkDl4iT8lfikNHcsZwUWKNwPZ6OKXfu2JQXeR4ccwNvB2xvqsMWlHV5x3mXNrQVsZaqfg4kW/HBMoZOIRMyazN8oDeW6otu9/ATxhOVxdMfY5zNMvIBvqJOi+DY08sRdwUXJ8mun37kNdqSAVz74A0HZgDSrsJKm/sBD/FTfE7Ld1AIvvCYN/zKpOnMrjq/yu1V9MC1mARk3IwzM+ddV+3iNRLAfrlCVgQCcMiIhXGtivwYhAOw5/Lr0dd9O+GMAWUBO9bFHj8yGab+vzXFkSZKsNGq1ucpnTRb8zGgwBCX9FFxWzwIMdY1USAdmpZjBdHgJjiHbVyynUtRJN4hS3BMVJXvHT1yiCBbIny6CCF8+rSS9uTa12fdXY5TCMdRi6FBKCXIdmQORAifZ75I5yU843YR39A1cN02SA2qgm6ghwtTV0IBDP586n0TsNlqhY9SX5pWelnbKAepZoXe3Stp/uMcx7oFLkJqbkhcUayn0EC1EEInBm1d2hXGICFV594DEyLoVbIGtWs51BDRKO/wU7O0e5S9f22bHEW/eDzGdpuQzQlssSqTYr4aK6Re/c6ROLEWphr+0jRzX4XjuGnd/nskBxSCqr7B/tVkkB0ar+ebVdm6L6m7lzbBEqOxDBg7UJZtI4m/UqIVZM6D2HwANaJlEtL5hSMoz+lHId47BPb+3liMgb+/zoopjcUIlHShoNrvFZHcH+ZYMlzB2JS8xz30RKRwk5tbu3V9uAs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB8139.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(376014)(10067099003)(11063799006)(56012099006)(6133799003)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?a1cveW9iRi9hUE5EZHh2R0tsNjE5Z2d2Z0tGYkV4ZUw2d2kwbW9ocE5XNGRk?=
- =?utf-8?B?WExndmxsWnlzMVJRYW1Ba2hrR0lEcGVFbTJ4TG9acmwxRU1xR3N5eEl4ZVBQ?=
- =?utf-8?B?MUtmb3dWVm5SNi9pOGtSTWwwc21scjJaK2FtVmF0VFVNTzRyTmVna3JBU0lI?=
- =?utf-8?B?WWxTUHUzSUd3aExsRkVaOWhzMHY2UUtxUDdoRCtkMVFSR1ZkVjhwdFo0cU83?=
- =?utf-8?B?eGJ1ZklGUzBiT09ycm9QdDE5MXBCYnVidTcwLzZSYjNRSFZLb20yd09EeFNL?=
- =?utf-8?B?aUVyUU1iRzdVUkU5MzlsQ2E4R213R2EzNDFTWmpGVkx1TmZhN09xQjZPOVJn?=
- =?utf-8?B?YkZUVEYyeU5hUGUwZUpiTSt0SG00Y0N4a2t6MTF2SWpRbEJUWUV1eCtBNTVW?=
- =?utf-8?B?NGpCMFp6Ylp3TDFpRWlPcnBVeWk1SFlsWEd6Sk5wS2RBNVlwNDJJQmo5blVl?=
- =?utf-8?B?bkh5dXdGcWswbDlRdmh6MTJqSUp3R3B4R3daVThGSE1MSUVXN2dQWHFTWGRH?=
- =?utf-8?B?WUp2bzFCUzM0QTBEaE1HWTlYTVBUcFM4RFF1Tjd5TGdmSndjNEFORUhHZWRS?=
- =?utf-8?B?OVNyOTJUZEpPTDBFdEFMbFRrZ2h0NmNmeFdZcHZGL3BPWjZWSW5nd09BbW50?=
- =?utf-8?B?YXRJT0FVZ2hsZENEd2hUdUliclUxV05XMXFxNGo1eUdOSUoyRTBtMHZzYW0r?=
- =?utf-8?B?WGc1eFNsVGFYc3lkRjhBTmZPbEsvVktmaHlETENBZUVLb3RhZmtVTjBvb2Nr?=
- =?utf-8?B?VUZEMkhjRGlyMEtxdTBIeHlXKzFJeStXRDdIdjFmRGRwU25lSTlUajdrSjdq?=
- =?utf-8?B?Y1Z6Z2JaSFFpSUJrdVZlcEVDK1hkRS9RQVFWeDBRNXRNMitYRDVMZExkeFVl?=
- =?utf-8?B?RzVLWStMZWVKWEV5aW1LM3o3aHhSMnhEWDY0WDZIRFFVM003T2ZBTTJZVjR0?=
- =?utf-8?B?VlFrcHVydm1zVHR0OW43c0VIK2d0Q0JPRVZWbGMrWUJ5VnlQMnBoaUVhZnNZ?=
- =?utf-8?B?bDFWTDJ0a3RlNy93UnFxczcrVldrWHpYSTBVSzZwZTJTMVZZU0hIb2Z5Tjhk?=
- =?utf-8?B?QlNPT29HdHZCVEFWSFFKRkt0clFoV0h1ZVpSWXFpczhmRVh6QVVOR1BVQUFR?=
- =?utf-8?B?RUhBdjdpcjE2RUsvZDdGaDhzenVrMnVsMTJJcUt0QWVRRlFhbmlDRkw5MGxa?=
- =?utf-8?B?SllZNTBLYWRhT204a3BpbVBSUGg5REtVMWxFeE02TVNrbXR3VTZEQnVUbzEx?=
- =?utf-8?B?QTRZZnNsbDF1MjdON2puYnFMNHM2WVp2WFFRMFJlOUlKaW9FaU5oM0l2NTRD?=
- =?utf-8?B?SHRFeFJhcmNIQW11NXBPVEFNR2d1aVVvQndPbk5RNkU2SkZOcjRPNzR4TkU2?=
- =?utf-8?B?aFJOK0RQcHlnejlTUVdCdVRTREFJbElVRGprTS9NNnJFTE82cVI0ejNsWHFF?=
- =?utf-8?B?M213a3UwbnBseVQ5OWtpbTBsd21lRkU3aUQ4Q2JXN0E5SXNjaVpRaTJQdVlv?=
- =?utf-8?B?Ui9FanRKZkRBdUZBZ2NvaWhxenRXK3JvMUw2akpOTTRhVnZ6YkZYUjBmVkIz?=
- =?utf-8?B?UXJHVnlxZEFSSCtzVWw0ZHZFd3VYRTBSbW45SnNoZDJHZnNTdXVWUU0rdy9S?=
- =?utf-8?B?ZkRhTDQvMkdUcXNUUDZUek1HNkl1UHFiald4Vkl5OW96NGNlc0hGbEhPVmFq?=
- =?utf-8?B?ZDE1YjlWWUthd0Y1cFZMbXJmdHAwKzlNc0VMZENpSURKbHplNEFUOXBDRmFq?=
- =?utf-8?B?ZjVWL3FXaFp4QTdmTys4NFhZSDc1ZSt3NndqeEV0c1V5bVNKd1pidkZLSUJa?=
- =?utf-8?B?cTZkSzhtTThObDl3dWVNY3N4NmM0TUtrL2RZZEhzYUEzQ3Q0cWR2eTFNVHc0?=
- =?utf-8?B?Ti9sTzJyeldDeUpmK1dlSE44eVZPV1cyRk9pMy9rWDVPcldYMjhjTHoyK0I5?=
- =?utf-8?B?NnZZT0JmNnF3QUxRaHZzcjIxeWVIb1dCRGQzOHBxUGNYRkZIYVBCOXI1R3I4?=
- =?utf-8?B?Qm82WnEvWGtzYmN3WHhOUHQ1V25Mc3hlTlYwRnE0UFV0MEEwWDlZZlpnL0tS?=
- =?utf-8?B?cVJDai9QbHhtOWJJem9ITmNRN3pTOXVkQUE3NWljVENsc1g2MWtET3dNSGUz?=
- =?utf-8?B?alAxdGhqUjgxaFM1RTl6VUxna0I0MTZwV2N6ZTZXYVVDUkRYTHpPTmZ5cWQ1?=
- =?utf-8?B?b2JtSmttMkl4RGNNMU10NDJ1aGJXVmpxbTA1bDI2UW1pcU5kNVRtcGF4dFBx?=
- =?utf-8?B?amkxYnpjYTM1ZnVmdmtad2kwOHFJSFVibWQ1REZ4dnVra1dENk5sMDhWQ3FG?=
- =?utf-8?B?RnVRd0xMb1dCeGdrQkFsNnBLUWV2NURFMUQvYzE5clkrSEVlbEFRdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790695216; cv=none; b=DFnmSv6sLB0M6gqb7Box0eOiClMqZq3YthYQtHCaqMxWKdcDbJevZXxlBsXa/QZdibfenfMgfiP9ydVroMk3NUoacqiIUIKJefluZSuTSPU3E6s+KUoDP16zqHrr5th4JhHeb75ZyJ9lvA9PU+Z57+q3fZ+rUsGa1vYDxPFAgP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790695216; c=relaxed/simple;
+	bh=XjgSTZcB19h2+X9Ott84HHl97JmshSmY/cBH2BIlqy0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r3mS0tOrWFvobHxxH/MELPOZ7PWkyfSDru5ngqa2JmesTXr0g0ZIbW/p5i/yhEeCZ9slAW5PT9fPErDaCUOQvl5oMiQBIIQmvr80/wqr3G32FFn89gkKEPs/ZJnF/87+Pn62ONpCaHoBTF8qOfgNvnnG/wdUIwBMA9FcvY2ls/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDHzy8O17tq2wJHAQ--.2427S3;
+	Tue, 29 Sep 2026 23:19:42 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with UTF8SMTPA id zS_KCgCXN6IO17tqQ88kAA--.13360S2;
+	Tue, 29 Sep 2026 23:19:42 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: rafael@kernel.org
+Cc: daniel.lezcano@linaro.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	srinivas.pandruvada@linux.intel.com,
+	stable@vger.kernel.org,
+	songl@zju.edu.cn,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] thermal: intel: int340x: Fix potential use-after-free in proc_thermal_pci
+Date: Tue, 29 Sep 2026 15:18:45 +0000
+Message-Id: <20260929151845.23980-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB8139.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d128b47-c8fd-4ae8-2982-08df1e3d1adf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 15:19:50.2377
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s4mo3pAvaiXf/Jy6644RYd5DjmdvQOATLEgZeEm6b3xH74pfI9g6LBlyWugqsiHFr8C9+nyxFqw1qIFYdYIZAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8865
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCXN6IO17tqQ88kAA--.13360S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?9O0/hAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnbfYAegEspJ+qccDMUwRutsB0EcGSD8FLnu0ttyGdxLT+OZVqMkBXp0XbuT6aljoiZ/a
+	gapOTp7f/pDFYyPhDoup9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW3Jw4kXr13Jr1xGr4xGF47KFX_yoWftF1kpa
+	y5WFyDCrWkGF43WwnrAr40vFs8tr40g3y3WrWfK34ftr45ArySqFyftFyUAFW8GFZ8AF1j
+	yF15tr4DCF9rGFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8oCJPUUUUU==
 
-SGkgQ2hhbmd3ZWksDQoNCkhvbmVzdGx5LCBJJ2QgcHJlZmVyIGFuIGV4cGxpY2l0IHJlcXVlc3Qt
-dHlwZSBtYXJrZXIgb3ZlciBpbmZlcnJpbmcgaXQgZnJvbQ0Ka2V5LT5kLCBidXQgZXZlcnkgY2xl
-YW5lciBvcHRpb24gKGUuZy4gYWRkaW5nIEZPUk1fUFVCTElDPTAgYW5kIHN3aXRjaGluZyBvbg0K
-cHJpdl9mb3JtIGV2ZXJ5d2hlcmUpIHJpcHBsZXMgYWNyb3NzIHRoZSBkcml2ZXIgYW5kIGlzbid0
-IHdvcnRoIGl0IGZvciBhDQp0YXJnZXRlZC4gU28ga2V5LT5kIGNoZWNrIGlzIG9rIGZyb20gbXkg
-c2lkZS4NClBsZWFzZSBhbHNvIGFkZCBGaXhlczogYmY1Mzc5NTAyNWEyICgiY3J5cHRvOiBjYWFt
-IC0gYWRkIGNyeXB0b19lbmdpbmUgc3VwcG9ydCBmb3IgUlNBIGFsZ29yaXRobXMiKSBpbiB0aGlz
-IGNvbW1pdC4NCg0KUmV2aWV3ZWQtYnk6IFNhaGlsIE1hbGhvdHJhIDxzYWhpbC5tYWxob3RyYUBu
-eHAuY29tPg0KDQpSZWdhcmRzLA0KU2FoaWwgTWFsaG90cmENCg0KDQpOWFAgQ29uZmlkZW50aWFs
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IENoYW5nd2VpIFpvdSA8Y2hh
-bmd3ZWkuem91QGNhbm9uaWNhbC5jb20+DQo+IFNlbnQ6IDIxIEF1Z3VzdCAyMDI2IDEwOjI2DQo+
-IFRvOiBIb3JpYSBHZWFudGEgPGhvcmlhLmdlYW50YUBueHAuY29tPjsgUGFua2FqIEd1cHRhDQo+
-IDxwYW5rYWouZ3VwdGFAbnhwLmNvbT47IGdhdXJhdi5qYWluQG54cC5jb207DQo+IGhlcmJlcnRA
-Z29uZG9yLmFwYW5hLm9yZy5hdTsgZGF2ZW1AZGF2ZW1sb2Z0Lm5ldA0KPiBDYzogbGludXgtY3J5
-cHRvQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsNCj4gbHVr
-YXNAd3VubmVyLmRlOyBjaGFuZ3dlaS56b3VAY2Fub25pY2FsLmNvbQ0KPiBTdWJqZWN0OiBbRVhU
-XSBbUEFUQ0ggMS8yXSBjcnlwdG86IGNhYW0gLSBGaXggd3JvbmcgdW5tYXAgb3BlcmF0aW9ucw0K
-Pg0KPiBDYXV0aW9uOiBUaGlzIGlzIGFuIGV4dGVybmFsIGVtYWlsLiBQbGVhc2UgdGFrZSBjYXJl
-IHdoZW4gY2xpY2tpbmcgbGlua3Mgb3INCj4gb3BlbmluZyBhdHRhY2htZW50cy4gV2hlbiBpbiBk
-b3VidCwgcmVwb3J0IHRoZSBtZXNzYWdlIHVzaW5nIHRoZSAnUmVwb3J0DQo+IHRoaXMgZW1haWwn
-IGJ1dHRvbg0KPg0KPg0KPiBCb3RoIGFrY2lwaGVyX2RvX29uZV9yZXEoKSBhbmQgYWtjaXBoZXJf
-ZW5xdWV1ZV9yZXEoKSBjYWxsDQo+IHJzYV9wdWJfdW5tYXAoKSByZWdhcmRsZXNzIG9mIHRoZSBr
-ZXkgdHlwZS4gcHJpdl9mb3JtIG9ubHkgdGFrZXMgdmFsdWVzDQo+IEZPUk0xL0ZPUk0yL0ZPUk0z
-IHdpdGggbm8gZGlzdGluY3QgcHVibGljIGtleSBlbnVtZXJhdG9yLg0KPg0KPiBVc2Uga2V5LT5k
-IHRvIGRpc3Rpbmd1aXNoIHB1YmxpYyBmcm9tIHByaXZhdGUga2V5IG9wZXJhdGlvbnMsIHRoZW4g
-ZGlzcGF0Y2ggdG8NCj4gdGhlIGNvcnJlY3QgdW5tYXAgZnVuY3Rpb24gYmFzZWQgb24ga2V5LT5w
-cml2X2Zvcm0uDQo+DQo+IGNhYW1fcnNhX3NldF9wcml2X2tleV9mb3JtKCkgaW1wbGljaXRseSBy
-ZWxpZXMgb24gemVyby1pbml0aWFsaXphdGlvbiBmb3INCj4gcHJpdl9mb3JtLiBTZXQgcHJpdl9m
-b3JtID0gRk9STTEgZXhwbGljaXRseSBhdCB0aGUgaGVhZCBvZiB0aGUgZnVuY3Rpb24gZm9yDQo+
-IGNsYXJpdHkgYW5kIHJvYnVzdG5lc3MuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IENoYW5nd2VpIFpv
-dSA8Y2hhbmd3ZWkuem91QGNhbm9uaWNhbC5jb20+DQo+IEFzc2lzdGVkLWJ5OiBPcGVuQ29kZTpj
-bGF1ZGUtc29ubmV0LTQuNg0KPiAtLS0NCj4gIGRyaXZlcnMvY3J5cHRvL2NhYW0vY2FhbXBrYy5j
-IHwgNDMgKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tDQo+IC0tDQo+ICAxIGZpbGUg
-Y2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2NyeXB0by9jYWFtL2NhYW1wa2MuYyBiL2RyaXZlcnMvY3J5cHRvL2NhYW0v
-Y2FhbXBrYy5jDQo+IGluZGV4IGNiMDAxYWExZGU2Ni4uODQwMjcxODQwY2NlIDEwMDY0NA0KPiAt
-LS0gYS9kcml2ZXJzL2NyeXB0by9jYWFtL2NhYW1wa2MuYw0KPiArKysgYi9kcml2ZXJzL2NyeXB0
-by9jYWFtL2NhYW1wa2MuYw0KPiBAQCAtMzc5LDYgKzM3OSw3IEBAIHN0YXRpYyBpbnQgYWtjaXBo
-ZXJfZG9fb25lX3JlcShzdHJ1Y3QgY3J5cHRvX2VuZ2luZQ0KPiAqZW5naW5lLCB2b2lkICphcmVx
-KQ0KPiAgICAgICAgIHN0cnVjdCBjcnlwdG9fYWtjaXBoZXIgKnRmbSA9IGNyeXB0b19ha2NpcGhl
-cl9yZXF0Zm0ocmVxKTsNCj4gICAgICAgICBzdHJ1Y3QgY2FhbV9yc2FfcmVxX2N0eCAqcmVxX2N0
-eCA9IGFrY2lwaGVyX3JlcXVlc3RfY3R4KHJlcSk7DQo+ICAgICAgICAgc3RydWN0IGNhYW1fcnNh
-X2N0eCAqY3R4ID0gYWtjaXBoZXJfdGZtX2N0eF9kbWEodGZtKTsNCj4gKyAgICAgICBzdHJ1Y3Qg
-Y2FhbV9yc2Ffa2V5ICprZXkgPSAmY3R4LT5rZXk7DQo+ICAgICAgICAgc3RydWN0IGRldmljZSAq
-anJkZXYgPSBjdHgtPmRldjsNCj4gICAgICAgICB1MzIgKmRlc2MgPSByZXFfY3R4LT5lZGVzYy0+
-aHdfZGVzYzsNCj4gICAgICAgICBpbnQgcmV0Ow0KPiBAQCAtMzkxLDcgKzM5MiwyMSBAQCBzdGF0
-aWMgaW50IGFrY2lwaGVyX2RvX29uZV9yZXEoc3RydWN0IGNyeXB0b19lbmdpbmUNCj4gKmVuZ2lu
-ZSwgdm9pZCAqYXJlcSkNCj4gICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+DQo+ICAgICAg
-ICAgaWYgKHJldCAhPSAtRUlOUFJPR1JFU1MpIHsNCj4gLSAgICAgICAgICAgICAgIHJzYV9wdWJf
-dW5tYXAoanJkZXYsIHJlcV9jdHgtPmVkZXNjLCByZXEpOw0KPiArICAgICAgICAgICAgICAgaWYg
-KGtleS0+ZCkgew0KPiArICAgICAgICAgICAgICAgICAgICAgICBzd2l0Y2ggKGtleS0+cHJpdl9m
-b3JtKSB7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgRk9STTE6DQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcnNhX3ByaXZfZjFfdW5tYXAoanJkZXYsIHJlcV9jdHgt
-PmVkZXNjLCByZXEpOw0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0K
-PiArICAgICAgICAgICAgICAgICAgICAgICBjYXNlIEZPUk0yOg0KPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHJzYV9wcml2X2YyX3VubWFwKGpyZGV2LCByZXFfY3R4LT5lZGVzYywg
-cmVxKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgY2FzZSBGT1JNMzoNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICByc2FfcHJpdl9mM191bm1hcChqcmRldiwgcmVxX2N0eC0+ZWRlc2MsIHJlcSk7DQo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIH0NCj4gKyAgICAgICAgICAgICAgIH0gZWxzZSB7DQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIHJzYV9wdWJfdW5tYXAoanJkZXYsIHJlcV9jdHgtPmVkZXNjLCByZXEpOw0KPiAr
-ICAgICAgICAgICAgICAgfQ0KPiAgICAgICAgICAgICAgICAgcnNhX2lvX3VubWFwKGpyZGV2LCBy
-ZXFfY3R4LT5lZGVzYywgcmVxKTsNCj4gICAgICAgICAgICAgICAgIGtmcmVlKHJlcV9jdHgtPmVk
-ZXNjKTsNCj4gICAgICAgICB9IGVsc2Ugew0KPiBAQCAtNjkxLDE3ICs3MDYsMTkgQEAgc3RhdGlj
-IGludCBha2NpcGhlcl9lbnF1ZXVlX3JlcShzdHJ1Y3QgZGV2aWNlDQo+ICpqcmRldiwNCj4gICAg
-ICAgICAgICAgICAgIHJldCA9IGNhYW1fanJfZW5xdWV1ZShqcmRldiwgZGVzYywgY2JrLCByZXEp
-Ow0KPg0KPiAgICAgICAgIGlmICgocmV0ICE9IC1FSU5QUk9HUkVTUykgJiYgKHJldCAhPSAtRUJV
-U1kpKSB7DQo+IC0gICAgICAgICAgICAgICBzd2l0Y2ggKGtleS0+cHJpdl9mb3JtKSB7DQo+IC0g
-ICAgICAgICAgICAgICBjYXNlIEZPUk0xOg0KPiAtICAgICAgICAgICAgICAgICAgICAgICByc2Ff
-cHJpdl9mMV91bm1hcChqcmRldiwgZWRlc2MsIHJlcSk7DQo+IC0gICAgICAgICAgICAgICAgICAg
-ICAgIGJyZWFrOw0KPiAtICAgICAgICAgICAgICAgY2FzZSBGT1JNMjoNCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgcnNhX3ByaXZfZjJfdW5tYXAoanJkZXYsIGVkZXNjLCByZXEpOw0KPiAtICAg
-ICAgICAgICAgICAgICAgICAgICBicmVhazsNCj4gLSAgICAgICAgICAgICAgIGNhc2UgRk9STTM6
-DQo+IC0gICAgICAgICAgICAgICAgICAgICAgIHJzYV9wcml2X2YzX3VubWFwKGpyZGV2LCBlZGVz
-YywgcmVxKTsNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQo+IC0gICAgICAgICAg
-ICAgICBkZWZhdWx0Og0KPiArICAgICAgICAgICAgICAgaWYgKGtleS0+ZCkgew0KPiArICAgICAg
-ICAgICAgICAgICAgICAgICBzd2l0Y2ggKGtleS0+cHJpdl9mb3JtKSB7DQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIGNhc2UgRk9STTE6DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcnNhX3ByaXZfZjFfdW5tYXAoanJkZXYsIGVkZXNjLCByZXEpOw0KPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KPiArICAgICAgICAgICAgICAgICAgICAgICBjYXNl
-IEZPUk0yOg0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJzYV9wcml2X2YyX3Vu
-bWFwKGpyZGV2LCBlZGVzYywgcmVxKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBicmVhazsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgY2FzZSBGT1JNMzoNCj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICByc2FfcHJpdl9mM191bm1hcChqcmRldiwgZWRlc2Ms
-IHJlcSk7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIH0NCj4gKyAgICAgICAgICAgICAgIH0gZWxzZSB7DQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIHJzYV9wdWJfdW5tYXAoanJkZXYsIGVkZXNjLCByZXEpOw0KPiAg
-ICAgICAgICAgICAgICAgfQ0KPiAgICAgICAgICAgICAgICAgcnNhX2lvX3VubWFwKGpyZGV2LCBl
-ZGVzYywgcmVxKTsgQEAgLTk5Miw2ICsxMDA5LDggQEAgc3RhdGljIGludA0KPiBjYWFtX3JzYV9z
-ZXRfcHJpdl9rZXlfZm9ybShzdHJ1Y3QgY2FhbV9yc2FfY3R4ICpjdHgsDQo+ICAgICAgICAgc2l6
-ZV90IHFfc3ogPSByYXdfa2V5LT5xX3N6Ow0KPiAgICAgICAgIHVuc2lnbmVkIGFsaWduZWRfc2l6
-ZTsNCj4NCj4gKyAgICAgICByc2Ffa2V5LT5wcml2X2Zvcm0gPSBGT1JNMTsNCj4gKw0KPiAgICAg
-ICAgIHJzYV9rZXktPnAgPSBjYWFtX3JlYWRfcmF3X2RhdGEocmF3X2tleS0+cCwgJnBfc3opOw0K
-PiAgICAgICAgIGlmICghcnNhX2tleS0+cCkNCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRU5P
-TUVNOw0KPiAtLQ0KPiAyLjQzLjANCj4NCg0K
+proc_thermal_pci_remove() cancels pci_info->work before disabling the
+interrupt sources that schedule it. A threshold IRQ which arrives after
+the cancel but before the THRES_0 and INT_ENABLE_0 MMIO mask can
+reschedule the work, which may then run after devm cleanup has freed
+pci_info and dereference pci_info->tzone and proc_priv->mmio_base. The
+shared IRQ is never freed in remove(), which widens the window, and the
+probe error paths never cancel the work either.
+
+Fix this by cutting off the producers before draining: mask the
+threshold interrupt, remove the sysfs interfaces which can re-enable
+the power floor and workload type hint notifications, disable the
+secondary interrupt sources, including both workload type hint
+prediction bits, free the IRQs, and only then cancel the delayed work
+and unregister the thermal zone, with a final mask afterwards. The
+probe error paths unwind in the same order, and partial MSI setup
+failures go through the same teardown instead of freeing the requested
+IRQs inside setup_msi().
+
+The workload type hint helper removes its sysfs group before disabling
+its interrupt sources and now clears both prediction bits. It is shared
+with the legacy int340x driver, so the same gap is fixed there too.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: acd65d5d1cf4 ("thermal/drivers/int340x/processor_thermal: Add PCI MMIO based thermal driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ .../processor_thermal_device.c                | 13 +++++
+ .../processor_thermal_device.h                |  1 +
+ .../processor_thermal_device_pci.c            | 57 +++++++++++++++----
+ .../processor_thermal_wt_hint.c               | 22 ++++---
+ 4 files changed, 74 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+index f80dbe2ca7e4..a8d355044972 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+@@ -335,6 +335,19 @@ void proc_thermal_remove(struct proc_thermal_device *proc_priv)
+ }
+ EXPORT_SYMBOL_GPL(proc_thermal_remove);
+ 
++/**
++ * proc_thermal_power_limits_attr_remove() - remove the "power_limits" group
++ * @dev:	Device passed to proc_thermal_add().
++ *
++ * Remove the group before the power floor interrupt source is disabled:
++ * a concurrent store to power_floor_enable could re-enable it.
++ */
++void proc_thermal_power_limits_attr_remove(struct device *dev)
++{
++	sysfs_remove_group(&dev->kobj, &power_limit_attribute_group);
++}
++EXPORT_SYMBOL_GPL(proc_thermal_power_limits_attr_remove);
++
+ static int tcc_offset_save = -1;
+ 
+ int proc_thermal_suspend(struct device *dev)
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+index b79937a386ec..918adc6d8712 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+@@ -116,6 +116,7 @@ int processor_thermal_mbox_interrupt_config(struct pci_dev *pdev, bool enable, i
+ 					    int time_window);
+ int proc_thermal_add(struct device *dev, struct proc_thermal_device *priv);
+ void proc_thermal_remove(struct proc_thermal_device *proc_priv);
++void proc_thermal_power_limits_attr_remove(struct device *dev);
+ 
+ int proc_thermal_wt_hint_add(struct pci_dev *pdev, struct proc_thermal_device *proc_priv);
+ void proc_thermal_wt_hint_remove(struct pci_dev *pdev);
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
+index c5131423ec9b..28c5cf53a6f5 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
+@@ -302,6 +302,12 @@ static int proc_thermal_setup_msi(struct pci_dev *pdev, struct proc_thermal_pci
+ 	dev_info(&pdev->dev, "msi enabled:%d msix enabled:%d\n", pdev->msi_enabled,
+ 		 pdev->msix_enabled);
+ 
++	/*
++	 * Set MSI mode once the vectors are allocated, so a failure below
++	 * unwinds through the caller's masked teardown path.
++	 */
++	msi_irq = true;
++
+ 	for (i = 0; i < count; i++) {
+ 		irq =  pci_irq_vector(pdev, i);
+ 
+@@ -309,19 +315,12 @@ static int proc_thermal_setup_msi(struct pci_dev *pdev, struct proc_thermal_pci
+ 						proc_thermal_irq_thread_handler,
+ 						0, KBUILD_MODNAME, pci_info);
+ 		if (ret)
+-			goto err_free_msi_vectors;
++			return ret;
+ 
+ 		proc_thermal_msi_map[i] = irq;
+ 	}
+ 
+-	msi_irq = true;
+-
+ 	return 0;
+-
+-err_free_msi_vectors:
+-	proc_thermal_free_msi(pdev, pci_info);
+-
+-	return ret;
+ }
+ 
+ static int proc_thermal_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+@@ -383,8 +382,12 @@ static int proc_thermal_pci_probe(struct pci_dev *pdev, const struct pci_device_
+ 
+ 	if (use_msi) {
+ 		ret = proc_thermal_setup_msi(pdev, pci_info);
+-		if (ret)
++		if (ret) {
++			/* Full teardown: at least one IRQ was requested. */
++			if (msi_irq)
++				goto err_free_vectors;
+ 			goto err_ret_tzone;
++		}
+ 	} else {
+ 		irq_flag = IRQF_SHARED;
+ 		irq = pdev->irq;
+@@ -403,8 +406,24 @@ static int proc_thermal_pci_probe(struct pci_dev *pdev, const struct pci_device_
+ 	return 0;
+ 
+ err_free_vectors:
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
++	if (!pci_info->no_legacy)
++		proc_thermal_power_limits_attr_remove(&pdev->dev);
++	proc_thermal_mmio_remove(pdev, proc_priv);
+ 	if (msi_irq)
+ 		proc_thermal_free_msi(pdev, pci_info);
++	else
++		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
++	/* Cancel after the IRQs are freed, or the handler may reschedule it. */
++	cancel_delayed_work_sync(&pci_info->work);
++	thermal_zone_device_unregister(pci_info->tzone);
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
++	if (!pci_info->no_legacy)
++		proc_thermal_remove(proc_priv);
++
++	return ret;
+ err_ret_tzone:
+ 	thermal_zone_device_unregister(pci_info->tzone);
+ err_del_legacy:
+@@ -420,16 +439,30 @@ static void proc_thermal_pci_remove(struct pci_dev *pdev)
+ 	struct proc_thermal_device *proc_priv = pci_get_drvdata(pdev);
+ 	struct proc_thermal_pci *pci_info = proc_priv->priv_data;
+ 
+-	cancel_delayed_work_sync(&pci_info->work);
+-
+ 	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
+ 	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
+ 
++	/* The group must go first: a store could re-enable the source. */
++	if (!pci_info->no_legacy)
++		proc_thermal_power_limits_attr_remove(&pdev->dev);
++
++	/* Secondary sources must be off before the IRQs are freed. */
++	proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
++
+ 	if (msi_irq)
+ 		proc_thermal_free_msi(pdev, pci_info);
++	else
++		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
++
++	/* Cancel after the IRQs are freed, or the handler may reschedule it. */
++	cancel_delayed_work_sync(&pci_info->work);
+ 
+ 	thermal_zone_device_unregister(pci_info->tzone);
+-	proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
++
++	/* The work function and trip updates can re-enable the interrupt. */
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
++	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
++
+ 	if (!pci_info->no_legacy)
+ 		proc_thermal_remove(proc_priv);
+ }
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
+index f8c33e8e5b7a..3e70f66dae8c 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
+@@ -278,17 +278,25 @@ EXPORT_SYMBOL_NS_GPL(proc_thermal_wt_hint_add, "INT340X_THERMAL");
+ 
+ void proc_thermal_wt_hint_remove(struct pci_dev *pdev)
+ {
+-	mutex_lock(&wt_lock);
+-	if (wt_enable)
+-		processor_thermal_mbox_interrupt_config(pdev, false,
+-							SOC_WT_PREDICTION_INT_ENABLE_BIT,
+-							0);
+-	mutex_unlock(&wt_lock);
+-
++	/* Group removal waits for active stores, so remove it first. */
+ 	if (workload_hint_created)
+ 		sysfs_remove_group(&pdev->dev.kobj, &workload_hint_attribute_group);
+ 
+ 	workload_hint_created = false;
++
++	mutex_lock(&wt_lock);
++
++	/* Disable both bits: the slow prediction bit was never cleared before. */
++	processor_thermal_mbox_interrupt_config(pdev, false,
++						SOC_WT_PREDICTION_INT_ENABLE_BIT,
++						0);
++	processor_thermal_mbox_interrupt_config(pdev, false,
++						SOC_WT_SLOW_PREDICTION_INT_ENABLE_BIT,
++						0);
++	wt_enable = false;
++	wt_slow_enable = false;
++
++	mutex_unlock(&wt_lock);
+ }
+ EXPORT_SYMBOL_NS_GPL(proc_thermal_wt_hint_remove, "INT340X_THERMAL");
+ 
+
