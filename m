@@ -1,105 +1,102 @@
-Received: from smtpdh19-2.aruba.it (smtpdh19-2.aruba.it [62.149.155.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001F4501293
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1076501293
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682517; cv=none; b=oZd4g9YIQSoI8UXQueB0DCvviTn0m00lP3fZpaQfNqfWJR/HdonCe9hUh+9323f0P/tDXtjhf/lXxPyW8zl0oxA//Adb2lAcgmoJFLJBY071yjjzSMKK4J3UwTQ70QL0P/zwd259vTVmRy+gvXn7Z7GpjqpbCJJmYrsvQNDMPN0=
+	t=1790682521; cv=none; b=DmB/NYlYEtyGxoXlOEIuy4ESrS68I/ZhaH9by3TcHn/Dwh9KtfiRePnAsKDyYsLOjzIDPWxKTS5CYHsCp2KbZ2n+q6mpTaGP2WRsit+R4rU4cpgcTlGmj+nIYAFvNJF52XeQy4YK+EEYqFFAsjAY6p9bbEseFt4+ZK4fkaupbnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682517; c=relaxed/simple;
-	bh=ClJqhJuYYFJXOtWZBNSRYkjOnDQUjUrJcwaL8iAY8H8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KABJEAQFq3txqf8kWS+erELZKQCSocSVFVM351YQmioyjg0g6LAcpWAZnoUnwSdZntuIxT+CjP4OJeuXyGMfZJd++mtHeDOYDHHSLkldT176qOHGjS0t403vjUG8x/ih+mn9Z1ekwZ5hGLZ82SHVKyDTLoepheOyLt00pkB3Ii4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=RX66vsdH; arc=none smtp.client-ip=62.149.155.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790682521; c=relaxed/simple;
+	bh=ZFI18GEJK6fm9FBFKI44yi1BnmEX3LV/TNTR1qpsBKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rPkjhaqQLBGfFjYmEyUXqtd/ZVh2M1NsBdm/AOghvwGjaKYMzkB6YzTCQajRkaCgkZDceZKqBV3PI3ijlp09X8OYeBtK0XAN2Ge8wmzYiwwz5tJJFvhWVs7brh81o69oLUbtuRsXalm1zS/i7G2HkgFhwsAOY3m6oCNPnDEFzD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnZiF12G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="RX66vsdH"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id BWJxxyTWW5bAIBWJyxBloq; Tue, 29 Sep 2026 13:48:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790682511; bh=ClJqhJuYYFJXOtWZBNSRYkjOnDQUjUrJcwaL8iAY8H8=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=RX66vsdHQzu/w9QPE8cthOSXdhEfO4I+qBLsnkLKSainue+r42MS4i4TjLVKHF3et
-	 bbiLVPzqTtOds2IZIWLV/ITKMqddcK1O+//YoRVut8N/DFV8+VKThLK7B3gEjC88nE
-	 IQoTrrkkxg3Uw4d5K2l9PUnCO7OFdoblgmEk7cLQzxxN+a5koJ4OwRwd7bz/0XfsaZ
-	 91XfBCCwP+u/SaWSZz6XzFBvu8RlQi/YDplwX1q+qyjqCtLc7PKr8r7uwb07MTUP/k
-	 VwvZOL17LcaGBgPWgbUbxQppy1l0vtLYYt+BtZ6HjrE/KsY7gLj8l6peH/PakxGGlx
-	 OdZ/4ZmOhdziw==
-Message-ID: <a174957f-f414-42c9-80f9-5d60f448e044@enneenne.com>
-Date: Tue, 29 Sep 2026 13:48:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnZiF12G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4DC1F000FF;
+	Tue, 29 Sep 2026 11:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790682519;
+	bh=AonU/AJLf898mqei6BZExmDmc83WdKFP0llY4R7RD1k=;
+	h=From:To:Cc:Subject:Date;
+	b=FnZiF12GrREr3QxyD6B+1jDs94+Yrir+GbGQfCIcTBCXG3jVr2CvmYK9p63avXJCc
+	 0VrAqiFwUCRthNR2rj5aGUwjVxPYgKBv7E5pThePRrMpXTYVKydADto4pB5DSeCsmC
+	 A9sXaQ0hJjfakGJhqpe67xwpEsM8w7NScWtlTNEhb0P5HR88DDkbDAZUwYjCeVrg2A
+	 nCzGpVe3PW4vQihRzktZqvRvl9CfJduZOzKG4cL4ty7ckc9HwpfTUreBHqqRTuoQLB
+	 7w/ptJfo8iW/PwBep4xJmDCQUEmQRn0A99KzAo7b1/p8mMvFiyM+MzqCp7jjcSTACx
+	 pegurF49auRsw==
+From: Sasha Levin <sashal@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	"kernelci.org bot" <bot@kernelci.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/panel: select DRM_KMS_HELPER
+Date: Tue, 29 Sep 2026 07:48:28 -0400
+Message-ID: <20260929114828.3260345-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] pps: Drop the !NO_HZ_COMMON dependency from
- NTP_PPS
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260829210041.40649-1-dwmw2@infradead.org>
- <20260829210041.40649-3-dwmw2@infradead.org>
- <f6e90a49-8c68-42e6-bdff-ea9b3ecbaf7b@enneenne.com>
- <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
- <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
- <cb992b22907085c4ced8d9a35cd1c8836aad20ad.camel@infradead.org>
- <decd5d05-1373-4ddc-95bc-46b73d6f6b99@enneenne.com>
- <7f98cef0918465e8d6bc9e76d26afb8b12471773.camel@infradead.org>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <7f98cef0918465e8d6bc9e76d26afb8b12471773.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfC4b7vUfyBZo67Hz7JM35nLEWhFO+/yJBxfYYYyxuLVPrDpIaSm8ipwm7yTxUZKV7iRgBPjYrDAa9vxiMlw+CIUPVy3nkAQ1O2NEmsEcclXOmPEKkK/A
- vhlse6xsaHwUblv11GlzOGSI90FDdF79lS+AyXEhYm70q6aKY/iSuUBsYPN+CG04q/oedi7AqCdf4IuCKtDdhzEh+kV+Lv8VchocKduSRhVIR/XtSe1I44Fs
- rSA0BlkmNuJq/QLWYnIfBmj+S720UU16GVA65RwqgGfoXeu3H3pHDPdZyCPSI+tn3OY3Hf21bbiMr89ZdcsqnKSWQccineNUgH/iV4xWWc2+JJsCFGEgNzo9
- 2Y/xwxdSyE7YcXYH1BpJo+Ia79+vAX0VwcRqEKWYZraFhS18nSHMLPkwZ8pYWD+7lQV+M4MLuqFOu5ozaoOd5PgPTnNOJqxjQQ6fchopVQdNOx6vc53YjSb+
- EzQM+8XwIeSh39pdpJT8SzcvaisfhTUk3Qc4tY68ZmeGzFggBrTuJUSdMqWS3eyq6j3vDtHepnL2PWE/pVXp+2USR/1M7OekQmRYpGp3Phw0/DeyVz8vNTZO
- H8cTc087JdA35xobHRrE8Q30
 
-Hi David,
+Since the panel_bridge code moved into drm_panel.c, any config with
+DRM built in but without the KMS helpers fails to link, for example
+arc haps_hs_smp_defconfig with allnoconfig and the kselftest fragment:
 
-On 29/09/2026 11:32, David Woodhouse wrote:
-> When second_overflow() is delivering skew, timekeeping_max_deferment()
-> should trigger a wakeup at the end of the second to ensure that the
-> skew gets recalculated — rather than leaving it active indefinitely.
+  arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x28): undefined
+  reference to `drm_atomic_helper_bridge_duplicate_state'
+  arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x2c): undefined
+  reference to `drm_atomic_helper_bridge_destroy_state'
+  ...
 
-Please put this fix in the series before 2/4, as for the tick_length
-one.
+With DRM=m, modpost fails the same way:
 
-> So the results at https://david.woodhou.se/ntptest-r64/tickless/ need
-> to be redone, but you can take a look and shout if you want me to
-> change what I'm capturing or how I'm doing it.
+  ERROR: modpost: drivers/gpu/drm/drm_panel.ko: symbol
+  'drm_atomic_helper_bridge_duplicate_state' undefined!
 
-What you capture is fine for me: the adjtimex state (offset, jitter,
-stabil, errcnt) plus the per-pulse phase are what I wanted to see.
+The panel_bridge used to live in bridge/panel.c, which was part of
+drm_kms_helper and was therefore only built when DRM_KMS_HELPER was
+enabled. drm_panel.c is built for DRM_PANEL instead, which
+DRM_PANEL_BRIDGE selects whenever DRM_BRIDGE is set, and DRM_BRIDGE
+is enabled for every DRM config. Nothing on that path selects
+DRM_KMS_HELPER, so the bridge and connector helpers used by the moved
+code can be missing.
 
-Two questions for the rerun:
+The panel_bridge code in drm_panel.c is built unconditionally, so
+make DRM_PANEL select DRM_KMS_HELPER.
 
-- wouldn't it be better to also have the tickful baseline with the same
-   board, the same GPS and the same pulse period, so the numbers can be
-   compared directly?
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Closes: https://d.kernelci.org/i/maestro:9ed7f4b210fa7c1d3bb109b0fcd62285e98c5b81
+Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/panel/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-- since typical PPS sources deliver 1 Hz, don't you think it would be
-   better to also do one run with the timepulse at 1 Hz?
-
-Ciao,
-
-Rodolfo
-
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 0a79a0558101b..53a1fc2913fee 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -2,6 +2,7 @@
+ config DRM_PANEL
+ 	tristate
+ 	depends on DRM
++	select DRM_KMS_HELPER
+ 	help
+ 	  Panel registration and lookup framework.
+ 
 -- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
+2.53.0
+
