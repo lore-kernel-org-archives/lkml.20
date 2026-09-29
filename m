@@ -1,106 +1,85 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D41D5383F8;
-	Tue, 29 Sep 2026 15:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148C44F96BD;
+	Tue, 29 Sep 2026 15:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694855; cv=none; b=FtR/iWn7KN3Z7SVFXPjUXEjo7kkObYp+MpWl8j6yxIifhSGzAVv9x/eMJ47Onai+xL1PXJ3++2UcTLSjgiQ75NdoAugIrNg5GGwTLf0NXcPS6Tc741Of4zarWU61+Q+tQA3VFK/WxYlk5ISKLxRMWmc7szgstQBHikw5kwBXC+U=
+	t=1790694879; cv=none; b=ZE/KfV9mhqdeRoYrSb11U1YscHZYDvySCHbu3Wvo7QTSoCYpyFCX7UWMzZ82JZKLh4YiRUm2lgp8gOcvMrqpk29FvW695YxjmMMnm45fvF60QHVF5/0FD233TB6f9/aCye+KupySGu7LTQRt8WmtPJg1Y2QFmLVhqLls7dK3Wlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694855; c=relaxed/simple;
-	bh=XEtGGorji3NtkUx1Ni1j3Vf8MbEwOxKvWSr7f1Dxavo=;
+	s=arc-20240116; t=1790694879; c=relaxed/simple;
+	bh=cBmrkm0EPkAggtTwxvkfGmwase8wo6C3mxJxvL0mNZo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lwXyrFY4tCrfeUTDx8u/1isCdlcp1nYeadcZuiIjwQF4chwy+4hrnFBEmCkKGTXYGA9/m7xiXhyOvfzYcA7qt7hAAgQ5ybTgrLyusKieWor5aXp9tKpwVS03vPrUn4QsYRhITxAgeJwW6ikKNgTtfUd2E+FwP/sYf78+7NDJbAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EfBvsUkU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VFjjYzNh; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=euZroNme8Tr8zLTb91AFgD+/JSsO1lhwC2LRmnsJM0h5q5uHBelFnc/eXaog7mq1KLGDJqVHxf+tTMVkiQYr3sHRTb35CU4K/NbiyphetFRJjAXLRzn9b2lRK3B7cCQueodBGvlUCS0R22to5kSUbFZfmnXAi65umZ1rnS3lZr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtI0l9nR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EfBvsUkU";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VFjjYzNh"
-Date: Tue, 29 Sep 2026 17:14:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790694843;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pkQpYFiMxSAX1DzMvKY2lHJd+Uw2ccGZnZL7SuyrGMY=;
-	b=EfBvsUkUz4qh+/XUVEPUlvuwAyW7wbF7E8uDLnTyznKk2n4rsH5/IVXa/H5Sp9kYt27TmQ
-	Bu2IK+yy4dMQ7sh38j9m1ef1ftagXFU6MjIo2CMUQuW2Pr6PYka1E99Bp7CIZkTSA/Eoui
-	fq/cMZPvEc26JYKhe2/1NCiAY9OVF3uSNlDkQgGa+XJyIWcAvWNpTiPPIg57j9D+QcOB1A
-	7XPjbY1aVlJZTh8adcwDUw+9AGp9qgORO2T2w9GCQl9LeVNtoh+8jclbQrzCGBnzpMfWdJ
-	RqFD58cMxM6UkL2sSq3Uz+qML61ntsxXadYO/6U/mz5drfeTQ7nzVAsOg7Yddg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790694843;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pkQpYFiMxSAX1DzMvKY2lHJd+Uw2ccGZnZL7SuyrGMY=;
-	b=VFjjYzNhNXdMOYOJdjTGaz3xpdUVT/yPc+R1E41OoqhTIHdrpWfHY65AGjhV4AI4PgRCEN
-	gsW+CqRESCX/b0Cw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Prashant Singh <singhpra@juniper.net>, Jeremy Kerr <jk@ozlabs.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
-	Steve McIntyre <93sam@debian.org>, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v4] efivarfs: add nostatfs mount option to skip
- QueryVariableInfo()
-Message-ID: <20260929151401.doOQX7D0@linutronix.de>
-References: <20260928203445.72318-1-singhpra@juniper.net>
- <20260929074312.v3jT8uel@linutronix.de>
- <59d5452c-42b1-4784-a593-5e549a2a0f12@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtI0l9nR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F8B1F000FF;
+	Tue, 29 Sep 2026 15:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790694867;
+	bh=n7ZrRQ1chnmodqK9THKeJa8hJHMiPCs9pg0BQi2fXeA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CtI0l9nRs7p8TrmCKmtq7/sHv67qDSFDpaAXLUVYFOCVC3vVAcMCW/rOGX2x5xgtA
+	 NF/60wtgHieH95Ne7N5E7/0QhoXUKYn1nW+awwmcXlr+sJVGxJlXr2ivjTAnHCTSRZ
+	 z9QT0XPRduWmsdEzfW9hm5lokdohQtxBA/0duxgW8qRpm1NmUyI23NOryC7f+4+zA5
+	 0E9QTOCHdAjH2exdZyQ3C/1OsfbhgPlBwK2pm0+YHW0muVVuzo7PhKZ9Wp6neTuAq0
+	 qWTQDZK6XMTfrNdIpN8jNjDn+ZeaIEVIrtaYgQ28Mbb/6KciVUviJDNHUU+2R5H1ZN
+	 WbiRoyW6NbzaA==
+Date: Tue, 29 Sep 2026 16:14:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] ASoC: codecs: wcd937x: use devm_free_irq() for watchdog
+ IRQs
+Message-ID: <442d1d5a-44fb-4165-9a04-9b81ffd6b15e@sirena.org.uk>
+References: <20260929094223.2086750-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0gqpM7CipBeFoiIo"
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <59d5452c-42b1-4784-a593-5e549a2a0f12@app.fastmail.com>
+In-Reply-To: <20260929094223.2086750-1-runyu.xiao@seu.edu.cn>
+X-Cookie: 1 bulls, 3 cows.
 
-On 2026-09-29 14:22:31 [+0200], Ard Biesheuvel wrote:
-> Hi Sebastian,
-Hi Ard,
 
-> Thanks for taking a look.
+--0gqpM7CipBeFoiIo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-doing my best=E2=80=A6
+On Tue, Sep 29, 2026 at 05:42:23PM +0800, Runyu Xiao wrote:
+> The watchdog IRQs are requested with devm_request_threaded_irq() from the
+> codec component probe, but the remove callback frees them with free_irq().
+> The devres entries remain in place. Component teardown later tries to free
+> the same IRQs again.
 
-> >> --- a/fs/efivarfs/internal.h
-> >> +++ b/fs/efivarfs/internal.h
-> >> @@ -11,6 +11,7 @@
-> >>  struct efivarfs_mount_opts {
-> >>  	kuid_t uid;
-> >>  	kgid_t gid;
-> >> +	bool nostatfs;		/* skip QueryVariableInfo() in statfs() */
-> > Here and below you add a comment to every change you make. What about
-> > focusing on the important parts, that deserve an explanation why a
-> > change has been made. For instance why nostatfs has the READ_ONCE/
-> > WRITE_ONCE accessors and sometimes it does not.
-> >
->=20
-> AIUI the READ_ONCE/WRITE_ONCE were added because Sashiko warned about
-> potential KCSAN splats? It would be nice to mention that.
+Surely the obvious thing here is that we shouldn't be using devm for the
+interrupts in the first place, and/or should be moving to the driver
+probe and not having to manually free them in the first place?  This
+isn't the right fix.
 
-:)
+--0gqpM7CipBeFoiIo
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> In any case, KCSAN is runtime instrumentation, and efi_reboot_required()
-> is only called after all other CPUs have been brought down. So if anythin=
-g,
-> this should just wrap the read on the reboot path in a data_race() so
-> that we don't trigger any instrumentation inadvertently on the way down.
+-----BEGIN PGP SIGNATURE-----
 
-Right. So if anything, there could be a data_race() in one place instead
-inconsistent READ/ WRITE once as we have it now.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq71c4ACgkQJNaLcl1U
+h9B/Gwf+LmLi7L4KpHRMV4uNMb+G7iruhgUAc8R49wEdQm6Rmkyo3uWGWBDXf7mb
+dKPybGCA3Y6LmrbqaFfksOvVfz9sEWg7sj55xtzdhuYoDGP4yhOAz78Y6/9RfQaq
+y18LyAkuN0XfYmC2FP0t8eRGkEuzYhKskObFlvCaYriSHLDUS4WNGm7ZftBP+ewT
+sRRsjAlSgHC/s+61x4OynhgQ/219KGeMcWLOapCn41AgvvAsPTJSf2u/2wYeiUJA
+B5NkAfvVV1FjALI8NMQNifIICuWW0MO9rsiJ0T03PM6T4xyOoZgpBq/OrELYw468
+U34gvHfTY0EfAeuPqYrl4Pu7f6ha2g==
+=bu/Q
+-----END PGP SIGNATURE-----
 
-Sebastian
+--0gqpM7CipBeFoiIo--
