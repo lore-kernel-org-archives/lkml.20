@@ -1,123 +1,143 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A08446984F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0641E7C2E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756399; cv=none; b=a9FvXYWsXbHZHRqCoH5D7gxnCfAeCA7hX5rIw5mSk2ygyIYGiu4GuLQpJjSD8SPd+xePkZTUpwDqekugw42ozAr8Sj5uedcomN8fPj3hgvT7vULetqIpQxf0NhuRfvpcog0bJt9DH9MBVwG4NTjGEmBgmT1K+VY7V74nRVZjdNk=
+	t=1790756444; cv=none; b=WID2Fa6a01+o/fXnRQ1lxUXCG7t29RX6gnjruFchg2/psBAMYVDnnWPuYk35tKGiA1jNqwlMBA8F67hBh9zaWMqOmbNNLg01W/e70OMk0a74NViSYEsdvdV/C0V8xolkugToqNzl7r/d3LvEit2TrjgxKRfYTsmuzuG3hSdsJ6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756399; c=relaxed/simple;
-	bh=S1kI0kz2VpIgx3UB+JHbQdXuW4beVBoQ7fRV5J6w0Zg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gw+ELrgCkluSuo8IHWIfFEEd4VMr+F8wV9IVJUBmpF2i9FhHWx48GS7gh5Q3OXCtDAb0AkH7FWg0rQAB8RMOnGcQ4xkf4GGewiM13ayAgJ1WjclaQB/iuDZ6VvFwNkl3WuOi1ifiUuXAEs/aqty3nHOpd2xhefEdoQH1Bpff6gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8npc05Q; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790756444; c=relaxed/simple;
+	bh=KU9Z0TjmzxCF+W0n/98xulJpSCDAFmErT5cGAGyYdd4=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=j44rorAVIVyAD+NeJkQf57NsyvEzTcSB6FNngYb8ccFbImVhWzu8wSgpMk35sF8ZSEP+2UtO8X/24SgVx650Q3AIltgFWyCl/CaY3jTfizNv6Tr/beY4E4Ev+oUwpybdt+EmeTTRxtcI+iPaKUZ+c7z9wUiHw1JWhkv4TMier3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mzbIB6pl; arc=none smtp.client-ip=95.215.58.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8npc05Q"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7c058617aso967957a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:19:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790756393; x=1791361193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=++V1wMCrHdy0Mjct0UTBFxjzclTBEd3vplbF3Wd2tWQ=;
-        b=Z8npc05QGf4zSc7ViLHPLTxzVjUE0bRgL3/LIUFlc2Xjw1PjMkEV0HNF91o3xpNuc1
-         HPGT3RBdplQ1Ripe9ZRAXhi299G+NHWe7X/VDmcX8+vUK9EYXncmBiPrsTvj2oJeSESD
-         ppm4uP8c3COjbcNGlsrBzGrcc7e63KyW4Ull9SkX/Ygp/Cgnr8Hejx4oVPT2VKw0ordi
-         rcHoF0ifuBMET1kULb9ijBblnsspIQjW3gEkKs3TChpB8mMdUddiMUckqTjUFRteNnY3
-         5Utia1AbY541AYDmLmhWdtnUjxErqJKTPIf0tKumaq6qObHhRJ9L0VraKsAJN7PRipOV
-         dPiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790756393; x=1791361193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=++V1wMCrHdy0Mjct0UTBFxjzclTBEd3vplbF3Wd2tWQ=;
-        b=FFCAMqZu270idijnQJGdnnkiXKmBkVpngQfKYW3c4/Xjn3u9oNh4MVKv7Nlr4Ape5E
-         mrJfeCIlBb9lQCHLYfcaMphRtDwruDi83ZzLwr9OMDfIyBukkvqyqAdocNrxs1uM8WIE
-         11WWFryzLecTuYRCuneO841N7QjtJmI7cQcAgVcnIiV81/8p6qNXZfp4IQsmARD+oBAr
-         Oa+InvJ34Is7QdONYbr4QLSvE90+RYjw4bcyQ9r4XES3z1fRv9MsthKGScCYTrTTKVDQ
-         CXEpFGVa7QCR9MHXvZJOcGCo9pPFxTsh8gh67Fybwhv9uvDOqnVYLBscgA1RarZSu7zy
-         uuLg==
-X-Forwarded-Encrypted: i=1; AKwUvBzUsR5pscv9Z5g/WpWe4dvecQDrZ1y+5Yo8stGMdkeCev9AVn3z74Iy8caRrICMmSmvdErw/YteTD3wygg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxfSwEIf57n2iBc850+T7Pxr3tKuIuKfLqahjVmHhRJfvFbY8e
-	tPjCySgORQugWre06JPN7+hm8O2OAqxyvg29y5CrSGxVaI6jBZ777ZD/
-X-Gm-Gg: AYBFou3r+7Lr9AG20Lm2XaL6FTu0W1vbji9iOfxWnMyE8kESi4b00sXPat02FLIuouR
-	S0c5zjkSmOUyE3hfQ3tZMgs3cvbGZ1R+GWtA4uRIMjFvDm+u/FDXRucBS5yoshqIUCOwxOgNJGm
-	WsBri3JYAJNwt7LlnBgZFruVDU6VzoBKmRXuen/D1V0WsUGU0MlsdQnGoDfocmMU9jYeGO+UKQB
-	t8Qn1TzRdoifyVic3DG1Mm8KO5TfeQRNhZxulFBlqPxHrpHZfj2nr/0AZVi3oHNwpnmLI1Ou6UZ
-	B/umYhl1LrWr1mCAVYFchsNJhziBwwZ7TtJpzOEO6aKMTB+k1Gr+EWy3Q3XdalN9R5bKMptphrx
-	jFqkxxn9sDZp2NyfS4rw1Zp/1dx3bmTKhumgnpOkFfL3jErjn8SgyhS1cMHTrTQ6u0k2Yt+SIRx
-	fbaEKjhPazRRmwPYK5O3fmVmbHG8b4GmURWFznNUMo76SWs9YbfoArVOYQ8BrMayOf2Xtjv3acC
-	dEN8gLTfQQcBiRzxWD3rY+ioLAhgLH6aKynh2wLwPKbTND809IbwrZdY64OD7cX/3kNJYtkcn4F
-	kbZAsabf0Q==
-X-Received: by 2002:a05:6a20:db0c:b0:3dd:a196:308f with SMTP id adf61e73a8af0-3de9eb7cf18mr792880637.63.1790756393029;
-        Wed, 30 Sep 2026 01:19:53 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7da126a49sm453319a12.7.2026.09.30.01.19.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:19:52 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Anders Larsen <al@alarsen.net>,
-	Matthias Goergens <matthias.goergens@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v5 5/6] qnx6: abort mount on superblock magic mismatch when silent is set in qnx6_mmi_fill_super()
-Date: Wed, 30 Sep 2026 08:19:46 +0000
-Message-ID: <20260930081947.511613-6-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260930081947.511613-1-benquike@gmail.com>
-References: <20260930081947.511613-1-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mzbIB6pl"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KU9Z0TjmzxCF+W0n/98xulJpSCDAFmErT5cGAGyYdd4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790756439; v=1; x=1791361239;
+ b=mzbIB6pl5fZEG+BU6CK3LudKO5iP9Hhbg/tTfy3SwTZYeGY2kSyXUNFIhl0/Dqc1dfYxRLxe
+ JykKkmyIXYIdNRbH0JTy2D9NQtreDE8sGQJ4jzeTcWtpdCuiC1ENV0h3mTn8osjrMcZMRwrZGNt
+ gDT5/g+7HBFYGMjcsBqO1Kzg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5e7aaa5e6462d98;
+	Wed, 30 Sep 2026 08:20:32 +0000
+X-Mizu-Trace-ID: b5e7aaa5e6462d98
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 30 Sep 2026 08:20:31 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <6aa5303bd95549de53c37dbeafe544ce886a4183@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v4 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, luka.gejak@linux.dev
+In-Reply-To: <a1ef423d-519d-47bb-be6c-d413a8421943@gmail.com>
+References: <20260923213557.186205-1-luka.gejak@linux.dev>
+ <20260923213557.186205-4-luka.gejak@linux.dev>
+ <6ad11268-9f09-4618-8b44-ab0744cf0a52@gmail.com>
+ <845297728a153af0edb5404d88e59cc4ebe4d4cf@linux.dev>
+ <a1ef423d-519d-47bb-be6c-d413a8421943@gmail.com>
 
-In qnx6_mmi_fill_super(), when checking superblock magic for candidate
-superblocks, if the magic does not match QNX6_SUPER_MAGIC and silent is non-zero,
-the error message print is skipped but execution continues to subsequent checks,
-resulting in invalid superblock processing.
+September 29, 2026 at 13:28, "Bitterblue Smith" <rtl8821cerfe2@gmail.com =
+mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821=
+cerfe2%40gmail.com%3E > wrote:
 
-Jump to error labels out1/out2 when superblock magic mismatch occurs,
-regardless of the silent parameter.
+>=20
+>=20On 29/09/2026 13:10, Luka Gejak wrote:
+>=20
+>>=20
+>> 	static void rtw8723b_lck(struct rtw_dev *rtwdev)
+>> 	{
+>> 		...
+>> 		rtw_write_rf(rtwdev, RF_PATH_A, 0xb0, RFREG_MASK, 0xdfbe0);
+>> 		rtw_write_rf(rtwdev, RF_PATH_A, RF_CFGCH, MASK12BITS, lc_cal | BIT_L=
+CK);
+>> 		...
+>> 		rtw_write_rf(rtwdev, RF_PATH_A, 0xb0, RFREG_MASK, 0xdffe0);
+>> 	}
+>
+> Why drop this function? You don't know what RF_SYN_PFD is for.
+> Maybe it's required every time it does LC calibration?
 
-Fixes: 3377755f1064 ("qnx6: add support for MMI (MME) media filesystem variant")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthias Goergens <matthias.goergens@gmail.com>
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
- fs/qnx6/super_mmi.c | 2 ++
- 1 file changed, 2 insertions(+)
+That is rtw8723b_lck(). You are right about the pair, and I had it
+backwards. The vendor writes it inside the calibration itself, in
+_phy_lc_calibrate_8723b(), which is what halrf_lck_trigger() calls for
+this chip, at init and from the power tracking: 0xDFBE0 on RF reg 0xB0
+before the LCK trigger and 0xDFFE0 after it. rtw8723x_lck() does not
+touch 0xB0, so every calibration after the first one ran with the LDO
+off.
 
-diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
-index 19f123d45678..2b6183d2c889 100644
---- a/fs/qnx6/super_mmi.c
-+++ b/fs/qnx6/super_mmi.c
-@@ -62,6 +62,7 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
- 	if (fs32_to_cpu(sbi, sb1->sb_magic) != QNX6_SUPER_MAGIC) {
- 		if (!silent)
- 			pr_err("wrong signature (magic) in superblock #1.\n");
-+		goto out1;
- 	}
- 
- 	/* checksum check - start at byte 8 and end at byte 512 */
-@@ -83,6 +84,7 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
- 	if (fs32_to_cpu(sbi, sb2->sb_magic) != QNX6_SUPER_MAGIC) {
- 		if (!silent)
- 			pr_err("wrong signature (magic) in superblock #2.\n");
-+		goto out2;
- 	}
- 
- 	/* checksum check - start at byte 8 and end at byte 512 */
--- 
-2.47.3
+The pair is back, and it is the whole function now:
+
+	static void rtw8723b_lck(struct rtw_dev *rtwdev)
+	{
+		rtw_write_rf(rtwdev, RF_PATH_A, RF_SYN_PFD, RFREG_MASK, 0xdfbe0);
+
+		rtw8723x_lck(rtwdev);
+
+		rtw_write_rf(rtwdev, RF_PATH_A, RF_SYN_PFD, RFREG_MASK, 0xdffe0);
+	}
+
+The RF_MODE standby pair stays gone, it only runs in the continuous TX
+branch of the vendor. On the card RF_SYN_PFD reads 0xdfbe0 at the LCK
+now and 0xdffe0 before, and the LCK completes in both cases.
+
+>> 	rtw8723b_reassert_rx_path(rtwdev);
+>>
+>> 	if (rtw_is_8723bs(rtwdev)) {
+>> 		...
+>> 		rtw_write_rf(rtwdev, RF_PATH_A, RF_WLINT, RFREG_MASK,
+>> 			           0x0780);
+>> 	}
+>
+> So the driver doesn't work if you delete this part?
+
+It does, and I removed it, both the helper and the block. Its own record
+is against it too: four of the five registers it checks already held
+the value it was about to write, and the RF_WLINT write it depends on
+did not take effect at the time. The stall it was added for was the
+firmware dropping unicast management frames, so it can safely go out.
+
+>> 	iqk:
+>> 	if (do_iqk)
+>> 		rtw8723b_phy_calibration(rtwdev);
+>
+> Different chips can have different needs...
+
+You are right, and the vendor says it outright. Its power tracking
+excludes this chip from the IQK rerun, and the LCK just above it is not
+excluded, so the chip now redoes the LCK on a drift and leaves the IQK
+alone. I forced iqk_threshold to 1 to exercise it: the LCK ran, no IQK,
+link stayed up.
+
+>> 	/* REG_CSRATIO does not exist on this chip generation. */
+>> 	.cck_pd_set		=3D NULL,
+>
+> A better idea: move rtw88xxa_phy_cck_pd_set() to phy.c and don't depend
+> on rtw88_88xxa. That can be a separate patch, of course.
+
+Done, and it took the other two calls with it. It is
+rtw_phy_cck_pd_set() in phy.c now, and the adaptive control and EDCA
+init are rtw_mac_init_* in mac.c, so RTW88_8723B no longer selects
+RTW88_88XXA. rtw88_8723b.ko depends on rtw88_core and rtw88_8723x only,
+the same two modules as rtw8723d and rtw8703b, and the patch is the
+first of the series.
+
+Best regards,
+Luka Gejak
