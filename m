@@ -1,672 +1,145 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172953AC00;
-	Wed, 30 Sep 2026 00:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D226547060;
+	Wed, 30 Sep 2026 00:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728011; cv=none; b=QBmy8qnez0fKvmwSLM2nkBGU4NJdvMZpKYa940Sau/YGqpij/HAAT5hLu79I55tUv+l7ez9jpVxt3rTcSJarozmiLuwjLPd85PvI22RRDGCQ1LaZ7DK9qL5lCwDo9mcNQn8Iw5Rx6m9EyHEy2HdVu4aUx1Qd6NA8X7I6mWki5PI=
+	t=1790728115; cv=none; b=Ylm82ewBWroBKmVpDYZFdGjHLX1HsQJK5ZhF57VNh17y/SgCEhHDDW0Z3axw4ctedJkTEnRPf8N6cpHmwkZUMoM9oDN2VMAk8E1M3kHJzvOSQOO+VPa52ZHkl/ns/qrRPk1j1NtXcAKftko7de/RNtaCIthsPqmGbxMBvHPQ8mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728011; c=relaxed/simple;
-	bh=5Z+cKfWOg27vc3pF+xn1VjIF0FxWfn67qnvqpPUzs7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CngzYO2jx1ce0vsAUJBw7xr6IWzgcH6TUF3FieOEKkw2x0gUq989AzjlJ6LZZe9gB/ZqRtLUOscQyGIqmLb2ZZBbu2Curhysc4ZkKJw0+ZvgF351xvYkbLOpCowWdc3b01sU/g6hvdBPNjX9Q9lD4QxdcNWl0RzzwRUd5QRSlU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PGbKaftc; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790728115; c=relaxed/simple;
+	bh=bn5BM88IqhxyYWQIrR8H3oJUeo3800OHPMfxgxHNSgg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ZfOqhpdtauosMoLpnsIse/SkVXz98zZFhj9XZ+N2tL8QfgRy8mEUscUQ2ZABsUnicQdT+QcPBftI4iKomTVp5yUWKrzb7yVN9QJg6qACo2yDgKc7DNsz4usS6ah1al2xAiXxSUoW4i/tnxRfoYGKnaz77v5IAnEeft9pQK7koJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=NyzbsZcx; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PGbKaftc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8v
-	5Xx2ZMVIzrvFF6pbH9IxbzeBKyU5BiLFa43slIhYo=; b=PGbKaftc8dXu16O8Ui
-	RaPwNHbljcSzRgOCmamt/HYTQCmh8LpXxdECqJcJ1caTH3YstXqd73nyLg782Id3
-	BqaKQUQHUQABUZYPqMhGXuWkj2pbVw+TKLqFdi8xdedCBsQWy5o/zZdYgkBTAEDp
-	0TZWgbS4CPQI4ZU4dQRtyE5FI=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBXnq7EVrxq2GTBBw--.56601S7;
-	Wed, 30 Sep 2026 08:24:51 +0800 (CST)
-From: Kaiqi Guo <chaoji_xinren@163.com>
-To: Jesung Yang <y.j3ms.n@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	bjorn3_gh@protonmail.com,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	work@onurozkan.dev,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Charalampos Mitrodimas <charmitro@posteo.net>,
-	shivamklr@cock.li,
-	Kaiqi Guo <chaoji_xinren@163.com>
-Subject: [PATCH v7 05/11] rust: macros: add private doctests for `TryFrom` derive macro
-Date: Wed, 30 Sep 2026 08:24:30 +0800
-Message-ID: <20260930002436.21395-6-chaoji_xinren@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260930002436.21395-1-chaoji_xinren@163.com>
-References: <20260930002436.21395-1-chaoji_xinren@163.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="NyzbsZcx"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68U0S5xI41717719, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790728085; bh=UVbxKIrRHY3UU0zg2IgJRNIu0MpqTRcgLCgmmFCJVB8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=NyzbsZcx+HIz7QToMTm5V+rJK+HKkET8cBJ6l2m2Bp6LCl2A5UCuqtWjhz76uBBKg
+	 OEqD73ok2Nithduga62SsdPdg6cdmjd2NmxE+HMiGoUH3N2pYXbh1mmMsoekNfhngG
+	 D2YgXCfH49OeiPqpMdEzsHL1yd7yY2oVTmDPeynSm7bs0FEthZLuDdmMljgJQbLBeb
+	 rvZ9FRyu0y01ydBj3PtwKyepQ5tZYlo8MI33Xi2xEA2Y54r08d24fChX1pET28WE4h
+	 7EzOziPDJioemnV9XvDlKJllkwW/P6wx0zz/dzCVmISzZtjjWs4UiRVRrEVDTQvDqD
+	 5dJdedf7ZSEHA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68U0S5xI41717719
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 30 Sep 2026 08:28:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 08:28:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 08:28:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 30 Sep 2026 08:28:05 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Arnd Bergmann <arnd@kernel.org>, Johnson Tsai <wenjie.tsai@realtek.com>
+CC: Arnd Bergmann <arnd@arndb.de>, Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] wifi: rtw89: fix LED dependencies
+Thread-Topic: [PATCH] wifi: rtw89: fix LED dependencies
+Thread-Index: AQHdT/8uPx21cNsIcEC+oww+Nsu2prbmQl0w
+Date: Wed, 30 Sep 2026 00:28:05 +0000
+Message-ID: <1bde7ea5999c4915b184bf2fcb904901@realtek.com>
+References: <20260929104159.3236854-1-arnd@kernel.org>
+In-Reply-To: <20260929104159.3236854-1-arnd@kernel.org>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBXnq7EVrxq2GTBBw--.56601S7
-X-Coremail-Antispam: 1Uf129KBjvAXoW3Zr4DAFW7urWDCw15JrW8WFg_yoW8WF4kWo
-	W8Ja1rG3s8AFnY9FnrJrnYyrZ5A3yS9r9IqryfXr1kCa43J3ySvFW8Jr1UCr1Yqa17JF13
-	J3yfJF4jyrs8Jwn8n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4RIAp0DUUUU
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4hOTD2q8VtODiQAA30
 
-From: Jesung Yang <y.j3ms.n@gmail.com>
+Arnd Bergmann <arnd@kernel.org> wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>=20
+> The rtw89 driver fails to build when multicolor LED support is in
+> a loadable module but the rtw89 driver is built-in:
+>=20
+> aarch64-linux-ld: drivers/net/wireless/realtek/rtw89/led_mc.o: in functio=
+n
+> `rtw89_led_mc_brightness_set':
+> led_mc.c:(.text+0x50): undefined reference to `led_mc_calc_color_componen=
+ts'
+> aarch64-linux-ld: drivers/net/wireless/realtek/rtw89/led_mc.o: in functio=
+n `rtw89_led_mc_init':
+> led_mc.c:(.text+0x434): undefined reference to `led_classdev_multicolor_r=
+egister_ext'
 
-Add internal doctests to verify the `TryFrom` derive macro's logic. This
-ensures comprehensive testing while keeping the public-facing
-documentation compact and readable.
+This was also found by kernel test robot [1], and addressed by patch [2].
 
-Signed-off-by: Jesung Yang <y.j3ms.n@gmail.com>
-Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
----
- rust/macros/convert.rs | 578 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 578 insertions(+)
+[1] https://lore.kernel.org/oe-kbuild-all/202609172315.ZYoKvKBS-lkp@intel.c=
+om/
+[2] https://patch.msgid.link/20260918021113.25481-1-pkshih@realtek.com
 
-diff --git a/rust/macros/convert.rs b/rust/macros/convert.rs
-index 31cdf84082e7..c07870914242 100644
---- a/rust/macros/convert.rs
-+++ b/rust/macros/convert.rs
-@@ -1024,3 +1024,581 @@ mod overflow_assert_works_on_unsigned_int {}
-     /// ```
-     mod any_into_target_overflow_is_rejected {}
- }
-+
-+mod derive_try_from_tests {
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::{
-+    ///         Into,
-+    ///         TryFrom, //
-+    ///     },
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, Into, PartialEq, TryFrom)]
-+    /// #[convert(bool, Bounded<i8, 7>, Bounded<u8, 7>, i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize)]
-+    /// enum Foo {
-+    ///     A,
-+    ///     B,
-+    /// }
-+    ///
-+    /// assert_eq!(false, Foo::A.into());
-+    /// assert_eq!(true, Foo::B.into());
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(false));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(true));
-+    ///
-+    /// let foo_a: Bounded<i8, 7> = Foo::A.into();
-+    /// let foo_b: Bounded<i8, 7> = Foo::B.into();
-+    /// assert_eq!(Bounded::<i8, 7>::new::<0>(), foo_a);
-+    /// assert_eq!(Bounded::<i8, 7>::new::<1>(), foo_b);
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<i8, 7>::new::<0>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<i8, 7>::new::<1>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i8, 7>::new::<-1>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i8, 7>::new::<2>()));
-+    ///
-+    /// let foo_a: Bounded<u8, 7> = Foo::A.into();
-+    /// let foo_b: Bounded<u8, 7> = Foo::B.into();
-+    /// assert_eq!(Bounded::<u8, 7>::new::<0>(), foo_a);
-+    /// assert_eq!(Bounded::<u8, 7>::new::<1>(), foo_b);
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<u8, 7>::new::<0>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<u8, 7>::new::<1>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<u8, 7>::new::<2>()));
-+    ///
-+    /// macro_rules! gen_signed_tests {
-+    ///     ($($type:ty),*) => {
-+    ///         $(
-+    ///             assert_eq!(0 as $type, Foo::A.into());
-+    ///             assert_eq!(1 as $type, Foo::B.into());
-+    ///             assert_eq!(Ok(Foo::A), Foo::try_from(0 as $type));
-+    ///             assert_eq!(Ok(Foo::B), Foo::try_from(1 as $type));
-+    ///             assert_eq!(Err(EINVAL), Foo::try_from((0 as $type) - 1));
-+    ///             assert_eq!(Err(EINVAL), Foo::try_from((1 as $type) + 1));
-+    ///         )*
-+    ///     };
-+    /// }
-+    /// macro_rules! gen_unsigned_tests {
-+    ///     ($($type:ty),*) => {
-+    ///         $(
-+    ///             assert_eq!(0 as $type, Foo::A.into());
-+    ///             assert_eq!(1 as $type, Foo::B.into());
-+    ///             assert_eq!(Ok(Foo::A), Foo::try_from(0 as $type));
-+    ///             assert_eq!(Ok(Foo::B), Foo::try_from(1 as $type));
-+    ///             assert_eq!(Err(EINVAL), Foo::try_from((1 as $type) + 1));
-+    ///         )*
-+    ///     };
-+    /// }
-+    /// gen_signed_tests!(i8, i16, i32, i64, i128, isize);
-+    /// gen_unsigned_tests!(u8, u16, u32, u64, u128, usize);
-+    /// ```
-+    mod works_with_derive_into {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(u8)]
-+    /// enum Foo {
-+    ///     // Works with const expressions.
-+    ///     A = add(0, 0),
-+    ///     B = 2_isize.pow(1) - 1,
-+    /// }
-+    ///
-+    /// const fn add(a: isize, b: isize) -> isize {
-+    ///     a + b
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(0_u8));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(1_u8));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(2_u8));
-+    /// ```
-+    mod works_with_const_expr {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(bool)]
-+    /// enum Foo {
-+    ///     A,
-+    ///     B,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(false));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(true));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(bool)]
-+    /// enum Bar {
-+    ///     A,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Bar::A), Bar::try_from(false));
-+    /// assert_eq!(Err(EINVAL), Bar::try_from(true));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(bool)]
-+    /// enum Baz {
-+    ///     A = 1,
-+    /// }
-+    ///
-+    /// assert_eq!(Err(EINVAL), Baz::try_from(false));
-+    /// assert_eq!(Ok(Baz::A), Baz::try_from(true));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(bool)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `bool`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(bool)]
-+    /// enum Foo {
-+    ///     // `2` cannot be represented with `bool`.
-+    ///     A = 2,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_bool {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     A = -1 << 6,      // The minimum value of `Bounded<i8, 7>`.
-+    ///     B = (1 << 6) - 1, // The maximum value of `Bounded<i8, 7>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<i8, 7>::new::<{ -1_i8 << 6 }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<i8, 7>::new::<{ (1_i8 << 6) - 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i8, 7>::new::<{ (-1_i8 << 6) + 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i8, 7>::new::<{ (1_i8 << 6) - 2 }>()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     // `1 << 6` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = 1 << 6,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     // `(-1 << 6) - 1` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = (-1 << 6) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     A = -1, // The minimum value of `Bounded<i8, 1>`.
-+    ///     B,      // The maximum value of `Bounded<i8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<i8, 1>::new::<{ -1_i8 }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<i8, 1>::new::<{ 0_i8 } >()));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<i8, 1>)]
-+    /// enum Bar {
-+    ///     A = -1, // The minimum value of `Bounded<i8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Bar::A), Bar::try_from(Bounded::<i8, 1>::new::<{ -1_i8 }>()));
-+    /// assert_eq!(Err(EINVAL), Bar::try_from(Bounded::<i8, 1>::new::<{ 0_i8 } >()));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<i8, 1>)]
-+    /// enum Baz {
-+    ///     A, // The maximum value of `Bounded<i8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Err(EINVAL), Baz::try_from(Bounded::<i8, 1>::new::<{ -1_i8 }>()));
-+    /// assert_eq!(Ok(Baz::A), Baz::try_from(Bounded::<i8, 1>::new::<{ 0_i8 } >()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     // `1` cannot be represented with `Bounded<i8, 1>`.
-+    ///     A = 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     // `-2` cannot be represented with `Bounded<i8, 1>`.
-+    ///     A = -2,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = i32::MIN as i64,
-+    ///     B = i32::MAX as i64,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<i32, 32>::new::<{ i32::MIN }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<i32, 32>::new::<{ i32::MAX }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i32, 32>::new::<{ i32::MIN + 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<i32, 32>::new::<{ i32::MAX - 1 }>()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     // `1 << 31` cannot be represented with `Bounded<i32, 32>`.
-+    ///     A = 1 << 31,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     // `(-1 << 31) - 1` cannot be represented with `Bounded<i32, 32>`.
-+    ///     A = (-1 << 31) - 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_signed_bounded {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     A,                // The minimum value of `Bounded<u8, 7>`.
-+    ///     B = (1 << 7) - 1, // The maximum value of `Bounded<u8, 7>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<u8, 7>::new::<{ 0 }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<u8, 7>::new::<{ (1_u8 << 7) - 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<u8, 7>::new::<{ 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<u8, 7>::new::<{ (1_u8 << 7) - 2 }>()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     // `1 << 7` cannot be represented with `Bounded<u8, 7>`.
-+    ///     A = 1 << 7,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u8, 7>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     A, // The minimum value of `Bounded<u8, 1>`.
-+    ///     B, // The maximum value of `Bounded<u8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<u8, 1>::new::<{ 0 }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<u8, 1>::new::<{ 1 }>()));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<u8, 1>)]
-+    /// enum Bar {
-+    ///     A, // The minimum value of `Bounded<u8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Bar::A), Bar::try_from(Bounded::<u8, 1>::new::<{ 0 }>()));
-+    /// assert_eq!(Err(EINVAL), Bar::try_from(Bounded::<u8, 1>::new::<{ 1 }>()));
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<u8, 1>)]
-+    /// enum Baz {
-+    ///     A = 1, // The maximum value of `Bounded<u8, 1>`.
-+    /// }
-+    ///
-+    /// assert_eq!(Err(EINVAL), Baz::try_from(Bounded::<u8, 1>::new::<{ 0 }>()));
-+    /// assert_eq!(Ok(Baz::A), Baz::try_from(Bounded::<u8, 1>::new::<{ 1 }>()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     // `2` cannot be represented with `Bounded<u8, 1>`.
-+    ///     A = 2,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u8, 1>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     A = u32::MIN as u64,
-+    ///     B = u32::MAX as u64,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(Bounded::<u32, 32>::new::<{ u32::MIN }>()));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(Bounded::<u32, 32>::new::<{ u32::MAX }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<u32, 32>::new::<{ u32::MIN + 1 }>()));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(Bounded::<u32, 32>::new::<{ u32::MAX - 1 }>()));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     // `1 << 32` cannot be represented with `Bounded<u32, 32>`.
-+    ///     A = 1 << 32,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u32, 32>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_unsigned_bounded {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(isize)]
-+    /// #[repr(isize)]
-+    /// enum Foo {
-+    ///     A = isize::MIN,
-+    ///     B = isize::MAX,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(isize::MIN));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(isize::MAX));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(isize::MIN + 1));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(isize::MAX - 1));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(isize)]
-+    /// #[repr(usize)]
-+    /// enum Foo {
-+    ///     A = (isize::MAX as usize) + 1
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(i32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (i32::MIN as i64) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(i32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (i32::MAX as i64) + 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_signed_int {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::TryFrom,
-+    ///     num::Bounded,
-+    ///     prelude::*, //
-+    /// };
-+    ///
-+    /// #[derive(Debug, PartialEq, TryFrom)]
-+    /// #[try_from(usize)]
-+    /// #[repr(usize)]
-+    /// enum Foo {
-+    ///     A = usize::MIN,
-+    ///     B = usize::MAX,
-+    /// }
-+    ///
-+    /// assert_eq!(Ok(Foo::A), Foo::try_from(usize::MIN));
-+    /// assert_eq!(Ok(Foo::B), Foo::try_from(usize::MAX));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(usize::MIN + 1));
-+    /// assert_eq!(Err(EINVAL), Foo::try_from(usize::MAX - 1));
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(usize)]
-+    /// #[repr(isize)]
-+    /// enum Foo {
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(u32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (u32::MIN as i64) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(u32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (u32::MAX as i64) + 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_unsigned_int {}
-+
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(Bounded<i8, 7>, i8, i16, i32, i64)]
-+    /// #[repr(i8)]
-+    /// enum Foo {
-+    ///     // `i8::MAX` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = i8::MAX,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::TryFrom;
-+    ///
-+    /// #[derive(TryFrom)]
-+    /// #[try_from(i8, i16, i32, i64, Bounded<i8, 7>)]
-+    /// #[repr(i8)]
-+    /// enum Foo {
-+    ///     // `i8::MAX` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = i8::MAX,
-+    /// }
-+    /// ```
-+    mod any_try_from_target_overflow_is_rejected {}
-+}
--- 
-2.50.1 (Apple Git-155)
+>=20
+> The problem is a misunderstanding of how Kconfig dependencies
+> work, as the 'imply' keyword is not sufficient to enable a
+> a user-visible dependency, and the boolean 'RTW89_LEDS_MC'
+> symbol cannot determine whether linking against the MC code is
+> valid.
+
+People intend to weakly select the dependency. I think keeping
+'imply' is harmless.
+
+>=20
+> Address this by using the correct construct to determing whether
+> linking agains the MAC80211_LEDS and LEDS_CLASS_MULTICOLOR
+> code is possible, respectively.
+>=20
+> Fixes: d910631ff352 ("wifi: rtw89: add LED support to reflect the wireles=
+s association status")
+> Fixes: 721d90c8509a ("wifi: rtw89: add multicolor LED support for RTL8852=
+CU valve board")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/net/wireless/realtek/rtw89/Kconfig | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/Kconfig
+> b/drivers/net/wireless/realtek/rtw89/Kconfig
+> index 7c678dd1f6b3..4000ae344544 100644
+> --- a/drivers/net/wireless/realtek/rtw89/Kconfig
+> +++ b/drivers/net/wireless/realtek/rtw89/Kconfig
+> @@ -208,15 +208,13 @@ config RTW89_DEBUGFS
+>  config RTW89_LEDS
+>         bool
+>         depends on RTW89_CORE
+> -       depends on LEDS_CLASS=3Dy || LEDS_CLASS=3DMAC80211
+
+I remember we fixed to this style years ago by imitating ath10k and iwlwifi=
+,
+which they look like that still.=20
+
+> -       imply MAC80211_LEDS
+> +       depends on MAC80211_LEDS=3Dy || MAC80211_LEDS=3DRTW89_CORE
+>         default y
+>=20
+>  config RTW89_LEDS_MC
+>         bool
+>         depends on RTW89_LEDS
+> -       depends on LEDS_CLASS_MULTICOLOR
+> -       imply LEDS_TRIGGER_TIMER
+> +       depends on LEDS_CLASS_MULTICOLOR=3Dy || LEDS_CLASS_MULTICOLOR=3DR=
+TW89_CORE
+>         default y
+>=20
+>  endif
+> --
+> 2.53.0
 
