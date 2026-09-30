@@ -1,191 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD923E324
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4694364E98;
+	Wed, 30 Sep 2026 02:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790735078; cv=none; b=a+kFPUQftQwu/9c3nnHZjGs6qLiDlGOprogdmcZ4LRPSyg5j0BzlrtR/TKseXV90lLlD4Isdg5Ow0XtqfKwwk7G/iU3Yqv9tLzvCFzKNGRCGfTF/DyETmgmyPyyhIaTfRnA7/5K+UeJaDqu9syxp8gGhOgTJ25gP2fcVZLe1NGQ=
+	t=1790735083; cv=none; b=Qv4UtEqgWT0qwBaVS6ajYhicjEpVHNT9EkNChp21Kj7nv4X/D6qRL82LpDmBqgSYg7sMgIuV3DeasXcJh/Otaae7O5wh/Jm105a8De82dsOp3/6jlUVW6ECzvmkOXOQyIIqiBvouSSdYetLs37QmOvpB/aLt1dMTdS4IrVZ3jX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790735078; c=relaxed/simple;
-	bh=T/Vc0FO3Y78JP1HjR48TNugIRYRKGQ7fcbDo48P4l6Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qJLY0inM/kHB1I7SIq0VMy5xWvQa9JvmIfLPF8pkfg9KGSOZ7XP36+GoYtet0hz1JBDfegS1jlnidXbB+CdEEKWEAwn0hEdGiv+cKhfBa26TC5nZpyp/GPul+P8IsghaTMBh9gpN1i4d7pCDBBqmBhFBFmLncI2LiG3Ut+HCDAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6MUWZwa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790735083; c=relaxed/simple;
+	bh=WPPBdDQDDm9R9R3SXF4S3/bBMH4L13wnTpOWwWZZqmY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Message-Id:Date; b=twOEbC47Aj0EakLsx1mEABlf7XrHxhOvR07cQxoodU8yiepBZvINsA+WeP60DOf61vy0YOCAbfhIL7YA99ok222jM/Ns7MKdTqN6XeoQHrwWvzx1iUnY/eeRna9ZP2dn8l6wgcHNtC9LMW8VIaJi3OUGtzagH98R6V043LEGU6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jsjvCGou; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6MUWZwa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF671F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:24:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790735077;
-	bh=yLskajVvDe8GkqlSQ3k+ndQ86crIezLD99VL1pkAZ0g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=j6MUWZwasaXiU8BXTJ4jzHrrxnlsTHO5ZclduJWjO2MtamwOScatVa5MVI93fvtMK
-	 djugwvoPnzKdGX1/l/zDIeIBJCNlONlpO+xKk488LTQm5lbD6TUoOghi8psAG5bMmZ
-	 iagYN/eo40xahKpYoC6sBHxNgnp3YTe/NnmY54qU4m5tImC2N8V4AakXok2trABoQO
-	 9BQ0/iVrqDA57048aZpke5r4NBoGtf37EUQcabYZCqOuxlwvK2lmeFCypmFR6t+gWw
-	 Bh/UEVH1l37EpbZ85oRslI3a3YTNoDqJuHzQ0f7K5yOwJf1dPqG0vZKtbFaH//3SAL
-	 fn66dfZAbGVXw==
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac5ef2610aso2130169a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:24:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwFrizLpMt30/k/887lBpu6nxdWFI9ljUaSzMHCvOMP2PM2j14GOL/2Mp2hAIQ4hNPoWvy12E2U6Qn24Kk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYqkHKOFPYSz719tqeVxXqnSo251A74RxNVr+2Lxsf0dqdDyWZ
-	YFUfcJj6YIlYwuz/JcwC0+p3qyY3lIvscuXMs5qwOvATLBACnKy6ofxHraX3zJ2i7Kkcig7fvEs
-	spc4Olko/vmAoa+mLxwcWbufIYcOREIA=
-X-Received: by 2002:a05:6402:2551:b0:6aa:12f0:166e with SMTP id
- 4fb4d7f45d1cf-6ad59bc4afdmr560739a12.16.1790735075706; Tue, 29 Sep 2026
- 19:24:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jsjvCGou"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:MIME-Version:Content-Type:
+	Message-Id:Date; bh=ngyVwzlsuinhFCEe3hVM9MZeEyarwngLyBlfTxiJEC8=;
+	b=jsjvCGoueL3koUTM7pGvXEPSMkEetmxKofViAd1ozOBr6uRHgZ9yU268xxoOFs
+	OHoBDqnjFT6i3GQ+MZYYBMvCogp1iafwiFE8hVzRJyU1Hpg3i7DsMqM65Fc2qOKn
+	FV5ve7hZjQviDpKUhNRWbWUtsRtAaoOcZ88Pi7cSvlS34=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Eduard Bostina <egbostina@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org,
+ linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+In-Reply-To: <20260929121235.GF171869@killaraus.ideasonboard.com>
+References: <20260929121235.GF171869@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929102821.36112-1-cui.tao@linux.dev> <20260929102821.36112-5-cui.tao@linux.dev>
- <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com> <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
-In-Reply-To: <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 30 Sep 2026 10:24:22 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
-X-Gm-Features: AclHuK-TE0uWia9P8XfCiePUNf6Cgo9jrD2TpIkY4hX1tK5Ypqp--kGmfvoTiW0
-Message-ID: <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn, 
-	loongarch@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@xen0n.name, nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3J8zTcrxqxa_hBg--.51069S2
+Message-Id:<6ABC72D3.0795AD.00008@m16.mail.163.com>
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KrWDWr15WF47tF1kXFWfAFb_yoW8uryrpa
+	y3t3WIkrn5GF4Yy3WIvr40vaySvFs5KFW5JryFkry8u398Jr4xtrZFyF4j9a4DK3s3uw1j
+	vFsI9w1ktF4YvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRsFxUUUUUU=
+Date: Wed, 30 Sep 2026 10:24:20 +0800 (CST)
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BOaEGq8ctOW9AAA3o
 
-On Wed, Sep 30, 2026 at 9:53=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
-e:
->
->
->
-> On 2026/9/29 =E4=B8=8B=E5=8D=888:43, Huacai Chen wrote:
-> > Hi, Tao,
-> >
-> > On Tue, Sep 29, 2026 at 6:29=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wro=
-te:
-> >>
-> >> From: Tao Cui <cuitao@kylinos.cn>
-> >>
-> >> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-> >> invocation: every call overwrites pch_pic_base and registers the same
-> >> kvm_io_device on the MMIO bus at the new address, while
-> >> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeate=
-d
-> >> init, MMIO to the stale ranges computes its register offset against th=
-e
-> >> new base and silently reads 0 / drops writes, and the leftover bus
-> >> entries persist until the VM is destroyed.
-> >>
-> >> Reject repeated initialization with -EEXIST, tracking the state with
-> >> a has_init flag so the check and the MMIO base update are atomic
-> >> under slots_lock.  The base is only committed after a successful bus
-> >> registration, and the real registration error is propagated instead
-> >> of being replaced with -EFAULT.
-> >>
-> >> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and wr=
-ite functions")
-> >> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> >> ---
-> >>   arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
-> >>   arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
-> >>   2 files changed, 11 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch=
-/include/asm/kvm_pch_pic.h
-> >> index 887b0431fd20..679132d840e6 100644
-> >> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
-> >> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
-> >> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
-> >>          spinlock_t lock;
-> >>          struct kvm *kvm;
-> >>          struct kvm_io_device device;
-> >> +       bool has_init;
-> >>          union pch_pic_id id;
-> >>          uint64_t mask; /* 1:disable irq, 0:enable irq */
-> >>          uint64_t htmsi_en; /* 1:msi */
-> >> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/in=
-tc/pch_pic.c
-> >> index 7a704f18880d..a884a043feef 100644
-> >> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> >> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> >> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *d=
-ev, u64 addr)
-> >>          struct kvm_io_device *device;
-> >>          struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
-> > Why so complicated? The below is enough, no?
-> >
-> > diff --git a/arch/loongarch/kvm/intc/pch_pic.c
-> > b/arch/loongarch/kvm/intc/pch_pic.c
-> > index 2b63b0c2c7ce..7855d78304b7 100644
-> > --- a/arch/loongarch/kvm/intc/pch_pic.c
-> > +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> > @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
-> > *dev, u64 addr)
-> >          struct kvm_io_device *device;
-> >          struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
-> >
-> > +       if (s->device->ops)
-> > +               return -EEXIST;
-> This can work, however I think that it is not a good idea to access
-> internal structure field about kvm_io_device. If so, there is no use
-> about API kvm_iodevice_init(), just s->device->ops =3D &kvm_pch_pic_ops i=
-s ok.
-I'm a little not agree. :)
+Hi Laurent,
 
-I think kvm_iodevice_init() is designed to do more work rather than
-just set the ops (though it just set the ops now), otherwise its name
-should be kvm_iodevice_set_ops().
+Thank you for taking the time.  Two of the three points came from the v1
+posting, one of them is a real miss on my side, and there is a fourth
+thing I should have found before posting at all -- I get to that below.
 
-In addition, even if kvm_iodevice_init() is really a setter, there is
-no getter for the ops, so when we need to access ops, we can only
-open-code it.
+The message you replied to is the 09-15 posting.  v3 went out on 09-16:
 
+  <20260916123210.107841-1-quchaosheng000406@163.com>
 
-Huacai
+and it rewrote the commit message to give the rationale you are missing:
+why "ti,tpd12s016" can only be a fallback of "ti,tpd12s015" (the driver
+matches on "ti,tpd12s015" alone, so a board using the 016 has to list
+both), and why gpios has to take three to five entries.  The v2 version
+of that description had capped gpios at three, which broke dtbs_check for
+omap5-igep0050.dts -- that board passes the three control/HPD lines plus
+the DDC SCL and SDA lines.  Rob Herring gave v3 his Reviewed-by on 09-24.
 
->
-> If adding has_init is redundant, maybe we can set s->pch_pic_base with
-> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
-> think directly accessing kvm_io_device::ops is not a good method, no
-> other architectures do in such way.
->
-> Regards
-> Bibo Mao
-> > +
-> >          s->pch_pic_base =3D addr;
-> >          device =3D &s->device;
-> >          /* init device by pch pic writing and reading ops */
-> >
-> >>
-> >> -       s->pch_pic_base =3D addr;
-> >>          device =3D &s->device;
-> >>          /* init device by pch pic writing and reading ops */
-> >>          kvm_iodevice_init(device, &kvm_pch_pic_ops);
-> >>          mutex_lock(&kvm->slots_lock);
-> >> +       if (s->has_init) {
-> >> +               ret =3D -EEXIST;
-> >> +               goto out;
-> >> +       }
-> >>          /* register pch pic device */
-> >>          ret =3D kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_=
-PIC_SIZE, device);
-> >> +       if (!ret) {
-> >> +               s->pch_pic_base =3D addr;
-> >> +               s->has_init =3D true;
-> >> +       }
-> >> +out:
-> >>          mutex_unlock(&kvm->slots_lock);
-> >>
-> >> -       return (ret < 0) ? -EFAULT : 0;
-> >> +       return ret;
-> >>   }
-> >>
-> >>   /* used by user space to get or set pch pic registers */
-> >> --
-> >> 2.43.0
-> >>
->
+The Assisted-by tag is a fair hit, and it applies to v3 as well: v3 does
+not carry one either.  That is my oversight and I will add it.
+
+Your third point also stands for v3.  The conversion and the gpios
+semantics change are still one patch.  Splitting them is right.
+
+Now the part I should have caught myself.  This conversion is not new
+work.  Eduard Bostina posted the same conversion on 2026-07-30:
+
+  <20260730092245.52034-1-egbostina@gmail.com>
+
+That series makes the same two binding changes -- the "ti,tpd12s016"
+fallback compatible and gpios up to five entries -- and its 2/2 renames
+the same tpd12s015 endpoint nodes that mine does.  Rob reviewed it on
+08-03.  It did not land: there is no ti,tpd12s015.yaml in mainline, v6.18,
+v6.17 or linux-next, and the .txt is still in all of them.  I did not find
+it before posting mine, and I have cc'd Eduard here.
+
+I would rather ask than add a fourth revision to the pile.  Which would
+you prefer:
+
+  - a v4 of mine, split into a pure conversion plus a separate semantics
+    patch, or
+  - for me to drop mine and leave this to Eduard's series?
+
+Either way I will not repost the current form.  If there is a reason the
+Bostina series stalled that I should not repeat, I would be glad to hear
+it.
+
+Thanks,
+Chaosheng Qu
+
