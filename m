@@ -1,275 +1,249 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013055.outbound.protection.outlook.com [52.101.83.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720E237B02D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784004; cv=none; b=sHnyDRSRBZf/I2kIBRjpggspb+X1ZMsH8KVCcjzQAqvJS76Z1E6Wx7haauLAE8r+BjnVmJ3dQ7qC1pOFRquVOMYIlAud76TOqo+bX4ZOiSqnH0Pj7kVVoaqrpeExlFxqVU/wf36L9JMluATy3v+gZSs1gjPo4YyxShTBHCVU3ys=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784004; c=relaxed/simple;
-	bh=/A6D4v8ejedcMyPFP/qMNPaXrr8vdxHrFJElSqNRnEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=roQ5ScAK5VKz7YonyR2MlHIYVNUYsRA723g7cN/rCH7VMs2W/OOddeDQ3HlFPsuVk7qofcTqvZAtLUvbSrWQcIExsncoJDfvjeXMrYohlHVS/HHlsGgOxLis7Sfc91s53eppeqs+EBgW1ZCo7F6kJrMRJmSCDmewBukc0q11AHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=d8vriQtM; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787F4502795;
+	Wed, 30 Sep 2026 16:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790784075; cv=fail; b=iPMcAKZBxh91Qbc2yCBTQ5xIQ3CAPIHflym0FZ+3q8xSpPix0YDROLIUOc1dM+UzhckwN+qTJQ9TmxmuoszYYPyulfzIGu/kdKguDGfGj4Mju8bEfOQtLYMPDQxNiO5CdSfY6oPBnrIpFGkEnDgMOZJ7kjcibiiQsXF2KNF2Owk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790784075; c=relaxed/simple;
+	bh=YFf5Dp7DaQMitduxL3p6xcOSGXIw4p5AgVc+7o3SVes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=f21sw31jTcWYP3sZlk97H/qqtv3Ej1Y7JYiqMdLEFIiowZ36DpZTnfB9j+2mmJ7R+F1kMyruKKQZw8fpPr72vky1VN78W9gTePqefuYsebe4+/xvGqirDao2zXRXhRc+t2LymFXfixdK9TWwLWC3n8TYAea2gy1H7N3TG4sg1Bo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gxPuaO9x; arc=fail smtp.client-ip=52.101.83.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="d8vriQtM"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a860e532eeso52034897b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:59:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1790783997; x=1791388797; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YMxQ9b6X1p34U0/6ooz+lLlNpeyvqyp2NfoWFlwIw1I=;
-        b=d8vriQtMPsP6YqOAez7mbzjaB8HqhW9/tWO7SDzrOD6flKdAUC5cPxDbe5WwP/+yTU
-         1uZMQKlmxd4Ymjo0zt1QcYRuLpMa7RpXo0SAFDfliFle3c0dv8CxeiGH03o20mihOy/y
-         95DUJ0JGzbVGb+Fz0MpOILgE76hU44vZwGx3zmWocNho2b/oHvH8Hoqf4h78tQzuMhZC
-         GMDv0KmcH3EVoXV1fJS9iAwf6o1rCvaikh5B0u5f1egEj/k1Qmbv9jyrI/0rg8ftkGyu
-         1AoXCZY8ZOPUM58Mcrho+QNb3Tfxb2Z5nfubXyKUYyELIb1/PJ9pzxI083Z1RiK4p1UX
-         tSXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783997; x=1791388797;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YMxQ9b6X1p34U0/6ooz+lLlNpeyvqyp2NfoWFlwIw1I=;
-        b=vq534uVFhIhpp7zXfCd1ysakx7Iw4EG87w86dEUbFQZtQnRsCFr5Ads/U2FZ37SNKt
-         u1WIiUgh/Pj0cDv026I+mjUXNE+vg86cZQoUbuBr8/ZmsYdtxSSnBJTMdB9if/2fKrZ9
-         iaHlKf3apPHwfBQwrNnDxqcpv4FVHcykdIzGcg0Hq1qMc7/2FFzggRSHNo4FFCG6oXeA
-         oV+v7CBeFtR/T2Em1257FhlMigh7mBOrn+32C9WVoNZ2f5zUKQEIVishvIHoRvgzxCet
-         eeItp6dp5NtjYQKspgUCc3KGRW6j27lXM1vLkzlVRmrwFjz4VCS7oNpKB2XVqxyJU/8D
-         WBpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXlD0uyra0rXTVqpc0jj1ZIT618f5f9I6zB7kl3Im7lmtBLR8fYX1VD11bYL+VYj05n4x/ROa7qlGBLyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKasJu8XLEwN6GBQUexyL1sYoKBdrCpXiV9BeJv8HpnBEiPwWCR
-	o+Zuce2Mzh3CpJ/a0Vh105T5ofd326q1VdFAqN/e5uYjUXLepzq5ReYtuwGZqXuoAfY=
-X-Gm-Gg: AYBFou2CwMpA2fV9S9lFfc+TY7lcA9VhcP50mZW6LRs95GGQmCp263weFUCYOIm1d6I
-	kSGK7FLtx3+yzlX3j1POz0WWRBJXs3+RDP3kwaUQsUeFy9+FgKtlmAj4/cahRIZwrKiaPkfIh5b
-	VE3QTJ5kE7kKAavXHcVvua92tu4+z2mWxougxDxP/5KDHK3Ak90baqi7IszNOKp4FsQG7uBSRyb
-	HETwRZk792MFKIf1K6cIkUtGCITRlZT9ILYTbPtwecqTEQmvtgQFcJijI/78Wyhds+rSek6VS4e
-	Lj7+LSD/3fa0sBAGxyf3HbhXafROVxoAf5mlsV85Wvg7houpX14ohugP+XQ2DdN98aJvTToD6ks
-	wdMbbkVr/OjcKSnzga8LRyBy/SXdKw/ZiAB0rRK9MqWjqp1pPxDgbJoV8+5ESx/MBlY1gcSBZe3
-	+1R8dlI1tAJzF8RcJOOcq2gF3gVhDrC9YcsNZL4DmgJU1BluKqURLRC6juaDp6NBlE24VUOMLTM
-	smenqFYFj2fzsBnOZ+3zLAt8Rfa2bz/Kf/30Q==
-X-Received: by 2002:a05:690c:9990:b0:89a:63da:fa90 with SMTP id 00721157ae682-8ac93318690mr7925077b3.75.1790783997212;
-        Wed, 30 Sep 2026 08:59:57 -0700 (PDT)
-Received: from toolbox ([12.55.13.134])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdada3294sm380647b3.47.2026.09.30.08.59.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:59:56 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:59:50 -0500
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
-Message-ID: <ux7od2uydetgsu3dpy6mmilhqm5phhnk2ioxn54w3nb3feohxf@2jqovoqzfs4n>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gxPuaO9x"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wI8THOCSbVc13wggPWE+hTvFTUwcnrGMbuwKIj9M6lQSJzCWgjlnOdsr/3mG1ewmhvmA1QTYRVKusgnp0vLguXXGbweLfMlXmL404lk7DrCBwgw3BB4s5IOF7pBt7ljpTn4IXFfqpsU4MtaDZbMQmVOF+IxPMy12ubJ1K9kttNurYN/adCxyuPVrVGjD94VG614pKYxiDnwu/JpxR7Zg+HaZd/6cYIYEmZNsXAHJM8b9qZH2b7UPN7yKP1jdOcn+w/u/gQBsb6gN82xggTg4qTfqso1xEDUm5YhR7WFzl0RtQ/C6Gi0K4kXdx4WOlE4rRtaaYakgizt86qaxNGZyEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=70rgODf39Wi7oXlL0Mj/v+OYU6yPl4YYch7vedm8QSE=;
+ b=sc2ZNrpchMFK0jY2kSX44/YiO+7/9paTMCHY77HCtX01EVW9lSs7DyobLuNzm2qnYlgSEj3wbvm+PbM4E+bYn7LWRNI8c7RZbxnrIIdfCgzVuJ2joH1+Udy2vc4tdYwo+HEBwRjjaCp/jAKi+vE7LumFJRV5apwyA9EodWxXewr71cRMru6h2Sj0GQceTMTw+wSqAA3rgefWOmqKqrnguscofYrVnoZTB7md9Ukxkj5OmUWWRNIMlUpAxxiqQgFrRUlA8I3sHI8Nw0vGGdiuEPk9wp5W0Z0+J/+2+lWcqy3egCTh2dqL85aPck+5FOeegXDH95/duspbmmcYsFZ/9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=70rgODf39Wi7oXlL0Mj/v+OYU6yPl4YYch7vedm8QSE=;
+ b=gxPuaO9xlvrMh1Trd/rQl29a35trqU0e8J9oCo7NT/IqGeg1VFOcknPNjbScG0heIa81mtMYHanvMqrBOF4pxY9oRT199ULMjXePCZ2XgGcsyBMo10hIsvYe5bSN0WoEwFtpLh1oxnrRqCK/gpkfZ6UEBxns7jxzpVd/nELn5uT5xS6ZmC5OhQll7DBBOSTLdswZDD4zS5m4J/aYEj3Og1iIm8334PycpeWiWD0RwI2T4q6e7/SuGFRkfP8zH15EJPuA74EISdMHOvtP5Mma0lasY+9QGcgZdN+Kui5t/HRqc0PMHdMpMjKfZqbTpNl+IHpEJCXlugabNBCHpzVZAQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7459.eurprd04.prod.outlook.com (2603:10a6:20b:1dc::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 16:01:01 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 16:01:00 +0000
+Date: Wed, 30 Sep 2026 11:00:48 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Joy Zou <joy.zou@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: dma: fsl,edma: add per-channel child
+ node support
+Message-ID: <ar0yME7JglvgP8Z4@SMW015318>
+References: <20260930-edma-iommu-v2-0-72a62bf44c74@nxp.com>
+ <20260930-edma-iommu-v2-1-72a62bf44c74@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-edma-iommu-v2-1-72a62bf44c74@nxp.com>
+X-ClientProxiedBy: PH7PR13CA0004.namprd13.prod.outlook.com
+ (2603:10b6:510:174::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7459:EE_
+X-MS-Office365-Filtering-Correlation-Id: 013612a5-aab5-4356-b8b0-08df1f0c05a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|7416014|1800799024|366016|376014|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	iZMzl4ZP5UnnIusyjpDYnGxqHb4hNktsm2+hapF+IMsKEllMz3n7PLYV3fuAvtYfdyjzQohHN4j54HkJp9I5B6tmEX+aRRHyE+2aqMsPCUcd6nwOOy/mkLHnAOCpEp1Cwu9WM/X909iTFtEIe5rB++HBHB11QrYeKin91YkHfls+SUZJerKmPehDGtkvTP5TrQ2lRonvepkjsxNcbYhcHsRpVT9Z99+/oZ9U6ckv/X96f65muf+1NM6OSH3atE72Fo6yFSIOKd1DNkdK+a+WG3zJuxkvEHvmSQ0k4wgaFiWdGbNNw3jS2lYk+U9PM3+84bis9+qVKu3MTbQ035GDhKxx/hAGe5MU2/6ZwPt4dsvCPp3sys5fDehQIdeAAeQeKkK8bx4zsz6GEKHw1JYeBbe5x+7CfeT4/CvFUxhNiLFW4SSNGW3jaFkPED8QdSI15HbSzQRsFOSOsi6IsIF7xrcFLiYnACPqQtCZI6opyY+YCEyM/bqZ1DiCE9gphZza1VXfbmhxFKMzf3wQUB5n/LdJTZ4GHW5mtgo6OoNHo/hdzcZQAqxPBpetA9DjTAV0auP9dlnlBvVaNqjuM2zAn5NDoe+xaZFTBxrVjbdWvSyGlTJTk1f82fxRnmJa6dMw7HVo2GHeO7raYiMUNMqFy1zAbVqF0QKNWv9vxQixSLg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(7416014)(1800799024)(366016)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ZOoITvTpY7PioZvdqYJxU2p5YcI1Vkdwuy9E3EvYpaq75K1db8C+KFvtBm1B?=
+ =?us-ascii?Q?ZP5bLq4y+oYxVRPsaATcHIrKG8mIYWeU5AINs3fEADHj5xYCToHfHQvxAf/r?=
+ =?us-ascii?Q?m2KwVBX1cnUFX1qc0FRV5UGr+GXaoJmMigUGhJmB/xQSOEXrmVfzC3G1evP3?=
+ =?us-ascii?Q?0qPPwMXXTXLEHm6ZwzpoeCCYziMwAcVy2jepFr7JcDGV3mdrzdbBftYPo7Pc?=
+ =?us-ascii?Q?xTZZ47vdtLBsc0eAhtGuQsP2lVr4R0ZDgc8dMt0kV5bDCT95fghjROjpN0mX?=
+ =?us-ascii?Q?LZ6BoUaW0znFiXsTa7XR0D6hTlINy/oLuERg5Y7KzrR8pVjb3ez95vvAj1Aq?=
+ =?us-ascii?Q?B6FD6Urw98etHwtA7SSEuSf0EzLJN3S01LVLGiP3bGjI201gEQuHWMfaYred?=
+ =?us-ascii?Q?jCEAN4VCfbI8kUE2xldWiEMkQ8h7dNXoSra8gaA/Hp13Fdrwh/Kfuc9evnM9?=
+ =?us-ascii?Q?pYnW4PcMCA73+mJ/S8NIS9DHCSe7+UvSgbCk/IhKbi9wRsZd2eig9U2fUaul?=
+ =?us-ascii?Q?mVEhjhbFtsNjiXffNCB3K99m6stInR1bMkPzvwVaMyLPhDRHavQJK33nT1Ep?=
+ =?us-ascii?Q?wGmDPidKm9nqpJlvWrq8f1GM/qL29FgYm7GZVwFeIimd8c5k3P8E5MmGS+Kk?=
+ =?us-ascii?Q?drrDbkj8Gg1CMD28v5uQ2OiGn6oVD6+A5vd2QitP1Le3Q9nJhlu82BQiMEcl?=
+ =?us-ascii?Q?XvUfpXmk5GMfo6D+6443WM6ZWnYcm2V3i5RrrE2XeXsgRtJDihzfLL4qj8lQ?=
+ =?us-ascii?Q?H4IcKmACnQZJ4vdaF8yDpc2d1XdUShNNVfq3awcOEBvjbnwoE9b2rXCZW1ih?=
+ =?us-ascii?Q?BZN3ETgpIeFbyUQ9t0V0Zk3j3jnxuZDjz4kcRRDqqFStNhXwffW0zPAdaGAj?=
+ =?us-ascii?Q?CL/3kDQdjygdwi1erLp8gZZeyfzpt0raCCuZLEg4uUuK3R63OXMuNeggiAEo?=
+ =?us-ascii?Q?UR/U9pM0gNYrE8VsxKcx+h7zEXFKly99CNc7h+U4XHkNRy0QEVdTn5dFGCLs?=
+ =?us-ascii?Q?GJ2OlwkP1MrUhsBIeempz9RipE20G811IX6EQJrTsofwW4+cY+z67YhnDB5z?=
+ =?us-ascii?Q?dDeeX5I6dUWdnIHV7ryR9vgoUXfeCFjrDZFfrX1pbV82KQ/HaUrx1jfDnl/G?=
+ =?us-ascii?Q?5jmhuzFb92YfS8eo0FLpp+OLK63AlbHoTFDS+NM5jkmryOme7mjS6C8aQkgW?=
+ =?us-ascii?Q?d9KL9CfbmeLqefJWm+IcVfvt209rkW30Eg88NtXcgCQgGTFFB7+5kCYfYfOJ?=
+ =?us-ascii?Q?AGD7Qe84zch6lsunk+NCXAnwSRRiQaOA15owMT4izU2PkxXPNIya8889o6q7?=
+ =?us-ascii?Q?R//q4GvLMFEba2YX4y6PnEwp8IG8o/htD+YS5dhBNSqSTvVrA2DwHivf8MSi?=
+ =?us-ascii?Q?P+YfF8DNO1dkjRk6fNg4mgkQmH9RECCphcHeH4WtQx6d1a4a8e7JS5RJTWCm?=
+ =?us-ascii?Q?b7FMLAMpoTIPnX0M31hSVcnTHtC0HmgN1E1cMEt3ahiMqY0RAdV8xkQ7KiUD?=
+ =?us-ascii?Q?jF8E6gxil1j2tpKPbm/QNjyDwkdnuhjC3D7SnvqpWGfOFF4928mSoZ41SXfk?=
+ =?us-ascii?Q?BXCEWRo94Y0JMGgw9lwcOVy5xd0fNv0ibO195ZmD0ywVbq+9aAz9VNc4cCE6?=
+ =?us-ascii?Q?Xkkg4arw5/gPc4FxOZq4urrpVo8NRU979Xgrm+qSrkoxjViJOL4FLIA9Idax?=
+ =?us-ascii?Q?zJdKgJSwE/TcrLjt/Lgw8r3c34nAY5vcF6EYNnyAj8xTxXdouYvnW3FEYXz6?=
+ =?us-ascii?Q?oSybP2KlhBPDSbLDrx1M8Es9zyzhugLFAY3CokmhZxQbrRx1vgJH?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 013612a5-aab5-4356-b8b0-08df1f0c05a3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:01:00.8079
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lcmVY+ewjy1YFdwat9jP7wpt3BldI/he6k8LUNO0Lj2zzta4MfaBqcShAZ4fstgB5RUdcINAedieRB8nqSr/vLPwOmCNLx5XAGS4Z4nzU+1bY2WWs9RkH7fovvb7yPeC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7459
 
-On Sun, Sep 20, 2026 at 03:13:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-> operations that keep the original VMA in place.
-> 
-> Historically this has led to a lot of bugs where non-obvious interactions
-> occur between existing mremap() operations and the original VMA.
-> 
-> Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
-> MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
-> mm->locked_vm accounting, but this wasn't the only issue.
-> 
-> And thus history repeats itself, as it turns out that mm->locked_vm
-> accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
-> and has been broken ever since the feature was introduced.
-> 
-> Both relate to the fact that VMA_LOCKED_BIT is cleared on the source
-> VMA (it has to be as all page tables are moved):
-> 
-> 1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
->    clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
->    pages.
-> 
-> 2. If a partial mremap() is performed on a locked VMA there is a leak equal
->    to the number of pages not copied.
-> 
-> (Both for MREMAP_DONTUNMAP operations only)
-> 
-> Both issues can be fixed by treating the source range as distinct from the
-> destination range, which is the definition of what MREMAP_DONTUNMAP does so
-> is appropriate.
-> 
-> In case 1, simply disallow the self-merge, keeping adjacent source and
-> destination VMAs distinct.
-> 
-> In case 2, split the source range ahead of time, so accounting is always
-> correct.
-> 
-> Both changes were tested locally and confirmed to fix the issues.
-> 
-> For the purposes of a backport, the fixes are kept distinct, a follow-up
-> series can add self-tests.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Wed, Sep 30, 2026 at 02:26:09PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Add support for optional per-channel child nodes (dma-channel@<addr>)
+> to the fsl,edma binding. Each child node can carry its own reg,
+> interrupts, iommus, and power-domains properties, describing a real
+> per-channel MMIO region.
+>
+> Enables per-channel IOMMU stream ID assignment via the standard
+> iommus property on each child.
+>
+> The interrupts property is removed from the required list since
+> channels with child nodes carry their own interrupts. Existing DTS
+> without child nodes remains valid.
+>
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
-> Lorenzo Stoakes (ARM) (2):
->       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
->       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+>  .../devicetree/bindings/dma/fsl,edma.yaml          | 70 +++++++++++++++++++++-
+>  1 file changed, 69 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> index f609038e35ae..19a103baccaf 100644
+> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> @@ -104,11 +104,40 @@ properties:
+>        Bit semantics: 0 means channel available, 1 means channel unavailable
+>      default: 0
+>
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^dma-channel@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description: Per-channel register region within the eDMA block.
+> +
+> +      interrupts:
+> +        maxItems: 1
+> +
+> +      iommus:
+> +        maxItems: 1
+> +
+> +      power-domains:
+> +        maxItems: 1
+> +
+> +    required:
+> +      - reg
+> +
+>  required:
+>    - "#dma-cells"
+>    - compatible
+>    - reg
+> -  - interrupts
+>    - dma-channels
+>
+>  allOf:
+> @@ -351,3 +380,42 @@ examples:
+>                        <&pd IMX_SC_R_DMA_3_CH6>,
+>                        <&pd IMX_SC_R_DMA_3_CH7>;
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    dma-controller@42000000 {
+> +      compatible = "fsl,imx95-edma5";
+> +      reg = <0x42000000 0x210000>;
+> +      #dma-cells = <3>;
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +      ranges;
+> +      dma-channels = <64>;
+> +      clocks = <&clk 0>;
+> +      clock-names = "dma";
+> +
+> +      dma-channel@42020000 {
+> +        reg = <0x42020000 0x8000>;
+> +        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
+> +        iommus = <&smmu 0x30>;
+> +      };
+> +
+> +      dma-channel@42028000 {
+> +        reg = <0x42028000 0x8000>;
+> +        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
+> +        iommus = <&smmu 0x30>;
+> +      };
+> +
+> +      dma-channel@42030000 {
+> +        reg = <0x42030000 0x8000>;
+> +        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
+> +        iommus = <&smmu 0x31>;
+> +      };
+> +
+> +      dma-channel@42038000 {
+> +        reg = <0x42038000 0x8000>;
+> +        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
+> +        iommus = <&smmu 0x31>;
+> +      };
 
-Hello,
+Nit: kept 2 dma-channel should be enough.
 
-Apologies for the double mail. I did not hit reply all first time.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I am seeing some failures in the proc_maps_race kselftests after
-this patch was added to linux-next. The failures are in
-test_maps_tearing_from_remap and test_maps_tearing_from_resize. I have
-attached some logs below
-
-# #  RUN           proc_maps_race.maps.test_maps_tearing_from_remap ...
-# ==== Tearing from remap ====
-# Before modification 
-# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
-# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
-# 3fb3184000-3fb3187000 r--p 00000000 00:00 0 
-# -----------------page boundary-----------------
-# 3fb3187000-3fb318a000 rw-p 00000000 00:00 0 
-# 3fb318a000-3fb318d000 r--p 00000000 00:00 0 
-# 3fb318d000-3fb3190000 rw-p 00000000 00:00 0 
-# 
-# After modification 
-# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
-# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
-# 3fb3184000-3fb3185000 r--p 00000000 00:00 0 
-# -----------------page boundary-----------------
-# 3fb3185000-3fb3186000 rw-p 00000000 00:00 0 
-# 3fb3186000-3fb3187000 r--p 00000000 00:00 0 
-# 3fb3187000-3fb3189000 rw-p 00000000 00:00 0 
-# 
-# After restore 
-# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
-# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
-# 3fb3184000-3fb3187000 r--p 00000000 00:00 0 
-# -----------------page boundary-----------------
-# 3fb3187000-3fb3189000 rw-p 00000000 00:00 0 
-# 3fb3189000-3fb318a000 rw-p 00000000 00:00 0 
-# 3fb318a000-3fb318d000 r--p 00000000 00:00 0 
-# 
-# # proc-maps-race.c:1081:test_maps_tearing_from_remap:Expected 0 (0) != capture_mod_pattern(self, &remapped_last_line, &remapped_first_line, &restored_last_line, &restored_first_line) (0)
-# # test_maps_tearing_from_remap: Test terminated by timeout
-# #          FAIL  proc_maps_race.maps.test_maps_tearing_from_remap
-# not ok 3 proc_maps_race.maps.test_maps_tearing_from_remap
-
-# #  RUN           proc_maps_race.smaps.test_maps_tearing_from_resize ...
-# ==== Tearing from resize ====
-# Before modificationB
-# Locked:                0 kB
-# THPeligible:           0
-# VmFlags: rd wr mr mw me ac 
-# -----------------page boundary-----------------
-# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
-# Size:                 12 kB
-# KernelPageSize:        4 kB
-# 
-# After modificationB
-# Locked:                0 kB
-# THPeligible:           0
-# VmFlags: rd wr mr mw me ac 
-# -----------------page boundary-----------------
-# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
-# Size:                 12 kB
-# KernelPageSize:        4 kB
-# 
-# After restoreB
-# Locked:                0 kB
-# THPeligible:           0
-# VmFlags: rd wr mr mw me ac 
-# -----------------page boundary-----------------
-# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
-# Size:                 12 kB
-# KernelPageSize:        4 kB
-# 
-# Expected stats:                                                             Rss 808 kB
-#                                                              Pss 86 kB
-#                                                        Pss_Dirty 51 kB
-#                                                         Pss_Anon 48 kB
-#                                                         Pss_File 34 kB
-#                                                        Pss_Shmem 3 kB
-#                                                     Shared_Clean 696 kB
-#                                                     Shared_Dirty 84 kB
-#                                                    Private_Clean 0 kB
-#                                                    Private_Dirty 28 kB
-#                                                       Referenced 760 kB
-#                                                        Anonymous 104 kB
-#                                                              KSM 0 kB
-#                                                         LazyFree 0 kB
-#                                                    AnonHugePages 0 kB
-#                                                   ShmemPmdMapped 0 kB
-#                                                    FilePmdMapped 0 kB
-#                                                   Shared_Hugetlb 0 kB
-#                                                  Private_Hugetlb 0 kB
-#                                                             Swap 0 kB
-#                                                          SwapPss 0 kB
-#                                                           Locked 0 kB
-# Actual stats:                                                             Rss 808 kB
-#                                                              Pss 98 kB
-#                                                        Pss_Dirty 59 kB
-#                                                         Pss_Anon 56 kB
-#                                                         Pss_File 38 kB
-#                                                        Pss_Shmem 3 kB
-#                                                     Shared_Clean 696 kB
-#                                                     Shared_Dirty 84 kB
-#                                                    Private_Clean 0 kB
-#                                                    Private_Dirty 28 kB
-#                                                       Referenced 756 kB
-#                                                        Anonymous 104 kB
-#                                                              KSM 0 kB
-#                                                         LazyFree 0 kB
-#                                                    AnonHugePages 0 kB
-#                                                   ShmemPmdMapped 0 kB
-#                                                    FilePmdMapped 0 kB
-#                                                   Shared_Hugetlb 0 kB
-#                                                  Private_Hugetlb 0 kB
-#                                                             Swap 0 kB
-#                                                          SwapPss 0 kB
-#                                                           Locked 0 kB
-# # proc-maps-race.c:1050:test_maps_tearing_from_resize:Expected 0 (0) != compare_smaps_rollup(self, &orig_stats, &stats) (0)
-
-I'm not sure if this is inteded or the tests need updating.
-
-While running this selftest in LAVA, there seems to be another issue
-where the 30 second test timeout doesn't seem to work properly. It
-appears as thought the test has hung. I am still looking into this. This
-issue doesn't seem to happen while running the test from a shell. It is
-probably something to do with how LAVA runs the test.
-
-Regards
-Anirudh Srinivasan
-
-> 
->  mm/mremap.c                   | 87 +++++++++++++++++++++++++++----------------
->  mm/vma.c                      | 19 +++++++++-
->  mm/vma.h                      |  7 +++-
->  tools/testing/vma/tests/vma.c | 10 ++---
->  4 files changed, 83 insertions(+), 40 deletions(-)
-> ---
-> base-commit: a3d0117e02bfa1c3bb6c50e7afe42bbecdbb3459
-> change-id: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
-> 
-> Best regards,
-> -- 
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
+> +    };
+>
+> --
+> 2.51.0
+>
