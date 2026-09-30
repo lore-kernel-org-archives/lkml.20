@@ -1,147 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3D23CAA55;
-	Wed, 30 Sep 2026 19:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE950309EF2;
+	Wed, 30 Sep 2026 19:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797940; cv=none; b=YzrREASLYi2zsFcOHSts/gtlcnv8rwSjKhet+f5tvAidxEBR+9xJuCnlqwNuFw5RUEz0xI/1tPrcc+3924cVEvqP3LW27XHx+I2HBxTFg1Sf0MsZQMGM7gRbsbT0gXURjWJmmyEyYPBoNizYWxXLKmdWQAKkmY4aXCTC5+zODXY=
+	t=1790797993; cv=none; b=Ax30gRWM2xUOX3swwzd2npikn3P6bHJChucxSxwlUbLG6a81+t7GJY6wvpFS4gL3cz/dSfIOd5ex/8MipOF8SbKXs00NUzOPxhYSPdSt/asPMbwwJZ//obqZcfqBjjmOPPV92AGOkEgsdk9W8oAT3bfKQFY65tqB35O46tz6YwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797940; c=relaxed/simple;
-	bh=6jM1fhDx+QCBgdgXkDAEb3JdmHyfT2T3H+K6k8smOJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jpb9Wios9g8S3yOB3+AEOsZVFBnseNxZYgzmLBzQkZS51EQCyoVhU02ubavptXNi8PnSeSJss9TGkucLjs8MrQox0jjHft+fXFQXquOQLsjrVtbxCOHzmep2X2w0YmLDF39+VDiu5crBj363JaKqFgS/mI8bssqOwU8Qb8k5qvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxHcC5Wt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790797993; c=relaxed/simple;
+	bh=ySN19laOjfC1yzwkgNyh6fdnWXH5MwsgUH6CSLDhvcs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=exXg1hIHuM9glG8CsPKn6iYxojFTM9IY6d7m9J7Ax/wKrnE5pfRJOC8o3/HKCelmi/4LlC5nVvLc2rwKxina2UVv4vB5jJP63v+PI4xyVxG+pgiNp/wdrYFhWr0KIL5tzV9F49iFNE+jsFPFlEmyoNdbFs6Ky/5q2lG1jn64v1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=quZMChoh; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxHcC5Wt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32E7A1F00898;
-	Wed, 30 Sep 2026 19:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790797935;
-	bh=YWrKUyDQfGPBFB++iIVHEuhs9Rh+LXrjwZ4LQ5+swnM=;
-	h=From:To:Cc:Subject:Date;
-	b=CxHcC5WtExILPkw1rNFX+85Dp0tqI5hLryNGXGobIt651WEBvh++61jlHJacRjW4z
-	 OzwWXinJxpRZLc9sTLIvQyhk/jcfGmpaduajvRhmtKWTPd4kKY/e66JjwL4cC95ckA
-	 r8gNP2z8EMJT0yIcCRofVEcdbJSOLjpxK30s1Yju7OBenQoIvRnI4lE5gESFI5XXxh
-	 /aClYn4/8X49KyTAPqDiCOBbMmT3kNEqVLJDSuWr0kfSup/SzZ3qDAwKf1Mv16BiOn
-	 xD8y/aATxfsFyGTgyT/q0VVBvunyytRDx4e/NHET6PT3+O5gnjn7uvWgZvXzeiQga+
-	 V7hYcqoV6fAUA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Jann Horn <jannh@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
-Date: Wed, 30 Sep 2026 21:51:09 +0200
-Message-ID: <20260930195110.13296-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="quZMChoh"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2E0A64E410D8;
+	Wed, 30 Sep 2026 19:53:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E754060749;
+	Wed, 30 Sep 2026 19:53:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 32CB31032A65D;
+	Wed, 30 Sep 2026 21:52:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790797983; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0peu86CV94HT+ZId0KjjmcWabhYufxkvU6Qb3rMbNMQ=;
+	b=quZMChohV1lnyObXH7qPqvMn2uYfyQa2hKB7mbvqvJxBTEtE39udp0j3QwPK0ZQjEYnl6R
+	qS1Tb0rdUbn6Y2g1vGJhlGo1+SgBHZW5g/vwDIa5Uh6JZU6tZh5DyL382xfLywMkUG4n8a
+	Ddmo4yKRf7FL9ACPlnwXbgB7P7TlgntT+ojacuNe7a/kcT9ZdxiRzfnBVoZavrWfuq9P2K
+	Sy85qxmzTDQv62tgK81SE8vMgYfc8FS/huhez/L5mfgjdgHX2b3+I3fCHS3GhPU1R06Bkj
+	iak6Oq5OOJWQuTTXuD4rpVkW4TqtXA+rUijQO5RB34eKNMXsg7iIl+oZAoVkAw==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Nicolo Giuliani via B4 Relay
+ <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Nicolo Giuliani
+ <nicolo.giuliani6@studio.unibo.it>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
+In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+Date: Wed, 30 Sep 2026 21:52:58 +0200
+Message-ID: <874if68qjp.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-kmem_cache_destroy() tests slab_state >= FULL for sysfs_slab_unlink()
-and again in kmem_cache_release() for sysfs_slab_release(), with the
-cache already off slab_caches in between. If slab_late_init() runs in
-that gap it sets slab_state to FULL but never calls sysfs_slab_add() for
-the unlinked cache, so kmem_cache_release() ends up in kobject_put() on
-a kobject that was never initialized:
+Nicolo Giuliani via B4 Relay
+<devnull+nicolo.giuliani6.studio.unibo.it@kernel.org> writes:
 
-  WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
-  kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
-  refcount_t: underflow; use-after-free.
-  kobject_put+0x64/0x2c0
-  sysfs_slab_release+0xc/0x20
-  kmem_cache_destroy+0x104/0x1e0
-  bioset_exit+0x13c/0x1e0
-  disk_release+0x54/0x140
-  put_disk+0x18/0x40
-  floppy_async_init+0xbec/0xd10
+> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
+> separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
+> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
+> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
+> connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
+> PCIe.
+>
+> This series adds the Sophos vendor prefix, the compatible string of the
+> NPU board and a device tree that describes the NPU as a standalone system:
+> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
+> ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
+> CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
+> that is not part of this series) are not described.
+>
+> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
+> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
+> its eight user ports, and 936 Mbit/s through a front port. The SFP cage
+> is untested.
+>
+> dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
+> and CHECK_DTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no warning
+> specific to this board.
+>
+> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
+>
+> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-Seen on sparc64 at boot, where the asynchronous floppy init tears down
-its bio slab while the late initcalls are running.
+Applied on mvebu/dt64
 
-Read slab_state once, under slab_mutex which slab_late_init() holds when
-it sets FULL, and use the result for both the unlink and the release.
-The kobject flags (state_initialized, state_in_sysfs) were considered as
-the key instead, but slab_state is what cache creation and
-slab_late_init() decide on.
+Thanks,
 
-debugfs_slab_release() is not part of the race: it only looks the cache
-up by name in the debugfs root and does nothing before that root exists.
+Gregory
+> ---
+> Changes in v2:
+> - Patch 1: drop the second sentence of the commit message, add Acked-by
+> - Patch 2: move the entry before the SolidRun ones and list only
+>   marvell,cn9130 after the board compatible, as the other CN9130 boards do
+> - Patch 3: use the compatible list of patch 2; pass the switch reset as
+>   reset-gpios and drop the boot loader workaround; remove the LED
+>   expander node and the SFP address comment
+> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3=
+@studio.unibo.it
+>
+> ---
+> Nicolo Giuliani (3):
+>       dt-bindings: vendor-prefixes: Add Sophos
+>       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
+>       arm64: dts: marvell: Add Sophos XGS 107w NPU board
+>
+>  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
+>  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+>  arch/arm64/boot/dts/marvell/Makefile               |   1 +
+>  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++=
+++++++
+>  4 files changed, 198 insertions(+)
+> ---
+> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
+> change-id: 20260919-send-dt-6bbd08a470d2
+>
+> Best regards,
+> --=20=20
+> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+>
+>
 
-Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- mm/slab_common.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 7223a7596dab..de11edfd1a0b 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -515,10 +515,10 @@ EXPORT_SYMBOL(kmem_buckets_create);
-  * and release of the kobject does not need slab_mutex or cpu_hotplug_lock
-  * protection. So they are now done without holding those locks.
-  */
--static void kmem_cache_release(struct kmem_cache *s)
-+static void kmem_cache_release(struct kmem_cache *s, bool sysfs_ready)
- {
- 	kfence_shutdown_cache(s);
--	if (__is_defined(SLAB_SUPPORTS_SYSFS) && slab_state >= FULL)
-+	if (__is_defined(SLAB_SUPPORTS_SYSFS) && sysfs_ready)
- 		sysfs_slab_release(s);
- 	else
- 		slab_kmem_cache_release(s);
-@@ -533,6 +533,7 @@ void slab_kmem_cache_release(struct kmem_cache *s)
- 
- void kmem_cache_destroy(struct kmem_cache *s)
- {
-+	bool sysfs_ready;
- 	int err;
- 
- 	if (unlikely(!s) || !kasan_check_byte(s))
-@@ -580,10 +581,18 @@ void kmem_cache_destroy(struct kmem_cache *s)
- 
- 	list_del(&s->list);
- 
-+	/*
-+	 * slab_late_init() sets slab_state to FULL under slab_mutex and adds
-+	 * sysfs entries only for caches still on the list. Sample the state
-+	 * here, so that a cache unlinked before that point is not handed to
-+	 * sysfs_slab_release() with an uninitialized kobject.
-+	 */
-+	sysfs_ready = slab_state >= FULL;
-+
- 	mutex_unlock(&slab_mutex);
- 	cpus_read_unlock();
- 
--	if (slab_state >= FULL)
-+	if (sysfs_ready)
- 		sysfs_slab_unlink(s);
- 	debugfs_slab_release(s);
- 
-@@ -593,7 +602,7 @@ void kmem_cache_destroy(struct kmem_cache *s)
- 	if (s->flags & SLAB_TYPESAFE_BY_RCU)
- 		rcu_barrier();
- 
--	kmem_cache_release(s);
-+	kmem_cache_release(s, sysfs_ready);
- }
- EXPORT_SYMBOL(kmem_cache_destroy);
- 
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.47.3
-
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
