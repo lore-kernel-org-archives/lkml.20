@@ -1,85 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E36C494834;
-	Wed, 30 Sep 2026 23:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1BE49A3C3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790810614; cv=none; b=kW5S9yeDJvqj/OwqGxSZQiSs19iPNK1pTqmfTJLenHDB1bHInNx28+qw/iVLhBngvJkM+IynoZr9bxL7lEjue5bxNneP4NGY83+KlwVWzydR0rgsrH+uCNMGnl+PXXnRp78UtN8FHH7I8B+BJKphXmLP1BL/TNPQW7YT/7fVRVs=
+	t=1790810650; cv=none; b=H8UYTHeyDgRsOgtcoDHZ1M2S45Z6whIswCFiVA1Sju5+Sm1hHBW1raf7X8eIv9UGkExnndtJ4EOG0MkWXL86OO2UlUExFLZKrWhzrwDgrWrmDIj0yfOwMERVngUDf3cUTPZLXeTPXHzADPdZBsVSKQIXwsMxe3gW7AKsrGsb/Uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790810614; c=relaxed/simple;
-	bh=UnCo48ZDhnPDd4SBAC3AK47FxC93hosZz0DdLzttLbo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NdKjsA0+JcXi03HCzvpiT/eRdR7jL4lymcZl8mDbBZyiKFOTF1LJho0BTAWCgBmryd1chRxNoRp69Pk7xJ821TrJPAiMyqGWCscrQWl0Fh7nc8qSCHPfz5uu19hiC6pA/M+f84qTrrUXjslDjs8bZ94vhza6rIzTpxzbH6cAL2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aS19bbG8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790810650; c=relaxed/simple;
+	bh=BlsXZI6hBuJoZssYWqE3/aU74sAG0IWl3+di5nW8rBo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XIvTtv+jp32zZ3Aa+siX0u6OXjomYVWGGTVvLtTy7St1T4cgpZ8loT221dsfAFX15xzPymzWH8rJnyHC5LcRqp8yjL1cu3nZzGWT3Kw+gDO31gc9ZgRz6vsVNuRX0eVFaXcPTw4jkGheCVvhNoFKMVjBVTwkAUwvbGoYz7orCtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noroxi.com; spf=pass smtp.mailfrom=noroxi.com; dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b=kv12k8mO; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noroxi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noroxi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aS19bbG8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FA01F000FF;
-	Wed, 30 Sep 2026 23:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790810609;
-	bh=fZP1NRMB3JPcaMokjk4Mi47CTHALGDJvTzGhqKvT/LU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aS19bbG8avkKaMGRW8eA4zpnPPpQ7mQowa/bGDYeIxQMW9NTbCAMdDhTgMiye6d+j
-	 Vk5RIvhbQTVjLgQ8c7pVhvGX24QBdtkE/PRRRL6KpvI4qY8/I6n4HHdbgqUX1kg/IB
-	 NRNEjgOMtcj30OL2YCtEVdPTkrp9sJGfDTVDzeAWAjwb/z6nHf+5g8T5gUcEbon9j1
-	 ULfCSUXWxIvDtxy9JgAT3zt9PjKNOiRmAEj8BKCGv+JeUlKb9gD1g5UslJb1X7qHF6
-	 EKQgGoMh/66MLfDirJXwth1mgmECMigUttsyCMgMlCl0joJhuPzyfVIxYu4fDwGC1J
-	 F15PhNRfg7kzw==
-Date: Wed, 30 Sep 2026 13:23:27 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Amery Hung <ameryhung@gmail.com>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: Re: [PATCH] bpf, cgroup: fix cgroup struct_ops query for a second
- attach type
-Message-ID: <ar2Z767bSOsf8ST4@slm.duckdns.org>
-References: <20260930135159.3926039-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b="kv12k8mO"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3add810eso1486458e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:24:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noroxi.com; s=google; t=1790810644; x=1791415444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CRhw0Id6strr6ueBVzXyHWWSKhLWhS5obNSqyYPwwPY=;
+        b=kv12k8mOjYwf1jKXpz5SEfwF6Uhy6b1ijxykLpaEUjLRfSKc79CK0IMo5vBAb8APA0
+         SxvS4+8b7NrQftQBZrh1cbikkWoiE2JdMiR2oma/TC8aG0X5ir9Cc58V36dqomPZRJ0a
+         ugKDdJq4HWANNB3Bhqqe8pGOeuaWm0KIBSCdrFaiucknT5kYXlZQYX8YWDhYdcAYD4AI
+         rsKTLEURVfzE6EGR7tJ2o+DmunoyMPZXDfGQ4HX7vU/NGqMIX+cQcx69k97NkJGKna64
+         8Uahj0W7ydPiYv52IgtxM4mRTLss/ogyT4fLQY/WSxD+CDdlY/bOY7nJmAs9SnZGRCu6
+         SZAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790810644; x=1791415444;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CRhw0Id6strr6ueBVzXyHWWSKhLWhS5obNSqyYPwwPY=;
+        b=OGNApdhZM5n9P0r5mI1YYshT7J81FFZrvr/Deopy+WkwmgyOC7oCgcv5jON6XOsv7A
+         u79DC0Y0HSm1ip7ViYn0jqWLr87ciDQgVHPeemuIEH4UfIP3w/hONLZcixP9pptEFm6e
+         Ph95BxbeTNDpJO4JilQhgo+wumgn8yKtIdtiDROgnMfRa7C/3m8icBh01p5/VAtbOeQH
+         z2J9HkrGejgszkjf91MwBgq820rGEAqRw5t4WFSCC2o7Kwcx0FYwBnes4C/cLNR8iSKu
+         0L20dr50FTSFr8xIFeS2eWBKKKLeUMp2m5mU+8D2CsQh3C48XZ7iXC3HBA/4QTHogfXI
+         lneg==
+X-Forwarded-Encrypted: i=1; AKwUvBzokidaAq3Z1csz8+p4QJczHCC6LcJLqPhKDlGgJL3eViyR1qQSi83YX3RFSH/eDcRzDaBSfhnTFLbt1Tc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeeKFBUowaMp2kU90Ahv8F9SlLSSOu58z/IW0IuI6SvI1SYugG
+	XmV2wkDXObzdYVZ9huVQwUoKFO0hyZ1rR0AxM+0oj5q6E8ePvXL2n3FuP7LPd3f7Q7YA
+X-Gm-Gg: AYBFou2j+NvtS2n1cOXLr+IqIEhhz96oakCACmzjFmU2mYm4AwSaB5+7ZGAF6XSsdyS
+	Q2I4y0phY1hkmMceDYiNX70SqUjjcQsOcuowJHkj/nxuMPlfBQzWP70neAsLLUgJrvljWPr/Pz9
+	LJ5pLaa0M47DKxbhSagDj5NHXqryW2tX3OcKjeD2GkEkQD6m0Vy8xhqNGnak0T9hw5Qq921y2wr
+	6vStJbNZ/mtdxLvc3c0N3Y7WQJ8UpCFAgkQvlTpAQLVBh8lGBmdWQxvGp38U25US6x+KMmNoima
+	qt247u1/+MQxrZAG/6jwrvOVzlASK2dhwXLH8KTgp73JnEpKoGCyfnB6WRvlT1bP47dMRs2GFds
+	B1TzZYUbmOSnTe2PWbLZ/yTYZSPo3D5Z/OLOn3jaLCt8oSXLPckRMadnwJNo+1Sbdr6OfIZ3eYy
+	3Ns8wzLED8oOqlZSK/b5gWFNaUogxqbg3/z1b8SCs+PF3Z/peuBfjKyx4aNOM1PZle8sTNexrH
+X-Received: by 2002:a05:6512:15a7:b0:5b8:edc5:c9f4 with SMTP id 2adb3069b0e04-5ba403e92b7mr1163263e87.13.1790810643443;
+        Wed, 30 Sep 2026 16:24:03 -0700 (PDT)
+Received: from lab01.. ([2a01:4f9:1a:a462::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fc8023sm279117e87.81.2026.09.30.16.24.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 16:24:03 -0700 (PDT)
+From: Mahmut Emin Kurhan <guvenlik@noroxi.com>
+To: linux-fsdevel@vger.kernel.org
+Cc: slava@dubeyko.com,
+	glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-kernel@vger.kernel.org,
+	Mahmut Emin Kurhan <guvenlik@noroxi.com>
+Subject: [PATCH v2 1/2] hfsplus: free cached B-tree nodes on hfs_btree_open() error path
+Date: Thu,  1 Oct 2026 01:23:11 +0200
+Message-ID: <20260930232312.1405042-2-guvenlik@noroxi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930232312.1405042-1-guvenlik@noroxi.com>
+References: <ea8cfa5978a90d27e498fae626edfdae5bf84af7.camel@dubeyko.com>
+ <20260930232312.1405042-1-guvenlik@noroxi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930135159.3926039-1-shakeel.butt@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 06:51:59AM -0700, Shakeel Butt wrote:
-> Two things in __cgroup_bpf_query() work only because CGROUP_TCP_SOCK_OPS is
-> the only one struct_ops attach type.
-> 
-> It calls cgroup_bpf_enabled(atype) with an atype that
-> find_atype_by_struct_ops_id() works out at runtime.  That macro is an asm
-> goto and needs a constant.  Today the compiler can see there is only one
-> value; add a second type and the build breaks with "impossible constraint in
-> 'asm'".  Add cgroup_bpf_enabled_runtime(), which reads the key instead, and
-> use it here.  This is a syscall path, so the cost does not matter.
-> 
-> And find_atype_by_struct_ops_id() matches on type_id alone.  An attach type
-> whose subsystem is not built keeps type_id 0, so a query for type 0 finds it
-> and returns success with nothing instead of -ENOENT.  Skip such slots.
-> 
-> Fixes: 369d9dcd8fb8 ("bpf: Add infrastructure to support attaching struct_ops to cgroups")
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Acked-by: Yafang Shao <laoar.shao@gmail.com>
+hfs_btree_open() can fail after hfs_bnode_find(tree, HFSPLUS_TREE_HEAD) has
+already inserted the head node into tree->node_hash.
 
-Acked-by: Tejun Heo <tj@kernel.org>
+__hfs_bnode_create() inserts the new bnode into tree->node_hash before it
+reads the node pages; if a page read fails it sets HFS_BNODE_ERROR and
+returns the node still hashed. hfs_bnode_find() then takes its node_error
+path and calls hfs_bnode_put(), which only frees a node once its refcount
+reaches zero *and* HFS_BNODE_DELETED is set. For the errored head node that
+flag is not set, so it stays in tree->node_hash with a zero refcount.
 
-Thanks.
+hfs_btree_open() then sees IS_ERR(node) and jumps to free_tree:, doing a
+bare kfree(tree). Only hfs_btree_close() walks tree->node_hash[] and frees
+the cached nodes, so the head node is leaked. Mounting a crafted HFS+ image
+whose head B-tree node fails to read leaks kernel memory on every attempt.
 
+Factor the node-hash freeing out of hfs_btree_close() into a small helper
+hfs_bnode_hash_free() and call it from both hfs_btree_close() and the
+hfs_btree_open() error path. No hash_lock is taken because the tree is not
+published yet, so no other thread can reach it.
+
+Found via coverage-guided fuzzing (syzkaller + kmemleak) by Noroxi.
+
+Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
+---
+ fs/hfsplus/btree.c | 35 ++++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
+
+diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
+index 2ea8cd565..41e01380d 100644
+--- a/fs/hfsplus/btree.c
++++ b/fs/hfsplus/btree.c
+@@ -265,6 +265,24 @@ static const char *hfs_btree_name(u32 cnid)
+ }
+ 
+ /* Get a reference to a B*Tree and do some initial checks */
++static void hfs_bnode_hash_free(struct hfs_btree *tree)
++{
++	struct hfs_bnode *node;
++	int i;
++
++	for (i = 0; i < NODE_HASH_SIZE; i++) {
++		while ((node = tree->node_hash[i])) {
++			tree->node_hash[i] = node->next_hash;
++			if (atomic_read(&node->refcnt))
++				pr_crit("node %d:%d still has %d user(s)!\n",
++					node->tree->cnid, node->this,
++					atomic_read(&node->refcnt));
++			hfs_bnode_free(node);
++			tree->node_hash_cnt--;
++		}
++	}
++}
++
+ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
+ {
+ 	struct hfs_btree *tree;
+@@ -403,6 +421,7 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
+ 	tree->inode->i_mapping->a_ops = &hfsplus_aops;
+ 	iput(tree->inode);
+  free_tree:
++	hfs_bnode_hash_free(tree);
+ 	kfree(tree);
+ 	return NULL;
+ }
+@@ -410,24 +429,10 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
+ /* Release resources used by a btree */
+ void hfs_btree_close(struct hfs_btree *tree)
+ {
+-	struct hfs_bnode *node;
+-	int i;
+-
+ 	if (!tree)
+ 		return;
+ 
+-	for (i = 0; i < NODE_HASH_SIZE; i++) {
+-		while ((node = tree->node_hash[i])) {
+-			tree->node_hash[i] = node->next_hash;
+-			if (atomic_read(&node->refcnt))
+-				pr_crit("node %d:%d "
+-						"still has %d user(s)!\n",
+-					node->tree->cnid, node->this,
+-					atomic_read(&node->refcnt));
+-			hfs_bnode_free(node);
+-			tree->node_hash_cnt--;
+-		}
+-	}
++	hfs_bnode_hash_free(tree);
+ 	iput(tree->inode);
+ 	kfree(tree);
+ }
 -- 
-tejun
+2.43.0
+
