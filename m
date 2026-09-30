@@ -1,213 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A621E0DD8;
-	Wed, 30 Sep 2026 17:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791166; cv=none; b=gNgeWLdSYRvmwL5ouRn9tPcq+kHyZLrIKRut9AFnvFk4vhaHu80jWRB6/QeQ+9JGU/p7D3JKZ/Tq6ioZoAFQoR8A/V61HunlGS1EVUNVF6IyLevGupnVzw82g6qEbN99T2Gtcs4JtYSLuBI7K/VPcuNbKtASF2GC4jh6OPuJ06g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791166; c=relaxed/simple;
-	bh=ZgC4Sqq5xwC4zBkq2aPMLurpWwH1EohFR4jPcM5VQo8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k1/74cd3H5QJFEzfXVlfUC2FKJnJjwINfvrqB9MmElid1+3a0q2WXXn3OTBU3b9MGYyFFiQBcMLlPh3O8LfOq+P9ZtbURfsSGnkRRJjIw73dbaNCLCkp1WsdHTVyn9qMquEnPG+xpr9XvvVIecGnZJiXbqWFlxfgSlAShwBNimU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0JKb0Cm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAC651B16A;
+	Wed, 30 Sep 2026 17:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790791190; cv=fail; b=sRqXOtGqwUkrhzyFLkjvPFQ2poi6ua31VuA/HvsDxOEAOila7SnFD5fIO9azetB3dD29AViPAr4CxkCG1GstWbNO58YXgbxkBc7VJR+Og2xBxslpeki4aEybdBDbF5fm6Wja2P1W93B2eSwNhuAVRePV4x8dFzVqBsaf9c8n0So=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790791190; c=relaxed/simple;
+	bh=ckNHO1hYjVd28fVIG1trrY7oJb99CIzrCQv9IPQmDEI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=BHgmBStGA0KOXIDjP0BOhScbmdQIxUS/XlKApdqszNhlhaKPe5ZnjlCWeaOdlFtN1ZtYfuOEJ7hsyFCInhuo7ZwArJ5CBy4wYzVogC3316uP4zjIewsaCvfNPwjRQtSl3gbzBZ1+JDuBkglsAiB9OLo82Ys9ycrEjjc1jdzvV/E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YiJnLTIb; arc=fail smtp.client-ip=52.101.56.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0JKb0Cm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A9F1F00898;
-	Wed, 30 Sep 2026 17:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790791164;
-	bh=PLNnyjohnPl4xhPf587W7AbXGI/7ND1XrL+7doDL6DM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=d0JKb0CmRdhluE8uLDeT9N6n1smocOz7Xwk/hpnHijzMtlfsXi191uDheAuqdv158
-	 cfg/OV9Hw9MCZQxfoROVEssTPai52Bn4xcakQ8l/zgPtEZCcky2LIBpNlrGL0ZLVPk
-	 E59OfmIbKRBOSJuo/MymqDq6IFyHC/rENsHEoHf7p2Pci86Oh4r3wynb9Efe1vu2dr
-	 01tuUB1QKJtLSUxTB9lMZYhXLYCGbmBZM4WYOKwixZf0zYAbzEO8Rya/+BMhzEOWQs
-	 iZtvaMKK3IdyfCSi54+zEPslcolPtFwRoPoLcHV0ocYnh5A1j3UiizXRNPycFEvIyi
-	 cJQf12h+HCRBw==
-Date: Wed, 30 Sep 2026 18:59:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Yibo Tan <lhfff@tju.edu.cn>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Zhang Lixu	 <lixu.zhang@intel.com>,
- linux-input@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] HID: sensor-hub: Fail unfinished multi-value reads
- on removal
-Message-ID: <20260930185919.54170a4e@jic23-hlaptop>
-In-Reply-To: <20260913182120.01bac5c3@jic23-hlaptop>
-References: <20260913045411.5e2f5b25@jic23-hlaptop>
-	<20260913072910.1944300-1-lhfff@tju.edu.cn>
-	<5b28a9e82b8f3d4458b678505ef7063525ce1141.camel@linux.intel.com>
-	<20260913182120.01bac5c3@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YiJnLTIb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y2GC3KCYZnXwZqi7r6zO+lda4jbvFjQ2wSxAAgx+3ZiupMgf0dyYSVRlM8Jos48DTsdHfxeb8X36jQYMfkzhJR/nyjf3JvTKlGkWL2RqU31wIOcs0J16f5TRTcnebZyK9oktieYNKW8TCXjGErbXTDvgd8yVc0XPMVSIj8qQuer+oE7e4igirUfyLTf0DjRx7Xd2MK6jgB3CHApSjyuAcNovwC2buAamEk5WZHdbiea8uWryIE1j0HPJgomMLkq/c3q3eAD/T3JegH9FhBDufc18pJy3h5Zz/OweLbkwQCq+U4a2L+3KzYjyXPIxh1t8ozGJl3fV5E79mnGBy1tKDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FjZDGGZzP7+Oox1GjavcA17V5y6YVFr7aXJkB0T5JAc=;
+ b=Cxl9l0ljHep1Yyh0ZW7GpYYd3S+p/1d6T8PATUiaMEYoafxb0UKEFR7LVzcJAeq3PIUiSZMNAtFkmrXYCXtwGKRN2jzuXaUAGTfVx4XKFYZbG78pVjtH95pr0Fa9iZ2DyocUcVwuD2lPiedGVqBSQnYeIqZK6zU5qzSvyyBd9d+O8aD+7/myVoE9McRt1OFxFPp2vaIkAjOw2nDktfB65gF+19yGCqKquHql02eQ8svz72Dwt587fSx7fzkCpcnEIzn7PHoC4rXojg335uGtrVKfgD6UXGlXI1G1yfteHTYQrNYpDhsCi/vCDvGktIXUH/TOlNMOPVsebfjH3MD3aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FjZDGGZzP7+Oox1GjavcA17V5y6YVFr7aXJkB0T5JAc=;
+ b=YiJnLTIbMK96TVaqtga8/TaKicNdXiXt191S3X9GhoxIjNOg1uFM86y8ghBAda4DIQE8GorM9b8Dwd0AZRYM+KINZo+kLvj0Oauure0yEdkw9e6KL6cNZ5wN+8u7SkNCJ7yPgGuPSFpXcvN1y/Hir9p4+/Vycnd+FSwLPMYRTdE=
+Received: from BN9PR03CA0384.namprd03.prod.outlook.com (2603:10b6:408:f7::29)
+ by DS0PR12MB8767.namprd12.prod.outlook.com (2603:10b6:8:14f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 17:59:41 +0000
+Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::28) by BN9PR03CA0384.outlook.office365.com
+ (2603:10b6:408:f7::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
+ 30 Sep 2026 17:59:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 17:59:41 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 12:59:40 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 12:59:40 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 12:59:40 -0500
+Message-ID: <e4c802fb-652d-4c87-a0e8-1f1d7f566cda@amd.com>
+Date: Wed, 30 Sep 2026 12:59:40 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, 13 Sep 2026 18:21:20 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Sun, 13 Sep 2026 08:50:35 -0700
-> srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
->=20
-> > On Sun, 2026-09-13 at 15:29 +0800, Yibo Tan wrote: =20
-> > > sensor_hub_remove() completes pending reads after stopping the HID
-> > > device,
-> > > but does not record why they completed.=C2=A0 A successful completion=
- wait
-> > > therefore returns zero even if no complete input report was received.
-> > > Multi-value IIO callers then format their untouched automatic buffer
-> > > as a
-> > > successful result.
-> > >=20
-> > > With a valid four-element signed 32-bit quaternion report descriptor,
-> > > an
-> > > unprivileged reader received all 16 bytes of the untouched buffer.=C2=
-=A0
-> > > Across
-> > > 11 independent KASLR-enabled boots, four reads exposed exact pointers
-> > > to
-> > > dev_rot_channels or dev_sysfs_ops.=C2=A0 Subtracting the matching lin=
-k-
-> > > time
-> > > symbol address recovered the kernel KASLR slide in all four cases.
-> > >=20
-> > > The reader ran as UID/GID 65534 with no effective capabilities
-> > > through the
-> > > mode-0644 IIO attribute.=C2=A0 The test used a privileged UHID broker=
- to
-> > > create
-> > > and remove the provider; it does not demonstrate unprivileged
-> > > provider
-> > > removal.
-> > >=20
-> > > Mark a pending request as shut down before completing it from the
-> > > removal
-> > > path, and return -ENODEV from a multi-value read that observes the
-> > > marker
-> > > after a successful wait.=C2=A0 Let removal win even if a response rac=
-ed
-> > > with
-> > > teardown, since the device is no longer available.
-> > >=20
-> > > The Root B-only repair returned -ENODEV with no payload or kernel
-> > > diagnostic in 3/3 matching signed-32-bit runs.=C2=A0 The source
-> > > reproducer,
-> > > complete vulnerable and fixed serial logs, result tables, and
-> > > checksums are
-> > > available in [1].
-> > >=20
-> > > Link:
-> > > https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tre=
-e/main/cases/hid-sensor-quaternion-root-b-kaslr
-> > > =C2=A0[1]
-> > > Fixes: f784fcea4506 ("HID: sensor-hub: Add
-> > > sensor_hub_input_attr_read_values() for multi-byte reads")
-> > > Cc: stable@vger.kernel.org
-> > > Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> > > Assisted-by: LLM
-> > > Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>   =20
-> >=20
-> >=20
-> > Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> =20
->=20
-> Applied to the fixes branch of iio.git.
->=20
-> It might or might not go upstream before the next merge windows. In pract=
-ice
-> I'm going to assume these devices are typically not hotplugable except in
-> dev kits so we are unlikely to see this on production devices unless
-> someone manually removes?  That does affect whether to fix it, but only h=
-ow
-> fast we rush it upstream!
-
-I fluffed this again :(.  One day I'll remember which bits of this driver
-stack sit in drivers/hid.
-
-Should go via that tree not IIO. So I'll drop it.
-
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH] remoteproc: xlnx: fix typecast warnings
+To: Mathieu Poirier <mathieu.poirier@linaro.org>, Tanmay Shah
+	<tanmay.shah@amd.com>
+CC: <andersson@kernel.org>, <linux-remoteproc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>
+References: <20260828155846.2883035-1-tanmay.shah@amd.com>
+ <ar0oE_M9sgEpJ0st@p14s>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <ar0oE_M9sgEpJ0st@p14s>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|DS0PR12MB8767:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f23ab0b-f10e-428b-7c1b-08df1f1c9a11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|11063799006|4143699003|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	Uc9mXs/sD489Fwz5evrzfqx4F3iHlFiRQHJDvy5KcBTknLFh874KtN8GQ6PBDRGwwt5+ROPkE2DrYfxR2V+cn6Leo4/HaqpwshWTriDA3r43JrwH/LK/ocCXHciX33ZHJltVFxKL8zQ0Te59YRJNK3GiCbhLDP4BwVVNXjtXvY3KcVL2gkeVeLVAVmMoJ5T72ILJ2CNlCI+nwgoKsWv3SVbonxXSjN2CLQRGrve0B3hjLSFoSBAwLMNCJsUNYrZbR4hH5khJFc0taVgZ7CDDpqLDjl1ZH/IecZBCvGb/8+pOYsi1KagL0qj7MwzTRQf1nwdZvOpdg+Z81szHFlMDal0Fy06uoQH/hxA9jQ1Kj3nhQrKXTGZYIJTQBlKTgUw3vwlWwhT91pYlvHQRuc8LjyxiJ5gmsO0j5Wwk2r4EnLnKFZeCP4vr0PANVTXc2en406On7qs7W10HU4H41QOZWSf2ebuyibCwTft7tSFgh+l73vjk6vOFOLcn2LDd83reklG21TGMhL2Sh6NG/BdJ2dzgAMsCenDjlM9JGnH9yDgVeuj2OX1/BkKHlsrxraByA+aK7/ruNezSaHkDKmfhgdT+EBHCR2SfHXFSY1zUCf69k5+2eFIyV3tejjsVsGDzpmT0adyOB3dSxm8g93meqU+pVGwXhm3FpcK5ZUavQQM=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(11063799006)(4143699003)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FJTgoVkg3DIgqWTrlqC5sEjTURb/KE5RzkdI0Y2Yc7k+t6vaL37Cz80McldsF0E0ckcZM7hc+ursy6iWA8+IXc+2d87G/oiR9/YHSR3wVWsUTrVtd9lgB6W4lVCS+YLDbgNHRhd1x8IKZuRmm86LcZxLF/UkZpBZa6u7TX4ovTWTx0LkITy4mP7PuLUdSx6KlnT4W95r2buV/XRi+XCfvUS8z5ffhqv+TIXlF+d8OW+NBR/AauRYFos/pJ7952MFHLcaMeTDtHpInZbGGvQvcNKvCsrS5DDrAhGY7VQS7AsfrasL1AzX4aVpcVa2U6gzygKVNfHAFh8aIMnZSsfX37atbbsQrg44H6l5wfJZ2+ZTvM6reJeIka/S4Pu+5QJLRNomfHK4xWDm0jVuK8YHS3FrnMfrqrxPUAlm7txFTpC5E1nOJ/ca/HOUea1YWCJK
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 17:59:41.3858
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f23ab0b-f10e-428b-7c1b-08df1f1c9a11
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8767
 
 
->=20
-> Jonathan
->=20
-> >=20
-> >  =20
-> > > ---
-> > > Changes in v3:
-> > > - Replace the raw_size error sentinel with a dedicated teardown flag,
-> > > as
-> > > =C2=A0 suggested by Jonathan Cameron.
-> > > - Let teardown win if it races with a completed response.
-> > >=20
-> > > v2:
-> > > https://lore.kernel.org/r/20260912050257.837340-1-lhfff@tju.edu.cn/
-> > >=20
-> > > =C2=A0drivers/hid/hid-sensor-hub.c=C2=A0=C2=A0 | 6 +++++-
-> > > =C2=A0include/linux/hid-sensor-hub.h | 2 ++
-> > > =C2=A02 files changed, 7 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
-> > > hub.c
-> > > index 6470a290ebfc..a9bd72218c07 100644
-> > > --- a/drivers/hid/hid-sensor-hub.c
-> > > +++ b/drivers/hid/hid-sensor-hub.c
-> > > @@ -334,6 +334,8 @@ int sensor_hub_input_attr_read_values(struct
-> > > hid_sensor_hub_device *hsdev,
-> > > =C2=A0			ret =3D -ETIMEDOUT;
-> > > =C2=A0		else if (cycles < 0)
-> > > =C2=A0			ret =3D cycles;
-> > > +		else if (hsdev->pending.shutdown)
-> > > +			ret =3D -ENODEV;
-> > > =C2=A0
-> > > =C2=A0		hsdev->pending.status =3D false;
-> > > =C2=A0	}
-> > > @@ -805,8 +807,10 @@ static int sensor_hub_finalize_pending_fn(struct
-> > > device *dev, void *data)
-> > > =C2=A0{
-> > > =C2=A0	struct hid_sensor_hub_device *hsdev =3D dev->platform_data;
-> > > =C2=A0
-> > > -	if (hsdev->pending.status)
-> > > +	if (hsdev->pending.status) {
-> > > +		hsdev->pending.shutdown =3D true;
-> > > =C2=A0		complete(&hsdev->pending.ready);
-> > > +	}
-> > > =C2=A0
-> > > =C2=A0	return 0;
-> > > =C2=A0}
-> > > diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-
-> > > sensor-hub.h
-> > > index ab5cc8db3fbb..5aecf4474183 100644
-> > > --- a/include/linux/hid-sensor-hub.h
-> > > +++ b/include/linux/hid-sensor-hub.h
-> > > @@ -38,6 +38,7 @@ struct hid_sensor_hub_attribute_info {
-> > > =C2=A0/**
-> > > =C2=A0 * struct sensor_hub_pending - Synchronous read pending informa=
-tion
-> > > =C2=A0 * @status:		Pending status true/false.
-> > > + * @shutdown:		The device is being removed.
-> > > =C2=A0 * @ready:		Completion synchronization data.
-> > > =C2=A0 * @usage_id:		Usage id for physical device, e.g. gyro
-> > > usage id.
-> > > =C2=A0 * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
-> > > @@ -48,6 +49,7 @@ struct hid_sensor_hub_attribute_info {
-> > > =C2=A0 */
-> > > =C2=A0struct sensor_hub_pending {
-> > > =C2=A0	bool status;
-> > > +	bool shutdown;
-> > > =C2=A0	struct completion ready;
-> > > =C2=A0	u32 usage_id;
-> > > =C2=A0	u32 attr_usage_id;   =20
-> >  =20
->=20
->=20
+
+On 9/30/2026 10:17 AM, Mathieu Poirier wrote:
+> On Fri, Aug 28, 2026 at 08:58:46AM -0700, Tanmay Shah wrote:
+>> Fix following sparse warnings by using __force attribute:
+>>
+>> sparse warnings: (new ones prefixed by >>)
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:571:20: sparse: sparse:
+>> cast removes address space '__iomem' of expression
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:749:17: sparse: sparse:
+>> cast removes address space '__iomem' of expression
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:773:24: sparse: sparse:
+>> cast removes address space '__iomem' of expression
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:797:25: sparse: sparse:
+>> cast removes address space '__iomem' of expression
+>>
+>>>> drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse: sparse:
+>> incorrect type in initializer (different address spaces) @@     expected
+>> void *rsc_offset @@     got void [noderef] __iomem * @@
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:
+>> expected void *rsc_offset
+>>    drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:     got
+>> void [noderef] __iomem *
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202608190009.uCbYi1Y5-lkp@intel.com/
+>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+> 
+> I have applied this patch - apoligies for the delay, it got lost in the heap.
+> 
+
+Thank You, no problem.
+
+Tanmay
+
+> Mathieu
+> 
+>> ---
+>>  drivers/remoteproc/xlnx_r5_remoteproc.c | 10 +++++-----
+>>  1 file changed, 5 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
+>> index c685bb5fa62c..f9cdd3c024dc 100644
+>> --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
+>> +++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
+>> @@ -568,7 +568,7 @@ static int tcm_mem_map(struct rproc *rproc,
+>>  		return -ENOMEM;
+>>  
+>>  	/* Update memory entry va */
+>> -	mem->va = (void *)va;
+>> +	mem->va = (__force void *)va;
+>>  
+>>  	/* clear TCMs */
+>>  	memset_io(va, 0, mem->len);
+>> @@ -746,7 +746,7 @@ static struct resource_table *zynqmp_r5_get_loaded_rsc_table(struct rproc *rproc
+>>  
+>>  	*size = r5_core->rsc_tbl_size;
+>>  
+>> -	return (struct resource_table *)r5_core->rsc_tbl_va;
+>> +	return (__force struct resource_table *)r5_core->rsc_tbl_va;
+>>  }
+>>  
+>>  static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
+>> @@ -770,7 +770,7 @@ static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
+>>  		return -EINVAL;
+>>  	}
+>>  
+>> -	rsc_data_va = (struct rsc_tbl_data *)ioremap_wc(res_mem.start,
+>> +	rsc_data_va = (__force struct rsc_tbl_data *)ioremap_wc(res_mem.start,
+>>  							sizeof(struct rsc_tbl_data));
+>>  	if (!rsc_data_va) {
+>>  		dev_err(dev, "failed to map resource table data address\n");
+>> @@ -794,7 +794,7 @@ static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
+>>  		return -EINVAL;
+>>  	}
+>>  
+>> -	rsc_tbl_addr = (struct resource_table *)r5_core->rsc_tbl_va;
+>> +	rsc_tbl_addr = (__force struct resource_table *)r5_core->rsc_tbl_va;
+>>  
+>>  	/*
+>>  	 * As of now resource table version 1 is expected. Don't fail to attach
+>> @@ -834,7 +834,7 @@ static int zynqmp_r5_handle_rsc(struct rproc *rproc, u32 rsc_type, void *rsc,
+>>  				int offset, int avail)
+>>  {
+>>  	struct zynqmp_r5_core *r5_core = rproc->priv;
+>> -	void *rsc_offset = (r5_core->rsc_tbl_va + offset);
+>> +	void *rsc_offset = (__force void *)(r5_core->rsc_tbl_va + offset);
+>>  
+>>  	if (rsc_type != XLNX_RPROC_FW_CRASH_REPORT)
+>>  		return RSC_IGNORED;
+>>
+>> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
+>> -- 
+>> 2.43.0
+>>
 
