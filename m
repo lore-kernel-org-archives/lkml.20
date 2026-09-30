@@ -1,172 +1,175 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CEF30C147;
-	Wed, 30 Sep 2026 05:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2652530C147;
+	Wed, 30 Sep 2026 05:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790746862; cv=none; b=SkZpgAuj6YVHZCdIuyhDVTVZURkdSY+2d7RG9GlWTVblzu8JYov+VlfTe+Zk5s+XdVYpsc7x54gepoBAeS395aaDtHLbYlArdJgq14XQb7fDVATClnXrAPyn/V27ukHeOWdJ1d6RQrl2gsvu5kOQIcnMgzOqdn638+tLdYppoSk=
+	t=1790746866; cv=none; b=mw6/+qLXNzNPRhtYsSXf1MSBnDZOQDh6SZy82Uq8NxyORHf161d/5FVb0IoaOlZTxN2zK/YKGiOFFZpTYZkCfyO072mQC0uVTRyysUJWm9FqNgSlJ6vUbRiM5FdDyd+pOSTY+OKQhBzvfQZhC6yyKviCT+Ar6anbxdxetDEfipM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790746862; c=relaxed/simple;
-	bh=wxe/DM7r2GKzQHbMz5VnZ0DQNy8nUUAohTi8urqGk9E=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lmYIZRXME5Trg6EGt9wIVHsQWd/Vp9sg4Q8oi0Zs7HijlZ4u4vW9NSRzpN+lIWA6mZoGR1uUTw5K2vLN5ytRQxMfOL4Fu5b+yjY5QveTxsf7XKDeQyMKEUbrzqm645e4pur8HCTaNfzBUfiHki/dIAHD9cOEwFHACApGKuEIIAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=LZnmuAk1; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790746866; c=relaxed/simple;
+	bh=T9P6mcgxpWhKz75d2zCXZHo0i7BHFj5BIcLfYB+EXZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iv4rAafEVBEp2KBPDzZRsdLKXfig1KSP4DPm9egeF4X21zzUVg8p3VO0NViNxnBjHHfdMaxhJQefpUL9MDf9z4aBDLIopbCxYwIMYoEt+11eWSH3KZlv+5z+95h5vVMrfGXOqD/QTbD6xi1+RVFmGBVhA60Ylnuu7kyaoZwFbeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IRjeSaVZ; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="LZnmuAk1"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IRjeSaVZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790746861; x=1822282861;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wxe/DM7r2GKzQHbMz5VnZ0DQNy8nUUAohTi8urqGk9E=;
-  b=LZnmuAk1f4qn6UIohD/IUj4OZgkrfCsBNE8sU0cJjfJve7t3HWI/7M5O
-   DzrWZmexYVKMCVAGcmWAIDInj9dEBw+NiMP8dFA3nOjag9XLDLOrNhodl
-   QquUDSvbH97RybjxTuIwX8ja5DzX5jZvAvAAIQVvs4/71SAlRELxbH6xj
-   RNujuXExe47trGVNGfsODONPsv6Ncg2/4cFg0080f4t7Wr2a81PpMRd3L
-   xVhY4AGBU6PPb1Hm6h2mVbJngb84w9ZbsHIV9CbDFsaB+D6z19vyWCZSS
-   b1gKGii0osQvFXrlnzT1Iwk+NHm/729KoKiiYrHTrwY3tuJzZKRNuK3xP
-   w==;
-X-CSE-ConnectionGUID: r6MIbcMDTVezUi7qzOnxbQ==
-X-CSE-MsgGUID: RjhBc48MSSqW9sF5CWAFqg==
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790746865; x=1822282865;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=T9P6mcgxpWhKz75d2zCXZHo0i7BHFj5BIcLfYB+EXZE=;
+  b=IRjeSaVZX/qAPuZ6yXuTTxcj0x4TY2h1XMFjf8eLDiZ9wM2nvW5jzDEU
+   oLoIHt1f5fTrMwT9aaPtasohUBPBKpLtFKZ9wMi/6JNQOjyUydrjRDBUu
+   L686GlCXNv6JdvA+wocbZR/yQFYq/oCFskqUGQJc8qf8Xak5RD6vAN9kr
+   aaGI2TS0F9FcoZhbjMrQtulvdt6WMUZx+vaaDaQdCWls1IQKI4ewUJgg7
+   cHvURSjjClHxnhTGtMTR4XTwBTEK1Ct0imROrvQn1MHRCNESpQ8BwvFSF
+   lm5jjdcx4GFO8wj1WvTQ2CrK8wzrKo2J+1wrt96XBGud/5xS+kTd6/IeN
+   Q==;
+X-CSE-ConnectionGUID: 6Fbea9tqQrC4KyXiY7t6EA==
+X-CSE-MsgGUID: 14eF4eLwSQmnVKFHr2xkqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102149077"
 X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="64358277"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 29 Sep 2026 22:40:54 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 29 Sep 2026 22:40:53 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 29 Sep 2026 22:40:51 -0700
-Date: Wed, 30 Sep 2026 07:40:50 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Quentin Freimanis <quentin@q-lab.dev>
-CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
- Cochran" <richardcochran@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: sparx5: start the domain 0 TOD counter on
- non-PTP lan969x variants
-Message-ID: <20260930054050.hrvaydgdczkizuqt@DEN-DL-M70577.microsemi.net>
-References: <20260928044955.29647-1-quentin@q-lab.dev>
- <20260928151453.fzch356vrp3ergy7@DEN-DL-M70577>
- <4e1ef527-e843-4f1b-9f7f-cf2400fa443e@q-lab.dev>
- <20260929120900.zld2c3h4keqcnmcj@DEN-DL-M70577.microsemi.net>
- <09daa7d0-16a8-40be-999b-9cc608e700db@q-lab.dev>
+   d="scan'208";a="102149077"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 22:40:59 -0700
+X-CSE-ConnectionGUID: vdfn8dUtTOy84d3pfGUCJw==
+X-CSE-MsgGUID: C7cJUmLVR1GPTbLUo+tUHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="278936392"
+Received: from 984fee019967.jf.intel.com ([10.23.153.244])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 22:40:58 -0700
+From: Chao Gao <chao.gao@intel.com>
+To: linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: yilun.xu@linux.intel.com,
+	chao.gao@intel.com,
+	binbin.wu@linux.intel.com,
+	tony.lindgren@linux.intel.com,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: [PATCH v3 01/10] x86/virt/tdx: Add a helper to read a table of metadata fields
+Date: Tue, 29 Sep 2026 22:38:35 -0700
+Message-ID: <20260930053901.22528-2-chao.gao@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260930053901.22528-1-chao.gao@intel.com>
+References: <20260930053901.22528-1-chao.gao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <09daa7d0-16a8-40be-999b-9cc608e700db@q-lab.dev>
+Content-Transfer-Encoding: 8bit
 
-> > > > Ack. Not initializing the TOD domains on certain variants is a problem.
-> > > > 
-> > > > However, TOD domains shouldn't affect basic forwarding. I tried it on my board
-> > > > with PTP forced off - no forwarding issues.
-> > > > 
-> > > > Certain TSN features do require TOD domains to be configured, though. How did
-> > > > you test this, and what exactly did you see fail?
-> > > 
- > > > > Fix by moving the TOD counter start code into a helper and calling it in
-> > > > > sparx5_ptp_init(). Non-PTP capable lan969x parts now start the domain 0
-> > > > > counter, and PTP-capable parts start all three, as they used to. A similar
-> > > > > workaround that starts all three and registers the PHC clocks is
-> > > > > implemented in the vendor BSP 6.18 kernel [1].
-> > > > 
-> > > > What we do downstream, is to ensure that all domains and PHC's are configured
-> > > > and registered on all variants, with a very simple is_sparx5() check.
-> > > 
-> > > My reasoning for only enabling the first counter and not registering the
-> > > clocks is that the part does not have SPX5_FEATURE_PTP, so it should not
-> > > expose any PTP features to userspace.
-> > > 
-> > 
-> > I acknowledge the problem, and I agree that the PHCs should not be registered.
-> > As for the solution, downstream we always start all three TOD domains, including
-> > on sparx5. If you take the same approach here, you don't need the new helper.
-> > Just move the existing TOD start sequence above the if (!sparx5->ptp) early
-> > return, so the counters are always started, while the PHC registration below it
-> > is still skipped on the non-PTP variants.
-> > 
-> 
-> ok, in v2 I'll drop the helper and always enable all 3 counters.
-> 
-> pw-bot: cr
+The metadata field readers get_tdx_sys_info_<class>() in
+tdx_global_metadata.c were generated by an out-of-tree script. That has
+not worked out: the JSON file they were generated from is neither stable
+nor authoritative enough [1].  The goal now is to maintain the readers by
+hand and to establish one standard way of adding a metadata field.
 
-Thanks. Please also fix the small nit below:
+Take get_tdx_sys_info_version() as an example:
 
-> > > > >    int sparx5_ptp_init(struct sparx5 *sparx5)
-> > > > >    {
-> > > > > -       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
-> > > > >           const struct sparx5_ops *ops = sparx5->data->ops;
-> > > > >           struct sparx5_port *port;
-> > > > >           int err, i;
-> > > > > @@ -622,8 +657,17 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
-> > > > >                   sparx5->ptp = 1;
-> > > > >           }
-> > > > > 
-> > > > > -       if (!sparx5->ptp)
-> > > > > +       if (!sparx5->ptp) {
-> > > > > +               if (!is_sparx5(sparx5)) {
-> > > > > +                       /* the base, non-ptp-capable lan969x variants need the first tod counter
-> > > > 
-> > > > Nit: s/the/The
-> > > > 
-> > > > > +                        * running to forward frames.
-> > > > > +                        */
-> > > > > +                       err = sparx5_ptp_tod_start(sparx5, BIT(0));
-> > > > > +                       if (err)
-> > > > > +                               return err;
-> > > > > +               }
-> > > > >                   return 0;
-> > > > > +       }
-> > > > > 
-> > > > >           for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
-> > > > >                   err = sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
-> > > > > @@ -635,27 +679,9 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
-> > > > >           spin_lock_init(&sparx5->ptp_ts_id_lock);
-> > > > >           mutex_init(&sparx5->ptp_lock);
-> > > > > 
-> > > > > -       /* Disable master counters */
-> > > > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
-> > > > > -
-> > > > > -       /* Configure the nominal TOD increment per clock cycle */
-> > > > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0x7),
-> > > > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
-> > > > > -                sparx5, PTP_PTP_DOM_CFG);
-> > > > > -
-> > > > > -       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
-> > > > > -               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
-> > > > > -                       PTP_CLK_PER_CFG(i, 0));
-> > > > > -               spx5_wr((u32)(tod_adj >> 32), sparx5,
-> > > > > -                       PTP_CLK_PER_CFG(i, 1));
-> > > > > -       }
-> > > > > -
-> > > > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
-> > > > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
-> > > > > -                sparx5, PTP_PTP_DOM_CFG);
-> > > > > -
-> > > > > -       /* Enable master counters */
-> > > > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0x7), sparx5, PTP_PTP_DOM_CFG);
-> > > > > +       err = sparx5_ptp_tod_start(sparx5, GENMASK(SPARX5_PHC_COUNT - 1, 0));
-> > > > > +       if (err)
-> > > > > +               return err;
-> > > > > 
-> > > > >           for (i = 0; i < sparx5->data->consts->n_ports; i++) {
-> > > > >                   port = sparx5->ports[i];
-> > > > > --
-> > > > > 2.55.0
+      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
+              sysinfo_version->minor_version = val;
+      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
+              sysinfo_version->major_version = val;
+      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
+              sysinfo_version->update_version = val;
 
-/Daniel
+Two patterns stand out: the read-check-store sequence repeats once per
+field, and the error of each read is chained into the reads that follow.
+Neither is common in hand-written code.
+
+Prepare to eliminate both with a loop that reads each field, stores the
+value into its structure member, and returns on the first error.
+
+Add 'struct field_mapping' to describe one field as its ID plus the offset
+and size of the member that receives its value. Add TDX_SYSINFO_MAP() to
+build such an entry from a field ID, a structure type and a member name.
+Add __read_sys_metadata_table() helper to read every field in a table.
+Annotate that helper __maybe_unused as there is no caller right now.
+
+Following changes will convert the existing readers to use the new helper.
+
+AI was used under supervision to review code and workshop logs. It
+suggested adding read_sys_metadata_table() macro, which avoids repeating
+the table name when passing both the table and its size.
+
+Signed-off-by: Chao Gao <chao.gao@intel.com>
+Link: https://lore.kernel.org/kvm/1e7bcbad-eb26-44b7-97ca-88ab53467212@intel.com/ # [1]
+---
+v3:
+ - Pass the field ID to TDX_SYSINFO_MAP() instead of pasting the
+   TDX_MD_FIELD_ID_ prefix onto a suffix inside the macro [Rick]
+ - Call out that this patch only prepares to eliminate the two patterns.
+   [Rick]
+ - Define @offset in struct field_mapping as size_t [Binbin]
+---
+ arch/x86/virt/vmx/tdx/tdx.c | 39 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 96ced0494b68..67a80ed86bd3 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -395,6 +395,45 @@ static int read_sys_metadata_field(u64 field_id, u64 *data)
+ 	return 0;
+ }
+ 
++/*
++ * Map a TDX global metadata field to a structure member.
++ * @field_id: The TDX global metadata field ID.
++ * @size: The size of the structure member.
++ * @offset: The member's offset within its containing structure.
++ */
++struct field_mapping {
++	u64 field_id;
++	size_t size;
++	size_t offset;
++};
++
++/* Read each metadata field listed in @mappings[] into @data. */
++static int __maybe_unused __read_sys_metadata_table(const struct field_mapping *mappings,
++						    int num_mappings, void *data)
++{
++	int i, ret;
++	u64 val;
++
++	for (i = 0; i < num_mappings; i++) {
++		ret = read_sys_metadata_field(mappings[i].field_id, &val);
++		if (ret)
++			return ret;
++		memcpy((char *)data + mappings[i].offset, &val, mappings[i].size);
++	}
++
++	return 0;
++}
++
++#define read_sys_metadata_table(_mappings, _data) \
++	__read_sys_metadata_table(_mappings, ARRAY_SIZE(_mappings), _data)
++
++#define TDX_SYSINFO_MAP(_field, _type, _member)			\
++{								\
++	.field_id	= _field,				\
++	.offset		= offsetof(_type, _member),		\
++	.size		= sizeof_field(_type, _member),		\
++}
++
+ #include "tdx_global_metadata.c"
+ 
+ static __init int check_features(struct tdx_sys_info *sysinfo)
+-- 
+2.52.0
 
