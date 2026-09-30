@@ -1,121 +1,158 @@
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7DB4A92DC;
-	Wed, 30 Sep 2026 13:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A126A4D5992;
+	Wed, 30 Sep 2026 13:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774167; cv=none; b=Qe+gqcrK1MXnPJuBpmJ6VvIrnUFwkVHNnKjypV561xXg+UtOnpOsJTOOK4Bfpf4LcCie5De2Q7LZMa5fD3YB7MsMOApeJmM61Ckz9E6jMEOOBQZqAfth4E97ueEyn2YTD3fdp9L06zgSBD11lvJUJ5e+GNB5TTjBtieCEBrQRS0=
+	t=1790774174; cv=none; b=LTk0dCKjE1qNBNbVZkvtaMf2r9buC9TGZfmrVj6es5DCLg7ydbWBXOB4mj7rts1p0dj3LeYSUDJogU6Bl8iSTDb5g3Eo65H6SzbL18WKeQU8nbU/sj1iQuGN8pcdbal2VrHRqvR4fWBhyiXcnEwETnKH4OeBwQATz1jXoKfg2+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774167; c=relaxed/simple;
-	bh=+nmyDT/vAE14pe2SdVMro9kS9KpIlW/SlKFd40pNJ6s=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=eKfqvBUMQnUgzbPxLyFFwYz/KdvaNudyW+s3ZfXO0a0gcsfHT6BX7aOSCeQIXE9XlDqWTopXwliqKAN+J53J73vVnJMVjQ9FOnj5KqzLCpFgyh5hTThyTJFOvn1b9sGt3bp+GpiLX1rFZ3AlkNKoWKw66JJ7J5nsMniRq6pr/Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pgray.dev; spf=pass smtp.mailfrom=pgray.dev; dkim=pass (2048-bit key) header.d=pgray.dev header.i=@pgray.dev header.b=p63pyT4o; arc=none smtp.client-ip=109.224.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pgray.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pgray.dev
+	s=arc-20240116; t=1790774174; c=relaxed/simple;
+	bh=2W2b5w9CitvZJwAgaF0y7ed8QMsLx48Y3KCdeiUUSaE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=CIDK9rk38+miSKfWQp7WLcbWEzGkbw8XxSe/DeEtHkR6EbL9kLgZuTsiWOLWqUC3W7F4IDL+dPSidddeSkMxNxzczcgjdiEvlGqAKKC2goePXvhrOe4VNBJwTt6XCXCnQ+gHS0O83FrYbYwzEluZC0vWnnCgwOsVAt0IoMTg5tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3zUeeHE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pgray.dev header.i=@pgray.dev header.b="p63pyT4o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pgray.dev;
-	s=protonmail2; t=1790774140; x=1791033340;
-	bh=K/KpVE2vwajq4KerKHo5R/x4bY2UmBRcyxLx2loGpsA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=p63pyT4oXLZgb23oSNbCSL3T48AZ79tj4ZoELgp4efT9S/5igxFA7NqDajGO8PSBz
-	 7reyI0l1q39+TGE3u/SgWxQXZoFjK4GY6+rd/xSS0NeX+sTOq16ga9c+Z9t2GF+uef
-	 PKUqUlbmBv/MunYklx9iWjCjgjpj8kj05LZiDt/LYbxIM4AnMvWey/qtGr/5GQ2JZK
-	 ntGs1XCBY5+j9WpLI0dfACafR1JwJjHwjjJ0tfQRrL/GrsV654ufZ2IWLDJfFmObyb
-	 LB0+8IqF/Wqii0naVOVXCkNRAJQCKNGFidA+tbm8SswJJV/chbGTmfJLfjidJ0JT/3
-	 zcLN/8/QYpMaA==
-Date: Wed, 30 Sep 2026 13:15:35 +0000
-To: Jens Axboe <axboe@kernel.dk>
-From: pgray <hi@pgray.dev>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, pgray <hi@pgray.dev>
-Subject: [PATCH] io_uring/tw: avoid local task work starvation
-Message-ID: <20260930131446.90741-1-hi@pgray.dev>
-Feedback-ID: 11681129:user:proton
-X-Pm-Message-ID: e3b567c6afaee7ebe3930a8ff423919bbc2174ea
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3zUeeHE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FFEB1F000FF;
+	Wed, 30 Sep 2026 13:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790774159;
+	bh=RQq3zxbvW0CRQnFqL05jVxP61C6OM3COQRF4/hXrqf8=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=l3zUeeHEKdk2aEmp7uvn3nUyTLjrPE1XFDsfNdoUtcqxI62UX7M6zQVb0vWwnzu8v
+	 CUGbPyg7O0LHQfoNczEXawzM/XgjXSR9nyAKhfHBouxmtOvGSJjGloF0A9MHSG3ePQ
+	 TlhaXMJFCjlU5b9AW4mKriU7FEfbBESwVAflWkL2yyyklbgWs25PD9mpSxXzVIqvDr
+	 DA/7qM37EIeJj/plgdIX3+6BUAH44/+vUozW9IcaDOTgN9VlQ6DVraaOPvUn+sRX3U
+	 5EjRCVeJ8LNp2gtFAivo/D2x0ihciFbkqHskchemOexBY+veJ74ub4AEa2RnHij8C6
+	 8sAqjNEoc07tA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7891B198003A;
+	Wed, 30 Sep 2026 09:15:57 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 09:15:57 -0400
+X-ME-Sender: <xms:iwu9asVpkuuQd-zSzBwYUXlvjydMWP9l1UeAcmwICvEGgj49DUXrMQ>
+    <xme:iwu9arbaiAuoianQMsQiKHehH2ssN2G8q2qBJLqRp8-CeA56Yy5HJKkWJ56Ylmjdm
+    Xjt_TJYgs7GGANBs4cxkYGkepab5pSlziCiXgHr6DjhNs2S2zYLFnw>
+X-ME-Proxy-Cause: dmFkZTEeDmdMrlEwTtESmDsCIEznmr5i42EluG+14rMDU/Yf1Ka8K5mnopAhISDdZ7sgXE
+    oSlOZfQqzwDyKV4jm6PRU/ECknr334Ik8NuS7WMF9o1NHXiToE5HUXPImIr9yVpMTHc4RU
+    r8JS3rQbukBtma79z041uDfkXzo0Gofz7xDGdLqLSoGNebxH4QfJMGDlMgrr/hGLwOMaWy
+    e1NCrptSJwHxyCIm2Iq8Ek2baDpL/cZRwIcs28hC60dAsh1mU+h7/1DJWUfyNFJXS9hkUh
+    gO3PM22f0z9/Xo+9EO7xUz6wa3GjFQag7uowUy1983jPDbnkkHWLjtR3zRF6cJkHH3nKT0
+    pMt56zLMfNIBbUqzYvYyapM5XQIJZojRQARBXiyNQuanTYBybCJDMtwJzYoyjvNrbQmffH
+    BScGAOsmgpNKUHyKaPatz3fGMYPitCDm186hPALlm9L8HFhTxxl0hlObX+6pMGN1Nn2DYY
+    8GCz6CyLK9wG+BTQAKzNU61AYqTC+8E6SaAuf2PUQqcl5JjDFhCHvfCnZRFh3yM3Jos3rf
+    N6wGR+5AuPThs91Jp0jC074koUNtHuuDovyD7dx/d/elIHiVtq/CaPeVfnKBcX2gq9X6XD
+    EuWjTLbIItm09JnLMHNoJRUWYYih6wXNITcF8J4BkCQViplkLW0MvyxubxUw
+X-ME-Proxy: <xmx:jQu9ai3nKzQACpy9ShQYyykovrswdQCriH1AoY_TQy9NAeyv5N9JLg>
+    <xmx:jQu9ahHal6yDuZPwenAlTiAMlgolL8GYu6uOx_aC_OBGW_nLVenXhQ>
+    <xmx:jQu9atFvAjPEl-cNU9WvTiuEoxPH8Poy2f1p9CqcQVYuBlH3dxh7pQ>
+    <xmx:jQu9ak5C3223rYJVT-S3Wq_cq7ZX8bFajz3Pdt-EMWr1N5koEkqQqA>
+    <xmx:jQu9aiwkp6iheB0F8f3ipZEJNrwjRbgcxQFsdADoPZExx1IESrbXb0ao>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 7DCE5F80084; Wed, 30 Sep 2026 09:15:55 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-IO_LOCAL_TW_DEFAULT_MAX (20) is too small for massive backlogs
-
-this patch fixes by:
-* not counting passive completions against budget
-* add a ceiling of 512: IO_LOCAL_TW_COMPL_MAX
-* clearing IORING_SQ_TASKRUN when local queue empty
-
-Link: https://github.com/axboe/liburing/issues/1645
-Fixes: f46b9cdb22f7 ("io_uring: limit local tw done")
-
-Signed-off-by: pgray <hi@pgray.dev>
----
- io_uring/tw.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/io_uring/tw.c b/io_uring/tw.c
-index f573bcc3af6a..236ed01fcfaa 100644
---- a/io_uring/tw.c
-+++ b/io_uring/tw.c
-@@ -16,6 +16,8 @@
- #include "wait.h"
- #include "mpscq.h"
-=20
-+#define IO_LOCAL_TW_COMPL_MAX=09=09512
-+
- static void ctx_flush_and_put(struct io_ring_ctx *ctx, io_tw_token_t tw)
- {
- =09if (!ctx)
-@@ -287,17 +289,23 @@ static int __io_run_local_work_loop(struct io_ring_ct=
-x *ctx,
- =09=09=09=09    int events)
- {
- =09int ret =3D 0;
-+=09int nr_events =3D 0;
-=20
--=09while (ret < events) {
-+=09while (nr_events < events && ret < IO_LOCAL_TW_COMPL_MAX) {
- =09=09struct llist_node *node =3D mpscq_pop(&ctx->work_list, &ctx->work_he=
-ad);
- =09=09struct io_kiocb *req;
-=20
- =09=09if (!node)
- =09=09=09break;
- =09=09req =3D container_of(node, struct io_kiocb, io_task_work.node);
--=09=09INDIRECT_CALL_2(req->io_task_work.func,
--=09=09=09=09io_poll_task_func, io_req_rw_complete,
--=09=09=09=09(struct io_tw_req){req}, tw);
-+=09=09if (req->io_task_work.func =3D=3D io_req_task_complete) {
-+=09=09=09io_req_task_complete((struct io_tw_req){req}, tw);
-+=09=09} else {
-+=09=09=09INDIRECT_CALL_2(req->io_task_work.func,
-+=09=09=09=09=09io_poll_task_func, io_req_rw_complete,
-+=09=09=09=09=09(struct io_tw_req){req}, tw);
-+=09=09=09nr_events++;
-+=09=09}
- =09=09ret++;
- =09}
-=20
-@@ -342,8 +350,11 @@ int io_run_local_work_locked(struct io_ring_ctx *ctx, =
-int min_events)
- {
- =09struct io_tw_state ts =3D {};
-=20
--=09if (!io_local_work_pending(ctx))
-+=09if (!io_local_work_pending(ctx)) {
-+=09=09if (ctx->flags & IORING_SETUP_TASKRUN_FLAG)
-+=09=09=09atomic_andnot(IORING_SQ_TASKRUN, &ctx->rings->sq_flags);
- =09=09return 0;
-+=09}
- =09return __io_run_local_work(ctx, ts, min_events,
- =09=09=09=09=09max(IO_LOCAL_TW_DEFAULT_MAX, min_events));
- }
---=20
-2.55.0
+Date: Wed, 30 Sep 2026 15:15:35 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "Herbert Xu" <herbert@gondor.apana.org.au>, x86@kernel.org,
+ linux-riscv@lists.infradead.org
+Message-Id: <e357ed97-6098-49c1-b031-c4955c97a35a@app.fastmail.com>
+In-Reply-To: <20260927224418.109759-1-ebiggers@kernel.org>
+References: <20260927224418.109759-1-ebiggers@kernel.org>
+Subject: Re: [PATCH v2 00/20] Migrate x86 and RISC-V accelerated AES modes into library
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
 
+
+On Mon, 28 Sep 2026, at 00:42, Eric Biggers wrote:
+> This series applies to v7.3-rc4.  It can also be retrieved from:
+>
+>     git fetch 
+> https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git 
+> aes-lib-x86-riscv-v2
+>
+> Patch 1 was already applied to libcrypto-fixes, but is resent to make
+> this series applicable directly to v7.3-rc4 (ensuring that the Sashiko
+> review runs).  Patches 2-20 are targeting libcrypto-next for 7.4.
+>
+> This series migrates the x86 and RISC-V accelerated implementations of
+> the AES modes ECB, CBC, CBC-CTS, CTR, XCTR, and XTS into lib/crypto/.
+>
+> This makes the corresponding library APIs be properly accelerated on
+> these architectures, while still accelerating crypto_skcipher as well
+> (via the library-based code in crypto/aes.c).
+>
+> It removes a lot of redundant glue code, since crypto API boilerplate no
+> longer needs to be duplicated per-architecture.
+>
+> Finally, it fixes the longstanding issue where these optimizations were
+> disabled by default.
+>
+> In the case of RISC-V, this series handles all remaining AES code in
+> arch/riscv/crypto/.  In the case of x86, AES-GCM is still left in
+> arch/x86/crypto/ for now; it will be handled later.  Other architectures
+> will be handled later as well.
+>
+> For various reasons, aesni-intel_asm.S (the x86-accelerated ECB, CBC,
+> CBC-CTS, CTR, and XTS code that doesn't use AVX or VAES) is replaced
+> with new functions written from scratch.  The other assembly functions
+> are kept but are modified slightly for integration into the library.
+>
+> Changed in v2:
+>    - Fixed 32-bit x86 bisection hazards by making aesni-intel depend on
+>      CONFIG_64BIT earlier in the series.
+>
+>    - Fixed handling of lengths over S32_MAX in RISC-V CTR code.
+>
+>    - Restored selection of CRYPTO_SKCIPHER by CRYPTO_AES_NI_INTEL, since
+>      it is still needed.
+>
+>    - Made the 32-bit x86 XTS code spill the tweaks to the stack rather
+>      than to the destination buffer.
+>
+>    - Removed the no-longer-needed single block special case from the
+>      RISC-V CBC-CTS assembly code.
+>
+>    - Made x86 CBC-CTS encryption and decryption share more code.
+>
+>    - Reordered the function parameters in aes-xts-avx-x86_64.S and
+>      aes-ctr-avx-x86_64.S.
+>
+>    - Other miscellaneous cleanups.
+>
+> Eric Biggers (20):
+>   crypto: aes - Fix undesired override of some optimized AES modes
+>   lib/crypto: aes-xctr: Pass counter by value to aes_xctr_arch()
+>   lib/crypto: x86/aes: Clean up aes-aesni.S in preparation for AES modes
+>   lib/crypto: x86/aes-ecb: Add AES-NI optimization
+>   lib/crypto: x86/aes-cbc: Add AES-NI optimization
+>   lib/crypto: x86/aes-ctr: Add AES-NI optimization
+>   lib/crypto: x86/aes-xts: Add AES-NI optimization
+>   crypto: x86/aes - Drop superseded 32-bit build support
+>   crypto: x86/aes-ecb - Remove superseded ECB skcipher
+>   crypto: x86/aes-cbc - Remove superseded CBC skciphers
+>   crypto: x86/aes-ctr - Remove superseded CTR skcipher
+>   crypto: x86/aes-xts - Remove superseded XTS skcipher
+>   lib/crypto: x86/aes-ctr: Migrate AVX-optimized code into library
+>   lib/crypto: x86/aes-xts: Migrate AVX-optimized code into library
+>   lib/crypto: riscv/aes: Copy aes-macros.S to library
+>   lib/crypto: riscv/aes: Pass key struct to assembly code
+>   lib/crypto: riscv/aes-ecb: Migrate optimized code into library
+>   lib/crypto: riscv/aes-cbc: Migrate optimized code into library
+>   lib/crypto: riscv/aes-ctr: Migrate optimized code into library
+>   lib/crypto: riscv/aes-xts: Migrate optimized code into library
+>
+
+For the series,
+
+Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
