@@ -1,118 +1,197 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D43051AFED;
-	Wed, 30 Sep 2026 14:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41515519E08
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777383; cv=none; b=ED9NXSqRB3QYjReLOmq3BRMNoPgpiFaF8W6PN8RSv28eBgVfJ0CHp5vAuiroJg+Vh9shbvSoArmrgbt9idILS/5jVWVDZ3LrYdIPApBOzspuhBcRP6V4wBjB4YJG+fmClVgh25WN/HXAZyGTo/U0MG/bbBxMgETY/Uj7DnjCkaI=
+	t=1790777384; cv=none; b=BQ1PVcLuY8snxjcAcAZt1DwoEqAOMLmedTeRUHvrU+hWQpZlACGv8OrvdzLz/XVSX/rq0WUbdQ6yX4F8ZIokLVcrBFHq8jH8O/6WJNcJUJaQJCJRQMaUYx+3x0QZ4E/Db1ak323AFhNZkE4ENGxj/b3bFYD9KEwT2RQ4Pz8rUuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777383; c=relaxed/simple;
-	bh=CmNlOEc+M7GHvNnPMcPjj8Al7buuiyY7UjLjA68pNKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NQf9OxdpGitrRe5eeZcby+KpFU4tHWtUHn5dRA805ATgC7hw2NFjkc4eqDB9CeIet8tFOtkWeX2d52dNHnlj5898lMvhPLPzhX+TIhunh3+ZQE0bixYAHACdntTcTPsMmTipqVevX7yATVOj1BIDOeaJ9CokPtJaAo1hMDyIPVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NDnQgyHB; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790777384; c=relaxed/simple;
+	bh=wzCxc32rbmkSY0PdhJCX09jC+IBkOV6kwaJVMIvonsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PkWx+TOvqktM2+HyXhMT9XXuFFm3uv11f4DKhGnAVNi59L5PW/sXjho31Plb+BbjsZUV3EJ6JJ9ESJ0PcnM04XmgL2dWsaMYHwGwwhSVx6Xp2KXU4XhkQdf7uosTR7jVmnkKWlyWPGobHXFg9+alySsktKcME/fFsl1PF578JtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LF6rGqMd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NDnQgyHB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790777380; x=1822313380;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CmNlOEc+M7GHvNnPMcPjj8Al7buuiyY7UjLjA68pNKw=;
-  b=NDnQgyHBe0SnCvCR8dxyK9bx3qH5kcaKjgcDBNPDcKk9PQBxp7pVMU/w
-   wvc+Km1rsDEJDKMaSaz49NzwxDWE3dq1IO97pTyDb2GbH0xhIwFevcruk
-   CUmM8zk06HW/zsv8NnABfWl0J+5vcJ/PwAIwUnZqqEblOnjBdhx3A0AJx
-   BXlsedk6DIj2hyVrHVevIUQ9fFn8AajRodY2XCg7BxihamoZ36UQrqa0v
-   k/P0c5J7/e8tiJMYDoaC5nsK4MfKkiT0KglqD9etuN2ofVnhrSB7HpGRn
-   rExJaAmKrXK4a5HB6MDz09UVLsx209zfINyIHAbMnJH4EmjGQfGw+eNJm
-   A==;
-X-CSE-ConnectionGUID: B7tZ9p9jSFu4SdH9MJQ1/w==
-X-CSE-MsgGUID: Ivx+Ps9OQ0ykL1RWQiXC7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107901139"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="107901139"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:09:36 -0700
-X-CSE-ConnectionGUID: Nz0eh8baRyKNSYGawz13UQ==
-X-CSE-MsgGUID: Dxr047RuTcSACNdlhmjMtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="274314621"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:09:34 -0700
-Date: Wed, 30 Sep 2026 17:09:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] serial: core: reject baud_base values that
- overflow port->uartclk in uart_set_info()
-Message-ID: <ar0YG3ytLu_PoC9H@ashevche-desk.local>
-References: <20260930125901.778868-1-benquike@gmail.com>
- <20260930125901.778868-3-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LF6rGqMd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790777361;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9BxRhMSUFbC0ZUhx2ycCj3+AeDAxyb/zT+LTlcEooUE=;
+	b=LF6rGqMd87639552FVRz1R92F/qp76byvC7h+2FWHbbCj4dwLmopU90uzjjdj72dyAMf4E
+	KOvkVIUnA+5yEP9VUI5HP1BIatB1fg4fl1vP0BqPDYafjZX6HGwOJ0ay+LrvDl6Y+aZypo
+	HBfTdfj18AjyEdtX+nioWshPICYD2O8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-317--DlMhR4oP8mqRPeBD6UlLg-1; Wed,
+ 30 Sep 2026 10:09:18 -0400
+X-MC-Unique: -DlMhR4oP8mqRPeBD6UlLg-1
+X-Mimecast-MFC-AGG-ID: -DlMhR4oP8mqRPeBD6UlLg_1790777356
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 00CBD1977531;
+	Wed, 30 Sep 2026 14:09:16 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8D5871956044;
+	Wed, 30 Sep 2026 14:09:11 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: bhelgaas@google.com,
+	alex@shazbot.org,
+	jjohnson@kernel.org
+Cc: johannes@sipsolutions.net,
+	mani@kernel.org,
+	jgg@ziepe.ca,
+	yishaih@nvidia.com,
+	skolothumtho@nvidia.com,
+	kevin.tian@intel.com,
+	linux-pci@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH 2/7] vfio: Add qcom_vfio.h header for MSI cache protocol
+Date: Wed, 30 Sep 2026 16:08:28 +0200
+Message-ID: <20260930140833.576941-3-jtornosm@redhat.com>
+In-Reply-To: <20260930140833.576941-1-jtornosm@redhat.com>
+References: <20260930140833.576941-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930125901.778868-3-benquike@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Wed, Sep 30, 2026 at 12:59:01PM +0000, Hui Peng wrote:
-> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
-> uport->uartclk (an unsigned int):
-> 
->   uport->uartclk = new_info->baud_base * 16;
-> 
-> While uart_set_info() checks if (uartclk == 0) and
-> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
-> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
-> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
-> (16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
-> setting uport->uartclk = 16 (baud_base = 1, well below the required
-> minimum of 9600 * 16).
-> 
-> Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
-> uart_set_info() to reject overflowing baud_base values with -EINVAL.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
-> &ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
-> TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
-> (TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
-> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+Add shared header defining the communication protocol between
+qcom-vfio-pci variant driver and Qualcomm device drivers (ath11k,
+ath12k) for passing physical host MSI addresses to VMs.
 
-...
+Qualcomm device firmware requires physical host MSI addresses rather
+than guest IOVA addresses. The qcom-vfio-pci driver caches host MSI
+values in extended PCI config space with a magic signature "QMSI" for
+VM discovery.
 
->  	if (!(uport->flags & UPF_FIXED_PORT)) {
-> -		unsigned int uartclk = new_info->baud_base * 16;
-> 
->  		/* check needs to be done here before other settings made */
-> -		if (uartclk == 0)
-> +		unsigned int uartclk;
+Protocol:
+ 1. Host: qcom-vfio-pci finds free space in extended config (0x100-0xFFF)
+ 2. Host: Writes magic signature "QMSI" (0x49534D51) followed by MSI data
+ 3. VM: Device driver searches for "QMSI" signature to locate cached MSI
+ 4. VM: Reads MSI values and programs device firmware
 
-Don't move the variable definition (by a location) without need. I do not
-see any need of doing it like that. Moreover this change will add a (style)
-regression, id est unneeded blank line. So, just drop the assignment and
-leave the definition as it's now.
+This avoids offset mismatch when QEMU filters certain capabilities,
+causing host and VM to see different extended capability chains.
 
-> +		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) ||
-> +		    uartclk == 0)
->  			return -EINVAL;
->  	}
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+---
+ include/linux/qcom_vfio.h | 88 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
+ create mode 100644 include/linux/qcom_vfio.h
 
+diff --git a/include/linux/qcom_vfio.h b/include/linux/qcom_vfio.h
+new file mode 100644
+index 000000000000..c59c81936e84
+--- /dev/null
++++ b/include/linux/qcom_vfio.h
+@@ -0,0 +1,88 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* SPDX-FileCopyrightText: Copyright Red Hat */
++
++#ifndef _QCOM_VFIO_H_
++#define _QCOM_VFIO_H_
++
++#include <linux/pci.h>
++
++/*
++ * MSI Address Passthrough Quirk
++ *
++ * Qualcomm device firmware requires physical host MSI addresses rather than
++ * guest IOVA addresses. The qcom-vfio-pci variant driver caches host MSI
++ * values in extended PCI config space with a magic signature for VM
++ * discovery.
++ *
++ * Protocol:
++ *  1. Host: qcom-vfio-pci finds free space in extended config (0x100-0xFFF)
++ *  2. Host: Writes magic signature "QMSI" (0x49534D51) followed by MSI data
++ *  3. VM: Device driver searches for "QMSI" signature to locate cached MSI
++ *  4. VM: Reads MSI values and programs device firmware
++ *
++ * This avoids offset mismatch when QEMU filters certain capabilities, causing
++ * host and VM to see different extended capability chains.
++ *
++ * Layout in extended config space:
++ *   +0x00: Magic signature "QMSI" (0x49534D51)
++ *   +0x04: MSI address low 32 bits
++ *   +0x08: MSI address high 32 bits
++ *   +0x0C: MSI data (16 bits)
++ *
++ * Applicable to:
++ *  - ath11k WiFi (PCI ID 0x17cb:0x1103)
++ *  - ath12k WiFi (PCI ID 0x17cb:0x1107)
++ */
++
++/* Magic signature "QMSI" to identify cached MSI data */
++#define QCOM_VFIO_MSI_MAGIC		0x49534D51
++
++/* Space needed for magic + MSI passthrough data */
++#define QCOM_VFIO_MSI_SPACE_SIZE	16
++
++/* Relative offsets from base discovered by qcom_vfio_find_msi_offset() */
++#define QCOM_VFIO_MSI_MAGIC_OFFSET	0x00	/* Magic signature "QMSI" */
++#define QCOM_VFIO_MSI_ADDR_LO_OFFSET	0x04	/* Host MSI address low 32 bits */
++#define QCOM_VFIO_MSI_ADDR_HI_OFFSET	0x08	/* Host MSI address high 32 bits */
++#define QCOM_VFIO_MSI_DATA_OFFSET	0x0C	/* Host MSI data (16 bits) */
++
++/**
++ * qcom_vfio_find_msi_offset - Find free space for host to cache MSI
++ * @pdev: PCI device
++ *
++ * Host-side function: Finds free space in extended config to write MSI cache.
++ * Uses PCI core utility to scan capability chain.
++ *
++ * Returns: Offset in extended config space (>= 0x100), or 0 if no space found
++ */
++static inline int qcom_vfio_find_msi_offset(struct pci_dev *pdev)
++{
++	return pci_find_free_ext_cap_offset(pdev, QCOM_VFIO_MSI_SPACE_SIZE);
++}
++
++/**
++ * qcom_vfio_find_msi_cache - Locate cached MSI data by magic signature
++ * @pdev: PCI device
++ *
++ * VM-side function: Searches extended config space for "QMSI" magic signature
++ * to locate host-cached MSI values. This avoids offset mismatch when QEMU
++ * filters certain capabilities.
++ *
++ * Returns: Offset of MSI data (after magic), or 0 if not found
++ */
++static inline int qcom_vfio_find_msi_cache(struct pci_dev *pdev)
++{
++	u32 magic;
++	int offset;
++
++	for (offset = 0x100; offset <= 0xf00; offset += 4) {
++		if (pci_read_config_dword(pdev, offset, &magic))
++			continue;
++		if (magic == QCOM_VFIO_MSI_MAGIC)
++			return offset;
++	}
++
++	return 0;
++}
++
++#endif /* _QCOM_VFIO_H_ */
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
