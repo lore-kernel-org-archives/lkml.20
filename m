@@ -1,148 +1,113 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13814A441D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D54547A0DD;
+	Wed, 30 Sep 2026 14:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777071; cv=none; b=Qu+Xb2MqfMUOWhi26BZdLTDRBsiHp1TZNzFhp8D5N3I+B0BeRlj4rZsjTKRoYKlNayCiv+0tcnBzj0zfWwpxdhAVra7tL3YMA/1hm1rS/fTz9WJ37zA5WF/TUZNR82s586nBR+fSIbk1UtwkASZvd48YYf9EDaJZkRuBxIIfWmI=
+	t=1790777077; cv=none; b=E53/eCI/vhwdeapqe/YPmzEyagNvr1axJPWvHhQIVspL8kOpmPIjerXQb8We/nH2ZW+VkL+aPQV0PocJ0pextdUvuw7gWqzsZCCi6YFtndKJjMyxyy70IRoiOvusFNJH3nvV+Fw6VPMMUON4igL/26S3UcYhZV08iZASgO2qgNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777071; c=relaxed/simple;
-	bh=dDRtbqYPrbcSZk8XTIR1mhxTewKaoQ7Hl8OVK4zyccw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jkaix8lJsylVygcOUP61NjnObqfEGaNYALarn9FRHIv+o/dznEw4vr8nQNeB+gVH9OKGKttQS+aRve/+AS0EbwZEsfPCl0rLGyX/1waU6nv8iRJ8EKrAjUf1Y1VccjkZ3WOkitWAOdoJUvsCEr5hUrCzD7BP6Pwe9DLjjU6j1oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5xr+1lP; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790777077; c=relaxed/simple;
+	bh=PhQX3sDUfwrI0ZOYgYs28c4fyJcMzrHQbMgRhhbqRDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZ8qWz0pNpuL4FAljUvpVWX94hsTmaUu5SNJsytJn4/FVrmK0ZoXA2KcbawRV4WxUW9lC6aukT6bD7OM6KFLNWIafMylJmqo25/k/HmEZ/QweEd8N9HPldAplG9QLdy8PczvnAWgb7KI0pdQ7o7x7jo82nEA7msJk+lglZtNjW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b51FCUDK; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5xr+1lP"
-Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7c4c92477so1253650a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:04:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790777053; x=1791381853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0/hVX4C+yQqwsDE4LgI16fX3ANft9SjFARlaoadqqlc=;
-        b=W5xr+1lPy4kXFvznJdBdMZA81GHwJDOEyvkLvK1qXGzVdR54+Y1w/jnsnEsyR6XdYT
-         73zya3usx/nxhX0b4L2cime9dP1bqlLPQ3STEAxH+8S2npascYUrAgmZi/6/u5HF95Co
-         ke3PoUrv3CyQNK0D6VHRIw+WBIjiY6TWTFnwmdKqXwgfBEki7b4ovfMebRI2n0VdI3gy
-         XDrEkkZguSzZ+18kiqVU/g9HsiQwo97wvz/JQTZBk2PZrz7pXPHEVcsUiNLx4ZTijRH8
-         lpKBYou6V3WBUnRxDNbqbHiWO6Ll+JOMCKQY4B40EHHo+5GWEWC2PZFOQdHFda7/4iEs
-         uJvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777053; x=1791381853;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0/hVX4C+yQqwsDE4LgI16fX3ANft9SjFARlaoadqqlc=;
-        b=w9R4/Sp6mUVZOBrzhHp+eme1ohEJ55U4Zv7WvnxVbUPoXdIfKEQYDeU67nylGETLi/
-         Lj7TQuN+5ub4HVC0wFFHjMcxSP+H7zM+WDLSLaGg/rnvtBSNKhUbDPM9A0dC8nBPEkjh
-         aTW8ZegowbKaX4Fh3Q+/KVFTaYNoI5HbQClqVRTjJkXUBifR/Irn504O8yLJVBdXWo0+
-         Yi/kPaDvPZGuhZO+FIGwTq4dTeB/TuAHKCpGTPCe3ykMP0dhE28OioQeeOReDxfbOyzI
-         MLE7N0nJ3BIqzJGLBfV8wZ4sYXz0OP9kAMCUS9EPrFwC+UHc+f7ic7UdbmhREbgIZPDT
-         SmPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKE9KOJdvchUIK/Rw/bh7WZ8oGuc+XYYnaM9FibWwkQMN3IifDhcQqSqWFEib2toMMYgsdZviUka9WEjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgbA6PqPnETYUCaWskNJcz02GrBJ40T2VHlf8CpnQq7Oc2BG6w
-	ShTJWhuNYRjIA1TBvS+VcWmcU2hcG5ypwnUBmvi7IQq3PSZG3zzmxOTU
-X-Gm-Gg: AYBFou3Wjab9l+nSZ/x4iLgfCgGFmcTZMAyyhGQtIjiXt4bU7A6OHAlmYWnLo7I6Pn6
-	RmKk3K7R/TCGSQm+tveU7I/dnxgf1LjSXD7EssHtASQcGs7WxyyAQQd1t1fkJL8ryMVKK6IvUGJ
-	QM3DyMBzZHbIkzxK3YlA0FZlh+C88V2TAeR0iTk6zjuvddpBcGlNjnE841jMiUaSUl5F2ISTAUp
-	wmrOpKs0Av72W3n4CfFTJ8XaCOduSBxJHiKy6VZfPLb1kJx4GWSqMO9olkbjjGJVONqNW+LK3hF
-	pWNweGxTFlkkY+0vGBproMQSfeiesJ5sMcJZf+EflJGJOm21iNYv3xPzfY5aAWKW79C7waait7V
-	Ai5O+eizO7+NTmXy9VY8Sej2609y5z3Jo7Qpt3hfUqbFP5hY6dau16lKkAdxKx5odmJfatMMcPA
-	VtspO7/U/HCmzEsmbZbCrmeKLdxhZTWJeGdDkbfRCES/xmFkwVaY73xmatH6fS0D5A43O5l71xg
-	i6Ct2qHKJ0=
-X-Received: by 2002:a17:90b:564e:b0:3a0:d9ee:a2e9 with SMTP id 98e67ed59e1d1-3a4d18c09b8mr1192177a91.45.1790777052463;
-        Wed, 30 Sep 2026 07:04:12 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab202f1sm1031140a12.27.2026.09.30.07.04.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:04:11 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Paul Moore <paul@paul-moore.com>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net] cipso: adjust cached option offsets when removing CIPSO
-Date: Wed, 30 Sep 2026 23:04:00 +0900
-Message-ID: <20260930140400.2955466-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b51FCUDK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790777067; x=1822313067;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PhQX3sDUfwrI0ZOYgYs28c4fyJcMzrHQbMgRhhbqRDk=;
+  b=b51FCUDKuchfIMWaTRNC8NmZlozyT3Lcb+32tV+aCYum94JduesiQp2f
+   p6gJhUJXMo/4bDKWJqbUDxT0roCG1pFyfxZvGXTY9Gkgi/UPeIqlhwKr6
+   xB+NscdPOWBg3xMWVmfZnWZaUW98ho7XiFGfTacmWhX82RP2nQqOeW7va
+   vAnz4LfWcc7/3hdg9fAZFxK29WCZLn6l/HV4b9/R+FVPv112WY6iiFwBv
+   EMfFUtJd+rEoBUiIhokzteUW+e+iLgO+H/kyihiUJOvvvwgnF44LMVZjE
+   OtwvBnw6BO6VgHZ+ZsyLAYfeIXMSO2TxY3i6MEj1y6AAgRjG7Xeky0wHS
+   w==;
+X-CSE-ConnectionGUID: kbUj7QxjQO6JIvP9ovAMog==
+X-CSE-MsgGUID: /77HhMQQR3+fes702tSKYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102040774"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="102040774"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:04:19 -0700
+X-CSE-ConnectionGUID: ipLzaATGQN+0d7jhXNYabA==
+X-CSE-MsgGUID: YujcAwxgQu+JZgssQ7YN+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="305201745"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:04:14 -0700
+Date: Wed, 30 Sep 2026 17:04:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <jan.sun97@gmail.com>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mark Brown <broonie@kernel.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-spi@vger.kernel.org,
+	Kent Gustavsson <nedo80@gmail.com>
+Subject: Re: [PATCH v6 5/5] iio: dac: Add AD5529R DAC driver support
+Message-ID: <ar0W2xQ56wMFvtaE@ashevche-desk.local>
+References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
+ <20260715-ad5529r-driver-v6-5-cfdf8b9f5ee3@analog.com>
+ <arzTnOTaL97GudZM@ashevche-desk.local>
+ <a57399f0-4c47-4b32-bf6a-7761d9b57320@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a57399f0-4c47-4b32-bf6a-7761d9b57320@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-cipso_v4_skbuff_delattr() shifts every IPv4 option after CIPSO left by
-cipso_len, but leaves the cached srr, rr, ts and router_alert offsets at
-their old locations.
+On Wed, Sep 30, 2026 at 03:51:26PM +0200, Janani Sunil wrote:
+> On 9/30/26 11:17, Andy Shevchenko wrote:
+> > On Wed, Jul 15, 2026 at 01:41:08PM +0200, Janani Sunil wrote:
+> > > Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+> > > from Analog Devices.
+> > > 
+> > > The device communicates over SPI and supports per-channel output range
+> > > configuration. An optional external 4.096V reference can be used in
+> > > place of the internal reference.
+> > You haven't added a given tag, why?
+> > 
+> > In any case I have noticed that there are a number of (not so critical) issues
+> > are still exists, so I have to withdraw my tag. But please, answer the above Q.
+> 
+> I intentionally did not carry the Reviewed-by tag from V5, because V6
+> included substantial driver updates. I should have mentioned this in the
+> cover letter, but I missed doing so.
+> Some of the points mentioned here have already been addressed in later
+> revisions and are now present in Jonathan's testing branch. I will send a
+> follow up patch for the reset of the items.
 
-With a valid eight-byte CIPSO option followed by a seven-byte RR option,
-RR moves from offset 28 to 20 while opt->rr remains 28.  The stale offset
-then points into packet payload, letting the sender control both the
-length and bytes copied by __ip_options_echo().  Setting the length to
-255 produced this condensed KASAN result:
+Good, thanks for taking care of that.
 
-  BUG: KASAN: stack-out-of-bounds in __ip_options_echo
-  Write of size 255
-  Call Trace:
-   __ip_options_echo
-   run_cipso_stale_offset [net_candidate_probe]
-
-The destination holds 40 bytes of option data.  In an existing
-uninstrumented x86-64 v7.2 build, __icmp_send() places that buffer
-immediately before its stack canary, and the 255-byte copy also crosses
-the saved return address.  A canary mismatch unconditionally panics;
-no canary disclosure or control-flow exploit was demonstrated.
-
-Mirror cipso_v4_delopt() and subtract cipso_len from each cached offset
-that follows CIPSO.  cipso_len is the logical distance moved by the first
-memmove(); hdr_len_delta includes padding, while the later header move and
-network-header reset relocate the bytes and their base together.
-
-The adjusted input leaves rr at 20 with length 7 and completes without a
-sanitizer report.  Natural remote reachability requires a configured
-SELinux/NetLabel gateway and a later option consumer; the retained test
-invokes the real mutation and echo consumer directly because the available
-rootfs has no SELinux policy or netlabelctl.
-
-Fixes: 89aa3619d141 ("cipso: make cipso_v4_skbuff_delattr() fully remove the CIPSO options")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- net/ipv4/cipso_ipv4.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index a05aa075de1a5..135b57c2c4f9e 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2272,6 +2272,14 @@ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
- 	new_hdr_len_actual = hdr_len_actual - cipso_len;
- 	new_hdr_len = (new_hdr_len_actual + 3) & ~3;
- 	hdr_len_delta = (iph->ihl << 2) - new_hdr_len;
-+	if (opt->srr > opt->cipso)
-+		opt->srr -= cipso_len;
-+	if (opt->rr > opt->cipso)
-+		opt->rr -= cipso_len;
-+	if (opt->ts > opt->cipso)
-+		opt->ts -= cipso_len;
-+	if (opt->router_alert > opt->cipso)
-+		opt->router_alert -= cipso_len;
- 
- 	/* 1. shift any options after CIPSO to the left */
- 	memmove(cipso_ptr, cipso_ptr + cipso_len,
-
-base-commit: 99b43ede9e355ba35244cc9470bf1819774ce39d
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
