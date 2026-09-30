@@ -1,79 +1,77 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2438B3C73C9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DDC3CB541;
+	Wed, 30 Sep 2026 06:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790749561; cv=none; b=q/xx989JSkwvwoPVbn31v3okYyHJkziziNrkGU4rd9xx/MSAVXupWzOadxIXimPqtU/LsTSbgWgd5nLRD2cdl4Kkjr/eq0Hoa5PTIgMELVfzy/a3nHUfy3SsnGKlPgOZ1guJIe2R7ERp5661/ppBmkBa/UMFEnXU049pmxms9z0=
+	t=1790749570; cv=none; b=qt3lUEQgUEjGBW4UekU4cJn89/gZ15zEfpw9TlY9A1LGqxLihoGFghwBOBXKp0YhcqqT8LboYp4YxbjaLmgzK2NXjVafhPgdUikZPAQuxEzBiWBIOVisgOL4S5RHSOC0jA/l+bop62QpvOnf9poDHeJR9jTg1+P5uXJJPIpvKxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790749561; c=relaxed/simple;
-	bh=FuMDGz2VIpv4BTTMao/q++AI8J1soWoRti4IWBFoLyw=;
+	s=arc-20240116; t=1790749570; c=relaxed/simple;
+	bh=0NvyQ7Lhy0zOc+2x5j45PfQS7hAYHpnenIM4jeWcRLs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aphvpXWa8cvJGhGJg9c2ZkLlxllfDX13LdUNZDvYGTQuaTZBnRVo+sQBXrzfwfwMdkd7xBizZqdfSFqxhWzuHXV+nmwxwC+/X7hZqwnuCyhgVhf0oXpD0tU2x+jMoeDIRIIdXSo+a0G5ozowMZp6iROpGU1G+tW0BT0GQakFTIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2wgRoWTl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IdLDSpqo; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=u4MqHEEKsrnjsxIB+nc5oyOOLkYw/gwT2uTRKbI0s3reJZ5TtOQq9cykVp6x2oYAakjlPWw+ueiekZdud4eAf4HYunj40c8DLx4rom9aa5+FyhYc5E6IDvaiUJbc/sz5UdBw9/DTJNaroJ3D1PNcR5aOxQLyQJEVfZxRjkgcycE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLqB/OqO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2wgRoWTl";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IdLDSpqo"
-Date: Wed, 30 Sep 2026 08:25:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790749556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOaKLnO4Sb0x5bHZez+joNqVAccae76j6r+xOC/BK78=;
-	b=2wgRoWTl1ZHXZBW9w2FGF3Scl3DJc0iRaELlmj9hginOvRPmCBK/FA+Ug5AzNZP12Glf0/
-	x6eqP6ShQkX+0vHW0pzZXOYFiCdtY0GMP7OWA7mLfcnUQ0pz/ZtVi91qicnp/ftPW8JVx0
-	n59ZFAClZGSWd232/ZbIXkwvFqUPyTNGxiNFvVB3ba2hKDDdnM2O1UdsVNsFtd6CD4rJCt
-	xlwT4WeGw+sguqRRhbxZ8Q4/xkXLW0mp6tlSANZ/vqUjyGR7Kp+T3CLNdVBuTj6tx2n0Ft
-	Qwi6O9zyskIwcFSYHgBTVoiAc63DZ+ETNhCGaukrJhJcPqMnpa07e3ZacvZ7aA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790749556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOaKLnO4Sb0x5bHZez+joNqVAccae76j6r+xOC/BK78=;
-	b=IdLDSpqolLNR8maPxVs6VOHUfTt6BIcJdpqST2TBLldQ/6f1qm8RGKvBsRKUg7NRkZ7bBn
-	5jQaciaPj9B9H7Bg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Clark Williams <clrkwllms@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLqB/OqO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A0441F000FF;
+	Wed, 30 Sep 2026 06:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790749567;
+	bh=W6CVv6netXtQi2yXCagH7cZ+eCADzZUg5oVn2dFur6E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NLqB/OqOnfmkUYiYtPwMw1Oja5FurkIhi15w23bbPMuye9dM+w7b+UJvg8Lb1gCES
+	 +Q0Wm93LzxpLakuFDlcUXN8+l8B1qWg6vvLfpvRVPFZ9NEDWR8OzTh4uvpAWrgAray
+	 IFdZaJbJp7tA8k4km3SoKTRaE8dKTC6v8LxBT+ghvKCvSZ8loUG1ar/aMy1a0Lixp5
+	 0lsA8R6SUdJsRkudpo8O9SOlVzNkHE6NbwVjnyr31NDQbM1Eb9TYShxZ1jIn6DnBWF
+	 kr9b23dSSz7lE29jOBGrYObY3qvkSATBjdTOf6aZn8secPofFZWzZSdfRxvTs7qEQ8
+	 ALzj5mcKW/jtw==
+Date: Tue, 29 Sep 2026 23:26:06 -0700
+From: Kees Cook <kees@kernel.org>
+To: jim.cromie@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Zhen Lei <thunder.leizhen@huawei.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] sched/proxy: Correct the SCHED_PROXY_EXEC dependency
- comment
-Message-ID: <20260930062554.2AwbY2nX@linutronix.de>
-References: <20260930025824.79296-1-quchaosheng000406@163.com>
+	Lorenzo Stoakes <ljs@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Jiri Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] kallsyms: Match compressed tokens on the fly
+ during binary search
+Message-ID: <202609292325.7C5769454@keescook>
+References: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
+ <20260929-ksyms-tune-v7-1-be568ceef41e@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930025824.79296-1-quchaosheng000406@163.com>
+In-Reply-To: <20260929-ksyms-tune-v7-1-be568ceef41e@gmail.com>
 
-On 2026-09-30 10:58:24 [+0800], Quchaosheng wrote:
-> The comment on the !PREEMPT_RT dependency reads
+On Tue, Sep 29, 2026 at 12:07:30PM -0600, Jim Cromie via B4 Relay wrote:
+> So we introduce kallsyms_strcmp_symbol() to compare ASCII search_name
+> against tokenized symbols on the fly.  Like strcmp, it tests the
+> strings char by char, but when it hits a token in the symbol-string,
+> it continues the char-test against that token-string, which is in
+> kallsyms_token_table[].  It returns +- on 1st mismatch.
 > 
-> 	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
+> Measured across all ~184k symbols via CONFIG_KALLSYMS_SELFTEST, this
+> shaves ~530 ns (~14%) off average kallsyms_lookup_name() latency (from
+> ~3810 ns to ~3280 ns on the default 256:1 baseline) and drops the
+> 512-byte namebuf buffer stack-alloc in kallsyms_lookup_names().
 > 
-> That describes what happens once the dependency is removed, not the
-> reason it is there, and "fixed" is never defined, so nothing says when
-> the dependency can be dropped.
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-No, please leave it as-it. This information is the for the end-user not
-necessarily a developer. What you add is an information for someone who
-can read code. This information adds no value IMHO.
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-This is enough as it is. Someone familiar with the scheduler can
-certainly remove the dependency while adding the needed code and
-replacing the current PI bits.
+This is a nice win with no downside. :)
 
-Sebastian
+-- 
+Kees Cook
