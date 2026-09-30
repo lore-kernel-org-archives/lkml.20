@@ -1,799 +1,219 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com [68.232.139.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6F53451A6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3C33385A5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733785; cv=none; b=H7QW3CDxpryhUUy3ZxtUi339tl+XaM10iyvZva9QNCBSsnmpKTyP3YIWjdHConjgYxVK2Fos19FeLj69fJOqzqwdIEKgmR7e5W9VqTIvo67vJAd8ybpv/tbD6qr/mMA1w2JTKK6n16e6nG7AicifHNWzW8+aX3iHZYPpk+p2s0M=
+	t=1790733979; cv=none; b=TOhc6+qA/xFtAX46wm9DoKbpDfUGKPEZN3V8h5S88If8dCxlHBM62U6ifN8UeGb+r9eABog5sp3Zzl4WHyjRbQhTR38xhp6T4O++GuzWf82pf0BTUsiYQDM9aWtMhnQZZjvxhL0cs5j8v44dkTmc7eCkH/TDzwnWih4iAWRh2oU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733785; c=relaxed/simple;
-	bh=VJJFkIyUIyRWusw4m0bDXXonuhkf3MI3bB/7Txl8aCk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=K+w0xhfj/kkbf+H4oVgGH9xN3/dHG5RB2fSU93Nt6sORkABwBovJGMLffuzQtCFguuzxJZULgVHN7sSiJwdflV+nzMvA9yyNzvifTMEMD5JSfIWZh7gL22DlkUDqMFm97JLDltDwURP2Pql8IgQfgoEjbXQkbEW97TtPmYVR4zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=UFF5yVIR; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790733979; c=relaxed/simple;
+	bh=GwkVQNzgUjv+Kg4ssvph3rWzuiQanbDbfsmCFjgCyDU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cDR0KBcfexqjuZKVT5/GqX18PVS8SOJTy7qx31CEXZKQan88AcXgKLTkAvyB8y/hpdzJ3EY7QM95YDEDsQG6WiMPjtYP7wcNODwWeDNcSZtU5zyrUklJG6UuE0aoskeRMhlukJpPMnuHvW9v6yffAu8P+PGtQsBBkRquaOY5I/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=COyESGh7; arc=none smtp.client-ip=68.232.139.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="UFF5yVIR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=ZVXMgxTeKIkjRzNnE4SYkGkgTWE+bwAbWH37Doq1buo=; b=UFF5yVIR6nmtSYXkOUfOWCgScs
-	ete7v1B1snSLHF4oIksSuD+VNO2U8gzrbjSloThZFHhCEsZoZ6oG4GyOIVktjAmGQ5hD0HA60BGv8
-	2KQLEtQVKh8hiBedtKYTigVG/rwfzlLJrDE49M7KxWQ+m8nRS/rGGQSonpo7q9vHu0m0muNqOYhr8
-	3lpo2UxXvK/IbwuOI07I62vyJd3tJspfzR6RHwN6dUbe2TNrYEJcZjLfSRJVnPRlr91NvX5RZjGUW
-	/XZ2Z6JL5GEAKXAJQzroYgZAZVFD2vwvaLWkg9jlRsW7ArX6xg+CRcCma38VQ8WGDZsnVVbtQcIBo
-	Owzv0Wmg==;
-Received: from [177.172.123.214] (helo=computador)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xBjel-009DEu-Jd; Wed, 30 Sep 2026 04:02:52 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Billy Laws <blaws05@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Ryan Houdek <sonicadvance1@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel-dev@igalia.com,
-	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [RFC PATCH v3 1/1] arch: arm64: Implement unaligned atomic emulation
-Date: Tue, 29 Sep 2026 23:01:38 -0300
-Message-ID: <20260930020138.2377090-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930020138.2377090-1-andrealmeid@igalia.com>
-References: <20260930020138.2377090-1-andrealmeid@igalia.com>
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="COyESGh7"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1790733982; x=1822269982;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GwkVQNzgUjv+Kg4ssvph3rWzuiQanbDbfsmCFjgCyDU=;
+  b=COyESGh7MC1JygR9GIQSdpXV91EwwPDOK/mpXW6QFKtuVOC1Y9kL5ESW
+   5uEQl6BZG8eI4ff3rrt5CGoilKMrBO5gwFBnu8F/3bhHqTeZt6xXbs2YI
+   2djNZsTSO3D9yZP3lAF4lPGvbqv8IjM8ms1tYcaBc2oHyWIfCuE4OsvP4
+   HKwL/vFpOg+TViEf0oEtfGNs4xSA9WxdCYnuA2VXblR2pQCDeTk0C2hee
+   JI29/eHzalIR5iRzK2jVccbXqQFgDzN2+tFqVe81LMMqR1gIzvc+T2eeA
+   2AxK+iwUNkmgdXGs/K+lIvpzZnic20Ni84EOQnUEbT+EbTFqsk+TQ/6zk
+   A==;
+X-CSE-ConnectionGUID: pNfiNipZQ+iZron9h+mv8Q==
+X-CSE-MsgGUID: Zl305GXLRJGG0gy+ag77tA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="260432324"
+X-IronPort-AV: E=Sophos;i="6.27,130,1786978800"; 
+   d="scan'208";a="260432324"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 11:05:05 +0900
+Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 74FBE100035F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:05:05 +0000 (UTC)
+Received: from az2uksmom3.o.css.fujitsu.com (unknown [10.151.22.205])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 27FBA1C00116
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:05:05 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.8.20.173])
+	by az2uksmom3.o.css.fujitsu.com (Postfix) with ESMTP id 167CF1000367;
+	Wed, 30 Sep 2026 02:05:00 +0000 (UTC)
+Date: Wed, 30 Sep 2026 11:04:58 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Suzuki Poulose <suzuki.poulose@arm.com>, Steven Price <steven.price@arm.com>, 
+	Sami Mujawar <sami.mujawar@arm.com>, thuth@redhat.com
+Subject: Re: [PATCH v2 1/3] arm64: rsi: Add helpers for Arm CCA measurement
+ register operations
+Message-ID: <arxrOt1HEYeG6GJx@FCCLS0092175.localdomain>
+References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
+ <20260929-arm_cca_mr-v2-1-1d98bba187fd@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260929-arm_cca_mr-v2-1-1d98bba187fd@arm.com>
 
-Implement support for emulating unaligned atomic operations on arm64.
-User applications that wish to enable support for this should use the
-pctrl() flag `PR_ARM64_UNALIGN_ATOMIC_EMULATE`.
+On 09/29 17:57, Yeoreum Yun wrote:
+> From: Sami Mujawar <sami.mujawar@arm.com>
+> 
+> Add static inline helper functions to support reading the Realm
+> Initial Measurement (RIM) and reading/extending the Realm
+> Extensible Measurement (REM) registers.
+> 
+> The indices of the Arm CCA measurement registers, as defined by
+> the Realm Management Monitor specification, are as follows:
+>     Index    Register
+>     0        RIM
+>     1 - 4    REM[0 - 3]
+> 
+> The rsi_measurement_extend() function allows extending REM[0–3]
+> registers with a caller-provided digest (up to 64 bytes).
+> Index 0 (RIM) is read-only and cannot be extended.
+> 
+> The rsi_measurement_read() function allows reading measurement
+> values from RIM (index 0) or REM[0–3] (indices 1–4). The returned
+> digest is expected to be 64 bytes.
+> 
+> Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
+> ---
+>  include/linux/arm-rsi-cmds.h | 105 ++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 104 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/arm-rsi-cmds.h b/include/linux/arm-rsi-cmds.h
+> index 3f7a6a833993..608343266d81 100644
+> --- a/include/linux/arm-rsi-cmds.h
+> +++ b/include/linux/arm-rsi-cmds.h
+> @@ -1,6 +1,6 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+> - * Copyright (C) 2023 ARM Ltd.
+> + * Copyright (C) 2023 - 2025 ARM Ltd.
+>   */
+>  
+>  #ifndef __LINUX_ARM_RSI_CMDS_H_
+> @@ -36,6 +36,26 @@ static inline bool is_realm_world(void) { return false; }
+>  #define RSI_GRANULE_SHIFT		12
+>  #define RSI_GRANULE_SIZE		(_AC(1, UL) << RSI_GRANULE_SHIFT)
+>  
+> +/*
+> + * Maximum measurement data size in bytes.
+> + * According to the RMM Specification, the width of the RmmRealmMeasurement type
+> + * is 512 bits.
+> + */
+> +#define RSI_MAX_MEASUREMENT_DATA_SIZE_BYTES  64
+> +
+> +/*
+> + * Indices for the Realm Initial Measurement register (RIM) and the Realm
+> + * Extensible Measurement registers (REMs).
+> + * According to the RMM Specification, Realm attributes of a Realm include
+> + * an array of measurement values. The first entry in this array is a RIM.
+> + * The remaining entries in this array are REMs.
+> + */
+> +#define RSI_INDEX_RIM		0
+> +#define RSI_INDEX_REM0		1
+> +#define RSI_INDEX_REM1		2
+> +#define RSI_INDEX_REM2		3
+> +#define RSI_INDEX_REM3		4
+> +
+>  enum ripas {
+>  	RSI_RIPAS_EMPTY = 0,
+>  	RSI_RIPAS_RAM = 1,
+> @@ -236,4 +256,87 @@ static inline unsigned long rsi_attestation_token_continue(phys_addr_t granule,
+>  	return res.a0;
+>  }
+>  
+> +/**
+> + * rsi_measurement_extend - Extend the measurement value to the Realm Extensible
+> + * Measurement (REM).
+> + *
+> + * @idx:		Index of the REM register.
+> + *				Where:
+> + *				Index	Register
+> + *				1 - 4	REM[0-3]
+> + * @digest:		The digest data to be extended.
+> + * @digest_size:	Size of the digest data in bytes.
+> + *
+> + * Returns:
+> + *  On success, returns RSI_SUCCESS.
+> + *  Otherwise, -EINVAL
+> + */
+> +static inline unsigned long rsi_measurement_extend(u32 idx,
+> +						   const u8 *digest,
+> +						   unsigned long digest_size)
+> +{
+> +	struct arm_smccc_1_2_regs regs = { 0 };
+> +
+> +	/*
+> +	 * Index 0 is for RIM (which is Read Only), while
+> +	 * REM[0-3] are indexed from 1 - 4.
+> +	 * The digest size can be at the most 64 bytes.
+> +	 */
+> +	if (!digest || idx < RSI_INDEX_REM0 || idx > RSI_INDEX_REM3 ||
+> +	    digest_size == 0 || digest_size > RSI_MAX_MEASUREMENT_DATA_SIZE_BYTES)
+> +		return -EINVAL;
+> +
+> +	regs.a0 = SMC_RSI_MEASUREMENT_EXTEND;
+> +	regs.a1 = idx;
+> +	regs.a2 = digest_size;
+> +	memcpy(&regs.a3, digest, digest_size);
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- arch/arm64/Kconfig                   |   6 +
- arch/arm64/include/asm/exception.h   |   1 +
- arch/arm64/include/asm/processor.h   |   5 +
- arch/arm64/include/asm/rwonce.h      |  14 +-
- arch/arm64/include/asm/thread_info.h |   1 +
- arch/arm64/kernel/Makefile           |   3 +-
- arch/arm64/kernel/process.c          |  15 +
- arch/arm64/kernel/unaligned_atomic.c | 521 +++++++++++++++++++++++++++
- arch/arm64/mm/fault.c                |  10 +
- include/uapi/linux/prctl.h           |   5 +
- kernel/sys.c                         |   7 +-
- 11 files changed, 579 insertions(+), 9 deletions(-)
- create mode 100644 arch/arm64/kernel/unaligned_atomic.c
+With CONFIG_FORTIFY_SOURCE=y, FORTIFY reports the following warning for
+this memcpy:
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b3afe0688919..b8991da50a16 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2417,6 +2417,12 @@ config ARM64_CONTPTE
- 	  bit, for any mappings that meet the size and alignment requirements.
- 	  This reduces TLB pressure and improves performance.
- 
-+config ARM64_UNALIGNED_ATOMIC_EMULATION
-+	bool "Enable unaligned atomic emulation"
-+	help
-+	  Enable support for handling userspace unaligned atomic instructions
-+	  with kernel side emulation, instead of raising a SIGBUS.
-+
- endmenu # "Kernel Features"
- 
- menu "Boot options"
-diff --git a/arch/arm64/include/asm/exception.h b/arch/arm64/include/asm/exception.h
-index a2da3cb21c24..f6dd1b9afe69 100644
---- a/arch/arm64/include/asm/exception.h
-+++ b/arch/arm64/include/asm/exception.h
-@@ -82,6 +82,7 @@ void do_sp_pc_abort(unsigned long addr, unsigned long esr, struct pt_regs *regs)
- void bad_el0_sync(struct pt_regs *regs, int reason, unsigned long esr);
- void do_el0_cp15(unsigned long esr, struct pt_regs *regs);
- int do_compat_alignment_fixup(unsigned long addr, struct pt_regs *regs);
-+int do_unaligned_atomic_fixup(struct pt_regs *regs, u64 *fault_addr);
- void do_el0_svc(struct pt_regs *regs);
- void do_el0_svc_compat(struct pt_regs *regs);
- void do_el0_fpac(struct pt_regs *regs, unsigned long esr);
-diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-index c2a627f39314..da748012a0ed 100644
---- a/arch/arm64/include/asm/processor.h
-+++ b/arch/arm64/include/asm/processor.h
-@@ -445,5 +445,10 @@ int set_tsc_mode(unsigned int val);
- #define GET_TSC_CTL(adr)        get_tsc_mode((adr))
- #define SET_TSC_CTL(val)        set_tsc_mode((val))
- 
-+#ifdef CONFIG_ARM64_UNALIGNED_ATOMIC_EMULATION
-+int set_unalign_atomic_ctl(unsigned int val);
-+#define ARM64_SET_UNALIGN_ATOMIC_CTL(val)	set_unalign_atomic_ctl((val))
-+#endif
-+
- #endif /* __ASSEMBLER__ */
- #endif /* __ASM_PROCESSOR_H */
-diff --git a/arch/arm64/include/asm/rwonce.h b/arch/arm64/include/asm/rwonce.h
-index 0f3a01d30f66..3c62a1b52e9d 100644
---- a/arch/arm64/include/asm/rwonce.h
-+++ b/arch/arm64/include/asm/rwonce.h
-@@ -5,13 +5,6 @@
- #ifndef __ASM_RWONCE_H
- #define __ASM_RWONCE_H
- 
--#if defined(CONFIG_LTO) && !defined(__ASSEMBLER__)
--
--#include <linux/compiler_types.h>
--#include <asm/alternative-macros.h>
--
--#ifndef BUILD_VDSO
--
- #define __LOAD_RCPC(sfx, regs...)					\
- 	ALTERNATIVE(							\
- 		"ldar"	#sfx "\t" #regs,				\
-@@ -19,6 +12,13 @@
- 		"ldapr"	#sfx "\t" #regs,				\
- 	ARM64_HAS_LDAPR)
- 
-+#if defined(CONFIG_LTO) && !defined(__ASSEMBLER__)
-+
-+#include <linux/compiler_types.h>
-+#include <asm/alternative-macros.h>
-+
-+#ifndef BUILD_VDSO
-+
- /*
-  * Replace this with typeof_unqual() when minimum compiler versions are
-  * increased to GCC 14 and Clang 19. For the time being, we need this
-diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-index 5d7fe3e153c8..c280264f64dd 100644
---- a/arch/arm64/include/asm/thread_info.h
-+++ b/arch/arm64/include/asm/thread_info.h
-@@ -88,6 +88,7 @@ void arch_setup_new_exec(void);
- #define TIF_KERNEL_FPSTATE	29	/* Task is in a kernel mode FPSIMD section */
- #define TIF_TSC_SIGSEGV		30	/* SIGSEGV on counter-timer access */
- #define TIF_LAZY_MMU_PENDING	31	/* Ops pending for lazy mmu mode exit */
-+#define TIF_UNALIGN_ATOMIC_EMULATE	32
- 
- #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
- #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
-diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
-index d2690c3ec528..d1dfa7c7cf47 100644
---- a/arch/arm64/kernel/Makefile
-+++ b/arch/arm64/kernel/Makefile
-@@ -34,7 +34,7 @@ obj-y			:= debug-monitors.o entry.o irq.o fpsimd.o		\
- 			   cpufeature.o alternative.o cacheinfo.o		\
- 			   smp.o smp_spin_table.o topology.o smccc-call.o	\
- 			   syscall.o proton-pack.o idle.o patching.o pi/	\
--			   rsi.o jump_label.o
-+			   rsi.o jump_label.o unaligned_atomic.o
- 
- obj-$(CONFIG_COMPAT)			+= sys32.o signal32.o			\
- 					   sys_compat.o
-@@ -72,6 +72,7 @@ obj-$(CONFIG_ARM64_MPAM)		+= mpam.o
- obj-$(CONFIG_ARM64_MTE)			+= mte.o
- obj-y					+= vdso-wrap.o
- obj-$(CONFIG_COMPAT_VDSO)		+= vdso32-wrap.o
-+obj-$(CONFIG_ARM64_UNALIGNED_ATOMIC_EMULATION) += unaligned_atomic.o
- 
- # Force dependency (vdso*-wrap.S includes vdso.so through incbin)
- $(obj)/vdso-wrap.o: $(obj)/vdso/vdso.so
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 581f80e9b9b7..3a2cf093c0d2 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -1003,3 +1003,18 @@ int set_tsc_mode(unsigned int val)
- 
- 	return do_set_tsc_mode(val);
- }
-+
-+int set_unalign_atomic_ctl(unsigned int val)
-+{
-+	unsigned long valid_mask = PR_ARM64_UNALIGN_ATOMIC_EMULATE;
-+
-+	if (val & ~valid_mask)
-+		return -EINVAL;
-+
-+	if (!cpus_have_final_cap(ARM64_HAS_LSE_ATOMICS))
-+		return -EINVAL;
-+
-+	update_thread_flag(TIF_UNALIGN_ATOMIC_EMULATE, val & PR_ARM64_UNALIGN_ATOMIC_EMULATE);
-+
-+	return 0;
-+}
-diff --git a/arch/arm64/kernel/unaligned_atomic.c b/arch/arm64/kernel/unaligned_atomic.c
-new file mode 100644
-index 000000000000..5f176226b733
---- /dev/null
-+++ b/arch/arm64/kernel/unaligned_atomic.c
-@@ -0,0 +1,521 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Unaligned atomic emulation by André Almeida <andrealmeid@igalia.com>
-+ * Derived from original work by Billy Laws <blaws05@gmail.com>
-+ */
-+
-+#include <linux/cacheflush.h>
-+#include <linux/compiler.h>
-+#include <linux/errno.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/semaphore.h>
-+#include <linux/uaccess.h>
-+
-+#include <asm-generic/rwonce.h>
-+#include <asm/asm-extable.h>
-+#include <asm/atomic_ll_sc.h>
-+#include <asm/exception.h>
-+#include <asm/ptrace.h>
-+#include <asm/traps.h>
-+
-+struct fault_info {
-+	int error;
-+	u64 addr;
-+	u64 size;
-+};
-+
-+#define ATOMIC_MEM_MASK 0x3b200c00
-+#define ATOMIC_MEM_INST 0x38200000
-+
-+#define RCPC2_MASK  0x3fe00c00
-+#define LDAPUR_INST 0x19400000
-+#define STLUR_INST  0x19000000
-+
-+#define LDAXR_MASK 0x3ffffc00
-+
-+#define LDAXP_MASK 0xbfff8000
-+#define LDAXP_INST 0x887f8000
-+
-+#define LDAR_INST  0x08dffc00
-+#define LDAPR_INST 0x38bfc000
-+#define STLR_INST  0x089ffc00
-+
-+#define ATOMIC_ADD_OP	0x0
-+#define ATOMIC_CLR_OP	0x1
-+#define ATOMIC_EOR_OP	0x2
-+#define ATOMIC_SET_OP	0x3
-+#define ATOMIC_SWAP_OP	0x8
-+
-+#define get_addr_reg(instr) ((instr >> 5) & 0b11111)
-+#define get_size(instr) (1 << (instr >> 30))
-+
-+static DEFINE_MUTEX(buslock);
-+
-+static struct fault_info do_load_acquire_128(u64 addr, u128 *result)
-+{
-+	u64 lower, upper, orig_addr = addr;
-+	int ret;
-+
-+	addr = (u64)__uaccess_mask_ptr((void __user *)addr);
-+
-+	if (!access_ok((void __user *)orig_addr, 16))
-+		return (struct fault_info) {.error = -EFAULT, .addr = orig_addr, .size = 16};
-+
-+	uaccess_enable_privileged();
-+	asm volatile(
-+		"1: ldaxp 	%[lower], %[upper], [%[addr]]\n"
-+		"   clrex\n"
-+		"2:\n"
-+		_ASM_EXTABLE_UACCESS_ERR(1b, 2b, %w[ret])
-+		: [lower] "=r" (lower),
-+		  [upper] "=r" (upper),
-+		  [ret] "+r" (ret)
-+		: [addr] "r" (addr)
-+		: "memory");
-+	uaccess_disable_privileged();
-+
-+	if (ret)
-+		return (struct fault_info) {.error = ret, .addr = orig_addr, .size = 16};
-+
-+	*result = (u128)upper << 64 | lower;
-+
-+	return (struct fault_info) {0};
-+}
-+
-+/*
-+ * Do a load acquire at address `addr` and save it at `result`
-+ */
-+static struct fault_info do_load_acquire_64(u64 addr, u64 *result)
-+{
-+	u64 orig_addr = addr;
-+	int ret = 0;
-+
-+	addr = (u64)__uaccess_mask_ptr((void __user *)addr);
-+
-+	if (!access_ok((void __user *)orig_addr, 8))
-+		return (struct fault_info) {.error = -EFAULT, .addr = orig_addr, .size = 8};
-+
-+	uaccess_enable_privileged();
-+	asm volatile(
-+		"1: " __LOAD_RCPC(, %[result], [%[addr]]) "\n"
-+		"2:\n"
-+		_ASM_EXTABLE_UACCESS_ERR(1b, 2b, %w[ret])
-+		: [result] "=r" (*result),
-+		  [ret] "+r" (ret)
-+		: [addr] "r" (addr)
-+		: "memory");
-+	uaccess_disable_privileged();
-+
-+	return (struct fault_info) {.error = ret, .addr = orig_addr, .size = 8};
-+}
-+
-+/*
-+ * Do a cmpxchg taking care of handling user access error
-+ */
-+static struct fault_info do_store_cas_64(u64 *expected, u64 val, u64 addr)
-+{
-+	u64 orig_addr = addr, tmp, oldval = 0;
-+	int ret = 0;
-+
-+	addr = (u64)__uaccess_mask_ptr((void __user *)addr);
-+
-+	if (!access_ok((void __user *)orig_addr, 8))
-+		return (struct fault_info) {.error = -EFAULT, .addr = orig_addr, .size = 8};
-+
-+	uaccess_enable_privileged();
-+	asm volatile(
-+		"prfm		pstl1strm, [%[addr]]		\n"
-+		"1: ldxr	%[oldval], [%[addr]]		\n"
-+		"   cmp		%[oldval], %[expected]		\n"
-+		"   b.ne 	3f				\n"
-+		"2: stlxr 	%w[tmp], %[val], [%[addr]]	\n"
-+		"   cbnz 	%w[tmp], 1b			\n"
-+		"3:						\n"
-+		_ASM_EXTABLE_UACCESS_ERR(1b, 3b, %w[ret])
-+		_ASM_EXTABLE_UACCESS_ERR(2b, 3b, %w[ret])
-+		: [tmp] "=&r" (tmp),
-+		  [oldval] "=&r" (oldval),
-+		  [ret] "+r" (ret)
-+		: [addr] "r" (addr),
-+		  [expected] "r" (*expected),
-+		  [val] "r" (val)
-+		: "memory", "cc");
-+	uaccess_disable_privileged();
-+
-+	if (ret)
-+		return (struct fault_info) {.error = ret, .addr = orig_addr, .size = 8};
-+
-+	if (oldval != *expected) {
-+		*expected = oldval;
-+		return (struct fault_info) {.error = -EAGAIN};
-+	}
-+
-+	return (struct fault_info) {0};
-+}
-+
-+/*
-+ * If possible, do one 128 bit load. Otherwise, do two 64 bit loads and combine
-+ * the results.
-+ */
-+static struct fault_info do_load_64(u64 addr, u64 *result)
-+{
-+	u64 alignment_mask = 0b1111, align_offset = addr & alignment_mask;
-+	struct fault_info fi = {0};
-+	u128 tmp;
-+
-+	/* The address crosses a 16 byte boundary and needs two loads */
-+	if (align_offset > 8) {
-+		u64 alignment = addr & 0b111, upper_val, lower_val;
-+
-+		addr &= ~0b111ULL;
-+
-+		fi = do_load_acquire_64(addr + 8, &upper_val);
-+		if (fi.error)
-+			return fi;
-+
-+		fi = do_load_acquire_64(addr, &lower_val);
-+		if (fi.error)
-+			return fi;
-+
-+		tmp = ((u128) upper_val << 64) | lower_val;
-+		*result = tmp >> (alignment * 8);
-+	} else {
-+		addr &= ~alignment_mask;
-+
-+		fi = do_load_acquire_128(addr, &tmp);
-+		if (fi.error)
-+			return fi;
-+
-+		*result = tmp >> (align_offset * 8);
-+	}
-+
-+	return fi;
-+}
-+
-+static u64 do_atomic_mem_op(u8 op, u64 src_val, u64 desired)
-+{
-+	switch (op) {
-+	case ATOMIC_ADD_OP:
-+		return src_val + desired;
-+	case ATOMIC_CLR_OP:
-+		return src_val & ~desired;
-+	case ATOMIC_EOR_OP:
-+		return src_val & desired;
-+	case ATOMIC_SET_OP:
-+		return src_val ^ desired;
-+	case ATOMIC_SWAP_OP:
-+		return desired;
-+	default:
-+		BUG();
-+	}
-+
-+	/* Unreachable */
-+	return 0;
-+}
-+
-+static struct fault_info load_cas(u64 desired_src, u64 addr, u8 op, u64 alignment,
-+				     u128 *aux_desired, u128 *aux_expected,
-+				     u128 *aux_actual)
-+{
-+	u128 tmp_expected, tmp_desired, tmp_actual, mask = ~0ULL, desired, expected, neg_mask;
-+	u64 addr_upper, load_order_upper, load_order_lower;
-+	struct fault_info fi;
-+
-+	mask <<= alignment * 8;
-+	addr_upper = addr + 8;
-+	neg_mask = ~mask;
-+
-+	fi = do_load_acquire_64(addr_upper, &load_order_upper);
-+	if (fi.error)
-+		return fi;
-+	fi = do_load_acquire_64(addr, &load_order_lower);
-+	if (fi.error)
-+		return fi;
-+
-+	tmp_actual = (u128)load_order_upper << 64 | load_order_lower;
-+
-+	desired = do_atomic_mem_op(op, tmp_actual >> (alignment * 8), desired_src);
-+	expected = (tmp_actual >> (alignment * 8));
-+
-+	tmp_expected = tmp_actual;
-+	tmp_expected &= neg_mask;
-+	tmp_expected |= expected << (alignment * 8);
-+
-+	tmp_desired = tmp_expected;
-+	tmp_desired &= neg_mask;
-+	tmp_desired |= desired << (alignment * 8);
-+
-+	*aux_desired = tmp_desired;
-+	*aux_expected = tmp_expected;
-+	*aux_actual = tmp_actual;
-+
-+	return (struct fault_info) {0};
-+}
-+
-+/*
-+ * After CAS failed, check if we need to try again or if we should return error.
-+ * Returns true if needs to retry.
-+ */
-+static bool handle_fail(u128 tmp_expected, u128 tmp_desired, u128 mask,
-+			u64 *result, bool retry, bool tear,
-+			u64 alignment)
-+{
-+	u128 neg_mask = ~mask,
-+	     failed_result_our_bits = tmp_expected & mask,
-+	     failed_result_not_our_bits = tmp_expected & neg_mask,
-+	     failed_desired_not_our_bits = tmp_desired & neg_mask;
-+	u64 failed_result = failed_result_our_bits >> (alignment * 8);
-+
-+	/*
-+	 * If the bits changed weren't part of our regular CAS, then we retry.
-+	 */
-+	if ((failed_result_not_our_bits ^ failed_desired_not_our_bits) != 0)
-+		return true;
-+
-+	/*
-+	 * This happens in the case that between load and CAS that something has
-+	 * store our desired in to the memory location. This means our CAS fails
-+	 * because what we wanted to store was already stored.
-+	 */
-+	if (retry) {
-+		/* If we are retrying and tearing then we can't do anything */
-+		if (tear) {
-+			*result = failed_result;
-+			return false;
-+		} else {
-+			return true;
-+		}
-+	} else {
-+		/*
-+		 * With we were called without retry, then we have failed
-+		 * regardless of tear. CAS failed but handled successfully
-+		 */
-+		*result = failed_result;
-+	}
-+
-+	return false;
-+}
-+
-+/*
-+ * This instruction reads a 64-bit doubleword from memory, and compares it
-+ * against the value held in a first register. If the comparison is equal, the
-+ * value in a second register is written to memory. If the comparison is not
-+ * equal, the architecture permits writing the value read from the location to
-+ * memory.
-+ *
-+ * To handle an unaligned CAS, the code first loads two 64-bit words. Then, if
-+ * what is found in the word is the same as the expected value, the code tries
-+ * to do two 64-bit writes in the address. If both stores works then return
-+ * success. If only the first store works, then the code is in a "tear" state
-+ * and returns with the word found in the address.
-+ *
-+ * TODO: here we threat every operation as it's a cross cache address,
-+ * meaning that we need two 64 bit ops to make it work. That works for
-+ * all cases, but it's slower and unnecessary for the cases that doesn't
-+ * cross it and can do a single 128 bit operation.
-+ */
-+static struct fault_info do_cas_64(bool retry, u64 desired_src, u64 expected_src,
-+				   u64 addr, u8 op, u64 *result)
-+{
-+	u128 tmp_expected, tmp_desired, tmp_actual, mask = ~0ULL;
-+	u64 alignment = addr & 0b111, addr_upper;
-+	struct fault_info fi;
-+	bool tear = false;
-+
-+	mask <<= alignment * 8;
-+	addr &= ~0b111ULL;
-+	addr_upper = addr + 8;
-+
-+	/*
-+	 * TODO: take this lock only if we need to emulate a split lock
-+	 */
-+	guard(mutex)(&buslock);
-+
-+retry:
-+	fi = load_cas(desired_src, addr, op, alignment, &tmp_desired, &tmp_expected, &tmp_actual);
-+	if (fi.error)
-+		return fi;
-+
-+	if (tmp_expected == tmp_actual) {
-+		u128 expected = (tmp_actual >> (alignment * 8));
-+		u64 tmp_expected_lower = tmp_expected,
-+		    tmp_expected_upper = tmp_expected >> 64,
-+		    tmp_desired_lower = tmp_desired,
-+		    tmp_desired_upper = tmp_desired >> 64;
-+
-+		fi = do_store_cas_64(&tmp_expected_upper, tmp_desired_upper, addr_upper);
-+		if (fi.error && fi.error != -EAGAIN)
-+			return fi;
-+
-+		if (fi.error == 0) {
-+			fi = do_store_cas_64(&tmp_expected_lower, tmp_desired_lower, addr);
-+			if (fi.error && fi.error != -EAGAIN)
-+				return fi;
-+
-+			/* Both store() worked, CAS succeeded */
-+			if (fi.error == 0) {
-+				*result = expected;
-+				return fi;
-+			/* A partial store() happened, tear state */
-+			} else {
-+				tear = true;
-+			}
-+		}
-+
-+		tmp_expected = tmp_expected_upper;
-+		tmp_expected <<= 64;
-+		tmp_expected |= tmp_expected_lower;
-+	} else {
-+		tmp_expected = tmp_actual;
-+	}
-+
-+	if (handle_fail(tmp_expected, tmp_desired, mask, result, retry, tear, alignment))
-+		goto retry;
-+
-+	return (struct fault_info) {0};
-+}
-+
-+/*
-+ * For a giving atomic memory operation, parse it and call the desired op
-+ */
-+static struct fault_info handle_atomic_mem_op(u32 instr, struct pt_regs *regs)
-+{
-+	u32 size = get_size(instr), result_reg = instr & 0b11111,
-+		   source_reg = (instr >> 16) & 0b11111,
-+		   addr_reg = get_addr_reg(instr);
-+	u64 addr = pt_regs_read_reg(regs, addr_reg);
-+	u8 op = (instr >> 12) & 0xf;
-+	struct fault_info fi = {0};
-+
-+	if (size == 8) {
-+		u64 res = 0;
-+
-+		switch (op) {
-+		case ATOMIC_ADD_OP:
-+		case ATOMIC_CLR_OP:
-+		case ATOMIC_EOR_OP:
-+		case ATOMIC_SET_OP:
-+		case ATOMIC_SWAP_OP:
-+			break;
-+		default:
-+			pr_warn("Unhandled atomic mem op 0x%02x\n", op);
-+			return (struct fault_info) {.error = -EINVAL};
-+		}
-+
-+		fi = do_cas_64(true, pt_regs_read_reg(regs, source_reg), 0, addr, op, &res);
-+
-+		/*
-+		 * If the operation succeeded and our dest reg is not zero, we
-+		 * need to update the result reg with what was in memory
-+		 */
-+		if (!fi.error)
-+			pt_regs_write_reg(regs, result_reg, res);
-+	} else {
-+		fi.error = -EINVAL;
-+	}
-+
-+	return fi;
-+}
-+
-+static struct fault_info handle_atomic_load(u32 instr, struct pt_regs *regs, s64 offset)
-+{
-+	u32 size = get_size(instr), result_reg = instr & 0b11111,
-+		   addr_reg = get_addr_reg(instr);
-+	u64 addr = pt_regs_read_reg(regs, addr_reg) + offset, res;
-+
-+	struct fault_info fi = {0};
-+
-+	if (size == 8) {
-+		fi = do_load_64(addr, &res);
-+		if (!fi.error)
-+			pt_regs_write_reg(regs, result_reg, res);
-+	} else {
-+		fi.error = -EINVAL;
-+	}
-+
-+	return fi;
-+}
-+
-+static struct fault_info handle_atomic_store(u32 instr, struct pt_regs *regs, s64 offset)
-+{
-+	u32 size = get_size(instr), data_reg = instr & 0x1F, addr_reg = get_addr_reg(instr);
-+	u64 addr = pt_regs_read_reg(regs, addr_reg) + offset;
-+	struct fault_info fi = {0};
-+
-+	if (size == 8) {
-+		u64 res;
-+
-+		fi = do_cas_64(false, pt_regs_read_reg(regs, data_reg), 0, addr, ATOMIC_SWAP_OP, &res);
-+	} else {
-+		fi.error = -EINVAL;
-+	}
-+
-+	return fi;
-+}
-+
-+static struct fault_info decode_instruction(u32 instr, struct pt_regs *regs)
-+{
-+	struct fault_info fi = {0};
-+	s32 offset = (s32)(instr) << 11 >> 23, size = get_size(instr);
-+
-+	/* TODO: We only support 64-bit instructions for now */
-+	if (size != 8)
-+		goto exit;
-+
-+	if ((instr & LDAXR_MASK) == LDAR_INST || (instr & LDAXR_MASK) == LDAPR_INST)
-+		return handle_atomic_load(instr, regs, 0);
-+
-+	if ((instr & RCPC2_MASK) == LDAPUR_INST)
-+		return handle_atomic_load(instr, regs, offset);
-+
-+	if ((instr & LDAXR_MASK) == STLR_INST)
-+		return  handle_atomic_store(instr, regs, 0);
-+
-+	if ((instr & RCPC2_MASK) == STLUR_INST)
-+		return handle_atomic_store(instr, regs, offset);
-+
-+	if ((instr & ATOMIC_MEM_MASK) == ATOMIC_MEM_INST)
-+		return handle_atomic_mem_op(instr, regs);
-+
-+	/* TODO: Handle CASAL and CASPAL as well */
-+
-+exit:
-+	fi.error = -EINVAL;
-+	return fi;
-+}
-+
-+/*
-+ * After a fault access happened, move the pointer to the end of the bad section
-+ */
-+static void increment_fault_address(u64 **fault_addr, int size)
-+{
-+	u64 *addr = *fault_addr;
-+	u8 tmp;
-+	int i;
-+
-+	for (i = 0; i < size - 1 && !get_user(tmp, (u8 __user *)(addr + i)); i++)
-+		(*fault_addr)++;
-+}
-+
-+int do_unaligned_atomic_fixup(struct pt_regs *regs, u64 *fault_addr)
-+{
-+	u32 *pc = (u32 *)regs->pc, instr;
-+	struct fault_info fi;
-+
-+	if (get_user(instr, (u32 __user *)(pc)))
-+		return -EFAULT;
-+
-+	fi = decode_instruction(instr, regs);
-+
-+	if (fi.error) {
-+		*fault_addr = fi.addr;
-+		if (fi.error == -EFAULT)
-+			increment_fault_address(&fault_addr, fi.size);
-+
-+		return fi.error;
-+	}
-+
-+	arm64_skip_faulting_instruction(regs, 4);
-+	return 0;
-+}
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 0b52557652be..4aba725c1fd1 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -854,6 +854,16 @@ static int do_alignment_fault(unsigned long far, unsigned long esr,
- 	if (IS_ENABLED(CONFIG_COMPAT_ALIGNMENT_FIXUPS) &&
- 	    compat_user_mode(regs))
- 		return do_compat_alignment_fixup(far, regs);
-+
-+	if (user_mode(regs) && test_thread_flag(TIF_UNALIGN_ATOMIC_EMULATE)) {
-+		u64 page_fault_address;
-+		int ret = do_unaligned_atomic_fixup(regs, &page_fault_address);
-+
-+		if (!ret)
-+			return 0;
-+		else if (ret == -EFAULT)
-+			return do_translation_fault(page_fault_address, ESR_ELx_FSC_FAULT | ESR_ELx_WNR, regs);
-+	}
- 	do_bad_area(far, esr, regs);
- 	return 0;
- }
-diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-index 55ca31b522fc..21171af687cf 100644
---- a/include/uapi/linux/prctl.h
-+++ b/include/uapi/linux/prctl.h
-@@ -421,4 +421,9 @@ struct prctl_mm_map {
- # define PR_SET_COMPAT_INPUT_DISABLE  0
- # define PR_SET_COMPAT_INPUT_ENABLE   1
- 
-+#define PR_ARM64_SET_UNALIGN_ATOMIC 0x46455849
-+# define PR_ARM64_UNALIGN_ATOMIC_EMULATE	(1UL << 0)
-+# define PR_ARM64_UNALIGN_ATOMIC_BACKPATCH	(1UL << 1)
-+# define PR_ARM64_UNALIGN_ATOMIC_STRICT_SPLIT_LOCKS	(1UL << 2)
-+
- #endif /* _LINUX_PRCTL_H */
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 0b8bb0d4803c..60e64512a11d 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -158,7 +158,9 @@
- #ifndef PPC_SET_DEXCR_ASPECT
- # define PPC_SET_DEXCR_ASPECT(a, b, c)	(-EINVAL)
- #endif
--
-+#ifndef ARM64_SET_UNALIGN_ATOMIC_CTL
-+# define ARM64_SET_UNALIGN_ATOMIC_CTL(a)		(-EINVAL)
-+#endif
- /*
-  * this is where the system-wide overflow UID and GID are defined, for
-  * architectures that now have 32-bit UID/GID but didn't in the past
-@@ -2922,6 +2924,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
- 		else
- 			return -EINVAL;
- 		break;		
-+	case PR_ARM64_SET_UNALIGN_ATOMIC:
-+		error = ARM64_SET_UNALIGN_ATOMIC_CTL(arg2);
-+		break;
- 	default:
- 		trace_task_prctl_unknown(option, arg2, arg3, arg4, arg5);
- 		error = -EINVAL;
--- 
-2.55.0
+  [  899.918673] ------------[ cut here ]------------
+  [  899.918806] memcpy: detected field-spanning write (size 32) of single field "&regs.a3" at ./include/linux/arm-rsi-cmds.h:292 (size 8)
+  [  899.919277] WARNING: ./include/linux/arm-rsi-cmds.h:292 at rsi_measurement_extend+0x104/0x118, CPU#0: dd/123
+  [  900.672180] Modules linked in:
+  [  900.769378] CPU: 0 UID: 0 PID: 123 Comm: dd Not tainted 7.3.0-rc4+ #6 PREEMPT(full)
+  [  901.034515] Hardware name: linux,dummy-virt (DT)
+  [  901.194939] pstate: 61402005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+  [  901.390491] pc : rsi_measurement_extend+0x104/0x118
+  [  901.530657] lr : rsi_measurement_extend+0x104/0x118
+  [...]
+  [  903.770326] Call trace:
+  [  903.893102]  rsi_measurement_extend+0x104/0x118 (P)
+  [  904.056234]  arm_cca_mr_extend+0x40/0x58
+  [  904.270991]  tm_digest_write+0x90/0x1d8
+  [  904.439429]  sysfs_kf_bin_write+0x98/0xc8
+  [  904.596599]  kernfs_fop_write_iter+0x150/0x1e8
+  [  904.779881]  vfs_write+0x29c/0x450
+  [...]
 
+Would it make sense to use a union to overlay the struct
+arm_smccc_1_2_regs with an RSI-specific argument layout and copy the
+digest into an explicit 64-byte array, as in commit 221049874b6a
+("arm64: RSI: fix field-spanning write warning in attestation token
+init")?
+
+Thanks,
+Kohei
+
+> +	arm_smccc_1_2_smc(&regs, &regs);
+> +
+> +	if (regs.a0 != RSI_SUCCESS)
+> +		return -EINVAL;
+> +
+> +	return regs.a0;
+> +}
+> +
