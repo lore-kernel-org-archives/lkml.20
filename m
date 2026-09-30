@@ -1,375 +1,229 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6693374A16;
-	Wed, 30 Sep 2026 16:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786497; cv=none; b=BgjtRkgRreswMkypstEmXgjTcie016fkq2RyWx5YQnRbHovJvboibw4w91VdMruZ0uT/57VpfDoWX0JA1MUZeIO6xBJa/E95siUXMK4G4SQdeAbkaWMP/YtcqrAlTk78j2ZlY+xMXpOEy+5YCbj1UbiOb44DcO9gj5FJjKzhgqs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786497; c=relaxed/simple;
-	bh=zIybdkD3SEiIpHFkwMna4obYsUSyKvnYrWjR1/XxsAI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R1H++p7eHUJzaV10KgrvEImkk0ZAMu3tnlRDh8yBjv0/khSdfdLWMIdgktf7Qm9SPVcNe/n013GV6gty3D+TsjY4TsF+87thTKpc0bPzA4NqtDcmw7PRheHklJfPftJMqiMNv+r1mvrK5FeJzlYAH3cYH+fg8wzKlMlRqKDTJdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bywaKIpC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013021.outbound.protection.outlook.com [52.101.83.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA650254F;
+	Wed, 30 Sep 2026 16:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786506; cv=fail; b=YxBrpBRvoWBQCTFJcS9RHkMh+TJ+KJDBiLXLy1bP7OKtolThf7n491YvfCuuuU28Liupx7D685cLwz7E4/g6NyliB431Oef9LtI9k7kMEHy+mJonxr4B6eiflkCdPArP8X48zGuIgAwKU8+ktojJn2Yvua2PQyjXqbBDO7ddjNU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786506; c=relaxed/simple;
+	bh=/pZIrm17AZJgkx8kabDhk0yC7CGoWxLDgJ5MFCseNnQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=i+wejKhfHYjws3B6RzAu6W/9qYRAyyDxafZVndXtfGajOBnT30KngYZhfekjzLUjDxiDo+63qzIho5DBlbH0aOAWtTB3KBVxnRUmtAojWMckWPgsUM/WdLmgO0hjy+j3cXnoSvFzkXhuAyoxGD/tqzJBs3VBUi7L/ny/buOe+Tg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=BMIO9Fl1; arc=fail smtp.client-ip=52.101.83.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bywaKIpC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68E8B497;
-	Wed, 30 Sep 2026 09:41:30 -0700 (PDT)
-Received: from [10.57.11.217] (unknown [10.57.11.217])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 521153F85F;
-	Wed, 30 Sep 2026 09:41:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790786493; bh=zIybdkD3SEiIpHFkwMna4obYsUSyKvnYrWjR1/XxsAI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bywaKIpClqDxFUujRdn49tJkf6bDl2U1HXjFnnn27wkFTcXfLxpdQMvHoMyU5sH8p
-	 Pznv0wx7zx8UiQml44Jw7YmE0427PiAqVRhqQ8v4gFJEBFum9yURknlyixlaHgu0Z7
-	 PyfPpdgAoHXdlCH0nFjqGdcL3W4GlODRyVA1Fq/A=
-Message-ID: <0c1797bc-0325-44ad-b43f-83353edf81eb@arm.com>
-Date: Wed, 30 Sep 2026 18:41:28 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="BMIO9Fl1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sov2T8O93NsrTkb2xND+twoOQk0DGR9AE53KzPxIYk/OhudzVGAOFtigWPs90DBDGE7naPCiGU7atxiJwlITZecoRcZ0o/esKzZnDkKbHgJP7L1H8JAksRfAGiBazXp0eYlEgYR653Dn8CCM1oj7qVQ1ATN1Z/rM26E6kNwgHexH/OgfOkKccFnOg4gAeIrBUft1lX56WXNX9sOpUkNPy5WR/UxDP3fSDELBzhpqnvL0k9I2iUFo4TsJo/GovgpDgxm3Z4qjnkIJezt5ub0+pD87NFxRgT1uzoOCBy2uqmFcTImhE4Yc3iB9Dm24QWZFJSNOuxtAzbv81ycv8b1ytQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=34BUEuaQYUZ84U5Tu3lHI2XVLvNBSZd+6FjRG7uCRH8=;
+ b=VWXsW3PiYKpFkI5ehM53dMSw+ca1g302zNTr1eyB3bwOcwS/2VoEtP58lIFS3+kVJchzdg9Yvpbj9cCN40K0DoFfUuctqTZNLNE2HQD8s9e3LzA6s92KA9HODLskZoPrkLAOa8ADArO5JSRLBV/rWr/NrubGTjaxNg73rxVSWNGsL9dBrwrFKitSfuOCk1x2Dj0BLMeVYfmNy+r65pP7+mFjzfzVIXECzTXb6OR7QQaYaJVuacJC34Nv+ODjF13dOdiBSWsQATjwgbtVX3X8QVnxbV2cSUfqhDNh2F7wjypRVgM4E9/8GAiTvarAhbIFmYW+4r6yynpH/G/ZqII7Cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=34BUEuaQYUZ84U5Tu3lHI2XVLvNBSZd+6FjRG7uCRH8=;
+ b=BMIO9Fl1zCKglS7dPiXzLTCfRbjOTQfmqjDZqqAPRbb6x5GIaAVMBic+Ma1Bnjnl+rFAyg2zwMmJEW90s03JRDyxK2ByyPVVaDuiw4Oh2S3upO7hu4JPrVThvcuzeVY+p1AZ+NCxR8AojGs/2UmYyeArToVloG2MYQUsdnWFa1QnxLCt/gZHcBTOEAQdZhbG+JFnwoYts3tYn5j3pMh6tLsWmpgdBquLtDeyoi2OYu3FPh4fZ8K04KbZkWg6N/zPZtPyN7JRfmBRtP+u5P+TvptEI13tbPN6lIbmWbKs8y/7qFPMsuRqZGLqijphd4l5w8Ovwqrj/mNCzB2H0OvKsg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB11529.eurprd04.prod.outlook.com (2603:10a6:102:4e2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 16:41:40 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 16:41:40 +0000
+Date: Wed, 30 Sep 2026 11:41:29 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: jeffbarnes@linux.microsoft.com
+Cc: linux-pci@vger.kernel.org, minghuan.Lian@nxp.com, mingkai.hu@nxp.com,
+	roy.zang@nxp.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
+	Zhiqiang.Hou@nxp.com, linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI: layerscape: use default error response behavior
+Message-ID: <ar07ubdYLk-Tje1q@SMW015318>
+References: <20260929194339.233271-1-jeffbarnes@linux.microsoft.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929194339.233271-1-jeffbarnes@linux.microsoft.com>
+X-ClientProxiedBy: PH0PR07CA0104.namprd07.prod.outlook.com
+ (2603:10b6:510:4::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 13/13] arm_mpam: detect and enable MPAM-Fb PCC support
-To: Ben Horgan <ben.horgan@arm.com>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260924152739.2865510-1-andre.przywara@arm.com>
- <20260924152739.2865510-14-andre.przywara@arm.com>
- <ca45592b-0b63-45ef-8afe-0a6f50eb73bf@arm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <ca45592b-0b63-45ef-8afe-0a6f50eb73bf@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB11529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c68e4ed-0f28-4817-25db-08df1f11b3af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|7416014|1800799024|19092799006|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	VixQH2WRvFYTgTmM54j3R7/RJzxTzo6J72LF1dthBhRqFybIz7H3bJx1a4n27wiu2jbsa7RL3o6nOwTvxFFTl/kAsYejVH6Ppbh2I8iNZ/iIVfx8nh4dfQSV30KvmOFlJ3TpvOAdQhUbcAIvyRX52W8lxprUyWGiigjA6SynhdFcGmQgGfKdIr5aAaqPZAyjitAAp9op43nejHK7fzxA8MwqKD8XldJFAnkrX0H/4WWXxSEhW71yDXddFL9xBHGqpQtAWt6ZqDvoN8iLs2d9X7UrgrBi1pYCW/F/UXPtSU4CYoyllfOJ3FBWa0zWSE8eXwquFCsMKbF1I7weFT7ywN6lsrPy/Oif44CPUUkL3ApcZVIWe5KJFuEpJtSJGb86OlllZf9gLhT346Wo33LLtXzrqNMCcpRryOasHkwlL3SDpceGpMLrDvIxGJ+L30Q0wMalkSSNRIgL5iDKvUfZXE3TsBnWXYM2UgefLjAg8vKkpFSLVOOhmDPNldJOQJG4t2LoNfn/V3dZMdFsgAwDc2eFbRl4FJ6myh4AihEAygXlW5iQDvopbILb8HJgl6LyC5kvnAnI8mjt59J8s+2xKx5MwXu4kXLrtxN6BV8vDvkl7sMHYx1SC1335k0jyJQ13QP7mpPRaKmVBAwxTnyqs0PzbvkxmVDZyGkGSrHV1io=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(7416014)(1800799024)(19092799006)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BUuxcvPEQiY3GJ7yH81EpQngfRFHZJeAnbnvje7PX5bRy/caPfU+t1amYI6U?=
+ =?us-ascii?Q?UeDL6UbuPlZunWped6mo4Hj3+oUl0YBnOS39VFEp/F4BavXPXbMsmLi4Ivjh?=
+ =?us-ascii?Q?2IcjgaSWVMMzipI/yLZFOCUEZIqyxNT732bDs2jNxybHHLqfPopV9X7rVYzd?=
+ =?us-ascii?Q?0YIbnDggjbAa8B9JtO7gzxtlAIkb+s4ei4J/xPgflMoVD911nJQ4DljgcD4v?=
+ =?us-ascii?Q?uPeNN1ZEJkRbTe9UxgW8K6g+3CakpOMtMqvqwBk4OVxGiKOlnO/l9Tfwl9ij?=
+ =?us-ascii?Q?dhjeDQ5ok5dCpQU01pk3p8BTPnzMHD12UHxsUxvmPmSj8r0U1/5mJJqRqqyL?=
+ =?us-ascii?Q?ZNmh+kFerZrCerW7PfECS5jEuYbZNDYNhmo5a1KmZBWz4LjFAtVg8gjY/ttv?=
+ =?us-ascii?Q?jIDSFDMJsxUK5OdDo4qu2H3uUKLWvFVMptaLsqfk5GCPD4q7zdn2xppOQdYo?=
+ =?us-ascii?Q?SMvUpekZrTJCgVZzWP+D6dGsKKABLPtkWv/EdjfNvm6z2UgHr/kdIZsLjdxS?=
+ =?us-ascii?Q?1u9W7rHsD/Zvp0+eqBFR2LXPHLOLf5j6vm8i7deBMxAR4u9k/krhUcj7Wf9B?=
+ =?us-ascii?Q?/z0fK5uBKJlZF3feSDPsbAB30iDzyQr68bvCy1QWEa0vHUW3trVNsG4i1Yau?=
+ =?us-ascii?Q?ixXQCCdP1DwYxlvDmKlXK+TqFBM3yyM3FgDmcdtx7HdiwZ83yRpslmHa58LD?=
+ =?us-ascii?Q?OLJVGlG/oygTOTi87JjXHHX0RHUXVoo4ASdCzXJJLd/W7311ajjXMNsZevTN?=
+ =?us-ascii?Q?NtyjZ5etoYJYSNx7Id2hMX3FkPPg5qbIjsbAwg6QPl2P/UMFPPaxwbYoPEqm?=
+ =?us-ascii?Q?7mfCzHxI5aIHIQxiFmrtwbbHy5uYbfWQjFW9zsrsb+7Y8btN41/NCaapVSSe?=
+ =?us-ascii?Q?FH7RF7FVkd82tbHhZEB6ePfb/YPbhPdN/Iq1KjA7gy2NFQCprNhdmzpG2hED?=
+ =?us-ascii?Q?z1dAPNZ9esUyegKNiZmXtLPykGdPDX1moDSpMdJbpKcv0XMig51BGcnQ4YDY?=
+ =?us-ascii?Q?TjwGxELQB2bBwIwc8EbrdG9iEAnZvuXHDPa/uhIIIHpu7Qt8QzxvlJcfbbAh?=
+ =?us-ascii?Q?PoYgpK8iDxHRTAw+6YB/5REirtumKHsA+Ipd2HId+amIgBsEwchI9KjhceQy?=
+ =?us-ascii?Q?6J6U4UhMU1UAZZLoI+gbPmEmdxf3nynMp5Wwpova7j29Bw6i6y4LQWI9qHaw?=
+ =?us-ascii?Q?CZTuxCD5qwCqX6r7qP95x1CDO6CUA+Yw0AtK4dLt9vyAZAXrcAUoXgG1anfz?=
+ =?us-ascii?Q?VoPy8E7iE6tlDnO+7l1bM6Qt5xTdabEVLmP/tBfwRfPku2lk1d3m73rYR2zX?=
+ =?us-ascii?Q?hf7kfUULoSB6csQYFIgatdbnNupF9ZHqRw8SzTu5YJKjx9vZy+WwlmedBCty?=
+ =?us-ascii?Q?qKa5fqdUQEQQddB78J3jqbMgDKuHVsoeC1DuQnVJhviuNycGDRMdTTUS+LtM?=
+ =?us-ascii?Q?DvJTDckYCRNqM0eMJcJ8xDao6BtRGq1v1vhmnIElm7Rg+tbfMrdZmkzEN06y?=
+ =?us-ascii?Q?voLeLodGlXslo+mlvVC4jNfULW0Lh8patbKXvtYg4gGH8+pZT5zt9hKkKwME?=
+ =?us-ascii?Q?uliIUFi17LjFUUv9DvqDHSYc7bvPyLnF8ytChjPkcFE6B8qWjqi2sQHbRO7J?=
+ =?us-ascii?Q?3EnduCX96/dPtTJFfY3MCVEA+My75AytHsH0/KqBFJbNaT0OVVWxZdEZc99u?=
+ =?us-ascii?Q?aYh3Ksy22ssv/yCTUx/STrp7Swwr2wuuuiG2bhm+6b9W6E5c2Rv6mZ0G34iT?=
+ =?us-ascii?Q?Bf5WUGodPxdTyEJHzG1mfmjewTYE2hCp13k8/1AgqvjxdJLdc4Ha?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c68e4ed-0f28-4817-25db-08df1f11b3af
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:41:40.2966
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mlyl3iGwVClp/U6xmhu2Oqgxb+n9fkGk9rff4OQ5Tidhn3AFzMT3O2BYj9MQTJGF7B38oV7YEnisOCDKAd/FUiI5hmc+tHEu17iGtJYHkh//zy4Z7OkxCABPdzjuImnx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11529
 
-Hi,
+On Tue, Sep 29, 2026 at 03:43:39PM -0400, jeffbarnes@linux.microsoft.com wrote:
+> [You don't often get email from jeffbarnes@linux.microsoft.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+>
+> The Layerscape PCIe driver programs PCIE_ABSERR to forward errors from
+> outbound non-posted requests to the internal AXI interface.
+>
+> A PCI configuration access can race with the link going down after
+> dw_pcie_other_conf_map_bus() checks the link but before the MMIO access
+> is performed. When the resulting Completion Timeout is forwarded to
+> AXI, it causes an asynchronous SError and kernel panic.
+>
+> For example:
+>
+>   Kernel panic - not syncing: Asynchronous SError Interrupt
+>   ...
+>   Call trace:
+>    arm64_serror_panic+0x78/0x90
+>    do_serror+0x84/0x90
+>    el1h_64_error_handler+0x30/0x40
+>    el1h_64_error+0x68/0x70
+>    pci_generic_config_read+0x64/0xb0
+>    dw_pcie_rd_other_conf+0x1c/0x68
+>    pci_bus_read_config_word+0x68/0x118
+>    pcie_capability_read_word+0xa8/0xd8
+>    find_device_iter+0x8c/0x160
+>    pci_walk_bus+0x60/0xb8
+>    find_source_device+0x78/0xb0
+>    aer_isr+0x1dc/0x230
+>
+> Restore the controller's default error response behavior instead of
+> forwarding these errors to AXI.
+>
+> Reproduce the race by instrumenting dw_pcie_rd_other_conf() to call
+> map_bus() while the link is up, then schedule a worker on another CPU
+> to set PCI_EXP_LNKCTL_LD. Synchronize the CPUs immediately before the
+> Link Disable DBI write, then perform readl() using the address returned
+> by map_bus() concurrently with the link transition.
+>
+> Without this change, the overlapping configuration read results in an
+> asynchronous SError and kernel panic. With this change, the same test
+> returns 0xffffffff from the configuration read. In this test, AER
+> reports a non-fatal Completion Timeout, and no SError or kernel panic
+> occurs.
+>
+> This effectively reverts the error response behavior introduced by
+> commit 84d897d69938
+> ("PCI: layerscape: Change default error response behavior").
 
-On 9/30/26 16:15, Ben Horgan wrote:
-> Hi Andre,
-> 
-> On 24/09/2026 16:27, Andre Przywara wrote:
->> The Arm MPAM-Fb specification [1] describes a protocol to access MSC
->> registers through a firmware interface. This requires a shared memory
->> region to hold the message, and a mailbox to trigger the access.
->> For ACPI this is wrapped as a PCC channel, described using existing
->> ACPI abstractions.
->>
->> Add code to parse those PCC table descriptions associated with an MSC,
->> and store the parsed information in the MSC struct.
->> There can be multiple PCC channels, and each channel can serve multiple
->> MSCs, so we need to keep track of the channel usage, using a list and
->> a refcount.
->>
->> This will be used by the MPAM-Fb access wrapper code.
->>
->> [1] https://developer.arm.com/documentation/den0144/latest
->>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> Tested-by: Ritwick Sharma <ritwick.sharma@arm.com> # on Arm AGI CPU
->> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->> Tested-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
->> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
->> Reviewed-by: Gavin Shan <gshan@redhat.com>
->> ---
->>   drivers/resctrl/Kconfig         |   1 +
->>   drivers/resctrl/mpam_devices.c  | 119 +++++++++++++++++++++++++++++++-
->>   drivers/resctrl/mpam_fb.c       |  41 +++++++++++
->>   drivers/resctrl/mpam_internal.h |   2 +
->>   4 files changed, 161 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
->> index 9591d792736e5..f5ff9b1f6c48e 100644
->> --- a/drivers/resctrl/Kconfig
->> +++ b/drivers/resctrl/Kconfig
->> @@ -2,6 +2,7 @@ menuconfig ARM64_MPAM_DRIVER
->>   	bool "MPAM driver"
->>   	depends on ARM64 && ARM64_MPAM
->>   	select ACPI_MPAM if ACPI
->> +	select PCC if ACPI
->>   	select MAILBOX
->>   	help
->>   	  Memory System Resource Partitioning and Monitoring (MPAM) driver for
->> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
->> index ce20dc44d5d40..ca7e0fe75f24f 100644
->> --- a/drivers/resctrl/mpam_devices.c
->> +++ b/drivers/resctrl/mpam_devices.c
->> @@ -20,14 +20,19 @@
->>   #include <linux/irqdesc.h>
->>   #include <linux/list.h>
->>   #include <linux/lockdep.h>
->> +#include <linux/mailbox_client.h>
->>   #include <linux/mutex.h>
->>   #include <linux/platform_device.h>
->>   #include <linux/printk.h>
->> +#include <linux/property.h>
->>   #include <linux/srcu.h>
->>   #include <linux/spinlock.h>
->>   #include <linux/types.h>
->>   #include <linux/workqueue.h>
->>   
->> +#include <acpi/pcc.h>
->> +#include <acpi/acpi_io.h>
->> +
->>   #include "mpam_internal.h"
->>   
->>   /* Values for the T241 errata workaround */
->> @@ -50,6 +55,87 @@ static LIST_HEAD(mpam_all_msc);
->>   
->>   struct srcu_struct mpam_srcu;
->>   
->> +/* PCC channels might be serving multiple MSCs, so keep a refcounted list. */
->> +static DEFINE_MUTEX(pcc_chan_list_lock);
->> +static LIST_HEAD(pcc_chan_list);
->> +
->> +static void mpam_pcc_chan_release(struct kref *ref)
->> +{
->> +	struct mpam_pcc_chan *cur = container_of(ref, struct mpam_pcc_chan,
->> +						 refcount);
->> +
->> +	pcc_mbox_free_channel(cur->pcc_chan);
->> +	list_del(&cur->pcc_chans);
->> +	mutex_destroy(&cur->pcc_chan_lock);
->> +	kfree(cur);
->> +}
->> +
->> +static struct mpam_pcc_chan *mpam_pcc_chan_get(struct device *dev,
->> +					       int subspace_id)
->> +{
->> +	struct mpam_pcc_chan *cur;
->> +
->> +	guard(mutex)(&pcc_chan_list_lock);
->> +
->> +	list_for_each_entry(cur, &pcc_chan_list, pcc_chans) {
->> +		if (cur->subspace_id == subspace_id) {
->> +			kref_get(&cur->refcount);
->> +
->> +			return cur;
->> +		}
->> +	}
->> +
->> +	cur = kzalloc_obj(*cur);
->> +	if (!cur)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	cur->pcc_cl.tx_block = true;
->> +
->> +	cur->pcc_chan = pcc_mbox_request_channel(&cur->pcc_cl, subspace_id);
->> +	if (IS_ERR(cur->pcc_chan)) {
->> +		long err = PTR_ERR(cur->pcc_chan);
->> +
->> +		kfree(cur);
->> +		return ERR_PTR(err);
->> +	}
->> +
->> +	/*
->> +	 * Timeout based on the "nominal latency" in us, from the
->> +	 * PCC ACPI table. tx_tout is in ms.
->> +	 * Add some margin here to be on the safe side.
->> +	 */
->> +	cur->pcc_cl.tx_tout = DIV_ROUND_UP(cur->pcc_chan->latency * 5, 1000);
->> +
->> +	mutex_init(&cur->pcc_chan_lock);
->> +
->> +	cur->subspace_id = subspace_id;
->> +	kref_init(&cur->refcount);
->> +
->> +	list_add_tail(&cur->pcc_chans, &pcc_chan_list);
->> +
->> +	return cur;
->> +}
->> +
->> +static int mpam_pcc_chan_put(struct mpam_pcc_chan *pcc_chan)
->> +{
->> +	struct mpam_pcc_chan *cur, *tmp;
->> +
->> +	if (!pcc_chan)
->> +		return 0;
->> +
->> +	guard(mutex)(&pcc_chan_list_lock);
->> +
->> +	list_for_each_entry_safe(cur, tmp, &pcc_chan_list, pcc_chans) {
->> +		if (cur == pcc_chan) {
->> +			kref_put(&cur->refcount, mpam_pcc_chan_release);
->> +
->> +			return 0;
->> +		}
->> +	}
->> +
->> +	return -ENOENT;
->> +}
->> +
->>   /*
->>    * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
->>    * can be enabled.
->> @@ -2272,6 +2358,8 @@ static void mpam_msc_destroy(struct mpam_msc *msc)
->>   	list_for_each_entry_safe(ris, tmp, &msc->ris, msc_list)
->>   		mpam_ris_destroy(ris);
->>   
->> +	mpam_pcc_chan_put(msc->pcc_chan);
->> +
-> 
-> Last one from Sashiko [1] and I haven't spotted anything else either in the patches or from giving
-> it a go on the arm agi cpu. :)
-> 
-> Does the mpam_pcc_chan_put() need to go after the list_del_rcu() and wait for a srcu synchronization
-> to avioid a race between iterating through the list while acessing the msc and tearing down the channel.
+Subject should be revert ...
 
-I wonder if we can really do any MPAM-Fb requests after mpam_disable() 
-has been called, because that function first thing clears the static branch.
+I am not sure what's expect behavior by other dwc PCI controller. returns
+0xfffffffff or report bus error.
 
-But regardless, I swapped mpam_pcc_chan_put() and list_del_rcu(), and 
-also added a synchronize_rcu() call inbetween. Not sure how far we want 
-to go here, though, seems like a very pathological case to me?
+Frank
 
-Cheers,
-Andre
-
-> 
->>   	list_del_rcu(&msc->all_msc_list);
->>   	platform_set_drvdata(pdev, NULL);
->>   
->> @@ -2295,7 +2383,7 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
->>   static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->>   {
->>   	int err;
->> -	u32 tmp;
->> +	u32 pcc_subspace_id;
->>   	struct mpam_msc *msc;
->>   	struct resource *msc_res;
->>   	struct device *dev = &pdev->dev;
->> @@ -2339,7 +2427,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->>   	if (err)
->>   		return ERR_PTR(err);
->>   
->> -	if (device_property_read_u32(&pdev->dev, "pcc-channel", &tmp))
->> +	if (device_property_read_u32(dev, "pcc-channel", &pcc_subspace_id))
->>   		msc->iface = MPAM_IFACE_MMIO;
->>   	else
->>   		msc->iface = MPAM_IFACE_PCC;
->> @@ -2360,6 +2448,33 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->>   		}
->>   		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
->>   		msc->mapped_hwpage = io;
->> +	} else if (msc->iface == MPAM_IFACE_PCC) {
->> +		u32 mpam_fb_msc_id;
->> +
->> +		msc->pcc_chan = mpam_pcc_chan_get(dev, pcc_subspace_id);
->> +		if (IS_ERR(msc->pcc_chan)) {
->> +			pr_err("Failed to request MSC PCC channel\n");
->> +			return ERR_CAST(msc->pcc_chan);
->> +		}
->> +
->> +		err = mpam_fb_check_shared_buffer_size(msc);
->> +		if (err) {
->> +			mpam_pcc_chan_put(msc->pcc_chan);
->> +
->> +			return ERR_PTR(err);
->> +		}
->> +
->> +		err = mpam_fb_check_protocol_version(msc);
->> +		if (err) {
->> +			mpam_pcc_chan_put(msc->pcc_chan);
->> +
->> +			return ERR_PTR(err);
->> +		}
->> +
->> +		if (device_property_read_u32(&pdev->dev, "mpam-fb-msc-id",
->> +					     &mpam_fb_msc_id))
->> +			mpam_fb_msc_id = msc->id;
->> +		msc->fb_id = mpam_fb_msc_id;
->>   	} else {
->>   		return ERR_PTR(-EINVAL);
->>   	}
->> diff --git a/drivers/resctrl/mpam_fb.c b/drivers/resctrl/mpam_fb.c
->> index 8298fcedd2be7..d90888944abbd 100644
->> --- a/drivers/resctrl/mpam_fb.c
->> +++ b/drivers/resctrl/mpam_fb.c
->> @@ -20,10 +20,15 @@
->>   #define MPAM_FB_PROTOCOL_ID		0x1a
->>   
->>   #define MPAM_PROTOCOL_VERSION_CMD	0x0
->> +#define MPAM_FB_VERSION_MAJOR_MASK		GENMASK_U32(31, 16)
->> +#define MPAM_FB_VERSION_MINOR_MASK		GENMASK_U32(15, 0)
->> +
->>   #define MPAM_MSC_READ_CMD		0x4
->>   #define MPAM_MSC_WRITE_CMD		0x5
->>   
->>   #define MPAM_FB_PROT_HEADER_LEN		sizeof(u32)
->> +/* The longest message is MPAM_MSC_WRITE, with 4 parameters. */
->> +#define MPAM_FB_MAX_MSG_SIZE		(4 * sizeof(u32))
->>   
->>   #define MPAM_FB_SUCCESS		 0
->>   #define MPAM_FB_ERR_NOT_SUPPORTED	-1
->> @@ -210,3 +215,39 @@ int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value)
->>   	return mpam_fb_send_request(msc, msc->fb_id, reg, &value,
->>   				    MPAM_MSC_WRITE_CMD);
->>   }
->> +
->> +/* We only support MPAM-Fb protocol version 1.x */
->> +int mpam_fb_check_protocol_version(struct mpam_msc *msc)
->> +{
->> +	u32 version;
->> +	int ret;
->> +
->> +	ret = mpam_fb_send_request(msc, 0, 0, &version,
->> +				   MPAM_PROTOCOL_VERSION_CMD);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version) != 1) {
->> +		pr_err("Incompatible MPAM-Fb protocol version %d.%d\n",
->> +		       FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version),
->> +		       FIELD_GET(MPAM_FB_VERSION_MINOR_MASK, version));
->> +
->> +		return -EINVAL;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc)
->> +{
->> +	int min_buffer_size = MPAM_FB_MAX_MSG_SIZE +
->> +			      sizeof(struct acpi_pcct_ext_pcc_shared_memory);
->> +
->> +	if (msc->pcc_chan->pcc_chan->shmem_size < min_buffer_size) {
->> +		pr_err("MPAM-Fb PCC channel size too small.\n");
->> +
->> +		return -ENOMEM;
->> +	}
->> +
->> +	return 0;
->> +}
->> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
->> index 99057d6abee1e..ee7c3953a9b6c 100644
->> --- a/drivers/resctrl/mpam_internal.h
->> +++ b/drivers/resctrl/mpam_internal.h
->> @@ -538,6 +538,8 @@ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
->>   /* MPAM-Fb Firmware-backed protocol wrappers */
->>   int mpam_fb_send_read_request(struct mpam_msc *msc, u16 reg, u32 *result);
->>   int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value);
->> +int mpam_fb_check_protocol_version(struct mpam_msc *msc);
->> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
->>   
->>   /*
->>    * MPAM MSCs have the following register layout. See:
-> 
-
+>
+> Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+> ---
+>  drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
+>  1 file changed, 12 deletions(-)
+>
+> diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
+> index 14d6ac4fc53f..d333f1ae8a41 100644
+> --- a/drivers/pci/controller/dwc/pci-layerscape.c
+> +++ b/drivers/pci/controller/dwc/pci-layerscape.c
+> @@ -28,8 +28,6 @@
+>
+>  /* PEX Internal Configuration Registers */
+>  #define PCIE_STRFMR1           0x71c /* Symbol Timer & Filter Mask Register1 */
+> -#define PCIE_ABSERR            0x8d0 /* Bridge Slave Error Response Register */
+> -#define PCIE_ABSERR_SETTING    0x9401 /* Forward error of non-posted request */
+>
+>  /* PF Message Command Register */
+>  #define LS_PCIE_PF_MCR         0x2c
+> @@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
+>         iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
+>  }
+>
+> -/* Forward error response of outbound non-posted requests */
+> -static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
+> -{
+> -       struct dw_pcie *pci = pcie->pci;
+> -
+> -       iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
+> -}
+> -
+>  static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
+>  {
+>         if (pcie->big_endian)
+> @@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
+>         struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+>         struct ls_pcie *pcie = to_ls_pcie(pci);
+>
+> -       ls_pcie_fix_error_response(pcie);
+> -
+>         dw_pcie_dbi_ro_wr_en(pci);
+>         ls_pcie_clear_multifunction(pcie);
+>         dw_pcie_dbi_ro_wr_dis(pci);
+> --
+> 2.43.0
+>
+>
