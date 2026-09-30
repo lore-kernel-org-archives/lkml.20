@@ -1,157 +1,261 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-137.mta1.migadu.com [95.215.58.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF774BF947
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CFA498922
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766696; cv=none; b=fIHdi2fVU5A5YzTfunGFu3bv0RgSzR8ZwlcbWRiAyqPmDmOvNjVsdog4TlPTtf2hdLqM/ySF6hUtXMOIwroxgn+I/7uiZubI0Rzl9zPeiSAs96q6/r0SMnK83pRJUfftkLt3h2USpvBzvhGtV/AbyP2AomseInFECn8649i6Ohg=
+	t=1790766726; cv=none; b=DHL0PdgjwPRmc8clE34DPETaj2VZEacWgmBM3Qb3Ao8HwS2w4i6p/GA786bOMwsmsDQltWlE/ewHSshUy9ofJiOcWYRNvrSpEVdfM07N7OkGIWSDWqDTPguolzh3HRqu9KPkz0z59xIoORQ7mprGbj3SN4z5+xtDDgakAcXYMZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766696; c=relaxed/simple;
-	bh=XfAUpWIB5pFLDFRK6D7anzO+YIDlxesyQMaNA6+Mucc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dLcAabopIsJpbDvQGLBsywffD2dNFwB8QLHyVQK6Pz3O1nOMIflft1xW+pUhWhHEyELOjOFq2IWKycVBiPr1WS/sHX3gkFDeRBhQZWl5IcjM5MDIlvq2KseXHeGMi+DhB66ELvtruyGysNeF8rIONLuceOcD4xQefM2B1ohidrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lLkwqktB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bCQ0+kng; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790766726; c=relaxed/simple;
+	bh=sQXlo+ttkX3rsFF/+duoz9qqV2dVYCVBWBpWC91yIf8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=gAPJGnNJ0G9Rd16TMGh7f6ubcHF9JjwShMKfGr8lfjgNuyobIAQZYfTt+5qIsrpMjdCjo8ibB4znGqrKUNyvtHyX5QE7/H2LdW6vsIl+5jTl7kkBiaYQUQLEo2sBv2oaG+TbxjlOJvqXkZNRFWJeqQ3s20HVrPkTfS33LDZo5nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XNkyp1M5; arc=none smtp.client-ip=95.215.58.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lLkwqktB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bCQ0+kng"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB7JPJ225892
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:11:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pvmbI9rgvTTA/cwhiqUJrtUvaPKNUBBZFDt5+C+0sSU=; b=lLkwqktBl6bGiQbo
-	h5dL9QQtCebhNsajnpPsHsODUeW5cfr6ntMO5C23PySDliaygC6WqJfMqXrVXsoS
-	/oIB8Wi/p65eyENGVoyjmHlVBz3wvxBMDpVPA83NgsxM9WjFoBVjCw05Vs+gQdKz
-	aE7mj9UfBkuT2KiHmHNeKaLNuRw63725lbIdCGuozD4AtZ8278uLyINuyl7q1LCw
-	GkspzAtkHzSAQ5w4H+1U9fNXgKX4I//BuaVyrD6WfliFaN8+SrEy1hm8uKEQIdWj
-	jMDITwFlQWyFr5Gpwo8fGsAEcg36mx7Ff4lUXGuFHybLJBKAPgiQpKmUJo4p5SAL
-	rIqd9A==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0yh80gtr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:11:33 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-532ecee0d5cso6177801cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:11:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790766693; x=1791371493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pvmbI9rgvTTA/cwhiqUJrtUvaPKNUBBZFDt5+C+0sSU=;
-        b=bCQ0+kngQExOA/9fP1th8eGyjyl8wROiXg5pYefbCUyT6R+j8an1c1Ka5XY+iKR4LV
-         LuZwF3MGT0UpEI3Yq1bOihbO0OVid1WyOQiYs1iTBPvcBIuSMKehyIT4a1sHBiowEDvy
-         ExdSjOyR13kscfqTtV8IVR3RhoUYgdwF7HA9kUJ8m65AdIPBjxBqgjWPB3ht8OiZyx6s
-         ERORJ3/yof15t+67M4gZuNgp+HSp9nZrnXP/GAggdtdBGmSUFxTBhLMit068kbeerKwt
-         wmjHMiaeR/ilGff4A7slseORtsG2szfNQL9hni0EIkMqsDQZ3Y5dutYyhyY6ouqUy+HN
-         ls3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790766693; x=1791371493;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pvmbI9rgvTTA/cwhiqUJrtUvaPKNUBBZFDt5+C+0sSU=;
-        b=KcUbXQy9fv0chPwpWF4zya3YBFvfTRj+i9hHjngp37/zmLGhT6h/xn3lLHhk8lggF/
-         4SaU6aAu20hJcLUy7r44qTsgxNGgiX3gciPlSGyP8kA/MvW5M2F4pOkTJm+4I3jkSYLa
-         OYt2Iw0VcbX+yXT7Qsj+TstNXOtTH+TRYw44XlI74s+GZqoWGXEwROM3YxpulxRTc6bO
-         oqudCBajY84Y571knqqP6WynYamN5XHoZhbM59dpIGk6hWnBPRjs5+a7Yq5qU4zfA+GH
-         WEId6xZhgcIqIKxAkVfAePE7OBtjQqlYPkSz1/xKl+ewpkZjx6uIQQO9kB8BPLZoo+Y8
-         3D7w==
-X-Forwarded-Encrypted: i=1; AKwUvByTWFYOlHnTlCQo5rgp7epr0kCHzCtcWHXKDqe2pJdS7rt9L24/usy2oLSxVH+OduXXPvaPxClAoLqaFOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvwFVl//UIgR5JqCN6ePswCMxbDhIvxyG+4LMwb9xkzi05LqxK
-	zKfL6S4O8bI1UCOtX26XCkkIkRQNFa7uUqjHuqoJZzNDO01TkXJUpAMiFEUoFes2fwMuKg2Yvti
-	NAju5w3AgY9abrnv7cAcoMWC5K8BwE+n0DRU5mVpXG7NIZ+We0SccMNu5Gc07nfTXkBI=
-X-Gm-Gg: AYBFou277jkpoRmyIlUleXstLtLyOGmS0H6ZefLj0ojgtRFUei+1b+P8o/BQ3wvl4WJ
-	wdmUYMNOEJ84AGwHvkQNlLr2+AB90eUtf1BSSNPpsd5WI8GWT+ldWP7BO4WFUOQrCR/IXIvOpf4
-	CavE2zURetzzG+f4YurSKnPV2HTJ7nCWfWqDRzmZpWrbuka7npLNrEpOhrpcZOqSG5McosvzUaY
-	6oR+oq7UO0OlNcHKYCAr3soT+w8Qdnoi5QpCJ6jvQ+rPDrC1PnJnjL6D7M8oGuAeHdHgWVz8iLU
-	tU5sK80sPy96Lqszk5sn+mH6lxeXOuzOA47rI5+5KkIsUQLen9kJKrvJMfPbqRp4IvpwgHn1OV1
-	hxiveC4wi/0wECq7qcsXuIQ==
-X-Received: by 2002:a05:620a:700a:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ca97d148cmr150770385a.6.1790766692872;
-        Wed, 30 Sep 2026 04:11:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:700a:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ca97d148cmr150763985a.6.1790766692337;
-        Wed, 30 Sep 2026 04:11:32 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f803b3sm49118666b.46.2026.09.30.04.11.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 04:11:31 -0700 (PDT)
-Message-ID: <c61cfe2e-56f9-4b82-a9d2-a2f5dd7bb45d@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 13:11:27 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XNkyp1M5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sQXlo+ttkX3rsFF/+duoz9qqV2dVYCVBWBpWC91yIf8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790766718; v=1; x=1791371518;
+ b=XNkyp1M5k18XTsctUQAfN1VTrqKrnLIO4zb+bTWVxNSiLkr3rEid5M42A57KenHF4HMknEMH
+ ToE9G7G7q/4jAV/ihpHF06aKsjh54cHlPkW77c8f4v3rDk1wTK6qDrBFFrvguKYZlRaApeMXn6H
+ ttuBmGUyq8gX0tocN9OOavzE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 7bc8601425e44f03;
+	Wed, 30 Sep 2026 11:11:58 +0000
+X-Mizu-Trace-ID: 7bc8601425e44f03
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 14/15] arm64: dts: qcom: maili-mtp: Enable S5KJN5
- camera for Maili MTP
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <20260923-hawi-maili-camss-v1-14-cbbb42e534ef@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260923-hawi-maili-camss-v1-14-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NCBTYWx0ZWRfX74bBHsu5PDR5
- TjNNDNa6pwRmWfR+WzJH+S3+X6X1j7rcLJQOh2qhdifNLM/CnxI7QSP4zgVfIAO27PRIwYBnjKw
- nJV2CFrvKF3ZJtXD9jtWB/WtFSh+M31L/dNq0ifaxsttsXh7C2YBZeSRY2PgXHiCd7wR3h5TwXa
- pIdmSm8Nms4FsInCmuG36ez5kxSGLZiNG2x9tiRg++KVwEmAyeqvS5aPeUMGyxFp+kLOlHubgEY
- W+ZlKRUrRPqmnEdEyxQiqfTchP7/oiENYYOqzhCY9Mx/G08pxzEsXK/s/N4tGFiU3ffHUb62xPt
- bNUJnCMSeuvnb3H2ZyBV8Nm4xhHpy0qe0nDJ1H46G22GZQggu6a0G1mYGRqa1/Pc4tII8nyT6pC
- Qk83TrjrcpsFnwpu1BidEogzz4HxWkCfYnHbdBL/8ILgtD95nEoZWB4Oj97+lVQ6kj8QcXsWBHj
- /LCgiyUh06n+iaUflAQ==
-X-Proofpoint-ORIG-GUID: bB8TNbFdp1l3Qxr9bQcitYjhQhXHbazo
-X-Authority-Analysis: v=2.4 cv=NedzRGD4 c=1 sm=1 tr=0 ts=6abcee65 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=lfXJP-rXcfLZvGY9UOkA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: bB8TNbFdp1l3Qxr9bQcitYjhQhXHbazo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NCBTYWx0ZWRfX5TD614SwcbsZ
- 1NPgMbCT1UYXoYxMZFt41xFLZyN1g87EFUANV4Xrg6wuNn9SwLiDiqhymMfOvleD/kp31NRIGUv
- K85hRRZ9LAdJTWzD96pgPDswN2pwG84=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 bulkscore=0 spamscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300044
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3 2/6] mm/sparse-vmemmap: support device DAX in common
+ vmemmap path
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260930085329.17337-1-lance.yang@linux.dev>
+Date: Wed, 30 Sep 2026 19:11:45 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ maddy@linux.ibm.com,
+ rppt@kernel.org,
+ akpm@linux-foundation.org,
+ david@kernel.org,
+ mpe@ellerman.id.au,
+ npiggin@gmail.com,
+ chleroy@kernel.org,
+ ritesh.list@gmail.com,
+ sshegde@linux.ibm.com,
+ ljs@kernel.org,
+ liam@infradead.org,
+ vbabka@kernel.org,
+ surenb@google.com,
+ mhocko@suse.com,
+ qi.zheng@linux.dev,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <62E3517E-517D-4C23-A04A-F5BEB0A84C60@linux.dev>
+References: <20260929053231.66085-3-songmuchun@bytedance.com>
+ <20260930085329.17337-1-lance.yang@linux.dev>
+To: Lance Yang <lance.yang@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-On 9/23/26 1:02 PM, Nihal Kumar Gupta wrote:
-> Qualcomm Maili MTP carries a Samsung S5KJN5 rear camera sensor on
-> QUP I2C9, connected to CSIPHY2 via 4-lane CSI-2 D-PHY.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Konrad
+> On Sep 30, 2026, at 16:53, Lance Yang <lance.yang@linux.dev> wrote:
+>=20
+>=20
+> On Tue, Sep 29, 2026 at 01:32:27PM +0800, Muchun Song wrote:
+>> The common vmemmap population path cannot yet handle optimized Device =
+DAX
+>> mappings on its own. It uses pfn_to_zone() to find the shared tail =
+page,
+>> but Device DAX populates its vmemmap at runtime before the =
+ZONE_DEVICE span
+>> is initialized.
+>>=20
+>> Teach the common path to use device_zone() for runtime optimized =
+vmemmap
+>> population while retaining pfn_to_zone() for early boot. This allows =
+the
+>> same path to support both early boot mappings and Device DAX.
+>>=20
+>> The backing PFN supplied by the Device DAX-specific population path =
+is no
+>> longer used, allowing the redundant lookup and population code to be
+>> removed later.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>> ---
+>> v3:
+>> - Collect Acked-by from Qi Zheng
+>>=20
+>> v2:
+>> - Expand comments around slab initialization to explain zone lookup =
+and
+>> page refcounting (suggested by Qi Zheng)
+>> ---
+>> mm/sparse-vmemmap.c | 64 =
++++++++++++++++++++++++++--------------------
+>> 1 file changed, 35 insertions(+), 29 deletions(-)
+>>=20
+>> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+>> index 8219abc6c3e5..ee4c113ca938 100644
+>> --- a/mm/sparse-vmemmap.c
+>> +++ b/mm/sparse-vmemmap.c
+>> @@ -237,18 +237,43 @@ static __meminit void =
+*vmemmap_alloc_pte(unsigned long pfn, int node,
+>> struct page *page;
+>> const unsigned int order =3D pfn_to_section_compound_order(pfn);
+>>=20
+>> - /*
+>> -  * Device DAX still relies on vmemmap_populate_compound_pages() for
+>> -  * head/first-tail allocation and tail-page reuse.
+>> -  */
+>> if (!vmemmap_optimizable_pfn(pfn))
+>> return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
+>>=20
+>> - zone =3D pfn_to_zone(pfn, node);
+>> + /*
+>> +  * Before slab is available, vmemmap optimization is used for early
+>> +  * system RAM, whose zone can be determined from the PFN.
+>> +  *
+>> +  * Once slab is available, only ZONE_DEVICE memory reaches this
+>> +  * optimized population path. Its zone span has not been =
+initialized
+>> +  * while its vmemmap is being populated, so pfn_to_zone() cannot be
+>> +  * used. Obtain ZONE_DEVICE directly from the node instead.
+>> +  */
+>> + zone =3D slab_is_available() ? device_zone(node) : pfn_to_zone(pfn, =
+node);
+>> page =3D vmemmap_shared_tail_page(order, zone);
+>> if (!page)
+>> return NULL;
+>>=20
+>> + /*
+>> +  * During early vmemmap population, the shared tail vmemmap backing
+>> +  * page is allocated from memblock before its struct page can =
+safely
+>> +  * participate in page refcounting. Therefore, no reference can be
+>> +  * held for each shared PTE mapping, and the mappings must be =
+unshared
+>> +  * before the vmemmap is depopulated.
+>> +  *
+>> +  * Once slab is available, the shared backing page is allocated =
+from
+>> +  * the buddy allocator and can be refcounted. Hold one reference =
+for
+>> +  * each shared PTE mapping. The architecture vmemmap teardown drops
+>> +  * the reference through __free_pages() when removing the mapping,
+>> +  * preventing the backing page from being freed while it is shared.
+>> +  *
+>> +  * The backing page may be shared by enough PTE mappings to exhaust
+>> +  * the positive range of its reference count. Stop populating the
+>> +  * vmemmap if another reference cannot be acquired.
+>> +  */
+>> + if (slab_is_available() && !try_get_page(page))
+>> + return NULL;
+>=20
+> BTW, shouldn't __add_pages() undo the earlier sections on a population
+> failure? Say the first section is added successfully, but populating =
+the
+> next one fails, e.g. due to an allocation failure:
+>=20
+> void *memremap_pages(struct dev_pagemap *pgmap, int nid)
+> {
+> 	...
+> 	const int nr_range =3D pgmap->nr_range;
+> 	int error, i;
+> 	...
+> 	pgmap->nr_range =3D 0;
+> 	error =3D 0;
+> 	for (i =3D 0; i < nr_range; i++) {
+> 		error =3D pagemap_range(pgmap, &params, i, nid);
+> 		if (error)
+> 			break;
+> 		pgmap->nr_range++;
+> 	}
+>=20
+> 	if (i < nr_range) {
+> 		memunmap_pages(pgmap);
+> 		pgmap->nr_range =3D nr_range;
+> 		return ERR_PTR(error);
+> 	}
+> ...
+> }
+>=20
+> We still need to undo the sections already added in the failed range,
+> though ... memunmap_pages() won't touch those, since it only removes
+> completed ranges.
+>=20
+> If the range starts at a section boundary, we'd hit -EEXIST in
+> fill_subsection_map() on retry while those subsection bits are still =
+set.
+>=20
+> The old DAX path had this issue too. Could we roll back [start_pfn, =
+pfn)
+> in __add_pages() as a separate fix? Something like this:
+>=20
+> ---8<---
+> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+> index 796af1028ee2..16a0a2c885bc 100644
+> --- a/mm/memory_hotplug.c
+> +++ b/mm/memory_hotplug.c
+> @@ -380,6 +380,7 @@ EXPORT_SYMBOL_GPL(pfn_to_online_page);
+> int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
+> struct mhp_params *params)
+> {
+> + 	const unsigned long start_pfn =3D pfn;
+> 	const unsigned long end_pfn =3D pfn + nr_pages;
+> 	unsigned long cur_nr_pages;
+> 	int err;
+> @@ -417,6 +418,10 @@ int __add_pages(int nid, unsigned long pfn, =
+unsigned long nr_pages,
+> 			break;
+> 		cond_resched();
+> }
+> +
+> + 	/* Roll back the sections added before the failure. */
+> + 	if (err && pfn !=3D start_pfn)
+> + 		__remove_pages(start_pfn, pfn - start_pfn, altmap, =
+params->pgmap);
+> 	vmemmap_populate_print_last();
+> 	return err;
+> }
+> --
+>=20
+> Hope I haven't missed anything :)
+
+Good catch. This is indeed a pre-existing issue, and the old DAX path =
+was
+affected as well.
+
+Your proposed fix looks correct to me. I would slightly prefer keeping =
+the
+rollback close to the failure:
+
+           err =3D sparse_add_section(nid, pfn, cur_nr_pages, altmap,
+                                    params->pgmap);
+           if (err) {
+                   __remove_pages(start_pfn, pfn - start_pfn, altmap,
+                                  params->pgmap);
+                   break;
+           }
+
+If the first section fails, this simply calls __remove_pages() with an
+empty range, which is a harmless no-op.
+
+Would you mind sending this as a separate bug fix? I will ACK it.
+
+Thanks,
+Muchun
+
