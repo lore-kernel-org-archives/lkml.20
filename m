@@ -1,121 +1,253 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260EB33F8B4;
-	Wed, 30 Sep 2026 13:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4944E4C3A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775983; cv=none; b=RTvX+oVbOQtNLxstVWTueYM52azwQOzu6FgM1ul3wSNAzHnhj0vgb0p9cJI4+EjHfndc2UWAksel7bfpWO60kxA/Tr4K4p+yThXk9MvrBzn8exnVuSLeMUuLabqvxlL61bQdQL5zkLSZGIcCgPLzpOVio1swA+kidiBwwRBf/PY=
+	t=1790775986; cv=none; b=HXhGkgOdfjV7vfILDxan5IlAbkO6KboNTy05gRD40tvJdzF6xxdeADlQdQzCV58BqMoPzYtXqlGjBVHjXRGW0kvTNGyIP5gxKE+v1t3cng9CGeAel2LimK7a591d1HtAj1tfOHrq0JaloCO1tKkR8vyVLCOtR64zm9VpdhoTnyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775983; c=relaxed/simple;
-	bh=epNHelTZVSZSvs2fPNH8I4eO5i5YMSV+CgRGIDkbEn8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GQBjkOXzZYB7IXfPf1d9p+gRJMy4XxzLP/tiMOJlfa80R+eXAUOBJmmsV5TsdcxzCBzqgh+HMUJjGq/hHo5kA0Lhj0QV8YyhrkpQrvk/kMgqFZJ5cqGE4b7PMEET04VhSGw/LqZwr8disAI0b3HZY51AUjD2DF1jYzO6+B0nGJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Q3X1NAyR; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790775986; c=relaxed/simple;
+	bh=7Nh6EI3LZQzPWseqkE8KELp9TSy2sy0wDOC/Rv8pmcU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=KHkSYm8bcdbAA3CBYDUM/OtfqGJJPUooX41DFH9BiCMOwac9WaCLO4pbcdlaCdMZVzSRd5AJe1muiMHZB/55zB+zECXGxAfg6/fpb+rnc3ZbM0rijCBM1YHUZQQxGN+TUuY0+MQ/1Kvk0FnMHKZt0cMoW0kY3FQVkedqYfY88Xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Xcxcl+U5; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Q3X1NAyR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=8FZpJW8azcIqyAgDEfkF38jSbt45RdWYeoaHY3qpYak=; b=Q3X1NAyRPu/xGn3ZzBGxYOiJCS
-	JQrFeG3G+CjytKqh3snA120Bu+4Gt8MN3pOMt2Uk4D/Ua2n/UHi7jU6CCJz6CpVU73R/OMgCWJqM3
-	kuSxkw+DLO0znS9ay2f2OzIldah2ViLf9NEY3vG/BQ0Jnvp60CeKP3yX0Y7XoJB883NP8MNQ237+7
-	p4eO4ium648eP5PfzZCdZ7hzl4J24iece3Z/XcanLJT4g1Ns7jqCBB0eVVed3EgDGSuAQYoML0Yca
-	SsNmIR74knvRhNAjKo8ABlGsZsXSyw47llbj1P/+5ER6tQD18rptIGyLYbtGWHo0/X+C0KUhPRbYt
-	J6M+o8FQ==;
-Received: from [151.115.150.205] (port=43012 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xBudQ-00000004L9e-2Ic9;
-	Wed, 30 Sep 2026 15:46:10 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: tytso@mit.edu
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	ritesh.list@gmail.com,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@kernel.org
-Subject: [PATCH] ext4: save converted extent before merging
-Date: Wed, 30 Sep 2026 13:45:17 +0000
-Message-ID: <20260930134516.397754-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Xcxcl+U5"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aff58e6abso513411f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790775972; x=1791380772; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CHcqKszk+BLOaoNOEO2+3FAWySZdw8cPx3mMZwkgNqk=;
+        b=Xcxcl+U5qcQRd2VbgTjtIVucE+ieNBGFJZ9WdLE9FW7ei8D0EbEtjYvw84vATDRq9f
+         97luY2pQNaAAWWtrpNAAPXOWwbMszSpp1qjjd/dux8YnBEVDzjzQY7KOy/HyVfuVdIdx
+         qUgb1+ARuM0k2IvbTKc79HYY1v2OedsYiOxqxEPVJC2U0eQF95hDfdGU/s2Js38E5yTN
+         58CDuo2uLDfvL1KbOj8kFUCFHaToum1c6ZouxpoW/Jne3/n9pxaNu8kVBZ060WDR5BUf
+         oXmr8vWIT0amR9kxBDNzoacOPGgwn0jee+vxn6k7Y+4DsrXKXTMoIoGKEEvUnl1FOkiT
+         xRzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790775972; x=1791380772;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CHcqKszk+BLOaoNOEO2+3FAWySZdw8cPx3mMZwkgNqk=;
+        b=opBOb1ZVY+N5fr1YORbY/U920Sn3Oibb7L5PdcSbL4zp46prUzRFn2p0+4t3Nrw6xF
+         FGp0Il7KyPvhln6HlsRzeQCwC8ftLg4b5mKVxYfueDZiGVqDArMKwGIU4M53BCsb9xKo
+         X+WMMPKbyPbyBbXOFggIsa8zLkcdo70/id5hZ2pGG97UtHmo/BIYcVN2h8k5kIMbYycq
+         tH4D3gAmdPzsssf3b8NJnaDYybZ2HF+D51GmAsAjEetEaocvAPUvkarFCkGsO7J+uUSt
+         Kp6acC77O5Jyz98iL7+2k3yaAuZuRkrLM7tCE/xnN35UscGJt7N9zXMN/NBCFDaUgeiu
+         XJ9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw5hJo2r3fVFONB7xNh/zb/07EpcAUHLpBNbOzdxgqoveATouJEZtsN2CE/zB7xjS+dwKIgncdk7ZH7VdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGJsfYbvWk5fhwBVbDjGK4EQ9G5qKplZCoy6UDS09w5USdb7+s
+	qUM2nKKvji5IGVyYYmji3vmRha7T4lmh8UcDqIOsA6rfq6cKUwZR+u6q78erm7g2kHQ=
+X-Gm-Gg: AYBFou1vS+0owFnayInTIUCL9v35QXKyh46GMCjZbidkHC23gLG+ohOoIO+mg0v2WMR
+	zJKvp2Wv3HUe6aTJXbSopoRd6vtb6AOYmgl1nmUMa+D5Lis8ls1E9La3tDx0pTb57Q3r0Qe26q5
+	b39wZzTdtitTS8x/xYgH+LHm/SfYqdI+qaEqpyVimxn776ZFzWNLQgGWJD/53Rc/VF7HLfYRIdb
+	0XK4x3R4rqTJgsd1LQKukvQVxapQpwtOB/m0aCEDWpYhGxQAbckaFBVBWhEiLGmhHajqFCi3E7o
+	DlVvtdNpvONt3HFBZgJd9oCWw1mjTH0e2p+yDy58vIvVjowp1EpLLmKSkrDRcu6U/rTEgoSwe7a
+	umWfyUyWvRLLSNvB59XLwaiibJ0RjFh46ZLGozjevxgHqcSJ+FfydASgEShmgvr7e7k/nc6OPkJ
+	pwNmxRFmWUKcZNWpV+gHQ0Kiyk7zFwT7mBd8OEjaC22o793uOPWGoGahj6Gq6bRFbtVtZbl5li0
+	KhjzPTE13r09bCLpbHUVoPrcriclKrg+nG2VT92a9dOfW4JVXTd0Gps37Fn8MViBmwIaV0Mmxj5
+	zLuuhHU=
+X-Received: by 2002:a5d:5f81:0:b0:488:84e2:cb0b with SMTP id ffacd0b85a97d-48b02549be8mr3355158f8f.51.1790775971655;
+        Wed, 30 Sep 2026 06:46:11 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029e51b8sm3780276f8f.20.2026.09.30.06.46.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 06:46:10 -0700 (PDT)
+Message-ID: <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
+Date: Wed, 30 Sep 2026 15:46:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <artgrTe6wvKxnUOG@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <artgrTe6wvKxnUOG@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In ext4_split_convert_extents(), merging can release the leaf holding
-the extent pointed to by ex. The later extent status cache update can
-then dereference freed memory, causing a use-after-free. KASAN reports:
+On 9/29/26 09:13, Maxime Ripard wrote:
+> Hi Neil,
+> 
+> On Mon, Sep 28, 2026 at 06:39:58PM +0200, Neil Armstrong wrote:
+>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>> difficult to support and require pretty much a panel driver for each
+>>> panel produced. Most of them are pretty simple, and require an opaque
+>>> initialization sequence that is usually poorly documented.
+>>>
+>>> This creates a tension between OEMs and distros because OEMs will
+>>> typically get a new panel to react to a sourcing issue during
+>>> production, and thus need some swift turnaround between getting their
+>>> new panel and it being operational in the OS. Distributions on the other
+>>> hand can take years to ship a kernel with that new panel driver.
+>>>
+>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>> driver that will rely on BPF programs to perform the panel
+>>> initialization. That way, we can ship the programs separately from the
+>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>> plan is to have a userspace component started by udev to identify and
+>>> load the right BPF program for the panels found on the device.
+>>
+>> This is kind of late for serious applications except if we manage to
+>> solve the bootloader to Linux display engine transition.
+> 
+> Virtually all "generic" distributions are shipping the panel as modules
+> today anyway, because anything else is nothing but impractical. But
+> maybe you don't consider them serious enough. Also, applications live in
+> userspace already, so can be ran after this driver would be initialized
+> anyway.
 
-  BUG: KASAN: use-after-free in ext4_split_convert_extents.constprop.0+0xb98/0xc80
-  Read of size 2 at addr ff11000002547034 by task fixture/65
+So what would this exactly solve ? keeping out-of-tree BPF driver + bindings
+driver forever and never upstreaming then ? Is this what we really want ?
 
-Save the converted extent before merging and use the copy for the cache
-update. This also avoids using the old extent slot after a merge with
-the left neighbour.
+> 
+>>> This driver is fully functional and works with both 5" and 7" Touch
+>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>> typical panel driver in multiple ways:
+>>>
+>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>     choices:
+>>>
+>>>     * We prevent the driver from loading until the script itself is
+>>>       loaded. This has the side effect of preventing any other output to
+>>>       be used until the initramfs is ran at the earliest, and possibly
+>>>       ever if the loader isn't installed for example.
+>>
+>> This adds a dependency on user-space behavior and if somehow the
+>> initramfs doesn't load for a reason we won't have a way to display
+>> an error.
+> 
+> Yes, if an error happens before the DRM driver loads, it won't be shown
+> on the screen. This is already the case for any panel driver today on
+> any major !embedded distribution. And with built-in drivers, this can
+> also happen before or while the DRM driver loads.
+> 
+> The solution is always the same though: load simpledrm first, move to
+> the proper DRM device once it's functional. It still works with this
+> solution.
 
-Fixes: 716b9c23b862 ("ext4: refactor split and convert extents")
-Cc: stable@kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- fs/ext4/extents.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Module != bpf programs, maybe one day it will change.
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 76038b6..f5a3880 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -3830,6 +3830,7 @@ static struct ext4_ext_path *ext4_split_convert_extents(handle_t *handle,
- 	ext4_lblk_t eof_block;
- 	ext4_lblk_t ee_block;
- 	struct ext4_extent *ex;
-+	struct ext4_extent converted_ex;
- 	unsigned int ee_len;
- 	int split_flag = 0, depth, err = 0;
- 	bool did_zeroout = false;
-@@ -3887,6 +3888,9 @@ convert:
- 		else if (flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN)
- 			ext4_ext_mark_unwritten(ex);
- 
-+		/* Merging can move ex or release the leaf containing it. */
-+		converted_ex = *ex;
-+
- 		if (!(flags & EXT4_GET_BLOCKS_SPLIT_NOMERGE))
- 		       /*
- 			* note: ext4_ext_correct_indexes() isn't needed here because
-@@ -3897,6 +3901,7 @@ convert:
- 		err = ext4_ext_dirty(handle, inode, path + depth);
- 		if (err)
- 			goto err;
-+		ex = &converted_ex;
- 	}
- 
- 	/* Lets update the extent status tree after conversion */
--- 
-2.47.3
+> 
+>>>
+>>>     * Or we probe the driver all the time, but only report it as connected
+>>>       once a program has been registered. This is somewhat unconventional,
+>>>       but allows the other outputs to be functional, *and* allows the user
+>>>       to force the output if their panel doesn't require any
+>>>       initialization or during debugging. I chose this solution.
+>>
+>> Both options are not really great...
+> 
+> Feel free to make any suggestions
+> 
+>>>
+>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>     unconventional. This is required because panel drivers don't have
+>>>     access to a detect callback that is required for the above, but I also
+>>>     think that the recent work from Luca blurs the line from panels and
+>>>     bridges and we'll end up going that road anyway.
+>>
+>> On this point, DDIC _are_ bridges,
+> 
+> I have no idea what a DDIC mean.
+
+The DDIC is the Display Driver Interface Controller, basically the
+IC which received DSI packets and physically drives the display.
+
+It's basically a bridge to the panel, and this is mainly what we program.
+
+> 
+>> but in the current panel API we blur the line between the panel and
+>> the DDIC. So being a bridge is fine, but in a general way we lack a
+>> proper way to describe the display/panel/monitor independently of the
+>> DDIC.
+>>
+>> At first glance it's a nice driver, but moving the timings into a blob
+> 
+> Let's not kid ourselves, it's *already* a blob. We just sugar-coated it
+> enough that we can be happy and call it GPL.
+
+It's the case for most drivers, but since we don't get proper
+documentation we're stuck using registers list and can't
+implement advanced features. And moving this to a bpf won't solve
+but enhance the problem by a large factor.
+
+> 
+>> moves something into possible proprietary binaries with possible
+>> closed licence and distribution restriction so it's a downgrade for
+>> the same of bringing up a panel faster.
+> 
+> We can already make a proprietary, out-of-tree, panel driver today. That
+> being said, the only license we allow for BPF programs here is GPL, so
+> if anything it would be less of a concern for this than it would be for
+> regular panels.
+
+So you're on to facilitate keeping panel driver out-of-tree and never
+upstream them ? this is awkward TBH.
+
+> 
+> Maxime
 
