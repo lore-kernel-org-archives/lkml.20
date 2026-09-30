@@ -1,129 +1,179 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1862F3D25B2
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795994; cv=pass; b=BH3lLWST/U9c59xe6nx/A+/H0RFXW+HuHPVdowQ1/ZXJcwOBwiwxGb82gry0Aky4uDFPDcAV7b2jKQ5uhb2Rmy6QGi8An1oDxY9cSUlTNR5cTFac6jDiyG6FUmqdxiUOqUO+wjfI1s+DcR41hw4pfu8mwVF67FZuh6Goa3YXkkg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795994; c=relaxed/simple;
-	bh=DateFYEM8RUPCqkCJj0bcYedClzNO/Bshld4N7qd/Wg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R+yh8ujfTqosiPiZd+23ppYEgrrPO2493yqkPOe3OKQni+TMjZsR9PbZr/jtO6NNHaDMuk/z2cZUR5GAmkzc0jBqm2v5e0Lwdp+ACkLxnqzcvrD6uiou9fNEzT26FmXL8NfOIAR2ZkR5sXZmfiQhFkAVGZlhuIvuz6gH5YcTHGY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SJ3Sv9uN; arc=pass smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9BC3DDAE9
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790796085; cv=none; b=K4OYQhxvqsvWfULEof738XAr7eSoLsxBzI9zuc1cm86OZCLpiwB2gPOANHIx+PMuO/NvGdlPuEPsyxooAAoFvdk32YI5xJGooV4M3of2DmCav6KE0vjfb64UUnI23CpgWk9ooLkvQ9oymehou4uvB3Hpf9AEDMFcLJFMNYlwMNs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790796085; c=relaxed/simple;
+	bh=OaywG8qV2zmeQmYflGw/QkJAGzejff4a8mMmROTwgrc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eoo93vURp5RO9Xn8VuTrtJw61IaJgb+XFh6/q6T6kXuQTtCNeNBcx+RDhX4MGTrEGuRm3stDYaqlyOWAb/fFR7SCYNtXT2RfF77+XdUERZaLbeuAUJZuFoHTuqsds9WWsMjSDIMGbkYkDGmnL43WUBl4oz7g2ZjVGTyqUpcRJZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jEJjPHUb; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SJ3Sv9uN"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09f3so45406271cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:19:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790795992; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f5uf0erQqtYIUuszPmNsZFFKDcbE4EDWQHfm0RqBsw/pXqx/z5nCZPnUnLOFm8ImRJ
-         1zDX4CpZNE5aVJy4CrEe1qQWZViAd+SSEl1ol9IaSGmfD/Su9ex8T1wfjnCrbf1wO6d6
-         AtUJMEhrrmcqfejT03HTYR8WKyDDZ7R1RIVz690dCzxdbxp9llCQprMedJABVBQqeUnK
-         yXXhl6s5eaijKMxmIkV4PGTwa7oLewu1OnvNDFq1cnuHuC+vLhFRST7/ndlOsCK5GaYt
-         hf0NFt8YqMg89ukEryTZd1/25+qIISjhDSW8JLav/GfcUFx/oBDm1KIMyKOyllj7couO
-         +dYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DateFYEM8RUPCqkCJj0bcYedClzNO/Bshld4N7qd/Wg=;
-        fh=3iSQYj/YcIoxd0B8+v3c3IhIXGxuX/ktMsA08d/EwVg=;
-        b=ZH7qbuieh3ajGhK1ll9PsjwZJtx2nBt8tSS76M9xDdd5FEtMXPVAzc+NOXsM0w+Zm1
-         Rnhm4oL/qmxj4kF8qHqV2+HvMoxShw9+1yIhDV8Tla8eP0Za/L0pjSgJEDdjHfAzCGAD
-         Ip4Cqtp/WV6HyLKc9jGgdeq4QcgN263gZCQOhhiaHquWUE1tGW/3RpEjF4o8IKHXy2En
-         jspQc/qVG3VFHj0ZOFstnlj/dKrFELe+EKD0VYmn5jWvsMwrNzG1tI2fxtSDAlg/0gc3
-         1e4+3l1W2sEIbFNa3DOg6v4H9vCcpNXe6ttP55nFRXV314HuZK9Y59vNa9RFY1zYliDG
-         Nycg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jEJjPHUb"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912df756so44294315e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:21:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790795992; x=1791400792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DateFYEM8RUPCqkCJj0bcYedClzNO/Bshld4N7qd/Wg=;
-        b=SJ3Sv9uNhnpIWRPLoH7HhGJYsfwfZyhe7O2vcwCPdOJ066HUByEwRFAbMsmDJbklV6
-         l11RIdRoDHb6g9zxLwpRvP/ZiUTLsMhREnGcTKN8oElK0/sI2NyApbXWMQ+E8Fno6U1N
-         6umLoYcNew4OzosHScwcdzxSRjA2HV/ECca16NudHWFZmGbg86xCbJiO2XS96Oc1aWip
-         AvaXWSuY7kwCzzap0eStlT9Pnqb3CdleVCeE6JiIWmdiDu1oR4Vw6U4lXqhVAUtkawaa
-         L0lRML+YxexT3M7pN8jQVyWD4r66CHEcBT5MSP5tGPXeLK3AORlrz6kMWvUH0wRtayz1
-         iKIg==
+        d=gmail.com; s=20251104; t=1790796081; x=1791400881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iy6PlywfDUA0Eh+zmjEhhc7NS3KUQphzxgwcZvfITKA=;
+        b=jEJjPHUbmttfA1XmPeosCkE+0BhwColxxMwMWoHG/RJnA3T2jIW6c9Zy8SeU124scU
+         xXYSQh+xjdoUNWR8eAH3HM9L3BYkucbxGrRKPTghRr238IUrnGT7cmWphcnFscAbUG1k
+         UjFS8JrXusvAD8p1k9jqzm/MjDH5NRvhQDRkwECFLD+AO2akMkPYRJm+SMrbogPgQL0M
+         kUnKH39a7Aq9myv7Y1ZBdCt3TWIGh1i9u1lAISXXGLGxbZ98EjVyjAqhqw6F88F5AOod
+         kS/Ky5OQCykhkoqycqC5cJ6mh2VOmdWwWKBapjgb5RAC2WMJycN+F+ybkcw2XxtP0k2u
+         C6oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790795992; x=1791400792;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DateFYEM8RUPCqkCJj0bcYedClzNO/Bshld4N7qd/Wg=;
-        b=zRNDFICCYEIZeKzC53Wz/z0xtbxBVgwKWSfHKmZxW7pVVo+kff47qfvWHEx0a0weV0
-         o1apSkJvl7mI/TVCjE8cQa+DQ/6za6OMamHwaRfrg8XGjc/XFp7evJJBAC3uC7Qh0DGL
-         lMPRFqD/htbUGmBib0/4cZg7YZvJWEV1ANK5ZOqhKvGVNNy5K18ibQqzqQ5sReJHB+o2
-         soA8vRMOJqkjofWSb/Tfo9WwkJMCXTtbAamJ++n6fHrPCZFAtRClHdFcE+xTz4cUtshN
-         jboYnYogds2y3+yp9ZrxSGNj1a/vuEdlmG6kIoQv+s0btEY/oJhzLCJbDulcj6rr7Bdf
-         Cqug==
-X-Forwarded-Encrypted: i=1; AKwUvBzfYll2Zh3daUU/6XC3UT5Fb7U/lDHW3y0874OyVxZmxWP960qxqzWpYFcORezpE39DuJpW8xMzerHsEYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgoMmqNFp1A4xJsSiUApkWW1VGgURggIf54bNKiWyLopDxXZBw
-	AVQWkE6L0v/TyH1zjwwwo51pUIAfJ+QsQABvo6Rj1fiCQLaMOqmviZuqBEmeI97G2CzdoXGIzza
-	UUcKtYB/YeP2UI+S3ZaQ3aptbNL/8IM/l2jc2V5sL
-X-Gm-Gg: AYBFou0sss19p0weRZzdAGZEzJbZliiEVN8WSUNGJtWjEEz+lr56CdMCtX+Mi3F247E
-	ZQGKjK+fVg/rlInOEUeeyu2AftPCBcS/xmJr8Yl+t/ld1dVe2gh1zlsXNNs/5joVrn2dv17VVdE
-	bDVW+qtvci2ukBEaoieU5+ZAMF/eZQEbA6VvL+PJsjX+T+BSXnb7hmhQyyP7bJK51m6aTJ364x3
-	FtoFYbRRVDGa0f6EUxNN3lEBnYmULVwkXNjktijcmmDhVli6yy6VEDeElAaEjbiy4fLjAeEVzL+
-	9GNbJouwM56AO9Lw1Qx4lM7ZjVgECh+HPpr0FHGDK77FQfQw6FZAN3rpD/GVOS6WWfDLV/unRpX
-	qnzLpubkVHYz32ZZGIS1qPy5wBny4l3H3lQTgy8EkZS3Bjpe6Ye3Ip6VvCtijZ3w2iCuU
-X-Received: by 2002:ac8:588e:0:b0:533:370c:75fe with SMTP id
- d75a77b69052e-53374be3ee5mr46752231cf.34.1790795990138; Wed, 30 Sep 2026
- 12:19:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790796081; x=1791400881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iy6PlywfDUA0Eh+zmjEhhc7NS3KUQphzxgwcZvfITKA=;
+        b=fTC+nkae2ySSuIy0nus0rPIGG5QZLhJUEMWmG/lwX1VysOCxYd0yYLCofdZ1PmrRJJ
+         QfLvah5L7E4qhH4F95a9ne6NqKc0pOlxykbOmIfzw/CfCCFuOnbO+8SICqdszesCNPgK
+         aoliLF1ES1YuD5VWEuxcW7tORelXvIAcqlNCCGTU5supnyAGTb+VFYL0NddZ1N5IVbqw
+         Fz0DR2Z6rm/eNbMcct7zSHkyjTZPvq4Og5DZUw/ZHMFTMqf73iIoHQ/ECIQqFdN0qmKm
+         LTiICuHb7nT+nVx1mfAYKzJJFGjJ9d4A82fphCGuAwuvxqt2g1qtTXIupLpdw2s1IVH/
+         94YA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+10ZXVmX8SB90dTO8UDw3OZioWq0H6a4XPsdFgi4vonRqg7Dz6ClFZn2l49ceMbseIFVvr0mOZrIQykk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUUWg7wPHRIju1/LvTeg6Vp+veM3UH7kbLao11SUmBRmMmg2UK
+	6xa+uyH4ybIfht7PsL+uTHFPfg025QKg4dmYo8bfIj+I93fgDuT2Uxaw
+X-Gm-Gg: AYBFou2F41gbbUuZFbh4U1FkAv2fGlLg1E/T+b8fnmtiymrv72l4iie+Ft7QffRuiiE
+	i1RueWmR1+Qg/2XeQ2z0DVbtMuA4DP4nXTiRubmsy5xS3qdMV3ETRHzECz+VlXFLVgxfnngCG6v
+	u2MpzE7uJqqmJVRk6uQH33/6M4ydTZgAFxDEHLmM5R72MtTV2f3Ru0U5T5TIdNH8q81HZr5/2Os
+	b9jEYjKZyoJWQWZWFXIh6FcU+t6enIUHTDiCtfpnrOY9/iOrt+OaInekAwYgvCMRXRiplgI1gzm
+	rI9WiQO4U1UAcoQ1VHCh2ppbWO6Jo31CwNU10fRqgeo6uAmGeXfq/6dknTek4sE25nOL8WOaVpH
+	gDqdxgIAEllfSffk+fpofO2X6EwOj/ps2esPvPoQyL9dnUanwQct1N/GrQn1W3Lhk420ay83GO1
+	BDdDqIbbqlfcd02wNzgZtZddkB+KoNzsD/4SdDcgLiJRG/WDrMRGDMfgqE8u6NDXH17NoPlpvPb
+	CgMHLlO0tDrjT2VYBExXg5CfwGCT+nmI1xnf+H4ia4iO/jVahZecLbV5PVICtPm4P4hKv2Yx+ga
+	t+/zoOlfZ5nfrZ73VbyhdBuQZKQj+IYdfD2jKyxuxiGdick+egt/vbFhFW6CvQ6vqgs0ACPRSE3
+	XCa410QiQUmY=
+X-Received: by 2002:a05:600c:4f8e:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-4a01b0087a5mr39314065e9.12.1790796080524;
+        Wed, 30 Sep 2026 12:21:20 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f9248ccsm3513165e9.3.2026.09.30.12.21.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 12:21:20 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 0/2] netpoll: fix PREEMPT_RT deferred transmit locking
+Date: Wed, 30 Sep 2026 21:21:01 +0200
+Message-Id: <20260930192103.62973-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260928064239.32456-1-kmehltretter@gmail.com>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930181106.271547-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260930181106.271547-1-nicoyip.dev@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 30 Sep 2026 21:19:38 +0200
-X-Gm-Features: AclHuK92DSJl986_dvvpkYAOimgT3MaQg3DtlnvZZM1zBmoeCA_G_FvqALGK5WQ
-Message-ID: <CANn89iLvY+GUVDQi0HLf6GSes9trxDWq_JRTiSBPTjjLib9pog@mail.gmail.com>
-Subject: Re: [PATCH net v2] net-sysfs: release queue trackers before allowing reuse
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, Antoine Tenart <atenart@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 8:11=E2=80=AFPM Chengfeng Ye <nicoyip.dev@gmail.com=
-> wrote:
->
-> An interrupted sysfs_rtnl_lock() can drop the last kobject reference to a
-> removed TX queue without holding RTNL. netdev_queue_release() clears the
-> kobject before releasing queue->dev_tracker, allowing the queue to be
-> re-added while the old release still needs the shared tracker slot:
->
->
-> RX queues have the same ordering. Their removal and re-addition are
-> normally serialized by RTNL, but CONFIG_DEBUG_KOBJECT_RELEASE can defer t=
-he
-> release callback to workqueue context and expose the same reuse window.
->
-> Release each tracker before clearing its kobject. Pair full memory barrie=
-rs
-> on the release and add sides so that an add which observes
-> state_initialized clear cannot install a new tracker before the old relea=
-se
-> has finished accessing the shared tracker slot. Keep the numeric device
-> reference until after the reset so that the queue storage remains alive
-> throughout the callback's accesses.
->
-> Fixes: b0b6fcfa6ad8 ("net-sysfs: remove rtnl_trylock from queue attribute=
-s")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+netpoll's deferred transmit path can acquire two sleeping locks with hard
+interrupts disabled on PREEMPT_RT. One is the sk_buff_head lock used by
+the sender and worker. The other is the device transmit lock used by the
+worker. They produce independent atomic-sleep reports.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Patch 1 gives the deferred skb queue a dedicated raw lock.
+
+Patch 2 makes the worker try the device transmit lock and defer the skb
+again when the lock is busy. It uses the queue helper added by patch 1.
+
+Testing:
+
+- Arm64 and x86_64 PREEMPT_RT W=1 builds passed.
+- An unpatched Pi 400 emitted the queue-lock report five times during a
+  one-hour run. Ten boots with the complete fix passed, including one
+  3,606-second run. Every trigger and post-trigger marker arrived, Wi-Fi
+  remained usable, and neither atomic-sleep warning occurred.
+- An arm64 PREEMPT_RT QEMU control reproduced both warnings under forced
+  transmit backpressure. Three boots with the complete fix passed.
+- An x86_64 QEMU control reproduced the queue-lock warning on PREEMPT_RT.
+  Three fixed RT boots passed; the non-RT control and treatment each
+  passed three boots.
+- An arm64 QEMU A/B test held the device transmit lock while queuing 64
+  skbs through a synthetic CYW43455 SDIO device. It used HZ=250 and ran
+  with PREEMPT_RT enabled and disabled. After releasing the lock, the
+  HZ / 10 version completed in 128-178 ms on RT and 108-109 ms on
+  non-RT. The one-jiffy version completed in 59-114 ms on RT and
+  28-55 ms on non-RT. All 64 skbs completed in every run.
+- The exact v2 series and pending brcmfmac fix passed 10/10 counted
+  physical boots across a Pi 400 and Pi 500+: three RT and two non-RT
+  boots per board. Every lock-contention run freed all 64 skbs without a
+  timeout. Each board and kernel flavor completed a 1,800-second stream,
+  ten TXHI stop/drain/wake cycles and a Wi-Fi reconnect. No counted boot
+  reported an atomic-sleep warning, new lockdep splat, stall or lockup.
+
+The A/B test applied the same pending brcmfmac netpoll fix to both
+variants. The driver recorded zero or one dropped packet per run, and
+host capture lost the same number; both netpoll variants showed this.
+
+v1: https://lore.kernel.org/r/20260928064239.32456-1-kmehltretter@gmail.com/
+
+Changes in v2:
+
+- Retry device transmit lock contention on the next tick instead of
+  after HZ / 10. Keep HZ / 10 for a stopped transmit queue or a driver
+  which returns busy.
+- Add the arm64 QEMU A/B results and combined Pi 400/Pi 500+ RT and
+  non-RT hardware results.
+
+Karl Mehltretter (2):
+  netpoll: use a raw lock for the deferred transmit queue
+  netpoll: avoid blocking on the transmit lock in queue_process
+
+ include/linux/netpoll.h |  1 +
+ net/core/netpoll.c      | 83 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 77 insertions(+), 7 deletions(-)
+
+Range-diff against v1:
+
+1:  b95097f73f29 = 1:  b95097f73f29 netpoll: use a raw lock for the deferred transmit queue
+2:  bb9c0adcd8a9 ! 2:  30f5c80cea9c netpoll: avoid blocking on the transmit lock in queue_process
+    @@ Commit message
+           process_one_work
+     
+         Use HARD_TX_TRYLOCK() instead. If another CPU owns the lock, put the skb
+    -    back at the head of the deferred queue, restore interrupts and retry
+    -    after the existing HZ / 10 delay.
+    +    back at the head of the deferred queue, restore interrupts and retry on
+    +    the next tick. Keep the longer HZ / 10 backoff for a stopped transmit
+    +    queue or a driver which returns busy.
+     
+         Fixes: 3640543df26f ("[PATCH] netpoll: fix netpoll lockup")
+         Cc: stable@vger.kernel.org # 6.12+
+    @@ net/core/netpoll.c: static void queue_process(struct work_struct *work)
+     +			netpoll_txq_queue_head(npinfo, skb);
+     +			local_irq_restore(flags);
+     +
+    -+			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
+    ++			schedule_delayed_work(&npinfo->tx_work, 1);
+     +			return;
+     +		}
+      		if (netif_xmit_frozen_or_stopped(txq) ||
+
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+-- 
+2.53.0
