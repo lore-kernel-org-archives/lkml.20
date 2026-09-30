@@ -1,142 +1,201 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77236345EB5
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790732274; cv=pass; b=D9PG61wxJ1/36Adm+YphuchmlubNUi+eEEFJS8d2BLp4/ZE4Hk8DfktPARXdtmuPkrm3MmbG3Q1LDF56/tmBfMCALbfx3JZw1ApGsmqhEjw84Pnb/ghe1Hs9viCy8otoP6PFxmeviomp3cEB4JGfja5h2fLLIwLBUGb5FhnZ6NY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790732274; c=relaxed/simple;
-	bh=bhJUcLjKo02bLvE25E0PNpH+ye50aBQvEKX0dR+Ok7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mbg0Cx60gDvd2xjRJE5PYaOQ3IDXII26q4po+lNudcLWnDZAY9rEcJ1qzPT54XmLhjkmdbd2LbYWoMRL0e+zGLLUg8BwmR3NK+OxSW5YxfDKSZs62DZoDJ4nGHa5hOhcsB23KbZDpQWNnT5tIoCYgq9lGP1T9lGRYMB+YH/B1jg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=I97lxwgR; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6E23112DA;
+	Wed, 30 Sep 2026 01:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790732363; cv=none; b=bMvUuur04DL8m/p/UqnfNe4gABLJPYQ9N7VJ0CjTFgOTeB0N1Vc+Ikm9Fveh3tQEGCAFUy8F2iznf0+GXbx2MmZ3vK8FghPCKqIh/qDKce0NZn/nXfu05sXnoJZGh8MkDtLdIEHToS6vSYnppu/uUPYD6VuhwoirVkMvx3RUz/0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790732363; c=relaxed/simple;
+	bh=2JBkwlx0Xg0FuJc1YaHWrHFOoT5R6BiDR576M5UUOjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ob1Y9c7yywcu4432ozf0zImQxbOXI/kS30nb6Vm5FvHo3Wc55IPSyxV945+Si/PQn2W5s5E7aCCTnEDEXrjZdMo7pMyRD4NJarYdxIfOFlPbd4RpQuYwhSh6LbjjNTdHW3nKqD8cmjJDWHmKvUx7fKIE0nDpsGTg2YrtmxCYVBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=E/MgRxgn; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="I97lxwgR"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so28357155ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:37:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790732271; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FQY0tqN+4LtzGEoDvyTSIEdWyYko+PrnCc0BHy5/PP2EqJ+GUh2iH5XTR++3XaSaqA
-         WSHRyQBg6EfnoZWTxyirfTN4rqv7VRaOPHbz8SeghKrPj+0WcsxlOXB7C/QbRxMjBN/R
-         imf3Zbd8MGbZmS6PKAGAnIuliVpckoFRU4ZyGGZhwupCuXC7gUQ6klWYmUFH5bbSstvm
-         wy1gzm2AWWCUdEvhmvLsOj2MFxOEyrjwUrpu5/ae//f9rONccD8zSHmFtl0HcaqkIcjI
-         zTckcggeTj/UI1eGmkJYl0R0/PuSg13IRHgsnp7mXyAkGFxDhgrJTvy2zZ34cevuTv52
-         W0ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OaTWYjGa88IT1G2tVr2iEi35Jf6xhHPNQWrE7gJBkU0=;
-        fh=dmj06q22YPZX8Z/CQvdcBPoetMVvkjffnhv1v7nfVEg=;
-        b=D2/0icN7nVxsKyd0U20l1lwDXZzBCSTyluPsCSihEZ19w4HfRP2XSVn9SLalaN+Z5a
-         8Wfbiu8Ax/zLE2rl4uoVvDs7bSuFEOXV87h8Fejmpm4CW5ztW6imXx/ndxyUX+C9BUqP
-         1LP1WCdlel5KXtLoS9y9w1dsn3J3zA7scoErL5ZKW41FXQgBjMflX1Fj2U/Q2USEMwhE
-         CVjryghQGZIGJ8HmDgAr/U3eCIG9kyuluFHo8lIO5INRHlOa6cgptLwub4Bk2UX4JxTp
-         mw5YivE24FWtoFLkxfK2GJSrSC7IXPTJBPZuTWHKDnK/o68Rowvo/i21LCSfR9+3ypv3
-         8RLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1790732271; x=1791337071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OaTWYjGa88IT1G2tVr2iEi35Jf6xhHPNQWrE7gJBkU0=;
-        b=I97lxwgRrLCGRi4ZUv+8vwPeqQpl3+D0y8LybsOltepQ637INvdy1Ox7aLFn2sldow
-         s/wC776XNpEi9D3ReZqHy0oLGcxKsetJGRr4ZoDB6tjcbmnPuIHVeuy3YpSX/42I8G48
-         e0f3yGgT1c2S93o++DAMMd31Et045nCdiIJ5iKwxZ/DUAbJoD4ctSDFu9D13NQpBDTJm
-         Jt/Lm0CPMaFMcFhdNFxBUEYA7N36DdBJmT9lvVMrfFMNJw6h3quptOGJ9LqYdDEkn3lu
-         q2UZxpC4RsF3kMvSus5s7kdGHVBXo8B14QkTPRBJIJZodipeaR2c1x5jLZU0b6VBztyP
-         BzfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790732271; x=1791337071;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OaTWYjGa88IT1G2tVr2iEi35Jf6xhHPNQWrE7gJBkU0=;
-        b=AknKO3NJg1B7JQcD65JS/Ee7ey74LAqR2O4lRUNAQK5YqOOooU2NGRboyvyPy2bfrq
-         q0/AiP1D979q0V7siAvvFOkZXzZHD6j+Zj9pcLQWDTS31otaw6NxTZsR+dLIY9UX7bZ9
-         PBT46WNrqcJKqC+EVhjBKKi1MdXlBVAtMlw3WL8oL7M5XSFoK0gpikRzbM9Fq+bc5wUm
-         vx4jgCO+AfIANBxvcnnVde6+ooykBoR6mSEUhD8u7v0j3mlHmlKK/Wz1DeGVCHAofi8Y
-         //qEpWrAI2CCKf9+ws8yyfY7D85R/2vxUunL0f5w4ZvFr/M/hSbaD9FavHbT9WVp0aO0
-         FA1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxR0CT8iX0n3ER6FsxAGVL4DfxJCGZILeKPwZ4gQixj/LxVszUHFkaF48Ni/w+f2VVOFKOd6aIpJHYFKNw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHtnojJhAP+iqdIw6oVNSLUzirkYHS39gPHPAAfsS+jgR6BuYc
-	fgo6VSVTEy2Jxv+673DtTW4RGqzlAMWb43iG6GZy1Nw4/jpV5n76W8XOdN2GPqXRrts7xMwM3B6
-	JyIgA9HodgcHDFyQ534jb7Yg3D9zzq9ZXK7CR5isl
-X-Gm-Gg: AYBFou21Hg2mbf8mrD3rM/b5rE2nSJlxDbYpYBfEJB1pLXO3QLtwgptPqmpbSpaSFEc
-	y5srZkj1b6ZviKaWG1W5iIS9Jwahc0zlg4pMPhciSV6jZpb7jfXHXx+V3qQ851xTmnBKzJbLpGs
-	PCsH7qrAWha8BeVDa1g7LFF4NRKjBVTDcBoce20ztoVtMrGYHbaZUhgEmvIdf17OIQXwKE3pf60
-	3PzTBteUTCapHm7kmnGLmSXmBx2QUtUIO7rGARlU2gck+nt/VvV4kHCSvKsOGDiIDNdcgm7KfJW
-	PH2eMabIf8tlqBeLcKaPCxc1AcwWYT9ZPyW1C4BH+7KJKMfrVV2qreRIDld4AqGKrQSTg1i1LO2
-	4hyidLFNkSUQ=
-X-Received: by 2002:a17:90b:5826:b0:3a4:b418:94ce with SMTP id
- 98e67ed59e1d1-3a4bfad5481mr925945a91.1.1790732270586; Tue, 29 Sep 2026
- 18:37:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="E/MgRxgn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=UN
+	00LyyiKeg4Z0zeEJCXHV3uBFLbxkBqAN/643+3p/o=; b=E/MgRxgn+qfSmwbsoM
+	Ugf9cR0jqIzKVLc+W/2P7e3r6fKSXrP5X8YlC52uRQ8GYrMx0iPHbIwjJQtg0BGp
+	QMUBP/7C/J+EHlo/IOEnyy7XZK43MG/LjRxJViIpnAtbv4rb/OTSS1LO+c/dzkP/
+	ILeT2WHB2lT9P8AHmPoI3/fgI=
+Received: from Precision-7960.. (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDHDyQxaLxq85GYBg--.38960S2;
+	Wed, 30 Sep 2026 09:38:58 +0800 (CST)
+From: Hans Zhang <18255117159@163.com>
+To: bhelgaas@google.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	jingoohan1@gmail.com
+Cc: robh@kernel.org,
+	a-garg7@ti.com,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hans Zhang <18255117159@163.com>
+Subject: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
+Date: Wed, 30 Sep 2026 09:38:42 +0800
+Message-ID: <20260930013842.82476-1-18255117159@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928193046.6698-1-fmancera@suse.de> <20260928193046.6698-16-fmancera@suse.de>
-In-Reply-To: <20260928193046.6698-16-fmancera@suse.de>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 29 Sep 2026 21:37:37 -0400
-X-Gm-Features: AclHuK9OxXVVrbvz3Zo4XSmKnOU38tEex0LOM5rHmx7snd46dBYW9kvi1MOOmgw
-Message-ID: <CAHC9VhSQe27X+YVp4crJYhH_OxeVt=G6HCyrOqJgDii=MiCXsQ@mail.gmail.com>
-Subject: Re: [PATCH 15/16 net-next v2] netlabel: cipso: introduce CONFIG_CIPSO
- to decouple IPv4 dependency
-To: Fernando Fernandez Mancera <fmancera@suse.de>
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net, 
-	Eric Dumazet <edumazet@google.com>, Casey Schaufler <casey@schaufler-ca.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Eric Biggers <ebiggers@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Willem de Bruijn <willemb@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Florian Westphal <fw@strlen.de>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
-	Wyatt Feng <bronzed_45_vested@icloud.com>, Joel Granados <joel.granados@kernel.org>, 
-	Ido Schimmel <idosch@nvidia.com>, Yung Chih Su <yuuchihsu@gmail.com>, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHDyQxaLxq85GYBg--.38960S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jw43CF18tr47Zry3Kr1rJFb_yoWxurWUp3
+	W3JaySyF1UtFsxuw1SkFn5Gw13Xr1qyrWDZ3yv9w4IgFs3Zrn2qF48WayrtrZ7ZFWIqF1U
+	Kw4qy347WrW5JwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pitCztUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCxBLvk2q8aDJ7fwAA3i
 
-On Mon, Sep 28, 2026 at 3:32=E2=80=AFPM Fernando Fernandez Mancera
-<fmancera@suse.de> wrote:
->
-> Currently, the Commercial IP Security Option (CIPSO) is unconditionally
-> tied to CONFIG_NETLABEL. Because CIPSO is inherently an IPv4 protocol
-> feature, this creates a transitive dependency where subsystems relying
-> on NetLabel (such as Smack) are forced to depend on CONFIG_IPV4, even if
-> the user only wants to utilize IPv6/CALIPSO.
->
-> This patch introduces a new CONFIG_CIPSO boolean that is automatically
-> enabled only when both NETLABEL and IPV4 are selected. It abstracts the
-> CIPSO-specific Makefile targets, sysctls, and kernel APIs behind this
-> new config.
->
-> By safely stubbing out the CIPSO netlabel_kapi functions to return
-> -ENOSYS when disabled, this allows NetLabel and Smack to be successfully
-> built and used on IPv6-only kernels.
->
-> Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> ---
->  include/net/cipso_ipv4.h         | 18 +++++++++++-------
->  net/Kconfig                      |  3 ---
->  net/ipv4/Makefile                |  2 +-
->  net/ipv4/sysctl_net_ipv4.c       |  4 ++--
->  net/netlabel/Kconfig             |  4 ++++
->  net/netlabel/Makefile            |  2 +-
->  net/netlabel/netlabel_cipso_v4.h |  7 +++++++
->  net/netlabel/netlabel_kapi.c     |  3 +++
->  security/smack/Kconfig           |  1 -
->  9 files changed, 29 insertions(+), 15 deletions(-)
+Several DWC PCIe register fields are described with a shift macro next
+to their mask, or with only a shift and the field width implied by the
+value written.  Document the field position and width in a single full
+mask and use FIELD_PREP() to encode it.
 
-Acked-by: Paul Moore <paul@paul-moore.com>
+No functional change intended.
 
---=20
-paul-moore.com
+Signed-off-by: Hans Zhang <18255117159@163.com>
+---
+- Based on the controller/dwc branch.
+---
+ .../pci/controller/dwc/pcie-designware-ep.c   |  2 +-
+ drivers/pci/controller/dwc/pcie-designware.h  | 12 ++++------
+ drivers/pci/controller/dwc/pcie-tegra194.c    | 22 +++++++++----------
+ 3 files changed, 16 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
+index 0262d85ed390..198823f105c5 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-ep.c
++++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
+@@ -1077,7 +1077,7 @@ int dw_pcie_ep_raise_msix_irq_doorbell(struct dw_pcie_ep *ep, u8 func_no,
+ 	if (!ep_func || !ep_func->msix_cap)
+ 		return -EINVAL;
+ 
+-	msg_data = (func_no << MSIX_DOORBELL_PF_SHIFT) |
++	msg_data = FIELD_PREP(MSIX_DOORBELL_PF_MASK, func_no) |
+ 		   (interrupt_num - 1);
+ 
+ 	dw_pcie_writel_dbi(pci, MSIX_DOORBELL, msg_data);
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index aea474ad803c..1ff6ed1f9f0b 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -85,9 +85,7 @@
+ /* Common Clock N_FTS */
+ #define  PORT_AFAC_CC_N_FTS(n)		FIELD_PREP(PORT_AFAC_CC_N_FTS_MASK, n)
+ #define  PORT_AFAC_ENTER_ASPM		BIT(30)		/* ASPM L1 Entry Control */
+-#define  PORT_AFAC_L0S_ELS		24		/* L0s Entrance Latency shift */
+ #define  PORT_AFAC_L0S_ELM		GENMASK(26, 24)	/* L0s Entrance Latency mask */
+-#define  PORT_AFAC_L1_ELS		27		/* L1 Entrance Latency shift */
+ #define  PORT_AFAC_L1_ELM		GENMASK(29, 27)	/* L1 Entrance Latency mask */
+ 
+ #define PORT_LINK_CTRL			0x710		/* Port Link Control Register */
+@@ -161,7 +159,6 @@
+ #define  GEN3_CTRL_EQ_PHASE_2_3		BIT(9)		/* Equalization Phase 2 and Phase 3 */
+ #define  GEN3_CTRL_RXEQ_RGRDLESS_RXTS	BIT(13)
+ #define  GEN3_CTRL_GEN3_EQ_DISABLE	BIT(16)		/* Equalization Disable */
+-#define  GEN3_CTRL_RATE_SHADOW_SEL_SHIFT 24		/* Rate Shadow Select shift */
+ #define  GEN3_CTRL_RATE_SHADOW_SEL_MASK	GENMASK(25, 24)	/* Rate Shadow Select mask */
+ 
+ #define GEN3_EQ_CTRL			0x8A8		/* Gen3 EQ Control */
+@@ -230,7 +227,7 @@
+ #define ATU_UPPER_LIMIT			0x020
+ 
+ #define MSIX_DOORBELL			0x948
+-#define  MSIX_DOORBELL_PF_SHIFT		24
++#define  MSIX_DOORBELL_PF_MASK		GENMASK(28, 24)
+ 
+ /*
+  * eDMA CSRs. DW PCIe IP-core v4.70a and older had the eDMA registers accessible
+@@ -278,15 +275,14 @@
+ #define RAS_DES_EVENT_COUNTER_CONTROL	0x8
+ #define EVENT_COUNTER_ALL_CLEAR		0x3
+ #define EVENT_COUNTER_ENABLE_ALL	0x7
+-#define EVENT_COUNTER_ENABLE_SHIFT	2
+-#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(7, 0)
+-#define EVENT_COUNTER_EVENT_SEL_SHIFT	16
++#define EVENT_COUNTER_ENABLE_MASK	GENMASK(4, 2)
++#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(23, 16)
++#define EVENT_COUNTER_GROUP_SEL_MASK	GENMASK(27, 24)
+ #define EVENT_COUNTER_EVENT_Tx_L0S	0x2
+ #define EVENT_COUNTER_EVENT_Rx_L0S	0x3
+ #define EVENT_COUNTER_EVENT_L1		0x5
+ #define EVENT_COUNTER_EVENT_L1_1	0x7
+ #define EVENT_COUNTER_EVENT_L1_2	0x8
+-#define EVENT_COUNTER_GROUP_SEL_SHIFT	24
+ #define EVENT_COUNTER_GROUP_5		0x5
+ 
+ #define RAS_DES_EVENT_COUNTER_DATA	0xc
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 8c610212a180..285a38178da8 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -622,10 +622,10 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
+ 
+ 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+ 				RAS_DES_EVENT_COUNTER_CONTROL);
+-	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+-	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
+-	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
++	val &= ~EVENT_COUNTER_EVENT_SEL_MASK;
++	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
++	val |= FIELD_PREP(EVENT_COUNTER_EVENT_SEL_MASK, event);
++	val |= FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
+ 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+@@ -661,8 +661,8 @@ static int aspm_state_cnt(struct seq_file *s, void *data)
+ 			   EVENT_COUNTER_ALL_CLEAR);
+ 
+ 	/* Re-enable counting */
+-	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
++	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
++	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+ 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 
+@@ -680,8 +680,8 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+ 							PCI_EXT_CAP_ID_VNDR);
+ 
+ 	/* Enable ASPM counters */
+-	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
++	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
++	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+ 	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 
+@@ -715,9 +715,9 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+ 	/* Program L0s and L1 entrance latencies */
+ 	val = dw_pcie_readl_dbi(pci, PORT_AFAC);
+ 	val &= ~PORT_AFAC_L0S_ELM;
+-	val |= (pcie->aspm_l0s_enter_lat << PORT_AFAC_L0S_ELS);
++	val |= FIELD_PREP(PORT_AFAC_L0S_ELM, pcie->aspm_l0s_enter_lat);
+ 	val &= ~PORT_AFAC_L1_ELM;
+-	val |= (pcie->aspm_l1_enter_lat << PORT_AFAC_L1_ELS);
++	val |= FIELD_PREP(PORT_AFAC_L1_ELM, pcie->aspm_l1_enter_lat);
+ 	val |= PORT_AFAC_ENTER_ASPM;
+ 	dw_pcie_writel_dbi(pci, PORT_AFAC, val);
+ }
+@@ -881,7 +881,7 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
+ 
+ 	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
+ 	val &= ~GEN3_CTRL_RATE_SHADOW_SEL_MASK;
+-	val |= (0x1 << GEN3_CTRL_RATE_SHADOW_SEL_SHIFT);
++	val |= FIELD_PREP(GEN3_CTRL_RATE_SHADOW_SEL_MASK, 0x1);
+ 	dw_pcie_writel_dbi(pci, GEN3_CTRL, val);
+ 
+ 	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
+
+base-commit: 4996364a46e738cc455f5fa9b8b09f2f3348bcc9
+-- 
+2.43.0
+
