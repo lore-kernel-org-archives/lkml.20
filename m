@@ -1,91 +1,98 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15A2B472068;
-	Wed, 30 Sep 2026 09:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E89A472F7D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758912; cv=none; b=Aib5GZ1+GtNktIfJlpibILs4FWXNyfA4CdcE9+HxMj6OfpfNmyib79qhD2siYBHCIbu5RYtgtdTpD77vh6UugR2uMsZ8j7z4HTyCPFgBNzAQWm5WfzhKRYrlKeX/GCDlz3o4EunFEkuxNeGVVPStHnRnMuJi4zSXLkH+bbbOniQ=
+	t=1790758922; cv=none; b=uEe8s9+t/tLXAyN/Zh/696GxbQEtdjtyLgA4THu0kZXK2QpQ//uI+nZQ78xnouXcW7MhrCHW186btUXbfyzK2LUrriBx08eg+eG3ovTyerwWUHkTbZIobdBTs2wcnsCO3XPg6vMeNUvdQxWseOn1rJgLi1Saao/IQEfsfo4iixA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758912; c=relaxed/simple;
-	bh=5VXyDGgHM1h2GOfGAbHZtu7Q+5PwQ6iLptI7+l4XeJk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mzNHx/9VClP5yKk714+NjxdRCXauSIhsqYZyOWQMNs6VLkmVimTihpizZdIY3jBArzKuhgKTxemUWR/fKE4ywe8nlWZgQIxosmZTb3ZSyFv+hRkHaGqnl3MFP2DDfCMX3SE7wSPQeHTkUYzf8zv8f42IwqlifRnUs2JJelnM9wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=US7GJ2qP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790758922; c=relaxed/simple;
+	bh=vUgSmNgYb3xPR6GE41yrOSkOkZp4hMoyauJEOX0p9L8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=Nx2xtJQAMdjPWl+7cUzYFi/FrMgNLxWUkBuvUlNgY1x+TbdV+F9d24EJq12VPr34DKZYG3yhJg6COYvNIBz7NU5cT9CCFFwyycCKzTlm/rWjPl+Rd5kxWT/vq9dl0yqC/7V6oYxXVoDwL18tf1PxKLmdkkyJh2jMRliA7In1LMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mrEVprzN; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="US7GJ2qP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1E4C1477;
-	Wed, 30 Sep 2026 02:01:46 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC2133F85F;
-	Wed, 30 Sep 2026 02:01:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790758910; bh=5VXyDGgHM1h2GOfGAbHZtu7Q+5PwQ6iLptI7+l4XeJk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=US7GJ2qPJ6kHeFbWuS2oYY1yFB3ZAXC7/pnjjMAqqqzhMcf7glSKr3UL4gkrwAE5Q
-	 RXJfkiKzBk0lEYntw4M9XvKDuBk86wRqF5MHIMz3mbOgkhnuhHCNC0DmEOPGzGPQJt
-	 DKZNh/A6KCePxjARm2jD/La5X+3Gtj2nd1rAVD9g=
-From: Leo Yan <leo.yan@arm.com>
-Date: Wed, 30 Sep 2026 10:01:14 +0100
-Subject: [PATCH 3/3] perf test: Suppress optparse deprecation warning with
- older pylint
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mrEVprzN"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so1587063a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:02:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790758921; x=1791363721; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=valg39DdEk8sl2YI17Dx/FsaQPmRarO/oHzT/4W/5sE=;
+        b=mrEVprzN0dqQUfx+UcDuOSUunQCmSQoRDCoPlVJNXaRxT3bhcUyWkTjCcWOmTyeYI1
+         pNYBnNAGuCMTfp+T/RXXlc1GIJW8MB9cV6aQ7tSkF8q5+tIMjwqH3MLQq558/9T6DYHU
+         l5+RcKTMaZRZc1wzTjdsFW9w6Lj05xq+RGIYmn8d3yo37PL966uKJ0F8ReEw80b5+HXS
+         P6ul2TSu5uNyt0U3lZe8UJ2q92FBJo2451J9XjhgRzu7DwLTEP/RXHGArBerLKN/dE6e
+         y6LKNF/OzeoWiIBUkduCBKZxaMCzbA81n55IRvAC5SN9EDUwHY5+OecMFBmkG6wFn6Bj
+         Wdrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758921; x=1791363721;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=valg39DdEk8sl2YI17Dx/FsaQPmRarO/oHzT/4W/5sE=;
+        b=KOFIHNV6Evc5CYrC/Xr64uENLI1JwnubpZp/UzigHUTtngQdCKk7EemV2KDhgdMz8V
+         WuoCY//HEPuBFQR7Casz11811NeUtj9X6qQwdUZY/riF+/HnxRUF43H9ML4Q2f7hgPV0
+         7I0tx+zJJ+E0O48FwyYrnkrzoyr/v4p0yQHy1fmuDFl4t3Lyi7fg8skG9sN4JyWyolO8
+         73VBQkpALIUPtVPuM5ZoCXgDn5t+glkF0wmIUV8Lneod6anHI7+kCOx9sVG2awgyXzpg
+         Ygz1eE3QNAaEojYYbAQ9JWmz3CBlR7UwpqLIZ+/RNGguTrEvlCm9jNvtTD6zjUv0fao6
+         gFww==
+X-Forwarded-Encrypted: i=1; AKwUvBxT4ITLkk3WlDtmZ5BhrJjbWcjkVwQURJZvbJIDfv8H1saLuL+Fjviu+Q7kYIhKWeawZfUOMHAn+L6YpK0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1IM/hlthWZjb0zxbrEQ7r7ItGElfXYSCqsz5e3/Izw9xSw9lC
+	l6tn0+9iJ9Zn6572QELChjRFGKvh7jqagR3BQoyDFR3qeksyax4yojYB
+X-Gm-Gg: AYBFou2tysUgkKOoujJMq+XJy6p6XhviSGX4UJlV7zzZ6YEpoC0U/9KUYUaCZnpw+X7
+	/gTEL4hcQfNpkfMfLiaKa6u8N7cC2/LU6lPSY0cMOx0qrLlwJ36hMP4NLllaftp9YiuznKK/l7s
+	v+MpKYP7RCOsUOYLZsMKMktwDekJPQpPFdqOiimmk3rHMGJnQtHLH1VRGfQsJLW3093fGyH3HWd
+	ETUN3lTkGxaHhcisED/Ot/qHeCxm30flnnXmn2IX9U0rAIJqgElyIH7ZlQscllpaGkBjaVtGPOJ
+	dslHpAPFlJUsX8Z2R54AHea5ymXMDraiJvbotEwrWGrfR9QIlo0GZOSgkFU8R1n+kcajLIo/0yu
+	VVLydb9uxAWvQc2B1T3Vga23GDYjXkwY+WuQIVK+vo/U9yGY9nvA+cw74ic9YAGeWvQ8Ycrhaz+
+	veUVdpU/ToiMVOXxL+E3ZyJLWVXhn9cxzyQRE2lwc3fdcx3wt+fvTE2m9MVaaf7L1hGbzMik6bG
+	M7cei7fxCHOzpvx9u/LH7Cn4IDH0TkIg2pPT+9NGgsiF48MfIo7lm4hhpaCxB1VO9+VBzHk5Eap
+	8YThNUJIxRNj4qs=
+X-Received: by 2002:a17:90b:2888:b0:3a0:f4ee:d2b2 with SMTP id 98e67ed59e1d1-3a4d2895ae0mr550843a91.32.1790758920501;
+        Wed, 30 Sep 2026 02:02:00 -0700 (PDT)
+Received: from localhost ([153.61.198.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c9938fe0sm2567574a91.0.2026.09.30.02.01.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 02:02:00 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 09:01:59 +0000
+Message-Id: <DLSJ22P7T6BZ.FCF3J1JWCOET@gmail.com>
+Cc: <john.fastabend@gmail.com>, <jakub@cloudflare.com>,
+ <jiayuan.chen@linux.dev>, <daniel@iogearbox.net>,
+ <cong.wang@bytedance.com>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next 1/2] bpf, sockmap: Fix udp_bpf_recvmsg()
+ spinning on backlog-only ingress
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <chenyuan_fl@163.com>, <netdev@vger.kernel.org>, <bpf@vger.kernel.org>
+In-Reply-To: <20260929083447.558818-2-chenyuan_fl@163.com>
+References: <20260929083447.558818-1-chenyuan_fl@163.com> <20260929083447.558818-2-chenyuan_fl@163.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-perf_fix_pylint_errors-v1-3-f72151d8b255@arm.com>
-References: <20260930-perf_fix_pylint_errors-v1-0-f72151d8b255@arm.com>
-In-Reply-To: <20260930-perf_fix_pylint_errors-v1-0-f72151d8b255@arm.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Aishwarya TCV <aishwarya.tcv@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790758902; l=1253;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=5VXyDGgHM1h2GOfGAbHZtu7Q+5PwQ6iLptI7+l4XeJk=;
- b=c8vfxeqPyWRTCmMOO5KtVAEldFceYDFDK3XfVbFob2+HSi4l7npn6rT3NFaqzCezTGaBc603P
- ZpC1Jsk7lPHD9lfFm8sG4b006xRisG5iXjBoYWJDc3NHgcVqhjS9PxF
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Python 3.13 reversed optparse's deprecation, and pylint 3.3.5 removed it
-from the deprecated-module list. Perf supports older pylint versions,
-so suppress the warning on this import and document the reason. Keep
-other deprecated-module diagnostics enabled.
+On Tue, Sep 29, 2026 at 04:34 PM chenyuan_fl@163.com <chenyuan_fl@163.com> wrote:
+> @@ -91,7 +91,7 @@ static int udp_bpf_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+>  		timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+>  		data = udp_msg_wait_data(sk, psock, timeo);
+>  		if (data) {
+> -			if (psock_has_data(psock))
+> +			if (!sk_psock_queue_empty(psock))
+>  				goto msg_bytes_ready;
+>
+>  			release_sock(sk);
 
-Link: https://docs.python.org/3.13/whatsnew/3.13.html#optparse
-Link: https://pylint.readthedocs.io/en/latest/whatsnew/3/3.3/index.html#what-s-new-in-pylint-3-3-5
-Fixes: 8a54784e708b ("perf build: Add pylint build tests")
-Reported-by: Aishwarya TCV <aishwarya.tcv@arm.com>
-Assisted-by: Codex:gpt-6
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- tools/perf/tests/shell/lib/attr.py | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+sashiko is right. This replaces a spin with a hang.
 
-diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
-index 7f3d5b64b00dd7de45baff4f7d9baff89e003147..523257bcf8e126cb662af589727144bb26cff4d5 100644
---- a/tools/perf/tests/shell/lib/attr.py
-+++ b/tools/perf/tests/shell/lib/attr.py
-@@ -4,7 +4,8 @@ import configparser
- import os
- import sys
- import glob
--import optparse
-+# Pylint before 3.3.5 still treats optparse as deprecated.
-+import optparse  # pylint: disable=deprecated-module
- import platform
- import tempfile
- import logging
-
--- 
-2.34.1
-
+pw-bot: cr
