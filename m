@@ -1,67 +1,68 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4953449EA8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8A2445AFC
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752308; cv=none; b=P6S+jWKTdxvKRZo/xhfYOggUnXlTXyqFimpOWQgYty8dWqf+88iM+f6RoJAWXFXCT4Ws0oANUa006m4gcFHzCYJyUb4ArdB/eD/clok8lUi+C9AXFseMJQFQ6AekanGiz1K1selfBE+T+dtxD/ANtv4QRLS7yd3oUh+UxEnAGa4=
+	t=1790752310; cv=none; b=NAWXlanWQPojZLpN9Zh3Sgbj4zHr5CCUSVQ+6C30QARe+6fBMKovLeoAMu6Ukl/WxwJmltOH3tVTuFbdnok6Vm2h/6U8SZD3erDb9q45VJvM1Kbj0EuPu4YLOzx64cZ1BUTHMXPSpanXifoCkO0C3V7BOM8nOJz3iTo0PxV12xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752308; c=relaxed/simple;
-	bh=THALjTc2ekV/VHBl1pTdNAPYfaghOcuUvvpw/9eRGgA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gTj+SiSbxOmNPoIvOULBYH2R96Xxb4XSXITjInZ84gI5CfDEf9QQDzsQWrrxg8hiSpBsKzVhJreV12k3k1Yw2JZuXinSs2bXLepufgK14SvvHBmPfx0GaHFRu8erpajpAiQYSMEypD3Ay5+qMI7KdWqsjlKSAz18A1rXus4rlXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cRIZVxkc; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790752310; c=relaxed/simple;
+	bh=OTLf57bRLMObeZY65qGuyn5U2mnysVcG5k1v3huPGzk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HXQUSi6hecV4DWkS0g7lw+/wM5uRgYBqbolJKACF/waYmmNpCmNXiuhhGJDmcDFrK6wpqEbeLltoD/L98P0asnb+ZlV0njS1Rnxz3l3DsIEREi1rS+VYVfqGwCzee3IBA7PcgdA6XUx9kG+OexkemFPpoxnHh+7OLvgrgjtKkCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jz1J37UW; arc=none smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cRIZVxkc"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e62211987so5046241eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:11:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jz1J37UW"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-344447f9c3dso2515357eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752304; x=1791357104; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QxYDyqZ3i76HSJhOHQLDltbCWIhkGa5sofn3Lj/sGzc=;
-        b=cRIZVxkcTr3jAJwjFAYh7HENQFx/yiV3I4K0HK0au9DTYwGAfHKDy3aivhQ0P2jSmo
-         jeKCs/HlE9y6tOjA5k0jH//oFLypaGZsydkwrNqFxT/0Oyu+v56x/W7H3g5Se4Q5sI2l
-         IK6R/qeYe8WqDux05xt/a9bQ9NkjweUmwea7tc2aSem448AJF4t569B6F8/BxgJoQbiq
-         uxQL9zBeoV7FtymN7LaZ26C7sx9mQCovhBPJow0CnYY/NnanTk+fCxOldcruUK9lLmAu
-         qY40gxQGDKND0i8wCjm4Pq5ZIPyIhLmPg9s4JeGrCvtVBi3fLxxzLeilEcyAtZYPY7tC
-         P9qA==
+        d=gmail.com; s=20251104; t=1790752307; x=1791357107; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zcnJ184JoYb53zg3yz9uspX1LHzg9LyZlu2u82RZHnY=;
+        b=jz1J37UWdme9gEMoheGwEcwN+WtODKIIgLck3ow6AAC8WhOwCMUNsLCpwpR8e56lDn
+         IXl/fvXcoAzHkeaw2r1/btRpSCplG7ZY7NCDsFtLUVbtVUBPnBcsGDbZwNZg9qkciHdP
+         IHsZtF3n44f1UAT/fEllI4dGnmzqwGPywKUZEIjE6Chv3y7ly2/9R+Ny4RJuJk413AFs
+         H8jPoBVMFCSqDfNg3gLPA/lvmFK+2kU51uTtX9G5gepgGExexfjKpQwOMscTI4RoS1Y7
+         NAHIKFdWGwzKlcM9Nk1KVD4MHsEX5QRCA9E3kX60/nq0Gq3fI3fnOJ6DFz7D5qi3L+g2
+         fpbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752304; x=1791357104;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QxYDyqZ3i76HSJhOHQLDltbCWIhkGa5sofn3Lj/sGzc=;
-        b=itoqXZ0UfL0OfJhOAKI4CJsv51C8qQ5Z3LqJcn9mptTStj1O4ZRGjxoYY1qGfS2J8X
-         nsUF6wvYcLTmrkwI0GG4pBC6jhEJ5NA2Oy71Uv37pCJqPAhQo0cMHg+5bggB76GZyxJ8
-         OmKjPhv+SkgHyZIhJlzaoEIAZ8UNBKG9IYNp8TV7G3mwd9F6dMbn+1ZNnEEEB3I2NMuZ
-         xCEFDELiJ9eNiehvmY+WsLMFpleJuEl8KTdqsBe9dhi9ritsskAs8je8lfEAbqwuoVfu
-         VGu6phBX0vHDDWjesk2Gj0xpBcfF2uZZ6LEWdJhc2Aqt5wECjEmtEFda86k7x4RyEkJl
-         0iqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDg9boTzA9D97LQ9T0R+4+UKEvNYFHuXgU3knpSp9GOV2LiMBIMGDMzz4Zqx6cnvNJ19jCcjLkTcK/Hck=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrtJW1yDbct6ICkBbl8cyJL+THeiG7OS+ukwOOuk+lG7dhOFlM
-	GjHqzT0ETsB3CRN+kRXaHAmW6G11sWFvEKknvpa8hA7KASoeHdcJcA56
-X-Gm-Gg: AYBFou06xj5LkZL68xidfZhtmKk+1Hnhwojx7BKjaL7amlxTE17EZGTPTDqNGBvUNUL
-	KHs/y7WVyyx9VCgfS7PMSzp7Fv25VSrgQUWzrEIid8v9pEApk83ezq5gzFYGx4sD8Ch2egpJbiJ
-	9IfzIL+L9wScJVWHtF2y6MkZAuJ023OC8VCXGOozLCV4NwKJMeYMBCwpwmy2YNa6hymKBhvwLCS
-	+/lYuDbYjEAPRoYZ40dFKDl0E1bCVdhRj1hYwQlLxrJO+utGBDghIErzEtKXuEe5ppvHradqNmB
-	VNNSS0q/e9Lw+qE52YeNLyrE48sqoLWFhnzC0604ZLWRziEG5nIIdwHmjQVJvNLF39PHw0kbOGE
-	B7SYe4AukNB1W9NbejYsWT+H6paCHS0YyLGn8KbpeyZr5xUsKnVOIOc7SqSOIYOv0b6ZrEI66DM
-	H0P7qpcZNqISNBnjl8KJ6GrFPQVOF10vczUZ05NAy8RdR0+QE8Co2POUFQMUCNdxzrCw==
-X-Received: by 2002:a05:693c:42ce:b0:315:9d54:6bf with SMTP id 5a478bee46e88-34cdb1fd8f4mr678342eec.10.1790752304018;
-        Wed, 30 Sep 2026 00:11:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790752307; x=1791357107;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zcnJ184JoYb53zg3yz9uspX1LHzg9LyZlu2u82RZHnY=;
+        b=drp42bVMm/xqzUoKFYfulmcnVaAO6QqC8iTs5Yddexgv7QcDfQFlC2o4O1u+XlCWZU
+         rf5vyiTF+7qYxuq3VCn1+OSm3y8msW944VgXWTS6wW7mhgSG2ygrUKtolTJMVEKU5h/L
+         8jtSBcN1quaicij+g88U9TSWWQPBnZiMiR5GFoBA1ixLiI3z2qEz+jqi9Y1goFu29hgv
+         4Ga1VqMKGvOPTfjtwGjQRtt1BmhZpJGBbFav3wD7JU2Ho3nh14YX2cWy3OpDZGVxMhGC
+         fYX8TU8bRqAJmjXjbLN7Bdb9Y1matKyuYX7Llr1jEVG+NiKIPIBTCxgVo9k1Hv28nhVT
+         uFQw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5zyCW25+IDKbzLFRcScBGLyF8cKfiKLm2IvWBiwmchJOEjpbLaxT9zZ8TFnAtsLXJOKLCSaVtGCptvIg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEyGTceiYb0vfFL1vgEoZp4Dqu7aSQBSTXipPD/5NdZLKjn64A
+	BNaCyoyx5SSLPi0NZFma9v6hBJ9LIM9PxWwqsq7JGYP8ITA7SqBh9WEF
+X-Gm-Gg: AYBFou2jznHq1DYKM3UIRKL9TenGxNxih9+HdyXWZ7GA6DBsslJdnM3CK7XcUVQQOIf
+	qXD7qzOw+d/xn9GO3Pbu9qMl6HXrHA1QikFOW9cYjtj3Ss2OEys/mP5KGoy3z7MlEu5+JSSyFbp
+	3MO4m5bIlp9GWU/0U6SyrZvOwCf/8ZMab7CRe/yY2W+xB8dhuClf6sLmjPi4GktxHuFF35dzMn/
+	nBxeblpqh6kKml5sinC6V8wUnQJNBs+NTKARf/rX6EQojv4odqTM4yT1EuRq1nHb3PzMGE8PMfG
+	BwjS6eahChMJUmZ2xjq9MHme37Q2Nbsg0eV3GXQaGDkzBMS9DVN3F85nh2NsIR+70Lxs7SZxbpi
+	XxwuNCd1qB+yCRB5UeGhDwp/wN5VHg4w0Girhcq0r2PenI4CsnFOJ+IR7giCPfJ0s/gLWgy9rxC
+	2hf9yuZvauLExlKnniaMj+9ROjA40Z7NufqoHvlP7mMZE/TYz3wOfjjWnf9+c2yymZIw==
+X-Received: by 2002:a05:7300:b282:b0:34d:756:9b2a with SMTP id 5a478bee46e88-34d0765e6b7mr406978eec.23.1790752307547;
+        Wed, 30 Sep 2026 00:11:47 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5b4349bsm1621837eec.25.2026.09.30.00.11.39
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5b4349bsm1621837eec.25.2026.09.30.00.11.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:11:43 -0700 (PDT)
+        Wed, 30 Sep 2026 00:11:47 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Subject: [PATCH v3 0/2] ext4: fix shrinker scan budget accounting, plus a
- related cleanup
-Date: Wed, 30 Sep 2026 15:11:36 +0800
-Message-Id: <20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com>
+Date: Wed, 30 Sep 2026 15:11:37 +0800
+Subject: [PATCH v3 1/2] ext4: fix shrinker scan budget accounting in
+ ext4_es_scan()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,10 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACi2vGoC/43NwQ6DIAyA4VcxnNcFGEPcae+x7IBQlGTiAoa4G
- N996MnTslPzN83XhSSMHhO5VQuJmH3yYyhxOVXE9Dp0CN6WJpxySRuuwPkZcJ4EYIJkdIAQ9xn
- QwlW7mtZCOGksKcI7Yjnf9cezdO/TNMbP/iyzbfufmxkwaJhVinPVUqPu3aD962zGgWxu5ker+
- W3xYjmBykknW9Wyo7Wu6xcJ6pqrEgEAAA==
+Message-Id: <20260930-fix-ext4-es-scan-nr-scanned-v3-1-9aef0be87d21@gmail.com>
+References: <20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com>
+In-Reply-To: <20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com>
 To: Theodore Ts'o <tytso@mit.edu>, 
  Andreas Dilger <adilger.kernel@dilger.ca>, 
  Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
@@ -84,53 +84,66 @@ Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
  Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-This revises the ext4_es_scan() shrinker scan-budget fix per review,
-and adds a small follow-up cleanup noticed during that review.
+The extents_status shrinker's count_objects() callback,
+ext4_es_count(), reports the number of shrinkable extent_status
+objects via a percpu counter. do_shrink_slab() reads this count
+exactly once per invocation and derives a one-shot scan budget
+(total_scan) from it, then repeatedly calls scan_objects() in
+fixed-size batches until that budget is exhausted.
 
-Patch 1 simplifies the fix to just returning SHRINK_STOP when
-__es_shrink() frees nothing, dropping the sc->nr_scanned computation
-entirely (Zhang Yi and Sashiko AI both pointed out it added risk
-without a corresponding benefit: do_shrink_slab() discards
-sc->nr_scanned on SHRINK_STOP anyway, and computing an accurate but
-small nonzero value could reduce the SHRINK_STOP hit rate under light
-background load).
+ext4_es_scan() never signals SHRINK_STOP, so do_shrink_slab() has no
+way to tell "there was nothing to reclaim this pass" from "a full
+batch was scanned and none of it was freeable". It keeps calling
+scan_objects() until the original, one-shot total_scan budget is
+drained, even when sbi->s_es_list has had nothing left to give for a
+while.
 
-Patch 2 removes __es_shrink()'s locked_ei parameter, which Zhang Yi
-noted is dead: its sole caller always passes NULL.
+Return SHRINK_STOP whenever __es_shrink() frees nothing, so
+do_shrink_slab() stops calling us for the rest of this reclaim pass
+instead of burning through its scan budget against the same stale
+freeable count.
 
+Tested by fallocate(2)-ing 10000 4K files (to populate the shrinker
+with reclaimable unwritten extents without also exercising the
+extent_status "referenced" second-chance path, which needs a
+separate two-pass accounting of its own) and triggering
+"echo 2 > /proc/sys/vm/drop_caches", while tracing the
+ext4_es_shrink* tracepoints:
+
+                      total scan_objects()   calls with
+                      calls                  nr_shrunk == 0
+  before this patch   429                    189 (44%)
+  after this patch    238                      1 (0.4%)
+
+Fixes: 1ab6c4997e04 ("fs: convert fs shrinkers to new scan/count API")
+Cc: stable@vger.kernel.org
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-V2 -> V3:
-- Drop the sc->nr_scanned computation entirely; just return
-  SHRINK_STOP when __es_shrink() frees nothing (Zhang Yi, Sashiko AI
-  review).
-- Add patch 2/2: remove the now-dead locked_ei parameter (Zhang Yi).
-- Add a Fixes: tag for the commit that split count_objects()/
-  scan_objects() apart, and Cc: stable, matching the equivalent jbd2
-  fix.
-- Re-measure test data against the simplified fix (429 -> 238 calls).
+ fs/ext4/extents_status.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-V1 -> V2:
-- Correct the comment and commit message: nr_scanned == 0 is not
-  only reachable when sbi->s_es_list is genuinely empty, also when
-  every inode walked was skipped or had nothing currently
-  shrinkable. No code or test data changes.
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 6e4a191e82191..d88af807d36e7 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1783,6 +1783,16 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
+ 
+ 	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+ 	trace_ext4_es_shrink_scan_exit(sbi->s_sb, nr_shrunk, ret);
++
++	/*
++	 * es_stats_shk_cnt is a percpu counter, so it can stay positive
++	 * after sbi->s_es_list has nothing left to give. Stop this reclaim
++	 * pass once a call frees nothing, instead of burning through
++	 * do_shrink_slab()'s scan budget against a stale count.
++	 */
++	if (nr_shrunk == 0)
++		return SHRINK_STOP;
++
+ 	return nr_shrunk;
+ }
+ 
 
-v2: https://lore.kernel.org/r/20260929-fix-ext4-es-scan-nr-scanned-v2-1-f4e8f6f6b8b1@gmail.com
-v1: https://lore.kernel.org/r/20260928-fix-ext4-es-scan-nr-scanned-v1-1-91d88228b0c8@gmail.com
-
----
-Qiliang Yuan (2):
-      ext4: fix shrinker scan budget accounting in ext4_es_scan()
-      ext4: remove unused locked_ei parameter from __es_shrink()
-
- fs/ext4/extents_status.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
----
-base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
-change-id: 20260928-fix-ext4-es-scan-nr-scanned-5af70744f6cd
-
-Best regards,
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.43.0
 
