@@ -1,138 +1,149 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F7B371D11
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50924D1787;
+	Wed, 30 Sep 2026 15:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783901; cv=none; b=F0qQTr+ont1JGy65NlNUXsrsFAT68fgVEHRkD2oGdDRaIDvr3RPicjzVGNGgQ6L++7knfq1HezErPa5BnN29Qn4aU6alGn3Bc07G7J9PD/8Q/IeqFKW+CWpY81U/jodjUiFUqIloLz0OkS4aHfLMYX/VAw5Ge5lXkUmioiQjK74=
+	t=1790783913; cv=none; b=FCX+nABzNWKSO2+2YQH2ZQikHMzBBQd7YMGvYTjVdjZsAT6QXP4uyUCK1SQJvxRzMptVsAaBc+YWK3AgYdhUK40cTkWcNzz2imYz05O6g+wt0aVjS1HdzK7R5jy1NtZnNtnnA00HRnhL2gJb8ni2rSIUk/2T/q0sJqleCD+NjzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783901; c=relaxed/simple;
-	bh=EmKmSkLhxGbLF9kRqPw3WFa5r0F4tnxJ1OHbMC8xSXQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=UF3dHp67HjP6BKYLYUkqd9oSHoZDO/uq3s1u92x7TWpbCEsEFV2QKOmmt6D7p8PHuQfl+XfxoysiubZQ4jRDfJukBSOiDC/IT0ZUchHhYBplOR85TMHUBA8ClqtUGQOg3aTbIYRR9V15n1OFe45r6QGaQ6e847CcParKOuxvpDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=QQOAxyqy; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=+iSQwtFh; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790783913; c=relaxed/simple;
+	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lqTI12H6q0H84KMyhlgT9gmEZn/iqjp61tDA5rFSJatvq8zU0nlK0U8uiX3Q5xqHh6PlSUnk8h6Yg1SDGRU91+5rrANOAeMjKSzexzdFe/2YegbpPcA8IjjdKnpkSeUCO9jwVR434AzJdX/lZ+enO2qW0fa6M9fnzZw9tD7hgak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L2tfF9HC; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="QQOAxyqy";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="+iSQwtFh"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790783881; bh=15bf+Q65UcpCS3QKUeXU2Xh
-	qWi+bE0+ceFmn77tnDF4=; b=QQOAxyqy2TCJX1Zx5PYna+utEOdOrM1Z43Ri8OBCm2rb3zSUdS
-	FnFxFHKB6u4d5jGTFNX4J3M5xuTXoKByvn9PhYwXrRfWPMXTZBEHSmtm8uDdGY4baKKmMuh6NTf
-	gOOrp7P6jYKaIOZ3YWotvZbh1XqVwoulhrrhgPBEJDUWw8F9fozvSzKiHXJ90iZFnShifIjV+YW
-	Y7n1/3SYFEOqCx7QzHD8VvdTmPfu9GuhWb5NTUdIrZb+WITe6tYH7wZvUHnQCAyTuw2REa1nhGQ
-	CiECQvCgJ7FWRX5PK+C95SNX4oxS0icOrRKP0VokW40RHsYFAaNYZ53Tuofti+MQpbQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790783881; bh=15bf+Q65UcpCS3QKUeXU2Xh
-	qWi+bE0+ceFmn77tnDF4=; b=+iSQwtFhaxb8quEcrF6KgCExeQ0NTJ6kcbLbL3ZdUoS1jHarFw
-	YY/f+MKi1wXk/C1sch63LFcwsRfStKf6fNDg==;
-Date: Wed, 30 Sep 2026 16:57:17 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Will Deacon <will@kernel.org>
-CC: Catalin Marinas <catalin.marinas@arm.com>,
- Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>,
- Vladimir Murzin <vladimir.murzin@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Kees Cook <kees@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: scrub vector and pointer auth state on task death
-In-Reply-To: <F37080C2-29E6-40A7-8784-0236C5700646@mainlining.org>
-References: <20260930063647.1356613-1-brads@mainlining.org> <arzB_AJIohqhvoiu@willie-the-truck> <F37080C2-29E6-40A7-8784-0236C5700646@mainlining.org>
-Message-ID: <075D5E61-2ACC-4C23-950A-77989A65D8F8@mainlining.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L2tfF9HC"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 34D4C34;
+	Wed, 30 Sep 2026 17:56:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790783786;
+	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L2tfF9HC3qurjOKRXYDMqOKASmD+Fr11uViI6pruu4IK+X2gjb+Qrc0LPbo2ClC/i
+	 pQ50KvP2bVEDVqeebyd/BBPmVqkW68rD+oEjTdYgMuso89FKaU5zYqVN2gKEIaX8Kh
+	 049B+Gb1N/HvapsKch/NcZ4isnk/qWbGR2u6qN6Y=
+Date: Wed, 30 Sep 2026 17:58:14 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Paul Cercueil <paul@crapouillou.net>, 
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Alexey Brodkin <abrodkin@synopsys.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, 
+	Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+	Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
+	Houlong Wei <houlong.wei@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>, 
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon <gordon.ge@bst.ai>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>, 
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, 
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+	Chunyan Zhang <zhang.lyra@gmail.com>, 
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-media@vger.kernel.org, openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org, 
+	kernel@collabora.com, linux-tegra@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 21/42] media: arm: mali-c55: Use
+ devm_of_reserved_mem_device_init()
+Message-ID: <ar0xb9md8E76G5VI@zed>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
 
-On 30 September 2026 16:43:09 BST, Bradley Morgan <brads@mainlining.org>
-wrote:
->On 30 September 2026 09:02:04 BST, Will Deacon <will@kernel.org> wrote:
->>On Wed, Sep 30, 2026 at 06:36:47AM +0000, Bradley Morgan wrote:
->>> When a task dies its SVE, SME and FPSIMD register state, and its
->>> pointer auth keys, stay in freed slab pages until the allocator hands
->>> them out again. init_on_free=1 users get this wiped for the whole heap
->>> but the option is expensive, so it is off in most builds.
->>> 
->>> The vector registers are not idle memory: userspace crypto runs
->>> AES-GCM and Argon2 through SVE, so key material ends up in
->>> sve_state, sme_state and thread_struct. On task exit and on the
->>> exec and vector length reallocation paths those buffers are
->>> dropped with a plain kfree(), and on task death the register file
->>> copy embedded in thread_struct is not wiped at all. Anything that
->>> reads the freed slab back (slab bugs, cold boot, a leaked page)
->>> gets the dead task's keys.
->>> 
->>> Scrub it. kfree_sensitive() already exists for this exact job,
->>> so the freeing sites just switch to it. The register file copy
->>> and the pointer auth keys embedded in thread_struct cannot go
->>> through kfree_sensitive(), so arch_release_task_struct() zeroes
->>> them directly with memzero_explicit().
->>
->>I don't really find this very compelling, tbh. Presumably this data can
->>end up all over the place: on the stack, in a vCPU structure, in a GPR
->>so it really just feels like doing something for the sake of feeling like
->>we're making the kernel more secure rather than actually adding any
->>tangible benefits. There are also lots of things you're not covering,
->>so it's not clear why this is either necessary or sufficient.
->>
->>What prompted you to do this?
->>
+Hi Mukesh
+
+On Sat, Jul 04, 2026 at 01:08:34AM +0530, Mukesh Ojha wrote:
+> Use the devres-managed devm_of_reserved_mem_device_init() instead of
+> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
+> pair, letting the device resource manager handle cleanup automatically.
 >
->Hi Will,
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+I'll collect this single patch for the Mali-C55 PR for v7.4
+
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 12 +++---------
+>  1 file changed, 3 insertions(+), 9 deletions(-)
 >
->I may be completely wrong here, but the "it ends up all over the place
->anyway" argument applies to the keys subsystem too, and we still scrub
->there. big_key, dh and friends use kfree_sensitive() on free, with the
->same acknowledgment that the key material passed through other memory
->on the way. iirc nobody argued those were pointless because the key
->also touched a stack or a GPR.
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index 94a389b3f833..afbec11f69f8 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -801,14 +801,12 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to acquire resets\n");
 >
->The buffers here are not spill corners either:
+> -	of_reserved_mem_device_init(dev);
+> +	devm_of_reserved_mem_device_init(dev);
+>  	vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
 >
->- sve_state is the task's whole vector register file, up to ~8KB, and
->  it holds whatever userspace crypto left there. OpenSSL has SVE2 AES
->  GCM assembly these days, so keys do end up in exactly this buffer
->- uw.fpsimd_state is 528 bytes of register file embedded in every
->  task_struct, one slab bug in that file away from being read
+>  	ret = __mali_c55_power_on(mali_c55);
+> -	if (ret) {
+> -		dev_err_probe(dev, ret, "failed to power on\n");
+> -		goto err_release_mem;
+> -	}
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to power on\n");
 >
->And init_on_free, KSTACK_ERASE and kfree_sensitive itself are all the
->same idea, memory that held crypto state should not outlive its task.
->This is just the scoped version, a few KB of memset on task death and
->nothing anywhere else. Still true on today's next btw, sve_free() and
->friends are plain kfree() there.
+>  	ret = mali_c55_check_hwcfg(mali_c55);
+>  	if (ret)
+> @@ -847,9 +845,6 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	kfree(mali_c55->context.registers);
+>  err_power_off:
+>  	__mali_c55_power_off(mali_c55);
+> -err_release_mem:
+> -	of_reserved_mem_device_release(dev);
+> -
+>  	return ret;
+>  }
 >
+> @@ -864,7 +859,6 @@ static void mali_c55_remove(struct platform_device *pdev)
+>  	}
+>  	pm_runtime_disable(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+> -	of_reserved_mem_device_release(&pdev->dev);
+>  }
 >
->Honestly what prompted me to do this is, an audit of where a dead task's
->secrets
->stay.
->sve_state and
->sme_state free with plain kfree() on a path every exiting task takes,
->that was the whole trigger.
+>  static const struct of_device_id mali_c55_of_match[] = {
+> --
+> 2.53.0
 >
->But if "not necessary and not sufficient" is the bar, it bounces the
->keys precedent too, and I don't think you want to argue that. If the
->bar for arm64 is different from the one keys lives with, that's fine,
->I'll drop it, I'd just like to know where it is.
->
->
->>Will
->>
->>P.S. This ended up in my spam for some reason.
->
->Maybe this ended up on spam too?
->
->https://lore.kernel.org/all/20260919121044.13883-1-brads@mainlining.org/
->
->
->--- Thanks!
->"I'm not a very positive person" - Linus torvalds
-Oh and if it helps, my mentality for these, is for like someone really
-paranoid. Imagine that, if you don't like this, what would you suggest?
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
