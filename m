@@ -1,68 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A244C33E6;
-	Wed, 30 Sep 2026 18:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82BC3BE642;
+	Wed, 30 Sep 2026 18:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793453; cv=none; b=LUxZJ8PpSV57cb+X7UQ9/eWk3GJ1v7DePKKtCoyFbASMb+HA/UtOFt6XZCgqA5ZCDxyHplx9PCVyiziGZhdsWZkFKRfcmNXimr/Wdcy7Ols3B26kY92py95jYsfHZrH+41gM0UWHIveTLzZITCWJR/AJwZrlK808+PllZ49Y08c=
+	t=1790793499; cv=none; b=NdOZ4f7i9Uuv4rPNhvSYEv8m1W41nNb/L9EfjU1vNhEk/uPVD+US3XrkD/I+jvzFRBdklGy7FHx170LNKPaU4Uj1l8glysGFtyj4pOdIoOpgbgNfxBMpgcpoNw4Sk9FHXD+v/0XBdwY8FStB2FGBSKawkmMG5HZ2mMJlkHKwaNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793453; c=relaxed/simple;
-	bh=81LSair9EPRAiBn/IkSUZMEuAIdtIt5K4tXTvBe09i8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JeiMIHmg0ZS7/waEgkOKbyJgKBenrP1llks80v5G0WAJTZ+BGITRWxr6DLnFaJvXetiC13qGL8d944Dt2dtMnl2qQRRU7J14NO3LmLfsgxAL3S/jv20TH/gpPnzz1LbdlLpvhVeTUX8HABMc57tT9dUqxUDRMZj27VvvTVXo/8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITA9sbQI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790793499; c=relaxed/simple;
+	bh=2nv/pV3vXGKQwEwQEEv0upnDod20APJRLr0rKVEHp/A=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=BlmXdUCyYfbX+aLJSz/gJhiqC/2OxIs08gvcRk96UIP1vbpoyKPtvFW6ak7DUoPHqI0uB2HXJKrpz+Voz90R35opZJdHktA39qLjmKogYUyFAGM3s1kOeROBhT6vJcqJ5Yr0pR9ul6WCFBgmYL5RKXorO5Q4kd9UswO5ssoNV94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VhOx18UJ; arc=none smtp.client-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITA9sbQI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B851F000FF;
-	Wed, 30 Sep 2026 18:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790793452;
-	bh=ng/g14mps5jdMDV/NHuBoWekicBT/8el9ZOYheRl8qU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ITA9sbQIcZr+dynzwIE5TTanisiKUjcWqmB/pQUFq7w9hEzJQdpWOjUGwlWuVPzXB
-	 Dgb7uMfP1te1riOvx+GwTJtZri32E97yXI4kZTdVaUGwMxrJgyM3HDKQyC08KIHlVx
-	 7V6AggInQ0116AafzQe+TUhHf+3UphlEUMV3PKSi2d96QxiiF8jzQesM7Wfro2zC1m
-	 GQUM7CZ1oi+SKIyKn6doMmltTn9zwys09ZBW26iY/8vPmrDxcT7ggZphm2H4Y+aM7t
-	 nciT5xC15T0pPYwEB8VHd6jlUCyMahCmD3sPOHsoV7Q4V3AgmOXsK0WPaYph2sxIDy
-	 qG11EwQLm94Ig==
-Date: Wed, 30 Sep 2026 20:37:29 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: Ian Rogers <irogers@google.com>, Namhyung Kim <namhyung@kernel.org>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 05/26] perf trace: Bound the fixed size augmented
- argument beautifiers
-Message-ID: <ar1W6c5E5kJEFbWA@x2>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
- <20260928182605.3649015-6-irogers@google.com>
- <r4uzrbjmhlwogshwlzz2346fbgehlpgise6rqhzeibgelqedkg@ezlubngls5pw>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VhOx18UJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790793485; bh=WlBgE8pnPDkXqQZZ34n5Byapb2EAMYahNs5UYROSlpw=;
+	h=From:To:Cc:Subject:Date;
+	b=VhOx18UJfqmxtIqe8m1NRz7g81ZbEuizPbScQLbBYbreRMc3QBaHAdboZEFUhQNGA
+	 NqetMPAAUYEhmxG0YabKwylssheJNA6p589qyRAFNGa+PKUcJaDm6Jc2EW8kG/rd/0
+	 OcfP0D3ji6VxNY20TBvVJu2riIWaT7/B/+OoEuqw=
+Received: from archlinux ([36.28.2.0])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 981B3829; Thu, 01 Oct 2026 02:38:01 +0800
+X-QQ-mid: xmsmtpt1790793481tak01bgkl
+Message-ID: <tencent_238A42C6350C25F55AFAA340BCE35A0D3B08@qq.com>
+X-QQ-XMAILINFO: OJK4x0bF/s2jPp7nZgf2LShJu7hEz6XFY9BJSBo8E+EOl5Ll3FGuT+kk5q3BIs
+	 E5tZ31rYJ7OGaHmEOY99jBwkkJdozlO4z30UcplnzezP+90oXUPxTbPKXxksGyAMAOIR6jOkB3dz
+	 4lVVqOvrCLhUdKfgw3/oPjQPD7BjDtj0Py1HQaSI88ksfWR+sjtfyeaP020DGJhMjcfzii3rEltO
+	 UccYfobjs203Xp7bOCMfgO5b+oVVj1UBvKtvdeohnjmJh9BS+TujRbTAEDnLug/vfoo1mvasLkHL
+	 mKWMAWP3huTe5JfAcJkSBTjY9vFZH5t0EhN6i7HyUGdhGMUGvrbauw5d8oH8bUfJ4i39BFUur65j
+	 dooUhKkZaeTZHjxfGIjuS8gciwIjl5siyGKSlji/cSSkROMZXSGLXwv5YMxY1kyNjh3VRmaClWzA
+	 r5wdGtCJs0g5V4Tvq035QlNeaWmsp9FHmJjRAyzJZibY5HyzNynU9JfjbncYrXdN+9DdDNnnbbMx
+	 wKkzAOmmZIA3HMI0mr0hNXl0Nf+RH8iku5aJU28y0AKlat4IEGbCH/agq56A7+lneplqDkAZ3+69
+	 WMLbJZY5Rc61480YKDwtVWLju1rP0GH8J7Dp8yWlgI1Jy5+yB3oxR8PCevQsYXRFwmkpc1mQuXLT
+	 c3mhkksJejrp5AhuVMCDAijaqo+o0d15d9rRpMlPUUEDGmqCbllQiHYfS0/CXJOvNF3/wizeHHfz
+	 7xAinK3tYsCZm2DpH0+yBX9t0/776oJpjeWz4I9pYC9mNcg0HpH8hJ8ORBOrDkKoqwbxID21DbCk
+	 aprzr2g3onVQVu9KemPcBmagDUbGwosxxMt4N4dJCuabPwcurd3rDtpBkTyvYjyh5CtCUyU2iKIF
+	 dGJCCHlZZnv/pJ0m8ITAE4/CwRmPY09t1GLeB6u0kUmEGif9L1HikbprqDNTbeOLWN8G4zVXX3y4
+	 dFHmKCvCvOYVnnejqrHklvceoofoCmO1gX/2uvjlANo2R/IhZPbEBjiH7CcfTa9KPEBjHnrP/PUN
+	 FRTsdcU+U4kS/ssmHmg+VwDd9hHBGbiOgEDLBAECGJ851flT6gj0tpPFikzjseEQ1CnyjOz77XNa
+	 /YBKUzTYgUJrMX12AziKH554L9gg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Daijiamu <3058704216@qq.com>
+To: linkinjeon@kernel.org,
+	sergey.senozhatsky@gmail.com,
+	tom@talpey.com
+Cc: chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daijiamu <3058704216@qq.com>
+Subject: [PATCH] ksmbd: use clear_and_wake_up_bit() in wake_up_oplock_break()
+Date: Thu,  1 Oct 2026 02:37:58 +0800
+X-OQ-MSGID: <20260930183758.32342-1-3058704216@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <r4uzrbjmhlwogshwlzz2346fbgehlpgise6rqhzeibgelqedkg@ezlubngls5pw>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 02:22:34PM -0400, Aaron Tomlin wrote:
-> On Mon, Sep 28, 2026 at 11:25:44AM -0700, Ian Rogers wrote:
-> > The timespec, sockaddr and perf_event_attr beautifiers read a fixed size
-> > type from the payload without checking its size. The sockaddr payload is
-> > addrlen bytes and the perf_event_attr payload is attr.size bytes, both
-> > chosen by the tracee.
+clear_and_wake_up_bit() was introduced by commit 8236b0ae31c8 ("bdi:
+wake up concurrent wb_shutdown() callers.") to replace the open-coded
+clear_bit_unlock() + smp_mb__after_atomic() + wake_up_bit() sequence.
+
+Use the helper in wake_up_oplock_break() to standardize the code path.
+
+Signed-off-by: Daijiamu <3058704216@qq.com>
+---
+ fs/smb/server/oplock.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
+index 1b8c3482d1e4..bbf84b05dcf7 100644
+--- a/fs/smb/server/oplock.c
++++ b/fs/smb/server/oplock.c
+@@ -765,10 +765,7 @@ static bool wait_for_break_ack(struct oplock_info *opinfo)
  
-> Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
-> Tested-by: Aaron Tomlin <atomlin@atomlin.com>
+ static void wake_up_oplock_break(struct oplock_info *opinfo)
+ {
+-	clear_bit_unlock(0, &opinfo->pending_break);
+-	/* memory barrier is needed for wake_up_bit() */
+-	smp_mb__after_atomic();
+-	wake_up_bit(&opinfo->pending_break, 0);
++	clear_and_wake_up_bit(0, &opinfo->pending_break);
+ }
+ 
+ static bool oplock_break_set_ack_wait(struct oplock_info *opinfo)
+-- 
+2.55.0
 
-Thanks, applied to perf-tools-next, for v7.4.
-
-- Arnaldo
