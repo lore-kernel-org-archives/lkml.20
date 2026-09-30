@@ -1,221 +1,208 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012051.outbound.protection.outlook.com [40.107.200.51])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013024.outbound.protection.outlook.com [40.107.159.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BC83B2FE7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7028E3B6BEB;
+	Wed, 30 Sep 2026 06:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748643; cv=fail; b=Vfv0qUBpfz9byJrMpElqcrUlUdzHrnBBV9QUEiLVqY2HH5Hq/nG26vzDCOFL7dXFwbOcRFkwbPnmqEpqQHNKfoW3vGmFu1uzHKlYspwuXUCXDCl5NQvLVIaQUsHoGGpmMgmaOW0XvSO1I0Ks0THLMFri/kGrA87ooYI0M4h173Y=
+	t=1790748745; cv=fail; b=VmOKby0OAH4vfxdEm7osMFFLUxgOfQR0WuJVpRVHFa52BDbZ0ZcYCCT6dRuiDN0S5bHCZGA0wLYmliixf9nYhQl85zCZ2lEEpINWY/iG2cZrvIBVWKDfR5QN4FH9gl7VtUrZ5Uec3fF/nibbyy0o42X9o/LA/Z+LI/XJWc5hxVs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748643; c=relaxed/simple;
-	bh=EuY3naiaaXnqYHoI84h1U3Ji5J4EZd03y8XeEvZmuQI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=o7rESLvnHD7t6khTobtgpcgnYEJz+3r//xE/HEaiStHWer069dwJn9H+nSrPI/wqFoLbeFHtyYxdq+65cIgqEX9Spl/6ZVM38eZYRZ/L2lbyrh9pmxaulZTjyqDxlZFp4TqSaB1setODJpQDf2IXvFWQKmkKihRd1N4lm7Zac5I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YquaEx8Q; arc=fail smtp.client-ip=40.107.200.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790748745; c=relaxed/simple;
+	bh=T+Snx/va2yCs+a9jvJkJ6FV0+4zCt1WgCV9hXza50yY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eA0/K+f24KqX21y72JfM9AMMpXo8yGfj993z4NArWSMojeUjGLMRtdtANtH9ldC8PMAHUmG16DKto0XYviYwEH6OXOljNBx3e/ckl22XMFpzKYIlrIIG9nYrFSVrWKygdzWpHV9iuH4QyJFVdyw23uRNsjtcfDrcb15YEXLkEk8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BdxqnNqJ; arc=fail smtp.client-ip=40.107.159.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YquaEx8Q"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BdxqnNqJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xT86D6QWt+rqcxvaBW9DsE0BEtdCGDNgjqXe9LRp+eiIiLZQZzPAhDDcDkCgMAFN6An0EIhKsn69AkY7T/+SeS6+eQjfvtp+jJSA1LVS2U8guhdhrvqQlpeUTXXfD/4nZipG+PKi9DgfeNqqj9OP8/yQipshzcckscu2TxDrPfKzFDVDR5kETOKd3b1A4rT94rX8pcgHm6a2zt4dm368CPoGyhfpjDsZK21Cc9KDHSgC4Qd4iuJYjU+QADlGs2Mif2aktDwrHCQ3E648CQb9wlSA0hFiyzqxt9+snlGpszDz3IZjgM/iX3THXIkRJqbGMOMCUebx3U/Bl/UgIBR6hA==
+ b=pljqZb0Ih5cRcSpAG9hvT8kyhUmhLOIc1bWe4pBG3Yigj9pYIbtE0y7gaIUDw8KmOxdi2lEzfndgYwr3rH33BIQQaMUC6z5ZjpzBKMQIWQ/CiEjhroUaP5fq2+ZLagdFdVF7R/dVz9JEcF1kJM4/h90knA//1QovfMXxOmwYpNM6lT6rbCSNub5ZYelusNAT9wdOGgDK6DwNWDPRhgxBO+T4dxtdnHr/LIM7v+PUPOYUjfoexyNfRh1jZv0GKzWs8yOtMexEqcwlH7IC1ntGOQBAXm7/d5Tg/Lik4EbTnLjDiWVWDAUC29eMR6kifTkoE+E/cfL/R4zBCT+FuzTm4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZW/RzFVfKrPTScErVT61BFqAnYm/PJnQ62iMgIKvgl0=;
- b=xuFLgmMXs3f0K2Rl04w/HLGl5OcF/R/zNEuoMpo5AvnpXVWoJRbsX2aKuUwAmDzqIdEfFrBxZG8duHQsz2jmTxXwLuDwwyYUlFdZaIf1hQtah6Sjd3Y9hORIWvgVFm/N+n9HeNcVZQoHhXtGy2JYV7twC3IG9sB/Sh+wqc9KsHh3LkzJkpOtru8qtyB+evoe2kcQJcWYW53KCZfmW6aazcg6mbR0dQxt3H0TPZyPyiTFhKV29lde2Hf1hZrAGOJ4cUsBAJxG6i/kjDlcLb0ex7eWZM2wq4+A5JZVQQq74fYWUPswjAzknRbd1njBw57xYgnp7X5sGNvL2rcpw053BA==
+ bh=T+Snx/va2yCs+a9jvJkJ6FV0+4zCt1WgCV9hXza50yY=;
+ b=pBepQfGZ2v1NGKnKGMG6WyN/7I9/h3J4UxAsNtH75dTJHVc9/tLJPsIsAX8mHC/ftAk6jlXfOGfGHNgQbBMgM62nBSfELZqi15XGdLt4smIubpyFeFUGHv6MvDmTjZMc0TgVSpBj/TT9aKUQlff50TQCGT4lNPOX1l8PbZCxZZ1CXXEYMchhQLYl7EBPfZtxIYSKHlkb4IhiZMvsvdUzNy2uzaiamOwjwDZF+SszhvKrv9i84ny2Tz3RB9nLclvpYL5325I2WCeNU4SbaG5ojvR5fgL1I+A/w83JKVcP0N6aoHryxsip2XpMs3nbrRdgwCwVwehJKSIzL4sqCtvFPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZW/RzFVfKrPTScErVT61BFqAnYm/PJnQ62iMgIKvgl0=;
- b=YquaEx8QxG+VLPRLSMuoWZ6Cuaghgw5zKI35ed6bczRofgG0ReRv98bErd9d+nHEc+R6Y1Tdr6aGrCcx252ZiUsmLrpY/lsPGiHHqsNg3EJbTYNn3tlBVvqxubJTzw0wDLLL8qiuoRyZN3yBoQdK0isgMJuioR3FZrptvI98hBE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by IA0PR12MB7628.namprd12.prod.outlook.com (2603:10b6:208:436::6) with
+ bh=T+Snx/va2yCs+a9jvJkJ6FV0+4zCt1WgCV9hXza50yY=;
+ b=BdxqnNqJEsCCduHHazVjK0JWxs1IzbUoWOWy0XOp2GvIn0+HaTf2+B4ljAHNGfJvQfpbzeSxjHsQlWlm59dH30f7YONbN2AnxYz6JxPDBYPz49FJxcU7MH0VPgRaQZigXik/srnJl9im/BcQ+/CnQa3LSRyBGv/eUpRI5Q+sOgKQiY2pArI4tP7j2eVMQOBtRcaRmK80n2EehLBxAXDGOuKGTJrczHvHQm4NfwrsKRaKk3faJr5B0n3UMTyDkkgVPcNLSOfDTN2pTh5c0GmtET6cCRe8V4k5GHKdy3Ma3mMpA/+ANBJZCrxjcCy5Xs7CPNKAUCLQlOllBgTCG9pjiA==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by BR0PR04MB674960.eurprd04.prod.outlook.com (2603:10a6:2c8:61::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 06:10:37 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
- 06:10:37 +0000
-Message-ID: <22befca6-e76a-47e6-9985-c5adc2e60bbe@amd.com>
-Date: Wed, 30 Sep 2026 13:10:27 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/24] iommu/amd: Program IOMMU DTE with the private
- IPA domain
-To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
- <6198fec2-05c2-4627-978d-d9e7348364dd@linux.alibaba.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 06:12:18 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 06:12:18 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Marek Vasut <marex@nabladev.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>
+CC: "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+Subject: RE: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Thread-Topic: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Thread-Index: AQHdTE9m1hutRzwLFUKmfktoRBJfE7bmds5AgAAWOgCAABaJ8A==
+Date: Wed, 30 Sep 2026 06:12:18 +0000
+Message-ID:
+ <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260924180607.60932-1-marex@nabladev.com>
+ <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+In-Reply-To: <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <6198fec2-05c2-4627-978d-d9e7348364dd@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KUZPR04CA0023.apcprd04.prod.outlook.com
- (2603:1096:d10:25::13) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|BR0PR04MB674960:EE_
+x-ms-office365-filtering-correlation-id: f99a2a71-eec1-4fbe-4f5c-08df1eb9c835
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|19092799006|18002099003|22082099003|38070700021|4143699003|4133799003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ rh99euAYRdu7bFeJf8t3+j7DC4JB3l8Bmg2j4F+rg2FruUeUy8l73RQnnVjftK1niAVP2ANJ5xgNq4HDE1Nr1uhv59T+RpcC09TxmZfLEguguTQAwJoqJBXgk+AuvGJDpmhBDOfF7iQnWvTzJWSD+PzKLDqdhjUqNhVkClJYXWdGHddNLel/BDW0TaUx0cOL79VTAEPXnIEsfoMYJjBxPLSd5G4f7ugTWMe1nB9rm9J17JOxIeAmTKCBSWGAN/oD2CagaysxjVmchX+WAy61HaH8sSv/6JPHIpsSNhlNcpcZWwcXV8a3qTL6JWTqcftBlLCZNF5vJuSqmhj7F+fXloSXttcDIvRq5WXWCu2Jl8L2hzNfSv0hm2iuWlCtaRLN95zuwLOYQm7blQQDY0WzcZBDe5aIsSs1/E33wmQJrpeQ24j5yQZzwrOEv9gpDOBLjtqMTUwsLgsl5FfKDv5mE96cQySo4i8X3w7Bf0QWByP3V5P2Ghen+EqnjGlTDbG9TW20SzkkuwGw7Kva9E1Ykqdmg9/W/1tuOAPHzvg+v/LeWRARy/9OEM2K4uVxGfe6+yyGwYHnN/HC5Hzept+QQZ/EPzAYcE42vboNwoavz1Q2Fc8wGSlN7jBphCN+GIAwY6AvZCz3SDGmbDG45MbSYKz5ZwsVf5b3AQG6kziALYk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(19092799006)(18002099003)(22082099003)(38070700021)(4143699003)(4133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?aLN+nbmjRN90+auTxXr86rfGC+pIM04lo0JWivIDq7rC2yYefavzzgjGLdvf?=
+ =?us-ascii?Q?6ojDccC3P+rCTr06+abgx2usnQuTKklSB7QfbG6IsQJ9l8jJuy571X1kDzfL?=
+ =?us-ascii?Q?QpSedTaiyHcWlRagl4/845lAJG5lqCq/RyIUZOBcrUk7PIR/vRFycIzkYRg1?=
+ =?us-ascii?Q?tcTT17AFaaSySY2TXvtwjy3SYriMSAHp2XhoHom2py+ojJGgG+2w5sd1ic4V?=
+ =?us-ascii?Q?VSFyZgRRdeu9nHHjAZc61e2bdQRfn68LnUMwcJGx1xb61ydg8yMrXdhqJMfn?=
+ =?us-ascii?Q?CuicPOXbjbHErdmj5c6GCi7ckTL50gbQqoaucFKJbqMO8kLXN+5ekc+PrG+L?=
+ =?us-ascii?Q?kb/YZNsObqPzU8rR72kKtNm+RQe3B9XjG0l7HRA/OQoRUtRC8C0qs/2gTP5L?=
+ =?us-ascii?Q?iDwDJpxVmBSLSivEm5bVilUjjN+IDTrRUi00oc/a7kR4x7lN3k+ecrHc2wr2?=
+ =?us-ascii?Q?Tct8LhbGvQSZEbVBwAbM4x1SUQS7iHa4T/JgqzRnRLRIT3qnFpKT/XKX6PAq?=
+ =?us-ascii?Q?qxiHSqTYjyY/GNug0ULCyWL1DSe4zkL8CjimR2THqbNeQZI4LTN9VKHAbCyw?=
+ =?us-ascii?Q?aOG7djQTJ+yswdvtxEmxDnxJxg6iqu+1tZBT2L22aj2InRax8PucJJsmfxx2?=
+ =?us-ascii?Q?wdMGyakv+gXTPIEgiuhFO9WPkNNpgAg+Bv4Q6gN2LK3qwh+fJT9LrFuXfezb?=
+ =?us-ascii?Q?MQh8eIdsMI1p/ROSYp5+E2DAujo6QZmt1pCbtdZaHMxWuZOdOFCoQ9D289ax?=
+ =?us-ascii?Q?UEXNML4iLa12qtF2W3yoe7wEmEbvr1Zd2ra4cAqSvTTDHbuGjUvh9dC3ACYP?=
+ =?us-ascii?Q?on4V5Hr69PJfMzRaA3OuQYsb8ODtUfZ8mYx61NISSzHIAOk1V0Yq9sKvwcNe?=
+ =?us-ascii?Q?qASBiJVZyl1mYuumK5/4fcv77acxp96v9CIpeCzbMJjTICr8exauHn5tULlX?=
+ =?us-ascii?Q?Y66UZM4nKwQrUN2qX7Uh+CmTN/++LekoDErBYoDppGSPExTB7n7i220d6Ig9?=
+ =?us-ascii?Q?Dk2LqI9cspi92qu1Hls8BPlCYLM65bBU+Q9RKKIhRKb4jZWXiSVdikDY8TYS?=
+ =?us-ascii?Q?3emk4Y6m2Eg0w8DAm1VIs/hBJivVPmW4HEuqVuVvgp1LoUFcLAZKLvq7hS6G?=
+ =?us-ascii?Q?XKRjcJXcJO505aEd01g+02FkWGjZL0+e64EdJcNaRr03oMYGrsGKUwlb+20q?=
+ =?us-ascii?Q?AeGqWLouEqUhY3hZ+E2ZNH9O7eSd57CDqEpKKeCTtXvfJ6DNOohTCpIYayAF?=
+ =?us-ascii?Q?1LhRNV9Hdm03xsfrHgy0cONMVFrNrd4ri/hqzlsRFU8/dSOWRxqzG4bjTupe?=
+ =?us-ascii?Q?iA3dO2f7z/FGEDF0//vcGTYMvwyiDy/s67WfxbtDpPURzSBJ53X96LRLRm9z?=
+ =?us-ascii?Q?g8aD1r6JOOETv6pPo4+UU1IqFu11CmGvuyl4nLxBkKdSnnmuI7YjSKjz586l?=
+ =?us-ascii?Q?35nFyiUdrJ33N3UV1kORu/73G+ZyCy9tnQICRo87u2OlnQVTaVMck0JhWzJ8?=
+ =?us-ascii?Q?ab8ocVXjRbSZoKNSGQvnWZfG+8rC4oUilPviuVCuEwyxMpLGsPAbk5oMJn1x?=
+ =?us-ascii?Q?IPlxq17yTO1oL9CxmPyMMwmx5bR005bAESg9XTFCoTaG6TSnWWK7GjktIDmz?=
+ =?us-ascii?Q?vHfRCpOIZYzWTIqtB6qKwMamh3OaQNeDYQDavsojIS+N14nYaNscGO+LzMCh?=
+ =?us-ascii?Q?H8lMYA9Fk5EKkPGxEpw78r69gQz8qIR6UqsSKTSeZLB+sYOZ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|IA0PR12MB7628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d93006d-6c8c-4e01-a81e-08df1eb98b97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|56012099006|11063799006|4143699003|18002099003|10067099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	2Mt/HfDGpnf0QCtDC2MrPsnE15/QpseN93TEVbA0gEAWuo72o46B9gdGHiCzbtZhhmEzDS0CGCnkjCws/DOf6tZT1E/WaqjgVChJtRMOSdrxzEJcgW0S1NQWodiYGd4fXgPlzVfVPwWmAgKI2tv4z0DJF99r/ad++ozk6aIoqm898qFIPMkog3xRUPgfJoPO/80SjiAMMdJywJGjTtBqPooJ/s0tmR6klaAJkE2sZHDbSU+HbiwguADwDNHWhRf03VXTd7bx1oo9dxxg6SxNqraszOo+rLwICWcMiCbLhkh8bxk53EgeRvI1PdFgZXLz+BbpfMdEhotMNJvk+KXufHTFX2aFQYpi7Qvii/vaNcRsY1jStZXAMjhP4SuL264a5Wdo6tT3C0aa5cq/fwkhA8RuHfEVZZlJaGjAg8iT7Va+fasAM1LEWPUAw162rAOVsX+z15zeIokXzA7+ZUrRw9ditvFpU3bx4MQbNOkghDyKGCcv/Yc1UYuBEBo2uofTkMgD3FFfCdUSoVI8bjQKYssEqQgfwnKk9klQSER+TcJH7qzG0z+ks0KUu07AG4ykBcFacDupqNVnZ7E8qNFtUGsRHVpf7QtaJzXY6SwqSw9GshXcV75Q08dI4eaMekMSox+/JzJD+a1rJb1bYdLP3C4rHkG0U9mVgzaapqi8y3Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(56012099006)(11063799006)(4143699003)(18002099003)(10067099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WEdFM3dVbFhJUmE2MzFEME5ndVY0UDY5STJzTWxnVWI2dyt5TitFRXpHVmYw?=
- =?utf-8?B?eHYxWndiYk9tT1liYnN3dFlPRGhwZ2x4Z3dUOHJvK2ZITmloR3FHaE0vWW04?=
- =?utf-8?B?dG15dWhJaGc0S3Jqa2Vyb2ZIMnFaQUJxYVl4WlAzY1EyQ1ZlUE1OZ3VwaDBJ?=
- =?utf-8?B?VDU4RVplZ2owTVRKNHJ1amxnSGFoVGZSYm5zRWFJS0l2bXNldkU1ZE1vRmxq?=
- =?utf-8?B?R3c4ejlJbUs4UnhwVkdGN0VUNk9Zb0xYMDM1RU44WGxpeHVscW1pTHkwYnBB?=
- =?utf-8?B?R0JQN0xDVzZXNHhkbjA2ekZDRWwvZGR6QVJmUnRzSy9wNllmU0F4eVFHMVFI?=
- =?utf-8?B?dnJURmJoRXN4YXRMQXRvc2xXdHIvZUhtL2h6SURIY1lmUHRzc3NFTGRqblVH?=
- =?utf-8?B?NWVaNDZ4K0FVdEY5UlA5VDJOWk4zNC95Nm1valRudU5YTUNLRklKY0ZXZEw4?=
- =?utf-8?B?NzVTOEsxM0kxUHpvc251WERCbWpOTnlFcVl5U2lxbEZVaDRVeFV0U21RZlhI?=
- =?utf-8?B?aE1STjEvMTZaRlFjODQrVHdGS2I2Y0JHYXJCL3FwTDZaN1k3S0E2Wlc2STRZ?=
- =?utf-8?B?OEx0YThwR3paOUFlL2lqK2x0aEEyMDRINjNRa0hJMHQ2VE9OSHNGYlNZYkM0?=
- =?utf-8?B?bkRtUGI3aXFRa0kyVGUwS0VBMExOalBKRWNtdVc4NVZGRU9lZkZpRG1xK0ZU?=
- =?utf-8?B?MzdGMXh2TlpldGc0OVhZZCs5NTJpV2U5dVp1WUlZY1FPSnhTRC9nRjhYc3Yz?=
- =?utf-8?B?cU4vRGZXa2daTUpUWmRkRkNKZEtQaXBVZDZnQ0tid2wyMWpiblp1NlI3SWdW?=
- =?utf-8?B?Vkk3VUNUM0loeFFWMGZSNndKcHZqZHllUDZBZlNDK21OSytRUWlrU0x6b29o?=
- =?utf-8?B?TFdCVXVwQWtEU0RTZS81WnlWUjNkZkZiU1JRVHB4WVZuN0hlVjY3ZnZ3SEVr?=
- =?utf-8?B?YTFyTFpBcU43dlh2ajJEOE51TTI0OVF0QURnMCs3SHJ4OUl6Q3dLbjZ5MzJZ?=
- =?utf-8?B?UDRxd3pRMW13Y3NqUlVJSUg4dnhxd3dhR1ZHTGRsSXVSOU1jUDFpdVpSTHQy?=
- =?utf-8?B?RkduZVYxZEJOS3pKNFUrdzFWL0VaQkRTeXJoRWFTbW5GTHFmOUEvU0F0c1Rj?=
- =?utf-8?B?M01kRjRQV2tLVTJPTGQ5allFNHdyOUNWRTExOHZxbkMxeVJEZGx6V1FSd2FQ?=
- =?utf-8?B?WDNMM2RaQ3FzTkw5KzVTMkNFWVpLemxkV2VyNHFrOC8zejdNdk5wNy9kcXpP?=
- =?utf-8?B?NUcxSktRc3pWVXRHTlg2akxzQ05rSmFjU2dnUmRNd0lCWG5hQ0NtUmFZN3hv?=
- =?utf-8?B?K1NvcDBJRDFzZ25Rd1VhNHMxOHFxZjhJYStxMHJ0aGd6Z2k0Mis1RVNVeXZq?=
- =?utf-8?B?TmFFck8ycXBwaFFNMkNnNEFjTEFqdHJUN2VXaDhYVjlIbW1ZNFAvSzVGajg1?=
- =?utf-8?B?VlVWL3l3aThMTVQvQkVzS200azVUNlh3QThUYWM5U3hPSkpaeFJ5NVJSd2sx?=
- =?utf-8?B?LzJKWXo4Tk1ZSHpUUjNacGR6K0lRQnFWYS9SdjdRUjNjTU1YUG92MURUVzVH?=
- =?utf-8?B?aFBwWmZyQUdZdVNqeHFONHUxczVnS3BMSGNRdWx3VWJIQktnMktLeXFTeDVm?=
- =?utf-8?B?eE0zblViZjlidnRRdmJRT1NOZVJOSFVjbW1za1MxRjZnOUQ4OXloay9FN0dS?=
- =?utf-8?B?ZkZ1dU1QMzJUckFNVFQ2dTV2U04xdGtDSlBzNzRHSm5FOHVXdnVJbmNvMVFw?=
- =?utf-8?B?LzlKYzdtTTdYVWEzM1FqdDkzcS91dTVSU2ZxQm9RME5FSjBWVnhpVEQzaXNq?=
- =?utf-8?B?WW1TT0t4SHpDa2hOTHJsTDZKTWpVMWRWSTRVR2FZYk5GUmpvNEVWeDZ0MDV1?=
- =?utf-8?B?ZVdHeGpSTE5HdldUT3FUZ3RoTCtOcVVCTjIwN1dVUHJQMm5SWi9lcllodDBR?=
- =?utf-8?B?ZStlK1puKzlSR1hTVmhYVlJPVHhSMjZodHhHM2hVNHduUldaRWphc0NTR3Rj?=
- =?utf-8?B?LytZeUxPZkJkVHhwVy9RaUgzSEhmWVlIeTJaL3ZEaEg0Q01ORE9aYkppSDZq?=
- =?utf-8?B?T1U3cXNDRFNERGp1VTZoUXV0NnJEa2dzblRvZW1CejBRSGppTWIrYldlUDJK?=
- =?utf-8?B?emcrT2ROdzlxR2VMbEZWQUxuUUwwMVdpVktvdkJ3Sk9icGJNZUYyMXlRVmdj?=
- =?utf-8?B?Vm9PbjRWN2ZSWm1HRTJtbU04MmV1Q3JNYU1hSVY5RDd4ZDVXdzZZWGluY0ds?=
- =?utf-8?B?RkhOdmM0ZEtyckkzaGlQTkVjVFVtVXFYNlNMc3lvZ3hXa3h2THA5MWxHYm5q?=
- =?utf-8?B?RHpYeTNoQytmNlpCSlBkMk5UUWxqU3ZKSWU5WTdVYk9RbENKb01ZQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d93006d-6c8c-4e01-a81e-08df1eb98b97
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:10:37.2890
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f99a2a71-eec1-4fbe-4f5c-08df1eb9c835
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 06:12:18.6050
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LjSNZUlfdKZXW8yt0ghKIoSUMXeMoRKDWVpFJcMIx5OQW+D0uCw8ZG4Uwo1yGghtEDjVuAF17U1gOa+75LF75w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7628
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: F7XEOflHh6cH/8V85E9ZSlAQvD3ZZh02C7HaftCBqsJDeYCK8GRILP2YyF/Gqch2NL+ScCJZiAHFoe8tcJqU9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB674960
 
+> >> The current eMDIO MDC rate is 558 kHz on i.MX95 B0. This is very low,
+> >
+> > The system clock of i.MX95 NETC is 333MHz, AFAIU, the MDC rate should
+> > be
+> > 333/(2*258+1) =3D 644KHz. I'm confused that why you said the rate is 55=
+8KHz.
+>
+> That is what I observe on a scope on local MX95 board (not the EVK).
 
+Clark helped measure the MDC rate on the 95 EVK board this morning, and the
+result was 644KHz, which is consistent with the theoretical value. The scop=
+e's
+accuracy or other factors may be causing you to observe a rate of 558kHz. B=
+ut
+anyway, the description of 558kHz is indeed confusing because it does not m=
+atch
+the theoretical value.
 
-On 9/19/2026 10:26 PM, guanghuifeng@linux.alibaba.com wrote:
->> @@ -2770,6 +2810,51 @@ static spinlock_t 
->> *amd_iommu_get_top_lock(struct pt_iommu *iommupt)
->>       return &pdom->lock;
->>   }
->> +#if IS_ENABLED(CONFIG_AMD_IOMMU_IOMMUFD)
->> +/*
->> + * The vIOMMU private IPA domain programs a synthetic DTE for the
->> + * IOMMU's own requester ID so hardware can DMA to backing store.
->> + * That object is not on pdom->dev_list: it is not an IOMMU-API
->> + * attach, and walkers such as rlookup and clone_aliases assume a
->> + * real struct device.
->> + *
->> + * amd_iommu_change_top() therefore misses it. Early maps fit under
->> + * the initial page-table top (PT_FEAT_DYNAMIC_TOP). Later DevID and
->> + * DomID maps at high IPA call increase_top(); the old root stays
->> + * live as a child of the new one, but the self DTE still holds the
->> + * old MODE and would not translate those IOVAs.
->> + *
->> + * Walk iommu_array (from amd_iommu_pdom_bind_iommu()) and rewrite
->> + * iommu->viommu_dev_data when this domain is that IOMMU's private
->> + * IPA table. set_dte_entry() skips clone_aliases() because the
->> + * synthetic DTE has no struct device.
->> + */
->> +static void update_viommu_self_dte(struct protection_domain *pdom,
->> +                   phys_addr_t top_paddr,
->> +                   unsigned int top_level)
->> +{
->> +    struct pdom_iommu_info *pdom_iommu_info;
->> +    unsigned long i;
->> +
->> +    lockdep_assert_held(&pdom->lock);
->> +
->> +    xa_for_each(&pdom->iommu_array, i, pdom_iommu_info) {
->> +        struct amd_iommu *iommu = pdom_iommu_info->iommu;
->> +
->> +        if (iommu->viommu_pdom != pdom || !iommu->viommu_dev_data)
->> +            continue;
->> +        set_dte_entry(iommu, iommu->viommu_dev_data, top_paddr,
->> +                  top_level);
->> +    }
->> +}
-> 
-> Self DTE Mode maybe does not comply with spec requirement of Mode=100b
-> 
-> At initialization time, only the 8MB General Backing Storage region (IPA 
-> 0x0 - 0x800000) is mapped, so the page table top is likely level 1 or 2, 
-> resulting in Mode = 010b or 011b.
-> 
-> However, spec Section 2.10.1 states explicitly:
-> "The DTE for the IOMMU's DeviceID must be set with V=1, TV=1, GV=0, 
-> Mode=100b."
-> 
-> This is a hard requirement ("must"), not a recommendation. Mode=100b 
-> means 4-level page table (48-bit address space), which is necessary 
-> because the private IPA address map extends up to 48'h0050_0000_0000 
-> (~5TB), well beyond the 39-bit limit of a 3-level table.
+>
+> >> but also very compatible. However, for example NXP TJA1120 PHY needs
+> >> at minimum 1 MHz MDC clock and 558 kHz does not work with that PHY.
+> >
+> > We previously used the TJA1120-SDBR daughter card to connect to the
+> > ENETC interface (RGMII) of the i.MX95 19x19 EVK board. However, we did
+> > not encounter any issues with MDIO access.
+>
+> Most PHYs are fine with the low frequency.
 
-For GstBufferTRPMode=0, the largest IOMMU Private Address = 
-48'h0050_0000_0000 (39-bit address)
+Yes, but the example you gave is TJA1120, and we also connected to TJA1120
+without this problem, so this is what puzzles me.
 
-For GstBufferTRPMode=1, the largest IPA = 48'h0028_0000_0000 (38-bit 
-address)
+>
+> > Furthermore, I did not see a minimum MDC frequency rate of 1MHz on the
+> > TJA1120 datasheet. I'm not sure if this is an errata of TJA1120.
+>
+> The TJA1120 RM is not public, but look at its predecessor:
+>
+> https://www.n/
+> xp.com%2Fdocs%2Fen%2Fdata-sheet%2FTJA1101B.pdf&data=3D05%7C02%7Cw
+> ei.fang%40nxp.com%7C44f566383a0e4f1fbf4208df1ea9fcb7%7C686ea1d3bc
+> 2b4c6fa92cd99c5c301635%7C0%7C0%7C639263387581887659%7CUnknow
+> n%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAi
+> OiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3De
+> sOmbNzJ0qJ0z7CyZYHWCm5ihMjq%2BFT1AKfT6xT1RUc%3D&reserved=3D0
+>
+> Page 46 bottom
+> Table 37. Dynamic characteristics...continued
+> Tclk(MDC) MDC ... clock period ... Min 400 ns
+>
+> 400ns ~=3D 2.5 MHz .
 
-In both cases, DTE[Mode]=011b (39-bit GPA space) should be sufficient. 
-I have discussed this with AMD IOMMU hardware designer, and has been 
-confirmed that 011b should be sufficient. I have also experimented with 
-DTE[Mode]=011b with the highest possible GID (i.e. 0x7FFF) and do not 
-see issues.
+Thanks, I find the similar context in TJA1120's datasheet. The max period i=
+s
+1000ns, so the min rate is 1MHz. It's weird that we did not see any MDIO
+access issues with TJA1120. I saw a note about MDC timing: "Not measured
+in production, guaranteed by design." It's possible that the minimum of 1MH=
+z
+is a theoretical value, and it may actually work even below 1MHz.
 
-Please note also that:
-* Linux default to 3-level page table initially, and grow the table 
-level automatically as higher IOVA are mapped.
-* Linux supports GstBufferTRPMode=1 only.
+>
+> >> As a minimum change, increase the MDC clock to 2.5 MHz which matches
+> >
+> > The prerequisite is that NETC system clock is 333MHz, so that you can
+> > get a MDC clock rate of 2.5MHz (333/(2*66 + 1)). But unfortunately,
+> > not all NETC versions have a 333MHz system clock. For example, LS1028A
+> > is 400MHz, so the MDC rate will be 3MHz, which will be a problem.
+> Yes, this is my concern.
+>
+> Are those clock which feed MDC clock available via clock framework on LS =
+? If
+> so, we could calculate the divider based on those clock.
 
-The AMD IOMMU spec should restrict to DTE[Mode]=100b. The spec will be 
-updated in the next revision. I am also adding comment to describe in 
-patch series v6.
+No, we typically hardcode the clock frequency in the driver based on the NE=
+TC
+version. Another simple method is to set the divisor to 166 instead of 66, =
+which
+will not cause any problems for using a 400MHz NETC.
 
-Thanks,
-Suravee
