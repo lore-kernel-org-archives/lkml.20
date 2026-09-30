@@ -1,112 +1,129 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E98A45DF5B;
-	Wed, 30 Sep 2026 09:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759344; cv=none; b=GRShw1gyQUTH2muwiPtKnj7BCMviDMvlBwlUpT3foj+fO5BWij0Kuz/lm9aTY0cdyxmiVAqNh5VmXvggsAlRoh0Cu7zTGJrSVMDgnV579AJRey/aCRQlAfjBoROA/62duJrxeAW+Br7Gq1dHiJxEn2pi4NPHvEKH3j8m+foMde0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759344; c=relaxed/simple;
-	bh=55xGQO+w6GLeg1bQFhjKSGYGUTJZzPla73l0Sz2cK6U=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B9444F571;
+	Wed, 30 Sep 2026 09:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790759425; cv=pass; b=nua3cW2eftFMaT1tsVH0NBjCg4tvnU3CONnzGD6Cw5VxyH5OC3Bab3ezeLqmsYD0FMgHQhADXTMGxlXDL4bDMu84o5NE4sHNRA1Ej4ewNAhSK/uTFy73eGuxlEfDWkMLpACBPQ8BzThNDlssP7rPiIxlhWRerEPuEsv4bUnqbUE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790759425; c=relaxed/simple;
+	bh=nct9/Nx3C+4l0oA0T/6l4uV8s71nB+zp1yop0l+kc3c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CYnwtr9/FC+Szc1jRlgHZ4NCqCHcTY+LQ8RdZVJ7zncFAwGOJYIg73mUWjQxWOlyz4illaQA7UjWM7275wpfeAcYwlKTU2ovJ6M5gIMSpgavkj3FFUqR3PfXYoYNdJGyVK7qMX9qFggUELjaM1NLmlv5L/v4qlyK4VT5Q9eOUgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=CHCz4HOF; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	 Content-Type:Content-Disposition:In-Reply-To; b=rhUkwxmv6MeRX3CSdgv3BTu9KQ23gTJUPa6Q6NPTwZnANH4DcWmCyOczIzVhFuGjf1ft90zRCFq9bWZpS5Sbv0vTLKRWQ9/9sESiZG6GcH7nNrKe+vCBqIX+BK9s+eaDSsebneAlAxDbbAkujWVqzohYabanx6CP26Nd65ZpRcY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=cMeI52cv; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="CHCz4HOF"
-Received: from L20747.iliad.fr (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 8AA0B780514;
-	Wed, 30 Sep 2026 11:08:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1790759339;
-	bh=55xGQO+w6GLeg1bQFhjKSGYGUTJZzPla73l0Sz2cK6U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CHCz4HOFK2lTteHDjl4CVBdEzMTIBt4Bm2uqtbAw50iSX94xCFG7oQFbr6Xa+gH2X
-	 GXRqUwfptq4iQi6dx0lO/DFKe2LstmPsconxmhSrW8o32k4NkS7Gx6tWOiHkJc8TK6
-	 wN6emXp6SFwx8czC3H2q+gqVOCw/2dupW4tRmcqeYDkQ9gPYUmhwdyUmWyE2PPh82X
-	 bYncgHu+MGkndjUoZfOx/xiOyJC8hzvDe8sBfuTq0fM7a+6D0ugk2zBFLUI3Wa7Rh5
-	 8CGyPGL97EVIBNPbRI2TCszxL2bGTmUmOTayZ/8L2gJbXYvl784nJpDsmShlpHEKqH
-	 VyhPPo6KyL8ZQ==
-Date: Wed, 30 Sep 2026 11:08:48 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: "Sahil Malhotra (OSS)" <sahil.malhotra@oss.nxp.com>
-Cc: Horia Geanta <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Gaurav Jain <gaurav.jain@nxp.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [EXT] [PATCH v2] crypto: caam/qi2 - lower the algorithm priority
-Message-ID: <arzRoCQHvM_K9y9W@L20747.iliad.fr>
-References: <20260929-for-upstream-caam-qi2-priority-v2-1-bf0559ebf574@free.fr>
- <DB9PR04MB8139034E6D0186A687183208828B2@DB9PR04MB8139.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="cMeI52cv"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2A5A82009BC;
+	Wed, 30 Sep 2026 11:10:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790759420;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U36sbeeGfRxFYHE2IN2SCF0g/Itq/Yc3Bj3U3Ma2AUc=;
+	b=cMeI52cvgsV+VA3hv9iMfUyxx+9Nsndlrgw0c2VvCXaHPIiGcuAnNlOVKmzPrEbQV5ku9V
+	1gcz+8fFLXOIpfjpbYeiZbvrrzVWae/jTbkBcNQ/sMFCYrRK5VNURR6MlTgRGz+1+E6Da2
+	Qg3oNOvdFQYRG7ixiPFWB1DZDGrh9UpHsQwU+emCq4f2HrKnFN8pA+qT/929esSsOCNIJW
+	nArANbHyHDEekvCS9bpTIwlQwjl6RJ8l44p59iHhMBJHHl3b2uiFJuN1pfNLT9drJrWsK/
+	L4Ckk/jEfRIVtMtQH1l1S0fNDFOO0dol1aZUZwpa4NJG2z8BEZFXTDovkeTscQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790759420; a=rsa-sha256;
+	cv=none;
+	b=hBOaKd42hgjnuC4gTa83r4fxvUjqL5p1MTdBZg2vQjl2OglPg1PIrmNf+buIQqw2BpmK6J
+	d++lkndOjrav9PfV6b1Uw3EYeoce/yaantuMv1++iduGoBLo7lb3gpLuDrKQgqYaDTZ2ii
+	ntDBAeWSGmJ/j24cKy66if1jgS3RMenwf/1L5F5H5SR6chrIoEZA52cFnbc0IgdfCePWpZ
+	9mQUK6bECeF8o34tMfuRX+zQlTKbuRwxWyzP+ajxPQZN9t/fffLoiyWp79lhOZKsLTte/i
+	IgnK/+IAZil40NWLibaV6e3OePdu1NThX1vNbSoeAWtFoS9zNr39s4h7qwVSAg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790759420;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U36sbeeGfRxFYHE2IN2SCF0g/Itq/Yc3Bj3U3Ma2AUc=;
+	b=dxpap2QFY4IySUOOIPP5t6BLDVYAPplCsNbXxIivXJFjBlutC0oGOHLjfoj5IBhxxzgzNQ
+	jA8IYbyrJdc9C/sb+sBktCYYjFPeOVSY1ZRcEzzoGkI/uSYLqr261DpOqeOwNiaCcIL8KK
+	NXuq8JHeT6r5WAvfbGLRgf7iiuOd2IzXU2dOitm5vegOWV3s9mrSx/T27AYQlz6vA0Klt/
+	uRGJRpIH0bTW0XzRx5Qh3FLXp0iZ3jDXPO+Wnq/pIduZqP/sTl7sR3HaMIgD5TCYI1Lcrd
+	UK6KrQhnNE0iA2HrMXA0RU5ILfSghwiR6ZYKMbFVmYohgQcVkEbyLuIibbTpHQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xBqKS-003XEm-0D;
+	Wed, 30 Sep 2026 11:10:20 +0200
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id B9FC65B54CB;
+	Wed, 30 Sep 2026 09:10:19 +0000 (UTC)
+Date: Wed, 30 Sep 2026 11:10:19 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
+Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>
+Subject: Re: [PATCH v3] can: peak_usb: Add bus error reporting for the
+ PCAN-USB FD family
+Message-ID: <20260930-wondrous-unbeatable-guan-f7b2e1-mkl@pengutronix.de>
+References: <20260930-peak_usb-canfd-berr-v3-1-0506dfba9fb4@peak-system.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6skv3plv2o2ydxmp"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DB9PR04MB8139034E6D0186A687183208828B2@DB9PR04MB8139.eurprd04.prod.outlook.com>
+In-Reply-To: <20260930-peak_usb-canfd-berr-v3-1-0506dfba9fb4@peak-system.fr>
 
-Hi Sahil,
 
-Le 30/09/26 07:21, Sahil Malhotra (OSS) a écrit :
-> Hi Vincent,
-> 
-> I'm not sure I understand the need for this change.
-> Is it now expected that hardware accelerators should have a lower default priority than ARM CE?
-> Users who want to use ARM CE can already choose it at runtime, so changing the default priority does not seem necessary from my perspective.
+--6skv3plv2o2ydxmp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] can: peak_usb: Add bus error reporting for the
+ PCAN-USB FD family
+MIME-Version: 1.0
 
-Not as a general rule. The default priority should select what is best
-for most users with the platform as it ships, and on the LX2160A this
-is the CE.
+On 30.09.2026 10:44:33, St=C3=A9phane Grosjean wrote:
+> From: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
+>
+> CAN bus error reporting is currently missing for all PEAK-System
+> USB-to-CAN FD devices. Add support for reporting bus errors by enabling
+> bus error notifications in the firmware for each CAN channel. Parsing of
+> the entire URB is aborted if the firmware reports an invalid channel.
+>
+> Signed-off-by: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
 
-Measured on an LX2160A (16x Cortex-A72 at 2.2 GHz) with tcrypt,
-AES-128-GCM encryption, 4 KiB requests:
+Good work. Applied to linux-can-next.
 
-    gcm-aes-ce                      1 core      1107 MB/s
-    gcm-aes-caam-qi2, 1 in flight               128 MB/s
-    gcm-aes-caam-qi2, 32 in flight  1.4 cores   418 MB/s
+Thanks,
+Marc
 
-It is the same for cbc, ctr, xts, rfc4106 and sha256/512, at every
-size I measured: the SEC is slower, and its driver path costs more CPU
-per byte than doing the crypto on the core.
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-The SEC can win, but only in a narrow case. The MC DPC and DPL have to
-be tuned for it (one DPIO and one DPSECI queue pair per CPU, and the
-SEC coherency setting in the DPC), and the load has to be large
-buffers over many keys. I did set such scenario for my internal
-working cases, but it they are not the default cases.
+--6skv3plv2o2ydxmp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This is the case of QAT in commit
-  8024774190a5 ("crypto: qat - lower priority for skcipher and aead algorithms")
-most users call the crypto API synchronously on small buffers and do not
-benefit from the accelerator.
+-----BEGIN PGP SIGNATURE-----
 
-  > Users who want to use ARM CE can already choose it at runtime, so
-  > changing the default priority does not seem necessary from my
-  > perspective.
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCarzR9wAKCRDMOmT6rpmt
+0tCfAP0Uc+FvLrMIlMTyyTKmRQ0PFk8wsDZEuLE0IJ2TjmtVCwEA6UcKFKIWjR7O
+xb/5/v1NLEx0NC/aal2vwCp7F7sTxAU=
+=mdLW
+-----END PGP SIGNATURE-----
 
-In practice it works the other way round. IPsec, dm-crypt or kTLS ask
-for an algorithm by name and get the highest priority, they do not
-choose a driver. The users who gain from the SEC are the ones who also
-tune the DPC and DPL for it, and they can raise its priority with
-crypto_user, or ask for the driver by name.
-
-So the CPU should be the 1st gear, and the SEC should be the next one,
-for those who set the platform up for it. It is not a statement that hardware
-crypto is slower in general.
-
-I only measured the LX2160A, not the LS1088A or LS2088A. If you have
-numbers there with the SEC ahead, I'm happy to look at them.
-
-Best regards,
-  Vincent
+--6skv3plv2o2ydxmp--
