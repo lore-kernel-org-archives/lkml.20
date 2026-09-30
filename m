@@ -1,141 +1,104 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1440B45D1A5
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C95C31A556;
+	Wed, 30 Sep 2026 07:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752764; cv=none; b=k8FTnmXHUD6CnkL/SPLb9jRwSqRiBfD2yMQV4BUwjPZ0Lg1N8X0yvpY6KoAs4c65nyDqo9FlE/94RJEiIPR2o/NmrEVrG94OuYGwbycb8XwzzHcXQfOUcvxaaKAOdbf5NuTnvuXL4/7jxmPKb8vrrDBnGNGsj4XMUtpJLtfZWKo=
+	t=1790752775; cv=none; b=rkWud6Nh+1phDmSMdxUYj0vU6mf2E+0Vrcm2UoIA0R45S7+LN8gcQmnLds9WVCeY9KcHcUSnYN8arnHvQpDoK/dz7o7LpXDuWhn7R7GFP1pud7rkqKln8te2+G/vozFzz8xJNE2AwjLPbBSylEzDNtaxAhnLFTaOfkrKC6Q8V8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752764; c=relaxed/simple;
-	bh=mY+zgtJj+iTIDRlZKQWXzIByvsvSdOL6GtCpfqvuq+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=utj18iAxYEnohqdoyYVDPu/WS3/8jjDMCQXEgXXbqtVdV8AjfZ+SOVVEuSw9YK266xNGEL/llcK6oIQ4ykxdR446XcJD0FMUY2r3PL1Rb3rF4hB+RN/BU7NPx0W4AAGt+mAKRfJZUJeCdTws5hoK1JjXYU2xeWq0uWg+BdEKEnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=orsBWHRE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790752775; c=relaxed/simple;
+	bh=Cg//ITPdqfuNaFR91NI9QSHZ7mOe/lST6DXYQYChwZk=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=HzSTrjqkv9NCK2i0lt9I5oqjAEV72OGpdVGgstqbCICaR3haiVO6c9IrDkrzHT0dhS4XXRoblnOpQ5IDMCYE4Y6MbX1lI8qJ4yVOu4vmjz243UDAtjaNZq6D3u92w7Uv8irSZJb2JyC4o7RWkeBjbI9sqQ0Z/DOLUWKju8JBRO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpQtu1br; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="orsBWHRE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so31648725e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:19:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752760; x=1791357560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lrvN1TB14dIbJUQBdXmdGtNzr7nTUfaMcgDWbjg2fl0=;
-        b=orsBWHREYDl85J2M/4coytJnvmohLwrxJtFC/wvROI+eW6tcNtJLCEn1CqnqGzn5j3
-         5gHwCVe4mrW2+qP+bphE2B1cBWRyGlIBexlPozHSQ+V9JgbJJEjFInRPrf5F5bqDLXOo
-         pz3FWfXpA9ZmBwk94HwFqeNgKs8J8007DkOaxphRlxqzBrlqEKMBWBKDZBzWCxo+Ucrh
-         jEszXtBch/b0tVLNQQ3H8oxirOnCg3Vp24yZkDKcoTFnCmCRHYQrh57HRbUsoE9P3y+H
-         0ErNPio6PtGtmnu3x7zopoD1d+adeZhuge+iPS9GuNdubjOdq9WW592wovxSBvzbc4pk
-         iZxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752760; x=1791357560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lrvN1TB14dIbJUQBdXmdGtNzr7nTUfaMcgDWbjg2fl0=;
-        b=xSP6Q8Y3fJrLUcs+j76pcsVXEAVnZ7ueIbogUZX2XoApbChiBA11X8u11jEY+ZUs9M
-         4t59Y59OHZrfdlXIMxiVNkKSi/Jey79Pic6rrKLZE7c7pArJr0ugqHkwttclLRGjggPV
-         5+W23yMcOmYUtrXVj+nLra1ncbnqWPDUqyJx7/qA1XiUlA1W7KJhkkyNFMpIrkUSvT+r
-         kmkjmaS2LRSbPXPmibGmxZvE6ga1bBuk6ORMoIuxfGHvycmne5GNQubpfnyWNLVY12pM
-         xzBnmOxN+Ei09yYDl4fi5qIK8qyO1NfY2rq7hPS4ZAspnAl10FeAJXjogrSjwVolhs9R
-         +O/Q==
-X-Gm-Message-State: AFuF++lHqNaMRjuPW1bpKuDi2yRE3DWQTO2kFXVpEWL35O8AbJPlD6Bh
-	9STrV4F2PaoM0RXur52T0SD96TjOVQzw51sn5UWajP76elYNJSBRplp4
-X-Gm-Gg: AYBFou24rn6+dhNZbnm2uRr1aFN/I3xw+5LI22ILP07Mfe7Z74IZXCYbSPKQ8y+8N7N
-	++doaQ264tUUCOAXOV6akwc4BTPCHeN7AoEOcYmSdkFg/16V76WcyREi4i4xM9Ix33IANAGJWuh
-	/9pG792mMmLgfvF1sO3UEfVf/WjiE5VhRsC9QMQyH9fSitf+WXens7z7fin1MqzBsZRyyC8sFLu
-	pHjJixfn9A16I6kV1kMoM3sDbr4Yj6bRXvg3MxpYySELpLJVOSFXvSEtcs3c2NqcIqGrNxfYmrU
-	1esW2qrhDEPNqWuoir+yb6PW+jYfE+PHgrFORXCOI0X4qhDicqYi3M2vpwu08YyRoglb6PbQUkD
-	LmzJQBREhtteT/xTopR1UiYNmjXTlwlQMqRCKJHx/XYD6r/Y3LFOzrOh43a4+MaJwmC0rLLLH/P
-	bMVZ7aplWjfVrGBzub8mfwbEmQolXaAbxMhGykNVzAx/Y30P5yq5qNzISMVGNUDU4WzIMTaoyf8
-	JJ20baQxlO++q1K7E8+n4RZFHqM7w==
-X-Received: by 2002:a05:600c:6206:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4a01b016f12mr6850545e9.15.1790752760130;
-        Wed, 30 Sep 2026 00:19:20 -0700 (PDT)
-Received: from localhost.localdomain ([38.71.42.157])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01b1e79e4sm10644255e9.2.2026.09.30.00.19.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 00:19:19 -0700 (PDT)
-From: Ginger Li <ginger.jzllee@gmail.com>
-To: Markus.Elfring@web.de,
-	dmaengine@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	jonathanh@nvidia.com,
-	ldewangan@nvidia.com,
-	vkoul@kernel.org
-Subject: [PATCH v3] dmaengine: tegra186-gpc-dma: Read channel state under the lock
-Date: Wed, 30 Sep 2026 09:19:16 +0200
-Message-ID: <20260930071916.35722-1-ginger.jzllee@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260929194434.29937-1-ginger.jzllee@gmail.com>
-References: <20260929194434.29937-1-ginger.jzllee@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpQtu1br"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9F81F000FF;
+	Wed, 30 Sep 2026 07:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790752774;
+	bh=qnv+opTRDPANaSFQkeJoX1GGPFk9FRRdrtoPqu98EGc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=DpQtu1brqDYI0JzdSm5y+euWY5T9SGIo7MlwWtm639O0vN83LM1TUiqL8PwT+j1HL
+	 rKTaW1bE8EFpO/nM+5K3uo94NyyMJ2hA8rktUSNW+BXdHzBWc9OYnnY8Tw5rA9zSsQ
+	 oTGYW7LkzTfbAvT1jwjtovMl63pfrlkF5cWQTFFzkXBUVAG+7tGaoIjLdJZTtiuAU7
+	 +Fkr+75CyEJYkPNhgbJcalcnzIS40Z58ujBXjKDU0hWuignxcL6ekA+//YDI9juUVw
+	 EKePpuAd+edgnHADpNodXla6aUc2K1I0r8e5AMCy2IsMHZfnWE+8xu4CN/T/6j61kD
+	 ihuQTp4kunq1A==
+Content-Type: multipart/mixed; boundary="===============5540256240712805578=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <f5ed8c5179098109e321e1cc42ced4bf30fc4bf80603fdaeef517277f38834eb@mail.kernel.org>
+In-Reply-To: <20260930064607.1908864-4-pulehui@huaweicloud.com>
+References: <20260930064607.1908864-4-pulehui@huaweicloud.com>
+Subject: Re: [PATCH bpf-next v2 3/4] selftests/bpf: Update qemu config for riscv64 in vmtest.sh
+From: bot+bpf-ci@kernel.org
+To: pulehui@huaweicloud.com,bjorn@kernel.org,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,puranjay@kernel.org,pjw@kernel.org,palmer@dabbelt.com,alex@ghiti.fr,pulehui@huawei.com,pulehui@huaweicloud.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 30 Sep 2026 07:19:33 +0000 (UTC)
 
-My static analyzer detected a potential issue in the dmag engine.
-tegra_dma_tx_status() reads tdc->status before taking tdc->vc.lock, and
-tegra_dma_isr() snapshots tdc->dma_desc before taking the same lock.  All
-writers of these fields (tegra_dma_start(), tegra_dma_xfer_complete(),
-tegra_dma_pause(), tegra_dma_resume() and tegra_dma_terminate_all()) update
-them under tdc->vc.lock.
+--===============5540256240712805578==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The unlocked read in tegra_dma_tx_status() can therefore report DMA_PAUSED
-for a transfer that has already completed, and the unlocked read in
-tegra_dma_isr() can pick up a tdc->dma_desc which is being cleared
-concurrently, in which case the handler keeps using a stale descriptor
-pointer.
+> selftests/bpf: Update qemu config for riscv64 in vmtest.sh
 
-Read both fields while holding tdc->vc.lock.
+TL;DR: The new '-cpu max' riscv64 option in vmtest.sh needs qemu 8.2.0+, so
+cross-runs on qemu 7.2 to 8.1 may fail; the "v7.2.0+" comment and commit
+message may be stale.
 
-Fixes: ee17028009d4 ("dmaengine: tegra: Add tegra gpcdma driver")
-Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+> diff --git a/tools/testing/selftests/bpf/vmtest.sh b/tools/testing/selftests/bpf/vmtest.sh
+> --- a/tools/testing/selftests/bpf/vmtest.sh
+> +++ b/tools/testing/selftests/bpf/vmtest.sh
+
+[ ... ]
+
+> @@ -36,13 +36,13 @@ aarch64)
+>  	;;
+>  riscv64)
+>  	# required qemu version v7.2.0+
+>  	QEMU_BINARY=qemu-system-riscv64
+>  	QEMU_CONSOLE="ttyS0,115200"
+>  	HOST_FLAGS=(-M virt -cpu host -enable-kvm -smp 8)
+> -	CROSS_FLAGS=(-M virt -cpu rv64,sscofpmf=true -smp 8)
+> +	CROSS_FLAGS=(-M virt -cpu max,sscofpmf=false -smp 8)
+>  	BZIMAGE="arch/riscv/boot/Image"
+>  	ARCH="riscv"
+>  	;;
+
+Is the "required qemu version v7.2.0+" comment still accurate after this
+change?
+
+The riscv 'max' CPU model isn't available in qemu before v8.2.0.  In
+target/riscv/cpu.c, v7.2.0 and v8.1.0 have no riscv_max_cpu_init() and no
+TYPE_RISCV_CPU_MAX, and v8.2.0 is the release that adds:
+
+    DEFINE_DYNAMIC_CPU(TYPE_RISCV_CPU_MAX, riscv_max_cpu_init)
+
+The previous '-cpu rv64,sscofpmf=true' worked on qemu 7.2 because the
+sscofpmf property already exists there.
+
+On a non-riscv host, run-qemu takes the CROSS_FLAGS path and runs
+${QEMU_BINARY} with "${QEMU_FLAGS[@]}".  With qemu 7.2 through 8.1 (Debian 12
+ships 7.2, for example), qemu-system-riscv64 would fail with "unable to find
+CPU model 'max'" and the script would abort under 'set -e'.
+
+The commit message doesn't mention the raised minimum qemu version either.
+Should the comment be updated to v8.2.0+, or should the commit message state
+the new requirement?
+
+[ ... ]
+
+
 ---
-v3:
- - Acknowledge the usage of static analysis in detecting this problem.
----
- drivers/dma/tegra186-gpc-dma.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -606,7 +606,7 @@ static irqreturn_t tegra_dma_isr(int irq, void *dev_id
- static irqreturn_t tegra_dma_isr(int irq, void *dev_id)
- {
- 	struct tegra_dma_channel *tdc = dev_id;
--	struct tegra_dma_desc *dma_desc = tdc->dma_desc;
-+	struct tegra_dma_desc *dma_desc;
- 	struct tegra_dma_sg_req *sg_req;
- 	u32 status;
- 
-@@ -619,6 +619,7 @@ static irqreturn_t tegra_dma_isr(int irq, void *dev_id
- 	}
- 
- 	spin_lock(&tdc->vc.lock);
-+	dma_desc = tdc->dma_desc;
- 	status = tdc_read(tdc, tdc->regs->status);
- 	if (!(status & TEGRA_GPCDMA_STATUS_ISE_EOC))
- 		goto irq_done;
-@@ -786,10 +787,10 @@ static enum dma_status tegra_dma_tx_status(struct dma_
- 	if (ret == DMA_COMPLETE)
- 		return ret;
- 
-+	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	if (tdc->status == DMA_PAUSED)
- 		ret = DMA_PAUSED;
- 
--	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	vd = vchan_find_desc(&tdc->vc, cookie);
- 	if (vd) {
- 		dma_desc = vd_to_tegra_dma_desc(vd);
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36681333169
+--===============5540256240712805578==--
