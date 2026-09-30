@@ -1,337 +1,197 @@
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231D533D6FD
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.81
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF5C8331202;
+	Wed, 30 Sep 2026 02:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790735521; cv=none; b=b3s2vS45RCE70WTKz8O1SzmpAnI4wmlA5E/JmzVonxRaVUC1QtIXWytQSBakPlmY9ikJ+mFtWe+SZlH1Z5OVreBVN+6RmrBgsSmA2pvY/8VLh/na8N7Ndu92lLWyjEyCKkqZB5vkE/Q6Z8Jq16THuYDChUhZaForQSTi/m5LnI8=
+	t=1790735596; cv=none; b=byhFgDoVww2Dph0OWUlblE7dLX7WRJQIppRYR50cahQXsLWM1t+06N9PZFFZwREkw6U+I4ywyY6Vt2LQgfUGRu/nkzWB7MI/ptEFHpsskwnqlOkrlNeiV1XAJbgySXQnd+nKHYr7QaUqUxsb0b+7pNpJ7KnJm3o26Nma2HJAtYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790735521; c=relaxed/simple;
-	bh=NQsJVDotAkukN5y1RS0cDIvnui7p57zyAi/l3mfa8qY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sA/KliIGAFATKWf8I5LWia8BZSejk1cIiwr6H4bcl5B0ZuWyS2dVOYDaNlmiK4vLZwGvt1fWaQ0fy1If6jf/j4SzeBci1jOz8URUMTFB1jD/+QI/kWaprvolU0lsa2BJGr8ykFH097U2a4xTEuHGlwZsGUxtvMqyZLADrdKZJ+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mY3vvcFy; arc=none smtp.client-ip=95.215.58.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mY3vvcFy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NQsJVDotAkukN5y1RS0cDIvnui7p57zyAi/l3mfa8qY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790735515; v=1; x=1791340315;
- b=mY3vvcFysdi4oV1SeGz6z6gJZf9uimF6JSTWxumHPRQm4KYtEX3+LIWeMBmFgvKJZZKCtMgc
- vDWJQSircvSEzpC1iD1Xlzz6sPYxwYHCT5HvBGhxmr8ktbXybGQkpKf544IENtlWxV2Tsfop5Rg
- qml5n2IkQIJx4BoiXHkA58OM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c32d13c3e3f28c1c;
-	Wed, 30 Sep 2026 02:31:54 +0000
-X-Mizu-Trace-ID: c32d13c3e3f28c1c
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH next] cgroup/cpuset: Move cpuset_update_flag() to cpuset-v1.c
-Date: Wed, 30 Sep 2026 10:31:39 +0800
-Message-Id: <20260930023139.495964-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790735596; c=relaxed/simple;
+	bh=Wei39sd+fhRwm54SeZjfaQaaG4NdrVJfW+9LEJ/KkUc=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=UBsIta66p4338oXZfWSCE9ou84S5mV/pVoldoelbunaDm2Z3+n5WwNb0qOc0hr0nKt4OK5w+hYVDgHFTloJuSOAEFAPsyMc4VZW9zaSNMp9TmoYl6l5ERteRejBayDSb+tb3sLB0iUBQUDwIZr3bC9Qp04aBIMdzZ1XVD55WBpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8DxUNHndLxqxDQRAA--.50213S3;
+	Wed, 30 Sep 2026 10:33:11 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCxNs3mdLxqfNEmAA--.2965S2;
+	Wed, 30 Sep 2026 10:33:11 +0800 (CST)
+Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn,
+ zhaotianrui@loongson.cn, loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260929102821.36112-1-cui.tao@linux.dev>
+ <20260929102821.36112-5-cui.tao@linux.dev>
+ <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
+ <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
+ <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
+Date: Wed, 30 Sep 2026 10:34:35 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxNs3mdLxqfNEmAA--.2965S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCFW7Ww45ZF4xWw13Kw4rZwc_yoW7Jr4xpr
+	W8Aa98CF4DWr1xWr1Ivwn8Xr1xtr4xKw1Sgr1UAFyUCwn0vry5XFy8Jrs8u3Z5J3ykGF1I
+	qF45G34Sv3WUAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
+	JF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+	CYjI0SjxkI62AI1cAE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r4a6rW5MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8CksDUUUUU==
 
-From: Ridong Chen <chenridong@xiaomi.com>
 
-cpuset_update_flag() is only used by the legacy (v1) interface: its
-callers are the write handlers of cpuset1_files via cpuset_write_u64(),
-and cpuset_css_offline() which invokes it only on the legacy hierarchy
-(!cpuset_v2() && is_sched_load_balance()).
 
-Move it, together with its sole helper cpuset1_update_tasks_flags(),
-into cpuset-v1.c so both can go back to being static and drop out of
-cpuset-internal.h.  As a result:
+On 2026/9/30 上午10:24, Huacai Chen wrote:
+> On Wed, Sep 30, 2026 at 9:53 AM Bibo Mao <maobibo@loongson.cn> wrote:
+>>
+>>
+>>
+>> On 2026/9/29 下午8:43, Huacai Chen wrote:
+>>> Hi, Tao,
+>>>
+>>> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
+>>>>
+>>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>>
+>>>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+>>>> invocation: every call overwrites pch_pic_base and registers the same
+>>>> kvm_io_device on the MMIO bus at the new address, while
+>>>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
+>>>> init, MMIO to the stale ranges computes its register offset against the
+>>>> new base and silently reads 0 / drops writes, and the leftover bus
+>>>> entries persist until the VM is destroyed.
+>>>>
+>>>> Reject repeated initialization with -EEXIST, tracking the state with
+>>>> a has_init flag so the check and the MMIO base update are atomic
+>>>> under slots_lock.  The base is only committed after a successful bus
+>>>> registration, and the real registration error is propagated instead
+>>>> of being replaced with -EFAULT.
+>>>>
+>>>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
+>>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>>>> ---
+>>>>    arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+>>>>    arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
+>>>>    2 files changed, 11 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>> index 887b0431fd20..679132d840e6 100644
+>>>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
+>>>>           spinlock_t lock;
+>>>>           struct kvm *kvm;
+>>>>           struct kvm_io_device device;
+>>>> +       bool has_init;
+>>>>           union pch_pic_id id;
+>>>>           uint64_t mask; /* 1:disable irq, 0:enable irq */
+>>>>           uint64_t htmsi_en; /* 1:msi */
+>>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+>>>> index 7a704f18880d..a884a043feef 100644
+>>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>>>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>>>>           struct kvm_io_device *device;
+>>>>           struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>>> Why so complicated? The below is enough, no?
+>>>
+>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
+>>> b/arch/loongarch/kvm/intc/pch_pic.c
+>>> index 2b63b0c2c7ce..7855d78304b7 100644
+>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>>> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
+>>> *dev, u64 addr)
+>>>           struct kvm_io_device *device;
+>>>           struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>>>
+>>> +       if (s->device->ops)
+>>> +               return -EEXIST;
+>> This can work, however I think that it is not a good idea to access
+>> internal structure field about kvm_io_device. If so, there is no use
+>> about API kvm_iodevice_init(), just s->device->ops = &kvm_pch_pic_ops is ok.
+> I'm a little not agree. :)
+> 
+> I think kvm_iodevice_init() is designed to do more work rather than
+> just set the ops (though it just set the ops now), otherwise its name
+> should be kvm_iodevice_set_ops().
+> 
+> In addition, even if kvm_iodevice_init() is really a setter, there is
+> no getter for the ops, so when we need to access ops, we can only
+> open-code it.
+if so, you can try to add kvm_iodevice_get_ops API and check the 
+response of KVM community.
 
- - dup_or_alloc_cpuset(), free_cpuset() and validate_change() are now
-   referenced from cpuset-v1.c, so they lose their static qualifier and
-   gain declarations in cpuset-internal.h.
-
- - The v2 branch in cpuset_update_flag() that called
-   cpuset_force_rebuild() is dead on the v1-only call paths and is
-   dropped; the remaining rebuild_sched_domains_locked() path is kept.
-   callback_lock, a static in cpuset.c, is taken through the existing
-   cpuset_callback_lock_irq() wrapper.
-
- - The open-coded "!cpuset_v2() && is_sched_load_balance()" test in
-   cpuset_css_offline() is wrapped in a new cpuset1_offline_css() helper
-   (a no-op stub when CONFIG_CPUSETS_V1=n), removing the last
-   cpuset_v2() branch from that path in cpuset.c.
-
-No functional change intended.
-
-Assisted-by: LLM
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- kernel/cgroup/cpuset-internal.h |  8 ++--
- kernel/cgroup/cpuset-v1.c       | 59 +++++++++++++++++++++++++++-
- kernel/cgroup/cpuset.c          | 68 ++-------------------------------
- 3 files changed, 67 insertions(+), 68 deletions(-)
-
-diff --git a/kernel/cgroup/cpuset-internal.h b/kernel/cgroup/cpuset-internal.h
-index e7d010661fd3..5da9c91295b0 100644
---- a/kernel/cgroup/cpuset-internal.h
-+++ b/kernel/cgroup/cpuset-internal.h
-@@ -304,7 +304,9 @@ void cpuset_callback_lock_irq(void);
- void cpuset_callback_unlock_irq(void);
- void cpuset_update_tasks_cpumask(struct cpuset *cs, struct cpumask *new_cpus);
- void cpuset_update_tasks_nodemask(struct cpuset *cs);
--int cpuset_update_flag(cpuset_flagbits_t bit, struct cpuset *cs, int turning_on);
-+struct cpuset *dup_or_alloc_cpuset(struct cpuset *cs);
-+void free_cpuset(struct cpuset *cs);
-+int validate_change(struct cpuset *cur, struct cpuset *trial);
- ssize_t cpuset_write_resmask(struct kernfs_open_file *of,
- 				    char *buf, size_t nbytes, loff_t off);
- int cpuset_common_seq_show(struct seq_file *sf, void *v);
-@@ -318,7 +320,6 @@ void cpuset_full_unlock(void);
- extern struct cftype cpuset1_files[];
- void cpuset1_update_task_spread_flags(struct cpuset *cs,
- 					struct task_struct *tsk);
--void cpuset1_update_tasks_flags(struct cpuset *cs);
- void cpuset1_hotplug_update_tasks(struct cpuset *cs,
- 			    struct cpumask *new_cpus, nodemask_t *new_mems,
- 			    bool cpus_updated, bool mems_updated);
-@@ -328,11 +329,11 @@ void cpuset1_init(struct cpuset *cs);
- void cpuset1_online_css(struct cgroup_subsys_state *css);
- int cpuset1_generate_sched_domains(cpumask_var_t **domains,
- 			struct sched_domain_attr **attributes);
-+void cpuset1_offline_css(struct cpuset *cs);
- 
- #else
- static inline void cpuset1_update_task_spread_flags(struct cpuset *cs,
- 					struct task_struct *tsk) {}
--static inline void cpuset1_update_tasks_flags(struct cpuset *cs) {}
- static inline void cpuset1_hotplug_update_tasks(struct cpuset *cs,
- 			    struct cpumask *new_cpus, nodemask_t *new_mems,
- 			    bool cpus_updated, bool mems_updated) {}
-@@ -344,6 +345,7 @@ static inline void cpuset1_init(struct cpuset *cs) {}
- static inline void cpuset1_online_css(struct cgroup_subsys_state *css) {}
- static inline int cpuset1_generate_sched_domains(cpumask_var_t **domains,
- 			struct sched_domain_attr **attributes) { return 0; };
-+static inline void cpuset1_offline_css(struct cpuset *cs) {}
- 
- #endif /* CONFIG_CPUSETS_V1 */
- 
-diff --git a/kernel/cgroup/cpuset-v1.c b/kernel/cgroup/cpuset-v1.c
-index 562ad35f00d0..7c7f2887dfaf 100644
---- a/kernel/cgroup/cpuset-v1.c
-+++ b/kernel/cgroup/cpuset-v1.c
-@@ -229,7 +229,7 @@ void cpuset1_update_task_spread_flags(struct cpuset *cs,
-  * function is called with cpuset_mutex held, cpuset membership stays
-  * stable.
-  */
--void cpuset1_update_tasks_flags(struct cpuset *cs)
-+static void cpuset1_update_tasks_flags(struct cpuset *cs)
- {
- 	struct css_task_iter it;
- 	struct task_struct *task;
-@@ -473,6 +473,51 @@ static u64 cpuset_read_u64(struct cgroup_subsys_state *css, struct cftype *cft)
- 	return 0;
- }
- 
-+/*
-+ * cpuset_update_flag - read a 0 or a 1 in a file and update associated flag
-+ * bit:		the bit to update (see cpuset_flagbits_t)
-+ * cs:		the cpuset to update
-+ * turning_on:	whether the flag is being set or cleared
-+ *
-+ * Call with cpuset_mutex held.
-+ */
-+static int cpuset_update_flag(cpuset_flagbits_t bit, struct cpuset *cs,
-+			      int turning_on)
-+{
-+	struct cpuset *trialcs;
-+	int balance_flag_changed;
-+	int spread_page_changed;
-+	int err;
-+
-+	trialcs = dup_or_alloc_cpuset(cs);
-+	if (!trialcs)
-+		return -ENOMEM;
-+
-+	assign_bit(bit, &trialcs->flags, turning_on);
-+
-+	err = validate_change(cs, trialcs);
-+	if (err < 0)
-+		goto out;
-+
-+	balance_flag_changed = (is_sched_load_balance(cs) !=
-+				is_sched_load_balance(trialcs));
-+
-+	spread_page_changed = is_spread_page(cs) != is_spread_page(trialcs);
-+
-+	cpuset_callback_lock_irq();
-+	cs->flags = trialcs->flags;
-+	cpuset_callback_unlock_irq();
-+
-+	if (!cpumask_empty(trialcs->cpus_allowed) && balance_flag_changed)
-+		rebuild_sched_domains_locked();
-+
-+	if (spread_page_changed)
-+		cpuset1_update_tasks_flags(cs);
-+out:
-+	free_cpuset(trialcs);
-+	return err;
-+}
-+
- static int cpuset_write_u64(struct cgroup_subsys_state *css, struct cftype *cft,
- 			    u64 val)
- {
-@@ -581,6 +626,18 @@ void cpuset1_online_css(struct cgroup_subsys_state *css)
- 	cpuset_callback_unlock_irq();
- }
- 
-+/*
-+ * Legacy-hierarchy handling when a cpuset is taken offline: if it had
-+ * sched_load_balance enabled, turn it off so the scheduler domains are
-+ * rebuilt.  A no-op on the default hierarchy.
-+ */
-+void cpuset1_offline_css(struct cpuset *cs)
-+{
-+	if (!cgroup_subsys_on_dfl(cpuset_cgrp_subsys) &&
-+	    is_sched_load_balance(cs))
-+		cpuset_update_flag(CS_SCHED_LOAD_BALANCE, cs, 0);
-+}
-+
- static void
- update_domain_attr(struct sched_domain_attr *dattr, struct cpuset *c)
- {
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index cf55b0719a2d..9287a97310a3 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -162,7 +162,6 @@ static cpumask_var_t	isolated_hk_cpus;	/* T */
-  * It can be set in
-  *  - update_partition_sd_lb()
-  *  - update_cpumasks_hier()
-- *  - cpuset_update_flag()
-  *  - cpuset_hotplug_update_tasks()
-  *  - cpuset_handle_hotplug()
-  *
-@@ -608,7 +607,7 @@ static inline void free_tmpmasks(struct tmpmasks *tmp)
-  *
-  * Return: Pointer to newly allocated cpuset on success, NULL on failure
-  */
--static struct cpuset *dup_or_alloc_cpuset(struct cpuset *cs)
-+struct cpuset *dup_or_alloc_cpuset(struct cpuset *cs)
- {
- 	struct cpuset *trial;
- 
-@@ -649,7 +648,7 @@ static struct cpuset *dup_or_alloc_cpuset(struct cpuset *cs)
-  * free_cpuset - free the cpuset
-  * @cs: the cpuset to be freed
-  */
--static inline void free_cpuset(struct cpuset *cs)
-+void free_cpuset(struct cpuset *cs)
- {
- 	free_cpumask_var(cs->cpus_allowed);
- 	free_cpumask_var(cs->effective_cpus);
-@@ -743,7 +742,7 @@ static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-  * Return 0 if valid, -errno if not.
-  */
- 
--static int validate_change(struct cpuset *cur, struct cpuset *trial)
-+int validate_change(struct cpuset *cur, struct cpuset *trial)
- {
- 	struct cgroup_subsys_state *css;
- 	struct cpuset *c, *par;
-@@ -2829,56 +2828,6 @@ bool current_cpuset_is_being_rebound(void)
- 	return ret;
- }
- 
--/*
-- * cpuset_update_flag - read a 0 or a 1 in a file and update associated flag
-- * bit:		the bit to update (see cpuset_flagbits_t)
-- * cs:		the cpuset to update
-- * turning_on: 	whether the flag is being set or cleared
-- *
-- * Call with cpuset_mutex held.
-- */
--
--int cpuset_update_flag(cpuset_flagbits_t bit, struct cpuset *cs,
--		       int turning_on)
--{
--	struct cpuset *trialcs;
--	int balance_flag_changed;
--	int spread_page_changed;
--	int err;
--
--	trialcs = dup_or_alloc_cpuset(cs);
--	if (!trialcs)
--		return -ENOMEM;
--
--	assign_bit(bit, &trialcs->flags, turning_on);
--
--	err = validate_change(cs, trialcs);
--	if (err < 0)
--		goto out;
--
--	balance_flag_changed = (is_sched_load_balance(cs) !=
--				is_sched_load_balance(trialcs));
--
--	spread_page_changed = is_spread_page(cs) != is_spread_page(trialcs);
--
--	spin_lock_irq(&callback_lock);
--	cs->flags = trialcs->flags;
--	spin_unlock_irq(&callback_lock);
--
--	if (!cpumask_empty(trialcs->cpus_allowed) && balance_flag_changed) {
--		if (cpuset_v2())
--			cpuset_force_rebuild();
--		else
--			rebuild_sched_domains_locked();
--	}
--
--	if (spread_page_changed)
--		cpuset1_update_tasks_flags(cs);
--out:
--	free_cpuset(trialcs);
--	return err;
--}
--
- /**
-  * update_prstate - update partition_root_state
-  * @cs: the cpuset to update
-@@ -3632,21 +3581,12 @@ static int cpuset_css_online(struct cgroup_subsys_state *css)
- 	return 0;
- }
- 
--/*
-- * If the cpuset being removed has its flag 'sched_load_balance'
-- * enabled, then simulate turning sched_load_balance off, which
-- * will call rebuild_sched_domains_locked(). That is not needed
-- * in the default hierarchy where only changes in partition
-- * will cause repartitioning.
-- */
- static void cpuset_css_offline(struct cgroup_subsys_state *css)
- {
- 	struct cpuset *cs = css_cs(css);
- 
- 	cpuset_full_lock();
--	if (!cpuset_v2() && is_sched_load_balance(cs))
--		cpuset_update_flag(CS_SCHED_LOAD_BALANCE, cs, 0);
--
-+	cpuset1_offline_css(cs);
- 	cpuset_dec();
- 	cpuset_full_unlock();
- }
--- 
-2.34.1
+Regards
+Bibo Mao
+> 
+> 
+> Huacai
+> 
+>>
+>> If adding has_init is redundant, maybe we can set s->pch_pic_base with
+>> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
+>> think directly accessing kvm_io_device::ops is not a good method, no
+>> other architectures do in such way.
+>>
+>> Regards
+>> Bibo Mao
+>>> +
+>>>           s->pch_pic_base = addr;
+>>>           device = &s->device;
+>>>           /* init device by pch pic writing and reading ops */
+>>>
+>>>>
+>>>> -       s->pch_pic_base = addr;
+>>>>           device = &s->device;
+>>>>           /* init device by pch pic writing and reading ops */
+>>>>           kvm_iodevice_init(device, &kvm_pch_pic_ops);
+>>>>           mutex_lock(&kvm->slots_lock);
+>>>> +       if (s->has_init) {
+>>>> +               ret = -EEXIST;
+>>>> +               goto out;
+>>>> +       }
+>>>>           /* register pch pic device */
+>>>>           ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
+>>>> +       if (!ret) {
+>>>> +               s->pch_pic_base = addr;
+>>>> +               s->has_init = true;
+>>>> +       }
+>>>> +out:
+>>>>           mutex_unlock(&kvm->slots_lock);
+>>>>
+>>>> -       return (ret < 0) ? -EFAULT : 0;
+>>>> +       return ret;
+>>>>    }
+>>>>
+>>>>    /* used by user space to get or set pch pic registers */
+>>>> --
+>>>> 2.43.0
+>>>>
+>>
 
