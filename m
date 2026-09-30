@@ -1,165 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560503BFE2A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759161; cv=none; b=U4xJOXfwhMepTtlA5PsC1RpYyYEhZ4dGfj7GeKFjDMkqTQtLgcA766lAU+Mg/7w6rm9ixOEBdwSXElCyVFi2D37Qv46PZSd6qtjl8354j+NAagUOlvFZgbM5/xxfnTKXWPaag1wwUXTrlCbTh5XtWtsv5XSflUCoE2lo2cwHMNA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759161; c=relaxed/simple;
-	bh=RZg7++6hKGXyVEMgA11t+6CfAl3fVKEKnaQBXfdqhUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Shid4vUwWDNhnMRsI1qU2wl1E/2qFZDL2qgRjerqowcTIfgOOULFqp3wEmtT70haFpRPEtDGtxCzbAuCdEKZTEmF4gWd7sGMDN6DlD122taBTV6a4Ag/h4rTXSzUNLJ5dCjjqeXOFWQxuuXug8xsmX5R/NF7Ev//LwR8L4A71+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AUiQoFNJ; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4314156C9
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790759176; cv=fail; b=tI7SG9CgfLjhzXo1z//rk/gUAFuFx2UxUM26hLhcCreaMMD3WcHCmT+pxLkYwQ8z3M9WfztPoHMlqdq53H4qsStX+3gnY26z1BGPYIc96MLZ7U07hCLDAdNkWgCwJp0f1SEYvxReq8kqf3o8efLVV1UObsF4xDV1j/zCFbF4+Rk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790759176; c=relaxed/simple;
+	bh=CV52leiF2Y2RBJq4TsInEE6F4cw5N2cpeJGmlGItNKs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=A5aJyoWYsu8GVgErHCPo4y6qMluUpTyqZgaV72+YKHUfY4mP1v3YbSBnW/KRzqlmfKaxDP/Lns+OAbOKXyd+H1lUTUDmn+kwiSNJytJQlbaRTDlRB8guSF/S6NRyTAxSZeItj/AOs7TlTKo15a2U0mbdXOZShsI89Pbpi9hkMgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JsvuQAFP; arc=fail smtp.client-ip=40.93.196.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AUiQoFNJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790759160; x=1822295160;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RZg7++6hKGXyVEMgA11t+6CfAl3fVKEKnaQBXfdqhUY=;
-  b=AUiQoFNJkxs6qv6JpbXAuI5KwwKBZGCXKFe0OpMeYWQl6EXjgBNqx8tX
-   RDgpTIU7uUVeXQjEj2XJYT4818XVjegUdBQhvIrwAXYMYpn9HK/2KrLur
-   C+k5ClJldxsgfCWWDLj6zbUulwrYibaS9dyBhFIRLcHP3lp8FGviGInmv
-   osTSMrxb03Lgbgzf2vy0ZvmKog7w/tHlQeA9OG6mWUfyRPdJnzo3RxvUN
-   KeYahdV8Lr8NZtED8vAhoeEqcUzBOyFrnqU/DiiaHjfYZ1mO4Iu50y57H
-   Do3+tq9C5TjylZwUnlpGdAb4jmqms87pLroyAXjD4LyWdmhCjdD2LSPVP
-   A==;
-X-CSE-ConnectionGUID: 2G+cNEb2S82MKZe5euqMPg==
-X-CSE-MsgGUID: oY6w4kfGQkukg9NypxX2tA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90621923"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90621923"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:05:59 -0700
-X-CSE-ConnectionGUID: 65dMLntITdy3XVgRdWuLHA==
-X-CSE-MsgGUID: wtvykDMXRlSskntjW+F72g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="275188967"
-Received: from vtg-bdc-vm10.iil.intel.com ([143.185.124.149])
-  by fmviesa007.fm.intel.com with ESMTP; 30 Sep 2026 02:05:58 -0700
-From: Divyamani Tripathi <divyamani.tripathi@intel.com>
-To: linux-kernel@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	antti.laakso@linux.intel.com,
-	sarang.sapre@intel.com,
-	manik.bajpai@intel.com,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH 7/7] media: ipu6: add PCI ID for IPU8
-Date: Wed, 30 Sep 2026 12:01:48 +0300
-Message-ID: <20260930090148.3980652-8-divyamani.tripathi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930090148.3980652-1-divyamani.tripathi@intel.com>
-References: <20260930090148.3980652-1-divyamani.tripathi@intel.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JsvuQAFP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T1lAzgfGWbD3QleBGd8kpwyT9tJMUcGmZo9NAyJY5KN9r+BJ+HkblrnVd517rRvkEVRZIod27ehmAkrI1omSM/w+x9fi/pzxfC7LupLVslzf13pjTv17y1CtB5wWNxFFM2dTW54EgQIrRT4geBBE8ccHQKX3oOICSbSsQipWTMoHSnB+8GYvOzn8ovdAkyxeHDDxmnPGR6xnmVd1iZKJwjH6gKqhh5xCTbz0LvxL+ycZ9SjXl0hr7FEhd4J71ERRk3ysHQ/hUOU/hFvhuiZpcadliQLdoU4TjiKIly5e+SPXf6CsqfT0tG9Zr49OvNj/5+1rq6dWNQETmI0DJS3eAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zq8OTdVISb8VBV52RU1RqOp227u3JM5sk1o+gJ0emy8=;
+ b=wkEizWP0WrvO3umK/trFyrh6QPZkv0yMjVPhSdS4QxGFoY3txdx9aXQM9dj8buUOjSOKyhb4+U1xdDBCjI3UAoPVo4exraf+EEjnjLQOZy2X9MBhndAXrb2kC4XKYc4EmzuqIEhrLNesxlQQY9JQQ/5KKyid/5LJEaMZeK/0AjHlrFjz4Gn5Rlxon63l5cmv13nijfOB60hbUUePk+oEFubUDNoM/tTKF9F3cTpRCWcVFWYn/UtSa+NnU0xTiMTmbwn8EfSCLOgw8uMDqlbbu8qwETh9tY6R4VfVvqj1ZtOFiGjMwOdXt+40Jb3grfR943FmNcQCjUFukVT2UCYtiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zq8OTdVISb8VBV52RU1RqOp227u3JM5sk1o+gJ0emy8=;
+ b=JsvuQAFPZyvzF5VrjB3nYJsTkVyjw+XDTeLH78fbXg7UnvIvs9eXm1mUDO1wwS4sanKadmjL7Gfwe/1FenTveeTWeNMQVbhKMgCPk6/Ind/475vrlzNYp1UT1ru6sw+U+0kaH3zv3tu0pK7VBbbD306obhwSo8lxUhjqNusJ9NE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Wed, 30 Sep
+ 2026 09:06:11 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 09:06:11 +0000
+Message-ID: <5dfc3c36-af54-4624-bcb2-2386a8f34e51@amd.com>
+Date: Wed, 30 Sep 2026 16:06:01 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/24] iommu/amd: Program IOMMU DTE with the private
+ IPA domain
+To: Guixin Liu <kanie@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, joro@8bytes.org, jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com,
+ chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
+ joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
+References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
+ <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
+ <a999cd33-c857-4c3a-9643-4c0add9679ae@linux.alibaba.com>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <a999cd33-c857-4c3a-9643-4c0add9679ae@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR06CA0007.apcprd06.prod.outlook.com
+ (2603:1096:4:186::9) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|MN0PR12MB6200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a744b57-035f-4934-b2e5-08df1ed21263
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|7416014|22082099003|4143699003|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IcsZnjsG/ZBIxh/7RCpPBDsHjpyYojzPQxxsdOgdJBhUksv0ANSVqwu61b0H+Q+u7ZYJZC9xFwaW5rxJK8rx1aCYFyAd6h5xxYgOjMlEvSiH5yy6+PYqEPd81eHppLXFAeqYp2y+feX+Dp9fnqQ6hiHn3kNqAWDS7TbigMbWl48Q1QHPzB1UyZndQl+SIzek7imvuDO38AwY4NrYie7Xtjpf51Exa+hiS/PZnyOLbvBCqPXhs1EHHqE6GwFH3E/5qjwlhfVrwylTCM3H7th5l4FkZa7umt0LV/Lg7kQN7GLssOZt4mcUl/HwE5ptCWBckAC5+nR4jCdJtjYu3tZltM3PexGcwWh/jNIopp2LZax/Q1IWtyJBGXHAz4Z+8SSaOjp6kiwt7mftFqJx+3t0k44XJuhda8AZiOdS6SbbDrn1cNor8ToC/mjo/SV831/uFP/Mh2sE10mOlx2ruymScOV9/2uLX9Yal1n61PECIgje4NTMQfq9XzAPphZrGezMmkbq3anCa0qRgMa7R16FdSkIq/PmIqmEVdpT0GjIETxR9+HwI/vnuSZz4AVsMEoVmq/aftrStmpfYEMMKx8cJc6ACDyviFViQekJwLW4Nc91h3WVF6czSPwTltkeircYyHKa9/0+Q8mhtngXNrikqI54x8MOJCcxOjS9bdvQvAE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(7416014)(22082099003)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q1J1Kyt3dXhDK1ZyU2k0RTJXR3ZsWE9od29IdDl1NVo3Rk1Bd05DaFdqdC9M?=
+ =?utf-8?B?aFhTWWR5Zzl2TFc3c0tEVUhQUWFvVFlsTU9wWWozMWtpbkdyeE9FSWRWOWpJ?=
+ =?utf-8?B?cGJsR01SczZKVE9qRkwzTDE1SWlhcjFjekcyZk5Ma3hSdWFPWldyajR0RGQ5?=
+ =?utf-8?B?RU84R2dLVEpNT01zNUJjbFlncnNQTnlaT1VDV2hUU3N4Y1pRNHNLV2xWQjVa?=
+ =?utf-8?B?VkEza2hBZFZVaHFaZ0ttdVJPcXgvZW5jOVZSc2FYN0tUTkdERHhvZkNSQ0U3?=
+ =?utf-8?B?MUMvKzB3ZGpnd3dJcEVTQkszTW5UQjJ3eVZybGlSbWxic3N5WVBCSWVSMkVw?=
+ =?utf-8?B?Vmg0QjRRZHRMeGRZZ1lFdXc2aTBwVVRPUjNmVHE0dVlaTkZUdDNYa0N2QXhG?=
+ =?utf-8?B?MTZPOE9MaUdLQnpialNHY3ZtSE42VUFvRlh0Y29PdXNTMjRFWHVkVjdvMXVJ?=
+ =?utf-8?B?NGVGOStEaXBCQWUrRlpCMER5VFgvOGxBTlhMQjBnUVlzdU11ekR5SDBlNW54?=
+ =?utf-8?B?bHAxcW50a1Z4M25yWXE4a1pjUUNLU0pLYnlQVFFnaUhEWHI3MFl4Q05XUzJJ?=
+ =?utf-8?B?V2NQdk5wRTZUaDFscXlrRWZEMjg5b0VXMDFlcTE3VGJsYzVGdlp6Qm51ZGVv?=
+ =?utf-8?B?TWJXTzMxVjFYSkJ3NTBQVW9YbXpGT2o3MGNqYTliZUhTVlVmWHpxZW9KZXh3?=
+ =?utf-8?B?NXNVdnoyUkNvRHBFWXFoMkU1TEsrLzJFTnRuMWxqNHZoMU96eGVvS0xiZnpt?=
+ =?utf-8?B?c3l0VlhGM3VpajFKdnR2WXFPY1Z5ZC9VMGtBU29zN014RHhIcG5GOGRNN25r?=
+ =?utf-8?B?ektUZmx4YzNPMkQwL3dGOWtpMVlqSWNIalo1b0JaSlJOZzNCYmFHVEVxSUEx?=
+ =?utf-8?B?dXFpcXVnNDd1U3YrMTNlT2dsZE9mRUpNZy9NdFAzZTJXMGlveDVSZnMvY0Zz?=
+ =?utf-8?B?TmE0V3VGSnM2cWtDUEE1VkZnNUs0RkJITXpwY1UyckZRbm9TVnFvUlpRR1Ey?=
+ =?utf-8?B?d053bXk5eEUxa2FqelVXN20wM3ZSbTFFODNxSmN0Q2QwNnIrUEN5WVRwS0hn?=
+ =?utf-8?B?MmdYbXJUQS9KOE1wY0V5a3NtTjFzZzdIRnl1ZG1CRE90TjYrdkxpbmhkVStR?=
+ =?utf-8?B?eUozNzBjN3hHLzlVZ25xbmZCdUF2N1lxRWI4TUsyajhRRVFubmQzdjZRZmph?=
+ =?utf-8?B?aFMwM09sd2wvV1hZZlU5VnBnN2pqaTB6ME44dnpPY1g2QzVZbERyK2NDR0ZG?=
+ =?utf-8?B?TytsZ2ZBa3pGRXlKaE5WdFlvRFJMTXNVdFEyUWRwNVFsVTQxMmZYd0hWRFkx?=
+ =?utf-8?B?bE43OGpJb2EzdzNDSURoYUMrZXBadlh5cXR1K2FHa05VOUl6M3RDSVhxV0dH?=
+ =?utf-8?B?Z0hYR1RzZ2ViSlUrd0VRSzZOcHJPak5zOEUrQS8xa21KWmM2ZnFIRVkxcFkz?=
+ =?utf-8?B?M2lNVW9PbENCZlVpUUU5VnAzc09LTC9QcDNtSC9BYkZtRUErUjdrRCtNZkJu?=
+ =?utf-8?B?TTRiallNeVdOb0Y5WnFOTUdYcGw1TXY0Znp0ZDdzb2F6Z1FScnA3OW9aNXVN?=
+ =?utf-8?B?Y0lkSXE3aXY0VWVtMk1RWmhXYjRGQ0pnN0FPR0E2SlllMTdDWXBVTFRvaDlX?=
+ =?utf-8?B?R2xiVmRBaVNjMlNhTy9mQkJMQ2l0S2VPRi9veC9sRllDdTdEaFhGR0o2Um4w?=
+ =?utf-8?B?Wnk3cEhvMUx2dTRmZzBvamRuUThJK09GVUw2eGNaUXZtTGgzUUtweDM2TVRZ?=
+ =?utf-8?B?dzF6MkNqZWpZL0UveE5uZTMwejdSTnAzQ3d2RHBnTXNQQ3djSVZwRXZGTVlC?=
+ =?utf-8?B?eVY4MFRGWVoxNWZncWRLS1N4S3JZWWVPR281RDFqVVdicVVLaTNITS9mWENE?=
+ =?utf-8?B?b3kvMDNOWUhjY3RlRWJaODc2andwV3o1VlFGSThFZmVFSkNGTS91Qmc0YjVP?=
+ =?utf-8?B?OHgzUzc4NnB4c3NERTFDSVZ0SmxUVFVmTUNTNTBFeHRrYkFCMFdBOHBSL2V5?=
+ =?utf-8?B?dHVsQjFzQmtoVXhnWWZVT3d0TDhNYzh0SDNiVU5kWCszMmVvWk0wcjNGOG5x?=
+ =?utf-8?B?aDI2Ny9nclFSN09JZTZTQ0RRQ1UrT2tRWUV4UzlkbGNWcENkTlB4ZVZBbjBw?=
+ =?utf-8?B?aDhoS3J5ZWVzUms0S0xHZ2dBci85SjlTY1hYdWpyUGd3eW5tUStVTlgvTEtt?=
+ =?utf-8?B?cDBsNUliU2ZJajNsOHNmTnhGNzdXSWhBejBMZTNHZE5BRHVteWtqUnhjQlc5?=
+ =?utf-8?B?d2ZqWFVtWWk4Rjk5NzhOV0dCSitFSEFVWmJMSS9JNXdVMHZrSm5qVVFta21Q?=
+ =?utf-8?B?U3NNSWVtOU9xMnlvcGx1T3ZzSjB1SWRzMDkyYmRBTFkzSWdoZDgwUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a744b57-035f-4934-b2e5-08df1ed21263
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:06:11.3647
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QhnYGJMAUGIVcXQ5aaxLsifV+/f61s7gWtyLjJ3wMLxCf3TMnuuJkl9Tv5cA+mdJ9F2CxBsOBa6zM/jtjDCqyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
 
-Add the IPU8 PCI ID and probe wiring. IPU8 reuses the IPU7P5 buttress
-register map (unvalidated against IPU8's hardware spec) but needs its
-own default control ratio (0x10), so add dedicated
-ipu8_{isys,psys}_buttress_ctrl structs instead of reusing IPU7's.
 
-Signed-off-by: Divyamani Tripathi <divyamani.tripathi@intel.com>
----
- drivers/media/pci/intel/ipu6/ipu6.c | 40 ++++++++++++++++++++++++++++-
- include/media/ipu6-pci-table.h      |  2 ++
- 2 files changed, 41 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index acc492f5cc11..17e659230149 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -140,6 +140,28 @@ static const struct ipu6_buttress_ctrl ipu7_psys_buttress_ctrl = {
- 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
- };
- 
-+static const struct ipu6_buttress_ctrl ipu8_isys_buttress_ctrl = {
-+	.subsys_id = IPU_ISYS,
-+	.ratio = IPU8_IS_FREQ_CTL_DEFAULT_RATIO,
-+	.qos_floor = 0,
-+	.freq_ctl = IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ,
-+	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_IS_PWR_SHIFT,
-+	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_IS_PWR_MASK,
-+	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
-+	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
-+};
-+
-+static const struct ipu6_buttress_ctrl ipu8_psys_buttress_ctrl = {
-+	.subsys_id = IPU_PSYS,
-+	.ratio = IPU8_PS_FREQ_CTL_DEFAULT_RATIO,
-+	.qos_floor = 0,
-+	.freq_ctl = IPU7_BUTTRESS_REG_PS_WORKPOINT_REQ,
-+	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_PS_PWR_SHIFT,
-+	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_PS_PWR_MASK,
-+	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
-+	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
-+};
-+
- static const struct ipu6_buttress_registers ipu6_buttress_regs = {
- 	/* Registers */
- 	.irq_status	= BUTTRESS_REG_ISR_STATUS,
-@@ -624,7 +646,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	int ret;
- 
- 	if ((id->device == PCI_DEVICE_ID_INTEL_IPU7 ||
--	     id->device == PCI_DEVICE_ID_INTEL_IPU7P5) && force_no_probe_ipu7)
-+	     id->device == PCI_DEVICE_ID_INTEL_IPU7P5 ||
-+	     id->device == PCI_DEVICE_ID_INTEL_IPU8) && force_no_probe_ipu7)
- 		return -ENODEV;
- 
- 	isp = devm_kzalloc(dev, sizeof(*isp), GFP_KERNEL);
-@@ -677,6 +700,21 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		isys_ctrl = &ipu7_isys_buttress_ctrl;
- 		psys_ctrl = &ipu7_psys_buttress_ctrl;
- 		break;
-+	case PCI_DEVICE_ID_INTEL_IPU8:
-+		/*
-+		 * IPU8 reuses the IPU7P5 buttress register map,
-+		 * matching staging ipu7 (no dedicated ipu8_buttress_regs
-+		 * there either). isys/psys control ratios use IPU8's own
-+		 * 0x10 default, unlike IPU7/IPU7P5.
-+		 * TODO: confirm buttress register map against IPU8 hw spec.
-+		 */
-+		isp->hw_ver = IPU_VERSION_8;
-+		isp->cpd_fw_name = IPU8_FIRMWARE_NAME;
-+		isp->model_name = IPU8_MEDIA_DEV_MODEL_NAME;
-+		isp->buttress.regs = &ipu7p5_buttress_regs;
-+		isys_ctrl = &ipu8_isys_buttress_ctrl;
-+		psys_ctrl = &ipu8_psys_buttress_ctrl;
-+		break;
- 	default:
- 		return dev_err_probe(dev, -ENODEV,
- 				     "Unsupported IPU6 device %x\n",
-diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.h
-index cacb8a3170d0..4c7e724ea15e 100644
---- a/include/media/ipu6-pci-table.h
-+++ b/include/media/ipu6-pci-table.h
-@@ -16,6 +16,7 @@
- #define PCI_DEVICE_ID_INTEL_IPU6EP_MTL		0x7d19
- #define PCI_DEVICE_ID_INTEL_IPU7		0x645d
- #define PCI_DEVICE_ID_INTEL_IPU7P5		0xb05d
-+#define PCI_DEVICE_ID_INTEL_IPU8		0xd719
- 
- static const struct pci_device_id ipu6_pci_tbl[] = {
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6) },
-@@ -26,6 +27,7 @@ static const struct pci_device_id ipu6_pci_tbl[] = {
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6EP_MTL) },
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7) },
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7P5) },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU8) },
- 	{ }
- };
- 
--- 
-2.43.0
+On 9/22/2026 1:57 PM, Guixin Liu wrote:
+>> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
+>> index 89d6dc520b2c..3ec907a498c2 100644
+>> --- a/drivers/iommu/amd/viommu.c
+>> +++ b/drivers/iommu/amd/viommu.c
+>> @@ -40,11 +40,55 @@ static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
+>>   	}
+>>   }
+>>   
+>> +
+>> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
+>> +{
+>> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
+>> +	struct dev_table_entry new = {};
+>> +
+>> +	if (!dev_data)
+>> +		return;
+>> +
+>> +	amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
+>> +	amd_iommu_update_dte(iommu, dev_data, &new);
+> Should check viommu_cmdbuf_enabled() first? If enabled then update dte.
 
+Right. I'll fix this in v6.
+
+Thanks,
+Suravee
