@@ -1,156 +1,68 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FAE4C33E6;
-	Wed, 30 Sep 2026 18:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A244C33E6;
+	Wed, 30 Sep 2026 18:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793399; cv=none; b=AnLVbo2lfbThIfSZz7aW+XHXjhBxq1NwUhQgWrEVJIGqRldnzEdXm9rZSmMVnpq5A+LUkz49DfhvPhTJYGjDfo/HSthOP8pSxiXd1s3n6pQtNToGzyqqbFRvw3Xg0Ythcxa01NeTiPmsCat8IxDMJ0KOvfACCbvHZJs2F793+80=
+	t=1790793453; cv=none; b=LUxZJ8PpSV57cb+X7UQ9/eWk3GJ1v7DePKKtCoyFbASMb+HA/UtOFt6XZCgqA5ZCDxyHplx9PCVyiziGZhdsWZkFKRfcmNXimr/Wdcy7Ols3B26kY92py95jYsfHZrH+41gM0UWHIveTLzZITCWJR/AJwZrlK808+PllZ49Y08c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793399; c=relaxed/simple;
-	bh=VUdi90djdUmelPiBH2g9vWrf6a2YP1CNrsGy/AkTM8M=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=rX5fdUqcRnE6CvtVfn4BLoqKmgEqTsAtDtV909vRMb1wnTAXn9ZTBtLEukyzki9RklErIwlX/dJHdIYe1MFyf6FPyomveWmSO9oAkVYO/l++Paut+4jqcw+VYw7NZTdgkEbcr2I09RXab0KDAYe6mEOos1K/JKPKFZKqtvY9Es8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=GKyL+ajY; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CCn5p5YT; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790793453; c=relaxed/simple;
+	bh=81LSair9EPRAiBn/IkSUZMEuAIdtIt5K4tXTvBe09i8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JeiMIHmg0ZS7/waEgkOKbyJgKBenrP1llks80v5G0WAJTZ+BGITRWxr6DLnFaJvXetiC13qGL8d944Dt2dtMnl2qQRRU7J14NO3LmLfsgxAL3S/jv20TH/gpPnzz1LbdlLpvhVeTUX8HABMc57tT9dUqxUDRMZj27VvvTVXo/8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITA9sbQI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="GKyL+ajY";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CCn5p5YT"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790793380; bh=yabuR8AUgligfEBOy3I805L
-	BqL6502nnbdZtxaciH8s=; b=GKyL+ajYNWBUQcUwd21Py42wyvn4N7vNnwanEybgfJ9pKZJEkt
-	yDQVWcrrkVQn4PKB/FLP/mSIyfT7Y6X12IVKUH5G4weg+E14V9bcHYQsOYW52Lx8yqz29cnEaT/
-	x9sJW9PfkpsxuPaydXnyqQWrz9R3XAbiTDEFfF0zOuG7ODBJxp1g8w1cZIzEziiF4ADplpE0YMM
-	EUYdk/oWkoubsv2kxiFPoJzePKsBpeD9dvIIZJR3FPtuK4J2atgtmDZC/s3BZ7nvqDKilad3QAo
-	j1fiV+ic0L4U9B7Zk1pFwORJwmDs0BFDgucC7kKLoCScPO8lyeHbDi/u0mKL1G0sZcA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790793380; bh=yabuR8AUgligfEBOy3I805L
-	BqL6502nnbdZtxaciH8s=; b=CCn5p5YT0RxmKY4vXVmzULYrPal8lw3nxrThzdTqvZC554y/VY
-	ZPaAT5nxiZYjgcdjoTHPRNX6gag1j8lKIwAw==;
-Date: Wed, 30 Sep 2026 19:36:20 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org
-CC: arighi@nvidia.com, arnd@arndb.de, arnd@kernel.org, boqun@kernel.org,
- frederic@kernel.org, gustavold@gmail.com, jiangshanlai@gmail.com,
- joelagnelf@nvidia.com, josh@joshtriplett.org, kunwu.chan@gmail.com,
- linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- neeraj.upadhyay@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
- rostedt@goodmis.org, tglx@kernel.org, tj@kernel.org, urezki@gmail.com,
- yphbchou0911@gmail.com
-Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
-In-Reply-To: <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
-Message-ID: <28A04B09-71B0-4BBA-825C-7F80E57BCF3A@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITA9sbQI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B851F000FF;
+	Wed, 30 Sep 2026 18:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790793452;
+	bh=ng/g14mps5jdMDV/NHuBoWekicBT/8el9ZOYheRl8qU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ITA9sbQIcZr+dynzwIE5TTanisiKUjcWqmB/pQUFq7w9hEzJQdpWOjUGwlWuVPzXB
+	 Dgb7uMfP1te1riOvx+GwTJtZri32E97yXI4kZTdVaUGwMxrJgyM3HDKQyC08KIHlVx
+	 7V6AggInQ0116AafzQe+TUhHf+3UphlEUMV3PKSi2d96QxiiF8jzQesM7Wfro2zC1m
+	 GQUM7CZ1oi+SKIyKn6doMmltTn9zwys09ZBW26iY/8vPmrDxcT7ggZphm2H4Y+aM7t
+	 nciT5xC15T0pPYwEB8VHd6jlUCyMahCmD3sPOHsoV7Q4V3AgmOXsK0WPaYph2sxIDy
+	 qG11EwQLm94Ig==
+Date: Wed, 30 Sep 2026 20:37:29 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: Ian Rogers <irogers@google.com>, Namhyung Kim <namhyung@kernel.org>,
+	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 05/26] perf trace: Bound the fixed size augmented
+ argument beautifiers
+Message-ID: <ar1W6c5E5kJEFbWA@x2>
+References: <cover.1790145937.git.irogers@google.com>
+ <20260928182605.3649015-1-irogers@google.com>
+ <20260928182605.3649015-6-irogers@google.com>
+ <r4uzrbjmhlwogshwlzz2346fbgehlpgise6rqhzeibgelqedkg@ezlubngls5pw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <r4uzrbjmhlwogshwlzz2346fbgehlpgise6rqhzeibgelqedkg@ezlubngls5pw>
 
-On 29 September 2026 22:08:49 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
->> Thanks, Arnd.
->> 
->> Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=y:
->> 
->> CONFIG_RT_MUTEXES=y: build passes
->> CONFIG_RT_MUTEXES=n: fails without this patch, passes with it
->> 
->> The failure is in tree_stall.h, where rt_mutex_owner() is used
->> before tree_plugin.h includes rtmutex_common.h. This matches the
->> reported failure, and the added include fixes it.
->> 
->> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
->> Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
->
->Bradley and Kunwu, are you OK with my applying your tags to the commit
->that I am merging this into?
->
->1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall
->dump")
->
+On Wed, Sep 30, 2026 at 02:22:34PM -0400, Aaron Tomlin wrote:
+> On Mon, Sep 28, 2026 at 11:25:44AM -0700, Ian Rogers wrote:
+> > The timespec, sockaddr and perf_event_attr beautifiers read a fixed size
+> > type from the payload without checking its size. The sockaddr payload is
+> > addrlen bytes and the perf_event_attr payload is attr.size bytes, both
+> > chosen by the tracee.
+ 
+> Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+> Tested-by: Aaron Tomlin <atomlin@atomlin.com>
 
-I'm ok with it
+Thanks, applied to perf-tools-next, for v7.4.
 
->							Thanx, Paul
->
->> Thanks,
->> Kunwu
->> 
->> On Fri, Sep 25, 2026 at 9:39 PM Arnd Bergmann <arnd@kernel.org> wrote:
->> >
->> > From: Arnd Bergmann <arnd@arndb.de>
->> >
->> > The added call to rt_mutex_owner() makes this fail to build in
->> > some configurations:
->> >
->> > In file included from kernel/rcu/tree.c:5121:
->> > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function
->'rt_mutex_owner'; ISO C99 and later do not support implicit function
->declarations [-Wimplicit-function-declaration]
->> >   333 |                         if
->(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->> >       |                             ^
->> > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and
->integer ('int' and 'struct task_struct *')
->[-Werror,-Wpointer-integer-compare]
->> >   333 |                         if
->(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->> >       |                            
->~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
->> > In file included from kernel/rcu/tree.c:5124:
->> > In file included from kernel/rcu/tree_plugin.h:14:
->> > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting
->types for 'rt_mutex_owner'
->> >   231 | static inline struct task_struct *rt_mutex_owner(struct
->rt_mutex_base *lock)
->> >       |                                   ^
->> > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is
->here
->> >   333 |                         if
->(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->> >       |                             ^
->> >
->> > There are already a couple of inclusions of
->"../locking/rtmutex_common.h",
->> > so assume this is safe to do here.
->> >
->> > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU
->task stall dump")
->> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->> > ---
->> > I wonder if it would be better to either move the rt_mutex_owner()
->> > definition into a global header like include/linux/rtmutex.h, or to
->> > move the code out of tree_stall.h into a .c file, as this feels like a
->> > layering violation.
->> > ---
->> >  kernel/rcu/tree_stall.h | 1 +
->> >  1 file changed, 1 insertion(+)
->> >
->> > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
->> > index 5dded1e89197..803a56af3259 100644
->> > --- a/kernel/rcu/tree_stall.h
->> > +++ b/kernel/rcu/tree_stall.h
->> > @@ -12,6 +12,7 @@
->> >  #include <linux/rcu_notifier.h>
->> >  #include <linux/smp.h>
->> >  #include <linux/rtmutex.h>
->> > +#include "../locking/rtmutex_common.h"
->> >
->> > 
->//////////////////////////////////////////////////////////////////////////////
->> >  //
->> > --
->> > 2.53.0
->> >
->> 
->
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+- Arnaldo
