@@ -1,163 +1,179 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bsdsz2.pd.infn.it (bsdsz2.pd.infn.it [192.84.143.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DD335B125
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748097; cv=pass; b=dt3YQVnf2MKRXIPOBtf8PIn5WLtoFYF39nzlLb4tGhG4HCEdx0j8xoTZ01b7axtqTnuluQ0zJKMuGRRfeMXy8ygPLSKF3ycw8Bgrd8Q3IBIEYTHktkK5vdwh5up+F25eR2fNZuIvapuQoBdKfuyv8X7q16zxiy27j26F2F7zHPM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7501F30DD2F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.84.143.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790748097; cv=none; b=S80DSOc4tZx8fnGM1LbNZDZQZk3d2NqQDZrbDon1XQSnDUUk+Tg5/nwIcxCXLimtLp0aZC+wgtBK4MQiANEmPdLKoc1T7+PdBQEVWzExYQ6D4sNAtk422exs4WeVTbwdFd7rWAWfnTljJ6vIVt7JhWclfVy3FuX93nVAFkOirz0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790748097; c=relaxed/simple;
-	bh=IcOj33yDRHvyt5L9JitZ1ZGchB+/DNq2PYiHYhA9vDY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qDuzCG5BTBDKRPkBfx+jyL2+0zE3t7TI/7SqHWx+S12NmSmXXnXGhv3bpPE1YJCQ2VWlhLEjOwBL5Q9Vc5g+xcGe8voEEv8g2h9/TFf7BwDdxtNEh020etIVIOVuIopmv0HoGZHrxB13o9enYp8phP7R5mAciIX33TIqf6CyfTU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2w2WyCC; arc=pass smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=ZdHjYJ3fCIPFebgsOOyGyjfTtvdMf7EBU9oaoEc5aGM=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=iEHbPQaEsIe/ZfFrEscH2tMub5kmNQGUCYhH1oevED8MyWY92j9YiwMtPbaOuSVNlxoaXOMCq0c9/R7bODJOVbPQmNQQOxdGd9Y3pNce99JH1JVV8yGUtIJ12ueD3DSdhVn6NELqfMhRyCF7E5UguwIH+kOysqw7aeYekYO9rZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it; spf=pass smtp.mailfrom=pd.infn.it; dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b=h3q+/nww; arc=none smtp.client-ip=192.84.143.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pd.infn.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2w2WyCC"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaea1cb2e4so6123654a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:01:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790748094; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JQi2q92H4g2+VDC0yOhhEInkreq92dZGRQibt6TO5NTr/yJAyvV8PNlwV0NOZSzZj1
-         2cseaWqLJU8UTraTeVYViwBuozxCGzSC6kAQ3cTlsdU7CTczgalS5PIZ77fjvDxZxuab
-         d/kxlQ/uL0lN5gBLyyGtwaeCItY7N5SWGy6xYZdH/UkUrDc7Oy6at0O023Z3o6Qd1RcL
-         ebihceLjs0r6G2bxM1rDe4D6xhzAUh/vTMJbdC48Hm++Vc9hnuxSFev9rD+c77EWh5B/
-         Mv63wxEW9fSNaFd8te5j6Mz2MXTIU4aMW44YB/gXQBaIiUadgmDsKxHvLFuTpnFoLEPX
-         J3kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IcOj33yDRHvyt5L9JitZ1ZGchB+/DNq2PYiHYhA9vDY=;
-        fh=ClF4HuVH5n0zrrPr+0z9f+3V7eeMxHVJyVeSAzW2oT8=;
-        b=LJKr401+8PPWp5yYoXcuLR5r9PImEI9P/tSCrwnS51/Jr0HqDerVa4mLFLarjAebHg
-         rgxBuBJvVBbslzPquLIMVUn3aNxwjCCDK2OvFzyuMnLCgBdMJ0L2CUpYgDo7wl67l6FF
-         xwnkEkKHZnACslXm8fv6R9FzkYxbZSi6n02oERlERXDaLtdEjZPguUS1COZNzP2HGIEA
-         GT/CVx0msD3zZ2NeHVxz9zdS2ElIhUZuvusajhMBG8siU+uye+jBEP4aBiddElsrLjsk
-         pF6jtUkyFUxj8MMo4669CSjrkrxaGtQ6P9J4v+9VkhX9uQqsge9ThX90tbOyfEdHSjbs
-         MFPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790748094; x=1791352894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IcOj33yDRHvyt5L9JitZ1ZGchB+/DNq2PYiHYhA9vDY=;
-        b=J2w2WyCCeWOVNjJoRf4knmvAJZwYoof9Tfmjv75e1CljA59RiJx1hu1lbG8BTwgoFl
-         hbcCg8q/PnyvW9cwwjmNsAIp92ppA1DI0nE3enbDCjkSEoHYK8SlVyuRzKJitMHOMTze
-         i7vE5erQ4su9J6kqKzG2iOWaa6LU6qxZZ1obGentJq7Yo1P6F7gRfaq8WHccVW2Cf/3C
-         fzulCkBt5Hh5wNrprRceeU3SV7dPN+vIVVvq9MJNrNQ0kk/4Mc1RzbLi4Jw62z7necy8
-         2M8A/mNgPnPkcyYcnE5an43tYcX101irky1Av5MkM+1yWW6mVPQQ0rr5wIXbQgd+XRZi
-         2AVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790748094; x=1791352894;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IcOj33yDRHvyt5L9JitZ1ZGchB+/DNq2PYiHYhA9vDY=;
-        b=FQU+aLU7fxh2jeRnlkBLEOvvbxwSoO9ah+aZcrUY2Hizy7v3Wkr5b2TKwTCJ+3i8AM
-         NFaP40/In3GTsrUSSEBhQjFSFQAMkffPpOuHTcIQh/eZo9coKesUYPb2PsZu8qRCrn3+
-         ce4RZNQhFDlAPbNYBxIf7iB5044LTI9xSGpLurW2GlCCu0cpHPpFTt9q+z1EcL0h1Vux
-         azZAeRrESqNxlijUywNPrZrf7u67lQ3Ph7WlMrmWINU3G7Oh931OWP+ZKbqQsdJTkLef
-         /1MdGl/sriesNVNg0AN1zZDI3UKdT2rKWDDsvot+pxohG2u4MWB2yEuFVU1cPYDFaw3r
-         7+4g==
-X-Forwarded-Encrypted: i=1; AKwUvBwnCNbC/s6MefiSYUCrhMuW4F7+RSiiyGezYbro5yxEH9A9VRSqqmkEwy0N8mW44ykS2QGWTJNFLL2RXzM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKuNd2f2INxCxf9RKR1RV0yz62gjouCXJruEybiBJLy85eNqrq
-	4vO/2lTOL+PcFtoT8e0ZRB7ZpFw9wS4sgpCXw9rjL1LDEymvoveoLzXwRk6BojdH16wvUPzbXAk
-	+z4pmsA1fhtwf7RBWw0Q9hweqULxDnclmP9Ud
-X-Gm-Gg: AYBFou0yCmIY9AVBPeG92XMWAFaGstHrEzdxEsGlZQ/Q+XWwSUMk2x5oHPkPcmzdeWV
-	8esegm4IkDryAWKov/GMVyKaDJ0PG+/dC1LiDqDx4qQPUigG3bG7lhjA06aVgbz9E9/qAK6WeDS
-	AsWTIFvl8tiqiKYW9xyX/kulU9mPS8GqOsD6QSQRl3uqwINb7jEo7h2hbFNCjSaEtUkEZeXP0ZQ
-	AzmZw2vc2EBgYZvYdzTxsstBdkX96Eg7joOY0S27AIWOdm/j+K1naK6R6gbbz0v27r7QKxHquqI
-	nfzlKWn+4g/nrvTzl0dAEOb8tTCB65FiFMz7IrADgp4PvkiJBq037jXmFdP4Pmt82Os=
-X-Received: by 2002:a05:6402:240d:b0:6aa:b341:3f9a with SMTP id
- 4fb4d7f45d1cf-6ae199552c3mr84751a12.39.1790748093339; Tue, 29 Sep 2026
- 23:01:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b="h3q+/nww"
+Received: from [193.205.57.134] (wlecastellani.pd.infn.it [193.205.57.134])
+	(authenticated bits=0)
+	by bsdsz2.pd.infn.it (8.15.2/8.15.2) with ESMTPSA id 68U619Wl056927
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+	Wed, 30 Sep 2026 08:01:14 +0200 (CEST)
+	(envelope-from lorenzo.castellani@pd.infn.it)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pd.infn.it;
+	s=bsdsz2; t=1790748075;
+	bh=dKGyeVRoaSiR7UUeFA0r2YTt+67hLuvwUhRWtjEz4bc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h3q+/nwwVNUe0NTz8tbXJ7hMlbOrQvruca5tyfg25HScvAwodGMXDUdAEvyN+EQs1
+	 eX0ZPGuHW0S0GpJtDF1Ixj4UpHl8wsyUQ/EyjSAFqamF5YmHyafeU+G2wZpw6tJIUv
+	 K9wXmuTKxxl9GqGW53pAQgJSlaBD6qJX+UCDJHgQ=
+X-Authentication-Warning: bsdsz2.pd.infn.it: Host wlecastellani.pd.infn.it [193.205.57.134] claimed to be [193.205.57.134]
+Content-Type: multipart/mixed; boundary="------------CUbhokNyk7k48WkUiVSktgNi"
+Message-ID: <ac2cdbd8-ce83-47ed-9783-4e5b8dd0e11f@pd.infn.it>
+Date: Wed, 30 Sep 2026 08:01:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927141437.1432584-1-russ@har.mn> <20260928014357.2285448-1-russ@har.mn>
- <CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
- <CA+zrezRqjY3_V1cDRpTVsXY-d_2CEVkhPqjWiztuKH1CG63jUQ@mail.gmail.com>
- <CAOQ4uxj4xQ9Z=9JH=U21iHnfLBQLboz5dsivigKicWS22M+zgQ@mail.gmail.com> <CA+zrezR3vZOH4-DJbu7kRu=qXF4RSWUxz3BjpnOou_vy6eDcwQ@mail.gmail.com>
-In-Reply-To: <CA+zrezR3vZOH4-DJbu7kRu=qXF4RSWUxz3BjpnOou_vy6eDcwQ@mail.gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 30 Sep 2026 08:01:21 +0200
-X-Gm-Features: AclHuK-4L2-xB50QQpUyCJRdrgV6J6jaFhZT4eTld-X9LxMW38Hfe-Cy2gWP4SU
-Message-ID: <CAOQ4uxiw-=keqrbFsPSAz6USCbHe1EtpjnGCLsRe2zXsXMeEog@mail.gmail.com>
-Subject: Re: [PATCH v2] fuse: add inode generation number support
-To: Russell Harmon <russ@har.mn>
-Cc: miklos@szeredi.hu, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, fuse-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bernd Schubert <bernd@bsbernd.com>, 
-	Luis Henriques <luis@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+ with multiple bus masters
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+References: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
+ <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
+Content-Language: it
+From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
+In-Reply-To: <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2 (bsdsz2.pd.infn.it [192.84.143.16]); Wed, 30 Sep 2026 08:01:14 +0200 (CEST)
+X-Spam-Score: -1.098 () BAYES_00,HELO_MISC_IP,SPF_NEUTRAL
+X-Scanned-By: MIMEDefang 2.83 on 192.84.143.16
 
-On Tue, Sep 29, 2026 at 10:55=E2=80=AFPM Russell Harmon <russ@har.mn> wrote=
-:
+This is a multi-part message in MIME format.
+--------------CUbhokNyk7k48WkUiVSktgNi
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+The patch is attached.
+
+Lorenzo
+
+
+Il 30/09/2026 07:23, Krzysztof Kozlowski ha scritto:
+> On 27/09/2026 12:43, lorenzo.castellani wrote:
+>>   From 32e145b49cf41ce150a97ce52c63f5aae1bbbea7 Mon Sep 17 00:00:00 2001
+>> From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
+>> Date: Tue, 22 Sep 2026 11:12:30 +0200
+>> Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+>>    with multiple bus masters
+> Your mailing is corrupted.
 >
-> On Mon, Sep 28, 2026 at 9:54=E2=80=AFAM Amir Goldstein <amir73il@gmail.co=
-m> wrote:
-> >
-> > On Mon, Sep 28, 2026 at 6:04=E2=80=AFPM Russell Harmon <russ@har.mn> wr=
-ote:
-> > >
-...
-
-> > >
-> > > If I remember correctly, name_to_handle_at on a FUSE filesystem
-> > > contains just the inode+generation, and open_by_handle_at results in =
-a
-> > > LOOKUP of that inode (and now inode+generation). But I'll
-> > > double-check. Assuming my memory is correct, I think that's
-> > > sufficient, assuming that we consider inode+generation as a unique
-> > > file object identifier.
-> >
-> > The problem is, that what you assume is not an API definition, this is
-> > a specific
-> > filesystem implementation, which happens to be correct for some commonl=
-y
-> > used filesystems (e.g. ext4, xfs), but is not true in general.
-> > In general the API {name_to,open_by}_handle_at() the file handle is an
-> > opaque blob.
+>> +static int w1_therm_count_bulk_read_slaves(struct w1_master *dev_master,
+>> +    struct w1_slave *exclude_sl)
+>> +{
+>> +    struct w1_slave *sl;
+>> +    int count = 0;
+>> +
+>> +    list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+>> +        if (sl != exclude_sl && sl->family_data && bulk_read_support(sl))
+>> +            count++;
+>> +    }
+>> +    return count;
+>> +}
+> And here.
 >
-> Maybe I'm thinking about this backwards, but we're not talking about
-> "any" filesystem here. We're talking about the FUSE filesystem where
-> the definition of a handle _is_ inode+generation. All I'm proposing we
-> do is to expose that fact to the FUSE userspace daemon.
+> Best regards,
+> Krzysztof
 
-Correction.
-The generation is exposed to userspace daemon and to the kernel
-via the LOOKUP response.
-All your patch does is re-validate generation in GETATTR/SETATTR.
-Practically this means that generation is validated on attr expiration
-time. This is a reinforcement of an incomplete id model, but it is a bandai=
-d
-not a cure.
-I fail to see the real world value in this change, so please do explain it =
-to me
-in terms of use cases that would be improved and by how much.
+-- 
+--------------------------------------
+Lorenzo Castellani
+Istituto Nazionale di Fisica Nucleare
+Sezione di Padova
+Via Marzolo 8
+35131 PADOVA
+Italy
+E-mail: lorenzo.castellani@pd.infn.it
+Phone:  +39 049 9677227
+--------------------------------------
 
-> That daemon
-> can then turn around and call open on another filesystem, or make a
-> network call to AWS or whatever. In my case I want to
-> open_by_handle_at on an underlying filesystem, but I can solve that by
-> storing a mapping from fuse_ino+fuse_generation_num to
-> underlying_fs_file_handle in my database.
->
+--------------CUbhokNyk7k48WkUiVSktgNi
+Content-Type: text/plain; charset=UTF-8;
+ name="0001-w1-w1_therm-fix-missing-therm_bulk_read-sysfs-attrib.patch"
+Content-Disposition: attachment;
+ filename*0="0001-w1-w1_therm-fix-missing-therm_bulk_read-sysfs-attrib.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
 
-Exactly! The daemon does not need any changes to FUSE protocol
-to have a perfectly correct implementation.
+RnJvbSAzMmUxNDViNDljZjQxY2UxNTBhOTdjZTUyYzYzZjVhYWUxYmJiZWE3IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBMb3JlbnpvIENhc3RlbGxhbmkgPGxvcmVuem8uY2Fz
+dGVsbGFuaUBwZC5pbmZuLml0PgpEYXRlOiBUdWUsIDIyIFNlcCAyMDI2IDExOjEyOjMwICsw
+MjAwClN1YmplY3Q6IFtQQVRDSF0gdzE6IHcxX3RoZXJtOiBmaXggbWlzc2luZyB0aGVybV9i
+dWxrX3JlYWQgc3lzZnMgYXR0cmlidXRlCiB3aXRoIG11bHRpcGxlIGJ1cyBtYXN0ZXJzCgpX
+aGVuIG11bHRpcGxlIDEtV2lyZSBidXMgbWFzdGVycyBhcmUgcHJlc2VudCBpbiB0aGUKc3lz
+dGVtLCB0aGUgZ2xvYmFsIG1vZHVsZS1sZXZlbCBjb3VudGVyIGNhdXNlcyB0aGUKdGhlcm1f
+YnVsa19yZWFkIHN5c2ZzIGF0dHJpYnV0ZSB0byBiZSBjcmVhdGVkIG9ubHkKZm9yIHRoZSBm
+aXJzdCBtYXN0ZXIgd2hlcmUgYSBidWxrLXJlYWQgY2FwYWJsZSBzbGF2ZQppcyBkaXNjb3Zl
+cmVkLiBTdWJzZXF1ZW50IGJ1cyBtYXN0ZXJzIGZhaWwgdG8gZXhwb3NlCnRoZSBhdHRyaWJ1
+dGUgYmVjYXVzZSB0aGUgY291bnRlciBpcyBhbHJlYWR5IG5vbi16ZXJvLgoKRml4IHRoaXMg
+YnkgcmVwbGFjaW5nIHRoZSBnbG9iYWwgc3RhdGljIGNvdW50ZXIgd2l0aAphIHBlci1tYXN0
+ZXIgaGVscGVyIGZ1bmN0aW9uIHRoYXQgaXRlcmF0ZXMgb3ZlciB0aGUKc2xhdmVzIGFzc29j
+aWF0ZWQgc3BlY2lmaWNhbGx5IHdpdGggdGhlIGdpdmVuIG1hc3RlcgooZGV2X21hc3Rlci0+
+c2xpc3QpLiBUaGlzIGVuc3VyZXMgdGhhdCBlYWNoIGJ1cwptYXN0ZXIgaW5kZXBlbmRlbnRs
+eSBjb3JyZWN0bHkgdHJhY2tzIGFuZCBleHBvc2VzIHRoZQp0aGVybV9idWxrX3JlYWQgc3lz
+ZnMgYXR0cmlidXRlIHdoZW4gYnVsay1yZWFkCmNhcGFibGUgZGV2aWNlcyBhcmUgcHJlc2Vu
+dC4KClNpZ25lZC1vZmYtYnk6IExvcmVuem8gQ2FzdGVsbGFuaSA8bG9yZW56by5jYXN0ZWxs
+YW5pQHBkLmluZm4uaXQ+Ci0tLQogbGludXgtcnBpLTYuMTgueS9kcml2ZXJzL3cxL3NsYXZl
+cy93MV90aGVybS5jIHwgMzAgKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
+IDIwIGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2xpbnV4
+LXJwaS02LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMvdzFfdGhlcm0uYyBiL2xpbnV4LXJwaS02
+LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMvdzFfdGhlcm0uYwppbmRleCA4MzJlM2RhOTQuLjRj
+OGU2N2VjOCAxMDA2NDQKLS0tIGEvbGludXgtcnBpLTYuMTgueS9kcml2ZXJzL3cxL3NsYXZl
+cy93MV90aGVybS5jCisrKyBiL2xpbnV4LXJwaS02LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMv
+dzFfdGhlcm0uYwpAQCAtNDQsOSArNDQsNiBAQAogc3RhdGljIGludCB3MV9zdHJvbmdfcHVs
+bHVwID0gMTsKIG1vZHVsZV9wYXJhbV9uYW1lZChzdHJvbmdfcHVsbHVwLCB3MV9zdHJvbmdf
+cHVsbHVwLCBpbnQsIDApOwogCi0vKiBDb3VudGVyIGZvciBkZXZpY2VzIHN1cHBvcnRpbmcg
+YnVsayByZWFkaW5nICovCi1zdGF0aWMgdTE2IGJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcjsg
+LyogPTAgYXMgcGVyIEMgc3RhbmRhcmQgKi8KLQogLyogVGhpcyBjb21tYW5kIHNob3VsZCBi
+ZSBpbiBwdWJsaWMgaGVhZGVyIHcxLmggYnV0IGlzIG5vdCAqLwogI2RlZmluZSBXMV9SRUNB
+TExfRUVQUk9NCTB4QjgKIApAQCAtOTY4LDYgKzk2NSwxOSBAQCBzdGF0aWMgaW5saW5lIHM4
+IGludF90b19zaG9ydChpbnQgaSkKIAogLyogSW50ZXJmYWNlIEZ1bmN0aW9ucyAqLwogCitz
+dGF0aWMgaW50IHcxX3RoZXJtX2NvdW50X2J1bGtfcmVhZF9zbGF2ZXMoc3RydWN0IHcxX21h
+c3RlciAqZGV2X21hc3RlciwKKwlzdHJ1Y3QgdzFfc2xhdmUgKmV4Y2x1ZGVfc2wpCit7CisJ
+c3RydWN0IHcxX3NsYXZlICpzbDsKKwlpbnQgY291bnQgPSAwOworCisJbGlzdF9mb3JfZWFj
+aF9lbnRyeShzbCwgJmRldl9tYXN0ZXItPnNsaXN0LCB3MV9zbGF2ZV9lbnRyeSkgeworCQlp
+ZiAoc2wgIT0gZXhjbHVkZV9zbCAmJiBzbC0+ZmFtaWx5X2RhdGEgJiYgYnVsa19yZWFkX3N1
+cHBvcnQoc2wpKQorCQkJY291bnQrKzsKKwl9CisJcmV0dXJuIGNvdW50OworfQorCiBzdGF0
+aWMgaW50IHcxX3RoZXJtX2FkZF9zbGF2ZShzdHJ1Y3QgdzFfc2xhdmUgKnNsKQogewogCXN0
+cnVjdCB3MV90aGVybV9mYW1pbHlfY29udmVydGVyICpzbF9mYW1pbHlfY29udjsKQEAgLTk5
+Miw5ICsxMDAyLDExIEBAIHN0YXRpYyBpbnQgdzFfdGhlcm1fYWRkX3NsYXZlKHN0cnVjdCB3
+MV9zbGF2ZSAqc2wpCiAJaWYgKGJ1bGtfcmVhZF9zdXBwb3J0KHNsKSkgewogCQkvKgogCQkg
+KiBhZGQgdGhlIHN5cyBlbnRyeSB0byB0cmlnZ2VyIGJ1bGtfcmVhZAotCQkgKiBhdCBtYXN0
+ZXIgbGV2ZWwgb25seSB0aGUgMXN0IHRpbWUKKwkJICogYXQgbWFzdGVyIGxldmVsIG9ubHkg
+dGhlIDFzdCB0aW1lIG9uIHRoaXMgbWFzdGVyCiAJCSAqLwotCQlpZiAoIWJ1bGtfcmVhZF9k
+ZXZpY2VfY291bnRlcikgeworCQlpbnQgYnVsa19jb3VudCA9IHcxX3RoZXJtX2NvdW50X2J1
+bGtfcmVhZF9zbGF2ZXMoc2wtPm1hc3Rlciwgc2wpOworCisJCWlmICghYnVsa19jb3VudCkg
+ewogCQkJaW50IGVyciA9IGRldmljZV9jcmVhdGVfZmlsZSgmc2wtPm1hc3Rlci0+ZGV2LAog
+CQkJCSZkZXZfYXR0cl90aGVybV9idWxrX3JlYWQpOwogCkBAIC0xMDAzLDggKzEwMTUsNiBA
+QCBzdGF0aWMgaW50IHcxX3RoZXJtX2FkZF9zbGF2ZShzdHJ1Y3QgdzFfc2xhdmUgKnNsKQog
+CQkJCSIlczogRGV2aWNlIGhhcyBiZWVuIGFkZGVkLCBidXQgYnVsayByZWFkIGlzIHVuYXZh
+aWxhYmxlLiBlcnI9JWRcbiIsCiAJCQkJX19mdW5jX18sIGVycik7CiAJCX0KLQkJLyogSW5j
+cmVtZW50IHRoZSBjb3VudGVyICovCi0JCWJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcisrOwog
+CX0KIAogCS8qIEdldHRpbmcgdGhlIHBvd2VyIG1vZGUgb2YgdGhlIGRldmljZSB7ZXh0ZXJu
+YWwsIHBhcmFzaXRlfSAqLwpAQCAtMTA0MCw5ICsxMDUwLDkgQEAgc3RhdGljIHZvaWQgdzFf
+dGhlcm1fcmVtb3ZlX3NsYXZlKHN0cnVjdCB3MV9zbGF2ZSAqc2wpCiAJaW50IHJlZmNudCA9
+IGF0b21pY19zdWJfcmV0dXJuKDEsIFRIRVJNX1JFRkNOVChzbC0+ZmFtaWx5X2RhdGEpKTsK
+IAogCWlmIChidWxrX3JlYWRfc3VwcG9ydChzbCkpIHsKLQkJYnVsa19yZWFkX2RldmljZV9j
+b3VudGVyLS07Ci0JCS8qIERlbGV0ZSB0aGUgZW50cnkgaWYgbm8gbW9yZSBkZXZpY2Ugc3Vw
+cG9ydCB0aGUgZmVhdHVyZSAqLwotCQlpZiAoIWJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcikK
+KwkJaW50IGJ1bGtfY291bnQgPSB3MV90aGVybV9jb3VudF9idWxrX3JlYWRfc2xhdmVzKHNs
+LT5tYXN0ZXIsIHNsKTsKKwkJLyogRGVsZXRlIHRoZSBlbnRyeSBpZiBubyBtb3JlIGRldmlj
+ZSBzdXBwb3J0IHRoZSBmZWF0dXJlIG9uIHRoaXMgbWFzdGVyICovCisJCWlmICghYnVsa19j
+b3VudCkKIAkJCWRldmljZV9yZW1vdmVfZmlsZSgmc2wtPm1hc3Rlci0+ZGV2LAogCQkJCSZk
+ZXZfYXR0cl90aGVybV9idWxrX3JlYWQpOwogCX0KLS0gCjIuNDMuMAoK
 
-If you can demonstrate or envision a filesystem that would benefit
-from your patch please describe it in your proposal.
-
-Thanks,
-Amir.
+--------------CUbhokNyk7k48WkUiVSktgNi--
