@@ -1,165 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA0C459AC4;
-	Wed, 30 Sep 2026 07:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF13D395AD3;
+	Wed, 30 Sep 2026 07:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754954; cv=none; b=P5ihpH/GE5ObpJGND37WioO64q52bdXQDfEMJsaB1S2AsM7UNTNRhnl1AHwBiWqiRyR6WvZXT3Bye+Jh+hqkvSNTNsYM3r95nrJ4StQfEwvNa3TpN1Nu6EPQw03VYO2k30g84JYrdIYR9VmrFRKcZIMpz494SdF8ZVR7ULgtn4g=
+	t=1790754976; cv=none; b=Ce2p1+FtqDrwsV6mE9EWhK0aEf/0if3J6X982f7VJmS9FUw8JOmUzPOtFNbVuAIHBNVYRxVkxrZXEO76rXfZoBtQ/dohNlOlIwmc6VxHDvVsF4hfVzhBcovw8nnk01QjKEdxBJzcE8rz2hgUU1qekdkf2o0w0XzaBfwPpHoRUFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754954; c=relaxed/simple;
-	bh=cwBMrbgvJXrU6jUHOIJVJAfxp+QQ8oRRQFz3Ew/7r2A=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RKYdCOkf0lcN/FqHG5S2YU7zacC3YrwddvsAp5tSjzH82T5J88JyIVpzxqDxAzrUvgdYfXCRMYvsSw3ZB+Y7WWsAyGZi/QRH7uVG+2UVHGBbkrPmoSWarVP/5GsuBuSyWCSUvwqPSK3zL2B07GgA8Yrb3V01z1OjiEt3JDbHLfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEXWQbhT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790754976; c=relaxed/simple;
+	bh=KpaEsrlUIGwpgZy6iLE59SqczMf8bYPC4Mgghmu/w98=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=lh6RkObJKJEw7v0dkHymZU5oGoKLXQtrxORIHQJMIky0jfSY3owFS3Vjr+C840FPRyqyxEY/BwpoJ9xdpIAsfoP81wDZ+LnEw5zjcAZlCWjBhExEKQrKJPv5pv0GgZdRGYPIaxN0GdhUcI3xfjYyvUycDnfmV6s7yvPmCbUAHj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j/re3Auo; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEXWQbhT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279831F000FF;
-	Wed, 30 Sep 2026 07:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754952;
-	bh=3A83WqLQprn5b6H5t3n4CWTPEwg+k48YSwSUTlBs4Ec=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PEXWQbhT9MYlJFyvmHMFKYk2atOL8sNTEfJVIz2DUHK/o59vz9qV+cVeNPEyAr5jM
-	 sHK6QTFInakN3Kigofd7hCp9LtzUQxEIA4H3wpdQmb1jlIwRnH/c0PZenVCk8AZHYF
-	 8IIaxypwOmLqaNQ0PZvNoGjVF53cxrXJgVpRz/zbEEc8B5vwallDuPUjvoQ6dI+/pa
-	 WmztZ4eprdfMWauBWD+BKP9vzZqOuRJW775RPtmNOHYRfpkK6AK1OJuj69SJvfiVvA
-	 VeCT//NBjj/ZzGvEyvF7cEMQtJZoE7+ruI2gEPwIlgcTGL//PanIV2uFjLoPuUQosn
-	 NWVeov1TIcMkw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xBpAL-0000000FCJl-38EW;
-	Wed, 30 Sep 2026 07:55:49 +0000
-Date: Wed, 30 Sep 2026 08:55:49 +0100
-Message-ID: <865wzn41h6.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 16/29] arm64: Share arm64 headers with s390
-In-Reply-To: <20260930072803.664031-A-seiden@linux.ibm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
-	<20260918133107.1042730-17-seiden@linux.ibm.com>
-	<arqQ2Eat4VUBbl49@arm.com>
-	<20260928162345.428362-C-seiden@linux.ibm.com>
-	<ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
-	<arvunF8epgpWh1YT@arm.com>
-	<20260930072803.664031-A-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j/re3Auo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790754976; x=1822290976;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=KpaEsrlUIGwpgZy6iLE59SqczMf8bYPC4Mgghmu/w98=;
+  b=j/re3Auo+vvY4impejJa5YPBSR57DpHIF1To7HtJkJ0zzZ/Ip7BTiLY8
+   oitJKNE8/1StBOGx09VfgRGDGS/Pd+MNG/3NcyUOFy55vwlJnKwr2lxLO
+   5moT1IPryRRVqJ7axO0LhKY87Z/l8O8Ab+dna4mm9zmeO+cLjyYgMOW8B
+   XCha9KIodAOUyLK5AmJ61VRZTEhJpwzpPONkPAvVcAYJ7JRBv66NlR0rm
+   NvimGC0IE0pXIMQGFEGHtqhmHuy4Ol9+WmHMYIoUJ4Iv0lJtSBzoM0DNh
+   QtlR/X1oJVyBnYehwbWqO9nqYH+Ibr4WGT/98gDEoheHkzUCwrb4F9rCk
+   Q==;
+X-CSE-ConnectionGUID: vQ/AViCsSwKais0Q0vkfow==
+X-CSE-MsgGUID: u/MKe6UiSQmQzlyItjbMbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="101650262"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="101650262"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:56:15 -0700
+X-CSE-ConnectionGUID: IqIvYnFoQk29k1eBr03rKg==
+X-CSE-MsgGUID: 1vh1+5m+TKiiUkzLatiVUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="274225643"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:56:11 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 30 Sep 2026 10:56:08 +0300 (EEST)
+To: Hui Peng <benquike@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] serial: 8250: fix deadlock in
+ serial8250_register_ports()
+In-Reply-To: <20260930074850.465003-2-benquike@gmail.com>
+Message-ID: <5cd2e684-d213-b841-3435-5f69411b75c9@linux.intel.com>
+References: <20260930074850.465003-1-benquike@gmail.com> <20260930074850.465003-2-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, catalin.marinas@arm.com, gra@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, arnd@arndb.de, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-776957803-1790754968=:1755"
 
-On Wed, 30 Sep 2026 08:28:03 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
-> 
-> On Tue, Sep 29, 2026 at 06:00:12PM +0100, Catalin Marinas wrote:
-> > On Tue, Sep 29, 2026 at 06:19:20AM +0200, Andreas Grapentin wrote:
-> > > On Sep 28 26, Steffen Eiden wrote:
-> > > > On Mon, Sep 28, 2026 at 05:07:52PM +0100, Catalin Marinas wrote:
-> > > > > On Fri, Sep 18, 2026 at 03:30:53PM +0200, Steffen Eiden wrote:
-> > > > > > +# Enable all code shared to s390
-> > > > > > +KBUILD_CFLAGS	+= -DARM64_S390_COMMON
-> > > > > > +KBUILD_AFLAGS	+= -DARM64_S390_COMMON
-> > > > > > +KBUILD_CPPFLAGS	+= -DARM64_S390_COMMON
-> > > > > 
-> > > > > Do we actually need these defines? They seem only to be used as markers
-> > > > > for the awk scripts to extract the definitions. Why do we need the C
-> > > > > preprocessor involved at all? Could we not just have comment markers:
-> > > > > 
-> > > > > /* ARM64_S390_COMMON_BEGIN */
-> > > > > ...
-> > > > > /* ARM64_S390_COMMON_END */
-> > > > >
-> > > > No technically we do not need those. They could be useful if we find out
-> > > > that AWK is the wrong tool and move to a C Preprocessor + diff based
-> > > > approach. 
-> > > > 
-> > > > if the ifdev is not closed the compiler will complain, but an 'arm did
-> > > > not destroy us' verifiaction tool ( I will send one soonish) could do
-> > > > the same.
-> > > 
-> > > iirc the last time we discussed this we didn't think that load-bearing
-> > > comments were the right tool here. We also briefly floated the idea of
-> > > using a #pragma region based approach, but in the end we went with the
-> > > #ifdef preprocessor directives instead, as the least invasive
-> > > non-comment marker that was available.
-> > 
-> > The downside is that the macro affects the preprocessed code. We need to
-> > ensure they don't leak in uapi headers for example. Not a fan of this
-> > approach but I don't have a better suggestion either. At least we could
-> > write them as:
-> > 
-> > #if ARM64_S390_COMMON == 1
-> 
-> This is a great idea and an improvement. Thanks.
-> 
-> @Marc: Shall I sent a v9 of this series or do you want to pick v8 and I
-> send this as an improvement once picked?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Please send a v9. That's invasive enough that it warrants it.
+--8323328-776957803-1790754968=:1755
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-> > It would also be useful for the awk scripts look for the paired #endif
-> > rather than relying on the comment at the end of the line. Otherwise
-> > it's not really different from just sticking to comments.
-> > 
-> 
-> Are you suggesting that the AWK scripts should track the #if% and #endif
-> in the code and warn or reject if the marked endif for the shared code
-> does not match pairing with the starting #if? That makes sense yes. I'll
-> investigate and would add this as an improvement later on.
+On Wed, 30 Sep 2026, Hui Peng wrote:
 
-I think the suggestion is to teach the script about the #if/#endif
-nesting, and therefore to not require the trailing comment on #endif
-(i.e. the script acts as a normal cpp).
+> In serial8250_register_ports(), mutex_lock(&hash_mutex) is acquired while
+> holding spinlock_t serial_port_lock during IRQ chain registration:
+>=20
+>   spin_lock_irqsave(&serial_port_lock, flags);
+>   mutex_lock(&hash_mutex);
+>=20
+> Acquiring a sleeping mutex while holding a spinlock causes a
+> sleeping-while-atomic bug and potential deadlock.
+>=20
+> Replace mutex_lock(&hash_mutex) with spin_lock_irqsave() in
+> serial8250_register_ports().
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250_core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/825=
+0/8250_core.c
+> index 9e4f5a2a2eaa..f64a1b0a2eaa 100644
+> --- a/drivers/tty/serial/8250/8250_core.c
+> +++ b/drivers/tty/serial/8250/8250_core.c
+> @@ -102,9 +102,9 @@ static void serial8250_register_ports(struct uart_dri=
+ver *drv,
+>  =09struct uart_8250_port *up;
+>=20
+>  =09for (i =3D 0; i < nr; i++) {
+> -=09=09up =3D &serial8250_ports[i];
+> +=09=09up =3D &serial8250_ports[i];
+>  =09=09up->port.dev =3D dev;
 
-It should only be a matter of counting the #{if,ifdef}s and #endif
-past the ARM64_S390_COMMON guard.
+You failed to check what garbage AI outputted for you? Please, please=20
+don't waste our time sending unfiltered AI output.
 
-Thanks,
+--=20
+ i.
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+--8323328-776957803-1790754968=:1755--
