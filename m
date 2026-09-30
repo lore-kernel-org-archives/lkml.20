@@ -1,249 +1,220 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9061FF7C8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DAA38A73B;
+	Wed, 30 Sep 2026 04:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790743840; cv=none; b=impUjjvlKTMGug7TVbgMm2b5qW/k3pq54wAQ+xZzfaLqZVF8tCAXwA6LHfREOUUlQZ/KTHs23mUrQJyeGN8qL+wYHLHTtftQohF8pwHqg8YWUYRYzgwP13yFgsJpzTGk0rxOoLkIYjDxrEBaweD/xosk/P5+X5wPTzBdo7bBdT0=
+	t=1790743891; cv=none; b=UdWW6jZaRp0ZDCQ3iB8w7Cl9NwmThj9rCmfm7xx0h1YYSsiQuqBR9gbLPy8gNXAJMSeOXygyHDHndb8pzaEyw5wUXgDIpy2n2OOuqDKHjJ18H6w9SJWpsdA7UXm0tr5M3D0i1jl8BGo5IjkEhXS/QnPbeD+VZ0HOP/unP4V/wzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790743840; c=relaxed/simple;
-	bh=wuNm7jjclN+Efk41Kucz3rN3shAUEXFeSRSP02ZU3OA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=I0SLO+ItFKyp5bcd++gCGVI+p43A3Zpj/v8RECSbxefhndi3yCjR4941XumC49oAObeBNg9TFZG720RC3fF9ZhbNO7PQRIV6ExCuk1hg06Y8y4+CM46KFRbBwkWODLimlYXdankeNqwe/kjJx0COXFnR1YMuNwg0WKhRbCeb8+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso7599682b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:50:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790743837; x=1791348637;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlJr0xWAgWuTtKuw6J0u9PNe0SuYYVDQdyv1++JOcWc=;
-        b=DefxZfGQkNyyDVDxXbQ1zQDRp3VhBa8m7qAmUtdK5i2eF0L+BZwilX2XH8HKaunEzj
-         TRHw6XPlK2ZU9pe7pOLyCZRAR6Ufz4boE3TnxcCguLa6Cd6E3CBGeM/xaOiscmB5YCBL
-         iKmnWYbFB4J/3/O2onwD/q4sXW1LXwXnIHlseEkWZSa94j8yaOorr7OCi3+am7ci1ujG
-         s5fMQKXSQ9aeSBBi8pxxFf6LkN/OZDQV5AbRoAM37Bu8F7i8+oD93tndZrUW6F9jdo3X
-         G69wwBchL2HEV2EkP4zKoPdOb/9weOiQHPbYMh7HVSzna51soe0yrEnLDDt+tnIO7nNS
-         HY+w==
-X-Forwarded-Encrypted: i=1; AKwUvBylHMYANPP6MXz8fGYlhdDsaIptQNiPZgh21oiQKyRL7JM1xnZYxl4CJ8WLWMYIZWyUpzf7tvd0INQ8z9I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMaz8y5NoknyaxnjQMjB5Fr1kCSd/6HA955MXstoZ/AoUafHE8
-	k6P6MVbeoLCvS4/mJgNLpb0xWnT5QtqIkCIjnczhhoBARPlhegUZM3KE4j6uies+QFaJ4/dwtX6
-	TwDDvlu1UZDHFIgUIZcoBCVlgx5LGR985SXbiEP/JeFNy4+t43B50v4ZyEos=
+	s=arc-20240116; t=1790743891; c=relaxed/simple;
+	bh=O4ZEI8E7/aLCYgTl8e7WVy6Vu+ylqm/hJe9IfZ9kY9c=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hhmdZNUzAQmastJzRURZW8zPncyyRN/uKqtC5DJryYksjBhCJFdqwdtDCFDHV0iNK93S56kM7tX+dFBY7iF6ZtABJBmcp211nxB667jAf8f1BO2XrW6r/7XaHepW9CWO99VSJoDSRTZTuXT+2WL1znxIdIpJ69mmL7ITagynMLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVmotk48; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVmotk48"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622781F000FF;
+	Wed, 30 Sep 2026 04:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790743890;
+	bh=I6jkYFcTNthR5C+Hpfv06QjmgS8uSSJevl9gWXkvy/I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cVmotk48593ZILJB8/gEe7LYuTOWfrkzQF/exVikVuuuFa9zA/AAqfhd0BByUTffD
+	 /H+BVg9OGvBFTWmyev6HkAAoE858UtcJI8fL9W5TKWJ2YMZ9k69gDDC47LRlNZCw5C
+	 dn5WDmzhOWPVLpn9JrUQaNEHi9RxK/f23gxq3qD+iJvWv9yIjJ/X6UXUdM1ZohQIDf
+	 5PnpWJEFuXEtsEpzuvZc2bqUN71NOOXm6bnl2QKCARiAhEzIKFrsJI+kiU023wz0YW
+	 ZcOHRYdClFfyVcNrhSmJXd0cY7jYuEnZ/BAlCN1/mxx4b8oINjVFgOJm+hOAo71s8P
+	 +zyr/FaT+SYeA==
+Subject:
+ Re: [PATCH net v4 02/15] net: stmmac: reuse the MDIO reset GPIO on resume
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ qiangqing.zhang@nxp.com, rmk+kernel@armlinux.org.uk,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, ansuelsmth@gmail.com,
+ yangtiezhu@loongson.cn, chenhuacai@kernel.org, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, fancer.lancer@gmail.com, quic_jsuraj@quicinc.com,
+ richardcochran@gmail.com, Joao.Pinto@synopsys.com, vladimir.oltean@nxp.com,
+ boon.leong.ong@intel.com, weifeng.voon@intel.com, yoong.siang.song@intel.com,
+ linusw@kernel.org, martin.blumenstingl@googlemail.com,
+ magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, horms@kernel.org,
+ bjorn@kernel.org, thierry.reding@kernel.org, jonathanh@nvidia.com,
+ wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+ edumazet@kernel.org, richard.genoud@bootlin.com, alastair@d-silva.org,
+ mripard@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
+ zhaojinming@uniontech.com, lorenzo.bianconi@oss.qualcomm.com,
+ dinghui1111@163.com, linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev
+Date: Wed, 30 Sep 2026 04:51:26 +0000
+Message-ID: <179074388691.434549.18241724837995094025@kernel.org>
+In-Reply-To:
+ <20260926-submit-stmmac-reset-fixes-v1-v4-2-ec1c0250b3c9@gmail.com>
+References:
+ <20260926-submit-stmmac-reset-fixes-v1-v4-2-ec1c0250b3c9@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3c47:b0:4cb:f21b:6f97 with SMTP id
- 5614622812f47-4f1b84c70a8mr111573b6e.42.1790743836867; Tue, 29 Sep 2026
- 21:50:36 -0700 (PDT)
-Date: Tue, 29 Sep 2026 21:50:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abc951c.00649fcc.35d151.00e8.GAE@google.com>
-Subject: [syzbot] [xfs?] KASAN: slab-use-after-free Write in
- xlog_cil_committed (2)
-From: syzbot <syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com>
-To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-syzbot found the following issue on:
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-HEAD commit:    aa98230e410f Merge tag 'vfs-7.3-rc5.fixes' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17067d15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=9d8e687768d0f38c1f09
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Unfortunately, I don't have any reproducer for this issue yet.
+- [High] Once the cached descriptor is used, stmmac_mdio_reset() really
+  does pulse the snps,reset PHY reset line on every system resume…
+- [Low] The commit message explains the mechanism (the second exclusive
+  request of snps,reset returns -EBUSY) but not what users see.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e111cbedae47/disk-aa98230e.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/448db8740448/vmlinux-aa98230e.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bf2dee21a792/bzImage-aa98230e.xz
+--
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com
+net: stmmac: reuse the MDIO reset GPIO on resume
 
-=========================
-==================================================================
-BUG: KASAN: slab-use-after-free in instrument_atomic_write include/linux/instrumented.h:97 [inline]
-BUG: KASAN: slab-use-after-free in set_bit include/asm-generic/bitops/instrumented-atomic.h:28 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_ail_insert fs/xfs/xfs_log_cil.c:889 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_committed+0x4ac/0x1110 fs/xfs/xfs_log_cil.c:995
-Write of size 8 at addr ffff88803c610820 by task kworker/u8:5/69
+MDIO bus registration acquires the snps,reset GPIO. This commit caches
+that descriptor in priv->mdio_reset_gpio, so later calls to
+stmmac_mdio_reset(), such as the one on resume, reuse it. Without the
+cache, those calls request the exclusive line again and fail with
+-EBUSY.
 
-CPU: 1 UID: 0 PID: 69 Comm: kworker/u8:5 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: xfs-cil/loop4 xlog_cil_push_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_write include/linux/instrumented.h:97 [inline]
- set_bit include/asm-generic/bitops/instrumented-atomic.h:28 [inline]
- xlog_cil_ail_insert fs/xfs/xfs_log_cil.c:889 [inline]
- xlog_cil_committed+0x4ac/0x1110 fs/xfs/xfs_log_cil.c:995
- xlog_cil_push_work+0x24b6/0x2a90 fs/xfs/xfs_log_cil.c:1608
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+> MDIO bus registration acquires the optional snps,reset GPIO through
+> devres. A later bus reset must reuse that descriptor: requesting the
+> same exclusive GPIO again returns -EBUSY while devres still owns it.
 
-Allocated by task 6374:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- __xfs_trans_getsb+0x65/0x4a0 fs/xfs/xfs_trans_buf.c:191
- xfs_log_sb+0x43/0x200 fs/xfs/libxfs/xfs_sb.c:1327
- xfs_sync_sb_buf+0xc2/0x290 fs/xfs/libxfs/xfs_sb.c:1479
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[Severity: Low]
 
-Freed by task 6374:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kmem_cache_free+0x187/0x6d0 mm/slub.c:6635
- xfs_buf_ioend+0x235/0x790 fs/xfs/xfs_buf.c:1167
- xfs_buf_iowait+0x133/0x420 fs/xfs/xfs_buf.c:1336
- xfs_bwrite+0x5f/0xe0 fs/xfs/xfs_buf.c:1239
- xfs_sync_sb_buf+0x172/0x290 fs/xfs/libxfs/xfs_sb.c:1489
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+This isn't a bug, but could the commit message describe the effect that
+users see?
 
-The buggy address belongs to the object at ffff88803c6107e0
- which belongs to the cache xfs_buf_item of size 272
-The buggy address is located 64 bytes inside of
- freed 272-byte region [ffff88803c6107e0, ffff88803c6108f0)
+stmmac_resume() ignores the return value of stmmac_mdio_reset(). Before
+this patch, on OF boards with a snps,reset GPIO, every resume without
+MAC WoL silently skipped two things: the PHY reset pulse and the
+STE101P dummy MDC write:
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3c610
-flags: 0x80000000000000(node=0|zone=1)
-page_type: f5(slab)
-raw: 0080000000000000 ffff88801f3d6c80 dead000000000100 dead000000000122
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5857, tgid 5854 (syz.4.12), ts 99901674002
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d8/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x45d/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- xfs_trans_read_buf_map+0x2ee/0x820 fs/xfs/xfs_trans_buf.c:294
- xfs_trans_read_buf fs/xfs/xfs_trans.h:212 [inline]
- xfs_read_icluster+0x218/0x3e0 fs/xfs/libxfs/xfs_inode_buf.c:139
- xfs_iget_cache_miss fs/xfs/xfs_icache.c:663 [inline]
- xfs_iget+0xc34/0x2f00 fs/xfs/xfs_icache.c:804
- xfs_trans_metafile_iget+0x77/0x330 fs/xfs/xfs_icache.c:853
- xfs_rtginode_load+0x3a3/0x920 fs/xfs/libxfs/xfs_rtgroup.c:469
- xfs_rtmount_rtg fs/xfs/xfs_rtalloc.c:1684 [inline]
- xfs_rtmount_inodes+0x14f/0x7a0 fs/xfs/xfs_rtalloc.c:1721
- xfs_mountfs+0x1254/0x2380 fs/xfs/xfs_mount.c:1095
-page last free pid 41 tgid 41 ts 94068259020 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
- __slab_free+0x250/0x2a0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __kmalloc_cache_noprof+0x353/0x680 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- mca_alloc net/ipv6/mcast.c:890 [inline]
- __ipv6_dev_mc_inc+0x447/0xaf0 net/ipv6/mcast.c:981
- addrconf_join_solict net/ipv6/addrconf.c:2262 [inline]
- addrconf_dad_begin net/ipv6/addrconf.c:4135 [inline]
- addrconf_dad_work+0x5dd/0x16e0 net/ipv6/addrconf.c:4263
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+    writel(0, priv->ioaddr + mii_address);
 
-Memory state around the buggy address:
- ffff88803c610700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803c610780: fb fb fb fb fc fc fc fc fc fc fc fc fa fb fb fb
->ffff88803c610800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                               ^
- ffff88803c610880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fc fc
- ffff88803c610900: fc fc fc fc fc fc fa fb fb fb fb fb fb fb fb fb
-==================================================================
+Nothing was logged when this happened.
 
+The message also doesn't say that this change turns the PHY hard reset
+on resume back on. That reset has not run since 7c86f20d15b7. Without a
+symptom or behaviour change in the message, stable backporters
+following the Fixes: tag have nothing to match against bug reports.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index afe98ff5bdcb0..07d5eab05996b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -386,14 +386,20 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>  
+>  #ifdef CONFIG_OF
+>  	if (priv->device->of_node) {
+> -		struct gpio_desc *reset_gpio;
+> +		struct gpio_desc *reset_gpio = priv->mdio_reset_gpio;
+>  		u32 delays[3] = { 0, 0, 0 };
+>  
+> -		reset_gpio = devm_gpiod_get_optional(priv->device,
+> -						     "snps,reset",
+> -						     GPIOD_OUT_LOW);
+> -		if (IS_ERR(reset_gpio))
+> -			return PTR_ERR(reset_gpio);
+> +		/* The bus reset also runs on resume. Devres retains the GPIO
+> +		 * until unbind, so do not request an already owned line again.
+> +		 */
+> +		if (!reset_gpio) {
+> +			reset_gpio = devm_gpiod_get_optional(priv->device,
+> +							     "snps,reset",
+> +							     GPIOD_OUT_LOW);
+> +			if (IS_ERR(reset_gpio))
+> +				return PTR_ERR(reset_gpio);
+> +			priv->mdio_reset_gpio = reset_gpio;
+> +		}
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+[Severity: High]
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+With the descriptor cached, stmmac_mdio_reset() now really pulses the
+snps,reset line on every system resume where MAC WoL is off. Does
+anything re-initialise the PHY after that?
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Before this patch, the second devm_gpiod_get_optional() on the
+exclusive line failed in gpiod_request_commit() with -EBUSY. The
+resume path ignores that error:
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+stmmac_resume()
+    } else {
+        pinctrl_pm_select_default_state(priv->device);
+        /* reset the phy so that it's ready */
+        if (priv->mii)
+            stmmac_mdio_reset(priv->mii);
+    }
 
-If you want to undo deduplication, reply with:
-#syz undup
+So no PHY hard reset has run on resume since 7c86f20d15b7. Before that
+commit the reset did run, but mdio_bus_phy_resume()->phy_init_hw()
+followed it.
+
+Today stmmac_phylink_setup() sets config->mac_managed_pm = true, and
+phylink copies that into phydev->mac_managed_pm. As a result,
+mdio_bus_phy_resume() returns early:
+
+mdio_bus_phy_resume()
+    if (phydev->mac_managed_pm)
+        return 0;
+    ...
+    ret = phy_init_hw(phydev);
+
+The MAC-managed path only runs phylink_prepare_resume()->phy_resume()
+and phylink_resume()->phylink_start()->phy_start()->__phy_resume().
+Neither of these replays config_init() or config_intr().
+
+Wouldn't that leave the PHY at its power-on or strap defaults while
+phylib believes it is still configured? The config_init() settings
+would be lost: RGMII delays or skews, clock-out, LEDs, vendor quirks,
+and the autonomous EEE disable.
+
+For an interrupt-driven PHY, the reset also clears the interrupt
+enable register. phy_start() restarts aneg, sees link down and moves
+to PHY_NOLINK, and it does not poll after that. Could link-up then
+never be reported, so the interface stays down until the admin runs a
+down/up cycle?
+
+PHY-based WoL seems to be affected too. phylink_ethtool_set_wol()
+removes the modes the PHY handles from the MAC mask:
+
+    wolopts &= ~w.wolopts;
+
+With PHY WoL, priv->wolopts is therefore 0, so resume takes the reset
+branch. Won't the reset pulse erase the PHY's WoL enables, so the next
+suspend is not armed for wake?
+
+Resume now also blocks for the snps,reset-delays-us msleep() calls.
+When those delays are 0, the DMA reset in stmmac_hw_setup() needs the
+PHY RX clock, and it runs right after reset deassert.
+
+This also looks unresolved at the end of the series. After "net:
+stmmac: track datapath and power ownership across failed reopening",
+stmmac_resume_hw() still calls stmmac_mdio_reset(). stmmac_resume()
+still only calls phylink_prepare_resume() and phylink_resume() after
+it, and no phy_init_hw() call was added in stmmac or phylink.
+
+This patch carries a Fixes: tag, so it will reach stable. Should the
+resume path either re-initialise the PHY after the reset, or skip the
+reset pulse on resume?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9%40gmail.com
