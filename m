@@ -1,162 +1,143 @@
-Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFBF3537CD
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866863537CD
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730949; cv=none; b=tGj5L3bbiDtyiiCZyxRFQfgDdD6xJQigFI/WEzDbXYyI3eUy+VsnAm3q5VbAZM11izDJXcDXJ5twE5R2aGt0G1C1LIeYVMzv2rwj73M8xpLbHnGx29S8KO9wn5QLuk8Eeb+yxHlgRHs6ALXZS1638hw3IZR8ou+XI6nZAFg9OZE=
+	t=1790730997; cv=none; b=Fhl1KLR8gR0gu1LFTDulapA6zuxpe2qDltR3WTxmAiXHTrW+c2KcmO2lMfk3IfITPTn0EJKGSLJSfoWULGUSBi7igdEkq8KvNMfRCrsLznN/lOUuFPPwLsQ7Ia0dqk+3bU5C0IhLgRe+N/MOzaC05fm/iPBfZ6/tK5TQOl8r21E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730949; c=relaxed/simple;
-	bh=MjBqNXabdTSQMnOlFplCvkQG9RMUvzzDZbfRQnX+FJY=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=SMUuhl1PkLX9KCrRpVLvqA34rsEbFrNCrhyrIIExtIG3TYLXzGlNkAXQx6AHFZj2kbrxOtZGWF4bvadaL11Ivp9NEw+bnkTzRE1ZzHJG0gYyek/fS4QRSEEQhy9giwsOFsTigHy/HzQtO52AtIbnQNIEjCgjuo7p4tGg/Y9JDNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qPPm8kZm; arc=none smtp.client-ip=91.218.175.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790730997; c=relaxed/simple;
+	bh=VOhb+ySPVjRl8pDoPgMbFA9u93Svvz7os4YzgT6Oa/M=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Fis/cBUPJy0W5mVRVl5jJDsHy2w4qFxbqZ9O0dxUSNjiCU8CUHiU7MkvzdCUI8ooT/Dj4k8RN3ITgwM3eoTGX4PSbtvPLYTwpFzulKRjBdj+UzB9bvjTQHG5zJLLD6azg5r7ksicaL30MJCxvZry7FNrZAoS/dO/2S3zWQFX5Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gonzalezerik.com; spf=pass smtp.mailfrom=gonzalezerik.com; dkim=pass (2048-bit key) header.d=gonzalezerik.com header.i=@gonzalezerik.com header.b=IkiGSpOE; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gonzalezerik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gonzalezerik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qPPm8kZm"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MjBqNXabdTSQMnOlFplCvkQG9RMUvzzDZbfRQnX+FJY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790730945; v=1; x=1791335745;
- b=qPPm8kZmDBRZ4jlRRqZ/IX9G7j61KrlyYA9/9t1pCjEfPT4RdQd6BQAEp1orIHth8Bg1+xaP
- vB8IrEa8XxQ9xxNrM9eIkwD88BWL7rrM2b2DNg13Mx/DcQUzTMMM8s+HHcqVYMEntUC5AwUGN1o
- pCAuLmD8xqVTnnlW0AcibKjM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0370f189e27ae97e;
-	Wed, 30 Sep 2026 01:15:45 +0000
-X-Mizu-Trace-ID: 0370f189e27ae97e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0c8125ab-9c66-42e2-87dc-208956bd4d9d@linux.dev>
-Date: Wed, 30 Sep 2026 09:15:38 +0800
+	dkim=pass (2048-bit key) header.d=gonzalezerik.com header.i=@gonzalezerik.com header.b="IkiGSpOE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gonzalezerik.com;
+	s=protonmail; t=1790730988; x=1790990188;
+	bh=RdM+UiliwQYfF+1fJ+nv82vgIHd7yfAaTg60+i6aCqo=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=IkiGSpOEIM4h6WFSE3k2m5p+GByeaNGqppVbGxz2YLrtV2qKvRmyeZErQX24PBXnD
+	 xnHX9nzt1x0gpaXCta43luyN2032c/HOoPCqr96luEukZty3A21DLb12iN9i0MencH
+	 xwl7dvu6kwg91gvyl0qU45WiuMjp9eqbuxlkOknxpQ8Xbq+5FYZXrPx6tKiwApGBK5
+	 UT3UQBN00Eb/FDICC5H0SpLp93pKbg3EbXKkQV+N3Wet8WCeoaCYQdRiqPjsinHpyz
+	 wqw5bmgWONAGExAOCX0nTjWERXBZ+dKaPUl56j7QdcJVzarSw4oLiPVVhw2fkwXosJ
+	 EGDu5i1pkO03Q==
+Date: Wed, 30 Sep 2026 01:16:22 +0000
+To: Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+From: Erik Gonzalez <dev@gonzalezerik.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] HID: amd_sfh: Fix report type of get_report replies
+Message-ID: <20260930011603.476486-1-dev@gonzalezerik.com>
+Feedback-ID: 214839413:user:proton
+X-Pm-Message-ID: 75a657cf4435a63336237d388f829bd3a93cc1fa
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, maobibo@loongson.cn, gaosong@loongson.cn,
- zhaotianrui@loongson.cn, loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Huacai Chen <chenhuacai@kernel.org>
-References: <20260929102821.36112-1-cui.tao@linux.dev>
- <20260929102821.36112-5-cui.tao@linux.dev>
- <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi, Huacai.
+amd_sfh_work() passes the reply to a get_report request to
+hid_input_report() with cli_data->report_type[] as the report type. That
+array has never been written since the driver was added, so it is always
+0 (HID_INPUT_REPORT), and replies to feature report requests reach the
+HID core as input reports.
 
-在 2026/9/29 20:43, Huacai Chen 写道:
-> Hi, Tao,
-> 
-> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
->>
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
->> invocation: every call overwrites pch_pic_base and registers the same
->> kvm_io_device on the MMIO bus at the new address, while
->> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
->> init, MMIO to the stale ranges computes its register offset against the
->> new base and silently reads 0 / drops writes, and the leftover bus
->> entries persist until the VM is destroyed.
->>
->> Reject repeated initialization with -EEXIST, tracking the state with
->> a has_init flag so the check and the MMIO base update are atomic
->> under slots_lock.  The base is only committed after a successful bus
->> registration, and the real registration error is propagated instead
->> of being replaced with -EFAULT.
->>
->> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> ---
->>  arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
->>  arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
->>  2 files changed, 11 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
->> index 887b0431fd20..679132d840e6 100644
->> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
->> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
->> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
->>         spinlock_t lock;
->>         struct kvm *kvm;
->>         struct kvm_io_device device;
->> +       bool has_init;
->>         union pch_pic_id id;
->>         uint64_t mask; /* 1:disable irq, 0:enable irq */
->>         uint64_t htmsi_en; /* 1:msi */
->> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->> index 7a704f18880d..a884a043feef 100644
->> --- a/arch/loongarch/kvm/intc/pch_pic.c
->> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->>         struct kvm_io_device *device;
->>         struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
-> Why so complicated? The below is enough, no?
-> 
-Thanks for the suggestion.
+The HID core then checks the payload against the input report with the
+same ID. Since commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB
+by removing bogus memset()"), a report shorter than that is rejected
+instead of being zero-padded. On an ASUS ProArt PX13 (HN7306EAC) running
+7.2.6 this logs:
 
-I agree that a separate has_init flag can be unnecessary here. v3 uses
-s->device.ops to track whether the device has already been initialized.
+  hid-sensor-hub 0020:1022:0001.0005: Event data for report 1 was too short=
+ (15 vs 14)
+  hid-sensor-hub 0020:1022:0001.0006: Event data for report 4 was too short=
+ (18 vs 14)
 
-The other changes are kept: pch_pic_base is updated only after
-successful bus registration, and the original registration error is
-returned instead of -EFAULT.
+14 bytes is the size of feature reports 1 and 4 in the report
+descriptors the driver provides; 15 and 18 bytes are the input reports
+with those IDs. Attributes backed by feature reports then read wrong
+values: the accelerometer's in_accel_sampling_frequency reads 10.000000
+instead of 12.500000, and in_accel_hysteresis reads 0.000000 instead of
+1.270000. Input reports are not affected, because their type happens to
+be 0.
 
-Thanks,
-Tao
+Pass the type of the request being completed instead, and remove the
+unused report_type[] array.
 
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
-> b/arch/loongarch/kvm/intc/pch_pic.c
-> index 2b63b0c2c7ce..7855d78304b7 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
-> *dev, u64 addr)
->         struct kvm_io_device *device;
->         struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
-> 
-> +       if (s->device->ops)
-> +               return -EEXIST;
-> +
->         s->pch_pic_base = addr;
->         device = &s->device;
->         /* init device by pch pic writing and reading ops */
-> 
->>
->> -       s->pch_pic_base = addr;
->>         device = &s->device;
->>         /* init device by pch pic writing and reading ops */
->>         kvm_iodevice_init(device, &kvm_pch_pic_ops);
->>         mutex_lock(&kvm->slots_lock);
->> +       if (s->has_init) {
->> +               ret = -EEXIST;
->> +               goto out;
->> +       }
->>         /* register pch pic device */
->>         ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
->> +       if (!ret) {
->> +               s->pch_pic_base = addr;
->> +               s->has_init = true;
->> +       }
->> +out:
->>         mutex_unlock(&kvm->slots_lock);
->>
->> -       return (ret < 0) ? -EFAULT : 0;
->> +       return ret;
->>  }
->>
->>  /* used by user space to get or set pch pic registers */
->> --
->> 2.43.0
->>
+The same "report 4 was too short (18 vs 14)" message has been reported
+for the Lenovo Legion Go S, where the accelerometer and gyroscope do not
+register. That may be the same bug; I have not tested that device.
+
+The bug was found, and this change and description were written, with
+the help of an AI coding assistant. The analysis was checked against the
+report descriptors of the PX13, and the change was tested on it by
+loading amd_sfh built for the running 7.2.6 kernel without and with it:
+without it, the messages and values above; with it, no messages, and
+sampling frequency and hysteresis read 12.500000 and 1.270000.
+
+Fixes: 4b2c53d93a4b ("SFH:Transport Driver to add support of AMD Sensor Fus=
+ion Hub (SFH)")
+Link: https://github.com/ublue-os/bazzite/issues/5796
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Erik Gonzalez <dev@gonzalezerik.com>
+---
+Not tested: other devices with the AMD Sensor Fusion Hub (including the
+Legion Go S), and a booted hid.git kernel. The code this touches is the
+same in hid.git for-next and 7.2.6; the patch was build-tested on
+for-next (clang, W=3D1, no new warnings) and runtime-tested on 7.2.6.
+
+ drivers/hid/amd-sfh-hid/amd_sfh_client.c | 4 ++--
+ drivers/hid/amd-sfh-hid/amd_sfh_hid.h    | 1 -
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_client.c b/drivers/hid/amd-sfh=
+-hid/amd_sfh_client.c
+index ae6add0b9..a68b275f0 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_client.c
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_client.c
+@@ -95,7 +95,7 @@ void amd_sfh_work(struct work_struct *work)
+ =09=09=09=09=09=09    cli_data->feature_report[current_index]);
+ =09=09if (report_size)
+ =09=09=09hid_input_report(cli_data->hid_sensor_hubs[current_index],
+-=09=09=09=09=09 cli_data->report_type[current_index],
++=09=09=09=09=09 node_type,
+ =09=09=09=09=09 cli_data->feature_report[current_index], report_size, 0);
+ =09=09else
+ =09=09=09pr_err("AMDSFH: Invalid report size\n");
+@@ -104,7 +104,7 @@ void amd_sfh_work(struct work_struct *work)
+ =09=09report_size =3D mp2_ops->get_in_rep(current_index, sensor_index, rep=
+ort_id, in_data);
+ =09=09if (report_size)
+ =09=09=09hid_input_report(cli_data->hid_sensor_hubs[current_index],
+-=09=09=09=09=09 cli_data->report_type[current_index],
++=09=09=09=09=09 node_type,
+ =09=09=09=09=09 in_data->input_report[current_index], report_size, 0);
+ =09=09else
+ =09=09=09pr_err("AMDSFH: Invalid report size\n");
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_hid.h b/drivers/hid/amd-sfh-hi=
+d/amd_sfh_hid.h
+index 7452b0302..928cff682 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_hid.h
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_hid.h
+@@ -45,7 +45,6 @@ struct amdtp_cl_data {
+ =09dma_addr_t sensor_dma_addr[MAX_HID_DEVICES];
+ =09u32 sensor_sts[MAX_HID_DEVICES];
+ =09u32 sensor_requested_cnt[MAX_HID_DEVICES];
+-=09u8 report_type[MAX_HID_DEVICES];
+ =09u8 report_id[MAX_HID_DEVICES];
+ =09u8 sensor_idx[MAX_HID_DEVICES];
+ =09u8 *feature_report[MAX_HID_DEVICES];
+
+base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
+--=20
+2.55.0
+
 
