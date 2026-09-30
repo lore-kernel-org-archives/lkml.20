@@ -1,191 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA92A509EF1;
-	Wed, 30 Sep 2026 17:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A3350C28B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789569; cv=none; b=FRDTKQuRMAKGJeoP2o19k02PfpxCVPw19nIYoLo//e4JD+o9A5P8r7ex8d81a1BvySVaepNuOSAsSC9ca67ptif5KgO13gysVWWkuD4vLUk02ZqX6s+baDTc8G0hePug1nqV1lN31rQk0GIXBXuxk4O+lnI2KJtovakpz0wbR6I=
+	t=1790789614; cv=none; b=Vkz7/DQ31zjVxxIQ1X/QNt3vKqRl+9xI4WfRRSubs23d6cgotWzKIb41twI+qTGiVmvIj6Lmlxj9Th/X5XA5UYLr/0KqPgO+cYpBxBOhonKSJ5vOG+7oP1HsDUsRUmxSnwbgXqNSr3y6sBmBjjkcHjN8axgUFCwdyjdyl4KCT7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789569; c=relaxed/simple;
-	bh=HrEKcgBPnWFjFAT8UAfCtF1p1BPdH2urAL8TbXl5cgY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RFHX7VMhmLV5lbctfmniu0eGQpDWb5yFJKsDOMHxJSgdy2lB92R/D9yALmVVdZa0mzmFpEoWxu0t1+GwSAlZ3APuFYIYpT4zc2boNsxFNHK85n473BAW5cDQHKeJfq8MUha3YLV/v0QzOO+QEGNkWcJBTub7FW0TeZ6bAwassJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfvGSQVe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790789614; c=relaxed/simple;
+	bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=m7ab6ygOxIlPjyH2gFhIzdP2n2Sx5GGJrx8Muj7QNT/kYJz/VpXsXR809TidTQOXi3ejRc774lv27wYCVNHWzX0caLL9XvcdQLHHc0Ch2Xx8b0pE693QHb1RFaaQTGtrmKJSeNcwaDSTF8u+lLRW7BJdd4bfQAgmm189MbZzGU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQ3ODerA; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfvGSQVe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3641F0089B;
-	Wed, 30 Sep 2026 17:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790789567;
-	bh=PeSvKXfbWgn2drrRT648IyKRy5Xkg3VzOhKONMfuMA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FfvGSQVe/I2E79RYRrSImI/7xozLXbS0THkSv6iRyYTOCxt4SquSA3vfnk10Dyz0B
-	 l8Vyjc+tJwsZMD4m67wUblWc82uqzhfHvgz3L17ZLbab2STA54TSWrAg9Jo7hnEfQ8
-	 Sl/wAKCAVwWCD5plO1uXf82KGpczof60sKhx2nhqlns4+jRk/vyZHW3Kk+ta52WawK
-	 uZLa8iweyKFU9GB88NVbOaygmzrpUNf126glR94lxXw/XxGXQM6ErDuX6EllSyi7Gt
-	 lemrdX2vgouKRVG5LUvoO0e1plsKhrXSGY/N86Aqr7YGkP554eCdIuYXmP3KdE7gxW
-	 DPR15rGBjBqog==
-Date: Wed, 30 Sep 2026 19:32:43 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/26] perf trace: Fix BPF filtering and make tracing
- tests non-exclusive
-Message-ID: <ar1HuxPsRpiOZ_4K@x2>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQ3ODerA"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3931so43000455e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790789611; x=1791394411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
+        b=sQ3ODerAJ7F6d3a3rcwmAmBV/9v50J3T8AG/f2b84StjcR8C7ZOY7dZy6H15pFigKp
+         fMA3VumD2cbfUm/oDZo2PJlkDdwJ0r+RvqOWZqiIf1JQJ1aoKImzA1mET0OhIcuCIkp5
+         G68xFT2L+qz1BBp0X1QrG0EGtD+TKcrOIaPNrNDxqsuJ5fM+wFWmuXMlD47wW658brvR
+         PeKiv2QJ4klVOFxL4DeqU71m4MrvV7siNKaU7IbC85THWM0B+kZIK3g3gKHiqlyt2NSd
+         qHDLzhfxSkX3JNRaRnuYaDP+zkhWrrXkF9dIIe/k4bLQ6qg8xMXTsMK/B9/sCmrSVrkD
+         qLGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790789611; x=1791394411;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
+        b=yjdQDERR3nWpSBkcEMFGOo6MwsReewZh2AMBToDfVs0HvMlRo5eMQ0xBctHYGeznCb
+         8wDwas2GNpDLpvirCXNWzRmpOzcYI1noYQuB2bfnIzLdvUrhwlvMY6QZYEus7/zZcLSB
+         0EpqB+OnG0/3VBG7FYqHqbkampDuqtHSVHxs8XWP5vLbvnlH9WiHfLqtlnaG6Y3TF90E
+         EgnX/k6oatYkWLSRFE92zHwZjzY6ar5AtXkDpf+IoSpmUbxw7kH97g6t75+wYlzBrBVq
+         tWgYrFf49RhhfDq+D121Lkcf17QnfsRGD67MinIO100H3CZywXDRnXh0W9tXbhyjSeSB
+         jIAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOFW2Q7dgiUb33unqGHPW1z5CnoAtzQJuqimjUAEcttrz5W1ueMJaI5suvCPxqR98RsXvLvpStgrAgXtM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nun3dIo6uVWnpD37cyP9yi1Rokh0iauqaGahNFMqFtOp6aD4c4
+	TSxsuZLdHnYJbzYIZA3Aixmy8quJqNAxEMB6XAuiimg+aH1QTD0Bzcyx
+X-Gm-Gg: AYBFou2vKXOTAYD/2CLPZKTjmCfJjFzmKJPL8/Rs6xYHYVMNWPoTgT16GL45Mv5oK8p
+	nuBZ2/lS5BSwIHsqZReBTIsaNUl2azrqRbjnyJvmHPnfqFQCvEGu6WQ04joURvUt1bEkAeq7GKF
+	82uKf1rSl0zQlUMUJWU6r7kzmJO7evVuwHgCnV9m1UtYKTrSwgvY/eeM0Gy1dSgYD0ChuPdRNOd
+	qqhak+cdhH5PxbFt1fH1fB4Iilw4fovp7Qiy9LR/09qgutqAM5spR9Wn+0xso/nrGNfayDNL4/p
+	q7xM1Qo0fGfbjPPECkGxrbpWHqwRky3ph7Iwsb6t58qbbeSQNtDFWqrLS+a68o7IaunIcX33gPo
+	gyrQpDXenzyxNC4xZaAaOon/sQfs0MecTA1Nc1p+Oj5fH+krJK1yYo1la/pmpadfacaWSPSF6FK
+	cHR0IFvVWem1wVTBJL3O2YdVcJlQdrH9To+nUGm/iDyazj4cBecL+ISvl6zSYYJd+SzGoS3fVbx
+	irmt9FGNGBdPviMThSd7bss2x5OPSdeldSRnXmarI5G+iuLO8NqXWPcfxX9AZsvJD8=
+X-Received: by 2002:a05:600c:a10a:b0:4a0:1c16:d6f6 with SMTP id 5b1f17b1804b1-4a01c16d8bfmr24449495e9.24.1790789610840;
+        Wed, 30 Sep 2026 10:33:30 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690d284sm492771f8f.17.2026.09.30.10.33.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 10:33:30 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	linux-fsdevel@vger.kernel.org,
+	syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com,
+	kudo3228@gmail.com,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Deepanshu Kartikey <kartikey406@gmail.com>
+Subject: Re: [PATCH RESEND] romfs: reject directory entry chains that do not move forward
+Date: Wed, 30 Sep 2026 18:33:28 +0100
+Message-Id: <20260930173328.79017-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
+References: <20260918164645.9230-1-raghunathpalla.0209@gmail.com> <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 11:25:39AM -0700, Ian Rogers wrote:
-> perf trace's BPF programs return 0 from raw_syscalls:sys_{enter,exit} to
-> filter, which drops the event for every other session using the
-> tracepoint. Fix that, and bugs found on the way, so the perf trace and
-> probe tests can run in parallel.
+On Tue, Sep 22, 2026 at 11:58:35AM +0200, Jan Kara wrote:
+> I doubt these bugs have any practical relevance so I wouldn't CC stable.
+> But I guess that's for Christian.
 
-Applied the first 4 patches so far,
+Fair enough. I'll drop the stable tag if there is a v2.
 
-- Arnaldo
- 
-> Patches 1-6 fix reading augmented arguments.
-> 
-> Patches 7-10 fix starting the BPF summary, and the syscall tracepoints'
-> internal fields being taken for arguments.
-> 
-> Patches 11-18 fix the filtering. Namhyung's series [2], patches 11, 17
-> and 18, sends sys_exit as well as sys_enter through the bpf-output event
-> so nothing is vetoed. That event only works for the first thread of a
-> task target and not for its children, so patches 14-16 open it on every
-> CPU and select the target's tasks in BPF, keyed by process when
-> inheriting. Patch 19 adds --no-syscall-augment.
-> 
-> Patches 20-26 scope the tests' probes and events to their pid so they
-> can drop the exclusive tag.
-> 
-> Aaron's series [1] overlaps patches 4 and 5, whose approach was
-> preferred. In [1], 3/7 steps over a string by its size rounded up to 8,
-> but the BTF augmenter packs arguments unaligned, so the second path of
-> rename-like syscalls is misread. 2/7 doesn't step over the zero sized
-> argument a failed read leaves, so the next argument rereads it. [1] also
-> has checkpatch warnings, Reported-by without Closes: and 112 column
-> lines.
-> 
-> >From [2], Jakub's 1/5, using the kernel's syscall tracepoint structs, is
-> left out as these fixes don't need it and patches 1, 2, 15 and 17 change
-> the same code. It can follow on top. 3/5 adds common_type to the existing
-> structs instead and, among the changes noted in it, always returns 1
-> from augmented__output(), as returning 0 from the tail called augmenters
-> still vetoed the tracepoint. 5/5 keeps trace+probe_vfs_getname.sh
-> exclusive, as without BPF every perf trace opens its probe.
-> 
-> The series applies on top of [3], which fixes the vfs_getname tests on
-> v7.0+ kernels and changes the same lines as patch 21.
-> 
-> Tested on x86_64, the trace and probe tests pass under 'perf test -r3'.
-> Every patch builds with and without BUILD_BPF_SKEL.
-> 
-> [1] https://lore.kernel.org/r/20260919005530.728615-1-atomlin@atomlin.com
-> [2] https://lore.kernel.org/r/20250814071754.193265-1-namhyung@kernel.org
-> [3] https://lore.kernel.org/r/20260926223905.6865105-1-irogers@google.com
-> 
-> v6:
->  - Shorter commit messages and comments (Namhyung).
->  - Keep v5 8-9/23 as patches 4 and 5 rather than Aaron's [1], see above.
->  - New patch 6 copies sockaddr arguments by their length, so IPv6
->    addresses are shown.
->  - Namhyung's 2-4/5 with patches 15 and 16 replace v5 11-15/23, and his
->    5/5 replaces v5 22/23, see above.
->  - Seed the target's tasks before the events are opened, rather than
->    re-reading /proc after attaching, keyed by process when inheriting.
->    Tasks that don't fit are reported as lost, suggesting
->    --no-syscall-augment.
->  - Patch 14 moves bpf-filter's convert_to_tgid() to thread_map.c, fixing
->    a read after free and a comm containing "Tgid:" being taken for it.
->  - Split v5 7/23 into patches 8-10, stopping at the first internal
->    field (Namhyung).
->  - --no-syscall-augment is its own patch (Namhyung).
->  - Drop v5 3-5/23, now applied.
->  - Drop v5 16/23, as perf-tools-next's port of task-analyzer to the perf
->    module made the same change.
-> 
-> Ian Rogers (22):
->   perf trace: Set the augmented arg header in the augmenters that omit
->     it
->   perf trace: Include the augmented arg header in nanosleep's payload
->     length
->   perf trace: Don't read sample padding as an augmented argument
->   perf trace: Bounds check augmented arguments before reading them
->   perf trace: Bound the fixed size augmented argument beautifiers
->   perf trace: Copy sockaddr arguments by their length
->   perf trace: Start BPF summary before starting workload
->   perf trace: Stop at internal fields when walking syscall arguments
->   perf trace: Don't allocate syscall arg formats for internal fields
->   perf trace: Only take augmented arguments from the BPF output event
->   perf trace: Use the CPU map index for the BPF output event's fds
->   perf trace: Destroy the BPF skeleton if it fails to load
->   perf thread_map: Add thread_map__tgid()
->   perf trace: Filter the target's tasks in BPF
->   perf trace: Open the BPF output event on every CPU for task targets
->   perf trace: Add an option to disable syscall augmentation
->   perf test common: Only disable probes in clear_all_probes
->   perf test probe_vfs_getname: Scope probe name to PID and make
->     non-exclusive
->   perf test record+probe_libc_inet_pton: Scope event to PID and make
->     non-exclusive
->   perf test trace_summary: Improve error diagnostics
->   perf test trace_btf_general: Drop --max-events=1 and make
->     non-exclusive
->   perf test uprobe_from_different_cu: Scope probe name to PID
-> 
-> Namhyung Kim (4):
->   perf trace: Split unaugmented sys_exit program
->   perf trace: Do not return 0 from syscall tracepoint BPF
->   perf trace: Remove unused code
->   perf test: Remove exclusive tag from perf trace tests
-> 
->  tools/perf/Documentation/perf-trace.txt       |   6 +
->  tools/perf/builtin-trace.c                    | 441 ++++++++++--------
->  tools/perf/tests/shell/common/init.sh         |  21 +-
->  .../perf/tests/shell/lib/probe_vfs_getname.sh |  25 +-
->  tools/perf/tests/shell/probe_vfs_getname.sh   |   3 +-
->  .../shell/record+probe_libc_inet_pton.sh      |  85 +++-
->  .../shell/record+script_probe_vfs_getname.sh  |  16 +-
->  .../shell/test_uprobe_from_different_cu.sh    |   7 +-
->  .../tests/shell/trace+probe_vfs_getname.sh    |   5 +
->  tools/perf/tests/shell/trace_btf_general.sh   |   8 +-
->  tools/perf/tests/shell/trace_summary.sh       |  15 +-
->  tools/perf/trace/beauty/beauty.h              |  17 +
->  tools/perf/trace/beauty/perf_event_open.c     |  31 +-
->  tools/perf/trace/beauty/sockaddr.c            |  49 +-
->  tools/perf/trace/beauty/timespec.c            |   2 +-
->  tools/perf/util/bpf-filter.c                  |  29 +-
->  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 210 +++++++--
->  tools/perf/util/bpf_skel/perf_trace_u.h       |  14 +
->  tools/perf/util/bpf_skel/vmlinux/vmlinux.h    |   9 +
->  tools/perf/util/bpf_trace_augment.c           |  89 +++-
->  tools/perf/util/thread_map.c                  |  26 ++
->  tools/perf/util/thread_map.h                  |   1 +
->  tools/perf/util/trace_augment.h               |  34 +-
->  23 files changed, 800 insertions(+), 343 deletions(-)
->  create mode 100644 tools/perf/util/bpf_skel/perf_trace_u.h
-> 
-> 
-> base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
-> prerequisite-patch-id: 8c69aafd92a5783df1ce11b7ab792ab39508380e
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
+> The patch looks good, I'm just not sure we are guaranteed ROMFS directories
+> are indeed following monotonically increasing disk offset (although that's
+> the most logical thing to do) - added Dave to CC for that.
+
+Thanks for the review, Jan.
+
+Documentation/filesystems/romfs.rst doesn't state it, but genromfs
+always lays directories out that way. processdir() hands each entry the
+current offset, which only ever grows, and it places a subdirectory's
+contents straight after the subdirectory's own header, before the next
+sibling. Entries are added to the directory list in that same order,
+and dumpnode() writes each next pointer from that list, so within one
+directory every next pointer points forward. I don't know of any other
+tool that builds romfs images.
+
+If you'd rather not rely on that, I can bound the walk by the number of
+16-byte header slots in the image instead. That stops a cycle without
+assuming any particular order. Happy to send a v2 either way.
+
+Thanks,
+Palla
