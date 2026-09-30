@@ -1,103 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF56372680
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370812BEFEF;
+	Wed, 30 Sep 2026 03:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790737185; cv=none; b=EMuFWitb7CIaT+ljKdaZrFPSV39boTDvydt3btjJTq4cYX/FRSDeOC3cqq9+bstapxyjaPWlv/8KaxBdIkuDfa9KRT2Lly7WteyZrbpiDgI9QeVOkGSMFcXoWqnbh4vVvFsE47B9k2kAlxUzU6TK6kU4AHMpJny0/5rb73Qi0EE=
+	t=1790737236; cv=none; b=A8lxwMxCqX6Z1zVkfOuGFe3tL8lFGZ/qChQ3X/nEo9svDg8oDwZEjYLXhQfRGXcDlOgxs/0QUxVL0JzQRrYnBwEQskP+oV6Qibnr4L0/gpiMqne2dMrCYBSwl+NOvBff8DOPJ03CtNRhmLyRGaRPEBJUzuiVSnhD+/tp2YMWWCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790737185; c=relaxed/simple;
-	bh=jryVeyCE3ENwhs5+JjIDYwN2HfxA07BwvfI8E+aZm4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fvAJkXXADkFlXVjRjpzRNSSYmmicAOUdKMDbCkdQs6ZSRkqyLlGZBP8orN6W5mrCk6Mo9OEQ4RkH5Zn0by4Hjf0LsB6jRL7s3BnkKPDeXl/MJVWksSofLNPcJq4DrL9eVIeEPnwoS7yOy/gwYWzJIBsmvCnyC9Q0md9rJE1Rib8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UmwSPjcN; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790737236; c=relaxed/simple;
+	bh=CVMMrShCxhenuW9o0KdqnNkD6BS3Dmorg3Sfym0XP0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X8UwjrJ2wUqBpzCaSavXWHW6nUS69OcGSUfk84my+guTwryFMOcnprR0Vi1fXDgAAKRmzP6m+O3/XUAUfQnCnBvLOCWCitQJ51Eomme3w6iUeBuxP5VNZV+jhOthN3nEKX4WsarzKzOS9suGICPuW0joE+WVrWkIqgCnl2ZJW4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=AzCsVltY; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UmwSPjcN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ci
-	H9O6vBnrQUkYEAwSQyoqJvAfPordHbh1DsTTGfiks=; b=UmwSPjcNHY0Pe895Lv
-	Uw7Uv0kL7hG98BW9+Z02MWqyTLjIU4bsaI7Jafzc4mdGJ9HFPzemD6+WFAjNRWWf
-	cUBCSLcs+o4XdZIdLKD79/Opr7DYx+U588f/KbC7/4vayc7NBg5QxblSM5SU2Lv7
-	cxiR2sN9e4pIKgC84xRrZ6ZLE=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDXv0PQerxqgrw7Bg--.14814S2;
-	Wed, 30 Sep 2026 10:58:26 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	Quchaosheng <quchaosheng000406@163.com>
-Subject: [PATCH] sched/proxy: Correct the SCHED_PROXY_EXEC dependency comment
-Date: Wed, 30 Sep 2026 10:58:24 +0800
-Message-ID: <20260930025824.79296-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="AzCsVltY"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D029140E01F9;
+	Wed, 30 Sep 2026 03:00:32 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id DobpoUm-NcaF; Wed, 30 Sep 2026 03:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790737223; bh=tPKVmMRG/COTl6Eha0+3dWgLO9+BT5CKWJKsIEdZx7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AzCsVltYB3ZPvMurNm4ndw87o/+yDci4TM14kxshyVBQ//hMae6C403egHWF9kf8j
+	 rgqSvacQT6HX4ORCzphHrXk00WSZUuk309ekqqU4QqvxxHwmtG/9lqm29asQvQoytd
+	 LLhkY9OHFuNS8ifBGJgayIdNdRYIXfijgZnQMsjADwcgTFZ0oaVMc/h1kwF58bYzEL
+	 Rkqk1IPrimpSUFZACsPe+sEl0Y02WZJMlLKd7hzr7MgZZNjsPusrOz3hmvz9bbBY9O
+	 K9938/Zul10T/D2TZEkbM8kCWyMfkHLjTpMeuhghFGWYCPnFmLD7/xIO/85LbGaqmx
+	 OrCUo/k2GcujnzzLofmZxhcNkRZdvTEzkllW3GHJDYZ3recbkdkwrTxxr6P1LJBaoh
+	 d9YdxY3ixIpDnIKWRqTfmEVuw0brOuuoiERin5efPmt/J1p26GQENIKBG2pDFVj+HS
+	 hX2FIsSEDJIkYLh4vTjHptEAYG94lyn5tRvdF+vaoOgxhTih4BOPpVIkuCesHpRzbK
+	 NxFGPOGHKtfvM53TPeZ2MuJm+Xqxl9v+QPokNM83Nw5JTr9b2YFMLtXzwo+uqN/7rf
+	 VTvf5ZsRfsPn/44hX8pNopcfQR7S6J4EoiQRjKI73blRMNsgZQtX4T9cy+coXFmTP4
+	 g4B38o2lTmEOa0ly2eNAXZw4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 71A6340E015D;
+	Wed, 30 Sep 2026 03:00:07 +0000 (UTC)
+Date: Tue, 29 Sep 2026 20:00:04 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Lin Wang <wanglin@open-hieco.net>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Pu Wen <puwen@hygon.cn>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Tony Luck <tony.luck@intel.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Guenter Roeck <linux@roeck-us.net>, x86@kernel.org,
+	linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/8] x86/hygon: Map CPU NodeIds to DF nodes
+Message-ID: <20260930030004.GGarx7NIIToO-fWAww@fat_crate.local>
+References: <20260921055603.25112-1-wanglin@open-hieco.net>
+ <20260921055603.25112-3-wanglin@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXv0PQerxqgrw7Bg--.14814S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF1DJr4kCFyxGw13ZF47urg_yoW8AFWkpF
-	9rWr18Krn8XF4S9w4UAr1xWF4qvw1DCa15AryUCr10kwn8GF1Y9ws3KrW29FyIyws7Ja98
-	Xr1Ygw1rt3WDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREoGPUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BOcEmq8etNgVAAA3y
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260921055603.25112-3-wanglin@open-hieco.net>
 
-The comment on the !PREEMPT_RT dependency reads
+On Mon, Sep 21, 2026 at 01:55:57PM +0800, Lin Wang wrote:
+> +/**
+> + * hygon_cpu_to_df_node() - Map CPU to dense DF CDD index
+> + * @cpu: CPU index
+> + *
+> + * Hygon Fam18h exposes sparse physical node IDs via CPUID 0x8000001E
+> + * ECX[7:0].
+> + * This function translates the per-CPU physical node ID into a dense
+> + * DF CDD index in [0, hygon_cdd_num()). The NodeId reported by CPUID in
+> + * a guest may not describe the physical DF topology, so the translation
+> + * is unavailable in guests.
+> + *
+> + * Return: DF CDD index on success, -EINVAL if @cpu is out of range,
+> + * -ENODEV if CPU-to-DF mapping is unavailable or the physical node ID
+> + * does not map to a known DF node.
+> + */
+> +int hygon_cpu_to_df_node(unsigned int cpu);
 
-	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
+arch/x86/include/asm/hygon/node.h:81: * hygon_cpu_to_df_node() - Map CPU to dense DF CDD index
+arch/x86/include/asm/hygon/node.h:95:int hygon_cpu_to_df_node(unsigned int cpu);
+arch/x86/include/asm/hygon/node.h:138:static inline int hygon_cpu_to_df_node(unsigned int cpu)
+arch/x86/kernel/hygon_node.c:586:int hygon_cpu_to_df_node(unsigned int cpu)
+arch/x86/kernel/hygon_node.c:600:EXPORT_SYMBOL_GPL(hygon_cpu_to_df_node);
 
-That describes what happens once the dependency is removed, not the
-reason it is there, and "fixed" is never defined, so nothing says when
-the dependency can be dropped.
+So why is this function in a header and exported to no one?
 
-The build failures are real, but they are not the whole reason. Under
-PREEMPT_RT a mutex is an rt_mutex, and its PI path takes pi_lock under
-wait_lock and rq->lock under pi_lock. find_proxy_task() takes
-mutex->wait_lock under rq->lock, so
+Pls export it only when you need it and until then, keep it in the .c file
+only.
 
-	wait_lock -> pi_lock -> rq->lock -> wait_lock
-
-closes into a cycle. It stays dormant only because nothing sets
-blocked_on when PREEMPT_RT is set, and it is gone once a mutex is no
-longer an rt_mutex, which is also the condition that lets the dependency
-be dropped.
-
-No functional change.
-
-Link: https://lore.kernel.org/all/20260921102712.3245860-1-quchaosheng000406@163.com/
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- init/Kconfig | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f..b45d8b2 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -936,7 +936,11 @@ config UCLAMP_BUCKETS_COUNT
- 
- config SCHED_PROXY_EXEC
- 	bool "Proxy Execution"
--	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
-+	# Fixing the build failures is not enough: under PREEMPT_RT a mutex
-+	# is an rt_mutex whose PI path takes pi_lock under wait_lock and
-+	# rq->lock under pi_lock, while find_proxy_task() takes
-+	# mutex->wait_lock under rq->lock. The two orders close a cycle that
-+	# only goes away once a mutex is no longer an rt_mutex.
- 	depends on !PREEMPT_RT
- 	# Need to investigate how to inform sched_ext of split contexts
- 	depends on !SCHED_CLASS_EXT
 -- 
-2.43.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
