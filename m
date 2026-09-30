@@ -1,166 +1,168 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFBC4D0CF7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1404D1781;
+	Wed, 30 Sep 2026 11:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767769; cv=none; b=VlgyrfFn0mQZCAElD6B8bt9FKb7nDfkvPHshnAIbmUiVQcYZA+FY94vlKFkXRcNI09iDaiZQaGA6ETuAT42SnWGMXjds29I9KutrsFGEdKf6+C/74iFvH1RAe+/4s7kBGvgiIMooBTEa9ooDBG2o+4PTfRR6tQIB9vScr72obeo=
+	t=1790767769; cv=none; b=IwhAkr0adXjrdk6P1Pj6Zrv8uLdzlmpYIQCNdp64tmbxpZRyXQK7f4P/JpJrrVGCJG2OFEGTWKk/zeQ3WccA9x7LQ1W8Ory0f6W+UrF/nNEzmSEvzIY6REX+/A1hUORPSRnq7flEIBpd4Vl+sk6RU7GJO6BmxBR22GYzYbl8lCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790767769; c=relaxed/simple;
-	bh=MtRgZIL0ejzkv81A5uoXkUOIGYLKSnfs4/MRbrb/dH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q0sNcaaY2LGUqrcmt5IE/KYZz2GCIAcW9h/kZpzWz/fmALXWRXlDzjtSVxUZIhJ1MAD+m5EZiwLdtQFsYsMRuXi1L5MQxyQU4kgbQl6zVB6vcAXPZYNILlZOJYdF7Sv12KZmHa+DKM5PyPKWrztQXC8YHbojtYtrRS1BLHJo7Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNKiX4ki; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=Y+YqHRTyQd67P+coEMZYjNTxVdlkJ+wHPGQuPRvSz1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PD5FArJRhfso3RPLKc398/mJ0p7Qyz1mjG1HYUMcY/9ZtXBrErCim0fvVs2Z6Ej38hoysHqlg/gAHQoz4RRTD+ZxpJ8izNaFqQ9JaMEr/Umg2I+aYZYnSX3sZwTQZpwPygLtA6fyT/jrvlyBOZKsdYWQpU/Rzm+duiUTjghTeqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=C1yQtHZq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iNpY1vID; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=p3i3HRQT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=G5ppi8Fg; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNKiX4ki"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bb1ed012so780030a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767767; x=1791372567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eDtomUq8zw6nK1KObwDR6CCREpvglQp6A+WXvBo8Gzs=;
-        b=TNKiX4kiUPdsvOWP9SceCTouK6sy9iUYNjo1F8p9Mjxl7+lwcdssD7ZKzSS0/xNJt5
-         uXpVEDEEwiMs13xJSNvz5v5hIoas9TJqjepmu9rU2fJ/zR2OZgiby+dfL1Fjw75rYGC5
-         QLmvrPGdCnVtrJMiyoZUk8qDvZ62TUQujP8MY9ys/usdldL3pDj31Cy6lx/ZumGiYwtN
-         Z5T8oLTuX9zLVZUpQoIGJg8POp4DjP6tvZThArmXEphubZSTQw6nwtz/Ib8SDNj9/KOi
-         d2/VsFm1E0Rdl1jb66V4QHR3THJ2wM6nbdDoxMMc6qUtKY/6jZHFDcOVOZrMydY9b2Zi
-         didg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767767; x=1791372567;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eDtomUq8zw6nK1KObwDR6CCREpvglQp6A+WXvBo8Gzs=;
-        b=huML9GyWsFSIjezgVhgHnNtAJtiKPu+2TGlhMcV2lRLXHra1TT5lPAPKyIpI6ttTWx
-         TI59LCHBZLZk9bDDvKbFuXZ3ty7qhGLEUAY/QMs8VOos6tNbI4nVv7NZdCRiB1fBMB4d
-         3MR+499i2XvOvXEBu3MF9GanlkN07UsQYw5YamVg81HWzmeOsm9akq1WBLdRln1o3q0N
-         B2OU/oWYV/adM/3OcbATcxRppMW7JMDvCz8feN0YaW7aHziXDyx3QgycFil9h3/X06wD
-         m2JtSgtb3sm8GqnDKcMnB3UYvO9lZNRM+hOf6gcTuNqwDUB1kr0fBwXnbf+wrBoX4u2S
-         S+DA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSRiPHwloH+HjxxDymQ95/hUg/QNlOdbnIRmo0QSN4CIRCxN0bXTOIWFkrcSAoZQpBwiLkKzIgz8KXKz8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbshqJTgrWKwTeW4RLW8THyPJUbc6c8xc+E2u8SEgyVTApdG6/
-	4l2aAhJ1eAYavPsnI1WEarEZ2ETm+LyPsUxLeypxcOpUPLFSSLygP0xE
-X-Gm-Gg: AYBFou1MdT89fwI3yG8xgLZEXyAMIOW8dTYC9gXHn2YxDiudgt8TQjuJI8Qqn0zf7zQ
-	cPMSES5wu/I1rbChBg+0E8GL8TkcWoAWoys51lcHwLieqnPVNfOAkG1jVa1qaKAyIrz89cxR/Je
-	IDatfNP2K1CJiVWyV+XS4yWFEBRS17ce2q5ADOFruzpsw8IXVxeklaVPPV7SchBBfFGjT+0jTiN
-	GkcnKf0byWPPZrC6fGdmUTF6n1X9T+pK/72XCn+zweKK1TFqTPqzuNdjuA3GJ9Q9Vq3xJ137swR
-	426b98om+UNX7ONSfSF9a34gG96ylMADntvVWDtrQxCg/V/DI87k7/8eSz/wKr2RGeLm0kQ13hj
-	Zqt7K8t104jrAzEy5N7YJd9IYWxWlQA+W5qAQIQ0ZaTd5aEAM4GibPet82rueIdzgQ/ZKbpUrnT
-	DVsZzEcDxIpIgeylWPmu3MI9mr5Bz7tUqIOrWayj2AQoBU5N8s2hYo8QSuJoKQjzVv2/Gep/7Uu
-	p534+tvSdpwA+EfSrJ76xf/JLsAlj5qEcJnVkZRUYrE
-X-Received: by 2002:a17:90b:2787:b0:3a0:e76e:ae10 with SMTP id 98e67ed59e1d1-3a4d175ddcamr1003462a91.28.1790767766632;
-        Wed, 30 Sep 2026 04:29:26 -0700 (PDT)
-Received: from m-upc-A520M-HDV.lan ([2400:2410:3f60:500:3fb:270c:7df4:18f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab46db6sm712637a12.31.2026.09.30.04.29.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:29:26 -0700 (PDT)
-Sender: Yuyang Huang <uyoko90@gmail.com>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Kees Cook <kees@kernel.org>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Nikolaos Gkarlis <nickgarlis@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Willem de Bruijn <willemb@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v9 5/6] netlink: specs: rt-addr: document AF_PACKET multicast dumps
-Date: Wed, 30 Sep 2026 20:28:41 +0900
-Message-ID: <20260930112842.21323-6-sigefriedhyy@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930112842.21323-1-sigefriedhyy@gmail.com>
-References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="C1yQtHZq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iNpY1vID";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="p3i3HRQT";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="G5ppi8Fg"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7B5A91F88D;
+	Wed, 30 Sep 2026 11:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790767755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
+	b=C1yQtHZquN5QPzok5t64LFf9KwbY6XIQwXiEmal7JWvGMcgwGYIjKO1paeDxTYnTgHSgeI
+	5p9kPiMy1Uy8D80gwoKX6Z5IJKO5F7Uf4bLY0lxWMtTvJTG+yTxGlBDC4UOvGa3JNdDRce
+	iB2dUM0GL17iSTEbyxfYn5cAD3NlReo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790767755;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
+	b=iNpY1vIDfVPm9i2IfUMs+QFipq+nv4ASUbZ6QEgdDHv6umXyDiXOOIXsroAujy7KNf4QWk
+	ljGvzLOAoAEhBUAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790767751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
+	b=p3i3HRQTcwxFvYducP7oYeUievk3BvWGevzVzbJam/2I2CpExwPlEA7Px6PbkqBACW3YlB
+	KrtelWcEkpTBPQG7UILyNYkiDXkYEyTwKMC+4YScAIkTvC2v70n46Z7vf24+3+iECGIVJw
+	kGh76IqtkxwJTHIPuxm0V5usWVldj3g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790767751;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
+	b=G5ppi8Fg0IvFPrU0LHm5mYDpPzYVMcUA1fcH2Mq6RdykfD5qEkxeW4NcrxTsEheiHC3XQU
+	dO0R7dQd7/FPqEBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5571B13722;
+	Wed, 30 Sep 2026 11:29:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id n78LDIfyvGpfOAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 11:29:11 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id CCC4EA13AD; Wed, 30 Sep 2026 13:29:10 +0200 (CEST)
+Date: Wed, 30 Sep 2026 13:29:10 +0200
+From: Jan Kara <jack@suse.cz>
+To: Giorgi Kobakhia <gkobakhi@asu.edu>
+Cc: Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, 
+	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH] udf: fix return value for non-recorded-allocated extents
+ in udf_map_block()
+Message-ID: <hyp53lrzwckzp2sblhciocql4sidxvk2ujhc4zml2r72i2qkwv@ospm4msdwrto>
+References: <20260928200445.18722-1-gkobakhi@asu.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928200445.18722-1-gkobakhi@asu.edu>
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[asu.edu:email,epos.bh:url,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
 
-Add the global flag, list the attributes the AF_PACKET dump uses and
-describe how ifa-family selects IPv4, IPv6 or link-layer output for
-RTM_GETMULTICAST.
+On Mon 28-09-26 13:04:45, Giorgi Kobakhia wrote:
+> In the if (!(map->iflags & UDF_MAP_CREATE)) check the ret is set to
+> inode_bmap(inode, map->lblk, &epos, &eloc, &elen, &offset, &etype),
+> which returns 1 on success, -errno on error and 0 on EOF. ret is set
+> back to 0 only if the etype of the extent is EXT_RECORDED_ALLOCATED.
+> In other cases the ret is still equal to 1, which is not a valid return
+> value for udf_map_block() and is later accessed in page_get_link().
+> 
+>  Oops: general protection fault
+>  KASAN: maybe wild-memory-access
+>  RIP: 0010:page_get_link (fs/namei.c:6503)
+>  Call Trace:
+>   vfs_readlink (fs/namei.c:6419)
+>   do_readlinkat (fs/stat.c:583)
+>   __x64_sys_readlink (fs/stat.c:605 fs/stat.c:602 fs/stat.c:602)
+> 
+> Move the reset to 0 line outside the if, so udf_map_block() returns either
+> 0 or -errno, even if the extent type is not EXT_RECORDED_ALLOCATED.
+> 
+> Fixes: c226964ec786 ("udf: refactor inode_bmap() to handle error")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Xiang Mei <xmei5@asu.edu>
+> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
 
-Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
----
- Documentation/netlink/specs/rt-addr.yaml | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+Thanks for the fix! I've just rewritten the changelog to explain this can
+happen only for corrupted filesystems and added the fix to my tree.
 
-diff --git a/Documentation/netlink/specs/rt-addr.yaml b/Documentation/netlink/specs/rt-addr.yaml
-index 17ead22034515..1bd1184d1e202 100644
---- a/Documentation/netlink/specs/rt-addr.yaml
-+++ b/Documentation/netlink/specs/rt-addr.yaml
-@@ -77,6 +77,8 @@ definitions:
-         name: mcautojoin
-       -
-         name: stable-privacy
-+      -
-+        name: global
- 
- attribute-sets:
-   -
-@@ -168,7 +170,16 @@ operations:
-           attributes: *ifaddr-all
-     -
-       name: getmulticast
--      doc: Get / dump IPv4/IPv6 multicast addresses.
-+      doc: |
-+        Get / dump multicast addresses. ifa-family must select the address
-+        family: AF_INET or AF_INET6 for the IP multicast groups joined on
-+        a device, AF_PACKET for the link-layer multicast addresses in the
-+        device filter. Link-layer entries added explicitly, e.g. with
-+        SIOCADDMULTI or "bridge fdb add ... self", rather than by a
-+        protocol join are reported with the global flag set. For AF_PACKET
-+        a non-zero ifa-index restricts the dump to that device and
-+        ifa-prefixlen, ifa-flags and ifa-scope must be zero, AF_INET and
-+        AF_INET6 apply this with NETLINK_GET_STRICT_CHK only.
-       attribute-set: addr-attrs
-       fixed-header: ifaddrmsg
-       do:
-@@ -181,10 +192,13 @@ operations:
-             - multicast
-             - mc-users
-             - cacheinfo
-+            - flags
-+            - target-netnsid
-       dump:
-         request:
-           value: 58
--          attributes: []
-+          attributes:
-+            - target-netnsid
-         reply:
-           value: 58
-           attributes: *mcaddr-attrs
+								Honza
+
+> ---
+>  fs/udf/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+> index e45e546a739a..2f04c4f0e1b8 100644
+> --- a/fs/udf/inode.c
+> +++ b/fs/udf/inode.c
+> @@ -372,8 +372,8 @@ static int udf_map_block(struct inode *inode, struct udf_map_rq *map)
+>  			map->pblk = udf_get_lb_pblock(inode->i_sb, &eloc,
+>  							offset);
+>  			map->oflags |= UDF_BLK_MAPPED;
+> -			ret = 0;
+>  		}
+> +		ret = 0;
+>  out_read:
+>  		up_read(&iinfo->i_data_sem);
+>  		brelse(epos.bh);
+> -- 
+> 2.43.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
