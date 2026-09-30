@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D3C3E9C05;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C213E8660;
 	Wed, 30 Sep 2026 10:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763286; cv=none; b=l/h/SH7vQygqXUSW4g5+PRfcu6qgEMTIPGGMjqlDHxsMaccUpRZ6/CGDQ+srvZIIQWEf7KNgpBPYq5bEncAhocOzMxYNDz4vlSMbBvPR0NlSg0sk7xfNUwZRYazkopalqxG9y4Bbrw8wNuL9RzGgpEhQ43+1mPmBYM/lmZDzt8g=
+	t=1790763286; cv=none; b=schoOR0LzSbSu8onO1GkOGvbIdggaz4P5psO6WKT6t70oLh+fcyZRln/rmaVJfOr7wOijVZD2j2tjX+YMFd+TFe/UGoQkVRlsTlEKfc0mv5JpZS6KC/OFQsaD3xfv3rAHQce0FS8F0oxElnVw3y+UW+Mu0cTRzfKEdGWbd59FwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790763286; c=relaxed/simple;
-	bh=ZIK0xCkexQBqyQJA96xFqjCpNT9qXiTKF+FxrGI34Pk=;
+	bh=YcXMWOwQsCLes1AVO1FME2ariUbRxFXlWwKj5WgwNiE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W7Fuw0c4ah91jl3u//xnFjxnhIh7GQXB6pABBqswdXQCPSBNbeIYqodPEtN2dYRsOeE3174JJC6jT15Wlb9FMFab1yA3urRly74xcebdLz1jpaqhAOF3R131CKb4VCFV9bhS7UjSjn3BLKzYMIuA+71Drq97k+jaoxPR0k3ov5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWFgsGtg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=tRmUGq40gbW4cr4U7U4It2mVnDEDh5+fzA6cnWROLcgxU4tmvWgQ9YNG1ne2pWgBCfI6sxLNLcKgmNJ2Wvb/G5H/jyBG5c8zUWURUN2pa2jrmjaMi9xGeG7riRQ3XiPH4+V8dk2LcB+U71UAP0FS3iIji4DFdlGscDQMaUofyZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YJKwk+Ur; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWFgsGtg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B1C6C4AF14;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YJKwk+Ur"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 64CE7C4AF19;
 	Wed, 30 Sep 2026 10:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790763286;
-	bh=ZIK0xCkexQBqyQJA96xFqjCpNT9qXiTKF+FxrGI34Pk=;
+	bh=YcXMWOwQsCLes1AVO1FME2ariUbRxFXlWwKj5WgwNiE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gWFgsGtgDJuUZLReQVjIFnbU3pZqrkWc/c4PksKTHTOC6jOH2kUv9iHmqrwb0QtG+
-	 GxFcfry+GkkbhVX8h1t3eNR7c8tt57Yy+O7c+LuyQUhQdWEiB1SntMwifnhOXgVX3c
-	 mhGuteI/3splkI0Vop46/FGH7Tf5pzJ3kT/vKtpn1DGMnnDAsx8D1MYy7jD08TtIdb
-	 N2uYWzE/Wg2aDZd/r8VJN6hmB1eLA8V2k1Xs6p4SIK+St+MV7O/2KuDYWlYG8h/aHe
-	 /X1Tbz4OvJqygzhSEuDwofje5ZGEBaURyHgam4pU1hz1DcSZRM08+i4eB20/6V97sS
-	 C6kQZzwYjNrBw==
+	b=YJKwk+UrlkCk1+lruLc44Vdn9YqqelIS0jnt5qLUfZ/xh3VKojAfAzffnohp9AyMV
+	 Asuc6wH/Gp7XV+oNx9zSWjoEccRpL02DLwcuRB6DsKxDys/+4vGp5oS9r6j9/btAdQ
+	 QsAoFinUO0FnKgCT0YqPzCk2Z7NjTu6pRt/8cCoQeNLo5d17R5kKHxjJoz/aE5f0cQ
+	 rQnF+bQxXtMtQQtnypj+16b8tLrUySUIWOcoGbCLAPIlixt6dNu62y47vJSKLKZRiZ
+	 i9308js/F/W1/Sse4AvhjOf5mreN6fj6ZkQFYBw9yy6NZttGSbA0D3OakTl68wquds
+	 moLTBCqIpzmRQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B2D2CA5FB1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48B42CA5FBE;
 	Wed, 30 Sep 2026 10:14:46 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 13:14:27 +0300
-Subject: [PATCH v5 1/4] dt-bindings: nvmem: mediatek: efuse: add mt6572
+Date: Wed, 30 Sep 2026 13:14:29 +0300
+Subject: [PATCH v5 3/4] nvmem: mtk-efuse: add CPU speedbin post-processing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-6572-nvmem-v5-1-384d2a3a1770@protonmail.com>
+Message-Id: <20260930-6572-nvmem-v5-3-384d2a3a1770@protonmail.com>
 References: <20260930-6572-nvmem-v5-0-384d2a3a1770@protonmail.com>
 In-Reply-To: <20260930-6572-nvmem-v5-0-384d2a3a1770@protonmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -54,11 +54,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790763284; l=1140;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790763284; l=1737;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=5K32Q1swD4S3cSggeXC/0toQquH0mxZvBxfpkIPi+IU=;
- b=M5/+WU7HpaDQSfcWxQZiRaA9XqEdJXJUf99cACRJWf9sFJsmkIkc1oQnfBjYsGTIQgqAQypN8
- aQWVac7lxewCQy2A12P9ZVN2Dij1muWKQwR7Zu0KCJX72yqllDEF1UO
+ bh=obcdDbJPC+bJJB8ejmXjnP6/QmD/06/XozyzFUcNY2c=;
+ b=5GShSUHPJqiXvrqHRiSZTcESxZC/UG33Tn9SrBVmHk6NKDWSNpSL7fN2RH+escj9ogsV9oqRy
+ D6v3trKnWGYDiKD6tLp28Pl4bnfDCjc+XuZwZ15pENMehY6uHxmfM/l
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -68,37 +68,55 @@ Reply-To: rva333@protonmail.com
 
 From: Roman Vivchar <rva333@protonmail.com>
 
-Add a compatible string for the mt6572 SoC efuse controller.
+MediaTek SoCs are often released under the same marketing name, but with
+different suffix for the speedbin. For example, mt6572m has 1 GHz limit,
+mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Since the speedbin is stored as a number in the efuse, add support for
+converting it to the bitmask for opp-supported-hw usage in the DT.
+
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-index f9323b3ecfc8..e10947164941 100644
---- a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-@@ -24,13 +24,16 @@ properties:
+diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
+index 980c29d01337..d2e5c69c580e 100644
+--- a/drivers/nvmem/mtk-efuse.c
++++ b/drivers/nvmem/mtk-efuse.c
+@@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context, const char *id, int index,
+ 	return 0;
+ }
  
-   compatible:
-     oneOf:
-+      - enum:
-+          - mediatek,mt6572-efuse
-+          - mediatek,mt8186-efuse
++static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, int index,
++				     unsigned int offset, void *data, size_t bytes)
++{
++	u8 *val = data;
 +
-       - items:
-           - enum:
-               - mediatek,mt8188-efuse
-               - mediatek,mt8189-efuse
-               - mediatek,mt8196-efuse
-           - const: mediatek,mt8186-efuse
--      - const: mediatek,mt8186-efuse
++	if (val[0] >= 8)
++		return -EINVAL;
++
++	val[0] = BIT(val[0]);
++	return 0;
++}
++
+ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
+ 					 struct nvmem_cell_info *cell)
+ {
+@@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
+ 	if (cell->nbits <= 3 &&
+ 	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) == 0)
+ 		cell->read_post_process = mtk_efuse_gpu_speedbin_pp;
++
++	/*
++	 * On mobile SoCs, the CPU speedbin is a number. Convert it to
++	 * a bitmask for supported-hw usage.
++	 */
++	if (strncmp(cell->name, "cpu-speedbin", min(sz, strlen("cpu-speedbin"))) == 0)
++		cell->read_post_process = mtk_efuse_cpu_speedbin_pp;
+ }
  
-       - items:
-           - enum:
+ static int mtk_efuse_probe(struct platform_device *pdev)
 
 -- 
 2.55.0
