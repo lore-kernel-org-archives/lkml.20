@@ -1,160 +1,124 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3C0375ACB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783132; cv=none; b=Mj6dh3z6GIomWqRrxpqJ/62aJm8+DO1rdWq8DgPIXRe4OHlTVnWgODS+q2tTBVQIiBQNk6i/kZMVFpTokDJYyhoghmOUihOORD/8FbZTYIo4FqLR5XddeUvdqOfIz/zAIaWTQ9WsQLT0LkwPJnHznfb73WutCZMNKc+Jw7bnV9Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783132; c=relaxed/simple;
-	bh=JWFui58/GxxmDrg6Md9OZYh8gBH1AFTPCOugh8MoPTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RMzgIwQyTomx6BJptWJvU6FAHvZnwFgG72ilA2a79WKsPv2/GB8Pw97589ieu0EaTrWWeWMzXjSSiUMAl+Hnviy4eNCm6hWi9qriJ/cE/cixv3KzYbIL1KpzUtEULR6WDPrsr9clefCXwSIC4ct3HWmQ1cpVUxXUf3Bp2vSehbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZhAjl2cH; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EC437DE8D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783128; cv=pass; b=ea+x9iTU8gjanYdz1oQ+o6TFH0aJasUKyO7cRIh0g3//MVIB4JoYzMBojHdk/4zIS7l0ex3snR6HSkCaIjxUwJN57UR3mq9ODTaIb+mnVwlaP8HHzsyPJR2XA+kzLTtf5Yxpz3XQB7QHm/twwhdpDLLdUjK02qwMTpHUvdoRfik=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783128; c=relaxed/simple;
+	bh=i6GmaXuuU+zwtj2v1bb6dDRelxF99MNSWJOfop71WYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WNKUnmYf1QHx/yW2Vha3ZzddL8r9bNfHcMuM4zDPFA3mkV7qizi/DqHFEWH+xjyhS9K6EyR4tqcJo7zeM4NgAFHag60O6g1DW4hYX7Ttzf9+tYNiFxH0Su71oaBLfMepga7j5p8js3Wu+LIM3FZwqBugFasl6+k7g5qCjWJndMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qRC3q1U4; arc=pass smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZhAjl2cH"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so36215105ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:45:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qRC3q1U4"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c99260bd9so102013eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:45:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790783119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gxexk7vb3J6BYx21m6UXVZt8CjAJlKYEQEARGi0yclnINlfLavjdu07Y8AvoD822qu
+         wjc7pRBtDqd00VdYDrasRM1X3k3XU2L501fSYd8/2/CoFBpeDZiN/+QbAO1//fAossdA
+         RjycReffj1RaV+ST20SGI6pUakri0n6E+0maafq3n0mvkY+jphnEKXHg89RYa/i1oRfx
+         CzRXIex/wdlj9eHIl8N5dsvd6HvvUZ8ZXAtZ45SkcbZR7Gz1NZ2bkSn3jMHdRBHy2DN9
+         BS/tt4nuDl4Yc08xg31ymCw4ZNxLLe9mS9RHCvuav2ba83OzQtKH78I4I3hVXgFGiIGA
+         iC8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=i6GmaXuuU+zwtj2v1bb6dDRelxF99MNSWJOfop71WYo=;
+        fh=bZaDat32H9jM/ZH+rNU3qoK/4hYptxlJMjlFDzgT4l8=;
+        b=QDWZKFl8TblyajC+IyzTpslOjGlObF5VZOvsbwAKu0cgRI149OKHBs4YCzcg/sB9Ep
+         XDflZJA5VSxBZ2yIFxpV/2XB9nkajp6ZXLcIPos8j3YfiYXtHl4M9xPuJzobH/aRtsip
+         tMk2j2eAjUZ0h12/4a7LIx6V3cV26VzPWuiFo9LhWTWoZVuaR7iNIxAV/QQHqATa0r0J
+         dQLYzPlYO12vzlHX35eaEKHbu59Af1alqA2cFMEFYstOfBjAfvDd+eW/mx0r2djxWfY6
+         KaLI+QhocrfclkLdM6TKKX683jytWNC3gTRzJ0k8ua3OUyzbFTMJ5Z1g4fgYkMSynnGe
+         7EXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790783124; x=1791387924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790783119; x=1791387919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OOQp+aPy1YIhVXXImsjlU5lD7V9ccWT+lH0A+xwkL1U=;
-        b=ZhAjl2cHGEJsrWtWWUzuAEBgpRKrFM9v0x78QBL84Zcuag7IzJP2lbkfShgF0ve/KD
-         gApGvHNjD0xfblAXwzMFsu6o1qz+MuqSX+MJFFBMd5WLHJI6kETWFa5OReEMQuBbWjge
-         g3Kz4lbB8JdqshhETG21PbIZkc+514XYPigBOQQ6bhzo1KHurzER/JwgN9jaI2CVUvwb
-         nix4jAU1l0T3IghQfSIY19GRMnkBVGn0T87nzCfBVTj8MFmyTHjWm58xlpNm9kYG3n40
-         COyRyXd2BWwyo2t5OKwlMDG+vViw/sKUh1V7JcaKpXbXiQIR3cOYfnBwX1irjJsRJv7H
-         qytA==
+        bh=i6GmaXuuU+zwtj2v1bb6dDRelxF99MNSWJOfop71WYo=;
+        b=qRC3q1U4Jm+Zu721GKeU5MDnP/B/YfgcHDimuBO5GEsiNU3VKKWDkCTZEnb9l6VNdg
+         2uX4rKqKKIRYnLId3f6QSACrT1BuYB+/v103uivfoG2uzHbF0YZOsIgq69yeNBh1I3e3
+         HAnHMqj/wY9foUx+zI4vVlmTk8XcjO0FPDfuf+0XeGg5BWx0ousOEhzuYVoipo3y4Q+J
+         B6+oL/hSVZ7tOHagecfCogIYPBI4rR8fabNJ6k8iGEETNQhY9vxiznMyv47p1Haz+9ym
+         0WgLUCer3Z/1LejsxDM2pZNMPbS2DRBHB4tfobW3hNvGxxVKmqG24dXqTo/5yhxOO47S
+         LQIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783124; x=1791387924;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790783119; x=1791387919;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OOQp+aPy1YIhVXXImsjlU5lD7V9ccWT+lH0A+xwkL1U=;
-        b=Vyn9YFWL8o6w3mSFyAJH6tpSx5q32hrqhE4qYp5/oHPyEWdv1cKVl8C0QV3vQUOxa/
-         M+ZVa660+UEnuCEICMgcIDZkUt7tANbmxjA+C8+LkNZDpmqOzMdveYuFIKXjrxor+V3i
-         NUnF8ML9bphfOf/VgcuT87MisFw9KIHoU7CoGpsf87SMU5nUKBiTtqe80zkkR3DVbCzl
-         BTz4hVCYCnhetDa7bl4DGJiOLFBChb9EpBc/1qLta9RoyTpO96amhtFvQ0ws5bv4Obfl
-         TdDCsDissEEGdGC8fxyodLRPOyhx5KaFoMqGRNuMM7sJMQEzTqj21gK2YTnh6dUlI5rh
-         ZX2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxE3OkmAfq1utnfG6yBwx2v2yk8VJXiBEJgFv1Ecrnw69zcU0nPO4LKG4uWv1NIGLKCYkxXd+lXFPmllSY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZDunxRqNW1uE09Jnm0ntodBxrDFqCWC41Z8XxTkk6fNhTM0DM
-	RCYemjGGdQ+xlyOmPMf7LJTCLhGK0+y26WZ1wiytTxJazTAHCPJQbQRQ
-X-Gm-Gg: AYBFou11zh3jg2kUY1y4z+Qf+uCtOmPV4uFhex6BNZwyKBPoC9xM57zVV/u50j2HnG9
-	yllGa77eoe3DBWcY8OGC/sUvXhNAl1BsI/uN3kn3CRbF/0qxND3u8hXxzN+wFwvdmSMW9EQI89L
-	asKGlI+mk4LvH+jnlMc3sXAf99tDX1MOCpnmEOP2xwgzpDTiOLadiOsoej98vix76e71y6+4q3W
-	l9uDKGkU5AAypO7OxUZrTNfatcpY153YHpfk6p/vupaZYHxa9vB5FWNxGJLX3tl42PXpt7kqzIW
-	fhsHvQQxLl1Q9XyQLK2vZz7aE6L46jSSqi1+/L2b8cwWnGRLLkkrufRWrF9k8LeM/InWBjJa26Z
-	9k0WUbKRpq0bvb59wX1cQwaH6Tmzn5L5eYUAp+8n1/YaID6otqglpAP8nfb/m57VdrsJ31nXFhk
-	YHvR+uLTovTF1NjToUyYgladu65pUiL3D57lpDyjpGJEitutBM35L4x8MEmwZUrzVvaIDEVfE7x
-	KxxFRMekpo=
-X-Received: by 2002:a17:903:8c4:b0:2dd:c053:82ef with SMTP id d9443c01a7336-2e2e4b566edmr15362105ad.38.1790783123908;
-        Wed, 30 Sep 2026 08:45:23 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e587d178sm10313265ad.1.2026.09.30.08.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:45:23 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-Cc: Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andy Lutomirski <luto@kernel.org>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH v6 4/5] vdso: Move BITS_PER_BYTE and BITS_PER_TYPE() to vdso/bits.h
-Date: Wed, 30 Sep 2026 23:44:59 +0800
-Message-ID: <20260930154500.722828-5-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930154500.722828-1-zhanxusheng@xiaomi.com>
-References: <20260930154500.722828-1-zhanxusheng@xiaomi.com>
+        bh=i6GmaXuuU+zwtj2v1bb6dDRelxF99MNSWJOfop71WYo=;
+        b=1m06hLqdwcEatb2f2dUJ0hTvhKTEKbUqvOTExF7g4JwEUjhTf4huDl8Z52C04h9NYt
+         lIq/awYSATN9tb4dXQra9eIKkoHHR80g6n9LlsfHwhi03zoorBN0gxmK+Gh9PCKU7EMs
+         f8lvjaCsXYA4wT8OEvL6Ms8xZq5LIdxgmi9xQwchVqPB8aNS5E+PlQFHnTEu2EbiWINd
+         AxxUtzH/OPstIChkPE8qdpc7nkKyLFRmboWlGr2/6u9UBSRT6sjD4jrTWkzRm6CdDX8q
+         t6i66VwIK8WRTDFqpIb7aLF+RvsuMBvDPhvvSs3N18gMCKbiXwedOS9rAX+TTW3ZQPit
+         r02w==
+X-Forwarded-Encrypted: i=1; AKwUvBx1D83noJ9lx/s5sN/B4+pgYnv1eD/s9ZtsQ4lEmkbEzxJDgGRXouCN0+yihouvhEx9Mq1T/ATTUnzzTPg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaMbKWmMGsB5zDFzYI5S3iyAR0MG23vIvXvIr91ixKfFOqOtTo
+	aCpIAIWnjn/2TEDIXqLpLRl1rZ7cY4WDOedgtQ7ozlWTYFeB58CVslEh0gwzZns0KhbS+O2mF3y
+	IJRM8CEcFeFd6zLtkFNRcqzSip/AlbXA=
+X-Gm-Gg: AYBFou1QW5B0XDLae13PNcKRnQsr72rakFKy+mo00t4Hq6ybshgVMMRo2CTZqtORX3N
+	ooCW0mhKkExOUbO6AeG/Rm8Bcc2b525UY5hidSjKxyhxOxjMvnU6bbkHELXjans2lQS2++Dg6eL
+	Qu1FDPqbeHWBYdfLd6fCqPRdyOMqnAbHTnvOUHBcaDLYDQrLdKArcdvfL6yVAahu/fPWKSQ2UTL
+	/SwRyg6OOj4T5+c5sM+YvU0DM5xr8Inr9M8wiDsNmrIy5HP37n+ttfVm1wndLeh0wEojQAn7nRa
+	0ZGm6f1E0DfSDbMMfoNBHa0FtDyn/+vVa6LvEs8E3jeRQwu5Sq+S/JZc1JkwPZfqt1VZJXDT14G
+	qXNBGr0WlBlMv/P1RWNr9i9NQqGF1xvHxINW3HuVA4SgEEVHJHmBHf3AYOsgm0vS7KWAkPLozqH
+	6MiIUJu1Z6GnEkdOfuBxLKQUGxfHsc9dtG2Jj2vgMLb/QZY94xNOo=
+X-Received: by 2002:a05:7300:e9c9:10b0:34b:7c9c:9a69 with SMTP id
+ 5a478bee46e88-34cd8795e5fmr3668963eec.0.1790783119173; Wed, 30 Sep 2026
+ 08:45:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260917051147.98775-1-tweek@google.com> <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+ <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net> <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
+ <DLSRGVBPWMXX.1LAWUQHDYKLCV@garyguo.net>
+In-Reply-To: <DLSRGVBPWMXX.1LAWUQHDYKLCV@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 17:45:06 +0200
+X-Gm-Features: AclHuK-xcuO0mR7ZCevwePsscH8hBfb4GfEBBZrYNyFBbqkPe1_OxY6I5DHFIUw
+Message-ID: <CANiq72mi-9xCyX0VfgbXwvSQsfvowzOdsTGVF1HpKy_h8eHesg@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+To: Gary Guo <gary@garyguo.net>, Andreas Hindborg <a.hindborg@kernel.org>
+Cc: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-lib/vdso/gettimeofday.c is built into the vDSO, where linux/bits.h is not
-available.  The next patch wants BITS_PER_TYPE() there.
+On Wed, Sep 30, 2026 at 5:37=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> Ah, that's my patch. It had been completely paged out from my memory. In =
+that
+> case this is indeed a fix.
 
-Move BITS_PER_BYTE and BITS_PER_TYPE() from linux/bits.h to vdso/bits.h.
-linux/bits.h already includes vdso/bits.h, so its users are unaffected, and
-vdso/datapage.h already pulls vdso/bits.h into the vDSO translation units.
+Thanks for confirming!
 
-tools/perf/check-headers.sh tracks both headers, so update the tools copies
-in lockstep to keep that check quiet.
+> I don't think it's worth tagging stable though. It's not something worth =
+putting
+> effort backporting, but if AUTOSEL picked it via the fixes tag it doesn't=
+ hurt
+> either.
 
-Suggested-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- include/linux/bits.h       | 2 --
- include/vdso/bits.h        | 2 ++
- tools/include/linux/bits.h | 2 --
- tools/include/vdso/bits.h  | 2 ++
- 4 files changed, 4 insertions(+), 4 deletions(-)
+Yeah, I think it doesn't matter either way. I can remove the Cc. If
+someone needs it, we can backport it later on.
 
-diff --git a/include/linux/bits.h b/include/linux/bits.h
-index b7509f15718e..7f48e6af1fe7 100644
---- a/include/linux/bits.h
-+++ b/include/linux/bits.h
-@@ -9,8 +9,6 @@
- #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
- #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
- #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
--#define BITS_PER_BYTE		8
--#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- /*
-  * Create a contiguous bitmask starting at bit position @l and ending at
-diff --git a/include/vdso/bits.h b/include/vdso/bits.h
-index 388b212088ea..a0b6d404495a 100644
---- a/include/vdso/bits.h
-+++ b/include/vdso/bits.h
-@@ -6,5 +6,7 @@
- 
- #define BIT(nr)			(UL(1) << (nr))
- #define BIT_ULL(nr)		(ULL(1) << (nr))
-+#define BITS_PER_BYTE		8
-+#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- #endif	/* __VDSO_BITS_H */
-diff --git a/tools/include/linux/bits.h b/tools/include/linux/bits.h
-index b7509f15718e..7f48e6af1fe7 100644
---- a/tools/include/linux/bits.h
-+++ b/tools/include/linux/bits.h
-@@ -9,8 +9,6 @@
- #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
- #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
- #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
--#define BITS_PER_BYTE		8
--#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- /*
-  * Create a contiguous bitmask starting at bit position @l and ending at
-diff --git a/tools/include/vdso/bits.h b/tools/include/vdso/bits.h
-index 388b212088ea..a0b6d404495a 100644
---- a/tools/include/vdso/bits.h
-+++ b/tools/include/vdso/bits.h
-@@ -6,5 +6,7 @@
- 
- #define BIT(nr)			(UL(1) << (nr))
- #define BIT_ULL(nr)		(ULL(1) << (nr))
-+#define BITS_PER_BYTE		8
-+#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- #endif	/* __VDSO_BITS_H */
--- 
-2.43.0
-
+Cheers,
+Miguel
