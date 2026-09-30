@@ -1,157 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3F91FFC48;
-	Wed, 30 Sep 2026 08:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE8544E055;
+	Wed, 30 Sep 2026 08:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755856; cv=none; b=XcU5XOvIfYASsiZ194x+1O9PbHOZLh/WsraZegLGE9k4WGtcneYSC8adt4HXPh3e+9J0fQwJoCQwp/D4cr9FeY0HA+kiT+Kk0HyI3G9VLYCf3xXXjRnh0h/uqv39mAwFuFONfRUdafX++TF/MVvtqNFc7HmFd9iscsBOIYIVUSI=
+	t=1790755904; cv=none; b=afmKHM3B+O92utvLp/37p6Is9OcAmwIhHc6W/ZPdV6OSHhPIn6r3oe5+TrmWkrsRZXp9L85KwlS4zR0ar3Nzu5P5e5SgFvJhQ7ORi17vgcABgJSyS2Y2GX+DeIahiVDuhhqqKFNvaYwywzdjZ5rgwdVIDHTaCXDXwMA1OSc29a8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755856; c=relaxed/simple;
-	bh=hHrhtuPfz8cY4nqqaBD39+J7EB83alLmq4ViBtLbrO8=;
+	s=arc-20240116; t=1790755904; c=relaxed/simple;
+	bh=n6LqOCOL05LpmXLjZqV2F6/Qv/JfqGYo6fy5jnfWq9E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q7petyLCja3kB6zLtgkvo2MfNShODaReX7FhJA/ZMkbT/HzXR3q6PTIDE62JHNQSG/kGP8Ji5vyMilYgw7qrkYGZuF3cdDnFeh+bDEbnOA+FPdGLRGni0nSWOAmrP/l3kWSi7LwEbMr2TocP6Uh7ybM2/hk9MWPY74aWLoWyfL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y4jcoMtD; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WfO+XjFUGiV7Q39+YKcC5l//+c85FZlBifs1nizzemk8VHpz84seTJgDvxs/IWYGAd+zHHQzNPLK0uvBK92BklgGJxHPBVM76AQ8cSdCRPkUGQIXrOkMdVifogMclzKje/BBzjioNkMH8zPKS1Uwp71zHv/p5i2t09xzq/7SQLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Nw2M0uL1; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y4jcoMtD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790755854; x=1822291854;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=hHrhtuPfz8cY4nqqaBD39+J7EB83alLmq4ViBtLbrO8=;
-  b=Y4jcoMtDtDjEQcyPAktid7zkRDWDdf0mDWRN6YZf5yQFty9BfoUBsgOE
-   +msgJwO2Ran5OzK+v9dJJQ5FJIL2F30zoh/3u/3h7/Ktzfgil5oRuhgw3
-   8j5sjEa44vNMgSzEQtKxi8DFPvUEOWf9eLpcT6J2wgCl2O93DkC78Co7+
-   GoFX64yXaavUMUpdhnuRLkKOhxWFnmgQMTNObEkW1byKjGfkIaVscJFZL
-   PL9oR2jsrqNmzQjIK0i3r+Z9SKM8d4tcPySYeE72N8TFyEZiWl5w24q4D
-   oGaL8ozRq27aJyEfGFA4I1rWYpfsUQvtetIwwYdX6b701hWxfuz+9HDil
-   g==;
-X-CSE-ConnectionGUID: OJmNQrXlRR+TCerOmHwZcg==
-X-CSE-MsgGUID: 6YXGWqebTEmRaaE6uVZckw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102859678"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102859678"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:10:54 -0700
-X-CSE-ConnectionGUID: scJ8q8ftRLOx8ItKcO1Q7Q==
-X-CSE-MsgGUID: C26PpsinTuC9GIobD8UMYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="278966761"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:10:50 -0700
-Date: Wed, 30 Sep 2026 11:10:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
-Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
-Message-ID: <arzECOUfpUWUxdBf@ashevche-desk.local>
-References: <20260928123446.GH106095@black.igk.intel.com>
- <CAHp75VfxMwLMPDQr9f=3ea8Z+5zja=kT01o-fhkyrc-V1rh3Hg@mail.gmail.com>
- <8fa77d7021ddf66f344c139d3bbeebcdb47ebfa8.camel@linux.intel.com>
- <CAHp75VcqqsTSiyGxeZeNXHAVM2ujux26Nmc5C4CNJA-Fqxn5Kg@mail.gmail.com>
- <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com>
- <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
- <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
- <CAHp75VcpK-Kv2tfR+fAuTWE15b2j34M8X+_UEkBGz_V=QJPbEA@mail.gmail.com>
- <arwXRBDZI5ottKmL@kekkonen.localdomain>
- <arzDYjM78QJYhbQS@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Nw2M0uL1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=n6LqOCOL05LpmXLjZqV2F6/Qv/JfqGYo6fy5jnfWq9E=; b=Nw2M0uL14wIlEsHYUYs6yOzm3j
+	+dKb5C0Kk3YlSidiL0Ba6JIcuRbWgH5asWlAeQ6RCIgUTxc8oiYwiaW9pTy1YcjraqGOvNuLBHXrR
+	o6hn63cIpymrVnr+g8y2G3DqDw/KecId2PjM7AdgZpUfR5cMKrxcl+ElFJk6DeoSaXvarakfuClBG
+	YUcAa5vqwPJiKioSUMjpt7VInDRpT/eTyDtuCJbY8saKmkBDjg9R/pkGHuEeyyQRGAmJTC7023SEp
+	jLgLIIH8diWHICjaA6J7xsH8JAQC+ZoUOPBCRIWTUGyGPSuAfv/Z09DwpiGj9al/luT4ysuuPEirh
+	s3odEgwg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xBpPT-00000003Vu7-3kBu;
+	Wed, 30 Sep 2026 08:11:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B93F4300673; Wed, 30 Sep 2026 10:11:25 +0200 (CEST)
+Date: Wed, 30 Sep 2026 10:11:25 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Andrea Righi <arighi@nvidia.com>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, sched-ext@lists.linux.dev,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] cgroup/cpuset: Protect is_in_v2_mode() in
+ cpuset_num_cpus()
+Message-ID: <20260930081125.GF88198@noisy.programming.kicks-ass.net>
+References: <20260929084124.626693-1-arighi@nvidia.com>
+ <20260929084124.626693-2-arighi@nvidia.com>
+ <20260929-making-language-254d9c6a6605@there>
+ <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com>
+ <arv2-3-6-Ewv0gpb@gpd4>
+ <b8f66cbe-bb1e-4148-b2e2-55bd95f1c8d1@redhat.com>
+ <20260929190853.GE88198@noisy.programming.kicks-ass.net>
+ <500cb19a-549b-4055-a807-c3c40da787ae@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arzDYjM78QJYhbQS@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <500cb19a-549b-4055-a807-c3c40da787ae@redhat.com>
 
-On Wed, Sep 30, 2026 at 11:08:07AM +0300, Andy Shevchenko wrote:
-> On Tue, Sep 29, 2026 at 10:53:40PM +0300, Sakari Ailus wrote:
-> > On Tue, Sep 29, 2026 at 06:09:20PM +0300, Andy Shevchenko wrote:
-> > > On Tue, Sep 29, 2026 at 5:05 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > > > On Tue, Sep 29, 2026 at 3:31 PM Andy Shevchenko
-> > > > <andy.shevchenko@gmail.com> wrote:
+On Tue, Sep 29, 2026 at 03:46:23PM -0400, Waiman Long wrote:
 
-...
+> The cpuset_v2_mode mount option is only for making the cpuset.cpus and
+> cpuset.mems behave like in v2. The cpu-cgroup and cpuset-cgroup can still be
+> in separate hierarchies. If cross-cgroup transition is the main point, it
+> won't work with the cpuset_v2_mode mount option. We should switch to use
+> cpuset_v2().
 
-> > > > > > > in any case my series is blocked as I have not seen
-> > > > > > > a consensus on what to do. Or do we? Bart, Sakari?
-> > > > > >
-> > > > > > If I didn't make myself clear: I would love it if there was a single source
-> > > > > > of intel GPIO pull-requests (most likely Andy) for *all* intel GPIO drivers
-> > > > > > even if they have additional reviewers. I'd also love for them to live in
-> > > > > > a single subdirectory at drivers/gpio/intel/. Otherwise, it's still chaos like
-> > > > > > right now, just worse.
-> > > > > >
-> > > > > > This is in line with pinctrl vendor directories. I also don't see a reason for
-> > > > > > moving Kconfig options into their own vendor submenus if we keep the top-level
-> > > > > > entries sorted by driver type.
-> > > > >
-> > > > > So, as of now it doesn't seem like an agreement among all parties. My
-> > > > > opinion is that it's good to have PMIC be separated from the other
-> > > > > code, although I don't know if the camera PMIC GPIO driver that is
-> > > > > used with IPUx is good to go under the intel/pmic subfolder. I also
-> > > > > believe that camera related drivers are the best to be handled by the
-> > > > > media tree (as it's done, exempli gratia, for int3472).
-> > > > >
-> > > > > At the end of the day you will have a single PR from me, but it won't
-> > > > > include camera stuff unless Sakari agrees to send a PR to me (which I
-> > > > > think won't be the case).
-> > 
-> > That'd work, sure, but there are often dependencies between all three USBIO
-> > related drivers (main, I²C and GPIO) so they'll all go typically via usb
-> > tree in that case. Having them all be merged via the media tree would
-> > require more discussions.
-> > 
-> > > > I thought we agreed usbio would be moved out of drivers/gpio/ and into
-> > > > media? That leaves intel/pmic as the only subdirectory IIUC.
-> > > 
-> > > Hmm... I cited the int3472 MAINTAINERS record to point exactly on the
-> > > variant where it's left under drivers/gpio. Also IIUC Hans' opinion is
-> > > that GPIO drivers even being USB GPIO expanders for camera are still
-> > > GPIOs.
-> > 
-> > Indeed.
-> 
-> So as I see now there is a consensus that
-> 1) it's good to have Intel related GPIO drivers to be in 'intel' folder;
-> 2) the USB GPIO drivers are still a GPIO and should reside under drivers/gpio/ (somewhere beneath that, subfolder or not).
-> 
-> We do not have a consensus on:
-> 1) PMIC separation to the 'intel/pmic' subfolder;
-> 2) USB GPIO route for patches (with them still be somewhere under drivers/gpio/).
-> 
-> Unanswered question:
-> 1) do we need to consider gpio-tps68470 (camera PMIC on Intel HW) as part of
-> 'intel/pmic' or even 'intel' in general? Currently the Intel HW is the only
-> user of it.
-> 
-> P.S. It seems a big deal to move the drivers from one folder to another :-)
-
-Ah, and on top there is the request from Bart to handle all Intel related ones
-at once. Personally I would not stick with that, but I'm not a GPIOLIB maintainer.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Yes, the cross-cgroup transition is fundamental to how this works.
+Without that you cannot reasonably talk about the CPUs of a cpu-cgroup,
+you need to have cpu and cpuset aligned.
 
