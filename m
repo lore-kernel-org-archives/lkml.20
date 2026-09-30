@@ -1,192 +1,159 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9826F4F7982;
-	Wed, 30 Sep 2026 14:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777976; cv=fail; b=NRLRN/Q3DGh2O2GH4OsTyc4DAbFRDrjPn6c5pLkTMhEQ+UCkwhsiNJZT1mtIsnuyf/tSOyjj7Ha+aZZ+oscjbFPSRppeEneb6ZWJ2aknDGgJWi1qrG7mqOsFVg/RU5qKXlWMjNaVNaMI5CdN0zYvBogX0qhTwGXeoZJqWx4Q//M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777976; c=relaxed/simple;
-	bh=gysCf3eLEjbWBQFImeUKgrx/zoeKU+Nyv5hCGW9AyOc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=EFBX+NttdQfJ6NXJIUjBxOEZ8kbVbKh88QsVwdb+B8xL2DIJcQRL0gRArHxEQCF1/oNBorgJCvw3lfavXtqhHjGq0vkzKbBFOYVQxnv5iJu3OBpsK1bYEE+AGS2Bnibxs+flBWVik7yJhQlWkEn2f4Uk1loRVmRa78lVxP1MePY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=cG9Tx9mc; arc=fail smtp.client-ip=52.101.66.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6ACB5187DA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:19:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790777980; cv=none; b=PrfGZYPdn/a3lI83cmKZGrBDv1+2IiKL5poRxiNwtldvnmrPYBY8o3U3L2XbXzNw1tLgJWWSNEo/ulav4V9ju5kW9l/6VWcXEVOIRH1crlNUeOSXSooZNkdMZa3FQoRg64bles9EJU+7qbMjcPTUkR9JSP2ci2RdAENUhEY9jW8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790777980; c=relaxed/simple;
+	bh=yUHWtEgkE8SNdRJwGODRT7SvV8pdrTHVh0q86Pd+8t8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pIXwTdctPrQ4X2Zrj4cseCnszVeEZl+/KdtmdDMkOWscDflI4fzemU+1ZVkauvIkC8VddeqNc3/k12c7ZWjSMfSCYF9zgeUnnV3WeQYdLT37J0cMu5BEXxFS7GaduSHyoRnf109Pmmo+e9rn62Q+fljh+ehEq0yfSWFjn9uGDIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rz/S4dbV; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="cG9Tx9mc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wPH5i7Pj33Ovw1kKcQSpKQEgwBSPSwRkPVP2IKR6TD3OonxPjSk6sh1beF+aFwubxEwnAbWZ3748fLTHKvVqGSySVLqaMEkwHYBZt9DgJKz58PNcb37XP+w+1NSopgSyjW0cSO0bOqFyuGZRAEgMT4rA3tk0avY794YtLS7KjRqv34AMgkBmsvCVIGbHu8upTA314Vqk4nvYZaxNIoVkDjvDyHZ2Dp/Q2JKsyYOJBZb9zPPqFML9DnyFuK4kh0iKwMgQFuUQvsg2r5BkF9XNvDSPWLmce7wxngHJbJD+/YudPM4ZKNPDkR0DJT11XXry2Ev3D1BNZnRUbsKgafF2Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G681tWV9upUK5XrQSb69nlqAvk7DMhidVOboEisjSNo=;
- b=TjPHS+GRnvwWVZzXcyQvi2zEbNmehWcJ3cFlJdswsJ2xG7vk6df3ZFPmdjFkGHzY4DzIQAo/pSltWw4eErT5+DfGopwjO69peEEYIGeEmALwbiI8tdUiUxpdRwwKaD47JAU4kIwaOiF9L9tZ6vsJ2Z2llFu1m81WDWUhAxuKjpGSzM+K/R0DBebzSReTRHotqn/JF6oE2Hh6Wgc+Iw9c8sBtD5vFH1d3oI3NDZWtUvswOh5QqLaIv5/W6DU+0udv+jvj+3PK9m5tcCDeYwQpoJqvYYQPucg77/OIdcqffIcFH/Dp9beIrITlWSjWTWXTAqwV9Ja85cCjg6qmon+DtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=baylibre.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G681tWV9upUK5XrQSb69nlqAvk7DMhidVOboEisjSNo=;
- b=cG9Tx9mcp8ddYAS+WAMLfF5SYi/fVKs8cJidZfNvhJ9BMm8zWD3QykCAV/V7qb7aqi7fJjoILKQKb765fbGZIrG/KLpjnI2LIMq7YWeqH4VHLgtuoyy6qsThO9fOYIobCUcP3F5DF56bweG/nUhtdWnY77y5w2aEo4RXbrWmOjQ5U2xO6ONGo4N7z7EIMPSE6osV72v2RtVLI9+OmIoYhjvUjL6R1z+dgPu1g8SDkibDfqlq7gu3ZHNdhIVydpPPJMJu2cgvADUTACNzqO9IBgamGaWz2DYfpvN6xwjAYyZMxWrIDY4oUoic5+ie3/hcJxa6h26c3JR2Y7vTjKXkng==
-Received: from AS4P192CA0027.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::17)
- by AS2PR10MB7372.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:604::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 14:19:18 +0000
-Received: from AMS1EPF0000008D.eurprd05.prod.outlook.com
- (2603:10a6:20b:5e1:cafe::3d) by AS4P192CA0027.outlook.office365.com
- (2603:10a6:20b:5e1::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 14:19:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS1EPF0000008D.mail.protection.outlook.com (10.167.242.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:19:17 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 16:25:09 +0200
-Received: from localhost (10.252.17.140) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 16:19:15 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 30 Sep 2026 16:18:27 +0200
-Subject: [PATCH v3 06/15] iio: adc: stm32-adc: add vreg enable option to
- manage diversity
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rz/S4dbV"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-98514b4115eso3588145241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:19:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790777971; x=1791382771; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z73kz9yWTyFv6L75BByVAffIP7W5SI44w1Nri5Q0shQ=;
+        b=Rz/S4dbVqyVTUhyaZhYRKj38uBPCT5DMZ3zo17MG+jy5YANP9w/djTL0lH/D70zU5T
+         0zZLYkkXWKq0la9pYs91X5Lne+9dabNB1a8sAqPfW3UHk4X8sGS//zjaJeGwI5KCHL8a
+         EG87gIiaNj+RXvCJOoWvzFIsePiE/kJCMt4826t5PaeoWsRehnYTd5Q+EMxoYivN2qqG
+         DEKdcCphAQkslTHw+gCh20ZDTY8Uv2wR60+MZ0rA06k+yM/sh9O667F0S7z8szEoYCyj
+         H33LgmIwm3WajgKpT4bKduvmytB9SPk0GKWkHhHUT6Y/pu5+nX0GWPMLqS83A/JezsMO
+         diFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790777971; x=1791382771;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z73kz9yWTyFv6L75BByVAffIP7W5SI44w1Nri5Q0shQ=;
+        b=WyRti1C+QIley6Jvj7QP5iMmWQ04WAKpkxLXAX2UVsFspJ7HC+8aP57W14Fkrzv6mi
+         U2PD1iZTWONtatHOF0Cl6pvg6ZhKnx8tmiZKTvPo/NdswsSrwUIVkU687Efvrldq5Wob
+         PpBixT8zDlGaSA8eO2faBaJQo6o741CadmfQanOUAzaLBJozkefvlyEuXxY6LJ7MsLIl
+         QWziqvy3dYDqPZgda+mgV174XhONkVQh0C56jcgwcL0aS8eTSfzoy6Whx5P1BBze4tY1
+         Ty2bhP5XvRoIwQl6aBWjsdCMJeW5rq2drDsUPyo/7wFXdIY/uA5ejiZk2rEhC317Ghy7
+         SOuw==
+X-Forwarded-Encrypted: i=1; AKwUvByBLNA0eZXXt8qPQuhyFtw4M6ecQSLOduU3oQXCYeRQ0YMcCVnsS+c+mtXb0Jf6uPQC6MhGpkLZrrTeCvg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVeUutoGAGre9h70XW5bF2Mq1cIf4q71xVuQVZDqu9wanwr7Kw
+	S4nmYyp3WZH0hujcoVm3jlLSOc8bpq1KJpJ1h6bwjPgxDTPk31pqu8lW
+X-Gm-Gg: AYBFou0S5NYIfEsMcFsb1EOfCZogulBY4VESJ72mATBttCmKFMQUdA4+yCTqqIrgyzT
+	sWOJMPYuG4ptSnR3IboHrmgYK9jqiPQ59LmK+isJijmuD5x+Bwirl7zVhfp6WfBdqkDGuaqoulk
+	WOk+whlkas7+buGRYeICYrhDU2RIH10VdbkWQAwCKf7/OK0avGtHsg75HhEv6O7kKVFOzVuBMbY
+	ma8voAgQnRt+gtiLxQK7qIKMn0KeFQ6o/349aH9me83Qq78rZcqBGNCsAUWYt9gnRyB5EUel0Mf
+	nOwbqFCsWyCmyqH8bRZjQ01F84kHVN2I6a7PLf/w00bCfm2W3nC7H2K5OTIkmp2FacvArH/IJBI
+	toRfCVJpZ1QErw3FQWjkuhAGQQgeh09F9oYKkquK5kkLE10PH1IJIFWZCkgDTH0JhQiAvfh7HzL
+	KnrGm/nHpaQlKfyB30qgWHgBCiwGWUNay3N8JShQMbGtOKA8ZkPbmhzTW9k70Ff0COQxvWpl/3G
+	WFjSQiA
+X-Received: by 2002:a05:6102:cca:b0:7b4:b196:f632 with SMTP id ada2fe7eead31-7be73c89aa8mr401228137.30.1790777970958;
+        Wed, 30 Sep 2026 07:19:30 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-988d909c4cbsm1793220241.1.2026.09.30.07.19.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:19:30 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/3] usb: hcd-pci: Honour pci_save_state() failure
+Date: Wed, 30 Sep 2026 11:19:12 -0300
+Message-ID: <20260930141914.6678-2-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930141914.6678-1-fbeltranmillalen@gmail.com>
+References: <20260930141914.6678-1-fbeltranmillalen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-adc-stm32mp25-v1-v3-6-406834430d72@foss.st.com>
-References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
-In-Reply-To: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>
-CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Cheick Traore
-	<cheick.traore-ext@st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000008D:EE_|AS2PR10MB7372:EE_
-X-MS-Office365-Filtering-Correlation-Id: 300c6fcc-8aa8-49aa-c4b0-08df1efdd03c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|1800799024|82310400026|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	CeUlXRlrkeXcJ5Z+oqXEbEzLU01NJ8dYf7p0neQrO8SR8mrNIyDvbKRlRcc1vODZUAHG9uG8/yE1FJ6rUaus13zt34f32wqqidzCx5bsnIdvePES94Pjo1AJB3q6G61XRqZDr30cmR6vNenxcpIj3z0oToOOaVwbFxg+8PDNzk590FQYkfE5BhsqmAlbhyTRTEzhfs6DgpAKmM/I8BcWdAQMmHEoD+CveVZZkIcFDWDNdOCQLRFIRTAgBehFxn73KMheeKTZypbmJSypqx9LFqY5JNBjhSh7Ijp7BFdKm1Pgsoe27dSBBdgGrmMrhOWCwyLrfc1yOPzSXkWaEiIEltQvHhAtQRc28uvoFjDpRxsemQSUyHnx8TYB7ie3XU7Tp+GVxnPFrFiqdUjYduc+w6wJOg0MG3KHyHoY9YRbIXnhIJq5MVRgc7gLG4rGTiV6C9bXxOxeQ77NpckU+MXTiT1z85yX3b0Nl2OmXLU2MdzfsGpnqlq6uDZSyomZcaFpXgJGGLEleYE8mbPpTIQcmA/Mg0lRAxERYVVJQrPmSx8mSj6quBnztY3hT6QqpIbKanggRzz+mmgcyTAFaNXWxSG6nYn8geCfiIh5sHF+UPCYmxu/qjX6tj5bO//3/ZuxQhHUsNjzc0gCSUeT7yLEWWnwaYJ+l1nI4ZEG4aYDg6W53LGF0skqM0C+zLwerUH2OlCFCt58PLc3OTS6G6GLfA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(1800799024)(82310400026)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	iPUJnF1vjQ6tbVMtouAq7afTjypZOGNg0Ef09ESOUbVBK0xsUxRsn/ESn/XFirzzV4m9x8ulVvqIXJc2zeN/dRJdeVPu+B4J1+4/aiXX3GX1zrS5poGBU0wvhWtNoTASJKK+Alwco+T6GjchhsCD4ybmD/8mJRUZJCYqjgDAIjVjsS7bH6WZmd3IIF+spNoKb0gQvsgRrMBCcG7indPUoaBnOxS1yv0wRsjsChsSRbcYls/HFGoXCKlRnsPtLK3b0O89JBhOpb3G2J7Mh/1vjtG15YnBp14+ZLK9AuwL6RjSy/ebMFigJUs+LYjnd8+lZhIM91Mb7mevwHZMzRIKIAko6ny6WHuBM/aF3/Hdq95xGgA/0arlYx7A2pI9AyaOe8BuV74PA0XkXIPOutNDZOx+u8LZUyFO+HrzDy6x6JhY3QpUVNq/VjREL6Eb4AxM
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:19:17.8279
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 300c6fcc-8aa8-49aa-c4b0-08df1efdd03c
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000008D.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7372
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add a boolean (has_vregen) in adc configuration structure to prevent
-setting the reserved bit (CR_ADVREGEN bit 28) on STM32MP2 SoCs.
-This bit is present on earlier stm32h7, stm32mp13 and stm32mp15.
-No functional change intended.
+hcd_pci_suspend_noirq() ignores the return value of pci_save_state() and
+goes on to pci_prepare_to_sleep().
 
-Co-developed-by: Cheick Traore <cheick.traore-ext@st.com>
-Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+The next patch makes pci_save_state() fail, without marking the state as
+saved, when the config space of the device is not accessible.  For such
+a controller pci_prepare_to_sleep() does not work either:
+pci_set_low_power_state() reads the PM control register as all ones and
+marks the device D3cold.  pci_pm_suspend_noirq() then finds a device
+whose power state changed without its state being saved, and warns.
+With an earlier version of the next patch on a MacBookPro14,3, whose
+Thunderbolt xHCI controllers can be inaccessible at this point:
+
+  xhci_hcd 0000:7d:00.0: PCI PM: State of device not saved by hcd_pci_suspend_noirq+0x0/0x180
+  WARNING: CPU: 7 PID: 96793 at drivers/pci/pci-driver.c:888 pci_pm_suspend_noirq+0x2f4/0x300
+
+Check the return value and, if the state could not be saved, return 0
+without putting the controller into a low-power state.  The PCI core
+then handles it as it handles a driver without a suspend_noirq callback:
+it tries to save the state and to put the device into a low-power state
+itself, which fails in the same way, but without the warning, as the
+power state did not change inside the driver callback.
+
+Move the check that disables wakeup for a dead root hub ahead of it, so
+that it is not skipped.
+
+Today pci_save_state() only fails if a capability save buffer is missing
+or the VC state cannot be saved.  In that case the controller is now left
+in D0 instead of being put into a low-power state with an incomplete
+saved state.
+
+Assisted-by: LLM
+Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
 ---
-Changes in v2:
-- new precursor patch, e.g. split as suggested by Andy and Jonathan, to
-  prepare the infrastructure for stm32mp23/25 support.
----
- drivers/iio/adc/stm32-adc.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+v2:
+- Rewrote the commit message: the failure handled here comes from the
+  next patch, not from pci_save_state() as it is today.
+- Disable wakeup for a dead root hub before the early return.
+- Dropped Alan's Acked-by because of both changes.
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 75b1f17f664b..92c6fba10f31 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -193,6 +193,7 @@ struct stm32_adc;
-  * @has_linearcal:	linear calibration support flag
-  * @has_presel:		channel preselection support flag
-  * @has_oversampling:	oversampling support flag
-+ * @has_vregen:		voltage regulator enable/disable flag
-  * @prepare:		optional prepare routine (power-up, enable)
-  * @start_conv:		routine to start conversions
-  * @stop_conv:		routine to stop conversions
-@@ -213,6 +214,7 @@ struct stm32_adc_cfg {
- 	bool has_linearcal;
- 	bool has_presel;
- 	bool has_oversampling;
-+	bool has_vregen;
- 	int (*prepare)(struct iio_dev *);
- 	void (*start_conv)(struct iio_dev *, bool dma);
- 	void (*stop_conv)(struct iio_dev *);
-@@ -961,7 +963,8 @@ static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
+ drivers/usb/core/hcd-pci.c |   15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/core/hcd-pci.c b/drivers/usb/core/hcd-pci.c
+index cd2234759..7f8a56425 100644
+--- a/drivers/usb/core/hcd-pci.c
++++ b/drivers/usb/core/hcd-pci.c
+@@ -541,8 +541,6 @@ static int hcd_pci_suspend_noirq(struct device *dev)
+ 	if (retval)
+ 		return retval;
  
- 	/* Exit deep power down, then enable ADC voltage regulator */
- 	stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_DEEPPWD);
--	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADVREGEN);
-+	if (adc->cfg->has_vregen)
-+		stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADVREGEN);
+-	pci_save_state(pci_dev);
+-
+ 	/* If the root hub is dead rather than suspended, disallow remote
+ 	 * wakeup.  usb_hc_died() should ensure that both hosts are marked as
+ 	 * dying, so we only need to check the primary roothub.
+@@ -551,6 +549,19 @@ static int hcd_pci_suspend_noirq(struct device *dev)
+ 		device_set_wakeup_enable(dev, 0);
+ 	dev_dbg(dev, "wakeup: %d\n", device_may_wakeup(dev));
  
- 	if (adc->cfg->has_boostmode &&
- 	    adc->common->rate > STM32H7_BOOST_CLKRATE)
-@@ -2721,6 +2724,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
- 	.has_linearcal = true,
- 	.has_presel = true,
- 	.has_oversampling = true,
-+	.has_vregen = true,
- 	.start_conv = stm32h7_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-@@ -2747,6 +2751,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
- 	.has_linearcal = true,
- 	.has_presel = true,
- 	.has_oversampling = true,
-+	.has_vregen = true,
- 	.start_conv = stm32h7_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-@@ -2771,6 +2776,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
- 	.adc_info = &stm32mp13_adc_info,
- 	.trigs = stm32h7_adc_trigs,
- 	.has_oversampling = true,
-+	.has_vregen = true,
- 	.start_conv = stm32mp13_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-
--- 
-2.43.0
-
++	/*
++	 * If the state could not be saved, most likely because the controller
++	 * is no longer accessible, putting it into a low-power state would
++	 * fail as well and leave it marked as D3cold, and the PCI core would
++	 * then warn that its state was not saved.  Leave it to the PCI core
++	 * instead, as for a driver without a suspend_noirq callback.
++	 */
++	retval = pci_save_state(pci_dev);
++	if (retval) {
++		dev_dbg(dev, "--> not suspending, state not saved\n");
++		return 0;
++	}
++
+ 	/* Possibly enable remote wakeup,
+ 	 * choose the appropriate low-power state, and go to that state.
+ 	 */
