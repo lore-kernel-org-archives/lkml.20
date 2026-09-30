@@ -1,92 +1,65 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EB65158BC
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5724E322D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777327; cv=none; b=h3cCbp1jq+iNQDV4Z2zkP/1kEYTndpKEXEZGOItWzVjU/TscnUGlXlfVntdmOw05XV30HZiIm2hRobQAVtWzY44BeqnEidJxphcbqzHIz8l4SkzyMfo6damrhFGt9GOcjgXtdRzTvzLqtk67ZPPSKfbmAqCMKvm0op9GX87piIo=
+	t=1790777336; cv=none; b=CZMvt52QsANY552CA030dupJs2dGjNKg6jhRrUstTJnNZpK6C3dDWFDChvChjXkEvuDp7qmhzCPD7tgZUrb0WHlD5bMO5rODqldLrMphGor3FWaATAOKCZq2C5jiCDs++3EfgGL9WZDMTywPXWfH0haLoRpmiqy0K7QEBabkn0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777327; c=relaxed/simple;
-	bh=NeDP4uJ+qRdyXkW1fWpExyIUGGmLQjVXq/N1ys3JjWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jE9bWkUbWwajvh4uEMtyGP1AVDbiY6zgjMxgnfOQ1Ywg7WcpBKqZQGSPiPVL1psnxHQRqvcxBTBBmgBBrsh/Osx1wxljZ5HpXZzLF0Om05xrnd0dafUhoWceGUxvCa199nXLvK68VTkZNgx7PYG5iKKdFXRAw2+OflEYo9zhvrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=MaNsCB01; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790777336; c=relaxed/simple;
+	bh=u/sYFJ0IFoVAn4mTeL9RLHFvHzVSFq6mlMEPEuqFX/c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ofC/NMAp5gesZJOlLWGszc1rYuCTZSyuHd8YvxrD36QdjjFb+ggi9H31/HwcfChQ8dkazKHFgsLFrCzCwvNkjs4L498tyglPVHbxttTB6RmT+N+dH0Orlpd6WP5ZoX0lvqKszIk2XKS6789yPKExVvDug0VPA9o+kMa7PIz/4q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IAbSFRNh; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="MaNsCB01"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so3869647a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:08:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790777321; x=1791382121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kejX7DiXDSEjNsfVvfwB1fwE0QuTnt9rWXUy2FUn1A4=;
-        b=MaNsCB01ihguxGDEyOjdqx/i2Mss1Qp/RlNLU3RKeL2V0MhBiFNmuYGLrI2YjxyQ1P
-         Q/oKAQmVFsvfQlo53OEH+ymy8YV9dwRCcp4C8F7Kyffw9YfamjB9+48jEXLzw1RZ+iUu
-         kbUb5YTKqkahR10PpluIBB8w5ARiPy7f915vCRJuaYD48x0dbJAGpQboY5ZwccwrJY/e
-         wrEyTvF/7A1JOFJ9M66126Ghd0Qz1qml9Gbg/WXUdQzIMUNSrscLSM+GXohabc0ySXi4
-         LR5Vo8QEsVGhwmovC/xv5DCIHfx+1XiiE5LF9h6bsTfXHhdDuRRMb2LqMEYqMQk6vcP+
-         dVPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777321; x=1791382121;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kejX7DiXDSEjNsfVvfwB1fwE0QuTnt9rWXUy2FUn1A4=;
-        b=dR4TM4q/I8ukuduPiwYI0Mx+kY/bp0pQqtiJu86r2INUw88rU+/FBMfS7AX3CTemHI
-         C//QyHCMC+CBTkvnmjvFPvkQe13qvAM8UWW80JosLUHgwpwTFXOpMtV0SdzOY5036tpw
-         +825voAqszWF3mJ4FA8FxmyFXVqTgvQtDaNXZjGgZunUwExFglCPr590IW1hfD6XPX0y
-         /DMKgdmTDXVFC+Olj/dGUrJHAPI3KpFAH+uocqjohyOtxmBu32ItSoS7FSZRKCgnKnIu
-         yrD6v5Z2S8TDJNDo3HFWjmVGexngG6SloLMkWYcpYre1DSvNgf6hkUSCa2edKJH7I0wn
-         TkAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz44C78AFkzHyO9nP2KdbcMYSF4cetkWX1pDDl8RAZSDWnaaoNc6Jpt8KQcf1Lt5KAOFB5agST1Ns+bwBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1+1dxMOEfxIDvL6Av+ADndR5jOQKZajNm/PvGhtiWHf5G+yEv
-	ElVQUPHLmX6bxEhwERCfJuROAjo4x7VgsCxGqX6XGwC1726eXGHoWYE7lY3DPRuH4MY=
-X-Gm-Gg: AYBFou3/oxwuE0gnqz3Rr/2EK012RTlPsymSzJeCpw4RR8rLgbxJJxNxb3pjs0/ugEa
-	tsvh9X0ZQ5xtuzQnI+6f1GJMRQHeJ3YFiUeeCfyh5lpxMiXcUIeP+q0HIGRdMlmP7aPOCqw8PPG
-	TSNLWHYujVEl2kRE4fOtIIuDfzgSx71F+tpXvKdfxUGD/z4tPPIxXisnubkjzgbHH1ZVYc1Cjkj
-	w2mME/ghUgELNYMm0lB9LjPHmPBgIhg9g1WxrFcc1uNk8xbnEo77vZO9j0ARHHSgqg436jiu62Q
-	kwKcOVoy/dOe3697wa6OupJMT06T/RPVj0r6iCgPv4TNEgkwjRMz9yNplS6+ov/BhC4lT4ZhHvS
-	yXNB8OQ+mtLVDrtLdkXBcM9DjqN8akl43om+Kyg56tz1xp7gIwCUcfwe8hOu5A+JifaanbIMhW3
-	T2hTpcBtTUc0cgLEurGQba8keOD3slATIopFvKxaKG4sJ4lno7din362MuTEeIVdtES1ZdX2Trd
-	0ckhk3TiLmDmA==
-X-Received: by 2002:a17:90b:2d07:b0:3a4:c673:7636 with SMTP id 98e67ed59e1d1-3a4d19d4232mr1117525a91.26.1790777320318;
-        Wed, 30 Sep 2026 07:08:40 -0700 (PDT)
-Received: from G6L4RL2QG9 ([139.177.225.238])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e60ea12csm639509a91.1.2026.09.30.07.08.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 07:08:39 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH v6 10/12] mm/sparse-vmemmap: drop the extra tail page from device DAX reservation
-Date: Wed, 30 Sep 2026 22:06:25 +0800
-Message-ID: <20260930140627.57431-11-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260930140627.57431-1-songmuchun@bytedance.com>
-References: <20260930140627.57431-1-songmuchun@bytedance.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IAbSFRNh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790777330;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kog7asmMh6wog1adNQUGIn243OW/BEgANRMVLg38o7k=;
+	b=IAbSFRNhMw/L7ssIDZ1bVoQrH7s2hKL3EiSh1eAQ/S0v+Z0N1uHz9/9vWTO3iUNp0JJrQH
+	LnOGsYLx/54foh94u2jb+ix3p0WQHKPCyYzPLQvDoSKX13cbYLgjuXuZUfmOzLsKJXTYVO
+	XbMf/0ksNSuUnfpIw1+fO2BhOZb4T+g=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-195-ukPi9VarMwyl1rb-JwJdFw-1; Wed,
+ 30 Sep 2026 10:08:44 -0400
+X-MC-Unique: ukPi9VarMwyl1rb-JwJdFw-1
+X-Mimecast-MFC-AGG-ID: ukPi9VarMwyl1rb-JwJdFw_1790777321
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB63A1955F19;
+	Wed, 30 Sep 2026 14:08:39 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B95001956044;
+	Wed, 30 Sep 2026 14:08:34 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: bhelgaas@google.com,
+	alex@shazbot.org,
+	jjohnson@kernel.org
+Cc: johannes@sipsolutions.net,
+	mani@kernel.org,
+	jgg@ziepe.ca,
+	yishaih@nvidia.com,
+	skolothumtho@nvidia.com,
+	kevin.tian@intel.com,
+	linux-pci@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
+Date: Wed, 30 Sep 2026 16:08:26 +0200
+Message-ID: <20260930140833.576941-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,194 +67,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-The device DAX vmemmap population still reserves one extra tail vmemmap
-page after the head page.
+This series enables Qualcomm ath11k/ath12k WiFi devices to work in VM
+passthrough scenarios, addressing a long-standing issue where these
+devices fail to initialize when passed through to VMs via VFIO.
 
-Drop that extra reservation and let the shared tail page cover all tail
-vmemmap pages after the head page, so DAX follows the same reservation
-model as HugeTLB.
+Qualcomm ath11k/ath12k WiFi devices have been broken in VM passthrough
+since they were introduced. The devices use an embedded interrupt
+controller that requires physical host MSI addresses programmed to
+device registers, but in VMs the driver only sees virtualized guest
+addresses. This causes firmware initialization to fail with errors like
+"BHI offset: 0xffffffff is out of range".
 
-This reduces the reserved vmemmap pages for optimized DAX mappings to
-one and removes the now-unneeded first-tail population from the generic
-and powerpc paths to simplify the code as well.
+Multiple attempts have been made to solve this over the past 2 years:
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
----
-v6:
-- Collect Acked-by from David Hildenbrand
+March 2024: Workaround using module parameters [1]
+  - Required manually copying MSI values from host to VM
+  - Rejected by Johannes Berg as too manual, suggested VMM solution
 
-v3:
-- Collect Acked-by from Qi Zheng
----
- arch/powerpc/mm/book3s64/radix_pgtable.c | 46 ++----------------------
- include/linux/mm.h                       |  4 +--
- mm/mm_init.c                             |  2 +-
- mm/sparse-vmemmap.c                      | 13 ++-----
- 4 files changed, 8 insertions(+), 57 deletions(-)
+August 2024: QEMU + kernel solution by Alex Williamson [2]
+  - Kernel disables MSI virtualization, QEMU intercepts config writes
+  - Uses brute force pattern matching to infer MSI data writes
+  - Stuck as RFC - no progress in 8+ months
 
-diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
-index ee068f24a79f..9ca28e4a610a 100644
---- a/arch/powerpc/mm/book3s64/radix_pgtable.c
-+++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
-@@ -1218,39 +1218,6 @@ int __meminit radix__vmemmap_populate(unsigned long start, unsigned long end, in
- 	return 0;
- }
- 
--static pte_t * __meminit radix__vmemmap_populate_address(unsigned long addr, int node,
--							 struct vmem_altmap *altmap,
--							 struct page *reuse)
--{
--	pgd_t *pgd;
--	p4d_t *p4d;
--	pud_t *pud;
--	pmd_t *pmd;
--	pte_t *pte;
--
--	pgd = pgd_offset_k(addr);
--	p4d = p4d_offset(pgd, addr);
--	pud = vmemmap_pud_alloc(p4d, node, addr);
--	if (!pud)
--		return NULL;
--	pmd = vmemmap_pmd_alloc(pud, node, addr);
--	if (!pmd)
--		return NULL;
--	if (pmd_leaf(*pmd))
--		/*
--		 * The second page is mapped as a hugepage due to a nearby request.
--		 * Force our mapping to page size without deduplication
--		 */
--		return NULL;
--	pte = vmemmap_pte_alloc(pmd, node, addr);
--	if (!pte)
--		return NULL;
--	radix__vmemmap_pte_populate(pmd, addr, node, NULL, NULL);
--	vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
--
--	return pte;
--}
--
- int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 					      unsigned long start,
- 					      unsigned long end, int node,
-@@ -1297,7 +1264,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 		if (!pte_none(*pte)) {
- 			/*
- 			 * This could be because we already have a compound
--			 * page whose VMEMMAP_RESERVE_NR pages were mapped and
-+			 * page whose retained vmemmap page was mapped and
- 			 * this request fall in those pages.
- 			 */
- 			next = addr + PAGE_SIZE;
-@@ -1318,16 +1285,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 					return -ENOMEM;
- 				vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
- 
--				/*
--				 * Populate the tail pages vmemmap page
--				 * It can fall in different pmd, hence
--				 * vmemmap_populate_address()
--				 */
--				pte = radix__vmemmap_populate_address(addr + PAGE_SIZE, node, NULL, NULL);
--				if (!pte)
--					return -ENOMEM;
--
--				next = addr + 2 * PAGE_SIZE;
-+				next = addr + PAGE_SIZE;
- 				continue;
- 			}
- 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 070ce27e9cd3..30a3365bca82 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -38,6 +38,7 @@
- #include <linux/bitops.h>
- #include <linux/iommu-debug-pagealloc.h>
- #include <linux/kcsan-checks.h>
-+#include <linux/vmemmap-optimization.h>
- 
- struct mempolicy;
- struct anon_vma;
-@@ -5167,7 +5168,6 @@ static inline void vmem_altmap_free(struct vmem_altmap *altmap,
- }
- #endif
- 
--#define VMEMMAP_RESERVE_NR	2
- #ifdef CONFIG_ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
- static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
- 					  struct dev_pagemap *pgmap)
-@@ -5187,7 +5187,7 @@ static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
- 	 * For vmemmap optimization with DAX we need minimum 2 vmemmap
- 	 * pages. See layout diagram in Documentation/mm/vmemmap_dedup.rst
- 	 */
--	return !altmap && (nr_vmemmap_pages > VMEMMAP_RESERVE_NR);
-+	return !altmap && (nr_vmemmap_pages > VMEMMAP_OPTIMIZATION_PAGES);
- }
- /*
-  * If we don't have an architecture override, use the generic rule
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index efffa8609b85..56bb4567a494 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -1056,7 +1056,7 @@ static inline unsigned long compound_nr_pages(unsigned long pfn,
- 	if (!section_vmemmap_optimizable(ms))
- 		return pgmap_vmemmap_nr(pgmap);
- 
--	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
-+	return VMEMMAP_OPTIMIZATION_PAGES * (PAGE_SIZE / sizeof(struct page));
- }
- 
- static void __ref memmap_init_compound(struct page *head,
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index e1f8a03e3d49..4cea94126cf6 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -136,7 +136,6 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
- {
- 	const struct mem_section *ms = __pfn_to_section(pfn);
- 	const int order = section_compound_order(ms);
--	const int vmemmap_pages = pgmap ? VMEMMAP_RESERVE_NR : VMEMMAP_OPTIMIZATION_PAGES;
- 	const unsigned long pages_per_compound = 1UL << order;
- 
- 	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SUBSECTION));
-@@ -147,13 +146,13 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
- 
- 	if (order < PFN_SECTION_SHIFT) {
- 		VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, pages_per_compound));
--		return vmemmap_pages * nr_pages / pages_per_compound;
-+		return VMEMMAP_OPTIMIZATION_PAGES * nr_pages / pages_per_compound;
- 	}
- 
- 	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION));
- 
- 	if (IS_ALIGNED(pfn, pages_per_compound))
--		return vmemmap_pages;
-+		return VMEMMAP_OPTIMIZATION_PAGES;
- 
- 	return 0;
- }
-@@ -558,17 +557,11 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 		if (!pte)
- 			return -ENOMEM;
- 
--		/* Populate the tail pages vmemmap page */
--		next = addr + PAGE_SIZE;
--		pte = vmemmap_populate_address(next, node, NULL, -1, flags);
--		if (!pte)
--			return -ENOMEM;
--
- 		/*
- 		 * Reuse the shared page for the rest of tail pages
- 		 * See layout diagram in Documentation/mm/vmemmap_dedup.rst
- 		 */
--		next += PAGE_SIZE;
-+		next = addr + PAGE_SIZE;
- 		rc = vmemmap_populate_range(next, last, node, NULL,
- 					    page_to_pfn(page), flags);
- 		if (rc)
--- 
-2.54.0
+No action from Qualcomm: Despite multiple reports, no vendor solution
+
+The solution in this series provides a clean, kernel-only solution that
+addresses the previous concerns.
+
+Architecture:
+1. qcom-vfio-pci variant driver caches physical host MSI values and
+   exposes them via extended config space with magic signature "QMSI"
+   In this way, device-specific hardware quirks belong only in kernel
+   drivers, not userspace, independent of the tools used.
+   This follows the established VFIO variant driver pattern used by
+   other drivers like mlx5-vfio-pci (netdev tree) and nvgrace-gpu (platform
+   tree).
+2. VM drivers (ath11k/ath12k) automatically discover and use cached values
+3. PCIe link recovery handles VM timing variations
+
+Thoroughly tested: 3 VMs across 2 WiFi generations, all devices successfully
+initialized and are ready for use.
+- VM1: ath11k (WCN6855)
+- VM2: ath11k (WCN6855)
+- VM3: ath12k (WCN7850)
+
+[1] https://lore.kernel.org/all/20240322104912.94811-1-jtornosm@redhat.com/
+[2] https://lore.kernel.org/kvm/20240812170014.1583783-1-alex.williamson@redhat.com/
+[3] Original problem report:
+    https://lore.kernel.org/all/fc6bd06f-d52b-4dee-ab1b-4bb845cc0b95@quicinc.com/
+
+Jose Ignacio Tornos Martinez (7):
+  PCI: Add pci_find_free_ext_cap_offset() helper
+  vfio: Add qcom_vfio.h header for MSI cache protocol
+  vfio/pci: Add qcom-vfio-pci variant driver
+  ath11k: Add PCIe link recovery retry for VMs
+  ath11k: Use VFIO MSI cache when available
+  ath12k: Add PCIe link recovery retry for VMs
+  ath12k: Use VFIO MSI cache when available
+--
+2.53.0
 
