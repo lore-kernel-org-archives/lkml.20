@@ -1,304 +1,122 @@
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4424B3B95EB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B703238D3F7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805710; cv=none; b=Zcz7Hj41P8SW7zqp8fIgn2b24Ds3GuHtA4QZ8PW83zmkRGVe4GeTvq739VWxhzWTRdmaMbTXT2d0dvVTAf/PLSKYl47vXCBwOu7sDJ7RDmgdX0NwcS7+bYG9R/8T/AcV+7copmnbR2EcZHVoMPgVCGX44rWMDRs0jLfWRBT6dyk=
+	t=1790806158; cv=none; b=dIkDXmgeQw3KuccmDHuhaZSrONuGrMP5zzYknyh4/kLwesYDSh7luW9+iNTbP5XCTKdXD7uMbQJAc2iai34qQxhkeNKu6+iJ9grPLG1CEOiOxPcBJru3kJzQMzF4+4CB9JheAG4f0fUAeT3RN2OYJbYT5OnMSelJT29ZdGpe7IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805710; c=relaxed/simple;
-	bh=jTaStd3+0ew72+ffXTT1sChu/gNIAwqoQJW8VrkxEfU=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=Oh8bufLKsYpAKTFvk7rXvtYZpYERQUqF2jjTJoC57Hmpl1sdSM09/iIltDbSRiOzxNS625eq6iY7HfJFmsQI/iPqcNME7Vp8r6Lh9HhpEc9z2YQvJ4NvYEKz1gEsZK8SvIYPAL+qKen7aQMH8DvqdLRJerQlo4eJWNQq5/ZH6HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AmlvrPSG; arc=none smtp.client-ip=95.215.58.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790806158; c=relaxed/simple;
+	bh=2Vc91vVa95l1BF9P5E+Hu4oArbEH6p9nMPl42D5ahBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QjgH9HhMaQ/0jFY8YlOXsAkGsG4Hid+/Qvq+UoVS3RIEY1CHD6VRM3TEvUhmMCS5ZBR2mDkxbsU4mNrQ1Ci0Y4tt2n2DC5viZSQN5cNzZdKP7cQxVtFe5zTq5kkiv4csYlAuX7Gf9O+QNJ6Vi9hKq5qDp8n2JVRtQ26cePInNEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c40mGgxx; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AmlvrPSG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jTaStd3+0ew72+ffXTT1sChu/gNIAwqoQJW8VrkxEfU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790805702; v=1; x=1791410502;
- b=AmlvrPSGOX54R5C+MoF799SXqHCsnSfoD+voZGy0PkOqL3xh9J72cc064E1msjnS41YAgwFD
- XkgIIucFTIV2c599vk3nBmQnfeMImBB7nU+LVBlJxDYHcawAENPIAVlGm02jhmW0Z3cRrrwvCde
- jJmLrOIIwsPwTMFaMf4nQ5L4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de2e50cb399fccd8;
-	Wed, 30 Sep 2026 22:01:41 +0000
-X-Mizu-Trace-ID: de2e50cb399fccd8
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c40mGgxx"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so36788595e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790806155; x=1791410955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GmeV4rEVAtHMh/0SUOgOEDlH2GalZPirUpnG/q/WPZk=;
+        b=c40mGgxxt+dnGTXQCAf/irMmTzOPa/1sg/nHfKa+Zv83Fa7h6YLH3nH3gbbHrzW/2I
+         2dH3Ynw6sjfAS/vilR+Xq9dJPdCcNmQHfmEJ5taHEgPTuW2ranBTR1Rv35Ohg+dbtCHn
+         bIeFzewEdbX/UKhrcKT6uG8k5Cp1PHJhFduAJ0Qth/vFA2QUAyHmGFmBfivszwCzng1N
+         KtIzsSFNMqUbJvhh+6ynbMsAn89fIB5Jg77Mnz13jETQWKunnTLc+0zV9+l0cvJQk0OF
+         jkCIpOlgYka9SXNyDMucFk4d48q94G5i4FX3/4/l0sZ0ZUJRZQmIk9eyliYfhFQHhNVd
+         0VBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790806155; x=1791410955;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GmeV4rEVAtHMh/0SUOgOEDlH2GalZPirUpnG/q/WPZk=;
+        b=dZ2XPvEV72UwRE5G1MXfm/O+bx93qIAxyhU2MAeXffWNjoND7lqZc2uqVna40ivJnL
+         faMR2m35wdqWG69UrzO4uxWSRIaR65AgxwF8jKnYqq8meAWWxnuah87IpT1ADE7LyLC8
+         f95k4QCAPBPrhQXEPTQMy2OgIS0iz5/wpumEL6v1PjcjvmLlFUgBV0kRRCt4yNWS0lHM
+         USPqsU0lD2RkWXv64d3Y4YRP7fZhrcrNIxsNKyPJ1AeiksjhkiUpOMSsEteyuXt3IzmR
+         9gXHzDy+4Rsg6RWnyDT9YegqQvBiTDxhXWAGmF2hRHUzcVoyZIV0lt2LJEyBO4ti9kiq
+         He+w==
+X-Forwarded-Encrypted: i=1; AKwUvByEGAd4Q67Kl4XZ99muzByTYQt76FpX4CYMEgtYqhjn0OpBI8Z9AXfyH76y6fQ+R/QJe2QCb2PpgNpzUKE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmCDmYT7MoT39Gh7inVyGpNoWNg92JedQBYbmyaA6Q/lk0JbXr
+	vfpdsI6pJn5E56ilvowsOdtBEkIty/cRNuZ5b9kLIINOLtPRmTJmyhG9
+X-Gm-Gg: AYBFou2Zf3QOCa6GgDTDq3Ygo+/9TbtCVbTFail1hHlNhz5Ygq6RSVPTb9xwtjArJ02
+	y/6jP5jN0zwGhcisr+a9Zvh11bN05VQLy6J7f1d6olGythWXQ4GIiNAJEzN/CrjAto7kzVLEn0a
+	kzgVxBZKK/4BrKJpDbPnsynDCOfv8ESl3Tq20ReWf5nNgsgaL/sNW5utQFtB2GIk/khdI8PzpYF
+	S5kwpXyCrzzLrMWYM8UHkbqgEKbJz4suBRjntVO3aBSMNsG+Rk5GOCZ0FCuKvMgvvq/KmXU0GGv
+	BshbPajVWNmwevoIGAKJ1UMgHXTD3BygEdkCmbt5Obbj+/GHku7fLHPOmEy+lb3XdHjQfgwcvCm
+	cIVL3gc0CiaycF9oyozM3YR4FuX10Gq1yw80NGWVhWusZF7WIpRHgaNyDgQyJFxROqa82hEfNsh
+	sR8zHeiIoy/aiVtbKdlw6bWSv0CzobfkqWzbSpe4WH+wCQ0zBSZ6CUb0WjSBj7vLQ4MW9lBxqmV
+	JD/fbY=
+X-Received: by 2002:a05:600c:19cb:b0:4a0:1c17:4fb2 with SMTP id 5b1f17b1804b1-4a01c175025mr37282775e9.31.1790806154525;
+        Wed, 30 Sep 2026 15:09:14 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f98f72fsm12679655e9.11.2026.09.30.15.09.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 15:09:13 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: oe-linux-nfc@lists.linux.dev
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH net] nfc: digital: fix read of resp->data[0] before length check in sens_req
+Date: Thu,  1 Oct 2026 01:02:06 +0300
+Message-ID: <20260930220857.721985-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 22:01:41 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
-Message-ID: <ff47014b7b55c9b6219c52c02d112ac65e20b39d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v6 2/5] platform/x86: bitland-mifs-wmi: Merge the
- function  of redmi-wmi into the bitland driver
-To: "Mingyou Chen" <qby140326@gmail.com>, "=?utf-8?B?SWxwbyBKw6RydmluZW4=?="
- <ilpo.jarvinen@linux.intel.com>, "Hans de Goede" <hansg@kernel.org>
-Cc: "KentoNion" <kento@kekto.ru>, platform-driver-x86@vger.kernel.org, "ted
- eric" <ericted8810@gmail.com>, "Armin Wolf" <W_Armin@gmx.de>,
- linux-kernel@vger.kernel.org, "Chris Taraszka" <chris@miget.com>, "Matias
- Civadda" <matias.civadda2342001@gmail.com>,
- "=?utf-8?B?6auYIOS/iuaWhw==?=" <btx342@gmail.com>, "powerfullz"
- <wleizc7319@gmail.com>, "=?utf-8?B?5a2ZIOiqiemTrQ==?="
- <wolf109909@outlook.com>, "=?utf-8?B?TWlsb8WhIFZsa3U=?="
- <vlku.milos.fun@gmail.com>, "Rsplwe" <i@rsplwe.com>, "Bozhen Peng"
- <bozhenpeng93@gmail.com>, "Nika Krasnova" <nika@nikableh.moe>, "Musaev
- Ibragim" <atomicus.xyz@gmail.com>
-In-Reply-To: <20260929134503.17249-3-qby140326@gmail.com>
-References: <20260929134503.17249-1-qby140326@gmail.com>
- <20260929134503.17249-3-qby140326@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/29/26 16:45, Mingyou Chen wrote:
-> The bitland-mifs-wmi and legacy redmi-wmi drivers both attempt to bind
-> to the same WMI GUID (46C93E13-EE9B-4262-8488-563BCA757FEF). This
-> overlap causes a device registration conflict, preventing one of the
-> drivers from loading properly depending on the module initialization
-> order.
-> > Merge the event handling logic from redmi-wmi into bitland-mifs-wmi. =
-By
-> handling both device layouts within a single driver, we eliminate the
-> GUID ownership conflict.
-> > Tested-by: Nika Krasnova <nika@nikableh.moe>
-> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
-> ---
->   drivers/platform/x86/bitland-mifs-wmi.c | 139 ++++++++++++++++-------=
--
->   1 file changed, 96 insertions(+), 43 deletions(-)
-> > diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platfo=
-rm/x86/bitland-mifs-wmi.c
-> index dd1648b7de77..e1a81e89856e 100644
-> --- a/drivers/platform/x86/bitland-mifs-wmi.c
-> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-> @@ -35,6 +35,11 @@
->   #include <linux/units.h>
->   #include <linux/wmi.h>
->   > +#define BI_HOTKEY_CODE(id, low, high) \
-> +	(((u32)(high) << 24) | ((u32)(low) << 16) | ((u32)(id) << 8) | WMI_EV=
-ENT_TYPE_HOTKEY)
-> +
-> +#define AI_KEY_VALUE_MASK    BIT(8)
-> +
->   #define DRV_NAME		"bitland-mifs-wmi"
->   #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
->   #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
-> @@ -607,18 +612,59 @@ static const struct attribute *const laptop_attrs=
-[] =3D {
->   ATTRIBUTE_GROUPS(laptop);
->   >   static const struct key_entry bitland_mifs_wmi_keymap[] =3D {
-> -	{ KE_KEY, WMI_EVENT_OPEN_APP, { KEY_PROG1 } },
-> -	{ KE_KEY, WMI_EVENT_CALCULATOR_START, { KEY_CALC } },
-> -	{ KE_KEY, WMI_EVENT_BROWSER_START, { KEY_WWW } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_J, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_F, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_0, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_1, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_2, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_3, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_4, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_5, { KEY_RESERVED } },
-> -	{ KE_END, 0 }
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_OPEN_APP, 1, 0), { KEY_PROG1 } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CALCULATOR_START, 1, 0), { KEY_CAL=
-C } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_BROWSER_START, 1, 0), { KEY_WWW } =
-},
-> +
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_J, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_4, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 0, 0), {} },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_2, 0, 0), { KEY_SELECTIVE=
-_SCREENSHOT } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_3, 0, 0), { KEY_ALL_APPLI=
-CATIONS } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 0, 0), { KEY_CONFIG } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 1, 0), { KEY_CONFIG } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), { KEY_SWITCHVID=
-EOMODE } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH=
-_RATE_TOGGLE } },
-> +
-> +	/* AI button has code for each position */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
-> +
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0x80), {} },
+digital_tg_recv_sens_req() reads resp->data[0] into sens_req before
+checking !resp->len, so a zero-length response causes a out-of-bounds
+read before the guard that was meant to prevent it.
 
-Sorry, I missed this in my previous email.
+Fix by checking resp->len first and returning -EINVAL early, then
+reading resp->data[0] only when the buffer is known non-empty.
 
-0x00800501 -> BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x80, 0),
-probably a typo?
+Fixes: bf30a67c947e ("NFC: digital: Add tg_listen_md and tg_get_rf_tech driver hooks")
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+ net/nfc/digital_technology.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 5, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x0a, 0), {} },
-> +
-> +	/* Xiaomi G Command Center */
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x0a, 1, 0), { KEY_VENDOR } },
-> +
-> +	/* OEM preset power mode */
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 1, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 2, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 3, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 4, 0), {} },
-> +
-> +	/* Fn Lock state */
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), {} },
+diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
+index ae6487c10..b27d45e05 100644
+--- a/net/nfc/digital_technology.c
++++ b/net/nfc/digital_technology.c
+@@ -1097,10 +1097,15 @@ void digital_tg_recv_sens_req(struct nfc_digital_dev *ddev, void *arg,
+ 		goto exit;
+ 	}
 
-These keys are reported as KEY_FN_ESC in the current redmi-wmi driver
-(commit e0d6312578e1fd03738fc2ac8ac21c8bd84e965e), so those mappings
-(and other from that commit) in bitland-mifs-wmi should be updated.
++	if (!resp->len) {
++		rc = -EINVAL;
++		goto exit;
++	}
++
+ 	sens_req = resp->data[0];
 
-Cc'ing the commit author, who highlighted those issues during the v1
-review. Please see his other comments in [1] (and don't forget to cc
-the reviewers on future submissions [2]).
+-	if (!resp->len || (sens_req != DIGITAL_CMD_SENS_REQ &&
+-	    sens_req != DIGITAL_CMD_ALL_REQ)) {
++	if (sens_req != DIGITAL_CMD_SENS_REQ &&
++	    sens_req != DIGITAL_CMD_ALL_REQ) {
+ 		rc = -EINVAL;
+ 		goto exit;
+ 	}
+--
+2.55.0
 
-[1]: https://lore.kernel.org/all/178444076601.4076.16818759313258005640@g=
-mail.com/
-[2]: https://docs.kernel.org/process/submitting-patches.html#respond-to-r=
-eview-comments
-
-> +	/* Fn+`/1/2/3/4 */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 1, 0), { KEY_F13 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 1, 0), { KEY_F14 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 1, 0), { KEY_F15 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 1, 0), { KEY_F16 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 1, 0), { KEY_F17 } },
-> +
-> +	{ KE_END }
->   };
->   >   static void bitland_notifier_unregister(void *data)
-> @@ -736,12 +782,35 @@ static int bitland_mifs_wmi_probe(struct wmi_devi=
-ce *wdev, const void *context)
->   				       &drv_data->notifier);
->   }
->   > +static void bitland_mifs_wmi_report_key(struct wmi_device *wdev, u=
-32 payload)
-> +{
-> +	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(&wdev->dev);
-> +	struct key_entry *entry;
-> +	bool autorelease =3D true;
-> +	int value =3D 1;
-> +
-> +	entry =3D sparse_keymap_entry_from_scancode(data->input_dev, payload)=
-;
-> +	if (!entry) {
-> +		dev_dbg(&wdev->dev, "Unknown WMI hotkey with payload 0x%08x\n", payl=
-oad);
-> +		return;
-> +	}
-> +
-> +	/* AI key quirk */
-> +	if (entry->keycode =3D=3D KEY_ASSISTANT) {
-> +		value =3D !(payload & AI_KEY_VALUE_MASK);
-> +		autorelease =3D false;
-> +	}
-> +
-> +	guard(mutex)(&data->lock);
-> +	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease=
-);
-> +}
-> +
->   static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->   				    const struct wmi_buffer *buffer)
->   {
-> -	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(&wdev->dev);
->   	const struct bitland_mifs_event *event =3D buffer->data;
->   	struct bitland_fan_notify_data fan_data;
-> +	u32 payload;
->   	u8 brightness;
->   >   	/* Validate event type */
-> @@ -758,24 +827,13 @@ static void bitland_mifs_wmi_notify(struct wmi_de=
-vice *wdev,
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
->   					     &brightness);
-> -		break;
-> +		return;
->   >   	case WMI_EVENT_PERFORMANCE_PLAN:
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_PLATFORM_PROFILE,
->   					     NULL);
-> -		break;
-> -
-> -	case WMI_EVENT_OPEN_APP:
-> -	case WMI_EVENT_CALCULATOR_START:
-> -	case WMI_EVENT_BROWSER_START: {
-> -		guard(mutex)(&data->lock);
-> -		if (!sparse_keymap_report_event(data->input_dev,
-> -						event->event_id, 1, true))
-> -			dev_warn(&wdev->dev, "Unknown key pressed: 0x%02x\n",
-> -				 event->event_id);
-> -		break;
-> -	}
-> +		return;
->   >   	/*
->   	 * The device has 3 fans (CPU, GPU, SYS),
-> @@ -783,6 +841,14 @@ static void bitland_mifs_wmi_notify(struct wmi_dev=
-ice *wdev,
->   	 */
->   	case WMI_EVENT_CPU_FAN_SPEED:
->   	case WMI_EVENT_GPU_FAN_SPEED:
-> +		/* Redmi refresh rate toggle quirk */
-> +		if (event->event_id =3D=3D WMI_EVENT_CPU_FAN_SPEED &&
-> +		    event->value_low =3D=3D 0 && event->value_high =3D=3D 0) {
-> +			payload =3D BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0);
-> +			bitland_mifs_wmi_report_key(wdev, payload);
-> +			return;
-> +		}
-> +
->   		if (event->event_id =3D=3D WMI_EVENT_CPU_FAN_SPEED)
->   			fan_data.channel =3D 0;
->   		else
-> @@ -793,27 +859,14 @@ static void bitland_mifs_wmi_notify(struct wmi_de=
-vice *wdev,
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_HWMON,
->   					     &fan_data);
-> -		break;
-> -
-> -	case WMI_EVENT_AIRPLANE_MODE:
-> -	case WMI_EVENT_TOUCHPAD_STATE:
-> -	case WMI_EVENT_FNLOCK_STATE:
-> -	case WMI_EVENT_KBD_MODE:
-> -	case WMI_EVENT_CAPSLOCK_STATE:
-> -	case WMI_EVENT_NUMLOCK_STATE:
-> -	case WMI_EVENT_SCROLLLOCK_STATE:
-> -	case WMI_EVENT_REFRESH_RATE:
-> -	case WMI_EVENT_WIN_KEY_LOCK:
-> -		/* These events are informational or handled by firmware */
-> -		dev_dbg(&wdev->dev, "State change event: id=3D%d value=3D%d\n",
-> -			event->event_id, event->value_low);
-> -		break;
-> +		return;
->   >   	default:
-> -		dev_dbg(&wdev->dev, "Unknown event: id=3D0x%02x value=3D0x%02x\n",
-> -			event->event_id, event->value_low);
->   		break;
->   	}
-> +
-> +	payload =3D get_unaligned_le32(buffer->data);
-> +	bitland_mifs_wmi_report_key(wdev, payload);
->   }
->   >   static const struct wmi_device_id bitland_mifs_wmi_id_table[] =3D=
-=20{
