@@ -1,136 +1,122 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051CE51AFD6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793539; cv=pass; b=WXhjj9aaRpjxrm1FqGH5duOkxpfmgiRScrE/lcjk7R5EVE1+tikwnZ1OlYPzDbPZNqNvOF4hCRSQ1HawDULaTYyQuEIG+gtGwyvFCzIa9XduNFqrnQZgtbOdlxZ0QXpzJpIQw278nbmF265jE7nDNQCO6mk+B/v9PcjBIIsoMT0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793539; c=relaxed/simple;
-	bh=NHeV94WugdmVD28bFMrZnAa3jDv81zue6/05rbrEI3w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SpFUGEzP0g6VmOl4rnapwcCfZWE28BKznLLsMYneIG4c8xtlZPKDgGYEQWeAZRMQ1/9HLXyY8JvopbmzOflxp70Xkm5gMtQvBPFQZ09DxCXlLfNSeDvQJvuCXajOzwmlxFEi3Yl9Qynj7m2+LJu9JDWa33bRVKG7+bJjkMZgx68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAg/Modx; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9C44D37AF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790793553; cv=none; b=oiRfHuDpKkBLt/lOhlHoBH+sLkXg9UrQoo5WSmnIH37cOlOPi27RRrUhx3puYsOT9pbR4Cz6uVlrM93+l1MbHEjTfxeWEVkfidLAc9MMd8Y+R58eJbvO/Rbi2rf/wWdpMQDJU1PWOatsvXpd7TNo8WIzYPmCEvTrEsaCLxcZkRI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790793553; c=relaxed/simple;
+	bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oZxSNtPKQ74cJ92K+94IiOeRsRJt1eXfs1S5TdUaLgwyMw8asr7uueQxmQsixmijdSuFaLDSvusN4TLITRg1FxMeBvZHchwGXDb5nAMZ+/97WJX5RY+gO1dg94/4VPWX7FuVXsHMJpwqCPFTwBkDGG9rKvL4B/O7JwWFltlPIcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Poq8gseG; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAg/Modx"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e1d2d7dc9so69985666b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:38:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790793536; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pyc6OlRr/5FvlwiwPhkXevLk9NSmMR1VY62tjCTKYjoE4q2yH11ln8VIDna4Ma+9Ew
-         YkbyPZbdgPe3i5PXf4CM/CitJePYC0MVlx0f+X4F4txwchN+MVdBtcZVdQuDtxkDtjkn
-         pbJJExKan0FRnK5NIhfP1ypNBnIJrAZaSJ30ZXVXiz0HSNNjz4if8I54ld59WrTKoF7a
-         rs5f4DjNUIjFILclnhUI39jKSMItANub8M7cJQY9M9a/pGRrHSxM/F71Bgx48G2fsNGm
-         GOiiF34GPYW3ImOJ3TD3Xj5dXzr/VehcgBxiQ6wbZDczkymg4Qw1DL7sywx2AQqk8SKA
-         SwEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HI0jJLmE0KCx7SJ67izympvHFVqsl1F6acyVdnNn58o=;
-        fh=JZyW4Qw8+t14188fWFIeM8n2dkgPJz0BGrUqeh1Hx7Q=;
-        b=kAl7ptDavtC5GKYDwNT3Uqe9hs/nGcbSGB95Jwk9lClzKkCw3h+8+9yd/ds2Vg7RrZ
-         /KxRDFodsAOU0U9kagG1XbIKXLOFha4Ktq7iwT2iaA0MJuEeiwz45fRMPe23kRVpAs8T
-         35a2nhoy9KYZckU3Pmi6R3NK/BQ6lNaawOLH6c4Zx4hxC6omRJW2U/I3l+d4RyD5/N+j
-         Zn37/IaZJ2KlF5UeudltWMym8+fvFoyPxAGed8Ah0K9ROzeBmBYv+tiOLlkIa6KMdokG
-         Ep3xDe26J+snfkG1qCQ16T7RVUR9F3LN3hTborHeoa6smnUOdHVMcsgy5H6ZCa09FRk0
-         417w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Poq8gseG"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so3291297a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:39:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793536; x=1791398336; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HI0jJLmE0KCx7SJ67izympvHFVqsl1F6acyVdnNn58o=;
-        b=bAg/Modxf0k68QX6jyn9V1xldXMPhone3+S4H+AL7uQ5fGFBfBTgxPg6jB0TdTVlNr
-         yaSRPnUOzciQ1ttDaEuZ9RM9CW1pdWk4LyfxMAkFu/9vcbgXH9KqEYfGpkwdZoDA2wxi
-         Smxa4Td2TO/TaAnVPCA14donfWy+bDTIyGlVA/CfYL8SOpercVLRoeYGCeiOw86V30eq
-         U+L+ZiRXcx0IWFfIaIDiflAXQ8UKuL6o0+4ohEsu9UpqKK3agiiZHJC5E+32usS0Kh4u
-         JGl5p7UVkwD4g/QLixUina1vv/1iFtDm7rosEc+I9GXqhTRK3CAPigIiTb/xrx0bObNm
-         ptYg==
+        d=gmail.com; s=20251104; t=1790793552; x=1791398352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
+        b=Poq8gseGD8LaGij0nigS9Y9IHqBWyEZ4F30dzELv7igsqx24OqcINSBUy3F3jACavz
+         OHFnvTkS7vmGF/t0AZMZIueGqFNux23GZWE7LCi/7ALwBMkN74TWPoEBZNAy1m+z4H/v
+         0QaYi4oT52vMetNmNfADenbxpMZDXAVmR5dowevZ34s3hvX+I1WSSslpzyXAqVzIpkFD
+         5+kMRs5FQjNFFxvyYRSHlYajMITtRFJOTPzH02e6+YKVOTMeNXep4aJE/iuu8FDF1/zw
+         pEU/0ARNlA0OzyzHVEYcTIZ/WMWVJm8M5iVeA0LWAa77MLqKa1nvtmlLwlDWYs8aDMnA
+         beMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793536; x=1791398336;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HI0jJLmE0KCx7SJ67izympvHFVqsl1F6acyVdnNn58o=;
-        b=sr85RV2IYpUVPmCPnefLUhjXGFK7KzByfLaE68Y+V20F5OmT+I+vgGe/dPZuAx3it7
-         WqppOl0w57T9rfMQ1DTg3N4owTzBD1CHae85E+5Kwf4F0k34lP5OhQfYI6xshcanQxCP
-         KesAdneXuy0J+1GufI5t822+ZOtqUkEmeTg7AZHqMuVHMA5PSM/GkMH9FycVFPoZ3fgR
-         794oZd3hG+odrNAOC0aszo3HhQ9GdVWggeY6xI0Vaf0R95hjuc86o9YKKGTC7dicgnjg
-         dbvrdsnCu75T4Z9EoXCPTd6BtJBDSwaPbuiaSuyKta+ZrZ+DV/jW0NgYjD2Nvzpnnemq
-         dWuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPWcjrLySmOCV6ZnDjhEvVxvWHh2BxN74qIGNJ627oVUqU7N6TK0YOn5vArSJOIdAcTpBqMK10IWcgKZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++khMFDW4pEqmBzdkwqL2VyJWq1oOsVM7KOhwp3OZm1ckcsRynZZ
-	WhqJmQLB0xgPhSRmH/YxI04aDEijf4Ul6grKJW4nY7PsBhUyYsBCAyqw0YTS9vvt/Asud9E4qxk
-	Fs6BpntrQHNZidQh8Y/rVgUO/GcbpUW8=
-X-Gm-Gg: AYBFou31Z3TaQGKGQ5qfduKRXqBWj/ms6NxiziU2SVwgpSnBasTnbaLO1mi51sJyk9+
-	pXpiaHXWXuekJ1EsLE6Ke8B7jIlCt0IkslLrVuTUKnarkn8C8TktvaeyZ/3gS72RPWmT+YV8AvV
-	PyJiKU31X+lf/kMfWFdT0rgSl/D0YFdXho8u3LpGkO4LZQp03RcoPlmEATlN2DFClljYDMLe3X4
-	8gi6Nv/EYhS8hLfohsjeFQLyGBiwUS4butjXa+vnCPJxfzqRDHTImJlKjO8jKuCr16+qNki4+DC
-	IbEDfZLygQV/gt35bcJjFB+3Rl6lQguAgpN9FOybJ6p++s+wOhOJfn5lEy3zZsUtOBnX5nBp1t+
-	56XSLat2vOD/7Vpr3uA0kCjHyEy39Ir9Z7/6TXxo=
-X-Received: by 2002:a17:906:f583:b0:c2d:c57e:fab5 with SMTP id
- a640c23a62f3a-c2e33cec3c6mr41556566b.7.1790793536002; Wed, 30 Sep 2026
- 11:38:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790793552; x=1791398352;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
+        b=uIhwJZxPUMcGOqhhujOuAK4AhCiaCN8cCycC4p1u230rsf9temHEOIcQKGRl1Uae56
+         hzx3kJzL1vC2zsL1VAse0IAUFVDpZii48CtkuiRZR+/WSinhFvzY34OqDeMY+sXx9kOQ
+         Y9jOZCPR3yFFWl6N2RBWBSmG9NTCLEqgkU1uWSxXfuVyVXfzVpKrm74lFp0tDoWNKtAV
+         jZIf1S3RU1e1UD3LA3gNlkpj0FKxAMPl82mt/Fhu06GoGaxnM1NjEE1Clwr74R7JVn/g
+         HTXhDPutZ1oAcNNw8OenIZXG0R50P3VUrsKFjeCslW1oNh1FyOSDvbS7a2LBizonnYf8
+         2sIg==
+X-Forwarded-Encrypted: i=1; AKwUvByVM/0MW2/WwaysrR3dw54GAgZ9TuZabKgmHtspoJ7wzMdsvs/P+GOYcPvntpuMjhoB9UBa0Ay7IbuzRu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6p0zHMfXOSgHMrDtcx851ViwgwPgJ5iesIVE1Q5UYoOs/sAJZ
+	O86NtZOTg3qJtsLvL3x0Ol1bOZT/z+wtUyx2IfN99Echg27S3Da8gxN1
+X-Gm-Gg: AYBFou2UFARfIgM6V5as3PUeiaRfYmct5dJGqU64t1t6AX/VYNLKp48xt1U2w1uDr6J
+	G5oKSvaLtFEf3iYDbH9uE6mNAHJow14BBvyo8EL1W3yZRwVJppxPM7TPymFZT/73yhwl0X/e6Vy
+	s7Bn/DlM6CX+ViIBT6faMK7TaqOWeKuhINkheet+vluT0CiFfaYZ3A0e94csyKo1w8graYIqnFJ
+	93kRevR/TaJXJNwM4yvNzpYP84sxJDXrjppaBI7P3H5RXNFnvWXOmilgTB0H0RuIFbuVccA4Vsy
+	8RDZRuZTrpeTw+Dz9KIFYLxfVNo7QmaoA21vKDLDC/Yn2HDdQGmf4+uYP29MtPlGRwvlb4On+UE
+	dfHR4fffhkbofCaJPqbSsfmLdB5TG2zS45xeUWVfqOczszkO7xHtAl05lofcRAWfw3HNw3MDmTs
+	HEokzZu8E6XGWS6zylryi2GTRUV7Qywphi6g2SpYi4jlv+tprNQwtV3/6CjS/XLSEqcozKp4Bor
+	HT+qvzHVCd6buY6odWnG5MiT5tXVPmsBk/R7TpSzmMFh6o+6YeyvLXBOLgE90s+DLrPlQAVo+P0
+	lI/tYikEKqS1XAgbhVq/mcbdL9knxWe4mvdq
+X-Received: by 2002:a17:90b:48cc:b0:3a4:c18c:b894 with SMTP id 98e67ed59e1d1-3a4d18f52d7mr1859734a91.52.1790793551779;
+        Wed, 30 Sep 2026 11:39:11 -0700 (PDT)
+Received: from rahuls-x2elite ([157.51.37.69])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4419ff9sm532916a91.9.2026.09.30.11.39.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:39:11 -0700 (PDT)
+From: Rahul Pon <theflyingrahul@gmail.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Jie Zhang <jie.zhang@oss.qualcomm.com>
+Subject: Re: [PATCH 3/5] drm/msm/a8xx: Add Mahua GPU support
+Date: Thu,  1 Oct 2026 00:08:54 +0530
+Message-ID: <20260930183855.1184-1-theflyingrahul@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
+References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com> <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930183018.49629-1-meatuni001@gmail.com>
-In-Reply-To: <20260930183018.49629-1-meatuni001@gmail.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Wed, 30 Sep 2026 23:38:44 +0500
-X-Gm-Features: AclHuK9lQpT-wa7Q6XhMKeuCXwZ9qOLPqpfv3FTdw2GVk1xkzBB_NuWLafKSDzQ
-Message-ID: <CADqcGB=tjzMS4xP8yDQrO5hKyoq0n=wDJNTBohdnDErDwK4gBg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] platform/x86: hp-bioscfg: string buffer and
- password fixes
-To: jorge.lopez2@hp.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com
-Cc: andy.shevchenko@gmail.com, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi
+On 9/25/2026 2:44 AM, Akhil P Oommen wrote:
+> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
+>
+> Add support for Adreno X2-85 GPU present in Mahua SoC. This GPU is a
+> smaller version of Glymur GPU with fewer slices and smaller internal
+> memories, but shares the same register layout.
 
-Please Ignore this patch series, as I noticed an issue.
+Tested with this patch and patch 5 on an HP OmniBook 5 16 (Snapdragon
+X2 Elite X2E-84-100): the GPU comes up as chip ID 0x44060030 with
+15.75 MB of GMEM and the GMU firmware loaded, and with Mesa main GNOME
+Shell and glmark2 render on the GPU without corruption.
 
-I will send a fixed v4 shortly.
+On qcom-next the a8xx_gpu.c hunk needs a one-line rebase:
+a8xx_set_hwcg() there also checks adreno_is_a830().
 
-On Wed, Sep 30, 2026 at 11:31=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.c=
-om> wrote:
->
-> Fix string parsing in hp_get_string_from_buffer() and make over-length
-> password writes fail.
->
-> Changes in v3:
->  - Drop Suggested-by: Andy Shevchenko from patch 2, tidy its includes
->    and declarations (Andy)
->  - Return -E2BIG instead of -ERANGE in patch 3 (Andy)
->  - Drop a blank line in the declarations in patch 1 (Andy)
->
-> Changes in v2:
->  - Split the hp_get_string_from_buffer() fix in two (Ilpo)
->  - Drop the lib/string_helpers patch, use @only of string_escape_mem()
->    instead (Andy)
->  - Add patch 3
->
-> Muhammad Bilal (3):
->   platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
->   platform/x86: hp-bioscfg: fix non-ASCII truncation in
->     hp_get_string_from_buffer()
->   platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
->
->  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c  | 79 ++++++-------------
->  .../x86/hp/hp-bioscfg/passwdobj-attributes.c  |  7 +-
->  2 files changed, 28 insertions(+), 58 deletions(-)
->
-> --
-> 2.43.0
->
+Tested-by: Rahul Pon <theflyingrahul@gmail.com> # HP OmniBook 5 16 (X2E-84-100)
+
+Thanks,
+Rahul
