@@ -1,81 +1,113 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F43E3438B7;
-	Wed, 30 Sep 2026 01:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F2330DD2F;
+	Wed, 30 Sep 2026 01:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790731871; cv=none; b=GCYm1EaddE4RyqYmY87lwCbuoEGLg89suEYpGMmsETcZLMyYKvMldJ4COv2nvU40ALyv3j/nai+Puxry8kAKwgN2qzosZb/V4ZNa0frZIpX1Z/E1GSpiOYQBUBw8Oq+X4TqoX01kn39xMVt2Huh95qaCRw+wV9Zpzf6ivjPYOmI=
+	t=1790731989; cv=none; b=cOXiKVjRx7/fKGWB8NafYSEri+cEy0aaIFh+4Z5EITUSyZ5E02z7Tepl8MYXmY4gqIvttU9VPyHpvE+DH/PpwduiRQbscFSUcqYOSkoamQZ7+r3fyhtm5fmCfpu7hKmqPGvYs5APYgKVaLpk6Wajd5hPx06oDw3jPm+H68r8T78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790731871; c=relaxed/simple;
-	bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XnhRsFooLpA9QBVrcT8Um/t/rSUwwGa5mA/PC8VjhNdiYBD6+V/s0D1ujVor93eKjF+RvN5jfWygMwT9ND1lNbB1Trl1rF/PZDBKx7i+svIGB7Ru/J0Ef+F2MvukARfJiyhR3M4cRI2HaaQwQxidCnjPiKfiBDvN92Mhq67aauI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=dz3NANWb; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1790731989; c=relaxed/simple;
+	bh=mEVczxqhoWIHjtJRVnlraq1vd7L61iBUG1ngt/aikAY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g1eqNz8T66Ndsm0OLoImTwPhPjHnaF50NLZoWpwguwWlFvvCZzMdO9urF38bGeRAk/7vuD3VmRu+67rnrcHZ/03zLaVGNg/P0ITclK27EDPEdA67RyucZwkYJcGYjtHtFRD4LTHjMyRuDVKWjTWzIkL5WnCBNqSdgYPJR4x0jUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JM+sYz85; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="dz3NANWb"
-X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
-	b=dz3NANWbinMcn02+7WUHau3HQ9yZIkE41XwmxZzYA4gjMhSNFEAVvktImP0qJYqjy1Z6zsacNfniH0Sm9klzE1nq/d/pqxpb75FV1jol/TkHX/GdSBf5jCn0MRCxNYyBBJFJhb9z0fRC31RGroSauQrlA37SbUQ6EXkJ1rE0YQU=;
-X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 170437113; Wed, 30 Sep 2026 09:25:55 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id BB3FA1A1E1C;
-	Wed, 30 Sep 2026 09:25:55 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id B73C8C600E1; Wed, 30 Sep 2026 09:25:54 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org
-Cc: shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	f_y_pai@novatek.com.tw,
-	jason_jj_wu@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v9 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller driver
-Date: Wed, 30 Sep 2026 09:24:57 +0800
-Message-Id: <20260930012456.804329-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
-References: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JM+sYz85"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9C71F000FF;
+	Wed, 30 Sep 2026 01:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790731987;
+	bh=E9LFBu3yJsDQ69TLBDzRvOENcK1uacHJ+6beUmMVpe8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JM+sYz85EuQ1Pc/ToqHwjyyrWQ5qhidcHK9+vHBv+X7ngHQWkQZRKjoh+Wr8soW/w
+	 NTuJWuYafs2kVosOh4Y7o39wnniNajmM8M74eKQQHwVLyCPiFGZj+O88KRg8n0Qd4L
+	 LZM3KNyJcsj772lBhwVM54vOk1DJZtO46jwJQhnHNApkEQY6PtqjiphyIkaGpcibbE
+	 3193lTulW2YDMNQfbygaldH06RuZOju+p92y7soxpbWLHiI+u+/ePHRVnThchZuYm4
+	 lD4kvzzptU1HIMytqiANY1luTHfm0qLMV0qI2KH5aLz4Vb2ueJIFwny9NW18+N0TdH
+	 mZoHF4G4UzYxA==
+Date: Tue, 29 Sep 2026 18:33:06 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Demian Shulhan <demyansh@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Eric Biggers
+ <ebiggers@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Marco
+ Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>, David Gow <davidgow@google.com>, Brendan Higgins
+ <brendan.higgins@linux.dev>, Nathan Chancellor <nathan@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kunit-dev@googlegroups.com, netdev@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
+Message-ID: <20260929183306.24a26c74@kernel.org>
+In-Reply-To: <20260927131838.6774-1-demyansh@gmail.com>
+References: <20260927131838.6774-1-demyansh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+On Sun, 27 Sep 2026 15:17:56 +0200 Demian Shulhan wrote:
+> arm64 currently uses the generic csum_partial_copy_nocheck(), which
+> performs memcpy() followed by a second pass for csum_partial(). This
+> double pass exerts unnecessary pressure on the L1 cache.
+> 
+> Replace it with a single-pass implementation. The new implementation
+> provides a general-purpose register path for short buffers and atomic
+> contexts, and a kernel-mode NEON path for lengths >= 1024 bytes.
+> 
+> Measured in-kernel on an Ampere Altra (Neoverse-N1):
+> - Scalar path: 1.2x-1.6x faster for lengths < 1024 bytes.
+> - NEON path: 1.2x faster at 1024 bytes, scaling up to 1.6x-1.8x at
+>   4096 bytes.
+> On Apple M-series cores, gains are 1.3-1.7x below 1024 bytes and
+> 1.6-2.4x above. No length or alignment regresses on either
+> microarchitecture.
+> 
+> Patch 1 implements the fused routines and the dispatcher.
+> Patch 2 adds KUnit test coverage for the new API and internal paths.
+> 
+> Tested: in-kernel benchmark module on Neoverse-N1 with both
+> implementations cross-checked (0 mismatches); KUnit suite under QEMU
+> (with/without KASAN, with PREEMPT_RT), exhaustive and random userspace
+> testing of both routines against a naive reference with PROT_NONE guard
+> pages, gcc 13 and clang 18 W=1 builds, checkpatch --strict.
+> 
+NIPA CI flagged a regression from this patch: the new "checksum" KUnit
+suite fails on the x86-64 test kernel (ARCH=x86_64, qemu). Specifically:
 
-Hi reviewers of Linux I2C subsystems,
+  test_csum_copy_small_all_alignments  (len=0, src_off=0, dst_off=0)
+  test_csum_copy_patterns              (len=1, src_off=0, dst_off=0)
+  test_csum_copy_zero_len
 
-On Thursday, September 10, 2026 11:01 AM, nina_kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
->
-> This driver performs the fundamental read/write functions as an I2C controller and supports Standard-mode and Fast-mode.
-> Default operation is Standard-mode.
->
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+All three failures involve a zero-length (or very short) copy. Digging
+into it, x86-64's csum_partial_copy_generic() (arch/x86/lib/csum-copy_64.S)
+seeds its accumulator with -1 (0xffffffff) rather than 0:
 
-This v9 patch was submitted about three weeks ago, and I have not seen
-any review comments yet.
-May I kindly ask if anyone is reviewing this patch? Any feedback would
-be appreciated.
+    movl  $-1, %eax
+    ...
+    cmpl  $8, %ecx
+    jb    .Lshort
 
-Thank you for your time.
+For len == 0 (and other very short lengths that never execute an
+add/adc against the seed) it returns that -1 unmodified, which folds to
+0. The naive reference used by the new tests, and csum_partial()'s own
+convention for an empty input, instead treat the "empty checksum" as raw
+sum 0, which folds to 0xffff. So the new tests' expectations don't match
+the pre-existing x86-64 assembly implementation for these edge cases.
 
-Sincerely,
-Ben Huang
+It looks like the tests were validated against the new arm64
+implementation and against memcpy()+csum_partial() under QEMU on arm64,
+but not run against x86-64's existing csum_partial_copy_nocheck()
+implementation, which is what our CI kunit runner builds by default.
+
+Could you take a look at either:
+  - adjusting the zero/short-length expectations in the new test to
+    match the existing (documented?) x86-64 behavior, or
+  - treating this as a real x86-64 bug and fixing
+    csum_partial_copy_generic()'s handling of very short lengths,
+
+whichever is judged correct? Happy to share the full kunit log if useful.
