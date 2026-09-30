@@ -1,283 +1,105 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B813B0582
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D28B37AA95
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794470; cv=none; b=pmeSaMb9OrV1zrZVU09SrDZxZiVkFkT6g4Hq7FACMS6m2Jk9DYdposkSkOJgzZDf9n4JL2I7+pNlca1URdpaG0tas3FsI2XnBInq4RZRjvMRJWrS0gbYQTFIfX51o1SGzt/X7a/Kh1ilUzoneL8QtJ5Zo9Q0r5BfepYA+NQYyS4=
+	t=1790794511; cv=none; b=HICNjtjhpb9nuTbq/2MbrQ/t3w8u6JwMyKBJ08ekBqoHx1ZIxdgyxJZ/XyseV9CZpyn0zLPQzYBfYnafGhdJQPPIQoflBUisDeSy6P/9Z9RQaWSuF2k3HTANAj8i2qQcThxyaUctGZFeCiG8mPgY45960xQD343fGj2ghqWtL3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794470; c=relaxed/simple;
-	bh=UCFeSMOs+Qi6rlEif4wp5NL4CT/HAxxrve974CVtz4U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gNg8gDI5O99Dvf2+H1Zd1XIpDbJqTGAIgko22a2reIXhI/5eljExQcd+dfWSd3A8K5bi7RiMqnGNlt+WF8ENfHbIgDnsqrU1zD0incAiZxXWXajAX1I9QTgZjw4WZjnDswX7bm/2XIvhAZtu6McdfcC/G3Em1xun8MQX5ny7zhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TFaeoRf2; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790794511; c=relaxed/simple;
+	bh=cswiScNE3E9pNfXIpCP4WFi2Ae4RTtKOoPD0b7LSKkY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UnUs4c4EIdCmy4L3B0o/KKEkKyVKufFrOdTI35zXvtRJ7AL0jTGedSPg9/JWtRzafFyX4rQKyF3AurDNOWuuYdDb303kwSYukcFF22khSfE+zXXpfMcXQNBLBzTK8LUS6JBoIlv1Dvr2ITjbv9PXa5GZI9dRmWDq5lPiIp1NmnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DUFGOUt7; arc=none smtp.client-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TFaeoRf2"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso59141935e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:54:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DUFGOUt7"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25501f4aa2so312641966b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:55:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790794466; x=1791399266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aIRe9J9nM9kojEK5e8In+q+vzA6ofCEVTiqwmV0m+zo=;
-        b=TFaeoRf2YUJF4S8c0d5gRvToQSkRN7xpVFpxJ85wJjCyv7smv5eZPX2JbczHu7PofJ
-         u5czZAzrmB5bnovhiEbNAlU9Sd90DLb0zjm0DaEKGOYiqfa1dVrxH66yOw/QoMPpETD5
-         93SfSkN1qqWVE9F/YN7uMTzqTAqYeqEUckd7c48+4XTpm8pAXGJeuRmJevhLILcenLvN
-         /rKnBoKvp8wtZLnU6bJp2riTNAv9PFR7sxTtp2z/hjsyk888DZ10y9sdyZGQEJtv0ZBt
-         eKphJG2L8/X4YW1mMBBUMZG6Iw71Q87JyiSi12G0ljKb/ZSZLmnaP9aRC9sT48f9hVn8
-         SSZg==
+        d=google.com; s=20251104; t=1790794507; x=1791399307; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xK4JYgRtStNo4V5zoea2qHX3qmnjaW/h2fp97VQUzUk=;
+        b=DUFGOUt7UdZ7rfHx5hyx+matXCsyiNPoyyWv4So8oeZLzT5lx7ReBMM6mICuHSE3zq
+         ePDjqiL5zHN+XjQuYthG029Alds1Q0WcrD35BXcLo4dJ3HShLOE5fn6+QnWYaXmbWVZV
+         EYp+XVhUEQEnpp+ku5mov1ELNqYaHr1KpOrRC24udH9iUEwDLne8TfFy37Hcrg5jdbyb
+         uDzeOCLaH3QwaYYGKE1uVtEnZUjw2wVEH+HDRWnmL+djqVl65jX0JFMftRXFVoQMoV3z
+         be6/qXdT3ojxles49N5dx7rd7TjG6EJWaS/qMan2mNOjkm5VV6/ttVHFtirbbyT11fCy
+         f0pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790794466; x=1791399266;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790794507; x=1791399307;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aIRe9J9nM9kojEK5e8In+q+vzA6ofCEVTiqwmV0m+zo=;
-        b=XlkSnxwmzh99xltBlBak+BYcY9OwyGmFz1Nv+MGOPW+4LFofHwjj9+YD/K5PE6ymmf
-         UVL635HAXQC5s9b5uqW892/nFdTVDgYD7lbDoFnSR7lWn5n6a8Wldn4g6WjlZkXfnTET
-         JlsyON1OICu3UBvsw48Z2SXCIqd/YuW+SMXLNUNuboEIHjEL1Yo8/6VAhl/ycDy+lOwK
-         9u1syJDmtQrdDXi/oZTHYIHJ0pwFT8nTm5xtFeT/NgeBl4qdQklrQqHiuAOYw1p32PwQ
-         wHjRscy5WKHlmi3g+1MFlWpNhX2U/md6QPhrY52CofA+4pHm73CrLrKqZIEoisVl5OaL
-         LKgw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7APO8kchxwhVC3RPGRZTqDyZJ/G2seCcBwC7GEh08DGm4SmNj6/7WPb2ry5/uGwBwjEq4ki1zZMq6ato=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKHptstr4RY7eWJoJSOZmTxvukFhTBFtM1FsxBz2e4Ew7MSvSf
-	UxLH34vh9BYbtb0J+WUOlrkFH9iTs+jXQQUCRrcy1PQdlWEZ67G69Yf1iFTAxOFx
-X-Gm-Gg: AYBFou3tZfvrXV7me0zbVTQIptWeIeRLGGVEP8PAlFYyW2OwajA1d1LrM04bORKt4MD
-	U5AOgh67063waRYxJnOZ9iJ205Oh9Uqcio5mWsaUoTxz569TQLGbxF+tNTZULXIHTZ3ykKWa9Jw
-	3TTlyx0/h15P63wB+pEVclP2bTWdAGAGxO+wU1Y8OIiAPSX8nPSYQVM6ftkp6ZzXjkBS/IgXLJb
-	95DTPs8CkO4o2XdBRrmt767rXPF7Vdkn7fw5gl1oSUnIbtNIuTmCs5ZVokVgf8vNuDentkcsdXe
-	CKxWm0ZoDJKwahyeR0Uv+H0hWiX79A4118ZYg1xXhZvMBujHGoba/t/Kcg+wMXKlmUs9R50Zmix
-	aTGjsHmhOC82Lr/AFPzmc5yMnGl08odYak2MfLkJdA3Pe3lUDHaZNeCAHpdfngAhf0chrkE0qpF
-	3C7M9uNrDgCQMV5HobzgvmA4YYYWxtwcuxTVdlQLQ2Nl0T65IOqL7ars/M5bGr0lzxaz+as9K6N
-	xVObB1e7FCU7WWk8n77MWTS5rCFGy4UFu9GVxdQ9dnRMAuUrPCjuAJ8b9PjfU5bTbHXpWdh03iH
-	0wLYGY29igIuDDuow3+2AjIE9fOIOra8CL9VL556JEstXeapoAI8TFLLW3T8CsCme6fsHphm3vJ
-	f
-X-Received: by 2002:a05:600c:3b99:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-4a01aff6a1bmr50678345e9.23.1790794466174;
-        Wed, 30 Sep 2026 11:54:26 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01fa137basm1542095e9.1.2026.09.30.11.54.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 11:54:25 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll context
-Date: Wed, 30 Sep 2026 20:54:17 +0200
-Message-Id: <20260930185417.61865-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=xK4JYgRtStNo4V5zoea2qHX3qmnjaW/h2fp97VQUzUk=;
+        b=M71k1Zhdc+gLGfItzemUYYKDaMwh1LkDXOVOZjY6GZ9vB3uiJPbusKam2ucgIJHZtq
+         1aJyWJD8no7f6XHSj9QXfdevp1U8d+grMIZg8H7yBg3qhrDpTxLvs+st5K48ajbr+1j/
+         WcZBnDgbpHHc8hcDb+bCBaNtaKihoOKngLUE+75I3ZwO139yUXzF5x1L7t2+9LpwZ3Dq
+         0DgBrR/zDYlHnDnyin/3xWnf+QHX0CZUi/Ist1GV5EyOV5ja6MSN2yu/1gnPFam9l61v
+         C+ASf5DMJMXH/8Zq20oEmUYwevVlpUJLYYd62fLNfIiibWjnbh/t1UnM74n44A2tyBJC
+         0cXg==
+X-Forwarded-Encrypted: i=1; AKwUvBzhYAf+eaN+iQLyYj65rg1K354ldxa1ed/6UUd24pRmaLWcs6sMRBLp1M31EskoMbaog1z9o5uBGSNGxIs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nL8XvGGyMk7C9IRTX5g6Q7AkzaUfv8gZrCdyPZnjdp4rMrFUtF
+	1QJXovy5wcaUllY2t6m2WY8Vj5vUWC8CkSdz56eFt3okainCSpKDArzo5A5fD/nHaNrXQIdi1jP
+	Sg4GD1d0ChYs9oD7E/Q==
+X-Received: from edvm11.prod.google.com ([2002:a05:6402:50b:b0:6a8:1d4c:399])
+ (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:8997:b0:c26:1cfd:4244 with SMTP id a640c23a62f3a-c2e33ef130cmr47630166b.11.1790794507256;
+ Wed, 30 Sep 2026 11:55:07 -0700 (PDT)
+Date: Wed, 30 Sep 2026 20:55:00 +0200
+In-Reply-To: <art-pgdLHXiCm5l4@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260923174420.2343724-1-mmaslanka@google.com> <art-pgdLHXiCm5l4@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930185500.198456-1-mmaslanka@google.com>
+Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Poll for role swap completion
+From: Marek Maslanka <mmaslanka@google.com>
+To: tzungbi@kernel.org
+Cc: bleung@chromium.org, abhishekpandit@chromium.org, jthies@google.com, 
+	akuchynski@chromium.org, groeck@chromium.org, raduvele@google.com, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Marek Maslanka <mmaslanka@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-With the default fcmode=0, netpoll calls ndo_start_xmit() with hard
-interrupts disabled and reaches brcmf_sdio_bus_txdata() directly. The
-function takes txq_lock with spin_lock_bh(), and the queue helper takes
-the embedded sk_buff_head lock. These locks may sleep on PREEMPT_RT.
-On non-RT, spin_unlock_bh() can run pending networking softirqs before
-netpoll releases the transmit lock, causing a recursive transmit
-deadlock.
+On Tue, Sep 29, 2026 at 09:02:30AM +0000, Tzung-Bi Shih wrote:
+> On Wed, Sep 23, 2026 at 07:44:19PM +0200, Marek Maslanka wrote:
+> > +	req.swap = USB_PD_CTRL_SWAP_NONE;
+> > +	end = jiffies + msecs_to_jiffies(ROLE_SWAP_TIMEOUT_MS);
+> > +	for (;;) {
+> > +		if ((resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) &&
+> 
+> Shouldn't PD_CTRL_RESP_ENABLED_CONNECTED remain set during the entire poll?
+> 
+> > +		    cros_typec_resp_to_role(&resp, swap_type) == target_role)
+> > +			break;
+> > +
+> > +		if (time_after_eq(jiffies, end)) {
+> > +			if (!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED)) {
+> > +				dev_err(data->dev, "Port disconnected during role swap\n");
+> > +				return -ENOTCONN;
+> > +			}
+> 
+> Same here: if PD_CTRL_RESP_ENABLED_CONNECTED isn't set in the loop, should
+> it return -ENOTCONN early (i.e., out of this if-block)?
 
-Use spin_trylock() for IRQ-disabled calls and enqueue with the unlocked
-skb helper while holding txq_lock. On PREEMPT_RT, reject hard IRQ and NMI
-callers, where rt-spinlocks cannot be acquired. If the lock is busy or
-the queue is full, return through the existing drop path. Do not evict an
-older packet from this context. Suppress the queue-full printk because
-netconsole can recursively enter this path.
+Yea Right, thanks. PD_CTRL_RESP_ENABLED_CONNECTED remains set
+throughout the role swap in the EC (both TCPMv2 and PDC keep the port
+in an attached state while a PR_Swap or DR_Swap is in progress).
 
-The flow-control callback takes another spinlock, so defer it when an
-IRQ-disabled enqueue reaches TXHI. The data worker rechecks the bus state
-and queue length under txq_lock before stopping the queue. Existing TXLOW
-handling wakes the queue after it drains.
+The original reason for checking PD_CTRL_RESP_ENABLED_CONNECTED before
+comparing the role was to avoid misinterpreting a cleared resp.role (0)
+on disconnect as TYPEC_SINK or TYPEC_DEVICE, but checking
+!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) at the start of the
+loop and returning -ENOTCONN immediately is much cleaner and avoids
+waiting for the timeout when the port disconnects.
 
-This fixes the direct SDIO transmit path used by fcmode=0. Modes 1 and 2
-take the FWS lock first and need a separate change.
-
-Fixes: ac3d9dd034e5 ("netpoll: make ndo_poll_controller() optional")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Testing:
-
-- This revision passed W=1 sdio.o builds on x86_64 PREEMPT_RT and
-  x86_64 PREEMPT kernels.
-- This exact revision, together with the netpoll v2 fixes, passed 10/10
-  counted physical boots across a Pi 400 and Pi 500+: three RT and two
-  non-RT boots per board. The softirq trigger delivered 64/64 records on
-  every boot with no driver drop. Every lock-contention run freed all 64
-  skbs without timeout, and every TXHI queue stop subsequently woke.
-- Each board and kernel flavor completed a 1,800-second numbered stream,
-  ten repeated TXHI cycles and a Wi-Fi reconnect. No counted boot
-  reported an atomic-sleep warning, new lockdep splat, stall or lockup.
-- The exact revision passed combined RT and non-RT QEMU softirq,
-  lock-contention and TXHI stop/drain/wake tests.
-- An unpatched PREEMPT_RT Pi 400 reproduced the atomic-sleep report. An
-  unpatched non-RT Pi 400 deadlocked and produced 32 RCU stall reports.
-- An unpatched PREEMPT_RT Pi 500+ reproduced 21 atomic-sleep reports.
-- All brcmfmac tests used the default fcmode=0.
-
- .../broadcom/brcm80211/brcmfmac/sdio.c        | 91 +++++++++++++++++--
- 1 file changed, 85 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 381801af3a..170450306d 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -516,6 +516,7 @@ struct brcmf_sdio {
- 	bool dpc_running;
- 
- 	bool txoff;		/* Transmit flow-controlled */
-+	bool txoff_pending;	/* Deferred transmit flow control */
- 	struct brcmf_sdio_count sdcnt;
- 	bool sr_enabled; /* SaveRestore enabled */
- 	bool sleeping;
-@@ -2796,8 +2797,53 @@ static bool brcmf_sdio_prec_enq(struct pktq *q, struct sk_buff *pkt, int prec)
- 	return p != NULL;
- }
- 
-+/*
-+ * The caller holds txq_lock with hard IRQs disabled. Avoid the skb queue
-+ * lock, which may sleep on PREEMPT_RT.
-+ */
-+static bool brcmf_sdio_prec_enq_irqoff(struct pktq *q, struct sk_buff *pkt,
-+				       int prec)
-+{
-+	struct sk_buff_head *list = &q->q[prec].skblist;
-+
-+	if (pktq_pfull(q, prec) || pktq_full(q))
-+		return false;
-+
-+	__skb_queue_tail(list, pkt);
-+	q->len++;
-+	if (q->hi_prec < prec)
-+		q->hi_prec = prec;
-+
-+	return true;
-+}
-+
-+static bool brcmf_sdio_txq_lock(struct brcmf_sdio *bus, bool irq_off)
-+		__cond_acquires(true, &bus->txq_lock)
-+{
-+	if (irq_off) {
-+		if (IS_ENABLED(CONFIG_PREEMPT_RT) &&
-+		    (in_hardirq() || in_nmi()))
-+			return false;
-+		return spin_trylock(&bus->txq_lock);
-+	}
-+
-+	spin_lock_bh(&bus->txq_lock);
-+	return true;
-+}
-+
-+static void brcmf_sdio_txq_unlock(struct brcmf_sdio *bus, bool irq_off)
-+		__releases(&bus->txq_lock)
-+{
-+	if (irq_off)
-+		spin_unlock(&bus->txq_lock);
-+	else
-+		spin_unlock_bh(&bus->txq_lock);
-+}
-+
- static int brcmf_sdio_bus_txdata(struct device *dev, struct sk_buff *pkt)
- {
-+	bool irq_off = irqs_disabled();
-+	bool enqueued;
- 	int ret = -EBADE;
- 	uint prec;
- 	struct brcmf_bus *bus_if = dev_get_drvdata(dev);
-@@ -2826,22 +2872,39 @@ static int brcmf_sdio_bus_txdata(struct device *dev, struct sk_buff *pkt)
- 	bus->sdcnt.fcqueued++;
- 
- 	/* Priority based enq */
--	spin_lock_bh(&bus->txq_lock);
-+	if (!brcmf_sdio_txq_lock(bus, irq_off)) {
-+		skb_pull(pkt, bus->tx_hdrlen);
-+		return -EBUSY;
-+	}
-+
- 	/* reset bus_flags in packet cb */
- 	*(u16 *)(pkt->cb) = 0;
--	if (!brcmf_sdio_prec_enq(&bus->txq, pkt, prec)) {
-+	if (irq_off)
-+		enqueued = brcmf_sdio_prec_enq_irqoff(&bus->txq, pkt, prec);
-+	else
-+		enqueued = brcmf_sdio_prec_enq(&bus->txq, pkt, prec);
-+
-+	if (!enqueued) {
- 		skb_pull(pkt, bus->tx_hdrlen);
--		brcmf_err("out of bus->txq !!!\n");
-+		/* Avoid netconsole recursion. */
-+		if (!irq_off)
-+			brcmf_err("out of bus->txq !!!\n");
- 		ret = -ENOSR;
- 	} else {
- 		ret = 0;
- 	}
- 
- 	if (pktq_len(&bus->txq) >= TXHI) {
--		bus->txoff = true;
--		brcmf_proto_bcdc_txflowblock(dev, true);
-+		if (irq_off) {
-+			WRITE_ONCE(bus->txoff_pending, true);
-+		} else {
-+			WRITE_ONCE(bus->txoff_pending, false);
-+			bus->txoff = true;
-+			brcmf_proto_bcdc_txflowblock(dev, true);
-+		}
- 	}
--	spin_unlock_bh(&bus->txq_lock);
-+
-+	brcmf_sdio_txq_unlock(bus, irq_off);
- 
- #ifdef DEBUG
- 	if (pktq_plen(&bus->txq, prec) > qcount[prec])
-@@ -3754,6 +3817,21 @@ static void brcmf_sdio_bus_watchdog(struct brcmf_sdio *bus)
- 	}
- }
- 
-+static void brcmf_sdio_deferred_txflowblock(struct brcmf_sdio *bus)
-+{
-+	if (!READ_ONCE(bus->txoff_pending))
-+		return;
-+
-+	spin_lock_bh(&bus->txq_lock);
-+	WRITE_ONCE(bus->txoff_pending, false);
-+	if (bus->sdiodev->state == BRCMF_SDIOD_DATA && !bus->txoff &&
-+	    pktq_len(&bus->txq) >= TXHI) {
-+		bus->txoff = true;
-+		brcmf_proto_bcdc_txflowblock(bus->sdiodev->dev, true);
-+	}
-+	spin_unlock_bh(&bus->txq_lock);
-+}
-+
- static void brcmf_sdio_dataworker(struct work_struct *work)
- {
- 	struct brcmf_sdio *bus = container_of(work, struct brcmf_sdio,
-@@ -3763,6 +3841,7 @@ static void brcmf_sdio_dataworker(struct work_struct *work)
- 	wmb();
- 	while (READ_ONCE(bus->dpc_triggered)) {
- 		bus->dpc_triggered = false;
-+		brcmf_sdio_deferred_txflowblock(bus);
- 		brcmf_sdio_dpc(bus);
- 		bus->idlecount = 0;
- 	}
-
-base-commit: 6f63e919fe1e335b8abcb3a28bfd4804a98d875a
--- 
-2.53.0
+I will update this in v2.
