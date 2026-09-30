@@ -1,211 +1,294 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876153CFF66
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FCF3CF1FC
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795078; cv=none; b=Mz4923aSfut8exMKEB7ionthb2HrJE1jFFXq8RSMwdfbwQqu/+YN7jhbSulro6bfLN3HWTwnCfMmk0fq6EJiZRqShXYZd2+wk1FUY5AzrrdXCPyfODVOK5HWLpd0ZsGMi1ZwmuJIKUuf+4I0M/WZVrQD1CaDakHNfHhuSlWIboY=
+	t=1790795078; cv=none; b=cT55ItT9AWEWs82PVQ236KBOoK6Zz/6pHC6qDI/6kQUpEjWbUI/kwjOAjhEzY1XX8MA6dV8PXMhW1D/pYUrrXaap77S30Bhv8kppiY0sgEO61yW3e6Of9CXuMPW72lhoRarprYxdNsX6w3ZOrSENY98144jNLAVsCiSoW500Yz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790795078; c=relaxed/simple;
-	bh=aQDTmzZkNtfi9M4WvijRvmcfH1g1CjNfc24/4SY1nHE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HcScAOwui+1lsjxnybpUdx8WTTEYUia/NOsW+kvnpknEdci6NXqGFz6Hd1V6NY7hQqPWExLj78SR1FJDw5yTm6h+cXedBTu6vRTqiUrYseFYwKWztV+JQZuK4gg6jQt1xRnbImuMa2l3kr2D/kBwV6Yb5EejWdVci/6vRchTQUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bwt9pseH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b6o0Xmx4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=58NGrgCikYj4oiIv8grflg8iid9f2NMPUIYevzPszt4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=gDrpcvZrvQ3Ag05gWqA+zMYK8RJqs83vT6oztLAt5oKMsSBiZs2+kc1qdtZHh7E5tM7RtnnXg+iwR4/jFNN1rLV/Myoqqvw3jaJH98A1LKrFdpRl0EdBQCej7tllRds4scIyO6H+mwIdr/U7gPUi/BjwSgcBJvQAq1UzZpmpzfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Jq/Ac6X9; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bwt9pseH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b6o0Xmx4"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UIPGkT3881744
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:04:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	n+yNVJmf6N6JAqx65mEM5Tj02xGBuXskr0wTh+rjirk=; b=bwt9pseHMIHAfkSc
-	bn+n0tlrDMTjIlSMiibMFrTlfErRB3rTVKgiJlIPiWi53RIObkXBTmBIJyBbnqKo
-	j3FdIl7rMcrCLMKsmaXi/OWwgL8eP5ZuW5MFqmURc/AHBeK84hdPBggrCGo9pCrB
-	CdMk0MFbSvlvZYwSu7cpvE1LA9pd36V/LosmsvjfxxxrqUJO18HyRq9MXzhd3QT4
-	plHf5a21LnytTrUUg0w5KcpFwVx6I9DKspAU5WdDWZ5TjVJUT2Dl8csmOeXiEBrm
-	822cmtag5qdNaRnVKs7YVubmb5HWKCio+W20lsaB0UT9lgK3zy85rWInNFuEo6yG
-	EJIAyw==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17pj85t9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:04:35 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7b335ce0f18so797689137.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Jq/Ac6X9"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df8cffbdbaso39204775ad.2
         for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:04:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790795074; x=1791399874; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n+yNVJmf6N6JAqx65mEM5Tj02xGBuXskr0wTh+rjirk=;
-        b=b6o0Xmx4u5HFmqDCnLYh4YMi+vIWON0c40wJOrwZJLp82TBjryvEDFy+CAGsv1Vjsd
-         5x6qyvZkRy49mqnhnv8l1LbLsBU8OeUZvstU3IzB4nwaLLCmv4WUzWSw6nP8exTHuZ5E
-         Wm5UZny4LGRGw2t/N4bDns1+GRAvND4fi5K3ehVtwlnaecVuztuekoUwvDuZr6TEPrBk
-         94yiPwJ00sxzt94E9DSGLSnUMUuuzAkBQO4nO4Xox72ErxeGLWiLfynEGEiI9rcaMuCx
-         RlXFeWq5rSj0HVeuO6+O7/gA7dPQUowCMts9AMLvWDR+59tTvvva1cO3qrQtNjqhG/9k
-         DT5A==
+        d=google.com; s=20251104; t=1790795075; x=1791399875; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4oQy8rlQIRxyth1hVpdWplVHitIsjdzc3Y5gbdebgk0=;
+        b=Jq/Ac6X9It273uht9LfJZboh8eO6EXNq9R8oxf7jPixVtDH39PV42zJ6OmvO79ZPjU
+         bCV3xY++Gd8PG9BE0hCSvKgvP67MWdvlA77HIWCxdiLYukSU3pe3doQI+c7TMFhy57la
+         7cXmo9m6jFze35+RxNw0A76GNaJ25WQk77z9m3wu6uhXUIgIQbSvU8U/f5uYK5wOqwJA
+         y4/8/MWN/7fBoZjWr2BN8o7DhvdkWokGASX30vB+sA4fAX7fZAgMrozCrldKBDohVGKA
+         Xjle7ys3QGo4askgt46Unr/H7ixVAn005fYnNWwlWWJez1AYIWcaqkCKzz+oBEZ89c33
+         yNWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790795074; x=1791399874;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=n+yNVJmf6N6JAqx65mEM5Tj02xGBuXskr0wTh+rjirk=;
-        b=mNY2UdY0f2ct74gSlNfzPLVa6aCbOvNOYxKR5Q0gyl9xSQlJ+02yeWOK1JYxeUMfN9
-         D0wds3ayywxb5Uo0cmFfJkIdvm6iuU+pAJpbgZ+Xs+0k+kt4Ri0/3ieXRHhJiSDZ4+l6
-         lWO73I5q9aY1lUy6r6M7nN/V5kgjObkxjWlF/Da6T0SvbEj7iADw4wtFkdwTMbRKya23
-         O2Xt/ebE6uj63li4c9zuhfKWThqPXbBZcTLMYGEkA+EK25h8vG7THOCgd1HoT4PxKTIe
-         YAgxUfjxwPxx3l/zH/8gsCnj8RaYiu+ykmtr9kONxd7JFLIHYWHx8LXJlUPqbS2mudEN
-         Rlvw==
-X-Forwarded-Encrypted: i=1; AKwUvByHqqE96XiUkQl+wVtbp0orYGuDoDlROIkvqK02LSM0tUHb7qLISFeQ6S9oS34HVUX5YZ/fr7jZU9xRTv8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrbThiO+jF2iup2Eh0ZHC6J+65kkL/1+GhT7NNYhxYour7e5vd
-	DSvI8Gyvj97Rv810jQOTGhRqe0Ppob9QEfmb/POoDZfoamaxMvDUBC14nJVLYp9RXCPLD0TA77H
-	uUn+wGmmD6XsKHWlQI9tVtLZy28OvuV0iSsY20qPtAROdbVfqBtkqMQMJ0WmLJb28cUg=
-X-Gm-Gg: AYBFou0Uj0kSTcMyJhmNU5KFRfeUVQR99LgYCOyAGhLy9DRDDc6vw9WGOB5H/AbkRey
-	6PX5YkYP9Le3STEyV0/c3bl6bLQz/p8q3WVgr1L+vHNmFwuDWN2/2rvYu3iXZtQCFOhv/0eGZDq
-	bc1fz7YY9uRfesuukZjJSGjXiaP2vyvOmFHjerolActu1A3NV/m1rR0v+5xsphjFRg1f923fM45
-	CjDGIZ9C1zt0MRPsjxvPMisIqhacKXMickjmxbksfixdNhSnx1scC4R/QW6zqU2qOsWFbrzGw/o
-	/Z+x9UNBpLXhLhmgoJqQlKdlAwJBwTA45eoGeSn5jM5F6+J//RNyXmf5Jw2hc/WqwqdVCjBMEQn
-	drSgpkInK1zBwCQgGrESP57Hime2fWnpCOxN+4dTT53P6ycMOQ51vJ5ExPQuTLof9o8i7UkSW9e
-	JQm5oBYvw8atPQ
-X-Received: by 2002:a05:6102:41a8:b0:7a8:f2be:9517 with SMTP id ada2fe7eead31-7be733a564cmr586798137.23.1790795073927;
-        Wed, 30 Sep 2026 12:04:33 -0700 (PDT)
-X-Received: by 2002:a05:6102:41a8:b0:7a8:f2be:9517 with SMTP id ada2fe7eead31-7be733a564cmr586784137.23.1790795073234;
-        Wed, 30 Sep 2026 12:04:33 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbc4a5sm174124e87.63.2026.09.30.12.04.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 12:04:32 -0700 (PDT)
-Date: Wed, 30 Sep 2026 22:04:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-Message-ID: <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
- <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
- <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+        d=1e100.net; s=20260707; t=1790795075; x=1791399875;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4oQy8rlQIRxyth1hVpdWplVHitIsjdzc3Y5gbdebgk0=;
+        b=1g1mYmD37i2SJkzYfTUmarobuASfu/Ex47BKEQtrSY4Xx563HtIaSJ4agREwEZT2au
+         HwFuiUj5+nkiHtT5qM5rYGj6uaEbSmiGTwmQW7tvqX0COcMhSHERPI8bMHeaHoQLgcP2
+         nmxo+WgWl4/qbLOpwa10dtpJDhwEivfWpXxM+ttDv3dg2NnKuTfEDZQdzOq6MRyDpkiK
+         M1abxHCrqTfbNj8QxHHXhkS6FfQx85P4mhHSyCv25BCGyOcW6238nyeBMTGQJOMvv2bV
+         FPdVognaif4PrRLeifw3doJvtC7Z0lafATdbnatId1NXyFHbXLWFlCm6lOM0AuEbUm7l
+         1T0A==
+X-Forwarded-Encrypted: i=1; AKwUvBynE3FjU30EP1ud0xXfBlUVhRhkcDrKEE/nOypcSIzB4+AnPrP7Mnnu4LKfsZnE3RJxGR496ySJrkD3WR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLC7Xb4iRAv4TAO/t/GRh/3xypE6G4bsWCISmK/tY8HQEtOtKD3
+	OJniQuGxF19o3ZS4Axd94vQZJcvHQO8HUT35mVUlhDW9FGSZAYOcpCGCUgq+bgoamO8ar0bdq30
+	SEaO6KzPXCM5bhxOsZKX/ONMz5g==
+X-Received: from plei17.prod.google.com ([2002:a17:902:e491:b0:2df:69bb:4ed])
+ (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:2c8b:b0:2dd:c100:80af with SMTP id d9443c01a7336-2e2e4b56c44mr18241845ad.42.1790795074960;
+ Wed, 30 Sep 2026 12:04:34 -0700 (PDT)
+Date: Wed, 30 Sep 2026 19:04:20 +0000
+In-Reply-To: <20260930190428.1130007-1-hramamurthy@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
-X-Authority-Analysis: v=2.4 cv=eqpKXYpX c=1 sm=1 tr=0 ts=6abd5d43 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=vnREMb7VAAAA:8
- a=VwQbUJbxAAAA:8 a=twE6rBcdgA2BTABM_JsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-GUID: fshc65URR4Q6Q_AePxLGdg9gjlIAxya6
-X-Proofpoint-ORIG-GUID: fshc65URR4Q6Q_AePxLGdg9gjlIAxya6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfXzSqbm1I1tdHH
- 13wARJhidbrBQCakGv8gyLvsKJDvR9ZFlGe3pKuuYLYHbqisrdi3dZRcpxryh2pSFhA0EcBMPXG
- yoODFSFBH9eARBJ5RLCf44r9mxewnFs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfX1TOkb/t+wjP5
- 7mE9MKkKqpFJ+XKSDEXTFDoOGsd5NjXeS7t3mY/mjpxFtBU4Ez+9KAWRbw7sOW9JroxTF4bkc6F
- w5fykYWiLdEqJYg2B0prFc6QYxdGrcSxOvgvGirW7+XAlDgY9mMMRh/kTfphe2S5gg6OMC8p6eC
- mQAOzYsjZSztVcvfAAZB7qILVaFFtYmNb07uzYddH5BSdVAi6UT763CBjuUfrxN5vT9ZRAs3xhH
- POGHwHYsAdwdu0PRVJBwKUepWz9dP1X6M7aKSxygMSSRYiP/UY9ZOjphU9/ZK+XNbo/XRpIXYD+
- jduUDZr51idQkvSfmdUf2tk8AFel6405Bmt7jdmPZixokzD4rD9R52hu/DCh9WaJ3OWaCkGNeYa
- jpqONgO85yVRcDWw8PZcyz6l2HUimzLdbuagR28sZbMneFYvRrt+lc9AbFg/aVAIygJr2Sygk2j
- r+E6oCV1gPV1nPlhwiw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 malwarescore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300078
+Mime-Version: 1.0
+References: <20260930190428.1130007-1-hramamurthy@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930190428.1130007-5-hramamurthy@google.com>
+Subject: [PATCH net-next v9 04/12] gve: introduce gve_adminq_get_device_properties()
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+To: netdev@vger.kernel.org
+Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
+	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
+	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
+	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	przemyslaw.kitszel@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
-> On 9/30/26 09:44, Linus Walleij wrote:
-> > On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > 
-> > > This entire binding seems like stitching two devices together, which
-> > > might be fine (I don't even remember this stuff... two months old) or
-> > > might be artificial grouping of separate devices.
-> > 
-> > I think that's a good point and fair pushback.
-> > 
-> > Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
-> > https://www.youtube.com/watch?v=6tNGW8PoSzw
-> > 
-> > The current binding does not reflect the physical topology of the
-> > actual device, and the bindings need improvements. I have a feeling
-> > there is one display controller with two physical panels.
-> 
-> No there's really 2 controller and 2 separate panels, but they are not
-> classic panel, they are a pair of panels+lens which are in front of
-> the eyes which forms a single "image" for the brain, so they are
-> technically a single display and requires to be hard synchronized.
+Introduce gve_adminq_get_device_properties() which executes the first
+two Adminq commands: VERIFY_DRIVER_COMPATIBILITY and DESCRIBE_DEVICE
+so that this can be called during initialization.
 
-Yes. However this approach makes it impossible to share the code between
-the double-panel drivers and single-panel drivers. I think, that the
-panel driver should still reference a single glass+DDIC, while letting
-the DSI host driver to handle the bifurcation.
+Move these to Adminq specific files. This is just code movement, no
+functional change.
 
-> The R63455 is designed for this exact use case and are only supposed
-> to be use in XR application in pair.
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+---
+v5:
+- Place the utsname.h and version.h header files only where needed
+- drop unnecessary __maybe_unused (Sashiko)
 
-yes, but no, but yes, but no. I mean, nothing prevents one from using
-this DDIC in some other usecase.
+v3:
+- move patch down so that the function is introduced just before usage
+- mark function as maybe_unused
+- update commit message
 
-> See it like a single physical panel with 2 controllers which
-> shouldn't be used separately. While technically a controller could
-> be used to driver single panel, it's likely impossible Synaptics
-> would sell this IC for non XR applications.
+ drivers/net/ethernet/google/gve/gve_adminq.c | 68 ++++++++++++++++++--
+ drivers/net/ethernet/google/gve/gve_adminq.h |  5 +-
+ drivers/net/ethernet/google/gve/gve_main.c   | 47 +-------------
+ 3 files changed, 65 insertions(+), 55 deletions(-)
 
-I think, this was causing an issue with the DSC too. A normal
-bonded-DSI-panel-with-DSC and this-double-panel require different widths
-to be programmed. Having a panel report real resolution would drop that
-quirk from the DSI host driver.
-
-> We want the both panels to be seen at a single big panel because
-> physically the human eye will see it as a single display.
-
-That's the CRTC side.
-
-> Describing both panels into separate nodes would only be possible
-> if we described a "VR display complex" nodes linked to both panels
-> but this would probably be solved by actually describing the "display"
-> linked to a DDIC controller and is out of subject for this serie,
-> and can be added later when we properly define things.
-
-I like the VR complex idea. In the end, you have two modes which you
-most likely might want to support:
-- L+R, having double-width CRTC scanning over a double-width framebuffer
-- Mx2, having a single-width CRTC and a single-width framebuffer
-  displaying the same picture to both eyes. I can imaging that knowing
-  about L+R might be an explicit opt-in feature of the DRM interface.
-
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 046155ae7d66..f420a8e1dd3d 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -6,6 +6,8 @@
+ 
+ #include <linux/etherdevice.h>
+ #include <linux/pci.h>
++#include <linux/utsname.h>
++#include <linux/version.h>
+ #include "gve.h"
+ #include "gve_adminq.h"
+ #include "gve_register.h"
+@@ -1143,6 +1145,27 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 	return err;
+ }
+ 
++int gve_adminq_get_device_properties(struct gve_priv *priv)
++{
++	int err;
++
++	err = gve_adminq_verify_driver_compatibility(priv);
++	if (err) {
++		dev_err(&priv->pdev->dev,
++			"Could not verify driver compatibility: err=%d\n", err);
++		return err;
++	}
++
++	/* Get the initial information we need from the device */
++	err = gve_adminq_describe_device(priv);
++	if (err) {
++		dev_err(&priv->pdev->dev,
++			"Could not get device information: err=%d\n", err);
++		return err;
++	}
++	return 0;
++}
++
+ int gve_adminq_register_page_list(struct gve_priv *priv,
+ 				  struct gve_queue_page_list *qpl)
+ {
+@@ -1205,20 +1228,53 @@ int gve_adminq_report_stats(struct gve_priv *priv, u64 stats_report_len,
+ 	return gve_adminq_execute_cmd(priv, &cmd);
+ }
+ 
+-int gve_adminq_verify_driver_compatibility(struct gve_priv *priv,
+-					   u64 driver_info_len,
+-					   dma_addr_t driver_info_addr)
++int gve_adminq_verify_driver_compatibility(struct gve_priv *priv)
+ {
++	struct gve_driver_info *driver_info;
+ 	union gve_adminq_command cmd;
++	dma_addr_t driver_info_bus;
++	int err;
++
++	driver_info = dma_alloc_coherent(&priv->pdev->dev,
++					 sizeof(struct gve_driver_info),
++					 &driver_info_bus, GFP_KERNEL);
++	if (!driver_info)
++		return -ENOMEM;
++
++	*driver_info = (struct gve_driver_info) {
++		.os_type = 1, /* Linux */
++		.os_version_major = cpu_to_be32(LINUX_VERSION_MAJOR),
++		.os_version_minor = cpu_to_be32(LINUX_VERSION_SUBLEVEL),
++		.os_version_sub = cpu_to_be32(LINUX_VERSION_PATCHLEVEL),
++		.driver_capability_flags = {
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS1),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS2),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS3),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS4),
++		},
++	};
++	strscpy(driver_info->os_version_str1, utsname()->release,
++		sizeof(driver_info->os_version_str1));
++	strscpy(driver_info->os_version_str2, utsname()->version,
++		sizeof(driver_info->os_version_str2));
+ 
+ 	memset(&cmd, 0, sizeof(cmd));
+ 	cmd.opcode = cpu_to_be32(GVE_ADMINQ_VERIFY_DRIVER_COMPATIBILITY);
+ 	cmd.verify_driver_compatibility = (struct gve_adminq_verify_driver_compatibility) {
+-		.driver_info_len = cpu_to_be64(driver_info_len),
+-		.driver_info_addr = cpu_to_be64(driver_info_addr),
++		.driver_info_len = cpu_to_be64(sizeof(struct gve_driver_info)),
++		.driver_info_addr = cpu_to_be64(driver_info_bus),
+ 	};
+ 
+-	return gve_adminq_execute_cmd(priv, &cmd);
++	err = gve_adminq_execute_cmd(priv, &cmd);
++
++	/* It's ok if the device doesn't support this */
++	if (err == -EOPNOTSUPP)
++		err = 0;
++
++	dma_free_coherent(&priv->pdev->dev,
++			  sizeof(struct gve_driver_info),
++			  driver_info, driver_info_bus);
++	return err;
+ }
+ 
+ int gve_adminq_report_link_speed(struct gve_priv *priv)
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
+index ed3504853908..2ab68c822e22 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.h
++++ b/drivers/net/ethernet/google/gve/gve_adminq.h
+@@ -640,9 +640,8 @@ int gve_adminq_register_page_list(struct gve_priv *priv,
+ int gve_adminq_unregister_page_list(struct gve_priv *priv, u32 page_list_id);
+ int gve_adminq_report_stats(struct gve_priv *priv, u64 stats_report_len,
+ 			    dma_addr_t stats_report_addr, u64 interval);
+-int gve_adminq_verify_driver_compatibility(struct gve_priv *priv,
+-					   u64 driver_info_len,
+-					   dma_addr_t driver_info_addr);
++int gve_adminq_verify_driver_compatibility(struct gve_priv *priv);
++int gve_adminq_get_device_properties(struct gve_priv *priv);
+ int gve_adminq_report_link_speed(struct gve_priv *priv);
+ int gve_adminq_add_flow_rule(struct gve_priv *priv, struct gve_adminq_flow_rule *rule, u32 loc);
+ int gve_adminq_del_flow_rule(struct gve_priv *priv, u32 loc);
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index da53c1fb6afb..addfd8dc1a1a 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -17,8 +17,6 @@
+ #include <linux/sched.h>
+ #include <linux/timer.h>
+ #include <linux/workqueue.h>
+-#include <linux/utsname.h>
+-#include <linux/version.h>
+ #include <net/netdev_queues.h>
+ #include <net/sch_generic.h>
+ #include <net/xdp_sock_drv.h>
+@@ -41,49 +39,6 @@ char gve_driver_name[] = "gve";
+ const char gve_version_str[] = GVE_VERSION;
+ static const char gve_version_prefix[] = GVE_VERSION_PREFIX;
+ 
+-static int gve_verify_driver_compatibility(struct gve_priv *priv)
+-{
+-	int err;
+-	struct gve_driver_info *driver_info;
+-	dma_addr_t driver_info_bus;
+-
+-	driver_info = dma_alloc_coherent(&priv->pdev->dev,
+-					 sizeof(struct gve_driver_info),
+-					 &driver_info_bus, GFP_KERNEL);
+-	if (!driver_info)
+-		return -ENOMEM;
+-
+-	*driver_info = (struct gve_driver_info) {
+-		.os_type = 1, /* Linux */
+-		.os_version_major = cpu_to_be32(LINUX_VERSION_MAJOR),
+-		.os_version_minor = cpu_to_be32(LINUX_VERSION_SUBLEVEL),
+-		.os_version_sub = cpu_to_be32(LINUX_VERSION_PATCHLEVEL),
+-		.driver_capability_flags = {
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS1),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS2),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS3),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS4),
+-		},
+-	};
+-	strscpy(driver_info->os_version_str1, utsname()->release,
+-		sizeof(driver_info->os_version_str1));
+-	strscpy(driver_info->os_version_str2, utsname()->version,
+-		sizeof(driver_info->os_version_str2));
+-
+-	err = gve_adminq_verify_driver_compatibility(priv,
+-						     sizeof(struct gve_driver_info),
+-						     driver_info_bus);
+-
+-	/* It's ok if the device doesn't support this */
+-	if (err == -EOPNOTSUPP)
+-		err = 0;
+-
+-	dma_free_coherent(&priv->pdev->dev,
+-			  sizeof(struct gve_driver_info),
+-			  driver_info, driver_info_bus);
+-	return err;
+-}
+-
+ static netdev_features_t gve_features_check(struct sk_buff *skb,
+ 					    struct net_device *dev,
+ 					    netdev_features_t features)
+@@ -2480,7 +2435,7 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 		return err;
+ 	}
+ 
+-	err = gve_verify_driver_compatibility(priv);
++	err = gve_adminq_verify_driver_compatibility(priv);
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+ 			"Could not verify driver compatibility: err=%d\n", err);
 -- 
-With best wishes
-Dmitry
+2.56.0.rc1.315.gc6ed9934b7-goog
+
