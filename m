@@ -1,1051 +1,872 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EB14BD348
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784480; cv=fail; b=ktv86DZqiSfAawW5Dnj3N/WGGTDPxzAQ/QnPeILB0dS4j+49/3SUysdb1yyo5uGV+wiP0qOnuaNnN8ALrB1V88fF3rZanxlrM00HzOtF9JVx1N0gRqoVZC7I3sXAUPy2liyEntFxs5/rnQxOU15yyxlAbmGrTF0dtk3/9hQ6PDo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784480; c=relaxed/simple;
-	bh=+1hSa98Qu+T5+mqBYAifJOuuyjxdUYgzFQ4embgSV4E=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F3l/JRTs0GcUePdqb7/E6CidpH8GbhO6Ar1DoZ7Bko3J+ANo12imk/nwjDgDuZQGIy82oXyH+XhmfMDYIq5WGbpmMW1YAf/l5nyzdQhjBNFMpSB4KFaTxl9i3ESt+ZArBq0t7LKmLSmfmyTmy/arFhiGzGGtZR74+mpu+JGkpys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=TtiLHzCI; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=nM4AuVTo; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDFC51AED4;
+	Wed, 30 Sep 2026 16:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790784485; cv=none; b=qSV8bDh2hnX3dUXc14M0HR0e73NvrhBLHZksX8ZHgJ6Ex0CIs1Nwd4mVgJvgRVM+a9G7rYKdtMpxW/BXq8VMyYgWfCw5UKnsLqxXdyiXvt+Ajt/DdW6hhXdi9IZPTzpwZYvhgJuBWt5VV0ClsaRZ2m4WgvYKmzZyKcyaK3vIodA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790784485; c=relaxed/simple;
+	bh=WlbXhIqgza58c22thC9Vd2B8rLgumwxuHimon4NiUYk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tM1fdTrwR8a8Hh2jbtlmp0GX6Dfa4JNmC6Io0vc6G1AlNrZRr1zPhIWSHd9q18wdmmHP3lCzHDS7rJXVH0WjqPzvXZFYFQFe5jhBYDXbXjHNukM76IApw8zaxIj6Xz9g7XwE8LtAvWmRLwc3DR//EsrU5+4whHHRus6ojgnW3So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1Y2vBpn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="TtiLHzCI";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="nM4AuVTo"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE1JNB3057439;
-	Wed, 30 Sep 2026 11:07:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=8UzP4p1A/Bvl3prLrgOLlOosbIvhE95UOHewRONLU
-	k8=; b=TtiLHzCIBIgnO4xGNJXw0QD7syVTPxGOdqLpwAsx6Ae0E8//7y36ZhPkO
-	usg1alBDnNeuEoZfBkFATaX2WVNJdcIcelFQiPGKTyl8U/uCRJDGGWHSkP7SsSpt
-	nsz8ikkdk3wHG38BIwmrZfAPPhH5eV97ijEEZW1tUl78+6+JhCD3x6QnvJtV9kyb
-	71kryDPnaa1hC/4V4YyfBJgbaC7WsMHSEdFD12E7YSGghS4NkC7GDqqJQ9TSs84k
-	eaUQzQnmn/FT6SD1DxDMt4ah0xKMzAhA0u7QGGpBc2okgubu+kqkcZa3LVapxZQI
-	pZeRuJcnI5IAwDBYxg10ETPHIMEIw==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010034.outbound.protection.outlook.com [40.93.198.34])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h0m9fehxc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 11:07:35 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jAVsk36LQ1jNCIuCj1qXhvc8HCGZBmPMLXO+R/SNF6txfAj6Qy++vvCEGx+YSmqhvSRUp9dqiX+GbfiLgX6AsaeK1HaH4juGjXXtRyBIx21GgzHnNF+p1F9LXjP9BoNlcjoZThq3zSn1KgNKTtrJH0pDVuMJ5mq8A0gL/wPvRjX5pBtcXV2hZLV7gUYsdWXWJu4HwSXN63JJuNSCBuXsBXzc5laeamrLdUm+Rrc53iLcKO2/53fPKCUDarLMS4NaDEy4Tq0gHRqTNU7ooALb8WQaW0dFN01ikZvtU1MfSIZ+hJd71dHbxgUr3/HDA7Nl8O9snF0tcI40yXpryya3mQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8UzP4p1A/Bvl3prLrgOLlOosbIvhE95UOHewRONLUk8=;
- b=VkdqF3AtzE6Uadan5146h9r7VjiYDmroaON407XXJushAN2fZhWvROhxYnUR+XKSSMprUfvMa0NghVE8LBfpSR+DJr3J8IXixdkvlSwGfmWiFkfe0yZ7SFnbRgUF9Nf8Aiz7fK4xYDsTzD2fDnloTZcT0S0SFdhMjrBrr3KGP4DpYutkrzDPy69GCFXJyWCu81OGWOUfRNyJd0LanrEZeWiDiDYBHHHtFZ7LrI9wUa3tiu+QOt+DlHyu+ZcT4V7qHuZdIYcizLG/PqI0jsINSuFeI0KLvstdsZsyiMGSCWEE/y83KDjKSfG+RXrQ75AvKeQgjIQT8ZtJh8pUmDvA8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8UzP4p1A/Bvl3prLrgOLlOosbIvhE95UOHewRONLUk8=;
- b=nM4AuVTo7cMfXPOrjIrIUZAyFOdQc8+ICU1byf/37xLW/VFtlo3cSZs6IYZidMDWQuGg5BCGRB9HV/pGibLy983DOqVMfiP9XfZM0G1RBvl4W2OBj4ZscYpEwxbxxN3wt0nDzu35MjTfw1lJmEin5VRukACGD++DOVDMr+mDHE0=
-Received: from BLAPR03CA0132.namprd03.prod.outlook.com (2603:10b6:208:32e::17)
- by CO1PR10MB4545.namprd10.prod.outlook.com (2603:10b6:303:9a::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.9; Wed, 30 Sep
- 2026 16:07:34 +0000
-Received: from BN1PEPF00018547.namprd05.prod.outlook.com
- (2603:10b6:208:32e:cafe::4b) by BLAPR03CA0132.outlook.office365.com
- (2603:10b6:208:32e::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 16:07:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 16:07:31 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 11:06:39 -0500
-Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 11:06:39 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 11:06:39 -0500
-Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UG68WC3425232;
-	Wed, 30 Sep 2026 11:06:36 -0500
-From: Beleswar Padhi <b-padhi@ti.com>
-To: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>, <afd@ti.com>,
-        <vigneshr@ti.com>, <u-kumar1@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <b-padhi@ti.com>
-Subject: [PATCH v2 09/22] firmware: ti_sci: Fetch info struct from handle inside ti_sci_do_xfer()
-Date: Wed, 30 Sep 2026 21:35:54 +0530
-Message-ID: <20260930160607.2674980-10-b-padhi@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930160607.2674980-1-b-padhi@ti.com>
-References: <20260930160607.2674980-1-b-padhi@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1Y2vBpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C6F21C4AF12;
+	Wed, 30 Sep 2026 16:08:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790784483;
+	bh=WlbXhIqgza58c22thC9Vd2B8rLgumwxuHimon4NiUYk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=m1Y2vBpnhYhSskQJv6X53rd8E+kMH5P70DX8qT9KhNMMri7QBjcKI0jhw5EI+4CfL
+	 37OsE2QWDHauTkHzezVFA+h/9JdSrGK/8MfjnvyJKErZw6X+AfoUze0D61SDuzSB+/
+	 OPi/ipvdN2Fg4VVwNZ8UVqTiYuwXWVZns+AqOcsdBplAFResn9p4TENzWDanCnz2Q/
+	 tVp0+hxOubDzYdPs2bCd6U9TyGHH5KcaMFmStUoLaMdhVeq/DvY5oxWjTXZrGmMN68
+	 l3j+rpkvIXn3P5Tt96vrEi2r1kG6kRFIyUoiQuqe3YqghRG/3fxHD/z3+Z6SEzcvUk
+	 +Kfljf4fXLcqQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9376CA5FCC;
+	Wed, 30 Sep 2026 16:08:03 +0000 (UTC)
+From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
+Date: Wed, 30 Sep 2026 18:08:04 +0200
+Subject: [PATCH 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|CO1PR10MB4545:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb131474-bb65-48d7-c786-08df1f0cef0b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	jfvft9itaMo5jZJ2lvwqcWCotff6eAvKN+UMvWpe1OyWwJ+wBESeKCGPLX3YGYuChk01RdSaSTaJ5LaufxzI4haNrUvdttzM6D4702HP80VBmOV2aD62WPVkPQ4Z8czbUEWnYZm9SqvtA8cEEko6gFC6u2OjptEzjgpbi0cNh/eXBP5Jo9IgPEE092HOQ28XrrlTNsUB33jsebwV0PIdQHhUq3z8NjEZR/6zxrTGDsaTVhlAdUoChxp2wFNMlSwPGGhmUW0GkXW4lxfExZsOYhhJRLLSRMCkonLI+DX62icXHL5nRbf9ZpYX9y+e2ZkiNEk9eO5BPkf7zJX4sGZgINJrrCwWpZqp0EyvMVtvR6972cW6JCHLOsenDUN+nvQjVd1wDS0VKbNgYE9vwDa2kFEd/ElBDB5ItBvTsi6p6ofibzhRohFXXi/+aFOLvhJOIXeEDnXg+n6ov0za3kbzlwj/B6iMWaw2ZeB4k2uBPNWwvCfL9XBO07Kb1Q1ncthaUBykDzS1xSDnim2mLGQ3qbCZCsTnEcpo+GTqUd0VD8RIST+S+F8qRWHz6c4p0eGTHQqx1QunUH2cFhMgKXJKAsobQugIZyQRT2AkF2n0/+4YKr7dzQErhZUCgv+Ev1vVeh5P57A0aHGjVBIqqrb9HuB4vGLUAqtNxsTBgZe6w8Ln6HTwmvdoC9e1Kmye3JXwpbPpQ0K5tphT7KLFCtgpiw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	FRIYm4c2oiNcLr+xQw4VpKdGE93HFIHTwm3+5URbC80yx7uZKNII9d8tHsbo0OrFrI3WpZ6W6F3nnJq0D+uNxWo5ClQ3nCNp+6np7q5VG4DoaZiJGh2Dbn8xmYD/89NQ8lOMhsAr/3HuHWv1+wnsVUo3j7yAMDqR4CnLAnZ60plGrBr8G3ZIGeLaBaCTvaY8exTHxGe/BcXjdKlLIJ+3Xlc1PW09giPhlCUZjDwoKN+DYMi7SA5MqjgBbaYJYdo8fAHWyYWkRS8oGDCdcZnKCZtTo5QqCj0Ucsht/Pkl2pqBKtBwBKwUODKnf7CJ5oaxtOCAy4I6PRpC2w2zYj340dHFwwMPJ7L35mC8XpikktIoMk5maqJFneghV4Chaz3MrroqjBRIGL8nkGGFYoOdrkkhgWy+2AR/1sj92hAQBswpIGnOt8N2oJyQFK7JI+o/
-X-Exchange-RoutingPolicyChecked:
-	o6EkW3YdwGImk9K72y3BNw4AAlVffsMJLVjsVKvuAoiHjjtew0/PMzoxdJyi1J1bl4ONv80YLChJBNVuvrKIywJtZH48xbC+lZFWxabh3ldMTBAjE9djHHaaSnxcV2QKJtUt9piupfwePuglRoM+ZGtKqqlJLRnayBz0c3zHUGl7/lRd6VEXNNkYbcnYyWbq+GMUz8hta4l1UT/kRjeUfaN7z30kLn2lM0+X2Adf/2OI6beBefaOU5Qe4gh28QRP/3C/D0KU1Uc9lK2Rupe/ZemVT/sHfA3p29Wjs8xWRi3ghb/1hxQuK8WBn+jxbg7u4HeLpzHtB5aL4a4X0KFgtA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:07:31.9353
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb131474-bb65-48d7-c786-08df1f0cef0b
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018547.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4545
-X-Authority-Analysis: v=2.4 cv=VfRir1p9 c=1 sm=1 tr=0 ts=6abd33c7 cx=c_pps
- a=sh6lJpoQSmOZbBTv2jax/A==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=we-QN_a4EPTVeeq35NwA:9
-X-Proofpoint-GUID: Y38-Sjxmh363XQrxAetXiQqksFR0d7ow
-X-Proofpoint-ORIG-GUID: Y38-Sjxmh363XQrxAetXiQqksFR0d7ow
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX1/3Hx2MxAbgb
- RSdodLhbboVKKaZTP0E246Sulyv0120srPTRl41fQCgWhTkJfdggaOY9z47V/4YM/7+r3gRYiuv
- TTe6m8N1l92kKqqWs6X9oMbiOA84HT8/ifudzKbtTXnTG+KTpZZJaSPTNNnj32JzElMydjWBgkt
- oiCcWkC7xj+wiVoj9aFqKNvK1yWv/JajkUIR0XihsGpfbWFaddzC45rsPGMrgpJT39hv71SNRFm
- Nyz9IFcErltcT3rS99UsrPU0e94wYd7hau8KA+sB43gH4Vbv319tqNSbW+B7dNcBGimD0fB6xXI
- URJZdWwwBmY5p31mUgz14QdvhW5yraVMYPvUOWD3mcb/7qA91wkrRUK8LICoyzGD9Cd5bkS+1d3
- AbZhpcofprPl4T9ZBiDHEeYz7XPUaWtpgrPGMWT9JkMEKtwNZ9lcGAI8u2lQD1P+gs9SG4t99yz
- xFs1OLDE6F3qUYgACdA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX045z6a/19XLK
- kz1Ygg0eupjpeIf0THfCwoMwD60DDYZal87xVQ23OLgKaDOhwK0Cy/53JoRq3lrxdqR3na0fgbU
- 3AfIlqA4LKMIn7RIDYziVSwP25FhDZo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300064
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-mainlining-v1-2-c303cbdb00c8@proton.me>
+References: <20260930-mainlining-v1-0-c303cbdb00c8@proton.me>
+In-Reply-To: <20260930-mainlining-v1-0-c303cbdb00c8@proton.me>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Armandas Kvietkus <armandas.kvietkus@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790784482; l=23424;
+ i=armandas.kvietkus@proton.me; h=from:subject:message-id;
+ bh=1NrxDidVsXp4S5rXoGWFjLAJD9U4iuDytlw5KEOUwrs=;
+ b=fFDZtcw99xQfb8Gc1YNIIS7VufOf91dw1wsnOrwq6UebJslKDP0eB8+15xc8Qkc44cvsCPXpc
+ H4fGrqqLYQWCviNE7uz/a5QFAjZfvqR1xbuTe5+9L/2GOtKlIBoDxNT
+X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
+ pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
+X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
+ with auth_id=974
+X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Reply-To: armandas.kvietkus@proton.me
 
-From: Andrew Davis <afd@ti.com>
+From: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-As the only use for the handle is to fetch the info struct, which is only
-used by the ti_sci_do_xfer() function, move the info struct retrieval
-into that function. This also allows us to move the handle validity check
-inside also, saving us from needing to do this at each message function.
+Add a driver for the Awinic AW8697 LRA haptic driver IC. It supports
+FF_RUMBLE and calibrates the LRA resonance at probe.
 
-Signed-off-by: Andrew Davis <afd@ti.com>
-Co-developed-by: Beleswar Padhi <b-padhi@ti.com>
-Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+Based on the aw86927 driver.
+
+Tested on a Xiaomi POCO F3.
+
+Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
 ---
-v2: Changelog:
-1. None to this patch.
+ MAINTAINERS                 |   6 +
+ drivers/input/misc/Kconfig  |  14 +
+ drivers/input/misc/Makefile |   1 +
+ drivers/input/misc/aw8697.c | 725 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 746 insertions(+)
 
-Link to v1:
-https://lore.kernel.org/all/20260929201746.4078803-10-b-padhi@ti.com/
-
- drivers/firmware/ti_sci.c | 306 ++++++++------------------------------
- 1 file changed, 60 insertions(+), 246 deletions(-)
-
-diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti_sci.c
-index 6d0ecb77d731e..dbe192142bf17 100644
---- a/drivers/firmware/ti_sci.c
-+++ b/drivers/firmware/ti_sci.c
-@@ -435,7 +435,7 @@ static inline bool ti_sci_is_response_ack(void *r)
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c52ec2d7d3c1..b00217bdca20 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4419,6 +4419,12 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	drivers/media/pci/hws/
  
- /**
-  * ti_sci_do_xfer() - Do one transfer
-- * @info:	Pointer to SCI entity information
-+ * @handle:	Pointer to TI SCI handle
-  * @msg_type:	Message type
-  * @msg_flags:	Flag to set for the message
-  * @tx_message: transmit message storage location
-@@ -443,23 +443,26 @@ static inline bool ti_sci_is_response_ack(void *r)
-  * @rx_message: receive message storage location
-  * @rx_message_size: receive message size
-  *
-- * Return: -ETIMEDOUT in case of no response, or
-+ * Return: -EINVAL if @handle is NULL, or
-+ *         PTR_ERR(@handle) if @handle is an error pointer, or
-+ *         -ETIMEDOUT in case of no response, or
-  *         -ENODEV in case of a NACK response, or
-  *         corresponding error if xfer allocation fails, or
-  *         corresponding error if transmit fails, or
-  *         return 0, if all goes well.
-  */
--static inline int ti_sci_do_xfer(struct ti_sci_info *info,
-+static inline int ti_sci_do_xfer(const struct ti_sci_handle *handle,
- 				 u16 msg_type, u32 msg_flags,
- 				 void *tx_message, size_t tx_message_size,
- 				 void *rx_message, size_t rx_message_size)
- {
-+	struct ti_sci_info *info;
- 	struct ti_sci_xfer *xfer;
- 	bool response_expected = !!(msg_flags & (TI_SCI_FLAG_REQ_ACK_ON_PROCESSED |
- 						 TI_SCI_FLAG_REQ_ACK_ON_RECEIVED));
- 	int ret;
- 	int timeout;
--	struct device *dev = info->dev;
++AWINIC AW8697 HAPTICS DRIVER
++M:	Armandas Kvietkus <armandas.kvietkus@proton.me>
++L:	linux-input@vger.kernel.org
++S:	Maintained
++F:	drivers/input/misc/aw8697.c
++
+ AWINIC AW99706 WLED BACKLIGHT DRIVER
+ M:	Junjie Cao <junjie.cao@linux.dev>
+ S:	Maintained
+diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
+index 169768e3d5bb..d2b71a0f9aee 100644
+--- a/drivers/input/misc/Kconfig
++++ b/drivers/input/misc/Kconfig
+@@ -126,6 +126,20 @@ config INPUT_ATMEL_CAPTOUCH
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called atmel_captouch.
+ 
++config INPUT_AW8697
++	tristate "Awinic AW8697 Haptic Driver Support"
++	depends on I2C && INPUT
++	select INPUT_FF_MEMLESS
++	select REGMAP_I2C
++	help
++	  Say Y here if you have an Awinic AW8697 haptic chip. The
++	  AW8697 drives a linear resonant actuator and is found in
++	  phones such as the Xiaomi POCO F3. The driver exposes a
++	  force feedback input device with rumble support.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called aw8697.
++
+ config INPUT_AW86927
+ 	tristate "Awinic AW86927 Haptic Driver Support"
+ 	depends on I2C && INPUT
+diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makefile
+index 1339619f0769..171d3ff1f167 100644
+--- a/drivers/input/misc/Makefile
++++ b/drivers/input/misc/Makefile
+@@ -23,6 +23,7 @@ obj-$(CONFIG_INPUT_ATC260X_ONKEY)	+= atc260x-onkey.o
+ obj-$(CONFIG_INPUT_ATI_REMOTE2)		+= ati_remote2.o
+ obj-$(CONFIG_INPUT_ATLAS_BTNS)		+= atlas_btns.o
+ obj-$(CONFIG_INPUT_ATMEL_CAPTOUCH)	+= atmel_captouch.o
++obj-$(CONFIG_INPUT_AW8697)		+= aw8697.o
+ obj-$(CONFIG_INPUT_AW86927)		+= aw86927.o
+ obj-$(CONFIG_INPUT_BBNSM_PWRKEY)	+= nxp-bbnsm-pwrkey.o
+ obj-$(CONFIG_INPUT_BMA150)		+= bma150.o
+diff --git a/drivers/input/misc/aw8697.c b/drivers/input/misc/aw8697.c
+new file mode 100644
+index 000000000000..3155321cb37b
+--- /dev/null
++++ b/drivers/input/misc/aw8697.c
+@@ -0,0 +1,725 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Armandas Kvietkus <armandas.kvietkus@proton.me>
++ * Copyright (C) 2025 Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
++ * Copyright (c) 2021 AWINIC Technology CO., LTD
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/interrupt.h>
++#include <linux/math.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/pm.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++#include <linux/workqueue.h>
++
++#define AW8697_ID_REG				0x00
++#define AW8697_ID_SOFTRST			0xaa
++#define AW8697_CHIPID				0x97
++
++#define AW8697_SYSINT_REG			0x02
++#define AW8697_SYSINT_BSTERRI			BIT(7)
++#define AW8697_SYSINT_OVI			BIT(6)
++#define AW8697_SYSINT_UVLI			BIT(5)
++#define AW8697_SYSINT_FF_AEI			BIT(4)
++#define AW8697_SYSINT_FF_AFI			BIT(3)
++#define AW8697_SYSINT_OCDI			BIT(2)
++#define AW8697_SYSINT_OTI			BIT(1)
++#define AW8697_SYSINT_DONEI			BIT(0)
++
++#define AW8697_SYSINTM_REG			0x03
++#define AW8697_SYSINTM_BSTERRM			BIT(7)
++#define AW8697_SYSINTM_UVLM			BIT(5)
++#define AW8697_SYSINTM_FF_AEM			BIT(4)
++#define AW8697_SYSINTM_FF_AFM			BIT(3)
++#define AW8697_SYSINTM_DONEM			BIT(0)
++
++#define AW8697_SYSCTRL_REG			0x04
++#define AW8697_SYSCTRL_RAMINIT			BIT(5)
++#define AW8697_SYSCTRL_PLAY_MODE_MASK		GENMASK(3, 2)
++#define AW8697_SYSCTRL_PLAY_MODE_RAM		0
++#define AW8697_SYSCTRL_PLAY_MODE_CONT		2
++#define AW8697_SYSCTRL_BST_MODE_BOOST		BIT(1)
++#define AW8697_SYSCTRL_WORK_MODE_STANDBY	BIT(0)
++
++#define AW8697_GO_REG				0x05
++#define AW8697_GO				BIT(0)
++
++#define AW8697_WAVSEQ1_REG			0x07
++#define AW8697_WAVSEQ2_REG			0x08
++#define AW8697_WAVSEQ_WAV_MASK			GENMASK(6, 0)
++
++#define AW8697_WAVLOOP1_REG			0x0f
++#define AW8697_WAVLOOP1_SEQ1_MASK		GENMASK(7, 4)
++#define AW8697_WAVLOOP_INFINITE			0x0f
++
++#define AW8697_DBGCTRL_REG			0x20
++#define AW8697_DBGCTRL_INT_MODE_EDGE		BIT(2)
++
++#define AW8697_BASEADDRH_REG			0x21
++#define AW8697_BASEADDRL_REG			0x22
++
++#define AW8697_DATCTRL_REG			0x2b
++#define AW8697_DATCTRL_FC_1000HZ		GENMASK(7, 6)
++#define AW8697_DATCTRL_LPF_EN			BIT(5)
++
++#define AW8697_PWMPRC_REG			0x2d
++#define AW8697_PWMPRC_PRC_EN			BIT(7)
++
++#define AW8697_PWMDBG_REG			0x2e
++#define AW8697_PWMDBG_PWM_MODE_MASK		GENMASK(6, 5)
++#define AW8697_PWMDBG_PWM_24K			2
++
++#define AW8697_BSTDBG1_REG			0x31
++#define AW8697_BSTDBG2_REG			0x32
++#define AW8697_BSTDBG3_REG			0x33
++
++#define AW8697_ANADBG_REG			0x35
++#define AW8697_ANADBG_IOC_MASK			GENMASK(3, 2)
++#define AW8697_ANADBG_IOC_4P65A			3
++
++#define AW8697_ANACTRL_REG			0x36
++#define AW8697_ANACTRL_LRA_SRC_REG		BIT(5)
++
++#define AW8697_DATDBG_REG			0x39
++
++#define AW8697_PRLVL_REG			0x3e
++#define AW8697_PRLVL_PR_EN			BIT(7)
++
++#define AW8697_RAMADDRH_REG			0x40
++#define AW8697_RAMADDRL_REG			0x41
++#define AW8697_RAMDATA_REG			0x42
++
++#define AW8697_GLBSTATE_REG			0x46
++#define AW8697_GLBSTATE_STATE_MASK		GENMASK(3, 0)
++#define AW8697_GLBSTATE_STANDBY			0
++
++#define AW8697_BSTAUTO_REG			0x47
++#define AW8697_BSTAUTO_AUTOSW			BIT(2)
++
++#define AW8697_CONTCTRL_REG			0x48
++#define AW8697_CONTCTRL_CLOSE_PLAYBACK		BIT(3)
++#define AW8697_CONTCTRL_F0_DETECT		BIT(2)
++
++#define AW8697_FPREH_REG			0x49
++#define AW8697_FPREL_REG			0x4a
++
++#define AW8697_TRIMLRA_REG			0x5b
++#define AW8697_TRIMLRA_MASK			GENMASK(5, 0)
++
++#define AW8697_RSPARE_REG			0x5d
++
++#define AW8697_ADCTEST_REG			0x66
++#define AW8697_ADCTEST_VBAT_HW			BIT(6)
++
++#define AW8697_FLRAF0H_REG			0x68
++#define AW8697_FLRAF0L_REG			0x69
++
++#define AW8697_DRVLVL_REG			0x7b
++#define AW8697_DRVLVL_F0_DETECT			0x49
++
++#define AW8697_NUMF01_REG			0x7d
++#define AW8697_NUMF01_PRE_MASK			GENMASK(7, 4)
++#define AW8697_NUMF01_WAIT_MASK			GENMASK(3, 0)
++#define AW8697_NUMF02_REG			0x7e
++#define AW8697_NUMF03_REG			0x7f
++
++#define AW8697_F0_PRE_NUM			9
++#define AW8697_F0_WAIT_NUM			3
++#define AW8697_F0_REPEAT_NUM			1
++#define AW8697_F0_TRACE_NUM			31
++#define AW8697_F0_CLK_DHZ			3846154
++#define AW8697_F0_REF_DHZ			1700
++#define AW8697_F0_TOLERANCE_PCT			7
++#define AW8697_TRIM_STEPS_PER_UNIT		400
++
++#define AW8697_RAM_BASE_ADDR			0x800
++#define AW8697_GAIN_MAX				0x80
++
++struct aw8697_data {
++	struct work_struct play_work;
 +	struct device *dev;
- 	bool done_state = true;
- 	void *caller;
- 
-@@ -470,6 +473,14 @@ static inline int ti_sci_do_xfer(struct ti_sci_info *info,
- 	 */
- 	caller = (void *)_RET_IP_;
- 
-+	if (IS_ERR(handle))
-+		return PTR_ERR(handle);
-+	if (!handle)
++	struct input_dev *input_dev;
++	struct regmap *regmap;
++	struct gpio_desc *reset_gpio;
++	u16 level;
++};
++
++static const struct regmap_config aw8697_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.cache_type = REGCACHE_NONE,
++	.max_register = 0x7f,
++};
++
++static const u8 aw8697_waveform[] = {
++	0x00, 0x02, 0x03, 0x05, 0x07, 0x08, 0x0a, 0x0c, 0x0d, 0x0f, 0x10, 0x12,
++	0x13, 0x15, 0x16, 0x17, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20,
++	0x21, 0x22, 0x23, 0x23, 0x24, 0x24, 0x25, 0x25, 0x26, 0x26, 0x26, 0x26,
++	0x26, 0x26, 0x26, 0x26, 0x25, 0x25, 0x24, 0x24, 0x23, 0x23, 0x22, 0x21,
++	0x20, 0x1f, 0x1e, 0x1d, 0x1c, 0x1b, 0x1a, 0x19, 0x17, 0x16, 0x15, 0x13,
++	0x12, 0x10, 0x0f, 0x0d, 0x0c, 0x0a, 0x08, 0x07, 0x05, 0x03, 0x02, 0x00,
++	0xfe, 0xfd, 0xfb, 0xf9, 0xf8, 0xf6, 0xf4, 0xf3, 0xf1, 0xf0, 0xee, 0xed,
++	0xeb, 0xea, 0xe9, 0xe7, 0xe6, 0xe5, 0xe4, 0xe3, 0xe2, 0xe1, 0xe0, 0xdf,
++	0xde, 0xdd, 0xdd, 0xdc, 0xdc, 0xdb, 0xdb, 0xda, 0xda, 0xda, 0xda, 0xda,
++	0xda, 0xda, 0xda, 0xdb, 0xdb, 0xdc, 0xdc, 0xdd, 0xdd, 0xde, 0xdf, 0xe0,
++	0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe9, 0xea, 0xeb, 0xed, 0xee,
++	0xf0, 0xf1, 0xf3, 0xf4, 0xf6, 0xf8, 0xf9, 0xfb, 0xfd, 0xfe,
++};
++
++struct aw8697_sram_header {
++	u8 version;
++	__be16 start_address;
++	__be16 end_address;
++} __packed;
++
++static const struct aw8697_sram_header aw8697_sram_header = {
++	.version = 0x01,
++	.start_address = cpu_to_be16(AW8697_RAM_BASE_ADDR +
++				     sizeof(struct aw8697_sram_header)),
++	.end_address = cpu_to_be16(AW8697_RAM_BASE_ADDR +
++				   sizeof(struct aw8697_sram_header) +
++				   ARRAY_SIZE(aw8697_waveform) - 1),
++};
++
++static int aw8697_stop(struct aw8697_data *haptics)
++{
++	unsigned int val;
++	int err;
++
++	err = regmap_clear_bits(haptics->regmap, AW8697_GO_REG, AW8697_GO);
++	if (err)
++		return err;
++
++	err = regmap_read_poll_timeout(haptics->regmap, AW8697_GLBSTATE_REG, val,
++				       FIELD_GET(AW8697_GLBSTATE_STATE_MASK, val) ==
++						AW8697_GLBSTATE_STANDBY,
++				       2500, 2500 * 100);
++	if (err)
++		dev_warn(haptics->dev, "Failed to enter standby, forcing it\n");
++
++	return regmap_set_bits(haptics->regmap, AW8697_SYSCTRL_REG,
++			       AW8697_SYSCTRL_WORK_MODE_STANDBY);
++}
++
++static int aw8697_play(struct aw8697_data *haptics)
++{
++	int err;
++
++	err = aw8697_stop(haptics);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_WAVSEQ1_REG,
++				 AW8697_WAVSEQ_WAV_MASK,
++				 FIELD_PREP(AW8697_WAVSEQ_WAV_MASK, 1));
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_WAVSEQ2_REG,
++				 AW8697_WAVSEQ_WAV_MASK, 0);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_WAVLOOP1_REG,
++				 AW8697_WAVLOOP1_SEQ1_MASK,
++				 FIELD_PREP(AW8697_WAVLOOP1_SEQ1_MASK,
++					    AW8697_WAVLOOP_INFINITE));
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_DATDBG_REG,
++			   haptics->level * AW8697_GAIN_MAX / U16_MAX);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_SYSCTRL_REG,
++				 AW8697_SYSCTRL_PLAY_MODE_MASK |
++					AW8697_SYSCTRL_BST_MODE_BOOST |
++					AW8697_SYSCTRL_WORK_MODE_STANDBY,
++				 FIELD_PREP(AW8697_SYSCTRL_PLAY_MODE_MASK,
++					    AW8697_SYSCTRL_PLAY_MODE_RAM) |
++					AW8697_SYSCTRL_BST_MODE_BOOST);
++	if (err)
++		return err;
++
++	return regmap_set_bits(haptics->regmap, AW8697_GO_REG, AW8697_GO);
++}
++
++static void aw8697_play_work(struct work_struct *work)
++{
++	struct aw8697_data *haptics = container_of(work, struct aw8697_data, play_work);
++	int err;
++
++	if (haptics->level)
++		err = aw8697_play(haptics);
++	else
++		err = aw8697_stop(haptics);
++
++	if (err)
++		dev_err(haptics->dev, "Failed to set playback state: %d\n", err);
++}
++
++static int aw8697_play_effect(struct input_dev *dev, void *data,
++			      struct ff_effect *effect)
++{
++	struct aw8697_data *haptics = input_get_drvdata(dev);
++	u16 level;
++
++	level = effect->u.rumble.strong_magnitude;
++	if (!level)
++		level = effect->u.rumble.weak_magnitude;
++
++	if (haptics->level == level)
++		return 0;
++
++	haptics->level = level;
++	schedule_work(&haptics->play_work);
++
++	return 0;
++}
++
++static void aw8697_halt(struct aw8697_data *haptics)
++{
++	int err;
++
++	cancel_work_sync(&haptics->play_work);
++	haptics->level = 0;
++
++	err = aw8697_stop(haptics);
++	if (err)
++		dev_err(haptics->dev, "Failed to stop playback: %d\n", err);
++}
++
++static void aw8697_close(struct input_dev *input)
++{
++	struct aw8697_data *haptics = input_get_drvdata(input);
++
++	aw8697_halt(haptics);
++}
++
++static int aw8697_hw_init(struct aw8697_data *haptics)
++{
++	int err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_PWMDBG_REG,
++				 AW8697_PWMDBG_PWM_MODE_MASK,
++				 FIELD_PREP(AW8697_PWMDBG_PWM_MODE_MASK,
++					    AW8697_PWMDBG_PWM_24K));
++	if (err)
++		return err;
++
++	err = regmap_clear_bits(haptics->regmap, AW8697_PWMPRC_REG,
++				AW8697_PWMPRC_PRC_EN);
++	if (err)
++		return err;
++
++	err = regmap_clear_bits(haptics->regmap, AW8697_PRLVL_REG,
++				AW8697_PRLVL_PR_EN);
++	if (err)
++		return err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_ADCTEST_REG,
++			      AW8697_ADCTEST_VBAT_HW);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_BSTDBG1_REG, 0x30);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_BSTDBG2_REG, 0xeb);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_BSTDBG3_REG, 0xd4);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_ANADBG_REG,
++				 AW8697_ANADBG_IOC_MASK,
++				 FIELD_PREP(AW8697_ANADBG_IOC_MASK,
++					    AW8697_ANADBG_IOC_4P65A));
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_RSPARE_REG, 0x68);
++	if (err)
++		return err;
++
++	return regmap_clear_bits(haptics->regmap, AW8697_BSTAUTO_REG,
++				 AW8697_BSTAUTO_AUTOSW);
++}
++
++static int aw8697_ram_init(struct aw8697_data *haptics)
++{
++	int err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_SYSCTRL_REG,
++			      AW8697_SYSCTRL_RAMINIT);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_BASEADDRH_REG,
++			   AW8697_RAM_BASE_ADDR >> 8);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_BASEADDRL_REG,
++			   AW8697_RAM_BASE_ADDR & 0xff);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_RAMADDRH_REG,
++			   AW8697_RAM_BASE_ADDR >> 8);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_RAMADDRL_REG,
++			   AW8697_RAM_BASE_ADDR & 0xff);
++	if (err)
++		return err;
++
++	err = regmap_noinc_write(haptics->regmap, AW8697_RAMDATA_REG,
++				 &aw8697_sram_header, sizeof(aw8697_sram_header));
++	if (err)
++		return err;
++
++	err = regmap_noinc_write(haptics->regmap, AW8697_RAMDATA_REG,
++				 aw8697_waveform, ARRAY_SIZE(aw8697_waveform));
++	if (err)
++		return err;
++
++	return regmap_clear_bits(haptics->regmap, AW8697_SYSCTRL_REG,
++				 AW8697_SYSCTRL_RAMINIT);
++}
++
++static int aw8697_f0_measure(struct aw8697_data *haptics, unsigned int *period)
++{
++	unsigned int fpre = AW8697_F0_CLK_DHZ / AW8697_F0_REF_DHZ;
++	unsigned int val;
++	u8 buf[2];
++	int err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_SYSCTRL_REG,
++				 AW8697_SYSCTRL_PLAY_MODE_MASK |
++					AW8697_SYSCTRL_BST_MODE_BOOST |
++					AW8697_SYSCTRL_WORK_MODE_STANDBY,
++				 FIELD_PREP(AW8697_SYSCTRL_PLAY_MODE_MASK,
++					    AW8697_SYSCTRL_PLAY_MODE_CONT) |
++					AW8697_SYSCTRL_BST_MODE_BOOST);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_CONTCTRL_REG,
++				 AW8697_CONTCTRL_CLOSE_PLAYBACK |
++					AW8697_CONTCTRL_F0_DETECT,
++				 AW8697_CONTCTRL_F0_DETECT);
++	if (err)
++		return err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_DATCTRL_REG,
++			      AW8697_DATCTRL_FC_1000HZ | AW8697_DATCTRL_LPF_EN);
++	if (err)
++		return err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_ANACTRL_REG,
++			      AW8697_ANACTRL_LRA_SRC_REG);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_FPREH_REG, fpre >> 8);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_FPREL_REG, fpre & 0xff);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_DRVLVL_REG,
++			   AW8697_DRVLVL_F0_DETECT);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_NUMF01_REG,
++			   FIELD_PREP(AW8697_NUMF01_PRE_MASK, AW8697_F0_PRE_NUM) |
++			   FIELD_PREP(AW8697_NUMF01_WAIT_MASK, AW8697_F0_WAIT_NUM));
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_NUMF02_REG,
++			   AW8697_F0_REPEAT_NUM);
++	if (err)
++		return err;
++
++	err = regmap_write(haptics->regmap, AW8697_NUMF03_REG,
++			   AW8697_F0_TRACE_NUM);
++	if (err)
++		return err;
++
++	err = regmap_read(haptics->regmap, AW8697_SYSINT_REG, &val);
++	if (err)
++		return err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_GO_REG, AW8697_GO);
++	if (err)
++		return err;
++
++	err = regmap_read_poll_timeout(haptics->regmap, AW8697_SYSINT_REG, val,
++				       val & AW8697_SYSINT_DONEI,
++				       10000, 500000);
++	if (err)
++		return err;
++
++	err = regmap_bulk_read(haptics->regmap, AW8697_FLRAF0H_REG, buf,
++			       sizeof(buf));
++	if (err)
++		return err;
++
++	*period = (buf[0] << 8) | buf[1];
++
++	return 0;
++}
++
++static int aw8697_f0_calibrate(struct aw8697_data *haptics)
++{
++	unsigned int period = 0;
++	int f0, step, err, ret;
++
++	err = regmap_write(haptics->regmap, AW8697_TRIMLRA_REG, 0);
++	if (err)
++		return err;
++
++	ret = aw8697_f0_measure(haptics, &period);
++
++	err = aw8697_stop(haptics);
++	if (err)
++		return err;
++
++	err = regmap_update_bits(haptics->regmap, AW8697_CONTCTRL_REG,
++				 AW8697_CONTCTRL_CLOSE_PLAYBACK |
++					AW8697_CONTCTRL_F0_DETECT,
++				 AW8697_CONTCTRL_CLOSE_PLAYBACK);
++	if (err)
++		return err;
++
++	if (ret)
++		return ret;
++
++	if (!period)
 +		return -EINVAL;
 +
-+	info = handle_to_ti_sci_info(handle);
-+	dev = info->dev;
++	f0 = AW8697_F0_CLK_DHZ / period;
++	if (abs(f0 - AW8697_F0_REF_DHZ) * 100 >
++	    AW8697_F0_REF_DHZ * AW8697_F0_TOLERANCE_PCT)
++		return -ERANGE;
 +
- 	xfer = ti_sci_get_one_xfer(info, msg_type, msg_flags,
- 				   tx_message, tx_message_size,
- 				   rx_message, rx_message_size, caller);
-@@ -551,7 +562,7 @@ static int ti_sci_cmd_get_revision(struct ti_sci_info *info)
- 	struct ti_sci_msg_resp_version resp;
- 	int ret;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_VERSION,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_VERSION,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -579,22 +590,14 @@ static int ti_sci_cmd_get_revision(struct ti_sci_info *info)
- static int ti_sci_set_device_state(const struct ti_sci_handle *handle,
- 				   u32 id, u32 flags, u8 state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_device_state req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.id = id;
- 	req.state = state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_DEVICE_STATE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_DEVICE_STATE,
- 			     flags | TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -619,24 +622,16 @@ static int ti_sci_get_device_state(const struct ti_sci_handle *handle,
- 				   u32 id,  u32 *clcnt,  u32 *resets,
- 				    u8 *p_state,  u8 *c_state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_get_device_state req;
- 	struct ti_sci_msg_resp_get_device_state resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
- 	if (!clcnt && !resets && !p_state && !c_state)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.id = id;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_DEVICE_STATE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_DEVICE_STATE,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -905,22 +900,14 @@ static int ti_sci_cmd_dev_is_trans(const struct ti_sci_handle *handle, u32 id,
- static int ti_sci_cmd_set_device_resets(const struct ti_sci_handle *handle,
- 					u32 id, u32 reset_state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_device_resets req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.id = id;
- 	req.resets = reset_state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_DEVICE_RESETS,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_DEVICE_RESETS,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -962,18 +949,10 @@ static int ti_sci_set_clock_state(const struct ti_sci_handle *handle,
- 				  u32 dev_id, u32 clk_id,
- 				  u32 flags, u8 state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_clock_state req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -983,7 +962,7 @@ static int ti_sci_set_clock_state(const struct ti_sci_handle *handle,
- 	}
- 	req.request_state = state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_CLOCK_STATE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_CLOCK_STATE,
- 			     flags | TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1009,21 +988,13 @@ static int ti_sci_cmd_get_clock_state(const struct ti_sci_handle *handle,
- 				      u32 dev_id, u32 clk_id,
- 				      u8 *programmed_state, u8 *current_state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_get_clock_state req;
- 	struct ti_sci_msg_resp_get_clock_state resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
- 	if (!programmed_state && !current_state)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1032,7 +1003,7 @@ static int ti_sci_cmd_get_clock_state(const struct ti_sci_handle *handle,
- 		req.clk_id_32 = clk_id;
- 	}
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_CLOCK_STATE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_CLOCK_STATE,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1222,18 +1193,10 @@ static int ti_sci_cmd_clk_is_off(const struct ti_sci_handle *handle, u32 dev_id,
- static int ti_sci_cmd_clk_set_parent(const struct ti_sci_handle *handle,
- 				     u32 dev_id, u32 clk_id, u32 parent_id)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_clock_parent req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1248,7 +1211,7 @@ static int ti_sci_cmd_clk_set_parent(const struct ti_sci_handle *handle,
- 		req.parent_id_32 = parent_id;
- 	}
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_CLOCK_PARENT,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_CLOCK_PARENT,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1272,18 +1235,13 @@ static int ti_sci_cmd_clk_set_parent(const struct ti_sci_handle *handle,
- static int ti_sci_cmd_clk_get_parent(const struct ti_sci_handle *handle,
- 				     u32 dev_id, u32 clk_id, u32 *parent_id)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_get_clock_parent req;
- 	struct ti_sci_msg_resp_get_clock_parent resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle || !parent_id)
-+	if (!parent_id)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1292,7 +1250,7 @@ static int ti_sci_cmd_clk_get_parent(const struct ti_sci_handle *handle,
- 		req.clk_id_32 = clk_id;
- 	}
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_CLOCK_PARENT,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_CLOCK_PARENT,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1322,18 +1280,13 @@ static int ti_sci_cmd_clk_get_num_parents(const struct ti_sci_handle *handle,
- 					  u32 dev_id, u32 clk_id,
- 					  u32 *num_parents)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_get_clock_num_parents req;
- 	struct ti_sci_msg_resp_get_clock_num_parents resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle || !num_parents)
-+	if (!num_parents)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1342,7 +1295,7 @@ static int ti_sci_cmd_clk_get_num_parents(const struct ti_sci_handle *handle,
- 		req.clk_id_32 = clk_id;
- 	}
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_NUM_CLOCK_PARENTS,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_NUM_CLOCK_PARENTS,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1381,18 +1334,13 @@ static int ti_sci_cmd_clk_get_match_freq(const struct ti_sci_handle *handle,
- 					 u64 target_freq, u64 max_freq,
- 					 u64 *match_freq)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_query_clock_freq req;
- 	struct ti_sci_msg_resp_query_clock_freq resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle || !match_freq)
-+	if (!match_freq)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1404,7 +1352,7 @@ static int ti_sci_cmd_clk_get_match_freq(const struct ti_sci_handle *handle,
- 	req.target_freq_hz = target_freq;
- 	req.max_freq_hz = max_freq;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_QUERY_CLOCK_FREQ,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_QUERY_CLOCK_FREQ,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1438,18 +1386,10 @@ static int ti_sci_cmd_clk_set_freq(const struct ti_sci_handle *handle,
- 				   u32 dev_id, u32 clk_id, u64 min_freq,
- 				   u64 target_freq, u64 max_freq)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_clock_freq req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1461,7 +1401,7 @@ static int ti_sci_cmd_clk_set_freq(const struct ti_sci_handle *handle,
- 	req.target_freq_hz = target_freq;
- 	req.max_freq_hz = max_freq;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_CLOCK_FREQ,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_CLOCK_FREQ,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1485,18 +1425,13 @@ static int ti_sci_cmd_clk_set_freq(const struct ti_sci_handle *handle,
- static int ti_sci_cmd_clk_get_freq(const struct ti_sci_handle *handle,
- 				   u32 dev_id, u32 clk_id, u64 *freq)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_get_clock_freq req;
- 	struct ti_sci_msg_resp_get_clock_freq resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle || !freq)
-+	if (!freq)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.dev_id = dev_id;
- 	if (clk_id < 255) {
- 		req.clk_id = clk_id;
-@@ -1505,7 +1440,7 @@ static int ti_sci_cmd_clk_get_freq(const struct ti_sci_handle *handle,
- 		req.clk_id_32 = clk_id;
- 	}
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_CLOCK_FREQ,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_CLOCK_FREQ,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1533,7 +1468,6 @@ static int ti_sci_cmd_prepare_sleep(const struct ti_sci_handle *handle, u8 mode,
- 	u32 msg_flags = mode == TISCI_MSG_VALUE_SLEEP_MODE_PARTIAL_IO ?
- 			TI_SCI_FLAG_REQ_GENERIC_NORESPONSE :
- 			TI_SCI_FLAG_REQ_ACK_ON_PROCESSED;
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_prepare_sleep req;
- 	struct ti_sci_msg_hdr resp;
- 	struct device *dev;
-@@ -1544,15 +1478,14 @@ static int ti_sci_cmd_prepare_sleep(const struct ti_sci_handle *handle, u8 mode,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
- 	req.mode = mode;
- 	req.ctx_lo = ctx_lo;
- 	req.ctx_hi = ctx_hi;
- 	req.debug_flags = debug_flags;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_PREPARE_SLEEP,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_PREPARE_SLEEP,
- 			     msg_flags,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1578,7 +1511,6 @@ static int ti_sci_cmd_prepare_sleep(const struct ti_sci_handle *handle, u8 mode,
- static int ti_sci_msg_cmd_query_fw_caps(const struct ti_sci_handle *handle,
- 					u64 *fw_caps)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_hdr req;
- 	struct ti_sci_msg_resp_query_fw_caps resp;
- 	struct device *dev;
-@@ -1589,10 +1521,9 @@ static int ti_sci_msg_cmd_query_fw_caps(const struct ti_sci_handle *handle,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_QUERY_FW_CAPS,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_QUERY_FW_CAPS,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1617,7 +1548,6 @@ static int ti_sci_msg_cmd_query_fw_caps(const struct ti_sci_handle *handle,
- static int ti_sci_cmd_set_io_isolation(const struct ti_sci_handle *handle,
- 				       u8 state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_set_io_isolation req;
- 	struct ti_sci_msg_hdr resp;
- 	struct device *dev;
-@@ -1628,12 +1558,11 @@ static int ti_sci_cmd_set_io_isolation(const struct ti_sci_handle *handle,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
- 	req.state = state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_IO_ISOLATION,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_IO_ISOLATION,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1658,7 +1587,6 @@ static int ti_sci_cmd_set_io_isolation(const struct ti_sci_handle *handle,
- static int ti_sci_msg_cmd_lpm_wake_reason(const struct ti_sci_handle *handle,
- 					  u32 *source, u64 *timestamp, u8 *pin, u8 *mode)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_hdr req;
- 	struct ti_sci_msg_resp_lpm_wake_reason resp;
- 	struct device *dev;
-@@ -1669,10 +1597,9 @@ static int ti_sci_msg_cmd_lpm_wake_reason(const struct ti_sci_handle *handle,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_LPM_WAKE_REASON,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_LPM_WAKE_REASON,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1704,7 +1631,6 @@ static int ti_sci_msg_cmd_lpm_wake_reason(const struct ti_sci_handle *handle,
- static int ti_sci_cmd_set_device_constraint(const struct ti_sci_handle *handle,
- 					    u32 id, u8 state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_lpm_set_device_constraint req;
- 	struct ti_sci_msg_hdr resp;
- 	struct device *dev;
-@@ -1715,13 +1641,12 @@ static int ti_sci_cmd_set_device_constraint(const struct ti_sci_handle *handle,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
- 	req.id = id;
- 	req.state = state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_LPM_SET_DEVICE_CONSTRAINT,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_LPM_SET_DEVICE_CONSTRAINT,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1744,7 +1669,6 @@ static int ti_sci_cmd_set_device_constraint(const struct ti_sci_handle *handle,
- static int ti_sci_cmd_set_latency_constraint(const struct ti_sci_handle *handle,
- 					     u16 latency, u8 state)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_lpm_set_latency_constraint req;
- 	struct ti_sci_msg_hdr resp;
- 	struct device *dev;
-@@ -1755,13 +1679,12 @@ static int ti_sci_cmd_set_latency_constraint(const struct ti_sci_handle *handle,
- 	if (!handle)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--	dev = info->dev;
-+	dev = handle_to_ti_sci_info(handle)->dev;
- 
- 	req.latency = latency;
- 	req.state = state;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_LPM_SET_LATENCY_CONSTRAINT,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_LPM_SET_LATENCY_CONSTRAINT,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1786,7 +1709,7 @@ static int ti_sci_cmd_lpm_abort(struct device *dev)
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_LPM_ABORT,
-+	ret = ti_sci_do_xfer(&info->handle, TI_SCI_MSG_LPM_ABORT,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1798,19 +1721,11 @@ static int ti_sci_cmd_lpm_abort(struct device *dev)
- 
- static int ti_sci_cmd_core_reboot(const struct ti_sci_handle *handle)
- {
--	struct ti_sci_info *info;
- 	struct ti_sci_msg_req_reboot req;
- 	struct ti_sci_msg_hdr resp;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SYS_RESET,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SYS_RESET,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1840,21 +1755,16 @@ static int ti_sci_get_resource_range(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_resp_get_resource_range resp;
- 	struct ti_sci_msg_req_get_resource_range req;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle || !desc)
-+	if (!desc)
- 		return -EINVAL;
- 
--	info = handle_to_ti_sci_info(handle);
--
- 	req.secondary_host = s_host;
- 	req.type = dev_id & MSG_RM_RESOURCE_TYPE_MASK;
- 	req.subtype = subtype & MSG_RM_RESOURCE_SUBTYPE_MASK;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_RESOURCE_RANGE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_RESOURCE_RANGE,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -1943,16 +1853,8 @@ static int ti_sci_manage_irq(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_manage_irq req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.valid_params = valid_params;
- 	req.src_id = src_id;
- 	req.src_index = src_index;
-@@ -1964,7 +1866,7 @@ static int ti_sci_manage_irq(const struct ti_sci_handle *handle,
- 	req.vint_status_bit = vint_status_bit;
- 	req.secondary_host = s_host;
- 
--	ret = ti_sci_do_xfer(info, type, TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
-+	ret = ti_sci_do_xfer(handle, type, TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
- 	if (ret)
-@@ -2250,14 +2152,8 @@ static int ti_sci_cmd_rm_ring_cfg(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_rm_ring_cfg_req req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR_OR_NULL(handle))
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.valid_params = params->valid_params;
- 	req.nav_id = params->nav_id;
- 	req.index = params->index;
-@@ -2270,7 +2166,7 @@ static int ti_sci_cmd_rm_ring_cfg(const struct ti_sci_handle *handle,
- 	req.virtid = params->virtid;
- 	req.asel = params->asel;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_RM_RING_CFG,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_RM_RING_CFG,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2295,21 +2191,13 @@ static int ti_sci_cmd_rm_psil_pair(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_psil_pair req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.nav_id = nav_id;
- 	req.src_thread = src_thread;
- 	req.dst_thread = dst_thread;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_RM_PSIL_PAIR,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_RM_PSIL_PAIR,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2334,21 +2222,13 @@ static int ti_sci_cmd_rm_psil_unpair(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_psil_unpair req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--	if (!handle)
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.nav_id = nav_id;
- 	req.src_thread = src_thread;
- 	req.dst_thread = dst_thread;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_RM_PSIL_UNPAIR,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_RM_PSIL_UNPAIR,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2374,14 +2254,8 @@ static int ti_sci_cmd_rm_udmap_tx_ch_cfg(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_rm_udmap_tx_ch_cfg_req req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR_OR_NULL(handle))
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.valid_params = params->valid_params;
- 	req.nav_id = params->nav_id;
- 	req.index = params->index;
-@@ -2403,7 +2277,7 @@ static int ti_sci_cmd_rm_udmap_tx_ch_cfg(const struct ti_sci_handle *handle,
- 	req.tx_tdtype = params->tx_tdtype;
- 	req.extended_ch_type = params->extended_ch_type;
- 
--	ret = ti_sci_do_xfer(info, TISCI_MSG_RM_UDMAP_TX_CH_CFG,
-+	ret = ti_sci_do_xfer(handle, TISCI_MSG_RM_UDMAP_TX_CH_CFG,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2429,14 +2303,8 @@ static int ti_sci_cmd_rm_udmap_rx_ch_cfg(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_rm_udmap_rx_ch_cfg_req req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR_OR_NULL(handle))
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.valid_params = params->valid_params;
- 	req.nav_id = params->nav_id;
- 	req.index = params->index;
-@@ -2455,7 +2323,7 @@ static int ti_sci_cmd_rm_udmap_rx_ch_cfg(const struct ti_sci_handle *handle,
- 	req.rx_ignore_long = params->rx_ignore_long;
- 	req.rx_burst_size = params->rx_burst_size;
- 
--	ret = ti_sci_do_xfer(info, TISCI_MSG_RM_UDMAP_RX_CH_CFG,
-+	ret = ti_sci_do_xfer(handle, TISCI_MSG_RM_UDMAP_RX_CH_CFG,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2481,14 +2349,8 @@ static int ti_sci_cmd_rm_udmap_rx_flow_cfg(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_rm_udmap_flow_cfg_req req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (IS_ERR_OR_NULL(handle))
--		return -EINVAL;
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.valid_params = params->valid_params;
- 	req.nav_id = params->nav_id;
- 	req.flow_index = params->flow_index;
-@@ -2512,7 +2374,7 @@ static int ti_sci_cmd_rm_udmap_rx_flow_cfg(const struct ti_sci_handle *handle,
- 	req.rx_fdq3_qnum = params->rx_fdq3_qnum;
- 	req.rx_ps_location = params->rx_ps_location;
- 
--	ret = ti_sci_do_xfer(info, TISCI_MSG_RM_UDMAP_FLOW_CFG,
-+	ret = ti_sci_do_xfer(handle, TISCI_MSG_RM_UDMAP_FLOW_CFG,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2534,19 +2396,11 @@ static int ti_sci_cmd_proc_request(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_proc_request req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_PROC_REQUEST,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_PROC_REQUEST,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2568,19 +2422,11 @@ static int ti_sci_cmd_proc_release(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_proc_release req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_PROC_RELEASE,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_PROC_RELEASE,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2605,20 +2451,12 @@ static int ti_sci_cmd_proc_handover(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_proc_handover req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 	req.host_id = host_id;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_PROC_HANDOVER,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_PROC_HANDOVER,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2646,16 +2484,8 @@ static int ti_sci_cmd_proc_set_config(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_set_config req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 	req.bootvector_low = bootvector & TI_SCI_ADDR_LOW_MASK;
- 	req.bootvector_high = (bootvector & TI_SCI_ADDR_HIGH_MASK) >>
-@@ -2663,7 +2493,7 @@ static int ti_sci_cmd_proc_set_config(const struct ti_sci_handle *handle,
- 	req.config_flags_set = config_flags_set;
- 	req.config_flags_clear = config_flags_clear;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_CONFIG,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_CONFIG,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2689,21 +2519,13 @@ static int ti_sci_cmd_proc_set_control(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_req_set_ctrl req;
- 	struct ti_sci_msg_hdr resp;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 	req.control_flags_set = control_flags_set;
- 	req.control_flags_clear = control_flags_clear;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_SET_CTRL,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_SET_CTRL,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
-@@ -2730,19 +2552,11 @@ static int ti_sci_cmd_proc_get_status(const struct ti_sci_handle *handle,
- {
- 	struct ti_sci_msg_resp_get_status resp;
- 	struct ti_sci_msg_req_get_status req;
--	struct ti_sci_info *info;
- 	int ret = 0;
- 
--	if (!handle)
--		return -EINVAL;
--	if (IS_ERR(handle))
--		return PTR_ERR(handle);
--
--	info = handle_to_ti_sci_info(handle);
--
- 	req.processor_id = proc_id;
- 
--	ret = ti_sci_do_xfer(info, TI_SCI_MSG_GET_STATUS,
-+	ret = ti_sci_do_xfer(handle, TI_SCI_MSG_GET_STATUS,
- 			     TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 			     &req, sizeof(req),
- 			     &resp, sizeof(resp));
++	step = DIV_ROUND_CLOSEST((f0 - AW8697_F0_REF_DHZ) *
++				 AW8697_TRIM_STEPS_PER_UNIT, f0);
++
++	dev_dbg(haptics->dev, "LRA f0 %d.%d Hz, trim %d\n",
++		f0 / 10, f0 % 10, step);
++
++	return regmap_write(haptics->regmap, AW8697_TRIMLRA_REG,
++			    step & AW8697_TRIMLRA_MASK);
++}
++
++static irqreturn_t aw8697_irq(int irq, void *data)
++{
++	struct aw8697_data *haptics = data;
++	struct device *dev = haptics->dev;
++	unsigned int val;
++	int err;
++
++	err = regmap_read(haptics->regmap, AW8697_SYSINT_REG, &val);
++	if (err) {
++		dev_err(dev, "Failed to read SYSINT register: %d\n", err);
++		return IRQ_NONE;
++	}
++
++	if (val & AW8697_SYSINT_BSTERRI)
++		dev_err(dev, "Boost error interrupt\n");
++	if (val & AW8697_SYSINT_OVI)
++		dev_err(dev, "Over voltage interrupt\n");
++	if (val & AW8697_SYSINT_UVLI)
++		dev_err(dev, "Under voltage lockout interrupt\n");
++	if (val & AW8697_SYSINT_OCDI)
++		dev_err(dev, "Over current interrupt\n");
++	if (val & AW8697_SYSINT_OTI)
++		dev_err(dev, "Over temperature interrupt\n");
++	if (val & AW8697_SYSINT_DONEI)
++		dev_dbg(dev, "Playback done\n");
++	if (val & AW8697_SYSINT_FF_AFI)
++		dev_dbg(dev, "FIFO almost full\n");
++	if (val & AW8697_SYSINT_FF_AEI)
++		dev_dbg(dev, "FIFO almost empty\n");
++
++	return IRQ_HANDLED;
++}
++
++static void aw8697_hw_reset(struct aw8697_data *haptics)
++{
++	gpiod_set_value_cansleep(haptics->reset_gpio, 1);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(haptics->reset_gpio, 0);
++	usleep_range(8000, 8500);
++}
++
++static int aw8697_detect(struct aw8697_data *haptics)
++{
++	unsigned int chip_id;
++	int err;
++
++	err = regmap_read(haptics->regmap, AW8697_ID_REG, &chip_id);
++	if (err)
++		return dev_err_probe(haptics->dev, err, "Failed to read chip ID\n");
++
++	if (chip_id != AW8697_CHIPID)
++		return dev_err_probe(haptics->dev, -ENODEV,
++				     "Unexpected chip ID 0x%02x\n", chip_id);
++
++	return 0;
++}
++
++static int aw8697_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct aw8697_data *haptics;
++	unsigned int val;
++	int err;
++
++	haptics = devm_kzalloc(dev, sizeof(*haptics), GFP_KERNEL);
++	if (!haptics)
++		return -ENOMEM;
++
++	haptics->dev = dev;
++	i2c_set_clientdata(client, haptics);
++
++	haptics->regmap = devm_regmap_init_i2c(client, &aw8697_regmap_config);
++	if (IS_ERR(haptics->regmap))
++		return dev_err_probe(dev, PTR_ERR(haptics->regmap),
++				     "Failed to allocate register map\n");
++
++	haptics->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(haptics->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(haptics->reset_gpio),
++				     "Failed to get reset gpio\n");
++
++	aw8697_hw_reset(haptics);
++
++	err = regmap_write(haptics->regmap, AW8697_ID_REG, AW8697_ID_SOFTRST);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to reset chip\n");
++
++	usleep_range(3000, 3500);
++
++	err = aw8697_detect(haptics);
++	if (err)
++		return err;
++
++	err = regmap_set_bits(haptics->regmap, AW8697_DBGCTRL_REG,
++			      AW8697_DBGCTRL_INT_MODE_EDGE);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to set interrupt mode\n");
++
++	err = regmap_write(haptics->regmap, AW8697_SYSINTM_REG,
++			   AW8697_SYSINTM_BSTERRM | AW8697_SYSINTM_UVLM |
++			   AW8697_SYSINTM_FF_AEM | AW8697_SYSINTM_FF_AFM |
++			   AW8697_SYSINTM_DONEM);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to set interrupt mask\n");
++
++	err = aw8697_stop(haptics);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to enter standby\n");
++
++	err = aw8697_hw_init(haptics);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to configure chip\n");
++
++	err = aw8697_ram_init(haptics);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to load waveform\n");
++
++	err = aw8697_f0_calibrate(haptics);
++	if (err)
++		dev_warn(dev, "LRA f0 calibration failed: %d\n", err);
++
++	err = regmap_read(haptics->regmap, AW8697_SYSINT_REG, &val);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to clear interrupts\n");
++
++	err = devm_request_threaded_irq(dev, client->irq, NULL, aw8697_irq,
++					IRQF_ONESHOT, NULL, haptics);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to request irq\n");
++
++	INIT_WORK(&haptics->play_work, aw8697_play_work);
++
++	haptics->input_dev = devm_input_allocate_device(dev);
++	if (!haptics->input_dev)
++		return -ENOMEM;
++
++	haptics->input_dev->name = "aw8697-haptics";
++	haptics->input_dev->close = aw8697_close;
++	input_set_drvdata(haptics->input_dev, haptics);
++	input_set_capability(haptics->input_dev, EV_FF, FF_RUMBLE);
++
++	err = input_ff_create_memless(haptics->input_dev, NULL, aw8697_play_effect);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to create FF device\n");
++
++	err = input_register_device(haptics->input_dev);
++	if (err)
++		return dev_err_probe(dev, err, "Failed to register input device\n");
++
++	return 0;
++}
++
++static int aw8697_suspend(struct device *dev)
++{
++	struct aw8697_data *haptics = dev_get_drvdata(dev);
++
++	guard(mutex)(&haptics->input_dev->mutex);
++
++	if (input_device_enabled(haptics->input_dev))
++		aw8697_halt(haptics);
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(aw8697_pm_ops, aw8697_suspend, NULL);
++
++static const struct i2c_device_id aw8697_id[] = {
++	{ "aw8697" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, aw8697_id);
++
++static const struct of_device_id aw8697_of_match[] = {
++	{ .compatible = "awinic,aw8697" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, aw8697_of_match);
++
++static struct i2c_driver aw8697_driver = {
++	.driver = {
++		.name = "aw8697-haptics",
++		.of_match_table = aw8697_of_match,
++		.pm = pm_sleep_ptr(&aw8697_pm_ops),
++	},
++	.probe = aw8697_probe,
++	.id_table = aw8697_id,
++};
++module_i2c_driver(aw8697_driver);
++
++MODULE_AUTHOR("Armandas Kvietkus <armandas.kvietkus@proton.me>");
++MODULE_DESCRIPTION("Awinic AW8697 LRA haptics driver");
++MODULE_LICENSE("GPL");
+
 -- 
-2.34.1
+2.55.0
+
 
