@@ -1,122 +1,101 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C064C33E6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A523051616F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793517; cv=none; b=aLdsl4j35ElfD2vLsRK4035OHYKGrdq5DMrRzVV9NPu750YmCFJ6R277shSAeOjwxArYOSSQKv+XBqfSBcrmRWyNUP+x6DaEbChmOLc6y5SHmris624D2xiKl36nl5xqIq24jT6Qxl/MTRxLrHhY2R6Gcr/p6NTUtuPLtkBplgg=
+	t=1790793525; cv=none; b=c02AC5n919INjrudRIuvYb+VbuVOwvOx1sMzuQ8p8YOva6STylvB43OciqcPu5Qj92ucyk0J7Td+YPPtjGBrzK4fj2B1juJtriN13/nI/xbvPuZib1SqROmJ4jxO591SjJFhZqHvENlR3y9cFa5Dpp1Onc1gsBjdc9vvf3HZrPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793517; c=relaxed/simple;
-	bh=GGi6ovI4LcDEis/cX9YUCASZQ/XVD4U6AA7Pt2oLAug=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e2FyZKVDJ9+s6k389BtSc7VXUT7DnRG61Ldo3hzAkOCkisdiozjjo6MR1fy73Uk04VlR6wcZxnHoA1rneduMs/loyb1gLmJfeEwbK11qsnS0NTGiQBdiO+8UwRCbV+DrGcd4ejfMZ93HYtELS+8L+1ONQ9GN9VPJ1yLZ7ItTpCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZKy5zQ3; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1790793525; c=relaxed/simple;
+	bh=qIYeVUCO05ZbZhdAAAoZexxaRjrSKWkj1JQrUJwwZr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d+thLkxxXZlhjQWMKKj1D7kjmiIZVJr1uQhMZFeNjhZApeCnpwAjwrpgQ5qTMgCdBgiK5O1EZAsdDn9ADNqLrrg/QA9S+MihdiP6rhWPwzkefIfIWj8lqOzngPzJ3z+20JGQxYsHtG6XCGsrubsHY8dDCwLjnCvgkOpXg4lssGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nyu8+fl+; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZKy5zQ3"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so2741327b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:38:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nyu8+fl+"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so9716995e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:38:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793515; x=1791398315; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GGi6ovI4LcDEis/cX9YUCASZQ/XVD4U6AA7Pt2oLAug=;
-        b=eZKy5zQ32ZWlKsDmgtISs0ZcDyu4apaPH4FWRV2jGKr5/W+IDOgBx0a7kWkKfs8/B0
-         YmcgAiNNp97RCnlBrytLqbB1JFtM7O1lYVGGRu1T2bOOfRTauZ5LF8jGLtQlw4EwdlOI
-         q0NtUgIskl65wexwX8taMWdbv0z+xT43JaGIHKyJHXhjlAuZzuyXFdqjvH7epiAz9ZGX
-         idDhs5RULedEYd4nb0nRViCyXEa9At9Vn/w8uuSYx50M1JT5BcsWnG8I1YDamNQFbrEt
-         nIyKyjcR6Y96BQ4+YfGSDJCumScik2x38PZPMZ+pUcfZkeY6Ow8AQZplVa8U6sUEP1ci
-         KIMw==
+        d=gmail.com; s=20251104; t=1790793522; x=1791398322; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X/kW+42sSDWDUbw6VMWjlova15EUzqflh+DF1qz2pHg=;
+        b=Nyu8+fl+9C0oTojAC9MciU8R4YNL7wQ7rEibxddMpIWYU+7X3C+IHEKm791q5fV7sj
+         15MTvicEaq6YvPzvZrMICs6c8KIAGtD0dMPuAat3ogEh1iURaeYsrLH9NgsSCQCEq1ry
+         Fsx3bI68ZegE9P34gIvRXAkGcdyRpQIaXkJxn+kyNVqfecpD0t/iueq3XpcrNSLd08r8
+         F1gHeG25h99CA5yqW9kV8jb7dCI0qe3FnTNptdBJ+IaEf+Wugfx4GwItKE6V9FHRJRJr
+         XlG/lxC6xpQDe72NW96eP2BdTF6nsAw0uDj3oj1U1HrSTfx8C8QLylDRyDZln/9EXwtR
+         nVrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793515; x=1791398315;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GGi6ovI4LcDEis/cX9YUCASZQ/XVD4U6AA7Pt2oLAug=;
-        b=y/Ic4+7z2hVKReBXlp6NZzkHk9bMqJwCwV+znn7LPdMkU3WhiNd/ankTaP9jhKcU00
-         rakhNXwoy8z7QFrxPVgMYvmoH8RRcjMOBDxoeHiCRe54hTx+qvlCm6IxEzPrJn6sSAst
-         IlCGApXupQgt2wNkUi2PFqWp6RYRGT3r2uwbuEvWS6kHzQy+gxWjUoVWyjSDnG39quLj
-         B4PZiWC0pofqxUYXqug0JjlDjcGMaAnkOxCZ0CGBWcsVMK7P9z9zgiXKDB6DgzXw4djw
-         WVhyuXUZy419GaxeSoDNJrS3Pd8jJY09bLP5/JI/fcqIJzb/Vm0iiGnY1kdC6EmHkWT4
-         D4TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPBIk5sdAwvjqFx9XoYynUXoPAlRBpzgw5IJGTVhiw1F3h4FWnrV8LSCSrKbbBBE063Si3K2hAoAMf6Qo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM+g7so5mdmYKZD8Y6Zygd21kGXK8O4YSd2L17bbegrsGJCAGE
-	fmHGGGiD75v+SkmgxRxEK9sDSOO0Vgh6trxjH86KttXTBRhD2fUSKF+X
-X-Gm-Gg: AYBFou1wNxF7KG831kO7zq7zaY3f+H5sYvdSGXm1RNWUJVnTwRG9jnrmhzpKjgaJBf4
-	R2UJRU7quMhiDtgxIS74QaHyOrPLyVv7LRjs06sgW3m70HbU6R1WZzZpqs2Rt9EHnJOAOxPj3ca
-	BaZafgjFaqjcq6gdwlrYAGZObIJescAYbi5WBy+UH0ojaDWbUfrWvvFyT56LGluNVSN1NtCoHM0
-	1vF2wfgWd8VnxY6/ZfjSum6XLaHNjy24RU2jBnbBVFOe/ak4hxN1sd/1+NGVWnStsS/tLA0NZ2d
-	tnfXotKPX+bq55kSWdUAP3850w+kc4c740ekbjUouekpq6QEUM9NTpDqNse2AjxtMdFjVD1lEO+
-	naWoVzYW+EWFZPvrPQMUKDBvXpiu56lPTSVxQHKel66jlzefBVNNrdjMVZxT/qqrL56hkF4T+30
-	AJaBsXcjcek/fa3+4erOA98blzDuDrdKBIgxSXwN+fQ9fJMCTmSnzFKbDwLqRkWUu6n6FidWY+e
-	V3LngPvt9ynQ2FJKdxfzbr4+FRdrG1Ghra0Fb3nkipaOlHuq1/VQjbUr6j5Kl1yZVXyXYMOm543
-	8AAfsllxc66EreoNshsUAm+LHOVgi2xUVy34MisHNZgPojmg
-X-Received: by 2002:a05:6a00:4f8d:b0:881:fa65:d4fb with SMTP id d2e1a72fcca58-8874ceb9a8emr1764351b3a.56.1790793514815;
-        Wed, 30 Sep 2026 11:38:34 -0700 (PDT)
-Received: from rahuls-x2elite ([157.51.37.69])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-888193d1fc9sm47224b3a.33.2026.09.30.11.38.27
+        d=1e100.net; s=20260707; t=1790793522; x=1791398322;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X/kW+42sSDWDUbw6VMWjlova15EUzqflh+DF1qz2pHg=;
+        b=pW9EJNXLuJW+/Z9LXgIEP/5hjEBre7T9m7/fk52dRBXx9zqjeXweJ217IuhE4FZofY
+         2FRm5lz1ZdbtZCgsC/M4rnCECWitTbD1Je2kaGH+kASBbK257quAwnJR6BTe0TcwqUG3
+         SqkJaFxNwmbmH7vbB3FOYo2GwdMjCUsX4KjV/j5BXFIMkiW4pUv0BxlEp1IrSNVgw/qL
+         EvDPgXwG8cP8lCXx+sOwtHtEI1UjtkEmOZ9cClI8q3RGeF5tSccu9GdSD8sv7S5qFTyE
+         hFBree8TN9P++SfRoXSYfe4yAG4ab3oIyIK6ygzYuU/gmJeFh3c4OSrFeJzAUUxvSWXl
+         oF0g==
+X-Gm-Message-State: AFuF++nVpZ4McnUFLrsLxBCOdUJLRBZs6MdttyXWAb8zcUzXEkA7C509
+	PmPS0eOENZP0eaxyIzfaKQoQKy2mTiqlnfGeGWEIdmi+3m28C8/njolQ
+X-Gm-Gg: AYBFou0u4dLgrWkzZsvMIswJ+26OkpHiKWdMWtVQbne98iWkpRTFg/9LjECgsix5wBQ
+	SA2GcNf4W3q7x39etLkBPjYp66HUXw4ltfHEomU+FfgqRZZn9Cppyt6teTMsI1YAORl0VdMUVuG
+	HMXuXIh/i5MmyHNGdndeKTdHW3Q2hiHcVlJR0HH+qFTfZP6QM5iXpO/2PQh62aOJY0JbkBw0eAg
+	iLKJfDoLRCUV+jN4NV312LW5fno4UYr6MI/E1699PLYKFLXIXdPFbilfcGpt6sOBuvFHh3mVPjW
+	ue74LKzvW2YqLCFB//us9azPTFNeJlxJBsAxcPB0CtIOyzLEeDNUlGyeGCqRCeG8c3tIc4XIx6u
+	0wJAEbTtb9CpzY0SlYJ0Eycs12Y1Hv3eMFoAvmaTItfJAvL9mvyw2E+A9zY1EEqyrSm6DNVZ3zl
+	gyNzGM6AHS+c6J6jTvvh2QUKGmEzZcFsWojYzsDVK6hpKmJqltQ1PkAVwu7DPvqsginSoytQ1We
+	5yv6b9FZp2um+TfP5EoQH2kxPb68h8eIJlSG1DJdY7/24g5O3GwSY2QvraubL1cTd+66WdEkSWS
+	Op4OKIEVr7ALT9/gwSwNN4F8luRxzAy9hLlkHndfkql7ay5MAvMV15tAmlfQNqudeG/GGR3+IQ=
+	=
+X-Received: by 2002:a7b:ca5a:0:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-4a01eb19ffdmr6267285e9.17.1790793521692;
+        Wed, 30 Sep 2026 11:38:41 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979bbcsm1867795e9.5.2026.09.30.11.38.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:38:33 -0700 (PDT)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sean Paul <sean@poorly.run>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH msm-next] drm/msm/a8xx: report the GMEM size of the active slices
-Date: Thu,  1 Oct 2026 00:08:22 +0530
-Message-ID: <20260930183822.1158-1-theflyingrahul@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <d6cb8aa3-1360-47cf-9ec2-e2403974bbed@oss.qualcomm.com>
-References: <20260930111711.1160-1-theflyingrahul@gmail.com> <d6cb8aa3-1360-47cf-9ec2-e2403974bbed@oss.qualcomm.com>
+        Wed, 30 Sep 2026 11:38:41 -0700 (PDT)
+Date: Wed, 30 Sep 2026 20:38:39 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	netdev@vger.kernel.org, sashiko-bot@kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Stephen Hemminger <stephen@networkplumber.org>
+Subject: Re: [PATCH net 2/2] netpoll: avoid blocking on the transmit lock in
+ queue_process
+Message-ID: <ar1VeFD4pTgsG0i0@gmail.com>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
+ <20260928064239.32456-3-kmehltretter@gmail.com>
+ <20260929064307.569CE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929064307.569CE1F000FF@smtp.kernel.org>
 
-On 9/30/2026 6:48 PM, Akhil P Oommen wrote:
-> This commit text is incorrect, but the fix is valid. Please use this series
-> for Mahua GPU support:
->
-> https://lore.kernel.org/lkml/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com/
+On Tue, Sep 29, 2026 at 06:43:06AM +0100, sashiko-bot@kernel.org wrote:
+> > +			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
+> > +			return;
+> 
+> [Severity: High]
+> Does this schedule an excessively long delay when encountering a transient
+> spinlock contention?
 
-Thanks for the review, and sorry for the confusion. I hadn't seen your
-series. With Glymur's X2-90 entry the driver reported 3 of 4 slices
-active, and I took that for a part with a slice fused off.
+Yes, HZ / 10 is too long for transient TX-lock contention. I've changed
+it in v2 to retry after one jiffy. The existing HZ / 10 backoff remains
+for a stopped transmit queue or NETDEV_TX_BUSY.
 
-To be sure I have it right this time: the X2-85 in Mahua is a 3-slice
-GPU by design, with its own GMEM size (15.75 MB in your series), and
-not an X2-90 with one slice fused off. Is that correct?
-
-I've tested your series (patches 3 and 5) on this laptop (HP OmniBook
-5 16, X2E-84-100): the GPU now comes up as chip ID 0x44060030 (speed-bin
-fuse 357) with 15.75 MB of GMEM and the GMU firmware loaded, and with
-Mesa main, which has the 0x44060030 entry, GNOME Shell and glmark2 render
-on the GPU without corruption. I'll reply with my Tested-by on that
-thread.
-
-> Please add '()' to improve readability. And it would be easier on eyes, if you
-> don't break the line.
->
-> Also, reword the commit text to exclude mentioning Mahua. We don't a partial slice SKU
-> commercialized yet.
-
-Done in v2, which I'm sending now.
-
-Thanks,
-Rahul
+Karl
