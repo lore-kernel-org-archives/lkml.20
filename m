@@ -1,106 +1,95 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5AD4EDCC5;
-	Wed, 30 Sep 2026 12:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082BF4E73D3;
+	Wed, 30 Sep 2026 12:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772652; cv=none; b=uplZzE4I7Vlm75PQoqY/EW586YXoPtbO0sa2apUBFhP93zkd1A1w0silPy0tpXr/0gp5iQjm9tk3qCFE/9j9BALu/YSfDtRUmTZWW0ZsynkHO1FC2Cha60O2ehFWXH2M4IfKqJWqE967te6VntgrJwRvY/WPsJmf0Y+rYmszBPw=
+	t=1790772709; cv=none; b=PogBm1AsQql0L+AQNERTdbRu3HGraLh0QA/UtbSteeZJ9gyhsZcI0KhnnTf4p0zRkKDjld0zbwGBw9Ru8c7nqibdRJBARVETWGxWoJwAMibOBZB4+xgoSJpxba1RmKxCb30hsCoCnMaq3RROOOxV47msAOFSt8bBDUsOf3y8EzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772652; c=relaxed/simple;
-	bh=ceieZL7mqNYggJrWA2zKrmZBZ486lCIoMlzfH8UkVDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QCE6QKC6nh98Ck3cNmSJgjw+SUOY1FcbgMMlWtSVZR8uQ70kDFgoyzSI51+XLZhf1+yRgxW/QybbM0WAoNRTZuz9IHKTJinP75gylyVpDfchxIP9LeZ9/VaKnq5lTyA689lsJtbBRG8KbFQ0dmAhupM/bvRbP4NP95esP0vP2J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=qeuwnvFr; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790772709; c=relaxed/simple;
+	bh=QxHUjEqNNe7RMAaAj3xQobPFYKOPL0m80zff2N+Cjdo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Yj/p95KmGQEbdok21BJpIen6HOSiaMdpoNk1lf0wJxE3PR+3wqNR5wgK6ilLIFa3EH+msWI3GTsJt9wyr7HQS6d4SSIxSTIJYp6SDVpztaX3Hq4dGD3k3SZD+B1Y3jDDBFqlUKsNVUqHV2jbfXaof2rXhrKjjlfeEvxNP+JxuDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUYR2r+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="qeuwnvFr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=6KOXvpK/3cB/opsbROnxFM/mbV+G1vUglh78ETzwRb0=; b=qe
-	uwnvFrTF7A11FhiLE1B71C0lzOHjETkaD/GxMT9ZMcCJlIdg6jsyyVYNr4hRMFaNLjE7B5fwFvTxK
-	8c9mtrbsEqSSL1jROhfK8WFpgE/cnf0sXgrCMRarHURJQhxEpgkf3JR1F8Bm2PwhtgplJJ2oG9aU5
-	/WMPgtNK9G9ZO38=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xBtlW-0089mZ-QV; Wed, 30 Sep 2026 14:50:30 +0200
-Date: Wed, 30 Sep 2026 14:50:30 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: netdev-bot+sashiko@kernel.org
-Cc: f@lex.la, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, olteanv@gmail.com, Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
-	f.fainelli@gmail.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v12 1/4] net: usb: lan78xx: register the PHY
- interrupt with the MDIO bus
-Message-ID: <cc1778b0-838b-4bc6-914a-c436cde37938@lunn.ch>
-References: <20260927235733.2619081-2-f@lex.la>
- <179072990024.434549.9815346887559663757@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUYR2r+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CDA1F000FF;
+	Wed, 30 Sep 2026 12:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790772699;
+	bh=CQpG+P530RxPFSP0FViSAaWSuxATCRl8mcOZOSkm/fw=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=GUYR2r+U8txbkma9EciXQENw03fi2xzl5rz7ma7NoVdpwWTDC9gTvBiNW+hCtafZY
+	 ow8UG9Gs7LSXm5iJvcJF4N7Q4Tw+xZDiiXunzghkvK668aRb5fPruWgPRw1Ql0wR8x
+	 XkFLMLaZ1GJbhMk3gdiGY3JX7Vl9bFTeJiMXq29a+X5XU8X5DTBpSDrMglBDWKwiCn
+	 P1n3r7Htbod1GvWKBgR+sLY7crZ9dIfroMAwDEAL4vBWqMwIr8zG5FqiSuxv9Olqq9
+	 DV49D6F89PY5VfIDmmgC8OuJxUzE4+bTnx0K41dtNC8fa7UzZY70G5gRDQpikAoCW8
+	 szXDFJ5eOLrZQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179072990024.434549.9815346887559663757@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 14:51:34 +0200
+Message-Id: <DLSNXUU1UXIH.JG4L0L5ZFV89@kernel.org>
+Subject: Re: [PATCH v5 07/15] gpu: nova-core: wait for GFW boot in probe,
+ not in the Gpu constructor
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+To: "John Hubbard" <jhubbard@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
+ <20260930034148.590687-8-jhubbard@nvidia.com>
+In-Reply-To: <20260930034148.590687-8-jhubbard@nvidia.com>
 
-On Wed, Sep 30, 2026 at 12:58:20AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In lan78xx_mdio_init() (drivers/net/usb/lan78xx.c:2122-2124),
->   the one mapped PHY interrupt (domain_data.phyirq, backed only by…
-> 
-> --
-> 
-> net: usb: lan78xx: register the PHY interrupt with the MDIO bus
-> 
-> This patch moves the lan78xx PHY interrupt out of lan78xx_phy_init(),
-> where it was written directly to phydev->irq. It now goes into the
-> mii_bus irq[] table before of_mdiobus_register() is called. Every entry
-> in the table is set to domain_data.phyirq, so the PHY created by the
-> scan picks it up through phy_device_create().
-> 
-> > diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-> > index 5655941f14783..522fb4daeb468 100644
-> > --- a/drivers/net/usb/lan78xx.c
-> > +++ b/drivers/net/usb/lan78xx.c
-> 
-> [ ... ]
-> 
-> > @@ -2118,6 +2119,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
-> >  		break;
-> >  	}
-> >  
-> > +	if (dev->domain_data.phyirq > 0)
-> > +		for (i = 0; i < PHY_MAX_ADDR; i++)
-> > +			dev->mdiobus->irq[i] = dev->domain_data.phyirq;
-> > +
-> 
-> [Severity: Medium]
-> On LAN7801, could this mark PHYs that are not wired to the LAN7801 PHY_INT
-> input as interrupt driven?
+On Wed Sep 30, 2026 at 5:41 AM CEST, John Hubbard wrote:
+> @@ -113,6 +117,14 @@ fn probe<'bound>(
+>                  pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
+>              },
+> =20
+> +            _: {
+> +                let spec =3D Spec::new(pdev.as_ref(), bar)?;
+> +
+> +                // We must wait for GFW_BOOT completion before doing any=
+ significant setup on
+> +                // the GPU.
+> +                gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.c=
+hipset)?;
+> +            },
 
-Since this is a USB dongle, it is unlikely. However, i agree with the
-general principal. The code should only change the one entry the PHY
-is actually using. Please look at all the patches in this series.
+So, apparently this is done in order to be able to add this
 
-   Andrew
+	#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+	crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
+
+in a subsequent patch.
+
+I prefer to make wait_gfw_boot_completion() an associated function of Gpu, =
+keep
+it called from Gpu::new() and guard the whole block with
+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)], such that eventually it becomes:
+
+	#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+	_: {
+	    let spec =3D Spec::new(pdev.as_ref(), bar)?;
+=09
+	    Gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.chipset)?;
+
+	    irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
+	},
+
+With this Gpu::new() remains self-contained and we don't build up corss
+initialization dependencies.
