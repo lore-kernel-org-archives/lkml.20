@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89865403B11;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885B4403135;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750570; cv=none; b=CriPKzD1jM3cPrNM484pBbvRgwzmeucm+x+W7rlCM8L5A4OvxGD8T8QssAc3y4Vpgdwm3MdQNEiNDWpwS9BUSgBmvkDZF5Hpsrv1P1+uMF+MMULmuGHri680BzdRrMiDUVOQtZfNEst/drOcslllR+Kj3b0m/cs3C/taleHmU/U=
+	t=1790750570; cv=none; b=uMAOIQRvn50Vp+zvi+3E+luF1moaFxh1OV/QMI4Pu4LPMdwVBm3S2vYJnOWfckZEYhxvUOo7Lxhl76M8MQB+rmMY4b9nyg7hIit/nvmwXrLHttb5xznE0B9E82H8pEaBGM78VBC6DxB8WOlvBxLQM3QahCw2Qvs8Sbg87tNMIR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750570; c=relaxed/simple;
-	bh=tsEe8yZqVHY4rLDZIYUrUeF/VcPaojwRTopY/WvDkOg=;
+	bh=TWatsb3kz0z7BnGaaPPrhTcmuHGXiQGWMLpkSmqT2Ns=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AMKv6RxgF0hhGrTT5PFje8JFa5MkjCSJSvt02xXJiRARuOhWH1ii2hwcDFrovTlKwRZPOy9jzzaNKyf7wxgry0i1hX57bGN7A9FEkfZyFYL5vB9m/723MeloGdybQ/nhfZJ+hVA9zThUYy1VzQoInJFojQr0G8vT1UxTlXb7ECU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9jLOw7j; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=H49lkqasoyWPz9tieV9VAsm3tMGgRMKj5mO6LEhFa71TyNc0TX67uu3S4D+S0O0u209OsCXCHZlYPmM/L27WxMhmNukIs4uOIt3RxX/SRSo3W0p1jPFKcle+iVRcoapQiIkFEZfv8cjOBFm5dPycLcKhfBhJmGxMAPghCrEQqcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBrGY8Fk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9jLOw7j"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2279FC4AF53;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBrGY8Fk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 328B3C4AF67;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790750570;
-	bh=tsEe8yZqVHY4rLDZIYUrUeF/VcPaojwRTopY/WvDkOg=;
+	bh=TWatsb3kz0z7BnGaaPPrhTcmuHGXiQGWMLpkSmqT2Ns=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=L9jLOw7jRIcOKpBylZpokttxD63w71JF69Kz6rg4sw84nyWO7YxxaLpBHaWs0pnzM
-	 fio1xOEBpuQgZ6ljQFBBDYfhoRgS8CbwDSFAKum4F8VUCzMtzNCAGwz32P/ufCAqOK
-	 axMwPj/b6/BR/2KSRNm9Uk6mLMJif6avNcPf1cjqHEhPn41j9aDul9jeUVE8W7aw5S
-	 27OKMXh+4QXfeFOxzDIpBR6rfPjIkB+1jashFid3s+i73f8B202/Oodcr1Bw8QRsXa
-	 Jk4HXBHEhOe63xg3dKIEA4kNHOICCS5XKTphYeKUXH0syJlryGWdBj8ZD/HvdH1xe3
-	 nAFQLxNuUkX6Q==
+	b=fBrGY8Fk6fwlw4sBqy4vzCa53cbh2u20xYV1Fh5HultEFIF9q83BwEI2gvq8OFnt+
+	 qno/7K7pXxMDY8bkEyp8T2ZANuL9n22mnd8/rgMfqHJp0ln6AwDyOlajWB7eQCXHSh
+	 ck9n2BAy+0gIptN8g3ODvUBHb47t5FeCo4kyC3JqjPr5EQiseKhySrY0s+yf6aezXp
+	 eYiMBUtnuIlOkx2Zf3QSD5VUtEqksdXgXa/R9zKp0rdaqDblK4CaTGUHbnMLbaKx0R
+	 LgcVHPsCSPQceKf9CD3I1qYvBJvu2kPh5ONanS5Z6W3x3bJNK3QPt7oD2ICZukWzoZ
+	 fiXX2dClyXqNw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11BD4C9830E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21AD6CA5FBB;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:23 +0800
-Subject: [PATCH v2 05/21] media: i2c: it6625: drop stale GCC < 4.4.6
- workaround
+Date: Wed, 30 Sep 2026 14:41:24 +0800
+Subject: [PATCH v2 06/21] media: i2c: it6625: use unsigned int loop indices
+ in table lookups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-5-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-6-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1310;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1788;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=V9bwEAyagMxudYN4xHUy2bQH/gYjrOpBukYLroS2Zxg=;
- b=MeNAGj4SzHM3hYJ/Ckl0R+DJp7ecCkMfb4tC4uUK5MPwF06n6DbCR/196J4lQWuquHy6zdnW8
- rlWpw4XnAToCaLNDFZlDqhRtB9ovwiPGau/bvBev3JWdvXzZvWx05kb
+ bh=Itu8nqafqSgZFUOiiGQ7HvAR9weeiTDf2BIBCspj7RM=;
+ b=2IJPYSHeAcAs7xNCzpdoDiOQoVcBKxr7SkLWs68196lCZ+Z4LeRSwkE77oxwGbDqRILDOFD0L
+ ACDCLY4IO/xACSo1Mfovb3FA0vaOeTxkNiJrh+CupeG0/PgPgVp2iAM
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,36 +67,55 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The kernel-wide minimum GCC version is 8.1 (scripts/min-tool-version.sh),
-so the explicit .reserved = { 0 } initializer kept for GCC < 4.4.6 is no
-longer needed in either v4l2_dv_timings_cap initializer.
+it6625_csi_format_idx(), it6625_csi_mbus_code_idx(), and
+it6625_regdump_print() iterate with a plain-signed loop index against
+an unsigned bound. Declare the index as unsigned int directly in the
+for() statement instead.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/media/i2c/it6625.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index b09b331b20364a8e169429bb309d1112ec83d919..b747c08e092c7b35994cb36bb5bf7b99495282cb 100644
+index b747c08e092c7b35994cb36bb5bf7b99495282cb..9382a64706919d380e8318c3139b42a4a7b2fd55 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -331,8 +331,6 @@ static const s64 it6625_link_freq[] = {
-  */
- static const struct v4l2_dv_timings_cap it6625_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
--	/* keep this initialization for compatibility with GCC < 4.4.6 */
--	.reserved = { 0 },
+@@ -375,9 +375,7 @@ static const struct it6625_format_info {
  
- 	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 300000000,
- 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
-@@ -347,7 +345,6 @@ static const struct v4l2_dv_timings_cap it6625_timings_cap = {
-  */
- static const struct v4l2_dv_timings_cap it6626_cphy_3trio_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
--	.reserved = { 0 },
+ static inline int it6625_csi_format_idx(u8 csi_format)
+ {
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
++	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
+ 		if (it6625_formats[i].csi_format == csi_format)
+ 			return i;
+ 	}
+@@ -387,9 +385,7 @@ static inline int it6625_csi_format_idx(u8 csi_format)
  
- 	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 594000000,
- 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ static inline int it6625_csi_mbus_code_idx(u32 mbus_fmt_code)
+ {
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
++	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
+ 		if (it6625_formats[i].mbus_fmt_code == mbus_fmt_code)
+ 			return i;
+ 	}
+@@ -1895,11 +1891,9 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+ 
+ static void it6625_regdump_print(struct seq_file *s, const u8 *reg_buf)
+ {
+-	int i;
+-
+ 	seq_puts(s, "     0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F\n");
+ 
+-	for (i = 0; i < 256; i++) {
++	for (unsigned int i = 0; i < 256; i++) {
+ 		if (i % 16 == 0)
+ 			seq_printf(s, "[%02X] ", i & 0xF0);
+ 		seq_printf(s, "0x%02X ", reg_buf[i]);
 
 -- 
 2.34.1
