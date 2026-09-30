@@ -1,63 +1,63 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F8737A48A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA69E36F419
 	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790738172; cv=none; b=dha6YCQphgKhX+3DiLqCqvZoUBGKrsT53IrkkprabynSWhPpQpwKm7r4wiXwKFuE4JmkqYGkX+oBPgW//pX1hJYv5cUiLQcIOYOLxPrNNEQzR7MFuC/N9AF4GxnmEgt3LP7kcQ3hOmgNHzCRa+K2j4u6Y9h/HYbaq+strwmKMl0=
+	t=1790738172; cv=none; b=hv2xtle+rj/mJZ/yP8JgPoy+Z8bkx/XOJwU9yDQO3bEJjmapGXmeuM/9B0ung3eHWqF7usaSPTFvFwi7KvGt1pit9tT8dF5p9UGhnA1thOuvu44Nluu4O3/3zX7G5sB6I82/bDoNN80rQ2QRxgmUDlr9hVZHeTb224+waxAVa38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790738172; c=relaxed/simple;
-	bh=cCh5Yyrw+WTMc8LZj6fD2Tm+WKPAQKfaSqn6wwbd9no=;
+	bh=GwlG6UlV1cLzB6P0R4GVEk+F3ect+UN/UsEzBHwB1AE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R7ZyDj6lr04RH4xmStlXZ6F4OH+cRDBNMCZv9iTd6lPBwxQLfeOqhwQr/rWUMQwwK+V1eaFfF1e6QO9o2wFelh+NyOpCzdcTVatqTqGd4FC3AW/Y58ZolwyseOHfSx67vvU4tTWLverRcwmycm1uKraeoWelJCOqYmwtBMSp+5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YDp0XEMy; arc=none smtp.client-ip=74.125.227.166
+	 MIME-Version; b=Jn98YvCLM96H71U/QoDZYDUs29dTubo6Ry75BOx393YtZ6SAKQsYADLAGHq3xzWNmSjxs2YWuXo+eKXLhlkiirw2dY4BogHttaQY5bUEQiM76kD6OKX+1JBRmbyoH2ZfeF9xD81+6AlFX5ciVkwrF1u7jUal9y00uKvZ35RuXvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q/xGGOxe; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YDp0XEMy"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bd597d68so285482a91.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q/xGGOxe"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2518362a91.3
         for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:16:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790738170; x=1791342970; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790738169; x=1791342969; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kvCQxPtK7+AK7DvJPFUusYMdwxE4hgp8/u1LNz01hVY=;
-        b=YDp0XEMyh/5RYiT7rZNaffXMRuK7G3FPz3AXgBriNThCzs2FOTdJcBCapZuKD/krK5
-         4wXkPcVkKX+ECANwQYuntiEjHaB9sorlZc9dG3GqjOUOqFTHXX4Qf6eHqWIhqexhPzH8
-         Gksd8G+glexXTDABU1LuDfgY04W/i02Jzwnp3VjzPJxoPjgwy3rgYQ1vJTpBz2yBU2Sm
-         akF3B2bolNjgdNUrO6wnUOqIbbxuAJB7M1hZx7urKiV6rsFXvaMRyh6/Xx4XpikqV/4m
-         37wAdr1gNSCMDGSsoF31PbQFI/Omho25kgYkgVaU8/j+VLApXu4yirLbrTKsf+d3gLvz
-         B+AQ==
+        bh=3fARVtGGuJPknRqNtIyIcoRVsEn2tgxMNe9tXK/dWuo=;
+        b=Q/xGGOxebYAaZsHkPYxCys9oi3O24yHTgyhGAIGlI/QCohJPMXVfZC0vcM1Pq3Z5MR
+         fJryvP9++EAZ1QTG+I/RzI1G3Cx2IK2/KYXZMRvrqGqGtpOvn7lGvJ5KhCeExz5x3Mq/
+         QWDoU1MDiL8WrJDxIjb1sxgiN99L5Q7zJdxXGMWo7H+ga6AIWbz0Tl2iJCbOV7Zs3JXr
+         b2AUmVM+X9vhccGRMUUqhDe+YYOEAB3cTQu2Qjxdd+VLVDQs1mHtoN3ozNXAWxDXCL17
+         mTX1SYryQUY130Fn7HUhsdJOSDwYC0vlZEzhrWj6MM8WVw5Iqi8Ep3rzSq/lad4G5ZLe
+         hiVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790738170; x=1791342970;
+        d=1e100.net; s=20260707; t=1790738169; x=1791342969;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kvCQxPtK7+AK7DvJPFUusYMdwxE4hgp8/u1LNz01hVY=;
-        b=XSEvjn6TkWBGAVmvn0JwhG3R2gbNIlHHC0xPZgmJoJs1O28S2mcRGzvjQg1LxjiYvX
-         O0dJdczsCej/gWh49yzmzs4w7jBQ3oVUfYmWEfy6oEey3JzrjzUg9vXJI5a9jKTLTiXf
-         qyc+Tou6yiR4tKKvKGBCHahS6NpNpWd7PbElzMGyB4TZHpaXdbYCc87DkWORKE5zwL/d
-         OpVbiDoO9XXXJTp6ml4Bq1lR9ZFSpzkOgF0tUzWgAp8ICOvJSAl+uPr+xZ6lrQFOefne
-         3If6KC7rdvRGcXNcgUqJNMmoj3h8ZGrGBPgAZgxerwMB4FXDZYdRIf5oaYT9GxNyaVkQ
-         ku1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxxk4Nt2VhhCIA+ro13yd+rOPLucHpZ5OG1ycGD832nGboo/CiTXM8oVgKtm9LpQ8sPL8g4Wb0hYFUrdoM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiL+J3JeRwfBnKEOXE6gYin0UwcyQGTFM/6leljJoZh1Xb1MIH
-	85ppNMGcGAcI5++EOpVVkW3b6wlOUfxnAjg2pcv3UHV/nhWaAaae7/YF
-X-Gm-Gg: AYBFou2tbrJsUaKdiBkHcz9/IV27LsH1txDQxsR/XAqmxCmZKrWAoi1zmY2K+YMsMVu
-	slqQz7B9VYp0+3Zi1m+nTWoNbBicGGx8ekGwy6NubzVuhzl1wOEAZE+7xwsrPLNswz0y0qBSciH
-	qrwFhzwqCZlcWRvyD5Xq+sUksxnVO+7CYn2PmbhMDhmKkYToe93ytaIUI5FaWxRU01o0bOmSFfJ
-	HyZEkkMQFCY3ViCgL+Nf32l0M57+sasIjQTwasHH/P8Lu3BeduzrwePxHKIt9vYHDDM+RQx97nd
-	ClXFxnuatv8fXGbP5OeYuj9QUX8H59XVanDTTxgSQkjKDRV1/pOM8RjsftK+dqXvfcnKnSn0VDX
-	cLNurSyCpel78hojHV2YFqMWjPdVTwP5cWmmFLN4jj9QWfEV1WEdS5FgV49DgSSUOWvyKhwB5hT
-	hCipS9lf36ZK2C/PalzX8utNVURlAMSJWBjJj99tnRmzOH3b2pERz26kY38mL9Kak+WInk9gOLp
-	vzYb9wTmZg5d3DHrARFxCzLDiqVc9hQ/eSGHshfDIfGNazrEzt7Y8VM2XjfjhNfzNbhXmIthYIw
-	SrS2BpojOg==
-X-Received: by 2002:a17:90b:2888:b0:3a0:9c9d:eb0b with SMTP id 98e67ed59e1d1-3a4d19262ddmr104610a91.58.1790738170170;
-        Tue, 29 Sep 2026 20:16:10 -0700 (PDT)
+        bh=3fARVtGGuJPknRqNtIyIcoRVsEn2tgxMNe9tXK/dWuo=;
+        b=xEjE1qF9xEKYacsKRh7H0lbrE3nucRCBhzn+R1EZqk5j/2uowDxyfXWTtUw8wvk0Gx
+         CopeWgG1T3DUBdMLrWXtoAKqG+tfeyPK6tteRxiN0Dh0r4aiknpG7TnK1k7xbOswM/2o
+         NWAk0j9bkgrOZwfdTs5hZ45L8bQGBb2nHyTuktvmYYeLTcplKPBuhO0MgRp7uDKo03ke
+         DM0AzFOS3xxyg+0IOWqSLp91ZBWDzFIXLAgWOtrG6UYbvO9l8SsHUuIMEwxPjqVqHCBH
+         NeuTYirsZOSsBvuptzPK/SGMo9qRy1Uwxr90rW3HOTeD518S3IH2yGCkegd6duznWM3I
+         QpOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwb3H/JelWduO//ZYQD5WGPlgeCGY+H3jI8qJLGvQ0scRjaKBLsPp/fSrtiUg4iq46VLVWT6rID+kw6a44=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDawsTFZ2AdxMB6QLF0pkCfTODb6Up8ab1iW8Uv1dVkYrvxJ5e
+	9xT9036JxVn/HqapgFxPQ2uaozV5F0j2mKcQhLe/VKIunYoeBgHDZ4ItOr2u0g==
+X-Gm-Gg: AYBFou1FEI7PANxP+N8N2qw9zCzTrjS/EsXUH0Y532ctmQ3S/0zi7y7IDEldrzxBiKL
+	QOnetIjqPo0C5P6vGgStuL4FO8TXQ03V3U7lNTtNkbXknY0V7V44yJ0D0+ZBRR4GSE6y7KLH4vn
+	uPWU2Y3BfpvOs/Eq2/Wwh02ZqoNRAGpaeHFrWkIOEmGNpU8YJW8uL7VGW2fvgc/XLn6zsS3EXph
+	VvyRqtr1olqC1XqyU86Qus72IAgkAtKbqYm7hNfa0WSwtknfOHxgaMWamvcHRD3k+4xW+NbgFeM
+	LDNXDfYzb5aP3hiQTIoO9NnCJIgPi9sD7NSG2v3ztr52nEAfaVqAHbEEeKoofHvUekhiPNVR2Zb
+	05z43jj5MkMfjGvZu1O63PXzEl5s5U3WI6VG8A3VJBhyWO5yL1lYuV5fviegPd8i9KxAc+a9mlL
+	3wgyEOCEdUX2+RjVY9K6DDGNlJ6c0WxGRm6VYa6+Zl2gXFEkP3pdmYGOf0Wf99IlPuv4kduGtoL
+	v8sGa57ZgjCq67O3sQrWNX0HX4E/6JlnlkaE4pAqDvmrWURX62NRfjdo8aCtMnqa2BCty2HFje3
+	KHMvhK45NQ==
+X-Received: by 2002:a17:90b:39cd:b0:3a4:aae6:f4ac with SMTP id 98e67ed59e1d1-3a4d18e5da8mr47944a91.48.1790738169404;
+        Tue, 29 Sep 2026 20:16:09 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce1c9045sm588743a91.12.2026.09.29.20.16.09
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce1c9045sm588743a91.12.2026.09.29.20.16.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 29 Sep 2026 20:16:09 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
@@ -67,9 +67,9 @@ Cc: Matthias Goergens <matthias.goergens@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v4 6/6] qnx6: validate sb_blocksize before dividing in qnx6_mmi_fill_super()
-Date: Wed, 30 Sep 2026 03:16:04 +0000
-Message-ID: <20260930031604.70544-7-benquike@gmail.com>
+Subject: [PATCH v4 5/6] qnx6: abort mount on superblock magic mismatch when silent is set in qnx6_mmi_fill_super()
+Date: Wed, 30 Sep 2026 03:16:03 +0000
+Message-ID: <20260930031604.70544-6-benquike@gmail.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260924073920.2782917-1-benquike@gmail.com>
 References: <20260924073920.2782917-1-benquike@gmail.com>
@@ -81,17 +81,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In qnx6_mmi_fill_super(), sb1->sb_blocksize is read from disk and used as a
-divisor in QNX6_SUPERBLOCK_AREA / fs32_to_cpu(sbi, sb1->sb_blocksize). If
-sb1->sb_blocksize is 0, it causes a division by zero in kernel space.
+In qnx6_mmi_fill_super(), if sb1->sb_magic does not match QNX6_SUPER_MAGIC,
+the goto out error path was placed inside the if (!silent) block. If silent
+mount is requested (silent != 0), execution fell through to crc32_be() on
+invalid superblock data.
 
-Validate sb1->sb_blocksize is non-zero before performing the division and
-abort mount if it is zero.
+Move goto out outside the if (!silent) block so qnx6_mmi_fill_super()
+always aborts mount when superblock magic does not match.
 
 Tested in QEMU against tip of mainline commit 62f4c998b297 ("Merge tag 'parisc-for-7.3-rc5' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux")
-using a loop-device reproducer mounting an image with sb_blocksize = 0:
-verified that mount is rejected cleanly with -EINVAL (rc=-1 errno=22)
-before division occurs.
+using a loop-device reproducer mounting an image with invalid
+sb_magic=0xdeadbeef and MS_SILENT: on the unfixed kernel, mount succeeded
+(rc=0); whereas with this fix applied, qnx6_mmi_fill_super() rejects the
+corrupted superblock magic cleanly (rc=-1 errno=22 EINVAL).
 
 Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
 Cc: stable@vger.kernel.org
@@ -102,24 +104,25 @@ Changes in v4:
 - Rebased cleanly onto upstream mainline commit 62f4c998b297.
 - Added QEMU test procedure and verification details in commit message body.
 
- fs/qnx6/super_mmi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/qnx6/super_mmi.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
-index 5f62df30467b..5d41f028bf80 100644
+index 797d8c238bbb..5f62df30467b 100644
 --- a/fs/qnx6/super_mmi.c
 +++ b/fs/qnx6/super_mmi.c
-@@ -63,6 +63,11 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
- 		goto out;
+@@ -51,10 +51,9 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+ 	sb1 = (struct qnx6_mmi_super_block *)bh1->b_data;
+ 	sbi = QNX6_SB(s);
+ 	if (fs32_to_cpu(sbi, sb1->sb_magic) != QNX6_SUPER_MAGIC) {
+-		if (!silent) {
++		if (!silent)
+ 			pr_err("wrong signature (magic) in superblock #1.\n");
+-			goto out;
+-		}
++		goto out;
  	}
  
-+	if (!fs32_to_cpu(sbi, sb1->sb_blocksize)) {
-+		pr_err("invalid blocksize 0 in superblock #1\n");
-+		goto out;
-+	}
-+
- 	/* calculate second superblock blocknumber */
- 	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
- 					fs32_to_cpu(sbi, sb1->sb_blocksize);
+ 	/* checksum check - start at byte 8 and end at byte 512 */
 -- 
 2.55.0.1082.g2b9226bbc0-goog
