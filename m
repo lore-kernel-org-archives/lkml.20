@@ -1,167 +1,328 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011035.outbound.protection.outlook.com [52.101.70.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C1B1E5B9A;
-	Wed, 30 Sep 2026 16:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786904; cv=fail; b=GvmCheDVgzcwadG90yzS1Xh86jZdyc5lRuJbgHm0Vxh+it5oIOs8/7rDSMU1luBRFn/7j5D/4OSt/mtC/su6eumtVMjRfwKq8v0HSde1JBmrL39lQiJidBkVJdSBDrpS6VpJ1i/cVMJuyQH+iW5I8GJkER7uH159QAFkp3wmxpY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786904; c=relaxed/simple;
-	bh=Wo2Jx5co+H6GTvVSnooM0Kj2Xe/xwdTmtUCXrSW7g1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=VLwfm3e154g0IclBG5L7rIKiaS4jB/hcZzMHOGUeeX461t05IuyfmpJ0XwospAKUcI26My3xU+FbUKUXSW2kculFcSnX94GsXCQNLq52zpojAWJQ/5zPzD7thpOWo6N/psWwj4pUYJf9uambI7OB20831Hmafr45VUCSH7bpECU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cyXm71LS; arc=fail smtp.client-ip=52.101.70.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E76C4DDB23;
+	Wed, 30 Sep 2026 16:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786966; cv=none; b=O4WS0TMGheOhvXIl2zAn5ahaBlLMGKLXS0KqlTguwbo+hMY4gjVux7/84RgCRJbHILoKzIhOOQ5uYK3KTXD/t29K42z6h+XbtfGVOK4uCflBq6XeDkjJLn+sV6nnGrAG4OrvzVlX11DHkU+9+8ysnaCAt2uTwAnWhCtKXs61Oz4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786966; c=relaxed/simple;
+	bh=Yrw5CiDBtUNjpd+gxnj4sjqRZn8k3Ku5VVFg2Mf8VRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IJ0Ejeji00I3a2ca1xepc3cTgDlj5qP+nBW1z7rx5vtslW8PMZHcIGgQZ4QY6w1jAflaqzgnfYsGWnl4UePbkU+MrAEIvR8XtNv0ffLlAW/WTT2c+gKEABMVB5S2fYy/tDNDhW/YXcgMCNrUkCopwtdvue35ZR2mC4N2SBDVj48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FllT5+0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cyXm71LS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=thyT8Gbr0U5RhPoqgjKWzZdEyz2tpbKW0kf5RLJh0oWvPYcO1BUhVzXfbGPuW0AncbHZ6Z/mTn+jA0EJLsYHy5UmzQzoCKDgbinJ1xp+VxefKS2GaWusF4DQU8d68lL6ZluwYqnEDMip9TZ9pQ9x0gAQoK2HlGfnkXDe3nOEiE0AeqWHjbqqW2RTddHDKYlR9ImSqOn2BNlXsDhELGovRphtTfPWKvuLNlOfGPLZGn+J8N339tpixt9sJJldk2oa/RCc+WGt2zjixRQmt3u8fKAyAEpT98XUuBz9xEwQunr/RtTbCeeh9xnrAdHQrWxqUYzKFGEgZI+3qTYNQ4EH1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MxgTMInDvhayzkCK/ubo820mWefqKYhuLFX71VbW7Yw=;
- b=xpP/6cdCBC4/NZ8c+caa1jmAp3bogTUgFKNV2KnwoMXX6uPPQyFaBVFGdyqsgUlWaQGJRKO8K0w2kZb8t9KhHMY0NdkXE/unxUewK0lrm7hk5LusBKfNNXtmKco45dmhHK6/nWXfzc6+1gyqb9Twc06EAc6iAUCuOL3mgFrLwUvyBndOqerQW3eKbj3V8Dbz+FYpQ2h5qHVPlaNmGZgtQzMjlu2yHf3AfMm94HsDelDC/Daj9kC+KQyJvo1fhLYKVvH80EgJJNufjldwz3ihMRmVZEuqAZDIQKczYBvJSsTkcSz6v5xoYJ2XuNHglUsOiORptX9227UuqeSusnAhHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MxgTMInDvhayzkCK/ubo820mWefqKYhuLFX71VbW7Yw=;
- b=cyXm71LSGc86fIPIEhAOlJ8C2MZ6a7uvIRujEZrCANMOvyosoBdadpmCvjGDyoERIl/daWq4AYanXndMG5o3emlt1H0JayLairObsqEG5L6C8DOFuoBzroWeqldWPaBdCjb2G0CE9VAcaPPGxC2rmT+14uGaNIoEil1SNcsaP+u376q+1AIpLaPDaKk12TEjQCoSpb1pFG0BIKKct/2eDy5RlofbBk60yU1inJ6A8eOABBckUgZwiGpOXUUjIqWExP3Nq5K5VvYTwoqqcTBfF6vcMsg+w4owXBws2oGEyKOAMLWv3VR4GYHznae7T5VY8rBq0NIyQc4G/wYP+PfiDw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU4PR04MB10885.eurprd04.prod.outlook.com (2603:10a6:10:587::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 16:48:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 16:48:18 +0000
-Date: Wed, 30 Sep 2026 11:48:09 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Andy Gross <agross@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH RESEND] dmaengine: qcom: bam_dma: Defer IRQ trigger type
- to device tree
-Message-ID: <ar09SfoQDLDckrv-@SMW015318>
-References: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
-X-ClientProxiedBy: CY5PR22CA0088.namprd22.prod.outlook.com
- (2603:10b6:930:65::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FllT5+0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 317041F000FF;
+	Wed, 30 Sep 2026 16:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790786965;
+	bh=adx5lrGUm60VPD0xpyStwfAZj/AucsyPoZQvyOLG+x8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FllT5+0sqWH2a84AcXnGYzdV++VSjqNtvH0A1iaTFDtNSHdjv0xOkfddaoZS0jNgL
+	 WhbtNE3RF4a/trwOuv08wCj2joBe6sBDIglEC3i/1HKFu4QuikFdDtwTAiFc3FR8/G
+	 bGgJq937pUfE17I2SJoff596ikabjY5JGBXmM7oGZU4VNDk4EN/nIm0urnELQkMp5d
+	 PI8aznU4KFk323r1qbE6c9zuOYDQw1A7VNzLsApG10OD8Z7OrBIOj0KuXUiFYIPppf
+	 nK4Mek+J/xWmq/YqgSvf+aGV59ubSmLSDwiqYFg22ppmOvWLYpO5VFrmB504wkHa2i
+	 wVt99H7WEYVTw==
+Date: Wed, 30 Sep 2026 17:49:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
+Message-ID: <20260930-legend-helium-ca5a0ff56709@spud>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-9-jszhang@kernel.org>
+ <20260929-sprang-stir-af07a907ccb2@spud>
+ <ar0npPCHX1P5Gjzx@xhacker>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10885:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15511033-7182-4527-a767-08df1f12a122
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|260925021311599003|260925021911599003|260925022911599003|10067099003|56012099006|6133799003|3023799007|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	fW/brhD/h8pkR2cVA2i9zkyy+wXP1bswSQAtFCfUnEZQeMYR2NFVes4ih2CTHFfuXbprGW8397lkLDArxzwI9gyB5XgmtxnMvTN8ClZr8SgeSZWlfISiDNPtN3dNCy54IGNHNAkuvgwDsRkqFALno4bLG+rFxoao3kA8pNeycVqRf3YBufZ6AsOvQKztRs3yVspZvm7/Pu5AmGJxLgshCuq59Gwl3pHfwB3fVmbguRAVlkUYrbUN6lZW5G1MIaMB0/wEbNtLzzwN7SpVyxdV+WJPbfbA2H7H7umT2X9f4ro1Wy5zNlnC2dkig5Dh3UlO81zk8HYGlQNWVWEZ8DnchUROMPTezVrkYtD8dnwzDVrbBAeGYzP4h8p6a9fCD6qVZcIS1REr723E2W7JKfXxC4VuWe51OQbBJLFvotZ3OaXcuxXRAj5VymWTHapdJW7ebK4iulv6irlt829jE+wLFbkqw0dG3CK1IRqpcbU2TxkXpa2VQEWtNUFrSlm8jwyQOfba2C4SzWPDJB5o4chTu9g247ldXmapshQbwKTOPH1TPko4aUqf/+QomYWhFnLsYrUy+S1VzcLQuxhM3y+geKpmTNouSSsF3auYV1jnhD6jzqonyNrRy74wWN9qzvy7D0IAEP4LmMJqJQ7/xoqTQlF4YJmAvT5fNjxM8nP9A3A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HCNiraI6h3MEQVaAWGOQ/HFRw43yT/vR5nHGrHSHfjDqlhqI6QGYwlykmngr?=
- =?us-ascii?Q?IkJMJ9zJUO5cwzqMfcwUSq+7KPPi3CPf5IWbMARQ5rASwTdM9A2akSkYbKua?=
- =?us-ascii?Q?CsEaJxPwX4yZPVihPREJsBgjd/+v4re1k/bHhOGItKEKEIotDfE5OH3ja9Es?=
- =?us-ascii?Q?QFmhCrcccS7OC5hIwhCOP4t0ot3qO+5jRF7N1n5VDv/BDk8IrEE3z9OLKskj?=
- =?us-ascii?Q?H5ujjvd9IaGsnG0yX9ZkcIBXhS+48ZIfKcSh4YHrzo4cEL0eBmVcuBbeBRUw?=
- =?us-ascii?Q?ZayF5H/KCyWOhF0GAp+zsHrfk87GayNUJKriGNaxgB6p5U4DMxokw+hUJ2vK?=
- =?us-ascii?Q?VEtzSGx1KrT5bmxhmx9ebDWO3tkSWxW1ytftSg4lF/QSr+cjhxyJpfsWJJC9?=
- =?us-ascii?Q?+r5YUhvagtIunQ7pSDOSwWYentAqh2sV3VPU5KDh+uN6qldyyJQRQLTLs9LG?=
- =?us-ascii?Q?jkj3mQa3p6nQQiNN1UQ7yms5IraQdtQpWM5pt5j4jSy8iGATA1iK67eVY9fw?=
- =?us-ascii?Q?klsZOHr0zN4qGvhsRaa021jSDHIfQH8Vr8WWrKGc2RaWiHp8jLJG/0QURF5k?=
- =?us-ascii?Q?dU4oDR3J6okRZW/m3AO3Okxlc1QQq1uB6vb1gxU1ehViMT9rWJIt4W2yXMA3?=
- =?us-ascii?Q?XyfDoPhub0Hts+SJXkfKoR2c4pIn6TMtWAZ1eOcoDXywo3OnpVa4j7aBn76e?=
- =?us-ascii?Q?uJfXlI1yiqfpnxSybItEu7yVi/GZOIFNqqx3W+pyETJHXxVXhKwEFR4xGxFq?=
- =?us-ascii?Q?eVHLCDRivS/x2Kzr3y1FSY0398z9sjksRaunrWasZhVKBbBrOGysoUJxfsFa?=
- =?us-ascii?Q?SPv3RYjdBCmVw/+0kL5ccqNisJaX0WkImyi+s+MujyuFyVpZA+nSrDPh7qXJ?=
- =?us-ascii?Q?NAWHQcNUMGRM2cHsabydCMTmFLtPDk56YKqEcWVew8BA9mTPc7yl0QD5iEzb?=
- =?us-ascii?Q?KT9JFlsZWokhrAylSgarPPnoqf/LDZxNC5PwLsYlstzK49HybQTp5J8O/wPs?=
- =?us-ascii?Q?WbhcYWv5kXkpjF2lrAOr8Rx9OVp5xrn0ifm6iVTCdPATDIPFEAWKTJKH7atj?=
- =?us-ascii?Q?u9sgsl7NW2eeL1Kp0xD7FgIeyRrMuVYD28lWmo0uBBhozJTTOUwqKZP+Bhy5?=
- =?us-ascii?Q?ehzMc/Iq5Qel8Ktuopa4CPchIL+riYwt1OuJv6eST6vBcido2qIy77yEWEUW?=
- =?us-ascii?Q?rCAX8h+FBliw6vxkcrUoghvjYguOXzxzVOZX1B6f7aD0Vwe6WPXSobhKjYrr?=
- =?us-ascii?Q?WCsYE40vceA4eVPjaWWDpXFkM8YFw1MQEO7muxkNqkNCc9ViYyk80p+gyE/H?=
- =?us-ascii?Q?f1NFI/wdsiV/I1Vw+TRmJpNnUVxLV6VDpvggehkGZV94F+DsXPcjN2Pu6kMF?=
- =?us-ascii?Q?kW03ua0tqjWn27i52Acd2tDzlYZA8zbpp3lMQYY8Ite/SSEuNFxIzwh62omU?=
- =?us-ascii?Q?s55hbx5pf4l8Npsxr0V4oHCncLjT7BA0gW1bBZDJTiuI1mxz5zVEa7UriuIT?=
- =?us-ascii?Q?02O1I7weVuVE3tfxCEoKiCsuiChmk4sBKB0HMsd0yWeo7cD3mYOi0AFmUz2x?=
- =?us-ascii?Q?76Dlu2p40W/w7lBNkcO+brPo7F4hPfjGCv6Uz1a2H+mrwMO4FH6EoLZosDUe?=
- =?us-ascii?Q?wMbvmUB6qAClmDe+n0/bJxJ1JGcWMmOyf6dBTbgHaIWojt1Hk/b+ufrwoEzx?=
- =?us-ascii?Q?UOGdSdRRWYxFxYJL6lVAwnPehGiQHCN8KI/Kpg+LapL/UoEgOnHNSw5vHOE2?=
- =?us-ascii?Q?qxvGEAR3rYg58J4TfofFeepGoxAYKc4kSXq3ARFsxrtdySMcU471?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15511033-7182-4527-a767-08df1f12a122
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:48:18.6489
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1EuJ9LkYw4qALQskqxp8i7iKSLS9PEsj6lPnOqDnjanbLPmXMjFt0fB0VQSBW0rK/xq2v8pTYKasuvACDbPXAEjLaiNvgwwPbsWydhyJcXl4kIOQSVdkGwnrUyWk3L0h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10885
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OKi514OHcB6CuiXw"
+Content-Disposition: inline
+In-Reply-To: <ar0npPCHX1P5Gjzx@xhacker>
 
-On Fri, Jul 17, 2026 at 10:30:28AM +0530, Vishnu Santhosh wrote:
-> The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
-> interrupt, which overrides the trigger type specified in the device
-> tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
-> to the apps processor; registering it as level-high causes the
-> interrupt to not fire, resulting in missed DMA completions.
->
-> Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
-> trigger type already configured by platform_get_irq() when it parsed
-> the device tree interrupts property. This makes the driver
-> platform-agnostic.
->
-> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
+--OKi514OHcB6CuiXw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Wed, Sep 30, 2026 at 11:15:48PM +0800, Jisheng Zhang wrote:
+> On Tue, Sep 29, 2026 at 08:44:13PM +0100, Conor Dooley wrote:
+> > On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
+> > > Add device tree bindings for the resets on Synaptics SL261X SoCs.
+> > >=20
+> > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > > ---
+> > >  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
+> > >  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++=
+++
+> > >  2 files changed, 120 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl26=
+1x-reset.yaml
+> > >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-rese=
+t.yaml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> > > new file mode 100644
+> > > index 000000000000..8cfec17df800
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> > > @@ -0,0 +1,40 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +# Copyright (C) 2026 Synaptics Incorporated
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Synaptics SL261X reset controller
+> > > +
+> > > +maintainers:
+> > > +  - Jisheng Zhang <jszhang@kernel.org>
+> > > +
+> > > +description: The reset controller node must be a sub-node of the chip
+> > > +  controller node on SL261X SoCs.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - syna,sl261x-soc-reset
+> > > +      - syna,sl261x-system-reset
+> > > +
+> > > +  "#reset-cells":
+> > > +    const: 1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - "#reset-cells"
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    chip: chip-control@f7e10000 {
+> > > +        reg =3D <0xf7e10000 0x1000>;
+> > > +
+> > > +        chip_rst: reset {
+> > > +            compatible =3D "syna,sl261x-soc-reset";
+> > > +            #reset-cells =3D <1>;
+> > > +        };
+> >=20
+> > Why can't this just be part of the parent node?
+>=20
+> Good question! IMHO, the reasons are:
+>=20
+> 1. the so called Gbls(Gbl means global) such as mcuGbl and
+> chip control Gbl contain not only reset, pinctrl and clk/plls
+> but also some other registers for different purposes, e.g in the
+> chip control gbl, there are some registers to control eth phy sel(RMII
+> or RGMII), and TXC 90 degree selection etc. These registers will
+> be used by the Ethernet driver;
+>=20
+> While there's no pinctrl regs in avioGbl and vppGbl. In the vppgbl,
+> there are some registers for DPHYTX etc.
+>=20
+> As can been, in different Gbls, there maybe different purposes registers,=
+ no
+> obvious patterns.
+>=20
+> So the question here is why not split the gbl into different register
+> spaces, and abstract each space for each function group?
 
->  drivers/dma/qcom/bam_dma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-> index 19116295f8325767a0d97a7848077885b118241c..6c3e2ca8a572fd04c925de0adbd5cc0616b361ef 100644
-> --- a/drivers/dma/qcom/bam_dma.c
-> +++ b/drivers/dma/qcom/bam_dma.c
-> @@ -1303,7 +1303,7 @@ static int bam_dma_probe(struct platform_device *pdev)
->  		bam_channel_init(bdev, &bdev->channels[i], i);
->
->  	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
-> -			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
-> +			IRQF_TRIGGER_NONE, "bam_dma", bdev);
->  	if (ret)
->  		goto err_bam_channel_exit;
->
->
-> ---
-> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
-> change-id: 20260601-qcom-bam-dma-irq-trigger-0366e7e86f17
->
-> Best regards,
-> --
-> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
->
+No, you misunderstood. I'm not asking for the register space to be
+split, I am asking why you cannot do
+| syscon@f7e1000 {
+| 	compatible =3D "syna,sl2610-soc-syscon", "syscon";
+| 	reg =3D <0xf7e10000 0x1000>;
+| 	#clock-cells =3D <1>;
+| 	#reset-cells =3D <1>;
+| };
+With this kind of thing, you can either use the auxiliary bus or
+MFD_CELL_NAME() to create the other devices. The latter is good if
+you've got a region with clocks that also has resets thrown in, the
+former is probably better if you have a syscon with a genuine
+assortment of different functions that you're going to be looking up via
+phandle.
+
+> Two blocking
+> points make this impossible and ugly: different reg space may not be
+> aligned at 4KB boundary, e.g reset: 0x350 ~ 0x37c; eth phy sel:0xa18;
+> some registers which belong to similar functionality, e.g clks, may not be
+> adjacent.
+
+This sort of thing, with non-adjacent clocks is still possible, you have
+a regmap just like before.
+
+> So the best way is to abstract these GBLs via. "syscon", "simple-mfd", and
+> put necessary subnodes such as reset, pinctrl and clks under the GBL
+> node. If the registers in GBL is misc control, pass the syscon phandle
+> to the main driver, e.g I planed to pass the syscon phandle to GMAC
+> driver to control the RMII/RGMII selection.
+
+And you can get the regmap from other drivers by doing phandle or
+compatible based lookups just like before.
+
+>=20
+> 2.follow current bg2 and bg2q style
+> e.g arch/arm/boot/dts/synaptics/berlin2q.dtsi
+>=20
+> IMHO, why bg2 and bg2q dtsi files are implemented as current
+> style is due to the above point 1.
+
+Unfortunately, this is the berlin2q devicetree showing its age, we've
+been pushing people away from nodes that exist just to probe a driver
+and don't provide any additional value. Something like
+| chip-control@f7e10000 {
+|     reg =3D <0xf7e10000 0x1000>;
+|=20
+|     chip_rst: reset {
+|         compatible =3D "syna,sl261x-soc-reset";
+|         #reset-cells =3D <1>;
+|     };
+|=20
+|     chip_clk: clock {
+|         compatible =3D "syna,sl261x-soc-clock";
+|         #clock-cells =3D <1>;
+|     };
+is exactly the pattern we are trying to avoid.
+
+Cheers,
+Conor.
+
+>=20
+> Kindly let me know if there's a better solution.
+>=20
+> > From a quick check of the dts, the node with this subnode didn't also
+> > have a system-reset node too, so there's no conflict or anything of that
+> > nature.
+> >=20
+> > > +    };
+> > > diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/=
+dt-bindings/reset/syna,sl261x-reset.h
+> > > new file mode 100644
+> > > index 000000000000..7034f58aae5b
+> > > --- /dev/null
+> > > +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
+> > > @@ -0,0 +1,80 @@
+> > > +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
+> > > +/*
+> > > + * Copyright (C) 2026 Synaptics Incorporated
+> > > + *
+> > > + * Author: Jisheng Zhang <jszhang@kernel.org>
+> > > + */
+> > > +
+> > > +#ifndef _DT_BINDINGS_SL261X_RESET_H
+> > > +#define _DT_BINDINGS_SL261X_RESET_H
+> > > +
+> > > +/* ACPU subsystem */
+> > > +#define RST_SOC_SDIO0		0
+> > > +#define RST_SOC_USB0		1
+> > > +#define RST_SOC_EMMC		2
+> > > +#define RST_SOC_GETH0		3
+> > > +#define RST_SOC_SDIO1		4
+> > > +#define RST_SOC_USB1		5
+> > > +#define RST_SOC_GETH1		6
+> > > +#define RST_SOC_USB0PHY		7
+> > > +#define RST_SOC_USB0CORE	8
+> > > +#define RST_SOC_USB0MAHB	9
+> > > +#define RST_SOC_USB1PHY		10
+> > > +#define RST_SOC_USB1CORE	11
+> > > +#define RST_SOC_USB1MAHB	12
+> > > +#define RST_SOC_UART0		13
+> > > +#define RST_SOC_UART1		14
+> > > +#define RST_SOC_UART2		15
+> > > +#define RST_SOC_UART3		16
+> > > +#define RST_SOC_I2C0		17
+> > > +#define RST_SOC_I2C1		18
+> > > +#define RST_SOC_SPI0		19
+> > > +#define RST_SOC_SPI1		20
+> > > +#define RST_SOC_SPI2		21
+> > > +#define RST_SOC_SPI3		22
+> > > +#define RST_SOC_APBTIMERS	23
+> > > +#define RST_SOC_APBSYSCNT	24
+> > > +#define RST_SOC_APBWDT		25
+> > > +#define RST_SOC_APBGPIO		26
+> > > +#define RST_SOC_APBDMA		27
+> > > +#define RST_SOC_GPUCORE		28
+> > > +#define RST_SOC_NPUCORE		29
+> > > +#define RST_SOC_AVIOAIOG	30
+> > > +#define RST_SOC_AVIOVPPG	31
+> > > +#define RST_SOC_AVIOVIPG	32
+> > > +
+> > > +/* system subsystem */
+> > > +#define RST_SM_ADCCORE		0
+> > > +#define RST_SM_ADCPRST		1
+> > > +#define RST_SM_CAN0PRST		2
+> > > +#define RST_SM_CAN0SRST		3
+> > > +#define RST_SM_CAN1PRST		4
+> > > +#define RST_SM_CAN1SRST		5
+> > > +#define RST_SM_GPIOPRST		6
+> > > +#define RST_SM_GPIOSRST		7
+> > > +#define RST_SM_I2CM0PRST	8
+> > > +#define RST_SM_I2CM0SRST	9
+> > > +#define RST_SM_I2CM1PRST	10
+> > > +#define RST_SM_I2CM1SRST	11
+> > > +#define RST_SM_I3CPRST		12
+> > > +#define RST_SM_I3CSRST		13
+> > > +#define RST_SM_PDMPRST		14
+> > > +#define RST_SM_PDMSRST		15
+> > > +#define RST_SM_PVTHSRST		16
+> > > +#define RST_SM_PVTPRST		17
+> > > +#define RST_SM_PWMPERIRST	18
+> > > +#define RST_SM_PWMPRST		19
+> > > +#define RST_SM_SPIMPRST		20
+> > > +#define RST_SM_SPIMSRST		21
+> > > +#define RST_SM_SPISPRST		22
+> > > +#define RST_SM_SPISSRST		23
+> > > +#define RST_SM_UART0PRST	24
+> > > +#define RST_SM_UART0SRST	25
+> > > +#define RST_SM_UART1PRST	26
+> > > +#define RST_SM_UART1SRST	27
+> > > +#define RST_SM_UART2PRST	28
+> > > +#define RST_SM_UART2SRST	29
+> > > +#define RST_SM_UART3PRST	30
+> > > +#define RST_SM_UART3SRST	31
+> > > +
+> > > +#endif /* _DT_BINDINGS_SL261X_RESET_H */
+> > > --=20
+> > > 2.53.0
+> > >=20
+>=20
+>=20
+
+--OKi514OHcB6CuiXw
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar09jQAKCRB4tDGHoIJi
+0hXAAP4wkxv9gIHHzTNPzHQ1LSg0/0HuRZwizirkiYFgYkvLVgD9HubayuyUaz2R
+jmI1JkNXlp/H1hcWDAEFGtkCJ+XW7wM=
+=OnMl
+-----END PGP SIGNATURE-----
+
+--OKi514OHcB6CuiXw--
