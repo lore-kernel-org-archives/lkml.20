@@ -1,101 +1,109 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5801F37CD22;
-	Wed, 30 Sep 2026 15:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59284DD3BC;
+	Wed, 30 Sep 2026 15:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783378; cv=none; b=OY4wbzLLfEOGQBT73Mn9V0iIW2GOmCEovdXC3MNuBdkOPeR4284K38OcoN02709D9pMUkJQrv99XjWYIUiB9SEt68ieW22XSRAawSUfAg3d71szGEHWlCub41kQHYYcMaTNe9Z5Ws15rz3faHIgUZ+IE9yr9Xsp+fo4xlhiNnRE=
+	t=1790783438; cv=none; b=AC1hvN2ELPUmYKK2f3qbj2xIkC2bpnIe3zyUPT7G4YQLyTiXctcnUriy9uFwU5oLbTzYXyWjAW2Vrw8gp836gMNzlGUTUJ1aGulEIzKAb4FuovQ2cr8UucnDi0M7gtpHpD2Qc89qksHZwfJoGypsTsnlDq2GCrQLDnGEzQYLp3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783378; c=relaxed/simple;
-	bh=BZkNu09Lfo6E+PsCpkCvwK4EEJPyrX4CAGS3ahr7LG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e8WMdZSxUy8nZ/z5ZBaAf9l/F8qnFty35sUIRTmwCMGlhQynDGH86riqoThCMoS3BB0xIGrYqRdBVhVE5VxvQEmw54L3V77uowBv6RLWjtU+CDc4Q2owLU32fZVsyfjygd+ndkAnnYEzR+jeVXUN9bCWK3/ul6doftgHQ8n+9tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dWbqTVIG; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dWbqTVIG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 68D421A1072;
-	Wed, 30 Sep 2026 15:49:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3B3F060749;
-	Wed, 30 Sep 2026 15:49:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9F1B81032982E;
-	Wed, 30 Sep 2026 17:49:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790783362; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ugAZhI+twJwNfbo6mFa57skyyDPMFQpEayEsyi2uEZc=;
-	b=dWbqTVIGz2+RpQy77T547XaL0yN4tBM/cauDoqWYCYcTn7sAUqzs+q3xYeFHdynGA7DN1B
-	VrdJ1rmL5GYiBiZUy1iMA21YdlI9fzE8jdU2qJJOV18lA2UCw6EUkCyFPFfxsEnN+YzHTo
-	pIIlBmPW8m6/0sHj0tKsWhhwuL8HEb4TxFogctwfKkyvL7ALA+AqK3EDSR6BBNUOhHSL83
-	Esnc//5dx+6eSWVKppS5NhuQPCubrJXxCfwpaCKrflwrEB7S8CZdAKB66/PLt1dXD/4GQJ
-	fJaXB07SPafcKgotLQ54wGZEUimkgGnm3IVWntCSaHfzFybLbSaV/mFrSkbSgg==
-From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Aleksandar Rikalo <arikalo@gmail.com>, Paul Burton <paulburton@kernel.org>,
- Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>,
- Chao-ying Fu <cfu@wavecomp.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
- Gregory CLEMENT <gregory.clement@bootlin.com>,
- =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v4 5/5] clocksource: mips-gic-timer: Use local counter on synced
- multi-cluster systems
-Date: Wed, 30 Sep 2026 17:49:17 +0200
-Message-ID: <3hJ3aZuPRWSZSVZ0yXJIXA@bootlin.com>
-In-Reply-To: <arvuZDCu_1vp4Yw5@alpha.franken.de>
-References:
- <20260929-sync-gic-counters-v4-0-ec70c4b60434@bootlin.com>
- <20260929-sync-gic-counters-v4-5-ec70c4b60434@bootlin.com>
- <arvuZDCu_1vp4Yw5@alpha.franken.de>
+	s=arc-20240116; t=1790783438; c=relaxed/simple;
+	bh=57mrpYgHzBBAXueH2A0ztvKZGDWIA+x5hky2KaSslio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hFWlvtdD+pzzNQ0Sa0M1crH1L60My9hxJ/MDPuZArJSVSJSj/eQ4zry8Hks3XElaG5pYBkxcj2FOMFMuPgBMa3oLiWZBXGCdWafxFxkWNXWQb66TThspdLddnudjhCtamHEYxuJADOBDZLe7884kLZbMj0a4zuTFrQraqiWrNyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.79.46.168) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Wed, 30 Sep
+ 2026 18:50:14 +0300
+Message-ID: <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
+Date: Wed, 30 Sep 2026 18:50:13 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
+To: jiale yao <19888972804@163.com>
+CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
+ Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
+	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-7-yaojiale02@163.com>
+ <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
+ <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+In-Reply-To: <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/30/2026 15:30:53
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 19
+X-KSE-AntiSpam-Info: Lua profiles 206344 [Sep 30 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 126 0.3.126
+ e1c111e02c8860cfcff70cd549bb6eae82fc7c38
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {diag_burst_silent}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.46.168 in (user) dbl.spamhaus.org}
+X-KSE-AntiSpam-Info:
+	127.0.0.199:7.1.2;omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.46.168
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 19
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 09/30/2026 15:32:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 9/30/2026 11:38:00 AM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On Tuesday, 29 September 2026 at 18:59:16 CEST, Thomas Bogendoerfer wrote:
-> >  static int gic_starting_cpu(unsigned int cpu)
-> >  {
-> > -      /* Ensure the GIC counter is running */
-> > -      clear_gic_config(GIC_CONFIG_COUNTSTOP);
-> > +      unsigned int cluster =3D cpu_cluster(&cpu_data[cpu]);
-> > +
-> > +      if (read_gic_config() & GIC_CONFIG_COUNTSTOP) {
-> > +              clear_gic_config(GIC_CONFIG_COUNTSTOP);
-> > +
-> > +              if (cluster && mips_cm_is64 && !gic_clock_unstable)
-> > +                      gic_sync_counter_64(cluster);
-> > +
-> > +              if (gic_synced_cl_map &&
-> > +                  bitmap_full(gic_synced_cl_map, mips_cps_numclusters(=
-)))
-> > +                      schedule_work(&gic_promote_work);
->=20
-> do we really need the workqueue ? As far as I understand
-> sched_clock_register() doesn't use the clocksource mutex, so we should
-> be able to directly call gic_promote() again.
+On 9/30/26 4:53 AM, jiale yao wrote:
 
-With CONFIG_IRQ_TIME_ACCOUNTING=3Dy, calling sched_clock_register() from the
-CPU hotplug STARTING callback leads to a deadlock. We also need the
-workqueue to call it.
+[...]
 
-Best regards,
-=2D-=20
-Beno=C3=AEt Monin, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Thanks for your review.
 
+   Top-posting on the kernel MLs is a bad idea... :-)
 
+> You're right — I'll split this into two patches:
+> One patch for the IRQ/netdev ordering issue.
+> One patch for the runtime PM resume failure handling.
+> I'll use --no-git-fallback next time, sorry for this.
 
+   Looking at it again, it seems like my dead email (and the others that
+I thought shouldn't be there) were added as a result of using the Fixes
+tags.
+   However, specifying --no-git-fallback seems a good idea generally... :-)
+
+[...]
+
+MBR, Sergey
