@@ -1,166 +1,128 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399074B8291
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F292A476CD4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765727; cv=none; b=APPw6RLPkrlwlNogKDEYj26ZVcBYMchvy9MKTGORNj/mggsM0j6m8hjAS0gLWj+LYttRbPLH8b5UsVaAkZGW3TT2nhlzrg/QJjLQPX3R6TcXQ4yd5tLHFOdpVXUSX+ADrWnSXljlqA0kZypaOVe25cp+hLSRcx+5T0lpn1Tuvkg=
+	t=1790765758; cv=none; b=rmolDfHm6LkSocAShm7D54i7Wac/2LOpcdF0SUvj+oFOmIz1AoyX1el5UCIDx7MA9gri8ohBUNbqlo7nYDcHrfU7fbZ3GjV6UpW2nDMUkXhFegpm5OdTzNaNbBtWjLlSUg5wYcCq9U4F19J1e/JzlnVYXcbj6KLAduQLPneDdU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765727; c=relaxed/simple;
-	bh=dwiF272EhoUmBSNAzIjwZoL0KKbPDlprXZmwB2MqiIA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jKnBJZGixW+8mjVeWe7fxe7KS/7IrP5msZkU88dJhvRFe/lSupJgFLfLhCc3m5U3xD5BiVNdqTe4f/wFSfl8VOjYY7YQgEX7+fx4DA9vsauqIu6coKFkUK4ErCPC6YPhy+Kp2kRCLuU6bGd4iKfOXO9QzMlZuXNle5RP0QxnMhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSTZQSH9; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790765758; c=relaxed/simple;
+	bh=PVFussZbsYlVLxgNpvhYQuR92VZFKCCQuM4dQfeSBM8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=eU9l77ZymjibQ72njw/5/hNFpaFMRFsyfqwxlKl5rK0DxOcMqvfxkWEBH8p51KKVFvQU0lVo/2bPAdN4mY32O1NK0nKI0XYE4zHcoElH3Dz96sNEIUkbT5+qZ37WBcNF2HXz/IPDoICoJBe+kzTyTh1qqSrYaHvzn4TpcS2KECE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CAXAODIs; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSTZQSH9"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144efd1ea76so3090136c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790765718; x=1791370518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tm4KhT1i9nkviFOM/DKWhqvTQ9rSQZ5LZ/7ePdMtknI=;
-        b=MSTZQSH9JQNIVLH09/VgsLz2ApN+cUUS8ZAb41+ZuTZW9zR6Jv80nMkxjxPvDtsrwT
-         SmPGlqUwftjfY57pUuRqfaKY8EIYr/6ylx2PVEmYgk5nygfYayJk4kzY9PqCp+tbzKJe
-         ZchrD++lE9I3QJ71e3JsYMAWKekqVVcWYJaZxtSaUu6bQ4uloq7XhRcFaZhi/ni3s/Nx
-         pcmIh8wdbKW2v2N/H0pntXf2DEU9zSvR591qQ9tgvAPU0+cXWfiNQL2LX7fahB7yQn8r
-         RL9bnzhFqcL8wvLp79LRpfpLcF/aR6M/ziUMv1Nei9uhDe4JwPeUBEEn1x9GUgygyhGK
-         rvNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790765718; x=1791370518;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tm4KhT1i9nkviFOM/DKWhqvTQ9rSQZ5LZ/7ePdMtknI=;
-        b=vtqPUyjW4DYr5jZeoUn5jJTE/ikah+5FuXLE60wP5iGpYcPZ6HqHedUO9dtAU7Y0Ee
-         1JwdH3WZUZCfp+orIYaDBfnVp6XXaJpSH4N4pXIXKU6QpR1+ZMsrsoc6lxxfD10NzpzK
-         +cUnRI7idaWMtir8SDbW103CaSqVRRE3HVNU1gPw4+/bhlkzvexUB2ErHHlqDax6WLnQ
-         y5EKVvZDrTbCn/XXO9DBhR2FdkY2qeKH1QE+ku8MVMwrIPSpFx9PcHBV3lgs8B6rCtDU
-         PW4LVnz+Q9aqqiFBct4FRqpuL00+DcvV8UtDN1kvWcX8lIPbmYdECvrs3GObvN8A68ux
-         fz1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxINBAWjyyuFd+Gnge35K+EWP5odJmZWrG1kWiBVdqEWg7idbqOkz0o8sj4rqXmsysvdncNzu1Evm1sJBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZhO9GygSGjGJqs89nykjBJX1CGirAYYYq/+eSKNB6xEMh099d
-	g82BXkjwEJygClmFbHEhW50kOlhugY3k+ZWbx0wgCg02OqPJDIjcuViF
-X-Gm-Gg: AYBFou19v59Rq+LRVSuUgAKxMCS5yIryqPF8CD/r4MgWQ50aNntdlL8xbMOFyFa1ayq
-	5SkFW9zpjzZsVFZ4r7fMPobTijdJGmyscNXyqpyavI/msaOWlqgJJUuxY+ItphuYUBpOsb2qhZj
-	V5JTwsNGPSH52kt5f0RqRMqCMRbAGvypvYmdDF/T9BQYXfFwRPh+9gJ9+uLQgX9L1Ni8nLmU0c6
-	XM/PatRFPpP1hFAFh/ArBlDwHQ88iznzuRuGzCH4sVf9NPMKnm7Won994zS/u37BuXxradT10ZI
-	BGqZTEi2DltAKoeGUeyGSFNHC5H6b1zxv/4DEU2xnnBuLnqDVVV5tTbjyRXF0yUhaTl2RNaNZQ0
-	j5O4FZWcmFuHhyBqS14tVgCr8gXsAqFiIkpl7RUXjQzlpBZ1Fz0lU91xoimMXGkkik5M1ORy6mR
-	1FOdU9VdLPwsskNA5y2duiayIsxZUHUGAnhdalzqr1F8kQVPua4/n0pfJ0DbfqzNAPyVDmjspqH
-	CVzaYziAiimIJ9hg02c
-X-Received: by 2002:a05:7022:91f:b0:144:eaa7:2765 with SMTP id a92af1059eb24-14d3204e73amr1522897c88.18.1790765717951;
-        Wed, 30 Sep 2026 03:55:17 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.97])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d083fea61sm4295477c88.3.2026.09.30.03.55.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:55:17 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: Ryder Lee <ryder.lee@mediatek.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C3=85=E2=80=9Eski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v2] PCI: mediatek: Fix integer truncation in fls() and clamp size
-Date: Wed, 30 Sep 2026 10:54:35 +0000
-Message-ID: <20260930105435.3660-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CAXAODIs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790765750; x=1822301750;
+  h=date:from:to:cc:subject:message-id;
+  bh=PVFussZbsYlVLxgNpvhYQuR92VZFKCCQuM4dQfeSBM8=;
+  b=CAXAODIsLa1OVYhwWr68Bw/K4rMTPRRRaIpybT5yK3qNYDqOW9Fc92tj
+   MBQJS2TBFk0TEbnfjfmuNmnqc5f2C74pgoLm4eYnTQZdAcoi+nuWlsCip
+   Cm83RaA9gY+ifSBEv2fvdpP4eRNHz1PtIg5xigjCphaMkshJtcSfB3RxM
+   lmakuZXT0t43Qpu7SZdtSJOkQ29tU57BPu0oajyinRxcG7UL+GGySfs82
+   r/UA53Qo6Nuk84PWtMCv7WegEWnHiV+uek3IntUATFkNijJxLXhpgTv5G
+   Jc5hobhxQ3JoDLm6nZcyMRPogxdEBoTT6h+RqIxKKSIVZsWQN/8AmIJYi
+   w==;
+X-CSE-ConnectionGUID: SPD+VJvZSXaxInItF3s5Fw==
+X-CSE-MsgGUID: uIoJl3mEQD+AFMQDMP2dww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90359681"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90359681"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:55:45 -0700
+X-CSE-ConnectionGUID: 6O8aR3UjQ269np4LkYtL6w==
+X-CSE-MsgGUID: dvBVNMbYQhqoXw+VPBK2Fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="273749741"
+Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
+  by orviesa010.jf.intel.com with ESMTP; 30 Sep 2026 03:55:43 -0700
+Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xBryP-000000001pt-02z0;
+	Wed, 30 Sep 2026 10:55:41 +0000
+Date: Wed, 30 Sep 2026 12:55:07 +0200
+From: kernel test robot <lkp@intel.com>
+To: Andy Yan <andy.yan@rock-chips.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <lumag@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Subject: drivers/gpu/drm/bridge/inno-hdmi.c:833:21: sparse: sparse:
+ unsigned value that used to be signed checked against zero?
+Message-ID: <202609301203.uv1O6huD-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-resource_size() returns a resource_size_t, which is 64-bit on 64-bit
-architectures or 32-bit systems with LPAE/PAE enabled. Passing this
-directly to fls(), which accepts an unsigned int, implicitly
-truncates the upper 32 bits.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   551c722f40809618230001baccf219193e22fc5a
+commit: 969325a2597ebc4cb001a92992f06f698ab2b467 drm/rockchip: inno-hdmi: Convert to drm bridge
+date:   9 months ago
+config: sparc-randconfig-r2301-20260930 (https://download.01.org/0day-ci/archive/20260930/202609301203.uv1O6huD-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609301203.uv1O6huD-lkp@intel.com/reproduce)
 
-Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If a
-resource size of 4 GiB or larger is passed, fls64() returns 33 or
-greater, which overflows the 5-bit mask and wraps around (e.g. 33 & 31
-= 1).
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609301203.uv1O6huD-lkp@intel.com/
 
-Fix this by using fls64() for 64-bit resource sizes and clamping the
-result to a maximum of 31 to fit the 5-bit register field.
+sparse warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/bridge/inno-hdmi.c:833:21: sparse: sparse: unsigned value that used to be signed checked against zero?
+   drivers/gpu/drm/bridge/inno-hdmi.c:818:35: sparse: signed value source
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/pci/controller/pcie-mediatek.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+vim +833 drivers/gpu/drm/bridge/inno-hdmi.c
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index a60d1ae076f8..9576fe532b92 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
-@@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 	const struct mtk_pcie_soc *soc = port->pcie->soc;
- 	u32 val;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
- 
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -753,8 +756,13 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 		mtk_pcie_enable_msi(port);
- 
- 	/* Set AHB to PCIe translation windows */
-+	size = resource_size(mem);
-+	size_order = fls64(size);
-+	if (size_order > 31)
-+		size_order = 31;
-+
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
- 
- 	val = upper_32_bits(mem->start);
-@@ -775,6 +783,8 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 	struct resource_entry *entry;
- 	u32 val, link_mask;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
- 
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -829,8 +839,13 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 		mtk_pcie_enable_msi(port);
- 
- 	/* Set AHB to PCIe translation windows */
-+	size = resource_size(mem);
-+	size_order = fls64(size);
-+	if (size_order > 31)
-+		size_order = 31;
-+
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
- 
- 	val = upper_32_bits(mem->start);
--- 
-2.55.0
+412d4ae6b7a508 drivers/gpu/drm/rockchip/inno_hdmi.c Yakir Yang       2016-02-03  805  
+969325a2597ebc drivers/gpu/drm/bridge/inno-hdmi.c   Andy Yan         2025-10-16  806  static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
+969325a2597ebc drivers/gpu/drm/bridge/inno-hdmi.c   Andy Yan         2025-10-16  807  							const struct drm_display_info *info,
+26d6fd81916e62 drivers/gpu/drm/rockchip/inno_hdmi.c Dmitry Baryshkov 2024-12-14  808  							const struct drm_display_mode *mode)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  809  {
+969325a2597ebc drivers/gpu/drm/bridge/inno-hdmi.c   Andy Yan         2025-10-16  810  	struct inno_hdmi *hdmi = bridge_to_inno_hdmi(bridge);
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  811  	unsigned long mpixelclk, max_tolerance;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  812  	long rounded_refclk;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  813  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  814  	/* No support for double-clock modes */
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  815  	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  816  		return MODE_BAD;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  817  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  818  	mpixelclk = mode->clock * 1000;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  819  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  820  	if (mpixelclk < INNO_HDMI_MIN_TMDS_CLOCK)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  821  		return MODE_CLOCK_LOW;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  822  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  823  	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  824  		return MODE_CLOCK_HIGH;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  825  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  826  	if (hdmi->refclk) {
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  827  		rounded_refclk = clk_round_rate(hdmi->refclk, mpixelclk);
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  828  		if (rounded_refclk < 0)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  829  			return MODE_BAD;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  830  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  831  		/* Vesa DMT standard mentions +/- 0.5% max tolerance */
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  832  		max_tolerance = mpixelclk / 200;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22 @833  		if (abs_diff((unsigned long)rounded_refclk, mpixelclk) > max_tolerance)
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  834  			return MODE_NOCLOCK;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  835  	}
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  836  
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  837  	return MODE_OK;
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  838  }
+701029621d4141 drivers/gpu/drm/rockchip/inno_hdmi.c Alex Bee         2023-12-22  839  
 
+:::::: The code at line 833 was first introduced by commit
+:::::: 701029621d4141d0c9f8b81a88a37b95ec84ce65 drm/rockchip: inno_hdmi: Add basic mode validation
+
+:::::: TO: Alex Bee <knaerzche@gmail.com>
+:::::: CC: Heiko Stuebner <heiko@sntech.de>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
