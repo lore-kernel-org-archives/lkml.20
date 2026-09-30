@@ -1,142 +1,79 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAA843DED7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EEB3D410E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754830; cv=none; b=LAwdXO0IUItHKkZZrgxOlVq1/vnPwyKnKa5JJ5UwhHcvoUEWBOHSQRq2MpohQ6c9hn95rxI2s0GJd/BFevFSyiLrexMldHijKRHhSume5XPE9WWAjO7XhRJO4h2ElIZ4oK39JJIK9UBLQzeyX/m5i9nIrwZxFPK9GHMBF8F0SYA=
+	t=1790754840; cv=none; b=UfKfBts/4rFyvWeH/cAOqYocG7NIZm5sq3XJxFB+hbzkBzBhmZ8kRuhlDNr9vda4i3gnVC/Fuz88XXvkZiJIRuoYwQi5lYTZIPY/uLg6NCuNA+0JzypahNVR4qicYCOX/uhvpMJ766r7ahPVsoL07hMr6XjsI8Lv14xWzBp2GJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754830; c=relaxed/simple;
-	bh=hZ6EIw11xdTVgEdmGqQqYocVGyhW/vrmNhyxQ7jmjYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IYwAZtDRposhU7hYTRGpUI260HuDaeClhgzNfRprUyem1w5Kh5HtMvZ9pLvHpIAf1p8aaLlvPEb8ra968+XgyK8Xo4gtnrwngbIn4i8YrD72cnvoU1nTJyXVPUEq56GaR9pX8lPATtnoHk4TZENzVLrZdHar/E5uI6QdGXfHX1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H1yiXM1x; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790754840; c=relaxed/simple;
+	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BpY8StREFh2AH2CUCJSIAMk09BogjMWGCb7xsZVhXm77oJc2CGDpUnRzbWLosjDrydjPKmb30wF/CWZm0ex6Z2Iz3vwwn1v10/e+FRCW6EesNpifT6MvZ4n+0O4QjtjUBDfPlWhlTw+Ou2c+nV0AOX6NcbypQtQfP1usfwMs3XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUUxkOtg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H1yiXM1x"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso3242297a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:53:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790754828; x=1791359628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zfRoB0z9C62Zxfiw8Wn8D6Gbz3xcK/CP85S70GJlIsQ=;
-        b=H1yiXM1xntsX8sc+JkxqWsMV1txAJ+Yw8Qvqgd5WFze3FXMNiH4ml5ajqmz/TvPjVq
-         2XiQMIPNdsr3FDISXPFebtWQ052hN4X3CL9zVeiw0i5L/ZPlp7Q81NN81uqDA7/ypYPC
-         RcCNfh1q579sEVNCmiJ5ndwK3bT+lWyhdhV+xcGDtnZC4UMH3bEuhF09UX6kVAmsc9TC
-         shAgYhqKdGOvbZwCBVUxaXWeWW7XPyPJ3K8JFBK2RDWVe/bljIyjusXsdXHCJLGPHoGL
-         dTlFMXB9QUE4f2LzGMJaK3W+Y9jw9pj2eruFHbOggWIqEXzG2YtEotaa63wi46HhBvdR
-         j15A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790754828; x=1791359628;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zfRoB0z9C62Zxfiw8Wn8D6Gbz3xcK/CP85S70GJlIsQ=;
-        b=ZlITEdY9FzRZ8RITaJ8zDYC6xzsvC0bNgrqiPQajO/Jfywe0DKRvsbM6Bdqc7rcUtA
-         ZJMfszzeFRLexk2triVuYRpvUY+0qqhW2RT1/qztnKrKHTDIcFJpYX6IKq+RBMnNvMZ3
-         mPx/OuRKUrTe0BICptIWHFOxZl40Qv1fZz6pExMURWwUsuNCVL2JP2o44UBgPPLiE7QX
-         GifizApWz1A9xPHhPnGWn8CD1maf6b0vH4xahK60iuudl+CDiApLX7xjF3dYE83p7zJ/
-         durAfQK0jVzQuQeZuMtwnLW3a51rXfMfcBbYpYb6pVq/qF2byK64H+S2LASDp0EkbYtU
-         FLOw==
-X-Forwarded-Encrypted: i=1; AKwUvByf1UGlfGE/+CO7Gls4BckNrVc5LehpWsG09t2jzNyT9Lj0h6ng2K4mS7jWj8Q/9D9H7CTx8qQD2npx/zs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtaRNVihJiubDxNwnVYpFe3jLf3DM2pNdrh50uizQ7iOoOYHdk
-	b9D6uFQwb80YySx5lzSdA3L1pNsywcbeUkgBCqng9+LLmATi6xJ5F6Dx
-X-Gm-Gg: AYBFou1sHzOIFJVzNy+e/h/dRLY9O9Zgdg4UC154NEGDikCiNZco0sxeNiYtWHjLKWL
-	mh5Y3sZSNyoSbvMA0h6oG65ZcmsKPizxK6PcxzgXlWzyxkxBA6uXqQqzIebh7RgZCO7WBMbj8gR
-	vmKk5H+G6lWwsRpwOlS9JH6jBR/GMHHL+O8OnqiVH1nTIrG4aSXY95mXHFmSJ+HNKRyHV0vrSeU
-	+YGczY7TRqNC5+a4PJCnn0IfE96V3FBGjL9tVtKGUCHQ5EGCfTuA1Ol6ndROBs/zlTtBQ+rJ/EH
-	7uIHb/W48I/Csq/Vpbn274O+U88+zb7A3aJPj0F6DlDCAlYa1WJGaRFlJzun9EAccmNHsBQLQ9B
-	c2LhMWY3AWM852NTRbVeELXxEnXyVGWiIvJXNUnH/iEzRGQo6eNHZjgdVLlyKI82KLgu3z2DQmD
-	pGnC8C4sHxxI6V9d9Ez6IRJ2ocyOyDIAwBKZJ4kKqy0C9LyOEOmkoL15ktaKL9y4qYjhUtoTwKQ
-	N2CYZpR/I8e
-X-Received: by 2002:a17:90b:588e:b0:39e:6c69:9b90 with SMTP id 98e67ed59e1d1-3a4d19109demr619978a91.53.1790754827923;
-        Wed, 30 Sep 2026 00:53:47 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce419342sm1882128a91.16.2026.09.30.00.53.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:53:47 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	William Tu <u9012063@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net] ip6_gre: validate ERSPAN skb dst before PMTU update
-Date: Wed, 30 Sep 2026 16:53:20 +0900
-Message-ID: <20260930075320.760328-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUUxkOtg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C38D1F0089A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754839;
+	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ZUUxkOtgzhi1Q9N62ORXiHk/J3rf2zvdX2UOKTcMkQYhx9W0FZVO7uiIwJSBMjUCS
+	 ttu09aKi/NMV640uKB02QdKg0C5urdSYtQXCkA7zxmsDhg0aa5qj8g7Uap/+2QeAYb
+	 LIpk5dhMZjxezm6f3lq0m3eqskHddWL0BdYa5AiPBy8LoCk2Sg+bVBc8qLnk2HwgTF
+	 3xGltqxpEDpwVtQsn5d6qzH/QIaHR+L3pMRKiTiRkI7/X2DWE07zwtc+oUl21UYMEj
+	 rcERDx0VjDTXdcHUUT9jLDrlv1b4CLQa+ItiSiv5Bp+ZAlbB6FeKo7wq8V3C5cEbSN
+	 LAV2PqPbYF6kQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8eb3a9d9bso4531084e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:53:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxp2gr89ni+Vute4zaQ67khApuROlF/zXfgRbbaK0hfaQxqvXNVlnZuo+pYcfXLe/FcOVw8e5WCvfk5kac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpaNgzGaqeR7P3D6TIC/p1mHNTnFi+de+hH+K8F6iFFf9cqvw9
+	99Dj+tIEZ70lCS33VzEge04sJ73rQ8wEBY4rc5tKCtrb4xxJNpiNtz1/mgH66WMZ3oG/nQSzjzt
+	H2Az2cXVM3/kPLG4O/qDKw39PoLOtNZt79hUGCB3NjQ==
+X-Received: by 2002:a05:6512:31cf:b0:5ba:3c49:6ccf with SMTP id
+ 2adb3069b0e04-5ba402b853bmr239606e87.1.1790754837737; Wed, 30 Sep 2026
+ 00:53:57 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 00:53:55 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
+X-Gm-Features: AclHuK-bKs-DiLDJzi14gqE5ctPrjcYpWHqNaXVB07vwyWRRN1rks3MP-AEwIX0
+Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] gpio: shared: fix no-device, fwnode-based lookup
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
-and mirred preserves it when redirecting the skb to a native ip6erspan
-device. ip6erspan_tunnel_xmit() treats any non-NULL dst as a route for
-PMTU updates. A metadata dst has no output device, so
-dst_dev(dst)->mtu dereferences NULL.
+On Tue, 29 Sep 2026 14:32:02 +0200, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> said:
+> Abel reported to me a crash on Eliza linked to fwnode GPIO lookup for
+> shared GPIOs. The second patch fixes the issue, the first fixes another
+> problem the clanker found during review.
+>
+> Tested that the issue no longer happens and that sharing of GPIOs still
+> works on Qualcomm Eliza.
+>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
 
-On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0
-created user and network namespaces, used namespace-local CAP_NET_ADMIN,
-and triggered:
+Please disregard this version. I need to account for multiple fwnode requests
+for the same con_id which currently fails.
 
-  KASAN: null-ptr-deref
-  RIP: 0010:ip6erspan_tunnel_xmit+0x10fc/0x2cc0
-  Kernel panic - not syncing: Fatal exception in interrupt
+I'll send a v2.
 
-The collect-metadata path already skips this block because its metadata
-describes the outer tunnel. Native mode must still propagate PMTU updates
-for real route destinations. Use skb_valid_dst(), matching IPv4 tunnel
-PMTU handling, to exclude DST_METADATA without suppressing valid routes.
-
-With this change, the same trigger processed three packets without a
-sanitizer report, oops, or panic.
-
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-Affected since v4.16-rc1; present in v7.2 and all four pinned
-2026-09-30 upstream snapshots.
-
-Tested with CONFIG_USER_NS=y, CONFIG_NET_NS=y, CONFIG_IPV6_GRE=y,
-CONFIG_NET_CLS_ACT=y, CONFIG_NET_ACT_TUNNEL_KEY=y, and
-CONFIG_NET_ACT_MIRRED=y. Config SHA-256:
-f992c9fdb881ca95c467896791c52554719f6204cf06268cd92ac37c14c14f83
-
-The reproducer is available privately on request and is omitted from this
-public AI-assisted report.
----
- net/ipv6/ip6_gre.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index e61cb10b50dc..3ee7fad6089a 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -1059,7 +1059,7 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 			 htonl(atomic_fetch_inc(&t->o_seqno)));
- 
- 	/* TooBig packet may have updated dst->dev's mtu */
--	if (!t->parms.collect_md && dst) {
-+	if (!t->parms.collect_md && skb_valid_dst(skb)) {
- 		mtu = READ_ONCE(dst_dev(dst)->mtu);
- 		if (dst_mtu(dst) > mtu)
- 			dst->ops->update_pmtu(dst, NULL, skb, mtu, false);
-
-base-commit: 54518e0e827f4ca9229ae657022c60bf60f5c1bf
--- 
-2.55.0
-
+Bart
