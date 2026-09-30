@@ -1,83 +1,70 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD8646EC66;
-	Wed, 30 Sep 2026 22:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790806479; cv=pass; b=Gl1lCvJNtR3Yz8lgQBXtIR35St1a4bz0GwvQSudA4io5R+l3MOdJH8mGnOoLQ1WKPxzxl5DgzYdi3nHcSGHNB7xq0wMjv8/oiGIASDmQjI8Hh7AVuNdz6QNGEQKHh2v5sHIklGAmngHwbwnvXDVQoG252sEnxxjkBVB2xOQB8PM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790806479; c=relaxed/simple;
-	bh=TdRUkVzrNS3ku3WjWU4WCQfeKQturZwGaSHBbvXUBsc=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=T3SvS34GoCjlUjTNETTWA4+Lv1Kp4J1Pfzc3BesDA3nAU8g+a6F6wJHsA1VH6AN8vP6Aewva8x8NAHVIcrKkByIVKQ/ioS9q+PMIFwD+ocb+nkZpUYjmATDoWzl8Z7mYf0IX8stVyT7/6UxalGN2c9QaZAU8xtrsnkRrzoXLlvQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=UP3Vx+G2; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990C751CF6E;
+	Wed, 30 Sep 2026 22:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790806481; cv=none; b=E7yCQb0P1b00IqGA8rmJUfgvBvl94G4O2Sj6A19bQTU65UTSS+/FKuuQhZYAmzgwnvMDSl8LUyoUzawhVOJqqB+OeEG/A2OJSjkQ4EQHLQEE7GQ8DzlG8ELMHB3WKJ19E42kXs7LYWeuzIyIr29lmZkky92LB8O/yg+jCxb9VaA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790806481; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XWRnt0/I8D1okoyphDHhA9MXznaoXTaF5QYELf//ZVJN2sfbMVUl46+T3YdXX7iekwU+hwOXOj68VzpzSlFxoTqIoddKtylAeEJDpxFt7PEnbdss/kSHmyxr4iFKBiKpO58muinI3lkvLTYi/zqg7qQGjlibFK62GzqbdNvLYdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDnULEJv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="UP3Vx+G2"
-ARC-Seal: i=1; a=rsa-sha256; t=1790806416; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=R0rhfdejG1NpLJEfeA9SsbtEXoVD9oTYmVIspiW8SSA/sSY4AQvud3VTAvEoCJZwCsREvpq/2vD0uk6PkGbXsvjQWuHVkCyFqc354FftZeX2448AI/x6Ivf5FuFvE3cw616kQrwd0CIhzIsOW09X2JkiFFbLrkDb8qqHFjUEDz0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790806416; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TdRUkVzrNS3ku3WjWU4WCQfeKQturZwGaSHBbvXUBsc=; 
-	b=GCuRuc8KeR/NQDLEqlhXJlO9n626ppH43k+uCq/P7LeOZ7SO24w4ga8XxhPEeA6GaA0Qxou0tVZmLT5oBWwcNuFW9tajMia0tvx9hAF7CjfQtLtkZOPNho3pnY1gArrLeuH23LtSO/e4e2l/PJzP/gAi6rWld0AonyCRW1mNtHM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790806416;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=TdRUkVzrNS3ku3WjWU4WCQfeKQturZwGaSHBbvXUBsc=;
-	b=UP3Vx+G2pstp23toOTjJlXLqFl61Yjv8gn7uD+vfwj0jrWQcv3M6WnU83edp0zf1
-	aSnH8mGnbwO3PjQSNY5qHBWWTlvQEwhvw1RLqnKtEKzzlS6gaGwH0lL0MgkfSjyfk3A
-	8nhCsYaZw5Wmfc+AOzCJcAbNu10wdRsumRQQRPp0=
-Received: by smtp.zohomail.com with SMTPS id 1790806415705949.7237250024347;
-	Wed, 30 Sep 2026 15:13:35 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDnULEJv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958881F000FF;
+	Wed, 30 Sep 2026 22:14:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790806480;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IDnULEJvAU+YloY16NpUZ77FLhCu+IquBIXCra9tHtcwIWen7thyO98Sxw5uC+gr8
+	 1bDy3DjJZ64PVpnmfX9YdsGtZZPMd60hH0BCdH+Oa2Bydgg2zSFJtIx21/epn5wYhd
+	 hUHuoK5uLyHa+wAH2g9rN5m9F7imBXSrBHNLBv7gVQ+G3QwuEREbfVKI3T7dNCmM02
+	 EfpmrVoaYKIJhzM7YwtRv96J1JKvGi1gtIyPqVkdvhQTU2ZADuPpPR4Y/OJSr4s64L
+	 4Wct4NmlpBTW3fqbhUpi1cIf2gcIrGQJ6M6STLmLOdEXAsCtow21T6X8zBx9iDeyRv
+	 qD+qV7gLGl3uw==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>
+Cc: oe-linux-nfc@lists.linux.dev, david@ixit.cz, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] nfc: digital: fix read of resp->data[0] before length
+ check in sens_req
+Date: Wed, 30 Sep 2026 22:14:39 +0000
+Message-ID: <179080647916.31693.5412797645123910488@kernel.org>
+In-Reply-To: <20260930220857.721985-1-omermetekaya0@gmail.com>
+References: <20260930220857.721985-1-omermetekaya0@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v10 0/7] rust: add ww_mutex support
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260103073554.34855-1-work@onurozkan.dev>
-Date: Wed, 30 Sep 2026 19:13:19 -0300
-Cc: rust-for-linux@vger.kernel.org,
- lossin@kernel.org,
- lyude@redhat.com,
- ojeda@kernel.org,
- alex.gaynor@gmail.com,
- boqun.feng@gmail.com,
- gary@garyguo.net,
- a.hindborg@kernel.org,
- aliceryhl@google.com,
- tmgross@umich.edu,
- dakr@kernel.org,
- peterz@infradead.org,
- mingo@redhat.com,
- will@kernel.org,
- longman@redhat.com,
- felipe_life@live.com,
- daniel@sedlak.dev,
- thomas.hellstrom@linux.intel.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <21B6451E-4344-41C1-B74B-1DFAD1AA3D7D@collabora.com>
-References: <20260103073554.34855-1-work@onurozkan.dev>
-To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+MIME-Version: 1.0
 
-Hi Onur,
+Hi!
 
-Thanks for all your work on this!
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-This is a few releases old by now. It needs a rebase.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-=E2=80=94 Daniel=
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
