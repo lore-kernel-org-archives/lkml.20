@@ -1,117 +1,167 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F3B3D6CA3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17493C3BFA;
+	Wed, 30 Sep 2026 10:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763521; cv=none; b=ZR6KRBmyQOyYYiBbDg1FP2r1N01/HcsDifXB1hETnKmIFeStcCA2WBwlPWtqpDJ+tHIem1h8ltqk8eGaOCQqLcyjrw8/ooDxoH9rY1AQP85AGSznT6B2Cwo0OVhFJbC82oARAmCeobeSI1zlxkQAC5LI3mSaZgi3A1E9qlLDbrE=
+	t=1790763551; cv=none; b=ihgOjJFTgQ7G7aynkJW2GEN4oUu8b8hM4GA89C8zxS39TwoEUGStcFdVuBWq/eEeVjUCOxNRbWYM0s4Nje9FbE5hZTY5IXX/oOMFAlJ8soD4uuG9vzfwbyADxrrX5R2ptvAtf6t+uSHxtqGIE/6VsthzXrnGmOlwac7YeWIuHt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763521; c=relaxed/simple;
-	bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HVyyYiqG1nqEDYMGXlTsX60u/YNXEdUxFkR9kRooxmk8HQC4hq2FwuQrEi7ygGzSCYV3jua8KEx8yW9Tigav8Yyqudm9jFRuP84T4/UdbGOuRHVru4OBLVUfyvjprO7jDK+rq1/TlF6cfLqRNtb9yBd4aLwjyocmZosEkMWdbvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f558thlU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790763551; c=relaxed/simple;
+	bh=lv8cEJJhIRBGmZ/58YZwoAIipFgHhAhXSXEuCSLmEjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BVi1MBSnhFn7j9lJKt45S4DUT2e6jj/5s4z11d8ymAzm9v+vColPDVcOmeXrhfrzZYFNxpAKYJ7gKyGggSRM+Vz2dcE5PUIy+qWaZXnN9zNEtWYtMsJgbPaeLNV1em+Y8Dv1zl9wLVY90Ie/T0vrrpG4h8va/ohbp8ICP1MNxQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eFFD2Cte; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f558thlU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso48095605e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:18:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790763518; x=1791368318; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-        b=f558thlUhtGlo5ZBGdjYqF/f1WSQeDunDQlTVmZLXUOwnR4SLAis0l6wBS+cn7FVUC
-         kA+FR40U6bUGLrh+mvimAmzX6wOBbj77M67HuAdvDhqggRHMr2yriYkghBSyF9rV0vts
-         jrYG5oYSXgCSn19pZq8u0+rHa9Tp10fOqS+sHejI5WIe8HRlgAvAiBgoiWd53SrsHcq9
-         M4vkxf36ZCcwT9IxP33m5/aNnQB6eWA/vx7AUrH+07uzfxYX4dPVyCkqAzpezcsKHIiP
-         PgRJo/9ruEbZc+gYBwzPPvq7bfaD8QtWEMSG1pzMw4irZ/LgsPC2bz3Xjf3ic/q3AY+c
-         4pdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790763518; x=1791368318;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-        b=nJjZYA3EWSwWxEhCq8DHrt72MaRfW3W8WJuezS4f8/avtfZA4BahUP3pmI3KA2pRkM
-         1RLfs9pd041CveScq2qK4Zd+MOLDS7GrzU4+E6hiDCmi4fylma7dukXZ/oha5YEEavq1
-         dcxA7dJwZKjN1XmPcs4WTmNUVSizBR/WCDnHFmHA3i9u22/D+I/nXHHMyv2uCCeHAAnm
-         THr+urhnh4bZ+rSHmdCyNWgWcOq0WTVJQFk/U0X9glIJ/Zoz3wpdHj/xkf78IQ6K+Dih
-         nLsC4ssnCmWAjHjQ3+o8Pv/CDirxp7TOU12246IjGj/IiIi8o1wXrMaodFwiK/NtFMl1
-         lVLw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4tIDwSwp0ZCHcVgq7qnk+ILG9EOQOuzT+ZTkXnFT899HE0xkHpsG+gqvTa6+wkcipSvXSKFCzIcaziUE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPxaWNo8R7oiXj6ABDujPE/X3fNyW6ax2LmFnWKUliIwaAOh4q
-	4/mQlhd+dmpXcEBWm/VPwVG7hjdIMRxQLWvgsJdaYVnX2xzyWcKEk2eE
-X-Gm-Gg: AYBFou3nd+XjnCnkkOkJGsN6QIa4JKIzOImQOwZkH/FUWDGZDXsL3dcxrUOFTjMvQSu
-	FQ4NYrApYkSt1bkNwQqE5I8OixlbXegeFF0vT3yHuqs4SuTIFKUiAtoDZNXlwa2TGVzxgMe2lME
-	s0sRGHQAFS1KEyJwHP6f/B4kTnKeeZJZhgdKKxC5hjoBx7q2k6ois1+QeAw3stuXeH2Le0fAKg7
-	47iBsASbjmfOdpV6F5ZcLkkDPjkyfk3EoQO95SKOmyN4tQY18fO1CHKczw1U/jQn6PFGr/50nbx
-	Dtv1xD6astQZqQ1ZIykQG7iQrqoPOJUtKIKOQTmdaLvYezNqk7JTFqz2b1C0kkF6wvRW3BRk3pZ
-	c/gr34oHElY9BkUQSqL28DUIc4Bfke5zY1iXsJs9yHEBQakTZjy8Jo49eTCVDsiOEsbRy2NUcWl
-	bUF6SN/qPFDdLOv+JBPNnj5zElKW/pLrJFk1/HRF3yfezIokCMi7gy1Gavp/YilXK0r3Osj3h0h
-	c5xuldfVBbYB5jOgryYFT1OsRv2xZqr
-X-Received: by 2002:a05:600c:4f4b:b0:4a0:35c:8953 with SMTP id 5b1f17b1804b1-4a01afe8499mr17900545e9.7.1790763517873;
-        Wed, 30 Sep 2026 03:18:37 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017468b10sm56852175e9.0.2026.09.30.03.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:18:37 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject:
- Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-In-Reply-To:
- <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
- <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-Date: Wed, 30 Sep 2026 13:18:34 +0300
-Message-ID: <179076351495.2893601.12682235689198768135@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eFFD2Cte"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=w0
+	mNDi2wBxp1xFtPYsu1Ehyp75igmnL6MJTjYfrzswg=; b=eFFD2CteANhDDBFW76
+	An4lJY29aLmNBdPEOVOQeLP4TmLOrE9Sx2NWU37XdPZPXHVuMAqK5w+9jX2Z0aya
+	xAPGbo/FQuce3SQP8eafKMEn5Gl6mW1Gh5M20QOUFfFnVg89BSS/+XUxngefXU28
+	rNWpbfNaMuCXOT0cDJMN89Txw=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3f7my4bxqx3XrBg--.5926S2;
+	Wed, 30 Sep 2026 18:17:23 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: sched-ext@lists.linux.dev
+Cc: tj@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] sched_ext: Hold DSQ refs for deferred reenqueues
+Date: Wed, 30 Sep 2026 19:17:22 +0900
+Message-ID: <20260930101722.2468434-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f7my4bxqx3XrBg--.5926S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1DtrW7KF1xZw4fur4fuFg_yoWrGr13pF
+	WkXF1UA3yxJry0qr4vvw4xZF1fXrs5uw4xCry8Wr1akan8uwn2q392vF1agFZ8WrZYkw4x
+	Jr1qka12ka90qFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi7GYPUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRNuzWq84bN0IgAA3j
 
-On Wed, Sep 30, 2026 at 12:11 PM Linus Walleij <linusw@kernel.org> wrote:
-> It's a bit weird to have a mach-cortina when mach-gemini is actually
-> also a Cortina SoC.
->
-> Could we call it mach-goldengate?
+A deferred user-DSQ node can be detached by
+process_deferred_reenq_users() before the DSQ RCU callback reaches
+exit_dsq(). Once detached, exit_dsq() can no longer find the node,
+while the deferred path still uses the raw DSQ pointer after dropping
+deferred_reenq_lock. The callback can therefore free the DSQ before
+the deferred path checks its ID or calls reenq_user().
 
-Sure, that is also what the vendor kernel called it. I will rename it
-to arch/arm/mach-goldengate in v2.
+An RCU grace period only delays reclamation past pre-existing RCU
+read-side critical sections. It doesn't protect a deferred reenqueue
+which has detached its node and keeps using the raw DSQ pointer
+afterwards.
 
-Should the Kconfig symbol follow as ARCH_GOLDENGATE, or is
-ARCH_CORTINA_CS75XX fine? I would keep the "cortina," compatible
-prefix and the arch/arm/boot/dts/cortina directory as they are.
+Take a reference under deferred_reenq_lock before detaching the node.
+The RCU callback drops the base reference after exit_dsq(), and the
+deferred path drops its reference after its final DSQ access. This
+keeps the object alive until all detached reenqueues finish while
+preserving invalidated-DSQ behavior.
 
-> I am OK with this because it's not like we will add hundreds of these,
-> I just note that ARM64 has abstracted the spin table handling into a single
-> driver used by all such systems:
-> arch/arm64/kernel/smp_spin_table.c
->
-> But implementing it for ARM is probably overzealous and just a waste
-> of everyone's time.
+A KASAN regression test of the pre-fix kernel reported the
+use-after-free while processing the deferred reenqueue:
 
-Agreed, I will leave it as is.
+    BUG: KASAN: slab-use-after-free in run_deferred+0x1312/0x1710
+    Read of size 8 at addr ffff8880087009b0 by task swapper/3/0
+    Call Trace:
+     <IRQ>
+     run_deferred+0x1312/0x1710
+     ttwu_do_activate+0x29a/0x600
+     try_to_wake_up+0x815/0x1700
 
-Thanks for the reviews,
-Fil
+The patched kernel completed the same regression test without a KASAN
+report.
+
+Fixes: 84b1a0ea0b7c ("sched_ext: Implement scx_bpf_dsq_reenq() for user DSQs")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Hui Su <sh_def@163.com>
+
+diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
+index 23f9e178bc5a..1d36196b2238 100644
+--- a/include/linux/sched/ext.h
++++ b/include/linux/sched/ext.h
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/llist.h>
+ #include <linux/rhashtable-types.h>
++#include <linux/refcount.h>
+ 
+ enum scx_public_consts {
+ 	SCX_OPS_NAME_LEN	= 128,
+@@ -92,6 +93,8 @@ struct scx_dispatch_q {
+ 	struct llist_node	free_node;
+ 	struct scx_sched	*sched;
+ 	struct scx_dsq_pcpu __percpu *pcpu_user;
++	/* one base ref held until deferred reclamation, plus detached workers */
++	refcount_t		deferred_reenq_refs;
+ 	struct rcu_head		rcu;
+ };
+ 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 405d0d1038f8..9fd18fa5725b 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -5057,6 +5057,7 @@ static void process_deferred_reenq_users(struct rq *rq)
+ 			dsq_pcpu = container_of(dru, struct scx_dsq_pcpu,
+ 						deferred_reenq_user);
+ 			dsq = dsq_pcpu->dsq;
++			refcount_inc(&dsq->deferred_reenq_refs);
+ 			reenq_flags = dru->flags;
+ 			WRITE_ONCE(dru->flags, 0);
+ 			list_del_init(&dru->node);
+@@ -5068,10 +5069,14 @@ static void process_deferred_reenq_users(struct rq *rq)
+ 		/* destroy_dsq() may have raced and invalidated @dsq, nothing to reenq */
+ 		dsq_id = READ_ONCE(dsq->id);
+ 		if (unlikely(dsq_id == SCX_DSQ_INVALID))
+-			continue;
++			goto put_dsq;
+ 
+ 		BUG_ON(dsq_id & SCX_DSQ_FLAG_BUILTIN);
+ 		reenq_user(rq, dsq, reenq_flags);
++
++put_dsq:
++		if (refcount_dec_and_test(&dsq->deferred_reenq_refs))
++			kfree(dsq);
+ 	}
+ }
+ 
+@@ -5565,6 +5570,7 @@ s32 scx_init_dsq(struct scx_dispatch_q *dsq, u64 dsq_id, struct scx_sched *sch)
+ 	if (dsq_id & SCX_DSQ_FLAG_BUILTIN)
+ 		return 0;
+ 
++	refcount_set(&dsq->deferred_reenq_refs, 1);
+ 	dsq->pcpu_user = alloc_percpu(struct scx_dsq_pcpu);
+ 	if (!dsq->pcpu_user)
+ 		return -ENOMEM;
+@@ -5609,7 +5615,8 @@ static void free_dsq_rcufn(struct rcu_head *rcu)
+ 	struct scx_dispatch_q *dsq = container_of(rcu, struct scx_dispatch_q, rcu);
+ 
+ 	exit_dsq(dsq);
+-	kfree(dsq);
++	if (refcount_dec_and_test(&dsq->deferred_reenq_refs))
++		kfree(dsq);
+ }
+ 
+ static void free_dsq_irq_workfn(struct irq_work *irq_work)
 
