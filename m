@@ -1,289 +1,130 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBA9A4BD780;
-	Wed, 30 Sep 2026 12:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992684908A1
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770256; cv=none; b=KpgQUYgGeUTXXKeB4nokVbKu+pJXZ5qiwwZewDYB7HZD9FeHKY0m45LVP0581ZGiWdxAL+hl9Hl7o/qhhTheSvnM97qMuHeUsEZxd2oRXKUtPfarBXgEJv4kf5v24vOr/IPKgw59msaNUhAM/RKcsB2Sl7+wIvI4L1yeeouqQMI=
+	t=1790770315; cv=none; b=mUd8uYHK3TxnWuSM98YHuhpHlXowPN9Od6KBRFyY1nYYyz5j1DC0F7ht++Ptjiz4aYhc7jYmLgHDS+H1TAUVJhvxERalEYn+UXY+v7PacCLIUP5WaXOi3sr6DAJtgJlp1fqY59IGR8nR9t0Ed2PIKR+tEVCvbr22eZxQaduuBHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770256; c=relaxed/simple;
-	bh=G7QjSA/Y4sG74nKjyIyZyP6nbB0BlhLCIhAd6Va3DSQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kvzmD88EK3/T7sCVafu1UII3xzlHizXonp6i1VZlaIcI/HxF6hcq9qE2tPKwaO9BhhcXQs4hM80BFSzOmO14X38FBtROhMxHYRQpbfdynHaYaGQsMff+k34j0wHXsup4N+DMuzskpWi9vkfPTjXAeeGsmYwpe8y8lXIAzQcyGcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=f3ydGbJv; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790770315; c=relaxed/simple;
+	bh=UjmEz7DEJdgRMfvXHXMbt0X+mPHt3JAbY1oLpvUqkxw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ApeY7B0rGxyy/vuSTvtkLJJ3I8PqSvT9WEgklVNKbU4EGivujJOfnTwlNYq/JvF+snsL+qmWtyAnfrIYhw8mMJId51QoeMCkhYIYPAVmlz+urAR8LPHDXX1ICQnoGhJTvsJcw4Y54I5hVzQuDmVJxic/xMvyT1FTcwSoRfzPEzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LK7Ha7BP; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="f3ydGbJv"
-Received: from DESKTOP-TUU1E5L.fritz.box (p3e9c0608.dip0.t-ipconnect.de [62.156.6.8])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 19F8720B7168;
-	Wed, 30 Sep 2026 05:09:58 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 19F8720B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790770201;
-	bh=vYRLWBXGdoDcpMwuTrTdFAAs9Gv+Lg1m3KfKI6grgAQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=f3ydGbJvTGGfTJaHnAUX/NohCSOBp14D/J1WACBdK/NaJ5N6/iaFPBnyWRdj1hA1o
-	 kcvZfVzwMY1clW7PQZTHBm2wxj2NxeH7Y2nortVv0Y5yTR0R66nD3SxHmJUVPnuYtf
-	 1nUc40MravFEAMr1KPlTOgzkhLwkFDOfYe4enmtw=
-From: Magnus Kulke <magnuskulke@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
-Subject: [PATCH v4] drivers/hv: remove deposited pages from direct map
-Date: Wed, 30 Sep 2026 14:10:47 +0200
-Message-Id: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LK7Ha7BP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso38872685e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:11:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790770309; x=1791375109; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UjmEz7DEJdgRMfvXHXMbt0X+mPHt3JAbY1oLpvUqkxw=;
+        b=LK7Ha7BPMwM6q1Yg6SYoEyxpXzLNVONvxz4I4o5bvhUJo9aoC0bLnK3T16rthJMIQr
+         VDMiAMryDFbgX7Ftzd90tuAzG/gzYxr8WK76yCAo0CUqeUhSVvY1SY78eubMgLicDLUo
+         vbvp1MKEyE/8n6Jvf90XBmSJbcYvyoGmf38SSDgA3EJpLgxSVb+OpmbCM92WvzOBxrLv
+         OuwcXoSHd+5pSiw+SDOrFUvl3q8vmYOGZFtzJugqN6KU3dUGFz65KNLHAS9/WuQ0F6mx
+         rD5CnrxTzeTstVdaAlR3j5neKyqDWx98+m3EjRLMzffH2madaEG7z7Qdbm9t1d6e0II2
+         1WZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790770309; x=1791375109;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UjmEz7DEJdgRMfvXHXMbt0X+mPHt3JAbY1oLpvUqkxw=;
+        b=ZwfNp2qLO1vY3Zi2af+bhxGk02zWNeT8yC0kPjNyMyBVw7PzqKIZ9hc2OX0/jk0mVJ
+         p4E9TJWaYpZ7BksoN9Z31FWxGK+ufiOgqz1b+hDYPqMP4XPWEv/2ZxUapRllCJqJcsCt
+         LE5+VYSqEx8x+UnDL4xfRggmscK1wtACD60YB+cU0P9jz22bulA4l+sAxfQIvAYLdxRa
+         6FR7kgGDaaNx0/nVGP+1PEn1BaQJ1WfA3bdHgIUovMZKffoPpK2yUJ7t1SjFVc/cobnv
+         gWDKzRD6fZIfeMc0Rn9bQTIDC3zXlzyVsHM8bef34jS83UWyGYm296s/w2D34JVKfP3Y
+         BASw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLcB2wc5VYhkRaCxVeSAR/ceA6unjA85EYeNHJ+6pJtTdteM+u43JTyM+0pRRNJjRF84sKfjOot3FeP8Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7TsFpqPx6DyHbFJGSDQtjT7TOyumMp5FjX1oOeLie37On4lIZ
+	l6b1JG6YFxUognESlcScTs3rcHH2HpilsOiXKNxI/O82OqWFLlBDwvNo
+X-Gm-Gg: AYBFou0q6hkYFIjf1ae99nQDPItImL8QLK/eQUe+w7g+uj7H4R9mKj39ZO5XyaJV/NO
+	dtxOUejvvQWl6IA+NSKP/39vdnhpdXeWDstRkJXOJrZbqs5v6LmjyrIMJVFfw95K1wHgRrA8DcA
+	9XvTZJB9g8bZEvqpb3QJBNRFZV68a55GScZTJRQUGQzEzKME5/jXzDEKrB/7s8kqdMAaeoQotiO
+	4FqXZgd6K23o4egmeoBvh4yqAX8gAV6cLy2esFGcbzji7aaqzWpz9t09tqdOSKk4tsvCkF/sgrB
+	HLF4Xye/866R2A5swAD4XFPPDsGjWfNAOKW1mUtz/blzvP/2CEeA4zmNkDaPv4p9tZVoAM7Al5R
+	1wJ9Xxd+euXmJGJAy7HsTVYLZw2sZaXZRNqF5Zb5RCEf4pJZsCJsneI7Q6BKEon784CQRTl0pxY
+	5iLmU5wc35o18l/kokR7hvSQzH5fWgtgYmLHDFQIsqxeNX18bU292aFNOpUQeExZShhzN5pPGvi
+	OZbEpW15DwmjdtsUEeaJfQ3x58UZ39U
+X-Received: by 2002:a05:600c:19cb:b0:4a0:1c17:4fb2 with SMTP id 5b1f17b1804b1-4a01c175025mr13081675e9.31.1790770308790;
+        Wed, 30 Sep 2026 05:11:48 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01771b0e8sm58527975e9.12.2026.09.30.05.11.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 05:11:48 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jason Li <jason.li@cortina-access.com>
+Subject:
+ Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
+In-Reply-To: <f6d0478a-3438-4903-a9e2-5d314f5948c4@app.fastmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+ <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+ <179076583795.3054628.14443934429806440798@gmail.com>
+ <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
+ <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
+ <179076863241.3327419.16233537387530771884@gmail.com>
+ <f6d0478a-3438-4903-a9e2-5d314f5948c4@app.fastmail.com>
+Date: Wed, 30 Sep 2026 15:11:46 +0300
+Message-ID: <179077030602.3399593.12266354979192327093@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
-guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
-ownership of those pages and per contract revokes root partition
-access to them, raising a #GP on access from the L1VH root partition.
+On Wed, Sep 30, 2026 at 02:02:43PM +0200, Arnd Bergmann wrote:
+> I think I would go with mach-cortina here. Or even better would be
+> to find a way not to need any code. If you control the boot loader,
+> you could just implement the psci ops there and actually bring
+> up the CPU from EL3. If that doesn't work, maybe it is time to
+> actually have a generic spin-table implementation on arm32 the
+> way we do on arm64. As far as I can tell, your code is just
+> a copy of that anyway, though we have so far never added this to
+> common arm32 code in order to encourage SoC vendors to use psci.
 
-However, the pages remain mapped in the kernel direct map, so kernel
-code may still access them even though the hypervisor has revoked
-access.
+The boot loader is the stock U-Boot 2009.11 from the router vendor, and
+replacing it on these devices is risky enough that I would rather not
+depend on it, so PSCI is not really an option here.
 
-Helpers such as "load_unaligned_zeropad()" deliberately read past the
-end of a buffer and across page boundaries. A read into an unmapped
-page is tolerated and triggers a #PF, for which the kernel executes
-a fixup in the exception table.
+A generic spin-table for arm32 would work for me, with two differences
+from the arm64 one that it would have to cover: the release address
+here is an MMIO register in the global control block, not a word in
+memory, so it has to be written with writel() through an ioremap(), and
+the Cortex-A9 SCU gets enabled in smp_prepare_cpus() (I have not
+checked whether the stock U-Boot already does that). If that sounds
+acceptable, I can post it as a separate patch in v2 and drop the
+enable method binding and mach directory from this series; otherwise
+I will keep the small platsmp.c under the name you and Linus agree on.
 
-If such a call steps into a page that has been deposited, the access
-raises a #GP by the hypervisor from which the above handler cannot
-recover and the kernel panics:
+> I don't have a strong preference either. If nobody else has a clear
+> guidance, changing to "cortina-access,..." would seems the most consistent
+> to me.
 
-  Oops: general protection fault, maybe for address 0xff1100941a3dfffc
-  RIP: 0010:csum_partial+0xe5/0x110
+OK, unless the DT maintainers object I will switch to "cortina-access,"
+in v2.
 
-This condition will appear on L1VH system that have created L2
-partitions (and hence deposited pages) and exercise networking code
-paths such as csum_partial() can trigger this condition when a buffer
-ends close to a page boundary (e.g fffc in the above example).
-
-The fix is to remove the deposited pages from the direct map before
-they are passed to the hypervisor, and restore them when the hypervisor
-returns them again.
-
-We want to avoid flushing the TLB in the loop, so we use the _noflush()
-variant of set_direct_map_valid() when marking a deposited page invalid
-and flush the affected page ranges in one go ourselves. In the opposite
-direction this is not required:
-
-  > If a paging-structure entry is modified to change the P flag from
-  > 0 to 1, no invalidation is necessary. This is because no TLB entry
-  > or paging-structure cache entry is created with information from a
-  > paging-structure entry in which the P flag is 0.
-
-(Intel SDM Vol. 3, 4.10.4.3)
-
-Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
----
-Changes since v3:
-- Batch contiguous pages in the restore path
-- Adjusted comment about failure modes
-
-Changes since v2:
-- Checkpatch format fix
-
-Changes since RFC:
-- Handle direct-map restoration failures without returning unmapped
-  pages to the allocator.
-- Move freeing of withdrawn pages into the restoration helper.
----
- drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
- drivers/hv/mshv_root_hv_call.c |  4 +-
- include/asm-generic/mshyperv.h |  4 ++
- 3 files changed, 87 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-index 57b2c64197cb..b056051a5ac5 100644
---- a/drivers/hv/hv_proc.c
-+++ b/drivers/hv/hv_proc.c
-@@ -7,7 +7,9 @@
- #include <linux/cpuhotplug.h>
- #include <linux/minmax.h>
- #include <linux/export.h>
-+#include <linux/set_memory.h>
- #include <asm/mshyperv.h>
-+#include <asm/tlbflush.h>
- 
- /*
-  * See struct hv_deposit_memory. The first u64 is partition ID, the rest
-@@ -15,6 +17,35 @@
-  */
- #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
- 
-+/*
-+ * Add or remove a set of physically contiguous page runs from the kernel
-+ * direct map. Once a page has been deposited the hypervisor owns it and
-+ * revokes root partition access to it.
-+ */
-+static int hv_deposit_update_direct_map(struct page **pages, int *counts,
-+					int num_allocations, bool valid)
-+{
-+	int i, err, ret = 0;
-+
-+	for (i = 0; i < num_allocations; ++i) {
-+		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
-+		if (err && !ret)
-+			ret = err;
-+	}
-+
-+	if (valid)
-+		return ret;
-+
-+	for (i = 0; i < num_allocations; ++i) {
-+		unsigned long addr = (unsigned long)page_address(pages[i]);
-+		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
-+
-+		flush_tlb_kernel_range(addr, addr + size);
-+	}
-+
-+	return ret;
-+}
-+
- /* Deposits exact number of pages. Must be called with interrupts enabled.  */
- int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
- {
-@@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
- 	}
- 	num_allocations = i;
- 
-+	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
-+	if (ret)
-+		goto err_restore_direct_map;
-+
- 	local_irq_save(flags);
- 
- 	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
-@@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
- 	if (!hv_result_success(status)) {
- 		hv_status_err(status, "\n");
- 		ret = hv_result_to_errno(status);
--		goto err_free_allocations;
-+		goto err_restore_direct_map;
- 	}
- 
- 	ret = 0;
- 	goto free_buf;
- 
-+err_restore_direct_map:
-+	/*
-+	 * We don't want to return pages to the allocator if weren't able to
-+	 * mark them valid in the direct map.
-+	 */
-+	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
-+		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
-+		     num_allocations);
-+		goto free_buf;
-+	}
-+
- err_free_allocations:
- 	for (i = 0; i < num_allocations; ++i) {
- 		base_pfn = page_to_pfn(pages[i]);
-@@ -110,6 +156,41 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
- }
- EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
- 
-+/*
-+ * Put withdrawn pages back in the direct map. Counterpart to the direct map
-+ * removal done by hv_call_deposit_pages().
-+ */
-+void hv_restore_withdrawn_pages(const u64 *pfns, int count)
-+{
-+	int i, j, end, n, ret;
-+	struct page *page;
-+
-+	for (i = 0; i < count; i = end) {
-+		page = pfn_to_page(pfns[i]);
-+		/* find consecutive runs of pfns */
-+		for (end = i + 1; end < count; ++end) {
-+			if (pfns[end] != pfns[end - 1] + 1)
-+				break;
-+		}
-+		n = end - i;
-+		ret = set_direct_map_valid_noflush(page, n, true);
-+
-+		for (j = i; j < end; ++j) {
-+			page = pfn_to_page(pfns[j]);
-+			/*
-+			 * Retry individually on failed batch. We don't want
-+			 * to return pages to the allocator that we couldn't mark
-+			 * valid in the direct map.
-+			 */
-+			if (ret &&
-+			    WARN_ON_ONCE(set_direct_map_valid_noflush(page, 1, true)))
-+				continue;
-+			__free_page(page);
-+		}
-+	}
-+}
-+EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
-+
- int hv_deposit_memory_node(int node, u64 partition_id,
- 			   u64 hv_status)
- {
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index cb55d4d4be2e..150a0c63ebc8 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
- 	struct page *page;
- 	u16 completed;
- 	u64 status, withdrawn = 0;
--	int i;
- 	unsigned long flags;
- 
- 	page = alloc_page(GFP_KERNEL);
-@@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
- 
- 		completed = hv_repcomp(status);
- 
--		for (i = 0; i < completed; i++)
--			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
-+		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
- 
- 		if (!hv_result_success(status)) {
- 			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
-diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-index bf601d67cecb..397c8ec0ce9a 100644
---- a/include/asm-generic/mshyperv.h
-+++ b/include/asm-generic/mshyperv.h
-@@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
- bool hv_result_needs_memory(u64 status);
- int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
- int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
-+void hv_restore_withdrawn_pages(const u64 *pfns, int count);
- int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
- int hv_call_notify_all_processors_started(void);
- bool hv_lp_exists(u32 lp_index);
-@@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
- {
- 	return -EOPNOTSUPP;
- }
-+
-+static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
-+
- static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
- {
- 	return -EOPNOTSUPP;
--- 
-2.34.1
+Thanks,
+Fil
 
