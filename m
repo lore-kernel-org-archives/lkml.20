@@ -1,172 +1,171 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A2250B437;
-	Wed, 30 Sep 2026 17:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788900; cv=none; b=tEPUQl3p07SaEvXAq6gBhMlBcy+hE+L4soeIOCi7cpJa2Bdr1gppeMMJZ4SK+cr86obCf2vrrFPPhK/qwhT5tkIMQh35xgAfWb7c0g23sugnqwYp5oteF7FMBIW89Gk/9+cpmnGHSxmXQLjgczlPLgEuSMKoCelXwONa12HEwAA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788900; c=relaxed/simple;
-	bh=O91up9cKLfq1yAkVS5D0svGMkwIPZJyx5NtZh9lyJgQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=amTHezdb9UYMgUrTIp2314zL4rVkg4V6i6uMvUdtp48jRM8rYfUddOEIstY+LYZoCLlw1OywZc+YQShBWQQV6/lrcDnGuCa2NvAP27Y5b3XJLpmjU4g3u7ttOwDazJ6n4yY39vG+Jf881MnDMblFWI+bgtKUfc+ckk9pvLpLQZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=KEu52Ayg; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD48518156
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790788946; cv=pass; b=EekunL6Q98HgporCfvhRVz8fVWEKBVHsnPqIRu7CTHi8mattBpyml9MMUgKBxxvSGzQRj3NJ8B0gr4K550vkJ3lokCmMqhtjPVu5GDQGQXYgOxRsZNOS6/6ch601dvyVLP2c5puYnq86iSsAnTFYJcai2fVhg2Hz0vYNt605FBQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790788946; c=relaxed/simple;
+	bh=zRVMMlc5fCEgysqgVDUi/YSuX/Ogj7bmJUVr37RK9ug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qKm+MGpVres/hnVZqxCQMiXR3Hpufbw3GiNgZyZSZPDF9QqnfLDMUp4v/0QPRwfiPRY2Os5X2MfcMTC4mR/0XwXe/b1Rz3C6+S2I7GhaQg4GgcqsWhvUXEP/puiU27KEffTSS8DC0eo+cNsnfF8ZW9qnW1iPs9koliLYrtO1gWQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwNGCm9f; arc=pass smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="KEu52Ayg"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 1BE6C21ABA;
-	Wed, 30 Sep 2026 20:21:29 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=9vru5qMhx4CcvEMqoQz8FCpM9tsoA8yIWs8W5fu45qg=; b=KEu52Ayg5km7
-	1+zcz95S/6y+tNb5d8ZoQPksv6ohAzj+pQ0RTtFF0X0e4jmyAuqmoJXcE4SgoZct
-	HPEmkZa1qTt9xBQkhw7Gesc2OPX5vaK/qyYBOyqc5XEL+FAtuCAnQV5YhaO27ImB
-	nRn6mnDhMqfMur/6rygKU4Z+FCQ0cyP9DkHO+PDx3ZNKmSUIRtcDipOT3DbzOQAK
-	rCHenZtRPj7GRtOc3qULkRXObqH5fTXqgLGYxmonsvdzxojZcmAsv8BFMs/in0ns
-	In/EL+zKgyNYd1hqhs9yBk7IFOrTHmLBHz+ECIqEnxUWD1BP8PeogGFmqR0wF/8Q
-	glJz1mg+uc4Uzk/cX0DZXGY73Gk4gttpLbmNtc2C1x+jMDoQiIs9Vd7tvtj52MTm
-	Ik1ZlOCd9uhi17EcwsOOcAIYQzhzvcIl4RoZqTtmWMtbA1yP0BlBUQNWKaVj2ozD
-	TeSfirsTeq0W/DCThpMNDEeC1VNIygtrf5w0YIH2XZHQKxihrSg8GRqubZNL74px
-	73bD+BZn1941ngPnxtAXVsG5wI3nVZyWASuRkeuwg3kxCnsSGn/nG4RVgw9ya9PL
-	5Bg5ItIIxrThR9/nM9CR/y9f0deQm+7omJOyr+Sae8ksqupdML2DbYZZ8EyfN6yN
-	N9y+GNRTqqTb5YD4br0JETMKUPW+Iy4=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Wed, 30 Sep 2026 20:21:28 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 66BE560BB3;
-	Wed, 30 Sep 2026 20:21:31 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68UHLOUW073270;
-	Wed, 30 Sep 2026 20:21:25 +0300
-Date: Wed, 30 Sep 2026 20:21:24 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Hans Schillstrom <hans.schillstrom@ericsson.com>,
-        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] ipvs: fix protocol data lifetime during namespace
- teardown
-In-Reply-To: <20260927062435.3690129-1-nicoyip.dev@gmail.com>
-Message-ID: <be9d490c-f295-2119-b504-80842011ecce@ssi.bg>
-References: <20260927062435.3690129-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwNGCm9f"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b15bca7e0so3162145a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:22:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790788943; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ijpRqMcNcFdHBsmSx8lbd7+rf9JKVgbavrBH1zGN6ZKNohaY/jtz89KzC7VbSRSz6h
+         bvmF4uirLMOdF8ZhYqzpT/gqTw/QMJ8x0b6kS0NwHIKe+jWX3y5lSqw0/LnMIfoQaJIN
+         +w9c0Sr9yz1bxo4s13NQ3GtEeXBP9j/JBMVeKZDp01paYlFtDL6ybgqpp3g0mBDI9YWY
+         /Qz9lbjQ+WdrIc9bXzHn1ALxT8QOVVVWnfp7OOlrmKl2FyMBS5qG39F1vk6RhpX+Ulwc
+         Aa7lFAZL7N/g2Y+INhEZARMWm3kjdF75rcDiYjNkxEXZXaJwtMit6Ql7kAaVF8h+tma7
+         QFxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
+        fh=fnKa4bJL0cWqXun5fCFzW50XTFEN/p/0Ipl6ehIDVig=;
+        b=MY4lLLJuuLKzDXECzYI6OW6s2714amR4UCEzY7ZeqMqEKK3Cm3ReY3Cze29tJGjjAC
+         rsHOg7pnxvS99g+jX5ZOSddQSnzNaKEyy+FLKKoBE6uVcqsng60lXJaQlg3T1H79oryt
+         tHZOuRZ95KmsYR7nLFYmHxTNvhLBAgpazT4LlmKcQqRregwO5e4SOeSQVGZFRKocDlJy
+         3/EJqUvPwsfqZ8gipeP+pu0U28AjCDkBqzCsfssWVftyA4o205gAHgGB3atw5QZEcdPy
+         7+UkWc7Wh4qY9UxT7GRB4lptJLTuJPqWhyu+0PWRS+zJH3z6e+W+VnNIqm2hViBHXexL
+         u11A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790788943; x=1791393743; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
+        b=lwNGCm9fTR04Eqo37bFz84HGQ5rJtphgobS00cWxmeDuQkySwL4MWn+gwF1w1S9+9U
+         AmHKNcEL6omevnWV7aM3VOhp51vBVHvUCSsEhi3Qpa/UpnNpOlSiKdLm+HqwDO9YBkq/
+         Tzs42UY/3QmQSh7H/iAtQJ2GNQqrDf6NWcJiDXlyNZqLSv4LZiHc1IPKlHN2cwcfZLdK
+         c82FI+Tfbw3kXGT1IsCzafHYJxFRMOE1uFyKrqHEf1RWqq1LjUgUXdA+mMMfVoNBaNwV
+         ld9mOrg+GocXEyj8iWXiS/ApVQlXuKoBt2k92Zc/rRC9xexwAtiIPOvKIEhg09f/WMaX
+         AXGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790788943; x=1791393743;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
+        b=Rq9stY+4+R0cBAJPPWmlguUnsum3wC4RBZD9ikToKWzWVWX/Kwc3JGG9hOg/5ch16I
+         48a2ZoU+5R2veDhvmhn/fZ3L2L53nex9azDNbbJIZe6UcmSfCWVz4WTZAUiQVQd0MvFV
+         X3bLxHgiFvw9YJG7PZPEjlscqzTvA1Gb4i+dn/HyNl1uSFK+m19HQsfBbCtkjPmNcIdC
+         dZhMEQ1zT8JI5ibLyj5xSc9ciTKjE/KmxcxD/2Ih84+dRiUR91X8NXELqlnsUXhEWZnO
+         eRieK73uJdEjGn5M98x0jvB8GWStB2VZDxY++FMrwC1Jd8hLMe5tdtwmiWyE9MPV4Lhj
+         lp8w==
+X-Forwarded-Encrypted: i=1; AKwUvBynPE+HMgZqWWQFcRSt6yo1sHwsPLGsfHhpuV2igAReRxVWb0AT+Xjy8p7YHxB33MgYUyqptHp0J4xyegY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjqq2peJlgUsFqzVek1jxIrjJrIb0t7SfpZawkwy6+LgmDxghg
+	7GXaXHew1OcjwNYMLvLJa5oah7Jr5zho4wWUKnk9/KpLdcA8jz9yxDYmwuBVNghqTWxF+iXrpg3
+	b22uZnlv2SS/IF5xwFuOb0UG5Opro2P8=
+X-Gm-Gg: AYBFou3gZ3pukhiJOIXpJ+2fxNmNv0heQMEoJ09gqG0wCCMIphve1b/ydvpRei3enDd
+	S6/0ORVM22Znt60w+1Sm4liLLObJ1B1kag68612gMeOTd53bqT2hV/stysxNLMxokrvl3cftkYq
+	ZapA7F4WKhHFE0lk4FSlatcAxOJG5oQ7sfMUwKT2+qgv4vbyxme1XnhPZuYaWn0jSK23ZJnWNm/
+	mEKfdrxBTxGiDFxs3WXUfojDUgGsKLNIJYIQqqrYIEcWvONQYyHTHk9iSEa973j6v+YedZadggp
+	SqcgmKuDHQY5xWqktiS5YMnEcfUZV+Vpav50R8mBOpzI05e/MPYI7hBLweTyR4Gz
+X-Received: by 2002:a05:6830:2a0d:b0:81c:37e2:2012 with SMTP id
+ 46e09a7af769-82049efa6ffmr2348274a34.15.1790788941936; Wed, 30 Sep 2026
+ 10:22:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com> <20260926-nsfs-prune-rfc-v2-1-53509260e4e7@gmail.com>
+In-Reply-To: <20260926-nsfs-prune-rfc-v2-1-53509260e4e7@gmail.com>
+From: Andrei Vagin <avagin@gmail.com>
+Date: Wed, 30 Sep 2026 10:22:10 -0700
+X-Gm-Features: AclHuK_q_WkZKtIVvL2_JZxQzOyxiVzzsuWi72MjhRzmIxNO0_froXd1yw4BveA
+Message-ID: <CANaxB-yj2QV183nk3UC-2PD6qh6hh-_iLRuryTdUsebd+RqxdA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, David Howells <dhowells@redhat.com>, 
+	Amir Goldstein <amir73il@gmail.com>, Andrei Vagin <avagin@google.com>, Shuah Khan <shuah@kernel.org>, 
+	Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	containers@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-	Hello,
-
-On Sun, 27 Sep 2026, Chengfeng Ye wrote:
-
-> IPVS frees its per-net protocol data before control cleanup cancels
-> defense work and unregisters the sysctl table. A defense worker can load
-> a protocol data pointer, then namespace cleanup can unlink and free that
-> object before the worker dereferences pd->pp or pd->next. The worker's
-> securetcp_lock does not serialize with protocol cleanup. A concurrent
-> defense-mode sysctl write can reach the same timeout update path.
-> 
-> KASAN reported:
-> 
->   BUG: KASAN: slab-use-after-free in ip_vs_protocol_timeout_change
->   Workqueue: events_long defense_work_handler
->   Call Trace:
->    ip_vs_protocol_timeout_change+0x1b4/0x1e0
->    update_defense_level+0x63e/0xd80
->    defense_work_handler+0x1e/0xc0
->   Allocated by task 125:
->    ip_vs_protocol_net_init+0xda/0x2f0
->    __ip_vs_init+0x16b/0x240
->    setup_net+0xfc/0x310
->   Freed by task 12:
->    ip_vs_protocol_net_cleanup+0x1d6/0x2e0
->    __ip_vs_cleanup_batch+0x7d/0x100
->    cleanup_net+0x38c/0x770
-> 
-> Run control cleanup before protocol cleanup so that defense work and
-> active sysctl handlers have finished before their protocol data is freed.
-> Initialize protocols before exposing the control interface, and unwind
-> in reverse order, to enforce the same lifetime on initialization failure.
-> Protocol initialization and exit do not depend on control state.
-> 
-> Fixes: 9330419d9aa4 ("IPVS: netns, use ip_vs_proto_data as param.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-
-	Patch looks good to me for the nf tree, thanks!
-
-Acked-by: Julian Anastasov <ja@ssi.bg>
-
-	If you want to change the order of ip_vs_protocol_init()
-and ip_vs_control_init() in ip_vs_init() for consistency, you
-have to send another version or a nf-next patch.
-
+On Sat, Sep 26, 2026 at 12:01=E2=80=AFAM Kir Kolyshkin <kolyshkin@gmail.com=
+> wrote:
+>
+> A recursive open_tree(OPEN_TREE_CLONE) copies the nsfs mounts of any
+> mount namespaces pinned below the source.  When the clone is attached
+> inside a mount namespace younger than a pinned one, move_mount(2) fails
+> with ELOOP from check_for_nsfs_mounts(), per the rule from commit
+> 8823c079ba71 ("vfs: Add setns support for the mount namespace") that
+> prevents mount namespace reference loops.
+>
+> This breaks container runtimes that use OPEN_TREE_NAMESPACE, such as
+> crun [1].  The new namespace is younger than everything else, so bind
+> mounting e.g. the host root fails on any host that pins a mount namespace
+> (snapd does, under /run/snapd/ns).  By the time it fails, setns() has
+> already run and userspace cannot recover: the host tree is out of reach,
+> and the offending mounts cannot be unmounted from the detached copy.
+>
+> copy_mnt_ns() and create_new_namespace() already leave these mounts
+> behind; only get_detached_copy() copies them.  Add an open_tree() flag to
+> drop them from the clone, as suggested by Aleksa [2].  Locked nsfs mounts
+> are dropped the same way copy_mnt_ns() does it, so nothing new is exposed=
+.
+>
+> Keep it opt-in: open_tree(OPEN_TREE_CLONE) plus move_mount(2) is how
+> mount --rbind works through a file descriptor, and in the caller's own
+> or an older namespace such mounts remain usable.
+>
+> The flag requires OPEN_TREE_CLONE or OPEN_TREE_NAMESPACE.  With the
+> latter it is a no-op, so a runtime can pass it unconditionally.
+>
+> Link: https://github.com/containers/crun/issues/2262 [1]
+> Link: https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spills-=
+ywC2O3@cyphar.com/ [2]
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 > ---
->  net/netfilter/ipvs/ip_vs_core.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-> index fd503f0efb57..8a3c880fdb26 100644
-> --- a/net/netfilter/ipvs/ip_vs_core.c
-> +++ b/net/netfilter/ipvs/ip_vs_core.c
-> @@ -2502,12 +2502,12 @@ static int __net_init __ip_vs_init(struct net *net)
->  	if (ip_vs_estimator_net_init(ipvs) < 0)
->  		goto estimator_fail;
->  
-> -	if (ip_vs_control_net_init(ipvs) < 0)
-> -		goto control_fail;
-> -
->  	if (ip_vs_protocol_net_init(ipvs) < 0)
->  		goto protocol_fail;
->  
-> +	if (ip_vs_control_net_init(ipvs) < 0)
-> +		goto control_fail;
-> +
->  	if (ip_vs_app_net_init(ipvs) < 0)
->  		goto app_fail;
->  
-> @@ -2527,10 +2527,10 @@ static int __net_init __ip_vs_init(struct net *net)
->  conn_fail:
->  	ip_vs_app_net_cleanup(ipvs);
->  app_fail:
-> -	ip_vs_protocol_net_cleanup(ipvs);
-> -protocol_fail:
->  	ip_vs_control_net_cleanup(ipvs);
->  control_fail:
-> +	ip_vs_protocol_net_cleanup(ipvs);
-> +protocol_fail:
->  	ip_vs_estimator_net_cleanup(ipvs);
->  estimator_fail:
->  	net->ipvs = NULL;
-> @@ -2547,8 +2547,8 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
->  		ipvs = net_ipvs(net);
->  		ip_vs_conn_net_cleanup(ipvs);
->  		ip_vs_app_net_cleanup(ipvs);
-> -		ip_vs_protocol_net_cleanup(ipvs);
->  		ip_vs_control_net_cleanup(ipvs);
-> +		ip_vs_protocol_net_cleanup(ipvs);
->  		ip_vs_estimator_net_cleanup(ipvs);
->  		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
->  		net->ipvs = NULL;
-> -- 
-> 2.43.0
+>  fs/namespace.c             | 14 ++++++++++++--
+>  include/uapi/linux/mount.h |  1 +
+>  2 files changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index ae5dc64f8b45..a95173996a8f 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -3062,7 +3062,8 @@ static struct mnt_namespace *get_detached_copy(cons=
+t struct path *path, unsigned
+>                         ns->seq_origin =3D src_mnt_ns->ns.ns_id;
+>         }
+>
+> -       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE), CL_COPY_MNT_N=
+S_FILE);
+> +       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE),
+> +                           (flags & OPEN_TREE_DROP_MNTNS_MOUNTS) ? 0 : C=
+L_COPY_MNT_NS_FILE);
 
-Regards
+Overall, the patch looks good. One small thing is that open_tree() with
+OPEN_TREE_DROP_MNTNS_MOUNTS doesn't fail on a mntns file if AT_RECURSIVE
+isn't set:
 
---
-Julian Anastasov <ja@ssi.bg>
+  open_tree(AT_FDCWD, "/proc/self/ns/mnt",
+            OPEN_TREE_CLONE|OPEN_TREE_CLOEXEC|0x4) =3D 3
 
+With AT_RECURSIVE, __do_loopback() calls copy_tree(), which checks
+!(flag & CL_COPY_MNT_NS_FILE) && is_mnt_ns_file(dentry) and returns
+-EINVAL, but without AT_RECURSIVE it calls clone_mnt(), which doesn't
+have such check.
+
+Thanks,
+Andrei
