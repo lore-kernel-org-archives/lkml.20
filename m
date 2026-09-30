@@ -1,153 +1,152 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6FF5172CF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9779A5172F8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:05:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787937; cv=none; b=WdYZCJAst0APjqK4p03uUmPuCB0sXrf4GQTuauU1Ken2/DS5kbQfjKAbbzhwNs01zkHUxb5NfHbAnvC165jLrWdvQwWBdT3liu1KwfsIIE37l4tkNbCPZ8ZQ/CPUeiepsmwduRyU1bY+pRHLw1QUFXcee9qHyDLltBKa4q6OjW0=
+	t=1790787953; cv=none; b=QaGOztSp/AtOogOyNet+hC5DdoZe6sdARDEqf2YPhl/hsaopieAswd4RtjmwMpA0MFSX2CpzzMJL5yamhH264IhITrSVCRd+P707kPjWZ89MWYMxeynxnmzbh2/rSqFkucyPiTonjaAq3c9rkeJcE3JgzHlRiR9vLUeR3mr8n1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787937; c=relaxed/simple;
-	bh=ZAUUIneOAYnu5HIH9P7hXzk9WJKgXOYtiwGV8misX4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P+YAeRb+ex69txgxPoouD6pjoxwEw1fMj0EHLDeKXKAvWCqj5jyQduUHkL0zS3iayyi03tiswxHaUNBp8kVfR34IBSuh0fAz9mS+xliTLmhtpRb2w/WINZpv6DuTjTDdjIh7Z+m5ae5KXuGnzSNks8UdUNq3vYvzcZEPGp4uNaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZVWwwLUK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790787953; c=relaxed/simple;
+	bh=DDPvEyxBzH/fM8L4JWsd+cDxWemVYt1ogCt3WXGPQy8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sTQDgnDeaml78npcp57vl2gJuw9hpYOAKYujWf7e4zox0KrZAw6KjpQP5bFvFv4j7VYJxx5h5zdStBNuiHAZ1KRsFqIaT9ZELWYyUuTDPzaq+y7BbNcezsZ9YkvhXQX3Wfi9CvtOSgPm7HwZA3IiDFTEQ8jAdWDdk2lZAVVRRfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ud8ylrjn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FXPojz+Y; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZVWwwLUK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so33485525e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:05:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ud8ylrjn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FXPojz+Y"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE02HR2970502
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:05:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DDPvEyxBzH/fM8L4JWsd+cDxWemVYt1ogCt3WXGPQy8=; b=Ud8ylrjn6gYb06bc
+	iYxkVcqcJXH++8WPDYQ1lp6I5wzr2KAq8JLzHMjq6EH6c0riMlwl1jrabnrvA8RJ
+	kWVx7VwNA6FOmYmOrwsFGje5qsROkvDYiMUHLIw+adwwmpuldekaaRySDhwk+zZf
+	JmmVaCexOQcocxjUV//JWyWJKKp8agU04FuETL3bDc5f2dUI0OcUHHv0cgzsF13x
+	6ble15madvXYl2/OEGf4gJg23K+ROL+ohrKwEXfA30KFq9rTto7kCPCt999pjK/M
+	msfUeMdFUQsIXhChwURX734Ual6hFS6/xYAE8UWIUgAD0RjKV79hQ3GDGigSdEnA
+	OWq3fg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rhem1f1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:05:50 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e2e0bc619fso8974745ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:05:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790787934; x=1791392734; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZAUUIneOAYnu5HIH9P7hXzk9WJKgXOYtiwGV8misX4E=;
-        b=ZVWwwLUKySpTSjgnfZr09+nNgZkXpUBysyD+h4aUcIeyP3IuzzFdqzIiTFuTeZdYHN
-         RJbJvTCynxmEcSPHFTe1oVTfnEdUcCbPks2AtvOHNivW2bKOVP7a3c93nqcww/hnk7ID
-         3P9Y4HRa39NjCe9dKP/S1uzp590EUsV7fQ0wfSzGqEBB+Tis+ZfJLk89w8jFJlt0WyGN
-         +r56Ta4Lz+sIj1cXgx7EtA7orsAGqU6hDrmFkUsKZ31YJVaFmo1AkBKOHdw5HOfYiAEc
-         AFCMgh4f+Mlx2m1m/qAIiQV5QssJVOSdzYg/nEljpMIR2x4Mk61XYT0YSOlbYNO831xY
-         i16A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787934; x=1791392734;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790787949; x=1791392749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZAUUIneOAYnu5HIH9P7hXzk9WJKgXOYtiwGV8misX4E=;
-        b=xlO73Axc9ZwgYKLx9UE9c75Hi7iMKx/d/Kkulb4BfOF4LahNOi1LoE+kZ9BJSULecQ
-         rFs9EcIc3DTC/wooTu6bBnrN882Wd+t9NYpDSeWhwU6wRMsRBAqAjiV2Fcxq6mrjQoWG
-         /CmasbVDyM0dtlpFKnos2Vqap0zt9NZP4gfot1eU+eRKVQzg010Zn7m7OZ/3orPcqxPf
-         SWbr04HY1GIebppsG3Y56nldMEG7OXBNf9rjnl2dyjEc8Vg7Znr9mxg3Ho9CTUJkE0Pc
-         +uuiFzhwnvg9trT9xvGgmSNMc8DbDvTMxwV8XmrJDU7m9za8CeuFPOu1jEIavGlbvr9o
-         5L7A==
-X-Forwarded-Encrypted: i=1; AKwUvBypUwbKrlTB8oSVX8yoAtFBl9DN+UzUFs9S7uOOXo+RvEmQMkDXAO2bVwFvzCTOBQ2Zke2fz5yS+Bm5m14=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxIovrYvBm4sRrCe9zbVj8J+9qna+a2fu9rGzXrxSlsx7Uh4Wn
-	GQIeTHPkLzSkMbM3h9pi2sGaYL9HpWWxGvMza9pR7H+euIlcFpVQljj+U7PedUKRc+g=
-X-Gm-Gg: AYBFou0L+vP8KJmh6JpBUATCdE15N1ZEwFuWMLby4c+S4oNxlg6n0efW10elNT0sOsu
-	orVZSTRAUXw8QlzXl5mWQS0Ii5JcG19iXjZYckPI9XBnBZImD/HwgjdANPbftTlI+zsOTUNkq7w
-	afEX5jbdNuCrEV6wwq6ne22mpV3u6dzONtwy75+fcKsnMSw5DctLy4M/UdEUwoLUXduKT/GdDMH
-	u9gs8mnHVV5/oHq0opqLliuwnDPckjpmXiKZeLVzGdo6EFJ+PhflUrhIZcIVGtoU8LOChgUPXrf
-	mGglQSXkPb9iYFe3zTfO3+j7QBy87etZpXZo17/Jah8xAFh2o4HKQOgNabgeObOL6EIeqqC+Oi2
-	vWzR4BEpzTxF/BquOW4sjxTllAnv5K88vg98UkO/BHplTqmMEJ3WKIuwbOUnCVJvTQ5Ewx2Gs60
-	d1+Hzl3ztiFSBZ2AIe5fQ7YAgJNf6b/KmP5FrkPcdX8l7OgNxhuMZSf6TBIZajEb90qgBNaVqbe
-	ZeY+8nAho50LjQqmcmKt3AAYRo8r1aaWznpCfXEd9aA5wqR3x35fP3bQNWvEn8=
-X-Received: by 2002:a05:600c:1f87:b0:49d:174e:2a1e with SMTP id 5b1f17b1804b1-4a01afe1e05mr38534285e9.19.1790787933541;
-        Wed, 30 Sep 2026 10:05:33 -0700 (PDT)
-Received: from localhost (p200300f65f19a904e5d8cd228f56d36d.dip0.t-ipconnect.de. [2003:f6:5f19:a904:e5d8:cd22:8f56:d36d])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a01ef9b996sm784555e9.1.2026.09.30.10.05.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 10:05:32 -0700 (PDT)
-Date: Wed, 30 Sep 2026 19:05:31 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
-Message-ID: <ar1AKd2_V8FX_3V1@monoceros>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <ed943d9be3b785514e0f65a5b8c13a78aba7a090.1789741839.git.u.kleine-koenig@baylibre.com>
- <arD7N6A6ncBNR1Jk@orome>
- <arE-s0zbTUn14aIr@monoceros>
- <arFYGka5NpcgJ8oQ@orome>
- <arI8vXaKTvEJi-Zd@monoceros>
- <arJRPVsReXWfUC_o@orome>
- <arz4S1-q7DXM8y4s@monoceros>
- <ar0JBTAxcXVmTx1b@orome>
+        bh=DDPvEyxBzH/fM8L4JWsd+cDxWemVYt1ogCt3WXGPQy8=;
+        b=FXPojz+YNYS0cLT3m1n5Zg2D53ynUXfp9dH3JhStsCRkZ3WoHMvmdSjxYpZFNe7hUm
+         FhH6foJ0bLKAKCMDT4HVnl5ZGjlYNhMyb/VvdTdUfYXSQeLTYuLAxBpHELpjvogXKcKz
+         iv8gy7Arf2a1Lo65Tr6qOxTPLXRk+squTQrwmVXoSt/N29W3qSo5tny0cWqWmrJLRt72
+         BIDj7aLhERMaCY90VUXY1npIZyP1qBZzq3gWJjEncFZ+QMEUu7uSvAcfb2AaGx0+rA7V
+         3zQqlg0fF7ET7fAYjsEIYbjyxYysRvemMZ8c3xFT05/mR5neGvWoSwEbhrgRoCptg1na
+         gs2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790787949; x=1791392749;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DDPvEyxBzH/fM8L4JWsd+cDxWemVYt1ogCt3WXGPQy8=;
+        b=GJIVUdkynjDVDWPM8HtfcsBJHblkDzIEGpOmmcxT4524oJzbjsY04v4NDm0sBzk4KX
+         /eCOoJdOOCgljzYPgVV0RIbr5r4dkXqinU3u+uBjI7zRzdfz+RRmwoXE8+KJYxnUoLRl
+         4uyiiggJk47Vd4P1yE+Q9L5kRYZC4QsHJ3mQlW6IypaQtCcvrfYceJuzFGhuhO12bf0Q
+         ZweEAG5FBEDgKzY3+xwCefzPR/AjLm/OZbGdvrzsd9Th9KZhvME5fdaGD0/C8+kLdpvV
+         Cz06xt1THD9kSm/feSFgwh0gOqwEM3c+/g3HsyJWs3c88078DAw5NoLt6ZCG3cPE5rV8
+         Y50w==
+X-Forwarded-Encrypted: i=1; AKwUvBw61u/dbKCiUVzrLMngTarVyA01HNhAj2TgPruWC1wzop8XkRPmr9FiWcn/JI3vTG/jjSJL5dRlG1f9Usk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfIYWX3yWzWAkPvEVJ+MXSGKQ8v0Y6PL0jR+otJGLwxPRKoIdz
+	9VJwXpAivXq2nD0OVY+S4nzFBvviPhzXbi6quIiBMg/2TJQxAacqrlUdpLqliQbHibMRBU6kdbF
+	3DvyfbBlHGKBvz2onN3ns6UIIqHBmJ7rG2o00M9Q3fvOsmrRA5QSrxdhWJQ1yLN2olg0=
+X-Gm-Gg: AYBFou2nKRab5gQsQTXGxPFKbbIl9syNyVrXDP0POthK2FAIdZTxtvIKf2OA1pRTyOs
+	qZmFNAEKCUEYFBbvL52dRztNmAMHCojGPuArmG5p80MW7pTwssOI5f6W6ki5S3U/kUnolflztPU
+	d1exrWlEgUB8yvTmQISMoZOT6TgSoYQScAV1ZXYdhUvPJS8dRKVw/nOAzmJf7gEu6RckeY+bGuj
+	nX6Sy/ODnvcmNfy43Dbw2twGXrbs78jkdmiO08ErKmaNR7Z+uMh+J0KNKGeioaZ+beKQzoTQsi6
+	rqSMPxTrtsqF926P0FiJGb6Ro23oMfD/nGz4o9C0f/bKD7/jVXx9zm3WwYDF1i9LAyloeUsZ7sc
+	TdM9wxJPtWv9DhsYHoIxvu8FyAj20uT7N5cA=
+X-Received: by 2002:a17:903:2b0c:b0:2e2:cb85:60d with SMTP id d9443c01a7336-2e2e4bb19fdmr16830745ad.53.1790787949322;
+        Wed, 30 Sep 2026 10:05:49 -0700 (PDT)
+X-Received: by 2002:a17:903:2b0c:b0:2e2:cb85:60d with SMTP id d9443c01a7336-2e2e4bb19fdmr16830275ad.53.1790787948702;
+        Wed, 30 Sep 2026 10:05:48 -0700 (PDT)
+Received: from [192.168.0.106] ([49.205.116.211])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300b31e05sm572195ad.62.2026.09.30.10.05.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 10:05:48 -0700 (PDT)
+Message-ID: <e25bedbe-8ccd-478d-882d-3707e176fb51@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 22:35:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nf3fi52ehffm5ni5"
-Content-Disposition: inline
-In-Reply-To: <ar0JBTAxcXVmTx1b@orome>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 0/2] Add LPASS VA CSR HeartBeat pulse clock support
+To: sarath.ganapathiraju@oss.qualcomm.com, andersson@kernel.org,
+        abelvesa@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+        jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, srinivas.kandagatla@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930-master-v10-0-105207bc5275@oss.qualcomm.com>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260930-master-v10-0-105207bc5275@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: n4-bwqME8XEeFXBOI2jOI-9CvQmk7_5X
+X-Proofpoint-ORIG-GUID: n4-bwqME8XEeFXBOI2jOI-9CvQmk7_5X
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfX737i2W4vnpnB
+ 8PIK6BP1n5dVplBvHLfG/JrzrL/nK00W0jRMhYulafmcHg3P/6gMokxIwdlMzDBytPgk2HQkx7M
+ OZp9BUjUcRI+/Ly+dC4pD/ZurASoctiz2w+aGNIRXxFZV8+BLqZHPVmiZQcZS3juhtbI8Q+gP7b
+ NFCGyfm2jj3V3zLy1skDhakoxCO5Ihx7rmdz6jplh1dHq67Z3IyU0qQe7lh/jMK+OX1iCXqgoiG
+ IbmCLubOrwcfBNyJImvYaLEqG1PiNJHELz1umkVJzC+1b4h1jYkbEoyikZg7UGUJGiaj2kPeBpv
+ 2OfPcSKgMwBnnjdNmRXzvKrb+JLH8CAm/KsFIPaVmYpgH+hkh4q4DpmX1HhZx+b1N1iAOwKbONI
+ N0c31FrbEtavsNTTNuThSUkZ3YM4/VKFNSkF5RA4NFV2alNBR3OIGsDNX11rQlDNX+GjwiJFc7B
+ xIuFOjwkla+NVjS/bqQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfXyz5kibPZDVUZ
+ o8G2lPDYfZR29C5MM8GPvRnrKlEYieUVB4SoXZ7+DFtnME1BasKiUX+gxgHnnhkkGc3Qi5SiVOX
+ Q5einL51HxJNDkiAGZ51eCIP80bpU/E=
+X-Authority-Analysis: v=2.4 cv=Tu1zFzXh c=1 sm=1 tr=0 ts=6abd416e cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=2ngnHYY/h7Qxskz9zhV0NA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=EGVZlqAv5GW_eZpGnoMA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300068
 
 
---nf3fi52ehffm5ni5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
-MIME-Version: 1.0
+On 9/30/2026 3:21 PM, Sarath Ganapathiraju via B4 Relay wrote:
+> The LPASS VA CSR block contains rate generator hardware that produces
+> a HeartBeat Pulse (also known as RateGen Pulse). This pulse
+> synchronizes the start of the DMAs and Codec Interfaces for the audio
+> usecases and can serve as a periodic wakeup source for the DSP.
+>
+> This series adds the DT binding and driver support to model this
+> rate generator as a clock provider.
+>
+> Patch 1 adds the YAML binding for the new qcom,hawi-lpass-va-csr
+> clock provider node under Documentation/devicetree/bindings/clock/.
+>
+> Patch 2 adds the lpass-va-csr driver under drivers/clk/qcom that
+> registers the lpass_heartbeat_pulse clock and enables/disables the
+> rate generator via regmap when the clock consumer requests it.
+Tested on Hawi - WCD Headset Playback and Record working fine.
 
-Hello Thierry,
-
-On Wed, Sep 30, 2026 at 03:14:35PM +0200, Thierry Reding wrote:
-> On Wed, Sep 30, 2026 at 01:55:59PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > On Tue, Sep 22, 2026 at 12:06:14PM +0200, Thierry Reding wrote:
-> > > I have a prototype patch that I'm going to send out shortly (after
-> > > testing that it actually works). The problem ended up being that the
-> > > driver_override is a device attribute, so there's no good way to drop=
- it
-> > > based on a driver flag.
-> >=20
-> > Did you see that I sent such a patch already.
-> > https://lore.kernel.org/lkml/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1=
-790612298.git.u.kleine-koenig@baylibre.com/ .
-> > You were on Cc:, I thought this to be enough to make you aware and
-> > didn't mention it in this thread here.
-> >=20
-> > I hope to not have provoked much duplicate work.
->=20
-> Well, from the looks of it you ended up hijacking my earlier attempt
-> while it was being discussed. It's customary to ask before you do so,
-> specifically in order to avoid duplication of work. Or at least answer
-> on the original thread that you plan to take this in a different
-> direction so that people know what's going on.
-
-Yeah, sorry about that. On that other thread where we were discussing
-taints in context of driver_overrides the topics overlapped, so my idea
-was to get all the suggestions into a single place. It seems I failed to
-make you notice that in time. Mea culpa.
-=20
-> Anyway, I was still waiting for any conclusions on the original thread
-> and didn't spend any more time revisiting my original series, so no harm
-> done.
-
-=F0=9F=98=85
-
-Best regards
-Uwe
-
---nf3fi52ehffm5ni5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq9QVgACgkQj4D7WH0S
-/k7AYQf/R0QuF3d8jygNy6Q74jEavE/+xQpUO/OkuPVWoo1ffUcTPkFbc/w/3aHp
-TCHePWOpWTtt30u1KkpoSuYKvmPcjiCyVe307JmudFY77ChzXKLesRpVpcbngqQM
-epMp/MpTe2XWC1VDmflVe+vwIcjFMx/R+8h6w76uzfhkrdEhvkG9OqK+ID/Qce6K
-A2kyyRf3zFON/Ur5gTne+AEZAmVr4COpSnA9gIKrXqJHTrJ4/QwmQPCLKz0kMmau
-SDXy00x8z3X+qls2v8QJmiYrWqqyDGvHa6N+k7twp7cvgtvCTmpj9YqYXxbq7vZd
-TWyU+hdrFUQdqMYKX4uEvfgwaGMENg==
-=85ej
------END PGP SIGNATURE-----
-
---nf3fi52ehffm5ni5--
+Reviewed-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Tested-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
