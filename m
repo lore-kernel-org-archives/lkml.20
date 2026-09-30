@@ -1,144 +1,115 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26BD3F4DE0
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A853F410A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807087; cv=none; b=Iw3korNS8OKPNFm0bWm44hk5fnkWRpd6UXS4QDOFoXBoDqXRSi+qPLmsaxgKeWiMUxMq3YJKJBfvQQ7oOMUmYbsbDL65js4iny+ukIvxg21SCxcKnCcYFIbDi/xuhoa1GkmFWySzTioFp2vhoSuR6KF74nL5QyI3RffCoWKfJ/w=
+	t=1790807100; cv=none; b=oPRepeN1D+J8KMW0VDQE6ZDObgpyWGZeg5rZL/2MODwL2sDhD7zqtIVWpbjXCv8hg39p4kjBdYXHzfIm8Vcc5HCOvC5+ViXPy6wJgj3w5fIQ9wbve0klsgSPrD8Z103XW9K37QhfenBPguosXSiJ2iboJmKHP1hzUauFJ2kqG34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807087; c=relaxed/simple;
-	bh=v4299bNl+lAPOB6/3VYr1Qulsb87AFZNEFsdu+iXIIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=heOs7KZyDsIOH9oogWlVqc+t0PA7C4MlxKMFQdSWhRFr9H2KE27O5Vq9VvtivS1oDIgpSSenZmzuVtiY4QQV0FdTtIwygmGtF4/ryOejtb/lhDBIbcByyD/9VS3ZthBR/3Tzx+iW0ocuDwSy4DlC1FVs0RoNrQC06SmdQbXglk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rz7JdNCD; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790807100; c=relaxed/simple;
+	bh=YrwgfEUNUs8Bd8I/K2XTh2XjHkYWV+9BlHyKyuH5jXs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O2yDvBEfJp3Hcf2GvvTtgRCRFyfnDzwpCcqyjKq7WJuQFtxv4PvP0k8i1PZwQrCxrTAIAyH/IAqZyRWQDLyvqKznA5nOXATEzLAY+iLZPqcTJMAScjKgUHKrHf/u8YHLsA949LFtyeC0rshB9WoF17sxeWTcovd8RORUhApDkDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7vy3IMd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rz7JdNCD"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d90ba1d807so45924935ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:24:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790807085; x=1791411885; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UqD2onkoNKbwoz5eLcMSO+ts9RQq0wVH4NJCZCES+ns=;
-        b=rz7JdNCDG8mxKKfOq8WAE4Dy9A5cDzDiIUl0kDifDV8Auca745O1ubZRkh3eEFCt0F
-         5xQtSXwU+oae1fzuq7MjSfqU0a1RIYPWGi7gMv9oN2gCbnjHWKTKSVXeFr719Vh1pJ+o
-         Tul3G4qRhzGFFok7TEuREBSXk5thPF6ZIUoQpcRODKrBDkA48ieC9iEgjUS8Jl5oSI0g
-         c3zykUVwscJFArAiK97PDmhKGRNozh7I5wyXUrgtlzuAYQwRKmcTiJI9JUHSSODHcuRf
-         GidZPmFpNI+CmWym2gPQSUbMXJrJiS9LFyzFtJtVVb71lBhOLeERfx7M+4uTf3Lpc6Gg
-         CnVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790807085; x=1791411885;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UqD2onkoNKbwoz5eLcMSO+ts9RQq0wVH4NJCZCES+ns=;
-        b=h7f5Njxz9xpNj0g3vv2tQvKTAEOSniAZrTnUcWBjpi70+L8WxyktJ3mkqD7A1MtSsW
-         rzicVpwUlUwaSCzWZ3KW82iESxwHycOgW8PVFbDPGsiy/UEM2ERnzcFmnNbm6HiedVdU
-         FFL57R3+zpF18WC3X4Gsp0MJUjmPkOSMl6usK1/U9SCuexarMqWEjEdpG+roJhh15JfP
-         EpPMLfKMXmupj5cAbQ0nXa23J127rPoprjBJIu9jLmbMKZ71zIT8/7CfIYGoAH5R4epu
-         CgkcCwKZVzV7GPB1LeGOUi6XBLLIYyIYiUkFRpe316+zAN6EpWOnbFe/np/UOPigyS3S
-         gSWw==
-X-Forwarded-Encrypted: i=1; AKwUvByikAO5s+tqFnvYwKwMvmIjc61Cgt6nqEjchgheQRByaZwW5zAs6w/Zi2gON0pWwoViypju5JiakUFzP5s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3ftyjIVCDxs23btQPE65+/UyXNgMiiINhQHSjgnMnNMD8ddCX
-	EQg7RzG5JhhtQPC8vpCaGRi3XHpRasEuHFnr/1yp3q9mB7Rbzw8hmLiMKXR6qqtN
-X-Gm-Gg: AYBFou2/pBkthHv/Whg33lW92RHF5mO+7Jc9x/Y5z803WaOjpK5q8K1Z1hGBaMBFvD2
-	CBsfbKZ5jIpPSLJR3AvEFLolJBXz/Zqg8rvMeCErlLekxcZNHpVjbzLyQTOlfQ5+yjAtlAaBgaG
-	s15whFQTorRCdLKObkCxu+mBCbG67fHcJlvIfwIbRzL0JQamT+vC4+UEhiygKLfiwnmc82I30g3
-	9OxogUZg6JtZk3EkcZvhyGn2s9NMMFfZxqga9VLWwaCezN6yfUoH4yA9GDIBe/Tv7hyoWV22V+v
-	IdLiXwO3+Eusd0u14uysK7en4y4734jSuHi0Pn0tD+Bl8crjPNyxKy4FoLdo0NTIURL3AIsOqem
-	anNxZP18tu2+atTIU4lt7wTWM2yKHPHx/AXpLHl2ybkdeVFrxMsSKcHyZWIGyc9kN3FldmxRVZB
-	dO8MGEeQ6Hxni8f82iNYBMXgP5psop46SeWZ02ksjrmYKf78SD2PKibOrkM6LoLfa78djPeyIs0
-	bogfJWQM7x8F5R4ZjFBpc4=
-X-Received: by 2002:a17:903:1a27:b0:2e2:f1f8:42bb with SMTP id d9443c01a7336-2e2f1f89acfmr13956375ad.54.1790807085027;
-        Wed, 30 Sep 2026 15:24:45 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300b90719sm2510425ad.84.2026.09.30.15.24.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 15:24:44 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 30 Sep 2026 15:24:42 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Hsu <ythsu0511@gmail.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
- #thermal-sensor-cells
-Message-ID: <37298c5b-aa6b-473a-8e22-d29ddec12c04@roeck-us.net>
-References: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
- <20260930140721.E066D1F0089D@smtp.kernel.org>
- <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7vy3IMd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B421F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790807099;
+	bh=YrwgfEUNUs8Bd8I/K2XTh2XjHkYWV+9BlHyKyuH5jXs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=G7vy3IMdCQf2io88txWqOeNfTfn8YDefIzI9YoWNcutsSV+5kk7WHSYUX1c2nxrYO
+	 UyMeae62rNXhJfzyN53XYy61Ymk1gb0NDMUfZg+QqynpjbkZQ3JkY174eg3u2qoZBU
+	 LeovifhL4wG4TajY0eRJLqHQU5tLVGg8PoNUSGI7pM8SYUFyjG56ODsWUIBQcvOLXl
+	 qsB0Z70d0h8mPZiTDLYlCx5Jt9axXeoEBUlCCoz8ScBN9VEPyk+3hIDrtMDF1M8pWs
+	 zgOKSmI1uNxKZ8hAfusRxxDgBq382B5prMvB70tfglUnfZMvFvMv06TcEmQHl7ZTDf
+	 niNj7fRu4DN9A==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba44044ff8so186621e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:24:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxJvoCo+WIFBKcRFQ2fb5vtSVOlMlwSLeHR/2FoqRIaG+KJz8F123bLkbwu2gzyAggIXGArY6O77YehzXo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcPBWoi8XidkepjpSayJbEP9RlVnYHb31rvKO29+X3zIrxLvft
+	wzxnaM8R4T6pUmuV7YhDUviQoqS06W2bu19vot+NsbuhqIpQUjfCyl7Iadr0y5gX6ncKZT9s0SE
+	ZLoybpHLFiSFKf0Zgjz4MZkywpjYF3eY=
+X-Received: by 2002:ac2:43c4:0:b0:5b8:cc2e:300d with SMTP id
+ 2adb3069b0e04-5ba4061d6f4mr871530e87.61.1790807097765; Wed, 30 Sep 2026
+ 15:24:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+ <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org> <ZQ4PR01MB12022D97EFD74D5A80DBBE34F2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <5f99fc90-02e0-40ab-8d1f-c2e7bcce7a5e@kernel.org> <ZQ4PR01MB1202FB18CF51DB252C393D0FF2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260831-dramatic-phrasing-beb1b360cd58@spud> <ZQ4PR01MB12029CCB91CB5673761C6F95F2A82@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260903-precise-diamond-loris-ae2da7@quoll> <CAD++jL=U6=YcS325TQEJCM6FJNaam=DQwXfv_TZcGusqBte_cg@mail.gmail.com>
+ <ZQ4PR01MB1202BF18C8CC554CB79EB91AF2862@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <ZQ4PR01MB1202BF18C8CC554CB79EB91AF2862@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 00:24:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmfGdx7AMv9VZ63qD5d+xE40SeNkKTubUcZ0rBzEJoyXA@mail.gmail.com>
+X-Gm-Features: AclHuK9cuBAEQBmV8vudn5oR-pLGZ9J-ZwWIR_JVQs1tALNOOsiuEdt5peJfqF8
+Message-ID: <CAD++jLmfGdx7AMv9VZ63qD5d+xE40SeNkKTubUcZ0rBzEJoyXA@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 07:27:43PM +0200, Vincent Jardin wrote:
-> Hi Guenter,
-> 
-> On Wed, Sep 30, 2026 at 02:07:21PM +0000, sashiko-bot@kernel.org wrote:
-> > [Severity: Medium]
-> > Is it correct to set the cell count constraint to 1 for this hardware?
+Hi Changhuang,
+
+On Sat, Sep 19, 2026 at 12:55=E2=80=AFPM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
+>
+> Hi, Linus
+>
+> Thank you for your feedback.
+>
+> > On Thu, Sep 3, 2026 at 11:32=E2=80=AFAM Krzysztof Kozlowski <krzk@kerne=
+l.org>
+> > wrote:
 > >
-> > The Devicetree specification generally mandates that single-sensor devices
-> > use a cell count of 0, as no index is needed to identify the sensor. By
-> > forcing this to 1, it appears we might be baking a Linux-specific driver
-> > quirk (the PMBus core's internal 1-based index) into the OS-agnostic
-> > hardware description ABI.
-> 
-> M. Bot has a point, and it is a PMBus core question, so I would like
-> your view before a v2 of this binding.
-> 
-> Since the commit
->   3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
-> pmbus_core registers each temperature input using its hwmon index as the
-> sensor id, so temp1 is sensor 1.
-> 
-> The hwmon core counts from 0 instead:
-> for example temp1 is sensor 0 for jc42, tmp401, lm90 or adt7470.
-> 
-> With the 1 based id, a single-sensor PMBus device cannot use
-> #thermal-sensor-cells = <0>: thermal_of matches a phandle without
-> cells as id 0, and no PMBus sensor has id 0. That is why this patch
-> uses const 1.
-> 
-> No current DTS references a PMBus device from a thermal zone, and no
-> PMBus binding allows #thermal-sensor-cells yet.
-> 
-> Aligning PMBus on the hwmon core would mean:
-> 
-> drivers/hwmon/pmbus/pmbus_core.c
-> static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
->   ...
->  	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
-> -		pmbus_thermal_add_sensor(data, sensor, seq);
-> +		pmbus_thermal_add_sensor(data, sensor, seq - 1);
-> 
->  	return sensor;
->  }
-> 
-> 
-> If you agree, I will send it, with a v2 of this binding using
-> const: 0, since each device of mps,mpq8785.yaml has a
-> single temperature input. Otherwise, we should keep const 1.
-> 
+> > > Anyway, as you pointed out there is already one code like this -
+> > > Aspeed
+> > > - thus this is a second one and that makes it reasonable to make a
+> > > proper common user-space API.
+> >
+> > Brrr my stance as pin control mainainer is that this was merged behind =
+my
+> > back and shouldn't have been done like that, and two wrongs does not XO=
+R
+> > and make one right.
+> >
+> > I think what we want here is a way to flag some specific pinctrl states=
+ as
+> > userspace accessible and develop an ABI for that.
+>
+> In this series, I have organized v2 and sorted out a common interface for=
+ Aspeed and Starfive:
+> https://lore.kernel.org/all/20260905102901.126035-1-changhuang.liang@star=
+fivetech.com/
+>
+> This new series does not affect the previous usage. I am not yet sure how=
+ to implement this
+> functionality in pinctrl.
 
-Yes, that is a bug. Please send a patch. I'd prefer the index
-to be handled in the call to devm_thermal_of_zone_register(),
-though, with an added comment explaining that the temperature sensor
-index in the PMBus core starts with 1 and the thermal core expects
-a 0-based index.
+It's pretty clear how to implement this in pinctrl, just like I said:
+a userspace ABI for pin control states.
 
-Thanks,
-Guenter
+No-one knows how that should look, it would need to be invented
+from that point.
+
+Probably something in sysfs.
+
+But if another subsystem is going to deal with it, I will not complain.
+
+Yours,
+Linus Walleij
