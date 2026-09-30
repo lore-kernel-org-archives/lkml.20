@@ -1,196 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275324CCDEB;
-	Wed, 30 Sep 2026 14:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813634F649C;
+	Wed, 30 Sep 2026 14:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778920; cv=none; b=NTeanzwblMcTtpDyw7F+04LEnH0emRi6caoezaHpq9etz19QC0BhOZf8ThacED/I/hEi/G4/cCjgklv1SiGwEmlbinonVYAg6Ucj19KV+cmtAP7zzE2Brl+x1xtaSNI2EwF+z9iL3oI8L6MaL8R4nwO7N2pWcGqIJyLXeyCDV1A=
+	t=1790779037; cv=none; b=fGrnyBFDBQECpbXezXILCzMdH43Cxt+4i9m7OaH5hTkwODwMxMyc2Kzqk/RALJkXPen06e0fW7EGkfxMsUmeYxXTWiAUYEo+kQvIO956Sjp3RuCNZ8XljWcRp88Kny4IIv1dE6U2rM2I0dlIm9YrDymKBRapWecJeubA7BN/MkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778920; c=relaxed/simple;
-	bh=XItY3O4PMyGTgPWwOPWIvSISzUdq2fCRTiX5qZSYabw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aPcvnD7IIpCZTy8oNz/3Q2ADKw7eB2wf8q6jsfjTvPSwKpW3gGxPjvsmipIpSyuoVGhqP19SQw/k4AA8dyPNIRMK1sRRD/MnJBjUsqmk8hta1nl0qc/sg9UBJgjoj0KIIetgZTIx60l3xSL4iA5Xs3LCv1+kBT0Iau6MIC8A/Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ayeyl7A3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790779037; c=relaxed/simple;
+	bh=vhsgYFOJfCN5CKdOP1xwBvyXtozR7mZ5ibWBbhulB/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EeK0Tcnb8XEa6EBsA5Ve7TwcLaLZlT5IvALPkQDmdvvibiIB54bg8QsKBQ8gd4dmkn7dq2GSiAUt+nhCaqVabrNjdTd90vmgTdImQCjswkqgysD3EvOfLidTU0mPKWgPOZIPr3HvW/C/JtU2Tnvx7E1kjPbj5J5+NBp0ZjL3wGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G15XO4UK; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ayeyl7A3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39D71F000FF;
-	Wed, 30 Sep 2026 14:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790778906;
-	bh=re45dUlJQfPOR4/3Kurx0NHEF1BvXeHFFZDS6UyvBZE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ayeyl7A3+eZTyEqdncvSs/p3gLnpq6+Zl/vIDv6hJbAB4f40QxnZUt5o5KSizGZ4r
-	 9yWKKS1S2dsV7TPQZIPcfYdqocepZMCqLrS+//d1KVIO7zfNM1HX6i8fPsG4MS85r4
-	 mGL51D6XWVMJvZN9F+hUvmvjav/3Th0AgYPCclsgyNm5EWX4t1RL9ZFisS4WdYSPf3
-	 JCn4ZBpRYvZsdAxKenz3NDN2kOTfnfDdAeBzhf51kP7jDXCV29HxvAsI9aKSx4Uasp
-	 CT0MiECdxL46D+0X9+jiVDYHmOuPXNnwfKmF7mSsCe9v/ypy5ajlhT7L6J8c6hW3qI
-	 +8h6D3pR2sn1A==
-Date: Wed, 30 Sep 2026 22:15:04 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 00/20] arm64: add Synaptics SL261X SoCs and RDK boards
-Message-ID: <ar0ZaC2q0wjUEKD6@xhacker>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929-smoked-laurel-087d5a3523a3@spud>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G15XO4UK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5Y
+	4tS0ai85jPXYGrxFdQp4Scv75WiBVTA6PqURCMrBI=; b=G15XO4UKnWMVcbnbIl
+	gAaxmeuK5ESCA64bm+dOeyWwZ3niTQrqd+Iz5nLvNybMXsmVuIhQwPJG8nVQKQVG
+	3zhHvJp1Lw1CFCRFUAJhDiLKbCixPIFU5t3QDwxMxBn5hwhqMUL1rvCRc+HsBaEX
+	HiNoItuG2Nmp9Rq0bZFhNXyNk=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3PwIbHr1qUij1Bg--.33504S2;
+	Wed, 30 Sep 2026 22:35:09 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: sched-ext@lists.linux.dev
+Cc: tj@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] sched_ext: Hold DSQ refs for deferred reenqueues
+Date: Wed, 30 Sep 2026 23:34:43 +0900
+Message-ID: <20260930143443.2862150-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929-smoked-laurel-087d5a3523a3@spud>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3PwIbHr1qUij1Bg--.33504S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1DtrW7KF1xZw4fur4fuFg_yoWruw1kpF
+	WDXr1UA3yxJr1jgr4vv3yxZF1fXrs3uw12kryrJr1ayanxuwn7trZ2vF1avFs0grZYkw47
+	tF1DKa12yayqqFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwh2Y92q9Hh2S8gAA3E
 
-On Tue, Sep 29, 2026 at 08:38:52PM +0100, Conor Dooley wrote:
-> On Tue, Sep 29, 2026 at 02:13:57PM +0800, Jisheng Zhang wrote:
-> > Add initial support for the Synaptics SL261X SoCs and corresponding
-> > RDK boards.
-> > 
-> > The SL261X SoCs include five pin-to-pin compatible SoCs: SL2611, SL2613,
-> > SL2615, SL2617, and SL2619.
-> > 
-> > Only reset, pinctrl, clk/pll, uart, gpio, i2c, spi, i3c are included in
-> > this series. The support for Ethernet, USB, SDHCI, CAN, DMAC, XSPI will
-> > be submitted after this series is merged.
-> 
-> This series is filled with wildcard compatibles, which we don't permit
-> typically. The only case for SoCs that I've seen them accepted is when
-> the devices covered are actually just different binnings of the same
-> device. I took a look at the docs for this device, but it wasn't clear
-> to me if these are actually binnings or if there are different
-> integrations here. If they're binnings, I'd rather you used 0 as the
-> final digit, rather than x, since that matches the synaptics
-> documentation for the family. If they're not binnings, there's no
-> guarantee that they share the same errata etc, and must have different
-> compatibles.
+A deferred user-DSQ node can be detached by
+process_deferred_reenq_users() before the DSQ RCU callback reaches
+exit_dsq(). Once detached, exit_dsq() can no longer find the node,
+while the deferred path still uses the raw DSQ pointer after dropping
+deferred_reenq_lock. The callback can therefore free the DSQ before
+the deferred path checks its ID or calls reenq_user().
 
-Based on these kind hints, I will use sl2610 instead of sl261x.
+An RCU grace period only delays reclamation past pre-existing RCU
+read-side critical sections. It doesn't protect a deferred reenqueue
+which has detached its node and keeps using the raw DSQ pointer
+afterwards.
 
-Thanks a lot
-> 
-> Cheers,
-> Conor.
-> 
-> > 
-> > 
-> > Jisheng Zhang (20):
-> >   dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl261x uart
-> >   dt-bindings: i2c: dw: Add Synaptics sl261x i2c
-> >   spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl261x spi
-> >   dt-bindings: i3c: dw: support up to two reset lines
-> >   i3c: dw: switch to array-based exclusive reset control
-> >   dt-bindings: i3c: Add Synaptics sl261x i3c
-> >   arm64: kconfig: let ARCH_BERLIN cover Synaptics arm64 SoCs
-> >   dt-bindings: reset: add Synaptics SL261X SoCs
-> >   reset: add Synaptics SL261x reset support
-> >   pinctrl: berlin: use u16 instead of u8 for the offset
-> >   pinctrl: berlin: enable module build support
-> >   pinctrl: berlin: add optional pinconf support
-> >   dt-bindings: pinctrl: berlin: Support Synaptics SL261X SoCs
-> >   pinctrl: berlin: support Synaptics SL261X SoCs
-> >   dt-bindings: clock: add Synaptics SL261X clock
-> >   clk: berlin: add Synaptics SL261X SoC clocks and plls
-> >   dt-bindings: mfd: Add Synaptics SL261x global block binding
-> >   regulator: dt-bindings: sy8827n: support standard properties
-> >   dt-bindings: arm: berlin: Add Synaptics SL261X SoC and RDK board
-> >   arm64: dts: synaptics: Add Synaptics SL261X SoC and RDK board
-> > 
-> >  .../bindings/arm/marvell,berlin.yaml          |  20 +
-> >  .../bindings/clock/syna,sl261x-clk.yaml       |  92 +++
-> >  .../bindings/i2c/snps,designware-i2c.yaml     |   1 +
-> >  .../bindings/i3c/snps,dw-i3c-master.yaml      |   6 +-
-> >  .../bindings/mfd/syna,sl261x-gbl.yaml         | 208 +++++
-> >  .../pinctrl/marvell,berlin2-soc-pinctrl.yaml  |  10 +-
-> >  .../bindings/regulator/silergy,sy8827n.yaml   |   5 +-
-> >  .../bindings/reset/syna,sl261x-reset.yaml     |  40 +
-> >  .../bindings/serial/snps-dw-apb-uart.yaml     |  12 +-
-> >  .../bindings/spi/snps,dw-apb-ssi.yaml         |   1 +
-> >  arch/arm64/Kconfig.platforms                  |   4 +-
-> >  arch/arm64/boot/dts/synaptics/Makefile        |   5 +
-> >  arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2611.dtsi     | 490 ++++++++++++
-> >  arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2613.dtsi     |  12 +
-> >  arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2615.dtsi     |  46 ++
-> >  arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2617.dtsi     |  46 ++
-> >  arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  44 ++
-> >  .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++
-> >  drivers/clk/Kconfig                           |   1 +
-> >  drivers/clk/berlin/Kconfig                    |  25 +
-> >  drivers/clk/berlin/Makefile                   |   4 +
-> >  drivers/clk/berlin/sl-clk.c                   | 279 +++++++
-> >  drivers/clk/berlin/sl-clk.h                   |  31 +
-> >  drivers/clk/berlin/sl-sysmgr-clk.c            | 250 ++++++
-> >  drivers/clk/berlin/sl-sysmgr-clk.h            |  44 ++
-> >  drivers/clk/berlin/sl261x-clks.c              | 385 +++++++++
-> >  drivers/clk/berlin/sl261x-pll.c               | 145 ++++
-> >  drivers/clk/berlin/sl261x-pll.h               |  14 +
-> >  drivers/i3c/master/dw-i3c-master.c            |  24 +-
-> >  drivers/i3c/master/dw-i3c-master.h            |   2 +-
-> >  drivers/pinctrl/berlin/Kconfig                |   7 +
-> >  drivers/pinctrl/berlin/Makefile               |   1 +
-> >  drivers/pinctrl/berlin/berlin.c               | 259 +++++-
-> >  drivers/pinctrl/berlin/berlin.h               |  17 +-
-> >  drivers/pinctrl/berlin/pinctrl-sl261x.c       | 745 ++++++++++++++++++
-> >  drivers/reset/Kconfig                         |   6 +
-> >  drivers/reset/Makefile                        |   1 +
-> >  drivers/reset/reset-sl261x.c                  | 224 ++++++
-> >  include/dt-bindings/clock/syna,sl261x.h       | 131 +++
-> >  include/dt-bindings/reset/syna,sl261x-reset.h |  80 ++
-> >  45 files changed, 3899 insertions(+), 33 deletions(-)
-> >  create mode 100755 Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/mfd/syna,sl261x-gbl.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
-> >  create mode 100644 drivers/clk/berlin/Kconfig
-> >  create mode 100644 drivers/clk/berlin/sl-clk.c
-> >  create mode 100644 drivers/clk/berlin/sl-clk.h
-> >  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
-> >  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
-> >  create mode 100644 drivers/clk/berlin/sl261x-clks.c
-> >  create mode 100644 drivers/clk/berlin/sl261x-pll.c
-> >  create mode 100644 drivers/clk/berlin/sl261x-pll.h
-> >  create mode 100644 drivers/pinctrl/berlin/pinctrl-sl261x.c
-> >  create mode 100644 drivers/reset/reset-sl261x.c
-> >  create mode 100644 include/dt-bindings/clock/syna,sl261x.h
-> >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
-> > 
-> > -- 
-> > 2.53.0
-> > 
+Take a reference under deferred_reenq_lock before detaching the node.
+The RCU callback drops the base reference after exit_dsq(), and the
+deferred path drops its reference after its final DSQ access. This
+keeps the object alive until all detached reenqueues finish while
+preserving invalidated-DSQ behavior.
 
+A KASAN regression test of the pre-fix kernel reported the
+use-after-free while processing the deferred reenqueue:
+
+    BUG: KASAN: slab-use-after-free in run_deferred+0x1312/0x1710
+    Read of size 8 at addr ffff8880087009b0 by task swapper/3/0
+    Call Trace:
+     <IRQ>
+     run_deferred+0x1312/0x1710
+     ttwu_do_activate+0x29a/0x600
+     try_to_wake_up+0x815/0x1700
+
+The patched kernel completed the same regression test without a KASAN
+report.
+
+Fixes: 84b1a0ea0b7c ("sched_ext: Implement scx_bpf_dsq_reenq() for user DSQs")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Hui Su <sh_def@163.com>
+
+diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
+index 23f9e178bc5a..3344cf33d324 100644
+--- a/include/linux/sched/ext.h
++++ b/include/linux/sched/ext.h
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/llist.h>
+ #include <linux/rhashtable-types.h>
++#include <linux/refcount.h>
+ 
+ enum scx_public_consts {
+ 	SCX_OPS_NAME_LEN	= 128,
+@@ -92,6 +93,8 @@ struct scx_dispatch_q {
+ 	struct llist_node	free_node;
+ 	struct scx_sched	*sched;
+ 	struct scx_dsq_pcpu __percpu *pcpu_user;
++	/* one base ref held until deferred reclamation, plus detached consumers */
++	refcount_t		deferred_reenq_refs;
+ 	struct rcu_head		rcu;
+ };
+ 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 405d0d1038f8..1df0ff7e3b72 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -5057,6 +5057,7 @@ static void process_deferred_reenq_users(struct rq *rq)
+ 			dsq_pcpu = container_of(dru, struct scx_dsq_pcpu,
+ 						deferred_reenq_user);
+ 			dsq = dsq_pcpu->dsq;
++			refcount_inc(&dsq->deferred_reenq_refs);
+ 			reenq_flags = dru->flags;
+ 			WRITE_ONCE(dru->flags, 0);
+ 			list_del_init(&dru->node);
+@@ -5068,10 +5069,13 @@ static void process_deferred_reenq_users(struct rq *rq)
+ 		/* destroy_dsq() may have raced and invalidated @dsq, nothing to reenq */
+ 		dsq_id = READ_ONCE(dsq->id);
+ 		if (unlikely(dsq_id == SCX_DSQ_INVALID))
+-			continue;
++			goto put_dsq;
+ 
+ 		BUG_ON(dsq_id & SCX_DSQ_FLAG_BUILTIN);
+ 		reenq_user(rq, dsq, reenq_flags);
++
++put_dsq:
++		refcount_dec(&dsq->deferred_reenq_refs);
+ 	}
+ }
+ 
+@@ -5565,6 +5569,7 @@ s32 scx_init_dsq(struct scx_dispatch_q *dsq, u64 dsq_id, struct scx_sched *sch)
+ 	if (dsq_id & SCX_DSQ_FLAG_BUILTIN)
+ 		return 0;
+ 
++	refcount_set(&dsq->deferred_reenq_refs, 1);
+ 	dsq->pcpu_user = alloc_percpu(struct scx_dsq_pcpu);
+ 	if (!dsq->pcpu_user)
+ 		return -ENOMEM;
+@@ -5591,25 +5596,33 @@ static void exit_dsq(struct scx_dispatch_q *dsq)
+ 		struct scx_deferred_reenq_user *dru = &pcpu->deferred_reenq_user;
+ 		struct rq *rq = cpu_rq(cpu);
+ 
+-		/*
+-		 * There must have been a RCU grace period since the last
+-		 * insertion and @dsq should be off the deferred list by now.
+-		 */
+-		if (WARN_ON_ONCE(!list_empty(&dru->node))) {
+-			guard(raw_spinlock_irqsave)(&rq->scx.deferred_reenq_lock);
++		guard(raw_spinlock_irqsave)(&rq->scx.deferred_reenq_lock);
++
++		if (WARN_ON_ONCE(!list_empty(&dru->node)))
+ 			list_del_init(&dru->node);
+-		}
+ 	}
+ 
+ 	free_percpu(dsq->pcpu_user);
+ }
+ 
++static void free_dsq_finish_rcufn(struct rcu_head *rcu)
++{
++	struct scx_dispatch_q *dsq = container_of(rcu, struct scx_dispatch_q, rcu);
++
++	if (!refcount_dec_if_one(&dsq->deferred_reenq_refs)) {
++		call_rcu(&dsq->rcu, free_dsq_finish_rcufn);
++		return;
++	}
++
++	kfree(dsq);
++}
++
+ static void free_dsq_rcufn(struct rcu_head *rcu)
+ {
+ 	struct scx_dispatch_q *dsq = container_of(rcu, struct scx_dispatch_q, rcu);
+ 
+ 	exit_dsq(dsq);
+-	kfree(dsq);
++	free_dsq_finish_rcufn(rcu);
+ }
+ 
+ static void free_dsq_irq_workfn(struct irq_work *irq_work)
 
