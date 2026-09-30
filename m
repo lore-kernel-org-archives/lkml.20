@@ -1,282 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1C64FECEE;
-	Wed, 30 Sep 2026 15:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916953B52EF;
+	Wed, 30 Sep 2026 15:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781316; cv=none; b=RlxRKctghEJpwD32N2fAUTnp1X4432wnkqFfbWiIjVA7A04LQXKI2G+/z6bB0ssi/Q5S3zUADpwyZ88Mz7EFFlp9S6GAfvKI8L0k7ntaAv2bNtbKsivFhUDh/N0Vt2P2oRJ7lp2D67iioXcP8O15mCjwHlClwTdmI+TuGSohSBU=
+	t=1790781325; cv=none; b=Z/aoZKGd4QSdBriSYoM80KeNUAiOrTkbi4SQc5/XJYrB3DZAVRoE+UTum92ArqNId4RMXVl3+TozYEJWX0a0FbqzmJwD0Co1c8dc1mJfv1ju0qHQk3J/cEBOl4B/fMWYIIvC8U9A4T+aiBP3M/DScoeGk87irr2UpBAYuklME80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781316; c=relaxed/simple;
-	bh=7DRKaAl9MRTRd6KPUPAgzNUtr5/McdZ/UvnWQVbFj+k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=mOdJP4/skBilCm9M+Y4J7iaRkeMVIhfZdtmEj9uzRZcijM4Nn94srUSohXjlTg1FZ+1ZVSLjZyvBtsA3+JB91BnN0Boc7b7YLQaGTBQbhtEyMVoIP27XW9Oqk+0Zm99GGEccUnvsh81+yvqxwSZh0t3Kz75n2p3DjEWmqIp+X0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ai3klTCy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790781325; c=relaxed/simple;
+	bh=qz4Fg/NZMFtt5917sEIV3AYeWWMbkgLWb/OXlGiNprs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o35z8vM5FcfxC2t4SDBDN/hNUmtoKQbRybq7Pzzzux93TUXh1T3myomCne9OaqcXOWzgE3s67vp1+/fMbgN8ylxtMpBB+WFbIx7GrphKdqxYDhVDW3GDuwwwmRFtUfBCJkpj0b5cQcEl1RWwrlgNLxbBPqhhKyGMWSfT04B9C9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=cxo4EFjX; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ai3klTCy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3D51F000FF;
-	Wed, 30 Sep 2026 15:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790781307;
-	bh=1AiHyLAhopLDoTTNW5LPqeB55N6+FZ/BmsicIOJUInE=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=Ai3klTCygbJmPT4iMX/ULQyafsw0Jyu3jI1ZSVp0GVFvd/MEoXT9XOTdRhzF4QOuL
-	 bV6RI9MKwVdpDryDYAsGihRwACLKouSb4L5AHmeQyd2ZMxsZmPmw/PxZxgFVCQeAc7
-	 kJeJGHN1e+4FfUsgAohN4XfwhnDU2D1eirW2J6FxuwJxTMNTvkX2ZXcQL4HeH3JKWp
-	 /NyWza/egk05bKWtLlezjBmyqkgRl/bB6m6dMD+abmcqN1Ejs9EkX7YkSqS69BNyKy
-	 EvE9i3BIOoUMaGCj8PokfKpHAFQP/KKfZYkq8ZfS/ohsB4T1N6EUXr5VUkkIlxiai3
-	 ezyjv5EB0Bv6g==
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="cxo4EFjX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=W5+GFw8PoAhUib0JdEYgzsHo9FUQvwW3oG2G/RwOtA4=; b=cxo4EFjXrOpjd6NOsdsxEmjzcx
+	A7XtcDPkTIZTP4wAvWHu2cEm8875JLtVIh/tLwFANyBIGDHPpH1im3SGF5L5tAwj3puzWeyne3moA
+	3cuMNJHxYFZ17RhOn/5gI2uJWH4kdzoxd6u5J4q6Hn2r15VcSOEGpbgU3XPmVDWtlnaw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBw1J-008Bft-Lw; Wed, 30 Sep 2026 17:14:57 +0200
+Date: Wed, 30 Sep 2026 17:14:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
+ controller
+Message-ID: <6416b34a-83ce-4aca-8adf-c8894ca7b3c3@lunn.ch>
+References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
+ <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
+ <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 17:15:00 +0200
-Message-Id: <DLSQZO7U8S8U.1DDL9MVEYS7ED@kernel.org>
-Subject: Re: [PATCH v3 10/10] samples: rust: add Rust SR-IOV VF driver
- sample
-Cc: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <aliceryhl@google.com>,
- <bhelgaas@google.com>, <kwilczynski@kernel.org>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <markus.probst@posteo.de>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <acourbot@nvidia.com>, <jhubbard@nvidia.com>, <zhiwang@kernel.org>,
- <jgg@nvidia.com>, <alex@shazbot.org>, "Peter Colberg" <peter@colberg.org>
-To: "Zhi Wang" <zhiw@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <cover.1790705494.git.zhiw@nvidia.com>
- <a50d3eba8fca1ecf094da263a749fa012a512b7f.1790759932.git.zhiw@nvidia.com>
-In-Reply-To: <a50d3eba8fca1ecf094da263a749fa012a512b7f.1790759932.git.zhiw@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
 
-On Wed Sep 30, 2026 at 12:18 PM CEST, Zhi Wang wrote:
-> +#[pin_data(PinnedDrop)]
-> +struct PfDriverData<'bound> {
-> +    // Keep the device alive until the registration stops exposing `PfAp=
-i::pdev`.
+On Wed, Sep 30, 2026 at 04:00:56PM +0200, Vasilij Strassheim wrote:
+> On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
+> > > The controller exposes separate register regions for transaction data
+> > > and for the shared transaction control and external bus selector
+> > > register.
+> > 
+> > > +examples:
+> > > +  - |
+> > > +    mdio@204 {
+> > > +        compatible = "soce,swip-mdio-23-02";
+> > > +        reg = <0x204 0xc>, <0x200 0x4>;
+> > 
+> > At least in the example, they are not separate?
+> 
+> Not separate regions but registers...
+> I'm obviously bad at documenting things.
+> 
+> The current information in the commit message is misleading and
+> irrelevant. Looking at the bot's feedback, it's at the same time not
+> clear enough yet that the mdio controller part is mapped within the
+> switch memory and can't be used separately from it.
+> 
+> I will update the commit message to something like this:
+> Add a binding for the MDIO controller integrated into SoC-e SWIP
+> Ethernet switch IP cores.
+> The controller shares the memory of the synthesized switch IP core and
+> cannot be used independently.
 
-What does this mean?
+I think part of the issue is the compatible. That suggests it is a
+separate device, with its own driver. But it is actually driven by the
+switch driver.
 
-> +    #[pin]
-> +    _registration: pci::VfRegistration<'bound, PfApiForLt>,
-> +    pdev: ARef<pci::Device>,
-
-	pdev: &'bound pci::Device<Bound>,
-
-> +}
-> +
-> +#[pin_data(PinnedDrop)]
-> +struct VfDriverData {
-> +    pdev: ARef<pci::Device>,
-
-	pdev: &'bound pci::Device<Bound>,
-
-> +}
-> +
-> +kernel::pci_device_table!(
-> +    PF_TABLE,
-> +    <SamplePfDriver as pci::Driver>::IdInfo,
-> +    [(
-> +        // E1000_DEV_ID_82576
-> +        pci::DeviceId::from_id(pci::Vendor::INTEL, 0x10c9),
-> +        ()
-> +    )]
-> +);
-> +
-> +kernel::pci_device_table!(
-> +    VF_TABLE,
-> +    <SampleVfDriver as pci::Driver>::IdInfo,
-> +    [(
-> +        // E1000_DEV_ID_82576_VF
-> +        pci::DeviceId::from_id(pci::Vendor::INTEL, 0x10ca),
-> +        ()
-> +    )]
-> +);
-
-Since this is two drivers in the same module, can we please put everythng t=
-hat
-belongs to the PF driver first and then everything that belongs into the VF
-driver second please? We could also make it two separate files.
-
-> +#[vtable]
-> +impl pci::Driver for SamplePfDriver {
-> +    type IdInfo =3D ();
-> +    type Data<'bound> =3D PfDriverData<'bound>;
-> +
-> +    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PF_TABLE;
-> +
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core<'_>>,
-> +        _info: Option<&'bound Self::IdInfo>,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        pin_init::pin_init_scope(move || {
-> +            dev_info!(
-> +                pdev,
-> +                "Probe Rust SR-IOV PF sample (PCI ID: {}, 0x{:x}).\n",
-> +                pdev.vendor_id(),
-> +                pdev.device_id()
-> +            );
-> +
-> +            pdev.enable_device_mem()?;
-> +            pdev.set_master();
-> +
-> +            Ok(try_pin_init!(PfDriverData {
-> +                // SAFETY:
-> +                // - probe has exclusive access to this PF before SR-IOV=
- is enabled;
-> +                // - the registration is pinned in the PF driver data an=
-d dropped before `pdev`;
-> +                // - no other registration is created for this PF; and
-> +                // - VFs are enabled only after probe by `sriov_enable`.
-> +                _registration <- unsafe {
-> +                    pci::VfRegistration::new(
-> +                        pdev,
-> +                        try_pin_init!(PfApi {
-> +                            pdev,
-> +                            requests <- new_mutex!(0),
-> +                        }),
-> +                    )
-> +                },
-> +                pdev: pdev.into(),
-> +            }))
-> +        })
-
-Let's put everything within a single try_pin_init!() block please.
-
-> +#[vtable]
-> +impl pci::Driver for SampleVfDriver {
-> +    type IdInfo =3D ();
-> +    type Data<'bound> =3D VfDriverData;
-> +
-> +    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &VF_TABLE;
-> +
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<Core<'_>>,
-> +        _info: Option<&'bound Self::IdInfo>,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        pin_init::pin_init_scope(move || {
-> +            dev_info!(
-> +                pdev,
-> +                "Probe Rust SR-IOV VF sample (PCI ID: {}, 0x{:x}).\n",
-> +                pdev.vendor_id(),
-> +                pdev.device_id()
-> +            );
-> +
-> +            let pdev_bound: &'bound pci::Device<Bound> =3D pdev;
-> +            let pf_api =3D pdev_bound.vf_registration_data::<PfApiForLt>=
-()?;
-> +
-> +            pdev.enable_device_mem()?;
-> +            pdev.set_master();
-> +
-> +            let request =3D pf_api.submit(pdev)?;
-> +            dev_info!(pdev, "Submitted request {} through PF data.\n", r=
-equest);
-> +
-> +            Ok(try_pin_init!(VfDriverData { pdev: pdev.into() }))
-> +        })
-
-Same here. Also no need for pdev_bound, it derefs automatically, you can ju=
-st
-call pdev.vf_registration_data().
-
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl PinnedDrop for PfDriverData<'_> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        dev_info!(self.pdev, "Remove Rust SR-IOV PF sample.\n");
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl PinnedDrop for VfDriverData {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        dev_info!(self.pdev, "Remove Rust SR-IOV VF sample.\n");
-> +    }
-> +}
-
-Let's drop those, we don't really need them.
-
-Here's the two probe() functions I came up with:
-
-    fn probe<'bound>(
-        pdev: &'bound pci::Device<Core<'_>>,
-        _info: Option<&'bound Self::IdInfo>,
-    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-        try_pin_init!(PfDriverData {
-            _: {
-                dev_info!(
-                    pdev,
-                    "Probe Rust SR-IOV PF sample (PCI ID: {}, 0x{:x}).\n",
-                    pdev.vendor_id(),
-                    pdev.device_id()
-                );
-            },
-
-            _: {
-                pdev.enable_device_mem()?;
-                pdev.set_master();
-            },
-
-            // SAFETY:
-            // - probe has exclusive access to this PF before SR-IOV is ena=
-bled;
-            // - the registration is pinned in the PF driver data and dropp=
-ed before `pdev`;
-            // - no other registration is created for this PF; and
-            // - VFs are enabled only after probe by `sriov_enable`.
-            _registration <- unsafe {
-                pci::VfRegistration::new(
-                    pdev,
-                    try_pin_init!(PfApi {
-                        pdev,
-                        requests <- new_mutex!(0),
-                    }),
-                )
-            },
-
-            pdev,
-        })
-    }
-
-    fn probe<'bound>(
-        pdev: &'bound pci::Device<Core<'_>>,
-        _info: Option<&'bound Self::IdInfo>,
-    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-        try_pin_init!(VfDriverData {
-            _: {
-                dev_info!(
-                    pdev,
-                    "Probe Rust SR-IOV VF sample (PCI ID: {}, 0x{:x}).\n",
-                    pdev.vendor_id(),
-                    pdev.device_id()
-                );
-            },
-
-            _: {
-                pdev.enable_device_mem()?;
-                pdev.set_master();
-            },
-
-            pdev,
-
-            _: {
-                let pf_api =3D pdev.vf_registration_data::<PfApiForLt>()?;
-
-                let request =3D pf_api.submit(pdev)?;
-                dev_info!(pdev, "Submitted request {} through PF data.\n", =
-request);
-            },
-        })
-    }
-
-Note that enable_device() and set_master() have their own block as they wil=
-l be
-replaced with a pci::DeviceEnableGuard soon.
+       Andrew
