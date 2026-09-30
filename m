@@ -1,163 +1,111 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D672A470EA1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F1E3BED44;
+	Wed, 30 Sep 2026 09:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759593; cv=none; b=Jnf7i5/wWYzjgPcmLb6hIiJ9CtIJyY4hCA5tAgt/6RhgT2yZfkXiCILK4k3crIkfI72QUao73pSB6f1O0SNI/U5zvIgZQq0kM9ndfLTA8ohrknqRq2kL0XgX3KWaiqcHgYvzkBBqSAUbw2r3ed4cUNoqUXcs9LPzu+Wc+ZSMPNA=
+	t=1790759611; cv=none; b=qdu3UNo9LytNb8vOUyQmk4pRPK8yQro8GuFqAvarODNpyHzA+YN6O2RryhBO8GgKHgtOa1aHXQKXy7Kk2hJtRemHXLE2tVSTXH9K/dGNvCVmlOyic8gRC+nlXhyo4XB+16D2ICeFuM4BO0keRXwxIaUOWujGjXkyuv8VWidCn40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759593; c=relaxed/simple;
-	bh=qobQeXpRTl+w3E3Mgv+CXQ5I/Xvi/dYHDAXj8cOuJvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dauPKI5+XIwKy5QQr/UjLLGzYhMvWpg4mqXHT2NpaOsIcyfTAlKkRuEJBYg6yqCW0gu6lsG4m14Sy2oJsdCfOWGwK2Cm+9rQp0HWM7/AXWXAUkwTmnt9zOaMjT+Ip+UsXrdlrIG1xeNB3JOP36VlewLzo9w4A64EDCCwO9uIYjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A5YsHlCJ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790759611; c=relaxed/simple;
+	bh=IxlfuqDrkgSpiLNaVb0NlpWFcUkIkNjXAMrsnCOOLr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YeQn9tbFGI6r4+CfVmKxjqJbgxgyN44rG0r/nMEAchdU4HqfZYTAB7Xej6HTyE8NBRVFLAddK7dSju3HN9vR4UvIB9otAENksYqajGD0C22On8lUw6imeDfLS/dteocdEXtO55d7HDyG9koGgBj+GZLFvAoH5U7s/plTkcBMXjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=KJq4dS0o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h0o40mPs; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A5YsHlCJ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so38521825e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790759590; x=1791364390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s9TKM9qGe17Jk+sMm66qJ+r/rf6R8Q2F3mXd7aggg48=;
-        b=A5YsHlCJTveGuuwMcIg02wMWMGDawx+op2ft3BneTMnpeYWt89+kCs9CSuaCzbiiPc
-         ih6EhpbBwEAxoGlL5/Ivg6CHreD0Hqz215hErRPcbFt94eeH8u2IDLs9SxRrR2Axv/Cd
-         sN6/TF9WuB3tmcCgP/tq8MOCwfTzhM6Xre1Dna7OFXKPI+HiN6mU1sMR8ABoq5j6d3XU
-         m3e+bJjwMWC0Trc5Lv1AhorOGD2YxekQ1wIqeUqlifH0O0IPuqTneKNJyYUKFKkkPvLy
-         CHV0e/AqviseUqynkcxES+kZROEITu/pIOFCJqaNvcofcqXjLLD8REfp0tPoI8fLYm93
-         WWpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790759590; x=1791364390;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s9TKM9qGe17Jk+sMm66qJ+r/rf6R8Q2F3mXd7aggg48=;
-        b=BsZdHVn/a1LIebHPlGEiUMcLjiCroZSKNv/+Zjv03Lw7OqkpxJKnTKMTwA+x7d5eZo
-         rnob6LJEZKUse3+vDELEe75TRaLSJsafcshXOE5NH1ThCGAdRVsil4ahCPKBWnkHFjOU
-         cfF5k6DnzE9jf8gJA8yNbo8ctYXh+4kT4+7oylSvTygzCni4DlGbHsiN1AsnY9IUrWL0
-         hsogYBJ3QGQd5xZtReclhKPFQzPZcqpwJkvobK6V3ju8RQgrmTCNNk0yyO7ia/3BDJg0
-         Mq1rcUiyJS/MwuYcZBD6BRPVc6dVWpc9qttFhSxkG3fCcyICnoYunssCVvQ7ZdJZ5arv
-         xJJA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXy3q69JjSrcaFqsKHS8MTsjTwOVPfDQEQekxNR4rX6VU2JziWiaHHD+MAfPGzOf8Tu2DBekqNYMVQJxI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngjp32WhIK8ml4ORfFWagdR59JRfQMgjqzw9nw6xwwJRVVYBpF
-	A0EKdbksgaBYDumwnmQDohErjAFC38S3jPxw82I7rQvBJHrc2YwtQG2F
-X-Gm-Gg: AYBFou33OVjYFy5CxWCrOho8anDoC9gqbxoBb88wVpdoo2sRHXVuVU9+76HjqDwp9RW
-	jQNbHu38S7Cfo8gbqJmIO9ULMKnRCXTsyvD4AdXCiNZ3RQ0FxSoPKvuG5xp5zfdSp7bdPnlWWQY
-	dPzaJwUtgvAEkctDEetQkV+L5po6cZD3+xEygrpq6V1BrlJ5jCxhJOWdQK0E3+sw/kUvxYYj7tc
-	+/u9tGdY2YrSH4R1vTBAFSyf4vdeQXGLM61t+KWuIlEU5Pv8VmbzUucvq+5Jf+g8Zkua/zWBV48
-	19dIYVhWp+PHFMyC05Sj6+9W0fcawz89+mRznfqia7IFzFdMeOZdzFNYXNZThGKdPLdejQURn6l
-	Tl3NVrqDVFJSVHXds2ZtAhtBBE9pDqhtZtwPdTE/BVlUO1wLyijUzf0B50njiMk93GnAG1H/mZr
-	Y0Qx3FroGDTyuO/8kv9TVBWKM20pKtlQ3N8EGsV1jnvUFU+i01yUJvaxlM7EnPTIHmRXtDPZcFP
-	ZKaLOliICUcoj3XU3upQ0azWjuWP1ZfOeiNwvJglQuwLA==
-X-Received: by 2002:a05:600c:3144:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a01c0ec65fmr5393095e9.29.1790759589700;
-        Wed, 30 Sep 2026 02:13:09 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0174d5191sm41766015e9.3.2026.09.30.02.13.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 02:13:08 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:13:07 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: jim.cromie@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Petr
- Mladek <pmladek@suse.com>, Zhen Lei <thunder.leizhen@huawei.com>, Luis
- Chamberlain <mcgrof@kernel.org>, Andrey Grodzovsky
- <andrey.grodzovsky@crowdstrike.com>, Steven Rostedt <rostedt@goodmis.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>,
- Jiri Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] kallsyms: Unroll 24-bit sequence reconstruction
- in get_symbol_seq()
-Message-ID: <20260930101307.4477e264@pumpkin>
-In-Reply-To: <202609292329.87EE58BCF8@keescook>
-References: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
-	<20260929-ksyms-tune-v7-3-be568ceef41e@gmail.com>
-	<202609292329.87EE58BCF8@keescook>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="KJq4dS0o";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h0o40mPs"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8C8417A0702;
+	Wed, 30 Sep 2026 05:13:27 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 30 Sep 2026 05:13:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1790759607; x=
+	1790846007; bh=1nC1UVy4t2WwVoRJhfMm2fOdz3wxL0myhdMxjHdg71w=; b=K
+	Jq4dS0oA1EIo3GmrqIzE+GJzmLXn40VB8b2e31jDH3s6PBs29kpTBmXPLjMPLBMf
+	IjSweryD/hhpOcE9G5Ayy28OIDTCKtd+kA0UzfwqKsyGYI7t0gD5tTnPwiCRXFID
+	kmsFSo4LgK+BoVvT4Tcf1e4k+i8+ilcuuTKP6+E7odcvVFTZTzwlAq5VXrLHVCBv
+	EcJA51PuAiufCHk8oWYp1RuPpmV5n3m64mgF1vEzXC1obr9JHDtKISJTGrSGUtt+
+	it7CXLGcrvmY7ky7KLbWw2rHWsi6B3ctCgEbTh7EvPM2mCLd/9MflBH8YbhYGFRG
+	6N5CrSjBa6cisfuSp8Z9g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790759607; x=1790846007; bh=1nC1UVy4t2WwVoRJhfMm2fOdz3wxL0myhdM
+	xjHdg71w=; b=h0o40mPsNvfTx9ZQtH+avoJIbB5S53rZ2oGRhZdTL/w+C7wBRZk
+	g+YzhaWPjV/NRuEGl8xEtY9XwnXdAS5kHg0OOWfshL40kggIvJFjEnTbtNwv/9Ah
+	vtm7V73am3iSDDgdQDwRlLNN9ncMY5l/i+S1xVU29v3Mr86jK4FMVqkuttsu/OpE
+	WiM4HYls5jEWOUDXpwyYYaYdeGyUyzPsLdquzABRnxr62vdfI53omZU8AHaOCRAm
+	/qBDjglzAop8z4SgfaeUbXNrDYEDSn5yVVdinup13WPpgFRLNUy6L2dd6UkDcEQN
+	46Oc6SgyR2sZh4aBzmzseKoj3FLPLIy+/Vg==
+X-ME-Sender: <xms:ttK8asI-c_XWs_9mb26glu9Vv-S-DDl3R79e6UmL6afH3ys-sBMRCg>
+    <xme:ttK8aqaKxIULdvo8ihbwoAfgcwdz1oTmNPdGeTV3_PdzR5oZGhsrfmqQLwHHmqs2K
+    -m4t-LwsReorIcYIW9F7ZTaITeqI5CgtYW-GDwZQbDAQCu2TxWgOzDZ>
+X-ME-Received: <xmr:ttK8amBwlkWgke1zcTJNi4XvKXNYYcCFOeaN4BY0hJoOIxQKWGHI4s8Noy2K>
+X-ME-Proxy-Cause: dmFkZTE4NMMjpg7Cs9y62M7IqXGDu6jAzbpUHpCYUBrJAN5E0Y/1vziUUl76agErQ2RhAK
+    xh2FNXbPgjXGsJuD0fT6Xtfn8n+sfe4P17fQi5lN2bRAEv7SKKO66ImIGHnuQEYIVZjSgX
+    gIohwNenoIvT7d2qnh7ubM95O0oYbNr8BmXHvvtSbAIyAckaMaJ0EwM0qAcK3Cq2VJn8vF
+    Lx1wOLelVcxcaVXVaWcfN2qFbMM7ATAsx8MIUXSbB9GyQ/zag6gYrKbwVhJLTCc7KHpzPL
+    JlKSHQkpLD5XH6wMp2LYFP2OQMMjZZcHlhyU4bMGHE52FKcKw7S06XGK57hPqMvvYbh8i+
+    wyjKojOwcVDkIompl2NgVWoZL3qVVuxTPIspqdAA4XeeC5RlFucZJaWrv1FcCC62J58ySv
+    Atu7ZyBzXviDD2gojpZtX6YMI8LevM2Qs1JKPYY7uM8lxX4EmuE2G6QorehaHcWfkbyk7n
+    NNSdXgm+phvr4SlfdK0oo1GOXweptKMp2XjwXDiwbuFV70/SEowE3XcOmA2bBfXtWIK/LX
+    faT827YEGkN34p6Rj0wQ1R4NpLKw/JcA6suhyNqHhJxn77Xz/MmOf5XudN/k1kbAZWidm0
+    pkZ0ZEjItx+csBRkUtbv0habmdc0q25YG4JeDGdFLLQ1qt9JzkWGEIdTAJYQ
+X-ME-Proxy: <xmx:ttK8asbraJnHLhTjWRknIrSM8-pW2oiq3aefkiowILbDqeTVnDYbog>
+    <xmx:ttK8amli03OL0DEakZB5djkDyhkWVLBgOyqdKykGFAmatM6AT5ar_Q>
+    <xmx:ttK8apqnaL-LgTRxYWa3nJ25e6iQg1khBvZUXm6FlR1PKJ_mEStpkQ>
+    <xmx:ttK8agDybFzou13gk2xfpNRSHOJDcj-PV7d8DFpfrkxLmLRZkZATqw>
+    <xmx:t9K8agY8er1rN2km4WSR0QrWfdGIxNJFpFlhWbxzNeJojRqoS1eA7-Rv>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 05:13:26 -0400 (EDT)
+Date: Wed, 30 Sep 2026 11:13:24 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Qingfang Deng <qingfang.deng@linux.dev>, Chuck Lever <cel@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Dave Watson <davejwatson@fb.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] tls: skip empty data records in tls_sw_splice_read()
+Message-ID: <arzStIrdizPp_vbI@krikkit>
+References: <20260930052636.166007-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930052636.166007-1-qingfang.deng@linux.dev>
 
-On Tue, 29 Sep 2026 23:56:12 -0700
-Kees Cook <kees@kernel.org> wrote:
-
-> On Tue, Sep 29, 2026 at 12:07:32PM -0600, Jim Cromie via B4 Relay wrote:
-> > Mark get_symbol_seq() as static inline and unroll the 3-byte extraction
-> > into direct byte shifts: (p[0] << 16) | (p[1] << 8) | p[2]. This
-> > eliminates loop induction variable maintenance and allows the compiler
-> > to generate direct loads and constant shifts.  
+2026-09-30, 13:26:36 +0800, Qingfang Deng wrote:
+> tls_sw_splice_read() returns 0 after receiving an empty application
+> record. This looks like EOF for splice(), even though the connection
+> remains open and more data may be available.
 > 
-> So... did you actually see any difference in the output binary? This is
-> such a small loop I'd expect every compiler to both inline and unroll
-> it already. *time passes* I've checked; I was mostly right. :)
-> 
-> It's already inlined and unrolled by the compilers, but GCC weirdly
-> didn't see through the array math:
-> 
->   At -O2 GCC (and Clang, mostly the same) on x86_64:
-> 
->   before                                  after
->   lea    (%rax,%rax,2),%eax               lea    (%rax,%rax,2),%edx
->   mov    %rax,%rdx                        movslq %edx,%rdx
->   movzbl seqs(%rax),%eax                  movzbl seqs(%rdx),%eax
->   lea    0x1(%rdx),%ecx                   movzbl seqs+2(%rdx),%ecx
->   add    $0x2,%edx                        movzbl seqs+1(%rdx),%edx
->   movzbl seqs(%rcx),%ecx                  shl    $0x10,%eax
->   shl    $0x8,%eax                        shl    $0x8,%edx
->   movzbl seqs(%rdx),%edx                  or     %ecx,%eax
->   or     %ecx,%eax                        or     %edx,%eax
->   shl    $0x8,%eax
->   or     %edx,%eax
-> 
-> So it's actually the loss of the "+ i" part that does it.
+> Consume empty application records and retry the receive path instead,
+> following the approach used in tls_sw_read_sock() since commit
+> 3be28e2c9cd0 ("net/tls: Consume empty data records in tls_sw_read_sock()").
 
-A quick 'register dependency chain count' gives the old as 7 and the
-new as 6.
-The annoying 'movslq' might be removable by making the parameter
-either 'unsigned int' or 'long' (and might go away if the function
-in inlined).
+This is similar to what Chuck proposed in July:
+https://lore.kernel.org/all/20260726-tls-follow-on-v1-2-99bf4cc1c729@kernel.org
 
-> 
-> > -static unsigned int get_symbol_seq(int index)
-> > +static inline unsigned int get_symbol_seq(int index)
-> >  {
-> > -	unsigned int i, seq = 0;
-> > +	const u8 *p = &kallsyms_seqs_of_names[3 * index];
-> >  
-> > -	for (i = 0; i < 3; i++)
-> > -		seq = (seq << 8) | kallsyms_seqs_of_names[3 * index + i];
-> > -
-> > -	return seq;
-> > +	return (p[0] << 16) | (p[1] << 8) | p[2];
-> >  }  
-> 
-> I'm on the fence about readability, but I think it's improved.
+but Chuck's patch had some extra bits (handling of the "released" flag
+and of signal_pending).
 
-Ditto.
-There might be a get_unaligned_be24() but that doesn't help readability.
+His series also had a selftest which should be included too
+https://lore.kernel.org/all/20260726-tls-follow-on-v1-6-99bf4cc1c729@kernel.org/
 
-The code would be better if the value were host-endian.
-gcc 16+ then uses a 16bit read for two of the bytes.
-That also lets the table be defined as:
-	extern struct { unsigned int v:24; } kallsyms_seqs_of_names[];
-so that accesses can just be kallsyms_seqs_of_names[n].v
-(Although even gcc 16 seems to do three reads in that case.)
-
-If the cpu supports misaligned accesses you can do a 32bit read
-and an 8bit shift.
-
-David
-
-> 
-> Reviewed-by: Kees Cook <kees@kernel.org>
-> 
-
+-- 
+Sabrina
