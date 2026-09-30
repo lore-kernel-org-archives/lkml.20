@@ -1,700 +1,776 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9044562B0;
-	Wed, 30 Sep 2026 07:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75260451986;
+	Wed, 30 Sep 2026 07:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751604; cv=none; b=Z/mJsnbhHdgdLDxEkN2B7WVREfc1iwlRjGsZbimgdM0WHFypbzX8v3ldb+u1mS4jee+AJI2Ip4iQkfhnyPffJAAJWolY6Omz2fP9I6kUBROnuQuRgzsix8XzSSa/pIvwyC7jXvaBM3UkgTkDZ8EcuXu6nfwsh4g3wajlTEn5W8M=
+	t=1790751618; cv=none; b=PnJCFIeYuZDBEtHDsJfFIr7eJsAiAdhzsCo7MNIP2NUAuqZdRux/GYfoeL8cvNtBKPX4CY5tJwcwvboi1UUW9U6v1NymqOSj9WPBysIQTBhnfhjK5k693I2exGgWLjPWxblyHB5wSK27uAnvcfQkq8WwfEz6yZsFrHp4ASYlcq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751604; c=relaxed/simple;
-	bh=eeHnxYHV0+CyDpanASBVfU4Y5uWDGb1oXngXTjmTN00=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PPMt/c7tyo+SygtC5AyGj9CKu1bj8qxYi5D9cq0V+2LZf7O/TAekLbzL87xt/OpoFbvTKKEwiF77Dl1i+GOPuRhEiX2HhfaGXsccHrjJZHGDG5RLBu7d/i6r+7eYfrGP8BkN0rT3XWlSdiUQXQOxSJbWLEpGNanar2Pl+8qZg9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKF++Nzb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790751618; c=relaxed/simple;
+	bh=B9qICTOKUHPpDmKaCwYxpk4hCL0T7sF+xmujo+fDsfg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XjVzzK/5GCkiW5JlggWy42YMx8eJ9RUwjmeQm7Gcts8I2Pz0PF5JDzZrOXPciSfmDyn6AlzFwcfamNggKlApmKuwmiONLI4IecG1zuxVhxkeawZqH5NJ72lYN5qWjNkGXwlhWu3Rd5WKsNtFXFQr8zq0ur8eS8ha6jkzAjQIBoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=o250Vui/; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKF++Nzb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C0A8C4AF1D;
-	Wed, 30 Sep 2026 07:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790751603;
-	bh=eeHnxYHV0+CyDpanASBVfU4Y5uWDGb1oXngXTjmTN00=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EKF++NzbWSY1u86irFk/1xfTN4crLzKg/Oae+QOk1G4EwrAhL5vxhOF5dLmTxBRf2
-	 fiziMsaKFSuRW0ZJ3PN3s99BQh8os2RS+VgHFu6FuFHKM/uOUsAVmPGXaNYdSmEsGk
-	 M/j6tBc7GpRlJymig/GHTsmvGTjCxCUDUtsxH4q1ZFvGgmLoqr5RLbsqq3dvvcqFXn
-	 +1GqTFnV+T8SDg/zoHbMdQSX8oHbT78E06MwUa1m83tORrAJu4kwg0XFbQ0TGI3qgn
-	 8ujiWlb+Na0RfJAu+qR92Eyn4LbgWWBPJNOKsFhivL8/+EZPAOplJtvHzOicQMYx64
-	 Zy7U/DXMAYpgw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1971DCA5FBB;
-	Wed, 30 Sep 2026 07:00:03 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 10:00:06 +0300
-Subject: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART
- driver
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="o250Vui/"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68U6xk1U31887173, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790751586; bh=RRKWQc2NvH5ep3ipU261rN4f38Pk4ghJFsd2wT4BNlY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=o250Vui/t3sdEQkh0l2ojJijQVAFnvjp6GZpfhZH1oxZtzFy9TY+6wVJhFQDeaAoF
+	 kTxN3Mey2zRpQG3Cj67tmPgmQkNrvmKbrJhPTVx3hJC2IJk0+rEE99fNJDfeFjWYtx
+	 YcSxy6X97qCOiFZBxAQVQUeX2lCrQESMIoty+qEHwmxssw/OuQKpUHcfnr/c9KFw1M
+	 hQPwJrjLUNblNjZEcOfJvwu6xYvGjChcSIpj8Wssk7EWeVlQSRxBTgB6fhxgqTlm1O
+	 VXzpsrFry8R5NXD6MS1aF5GmSxFRrsJQvLV+TYJEK1kPXoy5IM+2DYpRjr8tpCBhN/
+	 3pf34b9t9qjIw==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68U6xk1U31887173
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 30 Sep 2026 14:59:46 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 14:59:46 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 14:59:46 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>
+CC: <p.zabel@pengutronix.de>, <james.tai@realtek.com>, <cy.huang@realtek.com>,
+	<stanley_chang@realtek.com>, <eleanor.lin@realtek.com>,
+	<jyanchou@realtek.com>, <linux-spi@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 2/2] spi: spi-mem: Add Realtek SPI NOR flash controller driver
+Date: Wed, 30 Sep 2026 14:59:45 +0800
+Message-ID: <20260930065945.88008-3-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260930065945.88008-1-eleanor.lin@realtek.com>
+References: <20260930065945.88008-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
-In-Reply-To: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Drew Fustini <fustini@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790751600; l=18475;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=EINLDDUHtpZAvqggFyF/ERdE9v0I/gBHIyP8jy2YP1I=;
- b=MNxsTZH23riDUkj4w7Do7+drZOlG0VAaTEuluv3K6da3wXdIYBFqOslPIFtGfMqx+GcmLJJc7
- eyeuPgTT0mPDrcyC5piEO0B0qO4ly/LOfDrBDmyqIhY2no4Aufa4CJ5
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+From: Jyan Chou <jyanchou@realtek.com>
 
-Add a driver for the UARTs of the Cortina Systems CS75xx (Goldengate G2)
-SoCs. The block has transmit and receive FIFOs with full/empty status,
-a 24-bit baud rate divider clocked from the peripheral (APB) clock, a
-receive sampling point register and one interrupt line per port with
-per-cause enable and write-one-to-clear status registers.
+Add a spi-mem driver for the SPI NOR Flash Controller (SFC) found on
+Realtek DHC SoC. SFC supports Dual I/O.
 
-The driver is a rewrite of the vendor driver shipped with the Linux
-2.6.36 and 4.9 based vendor kernels, using the current serial core API
-(uart_port_tx(), port lock helpers, deferred sysrq handling) and devm
-resource management. It supports the system console and earlycon.
-Hardware flow control is not supported.
+Implement the exec_op API for regular control commands and the dirmap API
+for hardware-accelerated read/write operations.
 
-The ports are named ttyCS so that the driver can coexist with the 8250
-driver in multiplatform kernels, and PORT_GENERIC is used rather than
-allocating a new port type.
+The controller is described by three register ranges. The first one (ctrl)
+holds the control registers. The second one (dma) holds the DMA engine
+registers, used to transfer the payload between the flash and main memory.
+The third range is the memory aperture (dirmap) that maps the flash
+contents.
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 ---
- drivers/tty/serial/Kconfig       |  24 ++
- drivers/tty/serial/Makefile      |   1 +
- drivers/tty/serial/cs75xx-uart.c | 546 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 571 insertions(+)
+Changes in v5:
+- Fix the initialization and teardown sequences.
+- Add the check for unsupported multi-byte stateless commands in
+rtk_spi_supports_op().
+- Move the hardware workaround for 4-byte mode switching to rtk_spi_exec_op().
+---
+ MAINTAINERS               |   6 +
+ drivers/spi/Kconfig       |  10 +
+ drivers/spi/Makefile      |   1 +
+ drivers/spi/spi-rtk-nor.c | 624 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 641 insertions(+)
+ create mode 100644 drivers/spi/spi-rtk-nor.c
 
-diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-index bf680d22199..c4239c42190 100644
---- a/drivers/tty/serial/Kconfig
-+++ b/drivers/tty/serial/Kconfig
-@@ -1359,6 +1359,30 @@ config SERIAL_CONEXANT_DIGICOLOR_CONSOLE
- 	  If you have enabled the USART serial port on Conexant Digicolor
- 	  SoCs, you can make it the console by answering Y to this option.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 34d5c9a0d562..20cd9332f823 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22754,6 +22754,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/spi/realtek,rtl9301-snand.yaml
+ F:	drivers/spi/spi-realtek-rtl-snand.c
  
-+config SERIAL_CS75XX
-+	tristate "Cortina Systems CS75xx UART support"
-+	depends on ARCH_CORTINA_CS75XX || COMPILE_TEST
-+	depends on OF
-+	select SERIAL_CORE
++REALTEK SPI-NOR
++M:	Jyan Chou <jyanchou@realtek.com>
++M:	Yu-Chun Lin <eleanor.lin@realtek.com>
++S:	Supported
++F:	drivers/spi/spi-rtk-nor.c
++
+ REALTEK SYSTIMER DRIVER
+ M:	Hao-Wen Ting <haowen.ting@realtek.com>
+ S:	Maintained
+diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+index 8782514bb89b..d45baa15a601 100644
+--- a/drivers/spi/Kconfig
++++ b/drivers/spi/Kconfig
+@@ -957,6 +957,16 @@ config SPI_RSPI
+ 	help
+ 	  SPI driver for Renesas RSPI and QSPI blocks.
+ 
++config SPI_RTK_NOR
++	tristate "Realtek SPI-NOR flash controller"
++	depends on ARCH_REALTEK || COMPILE_TEST
++	depends on SPI_MEM
 +	help
-+	  Support for the on-chip UARTs of the Cortina Systems CS75xx
-+	  (Goldengate G2) SoCs, such as the CS7542. The ports are named
-+	  ttyCS0 to ttyCS3.
++	  This enables support for the SPI NOR Flash Controller found on
++	  Realtek DHC SoCs. The controller supports single and dual I/O
++	  transfers and offloads the payload to an integrated DMA engine.
++	  Say Y or M here if you are building a kernel for a Realtek DHC SoC
 +
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called cs75xx-uart.
-+
-+config SERIAL_CS75XX_CONSOLE
-+	bool "Console on Cortina Systems CS75xx UART"
-+	depends on SERIAL_CS75XX=y
-+	select SERIAL_CORE_CONSOLE
-+	select SERIAL_EARLYCON
-+	help
-+	  Say Y here to use a Cortina Systems CS75xx UART as the system
-+	  console. This also enables the early console, which can be
-+	  selected with "earlycon" on the kernel command line when the
-+	  device tree chosen node has a stdout-path pointing at the UART.
-+
- config SERIAL_ST_ASC
- 	tristate "ST ASC serial port support"
- 	select SERIAL_CORE
-diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
-index bba7b21a4a1..81bb5e39aa2 100644
---- a/drivers/tty/serial/Makefile
-+++ b/drivers/tty/serial/Makefile
-@@ -36,6 +36,7 @@ obj-$(CONFIG_SERIAL_BCM63XX)		+= bcm63xx_uart.o
- obj-$(CONFIG_SERIAL_CLPS711X)		+= clps711x.o
- obj-$(CONFIG_SERIAL_CPM)		+= cpm_uart.o
- obj-$(CONFIG_SERIAL_CONEXANT_DIGICOLOR)	+= digicolor-usart.o
-+obj-$(CONFIG_SERIAL_CS75XX)		+= cs75xx-uart.o
- obj-$(CONFIG_SERIAL_DZ)			+= dz.o
- obj-$(CONFIG_SERIAL_FSL_LINFLEXUART)	+= fsl_linflexuart.o
- obj-$(CONFIG_SERIAL_FSL_LPUART)		+= fsl_lpuart.o
-diff --git a/drivers/tty/serial/cs75xx-uart.c b/drivers/tty/serial/cs75xx-uart.c
+ config SPI_RZV2H_RSPI
+ 	tristate "Renesas RZ/V2H RSPI controller"
+ 	depends on ARCH_RENESAS || COMPILE_TEST
+diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
+index 9fa12498ce8c..68f4d3283e0c 100644
+--- a/drivers/spi/Makefile
++++ b/drivers/spi/Makefile
+@@ -131,6 +131,7 @@ obj-$(CONFIG_MACH_REALTEK_RTL)		+= spi-realtek-rtl.o
+ obj-$(CONFIG_SPI_REALTEK_SNAND)		+= spi-realtek-rtl-snand.o
+ obj-$(CONFIG_SPI_RPCIF)			+= spi-rpc-if.o
+ obj-$(CONFIG_SPI_RSPI)			+= spi-rspi.o
++obj-$(CONFIG_SPI_RTK_NOR)		+= spi-rtk-nor.o
+ obj-$(CONFIG_SPI_RZV2H_RSPI)		+= spi-rzv2h-rspi.o
+ obj-$(CONFIG_SPI_RZV2M_CSI)		+= spi-rzv2m-csi.o
+ obj-$(CONFIG_SPI_S3C64XX)		+= spi-s3c64xx.o
+diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
 new file mode 100644
-index 00000000000..c15e2227b97
+index 000000000000..7f56346506b3
 --- /dev/null
-+++ b/drivers/tty/serial/cs75xx-uart.c
-@@ -0,0 +1,546 @@
++++ b/drivers/spi/spi-rtk-nor.c
+@@ -0,0 +1,624 @@
 +// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * UART driver for the Cortina Systems CS75xx (Goldengate G2) SoCs
-+ *
-+ * Based on the Cortina Systems vendor driver.
-+ */
++//
++//  Realtek SPI Nor Flash Controller Driver (SFC)
++//
++//  Copyright (c) 2024-2026 Realtek Semiconductor Corp.
 +
-+#include <linux/bitfield.h>
 +#include <linux/bits.h>
 +#include <linux/clk.h>
-+#include <linux/console.h>
-+#include <linux/io.h>
++#include <linux/delay.h>
++#include <linux/dma-mapping.h>
++#include <linux/errno.h>
 +#include <linux/iopoll.h>
++#include <linux/minmax.h>
 +#include <linux/module.h>
-+#include <linux/of.h>
 +#include <linux/platform_device.h>
-+#include <linux/serial.h>
-+#include <linux/serial_core.h>
-+#include <linux/tty.h>
-+#include <linux/tty_flip.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++#include <linux/spi/spi.h>
++#include <linux/spi/spi-mem.h>
++#include <linux/types.h>
 +
-+#define CS75XX_UART_CFG			0x00
-+#define   CS75XX_UART_CFG_BAUD		GENMASK(31, 8)
-+#define   CS75XX_UART_CFG_EN		BIT(7)
-+#define   CS75XX_UART_CFG_RX_EN		BIT(6)
-+#define   CS75XX_UART_CFG_TX_EN		BIT(5)
-+#define   CS75XX_UART_CFG_PARITY_EN	BIT(4)
-+#define   CS75XX_UART_CFG_PARITY_EVEN	BIT(3)
-+#define   CS75XX_UART_CFG_STOP_2BIT	BIT(2)
-+#define   CS75XX_UART_CFG_CHAR		GENMASK(1, 0)
-+#define CS75XX_UART_RX_SAMPLE		0x08
-+#define CS75XX_UART_TXDAT		0x10
-+#define CS75XX_UART_RXDAT		0x14
-+#define   CS75XX_UART_RXDAT_VALID	BIT(8)
-+#define   CS75XX_UART_RXDAT_DATA	GENMASK(7, 0)
-+#define CS75XX_UART_INFO		0x18
-+#define   CS75XX_UART_INFO_TX_EMPTY	BIT(3)
-+#define   CS75XX_UART_INFO_TX_FULL	BIT(2)
-+#define   CS75XX_UART_INFO_RX_EMPTY	BIT(1)
-+#define CS75XX_UART_IE			0x1c
-+#define CS75XX_UART_INT			0x24
++#define SFC_OPCODE		0x00
++#define DUAL_MODE_EN		BIT(9)
 +
-+/* Interrupt bits, shared by the IE and INT registers */
-+#define CS75XX_UART_IRQ_RX_NONEMPTY	BIT(6)
-+#define CS75XX_UART_IRQ_TX_EMPTY	BIT(5)
-+#define CS75XX_UART_IRQ_RX_OVERRUN	BIT(3)
-+#define CS75XX_UART_IRQ_RX_PARITY	BIT(2)
-+#define CS75XX_UART_IRQ_RX_STOP		BIT(1)
-+#define CS75XX_UART_IRQ_ALL		GENMASK(6, 0)
++#define SFC_CTL			0x04
++#define RW_DATAEN		BIT(4)
++#define ADDR_EN			BIT(3)
 +
-+#define CS75XX_UART_DIV_MIN		16
-+#define CS75XX_UART_DIV_MAX		FIELD_MAX(CS75XX_UART_CFG_BAUD)
++#define SFC_SCK			0x08
++#define FDIV_MASK		GENMASK(7, 0)
 +
-+#define CS75XX_UART_NR_PORTS		4
-+#define CS75XX_UART_FIFO_SIZE		16
-+#define CS75XX_UART_POLL_TIMEOUT_US	10000
++#define SFC_CE			0x0c
++#define DESLT_TIME		0x1a
++#define DESLT_TIME_SHIFT	16
++#define PH_CNT			0x13
++#define PH_CNT_SHIFT		8
++#define PL_CNT			0x7
 +
-+struct cs75xx_uart_port {
-+	struct uart_port port;
-+	struct clk *clk;
++#define WT_PROM_DONE		BIT(8)
++
++#define SFC_POS_LATCH		0x14
++#define FALLING_EDGE_EN		0x0
++
++#define SFC_WAIT_WR		0x18
++#define SFC_EN_WR		0x1c
++#define WT_PROM_EN		BIT(8)
++
++#define SFC_ADR_FOUR_BYTE_EN	0x28
++
++#define MD_FDMA_DDR_SADDR	0x0c
++#define MD_FDMA_FL_SADDR	0x10
++
++#define MD_FDMA_CTRL2		0x14
++#define MAX_XFER_DMA_LEN	(BIT(26) | BIT(27))
++#define MAX_XFER_256		BIT(26)
++#define DMA_TO_FLASH		BIT(25)
++
++#define MD_FDMA_CTRL1		0x18
++#define DMA_W_EN_START		BIT(3)
++#define DMA_END			BIT(2)
++#define DMA_W_EN		BIT(1)
++#define DMA_START		BIT(0)
++
++#define MD_FDMA_DDR_SADDR1	0x20
++
++#define SFC_DMA_TIMEOUT		20000
++#define SFC_DMA_MAX_LEN		0x100
++
++#define SFC_CTL_DMYCNT_MASK	GENMASK(31, 24)
++#define SFC_CTL_DMYCNT_SHIFT	24
++
++#define DMA_HIGH_BITS_MASK	0x7
++
++#define RTK_SPI_OP_RDSR		0x05
++#define RTK_SPI_OP_WREN		0x06
++#define RTK_SPI_OP_EN4B		0xb7
++#define RTK_SPI_OP_EX4B		0xe9
++
++#define SFC_AUTOSUSPEND_TIMEOUT	2000
++
++struct rtk_spi_host {
++	struct device		*dev;
++	struct clk		*clk;
++	struct reset_control	*rstc;
++	void __iomem		*regbase;
++	void __iomem		*iobase;
++	void __iomem		*mdbase;
++	void			*buffer;
++	bool			is_4byte;
++	dma_addr_t		dma_buffer;
++	resource_size_t		flash_phys_base;
++	size_t			dirmap_size;
 +};
 +
-+static struct cs75xx_uart_port *cs75xx_uart_ports[CS75XX_UART_NR_PORTS];
-+
-+static void cs75xx_uart_ie_update(struct uart_port *port, u32 clear, u32 set)
++static u32 rtk_spi_calc_dummy_cycles(const struct spi_mem_op *op)
 +{
-+	u32 ie = readl(port->membase + CS75XX_UART_IE);
++	if (!op->dummy.nbytes)
++		return 0;
 +
-+	writel((ie & ~clear) | set, port->membase + CS75XX_UART_IE);
++	return (op->dummy.nbytes * 8) / op->dummy.buswidth;
 +}
 +
-+static void __maybe_unused cs75xx_uart_putchar(struct uart_port *port,
-+					       unsigned char ch)
++static void rtk_spi_read_mode(struct rtk_spi_host *host, const struct spi_mem_op *op)
 +{
-+	u32 info;
++	u32 opcode = op->cmd.opcode;
++	u32 dummy_cycles, val;
 +
-+	readl_poll_timeout_atomic(port->membase + CS75XX_UART_INFO, info,
-+				  !(info & CS75XX_UART_INFO_TX_FULL), 1,
-+				  CS75XX_UART_POLL_TIMEOUT_US);
-+	writel(ch, port->membase + CS75XX_UART_TXDAT);
++	if (op->data.buswidth == 2)
++		opcode |= DUAL_MODE_EN;
++
++	writel(opcode, host->regbase + SFC_OPCODE);
++
++	val = readl(host->regbase + SFC_CTL);
++	val |= RW_DATAEN | ADDR_EN;
++
++	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
++
++	val &= ~SFC_CTL_DMYCNT_MASK;
++	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
++	writel(val, host->regbase + SFC_CTL);
++
++	readl(host->iobase);
 +}
 +
-+static unsigned int cs75xx_uart_tx_empty(struct uart_port *port)
++static void rtk_spi_write_mode(struct rtk_spi_host *host,
++			       const struct spi_mem_op *op)
 +{
-+	u32 info = readl(port->membase + CS75XX_UART_INFO);
++	u32 opcode = op->cmd.opcode;
++	u32 val;
 +
-+	return (info & CS75XX_UART_INFO_TX_EMPTY) ? TIOCSER_TEMT : 0;
++	writel(opcode, host->regbase + SFC_OPCODE);
++
++	val = readl(host->regbase + SFC_CTL);
++	val |= RW_DATAEN | ADDR_EN;
++	writel(val, host->regbase + SFC_CTL);
 +}
 +
-+static void cs75xx_uart_set_mctrl(struct uart_port *port, unsigned int mctrl)
++static void rtk_spi_enable_auto_write(struct rtk_spi_host *host)
 +{
++	u32 val;
++
++	val = WT_PROM_DONE | RTK_SPI_OP_RDSR;
++	writel(val, host->regbase + SFC_WAIT_WR);
++
++	val = WT_PROM_EN | RTK_SPI_OP_WREN;
++	writel(val, host->regbase + SFC_EN_WR);
 +}
 +
-+static unsigned int cs75xx_uart_get_mctrl(struct uart_port *port)
++static void rtk_spi_disable_auto_write(struct rtk_spi_host *host)
 +{
-+	return TIOCM_CTS | TIOCM_DSR | TIOCM_CAR;
++	writel(RTK_SPI_OP_RDSR, host->regbase + SFC_WAIT_WR);
++	writel(RTK_SPI_OP_WREN, host->regbase + SFC_EN_WR);
 +}
 +
-+static void cs75xx_uart_stop_tx(struct uart_port *port)
++static int rtk_spi_byte_transfer(struct rtk_spi_host *host, loff_t offset,
++				 size_t len, unsigned char *buf, bool is_read)
 +{
-+	cs75xx_uart_ie_update(port, CS75XX_UART_IRQ_TX_EMPTY, 0);
++	if (offset + len > host->dirmap_size) {
++		dev_err(host->dev, "PIO transfer out of bounds\n");
++		return -EINVAL;
++	}
++
++	if (is_read)
++		memcpy_fromio(buf, host->iobase + offset, len);
++	else
++		memcpy_toio(host->iobase + offset, buf, len);
++
++	return 0;
 +}
 +
-+static void cs75xx_uart_tx_chars(struct uart_port *port)
++static void rtk_spi_init(struct rtk_spi_host *host)
 +{
-+	u8 ch;
++	u32 val;
 +
-+	uart_port_tx(port, ch,
-+		     !(readl(port->membase + CS75XX_UART_INFO) &
-+		       CS75XX_UART_INFO_TX_FULL),
-+		     writel(ch, port->membase + CS75XX_UART_TXDAT));
++	val = readl(host->regbase + SFC_SCK);
++	val &= ~FDIV_MASK;
++	val |= (3 << 0) & FDIV_MASK;
++	writel(val, host->regbase + SFC_SCK);
++
++	val = (DESLT_TIME << DESLT_TIME_SHIFT) | (PH_CNT << PH_CNT_SHIFT) | PL_CNT;
++	writel(val, host->regbase + SFC_CE);
++
++	writel(FALLING_EDGE_EN, host->regbase + SFC_POS_LATCH);
++	writel(RTK_SPI_OP_RDSR, host->regbase + SFC_WAIT_WR);
++	writel(RTK_SPI_OP_WREN, host->regbase + SFC_EN_WR);
++
++	writel(host->is_4byte ? 0x1 : 0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
 +}
 +
-+static void cs75xx_uart_start_tx(struct uart_port *port)
++static int rtk_spi_command_read(struct rtk_spi_host *host, const struct spi_mem_op *op)
 +{
-+	cs75xx_uart_ie_update(port, 0, CS75XX_UART_IRQ_TX_EMPTY);
++	size_t len = op->data.nbytes;
++	loff_t offset = op->addr.val;
++	u8 opcode = op->cmd.opcode;
++	u32 dummy_cycles, val;
++
++	writel(opcode, host->regbase + SFC_OPCODE);
++
++	val = readl(host->regbase + SFC_CTL);
++	val &= ~(SFC_CTL_DMYCNT_MASK | ADDR_EN);
++	val |= RW_DATAEN;
++
++	if (op->addr.nbytes > 0)
++		val |= ADDR_EN;
++
++	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
++	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
++	writel(val, host->regbase + SFC_CTL);
++
++	return rtk_spi_byte_transfer(host, offset, len, op->data.buf.in, true);
++}
++
++static int rtk_spi_do_write_and_cmds(struct rtk_spi_host *host, const struct spi_mem_op *op)
++{
++	u8 opcode = op->cmd.opcode;
++	u32 ctl_val = 0;
++
++	writel(opcode, host->regbase + SFC_OPCODE);
++
++	if (op->data.nbytes > 0)
++		ctl_val |= RW_DATAEN;
++
++	if (op->addr.nbytes > 0)
++		ctl_val |= ADDR_EN;
++
++	writel(ctl_val, host->regbase + SFC_CTL);
++
++	if (op->data.nbytes > 0) {
++		const u8 *buf = op->data.buf.out;
++
++		if (op->addr.val + op->data.nbytes > host->dirmap_size)
++			return -EINVAL;
++
++		writeb(*buf, host->iobase + op->addr.val);
++	} else {
++		if (op->addr.val >= host->dirmap_size)
++			return -EINVAL;
++
++		readb(host->iobase + op->addr.val);
++	}
++
++	return 0;
++}
++
++static int rtk_spi_dma_transfer(struct rtk_spi_host *host, loff_t offset,
++				size_t len, bool is_read)
++{
++	u64 dma_buffer, timeout_us = SFC_DMA_TIMEOUT * 100;
++	u32 flash_phys_addr, val;
++	int ret;
++
++	if (offset + len > host->dirmap_size) {
++		dev_err(host->dev, "DMA transfer out of bounds\n");
++		return -EINVAL;
++	}
++
++	writel(DMA_W_EN_START | DMA_W_EN, host->mdbase + MD_FDMA_CTRL1);
++
++	dma_buffer = host->dma_buffer;
++
++	/* Setup MD DDR address and flash address */
++	writel(lower_32_bits(dma_buffer), host->mdbase + MD_FDMA_DDR_SADDR);
++	writel(upper_32_bits(dma_buffer) & DMA_HIGH_BITS_MASK,
++	       host->mdbase + MD_FDMA_DDR_SADDR1);
++
++	/* MD_FDMA_FL_SADDR is a 32-bit hardware register */
++	flash_phys_addr = lower_32_bits(host->flash_phys_base + offset);
++	writel(flash_phys_addr, host->mdbase + MD_FDMA_FL_SADDR);
++
++	if (is_read)
++		val = MAX_XFER_DMA_LEN | len;
++	else
++		val = DMA_TO_FLASH | MAX_XFER_256 | len;
++
++	writel(val, host->mdbase + MD_FDMA_CTRL2);
++
++	writel(DMA_W_EN | DMA_START, host->mdbase + MD_FDMA_CTRL1);
++	udelay(1);
++
++	ret = readl_poll_timeout(host->mdbase + MD_FDMA_CTRL1, val,
++				 !(val & DMA_START), 100, timeout_us);
++	if (ret) {
++		dev_err(host->dev, "DMA transfer timed out\n");
++		val = readl(host->mdbase + MD_FDMA_CTRL1);
++		val |= DMA_END | DMA_W_EN_START;
++		writel(val, host->mdbase + MD_FDMA_CTRL1);
++
++		if (readl_poll_timeout(host->mdbase + MD_FDMA_CTRL1, val,
++				       !(val & DMA_END), 10, 1000)) {
++			dev_err(host->dev, "Failed to stop DMA gracefully\n");
++		}
++
++		return ret;
++	}
++
++	return 0;
++}
++
++static int rtk_spi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
++{
++	struct rtk_spi_host *host = spi_controller_get_devdata(mem->spi->controller);
++	u32 opcode = op->cmd.opcode;
 +
 +	/*
-+	 * The TX empty interrupt only fires when the FIFO drains, so prime
-+	 * the FIFO here.
++	 * Hardware Workaround:
++	 * The controller's auto-mode engine requires SFC_ADR_FOUR_BYTE_EN to be
++	 * explicitly updated when the flash enters or exits 4-byte mode via control
++	 * commands.
 +	 */
-+	cs75xx_uart_tx_chars(port);
-+}
-+
-+static void cs75xx_uart_stop_rx(struct uart_port *port)
-+{
-+	cs75xx_uart_ie_update(port, CS75XX_UART_IRQ_RX_NONEMPTY, 0);
-+}
-+
-+static void cs75xx_uart_break_ctl(struct uart_port *port, int break_state)
-+{
-+}
-+
-+static void cs75xx_uart_rx_chars(struct uart_port *port, u32 status)
-+{
-+	struct tty_port *tport = &port->state->port;
-+	u32 data;
-+
-+	if (status & CS75XX_UART_IRQ_RX_OVERRUN) {
-+		port->icount.overrun++;
-+		tty_insert_flip_char(tport, 0, TTY_OVERRUN);
-+	}
-+	if (status & CS75XX_UART_IRQ_RX_PARITY)
-+		port->icount.parity++;
-+	if (status & CS75XX_UART_IRQ_RX_STOP)
-+		port->icount.frame++;
-+
-+	while (!(readl(port->membase + CS75XX_UART_INFO) &
-+		 CS75XX_UART_INFO_RX_EMPTY)) {
-+		u8 ch;
-+
-+		data = readl(port->membase + CS75XX_UART_RXDAT);
-+		if (!(data & CS75XX_UART_RXDAT_VALID))
-+			continue;
-+
-+		port->icount.rx++;
-+		ch = FIELD_GET(CS75XX_UART_RXDAT_DATA, data);
-+
-+		if (port->ignore_status_mask & CS75XX_UART_RXDAT_VALID)
-+			continue;
-+		if (uart_prepare_sysrq_char(port, ch))
-+			continue;
-+
-+		tty_insert_flip_char(tport, ch, TTY_NORMAL);
++	if ((op->addr.nbytes == 4 || opcode == RTK_SPI_OP_EN4B) && !host->is_4byte) {
++		host->is_4byte = true;
++		writel(0x1, host->regbase + SFC_ADR_FOUR_BYTE_EN);
++	} else if ((op->addr.nbytes == 3 || opcode == RTK_SPI_OP_EX4B) && host->is_4byte) {
++		host->is_4byte = false;
++		writel(0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
 +	}
 +
-+	tty_flip_buffer_push(tport);
++	if (op->data.dir == SPI_MEM_DATA_IN)
++		return rtk_spi_command_read(host, op);
++
++	return rtk_spi_do_write_and_cmds(host, op);
 +}
 +
-+static irqreturn_t cs75xx_uart_isr(int irq, void *dev_id)
++static bool rtk_spi_supports_op(struct spi_mem *mem,
++				const struct spi_mem_op *op)
 +{
-+	struct uart_port *port = dev_id;
-+	u32 status;
++	if (op->cmd.buswidth != 1)
++		return false;
 +
-+	uart_port_lock(port);
++	if (op->cmd.dtr || op->addr.dtr || op->data.dtr)
++		return false;
 +
-+	status = readl(port->membase + CS75XX_UART_INT);
-+	writel(status, port->membase + CS75XX_UART_INT);
++	if (op->addr.nbytes != 0) {
++		if (op->addr.buswidth > 1)
++			return false;
++		if (op->addr.nbytes < 3 || op->addr.nbytes > 4)
++			return false;
++	}
 +
-+	cs75xx_uart_rx_chars(port, status);
-+	cs75xx_uart_tx_chars(port);
++	/*
++	 * The data window is access-triggered: each CPU access to host->iobase
++	 * generates one complete SPI transaction. Consecutive byte accesses
++	 * therefore cannot be merged into a single transaction, so
++	 * multi-byte stateless commands are not supported by this controller.
++	 */
++	if (!op->addr.nbytes && op->data.nbytes > 1)
++		return -EOPNOTSUPP;
 +
-+	uart_unlock_and_check_sysrq(port);
++	if (op->dummy.nbytes != 0) {
++		if (op->dummy.buswidth > 1 || op->dummy.nbytes > 7)
++			return false;
++	}
 +
-+	return IRQ_HANDLED;
++	if (op->data.nbytes != 0 && op->data.buswidth > 2)
++		return false;
++
++	return spi_mem_default_supports_op(mem, op);
 +}
 +
-+static int cs75xx_uart_startup(struct uart_port *port)
++static int rtk_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
 +{
-+	unsigned long flags;
-+	u32 cfg;
++	const struct spi_mem_op *op = desc->info.op_tmpl;
++
++	if (op->data.dir == SPI_MEM_DATA_IN && op->addr.nbytes != 3 && op->addr.nbytes != 4)
++		return -EOPNOTSUPP;
++
++	if (op->data.dir != SPI_MEM_DATA_IN && op->data.dir != SPI_MEM_DATA_OUT)
++		return -EOPNOTSUPP;
++
++	return 0;
++}
++
++static ssize_t rtk_spi_dirmap_read(struct spi_mem_dirmap_desc *desc,
++				   u64 offs, size_t len, void *buf)
++{
++	struct rtk_spi_host *host = spi_controller_get_devdata(desc->mem->spi->controller);
++	const struct spi_mem_op *op = desc->info.op_tmpl;
++	loff_t addr = desc->info.offset + offs;
++	size_t chunk_len;
 +	int ret;
 +
-+	writel(0, port->membase + CS75XX_UART_IE);
-+	writel(CS75XX_UART_IRQ_ALL, port->membase + CS75XX_UART_INT);
++	/*
++	 * Handle unaligned address bytes at the beginning of the read operation.
++	 * The hardware requires 4-byte alignment for DMA transfers.
++	 */
++	if (addr & 0x3) {
++		rtk_spi_read_mode(host, op);
++		chunk_len = min_t(size_t, 4 - (addr & 0x3), len);
++		ret = rtk_spi_byte_transfer(host, addr, chunk_len, buf, true);
++		if (ret)
++			return ret;
 +
-+	ret = request_irq(port->irq, cs75xx_uart_isr, 0, dev_name(port->dev),
-+			  port);
-+	if (ret)
-+		return ret;
-+
-+	uart_port_lock_irqsave(port, &flags);
-+
-+	cfg = readl(port->membase + CS75XX_UART_CFG);
-+	cfg |= CS75XX_UART_CFG_EN | CS75XX_UART_CFG_RX_EN | CS75XX_UART_CFG_TX_EN;
-+	writel(cfg, port->membase + CS75XX_UART_CFG);
-+
-+	writel(CS75XX_UART_IRQ_RX_NONEMPTY, port->membase + CS75XX_UART_IE);
-+
-+	uart_port_unlock_irqrestore(port, flags);
-+
-+	return 0;
-+}
-+
-+static void cs75xx_uart_shutdown(struct uart_port *port)
-+{
-+	unsigned long flags;
-+
-+	uart_port_lock_irqsave(port, &flags);
-+	writel(0, port->membase + CS75XX_UART_IE);
-+	uart_port_unlock_irqrestore(port, flags);
-+
-+	free_irq(port->irq, port);
-+}
-+
-+static void cs75xx_uart_set_termios(struct uart_port *port,
-+				    struct ktermios *termios,
-+				    const struct ktermios *old)
-+{
-+	unsigned int baud, div;
-+	unsigned long flags;
-+	u32 cfg;
-+
-+	/* No hardware flow control or mark/space parity support */
-+	termios->c_cflag &= ~(CRTSCTS | CMSPAR);
-+
-+	baud = uart_get_baud_rate(port, termios, old,
-+				  DIV_ROUND_UP(port->uartclk, CS75XX_UART_DIV_MAX),
-+				  port->uartclk / CS75XX_UART_DIV_MIN);
-+	div = DIV_ROUND_CLOSEST(port->uartclk, baud);
-+
-+	cfg = FIELD_PREP(CS75XX_UART_CFG_BAUD, div) | CS75XX_UART_CFG_EN |
-+	      CS75XX_UART_CFG_RX_EN | CS75XX_UART_CFG_TX_EN;
-+	cfg |= FIELD_PREP(CS75XX_UART_CFG_CHAR,
-+			  tty_get_char_size(termios->c_cflag) - 5);
-+	if (termios->c_cflag & CSTOPB)
-+		cfg |= CS75XX_UART_CFG_STOP_2BIT;
-+	if (termios->c_cflag & PARENB) {
-+		cfg |= CS75XX_UART_CFG_PARITY_EN;
-+		if (!(termios->c_cflag & PARODD))
-+			cfg |= CS75XX_UART_CFG_PARITY_EVEN;
++		return chunk_len;
 +	}
 +
-+	uart_port_lock_irqsave(port, &flags);
++	rtk_spi_read_mode(host, op);
++	chunk_len = min_t(size_t, len, SFC_DMA_MAX_LEN);
++	ret = rtk_spi_dma_transfer(host, addr, chunk_len, true);
++	if (ret) {
++		dev_err(host->dev, "DMA read transfer failed: %d\n", ret);
++		return ret;
++	}
 +
-+	port->ignore_status_mask = 0;
-+	if (!(termios->c_cflag & CREAD))
-+		port->ignore_status_mask |= CS75XX_UART_RXDAT_VALID;
++	memcpy(buf, host->buffer, chunk_len);
 +
-+	uart_update_timeout(port, termios->c_cflag, baud);
-+
-+	writel(cfg, port->membase + CS75XX_UART_CFG);
-+	/* Sample the received bits in the middle of the bit time */
-+	writel(div / 2, port->membase + CS75XX_UART_RX_SAMPLE);
-+
-+	uart_port_unlock_irqrestore(port, flags);
-+
-+	if (tty_termios_baud_rate(termios))
-+		tty_termios_encode_baud_rate(termios, baud, baud);
++	return chunk_len;
 +}
 +
-+static const char *cs75xx_uart_type(struct uart_port *port)
++static ssize_t rtk_spi_dirmap_write(struct spi_mem_dirmap_desc *desc,
++				    u64 offs, size_t len, const void *buf)
 +{
-+	return port->type == PORT_GENERIC ? "CS75XX" : NULL;
++	struct rtk_spi_host *host = spi_controller_get_devdata(desc->mem->spi->controller);
++	const struct spi_mem_op *op = desc->info.op_tmpl;
++	loff_t addr = desc->info.offset + offs;
++	size_t chunk_len;
++	int ret = 0;
++
++	rtk_spi_enable_auto_write(host);
++	rtk_spi_write_mode(host, op);
++
++	/*
++	 * Handle unaligned address bytes at the beginning of the write operation.
++	 * The hardware requires 4-byte alignment for DMA transfers.
++	 */
++	if (addr & 0x3) {
++		chunk_len = min_t(size_t, 4 - (addr & 0x3), len);
++		ret = rtk_spi_byte_transfer(host, addr, chunk_len, (u8 *)buf, false);
++
++		goto out;
++	}
++
++	chunk_len = min_t(size_t, len, SFC_DMA_MAX_LEN);
++
++	memcpy(host->buffer, buf, chunk_len);
++
++	ret = rtk_spi_dma_transfer(host, addr, chunk_len, false);
++	if (ret)
++		dev_err(host->dev, "DMA write transfer failed: %d\n", ret);
++
++out:
++	rtk_spi_disable_auto_write(host);
++
++	return ret < 0 ? ret : chunk_len;
 +}
 +
-+static void cs75xx_uart_release_port(struct uart_port *port)
-+{
-+}
-+
-+static int cs75xx_uart_request_port(struct uart_port *port)
-+{
-+	return 0;
-+}
-+
-+static void cs75xx_uart_config_port(struct uart_port *port, int flags)
-+{
-+	if (flags & UART_CONFIG_TYPE)
-+		port->type = PORT_GENERIC;
-+}
-+
-+static int cs75xx_uart_verify_port(struct uart_port *port,
-+				   struct serial_struct *serinfo)
-+{
-+	if (serinfo->type != PORT_UNKNOWN && serinfo->type != PORT_GENERIC)
-+		return -EINVAL;
-+	if (serinfo->irq != port->irq)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_CONSOLE_POLL
-+static int cs75xx_uart_poll_get_char(struct uart_port *port)
-+{
-+	if (readl(port->membase + CS75XX_UART_INFO) & CS75XX_UART_INFO_RX_EMPTY)
-+		return NO_POLL_CHAR;
-+
-+	return FIELD_GET(CS75XX_UART_RXDAT_DATA,
-+			 readl(port->membase + CS75XX_UART_RXDAT));
-+}
-+
-+static void cs75xx_uart_poll_put_char(struct uart_port *port, unsigned char c)
-+{
-+	cs75xx_uart_putchar(port, c);
-+}
-+#endif
-+
-+static const struct uart_ops cs75xx_uart_ops = {
-+	.tx_empty	= cs75xx_uart_tx_empty,
-+	.set_mctrl	= cs75xx_uart_set_mctrl,
-+	.get_mctrl	= cs75xx_uart_get_mctrl,
-+	.stop_tx	= cs75xx_uart_stop_tx,
-+	.start_tx	= cs75xx_uart_start_tx,
-+	.stop_rx	= cs75xx_uart_stop_rx,
-+	.break_ctl	= cs75xx_uart_break_ctl,
-+	.startup	= cs75xx_uart_startup,
-+	.shutdown	= cs75xx_uart_shutdown,
-+	.set_termios	= cs75xx_uart_set_termios,
-+	.type		= cs75xx_uart_type,
-+	.release_port	= cs75xx_uart_release_port,
-+	.request_port	= cs75xx_uart_request_port,
-+	.config_port	= cs75xx_uart_config_port,
-+	.verify_port	= cs75xx_uart_verify_port,
-+#ifdef CONFIG_CONSOLE_POLL
-+	.poll_get_char	= cs75xx_uart_poll_get_char,
-+	.poll_put_char	= cs75xx_uart_poll_put_char,
-+#endif
++static const struct spi_controller_mem_ops rtk_spi_mem_ops = {
++	.supports_op = rtk_spi_supports_op,
++	.exec_op = rtk_spi_exec_op,
++	.dirmap_create = rtk_spi_dirmap_create,
++	.dirmap_read = rtk_spi_dirmap_read,
++	.dirmap_write = rtk_spi_dirmap_write,
 +};
 +
-+#ifdef CONFIG_SERIAL_CS75XX_CONSOLE
-+static void cs75xx_uart_console_write(struct console *co, const char *s,
-+				      unsigned int count)
-+{
-+	struct uart_port *port = &cs75xx_uart_ports[co->index]->port;
-+	unsigned long flags;
-+	bool locked = true;
-+	u32 ie, info;
-+
-+	if (oops_in_progress)
-+		locked = uart_port_trylock_irqsave(port, &flags);
-+	else
-+		uart_port_lock_irqsave(port, &flags);
-+
-+	ie = readl(port->membase + CS75XX_UART_IE);
-+	writel(ie & ~CS75XX_UART_IRQ_TX_EMPTY, port->membase + CS75XX_UART_IE);
-+
-+	uart_console_write(port, s, count, cs75xx_uart_putchar);
-+
-+	readl_poll_timeout_atomic(port->membase + CS75XX_UART_INFO, info,
-+				  info & CS75XX_UART_INFO_TX_EMPTY, 1,
-+				  CS75XX_UART_POLL_TIMEOUT_US);
-+	writel(ie, port->membase + CS75XX_UART_IE);
-+
-+	if (locked)
-+		uart_port_unlock_irqrestore(port, flags);
-+}
-+
-+static int __init cs75xx_uart_console_setup(struct console *co, char *options)
-+{
-+	struct cs75xx_uart_port *up;
-+	int baud = 115200;
-+	int bits = 8;
-+	int parity = 'n';
-+	int flow = 'n';
-+
-+	if (co->index < 0 || co->index >= CS75XX_UART_NR_PORTS)
-+		return -ENODEV;
-+
-+	up = cs75xx_uart_ports[co->index];
-+	if (!up)
-+		return -ENODEV;
-+
-+	if (options)
-+		uart_parse_options(options, &baud, &parity, &bits, &flow);
-+
-+	return uart_set_options(&up->port, co, baud, parity, bits, flow);
-+}
-+
-+static struct uart_driver cs75xx_uart_driver;
-+
-+static struct console cs75xx_uart_console = {
-+	.name	= "ttyCS",
-+	.write	= cs75xx_uart_console_write,
-+	.device	= uart_console_device,
-+	.setup	= cs75xx_uart_console_setup,
-+	.flags	= CON_PRINTBUFFER,
-+	.index	= -1,
-+	.data	= &cs75xx_uart_driver,
-+};
-+
-+static void cs75xx_uart_earlycon_write(struct console *co, const char *s,
-+				       unsigned int count)
-+{
-+	struct earlycon_device *dev = co->data;
-+
-+	uart_console_write(&dev->port, s, count, cs75xx_uart_putchar);
-+}
-+
-+static int __init cs75xx_uart_earlycon_setup(struct earlycon_device *dev,
-+					     const char *options)
-+{
-+	if (!dev->port.membase)
-+		return -ENODEV;
-+
-+	dev->con->write = cs75xx_uart_earlycon_write;
-+
-+	return 0;
-+}
-+
-+OF_EARLYCON_DECLARE(cs75xx, "cortina,cs7542-uart", cs75xx_uart_earlycon_setup);
-+
-+#define CS75XX_UART_CONSOLE	(&cs75xx_uart_console)
-+#else
-+#define CS75XX_UART_CONSOLE	NULL
-+#endif
-+
-+static struct uart_driver cs75xx_uart_driver = {
-+	.owner		= THIS_MODULE,
-+	.driver_name	= "cs75xx-uart",
-+	.dev_name	= "ttyCS",
-+	.nr		= CS75XX_UART_NR_PORTS,
-+	.cons		= CS75XX_UART_CONSOLE,
-+};
-+
-+static int cs75xx_uart_probe(struct platform_device *pdev)
++static int rtk_spi_probe(struct platform_device *pdev)
 +{
 +	struct device *dev = &pdev->dev;
-+	struct cs75xx_uart_port *up;
-+	struct uart_port *port;
++	struct spi_controller *ctrl;
++	struct rtk_spi_host *host;
 +	struct resource *res;
-+	int id, ret;
-+
-+	id = of_alias_get_id(dev->of_node, "serial");
-+	if (id < 0) {
-+		for (id = 0; id < CS75XX_UART_NR_PORTS; id++)
-+			if (!cs75xx_uart_ports[id])
-+				break;
-+	}
-+	if (id >= CS75XX_UART_NR_PORTS)
-+		return dev_err_probe(dev, -EINVAL, "invalid port index %d\n", id);
-+	if (cs75xx_uart_ports[id])
-+		return dev_err_probe(dev, -EBUSY, "port %d already in use\n", id);
-+
-+	up = devm_kzalloc(dev, sizeof(*up), GFP_KERNEL);
-+	if (!up)
-+		return -ENOMEM;
-+
-+	port = &up->port;
-+
-+	port->membase = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(port->membase))
-+		return PTR_ERR(port->membase);
-+
-+	port->irq = platform_get_irq(pdev, 0);
-+	if (port->irq < 0)
-+		return port->irq;
-+
-+	up->clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(up->clk))
-+		return dev_err_probe(dev, PTR_ERR(up->clk), "failed to get clock\n");
-+
-+	port->uartclk = clk_get_rate(up->clk);
-+	if (!port->uartclk)
-+		return dev_err_probe(dev, -EINVAL, "clock rate is zero\n");
-+
-+	port->dev = dev;
-+	port->mapbase = res->start;
-+	port->mapsize = resource_size(res);
-+	port->iotype = UPIO_MEM32;
-+	port->ops = &cs75xx_uart_ops;
-+	port->line = id;
-+	port->fifosize = CS75XX_UART_FIFO_SIZE;
-+	port->flags = UPF_BOOT_AUTOCONF;
-+	port->has_sysrq = IS_ENABLED(CONFIG_SERIAL_CS75XX_CONSOLE);
-+
-+	cs75xx_uart_ports[id] = up;
-+	platform_set_drvdata(pdev, up);
-+
-+	ret = uart_add_one_port(&cs75xx_uart_driver, port);
-+	if (ret) {
-+		cs75xx_uart_ports[id] = NULL;
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void cs75xx_uart_remove(struct platform_device *pdev)
-+{
-+	struct cs75xx_uart_port *up = platform_get_drvdata(pdev);
-+
-+	uart_remove_one_port(&cs75xx_uart_driver, &up->port);
-+	cs75xx_uart_ports[up->port.line] = NULL;
-+}
-+
-+static const struct of_device_id cs75xx_uart_of_match[] = {
-+	{ .compatible = "cortina,cs7542-uart" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, cs75xx_uart_of_match);
-+
-+static struct platform_driver cs75xx_uart_platform_driver = {
-+	.probe	= cs75xx_uart_probe,
-+	.remove	= cs75xx_uart_remove,
-+	.driver	= {
-+		.name		= "cs75xx-uart",
-+		.of_match_table	= cs75xx_uart_of_match,
-+	},
-+};
-+
-+static int __init cs75xx_uart_init(void)
-+{
 +	int ret;
 +
-+	ret = uart_register_driver(&cs75xx_uart_driver);
++	ctrl = devm_spi_alloc_host(dev, sizeof(*host));
++	if (!ctrl)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, ctrl);
++	host = spi_controller_get_devdata(ctrl);
++	host->dev = dev;
++
++	host->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(host->clk))
++		return PTR_ERR(host->clk);
++
++	host->rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
++	if (IS_ERR(host->rstc))
++		return PTR_ERR(host->rstc);
++
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(35));
++	if (ret) {
++		dev_err(dev, "Failed to set dma mask\n");
++		return ret;
++	}
++
++	host->buffer = dmam_alloc_coherent(dev, SFC_DMA_MAX_LEN,
++					   &host->dma_buffer, GFP_KERNEL);
++	if (!host->buffer)
++		return  -ENOMEM;
++
++	host->regbase = devm_platform_ioremap_resource_byname(pdev, "ctrl");
++	if (IS_ERR(host->regbase))
++		return PTR_ERR(host->regbase);
++
++	host->mdbase = devm_platform_ioremap_resource_byname(pdev, "dma");
++	if (IS_ERR(host->mdbase))
++		return PTR_ERR(host->mdbase);
++
++	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dirmap");
++	host->iobase = devm_ioremap_resource(dev, res);
++	if (IS_ERR(host->iobase))
++		return PTR_ERR(host->iobase);
++
++	host->dirmap_size = resource_size(res);
++	host->flash_phys_base = res->start;
++	host->is_4byte = false;
++
++	ret = clk_prepare_enable(host->clk);
 +	if (ret)
 +		return ret;
 +
-+	ret = platform_driver_register(&cs75xx_uart_platform_driver);
-+	if (ret)
-+		uart_unregister_driver(&cs75xx_uart_driver);
++	ret = reset_control_assert(host->rstc);
++	usleep_range(10, 20);
++	ret = reset_control_deassert(host->rstc);
++
++	rtk_spi_init(host);
++
++	pm_runtime_set_autosuspend_delay(dev, SFC_AUTOSUSPEND_TIMEOUT);
++	pm_runtime_use_autosuspend(dev);
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_get_noresume(dev);
++
++	ctrl->mode_bits = SPI_RX_DUAL | SPI_TX_DUAL;
++	ctrl->bus_num = -1;
++	ctrl->mem_ops = &rtk_spi_mem_ops;
++	ctrl->num_chipselect = 1;
++	ctrl->auto_runtime_pm = true;
++
++	ret = spi_register_controller(ctrl);
++	if (ret < 0) {
++		dev_err(dev, "failed to register controller\n");
++		goto err_pm_disable;
++	}
++
++	pm_runtime_put_autosuspend(dev);
++
++	return 0;
++
++err_pm_disable:
++	pm_runtime_put_noidle(dev);
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++	reset_control_assert(host->rstc);
++	clk_disable_unprepare(host->clk);
 +
 +	return ret;
 +}
-+module_init(cs75xx_uart_init);
 +
-+static void __exit cs75xx_uart_exit(void)
++static void rtk_spi_remove(struct platform_device *pdev)
 +{
-+	platform_driver_unregister(&cs75xx_uart_platform_driver);
-+	uart_unregister_driver(&cs75xx_uart_driver);
-+}
-+module_exit(cs75xx_uart_exit);
++	struct spi_controller *ctrl = platform_get_drvdata(pdev);
++	struct rtk_spi_host *host = spi_controller_get_devdata(ctrl);
++	struct device *dev = &pdev->dev;
 +
-+MODULE_DESCRIPTION("Cortina Systems CS75xx UART driver");
++	spi_unregister_controller(ctrl);
++
++	if (pm_runtime_resume_and_get(dev) < 0)
++		dev_warn(dev, "Failed to resume device during remove\n");
++
++	pm_runtime_put_noidle(dev);
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++	reset_control_assert(host->rstc);
++	clk_disable_unprepare(host->clk);
++}
++
++static const struct of_device_id rtk_spi_dt_ids[] = {
++	{ .compatible = "realtek,rtd1625-nor" },
++	{ /* sentinel */ }
++};
++
++MODULE_DEVICE_TABLE(of, rtk_spi_dt_ids);
++
++static int rtk_spi_runtime_suspend(struct device *dev)
++{
++	struct spi_controller *ctlr = dev_get_drvdata(dev);
++	struct rtk_spi_host *host = spi_controller_get_devdata(ctlr);
++
++	reset_control_assert(host->rstc);
++
++	clk_disable_unprepare(host->clk);
++
++	return 0;
++}
++
++static int rtk_spi_runtime_resume(struct device *dev)
++{
++	struct spi_controller *ctlr = dev_get_drvdata(dev);
++	struct rtk_spi_host *host = spi_controller_get_devdata(ctlr);
++	int ret;
++
++	ret = clk_prepare_enable(host->clk);
++	if (ret < 0) {
++		dev_err(dev, "clk_prepare_enable failed: %d\n", ret);
++		return ret;
++	}
++
++	reset_control_assert(host->rstc);
++	usleep_range(10, 20);
++	reset_control_deassert(host->rstc);
++
++	rtk_spi_init(host);
++
++	return 0;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(rtk_spi_pm_ops, rtk_spi_runtime_suspend,
++				 rtk_spi_runtime_resume, NULL);
++
++static struct platform_driver rtk_spi_driver = {
++	.driver = {
++		.name = "rtk-spi-nor",
++		.of_match_table = rtk_spi_dt_ids,
++		.pm = pm_ptr(&rtk_spi_pm_ops),
++	},
++	.probe	= rtk_spi_probe,
++	.remove	= rtk_spi_remove,
++};
++module_platform_driver(rtk_spi_driver);
++
++MODULE_DESCRIPTION("Realtek SPI Nor Controller Driver");
++MODULE_AUTHOR("Jyan Chou <jyanchou@realtek.com>");
 +MODULE_LICENSE("GPL");
-
 -- 
-2.53.0
-
+2.43.0
 
