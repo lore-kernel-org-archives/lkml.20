@@ -1,190 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A865221DC;
-	Wed, 30 Sep 2026 17:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416A04DDB2B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789393; cv=none; b=qqy6VtSE9Ae8pC6q3+5WLNr4ctTXzlypl1nChZYzaML6QKpPsnICkVjujbXEerTrmBSowG9xsDVepBr/AT5u167JP5xM7JJTfhwjeApEI3FVkDcL6ZUD9tmxwPXJoDx0S8F3LCfe/W3OcwCuwO3dpR3MyphMAy7puVUTJjYD1EA=
+	t=1790789397; cv=none; b=JgCjEFW9/5BlLATHgQRGksn5Cg2AXWNcZ00tBDPj51LL/JwXybjSUKuN+CpDAo7cbepGBnwUkgjgBID0uJc0aFrDnXWqzeez0Nsc/WoPh0mWIIHyZLIRhEwsbhDvcK6P1ag8xTyO12KhpbcDJG5pnMJbdy7HhzWOU1lD9oEq3zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789393; c=relaxed/simple;
-	bh=MbHv1jFpCn+3FsJ0u3y1P7k+YG8H8dmE+kGy4RJfb0g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NThk10XpBo4a+ffL6msf0YxUHMyZTBe/XfAweueVSm9Mzc1UxoGCCs7oUUn+fRV890B/xLnUW4UTexwQcslGMdRcOuJRbpObuaDgK1mr7Gydcu/mzX4stkSZsoTecPOsXZpL/3GJ1qAn9yztR5tt9sHYdsyLfcYdJbiXuJkEaSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cokwsYrk; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790789397; c=relaxed/simple;
+	bh=9G+nYPZjxZp3+BWo+24LXSiLH/Q41rJWQIgoU1NEh0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=L0b0YDPMRBaur888P+UgudJ/g1ukEWSW/Q4outuoz4BI+LPR54p0o2ks4gNLWVdJBOKtec/TJ1JVdeGVXEAmTsnSUs35l59oOivqWW/chUJD0+MF4J4OHFDKzYJ7pPfuFGZuWYtfXTrh3/j9KPeEa9uSNbgg6MH8MkfKT25ccmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCb0aqVf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cokwsYrk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790789392; x=1822325392;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=MbHv1jFpCn+3FsJ0u3y1P7k+YG8H8dmE+kGy4RJfb0g=;
-  b=cokwsYrkdC7p9pGB2twg2ehhSa4v/e0d+1/WmFyHyEbfbF32hP1Zrq1J
-   SxaIUyQyFqdQdvnE0tfDcCQ6sRldERVRAlnYAJEEq8JWZp0z6MXLW766h
-   lVG/OVQ1mqZA15BJ7VwqemJTAGX6W4PPylbL8gRFSXgBVNtXDWAPkQNQe
-   5LHKofDx/Mezl9I4CIUfexBB9JSQHC8PgwkjlxeJQSXd14spzpYMlbr1h
-   cDHVT52rh5bjZro0zXfBoniHsxRz52Bb0P7csJ/orK7eHwZ6fFHvnkEmi
-   BHa1gCzGAr2bihXr6l3naPW343YB9SlEslf24MDDPj3rTM6JRccKWlDf8
-   w==;
-X-CSE-ConnectionGUID: 3uiSU8o5Qv+CQpn4AmUs2Q==
-X-CSE-MsgGUID: RBT5dR3DSDOrnGSG0+XE9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91632090"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="91632090"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:36 -0700
-X-CSE-ConnectionGUID: 7f/HMfraRXe0w5yGVpEczQ==
-X-CSE-MsgGUID: PVfpLj3VTTqGgDMlZSwneA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="278959444"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:35 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 19/20] platform/x86/intel/tpmi: Declare the loop counters in their loops
-Date: Wed, 30 Sep 2026 10:29:16 -0700
-Message-ID: <20260930172918.743656-20-sathyanarayanan.kuppuswamy@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCb0aqVf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC32F1F00898;
+	Wed, 30 Sep 2026 17:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790789395;
+	bh=PvWXeraGZiHbRwjvDC9z3e0BfGI6FY/Vde4KI8u/Vmk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jCb0aqVfcdk14HyQOfMfZKhLxziLYFZ/LlemyU3K0hGq1/UA0vDYikflrmL3hy4No
+	 qcSCtfcHktL6LQn/kXKQtofDa9mOCGsNBmJIkw71Tn3wrXQPV8qDgVFIeTAT/CNDgr
+	 Q79bzPcwvqL+IJcCTqmuHZVRvQin9n/HiATpvm4vKsIp4BKNY7QsPmHu13HXLA7Ou1
+	 dtUjcdtPUILpFhYr8lkaAlg/4dA+IILKdsktCeJvT7AVuGorp81/66uMnloP8ukLEa
+	 B/V3B3U9dSyZqMeOCWLi638qFUB4U3vtSnHw9hdP2sdfj9AkhZv5gXhAsVLCCP+Hpt
+	 +A8ITlIhgBe9g==
+Date: Wed, 30 Sep 2026 18:29:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Bence =?UTF-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Conor Dooley
+ <conor@kernel.org>, Yicong Yang <yangyicong@hisilicon.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] cache: Make cpu_cache_invalidate_memregion() error
+ out if there are no handlers
+Message-ID: <20260930182951.053efb56@jic23-hlaptop>
+In-Reply-To: <3ce86981-ee64-4cda-8699-3c010ff496ba@arm.com>
+References: <20260922-cci_enxio-v1-0-00bade212729@arm.com>
+	<20260922-cci_enxio-v1-1-00bade212729@arm.com>
+	<20260922191808.b82fa138c8bc80a1285e8ba4@linux-foundation.org>
+	<a5456d59-aad5-40cc-ac89-5c0c113b560a@arm.com>
+	<20260923183141.5a9b9c44@jic23-hlaptop>
+	<3ce86981-ee64-4cda-8699-3c010ff496ba@arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Declare the loop counters in the for statements that use them, so that
-they are scoped to their loops.
+> >>
+> >> [1]
+> >> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/cxl/core/region.c#L242
+> >> [2]
+> >> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/nvdimm/region_devs.c#L93
+> >> [3]
+> >> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/nvdimm/region.c#L113
+> >> [4]
+> >> https://elixir.bootlin.com/linux/v7.3-rc3/source/arch/x86/mm/pat/set_memory.c#L372
+> >>
+> >> Bence  
+> >   
+> 
+> So the consensus is that my hunch was correct, and this is something to 
+> address? Should I resubmit this patch as non-RFC then?
+> 
+yes
 
-In tpmi_create_device() this also replaces the tmp cursor, which moved
-in step with the counter, with res[i].
-
-No functional change intended.
-
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
----
- drivers/platform/x86/intel/tpmi_common.c | 26 +++++++++++-------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/platform/x86/intel/tpmi_common.c b/drivers/platform/x86/intel/tpmi_common.c
-index 91d8083fecc0..52d843501020 100644
---- a/drivers/platform/x86/intel/tpmi_common.c
-+++ b/drivers/platform/x86/intel/tpmi_common.c
-@@ -359,11 +359,11 @@ static int tpmi_pfs_dbg_show(struct seq_file *s, void *unused)
- 	int locked, disabled, read_blocked, write_blocked;
- 	struct tpmi_feature_state feature_state;
- 	struct intel_tpmi_pm_feature *pfs;
--	int ret, i;
-+	int ret;
- 
- 	seq_printf(s, "tpmi PFS start offset 0x:%llx\n", tpmi_info->pfs_start);
- 	seq_puts(s, "tpmi_id\t\tentries\t\tsize\t\tcap_offset\tattribute\tvsec_offset\tlocked\tdisabled\tread_blocked\twrite_blocked\n");
--	for (i = 0; i < tpmi_info->feature_count; ++i) {
-+	for (int i = 0; i < tpmi_info->feature_count; ++i) {
- 		pfs = &tpmi_info->tpmi_features[i];
- 		ret = tpmi_read_feature_status(tpmi_info, pfs->pfs_header.tpmi_id, &feature_state);
- 		if (ret) {
-@@ -395,7 +395,6 @@ static int tpmi_mem_dump_show(struct seq_file *s, void *unused)
- 	size_t row_size = MEM_DUMP_COLUMN_COUNT * sizeof(u32);
- 	struct intel_tpmi_pm_feature *pfs = s->private;
- 	void __iomem *mem;
--	int count;
- 	u32 size;
- 	u64 off;
- 
-@@ -411,7 +410,7 @@ static int tpmi_mem_dump_show(struct seq_file *s, void *unused)
- 
- 	guard(mutex)(&tpmi_dev_lock);
- 
--	for (count = 0; count < pfs->pfs_header.num_entries; ++count) {
-+	for (int count = 0; count < pfs->pfs_header.num_entries; ++count) {
- 		seq_printf(s, "TPMI Instance:%d offset:0x%llx\n", count, off);
- 
- 		mem = ioremap(off, size);
-@@ -490,14 +489,13 @@ DEFINE_SHOW_STORE_ATTRIBUTE(mem_write);
- static void tpmi_dbgfs_register(struct intel_tpmi_info *tpmi_info)
- {
- 	char name[64];
--	int i;
- 
- 	scnprintf(name, sizeof(name), "tpmi-%s", dev_name(tpmi_info->parent));
- 	tpmi_info->dbgfs_dir = debugfs_create_dir(name, NULL);
- 
- 	debugfs_create_file("pfs_dump", 0444, tpmi_info->dbgfs_dir, tpmi_info, &tpmi_pfs_dbg_fops);
- 
--	for (i = 0; i < tpmi_info->feature_count; ++i) {
-+	for (int i = 0; i < tpmi_info->feature_count; ++i) {
- 		struct intel_tpmi_pm_feature *pfs;
- 		struct dentry *dir;
- 
-@@ -554,9 +552,9 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- {
- 	struct intel_vsec_device *feature_vsec_dev;
- 	struct tpmi_feature_state feature_state;
--	struct resource *res, *tmp;
-+	struct resource *res;
- 	const char *name;
--	int i, ret;
-+	int ret;
- 
- 	ret = tpmi_read_feature_status(tpmi_info, pfs->pfs_header.tpmi_id, &feature_state);
- 	if (ret)
-@@ -580,10 +578,10 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- 	feature_vsec_dev->num_resources = pfs->pfs_header.num_entries;
- 	res = feature_vsec_dev->resource;
- 
--	for (i = 0, tmp = res; i < pfs->pfs_header.num_entries; i++, tmp++) {
-+	for (int i = 0; i < pfs->pfs_header.num_entries; i++) {
- 		u64 entry_size_bytes = pfs->pfs_header.entry_size * sizeof(u32);
- 
--		*tmp = DEFINE_RES_MEM(pfs->vsec_offset + entry_size_bytes * i, entry_size_bytes);
-+		res[i] = DEFINE_RES_MEM(pfs->vsec_offset + entry_size_bytes * i, entry_size_bytes);
- 	}
- 
- 	feature_vsec_dev->dev = tpmi_info->parent;
-@@ -605,9 +603,9 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- 
- static int tpmi_create_devices(struct intel_tpmi_info *tpmi_info)
- {
--	int ret, i;
-+	int ret;
- 
--	for (i = 0; i < tpmi_info->feature_count; i++) {
-+	for (int i = 0; i < tpmi_info->feature_count; i++) {
- 		ret = tpmi_create_device(tpmi_info, &tpmi_info->tpmi_features[i],
- 					 tpmi_info->pfs_start);
- 		/*
-@@ -701,7 +699,7 @@ int intel_tpmi_init(struct intel_tpmi_info *tpmi_info, struct device *tpmi_dev,
- {
- 	struct pci_dev *pci_dev = dev_is_pci(parent) ? to_pci_dev(parent) : NULL;
- 	u64 pfs_start = 0;
--	int ret, i;
-+	int ret;
- 
- 	tpmi_info->tpmi_dev = tpmi_dev;
- 	tpmi_info->parent = parent;
-@@ -722,7 +720,7 @@ int intel_tpmi_init(struct intel_tpmi_info *tpmi_info, struct device *tpmi_dev,
- 	if (!tpmi_info->tpmi_features)
- 		return -ENOMEM;
- 
--	for (i = 0; i < tpmi_info->feature_count; i++) {
-+	for (int i = 0; i < tpmi_info->feature_count; i++) {
- 		struct intel_tpmi_pm_feature *pfs;
- 		struct resource *res;
- 		u64 res_start;
--- 
-2.43.0
+> Bence
 
