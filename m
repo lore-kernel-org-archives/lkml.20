@@ -1,288 +1,208 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7465E471410
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757949; cv=none; b=N8NnYnWYMhXQqW8xo9nBLQqBKTBv8VH30cyQzD5Rsv9ZOwVMYl5DRLTHX5vi2HKXwx3xCnBW6zYDUHbDNy4T4HYreZj9ZZrsCVRGNGWEEWi0vPj2GmikPxtP8m/wR2hb/Obe6AaW0tdDjloGbzrHvdB/yF+JXB9763j/iq3zBsY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757949; c=relaxed/simple;
-	bh=tyUhAZBNcNg45lFRA9Vg88E/IDfDrPp3ysNKbK4ZPN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WF5BZEKEpdZCDBwvI3D+ukFfZnCfRlgyA63Wb8PZSmrHcZUy+FmbG9gAe14974RfJxs+crw9Ts7JtfmvW31eJo/cG+ONJDW+ArdS7FeVdlwzTOD7g5OWj3t4DugkKQOVaLwiaT1P1mnIvQ6GrEanDcUt93ll8T1oyrAQkmu2HH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HE17g0ZU; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC354718CD;
+	Wed, 30 Sep 2026 08:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790757996; cv=fail; b=e4p9FefCnTfynbaczMjLIcIWxnvBLSVefUOYRD7TCJKx5VXFYZesHs1coLsxXjuw4OPYsLltXepSbYiTQB2T7FllRKsuEXus8meCnmnNaheQa85MOi6YepaE43AYTZnZ1Dekqfr9ws4fi4RoY+TLcq5gj++f6oVkKCdWHAGo7ww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790757996; c=relaxed/simple;
+	bh=zu+bNPSzTw4qO/FYgdozGie5ME6YIGfFcvgLwgzuqIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HyNJ6L9LigjTZ+GcjC8JA4LmOOFIUg9i8Jmfo54yNj7Uutoytr4uZJ6AlBGPFfHHzH5zeNhtsMwmaY0v5DRXDgetyrHTtAHIOo3QVJf4m87kQzPsZdte4FiOyylvCI7wvym7OKUV596hIHYVfxm1LNVKdOPKSTk1m5/M8l2eFYY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UhHrbnL7; arc=fail smtp.client-ip=52.101.56.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HE17g0ZU"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48affb828f1so507582f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:45:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790757942; x=1791362742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mF7HlrBlQvO0gfGzj2Av7N0MU2dcxYSnBCQbxi4I9IE=;
-        b=HE17g0ZUm58Ze9VQWYJRA0C7K6D/uR7q6SSVx4qJpZuXrmJaX3ofZF6y8/2u552hPY
-         I4fNgi8Cfhk3x8Uo6myO85S760DkPismc1QbdJzh0dU371botQbsttzqkCXkaE87V+sQ
-         7zySPVRSldjRU76sPDN6lRWkmHZKqsIWcEg66k6VL7fEr6XNBq8QiFenlqP8h8pyNkoE
-         FwGEAQFKqIEfVmIb3QfnojrZ0hXESsUVVcHIYx51cV8CIA1u+t9pEErhj4JeZ1nYVjeX
-         z1Li8aZbFwLp5j8pPrvumu6Qz3//Mz6ESGSbqKcPUZCAajiybmpzj0ur39ku/jIe4nAV
-         ti6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757942; x=1791362742;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mF7HlrBlQvO0gfGzj2Av7N0MU2dcxYSnBCQbxi4I9IE=;
-        b=HT+Xp3NKAZgpAVhCueis3exaIyzoPoZfZjUIAFW7uSYlv7e4DluIwUKw5G/dETOQAa
-         EsItCgMe37KPC0HA/1tj56JM6wXak16YQyCab3fryt4t3lL004cepa6OVPgJ1kBtcDYE
-         rB+I9qqyrvl1UDQlKEgvXxMKvOb0GstAw2ors0pY32mjNlkG8qXf2zWVOdRt75z/zi1H
-         E0im0ZGAk405WY+l8VT2VZvHzDsgMypXryb+h9IVeUoJ5abYsN5fGEx31ispOE2eOyP3
-         7D6o1eEnrTUtUCg6nFOkiH0Mp0qhQegqSaO8OlsqofkYbbmiZCRNteX9zvUG7UPtw36V
-         7irA==
-X-Forwarded-Encrypted: i=1; AKwUvByVKfV9XtYjdwjOXjOWvevCnHLoFbYjspFr//WcmryWiWtYuBaSVeKcodr5Za5QUUyJRvCviLYSiWMfY30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVoh9vEq1w9bTl+mKBFGlcV3nPMu57Ty+THSW4satNUDrbVOfr
-	Ikiy2EpbnzlPt/wmI28mrfwARfsvgVSPqWDdK3/rzsYq6Fg5owZmmPr8
-X-Gm-Gg: AYBFou0yy5wIy5U+b7LZPVnot/JkjwBoFm422VBLI70A2dvkDdxUoq+HvOYyw+NMTWH
-	vkvzqzBKr7y9eDoRh7mCLuz9LB4RX0s6Anm13Y3fXnRxmpvPA7tXQElpTCer9PbeyGWYNsDlMNs
-	5+gXzLgpOxlRcr6vklQ3ULnQ7zsflXnQG9VgeMfY1exGLNCryk2WuAfQnD2kw9xJ4Y82DPjLjYL
-	F612e45o2u2eL3X8nwD5hZyZnqOb//8Rp6b0qArBUmtMWAhSQqFU6e4a97ql2qkcTxZwNLULMWa
-	hhOSa/uN6uUQkMMvvbwZ/GenM2kxbmcN/I3eAJH8eYjqLLE9RR+sifZyROxMkwEyPak4sAuh/g/
-	IWrLpf9gvfLfwRSklNgq3PhQXMQgzy28PVO673Og/j/F4cVJMDYY8xwghUIlSZY0VBXskvmHpl0
-	QvJpi6+P8N9TQAOsyPQgECS+gthWN0R7yS8QFewJ67iBcFjpTaqBE5yy+0wnvZpjUejzXDL3gAG
-	+kqRRTNmySyKANfLTBsPrbh9WPk1WY1wp0=
-X-Received: by 2002:a05:6000:471a:b0:487:b4a:3f54 with SMTP id ffacd0b85a97d-48b024e51dcmr1351463f8f.29.1790757941376;
-        Wed, 30 Sep 2026 01:45:41 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02949f45sm1854526f8f.2.2026.09.30.01.45.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:45:40 -0700 (PDT)
-Date: Wed, 30 Sep 2026 09:45:39 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: <gao.rui@zte.com.cn>
-Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
- <alex@ghiti.fr>, <jiangfeng@kylinos.cn>, <linux-riscv@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <jmontleo@redhat.com>
-Subject: Re: [PATCH v3] riscv: fix strnlen() overflow in Zbb implementation
-Message-ID: <20260930094539.6242e256@pumpkin>
-In-Reply-To: <202609300948576198tT3nfO5VwsTwUw23gA9v@zte.com.cn>
-References: <202609300948576198tT3nfO5VwsTwUw23gA9v@zte.com.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UhHrbnL7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ecrdVZTqdou8Nb3dHLrRB++6fSiO5QW8wkBxgtE13rdOo+JXF7Sm9F9DMhADkt8evARjiTmnjHyQn5GEtWVTBfkqNWZb2NtpFwJj5Oa1QBgIRSjePbgxOA90eRpuJvRQgJ7/pe8w6bRsGUb8hKvsxbAtvYDt4RBYUibQ0j6WDC7sU582pf8gku0oCLnjyRjvuz+U5PrBtpkhgBXO0ymJS8HDs/MjgbqDvyuR8oloQBXnSI3Wd3sx9RgBiZ9W69Nahf5q96kWiBwl0n7gHWlw63TqXdjTttVYdcHkSoXlBqIsVumcP3CS0sNNtkFAguG65zYIB7cikpcOkKLSqN83Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zu+bNPSzTw4qO/FYgdozGie5ME6YIGfFcvgLwgzuqIc=;
+ b=BtxJ0GDCuPIpJ42qYUf+ToT3itb4CYcEtCY3GFoeT7CxxOV7nSQ5aCaQp6n8L74ISHLnCHSU3ilgwJf1uwC8sv6Q+yk3yBQDAi20eHXPb42Qqrh3XcQk01G6j9q0JTjLL6DG/vyJZByH6MBZXS5cuKCo/rBqsFgWgzt3DAT4LMuJHS+Svhvnb6uX7QMLZhGNvrYp+H7Sl+OWYLqktle3QTOqT5za9x59l4wBLd9w3uOZFqQ8llsOlQctgXM3QS42q8GcVSk5VOnHd5hL8cfuZREIwVTl/iA1Ly2cj1+MfwW6KbjqGxYf0y/SFJ9O+1SGVb4c4YMxFcJb3Oj7xPoZ3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zu+bNPSzTw4qO/FYgdozGie5ME6YIGfFcvgLwgzuqIc=;
+ b=UhHrbnL74jbOfUocv2TmclN3fyd1sTiqhT2qeyHkFm4YsKTQJIGmSMFpBDki9DdaGLrUE0kD+JdP9eLrYCQGahCY53gNCqAgvaSesGgzI2cfkmRt8/aJaaJrDQ7wRiBJIepH96zpg49xEyrnVxyYGqmCdojJvlrMSga4uMdInaP3e0RLStG8sMbxUIL7H3Qg5x1ITxuamwOD1vsmfUcdKSmdsbe7BGNVhR3inNamTrkgm32zm7aiCOUnFvNTUAWg48LPIKMLZVPwSVN86m7mHlsd0+SahQJLVWlQwljyqjJFromsNpjWGNzX7M5I8q4/5oWD0aoGxuoMJY+zXshXqw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by PH0PR12MB5606.namprd12.prod.outlook.com (2603:10b6:510:141::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 08:46:18 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 08:46:17 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+Date: Wed, 30 Sep 2026 17:46:01 +0900
+Message-ID: <8pr0OOFrTHeQTZiJatWz_Q@nvidia.com>
+In-Reply-To: <arzDId4Mxryrfa7m@orome>
+References:
+ <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
+ <ary71zC1e-bySLFW@orome> <arzDId4Mxryrfa7m@orome>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0091.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::13) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH0PR12MB5606:EE_
+X-MS-Office365-Filtering-Correlation-Id: e169e84d-c48c-41bd-3f67-08df1ecf4af0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|10070799003|376014|366016|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	DQ44+nDMwRoPHkVaT3bE/PyRco+ZG8zEQlXg+tH3B8BXB/wDADExB+/+njjierCnMv1fM1d1SPywBOOa3lhs6BmW3bZ+Syw4cCssITpT+HsBM3UMArbD1/6aSAOaQQHmCLVSFhuruJNLt67lzgBqVdkaTWv9uaYoXqzYh7Kc5KqF/ifwUeCZR0GwvDi3hton9Ye6gMNG65xnVqxYLayS8QHFEWj0RZIK+b5EaW1VtNpwpdi13RTyYdRrw0H9ESditnCfiSF3oWXwkEF3mbTxYnbrLEl+JULm4nipGt+gpUc3ic+W/LnysCbXTcZv1nqoLuRDr1XQD2PuEsC73/ctuoORkeb1xc2KYdB97cvu1J8wXLsxHRXNG4ZjW/1PfPhFes49VR8lK4YdBl3O2eBq16OCCA438Hba+H88Gp+SM+FKs7fnD/LZ0fnFn76GviLQwMC+aLIH+lyXFNu5csRkf6eNElNoDd+JsDdylvzTqnqGmEV8FUl85Q4oooSbr9nc6BjZzqtwa38J1MSGsFA50RT6s9okZz1gn01zolxMKBhfxREyts1I7xHG3x7s422qwCDclORzT00R36iX5ZRffEThm+7Kw+BBSpMNM7NorDRH1VGnWkkSKQQ+uGXjOeo9hWUoAlFwX91djRYvFEl+LkypCjVN6QZyvKoYk3J7Zzs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(10070799003)(376014)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y09KU0VuRXFyd0pvVlN4QnRCSjF5eWVFT2F4MU94RnZxdkd1Nnhub0JZbmw0?=
+ =?utf-8?B?OFczQTdDNkVlRzE5QThZNkJCMDBTUjgyRVNtYkxndjZQU1R1VlYyNHNQbGZL?=
+ =?utf-8?B?Z3YralZSckd1MUVqd0pOODRwRVFMNjV5UFlFc0FsZ0F1Mk55QWlvV3VxVkhp?=
+ =?utf-8?B?YlRvN05Yc2xBSDd5WFBxcjZobTJUZDVPSTAwR3R0cGFlL2NvQzhxazgzeU9G?=
+ =?utf-8?B?ejhTbk85UFJkYmhtM0tlZUE0ZGw4NXhrbjhxU3A2b0NTL1B3dEMvVlhFQ1FW?=
+ =?utf-8?B?bzZRSDNJcVRBSTROSVhPd0RZVE5yRWYyMFBudVFPQ2NwUy9Xb3FxcEVyNk5N?=
+ =?utf-8?B?QzJtZzV3Qmp3RlJnQjA3a1J2TU1IU3JqL3dOMEpOZnZ3bHd2d2Z4NnhZNDd0?=
+ =?utf-8?B?cjBhenhDSU94N1JVbkJNSlFLYzgyM1N3Q1RHVnp4WUJyRUlFSG1GaEIxUHpR?=
+ =?utf-8?B?eWtITmp1eHMzWWZaR0R6TE15TEVKNnNKdm5wVHpnS1E3aHQrdUh1SVpjVmJh?=
+ =?utf-8?B?cHJRN205YzhNZHNZUWs3K2VFN0RobE1VSGhJR3hHOWxWMVJDODA1eFZUc0pz?=
+ =?utf-8?B?NjMybWlKZjJJZjZWRGtheXlUVTFoZzBSWkE2TWdlQTd1Y08yU0l1a1A5dG5i?=
+ =?utf-8?B?Q2d0b1gvMHlIUkFvR3RNM3RFSmpqMFhUZFFHYkV6TzhPZ01MZUlYRzJ5cmFl?=
+ =?utf-8?B?UFZobUxta2J2TCtObXI2STlLUm1NT2taYmZtaURwaTVSeTRjZUJMS251Qk4y?=
+ =?utf-8?B?M2YwOTJOdDJsd05UREpWVExIdHRSbG16V3pDUTQzendMb3VnSjhhRFZvUzdx?=
+ =?utf-8?B?RTJOYlFUQWRFbSs1Mk5GRkJFbDRXMEJ1dUFFRmFteTVjdnArdTVCL3FFcWNo?=
+ =?utf-8?B?SHZxS2pxeE1vcXM3NTA3Qjcrb2c2eTJOdE8zN3BOWW9ObUROVTBkNFhVZ2VX?=
+ =?utf-8?B?cVpoajRHMWQxZU5nVU9Tb1ZXSS92UWlLNGJORFlDdW43Mm5YZVJGSVh6MUpF?=
+ =?utf-8?B?SnliU2ExY2h0Q1BWcldYR1hIVGpYRkNQd2pPR3d4VFhFRVg3ejJwSEFFMkw2?=
+ =?utf-8?B?M0s0QmRlcU4wT1Z6bWFLQTVucmg3Q1ZxR2RSWjFyOEFxVzBOVW5UVlpRb3FL?=
+ =?utf-8?B?MW9MaU84K1pqa09jak16d1BkNFBSUlpXTjdTd0JUMHpDMnNvek05TzdidGlL?=
+ =?utf-8?B?NWdSczNMelpNYzdQUEZicWVyNlByeHM0bjZ4YlBSYTlqZGNhTGpVQWc4Z1B5?=
+ =?utf-8?B?UVdGalI5bWVjZkFVeGQ5YlN5UE9Na3E2R3YxZEdjcVh3NFczQ1JKczB2aUVr?=
+ =?utf-8?B?YTN6cFk2bENMaUcwU0lGZkRYeGhPWmV6U1VFOG1CT0VoWG04UmJ6dWxmbjA2?=
+ =?utf-8?B?bnBNY0hsOGk0dTNGNkFHY1Mwbi8xWVpsVlFScm5pN1RHNURFamthbzNTVHpE?=
+ =?utf-8?B?emFMNmFhdTgzOVIyR2kzaEtOUTg5WlNydVk2RlBLZlJ1Zk5ZUm5nU0VtN3NO?=
+ =?utf-8?B?NGhNMVlhcmRGWXhGdVBVdHBTQXJHZmpLTEVESUVvRjlYY04ydGlseVZPNEhw?=
+ =?utf-8?B?LzZxN0d1MEVHVy9PSytxaVl0MXFFR2xyYnV6Zlp6WTZZdDQ5UEdHNkdISTlZ?=
+ =?utf-8?B?WEc0NlNTeXQxTGJrdmRQM1FGaFFtRnAxc3JKOFJsR1d5YTNoMnpyMTZ5VWJS?=
+ =?utf-8?B?K3A0L0lsT1JjekdDa25Dc1d3bGFCNVU5TmpDaHYwUDZCZ2VBQ3I0aXA3UnpK?=
+ =?utf-8?B?VjZ5amhsemZRQ3VCV0RLK0dMZUorYUJZVWRnYmdjUUNucm04aWtlV2pSOW9K?=
+ =?utf-8?B?MkZteVkrSlRPc0RuN3NYUjBHWTJLKzZpYWRuOE1adXhFSHJqeUtmN1hUWVRL?=
+ =?utf-8?B?UmpUcFZSMEZTTzlwci9oNVJQcG9EOTM0TGdNbzFKQXB5bjF0a0JTdnRxYTg0?=
+ =?utf-8?B?Kys0RnlaNVY2aEs4L0c5VFhPbHlIM0F4WG8rWnhrNE9kRVp2VkNJWktDSndF?=
+ =?utf-8?B?OG5VM3JRQjVIY3J2QnBvVWJyQmxGZU43ZFUwS3VDQzNFdFVrck1wV0xrL0FB?=
+ =?utf-8?B?d1cvenFwME43RWxodFpGY3dIU1hNTVBjTklFRUlJM2x0bngxZGNNQzZ1aDJt?=
+ =?utf-8?B?RWZjeFQ0SjBqQmtrWVpEMlFSdm1FclhmVnZYYkIwN1B2ek5NVGdQc3VhV3Yr?=
+ =?utf-8?B?WWhnei9GdmsyZjhqRU12NEZVVTRHZ1FhWlMxdUJNWm9VUGFtbE1Bd01IQlRZ?=
+ =?utf-8?B?MXZ2QXl3ZDhyeWFrdUNwRGtJTzNzSUJZVStiYUEwSlFkZm1oYm1YTGlCTi9S?=
+ =?utf-8?B?aGhjcmZnU0duMDFkdzVhMUhXbFpSbmVjamlzNW1SODFUMmc5VDJqeUtSbUhK?=
+ =?utf-8?Q?i1ae213AwsAwOlbC3L9t1L8Iw5CZsI6KbpPgkqnXlXF5b?=
+X-MS-Exchange-AntiSpam-MessageData-1: Bb6QeJbg/Cu3Pw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e169e84d-c48c-41bd-3f67-08df1ecf4af0
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 08:46:17.7229
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gGQdQxs5jpiSpgltO4FoM0SbJ55Qst6iDsaxHhKhdVRtgKaZWLoNoRXjUotXxjEgW3I5xWlmpzEzmCgnQTQ6rQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5606
 
-On Wed, 30 Sep 2026 09:48:57 +0800 (CST)
-<gao.rui@zte.com.cn> wrote:
+On Wednesday, September 30, 2026 5:29=E2=80=AFPM Thierry Reding wrote:
+> On Wed, Sep 30, 2026 at 09:40:51AM +0200, Thierry Reding wrote:
+> > On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
+> > > The DSI driver ignores the reset line if a power domain is configured=
+.
+> > > This was originally added to support Tegra210, where the power domain
+> > > provider has to control the reset line -- at that time, older SoCs
+> > > didn't have a power domain for DSI. Now, however, they do with the co=
+re
+> > > power domain.
+> > >=20
+> > > This happens to work on most systems due to DSI already being out of
+> > > reset when booting the kernel, but on Tegra114 Dalmore, this is not t=
+he
+> > > case and causes the system to hang during boot.
+> > >=20
+> > > Ownership of the reset line is no longer a problem with reset
+> > > acquire/release semantics, so control the DSI reset unconditionally
+> > > from the DSI driver (possibly in addition to the power domain driver)=
+.
+> > > The device tree bindings already require the reset and it is present
+> > > on all platforms, so this is safe to do.
+> >=20
+> > That seems backwards to me. The whole point of doing this via power
+> > domains was because it's explicitly not safe to toggle that reset line
+> > outside of the powergate switching sequence.
 
-> riscv: fix strnlen() overflow in Zbb implementation
-> 
-> The RISC-V Zbb optimized strnlen() implementation can return incorrect
-> results when very large count values are supplied.
-> 
-> The previous implementation calculates an end address based on the
-> input pointer and count. When count is close to SIZE_MAX, the address
-> calculation may overflow, resulting in incorrect termination checks and
-> wrong return values.
-> 
-> This issue was observed while running device-mapper tests:
-> 
-> dmsetup create testname9 --table "0 8 zero"
-> cat /sys/block/dm-*/dm/name
-> dmsetup remove testname9
-> 
-> Rework the Zbb implementation to use a word counter instead of an end
-> address. This removes the dependency on end-address calculations,
-> avoids overflow entirely, and simplifies the termination condition of
-> the word scanning loop. The final length is calculated using the saved
-> original pointer.
-> 
-> Performance was evaluated with string_bench_strnlen:
-> 
-> New Implementation Previous Implementation
-> 
-> len=0 : 71 ns/call 70 ns/call
-> len=1 : 82 ns/call 81 ns/call
-> len=7 : 83 ns/call 81 ns/call
-> len=8 : 83 ns/call 81 ns/call
-> len=16 : 94 ns/call 90 ns/call
-> len=31 : 117 ns/call 113 ns/call
-> len=64 : 175 ns/call 167 ns/call
-> len=127 : 259 ns/call 258 ns/call
-> len=512 : 802 ns/call 833 ns/call
-> len=1024 : 1512 ns/call 1536 ns/call
-> len=3173 : 4581 ns/call 4640 ns/call
-> len=4096 : 6256 ns/call 6068 ns/call
-> 
-> Results show comparable performance to the previous implementation
-> while fixing the overflow issue.
-> 
-> Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
-> Suggested-by: DavidLaight <david.laight.linux@gmail.com>
-> Signed-off-by: Gao Rui <gao.rui@zte.com.cn>
-> 
-> ---
-> v3:
-> - Keep the original register allocation (t0-t4) and numeric labels.
-> - Keep the original comments.
-> - Calculate word count as (remaining - 1) / SZREG + 1, removing the
->   branch from the calculation.
-> v2:
-> - Rework the Zbb implementation to eliminate end-address overflow
->   instead of falling back to the generic path.
-> - Use a decrementing word counter for word scanning.
-> - Run KUnit string tests successfully.
-> - Add string_bench_strnlen benchmark results.
-> ---
->  arch/riscv/lib/strnlen.S | 54 +++++++++++++++++--------------
->  1 file changed, 29 insertions(+), 25 deletions(-)
-> 
-> diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
-> index a8911605c248..000000000000 100644
-> --- a/arch/riscv/lib/strnlen.S
-> +++ b/arch/riscv/lib/strnlen.S
-> @@ -73,6 +73,9 @@
->  	/* If maxlen is 0, return 0. */
->  	beqz	a1, 3f
-> 
-> +	/* Save original pointer for final length calculation. */
-> +	mv	t4, a0
-> +
->  	/* Number of irrelevant bytes in the first word. */
->  	andi	t2, a0, SZREG-1
-> 
-> @@ -82,15 +85,6 @@
->  	li	t3, SZREG
->  	sub	t3, t3, t2
->  	slli	t2, t2, 3
-> -
-> -	/*
-> -	 * Aligned boundary.  Use the address of the last valid byte
-> -	 * (s + count - 1) to avoid loading a word past the count
-> -	 * boundary in the loop below.  count == 0 is handled above.
-> -	 */
-> -	add	t4, a0, a1
-> -	addi	t4, t4, -1
-> -	andi	t4, t4, -SZREG
-> 
->  	/* Get the first word.  */
->  	REG_L	t1, 0(t0)
-> @@ -125,15 +119,26 @@
-> 
->  	bgtu	t3, a0, 2f
-> 
-> -	/* All remaining bytes are in the first word, no loop needed. */
-> -	bgeu	t0, t4, 2f
-> +	/*
-> +	 * Use a word counter to avoid calculating an end address,
-> +	 * which might overflow when count is close to SIZE_MAX.
-> +	 */
-> +	sub	t2, a1, t3
-> +	beqz	t2, 3f
+If you're referring to the MBIST workaround, unless I misremember, it=20
+doesn't mean the reset cannot be used outside the powergate sequence,=20
+just that it has to be used within in.
 
-Is that right?
-The equality check seems wrong.
-Does it work when there are more characters in the first word than
-the caller specified length.
+> >=20
+> > Also, the power domain code paths are supposed to work regardless of
+> > whether the DSI was already out of reset or not. If that's not working
+> > right now, I think that would qualify as a bug in the power domain code
+> > rather than the DSI driver.
+> >=20
+> > Shouldn't this be fixed at the powergate level? My recollection is that
+> > DSI is tightly coupled to the display powergates, though it's been a
+> > long time. Do we maybe need to reflect that in DT? There's a TODO in
+> > tegra114.dtsi that seems to indicate that we're missing DIS and DISB
+> > powergate implementations, so maybe that's where we should start to try
+> > and resolve this.
+>=20
+> Looking at this a bit more, pd_core doesn't seem to make sense for DSI.
+> Basically what that does, semantically, is claim that there's a power
+> domain responsible for powering up and down the device, but in reality
+> it doesn't to squat.
 
-> 
-> -	/* Prepare for the word comparison loop. */
-> -	addi	t2, t0, SZREG
-> +	/* Calculate the word count: count = (remaining - 1) / SZREG + 1 */
-> +	addi	t2, t2, -1
-> +#if defined(CONFIG_64BIT)
-> +	srli	t1, t2, 3
-> +#else
-> +	srli	t1, t2, 2
-> +#endif
-> +	addi	t2, t1, 1
-> +
->  	li	t3, -1
-> 
->  	/*
-> -	 * Our critical loop is 4 instructions and processes data in
-> +	 * Our critical loop is 6 instructions and processes data in
+Doesn't that reasoning apply for every device? Technically, pd_core=20
+corresponds to the core power rail. DSI is powered from it.. we=20
+certainly haven't always had an expectation that the power domain=20
+provider handles resets for the device.
 
-The diff below adds one instruction - I make that 5.
-But the instruction count isn't what really matters, what matters
-is the number of clocks it takes the loop to execute.
+On Tegra114 it looks like DSI indeed is in the DIS domain so that would=20
+handle it, but on Tegra20/Tegra30 that isn't the case (even if those=20
+device seem to be working right now anyway).
 
->  	 * 4 byte or 8 byte chunks.
->  	 */
->  	.p2align 3
-> @@ -141,23 +146,22 @@
->  	REG_L	t1, SZREG(t0)
->  	addi	t0, t0, SZREG
->  	orc.b	t1, t1
-> -	bgeu	t0, t4, 4f
+>=20
+> Does the hang you observe go away if you remove the power-domains
+> property for DSI? pd_core should probably be removed for both display
+> controllers and HDMI as well. Probably also TSEC, though the TRM isn't
+> clear about what power partition that's in (probably DISB because it's
+> used primary for HDMI, which is in DISB as well).
 
-Hasn't that (the old code) just read beyond the end of the buffer
+I'd expect it would go away since the reset code in the driver would=20
+activate then.
 
-> -	beq	t1, t3, 1b
-> +	bne	t1, t3, 4f
-> +	addi	t2, t2, -1
-> +	bnez	t2, 1b
+>=20
+> Thierry
 
-You want to put the 'addi t2, t2, -1' higher up next to the other addi.
-Then simple cpu will execute it while waiting for the read to complete.
-The old code did that - but got it wrong.
-You can do the length check while the cpu is (otherwise) stalled waiting
-for the read. So something like:
-1:	REG_L	t1, SZREG(t0)
-	addi	t0, t0, SZREG
-	addi	t2, t2, -1
-	bnez	t2, 3f
-	orc.b	t1, t1
-	beq	t1, t3, 1b
-2:	// Found a zero
-	...
-	ret
 
-3:	orc.b	t1, t1
-	bne	t1, t3, 2b
-	// No zero
 
-The count (t1) would need to be one lower.
-
-Did you try just subtracting SZREG from the length-left
-and doing an unsigned compare against the original size?
-I think it should work and saves the setup code.
-
-David
-
-> +
-> +	/* Scanned all words without finding NUL, return maxlen. */
-> +	mv	a0, a1
-> +	ret
-> +
->  4:
->  	not	t1, t1
->  	CZ	t1, t1
->  	srli	t1, t1, 3
-> 
-> -	/* Get number of processed bytes. */
-> -	sub	t2, t0, t2
-> -
-> -	/* Add number of characters in the first word.  */
-> -	add	a0, a0, t2
-> -
-> -	/* Add number of characters in the last word.  */
-> +	/* Length = (current - original) + offset in final word. */
-> +	sub	a0, t0, t4
->  	add	a0, a0, t1
-> -
-> -	/* Ensure the final result does not exceed maxlen. */
->  	minu	a0, a0, a1
->  2:
->  	ret
-> --
-> 2.27.0
 
