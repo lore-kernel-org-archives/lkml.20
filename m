@@ -1,82 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AD9493D21;
-	Wed, 30 Sep 2026 10:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494DD48F846;
+	Wed, 30 Sep 2026 10:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764740; cv=none; b=IQxcIlwEITmri3UhRzkfIIihqWrVDUmnEui0iUx3hzOqjdKETExm9L3FDCuelOZA2w8af51ygdk9B4t+/V+y1qjqdWrOMPl+PuVYt7rG3xYCtTwoj9NDrrWgfvWjXNGogsGtGWZiXNPgR26UsjBL6861A4I2ZHjSNHhpW3cFpx4=
+	t=1790764753; cv=none; b=SMAWXg1Y7b22R5jTxVC3sq02YJlJY3PaOppJHpx8iEmpiHuVF7+qg9uUa83Q2Ws0gTP535805CMc7dhDUATFXHGYNJdQAfbSxZx32jjJC1By0rjDnl3sdVE/EPSv8v6hyW5Q/2vSQJ6i+MwYIAHl0/dhvIkphtNO+Kmq/7OgeJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764740; c=relaxed/simple;
-	bh=GV3O/rmVPZO8fyMq9CIMpuM4SABQNGqfp5sQwjDvsjc=;
+	s=arc-20240116; t=1790764753; c=relaxed/simple;
+	bh=rv5gx3fDT9i+N8SB6hWcjTDTpJiTAkjOXQyZwVxvfNA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y6WzbQmgurcMutbeJdCQYVPrPd5gtTc/I6RK9/7gS+gb+gGeWz0Uq7b7sHkGn+b0qPOtMNkR31qJ+ITol1UL+RZ6VxCzts4XlFReK+98ZbdTDfs47I3rnPUi29wqXlclShZqSzQBD3/lex2p/6c/aH98X0XgnazGfv3jYNebydA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iyj8/IOt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WCrvmH/3eaFIXNpIBpU7NRXQFKIfOKXQ4c3MnD1IKtoFqK+VIEw8HQ1Df88Z5D9gjiIJuc4NUGFd9TTjaisvM10sNqR9fv3YEkEwe2yr3nEVrkqpijHdw+TnyooVlZOg769gCHmvYIUqqZRRpqsFwAxzFx9/hpZYeTw/5bPbbTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URdDuFZY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iyj8/IOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1551F000FF;
-	Wed, 30 Sep 2026 10:38:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URdDuFZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA581F000FF;
+	Wed, 30 Sep 2026 10:39:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790764730;
-	bh=Q42sMmac7vKYGCVFrMdhSVkWOijsRMSMvzwOYZNiU4g=;
+	s=k20260515; t=1790764745;
+	bh=tGFtMM2F77TT7uxlHemaNZrtS7chdzgDhP0DLWrj3QE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Iyj8/IOthcCiozVPuAmYxSU+qxe9W3l7Rnu2ibWzZySm0kt6WYVvXmGGRZJn/mxSk
-	 2Uj3+6OOvaA/FpyxtiBudhFjCbFkOuL5/2/7nVCaBFei/pJ553tE6EQ7tNX+xnr05f
-	 uwrzIkdTn4tvZHbrmM4k6bS1nJuvfNygSm7j5IMNdRYH2j8UMwj+Z6eOdaFTbJCgiy
-	 7fYP6qGK9og+2MXyk8PSjx2rvyergNkpOZ86+dPZ8FuCRfI+eXw9ns4JOw4a+fcrKN
-	 LyUtKtJR6ZFs/bOHMR9DuWiK77xEQKrLNahF87S4noE0xE7jFTJyHdlOjhVJs5H73O
-	 x1INh5aIyGlxg==
-Date: Wed, 30 Sep 2026 12:38:47 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sue Wang <suwangquanta@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	joel@jms.id.au, andrew@codeconstruct.com.au, ryan_chen@aspeedtech.com, 
-	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, patrick@stwcx.xyz, 
-	Steward.Shih@quantatw.com, Martin.Peng@quantatw.com, Fred.Zhang@quantatw.com, 
-	p.k.lee@quantatw.com
-Subject: Re: [PATCH v14 1/2] dt-bindings: arm: aspeed: add Meta Ventura board
-Message-ID: <20260930-curious-narwhal-of-calibration-62442d@quoll>
-References: <20260929075106.74731-1-suwangquanta@gmail.com>
- <20260929075106.74731-2-suwangquanta@gmail.com>
+	b=URdDuFZYMOB0KJ3EHnp/XFnKkA5OJRrie0b8tMbQgLKw5iE7YrjBIy1pxZGUlsT4u
+	 WUMueqTDoUT9Nt+yCPXvfKOTBa4Cp+438AM3xfumhShyR92YPfaBtI6k1PRlaxhVpV
+	 Nt1DVku/cbQzVUeLtwuw/1Y1RP30LJc5Ztiu9+3q/vrZ+I3CM6bZt7D84cqrReSSD2
+	 zB8Gq5C9FelfYvXQ20pvn9UDb3BPuUWfyg26VMWYoKLDXwZwXGnyIBrUc+QCJNe6PF
+	 Af03FNTHASTt0NeOs1zYtKFlpw67ugJxCplASx32oK9FsguwRWb3j/yxG6zvQbYurN
+	 khqawdi0AZ1+w==
+Date: Wed, 30 Sep 2026 12:39:03 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <arzmMa0tlhhJ2n78@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-5-clamor95@gmail.com>
+ <arzMjoi2LcyfxCzN@orome>
+ <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mb6amis5vjytdup7"
 Content-Disposition: inline
-In-Reply-To: <20260929075106.74731-2-suwangquanta@gmail.com>
+In-Reply-To: <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
 
-On Tue, Sep 29, 2026 at 03:51:05PM +0800, Sue Wang wrote:
-> Document the new compatibles used on Meta Ventura.
-> 
-> Signed-off-by: Sue Wang <suwangquanta@gmail.com>
 
-Please respect our time. Actually other contributors time as well.
+--mb6amis5vjytdup7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
+MIME-Version: 1.0
 
-<form letter>
-This is a friendly reminder during the review process.
+On Wed, Sep 30, 2026 at 12:02:14PM +0300, Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:48 Th=
+ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Wed, Sep 30, 2026 at 10:05:33AM +0300, Svyatoslav Ryhel wrote:
+> > > The display controller in Tegra20/30 SoCs features an 8-bit SPI inter=
+face
+> > > that closely resembles the MIPI DBI Type B protocol and is referred t=
+o as
+> > > '8-bit CPU'. Each display controller provides two such interfaces, wh=
+ich
+> > > can be used to send MIPI DCS commands to initialize and control the p=
+anel
+> > > while image data is transmitted via 16/18/24-line RGB.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/tegra/Kconfig      |   7 +
+> > >  drivers/gpu/drm/tegra/Makefile     |   1 +
+> > >  drivers/gpu/drm/tegra/cpu-bridge.c | 427 +++++++++++++++++++++++++++=
+++
+> > >  3 files changed, 435 insertions(+)
+> > >  create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
+> >
+> > This doesn't need to be a separate driver. It should all live in dc.c.
+> > Or maybe even rgb.c, since it uses pretty much the same pins and is
+> > quite similar to it.
+> >
+>=20
+> I don't mind moving this to dc or rgb, my intention was to avoid
+> bloating them with smth that is not used often and is present only on
+> Tegra20 and Tegra30.
 
-It looks like you received a tag and forgot to add it.
+I don't think we've ever used rgb beyond Tegra30, so I wouldn't worry
+about that. Even with this integrated into rgb.c, we'll end up with
+around 1000 lines of code in that file, which is still quite manageable.
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
+Thierry
 
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+--mb6amis5vjytdup7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
-Krzysztof
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq85scACgkQ3SOs138+
+s6Gtuw/9FP+6Dk73iUJajgZE7NHK28W/1w8RCo3JUL+muKlehzTvBjzkctjLTRJF
+KjIhpyINwgN1yc+C6m/MpIBh7f1bD6HSfDY2rF0E+CpRh4gvUdVOX8gbCtHjyTRO
+zPZFGJaHjfJkICMU6mtRbdfQ/JEkMBR0b6GJo8Ws93bsnOXVSuhN8Xm9vO6GgQHA
+agtkwliX9oUy4Un82PHCqhcLZrvK2tZ75pcdVwpxeGvTWwEzEutbTafBXXUcShjq
+f3hSw22zFMsXdH4zSh+sw6+TY++ZcfgzipkTDh24AOn4tHd4bTBH7nT6mlo83Ge1
+/TFxTz/+Isq/7IBmQOSe8UXppM7uh6JD2qiPyC2yrijaz89t+k1DSqrUhkBgbRPZ
+MqVqPqACZRh22x3AlvfHVh3L3jVhTTdMwrQeCUVabzoMvoD2BXZCOtyKOYI6NcyK
+VoAXqfhC8q/4BBkCK0DbgWJDwLpC2mmf2xOahvStsV9UUnAhJVOpnVRsB5+BICb+
+akRnpzln4nePAjNWD1RmFvA4XAcR/ASnxqCchp8VLovXb6ViPmaTYIxDQ6ZvSkqz
+p8gkqtHIGPWNEmaCmeOjBFAI5qeyQpf8JGyVxV6aGa6YaOPgMdi1L6psDMLadYKt
+hwibuXj954+zq08AqId5nyBb+RIKDeO65IXEa0modmdB9eUaexQ=
+=OKun
+-----END PGP SIGNATURE-----
 
+--mb6amis5vjytdup7--
