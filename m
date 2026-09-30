@@ -1,97 +1,107 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DED46EF77;
-	Wed, 30 Sep 2026 20:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3D04BD344
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799169; cv=none; b=IDGfGFfARwVjo/eaDOsLlQqWHQ2axcWg8CuJUKdYEIj7FQe+Ey0cYX//d7T/0SSXmXjR/BpxTDcfe5OGPwA5KcG93fmzBEsclvT+pwzSrsLYQ+x2lgO+Lbh6byKGCXYDT9uC2tJneYqm7cQlOqLHf+7xdthILhMqdNa5qwXDH5M=
+	t=1790799177; cv=none; b=pofSVQECVIQgGzsZMIoffsuxR2RmD1CS8LookAYTvzVU/NV9zumUwaXqjWzFSBnJCkhRwDweFNmxBzTO1qZc7DPzW4w6SjAGLkfnWslTkvBGyCA+lgFAqAuQSaWDr35rcWIo6l+BN+eUhFxf8FVBEyU50zPYcKwfI+UUsv7WLDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799169; c=relaxed/simple;
-	bh=sBgF9Y46NI/gU3jT2wUJYG50u/1/RqY7WhqZc5NYaA0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B/bal00Hh3+B+3UFMo/jkb7isxYRVk2LWZTknLBNqamTBSovscwxaapXDpkvhCAtUP+WP8zckFbiPtEE4lXepBuv1b3eldC/du/lAFo24/EXQOxc1OJ2C3kmMc1XPEgUedKkB0NUirW2ll1nV7yYDol36a+Rt+GDrUQBDMDLFC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=drVVsVb3; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790799177; c=relaxed/simple;
+	bh=GIPQqQ+ymggVo/+F0KkO6CV0QlV7pXKADmK7Db59nhQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BfZV2rS78Z9/KAgvSgiAKYc863ox5lC6cJeorDYsaBRVIRqthVUPRQis/KSO/0ciWqTWqObtkErv7WvVoqO+zbu+E1fxehdDAWecw9ZJ0VL7gCdVL4bapxFLUyhmcbDxv5qWmPa4c/UOoRQiOrO/35yAiFa3y+H2NCjc3EZ1Lmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bOsfjaKb; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="drVVsVb3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=fn94tcPxJTTGol27yw+1XT2Fjcn8JLYae+CiyHYbMOY=; t=1790799165;
-	x=1791403965; b=drVVsVb3hmzJdHTwaZjDsbOC5agt/SKDoVZJSYB8D/dh7Gw956B4p+9GAL2kN
-	FsXw/M3dzj++vxH9hCfMgAe4KS9Q4Qe7CzZaP9fMHWYFJI5FxOiFwiIQU1TfF7YRCf6411g9nVMoR
-	PqjCY7Bv5p1f2j9JEaF6FQ6rxWUCpU+H6r6YcfnXq7Kd1zxt0jo2DBH/Y3BeFkW2JTizavZPIiQQs
-	YbhTO//4xsWspKjYM5GmIrRfLI/4yWrQNfqgA15sUofNIhw6dlAR8eOAt04X8hTPxLJelZ0mQ6AAy
-	cxTbpdic8JTnsfkELPnnALLh7BGvfM/h6A9jCyID9G2+m5YGCw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xC0fT-00000001rhF-0oj0; Wed, 30 Sep 2026 22:12:43 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xC0fS-00000001Cht-408o; Wed, 30 Sep 2026 22:12:43 +0200
-Message-ID: <20b7ef8ffa6ebd8903967b66867808a7f4355a70.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some
- optimized AES modes
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Stian Halseth <stian@itx.no>, Eric Biggers <ebiggers@kernel.org>, 
-	linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A
- . Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- sparclinux@vger.kernel.org
-Date: Wed, 30 Sep 2026 22:12:41 +0200
-In-Reply-To: <8d3d3142d1ac323695a3ea2d5b3e2a10d2a129d6.camel@itx.no>
-References: <20260929222752.36427-1-ebiggers@kernel.org>
-		 <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
-		 <1f85bdb9614365fedda81fb649147da48bf7be13.camel@physik.fu-berlin.de>
-		 <25c7a7c7bbe3c7f70fca559867e0883b9e4dc48d.camel@itx.no>
-		 <3ea57d640ac7409fa37b15ec9e3f49126347e432.camel@physik.fu-berlin.de>
-	 <8d3d3142d1ac323695a3ea2d5b3e2a10d2a129d6.camel@itx.no>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bOsfjaKb"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e1195040aso235420166b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:12:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790799174; x=1791403974; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7U6thcsc8Wz1xK8U5Qhc7QgqtaRZtBZlNvbNYRYr/EA=;
+        b=bOsfjaKbQsKkThE3BsyiMcY8Zo1AgOhDvYTeFnWsCO6lYz3tpy9e+yEKyWZwlhxugv
+         lVnm8r76RO/DC32PNU/k8BnF0boinKBlHlb21jA+nBr2WqAUFRC4+/+bNzUxinWuAQGy
+         G2uP1wlUCgPl3k8VbTIPK0V/+CN73GXwvSUo8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790799174; x=1791403974;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7U6thcsc8Wz1xK8U5Qhc7QgqtaRZtBZlNvbNYRYr/EA=;
+        b=neaZjKkwgmu/uPC26QnJJwEG+dOXJnOdKvYvk00Iff6Q6agIq/gZGtXSQFJVqzG/U+
+         Dh+4pfsi5XJcdERSSwowDTiwyD9F5G6tfoyHYXiRxk0T+Ayo8p6mMrHN6d9OTsjGYEUP
+         hk2eD8eWv2BUCzOxrGY8oHi/gLMWyoERJT0OQQ8gFRdOJbTluIUBBetMS6tHgT50T4Js
+         0ihTKPb/66t//iy7F3dZXrk2J1Xk2zUAMh7qWZV2aX6zlG+Gny1dCI9F7DAmS2xO1lUR
+         qq8uMg5l86tmbdBp4Vwd99CbytYpaoMRxRCSDUXvMiH90R9zw6ba1BeVriI8ZuzzYwtO
+         cxGw==
+X-Forwarded-Encrypted: i=1; AKwUvByEBgNNt51eeYnMzWZA5TL7i83H7a9anyfN8OxWN2uFnZtONkYe09yRfy+3gOp67bM7WAppRgaMkVNUoxU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC/O9rdXQ7+ReD07VRMDHS+cSCkY8lcHGzcHsnDvmyl7KTS24M
+	RZB+pLDEsRqURlcGPHqhbqPisNXevcHmU+Usvc+Wib9dFlu2fSIj8pudI+L2Yjj3OVKbvz4CyBv
+	ExkRa8g==
+X-Gm-Gg: AYBFou0fUCpNx7SQlblg6OoHR+OLZY9WpVDEFxz66ygtEO3/gBGTGgYp0Da9OQWZ3uj
+	GJc7hCSJ3jKXTO00olecvpdpUi9FMiro9yRPHStB0yE+bsU/wi9JS+0RktDIi6U9rLNah576cpL
+	jAZJxkQmUj6Xc9s486FM40ZgI9EAkEenlPRSsfT5uYlh542bG3sfSHTQz7XLpwepr6G/YFkcVfP
+	U1yoE1qzLiSWnJzR6Te6gcbWM+NA96nhqrlMwRjCMBPd7qG1xsmWwnvJuo2JRYQjZd4boSkdyFx
+	V/zZPcrTNx2iAyP9QpC12UadJyM9dPvHQ0/7xi3/HtV8nokCa9gWO894Zqj2SfB6xNnPfH5uhS8
+	BlM0DlDdyM96kuY3JU3lgsPhllaDLOHEyMSobKHEPKWINWsl+l4hHNt1jPMwOgSSmLJPKQUvufB
+	BUIXY5hXrYrT903O6YsoANxHYyhJLUKWN8v9G8ZeYDTDT3UT8KwmP3ODvWZkFp32Q665wbZ4W5H
+	1zIGJn+DpVTbZHQYpPL7tWlj+3XQmG/eyEZzIQ=
+X-Received: by 2002:a17:906:6a05:b0:c26:1691:b364 with SMTP id a640c23a62f3a-c2e23d933b8mr215445266b.29.1790799174130;
+        Wed, 30 Sep 2026 13:12:54 -0700 (PDT)
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com. [74.125.225.106])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31a3ab58sm55017366b.7.2026.09.30.13.12.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 13:12:52 -0700 (PDT)
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-48b0622cc90so170920f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:12:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx3SD+FyAe7eYirWor1GecYS7waTZzQM2FJ48UmRkDNgO0rcMG45MaYcsvlJCzn94JmBWbbeE0PJfIFZss=@vger.kernel.org
+X-Received: by 2002:a05:6000:2301:b0:488:89ed:4430 with SMTP id
+ ffacd0b85a97d-48b02522f7bmr5017118f8f.33.1790799171532; Wed, 30 Sep 2026
+ 13:12:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+References: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+ <179045227485.41069.12855843493298872118@gmail.com>
+In-Reply-To: <179045227485.41069.12855843493298872118@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 30 Sep 2026 13:12:39 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UXUmdt6MMdpmc8+Ef3K_BDA_=HBrm=55L6rN3CGFXrXQ@mail.gmail.com>
+X-Gm-Features: AclHuK8FcTnHffXPC8rDzSxRGLknuirXL0tZK5LTHVWoYw6G_lhLZa_jZ9uuWUA
+Message-ID: <CAD=FV=UXUmdt6MMdpmc8+Ef3K_BDA_=HBrm=55L6rN3CGFXrXQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/dp: don't mark the AUX backlight enabled when
+ enabling failed
+To: Oleg Keri <okerixx@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stian,
+Hi,
 
-On Wed, 2026-09-30 at 16:07 +0200, Stian Halseth wrote:
-> > I think SPARC64 X is not supported by the Linux kernel at all, is it?
-> >=20
-> There some chip detection for it, but I've never tested, or heard about
-> anyone actually using it.=20
->=20
-> sparc64: correctly recognize SPARC64-X chips
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D76950e6e54ccfc98a25b501dbb1bc879cce1aa29
->=20
-> cpu hw caps support for sparc64x:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D4e96377983d2e060dd89703f1846ad920af9e17f
+On Sat, Sep 26, 2026 at 12:52=E2=80=AFPM Oleg Keri <okerixx@gmail.com> wrot=
+e:
+>
+> Hi Doug,
+>
+> Sorry for the muddy commit message. Unfortunately i cannot reproduce
+> the enable fail. I found the unchecked return while debugging eDP issues
+> on glymur. Please drop the second paragraph when applying, or drop the
+> patch if a code-inspection fix without a reproducer isn't worth taking.
 
-There is one guy on the debian-sparc mailing list who got one.
+OK, I pushed it to drm-misc-fixes while dropping the second paragraph:
 
-Not sure if he's still active these days. I'll try to reach out.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+[1/1] drm/dp: don't mark the AUX backlight enabled when enabling failed
+      commit: 707ce102521496c67860d81221b20c56d8255f2f
