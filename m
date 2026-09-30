@@ -1,85 +1,85 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE1F50B8DA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DAE4DE720;
 	Wed, 30 Sep 2026 15:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783655; cv=none; b=IsnfbqRdB9pQJMg66XZMOnI83SaqadvqTY5Dy2cjnkChkJXQ3SZgczTOdxaGQKAFCPbjdkjjZBciT7UL/rXbE1dJVNy0pu62eMO3H7WzQ5W8m6RQWT+Js7WPEsK/E0Ci38iT0u9tjy/5ZVPKXk9rbyqgF25fgjPUVw4c7AARdWM=
+	t=1790783654; cv=none; b=RZMuOqZgZolbu8qfODxboQN+l4zcKoDOa0vp5sjhSDJ0ff6NtER3a6NfVzW+K3RStS1ksfdgqwn6XFouQDFrq/cscjQgmRJV9RyPjT+/wqdNASl5onBYEfd1PwtEGZOosN7zZ145API5MIZxvHlVHyxchBjGdW+QmQ1sHZSLWoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783655; c=relaxed/simple;
-	bh=oJPoCnwvAdms4c4wGjRklcKFM8KnipFZ6y69DWczjjA=;
+	s=arc-20240116; t=1790783654; c=relaxed/simple;
+	bh=1/k0x5cpkJMUVybAzZM4lnbAMqrNVA+CNYLY+yfQnIk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KN9pBNl0UkNG/hacN2OG4Iwr1B5qkAA7omRsJpQMu1NjJ8GAV1R7Z+WWksJxO8PQUqEHb+AEGu8y3I3ubRUJYNUZll46YQRfZZckDtE2Lf8bTRgYs0BmCnDHbZlxUyPeuIhW1BdJ8vEoaqQuHOo8H5c+wBzjEKX2XCqeoex7VmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Gnh66vej; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wT1ns3xU; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=AOqfkn64; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=m7/z54Tt; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=W+Y5dAfUbFx3Qyns2v+G2xAS0CEi9f+JkLaWIImymvlwGad31tAJ1cIRFKWSJOQwERb326VSh8gReOlIdwD+l4UgwJ5XY7ExhCYw0gtJIk2XOQlFVwiaFxmUsIXYr/V/38YoRIykl2LZC3Nosl/68fGBjDqDIElI+Q21Yd957fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=N+Fz4NoG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Lx/CTRpk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qBahxU7v; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IlRTp0ot; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Gnh66vej";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wT1ns3xU";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AOqfkn64";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="m7/z54Tt"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="N+Fz4NoG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lx/CTRpk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qBahxU7v";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IlRTp0ot"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 29B6C1F891;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5A3D421D29;
 	Wed, 30 Sep 2026 15:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1790783643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KL1pGdir/e2bUyMMWjROopHnm6r+nUGfmfprPds6s70=;
-	b=Gnh66vejuTKBsuv9stVSbF/hf+YAoTLMy98W6GcE+g1B1YzP5r1LyS5e3rtdMDC2O/RJZC
-	2QlNE6nxHt1a6vD13AgipDBB0zqFWBAp1+8MvwYxSrB+Vf2TNcAngNI0BuqboROba3LAK9
-	VF6Dzunp08nK+XZGuzabwBLQI8jC/Xc=
+	bh=nkzZAg5UfSTraz0J+k+JIISwrKK4kPddHTzyjfH1i1s=;
+	b=N+Fz4NoGd26o+UoYA9oE5zYTFkZF1E/Mu9cWbrlfMa8vKO/hW2W06/0/nqiBwi99Fe4JoK
+	w7wBiwkxyaBHPxIxa51BvY0zQGdBtLfl/1ngj10IiiySs1NTb8RZ6+Fg9OUfsyJI8AzjHP
+	ls/1MQFvBK2xA/IqbzD1Ics/WSLFjDM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1790783643;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KL1pGdir/e2bUyMMWjROopHnm6r+nUGfmfprPds6s70=;
-	b=wT1ns3xUtpWp0CcQbu0BwuSeWQFUPaLqUIv60+oYjxXaWL+E2RAdCRGcGmLyvgdzIGM/vA
-	QkiBy+ibpF1JWUBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AOqfkn64;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="m7/z54Tt"
+	bh=nkzZAg5UfSTraz0J+k+JIISwrKK4kPddHTzyjfH1i1s=;
+	b=Lx/CTRpk0D2/42XuhzocvFr2Gs8uf4kJlwqBVyinOUVCgnukYI2yuybjYprNB7CsD79cyC
+	kIALJ1zqAbydsADQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qBahxU7v;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IlRTp0ot
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1790783639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KL1pGdir/e2bUyMMWjROopHnm6r+nUGfmfprPds6s70=;
-	b=AOqfkn64Mzv3DU7OTjRVyXHqt/P0zgOk0UpFXd1tbLN9/ytXwsWOvwt9FlGRFvGZAvbN52
-	J99+TSHFGDVcdhYWGR1ZlTbGYRyVv9RMfJ5Lr0ZIA9cUX6Ay9W3/LBzWeJfg1tV+GYMjZ4
-	dZxLcXlp0Izr8AL5NQ6MR3ES5TSxBbU=
+	bh=nkzZAg5UfSTraz0J+k+JIISwrKK4kPddHTzyjfH1i1s=;
+	b=qBahxU7vR2vg8w2Gk6Eod19u7vHsda7gZrzqjTZm9jgpIPclLDSC9IcPkDB3Og9jfkOGf6
+	KP3f4Mq/iCAzchiUpiWC47W/uQMrCsu50pU2ysWFslIp1bNeOeTN32Hpg0emiUIov9DRWa
+	K5iU34VzzxQNxU0e6JBcqX/KOHbx5gs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1790783639;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KL1pGdir/e2bUyMMWjROopHnm6r+nUGfmfprPds6s70=;
-	b=m7/z54TtMpvntL/hArpsX5Bh0mFsaST+F3K2sSKR+fQrl/7ZWdc1x4MoZNdxK+0w5h52ks
-	xlcKhjeJGvyyiPDQ==
+	bh=nkzZAg5UfSTraz0J+k+JIISwrKK4kPddHTzyjfH1i1s=;
+	b=IlRTp0otiY6Ue/n5caciD6iq2Q5acEqSjcheW3hSm/dqP20JDqleBkdog262lufGcw6TmB
+	1awkR0z4bqIynPAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A967E13ADB;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CEB4013ADC;
 	Wed, 30 Sep 2026 15:53:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id C85QFZYwvWqkVAAAD6G6ig:T2
+	id C85QFZYwvWqkVAAAD6G6ig:T3
 	(envelope-from <tiwai@suse.de>); Wed, 30 Sep 2026 15:53:58 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] ALSA: usb-audio: Check mixer matrix size for UAC2/3 at parsing
-Date: Wed, 30 Sep 2026 17:53:50 +0200
-Message-ID: <20260930155356.348608-2-tiwai@suse.de>
+Subject: [PATCH v3 2/3] ALSA: usb-audio: Fix UAC2 mixer unit request handling
+Date: Wed, 30 Sep 2026 17:53:51 +0200
+Message-ID: <20260930155356.348608-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930155356.348608-1-tiwai@suse.de>
 References: <20260930155356.348608-1-tiwai@suse.de>
@@ -90,9 +90,6 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 29B6C1F891
-X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-3.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
@@ -102,58 +99,122 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,suse.de:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	RCPT_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
 	RCVD_TLS_ALL(0.00)[];
 	TO_DN_NONE(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
 X-Spam-Score: -3.01
 X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 5A3D421D29
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-The matrix of input/output channels specified in a UAC2/3 mixer unit
-must fit to the upper limit 256.  Add a sanity check and returns an
-error if an invalid size is detected.
+For a request for a Mixer Unit on UAC2 (also UAC3), the wValue is
+different from UAC1 and an incompatible value must be passed.
+Namely, UAC1 takes a word consisting of 1-based input channel in the
+high byte and 1-based output channel in the low byte.
+Meanwhile, UAC2/3 takes UAC2_MU_MIXER in the high byte and a MCN
+(0-based bit position of input/output channels) in the low byte.
+The current driver implementation blindly assumes the UAC1 way, hence
+it would cause a firmware error.
 
-Link: https://lore.kernel.org/d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net
+This patch attempts to implement the conversion to UAC2 MCN at
+get_ctl_value_v2() and snd_usb_mixer_set_ctl_value() for mixer units.
+At the points above, the old wValue containing ICN and OCN is
+converted to the corresponding MCN, and it's used as the proper
+wValue.
+
+Reported-by: Zipdox <zipdox@zipdox.net>
+Closes: https://lore.kernel.org/d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net
+Fixes: 23caaf19b11e ("ALSA: usb-mixer: Add support for Audio Class v2.0")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
 v2->v3: no change
 
- sound/usb/mixer.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/usb/mixer.c | 23 +++++++++++++++++++++++
+ sound/usb/mixer.h |  2 ++
+ 2 files changed, 25 insertions(+)
 
 diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 33a6a1281410..ddfd7e01a3ef 100644
+index ddfd7e01a3ef..a8bdd1696a20 100644
 --- a/sound/usb/mixer.c
 +++ b/sound/usb/mixer.c
-@@ -2436,6 +2436,16 @@ static int parse_audio_mixer_unit(struct mixer_build *state, int unitid,
- 	num_outs = err;
- 	input_pins = desc->bNrInPins;
+@@ -335,6 +335,17 @@ static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
+ 	return -EINVAL;
+ }
  
-+	if (state->mixer->protocol == UAC_VERSION_2 ||
-+	    state->mixer->protocol == UAC_VERSION_3) {
-+		if (input_pins * num_outs > 256) {
-+			usb_audio_err(state->chip,
-+				      "invalid channels for MIXER UNIT %d: input=%d, output=%d\n",
-+				      unitid, input_pins, num_outs);
-+			return -EINVAL;
-+		}
-+	}
++/* convert the given UAC1 wValue (ICN|OCN) to UAC2 MCN */
++static unsigned char to_mcn(const struct usb_mixer_elem_info *cval,
++			    unsigned int validx)
++{
++	unsigned char m = (validx >> 8) & 0xff; /* 1-based input channel */
++	unsigned char v = validx & 0xff; /* 1-based output channel */
 +
- 	num_ins = 0;
- 	ich = 0;
- 	for (pin = 0; pin < input_pins; pin++) {
++	/* num_inputs * num_outputs is guaranteed to be < 256 */
++	return (m - 1) * cval->num_outputs + (v - 1);
++}
++
+ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
+ 			    int validx, int *value_ret)
+ {
+@@ -347,6 +358,10 @@ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
+ 
+ 	val_size = uac2_ctl_value_size(cval->val_type);
+ 
++	/* correct wValue for UAC2 mixer control with MCN */
++	if (cval->v2_mixer)
++		validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
++
+ 	if (request == UAC_GET_CUR) {
+ 		bRequest = UAC2_CS_CUR;
+ 		size = val_size;
+@@ -478,6 +493,10 @@ int snd_usb_mixer_set_ctl_value(struct usb_mixer_elem_info *cval,
+ 		}
+ 
+ 		request = UAC2_CS_CUR;
++
++		/* correct wValue for UAC2 mixer control with MCN */
++		if (cval->v2_mixer)
++			validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
+ 	}
+ 
+ 	value_set = convert_bytes_value(cval, value_set);
+@@ -2345,6 +2364,10 @@ static void build_mixer_unit_ctl(struct mixer_build *state,
+ 
+ 	snd_usb_mixer_elem_init_std(&cval->head, state->mixer, unitid);
+ 	cval->control = in_ch + 1; /* based on 1 */
++	if (state->mixer->protocol == UAC_VERSION_2 ||
++	    state->mixer->protocol == UAC_VERSION_3)
++		cval->v2_mixer = true;
++	cval->num_outputs = num_outs;
+ 	cval->val_type = USB_MIXER_S16;
+ 	for (i = 0; i < num_outs; i++) {
+ 		__u8 *c = uac_mixer_unit_bmControls(desc, state->mixer->protocol);
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index 037b446d8b6f..cf45c39cbccc 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -97,6 +97,8 @@ struct usb_mixer_elem_info {
+ 	u8 initialized;
+ 	u8 min_mute;
+ 	u8 get_cur_broken;
++	u8 num_outputs;
++	bool v2_mixer;
+ 	void *private_data;
+ };
+ 
 -- 
 2.55.0
 
