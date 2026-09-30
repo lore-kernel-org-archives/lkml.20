@@ -1,65 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C897E3C1D50;
-	Wed, 30 Sep 2026 10:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBBA3D0934
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762938; cv=none; b=hvFs4TddArvrdLGVSK5LvWYSIaMGX7Erc1HecA8xmFXbLwR38YfNfL6JL/ocKFA41XsYgBcPRnx+lpDgCnkaT9msbz6o8OQEC+KBrKLSJzdLj44798hkUYK6iJfH6dT1MC4j8Quac9HdnMFCw3wJ2Fe/rGasU/h8zlZx7CmtVvU=
+	t=1790762994; cv=none; b=YE2Ajmw33/6Tbcdub6/27KGYJhPQZdLeIGixXL38XBt7I5U9bguVKcASiOG1oQOYGJwLo1AOrRLAQ38G2EVdIhFy94GCW8tT4kBPOkPSQ67/ENPWwsaePv3gitu8diXRNQEue3NwnBdifS0TfwUe3S+KTdgmyDPg+7JC7fw2vyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762938; c=relaxed/simple;
-	bh=buCFauJ8I1YR713FwXqzSWSJ1tE97/QhQ/t03u4hOEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wr4VV2zU5tkDY6kLfAmJkdTEywKdKzJFNNqma6D/Z35kBefnA5HIRmP6UpLz/vMbC14RDxWHHqChtfJx3u0/jrxNLWQ8ygw+Ed/wYEuAKpOq/jGc/diMdDF+sXIckFMqbxEMBCN5lCzwa9xTbTz8RkmXwxlT4A1TLpMU9DGEaFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZxfu/o6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762994; c=relaxed/simple;
+	bh=hrw1dd3W52X2PRIBJ61p/Ixy3mLjm6opZZ+GWT4oBp4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AG63S+WuWGHDKTRnWRnoS+J3MYP57ffquvHyz2Ui8INMy6B4CiSOQG1pKCJd3CUKowZnyzYy4/o2nnOLzPb+Y3gHV4CHFK1liXDuXzUoOfyYepz7YFhtG6Fty03pldv52kmHbKX5qz9UQA8UKEzq0/fKjyTjFmVQudUFAjaFz/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bkzMs851; arc=none smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZxfu/o6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741F51F000FF;
-	Wed, 30 Sep 2026 10:08:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762937;
-	bh=pBwNF67IVGVLonh6bLp06bYjXyfvFFbgj27kTxohZtg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hZxfu/o6KtJngutnETKwZaEKPZvZmscsFdJ0RqI679tuJ3B3JqqutWA4FvU2opCri
-	 ZeSGAuIgyYddWDwHdsD3E727rSlm5ZZ5rbzhUN70iDvNT387n+gi6hsSVvmmUy1fCM
-	 fVUg9Fv+acBsdK5TWlZTJ5Lx4thvPUA5gKLSoLgce6XbhCff2y9LSnXiDBo/8RoMnD
-	 07rlqnYShBDGMS1nIsyqnES7HC6WPp1MeE528xYhlsMPKofGxH3Obr0/2vc35Vgvjg
-	 TovKlNY7qT/bVUXZE+Zv/l6qzmtHs5ahAIsBONBgPK1DYFR47ftKfexxIcTemWOqMM
-	 Jp9sHmwHhEW2A==
-Date: Wed, 30 Sep 2026 12:08:53 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Brian Masney <bmasney+clk@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Rob Herring <robh@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v2 01/11] dt-bindings: clock: sun4i-a10-ccu: add
- Allwinner B288
-Message-ID: <20260930-controversial-pastoral-raven-dd05fc@quoll>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-2-pmazzini@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bkzMs851"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6fa788e6so4994406a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:09:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790762987; x=1791367787; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ruocdeJmKgpaQFus+PucSGDLt7ZSCHmy/3XR1sTVzPs=;
+        b=bkzMs851c9zZ8pLRd7lGGP1HQkdNCJPEQ9CuXY49B0eFdR7dpGB2Nur49+z/HeFkDt
+         /SUCrNcWrt6mHvkiKtv5YoTO978/x0FED9JnCX0Almu9bcN+rWc6Vw9/YKgCZNEsUjMY
+         eEPNYB/IE7flOrrYfumMz/Yx/kGJAuanFQkOz1UHN2Vd5QMBdgYAjUmprorWC5SOGetH
+         DH3fbXlvIB1K4BuylVIKa8z6j3JzdSpqtjjxxZ/nhXwLOhcKvaNjXwDfodTHtvNH3Z2P
+         mx/KKz9VOP4glr4+nStpRUBmLTXc6hFwIx1ennedbu8C9DVP9nCgNzuTcNnitLYDpsnu
+         fOUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790762987; x=1791367787;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ruocdeJmKgpaQFus+PucSGDLt7ZSCHmy/3XR1sTVzPs=;
+        b=Qf9YBZh0S7PotQAWFZ1CZO946bQwh7pdgn5JgbreZN3uHOy1/qEQ4O4dd0MGlwIQpY
+         XgNOVUqfmOXXMDsiN5shviD6C7I5ZlQNV3dU/InjCz7eI06FxkO5aW5mcblNo6WxjhPN
+         VmWydzlEQbDfrbmVDqIb0pWEp39BY/3CRGoqGkUCSDZed6iyq/DmYUflR8nWmAYOiPU2
+         OL/mOFWlxNYkVrMfcYeNtxrBlITR05geF2CPAh5pdGAywGpgpYh7r+NvMqnXSsl9TAKj
+         y0Zw+umCM0gYX3lC56BqDbD0FLbg3Vu12ectcyzmdocXyTiDa/TEQM2qYHgFanJUxGNv
+         VbIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTpUnOwZe6Q9XbzlVuixIyBMHe/d3qGxTpkHRXb27RbHkPAodyOc2xoF0yRsk6Yu2SOmVLOr4g4vmA8nY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhkH12pfVzAWmeS+lGr9vxPzYYHqjqIq+9zlELwRYeknbOLfVs
+	VN5nIE3udOSqd4NtzcGbSmNYQuYC/bGWAmisp/bCGPrZIQtI6JouaPYU
+X-Gm-Gg: AYBFou2cgYBe3zHHvMKot0wAPKMlVsGlblgNVyv53P3GShsgppJjoh9XRAA2il4XAPJ
+	GrpORzuB/ofhJXxwpljMSXo2/9Y8lQpZnO03wZ1oOJKOP3xsiFokYql6boM9SqyfJbFZYzPKIga
+	HJLqD4Asd4ZwRx9LqjC5SNYi46QjaK57TcE/zFdYJ07br5wZrXRcO54EfaFRUEaWTWDJSfSEZMp
+	htW/sH8VbKw/NTh+LxXuzxm1jtV5anVbFU7bQZQ4hWLVOFV5vHFSruQaZM/7/XZI4kcm3WknNGg
+	QngJ4gAR7zyBLqhuC++/PnDGOsLO3nQQ2IpH1D/V0AQIV+CCMjidmvJ3pM6sdvBMHshyWXTLIOZ
+	8fuguTzyVk5VxnqD7WVbDZWxCVC049/+UOMXOitC8MFKOb1t25s5iWB6LPLGY4+JtZAl0VuMpVQ
+	0cDsufxYGrZ8ZIJOcC6kFCaDUqLTsztqNE3Qq8bVL/T7RAIxBU16GYFexIE96JmdWDb4d1D7bRG
+	q5hymKO56PvYjGVUwxOLVqk0+zDqQMF7MJMHdW6QOkSYdxxHiD9zKyt5aAh+YvUNr/EGXcOONEB
+	mm97srcH5Z6+OIqk+nxHEVvhL9VfE4Kv30MsxZM4GOsosXYu
+X-Received: by 2002:a05:6402:27d0:b0:6aa:ec02:7de1 with SMTP id 4fb4d7f45d1cf-6ae199152a4mr634773a12.24.1790762987076;
+        Wed, 30 Sep 2026 03:09:47 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae15690dbbsm551642a12.22.2026.09.30.03.09.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 03:09:46 -0700 (PDT)
+Message-ID: <77db5aa5-f160-48fb-ab59-a754b100bc34@gmail.com>
+Date: Wed, 30 Sep 2026 11:09:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927151016.186493-2-pmazzini@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: agk@redhat.com, akpm@linux-foundation.org, anuj20.g@samsung.com,
+ axboe@kernel.dk, bmarzins@redhat.com, brauner@kernel.org,
+ christian.koenig@amd.com, dm-devel@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, hch@lst.de, io-uring@vger.kernel.org,
+ jack@suse.cz, joshi.k@samsung.com, kbusch@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-nvme@lists.infradead.org,
+ matthew.brost@intel.com, mpatocka@redhat.com, nj.shetty@samsung.com,
+ phil.cayton@intel.com, sagi@grimberg.me, snitzer@kernel.org,
+ sumit.semwal@linaro.org, tushar.gohad@intel.com, viro@zeniv.linux.org.uk,
+ william.power@intel.com
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+ <5a35ad21-c9d4-4dab-a4f0-97baee6e2301@wanadoo.fr>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <5a35ad21-c9d4-4dab-a4f0-97baee6e2301@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 04:10:06PM +0100, Pablo Mazzini wrote:
-> The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
-> Its CCU needs only the two oscillator inputs, so it fits the existing
-> schema without changes.
+On 9/29/26 16:45, Christophe JAILLET wrote:
+...>> +    for_each_sgtable_dma_sg(sgt, sg, tmp) {
+>> +        dma_addr_t dma_addr = sg_dma_address(sg);
+>> +        unsigned long sg_len = sg_dma_len(sg);
+>> +
+>> +        if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
+>> +            (dma_addr % NVME_CTRL_PAGE_SIZE)) {
+>> +            ret = -EINVAL;
+>> +            goto err;
+>> +        }
+>> +        while (sg_len) {
+>> +            map->dma_list[i++] = dma_addr;
+>> +            dma_addr += NVME_CTRL_PAGE_SIZE;
+>> +            sg_len -= NVME_CTRL_PAGE_SIZE;
+>> +        }
+>> +    }
+>> +
+>> +    ret = dma_buf_io_init_map(ctx, &map->base, sgt);
+>> +    if (ret)
+>> +        goto err;
+>> +    map->nr_entries = nr_entries;
+>> +    map->sgt = sgt;
+>> +    return &map->base;
+>> +err:
+>> +    if (sgt)
+>> +        dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+>> +    kfree(map);
 > 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> kvfree()?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Sashiko also flagged this one. I'm going to apply the nits from
+both emails, thanks.
 
-Best regards,
-Krzysztof
+-- 
+Pavel Begunkov
 
