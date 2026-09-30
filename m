@@ -1,218 +1,272 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6779D377EA7;
-	Wed, 30 Sep 2026 15:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69624D9566
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:07:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780836; cv=none; b=qRuDBnqWdjNqVWUVOJPkULebryDguqW1h4aLIwdNAk8g8Vl2Tzz3/aPtSi4hG4+pzilsk2tfrEZEv6NB6mlBX8QjaP0zTGxTB6uhO6DvFn4mDRG30wjYL01qZbqXrdWWgFY8Ollv31FhnVcDWSXKpn1RkGq7qj53qVrnSs9X+uI=
+	t=1790780877; cv=none; b=FHmX5ymJBvkjsFjOW4RyOm/PB3KuF65OZrpKsdDfpOJG0yhsuOqENbW9lX2wTqOVOqVzPVQTf3KeNpifSIDSJ4PqNP80l1Qtfcf3gUhentJlDKfdhbSIMqtNDf4In83gJutlD53DdbnwawGjQhC4vYBBssTMHxeW/IhqS7rd2+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780836; c=relaxed/simple;
-	bh=4RYQtrTyByMaLR/K3iG427DVCQsrqdlhcPpcha2V1oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h3B5djCqMq3xEuMN7Smyfthal2gJTRri4tXIVa91YjDjvpL2fjgFHUxlVJ6oFMtHLGv7zN1mmB1i+J6ac9I4IR+p55vysiLZZgg6ENAWTZiwVkkVEciFT8yawTDGmRTnlIWNoG41ZgPNpph0oSsqz88RRalsvg1eizrQ5zFYcuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=GgHG7ulH; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1790780877; c=relaxed/simple;
+	bh=q8cCBm3pazBE/9+1p6k+VgCGqmHdDxdTeBk7Sj2qv1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lgpI35OucSZXkctMq1j8Spo+nA9OROMCHT2sK4Zrg69wvZDnLytA/FW8YZXHGQ8KM405biDdO0TxX/VpIMvlBLNYJEVIlun/tcjo9j0A8uT2T1WFu4iAW2jexF1LKFMuSGFr+mHM0QW1dL4gx4UBj6CYHUmvtxJXZXk+71/s3AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=P2jYInEC; arc=none smtp.client-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="GgHG7ulH"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hvz0Z5ht1z6MjV;
-	Wed, 30 Sep 2026 17:06:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1790780814;
-	bh=4RYQtrTyByMaLR/K3iG427DVCQsrqdlhcPpcha2V1oI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GgHG7ulHvl5J8HNonh10bszOE9InC60PyWxVf4//Y+al4FCSbShmjBxsSu6nPZH9X
-	 nP4Yudlwn7h6FPVRXsrlL8+tPNqn2YR+P/l/5+PpdSpHddPPOp9Ygqf+c5bBCchhIK
-	 5yT7PS/9MOYVVmcTI/qBxYFv5gi7QaEGcLNZv8gjpNLve/Mv02XR7fSq6HOhGV3Xib
-	 yhwHhEZdfrmoYlk/dEiXZd4NnP2+h9KhsICGN2pgM9BmRPhY5IAudbPPc701PLRO8w
-	 5gxAvnoy3kOc6f1Ml1KnN1ctbIeHTGglVyBI4VuwZskko1w5UALff4IwpJy6w31ew6
-	 EFrxbu7saLJ4w==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hvz0Z4wLLz4yjD;
-	Wed, 30 Sep 2026 17:06:54 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hvz0W2n2Dz8tgC;
-	Wed, 30 Sep 2026 17:06:51 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id BEBF15F8BB;
-	Wed, 30 Sep 2026 17:06:41 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <d1381ed8-eab8-4fd7-8b15-1e94876d7099@leemhuis.info>
-Date: Wed, 30 Sep 2026 17:06:40 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="P2jYInEC"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1543419eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:07:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790780866; x=1791385666; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CON0N6NONpyLMBENg2JzFAKGu3VQSsJRc7S3/nKioTU=;
+        b=P2jYInECOOLtuE4hSpciMtuqFPExypjnf5iynqXs1xNUj6rpbT9B99Qfgi8WtN87pl
+         BtzEkyzYphrxF0n01qX/QbghJI4P9P6mee2l7B7G6RfDAosLAiRwfJNjr2G5+L6J0XnE
+         xam+auqvN1MTE0KlsLaFeoKXiQzoJ0XUQSvfmZRUo+iFo9gLzjrwMJ7SCIa+gq1y4I9I
+         WBwWLTRArHKRU7/JXiVpn8AmgVgdhG8KpiXsG3LYXm04C0QTkoL6OqJ2GmYU4/q8Mkhq
+         xu2lhIGTDwPye4g3z/q5wceVl3vnYQpRDXI8vqNj8utU2+n48QEYrfnXgJaJ8KancMXL
+         fNMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790780866; x=1791385666;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CON0N6NONpyLMBENg2JzFAKGu3VQSsJRc7S3/nKioTU=;
+        b=Mb4pyn2D9HtTNu9pySHImYKV06Fr9wwEUidJrOyYZc4+dL2PFB4/X6S8P26xVQiQwM
+         LcJFTzwPJd5CbPnCi9zvcesKj0LcjgADDKd0w/08qSAXxHG+PQKrAXtTynEtGWK/HKrt
+         M3fdbKr76jxVvQZGtj5JgQOuA2wCSSr7z8RvFHcdzrfGb5azMPgB9SsnXQyFHP+/eVJE
+         7zuuClc/JILZOtdsUZnMCnIo+Bxrb5r4JQq3bFTW0VqOoyKJqbbEedenvxScKMGk1U6T
+         DCz5GkFNHFuCaFsDCdw94bfdPebswXhJDIKPtWv1x91HolztprCf+l7HuNXMZn/hOc9h
+         iZPw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/HbGBk0R2BC3xlS9p3kjch9mChXXhMStFNai3Q2EyrEQJuurEPOYjyaNhHRgizk2KMpgAoqOQC9BfimE=@vger.kernel.org
+X-Gm-Message-State: AFuF++leZ9gmRqhiiCyzqkXIhE2ljj2jh/tzkADfqM7dQ1Vn/nRVEBnl
+	LRHSJDTECXAT7jtBpLZHGW4e08evvnmxvcnBcv1NVSlnhNCaJ34i76IV6JJrV4htF7GV2kMiEnX
+	lTBGB
+X-Gm-Gg: AYBFou24cxxgHJadYmN1KqpTSrAGHy9CxrrEWFLT+t2qA0m/fq7lXFSDFI/HpQZ92JJ
+	DRwA8jqS5weYkJoG+UlP93ELDlY+cxgRNZ7gJAD6kZrDbFmXgKYcEEjPtcCo4dnSFzYJVHAVOSw
+	dzi2mDURLA6NIV2Oq/AZcuDESoeBZpl0QzF7Erfk/kiDIUxAP6/WYMJ+X/ic8GeQ+EXvH+Nwfkz
+	LJfwQVC/Mef8UQVSe4OA48OP7esGKgv87Ap7JB9VkwY87j9rbBnDKLmE16zAApaFGN0/VDuFzHL
+	T3Al9/ToYrVXJwzKHVzyZhy7dwhpkwqLx+p8cXJQD77oJmRI1gMo7YB/FP9Ct23IQD2YlThWB+f
+	bsmS+iuvx+nNHarcSAOyjn1Qk63lO6zLemF/agTokl9U9g++Gl+sfQicDPCDWbX3RxkNIqG3XI1
+	tFb7BCmz4f0bCmIfO/z3/MLyVnJW9OUXk0p1j8xh6IClVRgxCd3HVj+XihspGkPnCHT9v/do60
+X-Received: by 2002:a05:6820:618:b0:6d3:abd1:9b90 with SMTP id 006d021491bc7-6dcf63278b7mr1172797eaf.54.1790780865875;
+        Wed, 30 Sep 2026 08:07:45 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:f5b4:4d0e:70d:9fba])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49ded1b53c0sm256295fac.8.2026.09.30.08.07.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:07:45 -0700 (PDT)
+Date: Wed, 30 Sep 2026 09:07:42 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Yonghao Zhang <hyz3367@gmail.com>
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] remoteproc: core: Fetch the auto-boot firmware only
+ once
+Message-ID: <ar0lvsu80miGJdGS@p14s>
+References: <CANLsYkx5VVWsmhaYfMe_gj7nO-8YpOknMvM7gKZ-xFEbGg_zMg@mail.gmail.com.mbx>
+ <20260930064144.645211-1-hyz3367@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [GIT PULL PATCH 0/9] Rust changes for v7.4-rc1
-To: Jens Axboe <axboe@kernel.dk>, Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>,
- stable@vger.kernel.org, Priya Bala Govindasamy <pgovind2@uci.edu>,
- Dylan Zueck <dzueck@uci.edu>, Yuan Tan <ytan089@ucr.edu>,
- Sophon Z <aiqubits@hotmail.com>, Qingxiao Xu <qingxiao@tamu.edu>,
- Malte Wechter <maltewechter@gmail.com>, Mark Brown <broonie@kernel.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20260929-rust-block-for-v7-4-rc1-b4-v1-0-642a4c1aebd7@kernel.org>
- <179068244058.1205226.1765319338142659278.b4-ty@b4>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <179068244058.1205226.1765319338142659278.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179078080275.1056943.224935166895197584@mxe9fb.netcup.net>
-X-NC-CID: kbBO8J0k4cD0MZBqNVVuRQit6Wi9e3jYf30p7DpF3SVolywOZEA=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930064144.645211-1-hyz3367@gmail.com>
 
-On 9/29/26 13:47, Jens Axboe wrote:
-> On Tue, 29 Sep 2026 11:33:58 +0200, Andreas Hindborg wrote:
->> I have a number of Rust block layer patches I would ask you to pick for
->> v7.4. I have collected them into a patch series as well as a pull request
->> so you can use whatever is easier.
->>
->> The changes cover
->>
->>  - Style and formatting changes.
->>  - Documentation fixes.
->>  - Fixes for missing trait bounds that can cause API unsoundness.
->>  - A change to set the owner of the file operations vtable in `GenDisk`.
->>  - Two bug fixes for the rnull driver.
->>
->> [...]
+On Wed, Sep 30, 2026 at 02:41:44PM +0800, Yonghao Zhang wrote:
+> Auto-boot for an always-on remote processor registers an asynchronous
+> request_firmware_nowait() whose callback, rproc_auto_boot_callback(),
+> calls rproc_boot() first and only releases the fetched image at the
+> very end of the callback.  rproc_boot() does not take this image as an
+> argument: it fetches the very same image again with a synchronous
+> request_firmware(), so every auto-boot reads the firmware image twice
+> and allocates the buffer twice; on kernels with the sysfs fallback
+> enabled, the uevent round-trip is repeated as well.
 > 
-> Applied, thanks!
->  [...]
-
-This series showed up in next today and broke the build for me on
-various Fedora releases for aarch64 and x86_64; reverting this series
-fixed that from a quick build test limited to drivers/block/rnull/
-
-The full error msg is quote long, find the top of it below. Full log:
-https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-aarch64/11055137-next-next-all/builder-live.log.gz
-
-Ciao, Thorsten
-
-"""
-> error[E0277]: `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between threads safely
->    --> drivers/block/rnull/configfs.rs:57:18
->     |
->  57 |     type Child = DeviceConfig;
->     |                  ^^^^^^^^^^^^ `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between threads safely
->     |
->     = help: within `TagSet<NullBlkDevice>`, the trait `Sync` is not implemented for `UnsafeCell<MaybeUninit<blk_mq_tag_set>>`
-> note: required because it appears within the type `Opaque<blk_mq_tag_set>`
->    --> rust/kernel/types.rs:332:12
->     |
-> 332 | pub struct Opaque<T> {
->     |            ^^^^^^
-> note: required because it appears within the type `TagSet<NullBlkDevice>`
->    --> rust/kernel/block/mq/tag_set.rs:32:12
->     |
->  32 | pub struct TagSet<T: Operations> {
->     |            ^^^^^^
->     = note: required for `Arc<TagSet<NullBlkDevice>>` to implement `Send`
->     = note: 1 redundant requirement hidden
->     = note: required for `GenDisk<NullBlkDevice>` to implement `Send`
-> note: required because it appears within the type `Option<GenDisk<NullBlkDevice>>`
->    --> /usr/lib/rustlib/src/rust/library/core/src/option.rs:598:10
->     |
-> 598 | pub enum Option<T> {
->     |          ^^^^^^
-> note: required because it appears within the type `DeviceConfigInner`
->    --> drivers/block/rnull/configfs.rs:130:8
->     |
-> 130 | struct DeviceConfigInner {
->     |        ^^^^^^^^^^^^^^^^^
->     = note: required for `Lock<DeviceConfigInner, MutexBackend>` to implement `Send`
-> note: required because it appears within the type `DeviceConfig`
->    --> drivers/block/rnull/configfs.rs:124:19
->     |
-> 124 | pub(crate) struct DeviceConfig {
->     |                   ^^^^^^^^^^^^
-> note: required by a bound in `kernel::configfs::GroupOperations::Child`
->    --> rust/kernel/configfs.rs:518:27
->     |
-> 518 |     type Child: 'static + Send;
->     |                           ^^^^ required by this bound in `GroupOperations::Child`
+> The asynchronous request exists only so that rproc_add() does not
+> block on the filesystem read; the image it fetches is never used.
+> The core already defers rproc_boot() to a worker for detached
+> processors (attach_work).  Reuse that worker for offline processors
+> too and drop the asynchronous firmware request: rproc_boot() fetches
+> the image exactly once and dispatches between a firmware boot and
+> an attach based on the processor state.  The work is renamed to
+> boot_work to match its widened role.
 > 
-> error[E0277]: `*const blk_mq_ops` cannot be sent between threads safely
->       --> drivers/block/rnull/configfs.rs:57:18
->        |
->     57 |     type Child = DeviceConfig;
->        |                  ^^^^^^^^^^^^ `*const blk_mq_ops` cannot be sent between threads safely
->        |
->        = help: within `TagSet<NullBlkDevice>`, the trait `Send` is not implemented for `*const blk_mq_ops`
-> note: required because it appears within the type `blk_mq_tag_set`
->       --> /builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260930/linux-7.3.0-0.0.next.20260930.545.vanilla.fc46.aarch64/rust/bindings/bindings_generated.rs:105198:12
->        |
-> 105198 | pub struct blk_mq_tag_set {
->        |            ^^^^^^^^^^^^^^
-> note: required because it appears within the type `MaybeDangling<blk_mq_tag_set>`
->       --> /usr/lib/rustlib/src/rust/library/core/src/mem/maybe_dangling.rs:73:12
->        |
->     73 | pub struct MaybeDangling<P: ?Sized>(P);
-> [...]"""
+> commit 400e64df6b23 ("remoteproc: add framework for controlling remote
+> processors") noted back in 2011 that "we must wait until it completes
+> before we try to unregister the device".  rproc_del() now does exactly
+> that: it waits for the boot work with cancel_work_sync(), which also
+> closes the theoretical window in which a pending attach work could
+> outlive the rproc instance.
+> 
+> The changed fallback behaviour only matters for legacy
+> configurations.  udev dropped its userspace firmware loader back in
+> 2014, as recorded in
+> Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
+> kernel has documented since commit 02c399306826 ("firmware_loader:
+> enhance Kconfig documentation over FW_LOADER") that "Linux no longer
+> relies on or uses a fallback mechanism in userspace".  Auto-boot now
+> uses the same synchronous fallback semantics as every other explicit
+> boot source (sysfs, cdev).
+> 
+> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+> ---
+> Changes in v2:
+> - Fix the order described in the changelog: the callback calls
+>   rproc_boot() first and releases the asynchronously fetched image at
+>   the end of the callback (Mathieu).
+> - Fix typo "proccessor".
+> 
+>  drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
+>  include/linux/remoteproc.h           |  4 +-
+>  2 files changed, 21 insertions(+), 48 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 263e12f022ea..f329dc478170 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
+>  }
+>  
+>  /*
+> - * take a firmware and boot it up.
+> - *
+> - * Note: this function is called asynchronously upon registration of the
+> - * remote processor (so we must wait until it completes before we try
+> - * to unregister the device. one other option is just to use kref here,
+> - * that might be cleaner).
+> + * Boot or attach the remote processor in the background, on behalf of
+> + * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
+> + * not block while the firmware image is read from storage.  rproc_boot()
+> + * dispatches on the processor state, so this covers both a firmware boot
+> + * and an attach to a processor started by another entity.
+> + *
+> + * Note: rproc_del() waits for this work to complete with
+> + * cancel_work_sync(), so the rproc instance remains valid for the
+> + * entire lifetime of this function.
+>   */
+> -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
+> +static void rproc_boot_work(struct work_struct *work)
+>  {
+> -	struct rproc *rproc = context;
+> +	struct rproc *rproc = container_of(work, struct rproc, boot_work);
+>  
+>  	rproc_boot(rproc);
+> -
+> -	release_firmware(fw);
+>  }
+>  
+> -static void rproc_attach_work(struct work_struct *work)
+> +static void rproc_trigger_auto_boot(struct rproc *rproc)
+>  {
+> -	struct rproc *rproc = container_of(work, struct rproc, attach_work);
+> -
+> -	rproc_boot(rproc);
+> -}
+> -
+> -static int rproc_trigger_auto_boot(struct rproc *rproc)
+> -{
+> -	int ret;
+> -
+> -	if (rproc->state == RPROC_DETACHED) {
+> -		schedule_work(&rproc->attach_work);
+> -		return 0;
+> -	}
+> -
+> -	/*
+> -	 * We're initiating an asynchronous firmware loading, so we can
+> -	 * be built-in kernel code, without hanging the boot process.
+> -	 */
+> -	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+> -				      rproc->firmware, &rproc->dev, GFP_KERNEL,
+> -				      rproc, rproc_auto_boot_callback);
+> -	if (ret < 0)
+> -		dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
+> -
+> -	return ret;
+> +	schedule_work(&rproc->boot_work);
+>  }
+>  
+>  static int rproc_stop(struct rproc *rproc, bool crashed)
+> @@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
+>  	rproc_create_debug_dir(rproc);
+>  
+>  	/* if rproc is marked always-on, request it to boot */
+> -	if (rproc->auto_boot) {
+> -		ret = rproc_trigger_auto_boot(rproc);
+> -		if (ret < 0)
+> -			goto rproc_remove_dev;
+> -	}
+> +	if (rproc->auto_boot)
+> +		rproc_trigger_auto_boot(rproc);
+
+Please get rid of rproc_trigger_auto_boot() and call schedule_work() here.
+
+Thanks,
+Mathieu
+
+>  
+>  	/* expose to rproc_get_by_phandle users */
+>  	mutex_lock(&rproc_list_mutex);
+> @@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
+>  
+>  	return 0;
+>  
+> -rproc_remove_dev:
+> -	cancel_work_sync(&rproc->crash_handler);
+> -	rproc_delete_debug_dir(rproc);
+> -	device_del(dev);
+>  rproc_remove_cdev:
+>  	rproc_char_device_remove(rproc);
+>  	return ret;
+> @@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+>  	INIT_LIST_HEAD(&rproc->subdevs);
+>  	INIT_LIST_HEAD(&rproc->dump_segments);
+>  
+> -	INIT_WORK(&rproc->attach_work, rproc_attach_work);
+> +	INIT_WORK(&rproc->boot_work, rproc_boot_work);
+>  	INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
+>  	spin_lock_init(&rproc->crash_handler_lock);
+>  
+> @@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
+>  	if (cancel_work_sync(&rproc->crash_handler))
+>  		pm_relax(rproc->dev.parent);
+>  
+> +	/* auto-boot may still be fetching firmware: wait for it here */
+> +	cancel_work_sync(&rproc->boot_work);
+> +
+>  	__rproc_shutdown(rproc, true);
+>  
+>  	rproc_delete_debug_dir(rproc);
+> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> index a44368737b39..d77e24539133 100644
+> --- a/include/linux/remoteproc.h
+> +++ b/include/linux/remoteproc.h
+> @@ -231,7 +231,7 @@ enum rproc_features {
+>   * @subdevs: list of subdevices, to following the running state
+>   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
+>   * @index: index of this rproc device
+> - * @attach_work: workqueue for attaching rproc
+> + * @boot_work: workqueue for booting rproc
+>   * @crash_handler: workqueue for handling a crash
+>   * @crash_handler_lock: serializes crash handler queueing and deletion
+>   * @deleting: remoteproc deletion has begun
+> @@ -277,7 +277,7 @@ struct rproc {
+>  	struct list_head subdevs;
+>  	struct idr notifyids;
+>  	int index;
+> -	struct work_struct attach_work;
+> +	struct work_struct boot_work;
+>  	struct work_struct crash_handler;
+>  	spinlock_t crash_handler_lock;
+>  	bool deleting;
+> -- 
+> 2.34.1
+> 
