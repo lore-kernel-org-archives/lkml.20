@@ -1,113 +1,85 @@
-Received: from mail-ej2-f20.google.com (mail-ej2-f20.google.com [74.125.228.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD9F3DFC74
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065A535A398;
+	Wed, 30 Sep 2026 12:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770680; cv=none; b=t6AcYXKF5VGqaAyBD/fQFuaJakigBLz4LiR3BLmdYFsqmZcRZ5tnRc8rdBxU1Zr6HbFMc2ulUbmmFBMOMYpEIDrcCnMSj4PJaJb3+ubJ3gl/L1kks8nWECtRQsnDGZTzggS/M+d1T1fC2xm/UcngudUgjxwe06e8pJd8ufvDFu8=
+	t=1790770694; cv=none; b=aUqj7r895lTR5EY7bIT2TArjlZuJu9541wi2BuLgzFAplrnK/eBIrE1vQN22mu2Xn8NPtPrRexl6ayHCui1Tt0ppNqGy9BDZyyMnjMPbTw1XAV2FJgtTZuiSXDenor2a8aotiyNQyVDo7wdPHPCBczFK1D8uOa6HXnr739aN8pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770680; c=relaxed/simple;
-	bh=TTiZSX+Vu/AzQcsdMRHtCMCwgSLVhXM1cLs3BZe1qwk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nfFYRXXgUDuBJC3bJKrgf2Wk9jAmBVb5wKaZ3SdF6yD72Z3eMgQ18pVr9PhPr7xzcgXwQb2CIBwNNhl+deHHwMZhZCJJ4KbsNMFpeCfutHEiIg8Fn82RbA13z3EoTKHK6IRphbbXWHatclM9IZB+VsbbCOmAKsuGtehNq9K877M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PqlGKeBe; arc=none smtp.client-ip=74.125.228.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790770694; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=i0oIZ+UyF1hfnjySFNTRrN/mPdP2jRzJdV/yvshzjuvwI88TBigYS1/nZ6lbs49kUf/bUkUPbynCGLYZ7QqAC2f/v3MCC6TDS8MscqGU6iVtgGqsCteBOC4G4B+a76gBtSuFtUmOBqw038flaGXwsWugCKiUHINcVsg7M4iI1bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKxElZWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PqlGKeBe"
-Received: by mail-ej2-f20.google.com with SMTP id a640c23a62f3a-c293c683202so761563966b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:17:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790770677; x=1791375477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PzFGcomGYdeFAjB1WE4iZyT8RWcWRQdQmOu+87EuTuk=;
-        b=PqlGKeBeKpvhOVUQfid1XVGRDhUlphJZlIslk/x6XMZspos3oAvU5KwOEJUCGFs5+y
-         ZNWcSDWF0xiYxQifTLKbCDhXWL0mIpqAuFMRIgQFc3AN2TgvWkv8wQyWb6O2SfSciD1W
-         tu2Wh9jWEcvuR2EfslHc13QDBbqOKAmGFfgCUW0Fg12daK3RMuShZQaXYlsWJoa53NAm
-         AIU8cxeQ1F4akJ3fD+ih1cG+qNhny1mHNXvshIsXh5wIhHXID2UDwlqyUukoHXOqpzHE
-         9/w79bkEgy6t/RPXXS2g/TNurwabjeG+CA3Ye3hXzpZIRA6KeUOYl9drSF/cSeqmepaQ
-         7B+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790770677; x=1791375477;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PzFGcomGYdeFAjB1WE4iZyT8RWcWRQdQmOu+87EuTuk=;
-        b=C/oV7wjalFrxvgpvkPp0LDl2swHp6Opfuq6ekSNE59dAJ9leVcP1OK5ZdPvISFA/wk
-         8l3VEg640UF0pM8OyHHZTU8pOu6/ic1DbLcOxBImxsozGdsXi5VWv7Qr1e7a8hrb4Bzq
-         Z/1k1fRyBmTxOLfKShc34ccdQVvrjMyWjnebqlGdNwswyRRV48wP37jMYpZBfJTJaLLt
-         NJMYNbNk2e0Npuw93M+AC+Mlv2cLpacPh5ckpbzAHMVWYN+BJD/MD54PnOmsE7mhaPA3
-         HD1Jnfbbcej6CSoaK4Nld8LGypPyarDEFYDfiJe3wAax7lB8Ys2qw7mUG0k93skPaWdE
-         MTig==
-X-Gm-Message-State: AFuF++l1s6EcAKYFXCy5A7rpuM5selToQvnHA3uEfMvWFiiqUT6vuv/3
-	ztz1Jg/y5CEkvhLoU551NUxmc6cxKADpPF674sjbEvzT6sQoFiW96fZA1i65kC9H
-X-Gm-Gg: AYBFou0C7/YxWF+AQIf7xU8jSXZioPPauttkxxFWbYjB3CiWD3BQdWeWCIr0JfI8i43
-	mf4mMu7Z0XXZ89zFjgvqnM+BCGNabEbPQDfuu1i7yBSEo3NVX3xCmhS9VlnjjDYw0TewL57j4XD
-	8l912t/rPTBDzbYXGNPgiL2vx7cp1qEilBuqZ+FTPSbmQ/bIrSYH8YV/1HJyPdyTQAsPFOsc88W
-	jCIHNLnnqSwSH60HS2Fh/6EwU4MIwJmreeZgS5L21ceXNqwyCNI72w6zbSxz2ILuLrTM/urHDDm
-	DqZTvOF3vToQ+N+ICCTDnT8fUQDMG6HzSq1jQ7QSZcKFYkukEZgKevRiWUeLhFoWlGauzAx8GV0
-	Z0zLZDo1lKmOEqG2KKS0PBF7JBqAAuSyKobnoNwTgke5eNSEYpIIJ8WUOmXzMXk/rG5XzzwlGJp
-	wOQN8LxmBJzvQso1rBUW39qjA46MHGNbufF461/yqNX5d2fCLTxSv0arwRr+epqFhSBcKhhuvJB
-	LGWA7C23XWQCvXzmDc5G230RXwo1JVHsfcMKKXwaW3IQIhedRokQrHWDOt+jtNjqouXgkYPrXmD
-	MsFaM+AANe2k18kwP5xDzFXYUyvfx5qjEDKHo3Ucxfv3nmxwGhH9nPv0fc/mx5KLIVqMMX2+Tlu
-	tSzIn1UaSR2disUas+i/bf7XyWqv7Ye6wWA==
-X-Received: by 2002:a17:907:960f:b0:c26:19de:9ac5 with SMTP id a640c23a62f3a-c2e23d99d05mr103066166b.29.1790770676769;
-        Wed, 30 Sep 2026 05:17:56 -0700 (PDT)
-Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f7fa5dsm55982266b.43.2026.09.30.05.17.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 05:17:56 -0700 (PDT)
-Message-ID: <9359c431-d21e-471d-a3e1-76711da7aabb@gmail.com>
-Date: Wed, 30 Sep 2026 14:17:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKxElZWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634891F000FF;
+	Wed, 30 Sep 2026 12:18:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790770692;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QKxElZWKS0Ys6WNvATHRL7YGjMvgZrF9T1oOHM6i9xogbDfnVWzMYSVrlSa3yoVBL
+	 Xe6m1CsStqmhHcd4Xq5glEVGxN7Zhxls9PRuHszuYQCOpO9S/3Nh+iibn4s4SBSB5l
+	 so96+IW9Bm+E20FtGK7hBJGTLKEW6+FRO4v1gj9kLQcVwFGZXJ9Hre7BL9Hxj91XxJ
+	 iozvAGyX+FaFDIfolWfkZ13pelUSYEVSbNiF55PRGbIqnG738muohias1HPntQApwx
+	 LrOG3fe9nmGI37uV0RmK2RmjIKpfM2zOVtxedT81OUoSo3WSHzLc31Z5+wVYbebux3
+	 cu1nMRHZ/8mgA==
+From: netdev-bot+sinfo@kernel.org
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Andrea Parri <parri.andrea@gmail.com>,
+ Boris Pismenny <borisp@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>,
+ Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ Fernando Fernandez Mancera <fmancera@suse.de>, Gal Pressman <gal@nvidia.com>,
+ Jianbo Liu <jianbol@nvidia.com>, Kees Cook <kees@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Parav Pandit <parav@nvidia.com>, Patrisious Haddad <phaddad@nvidia.com>,
+ Raed Salem <raeds@nvidia.com>, Roi Dayan <roid@nvidia.com>,
+ Saeed Mahameed <saeedm@nvidia.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>
+Subject: 
+ Re: [PATCH net V2 0/4] net/mlx5e: Fix offload lifetime and exclusion bugs
+Date: Wed, 30 Sep 2026 12:18:10 +0000
+Message-ID: <179077069088.31693.17490982550974749256@kernel.org>
+In-Reply-To: <20260930121119.141953-1-tariqt@nvidia.com>
+References: <20260930121119.141953-1-tariqt@nvidia.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fat: validate dotdot buffers in VFAT and MSDOS rename and
- rollback
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
-References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
- <20260929090029.742579-1-krystianmkaniewski@gmail.com>
- <87ld8j4161.fsf@mail.parknet.co.jp>
-Content-Language: en-US
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-In-Reply-To: <87ld8j4161.fsf@mail.parknet.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 9/30/26 10:02, OGAWA Hirofumi wrote:
->> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
->> index 35bdb6294..cee06e635 100644
->> --- a/fs/fat/dir.c
->> +++ b/fs/fat/dir.c
->> @@ -941,6 +941,40 @@ int fat_get_dotdot_entry(struct inode *dir, struct buffer_head **bh,
->>  }
->>  EXPORT_SYMBOL_GPL(fat_get_dotdot_entry);
->>  
->> +static int __fat_update_dotdot_de(struct inode *dir, struct inode *inode,
->> +				  struct buffer_head *dotdot_bh,
->> +				  struct msdos_dir_entry *dotdot_de,
->> +				  bool force_sync)
->> +{
->> +	lock_buffer(dotdot_bh);
-> 
-> This looks like unnecessarily wait the completion of buffer I/O, isn't
-> it? I guess, it is ok to give up to revert if surely I/O error, because
-> the reverted buffer will be the I/O error again.
-> 
-> Thanks.
-> 
-Indeed, lock_buffer() may be a bit of an overkill here. I’ll rework the patch to track the buffer whose synchronous write failed and skip rollback operations that would modify the same buffer, while still rolling back entries stored in other buffers.
-Thanks for the suggestion.
--- 
-Krystian Kaniewski
+Hi!
+
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
+
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
