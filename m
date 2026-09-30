@@ -1,340 +1,182 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F3D3CB54E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795685; cv=none; b=YAklQPRrg98jpDnZlVyBUMdTDHwxASKkj34l2hW/zAgVJDXaXkCMn6ZgZ38LtilalrV5XT06ZYC/N9Zt25fFMdM9pmeVdQYq9o8tJNUGHZIY9LlorRUwarHV9QRuedvztEnqu+HckeRjSQznU0x+V/Gw+ZlIcn+GleT4ZQ/T2x4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795685; c=relaxed/simple;
-	bh=Q2dfVBTA5NMWKcswYwtN7KVP6XuDzsX/wflSVX+jOE0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fQV1V4GKjeeZ1qW+9RB/4WgAt0lKdxX0rzSZShA05e7+wTINU9RRvjrw7ILJI6hGc8vRKDxKW8KkM5GIlGJZefNKG5S2j+vm9EUDtCNSspuOBo19UfSR/cJx03etkkvdxTPhnF2Eq5uH3D/DMtQ+GPJVQES+0okz6KMbcQ5rCvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hYIYDNri; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACA93C3F5F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790795730; cv=pass; b=stv/fIATMMADnHKnlElNgBoBLqIzNWNYBqO2nZgefWJlGTBI7XOuUinM/yWaAw6x5kioqVNMv+jup+On2BlShQZpv6wc15sY6UwC5+b54jrhD8GtszYFKLZKaA38/LLZWIl+Xw5NaWMztDY8rul3jbApkkatS5HD1lnyZ3KXk/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790795730; c=relaxed/simple;
+	bh=fZthL+tWzR9E/xcvxwzbMjS1v8ySe2/09qkUj/BN7gs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GiCxt3vlLqKMYsdaL5F7ylfsVZtC+wgwnxHZ5Ig7QhnHFGZE4lxemiTF/FXpuIgYZdhLDh1UHfNf6rLpdIt77qghjqf/44HW05qGJsIIp6beoNPJ1q+/dEtqhfylSkkENPEuS317mnJU/LJCTB9hbXEHghXJivIcpyDn+gANkyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=O1aHOzu9; arc=pass smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYIYDNri"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso42078025e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:14:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="O1aHOzu9"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67583c777abso76152d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:15:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790795727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FiZmwEdhPJdLsYPRFd79XZNajW9FZBXE4Qlmg2eDxyzFmgjACDN/VvBwKShcF75f+d
+         x/HTcanp3tL+jzYug4G91BkUoFccGDw6gCNTEJ7T6k+fJXN0E9gls+XSgLyS6kNia9sG
+         Y89D4LidWFx+eK1hHE7kazIU9RrQE2hdI4D1Vks5gjZwyCHXjpfir9atm3sEZK+AfkHL
+         8Y1+XLJ4D4O2g/vzMeNfWYpFQVEvkxDbtnnPiZ26Pw/gllr0x6EqCeDSc1+/JUOUMhbc
+         LkuAtBcqyueB0N40m70yNFyA4vmwTWTgRByPyaqx4/5yW37xVpUxK1KrMi9nrVwxZMJe
+         H/PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sykxas6Adj+WIJltS14TUveHVHPawmc/B3/hESpzPNs=;
+        fh=VDGMVaXvKJncnji6tvDBOjxnDevto7FmGgZMxz8ZH5s=;
+        b=CCovLLaD1/18X13kClHpFr0elhWj+Zk+NFm+66aYj9RLXhj6pwXYULgiZUwuSGcynJ
+         zacj+F/o5/fdQjBKAyhDPoqRTFrA1lRo+lEumx83JxP4zIbxnDDHMlWGvyu9L0u/oJfy
+         H7diptkOrKvOCfbEhfZTDdFIO2615jzdTxFCibVgj06gTthLwW6Lgn0mffsa14vweiEh
+         DxcmJu3PzlaWsk1e4dxgwjOg+Caon2sfqQgdDFLZpTkMRestrm84ODqgpIH2ll2w7iEM
+         zdqVkIw9rD4Oc3R882dGV3Ru96YE0XrIPrnR7+48cWpr4LNYhGrbsHecTfrSSuSBFLSB
+         nsvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790795682; x=1791400482; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3zvnjS+dlt0/FohVtWMLLifkmnbfEBWCuLKr0ZvxY+U=;
-        b=hYIYDNriyQ3AnHHb+2UBj1PB6Us/F9FjlYIha3oFGg0YBbxWs0Exi/9OFNUuLhLb4x
-         UAM2Q5qIIt8Ga5lD1OOIrdWTbbKY4zF6Xwo/YoubEW3aB8gZxcgG/OjI4ZxptuFYpeC8
-         0bxVb2RJZ8xQsnd7lp88d4RSLdajCfJYwoTKxiAlPLI1YKXXiWRKgAmqjQmHdsnT87Fq
-         HTcAvARKTJPFTVLTDOPny3PaE5bA8sy1b9t/Dpwgj9WrQCvApKMxXPtT+1eNaTcdHotX
-         y3RfJW+381Y0bP3Axuyl0xTJ2p4XN8/0mJpgHU/aBbqlN2QNNoz1qjJgq7sCnDYnwLhb
-         T35A==
+        d=tenstorrent.com; s=google; t=1790795727; x=1791400527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sykxas6Adj+WIJltS14TUveHVHPawmc/B3/hESpzPNs=;
+        b=O1aHOzu9CUR8grxwHyvW6ZdNu9R40dNRACLsRteyrCm+grJlgN86FrEFKnDtmIShg/
+         loiox00NjEId2yqco2nVYma2uoWoNMnHieGGAinouaoNPNA7P5jhH16V9s6QBiir8npc
+         FJj9HbJ4bEwwrHNjmLhISBmxokWzr2pijkzCadw3UOR3+PcSINDxoUHc5o1nIuOdKfZI
+         ktC4NmRSOCYtry8elPt4FIjeM7P7a4cZvnk4QSfBW7CJWJy48v4XbJosn/XQFtUrhBnT
+         NSVxpyLE4udahn4/N6jZZ0dWsHVS3chRRLn8byPdiJlSf/WyThu11nGSoII5MnRiJtEK
+         Yxrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790795682; x=1791400482;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3zvnjS+dlt0/FohVtWMLLifkmnbfEBWCuLKr0ZvxY+U=;
-        b=jHGdPHvmkql5tsEhTg2BgbSRvVUgDeF4hN5wjXEeqPQGJVB4xyyXNliiYFsfJdDxR6
-         ZuJHZZxXGskyu3ispXWoWjkY56p9/5+oRNo+TEmthg4ezYzvoRvrrwMGB943l0vk++fP
-         EEXlgKCxpVWZ5IvbcuhwPEfMe7tvbXRTx/K6L4xjMV96hCR7Zl0ifpGpUS/cSIWQDZBh
-         OwlSTUuUxbdeDSFlY0mG2+ZBQgA0WwXopi3o++1EdRIRjIRI9rSHUmmbfAETlMClI5ZL
-         zu9nDbwmgS40whg7TNonKlNbFglfKBAu+eKHpZZhzMvPaLbgrxd07GZvc+meCcTcXTiW
-         o4Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBxa4jqW5dgApGht4j6uMm+2nia9vS7SXb4c9dQ5UR5TVvC+5IrQdLzY86hzp4crPYAaj5UFsg7i8F81pnA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kU5vTTr/RdNXg5gfXt7xSLYEScz4EtejUKfs/BM8ZyPZe2wm21
-	fUmAvzkowOHcGl8tWg8qd9bGz5Crdc6N1OxKnyS8F97dDvcyEd8WT4fb
-X-Gm-Gg: AYBFou3MdLOmT2YCTqWoojAi7F5mSM2Q81caeFF+4TuLxnM8dXwPOZt8mTxxo2ODmjI
-	+V6xT+hZyzfydctK8vhz1oQyvHCFmYc8iYVL1BpH1zut42Rjz+D66rbtNacqofkdf6ouyGLl2B3
-	hEMIFkkwImjNFb5HZ7Lyqv4l9yEBnQHrAwHZt8qr9YsrPK/CZJlK5M7jidyb9pTUuHpftYsn7U2
-	OqiVO0feAYVtobRvxTOdCSAqAXuQi3zTKWXqZEM9V0+CrPsae83Sap8/IvZ6pzkA0O5+QhkkHGv
-	HlbSdZxtsO9kGWrMosBlAkje9kKsXJ/av9KMbvOOqoRfHVo5wIojHAido9vuWEpc2rbLsOGPqWA
-	FCTsnxCLtgqumatiOAJP11OzOuOPLrkOSqA4k3dqNkkOxEdvisc2pdCObcCoJ/lFaOWNIXpAFcA
-	JPiIhm2hpSEChLXB7Mx4lsTB2iWhIqSLGAsl1BqbKqa9gvwwQJvvSHlWBg94fkWU5lrTXwlgbM0
-	O+FdNedVIO5+2Jl4RCyUeyvEYcXqnHVx84p5jzuJvDuTX49X0IN9OJiv11UuZMgEmuECgKK2vk/
-	lLzgjL+O0Nd29KMVJNPtRgMncWip+oFk5bsgwX9Gy7fp9jbXsT1f/bGbW9O8l2NDUQjbq0IDJC1
-	j
-X-Received: by 2002:a05:600c:4445:b0:4a0:1b14:e845 with SMTP id 5b1f17b1804b1-4a01b14e85dmr40903785e9.2.1790795681430;
-        Wed, 30 Sep 2026 12:14:41 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f9145e6sm4184065e9.5.2026.09.30.12.14.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 12:14:40 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Bradley Morgan <brads@mainlining.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: [PATCH v5] softirq: Preserve interrupt context during IRQ exit
-Date: Wed, 30 Sep 2026 21:14:32 +0200
-Message-Id: <20260930191432.62760-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1790795727; x=1791400527;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sykxas6Adj+WIJltS14TUveHVHPawmc/B3/hESpzPNs=;
+        b=mjbN1EUvVXijDsjvSo+bwPxrFFPfHc/+p9Y/9tWmv1YDNk2+K7xje/kXSpss6Izpvh
+         pYvvZCYg59PMChQBC9iatfa44qxwAItFn5t3kA/XkvR2qYyX/i0xBtgHwTRLgTx2DwVZ
+         tNJoBS+phbYXTYstr9p0FtP6VJmXSvB8iomdqsa5xqTMO5e0umDZEg4/5T19ccGrgeOb
+         qAWdlNDNn59Nhp6isHY/hdvFbDEvkvGhNNA2K8FbUw/7oz/Ev1I4sK+t+CTPcgWG73pq
+         jD3jJUXBDckLvazpwimTh4DNF71379dTDgWgHLwPkdmC9SOqeNSgZI+IfxoRoUbcDVMP
+         HewQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzO9ixlhlAw05am3xg4rYr5DhGntoaHonuuX6mkHURnPJtxQH1QOLlJQvCmms3ZGQgy3KRsHrYgKNjaB3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8ovXPZbdUMLVvIsNfPQrFwO6SPdGBIP3zXU0Q6+AxdMqXhBuW
+	SbJU5BO6l/7QN725LgCOwemphqHP9MsZZHS0DtF4cJjtJddZIb39uvcdibTDJNjsxpRSEbl1iR9
+	Mb0EAjs+2bOEPRZplifbe+dUWEYR7qMEXa6d7QH2j7w==
+X-Gm-Gg: AYBFou2VJir11LtHxbulI2VkZ126D7R5gBJRokeSz9x6n5MvFuZl7IXI8dTP/MedmEs
+	BYb6U+ySX4tPt60RoEraNfzqlK/u2d2uG2dgZAbUo9BXEIcvCu0SFKwDf15hw3BY7HO9EANnQBx
+	xkQ+4iYnnJ5HcuzurJh9AA32s5+3DUeqALF5Kwuj1sy29Nb7Pzf2e11olkIS/6jioWWne65Cofz
+	srp3K3hGmL8h/mB3KFSF1l1A8Z1FT9oKO0zMJhJg3VINbMBdptVIQebJcxMzAlAaNUfmtM3HDWi
+	TgooIc8n4qozhIkwxGpDxyBATUHA9rywlxp9E/aYWQ/4ZWjXef8wKsvm0oK9xuUQm1uuY1SZ0Fz
+	DK6streZiXg==
+X-Received: by 2002:a05:690e:1586:10b0:672:96c4:af92 with SMTP id
+ 956f58d0204a3-676911e16b6mr273044d50.33.1790795727505; Wed, 30 Sep 2026
+ 12:15:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
+In-Reply-To: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Wed, 30 Sep 2026 14:15:16 -0500
+X-Gm-Features: AclHuK-pvBqXamSowcqonc1nkj-a8CmAPv0aSHfEztWllhc4V4grOHWSW8mGpDM
+Message-ID: <CAEev2e8TXNwon=Ro27WYvyn-N5j=CenA8pEgLTPerMQtDh2OWw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On the return from interrupt path, __irq_exit_rcu() removes
-HARDIRQ_OFFSET from the preemption counter at the very top of the
-function. Everything after that reports the current context as task
-instead of hard interrupt. The code in the function itself, such as
-invoke_softirq(), is aware of this and does not rely on the counter.
-Everything else which derives the context from preempt_count gets it
-wrong in that window:
+On Wed, Sep 30, 2026 at 1:47=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap(=
+)
+> operations that keep the original VMA in place.
+>
+> Historically this has led to a lot of bugs where non-obvious interactions
+> occur between existing mremap() operations and the original VMA.
+>
+> Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+> MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+> mm->locked_vm accounting, but this wasn't the only issue.
+>
+> And thus history repeats itself, as it turns out that mm->locked_vm
+> accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+> and has been broken ever since the feature was introduced.
+>
+> Both relate to the fact that VMA_LOCKED_BIT is cleared on the source
+> VMA (it has to be as all page tables are moved):
+>
+> 1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+>    clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+>    pages.
+>
+> 2. If a partial mremap() is performed on a locked VMA there is a leak equ=
+al
+>    to the number of pages not copied.
+>
+> (Both for MREMAP_DONTUNMAP operations only)
+>
+> Both issues can be fixed by treating the source range as distinct from th=
+e
+> destination range, which is the definition of what MREMAP_DONTUNMAP does =
+so
+> is appropriate.
+>
+> In case 1, simply disallow the self-merge, keeping adjacent source and
+> destination VMAs distinct.
+>
+> In case 2, split the source range ahead of time if the VMA is mlock()'d, =
+so
+> accounting is always correct.
+>
+> Both changes were tested locally and confirmed to fix the issues.
+>
+> For the purposes of a backport, the fixes are kept distinct, a follow-up
+> series can add self-tests.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> v2:
+> * Added tags (thanks everybody!)
+> * Updated 2/2 to avoid splitting the VMA if the VMA was not mlock()'d. It
+>   is only meaningful and necessary to perform the split in this case. Thi=
+s
+>   also fixes the proc_maps_race selftests that broke, as reported by
+>   Anirudh.
+>
+> v1:
+> https://lore.kernel.org/r/20260920-fix-dontunmap-partial-self-merge-v1-0-=
+6ffb556f8f8b@kernel.org
+>
+> ---
+> Lorenzo Stoakes (ARM) (2):
+>       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+>       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+>
+>  mm/mremap.c                   | 70 ++++++++++++++++++++++++++++++++-----=
+------
+>  mm/vma.c                      | 21 +++++++++++--
+>  mm/vma.h                      |  7 ++++-
+>  tools/testing/vma/tests/vma.c | 10 +++----
+>  4 files changed, 81 insertions(+), 27 deletions(-)
 
-  - ftrace, perf and the ring buffer record task context and use the
-    task recursion and context slots.
-  - KCSAN attributes the accesses to the interrupted task, KMSAN uses
-    and changes its state. KCOV and the printk caller id see a task.
-  - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
-    interrupt context to avoid interfering with PI when the interrupted
-    task is blocked on a lock. That check does not reject calls made in
-    this window. BPF programs attached to sched_waking or sched_wakeup
-    can reach it through kmalloc_nolock().
-  - An oops kills the interrupted task instead of ending in "Fatal
-    exception in interrupt".
+Thanks, the selftests are passing now.
 
-Tracing and the sanitizers see the wrong context in this window. No
-failure caused by this misclassification is known. The early removal of
-HARDIRQ_OFFSET predates git. lockdep is not affected because
-lockdep_hardirq_exit() is the last operation in irq_exit().
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
 
-Keep HARDIRQ_OFFSET until right before tick_irq_exit(), which needs
-in_hardirq() to be false for the outermost interrupt. Softirq handlers
-must not run with HARDIRQ_OFFSET set, so softirq_handle_begin() replaces
-it with SOFTIRQ_OFFSET and softirq_handle_end() reverts that, each in a
-single raw preempt_count update. The raw operations keep the preemption
-disable location recorded by irq_enter_rcu(), and lockdep is updated by
-hand. softirq_handle_begin() detects the case with in_hardirq() because
-__do_softirq() is reached through the stack switch in
-do_softirq_own_stack() and cannot take an argument.
-
-The checks run before HARDIRQ_OFFSET is removed. !in_interrupt() becomes
-irq_count() == HARDIRQ_OFFSET, as in irq_enter_rcu(). The timer thread
-check becomes (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET. It does
-not test softirq_count(): the timer thread must also wake when the
-interrupt hit softirq processing or a section with BHs disabled.
-A softirq raised in the timer thread wakeup is handled by the timer
-thread, which handles all pending softirqs.
-
-A softirq raised from a tracepoint on the final preempt_count_sub()
-waits for the next interrupt exit and can trigger NOHZ tick-stop
-warnings meanwhile. That is not the normal path and does not justify a
-check on every interrupt exit. A tracepoint on tick_irq_exit() already
-behaves the same way.
-
-The number of preempt_count updates and the interrupt time accounting
-are unchanged. The preemptoff tracer now reports the interrupt and the
-softirq processing on top of it as one section, and function graph with
-nofuncgraph-irqs also skips the interrupt exit work, including the
-__do_softirq() frame.
-
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
-
-Notes:
-    Changes in v5:
-    - Timer thread wakeup: merge the NMI test into the hardirq test,
-      (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET (Sebastian).
-    - Add Sebastian's Reviewed-by, given on v4.
-    - Rebase on v7.3-rc5. The two touched files are unchanged since rc4.
-    
-    Testing: v5 differs from v4 by that one expression. Both forms agree
-    for all 2^32 preempt_count values and at the real site on every IRQ
-    exit in four QEMU boots (arm64, arm32; plain and threadirqs; 1.1M
-    evaluations). gcc 15 emits one conditional branch less on x86-64,
-    arm64 and arm32; clang 22 on arm64, and 16 bytes less on x86-64. On
-    v7.3-rc5, base against v5 in QEMU on arm64 (virt, SMP, lockdep) and
-    arm32 (versatilepb, lockdep): boot and stress, nothing on v5 that the
-    base does not show.
-    
-    v4: https://lore.kernel.org/r/20260926143505.66024-1-kmehltretter@gmail.com
-
- Documentation/core-api/entry.rst | 16 +++++---
- kernel/softirq.c                 | 65 ++++++++++++++++++++++++++------
- 2 files changed, 63 insertions(+), 18 deletions(-)
-
-diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.rst
-index 79fdaed954d9..ff3df997b151 100644
---- a/Documentation/core-api/entry.rst
-+++ b/Documentation/core-api/entry.rst
-@@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time accounting. This
- means that up to the point where irq_enter_rcu() is invoked in_hardirq()
- returns false.
- 
--irq_exit_rcu() handles interrupt time accounting, undoes the preemption
--count update and eventually handles soft interrupts and NOHZ tick state.
-+irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
-+possible, undoes the preemption count update and finally handles the NOHZ tick
-+state.
- 
- In theory, the preemption count could be updated in irqentry_enter(). In
- practice, deferring this update to irq_enter_rcu() allows the preemption-count
-@@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragraph. The only downside
- is that the early entry code up to irq_enter_rcu() must be aware that the
- preemption count has not yet been updated with the HARDIRQ_OFFSET state.
- 
--Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
--before it handles soft interrupts, whose handlers must run in BH context rather
--than irq-disabled context. In addition, irqentry_exit() might schedule, which
--also requires that HARDIRQ_OFFSET has been removed from the preemption count.
-+Note that soft interrupt handlers must run in BH context rather than in hard
-+interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
-+SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
-+puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit work
-+is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
-+irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
-+that HARDIRQ_OFFSET has been removed from the preemption count.
- 
- Even though interrupt handlers are expected to run with local interrupts
- disabled, interrupt nesting is common from an entry/exit perspective. For
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index 5d02c36c40e3..288e9e37b806 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
- 	local_irq_enable();
- }
- 
--static inline void softirq_handle_begin(void) { }
--static inline void softirq_handle_end(void) { }
-+static inline bool softirq_handle_begin(void) { return false; }
-+static inline void softirq_handle_end(bool from_irq_exit) { }
- 
- static inline bool should_wake_ksoftirqd(void)
- {
-@@ -481,15 +481,40 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
- }
- EXPORT_SYMBOL(__local_bh_enable_ip);
- 
--static inline void softirq_handle_begin(void)
-+static inline bool softirq_handle_begin(void)
- {
--	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
-+	bool from_irq_exit = in_hardirq();
-+
-+	if (!from_irq_exit) {
-+		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
-+		return false;
-+	}
-+
-+	/*
-+	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
-+	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
-+	 * interrupts. Use the raw operation to preserve the preemption
-+	 * disable location recorded by irq_enter_rcu(), and update lockdep
-+	 * directly.
-+	 */
-+	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
-+	lockdep_softirqs_off(_RET_IP_);
-+	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
-+
-+	return true;
- }
- 
--static inline void softirq_handle_end(void)
-+static inline void softirq_handle_end(bool from_irq_exit)
- {
--	__local_bh_enable(SOFTIRQ_OFFSET);
--	WARN_ON_ONCE(in_interrupt());
-+	if (!from_irq_exit) {
-+		__local_bh_enable(SOFTIRQ_OFFSET);
-+		WARN_ON_ONCE(in_interrupt());
-+		return;
-+	}
-+
-+	lockdep_softirqs_on(_RET_IP_);
-+	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
-+	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
- }
- 
- static inline void ksoftirqd_run_begin(void)
-@@ -605,6 +630,7 @@ static void handle_softirqs(bool ksirqd)
- 	unsigned long old_flags = current->flags;
- 	int max_restart = MAX_SOFTIRQ_RESTART;
- 	struct softirq_action *h;
-+	bool from_irq_exit;
- 	bool in_hardirq;
- 	__u32 pending;
- 	int softirq_bit;
-@@ -618,7 +644,7 @@ static void handle_softirqs(bool ksirqd)
- 
- 	pending = local_softirq_pending();
- 
--	softirq_handle_begin();
-+	from_irq_exit = softirq_handle_begin();
- 	in_hardirq = lockdep_softirq_start();
- 	account_softirq_enter(current);
- 
-@@ -670,7 +696,7 @@ static void handle_softirqs(bool ksirqd)
- 
- 	account_softirq_exit(current);
- 	lockdep_softirq_end(in_hardirq);
--	softirq_handle_end();
-+	softirq_handle_end(from_irq_exit);
- 	current_restore_flags(old_flags, PF_MEMALLOC);
- }
- 
-@@ -748,8 +774,12 @@ static inline void __irq_exit_rcu(void)
- 	lockdep_assert_irqs_disabled();
- #endif
- 	account_hardirq_exit(current);
--	preempt_count_sub(HARDIRQ_OFFSET);
--	if (!in_interrupt() && local_softirq_pending()) {
-+
-+	/*
-+	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
-+	 * softirqs, and only if it did not hit a softirq or BH disabled section.
-+	 */
-+	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
- 		/*
- 		 * If we left hrtimers unarmed, make sure to arm them now,
- 		 * before enabling interrupts to run softirq.
-@@ -758,10 +788,21 @@ static inline void __irq_exit_rcu(void)
- 		invoke_softirq();
- 	}
- 
-+	/*
-+	 * Wake the timer thread even if the interrupt hit a softirq or a
-+	 * section with BHs disabled. Only nested interrupts and NMIs are
-+	 * excluded.
-+	 */
- 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
--	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
-+	    local_timers_pending_force_th() &&
-+	    (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET)
- 		wake_timersd();
- 
-+	/*
-+	 * tick_irq_exit() relies on in_hardirq() being false for the
-+	 * outermost interrupt.
-+	 */
-+	preempt_count_sub(HARDIRQ_OFFSET);
- 	tick_irq_exit();
- }
- 
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.39.5 (Apple Git-154)
-
+Regards
+Anirudh Srinivasan
