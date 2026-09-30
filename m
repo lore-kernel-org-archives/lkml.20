@@ -1,57 +1,57 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2051C51DDE9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF1751D503
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803282; cv=none; b=t0w3FxQN9pgxnijCxQsp4g3S+Sffx6M0DO7TzhVy8xCC8hSCT/ZmKCLDSR9AalD763xZzB/CAEN2E4/ZRSnU9VKCY25ommOff/tGIbHvpmq+4s9QxKHIFAosA7BM22WPUL/Z9AxII+pxgnA1cPIISJ806tgJVqNBsGTIBxtT0lY=
+	t=1790803281; cv=none; b=Ov/VNMYkw/aoMVVCRXAVAVFzJquYMmg+0jPQqSm6zw1zKLgvMjUbxd/qQkq0Wf/PlqxqtOc2aijdQzQqp0NcBdiW34VusrCAQS64sENJ9koUkpegfykHDKkbXHu6UDH2+Z4TVJX0cCTlWaIjr91A4HDucfnjF1OD1h5wc/41HBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803282; c=relaxed/simple;
-	bh=KhzCmk5WC8AOQA8Ul45nUPC1/2N85vtoaJQNQF67U3k=;
+	s=arc-20240116; t=1790803281; c=relaxed/simple;
+	bh=KaAF/v3VWbZrGBLzY9WT3PcXnY3Ty/aFuFU/6bcxqdI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YOcYGNT3R6tPfw9GXkEJIuirLqYytkOBCPm5tTqINHuvtX/U0JpFfrU/mN/d3aMC/a/kDvF/xJYU06pXgndD+Ewbg06iwL8fzK2AWMrAr9uKAi/KeozSKFnEu05EqJxZr+R1b7eaezNzYCQga8Jwcp0e+J9kiF3WZMv+YdfcgQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=boqixBvu; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=P14n4KX0NKwkR2tqgXIU10n4jtuIak8zXyAaLdZaMaHavd7wQ37t4PQCUwjdcGAwGbj/6JZI1xvb2IFk42zq8vZDvvLf5n/ZpSIP+zB8AHWAtGn9MwAwhnaqGUUKTtVQRhjmXqqB8rXylN1XrgbNV53KppAj0SzuRrLD+1fJcTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ccwLrYMX; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="boqixBvu"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e3f521346so6158218a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:21:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ccwLrYMX"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e2e064b7a6so10824095ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790803280; x=1791408080; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790803279; x=1791408079; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=StSfMMKa3bvOgPVEPrc0vegrNiPAcw8xGz3Rd2c57Ac=;
-        b=boqixBvuWFssxpwXlk6D3mNWYlU+ykWOPDVR8xagxGq3jWglPsedXkZc5urJvVrrJW
-         HpInrYFcOIAxYgtWCs1wq85DnS2CIW7NY70mMwJeSRMs6uuIedNcoDLNHlYunG9YmW4H
-         yinX0O2+om5S2OrTKOQ/zgUZ2t8SBwc7YMzG8XzprEwRJ87aNUPsgy6BnPjVSRLjllKB
-         w0RdKAgHHn6yYHFg39cUknVYEtzDmTo+eocfHbFC1Ok9sVfXA3ubepIGkeajUK2nL8D5
-         ipaAqH1Yfmsxe39UHhM6toEAxtUIxbx1x4jw+9k6Iib2r8ySynWp3Lu7w3y/iAabxoOU
-         9upg==
+        bh=4/IESgckvzjX33EzLxU5hh6B1Za3iDvpzFI7EQmNi78=;
+        b=ccwLrYMX26LCcr8cBOxmJzt1mq0kFwicUolIFKBLu1fPzbX/Zqc52B4YpugdXFk8ta
+         v2Kiarh4+3EprfLQt64PuXAO3V/ekKv3gQQa4Jz2gJvLkHYVN9aF1snOMu5D3V1ysCeQ
+         txHqFkINabH7X7jSaZPJZ0X9k/sY4BBTeSZHr9aQ5ZACscLM2fEm8nZIAF3+CHNNQMFi
+         fNXjd2iEWOSlpBoGP3T2UDiz6JBOQiIvNJhgkhaqBUJPQz4LIQ1tNzRw1IX2pcMBNlek
+         B4bOxuSwTxZcbCtwYQJsZtzwQyS3aTAFMpwN4P+wfdvTe0jSey+uh929kRopfbp90rgv
+         EOeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790803280; x=1791408080;
+        d=1e100.net; s=20260707; t=1790803279; x=1791408079;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=StSfMMKa3bvOgPVEPrc0vegrNiPAcw8xGz3Rd2c57Ac=;
-        b=ZVXRiBb4p9FYIibnOJjsBtJRPd117ho2wD3b6cisbOGJVOZqdivw2uH4+IZM742SrH
-         cV4ZAPHaFO86cyk3JIdGm4e22eGAe7T8gGRAL22L4O7Mdkn3zLK/XeeeFm19+NP4a0of
-         kko5inpvh1zXH+xQjIY5+UKocclktKcNoMdZwU9T5B0IijcaZXZkwxtAWZtNuoP2map0
-         uBEhVJ6c7/nQ/fSAmy/rRMdl9NSitZHUYjYRHMpFMxKEAMe4pd9zJsATjUV4y3IQWpBK
-         d0ecVaxyEYSBSyfeV8DzWDvOkv8+rbDQSF622isJ/+TKpevWMFC2H/oROhoclJ3BNdHW
-         5PDg==
-X-Forwarded-Encrypted: i=1; AKwUvByL69afV6ujl9IUDDu2nPFxWIF6ayOxWK8bgRyBlynZKh/prLBoKZVv2+clqgB3pbR2EoOVYaTwsXzu/+I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeEVslXMEyzrh0nCOOHYVO/z6cdecfDGQILC/cK6srBdEG1dM0
-	pUmn1ar53wx528F68jr4hfTjcpoZNWCHuahKAu5S6g/ycbH3EjdA9XUnUsFBrOgTVFRH5M7mwfC
-	60XdStw==
-X-Received: from pgce11.prod.google.com ([2002:a05:6a02:1cb:b0:cc7:84e2:5dfe])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2243:b0:3a0:7d97:37c1
- with SMTP id 98e67ed59e1d1-3a4d1937927mr1979096a91.59.1790803280115; Wed, 30
- Sep 2026 14:21:20 -0700 (PDT)
+        bh=4/IESgckvzjX33EzLxU5hh6B1Za3iDvpzFI7EQmNi78=;
+        b=mavnAFi2gzpRkksAzu24iy0CBmvG0HM0cIGg7H/HjTFgySyWi6bymHTPQGzZ7ohUjP
+         i5h+cGDSWgqnjDI1mqVPBy0q0mSK6rtkLWPAvlZc61MA0CXX7Z2W9MR0XoltXoh2EeXu
+         FegwuIfseahsOm33sny6iZ43Dv6OkGqtuurPDt4dUXyBEzH/xyng2BK15OM60H1FIYvi
+         IKdf9iqKhIxV6TO+kFpC3np8iaFy7fKJ6xkGAn2NGba9CfJWXxeWV7PoodI3o8BqUxF2
+         4itbFXblXpyKSCUlfBnZHSbnYWwmLvFygFUskUW8af/uhHiuyF+QuvpLJN82H4Nu8lqk
+         JpNA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAn+Q6OEoUxuUy6mYWd5mpNDDKPFtriIpcZ6hLGFr6uSKKU6tWIIiHB7TPbRsqXl9MxSPHqfhMr2kqMK8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHAdHidsOn+JlTvk5otxLazFQawJZXD16hVdiFVKcNivcMaJ8t
+	rDkKIEzNAUAYdaBareoVvjaHMu8cKd7D/LQ5CKDoejgGXmJ6LouNn1h+148Nj+ojzb1BRGjec77
+	OD75rEQ==
+X-Received: from plbjk22.prod.google.com ([2002:a17:903:3316:b0:2e3:433:71db])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:db0a:b0:2dd:b837:48f7
+ with SMTP id d9443c01a7336-2e2e4a27db9mr20271485ad.25.1790803278837; Wed, 30
+ Sep 2026 14:21:18 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 14:21:12 -0700
+Date: Wed, 30 Sep 2026 14:21:11 -0700
 In-Reply-To: <20260930212114.3500045-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930212114.3500045-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930212114.3500045-4-seanjc@google.com>
-Subject: [PATCH v4 3/5] KVM: selftests: Rename svm_nested_clear_efer_svme to svm_nested_efer_test
+Message-ID: <20260930212114.3500045-3-seanjc@google.com>
+Subject: [PATCH v4 2/5] KVM: x86: Honor the guest's EFER_LMSLE_MBZ
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -71,39 +71,155 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Jim Mattson <jmattson@google.com>
 
-Rename svm_nested_clear_efer_svme.c to svm_nested_efer_test.c so that the
-test can host coverage for other EFER bits whose behavior is tied to nested
-SVM, and so that the name matches the svm_nested_<topic>_test convention used
-by svm_nested_pat_test, svm_nested_shutdown_test, etc.
+Reject guest attempts to set EFER.LMSLE if userspace enumerates
+EFER_LMSLE_MBZ, CPUID.80000008H:EBX[bit 20], in guest CPUID, so that userspace
+can hide long mode segment limits from the guest even on CPUs that support
+LMSLE, e.g. for migration compatibility between Rome and Milan.
 
-No functional change intended.
+Enumerate the defeature as *partially* emulated, i.e. as supported by KVM but
+never advertised, so that kvm_vcpu_after_set_cpuid() propagates userspace's bit
+into vcpu->arch.cpu_caps.  Checking guest_cpu_cap_has() in __kvm_valid_efer()
+doesn't suffice on its own, because KVM clears the defeature in kvm_cpu_caps
+precisely on the CPUs where it needs to be emulated, i.e. cpu_caps would never
+hold the bit no matter what userspace puts in guest CPUID.  Don't advertise the
+defeature in KVM_GET_SUPPORTED_CPUID, as that would take EFER.LMSLE away from
+userspace that blindly stuffs KVM's supported CPUID into KVM_SET_CPUID2.
+MONITOR/MWAIT gets the same treatment.
 
+Enforce the defeature only for guest-initiated writes, as it's a guest CPUID
+consistency check, not a host capability.  See commit 11988499e62b ("KVM: x86:
+Skip EFER vs. guest CPUID checks for host-initiated writes").  Note,
+KVM_SET_SREGS does reject EFER.LMSLE, as it runs the full set of guest CPUID
+checks, as does nested VMRUN, i.e. L1 can't sneak EFER.LMSLE into L2 via
+vmcb12.
+
+Mask EFER_LMSLE out of the value consumed by efer_trap(), which handles
+SVM_EXIT_EFER_WRITE_TRAP.  EFER writes are *trapped*, not intercepted, i.e.
+hardware has already committed the write by the time KVM gains control, and
+the trap is enabled if and only if the guest is SEV-ES, whose EFER lives in
+the encrypted VMSA and so can't be fixed up by KVM.  Rejecting the write would
+inject a #GP *and* leave EFER.LMSLE set in the guest, which is strictly worse
+than honoring a write that hardware itself allowed.  EFER_SVME is already
+masked out for a similar "KVM can't enforce this here" reason.
+
+Opportunistically fix the whitespace damage around __kvm_valid_efer().
+
+Document the resulting two-level contract in api.rst, i.e. that userspace may
+set the defeature even when KVM doesn't enumerate it.
+
+Suggested-by: Sean Christopherson <seanjc@google.com>
 Assisted-by: LLM
 Signed-off-by: Jim Mattson <jmattson@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm                        | 2 +-
- .../{svm_nested_clear_efer_svme.c => svm_nested_efer_test.c}    | 0
- 2 files changed, 1 insertion(+), 1 deletion(-)
- rename tools/testing/selftests/kvm/x86/{svm_nested_clear_efer_svme.c => svm_nested_efer_test.c} (100%)
+ Documentation/virt/kvm/api.rst | 14 ++++++++++++++
+ arch/x86/kvm/cpuid.c           | 16 ++++++++++++++++
+ arch/x86/kvm/msrs.c            | 12 +++++++++++-
+ arch/x86/kvm/svm/svm.c         | 11 ++++++++++-
+ 4 files changed, 51 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 96bab7002d39..2554464d8b96 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -117,7 +117,7 @@ TEST_GEN_PROGS_x86 += x86/state_test
- TEST_GEN_PROGS_x86 += x86/vmx_preemption_timer_test
- TEST_GEN_PROGS_x86 += x86/svm_vmcall_test
- TEST_GEN_PROGS_x86 += x86/svm_int_ctl_test
--TEST_GEN_PROGS_x86 += x86/svm_nested_clear_efer_svme
-+TEST_GEN_PROGS_x86 += x86/svm_nested_efer_test
- TEST_GEN_PROGS_x86 += x86/svm_nested_shutdown_test
- TEST_GEN_PROGS_x86 += x86/svm_nested_soft_inject_test
- TEST_GEN_PROGS_x86 += x86/svm_nested_vmcb12_gpa
-diff --git a/tools/testing/selftests/kvm/x86/svm_nested_clear_efer_svme.c b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-similarity index 100%
-rename from tools/testing/selftests/kvm/x86/svm_nested_clear_efer_svme.c
-rename to tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index 3c5bcdb0923f..2852bf94828b 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -9646,6 +9646,20 @@ mode segment limits, or if nested SVM is unsupported.  KVM therefore reports
+ the bit on all Intel hosts, as KVM allows EFER.LMSLE only when nested SVM is
+ enabled.
+ 
++KVM never reports the bit via ``KVM_GET_EMULATED_CPUID``, but userspace may set
++it via ``KVM_SET_CPUID2`` even on a host where KVM doesn't report it.  KVM
++honors the guest's enumeration and rejects EFER.LMSLE=1 accordingly.  That lets
++userspace defeature a vCPU on a host that *does* support long mode segment
++limits, so that the vCPU can later be migrated to a host that doesn't, e.g. so
++that a vCPU created on AMD Rome can be migrated to Milan and later, which
++dropped support for long mode segment limits.  The opposite direction needs no
++emulation, as a host that lacks long mode segment limits already enumerates the
++defeature.
++
++Note, ``KVM_SET_MSRS`` is exempt from the check, as host-initiated MSR writes
++skip guest CPUID checks so that userspace can set MSRs before it sets guest
++CPUID.  ``KVM_SET_SREGS`` and nested VMRUN are not exempt.
++
+ CPU topology
+ ~~~~~~~~~~~~
+ 
+diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+index dbe20d5e6f80..53d205eda335 100644
+--- a/arch/x86/kvm/cpuid.c
++++ b/arch/x86/kvm/cpuid.c
+@@ -1419,6 +1419,22 @@ static int cpuid_func_emulated(struct kvm_cpuid_entry2 *entry, u32 func, u32 ind
+ 		if (kvm_cpu_cap_has(X86_FEATURE_RDTSCP))
+ 			entry->ecx = feature_bit(RDPID);
+ 		return 1;
++	case 0x80000008:
++		/*
++		 * Honor the guest's EFER_LMSLE_MBZ even if the underlying CPU
++		 * allows setting EFER.LMSLE, e.g. to allow migrating a vCPU
++		 * between hosts with and without EFER.LMSLE support.  To avoid
++		 * breaking existing setups that reflect KVM's supported CPUID
++		 * into the guest, KVM doesn't advertise EFER_LMSLE_MBZ unless
++		 * KVM *can't* support EFER.LMSLE=1.
++		 */
++		if (include_partially_emulated &&
++		    !kvm_cpu_cap_has(X86_FEATURE_EFER_LMSLE_MBZ)) {
++			entry->ebx |= feature_bit(EFER_LMSLE_MBZ);
++			return 1;
++		}
++		/* Nothing in 0x80000008 is fully emulated, don't emit an entry. */
++		return 0;
+ 	default:
+ 		return 0;
+ 	}
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index dd3bb04878ca..b519fb90776e 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -598,9 +598,19 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ 	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
+ 		return false;
+ 
++	/*
++	 * EFER_LMSLE_MBZ is a "defeature" bit, i.e. is set when the CPU does
++	 * *not* support long mode segment limits, and so is the only EFER
++	 * check whose polarity is inverted: EFER.LMSLE is legal if and only if
++	 * the guest does *not* have the defeature.
++	 */
++	if (efer & EFER_LMSLE &&
++	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
++		return false;
++
+ 	return true;
+-
+ }
++
+ bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ {
+ 	if (efer & ~kvm_caps.supported_efer_bits)
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 58768e49505e..90a80aad672f 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -2759,10 +2759,19 @@ static int efer_trap(struct kvm_vcpu *vcpu)
+ 	 * bit in svm_set_efer(), but __kvm_valid_efer() checks it against
+ 	 * whether the guest has X86_FEATURE_SVM - this avoids a failure if
+ 	 * the guest doesn't have X86_FEATURE_SVM.
++	 *
++	 * Clear EFER_LMSLE for a related reason: EFER writes are *trapped*,
++	 * not intercepted, i.e. hardware has already committed the write by
++	 * the time KVM gains control, and the trap is enabled if and only if
++	 * the guest is SEV-ES, whose EFER lives in the encrypted VMSA and so
++	 * can't be fixed up by KVM.  Rejecting EFER.LMSLE=1 would inject a #GP
++	 * *and* leave EFER.LMSLE set in the guest, which is strictly worse
++	 * than honoring a write that hardware itself allowed.
+ 	 */
+ 	msr_info.host_initiated = false;
+ 	msr_info.index = MSR_EFER;
+-	msr_info.data = to_svm(vcpu)->vmcb->control.exit_info_1 & ~EFER_SVME;
++	msr_info.data = to_svm(vcpu)->vmcb->control.exit_info_1 &
++			~(EFER_SVME | EFER_LMSLE);
+ 	ret = kvm_set_msr_common(vcpu, &msr_info);
+ 
+ 	return kvm_complete_insn_gp(vcpu, ret);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
