@@ -1,150 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71AE65192
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEB75187DE;
+	Wed, 30 Sep 2026 17:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788103; cv=none; b=j1ZC49SBbs1o7KTZ+XTOHI8F4O1RXC9ylIYFMdTq+Nj+MyMpWnCX2rxOdvOzPddvGmW4u4Sf8hMh19P3qHHUDV1CrdE8g51vX1bNA92rSZTW58a+Zr22VDfBoBaPLrtZm9mAK4WJIafFW6vXIJLkqIuCM7eOiH/mp/vSTRG4vog=
+	t=1790788107; cv=none; b=s1yVIn3yrqTRewfEyAqe+e3+Su9IyXzMgmaJO9hc7pOZpQmQurIYKBehxRTWT9ILG0VMqSmuazMX4K/fs3YHrPocbb7mMd8+OISRKLKQaIjY/TkgwgEbHiZD/SdcXls9pmWboQeIaiy9OPebNoPcrdM7eOJBhmH0ZEJks4IXC2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788103; c=relaxed/simple;
-	bh=4NH8nBBHtrLJauGd295tYaaQTMYvG/KmeBoGdp4t9/4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K9360LwMhf/jZ+8JCznbTOUu8jX7mUrZ97ENXtRsVO1zu1+0qA2LMeBqXukriuHPJFJuzYSKALyrpp8DiPrZrQVjcq7l7xwxLJv9pActb7EP0IDwYodvsijuAtoQAuVU2DoY+g+xbsyUtCqqt6l8IP5Qq8vMg8EkIF4S4O15uGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/u/Howe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790788107; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nTR4/SgTdmd204b5JL+sFvYsuB4s4bRIFGW98UNqyI5qharWKgBy++EKExRoW0Dpm9TD8wD6O/QTuCV9cZpp/3dgWL4HQpv0AOhhLWzrxbkLtZ0J0HqCLrz+TLmpPJfjoABZbmvqDrBTcIUYxNCHni4A5kwlKuK2Xpa4lIK7Cio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZsTcLyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/u/Howe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C465C4AF0B;
-	Wed, 30 Sep 2026 17:08:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790788103;
-	bh=4NH8nBBHtrLJauGd295tYaaQTMYvG/KmeBoGdp4t9/4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=H/u/HoweKlQXYlzm3uZOXlvshH/tXz4H+uHgLDqbsPfA5cmwkJB4UNH6NguR/jtw9
-	 yUxn+MwxunZ+BMeKQvAnZoIXvNGZnlVltQA05lyhErG0AS41RscLvBavM+vQDfP/Ti
-	 hRMK9Bk7/84LfETljHP38L/YGm0hsBcUWE0KbNG/sd9bWg3cEP4C4ikqFsq9wfYOzg
-	 bEICVZ4ZAaMAVo5nXwgY4Yoam17qwFeEqE7HIB8ZylZmPqiYwQPe4zRVZnOADpkB4C
-	 3iT5fA1gW2MLb8c8L4eHdlCkYVE0OV/lUAMrgqag6t/z4JN8AT3SeoV1KYMxbe7esK
-	 57np4OOQ4Kb9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19F2CCA5FC7;
-	Wed, 30 Sep 2026 17:08:23 +0000 (UTC)
-From: Amber Gao via B4 Relay <devnull+ambergao.apptronik.com@kernel.org>
-Date: Wed, 30 Sep 2026 12:08:04 -0500
-Subject: [PATCH] nvme-pci: avoid the deepest sleep state on Transcend
- MTE672A SSDs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZsTcLyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918981F00898;
+	Wed, 30 Sep 2026 17:08:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790788106;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XZsTcLyGyXDQmXDhafQb9DBpgxH4aoNWq0IkDIg/DaH1PzH43o6hGtlyV7uKbfNbO
+	 Sy1X/6rin70o7Hppbs0hg4Iy3YAd5oNrlPO2BsdEiCj0rJYyYD5Fsl5qOT6IXmRqrd
+	 HwjRy0QA6ranN9RMSWTnnirYHjRrFhLcsevdwtVXPQ8+WLOC1LK6HtSCE8xo+gvFJe
+	 ztdsNFMFUaYUfMJ7llJ+QFsyw8qdbl8I6rciAsoUs8i1/Wf9LI+y5VcMcY3ChOS+3g
+	 qqX4Y+JoCaiSkoF72uyYvx2F4kNEWOZya0jEH+oegyDITvOemDkbX+ZuS8arUJTcCl
+	 lzNBbXb/ngGJw==
+From: netdev-bot+sinfo@kernel.org
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Edward Srouji <edwards@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
+ Maher Sanalla <msanalla@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
+ Or Har-Toov <ohartoov@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shay Drori <shayd@nvidia.com>
+Subject: Re: [PATCH net V2] net/mlx5: Lag, split aggregate speed into oper and
+ max helpers
+Date: Wed, 30 Sep 2026 17:08:25 +0000
+Message-ID: <179078810510.31693.8484299734852796324@kernel.org>
+In-Reply-To: <20260930170406.148548-1-tariqt@nvidia.com>
+References: <20260930170406.148548-1-tariqt@nvidia.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-nvme-transcend-mte672a-v1-1-a025655acd9a@apptronik.com>
-X-B4-Tracking: v=1; b=H4sIAPNBvWoC/yXMQQrCMBBG4auUWRsYI43Wq0gXafqrI3SUTCxC6
- d1Ndfkt3lvIkAVG52ahjFlMnlqx3zWU7lFvcDJWk2cfuDuw03mCKzmqJejopoJw9NF1fBqA4ME
- tqMavjKt8fuNL/7e9hwdS2W60rl+KotoKegAAAA==
-X-Change-ID: 20260930-nvme-transcend-mte672a-908bee62e05e
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Amber Gao <ambergao@apptronik.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790788102; l=3749;
- i=ambergao@apptronik.com; s=20260930; h=from:subject:message-id;
- bh=LZs7S1NoTlL/SdsSCVJp0FZHzu9IOgUyTgnCjquUuPo=;
- b=ldUU+zp98Bnmxv6XGHeCZ+TN6wpx6X0RqytwKBmv+ogcdbFFyOcd4ULn8a8gNNhyoIvP17jFh
- Uu5JkfMGhBUBlKBmcn4Qu+9APdN8gUzI1HFJhtwj2L1pch8yeMDBkow
-X-Developer-Key: i=ambergao@apptronik.com; a=ed25519;
- pk=0/6wixcQKuRsYBFf5+L/ltWe5KwC7hPcuyFl2nDaG+Q=
-X-Endpoint-Received: by B4 Relay for ambergao@apptronik.com/20260930 with
- auth_id=1087
-X-Original-From: Amber Gao <ambergao@apptronik.com>
-Reply-To: ambergao@apptronik.com
 
-From: Amber Gao <ambergao@apptronik.com>
+Hi!
 
-The Transcend MTE672A (PCI ID 1d79:2263, Silicon Motion SM2263XT
-controller) stops responding after it has been idle long enough to
-enter its deepest APST power state. This reproduces without any
-workload: on every boot observed, a write issued about 16 s after the
-kernel starts never completes, and about 45 s in the kernel reports
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-  nvme nvme0: I/O tag 191 (30bf) opcode 0x1 (I/O Cmd) QID 2 timeout,
-              aborting req_op:WRITE(1) size:131072
-  nvme nvme0: I/O tag 191 (30bf) opcode 0x1 (I/O Cmd) QID 2 timeout,
-              reset controller
-  nvme nvme0: Abort status: 0x371
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-The abort is not completed either; the drive only comes back once the
-controller has been reset. If the hang occurs while many I/Os are
-queued, that reset can time out as well; the driver then gives up and
-removes the NVMe device from the system. On the affected system this
-has happened twice, both times during a firmware update, leaving the
-ext4 root filesystem unusable.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Booting with nvme_core.default_ps_max_latency_us=10000, which excludes
-only PS4 (the deepest state), makes the boot-time timeout disappear. With
-NVME_QUIRK_NO_DEEPEST_PS applied instead, on a stock command line, no
-timeout has been seen on any boot since, including six multi-GB A/B
-firmware updates.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-The same controller is already quirked for this under other vendors'
-IDs: Kingston A2000 (2646:2263), Kingston SKC2000 (2646:2262) and the
-Silicon Motion generic IDs 126f:2262 and 126f:1001.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Tested on a 6.8-based vendor kernel; the patch is against mainline,
-where the surrounding code is unchanged, but has not been retested
-there.
-
-  vid       : 0x1d79
-  ssvid     : 0x1d79
-  mn        : TS2TMTE672AI-VS1
-  fr        : X0122B3
-  [...]
-  ps    0 : mp:6.00W operational enlat:0 exlat:0 rrt:0 rrl:0
-            rwt:0 rwl:0 idle_power:- active_power:-
-  ps    1 : mp:3.00W operational enlat:0 exlat:0 rrt:1 rrl:1
-            rwt:1 rwl:1 idle_power:- active_power:-
-  ps    2 : mp:1.50W operational enlat:0 exlat:0 rrt:2 rrl:2
-            rwt:2 rwl:2 idle_power:- active_power:-
-  ps    3 : mp:0.0450W non-operational enlat:3000 exlat:3000 rrt:3 rrl:3
-            rwt:3 rwl:3 idle_power:- active_power:-
-  ps    4 : mp:0.0040W non-operational enlat:25000 exlat:25000 rrt:4 rrl:4
-            rwt:4 rwl:4 idle_power:- active_power:-
-
-Assisted-by: LLM
-Signed-off-by: Amber Gao <ambergao@apptronik.com>
----
-Two-line device-ID addition. The affected drive hangs in PS4 shortly after boot;
-NVME_QUIRK_NO_DEEPEST_PS is the same quirk already applied to the Kingston A2000 and
-SKC2000 and the Silicon Motion generic IDs, which share this controller.
-Tested on a 6.8-based vendor kernel; not retested on mainline, where the surrounding
-table is unchanged.
----
- drivers/nvme/host/pci.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 5440cf18b..1a3353782 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -4221,6 +4221,8 @@ static const struct pci_device_id nvme_id_table[] = {
- 		.driver_data = NVME_QUIRK_NO_DEEPEST_PS, },
- 	{ PCI_DEVICE(0x2646, 0x2263),   /* KINGSTON A2000 NVMe SSD  */
- 		.driver_data = NVME_QUIRK_NO_DEEPEST_PS, },
-+	{ PCI_DEVICE(0x1d79, 0x2263),   /* Transcend MTE672A */
-+		.driver_data = NVME_QUIRK_NO_DEEPEST_PS, },
- 	{ PCI_DEVICE(0x2646, 0x5013),   /* Kingston KC3000, Kingston FURY Renegade */
- 		.driver_data = NVME_QUIRK_NO_SECONDARY_TEMP_THRESH, },
- 	{ PCI_DEVICE(0x2646, 0x5018),   /* KINGSTON OM8SFP4xxxxP OS21012 NVMe SSD */
-
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20260930-nvme-transcend-mte672a-908bee62e05e
-
-Best regards,
---  
-Amber Gao <ambergao@apptronik.com>
-
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
