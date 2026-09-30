@@ -1,85 +1,158 @@
-Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 243871E1A3D;
-	Wed, 30 Sep 2026 01:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1B01E1A3D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730412; cv=none; b=COpKfj3VLDXdytHiQRqs333TiKZY7LMoEI9CKXsS7ZNj6OVAG0oDw5/2q4h5OyKQ/hMLmoCVfDgGC5LmT9/RAijAwaoo21/tJhIPDy7xd8QRA6QijgfY32UQAtCG6FrSp0krGHDWLcfBtJqRmj1rrwCdXEu0coDubSMgVxOX3Jk=
+	t=1790730454; cv=none; b=FC58RgZko1u7y1xy+h5rVvrSRweHMH1Jf0DLzuRtVqV3VamW7fh8EdmFnoWsT2J0cnCXtmLHBRLYVHwaW8v42fqDLtpTEXbVlJNhWDRNnxk4tjNOMr6u7/TcJRmLG6d9FPNuJ5VtbrLE6HkbACP32Vnb/825jm4HU9GJiuBJpJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730412; c=relaxed/simple;
-	bh=uapeVomnLxNxJLHUaPzS6XmUPUbQYfYIGHZE0ZTcqYo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IxeqhqaYCws9F7Z49S1balvn7+ziKTabW/IjQQ/A6uYJY67fPTCXUmncgqEM5vAwGobEZVzt0+UKnkJDQVeQEiaS5GNjQxIYKqPlXLN3GQ//Fi68dMdPbOvIwSqosFIrdyY6jVotUgwpZf4ufbUBANPKKK8JglY9d+joeOBy0uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=L/uwWo7Y; arc=none smtp.client-ip=220.181.50.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	s=arc-20240116; t=1790730454; c=relaxed/simple;
+	bh=dsrb2nnlzQKp7GUWZetEFF/tjXJmHfUQW8Pen/ISFcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C4sXTpsr9qBppIXl0Naf5y04ZhU/0nAW3pI9fNxAfGw+8SprINnj5EVnqsmnf8Fl9MCCrW93Lp7q6ONfJsWMn556bJgfNBhG/pWGLPqK7aM3jRZC0aONT+JDphUU3Y5IsNCotWMLluxJZv93W9s2XhYSCv8Hv0Qkz8XEChpzc3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Zb5mAF6I; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="L/uwWo7Y"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Eli
- Cohen <eli@dev.mellanox.co.il>, Roland Dreier <roland@purestorage.com>,
-	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH v2] RDMA/mlx5: Fix destination index when resizing a CQ
-Date: Wed, 30 Sep 2026 09:06:30 +0800
-Message-ID: <20260930010630.2797-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Zb5mAF6I"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so4227338c88.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:07:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790730452; x=1791335252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
+        b=Zb5mAF6IQZrXlI5N/aWj19PzFMOmZ+q+TVjjjFHCrraTcOOuIWzOToIzAH9N7pZFMT
+         roRmPxKo952Z8BH0eirYauEix1xC2dl2GWilTmD4qeL+TzANxi2CTNZ3p/ay/j0WymWO
+         BqNB7+HXRZ+Quf4XiugkoRlH15/CfKOVbens9YSxkrYCpH/aWXPKnG8Zeh3mNlFSI57H
+         ekJVVF8R2v3/2cIHbFIYT4k6nbqfS1pDlUUwSR9kZHwrqp5WCl7WnKiclwBlvJEjGPUU
+         BhBLH6ecBlkg4+arDafvDNnwNwlaTa92wyM7Y20Fj39ldCFQ/VBvIlCEiDJSBvM/airB
+         GvrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790730452; x=1791335252;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
+        b=GWldRm0yX2ubyFebUtzqZhqhi8w6457myLI51VFh0Z4LLfvzzDGn0KAZ8+3K4Pxxas
+         LnZez2xRQptMEwL4ncB2IYHz4mo7szNTvDM+REAak1EAyOBpu2z/jlz8U33y8gSYP6+E
+         pK1aOQ96RIvTqnqrhAxUUByW9monZ8zT5ilVla6s1JaTqIa9NyPjq/kgXNR4j67sMk4y
+         lEZvb9EvOmYUelphoaCbMM1gzm+JXFtFBJpEIMtQoG33FQRAvsVB+sMXNrHnRaCfJ3TT
+         dKtEVqza2bcZI4AxI18hsNohwlVVf+myrxejHhGY/lRz0PrmuY48tWMPp1BW+rC219a9
+         gxrw==
+X-Forwarded-Encrypted: i=1; AKwUvByb5Kfppw6ysGedAx9QH1mWRnXrG76jOzovepnY7FftP4l43htHrlCWX/hVp1pFnmIaCCRK14AltPOjZQw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfbjbonWgJ55bwl90pc8MEx8Xr3OEXyBMW93nW3KWVUDm8VvtZ
+	TzXCv4oQmUfg1UlzosK7dcB3VtcLU0vdOCD+3SZTHz3pHmSX0+GIbSMzrSIrDociQvM=
+X-Gm-Gg: AYBFou0H/fLt/diCzeZnmnnc2lf+qX4S9sPBKnD5kM8+5dVAwpSalRGlLuXQmHDohDY
+	TX1TYFjkWFknUdb3VXX8dbN/QiwyiqXyzbE3gTNkFA8S5akS91MC5fCWfulyAtGo5e2daNhVIAg
+	KcdJHAT/ms+V2MKfmGurvjr94jwIh4ph9UN5Ikex4FO++6HqPev/Yej6fandv00ewChQC3ONFjc
+	nuQQxpcZSLdLls1AA/zQe/KxE5oDkWpGxTyanu/iFkryGDt51H1PJZntoIEFX4VMOaEMqUCDQG4
+	7JTjaOSlpcjfKH4VGbdoTlukWcckyfX+Yaiv/AlY6fSwMKbNIpy2CkFdpLsemDTpL6JM/JKgAJs
+	umrZAIiW9n60n61tWSlqSPeIl8fpsZltlmfj1Fl9Nbq4J2J5eADyGLQZjKIBxKCJBn1RClCPmMI
+	lSuggcCjkEIDc91RCQKkL07Dt50BE9K39UdNzCc8eNaLYko1EY3ZpUPsrvbkVymDzRv13A1w+FL
+	VOFu8Nzm31opRWp9MOLvu7EtmVDEM4Elp4Obpg1zx4BJRu/ucQce8NKHeDmc22DM9WRR+Q=
+X-Received: by 2002:a05:701b:451b:10b0:146:606e:1f62 with SMTP id a92af1059eb24-14c9e29a175mr1040002c88.41.1790730452081;
+        Tue, 29 Sep 2026 18:07:32 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14c60c55ed9sm2223598c88.2.2026.09.29.18.07.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 29 Sep 2026 18:07:31 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y] ocfs2: Avoid touching renamed directory if parent does not change
+Date: Tue, 29 Sep 2026 21:07:26 -0400
+Message-ID: <20260930010728.94306-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc12.internal.baidu.com (172.31.3.22) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1790730400;
-	bh=40if35n6NlVqKY9auMBmOLh12IWT5zUWspmcFV67IMM=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=L/uwWo7YnRd3YUxoEhnJ4GvsgoLrXOjkptiHrMBNtRgfcM1Fwxybt1IzJFtk/+i4y
-	 09W/47VNZghmyHSzFhGKdKNAak1aptb3Op/CMU/k0fyEQKBxk9YHuyhP2OSGG2wL9h
-	 b2vpDMLurQlN/QymZZIfN+YVrt6ff1jBY4D4PFOj4YQKWWrPexT1050j5vGieldmPs
-	 +Mk+iFd3YOTPxuavCzonj8kKjQ+/Krz7qLY2AtCfwLflyJ0xB0zkMFzNdkc+AOuCoo
-	 jYMlBdiAyMn/oZo55idkgLj0HQfQyfkykC4f+QOBy6+byOWvwe1evbpD5wma79Tj0f
-	 4Midpk/+D5kIA==
+Content-Transfer-Encoding: 8bit
 
-From: Li RongQing <lirongqing@baidu.com>
+From: Jan Kara <jack@suse.cz>
 
-copy_resize_cqes() uses the absolute consumer index to copy pending
-CQEs into the resized CQ buffer. The destination slot must wrap at
-resize_buf->nent, but the code applies a bitwise AND with nent itself.
+[ Upstream commit 9d618d19b29c2943527e3a43da0a35aea91062fc ]
 
-CQ sizes are rounded up to a power of two, so nent has only one bit
-set. Masking with nent therefore produces either zero or nent instead
-of an index in the range [0, nent). When it produces nent,
-mlx5_frag_buf_get_wqe() accesses one entry beyond the resized CQ buffer
-and the following memcpy() can corrupt memory.
+The VFS will not be locking moved directory if its parent does not
+change. Change ocfs2 rename code to avoid touching renamed directory if
+its parent does not change as without locking that can corrupt the
+filesystem.
 
-Use modulo nent to calculate the destination slot and keep it within
-the resized CQ.
-
-Fixes: bde51583f49b ("IB/mlx5: Add support for resize CQ")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Diff with v1: replace & with %
+Hi Greg, Sasha, and fs ocfs2 maintainers,
 
- drivers/infiniband/hw/mlx5/cq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2023-52590. It avoids updating a renamed directory
+without the VFS lock when its parent is unchanged.
 
-diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
-index dc457fa..fc4ee1c 100644
---- a/drivers/infiniband/hw/mlx5/cq.c
-+++ b/drivers/infiniband/hw/mlx5/cq.c
-@@ -1319,7 +1319,7 @@ static int copy_resize_cqes(struct mlx5_ib_cq *cq)
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The code change is identical to upstream.
+
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2023-52590
+Upstream: 9d618d19b29c2943527e3a43da0a35aea91062fc
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ fs/ocfs2/namei.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
+index 113102009431da..5776980402de95 100644
+--- a/fs/ocfs2/namei.c
++++ b/fs/ocfs2/namei.c
+@@ -1347,7 +1347,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
+ 		goto bail;
+ 	}
  
- 	while (get_cqe_opcode(scqe64) != MLX5_CQE_RESIZE_CQ) {
- 		dcqe = mlx5_frag_buf_get_wqe(&cq->resize_buf->fbc,
--					     (i + 1) & cq->resize_buf->nent);
-+					     (i + 1) % cq->resize_buf->nent);
- 		dcqe64 = dsize == 64 ? dcqe : dcqe + 64;
- 		sw_own = sw_ownership_bit(i + 1, cq->resize_buf->nent);
- 		memcpy(dcqe, scqe, dsize);
+-	if (S_ISDIR(old_inode->i_mode)) {
++	if (S_ISDIR(old_inode->i_mode) && new_dir != old_dir) {
+ 		u64 old_inode_parent;
+ 
+ 		update_dot_dot = 1;
+@@ -1364,8 +1364,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
+ 			goto bail;
+ 		}
+ 
+-		if (!new_inode && new_dir != old_dir &&
+-		    new_dir->i_nlink >= ocfs2_link_max(osb)) {
++		if (!new_inode && new_dir->i_nlink >= ocfs2_link_max(osb)) {
+ 			status = -EMLINK;
+ 			goto bail;
+ 		}
+@@ -1608,6 +1607,9 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
+ 	if (update_dot_dot) {
+ 		status = ocfs2_update_entry(old_inode, handle,
+ 					    &old_inode_dot_dot_res, new_dir);
++	}
++
++	if (S_ISDIR(old_inode->i_mode)) {
+ 		drop_nlink(old_dir);
+ 		if (new_inode) {
+ 			drop_nlink(new_inode);
 -- 
-2.9.4
+2.39.5
 
