@@ -1,171 +1,167 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD48518156
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788946; cv=pass; b=EekunL6Q98HgporCfvhRVz8fVWEKBVHsnPqIRu7CTHi8mattBpyml9MMUgKBxxvSGzQRj3NJ8B0gr4K550vkJ3lokCmMqhtjPVu5GDQGQXYgOxRsZNOS6/6ch601dvyVLP2c5puYnq86iSsAnTFYJcai2fVhg2Hz0vYNt605FBQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788946; c=relaxed/simple;
-	bh=zRVMMlc5fCEgysqgVDUi/YSuX/Ogj7bmJUVr37RK9ug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qKm+MGpVres/hnVZqxCQMiXR3Hpufbw3GiNgZyZSZPDF9QqnfLDMUp4v/0QPRwfiPRY2Os5X2MfcMTC4mR/0XwXe/b1Rz3C6+S2I7GhaQg4GgcqsWhvUXEP/puiU27KEffTSS8DC0eo+cNsnfF8ZW9qnW1iPs9koliLYrtO1gWQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwNGCm9f; arc=pass smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3406236A37E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790788967; cv=none; b=bg6cYRcdkN2Ah35RgEeFT2DhYuYgrxhLAus1Kj4UXhAZns9EQxUVDUVXGaFGnz9T1UfdRQKpX93xbWi5vaGv56cFOaq2utRiF/gCIdBluD6qU8SxxuG5SM63zLnprYkRWOYRKDcVooPvHQnRaEAP4umOav9HzT9tB32M/OqSDC4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790788967; c=relaxed/simple;
+	bh=yK+pDlVhAREALfwAq6t76dUuiQevZNARvK0Q8FpoB5Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ez4boA9Y1sZr2m0tXaTwaVd4YmRlK3JMBPW87yIfDUrDUBOz4q2hM7e7H2jMW14HBimAx79tA9uPlAsT7tc47ZB1kWtyNLssLpbEJLGbmzP0bsFyP+V4ySYeA517IsNLjApfvQUYEFw9iPjMkUMBvOl8ImEvNI1Z5VWDeRgg86o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=hVRvahaO; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwNGCm9f"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b15bca7e0so3162145a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:22:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790788943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ijpRqMcNcFdHBsmSx8lbd7+rf9JKVgbavrBH1zGN6ZKNohaY/jtz89KzC7VbSRSz6h
-         bvmF4uirLMOdF8ZhYqzpT/gqTw/QMJ8x0b6kS0NwHIKe+jWX3y5lSqw0/LnMIfoQaJIN
-         +w9c0Sr9yz1bxo4s13NQ3GtEeXBP9j/JBMVeKZDp01paYlFtDL6ybgqpp3g0mBDI9YWY
-         /Qz9lbjQ+WdrIc9bXzHn1ALxT8QOVVVWnfp7OOlrmKl2FyMBS5qG39F1vk6RhpX+Ulwc
-         Aa7lFAZL7N/g2Y+INhEZARMWm3kjdF75rcDiYjNkxEXZXaJwtMit6Ql7kAaVF8h+tma7
-         QFxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
-        fh=fnKa4bJL0cWqXun5fCFzW50XTFEN/p/0Ipl6ehIDVig=;
-        b=MY4lLLJuuLKzDXECzYI6OW6s2714amR4UCEzY7ZeqMqEKK3Cm3ReY3Cze29tJGjjAC
-         rsHOg7pnxvS99g+jX5ZOSddQSnzNaKEyy+FLKKoBE6uVcqsng60lXJaQlg3T1H79oryt
-         tHZOuRZ95KmsYR7nLFYmHxTNvhLBAgpazT4LlmKcQqRregwO5e4SOeSQVGZFRKocDlJy
-         3/EJqUvPwsfqZ8gipeP+pu0U28AjCDkBqzCsfssWVftyA4o205gAHgGB3atw5QZEcdPy
-         7+UkWc7Wh4qY9UxT7GRB4lptJLTuJPqWhyu+0PWRS+zJH3z6e+W+VnNIqm2hViBHXexL
-         u11A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="hVRvahaO"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a49573b8bdso1823539a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:22:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790788943; x=1791393743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
-        b=lwNGCm9fTR04Eqo37bFz84HGQ5rJtphgobS00cWxmeDuQkySwL4MWn+gwF1w1S9+9U
-         AmHKNcEL6omevnWV7aM3VOhp51vBVHvUCSsEhi3Qpa/UpnNpOlSiKdLm+HqwDO9YBkq/
-         Tzs42UY/3QmQSh7H/iAtQJ2GNQqrDf6NWcJiDXlyNZqLSv4LZiHc1IPKlHN2cwcfZLdK
-         c82FI+Tfbw3kXGT1IsCzafHYJxFRMOE1uFyKrqHEf1RWqq1LjUgUXdA+mMMfVoNBaNwV
-         ld9mOrg+GocXEyj8iWXiS/ApVQlXuKoBt2k92Zc/rRC9xexwAtiIPOvKIEhg09f/WMaX
-         AXGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790788943; x=1791393743;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790788965; x=1791393765; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yu5vPNZRGHwBy2ovp25s5yW4Pu1HCw1xplpSec6o1bA=;
-        b=Rq9stY+4+R0cBAJPPWmlguUnsum3wC4RBZD9ikToKWzWVWX/Kwc3JGG9hOg/5ch16I
-         48a2ZoU+5R2veDhvmhn/fZ3L2L53nex9azDNbbJIZe6UcmSfCWVz4WTZAUiQVQd0MvFV
-         X3bLxHgiFvw9YJG7PZPEjlscqzTvA1Gb4i+dn/HyNl1uSFK+m19HQsfBbCtkjPmNcIdC
-         dZhMEQ1zT8JI5ibLyj5xSc9ciTKjE/KmxcxD/2Ih84+dRiUR91X8NXELqlnsUXhEWZnO
-         eRieK73uJdEjGn5M98x0jvB8GWStB2VZDxY++FMrwC1Jd8hLMe5tdtwmiWyE9MPV4Lhj
-         lp8w==
-X-Forwarded-Encrypted: i=1; AKwUvBynPE+HMgZqWWQFcRSt6yo1sHwsPLGsfHhpuV2igAReRxVWb0AT+Xjy8p7YHxB33MgYUyqptHp0J4xyegY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjqq2peJlgUsFqzVek1jxIrjJrIb0t7SfpZawkwy6+LgmDxghg
-	7GXaXHew1OcjwNYMLvLJa5oah7Jr5zho4wWUKnk9/KpLdcA8jz9yxDYmwuBVNghqTWxF+iXrpg3
-	b22uZnlv2SS/IF5xwFuOb0UG5Opro2P8=
-X-Gm-Gg: AYBFou3gZ3pukhiJOIXpJ+2fxNmNv0heQMEoJ09gqG0wCCMIphve1b/ydvpRei3enDd
-	S6/0ORVM22Znt60w+1Sm4liLLObJ1B1kag68612gMeOTd53bqT2hV/stysxNLMxokrvl3cftkYq
-	ZapA7F4WKhHFE0lk4FSlatcAxOJG5oQ7sfMUwKT2+qgv4vbyxme1XnhPZuYaWn0jSK23ZJnWNm/
-	mEKfdrxBTxGiDFxs3WXUfojDUgGsKLNIJYIQqqrYIEcWvONQYyHTHk9iSEa973j6v+YedZadggp
-	SqcgmKuDHQY5xWqktiS5YMnEcfUZV+Vpav50R8mBOpzI05e/MPYI7hBLweTyR4Gz
-X-Received: by 2002:a05:6830:2a0d:b0:81c:37e2:2012 with SMTP id
- 46e09a7af769-82049efa6ffmr2348274a34.15.1790788941936; Wed, 30 Sep 2026
- 10:22:21 -0700 (PDT)
+        bh=gNFAtRlTmPFHVIeg50+5hEO3wy5E2ApPL5HtRzKFQzc=;
+        b=hVRvahaOOQuWgV62p6y1rWQVjoDgU6EpHQf3kQxqn0TukpjSn3mo+HhbAv+9ED7kgk
+         LLncIQ8yut0+hRD8H3wyC144hLNMcuiAOhv3jpxovGU87KAzxCyHHJt2KRrfYPNnhIon
+         0eRXeX2RscgOpsSsPWpZerwT/W0ESITGudApV6xhzzq14qsiWKZ6609meeAOosgTClqQ
+         /miaAUx9ArGo8smTF3pIlQ4GoDf+WyTDTmNEXb4FRyrXpbvYFZ+ySD+E1G4otg/2d1x9
+         4G1N5aHpq1O9Edu/NM5YLJde6y02MK8PL7Fb0eSGLgYWsxZiIcEdBaFR364kqV1V2NG6
+         pQwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790788965; x=1791393765;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gNFAtRlTmPFHVIeg50+5hEO3wy5E2ApPL5HtRzKFQzc=;
+        b=BTq0a5GJiBDeXDWpIFqokMPUbNmwwF48LY9QlY2HkWXtjbYKY7kbyVI+zgm64QWihl
+         Evu1GeKzH5TuYLeettkCmKgl66qTKF9Ttr3bvmbuLYPOu5GxrGh/sbJ57QEa1fOApoEC
+         6bMyqj3SYTJrUb6xIVIwoTjikaVr/4F4pbmtUDGfqQKQMyRDN2vvUm1THVtuo7RIch7q
+         GB7CvpAGnCeozTpgx5irvqv7k9prkHJD2HpRuqOtvqMHnrm2X7H9x+9W6+/mp1kg2NkR
+         YwWy42frjT9pR+eS/uFB9MpyW0lejEntXSfAct9sS+X36TF413vwBGVDwAOVw21ePwxq
+         fCZg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+ffN6gTyTqCijLdDZxW4cBwo2Sels6S++c/bni6tQQLSecQlc7ZFsODHxfRcMrKiL2CUWjeOMhBZf08I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMa1tI3Z1jnqKB785A1E1x9pCXqbyv8Y0xOPSDkOs5cOMtJZ7L
+	q1mk6z+Cp2+s8+E/uB1d1dW5/WZFRkEfCTXk2rWK+Bi1O7qux5v5Cpw0EKs5ju53GnM=
+X-Gm-Gg: AYBFou0Cx/itoGQui1FcZv5SHi3h+mOpi+Tsqg1mBULPYuqu4VA9UBryDbhZHWT4lmw
+	UsE0KsX/JboigY9klkuRLDyC8rn67rk9k811ExXxDY+hIpPCOz89XHtPJM1c8m8ePTgF6B4lnoV
+	dk5J035mFgmAqF6V8/uIJahitO1kr9uh0DfTLVisdMIBvXVbHf9sLf5kDQ9fPcluT2piKwvcnMk
+	seJmav3/VwyGCiZ+gl+R7QkG8RtD9nSS9Koofv2FkiXf95LgvKUsmydF2QrxEyzzvr/idXiNdew
+	OLH6CZwxGyKPHEB4jMFO2uffR5W1DNReu3kGsphO6hp/Cearnf3Q8O8VN+k5aNaYHUlLOhEMXvT
+	3RnGF6iR+sRz8M8Hj2BPlxUXh4Zc0XLHZuy1UgJJa3nG9CsCpwdw2cmPw1uYGLPFBNyH0Qiy0BW
+	U1pIW2phrdI8U6CoNdKLeexuXl39QWECNbnnHjONFN7KjWn3dd3V8RmIoxN1TaMcqAunWmJ/CQk
+	tGyi+nn2yh6
+X-Received: by 2002:a17:90b:4c4f:b0:3a4:97ea:f0da with SMTP id 98e67ed59e1d1-3a4d1543e9dmr2182958a91.17.1790788965538;
+        Wed, 30 Sep 2026 10:22:45 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:58::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e697008asm955906a91.3.2026.09.30.10.22.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 10:22:44 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:22:43 -0700
+From: Joe Damato <joe@dama.to>
+To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>
+Cc: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>, Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>
+Subject: Re: [PATCH net-next v4 3/5] net: Revalidate queue config for
+ ringparam changes
+Message-ID: <ar1FY5vcgpUMBdWJ@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>, Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>
+References: <20260925104417.2325213-1-bjorn@kernel.org>
+ <20260925104417.2325213-4-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com> <20260926-nsfs-prune-rfc-v2-1-53509260e4e7@gmail.com>
-In-Reply-To: <20260926-nsfs-prune-rfc-v2-1-53509260e4e7@gmail.com>
-From: Andrei Vagin <avagin@gmail.com>
-Date: Wed, 30 Sep 2026 10:22:10 -0700
-X-Gm-Features: AclHuK_q_WkZKtIVvL2_JZxQzOyxiVzzsuWi72MjhRzmIxNO0_froXd1yw4BveA
-Message-ID: <CANaxB-yj2QV183nk3UC-2PD6qh6hh-_iLRuryTdUsebd+RqxdA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, David Howells <dhowells@redhat.com>, 
-	Amir Goldstein <amir73il@gmail.com>, Andrei Vagin <avagin@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	containers@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925104417.2325213-4-bjorn@kernel.org>
 
-On Sat, Sep 26, 2026 at 12:01=E2=80=AFAM Kir Kolyshkin <kolyshkin@gmail.com=
-> wrote:
->
-> A recursive open_tree(OPEN_TREE_CLONE) copies the nsfs mounts of any
-> mount namespaces pinned below the source.  When the clone is attached
-> inside a mount namespace younger than a pinned one, move_mount(2) fails
-> with ELOOP from check_for_nsfs_mounts(), per the rule from commit
-> 8823c079ba71 ("vfs: Add setns support for the mount namespace") that
-> prevents mount namespace reference loops.
->
-> This breaks container runtimes that use OPEN_TREE_NAMESPACE, such as
-> crun [1].  The new namespace is younger than everything else, so bind
-> mounting e.g. the host root fails on any host that pins a mount namespace
-> (snapd does, under /run/snapd/ns).  By the time it fails, setns() has
-> already run and userspace cannot recover: the host tree is out of reach,
-> and the offending mounts cannot be unmounted from the detached copy.
->
-> copy_mnt_ns() and create_new_namespace() already leave these mounts
-> behind; only get_detached_copy() copies them.  Add an open_tree() flag to
-> drop them from the clone, as suggested by Aleksa [2].  Locked nsfs mounts
-> are dropped the same way copy_mnt_ns() does it, so nothing new is exposed=
-.
->
-> Keep it opt-in: open_tree(OPEN_TREE_CLONE) plus move_mount(2) is how
-> mount --rbind works through a file descriptor, and in the caller's own
-> or an older namespace such mounts remain usable.
->
-> The flag requires OPEN_TREE_CLONE or OPEN_TREE_NAMESPACE.  With the
-> latter it is a no-op, so a runtime can pass it unconditionally.
->
-> Link: https://github.com/containers/crun/issues/2262 [1]
-> Link: https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spills-=
-ywC2O3@cyphar.com/ [2]
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+On Fri, Sep 25, 2026 at 12:44:10PM +0200, Björn Töpel wrote:
+> Memory-provider queue configuration is validated when the provider is
+> bound. A later ethtool ring change may invalidate it because drivers
+> can size queue memory from both ring depth and RX page size. The fbnic
+> consumer is added in the following patch.
+> 
+> Keep configured RX ring depths in netdev_config and stage proposed
+> values in cfg_pending. Validate every RX queue before calling the
+> driver. Each check validates the device defaults, then any queue
+> memory-provider override. Commit the values only after the driver
+> accepts them.
+> 
+> Drivers which consume stored ring depths through queue configuration
+> must initialize every RX depth before registering the netdev. Stored
+> values override callback defaults, including when zero.
+> 
+> The callback receives a rendered configuration rather than a queue ID.
+> Validation should depend on the configuration, not queue identity.
+> Checking defaults also covers the case where every queue has a
+> memory-provider override.
+> 
+> Drivers may normalize ring depths when applying them. Require the
+> validation callback to use the same normalization. Drivers must report
+> the applied depths through the ethtool_ringparam argument so the core
+> records the result.
+> 
+> Use the same transaction for ioctl and netlink. Drivers without
+> ndo_validate_qcfg skip the new validation.
+> 
+> Link: https://lore.kernel.org/all/20250421222827.283737-14-kuba@kernel.org/
+> 
+> Signed-off-by: Björn Töpel <bjorn@kernel.org>
 > ---
->  fs/namespace.c             | 14 ++++++++++++--
->  include/uapi/linux/mount.h |  1 +
->  2 files changed, 13 insertions(+), 2 deletions(-)
+>  include/linux/ethtool.h     |  4 ++-
+>  include/net/netdev_queues.h | 56 ++++++++++++++++++++++++++++++++-----
+>  net/core/dev.h              |  2 ++
+>  net/core/netdev_config.c    | 38 +++++++++++++++++++++++--
+>  net/ethtool/common.c        |  8 ++++++
+>  net/ethtool/common.h        |  2 ++
+>  net/ethtool/ioctl.c         | 24 ++++++++++++++--
+>  net/ethtool/rings.c         | 13 ++++++++-
+>  8 files changed, 133 insertions(+), 14 deletions(-)
 >
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index ae5dc64f8b45..a95173996a8f 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -3062,7 +3062,8 @@ static struct mnt_namespace *get_detached_copy(cons=
-t struct path *path, unsigned
->                         ns->seq_origin =3D src_mnt_ns->ns.ns_id;
->         }
->
-> -       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE), CL_COPY_MNT_N=
-S_FILE);
-> +       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE),
-> +                           (flags & OPEN_TREE_DROP_MNTNS_MOUNTS) ? 0 : C=
-L_COPY_MNT_NS_FILE);
 
-Overall, the patch looks good. One small thing is that open_tree() with
-OPEN_TREE_DROP_MNTNS_MOUNTS doesn't fail on a mntns file if AT_RECURSIVE
-isn't set:
-
-  open_tree(AT_FDCWD, "/proc/self/ns/mnt",
-            OPEN_TREE_CLONE|OPEN_TREE_CLOEXEC|0x4) =3D 3
-
-With AT_RECURSIVE, __do_loopback() calls copy_tree(), which checks
-!(flag & CL_COPY_MNT_NS_FILE) && is_mnt_ns_file(dentry) and returns
--EINVAL, but without AT_RECURSIVE it calls clone_mnt(), which doesn't
-have such check.
-
-Thanks,
-Andrei
+Reviewed-by: Joe Damato <joe@dama.to>
