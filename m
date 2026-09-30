@@ -1,102 +1,216 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AF9E2EEE65;
-	Wed, 30 Sep 2026 08:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAD344B663
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758289; cv=none; b=Rkz6qTiwOQEdUr0Jgjs/38FN6wsjaDQe7k5Xmbx84knpA/CLrVK9l1Zovar5/KkCoT1ILf2ZFf7HUz6Z5oAcKsC6DAe+ISAc86JyG7x7n3heOH5Bq4MEECh70VaJ6atxwWrYJkFqZtbr3zDqcB94Ot6q0Kw560gbkH62zpaNiRU=
+	t=1790758371; cv=none; b=PtRNv6MBzwgrgtUtApuOB1dCn3OCx2i8v7JdkSvGcBBLAG/qwe8EkQgTYBeQBAirBiap8MA59bj8y7PCzpC+Llybu9cpVE5TpMShrLykXf87zYm8ywoDpXKOUduPImrsemCoa4OwEIsnsdDQUfKaF62cZN/AG57fyDIYVQ+4UMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758289; c=relaxed/simple;
-	bh=MZWTqZGizf2e4awlEik6xcTG3aUNk25jrVwdTTqUtAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cs7PAEP6tpGhOzmMok0W+jZo4feO8eQb3fpDvYJ/DoLR27J+0mGvjnjaCLQLPbDWNVW4ewlsixEep/AccBJzuKyZBH8jq29KyC/jAFgpECVKI8bDAea1KvFNBmuLALJAcTXCVWtzM1TCKDWKtqdXGhBO6j1QmJI7zylhkPiNCQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JVZXWF9x; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790758371; c=relaxed/simple;
+	bh=HjElaxntY8xnUxhw6KQZuVVuhU+lxBDtJVBz5oaE+hI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TWzgw6wQ8gIxoWbpAVSoJoHIYs/P7zHJzF4R7AGEXrgD36jtPsQQt/ywj3Kg5WQKEeFHtq2gImfsFaCo6Lo3+fbZCjchmUJ4WmJubbCPDEC1+m2y9moIkmkCxpY3O7+Z8xPw3ZvPd7E3HUaThO4/GvsUR0i+AUjC2uWifip6Vmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+6naRo/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JVZXWF9x"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57DBB143D;
-	Wed, 30 Sep 2026 01:51:24 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 364523F85F;
-	Wed, 30 Sep 2026 01:51:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790758287; bh=MZWTqZGizf2e4awlEik6xcTG3aUNk25jrVwdTTqUtAw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JVZXWF9xXQVk47nJJSaN6p+8Fx2fMXbO+4U8Qi17EeMFjFgx3/NeFEBN7ngYuVCiQ
-	 hMpKiQeTtxY9JH+kfuWM5KCtGZtk2ZJRqF8Chhjo3LBcKavdBv93ov1Bon1ayAvCba
-	 LIoeW37n7jkrQo01Y5Gs3B8lhR+sonKW3vnSMNV8=
-Date: Wed, 30 Sep 2026 09:51:15 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 03/11] kselftest/arm64: Move exit calls out of fp-stress
- loads
-Message-ID: <arzNg0jxDmbEMrJm@J2N7QTR9R3.cambridge.arm.com>
-References: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
- <20260901-arm64-fp-stress-kvm-v1-3-31bce995b49b@kernel.org>
- <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+6naRo/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238D21F0089C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790758368;
+	bh=tEqMa2rUJnofnf9+/PGZs419jdFRhPt0Rh3AWnCfvOo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=e+6naRo/66HizpxyLJ4XZNSl1LayN9tKis4PWJ/F+A/mlVnTiLifmBtkmq/34mXP0
+	 aVWPS2EcY9oWo2jFjNsEvHUANWeOR+P5TQ7YdXWmEyR12qAkdPoKlG1Hv5mb9hPKah
+	 03XT8UNxxB1y3Kca4Ih+6dfKR6YmVy4soxuNs5HwSVH54EvurpFBKih9CbpoFbQWBz
+	 1OIvx3Z6dE0Vxaxs93ZzexAPhm6tBsxLSD+a5sqqOIlg0JDxOq8Vpm/n9fMIhDyEzA
+	 QrWMJhAg/g+GuRr5DlsW/qztfSHHYkY20QZmyopzOQGA20IvhoGzhdKa7LG6rlao5F
+	 QizvtOaLJ5Gxg==
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6fa788e6so4880623a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:52:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxfPeQmQuAHuHuICxZUyDK3U4zlGcB/FVV6alwXcfbicCLS9IuTcRkAKiZLm6P+DpMQsbFdQ8RIBQOQ4/I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgc2W1YV2DOU/WR+ISi8LCi7SUx3CHwN/dgW/C6HfTOJ6Y1Ssg
+	6O/EbDuS8aTaeEOoai8wrm8UZs9GxDqdmysb3YWfVczgCE3MwX71alyKqs0nTy0gaNAK9uV0gbM
+	EMWm5PlopFXx+t42MMWOiKnavYytwqtU=
+X-Received: by 2002:a05:6402:274d:b0:6ac:7077:6c4b with SMTP id
+ 4fb4d7f45d1cf-6ae19861970mr414122a12.5.1790758366653; Wed, 30 Sep 2026
+ 01:52:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
+References: <20260929102821.36112-1-cui.tao@linux.dev> <20260929102821.36112-5-cui.tao@linux.dev>
+ <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
+ <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn> <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
+ <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
+In-Reply-To: <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 30 Sep 2026 16:52:34 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5yXR8vN0NdiHWRTbGOsrqrVxZFd9g9QdaZGhdLR=BA7A@mail.gmail.com>
+X-Gm-Features: AclHuK_TEVxOW5DK4WmijFXjcynX_8-WBz5OQUA00LjYbfGDjBNBBC0jU6pQ-hE
+Message-ID: <CAAhV-H5yXR8vN0NdiHWRTbGOsrqrVxZFd9g9QdaZGhdLR=BA7A@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn, 
+	loongarch@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@xen0n.name, nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 05:27:28PM +0100, Mark Rutland wrote:
-> On Tue, Sep 01, 2026 at 06:06:43PM +0100, Mark Brown wrote:
-> > When they detect corruption the fp-stress test loads print load specific
-> > diagnostics and exits with a failure status.  In preparation for
-> > building versions intended to run as KVM guests factor the exits into
-> > asm-utils-linux.S.
-> > 
-> > No functional change.
-> 
-> This is a good cleanup, but I do think it'd be worth noting that some of
-> the existing asm was wrong and worked by coincidence.
-> 
-> I did mention that in the patches I linked you to a while back:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=922d15ef46cb486a79f168949e103f6df26f4fba
+On Wed, Sep 30, 2026 at 10:33=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wro=
+te:
+>
+>
+>
+> On 2026/9/30 =E4=B8=8A=E5=8D=8810:24, Huacai Chen wrote:
+> > On Wed, Sep 30, 2026 at 9:53=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> =
+wrote:
+> >>
+> >>
+> >>
+> >> On 2026/9/29 =E4=B8=8B=E5=8D=888:43, Huacai Chen wrote:
+> >>> Hi, Tao,
+> >>>
+> >>> On Tue, Sep 29, 2026 at 6:29=E2=80=AFPM Tao Cui <cui.tao@linux.dev> w=
+rote:
+> >>>>
+> >>>> From: Tao Cui <cuitao@kylinos.cn>
+> >>>>
+> >>>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+> >>>> invocation: every call overwrites pch_pic_base and registers the sam=
+e
+> >>>> kvm_io_device on the MMIO bus at the new address, while
+> >>>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repea=
+ted
+> >>>> init, MMIO to the stale ranges computes its register offset against =
+the
+> >>>> new base and silently reads 0 / drops writes, and the leftover bus
+> >>>> entries persist until the VM is destroyed.
+> >>>>
+> >>>> Reject repeated initialization with -EEXIST, tracking the state with
+> >>>> a has_init flag so the check and the MMIO base update are atomic
+> >>>> under slots_lock.  The base is only committed after a successful bus
+> >>>> registration, and the real registration error is propagated instead
+> >>>> of being replaced with -EFAULT.
+> >>>>
+> >>>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and =
+write functions")
+> >>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> >>>> ---
+> >>>>    arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+> >>>>    arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
+> >>>>    2 files changed, 11 insertions(+), 2 deletions(-)
+> >>>>
+> >>>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongar=
+ch/include/asm/kvm_pch_pic.h
+> >>>> index 887b0431fd20..679132d840e6 100644
+> >>>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
+> >>>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
+> >>>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
+> >>>>           spinlock_t lock;
+> >>>>           struct kvm *kvm;
+> >>>>           struct kvm_io_device device;
+> >>>> +       bool has_init;
+> >>>>           union pch_pic_id id;
+> >>>>           uint64_t mask; /* 1:disable irq, 0:enable irq */
+> >>>>           uint64_t htmsi_en; /* 1:msi */
+> >>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/=
+intc/pch_pic.c
+> >>>> index 7a704f18880d..a884a043feef 100644
+> >>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> >>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> >>>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device =
+*dev, u64 addr)
+> >>>>           struct kvm_io_device *device;
+> >>>>           struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
+> >>> Why so complicated? The below is enough, no?
+> >>>
+> >>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
+> >>> b/arch/loongarch/kvm/intc/pch_pic.c
+> >>> index 2b63b0c2c7ce..7855d78304b7 100644
+> >>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> >>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> >>> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
+> >>> *dev, u64 addr)
+> >>>           struct kvm_io_device *device;
+> >>>           struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
+> >>>
+> >>> +       if (s->device->ops)
+> >>> +               return -EEXIST;
+> >> This can work, however I think that it is not a good idea to access
+> >> internal structure field about kvm_io_device. If so, there is no use
+> >> about API kvm_iodevice_init(), just s->device->ops =3D &kvm_pch_pic_op=
+s is ok.
+> > I'm a little not agree. :)
+> >
+> > I think kvm_iodevice_init() is designed to do more work rather than
+> > just set the ops (though it just set the ops now), otherwise its name
+> > should be kvm_iodevice_set_ops().
+> >
+> > In addition, even if kvm_iodevice_init() is really a setter, there is
+> > no getter for the ops, so when we need to access ops, we can only
+> > open-code it.
+> if so, you can try to add kvm_iodevice_get_ops API and check the
+> response of KVM community.
+There is not a setter, so I don't think a getter is necessary.
 
-Sorry, that was the wrong link; I meant to share:
+Moreover, you said "no other architectures directly access ops", but
+in fact, __vgic_doorbell_to_its() from arch/arm64/kvm/vgic/vgic-its.c
+directly accesses ops.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=2db277185f5c252decdf49b25cd461782e890cd1
 
-... which was another patch from that cleanup series:
+Huacai
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/selftests/cleanup
-
-The description of the problem from the commit message was:
-
-| The barf functions in the fp-stress sub-tests erroneously place the
-| status value into x1 (rather than x0) when invoking the exit syscall,
-| potentially returning a different status than expected.
-| 
-| By coincidence, the low 8 bits of x0 happen to be non-zero for all of
-| these cases, and the exit will be treated as a failure by the fp-stress
-| harness, which is the desired behaviour. Hence this doesn't lead to
-| failing tests being reported as passing.
-| 
-| In all cases x0 contains either:
-| 
-| * The result of the prior write syscall made by the puts macro, which is
-|   a write of the two character string "]\n".
-| 
-| * The result of the prior write syscall made by the putdecn() function,
-|   which is a write of the single-character '\n'.
-| 
-| In either case, the return value of that write syscall may be a non-zero
-| number of bytes written, or a negative error code. As the relevant
-| strings are fewer than 256 characters, and all (positive) error codes
-| are less than 256, the value in the low 8 bits of x0 will not be zero.
-
-Mark.
+>
+> Regards
+> Bibo Mao
+> >
+> >
+> > Huacai
+> >
+> >>
+> >> If adding has_init is redundant, maybe we can set s->pch_pic_base with
+> >> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
+> >> think directly accessing kvm_io_device::ops is not a good method, no
+> >> other architectures do in such way.
+> >>
+> >> Regards
+> >> Bibo Mao
+> >>> +
+> >>>           s->pch_pic_base =3D addr;
+> >>>           device =3D &s->device;
+> >>>           /* init device by pch pic writing and reading ops */
+> >>>
+> >>>>
+> >>>> -       s->pch_pic_base =3D addr;
+> >>>>           device =3D &s->device;
+> >>>>           /* init device by pch pic writing and reading ops */
+> >>>>           kvm_iodevice_init(device, &kvm_pch_pic_ops);
+> >>>>           mutex_lock(&kvm->slots_lock);
+> >>>> +       if (s->has_init) {
+> >>>> +               ret =3D -EEXIST;
+> >>>> +               goto out;
+> >>>> +       }
+> >>>>           /* register pch pic device */
+> >>>>           ret =3D kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, P=
+CH_PIC_SIZE, device);
+> >>>> +       if (!ret) {
+> >>>> +               s->pch_pic_base =3D addr;
+> >>>> +               s->has_init =3D true;
+> >>>> +       }
+> >>>> +out:
+> >>>>           mutex_unlock(&kvm->slots_lock);
+> >>>>
+> >>>> -       return (ret < 0) ? -EFAULT : 0;
+> >>>> +       return ret;
+> >>>>    }
+> >>>>
+> >>>>    /* used by user space to get or set pch pic registers */
+> >>>> --
+> >>>> 2.43.0
+> >>>>
+> >>
+>
+>
