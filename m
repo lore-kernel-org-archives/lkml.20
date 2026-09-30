@@ -1,398 +1,227 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6BE2D9484
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8862571A0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727712; cv=none; b=N1iTOSNEVJbUShvh/WVESCP6abW/LdGUqp4fE4yZ8OnBVXWsfKdv+vQLOsOc541chdnKqYAipaRo5f2d95YjGe2UIlJRKDgoJw5YCLyZ/fUpVekOtUEe17/T9k6HB6Y8kUsAKqDI847Hf7p7CsOvC1MPLmTgqKNig2S7zhmHvJA=
+	t=1790727741; cv=none; b=fyV4Ltqvew/T6ppRjkhHsYwK1lcZjgGv3hAwxtjcceIK7PuwpswYwmOa4v2DaN/qIgWsSJRSH/ob2T+npjrjlMyFOvnsQOQJ+wv62eS6PA51ZvhP+fHk/3Ryg3SJaYLtXPEQEDY0wIdPNU+NepYtzgIHGIgTVTZvcCOBt0/pFfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727712; c=relaxed/simple;
-	bh=YdPpjG3rIMQQMquDZ/w2T/VqSKYQ2eK3WnfRswjJBPc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oWa6FPmPdEgduKCO7ntbEaMKvnDBuu8T3CApcxdDYpGPrpIsQ9oIZde7hQbDc7PPbA77x/JfQ9DxWteNrHSuU/N/VyD4Od0G3BsmQWbLgtcmazZaH6r+UWrWuXNMGeEkLfFbF64Zwt+6ElEZEH1ZSkHPh+TJPW8uygd6yo72apI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ADT6j/iW; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790727741; c=relaxed/simple;
+	bh=RS3ADzVfxL8qqGmpxz4abkEC5P9mt7MTpddiH2NP6KQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pq2vB9PfeUt4YU35k0ny67zTX43j9CqA8nAZSCbHig+brxAxcHJNN9TR0gTGbdOiwjuG+ayGj+7qZXBZ990uqPZkDWiZpZVisl/0YC8vMnzQHqqaIvhgcnehtOsk9Pg1Ll9dlIHu+kQSfPjzEpL6nS0axb18T+h7UHv+M3cgpEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K58U5GhN; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ADT6j/iW"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd1631d291so46010945ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:21:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K58U5GhN"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso2710116a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790727710; x=1791332510; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2bC2SCfHXwT0PEQ5eFzfshCE+CjPFW8YRtfb4HjLKR8=;
-        b=ADT6j/iWLhS645Hd3DYUpdeA4CaRcxbfYay3QxtHoWwo0OQDB5CxwjMuavwu/cJFvm
-         jCa/h1MeHoG9pTKKSnrFfHScQ23EpmVa9VB4K+eNrToIU3jB515yAZA4JWFnG0bIBnEN
-         82PjiypWRkT4+rPujeqj3+SzOT5/3y0bjWdnGjjAZ29kSK3SzZ50bEZCBRFdUZd7c5rY
-         qa8rONdNHJyDJQdzU7DxartqeKmG1iZW+EVtDiAjxVcAreGrT7Z6rjoHkgdn2EPkJzb0
-         2zZrGMV6ZYzaJzlvYjDPXcFNs6rgeENx2+CPG02wr/gA+Eg7Y39SMcGSh1O/Y+Pj8cS3
-         NG3w==
+        d=gmail.com; s=20251104; t=1790727739; x=1791332539; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CfCX2ufsEicMArdWfEJGMSdcRPfc57DekObWO7Y+3J0=;
+        b=K58U5GhNGfnTm7QtEqNrNPJG8XBAuknpOsqxO1wc6OgktYIGPkMtt8oh4BzG+yTsBQ
+         sIg/x0YJp7ZUzWsCz4bnKuVqxeYkXckOejjWqYZiiu6Xwjyw8KhhqQzmjjYm0enAKcgc
+         rHxbrpFTC/AvL7mFlq5dstGWjsKIXCwgugX8JNowdgdz3JoU1LWjhDaVo3A+V+GibmAX
+         s4ia44m1AjTXZdoJ+xTRoXb0ZAP1zuNV6/zW0bW2IErewaJsAxxo7Djaxnf1T1SLAdB7
+         tKSVLUby8UHXYB3a0W26teomcDe1LisR/qeI1trTAp5Ez4EIaUxRs0eryowzsEC6VTcd
+         EPsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790727710; x=1791332510;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2bC2SCfHXwT0PEQ5eFzfshCE+CjPFW8YRtfb4HjLKR8=;
-        b=mFjmfzdjPbI1kfkG5fIo4tKXkJ61Vkfn0D8PuCJg1WYteBpZbOlp/ZOSscKr41c4At
-         PJHf4SCUGRvEoTvYlDgCDWBmAhGCAhLO1RxxSBg0VLPCqVuPy+inxxY3NSN6xcWYXql5
-         Jr/dkxtVzZkViBoVdf8Wq82vOA1F3b7+zoDwHt8eQDITMgE7I89wMeBZb8B1mD1THk3q
-         mg5M9uR2qM23vjofGckoSr/frZR3SjK4vJRAXtOQBG3HLXKWcGkg7J6uwsx1YqxRcTaO
-         pcBLqJXqP640JF5H3DnAE6JdG2ADku4R6D847cl2W+uTKgnhoQ0X6Q5aP1QGvZnMVU3+
-         kihQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqn5uW3FvPwai4hVkBIFVMT4nzQ01p/1gN77aAW90mzyXHumtnplUkTaSwBvoV8i9TKvz+MFLRBIwnmbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKunJRIle5DKcc+Lp3h7DdxeDspZgDX9TvugI8jTMzT70Cm20Ho
-	Aea71n5nt8vLF0pKJjnCdJJyHfdEkHEzJyYEO29329/394PJGbcDIYgEM6U0zUAS0HZ/etmbMZT
-	LxZZsFg==
-X-Received: from plbd6.prod.google.com ([2002:a17:902:f146:b0:2e2:d31d:83f4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1663:b0:2e1:24ec:df53
- with SMTP id d9443c01a7336-2e2de571a3cmr4938895ad.48.1790727709549; Tue, 29
- Sep 2026 17:21:49 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 29 Sep 2026 17:21:40 -0700
-In-Reply-To: <20260930002140.3174449-1-seanjc@google.com>
+        d=1e100.net; s=20260707; t=1790727739; x=1791332539;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CfCX2ufsEicMArdWfEJGMSdcRPfc57DekObWO7Y+3J0=;
+        b=sB/yQ+GTVHBwu1JKXM8pQltmawBVYUWjtVsLLoYnJUzkfHx30g+7nBGz7etXoPj3Ah
+         gaqjyRgzZu//3EXckdX8M240SCiNSKv0dQRgBhuayWNyYzlOM6GJ4xNE6va7/Zuwft2I
+         ny9uagilSCgU7GG9qu7zy8Hs4/eg8R+yeQvh1WwavuNuU0jOE6bZBYe1IWPD/OxtMMq9
+         qjNU48hlpVhl/oLGZuYluQ4ikwPcwklwX63y1E/57EUp+kMw+pBvQFHFB5vaKFb2Z2yI
+         xfesaVMkQq12ZOVTL7xKFRPQbnE6UjIeyUGFT7J9Jw5p02VFtLmY40Sega/co7xYOmT2
+         GAqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsBXxymxf10s1yn5XGmSE0x9US8lPVqqrak4bhLlKnkuyz/36AACUnk24yu1n48C30EjLXXnBTXBmJZXI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICvqTpd0LZpKp92oX0t+tg8+C/cBUDZjjoK2RQV9lQhFPaFJrY
+	r85aa+37vibWpNRdg+MiO/K597eHJCnYsaw9Y1Ra9+O0Ybe1D1E1Eya7
+X-Gm-Gg: AYBFou1Zy1LCxxN46jDy06siplYbhSaTGWs3pho5kj9AiICf9O1E8cUaQXOKa8cG2Qa
+	CdpG68ElnjGCKupzyDYgm0lQSjXaFdyvAP81HIm9Z6PZqyozqr4EdU7PcKlXULCQ86SikOWE2ph
+	rRiDSdZ2k8j1SPW+2MOOfUny7UOQhvilJY+GBeXu6Dp1XLUZ8PrDj82wB+RK51l3IvtDWyfG3RY
+	4+yb/7nBpXSXJ4qGOKB/4J69DUCY5qHcag0ohIz/8D1nxaXcxOHeJcKHcapbPETLxZoBIAWBFQ3
+	OrCsGKIibKMSkz2UH1QYTpEjgGX1xYW6Iqc57S2mCVNlKMGSy2NIg8+lK0I8/8bRNQr5yUkHeHd
+	SuriGSLjHSvRW3mdnA0zchBSXLkdqJxjxkoJeX/eqktJpacjicTK5Mv8vYiViTO0v4WqfpdBlu9
+	Px47oVx1AS6OxwsQqHVcUMrWPuO0Vc7rLQk93U51lcK2693psD3uAqa09ZWlT/R0Do
+X-Received: by 2002:a17:90b:4a4e:b0:39e:237c:50e0 with SMTP id 98e67ed59e1d1-3a4bfdebb0amr783292a91.13.1790727738878;
+        Tue, 29 Sep 2026 17:22:18 -0700 (PDT)
+Received: from fedora ([2400:2410:5f2b:700:6bda:eb8:32f0:3372])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c7632de2sm242073a91.4.2026.09.29.17.22.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 17:22:18 -0700 (PDT)
+From: Vishnu Sankar <vishnuocv@gmail.com>
+To: "Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vishnu Sankar <vishnuocv@gmail.com>,
+	Mark Pearson <mpearson@squebb.ca>
+Subject: [PATCH] HID: lenovo: add fn+F7 display switch support for X12 and X13 Folio
+Date: Wed, 30 Sep 2026 09:21:33 +0900
+Message-ID: <20260930002133.10794-1-vishnuocv@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930002140.3174449-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930002140.3174449-6-seanjc@google.com>
-Subject: [PATCH v3 5/5] KVM: selftests: Add coverage for the EFER_LMSLE_MBZ defeature
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Jim Mattson <jmattson@google.com>
+On ThinkPad X12 and X13 detachable keyboards FN+F7 reports the Super+P
+key chord, which behaves differently from FN+F7 on other Thinkpads.
+In particular giving a shorter on screen display time making it harder
+for users to select their preferred display mode.
 
-Add coverage for KVM's virtualization of EFER_LMSLE_MBZ,
-CPUID.80000008H:EBX[bit 20], which is set when the CPU does *not* support long
-mode segment limits.  Verify that KVM's enumeration of the defeature matches
-the expectation derived from hardware plus kvm_amd's "nested" module param, so
-that the assertion doesn't compare KVM's enumeration against itself, and that
-WRMSR(EFER), nested VMRUN, and KVM_SET_SREGS reject EFER.LMSLE=1 if and only
-if guest CPUID enumerates the defeature.  Also verify that host-initiated
-KVM_SET_MSRS is exempt from the check, as host-initiated writes skip guest
-CPUID checks so that userspace can set MSRs before it sets guest CPUID.
+Newer keyboard FW is now available, allowing the keyboard to be
+configured by the OS to provide the standard FN+F7 KEY_SWITCHVIDEOMODE
+code as used on other Thinkpads.
 
-Extend svm_nested_efer_test rather than add yet another test binary for a
-single CPUID bit; the test already has the L1/L2 harness needed to exercise
-EFER.LMSLE.  Note, only a CPU that supports LMSLE, i.e. Rome and earlier,
-exercises the emulation path; elsewhere KVM enumerates the defeature straight
-from hardware.
+Detect if the capability is present and enables the mode if available
+on initial probe and resume.
 
-Opportunistically drop the unnecessary #include of vmx.h.
-
-Assisted-by: LLM
-Signed-off-by: Jim Mattson <jmattson@google.com>
-[sean: drop specific APM volume references, use common "nested" getter]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Suggested-by: Mark Pearson <mpearson@squebb.ca>
+Signed-off-by: Vishnu Sankar <vishnuocv@gmail.com>
 ---
- .../selftests/kvm/include/x86/processor.h     |   1 +
- .../selftests/kvm/x86/svm_nested_efer_test.c  | 244 +++++++++++++++++-
- 2 files changed, 231 insertions(+), 14 deletions(-)
+ drivers/hid/hid-lenovo.c | 71 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 66 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 1608ddb91b6e..5bc1bc110a34 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -216,6 +216,7 @@ struct kvm_x86_cpu_feature {
- #define	X86_FEATURE_INVTSC		KVM_X86_CPU_FEATURE(0x80000007, 0, EDX, 8)
- #define	X86_FEATURE_RDPRU		KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 4)
- #define	X86_FEATURE_AMD_IBPB		KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 12)
-+#define	X86_FEATURE_EFER_LMSLE_MBZ	KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 20)
- #define	X86_FEATURE_NPT			KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 0)
- #define	X86_FEATURE_LBRV		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 1)
- #define	X86_FEATURE_NRIPS		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 3)
-diff --git a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-index 6bc301207cbc..fa0d76a9c390 100644
---- a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-+++ b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-@@ -1,16 +1,20 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-+ * Tests for KVM's handling of EFER bits whose behavior is tied to nested SVM.
-+ *
-  * Copyright (C) 2026, Google LLC.
-  */
-+#include "test_util.h"
- #include "kvm_util.h"
--#include "vmx.h"
-+#include "processor.h"
- #include "svm_util.h"
- #include "kselftest.h"
+diff --git a/drivers/hid/hid-lenovo.c b/drivers/hid/hid-lenovo.c
+index 3976d7b53b14..6b4b689c8834 100644
+--- a/drivers/hid/hid-lenovo.c
++++ b/drivers/hid/hid-lenovo.c
+@@ -44,6 +44,7 @@
+ #define TP_X12_RAW_HOTKEY_FN_F10	0x00000803
+ #define TP_X12_RAW_HOTKEY_FN_F12	0x00000403
+ #define TP_X12_RAW_HOTKEY_FN_SPACE	0x18001003
++#define TP_X12_RAW_HOTKEY_FN_F7		0x00000815
  
-+static bool l2_ran;
- 
--static void l2_guest_code(void)
-+static void l2_clear_efer_svme(void)
- {
--	unsigned long efer = rdmsr(MSR_EFER);
-+	u64 efer = rdmsr(MSR_EFER);
- 
- 	/* generic_svm_setup() initializes EFER_SVME set for L2 */
- 	GUEST_ASSERT(efer & EFER_SVME);
-@@ -20,31 +24,243 @@ static void l2_guest_code(void)
- 	GUEST_ASSERT(0);
+ struct lenovo_drvdata {
+ 	u8 led_report[3]; /* Must be first for proper alignment */
+@@ -557,6 +558,34 @@ static int lenovo_send_cmd_cptkbd(struct hid_device *hdev,
+ 	return ret < 0 ? ret : 0; /* BT returns 0, USB returns sizeof(buf) */
  }
  
--static void l1_guest_code(struct svm_test_data *svm)
-+static void l1_clear_efer_svme(struct svm_test_data *svm)
++/* X12/X13 folio Fn+F7 reporting mode: feature report 0xa4, [id, mode]. */
++#define TP_X12_FEATURE_HOTKEY_MODE	0xa4
++#define TP_X12_MODE_DEDICATED_HOTKEY	0x01
++
++/*
++ * Select how the X12/X13 detachable folio reports Fn+F7 (display switch):
++ * a dedicated vendor hotkey (report ID 0x15) instead of the default
++ * Super+P key chords.
++ */
++static int lenovo_send_hotkey_mode_tp10ubkbd(struct hid_device *hdev, u8 mode)
++{
++	unsigned char *buf;
++	int ret;
++
++	buf = kzalloc(2, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	buf[0] = TP_X12_FEATURE_HOTKEY_MODE;
++	buf[1] = mode;
++
++	ret = hid_hw_raw_request(hdev, TP_X12_FEATURE_HOTKEY_MODE, buf, 2,
++				 HID_FEATURE_REPORT, HID_REQ_SET_REPORT);
++
++	kfree(buf);
++	return ret < 0 ? ret : 0;
++}
++
+ static void lenovo_features_set_cptkbd(struct hid_device *hdev)
  {
--	generic_svm_setup(svm, l2_guest_code);
-+	generic_svm_setup(svm, l2_clear_efer_svme);
- 	run_guest(svm->vmcb, svm->vmcb_gpa);
+ 	int ret;
+@@ -739,6 +768,10 @@ static int lenovo_raw_event_TP_X12_tab(struct hid_device *hdev, u32 raw_data)
+ 		case TP_X12_RAW_HOTKEY_FN_F4:
+ 			report_key_event(input, LENOVO_KEY_MICMUTE);
+ 			return 1;
++		case TP_X12_RAW_HOTKEY_FN_F7:
++			/* Fn-F7: switch/extend external display */
++			report_key_event(input, KEY_SWITCHVIDEOMODE);
++			return 1;
+ 		/* Power-mode or Airplane mode will be called based on the device*/
+ 		case TP_X12_RAW_HOTKEY_FN_F8:
+ 			/*
+@@ -794,11 +827,22 @@ static int lenovo_raw_event(struct hid_device *hdev,
+ 	 * Lenovo TP X12 Tab KBD's Fn+XX is HID raw data defined. Report ID is 0x03
+ 	 * e.g.: Raw data received for MIC mute is 0x00020003.
+ 	 */
+-	if (unlikely((hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
+-		      hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
+-		      hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB) &&
+-		      size >= 4 && report->id == 0x03))
+-		return lenovo_raw_event_TP_X12_tab(hdev, get_unaligned_le32(data));
++	if (unlikely(hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
++		     hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
++		     hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB)) {
++		/* Existing 0x03 vendor hotkeys (8-byte). */
++		if (size >= 4 && report->id == 0x03)
++			return lenovo_raw_event_TP_X12_tab(hdev,
++				get_unaligned_le32(data));
++
++		/* Dedicated-mode display-switch (F7): 3-byte 0x15 report. */
++		if (report->id == 0x15 && size >= 3) {
++			u8 pad[4] = { data[0], data[1], data[2], 0 };
++
++			return lenovo_raw_event_TP_X12_tab(hdev,
++					get_unaligned_le32(pad));
++		}
++	}
  
- 	/* Unreachable, L1 should be shutdown */
- 	GUEST_ASSERT(0);
+ 	return 0;
  }
+@@ -1366,6 +1410,12 @@ static int lenovo_probe_tp10ubkbd(struct hid_device *hdev)
  
--int main(int argc, char *argv[])
-+static void l2_lmsle(void)
-+{
-+	GUEST_ASSERT(rdmsr(MSR_EFER) & EFER_LMSLE);
-+	l2_ran = true;
-+	vmmcall();
-+}
-+
-+static void l1_lmsle(struct svm_test_data *svm)
-+{
-+	bool lmsle_mbz = this_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ);
-+	struct vmcb *vmcb = svm->vmcb;
-+	u64 efer = rdmsr(MSR_EFER);
-+
-+	/*
-+	 * Selftests' vCPUs are created with EFER.LMSLE clear; the sub-tests
-+	 * below need to start from a clean slate.
-+	 */
-+	GUEST_ASSERT(!(efer & EFER_LMSLE));
-+	GUEST_ASSERT(!l2_ran);
-+
-+	/*
-+	 * Per the APM, if EFER_LMSLE_MBZ is enumerated in CPUID, "64-bit mode
-+	 * segment limit checking is not supported and attempting to set
-+	 * EFER.LMSLE = 1 causes a #GP exception".
-+	 */
-+	if (lmsle_mbz) {
-+		GUEST_ASSERT_EQ(wrmsr_safe(MSR_EFER, efer | EFER_LMSLE), GP_VECTOR);
-+		GUEST_ASSERT(!(rdmsr(MSR_EFER) & EFER_LMSLE));
-+	} else {
-+		GUEST_ASSERT_EQ(wrmsr_safe(MSR_EFER, efer | EFER_LMSLE), 0);
-+		GUEST_ASSERT(rdmsr(MSR_EFER) & EFER_LMSLE);
-+
-+		/*
-+		 * Restore EFER so that generic_svm_setup() doesn't propagate
-+		 * EFER.LMSLE into vmcb12 on its own, i.e. so that the VMRUN
-+		 * sub-test actually tests what it thinks it's testing.
-+		 */
-+		wrmsr(MSR_EFER, efer);
-+	}
-+
-+	/*
-+	 * VMRUN's consistency checks reject "any MBZ bit of EFER", i.e. a
-+	 * vmcb12 with EFER.LMSLE set must generate VMEXIT_INVALID when the
-+	 * defeature is enumerated.
-+	 */
-+	generic_svm_setup(svm, l2_lmsle);
-+	vmcb->save.efer |= EFER_LMSLE;
-+	run_guest(vmcb, svm->vmcb_gpa);
-+
-+	if (lmsle_mbz) {
-+		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_ERR);
-+		GUEST_ASSERT(!l2_ran);
-+	} else {
-+		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
-+		GUEST_ASSERT(l2_ran);
-+		GUEST_ASSERT(vmcb->save.efer & EFER_LMSLE);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
-+static struct kvm_vcpu *create_l1_vcpu(struct kvm_vm **vm, void *l1_guest_code)
-+{
-+	struct kvm_vcpu *vcpu;
-+	gva_t svm_gva;
-+
-+	*vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
-+
-+	vcpu_alloc_svm(*vm, &svm_gva);
-+	vcpu_args_set(vcpu, 1, svm_gva);
-+
-+	return vcpu;
-+}
-+
-+static void test_enumeration(void)
-+{
-+	bool lmsle_mbz;
-+
-+	/*
-+	 * EFER_LMSLE_MBZ, CPUID.80000008H:EBX[bit 20], is a "defeature" bit,
-+	 * i.e. is set when the CPU does *not* support long mode segment
-+	 * limits.  KVM enumerates the defeature if and only if KVM refuses to
-+	 * set EFER.LMSLE, i.e. if the CPU doesn't support LMSLE, or if KVM
-+	 * doesn't support nested SVM.  Derive the expectation from raw CPUID
-+	 * and kvm_amd's "nested" module param rather than from
-+	 * kvm_cpu_has(X86_FEATURE_SVM), so that the assertion doesn't simply
-+	 * compare KVM's enumeration to itself.
-+	 */
-+	lmsle_mbz = this_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ) ||
-+		    !this_cpu_has(X86_FEATURE_SVM) ||
-+		    !kvm_is_nested_virtualization_enabled();
-+
-+	TEST_ASSERT_EQ(kvm_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ), lmsle_mbz);
-+
-+	ksft_test_result_pass("KVM enumerates EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
-+}
-+
-+static void test_clear_efer_svme(void)
- {
- 	struct kvm_vcpu *vcpu;
- 	struct kvm_vm *vm;
--	gva_t nested_gva = 0;
+ 	lenovo_led_set_tp10ubkbd(hdev, TP10UBKBD_FN_LOCK_LED, data->fn_lock);
  
--	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
--
--	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
--
--	vcpu_alloc_svm(vm, &nested_gva);
--	vcpu_args_set(vcpu, 1, nested_gva);
-+	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
++	if (hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
++	    hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
++	    hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB)
++		lenovo_send_hotkey_mode_tp10ubkbd(hdev,
++						  TP_X12_MODE_DEDICATED_HOTKEY);
++
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &lenovo_attr_group_tp10ubkbd);
+ 	if (ret)
+ 		return ret;
+@@ -1439,6 +1489,13 @@ static int lenovo_reset_resume(struct hid_device *hdev)
+ 			lenovo_features_set_cptkbd(hdev);
  
- 	vcpu_run(vcpu);
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_SHUTDOWN);
- 
- 	kvm_vm_free(vm);
--	return 0;
-+	ksft_test_result_pass("L2 clearing EFER.SVME shuts down L1\n");
-+}
-+
-+static void test_lmsle(bool lmsle_mbz)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+
-+	vcpu = create_l1_vcpu(&vm, l1_lmsle);
-+
-+	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
-+					lmsle_mbz);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+	switch (get_ucall(vcpu, &uc)) {
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+	case UCALL_DONE:
+ 		break;
++	case USB_DEVICE_ID_LENOVO_X12_TAB:
++	case USB_DEVICE_ID_LENOVO_X12_TAB2:
++	case USB_DEVICE_ID_LENOVO_X13_TAB:
++		lenovo_send_hotkey_mode_tp10ubkbd(hdev,
++						  TP_X12_MODE_DEDICATED_HOTKEY);
 +		break;
-+	default:
-+		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
-+	}
 +
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("Guest EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
-+}
-+
-+static void test_host_initiated_lmsle(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	u64 efer;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+	vcpu_set_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	/*
-+	 * EFER_LMSLE_MBZ is a guest CPUID consistency check, not a host
-+	 * capability, i.e. must not be enforced against host-initiated writes,
-+	 * so that userspace can set MSRs before it sets guest CPUID.
-+	 */
-+	efer = vcpu_get_msr(vcpu, MSR_EFER);
-+	TEST_ASSERT(!(efer & EFER_LMSLE), "EFER.LMSLE unexpectedly set");
-+
-+	vcpu_set_msr(vcpu, MSR_EFER, efer | EFER_LMSLE);
-+	TEST_ASSERT_EQ(vcpu_get_msr(vcpu, MSR_EFER), efer | EFER_LMSLE);
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("Host-initiated EFER.LMSLE=1 is allowed\n");
-+}
-+
-+static void test_sregs_lmsle(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_sregs sregs;
-+	struct kvm_vm *vm;
-+	int rc;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+	vcpu_set_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	/*
-+	 * Unlike KVM_SET_MSRS, KVM_SET_SREGS runs the full set of guest CPUID
-+	 * checks, i.e. rejects EFER.LMSLE even though it's host-initiated.
-+	 */
-+	vcpu_sregs_get(vcpu, &sregs);
-+	TEST_ASSERT(!(sregs.efer & EFER_LMSLE), "EFER.LMSLE unexpectedly set");
-+
-+	sregs.efer |= EFER_LMSLE;
-+	rc = _vcpu_sregs_set(vcpu, &sregs);
-+	TEST_ASSERT(rc, "KVM allowed EFER.LMSLE with EFER_LMSLE_MBZ set");
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("KVM_SET_SREGS rejects EFER.LMSLE=1\n");
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	bool has_nested_svm, has_lmsle;
-+
-+	ksft_print_header();
-+	ksft_set_plan(6);
-+
-+	test_enumeration();
-+
-+	/*
-+	 * The sub-tests below need to actually run a nested guest, and the
-+	 * EFER.LMSLE sub-tests additionally need KVM to allow EFER.LMSLE.
-+	 * It's KVM's view of the world, not raw CPUID, that dictates whether
-+	 * EFER.LMSLE is allowed, i.e. whether the defeature is emulated.
-+	 */
-+	has_nested_svm = kvm_cpu_has(X86_FEATURE_SVM);
-+	has_lmsle = has_nested_svm &&
-+		    !kvm_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	if (!has_nested_svm)
-+		ksft_print_msg("Nested SVM unsupported\n");
-+	else if (!has_lmsle)
-+		ksft_print_msg("KVM doesn't support EFER.LMSLE\n");
-+
-+	if (has_nested_svm) {
-+		test_clear_efer_svme();
-+		test_lmsle(true);
-+	} else {
-+		ksft_test_result_skip("L2 clearing EFER.SVME shuts down L1\n");
-+		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=1\n");
-+	}
-+
-+	if (has_lmsle) {
-+		test_lmsle(false);
-+		test_host_initiated_lmsle();
-+		test_sregs_lmsle();
-+	} else {
-+		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=0\n");
-+		ksft_test_result_skip("Host-initiated EFER.LMSLE=1 is allowed\n");
-+		ksft_test_result_skip("KVM_SET_SREGS rejects EFER.LMSLE=1\n");
-+	}
-+
-+	ksft_finished();
- }
+ 	default:
+ 		break;
+ 	}
+@@ -1526,9 +1583,13 @@ static int lenovo_input_configured(struct hid_device *hdev,
+ 						hi->input->propbit);
+ 			}
+ 			break;
++		case USB_DEVICE_ID_LENOVO_X12_TAB:
++			input_set_capability(hi->input, EV_KEY, KEY_SWITCHVIDEOMODE);
++			break;
+ 		case USB_DEVICE_ID_LENOVO_X12_TAB2:
+ 		case USB_DEVICE_ID_LENOVO_X13_TAB:
+ 			input_set_capability(hi->input, EV_KEY, KEY_PERFORMANCE);
++			input_set_capability(hi->input, EV_KEY, KEY_SWITCHVIDEOMODE);
+ 			break;
+ 	}
+ 
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.55.0
 
