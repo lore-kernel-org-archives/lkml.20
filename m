@@ -1,166 +1,389 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985CA4848AB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764408; cv=none; b=RR0BHXpB9AbRHulUmMeA+kIAJylmUF31aPSfQ9hkMWLGu6hRi1aWzD+Pk/rREHfsoLiKFj38tJHq7R6tyMuc29nmRFY1XXkYcU4/hEcTpej7cpjscYe6KdN5T9sMGSvlYaBjeOur7Wn0KTagV4F3KX7S/tM2kj+oqzbQptBqMCI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764408; c=relaxed/simple;
-	bh=p0rtOpqJgYOdzRogUQx4C72rBJ6MZuOxyLFNm8hD7RI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QRl4ubRiydE7eCw59FEn2ZsImfDNMMM4w6IqVponv2NG93L4lb48GdUMcsbA59yMU+QY/bTY3r0vgMBk0Fn6EZsh1XNf0CsKGCJ+hPL1kAYHoHBtu5BaJfukxjrQ7qHdiq0XTGM+qzuUawBj3e2YHrm2aK56URryky4RQeIsHW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KKp3pkBl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I9UPHw4O; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KKp3pkBl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I9UPHw4O"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7daAM2213576
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ekqw08WhSNuzNavRYsHvqJW6DtR1r0AaDDdoOSLKqQU=; b=KKp3pkBlG9NMn4o+
-	Ie78eIItC5nrJQHzevcTluOiAL9eL+IM2U1fu2POEr0CPh21TWhoOJoh/3q5xDXF
-	oGg+oJlL+dI2NFnXoFUUlMSBjBp60SqqKSFox2b2bJbwcfSM5exKxEUmjtRAGLBL
-	KhrNGk++ecMx8H7H+ns1IWmdgdFnVfICtwPauN6XY1twkBNf1rQEAFAl/jCjHkat
-	Hw76Q3tvDqvnBY9isdhW8J7IrngXZFJEiUzfcInlBymyWWJftxE58SeNLVzsvFhB
-	foH8mUZM6lr89VlWNedjUse0YSfwmOyOdW4+7fjcSwA8Yuv7F2QrZw7oPW894TGp
-	Z2qUgQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0smjj01v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:24 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939fc317691so100826485a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790764403; x=1791369203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ekqw08WhSNuzNavRYsHvqJW6DtR1r0AaDDdoOSLKqQU=;
-        b=I9UPHw4Oiy0auvSlwDAgvpMRNKOkl4CGmhHQYBUJ1vNhgEAf6nSdUrt7TgnJjfVEGQ
-         mFctZykjxc2qzkBJlfwcrIB7g4JE2ju04HcQp5G+kVd4cqYcDyv5LTLJEw5MXxug9zqK
-         WiCXQayR+uq4Zk6FHAhpTlwUAtAeMtEZpLDpDWmt9vNZkEWI1XJ2TCSxQ1prq7NWMEDR
-         bt3O3lK0ljQv/djHBD2Qp++pZPY6qIfTKA42gB23ni48GU2i2H67UgkhlTEjcrSbkxmc
-         BZ7Yar++LwPVSRFO8zoNnwjNXtJEtqxDvSiW3Qw9J4HAqmSM4i42Y8IFo62gMMRRT6WY
-         yvXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790764403; x=1791369203;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ekqw08WhSNuzNavRYsHvqJW6DtR1r0AaDDdoOSLKqQU=;
-        b=KR8pKx8E5vFDlBko2OErtaHADMlKCKp/7vn527SMNtz0BGT+TNSJQz/PtINRNfoSRI
-         F13Wmw7zYQgykbelaCeFnkxSkVpVWExX2ZjMSlXrYab9zVJaBkrLt8Z7URf6rf8KaVZB
-         MBPtw2Vd5iHSZzOQP8cq7lK2fK0Ww02iUeaozm29r2clAlBu4UhDYLf3troEAl5dgNO1
-         BT+edxddpwGTiq4WC3uAhaikbTjgF4RP2aC9IZcvB6LTUQhBGACclUQ5dKKju6oimZhS
-         vjr8E0LQq/ZVt4ma3iBdDN5YfoZ8ETBHw3jhqHu8o8SDa8wkATWQL6grvMOC9aaUq23u
-         Zptg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQpVEot09h+i9G4MGCSm8i6i64MdQB8RkRL1epwxZIINqlsOINobNQqmqKqs4l7Z+bZQYxgSIHfNeXfrk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0dvt/f63gO/0q4+0UC0zSudVBmM9MLAXEZiVfzXfwwyxcTBPv
-	Chl+kFFTndmuES7ejTitCAWQWsuU8pHXFR2T7HO354+28jhXhOp09GtKzFHwlnsMK8lljPMTiTa
-	u8wTqXqqwZrvGMSZ+lyckbJaXr8ltMhFxC7X50w2uqxvoZhIEnWULA16HmXUZPCm8EoU=
-X-Gm-Gg: AYBFou1NIu9/iKnCjRXcv/K+rPI2sBIpFjTWVbUxym0zogfqKYof+DaJDamc0Gr3gMK
-	Q3qQRzor3H3OTquVCtramOjr96RcWAxfCxPwdSsdFZMtin/J5iNLEYrUgb1D8r2toipkpz6PBJ9
-	pFXWcz9GqbYXeVcS9UelEme7X0FNjCL+ARFMHyJ+FudYpBHozskUHxbqO30zf0Nd7n/f3OFi6rB
-	OORxUN4pXjnT7of4ZIs/Ow10OxGUqLNkogOMgU/c9BQH7ENIdFNpSxsDrRX8V17hH5pNyYe7ET2
-	cChRe+qTjIADMmteUG+AaSMn4m/Hwk29tWiMtsLIyTrlZ+o7S+DHXux+gV0PyLqSnoQ9n1zo/dk
-	f/PfhYeW6K2vsupcnh4J0wg==
-X-Received: by 2002:a05:620a:84ca:b0:93b:ee2a:b67c with SMTP id af79cd13be357-93ca9756a48mr144985685a.4.1790764403337;
-        Wed, 30 Sep 2026 03:33:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:84ca:b0:93b:ee2a:b67c with SMTP id af79cd13be357-93ca9756a48mr144978585a.4.1790764402614;
-        Wed, 30 Sep 2026 03:33:22 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae047e9a39sm671766a12.1.2026.09.30.03.33.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 03:33:20 -0700 (PDT)
-Message-ID: <3439bb37-0aab-49d4-99af-8c2b22fc4adb@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 12:33:17 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B227483BEE;
+	Wed, 30 Sep 2026 10:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790764410; cv=fail; b=jZN2LmoQ9JpFAy32Wkdqu6Dzt91z2BtQfy+QSO2BjqmgB9tmKBJ6nfglLI/TE4SsVNA/iG9pBYmiROqRgdQY3CJWpQ+JdJTD6iH+N7kUO5LtRmIaA0tiFnISyqh3MEC7OOJMTN2Kt/pzBJnq90ZWJtmQwJnlY0ncx2JP8DLD0ac=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790764410; c=relaxed/simple;
+	bh=hAohkShN9bf2/l3RD29N2DV0/qkkKszShN/EYNgw6Io=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZUtHLGMxscbCFo/M8hoogH5sV5XWlnhnphXbJqUUv9N9sSmi8u0VcYfg8jmvP10euusdRPYS9daRh3oerRTjFfIdyxwYKROHFY9hY76Uo0Rm1SaRY6el2HFMEKLVZUbU6fN8jA+u/9t0SSf65QjJYWhZSBT4Jhqp6QXQ/R/jKzE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aNATLpFNnc1aOSj8sGZDTUUCz75wjdA0pBE8ChlhBNDwzR9U8BrSQ75dQ3b+lsJFyOeS68+6aGupwwVqXHVBuzPryk+aKuc3uNeOeIv6Xsxu4bh7yU87OBHGIVqehjrpBsYpQx4CFNVVFVJxqs0oho9/zsVIgbw6sxxodkRW8lrFcrxkxjQAyZVw0AxPmPWZqBJLWpgl5pBNfIhSMDkqHrStz1ToFcTh9aR89GW55EdFH2gSSNZTYi41Rg6F7c5AAYUfh4d2L0cFprsRNlVveEjgLVkeeRFbbb4zmP7US3yDfVK+SkP6SP2mGUfyz9JOhJzpTO4WDFPouI9jeVISVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8PXzClnPH0lYA8zOsoRPsYeiP3suk0fk+5XGVywoqa8=;
+ b=geITuEeHDjACeVrK8tVogiWaEvjXO245CrgV8Mcp1WOr7NhEv0jvQsatvFEmFZ3M6DgZL3c/NJ89w9H3g9iqX7GHh8c+uFMB0xlhXDuzPfrKZttVH5iIKHAmtfkIyDesl7QPXwnXiE5tlr0maWUZQV1Wuyoa2BpgsdjfL7ZlMXRmntE7mtOd4IKF4idKmRIfw5HgP2rJ/+RhdHSDZ7M5bSFVQLsv9mSlxRoPJRS8+3fsMZLvD+r2U4v+hhItOZtJcBL0OJauvzgvcbXlMYFfhQl0BOEFKekZ50vJZ09penPlE234vywVX58zgGlu54+nnz9mtQAIxoBPX4rqw2Ss6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 10:33:11 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.026; Wed, 30 Sep 2026 10:33:11 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Chen Wang <chen.wang@linux.dev>,
+	Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	sophgo@lists.linux.dev,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 2/2] mmc: sdhci-of-dwcmshc: Add support for StarFive JHB100
+Date: Wed, 30 Sep 2026 03:32:58 -0700
+Message-Id: <20260930103258.13375-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260930103258.13375-1-changhuang.liang@starfivetech.com>
+References: <20260930103258.13375-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHXPR01CA0020.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::29) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 11/13] arm64: dts: qcom: monaco: Add Iris context bank
- subnodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-11-0322ca5dc10c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-11-0322ca5dc10c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0MSBTYWx0ZWRfXwVV4YgyAgbu6
- vqvUk7DX09E3X0GOYcKdBPU7nmmGjWJNJcDRQy8AtrdUpxW8LGHj5N/9IQ1pDMqctTNcr16Cd7N
- sc4FzatD9nl+C2ZzCZoBuI/3+lJ3asY=
-X-Proofpoint-GUID: SgvKoQEM0xC2ysxqAHX9FHsnw1H72rh2
-X-Proofpoint-ORIG-GUID: SgvKoQEM0xC2ysxqAHX9FHsnw1H72rh2
-X-Authority-Analysis: v=2.4 cv=KfxHIgYD c=1 sm=1 tr=0 ts=6abce574 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=4BULcDCo1EIeXDFKsSoA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0MSBTYWx0ZWRfXz9LQXnpisCQz
- tN6txVBciGCzEZ6VASxritNzcYiB2voEt9IedNUAAJxey8AvBtT8Rv2KdXD58mOq/Jd9FHdsAYn
- lRNYO/tc0gtG3ty+lc2L4suyyIq37jULzqCXhgrmOqB5nWI11/hpjhOYEKI44ZrNxtogQwk4kQ+
- bdh0053K/UnvkDdYjfjef9bfLEDfg9JP6xpa9WymZlYAaQ/EOKHt21xuOCCN7EBP83omBPfK646
- nK0Uc2Y2F8BluSDfemHoUf9LbvyxzIqERFg6HaBjaBZ4DePHJG/NBeLyZayG/WytkzhZWXq2zwy
- 2Ehxd1H67MVlGKjiiETm9RlhglnXhrUkcSTiALyZlI1nPED4jrEfvHHY1XgxGTsOq2wGp13FxDx
- taIg37paLgEpH/bggYrQI83s/dX46DsBfclmnZcIpm+IMMBdy4co3Ftn+q9XNir7g/GdRL5U3xW
- 3iOedCU5lJZ0p60Dekg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300041
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c49235f-2715-40d5-3068-08df1ede39ee
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|52116014|18002099003|22082099003|38350700014|6133799003|10067099003|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	SJ6TY60J6pdISuIbOWQVfXmOUyZvEctZd+KBTsRXSSNL9cBJR36pg9b1Pi6B68UwdA1DkXr0eJLJ5Ap4nfqZJ6/WuIm2BZDafCoBi88jQLnz0FnXaEDD+SOnTr5Updr86AQKyeBGB6aHH2CHAsYg7Wc55QYKITcblfmse405jZq22Tb30Q2GiAbCGtHzctNmAHh+hRdPUyxvtCEgFPTv5a2oWTXJxZCD6ouH6/1jPjEW/jUcvD7QfJsWoAO/BtP5bNslBsQvDuAo2ArD2ixddr0Jt/kIxISHwCBx6IIPo3CJfq1BTC0RIlYZ1iGCUk7gcbL7nA+acpZcWDVmzrGyHH0eihY9i4BVVIqh1F499sH+zb+nNWCKkWww+MGOhbR0JlgeZX+m7NE5N4o87PPdjPDEpCVf7iXNxYwP8bkgJ46JQM9L2Hkzq4jGtINFHrFmxPwMzM6A8kWUDE23iBOI/wdZ9Vva9G2m6AU9UZnlrJqIjhfVCguS7Xjpv6gaOB2ZZ3RXabcE9Pyp4ZC4OYtuDDU7j98QfjxaN6Rd1Ibq7M+2JlavKCDEqD1ac6O1cir/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(52116014)(18002099003)(22082099003)(38350700014)(6133799003)(10067099003)(56012099006)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/ndxtXTUNXHv6V3QIIOl9uVxvGzs+D5q0IVEyAWGXHiivzODG3CsWh307ICm?=
+ =?us-ascii?Q?qznLI/lnMwjx7NggiHfu/XwMdiPISCWaOB0qzF+EZjGYD9gNut6BH81S1xfm?=
+ =?us-ascii?Q?SirqcRAeo2qV+I41A2S22gzd59C5dTdjSl8qsba2ndzhzZ8yfQSbN8APrSmj?=
+ =?us-ascii?Q?jioZebbzG8bWDviIkX68Cm32RdILik9D5EsYTSIEeTM2MTDeP39xfw4SlJXU?=
+ =?us-ascii?Q?jmUXMFpIbU/F5x0dsnO/yT3KNjv7KuVHWPnl7RlxXA9pw7Qdw2Jo0Ga8wzAD?=
+ =?us-ascii?Q?uQLBZbITyQew3X8KR9PpX93fdFe1kXeDGvGfVwYGt7rL8VM0uwKn5h4fJdst?=
+ =?us-ascii?Q?VpIQBPGPjHXq+4d9J7g02J1fK8LG+V8ugHQZ0StPcjmV/TXRUTG2uDfV7rJ9?=
+ =?us-ascii?Q?z5bJtOa2qY35TCievYFllYezJGBXE2zWwZEkouaLaSCZUqQ5e1p08C5vpMzj?=
+ =?us-ascii?Q?8LQjLXV2Zyb5s6KtLmLsvMcyGYeqeycj8bxixkDjunzx0q1Zqk1q+pA7k87L?=
+ =?us-ascii?Q?Nw1JDZoHlbztCMu1DPOs66YCeySMy4efRxkkdKmq+5GZWWrjBzXMJ1GIGi7b?=
+ =?us-ascii?Q?esit4DFijJMupaQ79Tdv807fKrztMHYfh4MJsYk8Rlgc5whXBVTXPP4VWge3?=
+ =?us-ascii?Q?7gfK7xNt7RE4S2OEQtjMU+cDq24gO766c4MK12duy8DZ3ogRmfr7aakmwgZE?=
+ =?us-ascii?Q?PoaEsJm3IpPqU7S6538y5ysw8nkOW95RlUZkWiTpFOD1yoWYq8sbvw1Wy4Fj?=
+ =?us-ascii?Q?GhVoTwIF1+QtIowqYlOfzpUhOQP3w1Lh7NCMinsGG8Vi1gAEFej7yX6RwXEU?=
+ =?us-ascii?Q?tQQlDb0kbsn/bIQmtMQgH+EaqlrUx+qAdnOpXQClwyNnwFckXL7XikCmMdX5?=
+ =?us-ascii?Q?mIjca3+XRYuZ50h/DfCdf6sDP/6czoJJfVVo4csqf938pXktVbm3nNTLkDmO?=
+ =?us-ascii?Q?IxTz/DGsQHMnjCLnPhbpex8JpSQxJAUyvXeRZ4OZsp4e8jdGB6IHnY41+sNt?=
+ =?us-ascii?Q?eWLI7vWavJLx20N8gYq41qF/RGQEvi8ZAFbcxWi54VT625XOgxBp49DysJkb?=
+ =?us-ascii?Q?QrSaAI+lSFHfHZurKVzq09hb/D59/+EDBwTwHE0e4007Z7HYQujMFVUGYswz?=
+ =?us-ascii?Q?FSsqjqbAUTx6AmcnPWclFzQJM1WMY9QpBruVD2Nm0Sd6Cfu4xr8zVFMb6e4E?=
+ =?us-ascii?Q?2jYRhvTuU1XYVlvGx3Xw3D0WooveOFGjREiBgIBSI5KT9UAiND0rWMXUxPgl?=
+ =?us-ascii?Q?WVkEdDX5Er7t+HY2EJCqvugDjaJt4aWN/VVo9nfCbw4F7+mpj/y6HwdcJi16?=
+ =?us-ascii?Q?32X6cLIgJlxjPF8y7e7zk+1tm7dPVXOmro7tPvwTo8o8FRem91cbXAXrfM4K?=
+ =?us-ascii?Q?RVyyHG8lIX9YzkC5KjL16ErBg4CbR0OPoUI12ACzyZOuOQnDxFkHk9PcFqIP?=
+ =?us-ascii?Q?8IOcx32oMaVf1/JzNohXgrbzlD7+WZTVid+TH2dip8M6ic1yBBb6UfaawwCa?=
+ =?us-ascii?Q?4Znwf8jk5PeJQRaLVEBAAgq6ch1ibIrYFZO/h4kl161lOCSPk9sP2rCS6g2M?=
+ =?us-ascii?Q?QhWRXMVpnWnq57W7ui4RL4GLRrCm4nWyUJ882pQgOUiPcTHpFDziTgqepdZ6?=
+ =?us-ascii?Q?9SrA6xWD9Hh6Cf2kRFNsQHh4Pu1//wRp9DLOdOGmfD5pR/thOv9vAo4mFw9w?=
+ =?us-ascii?Q?+/4+IklS0LCO59d1MP2XzS9yYR5h6rE/kS9tFlqa8Pma3tYOM8N5zEjzVaJL?=
+ =?us-ascii?Q?h80LbBN6OEGAK8NmyjpkoKDbOCUiiTwr5vpeX+8VoRLKL0w/sYtH?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c49235f-2715-40d5-3068-08df1ede39ee
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:33:11.4281
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zUwrDDJBCTY/7m7cCIWtdAIxQU+9E4gfYnARp6Y+hdcyhb7++AY5cLCRjakqbpsmFAyOqHc2atfqKHoGVJgRvZ917CCFS3p5My1sdr8KEnGq09u4csRw3RC/nPU/Vf5H
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
 
-On 9/26/26 8:34 AM, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
+Add support for the DWCMSHC controller found on the StarFive JHB100
+SoC.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The JHB100 CMSHC controller only drives 32 DMA address bits. The higher
+DMA address bits [35:32] are supplied by the PER1 SYSCON, so the DMA
+mask is set to 36 bits to describe this hardware capability. Fix these
+bits to 4, which limits the DMA range to [0x400000000 - 0x4ffffffff].
+The dma-ranges of the parent bus are expected to restrict DMA to this
+window, so that any address outside of it fails to map instead of
+being passed to the hardware.
 
-Konrad
+The cclk_tx clock must be disabled before sdhci_set_clock() to
+eliminate glitches, and re-enabled afterwards unless the card clock is
+turned off, so that cclk_tx stays gated during suspend. The 15us delay
+after disabling cclk_tx is a JHB100 specific requirement from the SoC
+simulation. cclk_tx is enabled during probe and disabled in the
+platform deinit callback, which is invoked from dwcmshc_remove().
+
+Additionally, clear the PHY_DLLDL_CNFG_R register and re-initialize
+the PHY when setting UHS signaling, and force 1.8V fixed I/O when the
+DT specifies a DDR/HS200/HS400 1.8V mode.
+
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/mmc/host/sdhci-of-dwcmshc.c | 169 ++++++++++++++++++++++++++++
+ 1 file changed, 169 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
+index 1baa2379c9c3..249055f14162 100644
+--- a/drivers/mmc/host/sdhci-of-dwcmshc.c
++++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+@@ -48,6 +48,9 @@
+ #define DWCMSHC_ENHANCED_STROBE		BIT(8)
+ #define DWCMSHC_EMMC_ATCTRL		0x40
+ #define DWCMSHC_AT_STAT			0x44
++/* StarFive JHB100 SoC MSHCCS register */
++#define DWCMSHC_ARWADDR			GENMASK(3, 0)
++#define DWCMSHC_ARWADDR_DEFAULT		4
+ /* Tuning and auto-tuning fields in AT_CTRL_R control register */
+ #define AT_CTRL_AT_EN			BIT(0) /* autotuning is enabled */
+ #define AT_CTRL_CI_SEL			BIT(1) /* interval to drive center phase select */
+@@ -184,6 +187,7 @@
+ #define PHY_SDCLKDL_DC_INITIAL		0x40 /* initial delay code */
+ #define PHY_SDCLKDL_DC_DEFAULT		0x32 /* default delay code */
+ #define PHY_SDCLKDL_DC_HS400		0x18 /* delay code for HS400 mode */
++#define PHY_SDCLKDL_DC_JHB100		0x10 /* delay code for StarFive JHB100 */
+ 
+ #define PHY_SMPLDL_CNFG_R		(DWC_MSHC_PTR_PHY_R + 0x20)
+ #define PHY_SMPLDL_CNFG_EXTDLY_EN	BIT(0)
+@@ -294,6 +298,11 @@ struct k230_priv  {
+ 	struct regmap *hi_sys_regmap;
+ };
+ 
++struct jhb100_priv {
++	struct clk *cclk_tx;
++	bool cclk_tx_on;
++};
++
+ #define DWCMSHC_MAX_OTHER_CLKS 3
+ 
+ struct dwcmshc_priv {
+@@ -314,6 +323,7 @@ struct dwcmshc_pltfm_data {
+ 	const struct sdhci_pltfm_data pdata;
+ 	const struct cqhci_host_ops *cqhci_host_ops;
+ 	int (*init)(struct device *dev, struct sdhci_host *host, struct dwcmshc_priv *dwc_priv);
++	void (*deinit)(struct dwcmshc_priv *dwc_priv);
+ 	void (*postinit)(struct sdhci_host *host, struct dwcmshc_priv *dwc_priv);
+ };
+ 
+@@ -2257,6 +2267,155 @@ static const struct dwcmshc_pltfm_data sdhci_dwcmshc_hpe_gsc_pdata = {
+ 	.init = dwcmshc_hpe_gsc_init,
+ };
+ 
++static int sdhci_jhb100_set_dma_mask(struct sdhci_host *host)
++{
++	struct mmc_host *mmc = host->mmc;
++	struct device *dev = mmc_dev(mmc);
++	int ret;
++
++	/*
++	 * The StarFive JHB100's CMSHC controller only drives 32 DMA address
++	 * bits, the higher DMA address bits [35:32] are supplied by the
++	 * ARWADDR field in the PER1 SYSCON. The 36-bit mask describes this
++	 * hardware capability. As ARWADDR is fixed to 4, the controller can
++	 * only reach [0x400000000 - 0x4ffffffff]. The dma-ranges of the
++	 * parent bus must restrict DMA to this window, so that any address
++	 * outside of it fails to map and is never passed to the hardware.
++	 */
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
++	if (ret)
++		dev_err(dev, "Failed to set 36-bit DMA mask.\n");
++
++	return ret;
++}
++
++static void sdhci_jhb100_set_clock(struct sdhci_host *host, unsigned int clock)
++{
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct dwcmshc_priv *dwc_priv = sdhci_pltfm_priv(pltfm_host);
++	struct jhb100_priv *priv = dwc_priv->priv;
++
++	/*
++	 * The cclk_tx clock is disabled before sdhci_set_clock(), and then a
++	 * 15us delay is required, This delay is determined by SoC simulation
++	 * and is a special requirement on JHB100 SoC, mainly used to eliminate
++	 * glitches caused by frequency switching.
++	 */
++	if (priv->cclk_tx_on) {
++		clk_disable_unprepare(priv->cclk_tx);
++		priv->cclk_tx_on = false;
++		fsleep(15);
++	}
++
++	sdhci_set_clock(host, clock);
++
++	/* keep cclk_tx gated while the card clock is off, e.g. during suspend */
++	if (!clock)
++		return;
++
++	if (clk_prepare_enable(priv->cclk_tx))
++		dev_err(mmc_dev(host->mmc), "failed to re-enable cclk_tx\n");
++	else
++		priv->cclk_tx_on = true;
++}
++
++static void sdhci_jhb100_set_uhs_signaling(struct sdhci_host *host,
++					   unsigned int timing)
++{
++	dwcmshc_set_uhs_signaling(host, timing);
++	sdhci_writeb(host, 0, PHY_DLLDL_CNFG_R);
++	th1520_sdhci_set_phy(host);
++}
++
++static const struct sdhci_ops starfive_jhb100_ops = {
++	.set_dma_mask		= sdhci_jhb100_set_dma_mask,
++	.set_clock		= sdhci_jhb100_set_clock,
++	.set_uhs_signaling	= sdhci_jhb100_set_uhs_signaling,
++	.set_bus_width		= sdhci_set_bus_width,
++	.reset			= dwcmshc_reset,
++	.get_max_clock		= dwcmshc_get_max_clock,
++	.adma_write_desc	= dwcmshc_adma_write_desc,
++	.irq			= dwcmshc_cqe_irq_handler,
++	.voltage_switch		= dwcmshc_phy_init,
++	.platform_execute_tuning = th1520_execute_tuning,
++};
++
++static int dwcmshc_starfive_jhb100_init(struct device *dev, struct sdhci_host *host,
++					struct dwcmshc_priv *dwc_priv)
++{
++	struct reset_control *reset;
++	struct jhb100_priv *priv;
++	unsigned int reg_offset;
++	struct regmap *syscon;
++	int ret;
++
++	priv = devm_kzalloc(dev, sizeof(struct jhb100_priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	syscon = syscon_regmap_lookup_by_phandle_args(dev->of_node,
++						      "starfive,jhb100-per1-syscon",
++						      1, &reg_offset);
++	if (IS_ERR(syscon))
++		return PTR_ERR(syscon);
++
++	/* configure the higher DMA address bits [35:32] */
++	ret = regmap_update_bits(syscon, reg_offset, DWCMSHC_ARWADDR,
++				 DWCMSHC_ARWADDR_DEFAULT);
++	if (ret)
++		return ret;
++
++	reset = devm_reset_control_get_exclusive_deasserted(mmc_dev(host->mmc), NULL);
++	if (IS_ERR(reset))
++		return dev_err_probe(mmc_dev(host->mmc), PTR_ERR(reset),
++				     "Failed to get&deassert reset control\n");
++
++	priv->cclk_tx = devm_clk_get(dev, "cclk_tx");
++	if (IS_ERR(priv->cclk_tx))
++		return dev_err_probe(dev, PTR_ERR(priv->cclk_tx),
++				     "Failed to get cclk_tx clock\n");
++
++	ret = clk_prepare_enable(priv->cclk_tx);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable cclk_tx clock\n");
++
++	priv->cclk_tx_on = true;
++
++	if (host->mmc->caps & MMC_CAP_1_8V_DDR ||
++	    host->mmc->caps2 & (MMC_CAP2_HS400_1_8V | MMC_CAP2_HS200_1_8V_SDR))
++		dwc_priv->flags |= FLAG_IO_FIXED_1V8;
++	else
++		dwc_priv->flags &= ~FLAG_IO_FIXED_1V8;
++
++	dwc_priv->delay_line = PHY_SDCLKDL_DC_JHB100;
++	dwc_priv->priv = priv;
++
++	if (dwc_priv->flags & FLAG_IO_FIXED_1V8) {
++		host->flags &= ~SDHCI_SIGNALING_330;
++		host->flags |=  SDHCI_SIGNALING_180;
++	}
++
++	return 0;
++}
++
++static void dwcmshc_starfive_jhb100_deinit(struct dwcmshc_priv *dwc_priv)
++{
++	struct jhb100_priv *priv = dwc_priv->priv;
++
++	if (priv->cclk_tx_on)
++		clk_disable_unprepare(priv->cclk_tx);
++}
++
++static const struct dwcmshc_pltfm_data sdhci_dwcmshc_jhb100_pdata = {
++	.pdata = {
++		.ops = &starfive_jhb100_ops,
++		.quirks = SDHCI_QUIRK_CAP_CLOCK_BASE_BROKEN,
++		.quirks2 = SDHCI_QUIRK2_PRESET_VALUE_BROKEN,
++	},
++	.init = dwcmshc_starfive_jhb100_init,
++	.deinit = dwcmshc_starfive_jhb100_deinit,
++};
++
+ static const struct cqhci_host_ops dwcmshc_cqhci_ops = {
+ 	.enable		= dwcmshc_sdhci_cqe_enable,
+ 	.disable	= sdhci_cqe_disable,
+@@ -2377,6 +2536,10 @@ static const struct of_device_id sdhci_dwcmshc_dt_ids[] = {
+ 		.compatible = "hpe,gsc-dwcmshc",
+ 		.data = &sdhci_dwcmshc_hpe_gsc_pdata,
+ 	},
++	{
++		.compatible = "starfive,jhb100-dwcmshc",
++		.data = &sdhci_dwcmshc_jhb100_pdata,
++	},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, sdhci_dwcmshc_dt_ids);
+@@ -2503,6 +2666,8 @@ static int dwcmshc_probe(struct platform_device *pdev)
+ err_rpm:
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_put_noidle(dev);
++	if (pltfm_data->deinit)
++		pltfm_data->deinit(priv);
+ err_bus_clk:
+ 	clk_disable_unprepare(priv->bus_clk);
+ err_clk:
+@@ -2527,6 +2692,7 @@ static void dwcmshc_remove(struct platform_device *pdev)
+ 	struct sdhci_host *host = platform_get_drvdata(pdev);
+ 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+ 	struct dwcmshc_priv *priv = sdhci_pltfm_priv(pltfm_host);
++	const struct dwcmshc_pltfm_data *pltfm_data = priv->dwcmshc_pdata;
+ 
+ 	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+@@ -2534,6 +2700,9 @@ static void dwcmshc_remove(struct platform_device *pdev)
+ 
+ 	sdhci_remove_host(host, 0);
+ 
++	if (pltfm_data->deinit)
++		pltfm_data->deinit(priv);
++
+ 	dwcmshc_disable_card_clk(host);
+ 
+ 	clk_disable_unprepare(pltfm_host->clk);
+-- 
+2.25.1
+
