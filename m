@@ -1,95 +1,159 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F096B3F5BE4
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB18B471424
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758724; cv=none; b=SH+L3mUk/iuvhL2D/m709bORFx0wHbEa/O43mMWGrWFe0v2UI7GHZwZXPFK1TKW0Gbic1z/ljZh2dBo/qhfImAkUJadFPWZppz5c+Lj4aTnmeWKFUoScVgiT6DZs7M108GNJnH+LvtIchbhpWWSNGFc2hc/Qic4sW0Zlu4raqEU=
+	t=1790758730; cv=none; b=clpgpXUkily45TRNUul+2h61A8xNO32rr/0EbiJrTviaayz1t49CKsOdQ7xKsIi/sDNhkrXZJAZnPh7wYMW31StnLrXuMTxgctEtywO8W3vPSe/i5riv4XL83yS3guO0cLj2G9XRBuqeUJ4EY5zhmKXylWKOemeJuW2T5Juzw4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758724; c=relaxed/simple;
-	bh=YPAWUlci+6KqrVcy+i04kgZt2T/4sid87XUoL9gAJWI=;
-	h=Date:Subject:References:Content-Type:Message-Id:To:Cc:From:
-	 Mime-Version:In-Reply-To; b=cVvmxaaI1r63h3upDRZ57JYnS7LNEj+l+xb6wwM4jC433a/osEvAGpIiive13qFoyHg+WishsHPT/4xRiIQesAcXBstc9cZRfGHzKPTcsgb5gtZxIfSNwHh5i8LWXTLc+HwT7sA9gr4Db6JaU7heO85SgRDzMcmUP3F7ER0xhGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=mKyesHNr; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790758730; c=relaxed/simple;
+	bh=mZ62Kng/0Rgnxdkn4HmMlG6Oxc+tVal1JPFn6pjaB3U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cYgN27jmYRasPMpoe+2pP9PKDg4wIhxGNfDPfn56pseFvJOpgkaBaH26gDhOvc1VkOUdgCJVkRWxUTO33OnGRSmUt8vUHj8NeLcCP7Y95fu+2A7oYDTr5Sc9U78ag5HJFQvqFEKAxq8wzTocPEKxJoIcTu+nw5HRlwasSPevl2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WHqrHBC8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K5LI9n/L; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="mKyesHNr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790758710; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=YPAWUlci+6KqrVcy+i04kgZt2T/4sid87XUoL9gAJWI=;
- b=mKyesHNr4LWtT9wc54jSbilbg9m1us5nwyGYF4PAUo4rciRxCZ7yWvKb/S9OHqSmDZ80+D
- TpgKiZZ/O89OiFyA4Tm8LypjisqXe/5fY8obJdN29nnfHF4Td1bgkqLaokEub4Sd/Qn9Pi
- c+WWO12MtvpFYA4WHxmo5n6BDOA2600+M9fI8aymcS3WJJvgq4iUnuovh+NoYnMkpA10Yd
- 8wrdicoCfhqWWO7TUSYYCNlhXZYpOMp95jfGNmWsjFVtAlMZGx56bbayv0dup875GOPEF3
- A4BVhcwAD3yuLtta/1guLWHhgAiovZGYdlJJcLnOUGqMxcXIH8WJFRA4J0fihw==
-Date: Wed, 30 Sep 2026 16:58:25 +0800
-Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-References: <20260929151013.81562-2-weiguixiong@bytedance.com>
-	<7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.3ef67f1d.c8de.4e95.a8c9.5c96c6940a95@bytedance.com>
-To: "Dave Hansen" <dave.hansen@intel.com>
-Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	=?utf-8?q?=E9=AD=8F=E6=A1=82=E9=9B=84?= <weiguixiong@bytedance.com>
-From: =?utf-8?q?=E9=AD=8F=E6=A1=82=E9=9B=84?= <weiguixiong@bytedance.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WHqrHBC8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K5LI9n/L"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dNfC3082220
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=; b=WHqrHBC8V4pGgxVA
+	VfNRGe3zNT/WpiNniEJpuWIi2pZQX6kET54Sb4TmmoCPtzFWuJny1SxESPsDqcM0
+	Exe0ObADWSHVwWqlv+UTWqaXMrvJ+l44iY5SUGr2e9LHSnuBHCK2ggOPciEb5B5j
+	ecHhtI65evHiOrlZ3YNRzSGzk2rYDOIjcrmqyp7Y+j+EGPce60B+6HNS/Z12fWY+
+	n27bgDUvNbVoMTRfw9UIdjoiQTQBdyFt0ibzUyeV2IjlyGNPFNJC3WYUk7j8q43s
+	cdOYNwwgO8P+8izf2v/5lR2XdJO7Hffqd1Mo/MbUFyN8Mt+t9QIvC8DISXDwJvMi
+	u6pAxA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0w140p4e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:46 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530d522a20dso14168191cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790758726; x=1791363526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=;
+        b=K5LI9n/LEBSCGzZqqzT3US6Df3aOh/5cpCFhzkDw8Wrtoyj0NRIDrzibziWPsK8pHl
+         WNwWViRL0Hhb7nIbpqRmdVKIgAWJp7y9iug2ShRxlTBwT4mepK8DTMZUJoSVpEgsw4kb
+         HMoB8Rq6WSZovdM9zQgGTzAUoe8GEi2OL+0Wx5LPCrrK1eQaTOowo8Bape00SXAW+BpT
+         xa3NARcDF90c773JqQzOVt+sTLR31NhweP+hthOjXxsk43xl61dObm7CbXcGhNwhENPi
+         RuMikjclLF1p9+jSAiDEvMKhs3qN/K/YBQwYRYLQrpL2iR4sGbiYA302QnOjPBg595gC
+         /t5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758726; x=1791363526;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=;
+        b=lsHtMsIlTPIPc8or8kdGsDtyr27u40nnmQYU2OCaLs926VdfvZoCmfuym3LIXBxoKW
+         /89MPLVyF3ffVXbZQpVQHrqu4wHIOpHeQTA17e3mpujOMpcx+5Vj56D0d96S3oZXqe2o
+         9B0JRDyCGSnfxZ4XOT6D184P1ujYoXtp75x9fqDg1l8SlmKQOE2IwrtI19gQUBE6keMJ
+         m5mI+3Q3kUT8HmTTt8CNE8Nq7mmFixeS6fiQbg64iZqLWMCv+62VtaVvi4nWR9Y0TkDN
+         fVe318m8aHgIJsn9DZb1qy06MB7VYgcaLd575EPXVRkYaX0btiKe+yHe4DHOF8QsETRi
+         0xow==
+X-Forwarded-Encrypted: i=1; AKwUvByZT6knD+WsMipsQxZ7wzOyXfseSbf4NLYdviRaBAjDpeRssAUVInYYXghRtQ9FtYy+H5zfpGHHjM1bZ/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFz5xgvwOBDtqBzrVbVHG98eUqCF1k0ij+12XHpOl9Xds5v3NL
+	/guRf6FUbCmaTCIEVw+Ia73GiDomDg3snsFiRIuInzwkrlRzi4gxiouALqEeQ4fkMnldF3Ze1ve
+	6NfXfFMf7RalfPscLIoXRJpCq8lF/2LSIO/rBJtZtFxf0gtPrUMW95pxaI5GYtTsFV8zduGd41H
+	c=
+X-Gm-Gg: AYBFou05swQ7knwgXbWt+yWiqEWQj5kRO3bNbwNaMx1++Y5H30Hs/48+CPb9RkjbrqQ
+	/Gl3fQnp9LQL+k86L36Ao1mYrUrHCOo+81AEoFvk4s1ev7StPnkYKaKFUpHKawGiER4Fv2hojhW
+	fWYedY+5G4bygt4GSAMbTp+s+0sgSlDYXio/RViquyJEMeSsvzHznIoBMGtQbqQ6U3F0YIgh5gS
+	rwFrdES7FJ1kiO+CelPoDamna20enlS5ve0vWGki6rhcTyjUyzYwVxfyh4RWsdM5R5bFo6/09aA
+	EClMclsDuovjgmVmrfzxeUs6ZquvsNHmUlfhNu/Ofx2edn7wyc8zzboSbpIyckbP+VyB/5DigAQ
+	Li1WRJMW4TUKsBDVYQdERmg==
+X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id af79cd13be357-93ca9880834mr94463985a.5.1790758725782;
+        Wed, 30 Sep 2026 01:58:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id af79cd13be357-93ca9880834mr94461185a.5.1790758725400;
+        Wed, 30 Sep 2026 01:58:45 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f79497sm31063166b.39.2026.09.30.01.58.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 01:58:44 -0700 (PDT)
+Message-ID: <9b4eb301-5bb6-45c4-94eb-a6a3a2540309@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 10:58:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
-X-Lms-Return-Path: <lba+16abccf34+372945+vger.kernel.org+weiguixiong@bytedance.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] clk: qcom: gcc-sdm660: Keep the USB GDSC in retention
+To: fabricioakio@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+        Martin Botka <martin.botka@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260928-sdm660-clk-fixes-v1-0-5d5bb84e3258@gmail.com>
+ <20260928-sdm660-clk-fixes-v1-1-5d5bb84e3258@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260928-sdm660-clk-fixes-v1-1-5d5bb84e3258@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfXxM7D8A2O+Bu9
+ UAk1B0Q1iQrUWlYLUc+RpzgVdhIRO786UbNzYsmfhgRwDwX+JgTPHHcVMX0Zrkmx37v4OjsxrUv
+ GYgp14xa7JF/6jj7jrdb5RdfODShPKE=
+X-Proofpoint-GUID: L6gdJaCVb0FZlhKvWmtoPjgY5u_4fGG-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfX8vhT7sQhrOUU
+ x/OXmgyz+eB4guskuxfGByIkMbAWrFdODhofbK70d7KTVt6Sud0rrCPdUWUhqKrEZNma8lWMbf+
+ ShmYyXI1a2wNZ7z5fVozQE1Yyrvyv8thO7/fGR+zuH8PB2jr4rZV13Moz7zVnnDtukdLpTPWfAB
+ Z20vnYME3m7L2KvX8n2r0FsxOboPR0bBXCjGF3ID1ie/kXSQKa7PUSbvo77oFOM3e7CDrqom+nv
+ rS1Z7rWQpXGulY4F5IkDBPCY7c75/7GXU8b/KFFDWAo6adv7DHvfxJAoVIK3gI3ktiZyu5jX+EO
+ XulZ3Dr7/V/2oTmRydUsEbwsXQgEES9pvl2PWixfvQ/gK+xCL+MqVDDT7gfH0O7V5i5RLqsU9eD
+ 7CQmq05CCmmYB0+vXa2XYZ7Qj1W0DgziLMopsxPikDcj+1ki5QrnyrY3ZUAif8vrr9TFX2bsuuw
+ loIqXcMCwTh7Fik2sjA==
+X-Authority-Analysis: v=2.4 cv=J8Q/fwnS c=1 sm=1 tr=0 ts=6abccf46 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=fhGIgCobiWGKHZvJdykA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: L6gdJaCVb0FZlhKvWmtoPjgY5u_4fGG-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300035
 
+On 9/28/26 7:41 PM, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
+> 
+> The DWC3 glue writes its QSCRATCH configuration only at probe. When
+> system suspend switches usb_30_gdsc off, that configuration is lost
+> and on resume the core fails to enable endpoint 0. Keep the GDSC in
+> retention, as is already done on:
+> 
+>   commit 78a2f2a04fb5 ("clk: qcom: gcc-msm8996: Update the .pwrsts for
+>   usb gdsc")
+>   commit 83fddbcc8337 ("clk: qcom: gcc-msm8998: Update the .pwrsts for
+>   usb gdsc")
+> 
+> This change should be reverted when a proper suspend sequence is
+> implemented in the USB drivers.
+> 
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> ---
 
-> From: "Dave Hansen"<dave.hansen@intel.com>
-> Date:=C2=A0 Wed, Sep 30, 2026, 00:54
-> Subject:=C2=A0 Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
-> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
-"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
-, "H . Peter Anvin"<hpa@zytor.com>, "Chang S . Bae"<chang.seok.bae@intel.co=
-m>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-> On 9/29/26 08:10, Guixiong Wei wrote:
-> > Preserve the old fpstate pointer across fpstate_reset() and free it onl=
-y
-> > after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
-> > This ordering prevents a context switch from saving FPU registers throu=
-gh
-> > a freed fpstate pointer.
->=C2=A0
-> Are there any fpstate_reset() paths where this matters?
->=C2=A0
-> I mean, the init task, obviously not. It doesn't have a dynamic fpstate.
-> During exec() this reset happens while:
->=C2=A0
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 bprm->mm =3D NULL;
->=C2=A0
-> among other things, so I really don't think it's even remotely in the
-> context of getting context-switched to.
->=C2=A0
-> For clone(), the destination task is also not in any condition to be
-> context-switched to.
->=C2=A0
-> So why defend against context switching? What am I missing?
->=C2=A0
-You are right. Neither existing fpstate_reset() call path needs
-to defend against a context switch. I overcomplicated the ordering
-rationale and will drop it.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I will move the dynamic fpstate cleanup into fpstate_reset() as you
-suggested. It will preserve the old pointer, install and initialize the
-embedded fpstate, and then free the old allocation. This makes
-fpstate_reset() own the complete state transition.
-
-I will also update the subject and describe the leak.
+Konrad
