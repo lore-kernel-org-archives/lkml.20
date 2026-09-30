@@ -1,121 +1,101 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82D14F68DB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780120; cv=pass; b=mHbhzlwHCuZl5LQG41Rt/qocLOQYiUX2IdYWO9UaEJGno2pnR8nIwGYHyRqyhEj8wEL+aSGsHqqjT9TGtOneE/63pRXj+SiUOMASiWcbQcQdIcq1jl2Pboipr5ewsJzC3vOJc9IL/QdmE8vCTRx2wHV3G/kjISTcPRbxMTQzU4A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780120; c=relaxed/simple;
-	bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LtDb4NI6tU+rTAILFWo5nBVRZPXn6ThIJ2TjoOZ2h7UFBfzz18uYKIACnI7ToPsxEuvXmTdhKVsESaXiITaUNwxo3q/nX4GGR0m5Idp6bqhpNAIM7ZRPO0gpGdtSWG+c4VcWLbImX1cR27Ydnln8Y+x4qQOSJbnj+qzoriN2MvY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sfQ24We1; arc=pass smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBA04D9575
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790780181; cv=none; b=evQfqwzLmbkDNSC2lxGHK0l2mx2lb0U4GREtjYqWtjDfyu6tJBaAB/VkFShJrcrdzzSXJJw7EPmSvQy+I0LhmRRTNnpydVaRKA7LKydpQJwdYCf0CMWSy0JN2xNj3ixoULH9SLrP9qj+6RHcDG0l1BjgnfJpq88MY80DsorAkcI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790780181; c=relaxed/simple;
+	bh=Diglc94M4WCrKqEp4aPrdGIGbGLwCtTAZra85TtSeZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VOsLXMTw4qJgX0FcJxKYg5SbzjF/MGlHP0ooVIe4ZA1EcLf4CAFk7EToP0E13ekmvc4jS/9EJ4Sujs69s3C7fai1DkAfwIquD7rBfAQJghZErU0Ajf7JFNLcynnwiSM90L+cpv7tXKjAJbpSvwR5VwFpg6QzW0kqpb+Zz7FlmG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y34TTkKr; arc=none smtp.client-ip=91.218.175.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfQ24We1"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-1431a73fa1eso381335c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:55:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790780109; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lsJWXwelBY+pFDim1MQ3vVpQWSrJ4Wv4qNciWOZ0G1o8ppFmU6EFENyNLEFQTRtroo
-         PvJlXYAaFGVJO0GTCYO6NCxTrTxze6WLavAdwWNiC34IALZHOs+b0NOFyzij7dxJeoIM
-         gA+iTfsayMXz1C3ue/tVNnq9M7NaZfT77mO1Esiiw6YxltXiO/as/YF1a+hu1VnDSWps
-         MNDvhKjJIzBcbHhdwdN3hKWrD+LSHBHVUaYuDiF60/6K+1AqgJwOjMo+m9EhPjBfN6HH
-         DyFJs/GX0RLfnvZycQSqee18CIqt6pZ0c2L4Gyg/MhRlNk/WDpycika0rOWofIrm86SX
-         rI+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
-        fh=mSmZqYyzWq3Pcr1Z3iElKXNRggAHHwvE9c6/IbgPOho=;
-        b=hkQwK+1VqvIXUTDq0J884YRXMD5J2FRokgd+SBRhbzZ8Y0XeHzajR9J8eoUldDUhyg
-         E8rJOk2XWEhnyTtBDHdA7k9q1AEOXfXJMun0x+5ZL1BwaD1VGCcpT/SNPunDeyzXsHF3
-         4dmHb/UoKEkDvytiWtNa0Lr4/NL4bk3Nl1EYkHfPm/jod5hjO7cP1YQwKqDN8FNcdm/c
-         8lVn032ajn3NVpDVT6ivJM6kG69FLAQl323mG7RT96biT3xiO7GnO/m0ErFn322jsQXI
-         UcN4/CqkbXFZb0i+WptelDYZXf3zLjmCDXhJobnmNBfsphIju3o7DKoxWlnVpZHePeQ3
-         2Dpw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790780109; x=1791384909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
-        b=sfQ24We1pryQMJGE2pQ9MOBijyxeO43j/VwTvfKvkj02sGT788H95lfrGoEXB5q8yr
-         ZiDM7DvYwvyGbcLlAz5b9QHZ1OuDntuIG9Yr7So3c5AB00/dAZI72x7lSOe/dC/nYRJ6
-         Ax37J/bf2172HF1/cw7h0o7GtW9H+MCIVcyDjqMWXRkuWheqQ8pWEK0fLkzXfvVyjb6s
-         3BBfTZIEPkRSy/TwswUnlUx6phPI7VABGsOs347BjNGlbTNWZL2KugASXZBAnuVRoVu6
-         EVHOa/phNNCP3inMCYiFhDCMFtlQIUlnp0yZ0JwLusX87wOac7sJEpEFt+0fUOvCcB/4
-         X7PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790780109; x=1791384909;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
-        b=fV79m19oCLF+HWQosU4bAGRAlbpFeCy5zPomGb8uM7byuhT8L5So+thPSALlMt9lZ3
-         Zu3EqKApXu9f5UAqBWmTG52rL7cw+zb2Kwsa/uRNF+BZCSMPOkYr4C5zmtkezjTP6Wad
-         9GehY3p/tO8gfIaZ2Qg3wmcCoS6DdwFCfTOLOo/qT3Ux3JNxhGLyCdHugO/SdGOqHK6B
-         FdXi8C5O5O8CGTHcxdXnjiwZzXdckp+TsMqkXeh5YK0z9UEVt61F/V5GD6ASqCS5Shpd
-         Ji2xS8gjP742qEy/8rYSZfOeYeLe8YMrZU6L9sK2BfZGA/dpnY0904UkjJumXkSJAncB
-         GSZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRc6Y3TspHSYJtOJC9q/QU+wCwlSxw5FN67Vi0IUji/3uuTo38chLW+TgmdIxT4s/FTCkTFlijyL/loyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnHmH7UhvI4ohd1ZY6jlDbfNEyoy2tDBHnU0JWv0VORLiXbQuD
-	JzDR6FRsVefrcCLFCHwuVhsTTsINZhCMhjRdosZ8lB0QppRkjuDOaS0nwRKa1HwOZt47PzqLSsm
-	bBTBl8WwFQcTrZSP9vXBImkGcmq8x6ZA=
-X-Gm-Gg: AYBFou1F1x45gmTaFEx8ydF64dztHlUrj5hr3YLtO0d0kWGXGje+JeoBHKhVjyNiYed
-	ATbYFGTc3/iAX/94XEyn4i4aGddvI8e58Ms9dEdKRv6TpuJNi2VoMFI3Z7szkWOHYLsiRfvWyO7
-	9biMhNR5JYrntrvNS/xkDVm4qhdveqBnHe4fbNGmTEr9qT2SoDmRYZJ2Wdug3ewwqhLAFv85XhR
-	Zp5qP1oJiged8XoSh2MEQw/uF4pJUFk+FSEzJ08SFMYA+/KESAPYwPG1FEXSpqZsAj3kgdlx1ib
-	n7uA1K4YH/QuVyEt8Zu4hLfGq1wZvyJD0Fgw0aQ3vGIjW+K/xMRT78QBP/rlQzL5amjHgBxsQ3P
-	eGYMiBQ9CWjTRb30CFL/DerMrOwvY63ZZOLW8i6ZURhMndHLAcjCbLGtkvhp1CZW7KhjKsU1bkb
-	E3tkgX8HQ68N8g9dMgqlEktEvnO0spjhX/yDmPLiBWXuG//sflSDs=
-X-Received: by 2002:a05:7301:7309:b0:33e:6714:3945 with SMTP id
- 5a478bee46e88-34cdeb6be9cmr3096391eec.2.1790780109257; Wed, 30 Sep 2026
- 07:55:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y34TTkKr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Diglc94M4WCrKqEp4aPrdGIGbGLwCtTAZra85TtSeZM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790780171; v=1; x=1791384971;
+ b=Y34TTkKrqUlYw8SDqecAAy7U5q4jjvB1wa3jym5jGyn36nsiCA4Tkt4hvJrF1DruwkWW5Gy0
+ +39mcWZdHAymaqJf+LTqmrFHBCiBT4e4aMUBJK9ek/kaQA8C3v1XCiF8F2bywtFarL0wq+KriL2
+ MnVBziekYgy9kDzE0Ec+e2Ws=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 3012bf07ec3973ec;
+	Wed, 30 Sep 2026 14:56:11 +0000
+X-Mizu-Trace-ID: 3012bf07ec3973ec
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: mkp@kernel.org,
+	sathya.prakash@broadcom.com,
+	kashyap.desai@broadcom.com,
+	sumit.saxena@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	James.Bottomley@HansenPartnership.com,
+	ranjan.kumar@broadcom.com,
+	chandrakanth.patil@broadcom.com,
+	thenzl@redhat.com,
+	hare@suse.de,
+	himanshu.madhani@oracle.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH 1/2] scsi: mpi3mr: Poll a reply queue that an interrupt found busy
+Date: Wed, 30 Sep 2026 07:55:48 -0700
+Message-ID: <20260930145606.2632749-2-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930145606.2632749-1-usama.arif@linux.dev>
+References: <20260930145606.2632749-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917051147.98775-1-tweek@google.com> <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
- <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
-In-Reply-To: <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 16:54:55 +0200
-X-Gm-Features: AclHuK8vs1MTQYyzGwnnDdzCftKWMmr3adWgFDGOHVj3p0ypcSu7KLDo5vXWnlg
-Message-ID: <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
-Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
-To: Gary Guo <gary@garyguo.net>
-Cc: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, rust-for-linux@vger.kernel.org, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 3:16=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> I'm not sure that this should be considered a fix. More like a feature.
+mpi3mr_process_op_reply_q() returns without looking at the queue when
+another context owns it. Task management polls all reply queues with
+interrupts enabled, and a submitter drains the reply queue when the request
+queue is full, so either can own the queue when an interrupt comes in. If
+the owner made its last check just before the reply arrived, the handler
+finds the queue busy and, unless enable_irq_poll happens to be set,
+returns. Nobody looks at the reply until the next interrupt on that queue
+or the command timeout.
 
-Yeah, I had the same thought, but given we discussed the topic in the
-past and we supported non-ASCII on purpose on commit b13c9880f909
-("rust: macros: take string literals in `module!`"), I thought it
-counted as such (that is why I mentioned it was unintentional in my
-previous message).
+Let's set enable_irq_poll when the queue is busy, so that mpi3mr_isr()
+hands over to the IRQ thread, which polls until it has processed the
+reply. The flag cannot be cleared before mpi3mr_isr() reads it, as the
+thread only writes it while the interrupt is disabled.
 
-Having said that, it has been quite a while, and it is also true that
-for 6.18.y it may not be worth to change it since it does not apply
-cleanly given the `syn` rewrite. It is easy, but requires creating a
-next `expect_` helper.
+Fixes: 463429f8dd5c ("scsi: mpi3mr: Add support for threaded ISR")
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ drivers/scsi/mpi3mr/mpi3mr_fw.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Cheers,
-Miguel
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_fw.c b/drivers/scsi/mpi3mr/mpi3mr_fw.c
+index f0d3cd398dd00..102f84667a5cf 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_fw.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_fw.c
+@@ -588,8 +588,11 @@ int mpi3mr_process_op_reply_q(struct mpi3mr_ioc *mrioc,
+ 
+ 	reply_qidx = op_reply_q->qid - 1;
+ 
+-	if (!atomic_add_unless(&op_reply_q->in_use, 1, 1))
++	if (!atomic_add_unless(&op_reply_q->in_use, 1, 1)) {
++		/* The owner may have missed a reply, let the thread poll */
++		WRITE_ONCE(op_reply_q->enable_irq_poll, true);
+ 		return 0;
++	}
+ 
+ 	exp_phase = op_reply_q->ephase;
+ 	reply_ci = op_reply_q->ci;
+-- 
+2.53.0-Meta
+
