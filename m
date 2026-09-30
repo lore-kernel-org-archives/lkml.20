@@ -1,124 +1,99 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CB2522EE1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86C24DDB49;
+	Wed, 30 Sep 2026 21:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804867; cv=none; b=s5YiSX+8RLE8hyE8OWE+mACEaC8h71sqXzoxDnLLwwJjV9Qfmb7ls7VZ2azkgEXhVJkg/SFGlZRO3d+dj0AHhUN2GVIFHH+r3omdPKtaHK3FAkenAOL+yRTksn5EceXaRKEnZq+6wXBCKuuysE6hIVqBe2lmVAf4/D6lISQ26CM=
+	t=1790804883; cv=none; b=Y5GGnFNiBtkCQu6S2/P8prrPjrHdUrCG8ul+5InEPRoXJMXPk9a7tLn54qhnfjL3chkvz1dEYSdwcHQeszZ8Bbq7u09KL2Unv7iRr0LwoQVhaxk28HTfO8NTXU8F9RW80TdFp4wfpC1IokQcQ1yZGkXTpnyI5tFcX/HJbGgOPWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804867; c=relaxed/simple;
-	bh=fmRUv0rgYENilBBqlQb0+ODvj/lHolbV7pwBrCOH7eY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ABmFQXa6phTlc7RqmQ7Z9XQ7gNQUE33Iz2pHIdfVxReZn+bEBafq5igz+Q4D+RTzOZXQzYWLjLyqnJYBmQMDipBiJGFQiQ8LgBpnJkY7I62x7RnISRvFyiaRIr+Z9LpZvMEihyZT8c1j+Nbg1U73GYKyxg0pb2PbO3sGnHariEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=s0omM5Ys; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
+	s=arc-20240116; t=1790804883; c=relaxed/simple;
+	bh=4Z+0xUl0MahDyaj8r1vUm49UxPAG3l/mzBM0cr8XgUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nyH5de3XJDNIx5Mo2jRLp52DBlQLUNw3p/+v+vT8XgcBH0WRv6hzoLD3/S/yGDWUQ2y3OIvfGqAXgxmGyAnKwtSYg3Tj2lHVETLTnJE78uvFu1F8X4W+RYJ4gD0TNPwyiasPT/Dcj6to9dNpmjbXEHF6nFLGLE8vUg7limLOJbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=XfwUwhQT; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="s0omM5Ys"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so5671677a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790804866; x=1791409666; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sie3jAJkujJ1GxkZsQETdrfF4K98ZdkI7DVnUVfTI68=;
-        b=s0omM5Ysoeasn2f9ISMTlm/fgQPvQ/G+q8jiHwS+nbh1ALyjD4zedYiCQdi4ZxKZYC
-         tC1P49RyiI5Edq25KM5l+bQhJICuCcqQRdLbH+WG9zyXJMQtsCcMnBjtBX0V7HPSyd5O
-         OtbQXT1l9aDqHIvx3sItxiYP3y8OwWxSZ3QWMkjJ6Y3JyfSNntSLA1J21plGBlYLSiOJ
-         BOwtM6BPo+T2QrP+y7zaXwJ8Dy9GUuvuT1VgsvLMON0gsf5/7Zu1jJpDpFQ+VAeAkx5P
-         0Ugdf1IBxmtJTdyFjnQ069wsmi6FpPyKpYZrFoasXJz/yT7bto1fevOmH662znR1V6mO
-         I4Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790804866; x=1791409666;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sie3jAJkujJ1GxkZsQETdrfF4K98ZdkI7DVnUVfTI68=;
-        b=GAuCfdAFDKooX4njv21CKKwbOcx/5N0n+NAhRpCxFjytX6jFAQ+PSfyC0wahV6FFv/
-         6orJRluAR3gf6Bh3Y85ngaanrgWc2NNutVoixijJiQbJqbfReuUT9/Z9hJB3iDLO1kzf
-         Yc4JGTe2InI7F4z3TYaTrbUujJrpTmKwy8YYZ38/XqLe2GpuAJjx5n6mUkKRRD8vGVcY
-         Xcg6TKpb5y+4k6fFnTgCVZg7dmfYWfdwOIrr+axNR/jJXWkH6MBUzyJq8xQo1owjdC3f
-         6l160Hq1Dwmea0ks0FVz7GG4CFm0yH5ZIxSgjsJq3Lad6Z5tKQM9TGPyZUB84x4aHLuB
-         4Mtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxaDeuwTvNgKERVYKZd/uQtPJGJ9dD7F9deR/W4CqKsUt6HvLAFK30qgvDWx3wYwTraWUTTyl4P3MsJV8Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDW3M7pECkEU4J1+CtRsEz4ATJuSTLbDqlKLxbp5tcmKNiH16n
-	vL/qaPNNmo5jlgKtXDBdEOfsdupADtgkgpDiSW4MBvALdQNsW5r9QZmnvZLmN8SWPxy+yoXdfq6
-	wpvDIdW/Tg0VfMA==
-X-Received: from pleb19.prod.google.com ([2002:a17:902:d413:b0:2dd:5303:f008])
- (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:e7c9:b0:3a4:85c4:68fc with SMTP id 98e67ed59e1d1-3a4d1545a03mr2457426a91.29.1790804865442;
- Wed, 30 Sep 2026 14:47:45 -0700 (PDT)
-Date: Wed, 30 Sep 2026 14:47:35 -0700
-In-Reply-To: <20260930214735.3288780-1-joshwash@google.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="XfwUwhQT"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9F7E107096;
+	Wed, 30 Sep 2026 23:47:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790804875; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=8LeTSpTOh/a4F8BYpw89pOWNtfrWtr2Ni4MO60cCAus=;
+	b=XfwUwhQTD8JxK32TKshp3VbyfErUsjYD86K91Yi4CnsuiVXb4lxV1Ea/+MGyfIb87PQ/oQ
+	JOHQNv7SKsNeJyz5i+mXe0QUOaF+rBEAfyCvdNpCy07wTi1pQLz680iblvIwkO8ubYJ6PF
+	6IsJlbWSdaObZ5il8FeipuKHRz42UBe5yvN97UGP/jxjMQ5lRlhFhVCLMwvBzwVI1RaPAM
+	mfrrMKp+YzbeGBmtCc3CITRSxB2aq2p+q/7hdjHG/C/pks+numQsQNLM119iSDgk6Bx9iQ
+	FXkrCoCK81DVOxUhF3Kj153UEOmw33OkOuX/WBV5Mz4UBE5vlromSfXG+W87fg==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Aswath Govindraju <a-govindraju@ti.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 1/3] dt-bindings: phy: ti,tcan104x-can: Document Microchip ATA6563
+Date: Wed, 30 Sep 2026 23:46:38 +0200
+Message-ID: <20260930214729.809649-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930214735.3288780-1-joshwash@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930214735.3288780-4-joshwash@google.com>
-Subject: [PATCH net v3 3/3] gve: fix napi_disable deadlock when attempting to
- disable XSK pools
-From: Joshua Washington <joshwash@google.com>
-To: netdev@vger.kernel.org
-Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Willem de Bruijn <willemb@google.com>, Jordan Rhee <jordanrhee@google.com>, 
-	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
-	Jeroen de Borst <jeroendb@google.com>, Praveen Kaligineedi <pkaligineedi@google.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-When disabling XSK pools, GVE calls the unlocked versions of
-napi_disable and napi_enable. However, the netdev lock has already been
-acquired before ndo_bpf is called because GVE supports queue management
-ops. Calling the unlocked versions of napi_disable/enable results in a
-deadlock when attempting to disable XSK pools, as the thread attempts to
-re-acquire a lock it already holds.
+Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
+It is pin-compatible with TI TCAN1042 and has a compatible programming
+model, therefore use ti,tcan1042 as fallback compatible.
 
-Update the NAPI calls to use the locked versions.
-
-Fixes: 606048cbd834 ("net: designate XSK pool pointers in queues as "ops protected"")
-Cc: stable@vger.kernel.org
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- drivers/net/ethernet/google/gve/gve_main.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Cc: Aswath Govindraju <a-govindraju@ti.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: No change
+V3: No change
+V4: No change
+V5: Add RB from Krzysztof
+V6: No change
+---
+ Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 9cc343a16271..a6c18e2431cc 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -1708,17 +1708,17 @@ static int gve_xsk_pool_disable(struct net_device *dev,
- 	}
- 
- 	napi_rx = &priv->ntfy_blocks[priv->rx[qid].ntfy_id].napi;
--	napi_disable(napi_rx); /* make sure current rx poll is done */
-+	napi_disable_locked(napi_rx); /* make sure current rx poll is done */
- 
- 	tx_qid = gve_xdp_tx_queue_id(priv, qid);
- 	napi_tx = &priv->ntfy_blocks[priv->tx[tx_qid].ntfy_id].napi;
--	napi_disable(napi_tx); /* make sure current tx poll is done */
-+	napi_disable_locked(napi_tx); /* make sure current tx poll is done */
- 
- 	gve_unreg_xsk_pool(priv, qid);
- 	smp_mb(); /* Make sure it is visible to the workers on datapath */
- 
--	napi_enable(napi_rx);
--	napi_enable(napi_tx);
-+	napi_enable_locked(napi_rx);
-+	napi_enable_locked(napi_tx);
- 	if (gve_is_gqi(priv)) {
- 		if (gve_rx_work_pending(&priv->rx[qid]))
- 			napi_schedule(napi_rx);
+diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+index 0cf5fa21106b6..e97b1bc0a2e45 100644
+--- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
++++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+@@ -18,6 +18,7 @@ properties:
+       - items:
+           - enum:
+               - microchip,ata6561
++              - microchip,ata6563
+               - ti,tcan1051
+           - const: ti,tcan1042
+       - items:
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.53.0
 
