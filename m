@@ -1,35 +1,35 @@
 Received: from smtpcmd12131.aruba.it (smtpcmd12131.aruba.it [62.149.156.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359214D7948
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73A04D1788
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770396; cv=none; b=gqAgM8qUxNfRYR3X7Yx5OTKTP5Iisskml/ZhKJcOF6lTMsDC0wo2ozGuBB+EgaLEI8jvFXSCCpzl7mDkWgmitx7Nst/ih+GSt6lXkC1oO83/fzh8BGaAHR4BUF15tTiWISu2X9vY2Zg1dpHXdLH2KaRc/ZJzqjvAMKM51q+jtb0=
+	t=1790770399; cv=none; b=ig2fUCszN1UzX62kEZVcxq9jq2GseaQ9S3MTG61kuYxea1mcH/EoZOs96F0zdjzSmVOa4qMyYk7xqa7exNXpu7l8PsYvPx11XVyfN7UoGVLrdILCiMAJhw+f3j9PYwn/9nMXTMyH6r1kZe7RgKpPh8buVJ1AmJu49LFS9AQUGTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770396; c=relaxed/simple;
-	bh=Nx9YWV6XI3NauaHHm2JdhBoF5yEbTx/VtF5q9345wlk=;
+	s=arc-20240116; t=1790770399; c=relaxed/simple;
+	bh=FwoNYZXk+r1mKKOYa8x+DGn5mNbFW/ybehamwDVSyIM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tzpVcfpIcD2SAEaibw+l+sF6XVoMkpJX5SyJNufMrCGgPkx04e/EAw1jejsr6klD2ZSLlFCsXUaND4Fy3mXLUJ7D0Zfg5R4HX09A3hzxVOcC0mpuRMyrx3/ndAhAajCo2PkuZRkyifDCzXKfUcv9uLgersT9gxDIMQk2ZyWulQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=PXjYOmMW; arc=none smtp.client-ip=62.149.156.131
+	 In-Reply-To:Content-Type; b=TWPmzk/NjlvlMtaEGIW58Z+uPq6jEGkeKfbBFGXXUQgVnm4cfYZu5bYivnEx/8LfVkPEHSA6pLIA6kJ8vaAHos2l+LgfJYSKo6+TiF7gy84gUByogtyOY9OH+oGZ8a7uDOmM+eXMmk0DOE/Ih5UtLoqxwYPEe5I5gYeLm1CXQOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=SVMsvxXL; arc=none smtp.client-ip=62.149.156.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="PXjYOmMW"
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="SVMsvxXL"
 Received: from [192.168.0.186] ([101.57.122.26])
 	by Aruba SMTP with ESMTPSA
-	id Bt8KxwoBsxUh5Bt8KxVwuX; Wed, 30 Sep 2026 14:10:00 +0200
+	id Bt8KxwoBsxUh5Bt8OxVwwG; Wed, 30 Sep 2026 14:10:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790770200; bh=Nx9YWV6XI3NauaHHm2JdhBoF5yEbTx/VtF5q9345wlk=;
+	t=1790770205; bh=FwoNYZXk+r1mKKOYa8x+DGn5mNbFW/ybehamwDVSyIM=;
 	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=PXjYOmMW5hnae8Lnk39sVK29qGLuGQVcVJ8au4BYss4iGF/LABcHCAhC/OVAtTQEO
-	 ApQ/GXGnYp2sF6quyz9s7p0adtMhmBy1GGOLajgrcIgUNkQXcTJ2PZYQMSCNAq4Xiv
-	 pUqUhPCUVXsYHHlSygYsu8pZpjclWBXdTMOqADymCkWIisJzYN1y5nL6zMfCAFbOqT
-	 odFEmcU+t3sSTEGkDFCjRInyy8rdIceSfSh5J0mook3JrlgQYv246nKwrzo4kr6Eqc
-	 9wMGcqN+Vq+Vt8OiMCnfnbURwqifZwa1+oeoFHhmiTN9tQ7jSrr+LS5uDacwP3NpoY
-	 8mqxKP4/77W3w==
-Message-ID: <72e36b18-c501-4b54-b415-fb1b73faa463@enneenne.com>
-Date: Wed, 30 Sep 2026 14:10:00 +0200
+	b=SVMsvxXLTSVVMyLMuKXkJlnWh/hjF0N99BDf292WJcJ0A9NnvEmCubbMxSKeamHmE
+	 w/Pa7LgRwjxQ13iLNawQEZzKltA7vJ8OYpC2NL6kpDrNLs3OJJbXx5jQLWEzr/fXNy
+	 u6v079t+FLkPLMVdn9k9ngFfQp9SVXykkL/EyePevEiKerxFjm3FSRKLpDMEyGGf/R
+	 C5LyiUbjfKUc9TdHyRcVWkVjqdT2vOhrowqwBpK4n1s20SiX35GPRz+Mf/MCxvSsmJ
+	 A20+j0fBdexVA6kYl9dWbXnUryjXIj1pudkMF1FEoj8JDjDbCtjnGpxNUeB/qD8VmS
+	 E1ZRaOH8Hobrg==
+Message-ID: <adf6790a-c785-44ab-b2e8-635cacc980e4@enneenne.com>
+Date: Wed, 30 Sep 2026 14:10:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,101 +37,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] pps: generators: stop the generator on unregister
+Subject: Re: [PATCH v2 4/4] pps: generators: wake up PPS_GEN_FETCHEVENT
+ readers on unregister
 Content-Language: en-US
 To: Danish Khateeb <danishkhateeb03@gmail.com>,
  Andrew Morton <akpm@linux-foundation.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org
 References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
- <20260929124937.51114-4-danishkhateeb03@gmail.com>
+ <20260929124937.51114-5-danishkhateeb03@gmail.com>
 From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260929124937.51114-4-danishkhateeb03@gmail.com>
+In-Reply-To: <20260929124937.51114-5-danishkhateeb03@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfHboRSRnK23J/i9rY12IO7cWM+J2f6i1BWkpbGAqxeKCdCrGkCEivYlSS7EbRz9X+ibl8Uzd5JecG4nU4lassT97TnzDzPuchJ5WWDJKA44hwAraXJwu
- 47Ru/4l+MyYFg3tRfRVKxi/8Se6Wxdp0IGEbb/nbY4pCabBtyOw31/YF/qQHre32gZp1/6T0YznG2qM5UyNS65Ovhvc4CT0dTjMgf1wM1UJC62nxvxvrgVO0
- OiuyTS//Op+HmKBZAAmS/469MawQmB0mTKJX8/xSx2tOZJ9xnhovKVGrnSfCEMt0n2EqKiVK1Vd2LHtkJmPNmFQ/k1PKJvByQW+WAYFm56RHqaxkyC4k6BSc
- 5N+D/oSMGsRTnZsogMQrmJWjq3NaIL+gEA11TqQOJLqb7Bcsw+MMLLDTehNTpw/iVaEfIAI7
+X-CMAE-Envelope: MS4xfCVVcZ3jAyU9SFJhtl3x9+Gw2ImL1ZYIqlt785VECLf1A4DrjmFUrleBvMkNyWC6K5uzfNRCoYKpklDHx6m7jbyRcXjasya1tpDJenbgbbDP+vCUOrNo
+ 3yJzj1CeclNo7O2yYvhNo9P6ogEnUa7JgBk3bh7sU7LjlxpX9Bl7Qv1LS4h8qEvY3c3IvabkSkfPhspJa+ACEmd9wdDZgyggYbwlHWBGrEDa4wvb5riLc3cC
+ tOY2bSYXG3LNpEZVOYkyiETK913To+fqdKT7C42Tzt5pe8qwINJYbfuOcT06dq10FOML2tY4dXBliLjN6UOKiOL1DmrrwkrLebaEe8nEo1/mQwu8qAnArDR9
+ 0wtnlHsWvZiOd0wy3cAEIsFJp4aAnA==
 
-On Tue, 29 Sep 2026 07:49:36 -0500, Danish Khateeb wrote:
-> Both generator drivers stop their timer and then call
-> pps_gen_unregister_source(): pps_gen_tio_remove() cancels its hrtimer
-> and disables the TIO, and pps_gen_dummy_exit() deletes its timer. But
-> /dev/pps-genN and the sysfs "enable" attribute are still there until
-> the unregister, and a PPS_GEN_SETENABLE or a write to "enable" in
-> between starts the timer again. Nothing stops it after that: TIO's
-> hrtimer keeps running in the devm memory freed by the unbind, and the
-> dummy's timer is left in the unloaded module.
+On Tue, 29 Sep 2026 07:49:37 -0500, Danish Khateeb wrote:
+> A reader sleeping in PPS_GEN_FETCHEVENT waits for the next event, but
+> no event comes after pps_gen_unregister_source(), so the reader sleeps
+> until it gets a signal. A PPS_GEN_FETCHEVENT issued after the
+> unregister sleeps the same way.
 >
-> The drivers can't avoid this by unregistering first, as TIO's timer
-> callback uses pps_gen, which the unregister may free.
->
-> Stop the generator in pps_gen_unregister_cdev() instead, under
-> info_lock after the device and its sysfs files are gone, when nothing
-> can enable it again. pps_gen_unregister_source() then also does what
-> its kernel-doc says: "it disables the generator so no pulses are
-> generated anymore".
+> Wake up the readers on unregister, and make PPS_GEN_FETCHEVENT fail
+> with -ENODEV once the generator is gone, like the other ioctls. The
+> wait checks info without info_lock, so clear it with WRITE_ONCE().
 >
 > Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
-> Cc: stable@vger.kernel.org
 > Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
 > Assisted-by: LLM
 > Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 > ---
 >
 > Notes:
->     Tested in the same setup, with patches 1/4 and 2/4 applied. The test
->     driver got a periodic hrtimer in its devm memory, like TIO's, and a
->     remove() that cancels it and then enables the generator again before
->     unregistering, as a PPS_GEN_SETENABLE landing there would. Without this
->     patch the timer keeps running after the unbind:
->     
->       BUG: KASAN: slab-use-after-free in rb_erase+0x174d/0x1a70
->        __remove_hrtimer+0x138/0x450
->        __hrtimer_run_queues+0x2c5/0x7f0
->        hrtimer_interrupt+0x3db/0x910
->       ...
->       Freed by task 175:
->        kfree+0x25a/0x6d0
->        release_nodes+0xd1/0x140
->        devres_release_all+0x10e/0x1a0
->        device_unbind_cleanup+0x71/0x250
->        device_release_driver_internal+0x41b/0x570
->        unbind_store+0xd9/0x100
->     
->     With it, unregister calls enable(false), the timer is stopped, and
->     there are no reports. Unbinding the test driver while enabled, and
->     unloading pps_gen-dummy while its file is open and enabled, are clean
->     too.
+>     Tested in the same setup. With a reader asleep in PPS_GEN_FETCHEVENT,
+>     unbinding the test driver used to leave it asleep until its alarm(5)
+>     fired (-EINTR after 5 s), and a PPS_GEN_FETCHEVENT after the unbind
+>     did the same. With this patch both return -ENODEV right away. Normal
+>     use of pps_gen-dummy, including PPS_GEN_FETCHEVENT, is unchanged.
 >
->  drivers/pps/generators/pps_gen.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+>  drivers/pps/generators/pps_gen.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-> index d80e28dc31dc..452cc12a96f2 100644
+> index 452cc12a96f2..474e17c36458 100644
 > --- a/drivers/pps/generators/pps_gen.c
 > +++ b/drivers/pps/generators/pps_gen.c
-> @@ -228,9 +228,18 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
->  	 * An open file keeps pps_gen around, but the driver may free info as
->  	 * soon as we return. The sysfs files are gone now, so wait for the
->  	 * ioctls using info and make later ones fail.
-> +	 *
-> +	 * The driver may have stopped the generator before calling us, but
-> +	 * userspace could have enabled it again since. Nothing can enable it
-> +	 * after this point, so stop it here for good.
->  	 */
-> -	scoped_guard(mutex, &pps_gen->info_lock)
-> +	scoped_guard(mutex, &pps_gen->info_lock) {
-> +		if (pps_gen->enabled) {
-> +			pps_gen->info->enable(pps_gen, false);
-> +			pps_gen->enabled = false;
-> +		}
->  		pps_gen->info = NULL;
-> +	}
+> @@ -103,11 +103,14 @@ static long pps_gen_cdev_ioctl(struct file *file,
+>  		dev_dbg(&pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
 >  
+>  		ret = wait_event_interruptible(pps_gen->queue,
+> -				ev != pps_gen->last_ev);
+> +				ev != pps_gen->last_ev ||
+> +				!READ_ONCE(pps_gen->info));
+>  		if (ret == -ERESTARTSYS) {
+>  			dev_dbg(&pps_gen->dev, "pending signal caught\n");
+>  			return -EINTR;
+>  		}
+> +		if (!READ_ONCE(pps_gen->info))
+> +			return -ENODEV;
+>  
+>  		spin_lock_irq(&pps_gen->lock);
+>  		info.sequence = pps_gen->sequence;
+> @@ -238,9 +241,12 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+>  			pps_gen->info->enable(pps_gen, false);
+>  			pps_gen->enabled = false;
+>  		}
+> -		pps_gen->info = NULL;
+> +		WRITE_ONCE(pps_gen->info, NULL);
+>  	}
+>  
+> +	/* Wake up the readers in PPS_GEN_FETCHEVENT, they fail now as well */
+> +	wake_up_interruptible_all(&pps_gen->queue);
+> +
 >  	put_device(&pps_gen->dev);
 >  }
+>  
 
 Acked-by: Rodolfo Giometti <giometti@enneenne.com>
