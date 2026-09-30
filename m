@@ -1,146 +1,121 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164724E9C32
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:54:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780100; cv=none; b=aVsRwO0IrKko3lGPbqxv3Hbv0Q3a4Bc6OGW+y7eMVACCvPiLM/tQN1S/2eUFIue65yomEgRsZ+sMCPGp4/HaYPG8EX9WO/sh/o/TSz1oGFmZ/Ywz2teUwU6DcGgj7fb6alKq2D4nnkt/PxkexOh+TOAiwA4ofwdGISskt28DN30=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780100; c=relaxed/simple;
-	bh=wD3NZssZMW68AQJrY2P8J4DOvVjSGsMzgeQD9NT7T6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KskSvkJEte6m3CthZr4bdug9l7MgKNiUDTNfwjXPqqKpBSIGoTPqMSI5ajBCtEkYqsSAh4har5VbrCv+hZLH5sL14um7Gy9pp3IYI07PKTvPFdfEztVxw4oqM6Pl4VNqQ0DYgZwWZGJoZLiyeugspaXolO+yhjoI6DoS1nyXaG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WiE/dC+P; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82D14F68DB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790780120; cv=pass; b=mHbhzlwHCuZl5LQG41Rt/qocLOQYiUX2IdYWO9UaEJGno2pnR8nIwGYHyRqyhEj8wEL+aSGsHqqjT9TGtOneE/63pRXj+SiUOMASiWcbQcQdIcq1jl2Pboipr5ewsJzC3vOJc9IL/QdmE8vCTRx2wHV3G/kjISTcPRbxMTQzU4A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790780120; c=relaxed/simple;
+	bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LtDb4NI6tU+rTAILFWo5nBVRZPXn6ThIJ2TjoOZ2h7UFBfzz18uYKIACnI7ToPsxEuvXmTdhKVsESaXiITaUNwxo3q/nX4GGR0m5Idp6bqhpNAIM7ZRPO0gpGdtSWG+c4VcWLbImX1cR27Ydnln8Y+x4qQOSJbnj+qzoriN2MvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sfQ24We1; arc=pass smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiE/dC+P"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so30567565e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:54:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfQ24We1"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-1431a73fa1eso381335c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:55:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790780109; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lsJWXwelBY+pFDim1MQ3vVpQWSrJ4Wv4qNciWOZ0G1o8ppFmU6EFENyNLEFQTRtroo
+         PvJlXYAaFGVJO0GTCYO6NCxTrTxze6WLavAdwWNiC34IALZHOs+b0NOFyzij7dxJeoIM
+         gA+iTfsayMXz1C3ue/tVNnq9M7NaZfT77mO1Esiiw6YxltXiO/as/YF1a+hu1VnDSWps
+         MNDvhKjJIzBcbHhdwdN3hKWrD+LSHBHVUaYuDiF60/6K+1AqgJwOjMo+m9EhPjBfN6HH
+         DyFJs/GX0RLfnvZycQSqee18CIqt6pZ0c2L4Gyg/MhRlNk/WDpycika0rOWofIrm86SX
+         rI+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
+        fh=mSmZqYyzWq3Pcr1Z3iElKXNRggAHHwvE9c6/IbgPOho=;
+        b=hkQwK+1VqvIXUTDq0J884YRXMD5J2FRokgd+SBRhbzZ8Y0XeHzajR9J8eoUldDUhyg
+         E8rJOk2XWEhnyTtBDHdA7k9q1AEOXfXJMun0x+5ZL1BwaD1VGCcpT/SNPunDeyzXsHF3
+         4dmHb/UoKEkDvytiWtNa0Lr4/NL4bk3Nl1EYkHfPm/jod5hjO7cP1YQwKqDN8FNcdm/c
+         8lVn032ajn3NVpDVT6ivJM6kG69FLAQl323mG7RT96biT3xiO7GnO/m0ErFn322jsQXI
+         UcN4/CqkbXFZb0i+WptelDYZXf3zLjmCDXhJobnmNBfsphIju3o7DKoxWlnVpZHePeQ3
+         2Dpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790780089; x=1791384889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790780109; x=1791384909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
-        b=WiE/dC+P1u6L1CgCGkblchR3yrMX0NqAzRZBCzQW5V78MPzOFdb1bsbsutjKINcbxD
-         gbkU2Nf9Tl+ktDF5KPPmRrMXrpzB5QgfJDn2OAqPk8rnTbf2CZ3j+9eRh/UVebVWwuUx
-         ZJytVWsb1VNXr8Hcy2lvzUYUbgpAyu7/49E5XW35CNFX+deuYLXncyQQH0Z+Kf6Zu57W
-         ZV17UXPhq3LtKj0t+Gh7Iyvjq99lxtOTJd02qFNF12/oDURewlD/c4rYufodIcZH0r0m
-         xZwuAB7jCVZBoSEK6tqpU38AxcOdELhPJujTdws/7VIU/rTJ4vM8IG+MVMQfnntF3jMs
-         t8gQ==
+        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
+        b=sfQ24We1pryQMJGE2pQ9MOBijyxeO43j/VwTvfKvkj02sGT788H95lfrGoEXB5q8yr
+         ZiDM7DvYwvyGbcLlAz5b9QHZ1OuDntuIG9Yr7So3c5AB00/dAZI72x7lSOe/dC/nYRJ6
+         Ax37J/bf2172HF1/cw7h0o7GtW9H+MCIVcyDjqMWXRkuWheqQ8pWEK0fLkzXfvVyjb6s
+         3BBfTZIEPkRSy/TwswUnlUx6phPI7VABGsOs347BjNGlbTNWZL2KugASXZBAnuVRoVu6
+         EVHOa/phNNCP3inMCYiFhDCMFtlQIUlnp0yZ0JwLusX87wOac7sJEpEFt+0fUOvCcB/4
+         X7PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790780089; x=1791384889;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790780109; x=1791384909;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
-        b=EPZPaUN5N+Yp2/sNVlHQMXAkhRAioll2IFbC2mIANAzl1LHUMVPghF5/CAmZtsJSTr
-         HeNEUHZ4/Hxzu385mv/B0aKBqvVDIRS6Pv6E+bOt9pqnhAgefrQW51B98cfu4b5yCK1N
-         w33Uk6BEqjJUmf/MU4N6B/jBS9N0zlgh+zFMuTUAu2X4F4is92/vIKmvNJE2J/LGKThz
-         W2DoLfWmtljDAS5mlIbrTIc5qlGiii7rKP/LS2liGJ74sIAFDbHrbaOOXlHllqwb+WWS
-         rnNNNROfzvQEo/JQQCBJQxPP4tTlUxAWxsbIXuuCmudFMR9IHVZYGBltDAdRjURoH048
-         hfFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwx/UxvgJMsReSjGtVEcTTEmoQA02ohRaOOjkEhav/Rr+jY3KKxYs7UsTyZFiKiKe0j90t/FPUMkO/kzFU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nunHp0WJyJs4m5Ixt4DWtzl9cHqBEyoOqx4cBYk84S52F0wXEZ
-	ZmTTG5jtNoIuvJT8nGQR4JjrLEKEG5fWqaP71ULXoh9FonTtPdZikW08
-X-Gm-Gg: AYBFou2YIujU2Cf19UbsoDM6ZEHA6YQ7qqSub1d8Vk5Ur9HSMa90w/URDf9H4yie9Oq
-	UTVSnHAVujRIQ1KeQ3B8fJWvfjsr/TdeQblGw/VtbJF617wLt6jU/j9L1xTLxZfvnlUgInlTTkI
-	gshhKHJ5uOp9SydUxyvJ/WRD2T9OS48KjbSMMqUhNo92O5KVX/0LDM5dnJBsvrWiB5iPF6Tp+XW
-	ZAH3kt66yZ323+h4TPwidfXaCaqBm3lQ4UofeY/FL8ZZ3DY0dR9Ov7Sr7Svx4WhpeA2TgDEf6Gj
-	Yqr+SrOA0p0Mb5Wqc7ANNeJhzwHqbMN6FIAuf+ZxHsqruOuHZGyzNou20Lv9hBgjruaeXysNRNx
-	pOQ8hICyYMawK7OdI9e6DP3E3mHvfR7edkRdekvgYN0r687/gaNOX3x4wDLYNdto/wiL09qji3c
-	1qCP8fq23oM76HS5f20uFKXji0tnCATejdCNQqRLr39yFsX+8LmKEJmoPMWQlh41SlVX8Xa2dFa
-	NnHd0VVGe0hyFhc0NcFKfP3TkoRZr/fVUzRUDZLJYZ8zd3wa9Ow6cwuYjSjeP0y3IS8dqpEHUGG
-	dGNdx4q9pnIgZ7qx18Km6kj68I7bhvDfMmuK9YOMr7UYKjNEjzHGQfeWPHQuefHSvehs5JcIzAG
-	xJ1LilsAMHq4iL4SdfTg7Rld/qoFYZABh9b0/aYfM7iKEZ3eE71RigP3OPUsYnSfIGCbj5P779M
-	urEKW9
-X-Received: by 2002:a05:600c:a00b:b0:4a0:1c69:f607 with SMTP id 5b1f17b1804b1-4a01c69f64dmr14101255e9.29.1790780088847;
-        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e6622e1sm4236005e9.3.2026.09.30.07.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
-Date: Wed, 30 Sep 2026 16:54:47 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v3 04/15] iio: adc: stm32-adc: manage characterization
- voltage diversity
-Message-ID: <20260930165447.000046e4@gmail.com>
-In-Reply-To: <20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
-References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
-	<20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=+9LhwFUxd3nuc3xpgPWp/vYsHWl/HfXCw8nLMlz0pek=;
+        b=fV79m19oCLF+HWQosU4bAGRAlbpFeCy5zPomGb8uM7byuhT8L5So+thPSALlMt9lZ3
+         Zu3EqKApXu9f5UAqBWmTG52rL7cw+zb2Kwsa/uRNF+BZCSMPOkYr4C5zmtkezjTP6Wad
+         9GehY3p/tO8gfIaZ2Qg3wmcCoS6DdwFCfTOLOo/qT3Ux3JNxhGLyCdHugO/SdGOqHK6B
+         FdXi8C5O5O8CGTHcxdXnjiwZzXdckp+TsMqkXeh5YK0z9UEVt61F/V5GD6ASqCS5Shpd
+         Ji2xS8gjP742qEy/8rYSZfOeYeLe8YMrZU6L9sK2BfZGA/dpnY0904UkjJumXkSJAncB
+         GSZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRc6Y3TspHSYJtOJC9q/QU+wCwlSxw5FN67Vi0IUji/3uuTo38chLW+TgmdIxT4s/FTCkTFlijyL/loyg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnHmH7UhvI4ohd1ZY6jlDbfNEyoy2tDBHnU0JWv0VORLiXbQuD
+	JzDR6FRsVefrcCLFCHwuVhsTTsINZhCMhjRdosZ8lB0QppRkjuDOaS0nwRKa1HwOZt47PzqLSsm
+	bBTBl8WwFQcTrZSP9vXBImkGcmq8x6ZA=
+X-Gm-Gg: AYBFou1F1x45gmTaFEx8ydF64dztHlUrj5hr3YLtO0d0kWGXGje+JeoBHKhVjyNiYed
+	ATbYFGTc3/iAX/94XEyn4i4aGddvI8e58Ms9dEdKRv6TpuJNi2VoMFI3Z7szkWOHYLsiRfvWyO7
+	9biMhNR5JYrntrvNS/xkDVm4qhdveqBnHe4fbNGmTEr9qT2SoDmRYZJ2Wdug3ewwqhLAFv85XhR
+	Zp5qP1oJiged8XoSh2MEQw/uF4pJUFk+FSEzJ08SFMYA+/KESAPYwPG1FEXSpqZsAj3kgdlx1ib
+	n7uA1K4YH/QuVyEt8Zu4hLfGq1wZvyJD0Fgw0aQ3vGIjW+K/xMRT78QBP/rlQzL5amjHgBxsQ3P
+	eGYMiBQ9CWjTRb30CFL/DerMrOwvY63ZZOLW8i6ZURhMndHLAcjCbLGtkvhp1CZW7KhjKsU1bkb
+	E3tkgX8HQ68N8g9dMgqlEktEvnO0spjhX/yDmPLiBWXuG//sflSDs=
+X-Received: by 2002:a05:7301:7309:b0:33e:6714:3945 with SMTP id
+ 5a478bee46e88-34cdeb6be9cmr3096391eec.2.1790780109257; Wed, 30 Sep 2026
+ 07:55:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260917051147.98775-1-tweek@google.com> <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+ <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
+In-Reply-To: <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 16:54:55 +0200
+X-Gm-Features: AclHuK8vs1MTQYyzGwnnDdzCftKWMmr3adWgFDGOHVj3p0ypcSu7KLDo5vXWnlg
+Message-ID: <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+To: Gary Guo <gary@garyguo.net>
+Cc: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 30 Sep 2026 16:18:25 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Wed, Sep 30, 2026 at 3:16=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> I'm not sure that this should be considered a fix. More like a feature.
 
-> From: Olivier Moysan <olivier.moysan@foss.st.com>
-> 
-> The characterization voltage used to calibrate vrefint depends
-> on SoC family. Add vref_charac_mv field in stm32_adc_cfg structure
-> to store the characterization voltage for each SoC, and use it
-> in Vref computation formula.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
-> Changes in v2:
-> - Andy's review comments: rename variable to vref_charac_mv (unit suffix).
->   Drop the const attribute.
-> ---
->  drivers/iio/adc/stm32-adc.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 600f975f1d7b..fa46803d54be 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -43,7 +43,6 @@
->  #define STM32_ADC_TIMEOUT_US		100000
->  #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
->  #define STM32_ADC_HW_STOP_DELAY_MS	100
-> -#define STM32_ADC_VREFINT_VOLTAGE	3300
->  
->  #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
->  
-> @@ -211,6 +210,7 @@ struct stm32_adc;
->   * @set_ovs:		routine to set oversampling configuration
->   * @smp_cycles:		programmable sampling time (ADC clock cycles)
->   * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
-> + * @vref_charac_mv:	Vref characterization voltage used to measure vrefint calibration value
->   */
->  struct stm32_adc_cfg {
->  	const struct stm32_adc_regspec	*regs;
-> @@ -230,6 +230,7 @@ struct stm32_adc_cfg {
->  	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
->  	const unsigned int *smp_cycles;
->  	const unsigned int *ts_int_ch;
-> +	int vref_charac_mv;
+Yeah, I had the same thought, but given we discussed the topic in the
+past and we supported non-ASCII on purpose on commit b13c9880f909
+("rust: macros: take string literals in `module!`"), I thought it
+counted as such (that is why I mentioned it was unintentional in my
+previous message).
 
-Case-sensitive units if it's SI is preferred in IIO, therefore *_mV.
-(checkpatch warns against this, but just ignore it).
+Having said that, it has been quite a while, and it is also true that
+for 6.18.y it may not be worth to change it since it does not apply
+cleanly given the `syn` rewrite. It is easy, but requires creating a
+next `expect_` helper.
 
--- 
-Kind regards,
-Joshua Crofts
+Cheers,
+Miguel
