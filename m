@@ -1,156 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139E2405C35
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A6E3FF1A9;
+	Wed, 30 Sep 2026 22:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807450; cv=none; b=tcNvc92cbSFy2aNqDMQ8KiWi83WM5AGhulMFm/aT7ySx+F7AsPzXIqYGnEAY382Q9iEYzIcucOXXES917SHQmrUIagtqiIdUWwdKKyKOX8QSl9uxPHr+/uK3VFRr29A9OrLr8mpYKWSp5iNlZ41c5k94MXgrPumhzb+HI/D3bXY=
+	t=1790807454; cv=none; b=VU2G8H0T27xoRMgH37NianD7T1DgQsCpvoCKi4XsTR+PdfXRrYyKZ4XhuYvj1TozU9VKsDtCc7loN1i3Ij7e6cbI8TF0VAg5RAv5TUP0jeYU4StHUkFmq1vrqGr3mpJntfIipcKd2wn2jaRHaoEaGXQ7o2I2j5gASvqUNnwc5hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807450; c=relaxed/simple;
-	bh=7EM2sZjSffyGc6DM30lMcI402+fkx1useqbOm9nOHlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=htHYB+oVWB+l3z4/6STjaHxMfKK/pPfSe143KcT5Hgs+R8qXPt1BiWgvFuF/r7FtGHHMb+RUqH3iGFdjcrwIT/+w+di8BjP/ggfoERj8/jJOJWZawnpcdcrKTXnUNKs1D3onsUsYz7U0StPYxHVqD+a8Y4q7WABJF2X38e7QiIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqTa3WYf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790807454; c=relaxed/simple;
+	bh=8v8nPvOOFg7ux4DjRqAyJLHu+tMtcVxLNwj28cEsxk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qTqElgNtdIgg9rqVlUbfJwRjKOO6fFm4+9svqtpMKomb9/urYzvB6+c39tUSRAKpslwxu1EzBKpNOg7Tz5SCanU+uIXU/FDIiedLzeIKyw6anHGZ1hCfj1aEft0VwAGrdrSqi7gJVAd7Xcq+SK61PyzncOqinAhgViy49LHik+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=E3W6CVWm; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqTa3WYf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9E01F000FF;
-	Wed, 30 Sep 2026 22:30:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790807448;
-	bh=eHBan9sa1UBFCREMupzf6PTajSStxJbR7Kc75ofdSjA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=PqTa3WYfEPBtpWbcK/Y41rSY0qh9Bp3X+8E1SfdT4NNPOYnAqP0DbonIyv2p2O5id
-	 Af3+OLTVf6M8Uds/osSy956KToj1fqkvuYonoCSE7oTHSe/LrZXX2st57CxEbY3kD8
-	 6Ehq17z0ypNV5wOT5ec/8byHTE1t+vyvb5oRIn0FVEzjBnNI86uzSokIihTG/k/wyS
-	 Zf9b48buGGx/uT88C04trOcV2BQZy8CAocy5TKA/8LoCEwJN6xZAxMqymH1r89SApF
-	 MkpmIzsd39qRZ27etN/a2XNhrW16kG1XHuKNusX0+XPo4PgmhE11tMsgvGAV000IDe
-	 PeJsjL2YT/Xmg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 19699CE097C; Wed, 30 Sep 2026 15:30:48 -0700 (PDT)
-Date: Wed, 30 Sep 2026 15:30:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>, anna-maria@linutronix.de,
-	frederic@kernel.org, mingo@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] timers/nohz: Annotate lockless accesses to got_idle_tick
-Message-ID: <0d74e178-274e-4555-b904-23bd1910020d@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260920085434.2918331-1-kunwu.chan@gmail.com>
- <87qzici6yb.ffs@fw13>
- <43ac14e7-8d9a-4ff5-87ee-55ec3c7cdeb8@paulmck-laptop>
- <87ld8igzaq.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="E3W6CVWm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=uagXdD5ciqWTaFMPdi5UdXHkMYzb1UdXrcKzNq3ujLI=; b=E3W6CVWmY+yb8nnlbSnwl2yKMK
+	tLYbkZFBZeMNpQe9dh8OHn/4X5XN0oKY82AJ8Ee7CXfEj+jqI/lgc1Mcw09nhUSYatq6lzHVzFrsS
+	kcgeGXg3DF/N2pd4UNAF8lXTPgR952v9CH/kUhzo1HX2DP8MZHN528WnLl8e1kTpUCuaXYYE0fjw3
+	OPHkkwyiMJZLFNLa84ulcOSCGfDExKZ0D6PHcdT2PI+BbHU/lefiIJh0mgd6ylZ6haDTyFlS//fQT
+	eYpKaPmJ92myblzvAU656TF/+67u0oueq0h18RKGgl0azpzsk0yd9Ffe/94IUl288r8VETclSjh8A
+	M/1/+WwQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add MangoPi M28K
+Date: Thu,  1 Oct 2026 00:30:34 +0200
+Message-ID: <179080743116.2419406.13197098568454460130.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ld8igzaq.ffs@fw13>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-[ Adding Marco Elver on CC. ]
 
-On Thu, Oct 01, 2026 at 12:16:45AM +0200, Thomas Gleixner wrote:
-> On Wed, Sep 30 2026 at 13:00, Paul E. McKenney wrote:
-> > On Tue, Sep 29, 2026 at 02:21:32PM +0200, Thomas Gleixner wrote:
-> >> On Sun, Sep 20 2026 at 16:54, Kunwu Chan wrote:
-> >> > tick_sched_do_timer(), called from the tick interrupt handler, sets
-> >> > ts->got_idle_tick when a tick fires while the CPU is idle.  The idle
-> >> > path reads and clears it via tick_nohz_idle_got_tick() to detect
-> >> > whether the tick handler has run.
-> >> >
-> >> > The flag is accessed locklessly from hardirq and task context.  A
-> >> > concurrent set can be overwritten by the clear.
-> >> >
-> >> > Use READ_ONCE() and WRITE_ONCE() to annotate the lockless accesses.
-> >> 
-> >> The following scenarios still happen:
-> >> 
-> >> A)
-> >> 
-> >>               if (READ_ONCE(got_tick))      // reads true
-> >> -> interrupt       
-> >>        WRITE_ONCE(got_tick, true);   
-> >> 
-> >>                    WRITE_ONCE(got_tick, false);
-> >> 
-> >> B)
-> >> 
-> >>               if (READ_ONCE(got_tick))      // reads false
-> >> -> interrupt       
-> >>        WRITE_ONCE(got_tick, true);   
-> >> 
-> >> #A is harmless because got_tick is already true and #B is harmless as
-> >>  well because the got_tick read result is only a hint for the next idle
-> >>  invocation.
-> >> 
-> >> As this is stricly per CPU the READ/WRITE_ONCE() does not change
-> >> anything in terms of ordering. So what exactly is solved by the
-> >> READ/WRITE_ONCE()?
-> >
-> > This is a step towards allowing more-strict KCSAN checks to be enabled,
-> > namely data races between base code and interrupt handlers.  KCSAN has
-> > found a few bugs of this type in RCU over the past year or so, which
-> > suggests that similar bugs might be lurking elsewhere.
-> >
-> > Yes, in this particular case, current compilers don't have a huge amount
-> > of freedom to mess things up, but the standard really does permit the
-> > compiler to use a to-be-stored-to location as a temporary just prior to
-> > that store.
-> >
-> > This is like the situation with lockdep, where we tell it about
-> > deadlock-free situations that it does not see as being deadlock-free.
-> >
-> > Seem reasonable?
+On Sat, 01 Aug 2026 16:00:16 +0800, Chukun Pan wrote:
+> Information about the MangoPi M28K is here: https://widora.cn/m28k
 > 
-> Yes, but then the change log should clearly state exactly that along
-> with a corresponding comment in the code. These boilerplate copy&pasta
-> changes are annoying as hell because they fail to provide any reasonable
-> rationale for the proposed change. See Documentation/process/...
+> MangoPi also has a version called "M28K Pro", which replaces the
+> RTL8111H with the RTL8125B.
 > 
-> I'm refusing to accept this slop whether it's generated by humans or any
-> form of tools.
+> Changes in v2:
+> - Add USB 2.0 support
+> - Remove merged patch
 > 
-> That said, I further have to say that just reusing READ/WRITE_ONCE() for
-> this is completely wrong.
-> 
-> A strict and harmless per CPU modification/race is very much different
-> from cross CPU races. So avoiding any potential confusion and thereby
-> allowing tools like KCSAN to treat them differently is useful.
-> 
-> Using the same annotation for something which is strictly a per CPU
-> situation prevents to detect the accidential cross CPU access which
-> might not be safe at all.
-> 
-> Even if the momentary implementation falls back to the same mechanism
-> for the tools the value of implied code documentation is valuable. It
-> avoids extensive comments and it also allows tools to differentiate the
-> meaning in the future.
-> 
-> READ/WRITE_ONCE() are just non-distinguishable "paper over all race
-> problems which tools might complain about" hammers.
-> 
-> But we all should know by now that "Birmingham screwdrivers" are more
-> than suboptimal.
+> [...]
 
-Yeah, if you hit something with a Birmingham screwdriver, it might not
-quite realize that it has been hit.  On the other hand, if you instead use
-a 16-pound (7 1/4 kg) sledgehammer, at least the fool thing will *know*
-that it has been hit.  ;-)
+Applied, thanks!
 
-Back to the topic at hand...
+[1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
+      commit: 4de49bae600f265a8b214cdd33f7d018a171c007
+[2/2] arm64: dts: rockchip: Add MangoPi M28K
+      commit: fa932a9b632ff0d80390b940e6aabe38ac305fe1
 
-So your thought is to have a KCSAN annotation that says "should be accessed
-only from the corresponding CPU".  Or maybe "from no more than one CPU".
-
-That would certainly be useful, easy though it is for me to say.
-
-Marco, is something like this practical for KCSAN?
-
-There are quite a few variations, including "written from one CPU but
-read from everywhere" and vice versa.  But maybe start with the things
-actually proven useful.  ;-)
-
-							Thanx, Paul
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
