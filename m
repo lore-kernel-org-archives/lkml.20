@@ -1,142 +1,175 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D5D377553
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E8E424D5A;
+	Wed, 30 Sep 2026 07:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752536; cv=none; b=riaxGul3xJqhyLa11kKHDIC/toP+0ZIyeOi8b7L8jiXDwHaNghMjVGd8yinJM4zBpd16PZsOk8y5aFrhGMMODAo57PQ/o7ff9pjhazHFtAD8LRBbMo8TMQAo0cd7r2wtHnMahjeOOSifUTCTpU98SRWZoWRLPh4qNusj1SOV5DY=
+	t=1790752543; cv=none; b=qRquQuRoMLxrjeJBVwNbo7nS44h1JElg5wh92VRM/O8H4Fr6tSV2LoNDvm7GMbbx6LVDKbxP34IVt88M3wQGnZrpFOc0gVSy+VagIIwfLj53XhMKQxDy61913bMKj8XW/F3uNT/FykUphkqnVaAamEiPTlBxz2h/LN7syfc3CeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752536; c=relaxed/simple;
-	bh=Uv8673BXW487YhAql7BVA6vApReuaTTxPWI2C9lkqJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UI5t3cjOZ54C/wFRONnPndKq5d+r/2CirFetq05YCjWUoYfnmeXS4/Ld4RWn1w57dCd2Z+oQ3G4u2MoATMtvM8L7PyFMYx8qFTIDrgzZdpXuVKU99ANdTtypmJZmmVxI49+jt68/CQMwUHPnuAO0kfBpYIyxptj+aegFFsoupLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q3FUjCVQ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790752543; c=relaxed/simple;
+	bh=/zbd2CWO3RSxjqb6v7ycrTNDsHH07c6L/WtYoukb9go=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ISlU7M1i6bHSPGKptegaDf+r5Ny1FM8bkbItp0C6gRGcLRabCc0zt+ABa+vq+Ge6b6psFniqsBf5Y1Z/XkEWzXgOTfnZ3dDIJx8huQyh4kKWLP/6OePv+BrNfGmvdNKtFzmEyBhVoGe6PUpICJb3/3slw/i05MtZJjYyjSGHwPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aevDQtP8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q3FUjCVQ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso31376115e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752528; x=1791357328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=91UgRJj2a9cqCekJgIMfhdUvCOQ/1gwR4pNIdWvIxRc=;
-        b=Q3FUjCVQwjaQ2UWSq/dqprUKHjBk7iUytEtWe6w+YKxMgWGK8bOuvneYGaO3+o1Qz2
-         upsOVsiFJ327T/spzqJr10EzSlYSpYJ/KI0NVvCpXA0PKGbMS/LiLqtFWLCLmcHr3WtR
-         pJiWfNUzILK/ZiJvheecXSw0Yf8gsnTLD9dI0TIvr655oFFqaZKMsutHzv1dnVqx38WQ
-         tvtBHX1ETpMCjDc8i/y1+y+byVpnUeGVmDv8v0PmrdOLr+w/cWFn5MGzW8VZceloXHlg
-         GVtFJWUjRCf2I3s/8SD7ojpSX6+LY98zEQtCGnsVm9tuBu7v9+6PBx7mSGuz+thrJWDE
-         6fkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752528; x=1791357328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=91UgRJj2a9cqCekJgIMfhdUvCOQ/1gwR4pNIdWvIxRc=;
-        b=KYW/1pDdDVhtdTRNUl1viTGrXpeCjQ8aK0XktRUHmHJxRqjIMQ26msARWe9iX4jY2G
-         eEJdSEBItQh+5VIqAnFDH6XrmpVp9/UHH5OlmWwDaXxIcEr3uYTkeiv7q9LASsj2UQa9
-         w5/qPWHgZ51i6JfTOBgpi1KzghIcw2e/pA14h+p7HS5XrkaP+RMUEB2uxqVoqazw93XB
-         f/c0NFultWlP+VqfQqIzpYY94h+DrQ87Q4nKiO/JfibDDyq5DY49mm31YLq0erDMPpQZ
-         0NmLksFut7W0ydZ5mVgHVAcfqDh6nbKFWhTV2EbKDNpWqfImBxdL6RVrk2rV2l1z8Ix8
-         TUaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/Ku74ZUHvdne3RlMItKrafD1cGfCnnCejjEdKGqBPY9BHRF7poWcwVRtXgatCsBJc0+QpweoUPkTy8nI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMQI+QMgCr6PGeKIXbWx4DnU9wuxuE/9CXvRmzPrB7q9rmdKdG
-	nMKqfDUbYkQXcP99d4gBLVkrptLzO1B3T2JUMGPkkliQp/mBFdmBJHuj
-X-Gm-Gg: AYBFou0VJuo++ivTld8I/BySxV2JpXHrxQWQXBPGUvGuiNDLj6Kos6z8zaOXfKc9hK1
-	MYkFy0gj+Lh60iiX8Uqpsp0VXaWLOMst/fSXNch5cH5Hi4Cdu6AmLDLJdki0kTquRXxR6MMa91k
-	hcOe6f0TnrFpnDIrVrUunhEDtbNrxX8DUWbGcgpUbi6tmogenSeDZnyi/LOZ8K7gA3vejedHNhC
-	O3EIxbgbqiD1HLwdz+pvljOW9tabGsk7QTl1TKFt1Ri9hzKSHgpo6GVqbxZwN09YxDuvmD4i5DI
-	BJOJYs6pNJka49BXIr8jJF9WXte7Qlx5dlqs0QyROzQqdJgBllrie6P1DR/qOqbU9BIpvZK6zCS
-	6FQAgjGZLxN8JqbaTpBVjNJBieSM+Wrj++rNTfy/o9qzlWdPzUoWOwd/AVrTLisUp6ZREt59B/I
-	m093ZVgA8VltiDDr4FZVSH8oqLh8xHDYKnhvQVkj85jMjk1YstB091H0feCC2LLzW8VKRSPpgk4
-	VHUjQXOYVWmVkrHSrs=
-X-Received: by 2002:a05:600c:3b1a:b0:49f:c451:b4ab with SMTP id 5b1f17b1804b1-4a01b12b310mr5780705e9.29.1790752528575;
-        Wed, 30 Sep 2026 00:15:28 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029be7e4sm1256979f8f.12.2026.09.30.00.15.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:15:28 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v1 3/3] mfd: aat2870: Add support for VIN and IN-LDO power supplies
-Date: Wed, 30 Sep 2026 10:15:13 +0300
-Message-ID: <20260930071513.54697-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930071513.54697-1-clamor95@gmail.com>
-References: <20260930071513.54697-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aevDQtP8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4EDB1F0089B;
+	Wed, 30 Sep 2026 07:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790752534;
+	bh=+TOL9YwZG4QYKTdYJaaobdCp0b1YWYmYs/74hMt7dS0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=aevDQtP8q03HMN1BL4kicKC/rRxyZf1uoEFQdjQ18TleVyFeM+cUEEax1KnAdcEEL
+	 Fve2Q3muLOrirrR2OPTdhUWb8qsX3VoPmS+H6lMRTfZrX+LY262gjjIaAOycpBxLNJ
+	 +fU4sqtZ1KPols20KJB9MbLPTf1VjqjCVDL9FLfjcOjVR0CLV12Wug3RaUwa0bqEdD
+	 Yr1wb4Zdfk45HKvTLY7fwlFqkthG7TLNlljPfvd86jTsEHPbaNCn4ps6jS3fhjRXlY
+	 QqqAgoFvJurhkLsqz5+qUboRmdQBcTfwwqOxcxwJF05W/Kd4iFqg/rwjH+y64LzGE7
+	 AUdfxO4mbgGcQ==
+Message-ID: <1353b159-24ef-43e8-ab44-94346990aeeb@kernel.org>
+Date: Wed, 30 Sep 2026 09:15:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v7 2/5] media: uapi: Introduce new control for video
+ encoder ROI
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
+ <20260924-enc_roi_enable-v7-2-6fa7413af23c@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260924-enc_roi_enable-v7-2-6fa7413af23c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The AAT2870 supports a dedicated main power supply input alongside parent
-power supply for its internal regulators.
+On 25/09/2026 02:28, Deepa Guthyappa Madivalara wrote:
+> Add array control, V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP for
+> video encoder Region of Interest to allow applications to specify
+> different quality levels for specific regions in video frames. Define
+> V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE to retrieve supported MB size based on
+> codec from the hardware encoder and set the corresponding ROI MB delta_qp
+> map that adjusts quantization relative to the frame QP's base value.
+> 
+> This enables use cases like prioritizing quality for faces in video
+> conferencing or important objects in surveillance footage while reducing
+> bitrate for less critical areas.
+> 
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 
-Add support for retrieving and managing these supply regulators
-(vin-supply and in-ldo-supply) using the regulator framework to ensure
-proper power supply dependencies and power-up sequencing.
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/aat2870-core.c            | 5 +++++
- drivers/regulator/aat2870-regulator.c | 1 +
- 2 files changed, 6 insertions(+)
+Regards,
 
-diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-index 8f6d7956e79b2..a9a11be373916 100644
---- a/drivers/mfd/aat2870-core.c
-+++ b/drivers/mfd/aat2870-core.c
-@@ -17,6 +17,7 @@
- #include <linux/mfd/core.h>
- #include <linux/mfd/aat2870.h>
- #include <linux/of_platform.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/regulator/machine.h>
- 
- struct aat2870_register {
-@@ -309,6 +310,10 @@ static int aat2870_i2c_probe(struct i2c_client *client)
- 
- 	aat2870->reg_cache = aat2870_regs;
- 
-+	ret = devm_regulator_get_enable(&client->dev, "vin");
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to enable regulator\n");
-+
- 	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
- 						  GPIOD_OUT_HIGH);
- 	if (IS_ERR(aat2870->en_pin))
-diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
-index 4d399d0486d19..4cbcb277ff20d 100644
---- a/drivers/regulator/aat2870-regulator.c
-+++ b/drivers/regulator/aat2870-regulator.c
-@@ -114,6 +114,7 @@ static const unsigned int aat2870_ldo_voltages[] = {
- 	{						\
- 		.desc = {				\
- 			.name = #ids,			\
-+			.supply_name = "in-ldo",	\
- 			.id = AAT2870_ID_##ids,		\
- 			.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
- 			.volt_table = aat2870_ldo_voltages, \
--- 
-2.53.0
+	Hans
+
+> ---
+>  .../userspace-api/media/v4l/ext-ctrls-codec.rst    | 26 ++++++++++++++++++++++
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c          |  3 +++
+>  drivers/media/v4l2-core/v4l2-ctrls-defs.c          | 10 +++++++++
+>  include/uapi/linux/v4l2-controls.h                 |  2 ++
+>  4 files changed, 41 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
+> index ab865a1a6ba929f1725ce2ab0fd3aeee4a69329a..a02ec20ec18f0e684973964d2de1759ad179b819 100644
+> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
+> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst
+> @@ -1674,6 +1674,32 @@ enum v4l2_mpeg_video_h264_hierarchical_coding_type -
+>      Codecs need to always use the specified range, rather then a HW custom range.
+>      Applicable to encoders
+>  
+> +``V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP (__s8 array)``
+> +    This control is a dynamically sized 1-dimensional array,
+> +    V4L2_CTRL_FLAG_DYNAMIC_ARRAY flag must be set when using it.
+> +    This array control is used to set ROI MB map delta_Qp for the whole frame.
+> +    The frame is divided into a grid of MB Size by MB Size pixels (MB Size is
+> +    obtained from querying ``V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE``). Each block
+> +    is configured with delta_Qp in raster order. The valid range for delta_Qp
+> +    is encoder dependent.
+> +    Applicable to encoders.
+> +
+> +``V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE`` (integer)
+> +    A read-only control that reports the MB Size used for the ROI delta_QP map.
+> +    The supported MB Size depends on the encoder codec.
+> +    Only square MBs are supported. The value returned represents the
+> +    width and height of each block in pixels. The ROI delta_QP map provided
+> +    through the ROI control must use the MB Size reported by this control.
+> +    The number of entries in the ROI delta_QP array is determined by the
+> +    frame resolution and the reported MB Size. If frame_width or frame_height
+> +    is not MB Size aligned, they must be ceiled using ceil(frame_width/MB Size)
+> +    ceil(frame_height/MB Size) for calculating the array size.
+> +    For example, for a QCIF frame if reported MB Size is 16,
+> +    the delta_QP array must contain 99 entries, ceil(176/16) * ceil(144/16) = 99.
+> +    For frame resolutions that are not aligned to the MB size, for example
+> +    1920x1080, if the reported MB size is 32, the delta_qp array
+> +    must contain ceil(1920/32) * ceil(1080/32) = 2040 entries.
+> +
+>  .. raw:: latex
+>  
+>      \normalsize
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index c5df0e0a54f81c73975f427957b7c99fd421d5ad..2318a548f16ebc1ec582f829c7945a8998b96708 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -1410,6 +1410,9 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+>  			return -EINVAL;
+>  		break;
+>  
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
+> +		break;
+> +
+>  	default:
+>  		return -EINVAL;
+>  	}
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> index e062f2088490470c42d6c579ff7675be454a29b0..8f895060799ea13443143edd398dfb97f4ba0085 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> @@ -974,6 +974,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+>  	case V4L2_CID_MPEG_VIDEO_AVERAGE_QP:			return "Average QP Value";
+>  	case V4L2_CID_FWHT_I_FRAME_QP:				return "FWHT I-Frame QP Value";
+>  	case V4L2_CID_FWHT_P_FRAME_QP:				return "FWHT P-Frame QP Value";
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:		return "Encoder ROI MB Delta QP";
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:			return "Encoder ROI MB Size";
+>  
+>  	/* VPX controls */
+>  	case V4L2_CID_MPEG_VIDEO_VPX_NUM_PARTITIONS:		return "VPX Number of Partitions";
+> @@ -1622,6 +1624,14 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+>  	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
+>  		*type = V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
+>  		break;
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
+> +		*type = V4L2_CTRL_TYPE_S8;
+> +		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
+> +		break;
+> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:
+> +		*type = V4L2_CTRL_TYPE_U8;
+> +		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +		break;
+>  	default:
+>  		*type = V4L2_CTRL_TYPE_INTEGER;
+>  		break;
+> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> index d17e41d51d2ec1ccb9e8ceb3ccc89ebc4381a4cd..be484156ed35a19229be23ad24fd224cb5a8a0cc 100644
+> --- a/include/uapi/linux/v4l2-controls.h
+> +++ b/include/uapi/linux/v4l2-controls.h
+> @@ -941,6 +941,8 @@ enum v4l2_mpeg_video_av1_level {
+>  };
+>  
+>  #define V4L2_CID_MPEG_VIDEO_AVERAGE_QP  (V4L2_CID_CODEC_BASE + 657)
+> +#define V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP  (V4L2_CID_CODEC_BASE + 658)
+> +#define V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE  (V4L2_CID_CODEC_BASE + 659)
+>  
+>  /*  MPEG-class control IDs specific to the CX2341x driver as defined by V4L2 */
+>  #define V4L2_CID_CODEC_CX2341X_BASE				(V4L2_CTRL_CLASS_CODEC | 0x1000)
+> 
 
