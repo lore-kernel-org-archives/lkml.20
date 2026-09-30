@@ -1,125 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE144611CF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE51444AB91;
 	Wed, 30 Sep 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756947; cv=none; b=sT4s5r+AwynkKBD1rLNAK0mcCy1btEskbZwx9560rqHwAOV32222vcY3p0/wtWFcn7k+eTkweFDtB+RjfkwHaZZGwp4S6JO3TiHHkasYkkcxhxjwRHb4R83obK6K1OdKiTexHWcvSajCNaioCOKM6sFcS+q2BAjs3yw7vetoX8E=
+	t=1790756948; cv=none; b=F2pqCM3u236VTBjT4DcGAJyiABOcKgfou09Z2+xGUMS+0OfFAAgiJZkTc/NNwEmCiz3pOrBukhvAcrz8X9eDNS0oqN0ZNfg7ZfvX+FPgVqbzlYEQMe75vyRoo9MfPc39MLPlfAPhb1c/AsN+yVi8pi2nlx1olBPzSRxUs18LGMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756947; c=relaxed/simple;
-	bh=qJaKz00fj7KxDc0CGeVJJ+tvs/tiUbxN90/yhOIRNLk=;
+	s=arc-20240116; t=1790756948; c=relaxed/simple;
+	bh=Z25ssbYYgPIJRf3a6E0xksOuvmIiLp75bFgZ1UY4UR8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rfuiSYEBD0eb4iK9pA3FlwQO+MyhoSEnKxx2wsnLAs7pB6g6oVpkvtoqWq9veKUcKA7k9qjasJHG17AOGmDFk+/HZVg4T3WmyT5A831QXu8vVdc3gjV84QEtOhq1UaJRxMsuaDEmrsI8QRKt8cctdss18kKUYGfQU9NGeEjORCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aM+UxX3N; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EYaIGn540/drXICzMWkJ50Y91fvnqq229nqLtWdAiuKUadrKUr5ONLLG0qr/zrV/pn6OstBXVsJBNawEpwQ7JXATHa/82lAuzFIXfhgIE03TJw3kapcw6VlMxOrKD44SCseC1HwyQ9mdMTtQ3W4QErIuKxctQisjjs3tZ4ztbJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZMwmfh66; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aM+UxX3N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F9E1F000FF;
-	Wed, 30 Sep 2026 08:29:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790756946;
-	bh=qJaKz00fj7KxDc0CGeVJJ+tvs/tiUbxN90/yhOIRNLk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aM+UxX3Nsf7rGPDSu7WqIGPpBgtIL9y6uXTb03PDTCRdL1BV2wsbPkB8Tc1POFQ+g
-	 51T0NbnqKsbXyjol17cNTjMIthKpV4QHOKhpLoAMArFhGyGy5U8z4q5OKamMF9zplv
-	 E64LdT4GbWj5U6JvejiVIWyyw456gmiHaiAslm2NUxPoGoBpj4iSdU0dJxl7IMy5ep
-	 R+ZkuSIPi6I199YwCzkYLnduUoJbHo9emYfYyZ0fgN7ZZ859P7AL89ULIXsPL3pPMb
-	 9IwqwlNUmF/A+OMOiTlnggN7wglFo9a0UAibUh8dYuTA/iOSxEcxqU4b8pfxd5EauH
-	 Y9vB6QTwHqddA==
-Date: Wed, 30 Sep 2026 10:29:03 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-Message-ID: <arzDId4Mxryrfa7m@orome>
-References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
- <ary71zC1e-bySLFW@orome>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZMwmfh66"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790756947; x=1822292947;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z25ssbYYgPIJRf3a6E0xksOuvmIiLp75bFgZ1UY4UR8=;
+  b=ZMwmfh66IttEywZlQmFnHZK0Ys+zg6Mk16bgGdJuKHbem3z+Sm9LrlNZ
+   07dQr6Oh73ob3PWTN0g2rBOk1Z5LRSl1z3IRLBGe78RDrJoHUskW8kxk8
+   bBgVTP3trqDXwCQPTey0n3pRV5RCY4mvs8sNi0HGuKLOdV/l+qLPf4TKC
+   3Gt953Vtyt2WuR5ilk91Ly6g1F9i7+1r23KcDfQIBOp9AApJ3iB2OtybD
+   IF5NyAU2/MSA1ltnuJl76FyHtHvtKl4j+zSyljYltcWdSQhugXgYmLClR
+   mN0Lnh5RATjdiFn+wsuDQhA2UZtuzCLPA0HBT3ViZmZ8HpvW26oBPAsvX
+   A==;
+X-CSE-ConnectionGUID: CYsR9ofnTlyS6bNPw3Ggzg==
+X-CSE-MsgGUID: wg8F0zO7T2Ks1FKG7pVDAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="91508793"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="91508793"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:29:06 -0700
+X-CSE-ConnectionGUID: xui/SqCMRcKIypiANYyu6A==
+X-CSE-MsgGUID: jN9DPEBDQL+3nuHkVYXM3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="313568986"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:29:04 -0700
+Date: Wed, 30 Sep 2026 11:29:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 4/5] phy: core: Add managed phy bulk data helper
+ functions
+Message-ID: <arzITUCmgUp3uiRn@ashevche-desk.local>
+References: <20260929085235.469515-1-inochiama@gmail.com>
+ <20260929085235.469515-5-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="44hvupbkmw3pca6w"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ary71zC1e-bySLFW@orome>
+In-Reply-To: <20260929085235.469515-5-inochiama@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Sep 29, 2026 at 04:52:34PM +0800, Inochi Amaoto wrote:
+> Add device managed variants of the phy bulk helper functions. So
+> the driver can benefit from automatically managed phy handles.
+
+...
+
+> +int devm_of_phy_bulk_get_all(struct device *dev, struct device_node *np,
+> +			     struct phy_bulk_data **phys)
+> +{
+> +	struct phy_bulk_devres *devres;
+> +	int ret;
+
+> +	*phys = NULL;
+
+Why?! In case of error we modify the output, this is usually not the best
+approach as in most of the cases the expectation is that whatever user
+provide (including a garbage) should be left untouched in case of an error.
+
+> +	if (!np)
+> +		return 0;
+
+Same here. On top why do we even care about np like this? Interestingly that
+some other APIs consider this as np == dev_of_node(dev) case, and automatically
+propagate that.
+
+> +	devres = devres_alloc(devm_phy_bulk_release_all, sizeof(*devres),
+> +			      GFP_KERNEL);
+> +	if (!devres)
+> +		return -ENOMEM;
+> +
+> +	ret = of_phy_bulk_get_all(np, &devres->phys);
+> +	if (ret > 0) {
+> +		for (int i = 0; i < ret; i++)
+> +			phy_add_device_link(dev, devres->phys[i].phy);
+> +		*phys = devres->phys;
+> +		devres->num_phys = ret;
+> +		devres_add(dev, devres);
+> +	} else {
+> +		devres_free(devres);
+> +	}
+> +
+> +	return ret;
+> +}
+
+...
+
+> +static inline int devm_of_phy_bulk_get_all(struct device *dev,
+> +					   struct device_node *np,
+> +					   struct phy_bulk_data **phys)
+> +{
+> +	if (phys)
+> +		*phys = NULL;
+
+Same as per above.
+
+> +	return 0;
+
+Why not an error? I do not see the _optional word in the function name.
+
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---44hvupbkmw3pca6w
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-MIME-Version: 1.0
-
-On Wed, Sep 30, 2026 at 09:40:51AM +0200, Thierry Reding wrote:
-> On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
-> > The DSI driver ignores the reset line if a power domain is configured.
-> > This was originally added to support Tegra210, where the power domain
-> > provider has to control the reset line -- at that time, older SoCs
-> > didn't have a power domain for DSI. Now, however, they do with the core
-> > power domain.
-> >=20
-> > This happens to work on most systems due to DSI already being out of
-> > reset when booting the kernel, but on Tegra114 Dalmore, this is not the
-> > case and causes the system to hang during boot.
-> >=20
-> > Ownership of the reset line is no longer a problem with reset
-> > acquire/release semantics, so control the DSI reset unconditionally
-> > from the DSI driver (possibly in addition to the power domain driver).
-> > The device tree bindings already require the reset and it is present
-> > on all platforms, so this is safe to do.
->=20
-> That seems backwards to me. The whole point of doing this via power
-> domains was because it's explicitly not safe to toggle that reset line
-> outside of the powergate switching sequence.
->=20
-> Also, the power domain code paths are supposed to work regardless of
-> whether the DSI was already out of reset or not. If that's not working
-> right now, I think that would qualify as a bug in the power domain code
-> rather than the DSI driver.
->=20
-> Shouldn't this be fixed at the powergate level? My recollection is that
-> DSI is tightly coupled to the display powergates, though it's been a
-> long time. Do we maybe need to reflect that in DT? There's a TODO in
-> tegra114.dtsi that seems to indicate that we're missing DIS and DISB
-> powergate implementations, so maybe that's where we should start to try
-> and resolve this.
-
-Looking at this a bit more, pd_core doesn't seem to make sense for DSI.
-Basically what that does, semantically, is claim that there's a power
-domain responsible for powering up and down the device, but in reality
-it doesn't to squat.
-
-Does the hang you observe go away if you remove the power-domains
-property for DSI? pd_core should probably be removed for both display
-controllers and HDMI as well. Probably also TSEC, though the TRM isn't
-clear about what power partition that's in (probably DISB because it's
-used primary for HDMI, which is in DISB as well).
-
-Thierry
-
---44hvupbkmw3pca6w
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8yEsACgkQ3SOs138+
-s6GyMxAAp9uLoaTsunXUnAeKt9b5BUcYGzsEZkNCKAszdDlAbAhjVNZbve4gxwOE
-4JXThjK9j1V73ttROhKen3ki47423XeHNL1bbmeM6tm2MrjO92e6u8zsGLg5xbkg
-HNCX6b/AuxxjgsqpDsWSAniwmc4orAHfkuvPoeZdQ4TSBnfHHhbWnmnuybHZy1/K
-aM++rdwn75/rabxQF3qqkjc/aR4lYlrRQSHs3VQJlmZrDlUfk4lNSk3y/1MPICuA
-hMKVHIy1AdDmWL5Es4Ie1+XoCtMWTDAiiaZl7nVy5AYXRxNlurZTAPeA3hzMXlxr
-zGVQ87xzWYUwP2nBOJVqqE7tto+G6pbW3xoyoKMsXA3+dxCgxNjT3BR+sA9BaXuH
-Vu82yaviphSxjUpTbKPQXVbN4qHPxVIMQUBQBDCnYqqWtZpcOB5/4de2+m44iKyV
-ACiE7ajMIUVZvNbj/HDQ6aEEsZGWVq+4xtNPGgO0jMFPpukogDH8HdTV2xDsXT50
-W1lQXpfjPK3qiWZjRTLHLka5UdGp2LRMW8QG6HtIIr5lS41glxtf/pIPBaatnAvp
-oA9g2XCxdsuGnjBZOM3SMyh0TCwwuCzjffXohxqDzuDCybyuiHrPnu6W57VUBsbY
-/I1BIjJGVjxDppiEtY67U1yaimL0Ca/F1YOez/i6DrRXCIhI4mg=
-=ItIw
------END PGP SIGNATURE-----
-
---44hvupbkmw3pca6w--
