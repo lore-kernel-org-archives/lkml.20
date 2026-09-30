@@ -1,144 +1,98 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30AF3C7DF5
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D039E47127E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804813; cv=none; b=Yve9fg23tjf51DfIkC+YZpTlrVK/Ty2Lo01YIQl5k4428/xmIdoMshg/j1DkGKuQh8aVmWgmfZGKjSsZQH0aD/Wly0QaoPRNuGuY5B1dC5oDkTvqNuePU/WLMUMCf9LGo8ZPXnnTFN7K9Ww4XVesaVADatJfZ6NA9tDooZnPn+s=
+	t=1790804856; cv=none; b=BKJn2zvO1LAgVJtz4cZbbhcDFvVGxWXuaTyYDE4+gGHXV7bN5n3ne6db1BQnKmuFYgk8aOXgIz1o9cWpjNvKevNaIdr1ZvQLbOFPW+tI97KXsC/8+7Io037Yx1t+YK3LjmCyA21ng+f7ILkQ8VqkOoivErpIrLD7oFH2pErr4AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804813; c=relaxed/simple;
-	bh=4vB5pZ+vDsOwv7LEsW5BbV0+5k8Loaeqo9BFNQkcgj8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A2OXv8VkbYKEt4D1cO1OTr2UQaAAdaXZHtMMUR9o3WMT8m1HN1J+kUh+v4YLUpZU/5H0gYEcPN1Apzm0r8TJENmlhL+SHbE3vtq7585NlEzMN0Rc1iKRUvbfBn6r1YMV/VU2nT89fI6p4ZZRiRL/5O4jvr0+xDu0CHV8+4ygtPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zelnj7jD; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790804856; c=relaxed/simple;
+	bh=m+T593NoH9LHM4nyge2qVy8iIDHmmBHMv1mbnGq3CSE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l2pDBK77KcrG8uXlglJWWrh7cFUbtTc21gMSPCK+GAfqYCa4I6YBpSaUlMq4fbRRCuIBBSaDYugxGeqiRT+u/TIDJpvuisu+XPMVZk//eq/c8yjm4Qmz8lTgj6R7sR+mvHrAZLQ/2l5PFFw2JHWl1UOlGgv1wEKGv+W/+GjJhZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UioBh4V9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zelnj7jD"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so43906355e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790804810; x=1791409610; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o8F0B9o5+5M0c+UxYik91VjRVJghzAaWSkO19sfhWyU=;
-        b=Zelnj7jDysImilWjrq+TyjX8Zey9LXjwNIRrE1uzr9VGCWxJd6hUkpqc6qTLKUpjZa
-         ixwFOKzDVMoNOE1LdBsYi2sqjhnIW4pzake+LzOBpPNQ80Tgwnp2cHzzgKwAx6b5wWjZ
-         9ySbvUn0UYtv9m+zcgU0WncM5rgjfYeVeqq+X5GkCRpMfGWU5k8g550O+lYCsZXMBF5n
-         IIbhXisA+T7Ax9BGLZnpRWVVn3gXa8GcKOfyDZRSEo5OU5FLZ/ggu65qNNMLqTppfcrw
-         zsBWAXI0FgaQS7K/gaz67NbUmXHisq7K4tpfa/3RTYn713UTzWW1Yop5zqt2A/YJ7gBx
-         nE2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790804810; x=1791409610;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o8F0B9o5+5M0c+UxYik91VjRVJghzAaWSkO19sfhWyU=;
-        b=03TCF1B+T2yLyGC4mRyiCokdoH3JygmruFxSrS/LjSeWX+DtvcXphoAk8z3HXbxVro
-         6d5VHCS2O4+J69K3wdsj+auKQF4YX6qWuNH4Yt8Q5U8xCwtNcS+RLJ9ek9vZkE7hyzD2
-         9q/YzmafsV/RPNdOvZewymC+96mX4CiClWWVsdKyknnqkKwUzDoIpnUsURTH0y2v5wCK
-         6JtKDNHy2g6jJAIOCNB/4Nj2OQXxkamIoH9J6mMDDfamP1oAbUS60oMNs7m7lMrdoMWY
-         90usn7wn3vCvg/QKyKZlgbCTHwBprHUoqHpjrYyME+zDbs6bGPR2E8hpwLd4AbvaKFPF
-         w+QA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8wPPgNNingowpzJkelhkKVzwVxR0PBzpWhpf7rFhqvHrIqlSks3O+olWfQaCSQfzFCgpKy5EYYlsENPc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lToohEBbVTISGIoVCHcFK2TUp6DmJZzXgYGWiw6iX/qz2LJCXE
-	nDKt3o2ktEECHjFkizBn2NPD8QqfjG6GVvgNEVNvw9phSFRU+G8wLtGF
-X-Gm-Gg: AYBFou31EbXP8fYWrtDnyQ0DqUpfvfdeEhWly7lt2lXMsff6g/4aCrux/ZAjB3wHMbG
-	Q56ga0iH181JA5LljKTy3kI3L0lzsmGZy5GZHdAwSrRf30EJ7KPj6kTqLHIc55Ih+9uJebA5UVV
-	WBuluwvPs1ekWjFNymBn1aPBS1ddM0p+wLAz20CoFbxpbBIHdT1hEeK+6jXVJPPMa3U8qWM+pgi
-	ePNrpodA6CMAH1/f6mjnh6ETxg3PcneXp0ILo2YmozuXBsJ3lFpse8+7yHsIteuw1qQVoelPgnw
-	DrOq2jUMtUSpOt6niYAvaUtzF5nuMVJ432XJqRml6rYanLirjGBoE+6FbTwgk4S+zG33n9dr9P4
-	6S6au1MDuBlm7tho1p1m0Eqce5Y65stEZM1KiytyLMoLS4GdaLML5H2YQ6VhTQnVrmK5G7zfyAm
-	nXW4eWIGDl/SUaQyECYL4jsEKyPT22B46wudF59GDKASo7BKnw4DRidGKbakIgOJTSFHBLryNyL
-	LPU/Q==
-X-Received: by 2002:a05:600c:4f56:b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-4a01b0079cdmr60549185e9.17.1790804809753;
-        Wed, 30 Sep 2026 14:46:49 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f99a96fsm14092065e9.13.2026.09.30.14.46.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 14:46:49 -0700 (PDT)
-Message-ID: <0f32b66a-c5fe-407a-92ff-387c3fe39e64@gmail.com>
-Date: Thu, 1 Oct 2026 00:46:47 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UioBh4V9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A279C1F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804854;
+	bh=MfzXiat9H5DF2PiTWs4O9ojHJwLpSTSb+XBwmSF47uA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UioBh4V9PQcDGpw9Unc/Da5NbMY7NE901fFzRagTGXiAlkHHTtMmv1OqBE/22sWOa
+	 ngwmBVUj4zgjk9SlH7sYU4Nv1ZzJIwb4Zq1x40gAI9cvvsjpikYfYtDp+lgEnyYGXg
+	 qScvN3edrMuJeR6BOwCCpC2Y+KnFw+L6rdq7ow0vWuIZqo0zXRVILaeDOaFVSQKNw8
+	 LmaJ9GFc2x/aAm8iXx244y0PS3EdDOee0MNGKX7OzSxfi32rRN9FAnQh4Kp9dMnp4I
+	 7p/6JJ3P9u0fBzDoVhvRo4kvrX0Rx95HHSgX7GHkA4gtPhA21ZGGayF7McLMZ5BG+m
+	 Q5MEMnDNsf5Qw==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso47798081fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:47:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwVXDxiPIII9113y6SeT3KaE7fdRYvz/Hhl56lrpBooQGQvJBY4+TVUe2LS9RRZoWAfXVUUEHCiDkSSxAo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7g10cQnGCxcCOH6TYmEm8OJ1mTQY00tL7VhtV+XHL1Ro7ThbF
+	7uT23h6/miE6PLl5XRmAzheeQQ3TgG/c3NYiJf+74cL3nqUul2VCou8b0RQ2rfk8fAP76wf9ryf
+	zk0EIZSpJtlLyxLVREy3ES8n6sBiUIys=
+X-Received: by 2002:a05:651c:1990:b0:3a7:7ddb:aab3 with SMTP id
+ 38308e7fff4ca-3a77ddbad7emr6934201fa.16.1790804853193; Wed, 30 Sep 2026
+ 14:47:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 rtw-next 2/7] wifi: rtw88: assign the RCR per chip in
- rtw_core_init
-To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Michael Straube <straube.linux@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>
-References: <20260930091604.52891-1-luka.gejak@linux.dev>
- <20260930091604.52891-3-luka.gejak@linux.dev>
- <d398a8dd-a182-4e69-8f5e-12a820594093@gmail.com>
- <3c53130d1d4738a9b3173806264fc1d0b5682072@linux.dev>
- <a6ea2df9-b2c9-4417-ade4-f3947f36d139@gmail.com>
- <5b31fdb4474eea9b9403fc6ff466994b62a79fd3@linux.dev>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <5b31fdb4474eea9b9403fc6ff466994b62a79fd3@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
+ <20260918-contrib-pg-pixel10-initial-dts-v4-2-745eaca28b1a@linaro.org>
+In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v4-2-745eaca28b1a@linaro.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 23:47:20 +0200
+X-Gmail-Original-Message-ID: <CAD++jLntPtJVosWrmO4Hh_kuAPyC2G8MRB9BAwwR0wx1OUzLiw@mail.gmail.com>
+X-Gm-Features: AclHuK9JASmZ3mAuwTzXMDc2vQ_yXfdUx9hC2uGUMFRzKST4nRDXC-j2uJr4VPc
+Message-ID: <CAD++jLntPtJVosWrmO4Hh_kuAPyC2G8MRB9BAwwR0wx1OUzLiw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] arm64: dts: google: Add dts directory for
+ Google-designed silicon
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
+	Douglas Anderson <dianders@chromium.org>, Juan Yescas <jyescas@google.com>, 
+	RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>, 
+	William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
+	linux-serial@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Brian Norris <briannorris@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/10/2026 00:29, Luka Gejak wrote:
-> September 30, 2026 at 23:27, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mailto:rtl8821cerfe2@gmail.com?to=%22Bitterblue%20Smith%22%20%3Crtl8821cerfe2%40gmail.com%3E > wrote:
-> 
-> 
->>
->> On 30/09/2026 23:36, Luka Gejak wrote:
->>
->>>
->>> September 30, 2026 at 20:03, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mailto:rtl8821cerfe2@gmail.com?to=%22Bitterblue%20Smith%22%20%3Crtl8821cerfe2%40gmail.com%3E > wrote:
->>>  
->>>  
->>>
->>>>
->>>> On 30/09/2026 12:15, Luka Gejak wrote:
->>>>
->>>  The receive control word is the same for every chip today. The generic
->>>  default is written in rtw_core_init(), so a chip that needs a different
->>>  value has to overwrite it afterwards, in its own init path, far away
->>>  from where the default is decided.
->>>
->>>>
->>>> I still don't understand why RTL8723B(S) would need a different value.
->>>>
->>>  
->>>  Because 0x700060ce is what the vendor driver leaves in REG_RCR for this
->>>  chip, and it is what rtw8723x_mac_init() already writes for it. I have
->>>  both from tracing this card: a register dump at the end of
->>>  rtl8723bs_hal_init prints RCR=0x700060ce, and the same dump in rtw88
->>>  matched it field for field.
->>>  
->>>  The default is a different filter. It sets BIT_PKTCTL_DLEN, which the
->>>  8723B vendor HAL and rtlwifi's rtl8723be never set, and it clears
->>>  BIT_AMF, BIT_CBSSID_DATA and BIT_CBSSID_BCN, which the vendor value
->>>  sets. Four bits in total.
->>>
->> It will work fine...
->>
-> 
-> Want me to drop the patch?
+On Fri, Sep 18, 2026 at 9:05=E2=80=AFPM Peter Griffin <peter.griffin@linaro=
+.org> wrote:
 
-Yes. If you check the vendor drivers for the other chips,
-they're all in the same situation.
+> From: Douglas Anderson <dianders@chromium.org>
+>
+> The first four Google Tensor SoCs were offshoots of Samsung Exynos
+> SoCs and their device trees were organized under the "exynos/google"
+> directory. Starting with the Google Tensor G5 SoC in Pixel 10 phones,
+> Google Tensor SoCs are now of Google's own design. Add a location in
+> the tree to store these device tree files.
+>
+> Changes by Peter Griffin
+>  * update config symbol help with at least 4 lines to avoid checkpatch
+>    warning
+>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Tested-by: Brian Norris <briannorris@chromium.org>
+> Reviewed-by: Brian Norris <briannorris@chromium.org>
+> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
 
-> 
->>>
->>> That value does not survive rtw_core_start(), which writes REG_RCR from
->>>  hal.rcr after power_on. The field is what keeps it. BIT_APP_FCS is the only
->>>  bit added on top, because rtw88 advertises RX_INCLUDES_FCS.
->>>  
->>>  Best regards,
->>>  Luka Gejak
->>>
->>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
