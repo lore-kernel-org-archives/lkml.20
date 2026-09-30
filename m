@@ -1,233 +1,258 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011058.outbound.protection.outlook.com [52.101.57.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D4A24676D;
-	Wed, 30 Sep 2026 04:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A4424676D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744115; cv=fail; b=sJdgG94FVfZECAYC0ZfJX/NCh4uxOnmvmKu2NAxSPurJD6vtOuw/RAf1uFND1JPBarr31rnP02pk2S12TpOfOcDiTjyxS8kIjbAIIsKTyBA9Qe61CQ05z7UuKLu768LYTezGPDmym+gPdMslLj+fjpth9SZAcpwBgY5Zq9dnS0o=
+	t=1790744196; cv=pass; b=G05HogBopj4kbaC2ZjPBoTCzSBJJsYlHeDMybb85DscO2vEhpKh6vyTBEjaswEPfi2+yR25K8VxKS0hvNfikpLryLOOcnWjGE1MOYHT+JBKh5rCjFHkimzAgnSc1/uwPTE0ZUoD9T7CRIUkxxJd41LBxH9QRm3cW15smeqgNg9Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744115; c=relaxed/simple;
-	bh=6K/81q0o3uDw4GchbF+V2wdSBZ64UrqOiiGH4Q4K0Ck=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=XaJ8cuETiRrj+xCt+Q0ZNgwseumvNlBCxabXiQ4aWYRK8SmIbk9V52P7PvkZ08Mh5DBWEjnHy14BYGRQX5E7HfIyPB1BZCHrhu3leAZOMLTyC1D4QrSYRGJ5Llr4BOPFbOYTaKlXp3KZMmBo3oC50wK3WJrwgClO9YvpMORJE4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VObW+FSj; arc=fail smtp.client-ip=52.101.57.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790744196; c=relaxed/simple;
+	bh=aijIq6MG49th3NxWEi1RYjXRzGo8e6tnPdyVZG7VoU0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KN/57g3HiGbivaU53T5NreYV5MH5W52sUN56BiOxniCkW6njkhf4/Dz8xyIbaNdfU5MrTR7z+uBgK0WHuA+03Ka4awb5yCUWFxFzbX6ZvaXC4NESrOptG4Oxt+eHVdmoXYOGDfA2yf+FhS5zFLELDkSTO6FIaYcNhyUXDmtT1FU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsPfNluM; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VObW+FSj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R6fKlc/irOqCzQ4uNOSMKPPQcEKVqY1VbJQQ4pFPA8qn0zBCaKgUlWWLmmQUDBebKh2XTewvQ0fkR6kWg+HT6uQ3/cRMiF4TM7DIRwrtynASCXBZy9ITM+QxJ616VYws8OQCeQfegaxFxxdRyZID+dZdtQrOjfBAUeeq2GMon29u14ti0x2QzZ7tZox3tklKDhhwcltzz2tAltE5TeXTOjncfLjwceWy5tBCf9o6eF0SNnT7IXR9pERLf5h1YUZOYqwjkTtbpgcHnEqIcO6JLrH6HnTWTzt7cpr7xKbDYezHBPmLZ5kPEw7WpYZYQ5X4M/7W3NuS5o1JdPVXDbwtlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e5aa+nAS2Ob7YBT7h+PLOX6l4tuZcP9SmshkFgiaCjg=;
- b=T+7QAhqbq+PFXyapGf9WN9gkpwcRcvKXjTyjEdUAsg8AfytMzMy2MBk97mcfjz7N8uQ/y5xHpYd2bOL8+UEY3pP0D145BnJ3/da7Ainy1M0x0qx7qEyEFg0u0FjVKRbmJBwhgoAr9PMMcqv+4snPUKhczUoR2OqfwE5HAJugFf9Ei+dDCsAm2HPwVFqyiBAj7/tHpQb7wPDJHvw62Ah1XkKUL8qrnJ2gDveya0rywmq2YrZ7GPpv8vEKJZBEXCme08akIBWumOoZuNogdFC4io6sBxwiQEs1l1Zyr6jR97BOdhsgvahNK3lqBbqI/Cp8+AMgVtxhQZdzdR/kQhhX6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e5aa+nAS2Ob7YBT7h+PLOX6l4tuZcP9SmshkFgiaCjg=;
- b=VObW+FSjJSlmG6FTfZF1ddDXrrZtWDsn33Znr46/YtGOg0DGlBtHPV2oxAD/AqgzjKbgFN068vXqpJ9vyhkx0NA6pG3ZXo9BRMbga6zbiBpZrkayHRU7BJ+vhFwVGWRA63pXxMhRLznvK0/5oiXXGXs1jotL7bKaf/pCJVed6YtjXyOwNratQRfkoQsTrc1m/IvMuZnOWNR8mmbNHl9EVfB1Wy9tXJ/k/+Tt1PjRcy+XutsuSz2uIvUxmNW0XIyG1M6FTpeQg+wySWdv4WLFzcsYFVlMw8IsGbft2m5QXgHW/qaQFVkMBh1cRt96a3yCgTz5ZDsZErvLxB8BFZvRDQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 04:55:10 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 04:55:10 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Wed, 30 Sep 2026 13:54:55 +0900
-Subject: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5gV0O0V4kutt2jjpjGjEYgv
- ntbXX5w/rOTQQVGl2InxUtMljnDnwqKQ5h7sKRsKl1Zu7ZynML0WBTcyRvGyYQVhpXPXeVbn2J
- omppy/VT8Jjm+3v627T4irt87Oo4PedzLpXsAAAA=
-X-Change-ID: 20260930-dalmore-fixes-dsi-reset-4f3191dca886
-To: Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Thierry Reding <treding@nvidia.com>, dri-devel@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TYCPR01CA0208.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::16) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsPfNluM"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-675bcac8ceeso729014d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:56:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790744193; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GNGOxr2C5yeern1DsRKjjOVv7Qf1i/6k85RHRKyhVLJ34SLLfwFKSxI0c8TzH8AueE
+         OqYputKpOoefsrprGhxdO/v4eXiWrNl+TGtHAmOSXNB60xzu7k+VPtd92MlQlQ5NRF/r
+         GBi76brDxZcwJDIs/q78eoPyw5EDKZzgdENuOHp2Sbo0hoXuDig7rFc5SwHzY8BxsKZQ
+         nlGGHbMYFgw3UZFFQME5yf4P6hhrGY6cHbHbIDKIVdKJpTaCNZ+Os9Cuhm8iagj+6oHO
+         IE5W10yhoTZ7cYRk6fiK+aRYaIAlXoUNGhahWPBBvVH2vvgt7bN5kdNmmkSeNOPFRdq1
+         sKGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
+        fh=aBCjy/VM06h1uEydOqyEEbJ3pqdx/rPianqAAE2n8LI=;
+        b=dBhokjVzDiRYzx1Nm/4DP7iwpOGZmA6It4NEa5nbQnzrqwlkLm5nrGuNXepISu9ixJ
+         oXtN7lz10sGz/bp+UjhvaatG3KLmf4V69wLdIzBPowtzrBo+K84tZbwsMxwK6/O2e9A9
+         eevJR7DK5Rk55oJWg4e0ksP3igzmGkxWuwTNMZ1EVJdP2w0WN04YoJUjhR0RXXQ+FhLn
+         U+33cf8yP9GX83qdNtfWSxCg0LD6adxoLL8ECVSO2JKi+oAlq6uBFZn/Hc1IvUaMv4zK
+         GT6h0iE6pyUMnqCB6JSdOzyJqoLCw16DcgMqM1xRWHWQIXN7KP1hjZqHLBsO30zR3K3a
+         D7lQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790744193; x=1791348993; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
+        b=BsPfNluMyV7VnbDx8bcRuJLa4SEFo0DgwXPjaEIuDdc0oWXf3kKnzF62jQE6biHBCH
+         ATxkbkB8adjFF3aqLYM3jJd7zMMyOCn/2gbDlAw9qpHgcbPKC0yCOtT/xh0fyZpKCLyB
+         hE7Jtmswmb0ySZxaORv2IoJb3Eax9+geI2nCpQrPxIzSdNLcdJFmRlgx2q+PtQxkDgbu
+         RdqY8j7SKp4Bgnvf0I1rLEHWHb1rxZbTOF8+Vk1ynsN6OQVzQCiSrL5jIYF0F5Dbk+iR
+         0cRkU66G08rWsPN5ECNwGrsR27YzbhwD+5HWxCOG7azhtfU15ApGqMOvTXE+cNPz/GIB
+         JWbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790744193; x=1791348993;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
+        b=EqkWbsurLWBNhC64FiVMqYqfVTiC1zfOJJjazGat/VsqB521kJuN+uaiiilaoKKCJA
+         KvwZmBUGWXGQHxctJFm/DJP4llO/gsvTMn6Mx17UJaLBhuNAvoi/841Ga6t4dTAkZ+Bw
+         WSjS23zGIvcYGj8buERH1AwGSws7/oD/klLMFCCCNYglySduhhxBkguQ8SGmFpw99lYE
+         AppLeS3cDztnYmKenGEEjJM8R3bA+XHUnjSXvYHCsXfoa6mDSwixnJIxSFPtab6hGkH1
+         EWkVSTz7HkBy4UZ03DszHWpGQsd/6RN3IWpqy2B2dR1Q82QfmydLdk9GUZQtZ4NLNHZf
+         uRKA==
+X-Forwarded-Encrypted: i=1; AKwUvByf/3l6/yx89og+C+5JVZ+uvDWOD4oD+8u7+yfYAEPU2A0Tfqi/AITIaGFTYoD0gu9f2BSLUTxF5ppLpDQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRkGGNLGi6drmbQGOvabAmqNGYfeL+xDlIQcrzMh7xqQJsibw/
+	0+WKTpnepUAkUeg3EtKWWkh6Xf2XlI1ZSmUTi5VfsNJ9G8uPidpmt5+nHmevzj1wsR7QlkvOGdM
+	J6Wun387PUQB2/NvOyUTGsMPdOjIYmBQ=
+X-Gm-Gg: AYBFou0bqcY550gpacXPVUH1buz+5RoysNXaRqnmNHV0UoEThUpHhQFBhRxbiFIx/IK
+	CnFPR6yJ+Ke7oTC5xmq1uQhHgd+KB/p5Ut7/aletFh4SPaj3y6NFRGASss2OEY3SHSht2KiRY9f
+	/3fESI51E8EArvmNT6yAC2ghIHtxwJ0U4Ta98Ktoabi5XI5QeMsvpZmESxsCbvaHFdRRJmk1DK2
+	N0OVdq5FlNdIWHs2mf3FU/Eyzupfj+tVpZAZN3I01hFmXC9FtNDdtH5/Ad6Uwb7qoRi3H9XXtRJ
+	6oT8SkB29OCQHBh4/fAe2K2K2T/nyRx9QYOIAfGJXIMy727rx7XVrSfwilAgTNCfnlo=
+X-Received: by 2002:a05:690e:4197:b0:675:39f6:9bca with SMTP id
+ 956f58d0204a3-676834a58f0mr102811d50.58.1790744193227; Tue, 29 Sep 2026
+ 21:56:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|BL4PR12MB9505:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3245811f-79b8-4687-1dd6-08df1eaf0157
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|23010399003|11063799006|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ayOCT1fG2T03x/lAAdp2qOlsoh+JqZqUiTX95B41wWTTWWYwaCKua2Zs22mP7nZKqOQEsKPcXYCSUhZLstJADzV55ZQu/J1DUJN79oswv+/3nRPs4P64qj+cSQCFRqrr42rups2BtLVK4SSnEhmqQp66CBByBPz1MnvT8ZJx2kAhRRUjY0uANtFVIyC+tCNAPJ7FwgtN2NLwk/+i0zzXNk0DR2Y3Gl3/CwchVF+iksgXrxCyqPDp0u54Mvq5QdoIKxPOjhWySeXpd6+Gwam+cMRwqrtuvQbdJkBb1gGhxc1vHPMu/tmANapOmIxfkCjykJ8vqfLGdCJP7HgGn+ujr96m/FDC5F65TFj4tZ01k7672eUDryP6ff1HgjAvdfG6EpGaDHGml0mPoMfCch35X2kdvEd74OKnwHfz1A50XxZGMiVml88Nn4n+GyGD8Qaf+2pLu5/Z25I5Qp75B8qGhMbBYq+8BS1h/Rqd5zSBNmh0hFIR84rpD2kYc+7CXbqK+XSu5KyJ7HEKub2NWneHjdQIO5SF8ztQ4Noe53/PDpYIAIMmfgqnR/9KdruYf9gqW6gyjC8aC+f7LYzox7x61Au0QAw6Dz+2DIwb3vwdb5181fN/EV7mq0JYcqicNgmAz5UWqw6XLznbU7dZot86kCSJzoA8VhVzPwCWwre6tvg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(23010399003)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VFRIS2VXNFprQVBMSW1JZ3UydFNiai9kSWt0dGNwV0hBcjBVNkJCN1dTOW1z?=
- =?utf-8?B?NU1STWN5bGlTZis1N2tWMDk2dmhpQndpZHpTNmEwWXRvMldCalRIdm90eFVq?=
- =?utf-8?B?anhsekhEZXoyVnBrS3dUNUloblBVQXRSZ2RaT1Z1cU9GU0FHTTE0bXlGVVN1?=
- =?utf-8?B?SW8wM2ZvSlRrQVpRUFlSakRGMjVzNzhLWFZQd0VlS3pzd2N6aHQrb1BkMVZW?=
- =?utf-8?B?ZGZJMHVPazhQMko3emdiakFMcjM5VEM0QmhTczBFOS9KYTVRR3RFblVFWDh2?=
- =?utf-8?B?Rmpxaldud1BOSnI3ZW5nTkVNYWRuS255TjNHb3ZUUmpjeW9oVzlhSG1GbCtO?=
- =?utf-8?B?ZVZoanpFalJrMERMbHFuRFdnYmh4NHZSejFnYjVGbkI5VlVIUUJLSHB6Q2JH?=
- =?utf-8?B?MVpld3BtUUtycW91bjdBbTF2N2Z4WjNUNEZaSEV4RUNDbk1TNTJPY3Y5ME1w?=
- =?utf-8?B?OTJ6ZnZDQXQ1c0o1TytnTk9KVkZycm01dy8vQUk4TWdlZGQ5NkZGTDQxcysy?=
- =?utf-8?B?WmdsQmhDWWtKS29nc0NQVzBIdytZTDNMSkR5ZldmcGV2TXZqT21BUFl4STNy?=
- =?utf-8?B?clhDSVVKMXlqTWQvcTg0OVlkVk5uaXVkMFE1NlNoZGd2a0JoNEtRSjNvVWQ3?=
- =?utf-8?B?Nmg3SU9SK3JjZmxiY1VMUnkza1lOTTVCbFo5UndjdTRnYlFNVTdFTENLU0pN?=
- =?utf-8?B?VmRxRkpkVUlBdkM1M1YxVXRlek1vdEpSQm9xRi9abDVHM1UvdWI5UFJkNlRo?=
- =?utf-8?B?UDE2OE9kSjR1Q2wzdDY3ZllnZE1VcDEyOXozb1REQm5wSEtXb29RNUpsYVNG?=
- =?utf-8?B?YTZOMStkYUZpeEUydDBTZTFtV0JWSi9rRjhFVklZQWJ2UWx1bVlpMy9TejUr?=
- =?utf-8?B?Y3R6eE13Y0NiNndqdkpDUVJPR1NEdndabi9hSUlHL3RJK0dmYVpkOFFnVlI4?=
- =?utf-8?B?VGwwTCs3UXk5bUl6K0kyenBiTDZDbTc0NWJhblhQSEpxME01QXhvenl3cE8z?=
- =?utf-8?B?UG5ORjRJd2F5V05QMVhXcTVtai9ZbTJHUC95aUdCalZvaW1IaUFpWlRPdGFl?=
- =?utf-8?B?L3FkOUVNdzdSVEs1ZXU2dlVGeEFhUzZDTkRMTER6VEtuSmRDYnE1enVrdmxn?=
- =?utf-8?B?SU5tNkFYYy8wSm9uRGsydlFnOEhzQXFhWHdZdW1TbXV5S1kzRVZ3SHhQbkFu?=
- =?utf-8?B?dWVBUzMzYXg3eTlFMGxpMkRmOGJJRTNnRjBWbjI2OUFjcTREUmZxdzlrcmlw?=
- =?utf-8?B?Z0JqMlVtWFhkT0ljMFF2U3g3WDJjS3dXUUprS0tyTHNoZklwYUpBNlYzUXZl?=
- =?utf-8?B?SjlYZXBDSndiQ3Vkd01LOVoremhNaE9ibmNHVHlmT1hOaGdkUHNCUGZITStI?=
- =?utf-8?B?R1pLQjcvUVJ1RURiVXpORXNzTWQ1RFo2bGVFRndjR0NVRW5UcUlBMFdXMXUy?=
- =?utf-8?B?K2hhZWVuRXE4L2gyTk01RmNNd1IvRUIxK2p2NnZmL1dtaUtTeXZtK1J0MGFE?=
- =?utf-8?B?K1ljMnJsSWJOL29uK1B3NXZvT3dtRkZnODhrOXNvTVREdmRPV2xwZzBGd0s3?=
- =?utf-8?B?b0Z0Ylk3aXVtUlFiRzQwSzZ6VW5xSUszSlRmMHpET0tHZ3NINC8zTEVRM1RQ?=
- =?utf-8?B?Q2ViUENHb1ZrZ3NjM0VrdFFXc2czdXVtWk9kbm5aSXZjaEJLaFRuYitJV3Vy?=
- =?utf-8?B?S0Z0eFZ0ZUsvdjEzdloyTXhJRmJCQUVyR09HUGxzQmYxaTJEVHhVL2lCV2tx?=
- =?utf-8?B?UlkvTUlMMGlISU0welBtblpGYjdndGZpVEdOV2cxMS9lWWtVeWNheit2NlJG?=
- =?utf-8?B?VW1oSTNRbENyZEVZaHNKc3laZ3FiTGp0U0ZaUGEreHN2Yk9mbnc4KzN6MEpx?=
- =?utf-8?B?aFNlRnprTWpxRFhFRUdQM1M1WG5yUC94alZ3NkJQSFRsMXNHWTBoSHQyMTdT?=
- =?utf-8?B?NmcvTDNJeWhrZEw3VWVFYUdvcENHNnVhV3kvc0c2UWNsakZBbitlNkE3SXB0?=
- =?utf-8?B?dmk0K2tGQVNkai9ndWxqMERadDF6ZUhCcFNJMEY2VUY2TDhaaExXbGs4S2Ft?=
- =?utf-8?B?N3A4YnhyY0pONldydDljN09wOGVDd2J5SS9jd21Sd0UyeW9nVmJzS3M0aFIx?=
- =?utf-8?B?c3F1KzBoK2hrYlc2RWFLUGhGZjhPeE5KNytOYUJWR1VWWUkvSXdxc2grQXBU?=
- =?utf-8?B?aDYrdUxSR3h6cktpN2JhMjdnN2ZTajRIYU1LUUlNYk0wbzZqYXlhMlVUSnRz?=
- =?utf-8?B?UlgydmlmN2xLZ1B5QUpvQ0VZalR1VkNIemZod2ZIc05ZNzN2b3J4TG1hYUxX?=
- =?utf-8?B?K2FUdGEvN2NieEcwZVFDRFZwWE1hbmVnNUhLMDM3N0owYTVlL2pMWmwvUFMw?=
- =?utf-8?Q?DuUdDqBKER/ZXnj76J+2r1Ln120iQjaoIyL/P08HjNqRR?=
-X-MS-Exchange-AntiSpam-MessageData-1: m+6sC0ZkxdF5Uw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3245811f-79b8-4687-1dd6-08df1eaf0157
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 04:55:10.3045
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aB1jrY3AfGCuM13nsvS051+ENCrKS8LTpnBRGOkmjWWK7R7ILUIsC8sBF2ZcciVBxSb3IALtQ6orXYDGdC4PRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9505
+References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
+ <CAKfKVtGZH8OaXp0WtJSD7AAQb8BSWg=xo+x9jj1sbjSxjEanGg@mail.gmail.com> <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
+In-Reply-To: <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
+From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
+Date: Wed, 30 Sep 2026 10:26:20 +0530
+X-Gm-Features: AclHuK_5dLBTDCM2a4gpvqnnswpJIWECN6q0YsymVQT1CjxevikTIfBgbHvWtBg
+Message-ID: <CAKfKVtFkZ-T==D2-3OJeWUsRAzCE7_YP9kW1dDA0d3kjVWfBFg@mail.gmail.com>
+Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Borislav Petkov <bp@alien8.de>, 
+	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The DSI driver ignores the reset line if a power domain is configured.
-This was originally added to support Tegra210, where the power domain
-provider has to control the reset line -- at that time, older SoCs
-didn't have a power domain for DSI. Now, however, they do with the core
-power domain.
+On Thu, Sep 24, 2026 at 7:45=E2=80=AFPM Guangshuo Li <lgs201920130244@gmail=
+.com> wrote:
+>
+> Hi Shubhrajyoti,
+>
+> Thanks for pointing that out.
+>
+> On Wed, 23 Sept 2026 at 23:03, Shubhrajyoti Datta
+> <shubhrajyoti.datta@gmail.com> wrote:
+> >
+> > On Sun, Sep 20, 2026 at 11:25=E2=80=AFAM Guangshuo Li <lgs201920130244@=
+gmail.com> wrote:
+> > >
+> > > init_one_mc() allocates dev with kzalloc() and registers it with
+> > > device_register(). If device_register() fails, the device has already
+> > > been initialized and holds its initial device reference.
+> > >
+> > > The current error path eventually frees dev directly with kfree().
+> > > This bypasses the device release path and can leak driver-core
+> > > resources associated with the initialized device. The existing
+> > > versal_edac_release() callback is responsible for freeing dev once th=
+e
+> > > device reference reaches zero.
+> > >
+> > > Call put_device() when device_register() fails so the initialized
+> > > device reference is dropped and versal_edac_release() performs the
+> > > proper cleanup. Return after freeing mci to avoid falling through to
+> > > the direct kfree() path, which remains necessary for failures that
+> > > occur before device_register() is called.
+> > >
+> > > The issue was identified by a static analysis tool I developed and
+> > > confirmed by manual review.
+> > >
+> > > Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR c=
+ontroller")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > ---
+> > >  drivers/edac/versalnet_edac.c | 6 ++++--
+> > >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_e=
+dac.c
+> > > index 3a06b41c1d84..db3bf5a1345b 100644
+> > > --- a/drivers/edac/versalnet_edac.c
+> > > +++ b/drivers/edac/versalnet_edac.c
+> > > @@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, str=
+uct platform_device *pdev, int i
+> > >         dev->release =3D versal_edac_release;
+> > >
+> > >         rc =3D device_register(dev);
+> > > -       if (rc)
+> > > +       if (rc) {
+> > > +               put_device(dev);
+> > >                 goto err_mc_free;
+> > > +       }
+> >
+> > There was a comment earlier from sashiko
+> >  failure path calls put_device() with dev->init_name still pointing at =
+a stack
+> > buffer before device_add() copies it. That's unsafe in
+> > principle (dev_name() would follow init_name)
+> > >
+> > >         mci->pdev =3D dev;
+> > >         mc_init(mci, dev);
+> > > @@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, stru=
+ct platform_device *pdev, int i
+> > >         device_unregister(mci->pdev);
+> > >  err_mc_free:
+> > >         edac_mc_free(mci);
+> > > +       return rc;
+> > >  err_dev_free:
+> > >         kfree(dev);
+> > > -
+> > >         return rc;
+> > >  }
+> > >
+> > > --
+> > > 2.43.0
+> > >
+> > >
+>
+> Would splitting device_register() into device_initialize(), dev_set_name(=
+),
+> and device_add() be a reasonable way to handle this? For example:
+>
+> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.=
+c
+> --- a/drivers/edac/versalnet_edac.c
+> +++ b/drivers/edac/versalnet_edac.c
+> @@ -64,7 +64,6 @@
+>  #define XDDR5_BUS_WIDTH_64 0
+>  #define XDDR5_BUS_WIDTH_32 1
+>  #define XDDR5_BUS_WIDTH_16 2
+> -#define MC_NAME_LEN 32
+>
+>  static int init_one_mc(struct mc_priv *priv, struct platform_device
+> *pdev, int i)
+>  {
+> @@ -730,7 +729,6 @@ static int init_one_mc(struct mc_priv *priv,
+> struct platform_device *pdev, int i)
+>   u32 num_chans, rank, dwidth, config;
+>   struct edac_mc_layer layers[2];
+>   struct mem_ctl_info *mci;
+> - char name[MC_NAME_LEN];
+>   struct device *dev;
+>   enum dev_type dt;
+>   int rc;
+> @@ -773,13 +771,17 @@ static int init_one_mc(struct mc_priv *priv,
+> struct platform_device *pdev, int i)
+>   goto err_dev_free;
+>   }
+>
+> - sprintf(name, "versal-net-ddrmc5-edac-%d", i);
+> -
+> - dev->init_name =3D name;
+> + device_initialize(dev);
+>   dev->release =3D versal_edac_release;
+>
+> - rc =3D device_register(dev);
+> + rc =3D dev_set_name(dev, "versal-net-ddrmc5-edac-%d", i);
+> + if (rc)
+> + goto err_mc_free;
+> +
+> + rc =3D device_add(dev);
+>   if (rc)
+>   goto err_mc_free;
+>
+> @@ -800,10 +802,13 @@ static int init_one_mc(struct mc_priv *priv,
+> struct platform_device *pdev, int i)
+>
+>  err_unreg:
+>   device_unregister(mci->pdev);
+> + edac_mc_free(mci);
+> + return rc;
+>  err_mc_free:
+>   edac_mc_free(mci);
+> + put_device(dev);
+> + return rc;
+>  err_dev_free:
+>   kfree(dev);
+>
+>   return rc;
+>  }
+>
+> This avoids keeping dev->init_name pointing at stack storage and uses
+> put_device() only after the device has been initialized. Would this look
+> reasonable to you? If this looks good to you, I=E2=80=99ll send v2 with t=
+his approach.
 
-This happens to work on most systems due to DSI already being out of
-reset when booting the kernel, but on Tegra114 Dalmore, this is not the
-case and causes the system to hang during boot.
+This is already addressed in the ongoing patch series:
 
-Ownership of the reset line is no longer a problem with reset
-acquire/release semantics, so control the DSI reset unconditionally
-from the DSI driver (possibly in addition to the power domain driver).
-The device tree bindings already require the reset and it is present
-on all platforms, so this is safe to do.
+https://lore.kernel.org/all/20260724171945.2812749-5-shubhrajyoti.datta@amd=
+.com/
 
-Fixes: 4cc90d4c043e ("ARM: tegra: Configure Tegra114 power domains")
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/dsi.c | 40 ++++++++++++++++++++++------------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index cb88aafbd36f..7124cf648a1a 100644
---- a/drivers/gpu/drm/tegra/dsi.c
-+++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -1113,14 +1113,14 @@ static int tegra_dsi_runtime_suspend(struct host1x_client *client)
- 	struct device *dev = client->dev;
- 	int err;
- 
--	if (dsi->rst) {
--		err = reset_control_assert(dsi->rst);
--		if (err < 0) {
--			dev_err(dev, "failed to assert reset: %d\n", err);
--			return err;
--		}
-+	err = reset_control_assert(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "failed to assert reset: %d\n", err);
-+		return err;
- 	}
- 
-+	reset_control_release(dsi->rst);
-+
- 	usleep_range(1000, 2000);
- 
- 	clk_disable_unprepare(dsi->clk_lp);
-@@ -1164,16 +1164,22 @@ static int tegra_dsi_runtime_resume(struct host1x_client *client)
- 
- 	usleep_range(1000, 2000);
- 
--	if (dsi->rst) {
--		err = reset_control_deassert(dsi->rst);
--		if (err < 0) {
--			dev_err(dev, "cannot assert reset: %d\n", err);
--			goto disable_clk_lp;
--		}
-+	err = reset_control_acquire(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "failed to acquire reset: %d\n", err);
-+		goto disable_clk_lp;
-+	}
-+
-+	err = reset_control_deassert(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "cannot deassert reset: %d\n", err);
-+		goto release_reset;
- 	}
- 
- 	return 0;
- 
-+release_reset:
-+	reset_control_release(dsi->rst);
- disable_clk_lp:
- 	clk_disable_unprepare(dsi->clk_lp);
- disable_clk:
-@@ -1623,12 +1629,10 @@ static int tegra_dsi_probe(struct platform_device *pdev)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = 4;
- 
--	if (!pdev->dev.pm_domain) {
--		dsi->rst = devm_reset_control_get(&pdev->dev, "dsi");
--		if (IS_ERR(dsi->rst)) {
--			err = PTR_ERR(dsi->rst);
--			goto remove;
--		}
-+	dsi->rst = devm_reset_control_get_exclusive_released(&pdev->dev, "dsi");
-+	if (IS_ERR(dsi->rst)) {
-+		err = PTR_ERR(dsi->rst);
-+		goto remove;
- 	}
- 
- 	dsi->clk = devm_clk_get(&pdev->dev, NULL);
-
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-dalmore-fixes-dsi-reset-4f3191dca886
-
+Please have a look and let me know if you have any concerns.
+>
+> Thanks,
+> Guangshuo
