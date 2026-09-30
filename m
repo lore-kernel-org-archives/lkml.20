@@ -1,75 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001953E0C44
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790801971; cv=none; b=B9olDTJcKnel5uCOOFRiFVP41YWxPV6uSV3ZKBEPMVTUutO0KjblIf5u0+4GRub0yCsTjaLxX9BhYhcAdOyUIiFhwfEsoJgR8QNhoCFmrGsc7VHaGzZq8fPo5NeCviWxxVEzkoxhT5wsoJWMmd1guGNhExy4XbNsljSOOWEJK8Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790801971; c=relaxed/simple;
-	bh=x2xDoi432TpdS/q9V1G7eQayt3YVdg1enz2iU5BviuI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125B64F55B3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790802011; cv=pass; b=YqpQPpp4YuhPwJFXd6k5175901Gfkg5ni6GGbtJXBjjyhzKYMHS3iE5kZkiEdvO1JrrjT6BaVPbqtQirWR5JrLsXVCIbDx8QUTw1uqnFlbh7nuDkyVCj3v5GSVACE9hyzA/QHTnfYdy1cYis0fUy1MCu/HTbU+fFj7fH6tIzuQI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790802011; c=relaxed/simple;
+	bh=rcs4n9zECvFTiJ4zFF1MuTa8jrtASPjzZuKgErXZ6NQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FzDIFcUQf+ETWuyGCfmqxUJ4IDHd5ptZqDD2xbMfxyhDkf8hi9XAnbu6D1EvKxW/tYhgQUvwwXX0qJZDA5cf48kigG8NNg9PWXDjQfgaJe76HfCDMOL8umdj5C5VPIsFdl2LOYOIwL2qEYayAB6bpvR+/xy7VVLFA/oVWPAzGtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T81mUW/h; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=cwi5kVN2TEAhyR5rJAoJEA0J3Ts/uyjV3y56XuthsIOQqZf+6JfVSTvqyrLCkA76n5pR3X1FraPlGYGo4BiSNwJ0gT7+Cv2zBFZOIR4gFMe1zEucbaCK89FpzSvys3s/2+jNAtFG6AbiYoT8zeDHnh2fQmek10BtlJTpXuKwTp0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PLB+Bf7f; arc=pass smtp.client-ip=74.125.225.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T81mUW/h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9819E1F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:59:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790801969;
-	bh=x2xDoi432TpdS/q9V1G7eQayt3YVdg1enz2iU5BviuI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=T81mUW/hw9yHMlbon3JBub2tX+pVw8QbZdtVbmDn0vR43Xjt2VemsTg4o1f5tW3Pm
-	 WEqH5dlsf4bfnQQZ0QvMkRjZbGSisiumU03R6WRWtxV1l8jhZFJHlMAnec8D3A/ody
-	 6MMVT7x8s0bfoBUDGPWDaUK9JH0Y54tJo+lae8y3NLu1IgvPJ6prveTXGQeFjp0K4U
-	 IHxh2K4p3ZInzKjnpi6wQ5BSWxrqVlOVL7ZYsKZ9ke0Udiet0x3OZM433+woNhGVnv
-	 uGdCMz51/L7v8BnzgCvEYPdIZc1IIo40olrp7U0vYk49pNDgeqwwd+N/T4dHC2vaRA
-	 BcqJhtJ2SiFpQ==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64b06fc66so40835501fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:59:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwejy6CMD3ZnNNqxiRb7AXth3W2OE4erDCxStVNoKfLwZryHQSG2rNIGFzgh8aC+8aEj1U0xGBn5uxum8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPa7WyFWgUE4dfwP6ZOwfoQFEdcGcD3J03Pn5GWoaNRtBtOv5b
-	8HMoUOHlKeWGEpLy9MzrH1dAPdV3tiMZspvDbMQTfn8EEslzHdD6dkKriwRTFKhZUFpdouZPi9L
-	uTiX4AD8LcfnhvGJ4eNb2id9SL0CCSZg=
-X-Received: by 2002:a2e:be07:0:b0:3a6:3074:1213 with SMTP id
- 38308e7fff4ca-3a7791f6853mr8204661fa.10.1790801968394; Wed, 30 Sep 2026
- 13:59:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PLB+Bf7f"
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48b0514ad8fso202010f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:00:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790802008; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j2L9q4Q0EwUMbnZi1s1HGyubEQ51FmvThhD9nf4d62ykklrVD/lEnBN53LQzyTg2SM
+         6rwLw+YdVT/OYHL7ycLSME6hjZ/wfCh+ytP0PCQEIsOemybyJCU6y9nGQ/7lcDFVcUN3
+         iLZbfrbEXifcak7OWl5Fey7RMxsFK3GWLvcODDU58LnexBDesK5CoLvDYwEjKiPFmEyY
+         Nun6eSeRdzAFqPFR8aWbQIPHyE15099dZ2TgegI5hKHSedD8IfXjqX4MMLf7yVdf3O4U
+         rODRAmmYwd730iNasTKp/g2YhC9jARM7QYG6nXx8ZGu7IGkaPcOJ2ez/QEoRrIww30dJ
+         OHWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
+        fh=LxE7fQQPg6deE/ietX1rWEfLfMUwpfCx6cYucXlnNAs=;
+        b=Lb2QA7sfkBjqoqwof3sVPGgmMH/ipkDeRCYaMG+NT1emsgynFlz9BsumMQ4DeuNKzJ
+         WeKd2bw5MpZmDsl8xw6VdCeLMpF1kdGFVMEB492Z6YA6ut8MjbF/XEG58o/+nCPT+RgN
+         71T2kuxpz9+PgXPvunzS1imf5KOSiXN/2keHBh8xi7Vnfvp7FSPyxF1vhvbSffPu+w1E
+         M/vff6FqVQf/hQnjazeRazQVbtx2fuaaGu/XssAZtSXXwXhHfqO4ERR4eU+GO9IPQi2R
+         SxlPRmO+US59kXnhU0TISU2XRuRC4QXsJfH45wkkmvopS762lyi+TMceJTsYGHZ2/o6l
+         FC7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790802008; x=1791406808; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
+        b=PLB+Bf7fMCvu3ppNvE9pTgQFvwtzCq1sOKZkWMRRk6QOewX0v7fDRflUtnaLjHnpUZ
+         pI3/Q7GsL7sUQw9+uswlS5vkK7+JVlze9hkqmUS4kqzu+kq4avAVIgIEK8UFVhQxaYoc
+         hzT4X5r++uHP8+mMCyHoy0+fDPAkJ13nYXpfLYedbM2djDbgZfmvIipwbPAckqqqS4jC
+         f3/rAXTVtdy1q1cZAvTnAZYGRGkFwGqqbwdPOxH+cSc8D7EaKXP81Ter6b8ZlCfUQcFF
+         71YFWWnp0h0rYm1OVU2JB7e6zw8AETI5u6h+/0hOZBNFedAoDf2Z9BAmMVdMeAw9FT/O
+         10xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790802008; x=1791406808;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
+        b=UVGgwVR31IYR6M8y5V9RoXn4Gs9yQlJ5q+NfIinHOCbR6HaUgqdiYREONVtI2hdyc5
+         VQcRm62gPvIQFOatdx+KtfMnpQxpm0Sy0DtL691YJp+XRUZXaw/cxtybMZixlC6ChpxE
+         iSOSVXaLo/RyzI+yw5+7b4UawUF12O1wwgVbr7gei2ZAmtLgF0wR5rvvHUlQdrnoT0Su
+         nhPQk+rJrLryPK8G+v5wp44YjVi/0HUB4pfQRIb/mRzNY27BbF+QZnbVPeL/zqVLv521
+         erpJl0ioOAda1FBdQklVaiGqNrk1bgKMkNUknd0kCIYr6eEEGELYZrOqigik9jt+h8Up
+         1dMw==
+X-Forwarded-Encrypted: i=1; AKwUvBynicGryanOMPR0ZGS9mVHNi5H//FJk7Xw2g6xm8cgNvHF73EU1Hm6jjb/juxbl4ZDQtXUeIsLxMeiAHao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmlM/KjgjF61vZUkmwlwqaQ23XVyy9Zu5cYdiGXKsyWKj9qAd4
+	wiJz53pauFvDiXR3/9Y2Td/jQC9o199k7JUrTBkIaf8N9ismv494jat5ZGAzDsXU8LznFr8+kaS
+	G0BBdwMvKlzFFGv4CynSaWYP+XcOz8kI=
+X-Gm-Gg: AYBFou31XkBc5CeRGfg6r4XU+PgQo0iVgWMFRmW1GZUIgFEWAra23IoxAoCKONVAAr5
+	HTgqtXU9iCR1SCHkIKUxxfya+/kqT9kVUTkRfeqNqjOvp42oR+A9MO/zOrMyqTsUoHwtofJ34t7
+	vR25sIkRGE9Mwxpi7NuDSlbEETGQQqGvAKRN59uPwfkQO0EcijpsArFcK3h6SPjaiiO3WVlEvFX
+	gjzEzlb8CQUcf/zaKYCmUiuH/Jc9VbDIfkffF2WocXl4SF9ViigBeE1VM0aXR3ekmKIM7EpsaI5
+	BXTbkxJgnps8vYr+gR/ksnuxJoSr02PUHqpLykEnk9pybYUHbYu++lDDHdUgb3xE39rvBxg1np9
+	gFnoQJLB9OTxKi//CMTecyAF1aQIEEcV0351LHrzIpjwLkquuifRdRutnZW6WtqXX/Uz6muo8Hm
+	LcA/kCojwi2MJG7w0pkA==
+X-Received: by 2002:a05:6000:2dc6:b0:48b:68:594a with SMTP id
+ ffacd0b85a97d-48b024c5716mr5289021f8f.12.1790802008034; Wed, 30 Sep 2026
+ 14:00:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918161407.2300-1-will@kernel.org> <20260918161407.2300-9-will@kernel.org>
-In-Reply-To: <20260918161407.2300-9-will@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 22:59:16 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmasCTjrOhoh2adbcJOoUp3tpyKRoW0sQ208Yu+gmASyA@mail.gmail.com>
-X-Gm-Features: AclHuK-WMilLduU0SJSUy6DYdYt0XQQZ-96_5ql4TiYDpBI59IN3Gx8NkrGan-w
-Message-ID: <CAD++jLmasCTjrOhoh2adbcJOoUp3tpyKRoW0sQ208Yu+gmASyA@mail.gmail.com>
-Subject: Re: [PATCH v2 08/21] scripts/gdb: arm64: Use TPIDRRO_EL0 instead of
- SP_EL0 for 'current'
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat> <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+In-Reply-To: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Date: Wed, 30 Sep 2026 22:59:30 +0200
+X-Gm-Features: AclHuK-U6pulImpn0m_SQCkcJ5kAgToTplTEZZASDrUoYoF9BUdVXxkuuMMc3Rg
+Message-ID: <CAP01T772Vgc4=ShFHQ5bFBAF0PYuQ07xe3h+biT7LST-tahHhg@mail.gmail.com>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Albert Esteve <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
-:
-
-> The current task pointer now lives in TPIDRRO_EL0 instead of SP_EL0, so
-> update the gdb 'cpus.py' helper script with the new register allocation.
+On Wed, 30 Sept 2026 at 15:57, Neil Armstrong <neil.armstrong@linaro.org> wrote:
 >
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
+> [...]
+> >>>
+> >>> Changing the mindset is the hardest part of it. But once you are making
+> >>> the shift, it's actually much better to work with. It doesn't mean you
+> >>> can go yolo. You still need to be careful in your choices knowing the
+> >>> impact on your users. But the API at version 0 is not frozen and you
+> >>> don't need to maintain it forever, especially if you control the loader
+> >>> and the headers used to compile the BPFs.
+> >>
+> >> It's really impressive, but there's no way this would become the de-facto
+> >> way to program the panels
+> >
+> > Nobody said it would? And like I said in my previous mail, I actually
+> > expect us to keep merging panel drivers. Do I think it should become the
+> > go-to solution for simple panels? yes. But we can always make
+> > exceptions, and for more complex panels we should totally do a more
+> > complex driver. Like HID has been doing.
+> >
+> >> and if the motivation is to make it simpler this implementation
+> >> requires adding bindings and bpf programs which that are the same as
+> >> native panel drivers, but won't be able to work until user-space
+> >> starts and will require to be in initramfs or rootfs to have
+> >> functional display.
+> >>
+> >> Not sure to understand what are the positive features here except
+> >> isolating the panel code in a safe bpf program (is this really needed
+> >> ?).
+> >
+> >  From the cover letter:
+> >
+> > """
+> > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > difficult to support and require pretty much a panel driver for each
+> > panel produced. Most of them are pretty simple, and require an opaque
+> > initialization sequence that is usually poorly documented.
+> >
+> > This creates a tension between OEMs and distros because OEMs will
+> > typically get a new panel to react to a sourcing issue during
+> > production, and thus need some swift turnaround between getting their
+> > new panel and it being operational in the OS. Distributions on the other
+> > hand can take years to ship a kernel with that new panel driver.
+> >
+> > To solve this, I followed the example of HID-BPF and wrote a panel
+> > driver that will rely on BPF programs to perform the panel
+> > initialization. That way, we can ship the programs separately from the
+> > kernel, and with a different lifecycle.
+> > """
+> >
+> > You can disagree with the solution, that's fair, we can also discuss on
+> > how to solve this problem, but I'd appreciate it if you weren't claiming
+> > it's all useless.
+>
+> I did read the cover-letter and I got the arguments from Benjamin, and
+> while in theory it could indeed solve the issue described, in reality
+> it won't for the reasons I exposed.
+>
+> And since it's basically allowing to accept out-of-tree downstream
+> driver instead of upstreaming, I'm kind against TBH.
+>
+> But I'm open to discussion, and I'll talk about display Panel in
+> XDC today, Plumbers and ELC next week so I hope we'll find time to
+> discuss about this in person!
+>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Hi Neil, Maxime, Benjamin, and others,
 
-Yours,
-Linus Walleij
+I've been following the patch set over the past couple of days, mostly
+out of curiosity. You folks understand the details of your subsystem
+best, therefore I trust you with that, but I've seen a lot of
+misunderstandings which feed into unjustified worries about how some
+of this will work.
+
+For clarity, as several people have already pointed out:
+1) BPF programs ship with complete bytecode and line information from
+the source, so I don't think the concern about the program being a
+binary blob is justified in any sense. The verifier has to verify it
+after all, before it gets loaded into the kernel. They also must be
+licensed as GPL to have access to any kernel functionality.
+2) Adding BPF interfaces does not lock the kernel side ABI into a
+perpetual stability contract. There have been several thriving
+communities (sched_ext, HID-BPF) which have used BPF successfully in
+practice and have never had to make suboptimal technical choices
+because they support BPF-based customization. The interfaces have
+changed and in some cases completely rewritten without breaking users.
+Of course, you might decide to be less or more graceful w.r.t.
+backwards compatibility, but this is a choice left in the hands of
+subsystem maintainers.
+3) On top of all this, there are several mechanisms in BPF programs to
+detect availability of APIs and adapt it during load to allow programs
+to work across kernel versions, both for functions the program can
+call and data it can access.
+
+As far as people being able to carry downstream changes, I think, at
+this point, that is already trivial with or without BPF (esp. with
+LLMs), the only thing you change is how easy it is for users to avoid
+being tied to kernel release cycles.
+
+With the right incentives people will end up sharing their BPF
+programs with the rest of the community. sched_ext and HID-BPF are two
+strong examples of this. All programs get developed in the open with
+community involvement, even when several companies make use of them
+internally for their production use cases. The theoretical worries are
+fine, but as far as practical evidence goes it has worked out
+positively for everyone involved (not once, but twice).
+
+The only valid concern I saw was the dependency on user space to load
+these programs. We have had a bpf_preload mechanism in the tree since
+forever, it has not found much traction since existing use cases
+didn't often need the ability to load programs early. We'd be happy to
+explore how it could be adjusted, or reworked to better support
+whatever requirements emerge from this work.
+
+In any case, I am not equipped to decide what is best for your
+subsystem, but at least from the BPF side, I saw several
+misconceptions which I hope the above can address.
+
+Thanks
+
+> Neil
+>
+> >
+> > Maxime
+>
+>
