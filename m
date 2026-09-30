@@ -1,187 +1,157 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011051.outbound.protection.outlook.com [40.107.130.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C374E324C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56264F85A3;
+	Wed, 30 Sep 2026 14:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778601; cv=pass; b=R+5zV1BIrKhifYS3OqNJiK+SmEvdXJUAr56aB7dP4vz5LIUvRMwHKYWenSUoN4zSGd76wskWtPUuxI2k4KEBFazqbqnBp1xiNxGDU6ysxh27UJuDHaIF7w268QuIRZM54enIcqyjhDRdcqJV/3RqtnpK4gI92T0lo8fk6pP3ji0=
+	t=1790778670; cv=fail; b=NsLukPIWJS3o1ujvT1fcNyMX+IbmLXbDG6pb3s7wtytQdDmWaHHW72NctMoDETd+nTAgIrbwSkmSrrhkW/SmF388tlFCAwCTrIAJLp8tlEDwNfJqSUZvCZANq9ckcBZJhhn39o2tyddLzKBz2Dd7s9OMQaEVBZSAarEc7IeMnKI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778601; c=relaxed/simple;
-	bh=Jv5f1g0f3qDS45IX1yQFN/XI/1HiyQaIpDbEOG1DCc4=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=BZ7pB0yEn1o3csk06maEgffjQNtlCZUR2I4+EgN1OY02PlO9326+64vwXi6oArdTruZDG+RmHNsgj6H/eB94kMEuKl7KSy6CUj7hbLxUkC3wxn0+aJylKvLL+4XemV3iBtTksualQmOYJnCqFobIfm0cdr3NLPO4oJyurxjpfPA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=JtZc2h8E; arc=pass smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	s=arc-20240116; t=1790778670; c=relaxed/simple;
+	bh=ZiKy1kWkEIdlSTis/nh7AaPDj3lq69NU8+AC943A3vQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MFwLd/uzXW8H6IHSfMQ080NhyRM5p75HwYR4f3isqPEsDBI90a8KigDIk/5o3XNr6CiPLhq5021iPnmc+CmHNXNCmwjvKi3EPOGT9ePiI6Sgh2GQex1erHPDh1mjfydv3pPbfzkQQ7XAJqp9SpU0kBlgaGh3oeGXLEGOilWCuzk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qquOjvdf; arc=fail smtp.client-ip=40.107.130.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="JtZc2h8E"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-532db7db0c6so50023291cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:29:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790778585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YZEF4Vr2mVXOCBSkTsOhx2md4MywNk/c1DCdXqumLRrDE/g29Lndg8f/cJkIaM0yyn
-         TIjZQAcDrm5MM35shXzg4IT/BVPyG9n4l1ZivR45ODxpdmWZqkE2fKL31a7VW9CEy/Sn
-         FIYXyZhbm1y9fbJLY2iZib/mpNJVMuWHPtl9AXBS7ndFCw1EWhCYNc83if4vkeNttmJT
-         9EvvMLEQqT8QxA+0q1AAkz5rrbrgk9eZJPQqsw+tAMqzbJRrHUAChahHOQ/KcRp8HCV8
-         /iyuGB+3a90N3EsIoUHcB7rLLnn1lzgdojPtzmWIS1tIL7p4R0x1Liuu7opgOinLdAJk
-         Zgow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=bFcOr5qvsPCgBjFZ4BWLUmj9QlCgJD693TK70ZfQ/Lc=;
-        fh=qY5L/48xDo+d5huG3YY0GjX6Qga3DN64V2PQTM6K1m0=;
-        b=fTXscBViT2M6OwP9vQzQUXXrigtmL4PCcD/Lb94VF5uJaAxPf6m/27lby3R+9xpQDp
-         WkfIjp1UEGK7mr7sS1Tywm2xcWFYCkLbb9ZKkdJy6ct7uOfyr+6BeQu1K+O9hpniIWp0
-         fIN4CGGni3lIyOoZpIF+HSJtWUKmrA8bhOgFDepModdqZZw/lOCLS1j8lazD96ARwRVD
-         Blsia4uL/rdtBYze2+1TE58uasRlAGN64qwXH5ax75C63GpfrMRJd/U7J/X8BugXSgFe
-         3xE+NsrJcICtNxSqoiPDKclUjmINXBLfRy43P9x/RqcbTKxNUfo5uD+VSsndr+ubjW/4
-         WGYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1790778585; x=1791383385; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bFcOr5qvsPCgBjFZ4BWLUmj9QlCgJD693TK70ZfQ/Lc=;
-        b=JtZc2h8EQA45wKHjoOhwjBPvJIRF+85Eyx9ImkE9V6edmGXF91BJBPX14iSyK7TyK8
-         2ryN6nFxlROoSwmDZaf24EgMB1C/0riOHVLkH94bm6pdZs+12tQLuIFoulWdm8xK4NUi
-         RWKl2Lup3bX3feQudkK0NEhGsFCbRAeccwFUA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790778585; x=1791383385;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bFcOr5qvsPCgBjFZ4BWLUmj9QlCgJD693TK70ZfQ/Lc=;
-        b=nXupy3uY7bI3+hGRo5DqFdAFZ5XzwydYHO1GTsYZfjd7JHoDDPqdqriHAQmZ6rJH8x
-         R4Bp7EUKMM+U1psjPTiXpXMhJaHvDG4uUmu8u754y7JoHgNxLd0a3uGE03IN6QErLVtG
-         lj/4G4+4ZbgxJFi30XjdJnZKs0v8smL8ph87GGo7SzbgsWzTj9umU7+n8PHd3J6ZJg3i
-         xHU1E8TpiEMcKe1q32tXxm5d1CzKAYit7n54tg//9hBbPEHXpYXHHVFdjb4EXpYkxt+N
-         KWpvBwLbDxdMrnqbZ2Zq/p+H9YHP5gaVZcGg+WNG1gBnAWcFvGxM1G98B4POVXKeQVmt
-         +jng==
-X-Forwarded-Encrypted: i=1; AKwUvBzFkP+rOTMXPh85J3qiJd9HQBa1Y+7nt7Baa2NrTgk04khyEZf5x7uJVfNG+eS6/XHazr8xKBGawa3kWLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKDLDmI0yK+B0dFHS+83orGEI3j1k8BSIdMeHn/pnEvKUsE3kt
-	Uzn2Hn/scdv49MxkELim1yLdMco/Oy7TCyu/07ZIhALRcbE5RB9wDiu+mkftBtkoJvBBpngJkBH
-	VSKR+nlqOed3s35s/gWqo2ja+ELAlvyDclYVUcbb37A==
-X-Gm-Gg: AYBFou3pjfI0qOXFsYe4idOFyIIy9bzrUeZ4mY/gAPdEKqrZf+BQXlPZDrqqwR9XkD/
-	ghj3ZvFIrR0lvTqCsRvQrV8V8i7glb8e9kyvp+hBv3OVAiEoslChwFBW24QWge5HCAdoL7PBIgn
-	zX3BmKXNXMQyPHNGGwwMDuzvJwtEn3eo40MOB+y7WitLw0YfW/p7ZFbCOloaxmPxFrnqcicg6KI
-	FLiYqGW619chP79hyNILbnYUhngVHzBDw3IV8xt9f0mfkNj0i7TwPhPvkNK/i+Egt9f8aek49S2
-	1sINbPVhDsfFHxKHTNgv0+zR4h17APLnDXQzMuvGmzH5EUgsLO2IKe0GUuK0GQ+Zlc0L9QN6LaL
-	6y9rn3cJqK4xyGg==
-X-Received: by 2002:a05:622a:258f:b0:533:32f3:1db0 with SMTP id
- d75a77b69052e-533742bb8cbmr29673951cf.6.1790778584578; Wed, 30 Sep 2026
- 07:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qquOjvdf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CEka1IfhScaRixbjEClRSAWWd3yncPj5BQWw4RYA3+UXFwwqftJKtWZPZtzEMczwFT8U9PUbjdp7sv4sVdRVb8+3MRAlGAYsgjgtm4eut/yU2TRbkYkT7nqmQYI8pXCj1fN+RYyQppNfKeXrUk2MaoJfZ1mcmTX+9X4ktJGdalJTKOdLLZLHE2RH9NFVVrCcRfwPS6lexnBdg6JDtado8SRPYZ+EsBhP8Ko6tc1Hzwm+3J5kAsNqe9qJh4EURmC0w40p7z4mrY6/6WICT6sAtVRXrjWEWUKd+W1895zwAgVv108C+mC74P7aq4xTc5ZUSK+xGKzkH2qTDIqeGDYBRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NVPmypwfmvhaRXceDyE89HUXkfqO2etr3BOBhCF0Fpc=;
+ b=d6667iWnXqaw069M4gDO5qFxUja0bDzR9YydTEDcf3G/z2OPDoVaUygitXf8Z7QSfXiDrKrWa4+Ui+q+kdzCbeh41AADYGiFLIB+A0kaIxXJmHNvvwmHQO9bOvgxFztUr5IUjoOs0qj0mZhdcLlCVuGB0uYLdnPOxoLiE12k3WNN6GYOhgCg1UILCEl3MSMZOdW4qRm7976HZhlLsSlfcNdpvXGEvX7bTYIt+biQwZeAnNrnvoczQCFeHET3szE11jE2rDSyG1L/VtHtEKIYoHkLKq8ZiVLtD6RCdjLt93BHly6yXbqjrscvuq9LtEZTYQTEgchSURFQe1BfgwUaow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NVPmypwfmvhaRXceDyE89HUXkfqO2etr3BOBhCF0Fpc=;
+ b=qquOjvdfZEvuGHOgjBJ2h4kbMLhOMd0JPyjdcbvVezLahnYwfagMwvmx4DwG2judYTNs5lSc4BnJqBu6455hBNkI7CiapKf8VarbGhxyDInN3m4rdARTnJI5yM5UV+sQ89lTnEOzbAxtZIwbu21L2dW3zq7XOzlzaDWrdJOMZw0GgIvQFzUIYsT1o5EbPh4KTWrDrZ+5WGJ8ZZyQ8W/uiqBOYu2/6kFnKM27kYBnAKuCvXZOQEQMJ3y88XioXc2DDhA0lAm6dNkxj8dn4t0QDSHHn4tUdUvFBoYuuldjnXDPaAoQrR0whXro1miJXPJ9lmUOBAIADN4RShG2vHXkbw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MA6PR04MB824352.eurprd04.prod.outlook.com (2603:10a6:250:50::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:30:58 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 14:30:58 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: freescale: imx8mm-verdin: add gpio-line-name for CTRL_SLEEP_MOCI#
+Date: Wed, 30 Sep 2026 10:30:50 -0400
+Message-ID: <179077863418.520353.7820396796794402966.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927110508.60922-1-francesco@dolcini.it>
+References: <20260927110508.60922-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8P220CA0028.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:348::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 30 Sep 2026 16:29:33 +0200
-X-Gm-Features: AclHuK8GeOe_W3mvOTyMrVDZeZ25RiRcVppHiB0syijS4_yNrxLEymVmpXQKS-M
-Message-ID: <CAJfpeguyOXGQO4Q8rSAc8GxExTJU0G2o19fxRnh_93GvAoNcRg@mail.gmail.com>
-Subject: fs_put_dax() vs. dax_holder_notify_failure() race
-To: Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, nvdimm@lists.linux.dev, 
-	linux-cxl@vger.kernel.org
-Cc: fuse-devel <fuse-devel@lists.linux.dev>, Carlos Maiolino <cem@kernel.org>, 
-	linux-xfs <linux-xfs@vger.kernel.org>, linux-kernel@vger.kernel.org, 
-	John Groves <John@groves.net>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MA6PR04MB824352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e42204c-78b3-458d-d9e5-08df1eff71cc
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|19092799006|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	To6kf4OS4he3AApqNKYwkNmUVCBQP8JKQ3U2AYhrHYPIAjlbRHFyPu3ke1MEushzWIGHCSCabHaoC+glgZkq5izxiesiPlViA0fXipGKP8ZobBccZKiha61H+iVmof2zc4qH6vPKKjEP8MWwU7489oMkQmqFFjgrxxijOvl86dsy0LsVTD8mSJqCdSoImVmFVLKxKglhHjRJTIv9lUk7pVimpIsSDooqFvMXt5m1AppnG9Is1eDNLgx3NmW+abgILpU6AR3JCuWw0f/P8/HIcp/6PGvvkvxhA70pAkkgdZTxLX9DTYpe055S72RlreyznwrkXYYhY/a46pVtAP1DdeEVNebUaCXi4LmXRQXMe7GjGkachs/aZZ3teCuBVzoK9iY9PO7YFNRHwU99mHk4p7QPjbMUa747FyI+JlDWedrn8Nuc0a6rA1Hd+oYrkaPHn9baJC5++8f1D8SH1ssjCVI2I7HxUtpoIxQ0kC25UtDkpcHhM9Uw4/sl1zb+xMc5AExxGYmtqfJvlPlTkN5rcoMe8feJ0BOTgz36Muh2UNJiAdfH1C+hXPCUO29AyCi3WPCPCfskPIZFW/T8ebQDWqM4/SwPbK/Ic3aTrywSTiCtR5SraRyN17Gl2n84t6sZQ0Y/ZjLPkZW2WYCTMIM8rGwnzdhwCvCnhI9bte3bmMU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(19092799006)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L0ZrTG84cUhkemdoUUx6SURxSXB5Y2dHMHJOMGw1a3UvRnRLYjZFNEI5Ryt0?=
+ =?utf-8?B?TTVxUWFuamF4Z3ZwRnFsSERQWG9pTzJFZE5ESlZRQ21DZExVcSsvZnJ3Y3BV?=
+ =?utf-8?B?YmY0WGZSUUpqTWJaT2lzN1dxWXU2NGNQc0RJSFRrcUFMb2dzcG01Z214MG5s?=
+ =?utf-8?B?SDBvNlJ2VTlhY1hFMUhKNHBFSlF1a2hML1MzM3M4V3BpVE1CVFNJWmUzM2hP?=
+ =?utf-8?B?bmVsY1k2TkVINDA0bC9ScXZ1TXlGNGtIMmlobGZnY3BlZnAzK0haQk1SNzlJ?=
+ =?utf-8?B?QnVZbER2QXMvR3pSNVFTTjRwVWNnWDMwaFg0WVA4MTlhSWlWZUtycHJGRnVs?=
+ =?utf-8?B?QU1TWEI2cnZYTjN3eFBsaWlPSzg5eFkrOEJRNXRETWdsNFEyVCtiVjFuUUUw?=
+ =?utf-8?B?bkJ5YXNBaXpZSjBNNHdWSlVDVlZ1S0Z4bEFSWmlndDJJVElSdnhBc3cxMHdy?=
+ =?utf-8?B?aXVXRGV1N1IrcnBDWStORjVGU044aEkxV2taeVlzUkh0Wlh1N2xQSGxuNHAw?=
+ =?utf-8?B?YURkclA0aW9EYlBSSVpBaFlSaUphNmNaNEQxcE9kenVwNGZFcjVhRDVyMjhk?=
+ =?utf-8?B?bXZXcVg1NkFNaUo5OUZtVkc4TjY5d3lNYS9BbE80ODRVbHJBZWpQM0VWWHBk?=
+ =?utf-8?B?ZW5OQk5SL0JKeTIxcElRQUQzTEE1bTZ3NjEwUUZPcHpRdEhnblhtSDBMTHFl?=
+ =?utf-8?B?SEFzODFXbStFbXl2OFRlMzAxc0E3WW0xemtzNUhIOWQ4ajY0aC9YbHdNbi9y?=
+ =?utf-8?B?ams5cnZQU1NLVnFlZnNJUFF4alpKdDl6NTdabjVwSmZQeEV5dDkxWC9GVk1T?=
+ =?utf-8?B?OTJqWjJWczNaNnU5WjQrNm1SMWh0M25BemtYSXZhV1l0MTRmY3Ixem1wc0tO?=
+ =?utf-8?B?QlVWWjV0UXpwKzBxQlZFdm5IcmprcG9CSlJ0bUoreHlid0VyaDlyaE5EOTlL?=
+ =?utf-8?B?aEc5QU5yZjdwakxqQStaM2VHOU5FMVBjaUNSNUNPUHN3dDc0WXh0S1VZaDBj?=
+ =?utf-8?B?eFJKVjBMRnJjRk96QzFPYm1VR0t0TXlKb1JLRFpya1hiaEJlalVWL1N4cDAv?=
+ =?utf-8?B?aVRpaVJ2bDJWRUIwOUpLVVNNMnNPWVlTYm12WGIxWkF0ZE41cUJ5d0kyaUVw?=
+ =?utf-8?B?L2owSDdzQ1RPOGtmNjRMM1pEL3RHYjFlRFVLQ2RJM2V4QWNMSTZXTHQyOXpU?=
+ =?utf-8?B?UTlCTEpzdUJCcHpYN3FLdlJEU1AvczVYbzdQK3p1NGh2V0ZtTUhaWGRzclY0?=
+ =?utf-8?B?UHZEdURlZTNzeHc4TXJ5UGVaRlRIN1AreGd3VWNxWk5lYTBpSEtGQmRYa3E4?=
+ =?utf-8?B?YWZyUzFMUEN0UWxKSmp6RjFYTm9uaWRqQmlkOFdleGRWUTNvQUgvWHlpL0ZR?=
+ =?utf-8?B?eERUblR0ZTdsRi8xSjFMUE9LUFJWQ1JDY0NYSjMvRnNDSmFaQWlBQ2R6NkFv?=
+ =?utf-8?B?cDdldnVMTkZxUGV5cEl1dVU1Y2ZBVk1MMy9MR056MFc3MGRtc3Z3enMzazBo?=
+ =?utf-8?B?SUZzRkljMnBETEtBbCtOUHRTblpubGk3WDBib0E3SnZXaE5HY2JSOVdSTU56?=
+ =?utf-8?B?dHY5TWpXOS94b3M2WFg2UkxSL3hTRlpyb1dZd2xoQ2tkbFRJNjM5SXZPNkR0?=
+ =?utf-8?B?VUt0RlpDSkVJeTRtQVpjaU9od0pJb0t4MEhqdHU5bC9wVDh5TElsNjljSkN6?=
+ =?utf-8?B?bDNvMzRoWE1TVDVjZU5ENWNGaW5mekpITDlMQkhQRm5LK1JXQ25qM015YnBW?=
+ =?utf-8?B?ODFvRFFqUjZTK2NGdlVkc2VRclpibmRvOVRWR1NvVHVkSEE2VFl0ODRDamJu?=
+ =?utf-8?B?emV3NDJqVE53VXlaUExwSFQrWUQ5d0VtSmZUaVNrZHV3NzRzS0Ixa2phSDJU?=
+ =?utf-8?B?aE0xQ2RDQm1IK0Q5ejJicHZwbTl4emZydnNJbndOVGNjcE5kSUN3akNFZUVE?=
+ =?utf-8?B?UGhVS3F3TWJvamZMRTJNMnJuL21xZ2FJY1ZXN2xrekkvYnloTTdZRGpoY2xU?=
+ =?utf-8?B?UXdoWE5CV01FWWpTdE50OUlWdTBuZ1RuampqOXpBMXA3VHZ5SEJncjh4c3h5?=
+ =?utf-8?B?Nk83a0R0N1ArS0xIZDRkQWxIQzU2MFRLOXlCclpZaTBQdlo2V2Z4Y3RQRW1P?=
+ =?utf-8?B?VHBzWFQvN0ZRaGErVXhPNXB6b2t4VHZKMkd1dHBhU1c2OXFaWUhrSjBNOTRB?=
+ =?utf-8?B?S01VWVRmZE94QUJ0dVdHUFJsTThhS2FIY0Uxajl3MHBwLzU1czFJSEFSZ2pr?=
+ =?utf-8?B?cXcydWNTdkwyZHpReGYyNHRGRlFMTUszYnJPV1RkN3I3NmQwRDNoemZWYmpW?=
+ =?utf-8?B?VGYweFc2RVgwK3U2VXp4V0x0eWc3ZEtERm9sWXN1cWQvUXJLVmF1T093YmF0?=
+ =?utf-8?Q?ebfgowiTzNBlsvgwVMuhtwfP4DrtqE9TaLc98?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e42204c-78b3-458d-d9e5-08df1eff71cc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:30:58.7053
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hDONxr8vQgYFHR1m4PgAJkBpgsLxsE02onCoOMENJrIkeQKhCbqkDJsAsOyGNZ/JNdd2yPpZgaFK/F232BAtOjfR1ccyffZaGdDcMN+g7vZ6616phlgAquq526nttOCP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA6PR04MB824352
 
-During ->notify_failure() callback will dereference holder.  It may be
-NULL at this point, resulting in an Oops, or it may be non-NULL but be
-freed during that call, resulting in UAF.
+From: Frank Li <Frank.Li@nxp.com>
 
-This affects xfs at this point, but the fuse extent map patchset[1]
-also adds dax failure handling and is affected by this issue.
 
-I think this should be fixed in drivers/dax/super.c, since this will
-be a problem in each user.
+On Sun, 27 Sep 2026 13:05:07 +0200, Francesco Dolcini wrote:
+> Verdin CTRL_SLEEP_MOCI# (SODIMM 256, GPIO5_IO1) is the only SODIMM signal
+> of the module without a gpio-line-names entry. Verdin iMX8M Plus, AM62,
+> AM62P and iMX95 all label it SODIMM_256, do the same here.
 
-Thanks,
-Miklos
+Applied, thanks!
 
-[1] Report from sashiko (select Patch 8):
+[1/1] arm64: dts: freescale: imx8mm-verdin: add gpio-line-name for CTRL_SLEEP_MOCI#
+      commit: e7a7fb1dc235053369094c3f8afdf67fefd67983
 
-https://sashiko.dev/#/patchset/20260922061019.3320196-1-mszeredi%40redhat.com
-
-Or here it is inline:
-
-commit 1580a2f8ad3f103a20b6280aa39a01f8b0be2d3f
-Author: Miklos Szeredi <mszeredi@redhat.com>
-
-fuse: add support for opening dax device as backing
-
-Add FUSE_BACKING_IS_DEV flag that allows opening a character device
-(dax device) as a backing, in addition to regular files. Mark the
-inode with S_DAX if FUSE_LOOKUP returns with FUSE_ATTR_DAX set.
-
-> diff --git a/fs/fuse/backing.c b/fs/fuse/backing.c
-> index 58dbdd17c1ef4..aa558a0c2e647 100644
-> --- a/fs/fuse/backing.c
-> +++ b/fs/fuse/backing.c
-[ ... ]
-> @@ -22,9 +23,16 @@ static void fuse_backing_free(struct fuse_backing *fb)
->  {
->   pr_debug("%s: fb=0x%p\n", __func__, fb);
->
-> - if (fb->file)
-> - fput(fb->file);
-> - put_cred(fb->cred);
-> + switch (fb->type) {
-> + case FUSE_BACKING_PATH:
-> + path_put(&fb->path);
-> + put_cred(fb->cred);
-> + break;
-> +
-> + case FUSE_BACKING_DAXDEV:
-> + fs_put_dax(fb->dax_dev, fb);
-> + break;
-> + }
->   kfree_rcu(fb, rcu);
-
-Does this code introduce a use-after-free race with a concurrent hardware
-memory failure?
-
-When a DAX-backed FUSE backing file is closed, fuse_backing_free() drops the
-DAX device holder by calling fs_put_dax() and frees the backing object using
-normal RCU via kfree_rcu().
-
-Concurrently, a hardware memory failure can trigger dax_holder_notify_failure(),
-which protects its read-side critical section with SRCU using dax_read_lock().
-
-If dax_holder_notify_failure() reads dax_dev->holder_ops and checks for NULL,
-and is preempted here, fs_put_dax() can run to completion. This would set
-dax_dev->holder_ops and dax_dev->holder_data to NULL, and eventually free fb
-after a normal RCU grace period.
-
-Because kfree_rcu() does not wait for SRCU readers, the memory could be freed
-while dax_holder_notify_failure() is still running.
-
-[ ... ]
-> @@ -79,23 +87,88 @@ static struct fuse_backing *fuse_backing_id_remove(struct fuse_conn *fc, u64 id,
->   return fb;
->  }
->
-> +static int fuse_dax_notify_failure(struct dax_device *daxdev, u64 offset, u64 len, int mf_flags)
-> +{
-> + struct fuse_backing *fb = dax_holder(daxdev);
-> +
-> + fb->dax_error = true;
-
-Can this code cause a NULL pointer dereference or use-after-free when racing
-with fuse_backing_free()?
-
-When dax_holder_notify_failure() resumes after the race described in
-fuse_backing_free(), it blindly calls ops->notify_failure() which is this
-function.
-
-Because fs_put_dax() may have already cleared dax_dev->holder_data,
-dax_holder() might return NULL causing a NULL pointer dereference here.
-Depending on the timing, it could also return a stale pointer to the freed
-fb object, resulting in a use-after-free.
-
-> +
-> + return 0;
-> +}
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
