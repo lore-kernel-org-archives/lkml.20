@@ -1,155 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f26.google.com (mail-yx2-f26.google.com [74.125.224.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FA34F4049;
-	Wed, 30 Sep 2026 17:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9734FD27C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787666; cv=none; b=fuzVO+1DztVbQJui0NcGSejFLjXOHmvwmtk3a0a37GXWNfXhieT3g7IYuM2GpZtuUwdeZzoE3sXdAs0X1aNRYXS6dMEMEiCyNN3fUKmovmEJw68GRmQOWwEBIvjxE1f0UeYucmZ/ftPhthIh8sCupPvMnV14TBci50B832Mu4e4=
+	t=1790787718; cv=none; b=JWXA3VLNZ8v0FCKkgkCKbFP4i54VUggWc0kquw1lgbjZbCfrfsvhPHBbW9ywVceORQm8Cx5o3HbW2xGqrAU2jvwddyj0SWroISdQxIftqL51GukP6uq1ZWfpQYNiNNsgB1z9ldEleGIk8JoKPSn2aLR4FGLIWBW1sgb1h1v3qTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787666; c=relaxed/simple;
-	bh=KWmUTN59UarQxklnjCZb6DjlBd7FgCmlBHH/9rL2yd4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q5eVg7Igw98xb82IPrkiUEkZtU+F4hgn2x9KvBiOPIw7CZdyJgqE2rfnBKyRBQ9yfS6i02TyXMUjSZmh6h4fJKQO5bjhVt9J3A3bur/jpwROGnt5YYxgwg1DH70OKuBbT6dNSFl5wjuVOVTkQc5zz+Nqy6+wcWxwYXx6AExHPMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xua9YVpB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790787718; c=relaxed/simple;
+	bh=XWeEzXxDpkMmNDypWoIhf2yRRXW21sTTifusYA/fKyw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=H115V5F0QV0gsVHTokgU4T/pEW8q9D5k5jPlXri1x9kgJ0pxHSFcVoAl7jjUG0CJZeXRsR14a8dZlshlarvATcLn4AuiSz5S6pIVrO1cgIpvaFefrc4X8SGn52WF7Q77gHMpEnWifOJ7Gkec/qoTU+5q5mr6JpXnbxXMuv/ZX8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=TLhEewDj; arc=none smtp.client-ip=74.125.224.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xua9YVpB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562A71F00898;
-	Wed, 30 Sep 2026 17:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790787665;
-	bh=f8lrA6Wq7RLoqyx88OAS/bTqhGeK9VKqSwD4O6iYg0s=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Xua9YVpB0B2xNCLEHvGNvxsvq46tmc2FSJo6Usl/f/ENPH9Ntzn468ZyakJE77vHw
-	 cQkobpm2MeLNY2jRU1GJw7M6qJOkYPQjwj0Op8r0EiwU4eg9rjO3JS9hXPMKu5V5jC
-	 t9HFBnmE1pNDMWgtyG9zz5LDS8kdUqXq0U5Wr3lii6VnJJoLww3XekwAxweutoevkV
-	 8C8lgWj4jKlnKWZb/wXwffEzMXnOcMcUcvZP8Ozn/XU1tJtYH5bX8SAtS5RciQq+Wh
-	 l7KyI4ZxSTBK/3qnpIvCeyus1/4uIsO2TxQ7CsHjKXbOFGxYo3Apjz4G2LXsrSP3K/
-	 F6a0fRu0mrMhg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id E8E0DCE097C; Wed, 30 Sep 2026 10:01:04 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:01:04 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Bradley Morgan <brads@mainlining.org>, linux-kernel@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	rcu@vger.kernel.org, lkmm@lists.linux.dev
-Subject: Re: [PATCH hazptr 0/4] Hazard pointer updates
-Message-ID: <2b43062d-a699-4c6b-8aa3-251b25212a38@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
- <EAE9B584-7CEC-46AA-AC8F-A06F11073763@mainlining.org>
- <89cecc9c-f29b-46d1-804d-c87171a445f0@efficios.com>
- <1357947A-5850-4F73-B22E-2AE8B5CAABE2@mainlining.org>
- <5169602d-c0ac-4b5b-841c-7cc4a3c54274@efficios.com>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="TLhEewDj"
+Received: by mail-yx2-f26.google.com with SMTP id 00721157ae682-8ab748519f0so19708597b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790787715; x=1791392515; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O/K23H6l8P+7n/vgMZMU8enzS+4DMqLYI7tKT7n06Vo=;
+        b=TLhEewDjRzycySUdnpDm0rrQOgPZodYah7AkQXQUdnW5zOJzSC+FJNB/8oWhSWm3ua
+         jT9yU+Ndv0Ftgq58tqZ2Kg1AG4tNoY+uUrpOXuv/QS0UwLrL0v/9ngHqnx+8D5bZ6YJv
+         6xR6HxqCZOGyBRwQ5EA9iwutpCiZjqhveD2OZyIFHW5r31FL0TIIche79cumSFSUhijs
+         RrawHY2sKRm8Db2EoC9gLnPomWG+2hsQX32IQLBiFeUzcyCwsN2C2YBfUBsNKmcPNbYk
+         rh6tFL0HdPvEEYdB4LOhR7QkLwtenkLg3jgCjoQ/J9ZxWoq5fAUB/++PWy2bP/yuXcXS
+         TNAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790787715; x=1791392515;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=O/K23H6l8P+7n/vgMZMU8enzS+4DMqLYI7tKT7n06Vo=;
+        b=hXl75+P2MPN85cco6Q5W5g7MHV1dEnkf9k06zYAa9LhYv5vFCQxwK8WfEVUOapZ3r9
+         aosggnh4b97t58XKz9tNWBYaW1/vw+valg5pLAKhYJ+yKOKpMpwMHUIbfqn1I9qx8+kR
+         mzHJUIb3rNfXj3FpxOlFBWK3QLwttgGvmQoozqOKdGW3rm/mtzGa2MP0x/jqYLlvaGA4
+         mpKt8rUrk2b2FclSg8OGGjPiDnPwE/zJvr0TJK2gxteKKrNM6HwkJphJcCRq9+RYLWAc
+         cKU7uYeR3a+yZcXbvcoj2B6SaRKvyh2YsDUp+sI28IRc9BDCPH3EZMP612sG7PYgUEE9
+         CoPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOpA8CrsvJZ8l+93iTygZ/dt+gGzoJMhO3Gryz2PMNbR53mH3SwcSTmC+1rDqhe9raClxtfEAu2i+vFfE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgrB2xFWw4jjV2Wtj+1aLkMdJ1N02pL64ofo0nCs8MGBjHTEMR
+	0hBHTzWqSfslBMZBXCi6OWUzQG9LgvmV744zqf/zgWQpHqLZIG4p9tsxEzGya1BrVnI=
+X-Gm-Gg: AYBFou2X0+71X5GZfcInVUGdJ15Lv4UaWkU6ZP0zud1MNHrPp34REHyvrx7dVPGo6uS
+	EwLTe/gwSAYO3o4UNyHfgemMLQ31o+nH0z67tKVbb1Qc6WwgjiNJj1S/t8p/R1c8LAd/WZhQb2t
+	K90UeSqlcBpKjADGSkXFNU5m2LXk74cL7SrA2lLlo4HTGJsut0ecbmyE9iKzZGetHFGHcSJSyaf
+	ROnq+q8aR7aobTDa6daQOaQure5aLLHTkMvkF9KJ/DdjHvnTdZ9EyGqcyf859cWO7DctmcooGRb
+	tEp4WPCKWNgXoq+TLIrYk0Ug86c2B6Ag04U6BHSmQDkLwQlAA3p9/MgBzvHUQqz1vyVVBXL6U/u
+	nj0XXqV6VEljik8RIPWqZapQ6r1lAoR4/tSP08AGq4qMEXcnz5VWDhEYu0QivCrWFKtRdsfaaKm
+	/LWJUbvWGMmlryzuV9cBZUHbPEEwFeBQao5sTXT546vEX4SJ4d11JUTgN33dv8pz+SbGue17tQs
+	CIwsO2pI7wNdl4RaFRYUPaqFrSji0oaXhU2+kpT6MdrVJN4Unyxrw4H1bf4pV54qlQ8MGiOv/yP
+	o4SY3ya29UY7iVdk2TpSOfD4U/Ve+vZdqvLWrSPvkAfxyugk3kxkpp7Ts6/ycFIv
+X-Received: by 2002:a05:690c:6113:b0:8ab:318f:1b61 with SMTP id 00721157ae682-8ac9321853fmr10252457b3.41.1790787714466;
+        Wed, 30 Sep 2026 10:01:54 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:487b:bc91:650e:71d4? ([2600:1700:6476:1430:487b:bc91:650e:71d4])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdac9c648sm1568277b3.14.2026.09.30.10.01.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 10:01:53 -0700 (PDT)
+Message-ID: <43aaaa19a0020c532e4abafd8df197bb14478fc9.camel@dubeyko.com>
+Subject: Re: [PATCH] hfs: don't give the extents overflow file overflow
+ extents
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
+	glaubitz@physik.fu-berlin.de, frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 10:01:50 -0700
+In-Reply-To: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
+References: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5169602d-c0ac-4b5b-841c-7cc4a3c54274@efficios.com>
 
-On Sun, Sep 27, 2026 at 12:45:10PM -0400, Mathieu Desnoyers wrote:
-> On 2026-09-27 12:33, Bradley Morgan wrote:
-> > On 27 September 2026 17:27:33 BST, Mathieu Desnoyers
-> > <mathieu.desnoyers@efficios.com> wrote:
-> > > On 2026-09-27 12:07, Bradley Morgan wrote:
-> > > > On 27 September 2026 16:51:27 BST, Mathieu Desnoyers
-> > > > <mathieu.desnoyers@efficios.com> wrote:
-> > > > > Hi Paul,
-> > > > > 
-> > > > > This series applies on top of "hazptr: handle NULL address in
-> > > > > hazptr_detach" you have in your rcu dev tree.
-> > > > > 
-> > > > > This first patch addresses a race identified by Boqun Feng in the
-> > > > > two-phase wildcard scheme.
-> > > > > 
-> > > > > Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
-> > > > > Those were discussed at length in a prior version of hazard pointer
-> > > > > patches.
-> > > > > 
-> > > > > Patch 4 introduces a "try acquire" helper to allow the fast path
-> > > > > to not rely on wildcards, while keeping the wildcard forward
-> > > > > progress guarantees in the acquire slow path, used on fast path
-> > > > > failure.
-> > > > 
-> > > > Hi, here is a hazptr perf test on powerpc
-> > > > 
-> > > > REAL kill_fasync(), ns per call, best of 3, 100k calls:
-> > > > (stock = rwlock walk, conv = hazptr walk, same v3 tree ± the conversion)
-> > > > 
-> > > >     shape          stock    conv     delta
-> > > >     1 node,  1 walker     59      59     +0.0%   (singleton: identical)
-> > > >     16 nodes, 1 walker   539     539     +0.0%   (uncontended: identical)
-> > > >     16 nodes, 4 walkers  509     134    -73.7%   ← rwlock readers contend
-> > > >     16 nodes, 8 walkers  313     113    -63.9%   ← same list, 8 cpus
-> > > >     64 nodes, 1 walker  1979    2039     +3.0%   (pure walk: hazptr tax)
-> > > >     64 nodes, 4 walkers 1914     509    -73.4%
-> > > >     64 nodes, 8 walkers 1015     382    -62.4%
-> > > > 
-> > > > Its SLOWER than rcu, but beats rwlock
-> > > 
-> > > Two feedback points:
-> > > 
-> > > 1) The comparison I think Boqun cares mostly about is with expedited
-> > >    RCU grace periods, this is where we suspect there is a significant
-> > >    benefit to using hazptr rather than RCU to eliminate those IPIs
-> > >    on synchronize.
-> > > 
-> > >    It's good to know that it performs better than rwlock (albeit it's
-> > >    not surprising).
-> > > 
-> > > 2) I'm concerned about what looks like a use of hazptr to protect linked
-> > >    lists elements in your benchmark (did I miss anything ?).
-> > > 
-> > >    RCU read-side critical sections protect all elements of a linked list
-> > >    naturally, but hazptr requires more care. See this comment above
-> > >    hazptr_acquire:
-> > > 
-> > > * This protection is unconditional, and has limitations similar to
-> > > * that of unconditional reference-counter acquisition.  In particular,
-> > > * although holding a hazard pointer prevents a hazard-pointer-protected
-> > > * object from being freed, it does not prevent that object from being
-> > > * removed from a linked data structure, and does not prevent other
-> > > * hazard-pointer-protected objects referenced by this object from being
-> > > * both removed and freed.  At which point, invoking hazptr_acquire()
-> > > * on these dangling pointers would be a bug.  On the other hand, use of
-> > > * hazptr_acquire() is safe for immortal pointers to objects that do not
-> > > * themselves contain pointers to hazard-pointer-protected objects.
-> > > * Other (more complex) use cases are also possible.
-> > > 
-> > > Does the pointer you protect qualify as an "immortal" pointer, or it's
-> > > a linked list "next" pointer ?
-> > 
-> > Hmm. Do you have a idea on what you could metaphorically convert, with a
-> > core subsystem?
-> > 
-> > I'll give anything you want me to do a try
-> At a high level, I suspect it would be good to start by digging into
-> users of synchronize_rcu_expedited(), to see if a few of those may be
-> good candidates.
-> 
-> I would also favor scenarios where RCU (or locking) are used to protect
-> the existence of an object reachable from a global pointer, and use
-> hazptr to protect that object. Note that initially this precludes
-> a hazptr-protected list, because the next pointers would sit in
-> prior objects which are themselves hazptr-protected, which is not
-> sufficient to guarantee existence against a hand in hand traversal.
-> 
-> However, if you have a pointer to an object "side-car" structure
-> (e.g. optional extra metadata), and the object containing the pointer
-> is guaranteed to exist by another mechanism (e.g. RCU, locking), then
-> that pointer-to-side-car-object field would be a good candidate for
-> hazptr (AFAIU).
-> 
-> I'm not saying the linked lists could not be done, but it would require
-> more care.
+On Wed, 2026-09-30 at 23:27 +0700, Nguyen Ngoc Thang wrote:
+> hfs_bmap_reserve() grows a b-tree's backing file via
+> hfs_extend_file()
+> while the caller holds tree->tree_lock. For the extents tree itself,
+> once its three MDB extents are full and hfs_add_extent() returns
+> -ENOSPC, hfs_extend_file() falls through to insert_extent and records
+> an overflow extent for the extents file. The next extension then sees
+> alloc_blocks !=3D first_blocks and calls hfs_ext_read_extent(), which
+> takes ext_tree->tree_lock again:
+>=20
+> =C2=A0 hfs_ext_read_extent()=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 <- hfs_find_init(ext_tree)
+> =C2=A0=C2=A0=C2=A0 __hfs_ext_write_extent()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_bmap_reserve(ext_tree)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_extend_file(ext inode)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_ext_read_exten=
+t()=C2=A0=C2=A0 <- hfs_find_init(ext_tree):
+> deadlock
+>=20
+> The extents overflow file can't have overflow extents of its own; its
+> extents live only in the MDB. Fail with -ENOSPC instead, returning
+> the
+> just-allocated blocks to the bitmap. hfs_btree_open() already rejects
+> an extents fork larger than its MDB extents, so this keeps
+> alloc_blocks =3D=3D first_blocks for the extents file for the whole
+> mount.
+>=20
+> Reproducible with a plain mount + ftruncate on a fragmented volume
+> with
+> a small extents-file clump size.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3De390d66dda462b51fde1
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> Notes (not for the changelog):
+>=20
+> Reproduced in QEMU (x86_64, lockdep) with syzbot C repro
+> 11c3a202580000,
+> and more simply with mount + ftruncate(0x100c17a) on the same image:
+> "possible recursive locking detected" on ext_tree->tree_lock followed
+> by
+> the task stuck forever in D state. The image's extents fork is
+> consistent (one 4-block extent), with a 2048-byte XT clump and a
+> fragmented bitmap, so the three MDB extents fill up after a few
+> extensions and insert_extent runs for the extents file.
+>=20
+> With the patch, 3 runs of all five syzbot C repros plus the direct
+> mount+ftruncate case: no lockdep report and no hung tasks. ftruncate
+> still returns 0, since hfs_file_truncate() already ignores a failed
+> extension.
+> =C2=A0fs/hfs/extent.c | 7 +++++++
+> =C2=A01 file changed, 7 insertions(+)
+>=20
+> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
+> index f066a99a863b..5e7a1f1eb395 100644
+> --- a/fs/hfs/extent.c
+> +++ b/fs/hfs/extent.c
+> @@ -457,6 +457,13 @@ int hfs_extend_file(struct inode *inode)
+> =C2=A0	return res;
+> =C2=A0
+> =C2=A0insert_extent:
+> +	/* The extents file can't have overflow extents of its own
+> */
+> +	if (inode->i_ino =3D=3D HFS_EXT_CNID) {
+> +		hfs_clear_vbm_bits(sb, start, len);
+> +		res =3D -ENOSPC;
+> +		goto out;
+> +	}
+> +
+> =C2=A0	hfs_dbg("insert new extent\n");
+> =C2=A0	res =3D hfs_ext_write_extent(inode);
+> =C2=A0	if (res)
 
-Other candidates include users of per-CPU reference counters, along with
-any try-acquire reference counters that have seen memory contention.
+Sorry. But I decided that I would like not to review or accept patches
+from your side. You are making the same mistakes during the working on
+the comments/remarks. We are not making any progress. It looks like
+that you have no memory at all. So, I assume that you are using an AI
+agent without any analysis or checking the output.
 
-							Thanx, Paul
+Thanks,
+Slava.
