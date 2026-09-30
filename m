@@ -1,344 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FFE4EC671;
-	Wed, 30 Sep 2026 20:19:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC894DE70B;
+	Wed, 30 Sep 2026 20:20:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799587; cv=none; b=Ym99xoa1Uy98acyhHVaab1DLOid4ifV3ivbZWFA+mv+0OSx2xZiXw0JG0nUdB/90DEGKfKOkH5SLns2ObE2Scz2huq+Ke3Pw9faQ/4TFKPyM6P/3LOucAn1GAudw5YS0rgV4uy2ZBmSwzkBde9nDnnxWjl83U6UOd+blHnb9R6Q=
+	t=1790799654; cv=none; b=ICjPvU8ZFiUmP2q9ZxbfpOwT7k+bxcBFWCPhAhaYyfChtpn/kzhLIeSh+okLxCDkyF3fLRUwR3UW4kjwyeMv+Cx3V82AiayMIXanwlIMZW5OcBOnYp/ZH6SdhP9QHlp9KYSu0ZPLPUtCFxYi5O9TzKnpzO+6DOggiCAEnI/fnJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799587; c=relaxed/simple;
-	bh=iH868cJXqfJ0POxX06K8vT+UTj8vPEczaTNj+haBY1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SnkdJRgyB7HZzmX0jVpeFYUFke+W4NnncFp6Ad1zzWE4qvaZupph+iE5+cgU/5yEYVxsM18Cf2Eg4HX0j8STlGJv0UB4Tf39DujXF60Df/xZntBxDJxH5NxD/tiC0Ug6o+VS3ncse/Jy0pJk2F/ZbgtR51K+HT8TgQ55gojobpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gy9WfES6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790799654; c=relaxed/simple;
+	bh=mJXb1CYIqK4AsS834i6sof1vL6Jqu8U27uRRKuT4BLw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CG01DTZDMZbTB1EATzzZoykjFPWtC/ydTY3hWkeC5hZIN9SlVzHBe/9yJ7B1z2EnGA9/xwBq2+L6mbi8ApPApnhleD9RbHRyK9pKi9USA+OymXjpVRPK6MrHmq23F/pLJl7YT1m/m1cX46qwR+jkScSpfpdOKthFGS/N5asn+CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MoGxCAG9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gy9WfES6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082641F000FF;
-	Wed, 30 Sep 2026 20:19:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MoGxCAG9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E221F000FF;
+	Wed, 30 Sep 2026 20:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790799585;
-	bh=JhYrQoYA+3DQZw3ZMJsSkxfqSx3HxBtyUlcUCS5Db5g=;
+	s=k20260515; t=1790799653;
+	bh=mQynPCgYV0pRF+s8X9xrcuJxLtzPOpczaBeV0jQ1fi8=;
 	h=From:To:Cc:Subject:Date;
-	b=gy9WfES66pcBMDiEpcsRgLvq6B79jjFBZi4o/+69rayGg0Cfc5hInCJAt+fpcPd03
-	 bJtdoP8Kqz7K+/ptNR9KOgoVw1ylm0oCSHm0Y3fUMN3RRqyQ42vn0XEGX0mUQQv/zk
-	 S/iyKSZ7itZlbqF4ItuVJBW2/GQ0gRTr8l4Rl7ivGQPHqKHRdxvXpsz4aGyQhNEaZI
-	 vZJISo5Gw/GdXJ82aX0L/StwMJ9KClZiu/zaaw1TNABYYScDI1PkI1KuMvUrbwvuVW
-	 Bt3FG8GAiVD/1AGqaOwcqPCLZnJQCI/EpqKYpeaQgOfhofO8rlF9cNsBZaCHkRelux
-	 XsfsfYh42CxWw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	b=MoGxCAG9N+AekbTdAmj8troBbe7u+ie0IwfXyRC561iY4ZLq0o1CVbPilgEjo7p/e
+	 m55iqq2rr41vwX1ZUgjmwIygCnGbsw7SQDJF+Gv/jdThvSs0rFfpdAAHRJYOT8iv0i
+	 /fvDoFnWuOp+1RuqXMruX5mwPMnKdoMnjuAqhGmQwsG7hkW7a6zek15L6qeGKqgkeu
+	 /H7tOafW9oiQB95iR+KITf9l2RPAPHAlt1kS3wgXPEjO9BKGyM7gKZqhgWrNjmv8bo
+	 nGxbbtlgT2I4CiZE0NG8oztElMHx/r3HmIy5c7mI50ZNgsj5+/+StPB6ahatzGHSP9
+	 3C/+/p8iA3BIw==
+From: Thorsten Blum <blum@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
-Date: Wed, 30 Sep 2026 15:19:19 -0500
-Message-ID: <20260930201919.76465-2-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH RESEND] perf/x86/core: Simplify hybrid PMU registration failure path
+Date: Wed, 30 Sep 2026 22:20:18 +0200
+Message-ID: <20260930202016.111577-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1569; i=blum@kernel.org; h=from:subject; bh=mJXb1CYIqK4AsS834i6sof1vL6Jqu8U27uRRKuT4BLw=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFl78xnCNQ4u+5ZkFXn6XNSvc30Byg+aD+2KnyXE+qfik EndPZGtHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRl9MY/odqP4j94r/i6vc2 LwUj8bjZ5Zo/ukw/Be3W/qsxLfRG7zVGhm+HDiTtmy/y89CUzTzlV9K6tpaG+l98ZzP9duDiQH0 nPk4A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Convert the HiSilicon hns-dsaf binding to DT schema format.
+Handle perf_pmu_register() errors directly instead of breaking out of
+the registration loop and checking the index separately. Reuse the loop
+index i to unregister any previously registered PMUs in reverse order
+and drop the extra index j.
 
-Drop 'phy-handle' at top level as there are no users. Add undocumented
-'media-type' property.
+Also log the failing PMU's name and error code.
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
-v2:
- - Add constraints for buf-size and desc-num
- - Drop erroneous 1st 2 'reg' entries
- - Fix example 'reg' cell sizes
- - Add 'backplane' to 'media-type' property
----
- .../bindings/net/hisilicon,hns-dsaf-v1.yaml   | 167 ++++++++++++++++++
- .../bindings/net/hisilicon-hns-dsaf.txt       |  90 ----------
- 2 files changed, 167 insertions(+), 90 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+ arch/x86/events/core.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
-new file mode 100644
-index 000000000000..36251b45abeb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
-@@ -0,0 +1,167 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2025 Hisilicon Ltd.
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/hisilicon,hns-dsaf-v1.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon DSA Fabric device controller
-+
-+maintainers:
-+  - Jian Shen <shenjian15@huawei.com>
-+  - Jijie Shao <shaojijie@huawei.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - hisilicon,hns-dsaf-v1
-+          - hisilicon,hns-dsaf-v2
-+
-+  reg:
-+    minItems: 1
-+    items:
-+      - description:
-+          PPE register base and size
-+      - description:
-+          DSA Fabric base register and size (not required for single-port mode)
-+
-+  reg-names:
-+    minItems: 1
-+    items:
-+      - const: ppe-base
-+      - const: dsaf-base
-+
-+  interrupts:
-+    minItems: 1
-+    maxItems: 409
-+
-+  dma-coherent: true
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+  mode:
-+    description: DSA Fabric mode string
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum:
-+      - 2port-64vf
-+      - 6port-16rss
-+      - 6port-16vf
-+      - single-port
-+
-+  subctrl-syscon:
-+    description: syscon handle for external interface control register
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  reset-field-offset:
-+    description: offset of reset field in the control register
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  buf-size:
-+    description: RX buffer size (bytes)
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [512, 1024, 2048, 4096]
-+
-+  desc-num:
-+    description: number of descriptors in TX and RX queue
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 16
-+    maximum: 1024
-+
-+patternProperties:
-+  "^port@[0-5]$":
-+    description: DSA Fabric port node
-+    $ref: ethernet-switch-port.yaml#
-+    additionalProperties: false
-+
-+    properties:
-+      reg:
-+        maximum: 5
-+
-+      phy-handle: true
-+
-+      serdes-syscon:
-+        description: syscon handle for SerDes register
-+        $ref: /schemas/types.yaml#/definitions/phandle
-+
-+      cpld-syscon:
-+        description: syscon handle plus register offset for CPLD register
-+        $ref: /schemas/types.yaml#/definitions/phandle-array
-+        items:
-+          - items:
-+              - description: CPLD phandle
-+              - description: offset
-+
-+      port-rst-offset:
-+        description: reset field offset for this port
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      port-mode-offset:
-+        description: port mode field offset for this port
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      mc-mac-mask:
-+        description: multicast MAC address mask
-+        $ref: /schemas/types.yaml#/definitions/uint8-array
-+        maxItems: 6
-+
-+      media-type:
-+        $ref: /schemas/types.yaml#/definitions/string
-+        enum:
-+          - backplane
-+          - copper
-+          - fiber
-+
-+    required:
-+      - reg
-+      - serdes-syscon
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - mode
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dsa@c5000000 {
-+        compatible = "hisilicon,hns-dsaf-v1";
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        mode = "6port-16rss";
-+        reg = <0xc5000000 0x890000
-+               0xc7000000 0x60000>;
-+        reg-names = "ppe-base", "dsaf-base";
-+        subctrl-syscon = <&subctrl>;
-+        reset-field-offset = <0>;
-+        interrupts = <131 4>, <132 4>, <133 4>, <134 4>,
-+                     <135 4>, <136 4>, <137 4>, <138 4>,
-+                     <139 4>, <140 4>, <141 4>, <142 4>,
-+                     <143 4>, <144 4>, <145 4>, <146 4>,
-+                     <147 4>, <148 4>, <384 1>, <385 1>,
-+                     <386 1>, <387 1>, <388 1>, <389 1>,
-+                     <390 1>, <391 1>;
-+        buf-size = <4096>;
-+        desc-num = <1024>;
-+        dma-coherent;
-+
-+        port@0 {
-+            reg = <0>;
-+            phy-handle = <&phy0>;
-+            serdes-syscon = <&serdes>;
-+            mc-mac-mask = [ff f0 00 00 00 00];
-+        };
-+
-+        port@1 {
-+            reg = <1>;
-+            serdes-syscon = <&serdes>;
-+            mc-mac-mask = [ff f0 00 00 00 00];
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
-deleted file mode 100644
-index 8ee4b1cedae8..000000000000
---- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
-+++ /dev/null
-@@ -1,90 +0,0 @@
--Hisilicon DSA Fabric device controller
+diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+index 9b1a9032e36d..6c7f9c8e3b24 100644
+--- a/arch/x86/events/core.c
++++ b/arch/x86/events/core.c
+@@ -2714,7 +2714,7 @@ static int __init init_hw_perf_events(void)
+ 			goto out2;
+ 	} else {
+ 		struct x86_hybrid_pmu *hybrid_pmu;
+-		int i, j;
++		int i;
+ 
+ 		for (i = 0; i < x86_pmu.num_hybrid_pmus; i++) {
+ 			hybrid_pmu = &x86_pmu.hybrid_pmu[i];
+@@ -2725,15 +2725,13 @@ static int __init init_hw_perf_events(void)
+ 
+ 			err = perf_pmu_register(&hybrid_pmu->pmu, hybrid_pmu->name,
+ 						(hybrid_pmu->pmu_type == hybrid_big) ? PERF_TYPE_RAW : -1);
+-			if (err)
+-				break;
+-		}
 -
--Required properties:
--- compatible: should be "hisilicon,hns-dsaf-v1" or "hisilicon,hns-dsaf-v2".
--  "hisilicon,hns-dsaf-v1" is for hip05.
--  "hisilicon,hns-dsaf-v2" is for Hi1610 and Hi1612.
--- mode: dsa fabric mode string. only support one of dsaf modes like these:
--		"2port-64vf",
--		"6port-16rss",
--		"6port-16vf",
--		"single-port".
--- interrupts: should contain the DSA Fabric and rcb interrupt.
--- reg: specifies base physical address(es) and size of the device registers.
--  The first region is external interface control register base and size(optional,
--  only used when subctrl-syscon does not exist). It is recommended using
--  subctrl-syscon rather than this address.
--  The second region is SerDes base register and size(optional, only used when
--  serdes-syscon in port node does not exist). It is recommended using
--  serdes-syscon rather than this address.
--  The third region is the PPE register base and size.
--  The fourth region is dsa fabric base register and size. It is not required for
--  single-port mode.
--- reg-names: may be ppe-base and(or) dsaf-base. It is used to find the
--  corresponding reg's index.
--
--- phy-handle: phy handle of physical port, 0 if not any phy device. It is optional
--  attribute. If port node exists, phy-handle in each port node will be used.
--  see ethernet.txt [1].
--- subctrl-syscon: is syscon handle for external interface control register.
--- reset-field-offset: is offset of reset field. Its value depends on the hardware
--  user manual.
--- buf-size: rx buffer size, should be 16-1024.
--- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
--
--- port: subnodes of dsaf. A dsaf node may contain several port nodes(Depending
--  on mode of dsaf). Port node contain some attributes listed below:
--- reg: is physical port index in one dsaf.
--- phy-handle: phy handle of physical port. It is not required if there isn't
--  phy device. see ethernet.txt [1].
--- serdes-syscon: is syscon handle for SerDes register.
--- cpld-syscon: is syscon handle + register offset pair for cpld register. It is
--  not required if there isn't cpld device.
--- port-rst-offset: is offset of reset field for each port in dsaf. Its value
--  depends on the hardware user manual.
--- port-mode-offset: is offset of port mode field for each port in dsaf. Its
--  value depends on the hardware user manual.
--- mc-mac-mask: mask of multicast address, determines bit in multicast address
--  to set:
--  1 stands for this bit will be precisely matched, TCAM will check this bit of
--    MAC address.
--  0 stands for this bit will be fuzzy matched, TCAM won't care about this bit
--    of MAC address.
--
--[1] Documentation/devicetree/bindings/net/phy.txt
--
--Example:
--
--dsaf0: dsa@c7000000 {
--	compatible = "hisilicon,hns-dsaf-v1";
--	mode = "6port-16rss";
--	interrupt-parent = <&mbigen_dsa>;
--	reg = <0x0 0xc5000000 0x0 0x890000
--	       0x0 0xc7000000 0x0 0x60000>;
--	reg-names = "ppe-base", "dsaf-base";
--	subctrl-syscon = <&subctrl>;
--	reset-field-offset = 0;
--	interrupts = <131 4>,<132 4>, <133 4>,<134 4>,
--		     <135 4>,<136 4>, <137 4>,<138 4>,
--		     <139 4>,<140 4>, <141 4>,<142 4>,
--		     <143 4>,<144 4>, <145 4>,<146 4>,
--		     <147 4>,<148 4>, <384 1>,<385 1>,
--		     <386 1>,<387 1>, <388 1>,<389 1>,
--		     <390 1>,<391 1>,
--	buf-size = <4096>;
--	desc-num = <1024>;
--	dma-coherent;
--
--	port@0 {
--		reg = 0;
--		phy-handle = <&phy0>;
--		serdes-syscon = <&serdes>;
--		mc-mac-mask = [ff f0 00 00 00 00];
--	};
--
--	port@1 {
--                reg = 1;
--                serdes-syscon = <&serdes>;
--		mc-mac-mask = [ff f0 00 00 00 00];
--        };
--};
--- 
-2.53.0
-
+-		if (i < x86_pmu.num_hybrid_pmus) {
+-			for (j = 0; j < i; j++)
+-				perf_pmu_unregister(&x86_pmu.hybrid_pmu[j].pmu);
+-			pr_warn("Failed to register hybrid PMUs\n");
+-			goto out2;
++			if (err) {
++				while (i--)
++					perf_pmu_unregister(&x86_pmu.hybrid_pmu[i].pmu);
++				pr_warn("Failed to register hybrid PMU %s: %d\n",
++					hybrid_pmu->name, err);
++				goto out2;
++			}
+ 		}
+ 	}
+ 
