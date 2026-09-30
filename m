@@ -1,118 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from esa7.hc1455-7.c3s2.iphmx.com (esa7.hc1455-7.c3s2.iphmx.com [139.138.61.252])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E559E36D4E1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AC31FF7C8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.61.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790743506; cv=none; b=Ng46+jz0odLEeW+nV5sTLcMQccutcDVBPZ6WHwLtAkGYkTskZATu3tEfbyGuV5qPyYIbMVnaLj1Xs9aAWrRwtbok83enxh7UX45ZYvyuzNfmduha/BT7VKhJVMjsEeyBMbcLe4FWLY9MsVhHqwq4+4Ou1mhc0B/q1O0htH4UK/o=
+	t=1790743535; cv=none; b=XiObj6W+ZlS1oCG73ry2PT7pLl3bGUY3m9YDyXraMLV2RyzlO0b4b6x1M0AHNF5z/RwRP2QIz5xPGwH45r0Fx/6Um4K3SESS2sK7/5FRm15v5PEN2yKaJK7Ui3CkZ6pF+KQkodpKu/HmLHqqY3Er5PcsQw68QNTu1L7GMNFLB34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790743506; c=relaxed/simple;
-	bh=Z/oxtnwo5HJ3NixpPGqQwD2x88ans9fGtgNoX/Mld1Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=uT7c2aVb9Km34PXlq+GhYM6XXUl+6ckBHwdPjCfO6jwYIg7393LaLKbPIcglRSFoeYs4uDoEi+WUhfpdj1ooZW59TYB0NDHxBRUfSQJR+axTLZ5NDhgTInIIrE/V7Ph5PDyp0b3Nv5tU0jsNpAtpRsEljPnLHJH75sfxu1ykMIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MAv+aZ4i; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790743535; c=relaxed/simple;
+	bh=SWeE7D4W3MzPjtObIHYua9ooSLdeWUT6t+wlvGiWv2U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=reHnl4f4oGW730R7g98xqv87ZVPYRe/62j1wS9BwfmdE7VGIjnF2eByZHdG2B07rP+DzbFDDkdcNlsnhaQ2NaNQ+3R1QUdkDhnny+rBRayqOzPIm2htTk/fs3xjmem94qjamYqWorjxTFaIhtHJpHpbv1vCSTvNEtYGBXUvSjUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=dW/Mi6NY; arc=none smtp.client-ip=139.138.61.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MAv+aZ4i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790743504; x=1822279504;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=Z/oxtnwo5HJ3NixpPGqQwD2x88ans9fGtgNoX/Mld1Y=;
-  b=MAv+aZ4iDxsNkuK9H+P6SzrssBChdbHfeUu31OSzqV1TMboTwxQ7BYWQ
-   t9L9up/luJGLmWxRqpd6XqbmjL8kK4V/B5pLPeV26NJ+1A1ryXt44S0qF
-   HI77/OHtk8e82AQ9q+2sdP/vQsioJFXQv/64Fk0+qRQqrfohp1IB58org
-   HtsixL/nCCRLQpwQiFWRqY5SpYY7LmXE5JkOs/0eJ84hy9IBEjGcdqrPj
-   zRfsb9Og7qVYFHLuAhZpLEof+sh4OEhszIdVjMmAcWyZECO4VCSM/EefV
-   xc+RYsfmk841j+OM7O3fC7CgDoEYgJ601RYFojKiWzZyEgwIra18ZjEYi
-   w==;
-X-CSE-ConnectionGUID: R8Rjn8pURYS8qYk1BWPd6A==
-X-CSE-MsgGUID: JzfrxnHjSBiNY36JZCgD5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90334055"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90334055"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 21:45:01 -0700
-X-CSE-ConnectionGUID: iHpVFfZcT9al1EoeChS3Hg==
-X-CSE-MsgGUID: alBFQ5+OTHmACXZefbqdbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="283666191"
-Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
-  by fmviesa005.fm.intel.com with ESMTP; 29 Sep 2026 21:44:59 -0700
-Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xBmBd-000000001kA-09D0;
-	Wed, 30 Sep 2026 04:44:57 +0000
-Date: Wed, 30 Sep 2026 06:44:00 +0200
-From: kernel test robot <lkp@intel.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
- "Thomas =?utf-8?Q?Wei=C3=9Fschuh"?= <thomas.weissschuh@linutronix.de>
-Subject: [tip:timers/vdso 1/4] include/vdso/math64.h:14:3: error:
- implicit declaration of function 'OPTIMIZER_HIDE_VAR'
-Message-ID: <202609300626.zwNjKaO6-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="dW/Mi6NY"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1790743533; x=1822279533;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=SWeE7D4W3MzPjtObIHYua9ooSLdeWUT6t+wlvGiWv2U=;
+  b=dW/Mi6NY7VXan6WyFU2Xuo/g9njLQyYdxBj8TZKskpQzy2FQ0ssYcIVm
+   ox8WZW38ON3pSHhHfU0BDJ7g4ml7/xNs40+/WPew4RuCxuufXvDhg+CB3
+   K7ODjawA86CnrB4C8CcFPvrOp0+biBmyHXJ6R8lCgiYnMbxcQEaau7gFj
+   TMzywY049YtZkSVCyCjcXzAijKU2lOq7/r3KgOa+RfNO245it5+vBUUP2
+   G7fLvveaD+H4RFnQ/Qzo66cSPbNV7SL7PVxIoXVbFuX72WXvqm+onCUB7
+   fgQtrcpSIQaRwYP4sxINEsSe9DTEb8Z8KVRgOgUutKIPWwxHHVyecouXh
+   A==;
+X-CSE-ConnectionGUID: 6PY0L1G1QUSp3tb45qtu1A==
+X-CSE-MsgGUID: yXqzu45/TuSWkEAekyoXvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="235520869"
+X-IronPort-AV: E=Sophos;i="6.27,130,1786978800"; 
+   d="scan'208";a="235520869"
+Received: from gmgwnl01.global.fujitsu.com (HELO mgmgwnl01.global.fujitsu.com) ([52.143.17.124])
+  by esa7.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:45:31 +0900
+Received: from az2nlsmgm1.o.css.fujitsu.com (unknown [10.150.26.203])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mgmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 41D117A42
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:45:31 +0000 (UTC)
+Received: from az2uksmom3.o.css.fujitsu.com (unknown [10.151.22.205])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id E651BC00D48
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:45:30 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.8.20.173])
+	by az2uksmom3.o.css.fujitsu.com (Postfix) with ESMTP id 95C041000370;
+	Wed, 30 Sep 2026 04:45:26 +0000 (UTC)
+Date: Wed, 30 Sep 2026 13:45:24 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Yeoreum Yun <yeoreum.yun@arm.com>, 
+	Suzuki Poulose <suzuki.poulose@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Suzuki Poulose <suzuki.poulose@arm.com>, Steven Price <steven.price@arm.com>, 
+	Sami Mujawar <sami.mujawar@arm.com>, thuth@redhat.com
+Subject: Re: [PATCH v2 3/3] virt: arm-cca-guest: Add support for measurement
+ registers
+Message-ID: <arySUmMBSQxCCjM8@FCCLS0092175.localdomain>
+References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
+ <20260929-arm_cca_mr-v2-3-1d98bba187fd@arm.com>
+ <arx2hnTv3QaFqMn-@FCCLS0092175.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arx2hnTv3QaFqMn-@FCCLS0092175.localdomain>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/vdso
-head:   ca46a07c4b68246c4e400ce3649ab7228a878d8f
-commit: 37db375ad90467d7e3ce4e450b3d1c4f297d4ed3 [1/4] vdso/math64: Use OPTIMIZER_HIDE_VAR() in __iter_div_u64_rem()
-config: m68k-randconfig-r2307-20260930 (https://download.01.org/0day-ci/archive/20260930/202609300626.zwNjKaO6-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 10.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609300626.zwNjKaO6-lkp@intel.com/reproduce)
+Hi Yeoreum, Suzuki
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609300626.zwNjKaO6-lkp@intel.com/
+On 09/30 12:24, Kohei Enju wrote:
+> Hi Yeoreum, Sami,
+> 
+> On 09/29 17:57, Yeoreum Yun wrote:
+> > From: Sami Mujawar <sami.mujawar@arm.com>
+> > 
+> > Add support for Arm CCA measurement registers (MRs), enabling attestation
+> > and runtime integrity tracking from guest Realms.
+> > 
+> > This implementation registers a measurement configuration with the TSM
+> > framework and exposes measurement register values via sysfs using a
+> > misc device. The supported registers include the Realm Initial
+> > Measurement (RIM) and four Runtime Extensible Measurement Registers
+> > (REM0–REM3), each using SHA-256 or SHA-512 depending on Realm
+> 
+> Is SHA-384 intentionally out of scope for this series?
+> 
+> Although TF-RMM does not support it yet, the RMM specification defines
+> RSI_HASH_SHA_384. A platform using a custom RMM implementation could
+> therefore launch a Realm configured to use SHA-384. I think the Realm
+> guest driver should support it rather than fail initialization.
 
-All errors (new ones prefixed by >>):
+Separately from this driver implementation, I noticed that "B5.4.9.3
+Success conditions" in the RMM specification 2.0-bet3 lacks a success
+condition for sha_384.
 
-   In file included from include/linux/math64.h:8,
-                    from include/linux/time.h:6,
-                    from include/linux/stat.h:19,
-                    from kernel/ucount.c:3:
-   include/vdso/math64.h: In function '__iter_div_u64_rem':
->> include/vdso/math64.h:14:3: error: implicit declaration of function 'OPTIMIZER_HIDE_VAR' [-Werror=implicit-function-declaration]
-      14 |   OPTIMIZER_HIDE_VAR(dividend);
-         |   ^~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+Could you please report this to the specification team, or let me know
+the appropriate contact for reporting specification issues?
 
-
-vim +/OPTIMIZER_HIDE_VAR +14 include/vdso/math64.h
-
-     4	
-     5	static __always_inline u32 __iter_div_u64_rem(u64 dividend, u32 divisor, u64 *remainder)
-     6	{
-     7		u32 ret = 0;
-     8	
-     9		while (dividend >= divisor) {
-    10			/*
-    11			 * Prevent the compiler from optimising this loop into a
-    12			 * modulo operation.
-    13			 */
-  > 14			OPTIMIZER_HIDE_VAR(dividend);
-    15	
-    16			dividend -= divisor;
-    17			ret++;
-    18		}
-    19	
-    20		*remainder = dividend;
-    21	
-    22		return ret;
-    23	}
-    24	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Kohei
