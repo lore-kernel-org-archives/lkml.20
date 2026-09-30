@@ -1,203 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021115.outbound.protection.outlook.com [52.101.65.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FA93BFE4C;
-	Wed, 30 Sep 2026 09:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760179; cv=none; b=T0ch/edaWspAX3d2ufO3uqvg72WFSemkS0322kY+FnUR0K4t7CYA8kZDhQMkYMOplyD0buV96BDx/5HltBOkZzO3h1ikg91i6gpaiuxw1bypq/0xPGPvH5jLOpgzK7u/QAiGwx2H09g1voVyDvyV/0AwQGompZubCRNvHqeB20U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760179; c=relaxed/simple;
-	bh=5bykXwQFrecea4n/p/foXaV5dD52zoBJ8muDDo81Avc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CcQiNwzp2d3TV6eijVrdQkUAmAIICSo8htmhKOWo/bBPY1VkhOQ8woqduOsfj8dN5aMjYyYpjOGqkEJ5KubuvbH9SVa8IWodZ0FfG+jOep74AkPrOSf7TaGJ95hIxIZG27EuEM1bV8yXXRBU7p2kZ3ZR5PHVxw2J7dvmfaVc9W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5djgav/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DC83BFE4C;
+	Wed, 30 Sep 2026 09:23:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.115
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790760206; cv=fail; b=kGTS2C2QA6zmi+x5WActVWxHdpQzgfH87IJPP41yU36CwI4rdR3RmAVilu9jUcbl3HQIPj6O3xNRvqK0u7AtdZT9Q1ScVAjrgS9oIriB4Ez6MJEd+pFh/P5xDXit1wnTTSAmZxe9MXM8phL/FivrVLmtJ6opOESBEKtymOVy4Kw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790760206; c=relaxed/simple;
+	bh=ABcmZjCGNR6vsgciixBcRJ/lF0QMuCx366c6+5qJFBQ=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=bbpvm3RdGjYb6p/jS0GzORw0Lt4goHMCBXZfSj44Ijg7b6dUUKgieargLISx/Ep6N45JiL17EjvQzb01ZgOhKa40sX9AiNYzFYA0vTtJ6H7vbrvnTtmF17q8oLSsOTjT4mWp0Kq9kIms+AmPJ8xbIy6H0vV6N/iphpZ7eXcadvc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nebius.com; spf=pass smtp.mailfrom=nebius.com; dkim=pass (2048-bit key) header.d=nebius.com header.i=@nebius.com header.b=U8LpiSYh; arc=fail smtp.client-ip=52.101.65.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nebius.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebius.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5djgav/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04AC81F000FF;
-	Wed, 30 Sep 2026 09:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760177;
-	bh=X/x70JWMsn0GwooOf5u0/FT6WEHaSv2RtNgAbg9eDUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e5djgav/nnv67NRjmVWS/jXi8pwQvITvBXT+Ib3W1g2p963qYfms2yoj5bprChMF/
-	 5m+KvMfJCC6+Juk08nbuBXptLKDUdb8Z3OnnB2Kg/5wX+GfnUaNMgPcDJfwkwlCl7H
-	 nJxHZ17t93KISpE7QLxl4r8w0f+Hf/HHRSFPhY78uynCHL38WhdunTvzqNMC3vr/3h
-	 krTAm9jMbPoEcjd5rx2Mt9tDILz7gqu7O400AjNex57XauSlP3WqyRcfQlH3sjBrCG
-	 a2kwHr80Avvgg/Zcr2n5kt1HSvqsjatra6a8lzTOFbLsNnsz+kuwDhrw81+iilW0rc
-	 6ZXBCCEFFgPZg==
-Date: Wed, 30 Sep 2026 11:22:55 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-Message-ID: <arzQe5nbSXd9TuJ7@orome>
-References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
- <ary71zC1e-bySLFW@orome>
- <arzDId4Mxryrfa7m@orome>
- <8pr0OOFrTHeQTZiJatWz_Q@nvidia.com>
+	dkim=pass (2048-bit key) header.d=nebius.com header.i=@nebius.com header.b="U8LpiSYh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wH0Q0V7AfLkfGjZ2ev/33dUsZpmKmHmmEHsXUG4fukROzvNrKjCrfRBDxrEGN8K0ZEoxFwM4NzRnObpUdPapN+n5HnnuagLgxT2NUA+rakXD0VDoKrqDzFtiPKRokV7oOu9ahDE+V3+dsZB3H8qpBHVgM/R/nWxHDxOFnP9c6SPbrM0C9Y0rii/wFUXc484+G5imHjuLaBWGAVSjitp4vXFyy4eAeqlJ2G5kvwPEcUf6tg9N8zI6yYfgkQXIdYwHg4vnuvZhhqDrTohawGRXv4ZntCERiHfju8/n/Ucjj4XYnMz2eVfzE3pmqpBUZXxz+v/0FNXa2hAxKbskrA84ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2lSdgahW7xBc4gA5XvwDX366k00q47Q8hwFNKYK0cjw=;
+ b=OipsQpZHdsISiZNoOY51sVE5+k0KUGc7srD52cZ+T/Eg49S6q829hMYc/khBV/1a/GiQ08TjpG/X3Wxn5XDV/g8RZbb/i/KYEflhhsphTM5wyg2ney51lVK39ybSinJ976wnKpbfs+T0Wf3qXiHWddOXOXTcm3QJ8EhtUcRLV87HVtJOXleXZoeJE10XnJewiziEkNV2yZKAbaDfTvU91FkuGXK24xuQcAcnzLKQ4mZldAenRXVvbkemOS/F5aF6uOQWE5fpdxj+2gn6dYtpV9mBnWTJwQ5PTpuwE5ELofBbcmqom6mKjntFcR6Lk7SIXYryzcOAdhh/LkzJdQzTYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nebius.com; dmarc=pass action=none header.from=nebius.com;
+ dkim=pass header.d=nebius.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nebius.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2lSdgahW7xBc4gA5XvwDX366k00q47Q8hwFNKYK0cjw=;
+ b=U8LpiSYh+/RpbqA6w38PgBMv3n3mpPz8aU97/jlH1FwKqSR4mqk8oa1EERrEnVXXUal/oypbCarQCG6KaX9PurSxZFO466RyBv0aGDS4fucSu0ZuhZ0x1qB0rLl4+uRwXd1WG2ihWL5Grtvh7adu1IYOaBbjptse4P0ysVmo+44iP11PC7/WYCvNt6bWpy0EYiB2qUJyxPo1wgJHLTj7KuYmiJOr/fmaiAkAebuZRClM4qAc3M4ASI7WoUZ7h9J96oHB1VxWSltir3XN5hBRW55Gmjed7s3awnGEhEOgMQ9+lyv/lOnJF2+JViB7ImdRbNKT/CTDmcOtAooo//cX9g==
+Received: from AM9P190MB1666.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:3e5::12)
+ by DB9P190MB1745.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:325::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 09:23:19 +0000
+Received: from AM9P190MB1666.EURP190.PROD.OUTLOOK.COM
+ ([fe80::5466:4545:3e0a:8e43]) by AM9P190MB1666.EURP190.PROD.OUTLOOK.COM
+ ([fe80::5466:4545:3e0a:8e43%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 09:23:19 +0000
+From: Dmitry Malkin <dma@nebius.com>
+To: "live-patching@vger.kernel.org" <live-patching@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, NB-Core
+ Team <NB-CoreTeam@nebius.com>
+Subject: [PATCH] klp-build: Add an option to set the livepatch module version
+Thread-Topic: [PATCH] klp-build: Add an option to set the livepatch module
+ version
+Thread-Index: AQHdULvoHTLwfEESW0CL9UwJl5Ssng==
+Date: Wed, 30 Sep 2026 09:23:19 +0000
+Message-ID:
+ <AM9P190MB1666E0A06E9F75E93BF960C9DB8B2@AM9P190MB1666.EURP190.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nebius.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9P190MB1666:EE_|DB9P190MB1745:EE_
+x-ms-office365-filtering-correlation-id: 6438e043-1321-44cb-9c61-08df1ed47798
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10070799003|10067099003|11063799006|56012099006|3023799007|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ 4aXSMDpE0uSRp4KWyuDFzsTUzvP5opWcpyFmRbClKgxExlwSKlpA+kCI6/SQYKE3rwAi5i4xTBpbehmPg43YqtuJhYT+GFu/rQt9thb9QYRiZbbNAp2iPZcSgHyLm/DJcXhWuPNLBznTdBdWVTsoFZFROxbNYSKd1tgGk+DV+bkjPzKV528JgRmqlrqo6wMWZdN4T5DXyXqALvC8h43Rb5dLK67N/hIHNvNfwKdC5xaD2JmUcQoiA4e33iO8QpBRH7MJ1RDHOS63HEqFtYG/AwZ++cR8E7VOl0wdAtcS8rgtyiMCe4qoB+L6K/Yth2I3YTuYarpjhiRQOvO34vS+vz4ZbwC2bcnB7iM+mRt7BzOyL/iEevivZKmH83NZkC5TedUZkxx0y4Per9l8bH+32hPYFeMnOAnxRUnd1Jm5nyei8SCFa6omoj9QJNSpuEBfvtVpVRsma/XP+Z0hKUKkKxVvt/8XBn3JtmSTvpf98qkY8jn4o5fVUCzePk3oo0Rk4o1MVH8nEyXPhpuxs0l8LH2by4IyaV0HQFmC2EB7VJtxr7yuP4UII1ruEalmwov929Oat4yUKEaK0Hw6nJUKqFCnWqTErFUmuDViDJC+tv7CBoX10Ko7jnahtFQzhyygKMMhpeZ5xJEp90msORA+jUBwUatyh0gCT9IwJVkGhSoeSfm+mclQ4KN8DNPZOWjhUeQ6Eh3+woYCLmDKXXB5knEAqnzcCL6OUxBpvS2FbzI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9P190MB1666.EURP190.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10070799003)(10067099003)(11063799006)(56012099006)(3023799007)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?WRqAHj7JyKtRabb0ou4pXQ4y4/wPnKETD3fuf4I+9pr4l4VrW8pLIB0g1m?=
+ =?iso-8859-1?Q?FAUUOEa5YjEk1/fXGiEzXllpMn7c+mUDQEnTiDanakMhc5eB6D/DsKTEUS?=
+ =?iso-8859-1?Q?9Nb2VW6wMBfEqIGbO13pO+eWuqvlCtgVVzt9F9si4aD6kP/upT9gJAmeLH?=
+ =?iso-8859-1?Q?aWOaY8JDOMsJrpZ4k8g/kVo6+QGX8h4tCiElZcY5mZMWv5V2JyuRtdLquZ?=
+ =?iso-8859-1?Q?akJOs0YOX4FNm0zfSziOVpSz7MUwGTMxbdZUZIpU/l1A/44egGC5ILuy8O?=
+ =?iso-8859-1?Q?iQh3k+cderSPzmqA7e+aANN1WrEQ+OlsKrDcfKnsLSLpS/Rkswybef8kJK?=
+ =?iso-8859-1?Q?MCv4+M6OKmrjkfwEWkQL/iaZc9gIUG6sg7yGVl8OtmI3ADWkTGpFWVv3kR?=
+ =?iso-8859-1?Q?JzAiwZsy2iI3mbpPAWh7JIQW1dBjk8D0bnVvI99OotmoZEES2n/o+4WWMQ?=
+ =?iso-8859-1?Q?9J/4lH0q9Rf6HDsu+d6IkAxeWJwlgfy/KZrhcf6CFe4gtmeL7t7AhdTb7X?=
+ =?iso-8859-1?Q?JgdW6duATc7vGtR90aC988/XzZylrCJjNrAtEALuDRGm0iPVgRbUefRY2+?=
+ =?iso-8859-1?Q?0fow73XkCpkF08TbDqXLacWf3wI1dXGG3+VSTmRIlL74TG9pehr8zdTlN+?=
+ =?iso-8859-1?Q?Ycj+/kEY/pHrGC1QuREvetSc6RSNSQ/P6L7cLL/uGD0lZvXhCUZd+tD4U5?=
+ =?iso-8859-1?Q?2XtE0FFHzESoxL/y8TcXfm/jfaI/KiOktetVbjWWQ/gBwqNXVqfbedZ4LU?=
+ =?iso-8859-1?Q?QQ4+WPNd1KMbr/HS0oOCHIIl2XZFK3n3EN0sUUPzBOM97kkb/zldISuWMt?=
+ =?iso-8859-1?Q?qKV9G4pQ4D/pAGHwEBN0qk8QDqiwKxM68ByqILcrftv6zW6vsxH0U/Vhxj?=
+ =?iso-8859-1?Q?8UYlB55gnRWUBGp21usNqp0B46XVEAlOzzEZh/lk/2HOWl1NM9gErSlb5K?=
+ =?iso-8859-1?Q?MbBInIXxfJWLT7YWplkdCUR9kcG7jcg785MM3ENMD1H713J/yiuQq7kQVC?=
+ =?iso-8859-1?Q?Ue8ZJ54FpRmHkJBtCEK9TouGusO34oa6ctjM0iMAIz6l4DNjVwF4yLCuqx?=
+ =?iso-8859-1?Q?EMrSA5ZtMIugpkfXUvxQRGxSj23No4BjgYRUP5MeV6tu4Jh9p5kaOFU8RU?=
+ =?iso-8859-1?Q?0m+rgVR/4PdH49VK4ZygsspwcdhVG3qQjDEiWcygjY+O4sCE7ehv6erSXC?=
+ =?iso-8859-1?Q?ODSxi0m567vdr9flKRk2MG+ICA+SHAWlDJzEjbe9MzOSzXTnN/16v3e9yY?=
+ =?iso-8859-1?Q?BiRcUh7pqRNzMstp85ldxFVyAmPWnfZ7BNYz927fQjl0hbnOGP/1pJ82Df?=
+ =?iso-8859-1?Q?vT/Jkr8ubxiyGDn3uhFj0pO8BL4biZAmR+xyRsBVixXz66AhRt6IDGknTQ?=
+ =?iso-8859-1?Q?3/tHvXQI3bxClXwq9FkLIvBEasB3vJ/n3I0I/FqceM1tSp3bGc5UWA3KhH?=
+ =?iso-8859-1?Q?wJPuAKIlKLig/xlMaUSm02Hq6xpHJjFb617fhqL7qm3t+FbPGbZ2+yRuCL?=
+ =?iso-8859-1?Q?Vh17LNWhxac9ywv6DZs/5C1t8p3zpHJA9SeZ3FmOc8pjETCoTBbGOATGQY?=
+ =?iso-8859-1?Q?ov58enk/DrB9o5kNs0cRbfgS8euuekMt6nCSyxWy/quJd0IVHuOzJJaUex?=
+ =?iso-8859-1?Q?N9L0GvjoivRzsPYyM8Pd1gQmkrGJ6C29Jre9t+AROZXu87w0LhLRRY5nUn?=
+ =?iso-8859-1?Q?OAbpwtvLQoFHzmsou6lOD4OEOQx93hg5PX6YMORguRGE0cikfRrkAKI0KN?=
+ =?iso-8859-1?Q?DADF5Vrl4fQnMKn2u+2+ElEjirULbYz1gJXcG/aT25HFRmNtejRZwcTiHD?=
+ =?iso-8859-1?Q?K1Xh7ha4DQeRwrola7xMiIQxhrh7jANeJY+sdYQaeVpeCKMbzSpZ?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tm4xvg5k43shc5ai"
-Content-Disposition: inline
-In-Reply-To: <8pr0OOFrTHeQTZiJatWz_Q@nvidia.com>
+X-OriginatorOrg: nebius.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9P190MB1666.EURP190.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6438e043-1321-44cb-9c61-08df1ed47798
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 09:23:19.8239
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4eb23c52-f3a5-49bc-b555-0b061267a984
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SczqzPor3wwqaQVLif7KHNvUW+KjmST8BiGM2bD8eSI8avtK3ZNPbbbQvbKemFkW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P190MB1745
 
-
---tm4xvg5k43shc5ai
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-MIME-Version: 1.0
-
-On Wed, Sep 30, 2026 at 05:46:01PM +0900, Mikko Perttunen wrote:
-> On Wednesday, September 30, 2026 5:29=E2=80=AFPM Thierry Reding wrote:
-> > On Wed, Sep 30, 2026 at 09:40:51AM +0200, Thierry Reding wrote:
-> > > On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
-> > > > The DSI driver ignores the reset line if a power domain is configur=
-ed.
-> > > > This was originally added to support Tegra210, where the power doma=
-in
-> > > > provider has to control the reset line -- at that time, older SoCs
-> > > > didn't have a power domain for DSI. Now, however, they do with the =
-core
-> > > > power domain.
-> > > >=20
-> > > > This happens to work on most systems due to DSI already being out of
-> > > > reset when booting the kernel, but on Tegra114 Dalmore, this is not=
- the
-> > > > case and causes the system to hang during boot.
-> > > >=20
-> > > > Ownership of the reset line is no longer a problem with reset
-> > > > acquire/release semantics, so control the DSI reset unconditionally
-> > > > from the DSI driver (possibly in addition to the power domain drive=
-r).
-> > > > The device tree bindings already require the reset and it is present
-> > > > on all platforms, so this is safe to do.
-> > >=20
-> > > That seems backwards to me. The whole point of doing this via power
-> > > domains was because it's explicitly not safe to toggle that reset line
-> > > outside of the powergate switching sequence.
->=20
-> If you're referring to the MBIST workaround, unless I misremember, it=20
-> doesn't mean the reset cannot be used outside the powergate sequence,=20
-> just that it has to be used within in.
-
-It's not just the MBIST workaround, but the officially recommended way
-to powergate/ungate devices. Sure you could do whatever you want with
-the reset outside of that sequence, but that doesn't mean it's a great
-idea to do so. With runtime PM we can be reasonably sure that we're in
-a known-good state at this point, which is the only reason we could get
-away with doing this. That doesn't make it right, though.
-
-> > >=20
-> > > Also, the power domain code paths are supposed to work regardless of
-> > > whether the DSI was already out of reset or not. If that's not working
-> > > right now, I think that would qualify as a bug in the power domain co=
-de
-> > > rather than the DSI driver.
-> > >=20
-> > > Shouldn't this be fixed at the powergate level? My recollection is th=
-at
-> > > DSI is tightly coupled to the display powergates, though it's been a
-> > > long time. Do we maybe need to reflect that in DT? There's a TODO in
-> > > tegra114.dtsi that seems to indicate that we're missing DIS and DISB
-> > > powergate implementations, so maybe that's where we should start to t=
-ry
-> > > and resolve this.
-> >=20
-> > Looking at this a bit more, pd_core doesn't seem to make sense for DSI.
-> > Basically what that does, semantically, is claim that there's a power
-> > domain responsible for powering up and down the device, but in reality
-> > it doesn't to squat.
->=20
-> Doesn't that reasoning apply for every device?
-
-Not necessarily. There might be devices that are truly only powered by
-the core domain.
-
->                                                Technically, pd_core=20
-> corresponds to the core power rail.
-
-That only means it needs to be the top-level power domain, but it
-doesn't imply that it is the only power domain involved to make any
-particular device work.
-
->                                     DSI is powered from it.. we=20
-> certainly haven't always had an expectation that the power domain=20
-> provider handles resets for the device.
-
-Well, as evidenced by the issue you are observing, that expectation is
-indeed very much baked in. DSI is part of the DIS partition, which might
-be powered by the core partition, but the DIS partition also needs to
-control a bunch of clocks and resets associated with devices that are
-part of it. If you omit that DIS partition, then, yes, things are
-expected to not work because the clocks and resets are not handled at
-all.
-
-> On Tegra114 it looks like DSI indeed is in the DIS domain so that would=
-=20
-> handle it, but on Tegra20/Tegra30 that isn't the case (even if those=20
-> device seem to be working right now anyway).
-
-Tegra20 and Tegra30 also seem to be wrong, to be honest. If they work,
-then they probably only do by some happy accident. Evidently I wasn't
-paying enough attention at the time and was convinced it was all correct
-because of the Tested-bys.
-
-I'm now wondering how much testing was actually done for these. Once the
-display is turned off and back on (via framebuffer blank or DPMS), it
-shouldn't come up properly again. Well, except maybe if the disable and
-enable sequences are good enough to not need the reset in the middle.
-
-> > Does the hang you observe go away if you remove the power-domains
-> > property for DSI? pd_core should probably be removed for both display
-> > controllers and HDMI as well. Probably also TSEC, though the TRM isn't
-> > clear about what power partition that's in (probably DISB because it's
-> > used primary for HDMI, which is in DISB as well).
->=20
-> I'd expect it would go away since the reset code in the driver would=20
-> activate then.
-
-Good, and that's the right thing in that case. Again, the power domains
-were introduced to specifically address the (clock/)reset/powergate
-sequence requirements. That's why the code uses the power domain code
-paths in a mutually exclusive way with the resets. Either the power
-domains take care of the entire power sequencing as recommended by the
-TRM, or it doesn't (in which case we fall back to the more brittle
-manual sequencing that we do).
-
-So I stand by what I said earlier: if there's no power domain handling
-the entirety of the DSI controller power sequencing, then the DT should
-not have a power-domains property for the DSI controllers.
-
-Thierry
-
---tm4xvg5k43shc5ai
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq81OsACgkQ3SOs138+
-s6Fz+hAAiFJg0ZORWTVgyUjtIBlJWeOfzwpj14859ouOTgk1eCUMX5ZmzjD15Gis
-6nshbTe0UXeghL+PsByr647SXbkmrCAhhBjVyGeJ8kvng7n3soTEuCgUrgI4+Noh
-yxUZ60Md5C4t//oXPSooLiqd+CTmf+SwQNzyUBUgzGqdMAj7WnAtHrhpPXIgn86w
-Af53b4rCBf1xmMU/T5RumD+TXPeAkkcQjapsBWtwSAfRAa4CsXyHHOIo5UNzElIm
-NTuIYoLaNh8m0MxFeh4Amv9+KepKGcgO1mlo5jnIuaRhD3xWkbgu+LmVkEWQEtSC
-9LgBisdErLXeydLna0LzzzHPsH9NEgBKrICOTYCgwtt57IQGuSSBIymowlkY7HUI
-RNmPIvkxpxh4ZMFCFYV/bIt02rLlqLPQc+9Vp/l/ruN44dD5C0M+Z6GHW2IEk+EA
-AyjGXycMxyY6jRIcgPEeErjpSL9Cyru0KyVdVrczLTVzRO3iFnWb4x+sUPq7uqIL
-kf4lV+cgJmFc88qS4diK9jMAS6vLxwTittOwA8DysSpyzRBZgAX3HgsBeggblKGL
-bWWtyEMbianZrNWXBeGQROrNKmOaleecCHH1u8RgkFeNRNmx9zDpKvmvNKcczQrw
-Kre6eF5A7Dg+OcL+dYOWkKuV2sOSdn1Nom24AJuTwEg7KbaOdNY=
-=qNqj
------END PGP SIGNATURE-----
-
---tm4xvg5k43shc5ai--
+Livepatch modules generated by klp-build do not contain MODULE_VERSION=0A=
+metadata. Add --module-version to identify a livepatch release=0A=
+independently of its module name.=0A=
+=0A=
+Append MODULE_VERSION() to the temporary copy of init.c when the option=0A=
+is supplied. Restrict the accepted characters so the value can be=0A=
+embedded safely in a C string literal. Leave the source template and=0A=
+default build behavior unchanged.=0A=
+=0A=
+For example:=0A=
+=0A=
+$ scripts/livepatch/klp-build --module-version=3D1.2.3 fix.patch=0A=
+=0A=
+The version can be read from the resulting module file without loading it:=
+=0A=
+=0A=
+$ modinfo -F version livepatch-fix.ko=0A=
+=0A=
+The version is descriptive module metadata; it does not control=0A=
+livepatch replacement or compatibility.=0A=
+=0A=
+Signed-off-by: Dmitry Malkin <dma@nebius.com>=0A=
+---=0A=
+ scripts/livepatch/klp-build | 14 +++++++++++++-=0A=
+ 1 file changed, 13 insertions(+), 1 deletion(-)=0A=
+=0A=
+diff --git a/scripts/livepatch/klp-build b/scripts/livepatch/klp-build=0A=
+index b52a8489d9f6..25e91fef3fa7 100755=0A=
+--- a/scripts/livepatch/klp-build=0A=
++++ b/scripts/livepatch/klp-build=0A=
+@@ -22,6 +22,7 @@ shopt -s lastpipe=0A=
+ unset DEBUG_CLONE DIFF_CHECKSUM SKIP_CLEANUP VERBOSE XTRACE=0A=
+ =0A=
+ REPLACE=3D1=0A=
++MODULE_VERSION=3D=0A=
+ SHORT_CIRCUIT=3D0=0A=
+ JOBS=3D"$(getconf _NPROCESSORS_ONLN)"=0A=
+ shopt -o xtrace | grep -q 'on' && XTRACE=3D1=0A=
+@@ -132,6 +133,7 @@ Options:=0A=
+    -f, --show-first-changed	Show address of first changed instruction=0A=
+    -j, --jobs=3D<jobs>		Build jobs to run simultaneously [default: $JOBS]=
+=0A=
+    -o, --output=3D<file.ko>	Output file [default: livepatch-<patch-name>.k=
+o]=0A=
++       --module-version=3D<ver>	Set MODULE_VERSION metadata (letters, digi=
+ts, . _ + : -)=0A=
+        --no-replace		Disable livepatch atomic replace=0A=
+    -v, --verbose		Pass V=3D1 to kernel/module builds=0A=
+ =0A=
+@@ -160,7 +162,7 @@ process_args() {=0A=
+ 	local patch=0A=
+ =0A=
+ 	short=3D"hfj:o:vdS:T"=0A=
+-	long=3D"help,show-first-changed,jobs:,output:,no-replace,verbose,debug,sh=
+ort-circuit:,keep-tmp"=0A=
++	long=3D"help,show-first-changed,jobs:,output:,module-version:,no-replace,=
+verbose,debug,short-circuit:,keep-tmp"=0A=
+ =0A=
+ 	args=3D$(getopt --options "$short" --longoptions "$long" -- "$@") || {=0A=
+ 		echo; usage; exit=0A=
+@@ -189,6 +191,12 @@ process_args() {=0A=
+ 				NAME=3D"$(module_name_string "$NAME")"=0A=
+ 				shift 2=0A=
+ 				;;=0A=
++			--module-version)=0A=
++				[[ "$2" =3D~ ^[a-zA-Z0-9._+:-]+$ ]] || \=0A=
++					die "module version must contain only letters, digits, '.', '_', '+',=
+ ':' or '-'"=0A=
++				MODULE_VERSION=3D"$2"=0A=
++				shift 2=0A=
++				;;=0A=
+ 			--no-replace)=0A=
+ 				REPLACE=3D0=0A=
+ 				shift=0A=
+@@ -827,6 +835,10 @@ build_patch_module() {=0A=
+ =0A=
+ 	cp -f "$SCRIPT_DIR/init.c" "$KMOD_DIR"=0A=
+ =0A=
++	if [[ -n "$MODULE_VERSION" ]]; then=0A=
++		printf '\nMODULE_VERSION("%s");\n' "$MODULE_VERSION" >> "$KMOD_DIR/init.=
+c"=0A=
++	fi=0A=
++=0A=
+ 	echo "obj-m :=3D $NAME.o" > "$makefile"=0A=
+ 	echo -n "$NAME-y :=3D init.o" >> "$makefile"=0A=
+ =0A=
