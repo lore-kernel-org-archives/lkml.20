@@ -1,70 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF433624AB;
-	Wed, 30 Sep 2026 03:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0A737AA9C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739584; cv=none; b=piA4WYgnwtmLp6UqxjmtFA92S+ZwKNYzgD25pV2IQA56pn9as9bLAS8AL9KAuOuT3mDjNFQ7HnHyuoeYxBmChBTPyFc4i8R+f0LSFznRnRimIbJwbvsLO2heyHG31ssI4seA6peURGFHtse2ykrVKC7yVinh47A1nV7V+tMPEMI=
+	t=1790739587; cv=none; b=TPIQCLikwd+sPVx8Nt/rlO+cre5phB0/lwecIZ7/7bk8wLTr2+nIjfyCJHn5FDT/WdOeG9nh857MgZdw3gnvrE55PZHhjKYZgWBONBTwvlfWCyxdFQ+3KkurssXKZdHLoBOaO/hU1DzxmeUrmcxCEl2dFvcLNpXixkiPcsylkq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739584; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	s=arc-20240116; t=1790739587; c=relaxed/simple;
+	bh=GdeZEzx5GKh9ZY0H/ycxz2NRMTcpeYqQQU7x3wrswlA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fS/Hecgj2EH6trJwSQfbNQ6nqStEZN7bjQ4OoYA98/3Lf6pC82jiRlQR+6Qh+7u6hVBx41fl0gWEVVqnFWPhC2gD2Ykt6eDLIMe+n7eWH19dTLGy78Oai32kH9/F7+QbT4uhLgDlaZxHXcaAbI+HPXuleHoNN2gtm7KojYyWma8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdwryBlg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SPyRZo2CspEjI+9QMnLkPbZ1cjtWemSmZ1zaoU68j9OuTwNi9DGRdShITNiG/budpvklOhkXM8coO+jJONwG/we1Z+Zgmqa0ls2/dGGDU91K5wv6zg1R0X79l4UnjTF4Uhma9xvUvIFYGKGY+8ji2K5sCkL84mobX7/lb/T2lbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JS9mc7sR; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdwryBlg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420F21F000FF;
-	Wed, 30 Sep 2026 03:39:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790739582;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mdwryBlgok4SCxcphBAf3luTsYdrcAHZHDHZlS9LGLA8mgSfGdmUSYsmfgKWl+b4N
-	 I5Bdw0hdFTAVdRN3mlePXqLqOzpdqFWUannm1RanVa/AXOVg41LUxf8AXiyf/7bT1Q
-	 TvqZrSN4UktGEEfGcb4oj/3r82kwhPiD4n7vCPE/E6HoGimZDiX0+FPQodujmbAl1J
-	 qVsBFRnBfT/UKpSs9ZTkY1RHLCbJgrcA0iTNwMAYNEuM/+HDjrPlHtXjeQD+A919J9
-	 H43foJHfw3FDLVUyEYMzuqB2geENMatnXXtbjLNc+riAzvbjO46YLjBFN2beWb7MtE
-	 Woa/sAr6I79LA==
-From: netdev-bot+sinfo@kernel.org
-To: Amitesh Singh <singh.amitesh@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org
-Subject: Re: [PATCH v2] net: dsa: push hwaccel VLAN tag into payload in
- dsa_user_xmit()
-Date: Wed, 30 Sep 2026 03:39:41 +0000
-Message-ID: <179073958170.31693.9874606328740414287@kernel.org>
-In-Reply-To: <20260930033239.57093-1-singh.amitesh@gmail.com>
-References: <20260930033239.57093-1-singh.amitesh@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JS9mc7sR"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34cde269e1bso77197eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790739584; x=1791344384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ia9CbVKKwRCU5GzXWGPkLwk9XTdQTUAtoP5YeQIZPys=;
+        b=JS9mc7sRfqJC3ziAg6EQXugbPKZVKdueuT8W4aUSgx7VNUNlc9Zsjfzik6D78Y6ylK
+         SNO1qXgeYlkiE1HONapM6GuzDy8JvGbg3TEl15cR6bkqTKMUHxGGNW7f8K9eZoGNw05e
+         yVZZi9EjJaM7LOUMITfuDxZFA30LZOw0cgdPttFX2VxOypqGj66do0AiFSpXdKP755pZ
+         ENiHQtNJRN2PZQKjjDLVK09/ZkkViZRhqMmreeHzCBd18qR8j0sM4VcmqgbpJCizMOOM
+         vuuc44fOTNPsvZ6008OsNgt4/NBjX4zXhN9Wiejc4ACk2unrkGIN7sHZ2vjJ/Faw+lsO
+         sVoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790739584; x=1791344384;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ia9CbVKKwRCU5GzXWGPkLwk9XTdQTUAtoP5YeQIZPys=;
+        b=MWjWhL0Pbu6tiPKWJ+zDQkdz+z1BQV3Oj5ZKFkxHaH8TfI0LcUPYVVxNUZUn/mYp2j
+         ge9S/QKtWnFZPvfivpTKmgMfoD6mGLJVPiFBSbyEgOvx7bJp/vk1FkghNjNs6lBJRMWX
+         f40Vp3IrjkBUci8LyC2mFyZhB7okcW2PTn0hXUaJRJOKOg3+eJFB09qhW/0jvAOINf1k
+         EZxLd7PuPM3PCJM6iSFO/yYAP6G+JrWE+u0pOjJmhb2QjXcSLMmNhwM9RuX9UFAbSF9N
+         bLQN1FAKlbxqrxAuoK2Bp/9c4+ZTBCGHxFNMY4hBqEEfFXlK5vJfEWQXDCcqiUtW305y
+         XNeg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLJWgqRUA5kpW+2IvPVe3CbTBxTbFksIOzF08eoTGOD0kA5VXUgldtjkR5uoxKWPuVX+xaFtMAwA1M6Rg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqHmlr1TaaVTYRVrMSGIBO6F75uMdF9NYhUlC0DB6FuVJCs0jA
+	SJilE1ymq82Bht4S2YJMFzsb6BqdN3Bg6hKK7HGDCMXF0xrB8Bx4Cl/+
+X-Gm-Gg: AYBFou3H2HeFflmkhYNISvmDiA8CW1m+ezla50XxHZKo4EVqftBQSIIslaZcHAiqka4
+	6s+S996m9GMCfZqBpW5oY8vihUBCvjaYBjUKaK07CG3Ss4PrLlnmNahO810rVsIVSjSadIf34V9
+	WZPTdP6+GlvNYGF8x6H3gQCCAo8bNBqW2BhhWm+llaqWG7x6sffEYKqfMzmd74gLqL9qpB+uWR8
+	vqSFXef68nVuTU0Z2nmzT+naJdeOtzuWskNV9En6mdtBp3ZD8AF7d1Fv4sJKHLrB+Fzi56bgieZ
+	/Ipl0SrwDK8rEFHEnzgEGeLaS3roBgAq3XTbNqA91Rss5v/PI5JBMXu/q6C4TpODK4zV8whzgi1
+	rfotVf+YyLREyx+dlmeYSLwXZ29KWau5W2HHd621tw1GIok2dsaO4wPR4AMSi86hN5KRD+4E3gj
+	wlV6N1TXG1C5TkoMX9W/5cOgBuxEOHYjODPmS1DVoY6o8uD/bZtnHRJ8P9DJvGNUwhP1KreS/7l
+	A0W+pg9aSZ2UfM4QP5djCwrkO5iBQRizqtufHJ8Tq9AeS35pf/OAbY0jpsDtj14zQCXKHetQKdQ
+	RoWgNDLGnXupXNQl3Hu2/q/8IN+NyJy5o62SUVo16urrAvVuvvOmZ+zjmNI=
+X-Received: by 2002:a05:693c:66c2:20b0:34c:7e54:65e6 with SMTP id 5a478bee46e88-34cd91735a2mr336022eec.5.1790739584070;
+        Tue, 29 Sep 2026 20:39:44 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf22fc6cesm252806eec.2.2026.09.29.20.39.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 20:39:43 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Hui Peng <benquike@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] isofs: bound empty directory blocks in isofs_read_level3_size()
+Date: Wed, 30 Sep 2026 11:39:40 +0800
+Message-ID: <20260930033940.175021-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
+References: <20260919222553.3792320-1-benquike@gmail.com> <20260923175215.1577791-1-matthias.goergens@gmail.com> <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf> <20260924151356.3287733-1-matthias.goergens@gmail.com> <20260925043804.2091174-1-matthias.goergens@gmail.com> <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n> <20260926083517.556576-1-matthias.goergens@gmail.com> <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+Hi Honza,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> Any reason why don't you do just "++i > 100" here and completely
+> remove the empty_blocks variable?
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Yes: i has one other use.  The "if (i == 1)" further down records
+where the second section starts (i_next_section_block/offset).
+Counting empty blocks in i would move i past 1 before the second
+record is read when an empty block sits between the first two
+records, so the next-section link stays 0 and isofs_get_blocks()
+reads past the first extent into whatever follows it on disk.  I
+tried your variant on a two-section image with one empty block
+between the records: v1 reads the file correctly, the variant returns
+different bytes.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+I'm happy to send a v2 that adds a comment saying why the count stays
+out of i, if you'd like one.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Thanks,
+Matthias
