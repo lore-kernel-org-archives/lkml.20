@@ -1,47 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FB343C7DF;
-	Wed, 30 Sep 2026 08:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B4D3546D0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758189; cv=none; b=qrAZh/WAKZuVdW2/qhL1Djtv4TRL1qmmAHbz5AbiGXxaUB1ixYeHi+Bl3TKfuN3qjrtDMBEcYJ3iCOqclTPBN1MvFpx5S9gEcSL4z4jvT1asnCPNPSdmBtFPU3yIkWwNFD1MrEX3ARH6ySW54g3dmkzy0Kl+K7D8Gdgp8CaU2Qk=
+	t=1790758206; cv=none; b=g5+7SvcOoNJ6iSmGkmN7C5qBy9IWYUho/nMIRCtgbz1QcOMUgKRuWuVdM820QVtdPpE4VlO8bQWxztnhayU9bZsF/Kb7kqgf6aqJ5aaqmpw0kdA46/qS6xybbB9655hJEHytJ8sKSj0UQuAd9asCpbvNv6Gm14602n389WIUw/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758189; c=relaxed/simple;
-	bh=WYP7JetXzosPTpQivXohzgWfi9AKUBQN6yUvyHrLU7w=;
+	s=arc-20240116; t=1790758206; c=relaxed/simple;
+	bh=jvl3OtauOMAvlGH6YR1If4nsibXiUkKUqdJqKkyztq8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jJ0dPDB2pimfKAfsuCXtKXqWxuy0706/iRpCPQ6J9rniPuXGtJqTEs5ZkeegsbSp8QfT0GwU4NgdGJUBoilr3W/nZIr1gDSvF4OvrszIDGTU9ZCHZeP9u8+dshMXww7U4Z6soJ2L1aq8yL3v3rk7y08DgTQGCgMvVWEX02cQJCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4szDhpq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uLjV/wHH+sTxAOMjDzmM/3CD/Obu9rJN1oiV8c64eEQgar+5ACFtoRfOfjDoNBITBrYZInWVdzBewVDkOdIcopM3hR/Qu/tpFpG8RowdP/POmFJlHviDVkyt8b0EnR6lC1mYpx1xJ/OBg+7+mR1DledUUY6Tw9sLxd/v2UQ6/CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kEyHIAL5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SEk0J4x9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4szDhpq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C0D1F000FF;
-	Wed, 30 Sep 2026 08:49:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790758188;
-	bh=FmNn5Xvock/3VZ/k07jBRCEfS09WM6dksfYZtNA0GME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T4szDhpqW2IyY3aed64r0YME9X4Wl/YfcbIhpPtkd0Llku5EgNoKmCsHe5l9EZf03
-	 Z4hNgoTxKS6khyREF0OgFrP6EcBgfn/F6YWM9hel8r9vvwL/mntzr2HjcpIlcZP7sl
-	 XPkli+OeVuDowNnOs0DYEEvpJ9guXJBWVarTq5R1GJkKn9fFIrI8nzlg5E7fMcCKaT
-	 kfFv4+9oM2yyFnISq9YFnmAbODpF4VABCjkmER99fKxTE9z1CCSWVImBxzAybQ+jSU
-	 zC7h7pCFND1srocero8v1/vQzuUIe7yEoAk/Wc4xqZ2leGoIIHU6aQtV+33cxK4hlf
-	 tdrLOt1tJkcfQ==
-Date: Wed, 30 Sep 2026 11:49:43 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Shashank Mohan Jain <jain.sm@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
-	Tal Gilboa <talgi@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] lib/dim: fix 32-bit overflow in dim_calc_stats()
- rates
-Message-ID: <20260930084943.GB3401365@unreal>
-References: <20260927051743.71460-1-jain.sm@gmail.com>
- <20260927051743.71460-2-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kEyHIAL5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SEk0J4x9"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dSGt2432950
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:50:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=I0I6m0L9/65tQWj6l6zCMqQP
+	S8baIca5kiqDML4woF0=; b=kEyHIAL5FeXlLxIEEBjgs9QG69ZYgHocYo37c7pl
+	E6OyOLFNwslkg1tbCLQ6KYSA3sF7Y2n7XS4tNP9itbP8mqKbJXSYeD78L65wmwDL
+	1d84iAgEEzjKHf7whG8MnQHL67cALeEle24UeC79cL935MRYVs00KLNnlMh/ru/z
+	q/tN3GNv/FRXLsPxbKKsqo0XsSX4c9q43nLq/+uISGOmyvhroSTLa4XXnM17NUBz
+	AUox7zfe0nU5laaUF22bL7quZwcS3eYCjZ9dJwqEeVAE422wpeJIsx54bAeGpap6
+	B0WhzOcZ+I+c48P/JlAVzNbp5mcfAJ5toxWnOgwJWtysWw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0tkn18uy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:50:03 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34ceac22194so507176eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790758203; x=1791363003; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I0I6m0L9/65tQWj6l6zCMqQPS8baIca5kiqDML4woF0=;
+        b=SEk0J4x9L9M5ueOVDF9Vq4j1zp8nDMsDJg8Fw7KcjXJJG8C9SJW0ap9nBys8RqHJrQ
+         WJOA2DUcj0FylDaCRaeJqRHvzY+X1XQY1MO5+EsMY1Ton50Vtx4odMmYsUidRPdZmsql
+         ArbZ0f/jlSAZGNK34mscuBX/vhj+6SFo5eU0SRtPgH4osXzbbfZ9eL/ySk349YusOOxb
+         A9sWDrcDmK4n6FJ9ti/5tmZo4RrrJ7V/ll6Mbxr/vyj1DD6UuxjPEhyfNKN26J0LbdSL
+         lN05S0pMo7dQy3Wzc5AidnzMXvdsyJp0OBvhstHypsqXCEs+ex4i1yc8P6qJlh4muRzX
+         wAlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758203; x=1791363003;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I0I6m0L9/65tQWj6l6zCMqQPS8baIca5kiqDML4woF0=;
+        b=b/vDCrzSMFIwTFlb2eRxDcfPBNGYRjhmzaqbbFcnTY4e5dhDbGl+zRWS28tgbK124O
+         /mod1Uj8v6ingZMIujm78AmUevLiPlPhNtlgQwo87xTKjgM9x62vtlbS0MdWte/htDwn
+         FGNlcRhlYpMvrikdks3o3vydTx1f7vdF0xjh+HEvmgt48t+WVDQRHG6u+086aMP90TVd
+         B7C7hybQYHXyAHBeno7eEIvJ8gCor1tyvcL21PJ+RyCjYg3MOB11VK0Dz1EJrjvEifCd
+         lRTeFnNIaMzPruyIU0UITs8Tx9hSduqsxaZGyls6MIzaXaufUN8Qt3oInvR+i6lOLWkA
+         UlJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwtGXpGJwR41YU97tL3o+CMNXEM8ADYRjKRAnwuLTKMGma0iZyhZAjlBqp4GMD1t5c7J3XcmiY921F830I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhmwiWLf8paa9lnM16p6pLgc8hbZt2EmNY4BD0iyLvunnxLYAI
+	IDY8KvQS+K1E1EMHiBrzZRSXBLvBSTMEoWhq60epbYgm6aGeP0bHfD4DnBfWO2fc6752mMkhtul
+	94RIT+y+dtL/ooab9yrHPReLQP4Cd4oNRLbmSwyqJnZkEtLqIyOAsvsne2pgUdcP5LE4Emf1mGX
+	pptA==
+X-Gm-Gg: AYBFou2pplxTSnksdMWF4xnx00pVv/JP7O5rIWco0qBEqIjuxbYsgklOQksDxXKp0UX
+	6p4jtkd0q32rL4YDUFpN4izCI+fljp9RF9cVgZKgAoYM1HjluMX9xr4H0TEmd76q4PlCfpvtDVT
+	fdMDS/0O6TcFi/9TvBsbYFkMz39xQMpepNNssJfww1V2pZ8pfIAf/P73hF9F2XhWapxdFiwWzZS
+	1JMBfQ0qqgxmxdEnwyT2z0KhwpXlnGJ8Bt98hLH1/2iiTvElAs5Littu2ZhQ19byus4+Eq6RJ6P
+	myglea0Vw+JdET7v+oswuOVvyyAAK0rHOVY2ucPv0I/0jq0YI2UpQ7SJGDpKZ6N3ntmYYXoVObk
+	Y0PGbkrllDPMSQSm5LYN0Mg61QTB8FIR1VvwHKH7RO6s8ukys
+X-Received: by 2002:a05:7301:150c:b0:34d:2c1a:988e with SMTP id 5a478bee46e88-34d2c1a9d83mr320715eec.38.1790758202644;
+        Wed, 30 Sep 2026 01:50:02 -0700 (PDT)
+X-Received: by 2002:a05:7301:150c:b0:34d:2c1a:988e with SMTP id 5a478bee46e88-34d2c1a9d83mr320687eec.38.1790758202056;
+        Wed, 30 Sep 2026 01:50:02 -0700 (PDT)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a605c2sm2207496eec.7.2026.09.30.01.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:50:01 -0700 (PDT)
+Date: Wed, 30 Sep 2026 01:50:00 -0700
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Hans de Goede <hdegoede@redhat.com>, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: ucsi: Set ucsi->connector before enabling
+ notifications
+Message-ID: <arzNOP4jBd9uqnGv@hu-petche-lv.qualcomm.com>
+References: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,39 +98,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260927051743.71460-2-jain.sm@gmail.com>
+In-Reply-To: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=CKy/zhrD c=1 sm=1 tr=0 ts=6abccd3b cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5V5iOW8oFJG4Np5ERE4A:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-ORIG-GUID: jYSWAbSW2NhCZVceTPZ-3RMs1SxkBHLq
+X-Proofpoint-GUID: jYSWAbSW2NhCZVceTPZ-3RMs1SxkBHLq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfXxUvvqZr85XqM
+ 35jiEYzKxuyqMeAQC4VS4+ulMvebNORiv0IaJ/qTGPPzOp7S7q+mPH4P14STbqMiq1MLlHGZD8E
+ sinLtS+BCBAFGjAaeoCtB7iMRI4v079S97WjWOc3vmg3mYeiepvv+KopDnEC04BTT1g8KOw5Ljt
+ 10w5hySRZ1SAcDkSdJP1cTPq+29PtGYRxAfwWuFexVszqZTYYjEaEmwt5ujqHbsM8ADkVbuXzY6
+ eGi1yxE5YFYpAOPuLxUGxQR/6tLvjwdBairktYli5ytXS1HenoM95caoyIQ0Xl8TCK6qp5U0PFa
+ wSPozM5Lp9tRYTR26wX85tlUPgl2GHF66MuRUqqp/MTt1iqrEY1Ur0BuiSIf0yQWPlN+PgyOgyV
+ VRB6jpl1ZC+Pf07wKFQq43WqGw3JWotUgTIDsTLItaBsMYcsa/WTEjd14ONHYWmDKrT9pRs8oiS
+ qZXEHvJwdFD8kK268rw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfX4K2HkOdMgwIT
+ nYwfLDJTRMeF8FAu04bC3OrjbIxCLaLF8X/7HmxVH613MBQ3Pt0fDlWl5FzjJ4WzzhW/ebFbPXo
+ UY/RkdbeZO9kHbNZ/6IxVW1wS5O16/g=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ phishscore=0 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300035
 
-On Sun, Sep 27, 2026 at 10:47:42AM +0530, Shashank Mohan Jain wrote:
-> dim_calc_stats() computes the per-millisecond rates as
+On 26-09-29 14:59:39, Uttkarsh Aggarwal wrote:
+> In ucsi_init(), ucsi->connector is assigned only after the
+> UCSI_SET_NOTIFICATION_ENABLE command completes. But once that command
+> is sent, the PPM is free to raise a connector change notification at
+> any time, which is handled through:
 > 
-> 	DIV_ROUND_UP(nbytes * USEC_PER_MSEC, delta_us)
+>     ucsi_notify_common() -> ucsi_connector_change()
 > 
-> where nbytes is a u32 and USEC_PER_MSEC is 1000L. On 64-bit the product
-> is done in 64-bit long arithmetic, but on 32-bit architectures long is
-> 32 bits wide and the product wraps as soon as a measurement window
-> carries more than 4294967 bytes (about 4.3 MB). The same applies to the
-> packet and completion counts, although those need more than 4.29
-> million packets or completions per window.
+> ucsi_connector_change() indexes into ucsi->connector to get the
+> connector and schedule its work item. If this notification arrives
+> before ucsi_init() reaches the "ucsi->connector = connector;" line,
+> ucsi->connector is still NULL and the driver crashes dereferencing it.
 > 
-> A DIM window spans DIM_NEVENTS (64) events. Drivers count events per
-> interrupt or per NAPI poll, so under sustained load a window can easily
-> carry more than 4.3 MB: 64 full NAPI polls of 64 MTU-sized frames are
-> already 6.2 MB, and drivers such as mtk_eth_soc count one event per
-> interrupt while NAPI keeps polling with the interrupt masked. On 32-bit
-> users of the library (for example mtk_eth_soc on MT7621, bcmgenet and
-> bcmsysport on 32-bit ARM, or virtio_net in a 32-bit guest) bpms then
-> becomes the product modulo 2^32 divided by the window length, and
-> net_dim_stats_compare() makes its BETTER/WORSE decisions on a value
-> that has little to do with the real throughput.
+> Fix this by setting ucsi->connector right after the connectors are
+> registered, before notifications are enabled, so it is always valid
+> by the time a connector change event can be delivered. Also clear
+> ucsi->connector in the err_unregister path so it isn't left pointing
+> at freed memory if a later step in ucsi_init() fails.
 > 
-> For example, a 1 Gbit/s link at line rate that moves 5 MB in a 40 ms
-> window gives bpms = 125000 on 64-bit but 17626 on 32-bit, and 5 million
-> packets in 2 s gives ppms = 353 instead of 2500.
-> 
-> Widen the products to 64 bits and divide with DIV_ROUND_UP_ULL(). The
-> results are unchanged on 64-bit.
+> Fixes: 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
 
-How does this 32-bit overflow differ from the overflow that can also occur on
-64-bit systems in `nbytes * USEC_PER_MSEC`?
+Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
 
-Thanks
+It is better cc the one who gave you the comment :)
+
+Peter
+> ---
+> Changes in v2:
+>  - Add Fixes tag pointing to 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race").
+>  - Add Cc: stable@vger.kernel.org.
+>  - Link to v1: https://lore.kernel.org/all/20260923060434.2599545-1-uttkarsh.aggarwal@oss.qualcomm.com/
+> 
+>  drivers/usb/typec/ucsi/ucsi.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index bef3f9b71d71..8f7b73a9f4f4 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -2122,6 +2122,14 @@ static int ucsi_init(struct ucsi *ucsi)
+>  			goto err_unregister;
+>  	}
+>  
+> +	/*
+> +	 * Set ucsi->connector before enabling notifications. A connector
+> +	 * change event can be handled as soon as the notifications are
+> +	 * enabled below, and ucsi_connector_change() indexes into
+> +	 * ucsi->connector, so it must not be NULL at that point.
+> +	 */
+> +	ucsi->connector = connector;
+> +
+>  	/* Enable all supported notifications */
+>  	ntfy = ucsi_get_supported_notifications(ucsi);
+>  	command = UCSI_SET_NOTIFICATION_ENABLE | ntfy;
+> @@ -2129,7 +2137,6 @@ static int ucsi_init(struct ucsi *ucsi)
+>  	if (ret < 0)
+>  		goto err_unregister;
+>  
+> -	ucsi->connector = connector;
+>  	ucsi->ntfy = ntfy;
+>  
+>  	mutex_lock(&ucsi->ppm_lock);
+> @@ -2143,6 +2150,7 @@ static int ucsi_init(struct ucsi *ucsi)
+>  	return 0;
+>  
+>  err_unregister:
+> +	ucsi->connector = NULL;
+>  	for (con = connector; con->port; con++)
+>  		ucsi_unregister_port(con);
+>  	for (i = 0; i < ucsi->cap.num_connectors; i++)
+> -- 
+> 2.34.1
+> 
+> 
+
+-- 
+
+Thanks,
+Peter Chen
