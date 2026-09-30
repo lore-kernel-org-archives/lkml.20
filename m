@@ -1,149 +1,223 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A3B497B7B;
-	Wed, 30 Sep 2026 23:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790812014; cv=fail; b=V6iGjjVNqz06iFCHuIZUjHp5D21RWlUuofZ1+g4tB72Yh7qfa6W2eJgkEg4/2Cef7OZfC3KqceMtwS3/bTR0XVVRYz+RO0IRVI9Fk384+PyouqjcXv9s8Gu/OAmUEVoZfFm9zypanBD9TRS9ZLCVgVZezJY+IkJPEcXcrliA3t4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790812014; c=relaxed/simple;
-	bh=J3QPaJkLuwtiJgXPhO7DMNhzOI+TkmIhRPW5NKcF9IY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NMEyqt9rUJiQ2RqOTllD37ZkHFlqCHlLENgR3wYMljpfDmILGPbWspC9gS8NudkiQigbcdjKnTMjSROLg9o5elfhNPCoVsCG7ElT70CJduugfHKH/+gqdv/fYjkDhlTeVjRYTivmzWu6lPwl7uJLQMq7IxiNu2Vlifd6xvPyXbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Bd/FWitb; arc=fail smtp.client-ip=52.101.53.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8479D4BD34D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790812016; cv=none; b=HnBGu3Wyn86zXK4rHQDn5mWdoumeZNIBzVDFtDwnWKkGWyNTaUX94G+ovsi+akOlZj+9laQKQTyLD60GNRLbiwJgO/kbUAg9DXewSAHPqO1XSeaouFMSnnLAaivN+aVrrt8hGyW2+Cv4h09w9zyG9R7VRIK4/FRQlYYMXi0t0ug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790812016; c=relaxed/simple;
+	bh=a9J7Nq5XTvk1euwH9fxE45YMOouwsgX6YBiYDC+ciAY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EfRyon/acVZPemYvFY4UmbkYYqh/BduDBt0HkdUUeuHh+QsdTAnIkv472gqi2VZJkV+MkrIS6T0QC6Js4KfjPMRZygmvsbSRv3rCld4S6mjl2rZMrwaDPvd+jmxCQTqOnjNOJTOY4jI6ZgiRp0uZbppEplebFC3NkcpUCOEq5+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXrxBxIB; arc=none smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Bd/FWitb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rJiMjav0f1mjOc33o4nzzMvTB0mIWYQqxke774I72mVUGeBvBV1kbzRr41kEwXU1KA5cYC8ZkvjeFm6Ojh4yCatUwNLBoUu95ASSD4jAiDv7RXlwlBT3NwR3Y070+2zO23J4My1Zbxzs3xTja7tY9UYg8OP9OZaz7H38z2lxhQLXPPWIYyjrmX6pKCh8iT4wdzP7WB6Zye9I2LZ/Egph5AD+wbwsKIGjMYlGReP3T6mcsPbvFBHfMGp1dal2gTw92mYGhVsfpTlc8tEsUy1B3PH45KlggdML34cNrF+0gt3GVrSsbC3IwCXl0OPeAb9eBZnxGUQn6fOSneHjXYpQPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uHEweDqe05ll9w58JUKdjSZmhi8cbpullj1XbvgbQn8=;
- b=bt2XqyQ6oe1Ml6coIjch8K78eUtypuS7jrd4Z1K0zvryGRya2/jgtYph5sHpDFoCDMzCJFaIhmcviRj9Vj0yLWnMVzGJCACGHn3YHDlwNttM2vMMrck4AcFBY3v+32Jbw1pg0A+49YitCqTjTCTs4vRPGuAaQmQuAiPi7HrKE7cNo+Il8/iShcRmwF+J3bgB1d9JXsm8XXsnlDKmJtZHhh5X4s6K9ljXlGgTWehkxZJ+GfOiycv+gQDod3n5NGSSVYVF7c/b7ON5NrRH2VYPAomTEAK9DDrlta8o8SIHqo7lqI2BFhR+4iRePW55zlt5H4hstUydunOyqQUlK15HOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uHEweDqe05ll9w58JUKdjSZmhi8cbpullj1XbvgbQn8=;
- b=Bd/FWitb4iRecCgs2LACytOCTO0ESmdQkdPBvTVys5H73zOPB6L093jcdVqr0HeYniJqIPeluHOBK5IRRvD3JyTh1mO1MkScDrJRlpKG9CzYMzNwKPDHSdD8RWnPy8PssruYdLUIidD5PVkfHwc7H2zEb6zgPknPUVAW/G528I0=
-Received: from PH7P220CA0052.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::34)
- by SA1PR12MB8094.namprd12.prod.outlook.com (2603:10b6:806:336::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 23:46:41 +0000
-Received: from SN1PEPF00036F42.namprd05.prod.outlook.com
- (2603:10b6:510:32b:cafe::94) by PH7P220CA0052.outlook.office365.com
- (2603:10b6:510:32b::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 23:46:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00036F42.mail.protection.outlook.com (10.167.248.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 23:46:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 18:46:40 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 18:46:40 -0500
-Received: from [192.168.1.13] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 18:46:37 -0500
-Message-ID: <52f72fb5-d472-4800-856e-1157be67487d@amd.com>
-Date: Thu, 1 Oct 2026 05:16:36 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXrxBxIB"
+Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d83e283445so614463eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:46:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790812013; x=1791416813; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=62tiuAR0kBMOsxzPYH5jLWDtv5hJHdhsb8KVBwgGC5c=;
+        b=nXrxBxIBeqohdMk0Gj7ZjSC/FfoHacnkHj1WH9W6oZnGaAY7vMwfkFeZuw/65ijAsl
+         7m18bOktucXyuHpvrRkHbYFI/34EoGRcneCrM9azAPf90Fi1oSvyjhnPO7mKRBFzJfwh
+         ZmSDthON3QjrJjYGpUEUHtwmJguoj3KbEiQEjP0DTzgKdSvfTjsmN7vM2hfVbx0wOgTV
+         V/i566gqDWIeHYfojL+PNp0vgIWdaT16AhCxnsdVRxyN94JqGu9dTcox8FTNRe4mYLft
+         O40DExXf4NszRemjUjtTt/S+VOSp6MEctwdKelHF/MUeeL8EZu34xkKGWQvEu6dFIdpj
+         lqSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790812013; x=1791416813;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=62tiuAR0kBMOsxzPYH5jLWDtv5hJHdhsb8KVBwgGC5c=;
+        b=dd6H0V+M2nwt5ab/zC2BjFMn58axNcyTvrYqYkdx7+Wf9NO9MYLoYn0h54R9HT/0t3
+         a5Dt1Hv/5yBJOUfmvYI9E6PwVfRFOwNWm79vby+wrvAizFshYpNmjhm3G4UTn6l2jNnZ
+         ObPeEjfm5ZqPpDbe/8fereVm0w8idxSb2n4vHUaPZ9JMIfXZbyAIP4WykZi+P6nOwiaw
+         pcYk31Q+6a9s43RgCdEb6nD6kHQUTpAHNoDQYQmxqaQsA+8z+BbyEawS68xLkL8FbFdF
+         PcuNWZywk8CFuBum74o47xe5Us5fpFUqTBhse9XrQe6FUwpKjIIMIi+fKRyzPYhEL6X7
+         Jfkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsB9i4fGlFLSa+Ll7Answrcl6Y9sP+Ef9Wfsjljur7BGWCkYgnk5XoHaLFXYSc6TgDuo9ja832T6wBwc8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8E6ks4ANMqw5MCWvjyQYNEv0cIBGDgSsJ8BAaNGh7nc8o4zRH
+	3f6zWtj3nkJvNgDXJ7JDcfUS/RoK/flTWlRKcM2cWLepfr2A7S2Lykf7
+X-Gm-Gg: AYBFou3xpG52X7wXo5p2nHspP8PP42iD4sKiZig8iYEw0KpdFb/stGqGfKdkIs7K3qr
+	ysE6BU2u8KzrSMYCvrcvsIYMELMDmmMtCq+dpM/rG7/tjorHDzdmYyLMv0d32ivJu66azQX4Dss
+	2Lx8C6AOPfiMPzgnQ4BjeCvD+cAiSk32vhsZZteqSGBsWsTh4ZQ+FmGRRskbGJF1XqeJ0YMZPBJ
+	wHucSsDkoJCXZ9qXn+sDjlVBcz9epavVYrvGKm9OZrAthwI3UqkLr4FOXjalHP8S7yTfRwNLy93
+	DGgFDXSOQttUhkemXvKv25bRcDD8peUekGYNvsJ5JDsyYSFrIO/IDCHQ62TeHPDMn2PiGMCsn1l
+	9Km21Bgwl37z32Ph2rLaq57S23Nz0KGy92y9mlyuh2GfiH+2hsvUTp26cO+FLpV9R53zxpo1JSQ
+	pg5JxU7EUEetq4WYnjrIcbGVrqR9jGBRRNebeuIC2opbwtleTO/SJw2qyMb1pDFgOa1Spt
+X-Received: by 2002:a4a:ee0c:0:b0:6d9:aea6:8bc0 with SMTP id 006d021491bc7-6ddbab9434fmr1139254eaf.43.1790812013284;
+        Wed, 30 Sep 2026 16:46:53 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff:73::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6dd9751595csm1466682eaf.3.2026.09.30.16.46.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 16:46:52 -0700 (PDT)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Date: Wed, 30 Sep 2026 16:46:46 -0700
+Subject: [PATCH net-next v2 1/4] selftests: drv-net: psp: swap closed for
+ connected sockets in assoc tests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/12] KVM: x86: Preserve DR6.BLD (Bus Lock Detect)
- when delivering #DB payload
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Yosry Ahmed
-	<yosry@kernel.org>, Shivansh Dhiman <shivansh.dhiman@amd.com>, "Nikunj A
- Dadhania" <nikunj@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>, "Tom
- Lendacky" <thomas.lendacky@amd.com>
-References: <20260930193634.3415089-1-seanjc@google.com>
- <20260930193634.3415089-2-seanjc@google.com>
-Content-Language: en-US
-From: Shivansh Dhiman <shivansh.dhiman@amd.com>
-In-Reply-To: <20260930193634.3415089-2-seanjc@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|SA1PR12MB8094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 198040da-b486-47c4-ab28-08df1f4d1370
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	TNW5wRVOncnITZjKC/hXzCuOST9lWXrirHmmpaWQZHoxLiLDs80QU9UfPaRV+98ZQATkklHZpGsXd2l6TiItlXosZ6zUPGOj1SSSNeZvMr/lB3IuD3OWMIIUaHNOYiNXNzQ3TumfYz8Np1oqhFlgJ5Y6GLEj8+abhllNKZ8sC6RtLxWYcwInlVGmkfgatgndN0sG/OxB+yaQcxumlGLEGugsaYZYT2bFsqAtrX/hxaEMzUXJ5AqQ6n3iCIlsJGUjkQlFGop/vP8gwU/r0p4RDdRL2w7zwuJbQKNT2fcSKTgkSDISIFXQEtE1dCOWpBAibxQ6TsPfdJt6125lkkwhnFt8zANwMuMatXT+of9rHV36VABntiY0MOfyXneqKR+8/iM6Hw7qJ1cQ75FdDZwYAd2Zxx6qwg50MOAIeH9iDc+qhs0741MZMgx9+mIeNnghkQrRLWatlr7wo2R3hmlpMMVnaml2/yvQjkKy2X5jfwRuzy6Sft2mjRPJH/47YqSqSvj3GbX8OdN4j7VF2Svd6YM8pPB7iuTEXbiKVfe7fU9y53BWeSHCx4aC/htCcja1Kvm6/rCE0cI3CD5Q+qSZkoX8XCep0Sn1iD+2D0CmyYdJ+MzV2OgOSTaCvTbcqbhn376O7qnv8wpJXOJ4MeD3eIghqnyFzz8i7QyBKouBPTP0cuZQZzur6Z0OVKKaBOGPcNDEmnQlrhonUwZOwFwd0g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5XmCojdmO+OyDPK/BHIr2pcumrqIMOqRFnWg/Mk5eqHilnkHZV+i0W4OPFxeUXNAwsy/vsdRC1FPTslkQjluI4QA7E8V06OGaPnkh0fEnOK0JP8fU8e/o6KK8U1EKb2A4A0uTD8Qrf3hzuFI1NkTBGW7mmhmylNgbsHH6O9iPc+WTdaUbbYQt1ozsjfjmTiJbgekFWxfqRJ3+50B17g9pPPHqhsMmrNSIupTCwyU3nlZKjk4TX+4bZG0gaBzCSL9b24Hz7Q5JrtOwnaXsohKYAMB7r5mMMZXLJ13Xffm1OkaUcOzzNhOmZKcmjgUCwZGq72GJd7bqAj8U29fKiICdWmpwnKAr+/fQDnN+2Ky/BYgfSP5upZPDkQG+KQ9+rYAfZC6iYkLV7fe2hpBD5t6akC7dk4sjS9IFQzfNOZ7tC/tyKdjkYce7EeZtOBHQfz8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 23:46:40.8375
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 198040da-b486-47c4-ab28-08df1f4d1370
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F42.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8094
+Message-Id: <20260930-psp-defeat-v2-1-f266e7447129@gmail.com>
+References: <20260930-psp-defeat-v2-0-f266e7447129@gmail.com>
+In-Reply-To: <20260930-psp-defeat-v2-0-f266e7447129@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Willem de Bruijn <willemb@google.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+X-Mailer: b4 0.13.0
 
+Future work will only allow rx-assoc and tx-assoc to be performed when
+the sock is in TCP_ESTABLISHED state.
 
+Several assoc_ tests, as well as dev_rotate_spi, test using the rx-assoc
+and tx-assoc uapi calls against sockets in TCP_CLOSE state.
+These tests don't involve sending or receiving data, nor involve looking
+up psp device by dst entry, so using a disposable disconnected socket
+was just a convenience. These can be replaced by a disposable loopback
+socket.
 
-On 01-10-26 01:06, Sean Christopherson wrote:
-> Preserve Bus Lock Detect if it isn't present in the payload.  Unlike RTM,
-> which is explicitly modified on every #DB,  DR6.BLD is modified if and only
-> if the #DB is due to a (coincident) Bus Lock Detect.
-> 
-> Per Intel's SDM:
-> 
->   Other debug exceptions do not modify this bit.
-> 
-> And AMD's APM
-> 
->   All other #DB exceptions leave DR6[BLD] unmodified,
-> 
-> Restore the explicit RTM handling that was clobbered by commit
-> 9a3ecd5e2aa1 ("KVM: X86: Rename DR6_INIT to DR6_ACTIVE_LOW"), as the
-> semantics of any given bit are feature specific, i.e. are obviously not
-> consistent for active-high versus active-low.  In other words, while the
-> bug was technically introduced when support for Bus Lock Detect was added,
-> it's really that attempt to genericize handling of active-low bits that set
-> KVM up to fail.
-> 
-> Fixes: e8ea85fb280e ("KVM: X86: Add support for the emulation of DR6_BUS_LOCK bit")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+The loopback sockets are IPv4, where the sockets they replace were
+AF_INET6. This doesn't reduce coverage, since the assoc handlers accept
+any TCP socket and don't look at the address family.
 
-Tested on Turin with Bus Lock Detect enabled in both L1 and L2 guests. The
-expected bus lock warnings show up in dmesg. Also, all the KUT tests pass
-with Sean's KUT patches applied.
+Some users of rx-assoc and tx-assoc on closed sockets are left if they
+validate errors that are returned before the kernel will check the
+socket for TCP_ESTABLISHED.
 
-Tested-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+---
+ tools/testing/selftests/drivers/net/psp.py | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
 
+diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
+index 5a81f40cac7d..0a2329f41431 100755
+--- a/tools/testing/selftests/drivers/net/psp.py
++++ b/tools/testing/selftests/drivers/net/psp.py
+@@ -11,6 +11,8 @@ import struct
+ import termios
+ import time
+ 
++from contextlib import contextmanager
++
+ from lib.py import defer
+ from lib.py import ksft_run, ksft_exit, ksft_pr
+ from lib.py import ksft_true, ksft_eq, ksft_ne, ksft_gt, ksft_raises
+@@ -58,6 +60,17 @@ def _make_psp_conn(cfg, version=0, ipver=None):
+     return s
+ 
+ 
++@contextmanager
++def _make_lo_conn():
++    # After tx-assoc, the client's egress is dropped, since lo has no
++    # psp_dev, so its FIN never reaches the server. Closing the server
++    # resets the unaccepted child, and the client accepts the cleartext
++    # RST because it hasn't received any PSP traffic yet.
++    with socket.create_server(("localhost", 0)) as srv, \
++         socket.create_connection(srv.getsockname()[:2]) as s:
++        yield s
++
++
+ def _close_conn(cfg, s):
+     _send_with_ack(cfg, b'data close\0')
+     s.close()
+@@ -200,20 +213,18 @@ def dev_rotate_spi(cfg):
+     _init_psp_dev(cfg)
+ 
+     top_a = top_b = 0
+-    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
++    with _make_lo_conn() as s:
+         assoc_a = cfg.pspnl.rx_assoc({"version": 0,
+                                      "dev-id": cfg.psp_dev_id,
+                                      "sock-fd": s.fileno()})
+         top_a = assoc_a['rx-key']['spi'] >> 31
+-        s.close()
+     rot = cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
+-    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
++    with _make_lo_conn() as s:
+         ksft_eq(rot['id'], cfg.psp_dev_id)
+         assoc_b = cfg.pspnl.rx_assoc({"version": 0,
+                                     "dev-id": cfg.psp_dev_id,
+                                     "sock-fd": s.fileno()})
+         top_b = assoc_b['rx-key']['spi'] >> 31
+-        s.close()
+     ksft_ne(top_a, top_b)
+ 
+ 
+@@ -221,7 +232,7 @@ def assoc_basic(cfg):
+     """ Test creating associations """
+     _init_psp_dev(cfg)
+ 
+-    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
++    with _make_lo_conn() as s:
+         assoc = cfg.pspnl.rx_assoc({"version": 0,
+                                   "dev-id": cfg.psp_dev_id,
+                                   "sock-fd": s.fileno()})
+@@ -234,7 +245,6 @@ def assoc_basic(cfg):
+                                   "tx-key": assoc['rx-key'],
+                                   "sock-fd": s.fileno()})
+         ksft_eq(len(assoc), 0)
+-        s.close()
+ 
+ 
+ def assoc_bad_dev(cfg):
+@@ -320,7 +330,7 @@ def assoc_version_mismatch(cfg):
+     # Translate versions to integers
+     versions = [cfg.pspnl.consts["version"].entries[v].value for v in versions]
+ 
+-    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
++    with _make_lo_conn() as s:
+         rx = cfg.pspnl.rx_assoc({"version": versions[0],
+                                  "dev-id": cfg.psp_dev_id,
+                                  "sock-fd": s.fileno()})
+@@ -393,7 +403,7 @@ def assoc_twice(cfg):
+ 
+         return assoc
+ 
+-    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
++    with _make_lo_conn() as s:
+         assoc = rx_assoc_check(s)
+         tx = cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
+                                "version": 0,
+@@ -402,7 +412,7 @@ def assoc_twice(cfg):
+         ksft_eq(len(tx), 0)
+ 
+         # Use the same Tx assoc second time
+-        with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s2:
++        with _make_lo_conn() as s2:
+             rx_assoc_check(s2)
+             tx = cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
+                                    "version": 0,
+@@ -410,8 +420,6 @@ def assoc_twice(cfg):
+                                    "sock-fd": s2.fileno()})
+             ksft_eq(len(tx), 0)
+ 
+-        s.close()
+-
+ 
+ def _data_basic_send(cfg, version, ipver):
+     """ Test basic data send """
+
+-- 
+2.52.0
 
