@@ -1,227 +1,139 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8862571A0
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0ABEED8;
+	Wed, 30 Sep 2026 00:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727741; cv=none; b=fyV4Ltqvew/T6ppRjkhHsYwK1lcZjgGv3hAwxtjcceIK7PuwpswYwmOa4v2DaN/qIgWsSJRSH/ob2T+npjrjlMyFOvnsQOQJ+wv62eS6PA51ZvhP+fHk/3Ryg3SJaYLtXPEQEDY0wIdPNU+NepYtzgIHGIgTVTZvcCOBt0/pFfk=
+	t=1790727907; cv=none; b=sanGU6i/avOizHKSix94dvzR5RVMBNv66tDgx4t/sQkmgw8BE2LKgbVbi6ZcTD+KZqpADUFFbPrdti6ipEv2cRWxHAlVYdZbD/BsE7PeMUExo40oHLv7HoIfkeuTazPP9g8+Yw2kagJLmaZSgdL2RAOYxbkopWuaT+erTL88oZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727741; c=relaxed/simple;
-	bh=RS3ADzVfxL8qqGmpxz4abkEC5P9mt7MTpddiH2NP6KQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pq2vB9PfeUt4YU35k0ny67zTX43j9CqA8nAZSCbHig+brxAxcHJNN9TR0gTGbdOiwjuG+ayGj+7qZXBZ990uqPZkDWiZpZVisl/0YC8vMnzQHqqaIvhgcnehtOsk9Pg1Ll9dlIHu+kQSfPjzEpL6nS0axb18T+h7UHv+M3cgpEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K58U5GhN; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790727907; c=relaxed/simple;
+	bh=I1qDs9BDbcfwaj01gAmb+tRsK8kiWxN+rVkQEeUsac4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NqdwwSZCtTw/ZctYAOP2Qo24vhQdlxQt1kFuTkFOcZwWdR9V4Eh2nPVi9rctkrlduefPI/b6edQnGVVOtXX60Cu9FqdsxKPEsYFaMR133a8HDlhTT3cJt1S4b+keg7pToAHRoDY5QRLHRSd3ELSNJEFl2JNqypncASyG9fg054s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NC3wN3NI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K58U5GhN"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso2710116a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:22:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790727739; x=1791332539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CfCX2ufsEicMArdWfEJGMSdcRPfc57DekObWO7Y+3J0=;
-        b=K58U5GhNGfnTm7QtEqNrNPJG8XBAuknpOsqxO1wc6OgktYIGPkMtt8oh4BzG+yTsBQ
-         sIg/x0YJp7ZUzWsCz4bnKuVqxeYkXckOejjWqYZiiu6Xwjyw8KhhqQzmjjYm0enAKcgc
-         rHxbrpFTC/AvL7mFlq5dstGWjsKIXCwgugX8JNowdgdz3JoU1LWjhDaVo3A+V+GibmAX
-         s4ia44m1AjTXZdoJ+xTRoXb0ZAP1zuNV6/zW0bW2IErewaJsAxxo7Djaxnf1T1SLAdB7
-         tKSVLUby8UHXYB3a0W26teomcDe1LisR/qeI1trTAp5Ez4EIaUxRs0eryowzsEC6VTcd
-         EPsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790727739; x=1791332539;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CfCX2ufsEicMArdWfEJGMSdcRPfc57DekObWO7Y+3J0=;
-        b=sB/yQ+GTVHBwu1JKXM8pQltmawBVYUWjtVsLLoYnJUzkfHx30g+7nBGz7etXoPj3Ah
-         gaqjyRgzZu//3EXckdX8M240SCiNSKv0dQRgBhuayWNyYzlOM6GJ4xNE6va7/Zuwft2I
-         ny9uagilSCgU7GG9qu7zy8Hs4/eg8R+yeQvh1WwavuNuU0jOE6bZBYe1IWPD/OxtMMq9
-         qjNU48hlpVhl/oLGZuYluQ4ikwPcwklwX63y1E/57EUp+kMw+pBvQFHFB5vaKFb2Z2yI
-         xfesaVMkQq12ZOVTL7xKFRPQbnE6UjIeyUGFT7J9Jw5p02VFtLmY40Sega/co7xYOmT2
-         GAqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsBXxymxf10s1yn5XGmSE0x9US8lPVqqrak4bhLlKnkuyz/36AACUnk24yu1n48C30EjLXXnBTXBmJZXI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICvqTpd0LZpKp92oX0t+tg8+C/cBUDZjjoK2RQV9lQhFPaFJrY
-	r85aa+37vibWpNRdg+MiO/K597eHJCnYsaw9Y1Ra9+O0Ybe1D1E1Eya7
-X-Gm-Gg: AYBFou1Zy1LCxxN46jDy06siplYbhSaTGWs3pho5kj9AiICf9O1E8cUaQXOKa8cG2Qa
-	CdpG68ElnjGCKupzyDYgm0lQSjXaFdyvAP81HIm9Z6PZqyozqr4EdU7PcKlXULCQ86SikOWE2ph
-	rRiDSdZ2k8j1SPW+2MOOfUny7UOQhvilJY+GBeXu6Dp1XLUZ8PrDj82wB+RK51l3IvtDWyfG3RY
-	4+yb/7nBpXSXJ4qGOKB/4J69DUCY5qHcag0ohIz/8D1nxaXcxOHeJcKHcapbPETLxZoBIAWBFQ3
-	OrCsGKIibKMSkz2UH1QYTpEjgGX1xYW6Iqc57S2mCVNlKMGSy2NIg8+lK0I8/8bRNQr5yUkHeHd
-	SuriGSLjHSvRW3mdnA0zchBSXLkdqJxjxkoJeX/eqktJpacjicTK5Mv8vYiViTO0v4WqfpdBlu9
-	Px47oVx1AS6OxwsQqHVcUMrWPuO0Vc7rLQk93U51lcK2693psD3uAqa09ZWlT/R0Do
-X-Received: by 2002:a17:90b:4a4e:b0:39e:237c:50e0 with SMTP id 98e67ed59e1d1-3a4bfdebb0amr783292a91.13.1790727738878;
-        Tue, 29 Sep 2026 17:22:18 -0700 (PDT)
-Received: from fedora ([2400:2410:5f2b:700:6bda:eb8:32f0:3372])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c7632de2sm242073a91.4.2026.09.29.17.22.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 17:22:18 -0700 (PDT)
-From: Vishnu Sankar <vishnuocv@gmail.com>
-To: "Derek J . Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vishnu Sankar <vishnuocv@gmail.com>,
-	Mark Pearson <mpearson@squebb.ca>
-Subject: [PATCH] HID: lenovo: add fn+F7 display switch support for X12 and X13 Folio
-Date: Wed, 30 Sep 2026 09:21:33 +0900
-Message-ID: <20260930002133.10794-1-vishnuocv@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NC3wN3NI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811F51F00899;
+	Wed, 30 Sep 2026 00:25:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790727905;
+	bh=3qjgKogqDJ4nU3WCcsiVuj/fs6MGqUehEm1aDK84/10=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NC3wN3NI6FGYkISLfmTPBTbQQ/lHzXUmcmXJy+yeHqcy3I63kghmoSWxVnM8GqZ1F
+	 QAEuW772CeWzvRKQhjdZLeVNj2WCkTUYSc+Hpf53kInALjM0XRCPzN0SlvVPHSyPdg
+	 19F54EGZI+vUJB+7OLplFQJa5s5EaP22fv6wxSTWS7eK1eKLqH4UGOYT8o8BL5+Cra
+	 CoELMHbRU6v3bl4oXYDPdSsSxw0KcP05Imr7fAdopv+pxcND2/a6JT4rGXxKDT7H/Y
+	 E8+D825YrmbSNdKIq5se6Xu0H2n8GAPUbuTxmcICepRpHCPVIPqowOBLdwsJ3D9Wb9
+	 Ry3E/HpEbNZrg==
+Date: Tue, 29 Sep 2026 17:25:04 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: maz@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	corbet@lwn.net, pbonzini@redhat.com, leo.bras@arm.com,
+	yuzenghui@huawei.com, wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com, caijian11@h-partners.com,
+	liuyonglong@huawei.com, tangchengchang@huawei.com,
+	yezhenyu2@huawei.com, yubihong@huawei.com, linuxarm@huawei.com,
+	joey.gouly@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, fuad.tabba@linux.dev,
+	mark.rutland@arm.com, seanjc@google.com, rdunlap@infradead.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 01/15] KVM: arm64: pgtables: Change write bit from
+ S2AP_W to DBM
+Message-ID: <arxW4PUY3qqRkogl@kernel.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-2-zhengtian10@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929103655.85107-2-zhengtian10@huawei.com>
 
-On ThinkPad X12 and X13 detachable keyboards FN+F7 reports the Super+P
-key chord, which behaves differently from FN+F7 on other Thinkpads.
-In particular giving a shorter on screen display time making it harder
-for users to select their preferred display mode.
+Hi Tian,
 
-Newer keyboard FW is now available, allowing the keyboard to be
-configured by the OS to provide the standard FN+F7 KEY_SWITCHVIDEOMODE
-code as used on other Thinkpads.
+On Tue, Sep 29, 2026 at 06:36:41PM +0800, Tian Zheng wrote:
+> From: Leonardo Bras <leo.bras@arm.com>
+> 
+> As a first step of changing the encoding for the Stage2 PTE descriptor,
+> introduce the DBM bit, and adapt every usage of writable to use the DBM
+> bit (51) instead of S2AP[1]/Dirty bit (7).
+> 
+> With DBM as the write permission bit and S2AP[1] as the dirty state,
+> the encoding follows the FEAT_S2PIE principle of managing permissions
+> and dirty state independently.
+> 
+> For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty): every
+> writable mapping sets both bits, read-only mappings clear both, and no
+> behaviour changes.
+> 
+> Link: https://lore.kernel.org/all/20260901171558.2674031-2-leo.bras@arm.com/
+> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> [zhengtian: keep the nested walker reading writability from S2AP[1]
+> alone, document why, and reword the commit message]
+> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> ---
+>  arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+>  arch/arm64/kvm/hyp/pgtable.c         | 7 ++++---
+>  arch/arm64/kvm/nested.c              | 5 +++++
+>  arch/arm64/kvm/ptdump.c              | 4 ++--
+>  4 files changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> index 41a8687938eb..37baa86d6fd8 100644
+> --- a/arch/arm64/include/asm/kvm_pgtable.h
+> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> @@ -93,10 +93,13 @@ typedef u64 kvm_pte_t;
+> 
+>  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+> 
+> +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
+> +
+>  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+> 
+>  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+>  					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
+> +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+>  					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+> 
+>  /* pKVM invalid pte encodings */
+> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> index b74dd5ce1efd..50f4d3a74f77 100644
+> --- a/arch/arm64/kvm/hyp/pgtable.c
+> +++ b/arch/arm64/kvm/hyp/pgtable.c
+> @@ -732,7 +732,7 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+>  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> 
+>  	if (prot & KVM_PGTABLE_PROT_W)
+> -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
 
-Detect if the capability is present and enables the mode if available
-on initial probe and resume.
+Hmm... I'd actually like to see this structured where the "write" bit
+could either be S2AP_W or DBM depending on if the system supports
+FEAT_HAFDBS. Look at how HVHE is handled for selecting the right AP
+encoding for the hyp stage-1 page tables.
 
-Suggested-by: Mark Pearson <mpearson@squebb.ca>
-Signed-off-by: Vishnu Sankar <vishnuocv@gmail.com>
----
- drivers/hid/hid-lenovo.c | 71 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 66 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hid/hid-lenovo.c b/drivers/hid/hid-lenovo.c
-index 3976d7b53b14..6b4b689c8834 100644
---- a/drivers/hid/hid-lenovo.c
-+++ b/drivers/hid/hid-lenovo.c
-@@ -44,6 +44,7 @@
- #define TP_X12_RAW_HOTKEY_FN_F10	0x00000803
- #define TP_X12_RAW_HOTKEY_FN_F12	0x00000403
- #define TP_X12_RAW_HOTKEY_FN_SPACE	0x18001003
-+#define TP_X12_RAW_HOTKEY_FN_F7		0x00000815
- 
- struct lenovo_drvdata {
- 	u8 led_report[3]; /* Must be first for proper alignment */
-@@ -557,6 +558,34 @@ static int lenovo_send_cmd_cptkbd(struct hid_device *hdev,
- 	return ret < 0 ? ret : 0; /* BT returns 0, USB returns sizeof(buf) */
- }
- 
-+/* X12/X13 folio Fn+F7 reporting mode: feature report 0xa4, [id, mode]. */
-+#define TP_X12_FEATURE_HOTKEY_MODE	0xa4
-+#define TP_X12_MODE_DEDICATED_HOTKEY	0x01
-+
-+/*
-+ * Select how the X12/X13 detachable folio reports Fn+F7 (display switch):
-+ * a dedicated vendor hotkey (report ID 0x15) instead of the default
-+ * Super+P key chords.
-+ */
-+static int lenovo_send_hotkey_mode_tp10ubkbd(struct hid_device *hdev, u8 mode)
-+{
-+	unsigned char *buf;
-+	int ret;
-+
-+	buf = kzalloc(2, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	buf[0] = TP_X12_FEATURE_HOTKEY_MODE;
-+	buf[1] = mode;
-+
-+	ret = hid_hw_raw_request(hdev, TP_X12_FEATURE_HOTKEY_MODE, buf, 2,
-+				 HID_FEATURE_REPORT, HID_REQ_SET_REPORT);
-+
-+	kfree(buf);
-+	return ret < 0 ? ret : 0;
-+}
-+
- static void lenovo_features_set_cptkbd(struct hid_device *hdev)
- {
- 	int ret;
-@@ -739,6 +768,10 @@ static int lenovo_raw_event_TP_X12_tab(struct hid_device *hdev, u32 raw_data)
- 		case TP_X12_RAW_HOTKEY_FN_F4:
- 			report_key_event(input, LENOVO_KEY_MICMUTE);
- 			return 1;
-+		case TP_X12_RAW_HOTKEY_FN_F7:
-+			/* Fn-F7: switch/extend external display */
-+			report_key_event(input, KEY_SWITCHVIDEOMODE);
-+			return 1;
- 		/* Power-mode or Airplane mode will be called based on the device*/
- 		case TP_X12_RAW_HOTKEY_FN_F8:
- 			/*
-@@ -794,11 +827,22 @@ static int lenovo_raw_event(struct hid_device *hdev,
- 	 * Lenovo TP X12 Tab KBD's Fn+XX is HID raw data defined. Report ID is 0x03
- 	 * e.g.: Raw data received for MIC mute is 0x00020003.
- 	 */
--	if (unlikely((hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
--		      hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
--		      hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB) &&
--		      size >= 4 && report->id == 0x03))
--		return lenovo_raw_event_TP_X12_tab(hdev, get_unaligned_le32(data));
-+	if (unlikely(hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
-+		     hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
-+		     hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB)) {
-+		/* Existing 0x03 vendor hotkeys (8-byte). */
-+		if (size >= 4 && report->id == 0x03)
-+			return lenovo_raw_event_TP_X12_tab(hdev,
-+				get_unaligned_le32(data));
-+
-+		/* Dedicated-mode display-switch (F7): 3-byte 0x15 report. */
-+		if (report->id == 0x15 && size >= 3) {
-+			u8 pad[4] = { data[0], data[1], data[2], 0 };
-+
-+			return lenovo_raw_event_TP_X12_tab(hdev,
-+					get_unaligned_le32(pad));
-+		}
-+	}
- 
- 	return 0;
- }
-@@ -1366,6 +1410,12 @@ static int lenovo_probe_tp10ubkbd(struct hid_device *hdev)
- 
- 	lenovo_led_set_tp10ubkbd(hdev, TP10UBKBD_FN_LOCK_LED, data->fn_lock);
- 
-+	if (hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB ||
-+	    hdev->product == USB_DEVICE_ID_LENOVO_X12_TAB2 ||
-+	    hdev->product == USB_DEVICE_ID_LENOVO_X13_TAB)
-+		lenovo_send_hotkey_mode_tp10ubkbd(hdev,
-+						  TP_X12_MODE_DEDICATED_HOTKEY);
-+
- 	ret = sysfs_create_group(&hdev->dev.kobj, &lenovo_attr_group_tp10ubkbd);
- 	if (ret)
- 		return ret;
-@@ -1439,6 +1489,13 @@ static int lenovo_reset_resume(struct hid_device *hdev)
- 			lenovo_features_set_cptkbd(hdev);
- 
- 		break;
-+	case USB_DEVICE_ID_LENOVO_X12_TAB:
-+	case USB_DEVICE_ID_LENOVO_X12_TAB2:
-+	case USB_DEVICE_ID_LENOVO_X13_TAB:
-+		lenovo_send_hotkey_mode_tp10ubkbd(hdev,
-+						  TP_X12_MODE_DEDICATED_HOTKEY);
-+		break;
-+
- 	default:
- 		break;
- 	}
-@@ -1526,9 +1583,13 @@ static int lenovo_input_configured(struct hid_device *hdev,
- 						hi->input->propbit);
- 			}
- 			break;
-+		case USB_DEVICE_ID_LENOVO_X12_TAB:
-+			input_set_capability(hi->input, EV_KEY, KEY_SWITCHVIDEOMODE);
-+			break;
- 		case USB_DEVICE_ID_LENOVO_X12_TAB2:
- 		case USB_DEVICE_ID_LENOVO_X13_TAB:
- 			input_set_capability(hi->input, EV_KEY, KEY_PERFORMANCE);
-+			input_set_capability(hi->input, EV_KEY, KEY_SWITCHVIDEOMODE);
- 			break;
- 	}
- 
--- 
-2.55.0
-
+> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+> index 69899797dbad..b0cb8d84a9e9 100644
+> --- a/arch/arm64/kvm/ptdump.c
+> +++ b/arch/arm64/kvm/ptdump.c
+> @@ -40,8 +40,8 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
+>  		.clear	= " ",
+>  	},
+>  	{
+> -		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> -		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> +		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
+> +		.val	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
+>  		.set	= "W",
+>  		.clear	= " ",
+>  	},
+> --
+> 2.43.0
+> 
