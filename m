@@ -1,184 +1,306 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8883A3E316D;
-	Wed, 30 Sep 2026 07:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A3443DED7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754708; cv=none; b=X2dJHMyH7b8IojfoX2Y7/3BjjSVNv0MeT+ivffJZbPsTpWFsspT36yLOI6KPSqDcNLGB9Su7DIDcTKAUI39hrvjmvuZ0yo6s+xSWd4m6Xra9gl/7q8Puf56MheFU1BiKm+jHkB5Cq9H3B750AzBwDZN4erL9iNJryqfPRq2Ft60=
+	t=1790754739; cv=none; b=ahwg/MDoqRWqyqLhWHP2dJUz6LkziuDzSNHlzvSSv6FSIu5/DgrhoGZ1hGsqvJVDdqYtPfcia62mdbxnysZk6AbfeVLg8ztXDTI7RsX4m1Y3p4QBgDlOim5vuXJP759pT7Z61pgeOELNMvsgSinXF10/kPnwAqHsUTVK2wXOU8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754708; c=relaxed/simple;
-	bh=xCZXkHu9K/1TIpAa+19Kg/+R/6wtqeYmBQQpgX2o8CM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Kx8W7FjB0Yz3uwwqffQ51npYhB+iU7E9yHP6PNbN2mQba3MihTRbNqp1OQG25XbjL6FsM1iwZT0YMsYeKIVe199GsJGIR4BtMtQrcfMb9NQzAADk5YWDKeiSY0E+BE6zoVHUc1UXaqdUTBw6smc8BAL1mVkie12Et6ArkMfo1C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDTGfjnz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790754739; c=relaxed/simple;
+	bh=ZjfefV9snQ1ih4zTfEBMqJAhu+p8KVvNDSCMrnypdPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NZobvwqa9r2mW+Xcw8Pebm8q5DYMMTzwSaDrFHXj/5rYU8gKyYUc9sBEvCUi1uSRjM9MUcQHXQSEDc/q3zGROSU1aa4WpCtI2QUvmvmdhp+u/IoqtJ+QAlwAbsTzxGW/7HWQBuewEQNHr+dYAdbv3h/snctTGU3aYFUy+N3UYhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ejvgW95f; arc=none smtp.client-ip=91.218.175.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDTGfjnz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E8164C2BCF4;
-	Wed, 30 Sep 2026 07:51:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790754708;
-	bh=xCZXkHu9K/1TIpAa+19Kg/+R/6wtqeYmBQQpgX2o8CM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MDTGfjnzw5p5e0dBha5/WW1eWErFIeid2PaGyGKvxOh78u1tTd4tfBzOv2zYeuXJW
-	 Y0/LGleiVVXds/jE9Zhu95wkaVAc7+RXWUnf5Gg5FV5uvKuOOex/b5riWyLnP/afWR
-	 oluw0q5lFGHt6q79jvGoMFwSJop+6/W7jECsCRAcVvYSKgf3ivgMvBcebK49E/O7Or
-	 q2ZsW/EXazu33DJzwBglxF8mY2p5pp2wKFkd2RrkQXydXyjFy5Q6IUh4bQKf0ligY9
-	 RUer+NsFGn9PFE86wpMhLQ7UH6zXWInC7JjULeZKZo5FoHh+qP6m7smp4zJjrxQZih
-	 TuooJQ6rkHU4w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5F5CCA5FC1;
-	Wed, 30 Sep 2026 07:51:47 +0000 (UTC)
-From: =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn_via_B4_Relay?= <devnull+nguyennvc.greennode.ai@kernel.org>
-Date: Wed, 30 Sep 2026 14:51:42 +0700
-Subject: [PATCH rdma-rc] RDMA/irdma: Do not move a fresh RoCE QP to ERROR
- on RESET
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ejvgW95f"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZjfefV9snQ1ih4zTfEBMqJAhu+p8KVvNDSCMrnypdPk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790754733; v=1; x=1791359533;
+ b=ejvgW95fYPcvKJ/C5/xE1eBtJMInjcSy+D8E8p056Wx3uW9nqMh8DD2jiF20x88adifkurvA
+ XsSSS1sxIDVO7VeKXPr+MWEfEEnce2VO8g+e/luXuBG6ogTBGja5qy50ElGxLhVLBkbcxlGp0EF
+ DA0q75EwSV+jpQU/VB1MyDCo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 114f3b97191ecc8b;
+	Wed, 30 Sep 2026 07:52:03 +0000
+X-Mizu-Trace-ID: 114f3b97191ecc8b
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn,
+	ameryhung@gmail.com,
+	alexei.starovoitov@gmail.com
+Subject: [RFC PATCH v8 0/4] blk-iocost: add BPF struct_ops cost model support
+Date: Wed, 30 Sep 2026 15:51:50 +0800
+Message-ID: <20260930075154.189958-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260930-irdma-reset-fresh-qp-v1-1-065327274e2b@greennode.ai>
-X-B4-Tracking: v=1; b=H4sIAI2/vGoC/yWMuwqAMAwAf0UyG4gtFfRXxKG0UTP4SkUE8d8tO
- h033N2QWIUTtMUNyqckWZcsVVlAmPwyMkrMDoZMTY0lFI2zR+XEBw4ZE+4bBm+DI0fRGwc53ZQ
- Hub5tB38QoH+eFwU3w5FvAAAA
-To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Mustafa Ismail <mustafa.ismail@intel.com>, 
- Shiraz Saleem <shiraz.saleem@intel.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn?= <nguyennvc@greennode.ai>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790754706; l=5208;
- i=nguyennvc@greennode.ai; s=20260930; h=from:subject:message-id;
- bh=pUE5++VACMAhAd/B/N8p6SNGcTyho6T0u18DfMJ9e8c=;
- b=MLszr+tiHZjO7nMpJnFB1NebNcFIp/nLvyNLgLgHasmznmeBmZOyoUUErj3z/tgw2DBpqtBnC
- AZXmGr882NbDCkNIk14NLs2AOBREwEOIWEpp0LEWLWYTxHZYeoo/IcP
-X-Developer-Key: i=nguyennvc@greennode.ai; a=ed25519;
- pk=hD0bkhMDmCDDJQqc7LPqtK8Z3nB2eAmgkZt+R9cGcDY=
-X-Endpoint-Received: by B4 Relay for nguyennvc@greennode.ai/20260930 with
- auth_id=1084
-X-Original-From: =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn?= <nguyennvc@greennode.ai>
-Reply-To: nguyennvc@greennode.ai
 
-From: Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
+This is v8 of the RFC.  The attachment model is independent of
+controller enablement: attaching creates the ioc if needed and
+switches the model under the same queue freeze and quiesce as
+io.cost.model writes, while enabling stays with io.cost.qos; the
+cgroup callbacks now pair up across attach/detach.
 
-irdma_modify_qp_roce() handles IB_QPS_RESET like IB_QPS_ERR and moves
-the QP to ERROR. On a QP that was never moved to INIT, this makes the
-following RESET->INIT fail with -EINVAL, while ibv_query_qp() still
-reports RESET.
+Why a pluggable model at all
+----------------------------
 
-RESET->RESET is a valid transition. The Mooncake transfer engine
-resets every new QP before INIT, so it cannot connect over an E810,
-while mlx5 accepts the same sequence:
+When iocost landed in 2019, its commit message already promised that
+"a later patch will also allow using bpf progs for cost models", and
+the code has carried the split for it ever since: calc_vtime_cost()
+is a dispatcher whose only implementation is calc_vtime_cost_builtin().
+Seven years later the builtin linear model is still the only one.
+This series fills that slot: builtin algorithms remain the default
+while new ones can be prototyped in BPF.
 
-  ibv_create_qp(RC)        -> RESET
-  ibv_modify_qp(RESET)     -> 0
-  ibv_modify_qp(INIT, ...) -> -EINVAL
+The measured problems
+---------------------
 
-Skip the hardware modify when the QP has not been moved to INIT yet
-(iwarp_state is IRDMA_QP_STATE_INVALID), as there is nothing to flush.
-RESET after INIT still goes to ERROR.
+The builtin model prices each IO with a binary sequential/random base
+picked by a single per-cgroup cursor and a 16MB seek threshold, plus
+a per-page cost.  On a virtio-blk device with the HDD autop profile,
+a 4k IO costs ~24us when judged sequential and ~2.7ms when judged
+random, a 112x spread, so a wrong judgement becomes a wrong price.
+Three classes of mispricing, all measured:
 
-Fixes: b48c24c2d710 ("RDMA/irdma: Implement device supported verb APIs")
-Assisted-by: LLM
-Signed-off-by: Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
+ 1. Heuristic rigidity.  Two legitimate sequential readers in one
+    cgroup (a database with multiple tablespaces, a threaded backup)
+    ping-pong the single cursor and are all priced random: a
+    measured 89x overcharge collapses throughput under the same
+    weight.  Random IO within a hot window smaller than the 16MB
+    threshold is priced sequential: measured 107x undercharge, an
+    accounting escape for hotspot workloads.  No setting of the six
+    builtin parameters seems able to fix this: telling the streams
+    apart requires per-IO state tracking, which looks like logic
+    rather than coefficients.
+
+ 2. Device nonlinearity.  SLC-cache phases, SMR band placement and
+    shared controllers (multiple NVMe namespaces multiplexing one
+    device) make the real cost of an identical IO vary by an order
+    of magnitude over time or across namespaces.  A static
+    6-parameter linear model has no way to express that.
+
+ 3. Unpriced operations.  Flush and zone append fall through to a
+    cost of zero and bypass throttling entirely, and the same pattern
+    extends to device quirks the builtin model was never taught.
+
+Mispricing feeds directly into the control loop: vtime budgets,
+surplus donation and the vrate feedback all consume the model's
+output, so a wrong model can skew the whole controller.
+
+How
 ---
-Tested on an E810 (firmware 1.74, RoCEv2), backported to Ubuntu
-6.8.0-142 as a module. RESET (once or twice) on a fresh QP, then
-INIT->RTR->RTS and an RDMA WRITE+READ: stock fails INIT with EINVAL,
-patched round-trips the data, over loopback and to a second host.
-RESET after INIT, RTS or ERR fails INIT with EINVAL on both drivers,
-unchanged. No irdma messages in dmesg. A ConnectX-6 Dx (mlx5) passes
-unpatched. Builds with W=1 on for-rc (7.3-rc5). Not tested on a for-rc
-kernel.
 
-Not changed: the iWARP path, and RESET after INIT, so INIT->RESET->INIT
-and ERROR->RESET->INIT still fail. A QP in INIT may already have
-receive WQEs posted, and irdma does not clear its queues on RESET, so
-skipping ERROR there is not safe. A real reset would need the hardware
-QP to be rebuilt. Is that worth a follow-up?
+Attachment follows the hid_bpf_ops model: the target device is set
+in the dev member of the struct_ops from userspace before load; the
+device is looked up with blkdev_get_no_open() and disk_live() is
+checked under rq_qos_mutex, like blkg_conf_open_bdev().  Attaching
+creates the ioc if needed, like an io.cost.model write does, and
+switches the model under the same freeze and quiesce those writes
+go through; enabling stays with io.cost.qos and wbt stays with it
+too.  When the disk goes away, the model is ejected completely.
 
-Reproducer (userspace, libibverbs):
+Attachment is independent of the model selection and of the
+controller state: while a model is attached, "model" selects between
+it and the builtin model - "model=bpf" switches to the attached
+model, "model=linear" switches back to the builtin model, and
+neither detaches the struct_ops; only detaching removes the model,
+after which "model=bpf" fails.  "ctrl" keeps describing the builtin
+coefficients, which are kept while the BPF model is in use and take
+effect again when switched back.  Enabling and disabling the
+controller, and with it the wbt handover, remains with io.cost.qos.
 
-  // gcc -o reset_then_init reset_then_init.c -libverbs && ./reset_then_init <rdma device>
-  #include <stdio.h>
-  #include <string.h>
-  #include <infiniband/verbs.h>
+A bound model in use owns pricing for every charged IO on the
+device: it is called from the bio charging path and prices every
+operation including flushes.  The completion-time request sizing
+which feeds the latency met/missed accounting uses the transfer cost
+coefficients the struct_ops carries (vtime per page for reads and
+writes), so the builtin latency tracking and vrate adjustment
+follow the model's pricing while it is in use; extending the
+model to the QoS side itself is left for a later interface.
 
-  static const char *st(int s) {
-      static const char *n[] = {"RESET", "INIT", "RTR", "RTS", "SQD", "SQE", "ERR"};
-      return s >= 0 && s < 7 ? n[s] : "?";
-  }
+The cgroup callbacks are bound to the iocg policy lifetime and pair
+up: iocg_init() is delivered to every cgroup which already has a
+blkg on the device when the model is attached, and to each one
+appearing afterwards; iocg_free() is delivered to the cgroups which
+still exist when the model is detached.  The existing iocgs are
+walked over q->blkg_list under q->blkcg_mutex, the same walk the
+blkcg policy teardown uses; cgroups without a blkg on the device
+yet are not missed, as their callbacks are delivered at blkg
+creation and destruction.
 
-  static int state(struct ibv_qp *qp) {
-      struct ibv_qp_attr a; struct ibv_qp_init_attr i;
-      return ibv_query_qp(qp, &a, IBV_QP_STATE, &i) ? -1 : (int)a.qp_state;
-  }
+    u64 calc_cost(struct bio *bio, u64 model_flags)
 
-  int main(int argc, char **argv) {
-      if (argc != 2) { fprintf(stderr, "usage: %s <rdma device>\n", argv[0]); return 2; }
-      int n; struct ibv_device **l = ibv_get_device_list(&n), *d = NULL;
-      for (int i = 0; i < n; i++) if (!strcmp(ibv_get_device_name(l[i]), argv[1])) d = l[i];
-      if (!d) { fprintf(stderr, "%s: no such device\n", argv[1]); return 2; }
+The model reads whatever it needs from the bio itself: the
+operation flags (the operation must be extracted with a mask, and
+the REQ_* flag bits, including PREFLUSH/FUA, are part of it), the
+size, the start sector and the issuing cgroup through
+bio->bi_blkg.  model_flags carries iocost-specific metadata which
+is not a property of the bio, such as whether the cost calculation
+is for a merged request; the return value is vtime, clamped to 1
+second of device time per IO.  Per-cgroup state can be stored in
+BPF_MAP_TYPE_CGRP_STORAGE keyed by the cgroup of bi_blkg; it
+follows the cgroup lifetime.  Sleepable models are rejected at
+verification, since calc_cost() runs under RCU read lock.
 
-      struct ibv_context *c = ibv_open_device(d);
-      struct ibv_pd *pd = c ? ibv_alloc_pd(c) : NULL;
-      struct ibv_cq *cq = pd ? ibv_create_cq(c, 16, NULL, NULL, 0) : NULL;
-      struct ibv_qp_init_attr qa = { .send_cq = cq, .recv_cq = cq, .qp_type = IBV_QPT_RC,
-                                     .cap = { .max_send_wr = 16, .max_recv_wr = 16, .max_send_sge = 1, .max_recv_sge = 1 } };
-      struct ibv_qp *qp = cq ? ibv_create_qp(pd, &qa) : NULL;
-      if (!qp) { perror("setup"); return 2; }
-      printf("%s (%s): created QP %u, state %s\n", argv[1], d->name, qp->qp_num, st(state(qp)));
+Patch overview:
 
-      struct ibv_qp_attr r = { .qp_state = IBV_QPS_RESET };
-      int rc = ibv_modify_qp(qp, &r, IBV_QP_STATE);
-      printf("modify -> RESET: rc=%d (%s), state now %s\n", rc, rc ? strerror(rc) : "ok", st(state(qp)));
+ 1/4: the BPF struct_ops cost model support: Kconfig, ops
+      definition, per-device attachment, unified dispatch and
+      verifier checks
+ 2/4: selftests with two example models (the full builtin linear
+      HDD formula at double cost, and a multi-stream sequentiality
+      model) plus a runner and the selftest kernel config entries
+ 3/4: add an iocost_ioc_tick tracepoint emitting the per-period
+      controller state, so model quality can be evaluated without
+      drgn (existing events are state-change driven and silent in
+      steady state)
+ 4/4: document the attachment in cgroup-v2.rst
 
-      struct ibv_qp_attr a = { .qp_state = IBV_QPS_INIT, .port_num = 1, .pkey_index = 0,
-                               .qp_access_flags = IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_READ | IBV_ACCESS_REMOTE_WRITE };
-      rc = ibv_modify_qp(qp, &a, IBV_QP_STATE | IBV_QP_PKEY_INDEX | IBV_QP_PORT | IBV_QP_ACCESS_FLAGS);
-      printf("modify -> INIT:  rc=%d (%s), state now %s\n", rc, rc ? strerror(rc) : "ok", st(state(qp)));
+Does it work
+------------
 
-ibv_destroy_qp(qp); ibv_destroy_cq(cq); ibv_dealloc_pd(pd); ibv_close_device(c); ibv_free_device_list(l);
-      return rc ? 1 : 0;
-  }
----
- drivers/infiniband/hw/irdma/verbs.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Mechanism, verified functionally on a virtio-blk device (HDD
+profile, sequential-read workload from a 1%-weight cgroup, builtin
+vs the 2x example model):
 
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index 5d71300da0ff..646fddd022b1 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -1576,9 +1576,17 @@ int irdma_modify_qp_roce(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 			issue_modify_qp = 1;
- 			iwqp->suspend_pending = true;
- 			break;
-+		case IB_QPS_RESET:
-+			/*
-+			 * A QP that was never moved to INIT has nothing to
-+			 * flush, so skip the hardware modify. Moving it to
-+			 * ERROR would make the following INIT fail.
-+			 */
-+			if (iwqp->iwarp_state == IRDMA_QP_STATE_INVALID)
-+				break;
-+			fallthrough;
- 		case IB_QPS_SQE:
- 		case IB_QPS_ERR:
--		case IB_QPS_RESET:
- 			if (iwqp->iwarp_state == IRDMA_QP_STATE_ERROR) {
- 				iwqp->ibqp_state = attr->qp_state;
- 				spin_unlock_irqrestore(&iwqp->lock, flags);
+ - per-IO charge: 2882us -> 5722us, a factor of 1.985x; the
+   completed IO count halves and total cost.usage is conserved,
+   i.e. the model output drives both charging and budgeting
+ - attachment: model=bpf readback while in use (ctrl keeps
+   describing the builtin coefficients), EBUSY for a second model
+   on the same device, a second device attaches an independent
+   model, "model=linear"/"model=bpf" switch between the attached
+   model and the builtin without detaching, detaching removes the
+   model and "model=bpf" fails afterwards
+ - edge cases: writing an unknown device fails and nothing is
+   applied; the selftest runner checks the write error and errno
+   of every step, including the restoration
 
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-irdma-reset-fresh-qp-ca3c5050da25
+Workload-shape verification (same setup, 4k IOs at weight 1000,
+builtin vs the 2x example model):
 
-Best regards,
+ - flush-heavy workload (read/write/fsync alternating): priced
+   1.99x the builtin, i.e. flushes no longer reset the cursor
+   and misjudge the following IO as random
+ - non-page-multiple IO (6 KiB): priced ~2x, matching the
+   builtin's truncating page count
+ - first IO from a high LBA (past 16 MiB): priced 2.01x, i.e.
+   a fresh cgroup's zero cursor no longer misjudges the first IO
+   as random
+
+Payoff, demonstrated with the multi-stream example model (2/4) on
+the same setup, 4k IOs at weight 1000, builtin vs the model:
+
+ - two sequential readers in one cgroup: priced 1961us/op by builtin
+   (both judged random by the single cursor) and 23us/op by the
+   model (each stream keeps its own slot); the completed IO count
+   rises by two orders of magnitude
+ - random IO inside an 8M window: priced 24us/op by builtin
+   (undercharge, an accounting escape) and 2607us/op by the model
+ - single-stream sequential and whole-disk random pricing are
+   unchanged, so the model fixes both directions of mispricing
+   without introducing a new one
+
+Non-interference, measured on enterprise NVMe: no measurable
+overhead when the BPF model is not attached.
+
+Changes in v8:
+- attachment no longer enables the controller: attaching creates
+  the ioc under rq_qos_mutex (with the disk_live() check
+  blkg_conf_open_bdev() does) and switches the model under the
+  same freeze and quiesce as the io.cost.model writes; the implicit
+  enable and the wbt handover are gone, and "model=bpf"/
+  "model=linear" switch between the attached model and the builtin
+  model without detaching, per the v7 review
+- iocg_init()/iocg_free() now pair up: the existing iocgs are
+  walked over q->blkg_list under q->blkcg_mutex on attach and the
+  remaining ones on detach, the same walk the blkcg policy teardown
+  uses; cgroups without a blkg on the device yet get their
+  callbacks at blkg creation
+- ctrl=bpf is rejected (it never reads back), model=bpf fails when
+  no model is attached
+- a helper returning the model in use (stubbed to NULL when
+  !CONFIG_BLK_CGROUP_IOCOST_BPF) replaces the scattered #ifdefs
+  and unifies the duplicated seq_printf() in ioc_cost_model_prfill()
+- the completion-time sizing is back to a plain pages * coeff like
+  the builtin, which also removes the 64-bit division
+- the bdev file pin is gone: the attach instead holds a no_open bdev
+  reference, dropped by the removal ejection or by .unreg, whichever
+  detaches the model first, mirroring hid_bpf's per-ops device
+  reference without pinning the driver module.  The device is looked
+  up with
+  blkdev_get_no_open() and disk_live() under rq_qos_mutex, .reg
+  rejects re-attach, and ioc_rqos_exit() ejects the model
+  completely on device removal
+- the tick tracepoint passes only ioc, &now, nr_active and
+  usage_us_sum, and reads the rest from ioc in TP_fast_assign() like
+  the other iocost events
+- .unreg takes a queue reference before waiting on rq_qos_mutex,
+  with an RCU tryget helper so a reference can be taken on a queue
+  read locklessly, and re-checks whether the removal ejection already
+  detached the model; the model clearing and the iocg_free() walk on
+  detach are synchronized against ioc_pd_init()/ioc_pd_free() with
+  q->blkcg_mutex
+- the attach holds a queue reference across the window where it is
+  off rq_qos_mutex between creating the ioc and switching the model,
+  so concurrent device removal cannot free the queue from under it
+- the two bpf-ci reported attach issues (re-attach check,
+  disk_live()) and the bot selftest findings (endianness of the
+  dev write, comment fixes) are addressed
+
+Link: https://lore.kernel.org/r/20260908100143.47598-1-cui.tao@linux.dev # v1
+Link: https://lore.kernel.org/r/20260910125817.223354-1-cui.tao@linux.dev # v2
+Link: https://lore.kernel.org/r/20260914073356.791518-1-cui.tao@linux.dev # v3
+Link: https://lore.kernel.org/r/20260916072302.1068871-1-cui.tao@linux.dev # v4
+Link: https://lore.kernel.org/r/20260918031751.1255420-1-cui.tao@linux.dev # v5
+Link: https://lore.kernel.org/r/20260918055001.1273840-1-cui.tao@linux.dev # v6
+Link: https://lore.kernel.org/r/20260924054549.2271705-1-cui.tao@linux.dev # v7
+Tao Cui (4):
+  blk-iocost: add BPF struct_ops cost model support
+  selftests/bpf: add iocost cost model test
+  blk-iocost: add iocost_ioc_tick tracepoint for per-period device
+    summary
+  docs: cgroup-v2: document the iocost BPF cost model attachment
+
+ Documentation/admin-guide/cgroup-v2.rst       |  19 +
+ block/Kconfig                                 |  10 +
+ block/Makefile                                |   1 +
+ block/blk-iocost-bpf.c                        | 198 +++++++++++
+ block/blk-iocost.c                            | 334 +++++++++++++++++-
+ include/linux/blk-iocost.h                    | 110 ++++++
+ include/trace/events/iocost.h                 |  43 +++
+ tools/testing/selftests/bpf/config            |   2 -
+ .../selftests/bpf/prog_tests/iocost_model.c   | 233 ++++++++++++
+ .../selftests/bpf/progs/iocost_model.c        | 138 ++++++++
+ tools/testing/selftests/bpf/progs/iocost_ms.c | 159 +++++++++
+ 11 files changed, 1237 insertions(+), 10 deletions(-)
+ create mode 100644 block/blk-iocost-bpf.c
+ create mode 100644 include/linux/blk-iocost.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+
 -- 
-Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
-
-
+2.43.0
