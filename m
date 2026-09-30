@@ -1,109 +1,87 @@
-Received: from mail-wr2-f39.google.com (mail-wr2-f39.google.com [74.125.225.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2FD4E73D8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453EA4DA9D2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774513; cv=none; b=a6zFcHve/0qq4L6pZOqG4si6cN8+w+oYG4KJ9ZQIyQHLdLIfPT/lBYOLrM6XI2yMU6XfQwiZDI6aN0PnNL80ZP4Dnq7wSjD9KRtKwWNAhir2oWeqB3X2pR2LjRxZ29ey+VrGAiIJqll/glXnM84vWoJ5IHSIo+rCNUG46lfPHL8=
+	t=1790774524; cv=none; b=Z7H4sosvc1S6L2UtISMs5It8V4XeeGRz2rM9PR0r/rSgG/wg/idcTWR/0jNfDaHYdXgLGPhBTD0eWFr//HPTzo2yrU5k+kTsKPCqUVgAotc5Jlcg0hC8/UnLjw77q6bjYlPMl3yOlrEulB9QyAeJJWWB2Pho3oTdWSd6O6InTw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774513; c=relaxed/simple;
-	bh=KF7dDOx7DaLCNyQNSsul75suel+43Q9ip6d+eR3BH5A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=twQWmu6z0DvQpKtEpWvXuhnv1fkVjM7cbgjWY1qcmVmgphvJWubtnPjRSKL2xuJdYD4LYw6/SEDh5Olr4uSgvbh7K1wjv4nLTmVDU3vBQxoZaBAIJxMw53rRKxrVO3sE8xhm4QC8EobptEVBqC5L7S0E5TOqUz/S3d3BVzKJdZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fplhQ7qS; arc=none smtp.client-ip=74.125.225.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790774524; c=relaxed/simple;
+	bh=wZJmLfEfCXYjoCzTqdd4D4IU51K1LeQ0vlEIkGanjNg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cqTHtiv4mezP2nbyhB1PQj9hwddUo/3VCO4n/wvdwKryJCAIX1CDGxc5tumPYsdWJ8geBQ6dZ+HQtqS71jYzTfUO+yv1tW8jMrgbYSWtf6hOFrTxxzIfq177WtBkpiapOzVBiTvPMOvQRYmaBgaMMvGZM2r07xkBuJk1PYZVpuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ID78kKzR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fplhQ7qS"
-Received: by mail-wr2-f39.google.com with SMTP id ffacd0b85a97d-48af929e59dso1132803f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:21:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790774471; x=1791379271; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tGm+gMifQidcQlMxmJXtxnGy2ShpN9JxNJdyz7K8Aho=;
-        b=fplhQ7qS3y/WREvjdvh6RXRkRgvXvOtCsOAJdGliy/q96tIMygouXNL24DOTuVX/RD
-         WbFpOOzuxTnz/r2T7sKC4GDLCJR2SJn2xcBrie1wfijTj94dlxbFcG77S17im+QNnTFL
-         gbJnqQNzokUkHi/etgwrVSMBDEo0hOrh/IG48vSzxaD5v8iM/l51yBFyyWUSV8na+Rn8
-         yrZxgsyzRgsTQQiN10nj9ucLYzcf6Yesn/qq0wwu4fHe2avjVQTJ2ilxDUgCmtuwJPUD
-         MbeLhWdWuhW7ttkYDOndOK6sdIeUtBoOARJILgDpXcrtAslNVUSGeb18zZbPUcJVWYPV
-         Bgig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790774471; x=1791379271;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tGm+gMifQidcQlMxmJXtxnGy2ShpN9JxNJdyz7K8Aho=;
-        b=VVi5mep/nFmwaMtCjboHs7Kboh3YAvtcPKOaf9ir7xc+LnIvO5KaKFlGdLTZMBViab
-         jcScdHu0izPBR6YmvPsET9iHPphDYVelFeH/K8yZFU9ScetkyG9gYDnEW0CL9FjfekkI
-         ivAd/f7A3uju2IOTpCK+IlEvdy2YtAR8C+NvhC1oNCtlGQJ8RONyxinUgQEFUrPatC3b
-         R8Zl3RoU4u+jftb1iV3VSYqUpd0wTPOXTn0N6RQYcRpmzktbL9lAsG6E+z//NlpfP+xn
-         uGCtoltJ7sULsJn19WzVruSfksdFfGbo6OfPtBdVhrz5u0OZ1heyM0jSDSuTi6CVW6PU
-         G8Bg==
-X-Forwarded-Encrypted: i=1; AKwUvByyCxQ067370owZ8yCRuNyMQFwV8/iZUXhu2ZEi8J66oSKFqjovXBPMlsWMNOFHmT4dHafPKb50SLl8nao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJF76CdsM+27uWW64Na6MMTOYddLHlhRS8uEjq0el0WomHOgnv3
-	HlLjPHWs7MsG9GseBNjZlDdbta2BKWan8uccaF1rlgjnxev1m/32QZrS
-X-Gm-Gg: AYBFou1SwMiLmNdW4EwrfP6AoNWCQ57prM2rGcbHV/m3/RW4MbReHE4MU9Zf4BHMVqu
-	KKuc6ciHI1v2C4EUG/78E3fSdyYMlXvlq69d69ebG5hYE8dkKnOMXMlBwO2gBPBgf8zx8MXHB11
-	4WmOVeniT+0pel3JFGw0bZTFu+CONeamqc85KYX1CalEbRYiRBtC3lVksDsuWNm/SEh1WLQ2sB+
-	xKJpOBkb5aSpUs22q6iwVOQSjzRP8wpQJcyMdaT9QfoNeNKfdKKZNIzB9HLcFNJ3Hi2BmX0DJgt
-	mlynnQK40YE97wb8QNBj8NtXf+VqACq45Ng2j0EpFsTQfHrnNy50LG5oAdxJFXuafAjr1nOCpub
-	LkvNPTAqW45UPLbMXuQgGe7nXdqyWqxFWUoWzTavVsPjQTz+G1xkEQ4zWPcFbNC5J+VtPy2aAxR
-	W2B1SZacDXN8hfEhtl+yJJB0QJc1pW1skmvappqQnEYqBam+E6+GtdzZdDHXox1j7xzYWRAkthI
-	uAV/TSedPTQ/WfqnLY2CQXeaETBcRLdULX0jG/0QcNUjryCWI4vApk=
-X-Received: by 2002:a05:6000:2284:b0:488:8859:b0dc with SMTP id ffacd0b85a97d-48b02554433mr2945079f8f.56.1790774470878;
-        Wed, 30 Sep 2026 06:21:10 -0700 (PDT)
-Received: from snowdrop.snailnet.com (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bef64sm5047284f8f.10.2026.09.30.06.21.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 06:21:10 -0700 (PDT)
-From: David Laight <david.laight.linux@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Kees Cook <kees@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Jim Cromie <jim.cromie@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zhen Lei <thunder.leizhen@huawei.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH next 0/2] kallsyms: optimise symbol search by name
-Date: Wed, 30 Sep 2026 14:21:06 +0100
-Message-Id: <20260930132109.260597-1-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ID78kKzR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DCB71F0089D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:21:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790774510;
+	bh=wZJmLfEfCXYjoCzTqdd4D4IU51K1LeQ0vlEIkGanjNg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ID78kKzRdVuD0vOY0tb9F6hE5AypyIV35VXl/0TB81aW0KHwIN5+n6sU+GTCqQo22
+	 zevVzKiTAGXxkdcZw20zUWzWjtqLRox6z2840aLqZUoaSzH8+vJJ2ysDYvvmCn6JBy
+	 3+wpaJAa+8FTC6nuJsYtylLcqW2drm8hpoq4e/V3zbdfyQnfw4A6woBxpcUz9btCfZ
+	 MbSn9Ny9SeR6GSEh4orWEwKXooBbUCTwbGuUr7O3nlu7y9Is1tfmeiKtkBfY/ldlNR
+	 TqoyyV4EVgBe6EQPT8zP8LvUX2ArIjyPlchgk90p6WBk17c5Gs4NEb7L4rJcv9SVox
+	 pxYV7GOmr67og==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e548cd7dso47103181fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:21:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz/LyMm+DDy9bN8ChHw4i2DOOR7JUbGtAQebnyHwSDDdWRkDCNInTMjtrSw1BcgLP3zGoqRbkdMHiY8V7Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5AUys4Hc/95MwGXCf7k1J7fe+1hEV+O/VyZ5Jpv/0DadQtwjP
+	zav6mBD0qMMA0TW3CB/ziH1UrPs9QfnAsAuFVtzfTkfmI+WNxZ3XUdW3JFHMr9pT44moQEOcPZM
+	GeC8s2ME7JZSRRaa3dRk6EHRySvvSYg4=
+X-Received: by 2002:a2e:a550:0:b0:3a5:b6af:2973 with SMTP id
+ 38308e7fff4ca-3a779170e26mr4566541fa.5.1790774509117; Wed, 30 Sep 2026
+ 06:21:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917211446.i.153-kees@kernel.org>
+In-Reply-To: <20260917211446.i.153-kees@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 15:21:37 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=TbxyEiZUhPYtqiXBJTekvE7g8uSqwLbuALj7Y1iso4A@mail.gmail.com>
+X-Gm-Features: AclHuK9we1Pkw_SnEX45VNI9ZkjWr3vMHJERGZiaBSgi6q9Y8UmCTh3tVaYbMI8
+Message-ID: <CAD++jL=TbxyEiZUhPYtqiXBJTekvE7g8uSqwLbuALj7Y1iso4A@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: imx: Remove const from group_names allocation type
+To: Kees Cook <kees@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Kees Cook <kees+treewide@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Patch 1 is from Jim Crome, included so the patch series builds.
-This is currently in mm-nonmm-unstable
+On Thu, Sep 17, 2026 at 11:14=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
 
-Patch 2 Removes the linear scan from the 'search by name' binary bisect.
-Data size unchanged for 'sane' kernels.
+> From: Kees Cook <kees+treewide@kernel.org>
+>
+> In preparation for making the devm_kmalloc family of allocators type
+> aware, we need to make sure that the returned type from the allocation
+> matches the type of the variable being assigned. (Before, the allocator
+> would always return "void *", which can be implicitly cast to any
+> pointer type.)
+>
+> The assigned type is "const char **", but the converted allocation type
+> would be "const char * const *", as the size was taken from
+> "*func->groups", whose type "const char * const" is const qualified. As
+> there is no general way to remove const qualifiers, take the size from
+> the assignment target instead. No change in allocation size results.
+>
+> Build tested ARCH=3Dx86_64 allmodconfig with GCC 16.2.0:
+> drivers/pinctrl/freescale/pinctrl-imx.o
+>
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
 
-Seems to work (I'm running it on this system), but I haven't got any performance
-numbers.
+Patch applied!
 
-David Laight (1):
-  kallsyms: Optimise symbol name search
-
-Jim Cromie (1):
-  kallsyms: Match compressed tokens on the fly during binary search
-
- kernel/kallsyms.c          | 171 ++++++++++++++++++++++++-------------
- kernel/kallsyms_internal.h |   4 +-
- scripts/Makefile           |   1 +
- scripts/kallsyms.c         |  50 ++++++-----
- 4 files changed, 144 insertions(+), 82 deletions(-)
-
--- 
-2.39.5
-
+Yours,
+Linus Walleij
