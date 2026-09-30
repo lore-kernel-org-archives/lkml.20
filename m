@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A66C449B26;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444413F23BD;
 	Wed, 30 Sep 2026 06:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751447; cv=none; b=LWLhJm6fQKOAu8C6fY/nFubz+FeDNxXa/qmC72y646iOV6u62nm4JVeq6Yoxou2eKrIDlXjhi8o8TMesfOYu6mPdmoeJ+gQY25CamtTBt/E/QmTuVcYvCUf8NmUS2JvymtbFe8SMMiwOEsfSFvgc18Gd2wDQZ/HV2oASCJm0EoQ=
+	t=1790751450; cv=none; b=KH7Tt4/lCcYPIi1Bik1+Cus0jnLe57D78WHYYSFOkOUFenqOU2M0WyMhoTxIM47IPwlZM98YYoftHq9yFEmtd9kErsKzuRHmQcLkEPzZpGrdgHiIUvEDNPgwHYgZVBNA8d9l3M8eYNmf1hfMYeC5o3JR+KRTjq0Elg+AmjkX+Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751447; c=relaxed/simple;
-	bh=7rf6poE9JRRqaXxdef6UYxtzI4ptFTdwXjDk6N62Q8w=;
+	s=arc-20240116; t=1790751450; c=relaxed/simple;
+	bh=fwOA9O0nFOrTpLNu/nIONUOla+wYp6+n4xzzxWFJnLo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gW8Ipge5PIrgeXMnzVPbM9XEOQJrgER6jRLX6GU9W7sUM1UbCDaXtzQ6jArqM7PjpD3EpjR9bVA5Jl4wYKTyDEz5nFd99O5kQMr4osW4h6+8VEcHg8inHfXe4rXaqgdddmyxJ9Qu0cwRir9rdOj6xvrq2fTFs6C7SqQR/ObPDFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhIMrxw1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=bcLcHdkShO0gae1XtI8cF1FKjM2QOSK7xBUPafeZr0ezR4I6PYqb2SfsC68aUf4ppjT5Dh+j2bK5hIe68BgjCQOqV/QECWt1hASzSx/S5MkQdeRZ5ZYS6/UiV3GumkodtOeO9lO7qZtu58A9VLxDviRKvHT/SD6G+BQnTChKX50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxRhnZud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhIMrxw1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0E41F0089A;
-	Wed, 30 Sep 2026 06:57:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxRhnZud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EB81F00899;
+	Wed, 30 Sep 2026 06:57:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790751436;
-	bh=yAq7aPHs7ijEhYz/lAfzl4lkZubSQIrVP3ZaHnN5y0U=;
+	s=k20260515; t=1790751435;
+	bh=sKPnM5ngy/nY17foSViZ3cY5JvpMOHtKxOPc+AYY5gc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HhIMrxw1yjJr0Ik3Z+cCfVKJ+pw2mleFdbe+jFaEZHGZlSFFRyjDSsClbPqVTym0V
-	 L1IbnkLIw+HLVOJ2PZhsNqkSIFqeC8IWrJY8Jp3pnpgdkGvcGdt6Jp98dL0D/TG4lq
-	 7ZQuaHRxuDKlt5nBdSw1tGLE6Pz4mb8UPHMUl8q2fWqi/a4sr/nffauGMHBjOLy5Uv
-	 Cb8x5NhOt82Cc+IGl+4CzPMUU4LDYomh8fR3TS6s6lclsYuDwbr60JPnvOGDPlJBFU
-	 LaGqEHvBmV+zH7EVVelKK7jpPowIx6fpjj+Bd0ytd9jqBgA7gknNhlhkfUmNSoHaMg
-	 owDx9B8pGoeZw==
-Subject:
- Re: [PATCH net-next 6/6] dpll: zl3073x: add PTP periodic output support
+	b=UxRhnZudiMsTMAMSFH1w2Bv7CjwxnWclMlJibohe4NDahCrPhNY0r0aDYHx9leVmf
+	 +UdDr3dht96GA6pNCYnNYsxzAxL19y9kUAi+3gxMjWFj32qCwA0XUYVTEtbVKLFcwP
+	 k5QPHqpwnpa8L+BrHoTd/zzdSbqh4mgJkk/2Wmw/n915r3X+er5t65/O5tdKjqN80b
+	 tudiqdOokkRVfQvGxRXBo1W37JZF/hcYnohD6PBgErzr5dAPs/aAac1wHDgMvwXBsi
+	 3o7Zhp4zvgVtnkO/hM5kioNVbde5hVu8d8Q+kpDuYNp3tSmEZDjjWcdM+Kx6TAD+WL
+	 2RQkkdMK95aRQ==
+Subject: Re: [PATCH net-next 5/6] dpll: zl3073x: factor out output pin
+ frequency helper
 From: netdev-bot+sashiko@kernel.org
 To: ivecera@redhat.com
 Cc: netdev@vger.kernel.org, Chris.duQuesnay@microchip.com,
@@ -35,11 +35,11 @@ Cc: netdev@vger.kernel.org, Chris.duQuesnay@microchip.com,
  min.li@microchip.com, pabeni@redhat.com, poros@redhat.com,
  richardcochran@gmail.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 06:57:15 +0000
-Message-ID: <179075143589.434549.11966375891495900992@kernel.org>
-In-Reply-To: <20260928185552.1103515-7-ivecera@redhat.com>
-References: <20260928185552.1103515-7-ivecera@redhat.com>
-X-sashiko-severity: Medium
+Date: Wed, 30 Sep 2026 06:57:14 +0000
+Message-ID: <179075143473.434549.6645482932885266924@kernel.org>
+In-Reply-To: <20260928185552.1103515-6-ivecera@redhat.com>
+References: <20260928185552.1103515-6-ivecera@redhat.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,279 +49,227 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 3
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- [Low] The kernel-doc of the new helper
+  zl3073x_dpll_output_pin_freq_set() in drivers/dpll/zl3073x/dpll.c says…
 
-- [Medium] In zl3073x_dpll_ptp_register()
-  (drivers/dpll/zl3073x/dpll.c:3045-3054), any perout-capable output pin…
-- [Medium] zl3073x_dpll_perout_enable()
-  (drivers/dpll/zl3073x/dpll.c:2887-2904) checks only perout->period ==…
-- [Medium] For single-ended outputs that are not N-divided, both pins of
-  the pair (OUTxP/OUTxN) share the div and width registers.
-- [Medium] zl3073x_dpll_ptp_enable() passes zldpll->ptp_clock to
-  ptp_find_pin() (dpll.c:2959).
-- [Low] zl3073x_dpll_perout_enable() writes the new 1 Hz divider to
-  hardware first (zl3073x_out_state_set() at dpll.c:2897, which also…
-- [Low] zl3073x_dpll_ptp_register() reads the zldev->out[] cache through
-  zl3073x_dev_output_pin_state_get() (dpll.c:3049) without zldpll->lock,…
-- [Low] On a non-N-divided output, zl3073x_dpll_perout_enable() relies on
-  zl3073x_dpll_output_pin_freq_set(), which only rewrites div and width…
+Pre-existing issues:
+- [High] A user with CAP_NET_ADMIN can trigger a divide-by-zero oops in
+  zl3073x_dpll_output_pin_freq_set() (drivers/dpll/zl3073x/dpll.c:1058,…
+- [Medium] (Baseline: preexisting, medium; not reported as a finding of
+  this patch.) In the N-div P-pin branch of…
+- [Medium] (Baseline: preexisting, medium; not reported as a finding of
+  this patch.) In zl3073x_dpll_output_pin_freq_set(), the P-pin rescale…
+- [Low] (Baseline: not confirmed as a new issue.) The concern says
+  zl3073x_dpll_output_pin_freq_set() does not validate its input, which…
 
 --
 
-dpll: zl3073x: add PTP periodic output support
+dpll: zl3073x: factor out output pin frequency helper
 
-This commit registers a PTP periodic output pin for each zl3073x DPLL
-output pin that supports step-time and declares 1 Hz support in firmware.
-Enabling a perout channel programs the assigned pin for 1 PPS and
-connects it. Disabling the channel disconnects the pin.
+This commit moves the divisor and N-division computation out of
+zl3073x_dpll_output_pin_frequency_set() into a new helper,
+zl3073x_dpll_output_pin_freq_set(). The helper updates a struct
+zl3073x_out but does not write it to hardware, so the upcoming PTP
+periodic output code can reuse it. No functional change is intended.
 
 > diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-> index 0a36a2acf15b..f406d1e72530 100644
+> index fcf91aba2988..0a36a2acf15b 100644
 > --- a/drivers/dpll/zl3073x/dpll.c
 > +++ b/drivers/dpll/zl3073x/dpll.c
+> @@ -1032,96 +1032,109 @@ zl3073x_dpll_output_pin_frequency_get(const struct dpll_pin *dpll_pin,
 
 [ ... ]
 
-> @@ -2823,6 +2840,159 @@ zl3073x_dpll_ptp_getmaxphase(struct ptp_clock_info *info __always_unused)
-
-[ ... ]
-
-> +static int
-> +zl3073x_dpll_perout_enable(struct zl3073x_dpll_pin *pin,
-> +			   struct ptp_perout_request *perout)
-> +{
-> +	u8 out_id = zl3073x_output_pin_out_get(pin->id);
-> +	struct zl3073x_dev *zldev = pin->dpll->dev;
-> +	struct zl3073x_out out;
-> +	int rc;
-> +
-> +	/* Only 1 PPS (1 Hz) periodic output is supported */
-> +	if (perout->period.sec != 1 || perout->period.nsec)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Should perout->start be checked here too?
-
-supported_perout_flags is left at 0, so ptp_perout_request() rejects
-PTP_PEROUT_PHASE. That means every request reaching this driver uses the
-absolute start time semantics from include/uapi/linux/ptp_clock.h:
-
-	/*
-	 * Absolute start time.
-	 * Valid only if (flags & PTP_PEROUT_PHASE) is unset.
-	 */
-	struct ptp_clock_time start;
-
-start is never read. The divider is programmed, the pin is connected
-right away, and success is returned. A request with a future start time
-or a non-zero start.nsec is accepted, but the edge is not aligned to it.
-If the pin is already connected, the only hardware change is a divider
-rewrite on the running output.
-
-Could requests whose start time cannot be honoured be rejected? At a
-minimum, could the commit message mention this limitation?
-
-> +
-> +	out = *zl3073x_out_state_get(zldev, out_id);
-> +
-> +	rc = zl3073x_dpll_output_pin_freq_set(pin, &out, 1);
-
-[Severity: Medium]
-On single-ended outputs that are not N-divided, both pins of the pair
-share div and width. zl3073x_dpll_output_pin_freq_set() just overwrites
-them in that case:
-
-	if (!zl3073x_out_is_ndiv(out)) {
-		...
-		out->div = new_div;
-		...
-		out->width = new_div;
-
-		return 0;
-	}
-
-OUTxP and OUTxN can both be advertised as independent PTP perout pins.
-Enabling a channel on OUT5P would therefore also retune OUT5N to 1 Hz,
-even if OUT5N is connected and driving something like 10 MHz. The
-sibling dpll_pin_change_ntf() only reports this after the fact.
-
-Should this path refuse when the sibling is connected at a different
-frequency?
-
-zl3073x_dpll_perout_disable() also only disconnects the pin. It does not
-restore the previous divider, so a sibling that is still connected stays
-at 1 Hz after the PTP channel is turned off. Is that intended?
-
-[Severity: Low]
-On a non-N-divided output, the same helper leaves the output mode clock
-type and esync_n_period/esync_n_width unchanged. If the output was in
-ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC, does it stay in ESYNC mode after the
-switch to 1 Hz? esync_n_period and esync_n_width would still be the
-values computed for the old carrier.
-
-Once out_freq is 1, zl3073x_dpll_output_pin_esync_get() hides this
-state:
-
-	if (!(pin->caps & ZL3073X_DPLL_PIN_CAP_ESYNC) || out_freq <= 1)
-		return -EOPNOTSUPP;
-
-Userspace can then no longer see or clear the ESYNC mode that is still
-set in hardware.
-
-Should the perout path force CLOCK_TYPE_NORMAL, or reject outputs that
-are in ESYNC mode? The existing DPLL frequency_set path appears to have
-the same gap.
-
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = zl3073x_out_state_set(zldev, out_id, &out);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (zl3073x_dev_output_pin_state_get(zldev, pin->id))
-> +		return 0;
-> +
-> +	return zl3073x_dev_output_pin_state_set(zldev, pin->id, true);
-
-[Severity: Low]
-What happens if zl3073x_dev_output_pin_state_set() fails here? By then
-the new 1 Hz divider has already been committed by the
-zl3073x_out_state_set() call above, and the cache has been updated.
-
-The connect sequence can fail early. For example, the first stop write
-in zl3073x_dev_output_pin_state_set() returns immediately:
-
-	zl3073x_out_stop(&out);
-	rc = zl3073x_out_state_set(zldev, out_id, &out);
-	if (rc)
-		return rc;
-
-The old div/width and esync_n_period/width are not restored. The output
-is left at 1 Hz and disconnected, and so is the sibling for non-N-div
-formats.
-
-zl3073x_dpll_ptp_enable() then returns before either notification:
-
-	if (rc)
-		return rc;
-
-zl3073x_dpll_changes_check() only sends notifications for input pins.
-Would DPLL userspace ever learn that the frequency of this pin or its
-sibling changed?
-
-> +}
-
-[ ... ]
-
-> +static int zl3073x_dpll_ptp_enable(struct ptp_clock_info *info,
-> +				   struct ptp_clock_request *rq, int on)
-> +{
-
-[ ... ]
-
-> +	pin_idx = ptp_find_pin(zldpll->ptp_clock, PTP_PF_PEROUT,
-> +			       rq->perout.index);
-
-[Severity: Medium]
-Can zldpll->ptp_clock still be NULL here? zl3073x_dpll_ptp_register()
-only assigns it after ptp_clock_register() returns:
-
-	ptp_clock = ptp_clock_register(&zldpll->ptp_info, zldev->dev);
-	...
-	zldpll->ptp_clock = ptp_clock;
-
-Inside ptp_clock_register(), posix_clock_register() has already made
-/dev/ptpN and the sysfs pin and period attributes live. Any of these,
-issued in that window, would reach this call with a NULL clock:
-
-  - PTP_PEROUT_REQUEST
-  - PTP_PIN_SETFUNC, via ptp_set_pinfunc()->ptp_disable_pinfunc()->
-    enable(on=0), which is reachable because pins can be seeded as
-    PEROUT at probe
-  - a write to the sysfs period attribute
-
-ptp_find_pin() dereferences ptp->info->n_pins without a NULL check.
-
-The callback already receives info. Could it scan info->pin_config
-directly rather than depend on the pointer that is published later?
-
-> +	if (pin_idx < 0)
-> +		return -EINVAL;
-
-[ ... ]
-
-> @@ -2843,16 +3015,53 @@ static const struct ptp_clock_info zl3073x_dpll_ptp_clock_info = {
->  static int zl3073x_dpll_ptp_register(struct zl3073x_dpll *zldpll)
+> +zl3073x_dpll_output_pin_freq_set(struct zl3073x_dpll_pin *pin,
+> +				 struct zl3073x_out *out, u64 frequency)
 >  {
 
 [ ... ]
 
-> +	i = 0;
-> +	for_each_set_bit(id, zldpll->perout_map, ZL3073X_NUM_OUTPUT_PINS) {
-> +		pin = zl3073x_dpll_output_pin_get_by_id(zldpll, id);
-> +		strscpy(pin_config[i].name, pin->label);
-> +		pin_config[i].index = i;
-> +		if (zl3073x_dev_output_pin_state_get(zldev, id)) {
-> +			pin_config[i].func = PTP_PF_PEROUT;
-> +			pin_config[i].chan = i;
-> +		}
+> +	synth = zl3073x_out_synth_get(out);
+> +	synth_freq = zl3073x_dev_synth_freq_get(zldev, synth);
+>  	new_div = synth_freq / (u32)frequency;
 
-[Severity: Medium]
-Should this also check that the output runs at 1 Hz? Any perout-capable
-pin that is connected at probe is reported as holding PEROUT channel i.
-That includes a pin that firmware or DPLL netlink set up as, say, a
-10 MHz clock.
+[Severity: High]
+This isn't a bug introduced by this patch, but can frequency be 0 here?
+The old zl3073x_dpll_output_pin_frequency_set() had the same division.
 
-Normal PTP pin management would then turn that output off. Each of
-these triggers it:
+zl3073x_pin_props_get() always puts the current frequency in slot 0 of
+the supported list:
 
-  - PTP_PIN_SETFUNC moving channel i to another pin
-  - setting the pin to PTP_PF_NONE
-  - PTP_PEROUT_REQUEST with period 0 on channel i
+    ranges[0] = (struct dpll_pin_frequency)DPLL_PIN_FREQUENCY(curr_freq);
 
-They all end up in:
+curr_freq comes from zl3073x_dev_output_pin_freq_get(), which returns 0
+for an output running below 1 Hz. Two examples:
 
-ptp_set_pinfunc() or ptp_perout_request()
-  zl3073x_dpll_ptp_enable(on = 0)
-    zl3073x_dpll_perout_disable()
-      zl3073x_dev_output_pin_state_set(zldev, pin->id, false)
+  - an N-div N-pin with synth 1 GHz, div 10 and esync_n_period 2e8
+  - a P-pin with div > synth_freq
 
-This disconnects an output that was never enabled through PTP. The
-commit message does not mention that existing outputs are adopted this
-way.
+zl3073x_out_state_fetch() only rejects a zero div and a zero
+esync_n_period, so both setups are accepted.
 
-Would it be better to seed only pins that are connected and running at
-1 Hz as PTP_PF_PEROUT, and leave the rest as PTP_PF_NONE?
+Suppose the pin is first moved to another advertised frequency (for
+example 1 Hz, or through a rescale caused by the sibling P-pin). A later
+DPLL_CMD_PIN_SET with frequency 0 then passes
+dpll_pin_is_freq_supported() through the {0, 0} range.
+
+It also skips the "freq == old_freq" shortcut in dpll_pin_freq_set(),
+because old_freq is no longer 0:
+
+dpll_nl_pin_set_doit()
+  dpll_pin_freq_set()
+    zl3073x_dpll_output_pin_frequency_set()
+      zl3073x_dpll_output_pin_freq_set()
+        new_div = synth_freq / (u32)frequency;
+
+On x86 this looks like a divide error oops, raised while zldpll->lock
+and the dpll core lock are held.
+
+Would it make sense to return -EINVAL from the helper for !frequency
+(and for new_div == 0)? That would also match the new kernel-doc.
+Another option is for zl3073x_pin_props_get() to skip a zero curr_freq.
 
 [Severity: Low]
-This reads the zldev->out[] cache through
-zl3073x_dev_output_pin_state_get() without holding zldpll->lock.
+This is a pre-existing issue, but what happens here if the synth reports
+a frequency of 0?
 
-zl3073x_dpll_register() has already registered the DPLL device and pins
-before zl3073x_dpll_ptp_register() runs. DPLL netlink ops such as
-zl3073x_dpll_output_pin_state_on_dpll_set() can therefore update the
-same cache concurrently under zldpll->lock.
+zl3073x_synth_state_fetch() only validates freq_n, so a synth_freq of 0
+read from the device gives new_div == 0. In that case div = 0 is
+committed, and zl3073x_dev_output_pin_freq_get() later divides by
+out->div. This case looks speculative, and the netlink path could
+already reach it before this patch.
 
-zl3073x_dev_output_pin_state_set() also briefly stops the whole output
-pair around an fsleep(). An unlocked read in that window could see a
-connected pin as stopped and seed it as PTP_PF_NONE.
+The upcoming PTP caller does not seem to add a new path into this
+division. zl3073x_dpll_perout_enable(), added later in the series by
+"dpll: zl3073x: add PTP periodic output support", rejects everything
+except a 1 second period and passes a constant:
 
-Would holding zldpll->lock around this seeding loop fix it?
+    rc = zl3073x_dpll_output_pin_freq_set(pin, &out, 1);
 
-> +		i++;
-> +	}
+So the only remaining gap between the helper's "-EINVAL if the
+frequency cannot be represented" contract and its behaviour is the
+frequency 0 case above and this synth_freq 0 case.
 
 [ ... ]
+
+>  	if (zl3073x_dpll_is_p_pin(pin)) {
+> -		/* We are going to change output frequency for P-pin but
+> -		 * if the requested frequency is less than current N-pin
+> -		 * frequency then indicate a failure as we are not able
+> -		 * to compute N-pin divisor to keep its frequency unchanged.
+> -		 *
+> -		 * Update divisor for N-pin to keep N-pin frequency.
+> +		/* Changing the P-pin frequency, rescale the N-pin divisor to
+> +		 * keep the N-pin frequency unchanged. Fail if the requested
+> +		 * frequency is too low to represent the current N-pin one.
+>  		 */
+> -		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
+> -		if (!out.esync_n_period) {
+> -			rc = -EINVAL;
+> -			goto unlock;
+> -		}
+> +		out->esync_n_period = out->esync_n_period * out->div / new_div;
+> +		if (!out->esync_n_period)
+> +			return -EINVAL;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but does this rescale really
+keep the N-pin frequency unchanged? The division truncates, and only a
+zero result is rejected.
+
+For example, synth 1 GHz, div 100 and esync_n_period 2 give P = 10 MHz
+and N = 5 MHz. Setting P to 8 MHz passes zl3073x_pin_check_freq(). That
+gives new_div = 125 and esync_n_period = 200 / 125 = 1, so N becomes
+8 MHz while the helper returns 0.
+
+zl3073x_dpll_output_pin_frequency_set() only looks up the sibling for
+non N-divided formats:
+
+    if (!zl3073x_out_is_ndiv(&out))
+        sibling = zl3073x_dpll_output_pin_sibling_get(pin);
+
+So no change notification is sent for the N-pin even though its
+frequency changed.
+
+The old code had the same (out.esync_n_period * out.div) / new_div
+rescale. The earlier commit "dpll: zl3073x: notify sibling pin when
+shared output config changes" limited the notification to non N-divided
+formats.
+
+Could the helper return -EINVAL when the rescale is not exact?
+
+[Severity: Medium]
+This is also a pre-existing issue, but can out->esync_n_period *
+out->div overflow here? Both are u32, so the product is computed in 32
+bits before the division by new_div.
+
+If div * period exceeds 2^32 (an N-pin below about 0.23 Hz on a 1 GHz
+synth), the product wraps:
+
+  - div 8, period 536870912 and a new P of 62.5 MHz (new_div 16): the
+    product wraps to exactly 0, so a representable setup is rejected
+    with -EINVAL.
+  - period 600000000: the wrapped product is 505032704, which gives
+    period 31564544. The N-pin then runs at about 1.98 Hz instead of
+    about 0.208 Hz.
+
+Would something like div_u64((u64)out->esync_n_period * out->div,
+new_div), with a range check on the result, be safer?
+
+[ ... ]
+
+>  	} else {
+> -		/* We are going to change frequency of N-pin but if
+> -		 * the requested freq is greater or equal than freq of P-pin
+> -		 * in the output pair we cannot compute divisor for the N-pin.
+> -		 * In this case indicate a failure.
+> -		 *
+> -		 * Update divisor for N-pin
+> +		/* Changing the N-pin frequency. Fail if the requested
+> +		 * frequency is higher than or does not divide the P-pin one.
+>  		 */
+> -		out.esync_n_period = div64_u64(synth_freq, frequency * out.div);
+> -		if (!out.esync_n_period) {
+> -			rc = -EINVAL;
+> -			goto unlock;
+> -		}
+> +		out->esync_n_period = div64_u64(synth_freq,
+> +						frequency * out->div);
+> +		if (!out->esync_n_period)
+> +			return -EINVAL;
+>  	}
+
+[Severity: Low]
+Is the new comment accurate? It says the helper fails when the requested
+frequency "does not divide the P-pin one". However, div64_u64() truncates
+and only a zero quotient is rejected.
+
+The new kernel-doc makes a similar promise:
+
+    Return: 0 on success, -EINVAL if the frequency cannot be represented
+
+For example, take synth 1 GHz and div 100 (P = 10 MHz):
+
+  - A request for N = 4 MHz passes zl3073x_pin_check_freq(), because
+    1e9 % 4e6 == 0.
+  - esync_n_period becomes 1e9 / 4e8 = 2 (2.5 truncated), and the
+    helper returns 0.
+  - zl3073x_dev_output_pin_freq_get() then reports N = 5 MHz.
+
+The non N-divided branch also returns 0 without checking new_div.
+
+The truncation itself was already there. What this patch adds is the
+comment and kernel-doc that don't match it.
+
+Should there be a remainder check here, such as returning -EINVAL when
+synth_freq % (frequency * out->div) is nonzero? Or should the comment
+and kernel-doc be reworded to match the current behaviour?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928185552.1103515-1-ivecera%40redhat.com
