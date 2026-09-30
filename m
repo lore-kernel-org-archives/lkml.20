@@ -1,149 +1,181 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272BA26738C;
-	Wed, 30 Sep 2026 05:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747727; cv=pass; b=h8tyBdzHW3wdoQxj/6hZU150J0h4TDKWXOj3enA/HCQPv9bCkSgwNQsFyCuC6urNZL2EWoPcbcwMC7Ij1yQkcLQTbOjGXPbmAbFYYeeYK6ml7Xb3Cv6hFmzU2LTDsDxAsyqveiIuThnWN0AlpzML+rJC2ySeWkIR1N+dYSn/Rv0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747727; c=relaxed/simple;
-	bh=8+ULgEZIWHVVxMrr1CIYY1TqDZ+KOILZsisC6lP8WRo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=d8q/t/gH0aon2TWacuLm6uIL+PV1jxnBoGwWitXErPqfivpq13ToIPduKJ8a5LB259TpuJ7dKYdwZFKdnLVOaTO+KNcHHv3hP3zy4tQiY6N+9TLU0CcoUWL70obBAqW/NTwbwbkAFZO3UgntruadQSrNuw/PPhqNNbYTnFViRyY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=mi89WtC1; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E560935DA63
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790747774; cv=none; b=XIP/Sv24d+dpFwe9SJ6PEw/UxqXv9V8QtU8Rmje7OzaUZA+C5DPyu/RXwsYQxBiYV3i4W079DY2KcLSYVeynYuRdl2fckaptKkQmtmaV/HqSXHGIB1lILl/C1XVdNIcXgDcdsFtPGslsvXdhVWOPJ2FTObCGucrYGjJXq5mTgd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790747774; c=relaxed/simple;
+	bh=feeNAdL0wewiky2pGNkvVjSu1/tOiPTEIzaWp8Y7c90=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xs7grBIQlJmBQL4Lb+X+HbB6utbg/V+CLK8cUCo+22SVgPEumK7OHc9/gx5ntM7mkWJzaK2d27XK1iJAWQ5ozmO8LTX+iVtEsHtsNx6LUpbthpKw4GJCFWEyanVo3SLufXARIiaa5CoA0wr0z6Bkcm2k1WF9xRMUmuEFlyUtMyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UHN5nhhF; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="mi89WtC1"
-Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hvkm5703RzyS4;
-	Wed, 30 Sep 2026 08:55:17 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1790747718;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v0WHvqPEy1zCdoeR4zoo3J7a0wQn2OXgPRqA4AplJPY=;
-	b=mi89WtC16ViDEso6lptBHLrWYe4WmAkcOzvBYiG4IdBLL4cuul3g8kAb++WwgW4R31YxAX
-	qpLPNQprQzpBsU5RZ5lhhxvgyIKdrSK43CLzaUGNY7TnotPueTdfIQRz5Srgu0qUHbgcL5
-	hA1PuBFvq1OWOaUUyYnEVl/9Z31O9H0=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1790747718;
-	b=taouanStDp19rbXzAw6kFJv4hXOdAUFol/pe49jDLHWlDIl5lP4gyEI1E1kmoH6SDN+wjV
-	J6eWoeIrxsjXltLNv+iMQok6m1359fzctQotlk6MF2vAt3sbjcF0P0S33RyvOG61AV/h16
-	rrANrQm4AEUCLald818xIgRIa08PTC8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1790747718;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v0WHvqPEy1zCdoeR4zoo3J7a0wQn2OXgPRqA4AplJPY=;
-	b=nx/Hkgl5Civpx/g4A5wgbIqbjVpgLoxPdm/d7l6nl1xI+MB5tLixw91AtJUqg7PUDAjUj+
-	9BsTrDdVQr0OA6boZNS0MVCsfhVgRof+bg8dtVDvChstq71Pt9Y9C4+wHAsvUH33aKIulp
-	eSoZt9+VCzs2ZbSqZSukc5somAz05GA=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B9DBB198003A;
-	Wed, 30 Sep 2026 01:55:16 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 01:55:16 -0400
-X-ME-Sender: <xms:QaS8aq-2dFrxDqeERM4INVMEk-f_Q5DIFHuE-lanC2UGp7EpTfGKfw>
-    <xme:QaS8aljWtWZDzrZyRwH80vhYAJh8mmf9gwoLUH9sl5D1-Q4br9l6tiWVFB0TiPGAL
-    c7b_8R-gBcvfcq04NFpecTzMmm2WQxvhnxUnniR8hnjOXyLLjD6bmxX>
-X-ME-Proxy-Cause: dmFkZTFp4NH+YWpk8RRtOx7/9/eJYhhRF0wfwR+qn9fmA0oEIQrIu+sy7ZWXMsFF9LAvVM
-    SzfwpA0Tf+EgBAQ3rHRnsEGdl4HiNVUiyvbIC4JFIhF1rdlZiPSv0L+N5KHe9Oqohxp70I
-    ofLhf90YJnnXnyUNgykBjUrru4MOOiGzSHELeoY2UKCrZNeDPRp/0wWt53PTFKf3y6cUd3
-    zcNd434ipqiO8/tYVE0McZzgmOXQrmxVTOki7dlgcQ6L66mQSNNlCS+Nmwst3TClrhaDW+
-    jnL6bxTvP43a9NQjoQRsLlDqTjAbZmmdddYC1bEepu6oC5ImfqbchtR2bBvdPDUxnLIePg
-    t89nxml+h4BBpA7zMiiztQorDh42JLvPo5ob+kM4IBUYS4ixZJO0khvcLOEQFWRThOg97U
-    GjNQ1d0hR/hi1AD3FXPrTi0CSpRKReJgHpeSVxCh4AJ+UukwMJf7Glh8Gofd9EU6PMLhML
-    /kf4v0ebmNLcaN8KFwZoIHqttW6IcxOmHE6TnPfD9gGes0ONvOyEdK6qkssOTuJ2/fGMbN
-    1G9LvVOBGdfV/7Um4zCbSUXfC5jwc1/oVMjBPHGsBAN2aNIJ/nZcaUeo70SVLCHdSOLwm3
-    s+SUPfDaQBVm768N7gxb72e0uQBNdIlUvFBJdpmPQPq40UL3UdF4h+Ko3JOQ
-X-ME-Proxy: <xmx:RKS8ariZTGfwhc1rJ1dsuaOh-1QRQ5pCVL52yaVPkrRP1T_rflQZBA>
-    <xmx:RKS8apV0KrErLbqYgeVLZ4PpgYKuIqDL2mkucfSbYNNXXeYrnyXtRA>
-    <xmx:RKS8avuFXN4B4TKRuhud6s4p1pE1mkGZaI2dZAjcHVYIo1-blS3w0g>
-    <xmx:RKS8aq815KUJNwDbNDPTXI6eaxznnNTpR0eCkL4jmvRlZfUsCz7OeQ>
-    <xmx:RKS8avuy3y9T435MADUjjZwuuVzQ62ieA5fMTiBpPyFnUX44JsOsSs7S>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 73D7CF8008F; Wed, 30 Sep 2026 01:55:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UHN5nhhF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso9758215e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:56:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790747770; x=1791352570; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6djOw2CkrbE7Q3DUoZWNWw89yvJMUXt7JPk0aaNaHaM=;
+        b=UHN5nhhFBly8M76PEwDtABWkcTzF1G6buNJF1XjdULbUFW5aK/LjDgGVm2XgtJh+TZ
+         D6pBEenqCrSQIwMpWbuw32PEOR/TkNHP5dUN3gW05BXn1ZR8rhIfkkPLulyPQGWjA1Vf
+         fUY2tTNE/NMmv5PqUsY7xd0UCc+KMaw6C40hksUEu/fcsCa27puQSD/fWsXMKrn/NTiQ
+         Oxd15XvYFoOi0ymY1x/4CIenE7RV+tP2uyO2QEqrnoEwvIb2GCFbHQLnUkOEVqC9VJJO
+         yqwFuB8aaqfR4krNKwZAgDp02qYafYkq3IK9jvmQIUUOVit0R3tqYm8q/WSHhHtM+aOM
+         qtNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790747770; x=1791352570;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6djOw2CkrbE7Q3DUoZWNWw89yvJMUXt7JPk0aaNaHaM=;
+        b=recmGnKYH1RhGE7ce4HOj+WmZHNm0AQ7V8vV6wW/AiLAFjeweZQ+GxrgHySsr/oZ4g
+         iSueix8Ff+o7CRuJiXIg0XnlHO0bnx73R6v9dJI0o/sX0vpd8Eum4MH8J1OWmyouvxqJ
+         wWzHVD3/e7CmMFnpGZLkIvC+p7nZvraPhNAy8kzD91OjFk8PwE0BST+hJ1J0XyYCNt8c
+         xILC8IwTVvNc1/k6cLPyEkmMN+YphrbEknJ//YWdQ9NrFue3aD1jROQAKsGlXT64paow
+         9rpfCCCaQ1IFdI5w/nXghr5XDwUzAfDVYty6AbHxQ2G1cao12ZnW3UR/Ym0xVIGbDjmG
+         SeXw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsuOseL9mL3kXhn38DjYt1L/z9i97flE2QJV+9D8NFhheVDTT+rYvFr1m6zkae3y5Qq3o6KQnaTPdogjw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kG8z9I3S+6ukBwT66o/kjuJaU15UCmnv+zRW3LEg3I4ck+xBx0
+	8hUvcZYoSUnlo1fmOTpGoVczlNAyGHIf3KN2ct+0reMQdYAttxGaY7cYddM2U9/SgxM=
+X-Gm-Gg: AYBFou1peMe1R2ftnPeQHKVC+S5m0QLFiSFy0j68TO6BtHwTlfW3EkBXKmx4n6L8tOf
+	6gzlXGuFt/CdCW7nbh9qIdkRTuc0vc+4Y/E90n9ovwLT5uP9Z+HAb+sUWyHF+osq6ai0qJFHP8p
+	FkhxuZ7wFhLd68I3/mxEMTCmFOtySoWlpsgNO+1sRQg/y+gBqazw03OGcjTp9+DwoVjA9+CZee6
+	A5ReeY2KqkLkzXCLqiTXnX6O17rvXIMyCIqfXXLl9OAk/TsupoM/RsK3c2h0valMSKQmTKvxRlr
+	e4aAOsBf2kjcHoU7YSqvSAP4gKRvGgfpCZHVe90ZXhIwPhtE5mm8IvNMH+8DtbKw0kgS0Wsm+B6
+	XgscPR6IvO664MU9u7y7uJEMDP31ARBo/+mcY6J30IvtttMDLxoMcxIMsdL4PdIxUgYsYNY/+oB
+	c5w7kHSZzz1vit7RjvxcWIKQRVPpM+nX+ABgz724VVzBvUzEp62Vhr4zLdHxHtAU6aSkt/YzU5F
+	G0GHWgzUJbskjI=
+X-Received: by 2002:a05:600c:4e56:b0:49f:fc13:18a5 with SMTP id 5b1f17b1804b1-4a01adddf9amr3167235e9.6.1790747769483;
+        Tue, 29 Sep 2026 22:56:09 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a0174d8738sm40875785e9.2.2026.09.29.22.56.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 22:56:08 -0700 (PDT)
+Date: Wed, 30 Sep 2026 07:56:07 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Albert Esteve <aesteve@redhat.com>, Brian Masney <bmasney@redhat.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, David Gow <david@davidgow.net>, 
+	David Gstir <david@sigma-star.at>, Eric Biggers <ebiggers@kernel.org>, 
+	Eric Chanudet <echanude@redhat.com>, Francois Dugast <francois.dugast@intel.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Johannes Thumshirn <morbidrsa@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, 
+	Julian Braha <julianbraha@gmail.com>, Kevin Hilman <khilman@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Nicolas Schier <nsc@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Trevor Gamblin <tgamblin@baylibre.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Waqar Hameed <whame@whame.dev>
+Cc: lpcosse-keysigning@baylibre.com, users@linux.kernel.org, 
+	linux-kernel@vger.kernel.org, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: PGP keysigning at LPC/OSSE 2026
+Message-ID: <aryf_NOeT6gImMOG@monoceros>
+References: <lpcosse2026-keysigning@baylibre.com>
+ <lpcosse2026-keysigning-list@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A0G5p0OZ_htJ
-Date: Wed, 30 Sep 2026 08:54:53 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Marcel Holtmann" <marcel@holtmann.org>,
- "Manivannan Sadhasivam" <mani@kernel.org>
-Cc: "Deepak Kumar Singh" <deepak.singh@oss.qualcomm.com>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- "Jeff Johnson" <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, "Bjorn Andersson" <andersson@kernel.org>,
- "Chris Lew" <christopher.lew@oss.qualcomm.com>,
- "Raj Kumar Bhagat" <raj.bhagat@oss.qualcomm.com>,
- "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>
-Message-Id: <6e0ed085-07d0-46f0-97dd-b8d942842e1f@app.fastmail.com>
-In-Reply-To: <10091679-7567-42C2-B77E-EFD95CEDD649@holtmann.org>
-References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
- <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
- <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
- <13BFC5B0-77E6-48F2-B857-37686EA1DB2C@holtmann.org>
- <05e539f8-bb7c-4038-8a83-8ab0d1a5b917@app.fastmail.com>
- <m657dtesuagn7vdajsuzjb4mfysf5xabsu3s6n6lujj7yb3z4p@m2e7e3n4zyev>
- <10091679-7567-42C2-B77E-EFD95CEDD649@holtmann.org>
-Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kipdatsgfdtxd6w4"
+Content-Disposition: inline
+In-Reply-To: <lpcosse2026-keysigning-list@baylibre.com>
 
-On Tue, Sep 29, 2026, at 23:37, Marcel Holtmann wrote:
-> >> I'm still willing to submit a new version of that patchset originally by
-> >> Denis, if the kernel devs so decide that it's the way. For example, the
-> >> "radix tree of radix trees" approach could be replaced with a hash
-> >> table.
-> >> 
-> >> There was also some criticism about a layering violation in storing the
-> >> endpoint id to mhi controller. However, maybe that could be reduced by
-> >> providing a correct abstraction around it, so that other code doesn't
-> >> touch the mhi controller structure directly.
-> >> 
-> >> Other criticism for that patchset by Denis was its overt complexity.
-> >> Yes, it has more lines of code changed.
-> >> 
-> >> This dual-card setup needs to be handled somehow, either by Denis's
-> >> patchset or by Manivannan's patchset.
-> >> 
-> > 
-> > I wish to go ahead with my series as it is simple and tested across the
-> > multi-WLAN setups. For concern around exposing the nid to userspace, I'll
-> > implement it in next version, thanks!
-> 
-> actually no. Seems you have no plan on how to address the userspace problem.
-> 
-> It would be useful to actually review the endpoint_id concept introduced by Denis since it has a userspace facing API. What is your plan? Are you planning to break all existing userspace code?
 
-Well, in defense of Manivannan's patchset it currently works for PCI+AHB
-setups better than the last version of that by Denis/Mihai/me (although 
-I could easily fix that), and it may be simpler for userspace to
-continue using nid than having to bind to an endpoint, which requires
-more changes in userspace code.
+--kipdatsgfdtxd6w4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: PGP keysigning at LPC/OSSE 2026
+MIME-Version: 1.0
 
-The userspace just needs to know the nid.
+Hello,
 
-BR, Juha-Matti
+On Sun, Sep 27, 2026 at 02:33:22PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Hello,
+>=20
+> now that the registration deadline is over here comes the list
+> containing the registered participants in the attachment. In case of
+> transfer issues (e.g. MTAs reencoding the text file), the list is also
+> available at
+>=20
+> 	https://openpgpkey.baylibre.com/Fei9keem/keysigning-lpcosse26.txt
+>=20
+> .
+>=20
+> In reply to Krzysztof's concern about how trustworthy a statement
+> "yesyes, the fingerprint of my certificate on the list that this
+> suspicious guy created is correct" I dropped the two middle nibbles from
+> each fingerprint. So you can support your statement about your
+> fingerprint by providing these two.
+>=20
+> Please print out the list, fill in the hash sums (which we will verify
+> when we meet), verify your fingerprint and memorize (or write down) the
+> missing nibbles (if you're on the list) and bring the list to the
+> meetings together with a pen and a proof of identity (as most people
+> will probably want to see such a document before certifying your UIDs).
+> If your hand writing is poor, I recommend filling in the hash sum before
+> printing. Note that the start of the SHA256 hash sum is already
+> prefilled, that prefill has to be kept as is when generating the hashes.
+
+There is more than one report about confusion with the hash summing. One
+issue is that if you download the keysigning list directly from lore or
+via your mail provider's web interface the line endings might be changed
+=66rom \n to \r\n. So if you calculate
+
+	SHA256: E0C7BC1A 4A4B2489 ...
+	RIPEMD160: B6C3 5C63 7907 ...
+
+retry after
+
+	perl -p -i -e 's/\x0d\x0a/\x0a/' keysigning-lpcosse26.txt
+
+or use the above link.
+=EF=BF=BC
+To minimize suprises in Prague: The correct hashsums are:
+
+	SHA256 Checksum: 4E4F BA5D   C653 A423   48CE 7588   5D22 4780
+			 9CA9 3DD5   0D10 D430   8FDB C4A6   F5E4 49FA              [ ]
+
+	RIPEMD160 Checksum: ACC8 72E9 4760 E0A1 A459    D9E9 67B5 AD24 B853 DA82  =
+  [ ]
+
+And as people also wondered how I managed to get the start of the SHA256
+hash sum into the file: That's brute force iterating through the
+possible prefixes, putting them into the file and check if the hash then
+starts with the selected prefix by chance. It took ~1 minute to find
+"4E4F BA" on my laptop. See
+https://manpages.debian.org/trixie/signing-party/gpgparticipants-prefill.1.=
+en.html
+for the tool I'm using for that.
+
+Best regards
+Uwe
+
+--kipdatsgfdtxd6w4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq8pHQACgkQj4D7WH0S
+/k6EEwf/bWuFRjkAGM/NgCVVyl7bYB9ZEWlZzKcCRowZiluM2AXdPGsLow34nO/3
+hQZf4wYLIGkfRDBMwj8STMqqMMW6KuthtvcDdXPyPhEKm0HZCWN8zY+QsbBQ0+Kk
+VHbRGKFgmiCaKH0dg7HdBVgnIJyivvaJ2WedlmQgusyLhSMsvVJ6LGY10LncOkVk
+EZSxYN9uDQW9VAudGaB5DFsRWKcZNrzQYo0l50rjNGZ8QqCifv25nFl3iaaYMqHR
+TiClTixMPZftOXbD+gRT0Ukkx8KE7PQvmooibDWtI/PJKBpfTMWZw/V3xNcFTi06
+jUjIbYiAiAUmE2OGS1C7E08gO4YJOw==
+=XwAz
+-----END PGP SIGNATURE-----
+
+--kipdatsgfdtxd6w4--
