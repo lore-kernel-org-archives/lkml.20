@@ -1,66 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1446317173;
-	Wed, 30 Sep 2026 10:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28D63DDAFD
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763039; cv=none; b=MqPbhsclhE7OOWYDw69O74+YDYeS1yrhHm+G+7BZU1qt1TAPA9+DFTHNliqd9fe3R3X6Tp+isHlylzm1cmUcbtiwRY8YBfZgowi8aO8jwWXhkTZH5RiveHzRXtVviXsqYcvz+d4Cojr51oBlSUwX+SKO9x0JW6WG9kkwtRaEP20=
+	t=1790763046; cv=none; b=WnAgZ7uneIc25XuLAdtv8fdiEBP4sK9GGIz7bGWD7+a5O6EkNvatSGfmUqjcJNaLCeBl0ks8GBH4J3StLsptW8klrX+E90Pqko2zL4NAarz8QLvN4/267FZMUlOQccM1SNdjeOwRhzzT2EYWhbP9//O7yCCgKI5xKLLFkXArF/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763039; c=relaxed/simple;
-	bh=onxhY7qFW3wqD6tIOnfRIki+3UkB41+NNqfblBmh3Lc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XMo0f6fYLpu9qxTbObi8XB2pFBR4Ub7/QWwKAWjSQYHYUHe3Lv8SE8LSX7jB92NoKJ3H+yXEFy02iO4YhRNpNH0YR0Xug12rN4wbdHIX3mzrejkmvFdQ7eg3MqBP6SiMz8kcaivRuK5f5AEW+3JbrwIV9mXBBZokncho6eKRC2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgEkZ1Sy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790763046; c=relaxed/simple;
+	bh=iidkKtQQEYQe01Vdz7+B8AHkY74Ifx7+I4PpwJ4EoY4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lVgz77aFMZ2K062CY85XguxbJFMPBYxK91Io5Ma6+50YhfA+vBUpBizE40oc8TtNQsF6l3iP6IAZgTGJIBfj9PlZWKcV37l6vedldSmRuyRhongVuhaw3Co0k+2D6efdq9oeeSZbQxsS2K8H6V2bQ4yhZ1p86TmOSYcKZ2ncUFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rNQJxQ+x; arc=none smtp.client-ip=95.215.58.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgEkZ1Sy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C2A1F000FF;
-	Wed, 30 Sep 2026 10:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763038;
-	bh=vHfIlpHAKIFPPGeTX2D09og3//FoLgPKp4mRy4VEQkU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mgEkZ1SyRI8K37jdaZ0dnzHrhi0Z4YkrL7rpHe1/qvh5qnww2L/4cGvKrG3fIgaPh
-	 sHq1rdElmDjtY478yz461FFYX9i8EQin91eBehPi4WpGiUML69OB1/Urk9ZNQ+C+4l
-	 rYhzUqYgozRhik33xsAPMhTubLycjkvwgaHWzn6IrABHP0hCFH+iD2w7KFAMTOGjHE
-	 dWmgwsTARIRVkFhBxoW3baqzV3oaM2oHOSEJMIo7yF8rv1vjAVpr1Qh+2K+s3U8acZ
-	 fdfD05lIscrAE4aFgN7Plo3XddfeRgYneuncnujFREihuFURjvEEgz2fSSbIo+ReMP
-	 nibLEDiMIalww==
-Date: Wed, 30 Sep 2026 12:10:34 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v2 05/11] dt-bindings: rtc: sun6i-a31: add Allwinner B288
-Message-ID: <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-6-pmazzini@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rNQJxQ+x"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iidkKtQQEYQe01Vdz7+B8AHkY74Ifx7+I4PpwJ4EoY4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790763041; v=1; x=1791367841;
+ b=rNQJxQ+x6UnVzCRzyc5aG9xYhLOFWx8iSiBp+C/0Z/cDXJbCcjyrQH1buoVJUCPiAGOFSlQL
+ ZEQg1JYjQ6UdSk4uX0jgnRHg72QbKEFo2q+iWPunqRf2XPUPISmmxSMzuytvmL3RFxahDmonf3n
+ xOYIgNuDjIVxA2L9UPhQKQ/E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 09c9286d23320e4d;
+	Wed, 30 Sep 2026 10:10:31 +0000
+X-Mizu-Trace-ID: 09c9286d23320e4d
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	VEGA <vega@nebusec.ai>,
+	Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 2/3] tcp_hybla: fix divide by zero on rtt0 == 0
+Date: Wed, 30 Sep 2026 18:09:31 +0800
+Message-ID: <20260930100937.206377-3-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930100937.206377-1-jiayuan.chen@linux.dev>
+References: <20260930100937.206377-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927151016.186493-6-pmazzini@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 04:10:10PM +0100, Pablo Mazzini wrote:
-> The B288 RTC wires one alarm interrupt, not two.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> ---
->  .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml        | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+rtt0 is the reference RTT in ms, so 0 makes no sense, and
+hybla_recalc_param() divides by it right from hybla_init().
 
-Seems like valid and unaddressed comment from Sashiko, so dropping from
-DT Patchwork.
+Reject values below 1 when the parameter is written. Also cap it at
+U32_MAX / USEC_PER_MSEC, since rtt0 * USEC_PER_MSEC can wrap to 0 on
+32-bit. An rtt0 above that (about 71 minutes) makes no sense anyway.
 
-Best regards,
-Krzysztof
+Fixes: 835b3f0c0d7e ("[TCP]: Add TCP Hybla congestion control module.")
+Fixes: 740b0f1841f6 ("tcp: switch rtt estimations to usec resolution")
+Reported-by: VEGA <vega@nebusec.ai>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+Target net-next since it is not a big problem.
+---
+ net/ipv4/tcp_hybla.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/tcp_hybla.c b/net/ipv4/tcp_hybla.c
+index abd7d91807e54..b9b482180d30b 100644
+--- a/net/ipv4/tcp_hybla.c
++++ b/net/ipv4/tcp_hybla.c
+@@ -26,8 +26,20 @@ struct hybla {
+ };
+ 
+ /* Hybla reference round trip time (default= 1/40 sec = 25 ms), in ms */
+-static int rtt0 = 25;
+-module_param(rtt0, int, 0644);
++static unsigned int rtt0 = 25;
++
++static int rtt0_set(const char *val, const struct kernel_param *kp)
++{
++	/* avoid rtt0 * USEC_PER_MSEC overflow */
++	return param_set_uint_minmax(val, kp, 1, U32_MAX / USEC_PER_MSEC);
++}
++
++static const struct kernel_param_ops rtt0_ops = {
++	.set = rtt0_set,
++	.get = param_get_uint,
++};
++
++module_param_cb(rtt0, &rtt0_ops, &rtt0, 0644);
+ MODULE_PARM_DESC(rtt0, "reference rout trip time (ms)");
+ 
+ /* This is called to refresh values for hybla parameters */
+-- 
+2.43.0
 
