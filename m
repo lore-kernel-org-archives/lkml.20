@@ -1,249 +1,586 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89784CDDE6;
-	Wed, 30 Sep 2026 11:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768675; cv=fail; b=j+IfkLcOpT7wkZYn0NmVA83/73+Q5fzlvIVu1x4XZLBJvQtqg9GsHsYsQojFdcUVyOrbhXqDUMkUYnfFslE+k0z3lCKLs6V3ug9N9fIt2+Wc3ZLNUYk8HT7MpVWiGdEYfiutlFYIorVvNhljmtqrTn4oP5X17HrYkMH0YqG5I/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768675; c=relaxed/simple;
-	bh=yt755kuL8FcjqShJ6s3SOM9FRjJpyDgboPapq7AIsQI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nUsLTVFBHDaVZNklOsA57QlMEqryPl3JlieTPMczjmDLsWUnwhIysOt0nj18moWCZyImQlzY6iH7CU0n3vSVh58NTo8f03LlRcYffY6F5AOpPpb+oxTCTtR4kXvRjOTEOV3/4z6NI/trgIJHgOwmXfwx/X7h2L0919ayeqfki2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dj2D1y/r; arc=fail smtp.client-ip=52.101.61.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBA34D1787
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790768673; cv=none; b=bERVTcj2cAEDzP6jzXw60Pv8LT4H4G+OtUpk9kE6UoDLje0qDHYDLC3Zx5nAlnWyGt32a93Bil+MWjS/fOO7vWRcu19A1pugvjDEB8hx6pwgEY0ofm4uLvKm7Bjp1mGLeXICW6o9TmWsmi4B4hGhVLMBNhwx86PQb4w/PLrzmLc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790768673; c=relaxed/simple;
+	bh=V3gfgKHaycVCUUKixgcJi9rLatsuG9nlHUbZH9jR7Z4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=tZ79HGYABwpzrY8X/OAjN8DkWtio35kjIeNM7GrAqG5er/n9RGyljxEnYx8qtqWfMTaWnn/pl991h9Py2TqjCQiTYCym74kP5D2vfozzMq9yKAJmXdgc+x/m+XQhJ5urH7KAupbdkDCni0hhDxP7bnDoRzmZDSn3XLE1iDMe+zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=LpZX2JLk; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dj2D1y/r"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sRig6NpNgv0/zNDvsoNh0Yy18BiFnYRiua8BEzSMN6lfNCJEWsU4sW2h7/z3eGeJt++zWjs1NH+vUJ62K4miPmoyst1IJ5tWEGDSNiU+iUEEksGS8rLbdaDXxO18PUVGuAgLo94096kW5POrDAJcGACfuuvDbiDobFEf0+8A7jZpWtwsRJqw0A4kIEyuKb6T6/9YQuOTmLfvzCPWjqi99aTru5clLKQ7PQUSgxL1tCWtig4w9Yr+I4KSJRFqU/ks6vjtdTPX+I2jYHpXE9RBmECxQbvGsDNEc/6vH/MNRNolpXfbo1x31AjcsP6xtlw9ZEaTU5SRtjwrhmQPZZcCpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kzNQOwtkkxQ1LVr1fx12U0+ureprU7rs37hSA+arXHQ=;
- b=igUg00bSpJRF1IJwXJ8cVVPuFGUWn8A+A9fRdI7qG0nzvdUpGaDfLUGhqsDgO1OBeuRFf1v9FJYVkXgXuO1l6YdFPk7G2wpM+8SaeGX990DcJRy2jQG2dxyty7IMivX2s1+rWk2oZUgj1ORoqmoG/k10E69impzO1Axi1tobCkMk/Ro8ZqFlL2GY8lV7Yn94ziOPaSS5k5KeTrOBE0zoSO2mbNahoaOxzKlwNolFOhuzeK/UDy5Rfniglnl/g7yjRI10dPd9LKbmVwI87WQMQ0LMRmN/i0ERF2eTNFfOr0A/Jz8+N8bnoxMMbiuFBJVOtgsk7S6NTIktwIiJMsbUfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kzNQOwtkkxQ1LVr1fx12U0+ureprU7rs37hSA+arXHQ=;
- b=dj2D1y/rkB33SMsUOiFiKYhsa7NTeNnKb+X5OtvqG8Ck+NSWDZHOx1whxFT4HrNh+yh0Bjq48l3iQ4n0KPMGB3AR4mZxvTacNnO1Ce6/UkZQDio2a4/nG5Gb+wwFLbkznku4hKooHdgwdyjhlzO5yO4ZtPYM2RptZ1q5N29nMexf//f1S4RekU2revxI4zcWhGmlfwrKhDvXINOAKux+S5KFfVIrAokcdy7wXKt6ptR0NmkczoCiI0aasvKNNEMKpUMwpH4HFLQ9bJJXcyOIv4jumslt0qUEI/oPnkSAki5xeEdWHMjpq8vm58Ltb9WlHj75bScpquBkDiS8fQPE7A==
-Received: from CH2PR17CA0022.namprd17.prod.outlook.com (2603:10b6:610:53::32)
- by MW3PR12MB4492.namprd12.prod.outlook.com (2603:10b6:303:57::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 11:44:21 +0000
-Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
- (2603:10b6:610:53:cafe::5c) by CH2PR17CA0022.outlook.office365.com
- (2603:10b6:610:53::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 11:44:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 11:44:21 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="LpZX2JLk"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB8aA1267407;
+	Wed, 30 Sep 2026 12:43:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=f
+	zEHCmjIqCWO0DheGjiOFKZJPq9TKRCMe0ZXTBfQ8Uk=; b=LpZX2JLk7J4CntcJ8
+	RizUDpM0vsAIVgAp+/0R6EQia8m1+iBSuOIbKMoEiAi62H2/Z4Or+Xa44xt9rotH
+	Qk/6pefO+vXPqveqE/z7Z91T/K0n7hdz9QcW8NjBT6lBVVXrymq6Woj5/5sK973X
+	v7o9BTQ22nbehXzWr/f2BUJGrVfZg9ZSrhdgaGfJ9B21nfP86OWPkiUxpGIXT5MS
+	OrSL0AVUeR+i2CibsC4dC+PIohPbSrgYhd57VzYUTx7Zl7rrp8OqxpLYldjBctat
+	dvflA2A3evAYIqpF4Lok+/zSfN/1nK6F2rH0hXUdHZ0ZXA2HOl88+LRRWCvtI9wi
+	JNp+Q==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gx4as35sp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 12:43:57 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 04:44:07 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 04:44:07 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
- Sep 2026 04:44:03 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>, <linux-rdma@vger.kernel.org>, "Mark
- Bloch" <mbloch@nvidia.com>, <netdev@vger.kernel.org>, Saeed Mahameed
-	<saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, Cosmin Ratiu <cratiu@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>, Dragos Tatulea
-	<dtatulea@nvidia.com>, Eric Dumazet <edumazet@google.com>, Gal Pressman
-	<gal@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, Jason Gunthorpe
-	<jgg@ziepe.ca>, Leon Romanovsky <leonro@nvidia.com>, open list
-	<linux-kernel@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH mlx5-next V2 09/10] RDMA/mlx5: Pull data_direct resource creation in init phase
-Date: Wed, 30 Sep 2026 14:42:26 +0300
-Message-ID: <20260930114227.139274-10-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260930114227.139274-1-tariqt@nvidia.com>
-References: <20260930114227.139274-1-tariqt@nvidia.com>
+ 2026 12:43:55 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Wed, 30 Sep 2026 14:43:34 +0300
+Subject: [PATCH 1/2] drm/imagination: Switch to kernel-style MMU defines
+ and access
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|MW3PR12MB4492:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb372382-f9b0-4fc2-f780-08df1ee82b21
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	WIW4MMNKpGGe93GztiRjrE2wXn0Fy1zp39jLwK1FBaMEUizw++e+aKKnWAeiveZovG/SPoP8zFNEhF+iZKXnMcUI1ErJ6Ss3W2qLwJ3CYVJrqNgE+NcCLBDaXHFN4Em1j+Gnf1UbjsGD7Rd5ViefT33bOyL+UpGTuAdc6HSo4EKzPzrCBRmd1yIcOtzLVYT7SyrW9Hi3QKxf7T168mkl7UMPnF6F4F7H0th8LNIDBv0otpKuU/3Oj+tESmhHcCWTBq/eKr02wp0ACGukUFGOFH+aQd5Gczfw/S2pVForbEp8sZ2RCNiPI2k5FRTbHeE7WWMSCPzVK7GZkkPdx92HVbItu/fI8XeZ1OmLRjGb36xFlRZDpVfY3s5O5E9PREiqFl12WoJBrQYLpAfb9fZ2g/hP1Voz0tbQkOyHH0yvEhrcNvCBVXr7tWZwIuG14f3nzGMmUtMt+j38seaNokcj5g93ecaXzjypUgygixit33+q5/CrO2AX7kYET6wHXZSUYbGRLMz2zkK5gJ484PPxt3oIiq+59GdCUkdWf1csnV3mYX58p+hXp+cGjKRLG+T+guYW4LpsCUelkQz4nv6igcfBzDHogA538cA//O9Du8FZzsxH2KjWCzHnOhy0IQ65Jn1r6l/4I885oAr5BTvadNEbvDeyL8K6baQA9CxYtDG6CZFCPMvOq2Nt+/z8Ow4wMN+LTrI8pSrdTKAYY0Dc9w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rPpoKbJ8yG6EtDnZTQdY2h85eoQW6hMJEDGx76aZS3j2BB+szObCdrM41Oe9KSIm5HBPmmtIt5N1CANmoHFWx2/fJ6f9BDuTXVpmDEySfX0NTDyOe4hW5g+BPYARkTfyEVT+KknO2aC3kpacUUTrG6dkDADP1LWcujET9tGhTsaKmPB/141kso/Hvlk18Y5yLKoFwPOJNecaptga0nfwP6JTsZ8EZMe3bWFQR7steqjw0qOXFk4+iggUl165ffOrMwlju2Boax2zZg0yayW78oV+H6QHATJjQUYWNycoLSZPMlI+gG7WXECZcQ0GcqCaesps1dumPSOD2BuI488STvoKGAH/1jvoeumTjWbwnLl1Y2OkHIFzQ8QFFsSvob6sY0OkiJclI5aAYS3OmbCT8w4oQC24VpNhwsZKTZe8FGvqKVIxiH/pcKOzzivlq2aE
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 11:44:21.3514
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb372382-f9b0-4fc2-f780-08df1ee82b21
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4492
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-1-291eadfde23b@imgtec.com>
+References: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com>
+In-Reply-To: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790768633; l=21553;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=ZHLQWTty34cOpaWRF55GyMiAc1LcoxlSODq5mJcdaYk=;
+ b=xq3SFxHXMy24OMhAIhxH0rkWSfIDstj0IaQD2iAO/DDVYPbPqxtrWrFm0DUKfiPZ5rqVN42Wj
+ 2sOi+9q+De2A1ohiW9lDSKY03KDvpQzeAohGZLuj8rNNPZRlYe7cAC5
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Authority-Analysis: v=2.4 cv=BPomP1QG c=1 sm=1 tr=0 ts=6abcf5fd cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=fp_m6kvEt62eiHk2oYEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: AksRubxz3uXJhbi9yhX-yyLf4Bviv4E5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfXxN17h708YYN8
+ HU8lp0zeW/YRsAhyYdDdHMbhJTBh2KAGQquhoAf0NlTHoO8dGJl/48JZVjlhtT8fRYdf8HXEl9X
+ Wt8imIpIKWph9Myuxj5bTxiz+2m8Bkg=
+X-Proofpoint-GUID: AksRubxz3uXJhbi9yhX-yyLf4Bviv4E5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfX+07w0OMQeB7I
+ exdeNMw3Fm0IcGN/HC9nKQA9VWgF8tHTxsmzZC/IoTZ1dtxJaXfGEzj3aPWONu5M9kElpe2ipNO
+ GPFv0GdNDbl1Lk0FOVahFn8ezoHQRbbgfAYgURl/SNmk0hIQVhj/8RkSplc5Yr9TewWgMHUWzVY
+ YvSeaM9XcznRZY4QM8mSKguMDg7BCIcyqlouRpW8ksX7N5EwAiT2WhODjeNTZMlrJy6BnijKXpm
+ cJZzfG1lcXreT7bTXbK7AYYShJbkpadx+GJy/YwJt5tPhR39G1ZRxcFXsEyl5nQyLX91gSkD1W4
+ lyXV3T78rZc1VYtvPGTP3ym8i9je0HsWUDnpgwmaTG3sFxJkwdEQZq01zAIJYH6Xm+UDM/KCK6E
+ pnCnLn2X7Zy2UsCkqX4H01c54o6I/A5rnwVAhb6ndTcOEpgLpeIRWry6pLlaIBIjYGN8i8Kd0Hv
+ KA0UNqKYof4Bw08ZHEA==
 
-From: Dragos Tatulea <dtatulea@nvidia.com>
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-Since data_direct resource creation happens directly after init,
-there's no need to separate them.
+- Regenerate MMU defines to use GENMASK and BIT
+- Use FIELD_PREP/GET to access page table entries and split virtual
+  addresses in their components
+- Remove macros which can be reimplemented by FIELD_PREP/GET
+- Remove other unnecessary macros
 
-This patch moves data direct resource creation in the init phase,
-thus simplifying the data direct API. The cleanup path gets the same
-treatment.
+This should make the code a bit easier to maintain.
 
-This keeps the existing IB device lifetime and prepares for moving the
-combined initialization and cleanup to mlx5_core load and unload.
-
-The patch has no functional changes.
-
-Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/infiniband/hw/mlx5/data_direct.c | 16 ++++++++++++----
- drivers/infiniband/hw/mlx5/data_direct.h |  3 ---
- drivers/infiniband/hw/mlx5/main.c        |  7 -------
- 3 files changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/imagination/pvr_mmu.c            |  91 ++++-----
+ drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h | 239 +++++++++++------------
+ 2 files changed, 151 insertions(+), 179 deletions(-)
 
-diff --git a/drivers/infiniband/hw/mlx5/data_direct.c b/drivers/infiniband/hw/mlx5/data_direct.c
-index f58a144d95e3..3878c4aebb2c 100644
---- a/drivers/infiniband/hw/mlx5/data_direct.c
-+++ b/drivers/infiniband/hw/mlx5/data_direct.c
-@@ -103,7 +103,7 @@ static int mlx5_data_direct_set_dma_caps(struct pci_dev *pdev)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
+index 3cac482e1034..18d03cb710a8 100644
+--- a/drivers/gpu/drm/imagination/pvr_mmu.c
++++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+@@ -13,16 +13,15 @@
  
--int mlx5_data_direct_create_resources(struct mlx5_ib_dev *dev)
-+static int mlx5_data_direct_create_resources(struct mlx5_ib_dev *dev)
- {
- 	int inlen = MLX5_ST_SZ_BYTES(create_mkey_in);
- 	struct mlx5_core_dev *mdev = dev->mdev;
-@@ -172,15 +172,13 @@ int mlx5_data_direct_create_resources(struct mlx5_ib_dev *dev)
- 	return err;
- }
+ #include <drm/drm_drv.h>
+ #include <linux/atomic.h>
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
++#include <linux/bits.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/kmemleak.h>
+ #include <linux/minmax.h>
+ #include <linux/property.h>
+ #include <linux/sizes.h>
  
--void mlx5_data_direct_free_resources(struct mlx5_ib_dev *dev)
-+static void mlx5_data_direct_free_resources(struct mlx5_ib_dev *dev)
- {
- 	if (dev->data_direct->mkey_ro_valid)
- 		mlx5_core_destroy_mkey(dev->mdev, dev->data_direct->mkey_ro);
- 
- 	mlx5_core_destroy_mkey(dev->mdev, dev->data_direct->mkey);
- 	mlx5_core_dealloc_pd(dev->mdev, dev->data_direct->pdn);
+-#define PVR_SHIFT_FROM_SIZE(size_) (__builtin_ctzll(size_))
+-#define PVR_MASK_FROM_SIZE(size_) (~((size_) - U64_C(1)))
 -
--	memset(dev->data_direct, 0, sizeof(*dev->data_direct));
- }
+ /*
+  * The value of the device page size (%PVR_DEVICE_PAGE_SIZE) is currently
+  * pegged to the host page size (%PAGE_SIZE). This chunk of macro goodness both
+@@ -31,35 +30,31 @@
+  */
+ #if (PVR_DEVICE_PAGE_SIZE == SZ_4K)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_4KB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_4KB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_4KB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_4KB_RANGE_MASK
+ #elif (PVR_DEVICE_PAGE_SIZE == SZ_16K)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_16KB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_16KB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_16KB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_16KB_RANGE_MASK
+ #elif (PVR_DEVICE_PAGE_SIZE == SZ_64K)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_64KB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_64KB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_64KB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_64KB_RANGE_MASK
+ #elif (PVR_DEVICE_PAGE_SIZE == SZ_256K)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_256KB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_256KB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_256KB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_256KB_RANGE_MASK
+ #elif (PVR_DEVICE_PAGE_SIZE == SZ_1M)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_1MB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_1MB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_1MB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_1MB_RANGE_MASK
+ #elif (PVR_DEVICE_PAGE_SIZE == SZ_2M)
+ # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_2MB
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_2MB_RANGE_SHIFT
+-# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_2MB_RANGE_CLRMSK
++# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_2MB_RANGE_MASK
+ #else
+ # error Unsupported device page size PVR_DEVICE_PAGE_SIZE
+ #endif
  
- static void mlx5_data_direct_bind(struct mlx5_data_direct_registration *reg,
-@@ -222,6 +220,10 @@ int mlx5_data_direct_init(struct mlx5_ib_dev *ibdev)
- 
- 	ibdev->data_direct = &reg->dd;
- 
-+	err = mlx5_data_direct_create_resources(ibdev);
-+	if (err)
-+		goto err_resources;
++#define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT __bf_shf(ROGUE_MMUCTRL_PAGE_X_RANGE_MASK)
 +
- 	mutex_lock(&mlx5_data_direct_mutex);
- 	list_for_each_entry(dev, &mlx5_data_direct_dev_list, list) {
- 		if (strcmp(dev->vuid, reg->vuid) == 0) {
-@@ -236,6 +238,11 @@ int mlx5_data_direct_init(struct mlx5_ib_dev *ibdev)
- 	list_add_tail(&reg->list, &mlx5_data_direct_reg_list);
- 	mutex_unlock(&mlx5_data_direct_mutex);
- 	return 0;
+ #define ROGUE_MMUCTRL_ENTRIES_PT_VALUE_X   \
+ 	(ROGUE_MMUCTRL_ENTRIES_PT_VALUE >> \
+-	 (PVR_DEVICE_PAGE_SHIFT - PVR_SHIFT_FROM_SIZE(SZ_4K)))
++	 (PVR_DEVICE_PAGE_SHIFT - __builtin_ctzll(SZ_4K)))
+ 
+ enum pvr_mmu_sync_level {
+ 	PVR_MMU_SYNC_LEVEL_NONE = -1,
+@@ -378,19 +373,6 @@ pvr_mmu_backing_page_sync(struct pvr_mmu_backing_page *page, u32 flags)
+  * DOC: Raw page tables
+  */
+ 
+-#define PVR_PAGE_TABLE_TYPEOF_ENTRY(level_) \
+-	typeof_member(struct pvr_page_table_l##level_##_entry_raw, val)
+-
+-#define PVR_PAGE_TABLE_FIELD_GET(level_, name_, field_, entry_)           \
+-	(((entry_).val &                                           \
+-	  ~ROGUE_MMUCTRL_##name_##_DATA_##field_##_CLRMSK) >> \
+-	 ROGUE_MMUCTRL_##name_##_DATA_##field_##_SHIFT)
+-
+-#define PVR_PAGE_TABLE_FIELD_PREP(level_, name_, field_, val_)            \
+-	((((PVR_PAGE_TABLE_TYPEOF_ENTRY(level_))(val_))            \
+-	  << ROGUE_MMUCTRL_##name_##_DATA_##field_##_SHIFT) & \
+-	 ~ROGUE_MMUCTRL_##name_##_DATA_##field_##_CLRMSK)
+-
+ /**
+  * struct pvr_page_table_l2_entry_raw - A single entry in a level 2 page table.
+  * @val: The raw value of this entry.
+@@ -431,7 +413,7 @@ static_assert(sizeof(struct pvr_page_table_l2_entry_raw) * 8 ==
+ static bool
+ pvr_page_table_l2_entry_raw_is_valid(struct pvr_page_table_l2_entry_raw entry)
+ {
+-	return PVR_PAGE_TABLE_FIELD_GET(2, PC, VALID, entry);
++	return FIELD_GET(ROGUE_MMUCTRL_PC_DATA_VALID, entry.val);
+ }
+ 
+ /**
+@@ -442,18 +424,18 @@ pvr_page_table_l2_entry_raw_is_valid(struct pvr_page_table_l2_entry_raw entry)
+  *                        associated with @entry.
+  *
+  * When calling this function, @child_table_dma_addr must be a valid DMA
+- * address and a multiple of %ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSIZE.
++ * address and a multiple of %ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN.
+  */
+ static void
+ pvr_page_table_l2_entry_raw_set(struct pvr_page_table_l2_entry_raw *entry,
+ 				dma_addr_t child_table_dma_addr)
+ {
+-	child_table_dma_addr >>= ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSHIFT;
++	child_table_dma_addr >>= ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN;
+ 
+ 	WRITE_ONCE(entry->val,
+-		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, VALID, true) |
+-		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, ENTRY_PENDING, false) |
+-		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, PD_BASE, child_table_dma_addr));
++		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_VALID, true) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING, false) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_PD_BASE_MASK, child_table_dma_addr));
+ }
+ 
+ static void
+@@ -554,7 +536,7 @@ static_assert(sizeof(struct pvr_page_table_l1_entry_raw) * 8 ==
+ static bool
+ pvr_page_table_l1_entry_raw_is_valid(struct pvr_page_table_l1_entry_raw entry)
+ {
+-	return PVR_PAGE_TABLE_FIELD_GET(1, PD, VALID, entry);
++	return FIELD_GET(ROGUE_MMUCTRL_PD_DATA_VALID, entry.val);
+ }
+ 
+ /**
+@@ -572,9 +554,9 @@ pvr_page_table_l1_entry_raw_set(struct pvr_page_table_l1_entry_raw *entry,
+ 				dma_addr_t child_table_dma_addr)
+ {
+ 	WRITE_ONCE(entry->val,
+-		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, VALID, true) |
+-		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, ENTRY_PENDING, false) |
+-		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, PAGE_SIZE, ROGUE_MMUCTRL_PAGE_SIZE_X) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_VALID, true) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING, false) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_MASK, ROGUE_MMUCTRL_PAGE_SIZE_X) |
+ 		   /*
+ 		    * The use of a 4K-specific macro here is correct. It is
+ 		    * a future optimization to allocate sub-host-page-sized
+@@ -582,7 +564,7 @@ pvr_page_table_l1_entry_raw_set(struct pvr_page_table_l1_entry_raw *entry,
+ 		    * page table address is aligned to the size of the
+ 		    * largest (a 4KB) table currently holds.
+ 		    */
+-		   (child_table_dma_addr & ~ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_CLRMSK));
++		   (child_table_dma_addr & ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_MASK));
+ }
+ 
+ static void
+@@ -714,7 +696,7 @@ static_assert(sizeof(struct pvr_page_flags_raw) ==
+ static bool
+ pvr_page_table_l0_entry_raw_is_valid(struct pvr_page_table_l0_entry_raw entry)
+ {
+-	return PVR_PAGE_TABLE_FIELD_GET(0, PT, VALID, entry);
++	return FIELD_GET(ROGUE_MMUCTRL_PT_DATA_VALID, entry.val);
+ }
+ 
+ /**
+@@ -736,10 +718,11 @@ pvr_page_table_l0_entry_raw_set(struct pvr_page_table_l0_entry_raw *entry,
+ 				dma_addr_t dma_addr,
+ 				struct pvr_page_flags_raw flags)
+ {
+-	WRITE_ONCE(entry->val, PVR_PAGE_TABLE_FIELD_PREP(0, PT, VALID, true) |
+-			       PVR_PAGE_TABLE_FIELD_PREP(0, PT, ENTRY_PENDING, false) |
+-			       (dma_addr & ~ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK) |
+-			       flags.val.val);
++	WRITE_ONCE(entry->val,
++		   FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_VALID, true) |
++		   FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING, false) |
++		   (dma_addr & ROGUE_MMUCTRL_PAGE_X_RANGE_MASK) |
++		   flags.val.val);
+ }
+ 
+ static void
+@@ -772,10 +755,10 @@ pvr_page_flags_raw_create(bool read_only, bool cache_coherent, bool slc_bypass,
+ 	struct pvr_page_flags_raw flags;
+ 
+ 	flags.val.val =
+-		PVR_PAGE_TABLE_FIELD_PREP(0, PT, READ_ONLY, read_only) |
+-		PVR_PAGE_TABLE_FIELD_PREP(0, PT, CC, cache_coherent) |
+-		PVR_PAGE_TABLE_FIELD_PREP(0, PT, SLC_BYPASS_CTRL, slc_bypass) |
+-		PVR_PAGE_TABLE_FIELD_PREP(0, PT, PM_META_PROTECT, pm_fw_protect);
++		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_READ_ONLY, read_only) |
++		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_CC, cache_coherent) |
++		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL, slc_bypass) |
++		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT, pm_fw_protect);
+ 
+ 	return flags;
+ }
+@@ -1671,8 +1654,7 @@ pvr_page_table_l0_remove(struct pvr_mmu_op_context *op_ctx)
+ static u16
+ pvr_page_table_l2_idx(u64 device_addr)
+ {
+-	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PC_INDEX_CLRMSK) >>
+-	       ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT;
++	return FIELD_GET(ROGUE_MMUCTRL_VADDR_PC_INDEX_MASK, device_addr);
+ }
+ 
+ /**
+@@ -1690,8 +1672,7 @@ pvr_page_table_l2_idx(u64 device_addr)
+ static u16
+ pvr_page_table_l1_idx(u64 device_addr)
+ {
+-	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK) >>
+-	       ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT;
++	return FIELD_GET(ROGUE_MMUCTRL_VADDR_PD_INDEX_MASK, device_addr);
+ }
+ 
+ /**
+@@ -1709,8 +1690,8 @@ pvr_page_table_l1_idx(u64 device_addr)
+ static u16
+ pvr_page_table_l0_idx(u64 device_addr)
+ {
+-	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PT_INDEX_CLRMSK) >>
+-	       ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT;
++	return (device_addr & ROGUE_MMUCTRL_VADDR_PT_INDEX_MASK)
++		>> ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h b/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
+index f361ccdd5405..93c61e5bffac 100644
+--- a/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
++++ b/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
+@@ -8,129 +8,120 @@
+ 
+ #define ROGUE_MMU_DEFS_REVISION 0
+ 
+-#define ROGUE_BIF_DM_ENCODING_VERTEX (0x00000000U)
+-#define ROGUE_BIF_DM_ENCODING_PIXEL (0x00000001U)
+-#define ROGUE_BIF_DM_ENCODING_COMPUTE (0x00000002U)
+-#define ROGUE_BIF_DM_ENCODING_TLA (0x00000003U)
+-#define ROGUE_BIF_DM_ENCODING_PB_VCE (0x00000004U)
+-#define ROGUE_BIF_DM_ENCODING_PB_TE (0x00000005U)
+-#define ROGUE_BIF_DM_ENCODING_META (0x00000007U)
+-#define ROGUE_BIF_DM_ENCODING_HOST (0x00000008U)
+-#define ROGUE_BIF_DM_ENCODING_PM_ALIST (0x00000009U)
+-
+-#define ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT (30U)
+-#define ROGUE_MMUCTRL_VADDR_PC_INDEX_CLRMSK (0xFFFFFF003FFFFFFFULL)
+-#define ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT (21U)
+-#define ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK (0xFFFFFFFFC01FFFFFULL)
+-#define ROGUE_MMUCTRL_VADDR_PT_INDEX_SHIFT (12U)
+-#define ROGUE_MMUCTRL_VADDR_PT_INDEX_CLRMSK (0xFFFFFFFFFFE00FFFULL)
+-
+-#define ROGUE_MMUCTRL_ENTRIES_PC_VALUE (0x00000400U)
+-#define ROGUE_MMUCTRL_ENTRIES_PD_VALUE (0x00000200U)
+-#define ROGUE_MMUCTRL_ENTRIES_PT_VALUE (0x00000200U)
+-
+-#define ROGUE_MMUCTRL_ENTRY_SIZE_PC_VALUE (0x00000020U)
+-#define ROGUE_MMUCTRL_ENTRY_SIZE_PD_VALUE (0x00000040U)
+-#define ROGUE_MMUCTRL_ENTRY_SIZE_PT_VALUE (0x00000040U)
+-
+-#define ROGUE_MMUCTRL_PAGE_SIZE_MASK (0x00000007U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_4KB (0x00000000U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_16KB (0x00000001U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_64KB (0x00000002U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_256KB (0x00000003U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_1MB (0x00000004U)
+-#define ROGUE_MMUCTRL_PAGE_SIZE_2MB (0x00000005U)
+-
+-#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_SHIFT (12U)
+-#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_CLRMSK (0xFFFFFF0000000FFFULL)
+-
+-#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_SHIFT (14U)
+-#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_CLRMSK (0xFFFFFF0000003FFFULL)
+-
+-#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_SHIFT (16U)
+-#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_CLRMSK (0xFFFFFF000000FFFFULL)
+-
+-#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_SHIFT (18U)
+-#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_CLRMSK (0xFFFFFF000003FFFFULL)
+-
+-#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_SHIFT (20U)
+-#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_CLRMSK (0xFFFFFF00000FFFFFULL)
+-
+-#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_SHIFT (21U)
+-#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_CLRMSK (0xFFFFFF00001FFFFFULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_SHIFT (12U)
+-#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_CLRMSK (0xFFFFFF0000000FFFULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_SHIFT (10U)
+-#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_CLRMSK (0xFFFFFF00000003FFULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_SHIFT (8U)
+-#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_CLRMSK (0xFFFFFF00000000FFULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_SHIFT (6U)
+-#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_CLRMSK (0xFFFFFF000000003FULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_SHIFT (5U)
+-#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_CLRMSK (0xFFFFFF000000001FULL)
+-
+-#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_SHIFT (5U)
+-#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_CLRMSK (0xFFFFFF000000001FULL)
+-
+-#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_SHIFT (62U)
+-#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_CLRMSK (0xBFFFFFFFFFFFFFFFULL)
+-#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_EN (0x4000000000000000ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_SHIFT (40U)
+-#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_CLRMSK (0xC00000FFFFFFFFFFULL)
+-#define ROGUE_MMUCTRL_PT_DATA_PAGE_SHIFT (12U)
+-#define ROGUE_MMUCTRL_PT_DATA_PAGE_CLRMSK (0xFFFFFF0000000FFFULL)
+-#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_SHIFT (6U)
+-#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_CLRMSK (0xFFFFFFFFFFFFF03FULL)
+-#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_SHIFT (5U)
+-#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFFFFFFFFFFDFULL)
+-#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_EN (0x0000000000000020ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_SHIFT (4U)
+-#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_CLRMSK (0xFFFFFFFFFFFFFFEFULL)
+-#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_EN (0x0000000000000010ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_SHIFT (3U)
+-#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_CLRMSK (0xFFFFFFFFFFFFFFF7ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_EN (0x0000000000000008ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_CC_SHIFT (2U)
+-#define ROGUE_MMUCTRL_PT_DATA_CC_CLRMSK (0xFFFFFFFFFFFFFFFBULL)
+-#define ROGUE_MMUCTRL_PT_DATA_CC_EN (0x0000000000000004ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_SHIFT (1U)
+-#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_CLRMSK (0xFFFFFFFFFFFFFFFDULL)
+-#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_EN (0x0000000000000002ULL)
+-#define ROGUE_MMUCTRL_PT_DATA_VALID_SHIFT (0U)
+-#define ROGUE_MMUCTRL_PT_DATA_VALID_CLRMSK (0xFFFFFFFFFFFFFFFEULL)
+-#define ROGUE_MMUCTRL_PT_DATA_VALID_EN (0x0000000000000001ULL)
+-
+-#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_SHIFT (40U)
+-#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFEFFFFFFFFFFULL)
+-#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_EN (0x0000010000000000ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_SHIFT (5U)
+-#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_CLRMSK (0xFFFFFF000000001FULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_SHIFT (1U)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_CLRMSK (0xFFFFFFFFFFFFFFF1ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_4KB (0x0000000000000000ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_16KB (0x0000000000000002ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_64KB (0x0000000000000004ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_256KB (0x0000000000000006ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_1MB (0x0000000000000008ULL)
+-#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_2MB (0x000000000000000aULL)
+-#define ROGUE_MMUCTRL_PD_DATA_VALID_SHIFT (0U)
+-#define ROGUE_MMUCTRL_PD_DATA_VALID_CLRMSK (0xFFFFFFFFFFFFFFFEULL)
+-#define ROGUE_MMUCTRL_PD_DATA_VALID_EN (0x0000000000000001ULL)
+-
+-#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_SHIFT (4U)
+-#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_CLRMSK (0x0000000FU)
+-#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSHIFT (12U)
+-#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSIZE (4096U)
+-#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_SHIFT (1U)
+-#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFFFDU)
+-#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_EN (0x00000002U)
+-#define ROGUE_MMUCTRL_PC_DATA_VALID_SHIFT (0U)
+-#define ROGUE_MMUCTRL_PC_DATA_VALID_CLRMSK (0xFFFFFFFEU)
+-#define ROGUE_MMUCTRL_PC_DATA_VALID_EN (0x00000001U)
++#include <linux/bits.h>
 +
-+err_resources:
-+	ibdev->data_direct = NULL;
-+	kfree(reg);
-+	return err;
- }
++/*
++ * ROGUE_MMUCTRL - Rogue MMU Data Format
++ */
++
++/* Labelling of fields within virtual address */
++#define ROGUE_MMUCTRL_VADDR_PC_INDEX_MASK GENMASK_U64(39, 30)
++#define ROGUE_MMUCTRL_VADDR_PD_INDEX_MASK GENMASK_U64(29, 21)
++#define ROGUE_MMUCTRL_VADDR_PT_INDEX_MASK GENMASK_U64(20, 12)
++
++/* Number of entries in a PC */
++#define ROGUE_MMUCTRL_ENTRIES_PC_VALUE 1024
++
++/* Number of entries in a PD */
++#define ROGUE_MMUCTRL_ENTRIES_PD_VALUE 512
++
++/* Number of entries in a PT */
++#define ROGUE_MMUCTRL_ENTRIES_PT_VALUE 512
++
++/* Size in bits of the PC entries in memory */
++#define ROGUE_MMUCTRL_ENTRY_SIZE_PC_VALUE 32
++
++/* Size in bits of the PD entries in memory */
++#define ROGUE_MMUCTRL_ENTRY_SIZE_PD_VALUE 64
++
++/* Size in bits of the PT entries in memory */
++#define ROGUE_MMUCTRL_ENTRY_SIZE_PT_VALUE 64
++
++/* Encoding of page size field */
++enum ROGUE_MMUCTRL_PAGE_SIZE {
++	ROGUE_MMUCTRL_PAGE_SIZE_4KB = 0x0,
++	ROGUE_MMUCTRL_PAGE_SIZE_16KB = 0x1,
++	ROGUE_MMUCTRL_PAGE_SIZE_64KB = 0x2,
++	ROGUE_MMUCTRL_PAGE_SIZE_256KB = 0x3,
++	ROGUE_MMUCTRL_PAGE_SIZE_1MB = 0x4,
++	ROGUE_MMUCTRL_PAGE_SIZE_2MB = 0x5,
++};
++
++/* Range of bits used for 4KB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_MASK GENMASK_U64(39, 12)
++
++/* Range of bits used for 16KB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_MASK GENMASK_U64(39, 14)
++
++/* Range of bits used for 64KB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_MASK GENMASK_U64(39, 16)
++
++/* Range of bits used for 256KB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_MASK GENMASK_U64(39, 18)
++
++/* Range of bits used for 1MB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_MASK GENMASK_U64(39, 20)
++
++/* Range of bits used for 2MB Physical Page */
++#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_MASK GENMASK_U64(39, 21)
++
++/* Range of bits used for PT Base Address for 4KB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_MASK GENMASK_U64(39, 12)
++
++/* Range of bits used for PT Base Address for 16KB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_MASK GENMASK_U64(39, 10)
++
++/* Range of bits used for PT Base Address for 64KB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_MASK GENMASK_U64(39, 8)
++
++/* Range of bits used for PT Base Address for 256KB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_MASK GENMASK_U64(39, 6)
++
++/* Range of bits used for PT Base Address for 1MB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_MASK GENMASK_U64(39, 5)
++
++/* Range of bits used for PT Base Address for 2MB Physical Page */
++#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_MASK GENMASK_U64(39, 5)
++
++/* Format of Page Table data */
++#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT BIT_U64(62)
++#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_MASK GENMASK_U64(61, 40)
++#define ROGUE_MMUCTRL_PT_DATA_PAGE_MASK GENMASK_U64(39, 12)
++#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_MASK GENMASK_U64(11, 6)
++#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING BIT_U64(5)
++#define ROGUE_MMUCTRL_PT_DATA_PM_SRC BIT_U64(4)
++#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL BIT_U64(3)
++#define ROGUE_MMUCTRL_PT_DATA_CC BIT_U64(2)
++#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY BIT_U64(1)
++#define ROGUE_MMUCTRL_PT_DATA_VALID BIT_U64(0)
++
++/* Format of Page Directory data */
++#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING BIT_U64(40)
++#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_MASK GENMASK_U64(39, 5)
++#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_MASK GENMASK_U64(3, 1)
++#define ROGUE_MMUCTRL_PD_DATA_VALID BIT_U64(0)
++
++/* Format of Page Catalogue data */
++#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_MASK GENMASK_U32(31, 4)
++#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN 12
++#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING BIT_U32(1)
++#define ROGUE_MMUCTRL_PC_DATA_VALID BIT_U32(0)
++
++/*
++ * ROGUE_BIF_DM - Rogue BIF Datamaster Encoding
++ */
++
++/* Encoding of DM (note value 0x6 not used) */
++enum ROGUE_BIF_DM_ENCODING {
++	ROGUE_BIF_DM_ENCODING_VERTEX = 0x0,
++	ROGUE_BIF_DM_ENCODING_PIXEL = 0x1,
++	ROGUE_BIF_DM_ENCODING_COMPUTE = 0x2,
++	ROGUE_BIF_DM_ENCODING_TLA = 0x3,
++	ROGUE_BIF_DM_ENCODING_PB_VCE = 0x4,
++	ROGUE_BIF_DM_ENCODING_PB_TE = 0x5,
++	ROGUE_BIF_DM_ENCODING_META = 0x7,
++	ROGUE_BIF_DM_ENCODING_HOST = 0x8,
++	ROGUE_BIF_DM_ENCODING_PM_ALIST = 0x9,
++};
  
- void mlx5_data_direct_cleanup(struct mlx5_ib_dev *ibdev)
-@@ -252,6 +259,7 @@ void mlx5_data_direct_cleanup(struct mlx5_ib_dev *ibdev)
- 	mlx5_data_direct_do_unbind(reg);
- 	mutex_unlock(&mlx5_data_direct_mutex);
- 
-+	mlx5_data_direct_free_resources(ibdev);
- 	ibdev->data_direct = NULL;
- 	kfree(reg);
- }
-diff --git a/drivers/infiniband/hw/mlx5/data_direct.h b/drivers/infiniband/hw/mlx5/data_direct.h
-index de2730f00852..49cdd407018a 100644
---- a/drivers/infiniband/hw/mlx5/data_direct.h
-+++ b/drivers/infiniband/hw/mlx5/data_direct.h
-@@ -23,9 +23,6 @@ struct mlx5_data_direct_dev {
- 	struct list_head list;
- };
- 
--int mlx5_data_direct_create_resources(struct mlx5_ib_dev *dev);
--void mlx5_data_direct_free_resources(struct mlx5_ib_dev *dev);
--
- int mlx5_data_direct_driver_register(void);
- void mlx5_data_direct_driver_unregister(void);
- 
-diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
-index cefbcc816651..941928a782bd 100644
---- a/drivers/infiniband/hw/mlx5/main.c
-+++ b/drivers/infiniband/hw/mlx5/main.c
-@@ -3966,10 +3966,6 @@ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
- 	if (ret)
- 		return ret;
- 
--	ret = mlx5_data_direct_create_resources(dev);
--	if (ret)
--		goto err_resources;
--
- 	INIT_LIST_HEAD(&dev->data_direct_mr_list);
- 	dev->data_direct_nb.notifier_call = mlx5_ib_data_direct_event;
- 	ret = mlx5_data_direct_register(dev, &dev->data_direct_nb);
-@@ -3979,8 +3975,6 @@ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
- 	return ret;
- 
- err_register:
--	mlx5_data_direct_free_resources(dev);
--err_resources:
- 	mlx5_data_direct_cleanup(dev);
- 
- 	return ret;
-@@ -3992,7 +3986,6 @@ static void mlx5_ib_data_direct_cleanup(struct mlx5_ib_dev *dev)
- 		return;
- 
- 	mlx5_data_direct_unregister(dev, &dev->data_direct_nb);
--	mlx5_data_direct_free_resources(dev);
- 	mlx5_data_direct_cleanup(dev);
- }
- 
+ #endif /* PVR_ROGUE_MMU_DEFS_H */
+
 -- 
-2.44.0
+2.43.0
 
