@@ -1,65 +1,65 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D14F4C7523
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E55E4CDDD2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767749; cv=none; b=VMeqvJEBzI/H/DVmS7Auch+6qE7eQK5Z/h3h1zaBk8PoDCNeTNNlel515LbgP2t1Gyt3zcpLFQ2Pba6EI1EG8trLmAtYlpVjM6dmYsl+PyrXZLsl9wsJD/Y3tZVO3UnhxIvmGHaf+wmIcKDcN/F/yxKajY7fhgGJq0P8pEgzUGE=
+	t=1790767755; cv=none; b=O6eGmwJaNI+zm9L7ojQjQhMLIAn6yi80S0M8OUA3/tdy/k6fp85QKjg6P/b44VZguQmeUnCnYn40/UIQVxc22iblSYo7eDek16c0YU4gYC7oZOKP4ZR06n04mg+XfvOot14M+pYLxILq1LINJbfZbG0f0GJwrWXDRIsN8La3BF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767749; c=relaxed/simple;
-	bh=o78ciCpXDfIYH1oy8QPsys44CTqq8XorYBGAwxuHHz4=;
+	s=arc-20240116; t=1790767755; c=relaxed/simple;
+	bh=yaWJo1yaHY7FTp6z5elpYODFms8u9nCWewz4vye/UYA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kafBX6uOyb9OAJBggvxjJI9fBe+sgJIEqXPz90a+Sjcbo8eax/p0ml+6sn4gg8jbP0A6YdjOmz+3ZEQE3pE2rayKdcMQSuJPA7391emJyjKMjlSIbnNLXMORp1m+ypFCD3lgfbTdtY7X58AYzRcz0LC9XCJw37XU1yjVEfNeMro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KdeSzfcb; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=t4d2tn+dyo0qyhA1Vo/hjRzHMTLlpMYzFdD27AkTUdY75rBF2Z9skfLMaF3nB9RIq3BMYZKpfsBtDcREXdxxT6pl/8t0MkgVu3Jpeb3rHhIhhLHUTEqc5lUd+xX399lrGRkRj4tt7n44SFyTAbQPkYaht4NLVcntdMh8LuWRJ8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjtwdpuW; arc=none smtp.client-ip=74.125.228.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KdeSzfcb"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so2172752a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjtwdpuW"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7cc70890fso741382a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767746; x=1791372546; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790767753; x=1791372553; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NfOhX7KR77R3ls7z6JBoXar6xAjR5an9iT+KISorDCo=;
-        b=KdeSzfcb4Mar/WV0Sb9KggQPGMvpWkkfpE/yA6eZjryTSMKA58M0fqR39tqb4/j8aS
-         4kFlgQz/pf6zdM2LnCJ3fubYEjD9+cDDb9ymM5oM9yn8Lx+HyJb7nNcM+Sf0QqzKEJ/A
-         rK6xFKf2xJsHpN5HyxHytj18DF5lfkuIvxAgR/8PCOml/75/vli0rfeYQmyENT8ikDgN
-         P269DV/dke2z8aF+3O5v/yeLcxWI1GgM3tsaEW7EIFjpEZgIiSPk/YJQF3FgD0REHQ+0
-         nV+1zXM8F5lxG1kFDxTr53O0lTPELGXvVhw9CAITsIvpEAcDi/IfDWatJy4sUJFjQq/b
-         JpOA==
+        bh=CL0Y1VoSDGzjgEsyQ72S63U8D3jO1axWiityZmhT6lM=;
+        b=cjtwdpuWAN8GCms2uU2xabsVi49zct4NUna2q6mzyYYkzLOJKXv6I83CbL/EwyWyLU
+         rw0W2niKhFIO9lZA3m3x9jx1OywE5BXSHzhYeEtMdpULWgzRgquFY9UxgMR8SkbyRyIN
+         /QcxLVURponb3eMhlIKgQx1EDutJGF9Vmy1Ikn7vgBbdaqLrUEslC8zRE1zVNmMZv88+
+         Ove0QpoACUY5Um5v4h7fbw6GFNcQ/hIGI7urrM2YobNTIcvZeTx9dyMKl20KRyFTlMTV
+         ApgixakuW3cesSHrkMJU9xXe/oGxHW9FQfiJcDo5my+p1Eo0lvA0t59LRp3TPgWRsRo7
+         EylA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767746; x=1791372546;
+        d=1e100.net; s=20260707; t=1790767753; x=1791372553;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NfOhX7KR77R3ls7z6JBoXar6xAjR5an9iT+KISorDCo=;
-        b=NVUYD7h2PDaFrsWjIwJ8X/+JARNE2s6QskmooCTsL1xKR7KeWSeL2D0xMn3fa2ZYxC
-         RyxOIl0ZkmK1ZcVVl8+FtFcqDzPW6og5EGd/JLC5gCQU8kK2o6loyPJjDlGS9v49cSQ1
-         Rf/7YEX57cSoPtSJNxXOThKOoxyl9r7npdjqWe1TxfilqUyrft01b0jjaumQD4A6IByL
-         cFemwPhhQSyP+EewRyihTZkeocOltnAxElpWo4yXsWNK04xV+DhnnB/BXmMt7FZN67EI
-         6ZICYtX2/X3KEPL/FDeD3+ulfnK9Oc1IwRFVfk2xWT5N0UNCPt/A4Xeh7Fs2k/iRAsCp
-         RXVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbMasOT7Yhl6HupUglF+9SzhtjBcI/WQnDS3HaXs25OqfLrY3Wse4Vqv0maKt4Ud36Ietsz4JbNg5uGU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUiwU3sUqO3scA5VQ2UdjK24Qkd30sgBBZpWZYoFLgzdbcV0/b
-	BVAANELG+tY8MBj265WhTfZQIrnTuNu9e4XMM1TG3W6uSZ9HkIdulePP
-X-Gm-Gg: AYBFou2DlcuTavxvWzNCMb+NUhynhJY9i+gxoC3noKad9UIaNU2WCZbO+jqpgEhj6Au
-	crNren3gKk3kNHuvSYawKBH5yInmm3SQDD2qtEyBfWQVQ1di7CeFZAjuykH9rgj3PnGuwSm6rDE
-	Q27HmeJhSSPAE35zHs0V0BnA4TaTho0imuQ/qVT/LTXHpd9TO1ceBlFKiGKBq15wUODwRl/O46y
-	Me5T8s+ZJTouS4zIGbBnMW4wxpQmlfXSpJJMztmWtiNRKTJsjh3XhZi/PdV0PANXFOMbYeecM9a
-	0ihmOUp+avEXemlgjCIKp7QRK5k4L4vDG8TiSWtUMOhxfqXV0LKX/gsxSqFzv1Kqb3U4MCXQUW9
-	GmZhuUZxnhPYhZIkqQ4K641g7cugrHxIRwphkG50U8R7oAyuckxdxca/SDiWq5mRyH/Htsf+a5L
-	sqVOC5IPXXH7Jy2aDJTfZXpf6ND1wOjD55UJLkM3RyEDpg8By2m7QmmNO+EVtZSc99uDLyzPY2Q
-	ZM+NQbjQ80JBIaAz5P0rhlVAOhhXZW/GDkIWxGC/ASlKfYR363k5FM=
-X-Received: by 2002:a05:6a20:244a:b0:3de:20c:e8e with SMTP id adf61e73a8af0-3de9e7b41d2mr1089860637.40.1790767745662;
-        Wed, 30 Sep 2026 04:29:05 -0700 (PDT)
+        bh=CL0Y1VoSDGzjgEsyQ72S63U8D3jO1axWiityZmhT6lM=;
+        b=osLzXDNpRfgrpzco+eKuqSfD55ESV+IcGA2JROqC58nqwL2VXCYUaB+rdFf8WtP+J1
+         +pRY3zHZ6brOkbxBRj4RzTE+nlSz5vmH2avWMDgBgi119PSf9Y/CjcMcchjF6PHETIOl
+         w4gKX9xWhQCO3NikeuSrRJOVU1+hA51nzcC3vTFfLt2nskgD4PmoX0vliC40RY0dMImB
+         SjPizUTTEI4ZkdQPEll8yq+Gwi7MT4oi+Uk8rDQ3bQo3d3dqLSVKBav2TOxCtNasqtzZ
+         f1GEw8Yi7k1uLqRQiUsi9F+ql2vU3WrJoVSfQnbbBLNGjs9dY0Turm5n0TT5VF1J4Ear
+         K01Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwIhbQOEIO4a6A7ogeHOIl6tZl7wFiy2NVpqSbZlQL+I+IiqpDRbh9/rWRbjRAvOcTzQqtIe7aya2OvzFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkhCsVzOzkmEDo2azCG40j8sBBrFckGoUx4geXfv+z/4zUwamO
+	EWcOFgYrqLJj0XEJih0jKc4DISSqKJ44txrrihbyYu3ytIk9d0xGgp74
+X-Gm-Gg: AYBFou36GB9lyTacFXsMB71fW7fUv0xoF5Xq9NvbP5NzUmQoG1hTwfjS6kSBIjuHCV4
+	8HrAL/9gQJZRdgOah9eXpNtOOiBsrW7lCxJ+ANwKi/hxK5m4i46/wplZkS62t23/dT/jo0LQGxL
+	mTch/C8xGME1oR+n4Gbi2ZvfQgUCWedlETF5qqrsMEVM4kwYxB9BX7AqYg7oveO/cBC7LwyRRug
+	u1r7IL+Keeng/tw9W7oWajFNw/TRfKweuPWH/Oa8iIn5XkWiBcUZPjmPETd2R5P+GepFPGHyfBT
+	XT/jwGwjEZzHZGLCWtWQTHv8ZXHC8o8gQGO6onG7fZw+Bjc88B23MHnHHCGIvHd1uJ/wnQCAmR5
+	QMLoxAHMKigDMtPM9Hq/OjKHvhtEgOxuLi0R7uHe7McwLwIyNdZahjFLMj1B4X9q7+G/dgTkc58
+	EE+PznCTDi9cILlwV3/Evi8GqrP7OLyGL20emnzzsXA6KvbK+KpvJ3iaiWfrC2tDhSmRESLjUyX
+	cEqZqAnkeduw6HcuCasba1Zq4XXQOSzjILDRHlM7fhK
+X-Received: by 2002:a05:6a21:748a:b0:3de:6796:5eeb with SMTP id adf61e73a8af0-3de9e78ef25mr1072963637.40.1790767752606;
+        Wed, 30 Sep 2026 04:29:12 -0700 (PDT)
 Received: from m-upc-A520M-HDV.lan ([2400:2410:3f60:500:3fb:270c:7df4:18f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab46db6sm712637a12.31.2026.09.30.04.28.58
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab46db6sm712637a12.31.2026.09.30.04.29.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:29:05 -0700 (PDT)
+        Wed, 30 Sep 2026 04:29:12 -0700 (PDT)
 Sender: Yuyang Huang <uyoko90@gmail.com>
 From: Yuyang Huang <sigefriedhyy@gmail.com>
 To: Yuyang Huang <sigefriedhyy@gmail.com>
@@ -91,9 +91,9 @@ Cc: Ajay Singh <ajay.kathat@microchip.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v9 2/6] net: change netdev_hw_addr_list count through helpers
-Date: Wed, 30 Sep 2026 20:28:38 +0900
-Message-ID: <20260930112842.21323-3-sigefriedhyy@gmail.com>
+Subject: [PATCH net-next v9 3/6] net: add a generation counter for dev->mc changes
+Date: Wed, 30 Sep 2026 20:28:39 +0900
+Message-ID: <20260930112842.21323-4-sigefriedhyy@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930112842.21323-1-sigefriedhyy@gmail.com>
 References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
@@ -105,327 +105,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The count of a netdev_hw_addr_list is changed in several places of
-dev_addr_lists.c and a few drivers read it directly. The next patch
-needs to account every change of the count of dev->mc.
+A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
+entries added or removed between two dump rounds can be skipped or
+repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
+stamping cb->seq from a per netns generation counter combined with
+dev_base_seq, see inet_base_seq().
 
-Add __hw_addr_count_add(), __hw_addr_count_inc(), __hw_addr_count_dec()
-and __hw_addr_count_reset(), use them for every change of the count
-and rename the field to _count so that a direct write stands out.
-Readers keep using netdev_hw_addr_list_count() and the netdev_uc_count()
-and netdev_mc_count() helpers, the few that read the field directly
-are converted. No functional change.
+Add the equivalent for the device multicast lists: a per netns counter
+bumped whenever an entry is added to or removed from any dev->mc. The
+list helpers do not know which device a list belongs to, so give
+netdev_hw_addr_list an owner, set for the lists of a device and NULL
+for snapshots and other standalone lists, and bump the counter of
+dev_net(owner) from the count helpers when the list is dev->mc. That
+covers the dev_mc_* helpers, both lists of a sync, the hardware sync
+helpers drivers call from their rx mode callbacks or their own workers
+and the reconciliation after an asynchronous rx mode update. It is
+atomic since the writers only hold the address lock of their own
+device.
+
+Used by the following patch for the AF_PACKET multicast dump.
 
 Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
 ---
- .../net/ethernet/cavium/octeon/octeon_mgmt.c  |  4 +-
- .../net/wireless/microchip/wilc1000/netdev.c  |  8 ++--
- include/linux/netdevice.h                     |  5 ++-
- net/core/dev_addr_lists.c                     | 44 ++++++++++++++-----
- net/core/dev_addr_lists_test.c                | 18 ++++----
- net/mac80211/driver-ops.h                     |  2 +-
- 6 files changed, 51 insertions(+), 30 deletions(-)
+ include/linux/netdevice.h   |  5 +++++
+ include/net/net_namespace.h |  1 +
+ net/core/dev_addr_lists.c   | 20 ++++++++++++++++++++
+ 3 files changed, 26 insertions(+)
 
-diff --git a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-index c190fc6538d4c..5e3c379b24234 100644
---- a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-+++ b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-@@ -573,14 +573,14 @@ static void octeon_mgmt_set_rx_filtering(struct net_device *netdev)
- 
- 	memset(&cam_state, 0, sizeof(cam_state));
- 
--	if ((netdev->flags & IFF_PROMISC) || netdev->uc.count > 7) {
-+	if ((netdev->flags & IFF_PROMISC) || netdev_uc_count(netdev) > 7) {
- 		cam_mode = 0;
- 		available_cam_entries = 8;
- 	} else {
- 		/* One CAM entry for the primary address, leaves seven
- 		 * for the secondary addresses.
- 		 */
--		available_cam_entries = 7 - netdev->uc.count;
-+		available_cam_entries = 7 - netdev_uc_count(netdev);
- 	}
- 
- 	if (netdev->flags & IFF_MULTICAST) {
-diff --git a/drivers/net/wireless/microchip/wilc1000/netdev.c b/drivers/net/wireless/microchip/wilc1000/netdev.c
-index 956cb578bf37c..d3343113cea50 100644
---- a/drivers/net/wireless/microchip/wilc1000/netdev.c
-+++ b/drivers/net/wireless/microchip/wilc1000/netdev.c
-@@ -704,17 +704,17 @@ static void wilc_set_multicast_list(struct net_device *dev)
- 		return;
- 
- 	if (dev->flags & IFF_ALLMULTI ||
--	    dev->mc.count > WILC_MULTICAST_TABLE_SIZE) {
-+	    netdev_mc_count(dev) > WILC_MULTICAST_TABLE_SIZE) {
- 		wilc_setup_multicast_filter(vif, 0, 0, NULL);
- 		return;
- 	}
- 
--	if (dev->mc.count == 0) {
-+	if (netdev_mc_empty(dev)) {
- 		wilc_setup_multicast_filter(vif, 1, 0, NULL);
- 		return;
- 	}
- 
--	mc_list = kmalloc_array(dev->mc.count, ETH_ALEN, GFP_ATOMIC);
-+	mc_list = kmalloc_array(netdev_mc_count(dev), ETH_ALEN, GFP_ATOMIC);
- 	if (!mc_list)
- 		return;
- 
-@@ -727,7 +727,7 @@ static void wilc_set_multicast_list(struct net_device *dev)
- 		cur_mc += ETH_ALEN;
- 	}
- 
--	if (wilc_setup_multicast_filter(vif, 1, dev->mc.count, mc_list))
-+	if (wilc_setup_multicast_filter(vif, 1, netdev_mc_count(dev), mc_list))
- 		kfree(mc_list);
- }
- 
 diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index d037faff7c44b..97dc053f234cc 100644
+index 97dc053f234cc..d409c56a02459 100644
 --- a/include/linux/netdevice.h
 +++ b/include/linux/netdevice.h
-@@ -252,13 +252,14 @@ struct netdev_hw_addr {
- 
- struct netdev_hw_addr_list {
- 	struct list_head	list;
--	int			count;
-+	/* Only changed through the __hw_addr_count_* helpers */
-+	int			_count;
+@@ -257,6 +257,11 @@ struct netdev_hw_addr_list {
  
  	/* Auxiliary tree for faster lookup on addition and deletion */
  	struct rb_root		tree;
++
++	/* The device a list belongs to, NULL for snapshots and other
++	 * standalone lists
++	 */
++	struct net_device	*owner;
  };
  
--#define netdev_hw_addr_list_count(l) ((l)->count)
-+#define netdev_hw_addr_list_count(l) ((l)->_count)
- #define netdev_hw_addr_list_empty(l) (netdev_hw_addr_list_count(l) == 0)
- #define netdev_hw_addr_list_for_each(ha, l) \
- 	list_for_each_entry(ha, &(l)->list, list)
+ #define netdev_hw_addr_list_count(l) ((l)->_count)
+diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
+index 46b4c67e2966f..d8c681ab5c749 100644
+--- a/include/net/net_namespace.h
++++ b/include/net/net_namespace.h
+@@ -71,6 +71,7 @@ struct net {
+ 	spinlock_t		rules_mod_lock;
+ 
+ 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
++	atomic_t		dev_mc_genid;	/* bumped on dev->mc changes */
+ 	u32			ifindex;
+ 
+ 	spinlock_t		nsid_lock;
 diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-index 08528ca0a8b31..23f5db99a702d 100644
+index 23f5db99a702d..783c62895249b 100644
 --- a/net/core/dev_addr_lists.c
 +++ b/net/core/dev_addr_lists.c
-@@ -16,6 +16,26 @@
+@@ -16,9 +16,21 @@
  
  #include "dev.h"
  
-+static void __hw_addr_count_add(struct netdev_hw_addr_list *list, int value)
++/* Only dev->mc is tracked, RTM_GETMULTICAST dumps use the netns generation
++ * counter to detect changes between dump rounds.
++ */
++static void __hw_addr_changed(struct netdev_hw_addr_list *list)
 +{
-+	list->_count += value;
++	struct net_device *dev = list->owner;
++
++	if (dev && list == &dev->mc)
++		atomic_inc(&dev_net(dev)->dev_mc_genid);
 +}
 +
-+static void __hw_addr_count_inc(struct netdev_hw_addr_list *list)
-+{
-+	__hw_addr_count_add(list, 1);
-+}
-+
-+static void __hw_addr_count_dec(struct netdev_hw_addr_list *list)
-+{
-+	__hw_addr_count_add(list, -1);
-+}
-+
-+static void __hw_addr_count_reset(struct netdev_hw_addr_list *list)
-+{
-+	list->_count = 0;
-+}
-+
- /*
-  * General list handling functions
-  */
-@@ -125,7 +145,7 @@ static int __hw_addr_add_ex(struct netdev_hw_addr_list *list,
- 	rb_insert_color(&ha->node, &list->tree);
- 
- 	list_add_tail_rcu(&ha->list, &list->list);
--	list->count++;
-+	__hw_addr_count_inc(list);
- 
- 	return 0;
- }
-@@ -161,7 +181,7 @@ static int __hw_addr_del_entry(struct netdev_hw_addr_list *list,
- 
- 	list_del_rcu(&ha->list);
- 	kfree_rcu(ha, rcu_head);
--	list->count--;
-+	__hw_addr_count_dec(list);
- 	return 0;
- }
- 
-@@ -492,14 +512,14 @@ void __hw_addr_flush(struct netdev_hw_addr_list *list)
- 		list_del_rcu(&ha->list);
- 		kfree_rcu(ha, rcu_head);
- 	}
--	list->count = 0;
-+	__hw_addr_count_reset(list);
- }
- EXPORT_SYMBOL_IF_KUNIT(__hw_addr_flush);
- 
- void __hw_addr_init(struct netdev_hw_addr_list *list)
+ static void __hw_addr_count_add(struct netdev_hw_addr_list *list, int value)
  {
+ 	list->_count += value;
++	__hw_addr_changed(list);
+ }
+ 
+ static void __hw_addr_count_inc(struct netdev_hw_addr_list *list)
+@@ -33,7 +45,10 @@ static void __hw_addr_count_dec(struct netdev_hw_addr_list *list)
+ 
+ static void __hw_addr_count_reset(struct netdev_hw_addr_list *list)
+ {
++	if (!list->_count)
++		return;
+ 	list->_count = 0;
++	__hw_addr_changed(list);
+ }
+ 
+ /*
+@@ -521,6 +536,7 @@ void __hw_addr_init(struct netdev_hw_addr_list *list)
  	INIT_LIST_HEAD(&list->list);
--	list->count = 0;
-+	list->_count = 0;
+ 	list->_count = 0;
  	list->tree = RB_ROOT;
++	list->owner = NULL;
  }
  EXPORT_SYMBOL(__hw_addr_init);
-@@ -509,8 +529,8 @@ static void __hw_addr_splice(struct netdev_hw_addr_list *dst,
+ 
+@@ -705,6 +721,7 @@ int dev_addr_init(struct net_device *dev)
+ 	/* rtnl_mutex must be held here */
+ 
+ 	__hw_addr_init(&dev->dev_addrs);
++	dev->dev_addrs.owner = dev;
+ 	memset(addr, 0, sizeof(addr));
+ 	err = __hw_addr_add(&dev->dev_addrs, addr, sizeof(addr),
+ 			    NETDEV_HW_ADDR_T_LAN);
+@@ -982,6 +999,7 @@ EXPORT_SYMBOL(dev_uc_flush);
+ void dev_uc_init(struct net_device *dev)
  {
- 	src->tree = RB_ROOT;
- 	list_splice_init(&src->list, &dst->list);
--	dst->count += src->count;
--	src->count = 0;
-+	__hw_addr_count_add(dst, src->_count);
-+	__hw_addr_count_reset(src);
+ 	__hw_addr_init(&dev->uc);
++	dev->uc.owner = dev;
+ }
+ EXPORT_SYMBOL(dev_uc_init);
+ 
+@@ -1197,6 +1215,7 @@ EXPORT_SYMBOL(dev_mc_flush);
+ void dev_mc_init(struct net_device *dev)
+ {
+ 	__hw_addr_init(&dev->mc);
++	dev->mc.owner = dev;
+ }
+ EXPORT_SYMBOL(dev_mc_init);
+ 
+@@ -1368,6 +1387,7 @@ static void netif_rx_mode_retry(struct timer_list *t)
+ void netif_rx_mode_init(struct net_device *dev)
+ {
+ 	__hw_addr_init(&dev->rx_mode_addr_cache);
++	dev->rx_mode_addr_cache.owner = dev;
+ 	timer_setup(&dev->rx_mode_retry_timer, netif_rx_mode_retry, 0);
  }
  
- /**
-@@ -532,11 +552,11 @@ int __hw_addr_list_snapshot(struct netdev_hw_addr_list *snap,
- 	struct netdev_hw_addr *ha, *entry;
- 
- 	list_for_each_entry(ha, &list->list, list) {
--		if (cache->count) {
-+		if (cache->_count) {
- 			entry = list_first_entry(&cache->list,
- 						 struct netdev_hw_addr, list);
- 			list_del(&entry->list);
--			cache->count--;
-+			__hw_addr_count_dec(cache);
- 			memcpy(entry->addr, ha->addr, addr_len);
- 			entry->type = ha->type;
- 			entry->global_use = false;
-@@ -554,7 +574,7 @@ int __hw_addr_list_snapshot(struct netdev_hw_addr_list *snap,
- 
- 		list_add_tail(&entry->list, &snap->list);
- 		__hw_addr_insert(snap, entry, addr_len);
--		snap->count++;
-+		__hw_addr_count_inc(snap);
- 	}
- 
- 	return 0;
-@@ -604,14 +624,14 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
- 			if (delta > 0) {
- 				rb_erase(&ref_ha->node, &ref->tree);
- 				list_del(&ref_ha->list);
--				ref->count--;
-+				__hw_addr_count_dec(ref);
- 				ref_ha->sync_cnt = delta;
- 				ref_ha->refcount = delta;
- 				list_add_tail_rcu(&ref_ha->list,
- 						  &real_list->list);
- 				__hw_addr_insert(real_list, ref_ha,
- 						 addr_len);
--				real_list->count++;
-+				__hw_addr_count_inc(real_list);
- 			}
- 			continue;
- 		}
-@@ -622,7 +642,7 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
- 			rb_erase(&real_ha->node, &real_list->tree);
- 			list_del_rcu(&real_ha->list);
- 			kfree_rcu(real_ha, rcu_head);
--			real_list->count--;
-+			__hw_addr_count_dec(real_list);
- 		}
- 	}
- 
-diff --git a/net/core/dev_addr_lists_test.c b/net/core/dev_addr_lists_test.c
-index 260e71a2399f3..07c35a0af2b4d 100644
---- a/net/core/dev_addr_lists_test.c
-+++ b/net/core/dev_addr_lists_test.c
-@@ -291,7 +291,7 @@ static void dev_addr_test_snapshot_sync(struct kunit *test)
- 	netif_addr_unlock_bh(netdev);
- 
- 	/* Real entry should now reflect the sync: sync_cnt=1, refcount=2 */
--	KUNIT_EXPECT_EQ(test, 1, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 1, netdev_uc_count(netdev));
- 	ha = list_first_entry(&netdev->uc.list, struct netdev_hw_addr, list);
- 	KUNIT_EXPECT_MEMEQ(test, ha->addr, addr, ETH_ALEN);
- 	KUNIT_EXPECT_EQ(test, 1, ha->sync_cnt);
-@@ -303,7 +303,7 @@ static void dev_addr_test_snapshot_sync(struct kunit *test)
- 			   dev_addr_test_unsync);
- 	KUNIT_EXPECT_EQ(test, 0, datp->addr_synced);
- 	KUNIT_EXPECT_EQ(test, 0, datp->addr_unsynced);
--	KUNIT_EXPECT_EQ(test, 1, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 1, netdev_uc_count(netdev));
- 
- 	__hw_addr_flush(&cache);
- 	rtnl_unlock();
-@@ -351,7 +351,7 @@ static void dev_addr_test_snapshot_remove_during_sync(struct kunit *test)
- 	/* Concurrent removal: user deletes ADDR_A while driver was working */
- 	memset(addr, ADDR_A, sizeof(addr));
- 	KUNIT_EXPECT_EQ(test, 0, dev_uc_del(netdev, addr));
--	KUNIT_EXPECT_EQ(test, 0, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 0, netdev_uc_count(netdev));
- 
- 	/* Reconcile: ADDR_A gone from real list but driver synced it,
- 	 * so it gets re-inserted as stale (sync_cnt=1, refcount=1).
-@@ -361,7 +361,7 @@ static void dev_addr_test_snapshot_remove_during_sync(struct kunit *test)
- 				 &cache);
- 	netif_addr_unlock_bh(netdev);
- 
--	KUNIT_EXPECT_EQ(test, 1, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 1, netdev_uc_count(netdev));
- 	ha = list_first_entry(&netdev->uc.list, struct netdev_hw_addr, list);
- 	KUNIT_EXPECT_MEMEQ(test, ha->addr, addr, ETH_ALEN);
- 	KUNIT_EXPECT_EQ(test, 1, ha->sync_cnt);
-@@ -373,7 +373,7 @@ static void dev_addr_test_snapshot_remove_during_sync(struct kunit *test)
- 			   dev_addr_test_unsync);
- 	KUNIT_EXPECT_EQ(test, 0, datp->addr_synced);
- 	KUNIT_EXPECT_EQ(test, 1 << ADDR_A, datp->addr_unsynced);
--	KUNIT_EXPECT_EQ(test, 0, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 0, netdev_uc_count(netdev));
- 
- 	__hw_addr_flush(&cache);
- 	rtnl_unlock();
-@@ -433,7 +433,7 @@ static void dev_addr_test_snapshot_readd_during_unsync(struct kunit *test)
- 	 * stale entry and bumps refcount from 1 -> 2.  sync_cnt stays 1.
- 	 */
- 	KUNIT_EXPECT_EQ(test, 0, dev_uc_add(netdev, addr));
--	KUNIT_EXPECT_EQ(test, 1, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 1, netdev_uc_count(netdev));
- 
- 	/* Reconcile: ref sync_cnt=1 matches real sync_cnt=1, delta=-1
- 	 * applied. Result: sync_cnt=0, refcount=1 (fresh).
-@@ -444,7 +444,7 @@ static void dev_addr_test_snapshot_readd_during_unsync(struct kunit *test)
- 	netif_addr_unlock_bh(netdev);
- 
- 	/* Entry survives as fresh: needs re-sync to HW */
--	KUNIT_EXPECT_EQ(test, 1, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 1, netdev_uc_count(netdev));
- 	ha = list_first_entry(&netdev->uc.list, struct netdev_hw_addr, list);
- 	KUNIT_EXPECT_MEMEQ(test, ha->addr, addr, ETH_ALEN);
- 	KUNIT_EXPECT_EQ(test, 0, ha->sync_cnt);
-@@ -528,7 +528,7 @@ static void dev_addr_test_snapshot_add_and_remove(struct kunit *test)
- 	 * ADDR_B: refcount went from 2->1 via dev_uc_del (still present, stale)
- 	 * ADDR_C: sync propagated (sync_cnt=1, refcount=2)
- 	 */
--	KUNIT_EXPECT_EQ(test, 3, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 3, netdev_uc_count(netdev));
- 	netdev_hw_addr_list_for_each(ha, &netdev->uc) {
- 		u8 id = ha->addr[0];
- 
-@@ -553,7 +553,7 @@ static void dev_addr_test_snapshot_add_and_remove(struct kunit *test)
- 			   dev_addr_test_unsync);
- 	KUNIT_EXPECT_EQ(test, 0, datp->addr_synced);
- 	KUNIT_EXPECT_EQ(test, 1 << ADDR_B, datp->addr_unsynced);
--	KUNIT_EXPECT_EQ(test, 2, netdev->uc.count);
-+	KUNIT_EXPECT_EQ(test, 2, netdev_uc_count(netdev));
- 
- 	__hw_addr_flush(&cache);
- 	rtnl_unlock();
-diff --git a/net/mac80211/driver-ops.h b/net/mac80211/driver-ops.h
-index f1c0b87fddd5f..e80731c59ef50 100644
---- a/net/mac80211/driver-ops.h
-+++ b/net/mac80211/driver-ops.h
-@@ -187,7 +187,7 @@ static inline u64 drv_prepare_multicast(struct ieee80211_local *local,
- {
- 	u64 ret = 0;
- 
--	trace_drv_prepare_multicast(local, mc_list->count);
-+	trace_drv_prepare_multicast(local, netdev_hw_addr_list_count(mc_list));
- 
- 	if (local->ops->prepare_multicast)
- 		ret = local->ops->prepare_multicast(&local->hw, mc_list);
 -- 
 2.43.0
 
