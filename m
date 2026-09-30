@@ -1,66 +1,107 @@
-Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E007E445AFC;
-	Wed, 30 Sep 2026 07:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733132CCC5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751852; cv=none; b=HCDrlp1b/ofE4KoUae5fdyWhYzEaJ2F4nq3iBfpgrL6c5YK9E+5xAA0znlWveX4ClW/9dBcGT9piWmCS3tGw78HGHsghS+Nz0jS7D24ec3Vt8MQsRwv2BbACwyJaCVSc6zHVe819vN4+OFuYKK/QPafAdz10HP7WViS/Gjdrtvk=
+	t=1790751871; cv=none; b=Mt/LWti+rFndqJJa9m1yiSqfrJg1obvOg2GsfXvNDbo1lLXkCzs0sKeUU9MvGOfeTNSci7edmFRRwZOq7wb4b1mv0WdEm97XcbPxxai774K7E1r/PMTXG4huJ6ipgB6uBN5CmC9bffsI0NCsomIMXvcu9+hpZtOQ4psA9M8mi7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751852; c=relaxed/simple;
-	bh=Cm2/40osqJcIeeBGxlyJWWFCuIFIM+wGPhLTFCkARwc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WBsr2pK2WjjXcMTJoWvHuhzcH/tQqvTrjTi8vNMXiOwbH9ds1M1Ni68ReA35nyAZhOtRmKii/56mdlDfBGI5hJjeGcvI8fq6zxniioA0+KQmO+4DNmrY2U0qG3mHJhVcYp9IwjpPg+i3b/38TLOIuYznJa/c3Q6cM0G1d+4Nsfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1388332|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0553599-0.00509708-0.939543;FP=7278710166377978061|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jS1YStn_1790751828;
-Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jS1YStn_1790751828 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 30 Sep 2026 15:03:50 +0800
-Message-ID: <82811325-5386-4956-aff7-56da37d898aa@open-hieco.net>
-Date: Wed, 30 Sep 2026 15:03:48 +0800
+	s=arc-20240116; t=1790751871; c=relaxed/simple;
+	bh=yFAS9/v1M5fbag8LFxiryNj/dstnuUqvUFxvrR3AwQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gsycTNHFQzhSV1PCoKYwIZ0o6/e06gl/NXRdfedlMbvLvZM8V1yvwan7/2aFvnkSRgFHXpm7hbD3R2zflBqo0B4C1sbxtfMEtZnXGBpWtd3bdk+Rl90oqj6Ndv9YYE15XmMEBQ/z4I8f0QsBdkj8moSUxWGBfAmsyd5jA5FVTIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnTTUOBU; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnTTUOBU"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso20410585e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:04:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790751861; x=1791356661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fnSRLEDUbCFQeuJzEmlR0hd67GUctSzHNjgJH5Lw/K8=;
+        b=lnTTUOBU+jsn8hrSkkt4kxTHigXzJm9Q8hDlQrLdEHPwgcugKEqSCxDSEEsVM6Intq
+         GmnqHW/qF+w0zG4L3l7aXznXGXfsiirAt+AaveCPAP2RndVi2aYwV2o7BwhKOlXz8AUv
+         pTksh/g+nWUXwwvaBbD1bJ/YmPIxoOGY7wZbKP4v2XrPG2wtPLigtUiCizmR9SKFQTqZ
+         WxSvDAPmKrevkRJuV6FN7725pTXIiPRdZqdThYv3T5p5kmz+v023Iex64mGZKZIBANIW
+         uzetawdKfW+lvq53W11iHQEnq88CDlEMSuvRQ4mat0HSPINims5PD0tr2FEJfHKESWDP
+         qO2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790751861; x=1791356661;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fnSRLEDUbCFQeuJzEmlR0hd67GUctSzHNjgJH5Lw/K8=;
+        b=mi968eIwcNWwqd8ox7XTjCGdiJy71bFvE5dTflCKYu5HpturkZkUoLeGlybn2Wj8BL
+         1OfCiwc+oY4EqulYh3a2StpSBnjdEj9/FBaqKigHyaTBJK5wpYGVm3cob1S9aewZOyzL
+         nNzI60HGuSYr+urFfdUnaggcsakwRAA3m9rqf8zFwk0FhPXSyW9/uAduIrCqBoGPV6M9
+         QGgoPLiSdzq8TEUTLSFcrPdZk4AbQl8LeQy+kGG0cSTRpBU/Rqi9bf04KgpQOCWTesP/
+         aXgLeLRpUV9tigt7f2xfU1LHtr4BdWbN1zZl6FM5o0hvY9niNiGFLvhqf4Hkfq/d8T+/
+         fXQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5fRn8nIvTaI7DDGk3x5Dp+pAd9KRLYNMuvfVeb5y+S/7QwAD25RCZghrppXYtdrZ95ICzfhOUdJkv1rY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kr4v3WEzsmfhgc95du14j9tqS/vaoW22sz2uP6fSElGyAv47uN
+	gdtsiT+2nzHjVF5M52mC/LOMnq83+0nHRSSmxY2rsbGaD9TGcB//MCq9
+X-Gm-Gg: AYBFou09xRS4yeeCdQcCDpQ3jSDM4InETjchvCSDQUiy3n0gLck9sdjLEXplL8rJ7mB
+	PpIjVolanvyXypELwZODkBZ2+ex46S0oSOeM9NLZICd8h8J5UbF1c5IIroYpsu8ekjg9EcYNz19
+	+eH07l0kylDBnVboiyKgkmhKBR/NNX8hVlaFY4gAfbpyHgY/1emSapKvQYJmfX224QQRNChvQ29
+	OcKATt9AfiQSaB8WDMOkF4omh4HVwLF/sL5mUhEmKC10EBH5MFiqnSKbm0Az1pwXxYGPWfd6CFl
+	T9/2QEOSx59fYrKplwVgnhRWOj8qyljdRDb3Miu9ZW3bYDq7LF/36fLEnai1kJiBV/MaGzjKX5b
+	JdN4fDxQ/NAKgPhw9Nw8ppW6h60ARN60MqQWoAYCZI7WNytaEenDH4e1T4ekyw6r/Zk8whebPiJ
+	tE88qgvz3z6xAdqk/mYixBXUj5J+EL5G1MzGBmiukZi+3oZW3SC9gMFjQhf0fu72rKt7KRrKdWw
+	s8TpRO4P88wL6joBNO4hYOoRiV6NcswFD4mZkYuN2aprm0ah2ArNJgqSJ0bdKgt+g94b+zqugcr
+	qc+OegfdnBnPUXu/RE6zdqDlsF7Ak/x31qc1Nf8DqC1y6WDPjknnDn5yW5935q6uYQk15SDdqUz
+	o8a1cNa2Bcyy9nOzNJ089i9iKNhEOmccZ4fFfEmYcAr9pUY6FGObnyXEoqjmVtqaW/U1SI4nqNv
+	XksuxQ
+X-Received: by 2002:a05:600c:5391:b0:4a0:1559:bafd with SMTP id 5b1f17b1804b1-4a01aff068emr5650595e9.8.1790751860600;
+        Wed, 30 Sep 2026 00:04:20 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02949a5esm1515980f8f.4.2026.09.30.00.04.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:04:20 -0700 (PDT)
+Date: Wed, 30 Sep 2026 09:04:19 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, error27@gmail.com,
+ narcisaanamaria12@gmail.com
+Subject: Re: [PATCH 3/3] staging: iio: accel: adis16203: clean up register
+ definitions and drop redundant comments
+Message-ID: <20260930090419.000073f9@gmail.com>
+In-Reply-To: <20260929184900.39515-4-abdelnasserhussein11@gmail.com>
+References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
+	<20260929184900.39515-4-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/8] x86/hygon: Map CPU NodeIds to DF nodes
-To: Borislav Petkov <bp@alien8.de>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Pu Wen <puwen@hygon.cn>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Tony Luck <tony.luck@intel.com>, Clemens Ladisch <clemens@ladisch.de>,
- Guenter Roeck <linux@roeck-us.net>, x86@kernel.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921055603.25112-1-wanglin@open-hieco.net>
- <20260921055603.25112-3-wanglin@open-hieco.net>
- <20260930030004.GGarx7NIIToO-fWAww@fat_crate.local>
-Content-Language: en-US
-From: Lin Wang <wanglin@open-hieco.net>
-In-Reply-To: <20260930030004.GGarx7NIIToO-fWAww@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/30/2026 11:00 AM, Borislav Petkov wrote:
-> arch/x86/include/asm/hygon/node.h:81: * hygon_cpu_to_df_node() - Map CPU to dense DF CDD index
-> arch/x86/include/asm/hygon/node.h:95:int hygon_cpu_to_df_node(unsigned int cpu);
-> arch/x86/include/asm/hygon/node.h:138:static inline int hygon_cpu_to_df_node(unsigned int cpu)
-> arch/x86/kernel/hygon_node.c:586:int hygon_cpu_to_df_node(unsigned int cpu)
-> arch/x86/kernel/hygon_node.c:600:EXPORT_SYMBOL_GPL(hygon_cpu_to_df_node);
-> 
-> So why is this function in a header and exported to no one?
-> 
-> Pls export it only when you need it and until then, keep it in the .c file
-> only.
-Right, there is no caller yet. I'll remove the declaration and stub
-from node.h and the symbol export. I'll keep the translation code
-private to hygon_node.c until a consumer needs it.
+On Tue, 29 Sep 2026 21:49:00 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Thanks!
+> Drop redundant, single-line comments above register macros that provide
+> no additional value.
+> 
+> Vertically align the macro values with tabs to improve readability and
+> conform to standard kernel coding style.
+> 
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
 
-Lin
+This seems okay, at least the macros are named exactly like the registers
+in the datasheet... but I wonder what the others think about this.
+
+-- 
+Kind regards,
+Joshua Crofts
