@@ -1,253 +1,175 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBA65226B6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A942E522EEB;
+	Wed, 30 Sep 2026 21:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804627; cv=none; b=pvoB6qv+9V0nGdJ4GxcADbRj8eKL+eF3Yz0av+ywzExyl0DHHG2vIP6rbud8YkLLr8X/gEzZZKD/b5V3ksmpYLuNdHLYBNKX7EZ4OVLIAq5tAyjN8uJyHQtJ3+ZC+uDA32V9o56EVpkCOEP7W293LbvhuNUv4liygejzzZP72RU=
+	t=1790804629; cv=none; b=riRnBEfq1/r29vHrFzMi7VBjbPjghVmceiiAZOVT93QJGmvvwnfmfdBKmPQbFaRToTiGPx9FkdEm6IKK5GUReUrQK7j7Hs4omJa0Bc7sR8UuCjSfR7Is2LoKrZy+8EyoqQtA4qpFMP8sfWMovqgVuTkoN7aabmIzSkNGIkBCFlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804627; c=relaxed/simple;
-	bh=TpggfEsOSM87ssg324Bg9QqL8idBLTkX/Dwp4MAsSaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gm6bkhAjTYb5h+O1unM2fjSqtBZWOl++YvBqHrRXOqPEeoPyZSRlQOUJS0a27Rpb1337Gxn+qmoFvhebF8Ml7YY8k0eOyrI11QviAwvMTc/iWYV8qrCwW9DiPpQCuqfKEqi2Hi7wBomq6IOHO2lwwMTdqN6yJRUWpp7Fh0aFspA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ch0KN6Ze; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790804629; c=relaxed/simple;
+	bh=LcPOw36suuF+LxeNDiUp1b0eBkMSmoFooFyJMxCh9F4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DWfnUMdg1NZI2cnXweJeLcq24w5zHKGHIOZUYTwTxm6otSaFDLMW+M62p2etp6kr4qlPzcxFXGnc5WdD+RUqWg+Oa7pe7Eoo1jMhyUTqIPZBTpZRny+pHQQr1BHDwKs32JrANgoy0X42LYptkXmN1u1A1ikoyzIJUcv/kQwT6wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2sTokHF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ch0KN6Ze"
-Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc4c3304833so2306019a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:43:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790804625; x=1791409425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WWpAOoNXU5mrPZ0VP2BejHIuA0ZjYbHouz5m88LkEDs=;
-        b=ch0KN6Ze6Qv2c9whmyxoeFS13FA8okxsNaOxVIBszyGS+hRiLnrgk9Gycl5DRma1s6
-         lA5AaorUVDmWyMUetMYCoVZXRo+P377+xy0XLdEbNnNg91jndQBh4EySW3VTO8qbHFCL
-         i4wrp132/A4CXE2MJxlEiBaJb3G3adg+wuTGdVKi5xqmptkWbf/ec1Gi+smKf+b5vzsq
-         kR/hwzSq3QeXDHib3GtXme57dVGW/kkDoskrGMWO06qGCTu/GapcADNnzoHxm2A6yxHX
-         J+LJcpzNmnEN8X+YDdAZIgLO6pytvMlIrLYjb+Imr0nZofE6YDxKxt9YNHwBYE/4Xldg
-         269Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790804625; x=1791409425;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WWpAOoNXU5mrPZ0VP2BejHIuA0ZjYbHouz5m88LkEDs=;
-        b=Cr55ZjSh79TDg83XUkZA4UJl9IFwkdUY8OIkDR4m18rpS90aHV+KbPh7puN/o+zGZu
-         e288wSzboTJ0VaZrEvEUEMW5wTYCLiD3WTrrcCSki8+RVRhkCzehpP9irCZdorfyfPrX
-         OW0a+XL6+o6OTjl/9HTxO6PhM/eZO/J98pk5iFgEpZNiExoEMfiM7U6Qh6znI0iBAkMq
-         jhC6jGhiDZSsKq1TlWhLDo/V8CbV3TuLE56msGvqzpeQ8uyCmiKJRPzi8glEC/GifxxT
-         50T2st+lig7mZ5R3XFvttQaAFewZrnoTsrBKi1N3AyCeJUU9BpAEnE5ifUCtJL/IrwG9
-         Kyfw==
-X-Gm-Message-State: AFq9FYKx+Cqwen4Vx38zv6XF6r5TEpkkZIkGbBV2nfZOEB/3J5D1PF6z
-	dfiB6yODV0/3bxWMx1h0/yEJTCmkrUhMaOm0lWiai7+ZalZDDXF9yXgJ+mIV8DY8
-X-Gm-Gg: AYBFou1CoRQAqmTrFttST8wgStuePFdRPlsu12jwyL/DaYP99zdBg9hkhaB3gofeRnS
-	O+6SdvTjPuFoMqndrDJYcP8oVliX4kkqBkA7B9j5PxwYREshNx2p2131FAWlyg3w/gSTs748//P
-	oHauvXo6k8/+IfnX7j1kMhiCImUx09wQ7MJvSwFbhHHpBzShBB9MPQAeLFWDQcFFZ7AAqbxYgR2
-	N696PVPmMhJ+k+GhJe5p7E2SBTvdderjdJypGzOpPqB64StS3JvNJXwNp4MHInn61c0OPQbNCT0
-	JUqpmr1g4WrxuZJyqwjyzg2EjAyoRNCH9uYD+F1C+UjsoA2HlTdKnlrCcMNF1ZYpKLtArKNk/jJ
-	WYzSKWPDv1Mdfpkx2OhPhrK7b9O2KxAXKNLALnZiSl/cK3Gvxh1JL8siVlm2eQWX8ofpQ0KYLHE
-	MPl8iuqiXG1Mm4GYwSE3ASyle/O/iSPxePlA4pLybgIj/4wore8a390vsXUO3jn5nVP9qu4R5ZM
-	lwC1Q==
-X-Received: by 2002:a17:90b:5825:b0:3a0:aed7:7b39 with SMTP id 98e67ed59e1d1-3a4d19c9159mr2296004a91.24.1790804625199;
-        Wed, 30 Sep 2026 14:43:45 -0700 (PDT)
-Received: from TC-LAPTOP.lan ([99.30.92.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cbd1dsm1060539a91.16.2026.09.30.14.43.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 14:43:44 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: hansg@kernel.org,
-	lee@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	dan.scally@ideasonboard.com,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	dmanresa@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v11 4/9] platform/x86: int3472: tps68470: move Windows MFD setup below the device-type switch
-Date: Wed, 30 Sep 2026 14:43:16 -0700
-Message-ID: <20260930214321.600863-5-tchatard@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930214321.600863-1-tchatard@gmail.com>
-References: <20260930214321.600863-1-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2sTokHF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9828D1F00898;
+	Wed, 30 Sep 2026 21:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804627;
+	bh=YftQHoQAyYBcPvla/2ZMouwzid1zAPrZIMxlv7Wz66o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V2sTokHFckaW4oHyDb8RBF0Cpp9b2fP0ExQbkGZWWTcd7THxFl9I+zVCVDem7/YUj
+	 89TPuly4jzqd+UMGgxCO8ndZgyJ0wJB79PDUx38/eQEI0qmqZC6uv+bh6QFKqPLxvq
+	 sWuS5GrEDKLiO6yL63Z+HkzBNTladmm7IHAGDaAZu2pplxAwNy666uzPTLEnuvInOS
+	 zQyiOrYG1ZJ/DaG9SuSwTVJFJIaIuuxvshdlBcgB1Dqw48v4ChkRlZag5UylEXsQzt
+	 iSaSTt96tD5ihPUP0LS4CIsdL4Lqd/YjB6KXoa6SOh/WcR+fYxGC8uNVptoQgdTjzg
+	 I8cMG8/udVwsw==
+Subject:
+ Re: [PATCH net 1/2] netpoll: use a raw lock for the deferred transmit queue
+From: netdev-bot+sashiko@kernel.org
+To: kmehltretter@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, rostedt@goodmis.org, stephen@networkplumber.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 21:43:46 +0000
+Message-ID: <179080462613.434549.13889756869054930420@kernel.org>
+In-Reply-To: <20260928064239.32456-2-kmehltretter@gmail.com>
+References: <20260928064239.32456-2-kmehltretter@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Windows path looks up the board data, builds the tps68470-clk
-platform data and registers the MFD cells; none of this is needed for the
-ChromeOS path, which registers its own cells. Move that handling out of
-the switch and let the ChromeOS case return directly, so the Windows-only
-work is no longer done for ChromeOS and the function reads top to bottom.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-While moving the code, use a local struct device *dev to shorten the many
-&client->dev references, and return -ENODATA (rather than -ENODEV) when no
-board data matches this machine, to distinguish it from a missing device.
+Low priority / nit picks for your consideration:
 
-No functional change for either path.
+- [Low] At this commit, queue_process() in net/core/netpoll.c still calls
+  HARD_TX_LOCK(dev, txq, smp_processor_id()) (line 169) right after…
+- [Low] The patch adds a raw_spin_lock_irqsave(&npinfo->txq_lock) to
+  every netpoll send, through netpoll_txq_empty()…
 
-Assisted-by: Claude Code:claude-opus-4-8
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
----
- drivers/platform/x86/intel/int3472/tps68470.c | 99 ++++++++++---------
- 1 file changed, 51 insertions(+), 48 deletions(-)
+--
 
-diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
-index 35909a683..35fa77eb3 100644
---- a/drivers/platform/x86/intel/int3472/tps68470.c
-+++ b/drivers/platform/x86/intel/int3472/tps68470.c
-@@ -142,85 +142,88 @@ skl_int3472_fill_clk_pdata(struct device *dev, struct tps68470_clk_platform_data
- 
- static int skl_int3472_tps68470_probe(struct i2c_client *client)
- {
--	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
- 	const struct int3472_tps68470_board_data *board_data;
- 	struct tps68470_clk_platform_data *clk_pdata;
-+	struct acpi_device *adev;
- 	struct mfd_cell *cells;
- 	struct regmap *regmap;
-+	struct device *dev;
- 	int n_consumers;
- 	int device_type;
- 	unsigned int i;
- 	int ret;
- 
-+	dev = &client->dev;
-+	adev = ACPI_COMPANION(dev);
- 	if (!adev)
- 		return -ENODEV;
- 
--	n_consumers = skl_int3472_fill_clk_pdata(&client->dev, &clk_pdata);
--	if (n_consumers < 0)
--		return n_consumers;
--
- 	regmap = devm_regmap_init_i2c(client, &tps68470_regmap_config);
- 	if (IS_ERR(regmap)) {
--		dev_err(&client->dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
-+		dev_err(dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
- 		return PTR_ERR(regmap);
- 	}
- 
- 	i2c_set_clientdata(client, regmap);
- 
--	ret = tps68470_chip_init(&client->dev, regmap);
-+	ret = tps68470_chip_init(dev, regmap);
- 	if (ret < 0) {
--		dev_err(&client->dev, "TPS68470 init error %d\n", ret);
-+		dev_err(dev, "TPS68470 init error %d\n", ret);
- 		return ret;
- 	}
- 
- 	device_type = skl_int3472_tps68470_calc_type(adev);
- 	switch (device_type) {
- 	case DESIGNED_FOR_WINDOWS:
--		board_data = int3472_tps68470_get_board_data(dev_name(&client->dev));
--		if (!board_data)
--			return dev_err_probe(&client->dev, -ENODEV, "No board-data found for this model\n");
--
--		cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
--		if (!cells)
--			return -ENOMEM;
-+		break;
-+	case DESIGNED_FOR_CHROMEOS:
-+		return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+					    tps68470_cros, ARRAY_SIZE(tps68470_cros),
-+					    NULL, 0, NULL);
-+	default:
-+		dev_err(dev, "Failed to add MFD devices\n");
-+		return device_type;
-+	}
- 
--		/*
--		 * The order of the cells matters here! The clk must be first
--		 * because the regulator depends on it. The gpios must be last,
--		 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
--		 * the clk + regulators must be ready when this happens.
--		 */
--		cells[0].name = "tps68470-clk";
--		cells[0].platform_data = clk_pdata;
--		cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
--		cells[1].name = "tps68470-regulator";
--		cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
--		cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
--		cells[2].name = "tps68470-gpio";
--		cells[2].swnode = board_data->tps68470_gpio_swnode;
-+	board_data = int3472_tps68470_get_board_data(dev_name(dev));
-+	if (!board_data)
-+		return dev_err_probe(dev, -ENODATA,
-+				     "No board-data found for this model\n");
- 
--		for (i = 0; i < board_data->n_gpiod_lookups; i++)
--			gpiod_add_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
-+	n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
-+	if (n_consumers < 0)
-+		return n_consumers;
- 
--		ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
--					   cells, TPS68470_WIN_MFD_CELL_COUNT,
--					   NULL, 0, NULL);
--		kfree(cells);
-+	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
-+	if (!cells)
-+		return -ENOMEM;
- 
--		if (ret) {
--			for (i = 0; i < board_data->n_gpiod_lookups; i++)
--				gpiod_remove_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
--		}
-+	/*
-+	 * The order of the cells matters here! The clk must be first
-+	 * because the regulator depends on it. The gpios must be last,
-+	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
-+	 * the clk + regulators must be ready when this happens.
-+	 */
-+	cells[0].name = "tps68470-clk";
-+	cells[0].platform_data = clk_pdata;
-+	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
-+	cells[1].name = "tps68470-regulator";
-+	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
-+	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
-+	cells[2].name = "tps68470-gpio";
-+	cells[2].swnode = board_data->tps68470_gpio_swnode;
-+
-+	for (i = 0; i < board_data->n_gpiod_lookups; i++)
-+		gpiod_add_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
-+
-+	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+				   cells, TPS68470_WIN_MFD_CELL_COUNT,
-+				   NULL, 0, NULL);
-+	kfree(cells);
- 
--		break;
--	case DESIGNED_FOR_CHROMEOS:
--		ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
--					   tps68470_cros, ARRAY_SIZE(tps68470_cros),
--					   NULL, 0, NULL);
--		break;
--	default:
--		dev_err(&client->dev, "Failed to add MFD devices\n");
--		return device_type;
-+	if (ret) {
-+		for (i = 0; i < board_data->n_gpiod_lookups; i++)
-+			gpiod_remove_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
- 	}
- 
- 	/*
+netpoll: use a raw lock for the deferred transmit queue
+
+This patch adds a raw spinlock, txq_lock, to struct netpoll_info. All
+accesses to npinfo->txq now go through small helpers that take this lock
+and use the unlocked sk_buff_head operations, so the queue can be touched
+with hard IRQs disabled on PREEMPT_RT. On cleanup, the queue is spliced
+to a private list before its skbs are freed.
+
+> diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+> index fe1e0cda5d6b..e0cfcb05468e 100644
+> --- a/net/core/netpoll.c
+> +++ b/net/core/netpoll.c
+> @@ -79,6 +79,68 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
+>  	return status;
+>  }
+>  
+> +/*
+> + * Transmit paths can access txq with hard IRQs disabled. Use a raw lock
+> + * because the skb queue lock may sleep on PREEMPT_RT.
+> + */
+> +static bool netpoll_txq_empty(struct netpoll_info *npinfo)
+> +{
+> +	unsigned long flags;
+> +	bool empty;
+> +
+> +	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
+> +	empty = skb_queue_empty(&npinfo->txq);
+> +	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
+> +
+> +	return empty;
+> +}
+
+[Severity: Low]
+Is this lock needed here? Before the patch, __netpoll_send_skb() checked
+the queue without a lock:
+
+    if (skb_queue_len(&npinfo->txq) == 0 && !netpoll_owner_active(dev)) {
+
+and the direct transmit fast path took no txq lock at all. With this
+patch, every netpoll send takes txq_lock.
+
+The empty check and the later netpoll_txq_queue_tail() are separate
+critical sections, so the result of the check is only advisory in either
+case. The writers (__skb_insert() and __skb_unlink()) already use
+WRITE_ONCE().
+
+Would skb_queue_empty_lockless() be enough here?
+
+The new lock acquisition can also hang netconsole's atomic panic path.
+Netconsole's write_atomic (CON_NBCON_ATOMIC_UNSAFE) is only called from
+nbcon_atomic_flush_unsafe() at the end of vpanic(). That final flush
+could spin forever on txq_lock in two cases:
+
+  - the panic runs on a CPU that an NMI interrupted while it held
+    txq_lock in netpoll_txq_dequeue(), netpoll_txq_queue_head() or
+    netpoll_txq_queue_tail()
+
+  - another CPU was NMI-stopped inside one of those critical sections,
+    for example by crash_smp_send_stop() on x86 with
+    crash_kexec_post_notifiers set and no kdump image loaded
+
+In either case the panic log would not make it out over netconsole.
+
+This does not block the panic_timeout reboot. In vpanic(),
+emergency_restart() runs before nbcon_atomic_flush_unsafe(), so the hang
+can only happen with panic_timeout == 0. The same atomic path already
+takes other locks that are not NMI-safe: slab locks from
+alloc_skb(GFP_ATOMIC), skb_dequeue() on nt->skb_pool, and driver locks
+through netpoll_poll_dev().
+
+[ ... ]
+
+> @@ -107,7 +169,7 @@ static void queue_process(struct work_struct *work)
+>  		HARD_TX_LOCK(dev, txq, smp_processor_id());
+>  		if (netif_xmit_frozen_or_stopped(txq) ||
+>  		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
+> -			skb_queue_head(&npinfo->txq, skb);
+> +			netpoll_txq_queue_head(npinfo, skb);
+>  			HARD_TX_UNLOCK(dev, txq);
+>  			local_irq_restore(flags);
+
+[Severity: Low]
+The commit message says:
+
+    The delayed transmit worker has the same problem when it requeues a busy
+    skb with skb_queue_head() after disabling interrupts.
+
+Does the worker actually reach this requeue on PREEMPT_RT? queue_process()
+calls local_irq_save() and then HARD_TX_LOCK() before the requeue. For
+devices without lltx, that becomes:
+
+queue_process()
+  local_irq_save(flags)
+  HARD_TX_LOCK(dev, txq, smp_processor_id())
+    __netif_tx_lock()
+      spin_lock(&txq->_xmit_lock)
+
+On PREEMPT_RT this spin_lock() is rt_spin_lock() with IRQs disabled. So
+the worker would seem to splat on the tx lock before it gets to
+netpoll_txq_queue_head().
+
+The next commit in the series, "netpoll: avoid blocking on the transmit
+lock in queue_process", replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK()
+and requeues on failure. The final state of the series is fine, and this
+patch is no worse than the baseline.
+
+Could the commit message say that the worker hits HARD_TX_LOCK() first,
+and that the follow-up patch fixes that?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928064239.32456-1-kmehltretter%40gmail.com
