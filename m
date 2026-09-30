@@ -1,98 +1,77 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9C44D37AF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F1451B163
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793553; cv=none; b=oiRfHuDpKkBLt/lOhlHoBH+sLkXg9UrQoo5WSmnIH37cOlOPi27RRrUhx3puYsOT9pbR4Cz6uVlrM93+l1MbHEjTfxeWEVkfidLAc9MMd8Y+R58eJbvO/Rbi2rf/wWdpMQDJU1PWOatsvXpd7TNo8WIzYPmCEvTrEsaCLxcZkRI=
+	t=1790793564; cv=none; b=IGQoTYZ+wHHUL1PPBtCjvSf+S5G30O6qcJVmgllmLL/2TOULiEP27aDmLLbfW4A1WaXOlG/Ktpx7J9oGHoVe4mVJg3Ra3GWhwSNpMjZIedAhpssfk0wLRAMuUG8GF9Ykxb6O5JLLxPwyPrNzzIhekWmDfJs3Tifgt2zWMS3ffbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793553; c=relaxed/simple;
-	bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oZxSNtPKQ74cJ92K+94IiOeRsRJt1eXfs1S5TdUaLgwyMw8asr7uueQxmQsixmijdSuFaLDSvusN4TLITRg1FxMeBvZHchwGXDb5nAMZ+/97WJX5RY+gO1dg94/4VPWX7FuVXsHMJpwqCPFTwBkDGG9rKvL4B/O7JwWFltlPIcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Poq8gseG; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790793564; c=relaxed/simple;
+	bh=BOpp6DRP7KQqQA59TF7zhVWFL4ApPAzbS6wEP9TMK1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m29KAYaKg/z3LLLNDPNnOX9cLinyOi64zibIa+V4LTpHctcqbMp5fY7r6/MaWIVL0FTDlK998oi8zQGIZBcFp18wZwQVwNsu1nQsj8goHhl96wlKRQqbvGY6NhSWPwNKRl8yQNpKr+QMSxAPlXnLgmKmUc+81SV4pERgMAHaQEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVUsn0Me; arc=none smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Poq8gseG"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so3291297a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:39:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVUsn0Me"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba40cb7246so704209e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:39:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793552; x=1791398352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
-        b=Poq8gseGD8LaGij0nigS9Y9IHqBWyEZ4F30dzELv7igsqx24OqcINSBUy3F3jACavz
-         OHFnvTkS7vmGF/t0AZMZIueGqFNux23GZWE7LCi/7ALwBMkN74TWPoEBZNAy1m+z4H/v
-         0QaYi4oT52vMetNmNfADenbxpMZDXAVmR5dowevZ34s3hvX+I1WSSslpzyXAqVzIpkFD
-         5+kMRs5FQjNFFxvyYRSHlYajMITtRFJOTPzH02e6+YKVOTMeNXep4aJE/iuu8FDF1/zw
-         pEU/0ARNlA0OzyzHVEYcTIZ/WMWVJm8M5iVeA0LWAa77MLqKa1nvtmlLwlDWYs8aDMnA
-         beMQ==
+        d=gmail.com; s=20251104; t=1790793561; x=1791398361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ToqTunoRW+HAQtTGFMTKEaJX6dglQl5RR6Nhjpbaiso=;
+        b=DVUsn0MeCRVwFs3HsO0EzcQgRInH4ICQO1D1nmrDtmOzTQkh7u49SbwDufkDPf9KHw
+         52Mx6mhUADWZI6tFPBKd+WFcyOGqHaxoNpOTPAKVqY0Oppj7Z9IL5caRsgnH5JrBBC82
+         ARtibXjXQCnnRt7DowEM5xFZCFIdAkQMNsXbmM/91a+WZF5h3lWOKFkEDzD4i4bpaPXH
+         JqsgF72SgHVWBJtiHAYprG2/xtM2QdtvW2CDhX1+ncBU4Rdd/73k6H/PHFRyZOIQwr+z
+         xwPL+OIs+A9q7LCvxUHlemmRFbEDT1WtpS7FOqbs2/Urb2C684tc681j6eS0MrRpkma4
+         veIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793552; x=1791398352;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kFAHzsauXPIyCr3E+dyQQ6Cgg9yLC/fJTOD1fB8VlVE=;
-        b=uIhwJZxPUMcGOqhhujOuAK4AhCiaCN8cCycC4p1u230rsf9temHEOIcQKGRl1Uae56
-         hzx3kJzL1vC2zsL1VAse0IAUFVDpZii48CtkuiRZR+/WSinhFvzY34OqDeMY+sXx9kOQ
-         Y9jOZCPR3yFFWl6N2RBWBSmG9NTCLEqgkU1uWSxXfuVyVXfzVpKrm74lFp0tDoWNKtAV
-         jZIf1S3RU1e1UD3LA3gNlkpj0FKxAMPl82mt/Fhu06GoGaxnM1NjEE1Clwr74R7JVn/g
-         HTXhDPutZ1oAcNNw8OenIZXG0R50P3VUrsKFjeCslW1oNh1FyOSDvbS7a2LBizonnYf8
-         2sIg==
-X-Forwarded-Encrypted: i=1; AKwUvByVM/0MW2/WwaysrR3dw54GAgZ9TuZabKgmHtspoJ7wzMdsvs/P+GOYcPvntpuMjhoB9UBa0Ay7IbuzRu8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6p0zHMfXOSgHMrDtcx851ViwgwPgJ5iesIVE1Q5UYoOs/sAJZ
-	O86NtZOTg3qJtsLvL3x0Ol1bOZT/z+wtUyx2IfN99Echg27S3Da8gxN1
-X-Gm-Gg: AYBFou2UFARfIgM6V5as3PUeiaRfYmct5dJGqU64t1t6AX/VYNLKp48xt1U2w1uDr6J
-	G5oKSvaLtFEf3iYDbH9uE6mNAHJow14BBvyo8EL1W3yZRwVJppxPM7TPymFZT/73yhwl0X/e6Vy
-	s7Bn/DlM6CX+ViIBT6faMK7TaqOWeKuhINkheet+vluT0CiFfaYZ3A0e94csyKo1w8graYIqnFJ
-	93kRevR/TaJXJNwM4yvNzpYP84sxJDXrjppaBI7P3H5RXNFnvWXOmilgTB0H0RuIFbuVccA4Vsy
-	8RDZRuZTrpeTw+Dz9KIFYLxfVNo7QmaoA21vKDLDC/Yn2HDdQGmf4+uYP29MtPlGRwvlb4On+UE
-	dfHR4fffhkbofCaJPqbSsfmLdB5TG2zS45xeUWVfqOczszkO7xHtAl05lofcRAWfw3HNw3MDmTs
-	HEokzZu8E6XGWS6zylryi2GTRUV7Qywphi6g2SpYi4jlv+tprNQwtV3/6CjS/XLSEqcozKp4Bor
-	HT+qvzHVCd6buY6odWnG5MiT5tXVPmsBk/R7TpSzmMFh6o+6YeyvLXBOLgE90s+DLrPlQAVo+P0
-	lI/tYikEKqS1XAgbhVq/mcbdL9knxWe4mvdq
-X-Received: by 2002:a17:90b:48cc:b0:3a4:c18c:b894 with SMTP id 98e67ed59e1d1-3a4d18f52d7mr1859734a91.52.1790793551779;
-        Wed, 30 Sep 2026 11:39:11 -0700 (PDT)
-Received: from rahuls-x2elite ([157.51.37.69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4419ff9sm532916a91.9.2026.09.30.11.39.00
+        d=1e100.net; s=20260707; t=1790793561; x=1791398361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ToqTunoRW+HAQtTGFMTKEaJX6dglQl5RR6Nhjpbaiso=;
+        b=z8/TzJ0XmNVGGFCZPEAgriLqveXfAgFxDHm+qu+MyrtPxl73dU/kNg6AFO11uYEJ+R
+         VHnt2iL/EMIyu1gIfcfdKC3jJujPngTr7LBQ+Srvda4QL8qWk9aJ/eNN/lIx0YGPfv8z
+         awu6a4Im3D/JOiVlFn+ZePUmBCC+nx2HOQ3qBHj3+PnzdTgdl7JS0NhdpL6jwiiiY5Mb
+         P06Dt1vP902NrWgLHDlkE5EjAvpOfniER0eA6q76BIH7Z5t54TYiRelOYzsFyDKVtRxy
+         /NF4IoME8lkDbgqn9iYvu2RDFWBd48ekX8LOhlT95Tpv866oyfqxP9sldPQDwL0MUq90
+         KC1A==
+X-Forwarded-Encrypted: i=1; AKwUvBy3frVFi2Soe4ZbrehLFTcInm/I8NPndrNjJeJ3YEPC2/FumW6KWrfB78ZQxrgF20DFxgPHAPy/vMrGT+k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJq5I5owpkBiJOq8KOYjbyOVl/inqYHYK5bCP857vcNVh2QQOPH
+	UBJWH3nmsCBn2xzfajDmxItvZdN/Z4WhEiHVf7X/yj7vOFM3CVYG6uYroc4NEnMO
+X-Gm-Gg: AYBFou2nyBeSCouAeKIPbOZmEp11UZdczQkMycRTYW7oy5558hwsIChHejqN4USql2M
+	gTSPkEjF3c5+z2ksA80D4KoWF06/4cC9Z1NRBMHcvnO3uDGj75nLA8FKV/wMBW9yk3jGZgdYDuu
+	Hpgbs2Ds8ER1IQ4QcdpcwZaruSH46pJswb+bhShfS6gWThZ8shDc9jPHML8ybqiFSMCi38/+J5V
+	kYkyGJ4S3EVBruU+KRCwg4bcElIG20n4Y1AFROUZVOCtDTidC7fdHG5BJM9OIG290B46VEkywgk
+	WtbC5AEutDQw8lYvw2+yynR4vPMR5Qm6+DUvHdH/ZkZVZlrpmrzUQ9hTioUg0ZOZAw49uCRzRTU
+	pnj8nNIIi4zE4sxu3ucxngwiydw1sI5MJRc4xyd1rcHuk+gwFlMlQs8+ij8ey+IBBAWm++kXoyq
+	i4Rlbx9AjVZadW81PL0cfBu0qvZo31OJE7vi8sgkGxcsgLTC6PO5+V+4vpd6Gcju/hJa+xknaco
+	ScBdJZ5ocdzY7vEHTKmfCXbtvsHfuoaogXrul/NKl+EmQ==
+X-Received: by 2002:a05:6512:244f:b0:5ba:4372:9250 with SMTP id 2adb3069b0e04-5ba4372938emr104711e87.4.1790793560430;
+        Wed, 30 Sep 2026 11:39:20 -0700 (PDT)
+Received: from dau-home-pc.. ([212.35.169.181])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbb999sm156593e87.62.2026.09.30.11.39.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:39:11 -0700 (PDT)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH 3/5] drm/msm/a8xx: Add Mahua GPU support
-Date: Thu,  1 Oct 2026 00:08:54 +0530
-Message-ID: <20260930183855.1184-1-theflyingrahul@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com> <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
+        Wed, 30 Sep 2026 11:39:19 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v5 00/14] tunnels: add core and gre drop reasons
+Date: Wed, 30 Sep 2026 21:38:56 +0300
+Message-ID: <20260930183910.3151873-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,22 +80,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 9/25/2026 2:44 AM, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
->
-> Add support for Adreno X2-85 GPU present in Mahua SoC. This GPU is a
-> smaller version of Glymur GPU with fewer slices and smaller internal
-> memories, but shares the same register layout.
+Only vxlan reports drop reasons among the tunnel drivers today. The ones
+converted here free what they drop with kfree_skb(), which drop_monitor
+and the skb:kfree_skb tracepoint do report, but as NOT_SPECIFIED, with
+the call site as the only hint at which check failed. That hint does not
+go far: all the failures of ip_tunnel_rcv() end at one call site, and so
+do nearly all of those of each transmit function. The call site is not a
+stable key either: its offset moves with the compiler, inlining and the
+configuration, and the debug info that maps it back to a source line
+only serves that one build, as the line moves with any change to the
+file. So a filter on it has to follow every rebuild. The reason does not
+move with the build: NET_DM_ATTR_REASON reports it, and a BPF program
+can match it by name. The device counters group the failures coarsely
+too: rx_errors and tx_errors each lump together unrelated conditions.
 
-Tested with this patch and patch 5 on an HP OmniBook 5 16 (Snapdragon
-X2 Elite X2E-84-100): the GPU comes up as chip ID 0x44060030 with
-15.75 MB of GMEM and the GMU firmware loaded, and with Mesa main GNOME
-Shell and glmark2 render on the GPU without corruption.
+This series covers the generic paths shared by ipip, sit, gre and their
+IPv6 counterparts, plus the GRE and ip6tnl specific code, in both
+directions; the code specific to ipip and sit keeps kfree_skb(). So does
+the tunnel4 and tunnel6 demux, shared with the xfrm tunnels, which frees
+the packets that no ipip, sit or ip6tnl device takes. ip6tnl is in
+because its transmit handler goes through ip6_tnl_xmit(), which changes
+along with ip6_gre, and its receive side is converted to match. The
+series also makes two vxlan reasons generic, so that GRE reports the
+same ones.
 
-On qcom-next the a8xx_gpu.c hunk needs a one-line rebase:
-a8xx_set_hwcg() there also checks adreno_is_a830().
+Patch 1 renames VXLAN_INVALID_HDR and VXLAN_VNI_NOT_FOUND to
+TUNNEL_INVALID_HDR and TUNNEL_NOT_FOUND. Their values stay the same;
+the names vxlan drops are reported with change.
 
-Tested-by: Rahul Pon <theflyingrahul@gmail.com> # HP OmniBook 5 16 (X2E-84-100)
+Patch 2 makes __iptunnel_pull_header() and iptunnel_pull_header() return
+a drop reason. Until now they returned -ENOMEM for any failure, so a
+packet too short to pull looked like an allocation failure: vxlan
+reports it as NOMEM, and ip6_gre would do the same for a packet from any
+sender whose inner Ethernet header or WCCPv2 word is cut short, since it
+pulls the header before the tunnel lookup. Patch 3 has vxlan report the
+reason these functions now return.
 
-Thanks,
-Rahul
+Patches 4-5 convert the generic receive paths, ip_tunnel_rcv() and
+__ip6_tnl_rcv(); patch 5 also converts ipxip6_rcv(), the ip6tnl handler
+in front of the latter. Two reasons are added:
+
+  TUNNEL_OPT_MISMATCH  the options a packet carries do not match the
+                       tunnel configuration
+  TUNNEL_OLD_SEQ       the sequence number is older than the one the
+                       tunnel expects, like TCP_OLD_SEQUENCE for TCP
+
+The second one has a failure mode worth naming: when a peer reboots, its
+outgoing sequence number restarts at zero, and the receiver can drop
+everything until the peer's numbers get past the last one the receiver
+accepted. By the counters alone that looks like a misconfiguration: a
+packet without the sequence number option bumps the same rx_fifo_errors.
+
+Patches 6-8 convert the GRE specific receive path. gre_parse_header()
+returns -EINVAL for every failure, and the only detail its callers could
+get was a csum_err flag that none of them read: both ip_gre and ip6_gre
+declared it, passed it in and ignored it. gre_parse_header() now returns
+a drop reason instead, and its callers take the header length from
+tpi->hdr_len. The receive helpers below gre_rcv() return the drop reason
+instead of a PACKET_* code, and the PACKET_* codes go away. The GRE
+receive paths report TUNNEL_INVALID_HDR and TUNNEL_NOT_FOUND, the length
+checks report what pskb_may_pull_reason() returns, and one reason is
+added, GRE_CSUM, like TCP_CSUM and UDP_CSUM.
+
+Patches 9-13 convert the transmit side of ip_tunnel, ip_gre, ip6_tunnel
+and ip6_gre. One reason is added, TUNNEL_ENCAP, for a failure to build
+the encapsulation header. Patch 11 is a small preparation:
+prepare_ip6gre_xmit_other() cannot fail, so it is made void rather than
+given a drop reason for a branch that never runs. ip6_tnl_xmit() leaves
+freeing the packet to its callers, so patch 12 makes it and the helpers
+between it and the ndo_start_xmit handlers return the drop reason
+instead of an error, and patch 13 converts the ip6_gre handlers. Patch
+14 has vxlan report a route that goes out of the vxlan device itself as
+RECURSION_LIMIT, as ip_tunnel and ip6_tunnel now do, instead of
+IP_OUTNOROUTES.
+
+The transmit side has its own case worth naming: tnl_update_pmtu()
+returns -E2BIG after it has already sent the ICMP error back, which is
+path MTU discovery working exactly as intended, yet among the device
+counters the drop only bumps tx_errors, like a failed encapsulation and
+a few other failures do. If the ICMP error never reaches the sender,
+the resulting MTU black hole cannot be told from those by the device
+counters; the reason tells them apart.
+
+Drop reasons on transmit are not new: vxlan already reports several from
+its xmit path, and ip_tunnel_core.c reports RECURSION_LIMIT. They are
+most useful for forwarded packets, which is what a tunnel gateway mostly
+transmits: the sender is another host, which gets an ICMP error for only
+some of these failures, so the drop has to be explained on the gateway.
+
+The reason variable follows one rule in the functions this series
+converts that have a drop label: it is initialized to
+SKB_DROP_REASON_NOT_SPECIFIED unless the first statement of the function
+sets it, and where a helper stores its result in it, the drop label
+falls back to SKB_DROP_REASON_NOT_SPECIFIED, as in vxlan_rcv(). Together
+they keep a drop without a reason of its own, including one that a later
+change adds, from freeing a packet with SKB_NOT_DROPPED_YET. Every drop
+path of the series sets a reason, except the looped back multicast check
+in ip_gre's gre_rcv().
+
+Changes since v4:
+- new patch 1 renames VXLAN_INVALID_HDR and VXLAN_VNI_NOT_FOUND to
+  TUNNEL_INVALID_HDR and TUNNEL_NOT_FOUND, and GRE reports those instead
+  of the GRE_INVALID_HDR and GRE_TUNNEL_NOT_FOUND added by v4 (Ido)
+- the TNL_* reasons are renamed to TUNNEL_*, to match
+- the length checks report what pskb_may_pull_reason() returns instead
+  of HDR_TRUNC; the WCCP check, which uses skb_header_pointer(), reports
+  PKT_TOO_SMALL (Ido)
+- gre_rcv() in the demux reports TUNNEL_INVALID_HDR instead of
+  UNHANDLED_PROTO for a version it cannot dispatch (Ido)
+- __iptunnel_pull_header() and iptunnel_pull_header() return the drop
+  reason themselves, instead of the __iptunnel_pull_header_reason() v4
+  added; the three callers that tested the result with "< 0" test for a
+  non-zero value (Ido)
+- new patch 3 has vxlan report the reason __iptunnel_pull_header()
+  returns (Ido)
+- ip_tunnel_xmit() sets the reason for an NBMA payload it cannot derive
+  a destination from in the branch that uses it (Ido); the reason is now
+  NO_TX_TARGET, as for the other NBMA packets without a destination
+- the gre_parse_header() argument icmp_err is called ignore_csum_err,
+  after what it does, and the function has a kernel-doc comment
+- the cover letter no longer announces a series for other tunnel
+  drivers (Ido)
+- ipxip6_rcv() reports drop reasons too (patch 5), so the ip6tnl code
+  is converted in both directions
+- the ip6_tunnel transmit patch is split in two: ip6_tnl_xmit() and the
+  ip6_gre helpers (patch 12), then the ip6_gre handlers (patch 13)
+- the reason is initialized to NOT_SPECIFIED only where the first
+  statement of a function does not set it, and a drop label reached
+  after a helper falls back to NOT_SPECIFIED, as in vxlan_rcv()
+- new patch 14 has vxlan report a circular route as RECURSION_LIMIT, as
+  ip_tunnel and ip6_tunnel do
+- the description of RECURSION_LIMIT gives the tunnel case as an
+  example (patch 9)
+- a transmit through an NBMA tunnel that finds no endpoint for the
+  packet, and through an ip6_gre device without a remote, reports
+  NO_TX_TARGET, as on the IPv4 side, instead of DEV_READY; the message
+  of patch 12 describes the cases DEV_READY still covers
+- ip6gre_tunnel_xmit() drops a packet without IPv6 metadata on a
+  collect_md device as TUNNEL_TXINFO right after it looks the metadata
+  up, as ip6erspan does, so the DAD probes of an ip6gretap device are no
+  longer reported as RECURSION_LIMIT (patch 13)
+- the Assisted-by tags take the form that
+  Documentation/process/coding-assistants.rst gives
+
+- v4: https://lore.kernel.org/netdev/20260922221507.3268127-1-littlesmilingcloud@gmail.com/
+- v3: https://lore.kernel.org/netdev/20260916143717.1875082-1-littlesmilingcloud@gmail.com/
+- v2: https://lore.kernel.org/netdev/20260913034937.875068-1-littlesmilingcloud@gmail.com/
+- v1: https://lore.kernel.org/netdev/20260831215137.549324-1-littlesmilingcloud@gmail.com/
+
+Anton Danilov (14):
+  vxlan: rename the drop reasons for use by other tunnels
+  ip_tunnel: make __iptunnel_pull_header() return a drop reason
+  vxlan: report the drop reason of __iptunnel_pull_header()
+  ip_tunnel: add drop reasons to the generic RX path
+  ip6_tunnel: add drop reasons to the receive path
+  gre: make gre_parse_header() report a drop reason
+  ip_gre: add drop reasons to the RX path
+  ip6_gre: add drop reasons to the RX path
+  ip_tunnel: add drop reasons to the transmit path
+  ip_gre: add drop reasons to the transmit path
+  ip6_gre: make prepare_ip6gre_xmit_other() void
+  ip6_tunnel: make ip6_tnl_xmit() return a drop reason
+  ip6_gre: add drop reasons to the transmit path
+  vxlan: report a circular route as SKB_DROP_REASON_RECURSION_LIMIT
+
+ drivers/net/vxlan/vxlan_core.c |  26 ++--
+ include/net/dropreason-core.h  |  53 ++++++--
+ include/net/gre.h              |   5 +-
+ include/net/ip6_tunnel.h       |   5 +-
+ include/net/ip_tunnels.h       |  14 +-
+ net/ipv4/gre_demux.c           |  65 ++++++---
+ net/ipv4/ip_gre.c              | 199 +++++++++++++++++----------
+ net/ipv4/ip_tunnel.c           |  64 ++++++---
+ net/ipv4/ip_tunnel_core.c      |  22 ++-
+ net/ipv6/ip6_gre.c             | 236 ++++++++++++++++++++-------------
+ net/ipv6/ip6_tunnel.c          | 153 +++++++++++++--------
+ 11 files changed, 556 insertions(+), 286 deletions(-)
+
+-- 
+2.47.3
+
