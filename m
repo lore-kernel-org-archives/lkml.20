@@ -1,76 +1,103 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE044E675;
-	Wed, 30 Sep 2026 07:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962D23BE647;
+	Wed, 30 Sep 2026 07:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755123; cv=none; b=aQRTmIo/IHgJz80zb8tGJJMhTckTAvD4hZn8oN9mmZS9momnGBSbexBo8BV1Kp3mZ7tdocCTi4f/+8O8q9cs0vrLTabR94GBZr4Il5IhHiNM75117FT46yuAsnzMXZgDfjSRG53/PKFxXDUXddTxVabgb/Pjx0L/X6/wxNb0/CA=
+	t=1790755125; cv=none; b=Eetq9w8T5fHJQFjwDcc84pKKp1HhCcdwvp434PEatV5I/UKNcCmGECASj+3X+F3XO6rshNvpcV2tT09ZHT3qsXB0hmaZUnw0wv2TFlRrTfATGiN/IB7r1Ox3KFrX8hiY/9owCK3CxVn73X6lk5/BfEi5lEjFF/UEXKz4G3hIzhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755123; c=relaxed/simple;
-	bh=FM+RfEmSMl48Z+c6Erjpj15Jgb/tEKvlrWh5UN2i7yU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YL6UfZHJfIo9MRFU24DeUo9fkEciZJ0nmTp6+Ntx79o4GrYvhLOwxNSO1m4e4z8BOSZpU4tcvSTD76dqm1bOLZ55LOQ3Xxi+oQM9Fe524D/14i5UG3LX4NDIKywcaSBQEK0a49Z617UemN+zK5pK82oEDhkTHJZY9WuJLu7ar04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=S2H8IMib; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1790755125; c=relaxed/simple;
+	bh=f5XnbmNpSItuDv08U93jqOAN6TUi6Fmhs7xYs2DVQg0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZI8XHU34hpuxH5+Xfew6YFn4Myfd/4SzWVdzcfQ3DFaGc0h5c6KjmiVx5amoyiYeXx0/i09jDVBjQzdQfO04FWv6B3ZtwN+4Ef3Gy0KRP1+qxs6NrSZMvP/qMbX04NCojPxltyulINvQoV1ybLycrI8M/M323AOYv2LvsI3FQqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZYUzAAro; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="S2H8IMib"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 6358A82BED;
-	Wed, 30 Sep 2026 09:58:39 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id e9UDpNZLZaZD; Wed, 30 Sep 2026 09:58:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1790755118; bh=FM+RfEmSMl48Z+c6Erjpj15Jgb/tEKvlrWh5UN2i7yU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S2H8IMibZrE8nsC+WjvqvUa1kbdq2ynRHaTA4bCe9T/KLy/gRv+LiiU+C+7Oo0h/K
-	 9fA4mn94saV6qQ8nf6ovMsHI+cF12Cb2DR7fgTsurmLgr3YqLO7iQ1ajgjJvhS0sSP
-	 n5HFE2sFTgOuJTaflOb5t0cBZl3g2rfadjs0R4iR3juHvGk7CFbd58AKBtqKkKa/es
-	 v+oDfGdITVslMscAEJeHXu16vs/YghxwuvB7ZSXR6e2A3Zk0Ve7MAL7ERw+90ZbI9S
-	 EaIQfRFGZQYpWWY0TpA/MZVlEABjBqb11AtDXpX0XLuNqnDItPKqAZ7l0uW21iBThH
-	 mjjMxioy79aGQ==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	Hans de Goede <hansg@kernel.org>,
-	Nitin Joshi <nitjoshi@gmail.com>,
-	Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
-	platform-driver-x86@vger.kernel.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: thinkpad_acpi: Use input_device_enabled()
-Date: Wed, 30 Sep 2026 10:58:29 +0300
-Message-ID: <20260930075829.53484-1-aliamemis@disroot.org>
-In-Reply-To: <178947195441.31094.9793704324340226838.b4-ty@b4>
-References: <anK1j7hbMyFHGBUS@google.com> <178947195441.31094.9793704324340226838.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZYUzAAro"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790755123; x=1822291123;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=f5XnbmNpSItuDv08U93jqOAN6TUi6Fmhs7xYs2DVQg0=;
+  b=ZYUzAAroenBtabXmXGony3RIqyim/xKcnXFfaIWYTLG2z2Uu+R0UV/mN
+   4LvC7enZ3M3ijkUj+bt+ffRa6NPnlLMXCq8DMj/yoTiu7+74lIEuoeoLM
+   XjIYvexHkkGH814ZRCt0UzJckE8fN1bwQAFZNEKDUTAkzY3qg5nuVqbjj
+   kZPvrRC4w/blNDSQItqAD1Q3gAMw0zimRkOc1dbssg8/VXsy6Q//1HAqr
+   sIRguhRlgntJ1oG0QCmOPyfLFSBiv1Iae4Qn3C2/eLxw6VHaCiL+EgICv
+   WbJeqmEGvfWDotDunEjOIvTCcHp7felNYi3KMOqEwUtS2JRp4eyn19Wol
+   A==;
+X-CSE-ConnectionGUID: StzIBXIORge2/GcQpmp6lA==
+X-CSE-MsgGUID: KTGWSm7tRAC4g1w6B1LW0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107872879"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="107872879"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:58:42 -0700
+X-CSE-ConnectionGUID: hkX2u+h8SLybJRwjvsMdQg==
+X-CSE-MsgGUID: AFt/ReHoRgq1jGAARcXIYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275760395"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:58:34 -0700
+Date: Wed, 30 Sep 2026 10:58:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v7 3/6] PCI: spacemit-k1: Add device id update helper
+Message-ID: <arzBKCur7DOjRjVr@ashevche-desk.local>
+References: <20260929083755.458238-1-inochiama@gmail.com>
+ <20260929083755.458238-4-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083755.458238-4-inochiama@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 15, 2026 at 02:32:34PM +0300, Ilpo Järvinen wrote:
-> [1/1] platform/x86: thinkpad_acpi: Use input_device_enabled()
->       commit: be0048786d53375fa4eace15cfdf65593956a1a2
+On Tue, Sep 29, 2026 at 04:37:49PM +0800, Inochi Amaoto wrote:
+> Both K1 and K3 need to set vendor id and device id, add a helper function
+> to simplify this.
 
-This hangs on module load for me. hotkey_inputdev_open() gets
-called from input_open_device() with dev->mutex already held, so the
-new lock in hotkey_poll_setup() deadlocks:
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-  INFO: task insmod:28182 is blocked on a mutex likely owned by task insmod:28182.
-   hotkey_poll_setup+0x50/0x140 [thinkpad_acpi]
-   hotkey_inputdev_open+0x36/0x50 [thinkpad_acpi]
-   input_open_device+0x9d/0x130
-   kbd_connect+0x8f/0xb0
+-- 
+With Best Regards,
+Andy Shevchenko
 
-I guess hotkey_inputdev_close() has the same issue. This was
-next-20260929's thinkpad_acpi.c built against 7.1.11.
+
