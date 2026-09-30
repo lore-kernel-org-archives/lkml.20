@@ -1,120 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77494DE70B;
-	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AA35172E3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787139; cv=none; b=pwHt2fCT1q6LahxpMBDJYA5Z5B2wg6dRr4u30G3hrDFK9kO+UMUViXaD8OUigvRQKrbTui715hbXFmDHpZyj3HjM9CbhdUsOCHXcPCEvdiSf8jQU76ZlI2kDMdpVSiMsM70PnQFKxxBQgudNJ1GJETEgZFgmOIPOsONGXAetX7E=
+	t=1790787160; cv=none; b=BoG6lUDUG9ATVspZr6RCC36A7kBARcrYd5/S4cxrBPIb6zkfdBz7HsOGKqqxi1TbO5pjS7+l9Emx5K9B4AtJg72zMrNwxVyvLpxGl3r6q3558nVlyd9g6K+xzwIdAvx3NFpPGNUXyQ/8fnTprc77jfRcYoe8NACqb1G1uQN3Rsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787139; c=relaxed/simple;
-	bh=7bGe7WD2c1d/kXJJCVb560ERTWE0b/SFleUWw96jKiw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y4StUx06Xg2Ys0pYnaGloP4eRvgoIhGdl7PI8QRe4rnfKMutSrXcDWUwAfpaU7olXzhYro6aRD/YYC9bmcVkNeYJNQvqdAdZ/BK54HuFSDrj8Ky8Et5LFkx+QUgDYmQMu8mgQI3CqKqSYzhB6fSJ2KnHpgDGeTR6vNrCr/5AOxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WasMsC6l; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790787160; c=relaxed/simple;
+	bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZmnO4homNwTmTqyNTEBvvaA5JaOFsvhZOLLog3dJqVPYjcI68uJtaDuCvPDeFeKerbtmvkF6SsiBhhVyb1dArpaqvDJungZislr5jEr4iSRLyUr8v3gfclde1P7v0ijV3LV6kbbwemtfG0aiZcmsEFoexVECZWqrC/16hB/ufWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OhOI/Tgd; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WasMsC6l"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4C155C4AF12;
-	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790787139;
-	bh=7bGe7WD2c1d/kXJJCVb560ERTWE0b/SFleUWw96jKiw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=WasMsC6lC+2LSHE7JasyQCI0+xrsU0h/HKM4OZp7Gf3xeC0micTbXkvJOJjpLquej
-	 5eMD76CFuRTeiu/xFwBTVnVm6ekc03zB0Llfrnuz6B6426jD/VkiqedQNx8qmOxcYO
-	 6oTh3pcpeAS+yxoUbeTCRwXT0v9uzBVTRHWR58CFA/j/QhZCD8BzHhGuNghzyeIq9c
-	 ta8gzmdKs6a9vum3DOS9AS39QchO06KqqMlsw5L5KOfkrCSz9ag0m7CyLkv70l/J02
-	 uUqE/OEEiHf2xIUa/g8LQnEM9uy2OmyxToEYhm+J6IZVHCUwS9NSY7pCOF+wKc3v+w
-	 uQTu1JeLwrKUg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AAD4CA5FC4;
-	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 30 Sep 2026 16:52:14 +0000
-Subject: [PATCH 1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the SPI
- NOR HOLD# and WP# pins
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OhOI/Tgd"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so4176451c88.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1790787158; x=1791391958; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
+        b=OhOI/TgdclwGcCILD+ANQGEgwuLJ1ZFSSM6jZ0eyyZ5+emPldVS5zYq/zAUpJhDnrG
+         yK0jdBXbcETvevcDmN1A4j946Qj4hSNu0rKZCPee7rIB7Dqmcb1xcIedR/Bmt5K58SxD
+         cAI3QtH0pMAXwQJYvhU8d0wGmHg9MdTQg5xMwKqWLaulux13gkarK7uX7e/BVSlO0NJ0
+         L8y2Xh0n9cuFXrampV3zVqU70hZ2hbkcWrmJOsSLWkDdDLly1pNPqk/rE5dK6UpPfnjF
+         PKz+PLpK+1hm3LyrH2xo9sMnWM9KVbPso6lmlhuBWaIZmwq4yxmEqHqznGVGaqHEvJIi
+         KLyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790787158; x=1791391958;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
+        b=kQFC5Jol8KQ6r++TM/9+GLdEwh+IPPv+ieSIloF6KULz6xvCBVdii23WaIQdQXb+w9
+         i3fY7AsTp8ixpoiQHexs9ZwIsYYXWHoRzrXoUT7gfGBbKOI28IX3TmOy/GT+I8dyAo38
+         30A2052iuGyeIBbYrkpbZc71zL1UbxlXNNw0mv6ZCwZNgJ7DF/RisF1tkI2S+MnSlmCB
+         cf/deAHXvJOI4mIAGo9yQeer/7CTplJJZAAGRyaUfw9vYcSYAhQ5/awf6re+qAX857pE
+         tjfkC6tSLqBikSmmfhRr4/1iTRr1CFN9YkRfF7N0/l/td0do5+muO3pepPP+Ijnej5Cj
+         M+ug==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ4nsxzx4W1xe0uAyY5iAAXsHuZFqS5NuHXco+DtSZxy/2FavjbN3pCIRGPWoyCrs5SD+3m+00si/fPhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMd1p9gJFHJUFOSWJdIdnOpTj2Y037NjqkUqY/v/HLqT8kCjLQ
+	UEieKJGYwqQLttiYBi3EfZkdF5xsR97YycONlclvOyDKSlLs7VpLYMOUUYJ7rl5kMnk=
+X-Gm-Gg: AYBFou2Odjx+XyS3PoOrbvaFyxEKk8GL+Hj6SnoYN2BcsB16VkDEQTIihdyOrwYYQMR
+	EyNuoRJfP9iS/c/9j+oI3Z6nrKD7tzOwcKoaZnQQ/wNDErYCTsoNng/kGAAHv/xg8FHS+YfnTkX
+	uXjWUZA4dtG8mXmHnsXhkWjq6gEOW4U2dg9sT3myZQB5jLpMjESoPZ0Tx/XRuQsNmuwe0ObJPgv
+	d+Npj+1R5p+1g+wnMl2SLE5EZDP+NlesG+LARtpRG6hO2YVdpU1zvxH2p+2QJ8wlbs99bTUaiTa
+	rSKIPj0VkcIsTtNEnv0U6u2JqeCd+9WBICj0IzpnocV3wDLXz+Ss+6PL357k4GlC7aObroaf1Xj
+	csHzsew1XKl7wO/QrAOIQNxBscAbZzlNDOvgkdOKFBwpdFCr+vrkCjVTb77IA/X+f9CnnXsJtW3
+	XR04YhfayRo9bwtm82EMPtP4TTDUtWOgeC3Tcw03iRZkTqig==
+X-Received: by 2002:a05:7022:4595:b0:143:297c:276c with SMTP id a92af1059eb24-14d330b1ca2mr3017652c88.33.1790787158196;
+        Wed, 30 Sep 2026 09:52:38 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d313b9c38sm4523537c88.1.2026.09.30.09.52.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 09:52:37 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xBxXo-0000000C7JB-1eI9;
+	Wed, 30 Sep 2026 13:52:36 -0300
+Date: Wed, 30 Sep 2026 13:52:36 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260930165236.GS163130@ziepe.ca>
+References: <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
+ <20260930143237.GI3401365@unreal>
+ <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-hc4-spi-nor-v1-1-9a3351e2984e@iav.lv>
-References: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
-In-Reply-To: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1637; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=R8D2qAhBJWwSqWsnhy/mUQEbfBkFgY23nk2VBBtCEbk=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl77RzlVLe+vHiscK+Rk1yE9gP+iQYOUqbny5YlnD5o9
- jFMRfFjRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIWAbD/4pal4TPmxTyn1ny
- y6+Tblzzz7wkz7LAbeaEmksffY+4HmFkWCMocDpq1dE91UYaEat/ShZXGIm9vPTSVXaaofcZxj8
- zOAA=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
 
-From: Igor Velkov <iav@iav.lv>
+On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellström wrote:
 
-The SPI NOR flash uses six lines, but nor_pins covers only four: data,
-clock and chip select. Nothing claims HOLD# (BOOT_3) and WP# (BOOT_7),
-so they keep the boot ROM setting. After a boot from SPI they are in
-the nor function and the flash works. After a boot from SD with the
-button under the board, they stay eMMC data lines pulled low, and
-spi-nor reports "unrecognized JEDEC id bytes: 00 00 00 00 00 00".
+> Returning again to Jason's series. Let's say we'd add just the mapping
+> type infrastructure, converted users of pcie_p2pdma only to use that
+> and then we'd have access to per-mapping-type data. This could actually
+> be done as a prereq for this series and merged separately. It's a
+> couple of patches only.
 
-Mux them in a board-local group. nor_pins is shared with boards that
-use BOOT_0..7 for eMMC, and the HC4 has eMMC disabled.
+I'm happy to say I found someone here to pick it up again, so we
+should see something on it after LPC!
 
-Tested on ODROID-HC4: after a boot from SD past the SPI, the flash
-probes as a 16 MiB mtd0 and reads back correctly.
-
-Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-index 3ece30a0a1ff..5ce76a1bfe02 100644
---- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-@@ -124,9 +124,19 @@ &sd_emmc_c {
- 	status = "disabled";
- };
- 
-+&periphs_pinctrl {
-+	hc4_nor_hold_wp_pins: nor-hold-wp {
-+		mux {
-+			groups = "nor_hold", "nor_wp";
-+			function = "nor";
-+			bias-disable;
-+		};
-+	};
-+};
-+
- &spifc {
- 	status = "okay";
--	pinctrl-0 = <&nor_pins>;
-+	pinctrl-0 = <&nor_pins>, <&hc4_nor_hold_wp_pins>;
- 	pinctrl-names = "default";
- 
- 	flash@0 {
-
--- 
-2.43.0
-
-
+Jason
