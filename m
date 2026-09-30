@@ -1,206 +1,249 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010002.outbound.protection.outlook.com [52.101.193.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14471AA797;
-	Wed, 30 Sep 2026 04:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790743832; cv=fail; b=sBTyfMCeh20IR+dKy/FCWmY+lS/eN1haQ1Ls+/LZRDqKBWgcIcoOY4DFHYiW+4emuLlR8NYbsl+m35YntE992KJ/7nygGNV+0ISp1BtPPFpl9Gam2oJsThITdmyklsAPD3J5TXqXlZBfUBvZhpj7OzEl4oPJnb7vPAu5mvlqhtA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790743832; c=relaxed/simple;
-	bh=SjbH7kog8sH6Lw6rYjiByTz1TSQFmA3XDr94fb4ucho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fXh18RVgIW8ext5sRjxbWLb/eEs2kuvHUaIeAfzpuaZAUIxqiulnFB0DLFWicZuxevfhuxVkeiyITEzZRBCY0CpIkTmh44QDKQmi3nKHkHrax7QvMfPxbjTwZ97ZfdC5vJUZ9JvhlNsnlw0MtXAvx1aUzh7Hbm7p3cynnmOw8n0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qhG++YhM; arc=fail smtp.client-ip=52.101.193.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qhG++YhM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mc98tlDmYvlii+tnXWBRZuIjAOmcwdM7DsrPoPDBcJO4ITZQOWx1O6bmaOh9BEx/ZEZR1vKTfpU8uR1BqdS9QiGhqZy3a1T5599teCWuWry2ek4sgMrhX5LVK+g3gTSIYp3x7PKrT6ActwHxnG6upi5eIEXUDzyxrghcRy5FM4oSwAOAuOZGhQoMGGsHLRS0qEFvfYrqcFipzAcc8gqKriQeGYZKF0Qd3kNyUih8C72zTpH3GPTldDr9q/6iopFabQ0VpjKCAahtMelpsBMpooM0TllC2Iy4XLmyflTc7rJZPOsxv8Dd9fY1xf7IWcN+INf94cNzHmcRrqRSogbGVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pH6pKEf8r0rBJJFaLchvfNmMEr3UhoQ+B4Esu8I13y8=;
- b=W+5ZIIy0ZEHCDh/9E4O5MbfHRVPshsvssL+HG9w+DVt0ooGduYb6Ew6/wlDRTz41bCmZAomIMzQutnPbeIQqY4QFd0iuZEipUMLYlu0LTT6JNdzzT0N5oa58MX6/pVdR5jNCHJcF4TSOSJJIbuYY7CGPwF93h6mYmGHXU/bT/C4BGsgQ0SDUj8JIzK0TF+h5zXbdzEP2M1NlEfii0fzCkPFUN0aS+zFilEhHoyDKiEbQaMHDFs7X7xKqHjEU19gthJvjOV5tDoDpqaBMQxnvGHkMAOcozDunJZTp/pV9X8efgBnCoXG3p0tpR7SdwTMoyr3XDj8nyfoLidkkoC1HVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pH6pKEf8r0rBJJFaLchvfNmMEr3UhoQ+B4Esu8I13y8=;
- b=qhG++YhMNaXIL1WAoWQQ0H+f2UgPjT5qHLT/ctwnIvNCVoCfy2pSd1Bh35JNpsPbEM4XGGyrkJTwWPsAED94I4Z8kjASsr01GZiHTtB1jieF3CUE6gZD9bluBxRErJHco0Fwj6spaL694p+8HnBR4fZ/y5pnejdNNkZMDSaYIIdtH/eGhD0bMqtiK6RiG0uMrwvS6BkINT178A9H3ieaev16YKbKKUB9lElw0h19lv6hd3W6mgTqaKPpOxXiLguR8irhy/E77Huf8feJuFXxNNbv0Y2U4lp2fq6f4skhH8xAKSerHCoU0qkcpsqko6X4aSjsJA1Kw3+dH3ek2kIVfA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY5PR12MB6081.namprd12.prod.outlook.com (2603:10b6:930:2b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 30 Sep
- 2026 04:50:26 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
- 04:50:26 +0000
-Date: Wed, 30 Sep 2026 00:50:24 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v9 7/9] rust: id_pool: add contiguous ID reservation
-Message-ID: <aryVEFOG5VLiQGaF@yury>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-7-0d6cca376cff@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-chid-v9-7-0d6cca376cff@nvidia.com>
-X-ClientProxiedBy: MN2PR18CA0018.namprd18.prod.outlook.com
- (2603:10b6:208:23c::23) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9061FF7C8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790743840; cv=none; b=impUjjvlKTMGug7TVbgMm2b5qW/k3pq54wAQ+xZzfaLqZVF8tCAXwA6LHfREOUUlQZ/KTHs23mUrQJyeGN8qL+wYHLHTtftQohF8pwHqg8YWUYRYzgwP13yFgsJpzTGk0rxOoLkIYjDxrEBaweD/xosk/P5+X5wPTzBdo7bBdT0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790743840; c=relaxed/simple;
+	bh=wuNm7jjclN+Efk41Kucz3rN3shAUEXFeSRSP02ZU3OA=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=I0SLO+ItFKyp5bcd++gCGVI+p43A3Zpj/v8RECSbxefhndi3yCjR4941XumC49oAObeBNg9TFZG720RC3fF9ZhbNO7PQRIV6ExCuk1hg06Y8y4+CM46KFRbBwkWODLimlYXdankeNqwe/kjJx0COXFnR1YMuNwg0WKhRbCeb8+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso7599682b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:50:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790743837; x=1791348637;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rlJr0xWAgWuTtKuw6J0u9PNe0SuYYVDQdyv1++JOcWc=;
+        b=DefxZfGQkNyyDVDxXbQ1zQDRp3VhBa8m7qAmUtdK5i2eF0L+BZwilX2XH8HKaunEzj
+         TRHw6XPlK2ZU9pe7pOLyCZRAR6Ufz4boE3TnxcCguLa6Cd6E3CBGeM/xaOiscmB5YCBL
+         iKmnWYbFB4J/3/O2onwD/q4sXW1LXwXnIHlseEkWZSa94j8yaOorr7OCi3+am7ci1ujG
+         s5fMQKXSQ9aeSBBi8pxxFf6LkN/OZDQV5AbRoAM37Bu8F7i8+oD93tndZrUW6F9jdo3X
+         G69wwBchL2HEV2EkP4zKoPdOb/9weOiQHPbYMh7HVSzna51soe0yrEnLDDt+tnIO7nNS
+         HY+w==
+X-Forwarded-Encrypted: i=1; AKwUvBylHMYANPP6MXz8fGYlhdDsaIptQNiPZgh21oiQKyRL7JM1xnZYxl4CJ8WLWMYIZWyUpzf7tvd0INQ8z9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMaz8y5NoknyaxnjQMjB5Fr1kCSd/6HA955MXstoZ/AoUafHE8
+	k6P6MVbeoLCvS4/mJgNLpb0xWnT5QtqIkCIjnczhhoBARPlhegUZM3KE4j6uies+QFaJ4/dwtX6
+	TwDDvlu1UZDHFIgUIZcoBCVlgx5LGR985SXbiEP/JeFNy4+t43B50v4ZyEos=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY5PR12MB6081:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0101e4ff-28d8-4c6c-5b72-08df1eae580a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|18002099003|22082099003|11063799006|56012099006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	njDt9ZW43QV3wIUIaMFA/+E+VJKomwr7pVIKGpqJQDzAXtb3GKEwV2umVfLB2h5hCYZH4A3BPms6qhnO/qUpSY9eEsN5T0rAh8QDM1jd0pgmWWwuG5iWEI+9Io/NkVQUObcdgBQDM4MUkyUfaDVEfqjagWuf0vXp2K0l9twAVcHowWoWEOIFLLaBsxoQZAZnevYcgWT8cQk7s61xDYKaLI+HUQjnM0hhvSwasIPIXa56vALl1F42tSLtCo6LcluVZK4FDqkh5eexpyF8NvXM0aL9MIgmQZH2BFhoybGGYThGPtJKCvcKw7E5PhMIl2qTvaPB4i4ZxGK1gy3CnRGxccsGEOmTtf4EwmssTYQn7B5pPebKrrdcc1nFHRaly1AAKoaWfUAvJiepHuvkK+8+KWxDa/3L6mXfqJVBWbvSETD5v/cYe4HhJWo0m0K45CgmCvgDhg6a61YDatm/fsvKka6hHc+sqFMmZX7rQ2aAR9sLn9KWqPlh/iNHFZ8akF+nUS/o6chyl3Y3x3v2OdKDchemoWU6Q/NTiaf7fQr4wiUzRpwuclPlxiIwvtfJf5+CBuwOh8uIpChNcNe/h5MLtmCuPuBgi4/mfxz0rEYUvY/8iHzCc/3d0kWnm9rVTfu7TOoT3zQpYgtNACJnbw3spZJ6PxUoWDxJFtE/hVuJPzE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nFUaTbUUfE04Gmiog2RzdLZbillFR9r/ZzVIYCpuyZZfnIfEts3ynOH/jpvM?=
- =?us-ascii?Q?FDT51oSkhfaA7tRMRhfjEpA7YF/UaxpqdgMMz9QF077W7QN2+hqFvA0cG+FM?=
- =?us-ascii?Q?twFQEjJ47RskqkV/9RyrZ/suexspTxM1uoVNn7MJFPC/oK1RFPPr13V9JNh8?=
- =?us-ascii?Q?J+fE3FjG4Xt26pelYhazMFvllL1kSOGF1W8FsSLDwU5gdjw4bN30AfXauNVC?=
- =?us-ascii?Q?sBEf8Xgj56t2sg/4tIvUgPZdGi+Au3fVV2hqEk/VX1yXKVytW9K55mJq04eY?=
- =?us-ascii?Q?5vyVUoIPhOZ4VoQwMOfGI4eKgZ50s11Im1TNMsPxVnEsh3Fo/gYZX+KI/Haf?=
- =?us-ascii?Q?F6BzWQsJ/5G63tF6Zw/vubqsMqlGw/moG2QlZ4xCKj6oren3ILMrx8UkP/Xh?=
- =?us-ascii?Q?SzZ5sjvNheT8WaI+f4OitdmYE2xPJ8c6ik3DOpYpYuy/MllT3Ps5G4sGpZ4w?=
- =?us-ascii?Q?MD1LhSg7NuzSscmElwsgFNwKtQtsKM9n4ApxxnN3VQkr96G7U2NKlY96ghvu?=
- =?us-ascii?Q?COZR0nbIp4YyaxSrwQ+GdhWNYb96zRMHx0xrW0HPlnBXr+P4ISGCqBQ/gQ0s?=
- =?us-ascii?Q?k3bHP21vBwgbm2iGOWwME1RL4Gl2v33RlgRKhsHGOjQUgH4b4RmCsGo1SYuw?=
- =?us-ascii?Q?V9cau6YPonUxo9ovVdyUdXldKSpSZPFh+vuj4KDjFsqxfsHJ4Ot94j7bkosy?=
- =?us-ascii?Q?jSR9NnxM1TmukqrN/qAhU/5tHzCDV78QCsRGIitqwezzVtoTmgiIdNFb9gKM?=
- =?us-ascii?Q?zXZKdEKW1lFMGpJy4wnLrYUK1g7xcsrIlJjkx9TGNfipzWequRMSeLO+AWXB?=
- =?us-ascii?Q?dGG3rPG0G0JsrQDaLXguSEtWvFgApH+L4n+97r+dr1oVFAtmxvIMfwt3RAGZ?=
- =?us-ascii?Q?BMc43zuaKx+pb4AhudIeZtWFudLj4UMbJJz7vPMyfCJi8oR7DaxS5asSs9BB?=
- =?us-ascii?Q?P/b8BV+JbNM7Cu5te3DL045Rs7jNoLjxKezE5cQSggeWmV/caLGD+Xud4Tct?=
- =?us-ascii?Q?PHn4fsbxLMcNVpP89bHi5Veu0Wup+DCio+/I69V6ZI1f7GJgfhI7IQ5anwaW?=
- =?us-ascii?Q?oF6C+gzITXNaQyf4xz5p9IBOzLIaIzaeeLIHY9lNJHgbQKKDGwRrEAwk0s1Y?=
- =?us-ascii?Q?V+/3EFLDSBhDY5/yrXaNqb7Eo9swFcOzA+9JIe9yEekOTBEPtwKg0Bvfoobg?=
- =?us-ascii?Q?KcCUSHiMyA3KM+BiU6NkHNM7jp0YN+so0C0dKa4dyjMjKPxycDIldtDjJ/cM?=
- =?us-ascii?Q?FFoMw34wdpzFZxnh6Un2vl1an/v0vUWIZKRPWqeCDm7HIenrwD5tsOCrOtuD?=
- =?us-ascii?Q?Vl4DmiI+8AXR7d6IzHIcP0ZuUkiSOVRqrG7boA6Vzyt2pu9tj5lu/DjN2SN8?=
- =?us-ascii?Q?h1eDCKoMZI7o1iLiDXrNko9WYWsv0jBMH7byUqgj/ZcgVZW91CJOq/te9NgM?=
- =?us-ascii?Q?osZSthAzSRlH/IOohCqgENjjjM/a6B0Ag4Vh5gKKNomtWGs1XU+qknxJu6+Y?=
- =?us-ascii?Q?dn4gEwFrFB+60MBDJ+mkN/5vQ1jZskS5lsz9jWwdhFTE7ehBPCS0pGlzeMKG?=
- =?us-ascii?Q?UJFJKEw1PYM3giShpBPupPWuiid6kUXaHGqZony9mme2SPka/mIiemJb89LJ?=
- =?us-ascii?Q?2OTjbMW9UfvTDiKu7iCp/sweGyUahc3zDlcj32BTq+KHQ7m2VE0VAHmY7YpH?=
- =?us-ascii?Q?wkcRm8A7zJyONSWCRv3QXmCKO4Ctw4Y/DEBb57yD3f5YcjzM51OjY2SNcBuB?=
- =?us-ascii?Q?TM6hWSs1Ag=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0101e4ff-28d8-4c6c-5b72-08df1eae580a
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 04:50:26.2435
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BaqJh5Lv2GgNDTC0+dMt72JgavKawQorAuKYYxAJtAmzCoFWIRMh6ppyc5DtRUaTum7KK9Cx0O/PdyvXrBse8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6081
+X-Received: by 2002:a05:6808:3c47:b0:4cb:f21b:6f97 with SMTP id
+ 5614622812f47-4f1b84c70a8mr111573b6e.42.1790743836867; Tue, 29 Sep 2026
+ 21:50:36 -0700 (PDT)
+Date: Tue, 29 Sep 2026 21:50:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abc951c.00649fcc.35d151.00e8.GAE@google.com>
+Subject: [syzbot] [xfs?] KASAN: slab-use-after-free Write in
+ xlog_cil_committed (2)
+From: syzbot <syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com>
+To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 30, 2026 at 11:42:56AM +0900, Eliot Courtney wrote:
-> Add `IdPool::reserve_ids` which allocates a contiguous range with the
-> given offset, count, and alignment.
-> 
-> Reviewed-by: Burak Emir <burak.emir@gmail.com>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Hello,
 
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
+syzbot found the following issue on:
 
-> ---
->  rust/kernel/id_pool.rs | 32 ++++++++++++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
-> 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 384753fe0e44..06a4c71c4c6c 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -4,8 +4,14 @@
->  
->  //! Rust API for an ID pool backed by a [`BitmapVec`].
->  
-> +use core::{
-> +    num::NonZero,
-> +    ops::Range, //
-> +};
-> +
->  use crate::alloc::{AllocError, Flags};
->  use crate::bitmap::BitmapVec;
-> +use crate::ptr::Alignment;
->  
->  /// Represents a dynamic ID pool backed by a [`BitmapVec`].
->  ///
-> @@ -240,6 +246,32 @@ pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
->      pub fn release_id(&mut self, id: usize) {
->          self.map.clear_bit(id);
->      }
-> +
-> +    /// Reserves a contiguous area of `count` IDs at or after `offset`.
-> +    ///
-> +    /// The start of the returned area is a multiple of `align`.
-> +    ///
-> +    /// Returns the reserved range upon success, or [`None`] if no such area could be found.
-> +    #[inline]
-> +    #[must_use]
-> +    pub fn reserve_ids(
-> +        &mut self,
-> +        offset: usize,
-> +        count: NonZero<usize>,
-> +        align: Alignment,
-> +    ) -> Option<Range<usize>> {
-> +        let start = self.map.next_zero_area(offset, count, align)?;
-> +        self.map.set(start, count);
-> +        Some(start..start + count.get())
-> +    }
-> +
-> +    /// Releases a contiguous area of IDs.
-> +    #[inline]
-> +    pub fn release_ids(&mut self, range: &Range<usize>) {
-> +        if let Some(nbits) = NonZero::new(range.len()) {
-> +            self.map.clear(range.start, nbits);
-> +        }
-> +    }
->  }
->  
->  /// Represents an unused id in an [`IdPool`].
-> 
-> -- 
-> 2.55.0
+HEAD commit:    aa98230e410f Merge tag 'vfs-7.3-rc5.fixes' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17067d15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+dashboard link: https://syzkaller.appspot.com/bug?extid=9d8e687768d0f38c1f09
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e111cbedae47/disk-aa98230e.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/448db8740448/vmlinux-aa98230e.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bf2dee21a792/bzImage-aa98230e.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com
+
+=========================
+==================================================================
+BUG: KASAN: slab-use-after-free in instrument_atomic_write include/linux/instrumented.h:97 [inline]
+BUG: KASAN: slab-use-after-free in set_bit include/asm-generic/bitops/instrumented-atomic.h:28 [inline]
+BUG: KASAN: slab-use-after-free in xlog_cil_ail_insert fs/xfs/xfs_log_cil.c:889 [inline]
+BUG: KASAN: slab-use-after-free in xlog_cil_committed+0x4ac/0x1110 fs/xfs/xfs_log_cil.c:995
+Write of size 8 at addr ffff88803c610820 by task kworker/u8:5/69
+
+CPU: 1 UID: 0 PID: 69 Comm: kworker/u8:5 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: xfs-cil/loop4 xlog_cil_push_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_write include/linux/instrumented.h:97 [inline]
+ set_bit include/asm-generic/bitops/instrumented-atomic.h:28 [inline]
+ xlog_cil_ail_insert fs/xfs/xfs_log_cil.c:889 [inline]
+ xlog_cil_committed+0x4ac/0x1110 fs/xfs/xfs_log_cil.c:995
+ xlog_cil_push_work+0x24b6/0x2a90 fs/xfs/xfs_log_cil.c:1608
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 6374:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
+ xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
+ _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
+ __xfs_trans_getsb+0x65/0x4a0 fs/xfs/xfs_trans_buf.c:191
+ xfs_log_sb+0x43/0x200 fs/xfs/libxfs/xfs_sb.c:1327
+ xfs_sync_sb_buf+0xc2/0x290 fs/xfs/libxfs/xfs_sb.c:1479
+ xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
+ xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 6374:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kmem_cache_free+0x187/0x6d0 mm/slub.c:6635
+ xfs_buf_ioend+0x235/0x790 fs/xfs/xfs_buf.c:1167
+ xfs_buf_iowait+0x133/0x420 fs/xfs/xfs_buf.c:1336
+ xfs_bwrite+0x5f/0xe0 fs/xfs/xfs_buf.c:1239
+ xfs_sync_sb_buf+0x172/0x290 fs/xfs/libxfs/xfs_sb.c:1489
+ xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
+ xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88803c6107e0
+ which belongs to the cache xfs_buf_item of size 272
+The buggy address is located 64 bytes inside of
+ freed 272-byte region [ffff88803c6107e0, ffff88803c6108f0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3c610
+flags: 0x80000000000000(node=0|zone=1)
+page_type: f5(slab)
+raw: 0080000000000000 ffff88801f3d6c80 dead000000000100 dead000000000122
+raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5857, tgid 5854 (syz.4.12), ts 99901674002
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d8/0x350 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x45d/0x690 mm/slub.c:5010
+ xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
+ _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
+ xfs_trans_read_buf_map+0x2ee/0x820 fs/xfs/xfs_trans_buf.c:294
+ xfs_trans_read_buf fs/xfs/xfs_trans.h:212 [inline]
+ xfs_read_icluster+0x218/0x3e0 fs/xfs/libxfs/xfs_inode_buf.c:139
+ xfs_iget_cache_miss fs/xfs/xfs_icache.c:663 [inline]
+ xfs_iget+0xc34/0x2f00 fs/xfs/xfs_icache.c:804
+ xfs_trans_metafile_iget+0x77/0x330 fs/xfs/xfs_icache.c:853
+ xfs_rtginode_load+0x3a3/0x920 fs/xfs/libxfs/xfs_rtgroup.c:469
+ xfs_rtmount_rtg fs/xfs/xfs_rtalloc.c:1684 [inline]
+ xfs_rtmount_inodes+0x14f/0x7a0 fs/xfs/xfs_rtalloc.c:1721
+ xfs_mountfs+0x1254/0x2380 fs/xfs/xfs_mount.c:1095
+page last free pid 41 tgid 41 ts 94068259020 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
+ __slab_free+0x250/0x2a0 mm/slub.c:5823
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __kmalloc_cache_noprof+0x353/0x680 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ mca_alloc net/ipv6/mcast.c:890 [inline]
+ __ipv6_dev_mc_inc+0x447/0xaf0 net/ipv6/mcast.c:981
+ addrconf_join_solict net/ipv6/addrconf.c:2262 [inline]
+ addrconf_dad_begin net/ipv6/addrconf.c:4135 [inline]
+ addrconf_dad_work+0x5dd/0x16e0 net/ipv6/addrconf.c:4263
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff88803c610700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88803c610780: fb fb fb fb fc fc fc fc fc fc fc fc fa fb fb fb
+>ffff88803c610800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                               ^
+ ffff88803c610880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fc fc
+ ffff88803c610900: fc fc fc fc fc fc fa fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
