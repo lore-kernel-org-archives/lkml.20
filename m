@@ -1,172 +1,162 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FB73E2AD3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D982D662F;
+	Wed, 30 Sep 2026 07:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753794; cv=none; b=fSNx/zvvjqTDC+VEYaVy/f/OS0zc/Luocfz3NutKMSRGEjKElMcUWYJuExbjocnaY1ybY9W5XydPfjoa1UDT4RMa59a7ho0MngeQywwDO5cO2CKZZNgmnXEN/ioFr6wOCLR76zNkz5WxjUss7lYrK5sA5RShC5odsVUcwXpkFm4=
+	t=1790753841; cv=none; b=O6uhNKwMYgqlPwsT7MXeGPw4M0qX1K6c/nn1Tpfw8Tr+G+1GTKp4WlbaEQxdA0dpvrJkNUtVZ7w72lujUeLftihmS06szg5HXoMvbzj3ZoTY2Tvib7FxPJWuU2gjWbgScwRoOkS/ElGnRi+57qlvOnFe+sJmKvbRV0kAbjeDO40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753794; c=relaxed/simple;
-	bh=IdSAxfgzIsA5UVG0b3AAedLhYXOcEtjTR/fFSjPyySs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fhcSffLW+8WaAq5Iu0G+zoGxktgsqJiCJIJJbQhbry4ovm+zWTIKNUW+MMPT8mjkxt+B6meBJKVGxYl/M/rgeCdjbx+TeCYqYjdKrMt11V9/4NEfJGKt2REdJsMFMtwRXovoVOB1xLqS39I0bbWH1RY3MPttW4GZ7ZH78CvvRz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DN1EFrqp; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790753841; c=relaxed/simple;
+	bh=q583Vuo00DaNmQkzLneKIqegshtifcF0GMHRsSSz/K4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W6zhV3LOnaps2nrYF7KH//wndnRIoJA86Go0gw8AS85fs6/0M3Zjg70lZY1Q70yIMZriOEWsyWQzn3J81DEnsq8fVqTTCfBc5p6mk1zPPv6BF0PLyRSw/b+nnezTt5UBBKWBbHFqIviIn0ImCw3pdEraq/mqGPgPWL3xGp3eTsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSeEEJWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DN1EFrqp"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso1833835a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790753792; x=1791358592; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PRNSLRyn2N1iTesBby/+rq6D8yhyFSP+EyakI7q9A6g=;
-        b=DN1EFrqplFpRoIjDJS4zRJd9E8RcFOOxpxoevIVs0ZvzSPQ5YDdAiK0rW+J5+H6u6q
-         0x8slN1cFIbtpVK5UyfidqUuhJq8h6/Jv/3PmMa3VJkKoOzOEHPtSOFJ0vE/abZyJvNy
-         P6NZs1Uwg0V1WSGAhLLlR9Kb3doE4CB8xetGoRB61Pgi58ODQiyKF+xjBR3Av6zYY95U
-         K4rzGXXKW/Iy2KGZ13Es7/aMDUyeLz8ERVBsNxIeeU06we02FK/y8+ijifVMEufLyD7C
-         a8bmTmLbwmSIF9HV81RyIaYQYoOnrrWJyr8Uiql9Q7YXILlxvn0nwGPl2tlolJRkGIaT
-         M54Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790753792; x=1791358592;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PRNSLRyn2N1iTesBby/+rq6D8yhyFSP+EyakI7q9A6g=;
-        b=x4n3tsach6urXLzVOvBgaRTw2hwo2Ik5IHdcBeFB59ioq0y6CQxN4R/WsgWeaGvLNp
-         MEt7Bwf4vny7DtguZV94NulEHKmiBNyu+WXhvKqyGKEHaYE/yDtFY8F9wWIkHhHpjx8m
-         vr1HFTnZxWKGnlhkGqOcjSanGtgdzYsR97EkoRp2LuTFXK1VEjHSBGrUdl3MpqkYoQx4
-         WfkRw1GYeT+SMTLae9AMem+uQs/pLJjIqbksUwpVayiMbKo7RARitKVbWX8TXosPjIiu
-         H12e5pSMy+unrlBjii1d5cVf1l7Qj/YJp8ur4EEu2CrEaW1D5/YDwCY0wK8ZlINyRZLT
-         geqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjhptoKrGHZXZqVXdgGf/ZKiwHv/paxSUPRFPLvOZL7/zQWg2gjQXw1QE60bgm6JExppqtfwU95ExNKLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAdEREDJJvVnHYneyCuVwkErAx16MUNcLwxNqHwGHksXI8QcuK
-	84500cuCzdPG8QlX8Da0OcuINaaKu6sVk1dUBubliydftnw7U7p8DRhq
-X-Gm-Gg: AYBFou1N9YsrVizqINdMwu0Us4bYdu36TauTv6tvmxqS45bOALHj6409e/MhZK+L+yv
-	9XTDMxk98hKlGlNS1pMw0K9iqCJ91wKwaWrhCkYLoq4+SYQjS7nxbQaRUJRgF5EO1hL1kG4lxYQ
-	YHBfE3ofZdLcXjuf3JWmBMfmHRrN5wbqVCrK75C9CXQ0IyBMIqIbQVPquXIFL3KXFnR2GktCxA9
-	Og87r9OXC74t/zQkIsXu9CalMo22CLJZ3FosYcUECvTdeyrR+9oEEN9SgoS+RJqqeIANvpMsyMT
-	75U586r43m+0IH2R+zTgh9ho+G7BkJKdE+ilBIX9GnsssFu2TZf/W5nMOtIhZgssWqRuAEpJqYL
-	duRqxfxN+l10diyQOPZEpQsodttYphnqhJBuye1khzrG/PCUrbnfEkfzXpOUMxophdUPtRmsT4p
-	qYOqEWeNVyEotNxBXXQB+4B6E3S1qC6lfnnzampcVmPFoYC6zGL4D7TqpHUrbxHzegTjbpfgQ4i
-	nHh0XohUNFPGg11sGS6L+7aOjccpQOt+GKauwN9R0SSr8WPFkXJ2WUtv+gCUC6zN9XOP9jWuvqS
-	BqeI/TelRDTIRHMNuCZ59+djfOHX9R8wa+THpeAbpWFAeqCPeA==
-X-Received: by 2002:a05:6a20:d492:b0:3dd:a196:3095 with SMTP id adf61e73a8af0-3de9ebb39c1mr589504637.69.1790753791652;
-        Wed, 30 Sep 2026 00:36:31 -0700 (PDT)
-Received: from minako.localnet ([2403:581e:d87e:0:739f:50a5:e171:f133])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab202f1sm367179a12.27.2026.09.30.00.36.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:36:31 -0700 (PDT)
-From: James Calligeros <jcalligeros99@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Ulf Hansson <ulfh@kernel.org>, Amit Kucheria <amit.kucheria@linaro.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
- linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>,
- Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: [PATCH 16/28] ASoC: apple: Add macaudio machine driver
-Date: Wed, 30 Sep 2026 17:36:21 +1000
-Message-ID: <ItQHm5ZKQ4Wltp6qbCRkSA@gmail.com>
-In-Reply-To: <0ae94fbe-cd41-4d49-b073-e65ab8eff724@sirena.org.uk>
-References:
- <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <6dv6M3LAS9mol5fvC8Ie-w@gmail.com>
- <0ae94fbe-cd41-4d49-b073-e65ab8eff724@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSeEEJWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8CE1F000FF;
+	Wed, 30 Sep 2026 07:37:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790753839;
+	bh=qPO2lw1+79erqGqMxWWT2r7/JSusNTUmIuDxiPR1T9A=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=RSeEEJWTUISA4Xb3aGin4FOZkGfc7pAlpZkL51IuLixgqW7X0vS9lAZVycEgtiOEm
+	 STLCa9T+wxWrcnmWAAQcu1bVpP98FpsBsV6Y3SzLjgSomMNIUm0+rpYqPxf+eGFYk/
+	 Gwg5vli5FXJL2M7rrJbYIfB8joz9rp7Xt/fkIGJHFHmXZatt3S8K5AUX191MZ9D6Zr
+	 tNj4QhBL/3t0wdB3DzthNqqtUFPiwkzIRu6007sQDiKYUphsyJtzZ+lJoITd0KIYFE
+	 vXZ8L/ugzeBtFnKDJ5QSOW9HufqMXxpjw446fVF4ijziWlitt+fGg4fYiUr0fSrvqS
+	 RISvqi/jMbxXA==
+Message-ID: <56fc727a-cfd6-4114-b0f1-4c1e6b39f8e9@kernel.org>
+Date: Wed, 30 Sep 2026 09:37:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH fixes v3] media: vivid: check for NULL dev in
+ vivid_probe() control setup
+To: Rohinthan P <rokinthanp03@gmail.com>, hverkuil@kernel.org,
+ mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260926084318.12161-1-rokinthanp03@gmail.com>
+ <20260927033306.14125-1-rokinthanp03@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260927033306.14125-1-rokinthanp03@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Monday, 28 September 2026 9:03:13=E2=80=AFpm Australian Eastern Standard=
- Time Mark=20
-Brown wrote:
-> On Sat, Sep 26, 2026 at 11:06:02AM +1000, James Calligeros wrote:
-> > On Tuesday, 22 September 2026 7:38:54=E2=80=AFpm Australian Eastern Sta=
-ndard Time=20
-Mark Brown wrote:
-> > > > +	list_for_each_entry(kctl, &ma->card.snd_card->controls, list) {
-> > > > +		if (!snd_soc_control_matches(kctl,
-> > > > volume_control_names[ma->cfg->amp]))
-> > > > +			continue;
-> > >=20
-> > > This is used from the volume limit timeout work which doesn't hold the
-> > > controls_rwsem, userspace can add or remove user controls which would
-> > > change the list so the work needs to lock the controls list.
-> >=20
-> > Would it be sufficient to scoped_guard the controls_rwsem wherever we
-> > use this pattern?
->=20
-> I think so, but I didn't properly check.
->=20
+On 27/09/2026 05:33, Rohinthan P wrote:
+> In vivid_probe(), after creating instances, the driver iterates
+> through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
+> 'Connected To' controls. However, it dereferences dev->has_vid_out
+> without verifying that dev is non-NULL.
+> 
+> If an instance fails during creation, vivid_devs[i] remains NULL,
+> causing a general protection fault:
+> 
+>     Oops: general protection fault
+>     KASAN: probably user-memory-access in range
+>     [0x0000000000005f38-0x0000000000005f3f]
+>     RIP: 0010:vivid_probe+0x579/0x10d0
+> 
+> Add NULL pointer checks in both loops in vivid_probe() before accessing
+> vivid_devs[i].
+> 
+> Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
+> Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+> ---
+> Changes in v3:
+> - Add "fixes" branch prefix to subject and base-commit info targeting
+>   media-committers.git fixes branch to satisfy media-ci test-valid-ancestor check.
 
-I did some testing of this and it causes deadlocks if we try to take the
-semaphore from inside the workqueue. I believe it is related to the fact
-that speakersafetyd has a blocking handle to the controls open at all times.
-This may be fixable by simply having speakersafetyd take a nonblocking
-handle instead. I will do some more testing before submitting v2.
+Don't add a fixes prefix, it serves no purpose.
 
-> > > > +static int macaudio_dpcm_hw_params(struct snd_pcm_substream
-> > > > *substream,
-> > > > +				   struct snd_pcm_hw_params *params)
-> > > > +{
-> > > > +	struct snd_soc_pcm_runtime *rtd =3D
-> > > > snd_soc_substream_to_rtd(substream);
-> > > > +	struct macaudio_snd_data *ma =3D snd_soc_card_get_drvdata(rtd->ca=
-rd);
-> > > > +	struct macaudio_link_props *props =3D
-> > > > &ma->link_props[rtd->dai_link->id];
-> > > > +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
-> > > > +	struct snd_interval *rate =3D hw_param_interval(params,
-> > > > +						     =20
-SNDRV_PCM_HW_PARAM_RATE);
-> > > > +	int bclk_ratio =3D macaudio_get_runtime_bclk_ratio(substream);
-> > > > +	int i;
-> > > > +
-> > > > +	if (props->is_sense) {
-> > > > +		rate->min =3D rate->max =3D cpu_dai->symmetric_rate;
-> > > > +		return 0;
-> > > > +	}
-> > >=20
-> > > It feels like this DAI ought to have separate ops...  Also, for the
-> > > sense link will we definitely already have a rate set up?
-> >=20
-> > AIUI, the cpu rate should always be set up by the time we hit
-> > this path as it is only taken when setting up the VISENSE FE (after the
-> > playback stuff is already set up).
->=20
-> Is that something we actually enforce or is that just a thing a sensible
-> userspace should do?  I can see something racing.
+> - Add Cc: stable@vger.kernel.org for media-patchstyle check.
+> 
+> Changes in v2:
+> - Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
+>   remains supported as required by the test-media test suite.
+> - Update author name to "Rohinthan P".
+> 
+>  drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+> index 62cfb5f..1860ad6 100644
+> --- a/drivers/media/test-drivers/vivid/vivid-core.c
+> +++ b/drivers/media/test-drivers/vivid/vivid-core.c
+> @@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
+>  	for (int i = 0; i < n_devs; i++) {
+>  		struct vivid_dev *dev = vivid_devs[i];
+>  
+> +		if (!dev)
+> +			continue;
 
-We don't really enforce it. speakersafetyd is the only thing that opens the
-VISENSE PCM and does a blocking read of samples
-which only starts and subsequently completes after the "real" PCM
-is configured and playback begins. The sample rate is reliably
-reflected to speakersafetyd via the kcontrol on the VISENSE PCM. We
-have not experienced any race issues with this arrangement in ~5 years
-nor has anyone reported any to us. I'm happy to take pointers on
-how we should be doing this if the current approach won't fly.
+As I mentioned in my earlier reply: AFAICT this can never happen.
 
+Looking at the code, vivid_devs is non-NULL for all indices 0...n_devs-1. See the for loop
+at the start of vivid_probe where the instances are created.
+
+So if vivid_devs[i] is ever NULL, then that's the bug that needs to be addressed:
+why is it NULL at all?
+
+Do you have proof that it is actually NULL?
+
+The syzkaller report shows this at the start of the crash log:
+
+cec: vivid-003-vid-cap0: kthread_run() failed
+
+So why does it fail, and why does it cause a crash later on.
+
+Anyway, I'm rejecting this patch since it doesn't address the real cause.
+
+Regards,
+
+	Hans
+
+>  		if (!dev->has_vid_out)
+>  			continue;
+>  		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
+>  			if (dev->output_type[j] == HDMI) {
+> -				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
+> +				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
+>  				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
+>  			}
+>  		}
+>  		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
+>  			if (dev->output_type[j] == SVID) {
+> -				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
+> +				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
+>  				vivid_ctrl_svid_to_output_index[svid_count++] = j;
+>  			}
+>  		}
+> @@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
+>  	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
+>  	svid_count = min(svid_count, MAX_MENU_ITEMS);
+>  	for (int i = 0; i < n_devs; i++) {
+> -		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
+> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
+> +		struct vivid_dev *dev = vivid_devs[i];
+> +
+> +		if (!dev)
+> +			continue;
+> +		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
+> +			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
+>  
+>  			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
+>  		}
+> -		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
+> -			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
+> +		for (int j = 0; j < dev->num_svid_inputs; j++) {
+> +			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
+>  
+>  			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
+>  		}
 
