@@ -1,224 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FD24E06E8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0E54F0523;
+	Wed, 30 Sep 2026 13:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774671; cv=none; b=WDVfioLpFcc3Me6knVQ/0IBkpQc/ah9V8J5oaGxjrzVDvkxQrtLu2lgbeF/ktckA6wBIGRst23NYWS1iVXoX7uWehFAW3mQBSDudUU4zMqid4ARSq2KRfxlbaN0VDcmBHHpSH6/mB7gSEd6WxTyP1RBf1pGK+3afNd2JARhJavo=
+	t=1790774682; cv=none; b=dluIllyUC3YkU/qkqVwRQFFnlK521wTMVs+9WsgjkQpWYN6U9XWBSaXaXIQqMUHr3MS8/Kj+X/70oOKUDK2tE+EoOv6R+UFYctJ/nr5Hj5gmZbTpzT3DvLkdCXEaD/wrjW7gglXRMvPBWx+aRjtUiuwvjgFCMez+cf/xCxqmWeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774671; c=relaxed/simple;
-	bh=97CUQJ0jx/zZgVtlqnb7GOV+PHKc+AGj9BHEyrV5LUs=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=e1/yHaKclwXL6tYDvApL+80s7ozgQmAgD5MPDak+1WXpDGhpB9ZOEoxuDtauB57f91EsV4G1o9NeDJRl/KfVS+v9O1/W7h1gIHfiN5r+abNUWuq0/sXV0z0hEOOzYflQrOQQsvFDP+UJkarba/zXVlFS8io5VWmSHftVO6MaZIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE7/uEcD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790774682; c=relaxed/simple;
+	bh=4Mzr7MgtU8nNfFGDqulzX/Jg0QxH+qforQzkJ9LGUvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UM+Kr3yqM79SROzrGB0KajjE8NVHm1/P4Raoi6u01rRBRjmU00os9omqWNR5UC/k74omIVG/1qrQGm+FQ/EN1HgFJ9D6kumfnQiP34MqvcpM5kRCCY+a/YnlkKpAdaUyEIinvUECq8M+K/j311jYBWARI0Ed3ya2ccEzNzNpK48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gbl8lqnc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=m3t9jJLy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hxPYn5q5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QfZQQ1bW; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE7/uEcD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286411F00898;
-	Wed, 30 Sep 2026 13:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790774653;
-	bh=15GFVaEj+V3wbjvGFizhibuNggf64iOZ9yv8oWIFn4I=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=SE7/uEcDlUi+ZPilfbiAa92qwgEnUGteHOFrttn+wU2xGVS7k5nmj00eVFw2jINdi
-	 BFgtdQlHfw4k/sZZ0nokmZB12pxrxUuW/AqqTT9Oqgp7tpqUinmVIuGZJFHS1IXBs+
-	 Lv4OjGOR7V3/FFXLi+sAUxXNCdVjfOP6Dew+AyFfaw+J320vilZeHZv0r7/uHD0Rzy
-	 LAP/1FjnXfSZDLqr8p7OxKL7xet5JooeYvFCxtGvd8AzthMV4FTDY4f08AlF3JVirt
-	 f4iQHXzCfq/i65UTxZLiGJm9LqWik/W/23isqiOcCGLPAdRC+DehqiWSs/S+V3biXN
-	 XlOqapqMWdp6Q==
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfauth.stl.internal (Postfix) with ESMTP id 8B207780043;
-	Wed, 30 Sep 2026 09:24:12 -0400 (EDT)
-Received: from stl-imap-13 ([10.204.2.104])
-  by stl-compute-04.internal (MEProxy); Wed, 30 Sep 2026 09:24:12 -0400
-X-ME-Sender: <xms:fA29alcQnOmc9ooOmHPQaaUI2dEJT_LJ6yDFqO3ugf4SJL9hdrJyfg>
-    <xme:fA29auDy4wtTLs6lpFtyIaVpTY_uSEd3WxSBIuzzqAbW2rAI6AUQY7IQrpA3wK65p
-    bavW-nYq5zCktX3GkWFdye3qqHCg6EpQ1djXF_zS3pmP3WwbNPI7EOU>
-X-ME-Proxy-Cause: dmFkZTEhDQvTHabA0iEeZ8BHxLAv4EGY/+qfs3FRvdRrCMETHzgelsS6lS2ZtSUCeVRZsX
-    2bZExYI1mo6kIJCrx0zn9hMdydRpFtuvtGewAg54ubj15jBRaBUfyk4NU8rkMLkTcRcx7H
-    vI+u0EAlsPdbncIwCqkuXxurV1xHrl9USe/S0U5jTnC2/la163pAjb8sH+JfVBuk3mI6NA
-    Y4JszNaRmVtOMbqVUuYKGVG4HPho0Q55Md+aI9NbQXllwp3Qo1K7bd3Cf3pmQp0KncXtan
-    H/Yd5B46sNhkyqm59aMwkU2prBweuXylfyAVeKANtE0BcV6vuWQ92tIIWvA2UqY2cD+0pH
-    vyu+on3prWpgCEQIcbQ52BRQpmaWlXVJ0VHzEyisXdgn2F7/HB/cl50SPjnbVICZXDqWZU
-    YwLG5bSES0fNkK71WmIxkpOt+DIm8jm/FsaxAF30CKf7kcRW4ULo1sq/AL+4MeT5OuMYrw
-    q76nP/cF8w9q66iWoxgqE7BH1+MfHs964RDTAac3gT71qm7t+mUWcguMT93V79UKmZZxGW
-    E/PYiy3Ep5wEeNZrzOcOi3VSPeTnRGJGqa4k8vzYygqLlNhQcAQdfe35/S/stPzIPA67+g
-    1vwqF5P+Zy0EEV2A2lXhVuWQOQXVeD8r4IVph1Hb4PQFjub5vUjvMqV1dRSw
-X-ME-Proxy: <xmx:fA29ahEe82bEshjiXq9l82BhprGa1TyZN13ZLVHhXxs1IbI77Gmu3Q>
-    <xmx:fA29akIhU5FBtW3TcdadQygsyVBnyDoJq2k-Z1ds3m6nCLZQfdBeSw>
-    <xmx:fA29atmqXyJ9maNQ_T7IQn8abT8X8il5C9OIYvZpfPAD2MlrrJ4CDw>
-    <xmx:fA29akQC3ZKTTunlrlyI-buv1EvFWD5iLFyDPPzi0GliA4J1f8icQg>
-    <xmx:fA29anIivq51mhaI02M2lT4AewJMlzM8b90IUnHgs2ibzfs6udhJaqzc>
-Feedback-ID: iccae4b50:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 38C16F60078; Wed, 30 Sep 2026 09:24:12 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gbl8lqnc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="m3t9jJLy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hxPYn5q5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QfZQQ1bW"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 001F61F8B4;
+	Wed, 30 Sep 2026 13:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790774671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+zUap2Cl/C8x9W4oZ6/ovY4Uw31jVX64zeJKlNkD0ZQ=;
+	b=gbl8lqnc22jKNrhtDAmxY9KYvEvgCxP1k0Hg5yVRrrG75DoobTdbIPN78NKu166/oUQPH4
+	3LTKDbZkv6O1IheHVZwHbSungaZieaKBFmKMWAYjNwCFYsAr4dtY/TbUEUg9xVLm56uo+H
+	uYosySridxM6e84KczxY31W0pwZ4m8g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790774671;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+zUap2Cl/C8x9W4oZ6/ovY4Uw31jVX64zeJKlNkD0ZQ=;
+	b=m3t9jJLy4MH0C6nofLGM31G+VdCM7GSK627es7LMOeiojaicmWKPrar/oDdtYF8gFpgDnx
+	6loTDB7PRt5hz+DQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790774667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+zUap2Cl/C8x9W4oZ6/ovY4Uw31jVX64zeJKlNkD0ZQ=;
+	b=hxPYn5q5WzhXcomyJL6FhTDtdXV9JZJgkEjyayVKAmKVzWK9ZEoYB1zH1QXXBGanXx7Nmk
+	PyLBDDQvWYzZOjTQQSKG8G8eKrn5vCrlVF9t2LcVcLa3v0jnIFqRCshbETOxqZDbCAS1wd
+	g7n6FSLDP4Va3u+Jz/oz0+vme+kylgs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790774667;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+zUap2Cl/C8x9W4oZ6/ovY4Uw31jVX64zeJKlNkD0ZQ=;
+	b=QfZQQ1bWZsceZ19q3qAY2hoaWqY+q+aPmyWzFs2b+ChqtSF365CNYaK0NEAkzUn/IwRHNT
+	r+xd2l3ctBeN2eAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8404113ABA;
+	Wed, 30 Sep 2026 13:24:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id IluyAYoNvWr8MQAAD6G6ig:T3
+	(envelope-from <tiwai@suse.de>); Wed, 30 Sep 2026 13:24:26 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Zipdox <zipdox@zipdox.net>
+Subject: [PATCH v2 2/3] ALSA: usb-audio: Fix UAC2 mixer unit request handling
+Date: Wed, 30 Sep 2026 15:24:05 +0200
+Message-ID: <20260930132419.297102-3-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930132419.297102-1-tiwai@suse.de>
+References: <20260930132419.297102-1-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A-_873_JFPgw
-Date: Wed, 30 Sep 2026 09:23:52 -0400
-From: "Chris Mason" <mason@kernel.org>
-To: "Peter Zijlstra" <peterz@infradead.org>,
- "Paul E. McKenney" <paulmck@kernel.org>
-Cc: tglx@kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <d6e1b8cf-ee16-4a8f-b2e5-abc52908e6e3@app.fastmail.com>
-In-Reply-To: <20260930112156.GL88198@noisy.programming.kicks-ass.net>
-References: <20260818011036.1138213-1-mason@kernel.org>
- <20260818011036.1138213-2-mason@kernel.org>
- <20260820104015.GE687043@noisy.programming.kicks-ass.net>
- <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
- <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
- <20260930112156.GL88198@noisy.programming.kicks-ass.net>
-Subject: Re: [PATCH] futex: sample poll cookie after publishing new hash
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,zipdox.net:email,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Wed, Sep 30, 2026, at 7:21 AM, Peter Zijlstra wrote:
-> On Tue, Sep 29, 2026 at 02:12:53PM -0700, Paul E. McKenney wrote:
->> On Fri, Sep 25, 2026 at 05:58:13PM +0000, Chris Mason wrote:
->> > On Thu Aug 20, 2026 at 10:40 AM UTC, Peter Zijlstra wrote:
->> > > On Mon, Aug 17, 2026 at 06:01:42PM -0700, Chris Mason wrote:
->> > >> futex_ref_drop() may only skip its grace period when one has already
->> > >> elapsed since the current private hash was published:
->> > >>
->> > >>     kernel/futex/core.c:futex_ref_drop
->> > >>         if (poll_state_synchronize_rcu(mm->futex.phash.batches)) {
->> > >>                 /*
->> > >>                  * There was a grace-period, we can begin now.
->> > >>                  */
->> > >>                 __futex_ref_atomic_begin(fph);
->> > >>                 return;
->> > >>         }
->> > >>
->> > >> The cookie it polls is sampled one statement before that publication:
->> > >>
->> > >>     kernel/futex/core.c:__futex_pivot_hash
->> > >>         new->state = FR_PERCPU;
->> > >>         scoped_guard(rcu) {
->> > >>                 mmph->batches = get_state_synchronize_rcu();
->> > >>                 rcu_assign_pointer(mmph->hash, new);
->> > >>         }
->> > >>         kvfree_rcu(fph, rcu);
->> > >>
->> > >> get_state_synchronize_rcu() anchors its guarantee at the snapshot, so
->> > >> the cookie is cleared by the first grace period that starts from there
->> > >> on, including one starting between the two stores which never waited
->> > >> for a reader that loaded the old hash after it began.
->> > >>
->> > >>     CPU 0 (resize)                    CPU 1 (futex_hash)
->> > >>     ==============                    ==================
->> > >>     __futex_pivot_hash()
->> > >>       batches = get_state_...()
->> > >>                                       grace period starts
->> > >>                                       guard(rcu)
->> > >>                                       fph = old hash
->> > >>       rcu_assign_pointer(hash, new)
->> > >>       kvfree_rcu(old hash)
->> > >>     futex_hash_allocate()
->> > >>       futex_ref_drop(new hash)
->> > >>         poll_state_...() -> true
->> > >>         __futex_ref_atomic_begin()
->> > >>           atomic = LONG_MAX
->> > >>                                       futex_ref_get(old hash) -> true
->> > >>                                       spin_lock(&fph->queues[i].lock)
->> > >>
->> > >> The reference count lives in the mm and has just been biased for the
->> > >> new generation, so the stalled reader pins and then locks the retired
->> > >> hash that is already queued for free, and its later put is charged
->> > >> against the live generation.
->> > >>
->> > >> Fix by sampling the cookie after rcu_assign_pointer() publishes the
->> > >> new hash. Drop the surrounding scoped_guard(rcu) while at it: it only
->> > >> delayed completion of the prematurely anchored grace-period and serves
->> > >> no purpose once the cookie is sampled after publication. The writer
->> > >> side is serialized by mm->futex.phash.lock and neither
->> > >> rcu_assign_pointer() nor kvfree_rcu() requires a read-side section.
->> > >
->> > > God, how I hate reading AI output :-(
->> > >
->> > > Anyway, the thinking was that by holding rcu_read_lock(), the current
->> > > RCU-GP cannot change and the cookie and assignment are effectively
->> > > 'atomic'.
->> > 
->> > >From what I can tell there are a few ways for new grace periods to start
->> > while we're holding rcu_read_lock(), synchronize_rcu_expedited() if no
->> > GP is currently in flight being the easiest?
->> > 
->> > Anyway, this BUG_ON() fires for me:
->> > 
->> > diff --git a/kernel/futex/core.c b/kernel/futex/core.c
->> > index a061f54b6..18d51c145 100644
->> > --- a/kernel/futex/core.c
->> > +++ b/kernel/futex/core.c
->> > @@ -215,6 +215,14 @@ static bool __futex_pivot_hash(struct mm_struct *mm, struct futex_private_hash *
->> >  	new->state = FR_PERCPU;
->> >  	scoped_guard(rcu) {
->> >  		mmph->batches = get_state_synchronize_rcu();
->> > +		/*
->> > +		 * Fires only if a grace period started after the cookie
->> > +		 * above was taken, although rcu_read_lock() is held. That
->> > +		 * grace period then satisfies the stored cookie, yet it began
->> > +		 * before the new hash is published below.
->> > +		 */
->> > +		BUG_ON(!same_state_synchronize_rcu(mmph->batches,
->> > +						   get_state_synchronize_rcu()));
->> >  		rcu_assign_pointer(mmph->hash, new);
->> >  	}
->> >  	kvfree_rcu(fph, rcu);
->> > 
->> > -chris
->> 
->> This matches my understanding of RCU.  Although rcu_read_lock() will
->> prevent a *new* RCU grace period from ending, it will not prevent an *old*
->> one from ending or a new one from starting.
->
-> So, let us consider the dual counter RCU.
->
-> The RCU state is:
->
->   counter[2];
->   index;
->
-> rcu_read_lock() would increment counter[index & 1], rcu_read_unlock() would
-> decrement whatever counter it incremented (say rcu_read_lock() returns
-> the index, like SRCU does).
->
-> GP progression can either be sample or rcu_read_unlock() driven. Either
-> way, when 'counter[!(index & 1)] == 0' is observed, there are no more
-> observers of the old state (and callbacks can be ran).
->
-> At this point we can flip the counter and start anew: index++;
->
-> So index changes while counter[index & 1] != 0, which is somewhat
-> fundamental to how the whole thing works.
->
-> Now, suppose get_state_synchronize_rcu() is simply returning a snapshot
-> of 'index', then same_state_synchronize_rcu() can indeed trigger. The
-> index can get advanced.
->
-> But that does not mean poll_state_synchronize_rcu() would return true;
-> in the above scheme poll_state_synchronize_rcu() would be something
-> like:
->
->   if (index - snapshot < 2)
->     return counter[snapshot & 1] == 0;
->
->   return true;
->
-> That is, not only does index need to advance, but also the counter needs
-> to drain in order for it to report the GP is complete.
->
-> And this is where I went wrong, when we hold rcu_read_lock() we pin the
-> counter and thus the GP cannot complete.  But as I now see, that is not
-> sufficient, because there can be observers of the old state in the next
-> GP too.
->
-> So yes, the code is wrong and the patch is correct.
+For a request for a Mixer Unit on UAC2 (also UAC3), the wValue is
+different from UAC1 and an incompatible value must be passed.
+Namely, UAC1 takes a word consisting of 1-based input channel in the
+high byte and 1-based output channel in the low byte.
+Meanwhile, UAC2/3 takes UAC2_MU_MIXER in the high byte and a MCN
+(0-based bit position of input/output channels) in the low byte.
+The current driver implementation blindly assumes the UAC1 way, hence
+it would cause a firmware error.
 
-Ok, I'll resend against recent git with a better commit message, unless you've already queued up something better suited?
+This patch attempts to implement the conversion to UAC2 MCN at
+get_ctl_value_v2() and snd_usb_mixer_set_ctl_value() for mixer units.
+At the points above, the old wValue containing ICN and OCN is
+converted to the corresponding MCN, and it's used as the proper
+wValue.
 
--chris
+Reported-by: Zipdox <zipdox@zipdox.net>
+Closes: https://lore.kernel.org/d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net
+Fixes: 23caaf19b11e ("ALSA: usb-mixer: Add support for Audio Class v2.0")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: add more comments, use unsigned char to be clear as 8bit value
+
+ sound/usb/mixer.c | 23 +++++++++++++++++++++++
+ sound/usb/mixer.h |  2 ++
+ 2 files changed, 25 insertions(+)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ddfd7e01a3ef..a8bdd1696a20 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -335,6 +335,17 @@ static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
+ 	return -EINVAL;
+ }
+ 
++/* convert the given UAC1 wValue (ICN|OCN) to UAC2 MCN */
++static unsigned char to_mcn(const struct usb_mixer_elem_info *cval,
++			    unsigned int validx)
++{
++	unsigned char m = (validx >> 8) & 0xff; /* 1-based input channel */
++	unsigned char v = validx & 0xff; /* 1-based output channel */
++
++	/* num_inputs * num_outputs is guaranteed to be < 256 */
++	return (m - 1) * cval->num_outputs + (v - 1);
++}
++
+ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
+ 			    int validx, int *value_ret)
+ {
+@@ -347,6 +358,10 @@ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
+ 
+ 	val_size = uac2_ctl_value_size(cval->val_type);
+ 
++	/* correct wValue for UAC2 mixer control with MCN */
++	if (cval->v2_mixer)
++		validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
++
+ 	if (request == UAC_GET_CUR) {
+ 		bRequest = UAC2_CS_CUR;
+ 		size = val_size;
+@@ -478,6 +493,10 @@ int snd_usb_mixer_set_ctl_value(struct usb_mixer_elem_info *cval,
+ 		}
+ 
+ 		request = UAC2_CS_CUR;
++
++		/* correct wValue for UAC2 mixer control with MCN */
++		if (cval->v2_mixer)
++			validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
+ 	}
+ 
+ 	value_set = convert_bytes_value(cval, value_set);
+@@ -2345,6 +2364,10 @@ static void build_mixer_unit_ctl(struct mixer_build *state,
+ 
+ 	snd_usb_mixer_elem_init_std(&cval->head, state->mixer, unitid);
+ 	cval->control = in_ch + 1; /* based on 1 */
++	if (state->mixer->protocol == UAC_VERSION_2 ||
++	    state->mixer->protocol == UAC_VERSION_3)
++		cval->v2_mixer = true;
++	cval->num_outputs = num_outs;
+ 	cval->val_type = USB_MIXER_S16;
+ 	for (i = 0; i < num_outs; i++) {
+ 		__u8 *c = uac_mixer_unit_bmControls(desc, state->mixer->protocol);
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index 037b446d8b6f..cf45c39cbccc 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -97,6 +97,8 @@ struct usb_mixer_elem_info {
+ 	u8 initialized;
+ 	u8 min_mute;
+ 	u8 get_cur_broken;
++	u8 num_outputs;
++	bool v2_mixer;
+ 	void *private_data;
+ };
+ 
+-- 
+2.55.0
+
