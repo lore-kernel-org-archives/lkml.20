@@ -1,48 +1,50 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A9144FE2F7;
-	Wed, 30 Sep 2026 13:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDD04DEC09;
+	Wed, 30 Sep 2026 13:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775578; cv=none; b=OcPbDUwmFqKWe7k6mJRrpeF46BVLTauGvywM2wxlXK+2UwpS4YyRRA+1LR1zF7sZzO9+TqMiIFwXIxHDaltVeTFx5X9oJP3GSaQlHHzhVRMrAYHvd6ZSUIbfcNGHIit9cVklQ+C6BuVw5KPrCX7JHLYXAOtnPxqv/Z0/ycOvS7A=
+	t=1790775591; cv=none; b=FIK61Uwbk/4f8S9FS/PCC5Zj7oqZBYa/mHk3NCTHjGVlQIaEB470hQ23Pk7qzhUu9EjKKLxpLG8lyO5Q26KRaAWShel0zd0PhUakdquX3qXSu9MPz47IFw5aLf2uGS20U01WIwUHsodMyxzNW3sh1FNmPad7puxWcRR1E3xNDuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775578; c=relaxed/simple;
-	bh=WrLZ5gfj597SIIguCgOUtqlPTHgYb9tcuWrI/gHAH10=;
+	s=arc-20240116; t=1790775591; c=relaxed/simple;
+	bh=Vm4jS6jq2vj2KHH3vETEQm+Bg9TaclDm4aw8qivixLs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J2pLqmB+f6EGabl3uSkTD5BEG5H5l/OtzfePNCKF1LlXgOtg+G5PzQlYpZoX9UnAb0lMazdtYJThjtFGaaqOZu+LTM9IezmshmmQDNAF12SIMVKU8fEycjtz3iDnkKiFJgOVb1FTDNFou7+N5qT5QkU8HtOXd564Dkr9q4PnYm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Pcj3sxhu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEC8uTC/OVkltBSz3h2zOSIkrmESE3uasyhBxfuc9xAfPcx1726NWndfB9m04SQgnSGF54p31RvqwJzEC5EmBJP4BHFkfC55dfAVgyCSge20d1BsUIr2PLRO0f3ynBVWaDF22YIsjOfduzdPDLLsv444Dy2/ZbdCZgb5mavSHPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tlyN7BlL; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=k3CCmG5t; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Pcj3sxhu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 08061497;
-	Wed, 30 Sep 2026 06:39:12 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B1893F86F;
-	Wed, 30 Sep 2026 06:39:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790775555; bh=WrLZ5gfj597SIIguCgOUtqlPTHgYb9tcuWrI/gHAH10=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Pcj3sxhuzrhm1E/ig/tQbFU+vGp68EdZ3hS1A4ER37ixvE4v7iH8lKDH1EWxVDw4P
-	 q+VI/Tvjrv3VA4weqNAi0Sk4uHAMzZk+rQoW1zI+4kSSTimnPuEZWd4Op4GrayP4c0
-	 6U0s8zjk3oI005UNqWKJnYD8xBQpRrTB5+UdNchM=
-Date: Wed, 30 Sep 2026 14:39:04 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v20 6/9] firmware: arm_rmm: Ensure the RMM has GPT
- entries for memory
-Message-ID: <ar0Q-F92FaPEiEbc@arm.com>
-References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
- <20260929221623.1342076-7-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tlyN7BlL";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="k3CCmG5t"
+Date: Wed, 30 Sep 2026 15:39:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790775580;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zn4VjKK02Il1ozefnBi/Fvnvz8XZiZNWHZGxcZRwyJU=;
+	b=tlyN7BlLpRY/wZQHKMOCT2EQz++YtaCmZZok+iQTAmPuJsWcyQPTq22a2iGGIy8eQtr70Y
+	hxRBAki7JZeMUHjCeSh9cbZ844/Z30C3/FdgR198BmnzNQXRNF9nICtrqDvLg5Mq8bek8G
+	x+pHjqx0rMz3VzYf9T6lDsedSf48Ynxkz6mV19e22OiDeyJ2n13sgYt/7zMKiThmUs7cJh
+	IWeZJiQrZ4yjMy2+1M79W4IB1bf/ehl77pCth2k470P5MLwhg9TUPiTJ+WtOFZ7dfTeYED
+	dAcq51FGV0UBGk4UvBvcB0jpCWXNRXodEexnEPHakl0rOseOQJ203H9osAMnhA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790775580;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zn4VjKK02Il1ozefnBi/Fvnvz8XZiZNWHZGxcZRwyJU=;
+	b=k3CCmG5tDH7aDhIdy3cgi9eNpBKRyafciAS8o1o4BIkH1nPjyELp/KwwgaTk2hk1Q8zTKd
+	uIZNQK/fTNPjJyAg==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure in the final build
+Message-ID: <20260930153855-46152e34-6e63-44a9-a2a8-bb659cb8e55c@linutronix.de>
+References: <ar0OGZGN0ftc20Zi@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,43 +53,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929221623.1342076-7-suzuki.poulose@arm.com>
+In-Reply-To: <ar0OGZGN0ftc20Zi@sirena.org.uk>
 
-On Tue, Sep 29, 2026 at 11:16:20PM +0100, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
-> 
-> The RMM maintains the state of all the granules in the system to make
-> sure that the host is abiding by the rules. This state can be maintained
-> at different granularity, per page (TRACKING_FINE) or per region
-> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
-> all pages in the region must be of the same state, this implies we need to
-> have "fine" tracking for DRAM, so that we can delegate individual pages.
-> 
-> For now we only support a statically carved out memory for tracking
-> granules for the "fine" regions. This can be extended in the future to
-> allow modifying the tracking granularity and remove the need for a
-> static allocation by the firmware.
-> 
-> Similarly, the firmware may create L0 GPT entries describing the total
-> address space. But if we change the "PAS" (Physical Address Space) of a
-> granule, then the firmware may need to create L1 tables to track the PAS
-> at a finer granularity. Linux therefore checks if the platform firmware
-> manages the PAR region. i.e., the firmware is in charge of managing the
-> L1 GPTs (creation and the required memory for the GPT tables - via static
-> carveouts) without host intervention. Support for dynamic GPT creation by
-> the host will be added later.
-> 
-> If the firmware requires us to manage the tracking or GPT memory,
-> deactivate the RMM and reclaim any memory donated at RMM activation.
-> 
-> Apply the same checks when hotplugged memory is brought online.
-> 
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Hi Mark,
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+On Wed, Sep 30, 2026 at 02:26:49PM +0100, Mark Brown wrote:
+> In the final build today's linux-next build (powerpc allnoconfig) failed
+> like this:
+> 
+> /tmp/next/build/lib/vdso/gettimeofday.c: In function '__cvdso_clock_gettime_common':
+> /tmp/next/build/lib/vdso/gettimeofday.c:288:31: error: implicit declaration of function 'BITS_PER_TYPE'; did you mean 'BITS_PER_LONG'? [-Wimplicit-function-declaration]
+>   288 |         BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+>       |                               ^~~~~~~~~~~~~
+> /tmp/next/build/include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
+>   682 |                 if (!(condition))                                       \
+>       |                       ^~~~~~~~~
+> /tmp/next/build/include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+>   702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>       |         ^~~~~~~~~~~~~~~~~~~
+> /tmp/next/build/include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+>    40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>       |                                     ^~~~~~~~~~~~~~~~~~
+> /tmp/next/build/include/linux/build_bug.h:51:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+>    51 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+>       |         ^~~~~~~~~~~~~~~~
+> /tmp/next/build/lib/vdso/gettimeofday.c:288:9: note: in expansion of macro 'BUILD_BUG_ON'
+>   288 |         BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+>       |         ^~~~~~~~~~~~
+> 
+> Caused by commit
+> 
+>    ca46a07c4b682 (vdso/gettimeofday: Assert that the clockid fits into the u32 bitmask)
+> 
+> I reverted that commit for today.
+
+It got also pulled from the tip tree:
+https://lore.kernel.org/lkml/874if6j4if.ffs@fw13/
+
+
+Thomas
