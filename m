@@ -1,419 +1,660 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A333F36E467;
-	Wed, 30 Sep 2026 16:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785949; cv=fail; b=lf80I9RcCI2OejgIUh4naBVOBDhfLxCzR9G9O59qg+8oGw8xIoybBFYPOtZK0GLTrYlQoS5SEvUzcf/0WpvvZ9vCJMBq/+ETTU6pExlM64kLN+lfEiTXs1VeFCEPvrxlUN4ZLdX//9T/8mb9AGs78JkhVnwIOQSrUU9ZDXMubcM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785949; c=relaxed/simple;
-	bh=2666WTGVZQQilfp2FC7akq62AqYgEIx8iVjrIQdiJV4=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=cIhyaznoaXWOanYMa+Hq2/vWC3Vpo+nZbJ9iKNbDIfzRMwNzobxiCtIaHY1YkCiCFPbnZIpOrNHxmwp0BT2nUw4vHWuP806/tURWasDct4nYLEt9+UxWC6ZzzmL3mSnvUiCABc7XC9z2sHcTA69DiyHngs5Z9l0DTiIX+qIAifY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a4XrWbv8; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7F15111AE;
+	Wed, 30 Sep 2026 16:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786060; cv=none; b=gAJcWBHvjepULPGubpmUKSzVrEVXG+xHga7XJS6kqtTsnUP3CfpA+CPFDLp0aL+KNeRxygUrwI9ncmLRIx3YjSSi76Hpohga8vXE8yuysyBDkRe62iCjpVxW/BQv2qndhlRtWtqtQzPGZaHZBYk5YoU+jo45zVzvuFpSo8rmYlU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786060; c=relaxed/simple;
+	bh=y7ren6IejrkeCk5hmF7Uf7yQg3KfB/xaQjsCfj4NnNo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pi2Jb4c42Br/pmU1kj+Hv3bgff44lBET364SvxhJZQJhhUpc5G5mA89eBUx2fLaW17Sz9vRIuWP1TaedmdfKDvKAdkK43e30SUJiYFNYQvo8Nx4F+lOO30awd3VirLIa3ht6KLDtkIMalmNezeezeH34rX614QnRd5DyIovZOBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UrUu+oC+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a4XrWbv8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790785946; x=1822321946;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=2666WTGVZQQilfp2FC7akq62AqYgEIx8iVjrIQdiJV4=;
-  b=a4XrWbv8qP2U79HGYdlET0lJgMORz31hW32cRoZ4C+2U24Wbsg2Q2c5N
-   F4kbXmBsfGxAzxFOA5jrSa26QJjRiP9rP7c2EtCd2cjmqS85oL45Ctpd6
-   o9HsnvDNAysqqemupc6yQLJiGQfKd4LLCYrQghQBZDEEOnsdDLdpplRJ4
-   /szgMUnlRvGm5ctajOcNwD5EG5mzFhkr6rOVPsHV/iK6XTFQBcbAV+r4I
-   xT4sTnKW2b8jnvBi/FEc16rtWi5007j+F+iN8MZu60SIITFgi37EeCqCI
-   b1T5j96v+PJxPn21aDENskogg9UbHOqkdn9KJgS8hXDuf0j121zqmCTYn
-   A==;
-X-CSE-ConnectionGUID: +rYFp23rRr6mINp5osdwsw==
-X-CSE-MsgGUID: abfGvM9rTpC01GNK6bV1ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90660409"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90660409"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 09:32:17 -0700
-X-CSE-ConnectionGUID: PtbVhxDFRPyb0OP1iqJMWA==
-X-CSE-MsgGUID: 4a1vT4GETJinhzjjGXsBag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="303673059"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 09:32:17 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 09:32:16 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 30 Sep 2026 09:32:16 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.68) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 30 Sep 2026 09:32:16 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RyauUB1a0VfcYXr5heqdFW08UTcRwLjiDiTjjsE5StMCyVn3jnugT96Cr86DxOwzFUKhiF2ehUmkTo+yo7XhRlUk+x9XUPdVNERL+9104Q11xDRWpvok4edk9FvVzDrY1iHQ5cKDaG1u0DbfqXq8VLjGaeGknTXkJIciGWtCe70V1zvGRyjngyNvFkPrE7Sr0ogpnm8/34mXCXg+lbs3CB6qdSMlGYxzHw/ADNcrOQOdC7cujEf/9XQ06/C+g8PkE/MN6buZ+Riw9iN7UFxCL3PdKQELgXL6bMAyLq/MRDDh8gcsDbSyUrgFGEir95DT4Y9a2JWw5yghEozF1JOBFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h/GgRSPBqNIfZy47tW0CtpCiI+la4jpV/uxyiBM2D6s=;
- b=Cb8DZlEDHyTG8Sq+tlsxQ6YIRxz2ZyEObkLtt+xm4lk8W7Lr9X7WaBXMP5ed2+LfJWOETZN+RWBv1tE09qCj/SrNiR7LnBJ9B6zAsYBU0b9XgfcLUhT5n2FBAVb3fUUpY8X7psnaoaXkONAwOme7htwVFKAV+cNLVal5PxX1QrzBjbwsPDM4tiNe40X4XPXgGWVsP1Re/8MSx4Kklc/1W2LsTsMSvx5kAxuRvuhv0z2ablIOdLlBZLVzpB8tXSPfksfmFxvFIGFl0bkL6/caI2erc9vW9OglOLaR6Asq2HIGYaaW/B9EZSEc5O9K3euSUqzrfH4Cj+Ivc+UaZbGYfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com (2603:10b6:806:116::21)
- by PH0PR11MB5808.namprd11.prod.outlook.com (2603:10b6:510:129::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
- 2026 16:32:13 +0000
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3]) by SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 16:32:13 +0000
-Message-ID: <e3772a51-eabc-4c31-b73d-f3187bf1b3b2@intel.com>
-Date: Wed, 30 Sep 2026 22:01:55 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/7] VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP
- lock.
-To: NeilBrown <neil@brown.name>, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-CC: Jan Kara <jack@suse.cz>, <linux-fsdevel@vger.kernel.org>, Jeff Layton
-	<jlayton@kernel.org>, Amir Goldstein <amir73il@gmail.com>, Miklos Szeredi
-	<miklos@szeredi.hu>, <linux-kernel@vger.kernel.org>,
-	<ravitejax.veesam@intel.com>, "intel-gfx@lists.freedesktop.org"
-	<intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
-	<intel-xe@lists.freedesktop.org>
-References: <20260904215142.1060510-1-neilb@ownmail.net>
- <20260904215142.1060510-7-neilb@ownmail.net>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260904215142.1060510-7-neilb@ownmail.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0293.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:221::7) To SA2PR11MB5035.namprd11.prod.outlook.com
- (2603:10b6:806:116::21)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UrUu+oC+"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C224E493;
+	Wed, 30 Sep 2026 18:32:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790785943;
+	bh=y7ren6IejrkeCk5hmF7Uf7yQg3KfB/xaQjsCfj4NnNo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UrUu+oC+2QfHTQgLS5xQildIvPFEyJy6+8cdCLTLxb9eIASJm2KkTztqbsXLw1X/Q
+	 jjo3Z+sKXgD6sGy6It5Xy1G0H/13W21JjHQOSzQ82PfyXrLibsbe8uf19gEZCVBrs3
+	 Dl7inGRK518RWQg9cEZUPTGosFH7G255YiMWM35I=
+Date: Wed, 30 Sep 2026 18:34:12 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	"jai.luthra" <jai.luthra@ideasonboard.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Philippe Baetens <philippebaetens@gmail.com>
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar03QZc3wVMKy8F8@zed>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+ <PN3P287MB1829832B0C6C42441B18D9D18B8B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PR11MB5035:EE_|PH0PR11MB5808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 497458c2-c680-4e4e-a6d1-08df1f105e10
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|56012099006|11063799006|4143699003|10067099003|29003799003|6133799003|12006099003|22082099003|25016099003|18002099003;
-X-Microsoft-Antispam-Message-Info: UX5gkY66ndM8C32AF+n+RaOUDvIwV3ZgfTxU45gQuEkdXASzHKjPkjs2GXD/vAnovKKwxDo6eL+MzT6RxcIbuSw8w+Ye1dxwKsrB9WIEDFo651dLpbYTiVuKegZ/cm/r4OSinBI5dwlEepsy0YKHYIHQI2apnWJj9a1Bqu24Tg3zq1xI4IFncW0o9SoUiCGvV07rr6p4U3xzoK2W80yRvKvb3AS4TuMcWHNbIZuD3W1KLKZGBQApfFPPapO1I/xJgI7eXA8SoIMdqdOqW31F5SG13bFh7VcnTpmPCGvafrRzwfOW6R1zKBPZrQCoKnsG5YjvXOPPRE1pg1rnkpZw22thGftSEiAu3mzuBiqe3LCS/vhDwg4SpmiB6KzBFrEOmogdTpwj5Ux4BDJCxLmIG4lhZNT14gynkqE4NYr8nLGR4quOzRcS8bMvwyJQG/rnp/JXxvolMI3reJStyYP4QRuSApaTvBz1wAc5iqCFKyeO8zrEhmysX8ty/kmOOIgMWNjGrqY6p7hIpEUAdKpBmUbtO/EK5aGtY2XF8ERSXka+ZRaEjrX6MXyrKgzo4F8E1qjKv2gnx0WKkn0ioeWVCC4arrhvwpA2FZe5sky5EmNQ3Vx48XyDpVMq9bj21rsE
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR11MB5035.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(29003799003)(6133799003)(12006099003)(22082099003)(25016099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDU5VThpTEhDeTZtTHQ0K1B2VUZvUzV6SjNneDBHOFNqSnAwdXhSaHJialVs?=
- =?utf-8?B?bll0OXZnTngwbU5kMnR0TkNOcm81YndJaGZhaTNMaFAvejhDQnRvZXJCcDdY?=
- =?utf-8?B?TGFKZXZEQUY5QUtnam13Nm84ZXhJSjVqSmpQZUlhR2N1VlBBZlA5K2tTVDR6?=
- =?utf-8?B?VE16VlNFcTZEbnZoanByaFZ1a1BFVUdnZjAvbkhvcXZzSTk3NTRXNEtaSWcx?=
- =?utf-8?B?djRjWk5uK282SkhieXRPQ3EyOTJHSGdJYktFM3FRMWduTlZ2R1FBb3Y1VzVE?=
- =?utf-8?B?R3VBUXhJeC9IODlmUWNSQ0YyZmk3SkFqR2VGR2gyNHJRSXJnaC9lUlVibHNl?=
- =?utf-8?B?QzFtWEp1NUtPVDVoeVNSc0V1OS9mMUZwbHZSSFlFeStNUS8xVklUMjNLeitZ?=
- =?utf-8?B?UEluTStoZ25sRFRuTStoY1RVQ0JtMUhxRmJoTEdlWUliRGlSeFJhNnRLNTJp?=
- =?utf-8?B?TWp5ZmkyWExTY09TUlhLbkp1cHM4VzAwcExKbkNDNFdvd2lyYXdHR0ZRY3lq?=
- =?utf-8?B?cXZkeGNieTZVZ0oxL1ZTNUFmenNGQ2tlT3hLRGhHd0p5WmtJQXJtMkZNQkda?=
- =?utf-8?B?d2FFWDMxZ3pFc3FyeEdseXFjWENONXlHdDYzQy9YNWJ2eSsvNzRhU0pZUW1m?=
- =?utf-8?B?d3hOVzJJWVRaUEUwQUJEMDhzQy8rVVROZkY1YVBkeVRnMnkvWlNjTEJ6QjNK?=
- =?utf-8?B?U091YnNvSmdQTkNmVmM5cUtwOWRQOTltWG5sRlJZMTdFZ2dFV1B1NjFjSEt3?=
- =?utf-8?B?UFBKUFFXNUJwMERSK2xhbWJFNFVtZzJMR2I1RCtqMkg2TmM5aHFtOGZTZXFt?=
- =?utf-8?B?T05oWVpycnBLeVVnY3hnVTN1YkVOemVpWXZwTWowMkVKbGpIa0UreDRlUkdR?=
- =?utf-8?B?anpQWlZFeFdMKzhhSWZOVTRXMXpHT3k0OS84SkR0NUZZRnd1dk0rRDFsUndo?=
- =?utf-8?B?eVNMWmQyMzdyeE9pYnNtT2MwSFFUeWpjUzY4TVlwU0VYKzk4aUMyZGZjbDBk?=
- =?utf-8?B?OWZxRUpnaDVrUk56cS93R3Y1bE9uci82aGNJNkRoVWtvTW52ejV2bStJQVZn?=
- =?utf-8?B?NkxIcW9OLzg2NGpsZ21WT3YxYlRqdG9JWTZzc0pRNnVIbkhDOXhtWEdyRVlR?=
- =?utf-8?B?MVVXMEo1UGpvVE1tT2hqcmxPQmRJM3hPOFRkK0NsaHRWV0FwcnJzengxanFJ?=
- =?utf-8?B?TTR6Y05KRUcrR2hBejZ2cDFyM01YQ25QWmF3eWtoQjdRRlRYWEtsVFo2aTl4?=
- =?utf-8?B?RnRhNUV2aUlFa05iNWVldC9PcXE1d01BeG9ibTRjc3drZ29UemUxaGd4U1pY?=
- =?utf-8?B?TXM4UGpuc01xeTR2YUlJVFRoOFYvOUc2aUU5NndvQzdkUWRYam5qVFRyY3d2?=
- =?utf-8?B?U2RrYUJ5cU9HUUs4NzZSalgxRGN4V2s0U055Q0RqaFVZNm0zcVlZc0RaK01s?=
- =?utf-8?B?RlBNaFBFTzRpOFJZbHVveDF4cTJxK3dmR1EwRTNxMllPL1Fvc0tVQSt2d3ZL?=
- =?utf-8?B?cG0xVWJGbHM5V2l0QWxOZUxmbnhVR1B0OGErWHZRRkoxM2FvVzF5bzNJUEps?=
- =?utf-8?B?bElQcnpaTWlUMDl6cU1leWlwOVVpdlJuVy94NE1uL24rOXVwRTYyMTQ2SHM0?=
- =?utf-8?B?WnRjb1Y0c2xPK0RWTGFZRlJCVHQ2bXlLTjZLc0Y4S1B3Zkc1RjVpRThObXQy?=
- =?utf-8?B?bFhFRCtQMmZ3dFBpeWhOblFlVElXWU5BMUxaQS9CQnF1a1RncnZEYWxXMlpL?=
- =?utf-8?B?NEU4ZmhwUzlYaHNVdVBkS0I3RjFYWm9XaVJlaDZmRTZ2OWZBaGdqbklsTW9V?=
- =?utf-8?B?NVQzL1BUMWZhNmdIeldJUGo5Ymc2S3BydmUrZXNYK2tnK09aTU1Lc2dtRjlx?=
- =?utf-8?B?UDMreTh6UHN0a2pxSGorTElVU2k4MGs5WU5ZSVhHKzJZK205UUJFaDd0UlBQ?=
- =?utf-8?B?TEF6QUlMcU5lTmhZd1JydDdUSlMwbnhZaEVkRUppdXZCVElyV0cxa1FMZmQr?=
- =?utf-8?B?dW96Tk5GV1NGMU1Md09PRjI4NlFHYlA5QzBHSFU0Qm55MmtIaGNQNU8vamxU?=
- =?utf-8?B?d1IzaXhaWS8xaWpTWk5DRTdtVVBVU21uR2RNMEg4ZUxnTVhNMkdoV2QrTUlY?=
- =?utf-8?B?K2VpR0dFbkVKN05TWjNFbytIQm9IcDdzN3dJMDlCWXZrelhGVzF5YUJsdUYz?=
- =?utf-8?B?bjVubnRkYVpyeWMxQStZMVVlVHR1cEorMVRPQk1NdkJEZVR5Nzg0TXlhbzJZ?=
- =?utf-8?B?UkxWRTRQMENMV1lZd1Z0RTEwUC9FV2VSZ0NiU2dvZXFDT0RCeWdFbkxTRlow?=
- =?utf-8?B?aVUxRFJtWDRScmtUU3laaWZYN2cvcVJIWmw3UEx4NVZubFlsczhuc0RFckk2?=
- =?utf-8?Q?oAdChVk3MMzaKCKE=3D?=
-X-Exchange-RoutingPolicyChecked: mA4l7++PuI9yRirruE8RyfeMDyx0MGK7pF/k3QBG3MDW5uHeRbXgVy7btG1LnPIkEs4IGIV+RLEwJ7Op7+hxJZjIPi/6DkKJNxiD0zpo+ktQPM4pxViJ7HO3kdgpBznK0S1d7CLzv8X/eBn7XyqhWKd2FLdGj7AhsaOU0uV85zVsQotVKCwGN/ffcImWr+jFU4KhO5bfGt77sxsfNcvPI8jW/6H+GBZvcql6kXVUUtlmkqn5ffXTLBH1ITvVKIYuJc7ZHA7elm+9WwfHbs9X2pZch3sjlfdsCTaiPtkTZ/6b+79ZNlseFKDpVjNtPecuVQY1AXhzGg4QsVwV6L5R2w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 497458c2-c680-4e4e-a6d1-08df1f105e10
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB5035.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:32:13.5032
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6kVaKKHmrjVNZGwrHeVVjcNBEmnPefdQjrCosNosEIChEmB0kLv9vbWVb/vrgQLxKC9nlaR8B74btZ6KScBFhz3MbmYM/X8leVDSZYRNqww=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5808
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <PN3P287MB1829832B0C6C42441B18D9D18B8B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 
-Hello Neil,
+Hi Tarang,
+  thanks for the review
 
-On 9/5/2026 3:18 AM, NeilBrown wrote:
-> From: NeilBrown <neil@brown.name>
-> 
-> DCACHE_PAR_LOOKUP acts like a lock in that threads can block waiting for
-> it to clear.  As we plan to make changes to lock order for this lock,
-> teach lockdep to monitor it so as to help detect bugs early.
-> 
-> As NFS allocates an in-lookup dentry to unlink a silly-renamed file, and
-> completes the lookup in a different thread, we need interfaces to
-> release and the acquire ownership of the lock.  This avoids lockdep
-> complaining that a lock is still held on return to user-space.
-> 
+On Wed, Sep 30, 2026 at 01:47:22PM +0000, Tarang Raval wrote:
+> Hi Jacopo,
+>
+> I noticed a few issues. Could you please check the comments below?
+>
+> > Add driver for the ams OSRAM Mira016 sensor.
+> >
+> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > ---
+> >  MAINTAINERS                 |    1 +
+> >  drivers/media/i2c/Kconfig   |   12 +
+> >  drivers/media/i2c/Makefile  |    1 +
+> >  drivers/media/i2c/mira016.c | 2309 +++++++++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 2323 insertions(+)
+>
+> ...
+>
+> > +/* Register select. */
+> > +#define MIRA016_BANK_SEL_REG           CCI_REG8(0xe000)
+> > +#define MIRA016_ACTIVE_CONTEXT_REG     CCI_REG8(0x4002)
+> > +#define MIRA016_NEXT_ACTIVE_CONTEXT_REG        CCI_REG8(0xe003)
+> > +#define MIRA016_RW_CONTEXT_REG         CCI_REG8(0xe004)
+> > +#define MIRA016_AUTO_SWITCH_CONTEXT_REG        CCI_REG8(0xe005)
+> > +#define MIRA016_PARAM_HOLD_REG         CCI_REG8(0x0006)
+> > +#define MIRA016_DISABLE_CONTEXTSYNC_REG        CCI_REG8(0xe008)
+> > +#define MIRA016_DISABLE_CONTEXTSYNC    BIT(0)
+> > +#define MIRA016_CMD_REQ_1_REG          CCI_REG8(0x000a)
+> > +#define MIRA016_CMD_HALT_BLOCK_REG     CCI_REG8(0x000c)
+>
+> A few of these macros are unused. Can we remove them?
+>
 
-This seems to be causing regression in our linux-next CI [1] since
-next-20260928.
+Will do
 
-<4>[   10.773931] ======================================================
-<4>[   10.780181] WARNING: possible circular locking dependency detected
-<4>[   10.786407] 7.3.0-rc5-next-20260928-next-20260928-g6375e61c01e9+ 
-#1 Not tainted
-<4>[   10.793773] ------------------------------------------------------
-<4>[   10.800017] podman/794 is trying to acquire lock:
-<4>[   10.804801] ffff888133cb8388 
-(&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x31/0x60
-<4>[   10.814849]
-                   but task is already holding lock:
-<4>[   10.820743] ffff88812dbd3048 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: 
-__d_alloc_parallel+0x53a/0x920
-<4>[   10.830976]
-                   which lock already depends on the new lock.
+> > +
+> > +/* Chip id */
+> > +#define MIRA016_CHIP_ID_REG            CCI_REG8(0x011B)
+> > +#define MIRA016_CHIP_ID                        33
+>
+> ...
+>
+> > +static const struct cci_reg_sequence mira016_8b_fine_gain_init[] = {
+> > +     { CCI_REG8(0xe000), 0x0 },
+> > +     { CCI_REG8(0x01bb), 0xb4 },
+> ...
+> > +     { CCI_REG8(0xe000), 0x1 },
+> > +     { CCI_REG8(0xe000), 0x1 },
+> > +     { CCI_REG8(0xe024), 0x3 },
+> > +     { CCI_REG8(0xe000), 0x0 },
+> > +     { CCI_REG8(0xe000), 0x0 },
+> > +     { CCI_REG8(0xe000), 0x0 },
+> > +     { CCI_REG8(0x005c), 0x0 },
+> > +     { CCI_REG8(0x005d), 0x18 },
+> > +     { CCI_REG8(0xe000), 0x0 },
+> > +};
+>
+> I noticed some registers are written multiple times within each
+> of these arrays. Are all the repeated writes required, or can
+> the redundant ones be removed?
 
-Detailed log can be seen found in [2].
+Good question.
 
-We confirmed that reverting the patch solves the issue.
+I've broken out almost all documented parts from the register
+sequences, which are generated by a vendor provided too.
 
-Could you please check why the patch causes this regression and provide
-a fix if necessary?
+I'm not sure I would dare to modify them to be honest. Also, if
+anything have to be updated, comparing the sequences here with the
+generated one will be easier.
 
-Regards
-Chaitanya
+>
+> Like for the above array 0xe000 register.
 
-[1] https://intel-gfx-ci.01.org/tree/linux-next/combined-alt.html?
-[2] 
-https://intel-gfx-ci.01.org/tree/linux-next/next-20260928/bat-arls-6/boot0.txt
+0xe000 is repeated multiple times because it's the register that
+selects which bank to write to (there are 2 registers banks on this
+sensor)
 
---Bisect Logs--
+>
+> > +static void mira016_update_pad_format(struct mira016 *mira016,
+> > +                                     struct v4l2_mbus_framefmt *fmt, u32 code)
+>
+> third argument is unused. Can we remove it?
+>
 
-git bisect start
-# status: waiting for both good and bad commits
-# bad: [6375e61c01e93e35ee7acd336a689ac1fae4b509] Add linux-next 
-specific files for 20260928
-git bisect bad 6375e61c01e93e35ee7acd336a689ac1fae4b509
-# status: waiting for good commit(s), bad commit known
-# good: [5dad87615c9861cfa366ca984b52f581e861df20] tty: add break_wait 
-kernel-doc
-git bisect good 5dad87615c9861cfa366ca984b52f581e861df20
-# bad: [3bd2d86b7cc084d0a610760cfa40349497ea8920] Merge branch 
-'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git
-git bisect bad 3bd2d86b7cc084d0a610760cfa40349497ea8920
-# good: [3cc80c8dbcd8475e98ae86759750d0a140b063fd] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/gclement/mvebu.git
-git bisect good 3cc80c8dbcd8475e98ae86759750d0a140b063fd
-# bad: [3ac0b1643b3b216ce37d5ec4352fee8a01ecd37d] Merge branch 'fs-next' 
-of linux-next
-git bisect bad 3ac0b1643b3b216ce37d5ec4352fee8a01ecd37d
-# good: [48a0400362e2648ba3ab56df8eceb782abfb7d17] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/geert/linux-m68k.git
-git bisect good 48a0400362e2648ba3ab56df8eceb782abfb7d17
-# good: [1ba62e451b02da61d4786a11da46501cd253cd2e] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/hubcap/linux.git
-git bisect good 1ba62e451b02da61d4786a11da46501cd253cd2e
-# bad: [b298f749884547ec4b746bdffc293fdd3b5a64ec] Merge branch 
-'vfs-7.4.misc' into vfs.all
-git bisect bad b298f749884547ec4b746bdffc293fdd3b5a64ec
-# good: [cb70d8c361808b08d13dc4bdddb59cd92c48f84c] Merge branch 
-'vfs-7.4.file' into vfs.all
-git bisect good cb70d8c361808b08d13dc4bdddb59cd92c48f84c
-# good: [d2b6b01e5969a762e92832cb6c9e2a470a842fcb] Merge branch 
-'vfs-7.4.iomap' into vfs.all
-git bisect good d2b6b01e5969a762e92832cb6c9e2a470a842fcb
-# good: [a647a53bc89a046bee4a12a0a5627f2dfaaef807] dcache: report a 
-Tasks-RCU quiescent state in dentry_kill()
-git bisect good a647a53bc89a046bee4a12a0a5627f2dfaaef807
-# good: [a2fb05f5133f83b2359b4b15d091bcf21e8b02bc] Merge patch series 
-"kernfs: don't hold kernfs_rwsem across dir_emit()"
-git bisect good a2fb05f5133f83b2359b4b15d091bcf21e8b02bc
-# bad: [3879f51857325da9bf3cfb073280257cd16ae067] Merge patch series 
-"VFS: prepare for changes to directory locking"
-git bisect bad 3879f51857325da9bf3cfb073280257cd16ae067
-# good: [17c7d109d8c9a6744b40ded06cc596cd6a80ec49] VFS: introduce 
-d_alloc_trylock()
-git bisect good 17c7d109d8c9a6744b40ded06cc596cd6a80ec49
-# good: [cc47a1ba1983116ee7a720a79197eb5299ae5d31] VFS: Add 
-LOOKUP_SHARED flag.
-git bisect good cc47a1ba1983116ee7a720a79197eb5299ae5d31
-# bad: [fd96e30426ff3e1352309ccf6843dc7fd9d38fde] VFS: reserve a d_flags 
-bit for fs-specific usage
-git bisect bad fd96e30426ff3e1352309ccf6843dc7fd9d38fde
-# bad: [59492f9991dc19d5cc2c34295f1403d0f211e734] VFS: add lockdep 
-monitoring of DCACHE_PAR_LOOKUP lock.
-git bisect bad 59492f9991dc19d5cc2c34295f1403d0f211e734
-# first bad commit: [59492f9991dc19d5cc2c34295f1403d0f211e734] VFS: add 
-lockdep monitoring of DCACHE_PAR_LOOKUP lock.
+Ah yes, sure
+
+> > +{
+> > +       unsigned int i;
+> > +
+> > +       for (i = 0; i < ARRAY_SIZE(mira016_mbus_formats); ++i) {
+> > +               if (mira016_mbus_formats[i] == fmt->code)
+> > +                       break;
+> > +       }
+> > +       if (i == ARRAY_SIZE(mira016_mbus_formats))
+> > +               fmt->code = mira016_mbus_formats[0];
+> > +
+> > +       fmt->width = MIRA016_PIXEL_ARRAY_WIDTH;
+> > +       fmt->height = MIRA016_PIXEL_ARRAY_HEIGHT;
+> > +       fmt->field = V4L2_FIELD_NONE;
+> > +       fmt->colorspace = V4L2_COLORSPACE_RAW;
+> > +       fmt->ycbcr_enc = V4L2_YCBCR_ENC_601;
+> > +       fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
+> > +       fmt->xfer_func = V4L2_XFER_FUNC_NONE;
+> > +}
+>
+> ...
+>
+> > +static int mira016_set_pad_format(struct v4l2_subdev *sd,
+> > +                                 const struct v4l2_subdev_client_info *ci,
+> > +                                 struct v4l2_subdev_state *state,
+> > +                                 struct v4l2_subdev_format *fmt)
+> > +{
+> > +       struct mira016 *mira016 = to_mira016(sd);
+> > +       struct v4l2_rect *crop;
+> > +       u32 pixel_rate;
+> > +       u32 min_vblank;
+> > +       u32 gain_max;
+> > +       int ret;
+> > +
+> > +       mira016_update_pad_format(mira016, &fmt->format, fmt->format.code);
+> > +       *v4l2_subdev_state_get_format(state, 0) = fmt->format;
+> > +
+> > +       crop = v4l2_subdev_state_get_crop(state, 0);
+> > +       crop->width = fmt->format.width;
+> > +       crop->height = fmt->format.height;
+> > +       crop->left = MIRA016_PIXEL_ARRAY_LEFT;
+> > +       crop->top = MIRA016_PIXEL_ARRAY_TOP;
+> > +
+> > +       if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+> > +               return 0;
+> > +
+> > +       /*
+> > +        * Update the row length: changing the image format implies changing the
+> > +        * row_length parameter, which changes the line duration and the pixel
+> > +        * rate consequentially. Also, changing the image format changes the
+> > +        * analogue gain limits.
+> > +        *
+> > +        * Do not allow to change image format while the subdevice is streaming.
+> > +        *
+> > +        * TODO: row length depends on binning, update it also in the
+> > +        * implementation of set_selection.
+> > +        */
+> > +       if (v4l2_subdev_is_streaming(sd))
+> > +               return -EBUSY;
+>
+> State is overwritten before the streaming check, so a failed call
+> with -EBUSY still changes the active format.
+>
+> Should we move this check to the top of the function and only check
+> it for V4L2_SUBDEV_FORMAT_ACTIVE?
+
+mmm, you're probably right, if we can't get past this for (ACTIVE &&
+streaming) we shouldn't probably update the format in the state at
+all.
+
+The expectations are not 100% clear in case of EBUSY here
+https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-subdev-g-fmt.html
+
+but I think what you suggest makes sense
+
+>
+> > +
+> > +       switch (fmt->format.code) {
+> > +       case MEDIA_BUS_FMT_Y8_1X8:
+> > +               gain_max = ARRAY_SIZE(mira016_gain_lut_8bit);
+> > +               break;
+> > +       case MEDIA_BUS_FMT_Y10_1X10:
+> > +               gain_max = ARRAY_SIZE(mira016_gain_lut_10bit);
+> > +               break;
+> > +       case MEDIA_BUS_FMT_Y12_1X12:
+> > +       default:
+> > +               /*
+> > +                * TODO: Clarify how to handle 12 bit 2x fixed gain which
+> > +                * changes the line timings while streaming. Only allow 1x
+> > +                * for the time being.
+> > +                */
+> > +               gain_max = 1;
+> > +               break;
+> > +       }
+> > +
+> > +       ret = __v4l2_ctrl_modify_range(mira016->gain, 1, gain_max, 1, 1);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       mira016_calc_row_length(mira016, state);
+> > +
+> > +       min_vblank = mira016_calc_min_vblank(mira016, crop->height);
+> > +       ret = __v4l2_ctrl_modify_range(mira016->vblank, min_vblank,
+> > +                                      MIRA016_MAX_VBLANK, 1, min_vblank);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       pixel_rate = mira016_calc_prate(mira016, crop->width);
+> > +
+> > +       return __v4l2_ctrl_modify_range(mira016->prate, pixel_rate, pixel_rate,
+> > +                                       1, pixel_rate);
+> > +}
+> > +
+> > +                                 u64 streams_mask)
+> > +{
+> > +       struct mira016 *mira016 = to_mira016(sd);
+> > +       struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+>
+> We can use mira016->dev directly instead &client->dev.
+>
+> > +       int ret;
+>
+> ...
+>
+> > +static int mira016_disable_streams(struct v4l2_subdev *sd,
+> > +                                  struct v4l2_subdev_state *state, u32 pad,
+> > +                                  u64 streams_mask)
+> > +{
+> > +       struct mira016 *mira016 = to_mira016(sd);
+> > +       struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+>
+> same here.
+>
+
+ack
+
+> > +
+>
+> ...
+>
+> > +static int mira016_init_state(struct v4l2_subdev *sd,
+> > +                             struct v4l2_subdev_state *state)
+> > +{
+> > +       struct v4l2_subdev_format fmt = {
+> > +               .which = V4L2_SUBDEV_FORMAT_TRY,
+> > +               .pad = 0,
+> > +               .format = {
+> > +                       .code = MEDIA_BUS_FMT_Y8_1X8,
+> > +                       .width = MIRA016_PIXEL_ARRAY_WIDTH,
+> > +                       .height = MIRA016_PIXEL_ARRAY_HEIGHT
+> > +               },
+> > +       };
+> > +
+> > +       mira016_set_pad_format(sd, NULL, state, &fmt);
+> > +
+> > +       return 0;
+>
+> You can directly return the result of
+> mira016_set_pad_format() here.
+>
+
+True
+
+> > +}
+>
+> ...
+>
+> > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > +{
+> > +       struct mira016 *mira016 =
+> > +               container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > +       struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+>
+> we can use mira016->dev directly instead &client->dev.
+>
+> > +       struct v4l2_subdev_state *state;
+> > +       struct v4l2_rect *crop;
+> > +       int ret = 0;
+> > +
+> > +       state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > +       crop = v4l2_subdev_state_get_crop(state, 0);
+> > +
+> > +       if (ctrl->id == V4L2_CID_VBLANK) {
+> > +               s32 exposure_max = crop->height + ctrl->val
+> > +                                - MIRA016_FRAME_INTEGRATION_DIFF;
+> > +               s32 exposure_def = min(exposure_max,
+> > +                                      mira016->exposure->val);
+> > +
+> > +               ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > +                                              mira016->exposure->minimum,
+> > +                                              exposure_max,
+> > +                                              mira016->exposure->step,
+> > +                                              exposure_def);
+> > +               if (ret)
+> > +                       return ret;
+> > +       }
+> > +
+> > +       if (!pm_runtime_get_if_in_use(&client->dev))
+> > +               return 0;
+> > +
+> > +       switch (ctrl->id) {
+> > +       case V4L2_CID_EXPOSURE:
+> > +               ret = mira016_write_exposure_reg(mira016, ctrl->val);
+> > +               break;
+> > +       case V4L2_CID_VBLANK:
+> > +               ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
+> > +               break;
+> > +       case V4L2_CID_ANALOGUE_GAIN:
+> > +               ret = mira016_write_analogue_gain(mira016, state, ctrl->val);
+> > +               break;
+>
+> Why do you not introduce vflip and hflip controls here?
+>
+
+If you see the control initialization there is a comment about that
+	/*
+	 * Changing VFLIP requires re-programming the top point, hence we
+	 * program flips along with the ROI windows at enable_streams time. As
+	 * we grab the flip controls there, there's no need to handle the two
+	 * controls while streaming.
+	 */
+	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+
+	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+					   V4L2_CID_VFLIP, 0, 1, 1, 0);
+
+So we can't change flips at runtime but flips are only programmed at
+streaming time as part of the mira016_configure_roi() function
 
 
-> Signed-off-by: NeilBrown <neil@brown.name>
-> ---
->   fs/dcache.c            | 15 +++++++++++++++
->   fs/nfs/unlink.c        |  3 +++
->   include/linux/dcache.h | 32 ++++++++++++++++++++++++++++++++
->   3 files changed, 50 insertions(+)
-> 
-> diff --git a/fs/dcache.c b/fs/dcache.c
-> index cbd5738de168..83790c7a4dee 100644
-> --- a/fs/dcache.c
-> +++ b/fs/dcache.c
-> @@ -1901,6 +1901,7 @@ EXPORT_SYMBOL(d_invalidate);
->    
->   static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
->   {
-> +	static struct lock_class_key __lookup_key;
->   	struct dentry *dentry;
->   	char *dname;
->   	int err;
-> @@ -1958,6 +1959,8 @@ static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
->   	dentry->waiters = NULL;
->   	INIT_HLIST_NODE(&dentry->d_sib);
->   
-> +	lockdep_init_map(&dentry->lookup_map, "DCACHE_PAR_LOOKUP", &__lookup_key, 0);
-> +
->   	if (dentry->d_op && dentry->d_op->d_init) {
->   		err = dentry->d_op->d_init(dentry);
->   		if (err) {
-> @@ -2037,6 +2040,7 @@ struct dentry *d_duplicate(struct dentry *dentry)
->   		return ERR_PTR(-ENOMEM);
->   
->   	new->d_flags |= DCACHE_PAR_LOOKUP;
-> +	lock_map_acquire_try(&new->lookup_map);
->   	spin_lock(&parent->d_lock);
->   	new->d_parent = dget_dlock(parent);
->   	hlist_add_head(&new->d_sib, &parent->d_children);
-> @@ -2801,6 +2805,15 @@ static inline void end_dir_add(struct inode *dir, unsigned int n)
->   static void d_wait_lookup(struct dentry *dentry)
->   {
->   	if (likely(d_in_lookup(dentry))) {
-> +		/*
-> +		 * Tell lockdep we will wait for the lookup lock, after
-> +		 * dropping ->d_lock, but won't actually take it.
-> +		 */
-> +		spin_release(&dentry->d_lock.dep_map, _THIS_IP_);
-> +		lock_map_acquire(&dentry->lookup_map);
-> +		lock_map_release(&dentry->lookup_map);
-> +		spin_acquire(&dentry->d_lock.dep_map, 0, 1, _THIS_IP_);
-> +
->   		dentry->d_flags |= DCACHE_LOOKUP_WAITERS;
->   		wait_var_event_spinlock(&dentry->d_flags,
->   					!d_in_lookup(dentry),
-> @@ -2923,6 +2936,7 @@ struct dentry *__d_alloc_parallel(struct dentry *parent,
->   	}
->   	hlist_bl_add_head(&new->d_in_lookup_hash, b);
->   	hlist_bl_unlock(b);
-> +	lock_map_acquire_try(&new->lookup_map);
->   	return new;
->   mismatch:
->   	spin_unlock(&dentry->d_lock);
-> @@ -3021,6 +3035,7 @@ static void __d_lookup_unhash(struct dentry *dentry)
->   	b = in_lookup_hash(dentry->d_parent, dentry->d_name.hash);
->   	hlist_bl_lock(b);
->   	dentry->d_flags &= ~DCACHE_PAR_LOOKUP;
-> +	lock_map_release(&dentry->lookup_map);
->   	__hlist_bl_del(&dentry->d_in_lookup_hash);
->   	hlist_bl_unlock(b);
->   	dentry->waiters = NULL;
-> diff --git a/fs/nfs/unlink.c b/fs/nfs/unlink.c
-> index b57cfaa4d516..c8d712204e64 100644
-> --- a/fs/nfs/unlink.c
-> +++ b/fs/nfs/unlink.c
-> @@ -67,6 +67,7 @@ static void nfs_async_unlink_release(void *calldata)
->   	struct super_block *sb = dentry->d_sb;
->   
->   	up_read_non_owner(&NFS_I(d_inode(dentry->d_parent))->rmdir_sem);
-> +	d_lookup_acquire(dentry);
->   	d_lookup_done(dentry);
->   	nfs_free_unlinkdata(data);
->   	dput(dentry);
-> @@ -159,6 +160,8 @@ static int nfs_call_unlink(struct dentry *dentry, struct inode *inode, struct nf
->   		return ret;
->   	}
->   	data->dentry = alias;
-> +	d_lookup_release(alias);
-> +
->   	nfs_do_call_unlink(inode, data);
->   	return 1;
->   }
-> diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-> index 2b7d99ec9306..e7e3ef05313b 100644
-> --- a/include/linux/dcache.h
-> +++ b/include/linux/dcache.h
-> @@ -116,6 +116,8 @@ struct dentry {
->   					 * possible!
->   					 */
->   
-> +	/* lockdep tracking of DCACHE_PAR_LOOKUP locks */
-> +	struct lockdep_map		lookup_map;
->   	struct list_head d_lru;		/* LRU list */
->   	struct hlist_node d_sib;	/* child of parent list */
->   	struct hlist_head d_children;	/* our children */
-> @@ -554,6 +556,36 @@ static inline int simple_positive(const struct dentry *dentry)
->   
->   unsigned long vfs_pressure_ratio(unsigned long val);
->   
-> +/**
-> + * d_lookup_release - release ownership of DCACHE_PAR_LOOKUP lock
-> + * @dentry: dentry that is locked
-> + *
-> + * If an in-lookup dentry is to be passed to another thread which
-> + * will drop the in-lookup lock, then d_lookup_release() must be called
-> + * to tell lockdep that this thread no lock holds the lock.  The
-> + * thread that receives the lock must call d_lookup_acquire() to
-> + * acquire the lock.
-> + */
-> +static inline void d_lookup_release(struct dentry *dentry)
-> +{
-> +	if (d_in_lookup(dentry))
-> +		lock_map_release(&dentry->lookup_map);
-> +}
-> +
-> +/**
-> + * d_lookup_acquire - acquire ownership of DCACHE_PAR_LOOKUP lock
-> + * @dentry: dentry that is locked
-> + *
-> + * If an in-lookup dentry was passed to this thread, the
-> + * d_lookup_acquire() must be called to tell lockdep that this
-> + * thread now owns the DCACHE_PAR_LOOKUP lock.
-> + */
-> +static inline void d_lookup_acquire(struct dentry *dentry)
-> +{
-> +	if (d_in_lookup(dentry))
-> +		lock_map_acquire_try(&dentry->lookup_map);
-> +}
-> +
->   /**
->    * d_inode - Get the actual inode of this dentry
->    * @dentry: The dentry to query
+> > +       default:
+> > +               ret = -EINVAL;
+> > +               break;
+> > +       }
+> > +
+> > +       pm_runtime_put_autosuspend(&client->dev);
+> > +
+> > +       return ret;
+> > +}
+>
+> ...
+>
+> > +static int mira016_init_controls(struct mira016 *mira016)
+> > +{
+> > +       struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+>
+> we can use mira016->dev directly.
+>
+> > +       struct v4l2_fwnode_device_properties props;
+> > +       struct v4l2_ctrl_handler *ctrl_hdlr;
+> > +       struct v4l2_ctrl *link_freq;
+> > +       struct v4l2_ctrl *hblank;
+> > +       u32 min_exposure_lines;
+> > +       u32 def_exposure;
+> > +       u32 min_vblank;
+> > +       u32 def_vblank;
+> > +       u32 pixel_rate;
+> > +       int ret;
+> > +
+>
+> ...
+>
+> > +static u8 mira016_m_to_pll_m(u32 pll_m)
+> > +{
+> > +       /* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
+> > +       static const struct pll_m_div {
+> > +               u8 m_min;
+> > +               u8 m_max;
+> > +               u8 pll_m_min;
+> > +               u8 pll_m_max;
+> > +       } pll_m_lut[] = {
+> > +               { 16, 31, 224, 239 }, { 32, 63, 192, 233 },
+>
+> I’m not sure, but I think 233 might be a typo and should be 223,
+> Since the m range and PLL code range don’t match.
+>
 
+good good spot, thansk!
+
+
+> > +               { 64, 127, 128, 191 }, { 1285, 0, 127 },
+> > +       };
+> > +
+> > +       for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
+> > +               const struct pll_m_div *p = &pll_m_lut[i];
+> > +
+> > +               if (pll_m > p->m_max)
+> > +                       continue;
+> > +
+> > +               return p->pll_m_min + pll_m - p->m_min;
+> > +       }
+> > +
+> > +       return 0;
+> > +}
+>
+> ...
+>
+> > +               for (m = MIRA016_PLL_M_MIN; m < MIRA016_PLL_M_MAX; ++m) {
+> > +                       u32 pll2 = pll1 * m;
+> > +
+> > +                       if (pll2 < MIRA016_PLL_PLL2_MIN ||
+> > +                           pll2 > MIRA016_PLL_PLL2_MAX)
+> > +                               continue;
+> > +
+> > +                       if (pll2 == target_mbps) {
+> > +                               found = true;
+> > +                               break;
+> > +                       }
+> > +
+> > +                       if (abs(pll2 - target_mbps) < best) {
+>
+> Since these are unsigned int values, it would be better to use
+> abs_diff() instead of abs() here.
+>
+
+I'll check!
+
+> > +                               n_best = n;
+> > +                               m_best = m;
+> > +                               best = abs(pll2 - target_mbps);
+> > +                       }
+> > +               }
+> > +               if (found)
+> > +                       break;
+> > +       }
+>
+> ...
+>
+> > +static int mira016_get_regulators(struct mira016 *mira016)
+> > +{
+> > +       struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+>
+> We can remove this as well.
+>
+> > +       for (unsigned int i = 0; i < ARRAY_SIZE(mira016_supplies); i++)
+> > +               mira016->supplies[i].supply = mira016_supplies[i];
+> > +
+> > +       return devm_regulator_bulk_get(&client->dev,
+> > +                                      ARRAY_SIZE(mira016_supplies),
+> > +                                      mira016->supplies);
+> > +}
+> > +
+>
+> ...
+>
+> > +static int mira016_probe(struct i2c_client *client)
+> > +{
+> > +       struct device *dev = &client->dev;
+> > +       struct mira016 *mira016;
+> > +       int ret;
+> > +
+> > +       mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
+> > +       if (!mira016)
+> > +               return -ENOMEM;
+> > +
+> > +       mira016->dev = &client->dev;
+> > +
+> > +       ret = mira016_parse_endpoint(dev, mira016);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
+> > +
+> > +       mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
+> > +       if (IS_ERR(mira016->regmap))
+> > +               return dev_err_probe(dev, PTR_ERR(mira016->regmap),
+> > +                                    "failed to initialize CCI\n");
+> > +
+> > +       mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+> > +       if (IS_ERR(mira016->xclk))
+> > +               return dev_err_probe(dev, PTR_ERR(mira016->xclk),
+> > +                                    "failed to get xclk\n");
+> > +
+> > +       mira016->xclk_freq = clk_get_rate(mira016->xclk);
+> > +       if (mira016_validate_xclk_freq(mira016)) {
+> > +               dev_err(dev, "xclk frequency not supported: %d Hz\n",
+>
+> Please use dev_err_probe.
+
+What would it give me though ? I know the return value is EINVAL, it
+won't save nothing, doesn't it ?
+
+>
+> > +                       mira016->xclk_freq);
+> > +               return -EINVAL;
+> > +       }
+> > +
+> > +       ret = mira016_get_regulators(mira016);
+> > +       if (ret)
+> > +               return dev_err_probe(dev, ret, "failed to get regulators\n");
+> > +
+> > +       mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> > +                                                     GPIOD_OUT_HIGH);
+> > +       if (IS_ERR(mira016->reset_gpio))
+> > +               return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
+> > +                                    "failed to get reset gpio\n");
+> > +
+> > +       /*
+> > +        * Calculate the PLL configuration based on the link frequency
+> > +        * selected by .dts and compute the sensor timing bases.
+> > +        *
+> > +        * Initialize row_length to a value matching the default format for
+> > +        * exposure and frame time limits calculations.
+> > +        */
+> > +       mira016_pll_calc(mira016);
+> > +       mira016_timings_calc(mira016);
+> > +       mira016->timings.row_length = 1262;
+>
+> 1262 doesn’t match any of the supported formats. Is this a typo?
+> Should it be 1062 instead?
+
+Harmless, but clearly a leftover from my early attempts.
+Thanks for spotting!
+
+>
+> > +
+> > +       ret = mira016_power_on(dev);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       /* Enable runtime PM and power on the device */
+> > +       pm_runtime_set_active(dev);
+> > +       pm_runtime_enable(dev);
+> > +
+> > +       ret = mira016_identify_module(mira016);
+> > +       if (ret)
+> > +               goto error_power_off;
+> > +
+> > +       ret = mira016_init_controls(mira016);
+> > +       if (ret)
+> > +               goto error_power_off;
+> > +
+> > +       /* Initialize subdev */
+> > +       mira016->sd.internal_ops = &mira016_internal_ops;
+> > +       mira016->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> > +       mira016->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> > +
+> > +       /* Initialize source pads */
+> > +       mira016->pad.flags = MEDIA_PAD_FL_SOURCE;
+> > +
+> > +       ret = media_entity_pads_init(&mira016->sd.entity, 1, &mira016->pad);
+> > +       if (ret) {
+> > +               dev_err_probe(dev, ret, "failed to init entity pads\n");
+> > +               goto error_handler_free;
+> > +       }
+> > +
+> > +       mira016->sd.state_lock = mira016->ctrl_handler.lock;
+> > +       ret = v4l2_subdev_init_finalize(&mira016->sd);
+> > +       if (ret < 0) {
+> > +               dev_err_probe(dev, ret, "subdev init error\n");
+> > +               goto error_media_entity;
+> > +       }
+> > +
+> > +       ret = v4l2_async_register_subdev_sensor(&mira016->sd);
+> > +       if (ret < 0) {
+> > +               dev_err_probe(dev, ret,
+> > +                             "failed to register sensor sub-device\n");
+> > +               goto error_subdev_cleanup;
+> > +       }
+> > +
+> > +       pm_runtime_set_autosuspend_delay(dev, 1000);
+> > +       pm_runtime_use_autosuspend(dev);
+> > +       pm_runtime_idle(dev);
+> > +
+> > +       return 0;
+> > +
+> > +error_subdev_cleanup:
+> > +       v4l2_subdev_cleanup(&mira016->sd);
+> > +error_media_entity:
+> > +       media_entity_cleanup(&mira016->sd.entity);
+> > +error_handler_free:
+> > +       v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> > +error_power_off:
+> > +       pm_runtime_disable(dev);
+> > +       if (!pm_runtime_status_suspended(&client->dev))
+>
+> Could we use dev here as well, just for consistency?
+>
+
+Sure
+
+Thanks for the review!
+
+> > +               mira016_power_off(dev);
+> > +       pm_runtime_set_suspended(dev);
+> > +       return ret;
+> > +}
+> > +
+>
+> ...
+>
+> > +static const struct of_device_id mira016_dt_ids[] = {
+> > +       { .compatible = "ams,mira016" },
+> > +       { /* sentinel */ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, mira016_dt_ids);
+> > +
+> > +static struct i2c_driver mira016_i2c_driver = {
+> > +       .driver = {
+> > +               .name = "mira016",
+> > +               .of_match_table = mira016_dt_ids,
+> > +               .pm = pm_ptr(&mira016_pm_ops),
+> > +       },
+> > +       .probe = mira016_probe,
+> > +       .remove = mira016_remove,
+> > +};
+> > +
+> > +module_i2c_driver(mira016_i2c_driver);
+> > +
+> > +MODULE_AUTHOR("Jacopo Mondi <jacopo.mondi@ideasonboard.com>");
+> > +MODULE_DESCRIPTION("ams OSRAM MIRA016 sensor driver");
+> > +MODULE_LICENSE("GPL");
+> >
+> > --
+> > 2.55.0
+>
+> Best Regards,
+> Tarang
