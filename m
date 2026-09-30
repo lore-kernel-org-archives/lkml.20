@@ -1,179 +1,183 @@
-Received: from bsdsz2.pd.infn.it (bsdsz2.pd.infn.it [192.84.143.16])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7501F30DD2F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.84.143.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A575A2E888A;
+	Wed, 30 Sep 2026 06:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748097; cv=none; b=S80DSOc4tZx8fnGM1LbNZDZQZk3d2NqQDZrbDon1XQSnDUUk+Tg5/nwIcxCXLimtLp0aZC+wgtBK4MQiANEmPdLKoc1T7+PdBQEVWzExYQ6D4sNAtk422exs4WeVTbwdFd7rWAWfnTljJ6vIVt7JhWclfVy3FuX93nVAFkOirz0=
+	t=1790748184; cv=none; b=bLHLZDd+CPsvSKs9x96SV7B9wwzKVVU4DX/YLMboH7330/eVxtpiL+PRQD4RCZfKMGFMGFYBA5/5iTC1PD2Hvzj3ZVCKwiCuka02K3uJwbnF03yRWnTC/SdYeqpp6TGSE43Q+iB9MSQVHeCIrFks13bjn0YRwQNS9O5Fg0kYB6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748097; c=relaxed/simple;
-	bh=ZdHjYJ3fCIPFebgsOOyGyjfTtvdMf7EBU9oaoEc5aGM=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To; b=iEHbPQaEsIe/ZfFrEscH2tMub5kmNQGUCYhH1oevED8MyWY92j9YiwMtPbaOuSVNlxoaXOMCq0c9/R7bODJOVbPQmNQQOxdGd9Y3pNce99JH1JVV8yGUtIJ12ueD3DSdhVn6NELqfMhRyCF7E5UguwIH+kOysqw7aeYekYO9rZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it; spf=pass smtp.mailfrom=pd.infn.it; dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b=h3q+/nww; arc=none smtp.client-ip=192.84.143.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pd.infn.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pd.infn.it
+	s=arc-20240116; t=1790748184; c=relaxed/simple;
+	bh=x7yxzvbk/nwx11GtQSiP+q0wSkfeUYzZsQna6Vk+UWo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lghvvXbHeClGVvkZiF/SEFz7pv0uGAk3pC7CTWqMUs0zR09YIs9xKb+wycCN+LhHG15kSNOcV4Twt/KjmvcTFo4H78JYH1hbGLHG51cD9NGESfQSvQqCmuCae/tkaFkG8p+VW+Ezw5luOuYx/hMj1WksIKC1k+4XsZIcT+5dJ/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gGjmOtLD; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pd.infn.it header.i=@pd.infn.it header.b="h3q+/nww"
-Received: from [193.205.57.134] (wlecastellani.pd.infn.it [193.205.57.134])
-	(authenticated bits=0)
-	by bsdsz2.pd.infn.it (8.15.2/8.15.2) with ESMTPSA id 68U619Wl056927
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
-	Wed, 30 Sep 2026 08:01:14 +0200 (CEST)
-	(envelope-from lorenzo.castellani@pd.infn.it)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pd.infn.it;
-	s=bsdsz2; t=1790748075;
-	bh=dKGyeVRoaSiR7UUeFA0r2YTt+67hLuvwUhRWtjEz4bc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h3q+/nwwVNUe0NTz8tbXJ7hMlbOrQvruca5tyfg25HScvAwodGMXDUdAEvyN+EQs1
-	 eX0ZPGuHW0S0GpJtDF1Ixj4UpHl8wsyUQ/EyjSAFqamF5YmHyafeU+G2wZpw6tJIUv
-	 K9wXmuTKxxl9GqGW53pAQgJSlaBD6qJX+UCDJHgQ=
-X-Authentication-Warning: bsdsz2.pd.infn.it: Host wlecastellani.pd.infn.it [193.205.57.134] claimed to be [193.205.57.134]
-Content-Type: multipart/mixed; boundary="------------CUbhokNyk7k48WkUiVSktgNi"
-Message-ID: <ac2cdbd8-ce83-47ed-9783-4e5b8dd0e11f@pd.infn.it>
-Date: Wed, 30 Sep 2026 08:01:09 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gGjmOtLD"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNZNWK1395004;
+	Wed, 30 Sep 2026 06:02:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=vmWm2plfEN+MPd5QTMzUjqr0h4xUJjNCITuZYL+U9
+	64=; b=gGjmOtLD8ymNbi361IJWqP7HbjaB/x7WZ4przRQJG8LnthTGu3r+rwaHM
+	X3F67IFuLWN/Gs0GmRqlVNI66g/rXLPNj+lVpklTLAZruGHkWWxXKv9tigsNnB5o
+	pNT18Ld0HUmpoBH7vYtlbvrl7fft5VTaYEz+IrlBPG8oqhDzu1PPG8kBUG+pgFa7
+	6WmkACXMdereLW/7JFudkZezOaNer8QEts/6nFbccovQ4a7fJqtDzGDNWBJK6anN
+	t++QEqNasS0T3hlYuF3wT8UeXsSmkHzpLVj7g11ma+wH84iTttqDohiKyfDdzN0h
+	rvoIi1wLv2u4wrFx0Kq77if7nv7+w==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5b9s8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 06:02:54 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68U4s4BF1288981;
+	Wed, 30 Sep 2026 06:02:53 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4p93ue-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 06:02:53 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68U62oou41222488
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 06:02:50 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3421A200ED;
+	Wed, 30 Sep 2026 06:02:50 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 20A0A200E8;
+	Wed, 30 Sep 2026 06:02:46 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.100.83])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 30 Sep 2026 06:02:45 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, stefanb@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com
+Subject: [PATCH] keys/trusted_keys: reuse TPM version in option handling
+Date: Wed, 30 Sep 2026 11:32:17 +0530
+Message-ID: <20260930060217.112471-1-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
- with multiple bus masters
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-References: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
- <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
-Content-Language: it
-From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
-In-Reply-To: <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2 (bsdsz2.pd.infn.it [192.84.143.16]); Wed, 30 Sep 2026 08:01:14 +0200 (CEST)
-X-Spam-Score: -1.098 () BAYES_00,HELO_MISC_IP,SPF_NEUTRAL
-X-Scanned-By: MIMEDefang 2.83 on 192.84.143.16
-
-This is a multi-part message in MIME format.
---------------CUbhokNyk7k48WkUiVSktgNi
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfXwXA4jSUT2JSH
+ GTA2cXTqxJ1shaNMKvaqtHOnKzyCLlfTnwhpw8V/rN2DpOf+9Iih7efgTdQoy9kCm0a8KPbv0gl
+ fzqIIHmfz/aeo1mFNR/A9CWi/IMVWws=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfXz+84avMd1P/K
+ gnynRfPtwsHKP1nEzcFmEfRAUOdEZAPo5z4HfcCZC6Kgno37EQtJ6ciwW41N7SU13ygJkH9YPZb
+ dtaBYK4VoV2ff5l0hGWrFYQVTS1SyRTR9Oe/5GnjBH3cngfEllxxdeWXAWOJZ4OVIc2aLveOR04
+ KIcVqXQ2pHtKhLTartE6JK/2vAxdiGOTwvHUaR8UqjiVe6gyzg/NqvceCC3xrklr534/F6eBRPf
+ SimAhAUUrpmO9O7CY/bNTmttElRwU/23ASSmmYD+E1PsgOZEgOK/P+z1HUjg94UHqhVMCUXK0Kr
+ U6MFIyks/cPdizwHHw5eZqqDkZz4KCKksOb/wxMETAgR6KTJk3oGYxI+3o96jbunrejLXhS5Xbn
+ OHDkCKF3ctrsdNRGAbrG82Li+JcSGoq39TmBcNBvEYsl/broSC19DOZBNqgMNi3Pl2kp/evdmkp
+ hptiI6T1JwggwBF2OZg==
+X-Proofpoint-GUID: pD4QnmUGBZJan8AVVXFtNzFhT0W68Kzz
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abca60e cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=KeO-EBKqL_xBPfDdp0MA:9
+X-Proofpoint-ORIG-GUID: pD4QnmUGBZJan8AVVXFtNzFhT0W68Kzz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300022
 
-The patch is attached.
+Determine the TPM version once in the seal and unseal paths and reuse it
+when allocating and parsing trusted key options. This avoids redundant TPM
+version checks.
 
-Lorenzo
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+---
+ security/keys/trusted-keys/trusted_tpm1.c | 22 ++++++----------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
 
-
-Il 30/09/2026 07:23, Krzysztof Kozlowski ha scritto:
-> On 27/09/2026 12:43, lorenzo.castellani wrote:
->>   From 32e145b49cf41ce150a97ce52c63f5aae1bbbea7 Mon Sep 17 00:00:00 2001
->> From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
->> Date: Tue, 22 Sep 2026 11:12:30 +0200
->> Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
->>    with multiple bus masters
-> Your mailing is corrupted.
->
->> +static int w1_therm_count_bulk_read_slaves(struct w1_master *dev_master,
->> +    struct w1_slave *exclude_sl)
->> +{
->> +    struct w1_slave *sl;
->> +    int count = 0;
->> +
->> +    list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
->> +        if (sl != exclude_sl && sl->family_data && bulk_read_support(sl))
->> +            count++;
->> +    }
->> +    return count;
->> +}
-> And here.
->
-> Best regards,
-> Krzysztof
-
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index 3ec078ca3f97..70de4101923f 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -700,7 +700,7 @@ static const match_table_t key_tokens = {
+ 
+ /* can have zero or more token= options */
+ static int getoptions(char *c, struct trusted_key_payload *pay,
+-		      struct trusted_key_options *opt)
++		      struct trusted_key_options *opt, int tpm2)
+ {
+ 	struct trusted_key_tpm *private = opt->private;
+ 	substring_t args[MAX_OPT_ARGS];
+@@ -712,11 +712,6 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+ 	unsigned long token_mask = 0;
+ 	unsigned int digest_len;
+ 	int i;
+-	int tpm2;
+-
+-	tpm2 = tpm_is_tpm2(chip);
+-	if (tpm2 < 0)
+-		return tpm2;
+ 
+ 	private->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
+ 
+@@ -838,15 +833,10 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+ 	return 0;
+ }
+ 
+-static struct trusted_key_options *trusted_options_alloc(void)
++static struct trusted_key_options *trusted_options_alloc(int tpm2)
+ {
+ 	struct trusted_key_tpm *private;
+ 	struct trusted_key_options *options;
+-	int tpm2;
+-
+-	tpm2 = tpm_is_tpm2(chip);
+-	if (tpm2 < 0)
+-		return NULL;
+ 
+ 	options = kzalloc_obj(*options);
+ 	if (options) {
+@@ -877,13 +867,13 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
+ 	if (tpm2 < 0)
+ 		return tpm2;
+ 
+-	options = trusted_options_alloc();
++	options = trusted_options_alloc(tpm2);
+ 	if (!options)
+ 		return -ENOMEM;
+ 
+ 	private = options->private;
+ 
+-	ret = getoptions(datablob, p, options);
++	ret = getoptions(datablob, p, options, tpm2);
+ 	if (ret < 0)
+ 		return ret;
+ 	dump_options(options);
+@@ -922,12 +912,12 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+ 	if (tpm2 < 0)
+ 		return tpm2;
+ 
+-	options = trusted_options_alloc();
++	options = trusted_options_alloc(tpm2);
+ 	if (!options)
+ 		return -ENOMEM;
+ 	private = options->private;
+ 
+-	ret = getoptions(datablob, p, options);
++	ret = getoptions(datablob, p, options, tpm2);
+ 	if (ret < 0)
+ 		return ret;
+ 	dump_options(options);
 -- 
---------------------------------------
-Lorenzo Castellani
-Istituto Nazionale di Fisica Nucleare
-Sezione di Padova
-Via Marzolo 8
-35131 PADOVA
-Italy
-E-mail: lorenzo.castellani@pd.infn.it
-Phone:  +39 049 9677227
---------------------------------------
+2.53.0
 
---------------CUbhokNyk7k48WkUiVSktgNi
-Content-Type: text/plain; charset=UTF-8;
- name="0001-w1-w1_therm-fix-missing-therm_bulk_read-sysfs-attrib.patch"
-Content-Disposition: attachment;
- filename*0="0001-w1-w1_therm-fix-missing-therm_bulk_read-sysfs-attrib.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAzMmUxNDViNDljZjQxY2UxNTBhOTdjZTUyYzYzZjVhYWUxYmJiZWE3IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBMb3JlbnpvIENhc3RlbGxhbmkgPGxvcmVuem8uY2Fz
-dGVsbGFuaUBwZC5pbmZuLml0PgpEYXRlOiBUdWUsIDIyIFNlcCAyMDI2IDExOjEyOjMwICsw
-MjAwClN1YmplY3Q6IFtQQVRDSF0gdzE6IHcxX3RoZXJtOiBmaXggbWlzc2luZyB0aGVybV9i
-dWxrX3JlYWQgc3lzZnMgYXR0cmlidXRlCiB3aXRoIG11bHRpcGxlIGJ1cyBtYXN0ZXJzCgpX
-aGVuIG11bHRpcGxlIDEtV2lyZSBidXMgbWFzdGVycyBhcmUgcHJlc2VudCBpbiB0aGUKc3lz
-dGVtLCB0aGUgZ2xvYmFsIG1vZHVsZS1sZXZlbCBjb3VudGVyIGNhdXNlcyB0aGUKdGhlcm1f
-YnVsa19yZWFkIHN5c2ZzIGF0dHJpYnV0ZSB0byBiZSBjcmVhdGVkIG9ubHkKZm9yIHRoZSBm
-aXJzdCBtYXN0ZXIgd2hlcmUgYSBidWxrLXJlYWQgY2FwYWJsZSBzbGF2ZQppcyBkaXNjb3Zl
-cmVkLiBTdWJzZXF1ZW50IGJ1cyBtYXN0ZXJzIGZhaWwgdG8gZXhwb3NlCnRoZSBhdHRyaWJ1
-dGUgYmVjYXVzZSB0aGUgY291bnRlciBpcyBhbHJlYWR5IG5vbi16ZXJvLgoKRml4IHRoaXMg
-YnkgcmVwbGFjaW5nIHRoZSBnbG9iYWwgc3RhdGljIGNvdW50ZXIgd2l0aAphIHBlci1tYXN0
-ZXIgaGVscGVyIGZ1bmN0aW9uIHRoYXQgaXRlcmF0ZXMgb3ZlciB0aGUKc2xhdmVzIGFzc29j
-aWF0ZWQgc3BlY2lmaWNhbGx5IHdpdGggdGhlIGdpdmVuIG1hc3RlcgooZGV2X21hc3Rlci0+
-c2xpc3QpLiBUaGlzIGVuc3VyZXMgdGhhdCBlYWNoIGJ1cwptYXN0ZXIgaW5kZXBlbmRlbnRs
-eSBjb3JyZWN0bHkgdHJhY2tzIGFuZCBleHBvc2VzIHRoZQp0aGVybV9idWxrX3JlYWQgc3lz
-ZnMgYXR0cmlidXRlIHdoZW4gYnVsay1yZWFkCmNhcGFibGUgZGV2aWNlcyBhcmUgcHJlc2Vu
-dC4KClNpZ25lZC1vZmYtYnk6IExvcmVuem8gQ2FzdGVsbGFuaSA8bG9yZW56by5jYXN0ZWxs
-YW5pQHBkLmluZm4uaXQ+Ci0tLQogbGludXgtcnBpLTYuMTgueS9kcml2ZXJzL3cxL3NsYXZl
-cy93MV90aGVybS5jIHwgMzAgKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDIwIGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2xpbnV4
-LXJwaS02LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMvdzFfdGhlcm0uYyBiL2xpbnV4LXJwaS02
-LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMvdzFfdGhlcm0uYwppbmRleCA4MzJlM2RhOTQuLjRj
-OGU2N2VjOCAxMDA2NDQKLS0tIGEvbGludXgtcnBpLTYuMTgueS9kcml2ZXJzL3cxL3NsYXZl
-cy93MV90aGVybS5jCisrKyBiL2xpbnV4LXJwaS02LjE4LnkvZHJpdmVycy93MS9zbGF2ZXMv
-dzFfdGhlcm0uYwpAQCAtNDQsOSArNDQsNiBAQAogc3RhdGljIGludCB3MV9zdHJvbmdfcHVs
-bHVwID0gMTsKIG1vZHVsZV9wYXJhbV9uYW1lZChzdHJvbmdfcHVsbHVwLCB3MV9zdHJvbmdf
-cHVsbHVwLCBpbnQsIDApOwogCi0vKiBDb3VudGVyIGZvciBkZXZpY2VzIHN1cHBvcnRpbmcg
-YnVsayByZWFkaW5nICovCi1zdGF0aWMgdTE2IGJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcjsg
-LyogPTAgYXMgcGVyIEMgc3RhbmRhcmQgKi8KLQogLyogVGhpcyBjb21tYW5kIHNob3VsZCBi
-ZSBpbiBwdWJsaWMgaGVhZGVyIHcxLmggYnV0IGlzIG5vdCAqLwogI2RlZmluZSBXMV9SRUNB
-TExfRUVQUk9NCTB4QjgKIApAQCAtOTY4LDYgKzk2NSwxOSBAQCBzdGF0aWMgaW5saW5lIHM4
-IGludF90b19zaG9ydChpbnQgaSkKIAogLyogSW50ZXJmYWNlIEZ1bmN0aW9ucyAqLwogCitz
-dGF0aWMgaW50IHcxX3RoZXJtX2NvdW50X2J1bGtfcmVhZF9zbGF2ZXMoc3RydWN0IHcxX21h
-c3RlciAqZGV2X21hc3RlciwKKwlzdHJ1Y3QgdzFfc2xhdmUgKmV4Y2x1ZGVfc2wpCit7CisJ
-c3RydWN0IHcxX3NsYXZlICpzbDsKKwlpbnQgY291bnQgPSAwOworCisJbGlzdF9mb3JfZWFj
-aF9lbnRyeShzbCwgJmRldl9tYXN0ZXItPnNsaXN0LCB3MV9zbGF2ZV9lbnRyeSkgeworCQlp
-ZiAoc2wgIT0gZXhjbHVkZV9zbCAmJiBzbC0+ZmFtaWx5X2RhdGEgJiYgYnVsa19yZWFkX3N1
-cHBvcnQoc2wpKQorCQkJY291bnQrKzsKKwl9CisJcmV0dXJuIGNvdW50OworfQorCiBzdGF0
-aWMgaW50IHcxX3RoZXJtX2FkZF9zbGF2ZShzdHJ1Y3QgdzFfc2xhdmUgKnNsKQogewogCXN0
-cnVjdCB3MV90aGVybV9mYW1pbHlfY29udmVydGVyICpzbF9mYW1pbHlfY29udjsKQEAgLTk5
-Miw5ICsxMDAyLDExIEBAIHN0YXRpYyBpbnQgdzFfdGhlcm1fYWRkX3NsYXZlKHN0cnVjdCB3
-MV9zbGF2ZSAqc2wpCiAJaWYgKGJ1bGtfcmVhZF9zdXBwb3J0KHNsKSkgewogCQkvKgogCQkg
-KiBhZGQgdGhlIHN5cyBlbnRyeSB0byB0cmlnZ2VyIGJ1bGtfcmVhZAotCQkgKiBhdCBtYXN0
-ZXIgbGV2ZWwgb25seSB0aGUgMXN0IHRpbWUKKwkJICogYXQgbWFzdGVyIGxldmVsIG9ubHkg
-dGhlIDFzdCB0aW1lIG9uIHRoaXMgbWFzdGVyCiAJCSAqLwotCQlpZiAoIWJ1bGtfcmVhZF9k
-ZXZpY2VfY291bnRlcikgeworCQlpbnQgYnVsa19jb3VudCA9IHcxX3RoZXJtX2NvdW50X2J1
-bGtfcmVhZF9zbGF2ZXMoc2wtPm1hc3Rlciwgc2wpOworCisJCWlmICghYnVsa19jb3VudCkg
-ewogCQkJaW50IGVyciA9IGRldmljZV9jcmVhdGVfZmlsZSgmc2wtPm1hc3Rlci0+ZGV2LAog
-CQkJCSZkZXZfYXR0cl90aGVybV9idWxrX3JlYWQpOwogCkBAIC0xMDAzLDggKzEwMTUsNiBA
-QCBzdGF0aWMgaW50IHcxX3RoZXJtX2FkZF9zbGF2ZShzdHJ1Y3QgdzFfc2xhdmUgKnNsKQog
-CQkJCSIlczogRGV2aWNlIGhhcyBiZWVuIGFkZGVkLCBidXQgYnVsayByZWFkIGlzIHVuYXZh
-aWxhYmxlLiBlcnI9JWRcbiIsCiAJCQkJX19mdW5jX18sIGVycik7CiAJCX0KLQkJLyogSW5j
-cmVtZW50IHRoZSBjb3VudGVyICovCi0JCWJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcisrOwog
-CX0KIAogCS8qIEdldHRpbmcgdGhlIHBvd2VyIG1vZGUgb2YgdGhlIGRldmljZSB7ZXh0ZXJu
-YWwsIHBhcmFzaXRlfSAqLwpAQCAtMTA0MCw5ICsxMDUwLDkgQEAgc3RhdGljIHZvaWQgdzFf
-dGhlcm1fcmVtb3ZlX3NsYXZlKHN0cnVjdCB3MV9zbGF2ZSAqc2wpCiAJaW50IHJlZmNudCA9
-IGF0b21pY19zdWJfcmV0dXJuKDEsIFRIRVJNX1JFRkNOVChzbC0+ZmFtaWx5X2RhdGEpKTsK
-IAogCWlmIChidWxrX3JlYWRfc3VwcG9ydChzbCkpIHsKLQkJYnVsa19yZWFkX2RldmljZV9j
-b3VudGVyLS07Ci0JCS8qIERlbGV0ZSB0aGUgZW50cnkgaWYgbm8gbW9yZSBkZXZpY2Ugc3Vw
-cG9ydCB0aGUgZmVhdHVyZSAqLwotCQlpZiAoIWJ1bGtfcmVhZF9kZXZpY2VfY291bnRlcikK
-KwkJaW50IGJ1bGtfY291bnQgPSB3MV90aGVybV9jb3VudF9idWxrX3JlYWRfc2xhdmVzKHNs
-LT5tYXN0ZXIsIHNsKTsKKwkJLyogRGVsZXRlIHRoZSBlbnRyeSBpZiBubyBtb3JlIGRldmlj
-ZSBzdXBwb3J0IHRoZSBmZWF0dXJlIG9uIHRoaXMgbWFzdGVyICovCisJCWlmICghYnVsa19j
-b3VudCkKIAkJCWRldmljZV9yZW1vdmVfZmlsZSgmc2wtPm1hc3Rlci0+ZGV2LAogCQkJCSZk
-ZXZfYXR0cl90aGVybV9idWxrX3JlYWQpOwogCX0KLS0gCjIuNDMuMAoK
-
---------------CUbhokNyk7k48WkUiVSktgNi--
