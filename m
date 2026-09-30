@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F8634751F;
-	Wed, 30 Sep 2026 05:30:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334B13B3C17;
+	Wed, 30 Sep 2026 05:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790746240; cv=none; b=N7zuUDLpEfZFzkzYsEsExECCFdjVmYuVBAmtrGvuN5F5QSXs9szXL04eY2UeoreK0q6/88bK1Cvh8D+T37fTyN25OYfux6eGFC1nIYZKwxMiOHu8M0sCEeyW0Ik4fa52YkKT05SluoA0K+sa6xWz4sl+ngbRu2eoLct2XMjNJXY=
+	t=1790746245; cv=none; b=qJCPeV7/g3OvU9ISU1qLumM8mYZ9CS+7ZyFjGs4Qor+bJroV6gXfCIIBku8jVj5q+zwC0TXyW1fKWJ92b351PcOlrkwjDc9TOLnPeaULJnPaCfi2lmRux5kxY7IqidZ66vASJ4StIhdoAAYhJPDoDcN6R+jWMdU0IwKZkjYdZEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790746240; c=relaxed/simple;
-	bh=R0PKlgsMCmH//j9N2UgApz4AJZZfIiYOyZvcemoC4f0=;
+	s=arc-20240116; t=1790746245; c=relaxed/simple;
+	bh=0KjSc7vBna+eDpH9max4wwdWuqVasSuo3ntbZ90YNi4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=oCRRTyaZbqEVPH2gWLttesJeDqR8W1jB1eLp+Lc1MwbRpAgjBnxJ2IiY7SaolMGPgQ9T1oHp7SddoXPhCgE1LUcsBHRW3Gy30OXyrV9q9Pyj6nRimcbbqSRiy7RWr93aUS7PsF96oVcUQHEWQ6qhmfRvV7dUdHQSd0o8NskKnNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WaHO4Ecx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=r0d//oo0keituQrjlz+fmHv885H5MxdAlKXhF5Wi4z/eo7vPQxOSzTcUKfr6SnCOuIKp2jiNS52AvIs7L3YSFQZFmDu4Hex00BmQgnQk1N1tZx/FQV9iOLTS7OLGcqZzYNPKEvi5M3DsP7KcgyXOWpgYkBca7DCMi1w83Tyy1yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8rvrTqg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WaHO4Ecx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03171F000FF;
-	Wed, 30 Sep 2026 05:30:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8rvrTqg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FBE1F00893;
+	Wed, 30 Sep 2026 05:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790746239;
-	bh=bner0SsgdNSy6tdybRuNPu0GjFr53uKm1bBPGJ+rz1U=;
+	s=k20260515; t=1790746243;
+	bh=Tbkvn8PG08e93g1emqhbUSApc9Iim7uFqR4oEVfWofY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WaHO4EcxALHP0aw/fQYTf8ml8HCvmaKsZCZXQr89mBmFNRjmntjEJPUWFmbT/nNKl
-	 dwAhmUrPJ9BJdw1+wdZi70OQTFuppDMz3Gz5e3VnMKxPhQpJTYKUMT1cY2/j39CGgn
-	 5w1l5qzQKPSCCXW+bD8Oq6aAh09Oru7ctSyu+bTkYDhX+aA21VqAeNfJXbdFsRx7GZ
-	 VLTmr1jo390M2nVx1IxfyhGZ4em+TTR6RuFoIyOoVdvgW0885RGpmxNBd/d+oLUjMR
-	 apfIdU0lCWV44/Khqj70zER9byB6PKDZySKwlHrjErkxlF3FsKW/+EvE098ps/HgaI
-	 WDJmWaXe1es6Q==
+	b=C8rvrTqgMKmhyDI15Lg7bxRbP/3DRwMw1kGDoD7xtKYkP3hE0ltfWR8KgjLNpkvKU
+	 szsXEQexuXnVkVfAbMuRdSjIbnYCU0DIZ6m1KWsWIgq1MU/zw+FT/HW6l0+cJamWOB
+	 tTtN1CpFZPgwJNdnSgBUclsmVQK3x/82cYnzdzBCVPiXLf/PVOSERtv9FuAOFS2lA/
+	 StBtFvrKTw2tzvBaVq6rHU4Fwx6RplgYxTW1DvVgq7+uxSBXBcNzHxb5KaVKJiinVi
+	 eU63XvHTd/3knrYDuscD7Y8SbeFMTavw3aOyAmVhj9iWJ05S9UiRA0fyFdGdPG2kGH
+	 G3KaU3uiAJa3g==
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+To: Jesper Nilsson <jesper.nilsson@axis.com>, 
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Douglas Anderson <dianders@chromium.org>, 
- Brian Norris <briannorris@chromium.org>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@android.com
-In-Reply-To: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
-References: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
-Subject: Re: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
-Message-Id: <179074623441.18076.15900308242524005401.b4-ty@b4>
-Date: Wed, 30 Sep 2026 07:30:34 +0200
+ Richard Cochran <richardcochran@gmail.com>, 
+ Henrik Grimler <henrik.grimler@axis.com>
+Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ Henrik Grimler <henrik@grimler.se>
+In-Reply-To: <20260928-b4-artpec6-cleanup-v1-2-e3b75e10acc6@axis.com>
+References: <20260928-b4-artpec6-cleanup-v1-2-e3b75e10acc6@axis.com>
+Subject: Re: (subset) [PATCH 2/7] ARM: dts: axis: artpec6: align all
+ continued lines
+Message-Id: <179074623976.18076.8809897213040972245.b4-ty@b4>
+Date: Wed, 30 Sep 2026 07:30:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,16 +53,20 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Tue, 29 Sep 2026 11:11:15 +0000, Peter Griffin wrote:
-> Fix newly introduced DT warnings:
-> Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@5880000:
-> unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or
-> child "reg" or "ranges" property
+On Mon, 28 Sep 2026 14:04:48 +0200, Henrik Grimler wrote:
+> dt-check-style in strict mode reports that there are a bunch of
+> multiline properties that are not aligned, fix them to make the dts
+> easier to follow. Fixes dt-check-style warnings like:
+> 
+>   axis/artpec6.dtsi:290: [continuation-alignment] continuation should align to column 34 (to < or ")
+> 
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: google: lga: fixup #size-cells DT warning
-      https://git.kernel.org/krzk/linux/c/18686b294c6f6ba778cba66eccf01b9fcdf48988
+[2/7] ARM: dts: axis: artpec6: align all continued lines
+      https://git.kernel.org/krzk/linux/c/60c916de7b3bf0ff2a4d1d31753a29765941ab89
 
 Best regards,
 -- 
