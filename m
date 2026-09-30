@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0442E888A;
-	Wed, 30 Sep 2026 05:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29405377553
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745733; cv=none; b=OB37C+AbnzJlfkF5aLDZLF3x8JH/OoErVKzfVWvdfZxA8a+Sts4IdlnZI01wZnQ12yiGNl7tH3LlgIxWm8bfPeu3RuUtsEAK0beh1cOw9jsaQurdHK2ddXVA3RttyqroGYFoIqTCBOc9fKF6muGuYX5f0dPkE7oTFTFIZNlw/hA=
+	t=1790745816; cv=none; b=C6xYx12H9pyemqR/PZN0ccDBsGSiwb51010pAv/bKBSKzk2CcvJHLTt+WP2wGu+EXStHhjWiD/0nTwDo7wq/+ZqAj7UMgMC2BoMSk/nHA4mqZRxQ6GJry2rUhwLFztiigQVTqdVmmd90h+LviZvLuf9JQRmuyfASRlwFS+Bnh6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745733; c=relaxed/simple;
-	bh=CBbEQpGIpGuAv4Ic+fE9bMvQHiF3yEWMCXW5Zy4QjVo=;
+	s=arc-20240116; t=1790745816; c=relaxed/simple;
+	bh=WxYy/oP+GW1EIvf4OHnYvO8CtCZ/KaRRqjlwy/0Tj5c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SnyLjyhQYmad/4mB391YwXhkigji0Y2OBt5agxNWYQ5/q66YkpayU5VxpqAHPWnnJl0UIRLsgB3R+X7mKE6Yxsgdirgp1rYQcwedEt9SCzJH9H7VhTpKt2mVaaOXNRyCpIpSzUvesNyWtRFzKWFTaeBgoshjpyUhby9TUTi4e2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzdYWA4t; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=uC365U/kQZezbW0lIrsdR2RrLJkjLUD5xsnciG0V6Jy5veUh6Uz0FN1ZCKCHxnmUR0+eQDszxGm9K6pPaNCUeXMbV8GqnI5yHHvzK+ms5CF/LVfQvW3ViXXJuHcmVvBGmZOCGL3/qDZ+l4oNld13IrDejbkGffAQ/wxW1MPN3wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYO1FHUA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzdYWA4t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C9A1F000FF;
-	Wed, 30 Sep 2026 05:22:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYO1FHUA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB251F000FF;
+	Wed, 30 Sep 2026 05:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790745732;
-	bh=7w5AGMWUEadxBPlxkT+1Es5xDLeETPZOPdv7c8XFHBQ=;
+	s=k20260515; t=1790745814;
+	bh=Bow41lDje+3CW45875NvzEixlA4yXZiWEdtt5dnAVZU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jzdYWA4tMexxLMIFTI4NG2c8BeNH74/5r3i002TLnXtHZc8Fk3bKJbtOOPUBE3LC4
-	 C+Um6R9W4QA+o7Xvg6lY48/gsCNdnpRAUaahhf/oGKKsSkACx5mMgEDrkDwWlKhOa2
-	 7x8M88viwpMd/uIWlkaHdzxAsYkrhBg3VJTmBHEivqjipt8hrAratIGw/m5yi9t1+M
-	 Kak6fpDENI2Sf+8wlXcK6sSkbgjwz5THcWdkDDLFXka9yasm8c/5KwfKyxZSAR/KjX
-	 ilQW4+6Im1kbZITKSB72EwPQ3f+Xr8qgg+v2SH8coG9nA+Amdd30r9KsFePWZISjrp
-	 37G7+x9QPsdlg==
-Message-ID: <e58235f1-2c9a-461e-8231-8729eb3e9c46@kernel.org>
-Date: Wed, 30 Sep 2026 07:22:04 +0200
+	b=UYO1FHUApnDj5KPO1+Cbx5ETrer7heAHyAry+GM5YMdblx9SDgygTzD5JkxwlHTHr
+	 ySWAiWa0++nbjX/XGod3bja+83JpLo702liLjtcxLQ+8a1dbaNmKM1QZHDXJVPW7NF
+	 hZBzbYAWfnHvggRY+iXvMvMgzTJOCVcl7aVlYS2l8Tne4LM7svLimTFaTiusmxy5T7
+	 HZ+Ky7Wv8VmpeguKbepFYCeS1fvLGAUgqhrjOOzUtff+UPaPl0/8flem5st2tBrw/6
+	 RHTc9MfTTIgYiBw3KO18EPQ92o10HMj/lpkz8uGHq7/9PeDuDt+QRGgc2bzi6fAvV2
+	 PgUT7kBe5Z2RA==
+Message-ID: <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
+Date: Wed, 30 Sep 2026 07:23:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,18 +35,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
-To: Doug Anderson <dianders@chromium.org>,
- Peter Griffin <peter.griffin@linaro.org>
-Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Norris <briannorris@chromium.org>,
- Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@android.com
-References: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
- <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
+Subject: Re: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+ with multiple bus masters
+To: "lorenzo.castellani" <lorenzo.castellani@pd.infn.it>
+Cc: linux-kernel@vger.kernel.org
+References: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,29 +85,33 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
+In-Reply-To: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/09/2026 17:47, Doug Anderson wrote:
-> Hi,
-> 
-> On Tue, Sep 29, 2026 at 4:11 AM Peter Griffin <peter.griffin@linaro.org> wrote:
->>
->> Fix newly introduced DT warnings:
->> Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@5880000:
->> unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or
->> child "reg" or "ranges" property
->>
->> Fixes: 80f23487d554c7 ("arm64: dts: google: Add initial dts for frankel/blazer/mustang")
-> 
-> Is the above git hash correct? In linuxnext, I see:
+On 27/09/2026 12:43, lorenzo.castellani wrote:
+>  From 32e145b49cf41ce150a97ce52c63f5aae1bbbea7 Mon Sep 17 00:00:00 2001
+> From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
+> Date: Tue, 22 Sep 2026 11:12:30 +0200
+> Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
+>   with multiple bus masters
 
-Yeah:
+Your mailing is corrupted.
 
-	WARNING: Unknown commit id '80f23487d554c7', maybe rebased or not pulled?
+> +static int w1_therm_count_bulk_read_slaves(struct w1_master *dev_master,
+> +    struct w1_slave *exclude_sl)
+> +{
+> +    struct w1_slave *sl;
+> +    int count = 0;
+> +
+> +    list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+> +        if (sl != exclude_sl && sl->family_data && bulk_read_support(sl))
+> +            count++;
+> +    }
+> +    return count;
+> +}
 
-I'll fix both when applied
+And here.
 
 Best regards,
 Krzysztof
