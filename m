@@ -1,117 +1,83 @@
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A5D328CF4A;
-	Wed, 30 Sep 2026 15:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.135
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94D74E36D0;
+	Wed, 30 Sep 2026 15:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781539; cv=none; b=BvYXHmUu6qfQ6fLKW/CMriQKJsguef8ErXmo447p4+WQRJQxCq0xOANb7N6cLuebKnd8JTVX3OTqlqqqlkwYk2ba5s/gr12TazhoCBDAdfe+YYFAXV63u5r8JEGAt1/hsmEAhh1AkNhaY7qD6W7/aqdqMmmAVy4cvnvkD0Lhb3Y=
+	t=1790781559; cv=none; b=BV2JxMZIVo3aQuAgDLDO1XY1iMH9CwvLSyxLmcH1zigYtqqkSA6hUEmf5PP+37vEzFD16hksmiPq4o3cIH5/HSPSUbFwZeGZ6gF1iMEUp4I+HIaLh5u2cPr4Qfot0R1eouYQNwlMp/xDDoqKGP1kiS0+oRvlcpUjfeBJ3QMDC6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781539; c=relaxed/simple;
-	bh=lUXDcOT/XwJMsHVoxeCZb+FRbrTQRd67zAroXHMYzvc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a966NLb/IKxLqTvwv2b/ZYJnvUfqA5Um7KtJ2j3GYir+tunVH3f89yfgeZBNMIyW+q+Jz0T3OdCAZDlZatqkvCRgu1KJTD5yO+N9srxj7PEn5+L4ePiUJd7yfkRMr/PwDd97kctzy5JpsaqMyLEhpo7QRxsYsPLa7U6VcMyc9gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=NX4cvaht; arc=none smtp.client-ip=111.22.67.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1790781559; c=relaxed/simple;
+	bh=ecYM6eiIN0pEXVUN9eXpKkK+UfcpLhdrTpGuD0OnECc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mv7cVc6zdldXi57zYKrA1xhpYyQLTTZKFZ9dcRVS7nyogmxBqe/VGJ3acbh1iWhV7rW5HWiff7jx7AvscF5vLXqswzVGbpclmexHrRQYo3YQacvIGeAGOpTef7E5Jn4kYAVGndzJgbqz6sqzO23BWm1Tudcn6aFMl6D6cjOnDeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=R2aQ0b4a; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="NX4cvaht"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=NX4cvahtQBFW2cfPvwirxCpg9ltG8a4nJ1U3f+A+UJhadtw/i3ej4S8/jW+NVerpwnt/FNAn4L6Gg
-	 16ggFjpzZkdTzftd8jislxGG6qoWvpamHmCgFRqBvzOYibN805noaAszqhC9Ml2ZtsCtvwKQCKs4mA
-	 uPKiRcKQmvrPvOkg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36abd27950e7-5a764;
-	Wed, 30 Sep 2026 23:15:37 +0800 (CST)
-X-RM-TRANSID:2ee36abd27950e7-5a764
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[112.22.250.209])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86abd2783ebf-02a53;
-	Wed, 30 Sep 2026 23:15:37 +0800 (CST)
-X-RM-TRANSID:2ee86abd2783ebf-02a53
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Marcin Szycik <marcin.szycik@linux.intel.com>,
-	linux-kernel@vger.kernel.org,
-	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Subject: [PATCH net 1/2] pfcp: fix metadata_dst leak in pfcp_encap_recv()
-Date: Wed, 30 Sep 2026 20:48:17 +0800
-Message-ID: <20260930124818.114224-2-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930124818.114224-1-yanhaishuang@cmss.chinamobile.com>
-References: <20260930124818.114224-1-yanhaishuang@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="R2aQ0b4a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=1AS38y78ktzj4kRDrJvghL/aAxLdHqWz3VNxFKE2lRY=; b=R2aQ0b4avTTW5wxyrVIQlXaik7
+	xlOfAblrDDetu/HEwhw6F1aqjF5CQqrnbXZWO248emvcbG1qgQHRbl9LzQ/iK76jEkhKwH26HtPhY
+	INABzb6n79Y7lXJ08vRbx+YiQHlayZetBVQr211AjndXn7h4Gr9LffPyNfnn8aUUaG2khvfeXdA8C
+	mpN5++iT7ua3vypo34K41aUJihJuv2EBKEnM9aGhxQQ3fmougOd2FxBfwsJqU5xPwBWnprmnzGDXO
+	rUg2KaY2SIJBKHFDlgL130eusvyyWgohx4PnYR6reB4Xw/AbOaAeIFqh9I8PQH6rHatcA9NZ/5XAu
+	sPAuHL/A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xBw5I-00000003z5O-0myI;
+	Wed, 30 Sep 2026 15:19:04 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id BEEEF300673; Wed, 30 Sep 2026 17:19:02 +0200 (CEST)
+Date: Wed, 30 Sep 2026 17:19:02 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Stevens <stevensd@google.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/psi: clamp negative cpu_clock() skew
+Message-ID: <20260930151902.GO88198@noisy.programming.kicks-ass.net>
+References: <20260928233743.3777102-1-stevensd@google.com>
+ <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
+ <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
+ <ar0bPEyD5CBK331p@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0bPEyD5CBK331p@cmpxchg.org>
 
-pfcp_encap_recv() allocates tun_dst with udp_tun_rx_dst() but only
-attaches it to the skb after iptunnel_pull_header() has succeeded.
-When iptunnel_pull_header() fails, the code jumps to the drop label,
-which frees the skb but not tun_dst, so the metadata_dst is leaked.
+On Wed, Sep 30, 2026 at 10:22:52AM -0400, Johannes Weiner wrote:
+> On Tue, Sep 29, 2026 at 10:17:40AM +0200, Peter Zijlstra wrote:
+> > On Tue, Sep 29, 2026 at 10:10:04AM +0200, Peter Zijlstra wrote:
+> > 
+> > > > When running browser workloads on an Intel N100 with a sustained
+> > > > psi.mem.some of 2-3%, this underflow is observed once every couple of
+> > > > hours.
+> > 
+> > Reading is hard. This is sad, that's a relatively modern chip :-(
+> 
+> I'm still struggling, but I'm under the weather so bear with me.
+> 
+> That's a cpu_clock() implementation issue, right? "The value for
+> cpu_clock(i) is monotonic for constant i". Presumably violating that
+> would be a problem beyond psi?
 
-iptunnel_pull_header() can fail for a GSO skb that is cloned, when
-skb_unclone() cannot allocate a new header with GFP_ATOMIC.
+Yeah, although most everybody has a filter on top for some reason or
+another.
 
-The dst cannot simply be attached earlier, since skb_scrub_packet() in
-iptunnel_pull_header() drops it for cross-netns devices. Release it
-explicitly on the error paths instead. The !md check can never be true,
-but route it through the same label for consistency.
+Mostly it could happen that when the watchdog would detect the TSC
+wasn't stable after all, you'd be up a creek if you didn't also have
+this filter.
 
-Fixes: 6dd514f48110 ("pfcp: always set pfcp metadata")
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
----
- drivers/net/pfcp.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/pfcp.c b/drivers/net/pfcp.c
-index e1cca779d2ec..1d14baf27c64 100644
---- a/drivers/net/pfcp.c
-+++ b/drivers/net/pfcp.c
-@@ -74,7 +74,7 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 
- 	md = ip_tunnel_info_opts(&tun_dst->u.tun_info);
- 	if (unlikely(!md))
--		goto drop;
-+		goto drop_dst;
- 
- 	if (unparsed->flags & PFCP_SEID_FLAG)
- 		pfcp_session_recv(pfcp, skb, md);
-@@ -87,7 +87,7 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 	if (unlikely(iptunnel_pull_header(skb, PFCP_HLEN, skb->protocol,
- 					  !net_eq(sock_net(sk),
- 					  dev_net(pfcp->dev)))))
--		goto drop;
-+		goto drop_dst;
- 
- 	skb_dst_set(skb, (struct dst_entry *)tun_dst);
- 
-@@ -98,6 +98,8 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 	gro_cells_receive(&pfcp->gro_cells, skb);
- 
- 	return 0;
-+drop_dst:
-+	dst_release(&tun_dst->dst);
- drop:
- 	kfree_skb(skb);
- 	return 0;
--- 
-2.43.0
-
-
-
+But I'm very sad to see modern chips have shit TSC, that wasn't supposed
+to happen.
