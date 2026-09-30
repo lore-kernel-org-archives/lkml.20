@@ -1,119 +1,148 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F5842B742;
-	Wed, 30 Sep 2026 06:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC603C416A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751404; cv=none; b=jimMYJwCYurb2dTpJNlOZAx4dc7naJqOh9ls8SxvuI8wgVjqcFqAyQHbDdbhhz2Ca1bbipdTlut0zGbzd3SOGOoKuGb5+cGRgTNq2WeRK9X7Rwe/TTVYbkbhsPRAwIfv7Nqu0hBcxTM/Cm69KWmryjaN3tlieMW6MTeETrAkYR4=
+	t=1790751411; cv=none; b=qDw3FsHBlXaq24cX+vgst8CLul73HofGBfWKy1mikOEzxAInXXBfG8DapIHrfUhZr0dINumvfuxWu5FFmjEnBodhpKGp1rCcifJzNIR6rYj7WDaxF3bb5s9gXRDek14CA+UD9jAxbmNZ/2qQfsQkVNlHNJ9nHZADmGChKeXqDrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751404; c=relaxed/simple;
-	bh=icn74DL/Ofo1kzXbnNiU16sfb2pnKci1cF6fjW7T0Ws=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qvwuZykNzITnUtMTt0/xPKIXG7S8s2YKCgZR7N2+zziHZqSYfZ3ik584LIIi6pcGAUKDAWJgvc8VV9y+EQWtnkcXE/21swWh32vnviXS/irjOI4xhS4m7gBw7oRx8cs2tWvhWb57EcSVazLkdjMM5SQx+HnCdzbp2Kf9WjpJl1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=fsYLfzJZ; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790751411; c=relaxed/simple;
+	bh=+fxZlZKcmSzpMyXlmu9ij0waNERL2gFRxhZvKqLEvEM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EKOimA1gXzrm4RflJ/M49n51MlYITMMOzJ9wqtVXv9ufvWiE1opxkbeFeCbs8b2MyZEAG8GCL660i+yYgF5rKudqY5l9PYwPlYPOavucHQcY7wlunIFcouwXwjMiUMLww8jXxqPoRWc6IkTViV8DV5LqibMHNtk6j4FPS4ks1uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fDaAn6eJ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="fsYLfzJZ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=5caGH9k7TL80R+qXb9t1DYezqkEskhcX0AOfIPmFAqg=;
-	b=fsYLfzJZdVvDWaNZFt8u5SH+8BkYuLadD/ILsGWILjhgTuNioKKfrvOFCrSNSWLw1AFVYXfN3
-	NZWc6cCNigXsWd9SbKMg3/Nk5MPQWiJrdD/EpqMAfRDNVgfg+inCrVzPh7uB6kk7X1QT3z4Gsi/
-	4jYFMG4mXvUrpI4td8dQ9h8=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hvlrh12jCz1K96s;
-	Wed, 30 Sep 2026 14:44:20 +0800 (CST)
-Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
-	by mail.maildlp.com (Postfix) with ESMTPS id E47C94057A;
-	Wed, 30 Sep 2026 14:56:29 +0800 (CST)
-Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
- (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 14:56:28 +0800
-From: Yao Yiqi <yaoyiqi3@huawei.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	<linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] misc: fastrpc: Fix race and double free in fastrpc_req_mmap() error path
-Date: Wed, 30 Sep 2026 06:37:38 +0000
-Message-ID: <20260930063738.2966346-1-yaoyiqi3@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fDaAn6eJ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso31249585e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:56:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790751402; x=1791356202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yuHgAjHOVltJdZTQWjHDacQSlYBFWHEKS15iSGeBiRw=;
+        b=fDaAn6eJE+OigXn54lWTVjyaiFZYNP02eHtVLhFZ/K0GSvLywAjaOUscRvr/WJ6Hjn
+         jQPs640a/iR/IvLr5mrvFMJ/ApxsUDt2NBZ0ofp3r7ziWq2wwYIwHpxnoPlmq2lbk2SQ
+         D0EBYP21/fYguasvOxB7cLQpRoyufw2zetdUtxSxh/1tiOn35VN3pX1VNbljPDID8dCH
+         zVPXSTbpeI85p6qHu1WjBhLS8hzpPhjZieDN6yonp3n8Fddi2O9zXLDOZ71DBQWXIA/V
+         gCmMP7nqc/zQDrRonnqSam6VFOndd4WOwOYiUbLSEdbNzyzRPEFt2ZT69AQRHeXnPoj7
+         5pFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790751402; x=1791356202;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yuHgAjHOVltJdZTQWjHDacQSlYBFWHEKS15iSGeBiRw=;
+        b=Q9yQORQ3VOOqZcEs3XO4bHEIfHL+GL1/mALQ8NcI9dY3SmMigP00oGWJtMZk2kCXOx
+         WupYWr3JRxQAJPVQYr1P8hPc8WXcch3xP3CklTULd/n7vO3FSvbAOa/UiQFaubxQT3lM
+         LOanr5nEqQcpfUuh0XvJQoMmk20NP5rgp71/69WGgNebkqQJ0MkzVlsV9vKyfWfAyPRi
+         oap+yGnGZl9R4J//SN8cP9hP7IArt5FPs7jHDAP05i2utG7mPj9FEc1dGNOzQjPklHlx
+         Pr2djOY1WT2XS8fvcL7E/26i2DYXYgQWIDM9OA8mvFMVGvdn9zdLNw2dAMqxDyFDkwrp
+         nK7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwQqOsNds02KThRc6QL/wqUXIjbHKGTfbmtmUCrZC8aABvhIvCaWnMqIhlfHFI1oq0h0y1As5hsP1vxVpc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhilKYrpifjLNNLfqnHj/FxFyay83WOgRIhspuT/EkDTcyCgxv
+	0Pl7KiucBSzYbqKHBfo02Eh8LqJbOP+kpMlm03Wj9cR51sVRx/dQNKko
+X-Gm-Gg: AYBFou096QE1/iaPpNjzfO73VMGIVRoFOpwCG8knICjf/DcSdkOfuLnsFB3Wkhbl4Fw
+	dW4LE0b8WrG1VYdxa3apLwxLieNcFF+91b55z8lgotJ48to4mBP+4JV5r61vnsdrFodFHJ7x0Pq
+	0TVrziDSxM8lJKwtdKfqji3Pumx8K4CPJqx8dHDNsvhllfIH8nNGN4wHHH0OU5EKoEgJeEacp/i
+	aVu4dy4CgiROlzZyScWFgcJDqH9iN+ca5QD9/Oj7EWjuObdQeYYgVjcZV+iq1QtWL1vqL3P8tJr
+	PW3GMiZgLH2FTzAwfcdCMvlQ6l/pojbq4guqGTe815CbJ0jC9RA7S3WXCuj1SPDZ9vqy0jVA0Xg
+	Xhk6s/HPFsGpHGNWvjkWAAIEt09lmtHoYQWpzBE0k53MZbBfRQiX4NsqJjFjYXY1FCqVZxeKYC1
+	shv6Io7ZPJYUWstvxuVczChSyerhDGMch6p/ygp+Ncw2k6921CWA0rRaUd33cVUUuM4nSSNyOcQ
+	GI6ng0QAQF9r00xyv73cmSTpeiquEldeLhvcKw6GO3ehteTPam2C4WI5PH6omkPRZrupzhqu7jV
+	YJ76CJ2E1LoMGSlpVm1ixnd4cCKFvR8Ro9PxG6873322hbS6x3962BvppcZf8p6GLMG5t3PgncQ
+	qlsjm3a1B3DfbM9ihf4qAE9p0LFHux4hBUWFMWQEFPRuWoJoMr30b/v7dxdA3EUClLIF7u03jF2
+	tOJf0l/QsXugC1j8M=
+X-Received: by 2002:a05:600c:1c01:b0:49f:fdca:c361 with SMTP id 5b1f17b1804b1-4a01aff256fmr6408235e9.12.1790751401995;
+        Tue, 29 Sep 2026 23:56:41 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0174e165fsm34856325e9.6.2026.09.29.23.56.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 23:56:41 -0700 (PDT)
+Date: Wed, 30 Sep 2026 08:56:40 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, error27@gmail.com,
+ narcisaanamaria12@gmail.com
+Subject: Re: [PATCH 2/3] staging: iio: accel: adis16203: add missing
+ spi_device_id table
+Message-ID: <20260930085640.00000377@gmail.com>
+In-Reply-To: <20260929184900.39515-3-abdelnasserhussein11@gmail.com>
+References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
+	<20260929184900.39515-3-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemp100012.china.huawei.com (7.152.185.135)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-fastrpc_req_mmap() links the newly allocated buffer into fl->mmaps before
-copying the response back to userspace. If copy_to_user() fails, the
-err_assign path calls fastrpc_req_munmap_impl() to unmap the buffer from
-the DSP and, on success, to free it.
+On Tue, 29 Sep 2026 21:48:59 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Since commit 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior
-to unmap operation"), fastrpc_req_munmap_impl() no longer removes the
-buffer from fl->mmaps, as that is now the responsibility of the caller.
-fastrpc_req_mmap() was not updated accordingly, so the buffer is freed
-while still linked in the list. The fl->mmaps cleanup in
-fastrpc_user_free() then calls list_del() and fastrpc_buf_free() on the
-already freed buffer, resulting in a use-after-free and a double free.
+> The driver currently relies on OF/DT matching but lacks an SPI device
+> ID table. This prevents module auto-loading on systems without device
+> tree support.
+> 
+> Add the spi_device_id table to resolve this and ensure the driver loads
+> properly across all supported platforms.
+> 
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/staging/iio/accel/adis16203.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/staging/iio/accel/adis16203.c b/drivers/staging/iio/accel/adis16203.c
+> index eddb786d4747..905485fd556f 100644
+> --- a/drivers/staging/iio/accel/adis16203.c
+> +++ b/drivers/staging/iio/accel/adis16203.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/iio/imu/adis.h>
+>  
+>  #include <linux/kernel.h>
+> +#include <linux/mod_devicetable.h>
 
-Publishing the buffer before copy_to_user() returns is also racy:
-another thread of the same process can read the DSP address from the
-partially written user buffer (or via userfaultfd) and issue
-FASTRPC_IOCTL_MUNMAP, which unlinks and frees the buffer while
-fastrpc_req_mmap() is still using it.
+No need for mod_devicetable.h, this is imported using spi.h
 
-Fix both issues by adding the buffer to fl->mmaps only after
-copy_to_user() has succeeded. The error path then never has the buffer
-linked, so it does not need to unlink it before unmapping.
+>  #include <linux/module.h>
+>  #include <linux/spi/spi.h>
+>  
+> @@ -292,12 +293,19 @@ static const struct of_device_id adis16203_of_match[] = {
+>  
+>  MODULE_DEVICE_TABLE(of, adis16203_of_match);
+>  
+> +static const struct spi_device_id adis16203_id[] = {
+> +	{ "adis16203", 0 },
 
-Fixes: 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior to unmap operation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
-Changes in v2:
- - Link the buffer into fl->mmaps only after copy_to_user() succeeds.
-   Besides fixing the double free, this also closes the concurrent
-   FASTRPC_IOCTL_MUNMAP race reported against v1, where a partially
-   written user buffer let another thread unmap and free the buffer
-   while fastrpc_req_mmap() was still using it.
+C99 initializers please.
 
- drivers/misc/fastrpc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, adis16203_id);
+> +
+>  static struct spi_driver adis16203_driver = {
+>  	.driver = {
+>  		.name = "adis16203",
+>  		.of_match_table = adis16203_of_match,
+>  	},
+>  	.probe = adis16203_probe,
+> +	.id_table = adis16203_id,
+>  };
+>  module_spi_driver(adis16203_driver);
+>  
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d4fac2caca86..d2c09bffd0af 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2153,15 +2153,15 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 		}
- 	}
- 
--	spin_lock(&fl->lock);
--	list_add_tail(&buf->node, &fl->mmaps);
--	spin_unlock(&fl->lock);
--
- 	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
- 		err = -EFAULT;
- 		goto err_assign;
- 	}
- 
-+	spin_lock(&fl->lock);
-+	list_add_tail(&buf->node, &fl->mmaps);
-+	spin_unlock(&fl->lock);
-+
- 	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
- 		buf->raddr, buf->size);
- 
+Additionally, you should delete the MODULE_ALIAS("spi:adis16203") line.
+
 -- 
-2.34.1
-
+Kind regards,
+Joshua Crofts
