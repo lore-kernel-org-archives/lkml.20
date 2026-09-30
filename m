@@ -1,85 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A190C373BE8;
-	Wed, 30 Sep 2026 07:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AA145D918;
+	Wed, 30 Sep 2026 07:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752808; cv=none; b=BZwhpNgyp1+oZ7jH/u1Ymw3bFyaISBjSbZTB/RPlgaaDO+/p5X1OYtzKOrNSq6OLFIOneXrvkaWjQOr3fzsVoQi4fZ013bUwF7mqFSAljaFVYKaRzixXPg2KBSLGKeEdx8hBwsNbYNa4wMWJry9N7OPAscnlX5fVTUW6AQ2dzQ4=
+	t=1790752811; cv=none; b=AeCYtR/Gd7CXaDfngPkUNVH/e1XpkMNJNMg5srOyWWu+Ix+0BDmYoN356UKMJtdeTMfxxbFAssKDn00hhrxbbybPsNyVdXRyww70fWLtStr44532xH2xnikQbaTvpzA+0WlgmJrQWG+0EptO7MGVI2hgZIhIBPVRybCDjToeMJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752808; c=relaxed/simple;
-	bh=sd6gkkeG8ZQWKcUfeNjAQn8Tdr2ocdh4K4IqKfSDGS4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fXa3BEykfyvO+qa+nkEq1W7jNICfka/QiUDvjBajQB5+SZFqeECjcHsI98L7zPx1duEaMcNb6z34c6kijTLZW81odTtleHFBGOOLMg0er4xP4v2yI2crOMDz2Q6e80HvhR85fa7O1ZlfwsBIx7Unxql90NlqCWD4pQmehk8nfDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k1hsLw5T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790752811; c=relaxed/simple;
+	bh=egjbfAklu+VRqBXjxrxcsmzn0NRep85lbIRvHaOg7u0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=GnDQa3ccON0u/s9q+IP6nc2zivUu/4MrYGxvKWpaoKEL6yBZ6EXSFZYj0UI+iNQ9QSfCCQX+GQ5QcSp4ys4Ta7+Mv2dOcRWQCaEY/mNw1btXtVazS7MsM2Gskuzaq58qJETxndiU9INb1GQEngjrudYVHoC9EW6g5NZVwz/+UTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3tNyKcm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k1hsLw5T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8143F1F00893;
-	Wed, 30 Sep 2026 07:20:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3tNyKcm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDDD1F00898;
+	Wed, 30 Sep 2026 07:20:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790752807;
-	bh=u62Zgpb+i05Tt205oStPPNF9koBKiCrEtXPYzDKQ3Kc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=k1hsLw5TOoY/CLuJf77AQ1dO1bsIDTq/AhjYG6PGTIfv7ofgxXGGXA7h4JjAnHKzu
-	 THZs5YV0vHzS3BU9v7Xw7DekkbMtHVfk5+z2FGuJ8ZbJ3lTwjF5zqWc6Et247sawWA
-	 pB1wn8fmSjvno3o26CqBf6YgKeOlmG0oCEW8tYZ2OHckz1rkWMQbFCKiPH40LAvM1o
-	 ZmmEuYkJV3K5c3cJHJqB4GAojmIZtjwTlXyFcORcQRdVIJP+aF+2A7Gso9Ig4vuOv4
-	 t0nT23YTsRNp3echfI6ktcWF/LqjAgA1bQlbuH1FdFhZneW8JS+ryxTU6EMGJaRj/F
-	 qkpxXLRZqPkDA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7734939E37E8;
-	Wed, 30 Sep 2026 07:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790752809;
+	bh=aiHKTf8uhlLWd+EaENHzJiUgoWD9yWMgBgu9wtpsmg8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=K3tNyKcmwFqjSCVEPOy659wcqcNlhClI6c/5zo7jZtvC6DVlM7sxOd2DYx+8L6NyP
+	 YBvC+0X5tBB6R9mPiF77hgPQwTG64fcNy/qmwmUVFvrWbmpJusOpYD4ACcihZrXoW7
+	 arKI/PyyJPgvXVUptN3kFefvcRVYf1N0nTfhLT8K7GkSJRJ3mUqZpQrMKSS0itIPnp
+	 fy8gX/qRh0c+9vif5mpqjUkyhhCYmkitrSQ/GIHDhS9zj3rmLpK/1Y7/9FbSZs5+82
+	 AJfUBPVH/IJ/ELEMahz0NCE9IED1P8XXIoouSQdrE4kLZeROEBMdIUS+COdkJv8frj
+	 Pn8Y0/zDu5nuw==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Anthony Krowiak <akrowiak@linxux.ibm.com>
+Subject: Re: [RFC PATCH v6 01/11] vfio: cache KVM VM file references instead
+ of raw struct kvm pointers
+In-Reply-To: <179027891416.104879.7094081421035070060.b4-review@b4>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260917140159.1163281-2-aneesh.kumar@kernel.org>
+ <179027891416.104879.7094081421035070060.b4-review@b4>
+Date: Wed, 30 Sep 2026 12:49:59 +0530
+Message-ID: <yq5aa4ozurxc.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2 0/2] tcp: correct timestamp echo for accepted old
- ACKs
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179075280628.1300549.5509783868207806215.git-patchwork-notify@kernel.org>
-Date: Wed, 30 Sep 2026 07:20:06 +0000
-References: <20260924224456.55690-4-jeffjo@openai.com>
-In-Reply-To: <20260924224456.55690-4-jeffjo@openai.com>
-To: Jeff Jo <jeffjo@openai.com>
-Cc: netdev@vger.kernel.org, edumazet@google.com, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
+Content-Type: text/plain
 
-Hello:
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-This series was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+>> VFIO currently records struct kvm pointers on vfio_group, vfio_device_file
+>> and the opened vfio_device. Switch VFIO to track the VM's struct file
+>> instead, so VFIO and iommufd can use normal file references for VM lifetime
+>> instead of depending on KVM's internal struct kvm refcounting.
+>
+> Are these few patches the same as:
+>  https://lore.kernel.org/all/20260924-vfio-v3-0-4a294307797b@linux.ibm.com/
+>
+> Can we align on that series or is there something else here?
+>
 
-On Thu, 24 Sep 2026 15:44:57 -0700 you wrote:
-> Linux can acknowledge newly received data while echoing an outdated
-> TCP timestamp. This happens when a reordered packet fills a receive gap
-> but carries an older acknowledgment for traffic in the other direction.
-> If the sender uses this echo to measure round-trip time after a long idle
-> period, the stale timestamp can inflate its estimate and slow its sending.
-> 
-> Changes in v2, following Eric Dumazet's review:
-> - Remove the redundant SYN_RECV condition and unused flag accumulation.
-> - Replace the log-parsing wrapper with a plain packetdrill test that checks
->   the timestamp echo directly, using the existing selftest runner.
-> - Rebase on net fc6d80eb5044.
-> 
-> [...]
+Yes. I will use v4 of that series as the basis for this patch series.
 
-Here is the summary with links:
-  - [net,v2,1/2] tcp: refresh TS.Recent for accepted old ACKs
-    https://git.kernel.org/netdev/net/c/1b92780ae4fc
-  - [net,v2,2/2] selftests: net: check timestamp echo after an old ACK
-    https://git.kernel.org/netdev/net/c/81fe707ae58e
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+-aneesh
