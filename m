@@ -1,46 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D591513555;
-	Wed, 30 Sep 2026 16:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D5C14F85CA;
+	Wed, 30 Sep 2026 16:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786571; cv=none; b=n99DTUBFcTOrlOjmUrqgXoPPM+rQviJ2YOXaYJF8GZBrgRjyfHhLRXByKTObp511CuW7Eins/V1LI61EPqbfo5KvlLF4TBlZ06++cEjXVV7syrI26sMLgaqbYzIh4XVGeokPLzg+UHL+qruJtXf0NAZrwJkcBuvf0idBmuamXMQ=
+	t=1790786596; cv=none; b=TEjwYVMxSSdA6phtN7W/qDgsFYGqWG8DwjwWaANxadn9quisMraKR45rhg0ZbqHRjEGoPqcATWcMlds3Ev9Ht+DP2pxp7wgWX8D+oZDr69dBM0UBpUFbhHFj2ECgePaIy7Ya1iQx0B9Qm0Spy+AphJl4j1Tne0dbVwBf43VUL00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786571; c=relaxed/simple;
-	bh=x52tz2MJowBAe+J0Z8YawH5abQ6xtsSiuT5agfRnVKc=;
+	s=arc-20240116; t=1790786596; c=relaxed/simple;
+	bh=+ZQQF2h9wliOPrMz684FyPaCAEQVKIU22UOLcW8B9DU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=azWCZe/7T0Pz7jj+W2htHmR9KTLSlRuIUHSv55yFgZEHCddB0JuJPo0cKYif9MpCVSbobpTQmxOAhI0iWSdEAsVHqlOCvgYoMO3QjYVA4Qkzjw8hphSf1/b/LMOzTBN/btUBMPBtPqTrvOFFRMU2aeAtR4P9Cimvyo87YcFbUCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhfXjTQI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KzVR1/Xp+GmMilWENtGWFO6lcQRiAu9+LaE3IxtzvwGC/wXoaD7MdErczOOuRuq7cCGXfJT4x1HR3VibObet/KcEjcgCwGrGR17HesDeb7M0Qf+WrNcO/s3HXfVq+WMrWfY0AgKYpYpIMtlZ5w+xG6fnCQlPtIQOTUgVvq/UzOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nt7xGr1X; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhfXjTQI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6A31F000FF;
-	Wed, 30 Sep 2026 16:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790786570;
-	bh=OsbP1vWAYIH+TLT7k6+ZWFsNQw4uBWUoiKTeshvbXts=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=lhfXjTQIxdzRWCZO/Xy9gs8YEOmCraNpinwKFZSs3WW6vPHueNbJjRjmdh+YQO0VX
-	 jMFYP4/qs67fxlKNoumOO0KO4FUA2/H6IXE0qNghdCm+GTWu8OZIH1Bbz3jOJLdB6Z
-	 CPPnK5oCvU2Ni/7VZw9x6VpcIUuhny4tCBnfLitOvobANvNvZo+/JqQ0zYY8GXiiej
-	 6y5GQLNeSZM7DAZJWszIM6q63/SPOYpIc0dj0CP6hqZPbI6FH2E8dpIJOS8gN0/VYo
-	 86Gb3p/jcgShIyGlSB/P9zXMH1xLG55HKK3H+dhcVGgN6aF9joo6XaInrX2zhTmrhe
-	 +TeMRYQJ8e5dA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B1317CE097C; Wed, 30 Sep 2026 09:42:49 -0700 (PDT)
-Date: Wed, 30 Sep 2026 09:42:49 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: dave@stgolabs.net, josh@joshtriplett.org, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, boqun@kernel.org,
-	urezki@gmail.com, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org
-Subject: Re: [PATCH] rcuscale: add srcu_atomic scale type
-Message-ID: <6bafffd8-d253-47d4-a698-b6ee22fbdc3d@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260927100359.3903688-1-kunwu.chan@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nt7xGr1X"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118EC497;
+	Wed, 30 Sep 2026 09:43:11 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F3713F85F;
+	Wed, 30 Sep 2026 09:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790786594; bh=+ZQQF2h9wliOPrMz684FyPaCAEQVKIU22UOLcW8B9DU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nt7xGr1XngY7AXps+0QzGOhk/AqApXQZu9RwBkbxHcHmRvMiGAhwX/+OYrgmbQt2g
+	 C8ax0Sr59DyL7okecWYUwf70W2O7KmCQBqw0XbJOAel9byN122uEuH89YRvsy2pJfe
+	 a5u3N0avZIxgHNvUDykVknZ8vLnz1jVyNJrE6QHQ=
+Date: Wed, 30 Sep 2026 17:43:11 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Tamas Petz <tamas.petz@arm.com>,
+	Tamas Zsoldos <tamas.zsoldos@arm.com>,
+	Michiel van Tol <michiel.vantol@arm.com>,
+	Dev Jain <dev.jain@arm.com>, David Hildenbrand <david@kernel.org>,
+	Yabin Cui <yabinc@google.com>, James Morse <james.morse@arm.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 2/2] perf: arm_spe: Prefer large AUX mappings
+Message-ID: <20260930164311.GK14479@e132581.arm.com>
+References: <20260810-perf_aux_trace_large_granule-v1-0-03306c9339e3@arm.com>
+ <20260810-perf_aux_trace_large_granule-v1-2-03306c9339e3@arm.com>
+ <annp-BdTviQoH6vy@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,118 +55,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260927100359.3903688-1-kunwu.chan@gmail.com>
+In-Reply-To: <annp-BdTviQoH6vy@willie-the-truck>
 
-On Sun, Sep 27, 2026 at 06:03:59PM +0800, Kunwu Chan wrote:
-> Add support for scaling atomic SRCU grace periods using
-> srcu_read_lock_atomic()/srcu_read_unlock_atomic() and
-> synchronize_srcu_atomic().
+Hi Will,
+
+On Mon, Aug 10, 2026 at 04:10:48PM +0100, Will Deacon wrote:
+> On Mon, Aug 10, 2026 at 03:44:42PM +0100, Leo Yan wrote:
+> > Commit 18049c8cff9c ("perf/aux: Allocate non-contiguous AUX pages by
+> > default") made the AUX allocator use order-0 pages by default unless a
+> > PMU explicitly asks for contiguous allocations.
 > 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-
-Nice, thank you!!!
-
-Some suggestions below.
-
-							Thanx, Paul
-
-> ---
->  kernel/rcu/rcuscale.c | 47 ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 46 insertions(+), 1 deletion(-)
+> But that commit specifically calls out SPE as benefitting from
+> non-contiguous pages:
 > 
-> diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
-> index 5aca31c3c01d..86f1a912ebee 100644
-> --- a/kernel/rcu/rcuscale.c
-> +++ b/kernel/rcu/rcuscale.c
-> @@ -264,6 +264,51 @@ static struct rcu_scale_ops srcu_ops = {
->  	.name		= "srcu"
->  };
->  
-> +static struct srcu_struct srcu_atomic_ctlp;
-
-The trailing "p" suggests that this is a pointer, for example, see the
-difference between srcu_ctl_scale and srcu_ctlp.  You could make this
-consistent with "srcud" and save a few lines of code as follows:
-
-static struct srcu_struct srcua;
-
-> +static int srcu_scale_atomic_read_lock(void)
-> +{
-> +	return srcu_read_lock_atomic(&srcu_atomic_ctlp);
-> +}
-> +
-> +static void srcu_scale_atomic_read_unlock(int idx)
-> +{
-> +	srcu_read_unlock_atomic(&srcu_atomic_ctlp, idx);
-> +}
-> +
-> +static void srcu_scale_atomic_synchronize(void)
-> +{
-> +	synchronize_srcu_atomic(&srcu_atomic_ctlp);
-> +}
-> +
-> +static void srcu_atomic_scale_init(void)
-> +{
-	srcu_ctlp = &srcua;
-> +	init_srcu_struct_atomic(srcu_ctlp);
-> +}
-> +
-> +static void srcu_atomic_scale_cleanup(void)
-> +{
-> +	cleanup_srcu_struct(&srcu_atomic_ctlp);
-> +}
-
-You can then drop srcu_atomic_scale_cleanup() and just use the existing
-srcu_sync_scale_cleanup().
-
-> +static unsigned long srcu_atomic_scale_completed(void)
-> +{
-> +	return srcu_batches_completed(&srcu_atomic_ctlp);
-> +}
-
-You can also drop srcu_atomic_scale_completed() and just use the existing
-srcu_scale_completed().  Of course, both this and the above require
-adjusting the srcu_atomic_ops initializer.
-
-> +static struct rcu_scale_ops srcu_atomic_ops = {
-> +	.ptype		= SRCU_FLAVOR,
-> +	.init		= srcu_atomic_scale_init,
-> +	.cleanup	= srcu_atomic_scale_cleanup,
-> +	.readlock	= srcu_scale_atomic_read_lock,
-> +	.readunlock	= srcu_scale_atomic_read_unlock,
-> +	.get_gp_seq	= srcu_atomic_scale_completed,
-> +	.gp_diff	= rcu_seq_diff,
-> +	.exp_completed	= srcu_atomic_scale_completed,
-> +	.sync		= srcu_scale_atomic_synchronize,
-
-You can also then do this to get more debug data:
-
-	.stats		= srcu_scale_stats,
-
-> +	.name		= "srcu_atomic"
-
-Then this could be "srcua".  Or maybe more typing on the rcuscale
-scale_type module parameter is OK.  If so, maybe we should change
-"srcud" to "srcu_dynamic", but this would require quite a few other
-changes as well.  (At least if we want the rcutorture names to be
-consistent.)
-
-Thoughts?
-
-> +};
-> +
->  static struct srcu_struct srcud;
->  
->  static void srcu_sync_scale_init(void)
-> @@ -1176,7 +1221,7 @@ rcu_scale_init(void)
->  	long i;
->  	long j;
->  	static struct rcu_scale_ops *scale_ops[] = {
-> -		&rcu_ops, &srcu_ops, &srcud_ops,
-> +		&rcu_ops, &srcu_ops, &srcu_atomic_ops, &srcud_ops,
->  		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
->  		HAZPTR_SCALE_OPS
->  	};
-> -- 
-> 2.43.0
+>   "For instance, ARM SPE and TRBE operate with virtual pages, and
+>    Coresight ETR allocates a separate buffer. For these PMUs,
+>    allocating contiguous AUX pages unnecessarily exacerbates memory
+>    fragmentation. This fragmentation can prevent their use on
+>    long-running devices."
 > 
+> so why doesn't passing PERF_PMU_CAP_AUX_PREFER_LARGE reintroduce the
+> problems that 18049c8cff9c was trying to solve?
+
+How about adding a field to struct pmu to specify a preferred maximum
+page order for the AUX buffer? The perf core could try that order first
+and fall back to smaller orders if the allocation fails.
+
+For example, the Neoverse V2 TRM documents:
+
+  L1 Trace Buffer Extension (TRBE) TLB: 1 entry
+
+Given the single L1 TRBE TLB entry, the TRBE driver could prefer
+PMD_ORDER (2 MiB with 4 KiB pages) to reduce TLB pressure. This reflects
+the hardware characteristic.
+
+This could be a trade-off instead of using PERF_PMU_CAP_AUX_PREFER_LARGE,
+avoiding large contiguous allocations that could reintroduce the Android
+OOM issue. I did a quick test with this approach and the results look
+positive.
+
+Does this sound like a reasonable direction? I might also need Yabin's
+judgement from Android side.
+
+Thanks,
+Leo
