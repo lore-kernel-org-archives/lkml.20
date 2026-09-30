@@ -1,388 +1,183 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6BD3B9D8C;
-	Wed, 30 Sep 2026 05:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6BB27703;
+	Wed, 30 Sep 2026 05:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745328; cv=none; b=jOgbfAttWI9w/BKf0lSHnA+UhadTNZfTDKesnC7K/24dO0kZCMTKkzxshIIXxaDn404gOyHs6mVMxiCL9fJINx/wjzvXI1TV5haxVf8ivrYWcr1En/eQhKLLbyNn3X6GGbhMnOTPemma6xsgT3t2B6yQLgksYSnDZiPqZHRjXYA=
+	t=1790745384; cv=none; b=f/Kp94eyQcI2wpN68ij3ZPTAiXb1+kMjWlCUxXXhugKNMujKR0enyL7qG690PxrxhHqunnWOaKnbOY1RitwtlvLIB4BDrBQCdEapmFKNG9DaNdDqI+xRDnFIXofmhbqlS4vq9wh1zPCA4n48C/hT+0pKU6rhhtXFzUjSSy98oIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745328; c=relaxed/simple;
-	bh=pVNIBo5jD1DayuSl+51+0RH3NZwaV/1iDB0EjZVcUqc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Bfm0T1CGmM9ifGcxQPJck357akzk1MrVsCaqiWx9HnhR055td+Fm9dbfPdAzq3FhVDcC6pVQbWCkw2M2sk0/W4plM5hhy0Egnq2XJDF6jq4slKHBQxdF0a8DgtCokbg1Y41n74iWGStdW6ishyr8zUlsJNt538KCEWgz0fVCdLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 30 Sep
- 2026 13:15:00 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 30 Sep 2026 13:15:00 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 30 Sep 2026 13:15:06 +0800
-Subject: [PATCH v4 8/9] EDAC/aspeed: Add AST2700 support
+	s=arc-20240116; t=1790745384; c=relaxed/simple;
+	bh=hK6mNxHdXq0DC8dDjQn8mHm021jJUPpmmg0SceYXu9E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IBTw4sKKbbAZ1J5TjiuU0iQQuyBNl3/sP31va4shyfNrHH73wEnpMe57r/b664qZ3cFzJvJ0/88Yparqh04qikj09MeXGNad73fnBQgYZwWUYumTZfiYseaZ/sotJVG7v5JaX1w1C7vk8uh1XHK4lwUcZGvoC/n07H6OthSKYp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA22HlaA; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA22HlaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68821F000FF;
+	Wed, 30 Sep 2026 05:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790745382;
+	bh=eQleIxJOBPv1KRFntodHoZ79/WxPDKFPhFZNfK7ap0o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BA22HlaA5E3F7+u4XMqXTPdWQH0WWR+QICpy7gO+ug23l98iIzIbURSbMIcF7itwc
+	 ackm2dnn0Mci2l8Q6i51HM/fc6BE6gbK95z+bwtmWoaUUc+mVzqwc0iKcQSInz1vWq
+	 opl50ikHBVAwSmIeY5NSOlYdN0qlOn+HVMy8O97Ihz2T3g7Cv4rTs2t1x8kNudWY6o
+	 cU1gzIuy5As8hHXxV4Xiw0iLbbsYnXk6aLDjqMG7M7QiX51JmOPTMNTSjJ/O1DoGjE
+	 RlX02A2YhKV2UJNSged+SRrPA+9Ja0fDNuRVo+GTfolHieJ1672L+0ZNOdqe21ij+8
+	 dVzUe/i4bUayw==
+Message-ID: <e4a07d79-199b-4998-ae2d-a9e8b91a228c@kernel.org>
+Date: Wed, 30 Sep 2026 07:16:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-edac-v4-8-c2e526f3ed79@aspeedtech.com>
-References: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
-In-Reply-To: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=11921;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=pVNIBo5jD1DayuSl+51+0RH3NZwaV/1iDB0EjZVcUqc=;
- b=GSAeDw7Mg7rnBKA1RpkRxPnuSYN3dLFUQbio8/ZDe5LqUVySAQet1SECTmBdVXPYsMnex2nL0
- wUUfI3+A1tyBBABopLCMkzN8BPgSQyPI2nmfw0+kZcBkiVkowLtM0C7
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] phy: qcom: sgmii-eth: add Nord USXGMII support
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>
+References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
+ <CAFkd8hvoUi3dyff8w72pmRHce0XDNUepCsR=1gtimFMgA6gmBQ@mail.gmail.com>
+ <20260928-steel-hornet-of-kindness-aa5e2f@quoll>
+ <CAFkd8hs6H-WT6C2Nzns2jB1yHq1CfODijAX1VbMxUUAe7zH6Rg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFkd8hs6H-WT6C2Nzns2jB1yHq1CfODijAX1VbMxUUAe7zH6Rg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add SDRAM ECC reporting for the Aspeed AST2700. Its DRAMC has a different
-register layout, a split interrupt status/clear/mask scheme, DDR4/DDR5
-memory and interrupt registers that are not key-protected.
+On 29/09/2026 12:49, Zhangfei Gao wrote:
+> Hi, Krzysztof
+> 
+> On Mon, Sep 28, 2026 at 6:19 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On Wed, Sep 23, 2026 at 04:58:03PM +0800, Zhangfei Gao wrote:
+>>> On Wed, Sep 23, 2026 at 8:04 AM Mohd Ayaan Anwar
+>>> <mohd.anwar@oss.qualcomm.com> wrote:
+>>>>
+>>>> This series adds support for the Ethernet SerDes found on the Qualcomm
+>>>> Nord SoC.
+>>>>
+>>>> Nord uses a QMP v7 SerDes block, which is an updated version of the
+>>>> SGMII SerDes PHY IP already handled by phy-qcom-sgmii-eth. The driver
+>>>> currently supports the 1.25 Gbaud and 3.125 Gbaud configurations used by
+>>>> SGMII, 1000BASE-X and 2500BASE-X. Nord additionally requires the SerDes
+>>>> to operate at 10.3125 Gbaud for its 10 Gigabit Ethernet interfaces.
+>>>>
+>>>> The series can be broadly divided into three parts:
+>>>>
+>>>>   1. Add the qcom,nord-dwmac-sgmii-phy compatible to the binding.
+>>>>   2. Prepare the driver for PHY modes which require different SerDes
+>>>>      programming and readiness checks. Existing SA8775P behaviour is
+>>>>      unchanged.
+>>>>   3. Add the QMP v7 register definitions, 10.3125 Gbaud programming
+>>>>      sequence and readiness checks required for USXGMII and 10GBASE-R.
+>>>>
+>>>> The changes have been tested on the Nord Ride SX platform, which has a
+>>>> MV-Q6223 switch, running in fixed link USXGMII 10G mode.
+>>>>
+>>>> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>> ---
+>>>> Mohd Ayaan Anwar (3):
+>>>>       dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add Nord compatible
+>>>>       phy: qcom: sgmii-eth: prepare for additional PHY modes
+>>>>       phy: qcom: sgmii-eth: add Nord USXGMII support
+>>>>
+>>>>  .../bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml |   1 +
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-sgmii.h      |   5 +
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v7.h |   2 +
+>>>>  .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v7.h    |   9 +
+>>>>  drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          | 226 ++++++++++++++++++---
+>>>>  5 files changed, 219 insertions(+), 24 deletions(-)
+>>>> ---
+>>>> base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+>>>> change-id: 20260923-nord_ethernet_serdes-c486f715f383
+>>>>
+>>>> Best regards,
+>>>> --
+>>>> Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>>
+>>>
+>>> Good Job，
+>>>
+>>> Tested-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+>>
+>> This has to stop.
+>>
+>> Why again adding fake testing to the bindings? You cannot reply twice?
+> Reply twice since I thought they are two different patch set, one is phy,
 
-Its interrupt status/clear and enable sequences differ from the earlier
-SoCs, so add per-chip isr() and set_irq() hooks and route the
-devm_request_irq() and enable/disable paths through them, keeping the
-existing AST2400/2500/2600 behaviour under the shared
-aspeed_mcr_isr()/aspeed_set_irq().
+You don't even try to understand the problem.
 
-Unlike the earlier SoCs it records a single failure address shared by
-both error types, so extend the shared count_rec()/count_un_rec()
-helpers with a have_addr flag to report an error without an address
-(existing SoCs pass have_addr = true, unchanged) and widen their address
-argument to phys_addr_t as the AST2700 address can exceed 32 bits.
+> the other is net, while net maintainer said that is too ealry for rfc.
+> 
+> The tested branch is
+> https://github.com/zhangfei-gao/kernel-topics/tree/next-9.23 ( and
+> 9.24-eth), and may keep testing for each cycle.
+> contianing dts, phy, net and all required patchset, assuming one
+> integrated branch will be easier for interal track.
+> The dts will be send later.
+> Testing hardware is ride and rrd.
+> 
 
-Tested on an AST2700: A correctable error was injected from the console by
-unlocking the controller and writing its ECC error inject test register:
+Explain HOW did you test the bindings in terms of Linux kernel testing.
 
-  # mw 12c00000 1688a8a8
-  # mw 12c00080 31
-  EDAC MC0: 1 CE on mc#0csrow#0channel#0 (csrow:0 channel:0 page:0x40f6da offset:0xdb0 grain:16 syndrome:0x0)
+Then explain WHY you cannot give the tag only to appropriate places,
+instead of blanket one.
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 
----
-Changes in v3:
-- Write the AST2700 interrupt mask register outright rather than
-  read-modify-write: mask every source and unmask only the ECC ones.
-  The driver owns the line exclusively, so it should establish the
-  mask itself instead of deriving it from the register's contents.
-- Mask the interrupts before requesting them rather than after, so the
-  mask is established before the handler can run.
-
-Changes in v2:
-- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
-  bit is set. The handler clears only the ECC bits, so unconditionally
-  claiming the interrupt could livelock the level-triggered line if
-  another DRAMC source was left unmasked.
-- Add AST2700_INT_ECC for the pair of ECC interrupt bits, now used by both
-  the handler and the enable path.
-- Expand the enable/disable ternary in ast2700_set_irq() into if/else,
-  matching the shape of aspeed_set_irq().
-- Pass struct aspeed_edac to the set_irq() hooks instead of
-  struct mem_ctl_info, which the callees only used to reach pvt_info.
----
- drivers/edac/aspeed_edac.c | 161 +++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 135 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-index e88d9d2646de..6fe6314cda72 100644
---- a/drivers/edac/aspeed_edac.c
-+++ b/drivers/edac/aspeed_edac.c
-@@ -32,6 +32,24 @@
- #define ASPEED_MCR_INTR_CTRL_CNT_UNREC  GENMASK(15, 12)
- #define ASPEED_MCR_INTR_CTRL_ENABLE     (BIT(0) | BIT(1))
- 
-+#define AST2700_INT_STS			0x04
-+#define AST2700_INT_CLR			0x08
-+#define AST2700_INT_MASK		0x0c
-+#define   AST2700_INT_ECC_RECOVERABLE	BIT(5)
-+#define   AST2700_INT_ECC_UNRECOVERABLE	BIT(4)
-+#define   AST2700_INT_ECC		(AST2700_INT_ECC_RECOVERABLE | \
-+					 AST2700_INT_ECC_UNRECOVERABLE)
-+#define   AST2700_INT_ALL		GENMASK(16, 0)
-+#define AST2700_MCFG			0x10
-+#define   AST2700_MCFG_ECC		BIT(6)
-+#define   AST2700_MCFG_DRAM_TYPE	BIT(0) /* 0=DDR4, 1=DDR5 */
-+#define AST2700_ECC_STS			0x78
-+#define   AST2700_ECC_REC_CNT		GENMASK(15, 8)
-+#define   AST2700_ECC_UNREC_CNT		GENMASK(7, 0)
-+#define AST2700_ECC_FAIL_ADDR		0x7c
-+
-+struct aspeed_edac;
-+
- struct aspeed_edac_chip {
- 	unsigned int conf_reg;
- 	u32 conf_ecc;
-@@ -40,6 +58,8 @@ struct aspeed_edac_chip {
- 	unsigned long mtype_cap;
- 	unsigned int prot_reg;
- 	u32 prot_key;
-+	irqreturn_t (*isr)(int irq, void *arg);
-+	void (*set_irq)(struct aspeed_edac *priv, bool enable);
- };
- 
- struct aspeed_edac {
-@@ -50,26 +70,34 @@ struct aspeed_edac {
- 	int irq;
- };
- 
--static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
-+static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, phys_addr_t rec_addr,
-+		      bool have_addr)
- {
- 	struct csrow_info *csrow = mci->csrows[0];
--	u32 page, offset, syndrome;
-+	unsigned long page, offset, syndrome;
- 
- 	if (!rec_cnt)
- 		return;
- 
--	/* report first few errors (if there are) */
--	/* note: no addresses are recorded */
--	if (rec_cnt > 1) {
-+	/*
-+	 * Report the errors whose address is not recorded: all of them when
-+	 * no address is available, otherwise all but the last one (reported
-+	 * with its address below).
-+	 */
-+	if (rec_cnt > 1 || !have_addr) {
- 		/* page, offset and syndrome are not available */
- 		page = 0;
- 		offset = 0;
- 		syndrome = 0;
--		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, rec_cnt-1,
-+		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
-+				     have_addr ? rec_cnt - 1 : rec_cnt,
- 				     page, offset, syndrome, 0, 0, -1,
- 				     "address(es) not available", "");
- 	}
- 
-+	if (!have_addr)
-+		return;
-+
- 	/* report last error */
- 	/* note: rec_addr is the last recoverable error addr */
- 	page = rec_addr >> PAGE_SHIFT;
-@@ -82,32 +110,34 @@ static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
- }
- 
- static void count_un_rec(struct mem_ctl_info *mci, u8 un_rec_cnt,
--			 u32 un_rec_addr)
-+			 phys_addr_t un_rec_addr, bool have_addr)
- {
- 	struct csrow_info *csrow = mci->csrows[0];
--	u32 page, offset, syndrome;
-+	unsigned long page, offset, syndrome;
- 
- 	if (!un_rec_cnt)
- 		return;
- 
--	/* report 1. error */
--	/* note: un_rec_addr is the first unrecoverable error addr */
--	page = un_rec_addr >> PAGE_SHIFT;
--	offset = un_rec_addr & ~PAGE_MASK;
--	/* syndrome is not available */
--	syndrome = 0;
--	edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
--			     csrow->first_page + page, offset, syndrome,
--			     0, 0, -1, "", "");
-+	/* report the first error with its address when one is available */
-+	if (have_addr) {
-+		/* note: un_rec_addr is the first unrecoverable error addr */
-+		page = un_rec_addr >> PAGE_SHIFT;
-+		offset = un_rec_addr & ~PAGE_MASK;
-+		/* syndrome is not available */
-+		syndrome = 0;
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
-+				     csrow->first_page + page, offset, syndrome,
-+				     0, 0, -1, "", "");
-+	}
- 
--	/* report further errors (if there are) */
--	/* note: no addresses are recorded */
--	if (un_rec_cnt > 1) {
-+	/* report the remaining errors without a recorded address */
-+	if (un_rec_cnt > 1 || !have_addr) {
- 		/* page, offset and syndrome are not available */
- 		page = 0;
- 		offset = 0;
- 		syndrome = 0;
--		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, un_rec_cnt-1,
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
-+				     have_addr ? un_rec_cnt - 1 : un_rec_cnt,
- 				     page, offset, syndrome, 0, 0, -1,
- 				     "address(es) not available", "");
- 	}
-@@ -166,8 +196,8 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
- 		rec_cnt, un_rec_cnt);
- 
- 	/* process recoverable and unrecoverable errors */
--	count_rec(mci, rec_cnt, rec_addr);
--	count_un_rec(mci, un_rec_cnt, un_rec_addr);
-+	count_rec(mci, rec_cnt, rec_addr, true);
-+	count_un_rec(mci, un_rec_cnt, un_rec_addr, true);
- 
- 	if (!rec_cnt && !un_rec_cnt)
- 		dev_dbg_ratelimited(mci->pdev, "received edac interrupt, but did not find any ECC counters\n");
-@@ -180,6 +210,54 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
- 	return IRQ_HANDLED;
- }
- 
-+static irqreturn_t ast2700_dramc_isr(int irq, void *arg)
-+{
-+	u32 int_sts, ecc_sts, fail_addr;
-+	struct mem_ctl_info *mci = arg;
-+	struct aspeed_edac *priv;
-+	u8 rec_cnt, un_rec_cnt;
-+	phys_addr_t addr;
-+
-+	priv = mci->pvt_info;
-+
-+	scoped_guard(raw_spinlock, &priv->lock) {
-+		int_sts = readl(priv->regs + AST2700_INT_STS);
-+		if (!(int_sts & AST2700_INT_ECC))
-+			return IRQ_NONE;
-+
-+		ecc_sts = readl(priv->regs + AST2700_ECC_STS);
-+		fail_addr = readl(priv->regs + AST2700_ECC_FAIL_ADDR);
-+
-+		/* the interrupt registers are not key-protected; clear only ECC */
-+		writel(int_sts & AST2700_INT_ECC, priv->regs + AST2700_INT_CLR);
-+	}
-+
-+	rec_cnt = FIELD_GET(AST2700_ECC_REC_CNT, ecc_sts);
-+	un_rec_cnt = FIELD_GET(AST2700_ECC_UNREC_CNT, ecc_sts);
-+
-+	/* the register holds address bits [35:4], in units of 16 bytes */
-+	addr = (phys_addr_t)fail_addr << 4;
-+
-+	/*
-+	 * The controller records only the address of the latest failure,
-+	 * shared by both error types. When only one type occurred it owns
-+	 * that address; when both occurred attribute it to the uncorrectable
-+	 * error and report the corrected ones without an address.
-+	 */
-+	if (un_rec_cnt && !rec_cnt) {
-+		count_un_rec(mci, un_rec_cnt, addr, true);
-+	} else if (!un_rec_cnt && rec_cnt) {
-+		count_rec(mci, rec_cnt, addr, true);
-+	} else if (un_rec_cnt && rec_cnt) {
-+		count_un_rec(mci, un_rec_cnt, addr, true);
-+		count_rec(mci, rec_cnt, 0, false);
-+	} else {
-+		dev_dbg_ratelimited(mci->pdev, "received interrupt with no ECC counters set\n");
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
- static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
- {
- 	u32 val;
-@@ -197,6 +275,19 @@ static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
- 	aspeed_mcr_irq_update_exit(priv);
- }
- 
-+static void ast2700_set_irq(struct aspeed_edac *priv, bool enable)
-+{
-+	u32 val = AST2700_INT_ALL;
-+
-+	guard(raw_spinlock_irqsave)(&priv->lock);
-+
-+	/* interrupts are enabled by clearing their mask bits */
-+	if (enable)
-+		val &= ~AST2700_INT_ECC;
-+
-+	writel(val, priv->regs + AST2700_INT_MASK);
-+}
-+
- static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
- {
- 	struct aspeed_edac *priv = mci->pvt_info;
-@@ -209,7 +300,9 @@ static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
--	rc = devm_request_irq(&pdev->dev, irq, aspeed_mcr_isr, IRQF_TRIGGER_HIGH,
-+	priv->chip->set_irq(priv, false);
-+
-+	rc = devm_request_irq(&pdev->dev, irq, priv->chip->isr, IRQF_TRIGGER_HIGH,
- 			      DRV_NAME, mci);
- 	if (rc)
- 		return rc;
-@@ -217,7 +310,7 @@ static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
- 	priv->irq = irq;
- 
- 	/* enable interrupts */
--	aspeed_set_irq(priv, true);
-+	priv->chip->set_irq(priv, true);
- 
- 	return 0;
- }
-@@ -365,7 +458,7 @@ static void aspeed_remove(struct platform_device *pdev)
- 	struct aspeed_edac *priv = mci->pvt_info;
- 
- 	/* disable interrupts */
--	aspeed_set_irq(priv, false);
-+	priv->chip->set_irq(priv, false);
- 
- 	devm_free_irq(&pdev->dev, priv->irq, mci);
- 
-@@ -382,6 +475,8 @@ static const struct aspeed_edac_chip ast2400_edac = {
- 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
- 	.prot_reg = ASPEED_MCR_PROT,
- 	.prot_key = ASPEED_MCR_PROT_PASSWD,
-+	.isr = aspeed_mcr_isr,
-+	.set_irq = aspeed_set_irq,
- };
- 
- /* The AST2600 does not key-protect the interrupt control register (MCR50). */
-@@ -391,12 +486,26 @@ static const struct aspeed_edac_chip ast2600_edac = {
- 	.conf_dram_type = ASPEED_MCR_CONF_DRAM_TYPE,
- 	.dram_type = { MEM_DDR3, MEM_DDR4 },
- 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
-+	.isr = aspeed_mcr_isr,
-+	.set_irq = aspeed_set_irq,
-+};
-+
-+/* The AST2700 interrupt registers are not key-protected either. */
-+static const struct aspeed_edac_chip ast2700_edac = {
-+	.conf_reg = AST2700_MCFG,
-+	.conf_ecc = AST2700_MCFG_ECC,
-+	.conf_dram_type = AST2700_MCFG_DRAM_TYPE,
-+	.dram_type = { MEM_DDR4, MEM_DDR5 },
-+	.mtype_cap = MEM_FLAG_DDR4 | MEM_FLAG_DDR5,
-+	.isr = ast2700_dramc_isr,
-+	.set_irq = ast2700_set_irq,
- };
- 
- static const struct of_device_id aspeed_of_match[] = {
- 	{ .compatible = "aspeed,ast2400-sdram-edac", .data = &ast2400_edac },
- 	{ .compatible = "aspeed,ast2500-sdram-edac", .data = &ast2400_edac },
- 	{ .compatible = "aspeed,ast2600-sdram-edac", .data = &ast2600_edac },
-+	{ .compatible = "aspeed,ast2700-sdram-edac", .data = &ast2700_edac },
- 	{},
- };
- 
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
