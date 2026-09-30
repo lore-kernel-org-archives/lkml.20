@@ -1,257 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020141.outbound.protection.outlook.com [52.101.195.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0D251119E;
-	Wed, 30 Sep 2026 15:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782568; cv=none; b=YsvTtq1lo6lLczygwSJI+nfWmKUOEol1zP+cA3iHW6RPowYVhch6bPkbZkjvzSCLcxJdHBdVxLymUvBbWhXf2NboeI+vklgYMG7tsi7/sTfi6CzyXQAVFGje7HbvGieRzndZXkLMl2vDyDhJyu7qqKW+HqTnIU8klLpUa69JdV4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782568; c=relaxed/simple;
-	bh=0wDVpf8cWsXR2u3nRe2LLt52zHxl8zQ3Obk1jlWxk3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UXTOwKHMq/O8F+M8oSEvJ1k6vdiXusH7drzGmzKCKPQ3qROPhJY/9WYAzJMUQKeLidlK3rQrt44cgtB0qKYMp72vn+obF+Bdf1L7TwN0kMduN5ELucM7yyK2RueUGXMWW7OhMp/80xNgeOGlDZVLM8l+ckrbpNz5xF+7XLbbE7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENsxnJqm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC754E324B;
+	Wed, 30 Sep 2026 15:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790782663; cv=fail; b=ZCo/wuK5rDLfEtKejq1n657QWbVxUkQ5ZCLG/NriKuhpxPBRb8/OSbeG42NQCnVxtkYcVZwRmLjLtm5nKB0GJ1RvPQAbeyk+EwOUpYH+jLu7BW5wJQvp49riXfH/aSGNSZC0TGiVN93ZZakix2EbyX3WqRJK0/itrbUIwSPyJKg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790782663; c=relaxed/simple;
+	bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=fO2O7k7urXGcPutHQukCl4+Bdcn012vgfZpzxQ2WMnFvDSIWJg7hbhEC2zj/Et7mJwgl94ypaHszQknq3tsIn2LDdaRmL6n2Wm3m38fXkueUMrVHuMMl54mttON/OLarD47Q9L9iI8e6cmV12TL8J53xbG84UTk7mwqGzOLM0FU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=SUa/NJAp; arc=fail smtp.client-ip=52.101.195.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENsxnJqm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F6C1F0089B;
-	Wed, 30 Sep 2026 15:35:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790782551;
-	bh=wS4LjSmeazs7ipEDl8K4WoxVwnKJqPAAcY7mjsKl19I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ENsxnJqmKcCzQZ8LtzXYoty9iQBgyMbQ5ouiTwV+pPSNRRJa/HzE3uVwu9gdjL2Qu
-	 cCcprq6/VuytjCI2cRuOnwFqzy1pvxOZRSh41CRX5PzT/drKE5NCvDjy/p3sTUpM6t
-	 dOQ4QNR7D+dfaHgZ7jHN5N8niUKBGd8uSADoEm7ByRsKdm4v1vChc59Q12OrriwIjt
-	 o7rJpNBR2QMSvHDhF/XgZqzMQUnDdVx9ThN7t3o+mTjRM8TsengaDQDexOQKMckmES
-	 VGYiJRAbQIWfUbpgF2CXcgKYyvvOiD+8IwoTjZfbgAc28SA04z8OYLlOyQQ3kHb12G
-	 BMKs34GfPoovg==
-Date: Wed, 30 Sep 2026 23:15:48 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
-Message-ID: <ar0npPCHX1P5Gjzx@xhacker>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-9-jszhang@kernel.org>
- <20260929-sprang-stir-af07a907ccb2@spud>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="SUa/NJAp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jQp4wC4rqkP9K5+P2hghrkG5CS5huUnEghGPm61lKpZidpCAXzj5njWz9kfjYS1Th6g2Qq1Q+7ebHDQOFdnn8U69No9zHWqhrVT9scYz/MevwSh1ynYbI1ohiEsjdSk0iuE5Ggt1dRKr6bMg8UR11LkYhyBaPJkq0DRvGVQvZhQCQvvz32G/AzTv8nD/9NA/4mreDQbV8/xhLPrTMJaO8hhl0L862Gp6PL6XsQjKBhfPtxxaD/bob57lbCJWCBg1TQaflNOPpDLFbBguxLCTyMrXzL5zeingqw73y8ZGWc6I2v8evIdgk3EmboNE/pOjTORJ2hN/a/4gkUKAghOOYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
+ b=YwgsSMgGf6DMxsWWeFFQjl43J0gfyKwGt1g+EQ/mZQFml/mSDHP0fG7ck7Hi/vkfdk2SFG0VguPO2L3DXsATAnvIHWprtUHd7U2bAzEDn9jGeVjeqBYPLDYaq+Tqntp6JU5qz9y9gImMR3KisvwNjFRODtQmaDDdU5r35E0KBsB2bRfkUnH5kP4wuXhlzDB++Sn/eE3qK3MYDV3Pp9eZTZpwimvn+1teEhchPz0kFch2JVDmeGlLF8fwdC87Z4P439IrNLt9aFJqtohroIoV+ODai5mn1TOsTOfr1ts5/mCkQJVmPGNiDksD03jdI+8Ne4B6cTW3C88XSfNMyXCh2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
+ b=SUa/NJAp7GVDzZ5fFROdbdj/0aUTT41qYXgpDhUPT1i8AeShSKPDRnqjgvlL/2/02IMQDb8pRRT2KoKoQ4Rg0/+Y9Nq1mfsEzPbkDrl5VenWFYFnYGYy47JEDKrTy2JX5vBcgCikk0wd8+R5Ij7UW/OIUd4aWgxbHPsWVQj4ljE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LNXP265MB2428.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:137::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 15:37:28 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
+ 15:37:28 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 16:37:27 +0100
+Message-Id: <DLSRGVBPWMXX.1LAWUQHDYKLCV@garyguo.net>
+Cc: =?utf-8?q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, "Luis
+ Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
+ "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
+ <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260917051147.98775-1-tweek@google.com>
+ <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+ <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
+ <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
+In-Reply-To: <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
+X-ClientProxiedBy: LO4P123CA0068.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929-sprang-stir-af07a907ccb2@spud>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LNXP265MB2428:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a9463cb-663c-4805-0491-08df1f08bc03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|376014|366016|1800799024|7416014|4143699003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	20qP1yv6PRKJwvMYVYw+lYJbebROcZT1cYFLfSiN6OSgkkFA9m93RvKrBEphGdp+RJ5qwqZ/jWiCj76o3eXQitU/eFk3aDbMGcu20HQ0I9DlPoqnNuTPwKXNIzri+jL76l6AIoVqSxbw8lbo+WAaId6ANgC/7eiBgey5r8SEVmRDCha6ML5pz4NPZxB24nGJLhAexx+uaIJdi3s837N0Ro+rC3wc8hOywWIzYAJb9GdMjP6mGyGytSocW32NBYqHJoNPye8bkaBntgTtrFtJBl7IVh9vq63GnCe93y30JbIh0xalCMlzAVnLvqCdFN17IEYKF4oNA4amhtdbuNzmsIUM3hVCHWDO0Q4YrAlO0K+po9cEhKmKnMlyWAN8aH01TbspyOVrv3unO10zIP9MUUhqenT5FnkNNngKGsQ0ekV3hvAUE5NI3eZb41TmCVLE2WVr6xUOxu2FA4vJQHsyhB7PN+3NfUTwythVBpeyANnOY19IyjZ4PiM8xGKFvNMkivBEJBQpBscAf8BoKzJsH3htg9F2fTUL9Lsf8E3Z49qMqw6aF8MkRS+npPgURsFPssNzc+IZd/66xzEwQpYQG8kJACy0kf/RhafMXMjYK+Cy2dCyx5gZgSteINYzVoIGVDVL8FusF4rvWNJOqYFgrNYaaCkj18/y4QXXPVwNjD8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(366016)(1800799024)(7416014)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MjF4dnpPVFFYUTM4MmQ0VytkRU9JN1RLZGF1VlN4TGVheGVzRmRQcHlXR2hn?=
+ =?utf-8?B?Wis2NVV2YmNxNDR0OWl2Z0psQ0dGQ2V1MFNSWmc1eEFIaWNqLzRkMVZVMXRX?=
+ =?utf-8?B?WDcxUFhvL2RRYVNuVjZWcmUrS3A2TWN1M0xqUExIY3BEcVhSa2RMUFBZVWlR?=
+ =?utf-8?B?QUNOU3Z1Yld0ZzJzd2VNWlNKU3hLZVBseFFNdkZaWlZhT3lMOWY0R2NQZWVR?=
+ =?utf-8?B?T0ZFbnovM2E0aXYrY0xwSnJ5MWZCMFA5Ynd4WitBek5XRmEwbEhpdVBNU1Bp?=
+ =?utf-8?B?TExIVUdwdUxkRlQwclJ0RWZlZStHYW54UXVvK1c3MitDcHo4LzJoOGpKaEVw?=
+ =?utf-8?B?TTJ0ZHMwWTk2ZXoxczBtUEliZEhvRi8rNmdtV1NQY1NJTzhDMlI3Nmx2Mmlz?=
+ =?utf-8?B?NndnSS9nN0xnUnRMdGQ2M0pHcVc3cWtBVktJU3dxSFRWOExTWjA2cStTeGk4?=
+ =?utf-8?B?Wk1WN1Q4N1RlQTE3Rk5iekxhaWI1ZmtudVZ3dnNJam55Qk5wTWNQdnVuWC9a?=
+ =?utf-8?B?Uy9FdWJkYUtpSXIwb2N1RDMrT3RUOFExT25sNUpHQVBqUDRCY2JJOHJVQ0l2?=
+ =?utf-8?B?VCtwd25DYmlWNTJrZlZEa0dXTjhuVHMyRld4WjIyUzVYeGhkKzVEbk0yMjBO?=
+ =?utf-8?B?S2VUVFBiY2oyMEhxTTZtTzJ6YTVjWFpKaHpnVVdKWUxlRmVhTDhVanR1bFZ3?=
+ =?utf-8?B?bTdiV2xmSCtxaVhYMlo4TlI0S0JvYm5YYmNXY21iNjhuYkJFSGZXMS9ITE9R?=
+ =?utf-8?B?NHBUOW5FN1BPZmlEWXJpZmdBL1JadndWT0ppRm4wTjdpNXZHSG12RllpV2hh?=
+ =?utf-8?B?TXZKZ0RCQU5wQkkxZkxxVHY0RTVZQUJsQWNUbUQrMHRadlVLUDkvWXN0emEy?=
+ =?utf-8?B?RDE2d2s1NFA1SVI3TFFjeU01Qk1yVERmTFNpZWRGS1BPUk50SVJ3TXdhNGF0?=
+ =?utf-8?B?SVptWVoyQmFZQ3FJalAvc0k0S2N5ZGF4alVBWFFvanl5UkVpV3c4VXpWdHc3?=
+ =?utf-8?B?ZWw3bVJLazlnY1hNYTg4Sm9MdVIyUVBwSk9yMHN3Y1hUVnlJL2ZIbE0zWFQ0?=
+ =?utf-8?B?OVoyRGNGb3JLbk5WZmduTWY3R0krTEZtVjdDV2ZHQk9lWEtSSHpqdHZkd0sv?=
+ =?utf-8?B?eDh0bW1VdjFIeTBUQ1d4dDFWWTJYNlRoZmhWRXFBZlJ0VDFQVllXeGU1RDBM?=
+ =?utf-8?B?bHF4RldRMk92ZjdrVnpZTzV1dFVnT0lYbE1Mdzl5WDFiRDRkUzBYUFZMeGRF?=
+ =?utf-8?B?ZkZBdHE3N3lZZWEwSHZKMzZqb1E1cy9GS2lzR2VZZlN4U3l3WWc5QllwZzFl?=
+ =?utf-8?B?RkNGVm1VNFMzb1ZSYlpONlgrVGEwbkZWSHlmcjNrS3gzRE5jdHRuNXRWckgr?=
+ =?utf-8?B?a3hKTGd1MHMrQmpoSDdqR1pKdGRFcFlJRHJUemszSHV6ZkxjVmQ1Y1ZGZk9l?=
+ =?utf-8?B?azNoTG0wS1RacGRVMFBUVURwL0Q4dGdvMVhHZ2p0eEFxdHBxSEY5WVhjQWxC?=
+ =?utf-8?B?NWZDQ3g0VURveHZHQnkyaHpSN3g3S05oNkJ6T2FJS3owanlMZmRoSWp1KzRt?=
+ =?utf-8?B?cFk5TG9oUGJmMTdEYUFFbS9JL3dUZnVHTWtwRW1sSTk4ZVBwcXVCRDdxSloy?=
+ =?utf-8?B?K3BkZHg0QUhGaWJwNUtEbUlVaElEWHg5VjA5OFF3ZDNHODRIRGg4K1NVdlU1?=
+ =?utf-8?B?ZW9NdG9EUEpmQ3o1OXJDSmxhUVY2UTl4ZnEyTExnR1ZKU3NpcU9vZ04rSTIw?=
+ =?utf-8?B?Wlg1N3lJeUtjSVZ6QmkybUZ2cUtxNGFzVk9HbG5rTDN4U2t3SGxsVnFKdFZG?=
+ =?utf-8?B?TlN3RHErYThZbWhWUEp0WW5Rd09Pb0dsQ0xZSXM4TWJQT3R5dUl0N3psczBY?=
+ =?utf-8?B?RndDQk42T25LOHBweDJ2ZGZKblN6UzNjanl1ODVUemtKVUlJUHUvRVNWNUR1?=
+ =?utf-8?B?NWhSRS9Jb3JueU9vc3Y4M1VsRGp6bzcwZUt3Y2tzMG1pN3BXNjMzMUdIaWpL?=
+ =?utf-8?B?Q2I0dVR5ejl2bFpoU051UExidWZ6K1lNZkU2aGdzeXIvMDdNU2pUTEp2ZDJ3?=
+ =?utf-8?B?VFNyZ204VjBTeUU3TUpYUktzeTJXK1lzZkFWMEd5bnhTOUpaVmpwTzVENEVF?=
+ =?utf-8?B?OGE5T0d0U05wV3lWblJaQUsrS3NlZW5NeUR4SEVCbUw3eDNET2VIV2I1RlJt?=
+ =?utf-8?B?TkwrU1Y4M0wyczV4TWt5QWRxWStrVy9SbGk5WWx2ei9EemJqejNaeDIwVEVa?=
+ =?utf-8?B?UDdHd3k2NFZZUzduaXA2QjNjWXZzWXY1dGd3NjhhQnpJL3Z3THhIbHVaOHV2?=
+ =?utf-8?B?ZDNxaFRjdkt5MzZkTDJtYk5qT1hYbXVzcEI2RlNaTllBMjlTSkxpZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a9463cb-663c-4805-0491-08df1f08bc03
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:37:28.5161
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i6DejOPNCzchXQse0CM/YlsMO6flVHwYgFm+U1jrWOh7rqB3TcMOvpzSXf/UtPZTZ8N0qEZi/u08Q0FVE7SE+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LNXP265MB2428
 
-On Tue, Sep 29, 2026 at 08:44:13PM +0100, Conor Dooley wrote:
-> On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
-> > Add device tree bindings for the resets on Synaptics SL261X SoCs.
-> > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> >  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
-> >  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++++
-> >  2 files changed, 120 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
-> > 
-> > diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > new file mode 100644
-> > index 000000000000..8cfec17df800
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > @@ -0,0 +1,40 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +# Copyright (C) 2026 Synaptics Incorporated
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Synaptics SL261X reset controller
-> > +
-> > +maintainers:
-> > +  - Jisheng Zhang <jszhang@kernel.org>
-> > +
-> > +description: The reset controller node must be a sub-node of the chip
-> > +  controller node on SL261X SoCs.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - syna,sl261x-soc-reset
-> > +      - syna,sl261x-system-reset
-> > +
-> > +  "#reset-cells":
-> > +    const: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - "#reset-cells"
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    chip: chip-control@f7e10000 {
-> > +        reg = <0xf7e10000 0x1000>;
-> > +
-> > +        chip_rst: reset {
-> > +            compatible = "syna,sl261x-soc-reset";
-> > +            #reset-cells = <1>;
-> > +        };
-> 
-> Why can't this just be part of the parent node?
+On Wed Sep 30, 2026 at 3:54 PM BST, Miguel Ojeda wrote:
+> On Wed, Sep 30, 2026 at 3:16=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote=
+:
+>>
+>> I'm not sure that this should be considered a fix. More like a feature.
+>
+> Yeah, I had the same thought, but given we discussed the topic in the
+> past and we supported non-ASCII on purpose on commit b13c9880f909
+> ("rust: macros: take string literals in `module!`"), I thought it
+> counted as such (that is why I mentioned it was unintentional in my
+> previous message).
 
-Good question! IMHO, the reasons are:
+Ah, that's my patch. It had been completely paged out from my memory. In th=
+at
+case this is indeed a fix.
 
-1. the so called Gbls(Gbl means global) such as mcuGbl and
-chip control Gbl contain not only reset, pinctrl and clk/plls
-but also some other registers for different purposes, e.g in the
-chip control gbl, there are some registers to control eth phy sel(RMII
-or RGMII), and TXC 90 degree selection etc. These registers will
-be used by the Ethernet driver;
+I don't think it's worth tagging stable though. It's not something worth pu=
+tting
+effort backporting, but if AUTOSEL picked it via the fixes tag it doesn't h=
+urt
+either.
 
-While there's no pinctrl regs in avioGbl and vppGbl. In the vppgbl,
-there are some registers for DPHYTX etc.
-
-As can been, in different Gbls, there maybe different purposes registers, no
-obvious patterns.
-
-So the question here is why not split the gbl into different register
-spaces, and abstract each space for each function group? Two blocking
-points make this impossible and ugly: different reg space may not be
-aligned at 4KB boundary, e.g reset: 0x350 ~ 0x37c; eth phy sel:0xa18;
-some registers which belong to similar functionality, e.g clks, may not be
-adjacent.
-
-So the best way is to abstract these GBLs via. "syscon", "simple-mfd", and
-put necessary subnodes such as reset, pinctrl and clks under the GBL
-node. If the registers in GBL is misc control, pass the syscon phandle
-to the main driver, e.g I planed to pass the syscon phandle to GMAC
-driver to control the RMII/RGMII selection.
-
-2.follow current bg2 and bg2q style
-e.g arch/arm/boot/dts/synaptics/berlin2q.dtsi
-
-IMHO, why bg2 and bg2q dtsi files are implemented as current
-style is due to the above point 1.
-
-Kindly let me know if there's a better solution.
-
-> From a quick check of the dts, the node with this subnode didn't also
-> have a system-reset node too, so there's no conflict or anything of that
-> nature.
-> 
-> > +    };
-> > diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/dt-bindings/reset/syna,sl261x-reset.h
-> > new file mode 100644
-> > index 000000000000..7034f58aae5b
-> > --- /dev/null
-> > +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
-> > @@ -0,0 +1,80 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> > +/*
-> > + * Copyright (C) 2026 Synaptics Incorporated
-> > + *
-> > + * Author: Jisheng Zhang <jszhang@kernel.org>
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_SL261X_RESET_H
-> > +#define _DT_BINDINGS_SL261X_RESET_H
-> > +
-> > +/* ACPU subsystem */
-> > +#define RST_SOC_SDIO0		0
-> > +#define RST_SOC_USB0		1
-> > +#define RST_SOC_EMMC		2
-> > +#define RST_SOC_GETH0		3
-> > +#define RST_SOC_SDIO1		4
-> > +#define RST_SOC_USB1		5
-> > +#define RST_SOC_GETH1		6
-> > +#define RST_SOC_USB0PHY		7
-> > +#define RST_SOC_USB0CORE	8
-> > +#define RST_SOC_USB0MAHB	9
-> > +#define RST_SOC_USB1PHY		10
-> > +#define RST_SOC_USB1CORE	11
-> > +#define RST_SOC_USB1MAHB	12
-> > +#define RST_SOC_UART0		13
-> > +#define RST_SOC_UART1		14
-> > +#define RST_SOC_UART2		15
-> > +#define RST_SOC_UART3		16
-> > +#define RST_SOC_I2C0		17
-> > +#define RST_SOC_I2C1		18
-> > +#define RST_SOC_SPI0		19
-> > +#define RST_SOC_SPI1		20
-> > +#define RST_SOC_SPI2		21
-> > +#define RST_SOC_SPI3		22
-> > +#define RST_SOC_APBTIMERS	23
-> > +#define RST_SOC_APBSYSCNT	24
-> > +#define RST_SOC_APBWDT		25
-> > +#define RST_SOC_APBGPIO		26
-> > +#define RST_SOC_APBDMA		27
-> > +#define RST_SOC_GPUCORE		28
-> > +#define RST_SOC_NPUCORE		29
-> > +#define RST_SOC_AVIOAIOG	30
-> > +#define RST_SOC_AVIOVPPG	31
-> > +#define RST_SOC_AVIOVIPG	32
-> > +
-> > +/* system subsystem */
-> > +#define RST_SM_ADCCORE		0
-> > +#define RST_SM_ADCPRST		1
-> > +#define RST_SM_CAN0PRST		2
-> > +#define RST_SM_CAN0SRST		3
-> > +#define RST_SM_CAN1PRST		4
-> > +#define RST_SM_CAN1SRST		5
-> > +#define RST_SM_GPIOPRST		6
-> > +#define RST_SM_GPIOSRST		7
-> > +#define RST_SM_I2CM0PRST	8
-> > +#define RST_SM_I2CM0SRST	9
-> > +#define RST_SM_I2CM1PRST	10
-> > +#define RST_SM_I2CM1SRST	11
-> > +#define RST_SM_I3CPRST		12
-> > +#define RST_SM_I3CSRST		13
-> > +#define RST_SM_PDMPRST		14
-> > +#define RST_SM_PDMSRST		15
-> > +#define RST_SM_PVTHSRST		16
-> > +#define RST_SM_PVTPRST		17
-> > +#define RST_SM_PWMPERIRST	18
-> > +#define RST_SM_PWMPRST		19
-> > +#define RST_SM_SPIMPRST		20
-> > +#define RST_SM_SPIMSRST		21
-> > +#define RST_SM_SPISPRST		22
-> > +#define RST_SM_SPISSRST		23
-> > +#define RST_SM_UART0PRST	24
-> > +#define RST_SM_UART0SRST	25
-> > +#define RST_SM_UART1PRST	26
-> > +#define RST_SM_UART1SRST	27
-> > +#define RST_SM_UART2PRST	28
-> > +#define RST_SM_UART2SRST	29
-> > +#define RST_SM_UART3PRST	30
-> > +#define RST_SM_UART3SRST	31
-> > +
-> > +#endif /* _DT_BINDINGS_SL261X_RESET_H */
-> > -- 
-> > 2.53.0
-> > 
-
+Best,
+Gary
 
