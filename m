@@ -1,90 +1,142 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C5C4BD373;
-	Wed, 30 Sep 2026 12:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0E372663;
+	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770488; cv=none; b=e5E7MTNgjOEGFJKj849i+KOW55XdgMqEKv+jB6KB6Y6ZAAREed4dnJO+7sfSvz4dWLmFc12dWoue4CLTB5FC/77Qpj/gdKqu8S1jkyFBIbqn8GgckhQtp8G7Gq8WOLOUO1F2mgF+mk6Xb89B51bCECQUsazVIKBG5dKV1qWSdAE=
+	t=1790770506; cv=none; b=Nt5KNu1PmFfv10Jv75R6wOnFyRB+zTtu4avQGA8TN829eDg414IEj9JBglxk3deh1jBrBwjZUbeygkxkiZPXIPAEK/B0hpq9JLUbkhJZ+LtvkYSuVZUuQPgqbSCi2w+xYFrJRhZNH4Z13XXe3R23RvFWtKHeWW7TkYmk0hlQzf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770488; c=relaxed/simple;
-	bh=nWt4+mOnl4l6Yj23ltsIz8mR5DZl9PFyDnezgWo4IXA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=J4KwHyCeXhP9py0COJrZqGT0oCWfmKW0rUJT68O8dMZof+KJ7NBPgIptLUuIvGpNUNHsAr06izFRmWjcTUmOE15gQVNBeW11kRqlguiD5EMEevCiFgCUGMIRaYCnGHqWVkOm32SBd+jX1NOr9OmPuT3nW2IgBzjwAkVC69tKP9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GY03ptDM; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790770506; c=relaxed/simple;
+	bh=xv0RqiOiKwlaT0J82cr/0v5YvERfM3N4VNRX1rS/bg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y/qqG0mlp3cFwIUbbfrxK31phJMLHa1DltfaWgrOTTuatS02Y0kyiMVgKeilHRTsRXWqjeAscI/hnboqWNY8nGvc4Ua25pkupM5cxgNQQDP7wGyKFJRhKfc8fb2r779XkdN4elHjSseHEOLvLRfQPJBdoU0Co19R6kIYEFwuFV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9VxevWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GY03ptDM"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hvv9t0CQPz8v1y;
-	Wed, 30 Sep 2026 14:14:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790770482; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nWt4+mOnl4l6Yj23ltsIz8mR5DZl9PFyDnezgWo4IXA=;
-	b=GY03ptDMzalgEbRAj1q6q/LZaO2Myb8HtYK2fnrh4/DkTW3WL1J1AqvyyS+U4ZrYNHJwOI
-	djOeXYH7GPKRf9I0p/hRbZXW0O6u2p4IiwtzJZEyKVmEQOD5I5/nS/6SsfnST4sqjARAtv
-	FXmhbR/L+2txmOfutGbeiTCE+NLt/ky0A42g8dkxq6nwathMtClW85KmVZWphPYmf1+1O3
-	drIOooUsQtko7WKnIwF5kXph1PrwRSGuiF0uYL49n/KT0818ahRAvOhvcjXrQeN4osjjW1
-	d423y+6rB97t7/nUUZtb5kDBHvSzS1843yKlLWeAGUCWiVuG4Qg6ECYuKRFQzQ==
-Message-ID: <102995397e5c5ca19027b7acc75ff7205f57e871.camel@mailbox.org>
-Subject: Re: [PATCH v4] drm/sched: Protect entity->last_scheduled with
- spinlock
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=
-	 <christian.koenig@amd.com>
-Date: Wed, 30 Sep 2026 14:14:37 +0200
-In-Reply-To: <20260922145441.619097-2-phasta@kernel.org>
-References: <20260922145441.619097-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9VxevWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55151F000FF;
+	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790770504;
+	bh=Nc/fukDyXazndbYcPYi1K6bg0O60HvWUrSB7JCmYXcg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a9VxevWX5+tyC0lAYyQhbtuNuG60oulZbAJ18Kc7HkkaVy5TnineeBk6utelzOqIe
+	 /rGKfA3+RMvNjbL5bEq0CArAuB23/raRAOUuLN7aSPo1WxTMzIerD5hW5YWgZtcg7k
+	 ulzYB8vCEpasQ//khaB8A8V2q+pHqE8o0VC8OcF+oQ4XadEBvw3fNhlroGMmesvntm
+	 OdMuY27shJHFHI+AATFV5nJvc28gbtgAH2PGkQg2xe8rqAU0tPe8dW4sGvaHmjYBaz
+	 3ilkXEzXic6OhX0BfqNwOlwYntSF41nwRVgP7AOGyRVi5jV/XRZzpfYVZjZ96i78cG
+	 f67do4nYc8DGA==
+Date: Wed, 30 Sep 2026 07:15:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v3 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260930121502.GA2207237-robh@kernel.org>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: dtionoohoakxj9iawxahyuqmsi3d6c93
-X-MBO-RS-ID: d3922876b93727a5916
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 
-On Tue, 2026-09-22 at 16:54 +0200, Philipp Stanner wrote:
-> The entity->last_scheduled field has always been set and read with
-> special RCU functions in addition to memory barriers.
->=20
-> This was added in
->=20
-> commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use r=
-cu for last_scheduled")
->=20
-> however, no proper justification for that mechanism was provided. There
-> seems to be no obvious reason, since the entity lock is available and
-> taken at all places that evaluate the last_scheduled field. The only
-> exception is drm_sched_entity_error(), which is not performance critical
-> in any way.
->=20
-> Improve robustness, readability and maintainability by replacing RCU and
-> barriers with the lock.
->=20
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+On Tue, Sep 29, 2026 at 07:44:22PM -0300, Marcelo Schmitt wrote:
+> Document how AD4134 chips are connected to the host SPI controller
+> according to different wiring configurations.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> Change log v2 -> v3:
+> - Adjusted spi-rx-bus-width constraints.
+> 
+> Unfortunately, I missed SPI connection mode properties when introducing AD4134
+> dt-doc and the device driver defaulted to a no-CS configuration. Due to that,
+> conventional 4-wire mode can't be made default without leading to a regression.
+> Still, updating the SPI mode default to 4-wire is a sensible thing to do later
+> on if acceptable.
+> 
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+>  1 file changed, 44 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index ea6d7e026419..0b2a2cbfadae 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -131,6 +131,26 @@ properties:
+>      enum: [ free-running, gated ]
+>      default: gated
+>  
+> +  adi,spi-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> +    default: no-cs
+> +    description: |
+> +      This property indicates the SPI wiring configuration.
+> +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> +        line is not used (tied to GND).
+> +      * 4-wire: Specifies a conventional SPI wiring configuration.
+> +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> +        of the upmost device in the stream is in direct connection with the
+> +        digital host.
+> +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> +        in the chain. Only the data interface of the upmost device in the stream
+> +        is in direct connection with the digital host.
+> +
+> +  '#daisy-chained-devices': true
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -141,13 +161,30 @@ required:
+>    - clocks
+>    - clock-names
+>  
+> -oneOf:
+> -  - required:
+> -      - ldoin-supply
+> -  - required:
+> -      - avdd1v8-supply
+> -      - dvdd1v8-supply
+> -      - clkvdd-supply
+> +allOf:
+> +  - oneOf:
+> +      - required:
+> +          - ldoin-supply
+> +      - required:
+> +          - avdd1v8-supply
+> +          - dvdd1v8-supply
+> +          - clkvdd-supply
+> +
+> +  - oneOf:
+> +      - required: [adi,spi-mode, '#daisy-chained-devices']
+> +        properties:
+> +          adi,spi-mode:
+> +            const: one-channel-chain
+> +          spi-rx-bus-width:
+> +            const: 1
+> +      - required: [adi,spi-mode, '#daisy-chained-devices']
+> +        properties:
+> +          adi,spi-mode:
+> +            const: two-channel-chain
+> +          spi-rx-bus-width:
+> +            const: 1, 1
 
-Applied that to misc-next.
+This is not valid. I think it evaluates to a string. You want:
 
-P.
+items:
+  - const: 1
+  - const: 1
+
+Rob
