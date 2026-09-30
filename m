@@ -1,64 +1,64 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492924BF947
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6F44C33E4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767146; cv=none; b=HaMF2zAEOcYJHv5nwo5L18n0sy2s6aN+p6X0DmpABqjzikJfRIV2N9voqYqheuFEylf4qwlf1/FE7ySd1/QwJxvvYJokpru8xJ96IA3Y8L+mpJ/aaDpvASs04E8JE8xGNZNy1F/xQaDiIAGbSF9hSVEFy4cZpqr5a54VF7+byFU=
+	t=1790767151; cv=none; b=mXOSfMJYcGn97r5al1lUyk8mR7mnOgvBx4uAENfqflw1sUIATP5q0qTykAgvG+fF4oKFNJVwiGJ9JyXXyi0b8cf9qgWjzD7+REym8lxKizONsiMaQAAkDYF6lgS3W59TXN9fhzmMzQoUNXbt6/dcreZscExPyKVkMZi7lUOCMjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767146; c=relaxed/simple;
-	bh=0u6v79Krh5wgu6ieg82TJioz7VCyU2eQjOin5lWXN1s=;
+	s=arc-20240116; t=1790767151; c=relaxed/simple;
+	bh=BxGOJ/Th4qshLRUnS1+0e8PPROYuHoc0czO5f2I3Du0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HfW9gLXvjYEgXrCOWu6dvNy1v43eTvZQkUur50GMtgr02EDlEuQXA7IEj9j+ekWvjoFLmKq+8tw/G0IjtFL6Dxv7YFXcmTLXBA+EPkmipS373KPvf4a61e+kTyCj2E4ET1phEXeRR/EPCM5nAF0hV5wec/JkvcErFm9S0Qf0/Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+zrEM42; arc=none smtp.client-ip=74.125.228.41
+	 MIME-Version; b=bH8sxBArUxLzzkcKl5BLwwk6T61kFjrtBGER0cWOWtzD9cBh69IxZZo/tzheIp13qmvbJqP7qg9BoJd2bIaMOmAyMuEmPrklVNrxGTUIiqgvYYmHs7f36sFDSB0LmWlOzLs0jrzzHqdcDmgzouV2/nvoPBB1ITJlbkyo5Z3EEF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFnbpscQ; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+zrEM42"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8686f46e4adso3342941b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:19:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFnbpscQ"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so1758441b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:19:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767144; x=1791371944; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790767148; x=1791371948; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rCnLVLhWtVLLmpN3x9fjuaEAEUhiKYtsxACEAQQZJ0o=;
-        b=N+zrEM42NdDwzKyYBSeBTVVsrHljzwH3GsovrRL7gA4w0U1F/ocwM6X0dG8wtv0mC1
-         J0Rd1NvvIy4tItEX6hGuXOpRrzegfMNIoHyvqN+RZtiSQJJg4Vc25JHTqykVXBKAQNFo
-         FJR0pGbme2BYD7yMA0F8kpxXc8sPT2kBGc0TMRHs8IDQk5M+DLfCSGVkVuP4D9b9EKCJ
-         jecYK6jL1pmgezeXwMQNXxb7Ut1AGJJ9HHP2zeWhFO0Uxv1hpJWlDMpD3TNPh9UYixaT
-         oLP6eRr8RfMS/c4qwuaCKjWxz93IamQz7zH03004UBbgW+37LCFAj7s5jQqWO3lz+HNS
-         FOAg==
+        bh=+egFjTMnPYoDlT9Bcryc5S9/HI1Lw9q9oWEv1D5Tzbs=;
+        b=sFnbpscQf59/HKmwSGDoXK0e3CnhMmQo0KqLmoqcDxy4BTdOkNpQphWUibytyNvNxc
+         2T11lW03tW16ksbdZMdse0xM5+PtsNt6jxpUDBsuCYHUqvJcaYM2lR8dEqQE3SabETYM
+         fbHezyFO5WVl6eeqrgv5RV4GH3Az3I5o0LBzrq374MMJ+jrLTxbimGowPuvZroPTYgdg
+         PAdBsAb7CTB1IrP326vCeZXyKiEUhY+6cjb+kOHgRQsIllSg/UC7UOJg/85WS7RqgAT9
+         aqAkmPsEVF3mTMkOyXSgV0GyeOARLYbzcsUEdxhi6gPwiZ8tarrdvTc9mkdl0wwRxnj6
+         hpiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767144; x=1791371944;
+        d=1e100.net; s=20260707; t=1790767148; x=1791371948;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rCnLVLhWtVLLmpN3x9fjuaEAEUhiKYtsxACEAQQZJ0o=;
-        b=JsxQd85E8YFOcIWB0h0cMybhlsaeO9eOSCDZNzIUZGjcZ2Rumq5cCcuCDJ4xT6MQEn
-         kao/I6dWsoF1DI0m4srbfDWh92b1qX4hoaOS+ZwWFC7NcwiK7Ak73uSK4QtQFMwMqkHy
-         5ZuRmJ2vOxlTZG2DwEHWES3LZDpTpm1NzskAOAwi1IjI/7t8A92Js1T/Hwnvip/HTm0O
-         ugToCPgz9ZhHbIp1/eV5Yf/52TGI2yt2vFrd9BDNf+G33D6ljbUHGERpgSK1b9ApX1A3
-         aJF8Vq3Q3oLV60QBTGhE7QJoooVSwTlNLLwfwUPSBqrfkxANI22fVIN6rSqWnTOFhbqn
-         2cKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCVaub8a0laZe7N4kn6x47zWGVb2ke30Bq9a76UAingQpd4c/vX0GaAycjGD+p6hBOCgbVFQzRPNKhW5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5QZzCERGRZX5vLKw5DdoLoz3rZqPjM4dyqkJ3gh/zMlLUNxOp
-	BRHYPNDvooJKtm5H8brX9BUXl+TVUPRFtMX1X/U9d4h6UlRsL9LWQ1Ed
-X-Gm-Gg: AYBFou0Yk31ZFC0cPLC3jgLOmrworD3zXg6rJDdxXIrPEfDgkamWOnHqDE90r/2sw90
-	usIG6fFSsLELwK2DAKFe4C4uHpn06N7jnRDB/7fZmQHhDQd3w/Owt52iSj69nOZ6sQv0ibZe9GC
-	6Cr2Lo1+VR3q1+APbihiHbsq2nhUWgi0Hn3c+QhBEumKCUoEpA/yfIEUzYI11wsE65/vKip/EJX
-	iEmJBUVYdmcW6UhI4trGziu+3z+v/coTlcvLnz5BYpMBhXyM1uHwJZii6n6wkYI+5ZW27LvEwOP
-	J2mmYRKG134KkMrzonUhKvpe5Pz0+NwpYVY/GoC0Ot3JNNGJJn+K0+6bRcixQygsyHvd8paHF3Y
-	hFkNpLjODBHiA3KQWDDkFB4wFCAt0wc35a/CILWxVv/MGk9CRLM8SSEBsNv2S/+n0BeAZ29N+QF
-	O9q1jdYojsd641je/Hsd0OWig/ff2yx3Z1zIYKIO9YisGZ6u+voicvMznSHNfKhg2WAhZfOspvB
-	dZMGPF0OdfIM0LaTgwACQ7QzjHGaKdgGi1wypJBNqACXHNYIi+1Mmw=
-X-Received: by 2002:a05:6a00:4390:b0:880:fe7b:bc56 with SMTP id d2e1a72fcca58-8874e53ec84mr760256b3a.50.1790767143558;
-        Wed, 30 Sep 2026 04:19:03 -0700 (PDT)
+        bh=+egFjTMnPYoDlT9Bcryc5S9/HI1Lw9q9oWEv1D5Tzbs=;
+        b=KajI81iNanXQLQfTZcCfkhcY/WmYhqB3sRdDMDhxFbEpNzFniLrKvyK+Hj/TUq240t
+         FbBtgyHytY5EPCP/m/gpYd5+QcPzh4FESRrFm/39rfOt4Jl/+YxWm9/X0FRhSITL7anC
+         nbP6+PBOIP3iZTT9phtghZlm7y+5x0Tur7AsjausLgoamtnkdXHQ2uSXsVf7mggy0u7S
+         EZdbiFTi5P/ONUYlgkBehm5bDc2+XvC8xH2UYnXdScC40dSSBsxjfPOnQPIgfuSU4n4E
+         rkEbYI1OjnzIMulgFBuYRw9s9wcoEn5NUyeb6zP4J3jyEPw5eFJF8oI4XslwN45OBklE
+         sxFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxolzjyI4Si61nst8dINfjjopuZr8kuXq5pKheQXil8BqP9BJ5/zS4DioGdU5qMtYwJGmS/Z1kUDh4Wlpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTGNbwCZuTLUdXsz1Qk3LNdVAKX8A7fdHoBnxomuw0NYEvI2Uj
+	RqzLJNTnxXM+/UH+XDyFUwyv3Z8snlx/h1xfyAELc9uz7Vz5F0CGvzD3
+X-Gm-Gg: AYBFou1m/w0jmW3oPrp7Ktxqq7rIW/oX9uAq0lVQw9VhZuLVdsuMYG7veVtQlOLUz28
+	OkKpm5knq7i6ACw5MVVEfRZmBh4XC6enn7KTdhveAYri6dcL+EZ0c9oMcyc8KXS4BGDbeFKY+I1
+	ZV7CaK4V15Cbd6HaOKdARbdEebHsrGqTXrLCxEBJVaxT1OnDR9CKtYXRMIZTiW9cMgRG8KCjxxj
+	QkNxpns6hwMGAgKkBg0kYGnQYujO+G4uoXOhbiuWJy8QQNvQbT7JmFHPGOK0zilMWFArUniLHoH
+	0/xA3xrsXOiL2RFxAhLKcI4+xhA3fQDOF81kqyzY8sqUhEvERSG/LPB1NIpTt8qqQsh+AqX8fXB
+	Bome6wLI/bjE4EjpNSDWe6YNmgKue5Ge+7SZ0Wg4hkLxuCYhji/UDKntySiSgDaGLM4NC6okv8g
+	VXRMS6lqOXDsTaT6GAtvzRhQ+6s1Ff6lXJJIYWoanyQ39qI14zh0serYEXGEpjHFCYHWJ4maFPJ
+	XkK7rZty3NcK0PLuEKhgb2lvmQpTtb+NegM1vZiT2aq
+X-Received: by 2002:a05:6a00:b81:b0:874:705d:f649 with SMTP id d2e1a72fcca58-8874bffa3dfmr702163b3a.43.1790767148462;
+        Wed, 30 Sep 2026 04:19:08 -0700 (PDT)
 Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-887253992a9sm650257b3a.17.2026.09.30.04.19.01
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-887253992a9sm650257b3a.17.2026.09.30.04.19.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:19:03 -0700 (PDT)
+        Wed, 30 Sep 2026 04:19:07 -0700 (PDT)
 From: Cosmo Chou <chou.cosmo@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -71,9 +71,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	cosmo.chou@quantatw.com,
 	Cosmo Chou <chou.cosmo@gmail.com>
-Subject: [PATCH v3 1/4] ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
-Date: Wed, 30 Sep 2026 19:18:10 +0800
-Message-ID: <20260930111813.52396-2-chou.cosmo@gmail.com>
+Subject: [PATCH v3 3/4] ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+Date: Wed, 30 Sep 2026 19:18:12 +0800
+Message-ID: <20260930111813.52396-4-chou.cosmo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930111813.52396-1-chou.cosmo@gmail.com>
 References: <20260930111813.52396-1-chou.cosmo@gmail.com>
@@ -85,673 +85,545 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Reorder child nodes in i2c0-i2c6 to follow ascending unit address
-ordering as required by scripts/dtc/dt-check-style. No functional
-changes.
+Add alternative PCA9532 LED controllers at address 0x66 to support boards
+populated with the PCA9532 instead of the primary PCA9552 at 0x67.
 
 Signed-off-by: Cosmo Chou <chou.cosmo@gmail.com>
 ---
- .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 430 +++++++++---------
- 1 file changed, 218 insertions(+), 212 deletions(-)
+ .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 422 ++++++++++++++++++
+ 1 file changed, 422 insertions(+)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-index d1a04b63df9e..b022bdd02c1e 100644
+index 4bc436ef3562..1883bfb850fb 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-@@ -343,10 +343,25 @@ flash@0 {
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/gpio/aspeed-gpio.h>
+ #include <dt-bindings/usb/pd.h>
+ #include <dt-bindings/leds/leds-pca955x.h>
++#include <dt-bindings/leds/leds-pca9532.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/i2c/i2c.h>
  
- &i2c0 {
- 	status = "okay";
--	ina230@45 {
--		compatible = "ti,ina230";
--		reg = <0x45>;
--		shunt-resistor = <2000>;
-+
-+	sled1_fusb302: typec-portc@22 {
-+		compatible = "fcs,fusb302";
-+		reg = <0x22>;
-+
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <ASPEED_GPIO(B, 0) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled1>;
-+
-+		connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			pd-revision = /bits/ 8 <0x2 0x0 0x1 0x20>;
-+			power-role = "dual";
-+			data-role = "dual";
-+			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			sink-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			op-sink-microwatt = <10000000>;
-+		};
- 	};
- 
- 	mp5023@40 {
-@@ -354,11 +369,6 @@ mp5023@40 {
- 		reg = <0x40>;
- 	};
- 
--	tmp421@4f {
--		compatible = "ti,tmp421";
--		reg = <0x4f>;
--	};
--
- 	sled1_ioexp41: pca9536@41 {
- 		compatible = "nxp,pca9536";
- 		reg = <0x41>;
-@@ -370,20 +380,20 @@ sled1_ioexp41: pca9536@41 {
- 		"SLED1_CLKREQ_N", "SLED1_PCIE_PWR_EN";
- 	};
- 
--	sled1_ioexp: pca9539@76 {
--		compatible = "nxp,pca9539";
--		reg = <0x76>;
--		gpio-controller;
--		#gpio-cells = <2>;
-+	ina230@45 {
-+		compatible = "ti,ina230";
-+		reg = <0x45>;
-+		shunt-resistor = <2000>;
-+	};
- 
--		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(M, 0) IRQ_TYPE_LEVEL_LOW>;
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
- 
--		gpio-line-names =
--		"SLED1_MS_DETECT1","SLED1_VBUS_BMC_EN","SLED1_INA230_ALERT","SLED1_P12V_STBY_ALERT",
--		"SLED1_SSD_ALERT","SLED1_MS_DETECT0","SLED1_RST_CCG5","SLED1_FUSB302_INT",
--		"SLED1_MD_STBY_RESET","SLED1_MD_IOEXP_EN_FAULT","SLED1_MD_DIR","SLED1_MD_DECAY",
--		"SLED1_MD_MODE1","SLED1_MD_MODE2","SLED1_MD_MODE3","power-host1";
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
- 	};
- 
- 	sled1_leds: pca9552@67 {
-@@ -401,13 +411,33 @@ sled1_leds: pca9552@67 {
- 		"","","","";
- 	};
- 
--	sled1_fusb302: typec-portc@22 {
-+	sled1_ioexp: pca9539@76 {
-+		compatible = "nxp,pca9539";
-+		reg = <0x76>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <ASPEED_GPIO(M, 0) IRQ_TYPE_LEVEL_LOW>;
-+
-+		gpio-line-names =
-+		"SLED1_MS_DETECT1","SLED1_VBUS_BMC_EN","SLED1_INA230_ALERT","SLED1_P12V_STBY_ALERT",
-+		"SLED1_SSD_ALERT","SLED1_MS_DETECT0","SLED1_RST_CCG5","SLED1_FUSB302_INT",
-+		"SLED1_MD_STBY_RESET","SLED1_MD_IOEXP_EN_FAULT","SLED1_MD_DIR","SLED1_MD_DECAY",
-+		"SLED1_MD_MODE1","SLED1_MD_MODE2","SLED1_MD_MODE3","power-host1";
-+	};
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+
-+	sled2_fusb302: typec-portc@22 {
- 		compatible = "fcs,fusb302";
- 		reg = <0x22>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(B, 0) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled1>;
-+		interrupts = <ASPEED_GPIO(B, 1) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled2>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -421,39 +451,51 @@ connector {
+@@ -86,6 +87,66 @@ led-7 {
  		};
  	};
  
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
-+	mp5023@40 {
-+		compatible = "mps,mp5023";
-+		reg = <0x40>;
++	fan_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "on";
++			gpios = <&fan_leds_alt 8 GPIO_ACTIVE_HIGH>;
++			label = "fan0_blue";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "on";
++			gpios = <&fan_leds_alt 9 GPIO_ACTIVE_HIGH>;
++			label = "fan1_blue";
++			retain-state-shutdown;
++		};
++
++		led-2 {
++			default-state = "on";
++			gpios = <&fan_leds_alt 10 GPIO_ACTIVE_HIGH>;
++			label = "fan2_blue";
++			retain-state-shutdown;
++		};
++
++		led-3 {
++			default-state = "on";
++			gpios = <&fan_leds_alt 11 GPIO_ACTIVE_HIGH>;
++			label = "fan3_blue";
++			retain-state-shutdown;
++		};
++
++		led-4 {
++			default-state = "off";
++			gpios = <&fan_leds_alt 12 GPIO_ACTIVE_HIGH>;
++			label = "fan0_amber";
++			retain-state-shutdown;
++		};
++
++		led-5 {
++			default-state = "off";
++			gpios = <&fan_leds_alt 13 GPIO_ACTIVE_HIGH>;
++			label = "fan1_amber";
++			retain-state-shutdown;
++		};
++
++		led-6 {
++			default-state = "off";
++			gpios = <&fan_leds_alt 14 GPIO_ACTIVE_HIGH>;
++			label = "fan2_amber";
++			retain-state-shutdown;
++		};
++
++		led-7 {
++			default-state = "off";
++			gpios = <&fan_leds_alt 15 GPIO_ACTIVE_HIGH>;
++			label = "fan3_amber";
++			retain-state-shutdown;
++		};
 +	};
 +
-+	sled2_ioexp41: pca9536@41 {
-+		compatible = "nxp,pca9536";
-+		reg = <0x41>;
-+		gpio-controller;
+ 	front_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -162,6 +223,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled1_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled1_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled1_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled1_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled1_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	sled2_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -180,6 +259,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled2_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled2_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled2_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled2_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled2_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	sled3_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -198,6 +295,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled3_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled3_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled3_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled3_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled3_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	sled4_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -216,6 +331,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled4_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled4_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled4_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled4_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled4_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	sled5_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -234,6 +367,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled5_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled5_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled5_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled5_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled5_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	sled6_gpio_leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -252,6 +403,24 @@ led-1 {
+ 		};
+ 	};
+ 
++	sled6_gpio_leds_alt {
++		compatible = "gpio-leds";
++
++		led-0 {
++			default-state = "keep";
++			gpios = <&sled6_leds_alt 0 GPIO_ACTIVE_LOW>;
++			label = "sled6_amber";
++			retain-state-shutdown;
++		};
++
++		led-1 {
++			default-state = "keep";
++			gpios = <&sled6_leds_alt 1 GPIO_ACTIVE_LOW>;
++			label = "sled6_blue";
++			retain-state-shutdown;
++		};
++	};
++
+ 	spi {
+ 		compatible = "spi-gpio";
+ 		#address-cells = <1>;
+@@ -430,6 +599,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
+ 
++	sled1_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
 +		#gpio-cells = <2>;
++		gpio-controller;
 +
 +		gpio-line-names =
-+		"SLED2_SWD_MUX", "SLED2_XRES_SWD_N",
-+		"SLED2_CLKREQ_N", "SLED2_PCIE_PWR_EN";
- 	};
--};
- 
--&i2c1 {
--	status = "okay";
- 	ina230@45 {
- 		compatible = "ti,ina230";
- 		reg = <0x45>;
- 		shunt-resistor = <2000>;
- 	};
- 
--	mp5023@40 {
--		compatible = "mps,mp5023";
--		reg = <0x40>;
--	};
--
- 	tmp421@4f {
- 		compatible = "ti,tmp421";
- 		reg = <0x4f>;
- 	};
- 
--	sled2_ioexp41: pca9536@41 {
--		compatible = "nxp,pca9536";
--		reg = <0x41>;
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
++		"led-sled1-amber","led-sled1-blue","SLED1_RST_IOEXP","SLED1_MD_REF_PWM",
++		"","","","",
++		"","","","",
++		"","","","";
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
 +	};
 +
-+	sled2_leds: pca9552@67 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x67>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
+ 	sled1_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -520,6 +718,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
  
- 		gpio-line-names =
--		"SLED2_SWD_MUX", "SLED2_XRES_SWD_N",
--		"SLED2_CLKREQ_N", "SLED2_PCIE_PWR_EN";
++	sled2_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
++		#gpio-cells = <2>;
++		gpio-controller;
++
++		gpio-line-names =
 +		"led-sled2-amber","led-sled2-blue","SLED2_RST_IOEXP","SLED2_MD_REF_PWM",
 +		"","","","",
 +		"","","","",
 +		"","","","";
- 	};
- 
- 	sled2_ioexp: pca9539@76 {
-@@ -471,29 +513,18 @@ sled2_ioexp: pca9539@76 {
- 		"SLED2_MD_STBY_RESET","SLED2_MD_IOEXP_EN_FAULT","SLED2_MD_DIR","SLED2_MD_DECAY",
- 		"SLED2_MD_MODE1","SLED2_MD_MODE2","SLED2_MD_MODE3","power-host2";
- 	};
-+};
- 
--	sled2_leds: pca9552@67 {
--		compatible = "nxp,pca9552";
--		reg = <0x67>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--		gpio-controller;
--		#gpio-cells = <2>;
--
--		gpio-line-names =
--		"led-sled2-amber","led-sled2-blue","SLED2_RST_IOEXP","SLED2_MD_REF_PWM",
--		"","","","",
--		"","","","",
--		"","","","";
--	};
-+&i2c2 {
-+	status = "okay";
- 
--	sled2_fusb302: typec-portc@22 {
-+	sled3_fusb302: typec-portc@22 {
- 		compatible = "fcs,fusb302";
- 		reg = <0x22>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(B, 1) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled2>;
-+		interrupts = <ASPEED_GPIO(B, 7) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled3>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -507,39 +538,51 @@ connector {
- 		};
- 	};
- 
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
-+	mp5023@40 {
-+		compatible = "mps,mp5023";
-+		reg = <0x40>;
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
 +	};
 +
-+	sled3_ioexp41: pca9536@41 {
-+		compatible = "nxp,pca9536";
-+		reg = <0x41>;
-+		gpio-controller;
+ 	sled2_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -610,6 +837,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
+ 
++	sled3_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
 +		#gpio-cells = <2>;
++		gpio-controller;
 +
 +		gpio-line-names =
-+		"SLED3_SWD_MUX", "SLED3_XRES_SWD_N",
-+		"SLED3_CLKREQ_N", "SLED3_PCIE_PWR_EN";
- 	};
--};
- 
--&i2c2 {
--	status = "okay";
- 	ina230@45 {
- 		compatible = "ti,ina230";
- 		reg = <0x45>;
- 		shunt-resistor = <2000>;
- 	};
- 
--	mp5023@40 {
--		compatible = "mps,mp5023";
--		reg = <0x40>;
--	};
--
- 	tmp421@4f {
- 		compatible = "ti,tmp421";
- 		reg = <0x4f>;
- 	};
- 
--	sled3_ioexp41: pca9536@41 {
--		compatible = "nxp,pca9536";
--		reg = <0x41>;
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
-+	};
-+
-+	sled3_leds: pca9552@67 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x67>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 
- 		gpio-line-names =
--		"SLED3_SWD_MUX", "SLED3_XRES_SWD_N",
--		"SLED3_CLKREQ_N", "SLED3_PCIE_PWR_EN";
 +		"led-sled3-amber","led-sled3-blue","SLED3_RST_IOEXP","SLED3_MD_REF_PWM",
 +		"","","","",
 +		"","","","",
 +		"","","","";
- 	};
- 
- 	sled3_ioexp: pca9539@76 {
-@@ -557,29 +600,18 @@ sled3_ioexp: pca9539@76 {
- 		"SLED3_MD_STBY_RESET","SLED3_MD_IOEXP_EN_FAULT","SLED3_MD_DIR","SLED3_MD_DECAY",
- 		"SLED3_MD_MODE1","SLED3_MD_MODE2","SLED3_MD_MODE3","power-host3";
- 	};
-+};
- 
--	sled3_leds: pca9552@67 {
--		compatible = "nxp,pca9552";
--		reg = <0x67>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--		gpio-controller;
--		#gpio-cells = <2>;
--
--		gpio-line-names =
--		"led-sled3-amber","led-sled3-blue","SLED3_RST_IOEXP","SLED3_MD_REF_PWM",
--		"","","","",
--		"","","","",
--		"","","","";
--	};
-+&i2c3 {
-+	status = "okay";
- 
--	sled3_fusb302: typec-portc@22 {
-+	sled4_fusb302: typec-portc@22 {
- 		compatible = "fcs,fusb302";
- 		reg = <0x22>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(B, 7) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled3>;
-+		interrupts = <ASPEED_GPIO(S, 7) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled4>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -593,39 +625,51 @@ connector {
- 		};
- 	};
- 
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
-+	mp5023@40 {
-+		compatible = "mps,mp5023";
-+		reg = <0x40>;
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
 +	};
 +
-+	sled4_ioexp41: pca9536@41 {
-+		compatible = "nxp,pca9536";
-+		reg = <0x41>;
-+		gpio-controller;
+ 	sled3_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -700,6 +956,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
+ 
++	sled4_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
 +		#gpio-cells = <2>;
++		gpio-controller;
 +
 +		gpio-line-names =
-+		"SLED4_SWD_MUX", "SLED4_XRES_SWD_N",
-+		"SLED4_CLKREQ_N", "SLED4_PCIE_PWR_EN";
- 	};
--};
- 
--&i2c3 {
--	status = "okay";
- 	ina230@45 {
- 		compatible = "ti,ina230";
- 		reg = <0x45>;
- 		shunt-resistor = <2000>;
- 	};
- 
--	mp5023@40 {
--		compatible = "mps,mp5023";
--		reg = <0x40>;
--	};
--
- 	tmp421@4f {
- 		compatible = "ti,tmp421";
- 		reg = <0x4f>;
- 	};
- 
--	sled4_ioexp41: pca9536@41 {
--		compatible = "nxp,pca9536";
--		reg = <0x41>;
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
-+	};
-+
-+	sled4_leds: pca9552@67 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x67>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 
- 		gpio-line-names =
--		"SLED4_SWD_MUX", "SLED4_XRES_SWD_N",
--		"SLED4_CLKREQ_N", "SLED4_PCIE_PWR_EN";
 +		"led-sled4-amber","led-sled4-blue","SLED4_RST_IOEXP","SLED4_MD_REF_PWM",
 +		"","","","",
 +		"","","","",
 +		"","","","";
- 	};
- 
- 	sled4_ioexp: pca9539@76 {
-@@ -643,29 +687,18 @@ sled4_ioexp: pca9539@76 {
- 		"SLED4_MD_STBY_RESET","SLED4_MD_IOEXP_EN_FAULT","SLED4_MD_DIR","SLED4_MD_DECAY",
- 		"SLED4_MD_MODE1","SLED4_MD_MODE2","SLED4_MD_MODE3","power-host4";
- 	};
-+};
- 
--	sled4_leds: pca9552@67 {
--		compatible = "nxp,pca9552";
--		reg = <0x67>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--		gpio-controller;
--		#gpio-cells = <2>;
--
--		gpio-line-names =
--		"led-sled4-amber","led-sled4-blue","SLED4_RST_IOEXP","SLED4_MD_REF_PWM",
--		"","","","",
--		"","","","",
--		"","","","";
--	};
-+&i2c4 {
-+	status = "okay";
- 
--	sled4_fusb302: typec-portc@22 {
-+	sled5_fusb302: typec-portc@22 {
- 		compatible = "fcs,fusb302";
- 		reg = <0x22>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(S, 7) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled4>;
-+		interrupts = <ASPEED_GPIO(Y, 3) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled5>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -679,39 +712,51 @@ connector {
- 		};
- 	};
- 
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
-+	mp5023@40 {
-+		compatible = "mps,mp5023";
-+		reg = <0x40>;
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
 +	};
 +
-+	sled5_ioexp41: pca9536@41 {
-+		compatible = "nxp,pca9536";
-+		reg = <0x41>;
-+		gpio-controller;
+ 	sled4_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -790,6 +1075,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
+ 
++	sled5_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
 +		#gpio-cells = <2>;
++		gpio-controller;
 +
 +		gpio-line-names =
-+		"SLED5_SWD_MUX", "SLED5_XRES_SWD_N",
-+		"SLED5_CLKREQ_N", "SLED5_PCIE_PWR_EN";
- 	};
--};
- 
--&i2c4 {
--	status = "okay";
- 	ina230@45 {
- 		compatible = "ti,ina230";
- 		reg = <0x45>;
- 		shunt-resistor = <2000>;
- 	};
- 
--	mp5023@40 {
--		compatible = "mps,mp5023";
--		reg = <0x40>;
--	};
--
- 	tmp421@4f {
- 		compatible = "ti,tmp421";
- 		reg = <0x4f>;
- 	};
- 
--	sled5_ioexp41: pca9536@41 {
--		compatible = "nxp,pca9536";
--		reg = <0x41>;
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
-+	};
-+
-+	sled5_leds: pca9552@67 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x67>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 
- 		gpio-line-names =
--		"SLED5_SWD_MUX", "SLED5_XRES_SWD_N",
--		"SLED5_CLKREQ_N", "SLED5_PCIE_PWR_EN";
 +		"led-sled5-amber","led-sled5-blue","SLED5_RST_IOEXP","SLED5_MD_REF_PWM",
 +		"","","","",
 +		"","","","",
 +		"","","","";
- 	};
- 
- 	sled5_ioexp: pca9539@76 {
-@@ -729,29 +774,18 @@ sled5_ioexp: pca9539@76 {
- 		"SLED5_MD_STBY_RESET","SLED5_MD_IOEXP_EN_FAULT","SLED5_MD_DIR","SLED5_MD_DECAY",
- 		"SLED5_MD_MODE1","SLED5_MD_MODE2","SLED5_MD_MODE3","power-host5";
- 	};
-+};
- 
--	sled5_leds: pca9552@67 {
--		compatible = "nxp,pca9552";
--		reg = <0x67>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--		gpio-controller;
--		#gpio-cells = <2>;
--
--		gpio-line-names =
--		"led-sled5-amber","led-sled5-blue","SLED5_RST_IOEXP","SLED5_MD_REF_PWM",
--		"","","","",
--		"","","","",
--		"","","","";
--	};
-+&i2c5 {
-+	status = "okay";
- 
--	sled5_fusb302: typec-portc@22 {
-+	sled6_fusb302: typec-portc@22 {
- 		compatible = "fcs,fusb302";
- 		reg = <0x22>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(Y, 3) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled5>;
-+		interrupts = <ASPEED_GPIO(I, 7) IRQ_TYPE_LEVEL_LOW>;
-+		vbus-supply = <&vbus_sled6>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -765,30 +799,11 @@ connector {
- 		};
- 	};
- 
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
--	};
--};
--
--&i2c5 {
--	status = "okay";
--	ina230@45 {
--		compatible = "ti,ina230";
--		reg = <0x45>;
--		shunt-resistor = <2000>;
--	};
--
- 	mp5023@40 {
- 		compatible = "mps,mp5023";
- 		reg = <0x40>;
- 	};
- 
--	tmp421@4f {
--		compatible = "ti,tmp421";
--		reg = <0x4f>;
--	};
--
- 	sled6_ioexp41: pca9536@41 {
- 		compatible = "nxp,pca9536";
- 		reg = <0x41>;
-@@ -800,20 +815,20 @@ sled6_ioexp41: pca9536@41 {
- 		"SLED6_CLKREQ_N", "SLED6_PCIE_PWR_EN";
- 	};
- 
--	sled6_ioexp: pca9539@76 {
--		compatible = "nxp,pca9539";
--		reg = <0x76>;
--		gpio-controller;
--		#gpio-cells = <2>;
-+	ina230@45 {
-+		compatible = "ti,ina230";
-+		reg = <0x45>;
-+		shunt-resistor = <2000>;
-+	};
- 
--		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(M, 5) IRQ_TYPE_LEVEL_LOW>;
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
- 
--		gpio-line-names =
--		"SLED6_MS_DETECT1","SLED6_VBUS_BMC_EN","SLED6_INA230_ALERT","SLED6_P12V_STBY_ALERT",
--		"SLED6_SSD_ALERT","SLED6_MS_DETECT0","SLED6_RST_CCG5","SLED6_FUSB302_INT",
--		"SLED6_MD_STBY_RESET","SLED6_MD_IOEXP_EN_FAULT","SLED6_MD_DIR","SLED6_MD_DECAY",
--		"SLED6_MD_MODE1","SLED6_MD_MODE2","SLED6_MD_MODE3","power-host6";
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
- 	};
- 
- 	sled6_leds: pca9552@67 {
-@@ -831,45 +846,36 @@ sled6_leds: pca9552@67 {
- 		"","","","";
- 	};
- 
--	sled6_fusb302: typec-portc@22 {
--		compatible = "fcs,fusb302";
--		reg = <0x22>;
-+	sled6_ioexp: pca9539@76 {
-+		compatible = "nxp,pca9539";
-+		reg = <0x76>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
- 
- 		interrupt-parent = <&gpio0>;
--		interrupts = <ASPEED_GPIO(I, 7) IRQ_TYPE_LEVEL_LOW>;
--		vbus-supply = <&vbus_sled6>;
--
--		connector {
--			compatible = "usb-c-connector";
--			label = "USB-C";
--			pd-revision = /bits/ 8 <0x2 0x0 0x1 0x20>;
--			power-role = "dual";
--			data-role = "dual";
--			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
--			sink-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
--			op-sink-microwatt = <10000000>;
--		};
--	};
-+		interrupts = <ASPEED_GPIO(M, 5) IRQ_TYPE_LEVEL_LOW>;
- 
--	eeprom@54 {
--		compatible = "atmel,24c64";
--		reg = <0x54>;
-+		gpio-line-names =
-+		"SLED6_MS_DETECT1","SLED6_VBUS_BMC_EN","SLED6_INA230_ALERT","SLED6_P12V_STBY_ALERT",
-+		"SLED6_SSD_ALERT","SLED6_MS_DETECT0","SLED6_RST_CCG5","SLED6_FUSB302_INT",
-+		"SLED6_MD_STBY_RESET","SLED6_MD_IOEXP_EN_FAULT","SLED6_MD_DIR","SLED6_MD_DECAY",
-+		"SLED6_MD_MODE1","SLED6_MD_MODE2","SLED6_MD_MODE3","power-host6";
- 	};
- };
- 
- &i2c6 {
- 	status = "okay";
- 
--	eeprom@56 {
--		compatible = "atmel,24c64";
--		reg = <0x56>;
--	};
--
- 	rtc@51 {
- 		/* in-chip rtc disabled, use external rtc (battery-backed) */
- 		compatible = "nxp,pcf85263";
- 		reg = <0x51>;
- 	};
 +
-+	eeprom@56 {
-+		compatible = "atmel,24c64";
-+		reg = <0x56>;
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
 +	};
- };
++
+ 	sled5_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -880,6 +1194,35 @@ eeprom@54 {
+ 		reg = <0x54>;
+ 	};
  
- &i2c7 {
++	sled6_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
++		#gpio-cells = <2>;
++		gpio-controller;
++
++		gpio-line-names =
++		"led-sled6-amber","led-sled6-blue","SLED6_RST_IOEXP","SLED6_MD_REF_PWM",
++		"","","","",
++		"","","","",
++		"","","","";
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++	};
++
+ 	sled6_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
+@@ -993,6 +1336,85 @@ tmp421@4d {
+ 		reg = <0x4d>;
+ 	};
+ 
++	fan_leds_alt: pca9532@66 {
++		compatible = "nxp,pca9532";
++		reg = <0x66>;
++		#gpio-cells = <2>;
++		gpio-controller;
++
++		gpio-line-names =
++		"presence-fan0","presence-fan1",
++		"presence-fan2","presence-fan3",
++		"power-fan0-good","power-fan1-good",
++		"power-fan2-good","power-fan3-good",
++		"","","","",
++		"","","","";
++
++		led-0 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-1 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-2 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-3 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-4 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-5 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-6 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-7 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-8 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-9 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-10 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-11 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-12 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-13 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-14 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++
++		led-15 {
++			type = <PCA9532_TYPE_GPIO>;
++		};
++	};
++
+ 	fan_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
 -- 
 2.43.0
 
