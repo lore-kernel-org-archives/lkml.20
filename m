@@ -1,141 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404CB2EEE63;
-	Wed, 30 Sep 2026 20:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073952EEE63
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800104; cv=none; b=UxA5O/Ok6yqbqJ2Gk91MhEtjsfpwTHPsQXkgvqnzndtSr47JMgSX4djzplBWv2IET3+D3Jp+3HWCzNbQRc2Qq97y0rwpUSNT3GHdv0eq+zveYVlElfQ8NmanODKzKhHiWFMq3mOLoqZhfi4Mqhdkka8JBmK2LSMy3xlyQPpHNxY=
+	t=1790800114; cv=none; b=j7pbSmTDkinyJ4HAA7577l83qQdWpirjb56+xZQ5tAN2gCq93RdPhUfFRqEVnOe4hdhVEBUgIJVmOp6sGjOI/jf1fWMH/EWyo5N5lgaW0GMkvZJq91baVohzyvnQX1aMuLZUTGKftphoewaquNsk2aYdsqThxz3H5ke1DXZV4cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800104; c=relaxed/simple;
-	bh=9rktf2hgl/uVrRZ4iHt8YW+bXpVafwJlLDS7CU4phOw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AhZVr6fshc9v2jQIPDHweWEcWNwhcTRlC93R8bNLJZBowHL4Asbw8ohObQfHZAu+O52p7vELzLYvmFu9bNX0ZhR98bjTmoCcqRaVVFufVqZwv82CCp6l14kdH7K/RvDA+tLPGp99iMe9SzWP1rGoHZh44fvWLk1juAXkQPFHZDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WyXbAwo3; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790800114; c=relaxed/simple;
+	bh=3g7n6yv3jRRL7FVQFuxFWtp4ZLsZMbQKAEuq+6xRbpI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iuFSvJpjzfnL4RMjm0UwnP+1hu5NuVBSbXmm4as5fo9INzv1rMUK+G7A4JipSSoaE3Nfvk1yYcUHJgQ4qkuQ7POQwbC/MR7ix/AwCY6fO6t+Pz+w2QFHh92DctbeqMx41R2xTRThFUoE5uzsAd8VknYENs+Ly+hWT8LirTrxkgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1JO7n1Jj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WyXbAwo3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790800103; x=1822336103;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=9rktf2hgl/uVrRZ4iHt8YW+bXpVafwJlLDS7CU4phOw=;
-  b=WyXbAwo3Yc4tgY1aGjXeozymZTtGy57YozuZD5DMmEIaP6djGm8swULl
-   EIG/zv4EP8kKIUUOg4LUPAtzX1qh9VkY8y8LS2O5wYZwbrZyq180kbYk5
-   +kqJJJJStN4do9tKosfjKV7YIEzlZTdvBowVkDa1HKj5QZZzLHRIahxMY
-   lnYIxIkp82wQcN/umIPthTDiODtcrIWb4RQ6KknJnv6P9Xu/2r+Pz2/tw
-   SUea+wzokOmqwDVaBZFLFr4wd77parRpRshyh4B2C6yxrZRkMlbbjY2rZ
-   4aAYHYqyAAoiOT7pcCXswVvwArjM0TfJfsGv1xGcus2pS8jdzwwtGYMZz
-   Q==;
-X-CSE-ConnectionGUID: O/3wNvmjSP+39QUL+12FEA==
-X-CSE-MsgGUID: 9xzOCQQSSoWPFtpbDRt0mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90585429"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="90585429"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:28:22 -0700
-X-CSE-ConnectionGUID: TrL2uQ2PRJiq6Hj8/WZkXw==
-X-CSE-MsgGUID: w0BQJxGNRV+xYIrTGfGHPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="275329860"
-Received: from spandruv-desk1.amr.corp.intel.com ([10.124.223.41])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:28:22 -0700
-Message-ID: <f3f665ca76f9d914bf4b91cf03358223596d922d.camel@linux.intel.com>
-Subject: Re: [PATCH] platform/x86/intel-uncore-freq: Continue restoring
- limits on resume
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
- rafael.j.wysocki@intel.com, 	platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	wangyijia.yeah@bytedance.com,
- stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 13:28:20 -0700
-In-Reply-To: <20260929163133.14326-2-weiguixiong@bytedance.com>
-References: <20260929163133.14326-2-weiguixiong@bytedance.com>
-Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
- keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
- YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
- y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
- NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
- GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
- TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
- oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
- AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
- b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
- AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
- oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
- UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
- ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
- wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
- NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
- J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
- oOfCQxricddC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1JO7n1Jj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 518F51A1071;
+	Wed, 30 Sep 2026 20:28:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 06B0260749;
+	Wed, 30 Sep 2026 20:28:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4906C103284B8;
+	Wed, 30 Sep 2026 22:28:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790800108; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=w8f1tLJiBq9vDN/PBOT5hp9SmKuGgL9XgSOhE6RPUfA=;
+	b=1JO7n1Jjj6ESOL5u54mDWgDWIgm/CnxkBizLLLxDfmEjp1lGa/kxtXnH1LNfK+jjgb+ypI
+	68A8rDUnMhndSXZ3LrEi3MgLBCn6rjVs64wnTGIYo4Bsqef8g+dFwuGUiNQz+sLuoZ1Xm+
+	mNRDbXOYYsFnw95j5SgCYnNtW/ZCNfcSnd7AqbvuLlNZZ2qOa50y5TeVtosEuZ2duLmb9n
+	VrEDWVM7ZnUSG57Hh8skU6KYxin1/4YnDlipFIa7WmoJqv8ypS568xHlEXIGqWW8Q4dfsU
+	OvnSUf2MTx6CmpVmivbttI7cUyM1M5rIiXIIGk2ib2EliiXyKqigiY/QlBe8cw==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Qingfang Deng <qingfang.deng@linux.dev>, Andrew Lunn <andrew@lunn.ch>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Jason Cooper <jason@lakedaemon.net>, Thomas
+ Petazzoni <thomas.petazzoni@free-electrons.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Gabriel Rodriguez <lifehacksback@gmail.com>, Qingfang Deng
+ <qingfang.deng@linux.dev>
+Subject: Re: [PATCH] ARM: mvebu: fix Cortex-A9 errata selection for Armada 38x
+In-Reply-To: <20260920040738.466563-1-qingfang.deng@linux.dev>
+References: <20260920040738.466563-1-qingfang.deng@linux.dev>
+Date: Wed, 30 Sep 2026 22:28:24 +0200
+Message-ID: <87y0ci7ac7.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 2026-09-30 at 00:31 +0800, Guixiong Wei wrote:
-> The PM notifier iterates over every uncore frequency instance to
-> restore
-> user-configured MSR_UNCORE_RATIO_LIMIT values after resume. Entries
-> that
-> have never been configured legitimately have stored_uncore_data set
-> to
-> zero.
->=20
-> The refactoring that split common and enumeration code changed the
-> iteration from active control CPUs to all allocated instances. It
-> also
-> changed the skip for an invalid or unconfigured entry from continue
-> to
-> return, causing that entry to terminate the entire restore operation.
->=20
-> On a multi-package or multi-die system, configuring only a later
-> instance
-> therefore leaves its limit unrestored after suspend, hibernation, or
-> restore if an earlier entry is invalid or unconfigured.
->=20
-> Use continue to skip only the current entry and restore all remaining
-> configured instances.
->=20
-> Fixes: dbce412a7733 ("platform/x86/intel-uncore-freq: Split common
-> and enumeration part")
-> Cc: stable@vger.kernel.org
-> Tested-by: Yijia Wang <wangyijia.yeah@bytedance.com>
-> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Hello Qingfang Deng,
 
- Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> Armada 38x uses Cortex-A9 r4p1, but MACH_ARMADA_38X selects the
+> workaround for erratum 720789, which was fixed in r2p0, and omits
+> workarounds for errata that still affect r4p1.
+>
+
+I think that the very early version used r2p0.
+
+The logs that I have from various Armada 38x show the CPU: ARMv7
+Processor [414fc091] revision 1 (ARMv7). The value 414fc091 is the
+MIDR. The MIDR indicates that the CPU is a CortexA9 at revision 4p1.=20
+
+The logs that I checked are more than 10 years old. We can now safely
+apply this change.
+
+> Drop ARM_ERRATA_720789 and select ARM_ERRATA_754322 for faulty MMU
+> translations following an ASID switch and ARM_ERRATA_764319 for
+> unexpected undefined instruction exceptions when reading debug
+> registers. Also select ARM_ERRATA_764369 when SMP is enabled to work
+> around cache maintenance by MVA failing to reach other agents.
+>
+> The Cortex-A9 r4 Software Developers Errata Notice (ARM UAN 0009D)
+> lists these errata in sections 2.3.3, 2.5.10 and 2.3.4, respectively.
+>
+> Link: https://documentation-service.arm.com/static/608118675e70d934bc69f1=
+43
+> Fixes: 9aa30f1c13d1 ("ARM: mvebu: add initial support for the Armada 380/=
+385 SOCs")
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+
+Applied on mvebu/arm
+
+Thanks,
+
+Gregory
+
 
 > ---
-> =C2=A0drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c | 2
-> +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-
-> frequency.c b/drivers/platform/x86/intel/uncore-frequency/uncore-
-> frequency.c
-> index 667f2c8b9594a..c44e7e38cae25 100644
-> --- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-> +++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-> @@ -211,7 +211,7 @@ static int uncore_pm_notify(struct notifier_block
-> *nb, unsigned long mode,
-> =C2=A0			struct uncore_data *data =3D
-> &uncore_instances[i];
-> =C2=A0
-> =C2=A0			if (!data || !data->valid || !data-
-> >stored_uncore_data)
-> -				return 0;
-> +				continue;
-> =C2=A0
-> =C2=A0			wrmsrq_on_cpu(data->control_cpu,
-> MSR_UNCORE_RATIO_LIMIT,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 data->stored_uncore_data);
+>  arch/arm/mach-mvebu/Kconfig | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/mach-mvebu/Kconfig b/arch/arm/mach-mvebu/Kconfig
+> index 9f60a6fe0eaf..5203b5cfa457 100644
+> --- a/arch/arm/mach-mvebu/Kconfig
+> +++ b/arch/arm/mach-mvebu/Kconfig
+> @@ -55,7 +55,9 @@ config MACH_ARMADA_375
+>  config MACH_ARMADA_38X
+>  	bool "Marvell Armada 380/385 boards"
+>  	depends on ARCH_MULTI_V7
+> -	select ARM_ERRATA_720789
+> +	select ARM_ERRATA_754322
+> +	select ARM_ERRATA_764319
+> +	select ARM_ERRATA_764369 if SMP
+>  	select PL310_ERRATA_753970
+>  	select ARM_GIC
+>  	select ARM_GLOBAL_TIMER
+> --=20
+> 2.43.0
+>
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
