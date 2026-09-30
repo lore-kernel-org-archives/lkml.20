@@ -1,136 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987474DE728;
-	Wed, 30 Sep 2026 14:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526264E8E14
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778355; cv=none; b=UM/Yy0XrN1zDL3c1SjmxoWvgVQnpUM00xk1jEox0lWbW894RIpXYVe9joKaGW3CZVIB2zfT2gTr9/pcITjkQXzH2wE1JEtJAQV1RpUPs112c0HWmQfZsGmFW9O2vxdxf8w/aZqxEe+XbnSWQR0Kt2Qw7pf/6V7sVS6ps75exYUI=
+	t=1790778358; cv=none; b=lWTXpMkTG8uV1sPmZ6OUcmU2KJJyvf42fwfOoOtCzXBoNHpbLcGkofiIrv9N3wyk0YJqCFA7C8BJnElLsNTCpVWTalBuwZozR4+AuInVDxL/lPpovZ8m6mpqWfM7jkW/4SE5Q7U3JfOTFViFpo8gxHQaHRmFlbpCrJAkABLdiCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778355; c=relaxed/simple;
-	bh=sFTRJFqtVYKWAfrFtg2v2Y1AVLhVCYKz9iekFUdvHhA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=KqC3/64UQAclnrdzaGaS+FbgNDCDovzMFeJRgKxUf945P0iL9aRE5zqyes/4wqm398GZL1ECOoObmS1Mn4jAbs13nLskAnzC/XSfIjw/cnKSu5BXYtn84GJTQ05wSzLHiUkCbbJQ03c9ARRluHrMYqT3S7NH/Nzc2iel2R3BeQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTppVOQq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTppVOQq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328521F000FF;
-	Wed, 30 Sep 2026 14:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790778343;
-	bh=Jqaukmxoh+YmJmbm/EJ3OHqbjz+fE8i2VWtHgQPGwbo=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=eTppVOQqzCpPEmLEytkG1MLDSXhlxypE36QFo6qp0UrfRANgPu11aWJHiaPip3kNZ
-	 oU7NfPFOorpQ90KxV6rhOYt4e1tzkB4deBOJK2Wxbzu9gS8i3BE+v32nE+m7kN3kqw
-	 8nMVR7aUyZclv9wkIvkruhuDPc7FffLEeVSym5ahgHLGYOwoNBrgWrlg9vLD87KtAE
-	 0enOppQyziCs57SxJzp4WCqmCKukWstT/5J6K4HYxocR8cqthIg62xxl4joo6fZD+7
-	 YFTKHc4ooj1UXldEIyfLypFPJX3kmxlxEmO3KnD7NPVgb9hPjXQMZ5R8nE0bghpH+Q
-	 bztKY0xT9D5eA==
+	s=arc-20240116; t=1790778358; c=relaxed/simple;
+	bh=apO13nm+V4glrEDhKHt2A20vrAEHwAVipOBOTCOTXCU=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=DTOcwVVHESHZd+3joxA83rdj+R+tWQX3qpT+U/y6YKWbDFuMV0pNccAG+Fv+VDCvFStJCLZLmr6eCB5oKXlOpOC+nAxQCRYSbfvB8iEK0dyNb/dC6GGL7yuDgiGJkh1gezI1S8zIGtzL0RgPLjI+6pwhWyllf+xwcT41cNxM7vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4959c49e054so5726680b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:25:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790778344; x=1791383144;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rK1Is7P5EYGLLAJjb2Cuc+Kd0rrtOHS2i7gUMnob7Ro=;
+        b=uz/Yx0xGj17Ul+DJs4BwMK0IGyB3c6DtT8dJGnFusH3nfnAPOSTNUW1HSbBJBEH30w
+         VTI+P4gqTvnlysohQj9MPwh0t6y1jUciUOE1c7J7t/B7HcufeuMSAZWkD/OFWXefA203
+         6oPCKyGVARzdhm1e4uPhudS6zjuw8qsj70/aTDQC2knQfzoH3FBqyz0KSXyZRqKwruw4
+         G8QQRPu7zZyNY7OnlbueDreg3VSGaK+fiWvE4Rg2/ksMKSXcZZP8drQY+qZWlczPgPJJ
+         0Vo7miyiIUZF9S7O+kF7Tg8ndTgDjcjYWlromN4i+wcUrFiu2wtj0gdeR6DL46cBsYc4
+         p2SA==
+X-Forwarded-Encrypted: i=1; AKwUvBwzriiUSoeKMtue8hBIGgxSmf0unLW3RqCB5g8jIaHnSziZwbvqMAO4eImE+ruPRY9KLQLuEgzwQn+n3eU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDmqmK3bY1nUTD2kU9HzOInuuHPhRD80Is5dpmHFuQUFvYbvuR
+	1TzjkRzfWwTzAjkmJa+bxrH8VHVyqAJnKLyVGNQiSqTcEHek+HTTyQ0BCk6uT3Z6j4LLtVMYUxP
+	lMefP8cF4af3+k+BffenBMecgQwgHo2p3pnQHaLm7/iBj1o41BFKw7VscmAY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 16:25:36 +0200
-Message-Id: <DLSPXUPSF0TC.3PC9F8RTDV1IL@kernel.org>
-Subject: Re: [PATCH v3 08/10] rust: pci: add SR-IOV enable and disable
- tokens
-Cc: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <aliceryhl@google.com>,
- <bhelgaas@google.com>, <kwilczynski@kernel.org>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <markus.probst@posteo.de>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <acourbot@nvidia.com>, <jhubbard@nvidia.com>, <zhiwang@kernel.org>,
- <jgg@nvidia.com>, <alex@shazbot.org>, "Peter Colberg" <peter@colberg.org>
-To: "Zhi Wang" <zhiw@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <cover.1790705494.git.zhiw@nvidia.com>
- <9b092d339961f744c7ded1e4f21911b66c80ecb4.1790759932.git.zhiw@nvidia.com>
-In-Reply-To: <9b092d339961f744c7ded1e4f21911b66c80ecb4.1790759932.git.zhiw@nvidia.com>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:4497:b0:4b9:a88b:8891 with SMTP id
+ 5614622812f47-4f1b6b72f31mr1415333b6e.39.1790778343909; Wed, 30 Sep 2026
+ 07:25:43 -0700 (PDT)
+Date: Wed, 30 Sep 2026 07:25:43 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abd1be7.fac9d4e5.17396.0005.GAE@google.com>
+Subject: [syzbot] [dm?] KASAN: wild-memory-access Write in __journal_read_write
+From: syzbot <syzbot+675c91651049ad042c5f@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Sep 30, 2026 at 12:18 PM CEST, Zhi Wang wrote:
-> +pub struct SriovEnable<'callback> {
+Hello,
 
-I understand why you chose 'callback, but I think just 'a is good enough.
+syzbot found the following issue on:
 
-> +    pdev: &'callback Device<device::CoreInternal<'callback>>,
-> +    num_vfs: u32,
+HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1111c6c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=675c91651049ad042c5f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=171b0035580000
 
-Please see patch 1.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+675c91651049ad042c5f@syzkaller.appspotmail.com
 
-> +}
-> +
-> +impl<'callback> SriovEnable<'callback> {
-> +    /// Returns the number of VFs requested for this callback.
-> +    pub fn num_vfs(&self) -> u32 {
-> +        self.num_vfs
-> +    }
-> +
-> +    /// Enables between one and the requested number of VFs.
-> +    ///
-> +    /// VF drivers can probe before this method returns, so the PF resou=
-rces they access must
-> +    /// already be initialized. The returned guard disables the VFs if s=
-ubsequent setup fails.
-> +    /// Return it from `sriov_enable()` to leave the VFs enabled on call=
-back success.
-> +    pub fn enable(self, num_vfs: u32) -> Result<SriovEnabled<'callback>>=
- {
-> +        if num_vfs =3D=3D 0 || num_vfs > self.num_vfs {
-> +            return Err(EINVAL);
-> +        }
-> +        let num_vfs =3D c_int::try_from(num_vfs).map_err(|_| EOVERFLOW)?=
-;
-> +
-> +        // SAFETY: The PF's driver data and registration remain installe=
-d throughout this callback.
-> +        // The registration owns final VF teardown after the enable guar=
-d is disarmed.
-> +        if unsafe { (*self.pdev.as_raw()).vf_registration_data_rust }.is=
-_null() {
-> +            return Err(ENODEV);
-> +        }
-> +
-> +        self.pdev.enable_sriov(num_vfs)?;
-> +        Ok(SriovEnabled {
-> +            pdev: Some(self.pdev),
-> +            num_vfs,
-> +        })
-> +    }
-> +}
-> +
-> +/// Enabled VFs awaiting successful completion of `sriov_enable()`.
-> +pub struct SriovEnabled<'callback> {
-> +    pdev: Option<&'callback Device<device::CoreInternal<'callback>>>,
+==================================================================
+BUG: KASAN: wild-memory-access in __journal_read_write+0xc29/0x1f10 drivers/md/dm-integrity.c:2288
+Write of size 512 at addr 0005088000000000 by task syz-executor338/6039
 
-This doesn't need to be an Option.
+CPU: 0 UID: 0 PID: 6039 Comm: syz-executor338 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:186 [inline]
+ kasan_check_range+0x10f/0x1e0 mm/kasan/generic.c:200
+ __asan_memcpy+0x3c/0x60 mm/kasan/shadow.c:106
+ __journal_read_write+0xc29/0x1f10 drivers/md/dm-integrity.c:2288
+ dm_integrity_map_continue+0x243f/0x33b0 drivers/md/dm-integrity.c:2574
+ dm_integrity_map+0x6cc/0xc90 drivers/md/dm-integrity.c:2204
+ __map_bio+0x597/0x660 drivers/md/dm.c:1435
+ __split_and_process_bio drivers/md/dm.c:1769 [inline]
+ dm_split_and_process_bio drivers/md/dm.c:2043 [inline]
+ dm_submit_bio+0x5b6/0x2950 drivers/md/dm.c:2099
+ __submit_bio block/blk-core.c:681 [inline]
+ __submit_bio+0x20e/0x3d0 block/blk-core.c:670
+ __submit_bio_noacct block/blk-core.c:724 [inline]
+ submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
+ submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
+ bio_await+0x1fa/0x240 block/bio.c:1581
+ submit_bio_wait+0x19/0x60 block/bio.c:1599
+ __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
+ blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
+ blkdev_direct_write block/fops.c:699 [inline]
+ blkdev_write_iter+0x703/0xd30 block/fops.c:767
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_pwrite64 fs/read_write.c:794 [inline]
+ __do_sys_pwrite64 fs/read_write.c:802 [inline]
+ __se_sys_pwrite64 fs/read_write.c:799 [inline]
+ __x64_sys_pwrite64+0x1eb/0x250 fs/read_write.c:799
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5408351ab7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffc07ac8820 EFLAGS: 00000202 ORIG_RAX: 0000000000000012
+RAX: ffffffffffffffda RBX: 0000555592860400 RCX: 00007f5408351ab7
+RDX: 0000000000000400 RSI: 0000555592863000 RDI: 0000000000000007
+RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00005555928627a0
+R13: 0000000000000007 R14: 0000555592863000 R15: 00000000c138fd06
+ </TASK>
+==================================================================
 
-> +    num_vfs: c_int,
-> +}
-> +
-> +impl SriovEnabled<'_> {
-> +    #[expect(dead_code)]
-> +    fn disarm(mut self) -> c_int {
-> +        self.pdev =3D None;
-> +        self.num_vfs
 
-Instead of the Option dance, you can use ManuallyDrop to prevent the destru=
-ctor
-from running.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> +    }
-> +}
-> +
-> +impl Drop for SriovEnabled<'_> {
-> +    fn drop(&mut self) {
-> +        if let Some(pdev) =3D self.pdev.take() {
-> +            pdev.disable_sriov();
-> +        }
-> +    }
-> +}
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
