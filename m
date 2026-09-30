@@ -1,105 +1,230 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D628A3DD50C;
-	Wed, 30 Sep 2026 11:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F664C10E8;
+	Wed, 30 Sep 2026 11:41:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768469; cv=none; b=deTFO1KFj3AWZEYntM51zHeXEfd/nVG25z8mOkVmEIBzPeQ4eri9dKFoo/8X8HKe3uBAfgHOoxWzyEpxuMkMR7iIfOZwTJvwD9Gzk+wR5e7xiHJdQMZWccMgVKvxe3UWcah3wlS9nlGtAilzeUyoq7naDc/iOXH/qIAwYNyma0w=
+	t=1790768478; cv=none; b=r4OYCWRVZUnAqgrNeYtqPVc1WApWj0BvO+fxrAVyupuRyZWsSuHRb3wtXFOqpmDNmnEPg1nBoxvvaLA9q3td3RFyVPBvTBLZkDCrF5AAIh0dpB28DKzjj9H9l8ksZ/EjS3Nb2sQMSsMaKKxnKfZVovNAG9doKOm1NlKoEjZ+Txo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768469; c=relaxed/simple;
-	bh=/mILoQ9z+hZzeVCIc73lgz8nWmElnX3oMVwGPPFCqI4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=tjC/+2PQ7kFTaUwpHNjBk3Es/dmGS2noFs/Sdevgc/coEugo5J4k0n9iKN0wMGeE17S0GM+1ko3T8U6pB6ipccxzzhF8Hsfjj6J/L6PYduOL2TCB40DQ/AC55lukaTs+EF4rLrjxa2IITT3pvsXbWVNFNNTRu6U581eT6igyZO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=b9Lx5OBv; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790768478; c=relaxed/simple;
+	bh=Nlz55rTBV2dgmdxjmq9Vpo7FPAe5npKBFpmkENWEaD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HYhq7MhhIr4GjrR1CF/uzhnzSiqq1oYB6pnQZU7CRWt9zkr1Xw3J3bRI5SihywJu7NeK5h0j+EXcCjJLtdNkSr846qotx+6EYBhc+DhWPXFoCgLiDeik4YdhQfWinS1R71VhugxrdD5O9NGBB2pTV4DxobGdl4qjthJ7lvi3dik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkJCUKXq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="b9Lx5OBv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=/mILoQ9z+hZzeVCIc73lgz8nWmElnX3oMVwGPPFCqI4=; b=b
-	9Lx5OBveXW55kbWpjYIoU0k4eDV+4pYwM06HFcv7BKwbBblS80Auv7chaiPE0PJJ
-	9Bsg5okIePDk/2GBx7KLAlBs2G+d48SacLu+A7Kg7sR2QmQrjnHYikSXfq++AE2G
-	0QW5dCTmYmHgOmpBhkoYlFE97h7nXizzNgxXxA9lHY=
-Received: from taozj888$163.com ( [2409:8a20:22c4:8eb0:4c8a:acdb:bd14:bd14]
- ) by ajax-webmail-wmsvr-40-110 (Coremail) ; Wed, 30 Sep 2026 19:40:40 +0800
- (CST)
-Date: Wed, 30 Sep 2026 19:40:40 +0800 (CST)
-From: taozj888  <taozj888@163.com>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: maintainer@kernel.org, linux-kernel@vger.kernel.org,
-	conor.dooley@microchip.com, andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org
-Subject: Re:Re: [PATCH] net: macb: rate limit netdev error info print in the
- data path
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <DLRMT6RJRL7T.3TV4K49YWR7DL@bootlin.com>
-References: <20260920100920.65773-1-taozj888@163.com>
- <DLNFAUX8MFA1.3UMOGNLDKDRJM@bootlin.com>
- <45a98260.3bff.1a0eb4e2f51.Coremail.taozj888@163.com>
- <DLRMT6RJRL7T.3TV4K49YWR7DL@bootlin.com>
-X-NTES-SC: AL_Qu2SAvudt0wv5iKebOkfm04bju07UMu2v/4l2Y9SOp9wjCfp0Doke1lFOkfq0dusByuliwGxfD9J8Md1ZZdWbr40hWlYFNH0cGL83UFKhwK2Gg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkJCUKXq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B9D1F000FF;
+	Wed, 30 Sep 2026 11:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790768474;
+	bh=0uhaapHh1fQl5mGq6fUQF0C1kT9MNPfYwDQo75yZQyo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NkJCUKXq/aO1S6/xTKpuIdo9dBO93tuXErXptUkEc+qiDt09wkTKPbGX0bSLT8wsu
+	 kQTDAFRh53cfcRYpGgL3CsY9zrgSKpmcc+nKt7Eo5+5tJ/VFWfBMbj5h9VCBG1wBDy
+	 1uWSkLkycTrHPx6cuax16vYym4kRSmn/RCk8fSSPO1B2kTnVBcbfB0v2N1oUr1aSOt
+	 bCOPcTddnG+93WZtvpK0fjR7AUvIm2XviZ0ypVMPPy2CRbt0ZFKyN1fLPytuWhmHdD
+	 mcfvwiT+u+3QPb+ylJcPxOYCjgFv+idSPvV5b63Py++Nbe53LRf2JGAQ8vwidcCNad
+	 6zOKlM5q/FKsA==
+Date: Wed, 30 Sep 2026 13:41:12 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Message-ID: <arz1BYJT30VTosYj@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-4-clamor95@gmail.com>
+ <arzMF0wjcF_SVxpE@orome>
+ <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
+ <arzlR8mCg9d_z62L@orome>
+ <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
+ <arzpluDc-Ib7q-K7@orome>
+ <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <ad4079f.94a9.1a0f21de3d5.Coremail.taozj888@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bigvCgD3P0c49bxqKtRRAA--.3366W
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3RhVHWq89TiFIAAA3z
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r2niuoni5te5qsug"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
 
-CgoKCgoKSGkgVGhlbzoKCgpXaXRoIGFsbCB5b3VyIGluZm9ybWF0aW9uIHByb3ZpZGVkLCBJIHNl
-bnQgdGhlIHBhdGNoIGluIFtQQVRDSCBuZXQgdjJdIGFnYWluLCBob3BlIGl0IHdvdWxkIHNhdGlz
-ZnkgdGhlIHJlcXVpcmVtZW50LsKgCklmIG5vdCwgSSB3b3VsZCBhbHNvIGNoYW5nZSBpdCBhcyBy
-ZXF1aXJlZC4KCgpUaGFuayB5b3UsCgoKWmlqaW4gVGFvCgoKCkF0IDIwMjYtMDktMjkgMTU6NDU6
-NDcsICJUaMOpbyBMZWJydW4iIDx0aGVvLmxlYnJ1bkBib290bGluLmNvbT4gd3JvdGU6Cj5IZWxs
-byBaaWppbiwKPgo+UGxlYXNlIHVzZSBpbnRlcmxlYXZlZCBwb3N0aW5nIGZvciByZXBsaWVzLCBu
-b3QgdG9wIHBvc3RpbmcuCj4KPmh0dHBzOi8vZG9jcy5rZXJuZWwub3JnL3Byb2Nlc3Mvc3VibWl0
-dGluZy1wYXRjaGVzLmh0bWwjdXNlLXRyaW1tZWQtaW50ZXJsZWF2ZWQtcmVwbGllcy1pbi1lbWFp
-bC1kaXNjdXNzaW9ucwo+Cj5PbiBUdWUgU2VwIDI5LCAyMDI2IGF0IDU6NTYgQU0gQ0VTVCwgWmlq
-aW4gd3JvdGU6Cj4+IFRoYW5rIHlvdSB2ZXJ5IG11Y2ggZm9yIHlvdXIga2luZGx5IHJlcGx5Lgo+
-Pgo+PiBGb3IgYWxsIHlvdXIgY29uY2VybnMgaW4gdGhpcyBtYWlsIHRocmVhZCBhbmQgWzBdWzFd
-LCBJIHRyeSB0byBnaXZlCj4+IG15IGFuc3dlcnMgaGVyZSBhbmQgaG9wZSBpdCBkb2VzIG5vdCBt
-aXNzIGFueXRoaW5nOgo+Pgo+PiAxLiBZZXMsIEkgbWlzc2VkIHRoZSBwcmVmaXggW1BBVENIIG5l
-dF0sIEkgd2lsbCBhZGQgaXQgaW4gbXkgbmV4dAo+PiBjb21taXQ7IEkgd291bGQgbGlrZSB0byBz
-ZW5kIGl0IGFnYWluIGFzIHRoZSAxc3QgdmVyc2lvbgo+PiBzaW5jZSBJIG1pc3NlZCB0aGlzIG5l
-ZWRlZCBwYXJ0IFtQQVRDSCBuZXRdOwo+Cj5JZiBwYXRjaCBzdGF5cyB0aGUgc2FtZSBpdCBpcyBP
-SywgaWYgaXQgY2hhbmdlcyAoZm9yIGV4YW1wbGUgYmVjYXVzZSB5b3UKPmFkZCB0cmFpbGVycykg
-dGhlbiB5b3UgbXVzdCBpdGVyYXRlIG9udG8gdjIuCj4KPj4gMi4gRm9yIHRoZSBUby9DYyBsaXN0
-LCBJIHdpbGwgdXNlIGBnaXQgc2VuZC1lbWFpbCAtLWNjLWNtZD1zY3JpcHRzL2dldF9tYWludGFp
-bmVyLnBsYCBhcyB5b3UgaW5kaWNhdGVkOwo+Pgo+PiAzLsKgVGhpcyB3aG9sZSBwYXRjaCBpcyAg
-Tk9UIExMTSBnZW5lcmF0ZWQsIGl0J3MgcmVhbGx5IGEgYnVnIGhpdCBpbiBwcmFjdGljZSwgdGhl
-ICJQSFlUMDAzNjowMCIgCj4+IGRldmljZSBuYW1lIGlzIHRoZSByZWFsIG5hbWUgdGhhdCBzaG93
-ZWQgaW4gb3VyIGNvbnNvbGUgb3V0cHV0LCBJIGNhbid0IGp1c3QgaW1hZ2luZSBvciBtYWRlIHRo
-aXMgbmFtZSBhbmQgaXQncyByZWFsbHkgb2Ygb3V0IG9mIG15IGltYWdpbmF0aW9uLgo+PiAgSSB0
-aGluayBpdCBtYXkgYmUgcmVsYXRlZCB0byBhIHZlbmRvciB3aXRoIHNvbWUgb2YgdGhlIFBDSSBh
-ZGRyIGJ1dCBJIHRoaW5rIGl0IG1heSBub3QgYmUgcG9saXRlIHRvIHNheSBpdCBkaXJlY3RseS4g
-Cj4+IEFjdHVhbGx5IGhhbGx1Y2luYXRpbmcgYSBrZXJuZWwgbG9nIGV2ZW4gYSBrZXJuZWwgcGF0
-Y2ggaXMgb3V0IG9mIG15IGtub3dsZWRnZSwgaWYgeW91IGtub3cgdG8gaG93IGFuZCAKPj4gd2lz
-aCB0byB0ZWxsIG1lLCBJIHRoaW5rIGl0IHNob3VsZCBiZSByZWFsbHkgaW50ZXJlc3RpbmchCj4K
-Pk5vIEkgZG9uJ3QgZW5jb3VyYWdlIHlvdSB0byBoYWxsdWNpbmF0ZSEgSXQncyB3aGF0IExMTXMg
-ZG8gc29tZXRpbWVzCj53aGVuIHlvdSBhc2sgb25lIHRvIGdlbmVyYXRlIGEgY29tbWl0IG1lc3Nh
-Z2UgZm9yIGEgYnVnIGZpeC4gVGhleSBoYXZlCj5zZWVuIHRvbnMgb2YgY29tbWl0cyB3aXRoIGxv
-Z3Mgc28gdGhleSByZXByb2R1Y2UuCj4KPlsuLi5dCj4KPj4gNS4gRm9yIHRoZSBzZXZlcml0eSB0
-YWcgYW5kIHNob3VsZCB0aGlzIGNhcnJ5IGEgRml4ZXMgdGFnIGFuZCBuYW1lIHRoZQo+PiBpbnRl
-bmRlZCB0cmVlLCAgcGxlYXNlIGdpdmUgb3V0IGEgY2xlYXIgaW5kaWNhdGlvbiBmcm9tIHlvdXIK
-Pj4gZXhwZXJpZW5jZXMgZm9yIHdoYXQgSSBkZXNjcmliZWQgYWJvdmUuIEkgcmVhbGx5IGhhdmUg
-bm90IHRvbyBtdWNoCj4+IGtub3dsZWRnZSBhYm91dCB0aGF0Lgo+Cj5ZZXMuIFlvdSBwdXQgdGhv
-c2UgdHdvIHRyYWlsZXJzOgo+Cj4gICBGaXhlczogODllNTc4NWZjOGE2ICgiW1BBVENIXSBBdG1l
-bCBNQUNCIGV0aGVybmV0IGRyaXZlciIpCj4gICBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+
-Cj5TZWUgZG9jdW1lbnRhdGlvbiBsaW5rIGJlbG93IChvciBrZXJuZWwgZ2l0IGxvZyBmb3IgbWFu
-eSBleGFtcGxlcykuCj4KPkluIHlvdXIgY2FzZSB5b3Ugd2FudCB0aGUgb2xkZXN0IGNvbW1pdCB0
-aGF0IGludHJvZHVjZWQgb25lIG9mIHRob3NlCj5sb2dzLiBUaGUgbWFjYl9zdGFydF94bWl0KCkg
-b25lIGZvciBleGFtcGxlIGdvdCBpbnRyb2R1Y2VkIHdpdGggdGhlCj5maXJzdCBkcml2ZXIgY29t
-bWl0LCBzbyB0aGF0J3Mgd2hhdCB5b3UgdGFyZ2V0Lgo+Cj5odHRwczovL2RvY3Mua2VybmVsLm9y
-Zy9wcm9jZXNzL3N1Ym1pdHRpbmctcGF0Y2hlcy5odG1sI2Rlc2NyaWJlLXlvdXItY2hhbmdlcwo+
-Cj5UaGFua3MsCj4KPi0tCj5UaMOpbyBMZWJydW4sIEJvb3RsaW4KPkVtYmVkZGVkIExpbnV4IGFu
-ZCBLZXJuZWwgZW5naW5lZXJpbmcKPmh0dHBzOi8vYm9vdGxpbi5jb20K
+
+--r2niuoni5te5qsug
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+MIME-Version: 1.0
+
+On Wed, Sep 30, 2026 at 02:10:15PM +0300, Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 Th=
+ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
+> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:3=
+4 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > >
+> > > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
+> > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE =
+11:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > > >
+> > > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrot=
+e:
+> > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provide=
+d by
+> > > > > > > Tegra20/30 SoCs display controller.
+> > > > > > >
+> > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > ---
+> > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++=
+++++++++++
+> > > > > > >  1 file changed, 138 insertions(+)
+> > > > > > >  create mode 100644 Documentation/devicetree/bindings/display=
+/tegra/nvidia,tegra-8bit-cpu.yaml
+> > > > > > >
+> > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/=
+nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegr=
+a/nvidia,tegra-8bit-cpu.yaml
+> > > > > > > new file mode 100644
+> > > > > > > index 0000000000000..f0dab608b2936
+> > > > > > > --- /dev/null
+> > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,=
+tegra-8bit-cpu.yaml
+> > > > > > > @@ -0,0 +1,138 @@
+> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > +%YAML 1.2
+> > > > > > > +---
+> > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegr=
+a-8bit-cpu.yaml#
+> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > > +
+> > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > > > > > +
+> > > > > > > +maintainers:
+> > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > +
+> > > > > > > +description: The display controller in Tegra20/30 SoCs featu=
+res an
+> > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Ty=
+pe B
+> > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display c=
+ontroller
+> > > > > > > +  provides two such interfaces, which can be used to send MI=
+PI DCS
+> > > > > > > +  commands to initialize and control the panel while image d=
+ata is
+> > > > > > > +  transmitted via 16/18/24-line RGB.
+> > > > > > > +
+> > > > > > > +properties:
+> > > > > > > +  compatible:
+> > > > > > > +    const: nvidia,tegra-8bit-cpu
+> > > > > >
+> > > > > > The description says that this is a feature of the display cont=
+roller,
+> > > > > > so adding a new binding and compatible string for this is not t=
+he right
+> > > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" alrea=
+dy, just
+> > > > > > need to extend that with whatever is new.
+> > > > > >
+> > > > >
+> > > > > How would you model it? I have tried to model 8bit-cpu as a bridg=
+e, similar
+> > > > > to how DSI bridges are modeled. This reflects interface used to l=
+ink RGB and
+> > > > > panel, without inflating existing DC binding. If you have any ide=
+as in modelling
+> > > > > this, I am open to any suggestions.
+> > > >
+> > > > My suggestion is to integrate this into the existing "rgb" node, or=
+, if
+> > >
+> > > Not an option since it is not clean RGB and there will be no way to
+> > > distinguish RGB from 8bit-CPU.
+> > >
+> > > > that becomes too convoluted, a separate "lcd" node (or "dbi", whate=
+ver).
+> > >
+> > > This is fine by me but nesting nodes without compatible feels weird. =
+Oh well.
+> > >
+> > > dc {
+> > >   compatible =3D "...";
+> > >   rgb {
+> > >     dbi {
+> > >       ...
+> > >     };
+> > >   };
+> > > };
+> >
+> > That's one option, but there's also many other ways you could
+> > differentiate between RGB and DBI. Could be a simple "nvidia,interface"
+> > property in the "rgb" node (that defaults to RGB if absent). It could
+> > also be a node that is a sibling to "rgb" (rather than a child). Or the
+> > child could work, too.
+> >
+> > Ultimately we're still describing aspects of the display controller here
+> > since this is all registers within the display controller's MMIO region.
+> > Nested nodes are purely for adding some logical structure for the
+> > description that makes sense.
+> >
+>=20
+> From my understanding data is sent basically as RGB, at least RGB
+> configuration is still used in downstream. Panel commands are sent via
+> DBI
+>=20
+> dc {
+>    compatible =3D "...";
+>=20
+>    rgb {
+>     port...
+>    };
+>=20
+>    dbi {
+>       ...
+>    };
+> };
+>=20
+> This would work nicely if DBI is modeled using bridge framework. I
+> would strongly insist on keeping it as a stand-alone configuration
+> separated from RGB and DC.
+
+Okay, maybe give that a try then. But to clarify: this should all be
+part of the Tegra DC driver and not need an extra compatible string or
+separate driver. The DC itself should be able to function as a bridge.
+
+Thierry
+
+--r2niuoni5te5qsug
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq89VcACgkQ3SOs138+
+s6EHqQ//aYNTxuvXxI0k+05f8CFxJmke7aO8O+/XJmRJ/lLP9FC9z4B1y+S6Vu8v
+L3FZzMSQlcyWBJtj9s1kQ+qCcgGQr2XSphLpjKTruz6udXibHzijktJIihwE2Rz3
+XhQ/ryWzGFNkTnolHGJJdbowPZWXv+yF3RlghicR2L6zQhkGlTwKKLPFPscSUhLa
+s6cvlP3xSV58K5tVCzaBk8i/ItaK91Z7oPpysDP0xRbSNFsGtNwT71kL+b/p6JPi
+yqIKFsArZyCGzcm/r19mOyx00MDJpBttPjdM3w5ylL6pnaHYZ4dTkl6f/jUrKEOi
+5poQ3w6fmjGTA4IkvtuVSY0UzMfQBrKeLOYZqTuIYEfanUqAVblo78Q0QLGZcn7e
+DUTVjuzaKmYwfdgL0VfDMrNEHRX4Elq+1Wu9tphO1AsRLz0qcXjfcb8PpOWLgAa4
+17GBOuFWkki3N0pGkP0s/4cuyDKso2E92wLqPL1Pzgq0KJcsYDQhzcDEYsRg6uBo
+XzGpTZ/pOjtt6i9Dsb0NAOujaZdMeYQqyYqcwHZ+etOS0zqyHVplXvT0TBqzCw0Z
+ArytEAf+kXPX4yUgDdEnqkxDukSjjiudNMy1Xzzqn3L0bZLfwe1GyuBLkgugRLUG
+e+lk3rwrxcxs7dp9FKHQsZszLU9oX0nsyYaU0YJY5Aq0QPjrt8Y=
+=hL8m
+-----END PGP SIGNATURE-----
+
+--r2niuoni5te5qsug--
