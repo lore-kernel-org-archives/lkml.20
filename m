@@ -1,188 +1,210 @@
-Received: from mail-dy2-f20.google.com (mail-dy2-f20.google.com [74.125.229.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5D134DCE3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C648134E75A;
+	Wed, 30 Sep 2026 01:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730738; cv=none; b=tuXq2Sh0VmIG7TtM2AXBQ2BAIlFGdDT07Fz4MvvMLWgkDvfWGD0Rx7D8RVTghaPldtQHcBIFWhUQSdP0AB4u5oudtRW8c3m/erBep/n8zHBgZhl2zK51o/lTl2MJNVtRynLKcZTwE4dlDA/cxECFndj38fLW6dKWvAbot+bjZUk=
+	t=1790730763; cv=none; b=JCiWZlm5QJlPHLtdgPKf3uXZQWAy5nMbY8sE/dMJvgckbtmYrY8EXmt/jDpiroS710NXgd3JkIOqbpCgn6L4auJBYBD7H8rztCiezT57cLFZo13hz8pHNbmD/9K9fLk8KgXpJ1hPRCavxwIqrwpWYu++pOL5i/tEre0BzRu8YEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730738; c=relaxed/simple;
-	bh=r6QEHOpOYHWj7FufqyeEcfQM5mfa/urPcEzDnrQ04Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F3BsE6cv0EJAs9oha/yEhXp8ifLKCi6eU28C7UB2VVyyLoxtk1NwQT/D0YF5D1PQprku90dGvQMMgQr3Js0zqr9Ok+K8XvgsOYcc5X2lm81ObPIpn/6i/vmmTLB1dGv+LsBp38mwbTwm//1OOI++aAbkqT0r4wZxAfHBLsuvQMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=N+EUxWqL; arc=none smtp.client-ip=74.125.229.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790730763; c=relaxed/simple;
+	bh=5nRbjZaUgx42IQXNVDkipkuZ7NaN6D0ouhAyZoZ7r2A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ewzs/jYxXahtoJlwe7JykYbU1IneGlu7ZO4MKHDiwrdo2t8i54hb1wZTrbvBGJCC+KrBX4wh3sESB3MchmQXHhINDHcnU6Dvw8C5lEtsA4CmgCVXrHXGehm7sVgElgx9+t2dMH/AT/YsWc/G3q84dVBIRJ4TSioZWAizhIEriz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OfhWrY0A; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="N+EUxWqL"
-Received: by mail-dy2-f20.google.com with SMTP id 5a478bee46e88-344447f9c3dso2348326eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:12:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730735; x=1791335535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o/GYHJr9V/8fnSGwEk+BZPbvKDBaM+5fMSFs2YxkmV0=;
-        b=N+EUxWqLuu9vcw01cgL5F8i1PXMyFJgmJAVoow9mmlYX9u65gpz8Hu1r9AwpL1Ran2
-         cNIc/eWwd8z4U3MBDxdgQECPeSfXC8zq9EfKGWxNUWPJ9sv8ygIoQ8ZKH9adbRsTASPZ
-         +XbTa4xpDWUfgKPP+KZK+10DVBhOjdM8aQu3BKUmuQCZ/lLmVFIn8p5oeRVWKrAyVedp
-         QJtYVdq2fsInoAlF9E5kDLftJIRaUF5Z6TBVh4ROtxsboYmeNA+ozBYcgM2eOWqbrmlQ
-         ZXS8N9Pp2usEGUS1JDEm+LA84VvTfUVK8COpegCXY2+JE1+WxI9up97aIU74Pn0ZbIno
-         5u9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730735; x=1791335535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o/GYHJr9V/8fnSGwEk+BZPbvKDBaM+5fMSFs2YxkmV0=;
-        b=Y8qrnog6YiLhAD4eienWJXRZJOhxCC1iTkBHuNH+dHPNePmv8sBCxJz9lwNejko2fb
-         JwC6FOQQKyTEULN4c4NEfYbJO3x9MOgia8+3K+7vcLQ8rqRr3HaaS+KEKWZ427WEVMh3
-         /XT4llfHNQhS4guBNbkFSrHUx9/MtDTvlCnXXqZdDfzWm5L1bbHIWqG9DVFS3taM4DzK
-         jdS073mglUcmmhavhr39oWl/iVRayPDw6oMFd47mhCU17kMcjY4EMuyH85UMEnqx/yGl
-         LPSXq0l213KbZXyikrhMP8VcQamiusXc7rXzdGj/KeiIx3FZPd+ldDZG0maUhl0/M1b9
-         oifA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8htW4XvvyEFycUzzDFSuO2ni50t2IeEmWTsxg6ZRMfZlx5l04PuEsFEk6leh9yzq3SvNVWWaei1eWC00=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDDRysmIscgiwqOTGmRjSH2hCGbTzU8wCwyTLTQnzYbc0LSlk4
-	6b8K0GYT7fN3FINolD2VsFo62k0+VsK6mNDH3MMVjekgkV/rVSYY/UUwGCcMsWP+pV0=
-X-Gm-Gg: AYBFou1j2ce/zVajZc3AwQTvJHeV2NK+HykC0IbQaCpTLXe1l7vV7Zb1wT+hSinlmBl
-	FTFy2UPW5mbHSBooCnAOqdXldOcdUYTFgCEYMBazBw9JnudYi1l1cR4mCvgaDH7NpO/9zUjZC9e
-	3cANjyBC8JpSz92SF2oVENfjVTdcVCaiJEY+7wzPw3gNSPSXuYoodSjq67irhd+Zo9/nY1k8efT
-	gFqi/RpaXwtKGwenKdA0r4FMd2bX7N+yLVDGMuYdrit0UFGLEYrxwl5GAIt05etGLeoUzICTgqg
-	8Bkb7VzN86wE2UJQ6QiFUCQBnYGFWxZ9ezV9NpP/URQV2n9J/nPXsY1vgKJdPxfEwoeOcl9wixp
-	tNeBywgycw+YISVovL9TWCm6WnbwDpc6I9WCkGtG8HaLRl2nA7FoXmEgQ8O8ExgT09vSGCwiJj5
-	rhqchDN0G0TuIPaS1n2TV5+xmHDdo8CFQlu6WK56CPmBlyNica7ERhI1oWGwh9jt8d6gM/v35On
-	V2byWi0VuqrgYnxeLFfezprSoqk66PewmGjXOO3/Z4+DLOGtC/iTW93LAm31ztH8rJvuuI=
-X-Received: by 2002:a05:7301:23af:b0:342:a328:fe1c with SMTP id 5a478bee46e88-34c672e2943mr1274302eec.27.1790730735387;
-        Tue, 29 Sep 2026 18:12:15 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c388f4e19sm2290684eec.22.2026.09.29.18.12.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:12:14 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Christoph Schlameuss <schlameuss@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	avi@redhat.com,
-	cotte@de.ibm.com,
-	david@redhat.com,
-	mtosatti@redhat.com
-Subject: [PATCH 6.6.y] kvm: s390: Reject memory region operations for ucontrol VMs
-Date: Tue, 29 Sep 2026 21:12:08 -0400
-Message-ID: <20260930011211.94657-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OfhWrY0A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790730761; x=1822266761;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=5nRbjZaUgx42IQXNVDkipkuZ7NaN6D0ouhAyZoZ7r2A=;
+  b=OfhWrY0AUNDyDLt4y8tkNwHJwBYTFbEmOniRGQkx8cslO9DYS0sRUlg+
+   odoAPBUwQXqS8sgolQR5GoVULdTKdqZUN/8CsNYIsrMpB6s4fVlk3WDWk
+   2GUIm63pHxGY0aBRCKlrpkKziKaY9TndCOw9Bv8IzQhjvCWAyBI+Og7TB
+   0Px37yltAWO/11id5kffnHViJarfXWIFnfvuQM2WGZBYiKKgI1Bm9hI8l
+   RAmIufsAyVjXGpnQANE0lqeVaBHIIshq7uvWrN8EjuXZM9181pRnd57Vt
+   dYF4qfQKc8YpPkDdZoc/cFuw5WqtQQGqayZm3BvnClp7mpRUfkUXAXPn1
+   w==;
+X-CSE-ConnectionGUID: 7M55dzwHS5+JRpyQdM4ECA==
+X-CSE-MsgGUID: F0Wzve2FRWCIgH57PBq9wA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="116989758"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="116989758"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 18:12:40 -0700
+X-CSE-ConnectionGUID: 5wHsfxrpSHOqd+DQtEJs0g==
+X-CSE-MsgGUID: GhjST1o1SzWmPS+AdjlZNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="272010266"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 18:12:36 -0700
+Message-ID: <afe2daf9-8bb1-4c99-be8e-31c828b4b2d7@linux.intel.com>
+Date: Wed, 30 Sep 2026 09:12:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/15] perf/x86/intel: Reject SAMPLE_READ for
+ no-counter-snapshot ACR events
+To: "Falcon, Thomas" <thomas.falcon@intel.com>,
+ "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+ "ak@linux.intel.com" <ak@linux.intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "acme@kernel.org" <acme@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "Hunter, Adrian" <adrian.hunter@intel.com>,
+ "namhyung@kernel.org" <namhyung@kernel.org>, "Rogers, Ian"
+ <irogers@google.com>, "Eranian, Stephane" <eranian@google.com>
+Cc: "Chen, Zide" <zide.chen@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+ "Mi, Dapeng1" <dapeng1.mi@intel.com>, "Hao, Xudong" <xudong.hao@intel.com>
+References: <20260928074309.898043-1-dapeng1.mi@linux.intel.com>
+ <20260928074309.898043-8-dapeng1.mi@linux.intel.com>
+ <98d9d6347bd0704e8fa773b458e12c7a850c49cb.camel@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <98d9d6347bd0704e8fa773b458e12c7a850c49cb.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Schlameuss <schlameuss@linux.ibm.com>
 
-[ Upstream commit 7816e58967d0e6cadce05c8540b47ed027dc2499 ]
+On 9/30/2026 3:02 AM, Falcon, Thomas wrote:
+> On Mon, 2026-09-28 at 15:43 +0800, Dapeng Mi wrote:
+>> ACR events cannot always provide a reliable value through SAMPLE_READ.
+>> For non-PEBS ACR events, another ACR overflow can auto-reload the counter
+>> before software reads it, so software cannot sample the exact count before
+>> the hardware reload.
+>>
+>> PEBS-backed ACR events are safe only when counter snapshot support is
+>> available, because the value is captured in the PEBS record before the
+>> counter is reloaded.
+>>
+>> Reject SAMPLE_READ for ACR event groups unless the event has PEBS
+>> counter snapshot support, so perf does not report invalid counts.
+>>
+>> Reported-by: Andi Kleen <ak@linux.intel.com>
+>> Fixes: ec980e4facef ("perf/x86/intel: Support auto counter reload")
+>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>> ---
+>>  arch/x86/events/intel/core.c | 59 ++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 59 insertions(+)
+>>
+>> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+>> index 377ff3912420..3fc3795534bf 100644
+>> --- a/arch/x86/events/intel/core.c
+>> +++ b/arch/x86/events/intel/core.c
+>> @@ -4974,6 +4974,53 @@ static inline int intel_set_branch_counter_constr(struct perf_event *event,
+>>  	return 0;
+>>  }
+>>  
+>> +static inline bool is_acr_sample_read_allowed(struct perf_event *event,
+>> +					      bool group_has_sample_read)
+>> +{
+>> +	/*
+>> +	 * ACR events cannot report an accurate count for non-PEBS events
+>> +	 * or for PEBS events without counter snapshots: another ACR event
+>> +	 * may overflow andauto-reload the counter before software can read
+> Just wanted to point out the typo here. Other than that, this patch and the rest of the series look good to me...
 
-This change rejects the KVM_SET_USER_MEMORY_REGION and
-KVM_SET_USER_MEMORY_REGION2 ioctls when called on a ucontrol VM.
-This is necessary since ucontrol VMs have kvm->arch.gmap set to 0 and
-would thus result in a null pointer dereference further in.
-Memory management needs to be performed in userspace and using the
-ioctls KVM_S390_UCAS_MAP and KVM_S390_UCAS_UNMAP.
+Good catch. Thanks.
 
-Also improve s390 specific documentation for KVM_SET_USER_MEMORY_REGION
-and KVM_SET_USER_MEMORY_REGION2.
+I'd like to wait one or two weeks to see if Peter and other guys have other
+comments, and fix them all in version 2. 
 
-[ Backport to 6.6.y: omitted KVM_SET_USER_MEMORY_REGION2 documentation
-  because that ioctl is absent from 6.6.y. ]
 
-Signed-off-by: Christoph Schlameuss <schlameuss@linux.ibm.com>
-Fixes: 27e0393f15fc ("KVM: s390: ucontrol: per vcpu address spaces")
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Link: https://lore.kernel.org/r/20240624095902.29375-1-schlameuss@linux.ibm.com
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
-[frankja@linux.ibm.com: commit message spelling fix, subject prefix fix]
-Message-ID: <20240624095902.29375-1-schlameuss@linux.ibm.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and kvm s390 maintainers,
-
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-43819. It rejects memory-region ioctls before a
-ucontrol VM can dereference its NULL gmap.
-
-I (sadly) do not have an s390 to run the fix, but it built and the adaptation
-makes sense.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-43819
-Upstream: 7816e58967d0e6cadce05c8540b47ed027dc2499
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- Documentation/virt/kvm/api.rst | 6 ++++++
- arch/s390/kvm/kvm-s390.c       | 3 +++
- 2 files changed, 9 insertions(+)
-
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 21a7578142a18b..0f7177c7653bd3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -1363,6 +1363,12 @@ Instead, an abort (data abort if the cause of the page-table update
- was a load or a store, instruction abort if it was an instruction
- fetch) is injected in the guest.
- 
-+S390:
-+^^^^^
-+
-+Returns -EINVAL if the VM has the KVM_VM_S390_UCONTROL flag set.
-+Returns -EINVAL if called on a protected VM.
-+
- 4.36 KVM_SET_TSS_ADDR
- ---------------------
- 
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index cf075a89342263..97b436ae0012c5 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -5769,6 +5769,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
- {
- 	gpa_t size;
- 
-+	if (kvm_is_ucontrol(kvm))
-+		return -EINVAL;
-+
- 	/* When we are protected, we should not change the memory slots */
- 	if (kvm_s390_pv_get_handle(kvm))
- 		return -EINVAL;
--- 
-2.39.5
-
+>
+> Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+>
+>> +	 * the precise value.
+>> +	 *
+>> +	 * We keep the check simple and do not validate the acr_mask precisely
+>> +	 * to determine whether the SAMPLE_READ event is actually auto-reloaded
+>> +	 * by another ACR event. If a SAMPLE_READ event is in the group, the
+>> +	 * ACR event must be a PEBS event with counter snapshots; otherwise it
+>> +	 * is rejected.
+>> +	 */
+>> +	if (group_has_sample_read && is_sampling_event(event) &&
+>> +	    (!event->attr.precise_ip || !is_pebs_counter_event_group(event)))
+>> +		return false;
+>> +
+>> +	return true;
+>> +}
+>> +
+>> +static bool intel_pmu_allow_acr_sample_read(struct perf_event *event,
+>> +					    bool group_has_sample_read)
+>> +{
+>> +	struct perf_event *leader = event->group_leader;
+>> +	struct perf_event *sibling;
+>> +
+>> +	if (!is_acr_sample_read_allowed(leader, group_has_sample_read))
+>> +		return false;
+>> +
+>> +	if (leader->nr_siblings) {
+>> +		for_each_sibling_event(sibling, leader) {
+>> +			if (!is_acr_sample_read_allowed(sibling,
+>> +						group_has_sample_read))
+>> +				return false;
+>> +		}
+>> +	}
+>> +
+>> +	/* event isn't installed as a sibling yet. */
+>> +	if ((event != leader) &&
+>> +	    !is_acr_sample_read_allowed(event, group_has_sample_read))
+>> +		return false;
+>> +
+>> +	return true;
+>> +}
+>> +
+>>  static int intel_pmu_hw_config(struct perf_event *event)
+>>  {
+>>  	int ret = x86_pmu_hw_config(event);
+>> @@ -5117,6 +5164,7 @@ static int intel_pmu_hw_config(struct perf_event *event)
+>>  		struct perf_event *sibling, *leader = event->group_leader;
+>>  		struct pmu *pmu = event->pmu;
+>>  		bool has_sw_event = false;
+>> +		bool has_sample_read = false;
+>>  		int num = 0, idx = 0;
+>>  		u64 cause_mask = 0;
+>>  
+>> @@ -5162,8 +5210,14 @@ static int intel_pmu_hw_config(struct perf_event *event)
+>>  		if (leader->attr.config2)
+>>  			intel_pmu_set_acr_cntr_constr(leader, &cause_mask, &num);
+>>  
+>> +		if ((leader->attr.sample_type & PERF_SAMPLE_READ) ||
+>> +		    (event->attr.sample_type & PERF_SAMPLE_READ))
+>> +			has_sample_read = true;
+>> +
+>>  		if (leader->nr_siblings) {
+>>  			for_each_sibling_event(sibling, leader) {
+>> +				if (sibling->attr.sample_type & PERF_SAMPLE_READ)
+>> +					has_sample_read = true;
+>>  				if (!is_x86_event(sibling)) {
+>>  					has_sw_event = true;
+>>  					continue;
+>> @@ -5175,6 +5229,7 @@ static int intel_pmu_hw_config(struct perf_event *event)
+>>  				intel_pmu_set_acr_cntr_constr(sibling, &cause_mask, &num);
+>>  			}
+>>  		}
+>> +
+>>  		if (leader != event && event->attr.config2) {
+>>  			if (has_sw_event)
+>>  				return -EINVAL;
+>> @@ -5184,6 +5239,10 @@ static int intel_pmu_hw_config(struct perf_event *event)
+>>  		if (hweight64(cause_mask) > hweight64(hybrid(pmu, acr_cause_mask64)) ||
+>>  		    num > hweight64(hybrid(event->pmu, acr_cntr_mask64)))
+>>  			return -EINVAL;
+>> +
+>> +		if (!intel_pmu_allow_acr_sample_read(event, has_sample_read))
+>> +			return -EINVAL;
+>> +
+>>  		/*
+>>  		 * In the second round, apply the counter-constraints for
+>>  		 * the events which can cause other events reload.
