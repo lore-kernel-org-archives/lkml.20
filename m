@@ -1,122 +1,208 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AA35172E3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39864F55B6;
+	Wed, 30 Sep 2026 16:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787160; cv=none; b=BoG6lUDUG9ATVspZr6RCC36A7kBARcrYd5/S4cxrBPIb6zkfdBz7HsOGKqqxi1TbO5pjS7+l9Emx5K9B4AtJg72zMrNwxVyvLpxGl3r6q3558nVlyd9g6K+xzwIdAvx3NFpPGNUXyQ/8fnTprc77jfRcYoe8NACqb1G1uQN3Rsw=
+	t=1790787218; cv=none; b=lSAQtXJHOmGuG7wIQERWsxyDCz43Q1aqb/ital5QPmwaA9UaghbHfpX2nFFOcL7Q61SjRF5miqW3UWkslBZSpXkq7uhUFqVdta+jTwCfxmqG4XUE8abyGBrNloalVo1YzsPuXjWeZv67fWbwWqrq1Rxp3GBSdLFP9YIGNtg/+3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787160; c=relaxed/simple;
-	bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
+	s=arc-20240116; t=1790787218; c=relaxed/simple;
+	bh=PXU4L/rhm7gTrQUiqwILtc2ZR5FLni97ze7G8bRA0k4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmnO4homNwTmTqyNTEBvvaA5JaOFsvhZOLLog3dJqVPYjcI68uJtaDuCvPDeFeKerbtmvkF6SsiBhhVyb1dArpaqvDJungZislr5jEr4iSRLyUr8v3gfclde1P7v0ijV3LV6kbbwemtfG0aiZcmsEFoexVECZWqrC/16hB/ufWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OhOI/Tgd; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=rROvmGJtIKN9rP8g+i6GgzDUFwACvnbq2MPPNnziIJ/PBOgOcs6s1E93tiTdpcvcTFSOMVboRhhFGmUZin7kmCjVrf6ohNa4r48YAXfqOXi2jr5jpkJKNS11yOUvBc4z8uwNg0k2oDeBMjIq/B5CXymOpvqVIwBEEk1WfUrUNhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXoyolM8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OhOI/Tgd"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so4176451c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790787158; x=1791391958; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
-        b=OhOI/TgdclwGcCILD+ANQGEgwuLJ1ZFSSM6jZ0eyyZ5+emPldVS5zYq/zAUpJhDnrG
-         yK0jdBXbcETvevcDmN1A4j946Qj4hSNu0rKZCPee7rIB7Dqmcb1xcIedR/Bmt5K58SxD
-         cAI3QtH0pMAXwQJYvhU8d0wGmHg9MdTQg5xMwKqWLaulux13gkarK7uX7e/BVSlO0NJ0
-         L8y2Xh0n9cuFXrampV3zVqU70hZ2hbkcWrmJOsSLWkDdDLly1pNPqk/rE5dK6UpPfnjF
-         PKz+PLpK+1hm3LyrH2xo9sMnWM9KVbPso6lmlhuBWaIZmwq4yxmEqHqznGVGaqHEvJIi
-         KLyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787158; x=1791391958;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=USoosmtGDycX1a/Va/WTZ2HKM0YP5/LMRYBi/jK/1WU=;
-        b=kQFC5Jol8KQ6r++TM/9+GLdEwh+IPPv+ieSIloF6KULz6xvCBVdii23WaIQdQXb+w9
-         i3fY7AsTp8ixpoiQHexs9ZwIsYYXWHoRzrXoUT7gfGBbKOI28IX3TmOy/GT+I8dyAo38
-         30A2052iuGyeIBbYrkpbZc71zL1UbxlXNNw0mv6ZCwZNgJ7DF/RisF1tkI2S+MnSlmCB
-         cf/deAHXvJOI4mIAGo9yQeer/7CTplJJZAAGRyaUfw9vYcSYAhQ5/awf6re+qAX857pE
-         tjfkC6tSLqBikSmmfhRr4/1iTRr1CFN9YkRfF7N0/l/td0do5+muO3pepPP+Ijnej5Cj
-         M+ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ4nsxzx4W1xe0uAyY5iAAXsHuZFqS5NuHXco+DtSZxy/2FavjbN3pCIRGPWoyCrs5SD+3m+00si/fPhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMd1p9gJFHJUFOSWJdIdnOpTj2Y037NjqkUqY/v/HLqT8kCjLQ
-	UEieKJGYwqQLttiYBi3EfZkdF5xsR97YycONlclvOyDKSlLs7VpLYMOUUYJ7rl5kMnk=
-X-Gm-Gg: AYBFou2Odjx+XyS3PoOrbvaFyxEKk8GL+Hj6SnoYN2BcsB16VkDEQTIihdyOrwYYQMR
-	EyNuoRJfP9iS/c/9j+oI3Z6nrKD7tzOwcKoaZnQQ/wNDErYCTsoNng/kGAAHv/xg8FHS+YfnTkX
-	uXjWUZA4dtG8mXmHnsXhkWjq6gEOW4U2dg9sT3myZQB5jLpMjESoPZ0Tx/XRuQsNmuwe0ObJPgv
-	d+Npj+1R5p+1g+wnMl2SLE5EZDP+NlesG+LARtpRG6hO2YVdpU1zvxH2p+2QJ8wlbs99bTUaiTa
-	rSKIPj0VkcIsTtNEnv0U6u2JqeCd+9WBICj0IzpnocV3wDLXz+Ss+6PL357k4GlC7aObroaf1Xj
-	csHzsew1XKl7wO/QrAOIQNxBscAbZzlNDOvgkdOKFBwpdFCr+vrkCjVTb77IA/X+f9CnnXsJtW3
-	XR04YhfayRo9bwtm82EMPtP4TTDUtWOgeC3Tcw03iRZkTqig==
-X-Received: by 2002:a05:7022:4595:b0:143:297c:276c with SMTP id a92af1059eb24-14d330b1ca2mr3017652c88.33.1790787158196;
-        Wed, 30 Sep 2026 09:52:38 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d313b9c38sm4523537c88.1.2026.09.30.09.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 09:52:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xBxXo-0000000C7JB-1eI9;
-	Wed, 30 Sep 2026 13:52:36 -0300
-Date: Wed, 30 Sep 2026 13:52:36 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20260930165236.GS163130@ziepe.ca>
-References: <20260929132305.GJ563127@unreal>
- <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
- <20260929175737.GK563127@unreal>
- <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
- <20260930081832.GA3401365@unreal>
- <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
- <20260930114356.GC3401365@unreal>
- <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
- <20260930143237.GI3401365@unreal>
- <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXoyolM8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AACB1F00898;
+	Wed, 30 Sep 2026 16:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790787217;
+	bh=x8atLu14VZuHnVjacMM8nUMcUY8ko2513gAda/zTqsU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=mXoyolM8I0YXURclZsKkzWgM+19QI52Y/9Y9kzKpynw/CIB2iGYkqFWt2Cvi4VmO8
+	 0svbJ8csZsNn88qvbffyq/xOjYCTpiTWSPA+69jT67Ma1jhIb6JV+ogRYv/BEFOMk3
+	 3HtpFuoN2m0HaJjVccsIoBZHueUZM3Esue1hbRkw4q/y8C2dX4X7B5q+9Dtg8HAKPN
+	 Addo/FBZQqgqAeMmAusXwvdu7LFAHoOe1xlctNNLFtjB4Vlf9VShYwV0SNE8K7zL9V
+	 iDT05A+ANSv6cMq8GmzPNJ50XdQ9NDe3D+vob6FHN/+tt7cn+Mf6V4gFfZ2TPvALPa
+	 CC43Uqmkik3FQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id D1D62CE097C; Wed, 30 Sep 2026 09:53:36 -0700 (PDT)
+Date: Wed, 30 Sep 2026 09:53:36 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
+	Gary Guo <gary@garyguo.net>, rcu@vger.kernel.org,
+	lkmm@lists.linux.dev, Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH hazptr 4/4] hazptr: Introduce "try acquire" fast path,
+ fallback to overflow list
+Message-ID: <739312fc-c60b-4e80-a30d-ffdd8ce2d380@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
+ <20260927155134.4740-5-mathieu.desnoyers@efficios.com>
+ <arlHFVT5EzcX4d1-@MacBook-0RXW5>
+ <5c78c338-1be6-456b-b963-bcfc62748aab@efficios.com>
+ <arlROwtdFs3YyUt_@MacBook-0RXW5>
+ <e26f28e9-e83c-4b39-85f5-928a8097019f@efficios.com>
+ <arlddI54CR7gNqCO@MacBook-0RXW5>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+In-Reply-To: <arlddI54CR7gNqCO@MacBook-0RXW5>
 
-On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellström wrote:
+On Sun, Sep 27, 2026 at 08:16:20PM +0200, Boqun Feng wrote:
+> On Sun, Sep 27, 2026 at 01:36:54PM -0400, Mathieu Desnoyers wrote:
+> > On 2026-09-27 13:24, Boqun Feng wrote:
+> > > On Sun, Sep 27, 2026 at 01:15:39PM -0400, Mathieu Desnoyers wrote:
+> > > [...]
+> > > > > > @@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+> > > > > >    	for_each_possible_cpu(cpu) {
+> > > > > >    		/*
+> > > > > >    		 * Scan CPU slots.
+> > > > > > -		 * Forward progress against recurring wildcards is guaranteed
+> > > > > > -		 * by scanning for one wildcard while new elements use the
+> > > > > > -		 * other wildcard value (1UL vs 2UL).
+> > > > > >    		 * Forward progress against recurring single hazard pointer
+> > > > > >    		 * values is guaranteed by the fact that a hazard pointer
+> > > > > >    		 * is not reclaimed nor reused until the scan for that hazard
+> > > > > >    		 * pointer completes, which prevents a steady flow of readers
+> > > > > >    		 * to acquire that same hazard pointer value.
+> > > > > 
+> > > > > (Not a comment to this patch, but I think it's worth bringing up)
+> > > > > 
+> > > > > I want to point out this is not true for the lockdep use case, because
+> > > > > the we need to protect a hash list deletion there, and we use the
+> > > > > address of the hash bucket there. It's proven fine in practice because
+> > > > > the readers are rare (we only call the reader is_dynamic_key() in
+> > > > > register_lock_class(), that is every time you have a new lock class to
+> > > > > register).
+> > > > > 
+> > > > > Maybe what we want to say here is that "if the users guarantee no steady
+> > > > > flow of the same hazard pointer value, we guarantee forward progress".
+> > > > > Thoughts?
+> > > > 
+> > > > AFAIU, your approach to protect lockdep linked lists is to use the
+> > > > address of the hash bucket to protect the traversal. As this address is
+> > > > invariant (global array item address), that address should be fine
+> > > > to fulfill hazptr requirements, but it has downsides: rather than
+> > > > protecting the specific nodes being retired, the whole hash chain is
+> > > > protected. This means that, as you point out, many readers retiring
+> > > > nodes from a given bucket (except the first node) could end up holding a
+> > > > continuous stream of hazptr for a given hazptr value, preventing
+> > > > progress of hazptr synchronize.
+> > > > 
+> > > > It's also coarser: per-bucket rather than per-node.
+> > > > 
+> > > > Am I missing something here ?
+> > > > 
+> > > 
+> > > No, you got it right, but as I said, we can use it in lockdep since the
+> > > readers are relatively rare, so not an issue here.
 
-> Returning again to Jason's series. Let's say we'd add just the mapping
-> type infrastructure, converted users of pcie_p2pdma only to use that
-> and then we'd have access to per-mapping-type data. This could actually
-> be done as a prereq for this series and merged separately. It's a
-> couple of patches only.
+This sort of tradeoff is made in hazard-pointer use cases in other
+projects, with use of explicit counts of the incoming links to a given
+node being one such trick.  The explicit count counts the links, and
+hazard pointers counts the readers.  This approach usually ends up
+also restricting the order in which nodes can be removed.
 
-I'm happy to say I found someone here to pick it up again, so we
-should see something on it after LPC!
+Just like SRCU partitions the readers coming from the RCU end.  ;-)
 
-Jason
+> > > > One honest question: is this pattern something we expect to
+> > > > see often ? If so, then we may want to introduce a notion of
+> > > 
+> > > I honestly don't know. But in my opinion, we'd better focus on finding
+> > > more typical usage of hazptr (i.e. protecting actual object). So ...
+> > > 
+> > > > hazptr protection "period" flip (similar to some RCU implementations),
+> > > > where we tag the low bit of the slot pointer (0 vs 1), and alternate
+> > > > between the two periods in synchronize. This would prevent a steady-flow
+> > > > of same-value readers from preventing synchronize forward progress.
+> > > > 
+> > > > Thoughts ?
+> > > > 
+> > > 
+> > > ... I will say let's add it only if we have more users of this pattern.
+> > > 
+> > 
+> > I am concerned about this because many uses of RCU in the Linux
+> > kernel protects linked list traversals. Turning a RCU-protected list
+> > traversal into a hazptr protected traversal is not as simple as
+> > acquiring each hazptr hand in hand.
+> 
+> I actually don't think converting RCU usage into hazptr would be a good
+> starting point for finding good hazptr usage. RCU readers are faster,
+> and a lot of existing RCU users do want the reader side to be as fast as
+> possible. So even though this is a problem, but I don't think that's an
+> urgent problem to resolve. Of course, if one can find a faster hazptr
+> reader implemenation, then it may be a different story.
+
+The usual hazard-pointers linked-list traversal includes a retry check
+at each node.  So yes, we should first be looking for hazard-pointer
+use cases where RCU doesn't have such a great advantage.  ;-)
+
+> > Your own use-case for lockdep is indeed a linked list traversal,
+> > and you need to use a work-around: protect the address of the
+> > hash bucket head.
+> 
+> So the lockdep usage is IMO a very special case, but it does show the
+> advantages of hazptr.
+> 
+> > I'm just wondering if this work-around will end up being the
+> > "blessed" way for protecting linked list traversals with hazptr,
+> > or whether we should consider alternatives ?
+> 
+> It depends on how many uses of the linked list traversals really care
+> about the reader side performance. I'm not sure we can easily find
+> another one like lockdep. Hence I think we should only add the
+> optimization when we find more of such a usage. Make sense?
+> 
+> Personally, I also want to see a refcount-like usage for hazptr, that'll
+> be very exciting for me :D
+
+Me too!  The easiest cases will be those having a try-acquire rather
+than an unconditional acquisition.
+
+							Thanx, Paul
+
+> Regards,
+> Boqun
+> 
+> > This ties into finding additional usage for hazptr, because linked
+> > lists are so prevalent in the kernel.
+> > 
+> > Thanks,
+> > 
+> > Mathieu
+> > 
+> > > Regards,
+> > > Boqun
+> > > 
+> > > > Thanks,
+> > > > 
+> > > > Mathieu
+> > > > 
+> > > > > 
+> > > > > The rest looks good to me.
+> > > > > 
+> > > > > Regards,
+> > > > > Boqun
+> > > > > 
+> > > > 
+> > > > 
+> > > > -- 
+> > > > Mathieu Desnoyers
+> > > > EfficiOS Inc.
+> > > > https://www.efficios.com
+> > 
+> > 
+> > -- 
+> > Mathieu Desnoyers
+> > EfficiOS Inc.
+> > https://www.efficios.com
