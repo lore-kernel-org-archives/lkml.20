@@ -1,87 +1,101 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D7A3E2AD7;
-	Wed, 30 Sep 2026 18:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4219638C42F;
+	Wed, 30 Sep 2026 18:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794169; cv=none; b=PRnw0OhxTvRWLrrFN2b7BXdhuvIxixkwjBs+tzv+WJay1Hwo/SC8od9ZrkQgyJ8s8BLxnQ1lv1tOXGjYCJ7JS42t7Q6q0UK2ePj9VLdlJKNyu4y7yYG8dm+bAiEEzJ+rdKYQ279omDyuaQ/PkEmVbFyEPFl+j5DCgCzD82CVXDk=
+	t=1790794188; cv=none; b=YzunLvwWHplzNYQAb/t52GFp8dTGyhkDb8GP3OtJqaP5gjczvOSYLSpaX3HZdG34aKRyK8TWsWB0LYdEFgE1fMPCB0TpEQeG8PmWqAGz7sS/pdmldlqkUFWAk0t2CnRMEszrXMd4cM8QOpuebvHXhLjNpjjP1MiP1VjpjjOVSS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794169; c=relaxed/simple;
-	bh=F1qDWa9oxfTnplVe5T6SBDvgdee4ZBezWVwBqFFZPqI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f3JBCqy9wfgrHJkxrqLu2yBQzENpW0ev03RHDCJG5x6CoprLnByrkPuxFBK+UA6N6ySkEkTnr8DcYjEaXvp6ZD2WIFVi4JiHvx2kgDTxbSVCh566BcfMc6N9o3eqFjcSr+sQX//tmdEsi2h2yUuWfO5sQQ5fYyL6fEhj0QIEl4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=XLcAH7VE; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1790794188; c=relaxed/simple;
+	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nfatfDbMBcvBJFoON51YKxlbUkDCtR6v4JIt/I50UzL9Iz4Ko+UdNgC59roNSTpsWxM2cK8mx9l598foD3tFEEIF81HIOcubr52AktXtKVY73l9tGynTaa3s7agaB8PCIRrMQ6w5Ri5GxNFCK/1SziApz8dQS+5ZDvyxAOz1lQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S5tYtJ7d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4E0+KL1q; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="XLcAH7VE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=/PMQbnd1Umh/ykCtK7pbq7KnudwFRJAJCgrnFGdJK4c=; b=XLcAH7VESRih5oS83IYVQYVRRH
-	GCyd4Pjd0IxFhdFF60HppLUJ68Ji9QZJLfHogmSrBHmFSBXyCdJAQdKTDkr7AW0rWJ7hphvFkCxHw
-	LcDQ4WFXHGlOQ1j14TRyDCrroekkRmI+CS6FEzGRvFgc2Did2pn2voIuSaNnBuv0P2mBRaz2mWmx3
-	66XHpB7YQoifucsdxA1z+VI4CM2QD7/zJyOAQo9f99Dme9BYieaIMqLwuufgu0wzQKntbhjkRSxSw
-	77460R7t80RemoIBEQjQ7xq11ljvYU5ujYqr3pIkLxZS43BV70ql6TZnKTaZzm0av02AOO6DLz9mq
-	KXiJmxHQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	jensen <jensenhuang@friendlyarm.com>,
-	Andrey Korshunov <razor1702@gmail.com>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v7 0/3] arm64: dts: rockchip: Add FriendlyElec NanoPi R28S
-Date: Wed, 30 Sep 2026 20:49:12 +0200
-Message-ID: <179079409731.2398180.11671143856080790218.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
-References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S5tYtJ7d";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4E0+KL1q"
+Message-ID: <dc94b677646eae4b125427aeaf7aeb9828b72e61.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790794184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
+	b=S5tYtJ7dXLXxGM+FKGZrGLla4p8TtbdK/RqdypNf/1DoUkrk26ycbH8qClHYEQUZlTQVLK
+	Gb8cNq0IgsuiwH1C7AjSrXmkdLfRqAukSJDtjXtGiT+EUNpX6JcIYfnLFqEOIEdUqtTm1j
+	IQjuX25Ni5AZjqxMDNyBmaTt3RVbf56QsTXlqckmtbi2X8qnulnoCgcMkeSVJiY+3yoZ8o
+	r1DL3Q8reEVgqomXfKvTwqPdOXGgSfz1CN7qNA4fNm8MUOTPaBMwWX2IgCLxFJUAs0eFki
+	xuffXf/scKd3SmO3yGbCsulqJJPRm1l7pADinnCEAs82m7lsF11yI12NWoLYsA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790794184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
+	b=4E0+KL1qnaG7iDemfwfrFfxrVZrir+6akAGMneYnaew00phRjRyigSr31OTmB+TFQmRMBM
+	ov1PEZ8f0YNjiIDA==
+Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 30 Sep 2026 20:49:43 +0200
+In-Reply-To: <32624256-8462-490d-aa37-36ee2453362b@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
+	 <716486ec-6253-41dd-83ac-b816c845fafe@lunn.ch>
+	 <4fe59faffa0bb322e68c9c4d43f0bc240a519eba.camel@linutronix.de>
+	 <32624256-8462-490d-aa37-36ee2453362b@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+On Wed, 2026-09-30 at 20:29 +0200, Andrew Lunn wrote:
+> > > Once all the setup is finished, what is the state of the switch?
+> > >=20
+> > > What we want is that the user ports are isolated from each other, and
+> > > can only exchange frames with the CPU. That makes the hardware
+> > > basically a port expander, and you do bridging in software. Later
+> > > patches can then add offload of bridging, and whatever else the
+> > > hardware can do, which Linux can also do in software.
+> >=20
+> > That is exactly the state I want to achieve after the setup.
+>=20
+> Great. Just looking at the code, this is not obvious. Most switches
+> tend to default to all ports can talk to all ports, and you need to
+> tell it which port is the CPU port, and block everything else. So i
+> look for such code, and did not see anything here.
 
-On Sat, 19 Sep 2026 18:28:16 +0800, 安容 wrote:
-> The NanoPi R28S is a dual gigabit Ethernet router board based on the
-> Rockchip RK3528 SoC:
-> 
->   https://wiki.friendlyelec.com/wiki/index.php/NanoPi_R28S
-> 
-> It is closely related to the already supported NanoPi Zero2, sharing
-> most of its power tree and peripheral routing. Patch 2 therefore moves
-> the common parts into rk3528-nanopi.dtsi, and patch 3 adds the board on
-> top of it. The split leaves the NanoPi Zero2 hardware description
-> unchanged; I verified this by comparing the node and property sets of
-> the dtb before and after the split, which differ only in node order,
-> phandle numbering and the two renamed LED pin configuration nodes.
-> 
-> [...]
+The CPU port is set during synthesis of the jellyware. The driver must
+therefore assume that it will be configured correctly in the DT.
+There is only one read-only register that I could use to determine
+which port has been configured as the CPU port. Until now, I thought it
+wasn't worth checking.
+I will take a closer look at that, maybe it is worth to reduce any
+assumptions.
 
-Applied, thanks!
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Andrew
 
-[1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
-      commit: bdcf29a379afecc02c3e99c0d1745363ad7a7407
-[2/3] arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
-      commit: fdb087806e808ccc4963e2e5225fe16581ecb421
-[3/3] arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
-      commit: c1e23f3425c49fe22e9598f8eea2fcf693950d50
-
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Thanks,
+Vasilij
