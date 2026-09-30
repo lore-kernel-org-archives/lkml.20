@@ -1,57 +1,57 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AB5576EA3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72490576EDC
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789883; cv=none; b=bbAhEdRIO61SLYIBhtVYe8MpAVP8thB3i5qhOOuSrJ/MijFQHWl+h5JTlFX7F69FJDmmJnBl6M4DN6w8PkREF2qypYS+3cspLfniO04o+/fMvmipGqnVXi+FDRfQfgkX62ZX/njjpJfJOYoibopFWhWtoa6zfXROB7IuZmXRXhg=
+	t=1790789884; cv=none; b=WSMUnohoIVLl8hQSynbyhOfgHG/jbcNJyZLo7r4m2YXXeFSTkLzqfr3TnYr8ELACVfdyecmsbaALdcdREcjjUhHh7b4OPnY74UULcj94vLToDn84O1g5PSNVIk6XaENs0qUZ1xNmkqZFTQfu+mc2pHIhna3Zrd/PzTM0SfZegU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789883; c=relaxed/simple;
-	bh=3UL/O7JJtcbVlG+Lw38GP1NlGChJ2E5u5BgNXEqqqME=;
+	s=arc-20240116; t=1790789884; c=relaxed/simple;
+	bh=g2BA+vl0utX3S9H1OAahngfqYLulsVSCmy7FzWN9LWQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=npDtXLVWyCsD69Qp4qLiOF6HGJsaa3BzwijezufvjvzCyTvawYmFUooWBpVwSzF+oVYFIj+q0iPwh0UVDFnO3AXPbTWtCiVJmPZxP2QO5yGclPri4J4ubJkJiK7ORSDJ4WctTw8MX3wiGaegDla4ZxgT8OHwUFbmuuokj/p7yLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hqcrkKb2; arc=none smtp.client-ip=209.85.214.200
+	 To:Cc:Content-Type; b=N9jj7IlgAp9KOF+WGkdbiuZLBiu0PA4masPKDdnwcRO+DuJzp0zMk6kqfo1XXo8JA3b98poCjdknY17Yp1Irb9jrwNwgrMXcb/Xuy3T7VO/XYTHRL5t4O6MpTh96K5BUwDupZgs3NjVdR4bGpIk1gVvuzeAbp+9aW+OTgwNr6sI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qgsE0k+0; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hqcrkKb2"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6f80c76e6so48111095ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:38:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qgsE0k+0"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e2e0bc619fso9240825ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:38:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790789881; x=1791394681; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790789883; x=1791394683; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=8uTYOk/MhFfjsdPif1vpatkjMmwikL+0Ht9vhlLQI1E=;
-        b=hqcrkKb2GWl3iq/daL7JOrlD4PQyWybyJdNrq62a6F7gcAAKmYDFO3LCVsvXhe+aOy
-         i1kr8GJcaah/pb7qGIbxjoFYu4Fnaegv8Vz3e86HFybvCG45A0g9HUh4SG9UYeBqUx1S
-         C7qgdQeuwghI5NQjRZuSs15N8SvC+aS63zWagfu/jYUR73KogIQhaVphXawxeTyDVH1w
-         epPOfKgOPZpb6Dr20eg9bCTuFv6e04Iefzx21vsZsh+I/v6uUqslzLcIQL0XZVIamDf3
-         1j7149bHGrpYT2m7ojLGvQ8yVLfi1QQ/A3r5JZXMaiZPwCND9t0nDWs6DdnxEWeI1Dib
-         zrvw==
+        bh=+KSR5jfW+XsgFGPTweoWflcNEAQOrH3D7IR4fXAZB1w=;
+        b=qgsE0k+0TNtvn2ryiN3nxaWsnGWFg/3HO7iawAj3Nbt6iICTC7JO+KgWgI0PA+/qb5
+         R9ZPjvCTqorG/suTbcFNGyPVH9I9vBz6yXgD7QVwDCmNBqgIQLQLgaPipIHkG73kvG6o
+         jhxa+M4yFp/hx4MWu2xcX8W4QJGxFailsnFPbNidu9x8WCqK7UqG6AjkHWZFgz5Km+TH
+         qYtX24Jy9N+8Sp/GEW0YaiDiiuZD6RNa22t3gOYVLCmm9LBcJlm8OoT2upEGAALonduY
+         SGyUjuZAN2nMf+qDZ4jQOwoZ/MXC1wFZpYqsfPnlQ6Q6bB7uwpE1pHK+8qPvU0Oll1Nd
+         OyOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790789881; x=1791394681;
+        d=1e100.net; s=20260707; t=1790789883; x=1791394683;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8uTYOk/MhFfjsdPif1vpatkjMmwikL+0Ht9vhlLQI1E=;
-        b=durY5LOvU5XgvPQWXvhtiDkK1Vb5hjzLH6LF8owDQcn4nOEHw+yL+l/Fz11J7v+2Fz
-         /fl//5K3ftRNXEc/qG0UnYS1KhJx5MB4IYJ6MyPCw2Bij8TRY8/mqT1PLlAJcLyUe8Xw
-         7dQ80ZxuEtejXm5EwmQWNgab4uw7BqeeMuSTfEeW7KY+54/0tHEw8vJ2hwvgTiPCTxfR
-         S9vKxUPa8IzBvo4kUyQTezz8LGZpIwXizutFixlE+34+Wvgi+gytsdL3ee29rUDyzzOK
-         Ud0F30h8jP35vbmcE1udubV/WYww1PXipielhn5s+i6SwtglqGporLVuIjI5yvZL1QYf
-         1a8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxe9AVKTa1x1BXKSQZsZrss+w/MPw0fp0liPtbocN4J+s1k8XfSjtQeCRtgIGaK+cUbg3kxrE0f75O0wO0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfkmLp8Rt+3kCo7BVxibCGg+MP7y5LEOl/pwUDhoeW0T77SRjo
-	5HNyT01hLU4mbsoKaypuLz5grAPzQtYq6pNstuesJlYC169zcqKVpVXDjFgyQIQANO0xJgWTPaA
-	ObjuUuA==
-X-Received: from plao21.prod.google.com ([2002:a17:903:3015:b0:2dd:a96a:60ac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f712:b0:2df:a392:276e
- with SMTP id d9443c01a7336-2e2e4a016cbmr19316765ad.49.1790789881110; Wed, 30
- Sep 2026 10:38:01 -0700 (PDT)
+        bh=+KSR5jfW+XsgFGPTweoWflcNEAQOrH3D7IR4fXAZB1w=;
+        b=Ydx0Sd+9ROcoKw5JcyAokpn1NOE4Jj3eV7f3qr/i7JsyW3DGmwdU009iFweeHl9beQ
+         a9qY9JPT86qf3M7hoFVR4OFTf8mjUJU0bACq8IFjQIjCXG+B5OklBZ7k/oT/0YCjKqJn
+         fN+HqLHcecejYBBKtROglmb7ieTNIFGt7gyl+VaDQ3DNQSrAgxSxuCVcw9t4Y1/JXk39
+         mhi0V+rO4uIm1b28D3JVRH8QpKHfyAhS/4syTbLhqSfXLULbEK7eBshRxbo7VFhiULnt
+         MgcUi97377Wdmf5sFaK1j68v5BBqtSmpXc4od0XwQc9kTUrK9xxIl9TidURyQFIo+1Bt
+         Tbig==
+X-Forwarded-Encrypted: i=1; AKwUvBwxEg+Q+8oPD4HVthZnqrdHcfok+Dfj4lMJ9zeyDcXlYIHWC++4Rc1j8CPdP93Us6kX1fe+8r3neKUqQu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuRGdAiPybqeofFTo7AZYoFhhCDJTbjoq2+wYxh0uAxsrh/kSX
+	erlDTrrTkJwXh5myfvgIUKh0r2MPYuAwa2FMKi52wrn3U9DAA73Lj8Ciyx+dI7kcZ+3RfTGx8jp
+	x6eOEiQ==
+X-Received: from plda10.prod.google.com ([2002:a17:902:ee8a:b0:2e2:cbb6:3b7d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf0f:b0:2dd:c100:424f
+ with SMTP id d9443c01a7336-2e2e4ba6c68mr15266605ad.51.1790789882426; Wed, 30
+ Sep 2026 10:38:02 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 10:36:32 -0700
+Date: Wed, 30 Sep 2026 10:36:33 -0700
 In-Reply-To: <20260930173635.3362655-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930173635.3362655-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930173635.3362655-19-seanjc@google.com>
-Subject: [PATCH v3 18/21] KVM: selftests: Test non-zero TSC offset on SVM in
+Message-ID: <20260930173635.3362655-20-seanjc@google.com>
+Subject: [PATCH v3 19/21] KVM: selftests: Randomize L2's TSC offset in the
  nested TSC scaling test
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
@@ -70,27 +70,60 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Set L2's TSC offset for SVM as well as VMX in the nested TSC scaling test.
-Odds are good skipping SVM was pure oversight.
+Randomize L2's TSC offset in the nested TSC scaling test, not because it's
+all that interesting, but because hardcoding a copmletely arbitrary value
+is all kinds of silly.
 
-Fixes: e6bcdd212238 ("KVM: selftests: Extend vmx_nested_tsc_scaling_test to cover SVM")
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../selftests/kvm/x86/nested_tsc_scaling_test.c      | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-index 4cacd87f129b..571fc214c925 100644
+index 571fc214c925..be6246c20d7b 100644
 --- a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
 +++ b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-@@ -75,6 +75,7 @@ static void l1_svm_code(struct svm_test_data *svm)
+@@ -13,10 +13,9 @@
+ #include "svm_util.h"
+ #include "kselftest.h"
+ 
+-/* L2's TSC multiplier, relative to L1. */
++/* L2's TSC multiplier and offset, relative to L1. */
+ static u64 l2_multiplier;
+-
+-#define TSC_OFFSET_L2 ((u64)-33125236320908)
++static u64 l2_offset;
+ 
+ enum { USLEEP, UCHECK_L1, UCHECK_L2 };
+ #define GUEST_SLEEP(sec)         ucall(UCALL_SYNC, 2, USLEEP, sec)
+@@ -75,7 +74,7 @@ static void l1_svm_code(struct svm_test_data *svm)
  	guest_check_tsc_freq(UCHECK_L1);
  
  	generic_svm_setup(svm, l2_guest_code);
-+	svm->vmcb->control.tsc_offset = TSC_OFFSET_L2;
+-	svm->vmcb->control.tsc_offset = TSC_OFFSET_L2;
++	svm->vmcb->control.tsc_offset = l2_offset;
  
  	/* enable TSC scaling for L2 */
  	wrmsr(MSR_AMD64_TSC_RATIO, l2_multiplier);
+@@ -112,7 +111,7 @@ static void l1_vmx_code(struct vmx_pages *vmx_pages)
+ 	control |= SECONDARY_EXEC_TSC_SCALING;
+ 	vmwrite(SECONDARY_VM_EXEC_CONTROL, control);
+ 
+-	vmwrite(TSC_OFFSET, TSC_OFFSET_L2);
++	vmwrite(TSC_OFFSET, l2_offset);
+ 	vmwrite(TSC_MULTIPLIER, l2_multiplier);
+ 
+ 	/* launch L2 */
+@@ -145,6 +144,9 @@ static void test_tsc_scaling(u64 l0_tsc_freq, u64 l1_tsc_freq, u64 l2_tsc_freq,
+ 
+ 	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
+ 
++	l2_offset = kvm_random_u64(&kvm_rng);
++	sync_global_to_guest(vm, l2_offset);
++
+ 	l2_multiplier = __l2_multiplier;
+ 	sync_global_to_guest(vm, l2_multiplier);
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
