@@ -1,161 +1,207 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3C657F733;
-	Wed, 30 Sep 2026 17:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789934; cv=none; b=mh/1JJQxk3cIfwnO6C6zg+nbIeCOAqi00XKB9MYqRMSb+dd26yN/KSrHp1dGEBUnkTjaj9atPFcQcgEUXEIbrgaHypAwlq0S7hGtUqt6Dq/nIrnFWHR1mfRKkm/vZMLXT93VqgeWEA33R95v8Te8kBzzC8KGKHsopkRlSHM1OqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789934; c=relaxed/simple;
-	bh=lkuepaZa13J5l4gWNouNE5EwAE/GWbHv2BVXt5TcBms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ClGed3gtGzVK8g6u11+k01Gu50aS3PqWQvG87DAyLJBsEgupuOHjAcUdOEp59bmhf11kcltoKAylpFjRwT0/hUwrIMbs5MxeZT/A8Llys1mnXopuddNvds9NIF6jkDDs27FWP8Ms/Vnn8hzdAS9w2m40txCE9Vg6by6QwXXvObo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ox5+1+kq; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158F950B435
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790789999; cv=pass; b=eHxJQUBi9Zs10Sjge2AqU/z9UbbSkBJyOCcI/MpN2rAsNiStgA8t8DHrA9mSHCM0Z71h6QmepkUUN5KA5nCpRI5C31gSJeeAPjJSJHzU1Nh8LR8WYP43yPaIT6d6Xz9pFHQguLOl91wjLRjlYcCLM/j8c4sIzv9Fy+Gke7LlzbE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790789999; c=relaxed/simple;
+	bh=KN/Rqtx7rGY8tNQcOlCkzLKItNYw0df2BnSud3LUPxc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WxEi99l74rS5gH8IzrPjMN3xYpDNe0Ebr4N9V3SmUkX4izO6jlH3To+ybKTeCrysbq6zNyTH1H/Ur1/waswSoI4dhYkIuOK6cC4cdgEqL9YiuOmRq0dEmFeRMr2UYwFdoY7Ot0NBT7Bo/ofTyp8fNhX5/sJA3mXHNu+OtJA5Eg0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KjvB2znI; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ox5+1+kq"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5Tqv1932767;
-	Wed, 30 Sep 2026 17:38:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2Y2Ubg
-	dV+77CAyq+MVK/R24FHgPjixP/AxA2RLOoCjo=; b=Ox5+1+kqc0RV3qK8jFZ+o3
-	eO0nk4pb6m8tg2SHN4uaWn6d7BEmJpuh+1lBOep5BNRtQwUtdWBB8Lqpt0ysUN1k
-	ZIRDDCAG7Xh2hgZXrso/HzicqsaEWAp4Sqbt51QDFAJaL/v0Z2h7OBH8da2bZ+7x
-	HLa4GnNepb2wXwvNQ9UzGVmvGiFAMAwG64auMgO/2PIhfXS8ui2SqkHzXuysPebd
-	GwkQNYXyjK8kYJ+pCoxVkA/8u5HVKr6jKFOx12fI8vwTXX8bonIE0uILHZJi5a1w
-	b4aAqxE6VkGu16OpaJbQyJT3k61EbZHTPJ32u2NjQAKXP2XFAl0P/bQaYnG9FFYA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fednk0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:34 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE34No3576908;
-	Wed, 30 Sep 2026 17:38:33 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0j23mtyg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:33 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHcUow29032894
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Sep 2026 17:38:30 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E934420040;
-	Wed, 30 Sep 2026 17:38:29 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D42782004E;
-	Wed, 30 Sep 2026 17:38:25 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.22.150])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 30 Sep 2026 17:38:25 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        R Nageswara Sastry <rnsastry@linux.ibm.com>,
-        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
-        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
-Subject: [PATCH v2 3/3] KVM: PPC: Fix get_d_signext() 12-bit displacement for paired-single D-form
-Date: Wed, 30 Sep 2026 23:07:50 +0530
-Message-ID: <20260930173750.56759-4-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260930173750.56759-1-amachhiw@linux.ibm.com>
-References: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KjvB2znI"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e2e4ef20beso6385ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:39:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790789997; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l/dj9zUx8q4s38f32sNte4pQxHs8NG8JLUjBsI1wIGrn9rcFGSjbrYsX9B8HUsbjGu
+         BuCSpepTHFyL7LazlPJiRX8mJJeagR3ix3Gnt3Lk0ranjLhW8CsnNNhAq1t1hK8KKgS7
+         +V5+Oxy1ogznHz6THQWSJFY4DYp+/1rVInNdPqJvLupC/sYHNvN2gjeKel9oll6NjXzv
+         r2rtbq5n3jGz3NtyBTy6W/6Mvj/C2QxVXKeDaeI7oyhE9uajmd+RowW+l7Mag1P+Aqc7
+         lUX6RO1HulH/z1/UJpeE9UpqNSuUr+9DYzr7j9mJj+RoHXvhnz7YaFMuQFRr8O89i0tQ
+         ypdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xeSOziaumI9XifhmcFeHCXHccq2sADh9JjkKw2o1NPs=;
+        fh=0RbTBq60IcFjVX6GC0Oy1+UXCfxT6tJvUU2ui4FRTUE=;
+        b=IFun/0Vvar5mOjMeuRE1NheTfcCUDZzE4PeJH56eM7lQ/yi2gNsgNFpbMW7yySPsQX
+         4d/I7/LneH8aMagVSqHcbiwWrSbi3OMk2TJ0XNc8ZUrh8QCkvMmN5N6Ou67+cRQ3emYD
+         Bppra/yE/5WGp9Yn44Bvml8h+tBHk7km6LQeL4MQPGxCnu/mFAsZfAMy/e9jCTolcHPi
+         Dzo/bPN6NUg9ujoLP3z6afxcHtknjKZcRTCmnutYs8gvFVS4RSxaLMvC+4nZ4c9lf+VP
+         aZA4mUVi2kaSCNqqViyW2Tkc5b2sW4e+UL1K+PZPB5czpYPbCpCe/5JAggOin5jAbgF0
+         j91Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790789997; x=1791394797; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xeSOziaumI9XifhmcFeHCXHccq2sADh9JjkKw2o1NPs=;
+        b=KjvB2znILURAlKkCUGNtfuYyGHhaAw7uRCpTsbRzFHJYmjJj1+C62XvJIA33lG6NcD
+         24RLvQCxzlIFm7aucSI4HBcFob35qZ4w96q5/uBajzZbUNrEJmake+wgo0l/133Li+5z
+         qDnUCb9t+KWu5ZUxgijFnpf+Gg6bk6W141cBMgTm9omXsq4ipw7Va+2vnuthMn04RKQu
+         Fv0FzfeOKYKDfg/QeBtJW3eVRjGkpKIQ1M+IOJz0f6PAhGCT/8ky5oIOknfMBq1mNvqD
+         d84LROdRCrvfEy7DZmg+jxxjBUFUUvPnxIDJMY1Ogj7Wr7hrLVY0UavPlEoX6MnymOpn
+         h0XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790789997; x=1791394797;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xeSOziaumI9XifhmcFeHCXHccq2sADh9JjkKw2o1NPs=;
+        b=GjVdzIBFkgNvwYQBjAmvxq4ig3sy95G+SGDOVwJQizwYC3Ko/npFsgorj05tXX8Int
+         je9SCDkxqDw39DrbEQNniegel4M6nUOlVpa7ZpCSNyjU4k/oM/EusnkiGvgWDRT0Pydr
+         whTh/3Ze8tlTgf0yF+ZbYhUO3nw+wN9xan3HnkLsCWi+pC5q7xFZlCHtZd0wn/rniRt4
+         uRcT9OPlWDzj/9e04ia0Im7VsbTMGvPZoASbXZHIKWUJtjgBdByUEDLehnbqn/umJHkB
+         eqxYzL9rOFWWgMpoOsrSythdW7b3zsIw3zKOieURFkFPllW+KGuFurPogJW7j8eio8K7
+         97gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxC83+00jhw06G+GiLT0YcZvIDTMjR3k12kSuCC0VETmweEllblR+JX7BrfR/AwLAlVimw+SrtWzwUvpfo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0diGHPSuqM/K3uLmFCUFogU0Hi9p6C8uZyoT9NoiLFPe6Q05J
+	UU9PPtce6jQ8AzcONBR9b5unQSFBSsq1hjuU+hEHp/4B//8VjohDJobBKLuBBTJUXO/FwryRExJ
+	aLisT5oTwcIW7byTlsWEZViUwm4CpWLZfpo4qbI71
+X-Gm-Gg: AYBFou2QdRcTnhGqOGTlKHNXSm0JDRMgLb/6BBQ/8hE3Dyug+P1DtOZ0GN5f5Lw5Lw4
+	7JWeckhOUttRg4vwKrI6G05pgpRXjvZ6IeHvfTnpgZb5vJkqI1tS59F1UPu5WrRvmk93DNtqERX
+	YetPCWlFbMg2UQ6CqBGxEGQj+HzlukFUeryQC7E6g4DrRmTOdKp/T9eGWpCa8/8sqtJAgYLGkhE
+	JKsnHfzs9wfBPxH2i2l7U1ZTPV+6s837HcToVXJBWn47CbrpyvAHYTq2JZm13xCZdMKRebDaZiD
+	1AYJJK7O+MKqQdD0ArmFiLrvEdkXhJLY7zrf4xvis2fxIBD3hIPRSu+lmpX2i4CwYhFFJh0wHKB
+	2BLOm86t7E048eLTJOIGJ
+X-Received: by 2002:a17:903:440c:b0:2ca:bf8e:360b with SMTP id
+ d9443c01a7336-2e301ae0dcbmr307005ad.9.1790789996691; Wed, 30 Sep 2026
+ 10:39:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abd491a cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=WFAfMJoNLMmZCboqhGUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfX8H9cJz8GU1d4
- qiJ0vXR3rC0E43xFykm+ibysWJLDiu+2hiDEpbZWnLoygUzJCnf1dgEnNPjyI5HsmYsXW0IS/GI
- Q3mcZbhZRXbwriAeNBRp99EE4JSOaOQ=
-X-Proofpoint-ORIG-GUID: 18QNavaaiQSB-U-plhb_z8wwmuhRS_ZU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfX35aPteMlp+Yb
- Fr8nM6NYTCTLXfxB5Zmx6okE6b/md4HWFi76c3niTYgY52Foa2oS/GQkcsvYtnG711pq6/avZ+x
- WKtTqHBWf1LRreD15vVh4bqYWv61wPTOF0fQ+iJ+MJm5fLScCzXJzwg0F0OLQQjv7cwZG+dGtWX
- vTRwe3yKKRG9M0hDl8H9gNee8rj4g56WW4lspsGXesNZWc7aWVHCk4r0Yw2QDDRy51p2I2QY0/s
- x7NwyhPcvTPeUw5vdQfleNWvYR7xfOPpYOTVLzUZARM0tO/o4wqozYDLucVjilHqqQZ8qLTYgTB
- UFkw44AJH6a4mZNzxHGrdm0Mj1k58PJvSZG3Qd5klvO2DBp6W+cjXMfXlBDQ/A/TyXg0tY0i3xX
- 9hW5o8xxqBilLaBKj+Xa61bX6VGQFXivW69xSaKMp0Ggz/3HAx9d1N9Zbr4sy9a7s5kTYC4cCgP
- N+Gp0QPdM3qtOMA3O3w==
-X-Proofpoint-GUID: wp34fFiTUNpvu3nLQcyNGzVLNcl--0pk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300070
+References: <20260930-perf_fix_pylint_errors-v2-0-945cd526576b@arm.com> <20260930-perf_fix_pylint_errors-v2-3-945cd526576b@arm.com>
+In-Reply-To: <20260930-perf_fix_pylint_errors-v2-3-945cd526576b@arm.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 30 Sep 2026 10:39:36 -0700
+X-Gm-Features: AclHuK9kLeMrfwk9I-RYYoof2MH0Qg05_NtpTwJTjZx8s_pCEExP8FfQ-LN3U-8
+Message-ID: <CAP-5=fVzy-=8ryObpHWiW6WDcvpW7SqRkAWwmNvoSgQmgz-3gQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] perf test: Suppress optparse deprecation warning
+ with older pylint
+To: Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Aishwarya TCV <aishwarya.tcv@arm.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-get_d_signext() has two compounding bugs since its introduction in 2010:
+On Wed, Sep 30, 2026 at 6:11=E2=80=AFAM Leo Yan <leo.yan@arm.com> wrote:
+>
+> Python 3.13 reversed optparse's deprecation, and pylint 3.3.5 removed it
+> from the deprecated-module list. Perf supports older pylint versions,
+> so suppress the warning on this import and document the reason. Keep
+> other deprecated-module diagnostics enabled.
+>
+> Link: https://docs.python.org/3.13/whatsnew/3.13.html#optparse
+> Link: https://pylint.readthedocs.io/en/latest/whatsnew/3/3.3/index.html#w=
+hat-s-new-in-pylint-3-3-5
+> Fixes: 8a54784e708b ("perf build: Add pylint build tests")
+> Reported-by: Aishwarya TCV <aishwarya.tcv@arm.com>
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>  tools/perf/tests/shell/lib/attr.py | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/=
+lib/attr.py
+> index 7f3d5b64b00dd7de45baff4f7d9baff89e003147..523257bcf8e126cb662af5897=
+27144bb26cff4d5 100644
+> --- a/tools/perf/tests/shell/lib/attr.py
+> +++ b/tools/perf/tests/shell/lib/attr.py
+> @@ -4,7 +4,8 @@ import configparser
+>  import os
+>  import sys
+>  import glob
+> -import optparse
+> +# Pylint before 3.3.5 still treats optparse as deprecated.
+> +import optparse  # pylint: disable=3Ddeprecated-module
 
-1. The extraction mask 0x8FF silently drops bits 8-10 of the 12-bit D
-   field (PPC ISA bits 21-23), corrupting any displacement that has any
-   of those bits set.
+Thanks Leo! Could we just update to argparse here?
+```
+diff --git a/tools/perf/tests/shell/lib/attr.py
+b/tools/perf/tests/shell/lib/attr.py
+index 7f3d5b64b00d..68f06df9565a 100644
+--- a/tools/perf/tests/shell/lib/attr.py
++++ b/tools/perf/tests/shell/lib/attr.py
+@@ -4,7 +4,7 @@ import configparser
+ import os
+ import sys
+ import glob
+-import optparse
++import argparse
+ import platform
+ import tempfile
+ import logging
+@@ -426,29 +426,20 @@ def setup_log(verbose):
+     ch.setFormatter(formatter)
+     log.addHandler(ch)
 
-2. The sign-magnitude idiom "-(d & 0x7ff)" is wrong for two's-complement:
-   for D=0xFFC (encoding of -4) it returns -252 instead of -4.
-
-Together these errors produce a wrong effective address for psq_l, psq_lu,
-psq_st, and psq_stu whenever the displacement is negative or is a positive
-value >= 0x100 with bits 8-10 set — essentially any real-world paired-
-single stack-relative access.
-
-The D field occupies the bottom 12 bits of the instruction word (confirmed
-by the adjacent W and I extractions via inst_get_field(inst,16,16) and
-inst_get_field(inst,17,19)). Replace the open-coded logic with the standard
-sign_extend32(inst & 0xfff, 11), which correctly performs two's-complement
-sign extension from 12 bits to 32 bits.
-
-Fixes: 831317b605e7 ("KVM: PPC: Implement Paired Single emulation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
----
- arch/powerpc/kvm/book3s_paired_singles.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/arch/powerpc/kvm/book3s_paired_singles.c b/arch/powerpc/kvm/book3s_paired_singles.c
-index bc39c76c9d9f..532f96293de0 100644
---- a/arch/powerpc/kvm/book3s_paired_singles.c
-+++ b/arch/powerpc/kvm/book3s_paired_singles.c
-@@ -479,12 +479,7 @@ static bool kvmppc_inst_is_paired_single(struct kvm_vcpu *vcpu, u32 inst)
- 
- static int get_d_signext(u32 inst)
- {
--	int d = inst & 0x8ff;
+-USAGE =3D '''%s [OPTIONS]
+-  -d dir  # tests dir
+-  -p path # perf binary
+-  -t test # single test
+-  -v      # verbose level
+-''' % sys.argv[0]
 -
--	if (d & 0x800)
--		return -(d & 0x7ff);
+ def main():
+-    parser =3D optparse.OptionParser(usage=3DUSAGE)
 -
--	return (d & 0x7ff);
-+	return sign_extend32(inst & 0xfff, 11);
- }
- 
- static int kvmppc_ps_three_in(struct kvm_vcpu *vcpu, bool rc,
--- 
-2.54.0 (Apple Git-157)
+-    parser.add_option("-t", "--test",
+-                      action=3D"store", type=3D"string", dest=3D"test")
+-    parser.add_option("-d", "--test-dir",
+-                      action=3D"store", type=3D"string", dest=3D"test_dir"=
+)
+-    parser.add_option("-p", "--perf",
+-                      action=3D"store", type=3D"string", dest=3D"perf")
+-    parser.add_option("-v", "--verbose",
+-                      default=3D0, action=3D"count", dest=3D"verbose")
+-
+-    options, args =3D parser.parse_args()
+-    if args:
+-        parser.error('FAILED wrong arguments %s' %  ' '.join(args))
+-        return -1
++    parser =3D argparse.ArgumentParser()
++
++    parser.add_argument("-t", "--test",
++                        action=3D"store", dest=3D"test", help=3D"single te=
+st")
++    parser.add_argument("-d", "--test-dir",
++                        action=3D"store", dest=3D"test_dir", help=3D"tests=
+ dir")
++    parser.add_argument("-p", "--perf",
++                        action=3D"store", dest=3D"perf", help=3D"perf bina=
+ry")
++    parser.add_argument("-v", "--verbose",
++                        default=3D0, action=3D"count", dest=3D"verbose",
++                        help=3D"verbose level")
++
++    options =3D parser.parse_args()
 
+     setup_log(options.verbose)
+```
+
+Thanks,
+Ian
+
+>  import platform
+>  import tempfile
+>  import logging
+>
+> --
+> 2.34.1
+>
