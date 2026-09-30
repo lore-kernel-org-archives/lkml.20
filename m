@@ -1,145 +1,151 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FFB403B1E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49478420480
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798242; cv=none; b=hPLy6vGUDv/8Z6yluDi2ho4fEMP89V0Cqd78TssjkMGMzVeidhLuEiXWTuRGMduq3RVW+6uXhckIcwxirh9OjkVaxhSfSfqz69ILTc/hLLJE72xGb+5kTvtEM1hKzY+XFWW/jhJ3BBH9/jtODucO/3Eu1NF//l1Uino1tSsGXUA=
+	t=1790798251; cv=none; b=sNFRZiLDZw41muQuJdmTTEow7Z075lcyFLL6O4Kr7mRYB+DxZGBt+q18hO9ZotIjQvqAhFIwLO5HPybvCVF8zbjnSatwy5DGh8SKHt2za3QGky3i59v/I9KXBYQx2F5boYZ29sLPYf8qgvS7XfWwURfRor+UX9tOE0FzAxJD9eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798242; c=relaxed/simple;
-	bh=9TZtF4f7bLDr7C03aF5gVG6cbsSVdEXlq+L5u/iiSUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=flhB3n4LY+gfQ6PGMn8qclK7HW+M1YDMuAJ79XQPmgeggOMrktEmVgKV7OFtzSznJgySJ/OG3jG6iukTf3LHzoZH7sbQmuWvUL0VLvRceBekQEv5h/m3RJg4EQSMpm6aW7rENNHJPiyMc+v0k7dDaESvSfZR+VmhvCRzau+1Plo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oCJvR5bb; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oCJvR5bb"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2db33db4de9so4525ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:57:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790798241; x=1791403041; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JZWZuvgsWyt2x87h19X7B7J9Ed8aIg0FhoKfAr4PEqA=;
-        b=oCJvR5bbA4RkYvrGqqmVnDGwG9CcZbFL7IBDL5oRQIx7srqJYElTPwBnLqU9KS+s7a
-         0sNjVYNmysQqfJFlNlhg5IYb9RG+TT75yrrKetwpI1sewNUs0Eggyg+v/0sYQ8C9gVNk
-         FntDN7VOPD9DPk0mUHqWx4TZXLFC7enrrrZZ1Zrxn4cv7WqxrIC3bq4BDLqLh+gGHSIF
-         coYQZduITLhx3tNrd2Xh5jxs5/zeqq0GE4nR+6Q4pst89D9Rj512m80l5RKn/N+6y0zf
-         ECWh/w61IMpdpBGYxBLpDRXG2tvNxPz2b/6Fk9rHQlQRPjOzBvNmtqyw/cevSvAnfqlq
-         9I9g==
+	s=arc-20240116; t=1790798251; c=relaxed/simple;
+	bh=0DOYA9j5LCHaMZwNHcC1j1dbo1T7ngDwNIKrikuaF/s=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=o7ITay4ak86wvvYhpjnlGR+u7i1a04KGsPtbawQC1Yq9Lbo/Wi7/FMu11/XpmIAf3eM0GGph7cKci7h5Nvk8y67eShS3FTR2asaJB81xryXWL15di09snmZAW2izucCctH79GUUDe9F8BsiGsYf5GimNyD26iA5jsK5Cvd5N+6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-45952ce9ee0so330265fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:57:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790798241; x=1791403041;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790798249; x=1791403049;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JZWZuvgsWyt2x87h19X7B7J9Ed8aIg0FhoKfAr4PEqA=;
-        b=WCemuo3wiV9P1sDbgIlneMiWE9pOovrjrgGhyZkMcWr63LfUEmnp/S3k0opv4dOKu8
-         Nu8VIl+r1rqBpRDzA68Gt5PwNsznkSI1sWZEW776MVr7e79cFySkfa/FrOjAIzxxaPEG
-         ROibRWdQlgsEpcsFpvRzkw03sDREF9GQCZEWqSr2G9XV2/AIrwWRDo10w+inQaZQV612
-         GgPAyCU674AHX9Q8avBkVGjImrzHREf3Tpvdg4WQLIhzvuy03HTiX88QsmIPf04u1niP
-         ysZCN9jcs28bp9FPt6N70H95trTc9DhCAPfrwvc6v6NTmzpFHa6ceidQ9H/0mvCn9xeR
-         EkQg==
-X-Forwarded-Encrypted: i=1; AKwUvByjUut7sVB7XP8zBXB5zm3A4bGL6h5ZoanGxpTU5rLp03kJE6uCW2WGwqAe0kaZYfF8IBPGCGyaKtUouZE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLey0Vk3SLBXo3R44FlNmqTF01uvzehRLN1EDT2E4VJgFwnH1nU
-	ZXGC0TlwsM56N/RhMwC7y637Tfbe/+esOsFLtr7SvFa2zotlLkOgXmZMB4zyafKThg==
-X-Gm-Gg: AYBFou0rt6Y0dlqmwOfuAkcHAysq970v8TF0khUWm8Y7h1zUugP3U2WizVRTRl6CEmN
-	0k62DNGaRZ6q9rGQO+2qsSInbT+S7t8TsSVHRMaqiR/pN4GqK7sNSY7kJnPLujnWqr5GmpsIKmf
-	G+SBN7waqF/0dINkOvz4a1wfaN1Ct7Jgs373LJN6GssDKrxPNaz7mNxQ/tLGl559q4chzK8+UGG
-	kSAmYYhbE8/h/TNObhP7u7LOLIIJv6ZeCnU0pelUWE7mFlYEWa6vhG9NpSNOXwzM+rYlAziiSpV
-	tq3JZZzohWL36JCu4VGTGFpGX4OTjmH6x4DEqlIXKXErY6Zsn0TUMDnf5k0vcT0IR14jFd5crIU
-	9mqEh2Y/BWGQv9e9qlUFIGnLfizJjjL+HlTT43s3WTfJVRliekrfzT/w4HvZN/EEnsh+vpZ6MGK
-	jfptV7X9DrcBXAXd09Jh+O9zykxmokeeOqhPSjc5Ca9pIOhAv8tODepUmILdSz/vmf0Kr2s2OQg
-	KW1q2qVa/otgJ/aRNDnV1rkPbiQ95ZlO8dx
-X-Received: by 2002:a17:902:c946:b0:2bd:3bfd:74f1 with SMTP id d9443c01a7336-2e3015b273amr1215915ad.2.1790798240054;
-        Wed, 30 Sep 2026 12:57:20 -0700 (PDT)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f475f4aasm742177a91.12.2026.09.30.12.57.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 12:57:19 -0700 (PDT)
-Date: Wed, 30 Sep 2026 19:57:12 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: iommu@lists.linux.dev, Will Deacon <will@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
-Subject: Re: [PATCH v11 12/16] iommu/tegra241-cmdqv: Add a helper to quiesce
- VCMDQs
-Message-ID: <ar1pmNRMKDDJCIkz@google.com>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-13-praan@google.com>
- <ar1cxFvuzIc2dpmi@nvidia.com>
+        bh=LuCztHNpAgV3X7BfgjOC6VVtGxHWH4J6xHbwAt48ZXA=;
+        b=2acwrRZMfRESxhQMHxuPKBYBcjMZHZyi+sIm5o8WQu6dH0RsiA4Xk26uzgIWO3tPc4
+         sD+ex3fQhQnwaipBUoT9G9FRbS/4scLViPhx1hqhzcGhVZ56ClsU0v3SCAkEOmE+EC1g
+         jcB4TqGD9tMUpXFmYHnffPmwybK8sk9l40EslQMApD/DpSj0kWdxF/KDBldGZXZGODSP
+         EVJPVSHEzHWhX4FiJ8XN35KAGOi+HO+rVlD3ZWVDnwIjMxgCMvqApZBvDoHX/nUlL+uS
+         oNPQnaqsENVtWc5nx3Gh2MfECM7gbVo6erLwTcJiXSkY8MQvh0NSqzshQjwQPPgQi6gr
+         aywA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/+XOQ1g0T61wDdCohW7W/ryh4uADp0qK8etEGY9aJJ1QT+ptcq9aY/7/svNNuPUcJEHrT/fYX02Yeieg=@vger.kernel.org
+X-Gm-Message-State: AFuF++llu4YBgjTR+bJqdQjRHyWSXQH5IqdDmNM5dqhJuYXiQceyLk6D
+	78Ov3IQtwnkxWNL3UT+kUfyIZvWt8ZjnUU0mvNoS0h4d6xgZ8WHMiRNVF2VXZAxv4eV2p80V3fM
+	RTcY1r7heqiNuMJFDNrd/eRVO1lK/9+3GgtvxZNVYZkNuB+6/eV+fSsYCVe4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar1cxFvuzIc2dpmi@nvidia.com>
+X-Received: by 2002:a05:6808:c194:b0:4ea:18f:649f with SMTP id
+ 5614622812f47-4f1b12ed99bmr2904918b6e.3.1790798249184; Wed, 30 Sep 2026
+ 12:57:29 -0700 (PDT)
+Date: Wed, 30 Sep 2026 12:57:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abd69a9.80e1c6cc.22483f.0005.GAE@google.com>
+Subject: [syzbot] [net?] WARNING in neigh_mark_dead
+From: syzbot <syzbot+5a8857f0b4a0a7b12c62@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 30, 2026 at 12:02:28PM -0700, Nicolin Chen wrote:
-> On Tue, Sep 29, 2026 at 03:45:06AM +0000, Pranjal Shrivastava wrote:
-> > The tegra241-cmdqv driver supports vCMDQs which need to be quiesced using
-> > the STOP_FLAG. The current driver implementation only uses VINTF0 for
-> > vCMDQs owned by the kernel which need to be stopped. Add a helper that
-> > sets the CMDQ_PROD_STOP_FLAG on these vCMDQs.
-> > 
-> > Consolidate this logic by renaming the implementation hook to
-> > quiesce_and_drain_queues and ensuring that the tegra241-cmdqv driver
-> > gates all active local virtual queues before starting the drain loop.
-> > Additionally, clear the STOP_FLAG in tegra241_vcmdq_hw_init() as a part
-> > of tegra241_cmdqv_hw_reset().
-> 
-> This whole suspend routine is missing the CMDQV flags.
-> 
-> vintf->enabled and vcmdq->enabled must be cleared when the system
-> does suspend, via tegra241_vintf_hw_deinit(vintf0).
-> 
-> So, instead of quiesce_and_drain_queues, perhaps we need a suspend
-> callback that:
->  - set stop flags to all lvcmdqs
->  - wait for all lvcmdqs being drained
->  - hw_deinit vintf0 and its lvcmdqs
-> 
+Hello,
 
-Interesting. I had thought about that but Ashish was able to test a
-previous series (which def didn't de-init vintf0 & lvcmdqs in it) so I
-dropped that thought..
+syzbot found the following issue on:
 
-Looking at it again though, leaving the enabled flags stale is actually
-worse than I thought.. on resume, the CFGI_ALL / TLBI_*_ALL issued by
-arm_smmu_device_reset() go through get_secondary_cmdq(), which still
-sees vintf0 & its lvcmdqs as enabled and hands back an lvcmdq with the
-STOP_FLAG still set.. so those invalidations get silently elided until
-impl->device_reset re-inits vintf0 (after SMMUEN=1). Thanks for catching
-this!
+HEAD commit:    014d795c7383 idpf: fix kernel-doc parameter descriptions
+git tree:       net-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=15033315580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2f9be4b0ece4f44b
+dashboard link: https://syzkaller.appspot.com/bug?extid=5a8857f0b4a0a7b12c62
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-I'm planning to add an impl->suspend op now.. that will cover this, and
-also the late breaking IRQ changes you're referring to in the other
-thread. Roughly:
- - set STOP_FLAG on all lvcmdqs
- - wait for owners & drain all lvcmdqs
- - handle any pending CMDQV errors
- - tegra241_vintf_hw_deinit(vintf0)
+Unfortunately, I don't have any reproducer for this issue yet.
 
-I'll call it from arm_smmu_runtime_suspend() before gating the main
-CMDQ, so the CMD_SYNC in tegra241_vcmdq_hw_flush_timeout() still goes
-through and any late cmd simply falls back to smmu->cmdq.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ffe50eefb704/disk-014d795c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/bbb13d8fe817/vmlinux-014d795c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/df8fdfbd7a2b/bzImage-014d795c.xz
 
-(Will drop the extra line removal as well).
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+5a8857f0b4a0a7b12c62@syzkaller.appspotmail.com
 
-Thanks,
-Praan
+netlink: 'syz.0.857': attribute type 4 has an invalid length.
+------------[ cut here ]------------
+debug_locks && !(lock_is_held(&(&n->tbl->lock)->dep_map) != 0)
+WARNING: net/core/neighbour.c:154 at neigh_mark_dead+0x2fb/0x340 net/core/neighbour.c:154, CPU#0: syz.0.857/9765
+Modules linked in:
+CPU: 0 UID: 0 PID: 9765 Comm: syz.0.857 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:neigh_mark_dead+0x2fb/0x340 net/core/neighbour.c:154
+Code: e8 03 42 80 3c 28 00 74 08 48 89 df e8 ee 9a 80 f8 4c 89 33 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 86 95 10 f8 90 <0f> 0b 90 e9 8f fd ff ff 48 c7 c1 80 9a 7a 90 80 e1 07 80 c1 03 38
+RSP: 0018:ffffc90003726600 EFLAGS: 00010287
+RAX: ffffffff89b7467a RBX: ffff888022e86000 RCX: 0000000000080000
+RDX: ffffc900047fa000 RSI: 0000000000003e08 RDI: 0000000000003e09
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff520006e4cb8 R12: ffff888022e8613c
+R13: dffffc0000000000 R14: ffff888022e86020 R15: ffff888022e86000
+FS:  00007f9c30f046c0(0000) GS:ffff888124cc6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 0000000076c56000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ neigh_flush_one+0x27c/0x5a0 net/core/neighbour.c:388
+ neigh_flush_dev net/core/neighbour.c:432 [inline]
+ __neigh_ifdown+0x1fb/0xc70 net/core/neighbour.c:465
+ neigh_ifdown+0x1f/0x30 net/core/neighbour.c:487
+ rt6_disable_ip+0x751/0x7e0 net/ipv6/route.c:5058
+ addrconf_ifdown+0x155/0x1ad0 net/ipv6/addrconf.c:3892
+ addrconf_notify+0x1bc/0x1050 net/ipv6/addrconf.c:-1
+ notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
+ call_netdevice_notifiers_mtu net/core/dev.c:2350 [inline]
+ netif_set_mtu_ext+0x5ac/0x830 net/core/dev.c:9963
+ do_setlink+0xa81/0x47a0 net/core/rtnetlink.c:3247
+ rtnl_setlink+0x578/0x820 net/core/rtnetlink.c:3623
+ rtnetlink_rcv_msg+0x802/0xc00 net/core/rtnetlink.c:7159
+ netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2572
+ netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+ netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1361
+ netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1916
+ sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
+ __sock_sendmsg net/socket.c:815 [inline]
+ sock_write_iter+0x2de/0x3e0 net/socket.c:1266
+ do_iter_readv_writev+0x612/0x8c0 fs/read_write.c:-1
+ vfs_writev+0x343/0x990 fs/read_write.c:1058
+ do_writev+0x154/0x2e0 fs/read_write.c:1104
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9c2ff9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f9c30f04028 EFLAGS: 00000246 ORIG_RAX: 0000000000000014
+RAX: ffffffffffffffda RBX: 00007f9c30225fa0 RCX: 00007f9c2ff9e159
+RDX: 0000000000000001 RSI: 00002000000003c0 RDI: 0000000000000004
+RBP: 00007f9c3003506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f9c30226038 R14: 00007f9c30225fa0 R15: 00007ffed3c74808
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
