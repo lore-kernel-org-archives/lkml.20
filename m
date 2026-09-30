@@ -1,149 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA34C379C35;
-	Wed, 30 Sep 2026 19:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A59379C35
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790796887; cv=none; b=PEYLsue1tErARrmP98WYVuFues1JjLPCVLQLtlXUSwxZvgT35CLuM5zWoSwZ/ntMlokqj7KfBhW/4U93+gvr8FMT85s4x469gbwH5xkDFp4qutWepO2H7HPqTs/Pw34NL3/2oBhzM8rTFaS1wEhCCCzodbTImcKTc/N80Ia7rag=
+	t=1790796940; cv=none; b=dccQ/iBIV0KLYWwEKNOMPij5SoCiJA45/VQ0B7fqOcXwwL1eP93v1WKhxlFqKGoTJJ2bkFbQIlL6ek4Ugf1Jz3cDeNrDbzI056oqUJA82LlxR6p9SvagPMNsOe0cjCPIsT4uhCYfEertPl/FdLoKKV6d9omGQt8Vo9lqAZocsjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790796887; c=relaxed/simple;
-	bh=Gu/EkVwyQJgBD74XfphlWAlZsYmhDmD3C/OZgKSBQBc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pVSZYigMyWoTgPwgnNKZ9YV7EMpcNMuhR3qxFxBzyi+DpWfmdXc9X1grXVISUWsa5aDO3oMZ/7jFyz4ye8mH+1KnkL2ke1fZ+pbxEKK7jTybKY0XcTSJzsoaDtlayIgm2Jlw5WHIyFa005yC+vba2rHkeZSpYL4uoqKr+lSPsWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tWfAJM5y; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790796940; c=relaxed/simple;
+	bh=OWMqHTRcSCq9JRpd/cUEN865093Q27Hfcw/XSt9HYl4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=F/gtdIVQJ6WiJ+lL0XIn3mvj052T22VtThGVs5rcCCNwiI8H/I4dHYSD/kQ+oUpKJQrgkR24tAMc8muJyTalJMk0IOTOSannHQeTOz0D7oBMwchKS/3cbjJxWXMjqFXcmCpHvtnh5tl3Zbs9nQQ0QlDVFXUXZWVCvn5uw/pyhWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=OozwD2Xr; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tWfAJM5y"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 80568C2BCB9;
-	Wed, 30 Sep 2026 19:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790796887;
-	bh=Gu/EkVwyQJgBD74XfphlWAlZsYmhDmD3C/OZgKSBQBc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=tWfAJM5yLuZC6x0EfMQK/k3ydOvchipWQN7xO/1+ZyRwfPwLBMgXVQF6LuomhQ6Pu
-	 y8HtxeUS2ido0xMuz78q6WaW1Xc/7g2xW0Cgb1NJrfGiG6sUVuU5+UE4CVMkL4tCwF
-	 vGEYVls4UF8EnAEAtHVgc8/Y2cpjVdrGbsuA8sn1S+eXEFWwYpDWi8acZpHhZZRXns
-	 XYAOtied2p6M1SzknDM+5y23QF8DN9cVnVEmy2FOGeCa6fRRfCnhUoOf+zp4w67UrA
-	 D44qDt05z2GP6PYliJ0T0Jz5Dx4IvVPomWy4PCvSrXxCnyvD1zpnNouKvovG0IHd9B
-	 5yjb0aCJktsnQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AF8CCA5FC4;
-	Wed, 30 Sep 2026 19:34:47 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 30 Sep 2026 19:34:45 +0000
-Subject: [PATCH net] net: stmmac: dwmac-rk: keep the GMAC powered when the
- PHY wakes the system
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="OozwD2Xr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	references:in-reply-to:to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1790796937;
+	bh=YfQLOxnziLTxjQKL8Pf0AVd4fh6mbAmq6Tdocr9SWDc=;
+	b=OozwD2Xrel8r3DcyjV7mqg/UkrmrQMyMD0oIXGCoT7vvicTgsV60MK3dq3ykWSCqqsfR
+	qLJ1jTqrc+gpXoZ2rSrq1SCoI2orR9CitRxeIX1k7+nlvvSW3S7zDULhEayMPdQ+6MATcv
+	028jy3g1A9SD5OvqP1MkR7jEcqcdz0t5rQ8WlQgL2t2Y85ggV50djMX9RznWhZ5iu8ChOd
+	ko8udnG/nqQxXBbxuwfkyCqEb1DUfXakIooxBQIjQYYFVUWL5yTkHiCNrvHlLcf2uNwdaj
+	xsjvynLoaXKt4r6k9bOhqgIXnpP1W9pkZhvBZFEt/mmTPwmD8S8AGNPTa2LVpTPw==
+Received: by recvd-canary-66cfcd45bd-9jvv4 with SMTP id recvd-canary-66cfcd45bd-9jvv4-1-6ABD6489-22
+	2026-09-30 19:35:37.098483822 +0000 UTC m=+95717.896768965
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-6 (SG) with ESMTP
+	id vYi8QUmxR7GSbccC0Qr4Kg
+	Wed, 30 Sep 2026 19:35:37.043 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Wed, 30 Sep 2026 19:35:37 +0000 (UTC)
+Subject: [PATCH v4 2/2] writeback: switch a replaced cgwb's inodes to its
+ successor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAFRkvWoC/x3MQQ5AMBBA0avIrE1SJJNwFbEohk5Q0oqSxt01l
- m/xfwTPTthDk0VwfImX3SYUeQaD0XZmlDEZSlWSqiuFY9j0gG7BwzwY9hV7LliTJkXUQ8oOx5P
- c/7IFyyd07/sBjY2M0WcAAAA=
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Heiko Stuebner <heiko@sntech.de>, 
- Eric Dumazet <edumazet@kernel.org>
-Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2718; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=v2FMuWUABRc83FaiGNq51H6LZX+xOp9sURDtyb+WJCs=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl7U8JcJqjtMr1SfGhbwq86VaVL/1MuRUq7PIqVaL2io
- GEjv0y3o5SFQYyLQVZMkWXCIY1bGUuu/vX3MH8AM4eVCWQIAxenAEzkTg8jwzmJwFPGq3ZeYFsS
- VPt7jdRjNfmM5R/j5KKmbAtOF7U142dkmPtLeZd1f+6e3RFn/2wsXTBTxan4v5GWQnXAL3sDvfP
- HOAE=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Message-Id: <20260930-wb-dying-cgwb-flush-v4-2-bde637803a96@honeycomb.io>
+References: <20260930-wb-dying-cgwb-flush-v4-0-bde637803a96@honeycomb.io>
+In-Reply-To: <20260930-wb-dying-cgwb-flush-v4-0-bde637803a96@honeycomb.io>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7266; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=OWMqHTRcSCq9JRpd/cUEN865093Q27Hfcw/XSt9HYl4=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqvWSI8vzgoChHJ9XeclnXBBr/7u3BtXFZTIxwM
+ O68DEmqEyaJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCar1kiAAKCRClztTjl62v
+ wj95CADsEIfLtgtsxcIq8sUVgfwFfEjJeZcH3drAw/AbFa/wt33Rh6La1C6aGx1TtAEhbBoU3Y0
+ m+6UQ47xJ9NYCOUF0zGW1PxdkOen6qHFMvBlOUb7Y3m9k+01ggaxyzN7jxPWaqWzTNgZrD/DDsl
+ IJBFerEOpcfx6tv8iJGrLvy/SSv1EO3qK8fDc+T6J6nFPPzvUZKj5MduQbuCkt3E6mV2DyqAwwE
+ rVW1nvzkzY8HDXvaRzuyA3OxESZzZLQeAB8fPIEJJpxnVJaerfIfjgCgvIl2makETz/AcNAMR4i
+ ZGRhVND+nkDIw2sGqUB2Zxozg8iWfvfj/qMJkceWmtJPHIu0
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmefilDisU+bGm?=
+ =?us-ascii?Q?pq2O0nD2+F2p8kpM21yy=2F7jQVtDYVedx9losOTt?=
+ =?us-ascii?Q?wou+Q+V56IqDHpiS3nxB5+LEYExB5SvreUSJLLg?=
+ =?us-ascii?Q?FcDrN9qCFcXS1rGORam7ZLdH9ay7mGXl=2FKKMneO?=
+ =?us-ascii?Q?3lhTAT3I4MY1FzLcZyiWm5ukjs=2FW=2FDIs62ofLmc?=
+ =?us-ascii?Q?jARQOBA4H7ca2k1QS7ly6nAzbw=3D=3D?=
+To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Tejun Heo
+	<tj@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
+	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
+	<lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-From: Igor Velkov <iav@iav.lv>
+When a live memcg's blkcg association changes, cgwb_create() replaces
+its killed wb in bdi->cgwb_tree. Foreign flushes for the memcg then
+find the new wb, but the inodes, dirty or not, are still attached to the
+old one, and they only move over as they are written back (see
+wbc_attach_and_unlock_inode()). Until then, other memcgs appending to
+those inodes stall in balance_dirty_pages().
 
-Since commit 6911308d7d11 ("net: stmmac: convert to phylink-managed
-Wake-on-Lan"), the MAC device gets its wakeup flag only when the MAC
-handles Wake-on-LAN itself. When the PHY handles it, device_may_wakeup()
-is false for the MAC, and rk_gmac_suspend() powers the GMAC down: its
-clocks stop and phy-supply is released.
+After the takeover, queue a work item that switches all of the old wb's
+inodes to the wb foreign flushes now find, like cleanup_offline_cgwb()
+does for b_attached and b_dirty_time, but including b_dirty, b_io and
+b_more_io. The switch carries the dirty and writeback page counts, so
+nothing needs to be written back first. cgwb_create() can run with
+interrupts disabled (folio_account_dirtied() -> inode_attach_wb()), so
+it only queues the work, after dropping cgwb_lock.
 
-On Helios64 (RTL8211F, Wake-on-LAN in the PHY) the board then hangs on
-the first or second suspend with a magic-packet wake.
+Test: a live cgroup appends to 5000 files on XFS at 250MiB/s, io is
+disabled on its parent so its wb is killed, it creates a file (the
+takeover), and a sibling keeps appending to its files under a 4G parent
+limit. Worst lag of the sibling behind schedule over 30s, in three runs:
 
-Also keep the GMAC powered when phy_may_wakeup() is true, and remember
-the decision for resume.
+  without this patch   16.6s  28.7s   1.6s
+  with this patch       1.3s   1.4s   1.0s
 
-Fixes: 6911308d7d11 ("net: stmmac: convert to phylink-managed Wake-on-Lan")
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Switching all 5001 inodes took 40-60ms per takeover, with up to 139MiB
+of the old cgroup's pages dirty.
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Assisted-by: Claude:claude-opus-5-5 checkpatch sparse
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
-Tested on Helios64 with 7.3-rc5: 20 of 20 suspends woke on a magic
-packet. The mainline Helios64 DT has no PHY node, so the test used a
-DT that describes the PHY with its interrupt and wakeup-source (a DT
-patch will follow), together with [1], which fixes an interrupt storm
-on resume.
+ fs/fs-writeback.c                | 53 ++++++++++++++++++++++++++++++++++++++++
+ include/linux/backing-dev-defs.h |  1 +
+ include/linux/writeback.h        |  1 +
+ mm/backing-dev.c                 | 27 +++++++++++++++++++-
+ 4 files changed, 81 insertions(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/r/20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 72bdbcb5e863..06faeb156b97 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -98,6 +98,7 @@ struct rk_priv_data {
- 	bool integrated_phy;
- 	bool supports_rgmii;
- 	bool supports_rmii;
-+	bool suspend_powerdown;
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index d26b2cf05283..1d26a137e8e4 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -803,6 +803,59 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 	return restart;
+ }
  
- 	struct clk_bulk_data *clks;
- 	int num_clks;
-@@ -1530,10 +1531,13 @@ static int rk_set_clk_tx_rate(void *bsp_priv_, struct clk *clk_tx_i,
++/**
++ * switch_replaced_cgwb - switch a replaced wb's inodes to its successor
++ * @wb: target wb, replaced in bdi->cgwb_tree by another wb of its memcg
++ *
++ * Switch all inodes attached to @wb, dirty or not, to the wb that foreign
++ * flushes now find for @wb's memcg.  The switch carries the dirty and
++ * writeback page counts, so nothing needs to be written back first.  Returns
++ * %true if not all inodes were switched and the function has to be restarted.
++ */
++bool switch_replaced_cgwb(struct bdi_writeback *wb)
++{
++	struct inode_switch_wbs_context *isw;
++	struct bdi_writeback *new_wb;
++	bool restart;
++	int nr = 0;
++
++	new_wb = wb_get_lookup(wb->bdi, wb->memcg_css);
++	if (!new_wb)
++		return false;
++	if (new_wb == wb) {
++		wb_put(new_wb);
++		return false;
++	}
++
++	isw = kzalloc_flex(*isw, inodes, WB_MAX_INODES_PER_ISW);
++	if (!isw) {
++		wb_put(new_wb);
++		return false;
++	}
++
++	atomic_inc(&isw_nr_in_flight);
++
++	spin_lock(&wb->list_lock);
++	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_io, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_more_io, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time, &nr);
++	spin_unlock(&wb->list_lock);
++
++	if (nr == 0) {
++		atomic_dec(&isw_nr_in_flight);
++		wb_put(new_wb);
++		kfree(isw);
++		return restart;
++	}
++
++	trace_inode_switch_wbs_queue(wb, new_wb, nr);
++	wb_queue_isw(new_wb, isw);
++
++	return restart;
++}
++
+ /**
+  * wbc_attach_and_unlock_inode - associate wbc with target inode and unlock it
+  * @wbc: writeback_control of interest
+diff --git a/include/linux/backing-dev-defs.h b/include/linux/backing-dev-defs.h
+index 035d25f5b81b..0d9a113f6fd6 100644
+--- a/include/linux/backing-dev-defs.h
++++ b/include/linux/backing-dev-defs.h
+@@ -160,6 +160,7 @@ struct bdi_writeback {
+ 					 * to this wb */
+ 	struct llist_head switch_wbs_ctxs;	/* queued contexts for
+ 						 * writeback switching */
++	struct work_struct replaced_work;	/* see switch_replaced_cgwb() */
  
- static int rk_gmac_suspend(struct device *dev, void *bsp_priv_)
+ 	union {
+ 		struct work_struct release_work;
+diff --git a/include/linux/writeback.h b/include/linux/writeback.h
+index b749a9a5a5ee..88e4b5049698 100644
+--- a/include/linux/writeback.h
++++ b/include/linux/writeback.h
+@@ -209,6 +209,7 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+ 			   enum wb_reason reason, struct wb_completion *done);
+ void cgroup_writeback_umount(struct super_block *sb);
+ bool cleanup_offline_cgwb(struct bdi_writeback *wb);
++bool switch_replaced_cgwb(struct bdi_writeback *wb);
+ 
+ /**
+  * inode_attach_wb - associate an inode with its wb
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index a370dd94b6a4..1acda0233e69 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -637,9 +637,20 @@ static void cgwb_release_workfn(struct work_struct *work)
+ 	bdi_put(bdi);
+ 	WARN_ON_ONCE(!list_empty(&wb->b_attached));
+ 	WARN_ON_ONCE(work_pending(&wb->switch_work));
++	WARN_ON_ONCE(work_pending(&wb->replaced_work));
+ 	call_rcu(&wb->rcu, cgwb_free_rcu);
+ }
+ 
++static void cgwb_replaced_workfn(struct work_struct *work)
++{
++	struct bdi_writeback *wb = container_of(work, struct bdi_writeback,
++						replaced_work);
++
++	while (switch_replaced_cgwb(wb))
++		cond_resched();
++	wb_put(wb);
++}
++
+ static void cgwb_release(struct percpu_ref *refcnt)
  {
-+	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct rk_priv_data *bsp_priv = bsp_priv_;
+ 	struct bdi_writeback *wb = container_of(refcnt, struct bdi_writeback,
+@@ -676,7 +687,7 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 	struct mem_cgroup *memcg;
+ 	struct cgroup_subsys_state *blkcg_css;
+ 	struct list_head *memcg_cgwb_list, *blkcg_cgwb_list;
+-	struct bdi_writeback *wb, *old_wb;
++	struct bdi_writeback *wb, *old_wb, *replaced_wb = NULL;
+ 	void __rcu **slot;
+ 	unsigned long flags;
+ 	int ret = 0;
+@@ -724,6 +735,7 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 	INIT_WORK(&wb->switch_work, inode_switch_wbs_work_fn);
+ 	init_llist_head(&wb->switch_wbs_ctxs);
+ 	INIT_WORK(&wb->release_work, cgwb_release_workfn);
++	INIT_WORK(&wb->replaced_work, cgwb_replaced_workfn);
+ 	set_bit(WB_registered, &wb->state);
+ 	bdi_get(bdi);
  
--	/* Keep the PHY up if we use Wake-on-Lan. */
--	if (!device_may_wakeup(dev))
-+	/* Keep the MAC and PHY powered if either of them wakes the system. */
-+	bsp_priv->suspend_powerdown = !device_may_wakeup(dev) &&
-+		!(ndev->phydev && phy_may_wakeup(ndev->phydev));
-+	if (bsp_priv->suspend_powerdown)
- 		rk_gmac_powerdown(bsp_priv);
- 
- 	return 0;
-@@ -1543,8 +1547,7 @@ static int rk_gmac_resume(struct device *dev, void *bsp_priv_)
- {
- 	struct rk_priv_data *bsp_priv = bsp_priv_;
- 
--	/* The PHY was up for Wake-on-Lan. */
--	if (!device_may_wakeup(dev))
-+	if (bsp_priv->suspend_powerdown)
- 		rk_gmac_powerup(bsp_priv);
- 
- 	return 0;
+@@ -749,6 +761,8 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 			old_wb = radix_tree_deref_slot_protected(slot, &cgwb_lock);
+ 			if (wb_dying(old_wb)) {
+ 				radix_tree_replace_slot(&bdi->cgwb_tree, slot, wb);
++				if (wb_tryget(old_wb))
++					replaced_wb = old_wb;
+ 				ret = 0;
+ 			} else {
+ 				ret = -EEXIST;
+@@ -764,6 +778,17 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 		}
+ 	}
+ 	spin_unlock_irqrestore(&cgwb_lock, flags);
++
++	/*
++	 * The replaced wb is out of foreign flushes' reach but may still have
++	 * inodes attached, dirty or not.  Switch them over to @wb.  We may be
++	 * running with interrupts disabled, so use a work item.  A replaced wb
++	 * never returns to the tree, so its work can't already be pending.
++	 */
++	if (replaced_wb &&
++	    !queue_work(system_dfl_wq, &replaced_wb->replaced_work))
++		wb_put(replaced_wb);
++
+ 	if (ret) {
+ 		if (ret == -EEXIST)
+ 			ret = 0;
 
----
-base-commit: 99b43ede9e355ba35244cc9470bf1819774ce39d
-change-id: 20260930-dwmac-rk-phy-wol-be1ea6a6066b
-
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
-
+2.53.0
 
