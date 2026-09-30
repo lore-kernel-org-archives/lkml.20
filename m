@@ -1,158 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2090.outbound.protection.partner.outlook.cn [139.219.146.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A126A4D5992;
-	Wed, 30 Sep 2026 13:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774174; cv=none; b=LTk0dCKjE1qNBNbVZkvtaMf2r9buC9TGZfmrVj6es5DCLg7ydbWBXOB4mj7rts1p0dj3LeYSUDJogU6Bl8iSTDb5g3Eo65H6SzbL18WKeQU8nbU/sj1iQuGN8pcdbal2VrHRqvR4fWBhyiXcnEwETnKH4OeBwQATz1jXoKfg2+g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774174; c=relaxed/simple;
-	bh=2W2b5w9CitvZJwAgaF0y7ed8QMsLx48Y3KCdeiUUSaE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=CIDK9rk38+miSKfWQp7WLcbWEzGkbw8XxSe/DeEtHkR6EbL9kLgZuTsiWOLWqUC3W7F4IDL+dPSidddeSkMxNxzczcgjdiEvlGqAKKC2goePXvhrOe4VNBJwTt6XCXCnQ+gHS0O83FrYbYwzEluZC0vWnnCgwOsVAt0IoMTg5tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3zUeeHE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3zUeeHE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FFEB1F000FF;
-	Wed, 30 Sep 2026 13:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790774159;
-	bh=RQq3zxbvW0CRQnFqL05jVxP61C6OM3COQRF4/hXrqf8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=l3zUeeHEKdk2aEmp7uvn3nUyTLjrPE1XFDsfNdoUtcqxI62UX7M6zQVb0vWwnzu8v
-	 CUGbPyg7O0LHQfoNczEXawzM/XgjXSR9nyAKhfHBouxmtOvGSJjGloF0A9MHSG3ePQ
-	 TlhaXMJFCjlU5b9AW4mKriU7FEfbBESwVAflWkL2yyyklbgWs25PD9mpSxXzVIqvDr
-	 DA/7qM37EIeJj/plgdIX3+6BUAH44/+vUozW9IcaDOTgN9VlQ6DVraaOPvUn+sRX3U
-	 5EjRCVeJ8LNp2gtFAivo/D2x0ihciFbkqHskchemOexBY+veJ74ub4AEa2RnHij8C6
-	 8sAqjNEoc07tA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7891B198003A;
-	Wed, 30 Sep 2026 09:15:57 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 09:15:57 -0400
-X-ME-Sender: <xms:iwu9asVpkuuQd-zSzBwYUXlvjydMWP9l1UeAcmwICvEGgj49DUXrMQ>
-    <xme:iwu9arbaiAuoianQMsQiKHehH2ssN2G8q2qBJLqRp8-CeA56Yy5HJKkWJ56Ylmjdm
-    Xjt_TJYgs7GGANBs4cxkYGkepab5pSlziCiXgHr6DjhNs2S2zYLFnw>
-X-ME-Proxy-Cause: dmFkZTEeDmdMrlEwTtESmDsCIEznmr5i42EluG+14rMDU/Yf1Ka8K5mnopAhISDdZ7sgXE
-    oSlOZfQqzwDyKV4jm6PRU/ECknr334Ik8NuS7WMF9o1NHXiToE5HUXPImIr9yVpMTHc4RU
-    r8JS3rQbukBtma79z041uDfkXzo0Gofz7xDGdLqLSoGNebxH4QfJMGDlMgrr/hGLwOMaWy
-    e1NCrptSJwHxyCIm2Iq8Ek2baDpL/cZRwIcs28hC60dAsh1mU+h7/1DJWUfyNFJXS9hkUh
-    gO3PM22f0z9/Xo+9EO7xUz6wa3GjFQag7uowUy1983jPDbnkkHWLjtR3zRF6cJkHH3nKT0
-    pMt56zLMfNIBbUqzYvYyapM5XQIJZojRQARBXiyNQuanTYBybCJDMtwJzYoyjvNrbQmffH
-    BScGAOsmgpNKUHyKaPatz3fGMYPitCDm186hPALlm9L8HFhTxxl0hlObX+6pMGN1Nn2DYY
-    8GCz6CyLK9wG+BTQAKzNU61AYqTC+8E6SaAuf2PUQqcl5JjDFhCHvfCnZRFh3yM3Jos3rf
-    N6wGR+5AuPThs91Jp0jC074koUNtHuuDovyD7dx/d/elIHiVtq/CaPeVfnKBcX2gq9X6XD
-    EuWjTLbIItm09JnLMHNoJRUWYYih6wXNITcF8J4BkCQViplkLW0MvyxubxUw
-X-ME-Proxy: <xmx:jQu9ai3nKzQACpy9ShQYyykovrswdQCriH1AoY_TQy9NAeyv5N9JLg>
-    <xmx:jQu9ahHal6yDuZPwenAlTiAMlgolL8GYu6uOx_aC_OBGW_nLVenXhQ>
-    <xmx:jQu9atFvAjPEl-cNU9WvTiuEoxPH8Poy2f1p9CqcQVYuBlH3dxh7pQ>
-    <xmx:jQu9ak5C3223rYJVT-S3Wq_cq7ZX8bFajz3Pdt-EMWr1N5koEkqQqA>
-    <xmx:jQu9aiwkp6iheB0F8f3ipZEJNrwjRbgcxQFsdADoPZExx1IESrbXb0ao>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7DCE5F80084; Wed, 30 Sep 2026 09:15:55 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC744E50A1;
+	Wed, 30 Sep 2026 13:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790774184; cv=fail; b=ScKhs1qmE2nT8k8TjpZaZuKc2UzACdNEwefGuZ2GkcX7DqqzN0y7bcerK+kiTLf8YuFizsWsrxLabSJaUu2qveRya5PL7yu4oe6Zr2NNIJNJI+kGVuwrfe3kFmIqohWHeoDk+wSZzl91MEMxCs+SlYBskmt6GweHzppGvfBqNSo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790774184; c=relaxed/simple;
+	bh=C6k3sJ8jb0lFA0XjIMeSm74qfWQB+xpQABSfq9l7SJE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TjzIcIfFx1jinTgPplkRIEoDHGnJ067woSwBndnaruvhCB2VimVC09+ZFDuI0GP8MvxF9IE2X9tLUcNOjL2/N84H7lg9L+pwq9CuV6o5XEMx4m0HtE9a6DibFm4MGTKNrIjwG4ydNYTB2HosfjiXL238bBjwYxnS6FuZd+pWIdQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CFOJcejzJ47VH7CS/KJsvDQbuEacFh1GNWAoeVQ74nEjjEBE6+rM37WIro/vHtKge8k/n27Qqz366kp3pJ0KnWTviuHauH1oJaxkNox/wxxjfn5RVTsBKBfwi6C9/ycSYLU97L9z4HrBn35Y5UCBeFwfffYs2JXlJPEx4M1n/cjqMgu6US1xIHPUdGwC3+yr+aJf3oT00mIVZbHQuiVZpOF/ASF/bzYbkky8KuAC4FfbG4z+VifZCwLdeB/cpfhl2GcyF6P5xhQM7U8w/J7Uy97VpvOynlvqTTaY7VpP2INwelb/iB1xfYpR8FFkv350ob1k55GMuYbEbEiKci6hsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZFQBehvpGkg6Ibwftzvq/hAGZuFGKCLctIg4/y1brHg=;
+ b=SyDuUTXpaw39HBV2UuQYRZEt/7crTD3Am9oDxks0PaYVjU8meH06oImcD0J3PrVR9SZV88iHI/wmn/vh4AJAaAtMeWx/mE9LbMW9McmLH+SG098Tua8rmOS1UfBIuogDcGo2eomgUun9DnJm+Jbma/hRN+N6Veq5PlEZsrnDjx1XrCODRruORS8IpHcA0crqs4ywu/QC03VtcQyjdZFjtlHqwGkYToGIpZ2e/04Lib23T6tZxZOCqLzSyulbY++TQd327/QfyqCNKXz6EyD2i1rDuVE9j2FEH4jZiWRNERvHMRPpF8HW1KZXbQCT7LBpE2PeDPqzmr3z7ixcn7AQXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1297.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
+ 2026 12:43:33 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.026; Wed, 30 Sep 2026 12:43:33 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v5 01/23] clk: starfive: jh7110-sys: Fix memory leak in reset controller register
+Date: Wed, 30 Sep 2026 05:42:55 -0700
+Message-Id: <20260930124317.5648-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0006.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::18) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 15:15:35 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>, x86@kernel.org,
- linux-riscv@lists.infradead.org
-Message-Id: <e357ed97-6098-49c1-b031-c4955c97a35a@app.fastmail.com>
-In-Reply-To: <20260927224418.109759-1-ebiggers@kernel.org>
-References: <20260927224418.109759-1-ebiggers@kernel.org>
-Subject: Re: [PATCH v2 00/20] Migrate x86 and RISC-V accelerated AES modes into library
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ca92cfc-2e18-4301-f611-08df1ef07030
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|52116014|10067099003|56012099006|22082099003|18002099003|921020|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	/WCwRoNKBgO7Ah8XjSqyqpsO932cGdfc/Rs+0xp4eMCSl8aQXBji32q8Ad+z3LLP2d8axc1agtPf95vUu+HeJFyVLrAuJxpFZyR/zThAz9ofE05PRTQt6pXwaHFzO2xLO6R12SRq6CMZxImhgLRxaex7E7V/YEqYiED1vT1Kaz5ULdiMsK2TbiTSOPQZiksBM2OLPMoLHpqnaZYtiDubTNLJmzuZTbJfQyfTx9/qUi+DlmwfJSgzJGMvjfG3Tz0TL/gKaOy6mi5UZzmm+k2n0aAJbKZJrjfhFT1K0rchjJrXcsEzEYBE3Xsiw2zGCECrJ0JUQRtOF32Wo9QeiQUIiF+nPQVMb7JmnSDrzPB5fw74MERDNxuv/3FtjBr+BgqnsSsuKsvDudkogty6zRtcUjDI0V9x9vc5i4rAkvFx5nUeMA3c3b5zGSGXImbh9wDQ9Ang2g1xKxy8SXAgExlMq5k8A4H23tJ6oqFq0Geue3zM9cWTQsP0RisxpXj9wvT0G5YSp6oNwn+kpLo7X8iupMeSOPDb+328wEsqIAiw64MRQLT0uvsQEQacq/m9iET6ukqE7UuEEETGwtD+htQCvg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(52116014)(10067099003)(56012099006)(22082099003)(18002099003)(921020)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?WbLYHWzopzew/RsefVGW7saaVQlGXAzKwbPdc+peGsvLJE0dM/8ilMrqL/Rd?=
+ =?us-ascii?Q?yNVMRFWJwlddPaDSC1g/oHY9sbAzSXDExr4+Du+z2q7G5Ytd2aE3XP+lN8lv?=
+ =?us-ascii?Q?9qlCf2geS/mCZgB3bbIabdpi2OH7ER8H8M/JSlXN9aFYY+2gTDj+jUbGi5Jv?=
+ =?us-ascii?Q?eOdGLvuNoGRsqtxemRJkSD9pdZufZOQI8tD65cLFOJuuUTMEuREt/1SAh2UH?=
+ =?us-ascii?Q?PYIUaONVJDeXKZbY5ItO7FQ6HYJzgDHHv/IPO4C7Rf+SJAwk0To+mSCbtdqG?=
+ =?us-ascii?Q?IPb1iJf4/GovMPo1BRi/hKTIXUdFlFFCyGhzcksBeaAvUB7qt4AmoIhipY3W?=
+ =?us-ascii?Q?Z1Crot5zVweOEwlXbAaRAuD1Ci8VFjWE6xDYMkefGMrAYFtLhKhl0xAmzgDB?=
+ =?us-ascii?Q?jVvOO8BncIBBSo3x5VWi+DHUQO54XdfB40/QXe2Jd0YVp8dG+K5CmGcGsRag?=
+ =?us-ascii?Q?1OCIaGgvQCoWIagsCoDJmeJWuYrtEB9AE6InUkmV3nTo37GVEgT5yHpDMKCF?=
+ =?us-ascii?Q?RAl9S9HFtOIFhePomS0e7G6IzVab5TZ+fmiQt8Iq5PeiBPzW1QcN3rPNOHnL?=
+ =?us-ascii?Q?EvCH6qRw7vzSiRQXBonsHHR8MLxEpS+G69Vb7aoRfDp7T1LHeplpyOWXh5jn?=
+ =?us-ascii?Q?0/7wi7+kI/QIx0A+at3hw2eKccsmwfTqPzvnZuPV7g209B6GAYWFzjh1hJUa?=
+ =?us-ascii?Q?2z5jzPXs2nMAIEu6qtxCFR8dfInsA9gh8HrrZGCPCMVenZJNZgUUWEHPBWtq?=
+ =?us-ascii?Q?WKNfvEQlVW4N8fYd5ktOGpNY8MTncE3HQTpxdZyPozwTzn93uyLJr1/jXZhG?=
+ =?us-ascii?Q?8+j6khw0grJnJ8VxNjIHswp4W2rsJFAJvzMXNIpgBYx8QgzvXZ9TkdNnXc3N?=
+ =?us-ascii?Q?OqnTBn3PEGLcVG5FS6UXguBKGjAAOkFx+P2L9o2XtPBxa9K2UPnCWq6x1c8/?=
+ =?us-ascii?Q?GMluR3OsAyuW8uJi+a44vMkCWUki2zaCwNnWwwWZEsOtX5v7LSinNlGIfMRf?=
+ =?us-ascii?Q?c4UdDWZL4D2Kci47kPxR0xmouYPaCycLx337+RYwaZwvKdsCt9TjQFOzhJFP?=
+ =?us-ascii?Q?IJBlWyT0g/bcNh1BLsIjACG1vtXPPgHQNpz6C8Lr3pieDQM89qEsyOwOxD0o?=
+ =?us-ascii?Q?wk0rVzbFlbEWP1yUlSNtmqwQ97h1sujZ4clqa+eWeKmP8NUo5qHs/c/OigFn?=
+ =?us-ascii?Q?2bkwk8zV1iaSZ2BUboaeDYm0It/0rDDCG0lwe0E5pZzL1WwzZ4ug7vyF/yC/?=
+ =?us-ascii?Q?QHgVmGAqa1IYam16xxkSH3Ft5VwWQE/SzjKDbQX1gt7DgB10FhlVDfiOd21K?=
+ =?us-ascii?Q?d21a7vHcPntcPq2Ku0je50ITg18tdylID6NIpivs43aoCkwmQsE77jqzvYX0?=
+ =?us-ascii?Q?fvVCWsOpGD5VIxtfJm1o0/Th1PlGsCXLyUdHAeUowJGYre8Wkjb0N9/zPlnf?=
+ =?us-ascii?Q?L/0py5TqrjqbO+GepqdNKHjS1uhx1qC+IkNWsFX5tQZ0dUbmDg1Gen3mH9/r?=
+ =?us-ascii?Q?fOT+duQN3ZB2Ssxc5G7weaLXFlDl5VTIACt8bULsSJxDklBswhH2jgrGRe0v?=
+ =?us-ascii?Q?x0XshBXUuWRK6meSzJt0M1Mt3vtdJ3TywzQYN1QO4JSI2qkVzkRjqQXdNVOT?=
+ =?us-ascii?Q?PU1j7V85kL14NycjmNJ8pusiJVt3o2Lxci/UfU8rWjRbcO2vvy3fn18vm8+u?=
+ =?us-ascii?Q?NYbjDROw0YQ++Lus76IGvER6OM5Hex3daUPBA4YfmCxx44k4RRFJyX4dSiyD?=
+ =?us-ascii?Q?MXKvfo/fZd0CmJThdTe66Jt8E05ts1Ha83yCLUnHXkRAmtKCarVU?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca92cfc-2e18-4301-f611-08df1ef07030
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:43:33.4666
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B2hjYKD4wV5M6xLSkwDvLUTUlpROXigEfOnFL3fFXmiXU42Xg3vpMLtPo/NG0dbZNB5wzb9c/1drkkpMf8Qlp3gHGQtCvDWJihPFTxFfu12eOM3KNTUzzAlINu8wo/dB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1297
 
+auxiliary_device_init() returns an error before device_initialize() is
+called, so the release callback never runs on this path and the rdev
+allocated in jh7110_reset_controller_register() is leaked.
 
+Free rdev when auxiliary_device_init() fails.
 
-On Mon, 28 Sep 2026, at 00:42, Eric Biggers wrote:
-> This series applies to v7.3-rc4.  It can also be retrieved from:
->
->     git fetch 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git 
-> aes-lib-x86-riscv-v2
->
-> Patch 1 was already applied to libcrypto-fixes, but is resent to make
-> this series applicable directly to v7.3-rc4 (ensuring that the Sashiko
-> review runs).  Patches 2-20 are targeting libcrypto-next for 7.4.
->
-> This series migrates the x86 and RISC-V accelerated implementations of
-> the AES modes ECB, CBC, CBC-CTS, CTR, XCTR, and XTS into lib/crypto/.
->
-> This makes the corresponding library APIs be properly accelerated on
-> these architectures, while still accelerating crypto_skcipher as well
-> (via the library-based code in crypto/aes.c).
->
-> It removes a lot of redundant glue code, since crypto API boilerplate no
-> longer needs to be duplicated per-architecture.
->
-> Finally, it fixes the longstanding issue where these optimizations were
-> disabled by default.
->
-> In the case of RISC-V, this series handles all remaining AES code in
-> arch/riscv/crypto/.  In the case of x86, AES-GCM is still left in
-> arch/x86/crypto/ for now; it will be handled later.  Other architectures
-> will be handled later as well.
->
-> For various reasons, aesni-intel_asm.S (the x86-accelerated ECB, CBC,
-> CBC-CTS, CTR, and XTS code that doesn't use AVX or VAES) is replaced
-> with new functions written from scratch.  The other assembly functions
-> are kept but are modified slightly for integration into the library.
->
-> Changed in v2:
->    - Fixed 32-bit x86 bisection hazards by making aesni-intel depend on
->      CONFIG_64BIT earlier in the series.
->
->    - Fixed handling of lengths over S32_MAX in RISC-V CTR code.
->
->    - Restored selection of CRYPTO_SKCIPHER by CRYPTO_AES_NI_INTEL, since
->      it is still needed.
->
->    - Made the 32-bit x86 XTS code spill the tweaks to the stack rather
->      than to the destination buffer.
->
->    - Removed the no-longer-needed single block special case from the
->      RISC-V CBC-CTS assembly code.
->
->    - Made x86 CBC-CTS encryption and decryption share more code.
->
->    - Reordered the function parameters in aes-xts-avx-x86_64.S and
->      aes-ctr-avx-x86_64.S.
->
->    - Other miscellaneous cleanups.
->
-> Eric Biggers (20):
->   crypto: aes - Fix undesired override of some optimized AES modes
->   lib/crypto: aes-xctr: Pass counter by value to aes_xctr_arch()
->   lib/crypto: x86/aes: Clean up aes-aesni.S in preparation for AES modes
->   lib/crypto: x86/aes-ecb: Add AES-NI optimization
->   lib/crypto: x86/aes-cbc: Add AES-NI optimization
->   lib/crypto: x86/aes-ctr: Add AES-NI optimization
->   lib/crypto: x86/aes-xts: Add AES-NI optimization
->   crypto: x86/aes - Drop superseded 32-bit build support
->   crypto: x86/aes-ecb - Remove superseded ECB skcipher
->   crypto: x86/aes-cbc - Remove superseded CBC skciphers
->   crypto: x86/aes-ctr - Remove superseded CTR skcipher
->   crypto: x86/aes-xts - Remove superseded XTS skcipher
->   lib/crypto: x86/aes-ctr: Migrate AVX-optimized code into library
->   lib/crypto: x86/aes-xts: Migrate AVX-optimized code into library
->   lib/crypto: riscv/aes: Copy aes-macros.S to library
->   lib/crypto: riscv/aes: Pass key struct to assembly code
->   lib/crypto: riscv/aes-ecb: Migrate optimized code into library
->   lib/crypto: riscv/aes-cbc: Migrate optimized code into library
->   lib/crypto: riscv/aes-ctr: Migrate optimized code into library
->   lib/crypto: riscv/aes-xts: Migrate optimized code into library
->
+Fixes: edab7204afe5 ("clk: starfive: Add StarFive JH7110 system clock driver")
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/clk/starfive/clk-starfive-jh7110-sys.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-For the series,
+diff --git a/drivers/clk/starfive/clk-starfive-jh7110-sys.c b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
+index 847c0a39e5ab..1d460a03f936 100644
+--- a/drivers/clk/starfive/clk-starfive-jh7110-sys.c
++++ b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
+@@ -360,8 +360,10 @@ int jh7110_reset_controller_register(struct jh71x0_clk_priv *priv,
+ 	adev->id = adev_id;
+ 
+ 	ret = auxiliary_device_init(adev);
+-	if (ret)
++	if (ret) {
++		kfree(rdev);
+ 		return ret;
++	}
+ 
+ 	ret = auxiliary_device_add(adev);
+ 	if (ret) {
+-- 
+2.25.1
 
-Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
