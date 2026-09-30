@@ -1,194 +1,275 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F4A4BF947
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720E237B02D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783976; cv=none; b=f8Tz8smzzVKI6YVghruQyuHd0Ir6EvjKjj351xvJMuYahHDkFkAFlc+IZGIqazIaCLGicpUw2yFzDToNWcAQFwgQi7F4M+2OQGaQw10f3yfUBofJu0veKrf7x+Orp+yDsdFPUo5+pN45p6w1SWt2Qz7nBzfco/IC+OAZRtC+1so=
+	t=1790784004; cv=none; b=sHnyDRSRBZf/I2kIBRjpggspb+X1ZMsH8KVCcjzQAqvJS76Z1E6Wx7haauLAE8r+BjnVmJ3dQ7qC1pOFRquVOMYIlAud76TOqo+bX4ZOiSqnH0Pj7kVVoaqrpeExlFxqVU/wf36L9JMluATy3v+gZSs1gjPo4YyxShTBHCVU3ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783976; c=relaxed/simple;
-	bh=50nZY6PQAtGtgZSOnvkvfuQNWS2RvqbnnzACfieinj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dYcnFXMkHOyh8w/sPmIhAiScBRgJ6ejCPl6sXcPIA6G/4688uJwI3xHpTPAxNXzRzT6lP+C2MgxhvpNROuK6F2mrWAQxVTmkmix1vBGM8fIEkGNwBD4um0fEjtPGoQR84C7kDPoczJ7HeXorX/z/EDerWv96uc1IWcU3E2kJSzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bLadcE3h; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790784004; c=relaxed/simple;
+	bh=/A6D4v8ejedcMyPFP/qMNPaXrr8vdxHrFJElSqNRnEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=roQ5ScAK5VKz7YonyR2MlHIYVNUYsRA723g7cN/rCH7VMs2W/OOddeDQ3HlFPsuVk7qofcTqvZAtLUvbSrWQcIExsncoJDfvjeXMrYohlHVS/HHlsGgOxLis7Sfc91s53eppeqs+EBgW1ZCo7F6kJrMRJmSCDmewBukc0q11AHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=d8vriQtM; arc=none smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bLadcE3h"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-532c7643bc4so65386071cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="d8vriQtM"
+Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a860e532eeso52034897b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:59:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790783967; x=1791388767; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BzkcCjYLhlXtlTgNVSY8HEZ8Fih4l8n9pVSwPxokMKk=;
-        b=bLadcE3hxhBWK/QHj9th9v1cSK8atTqnplWo4tzGax3FpR9PLMvl1GQoCcN1EJuKJ2
-         B56oqXtiaWK2vOHfET7vAQ7bGjh1bO/LkquRx98qxEo0detwgXHJ8Or90JQoLtskthWD
-         iGAEvLOBOepP3tt5rkHc7hf2intlSMUTMfLUm6+ADj13MzQOD/C+94Z4Lx3nVBSWSwe+
-         jOvfG3dI4mxsDAfxCOGOmBKPth1gSKOSa3l2GINOECQLdZpl9BtyPJ7T6nK94zva5bUL
-         Cup0XTmuuR6B0ViKqt45D6eURqMdAZv6m17pKNYnz7RmwSXCJWPPtKLE4/QcPbD1Wqxj
-         uXUg==
+        d=tenstorrent.com; s=google; t=1790783997; x=1791388797; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YMxQ9b6X1p34U0/6ooz+lLlNpeyvqyp2NfoWFlwIw1I=;
+        b=d8vriQtMPsP6YqOAez7mbzjaB8HqhW9/tWO7SDzrOD6flKdAUC5cPxDbe5WwP/+yTU
+         1uZMQKlmxd4Ymjo0zt1QcYRuLpMa7RpXo0SAFDfliFle3c0dv8CxeiGH03o20mihOy/y
+         95DUJ0JGzbVGb+Fz0MpOILgE76hU44vZwGx3zmWocNho2b/oHvH8Hoqf4h78tQzuMhZC
+         GMDv0KmcH3EVoXV1fJS9iAwf6o1rCvaikh5B0u5f1egEj/k1Qmbv9jyrI/0rg8ftkGyu
+         1AoXCZY8ZOPUM58Mcrho+QNb3Tfxb2Z5nfubXyKUYyELIb1/PJ9pzxI083Z1RiK4p1UX
+         tSXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783967; x=1791388767;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BzkcCjYLhlXtlTgNVSY8HEZ8Fih4l8n9pVSwPxokMKk=;
-        b=2UNbHcamHUHIEDkrdKxuiSj1IQWpevH0Rz+zBCr/yqEDdTn1m0R5KiUVqGCoMIz5pm
-         /gUuDPTPSpbJv2SkIjt/Vo4EXHkB/Mlx9GR/Kmmmy81vl3phpGk1OaaGIl73NEN6J8d6
-         is53gPGIqjNVDBE4fklaf/tGVtQJJNZOxIGrAgec2TKYckHyUCFt2sxATAvUXSqL914K
-         uVO8V2ozs6wkHMpJs+ZRIJiUnFAhiAah0iS25awFVeQEtzNj9q+v2x9qiMBTPQRq4CwT
-         sivfSvbm5jpUWBljk3Z2ACaSymRRMspjlCyTNWgVWTggSXePSBlmJhO8FMTUgFq7Go9d
-         Xjyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuxCvnlngSVx3ffSDoAM3387Voh9mkHYuyIxLbyIMEQSy2bY0SzlD8zz4mQOXHxIB/K4+ztW9tZVuBQLA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldK3hliJc9FnnIsa/qeCLIbUGC69K62LUE+L6FkNmtAcwY3dMI
-	bGkEE/7SYlmrNSR/Y3UnSzs4bhj6o6WWs8CHZtY4Y6WLZR1EZ5EVR1GS
-X-Gm-Gg: AYBFou3eW2us/kmZa5adHKJRU9cEW56uA+3zMRSuobGe7J1G8MCLRnBK2NBwm/GEm8L
-	GwW4XfFIK78ILOMRVVuR/ZmJInInKi/QjLYVxxB9L9i3RkYKGXxsV5vXSMeIgSHMhePUGjiEkum
-	bh8nb4iWJxJLZ1kFblvfWFonxmvz4JEZMebYwAs/1/b/ApQp1NC6fnfBngNQBcRUFP9LSfLXo9A
-	7dgzQEdSZV8cbimts1uaCQtdcUrPavtujUary4OPcC3YL2DsSTM8qvkUP8ZADeQq7leTNecH2fF
-	uPNyaGLjAdDpoiJd05wuw/zsqpf12ObkqCUtiM1pDnkYBl4J1IrZopEtbhq5XeTlfdAxrBemUoQ
-	+Hl3snBjXbNfzVm8eUamIoTkfBQ0HkiEFd1+KN/SXCrrVUeG+QW9WP+GaPpNK/PuTJfugpTD0Rk
-	QIW2JhBfP4mG4qktWg8ifWjByoEJSmEY9Fk0v4cd4Z9Cc2dp3hSFJob/CrCa02nmMGSEH9jDsD7
-	nJQ7Acopy1gtKQHAmzONw==
-X-Received: by 2002:a05:622a:985:b0:530:b2e4:4e30 with SMTP id d75a77b69052e-53374d801bcmr35448021cf.61.1790783966849;
-        Wed, 30 Sep 2026 08:59:26 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5338253300fsm2866831cf.27.2026.09.30.08.59.26
+        d=1e100.net; s=20260707; t=1790783997; x=1791388797;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YMxQ9b6X1p34U0/6ooz+lLlNpeyvqyp2NfoWFlwIw1I=;
+        b=vq534uVFhIhpp7zXfCd1ysakx7Iw4EG87w86dEUbFQZtQnRsCFr5Ads/U2FZ37SNKt
+         u1WIiUgh/Pj0cDv026I+mjUXNE+vg86cZQoUbuBr8/ZmsYdtxSSnBJTMdB9if/2fKrZ9
+         iaHlKf3apPHwfBQwrNnDxqcpv4FVHcykdIzGcg0Hq1qMc7/2FFzggRSHNo4FFCG6oXeA
+         oV+v7CBeFtR/T2Em1257FhlMigh7mBOrn+32C9WVoNZ2f5zUKQEIVishvIHoRvgzxCet
+         eeItp6dp5NtjYQKspgUCc3KGRW6j27lXM1vLkzlVRmrwFjz4VCS7oNpKB2XVqxyJU/8D
+         WBpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXlD0uyra0rXTVqpc0jj1ZIT618f5f9I6zB7kl3Im7lmtBLR8fYX1VD11bYL+VYj05n4x/ROa7qlGBLyg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKasJu8XLEwN6GBQUexyL1sYoKBdrCpXiV9BeJv8HpnBEiPwWCR
+	o+Zuce2Mzh3CpJ/a0Vh105T5ofd326q1VdFAqN/e5uYjUXLepzq5ReYtuwGZqXuoAfY=
+X-Gm-Gg: AYBFou2CwMpA2fV9S9lFfc+TY7lcA9VhcP50mZW6LRs95GGQmCp263weFUCYOIm1d6I
+	kSGK7FLtx3+yzlX3j1POz0WWRBJXs3+RDP3kwaUQsUeFy9+FgKtlmAj4/cahRIZwrKiaPkfIh5b
+	VE3QTJ5kE7kKAavXHcVvua92tu4+z2mWxougxDxP/5KDHK3Ak90baqi7IszNOKp4FsQG7uBSRyb
+	HETwRZk792MFKIf1K6cIkUtGCITRlZT9ILYTbPtwecqTEQmvtgQFcJijI/78Wyhds+rSek6VS4e
+	Lj7+LSD/3fa0sBAGxyf3HbhXafROVxoAf5mlsV85Wvg7houpX14ohugP+XQ2DdN98aJvTToD6ks
+	wdMbbkVr/OjcKSnzga8LRyBy/SXdKw/ZiAB0rRK9MqWjqp1pPxDgbJoV8+5ESx/MBlY1gcSBZe3
+	+1R8dlI1tAJzF8RcJOOcq2gF3gVhDrC9YcsNZL4DmgJU1BluKqURLRC6juaDp6NBlE24VUOMLTM
+	smenqFYFj2fzsBnOZ+3zLAt8Rfa2bz/Kf/30Q==
+X-Received: by 2002:a05:690c:9990:b0:89a:63da:fa90 with SMTP id 00721157ae682-8ac93318690mr7925077b3.75.1790783997212;
+        Wed, 30 Sep 2026 08:59:57 -0700 (PDT)
+Received: from toolbox ([12.55.13.134])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdada3294sm380647b3.47.2026.09.30.08.59.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:59:26 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Zhu Lingshan <lingshan.zhu@kernel.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH RFC v1] vdpa/ifcvf: Time out and report device reset failure
-Date: Wed, 30 Sep 2026 11:59:01 -0400
-Message-ID: <20260930155920.1684465-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 30 Sep 2026 08:59:56 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:59:50 -0500
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Message-ID: <ux7od2uydetgsu3dpy6mmilhqm5phhnk2ioxn54w3nb3feohxf@2jqovoqzfs4n>
+References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
 
-ifcvf_reset() writes 0 to device_status and polls it without a bound,
-and ifcvf_vdpa_reset() always returns 0. A device that does not finish
-the reset, or one that was surprise-removed and reads back 0xff, keeps
-the caller in the reset path forever.
+On Sun, Sep 20, 2026 at 03:13:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+> operations that keep the original VMA in place.
+> 
+> Historically this has led to a lot of bugs where non-obvious interactions
+> occur between existing mremap() operations and the original VMA.
+> 
+> Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+> MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+> mm->locked_vm accounting, but this wasn't the only issue.
+> 
+> And thus history repeats itself, as it turns out that mm->locked_vm
+> accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+> and has been broken ever since the feature was introduced.
+> 
+> Both relate to the fact that VMA_LOCKED_BIT is cleared on the source
+> VMA (it has to be as all page tables are moved):
+> 
+> 1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+>    clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+>    pages.
+> 
+> 2. If a partial mremap() is performed on a locked VMA there is a leak equal
+>    to the number of pages not copied.
+> 
+> (Both for MREMAP_DONTUNMAP operations only)
+> 
+> Both issues can be fixed by treating the source range as distinct from the
+> destination range, which is the definition of what MREMAP_DONTUNMAP does so
+> is appropriate.
+> 
+> In case 1, simply disallow the self-merge, keeping adjacent source and
+> destination VMAs distinct.
+> 
+> In case 2, split the source range ahead of time, so accounting is always
+> correct.
+> 
+> Both changes were tested locally and confirmed to fix the issues.
+> 
+> For the purposes of a backport, the fixes are kept distinct, a follow-up
+> series can add self-tests.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> Lorenzo Stoakes (ARM) (2):
+>       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+>       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
 
-Bound the poll with readx_poll_timeout() and return -ETIMEDOUT from
-.reset, so that callers such as VHOST_VDPA_SET_STATUS(0) see the failure
-instead of hanging. Stop right away with -ENODEV once the device reads
-back all ones and is no longer present, as there is nothing left to
-wait for.
+Hello,
 
-Fixes: 386a26208524 ("vDPA/ifcvf: synchronize irqs in the reset routine")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-RFC for two reasons:
-- The spec gives no bound for a reset; 10 seconds follows octeon_ep's
-  OCTEP_HW_TIMEOUT.
-- vhost_vdpa_release() ignores a reset failure and still tears the
-  mappings down, so on close a timeout turns a hang into teardown while
-  the device may still be active. That needs a separate fix in
-  vhost-vdpa.
+Apologies for the double mail. I did not hit reply all first time.
 
-Compile-tested only (x86_64 defconfig + IFCVF, W=1).
+I am seeing some failures in the proc_maps_race kselftests after
+this patch was added to linux-next. The failures are in
+test_maps_tearing_from_remap and test_maps_tearing_from_resize. I have
+attached some logs below
 
- drivers/vdpa/ifcvf/ifcvf_base.c | 24 +++++++++++++++++++++---
- drivers/vdpa/ifcvf/ifcvf_base.h |  3 ++-
- drivers/vdpa/ifcvf/ifcvf_main.c |  4 +---
- 3 files changed, 24 insertions(+), 7 deletions(-)
+# #  RUN           proc_maps_race.maps.test_maps_tearing_from_remap ...
+# ==== Tearing from remap ====
+# Before modification 
+# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
+# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
+# 3fb3184000-3fb3187000 r--p 00000000 00:00 0 
+# -----------------page boundary-----------------
+# 3fb3187000-3fb318a000 rw-p 00000000 00:00 0 
+# 3fb318a000-3fb318d000 r--p 00000000 00:00 0 
+# 3fb318d000-3fb3190000 rw-p 00000000 00:00 0 
+# 
+# After modification 
+# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
+# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
+# 3fb3184000-3fb3185000 r--p 00000000 00:00 0 
+# -----------------page boundary-----------------
+# 3fb3185000-3fb3186000 rw-p 00000000 00:00 0 
+# 3fb3186000-3fb3187000 r--p 00000000 00:00 0 
+# 3fb3187000-3fb3189000 rw-p 00000000 00:00 0 
+# 
+# After restore 
+# 3fb317e000-3fb3181000 r--p 00000000 00:00 0 
+# 3fb3181000-3fb3184000 rw-p 00000000 00:00 0 
+# 3fb3184000-3fb3187000 r--p 00000000 00:00 0 
+# -----------------page boundary-----------------
+# 3fb3187000-3fb3189000 rw-p 00000000 00:00 0 
+# 3fb3189000-3fb318a000 rw-p 00000000 00:00 0 
+# 3fb318a000-3fb318d000 r--p 00000000 00:00 0 
+# 
+# # proc-maps-race.c:1081:test_maps_tearing_from_remap:Expected 0 (0) != capture_mod_pattern(self, &remapped_last_line, &remapped_first_line, &restored_last_line, &restored_first_line) (0)
+# # test_maps_tearing_from_remap: Test terminated by timeout
+# #          FAIL  proc_maps_race.maps.test_maps_tearing_from_remap
+# not ok 3 proc_maps_race.maps.test_maps_tearing_from_remap
 
-diff --git a/drivers/vdpa/ifcvf/ifcvf_base.c b/drivers/vdpa/ifcvf/ifcvf_base.c
-index d5507b63b6cdb..8a6c8f8314d53 100644
---- a/drivers/vdpa/ifcvf/ifcvf_base.c
-+++ b/drivers/vdpa/ifcvf/ifcvf_base.c
-@@ -8,6 +8,8 @@
-  *
-  */
- 
-+#include <linux/iopoll.h>
-+
- #include "ifcvf_base.h"
- 
- u16 ifcvf_set_vq_vector(struct ifcvf_hw *hw, u16 qid, int vector)
-@@ -201,11 +203,27 @@ void ifcvf_set_status(struct ifcvf_hw *hw, u8 status)
- 	vp_iowrite8(status, &hw->common_cfg->device_status);
- }
- 
--void ifcvf_reset(struct ifcvf_hw *hw)
-+static bool ifcvf_reset_done(struct ifcvf_hw *hw, u8 status)
- {
-+	/* A surprise-removed device reads back all ones and never resets */
-+	return !status || (status == 0xff && !pci_device_is_present(hw->pdev));
-+}
-+
-+int ifcvf_reset(struct ifcvf_hw *hw)
-+{
-+	u8 status;
-+	int ret;
-+
- 	ifcvf_set_status(hw, 0);
--	while (ifcvf_get_status(hw))
--		msleep(1);
-+	ret = readx_poll_timeout(ifcvf_get_status, hw, status,
-+				 ifcvf_reset_done(hw, status),
-+				 1000, IFCVF_RESET_TIMEOUT_US);
-+	if (ret) {
-+		IFCVF_ERR(hw->pdev, "timed out waiting for device reset\n");
-+		return ret;
-+	}
-+
-+	return status ? -ENODEV : 0;
- }
- 
- u64 ifcvf_get_hw_features(struct ifcvf_hw *hw)
-diff --git a/drivers/vdpa/ifcvf/ifcvf_base.h b/drivers/vdpa/ifcvf/ifcvf_base.h
-index aa36de361c10e..57d00b881582b 100644
---- a/drivers/vdpa/ifcvf/ifcvf_base.h
-+++ b/drivers/vdpa/ifcvf/ifcvf_base.h
-@@ -29,6 +29,7 @@
- 
- #define IFCVF_LM_BAR			4
- #define IFCVF_MIN_VQ_SIZE		64
-+#define IFCVF_RESET_TIMEOUT_US		(10 * USEC_PER_SEC)
- 
- #define IFCVF_ERR(pdev, fmt, ...)	dev_err(&pdev->dev, fmt, ##__VA_ARGS__)
- #define IFCVF_DBG(pdev, fmt, ...)	dev_dbg(&pdev->dev, fmt, ##__VA_ARGS__)
-@@ -112,7 +113,7 @@ void ifcvf_write_dev_config(struct ifcvf_hw *hw, u64 offset,
- 			    const void *src, int length);
- u8 ifcvf_get_status(struct ifcvf_hw *hw);
- void ifcvf_set_status(struct ifcvf_hw *hw, u8 status);
--void ifcvf_reset(struct ifcvf_hw *hw);
-+int ifcvf_reset(struct ifcvf_hw *hw);
- u64 ifcvf_get_dev_features(struct ifcvf_hw *hw);
- u64 ifcvf_get_hw_features(struct ifcvf_hw *hw);
- int ifcvf_verify_min_features(struct ifcvf_hw *hw, u64 features);
-diff --git a/drivers/vdpa/ifcvf/ifcvf_main.c b/drivers/vdpa/ifcvf/ifcvf_main.c
-index 2af1cec958848..6c569f01bec91 100644
---- a/drivers/vdpa/ifcvf/ifcvf_main.c
-+++ b/drivers/vdpa/ifcvf/ifcvf_main.c
-@@ -444,9 +444,7 @@ static int ifcvf_vdpa_reset(struct vdpa_device *vdpa_dev)
- 	if (status & VIRTIO_CONFIG_S_DRIVER_OK)
- 		ifcvf_free_irq(vf);
- 
--	ifcvf_reset(vf);
--
--	return 0;
-+	return ifcvf_reset(vf);
- }
- 
- static u16 ifcvf_vdpa_get_vq_num_max(struct vdpa_device *vdpa_dev)
+# #  RUN           proc_maps_race.smaps.test_maps_tearing_from_resize ...
+# ==== Tearing from resize ====
+# Before modificationB
+# Locked:                0 kB
+# THPeligible:           0
+# VmFlags: rd wr mr mw me ac 
+# -----------------page boundary-----------------
+# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
+# Size:                 12 kB
+# KernelPageSize:        4 kB
+# 
+# After modificationB
+# Locked:                0 kB
+# THPeligible:           0
+# VmFlags: rd wr mr mw me ac 
+# -----------------page boundary-----------------
+# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
+# Size:                 12 kB
+# KernelPageSize:        4 kB
+# 
+# After restoreB
+# Locked:                0 kB
+# THPeligible:           0
+# VmFlags: rd wr mr mw me ac 
+# -----------------page boundary-----------------
+# 3fb30a0000-3fb30a3000 r--p 00000000 00:00 0 
+# Size:                 12 kB
+# KernelPageSize:        4 kB
+# 
+# Expected stats:                                                             Rss 808 kB
+#                                                              Pss 86 kB
+#                                                        Pss_Dirty 51 kB
+#                                                         Pss_Anon 48 kB
+#                                                         Pss_File 34 kB
+#                                                        Pss_Shmem 3 kB
+#                                                     Shared_Clean 696 kB
+#                                                     Shared_Dirty 84 kB
+#                                                    Private_Clean 0 kB
+#                                                    Private_Dirty 28 kB
+#                                                       Referenced 760 kB
+#                                                        Anonymous 104 kB
+#                                                              KSM 0 kB
+#                                                         LazyFree 0 kB
+#                                                    AnonHugePages 0 kB
+#                                                   ShmemPmdMapped 0 kB
+#                                                    FilePmdMapped 0 kB
+#                                                   Shared_Hugetlb 0 kB
+#                                                  Private_Hugetlb 0 kB
+#                                                             Swap 0 kB
+#                                                          SwapPss 0 kB
+#                                                           Locked 0 kB
+# Actual stats:                                                             Rss 808 kB
+#                                                              Pss 98 kB
+#                                                        Pss_Dirty 59 kB
+#                                                         Pss_Anon 56 kB
+#                                                         Pss_File 38 kB
+#                                                        Pss_Shmem 3 kB
+#                                                     Shared_Clean 696 kB
+#                                                     Shared_Dirty 84 kB
+#                                                    Private_Clean 0 kB
+#                                                    Private_Dirty 28 kB
+#                                                       Referenced 756 kB
+#                                                        Anonymous 104 kB
+#                                                              KSM 0 kB
+#                                                         LazyFree 0 kB
+#                                                    AnonHugePages 0 kB
+#                                                   ShmemPmdMapped 0 kB
+#                                                    FilePmdMapped 0 kB
+#                                                   Shared_Hugetlb 0 kB
+#                                                  Private_Hugetlb 0 kB
+#                                                             Swap 0 kB
+#                                                          SwapPss 0 kB
+#                                                           Locked 0 kB
+# # proc-maps-race.c:1050:test_maps_tearing_from_resize:Expected 0 (0) != compare_smaps_rollup(self, &orig_stats, &stats) (0)
 
-base-commit: 551c722f40809618230001baccf219193e22fc5a
--- 
-2.43.0
+I'm not sure if this is inteded or the tests need updating.
 
+While running this selftest in LAVA, there seems to be another issue
+where the 30 second test timeout doesn't seem to work properly. It
+appears as thought the test has hung. I am still looking into this. This
+issue doesn't seem to happen while running the test from a shell. It is
+probably something to do with how LAVA runs the test.
+
+Regards
+Anirudh Srinivasan
+
+> 
+>  mm/mremap.c                   | 87 +++++++++++++++++++++++++++----------------
+>  mm/vma.c                      | 19 +++++++++-
+>  mm/vma.h                      |  7 +++-
+>  tools/testing/vma/tests/vma.c | 10 ++---
+>  4 files changed, 83 insertions(+), 40 deletions(-)
+> ---
+> base-commit: a3d0117e02bfa1c3bb6c50e7afe42bbecdbb3459
+> change-id: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
+> 
+> Best regards,
+> -- 
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
