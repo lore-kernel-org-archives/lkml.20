@@ -1,146 +1,167 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011035.outbound.protection.outlook.com [52.101.70.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BBA51614A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786860; cv=none; b=sPj0wYojUsyjq7n2PLwAkNDJ6+Zwj2E3PYIddFsJ/Ng7GATe514k3TAS1GebITlesar9SU8Erl4FByk/mJs9eE55wWW62dS5ESWGUQ/fB34+my4mDTKYNYe5ybghkL/BITZOM66uv2vXe2Ka7F+ygZz7gYHvh9fwKNCcG9IfMjs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786860; c=relaxed/simple;
-	bh=zwHqa1rFlwCe3gK+qKBo9qF4+nxZnwJiB+NeIrJyLKI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NZJIBbFFHsud6+ERQ7RcxH3FlRbqGMrdxMxo8YF4JfGm/C6yFJwBk1W5dvhPaW5IkaevqTW95jV+1y+CNbrW/zh5d/tV4yby7hwVigJB9ZbxJNXI0zHAgIm9H0kPybvmFElhHCWeX8o3UURxty2yOrXDROxceTArkB5V0mP6WRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dbkZ26y6; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C1B1E5B9A;
+	Wed, 30 Sep 2026 16:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786904; cv=fail; b=GvmCheDVgzcwadG90yzS1Xh86jZdyc5lRuJbgHm0Vxh+it5oIOs8/7rDSMU1luBRFn/7j5D/4OSt/mtC/su6eumtVMjRfwKq8v0HSde1JBmrL39lQiJidBkVJdSBDrpS6VpJ1i/cVMJuyQH+iW5I8GJkER7uH159QAFkp3wmxpY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786904; c=relaxed/simple;
+	bh=Wo2Jx5co+H6GTvVSnooM0Kj2Xe/xwdTmtUCXrSW7g1Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VLwfm3e154g0IclBG5L7rIKiaS4jB/hcZzMHOGUeeX461t05IuyfmpJ0XwospAKUcI26My3xU+FbUKUXSW2kculFcSnX94GsXCQNLq52zpojAWJQ/5zPzD7thpOWo6N/psWwj4pUYJf9uambI7OB20831Hmafr45VUCSH7bpECU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cyXm71LS; arc=fail smtp.client-ip=52.101.70.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dbkZ26y6"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912df756so43353985e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:47:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790786857; x=1791391657; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YdGluDAiZZvmXUx+j5S5zQRKfLbr15gOi/P0wOvXHu4=;
-        b=dbkZ26y6B0N0zNyZ0fHBScG+TKZr14DgeFIDmCRwswih+a1nGBwfN/BzVZAHKMSUX2
-         CL6MYUOiQXA4Ix3DyQc217f8UEVZsA47i8Ec1LFxU4BNQpEqpGwddp3phW5lEtUvub37
-         aPuj/C62Z1dxIUtMfj7g142V3qyiAXkTP6sEmYm73lKKsDjjoonbTzillGVH2fxcoV4g
-         S2EBaEejq/dqagMKXWw709ChKJmtDO3uj/dqdyNFVB5XnlCwxoi5BPJfp8/mSlT+Jy4p
-         S2CVKKpBsOOLm0WUEq5ucZ2+fJqHVWu8JXG02uPkSVwNG90zEDS3bvHyUib0OMr1NOZN
-         kVNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786857; x=1791391657;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YdGluDAiZZvmXUx+j5S5zQRKfLbr15gOi/P0wOvXHu4=;
-        b=KDGMBpfC0qHmhWmiu6uHJkIfY3WdpZBzYjPPpvkIHAu0ynWC5+fIdCRWEv6KMJnkXu
-         wFBWnnbZF/FI9xZm6OkY4xE0wwTOPsvNOngABkIIMWy2CABYG21g7+VW+JwvmI7oEt66
-         LvGpesCBZ/ckpkUKpkE6SIkDLqJGfqYb+TYSIdpY6xUg7QMJGylSJRgpxNiN9xK0b/oM
-         2fYfN9Y+er7CZoBe8hG1u/SLcKhAjqOvuxwjEKsA0WMZ/2cjdbHnQyL2e4zAJIxh9W5r
-         NPuTVfMvF+tvwJo3KReT29mdp7otT1xE90BK6QsW+FCBLnsYoq4i/BRwg48Hn/3bVT1Q
-         CLwg==
-X-Forwarded-Encrypted: i=1; AKwUvBy06NFBHq58SGx8JBf0u8p2/AMgD9te1LtNXJQ4bBLySSAw3KHuGt94m985RSyzRYPiw5HcRDaS7g8UXCk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJnVuW1vNj1XqVOw3nvsiV8DvUaJhFgQJrD0rFiAJfJLmFqiT5
-	F/4PwxyOXutY9upCFhbHQeXLekdXCIc8orWLtZbfS4HHZ1smSMx1nbGeZbXxSMYpDzbIvp5YGpf
-	xs5lIgJw=
-X-Gm-Gg: AYBFou2XpLYwb/Jz2+ZUoBGOE7a8KZiAXczIcXge496z9U6XzIUK11uMFwFheX1Ida6
-	vgQJweaG7J4QgzXZ1PMidS4qlVThqsZu4OZnFnJSsmqbz25CDWgubY2cmof3RdOqKRb5Ih/qMDd
-	XbUP0Cw0YxlhAL3P0BZjNIasOBen2R1PtcfYX4T8X5mkTRog7WjBAmUbeMSXTo0O6eQiCgaNIZb
-	hDW+7vUa93dGtyD8lJheWtQLNShMdIw1l8qn9jDmaOvvD/VQv9kfbfBpU3mP7ueaEnW2KCSwdxc
-	0fLVx811N7badcQZOSjVBO1WvlseVWBucgk5Ne1oTWKyY0FOg/OcoCNz1qZYOdWo3s0F8PRvynr
-	6V2D7k2+SWGMuHBw3MaU3BqX1VLxEwnHOuSn47Syc8CFhJMFidbfvtP1/bfjJ+R3PRQrqqLTUrm
-	3uh2PfdTLkbhGbnI77v3rf/zY6W9c7e+9VWtM/Ghax6TGfYiKxjal7LHJX+i78cSuunzT8OoNIC
-	w==
-X-Received: by 2002:a05:600c:4f45:b0:4a0:194e:5bcf with SMTP id 5b1f17b1804b1-4a01b1306bamr38895765e9.30.1790786856723;
-        Wed, 30 Sep 2026 09:47:36 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01eb717acsm3717295e9.8.2026.09.30.09.47.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 09:47:36 -0700 (PDT)
-Date: Wed, 30 Sep 2026 18:47:34 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Waiman Long <longman@redhat.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andrea Righi <arighi@nvidia.com>
-Subject: Re: [PATCH] cgroup/cpuset: Use cpuset_v2() in cpuset_num_cpus()
-Message-ID: <20260930-absentee-cytoplasm-b5cdb153077d@there>
-References: <20260930154800.698360-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cyXm71LS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=thyT8Gbr0U5RhPoqgjKWzZdEyz2tpbKW0kf5RLJh0oWvPYcO1BUhVzXfbGPuW0AncbHZ6Z/mTn+jA0EJLsYHy5UmzQzoCKDgbinJ1xp+VxefKS2GaWusF4DQU8d68lL6ZluwYqnEDMip9TZ9pQ9x0gAQoK2HlGfnkXDe3nOEiE0AeqWHjbqqW2RTddHDKYlR9ImSqOn2BNlXsDhELGovRphtTfPWKvuLNlOfGPLZGn+J8N339tpixt9sJJldk2oa/RCc+WGt2zjixRQmt3u8fKAyAEpT98XUuBz9xEwQunr/RtTbCeeh9xnrAdHQrWxqUYzKFGEgZI+3qTYNQ4EH1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MxgTMInDvhayzkCK/ubo820mWefqKYhuLFX71VbW7Yw=;
+ b=xpP/6cdCBC4/NZ8c+caa1jmAp3bogTUgFKNV2KnwoMXX6uPPQyFaBVFGdyqsgUlWaQGJRKO8K0w2kZb8t9KhHMY0NdkXE/unxUewK0lrm7hk5LusBKfNNXtmKco45dmhHK6/nWXfzc6+1gyqb9Twc06EAc6iAUCuOL3mgFrLwUvyBndOqerQW3eKbj3V8Dbz+FYpQ2h5qHVPlaNmGZgtQzMjlu2yHf3AfMm94HsDelDC/Daj9kC+KQyJvo1fhLYKVvH80EgJJNufjldwz3ihMRmVZEuqAZDIQKczYBvJSsTkcSz6v5xoYJ2XuNHglUsOiORptX9227UuqeSusnAhHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MxgTMInDvhayzkCK/ubo820mWefqKYhuLFX71VbW7Yw=;
+ b=cyXm71LSGc86fIPIEhAOlJ8C2MZ6a7uvIRujEZrCANMOvyosoBdadpmCvjGDyoERIl/daWq4AYanXndMG5o3emlt1H0JayLairObsqEG5L6C8DOFuoBzroWeqldWPaBdCjb2G0CE9VAcaPPGxC2rmT+14uGaNIoEil1SNcsaP+u376q+1AIpLaPDaKk12TEjQCoSpb1pFG0BIKKct/2eDy5RlofbBk60yU1inJ6A8eOABBckUgZwiGpOXUUjIqWExP3Nq5K5VvYTwoqqcTBfF6vcMsg+w4owXBws2oGEyKOAMLWv3VR4GYHznae7T5VY8rBq0NIyQc4G/wYP+PfiDw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU4PR04MB10885.eurprd04.prod.outlook.com (2603:10a6:10:587::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 16:48:18 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 16:48:18 +0000
+Date: Wed, 30 Sep 2026 11:48:09 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Andy Gross <agross@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND] dmaengine: qcom: bam_dma: Defer IRQ trigger type
+ to device tree
+Message-ID: <ar09SfoQDLDckrv-@SMW015318>
+References: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
+X-ClientProxiedBy: CY5PR22CA0088.namprd22.prod.outlook.com
+ (2603:10b6:930:65::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2h2orh63tmomnlho"
-Content-Disposition: inline
-In-Reply-To: <20260930154800.698360-1-longman@redhat.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10885:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15511033-7182-4527-a767-08df1f12a122
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|260925021311599003|260925021911599003|260925022911599003|10067099003|56012099006|6133799003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	fW/brhD/h8pkR2cVA2i9zkyy+wXP1bswSQAtFCfUnEZQeMYR2NFVes4ih2CTHFfuXbprGW8397lkLDArxzwI9gyB5XgmtxnMvTN8ClZr8SgeSZWlfISiDNPtN3dNCy54IGNHNAkuvgwDsRkqFALno4bLG+rFxoao3kA8pNeycVqRf3YBufZ6AsOvQKztRs3yVspZvm7/Pu5AmGJxLgshCuq59Gwl3pHfwB3fVmbguRAVlkUYrbUN6lZW5G1MIaMB0/wEbNtLzzwN7SpVyxdV+WJPbfbA2H7H7umT2X9f4ro1Wy5zNlnC2dkig5Dh3UlO81zk8HYGlQNWVWEZ8DnchUROMPTezVrkYtD8dnwzDVrbBAeGYzP4h8p6a9fCD6qVZcIS1REr723E2W7JKfXxC4VuWe51OQbBJLFvotZ3OaXcuxXRAj5VymWTHapdJW7ebK4iulv6irlt829jE+wLFbkqw0dG3CK1IRqpcbU2TxkXpa2VQEWtNUFrSlm8jwyQOfba2C4SzWPDJB5o4chTu9g247ldXmapshQbwKTOPH1TPko4aUqf/+QomYWhFnLsYrUy+S1VzcLQuxhM3y+geKpmTNouSSsF3auYV1jnhD6jzqonyNrRy74wWN9qzvy7D0IAEP4LmMJqJQ7/xoqTQlF4YJmAvT5fNjxM8nP9A3A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HCNiraI6h3MEQVaAWGOQ/HFRw43yT/vR5nHGrHSHfjDqlhqI6QGYwlykmngr?=
+ =?us-ascii?Q?IkJMJ9zJUO5cwzqMfcwUSq+7KPPi3CPf5IWbMARQ5rASwTdM9A2akSkYbKua?=
+ =?us-ascii?Q?CsEaJxPwX4yZPVihPREJsBgjd/+v4re1k/bHhOGItKEKEIotDfE5OH3ja9Es?=
+ =?us-ascii?Q?QFmhCrcccS7OC5hIwhCOP4t0ot3qO+5jRF7N1n5VDv/BDk8IrEE3z9OLKskj?=
+ =?us-ascii?Q?H5ujjvd9IaGsnG0yX9ZkcIBXhS+48ZIfKcSh4YHrzo4cEL0eBmVcuBbeBRUw?=
+ =?us-ascii?Q?ZayF5H/KCyWOhF0GAp+zsHrfk87GayNUJKriGNaxgB6p5U4DMxokw+hUJ2vK?=
+ =?us-ascii?Q?VEtzSGx1KrT5bmxhmx9ebDWO3tkSWxW1ytftSg4lF/QSr+cjhxyJpfsWJJC9?=
+ =?us-ascii?Q?+r5YUhvagtIunQ7pSDOSwWYentAqh2sV3VPU5KDh+uN6qldyyJQRQLTLs9LG?=
+ =?us-ascii?Q?jkj3mQa3p6nQQiNN1UQ7yms5IraQdtQpWM5pt5j4jSy8iGATA1iK67eVY9fw?=
+ =?us-ascii?Q?klsZOHr0zN4qGvhsRaa021jSDHIfQH8Vr8WWrKGc2RaWiHp8jLJG/0QURF5k?=
+ =?us-ascii?Q?dU4oDR3J6okRZW/m3AO3Okxlc1QQq1uB6vb1gxU1ehViMT9rWJIt4W2yXMA3?=
+ =?us-ascii?Q?XyfDoPhub0Hts+SJXkfKoR2c4pIn6TMtWAZ1eOcoDXywo3OnpVa4j7aBn76e?=
+ =?us-ascii?Q?uJfXlI1yiqfpnxSybItEu7yVi/GZOIFNqqx3W+pyETJHXxVXhKwEFR4xGxFq?=
+ =?us-ascii?Q?eVHLCDRivS/x2Kzr3y1FSY0398z9sjksRaunrWasZhVKBbBrOGysoUJxfsFa?=
+ =?us-ascii?Q?SPv3RYjdBCmVw/+0kL5ccqNisJaX0WkImyi+s+MujyuFyVpZA+nSrDPh7qXJ?=
+ =?us-ascii?Q?NAWHQcNUMGRM2cHsabydCMTmFLtPDk56YKqEcWVew8BA9mTPc7yl0QD5iEzb?=
+ =?us-ascii?Q?KT9JFlsZWokhrAylSgarPPnoqf/LDZxNC5PwLsYlstzK49HybQTp5J8O/wPs?=
+ =?us-ascii?Q?WbhcYWv5kXkpjF2lrAOr8Rx9OVp5xrn0ifm6iVTCdPATDIPFEAWKTJKH7atj?=
+ =?us-ascii?Q?u9sgsl7NW2eeL1Kp0xD7FgIeyRrMuVYD28lWmo0uBBhozJTTOUwqKZP+Bhy5?=
+ =?us-ascii?Q?ehzMc/Iq5Qel8Ktuopa4CPchIL+riYwt1OuJv6eST6vBcido2qIy77yEWEUW?=
+ =?us-ascii?Q?rCAX8h+FBliw6vxkcrUoghvjYguOXzxzVOZX1B6f7aD0Vwe6WPXSobhKjYrr?=
+ =?us-ascii?Q?WCsYE40vceA4eVPjaWWDpXFkM8YFw1MQEO7muxkNqkNCc9ViYyk80p+gyE/H?=
+ =?us-ascii?Q?f1NFI/wdsiV/I1Vw+TRmJpNnUVxLV6VDpvggehkGZV94F+DsXPcjN2Pu6kMF?=
+ =?us-ascii?Q?kW03ua0tqjWn27i52Acd2tDzlYZA8zbpp3lMQYY8Ite/SSEuNFxIzwh62omU?=
+ =?us-ascii?Q?s55hbx5pf4l8Npsxr0V4oHCncLjT7BA0gW1bBZDJTiuI1mxz5zVEa7UriuIT?=
+ =?us-ascii?Q?02O1I7weVuVE3tfxCEoKiCsuiChmk4sBKB0HMsd0yWeo7cD3mYOi0AFmUz2x?=
+ =?us-ascii?Q?76Dlu2p40W/w7lBNkcO+brPo7F4hPfjGCv6Uz1a2H+mrwMO4FH6EoLZosDUe?=
+ =?us-ascii?Q?wMbvmUB6qAClmDe+n0/bJxJ1JGcWMmOyf6dBTbgHaIWojt1Hk/b+ufrwoEzx?=
+ =?us-ascii?Q?UOGdSdRRWYxFxYJL6lVAwnPehGiQHCN8KI/Kpg+LapL/UoEgOnHNSw5vHOE2?=
+ =?us-ascii?Q?qxvGEAR3rYg58J4TfofFeepGoxAYKc4kSXq3ARFsxrtdySMcU471?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15511033-7182-4527-a767-08df1f12a122
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:48:18.6489
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1EuJ9LkYw4qALQskqxp8i7iKSLS9PEsj6lPnOqDnjanbLPmXMjFt0fB0VQSBW0rK/xq2v8pTYKasuvACDbPXAEjLaiNvgwwPbsWydhyJcXl4kIOQSVdkGwnrUyWk3L0h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10885
 
-
---2h2orh63tmomnlho
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] cgroup/cpuset: Use cpuset_v2() in cpuset_num_cpus()
-MIME-Version: 1.0
-
-On Wed, Sep 30, 2026 at 11:48:00AM -0400, Waiman Long <longman@redhat.com> =
-wrote:
-> The cpuset code has 2 different helpers for determining if it is in a
-> v1 or v2 working environment - cpuset_v2() and is_in_v2_mode().
->=20
-> cpuset_v2() checks the binding of the cpuset subsystem is on a v1
-> or v2 hierarchy. It can also help to optimize out v1 specific code
-> if CONFIG_CPUSETS_V1 isn't defined.
->=20
-> is_in_v2_mode() layers on top of cpuset_v2() and returns true if it is in
-> a v2 hierarchy or in a v1 hierarchy with "cpuset_v2_mode" mount option
-> enabled to make "cpuset.cpus" and "cpuset.mems" behave in a way similar
-> to their v2 counterparts. However the cpuset hierarchy may still be a
-> standalone one separated from the other cgroup hierarchies.
->=20
-> Commit 90ac22ffef48 ("sched/fair: Add cgroup_mode: max") adds a new
-> cpuset_num_cpus() helper to return the number of effective CPUs in a given
-> cgroup. It is part of the "sched: Flatten the pick" patch series to help
-> flatten the cpu cgroup runqueue hierachies. cpuset_num_cpus() currently
-> uses is_in_v2_mode() to determine if it is in a v2 environment. However
-> is_in_v2_mode() can be true in a v1 environment where the cpuset and cpu
-> cgroup subsystems can be in two separate hierachies. The current use
-> case [1] for cpuset_num_cpus() assumes that it can return the number
-> of effective CPUs present in the current cpu cgroup which may not be
-> the case.
->=20
-> Fix that by switching to use cpuset_v2() which signifies that it is in
-> a unified hierarchy where both cpuset and cpu cgroup subsystems share
-> the same cgroup hierarchy if it returns true.
->=20
-> [1] https://lore.kernel.org/lkml/20260930081125.GF88198@noisy.programming=
-=2Ekicks-ass.net
->=20
-> Fixes: 90ac22ffef48 ("sched/fair: Add cgroup_mode: max")
-> Signed-off-by: Waiman Long <longman@redhat.com>
+On Fri, Jul 17, 2026 at 10:30:28AM +0530, Vishnu Santhosh wrote:
+> The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
+> interrupt, which overrides the trigger type specified in the device
+> tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
+> to the apps processor; registering it as level-high causes the
+> interrupt to not fire, resulting in missed DMA completions.
+>
+> Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
+> trigger type already configured by platform_get_irq() when it parsed
+> the device tree interrupts property. This makes the driver
+> platform-agnostic.
+>
+> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 > ---
->  kernel/cgroup/cpuset.c | 2 +-
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  drivers/dma/qcom/bam_dma.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
-
-Thanks!
-Reviewed-by: Michal Koutn=FD <mkoutny@suse.com>
-
---2h2orh63tmomnlho
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCar09IhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ah5uQEAjUgqxpms3ne1X0nO7Vid
-O46Rv72hNw5ax30V3twwaakBALRLar4UXTEpJj+RLm81oVD0s0UAlpEhGh7E/rTX
-QwsG
-=kfn0
------END PGP SIGNATURE-----
-
---2h2orh63tmomnlho--
+>
+> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> index 19116295f8325767a0d97a7848077885b118241c..6c3e2ca8a572fd04c925de0adbd5cc0616b361ef 100644
+> --- a/drivers/dma/qcom/bam_dma.c
+> +++ b/drivers/dma/qcom/bam_dma.c
+> @@ -1303,7 +1303,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+>  		bam_channel_init(bdev, &bdev->channels[i], i);
+>
+>  	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+> -			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+> +			IRQF_TRIGGER_NONE, "bam_dma", bdev);
+>  	if (ret)
+>  		goto err_bam_channel_exit;
+>
+>
+> ---
+> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+> change-id: 20260601-qcom-bam-dma-irq-trigger-0366e7e86f17
+>
+> Best regards,
+> --
+> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>
