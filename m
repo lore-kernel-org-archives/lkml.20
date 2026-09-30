@@ -1,267 +1,278 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022131.outbound.protection.outlook.com [52.101.96.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC26B51CF6A;
-	Wed, 30 Sep 2026 18:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792984; cv=fail; b=exKYAaNuXWt4y9/fkErPnT9Ap+3OzmtZs8m0gAUNONopwrexqLYXYdHLUa1TiORCM0VCcJvLgoJbVpjQCK9280ZfRpAHHvyzrdK0t1Q4IvP4+VAIHxRTwKi/0DTDQdtKHT4PxnW60R3ObBUS4x3w8mbFx/u8JFE2s8Q89ccHwRc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792984; c=relaxed/simple;
-	bh=wVx2qXHaRTU1IKcAv11gTtpQGVfiBKzCpwrx96R25wA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=srbGvMaaAa1AwzCK2ocSsCCaUACk4BgU11jZ7CdCGIJxDqKpMMBhZtWn5uiFBoWk1M3Mgl52Je83teNdDaNKL2c1awlD8lOYVvyWLg9c27kdzYceoOPEb9x/UHIYUpBvoMx8r56UlCJZLslKcDdpu4anlcAWZkKofMo1BED0V0A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CXOPRX3qAL/l7Eu9+0z9klSpyi9NKHi+NROmbeO1gifrsTLG/ohcwvp0cwFPYwwRST7L7Elxhdxr6cwygm78C1kGiEB5CWpQuVxY3tvFzDSjcQZjncVDZgUap8f0ej9R+TvCJ5n0GV6zIRgJIMakYygPCvVUrI4ofN2dYk5J7YO8L4hBwcKnBggzqxNbAl78iPcEbyAbAXiWKg/jLCNos7YltD8WX9gFmxtR6xdXk6I9klbwXsc1UPU4nApOffBPfJMAuX4U9z0YnvjUb+XSph5ke1vPXYEAqoGHlCJTTaRT+BsLansShJyKYpqOV5j583H+0gobdd2NCXXv28OAwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=/XssPJKnat1+7KbOjBfVN24WhTrzbioymzobP4ji3aw=;
- b=xRBjLgoZ3GuFTv/VSv80ZaM2wcjEVWejn9JP48XK4r1tc3e725dOZb2Whx5e6KYGrI98e7fosbnPU6UgshrEo2GTo/0MjPrHAvZzjL7UffqGOwoJbmuq+SGWP3Tdrd+TJsh0LKOBhAi8kaGl7fvE/Rm0zzcWPNbozCoPMqub4Gy5R8/EUICZnfxRSciTHESXEBNy3WM1ce4YtXnHK1YS1AvZEB78EJBc9CeqxjbC2V9HqePUjdUMljT8KcSFKGi0lB/xOpeikggSJLOnfphB+QCh1oBlS843z/FicGkxt9oVCNBpFvFHf3Mz4nirAOkQrPXTgTf3x/ysIP9uQrKoSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO4P123MB6532.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2aa::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 18:29:37 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 18:29:37 +0000
-Date: Wed, 30 Sep 2026 14:29:33 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	namhyung@kernel.org
-Cc: mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	james.clark@linaro.org, howardchu95@gmail.com, neelx@suse.com, chjohnst@mail.com, 
-	sean@ashe.io, steve@abita.co, rishil1999@outlook.com, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 perf-tools-next 0/7] perf trace: Validate payload
- bounds across augmented argument beautifiers
-Message-ID: <fxcirpx4xbhwbxko7isnmwvmrzht5ni6j2vtpc3tkjdcwwm76o@7w5nu57ysjdz>
-References: <20260919005530.728615-1-atomlin@atomlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919005530.728615-1-atomlin@atomlin.com>
-X-ClientProxiedBy: BN9PR03CA0481.namprd03.prod.outlook.com
- (2603:10b6:408:130::6) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7014514753
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790793044; cv=none; b=EVfx0hepzKIkP7wlIpHZLfRSkq0FzNtXAh+8BC6KtHgM3QWHOSApSS6scHuHKRk8oq1Eww5XSGfuPpnhbWq+yC+daGN+4rVS1TV7PT1dYTzl3e/BLPy2IujvbzEez26PuA08xxr/h4KgfZmFcSNbYXHI/7TFXzWNcBNkVXLb5gw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790793044; c=relaxed/simple;
+	bh=WVnFwNcJuZu6uTxG8+GS4e86AIYFkK8gCSPW8n05ioo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OkRKlUSBjYn54MIQTQ5Iuq+gldE5QXZ/wocvAVeEky6OchrBZ+z7kKasCF9/SMs6U+p55RHFBx60zwIClyo3rOMD9uWjklUAFR2j+y+wjNisnki28tKoTKAe2j/K8r5KnNe/LgO4kQXGt2LmyAx8Fx06IhEdgxW+/akh4VtVdrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RwEcyi5+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AA5QFyE2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RwEcyi5+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AA5QFyE2"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UILfJv3655835
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:30:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=la1ea6rTWtTHgaqJBryC4d
+	g4LdI2Xlo3ItgxavNF1HQ=; b=RwEcyi5+vHbd51A7fHnmY4YmG/hfTUn7kr8bB4
+	IhsD0MyizvXh9zGzcNf9FvuegY/GcOrzqGRyjQG2f21s5V0y7NNfZkbKZ2SEmtps
+	rudJ0dOE98nrEl/2o7t7dfkxYkGJJLQD8ZK5sUaqqsLeuSnzw4YgCn/gpozDk9FS
+	zCXX0dWjzuPeqaBJNUNxVZBtKBBVzPlgBVyVmFe1g44oqrpmO3Ez3JdrqITAAA09
+	uQqkOvo3vSP3NYmyi/cDwJ2qvnYhLCKsgAtFkn8Gd3BBxiHykpFZy5kTw6h4Fzg6
+	32SWu+7dgJBmrii6iAd/X/Gy1QBt2/IN87s0xb0SRsu1teMQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvr1be-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:30:41 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-144f87ef7d3so180021c88.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:30:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790793041; x=1791397841; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=la1ea6rTWtTHgaqJBryC4dg4LdI2Xlo3ItgxavNF1HQ=;
+        b=AA5QFyE2OT2xArcHJtIw4WDwhwTkeVNndS3yhD2x9gaMS2pj9YqX+9E245j/X8jji/
+         ZAWVLCrHy0VBDVW4M4yPt0X1BWQ0HpDF6abSsmooT3QCsSmiCz0SrkZohJNQN7SwHIER
+         ufZDelmun5GQv/YTEUallb3k+SxAmYQTT+76V+loXe8ScKHbaHBX8lwsvVzX/b/yFV2w
+         yLE8lxLjriXJ4OqjBEiwxF1a8Js8GGjMTRrgMy/sHb2Zl0rkVnJSgK6hEQTEj/Lm6ogb
+         fJqdW+wi++Cf2ac++ujiSpLioMPciHw7sif9qgme5vDYxRb9YHZlshHXR7xuJ8M447AL
+         DR+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790793041; x=1791397841;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=la1ea6rTWtTHgaqJBryC4dg4LdI2Xlo3ItgxavNF1HQ=;
+        b=ueWmnRQMlhABq0xk4viGbYTcl+NGc06pMQQ04mf+MVqTEq+jFJ2q8I2VskxbX+9F58
+         l5QCBCcQ3o2tIqa/Yz/vI+6wRWeXWnWoTE+qagva6i2wYPwpoMBsV2IiT/TV4bN3axwJ
+         tU+dMlRug8Cko4AW3lSvJrOY1qsgxWJg3mksbRwHjbikpxUv8qo+KsF2d6TPuuTLjIB2
+         aXfXelSp/VPbGCd8+fX3/Wm7F1ho+0hMag3NR5Fw9pCMxgCTZ37AqmoCS7M662oZB9ZK
+         RZVFp0MMUy9OF48Lh44ZtYHL2RgtZo9AVIwKwx9pMJDgZc/sMRwvlDbjPRM2cjcQR5KS
+         5dVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzm2FAhd/UJmL/a1bjHEjnNCXY4QKswwUjKHWLXB8TV7L+Fga6hGgcXpd0UGJo8LRu9mdgTkCQerCD352w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLPxPiw8EX9uP8kegGOPpRAELkYIuTTv6yfiEePawn7g/Kadsi
+	oQTsMMPVVR3edPJkDz2+LVVgu1eLPIjGoXeLtOBM+UnKsc4W/kLoMYz4O2FaaaqZ+4D7/ikdBUA
+	+QXYP+GcP0lXFzRb69RISlMAfAza5TK87gpswVXViw8Z0pNGMH5sL2je81Xq1Qz3P9PE=
+X-Gm-Gg: AYBFou10QwGzy9YUYgrtulP3QGx3qjw1X60SNYXzKCOB9rGKJXr+0CaO65AnRox3IiX
+	4gAGuLf+NJoz1Ai69yNeA3lXVPpHcTt6aNONaTHzRf7N+21WAho6exVKLwUr4XYuLvWdveBqgUM
+	M2QUeJz13iMi1LIgsLSkRilj0TNi6Yj9NXpZk+zR+a5nnx+bT/9YqK/0uXh0N13MgyACyfxX1eo
+	Y6LaSMMRRMLfQVemQmsevGJ2qASEKs0eIRnmaMxYzUHFaS2fj3gjz2PvntEi4lsyH65SUVwuV/c
+	EK5oNMLfUMCWIaI7lPXsCRIF/oOdesNQbPOGqlJyipslX8hrIrRUJF7BaAXLdBobNwCpBPKm+cb
+	s4RQhU58e6tn9YfF+UbLvwKvZZUsqv4G1yCbYTZNMrLGYuxycaL9Funufftsm
+X-Received: by 2002:a05:7301:7309:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34cdeb6be9cmr3854947eec.2.1790793040962;
+        Wed, 30 Sep 2026 11:30:40 -0700 (PDT)
+X-Received: by 2002:a05:7301:7309:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34cdeb6be9cmr3854892eec.2.1790793040158;
+        Wed, 30 Sep 2026 11:30:40 -0700 (PDT)
+Received: from gu-dmadival-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db491fae1sm750926eec.24.2026.09.30.11.30.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:30:33 -0700 (PDT)
+From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+Subject: [PATCH v8 0/5] Implement Region of Interest(ROI) support
+Date: Wed, 30 Sep 2026 11:30:23 -0700
+Message-Id: <20260930-enc_roi_enable-v8-0-2c908f30e963@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO4P123MB6532:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ebb41cb-ef1a-4ad7-2928-08df1f20c825
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IK73AfXSfhmkKpFu4LYCMJP7QwAB7nmgZt1AYuA5Iq/wUAM6TwqlNlXbmwxNkh547uGvEXb1tBDnP6QZ0cZIT41WK4XxhISBBF82gcvsgaIVFIzFNsDljS/nbaciHvPwuxW+K9AmUo2ua0xRSLPZAFHpdHy4uD8XaDsAxVX2TxlXoe/TOKdCdQBzpIWEgq4FezOcQ9MO0yZEFWCTyiyI7f0rogiWHDrrcMtfy6SOJk+z7slc5LRlsvBns9QhhgOIJEbtJpTA9xH6+hWGjT0BTkBpEG1JwppPoyOyJ+UL/TyfktaKi/+kTZVTchrWpbkcz4WK7DtQJO4pKkGxUrOySlmppet8wXgQqMCvIBRkORTvhcOTxVnXi70H6lBjiKItl/27rAZUHTzkOJdkK5s4F+HPGZg0QQnpPAmQhcv/yt20O2BjpG+owwDre8xUnpqQiRdt4vtbJz2qM+8O5EeqtI5B7tOYsTJR0akbmvMj32u9US4wb8U1zBg82RO0gcd13DwftL4j0v0M7xle/e0qay9zlv7C99EhvdNwb+8ku+sJWVDhtoRBdWArXSLUNCBJGMkjyJdHxXGs8wKA2h6eupcBYPFwQlwiGJygC00LfSHwaitBazDsWfmJcHPcLK021ZJ3YjpsM0QVJpAS3UbSktLMr/1ikJkEqnHdwcQkel4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cVZxMHVycllKMy8yalN3SmNBYkNxdUFLNUJWT05UMUEzVm9QeUliM09SaHhF?=
- =?utf-8?B?NVdqUklpNlZGTktJVTkzM0pnUUw2RDNSUEhqTHJWTHJZbEVQYXNhUkRqb1Q0?=
- =?utf-8?B?SEJtWUcxN0lSN1VlM2ZKTFZ6eGdUcjNmOTJUS01adkppUUh5SXltZkI2VXNl?=
- =?utf-8?B?NVA5MmI2Und0amVNWjFGWkRKN0hCTmZMWnRBM3VMMGo2UGF1YnNzaGljQlQ2?=
- =?utf-8?B?S25xaUgzcVF0NmN5Tjh3a1VhV0oyeDdob3hwQTZWKzVPTmxKaEhKUUhEUUho?=
- =?utf-8?B?S3ZXRmhtb1BtN2VSMVZiUlhQV1ZQdG8wQ1hhWU51OHFqQWxXUGZoWXowcWZv?=
- =?utf-8?B?MytSRlg3c3pvVHFNOU9IZ2Ixa1dzNjcySVdmbjFscUJLNnk5ckN4aFMxWmNm?=
- =?utf-8?B?QVgybTFSWEt0ZjQ0K0I0ckdKMDRwZHRKd2RicHVXYm9TbTNyK2REUW1lN2h0?=
- =?utf-8?B?THNPRERiSkNUOXBwYTJKK2NoMG0yN000enFrTGNDelJ5TG82Sy8yZEVpR3N0?=
- =?utf-8?B?VkVLVWNjSDdxL0JuaWhjN2V4bEVWRTRDL01LR3JOaEJEL0E4QmIraUM3NFVu?=
- =?utf-8?B?NXRUOHdFT3g1VnFtSityRmd3Z1RPSnpoNjFHU1c2Vk1GT0k5SmlFa0VoNG5u?=
- =?utf-8?B?NTgrcHBmMjhPaXgrd0FNcHhDcU1LRVYrSHJ6dFJZNFQ4eWM3dURJc0xhY010?=
- =?utf-8?B?eXdRNnY5bGs3c0h6QWREZFF1QysvaXFLL1VOMUFaZWM5VHhwSmhteHJFUmVW?=
- =?utf-8?B?Mm5MTXpXNnFZRU1ldVRHU0VsQXBYUVVxQVk2a2IrUlAvWUJQd0VJZWtkc1Er?=
- =?utf-8?B?dDZnOFlkcE5CdkhXQTdYbUs4Qzg3MWc3Yk5pYnZnUW9CSVFoU090ZC9PNEd6?=
- =?utf-8?B?K2ZaT2VzY29qTTEvQ1l6MHZaM3dkZlROUjhtb3VCNEpVc1U0T29mb25PWkhq?=
- =?utf-8?B?U05OblFXQXZIVXlHQWN3d2xhMGdWR1VFNElUY1dDQmc3NE9XbnlDakFGR0pH?=
- =?utf-8?B?SWJSUzlIeFk2bTBML3BKR1RWN0Q0U3hMMk1MakllOEcxcGV1WjB6U00rWVZ2?=
- =?utf-8?B?UGdlZUw2cG1jTUVjZ1ZyUkVlT3F1d3RudGsyNWVRaDZyQlhvRHRzU0dQeUlm?=
- =?utf-8?B?VWhNSThDMTI2MkRNbUtQdE0yZ1FNRFdSOTZ1QTVwQXFkNlhZcGNOY1dXMVJi?=
- =?utf-8?B?VG1CQjhyK1VDblNsb3U4RWJWRmRyQS91YkwzUXlPanZKZWpYa1VRN1h3Ly9v?=
- =?utf-8?B?R1k2MlZTS3dNeDBMSkY4QjVNanZaeU4zYWx3NmY0NzRMbXVUQTVuVnBQdXlV?=
- =?utf-8?B?ZWo5WnJIdjBmc0JwRmFhbTVFdE9XZ21CbTE0czBnNVdaT1VSWFpNVUdodFZY?=
- =?utf-8?B?ZDlQbGtXRHpuRUdCNkE2eWJ0c3hpczZjd2ZiTHpHU1pmeVY5TW1JZTVwU0U2?=
- =?utf-8?B?dGUvdFJQR1BaN05aQ0diQnBOUmJVNHdPNFZQNzdqYk94ZXF6UzRITU5NbUFJ?=
- =?utf-8?B?Q1pOS0tneEVxVFo4R0NLZ1VGQ2l6T0hGNXdRSithZWJEUFdJazJUNzVFNDI5?=
- =?utf-8?B?TjRUMTJhTXFSTWxGNkFQMEI5alI1eCtlK0VpbVNkb0czT2VIOWYwWEc4WTdU?=
- =?utf-8?B?NnFQOGc2djcrN1QrKzVXOEpSU3hraHd0NllEbHYvTjNOQjN4SDBqb29EemNE?=
- =?utf-8?B?RTBXa29sODFKT2l6TjFnTEdVTWZud0RFdldTL3ZlbFhnN1c2OVhtciszSXZO?=
- =?utf-8?B?ZXhqRDI5cmNEVGUvOEl3THhvL3NIK0lQbGtPY1pES0l1S215TUNrcEVhcDB3?=
- =?utf-8?B?Ymc3SklLUURqdDBUbmZSRlkxWUdpMzBSdjNSb3Y3M2dGT2plblR4RlQ1U3Uz?=
- =?utf-8?B?em5UalRGOW8vbi8wVE5seWhOdWQ3UWpLa1NUc1ZkOG9aRFM0aG85WVNlUVJH?=
- =?utf-8?B?K0pvUTFEdy9mMTdRYnNTTW1kazBpWVFrVlMvOHMvMjc3c0pvZDhrZHJvVnU4?=
- =?utf-8?B?Q3pENWQzWmtqSzEvRDRKL1hyZVdCWVB4ekdCVVMzN0NHQzRKTnlRUXhnOEVB?=
- =?utf-8?B?VE5NN1BuMmdIQVVCUTI2TGhKYnhibTdQRHVsRzI2eUMxTDljd0pQM0pvNTY1?=
- =?utf-8?B?a3NNVExkbWsxMXpuY1ZJMWdORmxpa1NOZkYyUlk2ZEVwMURhQUlrckU0eWlK?=
- =?utf-8?B?SHE1aEhpKzdmWVNYMVhyWXRoZlltZGlVQnBxdnFPRGFtS2pFd3RCYm1xMElz?=
- =?utf-8?B?dlVaZzg5TXE4MFQ5MFdqWFNDSWRHdzdHY1UxQW5vV2xzUSt4SG4ybmNHc2lD?=
- =?utf-8?B?Q2UvZEU2KzZjNkVNc29TSWpFUTNaMmRSbUZxL05zT1NlbzBZeUVVZz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ebb41cb-ef1a-4ad7-2928-08df1f20c825
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:29:37.1503
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jSh0A1q7FMDIC+3kPnWDXtBELJQfMlKGydJdiG93SGnxmYWtVswEvG6Jn8VNTMkN4s1S6LCZuANWsxfrjDu3Lg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P123MB6532
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD9VvWoC/3XQTWrDMBAF4KsEreugn7EkZ9V7lBKk0agRJHZrt
+ aYl+O6Vs7HB0WbgDcwH8+4s05gos9PhzkaaUk5DX4J9OTC8uP6DmhRKZpJLzbXQDfV4Hod0pt7
+ 5KzUQlG0RjFWOWDn6HCmm3wf49l7yJeXvYfx7+JNYtlVqEg1vIkVEIKOjUq9DzsevH3fF4XY7l
+ sEWcZKrYgTsFFkUrbRVsQseKVYUtSqW7xVVFOLKaymdDGArCmwUIXYKFEVgR04Cb72vKe1WaXd
+ KW5RAoQOIPKKpfaRXpXui6KLILgRA6xFjTTEbRe57MUu70RkQykWp8Ikyz/M/PLpXeFcCAAA=
+X-Change-ID: 20260616-enc_roi_enable-4d385c4783ae
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        kernel test robot <lkp@intel.com>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790793030; l=6584;
+ i=deepa.madivalara@oss.qualcomm.com; s=20250814; h=from:subject:message-id;
+ bh=WVnFwNcJuZu6uTxG8+GS4e86AIYFkK8gCSPW8n05ioo=;
+ b=2kVNh0icCizc+J+7bTjioe99TWLS8EZKJf2ubdqdkm0rRcIYuWqT+HVK+Ni2dMKDeKmbof2vb
+ SigpIB4/TlNAYZfXLDd1KXX9z6N2qq3UEDVxPxiArz7yUzzzGvubqc9
+X-Developer-Key: i=deepa.madivalara@oss.qualcomm.com; a=ed25519;
+ pk=MOEXgyokievn+bgpHdS6Ixh/KQYyS90z2mqIbQ822FQ=
+X-Proofpoint-ORIG-GUID: Ba9rkhwh-znetWJhMt9qtumvSFiO71kF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3NSBTYWx0ZWRfX4yEpqrnjEGVt
+ 69TraO+0P3PkpZFuAZKvynXCUASZ2mZeDevP4wZQmvZtxJwZFkc8spvYB2FX4Gx1olv6CmYClqY
+ 8OXzH6+uOQkuNWKH47m2w1ewMxwgdZocnnaZmuVur29V3YgpdMVDXU1p0uJQe3lYOkmKovgBl7l
+ 4emKA6lf2sh/03Rx07LMfB8Xemi1t6dQY+MeVYH+9an32WHg3U+Hwh7eQnUzv5Nu8Oh66Ydkb1+
+ z202GBQZrA2Rz0jVSJGW9PRT2+PZDgfuWKYwcJEAKFIK96K/wuM7p4iPKskKPqApZQgROvZqvdz
+ 8QD+nmkN5MS5FRW36PzSsVf50wGzLiaNVQTJtHNqOM0cl1ZAhfN814+o0iEDFn9O4dbf+TWY9g4
+ Pg0XF78Do//1yPYhko/WcKxM73OzhIjn1DK834+QYk7o9D8lPy5Bsu3SQ/nZka5ZvP9DVZeGeZN
+ eaFNyk4lDfmdhWR2pww==
+X-Proofpoint-GUID: Ba9rkhwh-znetWJhMt9qtumvSFiO71kF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3NSBTYWx0ZWRfX6SZTjU3B2SUB
+ JtpG7F4FAwQzgRdL+/2s+gYg9o9koomOZwO18diWGzW8V0iBKoETlhUdQm2V4BArbub8COrHjqV
+ cW0cnh7nXrpe8V9ALCJDAcM3zjbIWO4=
+X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abd5551 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=DKkvS2Dz--9TOQqJK7AA:9
+ a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300075
 
-On Fri, Sep 18, 2026 at 08:55:23PM -0400, Aaron Tomlin wrote:
-> When pretty-printing augmented syscall arguments in perf trace, raw payload
-> data captured from BPF programs is passed to various argument formatters
-> via struct syscall_arg.
-> 
-> However, when processing malformed, truncated, or untrusted perf.data
-> records (e.g. truncated reads in BPF ringbuffers, cross-architecture
-> replays, or crafted sample records), the payload can be shorter than
-> expected or contain invalid size fields:
->     1.  Dereferencing augmented_arg fields before validating that
->         arg->augmented.size is at least sizeof(struct augmented_arg) can read
->         past the available buffer.
-> 
->     2.  Passing augmented_arg->size to formatters or loop counters without
->         bounding it against the remaining buffer can cause out-of-bounds memory
->         reads.
-> 
->     3.  In multi-argument syscalls (e.g. rename*), calculating consumed bytes
->         without 64-bit alignment advances arg->augmented.args to unaligned
->         addresses. Furthermore, calculating consumed offsets without bounds
->         checking can overflow signed integer bounds or cause arg->augmented.size
->         to underflow, advancing arg->augmented.args out of bounds and
->         corrupting the parsing state for all subsequent arguments.
-> 
->     4.  Type/family-specific beautifiers (i.e. BTF struct dump, sockaddr,
->         timespec, perf_event_attr) can dereference structure fields without
->         verifying that the payload contains sufficient bytes for the target
->         type, or trust embedded size fields (such as attr->size) that exceed
->         the actual captured buffer.
-> 
-> This series adds comprehensive upper-bound and payload-size checks across
-> all augmented argument beautifiers in perf trace, enforces 64-bit pointer
-> alignment when consuming multi-argument payloads, and ensures extensible
-> dispatching for address family formatters. If validation fails in any
-> beautifier, it cleanly falls back to printing the raw pointer/hex value.
-> 
-> To facilitate clean, conflict-free backports across active LTS kernels,
-> each fix is isolated to its own commit.
-> 
-> Changes since v2:
-> 
->  - Expanded the series from 6 to 7 patches by splitting the string
->    beautifier pointer advancement and 64-bit alignment logic into a
->    dedicated patch
-> 
->  - Added a new patch to round up consumed payload bytes to 64-bit
->    boundaries using PERF_ALIGN(), matching the alignment produced by the
->    BPF tracepoint probes (sys_enter_rename*) in
->    augmented_raw_syscalls.bpf.c
-> 
->  - Reset arg->augmented on buffer overrun to prevent corrupted parsing
->    state from reading out of bounds on subsequent arguments
-> 
->  - Validated payload size directly against arg->augmented.size instead of
->    reading augmented_arg->size, which is unpopulated by the BPF tracer
->    (sys_enter_{clock_,}nanosleep) and contains stale per-CPU map data
-> 
->  - Refactored af_scnprintfs into a dispatch table associating each
->    formatter with its minimum required payload size (.min_size), preserving
->    extensibility for future address families without hardcoded conditionals
-> 
->  - Used offsetof(struct sockaddr_un, sun_path) + 1 for AF_LOCAL rather than
->    sizeof(struct sockaddr_un) to correctly accommodate variable-length
->    domain socket paths
-> 
->  - Validated payload size against arg->augmented.size and payload_size
->    rather than reading uninitialized augmented_arg->size
-> 
->  - Validated payload size directly against arg->augmented.size instead of
->    reading uninitialized augmented_arg->size, which is unpopulated by
->    sys_enter_perf_event_open()
-> 
->  - Verified that when attr->size is specified, it is at least
->    PERF_ATTR_SIZE_VER0 and does not exceed payload_size, preventing
->    out-of-bounds reads in perf_event_attr__fprintf() caused by malformed
->    records or TOCTOU mutations during trace capture
-> 
->  - Link to v2: https://lore.kernel.org/lkml/20260907015140.363076-1-atomlin@atomlin.com/
-> 
-> Changes since v1:
-> 
->  - Expanded the original single patch into a 6-patch series in response to
->    reviewer feedback from sashiko-bot regarding similar bounds check
->    omissions across other augmented formatters in perf trace
-> 
->  - Added new patch validating payload bounds and consumed offset
->    calculations in syscall_arg__scnprintf_augmented_string()
-> 
->  - Added new patch validating payload bounds before byte traversal in
->    syscall_arg__scnprintf_buf(), isolated to ensure an independent Fixes:
->    tag for stable backports
-> 
->  - Added new patch validating payload size against sizeof(struct timespec)
->    in syscall_arg__scnprintf_augmented_timespec()
-> 
->  - Added new patch validating payload bounds and family-specific lengths in
->    syscall_arg__scnprintf_augmented_sockaddr()
-> 
->  - Added new patch validating payload size against at least
->    PERF_ATTR_SIZE_VER0 in
->    syscall_arg__scnprintf_augmented_perf_event_attr()
-> 
->  - Link to v1: https://lore.kernel.org/all/20260906011132.279321-1-atomlin@atomlin.com/
-> 
-> Aaron Tomlin (7):
->   perf trace: Add upper bound checks for augmented BTF struct printing
->   perf trace: Validate payload bounds in augmented string beautifier
->   perf trace: Align pointer advance in augmented string beautifier
->   perf trace: Validate payload bounds in augmented buffer beautifier
->   perf trace beauty: Validate payload size in augmented timespec
->     beautifier
->   perf trace beauty: Validate payload size in augmented sockaddr
->     beautifier
->   perf trace beauty: Validate payload size in augmented perf_event_open
->     beautifier
-> 
->  tools/perf/builtin-trace.c                | 45 +++++++++++++++++------
->  tools/perf/trace/beauty/perf_event_open.c | 23 ++++++++++--
->  tools/perf/trace/beauty/sockaddr.c        | 35 +++++++++++++-----
->  tools/perf/trace/beauty/timespec.c        | 15 ++++++--
->  4 files changed, 91 insertions(+), 27 deletions(-)
-> 
-> 
-> base-commit: 02f6847e1822714a4201b87e42f92b0d43e8549d
-> -- 
-> 2.55.0
-> 
+Hi all,
 
-Ian, Namhyung, Arnaldo,
+This patch set implements region of interest(ROI) support for
+video encoder to be configured as a MB based delta_qp for
+the whole frame. Custom controls V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP
+and V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE are implemented to achieve this. 
+Corresponding support is added in iris encoder to implement this
+feature.
 
-Please drop this series from consideration in favour of Ian's series
-"[PATCH v6 00/26] perf trace: Fix BPF filtering and make tracing tests
-non-exclusive" (specifically patches 4 [1] and 5 [2]).
+This submission and design is based on the feedback received
+from community for the RFC[1] series posted earlier. 
+Initial testing is done by adding support to v4l2-ctl[2] to test this
+control setting and its functionality.
 
-Ian's series covers the same vulnerabilities using a consolidated helper
-function and addresses the unaligned packing in the BTF augmenter.
+[1]https://lore.kernel.org/linux-media/20260113-iris_enc_roi-v1-0-6c86eba38587@oss.qualcomm.com
+[2]https://lore.kernel.org/linux-media/20260616-enc_roi_enable-v1-1-252792d27894@oss.qualcomm.com
 
-[1]: https://lore.kernel.org/lkml/20260928182605.3649015-5-irogers@google.com/
-[2]: https://lore.kernel.org/lkml/20260928182605.3649015-6-irogers@google.com/
+Results:
 
+v4l2-ctl -d /dev/video1 --list-ctrls
+...
+enc_mb_roi_delta_qp 0x00990b92 (s8)     : min=-31 max=30 step=1 default=0 dims=[139264] flags=has-payload
+        roi_mb_size 0x00990b93 (u8)     : min=16 max=32 step=1 default=16 value=16 flags=has-payload
+
+v4l2-compliance -d /dev/video1
+...
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK
+        test Requests: OK (Not Supported)
+        test blocking wait: OK
+
+Total for iris_driver device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings: 0
+
+./v4l2-ctl --verbose -d /dev/video1 --set-fmt-video-out=width=176,height=144,pixelformat=NV12 --set-fmt-video=pixelformat=H264 --set-ctrl=enc_mb_roi_delta_qp=-20,-2,-22,9,-16,-2,14,-9,-19,3,-26,19,-23,30,1,0,-6,-7,7,2,-2,15,-15,-24,-24,-26,-26,5,-1,-1,9,-11,15,-25,-11,26,-11,7,-26,-27,-8,-18,7,-4,-12,-23,-11,22,-7,7,-14,24,6,-8,-7,2,7,-26,2,-25,-1,-3,-4,-6,-26,-11,7,16,-30,-22,-15,30,-14,-29,-11,-8,8,6,19,15,-17,21,-27,30,-17,-28,-10,-20,1,22,29,-19,-2,28,10,12,-10,7,-4 --stream-mmap --stream-out-mmap --stream-from=/media/foreman_qcif_nv12.yuv --stream-to=roi_try.h264 --stream-count=10
+
+Validated on SM8550 MTP.
+
+Thanks,
+Deepa
+
+Signed-off-by: Deepa Guthyappa Madivalara
+<deepa.madivalara@oss.qualcomm.com>
+
+Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+---
+Changes in v8:
+- Moved p_s8 below p_u8 (Hans)
+- Update Documentation for V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP (Nicolas)
+- Update returns to a sngle line (Vishnu)
+- Update n_shift calculation logic to ilog2 (Vishnu)
+- Link to v7: https://lore.kernel.org/r/20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com
+
+Changes in v7:
+- Add V4L2_CTRL_TYPE_S8 to v4l2_ctrl_type_op_validate and check_range (Hans)
+- Rebased onto media-committers next.
+- Link to v6: https://lore.kernel.org/r/20260915-enc_roi_enable-v6-0-29dd4c8bccff@oss.qualcomm.com
+
+Changes in v6:
+- Update documentation from custom to array, __s8 to __s8 array (Hans)
+- Update documentation and handling for non MB Size aligned frame resolution (Hans)
+- Rework patch 1 and 2 to add V4L2_CTRL_TYPE_S8 type first followed by ROI control (Hans)
+- Simplify handling for V4L2_CTRL_TYPE_S8 in v4l2-ctrls-core.c (Hans)  
+- Link to v5: https://lore.kernel.org/r/20260815-enc_roi_enable-v5-0-ded944f0fc7f@oss.qualcomm.com
+
+Changes in v5:
+- Fix Media CI errors.
+- Rebase onto media-committers next.
+- Link to v4: https://lore.kernel.org/r/20260811-enc_roi_enable-v4-0-1c9ea2405bb8@oss.qualcomm.com
+
+Changes in v4:
+
+- Updated Documentaion, clean stray lines (Bryan)
+- Use BIT(16) for header version (Bryan)
+- Split patch3 in the series to reflect enumeration of
+  the platform and adding metadata support and implementation (Bryan)
+- Link to v3: https://lore.kernel.org/r/20260804-enc_roi_enable-v3-0-e03b622a2d48@oss.qualcomm.com
+
+Changes in v3:
+- Updated Documentation (Hans) 
+- Reuse ROUND_TO_RANGE_RANGE for p_s8 (Hans)
+- Rebase onto media-committers next.
+- Link to v2: https://lore.kernel.org/r/20260714-enc_roi_enable-v2-0-63683f9dbcef@oss.qualcomm.com
+
+Changes in v2:
+- Fix issues detected by Media CI robot and kernel test robot.
+  Reported-by: kernel test robot <lkp@intel.com>
+  Closes: https://lore.kernel.org/oe-kbuild-all/202606171554.03yt9utn-lkp@intel.com/
+- Rebase onto media-committers next.
+- Update to handle p_s8 in std_validate_elem correctly. 
+- Link to v1: https://lore.kernel.org/r/20260616-enc_roi_enable-v1-0-fefcc4e76f33@oss.qualcomm.com
+
+---
+Deepa Guthyappa Madivalara (5):
+      media: v4l2-core: add new control type V4L2_CTRL_TYPE_S8
+      media: uapi: Introduce new control for video encoder ROI
+      media: iris: Add ROI delta QP control support for HFI Gen2 encoders
+      media: iris: Add HFI metadata buffer delivery support for Gen2 encoders
+      media: iris: Add BUF_ROIMB_DELTAQP metadata buffer for ROI delta QP
+
+ .../userspace-api/media/v4l/ext-ctrls-codec.rst    |  27 +++++
+ .../media/v4l/videodev2.h.rst.exceptions           |   1 +
+ .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst |   4 +
+ .../userspace-api/media/v4l/vidioc-queryctrl.rst   |   6 ++
+ drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_buffer.h     |  22 ++++
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 111 +++++++++++++++++++-
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |   2 +
+ drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |  14 +++
+ .../platform/qcom/iris/iris_hfi_gen2_command.c     |  63 ++++++++++++
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   3 +
+ .../platform/qcom/iris/iris_hfi_gen2_packet.c      |   6 +-
+ .../platform/qcom/iris/iris_hfi_gen2_packet.h      |   3 +
+ .../platform/qcom/iris/iris_hfi_gen2_response.c    |  29 ++++++
+ .../platform/qcom/iris/iris_platform_common.h      |   5 +
+ drivers/media/platform/qcom/iris/iris_venc.c       |   4 +
+ drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
+ drivers/media/v4l2-core/v4l2-ctrls-api.c           |   1 +
+ drivers/media/v4l2-core/v4l2-ctrls-core.c          |  19 ++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c          |  10 ++
+ include/media/v4l2-ctrls.h                         |   2 +
+ include/uapi/linux/v4l2-controls.h                 |   2 +
+ include/uapi/linux/videodev2.h                     |   2 +
+ 24 files changed, 449 insertions(+), 4 deletions(-)
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260616-enc_roi_enable-4d385c4783ae
+
+Best regards,
 -- 
-Aaron Tomlin
+Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+
