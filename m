@@ -1,138 +1,213 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA57651EE0F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793202; cv=pass; b=mLQbeyEtqY/JoIrlU9Jw8DaRZ2vGYMiKswq1EAUgn3U6ALBzo3ZOTO3qB3syMBFKUX0W/u3+Z1zgTfonsJOqTnnCq4tIsPbGNg+4HfzHhsZrlS2w/G14pAx0AYMLXh8jTU+uMOg2aQBxKWKxYzbUOboGv/1nHhRR28wPKidkhts=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793202; c=relaxed/simple;
-	bh=7f9mJGlZR9hUD3IYdldDuTH1aQHWGHT8NvxFAbMpSC4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sgceldpHPqsDuqWdsBW2Ymhw9uXJBVscujtEtJN6vANK4y5JyCa+La27Ovs3HRydbtP5MNk4czxWuKVex5taAkamRmkzxKItMHs1GNd19DUYHAoGBF1iGV93PBCJESJzRO2XZjqlUra6s42CM8IEVhnOeYeYzABAbFZE1rPVZEc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mQGfd0ar; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789C2175A89;
+	Wed, 30 Sep 2026 18:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790793247; cv=none; b=K/n8v0LH7NDyEVHto+QZ02CI8cSv4oyO1ozQW/ZWtsbLqxS7D96q/KGDnARqHKhGnF+qo/KWoptK8z09h0T9vk02PJz033UapgZ4hSF3xcOxBMUPwXleH47cyUSYqd1Yr7C/qhed6aXHuI+KBV4lyxovPXl1vEI02y8ocNNLQ4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790793247; c=relaxed/simple;
+	bh=jgOz9keS3tRgSl0JmDjgntvXeVQ2gnZuHJr1aH5f42w=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eHbdcU8H7K7bcyYXyEkQKWMc7QFMyJj7HUX8stRudjOVRdP/S23I1eybRGJ/ihXKoKMfiP+QJgmBi7gnx82KG8sY3iJ/UFsSe4XJy3b2Fbdg66Cc5Le6q5rtAoeO/U1PjFkLAQ4q06PhkuK33vBGsNDYN9Ijs0jTQzN3Ku/GvZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNRD1+yK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQGfd0ar"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba390408cdso1842178e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:33:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790793199; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g1sHowezTPSEAeHXilZ1Ft13p6Y0KfQh9XM3U9j4ThKCKXs2l6rfeqg4ExnjNvT5fO
-         /lNKRG+iZ9u25G9yC/VQFwuYmF3fUdle7JsvqOzFqJRm625pceuBOA5ajLoyhln2tzy6
-         QqbBtkuicyPW02cGvSvumkEym4hnLMoHKS8GjZ/p6toOnyPHyhPjRvtMQ039EjCwKoBK
-         LBa62WthTsvaMvOriedehmlnxz16AM60qYKfwmz5XQrwCmVskvuFcbbiNvjNRB/8S2eu
-         gPaJefyqWvQlgsyQ0UaTmjjLgZTu03MGRG3f5XjM9IcPfEZR8Hzf3x8PQPp4O3rY5OX0
-         TdcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gMwEIwl3BX8MWs8GGgKDpSrO53q/tdMoraXZVrEeGrc=;
-        fh=OHiPmy+pes5FHtYyNQvV3ldxIJfzqkTR1WaFEiedanw=;
-        b=EhC+bW8wpwN5C7JuaO2tEcfpHBGkEjnHdW4q2OXp16tKh02K3reR9tQnolgYIsCT8r
-         ZXFMgfWajvwi2P3vuX6ZPickh88tI1hswNd8Na5264tCdLtBlE7E7RXEEiagw90rJIx4
-         BFEJpQW9jXKNikuo0JgIR/bkO0xU2NlUP7BnDnqxNFSQkFGyJrBsJuuhoPpklLjfjF3b
-         CZcVLmMpxTsgVpAWTaSXkqhJz21Pf0q0eUR5ZkIfsx0ADSKYmp25HmkajrNjEZt5TFrg
-         7eYVAq6xZQ110z2zza+p+C9K1jO+7AZaVZ5pjPcQCiTZ/SBRuMJ+47cSx57pU3cY1/Wk
-         ExlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793199; x=1791397999; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gMwEIwl3BX8MWs8GGgKDpSrO53q/tdMoraXZVrEeGrc=;
-        b=mQGfd0arUg/5xLffbSJlxnkGhtR9cRNXV0I4YvbV9Acp9Js+63f3raFZaYgxFwWqOe
-         KA/qDlPZlWiYJdsSPd2sURvmIQElJLaeEOm4uFkcI8bENTTWLmb85MWBNVS/352+gvSi
-         tsi5hF8dDXOb1DlzvAudVvoulTMhtxcD0HPiTiTv1fV0CIASptL4cOBmie+zvO2siQ+m
-         1SeoE3ph66hnw5VxmwVtma9jQ9KoDBoCPsgUjERVl8JPaGC+sAhQTOscllMWUm2YFsTK
-         +gVnkI5dTnpkcpk59UgJLaQjr/KwK5F9rfFBFPbQg5Zfus/ShUjkRiXQ9IVz492pI5uV
-         Vliw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793199; x=1791397999;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gMwEIwl3BX8MWs8GGgKDpSrO53q/tdMoraXZVrEeGrc=;
-        b=TGYzeWYBSTXYKn6dbtthKn6i2ci7Mn3AtZh7LJyfa77ego1wgkd/vsB1KVatPOTaz6
-         pyrvJvoq7jV0GFzflkhYrdYdM6Qj+NAZbBqg8/AgzZ7bwIulvgDMbiJrRvIz65JR/hgP
-         Jjj5M51Qa323TY3virLAAJrs4u9lghejG8mvG7v7ydHqrMRA+6B6Q9r1ttN2MiyO0JRb
-         U5hY5+5AZl8oiu4HIuQF8W1xtLEVLLyBHodeQpNiq5OXn9xfdmXaZwusrfVErQRpdaas
-         Mx/zTDtwz224Y5rlxOrl3BL/kATMDuzbt68YFRc3NbjkkWQjfO16V5hqEHyeZ8ch3H+f
-         U+sg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+lzB5/Ef0Ww0MiRI+H8h15LbVFkMzTFRYOfYzT0oggLjpBHI63MZwGLB6gwClH6Twz6Qmo/5An3on1CE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2v6OjODjlXH35nOMWnnNpiwx6h23n4q0nRMw5c7s2Z7YZTkd4
-	cn08FyR889WOwLXn3M+pjIP3jGOGWsy2SVfFkVxjhQJbTi6BewvmSqmdC78rTKXDq6GhqOaufbq
-	2p6h+WZf5UhyZamxR3tCQXF+8WtKMCZI=
-X-Gm-Gg: AYBFou3WRJYOpLo+nnJhYU1YZVyK1E5sJIUdA6iBWcHiWqjOd809QZRNDnlvgqMrWAu
-	6pSC28le+wwn0idJ+OeWPjiQGCNN4ChonsH0x4lgETRKyCOMCa2INMx36Bwkf6V/PI21rKJzlZ2
-	0IXAtGBEavVGmxR7Ik973imdN7p6guEwUyY9i5mjE0W/rc/ox5Cj+D3QkOeWGAinSq++xfTSid/
-	OR2eDofmRZT5GwARCbqI1pFMxg8F6PCWupZ4/3HjEFIDSYT0zGKr1Gahzg48q/HncEwT7MkJgg2
-	4EjaeL39S6jhv3szc+nyOrX5SS/tZdSsL3UR+Gr1F7OdN3zbZijTvLaQDIz0YiSLTbsXZtxR5g9
-	NRdmmTK4meHf45gHMBoQo3g==
-X-Received: by 2002:a05:6512:24b:b0:5b8:f42b:ee35 with SMTP id
- 2adb3069b0e04-5ba4060068dmr673782e87.51.1790793198330; Wed, 30 Sep 2026
- 11:33:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNRD1+yK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F061F000FF;
+	Wed, 30 Sep 2026 18:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790793246;
+	bh=Q+YKqfQ3/s8F1tcHSL05pBU5RCUSKJAtNCNMVSPjlCc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YNRD1+yKqXjQvM/W1AjvE4o86Pl+C2aSyPxA0Ao4ThE4Z3zOVOnwOu/NOsbCLTAon
+	 esbMu0iC6VafxLeceo92SEb0LfLwFbZsnVu5QdmkNTf7/dLKGuVG6h+hlIwRkrMhQB
+	 mFU0HzV0CNHU0nezmtLEgJLnKy17BUtZL+JDGv4AX9iKMpYkmgF8vZPfxgfCpuEsEt
+	 Cxe4UaQVBGxR948+oX27SM5G4+73eKYaRqMXXZnQxk5/oKoIOz7bG3GZJdOMsJH1t0
+	 qjcs/ep2iJCONHvOxmK7GKvpcdH7LrFsPAPR9qJc5DV+hzxOwmu1oxIKjbtxm3sC/r
+	 V2E1390lNCKNQ==
+Subject:
+ Re: [PATCH 1/2] net: gso: validate TCP headers before segment length checks
+From: netdev-bot+sashiko@kernel.org
+To: bestswngs@gmail.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ shuah@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xmei5@asu.edu, co+1fe9b56e2c61be5e@bugs.sh
+Date: Wed, 30 Sep 2026 18:34:04 +0000
+Message-ID: <179079324479.434549.5810038850478297945@kernel.org>
+In-Reply-To: <20260927163117.746432-2-bestswngs@gmail.com>
+References: <20260927163117.746432-2-bestswngs@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822024850.2504871-1-hanzhijian1991@gmail.com>
-In-Reply-To: <20260822024850.2504871-1-hanzhijian1991@gmail.com>
-From: Andrey Konovalov <andreyknvl@gmail.com>
-Date: Wed, 30 Sep 2026 20:32:27 +0200
-X-Gm-Features: AclHuK-51FVTMcVXEbrcEW8IDW8baNBM7mZPKzcpMaYbu_jzJGQ0OtqW8B-GSb4
-Message-ID: <CA+fCnZc_YW5AjuVMR8c9RhiQQtvexW=w4vu1_2Rv7G88Cf4AdA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] usb: gadget: raw_gadget: fix memory leak on connect
- event failure
-To: hanzhijian <hanzhijian1991@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+d83b3c49738aea97c0e5@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 22, 2026 at 6:34=E2=80=AFAM hanzhijian <hanzhijian1991@gmail.co=
-m> wrote:
->
-> gadget_bind() allocates an ep0 request and stores it in dev->req.  If
-> raw_queue_event() fails to queue the connect event, the function
-> returns without releasing the request, leaking it.
->
-> Release the request before returning in that case.
->
-> Reported-by: syzbot+d83b3c49738aea97c0e5@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=3Dd83b3c49738aea97c0e5
-> Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
-> ---
->  drivers/usb/gadget/legacy/raw_gadget.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/=
-legacy/raw_gadget.c
-> index 4febf8dac..33d70b552 100644
-> --- a/drivers/usb/gadget/legacy/raw_gadget.c
-> +++ b/drivers/usb/gadget/legacy/raw_gadget.c
-> @@ -316,6 +316,8 @@ static int gadget_bind(struct usb_gadget *gadget,
->         ret =3D raw_queue_event(dev, USB_RAW_EVENT_CONNECT, 0, NULL);
->         if (ret < 0) {
->                 dev_err(&gadget->dev, "failed to queue connect event\n");
-> +               usb_ep_free_request(gadget->ep0, dev->req);
-> +               dev->req =3D NULL;
->                 set_gadget_data(gadget, NULL);
->                 return ret;
->         }
-> --
-> 2.43.0
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Maybe this is a valid fix (though it's not obvious: dev->req should
-get freed in dev_free() even in case of an error here), but it is
-unrelated to the referenced syzbot issue (cause by bind-unbind-bind
-sequence). LLM?
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Over-strict ordering check rejects valid decapsulated TCP GSO
+  traffic.
+- [Medium] skb_gso_tcp_header_valid() ends with `return sizeof(struct
+  tcphdr) <= tail - transport;`, where tail is the linear tail.
+
+--
+
+net: gso: validate TCP headers before segment length checks
+
+This adds skb_gso_tcp_header_valid(). The helper checks TCP transport
+header ordering, linear bounds and fixed header presence before
+skb_gso_validate_network_len() and skb_gso_validate_mac_len() compute
+segment lengths. It targets a KASAN out-of-bounds read of tcp->doff when
+malformed TUN-supplied TCP GSO skbs reach TBF or police.
+
+> diff --git a/net/core/gso.c b/net/core/gso.c
+> index bcd156372f4df..7c76f721fe24e 100644
+> --- a/net/core/gso.c
+> +++ b/net/core/gso.c
+> @@ -240,6 +240,29 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
+>  	return true;
+>  }
+>  
+> +/* TCP segment length reads doff, so validate its header offsets first. */
+> +static bool skb_gso_tcp_header_valid(const struct sk_buff *skb)
+> +{
+> +	unsigned int transport = skb->transport_header;
+> +	unsigned int tail = skb_tail_pointer(skb) - skb->head;
+> +
+> +	if (!skb_is_gso_tcp(skb))
+> +		return true;
+> +
+> +	if (!skb_transport_header_was_set(skb) ||
+> +	    transport <= skb->network_header || transport > tail)
+> +		return false;
+
+[Severity: High]
+Can this ordering check reject valid decapsulated TCP GSO skbs on the RX
+path?
+
+After UDP tunnel decapsulation, a valid TCP GSO skb can keep a stale
+transport_header. This happens when the tunnel device skips GRO, either
+because NETIF_F_GRO is off or because an XDP program is attached, so
+netif_elide_gro() is true:
+
+ip_rcv_core()
+    skb->transport_header = skb->network_header + iph->ihl*4;  <- outer UDP
+
+vxlan_rcv()->__iptunnel_pull_header()->iptunnel_pull_offloads()
+    clears the encap GSO bits and encapsulation,
+    leaves transport_header alone
+
+gro_cells_receive()
+    if (!gcells->cells || skb_cloned(skb) || netif_elide_gro(dev)) {
+        res = netif_rx(skb);
+    so inet_gro_receive() never refreshes the transport header
+
+__netif_receive_skb_core()
+    skb_reset_network_header(skb);
+    ...
+    if (!skb_transport_header_was_set(skb))
+        skb_reset_transport_header(skb);
+
+That leaves gso_type=TCPV4 and encapsulation=0, with transport_header still
+pointing at the outer UDP header. That offset comes before both the inner
+mac header and the inner network header.
+
+In that case transport <= skb->network_header is true. The extra
+skb->transport_header <= skb->mac_header test in skb_gso_validate_mac_len()
+is also true. So both validators return false.
+
+Callers read false as "segments do not fit". tcf_police_mtu_check() runs
+this for every policed GSO packet:
+
+    if (skb_is_gso(skb))
+        return skb_gso_validate_mac_len(skb, limit);
+
+tcfp_mtu defaults to ~0 when no mtu is given. Before this patch, the
+unsigned wrapped arithmetic happened to fit and these packets passed.
+
+Would a police action on the tunnel device's ingress now send every such
+GSO packet to the exceed action?
+
+tbf_enqueue() would likewise drop the packet with qdisc_drop() instead of
+calling tbf_segment(). skb_tunnel_check_pmtu() would treat it as a PMTU
+violation, which produces ICMP FRAG_NEEDED on bridge ports.
+
+This patch is tagged for stable. Would it be safer to reject only an unset
+transport header or offsets outside the linear head, or to read doff with
+skb_header_pointer(), rather than rely on header ordering?
+
+> +
+> +	if (skb->encapsulation) {
+> +		transport = skb->inner_transport_header;
+> +		if (transport <= skb->inner_network_header ||
+> +		    transport < skb->transport_header || transport > tail)
+> +			return false;
+> +	}
+> +
+> +	return sizeof(struct tcphdr) <= tail - transport;
+
+[Severity: Medium]
+Does this reject TCP GSO skbs whose headers are valid but whose fixed TCP
+header is partly in paged frags?
+
+tail here is the linear tail, so the whole 20-byte tcphdr has to be in the
+linear area.
+
+Take the IFF_TAP path of tun_get_user() without
+VIRTIO_NET_HDR_F_NEEDS_CSUM, which is the producer the commit message
+describes. __virtio_net_hdr_to_skb() has no network header yet, so it takes
+this branch:
+
+    } else if (gso_type) {
+        p_off = nh_min_len + thlen;
+        if (!pskb_may_pull(skb, p_off))
+            return -EINVAL;
+    }
+
+That pulls only 40 bytes counted from the MAC header. With a small hdr_len
+and a packet larger than a page, tun_alloc_skb() leaves the rest in frags.
+After eth_type_trans(), skb_probe_transport_header() sets transport to
+network + 20 for a valid IPv4 header. Only 6 TCP bytes are then linear.
+
+Before this patch, such a packet was forwarded, or segmented by
+skb_gso_segment(), which pulls headers properly. tcp_hdrlen() did read
+stale tailroom bytes on that path.
+
+Now both validators report the packet as too big. For example, in
+ip_exceeds_mtu():
+
+    if (skb_is_gso(skb) && skb_gso_validate_network_len(skb, mtu))
+        return false;
+
+the packet gets ICMP_FRAG_NEEDED and is dropped. ip6_pkt_too_big(),
+skb_tunnel_check_pmtu(), tbf_enqueue(), execute_check_pkt_len() and
+tcf_police_act() get the same false result.
+
+The commit message doesn't mention that header linearity failures are now
+reported as MTU violations.
+
+The validators take a const skb and cannot pull. Would reading doff through
+skb_header_pointer() avoid the out-of-bounds read without rejecting
+non-linear but valid headers?
+
+> +}
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927163117.746432-2-bestswngs%40gmail.com
