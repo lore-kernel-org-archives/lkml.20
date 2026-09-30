@@ -1,83 +1,83 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D353F104C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876E93F3272
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750405; cv=none; b=sYBABIRDbm/VBQxAq9dGAJZ3idz4U0i6nOkjDiPosVb7YevMRCNNriYBZWJL4QZTAdq4uHDVmRzEA7YDg076l8BYw4SqEaiaKpRr8rQUA/Pe//w6xZrB16cabGJSkmjA72i/Yt/xAuI4qO4TZTfPc5lhxUZIVlqHujWI3mQVejA=
+	t=1790750410; cv=none; b=KhBrlqNLunYVJPcyvE3RxZv4PPMQ4LsBi2Y1hgam5Jy5ENhBKUpea8PYc410m0UeKiojLv4/EuuLl1ljKBbIgMBV/N/YG+8VoxWTPQZV5Y0ZG5YsjHah0rgqlYouLRC0/WdAdRpi1SYqQnjsjixfP2Ak2vWDWow7M+4J96B5ThM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750405; c=relaxed/simple;
-	bh=/9lKqHBhFb4p0Ucj2ys10zg54LDaYLBV4l2ZDIVpZmI=;
+	s=arc-20240116; t=1790750410; c=relaxed/simple;
+	bh=FKb6BaGaOw+y5XBKoZBVYiEHstm1iw3inajCMM+zbvU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HOLMez58EqwoeVO0WlUyODEUqpGvYvz54s3jQXuY+Mf4jbGncaYf3/wy452XYy1HIufjhMPhszWXZVfYrywayjF8XYzFJWBKVoxWHdFWDPJtvw46KCIbN0daTYBzGDwXt+GlhqPoSo8QRTmH5vAd65YqwHC/bVRfPoqEb+QLtNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lRb3Rp2w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iQw9RUT4; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=nhB84eUQ5/MtZKnZUyhXEVUWIt665R9T7/IVKRyHNOO2SH5mjb8O1Sik4sGiIboE/wW15uQFOvBGODTNO4tnnZuZi02OVWKwlWFDj4up46MtUvavZomIpZj4LkoVhYuf+uCb9JlNzb2EG99mS9wZHmrWbbA1vI5zk+BgKr8ZQhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JB6bR8Sx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J94tN9fS; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lRb3Rp2w";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iQw9RUT4"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U6R7852876480
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:02 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JB6bR8Sx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J94tN9fS"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U3VZDq1887256
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=8OWABlvWmQD
-	eWp98OxpVQtoQURxY/W2DmFEPy2By3PM=; b=lRb3Rp2wgIxmPSVMCNFwHXkXpTX
-	HZB6EToy7MxH8sWWVGqsHe2yReb3X6wNA3AqacT94Zb7juXIWo391RyeG41UeA+f
-	XArqXMRx5Xh5T7ae092ODNQzmPaPjtfY1KrYC/Uldq66O529gz39z65KzydmFzws
-	bKsD8OcEnsNMvV3sEK0wgs3FSva/QKf77UgDlAEX42pFAMBPnYknhuFVMu0rLnrQ
-	2u2RY6lQHBpmqx19Fn+VdFbU9RQiTbYjVozJYUBaxWyQEVfULIh1nQRh4pFMoqra
-	UwdqdLXBcFrKGNFnpwjCRZHpLJh/SHp/ZN8C6yXYB8iCD+8pW25B2NT/Low==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0et2bvk9-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=A81eQh/mNmH
+	iDTVrzFWMP6oC61Wb5fR8bGkTk+ZPckI=; b=JB6bR8SxkavlYwB2R2oAFmSYfik
+	qKiA3JBjyRFOAPxaSr5FAZwumsoNDZ1EvxiRgA+4MI1J3Kx+qcfwsgvuB3f4H7KU
+	08cfYrOQlhiOXoiy+ydVHJZFv/78wYZAf/8UHvC6ERJXGTkExFi16p5V8ePitYqL
+	glLVF3QnbZboWXc+TWf+vgs3xwqCytSL8jzaGmCYOHYfwJ3sCx23qV9Q+/yJr8uf
+	dmWxEhQIBG/s/SPzgqx+ezFDxSvnIIHy/cGb1bd3WPkpErDxd81pq1HDv0oBWVZD
+	ZCDmM0/3AT0B29KbG3EB5XNZvXGSt5rrJiEM6dQaMOfvJHXNy6osd4zq1KQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0tkn0p85-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:02 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so9892032eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:40:02 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:40:07 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34d18eee3dfso324192eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790750402; x=1791355202; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790750407; x=1791355207; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8OWABlvWmQDeWp98OxpVQtoQURxY/W2DmFEPy2By3PM=;
-        b=iQw9RUT4c08meQ7kUX0pqZH/DzfSw7PpZkjEeMxjmWdCwPK+md37+5/YCvXCZuf5xs
-         +oXRdj+0SNoaj/J2AHMfcg7h1nizj6+bBhrP6JaJz4I9dDmTLU0URhW7KiD8yIiY31KH
-         xUW3H50QlfnrHelVIXwSDnCEmZxubEWZ3AePRNaqyTvIyd6f+gw6hRfb8ePl6hjZu8wa
-         Xyb8KgbEshd0BB2mLTmWZLiI55F5rLW3kMQ4ZET9xQku8l003CWtUm4fRSg7v6VzB3L3
-         fyDt//6RyjG+fqqzCkNpM791zMZ4wetWHlYswiHreF+ymg+5P3o2wJpcTF6i0+qdz6Q4
-         pAcw==
+        bh=A81eQh/mNmHiDTVrzFWMP6oC61Wb5fR8bGkTk+ZPckI=;
+        b=J94tN9fSJB+Anu5G6QIDE9Wpn41Nabh8F+M2l/BVUTEXEXZCMzkDBHsp/MgQiS+2cz
+         entLSQlLk2ZgKtLAEEPisuK14/oSeXHKPSsAlFSllBJpXAq/oj7KnanSo5TlO0iLQ/VN
+         WgjaXYBP0XTE6hM1mylva01LH2eW0vdsfKglqAkjD5xQ6PcFxTaTu/QgtFnYaKgrxho4
+         09PldGtMhXUgxsCZe0SKNsxXfO6gtWsobGcRNxY5HvMw0nJX+1xrNoUXGmrVdPVvDVOV
+         btVZlkoK/tnBWE5Y9ASmwriSYFLI60iWjSxsBjlEkAm7R7XlTLgNblmwFvLU/np1DIMa
+         0+ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790750402; x=1791355202;
+        d=1e100.net; s=20260707; t=1790750407; x=1791355207;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8OWABlvWmQDeWp98OxpVQtoQURxY/W2DmFEPy2By3PM=;
-        b=bcBHEIaymKnAqXiAmaRX6DFuo+WCgq3GTwUQK0QxEgME94v0RLtCADkTiZeGVEMAXu
-         l6cTvx9DJx/BlZtcdb8hNmLTljDZcLtYJFiiSUtxk7xR/jsa+oy1kNRq0ZGDlzmx1TuC
-         gwhvNVk6nvCCdwUN8TPW+egIVl0DXNe+NgvNxhS13DaluD/6yP4KsaHXaOUuOf3jcnyL
-         mAPUw6GeqI5EEh+aJdJ0UpLqZUMJEgXqgT3X3kyUkquMDFX2sXeHOrUljkvY/NtiB6Dg
-         4RSXW1HRMHimT37uah2ukYh6KGGWs4LdKwPAM8SdB0e/ECfH1PtfCyPw8QK4fk1kSqvU
-         hT/Q==
-X-Gm-Message-State: AFuF++kOAmt3yPGkeL2PQZ2Rt2Fz4dLxODmr9WH4vd2vILssEuijMM5m
-	n5YutogQTYG7SEvbgKJ2T4KjuIbOGNTCtMZk1x13YJ78csArLxIPQILGWAeEN54bRLRgXhcc67c
-	dtGfMcdzDkjYCqtb6edOr8I6Rfubbn4xzRonL6n/omVosI5mygXSp3JUhnzRY2GTWMtTtljGlvb
-	0=
-X-Gm-Gg: AYBFou3msSreI2S4nuQuKFaJavp1OXJk4sgcljVxGs1U7WgIwmnXVxo/crMc/z+S1y+
-	CX8b0XStjHQ/QZCtoOJ+Uyv3aN4mht2YA9pvojrhdsw5RCD6tzQtBvrtetA/+9EcDn+XPwOCP6O
-	jtpcFsc0SmdMzqtv97xKPSvwK34ncVw/GkK2X4UFGSrxnEVFsTHrv9swHXZH3YvD4jhKk5WgC6x
-	STXwDpivr0AQb4rXM9GAkOEhhDoLv/PJv5V1rwNuc1PBlOYYyDpfiyWQJYD8MWbbTOt/9uest2W
-	v207K2us4pPjVuZnXABasGIewmfwmC97QXP2q2/1J8qIOd0Qeb+9AazjJpSOkneyMXd70PJVMcW
-	0XaZAHcnHQTq0HEBPTWaUcBR5sBqQmbbHndjJZVJ7JADz7EyrcpySn28oVBBXcstrEqSsZQt9Ux
-	73MaRKEYqF7qKnQ9rQt+6dUTKc
-X-Received: by 2002:a05:7022:ea9c:b0:14b:2397:d8f1 with SMTP id a92af1059eb24-14d3204deb9mr213402c88.9.1790750401388;
-        Tue, 29 Sep 2026 23:40:01 -0700 (PDT)
-X-Received: by 2002:a05:7022:ea9c:b0:14b:2397:d8f1 with SMTP id a92af1059eb24-14d3204deb9mr213360c88.9.1790750400667;
-        Tue, 29 Sep 2026 23:40:00 -0700 (PDT)
+        bh=A81eQh/mNmHiDTVrzFWMP6oC61Wb5fR8bGkTk+ZPckI=;
+        b=G56y5LuFFA5R0iDrCAOnDuY0bpHMhLkwkBwCbtRww8rVxC4aeUuikqu9+kW17rh+Jd
+         UmESY3f06xR83V3VINVZyGTea4XxCydymQZM5+InwcgNA/nMcuY3NZ4UeDFa6MqMYbFg
+         pF/jxRJReuqUNh4ZKB/lUkc/iu3pMh16Ln4+m2x+Rfy2m+2mdBPrI6ex+3ZDHw8TFiWz
+         sz3/v4WdWexMQ2JvlR/EVvRIkDnr4QT6wdbg0ia0EHR8W4zRgLUXVP78ynyATvFgBxGJ
+         jJMfvx+jlUaLr39oPx3k4oskmyQADVCE6ojmYfcrDKfCDY5qwFEmiPvXUFuDI6kaAbCw
+         5QWg==
+X-Gm-Message-State: AFuF++nzSLfNClMpAfnipUYBj2MwLA4kmRsYOulORE4GPtDuY4B807oS
+	/xOjhPUNWvj/xBBG8eC6GRxP3sH+TcMcH+zzbbdW0K6vECnBkF3VPHVpWE0NAOnpZITvCHXQWvL
+	ymLMSVj2zDuiqabV2/6OPZA/FZfwb2kZOLX2vWQlPTo3YPrScdhhxonR2PsJxRUb6+mox1mFapx
+	g=
+X-Gm-Gg: AYBFou2AC+jnBSBhjpOYZMPedmLVJotuF9e90E6DJ62Zzv6BT4M7Tb+Xyav2Q22xcab
+	r4w8+RsrWsK4BUG95L1fd/vftU0R58H2cDHonr24+bN1gbm6/vGHy1MoptO4Z18zbVeR2yDWOvV
+	ZTNOe7evamD9K7A4CLfTuizO5fd5UWfTXKsE8LfMF1PJD/AZXdHO8wVGhoVkrQePAuAUet4veDW
+	LNC7/28svxD23jphWE8G/v2p4N7yiE+yY3OZr5iAZVEZqTz5jMPmO0HqQVOmGZcWAoWcE0OGdP+
+	ogU9V4GBYZs3xaAVkuk+15cWZxPvTnJRmin0a/2fsS2Bk9OPtH6+T1vU55+6Upb0q2DzIxCxP3o
+	ms0fmvpVwv1ZNsVbLz056SWllc0rbosWFHggF/M6GjMfnU1gU0qmr2Ap/e9p3l36lp4MLFVSbOZ
+	Vq1o+oH25rO0j5U41bsFRTcXjN
+X-Received: by 2002:a05:701b:2515:b0:148:306c:971 with SMTP id a92af1059eb24-14d323344b3mr394990c88.22.1790750406465;
+        Tue, 29 Sep 2026 23:40:06 -0700 (PDT)
+X-Received: by 2002:a05:701b:2515:b0:148:306c:971 with SMTP id a92af1059eb24-14d323344b3mr394953c88.22.1790750405907;
+        Tue, 29 Sep 2026 23:40:05 -0700 (PDT)
 Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.55
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.40.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:40:00 -0700 (PDT)
+        Tue, 29 Sep 2026 23:40:05 -0700 (PDT)
 From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 To: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
         linux-perf-users@vger.kernel.org
@@ -86,9 +86,9 @@ Cc: peterz@infradead.org, mingo@redhat.com, alex@ghiti.fr,
         pjw@kernel.org, qingfang.deng@linux.dev, shuah@kernel.org,
         thecharlesjenkins@gmail.com, cp0613@linux.alibaba.com,
         Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Subject: [PATCH v7 6/8] riscv: Add software supported single stepping with mc/mc6 triggers
-Date: Wed, 30 Sep 2026 12:09:17 +0530
-Message-ID: <20260930063919.608911-7-himanshu.chauhan@oss.qualcomm.com>
+Subject: [PATCH v7 7/8] perf tests: add noinline to __test_function
+Date: Wed, 30 Sep 2026 12:09:18 +0530
+Message-ID: <20260930063919.608911-8-himanshu.chauhan@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
 References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
@@ -99,397 +99,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: y_cLb1DKGmLo5TrTHqi69R_kQmRw-Pxm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXwPovlF4xcI9H
- 6AXhgsb/Xa60KA/dmNm4rJmJkt6i1FISfro6+DwUg/AeKTIFUy1CszD5x5M9yfy8DMUQirvYjFy
- 6kKS+Snctjl3bYYFUW3j/WlHdh0TXpWnC/fTitNVkLVhu/yv4UWjeHw1OCWg3T07RASBp8gWeNR
- bR+GHuaaEiU7yTqdD12nxT+nN9raEskTQevDDu4NWdM5Vkg+SGiBVtW3R9W0hltY6WY4jusFO5l
- +nHtHu09taZv9LIZLizYq6HDHetw65h2FtC5nCtvkf9AY7aO8rW4ZQSBSxVyBX5es56dbT6Kc4x
- skmXgkwh3u3kEQekN4H3JIzGLCLvwgyapkmrw/LNIYraurm7Xx4xW0cqn2axQMYCer7tq7tGqGr
- jvGf8QDqIQfmSIbqxiXTQQPZ4CkjuYxyZEhEzIG3VwYRtBm2crWbp55cyUYAEhKj0PnYM7RRt4S
- JqZMNJH/1nSYrVVk76A==
-X-Authority-Analysis: v=2.4 cv=cokOAF4i c=1 sm=1 tr=0 ts=6abcaec2 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=CKy/zhrD c=1 sm=1 tr=0 ts=6abcaec7 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=YfvAyfKA-KDybrY5ebIA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: y_cLb1DKGmLo5TrTHqi69R_kQmRw-Pxm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX5EM26dAM7W7t
- fas3jGNtXiIw5nxAmmcRrZiUFz7ceT9LrCqm7V1mgpDQ6Tp1sZjnU1CPZdCuSXQdBh9St4U4r+r
- u2hT3ygEYbsHnNOmWO/Z3k4umpSUD+s=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=nkb_lb6KKDW8e-7fnV8A:9 a=O8hF6Hzn-FEA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: qsG91SZLRaviStKKGyuwsGMPJgP8SMfJ
+X-Proofpoint-GUID: qsG91SZLRaviStKKGyuwsGMPJgP8SMfJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX3JKk7FpJyKT+
+ zoe3QNgL2++5QxVIRU0YVTbJrMdE3J6vdAlEW+LOtLtWqs9v2jcr+I7vLiWhIVt7OvzmzIJw3MX
+ 2/tjim2Mu4JG5p6oG219GU1OP7OtUz8TOf5n+LbmHqG1y7tSK7CDDYQ7JufZ7fC33D3VCTMiJe0
+ Wa9WZ2qZUNLXf3Thgu+RRbe89X+aHCHUZApuOAKc11onHMENu5ysdq6qEBMrOcDIfn9ETlTv8O+
+ et6BSOnZYKSts90EO5rFiZChubsD5SK65Vq3X6SyTl0C517kKB7OjGVB4HnFmx26x+dCPWZ27V2
+ +1Hvqqd1bpVrdtRg8b+Dc8tgPqMP0iqprNcMVQAwP1OEaGZNfZDYcSwP7ZodHWstKT6KbwScuWI
+ 6jEpp1AKLUYWuFyrrbtwywH51zkjFnb8wy3x9+eLgA46UXBrmI/NT9b38clh5jnqjyJ04MDLPXk
+ VQvJCyqoCoNQMqhqYcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX+3xoqL4pyOKq
+ ElIV+s5G1mefym+deyDchqCV6kRr5tAWIN2kx2dwMmABNfo7q+sXshFPK/5cz8U+UgkSXnhhNsk
+ M/et7/3GakG/37rhSi/jJcz/ZshCny4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300026
+ priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ phishscore=0 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300026
 
-With mc/mc6 triggers, after handling breakpoint at current pc, there
-is no way to tell trigger to skip same breakpoint after the handler
-returns. This can cause loop of breakpoints at the same address until
-the trigger is disabled or uninstalled. Debugger may keep the breakpoints
-enabled and if kernel disables it, there is a loss of state coherency.
+In the breakpoint signal handler test, a breakpoint is set on
+__test_function. Compiler may optimize and inline __test_function.
+This causes failure in the test.
 
-To avoid the loop, software disables the current breakpoint, finds the
-next instruction that would be executed after pc and puts a breakpoint
-at that address. When this breakpoint hits, old breakpoint is reinstalled.
+Add noinline to __test_function so that it is not inlined.
 
 Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 ---
- arch/riscv/include/asm/hw_breakpoint.h |   9 +
- arch/riscv/kernel/hw_breakpoint.c      | 256 +++++++++++++++++++------
- 2 files changed, 202 insertions(+), 63 deletions(-)
+ tools/perf/tests/bp_signal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/riscv/include/asm/hw_breakpoint.h b/arch/riscv/include/asm/hw_breakpoint.h
-index ca2ef93c020c..93cbf39f4b4a 100644
---- a/arch/riscv/include/asm/hw_breakpoint.h
-+++ b/arch/riscv/include/asm/hw_breakpoint.h
-@@ -280,6 +280,10 @@ struct arch_hw_breakpoint {
- 	unsigned long address;
- 	unsigned long len;
- 	unsigned int type;
-+
-+	/* Single-step callback info */
-+	unsigned long next_addr;
-+	bool in_callback;
- 	unsigned int match;
- 	unsigned int chain;
- 	unsigned int select;
-@@ -289,6 +293,11 @@ struct arch_hw_breakpoint {
- 	unsigned long tdata1;
- 	unsigned long tdata2;
- 	unsigned long tdata3;
-+
-+	/* Saved trigger config for single-step restore */
-+	unsigned long saved_tdata1;
-+	unsigned long saved_tdata2;
-+	unsigned long saved_tdata3;
- };
- 
- struct perf_event_attr;
-diff --git a/arch/riscv/kernel/hw_breakpoint.c b/arch/riscv/kernel/hw_breakpoint.c
-index dd6f63953969..9597ed362537 100644
---- a/arch/riscv/kernel/hw_breakpoint.c
-+++ b/arch/riscv/kernel/hw_breakpoint.c
-@@ -11,9 +11,12 @@
- #include <linux/percpu.h>
- #include <linux/kdebug.h>
- #include <linux/bitops.h>
-+#include <linux/bitfield.h>
-+#include <linux/math.h>
- #include <linux/cpu.h>
- #include <linux/cpuhotplug.h>
- 
-+#include <asm/insn.h>
- #include <asm/sbi.h>
- 
- /* Registered per-cpu bp/wp */
-@@ -328,8 +331,11 @@ int hw_breakpoint_arch_parse(struct perf_event *bp,
- 
- 	/* Breakpoint address */
- 	hw->address = attr->bp_addr;
-+	hw->tdata1 = 0;
- 	hw->tdata2 = attr->bp_addr;
- 	hw->tdata3 = 0x0;
-+	hw->next_addr = 0x0;
-+	hw->in_callback = false;
- 
- 	switch (dbtr_type) {
- 	case RISCV_DBTR_TRIG_MCONTROL:
-@@ -347,6 +353,93 @@ int hw_breakpoint_arch_parse(struct perf_event *bp,
- 	return ret;
- }
- 
-+static ulong get_step_address(struct pt_regs *regs, ulong insn)
-+{
-+	return get_next_insn_address(regs, insn, regs->epc);
-+}
-+
-+/*
-+ * setup_singlestep - Set the breakpoint to next instruction after current breakpoint.
-+ */
-+static int setup_singlestep(struct perf_event *event, struct pt_regs *regs)
-+{
-+	struct arch_hw_breakpoint *bp = counter_arch_bp(event);
-+	unsigned long insn, next_addr = 0;
-+	int ret;
-+	struct arch_hw_breakpoint tmp = {};
-+
-+	/*
-+	 * Save the original trigger configuration so we can restore it
-+	 * after the single-step fires.
-+	 */
-+	bp->saved_tdata1 = bp->tdata1;
-+	bp->saved_tdata2 = bp->tdata2;
-+	bp->saved_tdata3 = bp->tdata3;
-+
-+	ret = get_insn_safe(regs, regs->epc, &insn);
-+	if (ret < 0)
-+		return ret;
-+
-+	next_addr = get_step_address(regs, insn);
-+
-+	/*
-+	 * Software path: update the trigger in-place to an execute
-+	 * breakpoint at next_addr.  Build the tdata directly without
-+	 * calling hw_breakpoint_arch_parse() so that bp->len, bp->type
-+	 * and bp->address are not overwritten and remain valid for the
-+	 * handler's matching logic after restore.
-+	 */
-+	tmp.tdata1 = 0;
-+	tmp.tdata2 = next_addr;
-+	tmp.tdata3 = 0;
-+	switch (dbtr_type) {
-+	case RISCV_DBTR_TRIG_MCONTROL6:
-+		RISCV_DBTR_SET_MC6_EXEC_BIT(tmp.tdata1);
-+		tmp.tdata1 = RISCV_DBTR_SET_MC6_SIZE(tmp.tdata1, 0);
-+		tmp.tdata1 = RISCV_DBTR_SET_MC6_TYPE(tmp.tdata1,
-+						     RISCV_DBTR_TRIG_MCONTROL6);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_DMODE_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_TIMING_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_SELECT_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_ACTION_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_CHAIN_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_MATCH_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_M_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_VS_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_VU_BIT);
-+		SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_S_BIT);
-+		SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_U_BIT);
-+		break;
-+	case RISCV_DBTR_TRIG_MCONTROL:
-+		RISCV_DBTR_SET_MC_EXEC_BIT(tmp.tdata1);
-+		tmp.tdata1 = RISCV_DBTR_SET_MC_SIZELO(tmp.tdata1, 0);
-+		tmp.tdata1 = RISCV_DBTR_SET_MC_SIZEHI(tmp.tdata1, 0);
-+		tmp.tdata1 = RISCV_DBTR_SET_MC_TYPE(tmp.tdata1,
-+						    RISCV_DBTR_TRIG_MCONTROL);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_DMODE_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_TIMING_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_SELECT_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_ACTION_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_CHAIN_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_MATCH_BIT);
-+		CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_M_BIT);
-+		SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_S_BIT);
-+		SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_U_BIT);
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	bp->tdata1 = tmp.tdata1;
-+	bp->tdata2 = next_addr;
-+	bp->tdata3 = 0;
-+	arch_update_hw_breakpoint(event);
-+
-+	bp->in_callback = true;
-+	bp->next_addr = next_addr;
-+	return 0;
-+}
-+
- /*
-  * Read mcontrol6's hit1:hit0 field for trigger @idx. If either bit is set,
-  * clear it in hardware (the Debug spec requires the trigger user to do
-@@ -401,10 +494,10 @@ static unsigned int mc6_read_and_clear_hit(int idx)
-  */
- static int hw_breakpoint_handler(struct die_args *args)
+diff --git a/tools/perf/tests/bp_signal.c b/tools/perf/tests/bp_signal.c
+index f580ba7486b1..cc4a27224884 100644
+--- a/tools/perf/tests/bp_signal.c
++++ b/tools/perf/tests/bp_signal.c
+@@ -54,7 +54,7 @@ asm (
+ 	"ret\n"
+ 	".popsection\n");
+ #else
+-static void __test_function(volatile long *ptr)
++static noinline void __test_function(volatile long *ptr)
  {
--	int ret = NOTIFY_DONE;
-+	int i, ret = 0, bp_ret = NOTIFY_DONE;
-+	bool expecting_callback = false;
- 	struct arch_hw_breakpoint *bp;
- 	struct perf_event *event;
--	int i;
- 
- 	for (i = 0; i < dbtr_total_num; i++) {
- 		event = this_cpu_read(pcpu_hw_bp_events[i]);
-@@ -412,85 +505,122 @@ static int hw_breakpoint_handler(struct die_args *args)
- 			continue;
- 
- 		bp = counter_arch_bp(event);
--		switch (bp->type) {
--		/* Breakpoint */
--		case HW_BREAKPOINT_X:
--		{
--			bool hit = bp->address == args->regs->epc;
- 
--			if (!hit && dbtr_type == RISCV_DBTR_TRIG_MCONTROL6)
--				hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
-+		if (bp->in_callback) {
-+			expecting_callback = true;
-+			if (args->regs->epc != bp->next_addr)
-+				continue;
-+
-+			arch_uninstall_hw_breakpoint(event);
- 
--			if (hit) {
--				perf_bp_event(event, args->regs);
--				ret = NOTIFY_STOP;
-+			/* Restore original breakpoint */
-+			if (hw_breakpoint_arch_parse(NULL, &event->attr, bp))
-+				goto exit;
-+
-+			if (arch_install_hw_breakpoint(event))
-+				goto exit;
-+
-+			bp->in_callback = false;
-+			bp_ret = NOTIFY_STOP;
-+			goto exit;
-+		}
-+
-+		switch (event->attr.bp_type) {
-+		/* Breakpoint */
-+		case HW_BREAKPOINT_X:
-+			{
-+				bool hit = bp->address == args->regs->epc;
-+
-+				if (!hit && dbtr_type == RISCV_DBTR_TRIG_MCONTROL6)
-+					hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
-+
-+				if (hit) {
-+					perf_bp_event(event, args->regs);
-+					ret = setup_singlestep(event, args->regs);
-+					if (ret < 0) {
-+						pr_err("Single step setup failed: %d.\n", ret);
-+						goto exit;
-+					}
-+					bp_ret = NOTIFY_STOP;
-+					goto exit;
-+				}
- 			}
- 			break;
--		}
- 
- 		/* Watchpoint */
- 		case HW_BREAKPOINT_W:
- 		case HW_BREAKPOINT_R:
- 		case HW_BREAKPOINT_RW:
--		{
--			unsigned long stval = args->regs->badaddr;
--			unsigned long bp_start = bp->address;
--			unsigned long bp_len = bp->len ?: 1;
--			unsigned long bp_end = bp_start + bp_len - 1;
--			unsigned long stval_end = stval + sizeof(long) - 1;
--			bool hit = false;
--
--			if (bp_end < bp_start)
--				bp_end = ~0UL;
--			if (stval_end < stval)
--				stval_end = ~0UL;
--
--			/*
--			 * Prefer tdata1.hit from SBI trigger readout whenever
--			 * possible. Fall back to address-based matching if HIT
--			 * isn't observed/supported.
--			 */
--			if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL) {
--				unsigned long tdata1;
--				struct sbiret sret;
--				union sbi_dbtr_shmem_entry *shmem;
--
--				raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
--						      *this_cpu_ptr(&ecall_lock_flags));
--				shmem = this_cpu_ptr(sbi_dbtr_shmem);
--				sret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_READ,
--						 i, 1, 0, 0, 0, 0);
--				if (!sret.error) {
--					tdata1 = le_to_cpu(shmem->data.tdata1);
--					hit = !!(tdata1 & RISCV_DBTR_MC_HIT_BIT_MASK);
-+			{
-+				unsigned long stval = args->regs->badaddr;
-+				unsigned long bp_start = bp->address;
-+				unsigned long bp_len = bp->len ?: 1;
-+				unsigned long bp_end = bp_start + bp_len - 1;
-+				unsigned long stval_end = stval + sizeof(long) - 1;
-+				bool hit = false;
-+
-+				if (bp_end < bp_start)
-+					bp_end = ~0UL;
-+				if (stval_end < stval)
-+					stval_end = ~0UL;
-+
-+				/*
-+				 * Prefer tdata1.hit from SBI trigger readout whenever
-+				 * possible. Fall back to address-based matching if HIT
-+				 * isn't observed/supported.
-+				 */
-+				if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL) {
-+					unsigned long tdata1;
-+					struct sbiret sret;
-+					union sbi_dbtr_shmem_entry *shmem;
-+
-+					raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+							      *this_cpu_ptr(&ecall_lock_flags));
-+					shmem = this_cpu_ptr(sbi_dbtr_shmem);
-+					sret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_READ,
-+							 i, 1, 0, 0, 0, 0);
-+					if (!sret.error) {
-+						tdata1 = le_to_cpu(shmem->data.tdata1);
-+						hit = !!(tdata1 & RISCV_DBTR_MC_HIT_BIT_MASK);
-+					}
-+					raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+								   *this_cpu_ptr(&ecall_lock_flags));
-+				} else if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL6) {
-+					hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
- 				}
--				raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
--							   *this_cpu_ptr(&ecall_lock_flags));
--			} else if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL6) {
--				hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
--			}
- 
--			/*
--			 * Sdtrig may report STVAL as the lowest accessed
--			 * address while the watchpoint can match a higher byte
--			 * in the same access.
--			 */
--			if (hit ||
--			    (stval >= bp_start && stval <= bp_end) ||
--			    (bp_start >= stval && bp_start <= stval_end)) {
--				perf_bp_event(event, args->regs);
--				ret = NOTIFY_STOP;
-+				/*
-+				 * Sdtrig may report STVAL as the lowest accessed
-+				 * address while the watchpoint can match a higher byte
-+				 * in the same access.
-+				 */
-+				if (hit ||
-+				    (stval >= bp_start && stval <= bp_end) ||
-+				    (bp_start >= stval && bp_start <= stval_end)) {
-+					perf_bp_event(event, args->regs);
-+					ret = setup_singlestep(event, args->regs);
-+					if (ret < 0) {
-+						pr_err("setup_singlestep failed %d.\n", ret);
-+						goto exit;
-+					}
-+					bp_ret = NOTIFY_STOP;
-+					goto exit;
-+				}
- 			}
- 			break;
--		}
- 
- 		default:
--			pr_warn("Unknown type: %u\n", bp->type);
--			break;
-+			pr_warn("Unknown type: %u\n", event->attr.bp_type);
-+			goto exit;
- 		}
- 	}
- 
--	return ret;
-+	if (expecting_callback) {
-+		pr_err("in_callback set but epc (%lx) not at next_addr (%lx).\n",
-+		       args->regs->epc, bp->next_addr);
-+	}
-+exit:
-+	return bp_ret;
+ 	*ptr = 0x1234;
  }
- 
- int hw_breakpoint_exceptions_notify(struct notifier_block *unused,
 -- 
 2.43.0
 
