@@ -1,328 +1,306 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2129.outbound.protection.partner.outlook.cn [139.219.146.129])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D173B19C6;
-	Wed, 30 Sep 2026 12:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.129
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772286; cv=fail; b=q/baeDG7iQZGv0JeCmD3+b9k7TWImI3MOfyZopGYZFLm2w6anIujxWC0zmXXjmovvIF2DzMIo1ycZC7UEUdQcQSmxcYBWYzq/VDantMGwKHDVAlAjRTRJx3Ba3cCtRsxxo6fdirEfj647xFIG8hnTMcRdA51Qu4PfoP9kqt6Yig=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772286; c=relaxed/simple;
-	bh=QcQSu1mnIlZPrk8Uu3Faz42x2fNYbGzMEj5orf157BY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XhbgnBKfJUU9UPOwg1cWebOKtlVoLRhx+ajWTIMd+O83MVit7z3SS+HnHnmqcvrWkeHousKjcQuqhl2UFGMRlE7IzF2YA7p2/2l9FLS6BWB6wc8hNW/MY/gOX3XW0CoEdTo+CTnUv7YvTXMD+lFFDZPSU73nqUeoErFCQ2/f2ZA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JEalNHyD1P5uKAWe3Nli+oJ5b0a5CdZgciE9fWAr1XZlpwW2EBBRmV0okvKAgaRcr/UGQ8LXbYGljXGBuVpU+OqJVJfqebGog9j5lhdS81XhFnDK2zdE+5MO3MUFdggVwqz/Ch3D3W+evrk89RyDFzvREg53cKEIlObCBhHtm+BEoXcNph0vaYFTB9gHpDo8OFKQNWvjR9Q05HfDiSwlEouXwc76D3YsMsbd83qZiYHoo4Q8EH+nn3wSmfuzIyyMIoyEHjhOwpZoY+PfPYesx3p/DKRV2S6PGHJ3eeF79gmgCQ2ZwWDeMD/WnREV4qdtmx8PbZNcZWKWLcZSk+klIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xun51H6Hs8wkodTe3PnaKo+c8L/r4MLjDymQAigNhBk=;
- b=b1zDoWhTy6ZZ3kpnuyvcH5yCqpwzdxLQjr3Azc6oUneuhc8gannqOhlf9px1vwYX6rGE16E70P/HXdNntfoeIJLoQmG4TUGuaRiIFlrThc7SZJZycoA/ZNZH0fIrD/27g+jcDAdxVYvV3a80AvWsL1XV+rJNqkUOHzviNXKxrel6cn81o3nrGo68McWwgO/YEhhaFk2+QZhjTTGUgMBd2UMsVKLTnBfzv3eVXgtxr5mHIuglMVpUeOYShR8KC2g5eZiziwro/s7eACr6UwFH4aVPxCHzJ0FpDDubVVwIYgu/vicP5/Np8x8MIFWJubWvX4saeOij0xNSsrHIDZ2IwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1267.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 12:44:09 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0451.026; Wed, 30 Sep 2026 12:44:09 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-hardening@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v5 21/23] reset: starfive: jh71x0: Support discontiguous reset IDs
-Date: Wed, 30 Sep 2026 05:43:15 -0700
-Message-Id: <20260930124317.5648-22-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
-References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJSPR01CA0006.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:c::18) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E125F4DD3B7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790772288; cv=none; b=GAvczZ9uOfEa3WEjME40eyrfah+Uq54MtIJTfxOrANysmReV+SDzvo17qgfyusCXDJNMoogRByFcBoKw8NZ0LZvArsdm1eliy8hi2/7HYZudfKsghWP6ElvG0bVlNHz4/j7Cf3oFtM13wGhzEVbud7soRWbQ0WdKTkVr+mvnpDM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790772288; c=relaxed/simple;
+	bh=ODdy+OVnMHHnjk8A038fFUYxpLLAHHqArbGfcu+N3Mk=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=bzduVgaEu2ccxtvwT8jdsk0Y2qukoNsVtmqTu1C+DWpWP3QtwL45fFa6OriW9AALo3WDfGMlUruUp9Ky0ptuAzOkR0ENeMUdAkoCRpY3xz/l+hzlCAwNooY7ihJZjB1Rk2FX7ZUACAmjgPP3zlHPPnRecePx0tTyOa2gICwpTAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hvvrS4WQ0z8XrrX;
+	Wed, 30 Sep 2026 20:44:40 +0800 (CST)
+Received: from szxl2zmapp05.zte.com.cn ([10.1.32.37])
+	by mse-fl2.zte.com.cn with SMTP id 68UCiWqe008576;
+	Wed, 30 Sep 2026 20:44:32 +0800 (+08)
+	(envelope-from gao.rui@zte.com.cn)
+Received: from mapi (szxlzmapp03[null])
+	by mapi (Zmail) with MAPI id mid12;
+	Wed, 30 Sep 2026 20:44:35 +0800 (CST)
+X-Zmail-TransId: 2b056abd04331fe-2db6d
+X-Mailer: Zmail v1.0
+Message-ID: <20260930204435252HHqIHw0fBhdP4X3CWnK02@zte.com.cn>
+Date: Wed, 30 Sep 2026 20:44:35 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1267:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee694669-bbd1-43de-0652-08df1ef08568
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|23010399003|366016|1800799024|10067099003|56012099006|921020|6133799003|18002099003|22082099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	El4vGb6t5F8KFnGSs59i5R9HhRmn/8i9LwRPKXo7q2/uN3gRAmAVpIJuZPig3AhTqBE6BKGfyWdnn0RN3AXD68U48lI32YyvpUrWtSu9B4xtXjyb6ket7Fdql8aoRmBqm+owz7X2IQQABNSigNpgJfvE8s35MT9urRedf4XSuaO1ChvZwyJB0VUw4trcF/nOgPi0N4y1yg9JrDIB+hdEjf7mnTRsO3nfbyDvvQVK/u6LtBxPsOZnKuCk2wUKKLNSz0C0mST+P74PaIY5aur1GxiblJeLokLwh8BMIzzvuAtrjtw0gFJqNDA4EOjD0LHW0B7iMjgx7eDoytbKx0Fr5RHmEJHnnA8mOPWifwbXDop9ppkeDK0RR3On9Ibn4oroNWJWMOL1JP0boLrucVO9Q6nIa0leJ36PHSJQlZZM5aXyBItblSrYgVm5xeyRySScrTlW0J8eTwDIjCZ0Cf2xR6OpturqDFN0fdFISOvTJlxAyYKfdZpEr2y8rtX9CfY1Zbf3nXpijhGIgBLbtImwn3v42Jc7Jhsp7ZAcwlGDy/zHIzcljTIR9u4tjjdJxxq5L16jRUTmR8MfVK+3cxAiUQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(921020)(6133799003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?My8itaiQKvUevp5b8BB6LPlkxJ3TlW+ZD28pa5NudZev6mEFQJnW9uzzYDms?=
- =?us-ascii?Q?/VS8q/Tsh7ngDp+wZy8Yl/oYN4YjrqkSJn5AhLZmyc90WkiWtDSStDLEaXjt?=
- =?us-ascii?Q?WI7vwiw2xvpKKdvQxpFkm0JDLE2wNNm8VXRH7t4g1JeBoV/BAHoDTmk98F3i?=
- =?us-ascii?Q?6QHgDy79rh7rKKsUkrsvI2idsotlHpA/hqGOyqDY89Fnsmt6zh/spp5fg7ui?=
- =?us-ascii?Q?Oy47asyZmC/L2r2QP6Io3B53fVS5PU53WaHHy09gqBsZakbnB9SzVDYmXUsa?=
- =?us-ascii?Q?B2Df/VbI7LrQso9xkWeJQO52H85BOhNK+x1Q540rXyOHEll71oHuxvsHGnV+?=
- =?us-ascii?Q?LcTs0e0EFJW1bYkVoiB9A57scL3xJkCgocWLxGJzWUjBlb+3DsbNVm+ZDxIf?=
- =?us-ascii?Q?JKl7cEC07EET8phaiH/Z0njTE2KZXaTgD755fM1+FmC7ppNWekwgIy0DwK2t?=
- =?us-ascii?Q?YzEUTuo0GT3eCPvNHs73HZYwnR9PqYz8JlfUpUEf7sK9wl5SUrqbho98nqPu?=
- =?us-ascii?Q?MGWLuHz6neJXrqX3UGDO1zUI3xnZJYiTVpfOUwkfc2t9n4C/YKxFCI3Be5Yl?=
- =?us-ascii?Q?zQ9MLq2z8fAt3UgfXym2wnHJKfk1guQEcX2zAFORcjct8qO4xlegAEcFjkjO?=
- =?us-ascii?Q?6XtWe94D6jksDKrGRnAEXtJwskDVx2x5+IvgqToXKgEAdUpCXYDN8cVSCwV+?=
- =?us-ascii?Q?7ndPBa/hVRB7eB4ds8Chi1laQzulCJOzuW9yaZXF/K7HTHoeW285inNBcWky?=
- =?us-ascii?Q?c3LRDrOYsLyG0Bl8xfm87diSHP26exSV+zvT7O1CBnOkMe811H3JUFo+F9A4?=
- =?us-ascii?Q?JcXwiEthoCGNhDD6OfQk8coq3gFeSni2riCXHw39XuP1+GQTeyHWduY2KDaN?=
- =?us-ascii?Q?phT+fWcFdjeBt+Vu1PwynhIsD2wmiJcvD5nxZCsF+H5JmUFMDuw5Zi/9sTVP?=
- =?us-ascii?Q?5J9PlOksLn3YXgmwxWPw57JOpmQbZdNWK3vJW+VnMRiHtfxdCY0ostmbEvPl?=
- =?us-ascii?Q?4QXuxYY2essky9w0r4QaD39oc2B4KJjS+FrkocdXy7bgsK4jiamBwqTMx0jt?=
- =?us-ascii?Q?qsNm9vtcDyjnxl9jjPkeHNzmWC6scBgf7OlpxQqh5nIJmECG94qsfac8gG4Z?=
- =?us-ascii?Q?lOepWp9YM30tk35cljwDaxWOseFDj6gmHbwnPdRTTn3kY72Mq/Nkx6bNG5E4?=
- =?us-ascii?Q?Wl/ZccWj4R30Ka1CSadTYcqYzx0NOnknPir0qtdExN285yHlwXeaHdQVHcW1?=
- =?us-ascii?Q?LuiUIWMpZHEcN349yyAIi8WV1GxnhYTqX2MEiCiAI4UP91TQYdfGnC0yw4rr?=
- =?us-ascii?Q?wRs6r1hT9xaWJ4EQcMq6PtqLNdq9h2azWED1jFC87rG5btqyXl7YcWC5Kwjb?=
- =?us-ascii?Q?3XxrXaS9gMWXQ+Ztx3wQ63o4IZ6kZxDmNLegovGo2UYoxpIS+DxzEhvUW1+e?=
- =?us-ascii?Q?mR46kuyAnFpHCrq4gwQfipnkkg8XeKL7Rf0q/hrAPV/bMirVD1sELRo+AkHM?=
- =?us-ascii?Q?n0Qj8VEDkr4Meqdxp1ZT00OgzscTxCzVCFQj6EOX4U+Pk7CoTloBNrBY8J0L?=
- =?us-ascii?Q?M6tVs0V9wa3knot0oJWbNjZfZO0Ot7yJ16BBi/pmFVEKD4ObXFWHjDggtUez?=
- =?us-ascii?Q?nGFWHLaawEOkHRRCrFSsD8qwETMREXEP3zzuxqoetDjXbvKWfIPb8itBkaw/?=
- =?us-ascii?Q?SC4kuF6EpsbfbTtfACKJ0Myi8odPEiP5lLXxwNcQPVOQpT24IYbHI0+BnAq3?=
- =?us-ascii?Q?GVO9PihWQZFToL3Flj9/Dn6toxM/MrXtrsHu3tniRyS/S40NKPbW?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee694669-bbd1-43de-0652-08df1ef08568
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:44:09.0669
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s6gQFg23Rjhw68++zBPucBGQjIFiXqlsB2daUJAVaB4OOK1fIiWtPw4H3nDwVW1sc2b+/aMA1bMlj9bLJtf2cIjOG7G3hXWWO/mH+Ap/QMsGpdBp07qOlNrquDkde3lI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1267
+Mime-Version: 1.0
+From: <gao.rui@zte.com.cn>
+To: <david.laight.linux@gmail.com>
+Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <jiangfeng@kylinos.cn>,
+        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <jmontleo@redhat.com>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2M10gcmlzY3Y6IGZpeCBzdHJubGVuKCkgb3ZlcmZsb3cgaW4gWmJiIGltcGxlbWVudGF0aW9u?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68UCiWqe008576
+X-TLS: YES
+X-ENVELOPE-SENDER: gao.rui@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 30 Sep 2026 20:44:40 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ABD0438.000/4hvvrS4WQ0z8XrrX
 
-The reset IDs exposed to consumers of the StarFive JHB100 reset
-controllers do not map one-to-one to the hardware reset bits.
+Hi David,
 
-Add struct jh71x0_reset_info, which describes the number of resets, the
-assert/status register offsets and, for discontiguous controllers, a
-table mapping reset IDs to hardware bits. Add
-reset_starfive_jh71x0_register_with_info() to register such a
-controller, and translate the reset ID in the update and status
-callbacks when a map is provided.
+Thanks for the detailed review.
 
-Existing users of reset_starfive_jh71x0_register() are unaffected.
+>On Wed, 30 Sep 2026 09:48:57 +0800 (CST)
+><gao.rui@zte.com.cn> wrote:
+>
+>> riscv: fix strnlen() overflow in Zbb implementation
+>> 
+>> The RISC-V Zbb optimized strnlen() implementation can return incorrect
+>> results when very large count values are supplied.
+>> 
+>> The previous implementation calculates an end address based on the
+>> input pointer and count. When count is close to SIZE_MAX, the address
+>> calculation may overflow, resulting in incorrect termination checks and
+>> wrong return values.
+>> 
+>> This issue was observed while running device-mapper tests:
+>> 
+>> dmsetup create testname9 --table "0 8 zero"
+>> cat /sys/block/dm-*/dm/name
+>> dmsetup remove testname9
+>> 
+>> Rework the Zbb implementation to use a word counter instead of an end
+>> address. This removes the dependency on end-address calculations,
+>> avoids overflow entirely, and simplifies the termination condition of
+>> the word scanning loop. The final length is calculated using the saved
+>> original pointer.
+>> 
+>> Performance was evaluated with string_bench_strnlen:
+>> 
+>> New Implementation Previous Implementation
+>> 
+>> len=0 : 71 ns/call 70 ns/call
+>> len=1 : 82 ns/call 81 ns/call
+>> len=7 : 83 ns/call 81 ns/call
+>> len=8 : 83 ns/call 81 ns/call
+>> len=16 : 94 ns/call 90 ns/call
+>> len=31 : 117 ns/call 113 ns/call
+>> len=64 : 175 ns/call 167 ns/call
+>> len=127 : 259 ns/call 258 ns/call
+>> len=512 : 802 ns/call 833 ns/call
+>> len=1024 : 1512 ns/call 1536 ns/call
+>> len=3173 : 4581 ns/call 4640 ns/call
+>> len=4096 : 6256 ns/call 6068 ns/call
+>> 
+>> Results show comparable performance to the previous implementation
+>> while fixing the overflow issue.
+>> 
+>> Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
+>> Suggested-by: DavidLaight <david.laight.linux@gmail.com>
+>> Signed-off-by: Gao Rui <gao.rui@zte.com.cn>
+>> 
+>> ---
+>> v3:
+>> - Keep the original register allocation (t0-t4) and numeric labels.
+>> - Keep the original comments.
+>> - Calculate word count as (remaining - 1) / SZREG + 1, removing the
+>>   branch from the calculation.
+>> v2:
+>> - Rework the Zbb implementation to eliminate end-address overflow
+>>   instead of falling back to the generic path.
+>> - Use a decrementing word counter for word scanning.
+>> - Run KUnit string tests successfully.
+>> - Add string_bench_strnlen benchmark results.
+>> ---
+>>  arch/riscv/lib/strnlen.S | 54 +++++++++++++++++--------------
+>>  1 file changed, 29 insertions(+), 25 deletions(-)
+>> 
+>> diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
+>> index a8911605c248..000000000000 100644
+>> --- a/arch/riscv/lib/strnlen.S
+>> +++ b/arch/riscv/lib/strnlen.S
+>> @@ -73,6 +73,9 @@
+>>      /* If maxlen is 0, return 0. */
+>>      beqz    a1, 3f
+>> 
+>> +    /* Save original pointer for final length calculation. */
+>> +    mv    t4, a0
+>> +
+>>      /* Number of irrelevant bytes in the first word. */
+>>      andi    t2, a0, SZREG-1
+>> 
+>> @@ -82,15 +85,6 @@
+>>      li    t3, SZREG
+>>      sub    t3, t3, t2
+>>      slli    t2, t2, 3
+>> -
+>> -    /*
+>> -     * Aligned boundary.  Use the address of the last valid byte
+>> -     * (s + count - 1) to avoid loading a word past the count
+>> -     * boundary in the loop below.  count == 0 is handled above.
+>> -     */
+>> -    add    t4, a0, a1
+>> -    addi    t4, t4, -1
+>> -    andi    t4, t4, -SZREG
+>> 
+>>      /* Get the first word.  */
+>>      REG_L    t1, 0(t0)
+>> @@ -125,15 +119,26 @@
+>> 
+>>      bgtu    t3, a0, 2f
+>> 
+>> -    /* All remaining bytes are in the first word, no loop needed. */
+>> -    bgeu    t0, t4, 2f
+>> +    /*
+>> +     * Use a word counter to avoid calculating an end address,
+>> +     * which might overflow when count is close to SIZE_MAX.
+>> +     */
+>> +    sub    t2, a1, t3
+>> +    beqz    t2, 3f
+>
+>Is that right?
+>The equality check seems wrong.
+>Does it work when there are more characters in the first word than
+>the caller specified length.
+>
+It does. The new code is only reached when the preceding
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- .../reset/starfive/reset-starfive-jh71x0.c    | 99 ++++++++++++++++---
- .../reset/starfive/reset-starfive-jh71x0.h    | 19 ++++
- 2 files changed, 107 insertions(+), 11 deletions(-)
+bgtu t3, a0, 2f
 
-diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.c b/drivers/reset/starfive/reset-starfive-jh71x0.c
-index 29ce3486752f..fd1c755a0017 100644
---- a/drivers/reset/starfive/reset-starfive-jh71x0.c
-+++ b/drivers/reset/starfive/reset-starfive-jh71x0.c
-@@ -14,6 +14,8 @@
- 
- #include "reset-starfive-jh71x0.h"
- 
-+#define JH71X0_RESET_ID_INVALID	ULONG_MAX
-+
- struct jh71x0_reset {
- 	struct reset_controller_dev rcdev;
- 	/* protect registers against concurrent read-modify-write */
-@@ -21,6 +23,11 @@ struct jh71x0_reset {
- 	void __iomem *assert;
- 	void __iomem *status;
- 	const u32 *asserted;
-+
-+	/* Only exists in reset controllers that use the
-+	 * reset_starfive_jh71x0_register_with_info helper.
-+	 */
-+	const struct jh71x0_reset_info *info;
- };
- 
- static inline struct jh71x0_reset *
-@@ -29,19 +36,40 @@ jh71x0_reset_from(struct reset_controller_dev *rcdev)
- 	return container_of(rcdev, struct jh71x0_reset, rcdev);
- }
- 
-+static unsigned long
-+jh71x0_reset_id_to_hw_id(const struct jh71x0_reset_map *map, unsigned int nr_resets,
-+			 unsigned long reset_id)
-+{
-+	for (u32 i = 0; i < nr_resets; i++) {
-+		if (map[i].reset_id == reset_id)
-+			return map[i].hw_id;
-+	}
-+
-+	return JH71X0_RESET_ID_INVALID;
-+}
-+
- static int jh71x0_reset_update(struct reset_controller_dev *rcdev,
- 			       unsigned long id, bool assert)
- {
- 	struct jh71x0_reset *data = jh71x0_reset_from(rcdev);
--	unsigned long offset = id / 32;
--	u32 mask = BIT(id % 32);
--	void __iomem *reg_assert = data->assert + offset * sizeof(u32);
--	void __iomem *reg_status = data->status + offset * sizeof(u32);
--	u32 done = data->asserted ? data->asserted[offset] & mask : 0;
--	u32 value;
--	unsigned long flags;
-+	unsigned long offset, flags;
-+	void __iomem *reg_assert;
-+	void __iomem *reg_status;
-+	u32 mask, done, value;
- 	int ret;
- 
-+	if (data->info && data->info->discontiguous) {
-+		id = jh71x0_reset_id_to_hw_id(data->info->map, data->info->nr_resets, id);
-+		if (id == JH71X0_RESET_ID_INVALID)
-+			return -EINVAL;
-+	}
-+
-+	offset = id / 32;
-+	mask = BIT(id % 32);
-+	reg_assert = data->assert + offset * sizeof(u32);
-+	reg_status = data->status + offset * sizeof(u32);
-+	done = data->asserted ? data->asserted[offset] & mask : 0;
-+
- 	if (!assert)
- 		done ^= mask;
- 
-@@ -89,10 +117,20 @@ static int jh71x0_reset_status(struct reset_controller_dev *rcdev,
- 			       unsigned long id)
- {
- 	struct jh71x0_reset *data = jh71x0_reset_from(rcdev);
--	unsigned long offset = id / 32;
--	u32 mask = BIT(id % 32);
--	void __iomem *reg_status = data->status + offset * sizeof(u32);
--	u32 value = readl(reg_status);
-+	void __iomem *reg_status;
-+	unsigned long offset;
-+	u32 mask, value;
-+
-+	if (data->info && data->info->discontiguous) {
-+		id = jh71x0_reset_id_to_hw_id(data->info->map, data->info->nr_resets, id);
-+		if (id == JH71X0_RESET_ID_INVALID)
-+			return -EINVAL;
-+	}
-+
-+	offset = id / 32;
-+	mask = BIT(id % 32);
-+	reg_status = data->status + offset * sizeof(u32);
-+	value = readl(reg_status);
- 
- 	if (!data->asserted)
- 		return !(value & mask);
-@@ -132,3 +170,42 @@ int reset_starfive_jh71x0_register(struct device *dev, struct device_node *of_no
- 	return devm_reset_controller_register(dev, &data->rcdev);
- }
- EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register);
-+
-+int reset_starfive_jh71x0_register_with_info(struct device *dev, struct device_node *of_node,
-+					     void __iomem *assert, void __iomem *status,
-+					     const u32 *asserted,
-+					     const struct jh71x0_reset_info *info,
-+					     struct module *owner)
-+{
-+	struct jh71x0_reset *data;
-+	int ret;
-+
-+	if (info->discontiguous && (!info->map || !info->nr_resets))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "discontiguous controller without a valid ID map\n");
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->rcdev.ops = &jh71x0_reset_ops;
-+	data->rcdev.owner = owner;
-+	data->rcdev.nr_resets = info->nr_resets;
-+	data->rcdev.dev = dev;
-+	data->rcdev.of_node = of_node;
-+
-+	spin_lock_init(&data->lock);
-+	data->assert = assert;
-+	data->status = status;
-+	data->asserted = asserted;
-+	data->info = info;
-+
-+	ret = devm_reset_controller_register(dev, &data->rcdev);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to register reset controller\n");
-+
-+	dev_info(dev, "Registered %u resets\n", data->rcdev.nr_resets);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register_with_info);
-diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.h b/drivers/reset/starfive/reset-starfive-jh71x0.h
-index db7d39a87f87..36f198139602 100644
---- a/drivers/reset/starfive/reset-starfive-jh71x0.h
-+++ b/drivers/reset/starfive/reset-starfive-jh71x0.h
-@@ -6,9 +6,28 @@
- #ifndef __RESET_STARFIVE_JH71X0_H
- #define __RESET_STARFIVE_JH71X0_H
- 
-+struct jh71x0_reset_map {
-+	unsigned long reset_id;
-+	unsigned long hw_id;
-+};
-+
-+struct jh71x0_reset_info {
-+	unsigned int nr_resets;
-+	unsigned int assert_offset;
-+	unsigned int status_offset;
-+	bool discontiguous;
-+	const struct jh71x0_reset_map *map;
-+};
-+
- int reset_starfive_jh71x0_register(struct device *dev, struct device_node *of_node,
- 				   void __iomem *assert, void __iomem *status,
- 				   const u32 *asserted, unsigned int nr_resets,
- 				   struct module *owner);
- 
-+int reset_starfive_jh71x0_register_with_info(struct device *dev, struct device_node *of_node,
-+					     void __iomem *assert, void __iomem *status,
-+					     const u32 *asserted,
-+					     const struct jh71x0_reset_info *info,
-+					     struct module *owner);
-+
- #endif /* __RESET_STARFIVE_JH71X0_H */
--- 
-2.25.1
+does not branch. a0 is min(offset of the first NUL in the shifted
+word, a1), and the shifted first word has exactly t3 significant
+bytes, so the offset is within [0, t3].
 
+>> 
+>> -    /* Prepare for the word comparison loop. */
+>> -    addi    t2, t0, SZREG
+>> +    /* Calculate the word count: count = (remaining - 1) / SZREG + 1 */
+>> +    addi    t2, t2, -1
+>> +#if defined(CONFIG_64BIT)
+>> +    srli    t1, t2, 3
+>> +#else
+>> +    srli    t1, t2, 2
+>> +#endif
+>> +    addi    t2, t1, 1
+>> +
+>>      li    t3, -1
+>> 
+>>      /*
+>> -     * Our critical loop is 4 instructions and processes data in
+>> +     * Our critical loop is 6 instructions and processes data in
+>
+>The diff below adds one instruction - I make that 5.
+>But the instruction count isn't what really matters, what matters
+>is the number of clocks it takes the loop to execute.
+>
+
+Correct, I'll fix the comment to say 5.
+
+>>       * 4 byte or 8 byte chunks.
+>>       */
+>>      .p2align 3
+>> @@ -141,23 +146,22 @@
+>>      REG_L    t1, SZREG(t0)
+>>      addi    t0, t0, SZREG
+>>      orc.b    t1, t1
+>> -    bgeu    t0, t4, 4f
+>
+>Hasn't that (the old code) just read beyond the end of the buffer
+>
+Yes. The final iteration loads the aligned word containing
+s + count - 1, which may extend up to SZREG - 1 bytes beyond the
+logical end. That is safe because the load is SZREG-aligned and
+cannot cross a page boundary, which is the same approach used in
+strlen.S. The new word-count loop preserves that property.
+
+>> -    beq    t1, t3, 1b
+>> +    bne    t1, t3, 4f
+>> +    addi    t2, t2, -1
+>> +    bnez    t2, 1b
+>
+>You want to put the 'addi t2, t2, -1' higher up next to the other addi.
+>Then simple cpu will execute it while waiting for the read to complete.
+>The old code did that - but got it wrong.
+>You can do the length check while the cpu is (otherwise) stalled waiting
+>for the read. So something like:
+>1:    REG_L    t1, SZREG(t0)
+>    addi    t0, t0, SZREG
+>    addi    t2, t2, -1
+>    bnez    t2, 3f
+>    orc.b    t1, t1
+>    beq    t1, t3, 1b
+>2:    // Found a zero
+>    ...
+>    ret
+>
+>3:    orc.b    t1, t1
+>    bne    t1, t3, 2b
+>    // No zero
+>
+>The count (t1) would need to be one lower.
+>
+Done. I've moved the decrement closer to the load while keeping the
+NUL check before the counter check 
+
+>Did you try just subtracting SZREG from the length-left
+>and doing an unsigned compare against the original size?
+>I think it should work and saves the setup code.
+>
+>David
+>
+I think that approach needs some additional care around the same
+overflow corner case that this patch is addressing.
+
+For example, when a1 = SIZE_MAX and t3 = 1, the remaining-byte
+counter starts at SIZE_MAX - 1. On the final iteration, subtracting
+SZREG causes it to wrap into the range
+[2^XLEN - SZREG + 1, 2^XLEN - 1]. Depending on the exact unsigned
+termination test, that wrapped value may still compare as in-range,
+making it easy to miss the termination condition.
+
+The current implementation computes
+
+words = (remaining - 1) / SZREG + 1
+
+once during setup and then uses an exact decrementing word counter.
+This avoids any dependence on wrapped byte counts, works for all
+values of a1, and only costs a few setup instructions, so I'd
+prefer to keep this approach.
+
+ Thanks,
+Rui
+
+>> +
+>> +    /* Scanned all words without finding NUL, return maxlen. */
+>> +    mv    a0, a1
+>> +    ret
+>> +
+>>  4:
+>>      not    t1, t1
+>>      CZ    t1, t1
+>>      srli    t1, t1, 3
+>> 
+>> -    /* Get number of processed bytes. */
+>> -    sub    t2, t0, t2
+>> -
+>> -    /* Add number of characters in the first word.  */
+>> -    add    a0, a0, t2
+>> -
+>> -    /* Add number of characters in the last word.  */
+>> +    /* Length = (current - original) + offset in final word. */
+>> +    sub    a0, t0, t4
+>>      add    a0, a0, t1
+>> -
+>> -    /* Ensure the final result does not exceed maxlen. */
+>>      minu    a0, a0, a1
+>>  2:
+>>      ret
+>> --
+>> 2.27.0
