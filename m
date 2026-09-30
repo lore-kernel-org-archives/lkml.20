@@ -1,103 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4443D9DCC
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51C73515886
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790801235; cv=none; b=Ncjz2jof+5GLkLyThGaN1Mrhi235gRKS7z0f7ESJ5jaZ1Md1LCMU6DWiSNEjObxU19VwAOgjeZuQuQCGblPsEOUFuMAwjVJEBhSe92NoSFJ4fhJjb6+OtBQTMRMbXmtQ9H2gfi9SjRnwzOX95f+4clm0nhhwOSb9RaEZHJHNKBc=
+	t=1790801343; cv=none; b=jTaV/+rZeii6+b2+mw1IBoGiN0C33CRO4rsAJGHpHyfIGkzD497ogOAK1Lhg6JTXtY+App6b9GmiAK2pVF8SwemCJzf+rCVvUWCe2rPn+waizjxt+KZXj8elwb1ks1jN2zpfONDHlagIuwd1FKbReZKmgrkStMs4GwHCP8Fcyvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790801235; c=relaxed/simple;
-	bh=Mog/FLzAh1i1x33jKg4tFuMrLWl4A7vyt0xscTQGKuI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iNtCoCXtVZKhQYXHYWcYN4BbLIJQg3vACFH0bG1Lj/B3Vo5ncESIvPYe3LZL2xCtKGl8sl0ABpndGMtG1pKtD5taeiq66HNYubhPdu4XjG97k+XnlYrcsxhYS68ypbm2HDoKrYwV61IX3J4EbBo/AqYs1Gwxbti32Wqih5Bkl5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzOi+wBO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790801343; c=relaxed/simple;
+	bh=7cw+2uirxLu0HD1zySTwhFF6oAhV9dULExV1Z7f8/aQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XUCnyICicjFLeIIbTWTshtUy1OwhGbRTOaZHyrY+PecXoia6w0jU8T4wkFrPtHmlvnEEsSM8/fppMzsECwkvKLLyusp2Qm9bXQNmt4JUyrB3Ek/i49hqkA3zN0COgkb7jz1IH2n5jJB31KEwlK3HhAIsTYlSsz4q6LE1zJSaFpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Oh9MNxSR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzOi+wBO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBEBF1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790801233;
-	bh=oA1Wp5l/4pd5OBAEkVMacf5GMMfFrP8amVpkQqU9f7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JzOi+wBOJtDfK8od4CtYUyQkR9gufb/sROMOflfTNYH+NHkUKCNOduI9aS+v4uIZ1
-	 t25YSIiLp+Ba6lJxh+n5HJ0U/gqRdnF3MlySrZ5XVEixPM+1s3RZ3VnssAB1om1kh2
-	 DkHj31BqWnwFUhMNMft6Rwe1DrQYzSCpI3pEztTjC+Gg0l+dMNPnA1TEfQ2rAN4KtC
-	 Fe9VX/BRbmHVfEkF6SBrtwLWlsQ46PA6jezo301PcUkH64Go+jbkMMRm5OyhT4Ig7x
-	 zitNiSMPXfs1Ah8fBjER2Lv44cRLKxnI7VPDx4DSnS5ztZz6kmRWOfpnaG654wVC/a
-	 +GQ+r3JeTzIEA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8eacb7c8fso5146196e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:47:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxDk1q78w0FHLR2uvgfDxKMGeLjRISp3GeY4X3zMFJBsaPtmhyPEMnwApG0J4kgLEKEFnQPfl24K79y3qc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeBG9iaKLaQnsTfv/TYs0/mfF/YyUHzo8hqNjqADK8kXE7UNRf
-	tBWdCPi7ICG6mQw7YTwcOz5YvnyljsYw4TzH0Bc8jWL1GCCkU8edgZ7+DDSo0fAr43tnZqVyPpo
-	I8ziZwPaEZN/H05lkoJIzVA7/0Etoo2s=
-X-Received: by 2002:a05:6512:3050:b0:5b5:edd1:471f with SMTP id
- 2adb3069b0e04-5ba405e14cemr1100142e87.11.1790801232600; Wed, 30 Sep 2026
- 13:47:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Oh9MNxSR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1901143D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:48:56 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D42393F85F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:48:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790801340; bh=7cw+2uirxLu0HD1zySTwhFF6oAhV9dULExV1Z7f8/aQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Oh9MNxSROOG5bjdAAi5KWC16fsF2L0ElsgVkNR5DVic5N/o24dN9YeQfLEzSvOlwa
+	 lCzYvZjWeTQDhjijfzrph++2CVx0XNcVmbrkG4oQO8Bvfb8Dao2cgNDbVA8SwPdu4p
+	 qgyd1yZxc3lp9cwmnnQ+Mz1gFeDEkNUFlefUR0Og=
+Date: Wed, 30 Sep 2026 21:48:51 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Weigang He <geoffreyhe2@gmail.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ARM: vexpress: fix device_node refcount leak in
+ vexpress_flags_set()
+Message-ID: <ar11s6PaXaXhiswh@e142607>
+References: <20260925173252.933705-1-geoffreyhe2@gmail.com>
+ <20260925173252.933705-2-geoffreyhe2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918161407.2300-1-will@kernel.org> <20260918161407.2300-2-will@kernel.org>
-In-Reply-To: <20260918161407.2300-2-will@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 22:47:00 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=XkQuYGjDx7cGbyAbA3PZxASF=gUJtjF6rMaiWgt+dYQ@mail.gmail.com>
-X-Gm-Features: AclHuK8OBD0wnlj_zeKgr2mdF8meUFnoNCcPdtioxRKpQrlc9trGZVWgmVL-ruo
-Message-ID: <CAD++jL=XkQuYGjDx7cGbyAbA3PZxASF=gUJtjF6rMaiWgt+dYQ@mail.gmail.com>
-Subject: Re: [PATCH v2 01/21] arm64: entry: Defer setting of TPIDRRO_EL0 until
- exit to userspace
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Jinjie Ruan <ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925173252.933705-2-geoffreyhe2@gmail.com>
 
-Hi Will,
+On Sat, Sep 26, 2026 at 03:32:51AM +1000, Weigang He wrote:
+> vexpress_flags_set() obtains a reference to the "arm,vexpress-sysreg"
+> device node via of_find_compatible_node() and passes it to of_iomap(),
+> but never calls of_node_put() on it. of_iomap() only reads the node's
+> reg property to create the mapping and does not take ownership, so the
+> node reference is leaked. The function runs from the __init SMP prepare
+> path and caches the mapping in a static, so this is a one-shot leak of a
+> single refcount during boot, with no functional impact.
+> 
+> The lookup was added to drivers/mfd/vexpress-sysreg.c by the commit
+> below and later moved here by commit 9b06fc39084e ("ARM: vexpress: Move
+> vexpress_flags_set() into arch code").
+> 
+> Annotate node with the __free(device_node) cleanup attribute so the
+> reference is released when it goes out of scope.
+> 
+> Found by static analysis tool CodeQL.
+> 
+> Fixes: 974cc7b93441 ("mfd: vexpress: Define the device as MFD cells")
+> Assisted-by: LLM codeql
+> Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 
-long time before I had a chance to look at this.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-I wrote a similar patch at one time so I like the concept.
+Best regards,
+Liviu
 
-On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
-:
+> ---
+> 
+> Notes:
+>     Compile-tested only (ARCH=arm multi_v7_defconfig, W=1). Not tested on
+>     hardware; I have no Versatile Express board.
+>     
+>     The CodeQL query behind this report was synthesized with LLM assistance,
+>     and the fix and changelog were drafted with LLM assistance; I have
+>     reviewed them.
+> 
+>  arch/arm/mach-versatile/v2m.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm/mach-versatile/v2m.c b/arch/arm/mach-versatile/v2m.c
+> index 79afdf2a90b6f..c86b38386cf7c 100644
+> --- a/arch/arm/mach-versatile/v2m.c
+> +++ b/arch/arm/mach-versatile/v2m.c
+> @@ -13,8 +13,8 @@ void vexpress_flags_set(u32 data)
+>  	static void __iomem *base;
+>  
+>  	if (!base) {
+> -		struct device_node *node = of_find_compatible_node(NULL, NULL,
+> -				"arm,vexpress-sysreg");
+> +		struct device_node *node __free(device_node) =
+> +			of_find_compatible_node(NULL, NULL, "arm,vexpress-sysreg");
+>  
+>  		base = of_iomap(node, 0);
+>  	}
+> -- 
+> 2.43.0
+> 
 
-> In preparation for using TPIDRRO_EL0 to point at 'current' while running
-> inside the kernel, defer its userspace initialisation from the
-> context-switch patch to exception return. This has the added benefit of
-> not having to worry about keeping the in-memory value and the register
-> value in-sync during preemptible sections.
->
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
-
-I would add some elaboration to the commit message as to what is going
-on in the patch, and  correct me if I got it wrong!
-
-- Userspace sees 0 in the TPIDRRO_EL0 when running native tasks
-  so we just zero it when exiting to userspace for those.
-
-- For compat mode, TPIDRRO_EL0 should contain
-  current->thread.uw.tp_value, so in that case we just write that
-  before exiting to userspace.
-
-- Userspace can't modify the register so we don't care about
-  saving it on entry.
-
-These three seems to be what the patch is exploiting.
-
-If this is correct, with the above description added:
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
