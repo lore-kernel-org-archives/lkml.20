@@ -1,69 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1398F4ABBA9;
-	Wed, 30 Sep 2026 20:38:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F49513548;
+	Wed, 30 Sep 2026 20:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800719; cv=none; b=JcZJrKjKu3Oyxg/35SB+AEzOYT5Fhr5ODuVQ8d4hOoeNhJ/3EDwJJjc4S0jQVfYOgdgreQaTZaaPf6aZgTAQcEXR5BaP26QBOyXtA4YJaHfiZhnlE3OkPEtEC1X1CyuWE9JkhEyBROJi59MQcDBdgKu6vYDQ4UanVSoCGtGm4us=
+	t=1790800854; cv=none; b=J6FwWQ5ZhGunt2FomONcQrUAmUEyfeE7tG1dnUjruDWh7BCbG1l+J5XQjy3TO2PX2/jERh4/RaoP0XXi4E94aTupuHU+LgaDufRx7gBdRqXAL2CkAW2bSXEppSgWILhflut5bjKRPCeAwM7n+DBi6JBLwzykoV5Ef0NfJmCA+ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800719; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tbwf6rMPbYTGaJ2OPSsx9qmTiQfLbjMZkq8S6J/DyrIs0tXh9X+4RMgrw6V2nqFUYBmG1e69qFeMRUa6XfiH51EeBQcIpHoSYmItUUIn4vAjcGkZL/H+51r9R8x1UCZV0mBXKgkw3dE/qa5fC4nlo93aq4Y98zBMDKAP4OgICP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHXzwrQ6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790800854; c=relaxed/simple;
+	bh=nGsVBPukGYFIgbAYF/6HyToTJ0fS5hugRJsl4g7xTDI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5AjwPc+QpIphicp13yHdZ9ZsM4tw61L0MrITL+nFBbsNi5vTkDRofw45HcwC4vy9KpNFAewKkIDY1O1s5eOcgoGgAP2zXZWQ+Jf+toAy1JRu2cS3ZGZWxjzqwn5DxE0sIHwhYnjSeojzZnrrfayg/wPROnm0noZ4IzWJPEWSWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dEWJFsPp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHXzwrQ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572B71F000FF;
-	Wed, 30 Sep 2026 20:38:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dEWJFsPp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA0F1F000FF;
+	Wed, 30 Sep 2026 20:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790800717;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GHXzwrQ6e6Fln8ttaqH8dB/tcFXCGOQxwxNYh8L6GCFgD1jjwSxHriUmm2CBXqgA5
-	 0ya/34oTotZDVLoH0T14d0z7Zq1Qez+yvHJ82cXqRPEbhxpuvoltjjI7Ibx2VyTB44
-	 +DIjrz+rryOvSU8MunfFsS+jj9FMSaIyEWpflGX/UWxroaJhA8TWLwHRLS5yxcpNsu
-	 ZmRAUKpIk/ERpY/9Ae2zy9PCkzNstDMNcSmOIM5gk6el1RVVS5wKX72whyzX8sfqKB
-	 fKAXUaAegIjBhT2jl7uZ/Slog4vRVUbuf8n5bdEwQaLvgw9sj7LOAGG59AO+Mnt0DZ
-	 9hVTb3gCEBMKg==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet number wrap
-Date: Wed, 30 Sep 2026 20:38:36 +0000
-Message-ID: <179080071686.31693.6630251274230925732@kernel.org>
-In-Reply-To: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1790800852;
+	bh=n+/a1Fb8Ug0GCDftVwdpOerALben2P2rRE0gyVz1Ts4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dEWJFsPpU43/56SU3Bu5f1TyIfQqJc2XEQlYluLoBKjnER3ungwcH+bko1hZNxbsh
+	 hRfKlJP34dFn67W2mzG20GidmQTXpdibVS7HmftC6GZlUzDPYH0nGKMUSIZ8c9+k5u
+	 DPeevTHfCnkBV+5B1lJBqUyvwvdlDA3apOyPLToJ4R79WPxjnOco4czpJ4C2lX8wBO
+	 ytAMzOxqAb8JwCdA68bd2yZBaexmHEpgZSTe9wRBiU3pgfO6OFiO70dsFz3U/mmT9A
+	 JzJDDCEiLnef91QTuTFhGqeb/cla4hEshTpUEql1/F+nUMmTO200LMFcHEi1xNSGfR
+	 NVf/wGeQngzCg==
+Date: Wed, 30 Sep 2026 15:40:51 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Xingui Yang <yangxingui@huawei.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: scsi: Convert hisilicon,hip05-sas-v1 to
+ DT schema
+Message-ID: <179080084957.185445.10605717465436345604.robh@kernel.org>
+References: <20260923191511.2205564-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923191511.2205564-1-robh@kernel.org>
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On Wed, 23 Sep 2026 14:15:10 -0500, Rob Herring (Arm) wrote:
+> Convert the HiSilicon SAS controller binding to DT schema. It's a
+> straight forward conversion.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> v2:
+>  - Fix truncated interrupts and add back descriptions
+>  - Fix syscon offset descriptions
+> ---
+>  .../bindings/scsi/hisilicon,hip05-sas-v1.yaml | 158 ++++++++++++++++++
+>  .../bindings/scsi/hisilicon-sas.txt           |  98 -----------
+>  MAINTAINERS                                   |   2 +-
+>  3 files changed, 159 insertions(+), 99 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/scsi/hisilicon,hip05-sas-v1.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/scsi/hisilicon-sas.txt
+> 
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Applied, thanks!
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
