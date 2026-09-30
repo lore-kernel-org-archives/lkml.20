@@ -1,197 +1,147 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF5C8331202;
-	Wed, 30 Sep 2026 02:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5B1367B70
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790735596; cv=none; b=byhFgDoVww2Dph0OWUlblE7dLX7WRJQIppRYR50cahQXsLWM1t+06N9PZFFZwREkw6U+I4ywyY6Vt2LQgfUGRu/nkzWB7MI/ptEFHpsskwnqlOkrlNeiV1XAJbgySXQnd+nKHYr7QaUqUxsb0b+7pNpJ7KnJm3o26Nma2HJAtYI=
+	t=1790735714; cv=none; b=ZPxXtuatOPTPQF0NEUjnZd2Zrh/QcYErTcCWuzxXhfzk8sia8+0QoYRcAuYRF74mdDi+F1xhe7AVO6lda0vrEVi+X3oHZllrzB+YskBFCY27ROuo6BxOtaQy9K96H2gpzc0cEwgD9HHgRV4J3HLSz04kwHfGjy42lWuBRH1idxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790735596; c=relaxed/simple;
-	bh=Wei39sd+fhRwm54SeZjfaQaaG4NdrVJfW+9LEJ/KkUc=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=UBsIta66p4338oXZfWSCE9ou84S5mV/pVoldoelbunaDm2Z3+n5WwNb0qOc0hr0nKt4OK5w+hYVDgHFTloJuSOAEFAPsyMc4VZW9zaSNMp9TmoYl6l5ERteRejBayDSb+tb3sLB0iUBQUDwIZr3bC9Qp04aBIMdzZ1XVD55WBpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8DxUNHndLxqxDQRAA--.50213S3;
-	Wed, 30 Sep 2026 10:33:11 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCxNs3mdLxqfNEmAA--.2965S2;
-	Wed, 30 Sep 2026 10:33:11 +0800 (CST)
-Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn,
- zhaotianrui@loongson.cn, loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20260929102821.36112-1-cui.tao@linux.dev>
- <20260929102821.36112-5-cui.tao@linux.dev>
- <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
- <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
- <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
-Date: Wed, 30 Sep 2026 10:34:35 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1790735714; c=relaxed/simple;
+	bh=6Fm1hrW8GcdgbI8/in+Y45X3mEFMoh0CZutLsdzo3iU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OpZaBFCuK3MORyICxq+QfAMRFNVSDxg4cHoXiC76LAtEdADeyK7Q+/v+gsVpnPlcz+lGT1mqEtIT9ZE6m3bq977SXOg7yZuPlXUnjVawuoJwwtvaHNpH8HNoxOcLvKAi3JaalCQC0edkON0S+yrPyykYWxWqWn5KpWdReUkSYO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MEyvHELj; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MEyvHELj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790735705;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tPjDiKF3Gp2wU9dStbsk1lLM1BlDbYH3eJKB6sUim38=;
+	b=MEyvHELjhi3K7dGKKzZtwDNRAW9991LKIGEg+Zs45+eOxSdxq1tU/Zt4wwM7oJxipNEm1T
+	Yo4HaV/1rewkn2/8hxBJ+fsvuQwFfbH1aStmca0DnX5EQkWBqK+LllxDdNNRlofeQSYpsv
+	ow9abWJ/akxij/ZMhHCYgRCepAjCjM4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-308-46rR9Kk2PdiGqJ4IvhjDDQ-1; Tue,
+ 29 Sep 2026 22:35:02 -0400
+X-MC-Unique: 46rR9Kk2PdiGqJ4IvhjDDQ-1
+X-Mimecast-MFC-AGG-ID: 46rR9Kk2PdiGqJ4IvhjDDQ_1790735700
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 546A41954232;
+	Wed, 30 Sep 2026 02:35:00 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E2E261800361;
+	Wed, 30 Sep 2026 02:34:58 +0000 (UTC)
+Message-ID: <bf0f64d7-88e4-4a72-9c1b-7cb9fc07e379@redhat.com>
+Date: Tue, 29 Sep 2026 22:34:57 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Don't access cpuset_cgrp_subsys.root in
+ is_in_v2_mode()
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrea Righi <arighi@nvidia.com>
+References: <20260930012819.651526-1-longman@redhat.com>
+ <3d8bbe2c-8baa-43a6-9926-66669b96bfb9@linux.dev>
 Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <3d8bbe2c-8baa-43a6-9926-66669b96bfb9@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxNs3mdLxqfNEmAA--.2965S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCFW7Ww45ZF4xWw13Kw4rZwc_yoW7Jr4xpr
-	W8Aa98CF4DWr1xWr1Ivwn8Xr1xtr4xKw1Sgr1UAFyUCwn0vry5XFy8Jrs8u3Z5J3ykGF1I
-	qF45G34Sv3WUAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
-	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
-	JF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	CYjI0SjxkI62AI1cAE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r4a6rW5MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8CksDUUUUU==
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
+On 9/29/26 9:57 PM, Ridong Chen wrote:
+>
+>
+> On 9/30/2026 9:28 AM, Waiman Long wrote:
+>> After seeing the patch [1] to guard is_in_v2_mode() with RCU, it makes
+>> me realize that is_in_v2_mode() may be called in a context where a new
+>> cgroup filesystem is being rebound with stale cpuset_cgrp_subsys.root
+>> pointer. Avoid this potential UaF situation by adding a new 
+>> cpuset_v2_mode
+>> flag which is set when the cpuset_v2_mode mount option is used. This
+>> flag is written into only when cpuset_bind() is being called with a
+>> stable cpuset_cgrp_subsys.root value. The is_in_v2_mode() helper is
+>> modified to read the new cpuset_v2_mode flag instead of accessing
+>> cpuset_cgrp_subsys.root directly.
+>>
+>> [1] 
+>> https://lore.kernel.org/lkml/20260929084124.626693-2-arighi@nvidia.com
+>>
+>> Fixes: b8d1b8ee93df ("cpuset: Allow v2 behavior in v1 cgroup")
+>> Signed-off-by: Waiman Long <longman@redhat.com>
+>> ---
+>>   kernel/cgroup/cpuset.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 19661df6244f..266ce17d1af0 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -147,6 +147,11 @@ static cpumask_var_t subpartitions_cpus;    /* 
+>> RWCS */
+>>    */
+>>   static cpumask_var_t    isolated_cpus;        /* CSCB */
+>>   +/*
+>> + * Set if "cpuset_v2_mode" mount option is used
+>> + */
+>> +static bool        cpuset_v2_mode;        /* Unprotected */
+>> +
+>
+> Nit.
+>
+> `Unprotected` is wired here, will it be better with:
+>
+> /* Cached at bind time; accessed via {READ,WRITE}_ONCE */
+Unprotected just means it is not protected by any lock. I should have 
+said "not lock protected".
+>
+>>   /*
+>>    * Set if housekeeping cpumasks are to be updated.
+>>    */
+>> @@ -439,8 +444,7 @@ static inline bool cpuset_v2(void)
+>>    */
+>>   static inline bool is_in_v2_mode(void)
+>>   {
+>> -    return cpuset_v2() ||
+>> -          (cpuset_cgrp_subsys.root->flags & CGRP_ROOT_CPUSET_V2_MODE);
+>> +    return cpuset_v2() || READ_ONCE(cpuset_v2_mode);
+>>   }
+>>     /**
+>> @@ -3664,6 +3668,8 @@ static void cpuset_bind(struct 
+>> cgroup_subsys_state *root_css)
+>>       mutex_lock(&cpuset_mutex);
+>>       spin_lock_irq(&callback_lock);
+>>   +    WRITE_ONCE(cpuset_v2_mode,
+>> +           !!(cpuset_cgrp_subsys.root->flags & 
+>> CGRP_ROOT_CPUSET_V2_MODE));
+>>       if (is_in_v2_mode()) {
+>>           cpumask_copy(top_cpuset.cpus_allowed, cpu_possible_mask);
+>>           cpumask_copy(top_cpuset.effective_xcpus, cpu_possible_mask);
+>
+>
+> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+> Thanks.
+>
+Thanks for the review.
 
-
-On 2026/9/30 上午10:24, Huacai Chen wrote:
-> On Wed, Sep 30, 2026 at 9:53 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->>
->>
->> On 2026/9/29 下午8:43, Huacai Chen wrote:
->>> Hi, Tao,
->>>
->>> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
->>>>
->>>> From: Tao Cui <cuitao@kylinos.cn>
->>>>
->>>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
->>>> invocation: every call overwrites pch_pic_base and registers the same
->>>> kvm_io_device on the MMIO bus at the new address, while
->>>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
->>>> init, MMIO to the stale ranges computes its register offset against the
->>>> new base and silently reads 0 / drops writes, and the leftover bus
->>>> entries persist until the VM is destroyed.
->>>>
->>>> Reject repeated initialization with -EEXIST, tracking the state with
->>>> a has_init flag so the check and the MMIO base update are atomic
->>>> under slots_lock.  The base is only committed after a successful bus
->>>> registration, and the real registration error is propagated instead
->>>> of being replaced with -EFAULT.
->>>>
->>>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
->>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->>>> ---
->>>>    arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
->>>>    arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
->>>>    2 files changed, 11 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
->>>> index 887b0431fd20..679132d840e6 100644
->>>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
->>>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
->>>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
->>>>           spinlock_t lock;
->>>>           struct kvm *kvm;
->>>>           struct kvm_io_device device;
->>>> +       bool has_init;
->>>>           union pch_pic_id id;
->>>>           uint64_t mask; /* 1:disable irq, 0:enable irq */
->>>>           uint64_t htmsi_en; /* 1:msi */
->>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->>>> index 7a704f18880d..a884a043feef 100644
->>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
->>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->>>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->>>>           struct kvm_io_device *device;
->>>>           struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->>> Why so complicated? The below is enough, no?
->>>
->>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
->>> b/arch/loongarch/kvm/intc/pch_pic.c
->>> index 2b63b0c2c7ce..7855d78304b7 100644
->>> --- a/arch/loongarch/kvm/intc/pch_pic.c
->>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->>> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
->>> *dev, u64 addr)
->>>           struct kvm_io_device *device;
->>>           struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->>>
->>> +       if (s->device->ops)
->>> +               return -EEXIST;
->> This can work, however I think that it is not a good idea to access
->> internal structure field about kvm_io_device. If so, there is no use
->> about API kvm_iodevice_init(), just s->device->ops = &kvm_pch_pic_ops is ok.
-> I'm a little not agree. :)
-> 
-> I think kvm_iodevice_init() is designed to do more work rather than
-> just set the ops (though it just set the ops now), otherwise its name
-> should be kvm_iodevice_set_ops().
-> 
-> In addition, even if kvm_iodevice_init() is really a setter, there is
-> no getter for the ops, so when we need to access ops, we can only
-> open-code it.
-if so, you can try to add kvm_iodevice_get_ops API and check the 
-response of KVM community.
-
-Regards
-Bibo Mao
-> 
-> 
-> Huacai
-> 
->>
->> If adding has_init is redundant, maybe we can set s->pch_pic_base with
->> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
->> think directly accessing kvm_io_device::ops is not a good method, no
->> other architectures do in such way.
->>
->> Regards
->> Bibo Mao
->>> +
->>>           s->pch_pic_base = addr;
->>>           device = &s->device;
->>>           /* init device by pch pic writing and reading ops */
->>>
->>>>
->>>> -       s->pch_pic_base = addr;
->>>>           device = &s->device;
->>>>           /* init device by pch pic writing and reading ops */
->>>>           kvm_iodevice_init(device, &kvm_pch_pic_ops);
->>>>           mutex_lock(&kvm->slots_lock);
->>>> +       if (s->has_init) {
->>>> +               ret = -EEXIST;
->>>> +               goto out;
->>>> +       }
->>>>           /* register pch pic device */
->>>>           ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
->>>> +       if (!ret) {
->>>> +               s->pch_pic_base = addr;
->>>> +               s->has_init = true;
->>>> +       }
->>>> +out:
->>>>           mutex_unlock(&kvm->slots_lock);
->>>>
->>>> -       return (ret < 0) ? -EFAULT : 0;
->>>> +       return ret;
->>>>    }
->>>>
->>>>    /* used by user space to get or set pch pic registers */
->>>> --
->>>> 2.43.0
->>>>
->>
+Cheers,
+Longman
 
