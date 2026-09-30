@@ -1,118 +1,132 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE40407575
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767443; cv=pass; b=HAnzgfS6MwrtaHSEttKdL3KCvk3z8g6jTASC+ATRFo/gCS7sxUfDd7ASBZRlqk1oJB/dcwgEcni1CnrwNUQ7DwjpPwhDiCxovgKsKakLYA4BmVtGev+/gwK5P57NWFFzjFbN/xLCgAZvvZ9YmI1JHzhalyMGqA5kBkcfWxtJSMY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767443; c=relaxed/simple;
-	bh=UIBWMrR7o3WZIls8H40iqBJV61DfDMQSfoMTLyNGHtk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hx1o3uGJe8r/Zb+OG3ch9yD3JCIgc4ENk5bg9ATzjMaSPtJs6R7LpWznrnTlej3zmYXWTLuUWp9WCROh/VXZ3tTkWmv+Q7WwFMs3DW2H0w5lokYevFeRe8xu58SHAgADKXrwQItPRehobtJ5Dwo5thFh1IX7eYEPeEHQCDBYVrU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RWqwqK10; arc=pass smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA49450412
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790767499; cv=none; b=OUevyiyrAdNE5V/d+QL5uiFvHwELsWADdP7CNaXiuIBtnZVZrL41ioUtVBYHg3RrafCr1pYbXXeHbmXPXbSo8fo1NcxN2sL1hQsOhCRct0lqGNNk2EFzLLGbh/bHG6tFoRPNqUUGYVHLdj5T/HSTjZ8pKoe8fTQXSY/AKQ0MxuA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790767499; c=relaxed/simple;
+	bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:Cc; b=mnB59AYfOI1L2/Fgc2ABvTaCMZLwzmqKgUIAiEgZCx68TNifQDsq9pPMK5F/QekFX7oh8kzz42a0ZyD/AlIYCAeWXKog2Sv8qId6TZP900y4MsHZvQuBIwmuGozR08t4RxQmKumLg6PhzAzrYs+7+kcUssw0cvWaXTJun/Cz2YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOJ7klXv; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RWqwqK10"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso33958961cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:24:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790767441; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fJsufKQgEHKwL7/Lga+1lcea9t4atR5VW3aDsZTUYUNvlEcHq+8Tlk9vaWL14nWMH7
-         mao6ARfreSS7ENWwQho5wLBtVFV3NjU77QkC3YzGVLXrYE7ctrE4aO0oYM/68b4Ce7d2
-         CHb6LJxK2JqmMc9sZ9ILDb9aox+G/T18maZi/6MhPuxYi/YPoYvnP+sXacI9jtvRP16b
-         Rh5VXL/aqusbYFx8a/tcrtkAmqxEBu8ueWp1vOviMVu/RqC+lFqC3EBTXVLS9XKdfJ4c
-         YZZdd3/hWTbMmaCQTRrCQcDqhp3YUBaRqo6mhV2+AT5Jx/mE/CTuFYrVMrf1wqIQ8s7g
-         Iatg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UIBWMrR7o3WZIls8H40iqBJV61DfDMQSfoMTLyNGHtk=;
-        fh=SsrYlxuKrdmV05I+cWrAKZ5T02Ko8DNv6/Ayb4qnocM=;
-        b=QoYYWiJoywy+iaJjoXdZYklNK9fHBobXhTWLg/ksciH8cKUlwfMsa9ALzNtl+0MoF5
-         P7aZlNArYFnld8nbNcZT8V4dSrVmzD1jpGf1J8Fd3TaWrHSObDGlZFRgpaQMEiinyV+g
-         Ax8mEzIVd2rV0BfxS8MFrAmDT1Xcq4o4nJLFEqix3tUeXaqyXymo5wXAMRLzadoxXax1
-         ZA3moU93JpFedDYsXlbDRIM07OqK2C6fxPJXUbZOV/k7E8Rpj0fo+IeLNbBt/EquaIza
-         QWn7qJZ947G4q4d5A6XpGFTr90L0bcmClB0sag4Cwra8YlYC8O3u6mmrOTCoLYTdBNZZ
-         PtZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOJ7klXv"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so28260465e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790767441; x=1791372241; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UIBWMrR7o3WZIls8H40iqBJV61DfDMQSfoMTLyNGHtk=;
-        b=RWqwqK10UbRdnJxNTIrShEfhofEA2XfyDyLWiYgh2N7JE9A0rdasAsdbIHkmzv2NaA
-         7AuTXG1q6RgjbmPJFX70TG7dXi7FG48mMOC9kb1GA0Fni7nQKp7wU5e/aetfrvCYMOr6
-         2aXy5s6QohBL/LiO2u1ZwYBsgoV8vj2jeG9jp5PPVILxGLBmHbkc5p7i265VsDBUkT5H
-         VeDg2e9PFpEqh3d/JqkkgpUa0Q4OZGqce7f/y+bIp53uuSyM52933ystGUJ5iBO6G580
-         8xGnx7o/s5l8pKHgZuMN4290E/umeZODNwP85a70yNzO3dU+25PCeUCFM4VWsv66DU3E
-         8Pkw==
+        d=gmail.com; s=20251104; t=1790767494; x=1791372294; darn=vger.kernel.org;
+        h=cc:content-type:mime-version:content-transfer-encoding:message-id
+         :date:references:in-reply-to:subject:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+        b=iOJ7klXv3A5wy5m2b5K38Pa1IoXSzcyv6XZmgtoDkKETifN3ukEcVNNJSmQbvnjUXo
+         0NufnfzepqEUvUI//pAO0zFiBJduntesl9v3P8bICfVtclhjLfOO0tPH2SJg/79stKIf
+         iyP7YHtHVwBRAgfN+Rpme27lJ1MB5KjCEKAxGIWl1ETYyd9dciRuJ1rjEZXM2dBj+S72
+         4CLoNkZVnoPsJIh1bTuEanZ3Or4AtlpxxLO+9iaeHA/ennOjUnCRkamrcdnS0uVWiwRR
+         vGOTLDnyPaJ/M+uTjEUQqpzXMZGblOzFtH6it/8SnGiZ+SXueGFLrzFlrAzrXeQQZWmr
+         WLdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767441; x=1791372241;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790767494; x=1791372294;
+        h=cc:content-type:mime-version:content-transfer-encoding:message-id
+         :date:references:in-reply-to:subject:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UIBWMrR7o3WZIls8H40iqBJV61DfDMQSfoMTLyNGHtk=;
-        b=B8ErazWwAySBB9fuk8h8mhqapbLHUSxjTPZtc7iR0EI3fs4wKfTE6ES6jufXHDuVmo
-         K9oqAvWQoL0KK6jkZuizAgWM0Ds6tyUS/ExLk6qwL5KTy5yYI36KI6HJWHIwNGa3fnsN
-         vm0g5VwWX5FkdGNOMOwhDDZhIxL6m8Yjlc4ChWkijBJnSRJnTgccdg6bhds7GCKSluRP
-         zQ98v2CyFKtDRcpJ2UyIShFflMnyQjspTTHP6EraGPSwWagAXtwNcQjePK0OTIMffMXV
-         iwUqh4kRotbZinqdBb76IZnlSCGwNGjGsUapg5XEr9aVtIccfZGFfNzfBY2W9Ltk8QXx
-         ijAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxS0XIgtzkQAASC1/gYIJuTD45wopdmY2v+GRjyetmVq41/CJR0UM4M9TfPTOA+n+bDH6OS2sy0Mo/Rccc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5zf70nNtcno+zLjDgAI1Ewr02n+Gjb0IPsW6M1ncqktwwCSI4
-	O8/nDSvrl8lU5cAWDtkOsc0ruw0bZGiUqrVdwdjxyOLFbTKIQGVTruoRYQrjiB03V/DGHJtQ+1Q
-	j7ean0mW2eUKU9OwdcACPfrlZtAeS1qlj0TDR95MJ
-X-Gm-Gg: AYBFou21H491KqkKqg8OambNbV9olRiIL/+77YDnlv5T8JB7YoCOt7E0HPnmm3B9vKQ
-	DfxwOJ4hhvfUJh7qqNyOVgpGEx8pz2bgbChR76R7P63jbEB5qUOjOU9qVXSC8Udw6cFVdqiOsZ1
-	vg/cQ0D0nJF7CXOxsYV4+85JV3hr3ypDgC7ipp+yw0rbW71mHJG2jpJoEDgACHkFYQ1IrSFLP+p
-	pvjZ8sw4b8nvsLgD/dX2CPP0EQd3MclBPtLwD1EMBJAkhBvES+FS4Gw+xeYiXCIbAosRCAmJcZL
-	gfGoEL5O8OTVryX76KWT2cmhxtCcRrIebofUTObPlkH9hVapZsazwVivBbi6C6H5GFyaD+fHI9b
-	rgjSAvW5dqBkyITpIu1YjMZnD6njsVhEBsRrdvj3mEbIDUdEnT2Qqxf2b1FYQh7TZQKDU
-X-Received: by 2002:ac8:7fc7:0:b0:533:3e09:22b9 with SMTP id
- d75a77b69052e-5337424db09mr20540581cf.11.1790767440497; Wed, 30 Sep 2026
- 04:24:00 -0700 (PDT)
+        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+        b=OU+NH3CEn0I1LTobY2F1BBQ8AN03LlxwvdsMvUOHJo13bCyYGTq7ZhL2I4dVuCsKoB
+         Dp1OWpuOCVaN9oV0/7toa9iMXtANXsv4J1hxX3tUGbInKpnw7juvQDWudf1ybPFAwCzv
+         7TeaRu/l5SOwLJnGD9CMAg6bSFwnlyjo4HNMjrmAbynk4jB7P5kfXqsw3+Nh7I6MAppy
+         KhYZSLScRNLIURdhwSvpomH0fJ0FcEXP5G4LCRx6C/vXiY8+KIplp28vnsX1EiI6OGFU
+         6LPSh3UN40d0Nf3mk1tL2pykFNQw0s/d3/r19j9eK4uRhn9KKfEZzWCM4xgS9cluDOY1
+         Z5fw==
+X-Forwarded-Encrypted: i=1; AKwUvBySZwyqale8sMEsdfbOUAwsQvFS2A1S6Jv2n+e2PMf1bKdLwRKOJDnR451+0PYEvO+5zgAtcSXhFCBCyqk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1taRhLLil7F6eNnaKBAZkWWlgYAMhAbCm42QqAauULRG7HvWC
+	fiW5f71MDY+/tmnrxcdv9/O5Q4Xb8tqHcVX+Wcx5put0tfkeLvhSslp5
+X-Gm-Gg: AYBFou3lmai+RqymEEMgvUwyfkeuqLJKmnrdO983lZ6rjol7gtlOpOVdZUFbjY1ymxJ
+	K7rJ7o6ysGDjdY7dRosmQYumecj0EMPijaf3zlUcJAXRX6byVa6IKdDpVGkKA4jn3s/75gJbndm
+	zqYRdHbX237g4PHRmyahU0uLGB7UzigLiroOao+dpU3dPYCCAUDfM2r7kMZZrR75Dgeez8wbaX+
+	n4v5FNTIMwGdomb/G8G9XFyBpWdl+n+4ULqsAVIbiH3X3GAt+LOKSWzRR+oseSVCNfJGXnayKgV
+	V2BlrXX8HO0kcNkQilw3WTuVj/nbWLZdHqRI2IZ6DrK89WR+ins9nWAlyiviPjkETo1ubPUiwNz
+	HoOjqsub2wGXd0n39vL7jng16QB2To4ds0qug+3sdr+SyvDY8HmA/TFQGJfp9R3rRW11qvJTRVl
+	7+j7Wf1CIpLZ8ugSY9cqyahEy7muCoaU+t38NPwYN5FaM+cF5K6s+B/mWVh0MxvVOZRnGTcfq6v
+	JP8hieF1sOV7f9Rg/SWUTKgLVKw8DQ1
+X-Received: by 2002:a05:600c:3b0c:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-4a01aff4fb5mr16519855e9.27.1790767494156;
+        Wed, 30 Sep 2026 04:24:54 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01cd002bcsm3626105e9.4.2026.09.30.04.24.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 04:24:53 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject:
+ Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
+In-Reply-To: <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+ <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
+ <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+Date: Wed, 30 Sep 2026 14:24:51 +0300
+Message-ID: <179076749140.3134070.3869742286743401078@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930100937.206377-1-jiayuan.chen@linux.dev> <20260930100937.206377-3-jiayuan.chen@linux.dev>
-In-Reply-To: <20260930100937.206377-3-jiayuan.chen@linux.dev>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 30 Sep 2026 13:23:47 +0200
-X-Gm-Features: AclHuK9808Jpl2m0jf0JxvvJwCZd-4x4ToXvGi2OJWvz_yrBHOETOrC_Jxm9R5A
-Message-ID: <CANn89iLYyttK9bXFJ1yXYti3YGpqNCz2J97XA1Mgrs36-OPN8Q@mail.gmail.com>
-Subject: Re: [PATCH net-next 2/3] tcp_hybla: fix divide by zero on rtt0 == 0
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, VEGA <vega@nebusec.ai>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Stephen Hemminger <stephen@networkplumber.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; format="fixed"
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jason Li <jason.li@cortina-access.com>,
+ Jason Li <jason.li@cortina-access.com>
 
-On Wed, Sep 30, 2026 at 12:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.d=
-ev> wrote:
+On Wed, Sep 30, 2026 at 01:08:07PM +0200, Arnd Bergmann wrote:
+> On Wed, Sep 30, 2026, at 12:57, Linus Walleij wrote:
+>> Look at this in your Linux tree:
+>> git log -p b61c8bf4694b5115766849378dcb8787ff54e65e
+>>
+>> This is essentially a resurrection of that driver.
 >
-> rtt0 is the reference RTT in ms, so 0 makes no sense, and
-> hybla_recalc_param() divides by it right from hybla_init().
->
-> Reject values below 1 when the parameter is written. Also cap it at
-> U32_MAX / USEC_PER_MSEC, since rtt0 * USEC_PER_MSEC can wrap to 0 on
-> 32-bit. An rtt0 above that (about 71 minutes) makes no sense anyway.
->
-> Fixes: 835b3f0c0d7e ("[TCP]: Add TCP Hybla congestion control module.")
-> Fixes: 740b0f1841f6 ("tcp: switch rtt estimations to usec resolution")
-> Reported-by: VEGA <vega@nebusec.ai>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
+> Jason actually came back this summer to try again, see
+> https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-1-jason.li@cortina-access.com/
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Thanks, I was not aware of either. Comparing the two, it is the same
+IP: the offsets of CFG, RX_SAMPLE, TX_DAT, RX_DAT, INFO, IE and INT
+and the bit layout of CFG, INFO and the interrupt registers are
+identical. The Cortina Access version additionally has a flow control
+register at 0x04, RT_TUNE at 0x0c, STATUS at 0x2c and three more
+interrupt causes (break, RX underrun, TX overrun).
+
+>> Anyways, clearly this driver is not just for CS75xx so name it
+>> cortina-uart.c simply, and update symbols accordingly. Kconfig
+>> should be SERIAL_CORTINA etc.
+>
+> I think we clearly want a driver that works for both the Cortina
+> Systems CS75xx and the Cortina Access CA82xx, hopefully that
+> would also support the ones inbetween (CS80xx, CA81xx).
+
+Agreed. For v2 I will rename it to drivers/tty/serial/cortina-uart.c
+with SERIAL_CORTINA and SERIAL_CORTINA_CONSOLE, and name the binding
+so that it can take the other parts. I would keep SoC specific
+compatibles ("cortina,cs7542-uart", later e.g.
+"cortina-access,ca8289-uart"), so that the flow control and the extra
+interrupt causes can be enabled per compatible.
+
+I can only test on the CS7542. Jason, would you be fine with adding
+the CA82xx on top of this driver instead of a separate one? I am happy
+to add the compatible and the bits you need if you can test them.
+
+Thanks,
+Fil
+
