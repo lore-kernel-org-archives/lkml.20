@@ -1,127 +1,115 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EC24C10CA
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EAA4CB8A0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.232
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767385; cv=pass; b=pP9dECUYGDi8CR8GhqNeLowHrvofXa69Y8iv5j57cNyhfO+4y1ldQ0XORytgMd+MWtLPL15wY6vkjbRlVRZzRGkFipobFerniF6vvN64gQ0ZfBIDCYWXvQuoLetgobaIT6Eqob9Ij7klR5nYbOn7ADUAEnMOaRH+0wZ9ZnTyRAg=
+	t=1790767391; cv=pass; b=nVLrK3FICV+QWE3BWJRCNjnyY8YkB+wZrg28TVLQsawJM2ld8SGlVddSk9nda3ztypMH8sV2WUjUAfF3v/atahxEJjqaqxeCp5U5xkYPxDGdYEEgjgzngyH1eYmu/skOgzTM/HMEaftxjcAlD139b9puYlbie5m0g3aNFG8qtpg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767385; c=relaxed/simple;
-	bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
+	s=arc-20240116; t=1790767391; c=relaxed/simple;
+	bh=ElwHOsNcwB45oWoqXfNC0o2cm25sKcOriVju/dXKb44=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r7HFB4mQCDJA0RTCwoksk0UhceSJVfWlTMtolExlULBaOu3LqgjZHnFLEOtbT1dG38Y/Aa/DQHqWkgkwIYPN3GstVzCd3rTz3dFoWPYISkeodmx6lfhiGWfLbJ7vAc5anzWNoK7CAgdUsbtyVYY9F3SrTtRri3MAW8eoi9dTLXg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ss8idYNb; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=Xqe1BWSUKAgIpLv+8IwRDdgbWweCH03E7UICz+Zidp+qTKTymKaCModBKgmZVARJk4kyvx1XTIoCLg+zzdxQEJywOBY3L8vfz6MQ1krBAstSrsBJXslcQHMKs5GavQOLZLIdf29njMXhxK+ns8PGYnH6wsLFefQBuJVOT8LTnOc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=A3N9u3Nm; arc=pass smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ss8idYNb"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343bdca7590so209180eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:23:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790767382; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="A3N9u3Nm"
+Received: by mail-qk2-f40.google.com with SMTP id d75a77b69052e-5332b66b660so43458951cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:23:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790767388; cv=none;
         d=google.com; s=arc-20260327;
-        b=LEJpxACf37OoeuAQa+SqjyRmp4ERHPFqji1c+MktE2Id6/Ng6ZkTYTVvZNNvyoOaLX
-         arQglX8fivX5Am7/nqvI1PVuNooWYZd5fThXERpGmidxv4joZUmMzCuYGtnw8QL3VEZE
-         +o4pxBD6AGQ1yU0HomWMDFf5/5Vt8sFBThL1sVYSMfEj3RnfAmdbBnMG9OumImWB2c8f
-         /svAoPfcL5Sg7yOD4sEP1BngiJwhbN4znwrgs7m340Dh+tygM/JLJEriibTyekJwH7WO
-         rUf0nK4kwgG4V3MxbTjVxbw6VuTpp2BBIYiXm4cUzEvX6ylk159v/n6SmVmAs2Czwa7O
-         q5yQ==
+        b=YJLbaoRlbJtvIjirve1wUjiGyR6VuxMScsOSvdp+0fZoGzc9pwH0y6A4hYJvz++kNn
+         i/dxLy8qh/Lh9RqPiEGxReot8EjqlhK7Hr+y8eo6trPmlErcxuMBR1qGp2dUWTrX1NYm
+         6jMpnAF3Y0O/Ac+jrd62W/ZynuQaydFPvIVlc7J+lZ1WuShjKi1OpdCTw8LoIBlammc4
+         gZIO6XdReAuD7oSHnZG7IoEMbrJH1HbmfXCapyfOMqDxUFuQwm03cuSEY5+Fn2K+rmuK
+         leN1CHSKEzs7efGakz972EONUasCaBcrIJFNzWSBHbYPw4da5xPm0IrL8d/dmw8Jk8aW
+         VZGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        fh=N7yN27tM6N/PhIKz/NzyutOCga3xyFFia1YF9sSMbtA=;
-        b=C2QYe7jafzZc+GTZ51AKF5Mi4G19KpDZmjYn4xQj1CxOW2Mn4Kh9yFjHeypoDiFKqN
-         +ZYAEI4GnJbyweOgq30dy/1hDlZlNBTRKXHgyw/2I2wdwarA1Yq7dx8EVVvsSm0gz+7s
-         XaxXh92kJ6o3FsMpAtkLqz5OV924Hu8lkj/eYa2JXFA9dF1xGJjiZRboHYQuC8WlIkh9
-         1/9/hrEEITImmIpBeXaUKpiUeVEJAua3WFPWFheCm2Y3IgwGpLCV7MkB01qbVu4PdcfB
-         TPQ93YmspY3IKFfE431l/QM4apFyyxJ2sN1CQT4XblKoOEOHwYzL6knDaFJky9NbET6m
-         rqew==;
+        bh=ElwHOsNcwB45oWoqXfNC0o2cm25sKcOriVju/dXKb44=;
+        fh=L/Heqpw1Gwf9r6bNglivkljBltemTkKzTcQhZWEF2yA=;
+        b=PyLFy3I4y+FL8AFr75U4vhYctheqeR2UOOoRy2x3TF21xfqaBHoNL1WuXAy9uPqyDH
+         MyxCL0eSxnV8yE6HTfDtrQ6yaKbB+NADQnWOAXU2IDkSj3OUxNInAPviPnBCi9YTe0A+
+         grAvJxajYlNX2QH2NUkv2APgTezF6nB0x/r1ku/KShKQgukKTguz47ci4lMnE8gVGPUe
+         JecpsOaWv0+YOI7Z8ww3gdWqNgmSokLfvoJ+dz4P+993zaI8w4Iko8w5hb7UxX2/5Rik
+         KSatSGGqpXK3X9IcwKaStiw5Cua1GLWUVVpu/3Vm6LKf3oFHNRkR0v0U3KvlA0hKsUnu
+         BcTg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767382; x=1791372182; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790767388; x=1791372188; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        b=Ss8idYNbGCa8wxB9qACmHEOdVlhI19gBVQ8YzhBaoyv/KoviyukEnu4H5sdcDYH2Xo
-         /rE0lQSfPYAzEfjzvsDMmgZnjrSXqUieJDCx0XT5UqV9FK9H2Cg7qlYAbc/X9PT3/ZWL
-         r3DaEy5uW+SkhXBECMLwafRJXIpdMYLCth1Qd5uyZ2GTCxFQAjfODEza/x1a9JsPDD/J
-         NN14OYQ5oMyglvZZSqt9BhSZqw+caU5Q0kbNl3ky9Ng+qsfmkRdNjxHvA78mYlbVcpg2
-         EMQ7x3uUukctZ8iZormt9Zw2UGuP/cK99IuKOoqRX9sdt5lQvkRvBtKF3g1RvTzYeaWI
-         PdBg==
+        bh=ElwHOsNcwB45oWoqXfNC0o2cm25sKcOriVju/dXKb44=;
+        b=A3N9u3Nmpsqwki5My6pIKweIWQVdWd087ScRmPPLkuTE9iJ4hbE7O5b4zR9pPAilcy
+         DMiUnU/lwAQgW4EU8ojnLkpmh49Cc+i/YGjPrT3LFIV5nf2ksVA9MrbLJjnKMeMwUprL
+         82o98kTRrORTkXidTQjxFU8tCrd/ORBfxcWfddWEk50+PyJro1ABQyM5Zlvb07vX9Rme
+         L+7KZWXesVLw5wxVn8w1rByG1Re1NDjy2ESYRuBwJzEzb+GW2Kq9OeoFrazgcy6p15xW
+         Kj2QkTxYQPanwVrnVhiKfSoUdjTJ/bGlwlWJWw8XCWu0q+3LoB4l6KS4MpJX/XllJB/o
+         u77g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767382; x=1791372182;
+        d=1e100.net; s=20260707; t=1790767388; x=1791372188;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        b=r3ne03L+fuFF5hjiWcpbrC5ilh5pVgE+JHdUCdbdhrDT4tHa1SBVbrx7hmhNtV4Pt9
-         BwpY+vf+d5tqKOOYGWQp0Rev6DHFbLRw06hPtDOPTu//r9NfcphMl9Mg8Nw7Sj56UVh+
-         ja/DFbrwjiVL/kL6UCCfhxo5mvFBc+f2DwsyppwEbehJO2gJR7TMYpyFFzMVxlKbWiPc
-         /bpq0V8NB19pDPAjRz0Xler4SMcFt3ErMUIJjLyyfR5Qb+Zepq0bHAz1gRKvSnwjQf3F
-         lKcJsCPXhMc3iyOFga/o/zBSLhfr51/qey59hfjDOLj/Dy8jRowxSY5jsM9Lt9m5vxhz
-         ZvBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwpRBX87etoqlv102IWVIR03hvJCm51jbncepWAtzYZugjwZ7JN91xQwTppcqBqgIJiY53rduozb29LW9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPsbkLyrQqH2b59j1jGj9yPTrf4SMu5ti1yehhGnrliZVIyF+3
-	+ePQrIPyz5JiZis7OugnRZd433QfV0K0Hu+FWKvn2ybbuSqISSmzlacUA7kL+GKkB2efEKHh/EZ
-	my9IuV4/+Y+rafbbDlC6xejzYTF91300=
-X-Gm-Gg: AYBFou13J4qJCIlEzcUTRS45RbgWphVkx5gjc1Cy8RQDdue2jEZ87fTca+7nlO1ctZm
-	PInIzssPSKA2SuWIokJHYOL79b9Ks2KlJmhlGkkoQMXIlPUhAS22J7RoBpj10t1DESsosuP4bfq
-	hRcS+b4cnrOMOri9xA0B09y8bzBMVYQFAjVwL7YoUupeLBDiFgMdTm0IXZmbea7KfaYLCnGcPqf
-	ATAwPeMIAKpbWz9m843NkE9AUMzTi1pmfFnE3qItmnMLJ4KwKw3atNbI1piqrnjjFMbvNu1snSc
-	TQ4E64jotP3NSUCG9gIO7Wc69iq22Uil2AkFPjWC3K4KOVIN0PTP6TC+TETPcnhB+HosjRuCudu
-	69bS89LErqcyrWptGYYkGqtZlksw1tP5OkvABUp8Sg8heJFbWKS5IpC1htG9UYJ9md+ryDvvMeL
-	5a1Po8YnZOt/4Nb0Txc6mv1kasPhprCVTtpY4WtdipijnZnrU88SM=
-X-Received: by 2002:a05:693c:8085:b0:34c:f181:85e4 with SMTP id
- 5a478bee46e88-34cf1818b1fmr2066899eec.1.1790767382465; Wed, 30 Sep 2026
- 04:23:02 -0700 (PDT)
+        bh=ElwHOsNcwB45oWoqXfNC0o2cm25sKcOriVju/dXKb44=;
+        b=cqun9u7JuS3UQJJcfhWDHDLL9AOgoesW/icJrk8HP9yxz2wQYUZ58APk+/MBm3gxgT
+         AqwpfRuDcva62Wo7aTc7ewyM9zyKWBGofKVVx4LbGyNfOQ0s0iYamf0Tb0iPwjJ3c7kS
+         DpZMyEnLX6cu8yk2qpCiF3Z3xFNASZThyNptH94E6uIP/2phRXtDvYAQVBqSjiKFQsUU
+         a2R4QdnsBDxiW4F7aH/WbvF6e1HKqHb9yZqKaH2GeLU7ypatLPfjlnT1ynQM01q4HXK3
+         wZEUMEnWa5BZBmpNzknMsSK4hN4jxdzk8qq9CrUpDfQIm/QZwUESsAv22T4XOpUD0CKV
+         5UcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzq8OGJRvvCGuleZzyLx+JwvVUuWKQ/JBS0mYHRX7XqgRlhajEBDt6XkwP4X6JONgvt/O9uGOcmhnoOwmM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ks8uFc8PhNQUlC8bQ1GuxKiw5TmsmFCGtJKIxtb/u+wXgaXe9Q
+	fhOdTyfqWa2e7hVOWKtQ2d6iIfuUxrZTGD7GXk7bdZKNY8eSIJ6hRXMN3jrqNDmDhi1a0UzofXg
+	/a+oYEK8nQtt6mBLNry8Rw0kZdvfdbOae5Tj21Ydk
+X-Gm-Gg: AYBFou14bqi0AdyLrqr4ljpwuyiqKqQWYV+nZAMbO8pOgXlO1DqHbpbiaUQ7G9jDCU4
+	UImiIo/ZCQt49b1EPDyRUb/WujIfdiAll+YK9d5msB/6gPjlanxkori0QsqAfIp9lYG3z4M7z9P
+	3c4aYtuXPMt7wtKqYi2khvS+dsBU1c4c7/lvE0cU4QMHvYzjdDe6YUJxWIQNLKz0/fL3LpEjLo4
+	1jVlayUeBGrDBfg9ZLNa3NQC43iAJcdigIPhZeME2yHZj5CbXBgn2Uy1y6+5NK1FNZOTtSm7kcj
+	2mWTeoAxm7lMarJrQE70Xf0Ysge/eCtQVqObR1NuSZk+LUn0ACWv+QSK065lKoHPk6H/9gyHfX/
+	8W2vmtqiOYYa2zqTlFtCblwhDaea75/Jd2ElQipnPUE08HZswnyaEwbFXBv/aZ9ZTMweJ+w==
+X-Received: by 2002:a05:622a:985:b0:533:2f98:5b88 with SMTP id
+ d75a77b69052e-53374486cd4mr18747241cf.47.1790767387434; Wed, 30 Sep 2026
+ 04:23:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
- <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com> <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
-In-Reply-To: <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 13:22:49 +0200
-X-Gm-Features: AclHuK_tZvjMuy0Rny6WfvK_GwQlWAvr20_A4Fja8oGIX-etyz8meHHBtoM6IgM
-Message-ID: <CANiq72n5jjW8U9VkYJZYFpL9Z5rPe=nRfs3DqmUdfxCW39oMgQ@mail.gmail.com>
-Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260930100937.206377-1-jiayuan.chen@linux.dev> <20260930100937.206377-2-jiayuan.chen@linux.dev>
+In-Reply-To: <20260930100937.206377-2-jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 30 Sep 2026 13:22:55 +0200
+X-Gm-Features: AclHuK9iE5smdUIZek35Un6MFlxcK_vBsG0IniGW9BaVsFvbFSgOUVfq9WTNkRQ
+Message-ID: <CANn89iLJ0Ao6csvTJgkJVWP9Xhgpa+j33-c-2smz4tcnBu+=dw@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/3] tcp_bic: fix divide by zero on max_increment
+ == 0
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, VEGA <vega@nebusec.ai>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Stephen Hemminger <stephen@networkplumber.org>, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 1:04=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
+On Wed, Sep 30, 2026 at 12:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.d=
+ev> wrote:
 >
-> I am considering picking the series through DRM, but it also has a
-> dependency on the `cv!` macro [1].
+> max_increment is how many packets cwnd can grow per RTT, so 0 makes
+> no sense, and bictcp_update() divides by it.
 >
-> Is this ok if we take the patch introducing `cv!` through DRM as well?
+> Reject values below 1 when the parameter is written.
 >
-> [1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.com/
+> Fixes: 83803034f423 ("[TCP]: Add TCP BIC congestion control module.")
+> Reported-by: VEGA <vega@nebusec.ai>
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-I asked Gary yesterday if there was any more recent discussion on the
-tag thing from v3. Does anyone want to do some cleanups this cycle
-through rust-next with `cv!`?
-
-Cheers,
-Miguel
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
