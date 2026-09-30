@@ -1,97 +1,119 @@
-Received: from mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D56A33D6FD
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183E43655CE;
+	Wed, 30 Sep 2026 04:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790742270; cv=none; b=cW6ITXiReAtYlhugsp6bt2UXkQjL4ZgawZNTtFs5J2F45Cn2TO6TfrkuqWStHvfejqO38K00+SRmT6qEhjC9aFeloUO3nosmqdTqnIl5Qu+AipZum/Pcidr6n3XRpsRVayGv1OX3xaWX5tL3NbGWAT/sGs4SpAF7+P5erw9i0bk=
+	t=1790742274; cv=none; b=EUHVUt6IXsFA3WCG8DLGQvVe25Itrw0SPer1RjMVrXVAIsOJRdsNeMIYjK6+JtmyAbpEychrqo0ZnFp8dfRrAzjwAomBuXKi90tlAPGUv6AsTMsiRVRtvTiFGXzLaE9F9LK1wYe5ETCgpWMzt0pC77sc7UZrRBgNW8TEZB+Nswg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790742270; c=relaxed/simple;
-	bh=G1OKfOOyF6BwRdf3CIc0O5VCRioxKKHcn1/LjJVvnXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dPP0xhOPj9WKb8kLrUizHvFTrs7BOwOZVk5CYnlS9VXyw3CmqMNKs7v3f7UohP9KDxu+Xl/Dflo7M3eWZqhJe7LSm+GnJs7/5DeoeU5x5vDv4PfixZknHzBMCQ2hD4risyLX5NpFnbtV0IaIa1vy/PAtHVgUaKi2oxCq/EG2D3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GwMm2MUW; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GwMm2MUW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=G1OKfOOyF6BwRdf3CIc0O5VCRioxKKHcn1/LjJVvnXI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790742265; v=1; x=1791347065;
- b=GwMm2MUWijBhthBi8hG8zZ5Nm1s/1YA6iUBGg3xheXoxv0Li3MlB1DXSu2Eqigdq9+vEWr7Y
- v5i4LqfskpFs4rhHdhZKa1FQMDHEuopfA0whBuycBuGFESUeWH3Sj7RUfU0ZXqyQOQYVR8/u4Kg
- 0rVGxYkNhN2r3Lnl4ctR72qs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e9b7e58d84d31462;
-	Wed, 30 Sep 2026 04:24:24 +0000
-X-Mizu-Trace-ID: e9b7e58d84d31462
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: maddy@linux.ibm.com,
-	rppt@kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	linuxppc-dev@lists.ozlabs.org,
+	s=arc-20240116; t=1790742274; c=relaxed/simple;
+	bh=KR0/nM7LaLz/NqsHot+0o4kSpKKt0bQVhOnDcP6AcIo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H4VNa7FI+Ghr+Q2frLiHjTyseQKDldAqudTmWeQ5/JiVBXjdkLlRQ5pL57OntGQwQZtlOdnzydEaEPP/01UNtjUQptZdlCuQsWLrRkFfMGsmGgQ2R//DjdmJPf4QEmRZG23Jm37H82LnzbiOHqLvQ9DdKdVBmer3c2esFbH0iYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d06aa3eabc8611f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:68fac968-8661-42c1-bda2-4a029c0e5f17,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:ec27ba03910cf2d188a2a8dced6161bb,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|136|850|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d06aa3eabc8611f19a56ed5b684f684d-20260930
+X-User: fengchenguang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fengchenguang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 387389142; Wed, 30 Sep 2026 12:24:23 +0800
+From: fengchenguang@kylinos.cn
+To: vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	muchun.song@linux.dev,
-	Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v3 1/6] mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
-Date: Wed, 30 Sep 2026 12:24:14 +0800
-Message-ID: <20260930042414.97599-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260929053231.66085-2-songmuchun@bytedance.com>
-References: <20260929053231.66085-2-songmuchun@bytedance.com>
+	Chenguang Feng <fengchenguang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: venus: vdec: Clear streamon flags on streaming errors
+Date: Wed, 30 Sep 2026 12:24:17 +0800
+Message-Id: <20260930042417.191675-1-fengchenguang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Chenguang Feng <fengchenguang@kylinos.cn>
 
-On Tue, Sep 29, 2026 at 01:32:26PM +0800, Muchun Song wrote:
->VMEMMAP_POPULATE_DAX currently distinguishes DAX vmemmap population in
->two places: it keeps allocations on the normal path and takes a reference
->when a backing page is supplied for reuse.
->
->After Device DAX switched to the common per-zone shared tail page, both
->conditions can be determined locally. DAX supplies ptpfn for every shared
->tail mapping and requests an allocation only for compound head mappings,
->whose PFNs are not optimizable. Therefore, vmemmap_optimizable_pfn() alone
->selects the correct allocation path.
->
->When ptpfn is supplied, the caller is reusing an existing backing page.
->Once the slab allocator is available, take a reference for each reused
->mapping to balance the release performed by vmemmap_free(). Although the
->buddy allocator is available before slab, no vmemmap population occurs in
->that interval. Earlier mappings are backed by memblock/reserved memory and
->do not need page reference accounting.
->
->Remove VMEMMAP_POPULATE_DAX and the flags argument from the vmemmap
->population helpers.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->Acked-by: Qi Zheng <qi.zheng@linux.dev>
->---
+The decoder only clears inst->streamon_out and inst->streamon_cap on
+the success path.  When vdec_start_output() runs with the decoder in
+the INIT or CAPTURE_SETUP state, it still sets streamon_out at its
+done: label even if venus_helper_process_initial_out_bufs() failed,
+and the error path of vdec_start_streaming() does not reset the
+flags.  vdec_stop_streaming() skips the clearing as well whenever
+the hfi flush fails.
 
-LGTM! Feel free to add:
+In both cases the driver and vb2 disagree about the streaming state:
+vdec_decoder_cmd() and delayed_process_buf_func() keep going as if
+the queue were still streaming, and a later capture streamon assumes
+the output queue is streaming too.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+The encoder clears both flags unconditionally in the same
+situations, so make the decoder do the same and print an error when
+the flush fails.
+
+Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
+---
+ drivers/media/platform/qcom/venus/vdec.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+index 6a43ea191da1..b25d9299f4d2 100644
+--- a/drivers/media/platform/qcom/venus/vdec.c
++++ b/drivers/media/platform/qcom/venus/vdec.c
+@@ -1217,6 +1217,10 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	vdec_pm_put(inst, false);
+ error:
+ 	venus_helper_buffers_done(inst, q->type, VB2_BUF_STATE_QUEUED);
++	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
++		inst->streamon_out = 0;
++	else
++		inst->streamon_cap = 0;
+ 	mutex_unlock(&inst->lock);
+ 	return ret;
+ }
+@@ -1297,15 +1301,14 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+ 
+ 	inst->session_error = 0;
+ 
+-	if (ret)
+-		goto unlock;
+-
+ 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+ 		inst->streamon_out = 0;
+ 	else
+ 		inst->streamon_cap = 0;
+ 
+-unlock:
++	if (ret)
++		dev_err(inst->core->dev_dec, "dec: failed to stop streaming: %d\n", ret);
++
+ 	mutex_unlock(&inst->lock);
+ }
+ 
+-- 
+2.25.1
+
