@@ -1,200 +1,166 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010039.outbound.protection.outlook.com [52.101.46.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC733B19C6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770331; cv=none; b=Xw6HuHdlYFbGjhflx6z6V83XaweRSE1wrVNDs8i+EIiuFpWerA//gnqvRQad2LtHY4IjgBnKNNTnlsGV6EELDl98Tjm5xM3Nb/TItxxHn/eK0Owpv5HSzJeMM7BijQxxjMs/J7U/FQeupHli5C2S+xEztZEfsHUemlUbUjz8l5Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770331; c=relaxed/simple;
-	bh=1Ud4xzGqcr1aXqgg3blxBT8OmlKDXmH72QXq8TrjxLc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=fup52JYkcPbwSOCAsL0U8fM5yFZ74Xc5vvsnNEycphdJ3ODl0qao56b9Fehaoyx8mm0Jur+QpQdrD68W/Ob+fpTBqDtDwiV07XjwHHK3Jb/OJ+8hETYeOqIW/QodxEG0JN+uj72jyH74qhFhjVzV7O6nka3A90fLxgQHW2KEk/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fuPxU8oR; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F57547074;
+	Wed, 30 Sep 2026 12:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790770338; cv=fail; b=lKwSt92HHKfDCp3rYnYTctF5lcssiLXwR045G3j+0dtc77DifesVH3JgGQHACxKzA01SXl95knZUA98E+2o/X4y6JrcMG/8opDu+pQRp6QzAoPeEH4+u7DIBs1UlHzETr2zuYzBCTrQxleIKgfl6S07A1znmhxq6il0ElZcORfA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790770338; c=relaxed/simple;
+	bh=tL/ERNROutxdrQFWtvHxzAJX/jC787HZEzrMsaXbjtE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZXYLRaLq7JQQphdo8tYKzborAqLZa3cGfCT8YeadqdiJOpW1PAPZPU85rdLOUmYZz3YkfEohyY8uTOWdngrmJwraYqGbOE23tYBI6pvIe/EUzgARjf0pLwCGCE6vjqhbyBGszpcCrcv6/+w0+FKf+cmzGaCiTqgkrerWLNTSuhk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=B3GWHKrY; arc=fail smtp.client-ip=52.101.46.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fuPxU8oR"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so8813185e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790770325; x=1791375125; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
-        b=fuPxU8oRcYVBcXesYe5XgpmdO6qEOclRtBm0q4BE3Fs19XT1Qyaz0td8ldCId4Ru2j
-         FNekoWjWHzNYXxt+OQz2c9IOLPgiSEp/a3n6y30IGcAzKpmga+vd7KjaBfDArlexjaeX
-         59Da2yZFBaGA6ky+eAkLnSixL8AqSL/vdHagPufyFAP/WcUIY2tWFhyKi3rUpEn//Fdv
-         JonwDIh8jJEkDbmb88eMxFKj595XLoGPTMKSE0Fgo4QviXFnNpCbcAOEgOzaaP91J3rQ
-         8h3n27WWsmkykokqVDwaf/XYFYIGgMzYAQVEsQvlwnyi2FYNBK4tXfsu9++yQV1w6fTV
-         s8Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790770325; x=1791375125;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
-        b=pRD9owdX5UCEoXSPJEEJi+HrrjBtfXXrtzbxKVddkuJt7+ml6JaKZxV6P/fX6SDoIN
-         SxMSCBf++4eid7y1EJSvhaxfWJBapONL8HnhKEiBOm+9mU6qxULgPXpmpC9Zq+cE2Zv4
-         Hkmg+G+s6gFxEh6DE+fDy1pUxtyhkWVxUJbQQuFgyZBQ/6jNjCZ0BNaUrHVYpgX+VLzH
-         jgShWcsGfTWyDBGHH/Q+OTPFEI91P+VP/6+jkEK2AcSBGBOf7oS+QBh0VbpbLDm/2+pi
-         pXIsvLvx3CkKKv8HWfSydn4wiemR07sf2EzM2WdlpLbf6SYd8Sgerc5UbWsQF7sD4q9s
-         N1PA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjFByL5JJvXS8jgyed9kxDGH08GAlVJo7h3NmJ/fLlAOEcnLwiZz7M9bBbLUbXznpK13KVe/AuSH2/4Xk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mczitIq9DfAujknwngW+droJoQUKg9Jywx+Jw1goPw/7eC6xMx
-	ZirACGN5Jw9Nl3UfB5wHEQNPM55dznjQVsC2NUuCYWWgx8iNXC8iftc4SBRaekm8yT8=
-X-Gm-Gg: AYBFou2lVCqJwlsIcamvaSs+acGTREeU0Ube0ReQee/Mjt2VyNknQkQZlSrdxrIVYVR
-	br0FplSqltMwW6CGlCxRrfr0Xy5rtEaySSY7lmvSmWkh85cVjWSg1letWUDwJj1HbFDZxBiARrZ
-	LLfQMNbxG8lXeS8O6TedO90c/yvlN/YdVz90KiprlnmlGaO8gZo5kP72/xaoTXpbu1TQr8KEid5
-	pjCa1dFAFhkadqx5xGkqmr2djOuqw8p0p30W64PQ2EQkxsa6oOuAaElIKygnsWz7ZHP/MPRfKcM
-	PcgjfsbPFyaGlhvlRjGfg4LiLk312XI/edFkPRuBGglqHSmFnpLSI/xpqMEQlcJLYzaJiE+hSUk
-	biEguUn4nubPGs3aYyzhHyZV/GeHYPnwUZcmCuEawMvo+g+27lsIiUpFOrciyelIYQZmhobRdXF
-	pbDybieJc0g/sUPiY/IStSX9HAnpAbQUdtckpNmmTN17BcyP/IghWr8hu4ffdEFzzBq2nUxlFDE
-	ld/
-X-Received: by 2002:a05:600c:4691:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a01b188fafmr17252615e9.3.1790770325183;
-        Wed, 30 Sep 2026 05:12:05 -0700 (PDT)
-Received: from localhost ([2001:4090:a244:8223:c4e6:4d28:61c:74bb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017468b10sm67033075e9.0.2026.09.30.05.12.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 05:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="B3GWHKrY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kPd8zKGK/J04TdagqAhPAeNXCH/tYNj6ABRf4mcYRxf+C8OTQb6YsSO53F2TGMRVU8pSOCpk/c16Xx1rdlbnfTLv57dvytcGWA459yae2xj/kb0g+GcNMdje5Dzrthz+G2qNrR2o6fqgqgt24K46eYaIwtXd/VURdZVzQ3qGrs02md3XQLKcuZtjIBRROHr5rgYDiNgvFULnbpZ6srgeY1HVCPa+mhQYvoe3r/vZYJ+/s883vRs4Kks6Y8BP6VFcy14ZFJwWW+Z0F+pKR/dYhs4UNfHICIT+1iMoJUOeOMrq3HzH8FCTbDGeHDJkh0ttxhwg0DH61jygBdklqdYrAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cod3Ec2HOPAmAYVkMFeOo+L+zc/EJAstr/lNMa4xZY8=;
+ b=vGxNkIq3qEkxfy8teawQ3fH7Rl36WKis/WumRwHmdgMW4R2Z73pEm9eLgCuD3aiC+ytjGngOi9J6ORPldxxsOP9NPBj1VP79LSuAFlxLTOq9gmUjbuQAE4VAhcJmnXCG4v8gSlN7ZWywzFwfc1Vxi0xoQjOO5eNhagvYpXtoXKh2SElwwSr8TKCywOtzRxHA3GkWm3IO9EZ4fY72X6Uj3mNQzTmsAX0T7pf3ws+vy4Sl9P6iV9DSKmFbTPmfy/CY1ZyRzqjKW/CNd+IILydYno44FCztmoBdQEzY0SlHOsZ9sYazkTwEVTGIrSmDmkBYLfRPcO8y5A2osSup7pnSEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cod3Ec2HOPAmAYVkMFeOo+L+zc/EJAstr/lNMa4xZY8=;
+ b=B3GWHKrYAeVOEz30k9QULflqaIQ6ECEXpjDsMp3KsWEN1jSjH0PPD49vE+vn4UNUzkyuXgxyXWLLYVic0+LGqpmc7a7vS8LiL9BE5vROcX5iqyr1kBEARlHKeN423lCkrB8DXnNm5xDYbVzhlxVRaRJHoy2vHkM6ezfR0rN/knIqZkXjDjC9ipqcPwL4MVfzZzVvK3+waGyf2ZZcGMK85RZPIqcetTEGLl4Q8cJnskYBATJ+1Xm2P6poZcjQb2nnqMvOL2DVxNEZgYa9dIKuHCzF6m6qPAIGBP+xHmPJCX5g+FbxrkIB1X7PnuVvE0Gq6G8NlRIxdJVGrcpVI29IMQ==
+Received: from CH5PR03CA0011.namprd03.prod.outlook.com (2603:10b6:610:1f1::23)
+ by BN7PPF9507C739C.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6da) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 12:12:11 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::9d) by CH5PR03CA0011.outlook.office365.com
+ (2603:10b6:610:1f1::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 12:12:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 12:12:11 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 05:11:49 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 05:11:48 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 05:11:43 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Andrea Parri <parri.andrea@gmail.com>, Boris Pismenny <borisp@nvidia.com>,
+	Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, Fernando Fernandez Mancera
+	<fmancera@suse.de>, Gal Pressman <gal@nvidia.com>, Jianbo Liu
+	<jianbol@nvidia.com>, Kees Cook <kees@kernel.org>, Leon Romanovsky
+	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Parav Pandit
+	<parav@nvidia.com>, Patrisious Haddad <phaddad@nvidia.com>, Raed Salem
+	<raeds@nvidia.com>, Roi Dayan <roid@nvidia.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, Steffen Klassert <steffen.klassert@secunet.com>, "Tariq
+ Toukan" <tariqt@nvidia.com>
+Subject: [PATCH net V2 0/4] net/mlx5e: Fix offload lifetime and exclusion bugs
+Date: Wed, 30 Sep 2026 15:11:15 +0300
+Message-ID: <20260930121119.141953-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 30 Sep 2026 14:11:55 +0200
-Message-Id: <DLSN3HSWU044.10UYU9AQX2MV4@baylibre.com>
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Kendall Willis" <k-willis@ti.com>, "Dmitry Torokhov"
- <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
- <s-tripathi1@ti.com>, <vishalm@ti.com>, <linux-input@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] Input: gpio-keys - support wakeup pinctrl state
- on suspend
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com>
- <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
-In-Reply-To: <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|BN7PPF9507C739C:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4d9b70d-6611-4b59-a5d8-08df1eec0e66
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|82310400026|1800799024|376014|36860700016|13003099007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9HD43n1Dq8vzV7MKpmkKgIKYZHBHEk5gKTMwxeq6WF8BVMHLgtFR1b+6YNwRFunTMA0gqGl2To4Bk5JDL8WP/dervN/gCOeb7D3/kC4RfHmf5ihUC/fOSnoewDFRKbuaXR+JScqADXYypP8EIcJZ4mn/tK2fHVq6qX7GZwRLzwTSIAG1D0nAwJaUIcD47+Rl/m/36UOr6jBFWolv9l+07gzi6iRF87+1z9U3tWLQTU9p49Ut/iKxQtOEazLBZJaw8F5wz3nDlDCE6yAUmaaOO/0nqMMnsQEMayGeBjU0y39ZwLLy3P4DkL/ywB25MugM5IFcdWABM+1bGKOM47KXX7ufXRGuSrqBo/ClldDvGs7DTUhk7323ILHKno0td34O8POKKPPFW3fGOdV2DMEtA+PmS/zMgoroHQ0R0HBJF1LaeJXyPZOk3Ac5R3iXoUBEOYkt2AizmRBvOG88+R7Ua38bE8INZIiokV76mXBirHJFMGmXJg+bb0dr//P9jQYKQKf8Js6If5GDpyEqljRHeZgZUnKGoIwZx2p7dg64elMZNRydgr5lFyldVoboRweCVIUcfH+qvXDhNaKDmnVrbh0/7SvFTWyJGPwyzrAgFXEVUH95yqPoJ8rTrfw4oLkNc99r7w+7YR0J7+AFhgYMj94TuNSUJYVpDulfadTfreTUcw2yoayQGUpVgtAnEdJdfHcLNh7n2UjKkOadPmpdSg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(376014)(36860700016)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	m8ly3k/W53GLJsb81XXn+6G8q1OhpfhkO0fxuYd/IdILOY9AIUkZ7U2yvZUrWJoW7+Coa4v3tBIP5166hLHq2ogXvCJf7d8fFyrPaKCrqjS6CEBYll4h3gcmXbTRGxdN6YEZsgmI+E+r6L/YuOcQ4avp3Lwd8tIUISzUYyp7cHm6kctZDDc5S646abco+xhYAs78R740EKIjUJE0ihZcmDOcc0nYRlTzpqYUabeCz8wFaTYR4QWQRv+V5HZzF00nLobEHGBjlORyaeqolLi7tH/nIAvTB3DNnZ9FJJuTxqr8JD8xz9EU/qORtVFzGK+aAdESAsVL75FwLWarcWvSyWRY15gLaZwfai0lJk1DgH3kMGEeGW5lqMpT5PlX0r4ISKmTeKTvAD3yiLY5vJ73fhJwRnI4ZCsVtufRVsGzIFDEQun5kX5+F7rhr5WoWwrY
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:12:11.0936
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4d9b70d-6611-4b59-a5d8-08df1eec0e66
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF9507C739C
 
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi,
 
-On Fri Sep 25, 2026 at 11:52 PM CEST, Kendall Willis wrote:
-> GPIO can be used as a wakeup source for TI K3 AM62 devices during
-> suspend to RAM states. The GPIO controller is powered off in these
-> states, so a wakeup enable flag must be set on the GPIO pin in the
-> pinctrl in order to allow wakeup.
->
-> If the device is wakeup enabled, select the wakeup pinctrl state on
-> suspend and restore the default pinctrl state on resume.
->
-> Signed-off-by: Kendall Willis <k-willis@ti.com>
-> ---
->  drivers/input/keyboard/gpio_keys.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
-gpio_keys.c
-> index 129fc4212a5ed126496b331ce626682d441c53bf..d3fbc9776ac8cbdc7349a28df=
-990ee609edf9e59 100644
-> --- a/drivers/input/keyboard/gpio_keys.c
-> +++ b/drivers/input/keyboard/gpio_keys.c
-> @@ -28,6 +28,7 @@
->  #include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/spinlock.h>
-> +#include <linux/pinctrl/consumer.h>
->  #include <dt-bindings/input/gpio-keys.h>
-> =20
->  struct gpio_button_data {
-> @@ -60,6 +61,8 @@ struct gpio_keys_drvdata {
->  	struct input_dev *input;
->  	struct mutex disable_lock;
->  	unsigned short *keymap;
-> +	struct pinctrl *pinctrl;
-> +	struct pinctrl_state *pinctrl_wakeup;
->  	struct gpio_button_data data[];
->  };
-> =20
-> @@ -884,6 +887,10 @@ static int gpio_keys_probe(struct platform_device *p=
-dev)
->  	platform_set_drvdata(pdev, ddata);
->  	input_set_drvdata(input, ddata);
-> =20
-> +	ddata->pinctrl =3D devm_pinctrl_get(dev);
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl))
+This series by Cosmin fixes several mlx5e offload issues:
 
-Should this check for -EPROBE_DEFER and error out in that case?
+- Block eswitch mode changes before accessing the IPsec context during
+  policy and SA creation.
+- Tie TC eswitch and IPsec-blocking references to flow destruction,
+  covering bulk cleanup and flows with outstanding references.
+- Serialize TC/IPsec exclusion counters with a dedicated mutex.
 
-Otherwise looks good to me.
+Regards,
+Tariq
 
-Best
-Markus
+V2:
+- Use mlx5_esw_lock() in mlx5_eswitch_block_mode() (Sashiko)
+- Clarified the fix split across first two patches (Sashiko)
+- More careful dereferencing priv->mdev in mlx5e_xfrm_add_state() (Sashiko)
+- Avoided spurious error message during IPsec SW fallback (Sashiko)
+- Harmonized check_users arg for policy & state add (Sashiko)
+- Clarified the scope of the "tc: tie..." fix (Sashiko)
+- Moved macsec patches into a separate series.
 
-> +		ddata->pinctrl_wakeup =3D pinctrl_lookup_state(ddata->pinctrl, "wakeup=
-");
-> +
->  	input->name =3D pdata->name ? : pdev->name;
->  	input->phys =3D "gpio-keys/input0";
->  	input->dev.parent =3D dev;
-> @@ -1010,6 +1017,12 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *=
-ddata)
->  	int error;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup)) {
-> +		error =3D pinctrl_select_state(ddata->pinctrl, ddata->pinctrl_wakeup);
-> +		if (error)
-> +			return error;
-> +	}
-> +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		if (bdata->button->wakeup) {
-> @@ -1023,6 +1036,9 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *d=
-data)
->  	return 0;
-> =20
->  err_out:
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
-> +
->  	while (i--) {
->  		bdata =3D &ddata->data[i];
->  		if (bdata->button->wakeup)
-> @@ -1039,6 +1055,9 @@ gpio_keys_disable_wakeup(struct gpio_keys_drvdata *=
-ddata)
->  	struct gpio_button_data *bdata;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
-> +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		bdata->suspended =3D false;
+V1:
+https://lore.kernel.org/netdev/20260917175433.4090878-1-tariqt@nvidia.com/
+
+Cosmin Ratiu (4):
+  net/mlx5e: ipsec: Block eswitch mode changes during policy creation
+  net/mlx5e: ipsec: Block eswitch mode changes before accessing
+    priv->ipsec
+  net/mlx5e: Serialize TC and IPsec offload exclusion counters
+  net/mlx5e: tc: Tie esw & accel blocking refs to the flow's lifetime
+
+ .../mellanox/mlx5/core/en_accel/ipsec.c       | 65 +++++++++++++-----
+ .../mellanox/mlx5/core/en_accel/ipsec_fs.c    | 47 ++++---------
+ .../net/ethernet/mellanox/mlx5/core/en_tc.c   | 66 ++++++++++++-------
+ .../net/ethernet/mellanox/mlx5/core/eswitch.c | 11 ++--
+ .../net/ethernet/mellanox/mlx5/core/eswitch.h | 10 ++-
+ .../mellanox/mlx5/core/eswitch_offloads.c     |  7 +-
+ .../net/ethernet/mellanox/mlx5/core/main.c    |  3 +
+ include/linux/mlx5/driver.h                   |  7 +-
+ 8 files changed, 128 insertions(+), 88 deletions(-)
 
 
+base-commit: 99b43ede9e355ba35244cc9470bf1819774ce39d
+-- 
+2.44.0
 
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCarz8ixsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlPB
-rgD/RvPG9MIG+abj3sGJsRRPXb05u6y2oKt7iWyCnIJnPmcA/i4fICzTuQuY1jiO
-YEW6EdYtDK17cq0rhe1HPUWOOa8J
-=HyDX
------END PGP SIGNATURE-----
-
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c--
