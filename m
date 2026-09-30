@@ -1,142 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpcmd12132.aruba.it (smtpcmd12132.aruba.it [62.149.156.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0E372663;
-	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01058497B61
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770506; cv=none; b=Nt5KNu1PmFfv10Jv75R6wOnFyRB+zTtu4avQGA8TN829eDg414IEj9JBglxk3deh1jBrBwjZUbeygkxkiZPXIPAEK/B0hpq9JLUbkhJZ+LtvkYSuVZUuQPgqbSCi2w+xYFrJRhZNH4Z13XXe3R23RvFWtKHeWW7TkYmk0hlQzf4=
+	t=1790770507; cv=none; b=sANW4wiZCgm+VgcdayhGhXaPJHPBQ0s4UB+2Vsx2CNWwLrEZdGkTS2W2jfuME5prXNAKIhh0e6R91vmUwGQ3lRzIGJ13eT/xksfBBKeck/DqbfTK0JOSnhP+aerRuMpt1rh9708ejkp/Yml6X0JYff92ERTACSTS8aFPANZoyzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770506; c=relaxed/simple;
-	bh=xv0RqiOiKwlaT0J82cr/0v5YvERfM3N4VNRX1rS/bg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y/qqG0mlp3cFwIUbbfrxK31phJMLHa1DltfaWgrOTTuatS02Y0kyiMVgKeilHRTsRXWqjeAscI/hnboqWNY8nGvc4Ua25pkupM5cxgNQQDP7wGyKFJRhKfc8fb2r779XkdN4elHjSseHEOLvLRfQPJBdoU0Co19R6kIYEFwuFV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9VxevWX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790770507; c=relaxed/simple;
+	bh=nBXdwPyZQR1lFGQmVieyKRwAO3UGnjcvn7D2/cxVZyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hJOSNfAOOfWJrxUs4zB8FHFjAdWKQsfYKQNvMRJ0g9BU3xAbi6pBDz6eFmkHyUsdln7yy1AY/CBN9bHTQLJOLfG3dgXWDTHQnTRFlb1Ogx/7lLP23xoT+LvtZ2rqEFpcvc6ZyD60w33X3c0S9ew6Z8neE6q6eYJ7NTWsSbOsbvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=TXakTUj8; arc=none smtp.client-ip=62.149.156.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9VxevWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55151F000FF;
-	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790770504;
-	bh=Nc/fukDyXazndbYcPYi1K6bg0O60HvWUrSB7JCmYXcg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a9VxevWX5+tyC0lAYyQhbtuNuG60oulZbAJ18Kc7HkkaVy5TnineeBk6utelzOqIe
-	 /rGKfA3+RMvNjbL5bEq0CArAuB23/raRAOUuLN7aSPo1WxTMzIerD5hW5YWgZtcg7k
-	 ulzYB8vCEpasQ//khaB8A8V2q+pHqE8o0VC8OcF+oQ4XadEBvw3fNhlroGMmesvntm
-	 OdMuY27shJHFHI+AATFV5nJvc28gbtgAH2PGkQg2xe8rqAU0tPe8dW4sGvaHmjYBaz
-	 3ilkXEzXic6OhX0BfqNwOlwYntSF41nwRVgP7AOGyRVi5jV/XRZzpfYVZjZ96i78cG
-	 f67do4nYc8DGA==
-Date: Wed, 30 Sep 2026 07:15:02 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v3 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
- connection mode
-Message-ID: <20260930121502.GA2207237-robh@kernel.org>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="TXakTUj8"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id Bt6Jxwm5xxUh5Bt6JxVwJE; Wed, 30 Sep 2026 14:07:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790770076; bh=nBXdwPyZQR1lFGQmVieyKRwAO3UGnjcvn7D2/cxVZyI=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=TXakTUj8p9iYPN6l37+kwJj6dOnUusIAM+xTXPnaQ6pArIi5HKbznXqZz4GXHikzn
+	 g3ktRXvvTWyHdVqlUHyMC6ckf4UXJLxKXd0qmUhvEdrse2Sz6Bsi0uwH2sSA7AQ9eO
+	 CnGSOxMXgIUmfkU/T9ukSR1DVcZmhQmFIvVd+7PuX9M85+xECNA4WfF4iQVncqOYYv
+	 A/vn+++vLYno3WliupPhSOzo66RW905X+Whr5jHAGLVFhrH415El5g4p/R5SuTHwub
+	 I4eHg6RNIkTCRLazACwQC7OEjVSNFag7JMCRDVTrcWCy7+SBTH5J4hfdtZWqfK0wKb
+	 A7s7/AnGIWu4Q==
+Message-ID: <1888e57b-8e0d-46c2-87d4-d65080e9ebbd@enneenne.com>
+Date: Wed, 30 Sep 2026 14:07:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] pps: generators: fix use-after-free on unregister
+ with the file open
+Content-Language: en-US
+To: Danish Khateeb <danishkhateeb03@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
+ linux-kernel@vger.kernel.org
+References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20260929124937.51114-1-danishkhateeb03@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfGQ7VXSacxzT8EF5dADYLGg7wx3dPc47EfnvjiXWLPjSFySFcL/iKSI9DjXNmcJyGCW632g1z4Uq/N9+XESVKcJAPBe+0zUHzNnUQt6xawgv/YbORZ6l
+ ZArXGBo5a5MTVLb674RFoPELOqjKyzYF7iiW5E3VyWtEU9XvU4/R21av7sUs9z51oog5s8MVgkU4kn5KPxodnqJrvCrohMuoD70ZT9YSien3/YZLouD3hh1c
+ CA/pJx8/y3zBfLMeSaIFQFV3hHngY6/Dpy/X+uMmzcv2r0c2Y+zM/tEae5dQ6TN4+l04ZxZ4MBWzyr/yyWlVAKhA/OVFS9EcBR6lKoWLewVOv19lCChQRGlo
+ kjS9eEzxn6ovfRMnA+xYdUqWEkPX7Q==
 
-On Tue, Sep 29, 2026 at 07:44:22PM -0300, Marcelo Schmitt wrote:
-> Document how AD4134 chips are connected to the host SPI controller
-> according to different wiring configurations.
-> 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> Change log v2 -> v3:
-> - Adjusted spi-rx-bus-width constraints.
-> 
-> Unfortunately, I missed SPI connection mode properties when introducing AD4134
-> dt-doc and the device driver defaulted to a no-CS configuration. Due to that,
-> conventional 4-wire mode can't be made default without leading to a regression.
-> Still, updating the SPI mode default to 4-wire is a sensible thing to do later
-> on if acceptable.
-> 
->  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
->  1 file changed, 44 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> index ea6d7e026419..0b2a2cbfadae 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> @@ -131,6 +131,26 @@ properties:
->      enum: [ free-running, gated ]
->      default: gated
->  
-> +  adi,spi-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-> +    default: no-cs
-> +    description: |
-> +      This property indicates the SPI wiring configuration.
-> +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
-> +        line is not used (tied to GND).
-> +      * 4-wire: Specifies a conventional SPI wiring configuration.
-> +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
-> +        to DOUT2 of the next chip upstream in the chain. Only the data interface
-> +        of the upmost device in the stream is in direct connection with the
-> +        digital host.
-> +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
-> +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
-> +        in the chain. Only the data interface of the upmost device in the stream
-> +        is in direct connection with the digital host.
-> +
-> +  '#daisy-chained-devices': true
-> +
->  required:
->    - compatible
->    - reg
-> @@ -141,13 +161,30 @@ required:
->    - clocks
->    - clock-names
->  
-> -oneOf:
-> -  - required:
-> -      - ldoin-supply
-> -  - required:
-> -      - avdd1v8-supply
-> -      - dvdd1v8-supply
-> -      - clkvdd-supply
-> +allOf:
-> +  - oneOf:
-> +      - required:
-> +          - ldoin-supply
-> +      - required:
-> +          - avdd1v8-supply
-> +          - dvdd1v8-supply
-> +          - clkvdd-supply
-> +
-> +  - oneOf:
-> +      - required: [adi,spi-mode, '#daisy-chained-devices']
-> +        properties:
-> +          adi,spi-mode:
-> +            const: one-channel-chain
-> +          spi-rx-bus-width:
-> +            const: 1
-> +      - required: [adi,spi-mode, '#daisy-chained-devices']
-> +        properties:
-> +          adi,spi-mode:
-> +            const: two-channel-chain
-> +          spi-rx-bus-width:
-> +            const: 1, 1
+On Tue, 29 Sep 2026 07:49:33 -0500, Danish Khateeb wrote:
+> This fixes what goes wrong when a PPS generator is unregistered while
+> userspace is using it:
+>
+> 1/4: closing the file frees pps_gen in ->release(), and __fput() then
+> calls cdev_put() on the cdev embedded in it. pps.c had the same bug
+> before commit c79a39dc8d06 ("pps: Fix a use-after-free"). Fixed with
+> cdev_device_add().
+>
+> 2/4: the ioctls keep using the driver's pps_gen_source_info: TIO's devm
+> memory after an unbind, and pps_gen-dummy's module data and code after
+> an rmmod. They now return -ENODEV, as PPS_KC_BIND does for a removed
+> PPS device since commit 3649f9a6b897.
+>
+> 3/4: a PPS_GEN_SETENABLE, or a write to "enable", between the driver
+> stopping its timer and the unregister starts the timer again, and it
+> then outlives the driver. The core now stops the generator on
+> unregister.
+>
+> 4/4: a reader in PPS_GEN_FETCHEVENT is now woken up on unregister and
+> gets -ENODEV, instead of sleeping until a signal.
+>
+> Yibo Tan's "pps: generators: Pin dummy provider while a file is open"
+> [1] keeps the dummy module loaded while its file is open. That covers
+> only the dummy rmmod case; a device such as TIO can still be unbound,
+> so 2/4 is needed either way.
+>
+> Changes in v2:
+> - New 3/4 and 4/4, suggested by Rodolfo.
+> - 1/4 and 2/4 are unchanged.
+> - v1: https://lore.kernel.org/all/20260929022219.212024-1-danishkhateeb03@gmail.com/
+>
+> [1] https://lore.kernel.org/all/20260911134952.648064-1-lhfff@tju.edu.cn/
+>
+> Danish Khateeb (4):
+>   pps: generators: fix use-after-free when closing a removed device
+>   pps: generators: don't use the driver's info after unregister
+>   pps: generators: stop the generator on unregister
+>   pps: generators: wake up PPS_GEN_FETCHEVENT readers on unregister
+>
+>  drivers/pps/generators/pps_gen.c | 111 ++++++++++++++++++++-----------
+>  include/linux/pps_gen_kernel.h   |   4 +-
+>  2 files changed, 76 insertions(+), 39 deletions(-)
+>
+>
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 
-This is not valid. I think it evaluates to a string. You want:
+Thanks for picking up both points, and for testing them.
 
-items:
-  - const: 1
-  - const: 1
+For the whole series:
 
-Rob
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+
+Ciao,
+
+Rodolfo
