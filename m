@@ -1,135 +1,174 @@
 Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FB7513572
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:37:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713EC51DDE7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789859; cv=none; b=iRgdeRi5CJd5H4oliQxLLyn9ARjC73yY/Vg08bboX4qlQ8QN92BZNLH8kJ4+NMCHivcFMcRf/y/Ek/KuzXbI6yQqGzjD5crJHsLvuZfTN9CrPj9A1ODKROEk/EopKIGxFJGyda6KiCjOYVwjvaKJ4dwTKtrjHxFoa6k0BNXUz9I=
+	t=1790789861; cv=none; b=qEtLgFit2nZHOQ2aYCPexzHBgwXCQ0e6TZEsvtUbbmP2JSLdoQGGVVkBrLpH5aA/zHPjk1eeCv5j475arR7VYX8GliDDSWx57LIJJ3//jKLg8fb+uS+Bz4YRLVZKSckep8eRKbeTbjFLLkrLaHLALuYR8X11xspdJNJO/ezNEV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789859; c=relaxed/simple;
-	bh=UWacRjQlh4d1Fl+CPKlFch02V++rzThfMQRQNDA+XJ0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ETyu1GEIO6IAJjUwSQzu2Daazg0RodgbbqWu13qAlE8Sb6yjJdHl8a8W54UzczGSZRlUHqwGuzRX82H69g6FxYLlWhAETx62kCYhlC+nIreb60Btwr6f3lj7SGrAA4wITwUqVi4RCwqFxB9EBb62qaEvsiiVEaKXI2czJ6nHg4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tAQHe8tC; arc=none smtp.client-ip=209.85.214.198
+	s=arc-20240116; t=1790789861; c=relaxed/simple;
+	bh=XQOAP/D2bikMcyHI7hrJrfNwiYJfgyt2kwzIrVS20bM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=NUBTCtL0xci1StukXpp2K3o35Y4g9vDDWKDiAyu2SyP3ADrMMd8ACbBPO+FmLw7nvWiIaiBJpS61X0cwiw8axYntVVgreIRkpPsYFOM6MiVguw6RUdKU1K4wyk/dIDpqzJKsXr/nfsZa0uKVgdTGkFiekn0EALHFsQn4pJsN0Yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gpXcDqs0; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tAQHe8tC"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d9336581a2so81985765ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:37:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gpXcDqs0"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e2d4a8623bso14603005ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:37:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790789857; x=1791394657; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cNqhwEq/5Wo22YWPaJRBan5K+YDcXnVOo2pVSItBxtg=;
-        b=tAQHe8tCaJ35eQMJPMrcgv54jXRQREc8Fa0KLmDrMf6fyVsYtieqymTHMRW1nlL8qj
-         uln/05Vo9oHhfM8KZePpxyF5T21nXa0Sl8HSLXsZ5j0C39460OwmfQRYSyncVn+G3Jei
-         tf7eacP0qJavkzioaM/XdzxuswThKAp/OpWBzRK64FPYLmUEOAj+EWiYhwCxmnX0IE5A
-         AePZhLeS9TnzcJpsBATnFfMgGfYRX3dnV0tYqzCoYYErHo2c3q2vIadu6G9nRdudSFQM
-         J+NGXzOE9UuRD/2lFVeJ7mqA7M55mhN0IBrH5GbM+jJJTxmmT2KBrPOfKKpXDnStUc/e
-         DU9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790789857; x=1791394657;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1790789859; x=1791394659; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=cNqhwEq/5Wo22YWPaJRBan5K+YDcXnVOo2pVSItBxtg=;
-        b=1FnGGMM/cfYURrAhA5ZqtiFkXWB2eDvxvs+CBYMsGfVtJWeKzG7yzKH+8J2jfnzAv6
-         QvDaVXeP1s9Tz4YJbxlsQ/wg5L/7ePNq5IT+WAbESNcsmPLkbIbGShcnee9aYd/dT5QF
-         9F13toRALq5Zb4SXgvwXelvK0A+TQIscg7OVBrhI7N+rCg4EE6S6wqLV1IzuUg9w1wLc
-         NDCTdL1xn6lxBUmHTinDuFt0wWryWTrRe+1pMVUyJi+d6fbsSgq73xoPY3ydxuQob8ug
-         namM8PL9m4ltcQFT6IBmV0BxwtFsQauVVcdaS7uUIj+lYf2bhCKClKT9py5X6qBCtJew
-         Oqzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDWFEe2OzsnoIK34qS1MGZDwGt3Pe87hwQHSjYWb9/BOtNmvaWF1vlG4l+xM7D9TsBcD8ZCvS44kkC6fU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLD2R7SfA9IAyDkP2xXdhTHYCJVMEyceFJvi5pcqPO3ab2fXuSg
-	TRMQ4NvE6SRZ6Z71ooXVmDyaT6pI5as68dW9C7y4vOlOdUwkbwuyx0CEE9ci8E/dhRdYDqrABGD
-	oSrnLHg==
-X-Received: from plec2.prod.google.com ([2002:a17:902:f302:b0:2e1:2dd1:e080])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:19c3:b0:2d6:f988:398f
- with SMTP id d9443c01a7336-2e2e498a3d6mr18024015ad.12.1790789856985; Wed, 30
- Sep 2026 10:37:36 -0700 (PDT)
+        bh=pR0CmMOwBEixDaGsVspgku93kAEdKXphr/HJk9tqVK8=;
+        b=gpXcDqs0I5IY1zAM2Nx+ORRLg2JVRdw3WGMSjk8+NMcf2QLDOrkWSmNIuSDYOOppGq
+         n0g9Ip8/Q3ft0uaJs/551iqw+GL+RFX/DoBFj7BFKu08C8GistLZC+JD+yX0q4rWUm+W
+         zIUd7R35hMhYDZsPlTjzqb52kFvKO8nc/dntmej80OJpCvQr2i2IX/4quSzH1HJXpfx+
+         NRQY8zDPWXcyfFDeg42hDq0D4hHfWceN6mt7YrNRcUrgQcI0bU+lXdvBIyCnI4K54Xr7
+         d/0pUf3K0lea3YhnvDX8VsieRHa2leXvepBcYyGU88mspowa3dvw23jssUX7Mdu92Lsf
+         75yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790789859; x=1791394659;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pR0CmMOwBEixDaGsVspgku93kAEdKXphr/HJk9tqVK8=;
+        b=OurlDEKuWS8NzqxtxJI8zpOL2YZgAl7+Yq48AVRiuAUQ8PlzhoOreFD5MI/NC33Sv2
+         kMyaVm1mrVtZfYvHrnVcyU0rCSERH0ALVLqevzgPFDC4QML0YOUXA3phc30TlM+mf9/Q
+         8mEnFiSXgL53YpRkQ0PnozK8rSqt85CHduoVvexF6OLtZOH170U+FuV75ksT9fn9Ob33
+         kLF0mf5sl2N242z+MF8QrN+x1c1Y2ZezHBg41W4SqyXn4eAHV9MsMheLGfLynPGMCw7D
+         OR+tXn88UMUPQoXAt8W2CQ+makiqOW9UaRQT1oMfe7cpt4Iij+WlY5G16jusQ2Bmc4OL
+         5cOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSv6OC6eMB2/UBwK6SzqO4RRDO45/YufuuvYTAvxJvXd0TWgIKVkrqImXviz3tSvZ+QzLatJPOLF62sKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLN3qrKyOKp9vWdX6MGy/NJd63Pt7yIwPsWO7w29IJgteChIVc7
+	ZGO6Z7IIrsNQAXp6ChcSz2Yn7CcnnVlN+5bKUvb0bX8lR1ZR2zIL54awEd6WR2ODPxpX9lehysm
+	yh7rACg==
+X-Received: from pldu10.prod.google.com ([2002:a17:903:108a:b0:2e2:b3a5:70bb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf0f:b0:2dd:c100:7ccc
+ with SMTP id d9443c01a7336-2e2e4b38c84mr14890385ad.72.1790789858404; Wed, 30
+ Sep 2026 10:37:38 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 10:36:14 -0700
+Date: Wed, 30 Sep 2026 10:36:15 -0700
+In-Reply-To: <20260930173635.3362655-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260930173635.3362655-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930173635.3362655-1-seanjc@google.com>
-Subject: [PATCH v3 00/21] KVM: x86: Fix nested TSC scaling edge cases
+Message-ID: <20260930173635.3362655-2-seanjc@google.com>
+Subject: [PATCH v3 01/21] KVM: x86: Saturate L2's TSC frequency if it exceeds
+ hardware supports
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Amirmohammad's fix to saturate L2's TSC frequency when stacking scale up/down
-ratios across L1+L2 yields a final scaling ratio that can't be plugged into
-hardware.  The actual fix is functionally the same as v2, but I rewrote the
-comments and changelog to try and make them more approachable to KVM developers
-(AI has a habit of generating extremely verbose, "mathy" descriptions of bugs
-and fixes).
+From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
 
-Patch 2 fixes a flaw pointed out by Sashiko.
+When computing the TSC multiplier for L2, use the minimum/maximum frequency
+supported by hardware if the resulting multiplier can't be programmed into
+hardware, i.e. saturate L2's frequency on both sides.  This can happen if
+userspace is running L1 at a low/high frequency relative to L0, and L1 is
+doing the same for L2 (relative to L1), because although each of the L1 and
+L2 inputs are constrained and validated, the end result can exceed SVM's
+and VMX's architectural limits.
 
-Patch 3 fixes an off-by-one issue in KVM_SET_TSC_KHZ that is a complete
-non-issue in practice, but confused the heck out of me and made writing the
-testcases unnecessarily annoying.
+Don't bother trying to log an error or do something more sophisticated,
+because in practice only a misbehaving L1 (and/or host userspace) will run
+afoul of the flaw.  On SVM, which has the smallest "range" by far (8 bits
+for the integer multiplier, versus 16 bits on VMX), KVM can still run L2
+with a frequency 255x that of L0.  Even assuming a pessimistic L0 TSC
+frequency of 1GHz (modern CPUs run TSC at 2GHz+), L2 would need to be
+running at a whopping ~255GHz for the limitation to be a problem.  Not to
+mention that if L2 is running at a legitimate frequency, then running that
+VM on existing hardware is already doomed irrespective of the nested angle.
 
-The rest of the pile extends and cleans up the nested TSC scaling test to
-validate the saturation fixes, and to test all four combinations of scaling
-L1+L2 up+down (the existing code testing only L1 down, L2 up).
+Open code the mul_u64_u64_shr() if the compiler natively supports 128-bit
+integers, mostly to avoid having to do the multiply twice for what should
+be a very rare scenario, but also so that there's a slightly more scrutable
+sequence that can be read to understand what all is going on.
 
-v2: https://lore.kernel.org/all/20260723182159.2320033-1-amirmohammad.eftekhar@cispa.de
+Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+[sean: optimize for INT128, rewrite comment+changelog to be less AI]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/x86.c | 55 ++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 51 insertions(+), 4 deletions(-)
 
-Amirmohammad Eftekhar (1):
-  KVM: x86: Saturate L2's TSC frequency if it exceeds hardware supports
-
-Sean Christopherson (20):
-  KVM: SVM: Fallback to the default TSC ratio if KVM tries to use a bad
-    multiplier
-  KVM: x86: Allow userspace to set KVM's max supported guest TSC
-    frequency
-  KVM: selftests: Use KVM's pRNG to randomize L1's TSC ratio in TSC
-    scaling test
-  KVM: selftests: Drop redundant VMWRITE of TSC_MULTIPLIER_HIGH
-  KVM: selftests: Drop unnecessary use of PRIu64 in nested TSC scaling
-    test
-  KVM: selftests: Randomize L2's scale factor in nested TSC scaling test
-  KVM: selftests: Rename TSC freq checkers in nested TSC scaling test
-  KVM: selftests: Extract guts of nested TSC scaling test to helper
-    function
-  KVM: selftests: Track L2 multiplier, not scale-up factor, in nested
-    TSC test
-  KVM: selftests: Print out the failing L{0,1,2} level in nested TSC
-    scaling test
-  KVM: selftests: Allow +/- 1 tolerance if expected TSC frequency is
-    <100
-  KVM: selftests: Use KVM's reported TSC KHz as L0's frequency (sanity
-    checked)
-  KVM: selftests: Explicitly pass TSC frequencies to guts of TSC scaling
-    test
-  KVM: selftests: Sanity check KVM's default TSC freq in nested TSC
-    scaling test
-  KVM: selftests: Test L1 "up" and L2 "down" in nested TSC scaling test
-  KVM: selftests: Verify that KVM saturates L2 TSC freq on
-    {under,over}flow
-  KVM: selftests: Test non-zero TSC offset on SVM in nested TSC scaling
-    test
-  KVM: selftests: Randomize L2's TSC offset in the nested TSC scaling
-    test
-  KVM: selftests: Use GUEST_SYNC2() in nested TSC scaling test
-  KVM: selftests: Spell out UCALL in nested TSC scaling test's enums
-
- arch/x86/kvm/svm/svm.c                        |   9 +
- arch/x86/kvm/x86.c                            |  62 ++++-
- .../kvm/x86/nested_tsc_scaling_test.c         | 232 +++++++++++-------
- 3 files changed, 209 insertions(+), 94 deletions(-)
-
-
-base-commit: b378201ccd5280d0fff89bbe55e1eb00620ec0d5
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index cf3fcdfd8ad2..037c7ea5c5a7 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1190,11 +1190,58 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_calc_nested_tsc_offset);
+ 
+ u64 kvm_calc_nested_tsc_multiplier(u64 l1_multiplier, u64 l2_multiplier)
+ {
+-	if (l2_multiplier != kvm_caps.default_tsc_scaling_ratio)
+-		return mul_u64_u64_shr(l1_multiplier, l2_multiplier,
+-				       kvm_caps.tsc_scaling_ratio_frac_bits);
++	u8 frac_bits = kvm_caps.tsc_scaling_ratio_frac_bits;
++	u64 nested_multiplier;
+ 
+-	return l1_multiplier;
++	if (l2_multiplier == kvm_caps.default_tsc_scaling_ratio)
++		return l1_multiplier;
++
++	/*
++	 * The shift is fixed on both AMD and Intel, and operates on a 64-bit
++	 * value.  I.e. a shift greater than 63 is completely nonsensical.
++	 */
++	if (WARN_ON_ONCE(frac_bits > 63))
++		return l1_multiplier;
++
++	/*
++	 * If the resulting multiplier can't be programmed into hardware, run
++	 * L2 at the minimum/maximum frequency supported by hardware, i.e.
++	 * saturate L2's frequency on both sides.  Because L2's frequency needs
++	 * to be distilled down to a single multiplier to get from:
++	 *
++	 *     L2 = (((L0 * L1_mult) >> frac) * L2_mult) >> frac)
++	 *
++	 * to:
++	 *
++	 *     L2 = (L0 * mult) >> frac
++	 *
++	 * very small/large L1 and L2 multipliers can underflow/overflow the
++	 * minimum/maximum multiplier supported by hardware when combined into
++	 * a single value.
++	 *
++	 * Manually check for the case where the result would overflow a u64,
++	 * i.e. if the multiplier would be silently truncated before the "too
++	 * large" check.  Avoid doing the multiply twice in the common case
++	 * where the compiler natively supports 128-bit values.
++	 */
++#ifdef CONFIG_ARCH_SUPPORTS_INT128
++	unsigned __int128 m = (unsigned __int128)l1_multiplier * l2_multiplier;
++
++	if (m >> (64 + frac_bits))
++		return kvm_caps.max_tsc_scaling_ratio;
++
++	nested_multiplier = m >> frac_bits;
++#else
++	if (mul_u64_u64_shr(l1_multiplier, l2_multiplier, 64 + frac_bits))
++		return kvm_caps.max_tsc_scaling_ratio;
++
++	nested_multiplier = mul_u64_u64_shr(l1_multiplier, l2_multiplier, frac_bits);
++#endif
++	if (nested_multiplier > kvm_caps.max_tsc_scaling_ratio)
++		return kvm_caps.max_tsc_scaling_ratio;
++
++	/* The minimum multiplier is '1' on both AMD and Intel. */
++	return nested_multiplier ?: 1;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_calc_nested_tsc_multiplier);
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
