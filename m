@@ -1,245 +1,214 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013003.outbound.protection.outlook.com [40.107.162.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B4E3A3816;
-	Wed, 30 Sep 2026 07:41:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754078; cv=none; b=De53MfmG+4XfBdE3uF4TcIzZ7/UI+ETCi+cawBdWpqA0kntrDd3+HgO4MgaZChJX/hCKDUxCT77oPSCZ7gFLZjUsK2R50y/qiKbktAjVMOsZNccMM/lwptxhFf1+OGIJHhEzGbcyx/hhlHzws4JjFiwtt/66iCjMFyV6c2Tirok=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754078; c=relaxed/simple;
-	bh=jm5/IahvPT6fHWYYuJXACfYQ+dmTH8STdro5QL2jwWg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EgvALigiqmaIBBPUmuSYk8VXmT+v93n3lB2oUBLBkIRSVr54ILMcnpGA+0PAFbShpNMDObfWurQWI+0dnrZRJUHRbIGFvvdh0+iBPddgdfWuzicvImWGW5izhrPcgJHArcEy7eJmWTHFuUws+cxH6xK7cOJzoKqkeP1kvgYa6go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=H7azRZUg; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A164D3DF01C;
+	Wed, 30 Sep 2026 07:41:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790754114; cv=fail; b=USAkQqjng9bYXs4flUo/fHnwLTlvUt46tXWMNnrKeNu117aEVZm6av0kKZboDL4rTmibAosfUHHleDNOHWBhC34J0A1DatfnLnBUOrcaVI3EhuihEwWQRtCR4v8McjHafG12XruhYRCu6iNucQVfhHZTQweri+1jZaSk+0aRfHw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790754114; c=relaxed/simple;
+	bh=4eQHbdcaV3TQZDNhJymo+hJGiEg6gsF/XDDLOyTyWfM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=ZYlZtzczOUUCZn/5QgKe7Ll6XmAwsp+fbuRUF9zDRRvBfxfU588IAsgPy+m/u9zvLvwsdqnDOBhtAjyzBY0/ILGM+y7pm+ym0yCIRT0wj9TsYcs7ZKcbNdOfYyBz16HWIEWHa5/jLbxuooPTjnpAvgBZNBHU37jX99sV52bdfbc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=MNTH36Bf; arc=fail smtp.client-ip=40.107.162.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="H7azRZUg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=C8fHG6YGBQdK+Ru3ZqFs+0D6DcczxOVnC9rzLIJLeMI=; t=1790754075;
-	x=1791358875; b=H7azRZUg9tPyloQT51qSdJa6yDHiAdY4NeJnoZk2omACSO/+P4OQa40wlSSeF
-	c7KHU+MKGfFtysZMMpFnA689MkmnJ+r0lpy09O7h7HWwXfbLry1ySkUbttWo5ul//aFjdrIk0D6GW
-	KnjHelDngiulVRI4Z3bsRUoxVf0ajtyJrnx6g7czpoootDkj64PE5qK97zs9iPapfxkDfmcFK5PU1
-	VFFnU0Mrnw5pRlltQDkdmynrUaBjCGFqWaZdNdsTLYjJg8/FdS8QKq253JuXwiiQlwpPHwtAlnmD6
-	+g917KUaM2lBbBJ/goSY9e+sLcDetWAWTHG5xNrLiv2dJoAGkw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xBowB-00000001dwC-3Mvk; Wed, 30 Sep 2026 09:41:11 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xBowB-00000002phv-2OMM; Wed, 30 Sep 2026 09:41:11 +0200
-Message-ID: <1f85bdb9614365fedda81fb649147da48bf7be13.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some
- optimized AES modes
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Stian Halseth <stian@itx.no>, Eric Biggers <ebiggers@kernel.org>, 
-	linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A
- . Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- sparclinux@vger.kernel.org
-Date: Wed, 30 Sep 2026 09:41:10 +0200
-In-Reply-To: <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
-References: <20260929222752.36427-1-ebiggers@kernel.org>
-	 <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="MNTH36Bf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kTYO6WRusOBfqE/y+Gt+r+f3WzjFoeb3hCJ+6jrrgZX5kK6Lw1D/4TmzXbZu1rSo0RGTVgvmAT3SZKafcjFvmOw2u9Z/NsFEr4/YniyODd7I81td94igw64NZYu5WsXjodmKMrw6ZN0IOrlzzF5YntjegkYg4IDfWl70CEheYo+IU54BUa0VmPg3xNCiu/aXTPg+yW6AQk4XdPHauuAFWwRmFSmOBvHU8f7ACLtr3qBMnrwsUamMKX6/NMJEkV1Q9Ho6apD/jiheMd3O9tCBpF7F5Y0OdsFu719LUnOxjqE4SYFxhbDUwydjm5g8e6Rh1rZMy9UiM0XYp0oaS5dMcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tCnC9y32ACX//JDPXdBN4Rcze8igdbe7INojLa5JDJ4=;
+ b=nObfICAcQf9zwMYsy1gzB81clh57rp1pGFr4iDK53qmqrcdTJRtGf9dgpGWT4YgE0JiKSCVLtmh5gL40ngbmeuiAVDkFuisTIQPUq4e+pTpB4g2cWLGpVDfz965wLMCGDotw3ZsK0RXl41BSnCJ8T274WasupThcOOKfBEKfRTHhM2ozfYBgYiUCV0FEiypnLa1taW9pazZfjTcc8I3Um2UU66cZaVhSodAEF0TJt2sMF2AlxyAL5H5OfFHiMvRpgZdFm5ckkfWkIxuN+MosvHrLLq8+knSSIJj4rhMMlj1WC1dlu1XsTWvN78BfRr6BIvfZFQIyBKNkW/X4ZkAUMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tCnC9y32ACX//JDPXdBN4Rcze8igdbe7INojLa5JDJ4=;
+ b=MNTH36Bfy/lpkEKeyViWVwIiyMiWlEAbGW4Z/GsYQ6b1VPcVohgmdmhC3prn5VOZ4kw1eGzECQqHPujdDhSTsyNtNfRb4hUwwUlldar+RNda4710hGrTuZhEmOvgBbNVHYlR1teHgEmNG4G/KHL/Q4rtDOJrfjkoBpMqjnOrE40OPNrPPCD+fHRZaw41lOIHjYxZnUfRlHh+NiLk6QOIsNeDiXNFS1MnJvzVYLQC8ViKOEnHbwkFZq9Ub9qn79Q6S8FvvHqvwC5/AXngw9a8pcuQv+FlG14GgBXkjwSKHDGvriXy3Ui09RFgQej41aZ59IprYswhN3Z58Yqx3R0G8g==
+Received: from AS8PR04CA0185.eurprd04.prod.outlook.com (2603:10a6:20b:2f3::10)
+ by AS2PR10MB7575.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:546::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 07:41:45 +0000
+Received: from DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+ (2603:10a6:20b:2f3:cafe::55) by AS8PR04CA0185.outlook.office365.com
+ (2603:10a6:20b:2f3::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 07:41:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU6PEPF0000A7DD.mail.protection.outlook.com (10.167.8.37) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 07:41:45 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 09:47:38 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 09:41:44 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Wed, 30 Sep 2026 09:41:42 +0200
+Subject: [PATCH v2 1/3] dt-bindings: nvmem: add STM32MPX TAMP backup
+ registers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260930-upstream_nvram_reworked-v2-1-cfda749ee0b7@foss.st.com>
+References: <20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com>
+In-Reply-To: <20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
+	<srini@kernel.org>
+CC: Simeon Marijon <simeon.marijon@foss.st.com>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7DD:EE_|AS2PR10MB7575:EE_
+X-MS-Office365-Filtering-Correlation-Id: e63c23de-5f27-4fad-6651-08df1ec64730
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|18002099003|22082099003|13003099007|3023799007|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	NQrIpuCfpv5/m1mHrQJv/NS/Z/0tpKpPtTlbQsqfbfuBp2hsnIRT57RZfioPVZPyBS2T+FHExyRKFVFXYREtaEtTnlL0lfvA2/YTMcMkKCPRXpvxubsgFL1sHPVczsW1XLUqLJMCh8AgodskbqfHERs0+Sf/ZiT9xYrUUEFucWaOj/4NurhQhpe1+DiL2jm+zqtLvCc00aiU7l8nrpGndjtOlItbMSBSADVtsiDeSwfp60s0879hv9PAd8ay/AGTvZIUGZNpE9LwqjXcnqQuQlIn+I3oMNeN9UmJ5gSxHw/03i35rrlUWqXOmlvtPplBYjWOK/jIex8P9527a0jX6lGbI6wDOQHpxXt2LkrdBoGTw/HAx4wuzBrKGjmlSaSr2Yg6/174/yyzP8JdXQgjD4rYbFiBhxR83eidxNaj+xwOqRO6XgNqRHLW8ZbFTMl2DdT3lJPrPNH5EW66NTh2Ve99xEQsWs71iYXA5x5aPUUseLznKJhfw+/fcAY1ZshOFBQW92mxXoAuqmbnqAXZGZLQEIVTgwp6t2Rl1E/0/RppCVQqognDwNPMqV0+WMw/uJpOOinNXSZ4paEmjhP2ajTnQ4ymZPCb5twpAa3sRArB1qjblksplErrevQtgMQLzS2qPHAE+UfdhsG2HCcj8w==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(22082099003)(13003099007)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wxYr92qkWjWYoXiFHJmxjrCMHis9T5aWDPIM0rniXsYr7cG8huXkbqvt4BjAJ0iMsnslhYTzqIcwGXN4oM7tCBaEXkx3PHsiklcm4gigjb+6MKzfF1C9XR7Ri+Qg38Zm6r7HfgSFhPUpuOmXAF9WuMX/gK8RSeUwcWXvr6+EH/hhqIcT79I9ZWKeHqLndskO3zEe64sfWXRfucHk+WBueVaz+2W4PJ4ztidKMNhi/ul7cTSzotrwad2UDDQQ3L5NT/SSljFt0/CP5R3W/x7m8Kz67UrCUBKc8KkHzQ7svkk/xDPPtU6uzP5F0JjWswuGMjGCIL5B+OyKBl9oRnaUGh/BCpSnJ4C8uKVhBVYWjcqAecYzIuV7JdaeKDojqmqjejP/OvRQ7yIjZn7GQ758yx03pyyo4ks8HvISdtnRtLDrHOVTsIZfegRJ1WZ6Rv5b
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:41:45.5390
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e63c23de-5f27-4fad-6651-08df1ec64730
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7575
 
-Hi Stian,
+From: Simeon Marijon <simeon.marijon@foss.st.com>
 
-On Wed, 2026-09-30 at 09:32 +0200, Stian Halseth wrote:
-> On Tue, 2026-09-29 at 15:27 -0700, Eric Biggers wrote:
-> > The new library APIs for AES encryption modes were wired up to the
-> > traditional crypto API via crypto/aes.c.=C2=A0 However, for now the ker=
-nel
-> > is
-> > still in a transitional state where various architectures still have
-> > architecture-optimized implementations of AES modes in
-> > arch/*/crypto/,
-> > wired up to the traditional crypto API only.=C2=A0 Because of that, the
-> > crypto/aes.c algorithms were given a cra_priority of only 110 to
-> > prevent
-> > them from overriding arch/*/crypto/ in the traditional crypto API.
-> >=20
-> > However, because of how the traditional crypto API works, the
-> > cra_priority trick doesn't work in cases where the relevant algorithm
-> > isn't directly implemented by arch/*/crypto/ but rather is provided
-> > by a
-> > template instance using other code in arch/*/crypto/.
-> >=20
-> > For example, x86 doesn't have its own "ccm(aes)" but rather relies on
-> > the "ccm" template constructing it from the x86-optimized "ctr(aes)".
-> > The existence of the library-based "ccm(aes)" prevents that, even
-> > though
-> > its priority is lower than what the template would produce.
-> >=20
-> > Thus, "ccm(aes)" ends up using the slower single-block AES code.
-> >=20
-> > Therefore, skip wiring up the relevant library-based code to the
-> > traditional crypto API on architectures where this problem can occur,
-> > as
-> > determined by what exists in arch/*/crypto/ for each architecture.
-> >=20
-> > This is ugly, but it's also temporary: these conditions will go away
-> > as
-> > architecture-optimized implementations of AES modes are migrated into
-> > the library.=C2=A0 But until then, we need to prevent performance
-> > regressions
-> > by ensuring that the optimized code continues to be used.
-> >=20
-> > Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using
-> > library")
-> > Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
-> > Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
-> > Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
-> > Closes: https://github.com/sparclinux/issues/issues/106
-> > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> > ---
-> >=20
-> > This patch is intended to taken through libcrypto-fixes
-> >=20
-> > v3: Also suppress xts(aes) on SPARC, and improved comments
-> > v2: Fixed PowerPC config option, and resent as standalone patch
-> >=20
-> >=20
-> Tested on a SPARC T7-1 (M7) on top of v7.3-rc5. xts(aes) resolves to
-> xts(ecb-aes-sparc64) again. cryptsetup benchmark aes-xts goes from
-> 152/147 MiB/s back to 429/404 (AES-128/AES-256), the 7.2 figures.
-> CRYPTO_SELFTESTS_FULL passes and XTS matches OpenSSL.
->=20
-> Tested-by: Stian Halseth stian@itx.no
+Adds the binding documentation for TAMP backup registers.
+The backup registers is a part of the TAMP device of STM32 MPU.
 
-Very nice! Do you know which SPARC CPUs support these instructions?
-
-Adrian
-
-> > =C2=A0crypto/aes.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++=
+Signed-off-by: Simeon Marijon <simeon.marijon@foss.st.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
-> > -
-> > =C2=A01 file changed, 47 insertions(+), 4 deletions(-)
-> >=20
-> > diff --git a/crypto/aes.c b/crypto/aes.c
-> > index 94791f481e98..51eee78396ea 100644
-> > --- a/crypto/aes.c
-> > +++ b/crypto/aes.c
-> > @@ -637,7 +637,18 @@ static struct skcipher_alg skcipher_algs[] =3D {
-> > =C2=A0		.decrypt =3D crypto_aes_cbc_decrypt,
-> > =C2=A0	},
-> > =C2=A0#endif
-> > -#if IS_ENABLED(CONFIG_CRYPTO_CTS)
-> > +	/*
-> > +	 * Don't register library-based "cts(cbc(aes))" on
-> > architectures where
-> > +	 * it might block a "better" implementation from being
-> > instantiated via
-> > +	 * the "cts" template.=C2=A0 These exclusions are temporary and
-> > will go away
-> > +	 * as the arch-optimized AES code is migrated into the
-> > library.
-> > +	 */
-> > +#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
-> > +	!(IS_ENABLED(CONFIG_ARM) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_ARM64) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_PPC) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_S390) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_SPARC))
-> > =C2=A0	{
-> > =C2=A0		.base.cra_name =3D "cts(cbc(aes))",
-> > =C2=A0		.base.cra_driver_name =3D "cts-cbc-aes-lib",
-> > @@ -687,7 +698,13 @@ static struct skcipher_alg skcipher_algs[] =3D {
-> > =C2=A0		.decrypt =3D crypto_aes_xctr_crypt,
-> > =C2=A0	},
-> > =C2=A0#endif
-> > -#if IS_ENABLED(CONFIG_CRYPTO_XTS)
-> > +	/*
-> > +	 * Don't register library-based "xts(aes)" on architectures
-> > where it
-> > +	 * might block a "better" implementation from being
-> > instantiated via the
-> > +	 * "xts" template.=C2=A0 This exclusion is temporary and will go
-> > away when
-> > +	 * the library AES-XTS is optimized for SPARC.
-> > +	 */
-> > +#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
-> > =C2=A0	{
-> > =C2=A0		.base.cra_name =3D "xts(aes)",
-> > =C2=A0		.base.cra_driver_name =3D "xts-aes-lib",
-> > @@ -980,7 +997,20 @@ static __maybe_unused int
-> > crypto_aes_ccm_decrypt(struct aead_request *req)
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static struct aead_alg aead_algs[] =3D {
-> > -#if IS_ENABLED(CONFIG_CRYPTO_GCM)
-> > +	/*
-> > +	 * Don't register library-based "gcm(aes)" and
-> > "rfc4106(gcm(aes))" on
-> > +	 * architectures where they might block a "better"
-> > implementation from
-> > +	 * being instantiated via the "gcm" and "rfc4106"
-> > templates.=C2=A0 These
-> > +	 * exclusions are temporary and will go away as the arch-
-> > optimized AES
-> > +	 * code is migrated into the library.
-> > +	 */
-> > +#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
-> > +	!(IS_ENABLED(CONFIG_ARM) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_ARM64) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_PPC) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_RISCV) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_S390) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_SPARC))
-> > =C2=A0	{
-> > =C2=A0		.base.cra_name =3D "gcm(aes)",
-> > =C2=A0		.base.cra_driver_name =3D "gcm-aes-lib",
-> > @@ -1012,7 +1042,20 @@ static struct aead_alg aead_algs[] =3D {
-> > =C2=A0		.chunksize =3D AES_BLOCK_SIZE,
-> > =C2=A0	},
-> > =C2=A0#endif /* CONFIG_CRYPTO_GCM */
-> > -#if IS_ENABLED(CONFIG_CRYPTO_CCM)
-> > +	/*
-> > +	 * Don't register library-based "ccm(aes)" on architectures
-> > where it
-> > +	 * might block a "better" implementation from being
-> > instantiated via the
-> > +	 * "ccm" template.=C2=A0 These exclusions are temporary and will
-> > go away as
-> > +	 * the arch-optimized AES code is migrated into the library.
-> > +	 */
-> > +#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
-> > +	!(IS_ENABLED(CONFIG_ARM) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_ARM64) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_PPC) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_RISCV) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_S390) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_SPARC) || \
-> > +	=C2=A0 IS_ENABLED(CONFIG_X86))
-> > =C2=A0	{
-> > =C2=A0		.base.cra_name =3D "ccm(aes)",
-> > =C2=A0		.base.cra_driver_name =3D "ccm-aes-lib",
-> >=20
-> > base-commit: 93f51579e7df248780214094418f205253383cc5
+ .../bindings/nvmem/st,stm32-tamp-nvram.yaml        | 57 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 +++
+ 2 files changed, 64 insertions(+)
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+diff --git a/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml b/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
+new file mode 100644
+index 000000000000..4af3b88db566
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/st,stm32-tamp-nvram.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 backup registers as NVMEM
++
++description: |
++  This represents STM32 backup registers area presented as nvmem cells.
++  This contains various information (e.g. boot mode passed to bootloaders).
++
++maintainers:
++  - Simeon Marijon <simeon.marijon@foss.st.com>
++  - Patrice Chotard <patrice.chotard@foss.st.com>
++
++allOf:
++  - $ref: nvmem.yaml#
++
++properties:
++  compatible:
++    enum:
++      - st,stm32mp15-tamp-nvram
++      - st,stm32mp25-tamp-nvram
++
++  reg:
++    description:
++      TAMP Registers bank location and size.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    nvram: nvram@5c00a100 {
++      reg = <0x5c00a100 0x80>;
++      compatible = "st,stm32mp15-tamp-nvram";
++
++      nvmem-layout {
++        compatible = "fixed-layout";
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        /* Data cells */
++        wakeup_sec: tamp-bkp@0 {
++            reg = <0x0 0x4>;
++        };
++        boot_mode: tamp-bkp@50 {
++            /*see boot mode selection feature*/
++            reg = <0x50 0x4>;
++        };
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..b634c037c229 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26261,6 +26261,13 @@ F:	Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
+ F:	Documentation/devicetree/bindings/dma/stm32/
+ F:	drivers/dma/stm32/
+ 
++STM32 TAMP DRIVERS
++M:	Simeon Marijon <simeon.marijon@foss.st.com>
++M:	Patrice Chotard <patrice.chotard@foss.st.com>
++L:	linux-stm32@st-md-mailman.stormreply.com (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
++
+ STM32 TIMER/LPTIMER DRIVERS
+ M:	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+ S:	Maintained
+
+-- 
+2.43.0
+
