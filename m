@@ -1,156 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752C048489F;
-	Wed, 30 Sep 2026 10:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579BF489899;
+	Wed, 30 Sep 2026 10:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764523; cv=none; b=IoIwnNta+m/qY1kxqtXYkAm/H1Qk8pZzl2R92l+y3wuRe2Ced6BUWqSywytQG1sB80MfH7FnUPBsk/GCmrRlFsOyScAwU8SVXY6mrFHGQHIMkYhjTejEp7dcuWnwrXV1CrPL/LXhBGmxiSi8vzc+m3xmSIwv4InnZruIgECtfm8=
+	t=1790764587; cv=none; b=W3JyD0IKo0b1v174Mq6gqLLWLchuGSI3z0wprSe/dHkPjcG2WFR0/R0dIEeu3E1I/V+G+FeWUEBUN+ECs60vgvqMe5Ki0OHEsiQmV6pQAjXHN7TVwZlzOa7pzGd9X3aG6RQAxUeqV0NtkcTVFpxbbjl/ZJeoXIvyNBxpMjJTsYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764523; c=relaxed/simple;
-	bh=hv0C92Rh1ksdG89sw30/t5qoFJ2gTwBipcVvty9eSFg=;
+	s=arc-20240116; t=1790764587; c=relaxed/simple;
+	bh=3OtIXL5oVq8AtCFy2KG/DlitJDAMuNKVop7LsnWuyAE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DuJnd75tboJODA1/E220mMfcNVF0DvJDcW/Lotu3l76UcBfzdNQhG8fbwqFTYLhGkgffS95NIB9Sf6NCNlgHX2H/JgkCplia717qsMbiK9Zg6tD+dFmgfSeT6DNby/dTbgWdwjsSCsfwbsx6Ru554SY3xWTtiY3AOaa9xGGn5mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S9PXmf+v; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=djjBPCBqQXYwjPSSHf0KYI6gdt55Cf/35BaNZjUOLAowMo2LqOm8yIK1INrlqcD1ONEeMSdC1PUw7J3wiah7HS15Ptq8VVMM++xEX5TcyxQvowioWGX3OMj4rdUFZXSLoyKMDvbNPAA6hDzbqXiBp+Ltvkkse6fQ+lpq5FrOmR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n03GEu4b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S9PXmf+v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790764519; x=1822300519;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hv0C92Rh1ksdG89sw30/t5qoFJ2gTwBipcVvty9eSFg=;
-  b=S9PXmf+vp9G/hXEjeqgfvgU0hZMP4m178kJHAjDGPJ/djKrdisHPINjV
-   bVMKqU1lXFi9nTYL9wgb5/DeFUpPK68bKWrvxVhCSrvB0YqlKP0WK/put
-   6M9O+etdrJsqkAXVrsYoKFMXsXvMS5ZKyqtaJwGVlttQbOe5hrOf11r5c
-   PHkIBAmMe6Thc+3rDTRSOI+5p0t6KlIY+8DthVNmCzVTQEx+knORmSa2+
-   dOWeXzpIatm5y+xHxz7c4XMVZJ7Wc4JGOL/iaZWY5s6uEB5ig5U1yKtRt
-   U2hxpEapGmZphbN8f/oP853FlsC4RJV3VbVCGGNTAOl5YttpPWZNzAXkB
-   Q==;
-X-CSE-ConnectionGUID: praScGxoSTiX7jd4/S1ecQ==
-X-CSE-MsgGUID: 84HyqWL6SVK9JNoQSuXbDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="91517107"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="91517107"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:35:18 -0700
-X-CSE-ConnectionGUID: zNPcY9sJTDSddwirHiwkPA==
-X-CSE-MsgGUID: yapkq3TbRJ+ofQAaztaWfw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="275697169"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:35:14 -0700
-Date: Wed, 30 Sep 2026 13:35:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v10 1/4] iio: pressure: dps310: read buffered samples
- from the hardware FIFO
-Message-ID: <arzl4DK8vhP0g8Hg@ashevche-desk.local>
-References: <20260930100158.957977-1-zoone.rupert@gmail.com>
- <20260930100158.957977-2-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n03GEu4b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90B81F000FF;
+	Wed, 30 Sep 2026 10:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790764586;
+	bh=5j0oeCmIiSAFwr9DL/KvkPyFQd1vbYiwHlWOIRKgumQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n03GEu4bOIgD2UGI/ubYv4FxvTAXp0uBEGM8XQl7E0SET+txuGqCVkbUUC1eWkn6J
+	 /UZfSCYsrS4/mIayFcVFnE/YhLHGaGNk+4/hBUWaH4+EMiesGQzp4ehJAlMlBV0e6y
+	 Y2WzNIDIjQyP1J/5ILOXeuFB4iofDm/DIgH7NW6SGf1nuLHzQAO8SImjXDHyVv/J5E
+	 Ax8UQ5mKS/mVsr1HCjyeV05kr9Gx0a+k8r3z6qRn/0BqchOeMTMn/q8hZAJJXkD+jQ
+	 ncauGOX/8/P0WOxIgf9HzZARkZq459NnEKU5S4qws359NDvcD4P2SHVF4jnjLRZUk0
+	 FNaDpdzNaalRQ==
+Date: Wed, 30 Sep 2026 12:36:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tim Kuo <Tim.Kuo@mediatek.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Steven Liu <Steven.Liu@mediatek.com>, 
+	Sky Huang <Skylake.Huang@mediatek.com>
+Subject: Re: [PATCH v2 1/2] spi: dt-bindings: add SPI IPM v59 compatible for
+ mt7987 and mt7989
+Message-ID: <20260930-enchanted-phenomenal-cassowary-80cdfb@quoll>
+References: <20260929062516.416368-1-Tim.Kuo@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260930100158.957977-2-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260929062516.416368-1-Tim.Kuo@mediatek.com>
 
-On Wed, Sep 30, 2026 at 01:01:55PM +0300, Rupesh Majhi wrote:
-> DPS310 has a 32-entry FIFO shared by both measurements. Drain it from a
-> work item and push what it held, so buffered capture needs no trigger.
-> Nothing in tree wires the interrupt pin, so the work rearms itself at
-> half the FIFO fill time.
+On Tue, Sep 29, 2026 at 02:25:15PM +0800, Tim Kuo wrote:
+> MTK mt7987 and mt7989 SPI hardware has been updated to IPM v59 SPI IP and
+> it differs from earlier IPM designs, most visibly in the tick delay field
+> of SPI_CMD_REG, so it needs its own fallback compatible rather than reusing
+> "mediatek,spi-ipm".
 > 
-> Each entry carries one measurement, so a pressure entry is compensated
-> with the temperature ahead of it. Pressure read before a session's first
-> temperature is held until one arrives rather than dropped, so the first
-> push can wait a temperature period.
+> Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
+> ---
+> v2: Add mt7987 and mt7989 real device compatible
 > 
-> FIFO entries are not timestamped, so postenable refuses the timestamp
-> channel unless a trigger is attached.
+>  .../devicetree/bindings/spi/mediatek,spi-mt65xx.yaml         | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> Tested on a DPS310 on a BeagleBone Black.
+> diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> index 3bf3eb1f8728..d2c740572d85 100644
+> --- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> +++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> @@ -39,6 +39,11 @@ properties:
+>                - mediatek,mt7988-spi-single
+>                - mediatek,mt8188-spi-ipm
+>            - const: mediatek,spi-ipm
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt7987-spi
+> +              - mediatek,mt7989-spi
+> +          - const: mediatek,spi-ipm-v59
 
-...
+No, look at the binding and recent commits. This should be a specific
+compatible. Git history easily tells you that.
 
-> +/* The drain rearms itself, so stop it even if the buffer never disabled */
-> +static void dps310_cancel_fifo_work(void *action_data)
-> +{
-> +	struct dps310_data *data = action_data;
-> +
-> +	cancel_delayed_work_sync(&data->fifo_work);
-> +}
-
-...
-
->  	mutex_init(&data->lock);
-
-This has to be devm_mutex_init().
-
-...
-
-> +	INIT_DELAYED_WORK(&data->fifo_work, dps310_fifo_work);
-
-Can't we use devm-helpers.h for this?
-
-...
-
-> +	/*
-> +	 * Both modes advertised: the core picks TRIGGERED with a trigger
-> +	 * attached and falls back to SOFTWARE, which the FIFO path uses.
-> +	 */
-> +	iio->modes = INDIO_DIRECT_MODE | INDIO_BUFFER_TRIGGERED |
-> +		     INDIO_BUFFER_SOFTWARE;
-
-I would rearrange this as
-
-	iio->modes = INDIO_BUFFER_TRIGGERED | INDIO_BUFFER_SOFTWARE |
-		     INDIO_DIRECT_MODE;
-
-...
-
->  	/*
-> -	 * The device measures continuously in background mode, so a capture is
-> -	 * just a read of the latest results. The trigger is not aligned with
-> -	 * the measurements, so the timestamp is taken in the handler.
-> +	 * The device measures continuously in background mode, so a triggered
-> +	 * capture is just a read of the latest results. The setup ops run the
-> +	 * FIFO drain when no trigger is attached. The trigger is not aligned
-> +	 * with the measurements, so the timestamp is taken in the handler.
->  	 */
->  	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
-> -					     dps310_trigger_handler, NULL);
-> +					     dps310_trigger_handler,
-> +					     &dps310_buffer_setup_ops);
-> +	if (rc)
-> +		return rc;
-
-> +	rc = devm_add_action_or_reset(dev, dps310_cancel_fifo_work, data);
->  	if (rc)
->  		return rc;
-
-Are you sure it's in the correct location?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
