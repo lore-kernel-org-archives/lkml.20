@@ -1,203 +1,249 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013010.outbound.protection.outlook.com [40.107.201.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709E84EBAFA
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791909; cv=none; b=MUkVDnEEckUireJm7xCPExul6/5VNMjV36So6vPVlp1NkYHe6Pm7oZQZhucxtgr5LA8UdGpl9HKU2f0nr9gJsmExOfH6UeslwfvVD7Y6cJVxXKDpkP/V7f+4+MVHpb+siYQ2Se1QHe/Z31hfOL/lEzf/XIHfipGxx0F8J2ARwAU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791909; c=relaxed/simple;
-	bh=vBfffu2N+qCjfpDNWT1R18S0aAVC69XPWcwFQReNaKg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CWAejFWqw7jr4swdG6oCY89hpWvBDHXb/+fVrty8QOB+zS76YDp2t/42NlQsThueoUIWUeFeiAztO/R1JXtlE6PGRjkUCQSuqZdK20gIs/PFWwCPfUX6PYZkPlSyPoA6lFg1z1SJsgYXNQ+0Xf9bl2VsN1iTZgzefETFyGEPdug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Erf3kca7; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1002D9484
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790791950; cv=fail; b=oEtuw2fjRSa1e8nNoJIJTsxUaf56GQ+eCGNW3Tgd9tLPPkxdKQnBUJCzBWqfGJPfjhKFiNywzxQ5620xWJjc1tZyFILRvAyVM6FHW/b6WgPZuP13ehtwnPB57UNEric3xqZfsgJTMr5MGT2NpuRqyVzG6spju/FoHesmQM62qzg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790791950; c=relaxed/simple;
+	bh=SsNh2xiQ8Y3/CBklSOm8dmLphqaHkeECk42/Q4pyvLM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SKeJucqOyZLvmtk3rb8QP54tjx3iSik8/Of/Aifi/Xcwl1RyJrlRi7gL/bPPv0z8LX9TzX7CxT6eYne7thw277ESx2iqhzZa6bF2Rbcn3lyJ0p60yLSRTB+5aquECMYDdhZZlAgpY+w60TKwIAYidTPOOFzXk55CPEREBoQGJWE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DDe2ahDR; arc=fail smtp.client-ip=40.107.201.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Erf3kca7"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso815229eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:11:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790791907; x=1791396707; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EAPuBetQryTJeSCPbNmynycqrn97QO2HO3B06oG4fF4=;
-        b=Erf3kca7V79BngSvAsr1xOF/RP6ENHw0su+ngq3tTwkgZNo3bwCKWGYrN8GFScNgmb
-         ke5kuALc3HWb77TQFqI29JSp/0Q9qvIQdaGs1+vMjVB/K+ZjAXCkdiUphFaWJoPufEcy
-         nHHwb1n8P0c/cS0PJHXTE/ZcN349qVfFMv07QNa/XiJNxQ4YQ8Ied+/Dpe4dR5FNhiry
-         hVxvtMZbx8TDbHBaVAfn+noxen2i/VDhjdFFckNuUYVmN6lNs6A3nbbOVZP8wuE+UV2o
-         Akhh3ECv2Bf+WyfkhOf1U9t3LLh/N7Jw/dbmHD1EeciPl98TQo4GUYGBzNYDIkq/SFEK
-         kr0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790791907; x=1791396707;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EAPuBetQryTJeSCPbNmynycqrn97QO2HO3B06oG4fF4=;
-        b=xRiBbwpIRDivaRbl1WnETBRI8rgaC+iIoOwgSjQ5/O+tQt8D4tgN4pCdaAk5KaBuNT
-         q2tK40vTceEF29a3rIInVLSCv5C0ZMvMWyNsWmLqf+D01UiZssGJHXtWdFC7WOdyQzsm
-         kwqM8XuG/pJhfMUJLbUoumeEZCgNMMqaKoHk53SpqWYL9UJoE26bavzOHSWSjcNqOFYl
-         JTnrmSbyf9lUFBXspjaltEHE+3MEMfBJXPzKh8xOynuQQzGAjOaQ+d4/76obnkiIESpR
-         ZNF9nEtnXWQ6c8r4orEWUTfDAqFJY2XYwyFZX1txvJIeUGzml9XBRz4EwWIhcBW+R+qD
-         V7Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBygkpcgsya2BymhgJMuVirCud3Wcy+LqY5zWZ6FciMBoelvzy+Zjcdrx54SyB8PQX6WBu5rXy+zOanuOo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFEOKTcFTNa8BwIrFS8qMiA0dOwQIDZgGrfYQy8qJ0E22ATqZF
-	mYWHM7zTzgE9JSkjwqefbkyngzsRRk9bpKF6iIJ2cPu1mDvwOO0GWzGe
-X-Gm-Gg: AYBFou3yBx9H7/hQI1X+5lQLFJdeY+CiIAYNm3zqva1yFAJLkujDT8YmGLmt1BKJg91
-	Z4rfUX8LibXcrnHIfdDuX4KS3u2Zb2c62jHJiRnV6GXGchyfuzpcWcVx8+MG6wOL0WHtKnTn2o5
-	Ap3H49U+DZpLLnl8oge5wbZP6Pyw+qVG/t7uU9PTZyqxEznIkIG/rzIvAkY1tCzPdQJbK7nj+9V
-	SVRIRvzkpXuiJvVsquBkPzZrpB+UsV7N02W+KoWYxYm9Y1sv/o1BPbwBckJjjEqMV9zJXbosv+0
-	OuHUsGP9jtHYan7TJxvWShppzcy343S97RaO1cT8csT/v7+MbYWlXYyfguyH2TRNM25avUiGQlo
-	6ktPkPiUMR4liwMs40s1CLv5Pr2f1Julq+fM5osi8sWxO0jVGif5xDxiWoClzUVEN5TkHZJb6fk
-	AnqbEWrr45nVrXnZvHVdrYpDmN37ndeWnUuxMccDqxM079nTFLupdP7yK8/u9K+2lkUYsYBRjvh
-	SRH5lxj5A2ycd94NWyVe8u4JmrC5Pslz9Nu6Yx4C4ACELE3Y2umM7Fx++bPcT9CCashpA==
-X-Received: by 2002:a05:701b:42c1:20b0:149:c766:2965 with SMTP id a92af1059eb24-14d32ec2b8dmr3393246c88.2.1790791906401;
-        Wed, 30 Sep 2026 11:11:46 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df34a8385sm36083c88.6.2026.09.30.11.11.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:11:45 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Antoine Tenart <atenart@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net-sysfs: release queue trackers before allowing reuse
-Date: Thu,  1 Oct 2026 02:11:06 +0800
-Message-ID: <20260930181106.271547-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DDe2ahDR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wt050UO68/gnObmRp0lKIjMrFTFugswaOczqNP9HhZZ6R6xdb9vZ/4huCAOdvhjTZTOkMHZ2siK2XkhF3iUZ7SdKzyL7XgGIMPm7scHUzkba6Get32JP8jOojyo1YP7HFjjY1OaX8QurSj1XimvlZcW5ytJVmjEIxQ4RPQhvcin8SRqJW9xJTeGcpWqWkRLtbmpRHASdOL7zJEEbIb8oJZH8hM/1zNlfjJyoy+iGMKxt4Y0GYuTPDYeuWpLmkvx4uNl8yoNc7/K/wgo5EXkne4M+l9rxkqNvK5uDKHhHC6v0XFEuwlvau+7Y7ypQuNQb0GnKADjEQcCxnG0BjsNLmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MlVNtksnZMNArGISGJluDS8pd/34+GDyaZ64wnMYQmQ=;
+ b=iY/R5TABeiw5wDF/ILP7ezavocuQdL4RKN13L8/u2CaZfNY4Iwzo39JbNPuHbIbmX89QgSftrbh8fSDUhhK28wqZGNJDFrYMa8vWsdMsrVqo6r/kFfw80wYLilI2a1KQ1sOIDDFF+d1pZJ9d2VXZrgqOZnr9oGXiO6UMQ7qOHY7ZSC3ZWeAOOIyx4nMfD1uTlGUPx4TTSpH7wOOXSea8sfqUhIoxZdUxX8NmnqoEpi+ZAzNiXZtF5ykDw99u1wdcUGAVYAypMb4kcs3ilUNmVY5MJASZyIswABLSTwBHxMC3DSIk2E0PQy+eFRXJjDmfUZxuI37K9QSk55PaKauHYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MlVNtksnZMNArGISGJluDS8pd/34+GDyaZ64wnMYQmQ=;
+ b=DDe2ahDRuh/aWnAPVhoYefHVM8hj8/HoO+SAwVAlU9AL76hRA+8t1Cu8FusGmW3au2MplpC60VqvbZ2nqvETVECufOC1Fqntt/46+FgU5OqPyGEEU85L81i1YpIVykBu8Nq8WZd2WfdjZPYEoQTRVmTW4z6FNE/2xqTjs7mFBGy0jvd+2gXkPx/wyPYoAEZE+qcHZmxkSddAyT5aJ83y8SVouw41xHXLDyyF2Pr19kF2GrfeRQF3sHtmqNGDe6bSY1JLwN+J5hND04XI0h6JhXUbs+faXqGCl0gkAXpCq41Zx00c055iHwFH/wParYEt0498sn53k8IwafskakasWA==
+Received: from CH2PR19CA0001.namprd19.prod.outlook.com (2603:10b6:610:4d::11)
+ by IA1PR12MB8357.namprd12.prod.outlook.com (2603:10b6:208:3ff::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
+ 2026 18:12:24 +0000
+Received: from CH3PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:610:4d:cafe::66) by CH2PR19CA0001.outlook.office365.com
+ (2603:10b6:610:4d::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 18:12:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 18:12:24 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 11:11:56 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 11:11:56 -0700
+Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 11:11:54 -0700
+Date: Wed, 30 Sep 2026 11:11:51 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v3 1/3] iommu/arm-smmu-v3: Support shared SIDs in
+ insert/remove_master
+Message-ID: <ar1Q5y/xoa+Fcex7@nvidia.com>
+References: <20260930-smmu-shared-sid-v3-0-8abe6c1b4c20@nxp.com>
+ <20260930-smmu-shared-sid-v3-1-8abe6c1b4c20@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260930-smmu-shared-sid-v3-1-8abe6c1b4c20@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|IA1PR12MB8357:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d3355d9-241c-4d3d-891c-08df1f1e60b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|20046099003|22082099003|18002099003|13003099007|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	aeyoFC8LSfb2vB38aEDOac5dzJUU8yM+nPgJBiQZdqq4GmYVllbNhUO60wZpSNPNc3nNvBkEr1R72DhdPqeBi9fY5bJHkpDLZXJB0tFEOeW1/uPlaFH18B+FhC1uYkAZPlvS/hqB2HZGT0feu7BVjizt/z2ful5aX309Z8mz/8cYqqFK5+D+d1OTGfC+M17ZeYOijk+6jSASyS0irF9p+JlXsR+kAmsgoFNGFgSzEgnC2CuxlOLDK19cBd2BPh8Js5hBigA8n89ERha/0gnzaVO2c5hIGr+16ScrbcjsCSKQW928AGJyJoEaPIOLXYHcH2Fmr5cDbrAo/U+CaPUFe3/Rlfk4KLZI2FSUL1zMo/owdJuLhVFozK9KshvEkkINcOIM/iIKi6E/6gowoNpm1NfBJkH7fGC+++CLbBN9oV0bqTin9aKWXIAeCAkzoZsjGsr3KpfPmqF3xmxh0mXDGgEh99zYuUWupbwI8MpXqlOG0TriV5GF+64jCdFnzT8CBuI+mvfBNtFBRy36IHWPiIpdfR+Qr7fHsQOLw4RzmCqh+9PAQk3zakPme8FyXn7QH9zQHg3w4Rpix23907L7Ew5a/xzoYAm6OvztNPD08X+Mz2vDF27qrsiwjO4UKqdFbp96wCoKgBu5m4dVXRYNhiHCWT9D2QWOMohpXboc49EIPqfLqQUpmp0RYgtU+wdLg97l8+HSBgN3s0iKH/EVmQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(20046099003)(22082099003)(18002099003)(13003099007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Zk4Trw0nlEichuXutExvHrHqogIA160jyyfVRj+kfVW51xRRsAQPn5ZrukT6OyOELhR5Ag4/Is/YTDBRWxhiO+PiaAEpCRGmvN+dsb0bmyDvyvYLShq5Jpfr3YOhg8VNg9xrwPCjT6HMUTBoacmidMq1J7yGMyNMHFELc7BgYyDXsUJycnGS4nTAlGkyi1ZYO0bFZJKswWNj5IZmtooacJM0fzUhAfxJ2wyBrnfsw1eGiLTeoArpBJCmL6v78/4pxXbhCb6nwm1ByWCofrALTuU23vGZkiF0OH0YWEXUCCQUXm3dP14yyAq8NE3cx3um6IeLhAsbnoOdgxFnQJlXz6qVQLCM3N6nnxW5aRwEI75PIycRXXypjKhw/Li0HbZkxWngXDBEvK7FD+Wqkmles1qtmV1kxNj6eBvZVh1WfXwCVkM1kxXbo+X3jqO0Q16R
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:12:24.0236
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d3355d9-241c-4d3d-891c-08df1f1e60b5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8357
 
-An interrupted sysfs_rtnl_lock() can drop the last kobject reference to a
-removed TX queue without holding RTNL. netdev_queue_release() clears the
-kobject before releasing queue->dev_tracker, allowing the queue to be
-re-added while the old release still needs the shared tracker slot:
+On Wed, Sep 30, 2026 at 07:25:01PM +0800, Peng Fan (OSS) wrote:
+> @@ -4115,7 +4128,10 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>  
+>  		new_stream->id = fwspec->ids[i];
+>  		new_stream->master = master;
+> +		new_stream->ste_installed = false;
 
-  CPU 0                               CPU 1
-  netdev_queue_release()
-    memset(kobj, 0, sizeof(*kobj))
-                                      netdev_queue_add_kobject()
-                                        state_initialized is clear
-                                        netdev_hold() installs new tracker
-    netdev_put() releases the new tracker
+ste_installed is zero-ed.
 
-With CONFIG_NET_DEV_REFCNT_TRACKER enabled, the old tracker is leaked and
-the new lifetime's tracker is released prematurely. A later queue release
-then reports a double release. The numeric device references remain
-balanced.
+> @@ -4136,23 +4152,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>  		existing = rb_find_add(&new_stream->node, &smmu->streams,
+>  				       arm_smmu_streams_cmp_node);
+>  		if (existing) {
+> -			struct arm_smmu_master *existing_master =
+> -				rb_entry(existing, struct arm_smmu_stream, node)
+> -					->master;
+> +			struct arm_smmu_stream *existing_stream =
+> +				rb_entry(existing, struct arm_smmu_stream, node);
+>  
+>  			/* Bridged PCI devices may end up with duplicated IDs */
+> -			if (existing_master == master)
+> +			if (existing_stream->master == master)
+>  				continue;
+>  
+> -			dev_warn(master->dev,
+> -				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
+> -				 sid, dev_name(existing_master->dev));
+> -			ret = -ENODEV;
+> -			break;
+> +			if (master->num_streams != 1) {
+> +				dev_warn(master->dev,
+> +					 "Shared StreamID 0x%x not supported for multi-SID masters\n",
+> +					 sid);
+> +				ret = -ENODEV;
+> +				break;
+> +			}
+> +
+> +			list_add_tail(&master->shared_masters_elm,
+> +				      &existing_stream->shared_masters);
 
-The kernel reported:
+This version still uses the duplicated stream structures, not the
+shared stream structure that I pointed out here:
+https://lore.kernel.org/linux-iommu/arG6hmng3NddGEHm@nvidia.com/
+?
 
-  ref_tracker: reference already released.
-  ref_tracker: allocated in:
-   netdev_queue_update_kobjects+0x23d/0x5c0
-   netif_set_real_num_tx_queues+0x111/0x820
-   veth_set_channels+0x327/0x930
-   ethtool_set_channels+0x3ee/0x490
-  ref_tracker: freed in:
-   netdev_queue_release+0xbd/0x130
-   kobject_put+0x1f9/0x280
-   sysfs_rtnl_lock+0x18b/0x1f0
-   xps_rxqs_show+0xad/0x250
-  WARNING: lib/ref_tracker.c:322 at ref_tracker_free+0x49e/0x6d0
-  Call Trace:
-   netdev_queue_release+0xbd/0x130
-   kobject_put+0x1f9/0x280
-   netdev_queue_update_kobjects+0x3f9/0x5c0
-   netif_set_real_num_tx_queues+0x111/0x820
-   veth_set_channels+0x327/0x930
-   ethtool_set_channels+0x3ee/0x490
+This will have problems.
 
-RX queues have the same ordering. Their removal and re-addition are
-normally serialized by RTNL, but CONFIG_DEBUG_KOBJECT_RELEASE can defer the
-release callback to workqueue context and expose the same reuse window.
+  master_b->stream[0] --> new shared stream (SID=X) {shared_masters}
+           |
+           ---------------- shared_masters_elm ----------|
+                                                         v
+  master_a->stream[0] --> existing stream (SID=X) {shared_masters}
+           |
+           ---------------- shared_masters_elm -----> {NULL}
 
-Release each tracker before clearing its kobject. Pair full memory barriers
-on the release and add sides so that an add which observes
-state_initialized clear cannot install a new tracker before the old release
-has finished accessing the shared tracker slot. Keep the numeric device
-reference until after the reset so that the queue storage remains alive
-throughout the callback's accesses.
+First, the owner (master_a) doesn't add its shared_masters_elm to
+any shared_masters list. This would fail the test on the owner:
+    !list_empty(&master->shared_masters_elm)
 
-Fixes: b0b6fcfa6ad8 ("net-sysfs: remove rtnl_trylock from queue attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Add an explicit full memory barrier in the TX add path, paired with the
-  release-side barrier.
-- Apply the same tracker ordering and barrier pair to RX queues, whose
-  release callback may be delayed with CONFIG_DEBUG_KOBJECT_RELEASE.
-- Clarify the paired barrier comments.
+Then, ...
 
-Link: https://lore.kernel.org/r/20260926173315.2452612-1-nicoyip.dev@gmail.com/ [v1]
+> @@ -4167,14 +4189,38 @@ static void arm_smmu_remove_master(struct arm_smmu_master *master)
+>  {
+>  	int i;
+>  	struct arm_smmu_device *smmu = master->smmu;
+> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
+>  
+>  	if (!smmu || !master->streams)
+>  		return;
+>  
+>  	mutex_lock(&smmu->streams_mutex);
+> -	for (i = 0; i < fwspec->num_ids; i++)
+> -		rb_erase(&master->streams[i].node, &smmu->streams);
+> +	list_del_init(&master->shared_masters_elm);
+> +	for (i = 0; i < master->num_streams; i++) {
+> +		u32 sid = master->streams[i].id;
+> +		struct arm_smmu_stream *stream;
+> +
+> +		if (i > 0 && master->streams[i - 1].id == sid)
+> +			continue;
+> +
+> +		stream = arm_smmu_find_stream(smmu, sid);
+> +		if (!stream)
+> +			continue;
+> +
+> +		if (stream->master != master)
+> +			continue;
+> +
+> +		if (list_empty(&stream->shared_masters)) {
+> +			rb_erase(&stream->node, &smmu->streams);
+> +		} else {
+> +			struct arm_smmu_master *next;
+> +
+> +			next = list_first_entry(&stream->shared_masters,
+> +					struct arm_smmu_master,
+> +					shared_masters_elm);
+> +			list_del_init(&next->shared_masters_elm);
+> +			stream->master = next;
+> +		}
+> +	}
+>  	mutex_unlock(&smmu->streams_mutex);
+>  
+>  	kfree(master->streams);
 
- net/core/net-sysfs.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+.. when the owner stream gets freed with the master_a, the shared
+stream would UAF:
 
-diff --git a/net/core/net-sysfs.c b/net/core/net-sysfs.c
-index 352173df7578..2af972f5d3c3 100644
---- a/net/core/net-sysfs.c
-+++ b/net/core/net-sysfs.c
-@@ -1156,8 +1156,11 @@ static void rx_queue_release(struct kobject *kobj)
- 		kvfree_rcu_mightsleep(rps_tag_to_table(tag_ptr));
- #endif
- 
-+	netdev_tracker_free(queue->dev, &queue->dev_tracker);
-+	/* Pairs with the smp_mb() in rx_queue_add_kobject(). */
-+	smp_mb();
- 	memset(kobj, 0, sizeof(*kobj));
--	netdev_put(queue->dev, &queue->dev_tracker);
-+	__dev_put(queue->dev);
- }
- 
- static const struct ns_common *rx_queue_namespace(const struct kobject *kobj)
-@@ -1230,6 +1233,9 @@ static int rx_queue_add_kobject(struct net_device *dev, int index)
- 		return -EAGAIN;
- 	}
- 
-+	/* Pairs with the smp_mb() in rx_queue_release(). */
-+	smp_mb();
-+
- 	/* Kobject_put later will trigger rx_queue_release call which
- 	 * decreases dev refcount: Take that reference here
- 	 */
-@@ -1906,8 +1912,11 @@ static void netdev_queue_release(struct kobject *kobj)
- {
- 	struct netdev_queue *queue = to_netdev_queue(kobj);
- 
-+	netdev_tracker_free(queue->dev, &queue->dev_tracker);
-+	/* Pairs with the smp_mb() in netdev_queue_add_kobject(). */
-+	smp_mb();
- 	memset(kobj, 0, sizeof(*kobj));
--	netdev_put(queue->dev, &queue->dev_tracker);
-+	__dev_put(queue->dev);
- }
- 
- static const struct ns_common *netdev_queue_namespace(const struct kobject *kobj)
-@@ -1967,6 +1976,9 @@ static int netdev_queue_add_kobject(struct net_device *dev, int index)
- 		return -EAGAIN;
- 	}
- 
-+	/* Pairs with the smp_mb() in netdev_queue_release(). */
-+	smp_mb();
-+
- 	/* Kobject_put later will trigger netdev_queue_release call
- 	 * which decreases dev refcount: Take that reference here
- 	 */
--- 
-2.43.0
+  master_b->stream[0] --> new shared stream (SID=X) {shared_masters}
+           |
+           ---------------- shared_masters_elm ----------|
+                                                         v
+                                                      {freed}
+
+This should be changed to the model that I suggested in v2:
+
+      |---------------------------------------------------------|
+      |                                                         |
+      |     |----------- shared_masters_elm --------|           |
+      v     |                                       |           |
+  master_a->stream[0] --|                           v           |
+                        |--> stream (SID=X) {shared_masters; master;}
+  master_b->stream[0] --|                           ^
+            |                                       |
+            |----------- shared_masters_elm --------|
+
+When any master is removed:
+ * Delink its shared_masters_elm
+ * Free the shared stream when its shared_masters is empty
+
+If shared_masters isn't empty but the owner is removed:
+ * Give the ownership (stream->master pointer) to the next master
+
+Nicolin
