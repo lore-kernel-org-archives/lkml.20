@@ -1,99 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB8946EF77
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:07:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74D3328610;
+	Wed, 30 Sep 2026 11:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766434; cv=none; b=iN4BbvBbFXtQ5AucrHH2hbp0l6ppx17kH4+9SR78Gy9ppgwjWJmfSvDbNnwrBsLLkwPGnuad2hONzjchyyn0EsOQ4VMNMHp+oH/iSzLRmwQlhQHJNfxLEcsN5WfpCw5usvO5zlnaqfi1irIO91NadonaAICcknNti6Eq/0i9Ig0=
+	t=1790766468; cv=none; b=af8Bc9kmuMx9F6N5quGVaab5YZ6xs5wdlyBAhRBeMwkoVYNiTS6LljhMmZmgXvmlpboTVzSp8UwPEW9tbMKbHJXnBCXPCV/gLEc8gHsuz239LMeH7Fee7Nl+pqhZRuexkKN2+seiK7ico1BqPRp8/rovnbwenP+Mxj+mniJXOV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766434; c=relaxed/simple;
-	bh=UOnsyAg/MuVmzfBYv2/LKdmOuEFogRMiJr3Cob/q6Os=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t3ebkPnOODmOyWWpoE5y+c1Cl9Bw5AZVPet/BeMH2z0uPw9I9xJkzMIe+FCWHMsMzrgBkwSBxN67Jjds7l+YlB/50cFk0o38hPrJgwd8yfx5TVweGMu4Y8yp85RBOhEyJmzmpAvCRkTxy45vK0sAojdUG9Qc9pRUPrwrTdWPSZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRRvhw3/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790766468; c=relaxed/simple;
+	bh=PBmWym/gi9GWabyqOvL9JYC1c00FBUIO+rT65p11xSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iDPvY90h/glU242Y5/7TrVY3VYdPeMYy+1SqDylVLfNGR1LOe8k+WGDv6T4F9YLWIohQvm4g+FC+MA6QmkCBMwwcr0DUMdhNG6B/9gRyP3nwvVBKTCVnYCuSL8ri1+oJlP0pQFOsZx4aZTOsI0sbFNi6vtBRHlPr+wFkWl4xglY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYLkO+is; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRRvhw3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A8B1F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYLkO+is"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5757A1F000FF;
+	Wed, 30 Sep 2026 11:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790766431;
-	bh=UOnsyAg/MuVmzfBYv2/LKdmOuEFogRMiJr3Cob/q6Os=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VRRvhw3/VTpR7LMyKSdM0CBwFJrTjIPGSNJuW2ZsyN2y6jfZiUqVSx7NY0mTHJpWO
-	 5nPOfjl3EytXUQS1201G+zlOZZi9HuEZ4lif+ubYKdPmGeZygl8NN3ITboKG2g/FZy
-	 Yyi9VC5wSdxHgTo6mqlNqIWZqEYI1+XOL4lSPqSTbC9aw5m7KdRV6s2HDSqYj7kFx+
-	 NVAshSRHgluW+LPHXhHkfQ0quBh97dT89GiAAXfhGdJXXWSWdQkl52DtV6S6jGcocf
-	 2kWA8UivmFxuPg8bicg+Bf+WBy9ga4ZmToaCqjq7NoTGhmG+bY9L5V9YO1A7w7TJ2K
-	 TMJ7ahvhigUZg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba390408cdso1261076e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:07:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx1m9e4u+N7L9wui3Bczh8c8r7vFaOMTPv2hXJ+Tq09bpL2OP6G0qZalZlfe5JPBjxa1FCs3ezYixfs7YY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJduMlDYCgddGULCdRd5d3oDjSjSkyYT+WLWZWUE2aS8ZmLVLwM
-	ZrCtkQzr919NH+lDJivtqxInDNtkVD2wCxjCUS/k4NZ7FhlWi0zcHToAsndZJQgcnhc8KngKZLw
-	GWk6EJVC750E39FYeiWbBpxf0/KMhz7g=
-X-Received: by 2002:a05:6512:39c6:b0:5b8:e83b:2e1b with SMTP id
- 2adb3069b0e04-5ba402ccbc7mr530988e87.4.1790766429870; Wed, 30 Sep 2026
- 04:07:09 -0700 (PDT)
+	s=k20260515; t=1790766467;
+	bh=PBmWym/gi9GWabyqOvL9JYC1c00FBUIO+rT65p11xSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nYLkO+isoS2z/prm2bYucFquR9LvaRl4tEtzJsZ0I2dYtjYKwL6d9OtrtRHlMRoSy
+	 yFsRP01BJjBqN+l2xh9XCIYrpITGvj/sAocd8kKhLoNjPs963aZx+1cYkH1Hzv/ojC
+	 Z3t9rSgqnjKCTsx4p3pHrHLjQxOVAg36lOU1SEU9Lr0Btrh6FlbUQdJc5Cba6SI+Kh
+	 0vSGB79OQvSIRik/o+T6V5wPHXFL0E9SmC5hRCXxYrBAVlYHTJ4INgox8AhCSpaRrO
+	 RYoAhIT+EoE591x03gVth17J1FDfsRjJ35RsyGqwITFaKFyW/TSAJWFh2v3zkpGPma
+	 y0j/coXD1BvRQ==
+Date: Wed, 30 Sep 2026 12:07:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+Subject: Re: [RFC PATCH v2] sound: airoha: add support for AN7581 PCM driver
+Message-ID: <0bc0de0f-6b98-4ded-9dac-3c95667e4448@sirena.org.uk>
+References: <20260930070717.47487-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com> <179076583798.3054629.14422335928572048671@gmail.com>
-In-Reply-To: <179076583798.3054629.14422335928572048671@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 13:06:58 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnVh4Uqc4eWr0t+Ut9EmNrbxkV9Qa6xJL0TuLAxM1ajCA@mail.gmail.com>
-X-Gm-Features: AclHuK-or11HqloWUen4cBXQxiec-MiIiyBRze0xNfafpZukVzYlj54OfVdkbzM
-Message-ID: <CAD++jLnVh4Uqc4eWr0t+Ut9EmNrbxkV9Qa6xJL0TuLAxM1ajCA@mail.gmail.com>
-Subject: Re: [PATCH RFC 00/10] ARM: Add support for Cortina Systems CS75xx and
- Securifi Almond+
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Lp+r8yxZL208g7r8"
+Content-Disposition: inline
+In-Reply-To: <20260930070717.47487-1-ansuelsmth@gmail.com>
+X-Cookie: (null cookie
 
-On Wed, Sep 30, 2026 at 12:57=E2=80=AFPM Fil Dunsky <filipp.dunsky@gmail.co=
-m> wrote:
-> On Wed, Sep 30, 2026 at 12:39 PM Linus Walleij <linusw@kernel.org> wrote:
 
-> > Is this OpenWrt fork public?
->
-> Yes, it is under review in OpenWrt:
-> https://github.com/openwrt/openwrt/pull/25033
-> The sources are in target/linux/cortina/files/, the Ethernet part in
-> drivers/net/ethernet/cortina/cs752x_ne.c (plus cs752x_fe.c,
-> cs752x_sch_tm.c and drivers/net/mdio/mdio-cs75xx.c).
->
-> > Actually what I'm most curious about is the packet engine, which may or
-> > may not be related to drivers/net/ethernet/cortina/*
->
-> As far as I can tell it is not derived from the Gemini GMAC/TOE: the
-> vendor driver has no StorLink or Gemini references, and the engine is
-> split into a network interface (NI) with per-port MACs, a DMA/LSO
-> block, a queue manager with its buffers in the top 64 MiB of DRAM, a
-> traffic manager/scheduler and a forwarding engine with packet buffers
-> in on-chip XRAM, which does not map onto the gemini.c register layout.
-> I have not compared the descriptor formats in detail though. The
-> OpenWrt driver only uses the NI/DMA path, all forwarding in software.
+--Lp+r8yxZL208g7r8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-OK once this is merged post the network engine under
-drivers/net/ethernet/cortina/* and I will help out to review it and
-get it merged.
+On Wed, Sep 30, 2026 at 09:07:15AM +0200, Christian Marangi wrote:
+> The Airoha AN7581 SoC have alternative Sound Card that expose PCM OPs
+> dedicated for VoIP application.
 
-I agree it's a good idea to merge this upstream first to offburden
-OpenWrt, that was the approach taken for Gemini and IXP4xx
-and those are extremely lightweight for OpenWrt to maintain
-since then.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Yours,
-Linus Walleij
+--Lp+r8yxZL208g7r8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq87X4ACgkQJNaLcl1U
+h9DUqgf/UltVyhZ4Zze8hpd5+BC955h8rJ4fM6qYIL/cdV8OCNl9rBBdjpSRdryc
+89clEktrX4gCeqSJNnSmK7iJhFWxZIAJN0exSiLsYUajuFb4i2rOma8qEOGuF5Hb
+/fYhzfeRC8fRHsByaHlONtlyOzp00EKTUlvfoRft0PelM2TNKxl1Qm5EL/ueOoxY
+WykzMat4DalkHy2xtQw6OijcGjh6MsleYqXW9HEv2T7hJrAxlAnNtD7nWNNA7dTt
+eLq6cpZx2ZiwMpuFBOhVkpu9pT7SNj2/kTaTRedmawfwjAYw7oF6tt0DBRPFm3Bv
+1zspoxh7z/F8/4a9Tsdsjx/rGgvy4Q==
+=ZRo5
+-----END PGP SIGNATURE-----
+
+--Lp+r8yxZL208g7r8--
