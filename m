@@ -1,93 +1,133 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991AA359A99
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD6A4E324D;
+	Wed, 30 Sep 2026 14:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776802; cv=none; b=e2cbnjt0dTmNULfZtJZKEgoJzvmOgdBAa1kfL+7x/uG1bd2jrmLtjOxRG/0pg/prrAGvJsEjCS4YpY7tVuIinswdOagsvqzYyn5QnbHl3KeeDjbvI6XphT7wfbDC8J6BPjVfDOlXXcMDOBG/fvPdOC524AVWxC4+ClnjNjHEAC8=
+	t=1790776817; cv=none; b=jJeMhGH2wt1BW2udMSuGWCMvWSXfqwGT7Et1PDkwGb2zN/7qygM1hijSs5ymT25lFDVtwaqvslusIkps+cgOj9hIfkY/2BkhjKMPlxUj2FXzH/J3v2dbrAp237ZMOSp6OHaAfoLWjRZ+L5KD9jPFm3vD7vNnq2bGlAJhKhCNEO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776802; c=relaxed/simple;
-	bh=7xCBHb06wAnDpFFA66OoUSe2oo0M+BmVYkxhUmhENsI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=mG/j9El9a18vqFl/EhaCJCmGu4zjK1QvnBltDGLjQFMQzkyXyUomx0byXkiMBQBX/G6EjbLAW0S7h5Th0X1L3N6x+2Jg0AtUSkxlcG1fzwiDe1owMC5ODZ51UVW0FxhYY7r8NBE1l3cAMFufssEmOAtDApU1xgfljXYFDKuNBVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WF75rtx/; arc=none smtp.client-ip=209.85.210.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1790776817; c=relaxed/simple;
+	bh=0Rt3eulJluPPJ1sHyYiqw+zHySZy2IsYUyUxc1GJm7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SqgFT5QFVGRTT2H0tJPdI9JaiMXahoeovXq3ueWT0NtR1IoEUtt8cXFKzwkIcOSCkVtl9Jgsrz2WIOI1SHnbDBbDsKwGHFBQQW0RuxQIAVF6dLqJdt+QYM5ygJbVOpfOgLVJUaoE1y8pZU/YiBxd/ysc9TvP6Z8nk46CEcIbZBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5k68cvM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WF75rtx/"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887e45c7063so9692b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:59:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790776790; x=1791381590; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gPgPKBbr/ny2GVIIGOROpYD1joItJkDdIDRxnCyhbVY=;
-        b=WF75rtx/jp/1AFtQ8Y01pZXTLGJjsG6F91AkfAcw671m6PQ+RZT6Vtb5CM6p7TDwaX
-         DZeh0iYakPE5t45HjL7bTqQvK3eetBEobUAAK7UDNZx4//+zo8MI2Z6wjDH7hmiIDZ39
-         31vMU3Iz0K7LxXS+oqpV5EQqoxeGmISZAy6d5TWznbRjokzQAN3G/59wxiAe4bktynmz
-         adXQ+HoaCsV1XTAL2MQ0yZIMUkuAGbRL8eX81N3jhfjtsfza5NjfwhqgdjqrnXb4ktni
-         Id76sIOEQSqd6+ippqaAxL+p0fTe6Zey8bF5Du/V5yzl9FuwHZ4P+5FhQ6gbam7nQIMx
-         vyPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790776790; x=1791381590;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gPgPKBbr/ny2GVIIGOROpYD1joItJkDdIDRxnCyhbVY=;
-        b=xDbtQVmERLhD9VeRHIJRSaAq3zxvEvTfras7kouQutVjkzrNLxgNgwFmjnimrwHdZz
-         gvfDpuu9EpOtv+Y311m+oCAkztCTEzuo89gvdhQhvfxGeIji5ezsYNF3BL1Gi6nlm7Bv
-         qfU6U+BHhnYF5mIKMFxM6finqgOHKaPWUQsavp7hch+YDENAu7Q3Rdb+gkt4SUKG6dQH
-         1Uu4aQJEZXzo4OyPWHMQATbvc/e7u/hQ5HF3SZdvkKUa++kZMREWDHxj5qckkhUoCE78
-         JQyqEpTfpd1Dd2hsFG4WIM3CuLGqk6HklNye3ox7X6o+NoXSYQRRGTsgfuQ2l7QsX+3e
-         rWqg==
-X-Forwarded-Encrypted: i=1; AKwUvByWY2AWwG20wv0Fw2ZU4uZI8ORn0JV7ayi5TB+0NFXpboegyHY947SMuQeKfz+uhTTQyqqc14Y6R9U5Zco=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0Thgh9hhB9CSTHsAk5dTFAZASzCxeJ1M1Ko4PGUYJHmxEoGhV
-	hNaoTGWeNR2bJS+E4WPFPHS9vZRZ23YNQyD1G26uMF4X4F+sgILERnagL1aX/ztPRuq9ulqgQRN
-	qq+rjEdDXe+Lp4/hMFHvESg==
-X-Received: from pfblu1.prod.google.com ([2002:a05:6a00:7481:b0:883:42ce:9d90])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:9296:b0:886:61e5:cfbd with SMTP id d2e1a72fcca58-8874c8d331bmr1062690b3a.45.1790776789171;
- Wed, 30 Sep 2026 06:59:49 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:59:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5k68cvM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97C71F00898;
+	Wed, 30 Sep 2026 14:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790776802;
+	bh=ZbA0QkGzOozlt+78D8aHv1h3LYCa9yiegRCU5V+Vb+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c5k68cvMq3NX1y0ReHV2Obsc6iZ9Qdnp1m7aLqp4+OAmLwPb9YCEWiaeXSyYBzmcP
+	 qy03zFMcqOOi7jICgtNqzrFvtSSbgGbseCWVGjyJ+teQEFMDdOsx2rnn4udtR1zLoM
+	 PPpVyYuKne965FEI5OSMlLXDLp9sPNvHWyAnhMO5YndWYOWhcwbEJWLNlII80E0wm1
+	 6L99RrOBQfx+H0RMXJKbjmN3bV2AVS6f2NE4u9kV4xR1Hs+DQ37IbfJZQ5biWRWyB4
+	 GqtYYnnmkMKiHdM5Jm5rqok/MZ2Xzc4g+/z1Rp2bXmTRyJK7IOTV26tzhywW9AKL3l
+	 RzGX3Mt1NexAg==
+Date: Wed, 30 Sep 2026 16:59:57 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: shashank Jain <jain.sm@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
+	Tal Gilboa <talgi@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] lib/dim: fix 32-bit overflow in dim_calc_stats()
+ rates
+Message-ID: <20260930135957.GH3401365@unreal>
+References: <20260927051743.71460-1-jain.sm@gmail.com>
+ <20260927051743.71460-2-jain.sm@gmail.com>
+ <20260930084943.GB3401365@unreal>
+ <CA+FWx=k7LbhYcA7CMDcQ1Wq5ysjKqc1R=9HT=Q9Z0CQLVp6NUQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930135947.2339918-1-stanleyjhu@google.com>
-Subject: [PATCH] MAINTAINERS: Remove Avri Altman as UFS reviewer
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Avri Altman <avri.altman@sandisk.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bart Van Assche <bvanassche@acm.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+FWx=k7LbhYcA7CMDcQ1Wq5ysjKqc1R=9HT=Q9Z0CQLVp6NUQ@mail.gmail.com>
 
-At Avri's request, remove him as a reviewer of the UFS host
-controller driver. The listed wdc.com address also bounces.
+On Wed, Sep 30, 2026 at 02:58:37PM +0530, shashank Jain wrote:
+> > How does this 32-bit overflow differ from the overflow that can also occur on
+> > 64-bit systems in `nbytes * USEC_PER_MSEC`?
+> 
+> On 64-bit the multiplication itself cannot overflow. nbytes (like npkts
+> and ncomps) is a u32, and USEC_PER_MSEC is 1000L, so the product is
+> computed in a 64-bit long and is at most (2^32 - 1) * 1000, about
+> 4.3 * 10^12 (42 bits). DIV_ROUND_UP() adds at most delta_us - 1 to that,
+> which also fits. So on 64-bit the product is always exact.
+> 
+> On 32-bit the same product is computed in a 32-bit long and wraps once
+> nbytes exceeds 4294967, i.e. about 4.3 MB in one DIM window. That is
+> reached at normal line rates, which is what the patch fixes. With the
+> u64 cast and DIV_ROUND_UP_ULL() the 32-bit results are the same as on
+> 64-bit.
+> 
+> There are two other limits, but they apply to 32-bit and 64-bit alike
+> and the patch does not change them:
+> 
+> - The counters in struct dim_sample are u32 and BIT_GAP() takes the
+>   difference modulo 2^32, so a window that carries 4 GiB or more is
+>   already undercounted before the multiplication. With 64 events per
+>   window that needs a very long window at very high rates (for example
+>   about 86 ms at 400 Gbit/s).
+> 
+> - The rates are stored in int fields of struct dim_stats. bpms is bytes
+>   per millisecond, so it only exceeds INT_MAX above 2^31 bytes/ms,
+>   about 17 Tbit/s.
+> 
+> I can add a sentence to the changelog saying that the 64-bit product
+> cannot overflow, if you think that helps.
 
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
+There is no need.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6215fcb07770..7b5c27c68e5d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28041,7 +28041,6 @@ F:	lib/union_find.c
- 
- UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER
- R:	Alim Akhtar <alim.akhtar@samsung.com>
--R:	Avri Altman <avri.altman@wdc.com>
- R:	Bart Van Assche <bvanassche@acm.org>
- L:	linux-scsi@vger.kernel.org
- S:	Supported
+Thanks
 
-base-commit: f09d2c7485b32adb82336d0d748935c8237a649e
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+> 
+> Thanks,
+> Shashank
+> 
+> On Wed, Sep 30, 2026 at 2:19 PM Leon Romanovsky <leon@kernel.org> wrote:
+> >
+> > On Sun, Sep 27, 2026 at 10:47:42AM +0530, Shashank Mohan Jain wrote:
+> > > dim_calc_stats() computes the per-millisecond rates as
+> > >
+> > >       DIV_ROUND_UP(nbytes * USEC_PER_MSEC, delta_us)
+> > >
+> > > where nbytes is a u32 and USEC_PER_MSEC is 1000L. On 64-bit the product
+> > > is done in 64-bit long arithmetic, but on 32-bit architectures long is
+> > > 32 bits wide and the product wraps as soon as a measurement window
+> > > carries more than 4294967 bytes (about 4.3 MB). The same applies to the
+> > > packet and completion counts, although those need more than 4.29
+> > > million packets or completions per window.
+> > >
+> > > A DIM window spans DIM_NEVENTS (64) events. Drivers count events per
+> > > interrupt or per NAPI poll, so under sustained load a window can easily
+> > > carry more than 4.3 MB: 64 full NAPI polls of 64 MTU-sized frames are
+> > > already 6.2 MB, and drivers such as mtk_eth_soc count one event per
+> > > interrupt while NAPI keeps polling with the interrupt masked. On 32-bit
+> > > users of the library (for example mtk_eth_soc on MT7621, bcmgenet and
+> > > bcmsysport on 32-bit ARM, or virtio_net in a 32-bit guest) bpms then
+> > > becomes the product modulo 2^32 divided by the window length, and
+> > > net_dim_stats_compare() makes its BETTER/WORSE decisions on a value
+> > > that has little to do with the real throughput.
+> > >
+> > > For example, a 1 Gbit/s link at line rate that moves 5 MB in a 40 ms
+> > > window gives bpms = 125000 on 64-bit but 17626 on 32-bit, and 5 million
+> > > packets in 2 s gives ppms = 353 instead of 2500.
+> > >
+> > > Widen the products to 64 bits and divide with DIV_ROUND_UP_ULL(). The
+> > > results are unchanged on 64-bit.
+> >
+> > How does this 32-bit overflow differ from the overflow that can also occur on
+> > 64-bit systems in `nbytes * USEC_PER_MSEC`?
+> >
+> > Thanks
