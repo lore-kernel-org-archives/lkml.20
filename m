@@ -1,78 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2944DDB49;
-	Wed, 30 Sep 2026 13:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672374F93D0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774000; cv=none; b=aR6qAKDA+Cf8tXCmiP5Dfjahw3/nirEhgaK4Q3xHk7vWL+ou6ArNZpvur2WvLtwBFc+nTbEtuRcUweVPdn9EEAH/a5Y2toLUtbZeuYsipdlXbP/YxIsN0JXNre5mPX326pw5P0m3Vvc7GW6fpAKJ3Asr/2LMP7FukoyTZTAMKwo=
+	t=1790774018; cv=none; b=A4ZOjt8QctDPq9UsHFaLGiYRtZ4TJBjcxPZnkbcGzvBxFhv3GSKz+WgaNZWbHzpUzZtn7zDvPdKmOHJYSANMJFAYu2ttMIIrgklcoiLLZw1f56gFt+g71gaairMBkrq9otFMwvMtw3JCl+69ZPJObGH5BIKOGH9qtImqu6nOKFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774000; c=relaxed/simple;
-	bh=IIPbuWS7GhpGNpz5uNLZEeIlIQ0aiuT1u3+X0thxmNM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dfu9L7kmXPJL3qgkSDjQxlqQgFRC2PpLgS8gtqsvPjSkQwbIJLOXX0elN5mURkTKpJHFOkILqBUqqSocTg87ies4uka9hnoZtrtC0fUHDyB3UZE0/og+vrpnBzqUcVujc3jiy73HhQkylTVW5pRP+4aNYCV7ANH9qn/5BSuBh08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jaFB6DwS; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790774018; c=relaxed/simple;
+	bh=7kWDvkQlzlqFyT1rrxUGMuiNXBtG8Op0/Zp6Ln5s++E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=elGmNm6J6SiMagUp2oxdV6eTe8ItErW8PuxXelUNNhCuaS7srh2BRGNwj5LCFYMNQuaUyxaIqGwtZEwWpyuVF8gKI1Fq1rdzqbHiEF1hvXDOdzQ0IDafar4OyxcXllsd0+nxNo8ykUDVP4sJP14t6plxMONxT7Wg6ZfaWDP/eao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeAPbtpO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jaFB6DwS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790773989; x=1822309989;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=IIPbuWS7GhpGNpz5uNLZEeIlIQ0aiuT1u3+X0thxmNM=;
-  b=jaFB6DwSV3p7Gyk2HC4rA2eq79R2YcmD2PQjvG/8Rvx++7R5Xof7b1Q2
-   sH7+XzvMV6/fqxLp+Q2r03g1lfp0ki6iElrCDXfH4racP2C5KhC568wHf
-   Bcmo+qiToJc5vtjFBKQLXvz8oDL2+45JJGzdILOxrIKzT1d+Suu4iv2+O
-   8GYs6Jk7VqwkRj6vrqCU0rCoS2KoSZz7aYHdtCgEcX9u4CKVgEMy0xT/p
-   j9zM67EEo3pmK2+T6WwfG+5fPyJ6Uix5kHLyyweLxkngfq7qhkaSDL+Dw
-   9Yiyu4/TxuyMC2X2hVXVdRoluo/gC2xDv0qen3uHUsWgTqXIrLFVYKPB7
-   w==;
-X-CSE-ConnectionGUID: Vi7BM3/DSsGaX0Sey1R5iQ==
-X-CSE-MsgGUID: P41LcUWuTlSij78QMYfzUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="93995471"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="93995471"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 06:13:02 -0700
-X-CSE-ConnectionGUID: qg5pKsKPTVWdM3xtQZGEng==
-X-CSE-MsgGUID: IEOAYcJETKqtFp/emHjrCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="283753449"
-Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.78]) ([10.245.245.78])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 06:13:00 -0700
-Message-ID: <f13481be-9692-4657-a02b-5cdf6e803133@linux.intel.com>
-Date: Wed, 30 Sep 2026 16:12:58 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeAPbtpO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821E91F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:13:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790774008;
+	bh=7kWDvkQlzlqFyT1rrxUGMuiNXBtG8Op0/Zp6Ln5s++E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IeAPbtpOm5tAT1zXKDKG4on9LBQKeD4q3UsS5+IqqGIvAnkbDv5yyI+4U3zfxdJQU
+	 0gb5jVbXI+X5gDOMDTpTX+FlmDZIBtCtXVKEplCyY3cobLkmZLHWKG5j9OZseK2fVh
+	 G7lQ0YL5GYwEHrAp9bJercJrqTsyRwPbzU1SyHjWqEXwUCtX2Ea62zJRPyUo2e4Z2b
+	 w5aH6Xk5iD/yGAtEIuB/uvKUxCFahdvoYDP9UZsEV8xqegdFnINutDGdb3fNfnmkFJ
+	 Hb/ogV4MqDtmq8EdI9CvtQcRDcOISF5aL92g6lzz4EedME1vz9h+943F040CCSEF5o
+	 uDyP4vVk16U2g==
+Received: by mail-lr2-f41.google.com with SMTP id 38308e7fff4ca-3a6287d59b2so46120691fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:13:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxdiq2RHWeuBTk1MjW6iLwkG1uxFd+xGAnLeGTyo4NfMa/UlfVbKvw8abzB/99WTCdhfes2+T1Crs4AXFk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIa6FxqhmmmMrQ3wBWP9InGc8u0ubGzfuQzW8RMGwl9gAh65dGx
+	FnCOdkCB6fgJlhezqT+L/dx++gPCQ80w8oyeTDEGAlx3fZk2EzeKGn0hxGQLp1EAqaPAKEebATd
+	cQPVew4jKpm93h9G2M+1D3y4jtiLAA+I=
+X-Received: by 2002:a05:651c:222c:b0:3a6:6efb:a0e1 with SMTP id
+ 38308e7fff4ca-3a77923f922mr4657321fa.21.1790774007290; Wed, 30 Sep 2026
+ 06:13:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix typos in comments
-To: Zain Aboobacker <zainaboobacker33@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260926162518.25301-1-zainaboobacker33@gmail.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20260926162518.25301-1-zainaboobacker33@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <55267dce42a63e5210c34e49747f564f5cc0b0cf@linux.dev>
+ <CAD++jL=KoKd4gLcyxuTTT904oR=EFeVkqQF-iD6qcc-GwQ39ug@mail.gmail.com> <e4a859da5ab7f40d9de53dfe605d29f510d1f1f2@linux.dev>
+In-Reply-To: <e4a859da5ab7f40d9de53dfe605d29f510d1f1f2@linux.dev>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 15:13:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=e=Jxn6EDqY-gD82S_N2GXqbmesV3rs88cyrixc8gvHA@mail.gmail.com>
+X-Gm-Features: AclHuK_YrTzFv93FNEZyJLXjRgYkfaVNxZ3uXpclSC_GaB61IFeyqC9objegG9E
+Message-ID: <CAD++jL=e=Jxn6EDqY-gD82S_N2GXqbmesV3rs88cyrixc8gvHA@mail.gmail.com>
+Subject: Re: gpio-hog names
+To: Frank Wunderlich <frank.wunderlich@linux.dev>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/26/26 19:25, Zain Aboobacker wrote:
-> Fix various spelling mistakes in comments found by codespell.
-> 
-> Assisted-by: Claude:claude-opus-5-5 codespell
-> Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
+On Thu, Sep 17, 2026 at 11:26=E2=80=AFAM Frank Wunderlich
+<frank.wunderlich@linux.dev> wrote:
 
-Added
+> > But if you think that *looks better* then by all means send a patch!
+>
+> I have not yet looked how to get the previous fallback back, but if this =
+is the
+> preferred way i can do it.
+> Just wanted to point to it and get opinion what's the best way to handle.
+>
+> From my PoV i would send DTS patch adding the line-name properties as fix=
+ (for
+> backporting), but i guess this behavour will affect other users/boards to=
+o where imho
+> a driver/framework patch makes more sense (will not "fix" gpioinfo).
+> So better patch both?
 
-Thanks
-Mathias
+I don't know, can only judge from seeing the patches.
 
+Fix it so it looks like you want it and people will review it.
 
+Yours,
+Linus Walleij
