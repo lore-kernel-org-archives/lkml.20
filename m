@@ -1,225 +1,172 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFCD3B3C10
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790746763; cv=fail; b=bVUl3081/99yCI/G24YCHu137jEsNj9Mbzti6axGKgXSF5RSXWTaQ/Wx7AOViEUSneSE6RFX3Us/qY/L9MI3WNV9uYUyKIpNwjCvz+mJjaliEdRG/fqw5vcDBLueKQKahtSW4IBFrkM49MKDSzcJ0RDMMcp6n3WQ91HRgKB3OdE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790746763; c=relaxed/simple;
-	bh=RmdjVc+quTNbBoP1TJfwZFYefp0dlp4rtsFoGoo2+tQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CEF30C147;
+	Wed, 30 Sep 2026 05:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790746862; cv=none; b=SkZpgAuj6YVHZCdIuyhDVTVZURkdSY+2d7RG9GlWTVblzu8JYov+VlfTe+Zk5s+XdVYpsc7x54gepoBAeS395aaDtHLbYlArdJgq14XQb7fDVATClnXrAPyn/V27ukHeOWdJ1d6RQrl2gsvu5kOQIcnMgzOqdn638+tLdYppoSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790746862; c=relaxed/simple;
+	bh=wxe/DM7r2GKzQHbMz5VnZ0DQNy8nUUAohTi8urqGk9E=;
 	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zuon1E/JQ44zs2ONRBkjEW0PFuRVAG9j/Qq7vXlbaqatwobNJ5vgClH+glBRWKTv6/A99oppPo6g3Re7lYzAbmOGeh4mCRq+b+u6d6CI4kxPeKtb+Mzv8PGAdI1mIVOZvpPz0tq8pRsNOCMu5rI5XtFn/vyVY54d1pkcyfBR9Ls=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=YmzaoB5/; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=IZw77dsO; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lmYIZRXME5Trg6EGt9wIVHsQWd/Vp9sg4Q8oi0Zs7HijlZ4u4vW9NSRzpN+lIWA6mZoGR1uUTw5K2vLN5ytRQxMfOL4Fu5b+yjY5QveTxsf7XKDeQyMKEUbrzqm645e4pur8HCTaNfzBUfiHki/dIAHD9cOEwFHACApGKuEIIAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=LZnmuAk1; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="YmzaoB5/";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="IZw77dsO"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68U5bwfx1798579;
-	Wed, 30 Sep 2026 00:39:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=RifgycA5esGK+NsP4mcRLTzICdgQskGersUNGMwlt
-	Bc=; b=YmzaoB5/G9B1inLYmRwmDLtpHh8XM6TSJk0PZ43WvH7720Zo4u0TlQyRx
-	a8GspsAymVyDPnlQLZYw0ZaomQ5kAJR6CP1hlpGkqyikw3dm9af4ZObjevb52X/a
-	x/lHmDhGxP4dfqrQAN6mY0nRTCBaECjp9f/3qh3nyzQ3Hycondo2RDMYz3VCH25b
-	A7dlQrjf1aHlHhVBLORhjzZk6Pa+yte7uKEUVp8e7CjJu7kjACP9DIeqtHEwuku1
-	OsuDntjMpWKHtHgdhE13SUk81wPgvzqlGT0MaAOymlmp+hTRTXGJPbb9+vZmYpmw
-	97h3j5+BYWGfBwpIrVzAqPekbskrA==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4h0rgfsj8j-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 00:39:16 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FVxtf1Q7lGuyNTbYA2biNK5zt/0e+hV1o6JKXcjvtH0qfscvi5b9fWkVCiSuQolfINHXH1bssrGQBGqrsMhqdy5rbcAfF9JxgCo6GJcIU7nfMXB1FJC4PWyiAyL6uubmUS20dHXhkVt6lz+wP1g2Cfz9W64JY8gNap5QlruJ1FSYB5UqAFVP8+9TXU66lsASILeHZHrdLd2VTadzhtFWYPGoYB0cyNx5vT9HHXVd1aSf5BSlZRtRW2vMiALdydRikorWWvZxPf0PZ8NzVvB2vdQaK/f529cPFrYCXzG+TUOJ5bWmhZUGgIM7xz7oHZXQWQqoO8zl/pGmBJL1WcDnXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RifgycA5esGK+NsP4mcRLTzICdgQskGersUNGMwltBc=;
- b=KLMKJmlBSRPPzfLGraEzTUQf30C7e72rLOKVrN26z2AnTVERmWn30DYOj4qL7y/4IkOUF2OK2MKqr1aLP+GlQMCnUSj5RhyYHtEjtUI3NZjSgp3CFLE8I9r4MVwXGxXbxS6TCzmdWyzROwc9JuiQJca6BP7t9YZbcnJ6bhCWv+8ClIuqExkI8snSOqBnSNgZWyRDLuAWNwUkQGRJs3e9hhyut6VJ2nVqPV2idvi4E2/tl9F8VjzjX8JtJxnrdG1P477ah7oDWhWysSmW2D8skbt8UgW2wrJJxjCnDjvJUA90u4t76vJGbUWMriyPHVEk9M8brGPCxyZL+uFxOgMKeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RifgycA5esGK+NsP4mcRLTzICdgQskGersUNGMwltBc=;
- b=IZw77dsOSwUc/Gibnt/IFJqpQZ2nyh3Hkp1SKlC5BY8aOkGpMKaeG7HWwCx/oJeDAE7xSM/zWf47p4JZELIWQrKxJfrCJRHEHbG+KhsHf+X8vJeKRVGmqDYRUpPtNzsqJSKYkYxsaDEHWLFHwOzox6ZErpfK6Wbn64M1RENZRWU=
-Received: from PH8P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::11)
- by SJ0PR10MB4766.namprd10.prod.outlook.com (2603:10b6:a03:2ac::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Wed, 30 Sep
- 2026 05:39:13 +0000
-Received: from SA2PEPF00003F61.namprd04.prod.outlook.com
- (2603:10b6:510:345:cafe::3f) by PH8P220CA0010.outlook.office365.com
- (2603:10b6:510:345::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 05:39:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SA2PEPF00003F61.mail.protection.outlook.com (10.167.248.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 05:39:11 +0000
-Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 00:38:33 -0500
-Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 00:38:33 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 00:38:33 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68U5cXfY3446448;
-	Wed, 30 Sep 2026 00:38:33 -0500
-Date: Wed, 30 Sep 2026 00:38:33 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Beleswar Padhi <b-padhi@ti.com>
-CC: <kristo@kernel.org>, <ssantosh@kernel.org>, <afd@ti.com>,
-        <vigneshr@ti.com>, <u-kumar1@ti.com>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 00/22] Cleanup and Refactor TI-SCI driver
-Message-ID: <20260930053833.sms3ondwxhnys545@spirited>
-References: <20260929201746.4078803-1-b-padhi@ti.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="LZnmuAk1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790746861; x=1822282861;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wxe/DM7r2GKzQHbMz5VnZ0DQNy8nUUAohTi8urqGk9E=;
+  b=LZnmuAk1f4qn6UIohD/IUj4OZgkrfCsBNE8sU0cJjfJve7t3HWI/7M5O
+   DzrWZmexYVKMCVAGcmWAIDInj9dEBw+NiMP8dFA3nOjag9XLDLOrNhodl
+   QquUDSvbH97RybjxTuIwX8ja5DzX5jZvAvAAIQVvs4/71SAlRELxbH6xj
+   RNujuXExe47trGVNGfsODONPsv6Ncg2/4cFg0080f4t7Wr2a81PpMRd3L
+   xVhY4AGBU6PPb1Hm6h2mVbJngb84w9ZbsHIV9CbDFsaB+D6z19vyWCZSS
+   b1gKGii0osQvFXrlnzT1Iwk+NHm/729KoKiiYrHTrwY3tuJzZKRNuK3xP
+   w==;
+X-CSE-ConnectionGUID: r6MIbcMDTVezUi7qzOnxbQ==
+X-CSE-MsgGUID: RjhBc48MSSqW9sF5CWAFqg==
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="64358277"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 29 Sep 2026 22:40:54 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 29 Sep 2026 22:40:53 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 29 Sep 2026 22:40:51 -0700
+Date: Wed, 30 Sep 2026 07:40:50 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Quentin Freimanis <quentin@q-lab.dev>
+CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
+ Cochran" <richardcochran@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: sparx5: start the domain 0 TOD counter on
+ non-PTP lan969x variants
+Message-ID: <20260930054050.hrvaydgdczkizuqt@DEN-DL-M70577.microsemi.net>
+References: <20260928044955.29647-1-quentin@q-lab.dev>
+ <20260928151453.fzch356vrp3ergy7@DEN-DL-M70577>
+ <4e1ef527-e843-4f1b-9f7f-cf2400fa443e@q-lab.dev>
+ <20260929120900.zld2c3h4keqcnmcj@DEN-DL-M70577.microsemi.net>
+ <09daa7d0-16a8-40be-999b-9cc608e700db@q-lab.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929201746.4078803-1-b-padhi@ti.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F61:EE_|SJ0PR10MB4766:EE_
-X-MS-Office365-Filtering-Correlation-Id: d376b1da-e8e4-4993-b796-08df1eb5279a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|22082099003|18002099003|13003099007|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	9Ok2P3qLaNHooHC52I1wVpjF9AM9ycQWRWlZlmI1MYyg2vY9AIsBJdiSQxuJwqqPjQ/lXtko/iu0QnNd1SQKFeMwX/0dEML/0xhtOG1hM4NEsN4BnZ+YC7RG6IuIqiHwi5pLcfFw1Ba42vvjHrnfXX/tJW6JCcK7rzH4X1OlV44H6lot0uOrSMiSeNPID+bFB6q4Qt8ecLlGtwkTOZTMiuUvZETT0PGIZTs0UGkwIbrwLNKJ6y7ZNXAwLLMS5k6qPwdlBcGrIQQty1gz25sZmY5iEQ8j+AKn1r+ZDeZomKLccf46bBrHaBQnXuSNEkr5hZh0DAMRs+Qi9mQ2gBc1icJqfLDqgsyn4kslLqgiI+x6QGMsID11JLoHdN6de1ZIEd/tRNJAqz/i95OhmfL2cXybizNWVic/fDb0/I0timZFAU0jsA6kFJOYZXfDWY540AOOtY8HXcsHtmMGrjbCd/qRg/QAoQdGslfkL7GHRkPi8V8DolWz5SPpf+m3NWQNujx/A9CAPKpruNm4PIQ1eF7Q4z5c5ivs7ywS29v6bmbjSEDWmG+KgObUV+DVreqcQCrHPbnLQ3nNgWWOjQVL3pS1e+dpixvFLaOneK/H7DQ876ylWjAlUqh7sExqyR65N4K180+v9oFrgMbrRgD1pg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(13003099007)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PhQD82WYrASrAnLt09AUTuCYG5ADj3vAgN7ENQVepHdbit/WWXYvy/iqToW2d5FeuRRiOiJfGFCvMoxbOqun8idp/TZY3MZez3OFy/QncD/rhp3qQuIslCfWIyHsbKfxIboaIdN7BxMI4axaPGgTxyGb4ONLw2H+4Sq5lubD670caFx2gdvdyh5Dxn+tz7CC2gvgG/aOqRYx2WonNjKoC9UOGx2qkQ2ePBhOi9S4GAc808lJmL6u873Ka8TjFH5sN2pbEWH3cB3NQ0h3AifCkOPA5tWXnaNjaUEpaaefU5op+vaXQKR3RHPzjMaU4UMb1RLLNPBfM/BY+z/Qn0cPS6HGXzGpwXGwAq77DFqSf0YR/BErFXHU7VWFenVW5WB1C/LIGORg7fZ8FIQOkL6vIrxFaCOXA4fxzNNUfz41itq7uL3e0pc9o9llqmdDOm95
-X-Exchange-RoutingPolicyChecked:
-	2FKypheiPxbmeJ1mkuev8fJ3Q3H8GhEPrUIEQZ0WHRKVxSVoPILpbfuTZife/WdlIM85vhVyCRSHBxLN37VHtfIOWV/B0MoZiCT/l7Bm9hxRSkikWXX62XYL5+/9Zv0Bs5PLdrEadNAIYfc9hViluRVA6LULlZpXDjhVlHpZeHsxIuuv+mNDvxnefsdMqqM3c9mD3mNvIu7SIGg+cIXOe/KS25jQmiPS0MbwaNGWGdwVKFH0xtIeGAudd0SCqlbzRDE+dxWqdM0qmvNfQR6LJSs0453VqQrTs29VJuxMHM39TIyheo4CMPPHNN0XbjpkCISUdl3kcgiCpfeoAXejOQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 05:39:11.1534
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d376b1da-e8e4-4993-b796-08df1eb5279a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F61.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4766
-X-Authority-Analysis: v=2.4 cv=DMEacCNb c=1 sm=1 tr=0 ts=6abca084 cx=c_pps
- a=ILySzFF5iTKX7yzk26Ee5Q==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=Klfo258dlgAgmQjh_8YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: usT4kYrMrmV6PSfGuD32i28wxcW7vQsj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfXxW8Epl+gJzqc
- XBxLD6rqkiwE1s3AtJR0nozSh5SsJQ2vItetnTmu8W2jYnBQRwVDBlNJcEoI9iNyjFuZSkUx+zV
- 745GgKYx0Ppv5/QBBBZyQlp5OCd46xVS7ZeQINLBkZEnRTIDnErGczODtJz3GG0hDQV7qSPdW3l
- SzpLUrwJ6oJsigwKkqLEe7kI7uy3i9x48tO/E0+KFVh7z01APVEHyjYghny/39YcLSpvYmMYncu
- PcW8JlEwih8DvE9brwFRxMntYhmBkO1jHBTKSxIfI8IWymUabRv7lSbnW7zmyWQpeCmPa0ywd+6
- mxVMdWnomnr3r69tecBvKygFEaBPvy0jzLH+j4+ZdyZ+a6AYkbRbcWxcP/cOsz5j0+W/BQOfpSa
- kgMOm5PBiDZgsRTEasML5zHA4l805npV7kA/j5H7ZWpWaUce+/ijSo26txllpyLExjFgbub6+vZ
- BLr5+urhiaDOjrMIvyg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfXzEw/lvTnL4Qu
- 90q2wnB/eJFnnUswiFZHGoO8W03uyAAgreNFjJf6OWughYwyIgTU4Ar758ogN/tyB2CvTvrnG3l
- /b7/mjuy5YaqFhz1zZlJG8hF1K9lZWU=
-X-Proofpoint-GUID: usT4kYrMrmV6PSfGuD32i28wxcW7vQsj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300022
+In-Reply-To: <09daa7d0-16a8-40be-999b-9cc608e700db@q-lab.dev>
 
-On 01:47-20260930, Beleswar Padhi wrote:
-> This series does a lot of cleanups and refactoring of the TI-SCI driver.
+> > > > Ack. Not initializing the TOD domains on certain variants is a problem.
+> > > > 
+> > > > However, TOD domains shouldn't affect basic forwarding. I tried it on my board
+> > > > with PTP forced off - no forwarding issues.
+> > > > 
+> > > > Certain TSN features do require TOD domains to be configured, though. How did
+> > > > you test this, and what exactly did you see fail?
+> > > 
+ > > > > Fix by moving the TOD counter start code into a helper and calling it in
+> > > > > sparx5_ptp_init(). Non-PTP capable lan969x parts now start the domain 0
+> > > > > counter, and PTP-capable parts start all three, as they used to. A similar
+> > > > > workaround that starts all three and registers the PHC clocks is
+> > > > > implemented in the vendor BSP 6.18 kernel [1].
+> > > > 
+> > > > What we do downstream, is to ensure that all domains and PHC's are configured
+> > > > and registered on all variants, with a very simple is_sparx5() check.
+> > > 
+> > > My reasoning for only enabling the first counter and not registering the
+> > > clocks is that the part does not have SPX5_FEATURE_PTP, so it should not
+> > > expose any PTP features to userspace.
+> > > 
+> > 
+> > I acknowledge the problem, and I agree that the PHCs should not be registered.
+> > As for the solution, downstream we always start all three TOD domains, including
+> > on sparx5. If you take the same approach here, you don't need the new helper.
+> > Just move the existing TOD start sequence above the if (!sparx5->ptp) early
+> > return, so the counters are always started, while the PHC registration below it
+> > is still skipped on the non-PTP variants.
+> > 
 > 
-> Patches 01-11:
-> The first part of the series refactors a lot of common code from each of
-> the TI-SCI message functions into a single place (get_one_xfer() and
-> do_xfer()). Result is removal of net ~740 lines (~20% of the whole driver
-> size) without changing functionality.
+> ok, in v2 I'll drop the helper and always enable all 3 counters.
 > 
-> Patches 12-15:
-> The second part of the series does some preparatory work for being able
-> to break down the single large TI-SCI file into smaller files.
-> 
-> Patches 16-22:
-> The third and final part of the series breaks down the single large
-> ti_sci.c file into smaller logical files: ti_sci core, device, clock,
-> pm, rm, and proc. This allows for better readability and maintenance.
-> 
-> Note:
-> Since the [PATCH 10/22] (first part of the cleanup) now passes local
-> stack values as part of request, the following[0] patch series
-> in the underlying mbox layer is ideally needed. It is better for those
-> patches to be picked to avoid any KASAN warnings and possible duplicate
-> message resends.
-> [0]: https://lore.kernel.org/all/20260929200159.4033010-1-b-padhi@ti.com
-> 
-> Testing Done:
->  - Boot tested on TI K3 J784S4 EVM.
->  - Tested some of the Core, Device, Clock, and Proc ops with remoteproc
->  - Tested each patch for no new warnings or errors.
+> pw-bot: cr
 
-Thank you for the cleanups, but lets ensure keystone_defconfig,
-multi_v7_defconfig + LPAE also build and boot on keystone2 platforms.
-Currently, I get:
+Thanks. Please also fix the small nit below:
 
-drivers/firmware/ti/ti_sci_rm.c: In function ‘ti_sci_set_irq’:
-drivers/firmware/ti/ti_sci_rm.c:225:15: error: implicit declaration of function ‘kzalloc_obj’ [-Wimplicit-function-declaration]
-  225 |         irq = kzalloc_obj(*irq);
-      |               ^~~~~~~~~~~
-drivers/firmware/ti/ti_sci_rm.c:225:13: error: assignment to ‘struct ti_sci_irq *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
-  225 |         irq = kzalloc_obj(*irq);
-      |             ^
-drivers/firmware/ti/ti_sci_rm.c: In function ‘ti_sci_free_irq’:
-drivers/firmware/ti/ti_sci_rm.c:313:25: error: implicit declaration of function ‘kfree’ [-Wimplicit-function-declaration]
-  313 |                         kfree(this_irq);
-      |                         ^~~~~
-drivers/firmware/ti/ti_sci_rm.c: In function ‘devm_ti_sci_get_of_resource’:
-drivers/firmware/ti/ti_sci_rm.c:825:21: error: implicit declaration of function ‘kcalloc’ [-Wimplicit-function-declaration]
-  825 |         sub_types = kcalloc(sets, sizeof(*sub_types), GFP_KERNEL);
-      |                     ^~~~~~~
-drivers/firmware/ti/ti_sci_rm.c:825:19: error: assignment to ‘u32 *’ {aka ‘unsigned int *’} from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
-  825 |         sub_types = kcalloc(sets, sizeof(*sub_types), GFP_KERNEL);
+> > > > >    int sparx5_ptp_init(struct sparx5 *sparx5)
+> > > > >    {
+> > > > > -       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
+> > > > >           const struct sparx5_ops *ops = sparx5->data->ops;
+> > > > >           struct sparx5_port *port;
+> > > > >           int err, i;
+> > > > > @@ -622,8 +657,17 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+> > > > >                   sparx5->ptp = 1;
+> > > > >           }
+> > > > > 
+> > > > > -       if (!sparx5->ptp)
+> > > > > +       if (!sparx5->ptp) {
+> > > > > +               if (!is_sparx5(sparx5)) {
+> > > > > +                       /* the base, non-ptp-capable lan969x variants need the first tod counter
+> > > > 
+> > > > Nit: s/the/The
+> > > > 
+> > > > > +                        * running to forward frames.
+> > > > > +                        */
+> > > > > +                       err = sparx5_ptp_tod_start(sparx5, BIT(0));
+> > > > > +                       if (err)
+> > > > > +                               return err;
+> > > > > +               }
+> > > > >                   return 0;
+> > > > > +       }
+> > > > > 
+> > > > >           for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
+> > > > >                   err = sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
+> > > > > @@ -635,27 +679,9 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+> > > > >           spin_lock_init(&sparx5->ptp_ts_id_lock);
+> > > > >           mutex_init(&sparx5->ptp_lock);
+> > > > > 
+> > > > > -       /* Disable master counters */
+> > > > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
+> > > > > -
+> > > > > -       /* Configure the nominal TOD increment per clock cycle */
+> > > > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0x7),
+> > > > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > > > -                sparx5, PTP_PTP_DOM_CFG);
+> > > > > -
+> > > > > -       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
+> > > > > -               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
+> > > > > -                       PTP_CLK_PER_CFG(i, 0));
+> > > > > -               spx5_wr((u32)(tod_adj >> 32), sparx5,
+> > > > > -                       PTP_CLK_PER_CFG(i, 1));
+> > > > > -       }
+> > > > > -
+> > > > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
+> > > > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > > > -                sparx5, PTP_PTP_DOM_CFG);
+> > > > > -
+> > > > > -       /* Enable master counters */
+> > > > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0x7), sparx5, PTP_PTP_DOM_CFG);
+> > > > > +       err = sparx5_ptp_tod_start(sparx5, GENMASK(SPARX5_PHC_COUNT - 1, 0));
+> > > > > +       if (err)
+> > > > > +               return err;
+> > > > > 
+> > > > >           for (i = 0; i < sparx5->data->consts->n_ports; i++) {
+> > > > >                   port = sparx5->ports[i];
+> > > > > --
+> > > > > 2.55.0
 
-with keystone_defconfig build with next-20260929.
+/Daniel
 
-For the next rev, it will be good to get boot logs in gist or equivalent
-for all k3 and k2 platforms.
-
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
