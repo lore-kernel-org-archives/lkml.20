@@ -1,204 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B822F8EAE;
-	Wed, 30 Sep 2026 02:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415BC2E54D1
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790736733; cv=none; b=FU+4PCog4LgcGksPwy1PMz8Ah/3hYHE+4+E8MdXBEw2JOn/YAfY+cdwYCufD4AMWjrrG0lso8VPv4BaOLqTEf3p3iNq0aZC2ixAiWEh4aVjr3QyIxL03TAPl+47R0FOhTuOdmcSiyiDOPdkAkQM0gv2ZdqFsqiUphURf2ryehfs=
+	t=1790736741; cv=none; b=dXnDrC9bOoUjdkoSJTyh9/wJT5WKwm6bfTpcIJwwB9w+lG7cHiHhRcLoWmT2m0IqFoqxnxEhHmfA7X5Cz5uDwTNFMZy6W2v3XikWQ8lQcnLfiMKkFCQdYHHIRaMe64X1kcppFoiUuamMIOR1WdfLqU6DCK8fdboKX5Agyqmkaag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790736733; c=relaxed/simple;
-	bh=TI3eBdcLTSlpQRvsnz37lTuaeLP8kjd46bVtYcvMOIo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TQkRoIQGmihpedEow+kPXOdpo5lYGyxku3l4NxsObaZnnIGwgftUZlJwmbtmHB/S4Q/2woc+Pxq0GqNx7QVpCKoVONCJXw1POtlz0dT2Ydj9kMB+GEa8ptP6fbHIuMQSma9vsgw8892J8+iho0fnWXw7JAFr2A/mLgrSdY81zEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=snrB02n2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790736741; c=relaxed/simple;
+	bh=qCWJdhaFgboCMVvlnrhgl1QiFgLR1FwFOYikqmtBQ00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tx5ssxcpfwMnwNJoly8uV53+I1gUpHbpNWWm6swLzHoYWgIRnWRLDphAIIGAYHkYsHfdM6gtXpyiGE88Gh7C6bhJu29M5QH17WlbbHU4uBR4vdAG6l/Ml8T6KJTGTnwxjTkBiTP3VTa8jSvf3Z4N7j+RFZfOphSz5r1zwpBmEcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=N0Yp5S9Y; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="snrB02n2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E3C2C2BCF6;
-	Wed, 30 Sep 2026 02:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790736732;
-	bh=TI3eBdcLTSlpQRvsnz37lTuaeLP8kjd46bVtYcvMOIo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=snrB02n2XKdkykmQGcW8gozBHstnK7QbWT+XCenJUFPfuCGSk136myE/ptj9Ky4PF
-	 O4F6qkTwAWF0dTmw2u+tDSROB0W7J0E4NJzoRX+oiktehXhQk5R6s1715OaNZF118F
-	 feTfx7Ga3DXwFK2OFW629BUvwFc2AzJ5Abu5biSjz8RwLYdiIfGAR265LQlfVZjOlF
-	 /q/ZIyP/GZaQxqAMflqAnRcYthZ0DLi6L8g5rgySZHZXv4YQI5clOf40waB/roXNH3
-	 g7v6te12F2zXIIRGItTXT/BvH5jdEWxAq+AtIFSZSVZzGSVnHb2PGVsCzVKoN/zavk
-	 JSMC2itGYgTbw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49C8BCA5FB3;
-	Wed, 30 Sep 2026 02:52:12 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 30 Sep 2026 05:52:03 +0300
-Subject: [PATCH] arm64: dts: rockchip: Add buttons to Kobol Helios64
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="N0Yp5S9Y"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0D4C040E01F9;
+	Wed, 30 Sep 2026 02:52:17 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id gMIaQsTnHGhv; Wed, 30 Sep 2026 02:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790736727; bh=Wa8ENAPdP0iSscYkOIWjKLnsjySMzzbpYlnSAGWK8Gk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N0Yp5S9Yf5sYv4doS01pBNIngSnGua4Z54QurpVq/Ejf/6DnMtRQgrqBoOZ/2yG1c
+	 8c4nuCBKaMB12dJk06fKaneIhtgf/tkJIcbR00lVKHdD4VykpwVN5FowsKBixEMK/s
+	 gBRmayZhc4x/ViiECNSxIUlGwIRYLD7u33GqzCb81uQ5VZnaIz1SZGsJXYgmJbJxCN
+	 YjZ7I67LGLIOycFrMDQyd3EHlRrKhZfDlvFHjL/lgmWvjeC9uiKhJIzJxYpOsUtZvK
+	 eY3lU924cIRCma+s0QxddyidDp8N7ZnRavrEOyr0lX0yEBZ++2DaCmGW+/NZQx3MK9
+	 Ga0kyZeHVCdGuMVUxKwDWx121hkP0xu3hvXUO1dfg6QG6zZTYpC5kwCO98kV9CZp1X
+	 1+VdVJVM1k/8XwUkF+5KaegnpB8DW3n4EKiP/1ufE5TmuqHTbVnwYzr9Iammgne94g
+	 OBgXO7IMXq1ic2XkOAebPjSTcEAND/4kMiw6nrQaHkNxJ1wgl7/SXJio8MEHCQdHqr
+	 ulChZNqCx4XWuA5VA5nctejYuf+SDVFf0dMNSTA/n6KzjRVqk9MhGUv/7cOqdsDv9J
+	 lfr1OR7Y93iHjahTa9rt0fBL3+hm4lzIqqR2upYMXGsHChbzEcqkfVTFlyhkLrs5P2
+	 +C6YaA5UuF5U5FIbu61VbAyA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9464540E01B4;
+	Wed, 30 Sep 2026 02:51:56 +0000 (UTC)
+Date: Tue, 29 Sep 2026 19:51:53 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Andrei Vagin <avagin@google.com>
+Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
+	criu@lists.linux.dev, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH 0/2] x86/fpu: Allow restoring signal frames with larger
+ xstate_size
+Message-ID: <20260930025153.GCarx5SUn-XMHNdly1@fat_crate.local>
+References: <20260929232621.3745312-1-avagin@google.com>
+ <20260929235700.GBarxQTLOrWy1I3UZr@fat_crate.local>
+ <CAEWA0a6McVMNv1ALC7EoEeA9-7_7u_b5JrsqixifvsfVJ7b_8g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-helios64-buttons-v1-1-d76249064003@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAFJ5vGoC/x3MOwqAMBBF0a3I1AZilKBuRSz8PHVAEsmoCJK9G
- yxPce9LgsAQarOXAm4W9i6hyDOatsGtUDwnk9HG6qbUasPOXmylxus8vRM1NuUwV6gBA0rZEbD
- w8y+7PsYPxs+eEWIAAAA=
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3412; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=K7Z4uztvoCt3fl82OcCvlTFdzYYGS+LBErAXzdnqa6g=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl7KsMuz/ewuZ0Yu7B3puHGxQ/E+UNnhuSwGwg/8ne4l
- 8m06UF+RykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI5gpGhithfo9X/fWQ+ns2
- bdUcpim6t3eVnV55ean3xjKFtLvBl1gZ/qclt8+Nnqu4u8eFwUtlWm4E47NaycktLf9bN5z+8lz
- FiAEA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAEWA0a6McVMNv1ALC7EoEeA9-7_7u_b5JrsqixifvsfVJ7b_8g@mail.gmail.com>
 
-From: Igor Velkov <iav@iav.lv>
+On Tue, Sep 29, 2026 at 05:02:50PM -0700, Andrei Vagin wrote:
+> I think it is a misunderstanding. This series is actually the next step.
+> The first series enabled migrating workloads from older CPUs to newer
+> ones. This series enables migrating workloads from newer CPUs to older
+> ones.
 
-The Helios64 front panel has Power and Recovery buttons. Power is
-wired to GPIO0_A5 and Recovery to SARADC channel 1. The board also
-routes a User1 button signal to GPIO0_A3 on front panel header P3.
+Aha. Any particular reason you're sending this separately, after the previous
+set?
 
-Describe Power and User1 as gpio-keys and Recovery as adc-keys.
-The SARADC reference is the 1V8_S3 rail from RK808 LDO_REG3, so add
-that regulator.
-
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on 7.3-rc5 with evtest: Power reports KEY_POWER, Recovery
-reports BTN_1. Power wakes the board from s2idle. User1 has no button
-on the enclosure and is untested.
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 64 ++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index b2de018a7d36..d146e5075b4f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -11,6 +11,7 @@
-  */
- 
- /dts-v1/;
-+#include <dt-bindings/input/input.h>
- #include "rk3399.dtsi"
- 
- / {
-@@ -23,6 +24,20 @@ aliases {
- 		mmc1 = &sdhci;
- 	};
- 
-+	adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-recovery {
-+			label = "Recovery";
-+			linux,code = <BTN_1>;
-+			press-threshold-microvolt = <100000>;
-+		};
-+	};
-+
- 	avdd_0v9_s0: regulator-avdd-0v9-s0 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "avdd_0v9_s0";
-@@ -68,6 +83,27 @@ fan2 {
- 		cooling-levels = <0 80 170 255>;
- 	};
- 
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pwr_btn &user1_btn>;
-+
-+		button-power {
-+			debounce-interval = <100>;
-+			gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_LOW>;
-+			label = "Power";
-+			linux,code = <KEY_POWER>;
-+			wakeup-source;
-+		};
-+
-+		button-user1 {
-+			debounce-interval = <100>;
-+			gpios = <&gpio0 RK_PA3 GPIO_ACTIVE_LOW>;
-+			label = "User Button 1";
-+			linux,code = <BTN_0>;
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 		pinctrl-names = "default";
-@@ -352,6 +388,19 @@ regulator-state-mem {
- 				};
- 			};
- 
-+			vcc1v8_s3: LDO_REG3 {
-+				regulator-name = "vcc1v8_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
- 			vcc_sdio_s0: LDO_REG4 {
- 				regulator-name = "vcc_sdio_s0";
- 				regulator-always-on;
-@@ -434,6 +483,16 @@ &pcie0 {
- };
- 
- &pinctrl {
-+	buttons {
-+		pwr_btn: pwr-btn {
-+			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		user1_btn: user1-btn {
-+			rockchip,pins = <0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	gmac {
- 		gphy_reset: gphy-reset {
- 			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_output_low>;
-@@ -503,6 +562,11 @@ &pwm1 {
- 	status = "okay";
- };
- 
-+&saradc {
-+	vref-supply = <&vcc1v8_s3>;
-+	status = "okay";
-+};
-+
- &sdhci {
- 	bus-width = <8>;
- 	mmc-hs200-1_8v;
-
----
-base-commit: 23d8f49fcae5d72b77744c7f349c12462c3bb748
-change-id: 20260930-helios64-buttons-b93ad4e8ee2e
-
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
+Regards/Gruss,
+    Boris.
 
-
+https://people.kernel.org/tglx/notes-about-netiquette
