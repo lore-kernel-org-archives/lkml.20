@@ -1,213 +1,102 @@
-Received: from mail-yx2-f26.google.com (mail-yx2-f26.google.com [74.125.224.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9734FD27C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE35172E7;
+	Wed, 30 Sep 2026 17:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787718; cv=none; b=JWXA3VLNZ8v0FCKkgkCKbFP4i54VUggWc0kquw1lgbjZbCfrfsvhPHBbW9ywVceORQm8Cx5o3HbW2xGqrAU2jvwddyj0SWroISdQxIftqL51GukP6uq1ZWfpQYNiNNsgB1z9ldEleGIk8JoKPSn2aLR4FGLIWBW1sgb1h1v3qTA=
+	t=1790787735; cv=none; b=hjLyph9hCqPquHOv0VGZ02S4A0QnhdYfiFYG9+26G9bFr+ntM07ih9I1MwPdLSMwgtHzmTuLfNO2OPPlaLB+SASZ1erFFIGuANpjbFDx+m7AhfQHQ+QAvKQjEXdeIQtz33urPDqYNFJ7ZaE+8pot2qc6JP6weaxjuEuq18W3PP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787718; c=relaxed/simple;
-	bh=XWeEzXxDpkMmNDypWoIhf2yRRXW21sTTifusYA/fKyw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H115V5F0QV0gsVHTokgU4T/pEW8q9D5k5jPlXri1x9kgJ0pxHSFcVoAl7jjUG0CJZeXRsR14a8dZlshlarvATcLn4AuiSz5S6pIVrO1cgIpvaFefrc4X8SGn52WF7Q77gHMpEnWifOJ7Gkec/qoTU+5q5mr6JpXnbxXMuv/ZX8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=TLhEewDj; arc=none smtp.client-ip=74.125.224.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790787735; c=relaxed/simple;
+	bh=lSvNaYtkCFZzoTci30X9lWGW8IoJXi7d4OhkNwVojSg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hnTUV8QJ/nqu2o1W6ipdCM4sj6usT2pVVxWDxMFi0oF8XvZTeKKMwVT1MUIMFOjGfCkMvC6WK1YAGu05+A2Ca/2hc/DO2mF42kc/eiJ7hJ0VBAYrBdgyUsbzJHGj1pHPHfqgg8e+N6DPHTDGBBZBLunrlTRFLYHbdNlgAaKTMoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EexhOiGd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="TLhEewDj"
-Received: by mail-yx2-f26.google.com with SMTP id 00721157ae682-8ab748519f0so19708597b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790787715; x=1791392515; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O/K23H6l8P+7n/vgMZMU8enzS+4DMqLYI7tKT7n06Vo=;
-        b=TLhEewDjRzycySUdnpDm0rrQOgPZodYah7AkQXQUdnW5zOJzSC+FJNB/8oWhSWm3ua
-         jT9yU+Ndv0Ftgq58tqZ2Kg1AG4tNoY+uUrpOXuv/QS0UwLrL0v/9ngHqnx+8D5bZ6YJv
-         6xR6HxqCZOGyBRwQ5EA9iwutpCiZjqhveD2OZyIFHW5r31FL0TIIche79cumSFSUhijs
-         RrawHY2sKRm8Db2EoC9gLnPomWG+2hsQX32IQLBiFeUzcyCwsN2C2YBfUBsNKmcPNbYk
-         rh6tFL0HdPvEEYdB4LOhR7QkLwtenkLg3jgCjoQ/J9ZxWoq5fAUB/++PWy2bP/yuXcXS
-         TNAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787715; x=1791392515;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=O/K23H6l8P+7n/vgMZMU8enzS+4DMqLYI7tKT7n06Vo=;
-        b=hXl75+P2MPN85cco6Q5W5g7MHV1dEnkf9k06zYAa9LhYv5vFCQxwK8WfEVUOapZ3r9
-         aosggnh4b97t58XKz9tNWBYaW1/vw+valg5pLAKhYJ+yKOKpMpwMHUIbfqn1I9qx8+kR
-         mzHJUIb3rNfXj3FpxOlFBWK3QLwttgGvmQoozqOKdGW3rm/mtzGa2MP0x/jqYLlvaGA4
-         mpKt8rUrk2b2FclSg8OGGjPiDnPwE/zJvr0TJK2gxteKKrNM6HwkJphJcCRq9+RYLWAc
-         cKU7uYeR3a+yZcXbvcoj2B6SaRKvyh2YsDUp+sI28IRc9BDCPH3EZMP612sG7PYgUEE9
-         CoPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOpA8CrsvJZ8l+93iTygZ/dt+gGzoJMhO3Gryz2PMNbR53mH3SwcSTmC+1rDqhe9raClxtfEAu2i+vFfE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgrB2xFWw4jjV2Wtj+1aLkMdJ1N02pL64ofo0nCs8MGBjHTEMR
-	0hBHTzWqSfslBMZBXCi6OWUzQG9LgvmV744zqf/zgWQpHqLZIG4p9tsxEzGya1BrVnI=
-X-Gm-Gg: AYBFou2X0+71X5GZfcInVUGdJ15Lv4UaWkU6ZP0zud1MNHrPp34REHyvrx7dVPGo6uS
-	EwLTe/gwSAYO3o4UNyHfgemMLQ31o+nH0z67tKVbb1Qc6WwgjiNJj1S/t8p/R1c8LAd/WZhQb2t
-	K90UeSqlcBpKjADGSkXFNU5m2LXk74cL7SrA2lLlo4HTGJsut0ecbmyE9iKzZGetHFGHcSJSyaf
-	ROnq+q8aR7aobTDa6daQOaQure5aLLHTkMvkF9KJ/DdjHvnTdZ9EyGqcyf859cWO7DctmcooGRb
-	tEp4WPCKWNgXoq+TLIrYk0Ug86c2B6Ag04U6BHSmQDkLwQlAA3p9/MgBzvHUQqz1vyVVBXL6U/u
-	nj0XXqV6VEljik8RIPWqZapQ6r1lAoR4/tSP08AGq4qMEXcnz5VWDhEYu0QivCrWFKtRdsfaaKm
-	/LWJUbvWGMmlryzuV9cBZUHbPEEwFeBQao5sTXT546vEX4SJ4d11JUTgN33dv8pz+SbGue17tQs
-	CIwsO2pI7wNdl4RaFRYUPaqFrSji0oaXhU2+kpT6MdrVJN4Unyxrw4H1bf4pV54qlQ8MGiOv/yP
-	o4SY3ya29UY7iVdk2TpSOfD4U/Ve+vZdqvLWrSPvkAfxyugk3kxkpp7Ts6/ycFIv
-X-Received: by 2002:a05:690c:6113:b0:8ab:318f:1b61 with SMTP id 00721157ae682-8ac9321853fmr10252457b3.41.1790787714466;
-        Wed, 30 Sep 2026 10:01:54 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:487b:bc91:650e:71d4? ([2600:1700:6476:1430:487b:bc91:650e:71d4])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdac9c648sm1568277b3.14.2026.09.30.10.01.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 10:01:53 -0700 (PDT)
-Message-ID: <43aaaa19a0020c532e4abafd8df197bb14478fc9.camel@dubeyko.com>
-Subject: Re: [PATCH] hfs: don't give the extents overflow file overflow
- extents
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
-	glaubitz@physik.fu-berlin.de, frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 10:01:50 -0700
-In-Reply-To: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
-References: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EexhOiGd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCD61F00899;
+	Wed, 30 Sep 2026 17:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790787733;
+	bh=kExIdmmHUDkx7q8lF/7jaDyfGg/4Py0IVS631gipGEE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EexhOiGd1zY0qJR7a8EtS79ow7rKI/xnnaIc5uPgKXCYBwZnnbHkmjTr1oae9vWG5
+	 hJCf6ZPtKgUJPYCaygBs4Og4wH38IumAu/UmBtRlU4R0rY8jF3TlKSfsAs69B0Up/5
+	 auw/HyRT8v/M5CH2+dtQd/OE/2GfBaLqJnonVLM89AbJFhDLvIIBusFGz0pdoOKT6+
+	 zGKVnV23M99oGDf+1PTW/szt647CIc8mc2dN8WKnslM+3DkRdnlwwt9tBjioINglgd
+	 IN2yMYOK4EIVdlQ/XTy5ne4k16r73D4XnLE5oOzcwiX5Eibkmy7KB3n9SCZ1Wt7GM+
+	 IX/2cybTnnRBQ==
+Date: Wed, 30 Sep 2026 10:02:12 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <rabenda.cn@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Han Gao <gaohan@iscas.ac.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <ar1AlKUs9gwTDWWR@thelio>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
+ <20260930-bulky-miraculous-rattlesnake-b58357@quoll>
+ <CAAT7Ki90CLoWwauNDShNFt4LS+3+nC-6tV1UqwAJP=KD0E56pQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAT7Ki90CLoWwauNDShNFt4LS+3+nC-6tV1UqwAJP=KD0E56pQ@mail.gmail.com>
 
-On Wed, 2026-09-30 at 23:27 +0700, Nguyen Ngoc Thang wrote:
-> hfs_bmap_reserve() grows a b-tree's backing file via
-> hfs_extend_file()
-> while the caller holds tree->tree_lock. For the extents tree itself,
-> once its three MDB extents are full and hfs_add_extent() returns
-> -ENOSPC, hfs_extend_file() falls through to insert_extent and records
-> an overflow extent for the extents file. The next extension then sees
-> alloc_blocks !=3D first_blocks and calls hfs_ext_read_extent(), which
-> takes ext_tree->tree_lock again:
->=20
-> =C2=A0 hfs_ext_read_extent()=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 <- hfs_find_init(ext_tree)
-> =C2=A0=C2=A0=C2=A0 __hfs_ext_write_extent()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_bmap_reserve(ext_tree)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_extend_file(ext inode)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfs_ext_read_exten=
-t()=C2=A0=C2=A0 <- hfs_find_init(ext_tree):
-> deadlock
->=20
-> The extents overflow file can't have overflow extents of its own; its
-> extents live only in the MDB. Fail with -ENOSPC instead, returning
-> the
-> just-allocated blocks to the bitmap. hfs_btree_open() already rejects
-> an extents fork larger than its MDB extents, so this keeps
-> alloc_blocks =3D=3D first_blocks for the extents file for the whole
-> mount.
->=20
-> Reproducible with a plain mount + ftruncate on a fragmented volume
-> with
-> a small extents-file clump size.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3De390d66dda462b51fde1
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> Notes (not for the changelog):
->=20
-> Reproduced in QEMU (x86_64, lockdep) with syzbot C repro
-> 11c3a202580000,
-> and more simply with mount + ftruncate(0x100c17a) on the same image:
-> "possible recursive locking detected" on ext_tree->tree_lock followed
-> by
-> the task stuck forever in D state. The image's extents fork is
-> consistent (one 4-block extent), with a 2048-byte XT clump and a
-> fragmented bitmap, so the three MDB extents fill up after a few
-> extensions and insert_extent runs for the extents file.
->=20
-> With the patch, 3 runs of all five syzbot C repros plus the direct
-> mount+ftruncate case: no lockdep report and no hung tasks. ftruncate
-> still returns 0, since hfs_file_truncate() already ignores a failed
-> extension.
-> =C2=A0fs/hfs/extent.c | 7 +++++++
-> =C2=A01 file changed, 7 insertions(+)
->=20
-> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-> index f066a99a863b..5e7a1f1eb395 100644
-> --- a/fs/hfs/extent.c
-> +++ b/fs/hfs/extent.c
-> @@ -457,6 +457,13 @@ int hfs_extend_file(struct inode *inode)
-> =C2=A0	return res;
-> =C2=A0
-> =C2=A0insert_extent:
-> +	/* The extents file can't have overflow extents of its own
-> */
-> +	if (inode->i_ino =3D=3D HFS_EXT_CNID) {
-> +		hfs_clear_vbm_bits(sb, start, len);
-> +		res =3D -ENOSPC;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	hfs_dbg("insert new extent\n");
-> =C2=A0	res =3D hfs_ext_write_extent(inode);
-> =C2=A0	if (res)
+On Wed, Sep 30, 2026 at 10:37:28PM +0800, Han Gao wrote:
+> On Wed, Sep 30, 2026 at 7:51 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >
+> > On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
+> > > Document the Milk-V Meles board compatible with the TH1520 fallback.
+> > >
+> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > > ---
+> > >  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
+> > > --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > @@ -21,6 +21,10 @@ properties:
+> > >          items:
+> > >            - const: beagle,beaglev-ahead
+> > >            - const: thead,th1520
+> > > +      - description: Milk-V Meles single board computer
+> > > +        items:
+> > > +          - const: milkv,meles
+> >
+> > Why isn't this enum with the previous entry?
+> 
+> Merging will result in the loss of SBC manufacturer information.
+> Milk-V is an independent manufacturer.
+> 
+> Thanks,
+> Han
 
-Sorry. But I decided that I would like not to review or accept patches
-from your side. You are making the same mistakes during the working on
-the comments/remarks. We are not making any progress. It looks like
-that you have no memory at all. So, I assume that you are using an AI
-agent without any analysis or checking the output.
+I think the feedback is that BeagleV Ahead and Milk-V Meles have the
+same pattern and it could be changed to:
+
+      - description: TH1520 single board computers
+        items:
+          - enum:
+              - beagle,beaglev-ahead
+              - milkv,meles
+          - const: thead,th1520
+
+Is that right, Krzysztof?
 
 Thanks,
-Slava.
+Drew
