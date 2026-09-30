@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F13A353A91
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:19:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28F3136672
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790731178; cv=none; b=buUEnmG4K4yMHctA0U22P8cOJUtjRDveNzM8wr8hp31SpW0zRKQjpWUh0WEpxYpS+rj0qiCf38oJCigIQhAm3H5p31Nxlf+9oJrz1Qxgp0idmYmHi+igd4zWrDok0bcSZO/ZJleug7DzhiqNbHnxDWnbdm0wV/0bLLDhfjc7Ijw=
+	t=1790731183; cv=none; b=DnSv4uoH79oI4dpYWDOEOqxLqyER6Fzz6ZUu3VsnTMmS3kNgQ4dgZsrSHqd+NnOgHBnPnP9qghxrAociG4x+m02fM1Bn5mHIP3G9VTYaC3p3Wp2ZzN8/Jzgqbej60D4DyVeVzo40dEK3n0jfyqbFrUZg6lihHd2rkyVNE2M2+aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790731178; c=relaxed/simple;
-	bh=bpLB1ab1BY9ORTX1MlTrgZDnkNc2cdghQ3lF7HKHbDA=;
+	s=arc-20240116; t=1790731183; c=relaxed/simple;
+	bh=Cfj326x8LAqdgElCQaG7LVeIWfBp3cL9Pn0z0omeboc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eJaBkY+Y0XCLWnRH5mKVNcFFtLROLu3PySCNe6ht6Nj3d6n3dH+i3IIyJ7PRsdsZJf84TwYFxQ4zXQdZbLa12kYpJFJLjyxKMCh7+DhZn4L+sehkS5jcQl4snL0wF8pTy5EPJNcEbgyfRtgm1Lth3IfhGruMwk9nYZejxrZ9NRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Rg5tfEmE; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=B1S/5vVKc2OkeqhPT5kwVqYn1IgLiaU4INEp6U4o1oJ3tW0GfypqFUaugB3ECR3f055ftpaysUC9A9YHbNGJNTCyIuY9s7QHdohcRrU29EBQJV530USFgJgp2lL9B6AEf+FCWEkR88MOk/YxUcKMA0V/4Djv+QKsEaWQ/zSvjI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e5EhD8Hg; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Rg5tfEmE"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33baaba6371so18076012eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:19:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e5EhD8Hg"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34318e88ba2so3794406eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790731175; x=1791335975; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790731177; x=1791335977; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VApuM5lufQKhv2Z8CNJsSepO+dLFr7rZjSeOJOWL1Og=;
-        b=Rg5tfEmEjo9/IXaKGeTlM9BMWmIbeehQNcYmdU6e7aoKmyMfILsI2hHxEuAKP7NEp0
-         iLRnr+35cdYzoIgz6bxGIDArF2s/gwtsKOUCNJYSKkeK2j1DgKCPckvf9foTMsu0WkuL
-         RPFmrDQ3yijuLAmhHGXdpmTaP6HVRy+7jwcSl5CokeeaItm+OMLhLHf8LVBbhapoCEZ1
-         54B6hn/mseCmm5C6uPKXQTFTrfTeY+HbKqRxmhvAn5OOuTb+9V158RlRv4xfAWJPqMtP
-         ShL5p4wBZlH52A+GcoFR3yz2mrZ0r2DJwYe2GMC6v8BBF4jQsaM2mcw7EDQPP+XDmNn1
-         vG0Q==
+        bh=0wlYFbpFghnstlU+2b6sLYN8nNwY9HP02E2/+9cpOkI=;
+        b=e5EhD8HgZIUCXkT8608r5TwZvY6McTTk6vXs1LRmo5KRTnPgiW+8z12uk2zHSyF8oG
+         iUAiYfJbDbGqdSYeS5cRj42s5teGwwWM92sG1qIikaizG4rGiyAcyi57PSjgpW21FVba
+         j37fDq3+sfDh/ad2kmLfGxQk0SgFu0n2elOs/D5mMTyiYdnlucxZA5iaWv2Ql08i5yCI
+         uyvbveVzsheQ4pf6cx/EcfcNmNy9Ab+F7p7TRwtFtoXvsYMUY7vfgYO4VBVDsDXsE1ig
+         GgG0x9sC0NHynCQa9dI4gyGkA3FUeDJ/FWoRueXhjK1Ra0PoWyzLxDt04EP5xnnv+fI3
+         3i0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790731175; x=1791335975;
+        d=1e100.net; s=20260707; t=1790731177; x=1791335977;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VApuM5lufQKhv2Z8CNJsSepO+dLFr7rZjSeOJOWL1Og=;
-        b=2FpDzA1LNLCW+XrUv+sivaJCFr0cQKkrj90taH2oDQ9TjTRM1tcuQMNUUrx95/CnxF
-         PmDEmQyI9QICS3aO8Tbav1CO0HynCCsi8NYF0eAAg8mcgRgiyUFCxBzPrkDtj+LagXRT
-         2Or0bZrlJsV9x6F/CLRN232dgFmKOgv3C0AIvSKrfYA9fnLS6gPkklwpOiiKLEMOPvp0
-         x2wQoitW6Oiy0FSWQ80LPtTD/oiUHFNcngtD8RmMzsPRtWSqSiJoP1EI+Csg9vSHCKy6
-         7ZyuXzVDAwJMJIqp9sLxzQ2jqJYMZwiILyHLhpJeJDLUHcZmHc0GcFOSML2064JpSeSE
-         WPzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxhBFIxbAw/pmLQFhLR1mzd92/a8A8L5SJIX87fc8z7eI+6p9E5wUQI1fYlJwy7Z2/X6l97GYnUmOoIdXo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMhinfdgkNPzqbOUtETAfIPs4nC+i2PJFrLTz/kEAEf1+IWw5D
-	Uruwc49XlG47iMIWJSYpdZVyCVUSO6vI6oYsO/jUtKblYmCTHwx7FQR1tXA8tF0/Jcnvmr5pFFP
-	IjdvB/W+NFkfToqbeQWyK5N1hvlZHBLkRL08s4Q==
-X-Received: from dyblf37.prod.google.com ([2002:a05:7301:a25:b0:33e:6278:c3de])
+        bh=0wlYFbpFghnstlU+2b6sLYN8nNwY9HP02E2/+9cpOkI=;
+        b=HSLZVeOQlNYeG7qbr3lgHzocoJl3HlxUcGn/A1imcom3h6T288Id1UxFbo/LY0H7mw
+         llsUQYpH/rc+Qi+CM1K3cdfY73og0Ryi82gqBISnNiKnUF2sFlQBAPjz+7rFRFUU1NUH
+         43ordkYv8l2+UtHKqfv/C6z5HX9eQGt4jCXLG0Z8/ky4YVLyjyWsdbxhA7qYYdIgeFbV
+         gdBC//XZ1dk3EBJ0f4UsQWkl7RpmOfQu8jW7Kd/cxt3dbZhahHbyuEC2zuwp68178frf
+         FLMp1hqyDHJjOUNgfXz1QADt+Geie2l6QYTiNA+lOWdJd1Jj0Jge5zALhDRtsReLxpex
+         6+xw==
+X-Forwarded-Encrypted: i=1; AKwUvByjhOmOYWH5eSCLX50Mcm1trPKNU/EICWyrvUN3AXuv6h2WhsA3Pa9+32QFdSWpygQ3vdmn1L2W9XMZP2U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsZzlRYU3wCXpC7tR5hlTmQH1yjHhdDw8L8ihl9oe5ZS8riNNz
+	G5Y8UGo3YmaFSvJTca/Lb/96wfN7jtqkvmEE7Q9eFnjdbqtjQVlEu7DVgE1lyho56trbU348iGP
+	BFGkQvecfQDh0IdsHDcpSDCxKKao+IRl9mFdtpA==
+X-Received: from dycnn9.prod.google.com ([2002:a05:7301:1409:b0:344:1693:c118])
  (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:aa6:b0:342:94b:aa28 with SMTP id 5a478bee46e88-34c64cb8e45mr1319141eec.27.1790731175148;
- Tue, 29 Sep 2026 18:19:35 -0700 (PDT)
-Date: Tue, 29 Sep 2026 18:19:20 -0700
+ 2002:a05:7301:1a02:b0:34b:ee3a:10af with SMTP id 5a478bee46e88-34cd91735admr43302eec.4.1790731177107;
+ Tue, 29 Sep 2026 18:19:37 -0700 (PDT)
+Date: Tue, 29 Sep 2026 18:19:21 -0700
 In-Reply-To: <20260930011921.1188150-1-sarthakkukreti@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,122 +60,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930011921.1188150-1-sarthakkukreti@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930011921.1188150-3-sarthakkukreti@google.com>
-Subject: [PATCH 2/3] erofs: bypass managed_pslots xarray when compressed cache
- and dedupe are disabled
+Message-ID: <20260930011921.1188150-4-sarthakkukreti@google.com>
+Subject: [PATCH 3/3] erofs: optimize 48-bit encoded extent lookup with O(1)
+ hint, interpolation, and in-page search
 From: Sarthak Kukreti <sarthakkukreti@google.com>
 To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
 Cc: Sandeep Dhavale <dhavale@google.com>, linux-erofs@lists.ozlabs.org, 
 	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When EROFS is mounted with cache_strategy=disabled and without global
-compressed data deduplication (!erofs_sb_has_dedupe(sbi)), every
-pcluster still:
-1. Performs an RCU xa_load(&sbi->managed_pslots, map->m_pa) lookup in
-   z_erofs_pcluster_begin().
-2. Acquires the superblock-wide xa_lock(&sbi->managed_pslots) spinlock
-   to insert the pcluster via __xa_cmpxchg() in
-   z_erofs_register_pcluster().
-3. Scans all pcluster pages in z_erofs_bind_cache() calling
-   filemap_get_folio() on an empty MNGD_MAPPING.
-4. Acquires xa_trylock(&sbi->managed_pslots) on completion in
-   z_erofs_put_pcluster() to __xa_erase() the pcluster and defer freeing
-   via call_rcu().
+In z_erofs_map_blocks_ext(), 48-bit variable-length encoded extent
+tables (recsz >= 16) currently perform a full O(log N) binary search
+across [0, z_extents), invoking erofs_read_metabuf() on every iteration
+even when multiple binary search probes land within the same 4 KiB
+metadata page or when reading sequentially.
 
-Under multi-threaded random read workloads with cache_strategy=disabled,
-the superblock-wide managed_pslots XArray spinlock and RCU callback
-queue become a contention bottleneck despite no managed cache folios or
-shared pclusters ever being retained.
-
-Record whether a pcluster is unregistered (pcl->anon, fitting in existing
-struct padding alongside pcl->from_meta) at allocation time when
-cache_strategy <= EROFS_ZIP_CACHE_DISABLED and !erofs_sb_has_dedupe(sbi).
-Skip managed_pslots lookup, insertion, and cache binding for anonymous
-pclusters, and free them directly via z_erofs_free_pcluster() upon
-decompression completion just like inline metadata pclusters. Recording
-pcl->anon per pcluster also avoids races if sbi->opt.cache_strategy is
-changed via remount while pclusters are in flight.
+Optimize 48-bit variable-length extent lookup in three ways:
+1. O(1) Sequential Continuation Hint: Cache the last resolved extent
+   index (z_extent_hint) and its logical end offset (z_extent_hint_lend)
+   in struct erofs_inode. Because extent i + 1 starts at hint_lend,
+   check map->m_la == hint_lend on step 0 to probe hint + 1 directly
+   on sequential reads with zero false positives on random reads.
+2. Step-0 Linear Interpolation: On random reads where map->m_la !=
+   hint_lend, estimate the initial probe index via linear interpolation
+   div64_u64(map->m_la * (r - l), lend) so that step 0 lands on or
+   adjacent to the target 4 KiB metadata page (~16 MiB logical coverage
+   per 256-record metadata page at recsz = 16).
+3. In-Page Binary Search: Once erofs_read_metabuf() maps a metadata
+   block, narrow [l, r) across all extent records [blk_first, blk_last]
+   residing in that same metadata block in memory before issuing another
+   erofs_read_metabuf() call.
 
 Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
 ---
- fs/erofs/zdata.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ fs/erofs/internal.h |  2 +
+ fs/erofs/zmap.c     | 94 +++++++++++++++++++++++++++++++++++----------
+ 2 files changed, 75 insertions(+), 21 deletions(-)
 
-diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
-index 0517caf61959..cd0411695a02 100644
---- a/fs/erofs/zdata.c
-+++ b/fs/erofs/zdata.c
-@@ -77,6 +77,9 @@ struct z_erofs_pcluster {
- 	/* I: whether compressed data is in-lined or not */
- 	bool from_meta;
- 
-+	/* I: whether pcluster is not registered in managed_pslots */
-+	bool anon;
-+
- 	/* L: whether partial decompression or not */
- 	bool partial;
- 
-@@ -775,6 +778,9 @@ static int z_erofs_register_pcluster(struct z_erofs_frontend *fe)
- 	pcl->pageofs_in = pageofs_in;
- 	pcl->pageofs_out = map->m_la & ~PAGE_MASK;
- 	pcl->from_meta = map->m_flags & EROFS_MAP_META;
-+	pcl->anon = pcl->from_meta ||
-+		(READ_ONCE(sbi->opt.cache_strategy) <= EROFS_ZIP_CACHE_DISABLED &&
-+		 !erofs_sb_has_dedupe(sbi));
- 	fe->mode = Z_EROFS_PCLUSTER_FOLLOWED;
- 
- 	/*
-@@ -784,7 +790,7 @@ static int z_erofs_register_pcluster(struct z_erofs_frontend *fe)
- 	mutex_init(&pcl->lock);
- 	DBG_BUGON(!mutex_trylock(&pcl->lock));
- 
--	if (!pcl->from_meta) {
-+	if (!pcl->anon) {
- 		while (1) {
- 			xa_lock(&sbi->managed_pslots);
- 			pre = __xa_cmpxchg(&sbi->managed_pslots, pcl->pos,
-@@ -819,6 +825,7 @@ static int z_erofs_pcluster_begin(struct z_erofs_frontend *fe)
- {
- 	struct erofs_map_blocks *map = &fe->map;
- 	struct super_block *sb = fe->inode->i_sb;
-+	struct erofs_sb_info *sbi = EROFS_SB(sb);
- 	struct z_erofs_pcluster *pcl = NULL;
- 	void *ptr = NULL;
- 	bool needretry;
-@@ -840,10 +847,11 @@ static int z_erofs_pcluster_begin(struct z_erofs_frontend *fe)
- 			return PTR_ERR(ptr);
- 		}
- 		ptr = map->buf.page;
--	} else {
-+	} else if (READ_ONCE(sbi->opt.cache_strategy) > EROFS_ZIP_CACHE_DISABLED ||
-+		   erofs_sb_has_dedupe(sbi)) {
- 		do {
- 			rcu_read_lock();
--			pcl = xa_load(&EROFS_SB(sb)->managed_pslots, map->m_pa);
-+			pcl = xa_load(&sbi->managed_pslots, map->m_pa);
- 			needretry = pcl && !z_erofs_get_pcluster(pcl);
- 			rcu_read_unlock();
- 		} while (needretry);
-@@ -875,7 +883,8 @@ static int z_erofs_pcluster_begin(struct z_erofs_frontend *fe)
- 				Z_EROFS_INLINE_BVECS, fe->pcl->vcnt);
- 	if (!fe->pcl->from_meta) {
- 		/* bind cache first when cached decompression is preferred */
--		z_erofs_bind_cache(fe);
-+		if (!fe->pcl->anon)
-+			z_erofs_bind_cache(fe);
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index 12e3a5b80a5a..9bf1df974bcf 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -271,6 +271,8 @@ struct erofs_inode {
+ 			};
+ 			erofs_off_t    z_fragmentoff;
+ 			unsigned short z_idata_size;
++			u64            z_extent_hint;
++			erofs_off_t    z_extent_hint_lend;
+ 		};
+ #endif	/* CONFIG_EROFS_FS_ZIP */
+ 	};
+diff --git a/fs/erofs/zmap.c b/fs/erofs/zmap.c
+index f8981fc74246..56cd9dd088b6 100644
+--- a/fs/erofs/zmap.c
++++ b/fs/erofs/zmap.c
+@@ -558,36 +558,86 @@ static int z_erofs_map_blocks_ext(struct inode *inode,
+ 		lend = min(lstart, lend);
+ 		lstart -= 1 << vi->z_lclusterbits;
  	} else {
- 		folio_get(page_folio((struct page *)ptr));
- 		WRITE_ONCE(fe->pcl->compressed_bvecs[0].page, ptr);
-@@ -1383,7 +1392,7 @@ static int z_erofs_decompress_pcluster(struct z_erofs_backend *be, bool eio)
- 	WRITE_ONCE(pcl->next, NULL);
- 	mutex_unlock(&pcl->lock);
++		unsigned int step = 0;
++		u64 hint = READ_ONCE(vi->z_extent_hint);
++		erofs_off_t hint_lend = READ_ONCE(vi->z_extent_hint_lend);
++
+ 		lstart = lend;
+-		for (l = 0, r = vi->z_extents; l < r; ) {
+-			mid = l + (r - l) / 2;
++		for (l = 0, r = vi->z_extents; l < r; ++step) {
++			erofs_off_t blk_off;
++			u64 back, fwd, blk_first, blk_last;
++			u64 orig_mid, sub_mid, lo, hi;
++			struct z_erofs_extent *e;
++
++			if (step == 0 && hint_lend &&
++			    map->m_la == hint_lend &&
++			    hint + 1 < vi->z_extents) {
++				mid = hint + 1;
++			} else if (step == 0 && r - l > 4 && lend > map->m_la) {
++				u64 est = div64_u64(map->m_la * (r - l), lend);
++
++				if (est >= r)
++					est = r - 1;
++				mid = est;
++			} else {
++				mid = l + (r - l) / 2;
++			}
+ 			ext = erofs_read_metabuf(&map->buf, sb,
+ 						 pos + mid * recsz, in_mbox);
+ 			if (IS_ERR(ext))
+ 				return PTR_ERR(ext);
  
--	if (pcl->from_meta)
-+	if (pcl->anon)
- 		z_erofs_free_pcluster(pcl);
- 	else
- 		z_erofs_put_pcluster(sbi, pcl, try_free);
+-			la = le32_to_cpu(ext->lstart_lo);
+-			pa = le32_to_cpu(ext->pstart_lo) |
+-				(u64)le32_to_cpu(ext->pstart_hi) << 32;
+-			if (recsz > offsetof(struct z_erofs_extent, lstart_hi))
+-				la |= (u64)le32_to_cpu(ext->lstart_hi) << 32;
+-
+-			if (la > map->m_la) {
+-				r = mid;
+-				if (la > lend) {
+-					DBG_BUGON(1);
+-					return -EFSCORRUPTED;
++			/*
++			 * Multiple extent records reside in the same metadata
++			 * block (e.g., 256 records per 4 KiB page for
++			 * 16-byte extents, or 128 records for 32-byte extents).
++			 * Narrow [l, r) across all records already present in
++			 * the currently mapped metadata page to avoid repeated
++			 * erofs_read_metabuf() calls.
++			 */
++			blk_off = (pos + mid * recsz) & bmask;
++			back = min_t(u64, mid, blk_off / recsz);
++			fwd = (sb->s_blocksize - blk_off) / recsz;
++			blk_first = mid - back;
++			blk_last = min_t(u64, vi->z_extents - 1, mid + fwd - 1);
++			orig_mid = sub_mid = mid;
++
++			while (l < r) {
++				e = (void *)ext +
++				    ((s64)sub_mid - (s64)orig_mid) * recsz;
++
++				la = le32_to_cpu(e->lstart_lo);
++				pa = le32_to_cpu(e->pstart_lo) |
++					(u64)le32_to_cpu(e->pstart_hi) << 32;
++				if (recsz > offsetof(struct z_erofs_extent, lstart_hi))
++					la |= (u64)le32_to_cpu(e->lstart_hi) << 32;
++
++				if (la > map->m_la) {
++					r = sub_mid;
++					if (la > lend) {
++						DBG_BUGON(1);
++						return -EFSCORRUPTED;
++					}
++					lend = la;
++				} else {
++					l = sub_mid + 1;
++					if (map->m_la == la)
++						r = min(l + 1, r);
++					lstart = la;
++					map->m_plen = le32_to_cpu(e->plen);
++					map->m_pa = pa;
+ 				}
+-				lend = la;
+-			} else {
+-				l = mid + 1;
+-				if (map->m_la == la)
+-					r = min(l + 1, r);
+-				lstart = la;
+-				map->m_plen = le32_to_cpu(ext->plen);
+-				map->m_pa = pa;
++				lo = max_t(u64, l, blk_first);
++				hi = min_t(u64, r - 1, blk_last);
++				if (lo > hi)
++					break;
++				sub_mid = lo + (hi - lo) / 2;
+ 			}
+ 		}
++		if (l > 0) {
++			WRITE_ONCE(vi->z_extent_hint, l - 1);
++			WRITE_ONCE(vi->z_extent_hint_lend, lend);
++		}
+ 		last = (l >= vi->z_extents);
+ 	}
+ 
+@@ -665,6 +715,8 @@ static int z_erofs_fill_inode(struct inode *inode, struct erofs_map_blocks *map)
+ 	}
+ 	vi->z_advise = le16_to_cpu(h->h_advise);
+ 	vi->z_lclusterbits = sb->s_blocksize_bits + (h->h_clusterbits & 15);
++	vi->z_extent_hint = 0;
++	vi->z_extent_hint_lend = 0;
+ 	if (vi->datalayout == EROFS_INODE_COMPRESSED_FULL &&
+ 	    (vi->z_advise & Z_EROFS_ADVISE_EXTENTS)) {
+ 		vi->z_extents = le32_to_cpu(h->h_extents_lo) |
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
