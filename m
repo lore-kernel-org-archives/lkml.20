@@ -1,120 +1,106 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DAC51FCC4;
-	Wed, 30 Sep 2026 17:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A154EF13C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789183; cv=none; b=sjVdNEg/QTPXhvtjWy6zCsbj0A6lmpVuj0N1hWhQcIF30QjVAJtk48UlRlHqeU6t5AJeNNaJ5h8OjKZk5hC+Vh09yNOjYpRWoUn0VdAxCUDuVgKibDcPnWl+kLvecQ01pyqxZmmtvwWq8Ank9lcpjcO9uew9obEAMZvhqZt5jtg=
+	t=1790789257; cv=none; b=Xy2LEeLzqH1Sjf/L0ErO7XEC8JlkPBQWu153uTOceZovP9rRF2XSkR/NoiuloxFputw5irHHa/0sWkECzf4CcFA81BuM9UwrVtmbrR2/YNGvXe+s1YmDgAXenbrOLBQAoSV7vIlZP0DaAXvyqP7g/3y+Qsb+ZQfJ7ZozqYLpzDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789183; c=relaxed/simple;
-	bh=kM6JA5RsuihcZxAUFE4mCjzjy4ZvkYVwr9L940JZlhg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u+R1arhrk7tut8zHfp3VFHqaM9LFpyX5TtYEoosIlKNsXf/8Oh4Q6eF8rchcNKiELPXhLMc7oCG2++w7P1jsTyKJXCtuh3KiMf7Jore+jYZV+9QcgrLs6qmcXco8oGijBNC/PCBOWYG/0EJz1oxqXFK1X6YqohedEAYhARiPn7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=r2UhsyxA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eUoAO5df; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790789257; c=relaxed/simple;
+	bh=riv0dAnP+WmNZhDp2p0iOVTpSjlSuDe72Jq/YsP2SAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dlpozucEEYBKQpGZU8I2i5g1hsOXjHnJoK9oYsIX+A39DYNlAtkSC+AL1o8RZMr/EwBmfmzeLtNZkrW07/e3AF7oMaOMFtXeC8BXapPg8mqKX4pQVhSCZHsXHeUT2Xy9kycEUMOKklzYKInoiwWUlz8eqypfWKDGx2QX996uICM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kitgw0dm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="r2UhsyxA";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eUoAO5df"
-Message-ID: <affd433db23905f57d48c25ad88707ba62c925a0.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790789179;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
-	b=r2UhsyxAZMOPEViQ3ahoY8GpSwZQ/5/yoyoq2Qi6X6DV421ocdBYJi9bAImBVyRKEnkAG2
-	TsJmgeHT3l7trOnEOC7yaUrKi04DYsHoSo6kr4l4dqMGppEin0w3Qir1nr9384N3ODOfYA
-	cUI+ROvsXVdg9jDInM8KCZ769X7hRTM/Mm50oB9zoGN46CXfdXuh1PDpJXvAhbnaol2p6M
-	+F5Zqqop+riUD7uh8z2+xdfOnSO9DlI5VuNXu2bfjl3tHPhtrTQxI2epyDwlRn6D0fP0a1
-	JkhmrrRikU7hY0ViH+ptsG1Q+ItFxvU9pX7W3JVx0VZocORWX+PGyuCbFDN0/Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790789179;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
-	b=eUoAO5dfE+Zrfu6jxLoQco+gdDx8TLZQQLimRc0c11Hd0K0gb/qla/fyHOEXGYwRQkvP4l
-	N/izlOFVCU/0IECg==
-Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 19:26:18 +0200
-In-Reply-To: <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
-	 <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kitgw0dm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1058A1F000FF;
+	Wed, 30 Sep 2026 17:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790789256;
+	bh=GyghZvqdAdJddV47CNsr4GWT+47Z5Sjzvmlp4S+84dU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kitgw0dmwDA7N2xe7x+U50g9U6PRpKbzSNL+e14juoONe2XLVbng37H1uto7f3/5a
+	 CU9eICQrhQHumGRk1wlISEcw8JXvEKg4OzrmIViQsjhmBv4ofIKqRkl24GqXs8a3Zq
+	 PMnbNi0fZ/7xcptp3ofuwoy/nJwhVMDqIBNzq4SevpdWZKMtzU71qyr2XXAK5BLa9b
+	 p/iKsc13VKdzW6Os00pVXiw0Tw9hxrOyX1UChJ8kYhlD/HFkY0Pw39VOqHbr4118tD
+	 jLJQ4jkQ4PByKmin0459J6PuaYSrjDa6l4rnVbIJUyBbshsFe5TMP80j52l2wRAlow
+	 bbxmX3TsitRhA==
+Date: Wed, 30 Sep 2026 19:27:28 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Binglei Wang <l3b2w1@gmail.com>
+Cc: xiang@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
+	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com, liubo03@inspur.com,
+	linux-erofs@lists.ozlabs.org
+Subject: Re: [PATCH] erofs: fix folio reuse from a different address_space in
+ erofs_bread()
+Message-ID: <ar1GgGSIZ1h0bBip@MacBookPro>
+Mail-Followup-To: Binglei Wang <l3b2w1@gmail.com>, xiang@kernel.org,
+	chao@kernel.org, linux-kernel@vger.kernel.org, zbestahu@gmail.com,
+	jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com, liubo03@inspur.com,
+	linux-erofs@lists.ozlabs.org
+References: <20260930112127.27059-1-l3b2w1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930112127.27059-1-l3b2w1@gmail.com>
 
-On Sat, 2026-09-26 at 01:17 +0200, Andrew Lunn wrote:
-> > +static void soce_sw_read_core_version(struct soce_dsa_local *local,
-> > +				      u8 *version, u8 *subversion,
-> > +				      u16 *revision)
-> > +{
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
-> > +	*version =3D (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
-> > +	*subversion =3D (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
-> > +	*revision =3D (u16)regval;
->=20
-> FIELD_GET() would make this more readable.=20
+On Wed, Sep 30, 2026 at 07:21:27PM +0800, Binglei Wang wrote:
+> From: Binglei Wang <l3b2w1@gmail.com>
+> 
+> erofs_bread() reuses a cached folio on page index match without checking folio->mapping.
 
-Yes, I will fix it.
+Each line in the commit message should not exceed 72 chars.
 
-> > +static int soce_sw_detect_features(struct soce_dsa_local *local,
-> > +				   u32 *numports)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 implemented_numports;
-> > +	u32 licensed_numports;
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(base + SOCE_LIC_FEATURES_OFFSET);
-> > +	licensed_numports =3D FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, reg=
-val);
-> > +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
-> > +		return -EINVAL;
-> > +
-> > +	regval =3D readl(base + SOCE_IMPL_FEATURES0_OFFSET);
-> > +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
-> > +		return -ENODEV;
-> > +
-> > +	implemented_numports =3D
-> > +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
-> > +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
-> > +	    implemented_numports > licensed_numports)
-> > +		return -EINVAL;
->=20
-> Maybe add dev_err() here for all these error cases. It will help
-> somebody debug why there switch fails to probe.
+> 
+> xattr.c calls erofs_init_metabuf() twice on the same buffer without erofs_put_metabuf();
+> the two in_metabox sources differ, so buf->mapping can switch
+> while buf->page still belongs to the old address_space.
+> The next erofs_bread() then reads the wrong mapping, dropping shared xattrs with METABOX.
+> 
+> We require folio->mapping == buf->mapping in the reuse check;
+> otherwise drop the cached folio and re-read via the slow path.
+> 
+> Fixes: 414091322c63 ("erofs: implement metadata compression")
+> Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
+> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+> ---
+>  fs/erofs/data.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+> index be63b89f0862..d8b6523bc218 100644
+> --- a/fs/erofs/data.c
+> +++ b/fs/erofs/data.c
+> @@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
+>  	if (buf->page) {
+>  		folio = page_folio(buf->page);
+> -		if (folio_file_page(folio, index) != buf->page)
+> +		if (folio->mapping != buf->mapping) {
+> +			/* the cached folio belongs to another address_space */
+> +			erofs_put_metabuf(buf);
+> +			folio = NULL;
 
-Sure, I will add them.
-
->=20
-> 	 Andrew
+As I said, you could just drop `erofs_put_metabuf(buf);` here,
+and folio = NULL will do the correct thing instead.
 
 Thanks,
-Vasilij
+Gao Xiang
+
+> +		} else if (folio_file_page(folio, index) != buf->page) {
+>  			erofs_unmap_metabuf(buf);
+> +		}
+>  	}
+>  	if (!folio || !folio_contains(folio, index)) {
+>  		erofs_put_metabuf(buf);
+> --
+> 2.43.0
+> 
+> 
