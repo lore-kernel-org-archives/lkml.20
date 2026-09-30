@@ -1,466 +1,265 @@
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2092.outbound.protection.partner.outlook.cn [139.219.146.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743BD3F5BE6;
-	Wed, 30 Sep 2026 12:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772226; cv=none; b=p91cGWkI9LmXzLFNogTfdeWY0B4fCj+qha0n8hw/tFX0MfxB0uaAZNgUrcB3k6m4+a+NjkO/88IA69Q3wjJrboJV5p8MoG/1oYQDf8qlNCISEaXwji35uH/u/MdJQD5Nx/aoHdw+JkSh+VmT/FyWE35yEHFV5Bm3Y2ET6vYpBSU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772226; c=relaxed/simple;
-	bh=RQTW9FqPueCQSZPHJ76XPxFed33TC+kZy34ScyyRoYg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ldbMt/sGg42cjQdd4DgF2ukFqvIQI200XNSkJvl4ooGUcuMRQkb3dX5AU7Upxo5FUq7dvFqZjfEAQlGiGXpQ5am8V97M3UXcKJ7V2hREWzq9WSCDGn4xrTNFDeqwQJjgNciKmsFQrlJZ3xhcKHRrvDlF1Xq0CJ0j3iTrVO/9OK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=43.154.197.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1790772163t07ddc1c2
-X-QQ-Originating-IP: HH3deTPG2oeB7yf67F2S1AMFUkldv1DBKOV6BqlS2/g=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 30 Sep 2026 20:42:41 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 702636443561893348
-EX-QQ-RecipientCnt: 16
-From: Xilin Wu <sophon@radxa.com>
-Date: Wed, 30 Sep 2026 20:41:53 +0800
-Subject: [PATCH 09/13] drm/msm/dp: Track output bit depth in bridge atomic
- state
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ED53546CC;
+	Wed, 30 Sep 2026 12:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.92
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790772230; cv=fail; b=nTskRjZIdGZBmx2Sj7N8K6F2TqRoA/qFA5adhgaSRXSfjJu+4jhCVJp3VohuakAM7r+2q/kD1d0ZlmxtQt8+bQLpWEF27Pcv0A2DmUeMYi9Q8fTOt/kNrXtPt104jlshcsqFemmMMVIDrO0nVCZ/8B7PtInShB1V+Ez51322iVo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790772230; c=relaxed/simple;
+	bh=VagWbk58PMEl7yXiusjuhtwrli6FUIiU8xUwdLqe03I=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=Q8ncA23LG/IQEdgcQZcubqL2EVzCbDau5ukU2BKzvgrFOSpUUKWFi5XCqtNq35cJGNZavAbVLYpCxJk+Jh/j6K358un0YARLlSfWdqXeNydC484Gn26Xg6U0RQFIwFqkfzuHaM2UN2uW5AV4tmJW5Xx2XwBERNONw8CwtIQloew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bOv9eta//al7kWEkomlgcpTYc2oRSyDOunmDb2us4kIGGKTdh1nfVCub4BM+QWbHw9hA8IsM3L1jxrhZJ+tfgQbo2viwybML+1wWsFW86VoCHVob310iIsJG/EizfEjcA9FtVv/aAahFq2p3VtLiiB5E9lGHIRLijDWUwb2+6w+PoG399UC/us4mcLnIgpmCusome1dVkLAx+Do1laM/luxuDVELNPhbyh9BfaON0bHbP78zGZHAL6NTo02SuXI0SAGacP9hqaIGpP6fS5Pb/yJcGNNqUSUwFcrOoXVNNOmEAg5j8q0KDmb+UisBnp6e6haX857ZoDbY9dc6NvTj1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hIE+uWQwyg/GQIvtclyXYDpj36tObYe+WNXIN5fCML4=;
+ b=k2ZQvlmUO6MRzKD3Cb98OU3StVn+yduj1BAAfxsR26iASw93tx3J5KqY8hgV+BZhU7wn6r/rDagUdjGdAzxFsV6Q8Q2G0FqlYMZsjjktSqq9RPhdCvQHZ5rH6m+tbmVtiCMGHnKrg3452i4NyQMTNydJGasbF0085o2YpYNCSNWiVanfwfHteDSYztdTBl0OxL46ETtIyw+aPoepiHwviZuv6+9dw4r0FnJ33u6F4qUhEEZAPyTyIBboy6Co6wHjv80iGadMArQ6N3MioNVGhqygk4EV8chXwHQjYzS4j++UsHlicz6rt+iwRmx8sXnhyUc7Pa8nMjaOFW0e+GjGRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1297.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
+ 2026 12:43:31 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.026; Wed, 30 Sep 2026 12:43:31 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v5 00/23] Add basic clocks and resets for JHB100 SoC
+Date: Wed, 30 Sep 2026 05:42:54 -0700
+Message-Id: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0006.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::18) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-msm-dp-hdr10-v1-9-dbbf8b2b42bc@radxa.com>
-References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
-In-Reply-To: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14198; i=sophon@radxa.com;
- h=from:subject:message-id; bh=RQTW9FqPueCQSZPHJ76XPxFed33TC+kZy34ScyyRoYg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZcJFPrOzHfcuuZuXvRfa/WkRYlNtlEsx2a6GEsFf
- /2pc1O/o5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETMzjEy/Nv7LFnr+bL22y+v
- dKhasU7cLHt46drrvZsVo6akhT33rWT47y60fO+K3xzlGjNzrjJbaai3TCo8wPxrUsjya1e+puu
- Z8AAA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: My5OXIb+boh/6a0s/m6n601o3zFhk9luMQYilgGdMIsi2qNHp2XFPB6d
-	avRAJ/SgE9petIcoDlBtc9V/YOmeYZOSw8lRkbtTpiGzR6JNE//zRfObABpRjUIzjcTY2pP
-	eXE9lH24GruViJR7PmuOd29pf/PiZ0EEgntc0hthk4fFShBZ8MFFWKPkdI6JHY93CfeKSqY
-	mdt5jxppRmSCdza8c6jvIQQt1tnZ88gqLkKZ1qh53QCHBo8apZrLvo+K/sxYjXgd5KMUQLJ
-	sTMykbUZSUPBNkuQkneT7pqiX6zJX4mcgnwF5JBMkEHxXpk3MuMtr2RWcMAcA6PI5BhHM9Z
-	QD6s7rDX2kkBTvq2ciILPIGV1noRXcPJFiwXYINxaiWJa80t/k/R/Jcj5jKFXZiEtq6IrYm
-	e1tlUoSgmCYSBQi2DSjCfFfiijFt0G+OxrDvIdRL31WC4BkYQnOaWorHK4J6vuaWJlMfZor
-	DJUcZPrt/E8ByahgYcC01QbOo8SkzR/qdP3BBF1piGEu0oNQoig6arK1M2qP/G6LQULKeio
-	B6LV42zR7xW2v0p6Q3msCL6x7wg7TJx5oWuZJ1X99TFhh5bZGaipVS63GuUKZSEkZItOcOw
-	QHzWtOdSL5Yhm2xruykYCXcTcCMCAn/zOnMr+NM+FKNHAq08phumfMAIgvve7n05wCU7/Mg
-	e83xW0dy/xUJ0DSEa4ignzAbxcMwVS/UAGLSamDJzlggeSVJwfYA436fW/9yfXW77AylvRi
-	78codCkW/BEOk2oZ0iyhBChH1G6I45OEYEizYOIbqmNPVIzpTsh4QLh31AoldIQiFwg2Xf/
-	WURolIMIuCIT0gX3hNu4xtkePKedgcD3DG/W8zyzYKwFN/GirlARj9I3ZBUYXe1vaMWyLrw
-	1Fekwhmslmp0oEQIyd1PV6z45zN1xCaYmMI2KodgNJK0s7S0TmJ/RwW24cypfrIuLtJBPXv
-	P5zM3Uj9h3IY0Q+JeOD2sS76usn2jhoLhTA2P8sWcmOGdJQyhggFtWUu3fvG/lYiXkSinkw
-	WCAN5D1nhmOVzgHQjeITJZZZokRitjnhaPmMZE0KEmG1W/EYbKO+5xSaGfANw6PDj7xYS51
-	q3gXnTdQw+R
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b5e1f0a-47f4-469b-a581-08df1ef06f26
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|52116014|10067099003|56012099006|18002099003|921020|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	MsxVvim0DCewWWMRT+OTFcGaBXIjUgsSNTHCekJFzJTmQzIE9va/+AaVx/QZNmwva0k3ABLIbqf1IVPNjrFKtmjqQeSBQbm/ksW2/1Fpsponkb+8h8yS+ZfGErQ5ncNhcYLg5wPMeANVsiVNGFmu9qJpZZOAwLpzOgvYS3NKhvTgIykvGDJRpk2BEKL9Q7uyUd7zV+x/f2IFh+g55ogMcu4Lv9Omk4SQghqKrAQxjgnl+DN3TAHEarx3uElrc5EVt5xHT+Jw7kwAYG8nbLSLEO6dgH937AS3IfwEWjtrXzUtq0L/PwbmNNRF9PoAUdjd3JfD+tNK2du4phd4+hryaPqQKlx4b37zMs8S6zB0yMI5fRhArI9tvzo2wuu6dEmfV6h4FpSF9wfOtjGk1B+S3iOmXxOaYq+5rqhPy0JCESJ2hnjwlmcGe10b3bDAvXpswgsG++hnXNRrGoEzzCTQncA3k4wsGqjx0e/Bi7s5+8zQoLQI7L7Qmsj64m9ahPgUqIBSnQNYQ6USUZC0/Hm37h+5bJE47clX10xtHd76bZfQKpaAYxUp7PO/c9xKVRdbIFQ1m+KSujnXY4Zgk72HYw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(52116014)(10067099003)(56012099006)(18002099003)(921020)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?86NaFDgsLprL4i7mvjQuaDzO2WzF409QFu79IXnqf0gFryFjb3qwFIIXRQUI?=
+ =?us-ascii?Q?lcJq2J7lbv4Zb9/oxwY/BcDKsdXN9tL5saekGMDRQu4Dv5L1xwb23ZDLuR96?=
+ =?us-ascii?Q?rmamQ+p4U9Q5bGeJu7JO32om2Dz0ZxzdAKd4m39UmsdjnI/6T3gGD/eRGRSY?=
+ =?us-ascii?Q?ItHMAPtp6LE80PQ4fpm+GI0WYgy6iUTi5Kp15hZDXD5v5sTcZjq4NOZQ7cpB?=
+ =?us-ascii?Q?zseFGVKMfbzYzb7qe05R5EAl0xmqTgLlJCxALMfmx2OxPANQUQ/UKS/t2efo?=
+ =?us-ascii?Q?PWgKwRolxsDUujvo1J/eytr3Xmt0xDRx+nXx8JcWFuNPl9DmM1RPhoxmUN6l?=
+ =?us-ascii?Q?+4st/1OVGTfM09y8K9oVx1yHoBSBdV0O/Y0TlnWjphadsoGM/EYfgYgydqzv?=
+ =?us-ascii?Q?X0Yq8M74k38OBuzktEF/DypfF1daqNVNX8ayv+wfk9U+w4ZLpEDYorwwp3dq?=
+ =?us-ascii?Q?QGDmKjBobFjzSaRS4DAgT5DOC4Gu0ifdF1siZG41Z65p88pltn6K1ZygjsU5?=
+ =?us-ascii?Q?CmqkxAyMfUqdM5mJ8arSxxlckv5ALsh4WYQOoTRvA8vZNPyeZs3YBDc9wxvT?=
+ =?us-ascii?Q?nS4qV3WWARtdrx2/HNYGS04IJupWy5XOIrmUvqbewztKLh+YP2fbzY6e3CHl?=
+ =?us-ascii?Q?VQLfqdXlFBCtiYEj9nwNlMkfWpgOqbh5nCcg0BwL1Cfaejpur3ksmckVVbyZ?=
+ =?us-ascii?Q?rtoDZsy4OiCxqchiEzXnMfUfaeSFdV0/92nROl9oup85gJsJluD0MbNXqXT3?=
+ =?us-ascii?Q?kp9PEQdcCj7jygXNqoPX9V9CY255aIXmjh9vrhfdI5MOubYLymphdQ/RsHkP?=
+ =?us-ascii?Q?ivPQbbgru4FEWT10mZDrjIA/ncw+/4nCKqfR78rj2Vt97fwfLhRpQSW3B+Av?=
+ =?us-ascii?Q?zUo6ys89Ss6Tz1za4JO95u2xzIr4Fy6M4mOKOX9Z5a4jUmyxs9OI/ter8Za2?=
+ =?us-ascii?Q?hIiCdrdSxYiSyHIYrQTgvFfIVyXc/Hic3ap6GJiGldyD1IBn2+ASf2qWykrn?=
+ =?us-ascii?Q?SpkVtZD4kbXYvUzbgZuelw3y41oUnKbYBZi2a81kSCVkIv3+jbSShuKnGBJh?=
+ =?us-ascii?Q?QHo/IH7GY4C3ZrJTcykhvPoZiBmz3Zq02rQTjqcSuVdXvnBcIHZoZRcO/qkj?=
+ =?us-ascii?Q?2ESycZfUde0HuTwfIPkyUc46miNwvColzQWF83aPXHYiiUHe5zPGRcOavKwL?=
+ =?us-ascii?Q?lLZAILX5YZmIcYxR5QRBNn29AoNO3saUe5qHRZG1uWmWdPqx0eG1YpTIynoB?=
+ =?us-ascii?Q?ZU6L5exDfIh4CS0NmXT3Fm0s2ouj5lfMvmgnNtnlNafWLol6tXHGEYusKfvM?=
+ =?us-ascii?Q?E4X+MRV9jMrBb2IjVDvzEYALHZ6AWqbIqexgRCiOudFR/2OyDXcIsPCjomGM?=
+ =?us-ascii?Q?HAc/DkyjfKjB4uICdFJTSYT9SUJpOEGs30QwCF7LJKZNmfXs2+P9dUv+PYBj?=
+ =?us-ascii?Q?18arwfToZIMmJXlhNEvfy+VAnGJTqZF/Zn5jMbwyeQg+pgjwZBG993Vs1945?=
+ =?us-ascii?Q?3x4UizlZmQDoO3RshW4GWNCuX0SGPcV1wS+KwqmRlRIMaY3lPXRooav8LYcq?=
+ =?us-ascii?Q?i4PMgwsKeJaM24JrAiL+w9CoaL2uDFnOQaFavFDgaBSS+pnsIdpOsBDox2KD?=
+ =?us-ascii?Q?YXCkHwdvRR0T4JKGX4U6bm33+nf5GBoDm3UX3PaiqQkDjV+HA2R3NLS5W+OX?=
+ =?us-ascii?Q?ZcUeknPBFq8lGMB5due4Z/gqSm2ftiC6ReGVlQUFZtw6dLXDnpz+P4ov7pxv?=
+ =?us-ascii?Q?PrM9musDWb8H1005eILzAzN//nZmvGnqibG46rnKSwv0K8KXKnOi?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b5e1f0a-47f4-469b-a581-08df1ef06f26
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:43:31.7901
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0uX09Bg/cd4cjqk20N27oEP4WHGVGOfIQZqFbjPODK3wyXrV5oNdq6c4Yi1vkPMqIZMx4qIDSdCH6lM7ZUlLB/rtkCRL9qstJj1L4G5roHB/8VL71L+YNTwpdSjJ1B4E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1297
 
-Expose max bpc on DP and eDP and select a supported component depth from
-the new connector state. Keep the result in a private bridge state so
-TEST_ONLY atomic commits do not modify the running stream. Force a modeset
-when max bpc changes to apply the new depth to the stream.
+The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
+subsystems:
 
-Read cached capabilities under the plugged lock and defer the bandwidth
-check if they are not yet valid. Recheck the selected depth against the
-trained link before enabling video, including the reduced pixel rate of
-YUV420. Retain support for 6 bpc SDR panels.
+The JHB100 SoC is divided into multiple subsystems, and basically
+each subsystem includes a CRG(Clock and Reset Generator):
+ - sys0crg/sys1crg/sys2crg/
+ - per0crg/per1crg/per2crg/per3crg/
+ - voutcrg
+ - vcecrg
+ - gpu0crg/gpu1crg
+ - cpucrg
+ - usbcrg
+ - host0crg/host1crg
+ - pcierpcrg
+ - husb0crg/husb1crg
+ - husbcmncrg
+ - husbd0crg/husbd1crg
+ - npucrg
 
-Retain the generic bridge helper's missing-state guard in the custom
-duplicate callback. Initial state allocation can fail at bridge attach;
-return NULL in that case so atomic state acquisition reports -ENOMEM
-instead of copying from a NULL pointer.
+In the current series, we will only add the following CRG:
+ - sys0crg/sys1crg/sys2crg/
+ - per0crg/per1crg/per2crg/per3crg/
 
-Assisted-by: LLM
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 +++++++
- drivers/gpu/drm/msm/dp/dp_display.c | 39 ++++++++++++++++--
- drivers/gpu/drm/msm/dp/dp_display.h |  6 +++
- drivers/gpu/drm/msm/dp/dp_drm.c     | 81 +++++++++++++++++++++++++++++++++----
- drivers/gpu/drm/msm/dp/dp_drm.h     |  7 ++++
- drivers/gpu/drm/msm/dp/dp_panel.c   |  5 ---
- drivers/gpu/drm/msm/dp/dp_utils.c   | 20 +++++++++
- drivers/gpu/drm/msm/dp/dp_utils.h   |  4 ++
- 8 files changed, 162 insertions(+), 15 deletions(-)
+The remaining CRG will be implemented in future series.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 16c9165b5f31..f41924e75854 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -23,6 +23,7 @@
- 
- #include "dp_reg.h"
- #include "dp_ctrl.h"
-+#include "dp_utils.h"
- #include "dp_link.h"
- 
- #define POLLING_SLEEP_US			1000
-@@ -2620,6 +2621,20 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
- 
- 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
- 
-+	/* Link training may have reduced the available bandwidth. */
-+	if (!panel->video_test) {
-+		u32 clock = panel->msm_dp_mode.drm_mode.clock;
-+
-+		if (panel->msm_dp_mode.out_fmt_is_yuv_420)
-+			clock /= 2;
-+		ret = msm_dp_utils_select_bpp(panel->msm_dp_mode.bpp / 3, 10,
-+					      clock, ctrl->link->link_params.rate,
-+					      ctrl->link->link_params.num_lanes);
-+		if (ret < 0)
-+			return ret;
-+		panel->msm_dp_mode.bpp = ret;
-+	}
-+
- 	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
- 	pixel_rate = pixel_rate_orig;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9c5b1cd200f8..af6bc179723c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -28,6 +28,7 @@
- #include "dp_panel.h"
- #include "dp_display.h"
- #include "dp_drm.h"
-+#include "dp_utils.h"
- #include "dp_audio.h"
- #include "dp_debug.h"
- 
-@@ -662,7 +663,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
- 
- static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 				   const struct drm_display_mode *adjusted_mode,
--				   struct msm_dp_panel *msm_dp_panel)
-+				   struct msm_dp_panel *msm_dp_panel,
-+				   const struct msm_dp_bridge_state *state)
- {
- 	struct msm_dp_display_private *dp;
- 	u32 bpp;
-@@ -672,7 +674,7 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 	if (msm_dp_display_check_video_test(msm_dp_display))
- 		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
- 	else
--		bpp = msm_dp_panel->connector->display_info.bpc * 3;
-+		bpp = state->bpp;
- 
- 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
- 
-@@ -682,6 +684,34 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 	return 0;
- }
- 
-+int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
-+				struct msm_dp_bridge_state *state,
-+				const struct drm_display_mode *mode,
-+				const struct drm_connector_state *conn_state)
-+{
-+	const struct drm_display_info *info = &conn_state->connector->display_info;
-+	struct msm_dp_display_private *dp;
-+	unsigned int clock = mode->clock;
-+	int bpp;
-+
-+	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
-+
-+	if (drm_mode_is_420_only(info, mode))
-+		clock /= 2;
-+
-+	guard(mutex)(&dp->plugged_lock);
-+
-+	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc,
-+				      clock, dp->panel->link_caps_valid ?
-+				      dp->panel->link_info.rate : 0,
-+				      dp->panel->link_info.num_lanes);
-+	if (bpp < 0)
-+		return bpp;
-+
-+	state->bpp = bpp;
-+	return 0;
-+}
-+
- static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
-@@ -1497,6 +1527,7 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
- 	struct msm_dp_display_private *dp;
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
-+	struct drm_bridge_state *bridge_state;
- 
- 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
- 
-@@ -1504,13 +1535,15 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
- 	if (!crtc)
- 		return;
- 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	bridge_state = drm_atomic_get_new_bridge_state(state, msm_dp_display->bridge);
- 
- 	/*
- 	 * The DPU encoder's .atomic_enable() reads the mode's YUV420 / wide bus
- 	 * state and runs before the bridge's .atomic_enable(), so the mode must
- 	 * be programmed here, in .atomic_pre_enable().
- 	 */
--	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
-+	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel,
-+				to_dp_bridge_state(bridge_state));
- }
- 
- static void msm_dp_display_abort_enable(struct msm_dp_display_private *dp)
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 83117e7619f3..6a77e5952530 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -11,6 +11,8 @@
- 
- #define DP_MAX_PIXEL_CLK_KHZ	675000
- 
-+struct msm_dp_bridge_state;
-+
- struct msm_dp {
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
-@@ -43,4 +45,8 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
- 					       const struct drm_display_info *info,
- 					       const struct drm_display_mode *mode);
- 
-+int msm_dp_display_atomic_check(struct msm_dp *dp, struct msm_dp_bridge_state *state,
-+				const struct drm_display_mode *mode,
-+				const struct drm_connector_state *conn_state);
-+
- #endif /* _DP_DISPLAY_H_ */
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 7332fbfe1644..7c18ddcdd19b 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/string_choices.h>
-+#include <linux/slab.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_bridge.h>
-@@ -116,10 +117,71 @@ static enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *drm_brid
- 	return msm_dp_display_mode_valid(dp, info, mode);
- }
- 
-+static struct drm_bridge_state *msm_dp_bridge_create_state(struct drm_bridge *bridge)
-+{
-+	struct msm_dp_bridge_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_bridge_state_init(&state->base, bridge);
-+	return &state->base;
-+}
-+
-+static struct drm_bridge_state *msm_dp_bridge_duplicate_state(struct drm_bridge *bridge)
-+{
-+	struct msm_dp_bridge_state *state;
-+	struct drm_bridge_state *old_state;
-+
-+	if (WARN_ON(!bridge->base.state))
-+		return NULL;
-+
-+	old_state = drm_priv_to_bridge_state(bridge->base.state);
-+	state = kmemdup(to_dp_bridge_state(old_state), sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return NULL;
-+
-+	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
-+	return &state->base;
-+}
-+
-+static void msm_dp_bridge_destroy_state(struct drm_bridge *bridge,
-+					struct drm_bridge_state *state)
-+{
-+	kfree(to_dp_bridge_state(state));
-+}
-+
-+static int msm_dp_bridge_atomic_check(struct drm_bridge *bridge,
-+				      struct drm_bridge_state *bridge_state,
-+				      struct drm_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector_state *old_conn_state;
-+	int ret;
-+
-+	if (!conn_state->crtc)
-+		return 0;
-+
-+	ret = msm_dp_display_atomic_check(to_dp_bridge(bridge)->msm_dp_display,
-+					  to_dp_bridge_state(bridge_state),
-+					  &crtc_state->adjusted_mode, conn_state);
-+	if (ret)
-+		return ret;
-+
-+	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
-+							    conn_state->connector);
-+	if (old_conn_state->max_requested_bpc != conn_state->max_requested_bpc)
-+		crtc_state->mode_changed = true;
-+
-+	return 0;
-+}
-+
- static const struct drm_bridge_funcs msm_dp_bridge_ops = {
--	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
--	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
--	.atomic_create_state           = drm_atomic_helper_bridge_create_state,
-+	.atomic_check           = msm_dp_bridge_atomic_check,
-+	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
-+	.atomic_destroy_state   = msm_dp_bridge_destroy_state,
-+	.atomic_create_state           = msm_dp_bridge_create_state,
- 	.atomic_pre_enable      = msm_dp_bridge_atomic_pre_enable,
- 	.atomic_enable          = msm_dp_bridge_atomic_enable,
- 	.atomic_disable         = msm_dp_bridge_atomic_disable,
-@@ -154,7 +216,7 @@ static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
- 	if (crtc_state->self_refresh_active && !dp->psr_supported)
- 		return -EINVAL;
- 
--	return 0;
-+	return msm_dp_bridge_atomic_check(drm_bridge, bridge_state, crtc_state, conn_state);
- }
- 
- static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-@@ -303,9 +365,9 @@ static const struct drm_bridge_funcs msm_edp_bridge_ops = {
- 	.atomic_disable = msm_edp_bridge_atomic_disable,
- 	.atomic_post_disable = msm_edp_bridge_atomic_post_disable,
- 	.mode_valid = msm_edp_bridge_mode_valid,
--	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
--	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_create_state = msm_dp_bridge_create_state,
-+	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
-+	.atomic_destroy_state = msm_dp_bridge_destroy_state,
- 	.atomic_check = msm_edp_bridge_atomic_check,
- 	.debugfs_init = msm_edp_bridge_debugfs_init,
- };
-@@ -385,11 +447,16 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
- 					    struct drm_encoder *encoder)
- {
- 	struct drm_connector *connector = NULL;
-+	int ret;
- 
- 	connector = drm_bridge_connector_init(msm_dp_display->drm_dev, encoder);
- 	if (IS_ERR(connector))
- 		return connector;
- 
-+	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	if (!msm_dp_display->is_edp)
- 		drm_connector_attach_dp_subconnector_property(connector);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index da412c788503..cd755f7205ef 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -17,6 +17,13 @@ struct msm_dp_bridge {
- 	struct msm_dp *msm_dp_display;
- };
- 
-+struct msm_dp_bridge_state {
-+	struct drm_bridge_state base;
-+	u32 bpp;
-+};
-+
-+#define to_dp_bridge_state(x) container_of((x), struct msm_dp_bridge_state, base)
-+
- #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
- 
- struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index f7aac0d25c87..f288571798d3 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -690,11 +690,6 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
- 				drm_mode->clock);
- 	drm_dbg_dp(panel->drm_dev, "bpp = %d\n", msm_dp_panel->msm_dp_mode.bpp);
- 
--	msm_dp_panel->msm_dp_mode.bpp = msm_dp_panel_get_mode_bpp(msm_dp_panel, msm_dp_panel->msm_dp_mode.bpp,
--						      msm_dp_panel->msm_dp_mode.drm_mode.clock);
--
--	drm_dbg_dp(panel->drm_dev, "updated bpp = %d\n",
--				msm_dp_panel->msm_dp_mode.bpp);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
-index 72bae48a1fe0..3e49854d73fb 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.c
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.c
-@@ -89,6 +89,26 @@ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 		FIELD_PREP(PARITY_3_MASK, msm_dp_utils_calculate_parity(sdp_header->HB3));
- }
- 
-+/* A zero link rate means that a powered-down eDP panel has not been probed. */
-+int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
-+			    unsigned int clock, unsigned int rate,
-+			    unsigned int lanes)
-+{
-+	unsigned int bpp;
-+
-+	bpc = min3(bpc ? bpc : 8, max_bpc, 10U);
-+	bpc = round_down(bpc, 2);
-+	if (bpc < 6)
-+		return -EINVAL;
-+
-+	for (bpp = bpc * 3; bpp >= 18; bpp -= 6) {
-+		if (!rate || (u64)clock * bpp <= (u64)rate * lanes * 8)
-+			return bpp;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
- {
- 	/* active_changed alone also describes a normal self-refresh exit. */
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
-index 5d86c978dffd..a32e313d910d 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.h
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.h
-@@ -36,6 +36,10 @@ u8 msm_dp_utils_calculate_parity(u32 data);
- void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 				  u32 header_buff[2]);
- 
-+int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
-+			    unsigned int clock, unsigned int rate,
-+			    unsigned int lanes);
-+
- bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state);
- 
- #endif /* _DP_UTILS_H_ */
+This series depends on the series:
+https://lore.kernel.org/all/20260806122553.182449-1-changhuang.liang@starfivetech.com/
+and it has been tested on the StarFive JHB100 EVB-1.
 
--- 
-2.55.0
+changes since v4:
+- Remove patches 1/2/3/4 in v4, and patches 1/2/3 are newly introduced in v5.
+- Refactor the shared clock and reset implementation into JH71x0-specific helpers, updating
+  the affected drivers (These include patches 4/6/8/10/12/14/16/18/20/21/22 in v5.) to use
+  the new interfaces.
+- Split patch 6 in v4 into patch 4 and patch 6 in the current v5.
+- Split patch 21 in v4 into patch 21 and patch 22 in the current v5.
 
+PATCH 17: (in v5)
+- Add Krzysztof's Reviewed-by tag
+
+v4: https://lore.kernel.org/all/20260920120044.194901-1-changhuang.liang@starfivetech.com/
+v3: https://lore.kernel.org/all/20260807112923.191627-1-changhuang.liang@starfivetech.com/
+v2: https://lore.kernel.org/all/20260508053632.818548-1-changhuang.liang@starfivetech.com/
+v1: https://lore.kernel.org/all/20260402105523.447523-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (23):
+  clk: starfive: jh7110-sys: Fix memory leak in reset controller
+    register
+  clk: starfive: JH71x0: Move reset controller registration to jh71x0
+    common code
+  reset: starfive: jh7110: Match auxiliary device names to jh71x0 clk
+    driver
+  clk: starfive: jh71x0: Add generic CRG probe helper
+  dt-bindings: clock: Add StarFive JHB100 System-0 clock and reset
+    generator
+  clk: starfive: Add JHB100 System-0 clock generator driver
+  dt-bindings: clock: Add StarFive JHB100 System-1 clock and reset
+    generator
+  clk: starfive: Add JHB100 System-1 clock generator driver
+  dt-bindings: clock: Add StarFive JHB100 System-2 clock and reset
+    generator
+  clk: starfive: Add JHB100 System-2 clock generator driver
+  dt-bindings: clock: Add StarFive JHB100 Peripheral-0 clock and reset
+    generator
+  clk: starfive: Introduce idiv ops for inverted divider clocks
+  clk: starfive: Expand the storage of clock parent index
+  clk: starfive: Add StarFive JHB100 Peripheral-0 clock driver
+  dt-bindings: clock: Add StarFive JHB100 Peripheral-1 clock and reset
+    generator
+  clk: starfive: Add StarFive JHB100 Peripheral-1 clock driver
+  dt-bindings: clock: Add StarFive JHB100 Peripheral-2 clock and reset
+    generator
+  clk: starfive: Add StarFive JHB100 Peripheral-2 clock driver
+  dt-bindings: clock: Add StarFive JHB100 Peripheral-3 clock and reset
+    generator
+  clk: starfive: Add StarFive JHB100 Peripheral-3 clock driver
+  reset: starfive: jh71x0: Support discontiguous reset IDs
+  reset: starfive: Add StarFive JHB100 reset driver
+  riscv: dts: starfive: jhb100: Add clocks and resets nodes
+
+ .../clock/starfive,jhb100-per0crg.yaml        |  70 ++
+ .../clock/starfive,jhb100-per1crg.yaml        |  70 ++
+ .../clock/starfive,jhb100-per2crg.yaml        |  76 +++
+ .../clock/starfive,jhb100-per3crg.yaml        |  76 +++
+ .../clock/starfive,jhb100-sys0crg.yaml        |  63 ++
+ .../clock/starfive,jhb100-sys1crg.yaml        |  71 +++
+ .../clock/starfive,jhb100-sys2crg.yaml        |  64 ++
+ MAINTAINERS                                   |  13 +
+ arch/riscv/boot/dts/starfive/jhb100.dtsi      | 198 +++++-
+ drivers/clk/starfive/Kconfig                  |  72 ++-
+ drivers/clk/starfive/Makefile                 |   8 +
+ .../clk/starfive/clk-starfive-jh7110-aon.c    |   2 +-
+ .../clk/starfive/clk-starfive-jh7110-isp.c    |   2 +-
+ .../clk/starfive/clk-starfive-jh7110-stg.c    |   2 +-
+ .../clk/starfive/clk-starfive-jh7110-sys.c    |  57 +-
+ .../clk/starfive/clk-starfive-jh7110-vout.c   |   2 +-
+ drivers/clk/starfive/clk-starfive-jh7110.h    |   4 -
+ drivers/clk/starfive/clk-starfive-jh71x0.c    | 161 ++++-
+ drivers/clk/starfive/clk-starfive-jh71x0.h    |  24 +-
+ .../clk/starfive/clk-starfive-jhb100-per0.c   | 599 ++++++++++++++++++
+ .../clk/starfive/clk-starfive-jhb100-per1.c   | 149 +++++
+ .../clk/starfive/clk-starfive-jhb100-per2.c   | 174 +++++
+ .../clk/starfive/clk-starfive-jhb100-per3.c   | 132 ++++
+ .../clk/starfive/clk-starfive-jhb100-sys0.c   | 150 +++++
+ .../clk/starfive/clk-starfive-jhb100-sys1.c   | 105 +++
+ .../clk/starfive/clk-starfive-jhb100-sys2.c   | 129 ++++
+ drivers/reset/starfive/Kconfig                |   9 +
+ drivers/reset/starfive/Makefile               |   1 +
+ .../reset/starfive/reset-starfive-jh7110.c    |  10 +-
+ .../reset/starfive/reset-starfive-jh71x0.c    |  99 ++-
+ .../reset/starfive/reset-starfive-jh71x0.h    |  19 +
+ .../reset/starfive/reset-starfive-jhb100.c    | 302 +++++++++
+ .../dt-bindings/clock/starfive,jhb100-crg.h   | 542 ++++++++++++++++
+ .../dt-bindings/reset/starfive,jhb100-crg.h   | 186 ++++++
+ 34 files changed, 3553 insertions(+), 88 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per0crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per1crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per3crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys0crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys1crg.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys2crg.yaml
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per0.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per1.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per2.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per3.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-sys0.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-sys1.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-sys2.c
+ create mode 100644 drivers/reset/starfive/reset-starfive-jhb100.c
+ create mode 100644 include/dt-bindings/clock/starfive,jhb100-crg.h
+ create mode 100644 include/dt-bindings/reset/starfive,jhb100-crg.h
+
+--
+2.25.1
