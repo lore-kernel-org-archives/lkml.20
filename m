@@ -1,251 +1,127 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F803ACEFB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAB13655F0;
+	Wed, 30 Sep 2026 04:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744315; cv=none; b=mo1vsMbEVdQg7bDxi5aQWRCxeF48dl38/Pv1uhn3sx+NU70OizSfOgDioQk/PeHJ9UC28uofw3HYRhCroc8E+5kSriSx5OXIrz+8tDK/+VhBjj6ph7MmdUSjHF4SeGMYlcEu5kkzNBQRV+2ja3br7UJoUhA0b79cB+lEH44Mfn8=
+	t=1790744338; cv=none; b=ZN19tMeIbFftCHZvjWQXBwGJ/T2amuSmL1we0dASorfbr4+C5G00a/o7zrYfWC/fNv50xaBp1uDKSArUPLCbaxhBasO18NSNKwO0uhFBBIvkR1YjcLKHINSAyvtyUTlvcApXzvrQThaOMk8NHGYUusYrXRyjabb3OcZdTlVzxoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744315; c=relaxed/simple;
-	bh=+HmdXT+V3VdY88H938k8OL6ZMd616XicDgHEPfMX+Q4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YTi9KbLlEayuFKdPQO9uuv2B++HpPOd1MOB3qAepAVyCzsfqLyHvbw9/i1zRdTmRmfqGYIrTS/At5Q1NQmGD87scDhGxCQ46hsxPBMzYTxQsT3mmk/nfQ00PByJS4SKJjeZOaI4F8pY7qyBrkX62xJG+QfrD9oKIonVe43CsXbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g3YLLdGi; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790744338; c=relaxed/simple;
+	bh=hsZf5e5VlChxQ4CGYkUa32v3Wq/x9KRIHBAF+yDaivI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=maBQR+XkSu4zM7LbfoXHiFlj/WLrmTv1dSgVLswv5nviJyMwF8n6XR60RRdCgJ4KIveq6kwpo6cpx85tf799WJZlsrkpcKjFQoO2WVt8o4xd52rOSEBy9OS73EkfQNk4i8wYFHJoVQR5ojxA54/6XUn70dpv2yISnFAukhBTxmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DazCyFsq; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g3YLLdGi"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c0b552ccfso562356eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:58:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790744313; x=1791349113; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ysdOOT1TGhwXZTAjDpt4u3/w8hbcaqTakzQVsdcz7JA=;
-        b=g3YLLdGieqGarTwF2iFwDfNweU7bK6oyKVvmbFc51tQbXMh4253LelpyVJK2gRejqJ
-         9zs/jmOwR6hb+Bko9vVp+E3FJ5kqzV1lDE/BKN2c0EXfElxJAX0uKk/iqP29KV54QRVu
-         M+aLmdKCA5wFSy4arT5JZRBuPlUnzMegiWwViVjBp3Rz6yX5thSdbnem2hbHynD9y7Hz
-         Zaf5NTsSuSN9Gwo5P+LwyVsTPRDThalx8EXR4KcBT4qM6SELRZkJTnuszfrn/8ph0KJl
-         r9+XS4bl95dr2vMqXcmcPtpsavrjv2WaZa8L1Z0t3OYILqp3EU3cZVWIxEHZoLsPnpXL
-         AIFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790744313; x=1791349113;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ysdOOT1TGhwXZTAjDpt4u3/w8hbcaqTakzQVsdcz7JA=;
-        b=Wkp2VxQkrbPttqCWe4EReKQ47bISBUw6aEO4OQuFIxzFVphVFZmDhBwqofk0dJqGi7
-         WGN8jCquYUuHBR7nSOin/q1AVKQa77nHJAEOHLOV13pXhO621O0izpq9N4MhSwIkjFPo
-         PHoAtOmj3ChcwwaestxyWhCpdNuiTmREi7LOmydFnZ4nObkFRqIjV3fk4bYsp7bNPuD0
-         8mKfPIrvw2Gy9R5cBNJNsolMnHOlPE+W8itc+O2rxcqmVR0c2gcYjsvrqm2ZAK46VGfb
-         ALsPodVbxyJlPbjvQXXux8k45OT+80ZdvC/ca+v6yRjIgSBiZYHrB3PVyww4ONstu4wJ
-         QUnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwc6lGs83hHpSEZeYBiRf/3lD8yHsNHXgEeQYjIXnZCNn4R05dSpIj6WMib0mCBv/loNb+MPxW2AC+/a5c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLidT1CqGNRAbJ2RJsScJzr/rpiTBGlV+wdgukfXPtCyGhnT6cG
-	AV8J1gkTkkt+qCeP0K9u5GLQdcZ0Fa3akkY9QxMLDkCTk9hJashOgxOwN8BGSUBh
-X-Gm-Gg: AYBFou3NGR1ebbo84tpFw8DjnPppYmluL+z8IR65mxT8gIvw9TMCn3XtRQwMpRAndDo
-	O2HV9HU0uUG4UZGtjHSNTUEUNjPk2b40svXPNGX5RwHIocC4YVtKMKSBDxp/w6HGsuOyRCtc7we
-	vh8R4PxbWBP5BIb7enoCqRqM+uoF+AuPQTZKzs4X6VkRX6KzDLxUi9r5OWEcULIuPjZhmtLeRyC
-	pE0An+47KlFgPET0/IEfHxxurKJ0xD1rJQWRrVD89iSdnrIgGklF8D8zHMX/Cd14SlJy3/GosPy
-	gFNtf+tK++SJQ1kiEttVUyhACn90IncY/PhXDv0p8xZqrW78esYzruCYPZ4t2AC44k2Xg+O4vkT
-	QKxjBWpVxnRRS+vOUrKb/bFva650Wvf6uVy9jsglcxTCDXy1D3P9W3dDr8kxrZO8zc9wNFm9MtP
-	nkMYInH6Zl/xPi35OI/XGYDtAhfFaqADNg1bf1BUa+Sv27GI3bcBrP4/jYGvDQObIyAMVaNmhb7
-	jJ+9xiiZwc8B0D+cdIxOG4E5nsM+TGNAZ1IcT6lbC24e2DGvFjU34vyZc9q3ZkjKgYG2ccbHw==
-X-Received: by 2002:a05:7300:50d7:b0:339:7572:7b2b with SMTP id 5a478bee46e88-34cdc6c414cmr557932eec.24.1790744313325;
-        Tue, 29 Sep 2026 21:58:33 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:101a:5ce6:a15e:d8ca])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf514b783sm571056eec.13.2026.09.29.21.58.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 21:58:32 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Tue, 29 Sep 2026 21:58:04 -0700
-Subject: [PATCH v3 5/5] sh: mach-rsk: rsk7203: convert pin configuration to
- using software nodes
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DazCyFsq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790744336; x=1822280336;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=hsZf5e5VlChxQ4CGYkUa32v3Wq/x9KRIHBAF+yDaivI=;
+  b=DazCyFsqrX8t6Ysfj7MmL+8PpTCJcKXby79MkR+ULaLt6jTok45TILUy
+   b1bnEy8sVchrUh+kuXO7tw6sUe97XzcD+2aJGSKdRN72ZrmD9tzNqadS1
+   DQasyk+isCqUYjeyTLkOiOqN/o1VNwFusNAqsm6T/d3nejueOWN0SiqOo
+   Osau9sqlr6WXpeeL4NRMnCP39iW5DjCNW1WWtZwOMQnCDzbAC9z8HYmP0
+   9Pl85NPGTYMf7WxpRI7aM/dDxcDu+6s9WxrN3NAAYCOOLJZB7yKlvXksR
+   zkD+J8GVU6u/EuHBYS2CsuEyZ5Lei3OR7O0GRuk33QAlH7tJ7WO19XVsU
+   A==;
+X-CSE-ConnectionGUID: KvLmHe7xRYGlZE+4SCD8aA==
+X-CSE-MsgGUID: DPEZDdK+SjiHWwFZYbwJDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="91571941"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="91571941"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 21:58:55 -0700
+X-CSE-ConnectionGUID: lD/5/ZTQTdCv4l+AeE3xFA==
+X-CSE-MsgGUID: PLGWriYCTImlgNcZbwGS+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="274186275"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 21:58:35 -0700
+Message-ID: <e5ef8765-5f9b-4784-9272-bc438d148433@linux.intel.com>
+Date: Wed, 30 Sep 2026 12:58:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] KVM: TDX: Synthesize SHUTDOWN instead of returning
+ -EIO on unhandled EPT violation
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, kvm@vger.kernel.org,
+ x86@kernel.org, linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ James Houghton <jthoughton@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Yan Zhao <yan.y.zhao@intel.com>, Ackerley Tng <ackerleytng@google.com>,
+ Vishal Annapurve <vannapurve@google.com>,
+ Sashiko Bot <sashiko-bot@kernel.org>
+References: <20260930001127.3170009-1-seanjc@google.com>
+ <20260930001127.3170009-3-seanjc@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260930001127.3170009-3-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-rsk7203-properties-v3-5-02f84aeb8e47@gmail.com>
-References: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
-In-Reply-To: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
-To: Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Arnd Bergmann <arnd@kernel.org>, linux-sh@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-gpio@vger.kernel.org, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.17-dev-6c14f
 
-Replace legacy gpio_request() calls used to configure function pins
-(SCIF0 TXD/RXD and LAN9118 IRQ) with software nodes describing GPIO
-hogs. These hogs are attached to the PFC gpiochip node, allowing the
-GPIO subsystem to automatically configure these pins when the driver is
-registered.
+On 9/30/2026 8:11 AM, Sean Christopherson wrote:
+> Exit to userspace with KVM_EXIT_SHUTDOWN instead of returning -EIO from
+> KVM_RUN if KVM encounters an EPT Violation due to a guest access to a
+> pending page.  Returning -EIO implies KVM is buggy, and most VMMs will
+> respond by completely terminating the VM, versus rebooting the VM in
+> response to KVM_EXIT_SHUTDOWN.  I.e. give the VMM the option of trying to
+> keep the VM (from the end user's perspective) alive.
+> 
+> Ideally, KVM would probably exit with KVM_EXIT_MEMORY_FAULT, but KVM would
+> need to extend run->memory_fault so that userspace knows the fault can't be
+> handled.  This scenario specifically occurs when the guest has deliberately
+> disabled #VEs on unaccepted memory for security purposes, i.e. the guest
+> literally disabled the mechanism that tells it it screwed up.  But, because
+> this is fatal, and the whole point is to NOT try to fixup the fault,
+> jumping through hoops to return MEMORY_FAULT instead of SHUTDOWN doesn't
+> make a whole lot of sense.
+> 
+> Don't bother bouncing through KVM_REQ_TRIPLE_FAULT as
+> tdx_handle_ept_violation() is a top-level exit handler, i.e. there is no
+> need to worry about failing to actually exit to userspace.
+> 
+> Fixes: e6a85781f783 ("KVM: TDX: Detect unexpected SEPT violations due to pending SPTEs")
+> Cc: stable@vger.kernel.org
+> Cc: James Houghton <jthoughton@google.com>
+> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Cc: Yan Zhao <yan.y.zhao@intel.com>
+> Cc: Binbin Wu <binbin.wu@linux.intel.com>
+> Cc: Ackerley Tng <ackerleytng@google.com>
+> Cc: Vishal Annapurve <vannapurve@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Assisted-by: LLM
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- arch/sh/boards/mach-rsk/devices-rsk7203.c | 103 ++++++++++++++++++++++++++----
- 1 file changed, 91 insertions(+), 12 deletions(-)
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-diff --git a/arch/sh/boards/mach-rsk/devices-rsk7203.c b/arch/sh/boards/mach-rsk/devices-rsk7203.c
-index 8076c9d15f87..7a2e73bb9645 100644
---- a/arch/sh/boards/mach-rsk/devices-rsk7203.c
-+++ b/arch/sh/boards/mach-rsk/devices-rsk7203.c
-@@ -12,7 +12,6 @@
- #include <linux/smsc911x.h>
- #include <linux/input.h>
- #include <linux/io.h>
--#include <linux/gpio.h>
- #include <linux/gpio/machine.h>
- #include <linux/gpio/property.h>
- #include <asm/machvec.h>
-@@ -147,6 +146,62 @@ static const struct software_node rsk7203_sw3_key_node = {
- 	.properties = rsk7203_sw3_key_props,
- };
- 
-+/* The base of the function GPIOs in the flat enum */
-+#define SH7203_FN_BASE GPIO_FN_PINT7_PB
-+
-+static const struct software_node rsk7203_pfc_functions_node = {
-+	.name = "functions",
-+	.parent = &pfc_gpiochip_node,
-+};
-+
-+static const struct property_entry rsk7203_txd0_hog_props[] = {
-+	PROPERTY_ENTRY_BOOL("gpio-hog"),
-+	PROPERTY_ENTRY_U32_ARRAY("gpios", ((u32[]){
-+		GPIO_FN_TXD0 - SH7203_FN_BASE, GPIO_ACTIVE_HIGH
-+	})),
-+	PROPERTY_ENTRY_BOOL("input"),
-+	PROPERTY_ENTRY_STRING("line-name", "TXD0"),
-+	{ }
-+};
-+
-+static const struct software_node rsk7203_txd0_hog_node = {
-+	.name = "txd0-hog",
-+	.parent = &rsk7203_pfc_functions_node,
-+	.properties = rsk7203_txd0_hog_props,
-+};
-+
-+static const struct property_entry rsk7203_rxd0_hog_props[] = {
-+	PROPERTY_ENTRY_BOOL("gpio-hog"),
-+	PROPERTY_ENTRY_U32_ARRAY("gpios", ((u32[]){
-+		GPIO_FN_RXD0 - SH7203_FN_BASE, GPIO_ACTIVE_HIGH
-+	})),
-+	PROPERTY_ENTRY_BOOL("input"),
-+	PROPERTY_ENTRY_STRING("line-name", "RXD0"),
-+	{ }
-+};
-+
-+static const struct software_node rsk7203_rxd0_hog_node = {
-+	.name = "rxd0-hog",
-+	.parent = &rsk7203_pfc_functions_node,
-+	.properties = rsk7203_rxd0_hog_props,
-+};
-+
-+static const struct property_entry rsk7203_irq0_hog_props[] = {
-+	PROPERTY_ENTRY_BOOL("gpio-hog"),
-+	PROPERTY_ENTRY_U32_ARRAY("gpios", ((u32[]){
-+		GPIO_FN_IRQ0_PB - SH7203_FN_BASE, GPIO_ACTIVE_HIGH
-+	})),
-+	PROPERTY_ENTRY_BOOL("input"),
-+	PROPERTY_ENTRY_STRING("line-name", "IRQ0_PB"),
-+	{ }
-+};
-+
-+static const struct software_node rsk7203_irq0_hog_node = {
-+	.name = "irq0-hog",
-+	.parent = &rsk7203_pfc_functions_node,
-+	.properties = rsk7203_irq0_hog_props,
-+};
-+
- static const struct software_node * const rsk7203_swnodes[] __initconst = {
- 	&rsk7203_gpio_leds_node,
- 	&rsk7203_green_led_node,
-@@ -157,6 +212,10 @@ static const struct software_node * const rsk7203_swnodes[] __initconst = {
- 	&rsk7203_sw1_key_node,
- 	&rsk7203_sw2_key_node,
- 	&rsk7203_sw3_key_node,
-+	&rsk7203_pfc_functions_node,
-+	&rsk7203_txd0_hog_node,
-+	&rsk7203_rxd0_hog_node,
-+	&rsk7203_irq0_hog_node,
- 	NULL
- };
- 
-@@ -181,26 +240,46 @@ static const struct platform_device_info rsk7203_devices[] __initconst = {
- 	},
- };
- 
--static int __init rsk7203_devices_setup(void)
-+/*
-+ * The pfc-sh7203 device is registered at arch_initcall level, and the
-+ * sh-pfc driver (registered at postcore_initcall level) probes as soon
-+ * as the device is created.
-+ *
-+ * We need to register our software nodes at postcore_initcall level so
-+ * they are already present in the system when the driver probes and
-+ * tries to apply GPIO hogs.
-+ */
-+static int __init rsk7203_sw_nodes_setup(void)
- {
--	struct platform_device *pd;
- 	int error;
--	int i;
- 
--	/* Select pins for SCIF0 */
--	gpio_request(GPIO_FN_TXD0, NULL);
--	gpio_request(GPIO_FN_RXD0, NULL);
--
--	/* Setup LAN9118: CS1 in 16-bit Big Endian Mode, IRQ0 at Port B */
--	__raw_writel(0x36db0400, 0xfffc0008); /* CS1BCR */
--	gpio_request(GPIO_FN_IRQ0_PB, NULL);
-+	error = software_node_register(&pfc_gpiochip_node);
-+	if (error && error != -EEXIST) {
-+		pr_err("RSK7203: failed to register PFC software node: %d\n",
-+		       error);
-+		return error;
-+	}
- 
- 	error = software_node_register_node_group(rsk7203_swnodes);
- 	if (error) {
--		pr_err("failed to register software nodes: %d\n", error);
-+		pr_err("RSK7203: failed to register board software nodes: %d\n",
-+		       error);
- 		return error;
- 	}
- 
-+	return 0;
-+}
-+postcore_initcall(rsk7203_sw_nodes_setup);
-+
-+static int __init rsk7203_devices_setup(void)
-+{
-+	struct platform_device *pd;
-+	int error;
-+	int i;
-+
-+	/* Setup LAN9118: CS1 in 16-bit Big Endian Mode, IRQ0 at Port B */
-+	__raw_writel(0x36db0400, 0xfffc0008); /* CS1BCR */
-+
- 	for (i = 0; i < ARRAY_SIZE(rsk7203_devices); i++) {
- 		pd = platform_device_register_full(&rsk7203_devices[i]);
- 		error = PTR_ERR_OR_ZERO(pd);
-
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+> ---
+>  arch/x86/kvm/vmx/tdx.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> index 29d4751f37fb..e3723f1222fc 100644
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -1939,8 +1939,8 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+>  		if (tdx_is_sept_violation_unexpected_pending(vcpu)) {
+>  			pr_warn("Guest access before accepting 0x%llx on vCPU %d\n",
+>  				gpa, vcpu->vcpu_id);
+> -			kvm_vm_dead(vcpu->kvm);
+> -			return -EIO;
+> +			kvm_prepare_shutdown_exit(vcpu);
+> +			return 0;
+>  		}
+>  		/*
+>  		 * Always treat SEPT violations as write faults.  Ignore the
 
