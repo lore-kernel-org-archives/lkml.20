@@ -1,499 +1,163 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010049.outbound.protection.outlook.com [40.93.198.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E6F4BD7B7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765925; cv=none; b=iKcUQmYPS0ngba8whRHiCH19yqIa8VIPoPcHQsx7q0nXj389DmK8hH8y90qf/zlTsfjN0vZhL8XEZuEqeZIbWS267xM5u9G/Bg+xxIUANxFmzZC2yTXfLjoNwbbB4LgI7G/4ihaJhNW7kpqeuUltWdDUS7Z9MNqFtc4b+M/4zGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765925; c=relaxed/simple;
-	bh=a2bTMlD1KyMr573s5ZGwPihSdRH7QZxo/Ncn3N3h6K0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GqVjD4rYFWedbnFnyGnwznOtITrSbYhP0v2Hb5x5hclqzexaoRq/DnXAAlmQW5znGyzdWUyu+f7vqrzaDkpL8wdYKIqxEVGSJ87hzp8Jp1cftIMImfHXN0diNeo91sX8MtmEuUpEyyRiuDgtrYyIe/EoYhM+6yGVXC0suqm0pVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P5bC9fsL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HLjaSiST; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5634B826C;
+	Wed, 30 Sep 2026 10:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790765934; cv=fail; b=h4xQ7YcSsxMvgFu8pDsS2YrGPt4+1ukFRG8zb2C9Tp0a5bGHMyKLOCNmZStl3/5ZKCh/xOSqFA32xLTNXPTUCnbasOjenrmv+QNlLJGpGbTYNa6wMZuYG9BS9KhQgF5S61MOCWeHUpFvr3LM02UnaQSWmNJki8yHtKUoK8jqpyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790765934; c=relaxed/simple;
+	bh=1qZuGYJfkcLTyAp3pCPYHbIIr5dm8rB6AmEbynGHifU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KTMtNsU6UzAukjYsdiFnQuKHDPleC3F3mV2+jac6bYOBzFD6l4egYSRDJWrRm01m8Nq81FvDXSphUFF3ZXuPFzp3Iq5gOJR4Qn3Mj0jaxYWYx9QQDrMj5DM2ebztPE1cApKqFfUZb0iIGnjRzG7/Fo+W+o9h2d1rViCAu5jRMzg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KQCeekfb; arc=fail smtp.client-ip=40.93.198.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P5bC9fsL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HLjaSiST"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dQkJ1556128
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:58:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Sp8WVuRBnCSfLsojxRBKq4GodWKFZ1Vq6gQ9R4uU43g=; b=P5bC9fsLXeYq4YCO
-	r2Td3aDKF0M/GcGLtGugGqtcZGaUuFyryMiCBAytlewgUEddD9z4hs3WYr4uDr5F
-	sHpZMboETziXe8fVYaex4v3113nZQGSiaw8F4A1k5k7eCHOFt31BsO4GPJgdUNrU
-	4x/zRfYR/9FyYWPWjl+ww0nLihf8nqGi4xRM33oRgpsMbWtiegXESZkKF4L/W+m+
-	COAKNoB43UyYsD1oTWCXmgJ3TOdibB4C38ZkN8zq+hv2Hp15SBOTLIm0fxeMdv4y
-	nlFyZRU2SUKxlN7Cp5YFWTZvFA4HABjwe/y4vMDRh3cWnJB0RtIryNLkAECc0BOS
-	/0bIAg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x1c0wgw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:58:32 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so6092064eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790765911; x=1791370711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sp8WVuRBnCSfLsojxRBKq4GodWKFZ1Vq6gQ9R4uU43g=;
-        b=HLjaSiSTl/CPrVRbvt1uj9pyGT5kNOW8BIuyvZL4nT/W9V7lVEixrUfRrfpcYOzKQY
-         Yy4m8WETNqPRHpF1Ydf1igaMT5z3BcKKBWSHIqucpt48HTE5rbOWpurBq+eoaykgBzvr
-         u2wl7FsXnT/EDcqoNxyRNtMn+KbDM5mkmXdI6pMf5T086p9bhTdYqjszK2zLY+NzpWxA
-         YzaipMPMSGyUffpsLgY7T7u0b+1LukLoqpeDHSm0ZKJN9uTdb+G6JtAx1s83EO16kC4Y
-         VZFrPyS3ylvFVDATX+g7RkbFvD5sZAbUOQRqDarM5FHpY9pvHAftZHgehpqM5a9k+Gpi
-         p5Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790765911; x=1791370711;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sp8WVuRBnCSfLsojxRBKq4GodWKFZ1Vq6gQ9R4uU43g=;
-        b=l0AheAEEVSUHWwR5hlo1aHo4YyhgaXBn6TJrAQTVKoG6+kDtpUSzHsUlIRI0PhJ2u6
-         o6YSTB0qGhLjMWOHuW8MglAiQVjihHilteS4ABGvZQNuW1B2NS9jO2Lt2oGBQQF2lCkB
-         zRESDwNhaz1JmYpdwwF5ZQv2gpOPs2MdCs+UmD8zdTtFr2vWJc4MAx6tw4FF+3s1o9Vn
-         G0KZiIQ6c3LLzWBRTtYXJkUKz+CyxRjXXRTh+9GyAtJIr6qnCQVY/t+kc3aQXYFNQny+
-         EzpUsymU8MUH0QANOSc2PFyu7ysQdQDxW8teX/Qi+J1HzKJBbGLqS/vXA7oEYusPA9lm
-         oFVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1OxOjVAzk0yPqeYSrQE5E05ELNipBuNrR5wgYPorZM+CD6NhFt077D4ao/fYvltZsUooQPY/UN/zovmI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSCh9LJ3WeRFPRtTWUylahbV0acUa6woVAtc43Om3I6oZbNE94
-	Y8JyxlXiBpuJe6lRz9tIyIH/zSYHR/OWnFq5i4NweMimMJumbBZ8K0CWICmKi3p5VPkQdiCxcqU
-	ptY87IwmIjCLbwlF14rtXg6VV3nYkNO4ZQvVFKSlKEpYzPuqTLorj7wg+JauJYMIr4/o=
-X-Gm-Gg: AYBFou3AjybBMxrhOsdsjLQPpRR6aexWGHH9ymkLwu/s8UhXbJXtVT6Q8hOUhnOqfLv
-	BgmIItTspN0QTD9c6vVHyNZXnHByBa7KMlAqBYGISZoOqQS73CE8WKKGHvaTYRjt+1qHU4BvMSa
-	Zn47mFB3tSAi2VUKKS6B0rOO4x9UiiQ0/Ln+2jEecv7Y/CChrEyaupRT4ZmE8B6JXWzU1CIxQq1
-	DXAn7DBUwFaZnTF2W+bwi4oCAZQVw+Flq4+l6IDxg0u+18iWAdT0iULJT8z9DqxZL7DqK0d8EU/
-	yUvp1wCZ1NtXKhQN4B7zhqgt1jXtl5xnVkoqFGqrzkmz6gZNLYzazymB8fXIsT8oY03NVWXjWJy
-	/uR7qIywyqulktPdCkbT4GBxv+r8yu9k=
-X-Received: by 2002:a05:7301:46a2:b0:34a:fc46:35ba with SMTP id 5a478bee46e88-34cdbfd83c1mr1265099eec.8.1790765911179;
-        Wed, 30 Sep 2026 03:58:31 -0700 (PDT)
-X-Received: by 2002:a05:7301:46a2:b0:34a:fc46:35ba with SMTP id 5a478bee46e88-34cdbfd83c1mr1265079eec.8.1790765910531;
-        Wed, 30 Sep 2026 03:58:30 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a605c2sm3144105eec.7.2026.09.30.03.58.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 03:58:30 -0700 (PDT)
-Message-ID: <8e350ba2-0eb7-7f69-e36c-7c0294e9c564@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 16:28:24 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KQCeekfb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aVJhrjukIKovjeWDFfQJ8E8gZVI5oKdqc7UMrmEGMZaSgRhQUF3bSQhzfNbcFvtqOO3K1Udlne57hNcZtWCrslrN7b7j6ZU4ztItvrT3KfELA/jTodATPr1/KmB2MCHs8N1DX48/bD4KrbnkBSoBkKLYc3Y687Yogn+4KfW88AFGJFG+O2QDqlqqPHCqkiX6bitBlgG73FbFZfnb/woHUnXVEEA5ynXVp2GUWYTmfg7zJDWSjrqvwm1YkW8w/OrTIzqpW6m2sbhzDb5YvwwFF2up3pN3hl7Ww1Oa8QmqiRtNmRU+TTFywR1X2bCYK6R+UFStnaQ0eBT+K/BAa/Subg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PjEOsC8rqRGR6uzjs6E3NIv2NiengaKEYjJW04115IQ=;
+ b=vF7vAPdcjZbZ6cOIB2jErdnoOxsbx+opC/FyIvcEfXp5pMadPqoNPyiza1F2Y16FxHzy6Z8iI9S+w06HH/r0q2X8VWJ/5qlvmbPuPw4J5QO7+1NQhAzjwYBtFqJ4l0nZrf0FUzF4rrNWXvnWOYiyhSpWidar3HtZ1gQedD3HtFYxQDgXT+DAOn5gmBHBB4WdeqpTnjJckYrHsp40fyYP9qCOxvmmBQwQJ+6/gkkF8i7FVkzsSA7/GQ5CsUOZG2k0ehwvK6/bfk0D8XXdYCzXiZi2tg4AqvyfunTJCl9qQu7ueIS8czHrXEJ7JBsFpg6UCFY0RqjzS8s0P7lgi1zk5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PjEOsC8rqRGR6uzjs6E3NIv2NiengaKEYjJW04115IQ=;
+ b=KQCeekfbB+pvtrLLXrcq6QSHBgmY50cNmD+YmrMTjKEYA1KdKC7QGnz0LAf6mMWcyYIDn9uHtEOX2OddLOrp0gLqUAHvAmSBZFKZTHwYj9aaMkjRi/NnIc3oNXEW/a9us7yB6g6sQ4ze51URKq9tpVqgCbFB567sqVh+Iuh/VCg0fFT7jts0LzO6wEaYFFlRtyjKA0stqgrKtnVCOkcUk27lketCFIVuHcuihH4UosBGnwjVWeXURnMSGiSiGWUBZa0acevQHlZSt9eY/wBtZrcDOs+ifa8qRSNoKDm8xj7uJcVDU4qSK5kDpZDo6czXctFxgIuyPdWD3Pe2dAxOsQ==
+Received: from CY5PR18CA0033.namprd18.prod.outlook.com (2603:10b6:930:13::16)
+ by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 10:58:31 +0000
+Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
+ (2603:10b6:930:13:cafe::a4) by CY5PR18CA0033.outlook.office365.com
+ (2603:10b6:930:13::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 10:58:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 10:58:30 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 03:58:13 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 03:58:13 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
+ Sep 2026 03:58:02 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+	<linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>, Boqun Feng <boqun@kernel.org>, Daniel Almeida
+	<daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>, Jason Gunthorpe
+	<jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, Peter Colberg <peter@colberg.org>, "Simon
+ Song" <xinmengs@nvidia.com>
+Subject: [PATCH 1/7] rust: pci: add VFIO override device IDs
+Date: Wed, 30 Sep 2026 13:57:43 +0300
+Message-ID: <7375e4ff20dfa52a59bee0d420a87643f567c971.1790764573.git.zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790764573.git.zhiw@nvidia.com>
+References: <cover.1790764573.git.zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v7 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata buffer
- for ROI delta QP
-Content-Language: en-US
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
-References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
- <20260924-enc_roi_enable-v7-5-6fa7413af23c@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260924-enc_roi_enable-v7-5-6fa7413af23c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0MyBTYWx0ZWRfX8W4YTb9t9GeF
- BPrOOQuV4muRGRJCHwzTmJAKEyIV1/785mkli/oI/1Z+PoVMe7wYGEepLVX0YusK2aehFh25hcq
- C2hCQeO2PZ72bkSv5r42c0eeW2y+pqs=
-X-Proofpoint-ORIG-GUID: 2przpEEzGVgibCVU05-pa7wi6_6rrUPs
-X-Authority-Analysis: v=2.4 cv=VrC2kO2n c=1 sm=1 tr=0 ts=6abceb58 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=pdtBNdPs7a4fvCnHWgkA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: 2przpEEzGVgibCVU05-pa7wi6_6rrUPs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0MyBTYWx0ZWRfX/ZoOXxATh0Jm
- l2zQaYruf/xzyn5GksZNOXF8Mg8G/FCnIjgmMynxmXoHVKXBXO9RYlVXAXKJWtRzGp40FhKif23
- R1SeEOIoqcKug8Xsdp6fvzwbj+4kifDsvMg/otGScDTzvSYslqu5TsuLwnm3pPAVvEJjQcBxDUn
- 4z1MNij+KGR/Do2vraeLQZSy8m6pfyQwgtynVJPNijw1+93cOlltNcTn6QXrdcAsCgOch2wLshV
- p2u4IH+FgB1walz871pvd3IDl8CN2shTJ0FeQ7s2U5Uei+veXn7f5A/jfT8b6WgP8EZ4n4S/tZN
- w2pQVvtsKpS5SBh5j4Hdv43fgsthKUS0v4uGSo34yXWDCi99yRCyewtgwNmbgkd5o+QzFhBwCtE
- FX3Qa7tcNTJCAi7eyjcZAzic0gGFipBquLHQ2MO8rg4TDijk9b0VKeDq3n0ff7IHxxvllPoGKkJ
- EH4UsbXBZ3jIqiymUfA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300043
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|DM4PR12MB5817:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f1d39ff-0b10-4315-c968-08df1ee1c3b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|7416014|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IrgpRAFikFvxAcUmnweSzj4kYeT2I5K73yV5UakK2vA7IsEjIq4kv1ACOzaGaLAa2Hs/pX5K4brJAQ0LW3fd9gH8TMp48+7Dkr4FnTeOqpdb5KlN/BLFSxYJgGkFrQwIDD1SCfgeh2ZTQgWqCfGs8bIME5+Am4YPLLK/bSHEPPueTMibsYFwTFE3zj5LF4J+kesxi8fqQhJKwZvil9DClsBAodbnn3gps9OcTU34ctBih80o9zDFpNvLiEprjm0KxnAh6XCX2QpnxbgheCbvrqubxLILe1Ws55dhueviVFv/5ppNkRNLODKYmbqct4GKVU0ecSeDAXU52idBBeA1Txlgc9IntaFgEvMnrV1Hj9Xmmg8VcTCXkR9OVl59ZiO1IjjqUROH/z12hlHtjpKj48OVJjsAbQOjCoUJ0cnOAdlmayMZFP1BPvhg7g1jxC7yind67jWqvrIpF8KvPPkD5ozbf/YkpinI41WhV5h+BGBE/U1CEesXgqnI3eOx6DxvKlDLhE8AWuqZF4EjSSW+3WSjvF7/mnXn0DJKf1+LWqO9DRJhyKna24hJBEICqOLhh+EULobuhAA0YEWp5nK5+kuMIoea7DWNMz72nWGFAI1qhnEEnygYHkjw9LxOUNtw7eNCqNkTae/4Be1agWkvvybKtJqWoaYvsQwCebtxuae+I4pOxijnQ7+ve7V2TDJyJrjm4zEo/hKwm3tX3kJ+jg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(7416014)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XDvpRxYNNL23XNBdZm3P+R5qr6Vmeob8C076Ih/Ljo/oHd5MjtrNdYXn4W6iz0xK5cENbxKzQFCZMae2qeIZUvon11fuUOJbpfmYoQdy5MTZGyh/kd33i7AlWHR2iO8bttrKfnGDF+j/oFm6awm1+tBysgd/4nVaJPkwwtJ7IfhqQureKKVC4fv/E5a67LCL3wsWL3JpGNL5sG5Fp8TdH0eErReqVWyiIjvC3RT4PvM10MDT7gj5hcCUaZUznb0lnI+8aV3bTxSJOox/bO3wUBkt8j6BixngkCP3v0fdYqyCwh+225Xzu/QRks3nbJmHUDkNQPv92KPiMB/RJfYYOtFiqVmeDDXJ/MT6ToEN3Osumhx4/lZRUZTNc8r5m1XyIzmlbFHyCxxapbYfv2BttU8hlFnTQP96D6XuYVg1ExeiL+dXvWozf1jFvuZZdLdT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:58:30.8872
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f1d39ff-0b10-4315-c968-08df1ee1c3b8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
 
+From: Danilo Krummrich <dakr@kernel.org>
 
-On 9/25/2026 5:58 AM, Deepa Guthyappa Madivalara wrote:
-> - Introduce BUF_ROIMB_DELTAQP as a new internal buffer type to carry
->   per-macroblock ROI delta QP data to the firmware. This buffer is
->   allocated on demand when the application sets ROI parameters via
->   V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP, and is queued alongside each
->   raw input buffer as an HFI_BUFFER_METADATA packet on HFI_PORT_RAW.
->
-> - The metadata buffer layout follows the firmware-defined metabuf_header
->   and metapayload_header structures. The s8 per-MB delta QP values
->   supplied by userspace are widened to s16 as required by the firmware.
->
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++++
->  drivers/media/platform/qcom/iris/iris_buffer.h     |   4 +
->  drivers/media/platform/qcom/iris/iris_ctrls.c      |  37 +++++++
->  drivers/media/platform/qcom/iris/iris_ctrls.h      |   1 +
->  drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |   1 +
->  .../platform/qcom/iris/iris_hfi_gen2_command.c     |  24 +++++
->  .../platform/qcom/iris/iris_hfi_gen2_response.c    |   2 +
->  drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
->  8 files changed, 185 insertions(+)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177f5e1ab83b90a3c8c80e0b4d1f02e..a7f1d74360d6a490959b27936fa5bbc61a7d9358 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -5,11 +5,13 @@
->  
->  #include <media/v4l2-event.h>
->  #include <media/v4l2-mem2mem.h>
-> +#include <linux/slab.h>
->  
->  #include "iris_buffer.h"
->  #include "iris_instance.h"
->  #include "iris_power.h"
->  #include "iris_vpu_buffer.h"
-> +#include "iris_hfi_gen2_defines.h"
->  
->  #define PIXELS_4K 4096
->  #define MAX_WIDTH 4096
-> @@ -705,6 +707,20 @@ int iris_destroy_dequeued_internal_buffers(struct iris_inst *inst, u32 plane)
->  	return iris_destroy_internal_buffers(inst, plane, false);
->  }
->  
-> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst)
-> +{
-> +	struct iris_buffer *buf, *next;
-> +	struct iris_buffers *buffers;
-> +
-> +	if (inst->domain == ENCODER) {
-> +		buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-> +		list_for_each_entry_safe(buf, next, &buffers->list, list)
-> +			iris_destroy_internal_buffer(inst, buf);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int iris_release_internal_buffers(struct iris_inst *inst,
->  					 enum iris_buffer_type buffer_type)
->  {
-> @@ -928,3 +944,101 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
->  
->  	return 0;
->  }
-> +
-> +static int iris_fill_roi_data(struct iris_inst *inst, struct iris_buffer *buffer)
-> +{
-> +	s8 *p_array = (s8 *)inst->fw_caps[ROI_PARAMS].p_array;
-> +	u32 payload_offset, lcu_width, lcu_height, row_size;
-> +	u32 array_size = inst->fw_caps[ROI_PARAMS].elems;
-> +	struct metabuf_header *mbuf_hdr = buffer->kvaddr;
-> +	struct metapayload_header *mbuf_payload_hdr;
-> +	struct v4l2_format *f = inst->fmt_src;
-> +	s16 *p_16, *p_temp;
-> +
-> +	memset(mbuf_hdr, 0, sizeof(struct metabuf_header));
-> +	mbuf_hdr->count = 1;
-> +	mbuf_hdr->size = sizeof(struct metabuf_header) +
-> +			 sizeof(struct metapayload_header);
-> +	mbuf_hdr->version = BIT(16);
-> +	mbuf_hdr++;
-> +	mbuf_payload_hdr = (struct metapayload_header *)(mbuf_hdr);
-> +	payload_offset = sizeof(struct metabuf_header) +
-> +			 sizeof(struct metapayload_header);
-> +
-> +	memset(mbuf_payload_hdr, 0, sizeof(struct metapayload_header));
-> +	mbuf_payload_hdr->type = HFI_PROP_ROI_INFO;
-> +	mbuf_payload_hdr->size = array_size * sizeof(s16);
-> +	mbuf_payload_hdr->version = 1 << 16;
-> +	mbuf_payload_hdr->offset = ALIGN(payload_offset, (u32)256);
-> +	mbuf_payload_hdr->flags = 0;
-> +
-> +	if (inst->codec == V4L2_PIX_FMT_HEVC) {
-> +		lcu_width = (f->fmt.pix_mp.width + 31) >> 5;
-> +		lcu_height = (f->fmt.pix_mp.height + 31) >> 5;
-> +	} else {
-> +		lcu_width = (f->fmt.pix_mp.width + 15) >> 4;
-> +		lcu_height = (f->fmt.pix_mp.height + 15) >> 4;
-> +	}
-> +	/* Firmware expects each row to align to 8 LCU */
-> +	row_size = (((lcu_width + 7) >> 3) << 3);
-> +
-> +	/* Firmware expects 2bytes of delta_Qp, int16_t */
-> +	p_16 = buffer->kvaddr + mbuf_payload_hdr->offset;
-> +	for (int j = 0; j < lcu_height; j++) {
-> +		p_temp = p_16 + j * row_size;
-> +		for (int i = 0; i < lcu_width; i++)
-> +			*p_temp++ = (1 << 11) | (((u8)p_array[j * lcu_width + i]
-> +						   & 0x3F) << 4);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst)
-> +{
-> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-> +	struct iris_core *core = inst->core;
-> +	struct iris_buffer *buffer, *first_buffer, *next;
-> +	bool found = false;
-> +	int ret = 0;
-> +
-> +	if (!buffers->size)
-> +		return 0;
-> +
-> +	list_for_each_entry_safe(buffer, next, &buffers->list, list) {
-> +		if (buffer->attr & BUF_ATTR_DEQUEUED) {
-> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
-> +			list_move(&buffer->list, &buffers->list);
-> +			found = true;
-> +			break;
-> +		}
-> +	}
-> +	if (!found) {
-> +		buffer = kzalloc_obj(*buffer);
-> +		if (!buffer)
-> +			return -ENOMEM;
-> +
-> +		INIT_LIST_HEAD(&buffer->list);
-> +		buffer->type = BUF_ROIMB_DELTAQP;
-> +		buffer->index++;
-> +		buffer->buffer_size = buffers->size;
-> +		buffer->dma_attrs = DMA_ATTR_WRITE_COMBINE;
-> +
-> +		buffer->kvaddr = dma_alloc_attrs(core->dev, buffer->buffer_size,
-> +						 &buffer->device_addr, GFP_KERNEL,
-> +						 buffer->dma_attrs);
-> +
-> +		if (!buffer->kvaddr) {
-> +			kfree(buffer);
-> +			return -ENOMEM;
-> +		}
-> +		list_add(&buffer->list, &buffers->list);
-> +	}
-> +
-> +	first_buffer = list_first_entry(&buffers->list, struct iris_buffer, list);
-> +	ret = iris_fill_roi_data(inst, first_buffer);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return ret;
-> +}
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
-> index ee2d24bb69c57220b0a735d9b4aae4434a33daf6..df9d018493f3ec37fd5e6b0ba049dba0b5ae76e9 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.h
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.h
-> @@ -28,6 +28,7 @@ struct iris_inst;
->   * @BUF_SCRATCH_2: buffer to store encoding context data for HW
->   * @BUF_VPSS: buffer to store VPSS context data for HW
->   * @BUF_PARTIAL: buffer for AV1 IBC data
-> + * @BUF_ROIMB_DELTAQP: metadata buffer for ROI MB DeltaQp
->   * @BUF_TYPE_MAX: max buffer types
->   */
->  enum iris_buffer_type {
-> @@ -44,6 +45,7 @@ enum iris_buffer_type {
->  	BUF_SCRATCH_2,
->  	BUF_VPSS,
->  	BUF_PARTIAL,
-> +	BUF_ROIMB_DELTAQP,
->  	BUF_TYPE_MAX,
->  };
->  
-> @@ -139,5 +141,7 @@ int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
->  int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
->  int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
->  void iris_vb2_queue_error(struct iris_inst *inst);
-> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst);
-> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst);
->  
->  #endif
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> index 1ce8eccdedbdeb840833bd92edb3f59dd6962d7f..2ab20cacbc2b79ac4cf28eda88b15cae332c4160 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> @@ -1624,3 +1624,40 @@ int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
->  
->  	return ret;
->  }
-> +
-> +int iris_set_roi_params(struct iris_inst *inst, u32 plane)
-> +{
-> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
-> +	u32 height = inst->fmt_src->fmt.pix_mp.height;
-> +	u32 width = inst->fmt_src->fmt.pix_mp.width;
-> +	u32 metadata_header_bytes = 256;
-> +	u32 lcu_height = 0;
-> +	u32 lcu_width = 0;
-> +	u32 lcu_size = 16;
-> +	u32 n_shift = 0;
-> +	u32 size = 0;
-> +	int ret = 0;
-> +
-> +	if (!inst->fw_caps[ROI_PARAMS].p_array)
-> +		return -EINVAL;
-> +
-> +	if (inst->codec == V4L2_PIX_FMT_HEVC)
-> +		lcu_size = 32;
-> +
-> +	while (lcu_size && !(lcu_size & 0x1)) {
-> +		n_shift++;
-> +		lcu_size = lcu_size >> 1;
+VFIO variant drivers need override-only IDs and VFIO-specific module
+aliases so userspace can select them for PCI assignment.
 
-Since lcu_size can only be 16 or 32 here, is the loop needed?
-n_shift could be derived using ilog2(lcu_size), and the lcu_size reassignment
-below could also be avoided.
+Add a DeviceId constructor equivalent to PCI_DRIVER_OVERRIDE_DEVICE_VFIO,
+matching a vendor and device without restricting the PCI class.
 
-> +	}
-> +
-> +	lcu_size = inst->codec == V4L2_PIX_FMT_HEVC ? 32 : 16;
-> +	lcu_width = (width + (lcu_size - 1)) >> n_shift;
-> +	lcu_height = (height + (lcu_size - 1)) >> n_shift;
-> +	size = (((lcu_width + 7) >> 3) << 3) * lcu_height * 2;
-> +	size += metadata_header_bytes;
-> +	buffers->size = ALIGN(size, 4096);
-> +	ret = iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ rust/kernel/pci.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-return iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index d83492e06cee..10864ffda4ea 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -206,6 +206,13 @@ macro_rules! module_pci_driver {
+ impl DeviceId {
+     const PCI_ANY_ID: u32 = !0;
+ 
++    /// Equivalent to C's `PCI_DRIVER_OVERRIDE_DEVICE_VFIO` macro.
++    pub const fn from_id_vfio_override(vendor: Vendor, device: u32) -> Self {
++        let mut id = Self::from_id(vendor, device);
++        id.0.override_only = bindings::PCI_ID_F_VFIO_DRIVER_OVERRIDE;
++        id
++    }
++
+     /// Equivalent to C's `PCI_DEVICE` macro.
+     ///
+     /// Create a new `pci::DeviceId` from a vendor and device ID.
+-- 
+2.53.0
 
-> +}
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> index 9957b69366f50310338a0c1470d9744592655c33..7587dfec052a320863889eb15203416b9c527a40 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-> @@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, enum platform_inst_fw_cap_ty
->  int iris_set_time_delta_based_rc(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
->  int iris_set_properties(struct iris_inst *inst, u32 plane);
->  int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
-> +int iris_set_roi_params(struct iris_inst *inst, u32 plane);
->  
->  #endif
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> index d628bc6748438b19dac01cd11cb9f8da0b8500af..4d40d6733e5877a302ce63fb0b4a61b8f284e6dc 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> @@ -1789,6 +1789,7 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
->  		.hfi_id = HFI_PROP_ROI_INFO,
->  		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_CUSTOM |
->  			 CAP_FLAG_DYNAMIC_ALLOWED,
-> +		.set = iris_set_roi_params,
->  	},
->  	{
->  		.cap_id = MB_SIZE,
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> index cf88dbe11e8e9faef826e661d8e9909fd7f16b94..a1b0c4982f0d789a807f22a1dffdf61decd20d28 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-> @@ -134,6 +134,7 @@ static u32 iris_hfi_gen2_get_port_from_buf_type(struct iris_inst *inst,
->  		switch (buffer_type) {
->  		case BUF_INPUT:
->  		case BUF_VPSS:
-> +		case BUF_ROIMB_DELTAQP:
->  			return HFI_PORT_RAW;
->  		case BUF_OUTPUT:
->  		case BUF_BIN:
-> @@ -1267,6 +1268,8 @@ static u32 iris_hfi_gen2_buf_type_from_driver(u32 domain, enum iris_buffer_type
->  		return HFI_BUFFER_VPSS;
->  	case BUF_PARTIAL:
->  		return HFI_BUFFER_PARTIAL_DATA;
-> +	case BUF_ROIMB_DELTAQP:
-> +		return HFI_BUFFER_METADATA;
->  	default:
->  		return 0;
->  	}
-> @@ -1328,6 +1331,7 @@ static struct iris_buffer *iris_queue_metadata_buffers(struct iris_inst *inst,
->  static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
->  {
->  	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-> +	struct iris_hfi_buffer hfi_meta_buffer;
->  	struct iris_hfi_buffer hfi_buffer;
->  	u32 port;
->  	int ret;
-> @@ -1349,6 +1353,26 @@ static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iri
->  					     &hfi_buffer,
->  					     sizeof(hfi_buffer));
->  
-> +	/* check if any metadata buffer is available not queued, queue it */
-> +	if (port == HFI_PORT_RAW) {
-> +		buffer = iris_queue_metadata_buffers(inst, BUF_ROIMB_DELTAQP, buffer->index);
-> +		if (buffer) {
-> +			iris_hfi_gen2_get_buffer(inst->domain, buffer, &hfi_meta_buffer);
-> +			port = iris_hfi_gen2_get_port_from_buf_type(inst, buffer->type);
-> +			iris_hfi_gen2_create_packet(inst_hfi_gen2->packet,
-> +						    HFI_CMD_BUFFER,
-> +						    HFI_HOST_FLAGS_INTR_REQUIRED,
-> +						    HFI_PAYLOAD_STRUCTURE,
-> +						    port,
-> +						    inst->core->packet_id++,
-> +						    &hfi_meta_buffer,
-> +						    sizeof(hfi_meta_buffer));
-> +
-> +			buffer->attr |= BUF_ATTR_QUEUED;
-> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
-
-If iris_queue_buffer() is the only caller, is this needed?
-The caller already updates QUEUED attribute on successful return.
-
-> +		}
-> +	}
-> +
->  	return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
->  					inst_hfi_gen2->packet->size);
->  }
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> index 84b629b957442c024dccc18b354ac9a7e541abaa..f63e0a7723e8583da818c2b004e367c1dd3d94f7 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> @@ -58,6 +58,8 @@ static u32 iris_hfi_gen2_buf_type_to_driver(struct iris_inst *inst,
->  		return BUF_PARTIAL;
->  	case HFI_BUFFER_VPSS:
->  		return BUF_VPSS;
-> +	case HFI_BUFFER_METADATA:
-> +		return BUF_ROIMB_DELTAQP;
->  	default:
->  		return 0;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index fcbc60016beec693f2ce27927a09a2d51494bc38..fae3d113a9dc990f06167ee0b7fb8fab24a0552c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -180,6 +180,7 @@ int iris_open(struct file *filp)
->  	INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_2].list);
->  	INIT_LIST_HEAD(&inst->buffers[BUF_VPSS].list);
->  	INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
-> +	INIT_LIST_HEAD(&inst->buffers[BUF_ROIMB_DELTAQP].list);
->  	init_completion(&inst->completion);
->  	init_completion(&inst->flush_completion);
->  
-> @@ -299,6 +300,7 @@ int iris_close(struct file *filp)
->  	iris_destroy_all_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
->  	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
->  	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-> +	iris_destroy_roi_metadata_buffers(inst);
->  	iris_remove_session(inst);
->  	mutex_unlock(&inst->lock);
->  	mutex_destroy(&inst->ctx_q_lock);
->
