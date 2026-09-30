@@ -1,125 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420A63D891B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:07:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D0B3CF21F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795274; cv=none; b=ohEB3tMVEX8AlWYmROh25Rkdy50QeqLS1KluVcmvGdO9n0iJ+egi2fasM8iZHFsXzwZ7AOUf4DzUjMUssenhvPKe9nlPx8EReBRaxpYC2gAaBgNKIjT6HvtaTuXcKjP8dQIUuxyzRaNwtalw/cR0dKZGfuewMpDBtbYfwwVIuOI=
+	t=1790795312; cv=none; b=Yr6+h5EZ9yf/jiEjveps9AnH8AMSeA2Fhx2KtaFrzSgi8LNELPxiOd0SENIE7ZraStjg11a7x93UdsZfy5H/z5XR09Jg+d8S93BbdvT6QrG8CV3L57ltOyjlRu0GLhvmBQUPcvOwDYNB6PnsouG8yB0RmVL7IVmxF3ri8amkipk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795274; c=relaxed/simple;
-	bh=bxJY6r7hmtQQbaUp+jGo9ojcTYyECOaox7wsG7JzNr0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uDaJ+tYDdIqSZ9UDkJOihPaXomhf/m+3LYck/LzwS3DkBK3e5mq9odb7WC7hgGgQshnOIbilaFI4tt/Ir3G1IfvOgYSUR8AhRM+Fb/UTskJRxPZbthaWfZQTGerfA1Sol17wyXv1gN9PWRZHhYyaw8yW3+Blib20psyYXEu4+IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGTKgsCU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790795312; c=relaxed/simple;
+	bh=vqOV2uF0Ci7vXHGhVG0nXnSb9mu5dZuiChUCnPPFeKo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O4AHJXPpP79I6TdbIZvyLfHNrHhjkG+7fEUm5i28FgxXpTjildDabKQdBm2vqOPnEMti6+Tk9pliN607AgeRAmfkPnZy/qXPyzdqk4PWF2vsdkuswcKSttaMoFcHh25+293G0Ok8RApkcPMUEIFBur2c9EaE0v1xQa5AlSeTYgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aj49PHtq; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGTKgsCU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295151F0089D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:07:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790795273;
-	bh=bxJY6r7hmtQQbaUp+jGo9ojcTYyECOaox7wsG7JzNr0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WGTKgsCU+/7tSbH0RgCXBxO0ozmDxYzlLDwec2n1uK5vKG2u+Di5y2WS6iaRioeHA
-	 2HQe+XnO1uJ4CYhwINzo8cjLvNqjNXCxbsf3+JY7DHNsj5meQBk7iK2fww7Th4TV6i
-	 kkU7y7Et3fGZqOvDiMtxgUEgFwaPoRwmgHaXCfNEC2tlCG2i5It8RQNIVw5uvFKrUC
-	 XChF332jlPqD8AXn0mXF0TdpqcDviisUqsmHyxFw/K52bPBpJEZyqZkDAJcx9W9Ctx
-	 wNhktvmN49L3hqx5qTmfX02sCiNCyjvFtFvqmwbcNor4vRdzJXOT4Q1zfnuuJSa4ri
-	 xPBPjhV5LjBFA==
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e23be09baso118298266b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:07:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwXqrhn8a8vZloXd7C5PuqYI0nvrYzSklyTYDqgnY/39ce+EXVWu9QuNLBYpu5j2hpGdiyH5z3hy+qzhNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqK1ikJka5vbRSRyspW9CRb2ROT8E7qqIQj+Ziffkg8RIYhLMS
-	cAonP1PmRkwx+rCt1aC9FLsANy7GlNb7td4r9t0W2U5gDVxJAtgw0hRZz6iXrCDcRkm48+qvCdh
-	vkfbbjvXNttMnoYQBBRvIivRIjty22w==
-X-Received: by 2002:a17:906:7308:b0:c29:566f:531c with SMTP id
- a640c23a62f3a-c2e23d64e23mr209463766b.31.1790795271560; Wed, 30 Sep 2026
- 12:07:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aj49PHtq"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-144f79153f5so27172c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:08:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790795309; x=1791400109; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d+JAldsdHwPu3ZufnjHdhfOy8fAoKYsgi/utsa5zT7w=;
+        b=Aj49PHtqiWX3cSC51EUQelc6hrWLHGBYxA+5Z+aXsyLFn9JdaTpxQnUrO5PUvAAYTb
+         PIX/MrKSzQSeeLOKC5fT7lM2HKWGDoz62VkESNNZhLCVAScdmG7DrVIyIngClS5nYekX
+         Rz+CO+uq4Qrh4cREmRaFPc+QmPd/yU/zap6gjZEKvRN5zNM0XmsSd5p/j9z/FmskClJC
+         S3ZALSBvNEGmkhjrtFtOO6ntznuIf2mMQ3aRqp7PBqGjHguoqbOUhxlxbvL7m3jHX5vi
+         oAjmJYhCbs0GF3G2lItBTaruHno6AwgtGmLdhdOJryPomEediJvbQkieXiIP+kkWBh6X
+         2unw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790795309; x=1791400109;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d+JAldsdHwPu3ZufnjHdhfOy8fAoKYsgi/utsa5zT7w=;
+        b=xJDPcocsKQpn8Gq6rs6CO6Q+KGiV5KXF8ykU4i1DnZL+FjaN7z+sh0MElLCsIKi4rD
+         rriyJ8R1hmnRRsRX1iIMZT2Fo1H2eGt7ADsLid8rxZ5R1zfF0b3HWozzz/Rry0AKzISv
+         WhbQQ0H2P1BcUca3Anl3HlJsb7VV96DUqvXDztymgKjuR4nRR/RlgYlljRJPJLxbFzKg
+         cHOnAfII3z4Kzor6xJnOKQYYQb9Di8xdwbn2fiAKwcvGoMkayHQisjgQ6kBOhJMMn0k7
+         CcFk9bjAkVb2M2TagP54hlecm8gAJhXuIzGShwPNzGjpg9KIL+tbgm+oQRfVFbgpCt1G
+         vAmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzGrKzVlePyPWn9zxdoNHb57a+05IF7rI7EYsNSboddwO1lsdydCLlg70LfxJUlFGcv7+si0jWX+uYxoWM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFGaQ2JmUGajoJqQhTXE26v7iNc1SWnPDOiN0ESrWzUEzUM5ft
+	pIuYjeJVYBGXeQW/DtHxJ7qFmGGlTN19N/5qb0ku7HuGmwFgG2MOguly
+X-Gm-Gg: AYBFou3iX2PhxoibzD4+bi1Mcyyg2MUP/Lv0oX53/FQw7tYQx2MaZ4y1N0VX2eXZ3v2
+	BSPiq4c8OfojVQfeb2XeWQOs4HrC90Xeh8IlAlBQ+YRzkBJzonjD0V4VxFlaPRqgwMxuKPh7ky4
+	ezygyAcLdj71j2VpzX4F6mdHCwQKXRf0N3IVh0+A/+DnGIb5e+cs5oDC7/VwKQZd0zgZDaZvuvd
+	0+jcr9vNbnud324r5fSXbGFXLhhYQg4Liu3JhWr5wLp9TFWGKYixp+MLP9eKVCwlj7r7LOjJA8m
+	NlosnSosNxag3oWKvAsYjIIsJk06yGC7G9/Y2zXW1EvxePzBiK17WfRZw2yZCli+FvHXQ3Xsssl
+	JBZMb2cS+Z7Zsi+kACGv1j2daTDBWGSWq53DAw4pwt8KTcVzTnsvbYmXpyjvEwzK+GsSmQGCqKf
+	5wUd9VD/XroIYpiarnoXXjft7DbQZb74SezEcU2mIiMiSNGppdWWI7wHOMRrmWDoGm6zoyg+Evk
+	qhkMa22DYcVWNsUJEFOtKjVoe2+4xnRC71fqMc=
+X-Received: by 2002:a05:7022:1588:b0:143:1bb1:32ff with SMTP id a92af1059eb24-14dd129c6bfmr508585c88.16.1790795309223;
+        Wed, 30 Sep 2026 12:08:29 -0700 (PDT)
+Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df359f15asm285867c88.4.2026.09.30.12.08.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 12:08:28 -0700 (PDT)
+Message-ID: <a9cb7dee-2c63-46e1-ac1f-ad996b4eff6c@gmail.com>
+Date: Wed, 30 Sep 2026 12:08:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
- <20260929222822.GA2933878-robh@kernel.org> <ary8IdL9zVXfS2fA@houat>
-In-Reply-To: <ary8IdL9zVXfS2fA@houat>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 30 Sep 2026 14:07:39 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
-X-Gm-Features: AclHuK_KrCZYndoX88-SUyUMhWpLte5mG0GRB_AK8DozaFWQdrOZypWv12h1FtM
-Message-ID: <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Albert Esteve <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260930152414.738996857@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 3:04=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
-wrote:
->
-> On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
-> > On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
-> > > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> > > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > > > > regulators and GPIOs, perform a reset pulse with specific timing,
-> > > > > send a vendor-supplied sequence of DSI commands, then enable the
-> > > > > display. The only truly panel-specific part is the init sequence
-> > > > > and power-on/off timing.
 
-[snip a bunch of irrelevant shit]
 
-> > > So, let's phrase this differently: what's different about the
-> > > description than panel-mipi-dsi-spi, or any other binding already in
-> > > tree?
-> >
-> > There's all of 3 panels supported. Compared to all the other panels we
-> > have, hardly the rule over the exception. You can always fine "bad"
-> > examples or exceptions.
-> >
-> > That one defines a single supply. Any other MIPI SPI panel with
-> > different supplies or GPIO controls probably has its own binding. Tryin=
-g
-> > to parameterize that in DT doesn't work. We've rejected trying to do
-> > that in DT over and over. What's your story here for that?
->
-> Sigh... Look, I really don't care about an argument DT maintainers use
-> at their discretion for this. We both know full well that it's been and
-> still is inconsistenly applied, and you also know that it's not like
-> I've been playing the DT game since pretty much the beginning (on ARM
-> anyway). So it's not like I don't want to make it work, I do. But what I
-> care about is enabling that driver to work.
->
-> I reused exactly the same binding than the last major binding that was
-> merged for panels, and support about the same number of panels. I guess
-> that was a mistake, so sorry for that.
->
-> I'm fine with reworking the binding any way you want as long as it still
-> allows for the same use-case, but I would have hoped for a better
-> feedback on how to do so than "oh what a huge pile of shit this is".
+On 9/30/2026 8:15 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.112 release.
+> There are 877 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.112-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-When you can answer my question above rather than make up shit I
-didn't say, maybe I'll reply again on this thread. Otherwise I'm done
-here. I don't need this abuse for the thankless job of DT
-maintainership.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Rob
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
+
