@@ -1,228 +1,185 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f34.google.com (mail-oa2-f34.google.com [74.125.231.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B317B4CDDE7;
-	Wed, 30 Sep 2026 12:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770318; cv=fail; b=DEURcftqbk8p667HXGVjuTlsmxD9KX5f3ibOwABjlpNT6lrKGCgqVL/FQCWyHn3uI+G9gsDyNpDRmmqj1tRDOjqd71kDxwvhrFJrRMwpVoxakepgvS+DhEnZaNV85WOgJ8D6T0UkV03CLr0sCCcsD+yE9ln+v+4ylkxiPyBXiOI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770318; c=relaxed/simple;
-	bh=b7O8QhNylGxl+3cwbUVWYCXWKx7QH20oLW5bCkMCk4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Z0YHOTmbgyF4hUDZVAIp3ovrtGUOR+Hh0pkDFtRW+pQv+6VHdrBbi1L7N2tofhaWMlZFJTWETVrTLzwH5zWtUDDokZ4B3Frif5ycUJI6aeLDvcxeaThMCxmIkMqVWW5p8r5fVDbK/ZHqMnpAq/nqxZm9YgcQWJ0gAK35ZNLxjUc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=vuzv6YnG; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8F9547074
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790770323; cv=none; b=purg7pFqRQFWJ4e0oOzzKfCleiR3E76ulBjFSLUPjafJP3+e0cQeUJ3yTP/GfxX4dLgevk99F0UNEswyn9SDW/Isp9ojrOfeVljB0S0Tt6xOu3TsTGBI1zgOe3VycBhMzIPXrYpjC9Nsc74w3PWMc9bZU7ocNvs6l8JC6Mskla0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790770323; c=relaxed/simple;
+	bh=heiLNgxCRShurwcEkBpHOEt50V9w8wXC0MeKwIR/wJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lupqyjSGo6sqSgdTts+3uyWsysJM7sraFugiIAxOcKZqzg8Ysc4cixYPabK2W2N2vMBEvtwIZX208/xlwMjXJv8iRIJnNK8mYdQK18/99sUkmo07egj/DmIf1II/tR4Ja1W5lAbcAvfFurGw5sd3dD3Lg61/hPkI8QiHoRB4A0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6z0fnEj; arc=none smtp.client-ip=74.125.231.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="vuzv6YnG"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UBBgRb1641762;
-	Wed, 30 Sep 2026 08:11:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=8MEdZ
-	Q5vBGrit9LXK7Wkoth/d3UTY9+PUAON9Khf8W8=; b=vuzv6YnGPKOawtqUGbBnQ
-	QK397Qu3/o9tzG7sJQaZ43MHcDvv+LWn/9VVnGDY1i4BmhemnqXgQxmL5CX7Vvf0
-	3YKhzZ4msKm9xwsCaAQ2cOqKPzBxKkk4hd5N6+TfDLf/GyykX03AfALw+rAUxS98
-	yHeIhxPEPrB1zMmE3E6WnK1PIUX6yhf8aFaQ8HjP0lnl1WAoAHNIbH76hvlOYX91
-	lPlhKSm/qTzDfPY1ep8D0KXN80Yy1l73koyA1YlDwQCsTymrcKkqL66WzsxQvOMY
-	kVjnibCPsXWjKZokka24dd8jSauA3Ijgt5YRaRHeN1VjviYYFytgVX25iKyXnG+j
-	Q==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013049.outbound.protection.outlook.com [40.93.201.49])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h0jhsdb80-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 08:11:46 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GyiJhdYAlE+1QrSqem87twdF7kN0khbU+4c3LKgBp4oqMwZLwY9iwACLexhaTvH8k/bysJLVuQOurl4+8Fzl2jvU9JH44br2Oc6imX/KpvMfnAxNnw6MYmQu20BAe3fDwdwDPc9cVLCFRhAsFuDuYxvl7LFJvDkeNvFUXhu6UQ502PzwBVyDUGWOJvYFVOh5R+PO4UK93Bhm5CthdhUtjVCtbGyxH9/rHKq/55UcY2b/OLGKdn7WCVU5wgS+N7m4/cCsRKHKu2oC8LYnbNzEUy0pN7DD93FLreDnvvt2GWrQorSPZ+hxlBu6KHQNVhcVdNyX6JN4EtVVlAt4UsIBFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8MEdZQ5vBGrit9LXK7Wkoth/d3UTY9+PUAON9Khf8W8=;
- b=S093Gji9orhehDB100j7x24toCx8qNEr7tC77qYHC8diFEi/TzIrEcNWNY2uALn1nzetsRW79h1yo9ZOX+8+Zh8ToFjhRGIppGq29OvFJakfv7gWRQ06gccuJKtvxL3IePd3iwSqNYv/mfxStBEbGk/hTFx0KpBgE+Qr9Ad2UYC6IHqB2ACTYR69O+6G7TjFdvxBt8kgZx/CsH79prXZUvUEg9xMNaESivGYusi7TPuYxsvHkmEwAaCzOFVFilQcgzj93YVQzt4+BUsIdZVdrTP5nmxTqtPTO9dkPnxB35/w+9/xiGMCEtSBUfVMDljsbLPjyDkgKF9Wyr52uXi4AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by PH7PR03MB7391.namprd03.prod.outlook.com (2603:10b6:510:2e6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 12:11:44 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 12:11:44 +0000
-Date: Wed, 30 Sep 2026 13:13:01 +0100
-From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: cdcp206@gmail.com, Nathan Chancellor <nathan@kernel.org>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Liviu Stan <liviu.stan@analog.com>,
-        linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] iio: temperature: ltc2983: avoid string comparison for
- leak detector
-Message-ID: <arz6WU9HoRVDQCv0@nsa>
-References: <20260929-iio-ltc2983-fix-string-compare-v1-1-d67d612d6ddd@gmail.com>
- <arzb0JQxkJAsLsEa@ashevche-desk.local>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arzb0JQxkJAsLsEa@ashevche-desk.local>
-X-ClientProxiedBy: MA4P292CA0013.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::11) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6z0fnEj"
+Received: by mail-oa2-f34.google.com with SMTP id 586e51a60fabf-499c0f06935so1170299fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:11:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790770317; x=1791375117; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZFYvPCDLrvrC5oT74t7swbnU8bzwyNGtjBbSx2EyWUU=;
+        b=K6z0fnEjZUNruyGZwT7EUz7Ktdq+q9ZGwpSQS/eESmThnUQFCdeKQ8XFBWQ7HIY1cR
+         GNeIE84dgpiYTOfEjYShPhQ6QIaRsqZTWlxvqbPwgRyEGe7Cl7NXZycxRUIcvpbVQsAb
+         vVRrq/AEpNhS7w3EpMexz/wl5CgzopLSizPs/cDep+qZ1avYziKQ9b7KeJ+P0T6ooSo8
+         8+pO4T/bDYmkEryrCc8wZ0v8z/wqMqp0uxDrzcai8Cs6JHRMstX8oReYETlKeM+YTt4H
+         vsrul9XMrT9rHKHHnXzrmH3GmXPaJJOZUf7nDOI9D2cDntEa2AOilepcUgXJF8yihFsa
+         LA6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790770317; x=1791375117;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZFYvPCDLrvrC5oT74t7swbnU8bzwyNGtjBbSx2EyWUU=;
+        b=OZpx33BMHNijgsyahtFrlkaWQ7BsEqxNPe6XPyP42laHgfPyI+S2/qnGYjGQhPN4ec
+         aBfVuEnkKfOI2NQZYlsQSti0G89qB9ddswfdkyBVgpzci6cwPoGcNlBE4BGzlMUuHsDq
+         yqo50Y7vGiPBDb6518wN72xVcowX/L30mCzIp0xtT9NG6kPUoKPu/bq0gWupiXQnDHQm
+         bync9TpYCP1TzPUP4GhJeOWihX9Si4wgoiXeIdhvfBtuSoadh0pk/XXxVpEYu/+OCcvp
+         k9Y/BEx2Xco3souqmaSQU4aQYb4rZWeYy1PEGWuii85LR30FwkecD0Z2nARdgPrASpYC
+         lKkg==
+X-Forwarded-Encrypted: i=1; AKwUvByj0HX+FqPohT1sbJR0QDhPfSzOtRXNZ5DKuJgWEM+K6LLkt096P2Otl+9FDC3W38Pm92BhO5y/rVxVDZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjGH1qd0Mk7xEypQhB08aG+P/AE4JOh+V1LsfRQFzV63UKUhDa
+	kZaDvuQ09ZTJnRoSDY4fUyqXJrwHptOSO9yp7YOQlAo421c2bwa0qacv
+X-Gm-Gg: AYBFou26SNNtYfYkASoevs49Ey9+d/r2ZWgbPn93/XQADW1L8s1PCLASN7uSGXHUdVy
+	nqkYNcbTRgEGFuO9+swD84M1uDnEIkok+e5r0w7HasaHZk7LXKq2nf+yI1pTGKkZdr9PGV0EZvm
+	QXZ3KFQaUSYO8Hn9Ky25p478sgzurmW/nCvCC9VgFMSfG2eZI9suJqfmvJZY9uYZ6GQlpmspPQe
+	2LqkfKRNLnDOxJPNHrYDFSh8i5MLMBKF6SRlvHiSokX5+pYGtTK6b2//JLnGMuq31WRObF3B4vY
+	yG23zOhJ1I5YNZH0g2ZHZ2rw2T+3vgzz42npZOzzJlEmuo5qNYA5iT8+pUv9gGhMDfEiBomUZrE
+	8YhF4lDet8hc2Simf0vhOgVxd0YG99JMkZNs8esc0EW6JWcyuQ8RBUtqRPsy9cCCjXAaCJZDZHs
+	2xUcweOBDu+yojz5nARxcE0HBVAxzsibXhaeRqanuAM1cqjp1kFDsVP9bEj/W1AMe0VAQphWXCu
+	lyas3wOWXz4F/7EJOE6ome6T/P7GQ==
+X-Received: by 2002:a05:6870:9615:b0:49d:c9ed:21f2 with SMTP id 586e51a60fabf-49ddda314d9mr1064165fac.18.1790770317220;
+        Wed, 30 Sep 2026 05:11:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:8::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49de00cd469sm522330fac.17.2026.09.30.05.11.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 05:11:56 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: "Li Zhe" <lizhe.67@bytedance.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	mhocko@suse.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference with MPOL_WEIGHTED_INTERLEAVE policy
+Date: Wed, 30 Sep 2026 05:11:52 -0700
+Message-ID: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <808292b4-841c-45bd-aacd-b487be1858ca@bytedance.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|PH7PR03MB7391:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14f0a0a8-23f3-4532-4e5d-08df1eebfd45
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|5023799004|6133799003|10067099003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- 7wvSK/odYTCbgEtXdBzlVuFbUcEh3WKzN0+Nyhmw3f5hZrFK2CQoToj2dDe/uXuK3hwY99lL1Y9Qq6sHWm4HBmT59cnRxEO9OyYOkbdDN7oQSffHwGevsLkQv9hThFXrNvkPdsmULzjpu3i6GWUbSI37Q1VLYngRh3emaMzZcAzhGXwQ4AUV1oO7g8K5UCOdEmbGCv+As+7LKV1J2dV/27AUEjTSc0WnAGd5QC65Q0ZIEm3/ckV2Csxd+0Wh8dLTJKjUndIpVsykLuhicdisHdogHxqwDbm3aF+gVuy3rPa8aVJeaXi/9wbmpzxk72tj1Dp2iEgoFxC8AURQMJA0S0YG43TBmJLZ9l6sUeBQEbQxPpAefa1IVjeQZOQBpCmZ87cFWsQZLmLsjUiTe27f2hLaD0pKHRmPGXzeEu8gzJCZD+XEWe7qtB1z+2gkHwMO6lx4SMQ6VTNAo6rA81DpzuWYkOf1rD2g6ZeeGg/EedftYhgCJwBLLT9Qx5BL0YGujkyw+BMbhlTAMp8Ugoe50tB65eYHsz1egtko5VFRNYTuTjnBuCmsVvUBjENdiowqKAg10YAw+iAhX7FjRNpwoKs9D9WYS+gYC5kKIl5ecCFkgqcrlRVL5/4pVf5FwSTDcOsc65oTUWVY7s6t2QEbUyDCIwOhrigAC2k0QE8f/xw=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(5023799004)(6133799003)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?NHVkUXNMTDBtMVlVQUs0dDBwaSsxZWorUDNmemtRRm9zekQ3d01FdFRQdnNX?=
- =?utf-8?B?Z2Z3UHpodTRiTzJnOXVuZkxFallnZ05Cd0szSWc2NVQ1MDU3MlhZTjlLWnZx?=
- =?utf-8?B?aWVhTFVoL1hHd1pMaWFiRXRjNU9rYm0zQlF5RFdnRDJ5M3VsUGtmVUJkcFd6?=
- =?utf-8?B?UnpBMWpvMHdUekM0d2ttb1ZSNjhNVUxLK3pzUG5mdUYzSDYwL1I0dy9WalBy?=
- =?utf-8?B?SGgyNWJpeUhtMVdHSmFqWExCVzV3aE5oVy9teThwNlRGQllrNERCYjVPbFpW?=
- =?utf-8?B?ZkUyMTN5YnhxeElrYUVhOXZUVXNjOWtNcjBuM1VPVml1bDBLUnZFa1B2N2dI?=
- =?utf-8?B?NUFRL2x6UzJoTTFDTHZ2MUQxcW1TZFdqQ0psTWttTE9XVHJWWnZ3M3VuM1hN?=
- =?utf-8?B?eDR1SHpPRXUzQzg5WDRqR1VGcmJuQStScnBqemdJL0pGY3BBbnd1YVFtY0Nm?=
- =?utf-8?B?Qk5vM2RieEI5Wmp1UFRldHk3K3YrNzZia3FJdlNDSTRmeDRSUExFd3dkc09t?=
- =?utf-8?B?S2xDNmhURnBlekg4djVzOGs3WkhNSWZwWkY3ZFlrSUNqcE1qT1hZcVlDOVQy?=
- =?utf-8?B?REZRK0ovL1JKTGVRZUt3ei9SZUp3RHJVem94YjA0NnlUaVBCNlZHU1lSSi9C?=
- =?utf-8?B?V1A4aG1RNFlGNkgxbyt6aGtHZGszZWVHbWQzN0FQcDRvYUU3UGpqdUlTSGhL?=
- =?utf-8?B?SGVoUWFuSjQrb29VT08yR0hYQXkrUFZZa2UrNkdVaGtQNjdGUTVsck94QXNP?=
- =?utf-8?B?OGNtaWVHcnZiS1ErbWZTTzZLS1hzUklSV0pFRnJsSjlReHJIM3RQeVZkSCsw?=
- =?utf-8?B?WDVRTS9IdWJZTHd0Ump1dXpHVzlrMzVmOUpFeUxwbmRNTTkxMmtJOGszZmlk?=
- =?utf-8?B?bDhxWHR2bFRjUDBtZXhjRTduNmNXZDd3cTFzRktzZi9oNXlYNTlZc1llU1gv?=
- =?utf-8?B?ZmNMMmRwb211R2RwclNJRDZSelpmcDVjMHdzMGNUSmN6LzJRdlkyLzhDR21U?=
- =?utf-8?B?WUltbWZzbVhzUGRwajNjeUhNdEpiTUhFbUNxSlRVYndKRmYxc2xYdE5PU3lr?=
- =?utf-8?B?Y1FZWW9WM0hKQUpicWoyb0hyMEUxQlo4TGhkT0g5blpWNXlnRU9xY2Z6WXpl?=
- =?utf-8?B?TDAyQVZDbmh3VEgyb0lEaldhMVY2VnZXcVliMFVtc1RHNnRqc0phdnlRQ0VF?=
- =?utf-8?B?Zkh6SEFlSmJjUTQvd3JwNlNpNklaMTBjVXlpV1dleDdZamxtOHNXbVErZ3pK?=
- =?utf-8?B?cmZUVVhvSEZpRWl5WkxkOWNmclRJQ0xJS2JDZmJCNUE4UHNCNml0aXVsRkFY?=
- =?utf-8?B?emJXTEhHSC95OUp3Rmlway9acFNFTk9TOGVsRE9GYTF5cVkrSWZXenNGcHlr?=
- =?utf-8?B?UUZsOVZxWGJYTnU1U2xSN3FZbzFtTUwxb0RCRDRvK09od2dNZmJ1eWliYi84?=
- =?utf-8?B?d0E5T29FWWxhRVphMGRmYzdHZGV2OEU0SnZLTzBrejN3YklGUVd0cDNic0k0?=
- =?utf-8?B?UkFMM3Z2eWRIbFliWGpYVHZSMFBRRGVIcjZVWW04NlduL2xuZ1VUdW9ubk5k?=
- =?utf-8?B?UnRHOEZyYjZXQ1JFS2J2ditHL2VDK3k5eDZtRTA2YmtkZ3hJRFlZWjg0cHBs?=
- =?utf-8?B?YmJuQXNtWGNLeTM0WU05eFhPcStRcnp3WU1vWVBGcWp1dmx5K1lzSDJXTXBh?=
- =?utf-8?B?MS9SZWxpRXoxZ0F4c2JibkJCRWJNLzdMbkZ3RWZqaXFpQTVQNEtaelAzY3Bw?=
- =?utf-8?B?Vk4yZ0QrTEJBTXNEd1k4anNsUkVWUmFZc1ZXTndtNTVwTlczR042Qm01WFZN?=
- =?utf-8?B?Zml0TE5NRFVmbzlmZmZhVHdXMEN6UUtOaXZEcTRIVWk1MGY4QjBobzNNaXI0?=
- =?utf-8?B?NEtmMU85NHhVQllUa2p6NHBiT3dLNFJUdTZlYWtzZk1FakVBNWdsaXFQYzJN?=
- =?utf-8?B?WHppTjhGbk9VNGs5L1JQeTRCY0U0YldETFZOcUxwYi9KcVJ4ZUZFUEFSUEF1?=
- =?utf-8?B?ZTNWU3BUbzdvNGFtRmVDOTZwZGdXd2loNW1MbjFSWk9ERDBHbjVtVkJLemRS?=
- =?utf-8?B?aFR5TFI4MUpic0RpbjNwYlVyRnljZytDbUt3YnQxa0tTQ3ZPMnVQM0YxbFJ1?=
- =?utf-8?B?Rlh3Z0p2WTRMU2JsWW1uYnRrbW5JdVFLVWQ5QmNNcjVFUElYL1plV2hxTmhQ?=
- =?utf-8?B?MFYzRTYvdHQzRVVDUENtUVF0ZU40TDczNGVGVGdBRFFYVGxQenZxZXVuSlEv?=
- =?utf-8?B?NFdOakprL0tyMDFHZ1VCV1ZMTnVOTCtrRWgwOWtGbTNHNVk5RHJoOVpwejJT?=
- =?utf-8?B?T1lvcUZkR1FlWU5uUVRicW5ibngxVWFITkhmQUhaQ0diRUxqbFkrUT09?=
-X-Exchange-RoutingPolicyChecked:
-	Ck0zh5hlBeSKDTLQJqtULCGwJIjZ/Zqu9CRPT4v0zTqwZbOzsclOCfPZIvD2ix/dd2bSmf8xPyF6DjFsoBZyBcU/CPlMcwbzURqHSQwfiOLfxph+LPZZnXcimDL0mV2qQcnM/qsR/+fe4MEMvBnbN3X2l0voAzps5Yh4hsPuVZchB64YnKuNMXcV92Q7QFeUf+XDODQmyGKsYqjEjkxEo8yy4nd6l7jpKy1kUPQghg7Des+QU97saRNxoQQJUvADiAmedZ18ilQjBgq1roIxnQq/C0dS5glmo5DTcQn3Q/twi9fSS/Kc2TrK7DXWTED9S3JOEhyeRuhzftUfKysKww==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14f0a0a8-23f3-4532-4e5d-08df1eebfd45
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:11:43.9089
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LZWwlJpwBxw8gMyJNM6Kc/1JapJlTKe+WO11sRR99ywxv2enzAHAqIQDHH1AnTHdfa5wGsIZj2Q3OmjAwESMEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7391
-X-Authority-Analysis: v=2.4 cv=ZbeIpcVA c=1 sm=1 tr=0 ts=6abcfc82 cx=c_pps
- a=onUmW/TBZy4T/WhMO3N4DQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22
- a=uOqCmISiiaLf-by294MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: C_ATh-HIUvnlUdYDfeOohjiZXePyRvAx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0OCBTYWx0ZWRfX7FPdErAqOzfm
- pAK1k6KbHCkw2NRwBCkjbZXSKqmKiLOOGMI27iz55iaaEMfrOOaclp1oS2rS5YWS2a0noaxz0MA
- +haaWSqFh2qTigm0oZfnhKBPcYiFrhEgbcuLQqWHvf6EWjxOXCl9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0OCBTYWx0ZWRfX6APahnZ2MF8X
- d/oO4Xpp3ra2HxxsYvoTsCbdhlS4zt6qdROYjPQ+THzBl4NCD5KJo/Bqw4otn14/gPAg519zqQg
- SSsNwLnNEreS2N7q0772ltRkacejLRXxAVnaKBnz7rCaQxNbuYg59Iz/lWewX9ZEOu4AwftJKEC
- h+4GSOVZW6/JExnA8u6FxvRx5b+1voLSmiAMKain2mloM1gG94EVtrVo92dKNOm0xe+aVZ8hNTX
- ToyPSg3uGQoXslgsnRKk9OB4/RcMyjmq6ouNvswTzrYCrG2/RbKSPt2DQ1Egc5GCilMvsdkp7Ps
- xjYGDweXVBGfZgYViwC9iJpwY1XcPHx7xEPuKgrjy/lkP4IpVUGTKSs/NiXZ4IeJ0L5uOqZgE9B
- zEO9QCTI3s7Md85FoZ2xO6e6tSFnjbRTAy39aClbZt2XZ+tHsM3sEk/UEgSJfKr2lBDpMbIzBLe
- FW8of3xp0sRf9GlKtdg==
-X-Proofpoint-ORIG-GUID: C_ATh-HIUvnlUdYDfeOohjiZXePyRvAx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- malwarescore=0 bulkscore=0 clxscore=1011 spamscore=0 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300048
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 12:52:16PM +0300, Andy Shevchenko wrote:
-> On Tue, Sep 29, 2026 at 12:38:22PM -0500, Carlos Casadiego via B4 Relay wrote:
-> 
-> +Cc: Nathan
-> 
-> > GCC can determine at compile time that propname cannot match
-> > "adi,custom-leak-detector" when __ltc2983_custom_sensor_new() is
-> > inlined for some callers, triggering a -Wstring-compare warning.
-> > 
-> > Pass an explicit flag for leak detectors instead of deriving the sensor
-> > type from the firmware property name. This preserves the existing
-> > conversion behavior and avoids the constant string comparison.
-> 
-> ...
-> 
-> >  __ltc2983_custom_sensor_new(struct ltc2983_data *st, const struct fwnode_handle *fn,
-> >  			    const char *propname, const bool is_steinhart,
-> > -			    const u32 resolution, const bool has_signed)
-> > +			    const u32 resolution, const bool has_signed,
-> > +			    const bool is_leak_detector)
-> 
-> Can we get rid of those strange const qualifiers for booleans. What are they for?
+On Wed, 30 Sep 2026 19:52:05 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
 
-Obviously nothing. They came from a time where I thought they added some readability
-value :).
+> On 9/30/26 7:26 PM, David Hildenbrand (Arm) wrote:
+> > On 9/30/26 09:26, Li Zhe wrote:
+> >> MPOL_WEIGHTED_INTERLEAVE is useful on tiered-memory systems because it
+> >> can seed a workload's new allocations across fast memory and slower
+> >> capacity memory according to a configured ratio.
+> >>
+> >> That initial placement is useful for workload managers and orchestration
+> >> systems.  They can take the amount of fast memory and slower capacity
+> >> memory on a machine into account before starting a workload, and choose a
+> >> weighted policy that seeds the workload across the tiers at allocation
+> >> time.  This avoids starting from an all-fast or all-slow placement and
+> >> then relying on promotion or demotion to reshape a large working set.
+> >>
+> >> After those pages have been placed, however, the policy cannot currently
+> >> opt in to migrate-on-fault placement.  set_mempolicy() and mbind()
+> >> reject MPOL_WEIGHTED_INTERLEAVE when MPOL_F_NUMA_BALANCING is specified,
+> >> so memory tiering cannot promote hot pages that were initially placed on
+> >> the slower nodes by the weighted policy.
+> >>
+> >> Initial placement is only a starting point.  Pages initially allocated on
+> >> fast memory are not necessarily the long-term hot pages, and pages
+> >> initially allocated on slower memory may become hot as the workload's hot
+> >> set changes.  The policy therefore needs to be able to combine weighted
+> >> initial placement with memory tiering's NUMA fault based hot-page
+> >> promotion.
+> > Ok, so memory allocation will respect the weights but balancing will ignore
+> > them? That really sounds rather odd to me.
+> >
+> > And I assume that was the reason why we might have disallowed the combination:
+> > it turns a weighted mechanism into an unweighted mechanism.
+> >
+> > So are we really sure these semantics that you would essentially set in stone
+> > here are the semantics we want? (ignoring weights)
+> Yes, that is a fair concern. It does look odd if the weights are
+> interpreted as a hard resident placement ratio.
+> 
+> My understanding of the existing MPOL_WEIGHTED_INTERLEAVE ABI is that
+> the weights are allocation weights, not a long-term resident ratio. The
+> sysfs ABI documentation says that these weights only affect new
+> allocations, and that changing them at runtime will not migrate already
+> allocated pages.  The implementation also has normal allocation fallback
+> if the selected weighted target cannot satisfy the allocation.
+> 
+> The use case here follows that interpretation.  The weights are used to
+> seed the initial placement across memory tiers.  After that, with an
+> explicit MPOL_F_NUMA_BALANCING opt-in, memory tiering would promote hot
+> pages based on access patterns, not based on the original allocation
+> ratio.  Users that want weighted allocation without that behavior would
+> keep using MPOL_WEIGHTED_INTERLEAVE without MPOL_F_NUMA_BALANCING.
+> 
+> That said, I agree that allowing this flag combination would set the
+> semantics for it.  If reusing MPOL_F_NUMA_BALANCING for this is too
+> ambiguous, do you think we should model this as a separate opt-in ABI
+> for "weighted initial placement plus access-based balancing" instead?
+> For example, a separate flag or policy mode would make it clearer that
+> the weights are not intended to constrain migrate-on-fault placement.
+> 
+> If the allocation-only interpretation of the weights is acceptable, I
+> can make it explicit in the commit message and documentation in v2.
+> Otherwise I would appreciate your suggestion on the preferred interface.
 
-> 
-> ...
-> 
-> > -			if ((index % 2) != 0 && !strcmp(propname, "adi,custom-leak-detector"))
-> > +			if ((index % 2) != 0 && is_leak_detector)
-> >  				temp = temp * 1000000 + 273150000;
-> 
-> Hmm... I consider that the compiler warning is just a noise which we should
-> ignore or disable. It's doubtfully useful as if it may prove the always false
-> or always true cases, it doesn't mean there won't be other cases in the future.
-> Do we have any discussion on that warning before?
-> 
+I see two usecases for weighted interleave. Let's say you first allocate
+all the cold memory, and then all the hot memory using an interleave
+policy. This leaves the same hotness in both tiers since they are
+interleaved:
 
-While I agree with the above, I'm not against the change of having the
-boolean against the string comparison (and the warning would be just a
-side effect and not the main motivation for the change).
+In one scenario you might genuinely want to keep some hot memory in
+both tiers to maximize bandwidth utilization.
 
-- Nuno Sá
+But in the other case when you are not limited by bandwidth, you might
+indeed want to start out with a weighted interleave allocation to
+reduce variance on where hot memory lands, and then make promotion /
+demotion decisions based on access.
 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+Zhe, do you have a specific use-case in mind? For the second use
+case I would be curious to see if you see any meaningful performance
+differences in startup time when comapring a workload using other
+mempolicies for the allocation and then tiering vs. using weighted
+interleave and then tiering. 
+
+But yeah, I think David is right that we should go over the semantics
+and really make sure this is what we want to commit to.
+
+Thanks again Zhe! Have a great day,
+Joshua
+
+> Thanks,
+> Zhe
