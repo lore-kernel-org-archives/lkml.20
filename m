@@ -1,195 +1,535 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011012.outbound.protection.outlook.com [52.101.52.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25D94E73B2;
-	Wed, 30 Sep 2026 13:28:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774926; cv=fail; b=OZ1VWSsFtNvpJl49AdQpx8qsCzajZ6MF0oZ7BC0eaEFWIjivRIMUYDk7vNRxPFlGC/MpTJwiXZu8Ut7hRL+Rp8SS4YgR9paVt7bMDZfjOk6x1ucccO9DGoIHCAxXd1XFZGcDWB/fZLldEWFBJDsTfpKXDVcmr92tbqyobuQ5oqo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774926; c=relaxed/simple;
-	bh=XhZxPPqU20lzFY/m73rmYJQs69CsK+/04eqP/0br6fs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=FV3waOZBVXfiAbXdh/RIcZ4kMU8wDnlSI5soeX5euZBYU7/9iIPmjSii0Nw72SaEsrw+k4sd+eU2XzGMIQQ9OtF1vet9vvXUj23vwuERdh1MoETymXRhkSBKvT/UDfCWy9EBsRxvxCzF1gTZGppj7wE32nIbeCyZoApDhlG5Qp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UUcumPy0; arc=fail smtp.client-ip=52.101.52.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FBD4D7D4C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790774992; cv=none; b=UCZQzElMf/BazbCnfowGAVUokWBjYsl1zOBrTcDuNY2K64Sk4sRQ96GI/FND7jqKSFBS/7rszrWvH1sNW7PuCL3xCKaXSWm8QK0pHgoz1KypUWPQZgLm2Ddl8nebqmSRI9YMExI+v6+wbp2dyDPyLxz/1kQYuZyP/hzGV4v/d/o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790774992; c=relaxed/simple;
+	bh=8whIHD/gPq1ClkZJZNsC/ue1ue3u9caorUtBxH1E7M8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Ivg/IyVop5WzuIF1zSsqlP3OXypLOwboRwP506rwEWit6P7kf7eMKeDDC/zjWmHY+o7WkXV9b6McLTYFPzlBeP+DLof5t0IqsZmKr2NK05EgvEy/IlD2jmDy30oGqBpj0pCM4EjAyS1HkSsXJbULJFvKQRkC8Hq2arZjbve73Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mqv6L3wI; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UUcumPy0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Om/AXhlv+eYfvST2nUSYFw3EbIPlAibP5rPai1paou5Ysx4cL7M0B2MUnZ617zQCH1tUoed1wtSKIBzmY2Bg9Selyui5Mo0Jch/cfO2OWe/JFBpeIbi4Hls/mxZB6z5k7ZP5Pasqh80OIt7kAH08Wb83TUnAeAi5E0OtBfCowmFyDq+2eyWtxqekFil1EIldKxZEYN+7F7mqWT+0u+waS1fibVarLLyf5YM8pp/wtShBL5lFvjOqWOgv5lscAVCBRn7yY7y9NaLPz7UW+B2QgAtRDLKLgiIjZDcme2COKQFXp0AuW6mfaY59FIp8kLrvwoayQ5Wr/J022ld6vo5t0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=74QhCDiONqUPb6qDd6tt5fDxBlZNqldWFP+U4txlXBY=;
- b=M7VSRkAvicIdC+Pfqg9EdoalzKCkWBG0C1+xsWSEGGJ45sHXjGp0IoO/ZCgoorkq/JHOeqLDFt46AwAD9aP/ZbpzOZ90WPcSDFqnrenOOJygaNbecrx5GAB27c0tyQbJ2/2R2KAqyCyEFld3S8RTBAmjupqHP2vhs9Yw6T4f0NFy4dw4fzJnJ8IOuL1jJAXuDFtVgRlxWAeau2oDP303Dyj0UTjS+eF0RQECY5Qfis6cihY4R07Cb+A3Z/KfwHfNyFLCs5gRdAT8vHAkkK1GEJ8bvsji1q4+KrvvotXQdCIH4L6SwN1b4QPK9nx9o40lyfUh4XBbOOyx+YS0hTREkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=74QhCDiONqUPb6qDd6tt5fDxBlZNqldWFP+U4txlXBY=;
- b=UUcumPy0BYvtdOojDqRMbxskHsPm5uBsBYmhtRJN2Cr5nP5SNAalBjOZBxdBot2ftdXNw/44+9FvJB9/EoYMhNWENVecNqy0f2YAS8+5Lz7xEjJoCv9r72zwVZDctMIKLkrzd6c1Hd2THfX0lOlhefu+2Ooi3cCPGb4GLgxGWko=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by IA0PR12MB8974.namprd12.prod.outlook.com (2603:10b6:208:488::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 13:28:16 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 13:28:15 +0000
-Message-ID: <76d51545-47d3-4ef7-bb10-551c898c0968@amd.com>
-Date: Wed, 30 Sep 2026 18:58:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v6 04/11] iommufd/viommu: Keep a reference to the KVM
- file
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Alexey Kardashevskiy <aik@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Jonathan Cameron <jic23@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
- Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz <sameo@rivosinc.com>,
- Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-5-aneesh.kumar@kernel.org>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20260917140159.1163281-5-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0056.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::20) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mqv6L3wI"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e2050feb1so109963366b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:29:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790774979; x=1791379779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VnxRdWtCdNWIToSgfsQ0yOf4T8fy9IcKKJcmrnk5VgA=;
+        b=mqv6L3wItmuBLCCGBU5WJvUfIEwN63+2zNo/59jjvlHH4FpdL1Ce6UGwt/Lqzg9zvT
+         D12XXVyvy7sDEkyBVto89kHU33r/R/Sz01pcHkJCA7W/wKRNRPaak9LcxDluOkkWOGkJ
+         ywvs+CXZVEkbkM0IfcFO123aTsN5g131evSVsr9OoHnXc5jJYIXcIdn1sulKv+l+8oE6
+         weK08XjtdbadDdrcSPNjFowIMj9uAwpXi0I9nYuXmVGcPyFV0Q6o5J8IJEwSuVXO3Rpc
+         BAc2yXTJGhh/62HUE4Qwf7n1PYjzezef9xJ5It5y5TjL5sYWORSGLIPB94GdGy5TGTmg
+         A21w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790774979; x=1791379779;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VnxRdWtCdNWIToSgfsQ0yOf4T8fy9IcKKJcmrnk5VgA=;
+        b=U/EbXy49krPZqt4ILuUWbeiHY5ummJQsUYRVfdMcmg+iPZpnDYeigZisSXkenF4CUX
+         YRbDUJigxzL3z+bD1svxy+V6655G//xPhIIGPlMS067nI+dAKSNgPSyIVG3fcYDRfAhe
+         KhY2ojHP2443aNNgOeDOuseKgI5N5KvuCZ9zRP7GklheRTjAlesbhjhPmb/1MWPsQFUs
+         rSO/34n/Fu0iIyxWH6U+9H7QgPyDpjDMoaSyqHonpd6/XSzDuT7wGVQCbWBc8uCYaMui
+         7E6vBvCbh3nk/ci6t6RlDnPTqLHZPLIsCOuuGK9NBwGrje59GB125n2nYQzXHADowX2o
+         upSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQFZQ9WEstlZCKg3Izh1xjWPKF6wpJ9LhWHgwQWCn07EUtjZUxzLzka9OXjUXsc8MqPTm1u8JEp6vAwjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+wL+ZCmdq5zqAX1WJQXz7ve0A+J7o64GRoTgCSwDWSwwb9Vfq
+	pajj8WMAiuKHcn8CVQKRRLuaWDn3KuJEgUQf/GJ57seVPFIW2+s1qlPicPzBTDwstoI=
+X-Gm-Gg: AYBFou0SOIFXMxbDmTADp6xc5BLhnlfjUu4zRbxLyAvz6nNbympCpmtCxm6KzZnqCN+
+	YTF1uNaY8noSwL1fHzO8FqMHAJoYxftGiFOcpPU3uU1Yz6CMjZWv0MbHoWKHniXKjZjjWPgNaZR
+	Y/7PwCMu4pdxLB+xSdfn6YsQeQZefsDoCh3q0N8E6AU6snMC08TwKJbMjP0oLQ2IAU4tjFls4C1
+	NSOAGbxboMbFRiawpDjeeKnDmay6oZuDUTeMmndrXVw2EiU6M+U9PXLbSAe+JsYyW9qotwnzgH+
+	Zdy9eooxBfCQwIEGwuZ0s6hlomLXvtM+3IuLo+D40bpMbh6H7H9veaO1gO6f9zLCmAgVfNeaMui
+	Nd50rJZNT1IOjXHE8ESXaBr8I5AlqypHXhvxqOhM1EDX4JErwXmhYkE0AiETWhwB7iLFhaEkA1x
+	V8ObeGi5BbEMgL/cWrQ/LyRPEK5qoleb3hchBL9J0EnkMatWPNNaZoo6sgTTkW5oJ+qXBMtkNYl
+	Q8=
+X-Received: by 2002:a17:907:6e87:b0:c2a:b1cc:158d with SMTP id a640c23a62f3a-c2e23dc9ccfmr117588666b.32.1790774979210;
+        Wed, 30 Sep 2026 06:29:39 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31c8edfesm1746566b.15.2026.09.30.06.29.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 06:29:38 -0700 (PDT)
+Message-ID: <c7366728-5242-4420-b99c-aef08ce04d4d@linaro.org>
+Date: Wed, 30 Sep 2026 14:29:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|IA0PR12MB8974:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e1cff11-a879-4e62-5893-08df1ef6aea0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|7416014|23010399003|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	izQplLg1FbRRBI/awiS0tUo/0oLxEP/UU79gs0aEtx9Vbi+XncugdKWkKafnvoZHPuSICoK8oC5vaFWg9R/x1q9sb5vT+1IQuyZyP+7YPuiSjZUn5A+eJKPI0UES3dJtNBs/0WKjg++sypdIXK8OdvBp0n7H4TQ2615q+82xCVcEK3BZNXYx3rnzH09KCa0aIebGocBRlxM1tl7I2vQ9iswgcSnUHBbBbPqWnmi/UAGea4hUgTXdsYiMfmJOb4mIKptL0Hnx1zoNbZxMTmrvBjm32ZbKR629VdzWDOa/j59BKbY2G+OYjmKO8fZ0xUX1UCj8hCT2yTQ+rz4HUcXY4363rKtF8UYIGDwCx4SYAOAA8meWYEXQOj6AdL8XhJW5hMYzZ6Ih/oHwpMXGuGcLr/eHwixIEo16eWO+bmPx/VQ4nWIG5uyMLnRs3MhzBIBU8uer0LmGoRrCp4H/NkQ8L0WRtBuMJZllBe6oiwNHTH61dV1nyDYXoCCAfIOfK9Sk6Ov9MN6ub+B57lrQaRy2sXbjnaFQQXUUAC3uyGlx+i6h3mK5EJvVOBv7d6kU+N9ooymceurnxPOZMPZWwx+aXaBx/FcJV2oJC3rHweDNqWQKB1luS6xg/Ok+IyRe09snbvyxVlglDvo4Kwaf5lsNIdEfSBaXz+pesSvfiFx00dY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7416014)(23010399003)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RVAxQVp0SDZ5TnZSMWJrdHBaQWdhZFh6WE01azJ1UHpKNWlacW9mUVdvRVJ4?=
- =?utf-8?B?S21wU2p2S1Azd3d6S3ZmQ0pYQlBBVjI0LzZlaFFYdjJhNk1YZnFNa09OVkla?=
- =?utf-8?B?OWF6dExiNHc1WmRyQlBFbWw3U3Fpc3B6QmJtN2p5NUM1MllJckQ3TXVXaDFp?=
- =?utf-8?B?S0lLczVoR1dYUmo1ejA0WFBhSklVRDBaNjhQRU52TUFJZE1nY2NmbGp3YTlX?=
- =?utf-8?B?V1RQSUFhNlFQNFM0TE56cFlBNWpqQzM2TlpiN2thdWxZb1haNHBUc3JERFNV?=
- =?utf-8?B?K0hjRytVaFk5Y2l4SWEyS0NWY0F2YXJ5WnVnMHM0OUc5d0NCWVBKNHZQaHZ5?=
- =?utf-8?B?WldNVVkxNC9DSXo1NTRNZjB0VlRPZG1naWNOWjVUYnVKMVdhMzRlZjgvVlhM?=
- =?utf-8?B?TUg0NnNEcE04akgxWXI1V2FUR1p0UDJxalRvdjJmaTNIQ0QybGN0TXBYVDBE?=
- =?utf-8?B?eUJyR2ZnTlRnenc2eU9Sb3dqYlRGZThVOUoxUU9QczlIcXFTV0tZbU5QS2s2?=
- =?utf-8?B?VHFBbE4zeVJCQkVQWVIxWVN2L1NRczVITjV6UVhBQ1VtMmFzTWxSdllFemI4?=
- =?utf-8?B?RUcrZkZ4YnRQQVBockVPT25xZ0tUVE4yVkFmM3VJLzVCZWpKSDVqdUxpTlZP?=
- =?utf-8?B?WGMxc2pMcVJQc1NnN2xIWDFTUTQwWDFjSmZwc0gzMmp1UURQQ251cW1aeVEr?=
- =?utf-8?B?WjE0endibVBuTGVOMzZIL2RtWHl5cm82UlBPU0Vua09yanlnVmxTUVNhRkxK?=
- =?utf-8?B?RXpDRHdLblJqWWtJeDZoNzc4NStxemZ0S2oxSXpNSU1JRGV1WUxKajM4bmRR?=
- =?utf-8?B?bktpUFEyL1Z6VjB5MjMrWkNHV01ZU2xGdjJpaHdJNlNIalYvMVl4aHI5b3dj?=
- =?utf-8?B?YTU3RmJ3Q3Q0ZnF4NVl5b1BqWXJIQVFsbEFLOXJMVVVPdWtVOFR1NDJpdHpl?=
- =?utf-8?B?WEZ2WVZXZjUzSE5xZWJGY3poVXBEaytIdGVJTk1ZNnVWTlJNVXZEUUNqdDRS?=
- =?utf-8?B?dlVheGFMYTdDOEtXblkzY3BJalpZL2VWeHZvdmRWRkhHYXI0V0xDNmJEUUFX?=
- =?utf-8?B?ZTNJU1g2N2I3dUdtSjFQSXNBcHFhbFp5Q01qVUY4ZlVQbWN5blhHKzE5MVNZ?=
- =?utf-8?B?b1k0MXAwcTNvcGZORzczOXNnTEpKZ3VKelZSaWQvN1JBSStmdXJmakZBT09t?=
- =?utf-8?B?Uk51ZWlXbVZvTW1KandibHRWTGFaNURQeTcvSU5pUkhvV0d2VWd3WlhSUFAx?=
- =?utf-8?B?RlpzaUtXMFRwZEtKMzZHVldha0RWSkwwMkJvbmFZSVFpRnJsZVAvUVdMZStO?=
- =?utf-8?B?eUtqMUh4K25GN0hETEswUTZMbDJNZTlDTG9ZT09EUXF5b2Q4VTZJK1VWV2RF?=
- =?utf-8?B?WElQUHA2cE9rdXYvdFp1NHpETU5NRlU2Y1o2YXhFZzUwcE90bmY2TVFPenZE?=
- =?utf-8?B?RjFielpKU01wZkJKdjRzR1hJMWpBTXdGZnR2N1NMNnM4L3BmOXpneUd1UGRa?=
- =?utf-8?B?L1k4ZXh1S1B2OU5GOWd0S3JrOEExWHBTL0RSdnpiNDR4ekc2dFVCZFoxUURN?=
- =?utf-8?B?T0dTQmNnTzdKMS93YXdYdWdZcEVDUy9qenlLVTdLYU9tU1IzM0pPWjdzWEhu?=
- =?utf-8?B?WGZzZ0FuYnltK1BUbEJ5VWt0RFRJd1NscHJ0UFlUcVAycWIxMU9EbzNKRldk?=
- =?utf-8?B?cmFRSzFHT3lpQU80bVlXYlJ1d2Fsdm9GcWcvRjcrYytESWtKM0ZVTnZRbkF1?=
- =?utf-8?B?QjdjRnNFMU9LTyt0NXJVQ0JhWUljNk9YVHJtRUg1MEc0anRvMUltOGd4OTdJ?=
- =?utf-8?B?dVJmZHpRTVFnKzE2UEZVUmh5THlTbTlITzlaTXlMQTZZU3JsUktDSTJ4VXFH?=
- =?utf-8?B?NzNTTjZZOS9Xc29tOWM1NC9HWkh2M2p3NmpGN1R1U2dTRVY3cGdvNThvUDh1?=
- =?utf-8?B?eFpDcVVMb1BhVE11Rk9UakNNOTFVS1ZXL3JETUU3MlczRWZMMXNiYXRQaFY5?=
- =?utf-8?B?UFFHa2h4MWN5dFlrSk5NZjVuRDlnYndKYVd5UFEvQUhCQmhKWGVVdkJlV1M1?=
- =?utf-8?B?OGd4cVA5QXNuMWVvclExSXNNYWRqTTZuSjEvaXRjNXBSdGk0ZTd5UUdpMmVv?=
- =?utf-8?B?bFpkaERscW9jR0U5bUo4MDV4MGxCL2cyNitMbjNLeGtzaWxtMkNLaGhadHB5?=
- =?utf-8?B?aVl1ZUtScGxjSXlPU29MVjRXWFlhOEdKNkJvZjRvV3JwRjdFM3NWOTVDbk9B?=
- =?utf-8?B?bWxiYWRJM3k5SEV5c3hvYnpPZExHZjFNSUJ1bm1ycWU0WU1SYzl5YytDZXdN?=
- =?utf-8?B?RU1ManpGWkRabDNXU2FQQmpmWHJDTlBUQnVpTmtkWis1QitSVWZWQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1cff11-a879-4e62-5893-08df1ef6aea0
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:28:15.3688
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Iurj37tj58EevPiOintDuUvsaWM93uRqL1FltQeaC5ysYWJiHLzs8TweBNVWkevOttCZ2lAVHsiHKcaeuAIeog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8974
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] perf tests: mmap-basic: fix user rdpmc detection logic
+From: James Clark <james.clark@linaro.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Michael Petlan <mpetlan@redhat.com>, Qiao Zhao <qzhao@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Leo Yan <leo.yan@arm.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org
+References: <20260817-rdpmc-detection-logic-v4-1-c22074578f6a@linaro.org>
+ <CAP-5=fWw6-NsAOjSUSNFgnA0vNg1pbE=Yf=QwF54y97WTdjXyQ@mail.gmail.com>
+ <066f843e-0b87-4860-bb8c-c6714a5f57c8@linaro.org>
+Content-Language: en-US
+In-Reply-To: <066f843e-0b87-4860-bb8c-c6714a5f57c8@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/17/2026 7:31 PM, Aneesh Kumar K.V (Arm) wrote:
-> From: Nicolin Chen <nicolinc@nvidia.com>
-> 
-> The TSM vDevice operations need access to the KVM associated with the
-> device's vIOMMU. Save the device's KVM file in the iommufd_viommu when the
-> vIOMMU is allocated, and take a file reference so it remains valid for the
-> lifetime of the vIOMMU.
-> 
-> Release the reference when the vIOMMU is destroyed.
-> 
-> Based on an original patch by Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
-> 
-> [nicolinc: hold kvm's users_count]
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-> [aneesh.kumar: Switch to use kvm_file]
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->  drivers/iommu/iommufd/viommu.c | 5 +++++
->  include/linux/iommufd.h        | 1 +
->  2 files changed, 6 insertions(+)
-> 
-> diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
-> index 4081deda9b33..bf5d58d55939 100644
-> --- a/drivers/iommu/iommufd/viommu.c
-> +++ b/drivers/iommu/iommufd/viommu.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  /* Copyright (c) 2024, NVIDIA CORPORATION & AFFILIATES
->   */
-> +#include <linux/file.h>
->  #include "iommufd_private.h"
->  
->  void iommufd_viommu_destroy(struct iommufd_object *obj)
-> @@ -11,6 +12,8 @@ void iommufd_viommu_destroy(struct iommufd_object *obj)
->  	if (viommu->ops && viommu->ops->destroy)
->  		viommu->ops->destroy(viommu);
->  	refcount_dec(&viommu->hwpt->common.obj.users);
-> +	if (viommu->kvm_file)
-> +		fput(viommu->kvm_file);
->  	xa_destroy(&viommu->vdevs);
->  }
->  
-> @@ -76,6 +79,8 @@ int iommufd_viommu_alloc_ioctl(struct iommufd_ucmd *ucmd)
->  	}
->  
->  	xa_init(&viommu->vdevs);
-> +	if (idev->kvm_file)
-> +		viommu->kvm_file = get_file(idev->kvm_file);
 
-Nice! This is needed for AMD IOMMU as well!
 
-Minor nit. You have to add fput() in error path.
+On 18/08/2026 11:04, James Clark wrote:
+> 
+> 
+> On 17/08/2026 20:13, Ian Rogers wrote:
+>> On Mon, Aug 17, 2026 at 8:54 AM James Clark <james.clark@linaro.org> 
+>> wrote:
+>>>
+>>> From: Qiao Zhao <qzhao@redhat.com>
+>>>
+>>> RISC-V and Arm control userspace counter access through
+>>> /proc/sys/kernel/perf_user_access. Add that as a fallback to
+>>> set_user_read() so the test can test both the enabled and disabled
+>>> states on those platforms. RISC-V also uses a '2' value rather than just
+>>> 0 or 1 so add support for restoring arbitrary values.
+>>>
+>>> On Arm, cap_user_rdpmc will always be set when requested, even if the
+>>> global setting is disabled. This is so that the feature can be enabled
+>>> or revoked while events are live. Skip checking it on Arm for the
+>>> "expected disabled" case, otherwise the test will fail.
+>>>
+>>> Add comments, more meaningful variable names and improve the error
+>>> messages so that it's clearer what this part of the test is doing.
+>>>
+>>> Signed-off-by: Qiao Zhao <qzhao@redhat.com>
+>>> [Test pc->index, fix bugs in set_user_read(), and simplify commit msg]
+>>> Assisted-by: Codex:GPT-5.6
+>>> Signed-off-by: James Clark <james.clark@linaro.org>
+>>> ---
+>>> I'm sending this to fix the comments that I left on the "V3 resend"
+>>> because I don't think Qiao sent a V4 and it's been quite a while.
+>>>
+>>> There were also some unreported bugs that I found during testing.
+>>>
+>>> Changes in V4:
+>>>   - Don't remove pc->index check. Without it Perf can silently fall back
+>>>     to the read() syscall and the test is useless.
+>>>   - Test the 'expected disabled' case for Arm in an ifdef to workaround
+>>>     platform differences.
+>>>   - lseek() before writing to perf_user_access otherwise it's ignored.
+>>>   - Support restoring arbitrary values to perf_user_access because 
+>>> RISC-V
+>>>     uses '2' for legacy mode.
+>>
+>> What does that mean? Should there be corresponding "legacy" support in 
+>> libperf?
+>>
+> 
+> I don't think so, it looks like more of a security thing and 'legacy' 
+> isn't really supposed to be used. It was only added in case someone 
+> wants to go back to the original insecure behavior:
+> 
+>    "We used to unconditionnally expose the cycle and instret csrs to
+>     userspace, which gives rise to security concerns. So now we only
+>     allow access to hw counters from userspace through the perf
+>     framework which will handle context switches, per-task events...etc.
+>     A sysctl allows to revert the behaviour to the legacy mode so that
+>     userspace applications which are not ready for this change do not
+>     break."
+> 
+>    drivers/perf/riscv_pmu_sbi.c:
+> 
+>    #define SYSCTL_NO_USER_ACCESS    0
+>    #define SYSCTL_USER_ACCESS    1
+>    #define SYSCTL_LEGACY        2
+> 
+> I added this so that the test doesn't overwrite an existing legacy value 
+> and then not restore it which could break their system after running the 
+> Perf tests.
+> 
+>>>   - Rename rdpmc_supported to rdpmc_expected as this is what the test
+>>>     expects, not what the system does.
+>>
+>> Can you explain the distinction here? The test expects that if
+>> userspace reading is enabled, it should be supported. Imo this makes a
+>> line like:
+>> ```
+>> if (rdpmc_supported && counts.val == 0) {
+>> ```
+>> easy to read. The same line with rdpmc_expected, well I need to then
+>> go and figure out what expected should mean and it seems to just mean
+> 
+> rdpmc_supported was already defined somewhere else, I only renamed it so 
+> I'm not sure having to go and figure anything out is a strong argument.
+> 
+>> supported, so the code was more readable before.
+>>
+> 
+> I don't think it does mean supported, the default case is this one:
+> 
+>    rdpmc_expected = (enabled == USER_READ_ENABLED);
+> 
+> That's not whether the system supports it or has enabled it or not, it's 
+> what the test attempted to write into sysfs and what is expected for 
+> that invocation of the function. The system might not actually support 
+> it or have enabled it, and in that case the test should fail because 
+> expected != active. If writing into the sysfs file was silently not 
+> accepted then you can't assume enabled == supported (unless you read 
+> back the file which the test doesn't do, it just blindly writes and then 
+> assumes it worked, i.e. "expects").
+> 
+> I was trying to separate the concepts of what the system has done vs 
+> what the test expects. I thought "expected" is quite a common term in 
+> testing for test derived variables, but it's just a variable name so I'm 
+> not too set on it, but I do think it's an improvement.
+> 
+>>>   - Label pc->index as rdpmc_event_active for clarity.
+>>>   - Add comments and simplify the commit message.
+>>> ---
+>>>   tools/perf/tests/mmap-basic.c | 137 +++++++++++++++++++++++++++++ 
+>>> +------------
+>>>   1 file changed, 98 insertions(+), 39 deletions(-)
+>>>
+>>> diff --git a/tools/perf/tests/mmap-basic.c b/tools/perf/tests/mmap- 
+>>> basic.c
+>>> index 5cec7644952c..4433a5df3d77 100644
+>>> --- a/tools/perf/tests/mmap-basic.c
+>>> +++ b/tools/perf/tests/mmap-basic.c
+>>> @@ -1,6 +1,7 @@
+>>>   // SPDX-License-Identifier: GPL-2.0
+>>>   #include <errno.h>
+>>>   #include <inttypes.h>
+>>> +#include <limits.h>
+>>>   #include <stdlib.h>
+>>>
+>>>   #include <fcntl.h>
+>>> @@ -182,47 +183,77 @@ static int test__basic_mmap(struct test_suite 
+>>> *test __maybe_unused, int subtest
+>>>   }
+>>>
+>>>   enum user_read_state {
+>>> -       USER_READ_ENABLED,
+>>> -       USER_READ_DISABLED,
+>>> -       USER_READ_UNKNOWN,
+>>> +       USER_READ_UNKNOWN = -1,
+>>> +       USER_READ_DISABLED = 0,
+>>> +       USER_READ_ENABLED = 1,
+>>>   };
+>>>
+>>> -static enum user_read_state set_user_read(struct perf_pmu *pmu, enum 
+>>> user_read_state enabled)
+>>> +static int set_user_read_fd(int fd, int enabled)
+>>
+>> Why change this to an int rather than adding "legacy" to the
+>> user_read_state enum? An int gives far more potential values than the
+>> enum and so appears inherently less intention-revealing.
+>>
+> 
+> I did consider it but I didn't think it was very future proof. This 
+> would then break a system when someone adds a 3. If we weren't restoring 
+> whatever value is read then I would agree just using the enum would make 
+> sense, but I think it should handle any integer. Wouldn't this just 
+> trade functionality for style?
+> 
+>>>   {
+>>> -       char buf[2] = {0, '\n'};
+>>> +       char buf[32], *endptr;
+>>> +       long value;
+>>>          ssize_t len;
+>>> -       int events_fd, rdpmc_fd;
+>>> -       enum user_read_state old_user_read = USER_READ_UNKNOWN;
+>>> +       int old_user_read;
+>>>
+>>> -       if (enabled == USER_READ_UNKNOWN)
+>>> +       len = read(fd, buf, sizeof(buf) - 1);
+>>> +       if (len <= 0) {
+>>> +               pr_debug("%s read failed\n", __func__);
+>>>                  return USER_READ_UNKNOWN;
+>>> +       }
+>>> +       buf[len] = '\0';
+>>>
+>>> -       events_fd = perf_pmu__event_source_devices_fd();
+>>> -       if (events_fd < 0)
+>>> +       errno = 0;
+>>> +       value = strtol(buf, &endptr, 10);
+>>> +       if (errno || endptr == buf || value < 0 || value > INT_MAX) {
+>>
+>> Given we're range checking the read value, can the upper bound be "> 2" ?
+>>
+> 
+> Is there a particular reason to? Similarly to above, I only think this 
+> will cause issues when new values are added. At the moment the test is 
+> immune to it.
+> 
+>>> +               pr_debug("%s invalid value: %s\n", __func__, buf);
+>>>                  return USER_READ_UNKNOWN;
+>>> +       }
+>>> +       old_user_read = value;
+>>>
+>>> -       rdpmc_fd = perf_pmu__pathname_fd(events_fd, pmu->name, 
+>>> "rdpmc", O_RDWR);
+>>> -       if (rdpmc_fd < 0) {
+>>> -               close(events_fd);
+>>> -               return USER_READ_UNKNOWN;
+>>> +       if (enabled == old_user_read)
+>>> +               return old_user_read;
+>>> +
+>>> +       len = scnprintf(buf, sizeof(buf), "%d\n", enabled);
+>>> +       if (lseek(fd, 0, SEEK_SET) < 0) {
+>>> +               pr_debug("%s seek failed\n", __func__);
+>>> +               return old_user_read;
+>>>          }
+>>> +       if (write(fd, buf, len) != len)
+>>> +               pr_debug("%s write failed\n", __func__);
+>>>
+>>> -       len = read(rdpmc_fd, buf, sizeof(buf));
+>>> -       if (len != sizeof(buf))
+>>> -               pr_debug("%s read failed\n", __func__);
+>>> +       return old_user_read;
+>>> +}
+>>> +
+>>> +static int set_user_read(struct perf_pmu *pmu, int enabled)
+>>> +{
+>>> +       int events_fd, fd, old_user_read;
+>>>
+>>> -       // Note, on Intel hybrid disabling on 1 PMU will implicitly 
+>>> disable on
+>>> -       // all the core PMUs.
+>>> -       old_user_read = (buf[0] == '1') ? USER_READ_ENABLED : 
+>>> USER_READ_DISABLED;
+>>> +       if (enabled == USER_READ_UNKNOWN)
+>>> +               return USER_READ_UNKNOWN;
+>>>
+>>> -       if (enabled != old_user_read) {
+>>> -               buf[0] = (enabled == USER_READ_ENABLED) ? '1' : '0';
+>>> -               len = write(rdpmc_fd, buf, sizeof(buf));
+>>> -               if (len != sizeof(buf))
+>>> -                       pr_debug("%s write failed\n", __func__);
+>>> +       events_fd = perf_pmu__event_source_devices_fd();
+>>> +       if (events_fd >= 0) {
+>>> +               fd = perf_pmu__pathname_fd(events_fd, pmu->name, 
+>>> "rdpmc", O_RDWR);
+>>> +               if (fd >= 0) {
+>>> +                       /*
+>>> +                        * Note, on Intel hybrid disabling on 1 PMU will
+>>> +                        * implicitly disable on all the core PMUs.
+>>> +                        */
+>>> +                       old_user_read = set_user_read_fd(fd, enabled);
+>>> +                       close(fd);
+>>> +                       close(events_fd);
+>>> +                       return old_user_read;
+>>> +               }
+>>> +               close(events_fd);
+>>>          }
+>>> -       close(rdpmc_fd);
+>>> -       close(events_fd);
+>>> +
+>>> +       /* Fallback: perf_user_access interface (arm64, riscv, or 
+>>> similar) */
+>>> +       fd = open("/proc/sys/kernel/perf_user_access", O_RDWR);
+>>> +       if (fd < 0)
+>>> +               return USER_READ_UNKNOWN;
+>>> +
+>>> +       old_user_read = set_user_read_fd(fd, enabled);
+>>> +       close(fd);
+>>>          return old_user_read;
+>>>   }
+>>>
+>>> @@ -240,7 +271,7 @@ static int test_stat_user_read(u64 event, enum 
+>>> user_read_state enabled)
+>>>          perf_thread_map__set_pid(threads, 0, 0);
+>>>
+>>>          while ((pmu = perf_pmus__scan_core(pmu)) != NULL) {
+>>> -               enum user_read_state saved_user_read_state = 
+>>> set_user_read(pmu, enabled);
+>>> +               int saved_user_read_state = set_user_read(pmu, enabled);
+>>>                  struct perf_event_attr attr = {
+>>>                          .type   = PERF_TYPE_HARDWARE,
+>>>                          .config = perf_pmus__supports_extended_type()
+>>> @@ -253,7 +284,8 @@ static int test_stat_user_read(u64 event, enum 
+>>> user_read_state enabled)
+>>>                  struct perf_evsel *evsel = NULL;
+>>>                  int err;
+>>>                  struct perf_event_mmap_page *pc;
+>>> -               bool mapped = false, opened = false, rdpmc_supported;
+>>> +               bool mapped = false, opened = false, rdpmc_expected;
+>>> +               bool rdpmc_event_active;
+>>>                  struct perf_counts_values counts = { .val = 0 };
+>>>
+>>>
+>>> @@ -301,26 +333,53 @@ static int test_stat_user_read(u64 event, enum 
+>>> user_read_state enabled)
+>>>                          goto cleanup;
+>>>                  }
+>>>
+>>> +               /*
+>>> +                * When pc->index == 0, userspace access is disabled 
+>>> and Perf
+>>> +                * will silently use the read() syscall instead. Test 
+>>> this to
+>>> +                * make sure we're not doing that.
+>>> +                */
+>>> +               rdpmc_event_active = pc->index;
+>>> +
+>>> +               /*
+>>> +                * If we couldn't set the state, test that whatever 
+>>> state we're
+>>> +                * already in is the expected one.
+>>> +                */
+>>>                  if (saved_user_read_state == USER_READ_UNKNOWN)
+>>> -                       rdpmc_supported = pc->cap_user_rdpmc && pc- 
+>>> >index;
+>>> +                       rdpmc_expected = pc->cap_user_rdpmc && 
+>>> rdpmc_event_active;
+>>>                  else
+>>> -                       rdpmc_supported = (enabled == 
+>>> USER_READ_ENABLED);
+>>> +                       rdpmc_expected = (enabled == USER_READ_ENABLED);
+>>>
+>>> -               if (rdpmc_supported && (!pc->cap_user_rdpmc || !pc- 
+>>> >index)) {
+>>> -                       pr_err("User space counter reading for PMU %s 
+>>> [Failed unexpected supported counter access %d %d]\n",
+>>> -                               pmu->name, pc->cap_user_rdpmc, pc- 
+>>> >index);
+>>> +               if (rdpmc_expected && (!pc->cap_user_rdpmc || ! 
+>>> rdpmc_event_active)) {
+>>> +                       pr_err("User space counter reading for PMU %s 
+>>> [Failed. rdpmc event should be both enabled and active %d %d]\n",
+>>> +                               pmu->name, pc->cap_user_rdpmc, 
+>>> rdpmc_event_active);
+>>>                          ret = TEST_FAIL;
+>>>                          goto cleanup;
+>>>                  }
+>>>
+>>> -               if (!rdpmc_supported && pc->cap_user_rdpmc) {
+>>> -                       pr_err("User space counter reading for PMU %s 
+>>> [Failed unexpected unsupported counter access %d]\n",
+>>> -                               pmu->name, pc->cap_user_rdpmc);
+>>> +#ifdef __aarch64__
+>>> +               /*
+>>> +                * On Arm, pc->cap_user_rdpmc is set when the event 
+>>> is opened
+>>> +                * with userspace counter access, regardless of 
+>>> whether rdpmc is
+>>> +                * enabled or not via sysfs. The event is always 
+>>> opened with it
+>>> +                * in this test, so don't check it in the expected 
+>>> disabled
+>>> +                * case.
+>>> +                */
+>>
+>> It seems uapi/linux/perf_event.h should be amended with this meaning.
+>> Currently it says:
+>> ```
+>> cap_user_rdpmc          : 1, /* The RDPMC instruction can be used to
+>> read counts */
+>> ```
+>> and that lacks the sysfs nuance particular to ARM.
+>>
+> 
+> Do we need to mention sysfs here? The other platforms have the PMU rdpmc 
+> file which isn't mentioned.
+> 
+> I can change it to this which would apply to all platforms:
+> 
+> /* The RDPMC instruction can be used to read counts if pc->index is set */
+> 
+> The examples in that file already check pc->index, so I suppose there 
+> isn't really anything Arm specific if it's phrased that way. If 
+> cap_user_rdpmc was already enough to gate reading, then the examples 
+> wouldn't have included the pc->index check as well.
+> 
+>>> +               if (!rdpmc_expected && rdpmc_event_active) {
+>>> +                       pr_err("User space counter reading for PMU %s 
+>>> [Failed. rdpmc event should be inactive %d]\n",
+>>> +                               pmu->name, rdpmc_event_active);
+>>> +                       ret = TEST_FAIL;
+>>> +                       goto cleanup;
+>>> +               }
+>>> +#else
+>>> +               if (!rdpmc_expected && pc->cap_user_rdpmc) {
+>>> +                       pr_err("User space counter reading for PMU %s 
+>>> [Failed. rdpmc event should be disabled and inactive %d %d]\n",
+>>> +                               pmu->name, pc->cap_user_rdpmc, 
+>>> rdpmc_event_active);
+>>>                          ret = TEST_FAIL;
+>>>                          goto cleanup;
+>>>                  }
+>>> +#endif
+>>
+>> So in the general (non-ARM) case should there be two prints? One for
+>> "disabled" from pc->cap_user_rdpmc and one for "inactive" from
+>> rdpmc_event_active?
+> 
+> I assumed that myself and tried adding it so it was symmetrical to the 
+> "expected enabled" case. But there is another platform difference, 
+> PowerPC seems to set pc->index (rdpmc_event_active) even when the cap is 
+> disabled. So you have to check both the cap and index are set for the 
+> enabled case but only check the cap for the disabled case (everywhere 
+> execpt Arm). I assume that's why index is missing or was removed from 
+> this test in the first place.
+> 
+> Honestly it is quite a bit of a mess, but I think getting away with only 
+> one platform conditional and not weakening any of the existing tests is 
+> quite a good outcome.
+> 
+>> In that case the cap_user_rdpmc can be skipped on
+>> ARM due to it not adhering to the common behavior.
+>>
+>> Thanks,
+>> Ian
+>>
+>>>
+>>> -               if (rdpmc_supported && pc->pmc_width < 32) {
+>>> +               if (rdpmc_expected && pc->pmc_width < 32) {
+>>>                          pr_err("User space counter reading for PMU 
+>>> %s [Failed width not set %d]\n",
+>>>                                  pmu->name, pc->pmc_width);
+>>>                          ret = TEST_FAIL;
+>>> @@ -328,7 +387,7 @@ static int test_stat_user_read(u64 event, enum 
+>>> user_read_state enabled)
+>>>                  }
+>>>
+>>>                  perf_evsel__read(evsel, 0, 0, &counts);
+>>> -               if (rdpmc_supported && counts.val == 0) {
+>>> +               if (rdpmc_expected && counts.val == 0) {
+>>>                          pr_err("User space counter reading for PMU 
+>>> %s [Failed read]\n", pmu->name);
+>>>                          ret = TEST_FAIL;
+>>>                          goto cleanup;
+>>>
+>>> ---
+>>> base-commit: 6ae6fb96ccd48032b00a38d5f8e0e0a2cce4972b
+>>> change-id: 20260817-rdpmc-detection-logic-d3f7a49cfb46
+>>>
+>>> Best regards,
+>>> -- 
+>>> James Clark <james.clark@linaro.org>
+>>>
+> 
 
--Vasant
+Hi Ian,
+
+Any thoughts on these comments? I think it would be good to get this 
+merged, and it still applies cleanly. I just ran into the issue that 
+this fixes again and got reminded of it.
+
+Thanks
+James
 
