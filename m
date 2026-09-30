@@ -1,106 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD96E3BFAD0;
-	Wed, 30 Sep 2026 06:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F5842B742;
+	Wed, 30 Sep 2026 06:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751378; cv=none; b=burm8fbiE49Ow8mfeupFG8bQPA0SnVPxYSsmSqKwZEVzVRr++u9oXE+XLjC4/Cpt5PVxNmmTvkOMIrfuKVlVAFbf9SBXcaN7DO/w5koY+E8RAQsvW6WI6t8OICnq6v0guwC963tGth1xB2Gnr4HYYvCE7+NzkXqlRWi/NWTWfrk=
+	t=1790751404; cv=none; b=jimMYJwCYurb2dTpJNlOZAx4dc7naJqOh9ls8SxvuI8wgVjqcFqAyQHbDdbhhz2Ca1bbipdTlut0zGbzd3SOGOoKuGb5+cGRgTNq2WeRK9X7Rwe/TTVYbkbhsPRAwIfv7Nqu0hBcxTM/Cm69KWmryjaN3tlieMW6MTeETrAkYR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751378; c=relaxed/simple;
-	bh=O/FCAtcOOSix3cqXXADIQePkBxdLdFb+SvJpifZUruk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=srJxm6ihbkz4rLw9eA0JHpA8vUUcjMeuesi4GjStTRiopfHwPrsgjs2iCGQbGL+SgYmu+m4p9h8M5K07iy5bblgcu/MiKgc5iCYA2AM5mvDnJWItIIdAH916cqqxpyWiHEZdvSkHSTO3vhSEd74MYXN0Ziwu7bPpXR+Br7a9FOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PtY28J/r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790751404; c=relaxed/simple;
+	bh=icn74DL/Ofo1kzXbnNiU16sfb2pnKci1cF6fjW7T0Ws=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qvwuZykNzITnUtMTt0/xPKIXG7S8s2YKCgZR7N2+zziHZqSYfZ3ik584LIIi6pcGAUKDAWJgvc8VV9y+EQWtnkcXE/21swWh32vnviXS/irjOI4xhS4m7gBw7oRx8cs2tWvhWb57EcSVazLkdjMM5SQx+HnCdzbp2Kf9WjpJl1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=fsYLfzJZ; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PtY28J/r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337AA1F000FF;
-	Wed, 30 Sep 2026 06:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790751373;
-	bh=xhqf939hx9m7+7epv447bweVCAzfzE7EVLV/ztuw/nM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PtY28J/rIPXLmEZHNTtCCQtYpPEj0sG/nFQmG1JgSXZLww8iVWCZmurgdq5CKIgVj
-	 mXVlqHY6JyDU2p/L4E+mTpcOe9rLlV9RlUbxd8VcJX9P/eVuqOZcQvy0YbJX+wpcqE
-	 nvzW2vo2esbjbANxvasUZmwLeBCS6XbiWMyUUxIKcnWZ6JS0AoapN/fc8mO6I85BOI
-	 F8Katp6WIcl1Le0TXLR8eMexSKIM3NGyCk09QyG+giIoFTbJKawHZWmV+u7EK/bACZ
-	 5pL4Trrv+wc4AJlI9AkbCE4PomhqXD4YIRNdl6fbf1XCyZWah2AwT8t14fPUq+m5ai
-	 pQkBxi5/FSdFA==
-Date: Tue, 29 Sep 2026 23:56:12 -0700
-From: Kees Cook <kees@kernel.org>
-To: jim.cromie@gmail.com
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Zhen Lei <thunder.leizhen@huawei.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Jiri Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] kallsyms: Unroll 24-bit sequence reconstruction
- in get_symbol_seq()
-Message-ID: <202609292329.87EE58BCF8@keescook>
-References: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
- <20260929-ksyms-tune-v7-3-be568ceef41e@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="fsYLfzJZ"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=5caGH9k7TL80R+qXb9t1DYezqkEskhcX0AOfIPmFAqg=;
+	b=fsYLfzJZdVvDWaNZFt8u5SH+8BkYuLadD/ILsGWILjhgTuNioKKfrvOFCrSNSWLw1AFVYXfN3
+	NZWc6cCNigXsWd9SbKMg3/Nk5MPQWiJrdD/EpqMAfRDNVgfg+inCrVzPh7uB6kk7X1QT3z4Gsi/
+	4jYFMG4mXvUrpI4td8dQ9h8=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hvlrh12jCz1K96s;
+	Wed, 30 Sep 2026 14:44:20 +0800 (CST)
+Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
+	by mail.maildlp.com (Postfix) with ESMTPS id E47C94057A;
+	Wed, 30 Sep 2026 14:56:29 +0800 (CST)
+Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
+ (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 14:56:28 +0800
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	<linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] misc: fastrpc: Fix race and double free in fastrpc_req_mmap() error path
+Date: Wed, 30 Sep 2026 06:37:38 +0000
+Message-ID: <20260930063738.2966346-1-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-ksyms-tune-v7-3-be568ceef41e@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemp100012.china.huawei.com (7.152.185.135)
 
-On Tue, Sep 29, 2026 at 12:07:32PM -0600, Jim Cromie via B4 Relay wrote:
-> Mark get_symbol_seq() as static inline and unroll the 3-byte extraction
-> into direct byte shifts: (p[0] << 16) | (p[1] << 8) | p[2]. This
-> eliminates loop induction variable maintenance and allows the compiler
-> to generate direct loads and constant shifts.
+fastrpc_req_mmap() links the newly allocated buffer into fl->mmaps before
+copying the response back to userspace. If copy_to_user() fails, the
+err_assign path calls fastrpc_req_munmap_impl() to unmap the buffer from
+the DSP and, on success, to free it.
 
-So... did you actually see any difference in the output binary? This is
-such a small loop I'd expect every compiler to both inline and unroll
-it already. *time passes* I've checked; I was mostly right. :)
+Since commit 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior
+to unmap operation"), fastrpc_req_munmap_impl() no longer removes the
+buffer from fl->mmaps, as that is now the responsibility of the caller.
+fastrpc_req_mmap() was not updated accordingly, so the buffer is freed
+while still linked in the list. The fl->mmaps cleanup in
+fastrpc_user_free() then calls list_del() and fastrpc_buf_free() on the
+already freed buffer, resulting in a use-after-free and a double free.
 
-It's already inlined and unrolled by the compilers, but GCC weirdly
-didn't see through the array math:
+Publishing the buffer before copy_to_user() returns is also racy:
+another thread of the same process can read the DSP address from the
+partially written user buffer (or via userfaultfd) and issue
+FASTRPC_IOCTL_MUNMAP, which unlinks and frees the buffer while
+fastrpc_req_mmap() is still using it.
 
-  At -O2 GCC (and Clang, mostly the same) on x86_64:
+Fix both issues by adding the buffer to fl->mmaps only after
+copy_to_user() has succeeded. The error path then never has the buffer
+linked, so it does not need to unlink it before unmapping.
 
-  before                                  after
-  lea    (%rax,%rax,2),%eax               lea    (%rax,%rax,2),%edx
-  mov    %rax,%rdx                        movslq %edx,%rdx
-  movzbl seqs(%rax),%eax                  movzbl seqs(%rdx),%eax
-  lea    0x1(%rdx),%ecx                   movzbl seqs+2(%rdx),%ecx
-  add    $0x2,%edx                        movzbl seqs+1(%rdx),%edx
-  movzbl seqs(%rcx),%ecx                  shl    $0x10,%eax
-  shl    $0x8,%eax                        shl    $0x8,%edx
-  movzbl seqs(%rdx),%edx                  or     %ecx,%eax
-  or     %ecx,%eax                        or     %edx,%eax
-  shl    $0x8,%eax
-  or     %edx,%eax
+Fixes: 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior to unmap operation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+Changes in v2:
+ - Link the buffer into fl->mmaps only after copy_to_user() succeeds.
+   Besides fixing the double free, this also closes the concurrent
+   FASTRPC_IOCTL_MUNMAP race reported against v1, where a partially
+   written user buffer let another thread unmap and free the buffer
+   while fastrpc_req_mmap() was still using it.
 
-So it's actually the loss of the "+ i" part that does it.
+ drivers/misc/fastrpc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> -static unsigned int get_symbol_seq(int index)
-> +static inline unsigned int get_symbol_seq(int index)
->  {
-> -	unsigned int i, seq = 0;
-> +	const u8 *p = &kallsyms_seqs_of_names[3 * index];
->  
-> -	for (i = 0; i < 3; i++)
-> -		seq = (seq << 8) | kallsyms_seqs_of_names[3 * index + i];
-> -
-> -	return seq;
-> +	return (p[0] << 16) | (p[1] << 8) | p[2];
->  }
-
-I'm on the fence about readability, but I think it's improved.
-
-Reviewed-by: Kees Cook <kees@kernel.org>
-
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index d4fac2caca86..d2c09bffd0af 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2153,15 +2153,15 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 		}
+ 	}
+ 
+-	spin_lock(&fl->lock);
+-	list_add_tail(&buf->node, &fl->mmaps);
+-	spin_unlock(&fl->lock);
+-
+ 	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
+ 		err = -EFAULT;
+ 		goto err_assign;
+ 	}
+ 
++	spin_lock(&fl->lock);
++	list_add_tail(&buf->node, &fl->mmaps);
++	spin_unlock(&fl->lock);
++
+ 	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
+ 		buf->raddr, buf->size);
+ 
 -- 
-Kees Cook
+2.34.1
+
