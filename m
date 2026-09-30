@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2C83F1062
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21763F23D0
 	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762694; cv=none; b=OFY8ELartjLECmlPoHCkvJFe+NBszCqk7M6/FB5o/BOHZYcxIJA5Zq8Zf1fRawp2F+AHGnKGAjXpO7pqXMrAJQclUUpSSm+i1HIiiSW+i7uZ5HOtTAtdcxkdxlz20dver5mfKHh9qVtXPWi+spAhtS8+QupmHT9DzbCzbnU6R3Q=
+	t=1790762694; cv=none; b=bjPn5fcfMkVFJA7eWpiRvUx580lZ+pfApmpzHJWkddV803C8HafP4RPSBGsWf0VWALRggi/y9JPitPt5+Vew6duGdu3EF9ZXz/QAfVJIkn40AwoTWqkPSPEh8wG7iTu1ALbVSEAZt5vCf4ofwejaGaWkUk6e09tJw3MnrsNZjbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790762694; c=relaxed/simple;
-	bh=JR96t6CYY1um+Gn96q3cxPsFIlSgGYTgVsAuN1IMRgU=;
+	bh=9BuZnoVI7c9BJPfnxoOjG1rmHG+iWvm89EJHZVN1ZeA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=k+0IQtS8Ubbo+npk59qvwWcWLVsGcvIQ+OSiURA56/QqcC2POuI/X4pcLfj+hFP2Q500GlDo0Y9wIJSTPKCLwE+vlOnJ7xoyEzn15IaMVLtbZccExtVXxP3/k2rUVBcrCXIB+UMspIveXG/LanGCu5NCfKqYiyCNHy4wX84h7Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=I+TOlio3; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=H/bk+894slzfHHmmuBdDKvRR0ixQUD8ZUFc5eidj6rrcBwoNPyfaJMQaq/Xo+sGeVFlZ3iS0J0flkxp1eHTOxORw5NrzVjLGplUlbP9MkbA88rZhuUqeFqEfMdymFeXzI66RI4h556i7/8dbS9EAFl9rxrGVyLO1ENxmwrDs8lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NBjULIxA; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="I+TOlio3"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NBjULIxA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1790762687;
-	bh=JR96t6CYY1um+Gn96q3cxPsFIlSgGYTgVsAuN1IMRgU=;
+	bh=9BuZnoVI7c9BJPfnxoOjG1rmHG+iWvm89EJHZVN1ZeA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=I+TOlio3aHNvqDU/dmr5ekB6fE18o4mRNy70jl28KmzUv7/YnqiIJJJwOATFKewQA
-	 2mSesSbnwtEI/Z8x0+FaJe8utHcSubLQZhsansAifXDwJQoGAR5WoBf4afplsNq40O
-	 VY3fxpvLbbT/Mg5mDaa7RXxKeJXVfkHzQov5LP13AQIpHp0O4SLAToP07TFlYR00it
-	 TmO0ktw7eDjAHclmHBsjkLYMQ/s9Mk0JotyRE+yF5+kXgWr7YeK8fTG0wzvm5zd7ze
-	 WFT1frGYUCmjs3WNCkuFu3RqnTJHtoxqZd+TsVIeI1p5yVvIdYcAJzI87wp3dyPupj
-	 Zw5aDE3rIgMog==
+	b=NBjULIxAnKtvjuskbVc8V+6lWvt2459MmoDoaKymygjpSbeaND5BhZ0H3O2wlU5+n
+	 IU5S0GnBpvebePGLl+RoKxfjjz5aQO03b/X4xQfQK5COOJXhXkwmHuMFg/58d5T9iw
+	 7FwUPJcDnv+TLGAw1h+jG2xanRfd8wHg25aYkhQig6O8IMrfMhTPq/p7zC8iLuAfIc
+	 0Kc1Yi2wi1QRrNNmSm5cnAuCzdw/4ie/qhG1S7T+yx4KQfXWvBYKQz4ZnS9pbz29b1
+	 KRpJ2rjg9iUBZedVIouFmkqHNv2/Yqeh+6tcuMiivsWQc/5ljPMTq7Xhb/aiHpU6w3
+	 TA8xwBxYp7cRg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AFBCE17E0EB0;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B7B0917E0FBB;
 	Wed, 30 Sep 2026 12:04:47 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 169B4480038; Wed, 30 Sep 2026 12:04:47 +0200 (CEST)
+	id 1845448003A; Wed, 30 Sep 2026 12:04:47 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Wed, 30 Sep 2026 12:04:35 +0200
-Subject: [PATCH v16 6/7] phy: rockchip: usbdp: Re-init PHY on mux change
+Date: Wed, 30 Sep 2026 12:04:36 +0200
+Subject: [PATCH v16 7/7] phy: rockchip: usbdp: Add USB-C state without DP
+ enabled
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-b4-rockchip-usbdp-cleanup-part3-v16-6-bc144f80afc4@collabora.com>
+Message-Id: <20260930-b4-rockchip-usbdp-cleanup-part3-v16-7-bc144f80afc4@collabora.com>
 References: <20260930-b4-rockchip-usbdp-cleanup-part3-v16-0-bc144f80afc4@collabora.com>
 In-Reply-To: <20260930-b4-rockchip-usbdp-cleanup-part3-v16-0-bc144f80afc4@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -60,52 +61,129 @@ Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  Igor Paunovic <royalnet026@gmail.com>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1196;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3533;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=JR96t6CYY1um+Gn96q3cxPsFIlSgGYTgVsAuN1IMRgU=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGq83r6U2u1k6rI6tFuRuK852TKGlGp1/mAot
- SvkObmWORSr/4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqvN6+AAoJENju1/PI
- O/qawawP/0NiU4ygJwN2xMlvoIR7CfwN9nzxYr0K4XXgKnzEpQcQhNPjf54/VoIN8GkLdsTdWjJ
- HnsjaJoVKQ1ohuaN7ZyITmiM9z4cUikYa60LqX78sjpriwrpDaDnkbft6939S1wpgsoOU8BiJl4
- CG8zFjN2kYpid+qyi8T+vcbjcLaptPQ4zoSjQxDBQ51dpfqCC54jRVnc2lwrbMq+tjPwZlpGnWY
- Ni6+9P9rL2cYatvK7K+sc2XVezLQBSoldKL6b2QuNALEN81ahNi2KBbpCwDJ6luRyF+X05Lwmfi
- dDOnwi8MUgLrRwwgjR/DlwVg0o7G9P0UeTtQlbnnFWoRh0599CY/OVjMTLvFWGP6AehqDuOPSoz
- V6EGlq1D4pe+Ber2lZCssr6KDNUKiLwF5XfynKk6Xig/9kbHG3tgIg2hYugq7l5sc5EYCey92BC
- jVd0O06WkXEo0uMlhS2UN8rfaJFB5l+hxU2FR+8e3lT2Z+2C5Q3teryceNom9nAiqIEEG3nWJO0
- XP7y3FI0MU3z+/F7NfWEWvQRyXzrBfMaEt7bMGrovNj7T86rziRILwoihzSK/Kie37tE38xbSSv
- Gu4N+i82ekHiYiWWmL34o9uYP5wZUBihgVSlqjkiz2vg3f/nC6Oib1xM5gObeaFZGDpcJkqW4Vj
- pylL1im12IkwTMU2PWQAwyw==
+ bh=9BuZnoVI7c9BJPfnxoOjG1rmHG+iWvm89EJHZVN1ZeA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGq83r9xSsr7gn/FCM36kiD8y4zjT18XmDlq0
+ 9v9gDDoGL6W9IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqvN6/AAoJENju1/PI
+ O/qajXYQAKBtTHin1r2xA3WR59YYB6bZ9VOwmyWaAu3AjSDZGFfG8QY6+LCVZhPA8H/myn9R0XZ
+ GkQkECWi70w6cqG1KIGwhhLRxP8JhTzEIr3+0g8kYV0Ia/BkU/4/ZkaDuJMCWOp+YE7GRMIIEZT
+ aN55vu3fL6SVBFtMNhs/4qVTuS8HPGCv3cBZNTFtxuYFN7zr/dvK4yP1YAVgoofkJOxElLQSIxp
+ gcQ+5DMseukE8ZK7jK4IypNXsLGfleGdyYkWPuOk19yz7x7TZ63gKlzf02AaKRpu0KsdROsNxvl
+ iy6jCKbQSB1tTOe8+YOIqM0yUvTOB+UehFhQ0h/bc6n16htjQRRahPb9fBeCBxBqDG84OiI67ij
+ SsWvimvTvtRA7z5JmRuUUbsSCd6EzSAWqUn7BWfHdoUaenWRzB28QgC/1WobBPQAANszN5JNNcd
+ hVFvr31mLKObkEIRiJ4JHK6pldjt7oC/b51jKpB8eSOo6mgdJgIqBSUnu6JJPVmGbJEFiCgGE7T
+ 2iGl6Hu8out0Z8CK+YfVaVPSw88KvIgaF8btLUsJqgbVLU8Y8q1iHapThEAyU858hfPaBW8ib8D
+ i0Rl5tLqu82Pk5TUh6yKm7ISRnzgB7UnbGjUbRu30tsQXxwH6TkrNbi6veNl1bDl11qxltPcn1i
+ 1TY9ZyKHDRLRnuxHesuExCQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Ensure that the right part of the PHY are powered up when the
-mode changes. This ensures the PHY is re-initialized in the
-following two scenarios, which are currently broken:
+The driver currently only differs between 4 lanes DP mode or combined DP
++ USB3 mode. This makes sense from a lane routing point of view, as the
+hardware only has 2 lanes of USB3.
 
- - cable orientation changes without DP being involved
- - switching from DP-only into a mode with USB support
+But adding a separate state for USB-only helps with power management,
+since we always power up all PHY parts according to the current hardware
+setup to avoid data stream interruptions. Even if some lanes are muxed
+to the DP controller there is no need to keep the DP side enabled if
+something without DP AltMode is plugged into USB-C.
 
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+This potentially triggers some more USB reconnections during the PD
+AltMode negotiation when switching from USB-only to combined USB+DP
+mode. This should be fine, as the cable is freshly plugged at this
+point.
+
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 57 ++++++++++++++++++-------------
+ 1 file changed, 33 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 867f356f394d..ca01c1112c0f 100644
+index ca01c1112c0f..f95c3216364f 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -1391,7 +1391,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 
- 	rk_udphy_set_typec_state(udphy, state->mode);
- 
--	return 0;
-+	return rk_udphy_update_power_state(udphy);
+@@ -579,32 +579,14 @@ static void rk_udphy_dp_lane_enable(struct rk_udphy *udphy, int dp_lanes)
+ 				   CMN_DP_CMN_RSTN, FIELD_PREP(CMN_DP_CMN_RSTN, 0x0));
  }
  
- static void rk_udphy_typec_mux_unregister(void *data)
+-static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 hw_mode)
++static void rk_udphy_set_lane_mux(struct rk_udphy *udphy)
+ {
+-	if (udphy->hw_mode == hw_mode)
+-		return;
+-
+-	udphy->phy_needs_reinit = true;
+-	udphy->hw_mode = hw_mode;
+-}
+-
+-static void rk_udphy_set_typec_state(struct rk_udphy *udphy, unsigned long state)
+-{
+-	u8 hw_mode;
+-
+-	switch (state) {
+-	case TYPEC_DP_STATE_C:
+-	case TYPEC_DP_STATE_E:
++	if (udphy->dp_lanes == 4) {
+ 		udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
+ 		udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
+ 		udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
+ 		udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
+-		hw_mode = UDPHY_MODE_DP;
+-		udphy->dp_lanes = 4;
+-		break;
+-
+-	case TYPEC_DP_STATE_D:
+-	default:
++	} else {
+ 		if (udphy->flip) {
+ 			udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
+ 			udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
+@@ -616,12 +598,39 @@ static void rk_udphy_set_typec_state(struct rk_udphy *udphy, unsigned long state
+ 			udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
+ 			udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
+ 		}
+-		hw_mode = UDPHY_MODE_DP_USB;
+-		udphy->dp_lanes = 2;
++	}
++}
++
++static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 hw_mode, u8 dp_lanes)
++{
++	if (udphy->hw_mode == hw_mode && udphy->dp_lanes == dp_lanes)
++		return;
++
++	udphy->phy_needs_reinit = true;
++	udphy->hw_mode = hw_mode;
++	udphy->dp_lanes = dp_lanes;
++}
++
++static void rk_udphy_set_typec_state(struct rk_udphy *udphy, unsigned long state)
++{
++	switch (state) {
++	case TYPEC_DP_STATE_C:
++	case TYPEC_DP_STATE_E:
++		rk_udphy_mode_set(udphy, UDPHY_MODE_DP, 4);
++		break;
++
++	case TYPEC_DP_STATE_D:
++		rk_udphy_mode_set(udphy, UDPHY_MODE_DP_USB, 2);
++		break;
++
++	case TYPEC_STATE_SAFE:
++	case TYPEC_STATE_USB:
++	default:
++		rk_udphy_mode_set(udphy, UDPHY_MODE_USB, 0);
+ 		break;
+ 	}
+ 
+-	rk_udphy_mode_set(udphy, hw_mode);
++	rk_udphy_set_lane_mux(udphy);
+ }
+ 
+ static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
 
 -- 
 2.53.0
