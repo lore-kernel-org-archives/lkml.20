@@ -1,551 +1,380 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934244B95CC;
-	Wed, 30 Sep 2026 14:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E0F4C33C4;
+	Wed, 30 Sep 2026 14:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779649; cv=none; b=W+YTybW8cjjMROzaAuVHEoAVIVKeMVBxU7kR5EKaBaxnOWqFmZQs8A3ArWd2LwF233sUOnTkP73BIpqT50vYWFO9gKaYkQsaaSHBco19AjSSC+YCFZaTXJW3kapN2EXN9QzLz4dBKDF72x5upPu9nD/fikyvZqaONlZuOaAMWX8=
+	t=1790779842; cv=none; b=nD441e3P7wR6BCYK/MhvZFT7CGvRtF/aKijZsvlItcRvBf/N0bzIiAMGsEqgT131nINQJUEYjLXYZn0CACAkkZdms92Qm+ragW6aF1X+PkS2czDD1XnS+lBoKXp+Ect1P/0vHHG40fMp9DEtnBQXPeiTK3dgwG5U/5oynbpFpsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779649; c=relaxed/simple;
-	bh=eg1O4hp6ZGpH4Wox8SVMJUFhbsjB/6FWTwERFG76vkQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KEawC3nwfLFExnQtEmC/qkTpIFseBaA9X0f591Zd9vsk8p8ds2Tn34rKprib3JDXju5kR4GW57pHl/we6NYXzAXFXHm/Op4QjzpqJ12sewhLuEXR/Q/5zp8Odnh9Gh+k3a42VIeCtHjniAhPtwo7qoMJU6ewlKWagHZGrlcPe/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YU0wLhG6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790779842; c=relaxed/simple;
+	bh=4f/zH8Vejg6Bbx/LyQB/pVdfyu+jeCAEK50lJV8X280=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jXOyCgF3qq71WE5NygzmSGiZQYekYrhOxMn3w7REs98QRHHWD4Mq3ybS2vPqdREEY45Sd5bE7S8bMH3QKo3butTH7QetYhq7YM+v8YaSKPJHI3nWgxxWkyCJ0epoZYMyccgOnF51U9DcfgiINTLJgDHl41F5V5zSvB4sziRuG7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7RAmTcL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YU0wLhG6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5CD71F000FF;
-	Wed, 30 Sep 2026 14:47:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7RAmTcL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EF21F000FF;
+	Wed, 30 Sep 2026 14:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790779637;
-	bh=XUqA+R/1TUTsmH/L3ACbrGDfVeU2HmhoSilR6GwX7O0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YU0wLhG6t+JykqbrvEGZseSoBlujos4DULx7h0mqmrhTURY5WjljkA/XvDwbDEElP
-	 s98Bnpj1+BL9Na6OKWFiI1QNfh3W84aWrRmXtxhtWxe6V59IhxRD3oAzovl86PuxOY
-	 2MAthKZK34sXQJwsK4JUolZsturvizVvBWx23QUtybpWI4yfiEU8obyx6juf+Mupag
-	 H6E/XnhvsLKI/sM/79dAhgTxc6i9VH2PQFOlnFfh5wLnitld0KJ6VnuFqLZnx5+iDC
-	 Sb7J1E9pGiqBZw4nl0FxPddWU/pBUaIzcN7UM0oUEkW8c/jaLaG1pPy41seI3AlyRO
-	 IrhJEQ2j2J8hA==
-Date: Wed, 30 Sep 2026 20:13:59 +0530
-From: Naveen N Rao <naveen@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Tianyu Lan <tiala@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Thomas Gleixner <tglx@kernel.org>, David Kaplan <david.kaplan@amd.com>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Michael Roth <michael.roth@amd.com>
-Subject: Re: [RFC PATCH v3 16/27] KVM: SVM: Add handler for VMGEXIT Secure
- AVIC NAE event
-Message-ID: <arzns-SbdhuGntwm@blrnaveerao1>
-References: <cover.1783490022.git.naveen@kernel.org>
- <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
- <ao8PtliwDo8H49sa@google.com>
- <arKHLaVluCNCTaau@blrnaveerao1>
+	s=k20260515; t=1790779832;
+	bh=MpMdRzzckzLQv6ms4O5nsBqMxlFgsrLRkIfljQLs9Uo=;
+	h=From:To:Cc:Subject:Date;
+	b=N7RAmTcLq87p7qZDbuXnNjnG1RznhM5UmBdBEcMKoI5LVS/lZ8cTa2b3kFLDJ5oDz
+	 AEAZSkIcThy9/b7CEFMYVsihwPFiVDS07+AzAUwMWs+bPN4cJ108GwbkhroG9wXQX1
+	 RzKMuhcPwgHs8gVxU/k8GUTPCnGHh8rU+x2k6iFZbh2I0MenctauenfS4Cmskf0M/k
+	 +vVuALf2MdOpJKAxWZ/uNyoCCrQQK143aefTvtFC4rxiOSBROo2Jn6Dy/3kjmNKcF6
+	 0rg1FROGhMsOXFkKI/O+0jbdvrgBOF+/fCGoMM421QlpivyaHgzOJt3rWJ91af4bp9
+	 nkJ3KlMoH5/Hg==
+From: Niklas Cassel <cassel@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Yue Wang <yue.wang@Amlogic.com>,
+	Hans Zhang <18255117159@163.com>,
+	Rob Herring <robh@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Myron Stowe <myron.stowe@redhat.com>,
+	Jon Mason <jdmason@kudzu.us>
+Cc: Keith Busch <kbusch@kernel.org>,
+	mx2pg@pm.me,
+	dlemoal@kernel.org,
+	Niklas Cassel <cassel@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Ricardo Pardini <ricardo@pardini.net>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: [RFC PATCH 0/4] PCI: Fix and improve default MPS configuration
+Date: Wed, 30 Sep 2026 16:50:17 +0200
+Message-ID: <20260930145017.1356088-6-cassel@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arKHLaVluCNCTaau@blrnaveerao1>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14974; i=cassel@kernel.org; h=from:subject; bh=4f/zH8Vejg6Bbx/LyQB/pVdfyu+jeCAEK50lJV8X280=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLL2Kq78+pRbuntpZ1tKtdrhOLUi/5VRnVrGdRz622fPC JwvvvZBRykLgxgXg6yYIovvD5f9xd3uU44r3rGBmcPKBDKEgYtTACaSz8PIMGNZ5D8xiVq5x1fO nff5xFZqa/Bub6QA/1bRiINPgjIYLRgZdjGfSVBL0Vnq9H8tW2yG0oHJkxb1uUnVXTkdt//FIo1 53AA=
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 08:31:45PM +0530, Naveen N Rao wrote:
-> Hi Sean,
-> 
-> On Wed, Aug 26, 2026 at 09:09:26AM -0700, Sean Christopherson wrote:
-> > On Wed, Jul 08, 2026, Naveen N Rao (AMD) wrote:
-> > > From: Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
-> > > 
-> > > [DO NOT MERGE]
-> > > 
-> > > VMGEXIT Secure AVIC NAE event is used by the guest for two purposes
-> > > determined by VMCB->EXITINFO1:
-> > > 1. SVM_VMGEXIT_SAVIC_REGISTER_GPA: Used to inform the hypervisor about
-> > >    the GPA of the page (RBX) being used as the Secure AVIC backing page.
-> > >    RAX indicates APIC ID of the target vCPU (-1 for self)
-> > > 2. SVM_VMGEXIT_SAVIC_UNREGISTER_GPA: Used to inform the hypervisor that
-> > >    the GPA is no longer being used as the backing page for Secure AVIC.
-> > >    The previously registered GPA for the Secure AVIC backing page is
-> > >    returned by the hypervisor to the guest.
-> > > 
-> > > The primary motivation behind these is to ensure that Secure AVIC
-> > > hardware accesses to the guest APIC backing page never generate an #NPF,
-> > > since Secure AVIC hardware cannot recover from such faults. Quoting the
-> > > APM:
-> > >   "It is required that the guest APIC backing page for a vCPU is
-> > >    pinned in system memory between VMRUN and VMEXIT because some AVIC
-> > >    hardware acceleration sequences may not be restartable when secure
-> > >    AVIC is enabled. If an access to the guest's own backing page by
-> > >    AVIC hardware results in a nested page fault, EXITINFO1 bit 63
-> > >    (Not Restartable) is set (this is an Automatic Exit) and the BUSY
-> > >    bit in the VMSA is set."
-> > > 
-> > > A guest vCPU that has the BUSY bit set in the VMSA cannot be restarted
-> > > and the guest will have to be killed.
-> > > 
-> > > One of the main reasons why the SPTE for a Secure AVIC backing page may
-> > > be invalidated is if it is backed by a huge page in the host, and an
-> > > adjacent page changes state forcing the huge page to be split. Currently
-> > > though, KVM uses guest_memfd to back SEV-SNP guest private memory, and
-> > > those only use 4k pages. As such, this _may_ not be an issue today.
-> > > 
-> > > It is possible that KVM may still invalidate an SPTE for other reasons -
-> > > those will need to be addressed.
-> > 
-> > We _could_ get it working, <snip>
+This RFC reworks Hans's series "PCI: Configure Root Port MPS during host
+probing" (v9, link below).  Besides configuring Root Ports, which that
+series was about, it fixes other problems in how mainline programs the
+Maximum Payload Size (MPS), and lists the problems it doesn't fix.
 
-I spent some time to see what this would look like, given that in-place 
-conversion has now landed.
+It is an RFC because it changes the default MPS policy, see "Open
+questions" below, and because it has only been build-tested so far.
 
-> > 
-> > However, there are still problems.  E.g. when converting memory, userspace would
-> > need to make sure to never do a redundant/superfluous KVM_SET_MEMORY_ATTRIBUTES2
-> > on a range that contains a Secure AVIC page, because __kvm_gmem_set_attributes()
-> > will tell the MMU to invalidate SHARED mappings for the entire range.  I.e. by
-> > design, guest_memfd will not chunk the invalidations based on the per-page state
-> > of PRIVATE vs. SHARED, because cross-referencing the current attributes would
-> > incur non-trivial complexity.  For TDX, this isn't a problem because the S-EPT
-> > is a separate paging structure, and so kvm_gfn_range_filter_to_root_types() can
-> > simply skip MIRROR roots to avoid over-zapping PRIVATE memory.  SNP doesn't have
-> > such a thing.
-> 
-> I suppose this is one of the bigger concerns (next to ensuring all 
-> invalidation paths are covered). If I'm reading this right, I think 
-> your idea (thanks!) to skip zap'ing SPTEs for attribute updates 
-> addresses this path:
-> https://lore.kernel.org/all/ao9CKMXAX-hScRSa@google.com/
-> 
-> In fact, as far as I can tell, it likely also addresses the MMU Notifier 
-> path independently.
+Background
+==========
 
-I can confirm that your suggested change above on the current 
-kvm-x86/next tree with gmem in-place conversion enabled addresses MMU 
-notifier events as well (so Alexandru's patch isn't strictly necessary).
+A PCIe device must not send a TLP with a payload larger than the MPS it
+is programmed with, and a receiver treats a TLP larger than its own MPS
+as Malformed, so all devices on a path need compatible MPS settings.
 
-I ended up with a slightly updated if condition to restrict it to SNP:
+Unless a "pci=pcie_bus_*" option is given, the kernel uses the default
+strategy, PCIE_BUS_DEFAULT: pci_configure_mps() programs each device, as
+it is enumerated, to the MPS of its upstream bridge.  If the device's MPS
+Supported (MPSS) is smaller and the upstream bridge is a Root Port, the
+Root Port is lowered instead (9f0e89359775).  The other strategies either
+configure whole hierarchies in pcie_bus_configure_settings()
+(pcie_bus_safe, pcie_bus_perf, pcie_bus_peer2peer) or don't touch MPS at
+all (pcie_bus_tune_off).
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index aadd5bdc2c97..195732dbdcce 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -1702,6 +1702,7 @@ static bool __kvm_rmap_zap_gfn_range(struct kvm *kvm,
+Problems found in mainline
+==========================
 
- bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- {
-+       unsigned long shared_private =  KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
-        bool flush = false;
+Enumeration:
 
-        /*
-@@ -1715,6 +1716,21 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
-        lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
-                            lockdep_is_held(&kvm->slots_lock));
+1. The saved MPS goes stale.  Fixed by patch 1.
 
-+       /*
-+        * Skip zapping pages for to-PRIVATE/to-SHARED conversions for
-+        * VMs with non-mirrored roots (SEV-SNP) since the mismatch
-+        * between the NPT entry and the HW attribute (RMP) will force
-+        * a #NPF, and the subsequent KVM page fault handler or the
-+        * RMP fault handler will do the right thing.
-+        *
-+        * TODO: handle hugepages.
-+        */
-+       if (gmem_in_place_conversion && kvm_memslot_is_gmem_only(range->slot) &&
-+           kvm_arch_has_private_mem(kvm) && kvm->arch.has_protected_state &&
-+           !kvm_has_mirrored_tdp(kvm) &&
-+           ((range->attr_filter & shared_private) != shared_private))
-+               return false;
-+
+   pcie_set_mps() changes Device Control, but not the copy saved by
+   pci_bus_add_device() and the port driver.  The core changes the MPS
+   of ports whose state has been saved: pci_configure_mps() lowers a
+   Root Port when a device that supports less is hot-added below it,
+   and with pci=pcie_bus_safe, pcie_bus_configure_settings() can do the
+   same after a hot-add.  Drivers do it too, e.g. hfi1 on its upstream
+   bridge.
 
-> 
-> I believe the other larger concern was ensuring coverage so that there 
-> aren't surprises in a production deployment. I was thinking if a check 
-> for the Secure AVIC backing page GPA in sev_gmem_invalidate_range() 
-> (with a subsequent kvm_vm_dead() or such on a match) can serve as a way 
-> to ensure we aren't missing any paths, and to guard against future 
-> changes.
+   Since v7.3-rc1 (3fc686d550f6), a Root Port reset through
+   host->reset_root_port(), e.g. on AER recovery or Link Down with the
+   qcom and Rockchip DWC drivers, restores the Root Port's saved state
+   without saving it first.  The Root Port goes back to the old, larger
+   MPS while the device below it is restored to the smaller one, and the
+   device may receive TLPs that it treats as Malformed.
 
-With the below hunk, I think we should be able to catch invalidations 
-due to PUNCH_HOLE, HWPOISON, memslot DELETE and to-SHARED conversions, 
-and should help make the source of the invalidation clear:
+2. Root Ports keep whatever MPS they came up with.  Fixed by patch 3.
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 96992d10cb2b..3c8daa876045 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -5571,11 +5571,36 @@ void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
-                 * vCPU to re-establish its VMSA.
-                 */
-                gpa_t gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_vmsa_gpa);
-+               gpa_t savic_gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_savic_gpa);
+   Root Ports have no upstream bridge, so pci_configure_mps() never
+   configures them, and every hierarchy inherits the MPS that firmware or
+   the hardware reset left in its Root Port.  On platforms whose firmware
+   doesn't configure MPS, which is typical for DT-based systems with
+   native host controller drivers, every hierarchy runs at the 128-byte
+   reset value even if the Root Port and all devices below it support
+   more, at a cost in throughput.  Host controller drivers work around
+   this: the Meson driver programs its Root Port to 256 bytes itself,
+   regardless of what the devices below it support, which patch 4
+   removes.
 
-                if (VALID_PAGE(gpa) &&
-                    gpa_to_gfn(gpa) >= range->start &&
-                    gpa_to_gfn(gpa) < range->end)
-                        kvm_make_request_and_kick(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
-+
-+               /*
-+                * All PRIVATE invalidations that hit the Secure AVIC backing page in
-+                * this path will result in a subsequent access by the Secure AVIC HW
-+                * to cause a not-restartable #NPF killing the VM. Catch such
-+                * invalidations here so that the source of those invalidations is
-+                * clear, rather than a subsequent guest access resulting in a
-+                * unrecoverable #NPF.
-+                *
-+                * This is expected on guest teardown, so check if there is a valid
-+                * gmem.file before killing the VM.
-+                */
-+               if (VALID_PAGE(savic_gpa) &&
-+                   READ_ONCE(range->slot->gmem.file) &&
-+                   (range->attr_filter & KVM_FILTER_PRIVATE) &&
-+                   gpa_to_gfn(savic_gpa) >= range->start &&
-+                   gpa_to_gfn(savic_gpa) < range->end) {
-+                       if (!kvm->vm_dead) {
-+                               vcpu_err(vcpu, "Secure AVIC backing page invalidated, GPA 0x%llx!\n", savic_gpa);
-+                               dump_stack();
-+                               kvm_vm_dead(vcpu->kvm);
-+                               return;
-+                       }
-+               }
-        }
- }
+3. Lowering the MPS only works directly below a Root Port.  Fixed by
+   patch 2.
 
+   - Below a Switch, the Switch ports keep the larger MPS, and a device
+     that supports less is left mismatched with a "use
+     pci=pcie_bus_safe" warning.  This happens at boot whenever firmware
+     or a host controller driver programmed a larger MPS than a device
+     below a Switch supports.  It has been a known limitation since the
+     default strategy was introduced (27d868b5e6cf).
 
-The flip side is that this also catches memslot DELETE, which I suppose 
-is something we still need to handle (as part of memslot DELETE+CREATE).
-In my limited testing so far, I have not been able to hit a scenario 
-where this has triggered, so I am not sure how critical or common that 
-is during runtime (memslot changes before guest boot should be ok since 
-Secure AVIC is not enabled at that point).
+   - For a multi-function device directly below a Root Port, function 0
+     is programmed to the Root Port's MPS first.  If function 1 supports
+     less, the Root Port is lowered, but function 0 is left at the larger
+     value and can send TLPs larger than the Root Port now accepts.  Only
+     an informational message about the Root Port is printed.  This was
+     introduced by 9f0e89359775.
 
-One option is to use the below KVM_REQ for memslot DELETE so that the 
-target vCPU is kicked out before the invalidation and faults during a 
-subsequent prefault (should go out to userspace, but needs to be 
-checked). Regardless, we will need some way to suppress the kill in 
-gmem_invalidate_range() above for a memslot DELETE.
+Hotplug and rescan:
 
-> 
-> > 
-> > Converting a subset of a huge PRIVATE page would also be problematic, although
-> > that one isn't so bad since we already need to call into the TDP MMU 
-> > to pre-split
-> > S-EPT pages, because those too can't tolerate spurious zappings.
-> 
-> For hugepages, the intent is to split as part of the Secure AVIC NAE 
-> Event for backing page registration. i.e., PSMASH()+prefault at the time 
-> of registration. And since there is no PUNSMASH(), the backing page 
-> should never end up as part of a hugepage again.
+4. A device hot-added directly below a Root Port.  Fixed by patches 1-3.
 
-Regardless of hugepage support, we will still need to prefault the 
-backing page on registration to ensure Secure AVIC HW accesses do not 
-fault. In addition, it looks like we will also need to prefault the page 
-whenever a new NPT root is loaded. This turned out to be the larger 
-change and I modeled part of this on KVM_REQ_VMSA_PAGE_RELOAD (diff 
-below).
+   If the device supports less than the Root Port's MPS, the Root Port
+   is lowered, with the multi-function problem from 3 and the stale
+   saved state from 1.  If it supports more, it is only matched to the
+   Root Port's current MPS: a Root Port is never raised again, e.g.
+   after a device that supported less has been replaced, and without
+   firmware MPS setup it stays at 128 bytes.  Devices found by a rescan
+   below an empty Root Port slot behave the same.
 
-In the absence of hugepage support, this _looks_ to be addressing all 
-the invalidation sources (other than memslot DELETE that I mentioned 
-earlier) at this time, as far as I can tell.
+5. A Switch hot-added directly below a Root Port.  Fixed by patch 2.
 
-Are there other invalidation sources we should worry about?
+   The Upstream Port can lower the Root Port, but the Downstream Ports
+   and the devices below them are only matched to their upstream bridge,
+   and any of them that supports less is left mismatched with a warning.
+   With patch 2, nothing below the Root Port is in use yet, so the whole
+   new hierarchy is lowered.  Devices hot-added below the new Switch
+   later are subject to 6.
 
-If we want to be super-paranoid, we could add some sort of a hook in 
-__handle_changed_spte() though that looks excessive. Hooking into 
-kvmmmu/kvm_tdp_mmu_spte_changed tracepoint instead might be a better 
-option if we ever hit an unexpected not-restartable #NPF.
+6. A device hot-added below a Switch.  Not addressed.
 
+   The Switch ports are in use and can't be lowered, so a device that
+   supports less than their MPS, e.g. less than what firmware
+   programmed, is left mismatched with a warning.  pcie_bus_safe avoids
+   this by limiting hierarchies with hotplug-capable Switch ports to 128
+   bytes.  Patch 3 doesn't raise hierarchies with hotplug-capable Switch
+   ports, so it doesn't make this more likely on hot-add, but a device
+   that shows up below a Switch without hotplug support, e.g. found by a
+   rescan, can hit it after patch 3 has raised the hierarchy.
 
-Thanks,
-Naveen
+7. A Switch hot-added below another Switch.  Not addressed.
 
+   Same as 6, for every port and device of the new Switch that supports
+   less than the Downstream Port it is plugged into, e.g. when chaining
+   Thunderbolt devices.
+
+8. A device added next to devices already in use below the same Root
+   Port, e.g. a new function found by a rescan while function 0 is
+   bound.  Only partly addressed.
+
+   Mainline lowers the Root Port below the active function, which is
+   left at the larger MPS.  With patch 2, the hierarchy isn't changed,
+   and the new function is left mismatched with a warning instead.
+
+Other:
+
+9. With pci=pcie_bus_safe or pcie_bus_perf, devices found by a rescan
+   aren't configured at all: pci_configure_mps() leaves them to
+   pcie_bus_configure_settings(), which the rescan helpers don't call.
+   This doesn't affect the default strategy, where pci_configure_mps()
+   configures each device as it's enumerated.  Calling
+   pcie_bus_configure_settings() from the rescan helpers wouldn't fix
+   this safely, since those strategies reprogram every device of the
+   hierarchy, including ones in use.  Not addressed.
+
+Approach
+========
+
+Two constraints drive the design:
+
+- The MPS of a device that may have a driver bound can't be changed
+  safely: the device may have DMA in flight, its driver may have cached
+  the value, and the core's read-modify-write of Device Control isn't
+  serialized against the driver's own updates of that register.
+  Changes to a hierarchy are therefore limited to hierarchies in which
+  no device below the Root Port has been added or made available for
+  driver binding yet, i.e. during the initial scan, or when devices are
+  hot-added or rescanned into an empty hierarchy, such as a slot directly
+  below a Root Port.  As today, the Root Port itself may still be
+  changed.
+
+- A device hot-added below a Switch later can't lower the MPS of a
+  hierarchy in use, so it only works if it supports the MPS the
+  hierarchy already runs at (6).
+
+A better solution would be to quiesce the drivers of all devices below
+the Root Port, e.g. the way a reset does with ->reset_prepare() and
+->reset_done(), change the MPS of the whole hierarchy, and then resume
+them.  That would allow changing the MPS of a system that is in use,
+including when a device that supports less is hot-added below a Switch
+(6, 7) or next to devices in use (8), and patch 3 could then also raise
+hierarchies with hotplug-capable Switch ports.  It requires every
+affected driver to support being quiesced and to cope with a changed
+MPS, e.g. drivers that cache it, which is beyond this series.
+
+Only PCIE_BUS_DEFAULT changes; the other strategies are unchanged.
+
+Why the Root Port MPS is set from pcie_bus_configure_settings()
+===============================================================
+
+v9 raised each Root Port to its maximum MPS when pci_configure_mps() ran
+for the Root Port itself, and relied on lowering it again as devices
+below it were enumerated.  At that point, nothing below the Root Port
+has been enumerated yet, so the kernel can't know the smallest MPSS
+below it, whether the hierarchy has hotplug-capable Switch ports, or
+whether the slot is empty.  Raising the Root Port there:
+
+- raises hierarchies with hotplug-capable Switch ports, which can't be
+  lowered again once a device that supports less is hot-added below the
+  Switch (6).  Undoing the raise for them would mean remembering the
+  previous MPS of every Root Port;
+
+- raises empty slots, so a Switch hot-added into one later inherits the
+  raised MPS;
+
+- happens only once, since a Root Port isn't enumerated again on
+  hot-add, so the Root Port can't be raised again after a device that
+  supported less has been replaced (4).
+
+pcie_bus_configure_settings() runs after the hierarchy below a Root Port
+has been scanned and before its drivers are bound: from pci_host_probe()
+and the ACPI and arch-specific root bus scans, and from pciehp, acpiphp
+and shpchp after a hot-add.  It is where the other strategies already
+configure MPS for a whole hierarchy, and pcie_find_smpss() already
+computes the smallest MPSS of a hierarchy, returning 128 bytes for
+hierarchies with a hotplug bridge other than the Root Port.  Since patch
+3 only raises, such hierarchies keep their MPS without any extra state.
+An empty slot isn't raised until something is hot-added or rescanned
+there, and every hot-add directly below a Root Port re-evaluates its
+hierarchy.  The rescan helpers don't call pcie_bus_configure_settings(),
+so patch 3 adds the same raise there.
+
+Configuring the MPS in pci_bus_add_device() instead would also run after
+the scan, but once per device rather than once per hierarchy, and it
+would move all of the default MPS configuration into the driver binding
+path.
+
+Behavior changes
+================
+
+- With firmware that programs MPS, e.g. on x86, a hierarchy may now run
+  at a larger MPS than firmware chose, and different Root Port
+  hierarchies may end up with different values.  This could matter for
+  peer-to-peer DMA between devices below different Root Ports, unless
+  the Root Complex splits such TLPs.  pci=pcie_bus_peer2peer remains
+  available for that case.
+
+- A single device with a small MPSS found during enumeration lowers the
+  MPS of every device below its Root Port.
+
+- A device that shows up later below a Switch without hotplug support,
+  e.g. found by a rescan, may find its hierarchy raised by patch 3, and
+  is left mismatched with a warning if it supports less (6).
+
+- Read completion coalescing is now also disabled on Intel 5000/5100 in
+  the default mode (quirk_intel_mc_errata()), since the default mode can
+  now raise MPS above what firmware programmed.
+
+- Scan paths that call neither pcie_bus_configure_settings() nor the
+  rescan helpers, mostly legacy ones or ones without Root Ports, don't
+  raise anything, just as today.
+
+Open questions
+==============
+
+1. Is raising a hierarchy above what firmware programmed acceptable for
+   PCIE_BUS_DEFAULT, or should the raise be limited, e.g. to Root Ports
+   that are still at the 128-byte reset value?
+
+2. Hierarchies with hotplug-capable Switch ports keep their current MPS,
+   so hot-add below a Switch behaves as today (6, 7).  The alternative is
+   to limit such hierarchies to 128 bytes, like pcie_bus_safe does, which
+   makes every hot-added device work, but costs performance where
+   firmware programmed more.  Which is preferred?
+
+3. Should a device that can't match a hierarchy in use (6, 7, 8) keep
+   being bound with a warning, as today, or be left without a driver?
+
+Testing
+=======
+
+Build-tested only: each patch builds without warnings with W=1 (x86_64
+defconfig plus COMPILE_TEST and PCI_MESON), and checkpatch --strict is
+clean.
+
+Mahesh, Ricardo, Shawn: patch 3 is a new implementation, so I dropped
+your Tested-by tags.  A re-test would be much appreciated.
 
 ---
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index e456564f83da..8f26cf4cbfc0 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -119,6 +119,7 @@ KVM_X86_OP_OPTIONAL(apicv_post_state_restore)
- KVM_X86_OP_OPTIONAL_RET0(dy_apicv_has_pending_interrupt)
- KVM_X86_OP_OPTIONAL(protected_apic_has_interrupt)
- KVM_X86_OP_OPTIONAL(protected_apic_process_interrupt)
-+KVM_X86_OP_OPTIONAL_RET0(protected_apic_page_reload)
- KVM_X86_OP_OPTIONAL(set_hv_timer)
- KVM_X86_OP_OPTIONAL(cancel_hv_timer)
- KVM_X86_OP(setup_mce)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 0e0726cb75f8..e4b880bc68f5 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -128,6 +128,8 @@
- #define KVM_REQ_UPDATE_PROTECTED_GUEST_STATE \
- 	KVM_ARCH_REQ_FLAGS(34, KVM_REQUEST_WAIT)
- #define KVM_REQ_PROTECTED_APIC_INTERRUPT	KVM_ARCH_REQ(35)
-+#define KVM_REQ_PROTECTED_APIC_PAGE_RELOAD \
-+	KVM_ARCH_REQ_FLAGS(36, KVM_REQUEST_WAIT)
- 
- #define INVALID_PAGE (~(hpa_t)0)
- #define VALID_PAGE(x) ((x) != INVALID_PAGE)
-@@ -1702,6 +1704,7 @@ struct kvm_x86_ops {
- 	bool (*dy_apicv_has_pending_interrupt)(struct kvm_vcpu *vcpu);
- 	bool (*protected_apic_has_interrupt)(struct kvm_vcpu *vcpu);
- 	void (*protected_apic_process_interrupt)(struct kvm_vcpu *vcpu);
-+	int (*protected_apic_page_reload)(struct kvm_vcpu *vcpu);
- 
- 	int (*set_hv_timer)(struct kvm_vcpu *vcpu, u64 guest_deadline_tsc,
- 			    bool *expired);
-diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index 2ae7f9ed4cf8..0b611f3f5a21 100644
---- a/arch/x86/kvm/mmu.h
-+++ b/arch/x86/kvm/mmu.h
-@@ -340,6 +340,7 @@ static inline bool kvm_shadow_root_allocated(struct kvm *kvm)
- }
- 
- int kvm_tdp_mmu_map_private_pfn(struct kvm_vcpu *vcpu, gfn_t gfn, kvm_pfn_t pfn);
-+int kvm_tdp_mmu_prefault_private_gpa(struct kvm_vcpu *vcpu, gpa_t gpa);
- 
- static inline bool kvm_memslots_have_rmaps(struct kvm *kvm)
- {
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 779cd1013f02..72d30df67795 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -273,7 +273,8 @@ struct vcpu_sev_es_state {
- 
- 	u64 ghcb_registered_gpa;
- 
--	gpa_t snp_savic_gpa;
-+	gpa_t snp_pending_savic_gpa;
-+	gpa_t snp_guest_savic_gpa;
- 
- 	struct mutex snp_vmsa_mutex; /* Used to handle concurrent updates of VMSA. */
- 	gpa_t snp_pending_vmsa_gpa;
-@@ -1028,6 +1029,7 @@ int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private);
- struct vmcb_save_area *sev_decrypt_vmsa(struct kvm_vcpu *vcpu);
- void sev_free_decrypted_vmsa(struct kvm_vcpu *vcpu, struct vmcb_save_area *vmsa);
- bool snp_is_secure_avic_enabled(struct kvm *kvm);
-+int snp_protected_apic_page_reload(struct kvm_vcpu *vcpu);
- #else
- static inline struct page *snp_safe_alloc_page_node(int node, gfp_t gfp)
- {
-@@ -1056,6 +1058,7 @@ static inline struct vmcb_save_area *sev_decrypt_vmsa(struct kvm_vcpu *vcpu)
- }
- static inline void sev_free_decrypted_vmsa(struct kvm_vcpu *vcpu, struct vmcb_save_area *vmsa) {}
- static inline bool snp_is_secure_avic_enabled(struct kvm *kvm) { return false; }
-+static inline int snp_protected_apic_page_reload(struct kvm_vcpu *vcpu) { return 0; }
- #endif
- 
- /* vmenter.S */
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 195732dbdcce..a83a1c8ca950 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -5327,6 +5327,15 @@ int kvm_tdp_mmu_map_private_pfn(struct kvm_vcpu *vcpu, gfn_t gfn, kvm_pfn_t pfn)
- 	return 0;
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_tdp_mmu_map_private_pfn);
-+
-+int kvm_tdp_mmu_prefault_private_gpa(struct kvm_vcpu *vcpu, gpa_t gpa)
-+{
-+	if (KVM_BUG_ON(kvm_is_gfn_alias(vcpu->kvm, gpa >> PAGE_SHIFT), vcpu->kvm))
-+		return -EINVAL;
-+
-+	return kvm_tdp_page_prefault(vcpu, gpa, PFERR_GUEST_FINAL_MASK | PFERR_PRIVATE_ACCESS, NULL);
-+}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_tdp_mmu_prefault_private_gpa);
- #endif
- 
- static void nonpaging_init_context(struct kvm_mmu *context)
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index f2156850d346..96992d10cb2b 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4595,11 +4595,95 @@ static int savic_handle_ipi_exit(struct kvm_vcpu *vcpu)
- 	return 0;
- }
- 
-+int snp_protected_apic_page_reload(struct kvm_vcpu *vcpu)
-+{
-+	gpa_t gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_pending_savic_gpa);
-+	int ret;
-+
-+	/*
-+	 * At this point, it is safe to commit the new backing page GPA.
-+	 * If replacing a valid GPA, it is up to the guest to ensure that
-+	 * the previous backing page GPA has been cleared from the Secure
-+	 * AVIC Control MSR before trying to register a new one as
-+	 * invalidations will no longer care for the previous GPA.
-+	 *
-+	 * Publish the GPA under mmu_lock before prefaulting it so that
-+	 * no invalidations go through after the prefault.
-+	 */
-+	scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
-+		WRITE_ONCE(to_svm(vcpu)->sev_es.snp_guest_savic_gpa, gpa);
-+
-+	/* Unregistration */
-+	if (gpa == INVALID_PAGE)
-+		return 0;
-+
-+	ret = kvm_tdp_mmu_prefault_private_gpa(vcpu, gpa);
-+
-+	if (ret == -EINTR)
-+		kvm_handle_signal_exit(vcpu);
-+
-+	if (ret) {
-+		kvm_make_request(KVM_REQ_PROTECTED_APIC_PAGE_RELOAD, vcpu);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int savic_handle_vmgexit_register_gpa(struct kvm_vcpu *target_vcpu, gpa_t gpa)
-+{
-+	struct kvm *kvm = target_vcpu->kvm;
-+	struct kvm_memory_slot *slot;
-+	unsigned long mmu_seq;
-+	int order, rmp_level, ret;
-+	kvm_pfn_t pfn;
-+	bool assigned;
-+	gfn_t gfn;
-+
-+	gfn = gpa >> PAGE_SHIFT;
-+
-+	if (!page_address_valid(target_vcpu, gpa))
-+		return -EINVAL;
-+
-+retry:
-+	cond_resched();
-+
-+	mmu_seq = kvm->mmu_invalidate_seq;
-+	smp_rmb();
-+
-+	slot = gfn_to_memslot(kvm, gfn);
-+	if (!kvm_is_private_gfn(kvm, gfn) || !kvm_slot_has_gmem(slot))
-+		return -EINVAL;
-+
-+	ret = kvm_gmem_get_pfn(kvm, slot, gfn, &pfn, &order);
-+	if (ret)
-+		return -EINVAL;
-+
-+	ret = snp_lookup_rmpentry(pfn, &assigned, &rmp_level);
-+	if (ret || !assigned) {
-+		guard(read_lock)(&kvm->mmu_lock);
-+
-+		if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn))
-+			goto retry;
-+
-+		return -EINVAL;
-+	}
-+
-+	if (WARN_ON_ONCE(rmp_level != PG_LEVEL_4K))
-+		return -EOPNOTSUPP;
-+
-+	WRITE_ONCE(to_svm(target_vcpu)->sev_es.snp_pending_savic_gpa, gpa);
-+	kvm_make_request_and_kick(KVM_REQ_PROTECTED_APIC_PAGE_RELOAD, target_vcpu);
-+
-+	return 0;
-+}
-+
- static int sev_handle_savic_vmgexit(struct vcpu_svm *svm)
- {
- 	struct kvm_vcpu *target_vcpu;
- 	u64 apic_id;
- 	gpa_t gpa;
-+	int ret;
- 
- 	apic_id = kvm_rax_read_raw(&svm->vcpu);
- 	if (apic_id != SVM_VMGEXIT_SAVIC_SELF_GPA && upper_32_bits(apic_id))
-@@ -4616,27 +4700,14 @@ static int sev_handle_savic_vmgexit(struct vcpu_svm *svm)
- 	switch (svm->vmcb->control.exit_info_1) {
- 	case SVM_VMGEXIT_SAVIC_REGISTER_GPA:
- 		gpa = kvm_rbx_read_raw(&svm->vcpu);
--		if (!page_address_valid(target_vcpu, gpa))
-+		ret = savic_handle_vmgexit_register_gpa(target_vcpu, gpa);
-+		if (ret)
- 			goto vmgexit_err;
--
--		/*
--		 * TODO: Ensure that guest (Secure AVIC hardware) accesses
--		 * to the guest APIC backing page can never cause an #NPF.
--		 */
--
--		/*
--		 * Don't bother using any synchronization here if updating the
--		 * GPA for a different vCPU, to guard against potential
--		 * concurrent requests from different guest vCPUs. KVM's
--		 * handling for this will inform what synchronization,
--		 * if any will be necessary.
--		 */
--		to_svm(target_vcpu)->sev_es.snp_savic_gpa = gpa;
- 		break;
- 	case SVM_VMGEXIT_SAVIC_UNREGISTER_GPA:
--		gpa = to_svm(target_vcpu)->sev_es.snp_savic_gpa;
-+		gpa = xchg(&to_svm(target_vcpu)->sev_es.snp_pending_savic_gpa, INVALID_PAGE);
- 		kvm_rbx_write_raw(&svm->vcpu, gpa == INVALID_PAGE ? 0 : gpa);
--		to_svm(target_vcpu)->sev_es.snp_savic_gpa = INVALID_PAGE;
-+		kvm_make_request_and_kick(KVM_REQ_PROTECTED_APIC_PAGE_RELOAD, target_vcpu);
- 		break;
- 	default:
- 		goto vmgexit_err;
-@@ -5076,7 +5147,8 @@ int sev_vcpu_create(struct kvm_vcpu *vcpu)
- 	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
- 	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
- 
--	svm->sev_es.snp_savic_gpa = INVALID_PAGE;
-+	svm->sev_es.snp_pending_savic_gpa = INVALID_PAGE;
-+	svm->sev_es.snp_guest_savic_gpa = INVALID_PAGE;
- 
- 	vcpu->arch.guest_tsc_protected = snp_is_secure_tsc_enabled(vcpu->kvm);
- 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 18d061a157c2..6909d2c645a9 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -2008,7 +2008,7 @@ static int npf_interception(struct kvm_vcpu *vcpu)
- 
- 	u64 error_code = svm->vmcb->control.exit_info_1;
- 	gpa_t gpa = svm->vmcb->control.exit_info_2;
--	gpa_t savic_gpa = svm->sev_es.snp_savic_gpa;
-+	gpa_t savic_gpa = svm->sev_es.snp_guest_savic_gpa;
- 
- 	if (error_code & PFERR_SNP_NOT_RESTARTABLE_MASK) {
- 		if (VALID_PAGE(savic_gpa) && (gpa_to_gfn(gpa) == gpa_to_gfn(savic_gpa)))
-@@ -4848,6 +4848,9 @@ static void svm_load_mmu_pgd(struct kvm_vcpu *vcpu, hpa_t root_hpa,
- 		hv_track_root_tdp(vcpu, root_hpa);
- 
- 		cr3 = vcpu->arch.cr3;
-+
-+		if (snp_is_secure_avic_enabled(vcpu->kvm))
-+			kvm_make_request(KVM_REQ_PROTECTED_APIC_PAGE_RELOAD, vcpu);
- 	} else if (root_level >= PT64_ROOT_4LEVEL) {
- 		cr3 = __sme_set(root_hpa) | kvm_get_active_pcid(vcpu);
- 	} else {
-@@ -5597,6 +5600,7 @@ struct kvm_x86_ops svm_x86_ops __initdata = {
- 
- 	.protected_apic_has_interrupt = avic_protected_apic_has_interrupt,
- 	.protected_apic_process_interrupt = avic_protected_apic_process_interrupt,
-+	.protected_apic_page_reload = snp_protected_apic_page_reload,
- 
- 	.get_exit_info = svm_get_exit_info,
- 	.get_entry_info = svm_get_entry_info,
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 3384a1b215ef..897dca49e2c1 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -8240,6 +8240,12 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 
- 		if (kvm_check_request(KVM_REQ_PROTECTED_APIC_INTERRUPT, vcpu))
- 			kvm_x86_call(protected_apic_process_interrupt)(vcpu);
-+
-+		if (kvm_check_request(KVM_REQ_PROTECTED_APIC_PAGE_RELOAD, vcpu)) {
-+			r = kvm_x86_call(protected_apic_page_reload)(vcpu);
-+			if (r)
-+				goto out;
-+		}
- 	}
- 
- 	if (kvm_check_request(KVM_REQ_EVENT, vcpu) || req_int_win ||
+Changes compared to v9:
+- New patch 1: Update the saved MPS in pcie_set_mps(), so that a Root Port
+  reset through host->reset_root_port() doesn't restore a stale MPS.
+- Patch 2 (was 1): Only lower the hierarchy while no device below the
+  Root Port has been added or made available for driver binding.  v9 also
+  did it when a device was hot-added or rescanned below a Switch, changing
+  the MPS of devices that may have drivers bound and DMA in flight, with
+  an unserialized read-modify-write of Device Control that could race
+  with their drivers' own updates (reported by sashiko-bot:
+  https://lore.kernel.org/linux-pci/20260916155239.06ECC1F000FF@smtp.kernel.org/).
+- Patch 2: Use pci_warn() with the same message as the rest of
+  pci_configure_mps(), and reword the comment and commit message.
+- Patch 3 (was 2): Reimplemented.  Instead of raising each Root Port to
+  its maximum MPS during enumeration, raise the whole hierarchy after it
+  has been scanned, from pcie_bus_configure_settings() and the rescan
+  helpers, and only with PCIE_BUS_DEFAULT.  Hierarchies with a hotplug
+  bridge other than the Root Port, and hierarchies in use, are left alone,
+  so hot-add below a Switch keeps working as before.  v9 also changed the
+  other strategies and could leave a rescanned Root Port above the MPS of
+  the devices below it with pci=pcie_bus_safe.
+- Patch 3: Apply the Intel 5000/5100 read completion coalescing quirk to
+  PCIE_BUS_DEFAULT too, since it can now raise MPS above what firmware
+  programmed.
+- Patch 3: New subject and author, with Hans as co-developer, and dropped
+  the Reviewed-by and Tested-by tags, since the implementation changed.
+- Patch 4 (was 3): Use the "PCI: meson:" subject prefix.
+- Rebase on v7.3-rc5.
 
+v9: https://lore.kernel.org/linux-pci/20260916153907.60344-1-18255117159@163.com/
+
+Hans Zhang (2):
+  PCI: Match the hierarchy's MPS to a device's MPSS as necessary
+  PCI: meson: Remove redundant MPS configuration
+
+Niklas Cassel (2):
+  PCI: Update saved Max Payload Size in pcie_set_mps()
+  PCI: Configure Root Port MPS after scanning its hierarchy
+
+ drivers/pci/controller/dwc/pci-meson.c |  25 +----
+ drivers/pci/pci.c                      |  24 +++-
+ drivers/pci/probe.c                    | 149 ++++++++++++++++++++++++-
+ drivers/pci/quirks.c                   |   3 +-
+ 4 files changed, 172 insertions(+), 29 deletions(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
 
