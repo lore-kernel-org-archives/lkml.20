@@ -1,208 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A9F2F7EFE;
-	Wed, 30 Sep 2026 03:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4759224676D;
+	Wed, 30 Sep 2026 03:52:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790740256; cv=none; b=dcci0G3RinvxhYE2ZV9KLWgTIT2Swm50n6rZKqMX+KqvuY0YWVJYU4T0zThFuGWtaJpB9LA/tSzrOIfaM5el4Bh9gCPZ+FGaSCj+I02s6x7lebbkLmUMkLuP3/RFlSaZiYW+g+qjWVm/6/SEJ6mYDepqKEjzwWa/SP9vNIO1oHM=
+	t=1790740340; cv=none; b=PLuUH4iF9fk7e2j1oZoYz9xBe/Y9nZR6FKb/Dr830HGolEgeMSDr8QyeJElH357SUdbOK7CSATjR8Pn5/XlkryjGhYYcBFFKotc+8g1ttZ49xTjNhvguw4Es2pRfendAeb9S5A/KYSCdZEVnE9G+ZVInDn7QqmoNm2oNapqO7rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790740256; c=relaxed/simple;
-	bh=MY0hnxQ8zicQMoF+nFHkYkdiuqPro4ONr3l+kY7pIio=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHFMuBMahNAvQuEOZ8Z5ZmdKJ4UGhYJeOBFLFFzoRHdKUM0TCO20zqA6E+EPC6FO6sygM6MWK6u3vRgpD9uctSet+bHkZTIkDi9CkE6dGPvZq/oxZbt0wN7mqadzvCQno9QUlxLGJ01E7sFJamu3axtFatchX4+Kf/hzfOmwQ/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idijhjYW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790740340; c=relaxed/simple;
+	bh=sR1Z2Tu0TX4h7028aVqo9aEPtibcKb0vO2MekE8kzaw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jX0vqPzlr01U1hzYborplgixZA4oo9/Oer6zmP6l55ZCsftOe8nfFOR/Kk9Zdlp4wey4tKguAquqlFI98FAapdFcF6+0QGM0NT5AnHhQS/snA5FVyEu/p9kxaR5KKRtINgDOzbWa4XLV1mbWgWECRCTdJjBYxbCZYdsA56i91lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2YqnDlo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idijhjYW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581471F000FF;
-	Wed, 30 Sep 2026 03:50:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2YqnDlo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9FB1F000FF;
+	Wed, 30 Sep 2026 03:52:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790740254;
-	bh=2G/WSetac0z27j/7WYeDBAR0yQWWa8dcPZZs1aY5FPs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=idijhjYWm5maSd7p9ZG/AevsjHRYgJeMzKBXI9aLLhJL6AinAj/heB1jrroLSb9pw
-	 +k1aIFoTJtrwjItwlTIz8j02F40uT5HI4gM8GsU8phhcKsff/3b5JzG4PjA4subfRP
-	 U3lnfr9SDEm7vNz7dBjK2eCEqD+/Q93GqHiCKxMx6QCwGGQTJoC2y6bFJo5OwYRX9H
-	 Iuy+gzsj++PkW06lt825Ew2jnzh93azLowvGAnTdfuXNWEV7WzMwC+0e3TAspT6uh+
-	 KM3KVDMUyHOoMSnEoxseLU+ugSLYuODvBIzgp8fiVbbJ1UXQAXzGtRC0SZyIvaCmLr
-	 htz7AWjnX2Okg==
-Date: Tue, 29 Sep 2026 20:50:51 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 01/26] perf trace: Set the augmented arg header in the
- augmenters that omit it
-Message-ID: <aryHG8O0JUM2F9GA@google.com>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
- <20260928182605.3649015-2-irogers@google.com>
+	s=k20260515; t=1790740338;
+	bh=9cNnFGoevFOeZWAWTmFPoocbC2E0QbIOFTTZj5dLcYc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Q2YqnDlozdrcagf4UodP7SOEorFQH2mBPBEPyWDLjKKl8nrwD6pJUFL4d6xr7Pas/
+	 w0+tLGIrQ8dydFlofWU4+c11ikxAXMDjpWfLoS5ZLNbXswBwbRNWaZCNvCp5gyiVvi
+	 etjongacgsh5A2c7uY7ICzRy8aqJ40YEI4YEhHqa8j/60OyUCv9sWzBbOTnvFhmy1e
+	 1Zoulh8sGaZclQshVhsg9kcri8AjXVwiHdhbUpfyLtmjkmdWunn8eaBLIi3tkolazz
+	 ZGRudO+9zbM3k4jrixxZGZr8EQD7/78OvicUPNodeVTVlTQknqvqLjjuwk67PDeKKb
+	 ZDYH/7yaQb3OA==
+Subject: Re: [PATCH net-next v3 1/6] vxlan: vnifilter: validate the
+ VXLAN_VNIFILTER_ENTRY nest
+From: netdev-bot+sashiko@kernel.org
+To: alishmery18@gmail.com
+Cc: netdev@vger.kernel.org, idosch@nvidia.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, edumazet@google.com,
+ andrew+netdev@lunn.ch, horms@kernel.org, razor@blackwall.org,
+ roopa@nvidia.com, shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 30 Sep 2026 03:52:17 +0000
+Message-ID: <179074033755.434549.2348132981395970201@kernel.org>
+In-Reply-To: <20260927215209.2581830-2-alishmery18@gmail.com>
+References: <20260927215209.2581830-2-alishmery18@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928182605.3649015-2-irogers@google.com>
 
-On Mon, Sep 28, 2026 at 11:25:40AM -0700, Ian Rogers wrote:
-> The augmenters build records in augmented_args_tmp, a per-CPU scratch
-> buffer reused by every syscall, so a header field that isn't written
-> holds a stale value from an earlier syscall. sys_enter_sendto(),
-> sys_enter_perf_event_open(), sys_enter_clock_nanosleep() and
-> sys_enter_nanosleep() never set the struct augmented_arg size and err,
-> and augment_arg() doesn't set err.
-> 
-> Set both. When bpf_probe_read_user() fails in the connect, sendto and
-> nanosleep augmenters, report a zero sized payload and the error rather
-> than the stale scratch contents.
-> 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-Thanks,
-Namhyung
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> ---
->  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 37 ++++++++++++++++---
->  1 file changed, 31 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> index 3bc9e28a9b8a..f7c9eb49648f 100644
-> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> @@ -210,6 +210,7 @@ int sys_enter_connect(struct syscall_enter_args *args)
->  	const void *sockaddr_arg = (const void *)args->args[1];
->  	unsigned int socklen = args->args[2];
->  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
-> +	int err;
+- [High] The commit message says more than the patch does.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, and later patches
+  in the series fix it (baseline decision: discard).
+
+--
+
+vxlan: vnifilter: validate the VXLAN_VNIFILTER_ENTRY nest
+
+This patch links the VXLAN_VNIFILTER_ENTRY nest in vni_filter_policy to
+vni_filter_entry_policy with NLA_POLICY_NESTED(). The entry attributes are
+then checked by nlmsg_parse() in vxlan_vnifilter_process() before any entry
+is dispatched. The goal is to reject a message that carries an invalid
+entry as a whole.
+
+Link: https://lore.kernel.org/netdev/20260921150904.65a704eb@kernel.org/
+
+> Link the nest to vni_filter_entry_policy with NLA_POLICY_NESTED() so the
+> whole message is validated up front, before any entry is acted on. A
+> message carrying an invalid entry is now rejected as a unit and installs
+> nothing.
+
+[Severity: High]
+Is this claim accurate? NLA_POLICY_NESTED() moves only the attribute
+policy checks (type, length, unknown attributes) ahead of dispatch. Two
+other checks that make an entry invalid still run one entry at a time in
+vxlan_process_vni_filter():
+
+drivers/net/vxlan/vxlan_vnifilter.c:vxlan_process_vni_filter() {
+    ...
+	if (!vni_start && !vni_end) {
+		NL_SET_ERR_MSG_ATTR(extack, nlvnifilter,
+				    "vni start nor end found in vni entry");
+		return -EINVAL;
+	}
+    ...
+	if (vxlan_addr_multicast(&group) && !vxlan->default_dst.remote_ifindex) {
+		NL_SET_ERR_MSG(extack,
+			       "Local interface required for multicast remote group");
+
+		return -EINVAL;
+	}
+    ...
+}
+
+An empty VXLAN_VNIFILTER_ENTRY nest gets through the new policy, because
+validate_nla() returns before it applies the nested policy:
+
+lib/nlattr.c:validate_nla() {
+    ...
+	case NLA_NESTED:
+		/* a nested attributes is allowed to be empty; if its not,
+		 * it must have a size of at least NLA_HDRLEN.
+		 */
+		if (attrlen == 0)
+			break;
+    ...
+}
+
+An entry with only START=0, or with only GROUP, also gets through.
+
+vxlan_vnifilter_process() applies entries in order, stops at the first
+error and does not roll anything back:
+
+	nlmsg_for_each_attr_type(attr, VXLAN_VNIFILTER_ENTRY, nlh,
+				 sizeof(*tmsg), rem) {
+		err = vxlan_process_vni_filter(vxlan, attr, nlh->nlmsg_type,
+					       extack);
+		vnis++;
+		if (err)
+			break;
+	}
+
+Take an RTM_NEWTUNNEL to a vnifilter device with entry1 {START=100} and
+entry2 {}. Entry2 could also be {START=0}, or {START=200, GROUP=239.1.1.1}
+on a device with no remote_ifindex. That message passes nlmsg_parse().
+Then:
+
+vxlan_vnifilter_process()
+  vxlan_process_vni_filter(entry1)
+    vxlan_vni_add_del()
+      vxlan_vni_add()
+        inserts VNI 100, vxlan_vnifilter_notify(..., RTM_NEWTUNNEL)
+  vxlan_process_vni_filter(entry2)
+    returns -EINVAL
+
+RTM_DELTUNNEL works the same way: earlier deletes are applied and notified.
+
+Isn't this the same "first entry valid, second invalid" case the commit
+message says is now fixed?
+
+Later in the series, the vxlan_vnifilter_check_msg() pre-pass from "vxlan:
+vnifilter: bound the number of VNIs one request may touch" counts an empty
+entry as one VNI. It does neither of these checks, so the case can still
+happen at the end of the series.
+
+Should the commit message say that only policy-level invalid entries are
+now all-or-nothing? The alternative is to run the START/END presence check
+and the multicast/remote_ifindex check over every entry before any entry is
+applied.
+
+> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+> index dd94085e08865..d391ec5796610 100644
+> --- a/drivers/net/vxlan/vxlan_vnifilter.c
+> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
+> @@ -467,7 +467,7 @@ static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX
+>  };
 >  
->          if (augmented_args == NULL)
->                  return 1; /* Failure: don't filter */
-> @@ -217,9 +218,11 @@ int sys_enter_connect(struct syscall_enter_args *args)
->  	_Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr)), "sizeof(augmented_args->arg.saddr) needs to be a power of two");
->  	socklen &= sizeof(augmented_args->arg.saddr) - 1;
->  
-> -	bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
-> +	err = bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
-> +	if (err)
-> +		socklen = 0;
->  	augmented_args->arg.size = socklen;
-> -	augmented_args->arg.err = 0;
-> +	augmented_args->arg.err = err;
->  
->  	return augmented__output(args, augmented_args, len + socklen);
->  }
-> @@ -231,13 +234,18 @@ int sys_enter_sendto(struct syscall_enter_args *args)
->  	const void *sockaddr_arg = (const void *)args->args[4];
->  	unsigned int socklen = args->args[5];
->  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
-> +	int err;
->  
->          if (augmented_args == NULL)
->                  return 1; /* Failure: don't filter */
->  
->  	socklen &= sizeof(augmented_args->arg.saddr) - 1;
->  
-> -	bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
-> +	err = bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
-> +	if (err)
-> +		socklen = 0;
-> +	augmented_args->arg.size = socklen;
-> +	augmented_args->arg.err = err;
->  
->  	return augmented__output(args, augmented_args, len + socklen);
->  }
-> @@ -372,6 +380,9 @@ int sys_enter_perf_event_open(struct syscall_enter_args *args)
->  	if (bpf_probe_read_user(&augmented_args->arg.value, size, attr) < 0)
->  		goto failure;
->  
-> +	augmented_args->arg.size = size;
-> +	augmented_args->arg.err = 0;
-> +
->  	return augmented__output(args, augmented_args, len + size);
->  failure:
->  	return 1; /* Failure: don't filter */
-> @@ -384,6 +395,7 @@ int sys_enter_clock_nanosleep(struct syscall_enter_args *args)
->  	const void *rqtp_arg = (const void *)args->args[2];
->  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
->  	__u32 size = sizeof(struct timespec64);
-> +	int err;
->  
->          if (augmented_args == NULL)
->  		goto failure;
-> @@ -391,7 +403,11 @@ int sys_enter_clock_nanosleep(struct syscall_enter_args *args)
->  	if (size > sizeof(augmented_args->arg.value))
->                  goto failure;
->  
-> -	bpf_probe_read_user(&augmented_args->arg.value, size, rqtp_arg);
-> +	err = bpf_probe_read_user(&augmented_args->arg.value, size, rqtp_arg);
-> +	if (err)
-> +		size = 0;
-> +	augmented_args->arg.size = size;
-> +	augmented_args->arg.err = err;
->  
->  	return augmented__output(args, augmented_args, len + size);
->  failure:
-> @@ -405,6 +421,7 @@ int sys_enter_nanosleep(struct syscall_enter_args *args)
->  	const void *req_arg = (const void *)args->args[0];
->  	unsigned int len = sizeof(augmented_args->args);
->  	__u32 size = sizeof(struct timespec64);
-> +	int err;
->  
->          if (augmented_args == NULL)
->  		goto failure;
-> @@ -412,7 +429,11 @@ int sys_enter_nanosleep(struct syscall_enter_args *args)
->  	if (size > sizeof(augmented_args->arg.value))
->                  goto failure;
->  
-> -	bpf_probe_read_user(&augmented_args->arg.value, size, req_arg);
-> +	err = bpf_probe_read_user(&augmented_args->arg.value, size, req_arg);
-> +	if (err)
-> +		size = 0;
-> +	augmented_args->arg.size = size;
-> +	augmented_args->arg.err = err;
->  
->  	return augmented__output(args, augmented_args, len + size);
->  failure:
-> @@ -445,6 +466,7 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  			      struct beauty_payload_enter *payload, u64 offset)
->  {
->  	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
-> +	int read_err = 0;
->  	struct augmented_arg *payload_offset;
->  	s64 aug_size, size;
->  	bool augmented;
-> @@ -467,8 +489,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  	if (size == 1) { /* string */
->  		aug_size = bpf_probe_read_user_str(payload_offset->value, value_size, arg);
->  		/* minimum of 0 to pass the verifier */
-> -		if (aug_size < 0)
-> +		if (aug_size < 0) {
-> +			read_err = aug_size;
->  			aug_size = 0;
-> +		}
->  
->  		augmented = true;
->  	} else if (size > 0 && size <= value_size) { /* struct */
-> @@ -498,6 +522,7 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
->  			return -1;
->  
->  		payload_offset->size = aug_size;
-> +		payload_offset->err = read_err;
->  		return written;
->  	}
->  
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
+>  static const struct nla_policy vni_filter_policy[VXLAN_VNIFILTER_MAX + 1] = {
+> -	[VXLAN_VNIFILTER_ENTRY] = { .type = NLA_NESTED },
+> +	[VXLAN_VNIFILTER_ENTRY] = NLA_POLICY_NESTED(vni_filter_entry_policy),
+>  };
+
+[Severity: High]
+This isn't a bug introduced by this patch, but at this commit the entry
+policy that is now linked still has no range check on START and END:
+
+	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
+	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
+
+vxlan_process_vni_filter() hands any values other than both-zero to
+vxlan_vni_add_del(). That function loops with a signed counter:
+
+	int v, err = 0;
+	...
+	for (v = start_vni; v <= end_vni; v++) {
+
+With START=0xffffffff and no END, v starts at -1. Compared with the __u32
+end_vni it becomes 0xffffffff, and v++ then climbs up from 0.
+
+Can this loop run for a very long time under RTNL? Each iteration allocates
+a vxlan_vni_node with per-CPU stats and sends a notification. The loop only
+stops on an error.
+
+VNIs >= VXLAN_N_VID are also accepted and stored, so they alias on the
+wire.
+
+Later patches in this series fix this. "vxlan: vnifilter: reject VNIs
+outside the 24-bit space" adds NLA_POLICY_FULL_RANGE(NLA_U32,
+&vni_filter_vni_range) to START and END, and makes the loop counter u32.
+"vxlan: vnifilter: bound the number of VNIs one request may touch" caps the
+total span at VXLAN_VNI_FILTER_MSG_MAX before dispatch.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927215209.2581830-1-alishmery18%40gmail.com
