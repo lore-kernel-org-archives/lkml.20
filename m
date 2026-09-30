@@ -1,230 +1,94 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38A44E4C38
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3462250AC2B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777547; cv=none; b=oNeKqjxgwkU2bojZPuzxfCbU4+7Zxy+pXl7JitDL7+wHSVu+8yIw4M4B92mSG/s4YJmUuoNL7oW4QoxhpyfX0MnIJN4NRAXKyXzyfC7mVgT/eVhT8bJPTGgKOY8Nuuy3HxgWf8q+Hsl5INArraZCu0PqI5XfX6EDbPGbxStLbLA=
+	t=1790777575; cv=none; b=Ohs2l9ukDvj3DlnisgvjvM9NK5fn7QLJEo94DvybDLcFt7C5BICI0OrZ/QVeH8KtIH0uM4SHxqFNIYRN3LXl6gkiZvJ/Z5zYly10bdkHivyGZkBApT0GfjsRI/lr4SJOQa/d6W1yooglCXxrqq+NpjT2L3LU+VpJUxe5HakkbBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777547; c=relaxed/simple;
-	bh=UI2XZTTAmMT6S6fO82VLI+DGctHWm6fuFI5NTz0VPh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F3i9Aly2ut6OtvnoDTdX4RXPyNbxjWHUdp9DocqkKa5/u67F9589rutwzorcSS1fGkXVhlRF7NJBh+wyOujRT8VDkDdDj2q+FO3YKu3tWM2cDSrJ/iykbzblAGNAach5VnYfLkqKSbSPpO8n7UBHznsvOwICzKDBWj+75qwcLYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnoVKPoC; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790777575; c=relaxed/simple;
+	bh=6+XFhO3Qp73z2z2yEqj749ONIdCc8STL6SPnIAdhy28=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DSnihQ2fcJylCf82pjJUqb/n7bRXKQSJjicOiwbkV6kiP4O7vpc516VrSwqIyG4pl6mm5bHgmeSM7Sm9+jiqyTAfuK50dcQGm9aH3GTXhfRPIjI7Uuvn6SJxtZr8xvEm315XJhTwopdBaFCBuf5D1XIeykQ+Pec52pYf0ewhr4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YBEqbiPq; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnoVKPoC"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso30739585ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:12:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790777526; x=1791382326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3QS3HEpc4LkcdODNfPIRR2bjRGT+/U73u7f7QjEG+PU=;
-        b=OnoVKPoCLO97EXXagOYMRCy1bXkxniGeH5LOXz0pFNK2txiVq/85FPuL9ifEuoQyyW
-         KUY1xqY2raq46bXWIfsNDYShjQ1AkQPhHt70bimt2F6un4pxL8ayjTm8b1jFqC2WZdg0
-         S/jiXbHuxS+51/MhyLzOnM+g5b8fb8PWW+VMRo4C/64fkS7IaCom54JU1xpuk8BYc8QP
-         xIEJYckeVLncx4NjjLsKku0Wwx2IrXTv6BSelTbRLOmpTdQXDb9ZzJW+ErPu2b7hVBLV
-         /yXyEDcOfb9+ua4Qhq/CcthcZKZcuLwuSfDMGma/D5zuJfQ7OHdJ612PvtQN9yTjczZM
-         v6zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777526; x=1791382326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3QS3HEpc4LkcdODNfPIRR2bjRGT+/U73u7f7QjEG+PU=;
-        b=KJ6bz3Wg45SrrisUH+Edfii2uwC+PWmRkeRfB2q4LnNvaBhlmmAIWTFXNZD4c8GKaO
-         lf31tSUYECBzZ/wOBGVhdpQC0NGwUS1wZbaruufVN+gsWFapRlw+IqoYziYoAdVdda3p
-         gEWXcFMtyxeU8HMgCa5NmUriL3S4Uo5cJZHk6z0shmFJIJiG9smSBtKIYttTsYr5/UVa
-         h4hcnYZcX+EalHPryJYsPoFPR0xllRjnXqdwYQFyWKbB7t9VG8pG6rLe49PVtF6EtN6R
-         +qe94CkSpS7957IQz2MHitB4ZrECaAM8o4oTfH18k4tXUIjsMLrFKkuxOAba1OziZxqC
-         MdIg==
-X-Forwarded-Encrypted: i=1; AKwUvByatittLstomre0JgZblpyJL72fUP7lWwRaBNoiGeQ22xYkprRKB5Ts3ZivSmHM6hR04VsSkWYtYLclhaw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKULEQEWUEWzOvb4cqg/0SQMQD3sHD9X0yt3FXaZDfpPOk04lk7
-	Z/CEbGmbvKBbnfzRsF5k0we6nzceARaZQly8W/MoDo37ssgbndbG56NSNHPawQ==
-X-Gm-Gg: AYBFou2nQyrRuBa4S5q3lbfWvmS5gre9/BQB1ebIKvZJICgrXTvHDX2L6Fc4wcfcUvi
-	IyQRvAIwE7hTBr6VdRY7VnZsQhP+VlgFe4tmXZNDKmJyyE7GOvAm+4uLt7Rizy2RLmu5TdECZb0
-	3L6lhACFjULCIZX2qeoDW9W5DJBlfqMHQVU6GeC+HETAP0RGgeTMNB9pBCVNswUmYAbVtriVUnQ
-	ZwHaEUwcFYHXghHb0y+4J1fDm/pQKbUSDLAoIXPJkcdeB8HsPzqb4Fa+amDCOnmYAaBKPKGcOEF
-	jdGHEVldawDBptkzrszLgOJpJdfXI3fPdrJnWuvlW4h/7tXoafFwkhhsrtvOjFklN2JVWDToAwr
-	zIIs9KPt8gUDO/nEl+qVpcNq9PFz7sbrtJCRkeJYOiF1ogSFM1SQkj9TLGPRa7vI5IXlrmFvTx6
-	ebLsrW/xkJsrknpThybKtKK0ExaHZFr5/qfGiJYEooxysgVgq1O8f1QotrVRoa8oablItUH6MKd
-	DT+lnC5FmHvUAmGoxjQwFvR
-X-Received: by 2002:a17:903:4b0d:b0:2dd:87c7:a907 with SMTP id d9443c01a7336-2e2e4a01156mr12465945ad.15.1790777526423;
-        Wed, 30 Sep 2026 07:12:06 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76c0:d30::4d0:61])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5b897d8sm8307475ad.28.2026.09.30.07.12.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:12:05 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] net: dsa: motorcomm: Fix register rollback in LED setup
-Date: Wed, 30 Sep 2026 22:11:48 +0800
-Message-ID: <20260930141151.3973221-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YBEqbiPq"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 07193497;
+	Wed, 30 Sep 2026 07:12:35 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0076E3F85F;
+	Wed, 30 Sep 2026 07:12:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790777558; bh=6+XFhO3Qp73z2z2yEqj749ONIdCc8STL6SPnIAdhy28=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YBEqbiPqHIV3PjNK4fnmysbqZ0s3o2rjqRTpV+7ZOQrSy43ORf5HmdjAkvYSla0Rc
+	 0P6nS3vDTzjvPw/pjriI4xZfLh26M5cqoKPy3lgyau3O5kGSQMD4dXIVH3fyjDPS/N
+	 N/F+rhcINWuQ8dKR5pUwiv7v3ryTB180DvNl/dQQ=
+Date: Wed, 30 Sep 2026 15:12:34 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Kohei Enju <enju.kohei@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>, thuth@redhat.com
+Subject: Re: [PATCH v2 3/3] virt: arm-cca-guest: Add support for measurement
+ registers
+Message-ID: <ar0Y0vsOpu3WKTMM@e129823.arm.com>
+References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
+ <20260929-arm_cca_mr-v2-3-1d98bba187fd@arm.com>
+ <arx2hnTv3QaFqMn-@FCCLS0092175.localdomain>
+ <aryZnqqBAjKw5xaP@e129823.arm.com>
+ <arygMte5C5lJDdoi@FCCLS0092175.localdomain>
+ <aryuwukTRtmd2Lft@e129823.arm.com>
+ <20260930135408.GP163130@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930135408.GP163130@ziepe.ca>
 
-The LED error path writes back a stale snapshot of the whole words taken
-before the class device registration, silently reverting LED2 state of
-sibling LED groups already registered and reachable from sysfs. Although
-the odds are very small, fix it by reverting this group's fields only
-for correctness.
+> On Wed, Sep 30, 2026 at 07:40:02AM +0100, Yeoreum Yun wrote:
+> > > My remaining concern is that since sysfs_kf_bin_write() truncates
+> > > oversized writes to the binary attribute size before invoking the
+> > > callback, tm_digest_write() sees an exact-sized write and extends the
+> > > MR. The following validation is useless in this case.
+> > > 
+> > >   static ssize_t tm_digest_write(struct file *filp, struct kobject *kobj,
+> > >   			       const struct bin_attribute *attr, char *buffer,
+> > >   			       loff_t off, size_t count)
+> > >   {
+> > >     [...]
+> > >   	/* partial writes are not supported */
+> > >   	if (off != 0 || count != attr->size)
+> > >   		return -EINVAL;
+> > > 
+> > > IMO this is not specific to Arm CCA, but do you have any thoughts on
+> > > this?
+> > 
+> > I think this is ultimately a limitation of sysfs. At this layer,
+> > simply knowing that userspace supplied a larger buffer does not allow us to
+> > determine whether all of the data in that buffer is valid.
+> 
+> sysfs is a bad choice for this interface, it always was, this is one
+> more example why.
+> 
+> We should have learned that from TPM's mistakes, not copied its bad
+> ideas into tsm_mr.
 
-Fixes: 9af9a8168213 ("net: dsa: motorcomm: Add LED support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
-v2:
-  - reword
-v1: https://lore.kernel.org/r/20260926202955.905761-1-mmyangfl@gmail.com
- drivers/net/dsa/motorcomm/leds.c | 69 +++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 27 deletions(-)
+This sounds you plan to make a dedicate fs (whatever via configfs or
+other) for attestation subsystem which you mention in [0].
 
-diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
-index 6613fe3b0471..c97b560299d6 100644
---- a/drivers/net/dsa/motorcomm/leds.c
-+++ b/drivers/net/dsa/motorcomm/leds.c
-@@ -420,13 +420,15 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	char name[LED_MAX_NAME_SIZE];
- 	enum led_default_state state;
- 	struct yt921x_led *led;
-+	int polarity_orig;
- 	bool force_high;
- 	bool force_low;
--	u32 led2_val;
--	u32 inv_val;
-+	u32 led2_orig;
-+	int polarity;
- 	u32 group;
- 	u32 mask;
- 	u32 ctrl;
-+	u32 val;
- 	bool on;
- 	int res;
- 	int ret;
-@@ -452,6 +454,7 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 			port, group);
- 		return -EINVAL;
- 	}
-+	polarity = force_high ? 1 : force_low ? -1 : 0;
- 
- 	led = devm_kzalloc(dev, sizeof(*led), GFP_KERNEL);
- 	if (!led) {
-@@ -470,23 +473,27 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	/* Inversion is internal - force on will give low logic.
- 	 * In the rest of the file, treat LEDs as if active-low.
- 	 */
--	inv_val = U32_MAX;
--	if (force_high || force_low) {
--		res = yt921x_reg_read(priv, YT921X_LED_PAR_INV, &inv_val);
-+	polarity_orig = 0;
-+	if (polarity) {
-+		res = yt921x_reg_read(priv, YT921X_LED_PAR_INV, &val);
- 		if (res)
--			goto revoke_inv;
-+			goto err_inv;
- 
- 		mask = YT921X_LED_PAR_INV_INVnm(group, port);
--		ctrl = force_high ? inv_val | mask : inv_val & ~mask;
--		res = yt921x_reg_write(priv, YT921X_LED_PAR_INV, ctrl);
--		if (res)
--			goto revoke_inv;
-+		ctrl = polarity > 0 ? val | mask : val & ~mask;
-+		if (ctrl != val) {
-+			res = yt921x_reg_write(priv, YT921X_LED_PAR_INV, ctrl);
-+			if (res)
-+				goto err_inv;
-+
-+			polarity_orig = -polarity;
-+		}
- 	}
- 
--	led2_val = U32_MAX;
--	res = yt921x_reg_read(priv, YT921X_LED2_PORTn(port), &led2_val);
-+	led2_orig = U32_MAX;
-+	res = yt921x_reg_read(priv, YT921X_LED2_PORTn(port), &val);
- 	if (res)
--		goto revoke_led2;
-+		goto err_led2;
- 	mask = YT921X_LED2_PORT_FORCEn_M(group);
- 
- 	switch (state) {
-@@ -494,16 +501,20 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	case LEDS_DEFSTATE_ON:
- 	default:
- 		on = state == LEDS_DEFSTATE_ON;
--		ctrl = on ? YT921X_LED2_PORT_FORCEn_ON(group) :
--		       YT921X_LED2_PORT_FORCEn_OFF(group);
--		res = yt921x_reg_write(priv, YT921X_LED2_PORTn(port),
--				       (led2_val & ~mask) | ctrl);
--		if (res)
--			goto revoke_led2;
-+		ctrl = (val & ~mask) |
-+		       (on ? YT921X_LED2_PORT_FORCEn_ON(group) :
-+			YT921X_LED2_PORT_FORCEn_OFF(group));
-+		if (ctrl != val) {
-+			res = yt921x_reg_write(priv, YT921X_LED2_PORTn(port),
-+					       ctrl);
-+			if (res)
-+				goto err_led2;
-+
-+			led2_orig = val & mask;
-+		}
- 		break;
- 	case LEDS_DEFSTATE_KEEP:
--		on = (led2_val & mask) == YT921X_LED2_PORT_FORCEn_ON(group);
--		led2_val = U32_MAX;
-+		on = (val & mask) == YT921X_LED2_PORT_FORCEn_ON(group);
- 		break;
- 	}
- 
-@@ -539,22 +550,26 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 
- revoke:
- 	mutex_lock(&priv->reg_lock);
--revoke_led2:
--	if (led2_val != U32_MAX) {
--		ret = yt921x_reg_write(priv, YT921X_LED2_PORTn(port), led2_val);
-+	if (led2_orig != U32_MAX) {
-+		ret = yt921x_reg_update_bits(priv, YT921X_LED2_PORTn(port),
-+					     YT921X_LED2_PORT_FORCEn_M(group),
-+					     led2_orig);
- 		if (ret)
- 			dev_err(dev,
- 				"Failed to restore %s for LED %02d:%02u: %d\n",
- 				"LED2_PORT", port, group, ret);
- 	}
--revoke_inv:
--	if (inv_val != U32_MAX) {
--		ret = yt921x_reg_write(priv, YT921X_LED_PAR_INV, inv_val);
-+err_led2:
-+	if (polarity_orig) {
-+		ret = yt921x_reg_toggle_bits(priv, YT921X_LED_PAR_INV,
-+					     YT921X_LED_PAR_INV_INVnm(group, port),
-+					     polarity_orig > 0);
- 		if (ret)
- 			dev_err(dev,
- 				"Failed to restore %s for LED %02d:%02u: %d\n",
- 				"LED_PAR_INV", port, group, ret);
- 	}
-+err_inv:
- 	mutex_unlock(&priv->reg_lock);
- 
- 	pp->leds[group] = NULL;
+Link: [0] https://lore.kernel.org/all/arwNEWUEEk7jdGir@e129823.arm.com/
+
 -- 
-2.53.0
-
+Sincerely,
+Yeoreum Yun
