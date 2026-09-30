@@ -1,155 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA89243DEC6;
-	Wed, 30 Sep 2026 20:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5703DBD51;
+	Wed, 30 Sep 2026 20:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800194; cv=none; b=elh7zwe7hGWmtslYMb3zWobo9TMw5tKQsZYPEgAy+Lx+T7299PLee3f4BTQwQXEo9hQ8JnFgqm8jpQo6We7qGJsek2saVx17WhpTBeu1uWO5FGYNS1paWZvV0dXtehEgNgW3rHrFaoWa2XWvcu9O8SK9WMmGw24/qoVJnXytiXg=
+	t=1790800207; cv=none; b=YdvlpNh8VvLVuws8V+KkfHP0zWnxNhLjnfk7NiIqmD1mSLOYy7Q+X816BzQeYPi2jW7KEVvhRCFl2rhDc9tns1qfb0G37aZZvN25VnvbADG2g/RgECjYQTwpWvhzXkC3rfbPm6ngHOly0KgZeyEC5pjuiLCrHR/ZKd2dfjD2eOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800194; c=relaxed/simple;
-	bh=uPBF1hmp/Ue8yZ5aYqXTRoF7PP/XUuUMweXvF26pCaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WwjOUjosf2eSmpfaAiVASNMVQ5AZzYhkPJeJ/6CF/LnKdyRRPGmPkYMNx1u6g0ahqs8s/yCmn9/SFcQC2xvbdrmdu3vPUPxuisGtZ4cqFZgmsZ9osWMh7YyBA6o5VFqoq7dG5AZLaaBZQ0N/GsDCWuIH3LK5/iD95XFV0OozbMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9+MQEfw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790800207; c=relaxed/simple;
+	bh=zFkgzi76UmRghJagEHWmBZmMd4BueR/JD/1dPzHd2dQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bkumu60Q6ku+whY8WHTxbVTsegcDPxQoRjY3DkRQjiEruQ4wZSDi8OT04S5jOTYtnx7wdNuY9IUMIr0ongozf3Aw65jmpMgqrSr5Qti7Z2hkLUqLZboXqVfyTCwDLrAicmvKX2VN5zutk1+h1cyVhGRZQ6BHExS8xGncGKuwhfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzZGg7XN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9+MQEfw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6510D1F000FF;
-	Wed, 30 Sep 2026 20:29:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790800192;
-	bh=yKBzz9tmZQs0Ck6WsNT132vWcHu1mfiel1HuC7LpbEI=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=L9+MQEfwIKYUD7rKdGSFP03IBXKIGMO3c85yVys0G+UUz+VFF56nam0ENwfFfx92n
-	 E0VgwTPC6YreHLVYRa3/rMy6q2drSh2hpadr5dnyQoz7l0RSGqg4LMHu7HZ++vB8pY
-	 mxzzEHxTDb+bqO87I/rjDddbxQnVIJnKJuWN4B8xzjJX13vjcolKKSV+FOQ4Gzb+qa
-	 NOPU0n4iK6THPQYpO0fxe0muX5MPw5X5IEDYZZkzt+XWGWEI/S91reXkJKAv1PDTBm
-	 u+GSchWAAaQnhvT+cVOhBkLZk7aHzhLVi+tuVL3gy/AobiTpImT9tBmE6kxd5RFWFy
-	 Q6lrzI8YJ2nJg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id E64E0CE097C; Wed, 30 Sep 2026 13:29:51 -0700 (PDT)
-Date: Wed, 30 Sep 2026 13:29:51 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: syzbot <syzbot@kernel.org>
-Cc: syzkaller-bugs@googlegroups.com, Bradley Morgan <brads@mainlining.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Josh Triplett <josh@joshtriplett.org>, rcu@vger.kernel.org,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Zqiang <qiang.zhang@linux.dev>, linux-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, rostedt@goodmis.org,
-	syzbot@lists.linux.dev, Sunho Park <shpark061104@gmail.com>
-Subject: Re: [PATCH] srcu: Drop spurious WARN_ON() in cleanup_srcu_struct()
-Message-ID: <e95cac05-59f0-473a-bc42-1fc69c10976e@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <428f095d-02a5-433a-ae71-632f682e05af@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzZGg7XN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 20A5CC2BCB9;
+	Wed, 30 Sep 2026 20:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790800207;
+	bh=zFkgzi76UmRghJagEHWmBZmMd4BueR/JD/1dPzHd2dQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=fzZGg7XNxgasjew04vWa3fXwPxj+vO6hAJXee/pL9XrQ361WworcGoxhZ1sXoqbr1
+	 Vr3CqVhLItlx1bKBErnnWSP2S3d9nBMyZ+o2zcGIXvD9n/i6/gqnzBSx8ydwYW1grW
+	 RVupZPGHCZvzYtRuooNNc6CwhyBfm+hmSOJ/6n/gHu4PNsD2CCOk9VVdTK7DS7kPpA
+	 JiciNS3qWEi2rouzc0voRAkpNcG7TzQ4smrw6xOYTo9uElOIKHDD55yQskZXVAN+/F
+	 usLp9W3ioW4BM2Qkn4mLoHrT5hnAg7T3EyrfIqMqL5GfK97xx84pa9ji4UIhou8ri0
+	 BHto2MhS7X7LQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF661CA5FC4;
+	Wed, 30 Sep 2026 20:30:06 +0000 (UTC)
+From: Josh Lafleur via B4 Relay <devnull+josh.lafleur.outlook.com@kernel.org>
+Date: Wed, 30 Sep 2026 13:29:45 -0700
+Subject: [PATCH] hte: Dont queue work on line being released
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <428f095d-02a5-433a-ae71-632f682e05af@mail.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-hte-crash-v1-1-baf61530800a@outlook.com>
+X-B4-Tracking: v=1; b=H4sIADhxvWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCwMj3YySVN3kosTiDF1Ls+TkxLTkZMsUIwsloPqCotS0zAqwWdGxtbU
+ AG7bhwVsAAAA=
+To: Dipen Patel <dipenp@nvidia.com>, Thierry Reding <treding@nvidia.com>
+Cc: timestamp@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ "Jafet Garcia (RidgeRun)" <ridgerun-linux@flyzipline.com>, 
+ "Josh Lafleur (Zipline)" <josh.lafleur@outlook.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790800206; l=2557;
+ i=josh.lafleur@outlook.com; s=20260930; h=from:subject:message-id;
+ bh=bRDDy0i27/YJcTeNUr0wPapEBzqq1hItrkyQnzulKxE=;
+ b=1chzITqd6fPgQ6upaSLk8wzlb8T+eeamrb8joI1988vSkHY1pXIgsYNZmi0Dnt3JBkSK/qpCg
+ e/BXH9mvvn9AehWIYjsiGj9R/jb6rFFQjCk6HkBVUOLHGZA79aPNIR0
+X-Developer-Key: i=josh.lafleur@outlook.com; a=ed25519;
+ pk=slf3cskRg11vRnFROP6D9bMBKyvvRNsP2Msvm4/qpmM=
+X-Endpoint-Received: by B4 Relay for josh.lafleur@outlook.com/20260930 with
+ auth_id=1090
+X-Original-From: "Josh Lafleur (Zipline)" <josh.lafleur@outlook.com>
+Reply-To: josh.lafleur@outlook.com
 
-Adding Sunho Park on CC for his fix:
+From: "Josh Lafleur (Zipline)" <josh.lafleur@outlook.com>
 
-b7e310c3e43e ("srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in cleanup_srcu_struct()")
+Correct the race condition by adding the HTE_TS_RELEASING flag which
+will serialize the application consumer with the hardware producers
+under the slock. If the consumer is releasing the line, the producer
+shall not queue anymore work as they do not expect to see any more
+edges.
 
-On Wed, Sep 30, 2026 at 06:45:09PM +0000, syzbot wrote:
-> From: Bradley Morgan <brads@mainlining.org>
-> 
-> In cleanup_srcu_struct(), commit 78a38cbf6f20 ("srcu: Queue sdp->work when
-> the delay timer is successfully deleted") added logic to queue sdp->work if
-> timer_delete_sync(&sdp->delay_work) successfully canceled a pending timer
-> while callbacks remained pending on sdp->srcu_cblist. However, it wrapped
-> this check in a WARN_ON() under the assumption that callers invoking
-> srcu_barrier() prior to cleanup_srcu_struct() would prevent the warning
-> from triggering.
-> 
-> This warning can be spuriously triggered during valid teardown paths where
-> srcu_barrier() is properly invoked before cleanup_srcu_struct(), such as
-> when releasing blk-mq tag sets:
-> 
-> WARNING: kernel/rcu/srcutree.c:707 at cleanup_srcu_struct+0x3d6/0x8b0
-> kernel/rcu/srcutree.c:706
-> Call Trace:
->  <TASK>
->  blk_mq_free_tag_set+0x617/0x790 block/blk-mq.c:4976
->  scsi_mq_free_tags+0x16/0x30 drivers/scsi/scsi_lib.c:2167
->  scsi_remove_host+0x243/0x730 drivers/scsi/hosts.c:193
->  uas_disconnect+0x135/0x3e0 drivers/usb/storage/uas.c:1236
->  usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
->  device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
->  bus_remove_device+0x444/0x560 drivers/base/bus.c:664
->  device_del+0x524/0x8f0 drivers/base/core.c:3965
->  usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
->  hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
->  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
->  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
->  kthread+0x38b/0x480 kernel/kthread.c:436
->  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
->  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->  </TASK>
-> 
-> This false positive occurs due to a race between callback invocation and
-> the teardown thread. First, sdp->delay_work can legitimately remain armed:
-> when an SRCU grace period completes, srcu_gp_end() arms sdp->delay_work
-> with a delay, and if callbacks are later scheduled with zero delay via
-> srcu_schedule_cbs_sdp(sdp, 0), queue_work_on() queues sdp->work directly
-> without deleting sdp->delay_work. Second, in srcu_invoke_callbacks(),
-> callbacks (including the one queued by srcu_barrier()) are extracted into a
-> local list and executed, but sdp->srcu_cblist length is only decremented
-> via rcu_segcblist_add_len(&sdp->srcu_cblist, -len) after all callbacks
-> finish executing. When srcu_barrier_cb() executes, it wakes the waiting
-> srcu_barrier() thread, which proceeds immediately to cleanup_srcu_struct().
-> At that point, the worker thread is still executing callbacks and has not
-> yet decremented the callback count, so timer_delete_sync(&sdp->delay_work)
-> returns 1 and rcu_segcblist_n_cbs(&sdp->srcu_cblist) is non-zero, firing
-> the WARN_ON(). Immediately thereafter, flush_work(&sdp->work) waits for the
-> worker to finish, and the subsequent check on rcu_segcblist_n_cbs()
-> correctly sees no remaining callbacks.
-> 
-> Because WARN_ON() must not be used for conditions that can legitimately
-> happen, and pr_err() should be used instead if an actual error needs to be
-> reported (which is not applicable here as this is normal recovery
-> behavior), remove the WARN_ON() check and its accompanying comment. Keep
-> the queue_work_on() recovery logic so that flush_work() properly waits for
-> remaining callbacks to complete. Genuine callback leaks remain caught by
-> the subsequent authoritative
-> WARN_ON(rcu_segcblist_n_cbs(&sdp->srcu_cblist)) check performed after work
-> has been flushed.
-> 
-> Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
-> Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+02b37e31e64ea5cb6d29@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=02b37e31e64ea5cb6d29
-> Link: https://syzkaller.appspot.com/ai_job?id=5a402d0b-b407-49a6-b0f3-b06197c1398f
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> 
-> ---
-> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> index ed204b3f4..7f30a5587 100644
-> --- a/kernel/rcu/srcutree.c
-> +++ b/kernel/rcu/srcutree.c
-> @@ -701,10 +701,8 @@ void cleanup_srcu_struct(struct srcu_struct *ssp)
->  	for_each_possible_cpu(cpu) {
->  		struct srcu_data *sdp = per_cpu_ptr(ssp->sda, cpu);
->  
-> -		// Call srcu_barrier() before this cleanup_srcu_struct()
-> -		// to avoid triggering this WARN_ON().
-> -		if (WARN_ON(timer_delete_sync(&sdp->delay_work) &&
-> -			    rcu_segcblist_n_cbs(&sdp->srcu_cblist)) &&
-> +		if (timer_delete_sync(&sdp->delay_work) &&
-> +		    rcu_segcblist_n_cbs(&sdp->srcu_cblist) &&
->  		    rcu_cpu_beenfullyonline(sdp->cpu))
->  			queue_work_on(sdp->cpu, rcu_gp_wq, &sdp->work);
->  		flush_work(&sdp->work);
-> 
-> 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> -- 
-> See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-> The person who has signed off on the patch is responsible for
-> addressing comments.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
+Fixes: 31ab09b "drivers: Add hardware timestamp engine (HTE) subsystem"
+Suggested-by: Jafet Garcia (RidgeRun) <ridgerun-linux@flyzipline.com>
+Signed-off-by: Josh Lafleur (Zipline) <josh.lafleur@outlook.com>
+---
+A race condition exists where call back work can be cleared by a line
+release inbetween the IRQ queueing work and the workqueue handler
+completing execution which have identified to be the root cause of
+crashed kernels.
+
+A repro case was successfully completed wherein an application
+continuously registering and releasing HTE lines can trigger a list_add
+failure on the queue_work() and subsequent Oops in the kworker during
+the hte_do_cb_work.
+
+CPU0                        CPU1                         CPU2
+
+hte_ts_put()
+hte_push_ts_ns()
+  flush_work()
+                                                           queue_work()
+  ei->cb = NULL             hte_do_cb_work()
+  ei->tcb = NULL              racy ei->tcb(ei->cl_data)
+  ei->cl_data = NULL
+---
+ drivers/hte/hte.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hte/hte.c b/drivers/hte/hte.c
+index a423503482132..ae4b2093d58b7 100644
+--- a/drivers/hte/hte.c
++++ b/drivers/hte/hte.c
+@@ -26,6 +26,7 @@ enum {
+ 	HTE_TS_REQ,
+ 	HTE_TS_DISABLE,
+ 	HTE_TS_QUEUE_WK,
++	HTE_TS_RELEASING,
+ };
+ 
+ /**
+@@ -190,6 +191,10 @@ int hte_ts_put(struct hte_ts_desc *desc)
+ 		goto mod_put;
+ 	}
+ 
++	spin_lock_irqsave(&ei->slock, flag);
++	set_bit(HTE_TS_RELEASING, &ei->flags);
++	spin_unlock_irqrestore(&ei->slock, flag);
++
+ 	ret = gdev->chip->ops->release(gdev->chip, desc, ei->xlated_id);
+ 	if (ret) {
+ 		dev_err(gdev->sdev, "id: %d free failed\n",
+@@ -817,7 +822,8 @@ int hte_push_ts_ns(const struct hte_chip *chip, u32 xlated_id,
+ 	data->seq = ei->seq++;
+ 
+ 	if (!test_bit(HTE_TS_REGISTERED, &ei->flags) ||
+-	    test_bit(HTE_TS_DISABLE, &ei->flags)) {
++	    test_bit(HTE_TS_DISABLE, &ei->flags) ||
++	    test_bit(HTE_TS_RELEASING, &ei->flags)) {
+ 		dev_dbg(chip->dev, "Unknown timestamp push\n");
+ 		atomic_inc(&ei->dropped_ts);
+ 		st = -EINVAL;
+
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260802-hte-crash-96ccafcc9d28
+
+Best regards,
+-- 
+Josh Lafleur (Zipline) <josh.lafleur@outlook.com>
+
+
