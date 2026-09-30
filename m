@@ -1,149 +1,109 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50924D1787;
-	Wed, 30 Sep 2026 15:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED4237DE8D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783913; cv=none; b=FCX+nABzNWKSO2+2YQH2ZQikHMzBBQd7YMGvYTjVdjZsAT6QXP4uyUCK1SQJvxRzMptVsAaBc+YWK3AgYdhUK40cTkWcNzz2imYz05O6g+wt0aVjS1HdzK7R5jy1NtZnNtnnA00HRnhL2gJb8ni2rSIUk/2T/q0sJqleCD+NjzM=
+	t=1790783947; cv=none; b=DiAhJKOunLEiuA9HaVWVgVa0uqi5mXyUjzb8l46bQFZpYo9TRa4R67aAZe8fi4ZhBSRnfNE6GAjXmrLIRlCWt6F7+dJ5ymPLQB9WJOLZRdko3NJ98Mc++bBbTLBjC6kCy8Os6U+paJJ7Gny8MMhtKzN76HwsLk9s6J4Da5nZ6oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783913; c=relaxed/simple;
-	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lqTI12H6q0H84KMyhlgT9gmEZn/iqjp61tDA5rFSJatvq8zU0nlK0U8uiX3Q5xqHh6PlSUnk8h6Yg1SDGRU91+5rrANOAeMjKSzexzdFe/2YegbpPcA8IjjdKnpkSeUCO9jwVR434AzJdX/lZ+enO2qW0fa6M9fnzZw9tD7hgak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L2tfF9HC; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790783947; c=relaxed/simple;
+	bh=fvsBMFcu3Leki1paprd4GO9igVhuE1WvRPncPexrkec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sBDCTA9LoT4XjYhrWwqqocUz0xoRGPRZuwhENogE4iq7/SluXszgMc71UyYt2vWH3SyeyOKp6XhnDRG0PdzBDx9iKgnY/JAA8p2myVqYu0fJghUN1OaxwUDqhBABySSV3fs9Lj1kttZwfel2acUlvyvGw6TvlOGN9/nYffdGZ10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Li+chHqJ; arc=none smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L2tfF9HC"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 34D4C34;
-	Wed, 30 Sep 2026 17:56:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790783786;
-	bh=7+uOAdwvRA5Phs71HOWvHd2WnABdLy2EzB8eI2nyFFE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L2tfF9HC3qurjOKRXYDMqOKASmD+Fr11uViI6pruu4IK+X2gjb+Qrc0LPbo2ClC/i
-	 pQ50KvP2bVEDVqeebyd/BBPmVqkW68rD+oEjTdYgMuso89FKaU5zYqVN2gKEIaX8Kh
-	 049B+Gb1N/HvapsKch/NcZ4isnk/qWbGR2u6qN6Y=
-Date: Wed, 30 Sep 2026 17:58:14 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, Paul Cercueil <paul@crapouillou.net>, 
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>, 
-	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Alexey Brodkin <abrodkin@synopsys.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, 
-	Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
-	Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
-	Houlong Wei <houlong.wei@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon <gordon.ge@bst.ai>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>, 
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, 
-	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, 
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev, 
-	linux-media@vger.kernel.org, openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org, 
-	kernel@collabora.com, linux-tegra@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
-	sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 21/42] media: arm: mali-c55: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <ar0xb9md8E76G5VI@zed>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Li+chHqJ"
+Received: by mail-oo2-f41.google.com with SMTP id 46e09a7af769-8177a7fc354so2895468a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:59:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790783942; x=1791388742; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Izn5bAPBe1bZbR1JsJZ2Zid1xDZroTRIy3cYsqCZHmU=;
+        b=Li+chHqJG+dTu0ff4+s8dZ9lcAJyMLq3PuEPJrzNJ0iBLYCRQda9hHJ6El+p2yMiv3
+         ZPxEMa9lbxHSL4Jmvn01QaOLvCL/mJ1lfLzqR+ooZZPHC0YpNWEu/lr5joJTrxQAkM6w
+         KbVLzZiG9detMAnU+2JFctEqSAYVfAdhuVAO+An7xeE7yrUWB/L71sKbPTy+VXccJA/v
+         xZEDauwGtsH0BWsBmLYUnw63hbg9Mym7pJuRd0/6BC9ABqMITmnL7A2QSvzGgkfZUR6Y
+         mXOfdiXjZO884k4/qx+JWxNOMCz/s1HTo3ymQZqMukCQbVrJSG+/rJki2KWm+oPlKnaQ
+         3CAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790783942; x=1791388742;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Izn5bAPBe1bZbR1JsJZ2Zid1xDZroTRIy3cYsqCZHmU=;
+        b=RodmkUFEVjvV7DS7FQR0d14ISfPWfQEYV+pV6LJRCcbz2wGeP4uvSeqtacSn+uJ6dd
+         A0KLYg6HwNFlX6LbInqWpxkIHyBkmfdibNxVgyPZIBEJzoePEgVp4o3vPLyIlwZoYB5U
+         cDNwP37CaN4Bd7YWgN3Ny/Hg++Rg/EXhxeuYSJFEf4TFvDzgC3rE3qEPr1fzHvJF+44j
+         uu9++TClUcgAQsgfLr7TfvzCpDrqRMY7nMJYH2x5zaOnlNMkdEsojUlUbLuybfH1bCVU
+         wLef3MoiCBEcJDpE4cBOXce0nh8MIqJoOVbw+fvnjBy1vIGSfpoi+vSfjB6Ri970tWza
+         9ycA==
+X-Forwarded-Encrypted: i=1; AKwUvByqNz5wEiPjh2c6gZa5eA6WyDUeFxWAhc4DTAGVrZ5Qu9qijJY6o9ZnKzwAK1o1K6dScFKrgSqaXCFKshw=@vger.kernel.org
+X-Gm-Message-State: AFuF++meOJuTkb6vKmrhe14hp0dg2wKqIfT8dfc6SB/O6NN6H2na/ozK
+	7nISRPkuf8d4bmnKNCG/bmnyQ5S9fdM6abCk5W3s9mVyPOPBE3ViWELq
+X-Gm-Gg: AYBFou3exuN3e+osuMbQXCws3nqB5q5L20oVSOL4FIWKgNJR/0xqJ3e3UMqMh+huRh3
+	ZuvN7kRD9lbsFbxsiF3e/ykOx6PHD30VYzfoQvl9t3XpbufKIvlDq+xcVL94LVbTrT/GvZIlOHn
+	hOBNTvEYMsUXkXtlzYadYk87lNSFt4HPT1K2LjNWV0ra7wDnOrXY/+3G8mWGYkcRVTHemBtEmSF
+	fXvwN7LHvyT8V08E45TDo54lvvCFdskE+74GUhD9dWXeuLlrHaXW1d9qFPr4ek8waP53PFxLtnj
+	P/5+8A40ESo+mEewYRte26gInz7gbRumwGjk8/avjl5fKUzbasPIoWz7nXZiDCb6N5YYukN3pes
+	xxWp40qg8L1hNoZ5RP470gdnGE6NLwAJkK+YWFMu5gvT7InRFYt5KEBG2JO6OCX/ZnTC4wu/28D
+	aubugvvVE6rycJtByMAM4V/p8yCQQ42ZRj3oYIvIIBk1yPRQD6Y/wkAMdJCzIXMNzzZ6SFC1yIL
+	WzLvueGwQlrDL+dGUq8xw6SSg7dDY2b7vnk3c3l
+X-Received: by 2002:a4a:e914:0:b0:6b9:8413:89b8 with SMTP id 006d021491bc7-6dcf592ea93mr1794882eaf.57.1790783942229;
+        Wed, 30 Sep 2026 08:59:02 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6dd982ed764sm332033eaf.11.2026.09.30.08.59.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:59:01 -0700 (PDT)
+From: Danishk2445 <danishkhateeb03@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Danish Khateeb <danishkhateeb03@gmail.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Marco Elver <elver@google.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Luo Gengkun <luogengkun2@huawei.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] perf/core: Don't send SIGTRAP after exec removed the event
+Date: Wed, 30 Sep 2026 10:59:00 -0500
+Message-ID: <20260930155900.65984-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930151610.GN88198@noisy.programming.kicks-ass.net>
+References: <20260930144248.59858-1-danishkhateeb03@gmail.com> <20260930151610.GN88198@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-22-mukesh.ojha@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Mukesh
+From: Danish Khateeb <danishkhateeb03@gmail.com>
 
-On Sat, Jul 04, 2026 at 01:08:34AM +0530, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init() instead of
-> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
-> pair, letting the device resource manager handle cleanup automatically.
+On Wed, Sep 30, 2026 at 05:16:10PM +0200, Peter Zijlstra wrote:
+> Is this the same problem as this one?
 >
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>   https://patch.msgid.link/20260920075026.990582-1-luogengkun2@huawei.com
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+No. That one is an exec into a non-dumpable binary, where
+perf_event_exit_task() sets TASK_TOMBSTONE and the WARN fires. This is
+an ordinary exec: ctx->task doesn't change and the SIGTRAP kills the
+new program. With Luo's patch on rc5 that still happens (567 of 2000
+runs), with this one it doesn't, and Luo's WARN goes away too, since
+perf_event_exit_task() sets every event to PERF_EVENT_STATE_EXIT.
 
-I'll collect this single patch for the Mali-C55 PR for v7.4
-
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 12 +++---------
->  1 file changed, 3 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> index 94a389b3f833..afbec11f69f8 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -801,14 +801,12 @@ static int mali_c55_probe(struct platform_device *pdev)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to acquire resets\n");
->
-> -	of_reserved_mem_device_init(dev);
-> +	devm_of_reserved_mem_device_init(dev);
->  	vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
->
->  	ret = __mali_c55_power_on(mali_c55);
-> -	if (ret) {
-> -		dev_err_probe(dev, ret, "failed to power on\n");
-> -		goto err_release_mem;
-> -	}
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to power on\n");
->
->  	ret = mali_c55_check_hwcfg(mali_c55);
->  	if (ret)
-> @@ -847,9 +845,6 @@ static int mali_c55_probe(struct platform_device *pdev)
->  	kfree(mali_c55->context.registers);
->  err_power_off:
->  	__mali_c55_power_off(mali_c55);
-> -err_release_mem:
-> -	of_reserved_mem_device_release(dev);
-> -
->  	return ret;
->  }
->
-> @@ -864,7 +859,6 @@ static void mali_c55_remove(struct platform_device *pdev)
->  	}
->  	pm_runtime_disable(&pdev->dev);
->  	kfree(mali_c55->context.registers);
-> -	of_reserved_mem_device_release(&pdev->dev);
->  }
->
->  static const struct of_device_id mali_c55_of_match[] = {
-> --
-> 2.53.0
->
+Thanks
+Danish
