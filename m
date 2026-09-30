@@ -1,85 +1,136 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75651353A95;
-	Wed, 30 Sep 2026 01:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C277335C1B0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733067; cv=none; b=CH3/vyv0cimHy7Yeku7s4WYjf5DkBS2aC+Gxj7PyLYeXQNqI8q7HZMzrm7P67NTQFnYiYhEGKHw7TmzlGFQP1OjzBFTwf+4UvZZuE0XMQr3Jd1TfacR90yjMZjE2LHlgJgcvWC1u4VP8UaiDT66NHAVHd+JUmqwcQij7V2O2Xfw=
+	t=1790733070; cv=none; b=sEvafFatqV/i4wY8slHFtk5tHlzp3QnzKUNGXO0OqjdMPjWK24eyk89+6jGOpS7BzbMudFeM3xm6wxwgD+GT1gS3YBxIb69ps88iHK4/MSmIAnCKQgBtH7A0Ldz1LnSyZi3Ge7aUPRuLSjwCNVPeCSBwoXvoCHisX2/DH6WXUP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733067; c=relaxed/simple;
-	bh=lYodqqIK2zi+wad+MYVf2ul8TYMyLpMTsKaSFpb9Nfk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cDTlAWmEcBVB+rEvg8qlGZUaEcF7y+Gm2YceUhxqPQh9kZyp4P5eoQ3Q7x9hLUOjKAsBy0AdaDCheZXXnH+PQOHrgbSBBX5FleKRADiDPgQxirizxjniZiMrawr2COkbZv/EmgkSSEeN8HbGoeA36JwIVX119LFKPxWZfwNlK2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TN8hMeQt; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790733070; c=relaxed/simple;
+	bh=CmSE3J2AY3c3WgRbkDwOwbC2g9/ph6TF0R7e86CvP0M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G8PkKcIdbojEG/41u4KJjfaHVgCWHnpuXiBmYFHMQjChsys5lTndHWcSN9U1HJQNHg+vCQ3DSke1X4YjF+iNBOwtfw+cWNPtxImUI23fqxU8WWnLzf8QcGKSi4MRy4tGSoN8AyPMeoCK+BNe9yci15BV9SI2/g5jiduUxAzRODQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Rq1DhbUq; arc=none smtp.client-ip=91.218.175.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TN8hMeQt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dG
-	XYF0/+7RyhBOmcpBWeq65dCMBAS/MpvEl6ZEWgA/k=; b=TN8hMeQtljTBtGzlmg
-	LlqWhGIaSyYoMKRXpbXsFMeFtPASUikKKzjE2HgpbEkmhtbcvievOnt7Q1f8brXj
-	fTeQsnStFVxUUTBMfgzBlyHovZzS0gzmLa8HCvRVzeKQrr+GBBrYSbRp3NW34eIF
-	tis7W/DIp9bbzjkM+ZIeZ0liw=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3tyTharxqWlxqBg--.28987S2;
-	Wed, 30 Sep 2026 09:50:26 +0800 (CST)
-From: Gongwei Li <13875017792@163.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-staging@lists.linux.dev
-Cc: Hans de Goede <hansg@kernel.org>,
-	Dan Carpenter <error27@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Gongwei Li <ligongwei@kylinos.cn>
-Subject: [PATCH] staging: rtl8723bs: fix scan-abort timeout in rtw_scan_abort()
-Date: Wed, 30 Sep 2026 09:50:24 +0800
-Message-Id: <20260930015024.3627275-1-13875017792@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Rq1DhbUq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CmSE3J2AY3c3WgRbkDwOwbC2g9/ph6TF0R7e86CvP0M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790733066; v=1; x=1791337866;
+ b=Rq1DhbUqyaFBm236LDrOhgCZWFfbyVDs2T8QPNLf3LaPQ/9F/IYTLBjg1zdkY8j/PObg4Qva
+ MMfqU4HOHn/hltpHsFUgky/dD5JfHTKHB5TxO6AFJKn5glVhbakdU5nF4KrUm9bShFsuIfbsnAE
+ t/qx+LtuaIAz1P1EdrhHGa1c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 70858a35b66a46a2;
+	Wed, 30 Sep 2026 01:51:06 +0000
+X-Mizu-Trace-ID: 70858a35b66a46a2
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Wed, 30 Sep 2026 09:50:52 +0800
+Subject: [PATCH net-next v3 1/6] net: lwtunnel: change encap fill order
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3tyTharxqWlxqBg--.28987S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KF1rXryrAw1UtryxCrWDCFg_yoW8JFyfpr
-	45Cw18CFWUK3Wj9w40y3Z7JFyrCay3GFyUK3W7tw1Yq34kJFWS9rZ8KFy7JryxAr9aq34Y
-	vFn7A3W5Wa17GFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joGQDUUUUU=
-X-CM-SenderInfo: rprtmlyvqrllizs6il2tof0z/xtbC-gKcV2q8auIflgAA3g
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-ynl_rt_encap-v3-1-4106c21b9ee7@kylinos.cn>
+References: <20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn>
+In-Reply-To: <20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn>
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-From: Gongwei Li <ligongwei@kylinos.cn>
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-rtw_scan_abort() checks jiffies_to_msecs(start) <= 200, but start holds
-an absolute jiffies value, so this converts the time since boot rather
-than the elapsed time. Once the system has been up for more than 200ms
-the condition is always false and the loop never waits for an ongoing
-scan to finish.
+I plan to add lwtunnel encap attributes to the YNL rt-route.yaml spec.
+When decoding submessages, YNL expects to read the "selector" (encap-type)
+first. Currently lwtunnel writes the encap payload first, which makes YNL
+fail to parse the lwtunnel encap message.
 
-Use jiffies_to_msecs(jiffies - start) to get the real elapsed time.
+Fixing this within YNL itself would be complicated. Instead, reorder the
+netlink attributes in the kernel to output encap_type first.
 
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gongwei Li <ligongwei@kylinos.cn>
+This is a preparatory change for the upcoming rt-route spec updates.
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/core/lwtunnel.c | 35 ++++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index d18768a51b19..d4beff59f272 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -931,7 +931,7 @@ void rtw_scan_abort(struct adapter *adapter)
- 	start = jiffies;
- 	pmlmeext->scan_abort = true;
- 	while (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY)
--	       && jiffies_to_msecs(start) <= 200) {
-+	       && jiffies_to_msecs(jiffies - start) <= 200) {
- 		if (adapter->driver_stopped || adapter->bSurpriseRemoved)
- 			break;
+diff --git a/net/core/lwtunnel.c b/net/core/lwtunnel.c
+index b01a395d9a96..8223c44f10c8 100644
+--- a/net/core/lwtunnel.c
++++ b/net/core/lwtunnel.c
+@@ -231,7 +231,7 @@ int lwtunnel_fill_encap(struct sk_buff *skb, struct lwtunnel_state *lwtstate,
+ {
+ 	const struct lwtunnel_encap_ops *ops;
+ 	struct nlattr *nest;
+-	int ret;
++	int ret = 0;
  
+ 	if (!lwtstate)
+ 		return 0;
+@@ -240,30 +240,31 @@ int lwtunnel_fill_encap(struct sk_buff *skb, struct lwtunnel_state *lwtstate,
+ 	    lwtstate->type > LWTUNNEL_ENCAP_MAX)
+ 		return 0;
+ 
+-	nest = nla_nest_start_noflag(skb, encap_attr);
+-	if (!nest)
+-		return -EMSGSIZE;
+-
+-	ret = -EOPNOTSUPP;
+ 	rcu_read_lock();
++
+ 	ops = rcu_dereference(lwtun_encaps[lwtstate->type]);
+-	if (likely(ops && ops->fill_encap))
+-		ret = ops->fill_encap(skb, lwtstate);
+-	rcu_read_unlock();
++	if (unlikely(!ops || !ops->fill_encap))
++		goto unlock_out;
+ 
+-	if (ret)
+-		goto nla_put_failure;
+-	nla_nest_end(skb, nest);
+ 	ret = nla_put_u16(skb, encap_type_attr, lwtstate->type);
+ 	if (ret)
+-		goto nla_put_failure;
++		goto unlock_out;
+ 
+-	return 0;
++	nest = nla_nest_start_noflag(skb, encap_attr);
++	if (!nest) {
++		ret = -EMSGSIZE;
++		goto unlock_out;
++	}
+ 
+-nla_put_failure:
+-	nla_nest_cancel(skb, nest);
++	ret = ops->fill_encap(skb, lwtstate);
++	if (ret)
++		nla_nest_cancel(skb, nest);
++	else
++		nla_nest_end(skb, nest);
+ 
+-	return (ret == -EOPNOTSUPP ? 0 : ret);
++unlock_out:
++	rcu_read_unlock();
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(lwtunnel_fill_encap);
+ 
+
 -- 
-2.25.1
+2.55.0
 
