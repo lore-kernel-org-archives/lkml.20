@@ -1,158 +1,110 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1B01E1A3D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA76E1E1A3D;
+	Wed, 30 Sep 2026 01:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730454; cv=none; b=FC58RgZko1u7y1xy+h5rVvrSRweHMH1Jf0DLzuRtVqV3VamW7fh8EdmFnoWsT2J0cnCXtmLHBRLYVHwaW8v42fqDLtpTEXbVlJNhWDRNnxk4tjNOMr6u7/TcJRmLG6d9FPNuJ5VtbrLE6HkbACP32Vnb/825jm4HU9GJiuBJpJ0=
+	t=1790730493; cv=none; b=C/dDOaLiJPH+KNv0nZVVlIs4ejmhtCZmXi60mJGcPeWc0+x0eGMQR7fsHxzKwUJPL3zAe1ijn7rwjFFsNptMTNeXfvwvXXZniHzAiVkEdKvB3oYAwB9drBehpIYLR1mvHVwUpmsClWh6A7StBXuVXBieX4NcS6AJjBc2b0Rx7nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730454; c=relaxed/simple;
-	bh=dsrb2nnlzQKp7GUWZetEFF/tjXJmHfUQW8Pen/ISFcw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C4sXTpsr9qBppIXl0Naf5y04ZhU/0nAW3pI9fNxAfGw+8SprINnj5EVnqsmnf8Fl9MCCrW93Lp7q6ONfJsWMn556bJgfNBhG/pWGLPqK7aM3jRZC0aONT+JDphUU3Y5IsNCotWMLluxJZv93W9s2XhYSCv8Hv0Qkz8XEChpzc3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Zb5mAF6I; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Zb5mAF6I"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so4227338c88.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:07:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730452; x=1791335252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
-        b=Zb5mAF6IQZrXlI5N/aWj19PzFMOmZ+q+TVjjjFHCrraTcOOuIWzOToIzAH9N7pZFMT
-         roRmPxKo952Z8BH0eirYauEix1xC2dl2GWilTmD4qeL+TzANxi2CTNZ3p/ay/j0WymWO
-         BqNB7+HXRZ+Quf4XiugkoRlH15/CfKOVbens9YSxkrYCpH/aWXPKnG8Zeh3mNlFSI57H
-         ekJVVF8R2v3/2cIHbFIYT4k6nbqfS1pDlUUwSR9kZHwrqp5WCl7WnKiclwBlvJEjGPUU
-         BhBLH6ecBlkg4+arDafvDNnwNwlaTa92wyM7Y20Fj39ldCFQ/VBvIlCEiDJSBvM/airB
-         GvrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730452; x=1791335252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
-        b=GWldRm0yX2ubyFebUtzqZhqhi8w6457myLI51VFh0Z4LLfvzzDGn0KAZ8+3K4Pxxas
-         LnZez2xRQptMEwL4ncB2IYHz4mo7szNTvDM+REAak1EAyOBpu2z/jlz8U33y8gSYP6+E
-         pK1aOQ96RIvTqnqrhAxUUByW9monZ8zT5ilVla6s1JaTqIa9NyPjq/kgXNR4j67sMk4y
-         lEZvb9EvOmYUelphoaCbMM1gzm+JXFtFBJpEIMtQoG33FQRAvsVB+sMXNrHnRaCfJ3TT
-         dKtEVqza2bcZI4AxI18hsNohwlVVf+myrxejHhGY/lRz0PrmuY48tWMPp1BW+rC219a9
-         gxrw==
-X-Forwarded-Encrypted: i=1; AKwUvByb5Kfppw6ysGedAx9QH1mWRnXrG76jOzovepnY7FftP4l43htHrlCWX/hVp1pFnmIaCCRK14AltPOjZQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfbjbonWgJ55bwl90pc8MEx8Xr3OEXyBMW93nW3KWVUDm8VvtZ
-	TzXCv4oQmUfg1UlzosK7dcB3VtcLU0vdOCD+3SZTHz3pHmSX0+GIbSMzrSIrDociQvM=
-X-Gm-Gg: AYBFou0H/fLt/diCzeZnmnnc2lf+qX4S9sPBKnD5kM8+5dVAwpSalRGlLuXQmHDohDY
-	TX1TYFjkWFknUdb3VXX8dbN/QiwyiqXyzbE3gTNkFA8S5akS91MC5fCWfulyAtGo5e2daNhVIAg
-	KcdJHAT/ms+V2MKfmGurvjr94jwIh4ph9UN5Ikex4FO++6HqPev/Yej6fandv00ewChQC3ONFjc
-	nuQQxpcZSLdLls1AA/zQe/KxE5oDkWpGxTyanu/iFkryGDt51H1PJZntoIEFX4VMOaEMqUCDQG4
-	7JTjaOSlpcjfKH4VGbdoTlukWcckyfX+Yaiv/AlY6fSwMKbNIpy2CkFdpLsemDTpL6JM/JKgAJs
-	umrZAIiW9n60n61tWSlqSPeIl8fpsZltlmfj1Fl9Nbq4J2J5eADyGLQZjKIBxKCJBn1RClCPmMI
-	lSuggcCjkEIDc91RCQKkL07Dt50BE9K39UdNzCc8eNaLYko1EY3ZpUPsrvbkVymDzRv13A1w+FL
-	VOFu8Nzm31opRWp9MOLvu7EtmVDEM4Elp4Obpg1zx4BJRu/ucQce8NKHeDmc22DM9WRR+Q=
-X-Received: by 2002:a05:701b:451b:10b0:146:606e:1f62 with SMTP id a92af1059eb24-14c9e29a175mr1040002c88.41.1790730452081;
-        Tue, 29 Sep 2026 18:07:32 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14c60c55ed9sm2223598c88.2.2026.09.29.18.07.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:07:31 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] ocfs2: Avoid touching renamed directory if parent does not change
-Date: Tue, 29 Sep 2026 21:07:26 -0400
-Message-ID: <20260930010728.94306-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790730493; c=relaxed/simple;
+	bh=70J7NNdFN9iAGf3Qj3JyXlavrQs1w70uu+ZcCSB862w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FwqyetztZj5L6SxYfrc2hOhaB907UphSDjddGwAor9WsnAqsMM3D202WKGIAMj4vmpzncF0I+zRPfUIqBf57muUxhICFKRirQ8eAeefH3SGmu8ScoxND9lyQI3F+9A3pBEI6ZaBMVnu+Zoa1e+tLEwU/+cI5oAF6ds3dJi5OKxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpsz6t1790730460t0f88200f
+X-QQ-Originating-IP: OwcfBdNuqctd8CjiAUHOXhQcKMNZu3TocnKPXxHAhGQ=
+Received: from [192.168.21.56] ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 30 Sep 2026 09:07:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8595862658938292285
+EX-QQ-RecipientCnt: 6
+Message-ID: <E7FFA319011BB387+42ce8b1d-eafe-4cfd-8711-a783b4e068f0@kylinsec.com.cn>
+Date: Wed, 30 Sep 2026 09:07:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rtc: rs5c372: add missing error code for unknown RTC type
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+ Qin Yungao <qinyungao@kylinsec.com.cn>, Luo Qiu <luoqiu@kylinsec.com.cn>
+References: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
+ <2026092921481727857dc7@mail.local>
+Content-Language: en-US
+From: liudalin <liudalin@kylinsec.com.cn>
+In-Reply-To: <2026092921481727857dc7@mail.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NSVxyzdiwvnqcyhdX/1KNK14ZSuKaddh6FANlULDrhBfirme/fBOKSNd
+	sVDdEC2orii49lVwODPhSNoMveNnr2M2wT+y8BXiJkfLmd+qNmHPKDQRAx7wVXgK+U645AS
+	yN7tbq0PCnYBsMHcKqwnNZC1WY0EvI2vB2j9xdEvp7v/ya1/a91dEHGqTiKuGvY9CGBxuYh
+	/1IHZ5NWRoJoP4Xzky4dPpfcpiBPsBX81vFd3r5DAEY/0reyblCkwYZ05Ko2M8hOMXvJOpC
+	VdMZmjT6v7oyKt4cEZPxgr9h5+Qnqpp/soNYuVyP5d20r9unGI/V6lgMCcKMRyIeFC2VYoV
+	6BM/ivTT5NlblkpTZRZOiqR5oW1WX84NtQzgllaZlW9hbA4m2ljnT8DE3CtVBgsVcecdg/4
+	I2fE80avT2frnI0s2EUhifGs0oK892tFmd/WmzPyq23aSuJsDW1sQqUws4wQntnkyrdZU/c
+	ZUGsMaQmkkKGFtHKbYt1dsNc9dU9yfSv+KzGykaPRWwJZOlqCuP3nUE8lzbepGEMnzMNHDH
+	QTvtwFNGturglRRlPcczu94lAEp4xaXGYoOzt9HbRtUArhJ21nJnY/pxMnmDaVNAsqKZulB
+	+TLRmmzg+vzYQQ5tLURtApD1iou2VU14paNr/xvLZ3fcIymX6dG/RZ5krcPqqIKZNl4olcJ
+	Zv+WaFbkZuR+GeXPeQHd7/vZ1Z74zW/DWszr5W5NNVRXDYyozJRyiXkJ9ro+fPROopCnmr4
+	9EklKk5KIvEIXQMFwZkAdabYi+HTOjru2ZfynOqZAR/mur6fDMvNPSFTbbxCyXn0ysi27ng
+	Ck89O3XUFyQcTG1QdNw4868PSuFRmSrezc9VBPoFv3EwKIZr0/2tCGldBay+TCVm9ZohJmg
+	PZhBNzfLFw2rDO/ULdKYBauU6eFxrrZwBa9Z1Ga4D6NWOhYZPVtnhe8D1RTrpCQ/txsJm2j
+	tSf+Qm71yL2IL+9SMfYDKalKp07/GWGJnaTwduSnhe3UzQPuUB7zQKfc0tDNbLFXie475FX
+	BZjBbhcBSielT6adffdbYZZk0uuCxi5SsQGwUWNPoklh5LwIs3NrSbx2el8/KUUvmQQXBmg
+	JpEtMi/ZEmEszjJ/G7Q6MM=
+X-QQ-XMRINFO: OD9hHCdaPRBwhLtWeuGpOsVHN6RvCZWPxQ==
+X-QQ-RECHKSPAM: 0
 
-From: Jan Kara <jack@suse.cz>
 
-[ Upstream commit 9d618d19b29c2943527e3a43da0a35aea91062fc ]
+在 2026/9/30 05:48, Alexandre Belloni 写道:
+> On 27/08/2026 09:58:46+0800, Liu Dalin wrote:
+>> In rs5c372_probe(), when an unknown RTC type is encountered in the
+>> switch default case, the local variable 'err' is still 0 from its
+>> initialization. The subsequent goto to the exit label then returns
+>> success, even though probe has failed.
+>>
+>> Set err = -ENODEV before jumping to exit to properly report the
+>> failure to the caller.
+>>
+>> Fixes smatch warnings:
+>> - drivers/rtc/rtc-rs5c372.c:860 rs5c372_probe() warn: missing error
+>>    code 'err'
+>>
+>> Fixes: cb26b572dc394 ("[PATCH] Update the rtc-rs5c372 driver")
+>> Assisted-by: smatch:2.0 [static analysis]
+>> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
+>> ---
+>>   drivers/rtc/rtc-rs5c372.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
+>> index 24bd795d9d95..84407119caba 100644
+>> --- a/drivers/rtc/rtc-rs5c372.c
+>> +++ b/drivers/rtc/rtc-rs5c372.c
+>> @@ -857,6 +857,7 @@ static int rs5c372_probe(struct i2c_client *client)
+>>   		break;
+>>   	default:
+>>   		dev_err(&client->dev, "unknown RTC type\n");
+>> +		err = -ENODEV;
+> But isn't this dead code that will never be reached? In what case would
+> you be probed and not match any i2c_device_id?
 
-The VFS will not be locking moved directory if its parent does not
-change. Change ocfs2 rename code to avoid touching renamed directory if
-its parent does not change as without locking that can corrupt the
-filesystem.
+Thanks for reviewing.
 
-Signed-off-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and fs ocfs2 maintainers,
+You are correct that the default case is dead code for current driver logic.
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2023-52590. It avoids updating a renamed directory
-without the VFS lock when its parent is unchanged.
+Alternatively we could remove the default case entirely, but keeping it 
+with proper error assignment is safer for future maintenance.
 
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The code change is identical to upstream.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2023-52590
-Upstream: 9d618d19b29c2943527e3a43da0a35aea91062fc
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- fs/ocfs2/namei.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
-index 113102009431da..5776980402de95 100644
---- a/fs/ocfs2/namei.c
-+++ b/fs/ocfs2/namei.c
-@@ -1347,7 +1347,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 		goto bail;
- 	}
- 
--	if (S_ISDIR(old_inode->i_mode)) {
-+	if (S_ISDIR(old_inode->i_mode) && new_dir != old_dir) {
- 		u64 old_inode_parent;
- 
- 		update_dot_dot = 1;
-@@ -1364,8 +1364,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 			goto bail;
- 		}
- 
--		if (!new_inode && new_dir != old_dir &&
--		    new_dir->i_nlink >= ocfs2_link_max(osb)) {
-+		if (!new_inode && new_dir->i_nlink >= ocfs2_link_max(osb)) {
- 			status = -EMLINK;
- 			goto bail;
- 		}
-@@ -1608,6 +1607,9 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 	if (update_dot_dot) {
- 		status = ocfs2_update_entry(old_inode, handle,
- 					    &old_inode_dot_dot_res, new_dir);
-+	}
-+
-+	if (S_ISDIR(old_inode->i_mode)) {
- 		drop_nlink(old_dir);
- 		if (new_inode) {
- 			drop_nlink(new_inode);
--- 
-2.39.5
 
