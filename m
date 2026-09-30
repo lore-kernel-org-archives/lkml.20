@@ -1,165 +1,115 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104614D954F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820424FC35E;
+	Wed, 30 Sep 2026 13:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775448; cv=none; b=Md4JNeKp8CxDB02XFXTc9J80j2ZNiUtYI8EV0ulCJ5YytEeqesdyyDHTWNO28LCqdoWvb1SfvGmjVIN3cu7ta2mSKe+9mjMOAQwIEasONtDt0y3KvyKpWdnxbwoQQu1FPBTmzVH5qZIFPUrjEYExCBt/zfnFMBLOwnu/WjSvE9o=
+	t=1790775461; cv=none; b=L537CljJIPd6Nmwe/IaLaMyg1jVGMjDv3Cydmfm7O7ShydCYkJu+KOFjkYl8A1jKKF0Emup5GYh/Lu2VcrFO7D+LLMwAFkDg5Y1/mErztumWp7AbrhhlgRR7qQq4Wlv27TRyV/kdsqXnv/aGnP+KZOIhoqDhDQJMLquDUjZOAw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775448; c=relaxed/simple;
-	bh=mUvnr95vAy6T8WgPrmCM9BQJn1/bnppSyDaE2UG4Dgw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YBMbOsHrgosSC6gxweWsgKNE8X8kDU1vV5t+zGh9nY+qCj/p6uKTeBm8BNo8a8ygYsa3/5AdFEPl57ABu2lnNsBksq1YLNhP3h8zdBsce1d9PV8hHIJKVZZDhTjjFd4PbkcE1BJ3IwwNz4KdzVpxu/ngGCy8262/A7T2BMatCSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haikyhUV; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790775461; c=relaxed/simple;
+	bh=zlzB9ZxMupeywswUrXtebUKbcoIFtT/AWMqoIyrffMg=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oyzZYMkD0sOQ5TfSURrQuGdI5dXu9E2nKF1tpZ3jfXxLej7yBuFfBDU0TiC6xz9Dd0yeQE+5QT9jhsdx81b7b3PsHhiNqCEmjR0Z6mMc0MvRyDAq4rdQAvc6o6jNEVlPgMyQlIzSU8qdp5R/Sb/k/0+Xp3TXgQNtnXKHsknOJ8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itHCfg7Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haikyhUV"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8beb8adso2388735e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:37:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790775439; x=1791380239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cshqp6RE9jBzVD9g0ekw43SKrU3oD1vq+ZLuQw6vgg8=;
-        b=haikyhUVH/OSZ8yB+71/vN39t9N0ZeLna85AHqYeFUFNm6v3i/Ok2jiuID0zFIj0iM
-         V7zQj6ooeD4OTsRgpDoaPRG1MoFYiC/H5T4g7QLchGUFKEdu+b7lOtSPyoaQOWkeINwz
-         cMg6R3MesyVjheydcQN+jZ1cpFrgM6fhhziXAvD1w6lV3cUX4ri64Q/DqaTNxGjdi5/i
-         ZhiUhg8WsO4hzOZjCzVsxPboo4SNpsJj7FD6/IBUeeZhRACnPie9DS2H4jHgCHhc60Vx
-         bUspJTZdTj1ctr6QUo7ZiL/9iECFAXG6prbi9+63Zgot+DVhtGRK0dN8566Qo34rBhu7
-         H5xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775439; x=1791380239;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cshqp6RE9jBzVD9g0ekw43SKrU3oD1vq+ZLuQw6vgg8=;
-        b=MzUNPWHdWrX6JZ5wbI71RIQMPYT1AzZHW8xyBkVSW4hoVF5LyjfEZOEZ7t0liP1q6p
-         YlpwEXQlqc0eTKjmZG95LgM4IYPjlfQrPkXpDuHmWM7igTXdvImFB2AdXznuCvxtLeck
-         ISRIb+15erx2I5AtsXC6vMRdXoLUP+jrzpF8Cwr6+A8f6NjGtCe+zuz9XCaWOBG9focR
-         FhQwPOTU/9zvbYJh1gfB3DOyuwpAncJTWHQyqQvow29omDqEIaTcOMMo53+E17Uvco4U
-         0jkuyYDNCxXbTUavajRoCN/6svyM6cgB6Fifmj1N7DKtpsMFGCKkB8hD4EFH3Zx8SVzx
-         otzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlYs62XYisjiSSHYkeDhufvaFy2FEtw7Mi4bRBrX6fIDMeBllhSwezGUoYaxVXlYG7Jz4RfszVKCP1vCo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMEb7xGw0I+paFPexGtWIlapze8OUkU1pYeYttKFq0Lmc8xc9K
-	LtFuFL4v2e1iWi4/79KEi8kPLPY9sPffGI48DaJRP7yVn0yRoMTwWjzC
-X-Gm-Gg: AYBFou2NsjPgcGGxBn6K/ese8d4UITBiHtSIqmysmzjz19VowRmM6hoYbSdCziDHojw
-	LtA6eofrTZnJWRbi8XokfKnGfK90bXd3PctFjbFUaZJhkJLJkAe+yYwG8D6Hm58u/QnyJbg8rnA
-	4icwmYtM0rDoNDLd5djC/DWdPV9oYV+XyQQq5PZLGgMgT/SxvouPE9VrNM1E9A2BEmLLqZvP9KU
-	sidYMszxbNFsdO2qQSc4Bnuw8XTbLtGOHGbLu/mltJMRt4TN+cRn/ITBZTaGEWqfVYgl2lCsz0F
-	E9B45H8WKkAHRCLfvWXJTblxF3hTBf1Cu92lwF8yygG1skam9xqDELJeYVH5RFzFM+yxPzruOjW
-	ImiNFwtCwdNigHle5+/MnBA6y+o94OAJLn5MvaBjrvSZaYuU+FJMGomZ6pl9a3mdQuTk++7Ou8i
-	jvpLQcYP9CR4ONeRCHGHVPRs0KLIwaJrOvWI+W8Vw+KNl66ukRXdjkEWdeEnKnv7GLuIBjuE0RY
-	5+z7/l4hscuSbevtH98
-X-Received: by 2002:a05:600c:e556:20b0:4a0:1c98:de52 with SMTP id 5b1f17b1804b1-4a01c98df5emr8353025e9.1.1790775438767;
-        Wed, 30 Sep 2026 06:37:18 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e63f574sm185795e9.3.2026.09.30.06.37.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 06:37:18 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: dietmar.eggemann@arm.com,
-	kayracizmeci@gmail.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	vincent.guittot@linaro.org
-Subject: Re: [PATCH 2/2] sched/eevdf: Keep expired protection expired across reweighting
-Date: Wed, 30 Sep 2026 16:37:15 +0300
-Message-ID: <20260930133716.214471-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <78ce8f8ceb4f5c7fda14216d3dff9d74e17f55ac.1790756779.git.christian.loehle@arm.com>
-References: <78ce8f8ceb4f5c7fda14216d3dff9d74e17f55ac.1790756779.git.christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itHCfg7Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792371F000FF;
+	Wed, 30 Sep 2026 13:37:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790775448;
+	bh=YgnrYF/r12cfEcieDzIy2DjQVqRHIKIEg5GVjZLOGsg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=itHCfg7ZEtaJlbsoQD0HpDA7shWjfhI1FyRHvTBe4TzDHB52zGsWjr6fgAl90D7DD
+	 a75DQ/5UrHCmadawrQ/nyeqoEGjftqx+B5SB/3CoLqOo2I7plYhpcoj+bQXXWD+9qq
+	 auuyKPFXeT5QpzHX/Fy+jRiNMR9QYxfzVPItpaREjgjc3Dz8/8Gubm/jX+oa94SzMV
+	 K0hCjmZi9O6/7tlwGznM0avBZN9QkEeqzOkuO69vqauFgRcYWy97abqNcfa0FnxqD1
+	 8ujASKGp/lmqOVo79apQKeNfug7RsDWDrYNSAq+ww3RzoogEHzNtEzxgaXzXRqmtwJ
+	 wWdfRq3TH0lGg==
+Date: Wed, 30 Sep 2026 22:37:24 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: Naveen N Rao <naveen@kernel.org>, "David S . Miller"
+ <davem@davemloft.net>, Ingo Molnar <mingo@elte.hu>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] kprobes: Skip disarmed probes when checking optkprobe
+ overlap
+Message-Id: <20260930223724.87336536b2fe72f3732a9534@kernel.org>
+In-Reply-To: <20260930053618.104498-1-leon.hwang@linux.dev>
+References: <20260930053618.104498-1-leon.hwang@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Christian,
+On Wed, 30 Sep 2026 13:36:18 +0800
+Leon Hwang <leon.hwang@linux.dev> wrote:
 
-> reweight_eevdf() rescales live slice protection, but leaves an expired
-> vprot unchanged when moving vruntime. A reweight can move vruntime behind
-> the old vprot. For example, reducing the weight of an entity with positive
-> lag can do so:
+> On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
+> probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
+> probe C at A+4. It leaves A optimized:
 > 
->     before reweight:       vprot <= vruntime
->     after reweight:        vruntime < vprot
+>               A    A+1  A+2  A+3  A+4
+>   A's jump  | e9 | d0 | d1 | d2 | d3 |
+>   after C   | e9 | d0 | d1 | d2 | cc |
 > 
-> protect_slice() consequently becomes true again, even though no fresh
-> protection was granted.
+> The INT3 for C overwrites the last byte of A's jump displacement, so
+> execution can jump to the wrong address. B can have prepared optinsns
+> while disarmed, but has no jump to unoptimize.
 
-> This also happens from task_tick_fair() after a queued HRTICK has
-> requested a reschedule. A four-task rt-app workload with 100 us, 1 ms,
-> 10 ms and 100 ms requests can then repick current despite a runnable,
-> eligible entity having an earlier deadline. The stale protection takes
-> precedence in pick_eevdf(). Cgroup weight changes also expose this with
-> HRTICK disabled.
+Oops, good catch! get_optimized_kprobe() only checks the first disabled
+one and do not unoptimize the A.
 
-> Separating vprot from vlag allowed the expired absolute boundary to survive
-> the lag update and rescaling. Previously, those writes to vlag overwrote
-> the shared storage. Commit ff38424030f9 ("sched/eevdf: Update se->vprot in
-> reweight_entity()") subsequently handled live protection, but left the
-> expired case unchanged.
+> 
+> Continue past disarmed and unprepared probes to find the active optimized
+> probe before arming a probe in its jump.
 
-> Keep an expired current entity's protection at its new vruntime:
+Yeah, this looks good to me. Let me send via probes/fixes.
+
+Thank you!!
+
 > 
->     after reweight:        vprot = vruntime
-> 
-> This keeps protect_slice() false. Retain the existing rescaling for
-> protection that was still live and leave non-current entities alone.
-> 
-> Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 > ---
->  kernel/sched/fair.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  kernel/kprobes.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 868c3911337a..d10eeea75f13 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4951,6 +4951,9 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
->  		se->deadline += avruntime;
->  		se->rel_deadline = 0;
->  		se->vruntime = avruntime - se->vlag;
-> +		/* Reweighting must not revive expired slice protection. */
-> +		if (curr && !rel_vprot)
-> +			se->vprot = se->vruntime;
+> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+> index 6337da5cab9e..e6f6e18fa1b5 100644
+> --- a/kernel/kprobes.c
+> +++ b/kernel/kprobes.c
+> @@ -495,14 +495,16 @@ static bool kprobe_queued(struct kprobe *p)
+>  static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
+>  {
+>  	int i;
+> -	struct kprobe *p = NULL;
+> +	struct kprobe *p;
+>  	struct optimized_kprobe *op;
 >  
->  		if (!curr)
->  			__enqueue_entity(cfs_rq, se);
+>  	/* Don't check i == 0, since that is a breakpoint case. */
+> -	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
+> +	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++) {
+>  		p = get_kprobe(addr - i);
+> +		/* A disabled probe can have prepared, but inactive, optinsns. */
+> +		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
+> +			continue;
+>  
+> -	if (p && kprobe_optready(p)) {
+>  		op = container_of(p, struct optimized_kprobe, kp);
+>  		if (arch_within_optimized_kprobe(op, addr))
+>  			return p;
+> -- 
+> 2.55.0
+> 
 
 
-Okay, so scene:
-
-we have a rq like this:
-      +----+
-      |root|
-      +----+
-       /\
-      /  \
-     /    \
-+------+  +------+
-|task_a|  |task_b|
-+------+  +------+
-
-When, sched_change_end() activates for task_a, (Assuming it's Fair Class and weight is different than h_load.weight)
-enqueue_task_fair() calls reweight_eevdf() with on_rq = false so the block never works. Then we call place_entity() and vruntime goes back.
-On normal enqueue, this will be tolerated with vprot getting written over. But, sched_change_end() calls set_next_task()
-that calls set_next_task_fair() with SNT_NORMAL. On that case set_protect_slice() is not called. reweight_eevdf() is called
-again on that path, but because the first call did the job this one just returns early. 
-
-I could be missing something tho. If I'm not, should we fold this into 2/2 or should I send a patch about this?
-
-
-Thanks,
-Kayra
-
-
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
