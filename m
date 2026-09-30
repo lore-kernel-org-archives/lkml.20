@@ -1,138 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17804D0CEB;
-	Wed, 30 Sep 2026 14:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856FE4E3235
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778102; cv=none; b=TEYUvW71P78StC3E2E96eo+jXy5p6rWa2WX3LSqhGW50bHY5wkjXxjEXlyLkCG4AcXugFSYPqlC4XGDpRgaFevxytTwfdaeinDPIU8btDfVvXEwT8r2w3tzPgemQKtZYKGv456D20TcvU96eA14az5U2W+h+p4Wht51Apdn8tp0=
+	t=1790778192; cv=none; b=Vyojnj760Yj6ViULjZVTNE3UdLJh+R016ALfLAoarNphK6f9yY0nT+hp5PrRBo5/rHFwJsv1I6Hi6EFbEXcUEU0LKvnKGp6J3xnrmQmRSAv9QKsuY4iM2fDnF7uPHeB/vXp/Ka4aTQIdUKKbw9Tv1wnW/U8qv+QI4I12Obd5uIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778102; c=relaxed/simple;
-	bh=kPxdLIHgctd4mGb5ljs1Z0kF/Hg2+/RBCFtsiT4urG0=;
+	s=arc-20240116; t=1790778192; c=relaxed/simple;
+	bh=8BC5tkKKu64JweVfwPgvVAbEzr4IHGwzukxK7lfs8BE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vwyf/CLUKxtJtFmseJz4+aVqtAF+hFkA7AmB6FEZkn1LXz5yBzi6489Jm60OD+KFb7jPedwx7cdUyylRn2G3vHqtOK3f42A8AQ8/H+YKo1MiRzjymbv2qOIu+Bx7mlrnIw28M/97qsr9xVuGik82peRwsJHS9c2bDsktxjCdgVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=kkRK91cQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VTSRS+I2KfDbvBgDqZiC8cjCsnOiOrFbBEih07yrpTBvijLQaOuaYX24N6hfJKm2EqaYbWhXVa3GN/YZK9c2KWYtn7KsGKpZ5Jznhmkrgp3jH2Ikg50xfTtD0NVMPKOcM6TyHfhfbYT7CXZ6EJ4URXop6lqbjDLDmwt419EX9l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dApGPgat; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="kkRK91cQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F7A1F00893;
-	Wed, 30 Sep 2026 14:21:28 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=kkRK91cQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1790778087;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zcThwgFUB4BfR5xfqdh6THtQYRaz9GGWFb0MJecCduw=;
-	b=kkRK91cQzj+9vwUYtmGxpP6XHVefTkbHAXdd3nIiFVR+tOEuf0OaDl9hKkY9dgnZA+uIja
-	kvvsMMlW1aun0HmpF4USkn2HKIB/ExvhSKaoIDBa5/FJ8DgYeE/zmuK/55JeWGBQCXPp3h
-	CRPitXuJosLH57qy20oRmbXytVm4JwY=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id de3a0bd1 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 30 Sep 2026 14:21:26 +0000 (UTC)
-Date: Wed, 30 Sep 2026 16:21:21 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <ar0a4b9CjL2YHCkY@zx2c4.com>
-References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
- <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
- <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
- <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
- <areYMjNcaqe86ds4@zx2c4.com>
- <9d1c338b-368f-4ea2-a12e-c28d49adff5e@kernel.org>
- <are6s5e6On3hpD3M@zx2c4.com>
- <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
- <20260930133813.GA3142230@ax162>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dApGPgat"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c59695cc9so377129885a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:23:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790778177; x=1791382977; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hYt6A34RfOeHkAot7XirdGnjVpo9UvZvKcMPW6ASkzI=;
+        b=dApGPgatlMJ954ve69TvCXEJGQLZRm25f7FqjDkIQg6z7Mt+WeK719H2wEu0JHXa/P
+         64T29gyakAiocg8+Nc6QAg2+OU5FzHOpTSlHs1QogzlbOkprjfxHWjw/4KI/Ug0TuGTd
+         j9R8UH1HAfoYJ+bs70O80BoTVm4p6rurApgINlL6QjS2Ej+weSbSLLDLhcMaBOBE+E0w
+         XWKgqjwIihKo6rzUP0ZXeyisG83vXgt0K4ezpOrgTwvqinekRO1ImdEzP66QEf08642M
+         qsGI3fdkOnhoaHegYg4vc88+mp9yZP7RBLc7fXGlA+UAt0mPPYZBaIrtncIkaJlr0qpv
+         ZuLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790778177; x=1791382977;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hYt6A34RfOeHkAot7XirdGnjVpo9UvZvKcMPW6ASkzI=;
+        b=yxd6bQQcCQUrrw+V/lJdOD1QqbijY4qMCpWOIfpXiNaM8oBbgoikhtKIsORs2xuKkV
+         ymtpPpDZCpTXZACsLHma99uX1lxVmC/a8j30iMeuFoxmxoWXeQiviCFAyXpiDjhNp7ec
+         w7BHbo29lhCeZ+JJCsWZUC9fwU3YXPSm3DGzJ6Igq6Owop2gNHLqcePbNPHTMRUdNVY+
+         dLlZFRxoxWuHN0wIWwGGCySB8K7KNbIX3e9zjs5Zj2wTXX4aw8cJ2HcEeo+thwfBjayO
+         zWsGUkDiEbe5kPoTEL0FtTahv7qfd474lcAffnUx196DzDvpj3IOnEAEAhn6wjhjZ7mY
+         b7Zw==
+X-Forwarded-Encrypted: i=1; AKwUvByp4RVfBE87UsCq43FUhGCLCqcXOL+yr4YEOKVooTNd9r5zyJMvcxU9PPNaaIXP1gJY0WCTHkGJW/mmTBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC5dP6aGEgTMPrJFJwFgzv6ZA/fg29039Bp5uIIxC7p3UNAKmy
+	RUU3s7i7pvmwAEcBCkLf9GUmG8HP3jzeE8FwJW1YLV6zKZ9SfUUtg1W2Xsk+S3n5E0ekCHpbikM
+	+3eRg
+X-Gm-Gg: AYBFou3s6JQBdB6XhBhmdEbGN0oGv/578HjF1vAP6EOR7QfYGJ59FbBbkKo4g3QZVhJ
+	vBx+jjbe570PJTa+06iJu7G19nNwvkWaNdpovZroc/dX1dxOGle6nqAg00GFAGnPaY1+B7j11Xy
+	auiZNqZgGCUCy6jLrURlP1Mxww8kXeuB/S9hZrJ2wq3bKqcOJ5Tg1MNtkcsnOXu0lim27T9F/im
+	cj0SYl7YtGWnqQWNvWpI0QXShGevxffaljObSd772JDtpn2mRU0qjPKhzD1R3X4ssvvMPB8cHG1
+	gzGmJED6dn+lxfsrABnoRR6kzSOW3iE3qI0mzpSO5HPi93fAvFO3PaGspIpqbReyC7lQAoPA/HE
+	yPvGyJZ8elZSTcxxNmJGjqw720qkMUD6iw2V8/sie2Q4FbBG87O+/pssgXreWnwFhNfb9D72CQr
+	eHxOIyDR3WhKAK6Yk+RpT/dJ4+99W42Koiu/mQJbXXJq3LPNSHTwpQrWaOvshyZThFdtSk
+X-Received: by 2002:a05:620a:3195:b0:92e:76a1:96cd with SMTP id af79cd13be357-93ca96692cbmr280574785a.13.1790778176896;
+        Wed, 30 Sep 2026 07:22:56 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ca7eae7e7sm126812185a.3.2026.09.30.07.22.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:22:56 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:22:52 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: David Stevens <stevensd@google.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/psi: clamp negative cpu_clock() skew
+Message-ID: <ar0bPEyD5CBK331p@cmpxchg.org>
+References: <20260928233743.3777102-1-stevensd@google.com>
+ <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
+ <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930133813.GA3142230@ax162>
+In-Reply-To: <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
 
-On Wed, Sep 30, 2026 at 03:38:13PM +0200, Nathan Chancellor wrote:
-> On Tue, Sep 29, 2026 at 11:24:11AM -0700, Nick Desaulniers wrote:
-> > arch/arm64/kvm/hyp/nvhe/Makefile has this pattern for exactly the same
-> > problem I suspect.  Maybe that's the right tool in the toolbox?
-> > 
-> > ```
-> > diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-> > index 8dbf2532a573..27fa72d8fb86 100644
-> > --- a/arch/riscv/kernel/vdso/Makefile
-> > +++ b/arch/riscv/kernel/vdso/Makefile
-> > @@ -27,7 +27,7 @@ asflags-y += -DVDSO_CFI=1
-> >  endif
-> > 
-> >  # Files to link into the vdso
-> > -obj-vdso = $(patsubst %, %.o, $(vdso-syms)) note.o
-> > +obj-vdso = $(patsubst %, %.o, $(vdso-syms)) note.o ../../lib/memset.o
-> > 
-> >  ifdef CONFIG_VDSO_GETRANDOM
-> >  obj-vdso += vgetrandom-chacha.o
-> > ```
-> > Fixes `make -skj"$(nproc)" ARCH=riscv LLVM=1 mrproper allmodconfig
-> > vdso_prepare` for me, as per
+On Tue, Sep 29, 2026 at 10:17:40AM +0200, Peter Zijlstra wrote:
+> On Tue, Sep 29, 2026 at 10:10:04AM +0200, Peter Zijlstra wrote:
 > 
-> For the record, this also happens with the 32-bit PowerPC vDSO, as I
-> noted in the commit message of v2. I should update the issue too, I only
-> realized this after wider testing. So if this is the route we want to
-> go, we would need a memset() for that vDSO as well.
+> > > When running browser workloads on an Intel N100 with a sustained
+> > > psi.mem.some of 2-3%, this underflow is observed once every couple of
+> > > hours.
 > 
-> > https://github.com/ClangBuiltLinux/linux/issues/2183
-> > (Nathan, don't forget to link to that in the commit message)
-> 
-> Yes, thanks, I have added it for v3.
-> 
-> > I'm surprised I didn't need -fno-semantic-interposition (or one of the
-> > related flags... -fvisibility=hidden)
-> > 
-> > If we want to get better, (if performance matters here and we want to
-> > trade source+build system complexity for absolute code perf) I would
-> > start with that, then worry about clawing back performance via things
-> > like:
-> > - __builtin_memset_inline
-> > - -finline-stringops=memset
-> > - -ffunction-sections+-Wl,--gc-sections to dead code eliminate the out
-> > of line copy of memset, though IIRC there's potential for wasted space
-> > due to alignment requirements (maybe the out of line copy of memset is
-> > smaller...idk)
-> 
-> Yeah, I guess it is ultimately up to the maintainers what route they
-> prefer.
+> Reading is hard. This is sad, that's a relatively modern chip :-(
 
-I think linking in an out-of-line memset.o is not appealing. This isn't
-a general library or something. So let's just go with your v2 approach,
-fixed up in the ways we mentioned.
+I'm still struggling, but I'm under the weather so bear with me.
+
+That's a cpu_clock() implementation issue, right? "The value for
+cpu_clock(i) is monotonic for constant i". Presumably violating that
+would be a problem beyond psi?
