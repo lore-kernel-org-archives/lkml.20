@@ -1,146 +1,184 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C8043CE6F;
-	Wed, 30 Sep 2026 07:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8883A3E316D;
+	Wed, 30 Sep 2026 07:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754647; cv=none; b=h+RlOUJZ9AIg9xHT+iTfm/XtPyTffZQhvnRGN9VwNUncxJ2EOlEVtAWZ5md5PXFFxn9S3p+Zv1Zq/O/39Vh3bZd2MydnUWscSPVaV+A7dWcMMWew+Jp+a0UJyZhGVFBJ4f5dO4W7C+RrMwW42dr/hSXsan60mcow4+TR8Xd1XVE=
+	t=1790754708; cv=none; b=X2dJHMyH7b8IojfoX2Y7/3BjjSVNv0MeT+ivffJZbPsTpWFsspT36yLOI6KPSqDcNLGB9Su7DIDcTKAUI39hrvjmvuZ0yo6s+xSWd4m6Xra9gl/7q8Puf56MheFU1BiKm+jHkB5Cq9H3B750AzBwDZN4erL9iNJryqfPRq2Ft60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754647; c=relaxed/simple;
-	bh=IInOjLoOZqxUF/njRAMUReLIxY4PvR3rCdK4jUYFbdQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D//g1WW+XlLE6EIabjq//nHhb/4PuI/LgfqdTM7X0N6A+EhRgaotX6xyWkvDqfJMapt3v8/ntPwEft3XQOuuj7NKOuaCNFPWMZhbZY9yE2jXzHbybFCZum6fRkWbaW8CqSj+NG6aIk3Y69VtpM+Dqkp1vdabZnsaJTMAxVmNQMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=G/99nNpV; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790754708; c=relaxed/simple;
+	bh=xCZXkHu9K/1TIpAa+19Kg/+R/6wtqeYmBQQpgX2o8CM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Kx8W7FjB0Yz3uwwqffQ51npYhB+iU7E9yHP6PNbN2mQba3MihTRbNqp1OQG25XbjL6FsM1iwZT0YMsYeKIVe199GsJGIR4BtMtQrcfMb9NQzAADk5YWDKeiSY0E+BE6zoVHUc1UXaqdUTBw6smc8BAL1mVkie12Et6ArkMfo1C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDTGfjnz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="G/99nNpV"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hvnK72P1czKnd1;
-	Wed, 30 Sep 2026 09:50:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790754635;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rb4nWwlxaPy2o69lqksbAluMfoEqrzWeYPEQbVBWoFQ=;
-	b=G/99nNpVvjN+Q4t0ht6oc9WzRJSmnV1DgJ/PvIQS3FkjTeoiT4PpJrrETsDyYBulpx3DFh
-	1MygqaTB5J0gxRy2nzvPif1T0eoIR0rRfMMokq8CM2UVlIzJ2C1wxerxl9FaZcfrR6MfB9
-	0QJxx9lP5f1nSfL223tsigokddcdZY5e0Fuq7cIpm+QR80SNfkhxIK2i70luRqutJT1IGy
-	fG9W6cJ7lc4NclOYhTCv55AY4IGFUzyujT/zM8is1SxeQY41bygWNZM9geTXJAiCeeIXmk
-	VCbYbkFpkaaYZfE6euWAPK3k2cjFPKVQk0qpEvjzMoq0aYCFyhMQHcvn+nd+zg==
-Message-ID: <d1280ea9-ef96-42c5-a613-a4db8de0e9f2@mailbox.org>
-Date: Wed, 30 Sep 2026 09:50:27 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDTGfjnz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E8164C2BCF4;
+	Wed, 30 Sep 2026 07:51:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790754708;
+	bh=xCZXkHu9K/1TIpAa+19Kg/+R/6wtqeYmBQQpgX2o8CM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=MDTGfjnzw5p5e0dBha5/WW1eWErFIeid2PaGyGKvxOh78u1tTd4tfBzOv2zYeuXJW
+	 Y0/LGleiVVXds/jE9Zhu95wkaVAc7+RXWUnf5Gg5FV5uvKuOOex/b5riWyLnP/afWR
+	 oluw0q5lFGHt6q79jvGoMFwSJop+6/W7jECsCRAcVvYSKgf3ivgMvBcebK49E/O7Or
+	 q2ZsW/EXazu33DJzwBglxF8mY2p5pp2wKFkd2RrkQXydXyjFy5Q6IUh4bQKf0ligY9
+	 RUer+NsFGn9PFE86wpMhLQ7UH6zXWInC7JjULeZKZo5FoHh+qP6m7smp4zJjrxQZih
+	 TuooJQ6rkHU4w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5F5CCA5FC1;
+	Wed, 30 Sep 2026 07:51:47 +0000 (UTC)
+From: =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn_via_B4_Relay?= <devnull+nguyennvc.greennode.ai@kernel.org>
+Date: Wed, 30 Sep 2026 14:51:42 +0700
+Subject: [PATCH rdma-rc] RDMA/irdma: Do not move a fresh RoCE QP to ERROR
+ on RESET
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
-To: Vidith Madhu <vmadhu@nvidia.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
- <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
- <FJ8OpdCORV2b1oivG9-G9Q@collabora.com>
- <9dccf035-2806-7b92-ce17-00f95bcf773a@nvidia.com>
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <9dccf035-2806-7b92-ce17-00f95bcf773a@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: g68zfnwjayxji9kxshey3fmwfqszuo7m
-X-MBO-RS-ID: e699964b73b7c292c05
+Message-Id: <20260930-irdma-reset-fresh-qp-v1-1-065327274e2b@greennode.ai>
+X-B4-Tracking: v=1; b=H4sIAI2/vGoC/yWMuwqAMAwAf0UyG4gtFfRXxKG0UTP4SkUE8d8tO
+ h033N2QWIUTtMUNyqckWZcsVVlAmPwyMkrMDoZMTY0lFI2zR+XEBw4ZE+4bBm+DI0fRGwc53ZQ
+ Hub5tB38QoH+eFwU3w5FvAAAA
+To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Mustafa Ismail <mustafa.ismail@intel.com>, 
+ Shiraz Saleem <shiraz.saleem@intel.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn?= <nguyennvc@greennode.ai>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790754706; l=5208;
+ i=nguyennvc@greennode.ai; s=20260930; h=from:subject:message-id;
+ bh=pUE5++VACMAhAd/B/N8p6SNGcTyho6T0u18DfMJ9e8c=;
+ b=MLszr+tiHZjO7nMpJnFB1NebNcFIp/nLvyNLgLgHasmznmeBmZOyoUUErj3z/tgw2DBpqtBnC
+ AZXmGr882NbDCkNIk14NLs2AOBREwEOIWEpp0LEWLWYTxHZYeoo/IcP
+X-Developer-Key: i=nguyennvc@greennode.ai; a=ed25519;
+ pk=hD0bkhMDmCDDJQqc7LPqtK8Z3nB2eAmgkZt+R9cGcDY=
+X-Endpoint-Received: by B4 Relay for nguyennvc@greennode.ai/20260930 with
+ auth_id=1084
+X-Original-From: =?utf-8?q?Nguy=E1=BB=85n_V=C4=83n_Cao_Nguy=C3=AAn?= <nguyennvc@greennode.ai>
+Reply-To: nguyennvc@greennode.ai
 
-On 9/29/26 20:55, Vidith Madhu wrote:
-> On Sat, 26 Sep 2026, Nicolas Frattaroli wrote:
->> On Friday, 25 September 2026 05:48:54 Central European Summer Time Vidith Madhu wrote:
->>
->>> Maybe it would make sense to extend the qms_enabled connector property 
->>> introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
->>> a standard path to control the VRR state on the sink, separately from
->>> vrr_enabled.
->>
->> An earlier version of the patch series I was working on internally had a
->> VRR limiter property that would either be Off (i.e. Game), Game-Limited,
->> QMS-Limited, and it self-inflicted some amount of confusion because of
->> the way things were named, so I refactored it to the limiter values being
->> what determines whether a limiter is used, and the QMS enable to determine
->> whether QMS is used to apply said limit. So my initial reaction is to be
->> hesitant about expanding the collection of possible states exposed through
->> the uAPI.
->>
->> To help my understanding: what does
->>
->>  vrr_enabled=true
->>  $new_property=Off
->>
->> mean for presentation?
-> In this case, it should be acceptable to disable VRR on both the source 
-> and sink and effectively ignore vrr_enabled=true. From reading
-> https://elixir.bootlin.com/linux/v7.2.8/source/drivers/gpu/drm/drm_connector.c#L2370
-> vrr_enabled is essentially a hint and there is no need to reject commits 
-> because of its value (at least, that is how we handle it in the NVIDIA 
-> driver).
+From: Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
 
-I presume you're referring to this:
+irdma_modify_qp_roce() handles IB_QPS_RESET like IB_QPS_ERR and moves
+the QP to ERROR. On a QP that was never moved to INIT, this makes the
+following RESET->INIT fail with -EINVAL, while ibv_query_qp() still
+reports RESET.
 
- *	The driver will take this property as a hint to enable variable
- *	refresh rate support if the receiver supports it, ie. if the
- *	"vrr_capable" property is true on the &drm_connector object.
+RESET->RESET is a valid transition. The Mooncake transfer engine
+resets every new QP before INIT, so it cannot connect over an E810,
+while mlx5 accepts the same sequence:
 
-My reading of that is simply: "If vrr_capable=0, VRR_ENABLED=1 has no effect" (i.e. kind of stating the obvious :). Not sure I see the justification for VRR_ENABLED being "just a hint" beyond that.
+  ibv_create_qp(RC)        -> RESET
+  ibv_modify_qp(RESET)     -> 0
+  ibv_modify_qp(INIT, ...) -> -EINVAL
 
+Skip the hardware modify when the QP has not been moved to INIT yet
+(iwarp_state is IRDMA_QP_STATE_INVALID), as there is nothing to flush.
+RESET after INIT still goes to ERROR.
 
->> Another state I'm curious about is
->>
->>  vrr_enabled=false
->>  $new_property=Game
->>
->> which I assume is the case you're interested in, where the compositor does
->> not want VRR presentation but we're keeping the sink in Game mode to avoid
->> having the display go blank.
-> That's right, in this case VRR is enabled on the sink but deactivated 
-> source-side. For NVIDIA, there is a distinct HW "deactivated" state of 
-> VRR, but we could achieve the same result by setting the frame range 
-> limits to a fixed value as you suggested.
->>
->> is that correct, and something that does need an expanded property? I feel
->> like userspace could be smart enough to do that by keeping vrr_enabled=true
->> and then setting a fixed target, if the goal is to have non-VRR but with the
->> display still in VRR mode.
-> I agree, I am a little concerned though about the transition period for 
-> compositors to adopt this new model. I know for example KDE is using the 
-> vrr_enabled property for their "AdaptiveSync" option, and it seems like it 
-> would be a regression if all of a sudden toggling it caused display 
-> blanking on newer kernels.
+Fixes: b48c24c2d710 ("RDMA/irdma: Implement device supported verb APIs")
+Assisted-by: LLM
+Signed-off-by: Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
+---
+Tested on an E810 (firmware 1.74, RoCEv2), backported to Ubuntu
+6.8.0-142 as a module. RESET (once or twice) on a fresh QP, then
+INIT->RTR->RTS and an RDMA WRITE+READ: stock fails INIT with EINVAL,
+patched round-trips the data, over loopback and to a second host.
+RESET after INIT, RTS or ERR fails INIT with EINVAL on both drivers,
+unchanged. No irdma messages in dmesg. A ConnectX-6 Dx (mlx5) passes
+unpatched. Builds with W=1 on for-rc (7.3-rc5). Not tested on a for-rc
+kernel.
 
-Yes it would be, also for mutter, which currently sets VRR_ENABLED to 1 only while there's a surface fully covering the screen.
+Not changed: the iWARP path, and RESET after INIT, so INIT->RESET->INIT
+and ERROR->RESET->INIT still fail. A QP in INIT may already have
+receive WQEs posted, and irdma does not clear its queues on RESET, so
+skipping ERROR there is not safe. A real reset would need the hardware
+QP to be rebuilt. Is that worth a follow-up?
 
+Reproducer (userspace, libibverbs):
 
+  // gcc -o reset_then_init reset_then_init.c -libverbs && ./reset_then_init <rdma device>
+  #include <stdio.h>
+  #include <string.h>
+  #include <infiniband/verbs.h>
+
+  static const char *st(int s) {
+      static const char *n[] = {"RESET", "INIT", "RTR", "RTS", "SQD", "SQE", "ERR"};
+      return s >= 0 && s < 7 ? n[s] : "?";
+  }
+
+  static int state(struct ibv_qp *qp) {
+      struct ibv_qp_attr a; struct ibv_qp_init_attr i;
+      return ibv_query_qp(qp, &a, IBV_QP_STATE, &i) ? -1 : (int)a.qp_state;
+  }
+
+  int main(int argc, char **argv) {
+      if (argc != 2) { fprintf(stderr, "usage: %s <rdma device>\n", argv[0]); return 2; }
+      int n; struct ibv_device **l = ibv_get_device_list(&n), *d = NULL;
+      for (int i = 0; i < n; i++) if (!strcmp(ibv_get_device_name(l[i]), argv[1])) d = l[i];
+      if (!d) { fprintf(stderr, "%s: no such device\n", argv[1]); return 2; }
+
+      struct ibv_context *c = ibv_open_device(d);
+      struct ibv_pd *pd = c ? ibv_alloc_pd(c) : NULL;
+      struct ibv_cq *cq = pd ? ibv_create_cq(c, 16, NULL, NULL, 0) : NULL;
+      struct ibv_qp_init_attr qa = { .send_cq = cq, .recv_cq = cq, .qp_type = IBV_QPT_RC,
+                                     .cap = { .max_send_wr = 16, .max_recv_wr = 16, .max_send_sge = 1, .max_recv_sge = 1 } };
+      struct ibv_qp *qp = cq ? ibv_create_qp(pd, &qa) : NULL;
+      if (!qp) { perror("setup"); return 2; }
+      printf("%s (%s): created QP %u, state %s\n", argv[1], d->name, qp->qp_num, st(state(qp)));
+
+      struct ibv_qp_attr r = { .qp_state = IBV_QPS_RESET };
+      int rc = ibv_modify_qp(qp, &r, IBV_QP_STATE);
+      printf("modify -> RESET: rc=%d (%s), state now %s\n", rc, rc ? strerror(rc) : "ok", st(state(qp)));
+
+      struct ibv_qp_attr a = { .qp_state = IBV_QPS_INIT, .port_num = 1, .pkey_index = 0,
+                               .qp_access_flags = IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_READ | IBV_ACCESS_REMOTE_WRITE };
+      rc = ibv_modify_qp(qp, &a, IBV_QP_STATE | IBV_QP_PKEY_INDEX | IBV_QP_PORT | IBV_QP_ACCESS_FLAGS);
+      printf("modify -> INIT:  rc=%d (%s), state now %s\n", rc, rc ? strerror(rc) : "ok", st(state(qp)));
+
+ibv_destroy_qp(qp); ibv_destroy_cq(cq); ibv_dealloc_pd(pd); ibv_close_device(c); ibv_free_device_list(l);
+      return rc ? 1 : 0;
+  }
+---
+ drivers/infiniband/hw/irdma/verbs.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+index 5d71300da0ff..646fddd022b1 100644
+--- a/drivers/infiniband/hw/irdma/verbs.c
++++ b/drivers/infiniband/hw/irdma/verbs.c
+@@ -1576,9 +1576,17 @@ int irdma_modify_qp_roce(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 			issue_modify_qp = 1;
+ 			iwqp->suspend_pending = true;
+ 			break;
++		case IB_QPS_RESET:
++			/*
++			 * A QP that was never moved to INIT has nothing to
++			 * flush, so skip the hardware modify. Moving it to
++			 * ERROR would make the following INIT fail.
++			 */
++			if (iwqp->iwarp_state == IRDMA_QP_STATE_INVALID)
++				break;
++			fallthrough;
+ 		case IB_QPS_SQE:
+ 		case IB_QPS_ERR:
+-		case IB_QPS_RESET:
+ 			if (iwqp->iwarp_state == IRDMA_QP_STATE_ERROR) {
+ 				iwqp->ibqp_state = attr->qp_state;
+ 				spin_unlock_irqrestore(&iwqp->lock, flags);
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260930-irdma-reset-fresh-qp-ca3c5050da25
+
+Best regards,
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Nguyễn Văn Cao Nguyên <nguyennvc@greennode.ai>
+
+
