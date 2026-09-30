@@ -1,211 +1,275 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F0E51476F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21604ED1A1;
+	Wed, 30 Sep 2026 18:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791526; cv=none; b=rHXxTYO7djx9IIr/zc8TJoeLm6zx+DKm5j8GUg5Dth6SOOVt06EiUCXnK56TbZ0hHFe3ICpwzfWouBcoq3UbP1iHQOJPGXu+AZNBREqqUXXT+aO5QhK9uy3M31gmKZcInxe9OrsR8GBEeKLTQAgWOpgUqnrZlISwLGq0f28hJ/I=
+	t=1790791541; cv=none; b=V0HGzaXgsg40B+HpwyKc9jeZK2KBrq0S+EgSAgLYGANFb5webBXAdgLn0VBffAt2xUH9Gy/nPAMQuq7fTngSLT1ZlP0I3ppbJEChEKJSgyOaN6iZPilhNdoUlyF6XXSGNhHfvZLt6cpsLT252HuhNhiJozcIGDBQ9h/OQvJ5y+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791526; c=relaxed/simple;
-	bh=sxH4dofpoZUjjjRkfjU4M97ZTTGbZFjgCSjjQ6AM+Lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rUgs7Mm5whLsuZe4mlpkY0948oxfu1wP/kndYd4LpMXW/0Cs6pijyy4KRedHEcWT+AQPLzon11A5pLpfxz5IYY0np3qHTW9YgCo4cHW2gik4TfVN2BctEPzSbla2bWZ2UhbJANYHMI5N3eXQbaQUclyZR1l3JDaDURd1H7qQEys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B7bPf8VI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yie/TGEe; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790791541; c=relaxed/simple;
+	bh=7s5qL3VoiRN4QgP/J54GeewUvXqQW/DzC+gYAs1/9kw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=o1iurhg2b7nr2t1QnY+/ArK+A1qftzq4kz3aZLndRVYiRMR5nkCbNbkG0dnaA7dPzSKll1Z5TQjavQ0q9U3RS7x5KUISGnlglbZjO7zUSxc5oE2ARUbRX1rccdiLiYBNldWCjdIieqiLMbfuLs+SIs4ZaUk9v7QaTRbn4l1VwpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLaXP/7O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B7bPf8VI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yie/TGEe"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHfJE52903003
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:05:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=H/daFQ4eGR9SxKZQYumOcM+1
-	gprzJRcbFZIEUlbLCvc=; b=B7bPf8VIh6J9xRP5uLUOI75qqF2EOAv4pW9rfGx9
-	8tCB1+HRZ63xQibjgL5DFNnwzQZVcS9gzIPbVKuLzU/d6WZsse2PILQnKLncI4Y8
-	st8SbJBSIzUq0018f6ZaihIl5k0zH0xHdZI9Rbx4OoZh0dNo0ZKMgpab8OoQnJT/
-	Abdh9MEd1gFcZL39cU+EGutWi1AYZ9qRSjD4n4Djd9j0jvZds7FzHXiud0enqfA+
-	gqMnROPHsfE3HJPng7RDkMUbNMfpJ86GtlTJjprFRFoB4HoQ7x7fo6Z0H1pm6AWC
-	rdfL/WEn5Sdbm3NEfOrehFAEnpeb2vfqr0ITL5J/1zfJIw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x1c2ufx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:05:24 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-98909a978b9so88677241.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790791523; x=1791396323; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H/daFQ4eGR9SxKZQYumOcM+1gprzJRcbFZIEUlbLCvc=;
-        b=Yie/TGEe23jPghY8LdzHTZgwxxqaR+BwszIY3duBVQU++rZjcUaIILqrwj2ct1qo8J
-         jlIXsjkhU98i5bJ1eUziwXOHKgXN5vSMkulbEouTl9k977O4e9W6xSOkgquIL8EkVT5x
-         gFupuR2QrxKb7R4P2bk1W1ePCwS8+MjIth4N8Urpj8XkgBgb+7RuP0Xxx5AEXm0KUo/s
-         9C/KyYiMsm0pxZseQAM9uIq/yg+h6xe6KXq5XMS9lQRRK8hUfTGsiSbyzVYVZESHCc9+
-         YGnQHS6gKnwFil3aNqf+/CKzZzvPBGZBD84h/XQF+75OvVF2g5NjlPye49NfG3DLWjz7
-         eB2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790791523; x=1791396323;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H/daFQ4eGR9SxKZQYumOcM+1gprzJRcbFZIEUlbLCvc=;
-        b=qRYq2x6ld1FcIgbRILbAVpwRMupn+FliQStr+YFYNxJ1oOXqPnI66/udL+xsniga4P
-         o9JxzhSq39b8MEIMuf6iT8G1vGhGwhtX+jwmMwxQj8dkgJ639R3FfLpNvkD/mA3odyDo
-         mFcAnGGVn8UBPUEPQlv/LMX83Fm/kbip5rTwv5AkUwzc4wzwf4YbU6kZF3QSe87AvJ32
-         DXGNhVvCrZldnCCwZCsJyELDNhoe9cn337T1GLNPWsG5b1Gx1kAy2JWGHcTIYTE4IfqU
-         cdNx8/o/tYnczDJ5F+Vh2Ha7KHc601A1cjCk2O9RWnHmEnKUKR3ZC4ZFLEmeeKAM54D8
-         tLwA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6qFk+CKi3i1j4i2IajcbEzP9ORQMUzehBH4tPKk0ly1OLWjNGtUPYWZp1R6q9wh0BjIXrxX8lpw1wlyQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyS1R0Vf8lTxOQVDguddFa9RPBbJl5X9t0uWvlDwFssQsQbIO0
-	zyLNyb3EEPGPST4JnDbpKfVtIK3zMk/Z9tw7MyFaEDlWDlu5gJR4Zr9yHC8TTBQkxNNzLtNuu9G
-	6X/0DoE3gLm4eBQo9mDO2kkSBQUvm8N6nsHsmJHnZf868HGMiKUkgaTzZ9s5p3cTIk0V/B3Tmy1
-	w=
-X-Gm-Gg: AYBFou3qDb30YblxXPcYY8pLUZNEwGhK3njU8UV2OgIRfz9nP9AmOx9bvc8qDElXSJL
-	7Q80rAs59ZkbNl0fo9G+7ez2Ie92qedXF/MkBqM/9cs3zf8IZa1t8sgEJnzdtNLj4yOOgrpvQY9
-	veEP0cNXl2zHIKnBaDFwBNv5juqlKOrQdpWAxArGLTN+SDlF8rUdp7FmlEtoaXwSp5BJ3VYHvY+
-	Gy8qufY9aJXRCvb66UdscWRHjaXe8Tnm68KgWOJrEo01oUlpta6G58ol47ty91+R71Wglvdpuhi
-	WT2p5jne5eb6wr9bRC5oogZmQA3FipgIKG2xNiVEOZc+PPtBoy1jXMQX/lDbFV+Al8g0cPz/SHB
-	WNGNky+6KdV+wA4GMBSdeiePKaxYUe64UwrAQg+/i5Vs49UH4flEoWm8VI/QyJgiCCkqyyYO1Qz
-	7/7c9ptd0rj6aL
-X-Received: by 2002:a05:6102:2ad0:b0:7b4:eb1d:d1e9 with SMTP id ada2fe7eead31-7be61e96e98mr567984137.5.1790791523037;
-        Wed, 30 Sep 2026 11:05:23 -0700 (PDT)
-X-Received: by 2002:a05:6102:2ad0:b0:7b4:eb1d:d1e9 with SMTP id ada2fe7eead31-7be61e96e98mr567973137.5.1790791522440;
-        Wed, 30 Sep 2026 11:05:22 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a7839d26b0sm426811fa.5.2026.09.30.11.05.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:05:21 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:05:19 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 09/13] drm/msm/dp: Track output bit depth in bridge
- atomic state
-Message-ID: <bwnubezloh6442xm3t6soho4npktvgd52g6bpzcqygghx5gu5b@whfcbf664ps7>
-References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
- <20260930-msm-dp-hdr10-v1-9-dbbf8b2b42bc@radxa.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLaXP/7O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260EB1F00898;
+	Wed, 30 Sep 2026 18:05:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790791539;
+	bh=W5ODwbM0MB+eZLv1w+RfFfGPAGIgQCXbgH751X9MUQI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BLaXP/7OeHAOzcjfnsdPyGOttnkx3QXXIQkpdlyqKvdneneVeEHKCrqjEYWP9ldsb
+	 k25CGOA2hPzz3PE9zbhwDdDHnTCONiEI6J7MBDIMs0h10+87oJkHsgDRxqSJ/Thn7N
+	 M51XGtQY3UmgNBF+EBtPpkWYnhjEQri8ANogmK9j+e/oLsSkSjD1Pl98MYvJ5ffpGl
+	 3xH7Vxv8sd8J3WdV7ouFhSSjmv+Zz6EImU1xys0YO4CUYchjACz348//oLeOxTUol5
+	 NmCZbkZwV56dAASKOH5SPtBLd/x7G4kFW905ZQZrpRaw8TikF+nDrfpAV/Ur66XRrP
+	 3IC6bhNtwbGEQ==
+Subject:
+ Re: [PATCH] net/atm: fix shift-out-of-bounds in __vcc_connect()/find_ci()
+From: netdev-bot+sashiko@kernel.org
+To: ngocthang2710.1999@gmail.com
+Cc: 3chas3@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Date: Wed, 30 Sep 2026 18:05:38 +0000
+Message-ID: <179079153866.434549.5010567126851808519@kernel.org>
+In-Reply-To: <20260927120410.44906-1-ngocthang2710.1999@gmail.com>
+References: <20260927120410.44906-1-ngocthang2710.1999@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-msm-dp-hdr10-v1-9-dbbf8b2b42bc@radxa.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MyBTYWx0ZWRfXyp9Sr6wn/wnM
- vt3ShVpbw64NVDtcnjEUK2RJM5k0zEf/IMKQR5WNn9Hj82xnh9PCmkvA//ANbYBDgf1egcWrpyb
- mKogArOtMCSsQLHW2HRymYhQoJavb24=
-X-Proofpoint-ORIG-GUID: fK6r-GCsA5kb7F6KMRZox90PqMS-yLYC
-X-Authority-Analysis: v=2.4 cv=VrC2kO2n c=1 sm=1 tr=0 ts=6abd4f64 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=ksxQWNrZAAAA:8
- a=M2bzw9_zRUdtQjVNecQA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
- a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-GUID: fK6r-GCsA5kb7F6KMRZox90PqMS-yLYC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MyBTYWx0ZWRfX+gJE/pz4E1ys
- I/1kBKMwGtEy5s63ZCqqIHRizD1hm71fTWgsBwJQ8PnUdWp+tP2kdzSFwApwMYeWno1yEJjt6DS
- tJEvj91xfApj5/8xvxwp0B7NopQTIG/eeEtR5p+PIxSa7IKymvhe4U3sd1l5Me6Kew3p3l4sdM3
- M/q1PMEba61eVlnpOCJ92NYih/BYYIwDJg+OSnvJAwRBK32gRVvDJxlcdlf0QtZjkdf+B9sEBQy
- cltYlGJBdvZJL29gohEPMHqjOQEDZ6bN9BywnlifNqAnLRL3rgzgR2x8K9DJ3WdXE84GP+ERFQN
- p9aw+pe1jLpFBjZqHQYixs0c+qQbhXfeIoh2TVQYTKzXxXx3mR6YFDcL2+IRQ5Ck/68ahwTr8EI
- ygt2IEBp+RYNrxaZmHt9xzrENq/9QuRH9nzRKtMsn5Ofz5EoOhDF/ugRZkaKzPtE9IX4HY3C0RV
- TDjgxxmNneflfYvWWbA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300073
 
-On Wed, Sep 30, 2026 at 08:41:53PM +0800, Xilin Wu wrote:
-> Expose max bpc on DP and eDP and select a supported component depth from
-> the new connector state. Keep the result in a private bridge state so
-> TEST_ONLY atomic commits do not modify the running stream. Force a modeset
-> when max bpc changes to apply the new depth to the stream.
-> 
-> Read cached capabilities under the plugged lock and defer the bandwidth
-> check if they are not yet valid. Recheck the selected depth against the
-> trained link before enabling video, including the reduced pixel rate of
-> YUV420. Retain support for 6 bpc SDR panels.
-> 
-> Retain the generic bridge helper's missing-state guard in the custom
-> duplicate callback. Initial state allocation can fail at bridge attach;
-> return NULL in that case so atomic state acquisition reports -ENOMEM
-> instead of copying from a NULL pointer.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 +++++++
->  drivers/gpu/drm/msm/dp/dp_display.c | 39 ++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_display.h |  6 +++
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 81 +++++++++++++++++++++++++++++++++----
->  drivers/gpu/drm/msm/dp/dp_drm.h     |  7 ++++
->  drivers/gpu/drm/msm/dp/dp_panel.c   |  5 ---
->  drivers/gpu/drm/msm/dp/dp_utils.c   | 20 +++++++++
->  drivers/gpu/drm/msm/dp/dp_utils.h   |  4 ++
->  8 files changed, 162 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 16c9165b5f31..f41924e75854 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -23,6 +23,7 @@
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 (2) · Medium: 2 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] This patch says it fixes the UBSAN report 'shift-out-of-bounds
+  in net/atm/common.c:382:32, shift exponent -1 is negative'…
+- [Medium] ci_range_bound() (net/atm/common.c:338-343) uses `if (bits <=
+  0 || bits > max_bits) return 1 << max_bits;`, which treats bits == 0…
+
+Pre-existing issues:
+- [High] find_ci() checks the static VPI cache `p` only against its upper
+  bound and never resets it when negative.
+- [High] solos-pci's atm_init() (drivers/atm/solos-pci.c:1348) calls
+  atm_dev_register() at line 1359.
+
+--
+
+net/atm: fix shift-out-of-bounds in __vcc_connect()/find_ci()
+
+This commit adds a ci_range_bound() helper to net/atm/common.c. The helper
+turns ci_range.vpi_bits/vci_bits into an exclusive upper bound. It falls
+back to the maximum range for ATM_CI_MAX, or for any other value outside the
+documented range. The direct shifts in find_ci() and __vcc_connect() are
+replaced with it, and __vcc_connect() gains explicit vpi/vci < 0 checks.
+
+Closes: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
+
+> usbatm_atm_init() has exactly that window: it calls atm_dev_register()
+> and only afterwards sets ci_range.vpi_bits/vci_bits. A bind() on
+> AF_ATMPVC/AF_ATMSVC racing in during that window sees a vci_bits (or
+> vpi_bits) value outside the documented range, and the plain shift is
+> undefined behaviour, reported by UBSAN as a negative shift exponent.
+
+[Severity: Medium]
+Is this description accurate for the current tree?
+
+Commit a60fd8c6dbaa76 ("usb: atm: usbatm: fix invalid ci_range
+initialization") already fixes this UBSAN splat. It has the same "shift
+exponent -1 is negative" in __vcc_connect(), reached through
+pvc_bind()->vcc_connect(). In that report the -1 was ATM_CI_MAX, which
+usbatm_atm_init() stored in ci_range permanently. It did not come from a
+registration race.
+
+With that commit applied, usbatm_atm_init() does:
+
+	atm_dev->ci_range.vpi_bits = 8;
+	atm_dev->ci_range.vci_bits = 16;
+
+solos-pci atm_init() does the same. Neither driver implements
+ATM_SETCIRANGE.
+
+The atm_dev comes from kzalloc_obj() in __alloc_atm_dev(). During the
+register-before-assignment window the fields are therefore 0, and shifting
+by 0 is well defined. The new comment above ci_range_bound() makes the same
+claim, that "the all-zero value the field holds before a driver's probe has
+set it" is not a valid shift count.
+
+Is there still a path that reaches a negative or oversized shift count?
+
+The reproduction was run on syzbot's kernel image, which appears to be older
+than a60fd8c6dbaa76. The Closes: tag (extid f6ac161ee9699270b8dd) looks like
+a duplicate of the report that commit closed (extid 6665d3db5fef15914802).
+
+Should this patch be dropped as a duplicate? Alternatively, it could be
+resent as hardening, with a description that references a60fd8c6dbaa76.
+
+> diff --git a/net/atm/common.c b/net/atm/common.c
+> index 81195727fa18b..bb6bc26eb5992 100644
+> --- a/net/atm/common.c
+> +++ b/net/atm/common.c
+> @@ -327,6 +327,21 @@ static int check_ci(const struct atm_vcc *vcc, short vpi, int vci)
+>  	return 0;
+>  }
 >  
->  #include "dp_reg.h"
->  #include "dp_ctrl.h"
-> +#include "dp_utils.h"
->  #include "dp_link.h"
->  
->  #define POLLING_SLEEP_US			1000
-> @@ -2620,6 +2621,20 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
->  
->  	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
->  
-> +	/* Link training may have reduced the available bandwidth. */
-> +	if (!panel->video_test) {
-> +		u32 clock = panel->msm_dp_mode.drm_mode.clock;
+> +/*
+> + * ci_range.vpi_bits/vci_bits are documented as 1..8 / 1..16, with
+> + * ATM_CI_MAX (-1) meaning "no restriction". Neither that sentinel nor
+> + * the all-zero value the field holds before a driver's probe has set
+> + * it (see the register-before-ci_range-is-set race in usbatm_atm_init())
+> + * is a valid shift count, so compute the exclusive upper bound instead
+> + * of shifting a VPI/VCI by a possibly negative or out-of-range amount.
+> + */
+> +static int ci_range_bound(signed char bits, int max_bits)
+> +{
+> +	if (bits <= 0 || bits > max_bits)
+> +		return 1 << max_bits;
+
+[Severity: Medium]
+Should bits == 0 really be treated as the maximum-range case here?
+
+A width of 0 bits is well defined. 1 << 0 is 1, so only VPI/VCI 0 is valid.
+
+Before this patch, a device with vpi_bits == 0 rejected any explicit
+vpi != 0 in __vcc_connect(), because vpi >> 0 is nonzero. find_ci() also
+limited its scan to p < 1.
+
+After this patch, __vcc_connect() accepts VPI 0..255 and VCI 0..65535 for
+such a device. find_ci() can also auto-assign values in that range. An unset
+range now gets the most permissive bound instead of the most restrictive
+one.
+
+In this tree, bits == 0 only occurs between atm_dev_register() and the
+driver's ci_range assignment. This change therefore lets explicit-CI binds
+through while the device is only half initialised (see the solos-pci comment
+below). It would also affect any driver that uses 0 bits to mean "VPI 0
+only" and indexes tables by VPI/VCI.
+
+Would it be enough to apply the fallback only for bits < 0 (ATM_CI_MAX)? That
+avoids the undefined shift and keeps the old behaviour for 0.
+
+> +	return 1 << bits;
+> +}
 > +
-> +		if (panel->msm_dp_mode.out_fmt_is_yuv_420)
-> +			clock /= 2;
-> +		ret = msm_dp_utils_select_bpp(panel->msm_dp_mode.bpp / 3, 10,
-> +					      clock, ctrl->link->link_params.rate,
-> +					      ctrl->link->link_params.num_lanes);
+>  static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
+>  {
+>  	static short p;        /* poor man's per-device cache */
+> @@ -342,12 +357,13 @@ static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
+>  	/* last scan may have left values out of bounds for current device */
+>  	if (*vpi != ATM_VPI_ANY)
+>  		p = *vpi;
+> -	else if (p >= 1 << vcc->dev->ci_range.vpi_bits)
+> +	else if (p >= ci_range_bound(vcc->dev->ci_range.vpi_bits, 8))
+>  		p = 0;
 
-This doesn't feel correct. Yes, we can lower num_lanes (or rate), but
-then it would mean that the caps that we checked in atomic_check() might
-no longer match the actual hardware. How do other DP drivers handle the
-case? We have a "golden standard" of i915, amdgpu and nouveau, which we
-probably should refer to and follow.
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch, but the
+patch rewrites this line. Should the static cache p also be reset when it is
+negative?
 
-> +		if (ret < 0)
-> +			return ret;
-> +		panel->msm_dp_mode.bpp = ret;
-> +	}
-> +
->  	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
->  	pixel_rate = pixel_rate_orig;
+A bind with vpi = ATM_VPI_UNSPEC (-2) and vci = ATM_VCI_ANY runs p = *vpi,
+which leaves the static p at -2. A later ATM_VPI_ANY request, on any device,
+only checks p >= bound, so p stays at -2.
+
+The VCI cache has a matching lower-bound check (c < ATM_NOT_RSV_VCI). The
+VPI cache does not.
+
+This seems to cause two problems.
+
+First, find_ci() can return *vpi = -2, or -1 after p++, for an ATM_VPI_ANY
+request. vcc_connect() sets ATM_VF_PARTIAL based on the caller's vpi:
+
+	if (vpi == ATM_VPI_UNSPEC || vci == ATM_VCI_UNSPEC)
+		set_bit(ATM_VF_PARTIAL, &vcc->flags);
+
+The socket is therefore treated as fully connected with a sentinel VPI.
+usbatm and solos then write that VPI into cell/packet headers.
+
+Second, once old_p is negative, this exit condition can never be met,
+because p++ only wraps back to 0:
+
+	} while (old_p != p || old_c != c);
+
+Take vpi = ATM_VPI_ANY with an explicit vci. If (-2, vci), (-1, vci) and
+(0..255, vci) are all occupied, can this loop spin forever under
+write_lock_irq(&vcc_sklist_lock)?
+
+This sequence seems to reach it for an unprivileged user with a usbatm
+device:
+
+  bind(UNSPEC, ANY)         -> p = -2
+  bind(UNSPEC, 100)         -> occupies (-2, 100), p unchanged
+  bind(ANY, 100)            -> gets (-1, 100)
+  bind(UNSPEC, ANY)         -> p = -2 again
+  bind(0..255, 100) x 256   -> explicit, p unchanged
+  bind(ANY, 100)            -> p never returns to old_p = -2
+
+usbatm_atm_open() does not range-check vpi. It also sets ATM_VF_ADDR, which
+check_ci() needs to detect collisions. The sequence takes about 260 sockets,
+each with UBR QoS.
+
+[ ... ]
+
+> @@ -378,8 +394,9 @@ static int __vcc_connect(struct atm_vcc *vcc, struct atm_dev *dev, short vpi,
+>  	int error;
 >  
+>  	if ((vpi != ATM_VPI_UNSPEC && vpi != ATM_VPI_ANY &&
+> -	    vpi >> dev->ci_range.vpi_bits) || (vci != ATM_VCI_UNSPEC &&
+> -	    vci != ATM_VCI_ANY && vci >> dev->ci_range.vci_bits))
+> +	    (vpi < 0 || vpi >= ci_range_bound(dev->ci_range.vpi_bits, 8))) ||
+> +	    (vci != ATM_VCI_UNSPEC && vci != ATM_VCI_ANY &&
+> +	    (vci < 0 || vci >= ci_range_bound(dev->ci_range.vci_bits, 16))))
+>  		return -EINVAL;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the zero-to-maximum fallback
+opens a second path to an existing NULL dereference in solos-pci.
+
+drivers/atm/solos-pci.c:atm_init() publishes the device before it sets up
+ci_range and dev_data:
+
+	card->atmdev[i] = atm_dev_register("solos-pci", parent, &fpga_ops, -1, NULL);
+	...
+	card->atmdev[i]->ci_range.vpi_bits = 8;
+	card->atmdev[i]->ci_range.vci_bits = 16;
+	card->atmdev[i]->dev_data = card;
+
+device_create_file(), sysfs_create_group() and dev_info() run in between.
+
+A concurrent bind(AF_ATMPVC) in that window goes through
+pvc_bind()->vcc_connect()->__vcc_connect()->popen(). popen() reads
+card = vcc->dev->dev_data, which is still NULL, and calls
+fpga_queue(card, ...). fpga_queue() then does:
+
+	spin_lock_irqsave(&card->tx_queue_lock, flags);
+
+Before this patch, wildcard binds already passed the zero-width check, and
+find_ci() resolved them to (0, 32). Now ci_range_bound(0, 16) returns 65536,
+so explicit requests such as (0, 32) or (5, 100) also get through. The old
+vci >> 0 check rejected those.
+
+usbatm_atm_open() returns -ENODEV while dev_data is NULL, but popen() has no
+readiness check at all.
+
+Would this need the device to be initialised before atm_dev_register(), or a
+synchronised readiness check in popen()? Changing how the bound is computed
+does not seem enough on its own.
 
 -- 
-With best wishes
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927120410.44906-1-ngocthang2710.1999%40gmail.com
