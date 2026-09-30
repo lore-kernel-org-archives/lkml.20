@@ -1,226 +1,183 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326E84D6C3F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767775; cv=none; b=Bn0f5yDnZ+kRj4YcNy7lIQBvP3SgyHBQvqzVTipDHFjLdOKguArHLAn3ljS0cND9l5IfvFacb7GT5gvPIAeWyVPF8wAesWlo2c8New+vULkdt/OL3o7J7sYgEG5YfXV61FqRkYdUEI5Bd9HQ36bihuK8MYTM/WP88+716ZbCtuw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767775; c=relaxed/simple;
-	bh=6I9/o2fsb95RZ/cdcrjocTXvh86feiHHlbzI4OFSZMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QnKv3EMCuf3LBCy3mD/+u9f86XVYc1FuInRSzb+3Lp59+oNquYxctOxngrBix6CpNTq+udyLiVy4akrIVOg3lyXzvu7cEzzaRyRRDju2WDj7xvR2fz/eK+xhv74vfMG3LUya2RKq3ChRvwnmkhhFI6LtPQYTYQoFa9ZqD6N4Nus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RhouW3A1; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453C03B27DE
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790767795; cv=pass; b=Qap2pMdblLonNdLqmh4SQNnqXkU3UNtbuiqMTQbooPhfBl7IjEOmggNq/aIvDs5NvE17ZsCg4BpcfsOQRln8Kt9oONv0PQMczXGtOQhapQJfbVkiN8X9mj2nPvFY1jkBvFWg2QsHXsgDNG0qPcKIsXjKVU4ZtUMkYh00cL42Ky8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790767795; c=relaxed/simple;
+	bh=z9JQsjZr0T0YOMcUnw8JHainCYTPtz98ZWzc8GlE+F4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=bV9Jd4cUgvcezDexqSxgzmXX0Vznu50MbziVAAT6loaq9kPidqILFdsK6/kj9xYp1jNruD/5ZN6vsVZ8Q3jg4Nv12CHAM7shgZhh76gnuHfJopV/BnL6QMd9qgJctqLL1bBVwc8jkptaJh3LSRkOgPG4ZwN6Vv0z+K6X5ywQEfo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lg0xzQge; arc=pass smtp.client-ip=74.125.82.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RhouW3A1"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8804b59404aso2498091b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lg0xzQge"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-144f79153f5so732232c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790767793; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OCt6YZOsYgjt83uHGZWWdTxs9aZrDMCMUKphZpVUM7MtKDA14k8vNd5bJWOuNmFW3Y
+         7AWwnyeJWuubxKx0eqVanLDXgUzqstbbajASqiGPxDjfCySZVmcnma30QSmQ2+o2mAQM
+         XxmzAprIuP7hQzOeTr75H1szZG6hdn0elHpxc2hVjL1ZndsmtVnzRsGrSuPZPuy1FOzo
+         NcIZ6lT4+zn7XbIp+S3/OmH0K24nFV4AhNyAJi5JPYQv5z3KEyWqY4gorbDide3YKfpq
+         z+ciO2wugDFGYmJ/9Ei0kvx2kCmRkUOqNtbBfNJuFwEyMh1ZFyrkj4+CY+iRKeJyoxB1
+         MzEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VI9FMfHBO8Xce1RC42SkpR8mv4d8IZMnoN931y6mJ7k=;
+        fh=+C/u+W0Tfw7jH9GKp7Wlt2gwh2kKZzpITOqRUF0I7TU=;
+        b=J25dNLfYI+n9Fq37UeDT3j8h3d+Hc5d2jLBKhfTO9hJYO6WOqzM7Pl3vGSe/WYm6Si
+         udvj0xSHr+tY+qALyS+XQW0h9Rpdld8LmHisl0dsUNQ5XA0imv6yhUAtdsY9y2DeX1rO
+         mDlbemn3xyyGL0nEBZ59HHT3Po+XmMNHBQ8k8czA6fgPsw0Qi4TiQTwE3JUa4uR0bQH3
+         NUL+SzT7WEf6GpSx8GA5qBJv71XTo3TPLO0wolh9hSU9MiORJeXSHKrhf0LJsEU9UBwq
+         MX7TUShC6TdTyG0rT+HXCrVMLAIBZGSOJRVopNYT8WGtoqrjj5AVRYYskxE1Os6SG1f4
+         cADg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767773; x=1791372573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790767793; x=1791372593; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8tVHCGk2Xwqu+yf2mIq4Pai4+4x8BJRwBsQH1o/snK8=;
-        b=RhouW3A1HoH73HAXMBtDC8A87acGjfD6grYWDwNGBDdrMe8U2NoWq453YYgCWB/EFG
-         GPomUPqtEQSVXek1CDxjIOTxEA2iqMbtsCWl4btj6Df8An4q0F6gsfG19RZ8GzJJu5CP
-         JZjnyjeYcvDxrYtC6isah2QuRSoDajCTWmY96jDye4sIoSTFZOWWTEqal/kuojdW9AO7
-         d8u7adNeEwFcmW0JzsTn2xa/rYGOW0DjHK9xmUZ8f5dQwd5EAUbjIHwVAybe2yCI+3gk
-         Bn0hFuQ8hb2bN6GHJ75LOqVDgDdGiowyztRyE9d3Kht3M+s1rrg//yvXcYO8Sx3mDhEY
-         b1+g==
+        bh=VI9FMfHBO8Xce1RC42SkpR8mv4d8IZMnoN931y6mJ7k=;
+        b=lg0xzQgeIvXZerWRRfduiJJSv6TjcLk911lXYD0GHI33ptuQUF8E54qxmPWcQHJbED
+         9n0O1TOEbVYoIYSHb3Z78ScrEOpn5WN6rN3sfoJXwt8AA8pRylEXagQ12+xrmZHdDq/4
+         H/KKfzsUH49wVyjQ2u4fuAmrsNbqzCLsKDQnR88N1bHBH6IFXxV3VHrWW+MMbAw2oGz0
+         vKmzg8Ju1sL/pHepNXvMMX0Hm+EwbQVTh6R/vLHsa6SeCjuDjKeiZ9SjPYXgW4zEm0eL
+         4YTKrj8zEgsrvwDC1MKXNawBcA/nNN0DDwar0CyQ/XuJzD3ZVcLlTybJTXyhWwk+Zdny
+         c2eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767773; x=1791372573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8tVHCGk2Xwqu+yf2mIq4Pai4+4x8BJRwBsQH1o/snK8=;
-        b=TCy3bA8HWMolKkLNVUAWOjPfDnFKdlzl8nQ7Kg9weqpQgf68olOTt9X9v04mVDwJ/c
-         aNTj0ncimMar6fSQWDuOeVPXjBoBbtmLLQCNaOz5SfnvLiC0WfhVprbBvs+9cQqVLV2r
-         qcZf+UFURzcS2wpCqWyezAaSWKfVbKgZj4X7uIavFKg6EK/bGYFLsLH9U4GUZVo1DLIT
-         jlAjXXfbKOPIBGdojyLKwwN06AjTyVx7yQy4garPHc4u0sEUCn4K2vbG83lci5ZEImmr
-         Y7HwteWbshzC+2rP6EVH6qdu2MH11UVobBCoxoNIuWQNLjOllso7VjyHThmZzOTMq7oj
-         AlVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwqnazn6UDK2XpnnBnW2Xe4CjUsA36my0YVHcLpSTnG6BIu25jY1ST9vEspauJN1At6yBjl+IwSEP2DD9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEPUYq7RmHxUr2UsvXeTuOw8FQw0N7m7llkdK/cgtdu20QhaSE
-	wKM/3lUi1wS/6CqQWAqZVF6e//r6S5KrqlAlI8lzamwlW74ksZXN5570
-X-Gm-Gg: AYBFou2Hfoqbfeg84+2Tz7gi8bvtgtgCLATotlbP1Wo7ZpTNWReI/UHF59vyeNVLQfo
-	1EoiGSg20NcWQy4//1ifLKCZJm9lmyrsDX0tLf4i0S07NG3+HH0rtFoDg7VHHNPofMtJG7NI8Dq
-	tURU46h9Rt/2jd/ebj6CiZI8JwQ+1pBdIk2klLIPbgvk5dgrc8973Dg3sv9HZtOZSlxHZr7zs+1
-	MBYKMGuf4ie4eYFBSMeLLICwVl0OBNRIoFk8Uot9NKBwpcZ5OlRCobensB1eJfp9bSbUqd/O49c
-	Qy4HtohYmrPTn/xA1zxRqxLWY5DNHLxErT5dODYgp7n+bTLc98kfaC8rIZ87uQO0WecSLJcvEuZ
-	BbDQZ+gvjg899dIi6ff1kTPRPbwKtF4VV1L9MLfRFFkPwW9DCmBH4uEvGj5bItlGeGelBknZbjp
-	kUvlD9niC2l6QoUcPInT1yaLd+Yap9a+u/NzXkPIrwI5Jj+eqepQFpHFsdtJrtyBUeR1+4hQZ87
-	XHM6EpDK+sjsoofeRvApG1khiypsAfZISqakl5JBVpr
-X-Received: by 2002:a05:6a21:32a2:b0:3dd:a197:735c with SMTP id adf61e73a8af0-3de9e84e31cmr980963637.53.1790767773292;
-        Wed, 30 Sep 2026 04:29:33 -0700 (PDT)
-Received: from m-upc-A520M-HDV.lan ([2400:2410:3f60:500:3fb:270c:7df4:18f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab46db6sm712637a12.31.2026.09.30.04.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:29:32 -0700 (PDT)
-Sender: Yuyang Huang <uyoko90@gmail.com>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Kees Cook <kees@kernel.org>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Nikolaos Gkarlis <nickgarlis@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Willem de Bruijn <willemb@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v9 6/6] selftests: net: test AF_PACKET multicast dumps
-Date: Wed, 30 Sep 2026 20:28:42 +0900
-Message-ID: <20260930112842.21323-7-sigefriedhyy@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930112842.21323-1-sigefriedhyy@gmail.com>
-References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
+        d=1e100.net; s=20260707; t=1790767793; x=1791372593;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VI9FMfHBO8Xce1RC42SkpR8mv4d8IZMnoN931y6mJ7k=;
+        b=ZUsETERZfRIElH8m8gpmJngunEU0MXYqP4E/e8BLCqpALlKyWd01GrP4v/C0CTTny4
+         Rwm4ywVisMH7BHvKiVlFyOX2j7lSBSZFxpe6Wa582zncW5fIlUywhlWya20AnkVOpxmW
+         nj1d/UtzBFCNTx3m2vOBr02uYO6sPtwIgv52MSGij25IYlNZJj6/lh7vZcIuFkVQeEOR
+         vbZ8dqXJwiFIY0R4mLjvT4ygmAE9VcR03++OD4tduXaBoo+KzVu4H6TdAVKMLoWc6XWw
+         Zp9pmEoJ4JD530migZBqZy0WCYICppxfNGgm1SNxaoiQAQUkKkPhZ5AA59xpzal6SZqD
+         hZEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzeb41gAZt9BuDUOeHqZ5uPv/T2j+Axse72U8j3qkWpGfmNl14CWWnLnxtZFK2qbyEbFBJ8LCj/NEaCg2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mO9r5XMOYhUP55u0UP1UDVvCN/PhvUzzzWON9GLSmqQ71RpUHP
+	mKsmWAriq5m9MFVw90hLZWbO1w1kOpkT9Gxjh6nIVl/9oRjgNj+Ommixj/ZNWj4Jxi8hY0+p/5p
+	2ljuh6Axocs7EWoIey58uf1CpJsMRqnI=
+X-Gm-Gg: AYBFou2upBJHlbIgvcMz3v3WnZdSLHInCp1u4oaq1erNVmcH1j8ygCHvLKIR6iMT4wR
+	/8S56WDPaPoTZzbmj0shy4OR6snU3TyoGr5LutjIDgdkeZWYGefIs5iE7IrhZlGzdl4fZrqGz+7
+	T14g2IPhpQkrH6XAkWT2jc30pnVcopiENhFXoEowd7vGvRRkz/1NF6daiDEx79RWq9tGgmEFCU1
+	isKINh0kNcV9hrFkSOWI3zzPnQgMo9QjQ5MXd0V+NZNfbmNE0+0csmo1VtHU4+14pPKePrPKTjr
+	hKhQOjw5Zm4nF9nNpJWbBDS3pbdXmJZPs3DGR7gthLRuLj8aeHyyvnqB
+X-Received: by 2002:a05:7022:ed02:b0:143:1bb1:32ff with SMTP id
+ a92af1059eb24-14d34ad85fbmr972307c88.16.1790767793097; Wed, 30 Sep 2026
+ 04:29:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
+ <ary_wjlpYNWbqaHU@MacBookPro>
+In-Reply-To: <ary_wjlpYNWbqaHU@MacBookPro>
+From: binglei wang <l3b2w1@gmail.com>
+Date: Wed, 30 Sep 2026 19:29:41 +0800
+X-Gm-Features: AclHuK-p_Xk2V1xVIcpsl-hSdtHJfx0KgIA3_98DoxwM1xsRTEU7UjoPuOvA3hI
+Message-ID: <CAJ3C4KwGis=rhUp7GPXMCTAn0Tf3mLbf0DgSGhOsd6mvzwRbPA@mail.gmail.com>
+Subject: Re: [PATCH] erofs: fix folio reuse from a different address_space in erofs_bread()
+To: binglei wang <l3b2w1@gmail.com>, xiang@kernel.org, chao@kernel.org, 
+	linux-erofs@lists.ozlabs.org, zbestahu@gmail.com, jefflexu@linux.alibaba.com, 
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Dump the link-layer multicast addresses of a dummy device and verify
-that ifa_index restricts the dump to that device, that the all-hosts
-address joined on link up is listed without IFA_F_GLOBAL, that an
-address added with SIOCADDMULTI is listed with IFA_F_GLOBAL and
-IFA_MC_USERS, and that IFA_TARGET_NETNSID dumps another netns.
+Sorry, my webbrowser email client configs with something wrong. Thanks
+for your reply.
 
-Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
----
- tools/testing/selftests/net/rtnetlink.py | 73 +++++++++++++++++++++++-
- 1 file changed, 71 insertions(+), 2 deletions(-)
+I re-sent the patch from my Linux shell. I believe it's OK this time.
 
-diff --git a/tools/testing/selftests/net/rtnetlink.py b/tools/testing/selftests/net/rtnetlink.py
-index dc8c77db48974..5534ade056a5c 100755
---- a/tools/testing/selftests/net/rtnetlink.py
-+++ b/tools/testing/selftests/net/rtnetlink.py
-@@ -5,13 +5,18 @@ import socket
- import struct
- import time
- from lib.py import bkg, ip, ksft_exit, ksft_run, ksft_eq, ksft_ge, ksft_true, KsftSkipEx
--from lib.py import ksft_not_in, ksft_not_none
-+from lib.py import ksft_in, ksft_not_in, ksft_not_none
- from lib.py import CmdExitFailure, NetNS, NetNSEnter, RtnlAddrFamily, RtnlRouteFamily
- from lib.py import defer
- 
- IPV4_ALL_HOSTS_MULTICAST = b'\xe0\x00\x00\x01'
- IPV4_TEST_MULTICAST = b'\xef\x01\x01\x01'
- IPV6_TEST_MULTICAST = bytes.fromhex('ff020000000000000000000000000123')
-+ETH_ALL_HOSTS_MULTICAST = bytes.fromhex('01005e000001')
-+ETH_TEST_MULTICAST_STR = '01:00:5e:01:01:01'
-+ETH_TEST_MULTICAST = bytes.fromhex(ETH_TEST_MULTICAST_STR.replace(':', ''))
-+ETH_PEER_MULTICAST_STR = '01:00:5e:02:02:02'
-+ETH_PEER_MULTICAST = bytes.fromhex(ETH_PEER_MULTICAST_STR.replace(':', ''))
- 
- 
- def _users_for(rtnl: RtnlAddrFamily, family: int, grp: bytes, ifindex: int):
-@@ -105,6 +110,69 @@ def dump_mcaddr6_check() -> None:
-                 s2.close()
- 
- 
-+def dump_mcaddr_l2_check() -> None:
-+    """
-+    Verify link-layer multicast addresses in an AF_PACKET RTM_GETMULTICAST
-+    dump: the ifa-index filter, mc-users, the global flag and
-+    target-netnsid.
-+    """
-+
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        for ifname in ("dummy1", "dummy2"):
-+            ip(f"link add name {ifname} type dummy")
-+            ip(f"link set {ifname} up")
-+        dev_idx = socket.if_nametoindex("dummy1")
-+        ip(f"maddr add {ETH_TEST_MULTICAST_STR} dev dummy1")
-+
-+        rtnl = RtnlAddrFamily()
-+        defer(rtnl.close)
-+        addresses = rtnl.getmulticast(
-+            {"ifa-family": socket.AF_PACKET, "ifa-index": dev_idx},
-+            dump=True)
-+
-+        # dummy2 has entries as well, only dummy1 may be listed
-+        ksft_eq({addr['ifa-index'] for addr in addresses}, {dev_idx},
-+                "AF_PACKET multicast dump ignored ifa-index filter")
-+
-+        entries = {addr['multicast']: addr for addr in addresses}
-+
-+        # Bringing an Ethernet device up joins 224.0.0.1, which maps
-+        # to 01:00:5e:00:00:01 in the device multicast list.
-+        all_hosts = entries.get(ETH_ALL_HOSTS_MULTICAST)
-+        ksft_not_none(all_hosts,
-+                      "dummy1 does not have the all-hosts link-layer address")
-+        if all_hosts is not None:
-+            ksft_not_in('global', all_hosts['flags'],
-+                        "protocol entry is global")
-+
-+        static = entries.get(ETH_TEST_MULTICAST)
-+        ksft_not_none(static, "dummy1 does not have the SIOCADDMULTI address")
-+        if static is not None:
-+            ksft_eq(static['mc-users'], 1,
-+                    "unexpected mc-users for the SIOCADDMULTI address")
-+            ksft_in('global', static['flags'],
-+                    "SIOCADDMULTI entry is not global")
-+
-+        # target-netnsid dumps another netns, ifa-index is relative to it
-+        with NetNS() as peer:
-+            ip(f"netns set {peer} 5")
-+            ip("link add name dummy3 type dummy", ns=peer)
-+            ip("link set dummy3 up", ns=peer)
-+            ip(f"maddr add {ETH_PEER_MULTICAST_STR} dev dummy3", ns=peer)
-+            peer_idx = ip("link show dummy3", json=True, ns=peer)[0]['ifindex']
-+
-+            addresses = rtnl.getmulticast(
-+                {"ifa-family": socket.AF_PACKET, "target-netnsid": 5,
-+                 "ifa-index": peer_idx}, dump=True)
-+            ksft_eq({(addr['ifa-index'], addr['target-netnsid'])
-+                     for addr in addresses}, {(peer_idx, 5)},
-+                    "target-netnsid did not dump the peer netns")
-+            # dummy1 in this netns can have the same ifindex as dummy3
-+            ksft_in(ETH_PEER_MULTICAST,
-+                    {addr['multicast'] for addr in addresses},
-+                    "target-netnsid did not dump the peer device")
-+
-+
- def ipv4_devconf_notify() -> None:
-     """
-     Configure an interface and set ipv4-devconf values through netlink
-@@ -424,7 +492,8 @@ def ipv6_verify_inter_scope_addr_order() -> None:
- 
- 
- def main() -> None:
--    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, ipv4_devconf_notify,
-+    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, dump_mcaddr_l2_check,
-+              ipv4_devconf_notify,
-               ipv6_route_del_reason_expired,
-               ipv6_route_del_reason_ra_withdrawn,
-               ipv6_route_del_reason_absent,
--- 
-2.43.0
 
+Gao Xiang <xiang@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8830=E6=97=A5=E5=
+=91=A8=E4=B8=89 15:52=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Sep 30, 2026 at 11:37:53AM +0800, binglei wang wrote:
+> > erofs_bread() caches the last folio in struct erofs_buf and reuses it w=
+hen
+> > the next request lands on the same folio, but the reuse predicate only
+> > compares the page index; it never checks that the cached folio still
+> > belongs to buf->mapping.  Correctness therefore relies on an invariant
+> > that is nowhere enforced.
+> >
+> > fs/erofs/xattr.c already breaks it: erofs_xattr_iter_inline() and
+> > erofs_xattr_iter_shared() call erofs_init_metabuf() on the same buffer
+> > with no intervening erofs_put_metabuf(), and their in_metabox arguments
+> > come from different sources (per-inode vs per-fs).  When the two differ=
+,
+> > buf->mapping is switched while buf->page still holds a folio of the
+> > previous address_space, so the next erofs_bread() can return data from
+> > the wrong one.
+> >
+> > This is observable with METABOX enabled, where shared xattrs silently
+> > disappear on the mounted fs, while the same tree built without METABOX
+> > reports them fine.
+> >
+> > Fix it by validating the address_space in the reuse predicate too: if t=
+he
+> > cached folio belongs to another mapping, drop it so that the existing
+> > slow path re-reads from buf->mapping.  Reading folio->mapping is safe
+> > here because a reference on the cached folio is still held; if the foli=
+o
+> > was already truncated, folio->mapping is NULL and the slow path is take=
+n,
+> > which is the safe direction.
+> >
+> > Fixes: 414091322c63 ("erofs: implement metadata compression")
+> > Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
+> > Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+>
+> Thanks for the patch.
+>
+>  1) The patch format is still broken as your previous patch, please
+>     check your email client again before sending out a new patch
+>     (as I said, you could send a patch to yourself and try to apply
+>      the patch and see if it works);
+>
+>  2) the commit message of this patch is too over long (mostly
+> in the LLM-generated style), I think you could simplify a bit since
+> it's more friendly to human developers.
+>
+> > ---
+> >  fs/erofs/data.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+> > index be63b89f0862..d8b6523bc218 100644
+> > --- a/fs/erofs/data.c
+> > +++ b/fs/erofs/data.c
+> > @@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf,
+> > erofs_off_t offset, bool need_kmap)
+> >
+> >   if (buf->page) {
+> >   folio =3D page_folio(buf->page);
+> > - if (folio_file_page(folio, index) !=3D buf->page)
+> > + if (folio->mapping !=3D buf->mapping) {
+> > + /* the cached folio belongs to another address_space */
+> > + erofs_put_metabuf(buf);
+> > + folio =3D NULL;
+>
+>      `folio =3D NULL` is enough?
+>
+> Thanks,
+> Gao Xiang
+>
+> > + } else if (folio_file_page(folio, index) !=3D buf->page) {
+> >   erofs_unmap_metabuf(buf);
+> > + }
+> >   }
+> >   if (!folio || !folio_contains(folio, index)) {
+> >   erofs_put_metabuf(buf);
