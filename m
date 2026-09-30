@@ -1,170 +1,107 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875754E4C3A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772567; cv=none; b=Z9htvnzFl2nTq2/k5IXtzn0h/44SLxUrjV9xlUUKqJgQx9PlkEh/HirvlBikaqejOHy0CiQpxv1P4vMbvaUwIAJHyGGjMUs8QeGqkqDHo+M0i3X95DmNk4oPwtF5CRlXHAqFZaQvgSNzZsGWL7OUZ2QAJ9ohJgHAcU1S5mQBu+Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772567; c=relaxed/simple;
-	bh=TdyzSTHL7WYOVSGbZvbctK9FEuEdU7OX2Rp7WBlcsZU=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gn0soShgO6JGlnHnjRygwQQE5UQpcT1eAcQI4qsbVgKY2YsXRnLBBoZ5A18q5p66d2Hyj5r/RDYG0j9D5NPXDeYIYY7S3V1LlctptXNu8wnVKrUX9og918iFdd9GfN1K3skVTUZDHfFw4m0BzRuTKrTTXzHng8oBvjvuT0UYsLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2krLUjP; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F774D98EF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790772587; cv=pass; b=KZdQ9wyQ6mVdLikfXmN+TwAwXCd+tIyjVyo8JbPw03Yyk0spMWcGpO1K+D2dJyIlisgGFU+KbEawWjcuwx5S7Z890byU5eo3kZfakmCbrfhLwmDJ6TbHXXKS6ttSL2ZZDsGgWlZQNZFfy53qnsDj4kKNVFplRVj2pThwbrIdBKQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790772587; c=relaxed/simple;
+	bh=LxQMPKPB1CLsMs7Ihhrr/WMxkOEFkoDzJ24jltZgFeY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o9MEyE+t3NUi+i6xIcW7JPGMOVTxh6XJ1i6RGIhhHJFKna7dgkQ75mRlYbnrBy192F7Xz7u26K81fPN38hXpBHMdxM53PUhRysS9iu6mifiSo9pd7dR1n23HEHdGZ49QBIG/C3SjJwS9G8GXXLKBG1OvTyUtU1EoS6gKyZfBS0U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bVLIWps/; arc=pass smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2krLUjP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so22696675e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:49:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bVLIWps/"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba406b9539so30697e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:49:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790772576; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NsCjD7VmwdFrOvFJXqj2CXwaFhHcFXHKap92gcNCIkeN24NRr9bXyhPGfxFcKJmxir
+         xXJ7FMMnowuQLgdznPTWnyHepkmXG3wvtwvJSPY/OFcRRjekiWPU73nOGNhpxnemsnA7
+         DarffSpt3lOAoPL/qT3JabAnWbp4tDaJbgbalxPCJxk0T3OW+qp8EVyzM8S+f9tU33Kx
+         pcypraFm39KWzGqEr2VhXDTy5iOl3KVUI1snA7FxkLHOcoUeT9AzIaaO74hpCm0MsxvN
+         7wZuegIhA+/6xxId2hL3+44y3jC/MQQ4WN85oK+XnNC7JyVMpHT7O4PF6KCzLtpWqcHT
+         Nzgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=LxQMPKPB1CLsMs7Ihhrr/WMxkOEFkoDzJ24jltZgFeY=;
+        fh=1L8LpmjNO4j/T3oNrS/57DSuHG5upfQv6rKOrj4Vx+c=;
+        b=HGbBflcg8PhPTWdSEyqBoc/Vo2Arg3KtlLm91rVjhjQDqFwRg4TNdkRNZM+f+gnhrU
+         dnnhxCPwiHU7C+LjbgyIOaFRHY4En/NzdBc7QGa3aopRTc90xD+dteRj5OAmwXo7As5D
+         Z0cikN8u9Z8a8a8dH0a3NLScbXMxG6wpjgSSSI/iZ31xi/6yE5wQzEuZWiDJcF8Fj/n0
+         +kzYsR0Rt+6OYTuVvusW1LnzuHubzHJBinVkAnQCv8Y7TB7pmXHQQ1P7xG0CXKNNYwUT
+         R4vRuTRaxgAQDqob8H/7raxJ5V4L6vNlH3yUxn175Z1sMHCpmU6BriszEC1IFVgpR92P
+         pplw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790772554; x=1791377354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/dhWIKwIs8lapn2MMhEevzHPS2BYYvsR1AqGmdi+y+4=;
-        b=E2krLUjPpvrjrc3xDD1ruwYeGrnztUDpB0EbXuqQ64ya+ghgwLzJB+1E5NNBi3dNmk
-         ewgRuZ2yH28PCIEOpx8O5+lO4q6b7LiYehDLuET1lwy0FEs/jtsNRqUavw+Sm9UpWepO
-         HFH3PDxavM68qWrzFfHptgwr0V/ux8XT8/IEzXHe/L1fwZSIFaTgSkv3seMwvR6eYmMh
-         o4xgSUAIq1BWV8z5HbTekS6MAGp3aFxVP+7DLov7ntg9RGoIb/IwiFYaTTDU3biKzWZq
-         yDB9TY9Rj4BnIA7cY177iiWNXZCg0b7gsuuRyq+8qlvtW9lcwTN748kT+6OZNQI2TXkU
-         CduQ==
+        d=gmail.com; s=20251104; t=1790772576; x=1791377376; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LxQMPKPB1CLsMs7Ihhrr/WMxkOEFkoDzJ24jltZgFeY=;
+        b=bVLIWps//KcFCIeElGupaj5xfoBq2LTL9IXt26uLAiNuPIinhvgjQFZFSykZxa4Sg4
+         Whl51hwKspnA/M0282g2WvQxvRGZxRe9FXBnTaRaEv8L2NVwBGwwJe7CQuQxpVmnvdxM
+         crH7riHMl012R9xETyigW+dcAVUoMm+trgjRpquMJGHC2CTTSTbNWVXon3apA+UEi/4P
+         EWbG4IB9jRJAykz4Os7pwPhRT3gLF7CDBVAmHlMUXvhxqR85Anu/E7ecfRrtor63Rqaw
+         n4oU7kLReGH0Jg9Ux3gITzbJ/J5DEYQH/Kein9LugNsRZsITU1HLVUV8MA7MtW+0iMcN
+         Bj3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790772554; x=1791377354;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/dhWIKwIs8lapn2MMhEevzHPS2BYYvsR1AqGmdi+y+4=;
-        b=NH8DD9mbj8pRxz8bYyTpkOHjrT0V4EdGVis7eSDve1n7M6z3Ld6Qlm8KqeYTi9yJl6
-         mNljDT1BgZr0aXlKJweuuFC8+FsTMyGhA5JApWIYaYC5vYDisKev97NNrYvOiXRWz8Ve
-         ddwgmcnK29hksQs6oNSpjFqSlJXvfAByMT5FrOj2+E61gKy5uyvCI0pk+CPtFP9+qLcR
-         /waUNAX/bBIRMeXlgtdnMWWct19XeX+h+3FVg6qj/2I2lx0WyAhXJ/Ovf/jZJuQ74FS3
-         lSqJF3LDXlsc0pbfIMGNZKqjM0mMcVh0dINRX2pVmm2/+FGi6FcbycjKdeqoE770n0iu
-         Ojpg==
-X-Forwarded-Encrypted: i=1; AKwUvByq3uqKRUM/eiq37w+qrLcBYy3G+OnDAtmmfj7St7NZyRaCe5e6HkDAEJPNC1l83GlqOkidBQVQ3uGGU5k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNAgp3lQK54Zg9mYEvQ+NgSGmSwzXtrD5c27x7FWtJiuB6gTTz
-	jwn6BDmCN/+gZrvYtsZ555aEd4IQyFSlJ7KbHqhfCelgizfMku25ney/EGhK6g==
-X-Gm-Gg: AYBFou0/xQ1K6D0LPBIx0lTTwYFphyYY5Kx8DU/7u7vSl72QSYk2DCdSY0sj++a6W73
-	OQyxjAWYABN7AWl0SE9xXR2I/geNYRo5D65B0yP5nl9FUFIVmSPF5iQ55G63OamSyrku4fktIAx
-	skqHPXapL1/ifhd/AFD4FyR8Efjziq/BZkPbqK0Ie4ypWndBUM2Kh3ynXqhxcrnp/LRFXhd24DP
-	kH/b010lNBKk2SSSZtBDoTKWzO7Yoqs/ifCWXZghNW2CnUJE0fC77/2yB9Fdye9HxCa0WHLTEA5
-	gym9Nqlbbe3TjLoWmQbK+L5+XHukimJFbG955F3La/gt1BoFCCbioVLUBNqWwgvDQssvZ4ijUsH
-	h++mdS+7a8iP7E0bYyvKx9rsxDp1IMcv6RsQLXJOTCbtZxyF4S+m0+T7PeDojrPbhLwUw2e/1GC
-	siVChU9CXuruE3Zegm2EgWWnq0UKWjVfFyaf2mVMgVj1Qx9SBHzSI04s528lrXkstM1GCLn4mhU
-	ajQTgJGbleVR7zFZIKxeb/ZwdmkfIlpme9N8OFyWWJa+52Nu9diHjeEnr+gIFUcoYvVNrIBtqyj
-	8Ue6pfY9Y7ce1rKjFQDGt/L7yO7oQmI/7u0N
-X-Received: by 2002:a05:600d:864b:10b0:4a0:2dd:7573 with SMTP id 5b1f17b1804b1-4a01b12b666mr16604625e9.33.1790772554145;
-        Wed, 30 Sep 2026 05:49:14 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-212-25.dab.02.net. [82.132.212.25])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01cb8abc1sm3766935e9.0.2026.09.30.05.48.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 05:48:57 -0700 (PDT)
-Message-ID: <c07404e0-33f6-4e5f-a80a-e1901b42dc39@gmail.com>
-Date: Wed, 30 Sep 2026 13:48:49 +0100
+        d=1e100.net; s=20260707; t=1790772576; x=1791377376;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LxQMPKPB1CLsMs7Ihhrr/WMxkOEFkoDzJ24jltZgFeY=;
+        b=vuVzJ2dMyhotHSdamG7CgppX/xM8246dAhRPTEmbwMCkzgj7+tnhFpi73S2OhZdWUj
+         JZdPpfqLddHTO+j7+W/LomYp0JbqnzNBm5bQ5+BldFK5vJBB1Xtd2pgVstzqpKCf7914
+         fXoQ+97LUMWR2Pc/NX5xmJhcAekbuFKdGFcbbGxjuCa9YwlCEfgRPBmCDgnbmNJ6Bbti
+         PzQb1vJJ24DSKe8rTmzHS+7ONcSVjPkYwIxomnzPx6mdNUja0qSUJCk45gfMT89vxMQG
+         TdY3IYFDwc4hP0LuLhCxk2qNJyyLgYKcsG3b41sCUmGSlNKDsQm6um92bmWgaroDHwl/
+         D0NQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjLWidZeqpGpWTCFpHzyizkpv6k5nXBtXdmlEeL2r+VKiE59RDh7oS+okDRIJvya/ZK2g76vBFQWP9tnA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLdi0bgezhXU89CkPQ91ujMZG+IXpZcYKXx/FasY8vK7kF7Lhr
+	7uA2/4SHu2bW/Ue3pmZ49J3fbeLDQp9Ctl10ZqrlEUUCW+37WbqYzqcoLqJn2VOAN1mHJmbCWM7
+	eSPaPYmuwMbyvvi0LU6PsvPr0ltDjx5g=
+X-Gm-Gg: AYBFou3gLXL6O0zG2fxk/N4ETDEd2nBWF6U/BZ0SLL0dQgjdASDc6v7gHjVft5v4tp5
+	OXMbp32mXZHzofRuN1nGxVnQ/6ofNMCKucha96yFZ3t3QKwHDCQgR5Rh2DS3wzN/b6T5hCPFJy1
+	gX0as9I10wtOwflPUL/ps1eRkjp+7WhExcvFpqDWip4+x+coEgsR+fvh+jCGLBi0Z/a9XEI3GP8
+	8fVcM9T7tL0x5bsUFoBoBEQFCqgjgcN+Ur5LzheweFeBuheWDSVH7qOr+95ZuN1PVn8sgEI3cnD
+	ASWAgY9VSK4SPVfHyToJopzTV91JL0HpWQm7PVLNB7xPXb6Jx0kAvRgcCNMHUkvDMvg0VLNkikJ
+	HjNd9WIUFA+83F4Bf55t8Hcy/LyxXQHt2iG8IboCwml3/OpNsuwFhJP6kaYdchaKFqqqB
+X-Received: by 2002:a05:6512:3b8c:b0:5b8:f271:2663 with SMTP id
+ 2adb3069b0e04-5ba4027b025mr588514e87.0.1790772575773; Wed, 30 Sep 2026
+ 05:49:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
- infrastructure
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
- <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
- <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
-Content-Language: en-US
-In-Reply-To: <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260929131020.266120-1-chenyou910331@gmail.com>
+ <20260929131020.266120-5-chenyou910331@gmail.com> <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
+In-Reply-To: <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
+From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Date: Wed, 30 Sep 2026 20:49:23 +0800
+X-Gm-Features: AclHuK-D7zf73Knh_TxmzrGJ4myJh2q-dTjIoLvdAmBeYKhsQvqC75aL9WGox60
+Message-ID: <CAKspUhKCpXGKb7zpz9MbtpixVMUWKXMJtK-z6CcrezGA6e+ETA@mail.gmail.com>
+Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org, 
+	si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vegard Nossum <vegard.nossum@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/30/26 11:08, Pavel Begunkov wrote:
-> On 9/30/26 04:00, Matthew Brost wrote:
->> On Mon, Sep 21, 2026 at 02:38:45PM +0100, Pavel Begunkov wrote:
-> ...>> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
->>> +{
->>> +    struct dma_buf *dmabuf = ctx->dmabuf;
->>> +    struct dma_buf_io_map *map;
->>> +    long ret;
->>> +
->>> +    guard(mutex)(&ctx->map_create_mutex);
->>> +
->>> +    scoped_guard(mutex, &ctx->map_mutex) {
->>> +        if (ctx->maps_killed)
->>> +            return ERR_PTR(-ENOENT);
->>> +        /* recheck under the lock in case it has already been re-created */
->>> +        map = __dma_buf_io_get_map(ctx);
->>> +        if (map)
->>> +            return map;
->>> +    }
->>> +
->>> +    dma_buf_io_wait_active_maps(ctx);
->>> +
->>> +    ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
->>> +    if (ret)
->>> +        return ERR_PTR(ret);
->>> +
->>> +    ret = dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
->>> +                    true, MAX_SCHEDULE_TIMEOUT);
->>> +    if (ret <= 0) {
->>> +        if (!ret)
->>> +            ret = -EAGAIN;
->>> +        dma_resv_unlock(dmabuf->resv);
->>> +        return ERR_PTR(ret);
->>> +    }
->>> +
->>> +    map = ctx->dev_ops->map(ctx);
->>
->> I'm playing around this code now.
->>
->> I think you need the dma_resv_wait_timeout after the 'map'?
->>
->> If a device doesn't support p2p ->map() will typically trigger an async
->> migrate to system memory and data will be moving but the map is valid -
->> Xe 100% does this, I checked AMDGPU and fairly confident it has the same
->> async behavior.
-> 
-> There is a wait right before because I read somewhere in dma-buf
-> comments that I need to do that, sounds a bit odd if I need to
-> wait on fences before and after. I can add it, just curious how
-> come that other dma_buf_map_attachment() callers don't need to do
-> that. Or maybe they wait somewhere else?
+You are right, and I should have seen it -- the rest of this series is
+built on that same expectation. checktransupdate.py also finds the
+original purely from the path, which is why 1/4-3/4 move the files
+rather than fix their :Original: fields. By the same token, at their old
+paths the language switcher cannot pair them with their originals
+either, which is a better argument for the moves than the one I gave.
 
-I can't find it, so maybe it was the comment below and I mixed
-sth up back then. I'll move it after ->map().
-
-
-* Note that for non-dynamic exporters the driver must guarantee that
-* that the memory is available for use and cleared of any old data by
-* the time this function returns.  Drivers which pipeline their buffer
-* moves internally must wait for all moves and clears to complete.
-* Dynamic exporters do not need to follow this rule: For non-dynamic
-* importers the buffer is already pinned through @pin, which has the
-* same requirements. Dynamic importers otoh are required to obey the
-* dma_resv fences.
-*
-
--- 
-Pavel Begunkov
-
+Thanks,
+Chen-Yu
