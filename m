@@ -1,218 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A4A155757;
-	Wed, 30 Sep 2026 00:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1BD13B58C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727010; cv=none; b=lHdmyQqufLrpyBDA+m40lHkgGJ99jhPGDZWP7wToPyI3HUwsGXW/Niw+PEVxHgrWcWISPT6GOehQX6iA4tjxuh52Jrk8h4/oMg7WczWiaTWWfKn8DsFkzzOXTlc3WugLCu2MOu5SGk7gqZkprH3OHT77U+E5BTXkED3irdZGn7M=
+	t=1790727091; cv=none; b=GhxmC6bjzWzgfVkv+BDDgvFHYor6Yv8/GzifdpQ9eNEPDTTcgun9fdbPSIumgAlqawYFb4TdrVjYGEoYIbhHSiKc4on2xVNZWVQkZ9HG/OEyGHL9PhMKUWXVyqO/kn+vHPCv9izoUX28C7cdh/7IvDfCw5Klk1AFbk0son4Lw88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727010; c=relaxed/simple;
-	bh=urY5D1HirS61bTqNbWq1zzLFEJqBSnKxu9gGCuOOFao=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IYG+QlYjQ70ON25HLX6sY+uKJ7voTQJ4QHaVZJ/LRHqxLrtQsYDv/ZV0qxn9KohNsMIF66UPWzb74v8qJEbRe1CeG+0U0BwzU/CknG/bUqGxmuSm7v3Xj/zhNqRDjTi9UgOwAhmqlhOfBs8QmRPpuMlyhjdIA+taA1qK1HugAw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QignthsM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790727091; c=relaxed/simple;
+	bh=sKu78DjCAmODtHCgPAWQiNR4dngtKwV0Ou54EIH4260=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=coo56vyrNkQrXp5hytWyJIYqGEW3dXoPTnDj2igsKinj4Io+fxu1ZTDY/V5wDZTiOmNfR0DTX8tRIJdn3Ng1ho56CYRvs0TrIhisQq08+KHQW/HAP1oteQ1CvBpTwdTl4Hrt0qI6nNAJXyg1eGTUjE6KDu7CyAAGNFbopLeapyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Mpo2smH2; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QignthsM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E207B1F00898;
-	Wed, 30 Sep 2026 00:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790727008;
-	bh=KCXS6h+NhVE7z+sy2gU3aqTsRZPsF2DtMF11cLtX3b0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QignthsMheH93/gtuFt2IkBKsVlTUACEPA8cx6vbFa3akYwSxQd4dIBTRWBOYTlch
-	 XwMjGNoteeMU5WsV6ncbYsG6z11Mo5grW1fJguZSCUtUmwCK2jo6ISLtRq8eNygzzO
-	 mkIPL3Y9COYWjvRmzxf8P630aIXPTdRANqkG34mKw58zcMrFxL5XHjr/Vlv7oMqC3i
-	 D2lm5cDKRUD0/S1HXPpVCIYZAxZ5UHAMvPQZMItrMxSMs6fjMoVAjBvl0tary6IeKz
-	 Evhcg3a+B+DCk/vA4RFl/syXcW9wsxC4Ao3nlzfz2Y9N4rH6rWxM/o1blo8nE2CAOp
-	 JiX5cuBeDL5rw==
-Subject:
- Re: [PATCH net] tipc: serialize publication purging with name table updates
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 00:10:07 +0000
-Message-ID: <179072700746.434549.6689367628938134483@kernel.org>
-In-Reply-To: <20260927180806.1315902-1-nicoyip.dev@gmail.com>
-References: <20260927180806.1315902-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Mpo2smH2"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so4455079a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:11:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790727089; x=1791331889; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/6ZGHDCmf5a7XSgxL4bcU9VK02Sk8HaCmnaTNrb7Zr0=;
+        b=Mpo2smH2eBR+RKrkmjryF26I+Ya/CeLeWh+IcTefKn8uO8raV0jo5msZdpBkhuaaUr
+         +jMGpj5ZuVU5ixI9sIz7/OCi62wVV92DKwSI7H4DI2a7BOuyNxpdfjwMuUYhD9J6R6E7
+         IYQpn5N8nA5rDAVA93VO5qXve+CdO0UBjEEdZj971x4QZDOIiJQndPeG+OiXvmw/NdUf
+         sfcclGBD/jaGBwHLmdsXzBi4Bmdq/58Q6Xy/8lXAx1ZlPi+mAKl4qy9M0H2VujpNS33r
+         NT6SDBDdwBYBw4L6HhsCIajA9Cn7eJ2qXXM187Gjk/Ukxx9AiKaHf7WZanLMEZNZRo8E
+         v1tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790727089; x=1791331889;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/6ZGHDCmf5a7XSgxL4bcU9VK02Sk8HaCmnaTNrb7Zr0=;
+        b=N5d2nfEum7PEwMOMrRCxWa7HUbE+0yKeU7asjlnTOBxabi1XmGf7el9lluDDja8xVS
+         UiuqbuijwLl0GaG0hsBY1pHRwL8zoVLhjm2PW/P3jdnOT21MyfQpSkisV8PaE01UI9Ep
+         wMhTp4AXTPg+Rh5/VrTLPXpt2ePf2SIrlAw/zfm5rw87jAaV31bwvfk0atfKonYy/2wf
+         YWsD1nQ1jmQCkaYMghl2MIuLE3I3x3VNdIJO/Yrz6E6Bn1A45W7iUaZeBn6pUWoLNhvW
+         NA0wc8MvnDAN+tc27iYPd27KHQKZo1DAGb1Fm0gR+xe1OYu0CoGvaCOypfh0FRyQd7jc
+         KLkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGnRI4Pdv/JemROQXXguaV3WvMsHjYO5nIhehDHIufkLbe9YNma4jEa5oCO7mJvjMJePAj5q1XfaTaoEQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAQ6Yl/MvuQPoJHjJ4phk5NtwVdRFuVhEbFEnYuQHtI2OHfHPx
+	JD5m9OOGeGvWkUGdBSHFb2XZzER1edodNJpz/uSegyqNfbxGaGQyWJJ/XqxSFh7wV7STybKj7RC
+	bf98Cvw==
+X-Received: from pgbaz14.prod.google.com ([2002:a05:6a02:4e:b0:cc7:d698:697e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e7cf:b0:39e:6795:f7da
+ with SMTP id 98e67ed59e1d1-3a4bfdd4f20mr819262a91.19.1790727088949; Tue, 29
+ Sep 2026 17:11:28 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 29 Sep 2026 17:11:24 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930001127.3170009-1-seanjc@google.com>
+Subject: [PATCH v2 0/3] KVM: TDX: Syntehsize SHUTDOWN on unhandled EPT Violation
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, kvm@vger.kernel.org, x86@kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	James Houghton <jthoughton@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Signal SHUTDOWN instead of -EIO if the guest accesses an unaccepted page and
+has disabled EPT Violation #VEs on such accesses.  Returning -EIO is all but
+guaranteed to mislead the VMM into thinking KVM (or the VMM) messed up, and
+will likely result in the VM being terminated instead of rebooted.
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0
+v2: 
+ - Return SHUTDOWN directly, via a new helper. [Rick]
+ - Ratelimit the error message. [Sashiko, (and past me, amusingly)]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+v1: https://lore.kernel.org/all/20260923163315.1580860-1-seanjc@google.com
 
-- [Critical] In tipc_update_nametbl() (net/tipc/name_distr.c), the
-  WITHDRAWAL branch frees a publication with kfree_rcu(p, rcu) whether…
+Sean Christopherson (3):
+  KVM: x86: Add a helper to prepare vcpu->run for a SHUTDOWN exit to
+    userspace
+  KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO on unhandled
+    EPT violation
+  KVM: TDX: Ratelimit the "EPT Violation on pending acceptance page"
+    warning
 
---
+ arch/x86/kvm/svm/svm.c   |  3 +--
+ arch/x86/kvm/vmx/tdx.c   | 11 +++++------
+ arch/x86/kvm/vmx/vmx.c   |  3 +--
+ arch/x86/kvm/x86.c       |  3 +--
+ include/linux/kvm_host.h |  8 ++++++++
+ 5 files changed, 16 insertions(+), 12 deletions(-)
 
-tipc: serialize publication purging with name table updates
 
-This patch changes tipc_publ_notify() so that it moves a failed node's
-publications onto a private on-stack list while holding nametbl_lock. It
-then unlinks and purges them one at a time, taking and releasing the lock
-for each entry. The addr argument is dropped from tipc_publ_notify() and
-tipc_publ_purge() because the unlink no longer needs a node lookup.
-
-> diff --git a/net/tipc/name_distr.c b/net/tipc/name_distr.c
-> index ba4f4906e13b7..34867b69044c0 100644
-> --- a/net/tipc/name_distr.c
-> +++ b/net/tipc/name_distr.c
-> @@ -227,38 +227,50 @@ void tipc_named_node_up(struct net *net, u32 dnode, u16 capabilities)
-
-[ ... ]
-
->  void tipc_publ_notify(struct net *net, struct list_head *nsub_list,
-> -		      u32 addr, u16 capabilities)
-> +		      u16 capabilities)
->  {
->  	struct name_table *nt = tipc_name_table(net);
->  	struct tipc_net *tn = tipc_net(net);
->  
-> -	struct publication *publ, *tmp;
-> +	struct publication *publ;
-> +	LIST_HEAD(purge_list);
-> +
-> +	spin_lock_bh(&tn->nametbl_lock);
-> +	/* Leave new publications on the node's list during the purge. */
-> +	list_splice_init(nsub_list, &purge_list);
-> +	spin_unlock_bh(&tn->nametbl_lock);
-> +
-> +	for (;;) {
-> +		spin_lock_bh(&tn->nametbl_lock);
-> +		if (list_empty(&purge_list)) {
-> +			spin_unlock_bh(&tn->nametbl_lock);
-> +			break;
-> +		}
-> +		publ = list_first_entry(&purge_list, struct publication,
-> +					binding_node);
-> +		list_del_init(&publ->binding_node);
-> +		tipc_publ_purge(net, publ);
-> +		spin_unlock_bh(&tn->nametbl_lock);
-> +	}
-
-[Severity: Critical]
-
-The commit message says "Concurrent withdrawals can still unlink entries
-from this private list". Is that always the case?
-
-The WITHDRAWAL branch in tipc_update_nametbl() frees the publication even
-when binding_node was never unlinked:
-
-net/tipc/name_distr.c:tipc_update_nametbl() {
-    ...
-	} else if (dtype == WITHDRAWAL) {
-		p = tipc_nametbl_remove_publ(net, &ua, &sk, key);
-		if (p) {
-			tipc_node_unsubscribe(net, &p->binding_node, node);
-			kfree_rcu(p, rcu);
-			return true;
-		}
-    ...
-}
-
-tipc_node_unsubscribe() returns without calling list_del_init() in two
-cases:
-
-net/tipc/node.c:tipc_node_unsubscribe() {
-	if (in_own_node(net, addr))
-		return;
-
-	n = tipc_node_find(net, addr);
-	if (!n) {
-		pr_warn("Node unsubscribe rejected, unknown node 0x%x\n", addr);
-		return;
-	}
-    ...
-}
-
-In both cases the freed publication stays linked on n->publ_list. This
-loop then splices it into purge_list, writes to it with list_del_init(),
-and reads p->scope, p->sr, p->sk and p->key in tipc_publ_purge().
-
-The lock is dropped and BH is re-enabled between iterations, so a grace
-period can end in the middle of the loop. Can a later iteration then touch
-a publication that kfree_rcu() has already freed?
-
-One way to make tipc_node_find() fail while the purge is running:
-
-CPU B: tipc_named_rcv() holds nametbl_lock and has already dequeued a
-       WITHDRAWAL from node N (node_lost_contact() only purges what is
-       still left in bc_entry.namedq)
-CPU A: tipc_node_write_unlock()->tipc_publ_notify() waits on
-       nametbl_lock
-CPU C: tipc_nl_peer_rm()->tipc_node_delete() removes N from the hash
-       once N is SELF_DOWN_PEER_LEAVING or SELF_DOWN_PEER_DOWN
-CPU B: tipc_update_nametbl()->tipc_node_unsubscribe() fails the lookup,
-       then kfree_rcu(p) runs with p still on N->publ_list
-CPU A: list_splice_init() moves p onto purge_list, and a later iteration
-       accesses p
-
-A second path does not depend on the purge race. tipc_named_rcv() takes
-the node from the header the peer sends, and nothing validates it:
-
-		node = msg_orignode(hdr);
-
-tipc_service_remove_publ() treats node == 0 as a wildcard:
-
-		if (p->key != key || p->sk.ref != sk->ref ||
-		    (node && node != p->sk.node))
-			continue;
-
-A peer with a link could send a WITHDRAWAL with orignode 0 that matches a
-publication from node X. That publication is removed and freed. Because
-in_own_node(net, 0) is true, tipc_node_unsubscribe() skips the unlink, and
-the freed entry stays on X->publ_list.
-
->From then on, list_add_tail() in tipc_node_subscribe(), list_del_init()
-on neighbouring entries, and the splice and walk here when X goes down
-would all operate on freed memory. The spoofing itself predates this
-patch, but it produces the same state that this loop assumes cannot
-happen.
-
-Could the WITHDRAWAL branch always do list_del_init(&p->binding_node)
-under nametbl_lock? Every writer of binding_node for remote publications
-already holds that lock.
-
-Separately, could tipc_named_rcv() reject an orignode of 0 or our own
-address, or require it to match the owner of the removed publication?
-Without that check, a spoofed withdrawal can also free local publications
-that are still on the socket and cluster_scope lists.
-
-The kernel-doc for struct publication in net/tipc/name_table.h also still
-says:
-
- * - Remote publications: in node->publ_list;
-
-While a purge is running, binding_node is on the on-stack purge_list.
-Should that comment be updated too?
-
->  
-> -	list_for_each_entry_safe(publ, tmp, nsub_list, binding_node)
-> -		tipc_publ_purge(net, publ, addr);
->  	spin_lock_bh(&tn->nametbl_lock);
->  	if (!(capabilities & TIPC_NAMED_BCAST))
->  		nt->rc_dests--;
-
-[ ... ]
-
+base-commit: a0bc8e1d7a82bb143b8f8f44ae3a01938f37c2ea
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927180806.1315902-1-nicoyip.dev%40gmail.com
+2.56.0.rc1.315.gc6ed9934b7-goog
+
