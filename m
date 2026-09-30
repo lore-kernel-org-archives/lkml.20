@@ -1,82 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE243DFC74
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C5C4BD373;
+	Wed, 30 Sep 2026 12:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770453; cv=none; b=Nav1cOpVH59ZZHHU4b7kRdmjzPjUrpkAt0Ss1iKwn7bMZdEjWeZQ+evkAoAIuq0VoD1Vd3KEUWsXIEaAY0bmmcmPIzKlUJVr2CycEtx1oK+MBWkTlaDXMDO56gasWcvax8rTns2HUVLysIMWxxg4QFSrgzaqPcGZ1T6U7Y94LNI=
+	t=1790770488; cv=none; b=e5E7MTNgjOEGFJKj849i+KOW55XdgMqEKv+jB6KB6Y6ZAAREed4dnJO+7sfSvz4dWLmFc12dWoue4CLTB5FC/77Qpj/gdKqu8S1jkyFBIbqn8GgckhQtp8G7Gq8WOLOUO1F2mgF+mk6Xb89B51bCECQUsazVIKBG5dKV1qWSdAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770453; c=relaxed/simple;
-	bh=fHgbHRNzEnFUlP31YxzqtwDqio/CYy4seWxnYnXWxyg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L0aptgasRk6jOqeFcNxK4A9pKa9Fyk4QNCmJrLA8k19ltOOC6UYaM98fHu9mY6oIY+I7gzgHJKUpnPBc4lHxGNsKfFhSbuVnf/LdwSKp1y+Y7b4aA5SUY482u8C4hOPiKqaS63OpfDU/1YBHFLDbsIRdl8xMuuxhScZkvf1X4RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzvkGeU7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790770488; c=relaxed/simple;
+	bh=nWt4+mOnl4l6Yj23ltsIz8mR5DZl9PFyDnezgWo4IXA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=J4KwHyCeXhP9py0COJrZqGT0oCWfmKW0rUJT68O8dMZof+KJ7NBPgIptLUuIvGpNUNHsAr06izFRmWjcTUmOE15gQVNBeW11kRqlguiD5EMEevCiFgCUGMIRaYCnGHqWVkOm32SBd+jX1NOr9OmPuT3nW2IgBzjwAkVC69tKP9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GY03ptDM; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzvkGeU7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5C51F000FF;
-	Wed, 30 Sep 2026 12:14:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790770451;
-	bh=fHgbHRNzEnFUlP31YxzqtwDqio/CYy4seWxnYnXWxyg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XzvkGeU7bV2t80zI5BtErxLjoC/e8vILDiqkw8Flj+ezG9Q21+NZBsQkqrinoZ1yp
-	 8VOcHtRDdIbf62K49d7u+5/nCP0ccE5cDJQP9pgqt9aHMa97N5myDpkxNYplH9Vc+C
-	 exckcUyF2GPf/3q7toZa46E4CZV7U8PbYKxd+rTOW1PRR+PgRihvg2TDQDsEoGk+Bs
-	 hTT/g3Yj2Q+S9lGPSk5TFMCb3O7H0so3NTWCn+ltm3rY4oLiZKK7FkWwUKc5gTzwV7
-	 uKQrMweHSQa4O57IV+LeTuy2f3Ih6S6BzFO5r5cXXna2U9EGnXTTVowg4C+JNPLcal
-	 bYXTHZGzAuoqw==
-Date: Wed, 30 Sep 2026 13:14:06 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: =?utf-8?B?67CV7YOc7ISgL+y7tO2TqO2EsMK3QUntlZnrtoA=?= <ts930@dgu.ac.kr>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/mlock: fix zero-length request normalization and
- integer overflows
-Message-ID: <arz82IHw4MqGTb6l@gremlin>
-References: <179066531783.50175.13377521828379196177@dgu.ac.kr>
- <3a95d0e5-7969-4b0d-988a-ead62b06b6f5@kernel.org>
- <art6x0XpWcT2aUyy@gremlin>
- <CAFPGN2jPGhcWVqa3k16RWMaMR3TwKyhFbYYF4D3L6L85T8E96g@mail.gmail.com>
- <7d120555-0c31-474f-893b-e5ee3466ead4@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GY03ptDM"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hvv9t0CQPz8v1y;
+	Wed, 30 Sep 2026 14:14:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790770482; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nWt4+mOnl4l6Yj23ltsIz8mR5DZl9PFyDnezgWo4IXA=;
+	b=GY03ptDMzalgEbRAj1q6q/LZaO2Myb8HtYK2fnrh4/DkTW3WL1J1AqvyyS+U4ZrYNHJwOI
+	djOeXYH7GPKRf9I0p/hRbZXW0O6u2p4IiwtzJZEyKVmEQOD5I5/nS/6SsfnST4sqjARAtv
+	FXmhbR/L+2txmOfutGbeiTCE+NLt/ky0A42g8dkxq6nwathMtClW85KmVZWphPYmf1+1O3
+	drIOooUsQtko7WKnIwF5kXph1PrwRSGuiF0uYL49n/KT0818ahRAvOhvcjXrQeN4osjjW1
+	d423y+6rB97t7/nUUZtb5kDBHvSzS1843yKlLWeAGUCWiVuG4Qg6ECYuKRFQzQ==
+Message-ID: <102995397e5c5ca19027b7acc75ff7205f57e871.camel@mailbox.org>
+Subject: Re: [PATCH v4] drm/sched: Protect entity->last_scheduled with
+ spinlock
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=
+	 <christian.koenig@amd.com>
+Date: Wed, 30 Sep 2026 14:14:37 +0200
+In-Reply-To: <20260922145441.619097-2-phasta@kernel.org>
+References: <20260922145441.619097-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d120555-0c31-474f-893b-e5ee3466ead4@kernel.org>
+X-MBO-RS-META: dtionoohoakxj9iawxahyuqmsi3d6c93
+X-MBO-RS-ID: d3922876b93727a5916
 
-On Wed, Sep 30, 2026 at 01:43:05PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/29/26 11:39, 박태선/컴퓨터·AI학부 wrote:
-> > Understood, and thank you for the feedback.
-> >
-> > I sincerely apologize for the poor code quality and flawed helper
-> > design. I will be much more careful with commenting and ensure future
-> > contributions strictly adhere to kernel guidelines.
-> >
-> > I will drop this patch.
+On Tue, 2026-09-22 at 16:54 +0200, Philipp Stanner wrote:
+> The entity->last_scheduled field has always been set and read with
+> special RCU functions in addition to memory barriers.
+>=20
+> This was added in
+>=20
+> commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use r=
+cu for last_scheduled")
+>=20
+> however, no proper justification for that mechanism was provided. There
+> seems to be no obvious reason, since the entity lock is available and
+> taken at all places that evaluate the last_scheduled field. The only
+> exception is drm_sched_entity_error(), which is not performance critical
+> in any way.
+>=20
+> Improve robustness, readability and maintainability by replacing RCU and
+> barriers with the lock.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-...
+Applied that to misc-next.
 
-> The CI seems to complain about test failures:
-...
->
-> So is this patch doing more harm than good?
-
-As above, I think the submitter has decided to drop this patch?
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+P.
