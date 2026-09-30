@@ -1,108 +1,115 @@
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.73.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F43A3438A9;
-	Wed, 30 Sep 2026 08:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.73.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793DF457E7D;
+	Wed, 30 Sep 2026 08:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755461; cv=none; b=DOWOSNuSI4g5O0qNSCP45SA8Vb7puojf1+NdSZdTRz78ctVPYog0202vjNaCVwTfhqEHEItCVI94eMRRwknH7XMqp95OQ99rDt8W5hycCHmHrmfC4wHD0RPs6+PBgYjcHn0u3vgkV8s12UCva4ow+VXhCGYA1jXLcZEaSuO0XgY=
+	t=1790755480; cv=none; b=IJpiTNwPTuJqkLRG7Uks8pPkaaFYFVcFa1SeuDSdbe4lNUn4nZoeyQFYyS6tjxjCFkP/AUgjQfXU71V/9q25XetNPETzBgqGn869zJIazmmHdUCeZS2/nuQWyuC/9MRHSHV3ek4wZyAnFj4sINuf4tAJK70axxaiLmHaJ9VwjIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755461; c=relaxed/simple;
-	bh=oPT3tg2L6HmLsILUaRQtcWroKgIIt/TdhpZ7yEk7Uho=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R3kS7QI1Rp0BvLt4ApJVQFRsYVTHdYX/atD2FLGoRHW88YtkWv4oOK9hUqtwNetxhG6xb0t9o9NDYY1oM0eoBniiocqZg4Y2EgqajfzssTkgmWwY3oAGful3bnGBKpkouU+r6QwhZK2GuQUtacwq8Gbenq02qfxZq2AkLYerh/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=DqeG1QQG; arc=none smtp.client-ip=114.132.73.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1790755480; c=relaxed/simple;
+	bh=6QnaOwsgJhq/PcSEb/P6lCu3R7QuM9PpF729v9cvMUI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LSoYJ/5q/8tMca1wRpE0y3MUJ37bEiwcTFyyF87da2JpEKZZ4foCx6XCrTEBh9SV5ycEWLb7W/QNaUClfMCeoNlOOE7Co3AxMJM7LyAJ3sHDLgfXu9UFLWIEBHS1Mb6iXLKRY2EZvZy3a6sSbjoCWZZeZhGyCEEJhE7l8wPM0uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=goH7Gb4N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="DqeG1QQG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1790755385;
-	bh=B1xaRJPj1w1p0V5KG4GDUYATKKaieqfDd6pMYauV7vg=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=DqeG1QQGaHcvf1HKThqjcdp81HOJW/+lgMr42I6vvU20KDKXFGJcBKgploSmstNq0
-	 Csfe/umtbwbp0N6Ywbtat/L2qV1lwKchwjcy1EOMD35oBCWUcjSyS9eKQDjWVh6ICq
-	 to+1wnEAuDCmrXGBMNdDFKWFi1r9yuRMtX9nCZzs=
-X-QQ-mid: zesmtpgz7t1790755366t5415e8df
-X-QQ-Originating-IP: JsKWQKryqfAHbSkD8GCJzK/uJ5Jcb+q5d8aNCaXg+Oc=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 30 Sep 2026 16:02:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12572682429920885809
-EX-QQ-RecipientCnt: 10
-From: Yichong Chen <chenyichong@uniontech.com>
-To: tytso@mit.edu,
-	linux-ext4@vger.kernel.org
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-kernel@vger.kernel.org,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH] ext4: drop tmp inode ownership before migration cleanup
-Date: Wed, 30 Sep 2026 16:02:41 +0800
-Message-Id: <20260930080241.414973-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="goH7Gb4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1651E1F000FF;
+	Wed, 30 Sep 2026 08:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790755478;
+	bh=rLeIGiG34MJBhQKyQ3shHNm33v2I+f07Lo5JWEha5+8=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=goH7Gb4NThy9TsJxO5sNAg9/0BbauKLBPhy+yHPrbPON2Uhw5eMAYw8t1imy7leHI
+	 Pr8ESUAz1oZdTGY1nPbLmtdAdIW0Pngde0htrZ+xMGpT/HhrccPhX4UV8yFwq2lP3X
+	 PIY9+IBPSpgXA41kBVwoPnXpBjXtiYypIzgus3y81EivcjLq9ZviVcWOvzNpmLlS6z
+	 UiFwSvN+bjIwDmDpnDFvmSTv9C6GsHN7duqccqFLAHRySTnMno9gqL9VP6B1XW6HLE
+	 FSd8ybMF+ADVNrWkQ2j+zQsZR5yisqn/fCQ3z5uEo8rITaWFF7+/wvTiZ/Ih7sc1+P
+	 F4J0VqnoVugzg==
+Message-ID: <d2c9da65-ea4a-403e-8512-26897e0bc26f@kernel.org>
+Date: Wed, 30 Sep 2026 10:04:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MgIyGr9KWTnBG3Rh32fDhinrJs1J9kMiPYpssQ+xlMeKGpSJ6k0plS09
-	Z8ap2egc7QRTzBO/Rh0Eyn+xUr7Tu7L3KS9yBkYjvE7NGAJP7e9900JwPo1Nuj368FYZT18
-	iPIkmLXiYNxgXX+SGeo7BSA0Ro2oMcb7H0hEG0ApAYPqcABTVDHCJRQ/lZmYQX6FrK4t0s/
-	Whc6X8ME05OdCpguRRtn32XmqL9cQcC7/56AeOjuFHI1cy+hYGqxXG6abVv56gVkn2HRdvy
-	zPZeCkodJiqQabUmU9zsnT3yE4RgWetM5hZAqc9B+8FI+oxokzALSwl4zJEPDjZgGY5OExa
-	5XhRVycn2YCR31etq25R5IRpvmI8o77gjateEoZPqqZN2Zt0/v6iDEJlojM9fdjyGVppA8w
-	NG1c3nFoF93I0UBsVbtmI57CT0dERUa+ZzSDD08OxQ57nXkUOmxxSLugfFXsTCyxapBBYR1
-	5IlWbehDvaO1od8zTVXOBeKoccI+qh7gA24IRl+uBhdidJwA85rvZ+qTSnYh86BvTN3MH4K
-	mYFq6Nq4Kxkg+JMQoDhiWjyc6S0YfeEgqukKa5EyOGJ7t0yU25vXAys2AghVOQiAAS6M6f9
-	OvZHttM03Gp0Mc0L9Kns5DMvDP0bTiDEJ+frUKCIgktbO03QNoXLoKAfg4Ir6PYfZLEgwQG
-	oZtbX9pbGcnEqj4TVKOb3wafXNpKTlgS6ZZ4t4CHPQVlZilA5HB973Ze+vYx3VhlhgKWhTr
-	zOc2t8hM62Y6vCjyXwcS98mPrwArYgUZt3e65a4vGul3jZbQDbnaSj8dEiz7nMzZHVrTalM
-	7ph8KnVoJ1aYFTVyVD2MwU3D4dFPINVgiVndVB2tX/xY6pBUXSDjYAEEiNVdNonw7e+gLus
-	mNGdkyBXxVO9uBrSgXwc4WXGPw2s5ZT/6w6Me2xa2awyZrHoKy/b2884OGOm8wpDjhSZbWP
-	UFFflO4BEwKXp6jjgwBJm/Q+UvTx4gjwp3wYXUx4KmRhe9wzPpQ1MsZSoDBh1KOmKxUuIHC
-	Ir17S7O1ynJq0SsuzlJGPn5jsrcjE=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v1 1/2] Input: sur40 - don't wait for buffers nothing will
+ complete
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ dmitry.torokhov@gmail.com
+Cc: floe@butterbrot.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
+ <20260920113949.12726-2-ngocthang2710.1999@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260920113949.12726-2-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-After the extent tree is transferred to the original inode,
-ext4_journal_ensure_credits() can fail before tmp_inode is cleared.  The
-subsequent iput(tmp_inode) may then free the transferred tree.
+On 20/09/2026 13:39, Nguyen Ngoc Thang wrote:
+> sur40_stop_streaming() calls vb2_wait_for_all_buffers() before handing
+> the queued buffers back. Those buffers are only completed from the input
+> poll callback, which is gone once the device is unplugged. Closing a
+> video node that is still streaming after a disconnect then sleeps
+> forever in vb2_wait_for_all_buffers():
+> 
+>   vb2_wait_for_all_buffers+0x20f/0x330
+>   sur40_stop_streaming+0x45/0x310
+>   __vb2_queue_cancel+0xc5/0xf70
+>   vb2_core_streamoff+0x5d/0x180
+>   __vb2_cleanup_fileio+0x6e/0x190
+>   vb2_core_queue_release+0x1f/0x190
+>   _vb2_fop_release+0xe8/0x280
+>   v4l2_release+0x280/0x430
+> 
+> It has not been noticed so far because sur40_disconnect() frees the
+> device state under the open file, and the close then crashes earlier.
+> 
+> Return the queued buffers first. A buffer that sur40_process_video()
+> has already taken off the list still completes by itself, so the wait
+> afterwards only covers that one.
+> 
+> Fixes: 6a8588156657 ("[media] sur40: fix occasional oopses on device close")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+>  drivers/input/touchscreen/sur40.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+> index 09d8c5f8d09f..7020bcf9b81a 100644
+> --- a/drivers/input/touchscreen/sur40.c
+> +++ b/drivers/input/touchscreen/sur40.c
+> @@ -929,11 +929,11 @@ static int sur40_start_streaming(struct vb2_queue *vq, unsigned int count)
+>  static void sur40_stop_streaming(struct vb2_queue *vq)
+>  {
+>  	struct sur40_state *sur40 = vb2_get_drv_priv(vq);
+> -	vb2_wait_for_all_buffers(vq);
+> -	sur40->sequence = -1;
+>  
+> -	/* Release all active buffers */
+> +	/* Release queued buffers first: nothing completes them after unplug */
+>  	return_all_buffers(sur40, VB2_BUF_STATE_ERROR);
+> +	vb2_wait_for_all_buffers(vq);
+> +	sur40->sequence = -1;
+>  }
+>  
+>  /* V4L ioctl */
 
-Clear tmp_inode's size and block count as soon as ownership is transferred.
+I think you should make one more change: replace the video_unregister_device calls by
+vb2_video_unregister_device(). This ensures that at unregister time all streaming is
+canceled and stop_streaming is called.
 
-Fixes: a413036791d0 ("ext4: Provide function to handle transaction restarts")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
----
- fs/ext4/migrate.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Having streaming continue after unregistering a device is in general not a good idea,
+which is why we added that vb2_video_unregister_device call.
 
-diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-index e588b4157604..11b3da396966 100644
---- a/fs/ext4/migrate.c
-+++ b/fs/ext4/migrate.c
-@@ -570,6 +570,12 @@ int ext4_ext_migrate(struct inode *inode)
- 			free_ext_block(handle, tmp_inode);
- 	}
- 
-+	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
-+		i_size_write(tmp_inode, 0);
-+		tmp_inode->i_blocks = 0;
-+		EXT4_I(tmp_inode)->i_csum_seed = tmp_csum_seed;
-+	}
-+
- 	/* We mark the tmp_inode dirty via ext4_ext_tree_init. */
- 	err = ext4_journal_ensure_credits(handle, 1, 0);
- 	if (err < 0) {
--- 
-2.51.0
+I think you still need to have that change in stop_streaming for this specific driver,
+but it might be worth testing without it.
 
+Regards,
+
+	Hans
