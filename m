@@ -1,190 +1,174 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1CE538DC4C;
-	Wed, 30 Sep 2026 04:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790741625; cv=none; b=MkcyeIwFl0AxzmUzrqULSx6lvyIcKP4+AlC2MLWkIKo1BWkjWuYlc4mEvk3UnliJEoq+pcpvRHXDEF3H82Us4IY0h8QE6X4g1qEA8W6GVDK4LFFdNIpu9miEPmM1bJ3VS/qxB/fvlq8RehrkoEKySDDj2oWnHc2GIkmuQUbs1Fs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790741625; c=relaxed/simple;
-	bh=Eo9CdH+0TtRSX/QNTJHDXco4iCbdFaKjgbzXmhi+d+w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pihFSTq4nsi3b9ll6LFUX8Yv5Mwg8V2S6NckTyObtxGK32ucOrC6g/m9PpO6GKZJkNNv+0lFV+8p8/RXvyqzSTkAuaMaTw7clnOgyT6vTg9sVAbIV+GSb5ZZiJkEnOVwj3TZr4TmsELvvHwFnzXCWiq2zGy7NHPakENhgbXk+h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uUMCfJku; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D1936B92E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790741669; cv=pass; b=HPCru8NLREnyRDr0Ap5UL/Sgim9Aag6vl4qOZHRdlnK/Ce38Hi+pdWb/18aBWGuiqeQBhC9Vuxo/BpKAl2E5iq9DGS/rTRInOxVWFUYEsYw1W3rUIlGYTVK5ZJRjEtZn72VLCmRw22TwVfKD5BtPlsSZUrDkjoLdFDN0LlAtuac=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790741669; c=relaxed/simple;
+	bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p3qs7bHdgWlO71uJHhD7PlSCXRufqcac2+gZTx1yRCTrxNHrUKAXPnVbe3q+ofIg686JD0prPgIyQcwENYPrLyCbtrfRY2/yfyTrMzFKzym0ZEEqisVC0/K5ubZav926Ml+uhgHdpeJniV5xTOJVX9JqOS/tiAueay91ry6Cl4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bEsg7GBF; arc=pass smtp.client-ip=74.125.224.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uUMCfJku"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 15D7016F3;
-	Tue, 29 Sep 2026 21:13:38 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 068A63F85F;
-	Tue, 29 Sep 2026 21:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790741621; bh=Eo9CdH+0TtRSX/QNTJHDXco4iCbdFaKjgbzXmhi+d+w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uUMCfJkuCo0kl9BpIml6ya6QFhzuY6ScFyN2rrI9OZskXRGAAufEdzszI/qQTPqg9
-	 Iguh/DHAQ4gijcI8is1MZGmQg8kO5mj99Gmt6zNO4sTw9mweCAqyNbvOWOTaW5gjPd
-	 8DmLSRkJE2jM29CtfSFlUOWDSiSDxl4euASIJUXk=
-Date: Wed, 30 Sep 2026 09:43:37 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, damon@lists.linux.dev, kasan-dev@googlegroups.com, 
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 1/9] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <snzkwnnubrx27tkroyql77iziuws3ku34dkclevfen5edef33b@wc3df3hbeuly>
-References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-1-5670b8cb9059@arm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bEsg7GBF"
+Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-6768036283dso165994d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:14:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790741666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=phVrmkYcIkeWOKOzB/oSohYYHqAng7d9DYuP86qAPBr9D8zcfHi6LNJKUROA5Vpx/Y
+         oxLfQkVM/2Fyb0yKjBVg5mU4I9HU0U98ant3Kpq/3vrsmdB+ef4KDZTi4t59FaZw8rzo
+         xCxHmmijZprZCRpw6ikGA3sMWEOTZUISBYhTc47lP6mUHWStMGHQPb1UTMbxNmJSj8sT
+         SUWxlpPXpjh/tVzS5lP6C7OzTjzYRlNnk9YFJm17lxdu1ejZ8B1wHVn6uIiMxg/CDBeq
+         dQHPfacCD+acEu37JOMjiHaUySUdB5oSZVJS3aQ4sFuGpRZzWlAGNGwv1zktpmS5xeQD
+         B5qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        fh=a+CtMhs1MociFfvjJetZr6eHmvdbQCLudjqpRZiNm8s=;
+        b=fpKhMKPBSfeOPx/mLAdyiqmJBi1PuMcKBFwKrMoisCxubmDBde1fzwPFtxc3uq+vFS
+         h2N5NYqki2tZ7U8cULBe1q9V8osRwaQ7wQRUQpZTpA8Al6dmGIxM3/xTiOT/QxKChUWn
+         BEzo9on3t10STtuGER/18Sf7orSD+pHwCQxMuv5jKWm1FctvnJSWIjkOexdPBQ6I2U8l
+         9+GLQ8KD/FTVdHb1TWtonmcFrbhYp3Cptq81yO+ALzTsMhdngeOduQcRGjuO7jlB7Yg/
+         nNy2LG0azvnFUjAhEW21iBaVgjaerJJSJpUVmNSFIJ6W0sHWBbyS+etbGHkNzTvjM3h0
+         GleQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790741666; x=1791346466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        b=bEsg7GBFT1zZzhGc6u8sDmnXTAV25/gAq+pd6f6PktV6+Y91n3ehaPpZu1cNMNBBdP
+         tBb6Q5H6oZlt/SVxy6CAfvy38XSkOyzXh6T6XJeAOH/GDvs5dBDL4UAKWvnsZ/wBU8sa
+         Ab/ZyXjxV4D1dkvZKVmN7TRkVP830fBtz5RAk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790741666; x=1791346466;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        b=cOtzDdz0YSYwpKG+wtdgtZBY6omOcDxzwDVY5q0efQtEYoA2FFbCrsrd3l5P7ghlue
+         9/yEo418GN1urnuE+iK9M1hiZIjKe1tDgqaHeZdVf1tE8dM6BFyFS8aoHAePDPy7RQuh
+         FXVXEwApI0bMuHDzMOI+w6q0b4GRCHPkLeL1h0hnU7anIbp0hxY9tQuws+cT0QiSPiNw
+         zCTdWTAqkwxA6eupbBdhc5ZSn4GQaW4XSjyfLkbcBDXmH8XqvgMFrdqcEVGxi4SOM7Wt
+         THaUd8JuefVD/ZW0UB3Sf3smk2Rr75WB2p78zSkxLCvE9PhQts3TRHPcbUUiuKePuXAR
+         rCjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPs7pmvKpvus6ZR2F7MOFBebg91wJby3VNTj66ttCkyy4i3650SRtctfsbJIUec7jEgiaD/38DzKWP5G4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLywX7ikBT9I3OUpFKKAStNjwQP8vqma9BS3CTJKfd/1kJVxn0G
+	gOAFeWaUQJ6lWnxVQcUJcIYZAIbsCX9Mtjl690BnUeeyFhK+ayVkwX3wWGDLF71EKTHrJtz7FLZ
+	7XD+zQIfwcPAUeC3bXg4hdxXQauZDiTgDfoZA/sQw
+X-Gm-Gg: AYBFou2L5BzyZaYOQibeVyYcxLhJhwBnlJcI15jfJTTi7WXB71RkLQSfi7EPzMpIGay
+	MZGKP0msjxIWzFGjjBbYGfNpNzeixnH+U8Y42ph7YelWDlC/JSU1i4VEdQHbt3luqmAydeiqfS5
+	AkaIUsNYPOP4nzCikG3+Cy9G9wnP79FPcF8iNScoNVo783It6EsxwbF4kmmmw/FU6UiqTTzBG+6
+	NQK33V5sMdKuOzkKrqRpK14+nIp8GaadiXkTQiPUNSQVIVwShuYIcw9TyEP7LowVEiZuNXJB4dK
+	9KIdHTjvROrPxEFe5Q38XfotEFbL5t7+vvbgLeO23RtGZKTSg4GItu6mnXwGoh29mF4lS/Bq+5S
+	QVrgiEK4G9g==
+X-Received: by 2002:a05:690e:4197:b0:675:405d:643b with SMTP id
+ 956f58d0204a3-6768349a6c4mr76844d50.98.1790741666569; Tue, 29 Sep 2026
+ 21:14:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-pte0-v3-1-5670b8cb9059@arm.com>
+References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+ <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+ <arQxC3DmDyVIGdqq@collins> <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+ <arVnQmik-CveaAkY@collins> <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
+ <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
+ <arWIcrSFkEA4GMTY@collins> <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
+In-Reply-To: <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 30 Sep 2026 12:14:14 +0800
+X-Gm-Features: AclHuK8VlKUTvMI0v8jjtLYpqVzk8qBeIKfHOI-d_wW7lfMXYke40oAj8SBNDvc
+Message-ID: <CAGXv+5F8iJQJK4N2g8pmpGQVf8TxNvkC5Gm-RZ6F4HdQaThXpA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Paul Kocialkowski <paulk@sys-base.io>, 
+	Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, devicetree <devicetree@vger.kernel.org>, 
+	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
+	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
+	Michael Tretter <m.tretter@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 06:12:29PM +0100, Muhammad Usama Anjum wrote:
-> pte_t is used both for software PTE values and for entries stored in a PTE
-> table, so pte_t * does not distinguish a pointer to a software PTE
-> value from a pointer to table storage.
-> 
-> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> as a macro alias of pte_t by default. When an architecture selects
-> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> This preserves the representation while allowing converted architectures
-> to enforce the distinction at compile time.
-> 
-> Name the generic wrapper structure __hw_pte_t so architectures can
-> forward-declare it when pgtable_t must be defined before the generic
-> hw_pte_t typedef is visible. This avoids header-order dependencies.
-> 
-> Keep the C type definitions behind an __ASSEMBLY__ check because
-> architecture assembly sources can include this header indirectly. Include
-> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-> they previously obtained from that header.
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+On Fri, Sep 25, 2026 at 4:46=E2=80=AFAM Nicolas Dufresne
+<nicolas.dufresne@collabora.com> wrote:
+>
+> Hi Paul
+>
+> [...]
+> > By the way if you have ideas about specific problems with the stateful
+> > API that should not be reproduced in the stateless one, feel free to
+> > mention them.
+>
+> Few things:
+>
+> - Drain flow should be as simple as for stateless decoder, there is no
+> reordering, and so no holding on frames.
+>
+> - Capability query should mimic the stateless decoders (but up-side down)=
+.
+> Basically, we don't add a pseudo unset state, that was bogus.
+> V4L2_FMTDESC_FLAG_ENUM_ALL could be made mandatory, this is only partiall=
+y
+> implemented decoders today :-S
+>
+> - Capture/Output S_PARM, maybe review/revisit, but likely still needed,
+> otherwise the rate controller can't know the rate.
+>
+> - S_SELECTION, maybe make it mandatory for codec with a conformance windo=
+w ?
+>
+> - Of course, encoding process requires a request
+>
+> - Anything about keyframe insertion can be dropped, since frame type is e=
+xplicit
+> and per codec.
+>
+> One ambiguity we have in all decoders at least is weather or not the enum=
+erate
+> sized are coded or display resolution. I believe technically, all statele=
+ss
+> decoder exposes constraints in coded resolutions, and display resolutions=
+ are
+> not easily enumerated. Not a blocker, just a remark.
 
-LGTM
+IIRC from working on bringing the Chromium V4L2 code up-to-date, userspace
+programs coded resolutions as the frame dimensions, and uses the selection
+API for the display resolutions. And yes, the decoder exposes constraints
+in coded resolutions, like having the resolution steps match the macroblock
+sizes.
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-> ---
-> Changes since v1:
-> - Name the generic wrapper structure __hw_pte_t so architectures can
->   forward-declare it, and explain why this is required.
-> - Use software PTE value terminology.
-> 
-> Changes since RFC v1:
-> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-> - Exclude the C type definitions from assembly sources.
-> - Update the description for the new opt-in model.
-> ---
->  MAINTAINERS                   |  1 +
->  include/linux/pgtable_types.h | 17 +++++++++++++++++
->  mm/Kconfig                    |  3 +++
->  3 files changed, 21 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2133aec4a2004..da60a8bdcddb5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
->  F:	include/linux/pagewalk.h
->  F:	include/linux/pgalloc.h
->  F:	include/linux/pgtable.h
-> +F:	include/linux/pgtable_types.h
->  F:	include/linux/ptdump.h
->  F:	include/linux/vmpressure.h
->  F:	include/linux/vmstat.h
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> new file mode 100644
-> index 0000000000000..07da05d375c2c
-> --- /dev/null
-> +++ b/include/linux/pgtable_types.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _LINUX_PGTABLE_TYPES_H
-> +#define _LINUX_PGTABLE_TYPES_H
-> +
-> +#include <asm/page.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-> +typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> +#else
-> +#define hw_pte_t pte_t
-> +#endif
-> +
-> +#endif /* !__ASSEMBLY__ */
-> +
-> +#endif /* _LINUX_PGTABLE_TYPES_H */
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c1ddf59c0d71a..5f462ec6fa5e5 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
->  config GUP_GET_PXX_LOW_HIGH
->  	bool
->  
-> +config ARCH_HAS_HW_PTE_T
-> +	bool
-> +
->  config DMAPOOL_TEST
->  	tristate "Enable a module to run time tests on dma_pool"
->  	depends on HAS_DMA
-> 
-> -- 
-> 2.47.3
-> 
+ChenYu
+
+> Hope this is helpful,
+> Nicolas
+>
+> >
+> > > A second implementation, not just a variant of the same brand would a=
+lso be
+> > > nice.
+> >
+> > I still have it in mind to add support for the Allwinner encoder based
+> > on my earlier stateful-ish attempt. Hopefully that work can be funded.
+> >
+> > All the best,
+> >
+> > Paul
