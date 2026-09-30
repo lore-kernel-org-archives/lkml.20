@@ -1,91 +1,113 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F29F4EB87D;
-	Wed, 30 Sep 2026 13:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A25D44DE722
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:15:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774122; cv=none; b=R4de9jg6bWJRuC/VxQJPDU7Iy0aiUI5q4ZLMX60qof+vJDiaJvdIOoABTB4L1aXtkNr6Dr/Lhave9edIJvyjGPgzSsugm+/6voWfBIXNFogfNQKMbk/ns0fOCKQWrX/Aoi6KH3uYMs5AR2YHP1XVbmqlcJ5xr4cBb4M8s9/B8FQ=
+	t=1790774131; cv=none; b=Mm/dEC3Xgx+jsv+mXTl2U89svL2WtIzTk14d3fSNDItPC/VvUglXe9NuOgmg3mGNzTPI5XIL1cCv2NOzGE8Ww4iyo6oQBL/9fIbUBxegMaC4Lyy91XFAocnBlqAHNkY1jI9v9AwWEXr1kYSL6zfPrjZUQLkWUbCGc1uMCoBrkn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774122; c=relaxed/simple;
-	bh=vg7MW/V4HY5tvB5/b+Uq7fMjQ87Rz4OVY8HhQKNXqJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H1uz9BlIOc/aA9fTBrBZ9iWkoVau+RkoDFsT8N4pD/hQVif1PN4AIDyWzrSiywynNWhNfSG6jxTET/Hl/d2rEZBTdrWw7qWy4q6uJ9VMP4eR65qSO+FRsFLuTfOx4yRg66KpWI3D/PovaxzkThcbjwQg/w3yJJ5RezWtjzfjZ1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ThFLakqf; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1790774131; c=relaxed/simple;
+	bh=wt9kiW1+fHkVPbpgsXGt1SKRZBWNVq7HvMHMfXj6Ue8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EzlcW7cn11DVkYUwA1cTcmEiWRbxnzYMoQWTGNb12GgCuJdvjLcHfFY7yhCbTTLvJlj1qS9EjxjNCRJtxYZ0pgdoAJjgNBH0qx2MIVryzS/3y7/sYLSMv0Kw2XHBkdnf2bBFm5C8zHL/9ULsn+SB9WCQFAu1RPKSyj1VnnnY37I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FtqOYieU; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ThFLakqf"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FtqOYieU"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A8E6497;
-	Wed, 30 Sep 2026 06:15:03 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3F2B93F86F;
-	Wed, 30 Sep 2026 06:15:03 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9580143D;
+	Wed, 30 Sep 2026 06:15:19 -0700 (PDT)
+Received: from [10.0.130.165] (e127648.arm.com [10.0.130.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F1FF33F86F;
+	Wed, 30 Sep 2026 06:15:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790774106; bh=vg7MW/V4HY5tvB5/b+Uq7fMjQ87Rz4OVY8HhQKNXqJQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ThFLakqffTbj2ib6KicQbQjOxFz0FcE+uenjE6tXtxwTLir2gJkQ3ZxVGvINz9XPh
-	 q77qEmlchGDHM/wHgBDSj+BGHPdwqQ8nnI9QJAn6j1dN9SDukMKrqBqAfptRvilZ70
-	 t7fSmkiZ/TG/i7p/g/aTn6KqJ5ghcgUk0rgWNdvE=
-Date: Wed, 30 Sep 2026 14:15:00 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v20 4/9] firmware: arm_rmm: Add support for SRO
-Message-ID: <ar0LQwXM5MEvFUWa@arm.com>
-References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
- <20260929221623.1342076-5-suzuki.poulose@arm.com>
+	t=1790774123; bh=wt9kiW1+fHkVPbpgsXGt1SKRZBWNVq7HvMHMfXj6Ue8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FtqOYieUcxeNSyPZuFbrLBH9dH1Hl+DUMG6xomW9RUOPxbp/xzgc8Qz3xUG2OGbaX
+	 RKYhkHKnbMPlkAB4pvEMsZpJNI/JQWdU2s621KOBWcx66WwO5c5OlK6w4AcW4QTKKz
+	 h8yDl+3sstDvQXTQ58qugGTHkPw6ThhPghsH4Aew=
+Message-ID: <9ea8703f-ef5a-425b-9d95-dbecacf5238b@arm.com>
+Date: Wed, 30 Sep 2026 14:15:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929221623.1342076-5-suzuki.poulose@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] sched/eevdf: Cap protection when current has the
+ shortest slice
+To: linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com, kayracizmeci@gmail.com,
+ Elif Topuz <elif.topuz@arm.com>
+References: <cover.1790756779.git.christian.loehle@arm.com>
+ <dd46b8eddbd760b4d5f2cb7d0eb5027bf70fad32.1790756779.git.christian.loehle@arm.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <dd46b8eddbd760b4d5f2cb7d0eb5027bf70fad32.1790756779.git.christian.loehle@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 11:16:18PM +0100, Suzuki K Poulose wrote:
-> +static int rmi_sro_donate_contig(struct rmi_sro_state *sro,
-> +				 unsigned long sro_handle,
-> +				 unsigned long donatereq,
-> +				 struct arm_smccc_1_2_regs *out_regs,
-> +				 gfp_t gfp)
-> +{
-> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
-> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
-> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
-> +	unsigned long state = RMI_DONATE_STATE(donatereq);
-> +	unsigned long size = block_size * count;
-> +	unsigned long addr_range;
-> +	unsigned long donated_size;
-> +	int ret;
-> +	void *virt;
-> +	phys_addr_t phys;
-> +
-> +	/*
-> +	 * The RMM specification requires contiguous allocations are always a
-> +	 * power of 2
-> +	 */
-> +	if (WARN_ON_ONCE(!is_power_of_2(size)))
-> +		return -EINVAL;
-> +	/*
-> +	 * RMM clamps the Maximum value of RmiOpMemDonateReq:count to prevent
-> +	 * overflow in the RMI_ADDR_RANGE_COUNT field.
-> +	 */
-> +	if (WARN_ON_ONCE(count > (BIT(PAGE_SHIFT - 2) - 1)))
-> +		return -EINVAL;
+On 9/30/26 09:47, Christian Loehle wrote:
+> Changing a task's slice does not discard its remaining request. With
+> PLACE_REL_DEADLINE, the preserved deadline can therefore extend beyond
+> the new slice after sched_setattr() reduces it.
+> 
+> set_protect_slice() starts from that deadline and only applies the slice
+> cap when another entity has a shorter slice. If current itself has the
+> shortest slice, a later pick can protect it for the remainder of the old
+> request. update_curr() then need not request another selection when a
+> competitor becomes eligible.
+> 
+> For a preserved deadline d beyond the new virtual slice vslice:
+> 
+>            v                 v + vslice                  d
+>            |---------------------|----------------------|
+>     old:   |<---------------- protection -------------->|
+>     new:   |<---- protection --->|
+> 
+> Commit aae2a33ea662 ("sched/eevdf: Ensure that vprot will never go above a
+> min slice") caps protection even when the ineligibility boundary is later,
+> but leaves this slice == se->slice case uncovered.
+> 
+> Apply the minimum-slice cap unconditionally, including when it is
+> current's own slice. Keep the earlier ineligibility boundary for the
+> PREEMPT_SHORT case when a shorter slice is competing. This preserves the
+> outstanding request while limiting protection at each fresh pick.
+> 
+> Fixes: 82e9d0456e06 ("sched/fair: Avoid re-setting virtual deadline on 'migrations'")
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> ---
+>  kernel/sched/fair.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 85bf02570473..868c3911337a 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1128,13 +1128,12 @@ static inline void set_protect_slice(struct cfs_rq *cfs_rq, struct sched_entity
+>  		slice = cfs_rq_min_slice(cfs_rq);
+>  
+>  	slice = min(slice, se->slice);
+> +	/* A preserved deadline can extend beyond the current slice. */
+> +	vprot = min_vruntime(vprot, se->vruntime + calc_delta_fair(slice, se));
+>  
+>  	/* If there are shorter slices than se's one */
+> -	if (slice != se->slice) {
+> -		vprot = min_vruntime(vprot, se->vruntime + calc_delta_fair(slice, se));
+> -		if (sched_feat(PREEMPT_SHORT))
+> -			vprot = min_vruntime(vprot, ineligible_vruntime(cfs_rq));
+> -	}
+> +	if (sched_feat(PREEMPT_SHORT) && slice != se->slice)
+> +		vprot = min_vruntime(vprot, ineligible_vruntime(cfs_rq));
+>  
+>  	se->vprot = vprot;
+>  }
 
-Nit: it might be easier to read as FIELD_MAX(RMI_ADDR_RANGE_COUNT_MASK)
-as that's what we want to limit it to.
+Elif (+CC) made me aware that apart from the slice protection boundary and vruntime, which is:
+set_protect_slice(): deadline, se->vruntime
+update_protect_slice(): vprot, min(se->vruntime, avg_vruntime())
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+this now mirrors update_protect_slice() so should probably be merged into one, I'll resend.
 
-(Sashiko seems to have more findings but the rest looks alright to me)
