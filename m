@@ -1,328 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E76C4DDB23;
-	Wed, 30 Sep 2026 16:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 922DA515978
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786966; cv=none; b=O4WS0TMGheOhvXIl2zAn5ahaBlLMGKLXS0KqlTguwbo+hMY4gjVux7/84RgCRJbHILoKzIhOOQ5uYK3KTXD/t29K42z6h+XbtfGVOK4uCflBq6XeDkjJLn+sV6nnGrAG4OrvzVlX11DHkU+9+8ysnaCAt2uTwAnWhCtKXs61Oz4=
+	t=1790786989; cv=none; b=rGpIsjxEeNwl9CtwCJeZU1kv1k/XIMqr+iJGWAlC+O/rISNfSaDLyxtysp9S4BHk78tz9IAHc0k5xLwxo8cfMXbRL0KOClgL6eXiHajEafoE0T0aCeqFgFOQRkYxZo05Wr1se1fS4xbb3jlDJDlisKERGB/xtQ/kZkg+se/r8oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786966; c=relaxed/simple;
-	bh=Yrw5CiDBtUNjpd+gxnj4sjqRZn8k3Ku5VVFg2Mf8VRc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IJ0Ejeji00I3a2ca1xepc3cTgDlj5qP+nBW1z7rx5vtslW8PMZHcIGgQZ4QY6w1jAflaqzgnfYsGWnl4UePbkU+MrAEIvR8XtNv0ffLlAW/WTT2c+gKEABMVB5S2fYy/tDNDhW/YXcgMCNrUkCopwtdvue35ZR2mC4N2SBDVj48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FllT5+0s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790786989; c=relaxed/simple;
+	bh=lrNhVw8O7Z5bKR2hECDWo9LI4wPDPZzK7RqRkIo0tYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o5IHdP54XzrNeiGXGKlTtWIqoDKB4ZYD3ugxbKaiaMVJCv631Z6SAArAkSQubGphO1SQ4pI9ch5KEWIwfVh3fhrMt+Te7qRcrZi5vb92Fr789bVDw1ptfKvCgz6UkdAM/nJrUP9Ysjx3qcloidcnJWegoNnTpc4/O01iXGNez8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HOkrkTYG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FllT5+0s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 317041F000FF;
-	Wed, 30 Sep 2026 16:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790786965;
-	bh=adx5lrGUm60VPD0xpyStwfAZj/AucsyPoZQvyOLG+x8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FllT5+0sqWH2a84AcXnGYzdV++VSjqNtvH0A1iaTFDtNSHdjv0xOkfddaoZS0jNgL
-	 WhbtNE3RF4a/trwOuv08wCj2joBe6sBDIglEC3i/1HKFu4QuikFdDtwTAiFc3FR8/G
-	 bGgJq937pUfE17I2SJoff596ikabjY5JGBXmM7oGZU4VNDk4EN/nIm0urnELQkMp5d
-	 PI8aznU4KFk323r1qbE6c9zuOYDQw1A7VNzLsApG10OD8Z7OrBIOj0KuXUiFYIPppf
-	 nK4Mek+J/xWmq/YqgSvf+aGV59ubSmLSDwiqYFg22ppmOvWLYpO5VFrmB504wkHa2i
-	 wVt99H7WEYVTw==
-Date: Wed, 30 Sep 2026 17:49:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
-Message-ID: <20260930-legend-helium-ca5a0ff56709@spud>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-9-jszhang@kernel.org>
- <20260929-sprang-stir-af07a907ccb2@spud>
- <ar0npPCHX1P5Gjzx@xhacker>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HOkrkTYG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 95DB4143D;
+	Wed, 30 Sep 2026 09:49:43 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5A9A03F85F;
+	Wed, 30 Sep 2026 09:49:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790786987; bh=lrNhVw8O7Z5bKR2hECDWo9LI4wPDPZzK7RqRkIo0tYc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=HOkrkTYG/YbTkn5eyfqS5afO3Du8PmFgfxVoxBVqSusTSrNukE0pWZ1aX5nYZlvys
+	 blUJUoabaDkqtrkoL6U187dBggR8gn0g6a5wQxaHmGOzJVxo/mmKHXnyKp/NJiL2E8
+	 Wuja02T70TlspUUzByvme6jHB4JZZaYiLLz8Qf2E=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	linux-kernel@vger.kernel.org,
+	steven.price@arm.com,
+	gshan@redhat.com,
+	aneesh.kumar@kernel.org,
+	maz@kernel.org,
+	oupton@kernel.org,
+	tabba@google.com,
+	mark.rutland@arm.com,
+	linux-coco@lists.linux.dev,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v19] arm64: mm: Handle Granule Protection Faults (GPFs)
+Date: Wed, 30 Sep 2026 17:49:30 +0100
+Message-ID: <20260930164930.1388438-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OKi514OHcB6CuiXw"
-Content-Disposition: inline
-In-Reply-To: <ar0npPCHX1P5Gjzx@xhacker>
+Content-Transfer-Encoding: 8bit
 
---OKi514OHcB6CuiXw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Steven Price <steven.price@arm.com>
 
-On Wed, Sep 30, 2026 at 11:15:48PM +0800, Jisheng Zhang wrote:
-> On Tue, Sep 29, 2026 at 08:44:13PM +0100, Conor Dooley wrote:
-> > On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
-> > > Add device tree bindings for the resets on Synaptics SL261X SoCs.
-> > >=20
-> > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > > ---
-> > >  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
-> > >  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++=
-++
-> > >  2 files changed, 120 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl26=
-1x-reset.yaml
-> > >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-rese=
-t.yaml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > > new file mode 100644
-> > > index 000000000000..8cfec17df800
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > > @@ -0,0 +1,40 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +# Copyright (C) 2026 Synaptics Incorporated
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Synaptics SL261X reset controller
-> > > +
-> > > +maintainers:
-> > > +  - Jisheng Zhang <jszhang@kernel.org>
-> > > +
-> > > +description: The reset controller node must be a sub-node of the chip
-> > > +  controller node on SL261X SoCs.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - syna,sl261x-soc-reset
-> > > +      - syna,sl261x-system-reset
-> > > +
-> > > +  "#reset-cells":
-> > > +    const: 1
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - "#reset-cells"
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    chip: chip-control@f7e10000 {
-> > > +        reg =3D <0xf7e10000 0x1000>;
-> > > +
-> > > +        chip_rst: reset {
-> > > +            compatible =3D "syna,sl261x-soc-reset";
-> > > +            #reset-cells =3D <1>;
-> > > +        };
-> >=20
-> > Why can't this just be part of the parent node?
->=20
-> Good question! IMHO, the reasons are:
->=20
-> 1. the so called Gbls(Gbl means global) such as mcuGbl and
-> chip control Gbl contain not only reset, pinctrl and clk/plls
-> but also some other registers for different purposes, e.g in the
-> chip control gbl, there are some registers to control eth phy sel(RMII
-> or RGMII), and TXC 90 degree selection etc. These registers will
-> be used by the Ethernet driver;
->=20
-> While there's no pinctrl regs in avioGbl and vppGbl. In the vppgbl,
-> there are some registers for DPHYTX etc.
->=20
-> As can been, in different Gbls, there maybe different purposes registers,=
- no
-> obvious patterns.
->=20
-> So the question here is why not split the gbl into different register
-> spaces, and abstract each space for each function group?
+If the host attempts to access granules that have been delegated to RMM
+(for use as an RMM object or Realm Data), these accesses will be caught
+and will trigger a Granule Protection Fault (GPF).
 
-No, you misunderstood. I'm not asking for the register space to be
-split, I am asking why you cannot do
-| syscon@f7e1000 {
-| 	compatible =3D "syna,sl2610-soc-syscon", "syscon";
-| 	reg =3D <0xf7e10000 0x1000>;
-| 	#clock-cells =3D <1>;
-| 	#reset-cells =3D <1>;
-| };
-With this kind of thing, you can either use the auxiliary bus or
-MFD_CELL_NAME() to create the other devices. The latter is good if
-you've got a region with clocks that also has resets thrown in, the
-former is probably better if you have a syscon with a genuine
-assortment of different functions that you're going to be looking up via
-phandle.
+A fault during a page walk signals a bug in the kernel and is handled by
+oopsing the kernel. A non-page walk fault could be caused by:
 
-> Two blocking
-> points make this impossible and ugly: different reg space may not be
-> aligned at 4KB boundary, e.g reset: 0x350 ~ 0x37c; eth phy sel:0xa18;
-> some registers which belong to similar functionality, e.g clks, may not be
-> adjacent.
+ * Userspace having access to a page which has been delegated. We don't allow
+   mapping a delegated page (which may have Realm VM private data) to EL0.
+   But if we do encounter this, trigger a SIGBUS to allow debugging
 
-This sort of thing, with non-adjacent clocks is still possible, you have
-a regmap just like before.
+ * A kernel mode access is even more serious, except for the cases where :
+   - Benign overreads e.g. load_unaligned_zeropad(), we should be able to fix
+     this up.
+   - A kdump kernel trying to access delegated page (donated by the primary
+     kernel). We do not support this yet, but can be added in the later series.
 
-> So the best way is to abstract these GBLs via. "syscon", "simple-mfd", and
-> put necessary subnodes such as reset, pinctrl and clks under the GBL
-> node. If the registers in GBL is misc control, pass the syscon phandle
-> to the main driver, e.g I planed to pass the syscon phandle to GMAC
-> driver to control the RMII/RGMII selection.
+There is ongoing work to unmap the guest_memfd backed private pages
+from the linear map. We would additionally need to unmap the other
+delegated pages too. For now handle the GPF and only fixing up kernel mode
+accesses via kernel VA (which would cover both the legitimate cases above)
 
-And you can get the regmap from other drivers by doing phandle or
-compatible based lookups just like before.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Signed-off-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+Changes since v18:
+ * Only fixup accesses via kernel VA
+Changes since v17:
+ * Pass untagged address to die_kernel_fault() - Sashiko
+ * Explicitly check !user_mode() for fixups - Catalin
+ * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+Changes since v16:
+ * Update the commit description to indicate why we try to fixup GPFs
+Changes since v10:
+ * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+Changes since v2:
+ * Include missing "Granule Protection Fault at level -1"
+---
+ arch/arm64/mm/fault.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
->=20
-> 2.follow current bg2 and bg2q style
-> e.g arch/arm/boot/dts/synaptics/berlin2q.dtsi
->=20
-> IMHO, why bg2 and bg2q dtsi files are implemented as current
-> style is due to the above point 1.
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 75c3e463df2ef..ded9288a5dd2f 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -914,6 +914,29 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+ 	return 0;
+ }
+ 
++static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
++{
++	const struct fault_info *inf = esr_to_fault_info(esr);
++	unsigned long addr = untagged_addr(far);
++
++	die_kernel_fault(inf->name, addr, esr, regs);
++	return 0;
++}
++
++static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
++{
++	/*
++	 * Userspace must not have a delegated page mapped in. If the kernel
++	 * is made to access it, then we have a serious problem.
++	 * Only fixup if the access came via kernel VA. e.g., load_unaligned_zeropad()
++	 */
++	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
++	    !is_ttbr0_addr(untagged_addr(far)) && fixup_exception(regs, esr))
++		return 0;
++
++	return 1;
++}
++
+ static const struct fault_info fault_info[] = {
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"ttbr address size fault"	},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"level 1 address size fault"	},
+@@ -950,12 +973,12 @@ static const struct fault_info fault_info[] = {
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 32"			},
+ 	{ do_alignment_fault,	SIGBUS,  BUS_ADRALN,	"alignment fault"		},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 34"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 35"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 36"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 37"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 38"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 39"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 40"			},
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level -1 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 0 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 1 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 2 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 3 granule protection fault (translation table walk)" },
++	{ do_gpf,		SIGBUS,  BUS_OBJERR,	"granule protection fault" },
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"level -1 address size fault"	},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 42"			},
+ 	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level -1 translation fault"	},
+-- 
+2.43.0
 
-Unfortunately, this is the berlin2q devicetree showing its age, we've
-been pushing people away from nodes that exist just to probe a driver
-and don't provide any additional value. Something like
-| chip-control@f7e10000 {
-|     reg =3D <0xf7e10000 0x1000>;
-|=20
-|     chip_rst: reset {
-|         compatible =3D "syna,sl261x-soc-reset";
-|         #reset-cells =3D <1>;
-|     };
-|=20
-|     chip_clk: clock {
-|         compatible =3D "syna,sl261x-soc-clock";
-|         #clock-cells =3D <1>;
-|     };
-is exactly the pattern we are trying to avoid.
-
-Cheers,
-Conor.
-
->=20
-> Kindly let me know if there's a better solution.
->=20
-> > From a quick check of the dts, the node with this subnode didn't also
-> > have a system-reset node too, so there's no conflict or anything of that
-> > nature.
-> >=20
-> > > +    };
-> > > diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/=
-dt-bindings/reset/syna,sl261x-reset.h
-> > > new file mode 100644
-> > > index 000000000000..7034f58aae5b
-> > > --- /dev/null
-> > > +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
-> > > @@ -0,0 +1,80 @@
-> > > +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> > > +/*
-> > > + * Copyright (C) 2026 Synaptics Incorporated
-> > > + *
-> > > + * Author: Jisheng Zhang <jszhang@kernel.org>
-> > > + */
-> > > +
-> > > +#ifndef _DT_BINDINGS_SL261X_RESET_H
-> > > +#define _DT_BINDINGS_SL261X_RESET_H
-> > > +
-> > > +/* ACPU subsystem */
-> > > +#define RST_SOC_SDIO0		0
-> > > +#define RST_SOC_USB0		1
-> > > +#define RST_SOC_EMMC		2
-> > > +#define RST_SOC_GETH0		3
-> > > +#define RST_SOC_SDIO1		4
-> > > +#define RST_SOC_USB1		5
-> > > +#define RST_SOC_GETH1		6
-> > > +#define RST_SOC_USB0PHY		7
-> > > +#define RST_SOC_USB0CORE	8
-> > > +#define RST_SOC_USB0MAHB	9
-> > > +#define RST_SOC_USB1PHY		10
-> > > +#define RST_SOC_USB1CORE	11
-> > > +#define RST_SOC_USB1MAHB	12
-> > > +#define RST_SOC_UART0		13
-> > > +#define RST_SOC_UART1		14
-> > > +#define RST_SOC_UART2		15
-> > > +#define RST_SOC_UART3		16
-> > > +#define RST_SOC_I2C0		17
-> > > +#define RST_SOC_I2C1		18
-> > > +#define RST_SOC_SPI0		19
-> > > +#define RST_SOC_SPI1		20
-> > > +#define RST_SOC_SPI2		21
-> > > +#define RST_SOC_SPI3		22
-> > > +#define RST_SOC_APBTIMERS	23
-> > > +#define RST_SOC_APBSYSCNT	24
-> > > +#define RST_SOC_APBWDT		25
-> > > +#define RST_SOC_APBGPIO		26
-> > > +#define RST_SOC_APBDMA		27
-> > > +#define RST_SOC_GPUCORE		28
-> > > +#define RST_SOC_NPUCORE		29
-> > > +#define RST_SOC_AVIOAIOG	30
-> > > +#define RST_SOC_AVIOVPPG	31
-> > > +#define RST_SOC_AVIOVIPG	32
-> > > +
-> > > +/* system subsystem */
-> > > +#define RST_SM_ADCCORE		0
-> > > +#define RST_SM_ADCPRST		1
-> > > +#define RST_SM_CAN0PRST		2
-> > > +#define RST_SM_CAN0SRST		3
-> > > +#define RST_SM_CAN1PRST		4
-> > > +#define RST_SM_CAN1SRST		5
-> > > +#define RST_SM_GPIOPRST		6
-> > > +#define RST_SM_GPIOSRST		7
-> > > +#define RST_SM_I2CM0PRST	8
-> > > +#define RST_SM_I2CM0SRST	9
-> > > +#define RST_SM_I2CM1PRST	10
-> > > +#define RST_SM_I2CM1SRST	11
-> > > +#define RST_SM_I3CPRST		12
-> > > +#define RST_SM_I3CSRST		13
-> > > +#define RST_SM_PDMPRST		14
-> > > +#define RST_SM_PDMSRST		15
-> > > +#define RST_SM_PVTHSRST		16
-> > > +#define RST_SM_PVTPRST		17
-> > > +#define RST_SM_PWMPERIRST	18
-> > > +#define RST_SM_PWMPRST		19
-> > > +#define RST_SM_SPIMPRST		20
-> > > +#define RST_SM_SPIMSRST		21
-> > > +#define RST_SM_SPISPRST		22
-> > > +#define RST_SM_SPISSRST		23
-> > > +#define RST_SM_UART0PRST	24
-> > > +#define RST_SM_UART0SRST	25
-> > > +#define RST_SM_UART1PRST	26
-> > > +#define RST_SM_UART1SRST	27
-> > > +#define RST_SM_UART2PRST	28
-> > > +#define RST_SM_UART2SRST	29
-> > > +#define RST_SM_UART3PRST	30
-> > > +#define RST_SM_UART3SRST	31
-> > > +
-> > > +#endif /* _DT_BINDINGS_SL261X_RESET_H */
-> > > --=20
-> > > 2.53.0
-> > >=20
->=20
->=20
-
---OKi514OHcB6CuiXw
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar09jQAKCRB4tDGHoIJi
-0hXAAP4wkxv9gIHHzTNPzHQ1LSg0/0HuRZwizirkiYFgYkvLVgD9HubayuyUaz2R
-jmI1JkNXlp/H1hcWDAEFGtkCJ+XW7wM=
-=OnMl
------END PGP SIGNATURE-----
-
---OKi514OHcB6CuiXw--
