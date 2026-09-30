@@ -1,185 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBC4522F17;
-	Wed, 30 Sep 2026 21:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A73522F1F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804630; cv=none; b=FDLNLfZawU1VmnP8PEdymOjMgmU1nntqBsNJl/jqlpoeOJVxc/M6D8bLVaTdGviLiGqo+Te/313EJaUkFHzkqG6J/cLuXNA6IDYJ+5qdra+Fsi1O9XQJmBKqv85cjJrgeSy38c0BLsMxvnKEaU8xfj6clCf+e8GICQnn9J7Vk3o=
+	t=1790804630; cv=none; b=MXOGDvygJF8HLxO32SEZrAZ+044bGUDuKYlqWPVlg3vXs+Dwf7kjWfA3qJ0ZFhXj4SmMI9uMT7/Nng1bBNblBCR+XFEVBGUVwCMOfbkJrocFeXJmDxkxGntbGT6UC/3ISJZlodnTI/qYccbiRm1Vv88tzpwc/L1KMUqhNUGdMlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790804630; c=relaxed/simple;
-	bh=wPyhWcrM0uuOBjAQDrcDVwA0qDOFM59sMf05oEBZi/Q=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pQEqkH/oQ7eefuPb9SwYtRMbCuTHEnJdY/fKV+AgIwACsnrWcldv6aydI2AXi5UEj3mE3x8KWYCS9pDAt3agkMHlQAAbItCSdLbN8FFmqA8HVpWrjTfaRnqu/CoNH4WzyJWqgkoCYYbPRFdarLtrZJDX/xO0Hioq/hMJYyG06H8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AP0a9pAM; arc=none smtp.client-ip=100.103.45.18
+	bh=OdlS7s1mPHGrcu0CPS8FKPyzygbRnniwzOGYOk7XL7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S8TJwBnJUjgTjG8TKO4ThbFnph0MIb6/xIT77xJWXZv3HgVqYXFRBZmZiCIjMFjDBO2zdMCiXk+dE7r6JoQIx5OUlrPXM2FWERzT4lkWHjHUIOJhG/v3RySJQht9MYAjeMlTVX3v1P9SNfTh1XJjuaT8RlSFvqJOr1V2kmLqnEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E0dEZc0p; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AP0a9pAM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34EE1F000FF;
-	Wed, 30 Sep 2026 21:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804628;
-	bh=Lfh3oRoEkMv5tTvUrjMf1DhZrS8JjM0GkDJ+tT37dFA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AP0a9pAMTaqM1UhaL+ysCyXXjR7f0TtX5/5PDeX61zDShdZQgN6B4HbB8URIbhvCB
-	 iwBDMR0RQi7V+EarDFOhyfZdEvrI1/OIO+VRB3OKvs/us8zln45qgyosrPdwtVWf+S
-	 Ez7XdFVFl1slSRIyOVHhBACP5jQ3qv0sUarZBFEub8C1RDywzS2opSU1UBVEsbNmht
-	 4tXiVOsAbBGdiuMykCYUaGfBSsOsN9yRu36JOef8jPQ9UVxcrnAWDo8x/2PXigUB2w
-	 VAKps1YyZctAGoDU69ihPqmIa1wqL+j154iDGiKTojSW4LwOnlwzGf2VcJYGFElP1J
-	 cDYyjZGmZaHaA==
-Subject: Re: [PATCH net 2/2] netpoll: avoid blocking on the transmit lock in
- queue_process
-From: netdev-bot+sashiko@kernel.org
-To: kmehltretter@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, rostedt@goodmis.org, stephen@networkplumber.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 21:43:47 +0000
-Message-ID: <179080462753.434549.2732454412343201890@kernel.org>
-In-Reply-To: <20260928064239.32456-3-kmehltretter@gmail.com>
-References: <20260928064239.32456-3-kmehltretter@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E0dEZc0p"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4e9fbcc60so348665a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790804628; x=1791409428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mcYP4t6SR+tHZM0rfR5UPQlcdnVv/54YvSAwMnKZ6SA=;
+        b=E0dEZc0piKNkYmjjxaiFjU1jClW335GaOy4ZvqF3cNTJYlRxmOHbR2YztED7wPwv3O
+         gdaIy3teyPm4SVqu+CMuSxosfEeOhMnBtsy76KBuhTQoVtfjDEBIP9auuWd8HuxvTv34
+         MCpnzTWixnVaqBB189FIGiOUouhtjwGfomqqmrOX4NMxKss6Nk5etzs5GCndxxSCvUnA
+         va/u7gsHHLVEmLurGZ7kmwl25Hk8NcjRnST1e5Bpak5CKmVj5npdQgA9bN50r94M6Beq
+         icjBy0hDvi8ouE2r6sbsaY7gHMrVD/6J+Gnxs9G6+kjaWVf97ZAFFUx2izIG/kVDad7E
+         RAvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790804628; x=1791409428;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mcYP4t6SR+tHZM0rfR5UPQlcdnVv/54YvSAwMnKZ6SA=;
+        b=fZ8fIFrdqMOIWSEzA/YQujow0SFpZIrNzEhgSqyyRVSpkkVM+GBYbv+T7MrlfJhn8V
+         pvoxKCogogdMNkCohGqXH9DVnJR8yacuY0EehAk+yTFc9OI7IUV+6HDnebAWivrGz21x
+         Gr9HBSs7NU5YcuDAcsCmykscB3ZLvo4NIPYaCk4sTNVwPuuSrpch2cF1gn3zGKKgjaey
+         SWq8fX3Jxs+5SN/SeHx7Gez0uROSd4R3sVpa8l6Ius8gN5D/fOlZBaA2rjNfDySKP5lv
+         6tndSJcXUxTapnp7JlhxvaFiH8kaSdL+Sc8nYKeqds4dVnpfcTQhC9BZLLziJwq+kiaZ
+         eztg==
+X-Gm-Message-State: AFq9FYL2hysajpSLkrNoN2IYZcMkYqAhMDOUjgH3wBBO+6TLCF+eaNFj
+	pJZvgU90Vk49b1g5VGhY9oPsVB0dhaMjP0FjRLdmYHGzYOrxiJHZgNr7QrQgzRIz
+X-Gm-Gg: AYBFou1AhqPgS9h88Cz6WddFdDrWEkX2A4XtzNa3LOChiryuEHfqpyQPpXOHNCLQRph
+	sWHBMDdQT9btaEi1htUxM411xLFZGgCEmfUiXwZtDlAO1tDl/ZSjOsp62yp5v0YMAiQCLzTg2TO
+	eT0A7kLHmixfl80atHS2qlZABryGbFRBQ4r8+qHsTOI/EatfnMqdjw2w66lhdGKiwR9HrHS+wBj
+	oYVAGyfQjeJlIJ8zLUupAFDeZbGUmuKp7uiXp3Q8uT1YSKbUQuEHqak9lgat3SLLwET+TipHu1P
+	3mXHGEZzLDuHcDGljOlQUvYgNcGt0DdHGlc8ZJqLwZ7CgMBc4qc2A0A3ZFYqC93EioTSxrT7DUw
+	sTJaH3UiOZLeAGcqT4gWMCmiwd0blAr4OT1CclmCvdBqvSK2KNVhlatU7aCyZs4elro6Axb/lLp
+	m9eLkrwzkKLAYpeqxR81t8untHKzyizSFv9NwD0ARt8DjrP/YG9iMPTNGLUXUmZPDurOs=
+X-Received: by 2002:a17:90b:5890:b0:3a4:96d4:e6dd with SMTP id 98e67ed59e1d1-3a4d18a64f1mr1982153a91.42.1790804628104;
+        Wed, 30 Sep 2026 14:43:48 -0700 (PDT)
+Received: from TC-LAPTOP.lan ([99.30.92.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cbd1dsm1060539a91.16.2026.09.30.14.43.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 14:43:47 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: hansg@kernel.org,
+	lee@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	dan.scally@ideasonboard.com,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	dmanresa@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v11 5/9] platform/x86: int3472: tps68470: add static clock consumer support
+Date: Wed, 30 Sep 2026 14:43:17 -0700
+Message-ID: <20260930214321.600863-6-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930214321.600863-1-tchatard@gmail.com>
+References: <20260930214321.600863-1-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On some platforms a sensor's ACPI _DEP does not list the INT3472 device,
+so for_each_acpi_consumer_dev() misses that sensor and never registers its
+tps68470-clk consumer entry, leaving the sensor without its MCLK.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+Add optional n_clk_consumers/clk_consumers fields to the board data. When
+set, probe builds the tps68470-clk platform data from that static list
+instead of walking the ACPI consumers. Boards that leave the fields unset
+keep using the existing ACPI traversal.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Assisted-by: Claude Code:claude-opus-4-8
+Signed-off-by: Thierry Chatard <tchatard@gmail.com>
+---
+ drivers/platform/x86/intel/int3472/tps68470.c | 19 ++++++++++++++++---
+ drivers/platform/x86/intel/int3472/tps68470.h |  8 ++++++++
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
-- [High] On PREEMPT_RT the patch does not fix the bug it claims to fix.
-- [High] net: severe latency in netpoll queue_process on lock contention
-
---
-
-netpoll: avoid blocking on the transmit lock in queue_process
-
-This patch replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK() in
-queue_process() to avoid a sleeping function called from invalid context
-splat on PREEMPT_RT. If the transmit lock is contended, the skb is put back
-at the head of the deferred queue and the work is rescheduled after
-HZ / 10.
-
-> diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-> index e0cfcb05468e..a3c94f0b3f76 100644
-> --- a/net/core/netpoll.c
-> +++ b/net/core/netpoll.c
-> @@ -166,7 +166,13 @@ static void queue_process(struct work_struct *work)
->  			skb_set_queue_mapping(skb, q_index);
->  		}
->  		txq = netdev_get_tx_queue(dev, q_index);
-> -		HARD_TX_LOCK(dev, txq, smp_processor_id());
-> +		if (!HARD_TX_TRYLOCK(dev, txq)) {
-> +			netpoll_txq_queue_head(npinfo, skb);
-> +			local_irq_restore(flags);
-> +
-> +			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
-> +			return;
-> +		}
->  		if (netif_xmit_frozen_or_stopped(txq) ||
->  		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
-
-[Severity: High]
-Is HZ / 10 the right backoff for a failed trylock?
-
-The existing HZ/10 retry further down covers a frozen or stopped queue,
-or a driver returning NETDEV_TX_BUSY. That usually means the ring is
-full and will take some time to drain.
-
-A failed HARD_TX_TRYLOCK() here means something much smaller: another
-CPU is inside ndo_start_xmit() on the same txq. That lock is normally
-held for only a few microseconds.
-
-With this change, every time queue_process() races with regular
-traffic on that queue, the deferred skb waits 100ms. So does everything
-queued behind it in npinfo->txq.
-
-__netpoll_send_skb() only transmits directly when npinfo->txq is empty.
-That means new netconsole messages keep being appended to the deferred
-queue for the whole backoff as well.
-
-On a busy interface this can cut netconsole down to a handful of
-packets per second per queue. The deferred queue keeps growing and
-console output falls further and further behind. Anything still sitting
-in npinfo->txq when the machine hangs is never sent, and those are
-exactly the messages netconsole users care about most.
-
-This also changes behaviour on !PREEMPT_RT kernels. There,
-HARD_TX_LOCK() was not a problem and simply waited out the short
-critical section.
-
-Could the retry on trylock failure be much shorter, for example a delay
-of 0 or 1 jiffy? Alternatively, would it be better to avoid the trylock
-altogether by not running this path with hard IRQs disabled, so the
-normal tx lock can be taken?
-
-[Severity: High]
-Does this fully fix the PREEMPT_RT splat described in the commit message?
-
-The earlier local_irq_save(flags) in queue_process() is unchanged. That
-means hard IRQs are still disabled when the driver's ndo_start_xmit() runs
-after a successful trylock:
-
-queue_process()
-  local_irq_save(flags);
-  HARD_TX_TRYLOCK(dev, txq)
-  netpoll_start_xmit()
-    netdev_start_xmit()
-      ndo_start_xmit()
-
-Several non-lltx drivers take a spinlock_t in their xmit path. On
-PREEMPT_RT a spinlock_t is an rtmutex. For example:
-
-drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_xmit() {
-    ...
-	spin_lock(&ring->lock);
-    ...
-}
-
-rtl8139_start_xmit() takes spin_lock_irqsave(&tp->lock, flags), and
-macb_start_xmit() takes spin_lock_irqsave(&queue->tx_ptr_lock, flags).
-HARD_TX_TRYLOCK() takes no core lock for lltx drivers, and those drivers do
-their own spinlock_t locking, so they have the same problem.
-
-On PREEMPT_RT, rt_spin_lock()->__rt_spin_lock() calls
-rtlock_might_resched(), and __might_resched() prints "BUG: sleeping
-function called from invalid context" whenever irqs_disabled() is true.
-Won't the same splat still fire, just one frame deeper?
-
-  rt_spin_lock
-  bcmgenet_xmit
-  netpoll_start_xmit
-  queue_process
-
-If the driver lock is contended, for example by threaded NAPI TX reclaim on
-RT, rtlock_slowlock() can actually block while hard IRQs are disabled.
-
-The trylock only seems to silence the txq lock case, because
-__rt_spin_trylock() skips rtlock_might_resched(). The sibling path
-__netpoll_send_skb() already uses HARD_TX_TRYLOCK() under local_irq_save(),
-and it still runs driver xmit and netpoll_poll_dev() with IRQs disabled.
-
-Documentation/networking/netdevices.rst says ndo_start_xmit "will be called
-with interrupts disabled by netconsole". On RT, that conflicts with drivers
-that use a plain spinlock_t in xmit.
-
-queue_process() runs from a workqueue in process context. Would it be
-better to stop disabling hard IRQs here instead of changing the lock
-primitive? For example, it could use local_bh_disable() plus the normal tx
-lock, as the regular xmit path does.
-
+diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
+index 35fa77eb3..df0f5f962 100644
+--- a/drivers/platform/x86/intel/int3472/tps68470.c
++++ b/drivers/platform/x86/intel/int3472/tps68470.c
+@@ -190,9 +190,22 @@ static int skl_int3472_tps68470_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, -ENODATA,
+ 				     "No board-data found for this model\n");
+ 
+-	n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
+-	if (n_consumers < 0)
+-		return n_consumers;
++	if (board_data->n_clk_consumers) {
++		clk_pdata = devm_kzalloc(dev,
++					 struct_size(clk_pdata, consumers,
++						     board_data->n_clk_consumers),
++					 GFP_KERNEL);
++		if (!clk_pdata)
++			return -ENOMEM;
++		clk_pdata->n_consumers = board_data->n_clk_consumers;
++		for (i = 0; i < board_data->n_clk_consumers; i++)
++			clk_pdata->consumers[i] = board_data->clk_consumers[i];
++		n_consumers = board_data->n_clk_consumers;
++	} else {
++		n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
++		if (n_consumers < 0)
++			return n_consumers;
++	}
+ 
+ 	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
+ 	if (!cells)
+diff --git a/drivers/platform/x86/intel/int3472/tps68470.h b/drivers/platform/x86/intel/int3472/tps68470.h
+index 3bbaade96..68303e6fa 100644
+--- a/drivers/platform/x86/intel/int3472/tps68470.h
++++ b/drivers/platform/x86/intel/int3472/tps68470.h
+@@ -12,12 +12,20 @@
+ #define _INTEL_SKL_INT3472_TPS68470_H
+ 
+ struct gpiod_lookup_table;
++
++struct tps68470_clk_consumer;
+ struct tps68470_regulator_platform_data;
+ 
+ struct int3472_tps68470_board_data {
+ 	const char *dev_name;
+ 	const struct tps68470_regulator_platform_data *tps68470_regulator_pdata;
+ 	const struct software_node *tps68470_gpio_swnode;
++	/*
++	 * Optional static clock consumers, used in place of the ACPI _DEP
++	 * traversal on platforms where a sensor's _DEP omits the INT3472.
++	 */
++	unsigned int n_clk_consumers;
++	const struct tps68470_clk_consumer *clk_consumers;
+ 	unsigned int n_gpiod_lookups;
+ 	struct gpiod_lookup_table *tps68470_gpio_lookup_tables[];
+ };
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928064239.32456-1-kmehltretter%40gmail.com
+2.53.0
+
