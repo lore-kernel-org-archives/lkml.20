@@ -1,145 +1,195 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D226547060;
-	Wed, 30 Sep 2026 00:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D932165EA;
+	Wed, 30 Sep 2026 00:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728115; cv=none; b=Ylm82ewBWroBKmVpDYZFdGjHLX1HsQJK5ZhF57VNh17y/SgCEhHDDW0Z3axw4ctedJkTEnRPf8N6cpHmwkZUMoM9oDN2VMAk8E1M3kHJzvOSQOO+VPa52ZHkl/ns/qrRPk1j1NtXcAKftko7de/RNtaCIthsPqmGbxMBvHPQ8mw=
+	t=1790728174; cv=none; b=cbRV6xmahdwFeTAtJ5d/acjB0TnUxOz6W0kV2iuJ5TFMWIsZ6fcG5pkhWJppuz2KAeQ52UyZ14mGHwYWTOZK/v82uzOXNJlyw9ezA3BLbFGtHHgLFxK9Hj40CgY5qtyJZvW6yZIhPcRt4JfxVAQqkT/6QPCWo1uJA63p3Ell1KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728115; c=relaxed/simple;
-	bh=bn5BM88IqhxyYWQIrR8H3oJUeo3800OHPMfxgxHNSgg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZfOqhpdtauosMoLpnsIse/SkVXz98zZFhj9XZ+N2tL8QfgRy8mEUscUQ2ZABsUnicQdT+QcPBftI4iKomTVp5yUWKrzb7yVN9QJg6qACo2yDgKc7DNsz4usS6ah1al2xAiXxSUoW4i/tnxRfoYGKnaz77v5IAnEeft9pQK7koJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=NyzbsZcx; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790728174; c=relaxed/simple;
+	bh=vbll7qC4Nmh7EKoumfj3br3jNAAsP6izSlVgIlopEkE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BH/MhvXA5wO7B5hVWFtl+AIE5/NNcTJ73fNOsMFcMREcCl2Z7p1Ppd3CD0B62LnecuZWBsTA7cpKHaBlnu+iCuSQO+NKMy/MzkXlQ37LCf3tIjpdhycYe6v0ssY+6ngUzq8Tu8w3E9nBpErMIVPH7wUIkn845gBWg7nG4vOE6MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=peM3sMMu; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="NyzbsZcx"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68U0S5xI41717719, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790728085; bh=UVbxKIrRHY3UU0zg2IgJRNIu0MpqTRcgLCgmmFCJVB8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=NyzbsZcx+HIz7QToMTm5V+rJK+HKkET8cBJ6l2m2Bp6LCl2A5UCuqtWjhz76uBBKg
-	 OEqD73ok2Nithduga62SsdPdg6cdmjd2NmxE+HMiGoUH3N2pYXbh1mmMsoekNfhngG
-	 D2YgXCfH49OeiPqpMdEzsHL1yd7yY2oVTmDPeynSm7bs0FEthZLuDdmMljgJQbLBeb
-	 rvZ9FRyu0y01ydBj3PtwKyepQ5tZYlo8MI33Xi2xEA2Y54r08d24fChX1pET28WE4h
-	 7EzOziPDJioemnV9XvDlKJllkwW/P6wx0zz/dzCVmISzZtjjWs4UiRVRrEVDTQvDqD
-	 5dJdedf7ZSEHA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68U0S5xI41717719
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 30 Sep 2026 08:28:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 08:28:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 08:28:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 30 Sep 2026 08:28:05 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Arnd Bergmann <arnd@kernel.org>, Johnson Tsai <wenjie.tsai@realtek.com>
-CC: Arnd Bergmann <arnd@arndb.de>, Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw89: fix LED dependencies
-Thread-Topic: [PATCH] wifi: rtw89: fix LED dependencies
-Thread-Index: AQHdT/8uPx21cNsIcEC+oww+Nsu2prbmQl0w
-Date: Wed, 30 Sep 2026 00:28:05 +0000
-Message-ID: <1bde7ea5999c4915b184bf2fcb904901@realtek.com>
-References: <20260929104159.3236854-1-arnd@kernel.org>
-In-Reply-To: <20260929104159.3236854-1-arnd@kernel.org>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="peM3sMMu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=ahPhAQkCfSyZ/hTYflZfPypDdJtLyf5LfLIC6RVfRTM=; b=peM3sMMury3bw+vPcqjuQSzbEa
+	9hspIdEa6U/KPAL2CU3STAmXGHmkiY69gkFqyKhzITmcPsUJAzfz4l8rmfN6ZOJhyFV0YUGw6bdKM
+	iZLaxhU5a8G5QYzCmDZZGPnk6G8HLOOWHI3BTgE0/erai9qaRc1JO+Fv3FejgboBVCtvgt9ox/gAg
+	Ps7KsjC89kpHFw8oekHcs56VktMPc01jT7FR3Bx8bV9peHblUWzZcKoSojhYj+TNfKNHPBXeXrlji
+	DGGbfSnLKwi2M+W0nEXciCF6ZotIhweqxlfXD0Q8T7Cd+slopxyZq8Z0xvm8j/Z1u/IeZcJjL+Ibo
+	26VIz2RA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBiCH-00000004oyl-0dEZ;
+	Wed, 30 Sep 2026 00:29:21 +0000
+Message-ID: <ef6f0d64-fb3c-492e-a70f-ab97ff462969@infradead.org>
+Date: Tue, 29 Sep 2026 17:29:20 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: kdoc_output: don't add a man page tail for
+ filtered-out symbols
+To: simonsudarushkin@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260929-kdoc-man-filter-v1-1-5f70268885d1@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260929-kdoc-man-filter-v1-1-5f70268885d1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Arnd Bergmann <arnd@kernel.org> wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> The rtw89 driver fails to build when multicolor LED support is in
-> a loadable module but the rtw89 driver is built-in:
->=20
-> aarch64-linux-ld: drivers/net/wireless/realtek/rtw89/led_mc.o: in functio=
-n
-> `rtw89_led_mc_brightness_set':
-> led_mc.c:(.text+0x50): undefined reference to `led_mc_calc_color_componen=
-ts'
-> aarch64-linux-ld: drivers/net/wireless/realtek/rtw89/led_mc.o: in functio=
-n `rtw89_led_mc_init':
-> led_mc.c:(.text+0x434): undefined reference to `led_classdev_multicolor_r=
-egister_ext'
+Hi Simon,
 
-This was also found by kernel test robot [1], and addressed by patch [2].
-
-[1] https://lore.kernel.org/oe-kbuild-all/202609172315.ZYoKvKBS-lkp@intel.c=
-om/
-[2] https://patch.msgid.link/20260918021113.25481-1-pkshih@realtek.com
-
->=20
-> The problem is a misunderstanding of how Kconfig dependencies
-> work, as the 'imply' keyword is not sufficient to enable a
-> a user-visible dependency, and the boolean 'RTW89_LEDS_MC'
-> symbol cannot determine whether linking against the MC code is
-> valid.
-
-People intend to weakly select the dependency. I think keeping
-'imply' is harmless.
-
->=20
-> Address this by using the correct construct to determing whether
-> linking agains the MAC80211_LEDS and LEDS_CLASS_MULTICOLOR
-> code is possible, respectively.
->=20
-> Fixes: d910631ff352 ("wifi: rtw89: add LED support to reflect the wireles=
-s association status")
-> Fixes: 721d90c8509a ("wifi: rtw89: add multicolor LED support for RTL8852=
-CU valve board")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On 9/29/26 6:36 AM, Simon Sudarushkin via B4 Relay wrote:
+> From: Simon Sudarushkin <simonsudarushkin@gmail.com>
+> 
+> ManFormat.msg() appends the "SEE ALSO" tail after every call to the base
+> class msg(), even when the -e, -i, -s or --nosymbol filters dropped the
+> symbol and nothing was written for it. With -s, every other symbol in
+> the file leaves a stray "SEE ALSO" block behind the requested page. With
+> -e on a file that exports nothing, the output is only such blocks, with
+> no .TH header at all:
+> 
+>   $ tools/docs/kernel-doc -man -s string_get_size lib/string_helpers.c \
+>       | grep -c 'SEE ALSO'
+>   13
+>   $ tools/docs/kernel-doc -man -e include/rdma/ib_mad.h | grep -c '^\.TH'
+>   0
+> 
+> Only add the tail when the base class produced a page, and add unit
+> tests for both cases.
+> 
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> Closes: https://lore.kernel.org/all/fc7978bb-a71f-456d-84bb-670c8f0426ed@infradead.org/
+> Fixes: 104e0a682e12 ("tools: kernel-doc: add a see also section at man pages")
+> Assisted-by: LLM
+> Signed-off-by: Simon Sudarushkin <simonsudarushkin@gmail.com>
 > ---
->  drivers/net/wireless/realtek/rtw89/Kconfig | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw89/Kconfig
-> b/drivers/net/wireless/realtek/rtw89/Kconfig
-> index 7c678dd1f6b3..4000ae344544 100644
-> --- a/drivers/net/wireless/realtek/rtw89/Kconfig
-> +++ b/drivers/net/wireless/realtek/rtw89/Kconfig
-> @@ -208,15 +208,13 @@ config RTW89_DEBUGFS
->  config RTW89_LEDS
->         bool
->         depends on RTW89_CORE
-> -       depends on LEDS_CLASS=3Dy || LEDS_CLASS=3DMAC80211
+> Randy, this takes a different route from your patch in August [1]: the
+> out_tail() call stays in ManFormat.msg() and is skipped when the base
+> class produced no page, so OutputFormat does not need to know about it.
+> DOC blocks that are shown keep their tail, since they get their own .TH.
 
-I remember we fixed to this style years ago by imitating ath10k and iwlwifi=
-,
-which they look like that still.=20
+Yes, I had already abandoned that patch and its approach. I was (slowly)
+looking at doing something like this, although probably not as succinct
+as this.
 
-> -       imply MAC80211_LEDS
-> +       depends on MAC80211_LEDS=3Dy || MAC80211_LEDS=3DRTW89_CORE
->         default y
->=20
->  config RTW89_LEDS_MC
->         bool
->         depends on RTW89_LEDS
-> -       depends on LEDS_CLASS_MULTICOLOR
-> -       imply LEDS_TRIGGER_TIMER
-> +       depends on LEDS_CLASS_MULTICOLOR=3Dy || LEDS_CLASS_MULTICOLOR=3DR=
-TW89_CORE
->         default y
->=20
->  endif
-> --
-> 2.53.0
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
+Thanks.
+
+
+> 
+> [1] https://lore.kernel.org/all/20260816054826.3988516-1-rdunlap@infradead.org/
+> ---
+>  tools/lib/python/kdoc/kdoc_output.py |  5 +++-
+>  tools/unittests/test_kdoc_parser.py  | 52 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 56 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/lib/python/kdoc/kdoc_output.py b/tools/lib/python/kdoc/kdoc_output.py
+> index 618b0d765ef5..659a2c6fb6be 100644
+> --- a/tools/lib/python/kdoc/kdoc_output.py
+> +++ b/tools/lib/python/kdoc/kdoc_output.py
+> @@ -763,7 +763,10 @@ class ManFormat(OutputFormat):
+>          Add a tail at the end of man pages output.
+>          """
+>          super().msg(fname, name, args)
+> -        self.out_tail(fname, name, args)
+> +
+> +        # Symbols dropped by the output filters produce no page
+> +        if self.data:
+> +            self.out_tail(fname, name, args)
+>  
+>          return self.data
+>  
+> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+> index c4a76ed13dbc..bcb1b1a5ccc6 100755
+> --- a/tools/unittests/test_kdoc_parser.py
+> +++ b/tools/unittests/test_kdoc_parser.py
+> @@ -301,6 +301,58 @@ class CToMan(unittest.TestCase):
+>          self.assertEqual(result, expected)
+>  
+>  
+> +class ManFilterTail(unittest.TestCase):
+> +    """
+> +    Symbols dropped by the output filters must not leave a man page tail.
+> +    """
+> +
+> +    source = dedent("""
+> +        /**
+> +         * foo - First function
+> +         * @a: an argument
+> +         */
+> +        int foo(int a) { return 0; };
+> +
+> +        /**
+> +         * bar - Second function
+> +         * @b: an argument
+> +         */
+> +        int bar(int b) { return 0; };
+> +    """)
+> +
+> +    def setUp(self):
+> +        config = MockKdocConfig()
+> +        kernel_doc = KernelDoc(config, "mock.c", CTransforms())
+> +
+> +        with patch('builtins.open', new_callable=mock_open,
+> +                   read_data=self.source):
+> +            _, self.entries = kernel_doc.parse_kdoc()
+> +
+> +        self.out_style = ManFormat()
+> +        self.out_style.set_config(config)
+> +
+> +    def run_filter(self, **kwargs):
+> +        args = {"export": False, "internal": False, "symbol": None,
+> +                "nosymbol": None, "function_table": set(),
+> +                "enable_lineno": False, "no_doc_sections": False}
+> +        args.update(kwargs)
+> +
+> +        self.out_style.set_filter(**args)
+> +
+> +        return self.out_style.output_symbols("mock.c", self.entries)
+> +
+> +    def test_symbol_filter(self):
+> +        """Only the selected symbol gets a page, with a single tail."""
+> +        result = self.run_filter(symbol=["foo"], function_table={"foo"})
+> +
+> +        self.assertEqual(result.count(".TH "), 1)
+> +        self.assertEqual(result.count('.SH "SEE ALSO"'), 1)
+> +
+> +    def test_all_filtered_out(self):
+> +        """No exported symbols: no output at all."""
+> +        self.assertEqual(self.run_filter(export=True), "")
+> +
+> +
+>  class CToRest(unittest.TestCase):
+>      out_style = RestFormat()
+>      config = MockKdocConfig()
+> 
+> ---
+> base-commit: 4f041d7b65b8007403cce30ecf69ad42d48ec315
+> change-id: 20260929-kdoc-man-filter-eba1ff857dad
+> 
+> Best regards,
+> --  
+> Simon Sudarushkin <simonsudarushkin@gmail.com>
+
+
+-- 
+~Randy
