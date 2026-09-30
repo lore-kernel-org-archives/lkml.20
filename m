@@ -1,249 +1,245 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023083.outbound.protection.outlook.com [40.107.44.83])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FF040098D;
-	Wed, 30 Sep 2026 07:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752427; cv=fail; b=V1sxg20H5P8F5zuNy/O9K+hSmGZsFKJC79ziZB0nOhoFNZPe51fLAQJyby9WNOaDLLNRx1j3MG3gFX9HKW4602PzRRCvIVutTin6JqFaQvI7SYaj4cBXLWLyZIzdnL8EEgjt4uMf0BUz5UjqC0cjDo70WNh3RaBm7aigeYH3UO0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752427; c=relaxed/simple;
-	bh=IPCsiGaRjyBiUcpy+IQnNYIssgeCzJqZy7yqlqiSYco=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=cjUWra5ksPLxLG1rfqSCPsPP8QnFuWj9KY4z3LtteIFc1+AuXMySPAEceJrE5kxRAuOdyZ4+Ued+476e/UPkpxBlIeymUivbsdy9sFb1LgPAA2lLUySl5o+p4XBBr0SvzMRcLuPGRYjwrmp+MrzzS5QT+X4+4dS4jnWZvEWqt6E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=up77NOuK; arc=fail smtp.client-ip=40.107.44.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE1D35A39F;
+	Wed, 30 Sep 2026 07:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790752476; cv=none; b=tsKkYpJs7+nMMArdhXJm6/33O4LOxtOffodiF3MTnnadXJmADAW3CXRx4tpXiGEEmrVjKaZngSv72Le4xbEFbOLvz8dGN1NyJZy+4msAumb9TH6qVdyiekp68lid7b7PHO0vmRRTfOMcZQC9Ffc0jn4WtfHNx9JLk8HCsr8aols=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790752476; c=relaxed/simple;
+	bh=XQhyHExDi2qZQq8XwFy1aXSvWDz7NDhq3tWA2B6FRPk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jk8QYpPRTbRaBppNeSQdY0lyi+31T3QGuqnb2TfseFFDN7x6t5NdHuTpbHotDxzNSSis/ffDnnuBAv+gtE9CmdGme/fGXZHeg8vQiaw1wOOTxie4a5Ew8WWacgq8i2Tn6OoC7RMxXzVxwtj6dacdkJk4C81Zge/LjiSPD4ck5zQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtsLnhMc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="up77NOuK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZTIePpr1i1nW3TbNmu/glFr6rUMs6O8MKn6c7Hl0xRekdzYLECVzcqEPT8R4QlKhG09LUGMNTk5ZJE22i1XuFzXsc9kZGsck2vrWXVXLk9JSspMnNQ9pnTCTba+wMRkG3Boe6wX9SoT/u/Fz7zC/OhZtw6aTRblvjnl77AgmJqysmsaU6iJt0mFSH2rNYwPqHKlnbzP6TrYkx6sNH6Jsz2bXX5hK0yQ64v0AumYworTZ329MJxDsCD71/4ZtmfUfG20QDhxyWxiFIyycpD+8x2MDgCMJt1ucyhPGGGo3SJlNhpbktp8HYvQvM1Xzg/eDOdkEViYAWJc3c2U/p5VqiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hmCmwPH3xPf4FZ3N1D/f0/4AyLX+ZxjK4tdIaInm6AU=;
- b=b515CiKasyP4V6817LgO0W71rLsQlMtqg6oVIIbB7HsKoAIpWzB/jlrzlTs0V6y2J78TuAtKM55PMIyCLLsAmQh/gCzzDndGgkGYITo51iGxLKLUJuc4KnOF8bJcvwAjC8m0g+zJfKdNbCRtZ2bxEIRqvTYx+jDbue0Kl36bSU8yg7I8ym1VmiXPU/ff9iTvmqBPzsYfV0Qr0ZrRX/kb9Ap8x3UhZoNj6IKSinp3IBf9CnrDBdEScb6nVaPtTz1a91PLn1ZAbfTcS4IjZqC8hX9HWfH6IPi71kSLsS47QqTdMk87QWgkhbNldRDS21acpsmyLbn9cwI4qSSgtfd5Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hmCmwPH3xPf4FZ3N1D/f0/4AyLX+ZxjK4tdIaInm6AU=;
- b=up77NOuKgoEUXCschBWUiVVCcUbZlFlSxsEz+pxaJbEDr1liKZqEe0BhgTCHYVb9J8N65FfZcXXa2ymNJXW1C5IF0yL4W9ivXv/0jUrL5uU5l9Qvwuhidn9BoL7hZJD4wtqVfAyNDjDZeR66WUdEEjFRnqWOurihBA//DCR8Bgo9z5brAlbST/7AKMsDTp1W2URd2BvrXXoBiBFEc1zx7A0cQc4d6qVKrQ8R34kHfVrOzMRMc77hFmjErGmG0Qppi8XZmy8kwkd1bngTNPjJPVewk8rkniIzv5JR1hLocCBqF0aOOpCTKMToYnqXwyjjdeo39I6umo9I9R8RTsG9JQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by SE2PPF7BA6A63F0.apcprd03.prod.outlook.com (2603:1096:108:1::49d) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 30 Sep
- 2026 07:13:43 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 07:13:43 +0000
-Message-ID: <1bf03811-40f8-4c85-bf45-e48c5545c3e1@amlogic.com>
-Date: Wed, 30 Sep 2026 15:13:36 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
- like
-To: Conor Dooley <conor@kernel.org>, linux-kernel-dev@aliel.fr
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
- <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
- <20260928-cardiac-relax-cdccdecdd4c2@spud>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <20260928-cardiac-relax-cdccdecdd4c2@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4P286CA0061.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::15) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtsLnhMc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB571F000FF;
+	Wed, 30 Sep 2026 07:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790752474;
+	bh=x5MWIAjZ1YqYS9xRmVm/W/cVns9iuVUuZkPDJdJoezQ=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ZtsLnhMcTVEr3WATgp07OaQDFMYqeUseJxxqF7eYE0tpL/mE+DTGB378dAG3O0RGm
+	 pt2vYda6DmMUaursQxxN4etoWQRM8V58B9AjIaLx18d8EDCJA9EScA8JUvNw6l35A3
+	 ek0UQHq2C5aQSiN1ZCPoXpiE3MNFredhfskz2jLkKmElI7whmAuh+5aamF1hNa7I/L
+	 KxvOCVkXJ+Zs9t6A6ik6329HTVCUUqw8dcSSuqeHFWwXFMkp7V36gXczrBOJwjAs9I
+	 DpMsuQ7uUMNOgwZkbfQuxHT5sFeTXwn29rnQ34HTT9wdqJ1Cl043GIIObjMC2YBW2h
+	 PA9rj3b1mb3AQ==
+Message-ID: <e9b1f3db-9f53-44f9-a188-b1ee0e9c47aa@kernel.org>
+Date: Wed, 30 Sep 2026 09:14:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SE2PPF7BA6A63F0:EE_
-X-MS-Office365-Filtering-Correlation-Id: bdf2d5bd-ff39-4874-339d-08df1ec25c0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|11063799006|6133799003|18002099003|56012099006|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	aqJLC3Aj/W3XuBrdfnBtrD0j9uwQtclB1V6XDLEu0MYbJtoo/R6FFEv3sO8dTjKm2baUmSoioXJakPVXuhJy188SoCSVBtAYqwddZU7JvHJfj9UwDTXTG1yrf/St0zvZAh0yAlrrnPqdgP/CEXwpwrb7TKnnHQbWvjcmjCklKHh3ZNca0H04T+PTysrlHpYYNSFFQsVlJll9b7UrV8bodJEwtcVs2Cp1ZcGI19EgYwSN6wC2ssR1FxainrYhoH+VYzpOMqcPfRPuKtd1+UHzkTVd22Q5v3scMaOma5LSa3mMarOWGInFec+pjGIlUnAfmv3i+K0QrI3bhdit/0nzoWDyDYGLpi3NiTWITS3wct2Ix9Es20pRd8XRFFu0f6ZpQdX6/iymrhpM+X7r6AkggJCpR1A8jW7op1qt/TYHfx6vFnuB33SnlxLxonmKCvzR7WtAYV+ozQxAr0v3PKJ3k26OmUQFrdVevbAxAwHUx3aY9e3pkjQWswlmTo8nOlv4MpLvDxM88VT7Q54xBNzUcsLzokMq37itJlmPbKM046Hqa4LLmY7mOY1+uhjmX5vuDntdACcrbqPvUxBC9UxyGFF45VJjG687ngZGElE0s+o0U3z3ThMoTPagMmMM0abK3ttjsNU0WUEJO27JfGFJNsrUMdgCxyaLVxpfNiHzZAM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(6133799003)(18002099003)(56012099006)(22082099003)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UUFjN3QvZVBYU3dtT09ZbG1OR08zMTJyM3ordkFNUER4dmlHM3VaREozUklE?=
- =?utf-8?B?Q2QzViswdkp6eUFDZFhvaU5ORUkyTXhCaXlncytYdkNWR3dmc2JTZUdwLzBa?=
- =?utf-8?B?dVR2WER2RCtVUWVXNGhtZU0zY09CdzBxdXpYR0lFNUpFUzRJdXZmMU8wb1Ar?=
- =?utf-8?B?a09qZmRrNEFnaXdnZWRCeDVRQzRzWXVpeHVQbnREaSsxeXJlUHFSN3ZoVGZU?=
- =?utf-8?B?OUR2dG41bTZtb0VKVlV4c2hWSktEbHcvYUVhTCtOekN0TmJFY3ZLalRYaE1l?=
- =?utf-8?B?ZHhtVjVJWThaMzJsOEtZOExhU0V1TkphQ1NFQkRmUDVzSDJ1cVFVSHJTVVJr?=
- =?utf-8?B?MVQzVWI5RFFyNzdKcy9ESWIvV0k3THNSTG1Qc2E1NWg4UDNNcWhmRk9FbFRK?=
- =?utf-8?B?VEFNVlYrTjRNMzlvZGVSNmd0eEpKSFBFN0o1THJSVHV4TFh5ajZSUVFObFcv?=
- =?utf-8?B?ZjNEcGhRYUpCWXZycm1rNGhmd2NLRlYra2dpVmwvb3ZVWTVwbHpDVkxlaTVq?=
- =?utf-8?B?cExxdlc2MHN6eHFnelZRMEp4Q05ieHpDWHk2MWJCajRjaVF2Z2lTdm50Ryth?=
- =?utf-8?B?YllBM3BiSVVwQVRCYWpKcXZNaWFRWWgybnpqV08xNjRmNHNYSW1FZU9yUzR5?=
- =?utf-8?B?dmZqU05vWDBvN3BKK1ZVRmJNeWVUa0V1QnA4V3c3ZG1lMU56aFlUT1pncEpZ?=
- =?utf-8?B?US9EaTRja3ltbWtGNlF1K0hvRmlMM2NjNVAvVXRuNGZGb254WmNGNks5ZjJx?=
- =?utf-8?B?Q2J0Ulc2NXliY2g5TG16K0VLcVZPUlkwYm01WHd4djZrV0ZMamtHQTZoVjVi?=
- =?utf-8?B?d1RFQkhxSUNsMHBNbGIwaWJwbjZheU5RVHRWSEVJVlNqcmpTbUlrcWtjWVJ4?=
- =?utf-8?B?UmdIazRTcmhKUm9OSHd5S2YzdHhYaUgybXhWSlV6Zi93SVRoM0pvejVWTGMv?=
- =?utf-8?B?WSttVCtHREl5cXdiZjh5S0xHVk5OUDd4N3htQkZtQmVZclpqejcxbUVpNThz?=
- =?utf-8?B?clN2NElDMjM0dGJXTm44WklRNm8rZVJwVXI0Q2MyakdzdzR0WC81dUdwQzl5?=
- =?utf-8?B?VTdWOHh6SUlaenNUdU4rY0o4TUpONTRxbFZ1bEVuOE1iTm5KVDY0ZDFHYnhN?=
- =?utf-8?B?RXpBSGxxWldaK2MwZzl1V3A2NUJaMitDNWRlTUl5M2ZxYkhBc0xIcFQ1Y3Mr?=
- =?utf-8?B?clFwbzh4L1ZUeXhTMzBOOEkzbHlEM2FCbHNzMUtwVGdJU2tUNmNJMUY5YXBm?=
- =?utf-8?B?U1h4Si9SY1orRUZPSWdBczZKRVFqSWVqUW13Z0JWZjRCZTFqN1RkT1puVXVr?=
- =?utf-8?B?Sk9VbWMvdUN5UWdGM1cwOXpWcWZOckdXaGJrWVRUcEU1U1llOU52UVNHQXRS?=
- =?utf-8?B?K2lqNnl5VU5nTGc0YzVoNEhZTlRaOW5FNEhsOUdnYkxoeWhMUHBodlRIS2Uy?=
- =?utf-8?B?UWcvYTR1RWcrRXgwKy9JN0Y3YWhhbmhRM3ZNczc3UlFjZnFkcXVvazdySUVi?=
- =?utf-8?B?a25GRmdqUHdQTExrcEx4UzZhMHNQNGlaaC9MNXdRVEd3YkJjOXpkaVU3USsw?=
- =?utf-8?B?WC9mbXlqM0wrdmJSSjU3RWxPbVY2QmkwNlRRcXlzRmx6ZXh4eGxqS29HNHpS?=
- =?utf-8?B?T0MyVzQwNy8ydzFtRCtQcDc0RmNvakpwdkFlYnNRODlTejhTUng2NXd0ZzQv?=
- =?utf-8?B?a0tKYm5OTzBiUXpNUmpxbGQxK2FxQ0xMUHFOd3E1a2labkt5SW93TTdLUitY?=
- =?utf-8?B?TFVsQWJvakJKUTVyUlIvQldva3g4ZTgvV2YrOS9Yd295b1Y4OU9Rbm5hSUJx?=
- =?utf-8?B?RWNvbTYyZlZrQ1dxdSsreTNzYjlaWHpMVVd6akZzakdIN0orRURUcWt2dGIr?=
- =?utf-8?B?VmpyRXJpTHdjb1F1UDJuTk9NZE1yYlljUXpmS2s3NkFJcngxMjZEMEhlR3VZ?=
- =?utf-8?B?VGxFRjV3OEhmRlJoWlhuRmgyK3BFbndtbEhZTzh0OG9BUkFSbHpMRVAzWkFG?=
- =?utf-8?B?K0lNcmd0bXNxRldHSkd5eW5EWGVMU21ac2FnRGNXZ3ByMUNPcGdGeVo3MHk2?=
- =?utf-8?B?eFArMEpFaW9PRTdveVkrK2xxWWhIY1ZkQ1RScG54ZEtoWFlhYWM5d0hNSHls?=
- =?utf-8?B?Ni96bE5vMlpJWmdPT3FhR3QxOGdSd0QwemMyMTZiTzdMR0hPbnI0K3djNURj?=
- =?utf-8?B?aFhIc1ZzQ2k4U0t2T3I3Z1JlSlRUdTR4ZFJNL01DNXZwaWtERlJwWlBvM2Ux?=
- =?utf-8?B?bGJsY2hRQ2JoYWNRK2VSYkR3QUdWcVI1NHdpU2EyRnk1YlFIdWZwRCtsWlJz?=
- =?utf-8?B?UTFlQkg4MzMwVVFhd3p2WS9iK3R1V0dQYTl5d0VTVFNZUnBnR3VMQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdf2d5bd-ff39-4874-339d-08df1ec25c0c
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:13:42.9728
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XtazefxCjmetxpa/UNrRZsq1Sj85UWLBzRDI06JVVXg9B/0nxrjiF2oZd5M/I0p0Y7G4LeEZS/lGFIcl3lBTug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2PPF7BA6A63F0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v7 1/5] media: v4l2-core: add new control type
+ V4L2_CTRL_TYPE_S8
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
+ <20260924-enc_roi_enable-v7-1-6fa7413af23c@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260924-enc_roi_enable-v7-1-6fa7413af23c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ronald, Cc Conor,
-
-On 9/29/2026 12:46 AM, Conor Dooley wrote:
-> On Sun, Sep 27, 2026 at 04:28:15PM +0200, Ronald Claveau via B4 Relay wrote:
->> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>
->> The T7, A1, C3, and S4 PWM controllers have a system clock in
->> addition to the two input clocks of channels A and B.
->>
->> The channel clocks are acquired by index in the pwm driver,
->> where the core clock is fetched by name, with optional get
->> which is silent when not provided.
->>
->> Require clock-names and minimum 3 items for S4, and devices
->> which fallback to S4, where the PWM devices do not work
->> without all 3 clocks.
->>
->> Add an example showing T7 usage with its fallback to
->> amlogic,meson-s4-pwm.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> ---
->>   .../devicetree/bindings/pwm/pwm-amlogic.yaml        | 21 ++++++++++++++++++---
->>   1 file changed, 18 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> index c337d85da40f1..e9cd5f1fdf264 100644
->> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> @@ -62,7 +62,7 @@ properties:
->>   
->>     clock-names:
->>       minItems: 1
->> -    maxItems: 2
->> +    maxItems: 3
->>   
->>     power-domains:
->>       maxItems: 1
->> @@ -143,9 +143,15 @@ allOf:
->>             items:
->>               - description: input clock of PWM channel A
->>               - description: input clock of PWM channel B
->> -        clock-names: false
->> +            - description: gate clock for the PWM controller
-
-This is the APB bus clock gate for the PWM controller. If this clock is 
-disabled, the CPU can no longer access the PWM controller's registers.
-
-This clock serves the same purpose as the "bus" clock in the thermal 
-sensor patch you submitted previously [1].
-
-By the way, in the Amlogic clock driver, many sys_clk/clk81 clocks are 
-used to provide the clock for the APB bus of individual controllers. 
-Some of them also provide the functional clock for the controller, such 
-as I2C.
-
-Therefore, would it be reasonable to keep the description here 
-consistent with the description in the thermal dt-binding mentioned above?
-
-[1] 
-https://lore.kernel.org/all/20260923-fix-t7-thermal-clock-v2-1-bff7a09eb487@aliel.fr/
-
->> +        clock-names:
->> +          items:
->> +            - const: channel-a
->> +            - const: channel-b
->> +            - const: core
-
-Similarly, would it be more appropriate to name this clock "bus" as well?
-
->>         required:
->>           - clocks
->> +        - clock-names
->>   
->>     - if:
->>         properties:
->> @@ -179,6 +185,15 @@ examples:
->>       pwm@1000 {
->>         compatible = "amlogic,meson-s4-pwm";
->>         reg = <0x1000 0x10>;
->> -      clocks = <&pwm_src_a>, <&pwm_src_b>;
->> +      clocks = <&pwm_src_a>, <&pwm_src_b>, <&pwm_src_core>;
->> +      clock-names = "channel-a", "channel-b", "core";
->> +      #pwm-cells = <3>;
->> +    };
->> +  - |
->> +    pwm@60000 {
+On 25/09/2026 02:28, Deepa Guthyappa Madivalara wrote:
+> Introduce V4L2_CTRL_TYPE_S8 (enum value 0x0103) as a new
+> control type for signed 8-bit values. Add necessary support in
+> v4l2_ext_control, v4l2_ctrl_ptr and handling in v4l2-ctrls-core,
+> v4l2-ctrls-api.
 > 
-> If you respin, drop the second example please, since it doesn't actually
-> do anything different anymore.
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+> ---
+>  .../userspace-api/media/v4l/videodev2.h.rst.exceptions   |  1 +
+>  .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst       |  4 ++++
+>  .../userspace-api/media/v4l/vidioc-queryctrl.rst         |  6 ++++++
+>  drivers/media/v4l2-core/v4l2-ctrls-api.c                 |  1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c                | 16 ++++++++++++++++
+>  include/media/v4l2-ctrls.h                               |  2 ++
+>  include/uapi/linux/videodev2.h                           |  2 ++
+>  7 files changed, 32 insertions(+)
 > 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
-> 
->> +      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
->> +      reg = <0x60000 0x24>;
->> +      clocks = <&channel_a>, <&channel_b>, <&core>;
->> +      clock-names = "channel-a", "channel-b", "core";
->>         #pwm-cells = <3>;
->>       };
->>
->> -- 
->> 2.49.0
->>
->>
+> diff --git a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> index 6182b4e2d2ee002c0d3562e1cc3bc2fd9c4286d6..b036ed3ec2f0744175cad1cbc4e73fe828e0c955 100644
+> --- a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> +++ b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> @@ -141,6 +141,7 @@ replace symbol V4L2_CTRL_TYPE_STRING :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U16 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U32 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U8 :c:type:`V4L.v4l2_ctrl_type`
+> +replace symbol V4L2_CTRL_TYPE_S8 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_SEQUENCE :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_PICTURE :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_QUANTISATION :c:type:`V4L.v4l2_ctrl_type`
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> index d78328152b7552f8f0d30a9e2f7c104bfd4b70d3..fe5f8992389c32d8f35f432229ef2f734002644e 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> @@ -188,6 +188,10 @@ still cause this situation.
+>        - ``p_u32``
+>        - A pointer to a matrix control of unsigned 32-bit values. Valid if
+>  	this control is of type ``V4L2_CTRL_TYPE_U32``.
+> +    * - __s8 *
+> +      - ``p_s8``
+> +      - A pointer to a matrix control of signed 8-bit values. Valid if
+> +	this control is of type ``V4L2_CTRL_TYPE_S8``.
+>      * - __s32 *
+>        - ``p_s32``
+>        - A pointer to a matrix control of signed 32-bit values. Valid if
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> index 82c8b52e771ce9301491b3f752e501a8fe7e2434..57e1652ae72e0324742142446acf32a16b94941c 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> @@ -425,6 +425,12 @@ See also the examples in :ref:`control`.
+>        - any
+>        - An unsigned 32-bit valued control ranging from minimum to maximum
+>  	inclusive. The step value indicates the increment between values.
+> +    * - ``V4L2_CTRL_TYPE_S8``
+> +      - any
+> +      - any
+> +      - any
+> +      - A signed 8-bit valued control ranging from minimum to maximum
+> +	inclusive. The step value indicates the increment between values.
+>      * - ``V4L2_CTRL_TYPE_MPEG2_QUANTISATION``
+>        - n/a
+>        - n/a
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> index 93d8d4012d0f4fef004e417d0aee2ae44b1b30bd..7d41cfd7378baaa929d4da0266c45f731bb54285 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> @@ -980,6 +980,7 @@ int __v4l2_ctrl_modify_range(struct v4l2_ctrl *ctrl,
+>  	case V4L2_CTRL_TYPE_U8:
+>  	case V4L2_CTRL_TYPE_U16:
+>  	case V4L2_CTRL_TYPE_U32:
+> +	case V4L2_CTRL_TYPE_S8:
+>  		if (ctrl->is_array)
+>  			return -EINVAL;
+>  		ret = check_range(ctrl->type, min, max, step, def);
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index 661a3a25da5220d2e824f71e68871181533e6cd8..c5df0e0a54f81c73975f427957b7c99fd421d5ad 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -297,6 +297,9 @@ static void __v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
+>  			memset(ptr.p_u32 + from_idx, 0, elems * sizeof(u32));
+>  		}
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		memset(ptr.p_s8 + from_idx, (u8)value, elems);
+> +		break;
+>  	default:
+>  		for (i = from_idx; i < tot_elems; i++) {
+>  			switch (which) {
+> @@ -377,6 +380,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>  	case V4L2_CTRL_TYPE_U32:
+>  		pr_cont("%u", (unsigned)*ptr.p_u32);
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		pr_cont("%d", *ptr.p_s8);
+> +		break;
+>  	case V4L2_CTRL_TYPE_AREA:
+>  		pr_cont("%ux%u", ptr.p_area->width, ptr.p_area->height);
+>  		break;
+> @@ -1442,6 +1448,8 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
+>  		return ROUND_TO_RANGE(ptr.p_u16[idx], u16, ctrl);
+>  	case V4L2_CTRL_TYPE_U32:
+>  		return ROUND_TO_RANGE(ptr.p_u32[idx], u32, ctrl);
+> +	case V4L2_CTRL_TYPE_S8:
+> +		return ROUND_TO_RANGE(ptr.p_s8[idx], u8, ctrl);
+>  
+>  	case V4L2_CTRL_TYPE_BOOLEAN:
+>  		ptr.p_s32[idx] = !!ptr.p_s32[idx];
+> @@ -1501,6 +1509,10 @@ int v4l2_ctrl_type_op_validate(const struct v4l2_ctrl *ctrl,
+>  		if (ctrl->maximum == 0xffffffff && ctrl->minimum == 0 && ctrl->step == 1)
+>  			return 0;
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		if (ctrl->maximum == S8_MAX && ctrl->minimum == S8_MIN && ctrl->step == 1)
+> +			return 0;
+> +		break;
+>  
+>  	case V4L2_CTRL_TYPE_BUTTON:
+>  	case V4L2_CTRL_TYPE_CTRL_CLASS:
+> @@ -1732,6 +1744,7 @@ int check_range(enum v4l2_ctrl_type type,
+>  	case V4L2_CTRL_TYPE_U32:
+>  	case V4L2_CTRL_TYPE_INTEGER:
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> +	case V4L2_CTRL_TYPE_S8:
+>  		if (step == 0 || min > max || def < min || def > max)
+>  			return -ERANGE;
+>  		return 0;
+> @@ -2037,6 +2050,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  	case V4L2_CTRL_TYPE_U32:
+>  		elem_size = sizeof(u32);
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		elem_size = sizeof(s8);
+> +		break;
+>  	case V4L2_CTRL_TYPE_MPEG2_SEQUENCE:
+>  		elem_size = sizeof(struct v4l2_ctrl_mpeg2_sequence);
+>  		break;
+> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> index cec9217d97ac698cd447574f5d079dd913a9ef6f..6a181a6c6b43beae87310cacb044a0cc7ad2c063 100644
+> --- a/include/media/v4l2-ctrls.h
+> +++ b/include/media/v4l2-ctrls.h
+> @@ -27,6 +27,7 @@ struct video_device;
+>  
+>  /**
+>   * union v4l2_ctrl_ptr - A pointer to a control value.
+> + * @p_s8:			Pointer to a 8-bit signed value.
 
--- 
-Best regards,
-Chuan
+Nitpick: move @p_s8 to just below @p_u8...
+
+>   * @p_s32:			Pointer to a 32-bit signed value.
+>   * @p_s64:			Pointer to a 64-bit signed value.
+>   * @p_u8:			Pointer to a 8-bit unsigned value.
+> @@ -61,6 +62,7 @@ struct video_device;
+>   * @p_const:			Pointer to a constant compound value.
+>   */
+>  union v4l2_ctrl_ptr {
+> +	s8 *p_s8;
+>  	s32 *p_s32;
+>  	s64 *p_s64;
+>  	u8 *p_u8;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index 5373dba640fae3d19247ab1c74ba336e05dc0fe0..ac588d0093df9cc35c11d0b9d41d052d5e800925 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1884,6 +1884,7 @@ struct v4l2_ext_control {
+>  		__s64 value64;
+>  		char __user *string;
+>  		__u8 __user *p_u8;
+> +		__s8 __user *p_s8;
+
+...same as you do here.
+
+With that change:
+
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+
+Regards,
+
+	Hans
+
+>  		__u16 __user *p_u16;
+>  		__u32 __user *p_u32;
+>  		__s32 __user *p_s32;
+> @@ -1961,6 +1962,7 @@ enum v4l2_ctrl_type {
+>  	V4L2_CTRL_TYPE_U8	     = 0x0100,
+>  	V4L2_CTRL_TYPE_U16	     = 0x0101,
+>  	V4L2_CTRL_TYPE_U32	     = 0x0102,
+> +	V4L2_CTRL_TYPE_S8	     = 0x0103,
+>  	V4L2_CTRL_TYPE_AREA          = 0x0106,
+>  	V4L2_CTRL_TYPE_RECT	     = 0x0107,
+>  
+> 
 
