@@ -1,122 +1,173 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B703238D3F7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790806158; cv=none; b=dIkDXmgeQw3KuccmDHuhaZSrONuGrMP5zzYknyh4/kLwesYDSh7luW9+iNTbP5XCTKdXD7uMbQJAc2iai34qQxhkeNKu6+iJ9grPLG1CEOiOxPcBJru3kJzQMzF4+4CB9JheAG4f0fUAeT3RN2OYJbYT5OnMSelJT29ZdGpe7IY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790806158; c=relaxed/simple;
-	bh=2Vc91vVa95l1BF9P5E+Hu4oArbEH6p9nMPl42D5ahBg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QjgH9HhMaQ/0jFY8YlOXsAkGsG4Hid+/Qvq+UoVS3RIEY1CHD6VRM3TEvUhmMCS5ZBR2mDkxbsU4mNrQ1Ci0Y4tt2n2DC5viZSQN5cNzZdKP7cQxVtFe5zTq5kkiv4csYlAuX7Gf9O+QNJ6Vi9hKq5qDp8n2JVRtQ26cePInNEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c40mGgxx; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69C43AFAE2;
+	Wed, 30 Sep 2026 22:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790806325; cv=pass; b=VNgz1P1SZ24rSzt1OMgnsSle3fKeRTS3QcR5oLO5jc1W3wN8PtYnj0SUNuhjOnia48k0r4klvxKpnxZTnA4Q+jFY/mytl9JkAtmId5TpslIJ9FglPVX9DobXLL91VUQtugbS8r3uCn9/5B4eu68v9iPj/prKuPpc/E6IXvark2E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790806325; c=relaxed/simple;
+	bh=oXoLYJSu6hPT3Z4IyHghD8zubc5NgSK5ilmVJ/G/8Ro=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=geIjEgbw4c1a34+1lKPdOdEA0W96WZweIt3O/jj3O8Pw2wkpJbsr9CZW1AS/Bz2yNDlwFeULt9hQvXt6XR7csRh6L1iiAwiQOHDlezueXKTxfKZCI+7kdXrkeFjntQjMPxLKKFQ9RUO/SDGYs/Ylk2OO+qS3jT5In9Wy1jsbzvc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=TgswJeQs; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c40mGgxx"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so36788595e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:09:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790806155; x=1791410955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GmeV4rEVAtHMh/0SUOgOEDlH2GalZPirUpnG/q/WPZk=;
-        b=c40mGgxxt+dnGTXQCAf/irMmTzOPa/1sg/nHfKa+Zv83Fa7h6YLH3nH3gbbHrzW/2I
-         2dH3Ynw6sjfAS/vilR+Xq9dJPdCcNmQHfmEJ5taHEgPTuW2ranBTR1Rv35Ohg+dbtCHn
-         bIeFzewEdbX/UKhrcKT6uG8k5Cp1PHJhFduAJ0Qth/vFA2QUAyHmGFmBfivszwCzng1N
-         KtIzsSFNMqUbJvhh+6ynbMsAn89fIB5Jg77Mnz13jETQWKunnTLc+0zV9+l0cvJQk0OF
-         jkCIpOlgYka9SXNyDMucFk4d48q94G5i4FX3/4/l0sZ0ZUJRZQmIk9eyliYfhFQHhNVd
-         0VBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790806155; x=1791410955;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GmeV4rEVAtHMh/0SUOgOEDlH2GalZPirUpnG/q/WPZk=;
-        b=dZ2XPvEV72UwRE5G1MXfm/O+bx93qIAxyhU2MAeXffWNjoND7lqZc2uqVna40ivJnL
-         faMR2m35wdqWG69UrzO4uxWSRIaR65AgxwF8jKnYqq8meAWWxnuah87IpT1ADE7LyLC8
-         f95k4QCAPBPrhQXEPTQMy2OgIS0iz5/wpumEL6v1PjcjvmLlFUgBV0kRRCt4yNWS0lHM
-         USPqsU0lD2RkWXv64d3Y4YRP7fZhrcrNIxsNKyPJ1AeiksjhkiUpOMSsEteyuXt3IzmR
-         9gXHzDy+4Rsg6RWnyDT9YegqQvBiTDxhXWAGmF2hRHUzcVoyZIV0lt2LJEyBO4ti9kiq
-         He+w==
-X-Forwarded-Encrypted: i=1; AKwUvByEGAd4Q67Kl4XZ99muzByTYQt76FpX4CYMEgtYqhjn0OpBI8Z9AXfyH76y6fQ+R/QJe2QCb2PpgNpzUKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmCDmYT7MoT39Gh7inVyGpNoWNg92JedQBYbmyaA6Q/lk0JbXr
-	vfpdsI6pJn5E56ilvowsOdtBEkIty/cRNuZ5b9kLIINOLtPRmTJmyhG9
-X-Gm-Gg: AYBFou2Zf3QOCa6GgDTDq3Ygo+/9TbtCVbTFail1hHlNhz5Ygq6RSVPTb9xwtjArJ02
-	y/6jP5jN0zwGhcisr+a9Zvh11bN05VQLy6J7f1d6olGythWXQ4GIiNAJEzN/CrjAto7kzVLEn0a
-	kzgVxBZKK/4BrKJpDbPnsynDCOfv8ESl3Tq20ReWf5nNgsgaL/sNW5utQFtB2GIk/khdI8PzpYF
-	S5kwpXyCrzzLrMWYM8UHkbqgEKbJz4suBRjntVO3aBSMNsG+Rk5GOCZ0FCuKvMgvvq/KmXU0GGv
-	BshbPajVWNmwevoIGAKJ1UMgHXTD3BygEdkCmbt5Obbj+/GHku7fLHPOmEy+lb3XdHjQfgwcvCm
-	cIVL3gc0CiaycF9oyozM3YR4FuX10Gq1yw80NGWVhWusZF7WIpRHgaNyDgQyJFxROqa82hEfNsh
-	sR8zHeiIoy/aiVtbKdlw6bWSv0CzobfkqWzbSpe4WH+wCQ0zBSZ6CUb0WjSBj7vLQ4MW9lBxqmV
-	JD/fbY=
-X-Received: by 2002:a05:600c:19cb:b0:4a0:1c17:4fb2 with SMTP id 5b1f17b1804b1-4a01c175025mr37282775e9.31.1790806154525;
-        Wed, 30 Sep 2026 15:09:14 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f98f72fsm12679655e9.11.2026.09.30.15.09.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 15:09:13 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: oe-linux-nfc@lists.linux.dev
-Cc: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH net] nfc: digital: fix read of resp->data[0] before length check in sens_req
-Date: Thu,  1 Oct 2026 01:02:06 +0300
-Message-ID: <20260930220857.721985-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="TgswJeQs"
+ARC-Seal: i=1; a=rsa-sha256; t=1790806234; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KP4UtcmMfrie5mygnITzREXnvL9pcS8QpSEm5K5RlhurnWcg+eP5muYbD+4XTWMrNXSAcIpIVx58PAqo0+mEnYo2vWq+ajz9f6zurxvQoDVX9lIwX2CwAXpY/OimT/rnv7KKtMds9IfqGcFoMp+5GJ/cskmU5y60rpZM/fU1ev4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790806234; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WzSZ0hnUQT8CYMb5oLj6n5g++E2FZ910FVeaCeR9vMM=; 
+	b=RKoDia5lHt3ecYgP0mQbg0tg45ublQuFLVkNBfvREFbtfNuwAOF0+Q7iUzuy/EnGcb23dimop66q44R0GXbkHWX0Rd0xhPci6C5LW2dkNnXCtoVsL5No8PoajXBFIOZnb2ZUfEpMpDYuc0ooJUTyGhbIQjMlr1hO48cHOBBfZqw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790806234;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=WzSZ0hnUQT8CYMb5oLj6n5g++E2FZ910FVeaCeR9vMM=;
+	b=TgswJeQsT2KcLgzJU7Bc0CswanCEM81OQTY3i6ztQ2SsquPBJ9k/O2h+FcsARn4x
+	YOir9j6t0WSZcH01LIq1ntlI8oT7fKXtUcFPIldaL7Euidqe2Wj4fVhsP50GQxEcDPV
+	y9ov9Z+gRHdrq3LCE81BFLfTWbnVvdpBtBlm9Oto=
+Received: by smtp.zohomail.com with SMTPS id 1790806233139843.2903306911663;
+	Wed, 30 Sep 2026 15:10:33 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v10 6/7] rust: ww_mutex: implement LockSet
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260103073554.34855-7-work@onurozkan.dev>
+Date: Wed, 30 Sep 2026 19:10:16 -0300
+Cc: rust-for-linux@vger.kernel.org,
+ lossin@kernel.org,
+ lyude@redhat.com,
+ ojeda@kernel.org,
+ alex.gaynor@gmail.com,
+ boqun.feng@gmail.com,
+ gary@garyguo.net,
+ a.hindborg@kernel.org,
+ aliceryhl@google.com,
+ tmgross@umich.edu,
+ dakr@kernel.org,
+ peterz@infradead.org,
+ mingo@redhat.com,
+ will@kernel.org,
+ longman@redhat.com,
+ felipe_life@live.com,
+ daniel@sedlak.dev,
+ thomas.hellstrom@linux.intel.com,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A11C8B1A-00A3-49C9-B9B5-30A55AFDDF2B@collabora.com>
+References: <20260103073554.34855-1-work@onurozkan.dev>
+ <20260103073554.34855-7-work@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-digital_tg_recv_sens_req() reads resp->data[0] into sens_req before
-checking !resp->len, so a zero-length response causes a out-of-bounds
-read before the guard that was meant to prevent it.
+Hi Onur,
 
-Fix by checking resp->len first and returning -EINVAL early, then
-reading resp->data[0] only when the buffer is known non-empty.
+The bot has caught it already, but remember to compile with CLIPPY=3D1 =
+for
+v11.
 
-Fixes: bf30a67c947e ("NFC: digital: Add tg_listen_md and tg_get_rf_tech driver hooks")
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- net/nfc/digital_technology.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+If push() fails, two things drop:
 
-diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-index ae6487c10..b27d45e05 100644
---- a/net/nfc/digital_technology.c
-+++ b/net/nfc/digital_technology.c
-@@ -1097,10 +1097,15 @@ void digital_tg_recv_sens_req(struct nfc_digital_dev *ddev, void *arg,
- 		goto exit;
- 	}
+> +    /// Attempts to lock the given [`Mutex`] and stores a guard for =
+it.
+> +    pub fn lock<T>(&mut self, mutex: &'a Mutex<'a, T>) -> Result {
+> +        let guard =3D self.acquire_ctx.lock(mutex)?; <--- this guard
+> +
+> +        self.taken.push(
+> +            RawGuard {
+> +                // SAFETY: We just locked it above so it's a valid =
+pointer.
+> +                mutex_ptr: unsafe { =
+NonNull::new_unchecked(guard.mutex.inner.get()) },
+> +                _not_send: NotThreadSafe,
+> +            }, <------- also the raw guard, which drops in push()
+> +            GFP_KERNEL,
+> +        )?;
+> +
+> +        // Avoid unlocking here; `release_all_locks` (also run by =
+`Drop`)
+> +        // performs the unlock for `LockSet`.
+> +        core::mem::forget(guard);
+> +
+> +        Ok(())
+> +    }
+> +
 
-+	if (!resp->len) {
-+		rc = -EINVAL;
-+		goto exit;
-+	}
-+
- 	sens_req = resp->data[0];
+Both unlock. I suggest that RawGuard consumes Guard on creation, or some
+variation of this.
 
--	if (!resp->len || (sens_req != DIGITAL_CMD_SENS_REQ &&
--	    sens_req != DIGITAL_CMD_ALL_REQ)) {
-+	if (sens_req != DIGITAL_CMD_SENS_REQ &&
-+	    sens_req != DIGITAL_CMD_ALL_REQ) {
- 		rc = -EINVAL;
- 		goto exit;
- 	}
---
-2.55.0
 
+When locking, I don't think it makes sense to immediately retry on
+-EDEADLK. This will busy-loop on a lock that will probably still be
+taken. We should release all locks and sleep instead.
+
+> +    pub fn lock_all<T, Y, Z>(
+> +        &mut self,
+> +        mut locking_algorithm: T,
+> +        mut on_all_locks_taken: Y,
+> +    ) -> Result<Z>
+> +    where
+> +        T: FnMut(&mut LockSet<'a>) -> Result,
+> +        Y: FnMut(&mut LockSet<'a>) -> Result<Z>,
+> +    {
+> +        loop {
+> +            match locking_algorithm(self) {
+> +                Ok(()) =3D> {
+> +                    // All locks in `locking_algorithm` succeeded.
+> +                    // The user can now safely use them in =
+`on_all_locks_taken`.
+> +                    let res =3D on_all_locks_taken(self);
+> +                    self.release_all_locks();
+> +
+> +                    return res;
+> +                }
+> +                Err(e) if e =3D=3D EDEADLK =3D> {
+> +                    // Deadlock detected, retry from scratch.
+> +                    self.cleanup_on_deadlock();=20
+> +                    continue; <------ sleep on the contended lock =
+before continuing
+> +                }
+> +                Err(e) =3D> {
+> +                    self.release_all_locks();
+> +                    return Err(e);
+> +                }
+> +            }
+> +        }
+> +    }
+> +
+
+In order to sleep, we must record the contended lock though, which is
+something that this patch does not do yet. I suggest that we store a
+pointer to it and call from_raw() on that. Also, when acquiring the
+contended lock, we must hold it before retrying, or we will race for it
+again.
+
+> +    fn cleanup_on_deadlock(&mut self) {
+> +        self.release_all_locks();
+> +
+> +        // SAFETY: We released all the locks just above.
+> +        unsafe { self.acquire_ctx.as_mut().reinit() };=20
+> +    }
+
+
+IIUC, calling reinit() will forfeit our ticket and acquire a new one, so
+LockSet breaks the whole premise of wwmutex: when there's contention,
+the older ticket eventually wins. IMHO, remove that line.
+
+
+-- Daniel=
