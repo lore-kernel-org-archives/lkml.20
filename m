@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29405377553
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202D0547059;
+	Wed, 30 Sep 2026 05:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745816; cv=none; b=C6xYx12H9pyemqR/PZN0ccDBsGSiwb51010pAv/bKBSKzk2CcvJHLTt+WP2wGu+EXStHhjWiD/0nTwDo7wq/+ZqAj7UMgMC2BoMSk/nHA4mqZRxQ6GJry2rUhwLFztiigQVTqdVmmd90h+LviZvLuf9JQRmuyfASRlwFS+Bnh6g=
+	t=1790745892; cv=none; b=r/GUNn9uqGpSbgin9dhGFQxgPFUXRqmdC6xqb0+vjCVapB4BCPicF3I3s1ewuQxOoW/8jVOKrj/8R7S9PHyhbkqWI8LC+sZmta/hkTVmZYWyghQY9yfqQiHn2YX/hwPgjVf7bkAvMRmdh74drZh4dwJ0ucf6WmiSv8ZyjVvjHOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745816; c=relaxed/simple;
-	bh=WxYy/oP+GW1EIvf4OHnYvO8CtCZ/KaRRqjlwy/0Tj5c=;
+	s=arc-20240116; t=1790745892; c=relaxed/simple;
+	bh=gFftlonLvy83C66RE+Ym/SyzrdPNgo/mYEGAOahfX+8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uC365U/kQZezbW0lIrsdR2RrLJkjLUD5xsnciG0V6Jy5veUh6Uz0FN1ZCKCHxnmUR0+eQDszxGm9K6pPaNCUeXMbV8GqnI5yHHvzK+ms5CF/LVfQvW3ViXXJuHcmVvBGmZOCGL3/qDZ+l4oNld13IrDejbkGffAQ/wxW1MPN3wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYO1FHUA; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=FaTPVgWxYhYZV6RTIUnPmjxlyBINcjbQ+cFhgWHwwIpFMHasoLBCSBrD9wdZd+BggkJ5X8V5Up33ZIVAyDLJtkxmaz0Ol7+hHa9Lvw/rZFAhLhoUpP83z99noIAJxMM/vlqzuT/E6MPyk4Y+uzmnEmuuVDqxgn44e0HGTNnyG+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNLIs8Xu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYO1FHUA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB251F000FF;
-	Wed, 30 Sep 2026 05:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNLIs8Xu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224231F000FF;
+	Wed, 30 Sep 2026 05:24:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790745814;
-	bh=Bow41lDje+3CW45875NvzEixlA4yXZiWEdtt5dnAVZU=;
+	s=k20260515; t=1790745890;
+	bh=W9lqqZ3qt/Td2CTSj3w5+9UwJ+Dy9cNNyqMq1c6mYfE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UYO1FHUApnDj5KPO1+Cbx5ETrer7heAHyAry+GM5YMdblx9SDgygTzD5JkxwlHTHr
-	 ySWAiWa0++nbjX/XGod3bja+83JpLo702liLjtcxLQ+8a1dbaNmKM1QZHDXJVPW7NF
-	 hZBzbYAWfnHvggRY+iXvMvMgzTJOCVcl7aVlYS2l8Tne4LM7svLimTFaTiusmxy5T7
-	 HZ+Ky7Wv8VmpeguKbepFYCeS1fvLGAUgqhrjOOzUtff+UPaPl0/8flem5st2tBrw/6
-	 RHTc9MfTTIgYiBw3KO18EPQ92o10HMj/lpkz8uGHq7/9PeDuDt+QRGgc2bzi6fAvV2
-	 PgUT7kBe5Z2RA==
-Message-ID: <73adf4db-52f8-439f-99d4-1dab14e1bfc7@kernel.org>
-Date: Wed, 30 Sep 2026 07:23:31 +0200
+	b=cNLIs8XuPw8S1dQzmckDf54GMIGxmCbES2A9OSovuIxUYbYW0CQGdhDrF3b3n8k2p
+	 iAUk2+x2SbfiLwCFPvzG98z5PzbbsMK01d16vLr2OcjNTFabLriJzQJgV6fIkQZlqs
+	 DfGsruuN/ktgsQtGcnNh9z09+fBUcCSBrCCBNbwwVUzerUeidR2164JaBYl5JfTgiZ
+	 2ncaZbhVIXR3iI+Gbr+hjTHgShAIAYsH67SU2EUKBbRanzKGYCErgLknJOgpMerACE
+	 KkIAEXR9Whmd/mlUbl5U5nN7w9zygaurIG6K12Pq1wgQtFPFdKbtPpqCeNw7+O4ltX
+	 MAEDwf4c3l+Bg==
+Message-ID: <3caea146-74ab-42d2-ad9f-d36d1adedc03@kernel.org>
+Date: Wed, 30 Sep 2026 07:24:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,11 +35,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
- with multiple bus masters
-To: "lorenzo.castellani" <lorenzo.castellani@pd.infn.it>
-Cc: linux-kernel@vger.kernel.org
-References: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
+Subject: Re: [PATCH 1/7] ARM: dts: axis: artpec6: avoid _ in node names
+To: Henrik Grimler <henrik.grimler@axis.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Henrik Grimler <henrik@grimler.se>
+References: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
+ <20260928-b4-artpec6-cleanup-v1-1-e3b75e10acc6@axis.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -85,33 +91,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <3fe878cc-64bf-4dd1-83ed-9e9a83bfe6d4@pd.infn.it>
+In-Reply-To: <20260928-b4-artpec6-cleanup-v1-1-e3b75e10acc6@axis.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/09/2026 12:43, lorenzo.castellani wrote:
->  From 32e145b49cf41ce150a97ce52c63f5aae1bbbea7 Mon Sep 17 00:00:00 2001
-> From: Lorenzo Castellani <lorenzo.castellani@pd.infn.it>
-> Date: Tue, 22 Sep 2026 11:12:30 +0200
-> Subject: [PATCH] w1: w1_therm: fix missing therm_bulk_read sysfs attribute
->   with multiple bus masters
+On 28/09/2026 14:04, Henrik Grimler wrote:
+> Node names should preferably not use _, use - instead. Fixes
+> dt-check-style strict mode warnings:
+> 
+>   axis/artpec6.dtsi:91: [node-name] node name "ext_clk" is using discouraged style
+>   axis/artpec6.dtsi:97: [node-name] node name "eth_phy_ref_clk" is using discouraged style
+>   axis/artpec6.dtsi:189: [node-name] node name "pcie_ep" is using discouraged style
+> 
+> Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+> ---
+>  arch/arm/boot/dts/axis/artpec6.dtsi | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/axis/artpec6.dtsi b/arch/arm/boot/dts/axis/artpec6.dtsi
+> index 037157e6c5ee..ce642dcc754e 100644
+> --- a/arch/arm/boot/dts/axis/artpec6.dtsi
+> +++ b/arch/arm/boot/dts/axis/artpec6.dtsi
+> @@ -88,13 +88,13 @@ scu@faf00000 {
+>  	};
+>  
+>  	/* Main external clock driving CPU and peripherals */
+> -	ext_clk: ext_clk {
+> +	ext_clk: ext-clk {
 
-Your mailing is corrupted.
-
-> +static int w1_therm_count_bulk_read_slaves(struct w1_master *dev_master,
-> +    struct w1_slave *exclude_sl)
-> +{
-> +    struct w1_slave *sl;
-> +    int count = 0;
-> +
-> +    list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
-> +        if (sl != exclude_sl && sl->family_data && bulk_read_support(sl))
-> +            count++;
-> +    }
-> +    return count;
-> +}
-
-And here.
+This will change the name of the clock. Did you verify that it is fine?
 
 Best regards,
 Krzysztof
