@@ -1,147 +1,79 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A220481679;
-	Wed, 30 Sep 2026 23:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721B3448B8F;
+	Wed, 30 Sep 2026 23:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790809491; cv=none; b=sku5TMKSUmFysim+sWVVJFpuF0nVx/RkD0RcWWcsZaDo6kMULIZmuaTqygyLGBNjMlNST/16yu+hwodoyQksIjxVzMlxq4dBL7ZswFB80lySnXhMNN5/9z2riub650FENg47/hxzdf00dHli+5A06ZROzZwjvS5gPxg3JgE2Vpw=
+	t=1790809662; cv=none; b=W0qETYkyIpnzB+JRm1r+9/RQYUlmTCAOfh7xiar70ijaeDpRTloz/Z4H1bUgYUq3RLRhi4o/dtSpQLTiTzSky/+9syQNwQiy5qOHBWrTGSaLYNI4ipA76gcjr/SfsRVaWj8UNZgzIGNc5SdD9JKVNQct6QW7RSmpRID1/L6pn3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790809491; c=relaxed/simple;
-	bh=oMz2F217fMqsTVPXqdhnsE0g6FFI/6XNgCEN/7yWDes=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=A+njCGDCrrhb/14D2ipJAJOChDupyBY2a7q8uXFwMiDXNzgt7zof9a7GXK59vB2Fyd/1XLQRUyanotFGvrk5HwlLc8l/AX70ILjtcwoAKzIwblqTJcZfOxT1ndZXDqlo1e1nLNSM+ZLFeh+abrxyECtWCQ8isrb5NJ3qd1MuZFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=QL10ZkX2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=W4DQjU7O; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1790809662; c=relaxed/simple;
+	bh=vC9QORnlqZtBlA3M5N5zcCu38I8c/qWHaOEde7sc4JM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LgcLr8Lqz2h5nKIuRuH7ooRt74RyuTTDS3MUyMNTKg81gGscf/wqllB/an32rVfSGBLcdgTaftDznyF2UlSno9qxhRAbxp5cK4+qpayxfiNKGbVFMDPUrt0NYlT6NiA3UhXYdl1Va2SR7fKxOXutd4dqc+GyAnK6DRIE/ajN4T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXouvGwM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="QL10ZkX2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="W4DQjU7O"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 2535E7A007E;
-	Wed, 30 Sep 2026 19:04:44 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 30 Sep 2026 19:04:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1790809484; x=1790895884; bh=uWMmqug0mq7VACcEW7LNW3dbRgOXbwq+ScT
-	nq0V8wgw=; b=QL10ZkX2H//HB0gZZNnbUwb6QTFAfgqyDp51STyMhf8nNhgj0JR
-	nges8MFxKKpMj8hFqX1YdaJ7yWSJqPZH9/FLaOi9EcmUeUROAGIZdw5tgtI/oZdZ
-	arOj9xm3n9w4tGKDXzB3Znc3YQxhG3z5TTSFhTIPShsU2l0bM8lK52nnaX3RScMY
-	+5G9451UrW576ZE+icROxU+//MU5v3mWpyShrPQRBqnFp7lO2RBhIZjT2CMT8V2y
-	fPNAygBLEY7uGmf/oM1jIp9pn1sKF8Lpb0Xr6osWvONFuFn4WvtFs9KFUXLHsTNT
-	Xxoy/4afS1CuczrJ25ISiUoyaGwqwzTnwhQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790809484; x=
-	1790895884; bh=uWMmqug0mq7VACcEW7LNW3dbRgOXbwq+ScTnq0V8wgw=; b=W
-	4DQjU7OP05qqJB4OVZX7MAtxPVV9RNXiSN/DrxrAk4Z8pa+8Ie6BSpkxdRNkn9vC
-	ZMvcV2rVhl8LHp162kRwmOQy0bQjNEtp2lXSGla8T8HXe5jjKMCALJMO7Iooz1KS
-	yQbeWbILrdggleXf2wTFpEyhSIlkho4aKum+qMI5aKrQSGYxY5CFLvrqdALu96XN
-	uwVH/sQC33CHsfu0xcHW316KqOTqBVehNP7Z+j2ON/dnkp0HWo+l+t977VfjLBo8
-	7hsW2cmE1EpPY6Lq6hLdFS7EZeqgcAPe0iANt4n7Vor/38/Q+Mr5sju6YuLFFgF2
-	+8b0RRcmM+xVHcBJ5EXmw==
-X-ME-Sender: <xms:i5W9aq8tTtkWjPLYqXMMDUafSaUfKII-aSJs8WPRxpafRMkqEZFWaQ>
-    <xme:i5W9as-xdqF0fu_XC7gZ-IbO0RtINxt33Efd9soj67T9kUMnkxRcElQV4gSqby3hO
-    uZaigoeIKcSS0-hTdDpUMnAL0j-kIRiHdU4GsYqpL_jBkZ3xg>
-X-ME-Received: <xmr:i5W9aiSLYbuxOGlQjB0Azj0Z722Zu4kuIpCPIh71_VKtb63rYDzy4TZEKulDG0Jpj4lU2faKQ1DHUn-RlXmGCbhR_ou_B9Q>
-X-ME-Proxy-Cause: dmFkZTEFpzdyQJ9ljtJrq56N9CiGtpRcGqGXBNM0zq0GHhZ6/Ahyq7ptTsRapPsw2cVXlo
-    JLes7n/RNhwMXtPyD3boq6sSOa2D+PMVe9pwWd+wEY9xVj0wIOXO0elVIYiVfVSqL7SLpc
-    QKI99TrA6s/tS1FyfEolYlopv8i2myfU17wTbeeRAycgYYNOXNefGHAUSpglMa6Ffkh9e8
-    X5QuhHYJVBwiTtpCzPdJLqt8pPUsLrMMn5cLCsxSQXio3MkyI/KnBaMr/pYWu0NcwlCzt/
-    mh21J8omPhaYEXVacYnHDXT/ZLlqnGGmpo8HhGHghewfPTEU6lKmyBEHbgNGHFP8OCCVdt
-    0YdNZDxeWqJwaX7job0G0yLQAivEjgf/jXkGY5Hnr7noT0X5mybw3PJ1ZjbsawUCVD3JNE
-    7nsg1OidC24MP9YU1o6tIq/8pR1/lfeZ9lma71E7nSSVn0rRp0lxWpDBUWn8Jzn3P3q4s2
-    zfZ0wsTQlb4zogEO6yAYnWG95PMi8d48Owh20HIQ7s2WQFhdB0lVQd5UZXJ08tSM78DXeq
-    iCib7dYiJCzwa0xjHyyIss6diBYzT7689n6S94R/0YmV5vWg1cKaApgvyuWSfFzu075U/F
-    AZJFLiMRsMdLu/ojJ9yvkLtdJIe5JcvCvhxAxIpN3uJOZ5RY151CLrXffQ0A
-X-ME-Proxy: <xmx:i5W9aocEandFwi-p6BYtGMRkkWkopXMDH7YgY2q_rSwgaNqrZEJryg>
-    <xmx:i5W9auALXp4oSesAe4mW9kdZ8CsqnReeAaGYnJ5We4Uq8ixLo7AsdQ>
-    <xmx:i5W9aimug3HhdWxfEB5M4aUFj9nfG8lN4wJiVXrn4tEera_YW5x8Mw>
-    <xmx:i5W9ahdZMDOGFPSt4OGnu2AntgddNo780dFM_wSN7d-O-YpcmGc2cw>
-    <xmx:jJW9aiZ0Jvl_5pDvUVW1OUw_oZkWXcbtg_cmrQDLiE9xILm6g0Xls6-Y>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 19:04:41 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXouvGwM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4CBC1F000FF;
+	Wed, 30 Sep 2026 23:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790809657;
+	bh=cxuWnLXV4IcGawGVDsabPJlwEsh1Tm4Ci5cwQ1fImcI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YXouvGwMVudv3WL5xczaCCXJtJJV12bV5q3AUrZCwx9ng7+1/IFv7C8tm3yxlwy2R
+	 Qn4dELrg4RGH24aiLNLqSHaGDArYqCYyxcdzkGmjqNvsuKHI4bnxdZ7xI08yq2rt5Q
+	 x79YeUxWGLbL+2eY1IZbqsj2YFNNdUtDIWpZxQj8YFI+V504HAGDyP+ZTCThuiOOiZ
+	 aqLBcgZ3g2lvVnjM1VbJPuYIyYaaQc80IgtKv8AXgzG2pVeur8UmvwcbdahWIvQLqU
+	 lVAr6aO7ivV1KyCg4kI2PAXhfNCxgJ2WboAqv8dIBvjDZeq+7anGnZ8uyv1WAnMBBl
+	 Mw4ZIVi1dHwEQ==
+Date: Wed, 30 Sep 2026 16:07:36 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Florian Fainelli
+ <f.fainelli@gmail.com>, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next v2 0/3] selftests: drv-net: Introduce
+ flow-control selftest
+Message-ID: <20260930160736.73243fe4@kernel.org>
+In-Reply-To: <20260925182628.214667-1-maxime.chevallier@bootlin.com>
+References: <20260925182628.214667-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Randy Dunlap" <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, "Randy Dunlap" <rdunlap@infradead.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org
-Subject:
- Re: [PATCH v2] VFS: d_duplicate: repair comments to avoid kernel-doc warnings
-In-reply-to: <20260930224330.2110958-1-rdunlap@infradead.org>
-References: <20260930224330.2110958-1-rdunlap@infradead.org>
-Date: Thu, 01 Oct 2026 09:04:39 +1000
-Message-id: <179080947944.37859.7499013622677289038@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 01 Oct 2026, Randy Dunlap wrote:
-> Use a typical list style for comments to prevent kernel-doc warnings:
->=20
-> Documentation/filesystems/api-summary:20: ../fs/dcache.c:2029: ERROR: Unexp=
-ected indentation. [docutils]
-> Documentation/filesystems/api-summary:20: ../fs/dcache.c:2030: WARNING: Blo=
-ck quote ends without a blank line; unexpected unindent. [docutils]
->=20
-> Also, modify the spelling of "whiteout" to match all other uses in
-> the kernel source tree and to be consistent on the same line.
->=20
-> Fixes: 33d76519f0cc ("VFS: add d_duplicate()")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> v2: dropped Jan's Reviewed-by since the patch changed.
->=20
-> Cc: NeilBrown <neil@brown.name>
-> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: linux-fsdevel@vger.kernel.org
->=20
->  fs/dcache.c |   11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->=20
-> --- linux-next-20260930.orig/fs/dcache.c
-> +++ linux-next-20260930/fs/dcache.c
-> @@ -2025,11 +2025,12 @@ EXPORT_SYMBOL(d_alloc);
->   * @dentry: the dentry to duplicate
->   *
->   * Some rename operations need to be combined with another operation
-> - * inside the filesystem.
-> - * 1/ A cluster filesystem when renaming to an in-use file might need to
-> - *   first "silly-rename" that target out of the way before the main rename
-> - * 2/ A filesystem that supports white-out might want to create a whiteout
-> - *   in place of the file being moved.
-> + * inside the filesystem::
-> + *
-> + *   1. A cluster filesystem when renaming to an in-use file might need to
-> + *      first "silly-rename" that target out of the way before the main re=
-name
-> + *   2. A filesystem that supports whiteout might want to create a whiteout
-> + *      in place of the file being moved.
->   *
->   * For this they need two dentries which temporarily have the same name,
->   * before one is renamed.  d_duplicate() provides for this.  Given a
->=20
+On Fri, 25 Sep 2026 20:26:24 +0200 Maxime Chevallier (Netdev
+Foundation) wrote:
+> This is V2 for the ethtool flow control test.
+> 
+> This test aims at validating the flow control implementation in drivers,
+> using the ethtool API.
 
-Is "::" the right thing to do here?  The docs I could find suggests that
-it introduces literal text.  Usage in Documentation/ supports this.
-Don't we just want a simple numbers list?  Maybe a single ":", but not
-2.
+Still does not look like our other tests but good enough, I guess.
 
-Thanks,
-NeilBrown
+One note on patch 1:
+
+        wait_file(f"/sys/class/net/{self.dev['ifname']}/carrier",
+                  lambda x: x.strip() == "1")
+
+is a shorter way of waiting for link.
+
+Other than that looks like pylint has a couple of nit picks
+
+tools/testing/selftests/drivers/net/hw/pause.py:1:0: C0302: Too many lines in module (1035/1000) (too-many-lines)
+
+tools/testing/selftests/drivers/net/hw/pause.py:1020:0: C0116: Missing function or method docstring (missing-function-docstring)
+
+.. and we'll need Andrew's review.
+-- 
+pw-bot: cr
