@@ -1,134 +1,122 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5D439320
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807560; cv=pass; b=FSopacoslF8R9KlF7I1e2WvxXtWLlHtB5NkiIfoQngVq2P+N5xg8yWP/48i4Votl17Ng3i4gOUfvBlGS4t8pWibjC+2oZoYlP29yUIB4kJi2486KDvyAX/g5rveYw65vjUVmIYALeBLODyRF5bc90mWAkph2kSPqDwa/+F/66Iw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807560; c=relaxed/simple;
-	bh=41zHe/K0N0YlTXyKVd4alQL08QPKvIb2rovNiRRenF4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nqx7azQjLLWTEqi7TmDgp/aB/ZIWbC2a4GloeT3pwgG4PwgQDO1HDw/UG5J435YDjbi3/KhwAHVAyKfyDOgq/ehHqn+0JbJNwu6GUVnIQJrfzqgDqY3Hz2NvEqRaX3ImGcpYc+B2ZEkrpxyOgjyautU5iu5y5oUV0+MhJjCzvMk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oxsunMc0; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1703A6B6A;
+	Wed, 30 Sep 2026 22:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790807649; cv=none; b=VlMUYa7VY/wcQeFTBPL9kQbzDkIGxmLAGRbOlLC0sR1ninfAYT+K3mdwNKDz2RsUrVTKmqYaHp5HMkXfqnDQIeXT94APzOfQj+pksBNjWJ18lVN1j5cWiFx5EJv6v5g2r5vfgyPuac7r8aUb6qkmEsgTBrA2HGcQvTPFz4h8npY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790807649; c=relaxed/simple;
+	bh=oJr76kD3h0PbBc6aH4cXmFFu2b6XnB90saVnn8Xl5wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=afj9UblgNHBbKxL4lqK7bEzDqvvtqZz26rvpfRWK69I97X4TEM4NrqbA2q7CJaDSF+4+FPUU/rVguU2FQrbOIKvXk5bg4uMA+6pxn/C8btdrGsSy9AHt0Hyf5iXXqH0Vi/vuF0KGvd+CRC7VDJH9qfXvUPOyOSkKoO9TFY03BlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaqhdASa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oxsunMc0"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso10383693a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:32:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790807556; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g2Iw9ka0IGd6my6+MOIudBeLiCTXc7npqmA2Tz3lgIgnVVUw108SBinIE74G0inh0q
-         ZKjY+EKqjrmU/MO9PZ90LhfvQFI6WIfeoi9rhul74VW4g/Wh2/BfcTHrYWl8QBbKpSzE
-         iJ7hxB+QtuD6eQKMbaWxfDSztsfY2W0tD54tVRAPmy7CDBzCIGgyK1xUZMDBRNRCMmxT
-         hR8UrXjWP5Fjheylr1Vhx7cTQ2h29ukTqbumpxBY+cW8VpUA0yFNzlM0erPpaXw2dnxb
-         fpBduUTr+x2554yhSm8GBOMtqX0MAkh8CZyjGViE5yM5YlvY79isCh9YfTfWCKFpylzU
-         Lg4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=BKIG/76pbPLgFFPRNg72x+oOwy0I50VygoCLcB5wFPM=;
-        fh=Lptah8JXuDjzS2uYr8Xw/YhokwDdK8y1LLB5B/q3rgM=;
-        b=OVNYvbXw4Kx3uc4HxjdI/qStupPyDPJbgzAxiPYyKHbqHkZVtY1C2Bu98LGJRGeiX1
-         tkUeCmpdm1rsUhvN3tNbJiOZNI08PDZrZEerfbkV63oeKmataaaAEkfMcZ8ZqdQk6EpL
-         /4VQoE1Fl/Y0p2PqR20eYwjTSMcskXFjTeiWT2PRVLgm9oo+30ilgBs1g81t8DGkrHta
-         tnlhX4ncpmu7C0Y4QxKChbONhZjjWQ1vA5s0apticnPkXY4LrZ0iRRFFf0IFaq3Fz5V1
-         4MZsw+mJRJPphdZ4Xfuym8MnlAdFsZXHyRdAPKROkL5M1aNSo5uE9u7dU4CVuc2kQbz9
-         KfTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790807556; x=1791412356; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BKIG/76pbPLgFFPRNg72x+oOwy0I50VygoCLcB5wFPM=;
-        b=oxsunMc00sYDokCiKAqu9EnLkd3Ha2oCguW9tcgjPsyySE/nIqxZkl1QgKwzf2S5/b
-         OCXelFmvjLb5daZWBSPRSjVOyItYf4LeSda7x5xQ7HxNEF0w69eeFL4XJ1PJUvPAT5JU
-         bvpUeguizgAs6+tZEjKRq/hxNO71ugweswqBzV40Qz74PuN1PBLS8fXdyM2KvX0MNNf9
-         KxPJIf1L+/d2qamkBJu3v1jpiSQAlDaxyr0kZ6IwrIp60Su4JD9HsRDqpEsGtbaFT/DF
-         nBCgJjL/OFGgPSs4bupNfcj1PdwWzOEEt7pO6YSVjIPHNHzLaf5+2UHApH7Nl3DhR0mO
-         RzLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790807556; x=1791412356;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BKIG/76pbPLgFFPRNg72x+oOwy0I50VygoCLcB5wFPM=;
-        b=OnfqqrrDzd+OQRB8wq5BixUF9XwsW/aOisJQcpAO9grrQkWz1mJls1sTz5V6zReKMd
-         k++eGM1uGMo4qXRKscwqqMIeEHiDnSIxCQZiJZVgSmlPAYY4aV9TA6LPynXssTWCmEER
-         9gVi5ISqFtRiTGScGJcUhzgXPzPjIQ9+B0vCd3LWiHgTX8Zd5ZtLhEoDpeOjlkjqp+n2
-         akoGHA1atZgABWyV1zZjd9OIx8GdBFqhqUZNPCUWvVH2WS9RQSNqp2u+ChS5sw2TaBzT
-         N4Ykhq06rqZeoQnJnzNNF4gHYY8WvNyo2wWQlsgseLOQQslYR4t3zvaK6VkTwMnFaJHO
-         pdEA==
-X-Forwarded-Encrypted: i=1; AKwUvByCTPOY6M8KZjQU7Xej4v3aftLr0w2LZBAQX6djlSvLmexgPsRsseDRJjN4KE81i7+QeX65Bbb03gycqho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLR/lnKGiGIQ6FEYmxUgj5eRf3oFb23VjAFihfU05KKuvi51QxD
-	NajMkym30JdF2B5iljJW9hyDWducs4likJ5iAvWzcR0voUmLUTMtunC98T4v3IWjfY9/5opc1cQ
-	KcIT9zPZlUfzQ+g+Q9WPxJVzAQP1BcPI=
-X-Gm-Gg: AYBFou3V2WxriqR04LZA3RFqN7nwmcR27fl1vUs2XD0qVCAKXnz3GVXSkMekkIbsRQz
-	VQs858e6XCtf94HNojAWqoDWTbR0CokUYTP0aN+Xf6ajZcLn3LEPk+nY3mHqNpiWLOzVyiaDqSc
-	7qjz+UPiglDRldoI50YCXl3EaYFGJLfeYKk1HpkrHgSO/i0B/TS1e6P4fG6SJmXp1HjCIICHqCC
-	L97EUll7wCZry1SIJrrUoOaLefc5XldyZYdF4T+8G9nZg6uQhIjrJknyBjgNkgQ9wnhdAlcQoqx
-	+9+X8noNjKZnk9nPqmtqLXj/moj1zLq3uCTma9TtKyqoNNEWN/1adAXcqvtIwzovgkNv+JFFApU
-	fjwbG+F8o6axP8UvfKFzb//EWom7x0dbsEfvEJGCQRw==
-X-Received: by 2002:a05:6402:51d0:b0:6aa:9f53:221b with SMTP id
- 4fb4d7f45d1cf-6ae1988fb77mr2014945a12.4.1790807556270; Wed, 30 Sep 2026
- 15:32:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaqhdASa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C661F000FF;
+	Wed, 30 Sep 2026 22:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790807647;
+	bh=Y9zMIJNxKpa5Bhx46XZTOnTAHlsLD1gKMetTQhVVcgw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AaqhdASa8v9wWTPxKWm2KF3pmZykgLgqZfaVVC+OKDJthjCaVn0MR9j+myN4oxS87
+	 3ml3pP9tZs41KnQSCrcScQgRK0U46yRAa2dSCtVLqeJlXQLfVoReLzYRrT1JDtjhAD
+	 jRCyOn9Bmuo8c0qloxjFBB3uNGHYIOoVfszPhdmLO5qDD1J2FSFC1+jNOA/5a50aF3
+	 8oBkd41Nh6wuVNPxDRXeuFsMANxdca1bCvdyIpvZTSYhxXRiYMM3xLvOH6qDYy4zGd
+	 4mzKvVZEHqsZN0SrfcMLGuM/rj18CbQvBCbKHnBqdo8e30rAo7fJzR3YEx1czWF2W+
+	 o+pnzAnGkFrww==
+Date: Wed, 30 Sep 2026 23:34:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
+Message-ID: <20260930-frantic-enviable-55c1a78fe7d4@spud>
+References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+ <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728122423.358416-2-simone.chifari@gmail.com>
- <202607291626.TnSyWh0f-lkp@intel.com> <arwp1oCq48PBVmNx@zenone.zhora.eu>
-In-Reply-To: <arwp1oCq48PBVmNx@zenone.zhora.eu>
-From: Simone Chifari <simone.chifari@gmail.com>
-Date: Thu, 1 Oct 2026 00:32:25 +0200
-X-Gm-Features: AclHuK_dMoVuR_HSmOdtup3JFWShsutsoR1OXuAiRbxPtcD_ducDXt7oVtB0A0E
-Message-ID: <CABe7xuZeeVPHhrU77M1poZnjVmCHb_84782-wrWmo0cWdDCWiQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] i2c: imc-skylake: add Intel Skylake-X iMC SMBus adapter
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andy Lutomirski <luto@kernel.org>, 
-	Stefan Schaeckeler <schaecsn@gmx.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PlRoT138GtctrPoH"
+Content-Disposition: inline
+In-Reply-To: <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
 
-Hi Andi,
+--PlRoT138GtctrPoH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  On Tue, Sep 29, 2026 at 11:14:00PM +0200, Andi Shyti wrote:
-  > Please, be aware that with a test robot failure or warning i
-  > don't look at the driver, but I expect a new version coming.
+On Thu, Oct 01, 2026 at 12:20:01AM +0200, Linus Walleij wrote:
+> Hi Changuang,
+>=20
+> On Thu, Sep 10, 2026 at 12:04=E2=80=AFPM Changhuang Liang
+> <changhuang.liang@starfivetech.com> wrote:
+>=20
+> > Changhuang Liang (22):
+> >   dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+> >   pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per0 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per1 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per2 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per3 controller driver
+>=20
+> All of those applied to the pinctrl tree!
+>=20
+> I had to manually adjust the MAINTAINERS patch because it is based
+> on some reset controller patch I don't have in v7.3-rc1.
 
-  Thanks for the heads-up. The warning is fixed in v4, which I posted
-  on 2026-08-08 as a new thread:
+I believe that patch doesn't exist anywhere other than on the mailing
+list :p
 
-    https://lore.kernel.org/linux-i2c/20260808212414.217511-1-simone.chifari@gmail.com/
+> >   riscv: dts: starfive: Add JHB100 pinctrl pad number header
+> >   riscv: dts: starfive: jhb100: Add pinctrl nodes
+>=20
+> Please funnel these through the SoC tree.
 
-  The interference check now casts the complement to u32
-  ((u32)~COMMAND_OUR_BITS), and the changelog carries the Reported-by
-  and Closes tags for this report.
+Ye, I got my eye on them, don't worry.
 
-  If v4 no longer applies to i2c/i2c-host, let me know and I will send
-  a v5 rebased on it.
+btw, are you going to be at LPC or OSS Linus? I'll have to make sure to
+say hi if so.
 
-  Thanks,
-  Simone
+--PlRoT138GtctrPoH
+Content-Type: application/pgp-signature; name=signature.asc
 
-Il giorno mar 29 set 2026 alle ore 23:14 Andi Shyti
-<andi.shyti@kernel.org> ha scritto:
->
-> Hi Simone,
->
-> On Wed, Jul 29, 2026 at 04:22:57PM +0800, kernel test robot wrote:
-> > Hi Simone,
-> >
-> > kernel test robot noticed the following build warnings:
->
-> Please, be aware that with a test robot failure or warning i
-> don't look at the driver, but I expect a new version coming.
->
-> Thanks,
-> Andi
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar2OWgAKCRB4tDGHoIJi
+0grzAP9Fs6ouvcThAMVjQbj6XU2gdVLZc/LBnWTeH4InJf79kQEAohOH8MQi/Wti
+rReWTShRPoUOU1zat+wE0KfWpAY7owM=
+=TNVs
+-----END PGP SIGNATURE-----
+
+--PlRoT138GtctrPoH--
