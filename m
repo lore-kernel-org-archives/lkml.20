@@ -1,126 +1,94 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ABB31F98E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763918; cv=pass; b=HG2jDKuhh6tSuzDZqrLFomepVDxhxjU1HchbYcbynbANPIOGcmBH3K3BN2IjaUk0A1PdaAimCTtU6cEptS3UpoJHj8JhccYCPa8GgoVHfkJlabDe+9BWep/kTQusl5Op7F8heJk/SFj8QSUIOmIW2/IiT7U0UmZsVhozi2KlV2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763918; c=relaxed/simple;
-	bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UzFsVlpTfCowyllJGxcTRHSTGkcaQGSbn7zFueyDPLjkjc6KR0RMFeCc51XKRPzNxufGvMAcsrBvqyLaosSehUIoqjNE7QStwfmi4EljW+lk1JNcoGWWyCTjgTkHamYdjjy/jaWgURst2aGDInMeW791T/QJdCLAT2Wr9rhoVQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWtfpqn+; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B216F31F98E;
+	Wed, 30 Sep 2026 10:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790763943; cv=none; b=BD+KzwwHk/MtLmboyZkCHu0dyBH6DEqYly4DqLHX5fvTvKltx3NFavoFTq/eSzp+RjhT49LUB2o07qiKXjOML3y9pTwTMLJW5G+WbOz6Jbk1VWPlEC/unqZAK9nAUW/h7fuPec1zltWtRDZGZf1inbLtMe2S4jY6ZSpAxu0fhlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790763943; c=relaxed/simple;
+	bh=57W3fz2Inh+LJclOtaM2/ncItmWTdEQfi/XWK8HOPZg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dbEZbX9ugxBoJmhoK/uIu3hShkGB/AGleL2jIzdHYzU9NRhp5qyc2n25ESXA6S4rII81gZinQdRXNYhNQipFVdgp8ZF8ha8KTsdSDSu261C99LhkGnsJBA9vSdbef3u3u5MHbQa9XgLJQ2H7Fu8kvLDUbsNjGFFTrQRzbGuV6Qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=KM5TxsoF; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWtfpqn+"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343bdca7590so205193eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:25:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790763917; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WOP5CST7G3MKny3kKwSTOSqNN+dfr5MD0AzdvyzSTAAN0HnHyU3YQXQP6fMZZKPDak
-         tp6/dvc1Xrzd098UhzLgnWsJBmF82XqBd7BL49PJc19LGFbwmsVvcG06Meq/9qIPO4ou
-         VLPlX0dThMHRd430aszfqzLbJhFMs76psZA643Nzed4QbQPHslhVkf5zxhOt2N8GFS1z
-         6LP0iYhnV1mdoqkFYk4qdQWKb5Qn1TED/uU1nbwsnwCz4eQFDMa3ndthomkHmR71iWTz
-         y25qi7efk4zSXStsBov/vwZzYGHoGIFuBnxdN5m5NsyWt18ukyml0mIneGM2wsRwcvQ4
-         Q/Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
-        fh=raMI9a4MqTrFISbr6d1iotD8HrhEASCVOYzzurrUGSs=;
-        b=Rb9pxu9b3fccqBdyjqNwkfblQ2X38XiFdAjtzxjFYSlH+Xs/Wqm5wUM1ZM5AyG4XGd
-         vvrNdqcpURhSRWxK4dk08tHkiPNDOarJkLuXXK+rOmUDYbqTzbqL1ze1HavPHCmV7HX/
-         oxMRSLz1dtE1327TPgEB8YjmObkXlfSKgvPPcz7aaHYuetMsEEIAk1w7haUjNmomNtOg
-         1IT8J7Eul0hbHD3Zy6YysHVgjnAnpEIK8yupD1/bmrcBlVQTjZegAL6YflNkL720rkI+
-         wCUjhjCcOeg5Tp/4cq3te50WhtqmeyeZ+QDBOvS05YZmO60jyeDO1bgDfhtkAJeDwdO0
-         +ZGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790763917; x=1791368717; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
-        b=KWtfpqn+MiEDSxElROEkXnhpxWnj/WeM4n+DWGyL9b0Vlym+6J/NW9IV+fI5aCsFIG
-         2plL2ED3CWJWWBQNsX/zBCZjQyj9S5PhRLxkmlpmcvKAuDbfqf+ruhY3H3Omk4SY0B1q
-         o1C0nxl9D9hzSATzyuOHMZ4Ega8XKYy8lA/9bNTD34UR5wOMAjx09vitDIPhDd+6tcrl
-         QPzymo4Cj+P5Ld6i3SNdCaRyTEntzPql+KGYG1QCXWbIDL+OwmmcpzL6AOwk/1HDsJjD
-         BBmN9xaFgbFGoJdbsob3NJncKDOBJLjP/MpaqtEg4DIkwDH8JJBqNU5wLFnp4IAPYwJ3
-         qFyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790763917; x=1791368717;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
-        b=oPy4KU8oqQMwSpC7vmau9lLegMhljTz0IeygAyDxeDuTS3OBdOLjvM4v8YwAYjgQw7
-         aTxolED1li4+jhd+k5CqT90aBYXlIvwC7OcHho3sf56pLQSrX7hGcCeWBn9WojyOG11u
-         cQnobnrkZmccgoW3q2y0Pi+NBK4y0zwQ+qdiPbNygGt7M0xJD8NcdLMLJOuo4dMo5bGR
-         wrGOH/VCPvBrIWHsbz0oI/ZjX+MGKgC8D9QiavOq7+fkH/dVv0ubqnki317Fo6KZatR2
-         FyiwqtdTcS05ZX8dBpeL/jHIIbHWQTtl6U01gEYAMxg/CqUTMknHDyocPudQmvbN0+ub
-         CfpQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB5Oc77ThPjNirqPorKcnXJYlMatR8op/38slgECtFaF+vrhcov/taO3ke0kD5hhYOZoYY9fJ2/FZNTI4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5hf9dBiAiAYjLHf+3hlwAX8voQu/yHTLVRpGORfLtctvciy74
-	WDPF1eCbrmG1Zns7FNLjN0IZnXw+uAddNJZ1865OsoHkTztIzxQEWpp3hbxemOIkBDKXPHsltNp
-	TZXDVVnGVuixUUFbik4YfDrYN4vAnpig=
-X-Gm-Gg: AYBFou3Lx89kbw1MhHkG8x4QwQHAKbRE+BSWH8I5PJQEfRacoTTc0QsU1ERZwhlbyky
-	hjdNBP2LIWCORScfAdQbiNdTz/djcQ3l+d9YQs0JaC/LYhAAEvpI/iE1B7dBjNNf5EmpYXNEyc9
-	MaZZudO3f/VKW5r7a47UAy/ZUazC00iyMlqwYl8zAtNiBJBw8W5pyrgMt8xdc34XlQ6OyhkXryh
-	P1DJwtU3emx6wNml9joV1XuKmzbGo07xW5818n4CP9i3ONjaSYgKX2CcY9htaWj5bD38f8AT9Ud
-	tGZIDDI2ORVSZaQsxFfHKu1FBMkMOZfDIR+oBV1IJt9tyODlxu6XHCzenrT/lLhU5wegz9CYF7r
-	j8fmuqrTLUb6LBj1claNsKZ7dH3foFS6A609JabzZ1o4VOlKVtGgumMTkjk2YmtJatny3zG4zQY
-	skiUlDYvaDO3zO5N11uuEpeGCZUKFWtDgRdqTtWYZ5H5fnrUxILOc=
-X-Received: by 2002:a05:693c:2808:b0:34c:3ae5:ebc with SMTP id
- 5a478bee46e88-34cd60f8956mr2288650eec.0.1790763916685; Wed, 30 Sep 2026
- 03:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="KM5TxsoF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=XU8HIZpe1oO3y7TtlBE8Jw6wJiFXsm+bmC+ZhFp7YSg=; b=KM5TxsoFwFCXK6I69LZ1GeAFeP
+	JW3UrKPurS2NtH0yspyP+Si/+5qDPJPNnDZJxkgPhL5xegr3mlCbKqy3B/0PGq28s6x4Yia7WwWvt
+	nV3PJW+cmHGsqJ7knW2ry6mOHfPwZUoHgjg/5ZukepnrKX+CyM0U3uH68uczvwX/lgZfMmxCNqpT5
+	AUgUS4EDfYKX7kHkPQzf+gi0JzWCoTxJlQuoN118GEuilp0N1I1JFoxjtZatz5dAAPdrLBD3xQ5p0
+	VZKcZvuWoE4LGm+kr9QuKXw85q8pAhKn+X8UsesEq8dLBPJKObKKbGjbB5mcGBwWsXLdLsXgY4dqp
+	hmG0fdgg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:37230 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xBrVI-00000000YWu-28ga;
+	Wed, 30 Sep 2026 12:25:34 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH 0/4] ARM: dts: imx6: phycore-som: PMIC and PHY fixes
+Date: Wed, 30 Sep 2026 12:25:28 +0200
+Message-Id: <20260930102532.2262700-1-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
- <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org> <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
- <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
-In-Reply-To: <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 12:25:02 +0200
-X-Gm-Features: AclHuK-9soeSKJJsB6DKjyrXynv8FkCP8rCSGYJyZXnDc7m1U0RM0WwdazlNfrs
-Message-ID: <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C function
-To: Andreas Hindborg <a.hindborg@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 30, 2026 at 9:46=E2=80=AFAM Andreas Hindborg <a.hindborg@kernel=
-.org> wrote:
->
-> Yes, this one is independent. At v1 I had 2 patches adding helpers, that
-> was the only thing relating them. I thought it was better to lump them,
-> but maybe not?
+A few small fixes for the PHYTEC phyCORE-i.MX6 SOM:
 
-Thanks for clarifying!
+- Pin the DA9062 PMIC watchdog to /dev/watchdog0 (1/4).
+- Raise the PMIC's SOC/ARM buck ceiling to 1.5V, needed once the
+  1.2GHz OPP tier ([1]] requests 1.3V for VDD_ARM and the anatop
+  LDO's 125mV dropout is added on top (2/4).
+- Migrate the Ethernet PHY reset off the deprecated fsl,fec.yaml
+  phy-reset-gpios property onto the generic ethernet-phy.yaml
+  reset-gpios/reset-assert-us binding (3/4, 4/4).
 
-By the way, do you think the new header is worth it instead of using
-the existing `cpu.c` one? If we do that, then we should probably add
-it under their `MAINTAINERS` file.
+[1] https://lore.kernel.org/all/20260923070505.494949-1-primoz.fiser@norik.com/
 
-tip may want to take a look or give an Acked-by...
+Primoz Fiser (4):
+  ARM: dts: imx6: phycore-som: Set PMIC watchdog alias as default
+  ARM: dts: imx6: phycore-som: Increase PMIC max SOC and ARM voltage
+  ARM: dts: imx6: phycore-som: Convert to generic PHY reset binding
+  ARM: dts: imx6: phycore-som: Add reset-assert-us for PHY reset
 
-Cheers,
-Miguel
+ .../boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi   | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+-- 
+2.34.1
+
