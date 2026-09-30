@@ -1,66 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425AF3B14A8;
-	Wed, 30 Sep 2026 10:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E367F3D6CD6
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762754; cv=none; b=KKU5JKYaTCJSSVCRepWMSB9LIXz8qNztRynri0zlhGx/F2nxRbmeaay06tB2HLFhvdc6mcG2pZsSjKQSnfBzyl4PVLbqtSJTzyRKsLajy4m4GXGf+p4DheAVpeUVxVL20GhVSiXKtpzAmFIwRxc3TaWSWfUOrv+HryYWl5B5yCo=
+	t=1790762796; cv=none; b=D8TDQtPHp7K/StiaD7HKF+csspmj/b8+sP0TJ9DMUtZAXGr/ptroZuL4tDTNme0RDNkgymYfOhIj0pnrYrlbT8H6bJcIJLL0q3wQsZwM9RkFXByYgnxJpk+fhHTqXAfvpgYgh1Sld7SGNfQNbD2QdmqnZ0YdnKCU4AjUzMRrmKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762754; c=relaxed/simple;
-	bh=dRWq2jhj3fTwKQpiIWjJjY4RKZzPSum1JDagtM6SU50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GqvLZr8t6RL2ol6wHsnwlwpSK1Um0R70jMvIijtP4ffIcw4qTFQoYobZjBLm4vMIBpsOVqMc6L37HQELvmCbZo0sL7lByTkrxLZECI1DWWDSYSYK2DY0J/VIAaBKm0xo8Vcte+9gd2crwd2N33vIqeU0VcKctHyWW7OhoClakB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O5z20A5w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762796; c=relaxed/simple;
+	bh=9nvl85Z6QtFWRFbLYnO5GWIjhJ87TJx9hTTk0Zsecrs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o95cHsb987r8ePVT0zntSJ5FjIXKZS86JtrvKVsJmeXt1dPcfzz5T7i7nRasB9d4SI1vCCrrmOmCgz4UjLVgmOJ31I7KaHMKaahdaBP44woV2/wlNv8ArHfNKT1/2wczgZAWZ2vxBcQmVvpLbho/zdtxvSf7ZIv0Jm5tzMgGeSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DWcl1WGD; arc=none smtp.client-ip=95.215.58.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O5z20A5w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3F91F00899;
-	Wed, 30 Sep 2026 10:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762752;
-	bh=Wr3MnKORYjw0k60zOQ7zLIpbcvMSgn1uQ9GeSEwtzWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O5z20A5wSlEu+8/1fQdXDXKdPHRJKjo9ebIR6wIsBiREict0d69W/zZ6/ecIgH022
-	 ZoqdIuSFfVDb3Bf/0HXE0ZZreAo0lQ5YNtGn2iaBCmStKz5pkUM9OfhTWgZHuChfBQ
-	 RSdQdq475q3KSVFrk2ebrHOYXgjgmMUSp5A5jCgrBTexrZ4XRVKeaxFMgTS+1HwHHH
-	 1BxNQl6uRqOucuF4Uo/Sjm8WDQCjIB2nJibjZsxeHHJMXm/SMB9EHYD5yxY3f2hzZ8
-	 /H1MsL0Fn0yRIzGq+5oriX5NGkXSfM21FPj5W0DIgEp+zsgvJNXZr7h2C4b4svu1og
-	 5G8Tneolekd4g==
-Date: Wed, 30 Sep 2026 12:05:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mark Kettenis <kettenis@openbsd.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: apple,pinctrl: Add t8140
- compatible
-Message-ID: <20260930-warping-vivacious-dragonfly-fddfbc@quoll>
-References: <20260926-apple-pinctrl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev>
- <20260926-apple-pinctrl-t8140-v2-1-620bd11cd2a1@cyberchaos.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DWcl1WGD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9nvl85Z6QtFWRFbLYnO5GWIjhJ87TJx9hTTk0Zsecrs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790762791; v=1; x=1791367591;
+ b=DWcl1WGDcji4K1jQaqX73xaR7IjQFmk/0wiKCPA3LTNxt9Ua8OMSkPDIzpEyWpQ4rkUMnC9i
+ n7pkj20nHV92vDScYb4c9fVt+crQ75q1DjC+QRkH9kur8ayBn2AtKdbhsfII6ggzVd7D1UQ7NlK
+ eb9dJ5p6PVnM/z3svF6mkWY0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d540dcc667c71fe4;
+	Wed, 30 Sep 2026 10:06:31 +0000
+X-Mizu-Trace-ID: d540dcc667c71fe4
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Alastair D'Silva <alastair@d-silva.org>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: Re: [PATCH v2] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+Date: Wed, 30 Sep 2026 10:06:29 +0000
+Message-ID: <20260930100629.14270-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930090714.2779699-1-alastair@d-silva.org>
+References: <20260930090714.2779699-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260926-apple-pinctrl-t8140-v2-1-620bd11cd2a1@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 04:51:45PM +0200, Yureka Lilian wrote:
-> The pinctrl_ap GPIO controller on the MacBook Neo crashes upon reading
-> REG_GPIOx for certain pins. These pins, which are also listed in Apple's
-> device tree, are described by the gpio-reserved-ranges property.
-> 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
->  Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+Hi Alastair,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This breaks the drain loop on the 8051 parts. The early write clears
+REG_SDIO_HISR_RX_REQUEST before rtw_sdio_rx_isr() runs, but the 8051 branch
+of the loop uses that bit to decide whether another request is pending:
+
+> +	rtw_sdio_disable_interrupt(rtwdev);
+> +	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+> [...]
+> +	if (hisr & REG_SDIO_HISR_RX_REQUEST)
+>  		rtw_sdio_rx_isr(rtwdev);
+
+		if (rtw_chip_wcpu_8051(rtwdev)) {
+			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+		} else {
+			hisr = REG_SDIO_HISR_RX_REQUEST;
+		}
+	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
+
+In the v1 thread Ping-Ke relayed that the hardware clears the bit once the
+RX buffer is empty, and that a software clear means no new interrupt unless
+a new packet arrives. So the first re-read after the write returns 0, the
+loop stops after one request, and the rest of the FIFO waits for the next
+packet.
+
+The 8821CS cannot show this, since 3081 parts never read HISR there.
+RTL8723CS, RTL8723DS and the RTL8723BS once its glue lands are the 8051
+SDIO parts, so please run the test on one of those, or leave RX_REQUEST out
+of the early write and let the hardware drop it.
+
+This also needs a rebase for rtw-next. The 8723BS mask sits between this
+block and the old write:
+
+	if (rtw_is_8723bs(rtwdev))
+		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
+
+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+
+Moving the write up as posted puts the raw value back, undefined bits
+included, which is the resume storm on 8723BS that the mask exists to
+avoid.
+
+One smaller thing, the early write also consumes anything already queued
+when the handler starts, so what the 64K budget leaves behind waits for the
+next packet too, on 3081 as well.
 
 Best regards,
-Krzysztof
-
+Luka Gejak
