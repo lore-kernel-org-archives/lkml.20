@@ -1,104 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF9E3E024B;
-	Wed, 30 Sep 2026 20:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C91511235
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800580; cv=none; b=r+N8slp2xveNua0HljuWqrmAnbaxjKce9jvvYB+h6+YYL399eiCoHFHj7kKkyKywuUkAoli9NvHnj6SorWa83oaU89vihmltibJaLElfTRdh5SesYLnNTljGoGb76+mAozH7yJG7JjSe9beiqjIOlZf4jFFvvFVYWh1l+1AqjUU=
+	t=1790800588; cv=none; b=m+NYkcrw+gian2lClgv8hfo22Rzm/YY526waPnaNICtNHAoNyp3GVTKTkSMDJxGH1qTc6smbRTzzTuEsz0r6J6cNtTHkbCIjMvLPTj0v6+/SVYF5mXCk40WIKE5fHyBwbtMJiZjwV7pYolkMpZzejWMj7AHe891fP7VSHjTcA9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800580; c=relaxed/simple;
-	bh=tNlIwn1LrJp3ghtDRtGrFyiIHufjQqCG5nlvEpAP99U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EwTzKIz/Z5RW3s/4lb5OdF255fj1zVyay7U9pR0fe6ICSGlss5sxZo7/tjFwuEyoFjmVJVc9rtU4f7Ja7x5EsbLy5GkZ+ClD/K3JbZ9PFyAwnTMPMZxROlOX3ixxKitQ40p+olYU2W97x9bDk9wzQs2QCYwBCqXj1HEYt3hBm8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0y85Hhb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790800588; c=relaxed/simple;
+	bh=8GEzaaNJ8Gtor/d0CB8nLk0zfpE1j0uU/SLKeWOBpk8=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=I/+p/g+kjzptcUDUhfEfue6UaYuvTI0jteNkPF+m1Ran43eATklDjxk9EEeem9WaLD/VV0OSQclp3Okjp2VRgjmMWtt+k864i8DXg5ZyXPwjoUgi3VMkzHIoz+frHAaUYEk6yYaaOCef5IQYOdWP3mSLh/PYBbryYMMKYhcXtU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RjJiS9/D; arc=none smtp.client-ip=91.218.175.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0y85Hhb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8591F000FF;
-	Wed, 30 Sep 2026 20:36:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790800577;
-	bh=bHRAUieKFXhe3YwL9l8D5DWxS34JW3k2sR3rMEAAkb0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F0y85HhbKndHM6ps70RRuINjylQnVGM2hdfebHSv/6CjxvNtRc4FbUUkJP2eqLc4A
-	 tu32H1RgdKeYtHgl2L225O9MKgfWpVTo+ZL0aPPqLMZwZFhIWgRl6IZ/4aB+Jk6uV/
-	 ZHNOxkxXbX4L48XSl57cCFJRuHnChZ3hLr8exatLe+DA5d/ASeaGxlyhYMYBPzP7AB
-	 creJi/FDzts3PrtzByL6ZeJNUmDXiY3xwUcMo8Y8+eaidxUALx+ju/zW5zFOj3jVTq
-	 Zx1cT9NoHVsc377+v2G5q7B3NI3rtgLb81ciGfKbXuzC2bN0/XwAvpJsoykdEyhPPg
-	 PdhZOYKIUdqtQ==
-Message-ID: <4bb28c93-f4f2-498a-84e6-96670a336bbe@kernel.org>
-Date: Wed, 30 Sep 2026 22:36:14 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RjJiS9/D"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8GEzaaNJ8Gtor/d0CB8nLk0zfpE1j0uU/SLKeWOBpk8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790800583; v=1; x=1791405383;
+ b=RjJiS9/DfB5ktkO0KX+1JSnkmudtWptTYHfR6MX9IFTVXt3gCaA1KEhzbUtLfvj0Cg+Jn39+
+ YAMtLXlf3WxVMT0kIvwNuDqs1UUvDxtgLUTVacAUKPRIZ8RDjZNoxlvPpvTb9uEY5qJ/TX8+NTK
+ DrgGdOvNvdvVmkxLU6Gx5Qxo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eb9d3e35343149f6;
+	Wed, 30 Sep 2026 20:36:23 +0000
+X-Mizu-Trace-ID: eb9d3e35343149f6
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 15IWC11
-To: Martino Papero <martino.papero@lcb.to.it>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <c0b597b8-e7ad-4fba-a2bb-5d252e3dfbd3@lcb.to.it>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <c0b597b8-e7ad-4fba-a2bb-5d252e3dfbd3@lcb.to.it>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 30 Sep 2026 20:36:22 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <3c53130d1d4738a9b3173806264fc1d0b5682072@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v5 rtw-next 2/7] wifi: rtw88: assign the RCR per chip in
+ rtw_core_init
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, luka.gejak@linux.dev
+In-Reply-To: <d398a8dd-a182-4e69-8f5e-12a820594093@gmail.com>
+References: <20260930091604.52891-1-luka.gejak@linux.dev>
+ <20260930091604.52891-3-luka.gejak@linux.dev>
+ <d398a8dd-a182-4e69-8f5e-12a820594093@gmail.com>
 
-Hi,
-
-On 30-Sep-26 22:10, Martino Papero wrote:
-> The internal keyboard on the Lenovo IdeaPad Slim 3 15IWC11 (83RR)
-> does not work correctly with the default i8042 settings. Using
-> i8042.nopnp=1 and i8042.dumbkbd=1 restores keyboard input, but prevents
-> the Caps Lock LED from working. Using i8042.nopnp=1 alone does not fix
-> the keyboard.
-> 
-> The laptop works correctly when atkbd_deactivate_fixup is used instead.
-> Add a DMI quirk for the 83RR to enable it.
-> 
-> This was tested without any i8042 command-line parameters. Keyboard
-> input and the Caps Lock LED work correctly, including after suspend
-> and resume and after a cold boot.
-> 
-> Link: https://lore.kernel.org/all/4f43465f-98ba-4722-8e29-03df20315369@kernel.org/
-> Signed-off-by: Martino Papero <martino.papero@lcb.to.it>
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: stable@vger.kernel.org
-
-Regards,
-
-Hans
+September 30, 2026 at 20:03, "Bitterblue Smith" <rtl8821cerfe2@gmail.com =
+mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821=
+cerfe2%40gmail.com%3E > wrote:
 
 
-> ---
->  drivers/input/keyboard/atkbd.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-> index 93650c982..b5ee5697a 100644
-> --- a/drivers/input/keyboard/atkbd.c
-> +++ b/drivers/input/keyboard/atkbd.c
-> @@ -1938,6 +1938,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
->  		},
->  		.callback = atkbd_deactivate_fixup,
->  	},
-> +	{
-> +		/* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
-> +		},
-> +		.callback = atkbd_deactivate_fixup,
-> +	},
->  	{
->  		/* Xiaomi Book Pro 14 (TM2424) */
->  		.matches = {
-> 
-> base-commit: 551c722f40809618230001baccf219193e22fc5a
+>=20
+>=20On 30/09/2026 12:15, Luka Gejak wrote:
+>=20
+>=20>=20
+>=20> The receive control word is the same for every chip today. The gene=
+ric
+> >  default is written in rtw_core_init(), so a chip that needs a differ=
+ent
+> >  value has to overwrite it afterwards, in its own init path, far away
+> >  from where the default is decided.
+> >=20
+>=20I still don't understand why RTL8723B(S) would need a different value=
+.
+>=20
 
+Because=200x700060ce is what the vendor driver leaves in REG_RCR for this
+chip, and it is what rtw8723x_mac_init() already writes for it. I have
+both from tracing this card: a register dump at the end of
+rtl8723bs_hal_init prints RCR=3D0x700060ce, and the same dump in rtw88
+matched it field for field.
+
+The default is a different filter. It sets BIT_PKTCTL_DLEN, which the
+8723B vendor HAL and rtlwifi's rtl8723be never set, and it clears
+BIT_AMF, BIT_CBSSID_DATA and BIT_CBSSID_BCN, which the vendor value
+sets. Four bits in total.
+
+That value does not survive rtw_core_start(), which writes REG_RCR from
+hal.rcr after power_on. The field is what keeps it. BIT_APP_FCS is the on=
+ly
+bit added on top, because rtw88 advertises RX_INCLUDES_FCS.
+
+Best regards,
+Luka Gejak
