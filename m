@@ -1,126 +1,113 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938B94EC671
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:04:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228924E36DA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773493; cv=none; b=I7bIHrt5yxDkUJQtDvj+G/hTzCI2xsk5/kJTKtycgM9pce37gikI1NknBy81zxom8+1ncJECBF1abDz1AAkzsLi6QiAGuHE4qgQ8eIdi1pgOX4w+v4Aw8FyH2DAMW+vW4UmkUg5/9DLeLO/ds+Ft7coJCsJV5ZJmpHhG53aArcc=
+	t=1790773533; cv=none; b=cIhcJlyHRbeMbdrkeXHDrljs3boRRDhxiZ0B7LWB2fm+/oo1+JfJQciTo8vlumQg/Amre7FWtZhyp8ebsJfTv+IjUmUWRzgQNSDbYYbYjcjkO4BFzlZVNwGVwyXzo5mfFaCdhkvmxlD1fCF1YKjxV2K5BH5AxBCj/WJzb45mwsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773493; c=relaxed/simple;
-	bh=oxZiTuR2Id+eSkbVoP8hkGx6rui7jsikVu42ZGlSRFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h/iEQz7vHVGj/4d6mqSvw3JK85pAzKR3dwfrIc/JcefLceGh3A+NVVGKlPgatjRITK4xR7DQMw/9883+UFFx6BosIBGKcJpSsHmrdmAwgV5loRlLxHrzOgCMS5vyh2q9gCj0rWLqdLseVFmf+Je2ED0YzunCo7Htc0mQ64Gn/44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=AwFW2UVF; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	s=arc-20240116; t=1790773533; c=relaxed/simple;
+	bh=mBgLWAqG8Nsq2TBy481BWH1d2sHsXvnlxtN5vEIpQJ8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XxCoKfEL7kSS4pT42W+6dronnYd2bJQpg1Owygy/7nMXSOw0BOmAZHChn2oZP9uhmv3/ksj1e5oVA4Xqge9NukNNgikSfNd1zqyxnuTluaoo4XjX8Zft6d03vH0zi2usGQ18JE/ekfVWz5n+j6cAQy+PyKAQqCPkujUtPm/t9Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T25AcrLJ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="AwFW2UVF"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b55da8so549064f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:04:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T25AcrLJ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso4153718f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:05:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1790773482; x=1791378282; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cdMdvjWVLIDEVS1UUHPgTOR23ut4C2R+qU5zRynN6ZE=;
-        b=AwFW2UVFDut0KXcQby5r755V4y+wkBed/xWk8s+Cmq1sIBMuJ88qlBDia90lktIt4m
-         Cb5Lno14zl2pcc9//aY1+Q0sBoBrXTOIlSG/qVHo6NUyzR604zuemIJz8XjrqogvmHLf
-         zV/gcQdpRTiGj6BnfzdWIps4wFphkDBQzMAL5aVAOsfuDJYGx8P4/cwypOsL2oY3vAL2
-         qTkPcibOojxkncb0cSphmUSFLyeFAfarGwUcQnN0z3vcUsh3ntILlgS5bzQFBszq6ZLp
-         3dJsCbggGUzDgqAkJ2PM8NIdt09mexIQuCzPGg9CJALW5QrvP5ypLuw18MWczKxiAM96
-         PdIw==
+        d=gmail.com; s=20251104; t=1790773521; x=1791378321; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mBgLWAqG8Nsq2TBy481BWH1d2sHsXvnlxtN5vEIpQJ8=;
+        b=T25AcrLJaYl5z+dWaPATAmi3IpaHAZk/ucAvn8V2ZGyGP5Aeq8AnmCK2YnegLy0zQ/
+         WKPZPwYGqTvtgWSTwcgrtC2PO+h3R/AMxTpRRwkHqlzmp0yn3pxy/BKkqjY+crf14E8Q
+         YvI5e2OwSfkopLy6S2+83Lmhi2tKO8CfW5VMs5c9CpmFC6D/LPoPM08lDVd7KQ9tZDgy
+         FwcxVxZ1DxhLtMIkDmd58zl08enD37qlIz5G0UACy3ZdzxM201rNyofL5LTH9F2bn/Ai
+         2OmBUyD8EV9MMca2WXAtX7cJlZKJGYDwUDkwTAoEy2Il+LQd5037A1gcjRm9CERnWXD5
+         yVDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790773482; x=1791378282;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cdMdvjWVLIDEVS1UUHPgTOR23ut4C2R+qU5zRynN6ZE=;
-        b=njO7ELml/ToACglOf7owbyXnbniDLsoaHO0HZrBz3VJrn3zhi08ZxKhnDPop8/BlLw
-         CZ6hz+R9FR+AWigxHKtZe8qA0tP6vOxwXnF03RZudtlC9hDBAVWcwKg8W7JNHjvgGG0B
-         UFeyURoYaFEMU0F9P/B1r7nKBgZa01HZhlvctGxKHGSe6EvmeP85S0fST4D7oL79B3ZB
-         GIx1eweHxXms38oAc7cbYh2FVVhP8uZmqYi45B/E6Is3t27SQEjENw3pnOQHPjgya1iC
-         vSFPSTjPCH2tj5avR8DF3u7qLp5Xv5n/iBUY6Y4r7HvlTJ+DcuLMo8tppMMObdFCpJdj
-         4iDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp7nRhxqw/W0v9lkaCbTXxHMLIPLC27GJw1fxjzQw0CTZC93XE57MqPBVWNCaF8GMJLCv/KbwcN7x63dY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLirHBF0c9Xk8oxO3AOnowLglLlj39caYfpiJ7moEqVjDEufDHP
-	jw4v7ClcBmZ3xF3IMoB/XZU+kf1x6s7Ll+cnglxCphhDHOfWg7dvjDUax4lGPZvPab4=
-X-Gm-Gg: AYBFou1L0xgyZkhvG4yAmRZyfdBN9f8ytYiwk+0IK5nsLtmDbCrxfsuq5j3jYLMN3uI
-	ys+rJYSRWj1YJ47iLh23Kt7dzBQRKOsdGNtVz/uTNrcuz9SQy5ghzyBbQUgFHCRNUGxMKzRPOjn
-	EhRxusooTMQEn1hQSymFyuV/97gbhsTUGMo9hYCCMDUBZGWynBhjXonTOBQHJp0BU3gjtq1aNz3
-	AdSB+M1st7TCVgbPbHDRr7kEBDI/lbbKWsnHlz4Cipki1fqWx9YWrTZbPaVRoXpGWcHEYdf0O6U
-	Eyq3iEeMcrLAIY4fW49npqFFaI3P7oXtPAckTZDKA2S8RiIQdBsWbJgN+xgVbqrCr3PAroX4T6+
-	yY00lqr/dVf29RkihtbT5Lp6jVEO9jIy6qO59XIw6lOGkAfKw0CxIjyT8VqfhHFXxW/pvOcH0G7
-	x6nqlNsQ2rY7u99ia0GW+S8DWlNiBypkvoA9kbVlstLTYHMlEPM0o8nqHKP5rBSnPhI4aUKyq8G
-	79bozN1sE4n5TbWFoHgIuwDkzRObk7WhmorMC6/x9HAamuNGXs=
-X-Received: by 2002:a5d:5d85:0:b0:487:8ba:8b4c with SMTP id ffacd0b85a97d-48b024297b0mr3902212f8f.1.1790773482052;
-        Wed, 30 Sep 2026 06:04:42 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029be7cesm3805401f8f.8.2026.09.30.06.04.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 06:04:41 -0700 (PDT)
-Message-ID: <3019f327-1ea1-42f6-b133-597ca1cc524a@6wind.com>
-Date: Wed, 30 Sep 2026 15:04:40 +0200
+        d=1e100.net; s=20260707; t=1790773521; x=1791378321;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mBgLWAqG8Nsq2TBy481BWH1d2sHsXvnlxtN5vEIpQJ8=;
+        b=CfMNB/crutKGDVh4KYVofO3Ut57VKLJIJbJuGoiLyb0A80eYfVi0QVN0WC7GUfm4ND
+         Ar+Sq20hn1zuVVD3oBFJSSv+9481IRqxOyRPnslsyb6W6ke0FFgL4TX4qoT+lbXOdk9C
+         XInwvifmUFKKxwMmk6ew+jlXdEGAQdypKFNAdCPpbu8GAaNqYfB1Wa/j4gI6B/NmHf2R
+         rzbJjrBNtvbRrhqdUTTzJ70g0K+FnOgv54ghUJlivPw2o3iNyHk4G4edJelvAJ9rnEkK
+         6aHJPO/n9tKkcvnHs4cH7rprynlDXe3AfHHN10TDEeUQ0QgcJqcqHMghnHTrJp1DCDCo
+         XpuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyMp1qZkaadbJf35qXGQFPDOUSs5zPVLIX2zmrnl/ZrzBQSUC54BnXvel7mdMqBL/oBWy8Zw8oGa1U6WI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeDogmGePI8x9yew7EfbKQAdSMb2o0Q053JAf+LYEosI+DdY1u
+	xKcDMSD7mZiY5iu8q8Mwk3ZZ+GYWysc3JuiT4DCdJbS/NfSWI/7VKnGM
+X-Gm-Gg: AYBFou1Mne+cwdFNoC/nO+VzvuDu9mB2CPpdT/4rf/q7MOnFjkMCzKGQxsmqeJGWYrl
+	oGYxxVw6d9PToyZw6MsM4H0AAmlSoesO8cJE1kjVsl0Duypq65EWjD0wMw8QAoLonwsarVeimsJ
+	/14A85DOJRE5yJSwlTz9DXK4qX7Mk8Gc/G1Q2C1a2IqU7I9VwE4ertd0CyYDXC/BnIYG0+P+eO9
+	/2KCsBZ7QuGiIiWoIF4H7h+EoY5ko4KuJFKUHNMyOjn/BntqXTRUEXpWK0UlsyzV7AS+CF27lxW
+	cObpR0CEvbAUzW+duApWiUC9Maa6vuLGS8iDdNRUap7avWRBWVZ818973KnWkkECVA/Tp4Z5L5e
+	uAVbTmpFGfXk5nvqCQVwJ+FpK/Xgk3+zSfNemTtUZZCYbBBr9zMliKmKtjfw6S/ET1TbHZ+WxV4
+	wW2E7bM8EzD5HU+kWvU3OyxOCXeqCM+YU6J0qHtVGoHP+0ngPG56XYBNXm+JFKWq5EgRif/o2hp
+	htjC0wFQWWGk/FbvqktIVofKuiyIJGk
+X-Received: by 2002:adf:e18f:0:b0:487:799:c04a with SMTP id ffacd0b85a97d-48b02430c2dmr2681615f8f.3.1790773520942;
+        Wed, 30 Sep 2026 06:05:20 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bef64sm4914950f8f.10.2026.09.30.06.05.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 06:05:20 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jason Li <jason.li@cortina-access.com>
+Subject:
+ Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
+In-Reply-To: <432b697a-d931-4523-91e5-9b45a08617ec@app.fastmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+ <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+ <179076583795.3054628.14443934429806440798@gmail.com>
+ <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
+ <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
+ <179076863241.3327419.16233537387530771884@gmail.com>
+ <f6d0478a-3438-4903-a9e2-5d314f5948c4@app.fastmail.com>
+ <179077030602.3399593.12266354979192327093@gmail.com>
+ <432b697a-d931-4523-91e5-9b45a08617ec@app.fastmail.com>
+Date: Wed, 30 Sep 2026 16:05:18 +0300
+Message-ID: <179077351803.3424620.11498774337540482054@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next v9 3/6] net: add a generation counter for dev->mc
- changes
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
- Kees Cook <kees@kernel.org>, Kory Maincent <kory.maincent@bootlin.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
- <20260930112842.21323-4-sigefriedhyy@gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20260930112842.21323-4-sigefriedhyy@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-Le 30/09/2026 à 13:28, Yuyang Huang a écrit :
-> A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
-> entries added or removed between two dump rounds can be skipped or
-> repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
-> stamping cb->seq from a per netns generation counter combined with
-> dev_base_seq, see inet_base_seq().
-> 
-> Add the equivalent for the device multicast lists: a per netns counter
-> bumped whenever an entry is added to or removed from any dev->mc. The
-> list helpers do not know which device a list belongs to, so give
-> netdev_hw_addr_list an owner, set for the lists of a device and NULL
-> for snapshots and other standalone lists, and bump the counter of
-> dev_net(owner) from the count helpers when the list is dev->mc. That
-> covers the dev_mc_* helpers, both lists of a sync, the hardware sync
-> helpers drivers call from their rx mode callbacks or their own workers
-> and the reconciliation after an asynchronous rx mode update. It is
-> atomic since the writers only hold the address lock of their own
-> device.
-> 
-> Used by the following patch for the AF_PACKET multicast dump.
-> 
-> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+On Wed, Sep 30, 2026 at 02:55:43PM +0200, Arnd Bergmann wrote:
+> It sounds to me like this is different enough from the generic
+> spin-table that we should keep your current version then.
 
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+OK, I will keep platsmp.c then.
+
+That leaves the directory name: Linus suggested mach-goldengate since
+mach-gemini is a Cortina SoC too, you would go with mach-cortina.
+Linus, with the symbol now being ARCH_CORTINA_ACCESS, is mach-cortina
+fine with you, or should it stay mach-goldengate? I will use whatever
+you two settle on.
+
+Thanks,
+Fil
+
