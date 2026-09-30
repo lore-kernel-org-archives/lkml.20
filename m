@@ -1,124 +1,103 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93F651B188;
-	Wed, 30 Sep 2026 14:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2324DE701
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778407; cv=none; b=frXfXEhdGL8QtueZxYhUZkJygKuAkWhN0UfU/FzI/nI2LOIkh40wD8XpkCg4k6uRGQ29YdkfNCCNPFcqX5Jo+9KvH/Zw5sX2T9lNawuID3ac4l8QcjeosuVgGlG/q1yTShITX0tf7y2vXngCgg9HJXmOfPblmYqqkXRmO9ulvKg=
+	t=1790778462; cv=none; b=s9YYlpqw6RjIiX9abwVuRbGrtdltH0XJPtkhdwf91zk7TEs/z3H8dKtjrVd7Z29dRwtPWkECV8OWiwFXdzi4n1EHP8SVA/cxsI8qxaf/nET3EBrvI6d6uKy31uaOZtsYq6cKoXeW0+BXXPlM8QV9SJ/Vm4YyPeW3n67MLt3Xakw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778407; c=relaxed/simple;
-	bh=x34LHTwBatjlELoJlVjVjMc0ih2t5zfVwePL41nvduw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JNGhJmT4GFqx1C8uu14+FJrMUZByd1cj4r9KANByW8DPouucajO1S6hm0P+HXnWXwpVauakpAfFmvMIy0NVuD8KA4VMQ4JaS7Nqg/4KfV31X8HFV/1viozugw/fggYnwosPIMbqgUV+239EypMqNaztuq30+T1PCT0lZ7Vn6hb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=kkPNQ/1E; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790778462; c=relaxed/simple;
+	bh=N9+/8jM8uuYfmpUXLuAXawQmfXgOP7OdkrV1C2ve3fQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=FKGknrd/R9CuChVA4PeQfNPCQFIERIqXzx1ZN7PS/vcBlFR82QnZTx6U+FiLe9Y1zh3KV/Thm2nMsSChC4s5/jc6nE/B23DnBj+nVfxvhtsCUQ4UVbMiTQH9pTvkN5E+9NA23HSr6TemtZc0qBkxwpJnK4IvFdUe9fXjE6J+nP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k8BV9KA8; arc=none smtp.client-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="kkPNQ/1E"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=7/9j/ZIB/tsoCyWFj5gYto+ZmNGdvuaACBD0+J0poL0=; b=kkPNQ/1EeWjdOpp3zNhO8e+dSw
-	1AAs4HG/Oj/jCQ/R3HwWplmXi5JhkCapecjWpqmP6s2Jl8c5Zv+OBTZVTqZGmIIoCjGSZs6+H8qsn
-	/B4tOFKSIhRnf6QOb68LCAOzGkYcGiH85Ke7QQ2lQI4n8Oiuiifo8eIb4pb9j1uA/Qo6TIafYYvBA
-	t5xXyysogF6h69P/lnAj7iSVUUfoVxvUObzEjsof1O3dZaQl3nj6a/vegkc1sJupHRDmsPYrA6rqz
-	J2qzJudB4Na344RIzQ0ib8m8MlJu1yLO79qNYPOi4UonntM27ByseyYGd0BCwSZxDLI6VlLYeWXhG
-	C9WrPZ7Q==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGC-000CqO-0t;
-	Wed, 30 Sep 2026 16:26:16 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGB-000MAX-2I;
-	Wed, 30 Sep 2026 16:26:15 +0200
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v4 06/10] leds: pca995x: Add support for reset GPIO
-Date: Wed, 30 Sep 2026 16:25:45 +0200
-Message-ID: <fd45facac5cdf1930f2ca1666a66cd06cd1f659c.1790684839.git.nora.schiffer@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
-References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k8BV9KA8"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e6ba4abdfso54464905e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790778447; x=1791383247; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EQ9BCMyvbPVlkBm+1l1uCAim/rVq0Tdr7btP51j5V+c=;
+        b=k8BV9KA8y0mFjAAiPAZDnPDgL9pi3scpcu4OmNf0MEHaXFfLb+IHF4RvovmEQSxgfF
+         ye7yHR7VGLxt5o/6AjQvJROuDP9pOjkwuo1UURjawOFeY9f6NmmgGhlVi9Jm9kijngg0
+         O02JFp6ZU79e+b463J7iVe0NFcqcDwBEmWfZBy+3iI7IXzCRe+4lpq8LhkRcE0CF4at+
+         ISOG5EMan5czGOGmRkF8SgQZuTAgXz2DCVrcqBr4f0ZcCDsaaQEuiehsuKczjqn/mRxM
+         L6JEp6WyTqwzDsNzCSxIUx2kJtCyIuWJyfWnhobqvwXuW4F8hnc/cQ8cHoPiPoZGV3Ms
+         0GjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790778447; x=1791383247;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EQ9BCMyvbPVlkBm+1l1uCAim/rVq0Tdr7btP51j5V+c=;
+        b=2jzTGm/gCcEwlNxdAgmXFTIhwB47PFhu6FHjvLIfHtseTEKacdUUc339Wl3+dHAPyI
+         o+Yp1VC246uETDp25b+JqjKOKgc2k9sQUJOyuvpjyCWZWRAQb0t79ilCbMdpPziRcS3Q
+         gBeJhM1PpCYBu+8cvQmmnJ/leo0VrbagWxmZw2ImxAN5DQhkHQBj8lQuYvMuM3sDu6Ku
+         1dtFyrhnz2yzm2ezRP6oql7N9w/CiFwq+Xxkje5mmjMhqnYu3hMy97sSF3VRozfu1trY
+         eYJVL2VbjBFrq9hLOsu4gBI8z4rfumX57yDaxSJBQXhQrQqlFsCe9Dff5xP2HnHo08iA
+         rUHA==
+X-Forwarded-Encrypted: i=1; AKwUvBysHsBk6qpuMO1IoVA1f1vWNFoW/rE7GhkJVO9s9/W+V2490qAwlzMfAKqxU1rV5ugUrGCfIRdm8r2NGxU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9F4cMdEg/4Z9YZBjrWvjqtKz7c8LUjpgkyl/tkuLrhs9Qwes6
+	Z+4/3LPM+TEv73s9ed+J4LW71DTUCIhiZSltDo/XFJtC8f867IHmUiGObG2v3HCqJJfNTq12Abm
+	Oyo+0FxhvHChD0A==
+X-Received: from wmde11.prod.google.com ([2002:a05:600c:108b:b0:4a0:1d42:115f])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:c3cd:10b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-4a01b131337mr21208985e9.31.1790778447237;
+ Wed, 30 Sep 2026 07:27:27 -0700 (PDT)
+Date: Wed, 30 Sep 2026 14:27:04 +0000
+In-Reply-To: <ar0Ua_zkwY7P22iI@gpd4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28139/Wed Sep 30 08:24:18 2026)
+Mime-Version: 1.0
+References: <20260930114725.331370-1-jpiecuch@google.com> <20260930114725.331370-3-jpiecuch@google.com>
+ <ar0Ua_zkwY7P22iI@gpd4>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930142706.560608-1-jpiecuch@google.com>
+Subject: Re: [PATCH v2 2/2] selftests/sched_ext: Add a test for ops.dequeue()
+ on remote local DSQ moves
+From: Kuba Piecuch <jpiecuch@google.com>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Kuba Piecuch <jpiecuch@google.com>, Tejun Heo <tj@kernel.org>, 
+	David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The PCA9952/9955B/9956B have a reset pin. Use it to reset the LED driver
-if provided in the Device Tree.
+Hi Andrea,
 
-Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
----
- drivers/leds/leds-pca995x.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+On Wed, Sep 30, 2026 at 03:53:47PM +0200, Andrea Righi wrote:
+> If there are MAX_DISPATCH_POPS or more stale entries in front of a valid one, we
+> return without dispatching anything and the CPU goes idle. It's quite unlikely,
+> but maybe we could re-kick this CPU when the loop runs out of pops while the
+> queue is still non-empty to make the test a bit more robust?
 
-diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index e6122b33451ed..b528b2b4990a7 100644
---- a/drivers/leds/leds-pca995x.c
-+++ b/drivers/leds/leds-pca995x.c
-@@ -8,6 +8,8 @@
-  * Copyright 2023 Marek Vasut
-  */
- 
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/leds.h>
- #include <linux/module.h>
-@@ -121,6 +123,7 @@ static int pca995x_probe(struct i2c_client *client)
- 	struct fwnode_handle *led_fwnodes[PCA995X_MAX_OUTPUTS] = { 0 };
- 	struct device *dev = &client->dev;
- 	const struct pca995x_chipdef *chipdef;
-+	struct gpio_desc *reset_gpio;
- 	struct pca995x_chip *chip;
- 	struct pca995x_led *led;
- 	int i, reg, ret;
-@@ -130,6 +133,16 @@ static int pca995x_probe(struct i2c_client *client)
- 	if (!dev_fwnode(dev))
- 		return -ENODEV;
- 
-+	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(reset_gpio),
-+				     "failed to request reset GPIO\n");
-+	if (reset_gpio) {
-+		udelay(3);
-+		gpiod_set_value_cansleep(reset_gpio, 0);
-+		usleep_range(1500, 1600);
-+	}
-+
- 	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
- 	if (!chip)
- 		return -ENOMEM;
--- 
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-https://www.tq-group.com/
+Good idea. v3 uses bpf_map_peek_elem() to check the queue and kicks the CPU
+if the queue is not empty.
 
+> Nit: maybe reset enqueue_seq as well?
+
+Done.
+
+> Nit: uei isn't reset between scenarios, so in theory this check in the
+> second scenario could pass using the exit record of the first one. So maybe we
+> should add:
+> 
+>     memset(&skel->data->uei, 0, sizeof(skel->data->uei));
+
+Good catch, done.
+
+> Reviewed-by: Andrea Righi <arighi@nvidia.com>
+
+Thanks for the review! I've added your tag in v3.
+
+Thanks,
+Kuba
