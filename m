@@ -1,210 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C648134E75A;
-	Wed, 30 Sep 2026 01:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB2034CFAB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730763; cv=none; b=JCiWZlm5QJlPHLtdgPKf3uXZQWAy5nMbY8sE/dMJvgckbtmYrY8EXmt/jDpiroS710NXgd3JkIOqbpCgn6L4auJBYBD7H8rztCiezT57cLFZo13hz8pHNbmD/9K9fLk8KgXpJ1hPRCavxwIqrwpWYu++pOL5i/tEre0BzRu8YEU=
+	t=1790730796; cv=none; b=uUzT0GasR1G7EFJIOsj0V9Ps/dKGZ9yG6K6fsiOy5JNDhJrvskYlmhIAgmPzlLCBYeU/CRQjI03uullB8wA0v6KRBLHK+KqLycpEpcemx82uIjSw+ejOlS4p16Ay5WgfYBvYb6FS8mC7ZSVZsd9SIcuTJEYgDyNtEkF5G+hvoOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730763; c=relaxed/simple;
-	bh=5nRbjZaUgx42IQXNVDkipkuZ7NaN6D0ouhAyZoZ7r2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ewzs/jYxXahtoJlwe7JykYbU1IneGlu7ZO4MKHDiwrdo2t8i54hb1wZTrbvBGJCC+KrBX4wh3sESB3MchmQXHhINDHcnU6Dvw8C5lEtsA4CmgCVXrHXGehm7sVgElgx9+t2dMH/AT/YsWc/G3q84dVBIRJ4TSioZWAizhIEriz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OfhWrY0A; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790730796; c=relaxed/simple;
+	bh=nZVpUvx5AQvbKSH5YPwgjyfYyBgITiSYaMBvl4cj0fc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=GY/fdXvUWMNTJYV8ofYQR7U23Be7rtOsCozD+wPsX6KX2RVBAytpzDhDdAhz2MOeSqRGGHuzyTHh0bl6/arocbggpOs7BituFPrs9xYcMNHkx3Wg2vQCrpxAuEY2HWVF8tG1eFekdzLYDNqUH0gPdPbTKTgeU+KD32/ijPZr/sI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uogR/M3i; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OfhWrY0A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790730761; x=1822266761;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=5nRbjZaUgx42IQXNVDkipkuZ7NaN6D0ouhAyZoZ7r2A=;
-  b=OfhWrY0AUNDyDLt4y8tkNwHJwBYTFbEmOniRGQkx8cslO9DYS0sRUlg+
-   odoAPBUwQXqS8sgolQR5GoVULdTKdqZUN/8CsNYIsrMpB6s4fVlk3WDWk
-   2GUIm63pHxGY0aBRCKlrpkKziKaY9TndCOw9Bv8IzQhjvCWAyBI+Og7TB
-   0Px37yltAWO/11id5kffnHViJarfXWIFnfvuQM2WGZBYiKKgI1Bm9hI8l
-   RAmIufsAyVjXGpnQANE0lqeVaBHIIshq7uvWrN8EjuXZM9181pRnd57Vt
-   dYF4qfQKc8YpPkDdZoc/cFuw5WqtQQGqayZm3BvnClp7mpRUfkUXAXPn1
-   w==;
-X-CSE-ConnectionGUID: 7M55dzwHS5+JRpyQdM4ECA==
-X-CSE-MsgGUID: F0Wzve2FRWCIgH57PBq9wA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="116989758"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="116989758"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 18:12:40 -0700
-X-CSE-ConnectionGUID: 5wHsfxrpSHOqd+DQtEJs0g==
-X-CSE-MsgGUID: GhjST1o1SzWmPS+AdjlZNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="272010266"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 18:12:36 -0700
-Message-ID: <afe2daf9-8bb1-4c99-be8e-31c828b4b2d7@linux.intel.com>
-Date: Wed, 30 Sep 2026 09:12:34 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uogR/M3i"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso4315575a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:13:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790730795; x=1791335595; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wq1QZOG797G232Vsy9NFaV758QyHdDfDDTQoDwXsKLk=;
+        b=uogR/M3ivca3qHW3crbHaIK8+miyKdqnC3KsAjsaMORTL5matp+HhUNWFrSTEXElaQ
+         5zBHGVw24IMDpfJVOA3Mx1BOQYFmLDPgsQYcjyuccGkOKOpCI/xBSAoYkvjEMq3SAtFV
+         dPv4cFZTZ/ZwVYvIMkztL5inmnmN4Fdnrb91PtZxtMI84I0wldmQiWcZdlX8Q4nKbpf2
+         XT1+T5Q1bkSrtvz8ePHlSQFRRuKHoBa9wHMgYpsblWxgvppZsyPOFfPzApJTsTPxug1D
+         4HFt4ZJoDdp6GESf0OPoq2lfaFbe9qwpXWm1NtFyUfGsgZVaTg8KIEjJFcEd18OkzOv5
+         TnZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790730795; x=1791335595;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wq1QZOG797G232Vsy9NFaV758QyHdDfDDTQoDwXsKLk=;
+        b=vJu1cpE8mhhyUb6obt4W01WkkJ2M1QmmDDocVNqrQs/ob0qesZu8U2+AVfSOWGhkxI
+         202b2BG5urO7MsVI1wgurdeVg70UgGTNJva5I9Ly2L9AWt9zyCDRd2OqjZwRRVsUOzQq
+         x7Lxi6gOs9tT+fpAVqFDDMDHfdbGileLgsgqGT37Yu/bfImZw9qYgQH6/tA8HDk6/v+Z
+         dCLeyIcr6Sb8trWe0bokKo2oU/LMB/Zw57/Zmsk1IuICTPe8UeMC7H6nzTb71a/yzCIL
+         S4b3cUPoipas+zhPIaJEbw9V3vw7Z+tyN/jprNngpvS9EBLU94OCO2cJ8N/AWUft8+KG
+         Wh+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzzv/4K1rq8lC2lTVRBIIIhng632EsBjsYzoHi6c1gynfyCtkhHfX/qDIC38A2VHqhin34CA2+Ys2zEF98=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4vW/Uv4LGaOzl60S3VjugacTEYcrp0Yydpwih4M30b89Awwio
+	ZzTumZFVwqtBuE7JwBekZ+QSxoWh0UvstkBGTFYjzUV1Yxlx2XvKfjgUOGk8xpjdrZ+BGGI7Ihi
+	jgTVAOQ==
+X-Received: from pgww7.prod.google.com ([2002:a05:6a02:2c87:b0:cc7:c360:1a42])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:db95:b0:3de:dff:4276
+ with SMTP id adf61e73a8af0-3de953ded71mr748127637.65.1790730794614; Tue, 29
+ Sep 2026 18:13:14 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 29 Sep 2026 18:13:01 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] perf/x86/intel: Reject SAMPLE_READ for
- no-counter-snapshot ACR events
-To: "Falcon, Thomas" <thomas.falcon@intel.com>,
- "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
- "ak@linux.intel.com" <ak@linux.intel.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "acme@kernel.org" <acme@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
- "Hunter, Adrian" <adrian.hunter@intel.com>,
- "namhyung@kernel.org" <namhyung@kernel.org>, "Rogers, Ian"
- <irogers@google.com>, "Eranian, Stephane" <eranian@google.com>
-Cc: "Chen, Zide" <zide.chen@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
- "Mi, Dapeng1" <dapeng1.mi@intel.com>, "Hao, Xudong" <xudong.hao@intel.com>
-References: <20260928074309.898043-1-dapeng1.mi@linux.intel.com>
- <20260928074309.898043-8-dapeng1.mi@linux.intel.com>
- <98d9d6347bd0704e8fa773b458e12c7a850c49cb.camel@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <98d9d6347bd0704e8fa773b458e12c7a850c49cb.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930011313.3197688-1-seanjc@google.com>
+Subject: [PATCH v5 00/12] KVM: x86: Bus Lock Detect fixes and SVM support
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, Shivansh Dhiman <shivansh.dhiman@amd.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+
+Fix KVM's handling of DR6.BLD, and add support for virtualizing BLD on SVM.
+KUT tests: https://lore.kernel.org/all/20260925230003.2362261-1-seanjc@google.com
+
+v5:
+ - Fix the DR6.BLD clobbering bug Sashiko pointed out. [Sashiko]
+ - Force-set fixed-1 bits after synchronizing DR6 from the guest (because the
+   guest could set bits that are supposed to be fixed-1 due to virtualization
+   holes).
+ - Open code nested_vmcb12_has_lbrv().
+ - Fix the Author for Ravi's patch.
+ - Add svm_need_lbr_virtualization() to preserve short-circuit logic.
+ - Rename kvm_dr6_fixed() to kvm_get_dr6_fixed_1().
+ - Invert svm_get_debugctl_reserved_bits() into svm_get_supported_debugctl()
+   to match VMX, and KVM's preferred style.
+
+v4:
+ * Rename nested_vmcb12_has_lbrv() to nested_lbrv_enabled() (Yosry).
+ * Drop the redundant !lbrv check and the extra comment (Yosry).
+ * Spell out in the changelog what breaks when DR6_BUS_LOCK is forced to 1
+   (Nikunj).
+ * Make it a pure NFC macro-to-helper conversion, and move the
+   BUS_LOCK_DETECT gating to patch 5 (Nikunj).
+ * Fold in the DEBUGCTLMSR_BUS_LOCK_DETECT gating moved from patch 4.
+ * Collect Reviewed-by tags.
+
+v3:
+ * https://lore.kernel.org/kvm/20260709082953.69434-1-shivansh.dhiman@amd.com
+ * Reworked the single v2 patch into a prep series (patches 1-4) plus the
+   feature.
+ * Rewrite svm_update_lbrv() as 'if' statements so the BLD LBRV
+   dependency can be added cleanly (Yosry Ahmed).
+ * Sanitize V_LBR in the nested control cache like NP/GMET and drop the
+   redundant X86_FEATURE_LBRV checks (Yosry Ahmed).
+ * Use kvm_dr6_fixed() for nested DR6 instead of DR6_FIXED_1 | DR6_RTM.
+ * Compute DEBUGCTL reserved bits per-vCPU, gating BUS_LOCK_DETECT on
+   guest CPUID rather than a static macro.
+
+v2:
+ * https://lore.kernel.org/kvm/20260629081018.60618-1-shivansh.dhiman@amd.com
+ * Rebased on kvm-x86-next-2026.06.24.
+ * Used guest_cpu_cap_has() instead of guest_cpuid_has().
+
+v1: https://lore.kernel.org/all/20240808062937.1149-5-ravi.bangoria@amd.com
+
+Ravi Bangoria (1):
+  KVM: SVM: Add support for virtualizating Bus Lock Detect
+
+Sean Christopherson (8):
+  KVM: x86: Preserve DR6.BLD (Bus Lock Detect) when delivering #DB
+    payload
+  KVM: x86: Rename kvm_dr6_fixed() => kvm_get_dr6_fixed_1()
+  KVM: Return an "unsigned long", not "u64" for the fixed-1 DR6 bits
+  KVM: x86: Force fixed-1 bits in DR6 after synchronizing with hardware
+  KVM: x86: WARN if fixed-1 DR6 bits aren't already set when delivering
+    payload
+  KVM: x86: Kill off DR6_FIXED_1 to prevent future misuse
+  KVM: SVM: Add helper to query if LBR virtualization needs to be
+    enabled
+  KVM: nSVM: Open code check on LBR virtualization being enabled in
+    vmcb12
+
+Shivansh Dhiman (3):
+  KVM: nSVM: Disable LBRV in nested control cache when unsupported
+  KVM: nSVM: Don't assume all active-low bits DR6 are fixed-1
+  KVM: SVM: Add a vCPU-aware helper to get supported DEBUGCTL bits
+
+ arch/x86/kvm/regs.c       |  8 ++++--
+ arch/x86/kvm/regs.h       | 11 ++++----
+ arch/x86/kvm/svm/nested.c | 27 ++++++++----------
+ arch/x86/kvm/svm/svm.c    | 31 +++++++++++++++-----
+ arch/x86/kvm/svm/svm.h    | 12 ++++++--
+ arch/x86/kvm/x86.c        | 59 ++++++++++++++++++++++++---------------
+ 6 files changed, 92 insertions(+), 56 deletions(-)
 
 
-On 9/30/2026 3:02 AM, Falcon, Thomas wrote:
-> On Mon, 2026-09-28 at 15:43 +0800, Dapeng Mi wrote:
->> ACR events cannot always provide a reliable value through SAMPLE_READ.
->> For non-PEBS ACR events, another ACR overflow can auto-reload the counter
->> before software reads it, so software cannot sample the exact count before
->> the hardware reload.
->>
->> PEBS-backed ACR events are safe only when counter snapshot support is
->> available, because the value is captured in the PEBS record before the
->> counter is reloaded.
->>
->> Reject SAMPLE_READ for ACR event groups unless the event has PEBS
->> counter snapshot support, so perf does not report invalid counts.
->>
->> Reported-by: Andi Kleen <ak@linux.intel.com>
->> Fixes: ec980e4facef ("perf/x86/intel: Support auto counter reload")
->> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->> ---
->>  arch/x86/events/intel/core.c | 59 ++++++++++++++++++++++++++++++++++++
->>  1 file changed, 59 insertions(+)
->>
->> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
->> index 377ff3912420..3fc3795534bf 100644
->> --- a/arch/x86/events/intel/core.c
->> +++ b/arch/x86/events/intel/core.c
->> @@ -4974,6 +4974,53 @@ static inline int intel_set_branch_counter_constr(struct perf_event *event,
->>  	return 0;
->>  }
->>  
->> +static inline bool is_acr_sample_read_allowed(struct perf_event *event,
->> +					      bool group_has_sample_read)
->> +{
->> +	/*
->> +	 * ACR events cannot report an accurate count for non-PEBS events
->> +	 * or for PEBS events without counter snapshots: another ACR event
->> +	 * may overflow andauto-reload the counter before software can read
-> Just wanted to point out the typo here. Other than that, this patch and the rest of the series look good to me...
+base-commit: a0bc8e1d7a82bb143b8f8f44ae3a01938f37c2ea
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-Good catch. Thanks.
-
-I'd like to wait one or two weeks to see if Peter and other guys have other
-comments, and fix them all in version 2. 
-
-
->
-> Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
->
->> +	 * the precise value.
->> +	 *
->> +	 * We keep the check simple and do not validate the acr_mask precisely
->> +	 * to determine whether the SAMPLE_READ event is actually auto-reloaded
->> +	 * by another ACR event. If a SAMPLE_READ event is in the group, the
->> +	 * ACR event must be a PEBS event with counter snapshots; otherwise it
->> +	 * is rejected.
->> +	 */
->> +	if (group_has_sample_read && is_sampling_event(event) &&
->> +	    (!event->attr.precise_ip || !is_pebs_counter_event_group(event)))
->> +		return false;
->> +
->> +	return true;
->> +}
->> +
->> +static bool intel_pmu_allow_acr_sample_read(struct perf_event *event,
->> +					    bool group_has_sample_read)
->> +{
->> +	struct perf_event *leader = event->group_leader;
->> +	struct perf_event *sibling;
->> +
->> +	if (!is_acr_sample_read_allowed(leader, group_has_sample_read))
->> +		return false;
->> +
->> +	if (leader->nr_siblings) {
->> +		for_each_sibling_event(sibling, leader) {
->> +			if (!is_acr_sample_read_allowed(sibling,
->> +						group_has_sample_read))
->> +				return false;
->> +		}
->> +	}
->> +
->> +	/* event isn't installed as a sibling yet. */
->> +	if ((event != leader) &&
->> +	    !is_acr_sample_read_allowed(event, group_has_sample_read))
->> +		return false;
->> +
->> +	return true;
->> +}
->> +
->>  static int intel_pmu_hw_config(struct perf_event *event)
->>  {
->>  	int ret = x86_pmu_hw_config(event);
->> @@ -5117,6 +5164,7 @@ static int intel_pmu_hw_config(struct perf_event *event)
->>  		struct perf_event *sibling, *leader = event->group_leader;
->>  		struct pmu *pmu = event->pmu;
->>  		bool has_sw_event = false;
->> +		bool has_sample_read = false;
->>  		int num = 0, idx = 0;
->>  		u64 cause_mask = 0;
->>  
->> @@ -5162,8 +5210,14 @@ static int intel_pmu_hw_config(struct perf_event *event)
->>  		if (leader->attr.config2)
->>  			intel_pmu_set_acr_cntr_constr(leader, &cause_mask, &num);
->>  
->> +		if ((leader->attr.sample_type & PERF_SAMPLE_READ) ||
->> +		    (event->attr.sample_type & PERF_SAMPLE_READ))
->> +			has_sample_read = true;
->> +
->>  		if (leader->nr_siblings) {
->>  			for_each_sibling_event(sibling, leader) {
->> +				if (sibling->attr.sample_type & PERF_SAMPLE_READ)
->> +					has_sample_read = true;
->>  				if (!is_x86_event(sibling)) {
->>  					has_sw_event = true;
->>  					continue;
->> @@ -5175,6 +5229,7 @@ static int intel_pmu_hw_config(struct perf_event *event)
->>  				intel_pmu_set_acr_cntr_constr(sibling, &cause_mask, &num);
->>  			}
->>  		}
->> +
->>  		if (leader != event && event->attr.config2) {
->>  			if (has_sw_event)
->>  				return -EINVAL;
->> @@ -5184,6 +5239,10 @@ static int intel_pmu_hw_config(struct perf_event *event)
->>  		if (hweight64(cause_mask) > hweight64(hybrid(pmu, acr_cause_mask64)) ||
->>  		    num > hweight64(hybrid(event->pmu, acr_cntr_mask64)))
->>  			return -EINVAL;
->> +
->> +		if (!intel_pmu_allow_acr_sample_read(event, has_sample_read))
->> +			return -EINVAL;
->> +
->>  		/*
->>  		 * In the second round, apply the counter-constraints for
->>  		 * the events which can cause other events reload.
