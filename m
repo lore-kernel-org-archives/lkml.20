@@ -1,131 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB08476681;
-	Wed, 30 Sep 2026 11:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211754446F2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767084; cv=none; b=aaW6w/HkuTfbmCmvlML0hbmu1hYfPn9ZAbF4spsUtzqMBVEj5JYH2UWBpsBIlun4Vs8xeNmQ0Xv/LtI9nLawKep+1oRg7dO08tL47AMC5yt2c3e8ng+AuYgLagz4OaynMVcn2DhlrGMjjzUql2VZmalrSg61zSWHY7GUKCDdV28=
+	t=1790767143; cv=none; b=XKyYXQRAaZvph3BqNctCe3wwbEAhSt+xTlWfHY+sworm81oA09laaB7NMSUtzymxjAATQOhMS/151L7VoF3VMkxAMiPqq21lvgwOchji2x/XItXGw8UY07ruFdalMCVR99rYmsSUBYfwYQrKJG2LT/vnIAjVWZwKl41faf/Mk0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767084; c=relaxed/simple;
-	bh=bYX1S7jAyB8LEZM08JTB4OaUJy3ZEYbGMk8aJJigrbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mWZKQmak/7bP44ZmOblmNBAmLJyh2ezAWyx752KTKWhzSq5J7RTenKPS92hYOsqY+uylZxQuOHPV83/jsVdodK3+OjkGLYGy0FcHLIsgwGNYb1r1h4BL5S3iTuCu+v+9epNqhvgS+GWk7Zd2qVMnGEeejJdYK5dgREN+46+XbVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WelI3HrT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790767143; c=relaxed/simple;
+	bh=LzTFy7YHECcLbcpiRen/GFBQVX4hobVrBXZ3KpATLCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eBl2n/h6qXF2XQ1fxtSrEMFINJq8M2rIgqE0nxmNY+EsMjVqpXFHemlCZ6lFqbMX3m6kYhxq55aIO5aE1sMdoQ+kvHs6m1Bo5YM3T1euETgrpLsmJN0e6csIR/oWxAO5yPE9rYqPFoUG1UtQZ2nWHZGOT4fxwiKeNwcb22pjWiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nHDpLeia; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WelI3HrT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0911F000FF;
-	Wed, 30 Sep 2026 11:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790767082;
-	bh=83rwTdO/FGr48GtBLJOLuXq/CyA1VYNTtnCj+4o0YoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WelI3HrTq5Q+OeeK7mUJq3BaQTbRmXCV7thColG6Cwi2zu+D/821EpOAu1biw6XX9
-	 KjWSX+fc0aNUY5nsHXHHnfwzBLnju7Yewex+2qKERqCtnwPOItwJNSvGFGkL/oo8oe
-	 oPrv+8LoTNlyIVElv8+sAghuuUmmjwcvyEt+J1qNhseq+cgYZBV5kMx6EEBdl3bPfS
-	 5M0ttAIvtIoUOHyXp4KlVjP0sdJzuoM9VQ3YOigDUSt4QZCdhmYZ0aPb6X6vtK1L1s
-	 iUcoISpT2meiyK+v5NxY+jZ6kxuiJ0BuO+RTuQsZJtiesE28XbCT54duUufkOkHiUp
-	 gxDaKvINcgGPA==
-Date: Wed, 30 Sep 2026 12:17:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org,
-	Hector Martin <marcan@marcan.st>,
-	Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: [PATCH 16/28] ASoC: apple: Add macaudio machine driver
-Message-ID: <d591a288-a8b2-4c28-8caf-6dfa11655fc7@sirena.org.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <6dv6M3LAS9mol5fvC8Ie-w@gmail.com>
- <0ae94fbe-cd41-4d49-b073-e65ab8eff724@sirena.org.uk>
- <ItQHm5ZKQ4Wltp6qbCRkSA@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nHDpLeia"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c6so3177416b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:19:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790767141; x=1791371941; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+yfqfhizfQ05zp6V77MZ9T7BSR5efZzEVT2zwBnQMYA=;
+        b=nHDpLeia3h11J828OHZhOrfh3436mMn4Q28hviwNvMEwxYx2s9JIQKkR8yT78RvukR
+         3N8cEfJ1w6Tvk9V4uFlAY5PWt7PdYIQj5jblATNaFTiICeCbAxHGNymLp+38P7PA+znr
+         E8CjyfMmwTOF0E5HDOdX5jOiPYy8zBc3dKjeieGcWT+d5qXt4nyFTz8MFrW+vbkqICKg
+         zbojej6ZluqMu2rYt44dgHG/RNYBxkcgYmZ/aFjgQegp5TVUkH/bAU0zQshMaZMESvct
+         4KzzXXAgH3jBWcsSEi1mPuGr1Sppl1JH8l8UjgOCjlfKtY26hzudnVXW5iVeN03Al3z1
+         1Q7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790767141; x=1791371941;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+yfqfhizfQ05zp6V77MZ9T7BSR5efZzEVT2zwBnQMYA=;
+        b=NylldiYSKlF0pEYlJqmB87QRqY+6uUku5m63xZOqljauWxn/mtfKUiqu7oiuWvPCYI
+         T+qwoDKH/bifHzv0xmXpvUK08KP3BMQKH1KgskBfaf5CMNkpFcCJVDk2rV41DAvtyGm8
+         ye3fRYTer6emjC8Qr0yNQgLxVzC0t1bb0F2hFnCorm5HcmDvSG3hUPPBzOPS6syeXh4j
+         L3d10abp4Gf1pglhBSt16MCXGYebS0QQ2prbJKRXxT/qe7Ir8iZVUDDsNctTvbHleBUe
+         iT9U2ZVPhh9K4Y1vW0gUEu0I9WdOzpGWwc5E1SbPeB08eop0Ai5z5/gXcuKFkSAyEZyl
+         zBsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwlGEj78IaSAkwtLrKckgVzm4er+/6YbB8KD3etQUxoWYKYtIkaV2jruY+7ioEvfuz4pNUpPpPU/aQJWEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n17jnqS/3b69gO7WlJRE9a6mOjN7tC2VGRqdbQahaoUMJYHxS3
+	QFTrYGySvOpbTzk3EiMLvFG6V2XsnWZflG/DoxAnve36+7QI9XPIHPNO
+X-Gm-Gg: AYBFou0huX3cSsTm4VBwHu6foSV9B7aH77MqiynHAdfWmDEb/WBvka0G8sDlz1/fZx5
+	zNL7F3ZlF+xuES1pSkfExSel7gqBPvPBPW5YPGNy0BHIyZzTHf7nITq+9t5DE0SBXBqw7Rsr2zW
+	YsOevdnbnrTpjH7pgzmx34bUxkYLWRf+G5ZHQj9kSFypNh0wRrl5b/u/HZHcrLpJ5zfLHhyBRQu
+	MWGmJ7HY6CZ+79uUKU0yY6aBz58vt10H/v2ns1c70D8F3kiVC96L6luWaHRKEIXCVpgp0TyNxfG
+	X4dfs++6TZNPMlxYXdO43odLKAJsNFGsYE/p8f4tTCrj3qW4Wb9lojg3+mWR+9Lo+fz8QrqdWuu
+	Ht/PpaNpt/BjiwuKczlOVZx2ibLZnzIDKAsBJZo0bC9QyqQMM9z/dp49AGzTelZKHDAoO7im2Cn
+	hRtg85iXLhMxACAIF9RFuw9OayBObYpLYP8WyCIDN13/16dL87/W28dAe8eqXoWTqAHGCyFRsvj
+	hKqhQHPc8sn8DtVsyzpSQ4hDRQqTRrzn+9oV3VPm3Ld
+X-Received: by 2002:a05:6a00:2396:b0:880:78ca:8411 with SMTP id d2e1a72fcca58-8874c4ddee4mr771398b3a.11.1790767141213;
+        Wed, 30 Sep 2026 04:19:01 -0700 (PDT)
+Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-887253992a9sm650257b3a.17.2026.09.30.04.18.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 04:19:00 -0700 (PDT)
+From: Cosmo Chou <chou.cosmo@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	cosmo.chou@quantatw.com,
+	Cosmo Chou <chou.cosmo@gmail.com>
+Subject: [PATCH v3 0/4] ARM: dts: aspeed: bletchley: Cleanups and second source devices
+Date: Wed, 30 Sep 2026 19:18:09 +0800
+Message-ID: <20260930111813.52396-1-chou.cosmo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nnH+SEOf/vZYoZnv"
-Content-Disposition: inline
-In-Reply-To: <ItQHm5ZKQ4Wltp6qbCRkSA@gmail.com>
-X-Cookie: (null cookie
+Content-Transfer-Encoding: 8bit
 
+This series resolves dt-check-style warnings, sorts I2C nodes,
+and adds second-source RTC/LED support for the Bletchley.
 
---nnH+SEOf/vZYoZnv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes in v3:
+- memory@80000000: keep "device_type" first, per dts-coding-style.rst.
+- Link to v2: https://lore.kernel.org/all/20260729114312.3947300-1-chou.cosmo@gmail.com/
 
-On Wed, Sep 30, 2026 at 05:36:21PM +1000, James Calligeros wrote:
-> On Monday, 28 September 2026 9:03:13=E2=80=AFpm Australian Eastern Standa=
-rd Time Mark=20
-> Brown wrote:
-> > On Sat, Sep 26, 2026 at 11:06:02AM +1000, James Calligeros wrote:
-> > > On Tuesday, 22 September 2026 7:38:54=E2=80=AFpm Australian Eastern S=
-tandard Time=20
+Changes in v2:
+- Added patches to sort I2C nodes and fix DTS coding style issues.
+- Carried over the second-source RTC and LED patches from v1.
+- Link to v1: https://lore.kernel.org/all/20260714120816.1504058-1-chou.cosmo@gmail.com/
 
-> > > > > +	if (props->is_sense) {
-> > > > > +		rate->min =3D rate->max =3D cpu_dai->symmetric_rate;
-> > > > > +		return 0;
-> > > > > +	}
+Cosmo Chou (4):
+  ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
+  ARM: dts: aspeed: bletchley: Fix style warnings
+  ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+  ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
 
-> > > > It feels like this DAI ought to have separate ops...  Also, for the
-> > > > sense link will we definitely already have a rate set up?
+ .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 1315 +++++++++++------
+ 1 file changed, 902 insertions(+), 413 deletions(-)
 
-> > > AIUI, the cpu rate should always be set up by the time we hit
-> > > this path as it is only taken when setting up the VISENSE FE (after t=
-he
-> > > playback stuff is already set up).
+-- 
+2.43.0
 
-> > Is that something we actually enforce or is that just a thing a sensible
-> > userspace should do?  I can see something racing.
-
-> We don't really enforce it. speakersafetyd is the only thing that opens t=
-he
-> VISENSE PCM and does a blocking read of samples
-> which only starts and subsequently completes after the "real" PCM
-> is configured and playback begins. The sample rate is reliably
-> reflected to speakersafetyd via the kcontrol on the VISENSE PCM. We
-> have not experienced any race issues with this arrangement in ~5 years
-> nor has anyone reported any to us. I'm happy to take pointers on
-> how we should be doing this if the current approach won't fly.
-
-You could just return an error if there's no rate set, it sounds like
-your actual userspace will DTRT anyway.
-
---nnH+SEOf/vZYoZnv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq87+EACgkQJNaLcl1U
-h9Cxhgf/WcFsoEMkfmXz8RaOTaYRSb5C0qxwrbBKBoUhhIsznqLaBZmbCYldSt+C
-z+HAA+DYIwT0Hod2VkGiT4b8sL2S92svIkrouVYKa4TreBxzK4GY0cabHusPWQwe
-EeXxCKfvgQj8+akOUfcXEsp391TQ0mtBW6AseRd2tLZh/h32OjqkwX+NpxcLYRF4
-/LIQAFAIGxTEB/xeXE4GlcI4fnPfMggKGnG2Dn+r+iDgeD/tIZkfK2BiR+nAatIj
-RF5JM1d5eHFJxqApPWsliNdUKU00LB0sRWYWUj9FRvqImMYIz6TD4mJX6EfeAsL9
-EOeh5DCM3Ud1EMHlvn+J5iPMDMmupQ==
-=y+Ex
------END PGP SIGNATURE-----
-
---nnH+SEOf/vZYoZnv--
