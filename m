@@ -1,44 +1,44 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257F54E4C58;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FE6519DE1;
 	Wed, 30 Sep 2026 14:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778397; cv=none; b=kFDR1hotvZdN0ksBva8QwIHoCaEwvV8GLihA7DFgRf0CNPrpENfHapMnIrYpBh4HB5Hymc+R7bSxRWFdVIbRCsJinZ3pjOvClRAxCyOWkzlQMYknI7ukZRxVWal97jXCN7g9NsonEmRv1HnB2xRIY5hYK5p9GqZWpyroyxH4O9M=
+	t=1790778398; cv=none; b=QrS+Xrxs81p6bUvHpLjDSDWPc7JGTcrq7D6iXHVBF2Aef3iv5JZcpiYRTPgUUtDux/PWNxh3QKzW/wDCprCb2li/97V2KDDhMVCPHtz07cGWpcLdQ3M3Ia6okty720c8RBOEbzM9UDkmDvjLaPrwh8ZO2yr2VIQwbkRe2G3Xm2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778397; c=relaxed/simple;
-	bh=47hb35oYe5cuVEEq7siJ4GEo+xFp7UzsM0cF6S9itXk=;
+	s=arc-20240116; t=1790778398; c=relaxed/simple;
+	bh=STNrtMWd0J6MwDZit2tpsWi03tkhBgvv9k9MOHFenXE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jhiVEx/NH6D1O2q3h68lJaYUsSeX2u5lGzBa7IjMjQB3+6riaFxcMJSb7h4rfzLgm6kPEdOARfIHXgyWVWcNA4Vjj6HIbsUrPHMf+IrZ8k+c9xr5O46QpGm1jWxwzZw5I3ldnTRaAn/wALdXvs60aCoe+nlpbJ+xu2QOFNezfXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=bhh1g78v; arc=none smtp.client-ip=188.40.3.216
+	 MIME-Version:Content-Type; b=t3ibqkt8rJNc+5xBpp8pXIXq+VZah2QPtYPUNMvtM630ArwUsuuLMoordgnBj9Y9wyxq6UyJA5pbJHWpjEwV2qJPEqlzilx2TryYwahmvUCApLeEcOEuwO9dZ3P1nJY9O925uy/nPiKKmmfUluir2DMjm1df6S0mBir+TsIGBMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=OkFH8IAp; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="bhh1g78v"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="OkFH8IAp"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=GMOJFlc4JrhNDRUMJSPF00oTxXHLgtst/iFJ7M3QOmg=; b=bhh1g78vLTcpEu+cDDaFanguWg
-	JcHx6lMwFJ+IkwCqvUXDSiKuJ1tRonMvPUELfa9iDWBxuppFiYxgocWMsghW1swcN2wi37gCNgXPo
-	qp8en9WmPzSHbdNALxdF5FQ17vxeqmfeREOvvTXzxvj37oVrpZ7sV838bwQ6eJZx70ks016zQzCMu
-	citubFXgzaraJbnQVFucHDnZc2zrKQbC4cLcTs4LBa0/j19pKR16BfQmyNgWYF/nro55ZwMCZ9sD0
-	1e1cCinXIEPdvApskdcq9tc5T00Z0UXH17m18TU6zSUc/FP46mEd9qhU29QR1KWCdBv+3p0rx/p06
-	VDRS3HKg==;
+	bh=Pqk2W16c7hjt0DwB4YbADjjO61OzdBO3mTf1qPi6Oh4=; b=OkFH8IApFDstrsA9/M08CPy8cN
+	0RVzvy7b09EWSrh7J4yVYJ+ys0xDwjWzlja2O3w0QjqiYgiMmTAecF3pPA47DnorXP98pMPmkIUYb
+	ueTD1i6wPXaJHIr/B5lajJP8sX6h1Zu4YaBWvoSCRiK/+Ea8u0V7Hka4AbtIwy4X58mkpBd5sRuGp
+	SnWxTd6TKzk8HD9y1q5ZlDhiKJwo13MAijuH3WRI7BochrHr5COVni0hFH6f7z+AUuFUrEmbry8Ig
+	ZiJwI3vOpnqA7MVbN1J1sEHhgKqo0wTNKmHPuv+ReF3AnguFs/WW0IkLEq6E+x9YlqEwI4RPBQJnX
+	NyIb2dgQ==;
 Received: from sslproxy07.your-server.de ([78.47.199.104])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGB-000CpG-04;
-	Wed, 30 Sep 2026 16:26:15 +0200
+	id 1xBvGE-000Crk-0S;
+	Wed, 30 Sep 2026 16:26:18 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGA-000MAX-1Z;
-	Wed, 30 Sep 2026 16:26:14 +0200
+	id 1xBvGD-000MAX-1l;
+	Wed, 30 Sep 2026 16:26:17 +0200
 From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>
@@ -54,9 +54,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v4 04/10] leds: pca995x: Fix fwnode handle leaks in error paths
-Date: Wed, 30 Sep 2026 16:25:43 +0200
-Message-ID: <b2fedfd41b25fb3b1b6eca231d009d5497b1e003.1790684839.git.nora.schiffer@ew.tq-group.com>
+Subject: [PATCH v4 09/10] leds: pca995x: Do not use full on LED mode
+Date: Wed, 30 Sep 2026 16:25:48 +0200
+Message-ID: <93c090b77e2049c75439a680a1d3b86e2e5a29d3.1790684839.git.nora.schiffer@ew.tq-group.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
 References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
@@ -70,79 +70,66 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: Clear (ClamAV 1.4.3/28139/Wed Sep 30 08:24:18 2026)
 
-Each entry in led_fwnodes needs to be put as long as no LED device has
-been created for it yet - not just in the creation loop, but also in the
-first loop that iterates over the child nodes.
+LEDs in full on mode are unaffected by group dimming. Avoid using it,
+so group dimming is applied consistently.
 
-By clearing entries in led_fwnodes once they have been used, the same
-cleanup loop can be used to handle errors in both loops.
+This slightly changes the brightness at maximum (from 100% to 255/256
+duty cycle), which should be imperceptible; arguably it is also more
+consistent with the other brightness levels, as it will now scale
+linearly from 0/256 to 255/256 over the whole range.
 
-Fixes: 82c5ada1f9d0 ("leds: pca995x: Fix device child node usage in pca995x_probe()")
 Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 ---
- drivers/leds/leds-pca995x.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/leds/leds-pca995x.c | 33 ++++++++++++++-------------------
+ 1 file changed, 14 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index 8b05b3f12cf38..079ce3d8f1e49 100644
+index 1fc8de5a77bbc..dd208ee09f352 100644
 --- a/drivers/leds/leds-pca995x.c
 +++ b/drivers/leds/leds-pca995x.c
-@@ -123,7 +123,7 @@ static int pca995x_probe(struct i2c_client *client)
- 	const struct pca995x_chipdef *chipdef;
- 	struct pca995x_chip *chip;
- 	struct pca995x_led *led;
--	int i, j, reg, ret;
-+	int i, reg, ret;
+@@ -102,28 +102,23 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
+ 	ledout_addr = PCA995X_LEDOUT0 + (led->led_no / PCA995X_OUTPUTS_PER_REG);
+ 	shift = PCA995X_LDRX_BITS * (led->led_no % PCA995X_OUTPUTS_PER_REG);
  
- 	chipdef = device_get_match_data(&client->dev);
- 
-@@ -144,10 +144,12 @@ static int pca995x_probe(struct i2c_client *client)
- 	device_for_each_child_node_scoped(dev, child) {
- 		ret = fwnode_property_read_u32(child, "reg", &reg);
- 		if (ret)
+-	switch (brightness) {
+-	case LED_FULL:
+-		return regmap_update_bits(chip->regmap, ledout_addr,
+-					  PCA995X_LDRX_MASK << shift,
+-					  PCA995X_LED_ON << shift);
+-	case LED_OFF:
++	if (brightness == LED_OFF) {
+ 		return regmap_update_bits(chip->regmap, ledout_addr,
+ 					  PCA995X_LDRX_MASK << shift, 0);
+-	default:
+-		/* Adjust brightness as per user input by changing individual PWM */
+-		ret = regmap_write(chip->regmap, pwmout_addr, brightness);
+-		if (ret)
 -			return ret;
-+			goto err_put_nodes;
- 
--		if (reg < 0 || reg >= chipdef->num_leds || led_fwnodes[reg])
--			return -EINVAL;
-+		if (reg < 0 || reg >= chipdef->num_leds || led_fwnodes[reg]) {
-+			ret = -EINVAL;
-+			goto err_put_nodes;
-+		}
- 
- 		led = &chip->leds[reg];
- 		led_fwnodes[reg] = fwnode_handle_get(child);
-@@ -169,12 +171,12 @@ static int pca995x_probe(struct i2c_client *client)
- 						     &chip->leds[i].ldev,
- 						     &init_data);
- 		if (ret < 0) {
--			for (j = i; j < chipdef->num_leds; j++)
--				fwnode_handle_put(led_fwnodes[j]);
--			return dev_err_probe(dev, ret,
--					     "Could not register LED %s\n",
--					     chip->leds[i].ldev.name);
-+			dev_err_probe(dev, ret, "Could not register LED %s\n",
-+				      chip->leds[i].ldev.name);
-+			goto err_put_nodes;
- 		}
-+
-+		led_fwnodes[i] = NULL;
+-
+-		/*
+-		 * Change LDRx configuration to individual brightness via PWM.
+-		 * LED will stop blinking if it's doing so.
+-		 */
+-		return regmap_update_bits(chip->regmap, ledout_addr,
+-					  PCA995X_LDRX_MASK << shift,
+-					  PCA995X_LED_PWM_MODE << shift);
  	}
- 
- 	/* Disable LED all-call address and set normal mode */
-@@ -184,6 +186,12 @@ static int pca995x_probe(struct i2c_client *client)
- 
- 	/* IREF Output current value for all LEDn outputs */
- 	return regmap_write(chip->regmap, chipdef->irefall, PCA995X_IREFALL_HALF_CFG);
 +
-+err_put_nodes:
-+	for (i = 0; i < chipdef->num_leds; i++)
-+		fwnode_handle_put(led_fwnodes[i]);
++	/* Adjust brightness as per user input by changing individual PWM */
++	ret = regmap_write(chip->regmap, pwmout_addr, brightness);
++	if (ret)
++		return ret;
 +
-+	return ret;
++	/*
++	 * Change LDRx configuration to individual brightness via PWM.
++	 * LED will stop blinking if it's doing so.
++	 */
++	return regmap_update_bits(chip->regmap, ledout_addr,
++				  PCA995X_LDRX_MASK << shift,
++				  PCA995X_LED_PWM_MODE << shift);
  }
  
- static const struct i2c_device_id pca995x_id[] = {
+ static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
 -- 
 TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
 Amtsgericht München, HRB 105018
