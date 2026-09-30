@@ -1,170 +1,289 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61D7155747
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E812F1643B;
+	Wed, 30 Sep 2026 00:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727225; cv=none; b=cO0Ut5C+xmMOv0hO6fazSdL1r76sMQFEP1lPtyTJHt3FRXUUQnXZZwLa6nGuXWf0q1y8HMJKwtSgQTunK5hF3KrgGXJFuF/yKguCEnjCahyn6G/msqz6P/pcziGql84edHl5gFj5Q6WLiRBQ5ecdC3GUlf4a6PxqV1TTrlyB3LY=
+	t=1790727586; cv=none; b=qT+YvIQACBfSYci7Dq2Qv9tAujAt/uhg92tzl4Z6O6TDq/OsGlpQzYJm1saRjRqRyCAliTgxCcxzakObjOOiLYtQ/zrYmG7w4TpUxEouPYrWpUlLqjn8rrpf2QzTGpkcYq8+F0wtUb3jX9BHj0wo3qaJJyGUUOof2RlP0Z1t2Ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727225; c=relaxed/simple;
-	bh=m5ij7H+WOu3d+FdzUMjV0W5SB172f9eg+/qElhh79/U=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=BJElebvGC9MTFYZ3rlXvZ96crrZnqmJqMy4PliJIHTD79zc0jYeOlNhz5170zmdm/5S5WIVIAzD8nPXPf7nCwpIZOnks3chPFB+z16ubqeNLFeNp0eFoUKl2SHz0Cd4HUOFHK75NtpQAVKCADUWxIH1P6NMi9iJVaAbDOZB9a3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RskAZc32; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790727586; c=relaxed/simple;
+	bh=YK2IrupaJk8bHNuItxnKE3scpi3GNjoXud5YvwtPtTg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jEdD/3PtJ8IQzEC9AyEWplW5aPvvGRMrYpIUUZeEEdpbMT9TC0oEtpmNNrIbZvosV1Tn4/ULLnge5Eu59zOBY7LwEd2GIDuPTi8m+uQ5AhTf59Co6kOweE4446SgZO9wgl8p1NfylJJYB+fZWR5LwgEYrLdeCFqNCXx84UhkYgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGlRmDTv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RskAZc32"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2d3a3ff86so10218925ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790727223; x=1791332023; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T0OAgQm7l6+Lkk59NFimwNySx+EGaZwacAEZ61B6wks=;
-        b=RskAZc32n6MhdOkV1Fc72AQBzMLtcXl05rsCkXeAR8t5uoMQZVEd/KTPN9AofKG++P
-         baYjaKBHE1lwFiHtP+o9lrLAzRLqRF2y8wwOuQwZEP3GnQB04ExWf8HpfS178h7ML1Xy
-         YC6iKSbfv3mQ14CS4GzSaWmz2pypgLNXroWd3zHw1PeAmi/eGCxwZZ2KLeDjdKb0D/sv
-         gTtgNPjVQ3NAubkD1FyY3hoc68LgxU9RiglE9gvNY+owDKMuGSF0uwnC891BNI9GU2tp
-         sV/66F36vTfqnsAeC1D3a3bK67aPiw7spAVSGzJLwN6k9RAkeCweTY61KSZyYS2yKTIl
-         otVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790727223; x=1791332023;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=T0OAgQm7l6+Lkk59NFimwNySx+EGaZwacAEZ61B6wks=;
-        b=AaNw/rGjWIHAdNJdP/v9W0aa2ISp6JFnFnhQrkt+zfIgFGo7svDoaEaEZxeEQNYlw8
-         5jqB24ruf6JX4vmhjXJvZVqypK0c6eANWDWUKO3FePTigeM8HzNEnWe7/iT6R6nJjFBA
-         rHfWUsk3gTrb2Exqxc7FTn+tlKegtFrfXvdMHAAu1DBo5EO6fUuhMLMKJ0XAy4dlbFRg
-         RVZXu6YTDRf69R+jwUisMrZtj4fDL0nFXMyNWpNxi3jwPLlYaK5JhTNC3cLxoIaeKJ+y
-         hk4nELKlfmTHpaeoMWFqlurmKfMWbnAxqYQwxSyuVd9KI7NhSN9jBp3BDDjAR/4t4YqG
-         /GzQ==
-X-Forwarded-Encrypted: i=1; AKwUvByiViGkiw9uNsd/8vrUSAzuNH1x4JzwZjVoj/3AKRTzXD9NZd7Ud9kJZiOOu3nXoz+StpQEoiloSac+1VQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ84+MFuCyfDEuucITMpXws7FgUP6cgBV0D6lKA/lDzyYvXL1ZV
-	FxEv/PnLyKpqYkuc7H8J0R+INYR0ZhWPXvflVhafWhSQMuCuU04/8fc4ql6Hdv/5SlTQ5MxECgf
-	nSHvhcA==
-X-Received: from plem9.prod.google.com ([2002:a17:902:e409:b0:2e1:2414:b08c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d98f:b0:2df:a70b:2fae
- with SMTP id d9443c01a7336-2e2de52ea84mr5110035ad.29.1790727223042; Tue, 29
- Sep 2026 17:13:43 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 29 Sep 2026 17:13:41 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGlRmDTv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8238A1F000FF;
+	Wed, 30 Sep 2026 00:19:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790727584;
+	bh=mRiwsDTvkFSIUogPdhuoSeAsEjGOFaCIiAcMvtHyH40=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XGlRmDTvxc1GX+MEA3t1HV8ws9CY4eX+cU59g079kH31izRu3hlFGs4X1tiweTaRZ
+	 +QVarM86govavjziIoktgYXy3nSDsKOCdPYFOV2qvecvLciDEvsj3vIHjU0CB8wzAY
+	 HpZxFgYjJjXS4jPYnYVFiv4ltlWiYJqEz8acckUQAVg/b/9fTQeqZlTWG+RIlNGvZk
+	 2E7BG97Ac4VRu5uM50UYmj91xZYkunp4BLW0auMsk3uNtfKKgGR37GNji5alc7r2h9
+	 Meku0P2ua7It+XYSmzH29XCbYP26yMU+O+WVCogI0924LMrYbqhNuzM9pnDkNC51GE
+	 Hw2HWlG/b+mqQ==
+Subject: Re: [PATCH net-next v7 2/5] net: pse-pd: fire lifecycle events on
+ controller register/unregister
+From: netdev-bot+sashiko@kernel.org
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, corey@leavitt.info,
+ jelonek.jonas@gmail.com, horms@kernel.org, olek2@wp.pl, broonie@kernel.org,
+ lgirdwood@gmail.com, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 30 Sep 2026 00:19:43 +0000
+Message-ID: <179072758307.434549.741841617381833627@kernel.org>
+In-Reply-To: <20260927191850.1370515-3-github@szelinsky.de>
+References: <20260927191850.1370515-3-github@szelinsky.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930001341.3171558-1-seanjc@google.com>
-Subject: [PATCH] KVM: selftests: Make guest_snprintf() a macro and use it as appropriate
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Gokul K <gokul02k@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Turn guest_snprintf() into a macro so that it can be used by variadic
-functions, and use it in the ucall APIs instead of open coding the VA goo.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Note, using a macro drops the __printf() validation, but that's a non-issue
-because in practice the caller will have its own validation, as is the case
-with both ucall_assert() and ucall_fmt().
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 2
 
-Reported-by: Gokul K <gokul02k@gmail.com>
-Closes: https://lore.kernel.org/all/20260918113631.634233-4-gokul02k@gmail.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- tools/testing/selftests/kvm/include/test_util.h | 12 +++++++++++-
- tools/testing/selftests/kvm/lib/guest_sprintf.c | 12 ------------
- tools/testing/selftests/kvm/lib/ucall_common.c  | 10 ++--------
- 3 files changed, 13 insertions(+), 21 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-index 3a432499b338..9ea5b8906dd4 100644
---- a/tools/testing/selftests/kvm/include/test_util.h
-+++ b/tools/testing/selftests/kvm/include/test_util.h
-@@ -238,7 +238,17 @@ static inline u32 atoi_non_negative(const char *name, const char *num_str)
- }
- 
- int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args);
--__printf(3, 4) int guest_snprintf(char *buf, int n, const char *fmt, ...);
-+
-+#define guest_snprintf(__buf, __n, __fmt)		\
-+({							\
-+	va_list va;					\
-+	int len;					\
-+							\
-+	va_start(va, __fmt);				\
-+	len = guest_vsnprintf(__buf, __n, __fmt, va);	\
-+	va_end(va);					\
-+	len;						\
-+})
- 
- char *strdup_printf(const char *fmt, ...) __attribute__((format(printf, 1, 2), nonnull(1)));
- 
-diff --git a/tools/testing/selftests/kvm/lib/guest_sprintf.c b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-index 7a33965349a7..6caebb456f3d 100644
---- a/tools/testing/selftests/kvm/lib/guest_sprintf.c
-+++ b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-@@ -300,15 +300,3 @@ int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args)
- 	*str = '\0';
- 	return str - buf;
- }
--
--int guest_snprintf(char *buf, int n, const char *fmt, ...)
--{
--	va_list va;
--	int len;
--
--	va_start(va, fmt);
--	len = guest_vsnprintf(buf, n, fmt, va);
--	va_end(va);
--
--	return len;
--}
-diff --git a/tools/testing/selftests/kvm/lib/ucall_common.c b/tools/testing/selftests/kvm/lib/ucall_common.c
-index 029ce21f9f2f..e9df71197367 100644
---- a/tools/testing/selftests/kvm/lib/ucall_common.c
-+++ b/tools/testing/selftests/kvm/lib/ucall_common.c
-@@ -83,7 +83,6 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- 		  unsigned int line, const char *fmt, ...)
- {
- 	struct ucall *uc;
--	va_list va;
- 
- 	uc = ucall_alloc();
- 	uc->cmd = cmd;
-@@ -92,9 +91,7 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- 	WRITE_ONCE(uc->args[GUEST_FILE], (u64)(file));
- 	WRITE_ONCE(uc->args[GUEST_LINE], line);
- 
--	va_start(va, fmt);
--	guest_vsnprintf(uc->buffer, UCALL_BUFFER_LEN, fmt, va);
--	va_end(va);
-+	guest_snprintf(uc->buffer, UCALL_BUFFER_LEN, fmt);
- 
- 	ucall_arch_do_ucall((gva_t)uc->hva);
- 
-@@ -104,14 +101,11 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- void ucall_fmt(u64 cmd, const char *fmt, ...)
- {
- 	struct ucall *uc;
--	va_list va;
- 
- 	uc = ucall_alloc();
- 	uc->cmd = cmd;
- 
--	va_start(va, fmt);
--	guest_vsnprintf(uc->buffer, UCALL_BUFFER_LEN, fmt, va);
--	va_end(va);
-+	guest_snprintf(uc->buffer, UCALL_BUFFER_LEN, fmt);
- 
- 	ucall_arch_do_ucall((gva_t)uc->hva);
- 
+- [High] At this commit, pse_controller_unregister() unlinks the
+  controller, fires PSE_UNREGISTERED (which has no subscriber yet),…
+- [Low] The patch fixes a teardown use-after-free that exists today, but
+  it is presented as a feature patch.
+- [Low] The new comment above disable_irq() in
+  pse_controller_unregister(), and the commit message's claim that…
 
-base-commit: a0bc8e1d7a82bb143b8f8f44ae3a01938f37c2ea
+Pre-existing issues:
+- [High] pse_controller_unregister() frees pcdev->pi (pse_release_pis()
+  -> kfree) while the per-PI regulators that index that array are still…
+
+--
+
+net: pse-pd: fire lifecycle events on controller register/unregister
+
+This commit fires PSE_REGISTERED and PSE_UNREGISTERED on the
+pse_controller_notifier chain from pse_controller_register() and
+pse_controller_unregister(). It also reorders pse_controller_unregister()
+so that the IRQ is disabled and the controller unlinked first. The event
+fires next, then the notification worker is drained, and pw_ds,
+pcdev->pi and the kfifo are freed last.
+
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index 84c734ed4553e..56cecf60c5c4c 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+
+[ ... ]
+
+> @@ -1148,15 +1151,36 @@ EXPORT_SYMBOL_GPL(pse_controller_register);
+>   */
+>  void pse_controller_unregister(struct pse_controller_dev *pcdev)
+>  {
+> -	pse_flush_pw_ds(pcdev);
+> -	pse_release_pis(pcdev);
+> +	/* Stop the interrupt first: pse_isr() queues notifications and
+> +	 * reaches pcdev->pi, and nothing below re-enables it.
+> +	 */
+>  	if (pcdev->irq)
+>  		disable_irq(pcdev->irq);
+
+[Severity: Low]
+Is this comment accurate for the in-tree users of devm_pse_irq_helper()?
+The same question applies to the commit message claim that "until now
+pse_isr() and the worker could both reach pcdev->pi[] after
+pse_release_pis() had freed it".
+
+tps23881_i2c_probe() registers the controller before it requests the IRQ:
+
+drivers/net/pse-pd/tps23881.c:tps23881_i2c_probe() {
+    ...
+	ret = devm_pse_controller_register(dev, &priv->pcdev);
+    ...
+	return tps23881_setup_irq(priv, client->irq);
+}
+
+The call chain tps23881_setup_irq() -> devm_pse_irq_helper() ->
+devm_request_threaded_irq() therefore adds the IRQ devres after the
+controller's devres.
+
+Devres unwinds in LIFO order, so free_irq() runs first and waits for any
+threaded pse_isr(). Only then does devm_pse_controller_release() call
+pse_controller_unregister(). By the time this disable_irq() runs, the
+line has no handler, and the call only raises the disable depth.
+
+So devres ordering, not disable_irq(), is what keeps pse_isr() away from
+the frees here. Could the comment say so, so that a later change doesn't
+rely on disable_irq() as the guard?
+
+Separately, and not introduced by this patch, devm_pse_irq_helper() sets
+pcdev->irq even when devm_request_threaded_irq() fails:
+
+	if (ret)
+		dev_err(pcdev->dev, "Failed to request IRQ %d\n", irq);
+
+	pcdev->irq = irq;
+	return ret;
+
+> -	cancel_work_sync(&pcdev->ntf_work);
+> -	kfifo_free(&pcdev->ntf_fifo);
+> +
+> +	/* Unlink before the event: of_pse_control_get() walks
+> +	 * pse_controller_list and dereferences pcdev->pi[] through
+> +	 * of_pse_match_pi(), so no lookup may still reach this controller
+> +	 * once its teardown starts. Subscribers are handed pcdev as the
+> +	 * event data, so the notifier does not need it on the list.
+> +	 */
+>  	mutex_lock(&pse_list_mutex);
+>  	list_del(&pcdev->list);
+>  	mutex_unlock(&pse_list_mutex);
+
+[Severity: Low]
+This reorder fixes a use-after-free that already exists before this
+patch. It comes under a feature subject, though, with no Fixes: or
+Cc: stable tags.
+
+Before this patch, pse_controller_unregister() called pse_release_pis()
+first, which does kfree(pcdev->pi), and called list_del(&pcdev->list)
+last. Meanwhile of_pse_control_get() holds pse_list_mutex, walks
+pse_controller_list and reads r->pi[i].np through of_pse_match_pi():
+
+	ret = of_pse_match_pi(r, args.np);
+
+A PSE lookup that races a controller unbind could therefore read the
+freed pcdev->pi[]. One example is a PHY registered through
+fwnode_mdiobus_register_phy().
+
+The commit message says the reordering "closes a teardown race that is
+reachable today, with no subscriber involved". It points to the net
+series at
+
+  https://lore.kernel.org/netdev/20260813200653.980170-1-github@szelinsky.de/
+
+but also says the order there "leaves the unlink below cancel_work_sync()
+and pse_flush_pw_ds()".
+
+Does that net series also close the lookup-vs-free race? If it doesn't,
+should the reorder go into a separate net patch with Fixes: tags for
+9be9567a7c59 ("net: pse-pd: Add support for PSE PIs") and ffef61d6d273
+("net: pse-pd: Add support for reporting events")? If it does, could the
+commit message say that the referenced series covers the lookup race?
+
+> +
+> +	blocking_notifier_call_chain(&pse_controller_notifier,
+> +				     PSE_UNREGISTERED, pcdev);
+> +
+> +	/* After the event, not before. A subscriber dropping the last
+> +	 * pse_control reference reaches __pse_control_release() ->
+> +	 * regulator_disable() -> _pse_pi_disable(), which can end up in
+> +	 * pse_disable_pi_pol() and queue a notification of its own, so a
+> +	 * cancel_work_sync() placed above the walk would not stay drained.
+> +	 */
+> +	cancel_work_sync(&pcdev->ntf_work);
+
+[Severity: High]
+Can the work be queued again after this cancel_work_sync() at this point
+in the series?
+
+PSE_UNREGISTERED has no subscriber yet, so nothing stops the existing
+pse_control holders. phydev->psec is taken in fwnode_mdio.c and only put
+in phy_device_remove(), so it outlives the unregister.
+
+The ethtool PSE paths run under rtnl only, and
+pse_controller_unregister() never takes rtnl or pcdev->lock. That seems
+to allow this sequence:
+
+CPU1 (ethtool)                         CPU2 (unbind)
+pse_ethtool_set_prio()
+                                       pse_controller_unregister()
+                                         cancel_work_sync()
+  pse_pw_d_retry_power_delivery()
+    pse_disable_pi_pol()
+      kfifo_in_spinlocked(&pcdev->ntf_fifo, ...)
+      schedule_work(&pcdev->ntf_work)
+                                         pse_release_pis()
+                                         kfifo_free(&pcdev->ntf_fifo)
+
+pse_ethtool_set_prio() also reads pcdev->pi[psec->id].pw_d, and
+pse_ethtool_get_status() reads pcdev->pi[] as well. A late
+pse_control_put() -> __pse_control_release() reads the freed array too:
+
+	if (psec->pcdev->pi[psec->id].admin_state_enabled)
+		regulator_disable(psec->ps);
+
+Before this patch the same stale-holder problem existed, and pi[] was
+freed even earlier, so this is not a new regression. Still, the commit
+message describes the worker-vs-free race as closed, and it looks
+reachable at this commit.
+
+The last patch in the series, "net: phy: own phydev->psec via PSE
+notifier and remove fwnode_mdio hook", appears to resolve this. Its
+PSE_UNREGISTERED handler (phy_pse_detach_one) releases every phydev->psec
+under pse_phy_lock(), and the ethtool PSE paths take the same lock. With
+that in place, cancel_work_sync() drains everything queued before the
+walk completes.
+
+Could this commit message say that the worker race is only fully closed
+once that patch is applied?
+
+> +
+> +	pse_flush_pw_ds(pcdev);
+> +	pse_release_pis(pcdev);
+
+[Severity: High]
+This is a pre-existing issue, but can the PI regulators still reach
+pcdev->pi[] after it is freed here?
+
+devm_pse_pi_regulator_register() registers the PI regulators during
+pse_controller_register():
+
+	rdev = devm_regulator_register(pcdev->dev, rdesc, &rconfig);
+
+devm_pse_controller_register() only adds its own release after
+pse_controller_register() returns:
+
+	*pcdevp = pcdev;
+	devres_add(dev, pcdevp);
+
+Every in-tree driver passes dev == pcdev->dev. On unbind, devres
+therefore runs devm_pse_controller_release() ->
+pse_controller_unregister() -> pse_release_pis() -> kfree(pcdev->pi)
+before the regulator devres entries unregister the PI regulators.
+
+In that window, reading /sys/class/regulator/*/state goes through
+state_show() -> _regulator_is_enabled() -> pse_pi_is_enabled():
+
+	mutex_lock(&pcdev->lock);
+	if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d)) {
+
+This reads pcdev->pi[id].pw_d from freed memory and then dereferences
+it. pcdev->lock does not exclude pse_release_pis(), and pcdev->pi is not
+set to NULL on this path.
+
+The commit message says the frees "end up last". That is true inside
+pse_controller_unregister(), but not across the full devres teardown.
+
+The next patch in the series, "net: pse-pd: unwind allocations when
+controller registration fails", acknowledges this read of freed memory
+but does not fix it.
+
+> +	kfifo_free(&pcdev->ntf_fifo);
+>  }
+>  EXPORT_SYMBOL_GPL(pse_controller_unregister);
+
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927191850.1370515-1-github%40szelinsky.de
