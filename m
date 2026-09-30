@@ -1,213 +1,142 @@
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3938485935;
-	Wed, 30 Sep 2026 23:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB60B48F837
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790809920; cv=none; b=FV/QxSRSYA8bxFp5rzyPcEJHPYqIcmzMkyLFnWGPy03aZB5WxZT7UdgmRtuvkDwXtSHLxicmwAlnknX9eNNEoQhBPD4P2S08RU9Cl5cPyGuE37feLHhmPcwwN1DXQeTNt5fVhweHHFiaMOKk6Q+I9OzHBqQoTKxjoF19CNzGvec=
+	t=1790810277; cv=none; b=rNY43BKRN+RXgaiw8xFWwR1FM/yrnjO9UyLmIZ0T/4tq5tqftu0n6kzVfc2BP7LkcLFuR9/6pTz9OuB35+I91r7FNfT0ML5bHnoLUYhQkDjkCCEoJOYITm1aKE/Et/c8nr2EeScHTAT3IqO/XxzgQTiC5WnQACrLUihRtuHFmkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790809920; c=relaxed/simple;
-	bh=hgo9uoT4tchRHqcgvD4dlxMtrU3V4PIL+9of6kxv+nU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Aaj/esRSjJz8wXzpOuwGaP0bI0lbs6SQEQlERi/aaMLVz4sGcKWhnOiPNu5dgOu+IlMjR3TzSRbeDhZ4z4L/scmC0C2xUUXr2K+kJnM0jEnscdv2w93CL1AOazxxB24nWFs0NTOf9TJ6FOgD87zgDSUowgv58EDAE0zVz1qV59c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qFDu3j35; arc=none smtp.client-ip=52.26.1.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790810277; c=relaxed/simple;
+	bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NUVdKTMPJrkj8WBWDfiQxERNTk6NHPn5vaM/tTKBD0JLv9mYdCHXTlIGYqdwjE5aoUpnLb5w+cfW5idSkxQ+0mh1RkcZzMAiPnKc/eIlqOWV84VeC/W2YYBmLy9R3QjVreSx72bltX6SprIvRMyUragwt84e9qJCLCSJhMU3luk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bbNm1bcZ; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qFDu3j35"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bbNm1bcZ"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba3feee1d2so941484e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:17:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790809915; x=1822345915;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=aQbvrPde+OrHghCdEsygXprSEkwsxJSA8PZNB/95K18=;
-  b=qFDu3j35wraVfF1w9R2eaGKjxzyx75XIGe+EZ4JwmTh1RhzGvHk1d/ON
-   4WXTZ/6JjuAqLxBFzTtLD398uC0H0JDQ3J92twX/UITwNjN6HncMeLJbp
-   mkKLu9rQV1+TAxlQmVoIVqdz8Z9vZYrh39FAJaNST6+c3UBZvhCpIUs0X
-   8fcmKL8OY+mHNvxGtFfFQWoVJdgprDen+Nbkq9zhuT2OpQcJTGOTEuu5B
-   CN63UwGRW8CNt7+uNHC5w+VIPCu0i7ooIx2zkHj4M6LpLFGaJ6NqlL7Px
-   lulrVv4H30JM1xevUxU7FKAONOocZVWliM61ZSVbFkFJ9hldzU/R6Tlf8
-   g==;
-X-CSE-ConnectionGUID: B03tRbnNQPGYvWESfMmWSA==
-X-CSE-MsgGUID: r5hzBHL+Qy27irkFeF2Yzw==
-X-IronPort-AV: E=Sophos;i="6.27,133,1787011200"; 
-   d="scan'208";a="30123055"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:11:52 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:19945]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.131:2525] with esmtp (Farcaster)
- id 7d9e45ef-53a4-4d07-a5cb-784678d52f7d; Wed, 30 Sep 2026 23:11:52 +0000 (UTC)
-X-Farcaster-Flow-ID: 7d9e45ef-53a4-4d07-a5cb-784678d52f7d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 23:11:51 +0000
-Received: from u34cccd802f2d52.amazon.com (10.106.239.10) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 23:11:50 +0000
-From: Haris Okanovic <harisokn@amazon.com>
-To: <robin.murphy@arm.com>, <mark.rutland@arm.com>, <will@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<harisokn@amazon.com>
-Subject: [PATCH v2 2/2] perf/arm-cmn: Allow userspace to select the PMU's CPU
-Date: Wed, 30 Sep 2026 18:11:27 -0500
-Message-ID: <20260930231127.3094040-3-harisokn@amazon.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930231127.3094040-1-harisokn@amazon.com>
-References: <20260930231127.3094040-1-harisokn@amazon.com>
+        d=chromium.org; s=google; t=1790810271; x=1791415071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
+        b=bbNm1bcZLW/4PhXvUVqT3GSWJEzzmfBnklS2Ag0bpisyIN2//R5Q2chIxjpvtWln8g
+         4A+V+lSUxtB3af2JmF77n3u3ahNxVDFrF2+kgZCiwCULPokQCRnrjFeoTbYtyZQAMnXG
+         fYp67UhIEqERjDu2jW2iFgaRn/2sO52cjoisA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790810271; x=1791415071;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
+        b=buvnAxMvhYEYYW3/4hQEggaUIoiurc5cphHdO+J0wRJP5IAXS1kPPl6s3J7G+SrSY2
+         NJNnUXJgHjg/rnsBHwwvRMI3j5J4vvSTLIyxvvHrapwAZjsUiVxmGVy9zKB40YQP+WYq
+         ZOMW9r+hO4jE9tfere90RuXByf7EuFzcNzRxHIfXW0mIY9Q6DBzhEZZgCLsijNKwM8Le
+         MosIto88aBlOb7RKk7f0mOupSrEtSHxw++jjQeVXUodDIYyzlQx21BCsA7kMheKfVlLM
+         hUIjUTVBxBBxGBzjl+WGr9MIKcsnKjVCDEch7Zg+pPijnweXZHFlfstnoXQcC5q69SOC
+         9u2A==
+X-Forwarded-Encrypted: i=1; AKwUvByt03vDPL0q5q9E/+/0GXaKeG/UfauzO4Nlr5CkFUwgFZSA7BMc5ooldshXCd0t/+jVLkr30pehBUNfI/I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU1PA5pN6a0o6NLiW8vJU5ngcsLdsyRfmkiZIfXUh4Zrr3NybE
+	kihCbNhN4kwlugAwzaiOBecUGBSw/Lp6wMOqzEORwGcQVErLVcAEiLTjMYDXKkmzL32C4SGrftd
+	ahZv8dw==
+X-Gm-Gg: AYBFou0OWXMOAjf+xG4fzDD7zslGsXCoNZqiGSHGspuWbAWy7fq5GeHLFIQqPm4/mMc
+	w/inbvLbi3VzBlLCPOuXAZnYdfaZUB5urC73dbGo0iactdt/Y4Q7dCXQ/JzZUuCycP1VFlzIeO7
+	/JHiIO6XBziFX04sTLNTSzT0WUc6Nm6RRkKapbh5Jz+W1uijBGEUD7lobydPahBWx5jBVgVA9X5
+	UO+LzMhz3rNLvk/sxgX7UMgZtzmlIHPcVDX3EYFDIBxuEy9lR979yciEz26t5Cdk7ILos+ShpVw
+	fZVESqRejHO6wKkveR1MxB6U9o0hU5wdBO5X/uaJODHWat+R8Jzgyr7rlzW3G4NmmSpL5ZW+UpS
+	71E2Ky686rkHoj+LjLeUyDRHYYXh4f+05wFkmccf7UqT+tXlRPlWWm4qeH5/JfyIbEDJCNmM3J6
+	uRcuRq7Fg04nL3r2GxJLpTcvBTG1S401At1lRTtRTpqSq8Q2xvtTAjQrtIBxTroaJP6zjaKcL75
+	IpJDC2OPb6YWGrjo97qMgwaEmBgGOwfBaTKL2unCUgk2Xyd
+X-Received: by 2002:a05:6512:114c:b0:5b8:997b:c606 with SMTP id 2adb3069b0e04-5ba44074560mr189667e87.41.1790810270951;
+        Wed, 30 Sep 2026 16:17:50 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com. [74.125.225.98])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbf03csm279766e87.77.2026.09.30.16.17.48
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 16:17:48 -0700 (PDT)
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so1045177f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:17:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIF289PpPq0NifTXYBLUuu73aLDS6t8EOOmR7Fl5M91O08WKgYzmRNMNj3tR0VkcdKAVaeB3AxOOGq2ks=@vger.kernel.org
+X-Received: by 2002:a05:6000:2885:b0:487:9a8:9f31 with SMTP id
+ ffacd0b85a97d-48b025295ebmr5666042f8f.41.1790810266894; Wed, 30 Sep 2026
+ 16:17:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC004.ant.amazon.com (10.13.139.254) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
+ <20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
+ <87fqzp8jex.ffs@fw13> <87wlt13zj1.wl-maz@kernel.org> <87v78l6oha.ffs@fw13>
+ <CAD=FV=Wdqn7UiuRy1VY-qH+JYChLTEQgmj2q6Q=FBjCZ+5eo1A@mail.gmail.com>
+ <CAD=FV=WE-Wn60zTn=nsq4qLis_zjncrS37fND6ehtpuvxYp+DA@mail.gmail.com> <87o6deh0pm.ffs@fw13>
+In-Reply-To: <87o6deh0pm.ffs@fw13>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 30 Sep 2026 16:17:31 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VuSEzHw8JJsTXuGEEe-w_T=_w6ycsqpzpNWDHxMqyJdQ@mail.gmail.com>
+X-Gm-Features: AclHuK_lONYIi2Rjd5xeZvJ8IkAtljr3_IbRPhmnlL1GcuMTyl7rym8vZ20aZcw
+Message-ID: <CAD=FV=VuSEzHw8JJsTXuGEEe-w_T=_w6ycsqpzpNWDHxMqyJdQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during NMI teardown
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Mayank Rungta <mrungta@google.com>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	"Kirill A. Shutemov" <kas@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-arm_cmn_probe() picks the CPU that owns the PMU with
+Hi,
 
-	cmn->cpu = cpumask_local_spread(0, dev_to_node(cmn->dev));
+On Wed, Sep 30, 2026 at 2:46=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> w=
+rote:
+>
+> On Mon, Sep 28 2026 at 09:14, Doug Anderson wrote:
+> > On Fri, Sep 4, 2026 at 8:26=E2=80=AFAM Doug Anderson <dianders@chromium=
+.org> wrote:
+> >> On Fri, Sep 4, 2026 at 8:11=E2=80=AFAM Thomas Gleixner <tglx@kernel.or=
+g> wrote:
+> >> > Of course this is a regular global interrupt otherwise it couldn't b=
+e
+> >> > requested normally. So this sets IRQF_PERCPU (it has to otherwise
+> >> > request_nmi() would fail), but that looks like a hack to me.
+> >>
+> >> At least on GIC, promoting a regular global interrupt to NMI (or
+> >> pseudo-NMI) level is possible, and Mayank's use case here seems
+> >> legitimate. Any suggestions you have for making this look less like a
+> >> hack are appreciated! :-)
+> >
+> > Throwing an extra plea out here to see if we can make forward
+> > progress. IMO being able to make watchdog driver "bark" interrupts run
+> > at NMI (or pseudo-NMI) level is an important thing to do for
+> > debuggability of the kernel. It sounds as if there are no general
+> > objections to the idea. I guess the next step is to make this look
+> > less hacky. Is that something we could send patches for? Any hints for
+> > what you'd like this to look like would be greatly appreciated.
+>
+> I think the objections have been layed out in course of the discussion, n=
+o?
 
-and arm_cmn_event_init() then binds every event to it unconditionally.
-That choice is only revisited by the CPU hotplug callbacks, so in
-practice the PMU stays on the first CPU local to the interconnect's NUMA
-node, which is usually CPU 0.
+I guess I'm still unclear on one key question: if we post up clean
+patches that allow promoting global interrupts to NMI (or pseudo-NMI)
+level, would you be willing to review and eventually land? I got a bit
+of a vibe that you just didn't like the idea in general, but maybe I
+misunderstood. I just want to make sure Mayank doesn't spend a bunch
+of time trying to solve this problem if it has zero chance of actually
+landing.
 
-All of the PMU's recurring work therefore lands on one CPU. This is
-problematic on systems which reserve particular CPUs for latency
-sensitive work or confine background activity to a chosen set of
-housekeeping CPUs.
 
-There is no way to set it explicitly. perf_event_open() and 'perf stat
--C' have no effect because arm_cmn_event_init() overwrites event->cpu;
-/proc/irq/*/smp_affinity is refused for the DTC interrupts, which are
-requested with IRQF_NOBALANCING because their affinity has to follow the
-owning CPU.
+> > I'll also be in Prague next week for both Plumbers and ELCE, so I'd be
+> > happy to discuss this in person if that helps.
+>
+> I'm going to be there, but I don't know about Marc.
 
-Make the existing 'cpumask' attribute writable. It already reports the
-CPU which owns the PMU; writing a CPU number now migrates the PMU there
-via the existing arm_cmn_migrate(), which moves the perf contexts and
-the DTC interrupt affinity together. Since the PMU has a single owning
-CPU, anything other than one CPU number is rejected.
+Great, I'll make sure to look for you.
 
-The attribute expresses a preference rather than a guarantee. The
-hotplug callbacks may still move the PMU, for example when the chosen
-CPU is offlined.
-
-Signed-off-by: Haris Okanovic <harisokn@amazon.com>
----
- Documentation/admin-guide/perf/arm-cmn.rst | 18 ++++++++++
- drivers/perf/arm-cmn.c                     | 40 +++++++++++++++++++++-
- 2 files changed, 57 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/admin-guide/perf/arm-cmn.rst b/Documentation/admin-guide/perf/arm-cmn.rst
-index 796e25b7027b2..bf75b686cef76 100644
---- a/Documentation/admin-guide/perf/arm-cmn.rst
-+++ b/Documentation/admin-guide/perf/arm-cmn.rst
-@@ -44,6 +44,24 @@ given type. To target a specific node, "bynodeid" must be set to 1 and
- "nodeid" to the appropriate value derived from the CMN configuration
- (as defined in the "Node ID Mapping" section of the TRM).
- 
-+CPU affinity
-+------------
-+
-+The driver also provides a "cpumask" sysfs attribute, which contains a
-+single CPU ID, of the processor which will be used to handle all the CMN
-+PMU events.
-+
-+The attribute is writable, and accepts a single CPU ID to move the PMU
-+to that processor, for instance to keep counter reads, interrupt handling
-+and event rotation away from CPUs reserved for latency sensitive work::
-+
-+  $# echo 5 > /sys/bus/event_source/devices/arm_cmn_0/cpumask
-+
-+This expresses a preference rather than a guarantee. In case of the
-+chosen processor being offlined, or a processor local to the
-+interconnect's NUMA node coming online while the chosen one is not, the
-+events and interrupts are migrated and the attribute is updated.
-+
- Watchpoints
- -----------
- 
-diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-index a5593e5821925..1f114ac3f0700 100644
---- a/drivers/perf/arm-cmn.c
-+++ b/drivers/perf/arm-cmn.c
-@@ -5,6 +5,7 @@
- #include <linux/acpi.h>
- #include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/cpu.h>
- #include <linux/debugfs.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
-@@ -12,6 +13,7 @@
- #include <linux/kernel.h>
- #include <linux/list.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/perf_event.h>
- #include <linux/platform_device.h>
-@@ -404,6 +406,8 @@ struct arm_cmn_nodeid {
- 	u8 dev;
- };
- 
-+static void arm_cmn_migrate(struct arm_cmn *cmn, unsigned int cpu);
-+
- static int arm_cmn_xyidbits(const struct arm_cmn *cmn)
- {
- 	return fls((cmn->mesh_x - 1) | (cmn->mesh_y - 1));
-@@ -1519,8 +1523,42 @@ static ssize_t arm_cmn_cpumask_show(struct device *dev,
- 	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpumask_of(cmn->cpu)));
- }
- 
-+static ssize_t arm_cmn_cpumask_store(struct device *dev,
-+				     struct device_attribute *attr,
-+				     const char *buf, size_t count)
-+{
-+	static DEFINE_MUTEX(cpumask_mutex);
-+
-+	struct arm_cmn *cmn = to_cmn(dev_get_drvdata(dev));
-+	unsigned int cpu;
-+	int err;
-+
-+	err = kstrtouint(buf, 0, &cpu);
-+	if (err)
-+		return err;
-+
-+	if (cpu >= nr_cpu_ids)
-+		return -EINVAL;
-+
-+	/* Serialises multiple writers against each other */
-+	mutex_lock(&cpumask_mutex);
-+	/* Blocks hotplug during write */
-+	cpus_read_lock();
-+
-+	if (!cpu_online(cpu))
-+		err = -EINVAL;
-+	else if (cpu != cmn->cpu)
-+		arm_cmn_migrate(cmn, cpu);
-+
-+	cpus_read_unlock();
-+	mutex_unlock(&cpumask_mutex);
-+
-+	return err ?: count;
-+}
-+
- static struct device_attribute arm_cmn_cpumask_attr =
--		__ATTR(cpumask, 0444, arm_cmn_cpumask_show, NULL);
-+		__ATTR(cpumask, 0644, arm_cmn_cpumask_show,
-+		       arm_cmn_cpumask_store);
- 
- static ssize_t arm_cmn_identifier_show(struct device *dev,
- 				       struct device_attribute *attr, char *buf)
--- 
-Haris Okanovic
-AWS Graviton
-
+-Doug
