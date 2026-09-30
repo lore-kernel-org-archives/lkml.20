@@ -1,87 +1,81 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CB3439479C;
-	Wed, 30 Sep 2026 07:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6CA39479C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754527; cv=none; b=VCP+bqRIEVVUAi8UDHM8MRA6hp5MoxfrSKAQ4wEEaFV7A6HUIsIOhifXXOXDi5UYLuEnF2rS622GkO4sAFnLKBfaZMEY+OI/s6U9ndgszNCCYbtvqqo5oHqddInroU/kcAZAQ3bBezZ/tKT2QjvXnWrm5k08xA1azA37EsDXlz4=
+	t=1790754530; cv=none; b=LsbXXF8R+kxMVYSk1y7WNIU0kJ/LPPZX6WqtMO1R/zqUBX+kO07j57aCg7H8vJVaYUen0GKEi1D2Ykg8o+coqxc+/pmTtay6BaOPnMKOYV4jCY2ayn6FXylubAA4uA/66FVdNwwSYMQow1XKFWsP5OE8G58LGpRaNX4Ut/cd2Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754527; c=relaxed/simple;
-	bh=vtpfHdYuEtUZjn4p9ZCCdv1s6a9BQG6VtoJEKOZerGQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I1QfwQUgU5aXEE7b9F4/kUSeg+3K1nkm11cdrL0mxeANe5xeiqhgv5TFeF4AaejF03LeLWFXLWooK/VjHNeD+0SGV5qgB1DkZprLBku2dAmBe+yXibVwhp/PgATuFehzFXOsqdaJEdVFsxwFk0K1CSNwsrUXSdNxoQRE0plq7Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnQzzUvrxqm5hJAQ--.125S3;
-	Wed, 30 Sep 2026 15:48:37 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCX733Rvrxqv5wZAA--.24898S2;
-	Wed, 30 Sep 2026 15:48:33 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Markus.Elfring@web.de
-Cc: herbert@gondor.apana.org.au,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	john.allen@amd.com,
-	thomas.lendacky@amd.com,
-	davem@davemloft.net,
-	songl@zju.edu.cn,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: Re: [PATCH v2] crypto: ccp - Fix use-after-free in backlog cmd advancement
-Date: Wed, 30 Sep 2026 07:47:36 +0000
-Message-Id: <20260930074736.40710-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <8b4458b0-a3f4-4eb4-8b85-5d4139ac3ae8@web.de>
-References: <20260929143825.21349-1-fanwu01@zju.edu.cn> <8b4458b0-a3f4-4eb4-8b85-5d4139ac3ae8@web.de>
+	s=arc-20240116; t=1790754530; c=relaxed/simple;
+	bh=q4tlk4ZKLEGHgmj4RCKWAn0yvsa57odQ0142O/epx8U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BDHTd969d4Kp8sDmC/EcdwUcLrhily+7gqjzNl7LJ7pypP5tLDYfnW2KrvJL6wWXgsZ6htMz+afQBeAqVZOpRJ33Orb/EluPDdeeEiucmmHp6O8gmkTA88ULC/KxpcKiSvcF+ln+warIQNHy75h41XngzzGodja8ZQ6Y71Y7hL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuOJKYJq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuOJKYJq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E571F00893;
+	Wed, 30 Sep 2026 07:48:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754528;
+	bh=W8oH1Fi/Ld5hAhuB1dTiEaQRtEACoBcCrfBpjFkiric=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YuOJKYJq22XVYvSATU7UyMhkbwLBasyBFeHMOjwtF4d6iiPCiQohQwEXa4287dvTE
+	 /LsLoJNZT6G4y0MEFW2wCFiLd+hmFAZCYywN3p1MQnlATCPhgfLRK6SK1WZoUy6JgE
+	 k/uLTWT3sGu36vNsoy9IFpuUJmXD/6PqE6zKK7LPno/LxxuPN5kK9FugikBP/Q4z1Q
+	 hSOmzrNNlY2TMFGXNb1af8wK1hUDtpUFvoOKTakkunvcTXesBLjBY4GIaKBx4ZQlAx
+	 al4pFuQA9JBuTzanSrs/VFUO0gBJYVyrA1YYUvnNRi/M/nVgD1d+RaUr0dHqj5F5sd
+	 31T/8Yfsu/P/A==
+Date: Wed, 30 Sep 2026 08:48:42 +0100
+From: Will Deacon <will@kernel.org>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Billy Laws <blaws05@gmail.com>, Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Ryan Houdek <sonicadvance1@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel-dev@igalia.com
+Subject: Re: [RFC PATCH v3 1/1] arch: arm64: Implement unaligned atomic
+ emulation
+Message-ID: <ary-2rOs_b2IY6M1@willie-the-truck>
+References: <20260930020138.2377090-1-andrealmeid@igalia.com>
+ <20260930020138.2377090-2-andrealmeid@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgCX733Rvrxqv5wZAA--.24898S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?culGLwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVvLbuoOKy0xUR2OEh/LyhkSL9jUxBlzHNHbi3nVuMEDB4IGqZJ+tcM0Mhfd2q4axICe
-	VteTbZidzXXs8+RP7dbN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj9xXoW7JryDuFWfXw48uF15uw4xXwc_yoW3tFX_A3
-	4fAFyUCw18CF43Ca1fKF4jyF1rKrW8Cw1ruF1rJF13KryfXan8G3s7JF9xC3Wj9ay293Zx
-	Gas8X345Ww47KosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUb-AYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4U
-	YxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
+In-Reply-To: <20260930020138.2377090-2-andrealmeid@igalia.com>
 
-On Tue, 29 Sep 2026 17:18:29 +0200, Markus Elfring wrote:
-> May lock guards be applied in affected function implementations?
-> https://elixir.bootlin.com/linux/v7.3-rc5/source/include/linux/spinlock.h#L642-L645
+On Tue, Sep 29, 2026 at 11:01:38PM -0300, André Almeida wrote:
+> Implement support for emulating unaligned atomic operations on arm64.
+> User applications that wish to enable support for this should use the
+> pctrl() flag `PR_ARM64_UNALIGN_ATOMIC_EMULATE`.
+> 
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> ---
+>  arch/arm64/Kconfig                   |   6 +
+>  arch/arm64/include/asm/exception.h   |   1 +
+>  arch/arm64/include/asm/processor.h   |   5 +
+>  arch/arm64/include/asm/rwonce.h      |  14 +-
+>  arch/arm64/include/asm/thread_info.h |   1 +
+>  arch/arm64/kernel/Makefile           |   3 +-
+>  arch/arm64/kernel/process.c          |  15 +
+>  arch/arm64/kernel/unaligned_atomic.c | 521 +++++++++++++++++++++++++++
+>  arch/arm64/mm/fault.c                |  10 +
+>  include/uapi/linux/prctl.h           |   5 +
+>  kernel/sys.c                         |   7 +-
+>  11 files changed, 579 insertions(+), 9 deletions(-)
+>  create mode 100644 arch/arm64/kernel/unaligned_atomic.c
 
-I considered using lock guards, but kept the manual locking here.
+No.
 
-ccp_dequeue_cmd() deliberately has two separate cmd_lock sections, with
-the -EINPROGRESS callback between them. The callback must run outside
-cmd_lock, so the explicit unlock makes that boundary clear.
+I already explained to you why this doesn't work:
 
-This is also a stable fix for code dating back to 2013. Stable branches
-such as v6.1 do not have the cleanup/guard helpers, while the manual
-form backports unchanged.
+https://lore.kernel.org/r/aV1YnOetDHhKe4hz@willie-the-truck
 
-I can use a guard for the one-statement ccp_halt_cmds() helper if you
-prefer, but would keep the two promotion sections explicit.
-
-Thanks,
-Fan Wu
-
+Will
