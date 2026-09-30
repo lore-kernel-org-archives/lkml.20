@@ -1,454 +1,175 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABA9511E73;
-	Wed, 30 Sep 2026 18:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F743503BF7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792106; cv=none; b=NMTgbGf4PrpJSMTczW8khCKuRknsRXcH5NNDXitbf5WRX1ZJYFQxAaQYNkg1ELScbyoNF7i1P1WgZgwOtLUTDcTjHLTaoUQP4plAtZOW/BJHk2oUPmfOs/3o0ZtwZxFOvx+CQApyYLpU4TkmOJ9FFx29tHVef6dcw0aiI8Sgo84=
+	t=1790792128; cv=none; b=Ak+NPvIDwjph1/hyxg7DM4rvgJDv9TXEgQf6JmGlFCOeirx4gsb4xahzDldB+rsDWN/NnBp3CSQDeLfcmtK6tX+KVoTUOhfqLjEgeGklQu0IfLiXhf/RAGBd7J9H1scwDHZJmND6RDR742FJmVqlUbYwll8lGKQjw9sa9Q2Bagw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792106; c=relaxed/simple;
-	bh=qtrjQkiyndvbZ3QLWDH+J2xwQVLy7OMtyFVFmh0jvF4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RYHLkS4te0zXZ7hNr1UvA9baK5ssm35nB/kXjvDzhIZQnfmQKYGwTLbJbZXfSia0xrOkL2Gk8GFke54dfN4jc0LeNc2NSf8hKhug2n+/dpoIpngFijkaKEYd2ZXKu0s+1mGszonGn5mzRRfCZ4PobxZZjON3yGXDNIuCNGp3gHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=coR76llS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CwScFmkP; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790792128; c=relaxed/simple;
+	bh=PjwQSo8+rc1z4kQGROqeb9DwEQTAe+aDRBgukQAKf5s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=imiY/FPEDAtZ1+uRqBrV5TsEzKohpFWahMv6+mjIZtLH9jG3TiDYOfi9bYs7IyaOr0ptVdCtT2r0ND21EebHXOc1RsBVZTf77bVVdY1oeZlLg+8fet5Yh6d7pNbaM+ZC7JTG4yF7Xnn0EfKewluqw2ilCjuj+QS5V8n2t6VtsUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WrdEPs79; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="coR76llS";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CwScFmkP"
-Message-ID: <4fe59faffa0bb322e68c9c4d43f0bc240a519eba.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790792102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p99YD+HRfuXW0y8PaQcViHjFbnUDNYVI5HOhKICBZWc=;
-	b=coR76llSpxEJtaUisVgJKEpf9+lJ3x1SD9acw7TdOg3Bxg+4PnVozHA0uUqmu2ARgLH5yn
-	rQeCL2jTZJG1m4nzAZJTczScdsQ+OymnnwYSlH62F77s5cdGEZSjOSGknZIX1165ENPOAY
-	fcp5dcGzemARNVQYiY6BOSn7Md8zRy0xQaZ9aWoTUXkOaxpy3vXpnMKU3l0A+JkiUU2+n7
-	P7zpL8KAaZ4GNm99uCSzwuMyGJ6e5ji20ZFM/wwKzcc0kHsj/WAryvEUAQJCirM77ML+7/
-	lIgiRI6ec5Ii3IhzvzPWeHUPdjosW76EFBYRrEzyZirxLSzAoMpndpH3uFAWfQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790792102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p99YD+HRfuXW0y8PaQcViHjFbnUDNYVI5HOhKICBZWc=;
-	b=CwScFmkPLmcDXH7yl9EUub8QGqAo1L7zlVVzwoA5jWdRi+SDPS/aAURZjDYkQk1z8455/J
-	IFdfv8GhKER23ABg==
-Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 20:15:00 +0200
-In-Reply-To: <716486ec-6253-41dd-83ac-b816c845fafe@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
-	 <716486ec-6253-41dd-83ac-b816c845fafe@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WrdEPs79"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c2a97ec17so1077214eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:15:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790792126; x=1791396926; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wH6osFmbfPcAMlnmB5/HkiVaJyqglqDpKQWfsMmkLu4=;
+        b=WrdEPs79QdOoJmkRxK2aWw31Wbv87SoEwgFBzJQ38rF9lFZjE9aMMoBDBZbo/U9QmA
+         ynrQptzq0uq7NSSwigYknpdNZOT6RHXLQCzBa5fQC93tMQ0VhscWJ7z3gDLVTD7c9QgN
+         Avu5yETt2rsWqohRf731jKWVKdP0BCCb+l2ZqsW+2880EtFcHq/tpRehvTcja0e3kjdS
+         l0MO+kL/6DNvQFXLZXYsO4B09fwThABSBCrWO475eeXDrfqgbvlJrPzYcdDZ3H8biD8H
+         SDra9T0iBtUath5eribXHvdy8/XL9Kogd3mM/QgNfcfQq8p8XaMZwFYQadzqIrIiKk++
+         tAxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790792126; x=1791396926;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wH6osFmbfPcAMlnmB5/HkiVaJyqglqDpKQWfsMmkLu4=;
+        b=kS/PY6XEx2pRsZRTeR+qNoPczuulEx9hHV7M2xgCX9JrP3dDRm/fJWmd1LMT4bjfad
+         C8L5Y/wmCDvfsaL4uPoMCUNYLfUx6vG3d2EbJKLBP/TW/E/CyuIDQyfXB6VKVjy6PmpF
+         HUxIw+WAHDBcx/bVdkaUpwZklV5B+T6ZrwVTNCgZKS9IRKTKA49uCJsUt1Az9q1N4Sw1
+         bn4B8lWbCZDtI4LkSsQd7aHdqGt/zRWiFFpYwWbrqQ45T4WYnuWU6Xa4udZ9ftaeQz88
+         VXwqj3kzZfAUuAlbkcAt78pt9pbe/VCK+xpfTiD+90q5ice+rMNYt1iqljhVQA5hgI+n
+         N3Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfabDageEB8zdwHjHcJshuBqUbsS5qgsQKWChitPnsMIF/GsoPAUxIPeYiPl80mtZMilwzGt9hweByMaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiYdPXwbp2gnbc4sokvX6g8SXsVX+Np4Dh+R5T6RXnu9i+aRCg
+	/Rvk485JAJA5Sw3asbp7azasX4+WBceLihFuduxPl+wHd1RhQIquziJa
+X-Gm-Gg: AYBFou2bTrBlUF/wwnQxWb9eHN6CFN1TRNVSchw9CuE+NzAwoyIwci9JN5Wb/p9Uclp
+	e0QXv7D9bOL4ITLRhbU6Pdr6d9296WHY7CAgzLoCt1W1fZRj6AhniaeF2d+pAuH6DgYIKPPDpSa
+	ctZCsxRmCTfj4RTD9wrBkErxkdZeeeRt0G3MnENgb4nTLYO3MHzKmAT8w/mHHv6xd0jsJxhf7zH
+	BmQ1r0yq7tNzGHakTwuj3aa7qJxaKJBGvQhyh4OR0lekGqf5mQGOhw7ZbrRCaLZs/ib/svOxZO6
+	HM/4vCGXEt9Pv7Xf0EIeYwzIGfOTKx4bkp7IEAJ8hjuPzzxIiMdhmtp7weutnxZZyubV9bpl4VQ
+	+IspM1CZSlv0Oxg3ELeBDvajOltHd7c1CTEIpK0juaHsTKl4gdGjn1R4znSeq37EfbBFIuu9Wqh
+	Jk44WLkU3OkTzS/iv60p3SuTwrjln9zNMDK5MiGS6Anla/dJtB4e7oIhv0+s47TBNHU1X58ozAx
+	bPkA030LoxWgDPxzLFLQ8DY+9uXM7xEFTX2mf/z
+X-Received: by 2002:a05:7301:1a02:b0:34b:ee3a:10af with SMTP id 5a478bee46e88-34cd91735admr2161022eec.4.1790792126094;
+        Wed, 30 Sep 2026 11:15:26 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:f011:1d53:dc9c:51d4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3f3159dsm572457eec.20.2026.09.30.11.15.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:15:25 -0700 (PDT)
+Date: Wed, 30 Sep 2026 11:15:22 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Habil Eren =?utf-8?Q?T=C3=BCrker?= <habilerenturker@gmail.com>
+Cc: Habil Eren =?utf-8?Q?T=C3=BCrker?= <habilerenturker@hotmail.com>, 
+	sashiko-bot@kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v2] Input: fix potential use-after-free in
+ input_devices_seq_show
+Message-ID: <ar1RZeMi9OK4Gro2@google.com>
+References: <20260928171306.59206-1-habilerenturker@hotmail.com>
+ <20260928172128.D6AB41F000FF@smtp.kernel.org>
+ <20260928181704.61015-1-habilerenturker@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260928181704.61015-1-habilerenturker@hotmail.com>
 
-On Sat, 2026-09-26 at 01:20 +0200, Andrew Lunn wrote:
-> On Wed, Sep 23, 2026 at 12:39:33PM +0200, Vasilij Strassheim wrote:
-> > Add a DSA driver for SoC-e FPGA-based Ethernet switch IP cores.
-> >=20
-> > Read the core version and synthesis-time feature registers during probe=
-.
-> > Require DSA support and between 3 and 31 implemented ports, without
-> > exceeding the licensed port count. Derive each port's phylink
-> > capabilities from its phy-mode.
-> >=20
-> > Enable "DSA custom rules" tagging for all frames during setup. This
-> > directs ingress traffic from user ports to the CPU port while standalon=
-e
-> > ports remain isolated. Enable and disable port ingress and egress
-> > through the DSA port callbacks, and disable tagging again during
-> > teardown so that unbinding the driver does not leave its managed
-> > configuration active.
-> >=20
-> > Populate the integrated MDIO controller and mux child devices used for
-> > external PHY access.
-> >=20
-> > Tested with a SoC-e MRS 25.01 IP core on a Xilinx ZynqMP platform.
-> >=20
-> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > ---
-> >  drivers/net/dsa/Kconfig              |   2 +
-> >  drivers/net/dsa/Makefile             |   1 +
-> >  drivers/net/dsa/soce/Kconfig         |  14 ++
-> >  drivers/net/dsa/soce/Makefile        |   4 +
-> >  drivers/net/dsa/soce/soce_dsa.h      |  26 +++
-> >  drivers/net/dsa/soce/soce_dsa_core.c | 343 +++++++++++++++++++++++++++=
-++++++++
-> >  6 files changed, 390 insertions(+)
-> >=20
-> > diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-> > index fe8cd5338fda..879fbede83f0 100644
-> > --- a/drivers/net/dsa/Kconfig
-> > +++ b/drivers/net/dsa/Kconfig
-> > @@ -94,6 +94,8 @@ source "drivers/net/dsa/ocelot/Kconfig"
-> > =20
-> >  source "drivers/net/dsa/qca/Kconfig"
-> > =20
-> > +source "drivers/net/dsa/soce/Kconfig"
-> > +
-> >  source "drivers/net/dsa/sja1105/Kconfig"
-> > =20
-> >  source "drivers/net/dsa/xrs700x/Kconfig"
-> > diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-> > index 7e637d56b35c..97de3d181440 100644
-> > --- a/drivers/net/dsa/Makefile
-> > +++ b/drivers/net/dsa/Makefile
-> > @@ -26,4 +26,5 @@ obj-y				+=3D ocelot/
-> >  obj-y				+=3D qca/
-> >  obj-y				+=3D realtek/
-> >  obj-y				+=3D sja1105/
-> > +obj-y				+=3D soce/
-> >  obj-y				+=3D xrs700x/
-> > diff --git a/drivers/net/dsa/soce/Kconfig b/drivers/net/dsa/soce/Kconfi=
-g
-> > new file mode 100644
-> > index 000000000000..c31b7c5af695
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/Kconfig
-> > @@ -0,0 +1,14 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +config NET_DSA_SOCE
-> > +	tristate "SoC-e switches"
-> > +	depends on NET_DSA
-> > +	depends on OF
-> > +	depends on HAS_IOMEM
-> > +	select MDIO_BUS_MUX_MMIOREG
-> > +	select MDIO_SOCE
-> > +	select NET_DSA_TAG_SDSA
-> > +	help
-> > +	  This enables support for switches based on SoC-e IP cores.
-> > +	  Frames are exchanged with the CPU port using the SDSA DSA tag proto=
-col.
-> > +	  The driver supports switch variants whose features and number of po=
-rts
-> > +	  are selected at synthesis time and detected at runtime.
-> > diff --git a/drivers/net/dsa/soce/Makefile b/drivers/net/dsa/soce/Makef=
-ile
-> > new file mode 100644
-> > index 000000000000..2a6d95ef663f
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/Makefile
-> > @@ -0,0 +1,4 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +
-> > +obj-$(CONFIG_NET_DSA_SOCE) +=3D soce_dsa.o
-> > +soce_dsa-objs :=3D soce_dsa_core.o
-> > diff --git a/drivers/net/dsa/soce/soce_dsa.h b/drivers/net/dsa/soce/soc=
-e_dsa.h
-> > new file mode 100644
-> > index 000000000000..2acd4dbaf958
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_dsa.h
-> > @@ -0,0 +1,26 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Copyright (c) 2020-2026 System on Chip engineering, S.L.
-> > + * Copyright (c) 2026 Linutronix GmbH
-> > + * Author: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > + */
-> > +
-> > +#ifndef __SOCE_DSA_H
-> > +#define __SOCE_DSA_H
-> > +
-> > +#include <linux/types.h>
-> > +
-> > +#include <net/dsa.h>
-> > +
-> > +#define SOCE_MAX_NUM_PORTS 31
-> > +
-> > +struct soce_dsa_local {
-> > +	void __iomem *base_addr;
-> > +};
-> > +
-> > +struct soce_priv {
-> > +	struct soce_dsa_local local;
-> > +	struct dsa_switch ds;
-> > +};
-> > +
-> > +#endif /* __SOCE_DSA_H */
-> > diff --git a/drivers/net/dsa/soce/soce_dsa_core.c b/drivers/net/dsa/soc=
-e/soce_dsa_core.c
-> > new file mode 100644
-> > index 000000000000..d391b11b94ad
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_dsa_core.c
-> > @@ -0,0 +1,343 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (c) 2020-2026 System on Chip engineering, S.L.
-> > + * Copyright (c) 2026 Linutronix GmbH
-> > + * Author: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > + */
-> > +
-> > +#include <linux/io.h>
-> > +#include <linux/module.h>
-> > +#include <linux/netdevice.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_net.h>
-> > +#include <linux/of_platform.h>
-> > +#include <linux/phy.h>
-> > +#include <linux/phylink.h>
-> > +#include <linux/platform_device.h>
-> > +
-> > +#include <net/dsa.h>
-> > +
-> > +#include "soce_dsa.h"
-> > +
-> > +#define SOCE_MIN_NUM_PORTS			3
-> > +
-> > +#define SOCE_CORE_VERSION_OFFSET		0x0000
-> > +#define SOCE_CORE_VERSION_VERSION_SHIFT		24
-> > +#define SOCE_CORE_VERSION_SUBVERSION_SHIFT	16
-> > +#define SOCE_MIN_CORE_VERSION			0x24
-> > +#define SOCE_MIN_CORE_SUBVERSION		0x01
-> > +
-> > +#define SOCE_LIC_FEATURES_OFFSET		0x0004
-> > +#define SOCE_LIC_FEATURES_NUM_PORTS_MASK	GENMASK(31, 27)
-> > +
-> > +#define SOCE_IMPL_FEATURES0_OFFSET		0x000c
-> > +#define SOCE_IMPL_FEATURES0_NUM_PORTS_MASK	GENMASK(31, 27)
-> > +#define SOCE_IMPL_FEATURES0_PORT_VLAN		BIT(9)
-> > +#define SOCE_IMPL_FEATURES0_DSA			BIT(23)
-> > +
-> > +#define SOCE_DSA_REGS_BASE			0x1200
-> > +#define SOCE_TAG_ALL_FRAMES_CTRL_OFFSET		(SOCE_DSA_REGS_BASE + 0x001c)
-> > +#define SOCE_TAG_ALL_FRAMES_CTRL_ENABLE		BIT(0)
-> > +#define SOCE_CUSTOM_RULES_TAGGING_OFFSET	(SOCE_DSA_REGS_BASE + 0x0020)
-> > +#define SOCE_CUSTOM_RULES_TAGGING_ENABLE	BIT(0)
-> > +
-> > +#define SOCE_PORTS_REGS_BASE			0x3000
-> > +#define SOCE_PORTS_SELECTOR_OFFSET		SOCE_PORTS_REGS_BASE
-> > +#define SOCE_PORTS_SELECTOR_PORT_MASK		GENMASK(7, 0)
-> > +#define SOCE_PORTS_CTRL_OFFSET			(SOCE_PORTS_REGS_BASE + 0x0004)
-> > +#define SOCE_PORTS_CTRL_INGR_EN			BIT(0)
-> > +#define SOCE_PORTS_CTRL_EGR_EN			BIT(1)
-> > +
-> > +static void soce_phylink_get_caps(struct dsa_switch *ds, int port,
-> > +				  struct phylink_config *config)
-> > +{
-> > +	struct dsa_port *dp =3D dsa_to_port(ds, port);
-> > +	phy_interface_t mode;
-> > +	int ret;
-> > +
-> > +	ret =3D of_get_phy_mode(dp->dn, &mode);
-> > +	if (ret)
-> > +		return;
-> > +
-> > +	if (phy_interface_mode_is_rgmii(mode))
-> > +		phy_interface_set_rgmii(config->supported_interfaces);
-> > +	else
-> > +		__set_bit(mode, config->supported_interfaces);
-> > +
-> > +	config->mac_capabilities =3D MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
-> > +
-> > +	switch (mode) {
-> > +	case PHY_INTERFACE_MODE_MII:
-> > +		config->mac_capabilities |=3D MAC_10 | MAC_100;
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_GMII:
-> > +		config->mac_capabilities |=3D MAC_10 | MAC_100 | MAC_1000;
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RMII:
-> > +		config->mac_capabilities |=3D MAC_10FD | MAC_100FD;
-> > +		break;
-> > +	default:
-> > +		if (phy_interface_mode_is_rgmii(mode))
-> > +			config->mac_capabilities |=3D MAC_10FD | MAC_100FD |
-> > +						    MAC_1000FD;
-> > +		break;
-> > +	}
-> > +}
-> > +
-> > +static int soce_sw_validate_core_version(u8 version, u8 subversion)
-> > +{
-> > +	if (version < SOCE_MIN_CORE_VERSION ||
-> > +	    (version =3D=3D SOCE_MIN_CORE_VERSION &&
-> > +	     subversion < SOCE_MIN_CORE_SUBVERSION))
-> > +		return -ENODEV;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void soce_sw_read_core_version(struct soce_dsa_local *local,
-> > +				      u8 *version, u8 *subversion,
-> > +				      u16 *revision)
-> > +{
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
-> > +	*version =3D (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
-> > +	*subversion =3D (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
-> > +	*revision =3D (u16)regval;
-> > +}
-> > +
-> > +static int soce_sw_detect_features(struct soce_dsa_local *local,
-> > +				   u32 *numports)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 implemented_numports;
-> > +	u32 licensed_numports;
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(base + SOCE_LIC_FEATURES_OFFSET);
-> > +	licensed_numports =3D FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, reg=
-val);
-> > +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
-> > +		return -EINVAL;
-> > +
-> > +	regval =3D readl(base + SOCE_IMPL_FEATURES0_OFFSET);
-> > +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
-> > +		return -ENODEV;
-> > +
-> > +	implemented_numports =3D
-> > +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
-> > +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
-> > +	    implemented_numports > licensed_numports)
-> > +		return -EINVAL;
-> > +
-> > +	*numports =3D implemented_numports;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void soce_sw_enable_tagging(struct soce_dsa_local *local)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +	regval |=3D SOCE_TAG_ALL_FRAMES_CTRL_ENABLE;
-> > +	writel(regval, base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +
-> > +	regval =3D readl(base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +	regval |=3D SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-> > +	writel(regval, base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +}
-> > +
-> > +static void soce_sw_disable_tagging(struct soce_dsa_local *local)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +	regval &=3D ~SOCE_TAG_ALL_FRAMES_CTRL_ENABLE;
-> > +	writel(regval, base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +
-> > +	regval =3D readl(base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +	regval &=3D ~SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-> > +	writel(regval, base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +}
-> > +
-> > +static void soce_port_select(struct soce_dsa_local *local, int port)
-> > +{
-> > +	writel(FIELD_PREP(SOCE_PORTS_SELECTOR_PORT_MASK, port),
-> > +	       local->base_addr + SOCE_PORTS_SELECTOR_OFFSET);
-> > +}
-> > +
-> > +static void soce_port_set_enabled(struct soce_dsa_local *local, int po=
-rt,
-> > +				  bool enabled)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 regval;
-> > +
-> > +	soce_port_select(local, port);
-> > +
-> > +	regval =3D readl(base + SOCE_PORTS_CTRL_OFFSET);
-> > +	if (enabled)
-> > +		regval |=3D SOCE_PORTS_CTRL_INGR_EN | SOCE_PORTS_CTRL_EGR_EN;
-> > +	else
-> > +		regval &=3D ~(SOCE_PORTS_CTRL_INGR_EN | SOCE_PORTS_CTRL_EGR_EN);
-> > +	writel(regval, base + SOCE_PORTS_CTRL_OFFSET);
-> > +}
-> > +
-> > +static int soce_port_enable(struct dsa_switch *ds, int port,
-> > +			    struct phy_device *phy)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	soce_port_set_enabled(&priv->local, port, true);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void soce_port_disable(struct dsa_switch *ds, int port)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	soce_port_set_enabled(&priv->local, port, false);
-> > +}
-> > +
-> > +static int soce_setup(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	soce_sw_enable_tagging(&priv->local);
->=20
-> Once all the setup is finished, what is the state of the switch?
->=20
-> What we want is that the user ports are isolated from each other, and
-> can only exchange frames with the CPU. That makes the hardware
-> basically a port expander, and you do bridging in software. Later
-> patches can then add offload of bridging, and whatever else the
-> hardware can do, which Linux can also do in software.
+Hi Türker,
 
-That is exactly the state I want to achieve after the setup.
+On Mon, Sep 28, 2026 at 09:15:24PM +0300, Habil Eren Türker wrote:
+> This patch is withdrawn.
+>
+> Sashiko's assessment is correct. input_mutex already protects the device
+> during seq_file iteration, so the explicit refcounting is unnecessary.
+> Additionally, the patch had two bugs: a refcount imbalance in next() and
+> a missing IS_ERR() check in stop(), which could lead to a kernel panic
+> or use-after-free.
+>
+> I will investigate the actual root cause further.
 
-Although there are options to configure various filters, mirrors, and
-special DSA tagging, none of them make sense for initial Linux driver.
-Therefore, I only enable =E2=80=9CDSA tagging=E2=80=9D for all packets so t=
-hat the ports
-are separated and everything is forwarded to the CPU port.
+To save you some time digging through the syzbot reports I had an LLM
+scan them and here are the findings:
 
-I noticed some unusual behavior in two areas for which I have not found
-an explanation in the documentation.
-- If the VLAN port feature is disabled during synthesis, the VLAN tags
-  are removed on ingress to the CPU port.
-- If the STP offloading feature is enabled during synthesis, forwarding
-  between ports does not work.
+It is not the struct input_dev itself that is being freed while on
+input_dev_list, but rather the strings pointed to by dev->name or
+dev->phys when a driver either fails to unregister its input device
+before freeing its private data, or leaks an input_dev instance.
 
-I therefore tried to address and document this during the setup so that
-DSA would work correctly under Linux.
+Because syzbot groups KASAN crashes by the top frame (string_nocheck() ->
+string() -> vsnprintf() -> seq_printf()), the 63 crash reports under
+https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f actually
+belong to three separate bugs:
 
-After setup, the output of "ip a" tool looks something like this:
-1: end0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1508 qdisc mq state UP ...
-2: PORT_0@end0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 ...
-3: PORT_1@end0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 ...
+1. 25 of the 63 reports crash in irq_seq_show() (kernel/irq/proc.c:601)
+   when reading /proc/interrupts, which is unrelated to input.
 
-Software bridging basically works this way, too. However, Sashiko
-rightly pointed out that I broke bridging with the later patch for VLAN
-offloading, when the feature isn't enabled.
-But I'll address that separately there.
+2. 29 of the reports (including the initial syzbot report [1]) crash in
+   input_devices_seq_show() on line 1178 when formatting dev->name:
 
->=20
-> 	Andrew
+     seq_printf(seq, "N: Name=\"%s\"\n", dev->name ? dev->name : "");
 
-Thanks,
-Vasilij
+   In all 29 reports, the bad read is at offset 0x758 (1880 bytes) inside
+   a kmalloc-2k object. In most runs that slab slot had already exited
+   the KASAN quarantine and been reallocated (for example by netlink
+   __alloc_skb() or sk_prot_alloc()), masking the original owner.
+   However, one report [2] (log [3]) caught the object before reuse:
 
+     Allocated by: redrat3_dev_probe() (drivers/media/rc/redrat3.c:1023)
+     Freed by:     redrat3_delete() <- redrat3_dev_probe() (redrat3.c:1124)
+
+   redrat3_init_rc_dev() registered the rc_dev (and its input_dev, with
+   input_dev->name pointing to rr3->name at offset 0x758 of struct
+   redrat3_dev), and when redrat3_enable_detector() subsequently failed,
+   the error path freed rr3 without calling rc_unregister_device(),
+   leaving the input_dev registered with a dangling dev->name pointer.
+   This is already fixed in linux-next by commit af452b9e0133 ("media:
+   redrat3: fix UAF in probe error path leaving rc device registered").
+
+3. The remaining 9 reports crash in input_devices_seq_show() on the next
+   line (drivers/input/input.c:1179) when formatting dev->phys:
+
+     seq_printf(seq, "P: Phys=%s\n", dev->phys ? dev->phys : "");
+
+   (dev->name does not fault there because xpad->name points to a static
+   string literal in xpad_device[].) All 9 reports read offset 0x220
+   (544 bytes) inside a kmalloc-1k object (offsetof(struct usb_xpad,
+   phys)). Two reports [4] (log [5]) and [6] caught the struct usb_xpad
+   object before slab reuse:
+
+     Allocated by: xpad_probe() (drivers/input/joystick/xpad.c:2052)
+     Freed by:     xpad_disconnect() (drivers/input/joystick/xpad.c:2236)
+     Last work:    xpad360w_process_packet() <- xpad_irq_in()
+
+   In xpad360w_process_packet(), xpad->pad_present is updated in URB
+   completion context and schedules xpad->work (xpad_presence_work()).
+   If presence packets toggle xpad->pad_present (true -> false -> true)
+   before xpad_presence_work() runs, xpad_presence_work() sees
+   xpad->pad_present == true and calls xpad_init_input() again even
+   though xpad->input_created is already true. That overwrites xpad->dev
+   (and xpad->led) and leaks the old input_dev on input_dev_list (in [5]
+   it registers input69 through input79 on the same USB interface). When
+   xpad_disconnect() later runs, xpad_deinit_input() only unregisters
+   the last xpad->dev and frees xpad, leaving the leaked input_dev
+   instances on input_dev_list with dev->phys pointing into freed
+   xpad->phys.
+
+[1] https://syzkaller.appspot.com/text?tag=CrashReport&x=12bef8c9580000
+[2] https://syzkaller.appspot.com/text?tag=CrashReport&x=15d46e79580000
+[3] https://syzkaller.appspot.com/text?tag=CrashLog&x=16cc5679580000
+[4] https://syzkaller.appspot.com/text?tag=CrashReport&x=115fd67e580000
+[5] https://syzkaller.appspot.com/text?tag=CrashLog&x=17f40456580000
+[6] https://syzkaller.appspot.com/text?tag=CrashReport&x=11131092580000
+
+Thanks.
+
+-- 
+Dmitry
