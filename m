@@ -1,165 +1,162 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4314156C9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759176; cv=fail; b=tI7SG9CgfLjhzXo1z//rk/gUAFuFx2UxUM26hLhcCreaMMD3WcHCmT+pxLkYwQ8z3M9WfztPoHMlqdq53H4qsStX+3gnY26z1BGPYIc96MLZ7U07hCLDAdNkWgCwJp0f1SEYvxReq8kqf3o8efLVV1UObsF4xDV1j/zCFbF4+Rk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759176; c=relaxed/simple;
-	bh=CV52leiF2Y2RBJq4TsInEE6F4cw5N2cpeJGmlGItNKs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=A5aJyoWYsu8GVgErHCPo4y6qMluUpTyqZgaV72+YKHUfY4mP1v3YbSBnW/KRzqlmfKaxDP/Lns+OAbOKXyd+H1lUTUDmn+kwiSNJytJQlbaRTDlRB8guSF/S6NRyTAxSZeItj/AOs7TlTKo15a2U0mbdXOZShsI89Pbpi9hkMgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JsvuQAFP; arc=fail smtp.client-ip=40.93.196.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DE62F7EE0;
+	Wed, 30 Sep 2026 09:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790759254; cv=none; b=hQar7swaO8ER8LEbWnY0h8D93N4k/HIhmBrJQIsWbrML3uLjcz2w3lK5JTxZEb5O/wvsABhBrecw9QDclAC8wa2GyCUMGqhQX2UP9EZmKaky3nHvHp/ZT3K/2lForF/E98XLSIZ+LbIsQXYKffwIbB91FYcexS9mHOzTIjSHg8Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790759254; c=relaxed/simple;
+	bh=ChlTGHjr10CpdsVAnYLDjpXBK54SzMjwRRWJeALLfy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f+jki3VB5qcmaDUglyVRO5t6if3sFThKkCiZaZiyp7Kct71T5Xcmlbg9HZVA7jeGYUTOgYJ08gfIVxChCS17MLLhWiDagtflyxauy9G1dbFCieQK/Dr6mSU6rm1Q3XSIixjwiDbHBoqORu+mOcWdlzI4u88J0fmlQONXwOLB9Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=JawMr1Ih; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JsvuQAFP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T1lAzgfGWbD3QleBGd8kpwyT9tJMUcGmZo9NAyJY5KN9r+BJ+HkblrnVd517rRvkEVRZIod27ehmAkrI1omSM/w+x9fi/pzxfC7LupLVslzf13pjTv17y1CtB5wWNxFFM2dTW54EgQIrRT4geBBE8ccHQKX3oOICSbSsQipWTMoHSnB+8GYvOzn8ovdAkyxeHDDxmnPGR6xnmVd1iZKJwjH6gKqhh5xCTbz0LvxL+ycZ9SjXl0hr7FEhd4J71ERRk3ysHQ/hUOU/hFvhuiZpcadliQLdoU4TjiKIly5e+SPXf6CsqfT0tG9Zr49OvNj/5+1rq6dWNQETmI0DJS3eAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zq8OTdVISb8VBV52RU1RqOp227u3JM5sk1o+gJ0emy8=;
- b=wkEizWP0WrvO3umK/trFyrh6QPZkv0yMjVPhSdS4QxGFoY3txdx9aXQM9dj8buUOjSOKyhb4+U1xdDBCjI3UAoPVo4exraf+EEjnjLQOZy2X9MBhndAXrb2kC4XKYc4EmzuqIEhrLNesxlQQY9JQQ/5KKyid/5LJEaMZeK/0AjHlrFjz4Gn5Rlxon63l5cmv13nijfOB60hbUUePk+oEFubUDNoM/tTKF9F3cTpRCWcVFWYn/UtSa+NnU0xTiMTmbwn8EfSCLOgw8uMDqlbbu8qwETh9tY6R4VfVvqj1ZtOFiGjMwOdXt+40Jb3grfR943FmNcQCjUFukVT2UCYtiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zq8OTdVISb8VBV52RU1RqOp227u3JM5sk1o+gJ0emy8=;
- b=JsvuQAFPZyvzF5VrjB3nYJsTkVyjw+XDTeLH78fbXg7UnvIvs9eXm1mUDO1wwS4sanKadmjL7Gfwe/1FenTveeTWeNMQVbhKMgCPk6/Ind/475vrlzNYp1UT1ru6sw+U+0kaH3zv3tu0pK7VBbbD306obhwSo8lxUhjqNusJ9NE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Wed, 30 Sep
- 2026 09:06:11 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
- 09:06:11 +0000
-Message-ID: <5dfc3c36-af54-4624-bcb2-2386a8f34e51@amd.com>
-Date: Wed, 30 Sep 2026 16:06:01 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/24] iommu/amd: Program IOMMU DTE with the private
- IPA domain
-To: Guixin Liu <kanie@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, joro@8bytes.org, jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
- <a999cd33-c857-4c3a-9643-4c0add9679ae@linux.alibaba.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <a999cd33-c857-4c3a-9643-4c0add9679ae@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR06CA0007.apcprd06.prod.outlook.com
- (2603:1096:4:186::9) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="JawMr1Ih"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id AFD04403EF;
+	Wed, 30 Sep 2026 19:07:14 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1790759234;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Qd3Y01Zb2wytfqLwRJBQWcQjrURdNpO0DRg//Fuks3c=;
+	b=JawMr1IhI+W51eReUac5BjzN7/hgPS1yqlU+3sRH3ZE5Nc7x/pgkoAr63PjOHQ+YTutIsK
+	sUm1sxAADEf/xz8AB+i4ppbe85UJlvnDuvHUgh168Wb3kaTnj8sigDjBdaz573DtmTTjTp
+	BkRWJ/YcXcfkAaP4aPAS0xua/vwwuoGtlpOYyRAhDjG+tAFnPMoS58SLAVDYajbcCA8ZcZ
+	IDwVM4h2KL6IfmWNvTlvhvLQAol6gtkPxNgQm1AMn0vkQhePPrY/WjufIyUGEqv8xlrNsZ
+	nyr0rYoTw+ycu4MJWHWlK/5T61QHulH/2We4uiD/DTeBpzy/5Pfdn7AArPRb9g==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	submission for the Linux kernel, which perfectly aligns with the
+	personal/professional context of the recipient (alastair@d-silva.org)
+	and sender (alastair@d-silva.org); the content is highly specific
+	technical documentation including a code diff (rtw88: sdio), hardware
+	register details (REG_SDIO_HISR), and empirical timing measurements;
+	authentication is consistent as the From and Return-Path domains
+	match the recipient's domain, and there are no phishing indicators
+	such as urgency, suspicious links, or requests for sensitive information.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Ping-Ke Shih <pkshih@realtek.com>,
+	linux-wireless@vger.kernel.org
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+Date: Wed, 30 Sep 2026 19:07:14 +1000
+Message-ID: <20260930090714.2779699-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|MN0PR12MB6200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a744b57-035f-4934-b2e5-08df1ed21263
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|7416014|22082099003|4143699003|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IcsZnjsG/ZBIxh/7RCpPBDsHjpyYojzPQxxsdOgdJBhUksv0ANSVqwu61b0H+Q+u7ZYJZC9xFwaW5rxJK8rx1aCYFyAd6h5xxYgOjMlEvSiH5yy6+PYqEPd81eHppLXFAeqYp2y+feX+Dp9fnqQ6hiHn3kNqAWDS7TbigMbWl48Q1QHPzB1UyZndQl+SIzek7imvuDO38AwY4NrYie7Xtjpf51Exa+hiS/PZnyOLbvBCqPXhs1EHHqE6GwFH3E/5qjwlhfVrwylTCM3H7th5l4FkZa7umt0LV/Lg7kQN7GLssOZt4mcUl/HwE5ptCWBckAC5+nR4jCdJtjYu3tZltM3PexGcwWh/jNIopp2LZax/Q1IWtyJBGXHAz4Z+8SSaOjp6kiwt7mftFqJx+3t0k44XJuhda8AZiOdS6SbbDrn1cNor8ToC/mjo/SV831/uFP/Mh2sE10mOlx2ruymScOV9/2uLX9Yal1n61PECIgje4NTMQfq9XzAPphZrGezMmkbq3anCa0qRgMa7R16FdSkIq/PmIqmEVdpT0GjIETxR9+HwI/vnuSZz4AVsMEoVmq/aftrStmpfYEMMKx8cJc6ACDyviFViQekJwLW4Nc91h3WVF6czSPwTltkeircYyHKa9/0+Q8mhtngXNrikqI54x8MOJCcxOjS9bdvQvAE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(7416014)(22082099003)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q1J1Kyt3dXhDK1ZyU2k0RTJXR3ZsWE9od29IdDl1NVo3Rk1Bd05DaFdqdC9M?=
- =?utf-8?B?aFhTWWR5Zzl2TFc3c0tEVUhQUWFvVFlsTU9wWWozMWtpbkdyeE9FSWRWOWpJ?=
- =?utf-8?B?cGJsR01SczZKVE9qRkwzTDE1SWlhcjFjekcyZk5Ma3hSdWFPWldyajR0RGQ5?=
- =?utf-8?B?RU84R2dLVEpNT01zNUJjbFlncnNQTnlaT1VDV2hUU3N4Y1pRNHNLV2xWQjVa?=
- =?utf-8?B?VkEza2hBZFZVaHFaZ0ttdVJPcXgvZW5jOVZSc2FYN0tUTkdERHhvZkNSQ0U3?=
- =?utf-8?B?MUMvKzB3ZGpnd3dJcEVTQkszTW5UQjJ3eVZybGlSbWxic3N5WVBCSWVSMkVw?=
- =?utf-8?B?Vmg0QjRRZHRMeGRZZ1lFdXc2aTBwVVRPUjNmVHE0dVlaTkZUdDNYa0N2QXhG?=
- =?utf-8?B?MTZPOE9MaUdLQnpialNHY3ZtSE42VUFvRlh0Y29PdXNTMjRFWHVkVjdvMXVJ?=
- =?utf-8?B?NGVGOStEaXBCQWUrRlpCMER5VFgvOGxBTlhMQjBnUVlzdU11ekR5SDBlNW54?=
- =?utf-8?B?bHAxcW50a1Z4M25yWXE4a1pjUUNLU0pLYnlQVFFnaUhEWHI3MFl4Q05XUzJJ?=
- =?utf-8?B?V2NQdk5wRTZUaDFscXlrRWZEMjg5b0VXMDFlcTE3VGJsYzVGdlp6Qm51ZGVv?=
- =?utf-8?B?TWJXTzMxVjFYSkJ3NTBQVW9YbXpGT2o3MGNqYTliZUhTVlVmWHpxZW9KZXh3?=
- =?utf-8?B?NXNVdnoyUkNvRHBFWXFoMkU1TEsrLzJFTnRuMWxqNHZoMU96eGVvS0xiZnpt?=
- =?utf-8?B?c3l0VlhGM3VpajFKdnR2WXFPY1Z5ZC9VMGtBU29zN014RHhIcG5GOGRNN25r?=
- =?utf-8?B?ektUZmx4YzNPMkQwL3dGOWtpMVlqSWNIalo1b0JaSlJOZzNCYmFHVEVxSUEx?=
- =?utf-8?B?dXFpcXVnNDd1U3YrMTNlT2dsZE9mRUpNZy9NdFAzZTJXMGlveDVSZnMvY0Zz?=
- =?utf-8?B?TmE0V3VGSnM2cWtDUEE1VkZnNUs0RkJITXpwY1UyckZRbm9TVnFvUlpRR1Ey?=
- =?utf-8?B?d053bXk5eEUxa2FqelVXN20wM3ZSbTFFODNxSmN0Q2QwNnIrUEN5WVRwS0hn?=
- =?utf-8?B?MmdYbXJUQS9KOE1wY0V5a3NtTjFzZzdIRnl1ZG1CRE90TjYrdkxpbmhkVStR?=
- =?utf-8?B?eUozNzBjN3hHLzlVZ25xbmZCdUF2N1lxRWI4TUsyajhRRVFubmQzdjZRZmph?=
- =?utf-8?B?aFMwM09sd2wvV1hZZlU5VnBnN2pqaTB6ME44dnpPY1g2QzVZbERyK2NDR0ZG?=
- =?utf-8?B?TytsZ2ZBa3pGRXlKaE5WdFlvRFJMTXNVdFEyUWRwNVFsVTQxMmZYd0hWRFkx?=
- =?utf-8?B?bE43OGpJb2EzdzNDSURoYUMrZXBadlh5cXR1K2FHa05VOUl6M3RDSVhxV0dH?=
- =?utf-8?B?Z0hYR1RzZ2ViSlUrd0VRSzZOcHJPak5zOEUrQS8xa21KWmM2ZnFIRVkxcFkz?=
- =?utf-8?B?M2lNVW9PbENCZlVpUUU5VnAzc09LTC9QcDNtSC9BYkZtRUErUjdrRCtNZkJu?=
- =?utf-8?B?TTRiallNeVdOb0Y5WnFOTUdYcGw1TXY0Znp0ZDdzb2F6Z1FScnA3OW9aNXVN?=
- =?utf-8?B?Y0lkSXE3aXY0VWVtMk1RWmhXYjRGQ0pnN0FPR0E2SlllMTdDWXBVTFRvaDlX?=
- =?utf-8?B?R2xiVmRBaVNjMlNhTy9mQkJMQ2l0S2VPRi9veC9sRllDdTdEaFhGR0o2Um4w?=
- =?utf-8?B?Wnk3cEhvMUx2dTRmZzBvamRuUThJK09GVUw2eGNaUXZtTGgzUUtweDM2TVRZ?=
- =?utf-8?B?dzF6MkNqZWpZL0UveE5uZTMwejdSTnAzQ3d2RHBnTXNQQ3djSVZwRXZGTVlC?=
- =?utf-8?B?eVY4MFRGWVoxNWZncWRLS1N4S3JZWWVPR281RDFqVVdicVVLaTNITS9mWENE?=
- =?utf-8?B?b3kvMDNOWUhjY3RlRWJaODc2andwV3o1VlFGSThFZmVFSkNGTS91Qmc0YjVP?=
- =?utf-8?B?OHgzUzc4NnB4c3NERTFDSVZ0SmxUVFVmTUNTNTBFeHRrYkFCMFdBOHBSL2V5?=
- =?utf-8?B?dHVsQjFzQmtoVXhnWWZVT3d0TDhNYzh0SDNiVU5kWCszMmVvWk0wcjNGOG5x?=
- =?utf-8?B?aDI2Ny9nclFSN09JZTZTQ0RRQ1UrT2tRWUV4UzlkbGNWcENkTlB4ZVZBbjBw?=
- =?utf-8?B?aDhoS3J5ZWVzUms0S0xHZ2dBci85SjlTY1hYdWpyUGd3eW5tUStVTlgvTEtt?=
- =?utf-8?B?cDBsNUliU2ZJajNsOHNmTnhGNzdXSWhBejBMZTNHZE5BRHVteWtqUnhjQlc5?=
- =?utf-8?B?d2ZqWFVtWWk4Rjk5NzhOV0dCSitFSEFVWmJMSS9JNXdVMHZrSm5qVVFta21Q?=
- =?utf-8?B?U3NNSWVtOU9xMnlvcGx1T3ZzSjB1SWRzMDkyYmRBTFkzSWdoZDgwUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a744b57-035f-4934-b2e5-08df1ed21263
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:06:11.3647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QhnYGJMAUGIVcXQ5aaxLsifV+/f61s7gWtyLjJ3wMLxCf3TMnuuJkl9Tv5cA+mdJ9F2CxBsOBa6zM/jtjDCqyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
+Content-Transfer-Encoding: 8bit
 
+In rtw_sdio_handle_interrupt(), the HISR status register is cleared using
+Write-1-to-Clear (W1C) semantics. However, the driver masks out the
+REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before writing
+it back, causing a 0 to be written to that bit. This prevents the RX
+request interrupt from being acknowledged and cleared in hardware, trapping
+the CPU core in an infinite interrupt storm loop (starving the RCU preempt
+kthread and locking up the system).
 
+Masking out the bit in software was originally intended to allow
+budget-limited polling without losing interrupts. However, because the
+status register was never acknowledged, the hardware interrupt line
+remained asserted continuously.
 
-On 9/22/2026 1:57 PM, Guixin Liu wrote:
->> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
->> index 89d6dc520b2c..3ec907a498c2 100644
->> --- a/drivers/iommu/amd/viommu.c
->> +++ b/drivers/iommu/amd/viommu.c
->> @@ -40,11 +40,55 @@ static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
->>   	}
->>   }
->>   
->> +
->> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
->> +{
->> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
->> +	struct dev_table_entry new = {};
->> +
->> +	if (!dev_data)
->> +		return;
->> +
->> +	amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
->> +	amd_iommu_update_dte(iommu, dev_data, &new);
-> Should check viommu_cmdbuf_enabled() first? If enabled then update dte.
+Resolve this by adopting the standard interrupt masking pattern:
+1. Mask interrupts via rtw_sdio_disable_interrupt(rtwdev) upon entry.
+2. Acknowledge pending status bits via rtw_write32(rtwdev, REG_SDIO_HISR,
+   hisr) without clearing REG_SDIO_HISR_RX_REQUEST from the writeback mask.
+3. Service the pending interrupt events (rtw_sdio_rx_isr).
+4. Re-enable interrupts via rtw_sdio_enable_interrupt(rtwdev).
 
-Right. I'll fix this in v6.
+Any packet arriving over the air while interrupts are masked latches
+REG_SDIO_HISR_RX_REQUEST in hardware. Unmasking HIMR restores the interrupt
+mask and immediately re-asserts the SDIO interrupt line (DAT[1]), causing
+ksdioirqd to run another pass and drain the new packets.
 
-Thanks,
-Suravee
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+v2:
+  - Drop the complex drain-and-recheck inside rtw_sdio_rx_isr() and budget
+    bypass logic from v1.
+  - Implement clean HIMR masking (rtw_sdio_disable_interrupt() on entry,
+    rtw_sdio_enable_interrupt() on exit), matching the PCI driver model as
+    suggested by Ping-Ke Shih and the Realtek internal team.
+  - Verified on physical RTL8821CS hardware (Allwinner H618 / Mellow Fly-C5).
+
+Empirical Testbed & Timing Measurements:
+----------------------------------------
+To address concerns regarding bus overhead and packet loss during the masked
+window, rtw_sdio_handle_interrupt() was instrumented with nanosecond ktime
+timestamps on an Allwinner H618 board with RTL8821CS SDIO Wi-Fi under
+continuous saturation traffic (38.0 Mbps TCP / 34.4 Mbps UDP with 0% loss):
+
+1. Bus Overhead (average over 18,660 interrupts):
+   - Disable HIMR:     13.88 us (min: 10.00 us, max: 74.83 us)
+   - Acknowledge HISR: 13.69 us (min: 8.91 us, max: 39.33 us)
+   - RX ISR work:     204.78 us (min: 48.66 us, max: 5.07 ms)
+   - Enable HIMR:      14.46 us (min: 9.54 us, max: 52.79 us)
+   - Total ISR time:  280.32 us
+   Toggling HIMR accounts for ~28.35 us (~10% of total ISR duration) and is
+   negligible compared to payload data transfers over SDIO.
+
+2. Hardware Latching & No FIFO Stall:
+   - In 1,251 out of 18,660 interrupts (6.7%), new packets arrived over the
+     air while interrupts were masked during FIFO drainage.
+   - Reading REG_SDIO_HISR immediately prior to unmasking confirmed that
+     REG_SDIO_HISR_RX_REQUEST was latched in hardware in every instance.
+   - Unmasking HIMR immediately re-asserted DAT[1], causing ksdioirqd to
+     service the newly arrived packets. Zero packets were left stuck in FIFO.
+   - Injecting artificial delays up to 2000 us before unmasking increased
+     masked arrivals to 16.4% while maintaining 0% extra packet loss and
+     zero stalls.
+
+ drivers/net/wireless/realtek/rtw88/sdio.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 5b40d74b16ee..ff707f207a83 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1087,16 +1087,21 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ 	rtwsdio->irq_thread = current;
+ 
+ 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
++	if (!hisr)
++		goto out;
++
++	rtw_sdio_disable_interrupt(rtwdev);
++	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+ 
+ 	if (hisr & REG_SDIO_HISR_TXERR)
+ 		rtw_sdio_tx_err_isr(rtwdev);
+-	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
+-		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
++	if (hisr & REG_SDIO_HISR_RX_REQUEST)
+ 		rtw_sdio_rx_isr(rtwdev);
+-	}
+ 
+-	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
++	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
++	rtw_sdio_enable_interrupt(rtwdev);
+ 
++out:
+ 	rtwsdio->irq_thread = NULL;
+ }
+ 
+-- 
+2.53.0
+
