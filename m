@@ -1,46 +1,46 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013023.outbound.protection.outlook.com [40.93.201.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15AD484898
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8759E47B408
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760374; cv=fail; b=jWx7j0/rxncvDbpIIKLkgpQkaSPpRxk7DgzeG6bxBnOulNMv+NFjHJ4/0x9q7QKzq06KLMUwzeftrWOVAzQJEDftXztDa8B7uXU8irMB0vyF7RmL7NoN3uo+AMLNT4qFrfAQPRrNhqZrqil1C+b1tNfWoDUF6V9dELk1TZSiyyI=
+	t=1790760384; cv=fail; b=k3uUsmxnzOt9GzzuMsPIN6+Ri1HUmus6cFOAZ02DXEqPiKBuYCCKxE/tk8n4v/ReGLJsDMbsWAsyeMRfpCcaP4XSkCmOX7ghQDefWHsVrcMtzb7aEZluxhAykmz0Y6pUW7POgkLmfjvuWqoeD/sVn5BhOIxzOvzusxIyXm5k+tI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760374; c=relaxed/simple;
-	bh=QTVlSa5Yurpk0wLZWqNr3RCKeTVft1M3mPnLXt+kkvI=;
+	s=arc-20240116; t=1790760384; c=relaxed/simple;
+	bh=VqCvVvBhFqGRqa5TTLJgmTJJjAkVdjFzunZULsvqbNw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HO/SIRx02kxnWlbzg3xp14WWIIurvIr8vqUKAQ6I+ZoPl9wbe1dpG1FWo+tcMcFuoPZxoM/fhLPMeiy2AVrozSgRjE5zIAaHumDplhbhezPBBWsgi5l4fxJrWcXhj1+Pc1TzT+YsSfVs02a0ld+vO+2QdSMG3OHr437BMx9H6tQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=5g4McGdl; arc=fail smtp.client-ip=52.101.193.34
+	 MIME-Version:Content-Type; b=VXdkJKxshiNqhOwAlxT3qzvLQtka0hQ+OLmrs5XIP0nGtHZXG+M2LTG8KPihmVCnAXIyGxwETGO92NwQGmVWgzKWQn4f0jrPTSDS2JvUc3NgO6NgGK1Q62pPylDWhub08gAoeo1+pLDG5N7Kk/olOcd/moTDor18V6U3y3ELunk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mRFvBnWy; arc=fail smtp.client-ip=40.93.201.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="5g4McGdl"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mRFvBnWy"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tg8IoCe+Q+fG1PbHa0u/4yexsP4u8Dgv0NoHuGfzmibaOFDAiZh2M4lSsZHY+74pcFgX2HgZ/nrYKXMah9ubpw0lHMuP6VhbtD9kWUf82wYpt71KKLA+P33f9dOXeTkEJ4xUh6EK7TDkq8B9neR5+uTYFdw694JNyx1A/YaAdHFt7J65c+uJh+Hu5CwCOd55jnt2aKd+V59MlBIsC+jddUQ57FOEOksL5AkYcOgQSlRaDuOLwKuAA9lkTIZxETz9Avc6X11nNwNztwuEEvB116FqY1PARJ2phKADb81H7xZ6Jxo13LVXKVnDHGHJ2V5aREMFEWO4LbHs9YRtks0+mQ==
+ b=NIhlLWuXl1/GxnkdOWnP6Fyfza/0RgYWCwKr3xd+se5i4o+F9AuAcX0vK6kdA1Pdmr8pJkRls/H6rPlpn6crdojeLWKgR/hmGOjlKp2V3MPuml474VojFG2yV942rDgaXCvbXd6WC/Lw3YUM24pYXUNEKzzc8R7UCYAUw1uU4a4aVm6BZB/ISl+XY5l9Nbbke9yZyvWioU4IOd2tM9dj1EC3+XkZdfWzdjE7lcDyscGuMfLeMFuqbPotD2UgInlgPfcSlhOMw7WDGFKajwpDIb1orHAYW3F5j30rm0v3AiC4v+BVnIgguoQdwYgqwEG7Ih5ODyfAXJuZ/nUOAM3iYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jfD7oItNEtkNUAWOQV3o0eJrNWhKtdvpRj+YURbASBE=;
- b=q67hx5ENRDmUoD4zk+ht8POClbQYUvdPQ8W9LWtVV3GXC9pbCawH8KaRe4Z6zFsSrAMMxLrfqsE7i1XHzlDTK1d+3WihCml4NJqfVUCMQH/jx/ynBq2fXRVk7qk/nlPB1X4tckSyY/js4fF6xBFscXLkEHG0C5rDVgGWsf3NU12L21E+zTMhujt+9FfEtveKIdMLGAsDv4XZ+YDrX93g4cUuLV5sDJ0cSCP/cbrVHz20b4HOnrP71aCY4CLWZM6ApiOGlWXga9FLj31U9NvSVHjZSsiXQFQnDDSrhoxGOpuVBPlygE6fFgN86uBAEURT+bqpJLPr5IYjVE2fV7cKAg==
+ bh=3LHBU03UiQQ5srjukLkX0SbezWnNvlITvp5xhi2jvWQ=;
+ b=qMb0MFggX15p0XAfhg2D50fI8Th42tPd2Ukb1p69+aInSInCB6UMsaQd7jcWfYpj9ViMAATmmFz5yTWFNl7v9KBwN/Hf7/9d161Ewjycf/HxAlhyffhl7RjynezZg2YjvO6pnaf0So7rEKf+q5mLSizL94K22HXYy80uTJ0ktFf9ergLEoFSFzyQUbA6OkI3tDkX+xFaNQmIYWPclX2uVhaJjqOsbsJPkhCPnw2+zPuAZrt89x2Wes/Hu/EmZfJ3QoFggndYYP/Pwn909g6xgK7EtPMsINem0hsD5WYUu3s3QNtyvKYY/mGPMXpDnoeK41T85qlz292sGbUu9ikHoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jfD7oItNEtkNUAWOQV3o0eJrNWhKtdvpRj+YURbASBE=;
- b=5g4McGdlreZ5uEfjnDiWHzgpoPCv685NP7GqK4O+ONfbeLBvwSPm0XCGbId4ITTnANOFTx4FA59+PfBTqBi4OzeJ6r6D5Yg0cRP7uGki1nNwZRzP/8Pr3OmDQozaIAyYIZ42I2MtiuG+QpUgF7ilr/5mdMJDGf3dut2f683V6oQ=
-Received: from CY8PR22CA0015.namprd22.prod.outlook.com (2603:10b6:930:45::14)
- by DM6PR12MB4153.namprd12.prod.outlook.com (2603:10b6:5:212::22) with
+ bh=3LHBU03UiQQ5srjukLkX0SbezWnNvlITvp5xhi2jvWQ=;
+ b=mRFvBnWyW2K+46QnngKzMmdyEQxNpMNXLarNhwdAF2q+7WDesQtX3l7F7lmRNT+5W8tT65haGPHxMA9JTB/xmc/eCGEoAE2S5XHz+nm+JzP61cLVzplkNNjw0FiSWvYrLwlHC8nAAZcyVjTCdXXE07pEXw6acqd+Tcqui+9tJ48=
+Received: from CY5PR10CA0021.namprd10.prod.outlook.com (2603:10b6:930:1c::25)
+ by CH2PR12MB4262.namprd12.prod.outlook.com (2603:10b6:610:af::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 09:26:08 +0000
-Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:930:45:cafe::79) by CY8PR22CA0015.outlook.office365.com
- (2603:10b6:930:45::14) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 09:26:18 +0000
+Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
+ (2603:10b6:930:1c:cafe::46) by CY5PR10CA0021.outlook.office365.com
+ (2603:10b6:930:1c::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 09:26:08 +0000
+ 30 Sep 2026 09:26:18 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 09:26:08 +0000
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 09:26:18 +0000
 Received: from purico-ed03host.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 04:25:59 -0500
+ 2026 04:26:11 -0500
 From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 To: <linux-kernel@vger.kernel.org>, <iommu@lists.linux.dev>,
 	<joro@8bytes.org>, <jgg@nvidia.com>
@@ -66,9 +66,9 @@ CC: <yi.l.liu@intel.com>, <kevin.tian@intel.com>, <nicolinc@nvidia.com>,
 	<alejandro.j.jimenez@oracle.com>, <joao.m.martins@oracle.com>,
 	<guanghuifeng@linux.alibaba.com>, Suravee Suthikulpanit
 	<suravee.suthikulpanit@amd.com>
-Subject: [PATCH v6 20/24] iommu/amd: Reserve translate-device-id for PCI requestor aliases
-Date: Wed, 30 Sep 2026 09:23:40 +0000
-Message-ID: <20260930092344.5616-21-suravee.suthikulpanit@amd.com>
+Subject: [PATCH v6 22/24] iommu/amd: Add translate-device-id alloc/free with vIOMMU owner
+Date: Wed, 30 Sep 2026 09:23:42 +0000
+Message-ID: <20260930092344.5616-23-suravee.suthikulpanit@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
 References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
@@ -84,155 +84,192 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|DM6PR12MB4153:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33ef4c75-5200-4921-8b0a-08df1ed4dc23
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|CH2PR12MB4262:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6898721-9da8-413b-13fc-08df1ed4e20c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|7416014|82310400026|376014|10067099003|56012099006|5023799004|6133799003|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|7416014|82310400026|376014|10067099003|56012099006|3023799007|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	P/wFK9lo8OxdPayrYnNxezOYj43OR1OQCLQhD2gnR42LY247N9oh3o3CekEiNF7hodkh/NznogU3diXKwiIE0a+UvLYKERDignsS3A5ssDgLiFo/7ny2O+lGMusU0Q/YGcKTDaL6O5MaXQ1Puv/EtZE2ph4ydJLxlDTTpKC4kJhesIm8KzuuIDzoSfxNlw39IjqFeht5vHC5SeukODICEmTensRABvnJwp5UDr4JmnLj3HXjPfnfY7fRVYqTdN5H6C0VXJCa5zr9D1QKEWQq+jxnH2FXWH6HXtJqI083jtn0rFLCySmcPC0IerfPerEOJDsuajypf8eVEGHIuM/UAUid7mZoz+2ywrEmnqyLYn533V1n0B1SR/JsVVimtVumVkgqTMBSMYipctyv4QvsiTx0LgLr/wXQOvBNfkzH/dgFARKz3HXw3x30UGo1GAjKroqgyxEIsdatcJGyBbFc7V3E+wnIA331sCknmGWSVJ0FMlKBqpRMoL5f9HVjhF89wVAzt9DA+FR+DwIht9DzezjG48eUgsysRKb1Rep3XL9TSmDH3GAEdBUHdR1MaMItJYxZbaQT9QY+JOyar+0xh20zBahHNlCDYBGl5ysMWSmWXVEqrm8PUt69TH7ugF27Iq97C66iJ357oSIYFPEFGDoFL/YmOGyrj2iaNm5nJX3dMDNYxp7vfdY7wM1ynZZLxIcezrut6nFZuNWwWBGyRQ==
+	skMH2O5aDJOztGBDyiyF/sRVZzvGE0oL5PXeA7S/bjWScjdHKGq3zj9J8vWjJ3Zebf1lO9HK+yX9XjG0lK/jKd17GsEBjwvwu0TXjvHUGAZ+cuBr0VDQa37469m7b3+h25iDryDIBr81p55WhV+UdUTSXv7i7pJ7rL2eBVWV5Ge8WVNCbpuwNcETFBM399DlKrlDAAvVh17GA8CI/EdF6X2vBsctBbLqZbhuhnRAWMixcDtGZvxCluGr8tLJ5SzDzCpOlafFrkJ9IZzvEaAZC7EXT9PKA7AoX8R/h/P8eksKpN5rkXrq9H7wuEqJ4iTBlsBGMgzZqe8Gb5SvSh5BZX7nbWY52MIo0gK6EbCKE6uRPWQSRDZaAgTCDEpXMFnmRPckFqJFTc835OBHCDPtjhpU5l5mn1wdom83CGtsqdDPbWHi/MR2CJY9ztOxExT+Fjs373tH+7AQ3A7tW6qc7iXs+xXV0n0ATWY7ltO/ojvG+vuP3Bv1KngnWjSqYcfFjZyGVhVPZwpt3m3HiNxGQgnxt7dnwITLfEgOxbrWA7NJUmgqxlsFhrcuZgBQWwNtI44p2PYkSmQhFfb/ML8rVpb/ggsNFRn+DL02RLHF7DNKzWJSLiFnQZg+xAJOz8raWFlNuDrOzP6hAr8R4qSKZ75fxD2OZEDWxehkkNlp5RUbQftPUWmZT6yvYGxBRM6ScTzPCtR2pcCZF3dYialbQQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(7416014)(82310400026)(376014)(10067099003)(56012099006)(5023799004)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(7416014)(82310400026)(376014)(10067099003)(56012099006)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	SozMPNiNRO0Rxxy0hmETShLE9XCi46HiOHxe4eqx7CWZsWadm17pIS3R/oSikgzLYVBFyyABX45Wd7voDzhgdyfXqAB4cW+8u6Djramzh3Gdq5O9ZA3n4i0632ti5kL6EQVE2Hp8/MX2vnTCeObF4rib514Gp0W3z+/z0lQhOtt9eKL0dSJ7g94fndWrnWwN01uj2UtB68zBlxC8fAmVag0OX064AJVipmZoZ1TlmsQB4UY0ZaT94uVgjjGH0we4Z4RRKUQISEuofikU8yEYrJ3ZeCyGL8nezzZ7VRL+0X3qQrpG7e3eCGvBTx6i6BuuerRheeA2vkPfOFmWk/iAHWrybaXKIKfa9onyMnHrEyGCf9oKiHARMlKc8KfrLoItGl+jTGWGU/vZ4DFc2FG08lV3GL2jpurVXtxxGIZfgejXEZrRC2oyhD200y39nBvP
+	wCDwOMscHAucK6fvYpVfRzHOtzMIc8n40Y9zP+2hZ3PeO14jp3SXWvTJ4lWOl0EYSdRBmzuc10CmNe6chM6LyFVvptCWp1ABwy7SRqb5I0QpUqmjlvOo7HOYX0E6AK9uTyGmnJYoaq5zxjdqkqc2eXpMkc4wedni+2XkPdXxjztLE1U0Ljh/qf7jto3m2s5/OgESpovW/fzIVQPjixzy2+dZjrbWmlRlVEnQVRLBtOgy/oWzb38eQog6oKBnYLsnxOGKNNV3lP+PHZDSuYNcZXEa3VEtSJ0XSPykd9N1G9koxIAuD2xSGgE6y+4RbjmtY4XuCithaHldQdmnRxtP5oyKbt/mrgYe2+hixzdBI5G5nbpcgalU+vbHC4JXP1bff077OHerZYoRbYCYFYxQbohK8CP++Iu5Yi3auM5wK45kl2jIccciLhzS3bKIlaiD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:26:08.4430
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:26:18.3872
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33ef4c75-5200-4921-8b0a-08df1ed4dc23
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6898721-9da8-413b-13fc-08df1ed4e20c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B4.namprd05.prod.outlook.com
+	SN1PEPF000397B3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4153
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4262
 
-The per-segment translate-device-id pool tracks which device-table
-indices are reserved for real PCI functions versus available for
-dynamic allocation to vIOMMU translation DTEs.
-amd_iommu_probe_device() already calls amd_iommu_trans_devid_reserve()
-for the struct device's own PCI BDF so that id cannot later be returned
-by the allocator.
-
-That is not sufficient on its own. The AMD IOMMU driver programs
-identical DMA translation device-table entries (DTEs) for every
-requestor ID that can issue DMA on behalf of the same PCI function: the
-IVRS alias from alias_table[] when it is not covered by the PCI
-DMA-alias walk (different bus than the device), and every alias visited
-by pci_for_each_dma_alias(). Those alternate BDFs are not separate
-struct device probe targets, so they never received a trans_devid
-reservation and could in principle collide with a dynamically allocated
-trans_devid.
-
-Introduce amd_iommu_trans_devid_reserve_pci_aliases() in trans_devid.c
-and invoke it from amd_iommu_probe_device() immediately after the
-primary amd_iommu_trans_devid_reserve() succeeds. For PCI devices the
-helper reserves the IVRS alias when it differs from the device BDF,
-then walks pci_for_each_dma_alias() and reserves each alias BDF.
-Repeated probe and overlap with the primary BDF in the PCI walk are
-handled by the existing idempotency of amd_iommu_trans_devid_reserve()
-(a second reserve of an already-reserved id succeeds).
+Extend the per-segment translate-device-id pool to record the owning
+struct amd_iommu_viommu in the xarray.  Add amd_iommu_trans_devid_alloc()
+and amd_iommu_trans_devid_free() to allocate ids from last_bdf down
+to 0 so each id indexes the device and alias tables, then return them
+on teardown.  Free loads the xarray slot and erases it only when the
+owner matches @aviommu.
 
 Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 ---
- drivers/iommu/amd/amd_viommu.h  |  2 ++
- drivers/iommu/amd/iommu.c       |  8 ++++++
- drivers/iommu/amd/trans_devid.c | 45 +++++++++++++++++++++++++++++++++
- 3 files changed, 55 insertions(+)
+ drivers/iommu/amd/amd_viommu.h  |   4 ++
+ drivers/iommu/amd/trans_devid.c | 105 ++++++++++++++++++++++++++++++--
+ 2 files changed, 105 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/iommu/amd/amd_viommu.h b/drivers/iommu/amd/amd_viommu.h
-index 772d99391b6c..44a342608d43 100644
+index 44a342608d43..3cf140d6439a 100644
 --- a/drivers/iommu/amd/amd_viommu.h
 +++ b/drivers/iommu/amd/amd_viommu.h
-@@ -32,6 +32,8 @@ void amd_viommu_set_device_mapping(struct amd_iommu_viommu *aviommu,
- void amd_iommu_pci_seg_trans_devid_init(struct amd_iommu_pci_seg *pci_seg);
- void amd_iommu_pci_seg_trans_devid_fini(struct amd_iommu_pci_seg *pci_seg);
+@@ -34,6 +34,10 @@ void amd_iommu_pci_seg_trans_devid_fini(struct amd_iommu_pci_seg *pci_seg);
  int amd_iommu_trans_devid_reserve(struct amd_iommu_pci_seg *pci_seg, u16 id);
-+int amd_iommu_trans_devid_reserve_pci_aliases(struct amd_iommu *iommu,
-+					      struct device *dev);
+ int amd_iommu_trans_devid_reserve_pci_aliases(struct amd_iommu *iommu,
+ 					      struct device *dev);
++int amd_iommu_trans_devid_alloc(struct amd_iommu_pci_seg *pci_seg,
++				struct amd_iommu_viommu *aviommu);
++void amd_iommu_trans_devid_free(struct amd_iommu_pci_seg *pci_seg, u16 id,
++				struct amd_iommu_viommu *aviommu);
  #else
  
  /*
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 17716a506f93..65550b070a12 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -2755,6 +2755,14 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
- 		iommu_dev = ERR_PTR(ret);
- 		goto out_err;
- 	}
-+
-+	ret = amd_iommu_trans_devid_reserve_pci_aliases(iommu, dev);
-+	if (ret) {
-+		pr_err("%s: Failed to reserve translate devid for alias of %#x (err %d)\n",
-+		       __func__, dev_data->devid, ret);
-+		iommu_dev = ERR_PTR(ret);
-+		goto out_err;
-+	}
- #endif
- 
- out_err:
 diff --git a/drivers/iommu/amd/trans_devid.c b/drivers/iommu/amd/trans_devid.c
-index e0b637138260..f51a332fbc72 100644
+index f51a332fbc72..a63ee5626912 100644
 --- a/drivers/iommu/amd/trans_devid.c
 +++ b/drivers/iommu/amd/trans_devid.c
-@@ -11,6 +11,7 @@
-  */
+@@ -28,24 +28,55 @@ static inline bool trans_devid_xa_is_reserved(void *entry)
+ 	       xa_to_value(entry) == TRANS_DEVID_RESERVED;
+ }
  
- #include <linux/kernel.h>
-+#include <linux/pci.h>
- #include <linux/xarray.h>
++static inline struct amd_iommu_viommu *trans_devid_xa_owner(void *entry)
++{
++	if (!entry || xa_is_value(entry))
++		return NULL;
++	return entry;
++}
++
+ static inline void *trans_devid_xa_mk_reserved(void)
+ {
+ 	return xa_mk_value(TRANS_DEVID_RESERVED);
+ }
  
- #include "amd_iommu.h"
-@@ -88,3 +89,47 @@ int amd_iommu_trans_devid_reserve(struct amd_iommu_pci_seg *pci_seg, u16 id)
- 			 pci_seg->id);
- 	return ret;
+-static int trans_devid_xa_install_reserved_locked(struct amd_iommu_pci_seg *pci_seg,
+-						  u16 id)
++static int trans_devid_find_free_locked(struct amd_iommu_pci_seg *pci_seg)
++{
++	int id;
++
++	for (id = pci_seg->last_bdf; id >= 0; id--) {
++		if (!xa_load(&pci_seg->trans_devid_xa, id))
++			return id;
++	}
++	return -ENOSPC;
++}
++
++static int trans_devid_xa_install_locked(struct amd_iommu_pci_seg *pci_seg,
++					 u16 id, void *entry)
+ {
+ 	void *old;
+ 
+-	old = xa_store(&pci_seg->trans_devid_xa, id,
+-		       trans_devid_xa_mk_reserved(), GFP_KERNEL);
++	old = xa_store(&pci_seg->trans_devid_xa, id, entry, GFP_KERNEL);
+ 	if (xa_is_err(old))
+ 		return xa_err(old);
+ 	WARN_ON_ONCE(old);
+ 	return 0;
+ }
+ 
++static int trans_devid_xa_install_allocated_locked(struct amd_iommu_pci_seg *pci_seg,
++						   u16 id,
++						   struct amd_iommu_viommu *aviommu)
++{
++	return trans_devid_xa_install_locked(pci_seg, id, aviommu);
++}
++
++static int trans_devid_xa_install_reserved_locked(struct amd_iommu_pci_seg *pci_seg,
++						u16 id)
++{
++	return trans_devid_xa_install_locked(pci_seg, id,
++					      trans_devid_xa_mk_reserved());
++}
++
+ void amd_iommu_pci_seg_trans_devid_init(struct amd_iommu_pci_seg *pci_seg)
+ {
+ 	mutex_init(&pci_seg->trans_devid_mutex);
+@@ -133,3 +164,69 @@ int amd_iommu_trans_devid_reserve_pci_aliases(struct amd_iommu *iommu,
+ 	return pci_for_each_dma_alias(pdev, reserve_trans_devid_each_dma_alias,
+ 				      pci_seg);
  }
 +
-+static int reserve_trans_devid_each_dma_alias(struct pci_dev *pdev, u16 alias,
-+					      void *data)
++/**
++ * amd_iommu_trans_devid_alloc - allocate a translate-device-id for @pci_seg
++ *
++ * The trans_devid is allocated from pci_seg->last_bdf down to 0 so the
++ * id is always a valid device-table and alias-table index.  PCI devices
++ * are generally enumerated from the low end of the bus range, so high
++ * ids are likely unused.
++ *
++ * Each vIOMMU receives its own translate-device-id from the per-segment pool.
++ * @aviommu is stored in the xarray as the slot owner.
++ *
++ * Return: allocated id on success, negative errno on failure.
++ */
++int amd_iommu_trans_devid_alloc(struct amd_iommu_pci_seg *pci_seg,
++				struct amd_iommu_viommu *aviommu)
 +{
-+	struct amd_iommu_pci_seg *pci_seg = data;
++	int id, ret;
 +
-+	(void)pdev;
-+	return amd_iommu_trans_devid_reserve(pci_seg, alias);
++	mutex_lock(&pci_seg->trans_devid_mutex);
++	id = trans_devid_find_free_locked(pci_seg);
++	if (id < 0) {
++		ret = id;
++		goto unlock;
++	}
++
++	ret = trans_devid_xa_install_allocated_locked(pci_seg, id, aviommu);
++	if (ret)
++		goto unlock;
++
++	mutex_unlock(&pci_seg->trans_devid_mutex);
++	pr_debug("%s: Allocated trans_devid %#x (seg %#x)\n", __func__, id,
++		 pci_seg->id);
++	return id;
++
++unlock:
++	mutex_unlock(&pci_seg->trans_devid_mutex);
++	if (ret == -ENOSPC)
++		pr_err("%s: No free trans_devid found (seg %#x)\n", __func__,
++		       pci_seg->id);
++	return ret;
 +}
 +
 +/**
-+ * amd_iommu_trans_devid_reserve_pci_aliases - reserve translate-device-ids for
-+ * PCI DMA aliases and for the IVRS alias when it is not walked as a PCI DMA
-+ * alias (different bus). Idempotent for repeated probe; see
-+ * amd_iommu_trans_devid_reserve().
++ * amd_iommu_trans_devid_free - return @id to the per-segment pool
 + *
-+ * Return: 0 on success or if @dev is not PCI; otherwise an errno from
-+ * amd_iommu_trans_devid_reserve() or pci_for_each_dma_alias().
++ * Erase @id only if the xarray owner is @aviommu. A reserved or foreign
++ * slot is left unchanged.
++ *
++ * Caller must hold @aviommu->trans_devid_lock if racing with relocation.
 + */
-+int amd_iommu_trans_devid_reserve_pci_aliases(struct amd_iommu *iommu,
-+					      struct device *dev)
++void amd_iommu_trans_devid_free(struct amd_iommu_pci_seg *pci_seg, u16 id,
++				struct amd_iommu_viommu *aviommu)
 +{
-+	struct pci_dev *pdev;
-+	struct amd_iommu_pci_seg *pci_seg;
-+	u16 devid, ivrs_alias;
-+	int ret;
++	void *entry;
 +
-+	if (!dev_is_pci(dev))
-+		return 0;
-+
-+	pdev = to_pci_dev(dev);
-+	pci_seg = iommu->pci_seg;
-+	devid = pci_dev_id(pdev);
-+
-+	ivrs_alias = pci_seg->alias_table[devid];
-+	if (ivrs_alias != devid) {
-+		ret = amd_iommu_trans_devid_reserve(pci_seg, ivrs_alias);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return pci_for_each_dma_alias(pdev, reserve_trans_devid_each_dma_alias,
-+				      pci_seg);
++	mutex_lock(&pci_seg->trans_devid_mutex);
++	entry = xa_load(&pci_seg->trans_devid_xa, id);
++	if (WARN_ON_ONCE(trans_devid_xa_owner(entry) != aviommu))
++		goto out;
++	xa_erase(&pci_seg->trans_devid_xa, id);
++	pr_debug("%s: Freed trans_devid %#x (seg %#x)\n", __func__, id,
++		 pci_seg->id);
++out:
++	mutex_unlock(&pci_seg->trans_devid_mutex);
 +}
 -- 
 2.34.1
