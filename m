@@ -1,107 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B553FE37A;
-	Wed, 30 Sep 2026 08:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D884B331EA4;
+	Wed, 30 Sep 2026 08:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758560; cv=none; b=BSzjoi6iSAA5jVVu2sX1OnlKeYdJop/k2PXJcoV8Gdrc0+Im5ZGmmcVaGpZ/HCk//UiO9j3EPgswIseSxtIDdO7+fpH6khDoZV4kq0tTMHebx2zDMA9WqXBNgO128U6N/EOwDuG85UQprVGBj7sAES+JTC0GnxM/y5OjMWEvcis=
+	t=1790758568; cv=none; b=k70UHIbFRbkxZrxs8iAeDPv1ZAuIGM8Rw/CiqLMN3lAudaTJ+da2c3rhS2wlg6g7oI8UYIwk/VJCk9tYd6aAePV9kaqY8h6pzdexZ6yPwPMUEPVfjDYGKQ8I8ZfJD/aY/76OvqPsA96PFYdFeH2huwYMW44rczR8CNJ5e1FUWb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758560; c=relaxed/simple;
-	bh=N8NsL8xAHAPT4V/vU/YLBwC3KZGQnQwHOH/YRxi5FD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZfB4fnFDjMKPyMCWaL+XMrcU9JCIP4rzQhGoYVEVGoN2lGzNlDAMG+luRvFJe5AWZjGQdC7j5aLJH4D7qo/jGL2TpBD0Klo8Onk+57MlQDCqKJUMOX2OS+YUS1DgQSVe4yiu0jeSaWbEg/XvBnXMDGKLG1qzKKYAa+8hdr7/J2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HIc/XfPO; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790758568; c=relaxed/simple;
+	bh=OtlmDjEzOhdqKstpXY7dfzcR7Nv+cf6VxH4Hvby8RD4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hbXyZxHbeGF07zY57MLx9uLZouIlDo5r/mOHN9l2or+xfyihpYwgQSJtY+7t/9TffzmoXXB0iia9umP+Hm1Z9HzlkBZde/tp9YQVaRH3mGPojKAzFkWJ+IHIKjHedOcuoz6D3nM77I9+XuOs6jpfqGn6VEUqRuJtlBEDc12uo6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqFHVofN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HIc/XfPO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790758559; x=1822294559;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=N8NsL8xAHAPT4V/vU/YLBwC3KZGQnQwHOH/YRxi5FD0=;
-  b=HIc/XfPODDf77c9lZcyil3HPJ9b+QhBhJw27GvDMk2U/NButGLw+tGbF
-   ZA0Fofz7MPL3M1/Se+W92WF2YbPGz6UckabgjlU66oo5IDetGj14BQ2VQ
-   acdIGrmUALf+WmDXNSo4MfFJG7U7vEos1VGwhddWRkdjnHb8KnE2bhS8S
-   0ySi6svUW2cuvV1DSnNleBIkmTBAGIoeSWqvjNz/KZ3Ht6jBcfHismMvn
-   v8JNl2l19w+zOrkxhF55jDbP3p5FI1CVh0WhqKzpxoEqB5N3GRl2xhotF
-   rbuidsMnLe6HvNlfuxN0nVi8ws5RBj+Sp4SaYup/E14arnNXXEx5tpkev
-   g==;
-X-CSE-ConnectionGUID: 03YPbstVTwKGjDRpdFKZ4w==
-X-CSE-MsgGUID: uRBsS0tTTMy7TinDT6c6mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="100821300"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="100821300"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:55:58 -0700
-X-CSE-ConnectionGUID: XJq7Q+H9Q+W2I+MxFuJnMw==
-X-CSE-MsgGUID: J068ASCjQj6XHEzHq4hWEQ==
-X-ExtLoop1: 1
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:55:54 -0700
-Date: Wed, 30 Sep 2026 11:55:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Cheick Traore <cheick.traore-ext@st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
-Message-ID: <arzOmLhyaqSdcKqW@ashevche-desk.local>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
- <arWPjx-JKt1IZCZl@ashevche-desk.local>
- <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
- <arzJYg3cg73vYCOE@ashevche-desk.local>
- <d83e2c8e-452a-4dfd-823a-624fe211837f@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqFHVofN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833BA1F000FF;
+	Wed, 30 Sep 2026 08:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790758566;
+	bh=sYPjnCbAgZIi3AiT+FWm5Nd5exsKvc5ZrIAbenlDVCI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SqFHVofNhmK4pHxg9u2KPmfAkp9FMXNocokWn1aNa+EWPttpDkZ/LjUIxEt4lzNCO
+	 kQ3BVp9f2EIlrYBo1PoPSZ08FrFQ72PCRULosHZFVWPf5sbiXbxg+PO0sOq9r41rra
+	 NWeXBlsj2MH7JmtUWZ/jGMhntq29eT9OaZQ4ysTgN8c87TbLPg+6ssG13OQrissyuU
+	 8Om2M0pb6ikSkSDcbj6R1NwIkoibsoVvXZW12Gu5Hx1r/vaiyEO2y2D6qjsgKwwGSv
+	 xbJScNoKqO95qaF0QhpsDNBln2+g5AucGvgHqURIt311uuoKjYKzJcrrgORnUtEvuT
+	 /IKjgyZirMYLQ==
+From: Niklas Cassel <cassel@kernel.org>
+To: dlemoal@kernel.org,
+	hengyul@cs.unc.edu
+Cc: Niklas Cassel <cassel@kernel.org>,
+	mkp@kernel.org,
+	ipylypiv@google.com,
+	linux-ide@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
+Date: Wed, 30 Sep 2026 10:55:21 +0200
+Message-ID: <179075848958.1151028.10537312460612176838.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929164135.266708-1-hengyul@cs.unc.edu>
+References: <20260929164135.266708-1-hengyul@cs.unc.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d83e2c8e-452a-4dfd-823a-624fe211837f@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=cassel@kernel.org; h=from:subject:message-id; bh=OtlmDjEzOhdqKstpXY7dfzcR7Nv+cf6VxH4Hvby8RD4=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLL2nKtyiO9apCEuz1cY1+7wP+W35bTH9xdvO+mg1/Pza A/rAv+/HaUsDGJcDLJiiiy+P1z2F3e7TzmueMcGZg4rE8gQBi5OAZgIxzpGhr/va+3NvUvnnV9u O0Xyw/aNnApffqcXyt92vr/qKYt3zE6G/7XLFrn65Ag21DJY/fm2TvPN82dN2iWF7q8+qbXslAr ayA8A
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 10:44:12AM +0200, Fabrice Gasnier wrote:
-> On 9/30/26 10:33, Andy Shevchenko wrote:
+On Tue, 29 Sep 2026 12:41:35 -0400, hengyul@cs.unc.edu wrote:
+> Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
+> on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
+> failed command only if cmd->result is zero, so that the DID_TIME_OUT or
+> DID_REQUEUE host byte of a terminated command is preserved.
+> 
+> However, cmd->result can also be non-zero for a regular failed ATAPI
+> command completed through libata EH: ata_eh_analyze_tf() calls
+> ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
+> data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
+> midlayer internal byte of the result for some sense codes, e.g.
+> SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
+> COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
+> SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
+> ERROR). For such commands, atapi_qc_complete() keeps the result as is and
+> the command completes with a GOOD status byte, even though it failed and
+> valid sense data is available.
+> 
+> [...]
 
-...
+Applied to libata/linux.git (for-7.3-fixes), thanks!
 
-> Sorry if I'm a bit confused :-), just to be sure, the preferred style should be as below ?
+[1/1] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
+      https://git.kernel.org/libata/linux/c/bc8ce2ce
 
-Yes, in case if you want to update the whole ID table.
-
-> static const struct of_device_id stm32_adc_of_match[] = {
-> 	{ .compatible = "st,stm32f4-adc-core", .data = (void *)&stm32f4_adc_priv_cfg },
-> 	{ .compatible = "st,stm32h7-adc-core", .data = (void *)&stm32h7_adc_priv_cfg },
-> 	{ .compatible = "st,stm32mp1-adc-core",	.data = (void *)&stm32mp1_adc_priv_cfg },
-> 	{ .compatible = "st,stm32mp13-adc-core", .data = (void *)&stm32mp13_adc_priv_cfg },
-> 	{ }
-> };
-
-The rationale for the trailing comma is:
-1) no need (doesn't make sense) to have it on a terminator entry;
-2) do add it for non-terminator entry to avoid a churn in the future;
-3) do not add it for any case when the whole array is located on a single line.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Kind regards,
+Niklas
