@@ -1,107 +1,188 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DE13921CE;
-	Wed, 30 Sep 2026 04:19:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C53A38D3E2;
+	Wed, 30 Sep 2026 04:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790741964; cv=none; b=EKMFOyvsaLmuYE5hAwyMQUNdTJSmg535cQ4X6hJQzGUGWiUooVCnkmo9O7RgtKKhIqhhV8X6TRpPrK/QXbli6mk5EDnGs9yU9RCYY+NpwARHENAxHROhX4LzJTn9uujIjaULMvbwx8dMQeZ6FatddwefUPa5RYodgK827an2KOg=
+	t=1790742062; cv=none; b=lQLtQAvNfCK3uF8G8ZMnhpvLNPZ+PzRUPqWN1GmTV0SJl4121+FTBtaMTjFPL7ebBmgpA4XnAfY3Qf3hTTqcjlZURQr0rmTz/Q7JQoXQD2PVoo8WptVOG8gArhL1fh1y7bLtVPH6bugb0k8n1tN1pimQYQ6kkWE0WgkaXTBe9nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790741964; c=relaxed/simple;
-	bh=W6oTjCqB7b/JzMZQ5GPKFWJ3siqJQajSbxgWS5eQuwM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eei7oJmRlHbmugtRtRM1jBn9ucqvTNmp4umMrsXd8VZyZh5wh3Wow+Tnsfjd60+dZUOz0llyDQUYqarYcSY3mNq7vLaLY/ALJBOsFisCDAJXDg/vpqcXMrTSctKKB0VdqcM0Ux9Kp8RfBH6lqeO8D+kYEomyid3BVs2l9AjbebM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=bZkj6nfp; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1790742062; c=relaxed/simple;
+	bh=UxlHUYv22rgyq7ZVxruY0QE2y0GtfTw2R9yOES+jmXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CV0H1v8xarG78X70LuN7sylUxDuEtbkZxvEIMN71aplOBMtw0TaVh47QAWKYbH+wHX50zLUYEN7Jlo6VXTTBh7bPlVfCrrGNxHaobaMB519tlOplwEgQTjs8WVoH1GOOjWHjNpPtNmbyL9dGL8LeoJB63qj/4FXHRPpMrILCZLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iiXj3sGk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="bZkj6nfp"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 60DEA106E14;
-	Wed, 30 Sep 2026 06:19:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790741949;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=gqTJHUz7tHNAEycDuNrzBNgDUuLLCrtcBiT40+X0peM=;
-	b=bZkj6nfp8TaAHjFmXc+7PiYudfAKcHMYPf14BM93GeSkydWtQ+ULnDv2MsK/zPswhrMYuI
-	DXyy99PIxruV3/vu7bTmCj72DnLZt/LIuZlyaOt3HutDZqHBw/oY2P0k4x36ExRHS4UUoQ
-	M+RAGzxJYQE2Zl4gRymvlObp5hzMqzkgxzEWI4G5OGnKrhnrKt456fNVeU+QEvXOzsYxtl
-	Ue5pbjNbJK8GG2IfQUGX/3UuKpcWDqcVM5dqnkDFztwxksJhpdBSeEMkl9HWobvVhOisb2
-	IFvYLULOwFHOSAizMNXOPxbkxDxwx3faZGz93CSlh6KtxqxjpMMJyQJieW8W6g==
-Message-ID: <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
-Date: Wed, 30 Sep 2026 06:19:04 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iiXj3sGk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD02B16F3;
+	Tue, 29 Sep 2026 21:20:55 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D13163F85F;
+	Tue, 29 Sep 2026 21:20:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790742059; bh=UxlHUYv22rgyq7ZVxruY0QE2y0GtfTw2R9yOES+jmXc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iiXj3sGkrhMAurjVuvisN1wyrF4L5DGjA9KvALcFVE4OmoxhVrf+/REwA/xaRN5Yk
+	 5me6wieFhJOwAoyLIoLbXtSHLf2oRy3WVoldA0+46lHll1bRbjR+OrUDdKJOwbDcUR
+	 LpuyMIJJwxFQf9usQsgGIu9RHfEsZZyZAGi0LfSg=
+Date: Wed, 30 Sep 2026 09:50:55 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, damon@lists.linux.dev, kasan-dev@googlegroups.com, 
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/9] mm: rename pointers to software PTE values as
+ ptentp
+Message-ID: <ch63uaxr36anablz2sra57huiud2gxjtpmilwk4je2qkm5hb7j@eiun5t4erg2l>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-2-5670b8cb9059@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
-To: Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-References: <20260924180607.60932-1-marex@nabladev.com>
- <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-pte0-v3-2-5670b8cb9059@arm.com>
 
-On 9/30/26 5:40 AM, Wei Fang wrote:
-> Sorry, this email was missed because it did not match the filtering rules I set.
-
-No worries.
-
-> Hi Valdimir and Claudiu,
+On Tue, Sep 22, 2026 at 06:12:30PM +0100, Muhammad Usama Anjum wrote:
+> Some interfaces use pte_t * for a software PTE value rather than for an
+> entry stored in a PTE table. These pointers must remain pte_t * when
+> pointers to PTE table storage are converted to hw_pte_t *.
 > 
-> Please take a look at this patch, it may affect LS1028A and S32N7 platforms.
+> Rename these parameters in the install_pte callback,
+> write_protect_page(), and guard_install_set_pte() to ptentp. The later
+> Coccinelle conversion skips pointers named ptentp, allowing it to convert
+> the remaining PTE table pointers without changing these interfaces.
 > 
->> The current eMDIO MDC rate is 558 kHz on i.MX95 B0. This is very low,
+> Some functions already use ptentp for such pointers, including:
+> - madvise_folio_pte_batch()
+> - folio_pte_batch_flags()
+> No need to rename them.
 > 
-> The system clock of i.MX95 NETC is 333MHz, AFAIU, the MDC rate should be
-> 333/(2*258+1) = 644KHz. I'm confused that why you said the rate is 558KHz.
-
-That is what I observe on a scope on local MX95 board (not the EVK).
-
->> but also very compatible. However, for example NXP TJA1120 PHY needs
->> at minimum 1 MHz MDC clock and 558 kHz does not work with that PHY.
+> This patch only renames parameters and makes no functional change.
 > 
-> We previously used the TJA1120-SDBR daughter card to connect to the ENETC
-> interface (RGMII) of the i.MX95 19x19 EVK board. However, we did not encounter
-> any issues with MDIO access.
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-Most PHYs are fine with the low frequency.
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-> Furthermore, I did not see a minimum MDC
-> frequency rate of 1MHz on the TJA1120 datasheet. I'm not sure if this is an errata
-> of TJA1120.
-
-The TJA1120 RM is not public, but look at its predecessor:
-
-https://www.nxp.com/docs/en/data-sheet/TJA1101B.pdf
-
-Page 46 bottom
-Table 37. Dynamic characteristics...continued
-Tclk(MDC) MDC ... clock period ... Min 400 ns
-
-400ns ~= 2.5 MHz .
-
->> As a minimum change, increase the MDC clock to 2.5 MHz which matches
+> ---
+> Changes since v1:
+> - Rewrite the subject and description to distinguish software PTE
+>   values from PTE table storage.
 > 
-> The prerequisite is that NETC system clock is 333MHz, so that you can get a
-> MDC clock rate of 2.5MHz (333/(2*66 + 1)). But unfortunately, not all NETC
-> versions have a 333MHz system clock. For example, LS1028A is 400MHz, so
-> the MDC rate will be 3MHz, which will be a problem.
-Yes, this is my concern.
-
-Are those clock which feed MDC clock available via clock framework on LS 
-? If so, we could calculate the divider based on those clock.
+> Changes since RFC v1:
+> - Update the description for the architecture opt-in conversion.
+> ---
+>  include/linux/pagewalk.h | 2 +-
+>  mm/ksm.c                 | 4 ++--
+>  mm/madvise.c             | 4 ++--
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+> index b41d7265c01bc..c34d826c5e4a2 100644
+> --- a/include/linux/pagewalk.h
+> +++ b/include/linux/pagewalk.h
+> @@ -89,7 +89,7 @@ struct mm_walk_ops {
+>  		       struct mm_walk *walk);
+>  	void (*post_vma)(struct mm_walk *walk);
+>  	int (*install_pte)(unsigned long addr, unsigned long next,
+> -			   pte_t *ptep, struct mm_walk *walk);
+> +			   pte_t *ptentp, struct mm_walk *walk);
+>  	enum page_walk_lock walk_lock;
+>  };
+>  
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index 624f37975e129..2a4f19fe0f696 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+>  }
+>  
+>  static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+> -			      pte_t *orig_pte)
+> +			      pte_t *ptentp)
+>  {
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+> @@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+>  
+>  		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+>  	}
+> -	*orig_pte = entry;
+> +	*ptentp = entry;
+>  	err = 0;
+>  
+>  out_unlock:
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 73c2901b9adbf..dd75a673e108f 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -1113,12 +1113,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+>  }
+>  
+>  static int guard_install_set_pte(unsigned long addr, unsigned long next,
+> -				 pte_t *ptep, struct mm_walk *walk)
+> +				 pte_t *ptentp, struct mm_walk *walk)
+>  {
+>  	unsigned long *nr_pages = (unsigned long *)walk->private;
+>  
+>  	/* Simply install a PTE marker, this causes segfault on access. */
+> -	*ptep = make_pte_marker(PTE_MARKER_GUARD);
+> +	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+>  	(*nr_pages)++;
+>  
+>  	return 0;
+> 
+> -- 
+> 2.47.3
+> 
