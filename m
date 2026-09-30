@@ -1,130 +1,99 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DD1547074;
-	Wed, 30 Sep 2026 11:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7D14BFE79;
+	Wed, 30 Sep 2026 11:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768187; cv=none; b=apvvynE2iBr6G16Os98jmhJNTy6W2Xq0WMHKuloBnnotfpkmfee39kj2Uu1xHsj+kaYtbIdKBdzGIzSq7mk26vPN7uLHv3Fn3DfkeytajCxhaVAJjmPUzIHpNfz2+GrnebX0GeuBE1qDAm0XBW/tWyGvPcVhOPqjMELx1FbncMM=
+	t=1790768190; cv=none; b=SK1RV1kxd+3hLqvzFJoANpB+DiNdBYqrGSY35Rj4T/+N8HxfY9CioeNXGPwlE89lZx996c6ylm6yWPFOGSzhShkagGkIu5R/OamR0+5bnmssOMI8Cio3wzHEnknzd3C2wY8RLwmFLtN7SPm2jFmDakLD7YYAZAJVSJxhlzWB9SQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768187; c=relaxed/simple;
-	bh=eD3UrVEJ/InsO5zG2b0dqaZLLo+AuDllHCgfqBRmefc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=n4y7aqXEc5/5Mri92tFp9nGzXjAjUFw+5Xg2eVv7uhnPBIhfgNGOTw0dtftDvopBgNp+o8eRKukwYyNBDn4dAQjiYs2gLw+nr4dKdddLmE90qYhaER2FJ0ZZv4ujBkkyxk6WuXmilw/IyKyKvAhG6uy/AV0j8gpUy/QOWPs6AQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=BslPv0IO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yBrbCFPf; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OhBxNw/7; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=smTNPSFW; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790768190; c=relaxed/simple;
+	bh=Alp02oUhOmw2FInfj3F0v5vxxPMfM7u9OWYEL20KVU4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XASwCMknb++hJA6jVmyqKlteR5vk4QXq9e00cJEp5JJJTfbjZ9yX4Jgm0MbduRRsP2lJkHBcv9vCJKDNu2CybDDLIwlNkP5zjw9RS+A+CT6AxDoYdSwutMsGwrRUtqcmrWVMwuZXoxFQm9BWRHUbw6UMjOEhgvofK6bPz/ngVUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGHxBz10; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="BslPv0IO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yBrbCFPf";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OhBxNw/7";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="smTNPSFW"
-Received: from pobox.suse.cz (unknown [10.128.32.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 93D9D21D6B;
-	Wed, 30 Sep 2026 11:36:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790768179; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z5i4ONXkhpz7A0A0NaQG8iopNgWLX30H3FyGxtE4wBA=;
-	b=BslPv0IOXd9tQLRf5J6JNj9c14QGZttd3oE+qRS2jLMgrc0oRBdLjHJpNq5FZm55wP/fot
-	fI/INIQznOH7DKCebcwa8n14CMv1j1uaUK7+//Gff+gXW3/3+ROEOUtP36q4YU6+7/Tu2M
-	FZDWI5lWcKY69Czn+sk5xBicpn0h+JU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790768179;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z5i4ONXkhpz7A0A0NaQG8iopNgWLX30H3FyGxtE4wBA=;
-	b=yBrbCFPf3+H4NgyfsO6RaGR25aO8oP7iHXXWPktj4TtSTFnHTikKUW3XuzdC4ekqhLsSKk
-	RN1oG004n+SgZiDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790768175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z5i4ONXkhpz7A0A0NaQG8iopNgWLX30H3FyGxtE4wBA=;
-	b=OhBxNw/7V33JGc+ixjJ3/hkXdd8CcNwgjxUzUXCokWOZ2TTzrWUMn6fFpgyZt2F10/B8Gn
-	YYk+qDZtX6ZEXoTdAzysvbOQ49DGdw9i78Dw1g3B0uw8dlP3HgkkX7ZfZwyE2mRtBDEvu6
-	3zegxdML7BSEBVZyEUsVPYMhvjlpV3s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790768175;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z5i4ONXkhpz7A0A0NaQG8iopNgWLX30H3FyGxtE4wBA=;
-	b=smTNPSFWrJSfOfUHLiTbwSLc7DUkNWI9bzEp8R+9UojSjFLoX0trXpt4rz5TOuwzqH7xqh
-	3cQvrxSW8OgEU2Cg==
-Date: Wed, 30 Sep 2026 13:36:15 +0200 (CEST)
-From: Miroslav Benes <mbenes@suse.cz>
-To: Dmitry Malkin <dma@nebius.com>
-cc: "live-patching@vger.kernel.org" <live-patching@vger.kernel.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    NB-Core Team <NB-CoreTeam@nebius.com>
-Subject: Re: [PATCH] klp-build: Add an option to set the livepatch module
- version
-In-Reply-To: <AM9P190MB1666E0A06E9F75E93BF960C9DB8B2@AM9P190MB1666.EURP190.PROD.OUTLOOK.COM>
-Message-ID: <alpine.LSU.2.21.2609301334470.17217@pobox.suse.cz>
-References: <AM9P190MB1666E0A06E9F75E93BF960C9DB8B2@AM9P190MB1666.EURP190.PROD.OUTLOOK.COM>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGHxBz10"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3481F000FF;
+	Wed, 30 Sep 2026 11:36:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790768186;
+	bh=HsAD/Bv80VEFgq6hj/7zVyZdaBGnNkrcGt8fEOFmmXI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aGHxBz10TBr0qtWPrThz/UPsLSdPaO8WJaF4c3+ezfF4Hx8KWckU6VGFUl0C7/yeB
+	 nOr+CbPHFe8N2UboQLQqPdyoahRdF5ZGaA7nkrHMd71GMSD+JerJLf6F5yy5Phhi7Z
+	 RR3DFa8o1m9SQiAioGz67LdZd0Gv7hOa6HfHHJ//LL9/0XkBHt9QEBe+DaHJm9sVKU
+	 ne1FtXsYofF4jqrHdeIhneqoDiqSFVUKqG9cYjQL4Tt5nNBd3NDDpmWhj2e8QtEPzc
+	 7J+aMDQq0SIbRN+buVU+wCkUL7CLAXl5pBCkLkY/QlFsnSAXf0YbPdQJFwJHPkkzx9
+	 oOuOCLirNjTLg==
+Date: Wed, 30 Sep 2026 12:36:19 +0100
+From: Simon Horman <horms@kernel.org>
+To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>, Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>
+Subject: Re: [PATCH net-next v4 0/5] fbnic: Support larger RX pages
+Message-ID: <20260930113619.GX13925@horms.kernel.org>
+References: <20260925104417.2325213-1-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-2.99)[99.96%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.19)[-0.965];
-	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nebius.com:email,pobox.suse.cz:helo,pobox.suse.cz:mid]
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925104417.2325213-1-bjorn@kernel.org>
 
-On Wed, 30 Sep 2026, Dmitry Malkin wrote:
+On Fri, Sep 25, 2026 at 12:44:07PM +0200, Björn Töpel wrote:
+> Hi!
+> 
+> This series adds support for large io_uring zero-copy RX buffers to
+> fbnic.
+> 
+> fbnic hardware consumes receive memory in 4 KiB device pages, while
+> io_uring may expose a larger software buffer, such as 256 KiB. Track
+> the device-page geometry per BDQ, represent each large buffer with
+> consecutive descriptors, and decode completions to the corresponding
+> offset within the buffer. HPQ keeps its existing PAGE_SIZE geometry.
+> 
+> Larger buffers also reduce pressure on the memory provider. One
+> provider allocation supplies multiple 4 KiB device pages, so the same
+> amount of receive memory needs fewer net_iov objects and fewer
+> allocation, refill, and recycle operations. Hardware descriptor use
+> remains unchanged.
+> 
+> Ring depth and buffer size must be validated together. An ethtool ring
+> change can otherwise make an active memory-provider configuration
+> invalid. Store RX ring depths in netdev_config, stage proposed values
+> in cfg_pending, and validate the default and each RX queue before
+> committing the change. Both netlink and ioctl use the same transaction
+> helpers.
+> 
+> The selftest requests a power-of-two buffer larger than twice the MTU,
+> checks the reported buffer length, and verifies received data. It does
+> not assume how packets are placed within the buffer.
+> 
+> This series depends on the fbnic real-queue synchronization fix:
+> https://lore.kernel.org/netdev/20260924191817.1843726-1-bjorn@kernel.org/
 
-> Livepatch modules generated by klp-build do not contain MODULE_VERSION
-> metadata. Add --module-version to identify a livepatch release
-> independently of its module name.
-> 
-> Append MODULE_VERSION() to the temporary copy of init.c when the option
-> is supplied. Restrict the accepted characters so the value can be
-> embedded safely in a C string literal. Leave the source template and
-> default build behavior unchanged.
-> 
-> For example:
-> 
-> $ scripts/livepatch/klp-build --module-version=1.2.3 fix.patch
-> 
-> The version can be read from the resulting module file without loading it:
-> 
-> $ modinfo -F version livepatch-fix.ko
-> 
-> The version is descriptive module metadata; it does not control
-> livepatch replacement or compatibility.
-> 
-> Signed-off-by: Dmitry Malkin <dma@nebius.com>
+For the series:
 
-thank you for the patch but MODULE_VERSION() is being removed from the 
-kernel [1]. build-id should be sufficient.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Miroslav
-
-[1] https://lore.kernel.org/lkml/20260731-module_ver_remove-v2-0-c9163858f382@linuxfoundation.org/
