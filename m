@@ -1,103 +1,114 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0A737AA9C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D0B374A1D;
+	Wed, 30 Sep 2026 03:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739587; cv=none; b=TPIQCLikwd+sPVx8Nt/rlO+cre5phB0/lwecIZ7/7bk8wLTr2+nIjfyCJHn5FDT/WdOeG9nh857MgZdw3gnvrE55PZHhjKYZgWBONBTwvlfWCyxdFQ+3KkurssXKZdHLoBOaO/hU1DzxmeUrmcxCEl2dFvcLNpXixkiPcsylkq8=
+	t=1790739634; cv=none; b=H3g0Myx1GSI2mExXO1JGaQ9RZmNgxn/5pvh9F06Lbpy2AdwsC739bmnaavb8MaODqIXxcjvaCUy/wvR0ErgPhUvYULW6RZsCKaw42eixipo5Z8jWB/m7iCqBfgJL9CXtuis3UmkLX9yU2FhdGhG0gOkcKtCBhAIrD57eY/xaLQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739587; c=relaxed/simple;
-	bh=GdeZEzx5GKh9ZY0H/ycxz2NRMTcpeYqQQU7x3wrswlA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SPyRZo2CspEjI+9QMnLkPbZ1cjtWemSmZ1zaoU68j9OuTwNi9DGRdShITNiG/budpvklOhkXM8coO+jJONwG/we1Z+Zgmqa0ls2/dGGDU91K5wv6zg1R0X79l4UnjTF4Uhma9xvUvIFYGKGY+8ji2K5sCkL84mobX7/lb/T2lbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JS9mc7sR; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790739634; c=relaxed/simple;
+	bh=On9JzMdpnM9KWVwCQnLWmp1fL65ytruRxDFmufzQd2Y=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=XmaV260UEeHn6whMozVBdxOBEmcmj9jo0CBi8egpQVXKGKLfc/T7V2qdyCVEoJvUoiK1iQDvfV4t7C5yM2tANTKkvFNX2RNBU4K0+szE5gi99Oa+P3TqjrgOrr21S6uK54NEj2S7VeaxpiZjS2tZpJZpM4P+PNWB8UaN1ufQMl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZjB8jlqj; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PK3jTCuu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JS9mc7sR"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34cde269e1bso77197eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:39:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790739584; x=1791344384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ia9CbVKKwRCU5GzXWGPkLwk9XTdQTUAtoP5YeQIZPys=;
-        b=JS9mc7sRfqJC3ziAg6EQXugbPKZVKdueuT8W4aUSgx7VNUNlc9Zsjfzik6D78Y6ylK
-         SNO1qXgeYlkiE1HONapM6GuzDy8JvGbg3TEl15cR6bkqTKMUHxGGNW7f8K9eZoGNw05e
-         yVZZi9EjJaM7LOUMITfuDxZFA30LZOw0cgdPttFX2VxOypqGj66do0AiFSpXdKP755pZ
-         ENiHQtNJRN2PZQKjjDLVK09/ZkkViZRhqMmreeHzCBd18qR8j0sM4VcmqgbpJCizMOOM
-         vuuc44fOTNPsvZ6008OsNgt4/NBjX4zXhN9Wiejc4ACk2unrkGIN7sHZ2vjJ/Faw+lsO
-         sVoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790739584; x=1791344384;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ia9CbVKKwRCU5GzXWGPkLwk9XTdQTUAtoP5YeQIZPys=;
-        b=MWjWhL0Pbu6tiPKWJ+zDQkdz+z1BQV3Oj5ZKFkxHaH8TfI0LcUPYVVxNUZUn/mYp2j
-         ge9S/QKtWnFZPvfivpTKmgMfoD6mGLJVPiFBSbyEgOvx7bJp/vk1FkghNjNs6lBJRMWX
-         f40Vp3IrjkBUci8LyC2mFyZhB7okcW2PTn0hXUaJRJOKOg3+eJFB09qhW/0jvAOINf1k
-         EZxLd7PuPM3PCJM6iSFO/yYAP6G+JrWE+u0pOjJmhb2QjXcSLMmNhwM9RuX9UFAbSF9N
-         bLQN1FAKlbxqrxAuoK2Bp/9c4+ZTBCGHxFNMY4hBqEEfFXlK5vJfEWQXDCcqiUtW305y
-         XNeg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLJWgqRUA5kpW+2IvPVe3CbTBxTbFksIOzF08eoTGOD0kA5VXUgldtjkR5uoxKWPuVX+xaFtMAwA1M6Rg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqHmlr1TaaVTYRVrMSGIBO6F75uMdF9NYhUlC0DB6FuVJCs0jA
-	SJilE1ymq82Bht4S2YJMFzsb6BqdN3Bg6hKK7HGDCMXF0xrB8Bx4Cl/+
-X-Gm-Gg: AYBFou3H2HeFflmkhYNISvmDiA8CW1m+ezla50XxHZKo4EVqftBQSIIslaZcHAiqka4
-	6s+S996m9GMCfZqBpW5oY8vihUBCvjaYBjUKaK07CG3Ss4PrLlnmNahO810rVsIVSjSadIf34V9
-	WZPTdP6+GlvNYGF8x6H3gQCCAo8bNBqW2BhhWm+llaqWG7x6sffEYKqfMzmd74gLqL9qpB+uWR8
-	vqSFXef68nVuTU0Z2nmzT+naJdeOtzuWskNV9En6mdtBp3ZD8AF7d1Fv4sJKHLrB+Fzi56bgieZ
-	/Ipl0SrwDK8rEFHEnzgEGeLaS3roBgAq3XTbNqA91Rss5v/PI5JBMXu/q6C4TpODK4zV8whzgi1
-	rfotVf+YyLREyx+dlmeYSLwXZ29KWau5W2HHd621tw1GIok2dsaO4wPR4AMSi86hN5KRD+4E3gj
-	wlV6N1TXG1C5TkoMX9W/5cOgBuxEOHYjODPmS1DVoY6o8uD/bZtnHRJ8P9DJvGNUwhP1KreS/7l
-	A0W+pg9aSZ2UfM4QP5djCwrkO5iBQRizqtufHJ8Tq9AeS35pf/OAbY0jpsDtj14zQCXKHetQKdQ
-	RoWgNDLGnXupXNQl3Hu2/q/8IN+NyJy5o62SUVo16urrAvVuvvOmZ+zjmNI=
-X-Received: by 2002:a05:693c:66c2:20b0:34c:7e54:65e6 with SMTP id 5a478bee46e88-34cd91735a2mr336022eec.5.1790739584070;
-        Tue, 29 Sep 2026 20:39:44 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf22fc6cesm252806eec.2.2026.09.29.20.39.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 20:39:43 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Hui Peng <benquike@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] isofs: bound empty directory blocks in isofs_read_level3_size()
-Date: Wed, 30 Sep 2026 11:39:40 +0800
-Message-ID: <20260930033940.175021-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
-References: <20260919222553.3792320-1-benquike@gmail.com> <20260923175215.1577791-1-matthias.goergens@gmail.com> <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf> <20260924151356.3287733-1-matthias.goergens@gmail.com> <20260925043804.2091174-1-matthias.goergens@gmail.com> <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n> <20260926083517.556576-1-matthias.goergens@gmail.com> <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZjB8jlqj";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PK3jTCuu"
+Date: Wed, 30 Sep 2026 03:40:22 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790739624;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hyKUcoH5G8rXInk9DYN0C6IuwSeovnxvl7Y3QRqTVkk=;
+	b=ZjB8jlqjFl9x3wEMKPJzcg59JdxTqQ71qd7Wt8oWrGKdXMGXVr5wI0F0TLCeLGrLW/Ez1t
+	EpfU5JPws8+KFoyUBcKDC/lpXZaLdU6kppk6lRMOpIBuDRg9uX2FmaNMuC+6KPoQdPYihk
+	vNkaRJFZ4jFL9CsC4Celw53MeMRyEALLfJB1PwGBbHKhDp6ikvhZQpAR4BkeH8Rlnxdj4V
+	0w8dF64KGlz1EP1YekYe9/AlEekQYiIRx8qWiuuXVnofbWe9EO5iwqy53B8t4a38Pz0tWF
+	jBxx1sTrE/irJs09umataojASRA2AWVtNAdFWQonrNYL0qBqG+0iRxFzhaZAMg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790739624;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hyKUcoH5G8rXInk9DYN0C6IuwSeovnxvl7Y3QRqTVkk=;
+	b=PK3jTCuuBTewwbQfRkMf9Gk9mO72p3CBxwCnAVY/zUwYtMQsxg/AeOIrl9DUE0sNo33Dy0
+	QykRaA5AZ/O2crAQ==
+From: "tip-bot2 for Pawel Zalewski (The Capable Hub)" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/platform] x86/platform/olpc: Use named initializers for
+ acpi_device_id
+Cc: "Pawel Zalewski (The Capable Hub)" <pzalewski@thegoodpenguin.co.uk>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260807-acpi-platform-v1-1-1507662916ed@thegoodpenguin.co.uk>
+References: <20260807-acpi-platform-v1-1-1507662916ed@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179073962239.3910103.3178524599986165128.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Honza,
+The following commit has been merged into the x86/platform branch of tip:
 
-> Any reason why don't you do just "++i > 100" here and completely
-> remove the empty_blocks variable?
+Commit-ID:     edb2b6d8ea88659679787231253e1acefca63f28
+Gitweb:        https://git.kernel.org/tip/edb2b6d8ea88659679787231253e1acefca=
+63f28
+Author:        Pawel Zalewski (The Capable Hub) <pzalewski@thegoodpenguin.co.=
+uk>
+AuthorDate:    Fri, 07 Aug 2026 13:38:33 +01:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Tue, 29 Sep 2026 20:35:00 -07:00
 
-Yes: i has one other use.  The "if (i == 1)" further down records
-where the second section starts (i_next_section_block/offset).
-Counting empty blocks in i would move i past 1 before the second
-record is read when an empty block sits between the first two
-records, so the next-section link stays 0 and isofs_get_blocks()
-reads past the first extent into whatever follows it on disk.  I
-tried your variant on a two-section image with one empty block
-between the records: v1 reads the file correctly, the variant returns
-different bytes.
+x86/platform/olpc: Use named initializers for acpi_device_id
 
-I'm happy to send a v2 that adds a comment saying why the count stays
-out of i, if you'd like one.
+Use a named initializer for the acpi_device_id fields which makes the code
+more readable and consistent with how lists are initialized in the rest of the
+kernel code base. Also drop explicitly setting fields to 0 where it is
+redundant.
 
-Thanks,
-Matthias
+While at it - unify the list terminator to have a single space between the
+brackets and no trailing comma.
+
+Signed-off-by: Pawel Zalewski (The Capable Hub) <pzalewski@thegoodpenguin.co.=
+uk>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20260807-acpi-platform-v1-1-1507662916ed@thego=
+odpenguin.co.uk
+---
+ arch/x86/platform/olpc/olpc-xo15-sci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/platform/olpc/olpc-xo15-sci.c b/arch/x86/platform/olpc/=
+olpc-xo15-sci.c
+index 75ed6ce..a13dd6b 100644
+--- a/arch/x86/platform/olpc/olpc-xo15-sci.c
++++ b/arch/x86/platform/olpc/olpc-xo15-sci.c
+@@ -210,8 +210,8 @@ static int xo15_sci_resume(struct device *dev)
+ static SIMPLE_DEV_PM_OPS(xo15_sci_pm, NULL, xo15_sci_resume);
+=20
+ static const struct acpi_device_id xo15_sci_device_ids[] =3D {
+-	{"XO15EC", 0},
+-	{"", 0},
++	{ .id =3D "XO15EC" },
++	{ }
+ };
+=20
+ static struct platform_driver xo15_sci_drv =3D {
