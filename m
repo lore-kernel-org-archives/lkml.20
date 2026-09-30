@@ -1,230 +1,139 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A667B1F875A;
-	Wed, 30 Sep 2026 07:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF133AC0C1;
+	Wed, 30 Sep 2026 07:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753561; cv=none; b=bHpBf3bCFLtaRXVjfSOvItFHGtJt0hQH2w+YJeKWAVIY8qaJjavCGgEF63vnrVSMuZPpKRa0/SjLmsppFKghvkOg1PX+q8CiMiEIv7FWPgQuRIoUmpM9kKhUnPQx49ymdhZ30wN5K6F6I91Cv5Kn+Ple1CoNSTiNAFk42hTMbkU=
+	t=1790753563; cv=none; b=KLpW475RBr9IgWw39ANZ/GFvwgujMzQhTfJNTlJjq/rlHOZYkBNT3zJn4GjQUSL3WLaGp7wdGEllBYXAEwHyuDXfiMjDcYo6rWvq1qs+5D6fCXz7zQt3DXSsR/BDaD65gppqBrj4GrFeQB6x7GEeVMDMB9zND4SeEcJg2PdS4eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753561; c=relaxed/simple;
-	bh=FOBD6w50aH3La6YrnSYxR0NgpZSSXfXSZp2dcOzr82w=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KmGws8twQl1KpJHcAlWPBusTnzKlxM9LnDZC/RH+R4MyorWm97xSdIhOpq5OEHCuhmrWCwL8TjWv3Vs7G6cVIyHymiI5lo5A/jVc+nt5/PNlTfBHEpij+AsQ0GKS1wNPpnTkmbM4hFvpdIoo+LbS8KWd2pdC+B8ED1jWTd1NOoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=hAJ5TUPf; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1790753563; c=relaxed/simple;
+	bh=XgZM57SLWF6tNhqiua/wmbRdox2xmPSiYXlMd7aq/Cs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RBs+J2CAQJKy5nWScmrerdNiPvObhiSxjseozzcsWBNDItEIoh/2VA3sfVJLLM1HSvvZvXuF+jBaw7L+6h4/ENq3FiHP0tw8D3ey7WOooo6DxSCV0JGkM+y4Ez8vxskPG3Uw8Vw0L/CZGeEzo+WJpr2Vse6Nf9yAW7TGgvkT/ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=tp3o3wI/; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="hAJ5TUPf"
-Message-ID: <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1790753557;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uWZ4wz/xFm6cJNcxHRzz2aCALgOcUXbJs12YgIhBUPw=;
-	b=hAJ5TUPfz0JkLCEYSFHPYtX4UG706wkcVugc0mmnWfx2z8Fge8ZqT6BSr2/ioaYvdrroAt
-	HmRL4scYcmopeMVZZKy1axU2y/S+wnFaRuYpWIfCNa1DCgxK7IHDtR+7Xa8upRirR5X3gk
-	bsJEmb3BYIA7VcLv5RPKIIbjNeEYepk=
-Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some
- optimized AES modes
-From: Stian Halseth <stian@itx.no>
-To: Eric Biggers <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A
- . Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- sparclinux@vger.kernel.org
-Date: Wed, 30 Sep 2026 09:32:36 +0200
-In-Reply-To: <20260929222752.36427-1-ebiggers@kernel.org>
-References: <20260929222752.36427-1-ebiggers@kernel.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-fwsjTeomEhuBv/yMGL2B"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="tp3o3wI/"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=iwOmrtb0OIOXZyVquKTR9hTqNjDTiyWg6esvAcvSlvA=;
+	b=tp3o3wI/EHwCgzTqVMWLrYQUL6wr0VLhJzq62th4hx2aiyESgl47osIoI3liEtJ/JG6/HMuKi
+	hABnTFoxnedelcC0z1fY4u9BcZT8pywWV1DPbRus7U1BCN1N7m4NTzRt3jmo56/efodQgspHk9Q
+	6CB5VFGCw9WyEnV4vAdsqf8=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hvmfs68j1zcb46;
+	Wed, 30 Sep 2026 15:20:53 +0800 (CST)
+Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
+	by mail.maildlp.com (Postfix) with ESMTPS id BC816203D1;
+	Wed, 30 Sep 2026 15:32:30 +0800 (CST)
+Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
+ (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 15:32:29 +0800
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	<linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3] misc: fastrpc: Fix double free and races in fastrpc_req_mmap() error path
+Date: Wed, 30 Sep 2026 07:13:40 +0000
+Message-ID: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemp100012.china.huawei.com (7.152.185.135)
 
+fastrpc_req_mmap() links the newly allocated buffer into fl->mmaps before
+copying the response back to userspace. If copy_to_user() fails, the
+err_assign path calls fastrpc_req_munmap_impl() to unmap the buffer from
+the DSP and, on success, to free it.
 
---=-fwsjTeomEhuBv/yMGL2B
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Since commit 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior
+to unmap operation"), fastrpc_req_munmap_impl() no longer removes the
+buffer from fl->mmaps, as that is now the responsibility of the caller.
+fastrpc_req_mmap() was not updated accordingly, so the buffer is freed
+while still linked in the list. The fl->mmaps cleanup in
+fastrpc_user_free() then calls list_del() and fastrpc_buf_free() on the
+already freed buffer, resulting in a use-after-free and a double free.
 
+Publishing the buffer before copy_to_user() returns is also racy:
+another thread of the same process can read the DSP address from the
+partially written user buffer (or via userfaultfd) and issue
+FASTRPC_IOCTL_MUNMAP, which unlinks and frees the buffer while
+fastrpc_req_mmap() is still using it.
 
-On Tue, 2026-09-29 at 15:27 -0700, Eric Biggers wrote:
-> The new library APIs for AES encryption modes were wired up to the
-> traditional crypto API via crypto/aes.c.=A0 However, for now the kernel
-> is
-> still in a transitional state where various architectures still have
-> architecture-optimized implementations of AES modes in
-> arch/*/crypto/,
-> wired up to the traditional crypto API only.=A0 Because of that, the
-> crypto/aes.c algorithms were given a cra_priority of only 110 to
-> prevent
-> them from overriding arch/*/crypto/ in the traditional crypto API.
->=20
-> However, because of how the traditional crypto API works, the
-> cra_priority trick doesn't work in cases where the relevant algorithm
-> isn't directly implemented by arch/*/crypto/ but rather is provided
-> by a
-> template instance using other code in arch/*/crypto/.
->=20
-> For example, x86 doesn't have its own "ccm(aes)" but rather relies on
-> the "ccm" template constructing it from the x86-optimized "ctr(aes)".
-> The existence of the library-based "ccm(aes)" prevents that, even
-> though
-> its priority is lower than what the template would produce.
->=20
-> Thus, "ccm(aes)" ends up using the slower single-block AES code.
->=20
-> Therefore, skip wiring up the relevant library-based code to the
-> traditional crypto API on architectures where this problem can occur,
-> as
-> determined by what exists in arch/*/crypto/ for each architecture.
->=20
-> This is ugly, but it's also temporary: these conditions will go away
-> as
-> architecture-optimized implementations of AES modes are migrated into
-> the library.=A0 But until then, we need to prevent performance
-> regressions
-> by ensuring that the optimized code continues to be used.
->=20
-> Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using
-> library")
-> Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
-> Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
-> Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
-> Closes: https://github.com/sparclinux/issues/issues/106
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->=20
-> This patch is intended to taken through libcrypto-fixes
->=20
-> v3: Also suppress xts(aes) on SPARC, and improved comments
-> v2: Fixed PowerPC config option, and resent as standalone patch
->=20
->=20
-Tested on a SPARC T7-1 (M7) on top of v7.3-rc5. xts(aes) resolves to
-xts(ecb-aes-sparc64) again. cryptsetup benchmark aes-xts goes from
-152/147 MiB/s back to 429/404 (AES-128/AES-256), the 7.2 figures.
-CRYPTO_SELFTESTS_FULL passes and XTS matches OpenSSL.
+Fix this by adding the buffer to fl->mmaps only after copy_to_user() has
+succeeded, so the buffer is not visible to a concurrent unmap while the
+response is still being copied. If unmapping the buffer fails on the
+error path, fastrpc_buf_free() is not called, so re-add the buffer to
+fl->mmaps to keep it tracked and let fastrpc_user_free() reclaim it on
+release instead of leaking the DMA allocation.
 
-Tested-by: Stian Halseth stian@itx.no
-> =A0crypto/aes.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++---
-> -
-> =A01 file changed, 47 insertions(+), 4 deletions(-)
->=20
-> diff --git a/crypto/aes.c b/crypto/aes.c
-> index 94791f481e98..51eee78396ea 100644
-> --- a/crypto/aes.c
-> +++ b/crypto/aes.c
-> @@ -637,7 +637,18 @@ static struct skcipher_alg skcipher_algs[] =3D {
-> =A0		.decrypt =3D crypto_aes_cbc_decrypt,
-> =A0	},
-> =A0#endif
-> -#if IS_ENABLED(CONFIG_CRYPTO_CTS)
-> +	/*
-> +	 * Don't register library-based "cts(cbc(aes))" on
-> architectures where
-> +	 * it might block a "better" implementation from being
-> instantiated via
-> +	 * the "cts" template.=A0 These exclusions are temporary and
-> will go away
-> +	 * as the arch-optimized AES code is migrated into the
-> library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	=A0 IS_ENABLED(CONFIG_ARM64) || \
-> +	=A0 IS_ENABLED(CONFIG_PPC) || \
-> +	=A0 IS_ENABLED(CONFIG_S390) || \
-> +	=A0 IS_ENABLED(CONFIG_SPARC))
-> =A0	{
-> =A0		.base.cra_name =3D "cts(cbc(aes))",
-> =A0		.base.cra_driver_name =3D "cts-cbc-aes-lib",
-> @@ -687,7 +698,13 @@ static struct skcipher_alg skcipher_algs[] =3D {
-> =A0		.decrypt =3D crypto_aes_xctr_crypt,
-> =A0	},
-> =A0#endif
-> -#if IS_ENABLED(CONFIG_CRYPTO_XTS)
-> +	/*
-> +	 * Don't register library-based "xts(aes)" on architectures
-> where it
-> +	 * might block a "better" implementation from being
-> instantiated via the
-> +	 * "xts" template.=A0 This exclusion is temporary and will go
-> away when
-> +	 * the library AES-XTS is optimized for SPARC.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
-> =A0	{
-> =A0		.base.cra_name =3D "xts(aes)",
-> =A0		.base.cra_driver_name =3D "xts-aes-lib",
-> @@ -980,7 +997,20 @@ static __maybe_unused int
-> crypto_aes_ccm_decrypt(struct aead_request *req)
-> =A0}
-> =A0
-> =A0static struct aead_alg aead_algs[] =3D {
-> -#if IS_ENABLED(CONFIG_CRYPTO_GCM)
-> +	/*
-> +	 * Don't register library-based "gcm(aes)" and
-> "rfc4106(gcm(aes))" on
-> +	 * architectures where they might block a "better"
-> implementation from
-> +	 * being instantiated via the "gcm" and "rfc4106"
-> templates.=A0 These
-> +	 * exclusions are temporary and will go away as the arch-
-> optimized AES
-> +	 * code is migrated into the library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	=A0 IS_ENABLED(CONFIG_ARM64) || \
-> +	=A0 IS_ENABLED(CONFIG_PPC) || \
-> +	=A0 IS_ENABLED(CONFIG_RISCV) || \
-> +	=A0 IS_ENABLED(CONFIG_S390) || \
-> +	=A0 IS_ENABLED(CONFIG_SPARC))
-> =A0	{
-> =A0		.base.cra_name =3D "gcm(aes)",
-> =A0		.base.cra_driver_name =3D "gcm-aes-lib",
-> @@ -1012,7 +1042,20 @@ static struct aead_alg aead_algs[] =3D {
-> =A0		.chunksize =3D AES_BLOCK_SIZE,
-> =A0	},
-> =A0#endif /* CONFIG_CRYPTO_GCM */
-> -#if IS_ENABLED(CONFIG_CRYPTO_CCM)
-> +	/*
-> +	 * Don't register library-based "ccm(aes)" on architectures
-> where it
-> +	 * might block a "better" implementation from being
-> instantiated via the
-> +	 * "ccm" template.=A0 These exclusions are temporary and will
-> go away as
-> +	 * the arch-optimized AES code is migrated into the library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	=A0 IS_ENABLED(CONFIG_ARM64) || \
-> +	=A0 IS_ENABLED(CONFIG_PPC) || \
-> +	=A0 IS_ENABLED(CONFIG_RISCV) || \
-> +	=A0 IS_ENABLED(CONFIG_S390) || \
-> +	=A0 IS_ENABLED(CONFIG_SPARC) || \
-> +	=A0 IS_ENABLED(CONFIG_X86))
-> =A0	{
-> =A0		.base.cra_name =3D "ccm(aes)",
-> =A0		.base.cra_driver_name =3D "ccm-aes-lib",
->=20
-> base-commit: 93f51579e7df248780214094418f205253383cc5
+Fixes: 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior to unmap operation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+Changes in v3:
+ - Re-add the buffer to fl->mmaps if unmapping it on the error path
+   fails, since fastrpc_buf_free() is not called in that case and the
+   DMA allocation would otherwise be leaked.
 
---=-fwsjTeomEhuBv/yMGL2B
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Changes in v2:
+ - Link the buffer into fl->mmaps only after copy_to_user() succeeds.
+   Besides fixing the double free, this also closes the concurrent
+   FASTRPC_IOCTL_MUNMAP race, where a partially written user buffer let
+   another thread unmap and free the buffer while fastrpc_req_mmap() was
+   still using it.
 
------BEGIN PGP SIGNATURE-----
+ drivers/misc/fastrpc.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCary7FAAKCRDoeAEuJe36
-VklAAP0f3vnpvdFSareUN1igFY70WOg+J2x+DWz20Yq1wQ8rMAD/aerBnYv3cK12
-gwLowIMO5YjA45oT4/BtBw1SlSVdQgc=
-=KC2U
------END PGP SIGNATURE-----
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index d4fac2caca86..917a5dfe3774 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2153,22 +2153,26 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 		}
+ 	}
+ 
+-	spin_lock(&fl->lock);
+-	list_add_tail(&buf->node, &fl->mmaps);
+-	spin_unlock(&fl->lock);
+-
+ 	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
+ 		err = -EFAULT;
+ 		goto err_assign;
+ 	}
+ 
++	spin_lock(&fl->lock);
++	list_add_tail(&buf->node, &fl->mmaps);
++	spin_unlock(&fl->lock);
++
+ 	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
+ 		buf->raddr, buf->size);
+ 
+ 	return 0;
+ 
+ err_assign:
+-	fastrpc_req_munmap_impl(fl, buf);
++	if (fastrpc_req_munmap_impl(fl, buf)) {
++		spin_lock(&fl->lock);
++		list_add_tail(&buf->node, &fl->mmaps);
++		spin_unlock(&fl->lock);
++	}
+ 
+ 	return err;
+ }
+-- 
+2.34.1
 
---=-fwsjTeomEhuBv/yMGL2B--
