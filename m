@@ -1,139 +1,154 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4964EBAFA
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1DE4AB3C0;
+	Wed, 30 Sep 2026 14:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779845; cv=none; b=ZDK1oXBDu7Rd3Lkm+tiKaK4GLQf6m7RIHYy3e9WTHIERiRQQtrAZHvahwn3UrhzLeHH1EQLhcZYMKGNMsxSFJNMImA0MB3DEY7IaftQTzCTJcpFcRs+sICefBqHoslq4Pu+tO5LH1RR4CmdtUOUJfSf8Kky9ReAF7NkJbwYqvT4=
+	t=1790779851; cv=none; b=a3TMeubEbxeorFQMEJ6Sc3l5z5qPYnvd5sQZPmUID8ovUxq0v4aCG68DlyzU3DuQt4KDY7/CdAFHksiBJvSMH0MUcuSnHTC4LqdL9Mx8KnxtFuIlXVzlLULvByFaRyyGESOecOisqwJ93ooWh/JFw5uJdMytAndYVCk3m1+kzII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779845; c=relaxed/simple;
-	bh=aYgliebE9zpsT289QWtpM7k0O5do8UsYwtdKdEA6ihw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Le/TTNDH2OY1BC3xE5VWme4SN2/CrqO7nsPfhyDLJKxibujHrLh140YdVykXZVJBIwpMTW8smN0I5czhWfl9IuE+ASfdxNPxUQdYDczQZQ3WoFEBRtmjtYZx2J5X+wTWMHwwnvsnaMTNdt+2FrLZO6e+VZPnpkZH0P7ATiwNYno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=fMHpDSZ8; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790779851; c=relaxed/simple;
+	bh=rlNDwOLzu7ttLsyeROV+rK+yucTFtmlzkPThqRA5V+Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EJYCLGtXxbjbYU6tacZB0YzkkbFfbx2vOmSwYF/4Kgxyae1FKZzxdVms2TfaUh5C8ZV1eSU1ub8HgipeLRXQ6G0ptYkcw6YVdN90ty7y29vc+wj8C7SkiKoIeLEtll8hsQJ6qkXeCH8GuXByjzh3PxhhQIL1BtLXANJ+CwAwnIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gk5ij4uj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="fMHpDSZ8"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so33795045e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:50:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790779830; x=1791384630; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H3qtNVwOX7r6mYzIQEIi64injBAtcVX6qzz09d86hu8=;
-        b=fMHpDSZ83Vl/3CG8Ao+igOp6O3VCg8dDeB2Wsww4B9VqNKffjTqLFdRbW32vXnW5QS
-         FogALFeXU3gTijkRBhB+KDXZHCIvqck+IvaPxuCVd2qm7lVRePgfj38fK4iYr8fduxV4
-         zr2zlFF/FK8fDmivykxKmlFySVeC0HJlFy0mUHbKI4vfz5sRL89I3z+AlhAgv7DdkPcG
-         EshPkH10sqFTxy3UF38pL73ehzPAE4OeI8L80TShEc3HWJ7/hZfCc2+jy+nPFayS1Dlg
-         yPak2SgN1NySC1NEjNIxxQMc1tJ0Svkz96yBYRZstHwZ8luDCH72vHkOb10XbBBPJ5Ag
-         Srkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790779830; x=1791384630;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=H3qtNVwOX7r6mYzIQEIi64injBAtcVX6qzz09d86hu8=;
-        b=tav2z/oa+CJhuShyjaZm4G2ZmYWm+8JcACVDMdMmYajoUo+3/jVP4puMz2Kn0h6zaV
-         44AV2+038C8eB13fepllylGd9VI1Ni7cHfV2q/dFsezYWrfDIhwudm690F/ZB//DD1LS
-         RK5ymSXLW3JzkmKZVeaddSVnZ86XbnpB06dLhL+E97zhUcpnRbfkG8JyQ/DDAH+7XrMM
-         VoUph/1pKlzcZNrZvW31RHYpeLdqj5bJ6NSg5BKeenyDYLdos5P9/aBf9sffQQIAjGF8
-         LGPgRlxxyIBOF85KLRwRzAdcW7C7Wa5EduEL3H4h/4BWAY6R6nrgtTAeoOsalMlRhS2l
-         5CTw==
-X-Forwarded-Encrypted: i=1; AKwUvByCH8a0hj5Zdd4swlQDRqT9l7JbRD8hgMB9ZxL1YMgduz2Pu58NfqghVpeIv08csA/u6IrF1fJSRnfPTHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++luITbpd80DX8l+mjm/bNVjsW9apfV58NJoTHkcPEKcKOADBRIe
-	hI/RIJirVgXrT4vz0HAzkTevMwKZJ+1F0+U2lkYWU5vyuBvStJqfoiAE/fDOoL/oo2Y=
-X-Gm-Gg: AYBFou3MiI9LCoipMGzZq058B0120TSSX0SJOXxsbLkkk3fiGVw6nI5/v3hqi4AfGR1
-	tM2ku1WWceAgPjNIstjb90lVOH1uxwQlbLEwOcG4JOKc2ccnh9Z4KrFu7eSD5NgyK8oILf8CIcz
-	zQUtEolsUNKzF5IaJ0A4C84M8CZx1HvEuNN0I5xm799tQZhRkQUAr8FSmh4h8bRxENyMIEgvRgI
-	l7xhPwv8a/+hcJjw///69uxJdxjemTQiy3mrKSj+FRYpXy8IGpfGOu0rm1UMEHj+XRQ88gnvTJY
-	WhJGeZGoVUbFU1U7s5Fkgfk8SsJ54Fg3MiVLERE6uoh+xVTWjumwiSdzbrVWSpC9mU5qGRG8rJ7
-	PdPAvNzdVsfziNodfXs3w1XUd4c+/aW+uJZElTZFUE2lNUS15OQUyYT62GGvvFi70M3yPfKR4go
-	1YcmIx4NkcNKu3lqskX0KtP3V0BNVfZgd6Mj8CsY0TaHJIyesXjk+2X1og2XG35LfBeNk=
-X-Received: by 2002:a05:600c:45d3:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a01b130b8bmr25639735e9.33.1790779830473;
-        Wed, 30 Sep 2026 07:50:30 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::7:e977])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029edea4sm4382698f8f.22.2026.09.30.07.50.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:50:29 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:50:27 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, 
-	rppt@kernel.org, mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	ziy@nvidia.com, ying.huang@linux.alibaba.com, apopple@nvidia.com, 
-	linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
- with MPOL_WEIGHTED_INTERLEAVE policy
-Message-ID: <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
-References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
- <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gk5ij4uj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02721F00898;
+	Wed, 30 Sep 2026 14:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790779838;
+	bh=pLddcdeVhe5dBvuz28Kf0fu3WIAs8MgosfUWOghTQPI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gk5ij4ujsCezLMd8CRsnjZtyu6WtHMKifO3zWhhWbyCcuZb1xH6plVtyyKB5xEfU2
+	 czjGmI+kF7/iR51RMqdllhlUhnl15DOWTHTg5d4d+ktjJD1R6iPiauNf0yNnfyfOuG
+	 nYzDjnWbEsc/vmy4DIHJWEIoHvNpW1POLHvx6Cmzr50A1HyIMCGMJac34fbjMxhdY0
+	 B84UqzmA7lAfozDdGgoO3tFygGfbjQ2RDkAmgEd8xdKWIaUqOmQ/pbjQYhosj4Bd7Y
+	 xDAO46+5NuN9i0Kt3/SU7AQcMBSVbxga3GpYyDySZqEuH56JqX2xA4oj3YiXu0RFqw
+	 FCqcoX5bXRlKw==
+From: Niklas Cassel <cassel@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Yue Wang <yue.wang@Amlogic.com>,
+	Hans Zhang <18255117159@163.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Frank Li <Frank.Li@nxp.com>
+Cc: Keith Busch <kbusch@kernel.org>,
+	mx2pg@pm.me,
+	dlemoal@kernel.org,
+	Niklas Cassel <cassel@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Ricardo Pardini <ricardo@pardini.net>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Myron Stowe <myron.stowe@redhat.com>,
+	Jon Mason <jdmason@kudzu.us>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [RFC PATCH 1/4] PCI: Update saved Max Payload Size in pcie_set_mps()
+Date: Wed, 30 Sep 2026 16:50:18 +0200
+Message-ID: <20260930145017.1356088-7-cassel@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930145017.1356088-6-cassel@kernel.org>
+References: <20260930145017.1356088-6-cassel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2978; i=cassel@kernel.org; h=from:subject; bh=rlNDwOLzu7ttLsyeROV+rK+yucTFtmlzkPThqRA5V+Q=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLL2Kq48tTfu/UbLknfnnk+PVxez+Tfn/E3Tlcd6TH1E4 rfH9W+f11HKwiDGxSArpsji+8Nlf3G3+5TjindsYOawMoEMYeDiFICJJHkyMtxY37952cWwRSpv ouRPL9nM/tK0IXbCyUbzI8Yc782TFwcwMuyf/ziqUM25YJvDnq1p32Rz16XOrq2WePze0yayadK hg5wA
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
 
-On Wed, Sep 30, 2026 at 10:02:23PM +0800, Li Zhe wrote:
-> The use case is closer to the second one, but the main motivation is not
-> only startup-time performance.  The more important point is that each
-> workload has its own DDR/CXL budget assigned by the workload manager.
-> 
+pcie_set_mps() changes the Max Payload Size (MPS) in the Device Control
+register but leaves the copy saved by pci_save_state() alone, so the next
+pci_restore_state() puts back the old value.
 
-mempolicy is the wrong interface to do budget policy, you'd be better
-off looking at Joshua's memcg tiered node solutions for that.
+The PCI core does change the MPS of devices whose state has already been
+saved: pci_configure_mps() reduces a Root Port's MPS when a device with a
+smaller MPS Supported is hot-added directly below it (commit 9f0e89359775
+("PCI: Match Root Port's MPS to endpoint's MPSS as necessary")), and with
+"pci=pcie_bus_safe", pcie_bus_configure_settings() can do the same when
+pciehp calls it after a hot-add.  The Root Port's state was saved when it
+was added and again when portdrv probed it.
 
-> MPOL_WEIGHTED_INTERLEAVE is useful because it lets new allocations
-> follow that per-workload budget from the beginning, instead of placing
-> everything on one tier first and correcting the placement later. This is
-> important for workload orchestration because the workload starts from a
-> placement close to its assigned DDR/CXL ratio.
-> 
+Since commit 3fc686d550f6 ("PCI/ERR: Add support for resetting the Root
+Ports in a platform-specific way"), pcibios_reset_secondary_bus() restores
+that saved state, without saving it first, after host->reset_root_port()
+has reset the Root Port, e.g. during AER recovery or on Link Down with the
+qcom and Rockchip DWC drivers.  The Root Port then goes back to the old,
+larger MPS while the device below it is restored to the smaller one, so
+the Root Port may send TLPs that the device treats as Malformed.
 
-This however is reasonable to me - you'd prefer to spread out the cost
-of initial faulting placement explicitly, rather than simply take
-fallbacks when the top-tier budget becomes pressured.
+Update the saved copy of Device Control when pcie_set_mps() changes the
+MPS, like commit 909f7bf9b080 ("PCI: Update saved_config_space upon
+resource assignment") does for BARs.
 
-i.e. w/o interleave:
+Fixes: 3fc686d550f6 ("PCI/ERR: Add support for resetting the Root Ports in a platform-specific way")
+Assisted-by: LLM
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+---
+ drivers/pci/pci.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-[node 0       ]
-^^^^^^^^^^^^^^ alloc until full
-                vvvvvvvvv fallback
-                [node 1          ]
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..5b126cd342ca 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -1736,6 +1736,24 @@ static void pci_restore_pcie_state(struct pci_dev *dev)
+ 	pcie_capability_write_word(dev, PCI_EXP_SLTCTL2, cap[i++]);
+ }
+ 
++/*
++ * Update the saved copy of the Device Control register after changing it, so
++ * that pci_restore_state() doesn't put back a stale value.  Device Control is
++ * the first register saved by pci_save_pcie_state().
++ */
++static void pcie_update_saved_devctl(struct pci_dev *dev, u16 clear, u16 set)
++{
++	struct pci_cap_saved_state *save_state;
++	u16 *devctl;
++
++	save_state = pci_find_saved_cap(dev, PCI_CAP_ID_EXP);
++	if (!save_state)
++		return;
++
++	devctl = (u16 *)&save_state->cap.data[0];
++	*devctl = (*devctl & ~clear) | set;
++}
++
+ static int pci_save_pcix_state(struct pci_dev *dev)
+ {
+ 	int pos;
+@@ -5970,8 +5988,12 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+ 
+ 	ret = pcie_capability_clear_and_set_word(dev, PCI_EXP_DEVCTL,
+ 						  PCI_EXP_DEVCTL_PAYLOAD, v);
++	if (ret)
++		return pcibios_err_to_errno(ret);
+ 
+-	return pcibios_err_to_errno(ret);
++	pcie_update_saved_devctl(dev, PCI_EXP_DEVCTL_PAYLOAD, v);
++
++	return 0;
+ }
+ EXPORT_SYMBOL(pcie_set_mps);
+ 
+-- 
+2.55.0
 
-in this scenario you end up with considerable hot memory
-on the remote node consolidated in time-space (everything
-allocated after node0 becomes full skews heavily toward
-node1)
-
-Tiering then likely takes many faults to rebalance after
-you've already reached node0 limits.
-
-w/ interleave
-
-[node 0                                      ]
- ^^^vv^^^vv^^^vv^^^vv^^^vv^^^vv....
-[node 1                                      ]
-
-In this scenario you do an initial fill distributed by weight
-and then let tiering figure it out without consolidating all
-of the pressure to the point where node0 has no space left.
-
-That said - this seems like mostly an initial-fill problem, after
-you initially fill your memory, a new allocation largely implies
-the memory is hot - and you probably prefer that to be local.
-
-So while it's possible to enable this, I'm struggling to understand
-the justification.  I think I would like to see numbers that demonstrate
-that this is actually beneficial over the life of a workload.
-
-~Gregory
