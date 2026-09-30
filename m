@@ -1,431 +1,181 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010067.outbound.protection.outlook.com [52.101.46.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92F52F8BEE;
-	Wed, 30 Sep 2026 04:41:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790743278; cv=fail; b=Uru8qfQtEAcdUJfbJQBdwPD3/YXvMLJ7SgfxznGASOp7FlaNVxh9Cy7Za4t2tidY+2vqXmNVdor+kE3z0M5Shr1IlINKc5ERjpzT8ZGKlTI7SNYOJF9Gp6QzwMMymkKPMPQes0hAeE0tj0SO8clRnNhxIrKGsODCrug/72NA01s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790743278; c=relaxed/simple;
-	bh=P2veDEY0qdAQVK30BBfPRCW8jL7mWOC46fOM0A4jjtE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ptCb4HU5/CvCtt/Cz3nCBehufZGtfpi76D4HUrJkOas+1nAon4IHLbTjpNRgbqM6bbWwotWBj6rmK95ybuPK8COvRwG4TAWSg+iBAj0VkCG1JTtjmibgqDqn8EIKJfxYVGKNIYs7WwPmVTzAoJ+FJ9dCL+JksM8KJ2qxofv9SsA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JUejxxV9; arc=fail smtp.client-ip=52.101.46.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B594D38A73B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790743323; cv=none; b=LKJNS9J7egJANZHez247WxMWqU/RoTJm1diVgBoERw3MM9b5AcuTUuGdwmJMmb84Q1YpNaM7R93lvaOaf5ZsCmOAddiHnxP0x9kHXqFnZ5CFp5gYMuc9bVHKQ+t6eipo+qsHv7pKwCKJWbSzofGkE1WXzK9wPqYU3Ec79rHGRoo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790743323; c=relaxed/simple;
+	bh=hVK5ZaKV4XKlAN+5/oG1cx4MwyE5N3AwnSgb6VJtQF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Go1q7ZozDhOrGID9HhaQ0De/GgnsF1i2MyXy4dqAQg1uHztVepUmTK4Sa9KHsJURbSxiUxBA+zsNBRrllxaibEy6jGyOZKBTY9SYF7UoLQe1uvCIow06tHuvEe4LNIx8ox4GHovL/o5bTEB1sZFubI7S4q4L/KEzNSALvUNlB+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nSZeBCac; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JUejxxV9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ntW5l5ZVxhud6PLFCxu8qyw9hyu+kf+/ft2KCk0BJdR2Q0n3FoJgfIAmyl7FxMNbpNof3Wf8xp3xrEOEElZaXPkxZmEVTz1M1O+63gLywd9knyw1piKzaffEHpWkA4QBr/+datB+dZ5rq/wJ5gXpGWuws9HKH0P/17AW8cwZITF8wj6HCRpbr6uqfSiPDQ4K5QMvDqLYi4CmTN54E04N7vlerO7l5VljackHD/1h4dJPCNWh2sVj7gFLczO91f0LqmTVIloX8mfcIWyOB3wBz4O/eh8P3sm9ub1DqXXB4WUlEy8QQrVVuolzxAFYCqnbk/lgoamzRhiL0TFo3x3miQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xfOGp9bc/L0IPU6zy6vQ6xHyZ3TXektzkPeqHqUy2r4=;
- b=Ep8NS9qZybRVsYarhVEwBj3yDajpS/0OxK6gEHL+faFjzEyCB6j8KRnGw5gVBKB7FBaEzuHk+MtXFx8J+l+BTJczp6UX0ZFLZk0Leg9qcx6Kg5FKWRUgcaMsxg69/8jN8bxCU7x0o8cr49lRAuEXZweTsoGVVZu+CYH+Z6zD4G7o6tlaQ39EW5qeqg89Y8hRQBS6Gn1AX7BZ8/zNcTvSmi7uKV8P8WH3To1SarqH0A58oUSY2MxlevDyXaqcNTTkAfiCXaStG6paxbqXUB3s44tStpi8VnGM6x39TfB5I8jSKZbMk6h2X8b5C4C7qNu87MJy8zyAZPB2UKoyLjojbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xfOGp9bc/L0IPU6zy6vQ6xHyZ3TXektzkPeqHqUy2r4=;
- b=JUejxxV92ixUVK2TUklO0/3hwInffF8qKTTRCAixWQhydFkw/LZiv0eytc0HHFDHX9NXJ56L9k3u4wEaLIkx97rToOIck930rPEnRqCyMUcohMjQM323o3UZC3SL+SFtPXRdmLI4Km0VhCpRv+AMG02QkmRD5uVAdoK/WuctZpub+rzyfdoEBxJfn02vpIQOIOHZzh+9I/YmtCQS6Z0CUOMk2GwZ/p0HaXsc0Khn2BCZ5bzVmd5hz+XbVJvJyEjPnKlPwbMLwpzSAeixyIDM4wK9E0yMm+bR5txrlpwFARc0wsNVuhmhEv/0gCPFHrFuHCrdyHEeYi1K7W29g13KYQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 04:41:09 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
- 04:41:09 +0000
-Date: Wed, 30 Sep 2026 00:41:08 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v9 6/9] rust: bitmap: add contiguous area operations
-Message-ID: <aryS5Jzc9ELvvP8b@yury>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-6-0d6cca376cff@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-chid-v9-6-0d6cca376cff@nvidia.com>
-X-ClientProxiedBy: IA1P220CA0003.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:461::9) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSZeBCac"
+Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2e2e688de2eso29715ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:42:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790743321; x=1791348121; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ud4fTEqxQzrUTwARn11POV1Taqipw52FWd2xdX+lQEY=;
+        b=nSZeBCact6qaShd68BNW4fkcVF1wCHtyXGtdU79kJo1OlXmjB2UPcSPAfmzmsXZBaO
+         3diFhUCQqzM4QoysSPzKyp+bi2fpghVWOyxt52QPbiX380kQOxqxVVx45pCDnoQLH5MU
+         8Pl73CDaK3M4h1ikjiK9zNfMpFNV0eoC8VOv5wIq702eZ5NkAee4EgJpWbJ4CXehb/xy
+         z1TfOK9AwTOCF2OSauAt7NLpAAkrTjauJsQse1+3saC0mIWG9FAwdyC9+OkQUH2Lz+Z9
+         eMtyu4r0Z6AZHsLlqCm1w0jJISTzwcc8kCgb1O5PueRz1ilf3c9UwQTQ37cnxNc/nErC
+         XYBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790743321; x=1791348121;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ud4fTEqxQzrUTwARn11POV1Taqipw52FWd2xdX+lQEY=;
+        b=J8YnYAHs/Kl8ZGsFmQIZAppLWUPBwVQjH2ROCwwq1iLHuQhz1+bZ64mS3da0kDViqP
+         tpdnQDPEpHAubr9+48UJXHniQH81MxR8FPiYEB7T5Xda/pCOZnxIymYYBDxoLVwNeKZY
+         RLLZjJqQ5DvapbMN+OEMRhq1FVLG+Cw6A6iyEe3524otnW6ajXU0GRl1Jg2JrCfdbFJx
+         Q5zzNiN5fVBsLsFvBgNjDG8jGXYegVogocNTTdPcZ6W2PBltMMTAECOCMkNlfldc1IvH
+         HmrujWXJoMuimKcp9JBNQ/PK+/3ePkZTb9H2SDt6fM/F3AHgEV06uUUjEY7uecVFXLV/
+         FXig==
+X-Forwarded-Encrypted: i=1; AKwUvByko14XjMcxDJ5I4gdMDLUcAtubx8q06pDl1lx62ClPW8Oj02kQzbrsdmnPFjAyWpSfb+TgypSUngsF/v0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzwk2FGMhg2xKFvsBrj1QmLI1dnth86FrmO0f6d/ZPqYoHhFge
+	QzQ5DHTPg/L6I6vsdzbOr+X5fuJVVtOGeXNcU+SCCnGXxcx7LTnEpLKB
+X-Gm-Gg: AYBFou1PCZOTxj0iujpjgSuO0lGk+xrB/yk824BpJdQHdSoPbctzC6ZRbOyhncO4J7f
+	DKxDsDpB+zW46N0YuABlRUIqU0Ft8lgoYlM1l9VOjZbMfxnJuun7KhtivD+xhrnyMEp0vh+7DEo
+	eIwbkz235/5oaWMG5DxnxUDLIRxgVx9h1v0RnohEbuOOZEFIBtxH02EgqkS24gZ/VNAlTxv+IVf
+	K2baC6zM+xlnzu8acmNIp2P7/DtkmR+wQXdpalzfUqjtulNNLLeG1ZVlj7yGFcesfyUFCWDZWBW
+	qOaLtXm8ZflGf7XqOB1f9hsIIaGsBN+0B2I6GqHou0TYUgKQN+L/vIXH2gVpH0QynV+RZuL9RRJ
+	/0rOgiZU43IA36+nbMlMFiC1iC732APwGqBA0cCwxJtYYYvpoTFkXJ50JxBSJz0Czy60IlTjCn4
+	XTgIijpNrGSmAC4ArnfdZmp1bojcO3WSiwvX/4w/v4yGZDSQgAKXVmRXdBaIBO+SgU4GESEyvMF
+	KE82O560Q8=
+X-Received: by 2002:a17:902:ce90:b0:2df:9eb0:761a with SMTP id d9443c01a7336-2e2e4a25a1bmr2167915ad.25.1790743320928;
+        Tue, 29 Sep 2026 21:42:00 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5b89c06sm538155ad.24.2026.09.29.21.41.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 21:42:00 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] vhost/vsock: trim nonlinear SKBs to declared payload length
+Date: Wed, 30 Sep 2026 13:41:45 +0900
+Message-ID: <20260930044147.3818241-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|SJ2PR12MB8784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8102d887-1ebf-4444-6f3c-08df1ead0c3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|5023799004|11063799006|4143699003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ARoz5FoKhnVVeiJQAAmZN6q+CQ/zHF1Q3koDOtKePVQZItRbECSZ1swc4A+HD9HZDS2IVVmmFg+oaqtFM8uJfDIWm+q6VWmVIDYxJKcMIJioEVojqwqLyUSta4N83ID4yQohGGHfQ53uDbNOT5UQ2K/YVu/VWzGCOOTLI0XwDDmYLm7cQqmjrrw2cXD0a6ikNpWWk5Bt2pDeVnEW8pX5hg2T/BX1/Z9CSSA8mafQvOQE7VUav4jaan3gODWkG5yHLNjLeZhp9Mq+cE7fKkH8N5Ske11y8wTgVo3nLI1Tz/PX6Y/AT7IS0A1V6ebJzYIYyrZB5VVh+g5fLSZuc2kYCtXMlD8AFhPV1N1QdNwdQ3mHdr5fYJ37znaK6885TGnwVZ9a5DUxO6fvm7B3fbxDWN4MW0qC4v9dkhv6HulhcVxsYhRtwBXzXQp1ypRGGYCzGjAXQm4v9mXAjSUxdTgdivgNZZ1bR+O19CKgaLorGqVv+9hAoGqo/KmgiryY92BNjyZnSLiUIE2wr2gTnHtAvRjrXk6Ehw4xMBklJAn9EkLxgYxJQW5+ZlsMHVj33+OfY7PbKDfg2uVxayr4f5pvl6RStz5/RoPQDmVI7z46TO3D737DfXHGxqnmGpYyM8g8Xhr+mALmGbxCEgrj6sFmJl+i20YznUWmeLeTSxwQzqA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BUBrPTjAs0jahaQkxuQaZRZlttHYNghmA8zeX6YZPdyqvbx7t/TsVpbfVi6p?=
- =?us-ascii?Q?XQwB/fZ+DQQUuGueF49ii5sx5oiY5iBa/d/LI0yMRwCKuW4gPhd98FBxkBzk?=
- =?us-ascii?Q?okezqNGqGsK8PV3ulBs3k1hGi+v0Rb9qPuf0KVWXspWTYcKz5XXKLTsKh3tm?=
- =?us-ascii?Q?k+uk1A1kABTQUvK/genzSyU5BcQuTcA4tTTiFS/sfOiTVX9vHXnn9Nj4/AXs?=
- =?us-ascii?Q?6s4FTkeWg8kAZJI8SHjgZFdMfbjORqqJWH1qh201mXi8YBrKHOBIVZuNZhFB?=
- =?us-ascii?Q?C7aT1SUTwqpgF8tzCqJgoz9LvgoVXoYHkbyeoxjXyfc3tPNSTgyqYSG/3Lzv?=
- =?us-ascii?Q?NSR/kLXAMeUOtoa8H6NBsnSjdjccM/k0RcEFCxH1Fg2mP3ZZr8F1jBcITVv+?=
- =?us-ascii?Q?UzW8HuRc+oWoklN8uGMwAbdy2fIgjLzXIoDzEqN4LCAzDSeiN6Zo20Me6km0?=
- =?us-ascii?Q?ZP5uanFPgGX65Jpf9lLwm22Vi7iRTDfLS/2/mPOKSaAHc6eeZLZ21iy8261W?=
- =?us-ascii?Q?Q4B1Oq1Xzy8M4jvC0abYQfIUeHZrmX11+4OGjYH7tlrc9XwnvdpP6feBonNU?=
- =?us-ascii?Q?BNymudjCtLK/sHGVz6OaFyUhS2NcOKPje0ZXarettvNnmok1pAyu/wKZ5N/3?=
- =?us-ascii?Q?DY6IjrqPl0C4gk7MXq500BuWFcy8ydWnpR5xYW0OBQZSi1LpDRdvv1sp1MI5?=
- =?us-ascii?Q?h7iiuzY3J3KlG2clwosB/XhLS3sozeCh+EmP3L9pdkZhPY/HW6dzU6t3ZxpC?=
- =?us-ascii?Q?u8i4Eey8D4eeKANDhecEtzDXAOm0mtfWR2EW0NzjDmD8y+zWBHEKnwdtYKjk?=
- =?us-ascii?Q?w8s5n9+tCRRjXyfHDxM6/lYakiqnxjU389QJTRnlI8YjIRYGSUfhDqjZVCkn?=
- =?us-ascii?Q?yEUZGWRhpzWW02esugfnUn8SQVGLr5MH+8rZLHJ6XhuLFBwt/c62LPXydgNc?=
- =?us-ascii?Q?06Oq0HFSuRtK6BcxC2qNbv1np9y2p+Qxma3l3To39IP3VDfk5BI9YyxD1TqI?=
- =?us-ascii?Q?VXgaZGWvFaIF812pMtPB+elD9JUKfHSXcixIK044F09pnPk/NhQglSC40JeO?=
- =?us-ascii?Q?YRnUyZyiMJ4HTeBt6wzLxjQUw4L+q5iihpWkdeS2sxmatyCiazJZuDyoFilw?=
- =?us-ascii?Q?b1QPQSUqfRd7IzhSUOqhtbq+dNFNa0votC98q11eKQO2YSKICdPsT+a0HkjW?=
- =?us-ascii?Q?fKb4c/+nSvx92Zi7StSN8jiHOiakXqw7wXBZmdatGJxhVlxS8JUaNaxaditR?=
- =?us-ascii?Q?yQKMvulW9iCKlHZ3mAZLB6dLDyIA1jJoMZTg7zYNSBNTT5fc5rv4JnnHvZKm?=
- =?us-ascii?Q?sd6RLsnZ+K6LKFRRgSRvy+Up9Rd3hIkQ2NNa3gZAdQnHzZ6C7H/LCv6HRJsJ?=
- =?us-ascii?Q?4B4vu3F1SrGg0DMynA2F8hT09cm1x3w/s1W3ERP8jJgAk8bvsOptuZ5auE4w?=
- =?us-ascii?Q?IiNVRs/idiYcNUMeRKTkVHSLNajfhSuMW3LzVcxdyM5km6oGCw7d7wENmi/r?=
- =?us-ascii?Q?AYCNETpllsp9GhTUC9Uf84nJjE6DlN3QE/4xaPPIB3lHXuJ8NHLIeC5SuKXe?=
- =?us-ascii?Q?XVR7T/jcVmj7DFlrjPMapwR2n3AkwoMmEvryalsJECSR0YkQlqZaBgyzKcBD?=
- =?us-ascii?Q?rx1t1fjAq6SQ2RFEF3WU8t/AdDA7Oikq/t2Ms16w85lhdmrZU1aK0I7yZY/X?=
- =?us-ascii?Q?rtJ58iPwZSBujd4b1mQtrvdNPyUplrV4/4Ah9YVgiRrn9hu0?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8102d887-1ebf-4444-6f3c-08df1ead0c3c
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 04:41:09.5848
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JNRgS9foXqpetDB2pPrt0Yq8SS4iDG38ysrXb6rwGv4Oim8Jq0xnWH/oN//4zwLMVm6UmhXLl2wp9GbuWbbt6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8784
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 11:42:55AM +0900, Eliot Courtney wrote:
-> Add bindings for area operations on bitmaps. Each one is
-> made safe by adding some extra checks compared to the underlying C code
-> (for example, checking bounds) and with additional checks to catch
-> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
-> 
-> Add tests demonstrating the edge cases.
-> 
-> Reviewed-by: Burak Emir <burak.emir@gmail.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/bitmap.rs | 241 +++++++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 239 insertions(+), 2 deletions(-)
-> 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index df5505ec7a96..23c2b43a98ac 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -10,7 +10,11 @@
->  use crate::bindings;
->  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
->  use crate::pr_err;
-> -use core::ptr::NonNull;
-> +use crate::ptr::Alignment;
-> +use core::{
-> +    num::NonZero,
-> +    ptr::NonNull, //
-> +};
->  
->  /// Represents a C bitmap. Wraps underlying C bitmap API.
->  ///
-> @@ -525,13 +529,159 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
->              Some(index)
->          }
->      }
-> +
-> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, where the area plus
-> +    /// `align_offset` is aligned to `align`.
-> +    ///
-> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
-> +    /// the bitmap exists.
-> +    ///
-> +    /// The returned index plus `align_offset` is a multiple of `align`.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
-> +    #[inline]
-> +    pub fn next_zero_area_off(
-> +        &self,
-> +        start: usize,
-> +        nbits: NonZero<usize>,
-> +        align: Alignment,
-> +        align_offset: usize,
-> +    ) -> Option<usize> {
-> +        bitmap_assert!(
-> +            start < self.len(),
-> +            "`start` must be < {}, was {}",
-> +            self.len(),
-> +            start
-> +        );
-> +
-> +        let nr = u32::try_from(nbits.get()).ok()?;
-> +        let align_mask = align.as_usize() - 1;
-> +
-> +        // The C alignment and end arithmetic must not overflow, or it can read out of bounds.
-> +        // Overflow is only possible on 32-bit.
-> +        #[cfg(not(CONFIG_64BIT))]
-> +        align_mask
-> +            .checked_add(self.len())?
-> +            .checked_add(nbits.get())?;
-> +
-> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use with an out of bounds `start`
-> +        // value and, given the overflow check above, never reads beyond `self.len()` bits.
-> +        let index = unsafe {
-> +            bindings::bitmap_find_next_zero_area_off(
-> +                self.as_ptr().cast_mut(),
-> +                self.len(),
-> +                start,
-> +                nr,
-> +                align_mask,
-> +                align_offset,
-> +            )
-> +        };
-> +
-> +        (index < self.len()).then_some(index)
-> +    }
-> +
-> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, aligned to `align`.
-> +    ///
-> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
-> +    /// the bitmap exists.
-> +    ///
-> +    /// The returned index is a multiple of `align`.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use kernel::{
-> +    ///     alloc::{AllocError, flags::GFP_KERNEL},
-> +    ///     bitmap::BitmapVec,
-> +    ///     ptr::Alignment,
-> +    ///     sizes::SizeConstants, //
-> +    /// };
-> +    ///
-> +    /// let mut b = BitmapVec::new(64, GFP_KERNEL)?;
-> +    ///
-> +    /// assert_eq!(Some(0), b.next_zero_area(0, cv!(8), Alignment::SZ_1));
-> +    /// b.set(0, cv!(5));
-> +    /// assert_eq!(Some(5), b.next_zero_area(0, cv!(8), Alignment::SZ_1));
-> +    /// assert_eq!(Some(8), b.next_zero_area(0, cv!(8), Alignment::SZ_8));
-> +    /// assert_eq!(None, b.next_zero_area(0, cv!(65), Alignment::SZ_1));
-> +    /// # Ok::<(), AllocError>(())
-> +    /// ```
-> +    #[inline]
-> +    pub fn next_zero_area(
-> +        &self,
-> +        start: usize,
-> +        nbits: NonZero<usize>,
-> +        align: Alignment,
-> +    ) -> Option<usize> {
-> +        self.next_zero_area_off(start, nbits, align, 0)
-> +    }
-> +
-> +    /// Sets a contiguous area of `nbits` bits starting at `start`.
-> +    ///
-> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
-> +    /// bounds, does nothing.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
-> +    /// of bounds.
-> +    #[inline]
-> +    pub fn set(&mut self, start: usize, nbits: NonZero<usize>) {
-> +        bitmap_assert_return!(
-> +            start
-> +                .checked_add(nbits.get())
-> +                .is_some_and(|end| end <= self.len()),
-> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
-> +            start,
-> +            start.saturating_add(nbits.get()),
-> +            self.len()
-> +        );
-> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
-> +        // `i32::MAX` bits, so the casts are lossless.
-> +        unsafe { bindings::__bitmap_set(self.as_mut_ptr(), start as u32, nbits.get() as i32) };
-> +    }
-> +
-> +    /// Clears a contiguous area of `nbits` bits starting at `start`.
-> +    ///
-> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
-> +    /// bounds, does nothing.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
-> +    /// of bounds.
-> +    #[inline]
-> +    pub fn clear(&mut self, start: usize, nbits: NonZero<usize>) {
+vhost_vsock_alloc_skb() sizes its skb from the total guest descriptor
+length, while virtio_vsock_hdr.len independently declares the payload
+length.  Since commit ab9aa2f3afc2 ("vhost/vsock: Allocate nonlinear SKBs
+for handling large receive buffers"), large descriptors use skb fragments.
 
-I'm still not convinced about having this non-standard parameter types
-in function declaration, but ... let's give it a try.
+virtio_vsock_skb_put() currently changes only skb->len for a nonlinear
+skb, leaving skb->data_len and all fragments attached.  The zero-payload
+fast path skips the helper entirely.  A guest can therefore retain the
+full descriptor allocation while receive credit accounts no payload.
 
-The rest looks OK, so
+On Linux v7.2, 455 zero-payload skbs retained 30,255,680 bytes on a
+256 KiB receive buffer while rx_bytes and buf_used remained zero.  A
+full-payload control retained 265,984 bytes in four skbs.  The existing
+SKB_TRUESIZE(0) queue budget caps skb count but does not account for these
+descriptor-sized fragments.
 
-Reviewed-by: Yury Norov <yury.norov@gmail.com>
+Set skb->len to the fragment length before calling pskb_trim(), then trim
+to the declared payload length.  This releases unused fragments and lets
+skb_condense() reduce truesize.  Move the zero-payload return after the
+helper so zero-length packets are trimmed too.
 
-> +        bitmap_assert_return!(
-> +            start
-> +                .checked_add(nbits.get())
-> +                .is_some_and(|end| end <= self.len()),
-> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
-> +            start,
-> +            start.saturating_add(nbits.get()),
-> +            self.len()
-> +        );
-> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
-> +        // `i32::MAX` bits, so the casts are lossless.
-> +        unsafe { bindings::__bitmap_clear(self.as_mut_ptr(), start as u32, nbits.get() as i32) };
-> +    }
->  }
->  
->  #[cfg(CONFIG_RUST_BITMAP_KUNIT_TEST)]
->  #[macros::kunit_tests(rust_kernel_bitmap)]
->  mod tests {
->      use super::*;
-> -    use kernel::alloc::flags::GFP_KERNEL;
-> +    use kernel::{
-> +        alloc::flags::GFP_KERNEL,
-> +        num::cv,
-> +        sizes::SizeConstants, //
-> +    };
->  
->      #[test]
->      fn bitmap_borrow() {
-> @@ -642,4 +792,91 @@ fn bitmap_copy_and_extend() -> Result<(), AllocError> {
->          assert_eq!(Some(17), long_bitmap.last_bit());
->          Ok(())
->      }
-> +
-> +    #[test]
-> +    fn bitmap_area_set_clear_find() -> Result<(), AllocError> {
-> +        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
-> +
-> +        assert_eq!(Some(0), b.next_zero_area(0, cv!(5), Alignment::SZ_1));
-> +        b.set(0, cv!(5)); // Now contains {[0, 5)}.
-> +
-> +        assert_eq!(Some(0), b.next_bit(0));
-> +        assert_eq!(Some(4), b.next_bit(4));
-> +        assert_eq!(Some(5), b.next_zero_bit(0));
-> +        assert_eq!(Some(5), b.next_zero_area(0, cv!(5), Alignment::SZ_1));
-> +        assert_eq!(Some(8), b.next_zero_area(0, cv!(5), Alignment::SZ_8));
-> +
-> +        b.set(8, cv!(8)); // Now contains {[0, 5), [8, 16)}.
-> +        assert_eq!(Some(16), b.next_zero_area(0, cv!(4), Alignment::SZ_16));
-> +        assert_eq!(Some(16), b.next_zero_area(0, cv!(4), Alignment::SZ_1));
-> +
-> +        b.clear(0, cv!(5)); // Now contains {[8, 16)}.
-> +        assert_eq!(Some(0), b.next_zero_area(0, cv!(5), Alignment::SZ_1));
-> +        assert_eq!(Some(8), b.next_bit(0));
-> +        assert_eq!(Some(15), b.last_bit());
-> +
-> +        b.set(60, cv!(10)); // Now contains {[8, 16), [60, 70)}.
-> +        assert_eq!(Some(60), b.next_bit(16));
-> +        assert_eq!(Some(69), b.last_bit());
-> +        assert_eq!(Some(16), b.next_zero_area(9, cv!(40), Alignment::SZ_1));
-> +        assert_eq!(Some(70), b.next_zero_area(0, cv!(45), Alignment::SZ_1));
-> +
-> +        b.clear(62, cv!(6)); // Now contains {[8, 16), [60, 62), [68, 70)}.
-> +        assert_eq!(Some(62), b.next_zero_area(60, cv!(6), Alignment::SZ_1));
-> +        assert_eq!(Some(61), b.next_bit(61));
-> +        assert_eq!(Some(69), b.last_bit());
-> +        Ok(())
-> +    }
-> +
-> +    #[test]
-> +    fn bitmap_area_exhaustion() -> Result<(), AllocError> {
-> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
-> +
-> +        assert_eq!(None, b.next_zero_area(0, cv!(65), Alignment::SZ_1));
-> +        assert_eq!(None, b.next_zero_area(0, cv!(usize::MAX), Alignment::SZ_1));
-> +        assert_eq!(None, b.next_zero_area(1, cv!(usize::MAX), Alignment::SZ_1));
-> +
-> +        b.set_bit(0); // Now contains {[0, 1)}.
-> +        assert_eq!(None, b.next_zero_area(0, cv!(usize::MAX), Alignment::SZ_1));
-> +
-> +        b.set(0, cv!(61)); // Now contains {[0, 61)}.
-> +        assert_eq!(None, b.next_zero_area(0, cv!(4), Alignment::SZ_1));
-> +        assert_eq!(Some(61), b.next_zero_area(0, cv!(3), Alignment::SZ_1));
-> +        assert_eq!(None, b.next_zero_area(0, cv!(1), Alignment::SZ_64));
-> +        Ok(())
-> +    }
-> +
-> +    #[test]
-> +    fn bitmap_area_off() -> Result<(), AllocError> {
-> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
-> +
-> +        b.set(0, cv!(5)); // Now contains {[0, 5)}.
-> +
-> +        // The area plus align_offset starts at a multiple of the alignment.
-> +        assert_eq!(Some(7), b.next_zero_area_off(0, cv!(8), Alignment::SZ_8, 1));
-> +        assert_eq!(Some(5), b.next_zero_area_off(0, cv!(8), Alignment::SZ_8, 3));
-> +
-> +        // A zero offset behaves like next_zero_area().
-> +        assert_eq!(
-> +            b.next_zero_area(0, cv!(8), Alignment::SZ_8),
-> +            b.next_zero_area_off(0, cv!(8), Alignment::SZ_8, 0)
-> +        );
-> +        Ok(())
-> +    }
-> +
-> +    #[test]
-> +    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
-> +    fn owned_bitmap_area_out_of_bounds() -> Result<(), AllocError> {
-> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
-> +
-> +        // Should be ignored since out of bounds.
-> +        b.set(64, cv!(4));
-> +        b.set(62, cv!(8));
-> +        b.set(usize::MAX, cv!(1));
-> +        b.clear(usize::MAX, cv!(1));
-> +        b.clear(2048, cv!(8));
-> +        assert_eq!(None, b.next_bit(0));
-> +        assert_eq!(None, b.next_zero_area(64, cv!(1), Alignment::SZ_1));
-> +        Ok(())
-> +    }
->  }
-> 
-> -- 
-> 2.55.0
+These skbs are newly allocated, unique, and have no frag_list, so the trim
+does not enter an allocation-bearing path.  Keep a warning for a violated
+caller contract.
+
+The fixed v7.2 image left a one-byte skb with no fragments and reduced
+the zero-payload queue to one 960-byte skb.  The build had no compiler
+warnings, and the run had no sanitizer, WARN, oops, or panic findings.
+
+Fixes: ab9aa2f3afc2 ("vhost/vsock: Allocate nonlinear SKBs for handling large receive buffers")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+Required configuration is CONFIG_VSOCKETS, CONFIG_VIRTIO_VSOCKETS_COMMON,
+and CONFIG_VHOST_VSOCK.
+
+The source reproducer is available privately to maintainers and is
+omitted from this public AI-assisted report. It exercises the real
+allocation helper and VSOCK receive queue from an in-kernel module, not
+a live guest virtqueue. Guest control is source-confirmed, but live guest
+end-to-end validation and deliberate host OOM were not performed. No KASAN
+splat is expected or claimed; the oracle is retained truesize and receive
+credit state above.
+
+ drivers/vhost/vsock.c        | 6 ++----
+ include/linux/virtio_vsock.h | 9 ++++++---
+ 2 files changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+index abed1fbcf66c..fa59456abda9 100644
+--- a/drivers/vhost/vsock.c
++++ b/drivers/vhost/vsock.c
+@@ -400,10 +400,6 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
+ 
+ 	payload_len = le32_to_cpu(hdr->len);
+ 
+-	/* No payload */
+-	if (!payload_len)
+-		return skb;
+-
+ 	/* The pkt is too big or the length in the header is invalid */
+ 	if (payload_len + sizeof(*hdr) > len) {
+ 		kfree_skb(skb);
+@@ -411,6 +407,8 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
+ 	}
+ 
+ 	virtio_vsock_skb_put(skb, payload_len);
++	if (!payload_len)
++		return skb;
+ 
+ 	if (skb_copy_datagram_from_iter(skb, 0, &iov_iter, payload_len)) {
+ 		vq_err(vq, "Failed to copy %zu byte payload\n", payload_len);
+diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+index f91704731057..31358683e23e 100644
+--- a/include/linux/virtio_vsock.h
++++ b/include/linux/virtio_vsock.h
+@@ -51,10 +51,13 @@ static inline void virtio_vsock_skb_put(struct sk_buff *skb, u32 len)
+ {
+ 	DEBUG_NET_WARN_ON_ONCE(skb->len);
+ 
+-	if (skb_is_nonlinear(skb))
+-		skb->len = len;
+-	else
++	if (skb_is_nonlinear(skb)) {
++		skb->len = skb->data_len;
++		if (WARN_ON_ONCE(pskb_trim(skb, len)))
++			return;
++	} else {
+ 		skb_put(skb, len);
++	}
+ }
+ 
+ static inline struct sk_buff *
+
+base-commit: 54518e0e827f4ca9229ae657022c60bf60f5c1bf
+-- 
+2.55.0
