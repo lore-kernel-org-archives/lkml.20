@@ -1,163 +1,208 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3671E457E7D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B05471410;
+	Wed, 30 Sep 2026 08:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758428; cv=none; b=p9PHebb6KXy6ZUrGHmf8ZW+sQhIO4ERBUUMHg32WUI/2Tm9uXh0LDhm8gLoR2f41R8ISd+dh/OXLHeqs2gwZ/RZesRobAVWg3N6p6hwu+RlJilGC8uc41IqAOAYZelPOIlSeyUGJJJh5fO+AcM9PGmljiZp479jUVc5xO/E/f+8=
+	t=1790758428; cv=none; b=mSOlZmyYSTY4/aRHKB+RJxYbzuhdsyW48+aNZYAagKU8AtdY4za/3OXQHiEMlFUMjcsX1tW21/+jDjy0A/3H+cIe+09s05fEkdne8oOJaSLRRI1aED5USkFX+8iK4ez1AvD00yR7G0t2HOcfZKxQwoT16TVdEiftPyAlOsuo8rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790758428; c=relaxed/simple;
-	bh=geA/iZB6wkEKrsiLYnp/cqZXPGVPPnjSglnChDxmN9A=;
-	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
-	 Message-ID:Subject; b=IAbqwxHifrsTPH5xFF66D1OgDYRcZuUNZOq/U+8IFnDFw7utFZAkLgwXBhujQFUrUrScoEYTSh0kAKD8vMB/V6K8cIhPNNP6HvcByQK9X8vhDRXR1dYl3ZzHltamVe5+sIffHtou0lHYNQ1DVuOJn6Q26pWBx332N51pfPgbuSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xXlBawrS; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=LnomSK7POE15LyEpdzjf0O2g1cDeKGmuEsQmVqZE1qM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YtmgD/eRDntrhxGaJ379gYkdOl8b642V9fxSryCdXd8q1InuaAOiKIZplYwR8iI+vUkrmTvl35j4cZEwj+DPW5L7z/AP6not6t3oGWT3kujPZQ+kOpl+lAHWoM/Q3c1lhDwAB1ixzyV3jjHDtzsFtLdYnfP5+sjw/KF80dXulZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Rx9ygRXK; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xXlBawrS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 796281A107C;
-	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 44E8B60749;
-	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 32F0D10328E7B;
-	Wed, 30 Sep 2026 10:53:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790758422; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=6AWkXYD/MD09FFhnuG0xmwYrcKAW4aflAM4wC217Zdk=;
-	b=xXlBawrSCHtRf7uBs/H3aHyT/IlWcoN+YdbdklTn+FtklaDDpr13vhlc2/7JWF0BbTRXaF
-	WFP6P947sdxTV+Tdfhc6TGaPkQv2eRtZDNLiykVjAVA8wzVUNMXdpXm+W4IEQA3WDXy8CQ
-	1qULBYf0iytwiWP+3C8/H3uDDj1zDixV+4giWK8wLfHN79qYv1ZI77bHUBNGHYVy824OIb
-	bWXP7vbzUDRR3VRCvH4ydGcOGZ8UJGkpUFNv3mSCs8dPBePdvMGc9ircgVTK9FkOM9qixy
-	jMa530GNhnA06ee70wwYI6c9b8P0ALvhWJ1hCc60PqFoo0BfJgo04rxfGeG1NA==
-From: "Gregory Clement" <gregory.clement@bootlin.com>
-In-Reply-To:  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-Content-Type: text/plain; charset="utf-8"
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-Date: Wed, 30 Sep 2026 10:53:38 +0200
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Andrew Lunn" <andrew@lunn.ch>, "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, =?utf-8?q?devicetree=40vger=2Ekernel=2Eorg?= <devicetree@vger.kernel.org>, =?utf-8?q?linux-kernel=40vger=2Ekernel=2Eorg?= <linux-kernel@vger.kernel.org>, =?utf-8?q?linux-arm-kernel=40lists=2Einfradead=2Eorg?= <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-To: =?utf-8?q?Nicol=C3=B2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2Eit?= <nicolo.giuliani6@studio.unibo.it>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Rx9ygRXK"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7aoAg2367598;
+	Wed, 30 Sep 2026 08:53:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=NhIukOj8BOfFcEqXCoWm3ULcTHuspX
+	E7+r0QvW4z63U=; b=Rx9ygRXK4WPeGJMhbwYHlLYdxios9M47BgGk66SEF6gAMt
+	h0dW1XEo/2YkR5l3mMTR7WJn5zsyBgxIqbOMv+M5EyFozLbTkC/P86WeMMEohjv3
+	isA73RkGrpXKsD0X2vB01phmIwSiI5zWxane0cfeiT/eC5q5KwZ/p+h4NaeLXfCh
+	3Kl/slGriTpnE5ffjkQmytugwlxCFiJuXC8Fu9Jz4xRjXNk4wcNry5gQf+ryi/9T
+	jkWxNrvFXvpKzTdhrMiJaoq1b2383FivMVaTKP1eADYKl+6iSNyehGXHBrf33rDb
+	oqxhDVYDwB/03/5zobKhhepzeE1KbvE8IYXQTe4A==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5ptaysu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 08:53:17 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7lUPa3126451;
+	Wed, 30 Sep 2026 08:53:16 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0g8e39we-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 08:53:16 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68U8r94338732070
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 08:53:10 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 95C1F20043;
+	Wed, 30 Sep 2026 08:53:09 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A79BE20040;
+	Wed, 30 Sep 2026 08:53:08 +0000 (GMT)
+Received: from osiris (unknown [9.111.12.23])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 30 Sep 2026 08:53:08 +0000 (GMT)
+Date: Wed, 30 Sep 2026 10:53:07 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, kvm@vger.kernel.org,
+        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v8 16/29] arm64: Share arm64 headers with s390
+Message-ID: <20260930085307.770322-B-seiden@linux.ibm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+ <20260918133107.1042730-17-seiden@linux.ibm.com>
+ <arqQ2Eat4VUBbl49@arm.com>
+ <20260928162345.428362-C-seiden@linux.ibm.com>
+ <ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+ <arvunF8epgpWh1YT@arm.com>
+ <20260930072803.664031-A-seiden@linux.ibm.com>
+ <865wzn41h6.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <43fd0a32-5436-4303-7d0d-2e3ca33772f7@bootlin.com>
-Subject: =?utf-8?q?Re=3A?==?utf-8?q?_R=3A?= [PATCH v2 0/3] =?utf-8?q?arm64=3A?=
- =?utf-8?q?_dts=3A?==?utf-8?q?_marvell=3A?= Add Sophos XGS 107w NPU
-User-Agent: SOGoMail 5.12.4
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: None
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <865wzn41h6.wl-maz@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: hlt5tY_2sa3oCouRCckoYMzdGBgxEcfG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzNCBTYWx0ZWRfX4XfLdgpSugRT
+ XlKY3BXGec62GjXr1X+q9M67hlS8YubEVWaNhhIhulpnmG2ZHgqFVr+JMnYqgFTwHGBQSjFE70P
+ enyCwFTO9Yls0xjnOUrNp4rpLxuGKQjXjVe61sDv0E508eP5Kl0eT4uGQtjZmRCn9luussRqyXS
+ EzlTbb2paiO2eythsFkgh5xASzLftBQVwdWS2iCab2oU2b0VyoGKPZGYt2lkW6NXZNWwCrso1Zs
+ O/1dOaAoci317V3iqnfv5YDJDl1A+Wm48aElWcKjYrK4D+r+3OwgwHW1rhlp6YGK6Nm5A0mxHrt
+ 5IIQ8Yo634NNeCpNVYn0D0RX6SSQ+3UEuj0Tz5WvLOzrPwR/7jos7+6/VyJ5Epib+FCSXZqICWf
+ JT4D4Dms5HnS5LOdl74qFsbJSc5NQjEw3jwfhHctbxUryr8H5Q5mTTuBlUT2fftpVBgl2BsbARa
+ dnBaT27Kq+ET3ko/vCQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzNCBTYWx0ZWRfXx2ydMeHP7FMn
+ y172RhPy8DuzoeAapk44jnJfuMot6M4Z8iauGIimm8Ek3ereyYBPrAbiPULWZilGPkoqfRsvDw5
+ Kc9CBQQADM1FBkMtHRn018l4K5Atuhk=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abccdfe cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=GA_TYQvl0U8dmn4ZWnYA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: i_8l7rOMgnEnckEEpZJW-6IXi7e8oe2u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300034
 
-On Wednesday, September 30, 2026 10:35 CEST, Nicol=C3=B2 Giuliani - nic=
-olo.giuliani6@studio.unibo.it <nicolo.giuliani6@studio.unibo.it> wrote:
+On Wed, Sep 30, 2026 at 08:55:49AM +0100, Marc Zyngier wrote:
+> On Wed, 30 Sep 2026 08:28:03 +0100,
+> Steffen Eiden <seiden@linux.ibm.com> wrote:
+> > 
+> > On Tue, Sep 29, 2026 at 06:00:12PM +0100, Catalin Marinas wrote:
+> > > On Tue, Sep 29, 2026 at 06:19:20AM +0200, Andreas Grapentin wrote:
+> > > > On Sep 28 26, Steffen Eiden wrote:
+> > > > > On Mon, Sep 28, 2026 at 05:07:52PM +0100, Catalin Marinas wrote:
+> > > > > > On Fri, Sep 18, 2026 at 03:30:53PM +0200, Steffen Eiden wrote:
+> > > > > > > +# Enable all code shared to s390
+> > > > > > > +KBUILD_CFLAGS	+= -DARM64_S390_COMMON
+> > > > > > > +KBUILD_AFLAGS	+= -DARM64_S390_COMMON
+> > > > > > > +KBUILD_CPPFLAGS	+= -DARM64_S390_COMMON
+> > > > > > 
+> > > > > > Do we actually need these defines? They seem only to be used as markers
+> > > > > > for the awk scripts to extract the definitions. Why do we need the C
+> > > > > > preprocessor involved at all? Could we not just have comment markers:
+> > > > > > 
+> > > > > > /* ARM64_S390_COMMON_BEGIN */
+> > > > > > ...
+> > > > > > /* ARM64_S390_COMMON_END */
+> > > > > >
+> > > > > No technically we do not need those. They could be useful if we find out
+> > > > > that AWK is the wrong tool and move to a C Preprocessor + diff based
+> > > > > approach. 
+> > > > > 
+> > > > > if the ifdev is not closed the compiler will complain, but an 'arm did
+> > > > > not destroy us' verifiaction tool ( I will send one soonish) could do
+> > > > > the same.
+> > > > 
+> > > > iirc the last time we discussed this we didn't think that load-bearing
+> > > > comments were the right tool here. We also briefly floated the idea of
+> > > > using a #pragma region based approach, but in the end we went with the
+> > > > #ifdef preprocessor directives instead, as the least invasive
+> > > > non-comment marker that was available.
+> > > 
+> > > The downside is that the macro affects the preprocessed code. We need to
+> > > ensure they don't leak in uapi headers for example. Not a fan of this
+> > > approach but I don't have a better suggestion either. At least we could
+> > > write them as:
+> > > 
+> > > #if ARM64_S390_COMMON == 1
+> > 
+> > This is a great idea and an improvement. Thanks.
+> > 
+> > @Marc: Shall I sent a v9 of this series or do you want to pick v8 and I
+> > send this as an improvement once picked?
+> 
+> Please send a v9. That's invasive enough that it warrants it.
 
->=20
-> Hi Gregory, Andrew, Sebastian,
-Hello  Nicolo,
+Will send one ASAP.
 
-> This series has Acked-by from Krzysztof on 1/3 and 2/3, and Reviewed-=
-by from Andrew on 3/3. Is there anything else needed before it can be a=
-pplied, or should I wait for the next merge window?
-
-I am working on the backlog today, either I will apply it or I will let=
- know if something is missing.
-
-Gregory
-
->=20
-> Thanks,
-> Nicolo Giuliani
->=20
-> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-> Da: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.uni=
-bo.it@kernel.org>
-> Inviato: luned=C3=AC 21 settembre 2026 02:26
-> A: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Andrew Lunn; Grego=
-ry Clement; Sebastian Hesselbarth
-> Cc: devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-a=
-rm-kernel@lists.infradead.org; Nicol=C3=B2 Giuliani - nicolo.giuliani6@=
-studio.unibo.it; Krzysztof Kozlowski
-> Oggetto: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
->=20
-> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-> separate network processing unit (NPU): a Marvell Armada CN9130 SoC w=
-ith
-> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports a=
-nd
-> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which=
- is
-> connected to the SoC by a 10GBASE-R link, and reaches the x86 host ov=
-er
-> PCIe.
->=20
-> This series adds the Sophos vendor prefix, the compatible string of t=
-he
-> NPU board and a device tree that describes the NPU as a standalone sy=
-stem:
-> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with i=
-ts
-> ports. The port LEDs, the USB ports and the PCIe link to the x86 host=
- (the
-> CN9130 acts as a PCIe endpoint towards it, which needs endpoint suppo=
-rt
-> that is not part of this series) are not described.
->=20
-> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI N=
-OR
-> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing=
- with
-> its eight user ports, and 936 Mbit/s through a front port. The SFP ca=
-ge
-> is untested.
->=20
-> dt=5Fbinding=5Fcheck passes for vendor-prefixes.yaml and armada-7k-8k=
-.yaml,
-> and CHECK=5FDTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no =
-warning
-> specific to this board.
->=20
-> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
->=20
-> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-> ---
-> Changes in v2:
-> - Patch 1: drop the second sentence of the commit message, add Acked-=
-by
-> - Patch 2: move the entry before the SolidRun ones and list only
->   marvell,cn9130 after the board compatible, as the other CN9130 boar=
-ds do
-> - Patch 3: use the compatible list of patch 2; pass the switch reset =
-as
->   reset-gpios and drop the boot loader workaround; remove the LED
->   expander node and the SFP address comment
-> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a7=
-4ef3@studio.unibo.it
->=20
-> ---
-> Nicolo Giuliani (3):
->       dt-bindings: vendor-prefixes: Add Sophos
->       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
->       arm64: dts: marvell: Add Sophos XGS 107w NPU board
->=20
->  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
->  arch/arm64/boot/dts/marvell/Makefile               |   1 +
->  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++=
-++++++++++
->  4 files changed, 198 insertions(+)
-> ---
-> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-> change-id: 20260919-send-dt-6bbd08a470d2
->=20
-> Best regards,
-> --
-> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
->=20
+> 
+> > > It would also be useful for the awk scripts look for the paired #endif
+> > > rather than relying on the comment at the end of the line. Otherwise
+> > > it's not really different from just sticking to comments.
+> > > 
+> > 
+> > Are you suggesting that the AWK scripts should track the #if% and #endif
+> > in the code and warn or reject if the marked endif for the shared code
+> > does not match pairing with the starting #if? That makes sense yes. I'll
+> > investigate and would add this as an improvement later on.
+> 
+> I think the suggestion is to teach the script about the #if/#endif
+> nesting, and therefore to not require the trailing comment on #endif
+> (i.e. the script acts as a normal cpp).
+> 
+> It should only be a matter of counting the #{if,ifdef}s and #endif
+> past the ARM64_S390_COMMON guard.
 >
+
+Yes, countin is what I had in mind. I will deliver this feature (or fix?)
+as an improvement later on. At this point we may actually use the cpp to
+do that for us. This requires some investigation from my side. IMO the
+current implementation is a good first step we can use as a starting
+point for further improvements.
+
+	Steffen
 
