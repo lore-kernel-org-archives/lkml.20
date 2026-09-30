@@ -1,91 +1,218 @@
-Received: from mta1.migadu.com (out-12.mta1.migadu.com [95.215.58.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10E51A0BF1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AAA3B2FE7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747405; cv=none; b=SpOEWaxA/TILkzkb25wfMtn3bT/L0EmSXQsmR8vmfQNQR5Ng5fE7/yrWSbLjXwDBcUKuZWaFaQ1AqoLvpu+tlOIXyA4/WuQ88e0WLpbrHegeERyGMHlKbISLl9roL6zI028fl8oExEYTF48N6WIWDVb/HVUCdZ0QgqtXiK/kb8I=
+	t=1790747465; cv=none; b=Sp2OuRyf3MOWpIF1IKQWI4upqnRvihCeTM4D+5uy4g/GS1oDMjPkKnMasHx2gL2gitLb3hA7lJE8K9mfTIZxdGXRcImxaL71OE+l2wMRByvSHxyHeHtet/GVlKLMkDAsUkxaUSpF3LlzkN3zQRNEOoM56Cw4pp72GIjNX9j7ZNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747405; c=relaxed/simple;
-	bh=VoUWKhSsc5jAqRZ0m1ClkrcHD3Ijqo+qGS3UdFNAQNM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b+J8MPxVrCq5kT0duee02+K5LCUx/pFlZNT8AOMNmDpJvItPvklzN2zaGDh25FtwHIXwuuNH3WuknCizbOtZcEnp0rEEO/N43MeWVcv84mQ8NuHBf71FtOc2jLAC3ZNSy8AlU+5glY8VtYsvflae+KtfKadJBdL+HPNN1LuVRLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qRhL5b/b; arc=none smtp.client-ip=95.215.58.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790747465; c=relaxed/simple;
+	bh=SBMQ5qrAZ5yu/0snOz+uE+yYBZur5j7xEmTmr+qRiks=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=rmJZ0VUaEQoyh9c2cu9w+hl6IaEPdI3Z1WOb7CZCaXrDvii3RsFTvchmEo66wyzOVtw9SqvjeKES4XXsUrhUh8yXsuXLqlHWFtKWRZQrzKR1iLOVWOi4Ga4G8rLwjWxodLvTzxLBPuZ+MxTmvZweF5B4qJe2nlfQzhsBs264xBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRWQk1Yv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qRhL5b/b"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VoUWKhSsc5jAqRZ0m1ClkrcHD3Ijqo+qGS3UdFNAQNM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790747401; v=1; x=1791352201;
- b=qRhL5b/bGptX1wYy+tYW2MR+NTrvxxBREK6ZFx7FcXG67//mGjifld9aPjWIt9W50ng2h2n/
- siN2rGdpz1ClmOfXaVAwAMk/SYy8l4hO+/1NlVmtRTAKB4LzB7RcF1ONE63kRhyRQSVxdl/c/hj
- Mji0UTe8OV9bGqXyLOuqHv9M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f663c2b6a0792e28;
-	Wed, 30 Sep 2026 05:50:01 +0000
-X-Mizu-Trace-ID: f663c2b6a0792e28
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b3409f74-749d-45f3-8dde-84ba9d135001@linux.dev>
-Date: Wed, 30 Sep 2026 13:49:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRWQk1Yv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627A11F00898;
+	Wed, 30 Sep 2026 05:51:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790747464;
+	bh=IHbXRYFtZI/bnUL44bF/j7F87IwMQs0LtRsynOSxKXI=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=JRWQk1Yved9WLkp5iDT2l+W4Pxti1bacMKwdch8K67TADhlddurQ30A4A5F/8HISl
+	 NoIv4ZyBMsAvyjdP0uOeaPFUy394ATqMpGt1f61VDPi5w5jWvTOclxnE24jNdc9H1A
+	 kf5Fxji/LdIB5zXKbmz28H08NPCkE+pgbPr53EWUH9QHEFX3uMv1uueMhYR0UVCJOg
+	 yUWsOvu3SNSZWp6dZpemY6E09U/F4vSsIuNuAvShMTseS6/wCe5CRXw9U7Kin4BRuj
+	 OvcRVSzTYFoXCoUMDK+Txu2bXCL1+nv8uwmy0imbvn+RzvWBGiO519I5d1mCExDvZM
+	 3zwP+/Y9yN4Ww==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id AB04D198003A;
+	Wed, 30 Sep 2026 01:51:01 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 01:51:01 -0400
+X-ME-Sender: <xms:Q6O8ahG3cE6hJrrWPvOHOxJI_sj4cG0tKJ3gyTh1Rc01OIcj9A15Xw>
+    <xme:Q6O8ahIMsgcBmKpDLhZ6VqJXmP3JOlRLqArFDaOIDAFepcnUnYWR059HrGs3Q1ujd
+    _qvEUkn7HoFrqogAGprlfUrMI6-z9xB6nQ3vX11q_OtJxBZwUjoD6E>
+X-ME-Proxy-Cause: dmFkZTFSJcrBtQWEbmdY9KpRSSoNya1P4NnDPRL0fhq6fme4Lw/QJwVgh+NPSHPIjqR4J/
+    uLo7iJyY81KO5H0sJqBay6vB2ONbtDM0dIHPKbvJXcTXNb2DO2K89CdBmPVL9uuVr6U78i
+    rqRZDe9K3iQJZCJEaOaeXRGcG63+UB9h/g4B6sOpgBK7xA5MzZnUimcHNlhBOR1UnbsXIC
+    Jmb24i7auxNzjx5Q+/xyRaRfb6RPnfxQBd/xGlLacbRyfo8E7aKAC4SKPg7rgtgajQ0Owi
+    rtSk1hTQRVoNJ5Ustc9qXMBOLS9tvhcVEaB7Z4KULJBcfZyyePN63Zsp+H9DI5D3FH66RA
+    xVFWR9bi6DKxsbP+JMa+ISwENtr1o43QAaQvOrh/W6rQB7UqcJDuNoKK8kGOV8Yaut/VyL
+    y6Eexmoh5i982aiwQXfhN7xRz5WK7CJ6K5ez1payzrbA9j/bXx2F+gAFmM2EEDPT8aTGGx
+    g+PRK8WIEog+bmVvY3kQ5MG7RzXunWBRNHTxp3+NqXlTq2HGJVk151lWxcdDKd10YpaZ2w
+    icyncgC32Wo+p0hnjT8ObOzkA9p/8L6HyhMoWDNcZYk4iJAQ8bWoTIR/TyTsNbd+4Bc+3x
+    IvL/r2GTs1TeEOix/Z32LO8iMw8YC3dDduEMVbLUmxPG+4BGQQOvPFP+oQ1A
+X-ME-Proxy: <xmx:RaO8ahmjwdKSKPOOT5txvlsyRBH7wyx9hsm3N4fc1vwLmkq3fASShw>
+    <xmx:RaO8ao3lvp5JRqaPWHXwB50mzLKN3v5G5aWvThT3RfqNpJPAq9n2wA>
+    <xmx:RaO8ap27Q4DSgEebLq8jZhzBqClz246rb9KCQaFX6470Gch2i76yvw>
+    <xmx:RaO8airQ1cT0-wurEpBpIwsaGgKZkatGkZSpHCAGgwRsgPDIgumSNA>
+    <xmx:RaO8atgy5cH95NBmzqhWGG5Fk_VXrnY_fNvoaH526uy4sRHgqMOq_mhG>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 511E2F80086; Wed, 30 Sep 2026 01:50:59 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tls: skip empty data records in tls_sw_splice_read()
-To: netdev-bot+sinfo@kernel.org
-Cc: John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Dave Watson <davejwatson@fb.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Chuck Lever <cel@kernel.org>
-References: <20260930052636.166007-1-qingfang.deng@linux.dev>
- <179074618718.31693.10040628020266132112@kernel.org>
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <179074618718.31693.10040628020266132112@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Wed, 30 Sep 2026 07:50:39 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "Herbert Xu" <herbert@gondor.apana.org.au>, "Stian Halseth" <stian@itx.no>,
+ sparclinux@vger.kernel.org
+Message-Id: <2b9f2387-924a-4a3a-bb35-32a8a7cfef5d@app.fastmail.com>
+In-Reply-To: <20260929222752.36427-1-ebiggers@kernel.org>
+References: <20260929222752.36427-1-ebiggers@kernel.org>
+Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some optimized AES
+ modes
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 2026/9/30 13:29, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->   - Whether the issue was actually triggered, or is only theoretical
->     (e.g. found by code inspection). If it was triggered please include
->     the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
 
-Quoting Sashiko's reply:
 
-> When an application invokes splice() on a TLS 1.3 socket and a 
-> 0-length record arrives, rxm->full_len is 0, making chunk 0. 
-> net/tls/tls_sw.c:tls_sw_splice_read() { ... chunk = min_t(unsigned 
-> int, rxm->full_len, len); copied = skb_splice_bits(skb, sk, 
-> rxm->offset, pipe, chunk, flags); if (copied < 0) goto splice_requeue; 
-> if (copied < rxm->full_len) { rxm->offset += copied; rxm->full_len -= 
-> copied; goto splice_requeue; } consume_skb(skb); splice_read_end: 
-> tls_rx_reader_unlock(sk, ctx); return copied ? : err; } Because copied 
-> is 0, the copied < rxm->full_len check fails, the SKB is consumed, and 
-> the function returns 0. Returning 0 from a splice operation signals 
-> End-of-File to userspace, which would erroneously drop the live 
-> connection.
+On Wed, 30 Sep 2026, at 00:27, Eric Biggers wrote:
+> The new library APIs for AES encryption modes were wired up to the
+> traditional crypto API via crypto/aes.c.  However, for now the kernel is
+> still in a transitional state where various architectures still have
+> architecture-optimized implementations of AES modes in arch/*/crypto/,
+> wired up to the traditional crypto API only.  Because of that, the
+> crypto/aes.c algorithms were given a cra_priority of only 110 to prevent
+> them from overriding arch/*/crypto/ in the traditional crypto API.
+>
+> However, because of how the traditional crypto API works, the
+> cra_priority trick doesn't work in cases where the relevant algorithm
+> isn't directly implemented by arch/*/crypto/ but rather is provided by a
+> template instance using other code in arch/*/crypto/.
+>
+> For example, x86 doesn't have its own "ccm(aes)" but rather relies on
+> the "ccm" template constructing it from the x86-optimized "ctr(aes)".
+> The existence of the library-based "ccm(aes)" prevents that, even though
+> its priority is lower than what the template would produce.
+>
+> Thus, "ccm(aes)" ends up using the slower single-block AES code.
+>
+> Therefore, skip wiring up the relevant library-based code to the
+> traditional crypto API on architectures where this problem can occur, as
+> determined by what exists in arch/*/crypto/ for each architecture.
+>
+> This is ugly, but it's also temporary: these conditions will go away as
+> architecture-optimized implementations of AES modes are migrated into
+> the library.  But until then, we need to prevent performance regressions
+> by ensuring that the optimized code continues to be used.
+>
+> Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using library")
+> Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
+> Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
+> Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
+> Closes: https://github.com/sparclinux/issues/issues/106
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>
+> This patch is intended to taken through libcrypto-fixes
+>
+> v3: Also suppress xts(aes) on SPARC, and improved comments
+> v2: Fixed PowerPC config option, and resent as standalone patch
+>
 
-Best regards,
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
+
+>  crypto/aes.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 47 insertions(+), 4 deletions(-)
+>
+> diff --git a/crypto/aes.c b/crypto/aes.c
+> index 94791f481e98..51eee78396ea 100644
+> --- a/crypto/aes.c
+> +++ b/crypto/aes.c
+> @@ -637,7 +637,18 @@ static struct skcipher_alg skcipher_algs[] = {
+>  		.decrypt = crypto_aes_cbc_decrypt,
+>  	},
+>  #endif
+> -#if IS_ENABLED(CONFIG_CRYPTO_CTS)
+> +	/*
+> +	 * Don't register library-based "cts(cbc(aes))" on architectures where
+> +	 * it might block a "better" implementation from being instantiated 
+> via
+> +	 * the "cts" template.  These exclusions are temporary and will go 
+> away
+> +	 * as the arch-optimized AES code is migrated into the library.
+> +	 */
+> +#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
+> +	!(IS_ENABLED(CONFIG_ARM) || \
+> +	  IS_ENABLED(CONFIG_ARM64) || \
+> +	  IS_ENABLED(CONFIG_PPC) || \
+> +	  IS_ENABLED(CONFIG_S390) || \
+> +	  IS_ENABLED(CONFIG_SPARC))
+>  	{
+>  		.base.cra_name = "cts(cbc(aes))",
+>  		.base.cra_driver_name = "cts-cbc-aes-lib",
+> @@ -687,7 +698,13 @@ static struct skcipher_alg skcipher_algs[] = {
+>  		.decrypt = crypto_aes_xctr_crypt,
+>  	},
+>  #endif
+> -#if IS_ENABLED(CONFIG_CRYPTO_XTS)
+> +	/*
+> +	 * Don't register library-based "xts(aes)" on architectures where it
+> +	 * might block a "better" implementation from being instantiated via 
+> the
+> +	 * "xts" template.  This exclusion is temporary and will go away when
+> +	 * the library AES-XTS is optimized for SPARC.
+> +	 */
+> +#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
+>  	{
+>  		.base.cra_name = "xts(aes)",
+>  		.base.cra_driver_name = "xts-aes-lib",
+> @@ -980,7 +997,20 @@ static __maybe_unused int 
+> crypto_aes_ccm_decrypt(struct aead_request *req)
+>  }
+> 
+>  static struct aead_alg aead_algs[] = {
+> -#if IS_ENABLED(CONFIG_CRYPTO_GCM)
+> +	/*
+> +	 * Don't register library-based "gcm(aes)" and "rfc4106(gcm(aes))" on
+> +	 * architectures where they might block a "better" implementation from
+> +	 * being instantiated via the "gcm" and "rfc4106" templates.  These
+> +	 * exclusions are temporary and will go away as the arch-optimized AES
+> +	 * code is migrated into the library.
+> +	 */
+> +#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
+> +	!(IS_ENABLED(CONFIG_ARM) || \
+> +	  IS_ENABLED(CONFIG_ARM64) || \
+> +	  IS_ENABLED(CONFIG_PPC) || \
+> +	  IS_ENABLED(CONFIG_RISCV) || \
+> +	  IS_ENABLED(CONFIG_S390) || \
+> +	  IS_ENABLED(CONFIG_SPARC))
+>  	{
+>  		.base.cra_name = "gcm(aes)",
+>  		.base.cra_driver_name = "gcm-aes-lib",
+> @@ -1012,7 +1042,20 @@ static struct aead_alg aead_algs[] = {
+>  		.chunksize = AES_BLOCK_SIZE,
+>  	},
+>  #endif /* CONFIG_CRYPTO_GCM */
+> -#if IS_ENABLED(CONFIG_CRYPTO_CCM)
+> +	/*
+> +	 * Don't register library-based "ccm(aes)" on architectures where it
+> +	 * might block a "better" implementation from being instantiated via the
+> +	 * "ccm" template.  These exclusions are temporary and will go away as
+> +	 * the arch-optimized AES code is migrated into the library.
+> +	 */
+> +#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
+> +	!(IS_ENABLED(CONFIG_ARM) || \
+> +	  IS_ENABLED(CONFIG_ARM64) || \
+> +	  IS_ENABLED(CONFIG_PPC) || \
+> +	  IS_ENABLED(CONFIG_RISCV) || \
+> +	  IS_ENABLED(CONFIG_S390) || \
+> +	  IS_ENABLED(CONFIG_SPARC) || \
+> +	  IS_ENABLED(CONFIG_X86))
+>  	{
+>  		.base.cra_name = "ccm(aes)",
+>  		.base.cra_driver_name = "ccm-aes-lib",
+>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> -- 
+> 2.55.0
