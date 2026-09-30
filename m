@@ -1,530 +1,101 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from winds.org (winds.org [68.75.195.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70758257855;
-	Wed, 30 Sep 2026 00:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33CE23B638;
+	Wed, 30 Sep 2026 00:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.75.195.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727996; cv=none; b=QL250TAq4nvRYjGzmLly3CQxhFicpJB3RXiBaKOqE5Bwz4M+Tgvu/tCAo9Bz2vxieFasetBE758tyT3jD0I4GalBkVx2CfX6xNTIgJpffZ7NmEMBJMvYh6EYAbt4SvsK1yHMmDNYSi98289EVxCXdwjYABBFWh/0uFt+I3zEWhg=
+	t=1790728011; cv=none; b=KbBkGjBrqakdPNg0CIH28RUg/5vViaokBKhU4QaZoGBrhV/oaWxBlG5rEqUZYvN9j4tSP51RJJR9TTaCgqfZXkSn0RtlcdHGcjAH4qp3uU/BB5pxNUvhh/2AvD3ApFFCZxIWOAfMowhGzZFSWVoeUfYayxDJiK2AzaJ/iEQ0C0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727996; c=relaxed/simple;
-	bh=AjG8qdrWQKhuV8X1ud75VpYoyxcVO+vwXVUlFMVhmoQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gt4aXO4tS/Kq5nBy+yubOkDfjyh8FjCX+WfGeyahd3t6hZ+3heyq6Sdskik3UNEeIvF8SfVKM8Qg6YnSsvKjjOKZrH+2YFgsEniLJLjwQYeb1l6ip5zwzzcHqTS0YU7T9/gFom75EavjvLDBAyYAZWV4LM3MINMbQemKcVKkvZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kpI67R2m; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kpI67R2m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LX
-	uktk+kS7IPDoasdu5i3EjBpI/lpCRd4opk2hlcrzw=; b=kpI67R2mpC3/42e62l
-	5mjGoLiDIXkn16IHWuYNTiE0umQW2NyUzbKSzod7pPwZDeLHwOrWrkNtFwImCUPn
-	/hEhjlyCkys9Wrpr5J3gqZId/N7jGbxY5f40yEKb1kFJ8jQggrS9Fx5JiiurgWV6
-	69Hk+p2wUGfQyI+pEVrjDvn6k=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBXnq7EVrxq2GTBBw--.56601S6;
-	Wed, 30 Sep 2026 08:24:49 +0800 (CST)
-From: Kaiqi Guo <chaoji_xinren@163.com>
-To: Jesung Yang <y.j3ms.n@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	bjorn3_gh@protonmail.com,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	work@onurozkan.dev,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Charalampos Mitrodimas <charmitro@posteo.net>,
-	shivamklr@cock.li,
-	Kaiqi Guo <chaoji_xinren@163.com>
-Subject: [PATCH v7 04/11] rust: macros: add private doctests for `Into` derive macro
-Date: Wed, 30 Sep 2026 08:24:29 +0800
-Message-ID: <20260930002436.21395-5-chaoji_xinren@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260930002436.21395-1-chaoji_xinren@163.com>
-References: <20260930002436.21395-1-chaoji_xinren@163.com>
+	s=arc-20240116; t=1790728011; c=relaxed/simple;
+	bh=RP+aafSJqjYM0BLvhpflfyaa07AiwYB/jPgCUsYMOpM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AYiq8xjqLv2NHqDOdCIL1dOq+sPN8IHAjDw/ejnykQQF23xYRUZY2Fnft5aHBmBdTyFLiyD2z1P3LgVXeKsYx2h12aeQSN2sXHi71OKJvbiv47/gjXI+pt4wKH5H3YBhVU3hW+VYWSmOGgCLDtW0pEzPuWq3eULNdDbLQVfHoJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org; spf=pass smtp.mailfrom=winds.org; arc=none smtp.client-ip=68.75.195.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=winds.org
+Received: by winds.org (Postfix, from userid 100)
+	id 26A288F95F83; Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by winds.org (Postfix) with ESMTP id 2557E13363343;
+	Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+Date: Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+From: Byron Stanoszek <gandalf@winds.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+cc: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+    Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+    Maxime Ripard <mripard@kernel.org>, 
+    Thomas Zimmermann <tzimmermann@suse.de>, 
+    Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+    Emil Renner Berthing <kernel@esmil.dk>, 
+    Hal Feng <hal.feng@starfivetech.com>, 
+    Michael Turquette <mturquette@baylibre.com>, 
+    Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+    Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Dominique Belhachemi <db@domibel.de>, 
+    Brian Masney <bmasney+clk@redhat.com>, 
+    Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
+    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+    linux-riscv@lists.infradead.org, 
+    Marek Szyprowski <m.szyprowski@samsung.com>, 
+    Maud Spierings <maud_spierings@murena.io>, 
+    Graham Markall <hello@big-grey.co.uk>, 
+    Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+    Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+    Joshua Peisach <jpeisach@ubuntu.com>, 
+    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
+    Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 00/21] drm: starfive: jh7110: Enable display
+ subsystem
+In-Reply-To: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+Message-ID: <e946786b-e063-6ddc-6b07-2fb67ff7a459@polinggroup.com>
+References: <CGME20260929103200eucas1p17af134cc3b93c242227964f574f13aa5@eucas1p1.samsung.com> <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBXnq7EVrxq2GTBBw--.56601S6
-X-Coremail-Antispam: 1Uf129KBjvJXoW3uw4UGFW5JF17uFWfGF18uFg_yoWDAr13pr
-	4j93yIq348JrZ3Aa4UG39rWw12gFs3Xas8ZFZrJw1IyFy2qFZruw4UWry7JFyFyr1UZry2
-	qFWjyryDW340y37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zE3xhQUUUUU=
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4RGTD2q8VtGlyQAA3R
+Content-Type: text/plain; format=flowed; charset=us-ascii
 
-From: Jesung Yang <y.j3ms.n@gmail.com>
+On Tue, 29 Sep 2026, Michal Wilczynski wrote:
 
-Add internal doctests to verify the `Into` derive macro's logic. This
-ensures comprehensive testing while keeping the public-facing
-documentation compact and readable.
+> This series enables the display subsystem on the StarFive JH7110.
+>
+> [...]
+> - New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
+>  been swapped in inno-hdmi since the driver was merged. The hardware
+>  puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
+>  other way round. Almost all CEA modes drive both syncs with the same
+>  polarity, so the two writes are indistinguishable and the bug only
+>  shows on a mode whose polarities differ - a band of black rows at the
+>  top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
+>  independently by Dominique Belhachemi, Maud Spierings and Byron
+>  Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
+>  this is a Rockchip fix too.
+> - Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
+>  mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
+>  as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
+>  no sink that asks for it, so it is untested on my hardware.
 
-Signed-off-by: Jesung Yang <y.j3ms.n@gmail.com>
-Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
----
- rust/macros/convert.rs | 436 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 436 insertions(+)
+Hi Michal,
 
-diff --git a/rust/macros/convert.rs b/rust/macros/convert.rs
-index 21d79bca16a0..31cdf84082e7 100644
---- a/rust/macros/convert.rs
-+++ b/rust/macros/convert.rs
-@@ -588,3 +588,439 @@ fn is_valid_primitive(ident: &Ident) -> bool {
-             | "isize"
-     )
- }
-+
-+mod derive_into_tests {
-+    /// ```
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(u8)]
-+    /// enum Foo {
-+    ///     // Works with const expressions.
-+    ///     A = add(0, 0),
-+    ///     B = 2_isize.pow(1) - 1,
-+    /// }
-+    ///
-+    /// const fn add(a: isize, b: isize) -> isize {
-+    ///     a + b
-+    /// }
-+    ///
-+    /// assert_eq!(0_u8, Foo::A.into());
-+    /// assert_eq!(1_u8, Foo::B.into());
-+    /// ```
-+    mod works_with_const_expr {}
-+
-+    /// ```
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(bool)]
-+    /// enum Foo {
-+    ///     A,
-+    ///     B,
-+    /// }
-+    ///
-+    /// assert_eq!(false, Foo::A.into());
-+    /// assert_eq!(true, Foo::B.into());
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(bool)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `bool`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(bool)]
-+    /// enum Foo {
-+    ///     // `2` cannot be represented with `bool`.
-+    ///     A = 2,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_bool {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     A = -1 << 6,      // The minimum value of `Bounded<i8, 7>`.
-+    ///     B = (1 << 6) - 1, // The maximum value of `Bounded<i8, 7>`.
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<i8, 7> = Foo::A.into();
-+    /// let foo_b: Bounded<i8, 7> = Foo::B.into();
-+    /// assert_eq!(Bounded::<i8, 7>::new::<{ -1_i8 << 6 }>(), foo_a);
-+    /// assert_eq!(Bounded::<i8, 7>::new::<{ (1_i8 << 6) - 1 }>(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     // `1 << 6` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = 1 << 6,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 7>)]
-+    /// enum Foo {
-+    ///     // `(-1 << 6) - 1` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = (-1 << 6) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     A = -1, // The minimum value of `Bounded<i8, 1>`.
-+    ///     B,      // The maximum value of `Bounded<i8, 1>`.
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<i8, 1> = Foo::A.into();
-+    /// let foo_b: Bounded<i8, 1> = Foo::B.into();
-+    /// assert_eq!(Bounded::<i8, 1>::new::<{ -1_i8 }>(), foo_a);
-+    /// assert_eq!(Bounded::<i8, 1>::new::<{ 0_i8 } >(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     // `1` cannot be represented with `Bounded<i8, 1>`.
-+    ///     A = 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 1>)]
-+    /// enum Foo {
-+    ///     // `-2` cannot be represented with `Bounded<i8, 1>`.
-+    ///     A = -2,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = i32::MIN as i64,
-+    ///     B = i32::MAX as i64,
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<i32, 32> = Foo::A.into();
-+    /// let foo_b: Bounded<i32, 32> = Foo::B.into();
-+    /// assert_eq!(Bounded::<i32, 32>::new::<{ i32::MIN }>(), foo_a);
-+    /// assert_eq!(Bounded::<i32, 32>::new::<{ i32::MAX }>(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     // `1 << 31` cannot be represented with `Bounded<i32, 32>`.
-+    ///     A = 1 << 31,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i32, 32>)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     // `(-1 << 31) - 1` cannot be represented with `Bounded<i32, 32>`.
-+    ///     A = (-1 << 31) - 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_signed_bounded {}
-+
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     A,                // The minimum value of `Bounded<u8, 7>`.
-+    ///     B = (1 << 7) - 1, // The maximum value of `Bounded<u8, 7>`.
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<u8, 7> = Foo::A.into();
-+    /// let foo_b: Bounded<u8, 7> = Foo::B.into();
-+    /// assert_eq!(Bounded::<u8, 7>::new::<{ 0 }>(), foo_a);
-+    /// assert_eq!(Bounded::<u8, 7>::new::<{ (1_u8 << 7) - 1 }>(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     // `1 << 7` cannot be represented with `Bounded<u8, 7>`.
-+    ///     A = 1 << 7,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 7>)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u8, 7>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     A, // The minimum value of `Bounded<u8, 1>`.
-+    ///     B, // The maximum value of `Bounded<u8, 1>`.
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<u8, 1> = Foo::A.into();
-+    /// let foo_b: Bounded<u8, 1> = Foo::B.into();
-+    /// assert_eq!(Bounded::<u8, 1>::new::<{ 0 }>(), foo_a);
-+    /// assert_eq!(Bounded::<u8, 1>::new::<{ 1 }>(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     // `2` cannot be represented with `Bounded<u8, 1>`.
-+    ///     A = 2,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u8, 1>)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u8, 1>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     macros::Into,
-+    ///     num::Bounded, //
-+    /// };
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     A = u32::MIN as u64,
-+    ///     B = u32::MAX as u64,
-+    /// }
-+    ///
-+    /// let foo_a: Bounded<u32, 32> = Foo::A.into();
-+    /// let foo_b: Bounded<u32, 32> = Foo::B.into();
-+    /// assert_eq!(Bounded::<u32, 32>::new::<{ u32::MIN }>(), foo_a);
-+    /// assert_eq!(Bounded::<u32, 32>::new::<{ u32::MAX }>(), foo_b);
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     // `1 << 32` cannot be represented with `Bounded<u32, 32>`.
-+    ///     A = 1 << 32,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<u32, 32>)]
-+    /// #[repr(u64)]
-+    /// enum Foo {
-+    ///     // `-1` cannot be represented with `Bounded<u32, 32>`.
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_unsigned_bounded {}
-+
-+    /// ```
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(isize)]
-+    /// #[repr(isize)]
-+    /// enum Foo {
-+    ///     A = isize::MIN,
-+    ///     B = isize::MAX,
-+    /// }
-+    ///
-+    /// assert_eq!(isize::MIN, Foo::A.into());
-+    /// assert_eq!(isize::MAX, Foo::B.into());
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(isize)]
-+    /// #[repr(usize)]
-+    /// enum Foo {
-+    ///     A = (isize::MAX as usize) + 1
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(i32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (i32::MIN as i64) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(i32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (i32::MAX as i64) + 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_signed_int {}
-+
-+    /// ```
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(usize)]
-+    /// #[repr(usize)]
-+    /// enum Foo {
-+    ///     A = usize::MIN,
-+    ///     B = usize::MAX,
-+    /// }
-+    ///
-+    /// assert_eq!(usize::MIN, Foo::A.into());
-+    /// assert_eq!(usize::MAX, Foo::B.into());
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(usize)]
-+    /// #[repr(isize)]
-+    /// enum Foo {
-+    ///     A = -1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(u32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (u32::MIN as i64) - 1,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(u32)]
-+    /// #[repr(i64)]
-+    /// enum Foo {
-+    ///     A = (u32::MAX as i64) + 1,
-+    /// }
-+    /// ```
-+    mod overflow_assert_works_on_unsigned_int {}
-+
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(Bounded<i8, 7>, i8, i16, i32, i64)]
-+    /// #[repr(i8)]
-+    /// enum Foo {
-+    ///     // `i8::MAX` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = i8::MAX,
-+    /// }
-+    /// ```
-+    ///
-+    /// ```compile_fail
-+    /// use kernel::macros::Into;
-+    ///
-+    /// #[derive(Into)]
-+    /// #[into(i8, i16, i32, i64, Bounded<i8, 7>)]
-+    /// #[repr(i8)]
-+    /// enum Foo {
-+    ///     // `i8::MAX` cannot be represented with `Bounded<i8, 7>`.
-+    ///     A = i8::MAX,
-+    /// }
-+    /// ```
-+    mod any_into_target_overflow_is_rejected {}
-+}
--- 
-2.50.1 (Apple Git-155)
+I confirm that the hsync/vsync polarity and 201 MHz mode are both working on my
+setup in v5. Tested against 7.3-rc5 with af384d6e0573 and Bo Gan's cache
+coherency fixes. Thanks again for your work on this series!
+
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+
+Best regards,
+  -Byron
 
