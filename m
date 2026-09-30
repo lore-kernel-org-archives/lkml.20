@@ -1,103 +1,97 @@
-Received: from outbound.st.icloud.com (st-2001e-snip4-11.eps.apple.com [57.103.76.93])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F173F46EC80
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DED46EF77;
+	Wed, 30 Sep 2026 20:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799051; cv=none; b=Vw0ahMQ8QCN4uBuzot+hvQNt6Z7J+LiWoU5ZilCUo/RTX4ep4XGaDeaBq3PaxQaJBO4eWO7bFITrsvN8nNt/gjAakdd0bKB5KPg1OUd7++f0sLL95+U74mlSDsmW09kfaza4HrM2va++t5iUNFInp0X/67ZFLTumrn9SuYdGguY=
+	t=1790799169; cv=none; b=IDGfGFfARwVjo/eaDOsLlQqWHQ2axcWg8CuJUKdYEIj7FQe+Ey0cYX//d7T/0SSXmXjR/BpxTDcfe5OGPwA5KcG93fmzBEsclvT+pwzSrsLYQ+x2lgO+Lbh6byKGCXYDT9uC2tJneYqm7cQlOqLHf+7xdthILhMqdNa5qwXDH5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799051; c=relaxed/simple;
-	bh=IbBDmu8yKjwGDDfuW5fb36L/iyffUzang3lZ1QrX23Q=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=d6VozxBH5bXGWt5h1GLTkPF6pWamR25JsPjLY4emu/984sfkS2S/xABfktDUfU20Rlmxg0NU+HsyOYWszxnA4JtxQJhgKY3KV2/CkhmV2unUMbuEJ4kzn418wFUFYc0pAjISSFD+YFzhkEOSTrUqgDsCY0hYw0U3yGSw2WIWdXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=e84243bj; arc=none smtp.client-ip=57.103.76.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
+	s=arc-20240116; t=1790799169; c=relaxed/simple;
+	bh=sBgF9Y46NI/gU3jT2wUJYG50u/1/RqY7WhqZc5NYaA0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=B/bal00Hh3+B+3UFMo/jkb7isxYRVk2LWZTknLBNqamTBSovscwxaapXDpkvhCAtUP+WP8zckFbiPtEE4lXepBuv1b3eldC/du/lAFo24/EXQOxc1OJ2C3kmMc1XPEgUedKkB0NUirW2ll1nV7yYDol36a+Rt+GDrUQBDMDLFC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=drVVsVb3; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="e84243bj"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-9 (Postfix) with ESMTPS id EC8C81800120;
-	Wed, 30 Sep 2026 20:10:44 +0000 (UTC)
-X-ICL-RepId: 01a0f3f0-e0da-7afb-a1b7-380d2343b9b4
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWRcDVxxWRVwYQwldBVccHR5DRVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FDw4HCQdJDhoLQFJcUxQUTFUPVkZTQlsaHlhTWQdCXEtXC1UPATBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1790799047; x=1793391047; bh=+OPch1KwDEc0ucCy9Ue6atr70dhpjypjbN94qw7/q6Q=; h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:x-icloud-hme; b=e84243bjpos62hK8rbYYc00DX+4HqhGvbSmWvb81pSPNMGMu5766R3s+VT9aPQonsANQmdnFCxOi1f1yG11pl+VtT7rAdE6Xu2qO1iIb1M+vJdNLmeHhIakVfSmm/K36SBuEGy39id0YNxWcjDdbRMVwgiQ2ut5XuT3JmldKrmfeT+6xnCvAEZISfaxwKVaImqFyl57Oe5/NlfdSgHybo9DkZnvnc1p4H0+NuBuMOVDmcZtmHqFz/SNPQPeZ5H3jrbEAv92cpy5/YEXdHXWNHW5YjeCnUaxU5pJDiQNZfzG9tLuehkEZUcSxoT12xWudp18HolvytkOfxhLaFRXa/A==
-mail-alias-created-date: 1748381178872
-Received: from [10.69.1.69] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-9 (Postfix) with ESMTPSA id 3A1231800785;
-	Wed, 30 Sep 2026 20:10:43 +0000 (UTC)
-Message-ID: <c0b597b8-e7ad-4fba-a2bb-5d252e3dfbd3@lcb.to.it>
-Date: Wed, 30 Sep 2026 22:10:41 +0200
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="drVVsVb3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=fn94tcPxJTTGol27yw+1XT2Fjcn8JLYae+CiyHYbMOY=; t=1790799165;
+	x=1791403965; b=drVVsVb3hmzJdHTwaZjDsbOC5agt/SKDoVZJSYB8D/dh7Gw956B4p+9GAL2kN
+	FsXw/M3dzj++vxH9hCfMgAe4KS9Q4Qe7CzZaP9fMHWYFJI5FxOiFwiIQU1TfF7YRCf6411g9nVMoR
+	PqjCY7Bv5p1f2j9JEaF6FQ6rxWUCpU+H6r6YcfnXq7Kd1zxt0jo2DBH/Y3BeFkW2JTizavZPIiQQs
+	YbhTO//4xsWspKjYM5GmIrRfLI/4yWrQNfqgA15sUofNIhw6dlAR8eOAt04X8hTPxLJelZ0mQ6AAy
+	cxTbpdic8JTnsfkELPnnALLh7BGvfM/h6A9jCyID9G2+m5YGCw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xC0fT-00000001rhF-0oj0; Wed, 30 Sep 2026 22:12:43 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xC0fS-00000001Cht-408o; Wed, 30 Sep 2026 22:12:43 +0200
+Message-ID: <20b7ef8ffa6ebd8903967b66867808a7f4355a70.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some
+ optimized AES modes
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Stian Halseth <stian@itx.no>, Eric Biggers <ebiggers@kernel.org>, 
+	linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A
+ . Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ sparclinux@vger.kernel.org
+Date: Wed, 30 Sep 2026 22:12:41 +0200
+In-Reply-To: <8d3d3142d1ac323695a3ea2d5b3e2a10d2a129d6.camel@itx.no>
+References: <20260929222752.36427-1-ebiggers@kernel.org>
+		 <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
+		 <1f85bdb9614365fedda81fb649147da48bf7be13.camel@physik.fu-berlin.de>
+		 <25c7a7c7bbe3c7f70fca559867e0883b9e4dc48d.camel@itx.no>
+		 <3ea57d640ac7409fa37b15ec9e3f49126347e432.camel@physik.fu-berlin.de>
+	 <8d3d3142d1ac323695a3ea2d5b3e2a10d2a129d6.camel@itx.no>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, it-IT
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hans de Goede <hansg@kernel.org>
-From: Martino Papero <martino.papero@lcb.to.it>
-Subject: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 15IWC11
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _aqvkKRvFVCrqhf6EFTqWk9n5eOIjM3w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MiBTYWx0ZWRfX2GaJn5bU8szo
- 6/0291YZc9zTg8oXXESQwBjz/VPEkeGSS8b/EkJUCO/LE3Zyu9P4EWW/MAckQ/WFrBQXhBpxVQk
- USjY3g8veG+pBSYt4k0WSFlAyzL2+XiZw3Vx7TIjCmgaXI7sx2y2uYs+I7cDDJ1hVTTRdXrTPjs
- Ym73fVlgmjmixBKHaV6eQl1ZqqtsERIFCJFEZb8HUa1HbtKbZmiN8+lntkzN1bG1Ne/gqlckjsI
- nV4J96au3AnufmgwG/FivK+gUTJvVC1XvrUxhzHjslbE/1i1XVAhvmRnsIG3BHdhRQMe3WTNe6R
- z+ZXIHs31IdWX5uurDWbtgZZF//oGAVk47v5Xs5eRXuq1yApZRaLquulbAe2t4=
-X-Authority-Info-Out: v=2.4 cv=Zrng6t7G c=1 sm=1 tr=0 ts=6abd6cc5
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=qxBrxa7OMxVuxdj_4mIA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: _aqvkKRvFVCrqhf6EFTqWk9n5eOIjM3w
-X-JNJ: AAAAAAABOAKOG2qYJEFsQ/LpllXoqSzXPj1/CNOM8vMs+zCoqbFBXZyua2q6rgLE/yDKCUSNhHqzdc9ZuVDIeqAEdxdWenBAoH+I0qE4qBaSXxpbZd8/Gku3ynqIoBCurfBZp5VFjSDass5rRDSIkEnBpqBYA0bLi2sRkb/kjajOppbkyfMAax3gwG6LHDXL/CrYwh/vk+IOk1oE+WzmrAYsGRnTU5OOucoANqkiyqxEYgqnvGLM2zpZVYze5NJDExnGZIY8frDnDz1nFbzEoHERLjO2k8OVDTL9iJtb3fOMAIwNhD48CjKTBaJ2fhIUf0EQeDStDniCx95qqa6KJFmUYPmaiAFHBgKHeHoSREgZWtkuQ7eNy5x55WcJT3gmtSArLEWe0xbagwUPXaBj/lzV52eS0aoBla7HkfBhfwp01eHqQn5AsNbjOjPlFKtXIyCqoscVohu0kFL67f/K7CxxdqSmuQLfPEQ3W6ir5IDTa4rbrD/HLRZZW2YDz4I2O2eIjsMm6jPvvBHqelQ4ViH2/3u/ASPyk06rvRydgF88WsL4/DhwjhR2bB5qYCVKngn0M5q73Ijw2k42bpdKtn6TAA9WcD2RigfVf9pqM/U4NG7G4zFJrVrQ3YcPt7JwZbHc3WlnzivC/R6njkN3VVD6lr8sWk/WzltsaX3R3AMYzJjXywxWlz8rp3eNnPS25DDkfxrbgVDy9OW+phMo6LmRHQ6Wt5TSHh69W2UIRsCw6YyU8WR4qM/IgmLGpSC6/LZ34aFoLJ9j2y5nuvJIxeTuEdlNC7Um2OYNuJS/sB2p1YafECsYuGJ/OKyF4BLI3Wrf07GF27/HMKpiueZbl08b4w+CRKTy3yDi5jt6vGtnSh1TMwb2fu1t68IUif+PFF6leTCzKI9CpLnNi+51ilnKz7EOXjiVxaXnspGiTIPjzrAi3G+2UgB9WdqwH/5Y8Bze+y4gVJH2PCPeU6I0tFQg+/WX1x5
- oMNibaqUIroKNcXDnSk13Kj7mInfoMUHleFT2GR3txMsSSFDXWUOC73Yb0vxbGXf/oT6TilyzoegcOJWvNyxhoW2prNiObK82I/q9bNmlJCQt4QvUDhTs3VYKkm9ifAOXoIl1mAQxvJIDQfpJSG6fiYZ2XNhuP8yZqFvFGiQMZF4SLHobI7ChcmWbNUtetp85arak+dSv5NGFcUN+atwk5bMYGAz6FBrblO+XTHuGltZvRRpq3vD3WGxntpcVNNT90nIQqqr/0Yq0qg9AVTbseAscavBH2QijSIuQJ8c3
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-The internal keyboard on the Lenovo IdeaPad Slim 3 15IWC11 (83RR)
-does not work correctly with the default i8042 settings. Using
-i8042.nopnp=1 and i8042.dumbkbd=1 restores keyboard input, but prevents
-the Caps Lock LED from working. Using i8042.nopnp=1 alone does not fix
-the keyboard.
+Hi Stian,
 
-The laptop works correctly when atkbd_deactivate_fixup is used instead.
-Add a DMI quirk for the 83RR to enable it.
+On Wed, 2026-09-30 at 16:07 +0200, Stian Halseth wrote:
+> > I think SPARC64 X is not supported by the Linux kernel at all, is it?
+> >=20
+> There some chip detection for it, but I've never tested, or heard about
+> anyone actually using it.=20
+>=20
+> sparc64: correctly recognize SPARC64-X chips
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D76950e6e54ccfc98a25b501dbb1bc879cce1aa29
+>=20
+> cpu hw caps support for sparc64x:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D4e96377983d2e060dd89703f1846ad920af9e17f
 
-This was tested without any i8042 command-line parameters. Keyboard
-input and the Caps Lock LED work correctly, including after suspend
-and resume and after a cold boot.
+There is one guy on the debian-sparc mailing list who got one.
 
-Link: https://lore.kernel.org/all/4f43465f-98ba-4722-8e29-03df20315369@kernel.org/
-Signed-off-by: Martino Papero <martino.papero@lcb.to.it>
----
- drivers/input/keyboard/atkbd.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Not sure if he's still active these days. I'll try to reach out.
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 93650c982..b5ee5697a 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -1938,6 +1938,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
-+	{
-+		/* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
- 	{
- 		/* Xiaomi Book Pro 14 (TM2424) */
- 		.matches = {
+Adrian
 
-base-commit: 551c722f40809618230001baccf219193e22fc5a
--- 
-2.55.0
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
