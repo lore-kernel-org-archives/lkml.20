@@ -1,207 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7045451A14A;
-	Wed, 30 Sep 2026 17:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789380; cv=none; b=AUvuwqMeG0tEK4IdpzTSCucA/9aCzaoJHKeGxdMJ3gzwq3+LHz0d+EaZzfDxYvCQYTLnvKWCRLDNucgAbzULVA9o0j7whR2UGc67Bhdqr/ONxPAxwCU0/lsOdidqO1RyPvEM7IkBevIIEjbhvSvygUm8N6oXhSVRUDgTykvHz3w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789380; c=relaxed/simple;
-	bh=yqnHQFFgG9HGV9s3Z+hWtHclzLx1oyNWvpKhmIRKOEY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nHccwSlRygTpsqLg3OzbZdGAXA1nj0w0PMJw/N+SYdFqaIVBhxX3A6Ms6b7t2sJNiinpc4egx1HQl1FBImA7WY1qr//BSjz/qd1vLPdB+Q6anixsd7RL3qGWYfQPX/26uV0Ged0vgNyUNzJel1uu5xIeW8GeQLlaFM7lChK1zGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bAN0Mok2; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED1B51AECC
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790789381; cv=pass; b=fqGWS5ULiopV4sOh3HSFuJgvoPccaNn5i5mgK1gLgSKw4k+CeL85KKbjt6ukymnevXR8VJgr9bNaOvxsb0kU+1fSR3B9SiAxjK3cvDRpteQxShLtjTnxRR0KypvW0+xM6uVPegjW4COFBrL4Hv2MdnxxcANvjP7WUCGm2Ci6hOw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790789381; c=relaxed/simple;
+	bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PRMOipJ6Ca4aq8g3E0ujAAJBb5tvWlh2kb7vi+lC2BHKa3r4gXpBdxYxngak68IDNZxlDos0bCcSINvi7a1UqwHDTuH/fpSyoL9QBFyFC0lPx9OoMLq/gRdD8SsKQmPZuaAVXN2BPgz9L1lyeqizNOo4hWYTLMq9vur+EqAPnhE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwNcCl2p; arc=pass smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bAN0Mok2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790789379; x=1822325379;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yqnHQFFgG9HGV9s3Z+hWtHclzLx1oyNWvpKhmIRKOEY=;
-  b=bAN0Mok2spAmjK3tigKpnNM2cr5n08SB3OX47Q0/QRnsdyqrTjIc+OMg
-   5T8n4yCFIEZu1PYVTIF4G+5VPIy8lqNjtuu9GChKQEgoQdkg71EuvmDpY
-   uPrzFQ2GUeiRfhot0cdr/k0XXBjkwUDOf0RlstvRhBkB8bW7/gflXg3qn
-   oGdOA4BmgeqqJb3E6hqjL4GsOwo/UIQE5/ciU+WqZmiuWO0iVo3hFRIic
-   rMZ/PdakyKy1bQEUFqDy98mPq1MusODTNhGAlMC2b9wAzEph1IGPCAqWs
-   7t7WoBAiRT3kMAUyJyWv74NZQoQJ7ND0JVcadf3pPAhjIHtTQ1QP0RCP7
-   A==;
-X-CSE-ConnectionGUID: 9PJevbLoS8SK3bdaFNVwKA==
-X-CSE-MsgGUID: CXi8fFekQwWt90tVG/iZhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91632061"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="91632061"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:35 -0700
-X-CSE-ConnectionGUID: E8TklOr0Tyyf7BDo+CQz1w==
-X-CSE-MsgGUID: TRC79aV9ROS26smz9R0Okg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="278959405"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:34 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 06/20] platform/x86/intel/tpmi: Describe a TPMI instance by its two devices
-Date: Wed, 30 Sep 2026 10:29:03 -0700
-Message-ID: <20260930172918.743656-7-sathyanarayanan.kuppuswamy@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwNcCl2p"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a78129ac98so417931fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:29:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790789377; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bD7Ct2wnynKoxl6iI3XmLIG6bzy+HZG43d8S6DfNsPvo2HtgzrHPh4YIjn9/kOQu21
+         8VwyMDg1ReylXdW+jB7f7N6WP32LOHV7k+Vl0Eb4z1ggoqRctJ+Wv+WopXMxJ0o2vUz2
+         0Tbl7pQh7Hmv8AJ1SZsaxECWa0UnvE+rRHUapAp1ed+FoS3ic5bCLkB7N/PFxTt4J4I+
+         DJCS8bZBwUxJdxEpiP3LGXvcWa9YZDKcqrAEzXh0TPvV3vIGsI1Wonn3OGc/PA4kO/Sk
+         YDUcZM/h0AxHvrr2VF0FStKRf4brgFKVlzM7h24VvUq0pb5fkkxKGslUu5joIm+IKZ9r
+         KxJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
+        fh=VEC5tPHTPZP7ESbtS3K52pKqLE+NagxPHujoNUYzBBc=;
+        b=gc2jTYE5tJC/MbNHBCbXgn06IL7wZy5C9hmbbbYC3YpkcUmrT5qiOF5PngQFuOVgAR
+         4bGGwMhZDhh+dNGU4GaA17WuvgA4wiPyEbn7mgCRelrFAqn4DsdojSa5UTWhDu/bFk3e
+         kdBl8R4F1FhbPhMdNE7RO2eyqIbSQGzw5qTtgMT7Z3ZEokRcCd3SeXUPVcV80F1og6Sp
+         2B9hxn9gPSI0hjZnRabBlnHSruEzqduRXaI8+jvSyZSWBiPD0tL7X32egczdJgJvSjnR
+         U8mwxz/qmg+p/5Z4DGtXrsjJRVslEqPBjj25HSBCM/CTNGqZ+yGseegMJByluPPMUYcQ
+         /s7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790789377; x=1791394177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
+        b=kwNcCl2pWWE/uXx3vAu1NP1AHobhUSSGWi7JHeV2s9xnMOLHbQnr9O621SD7YE0fFq
+         U5DzVVIaNtVKeepX/9Wgq1flBGLdRALOV0goFmpmxL+MygA3K6gOpMB+ZsrBXfZV2rDH
+         94mLmEqO2IkRjdEMQ1VWx5nf713YZ03Q0SrJsiF6F7v/v8YsriVDktQ/e5pPs1IIYqx6
+         jJ9IojWYJ+wHvFNgF2401c3AiYkwqcGi8Kku+gn3H+4q2uFdPpWXwqP7Cx+OicBW2VEe
+         Ls6IFGRIUjHWK6b7Jv0VekQm419WJCTojrdif3rZYIrO0taSEww9xF6Bi+dX+zE5AdPq
+         aRtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790789377; x=1791394177;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
+        b=w9KT1A28J5rWJCNPytKd5akl1CTtBMvPzlL6V995ZIejBPoYps3/7ySrWvV/xqj77p
+         ZTysnjUprgiRpmgDBxVSjKXiHsJOsU31TNcUZyEpir1AUtAqBJVvZB0uPrruRqnduqmL
+         upDGSwVD5pxO3o3R8kJHk+GFhJpu8C7NrZK5qJLv77U4Nh5RksyvLGav+o95Jw4xeuRU
+         +4pcBqq//3pTK0hHdoH9PD/z7nTxWKF97CBAP6vjWhaDi6aOuK5QTrC20418p6abEMNL
+         a+NIHzHsOePogqu2K79vGrH9cK1v0srtd5stLvsCTRw//BBePsaa4Q71S/iUw68qIKzy
+         hnRw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUBYf4qtqkz8L+nb08LVWnV7CaDJm8YPZMD0CtjC8pmhdZ/IaTfZ8gnyadEE9fyxv5va8hoyG8d4Nc9X8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISD7BlBss72FCMC8Ose+KLa3MY9y2ApNqU6ObbLymLpYzTO3ec
+	5VXN4OE+2E/M3GiOaIejbBG6ZRggJHtbOgBYPkZ4B3iGn4N5ohEkgxBwE70sP+qDii3J0krk9V6
+	bWHz8fA6A5va0phk4QS+ZlylKh45eOWo=
+X-Gm-Gg: AYBFou20JHYE1nkgx2+MD4RpdILcbk22HRQrdvKXdfAa/gp37T3odh/WDkmm5BXzXc+
+	krwxCW72AP13XmV0t/qwX6ofn8pmdVpJTvAEz+Pvyxp/QjDSMmvBUxN77THhfJQFFEnMIrTvXEu
+	fV4dDqAcaL9JvCmGlmnSIw0BVj9mSN+K9K5NlOyjU2smYAV6BJ9AariECbIY/cx5OEV9hpc4MJL
+	o5k59FRtF+TL60JqyoFvUo0x508Z7MGgVguA5WC3WwglixhAUQlaWsjKxD5frWvZ3UoCozI39as
+	kKY4brvqs20VYlLapDBvrn1vrXXGgzs87nwRfGq+JkORYqNYv8ob3eXQbAW3HdViSI9fwHcXX7c
+	9ZzFI81uxzbJXCIEozh4m572DhfubcJRhOvx/Wf/VDNK2KxTsKVIz/Hx5M4cyRCcuASuPgXOpmS
+	1+ZK6uvhR355tBJJQ+GnfUPWlZ6P6P79GJ3s/1logJshHCFJHwtlE=
+X-Received: by 2002:a05:6512:3041:b0:5b8:f276:ad76 with SMTP id
+ 2adb3069b0e04-5ba402c10a5mr849913e87.2.1790789377054; Wed, 30 Sep 2026
+ 10:29:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921115708.4009754-1-gary@kernel.org> <CANiq72nR-QzR3zOiV=RL4je4U8m_hCsPhOD3SxAcjc+4VCrMsw@mail.gmail.com>
+ <DLQWWUKZ61KN.1X8VCC2YLPD53@garyguo.net> <CANiq72mOC_-6hzd=dG3YJoaLi=fYCZ620CaSXZv1Oo4ja2v5gQ@mail.gmail.com>
+In-Reply-To: <CANiq72mOC_-6hzd=dG3YJoaLi=fYCZ620CaSXZv1Oo4ja2v5gQ@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 19:29:22 +0200
+X-Gm-Features: AclHuK_Xq2p8rBQSUUCMyP69x91mRVAfhyvtd21Tz9BX7lsLm5p0ul0jSuGOdbQ
+Message-ID: <CANiq72kCPcw-p1auuqvMJgHLq-hto11zgmY2jELBTH=mpZVr=Q@mail.gmail.com>
+Subject: Re: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
+To: Gary Guo <gary@garyguo.net>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The intel_vsec_device pointer in intel_tpmi_info is by now only used to
-reach two devices, the device the TPMI driver is bound to and the device
-TPMI was enumerated from. Store those two directly and call them tpmi_dev
-and parent.
+On Mon, Sep 28, 2026 at 2:21=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> Ok, in that case (plus what you mention above and the examples --
+> thanks for those, by the way), I think it is fine either way.
 
-The devm allocations, the driver data and the TPMI feature devices all
-hang off tpmi_dev. The parent device names the debugfs directory, is
-recorded in every TPMI feature device so that the enumerating bus can
-find those devices again during PCI error recovery, and is the device
-intel_vsec_set_mapping() registers the mapping for.
+Of course, please feel free to add:
 
-Both are assigned once during init and used everywhere below it, so
-intel_tpmi_info no longer refers to an intel_vsec_device. tpmi_to_dev()
-went away with its only user.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-There is no functional change, tpmi_dev is &auxdev->dev and parent is
-vsec_dev->dev, which is what the affected call sites used before.
-
-Co-developed-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
- drivers/platform/x86/intel/vsec_tpmi.c | 29 ++++++++++++++++----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/intel/vsec_tpmi.c
-index b462fd0319e5..f3cd8aa30af0 100644
---- a/drivers/platform/x86/intel/vsec_tpmi.c
-+++ b/drivers/platform/x86/intel/vsec_tpmi.c
-@@ -104,25 +104,33 @@ struct intel_tpmi_pm_feature {
- /**
-  * struct intel_tpmi_info - TPMI information for all IDs in an instance
-  * @tpmi_features:	Pointer to a list of TPMI feature instances
-- * @vsec_dev:		Pointer to intel_vsec_device structure for this TPMI device
-  * @feature_count:	Number of TPMI of TPMI instances pointed by tpmi_features
-  * @pfs_start:		Start of PFS offset for the TPMI instances in this device
-  * @plat_info:		Stores platform info which can be used by the client drivers
-  * @tpmi_control_mem:	Memory mapped IO for getting control information
-  * @dbgfs_dir:		debugfs entry pointer
-  * @resource:		Array of feature_count MMIO resources, one per PFS entry
-+ * @tpmi_dev:		Device this TPMI instance is bound to. It backs the devm
-+ *			allocations, holds this structure as its driver data and
-+ *			the TPMI feature devices are created under it.
-+ * @parent:		Device this TPMI instance was enumerated from. It names
-+ *			the debugfs directory and becomes intel_vsec_device::dev
-+ *			of every TPMI feature device, so that the enumerating bus
-+ *			can find them again, for example during PCI error
-+ *			recovery.
-  *
-  * Stores the information for all TPMI devices enumerated from a single PCI device.
-  */
- struct intel_tpmi_info {
- 	struct intel_tpmi_pm_feature *tpmi_features;
--	struct intel_vsec_device *vsec_dev;
- 	int feature_count;
- 	u64 pfs_start;
- 	struct oobmsm_plat_info plat_info;
- 	void __iomem *tpmi_control_mem;
- 	struct dentry *dbgfs_dir;
- 	struct resource *resource;
-+	struct device *tpmi_dev;
-+	struct device *parent;
- };
- 
- /**
-@@ -534,14 +542,12 @@ static const struct file_operations mem_write_ops = {
- 	.release        = single_release,
- };
- 
--#define tpmi_to_dev(info)	((info)->vsec_dev->dev)
--
- static void tpmi_dbgfs_register(struct intel_tpmi_info *tpmi_info)
- {
- 	char name[64];
- 	int i;
- 
--	snprintf(name, sizeof(name), "tpmi-%s", dev_name(tpmi_to_dev(tpmi_info)));
-+	snprintf(name, sizeof(name), "tpmi-%s", dev_name(tpmi_info->parent));
- 	tpmi_info->dbgfs_dir = debugfs_create_dir(name, NULL);
- 
- 	debugfs_create_file("pfs_dump", 0444, tpmi_info->dbgfs_dir, tpmi_info, &tpmi_pfs_dbg_fops);
-@@ -570,7 +576,7 @@ static void tpmi_set_control_base(struct auxiliary_device *auxdev,
- 	if (!size)
- 		return;
- 
--	mem = devm_ioremap(&auxdev->dev, pfs->vsec_offset, size);
-+	mem = devm_ioremap(tpmi_info->tpmi_dev, pfs->vsec_offset, size);
- 	if (!mem)
- 		return;
- 
-@@ -602,7 +608,6 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- 			      struct intel_tpmi_pm_feature *pfs,
- 			      u64 pfs_start)
- {
--	struct intel_vsec_device *vsec_dev = tpmi_info->vsec_dev;
- 	struct intel_vsec_device *feature_vsec_dev;
- 	struct tpmi_feature_state feature_state;
- 	struct resource *res, *tmp;
-@@ -639,7 +644,7 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- 		tmp->flags = IORESOURCE_MEM;
- 	}
- 
--	feature_vsec_dev->dev = vsec_dev->dev;
-+	feature_vsec_dev->dev = tpmi_info->parent;
- 	feature_vsec_dev->priv_data = &tpmi_info->plat_info;
- 	feature_vsec_dev->priv_data_size = sizeof(tpmi_info->plat_info);
- 	feature_vsec_dev->ida = &intel_vsec_tpmi_ida;
-@@ -653,7 +658,7 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
- 	 * "name" must outlive the auxiliary device, as the auxiliary bus
- 	 * stores the pointer rather than a copy of the string.
- 	 */
--	return intel_vsec_add_aux(&vsec_dev->auxdev.dev, feature_vsec_dev, name);
-+	return intel_vsec_add_aux(tpmi_info->tpmi_dev, feature_vsec_dev, name);
- }
- 
- static int tpmi_create_devices(struct intel_tpmi_info *tpmi_info)
-@@ -747,7 +752,8 @@ static int intel_vsec_tpmi_init(struct auxiliary_device *auxdev)
- 	if (!tpmi_info)
- 		return -ENOMEM;
- 
--	tpmi_info->vsec_dev = vsec_dev;
-+	tpmi_info->tpmi_dev = &auxdev->dev;
-+	tpmi_info->parent = vsec_dev->dev;
- 	tpmi_info->feature_count = vsec_dev->num_resources;
- 	tpmi_info->resource = vsec_dev->resource;
- 	tpmi_info->plat_info.bus_number = pci_dev->bus->number;
-@@ -796,7 +802,8 @@ static int intel_vsec_tpmi_init(struct auxiliary_device *auxdev)
- 			if (ret)
- 				return ret;
- 
--			ret = intel_vsec_set_mapping(&tpmi_info->plat_info, vsec_dev->dev);
-+			ret = intel_vsec_set_mapping(&tpmi_info->plat_info,
-+						     tpmi_info->parent);
- 			if (ret)
- 				return ret;
- 		}
--- 
-2.43.0
-
+Cheers,
+Miguel
