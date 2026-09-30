@@ -1,118 +1,187 @@
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED1B51AECC
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789381; cv=pass; b=fqGWS5ULiopV4sOh3HSFuJgvoPccaNn5i5mgK1gLgSKw4k+CeL85KKbjt6ukymnevXR8VJgr9bNaOvxsb0kU+1fSR3B9SiAxjK3cvDRpteQxShLtjTnxRR0KypvW0+xM6uVPegjW4COFBrL4Hv2MdnxxcANvjP7WUCGm2Ci6hOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E52351AFED;
+	Wed, 30 Sep 2026 17:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790789381; cv=none; b=HgSJ1m/oFp+g0HPE22uwRVEbSO9yTmrxc6DPOT/al+O7etZQ/r+QWxzBY3lbkHKZTNzyciUD+zQnZ/ZpvC0cHnxXsbGwIExxiUNP9FJFAZ+bEu1QnMtJ/9lnHxU1DT4I88c5SXcHp/xYvIWJN1Ng72dlu8YhvFhwo59Ssn5pmC0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790789381; c=relaxed/simple;
-	bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PRMOipJ6Ca4aq8g3E0ujAAJBb5tvWlh2kb7vi+lC2BHKa3r4gXpBdxYxngak68IDNZxlDos0bCcSINvi7a1UqwHDTuH/fpSyoL9QBFyFC0lPx9OoMLq/gRdD8SsKQmPZuaAVXN2BPgz9L1lyeqizNOo4hWYTLMq9vur+EqAPnhE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwNcCl2p; arc=pass smtp.client-ip=74.125.230.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=Z+45j+E2SIXO1krqnxt+Ax1Palf6Th7eSTMIXrJXia8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LuPs0Xt5WpMpb/dg0jUrMwt/WiexAJVqLxzUJwbUqyHrIo281ItggYlamdzg+5EA5IH/8yQK3p6dQXocFLZq3R5FujO0m3Fx9ivRL2EPIvyOyzzJ1YRMZiHPJ9kCwuJkKW3SNtIKxwhIKVA9dqnF/ecNODsavm5hxFXFrUKPwTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TvzWjXgt; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwNcCl2p"
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a78129ac98so417931fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:29:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790789377; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bD7Ct2wnynKoxl6iI3XmLIG6bzy+HZG43d8S6DfNsPvo2HtgzrHPh4YIjn9/kOQu21
-         8VwyMDg1ReylXdW+jB7f7N6WP32LOHV7k+Vl0Eb4z1ggoqRctJ+Wv+WopXMxJ0o2vUz2
-         0Tbl7pQh7Hmv8AJ1SZsaxECWa0UnvE+rRHUapAp1ed+FoS3ic5bCLkB7N/PFxTt4J4I+
-         DJCS8bZBwUxJdxEpiP3LGXvcWa9YZDKcqrAEzXh0TPvV3vIGsI1Wonn3OGc/PA4kO/Sk
-         YDUcZM/h0AxHvrr2VF0FStKRf4brgFKVlzM7h24VvUq0pb5fkkxKGslUu5joIm+IKZ9r
-         KxJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
-        fh=VEC5tPHTPZP7ESbtS3K52pKqLE+NagxPHujoNUYzBBc=;
-        b=gc2jTYE5tJC/MbNHBCbXgn06IL7wZy5C9hmbbbYC3YpkcUmrT5qiOF5PngQFuOVgAR
-         4bGGwMhZDhh+dNGU4GaA17WuvgA4wiPyEbn7mgCRelrFAqn4DsdojSa5UTWhDu/bFk3e
-         kdBl8R4F1FhbPhMdNE7RO2eyqIbSQGzw5qTtgMT7Z3ZEokRcCd3SeXUPVcV80F1og6Sp
-         2B9hxn9gPSI0hjZnRabBlnHSruEzqduRXaI8+jvSyZSWBiPD0tL7X32egczdJgJvSjnR
-         U8mwxz/qmg+p/5Z4DGtXrsjJRVslEqPBjj25HSBCM/CTNGqZ+yGseegMJByluPPMUYcQ
-         /s7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790789377; x=1791394177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
-        b=kwNcCl2pWWE/uXx3vAu1NP1AHobhUSSGWi7JHeV2s9xnMOLHbQnr9O621SD7YE0fFq
-         U5DzVVIaNtVKeepX/9Wgq1flBGLdRALOV0goFmpmxL+MygA3K6gOpMB+ZsrBXfZV2rDH
-         94mLmEqO2IkRjdEMQ1VWx5nf713YZ03Q0SrJsiF6F7v/v8YsriVDktQ/e5pPs1IIYqx6
-         jJ9IojWYJ+wHvFNgF2401c3AiYkwqcGi8Kku+gn3H+4q2uFdPpWXwqP7Cx+OicBW2VEe
-         Ls6IFGRIUjHWK6b7Jv0VekQm419WJCTojrdif3rZYIrO0taSEww9xF6Bi+dX+zE5AdPq
-         aRtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790789377; x=1791394177;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nwRqkBWGPhWkh9sR2L97RRE1/4KrKqVf//okmnfQ8gQ=;
-        b=w9KT1A28J5rWJCNPytKd5akl1CTtBMvPzlL6V995ZIejBPoYps3/7ySrWvV/xqj77p
-         ZTysnjUprgiRpmgDBxVSjKXiHsJOsU31TNcUZyEpir1AUtAqBJVvZB0uPrruRqnduqmL
-         upDGSwVD5pxO3o3R8kJHk+GFhJpu8C7NrZK5qJLv77U4Nh5RksyvLGav+o95Jw4xeuRU
-         +4pcBqq//3pTK0hHdoH9PD/z7nTxWKF97CBAP6vjWhaDi6aOuK5QTrC20418p6abEMNL
-         a+NIHzHsOePogqu2K79vGrH9cK1v0srtd5stLvsCTRw//BBePsaa4Q71S/iUw68qIKzy
-         hnRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzUBYf4qtqkz8L+nb08LVWnV7CaDJm8YPZMD0CtjC8pmhdZ/IaTfZ8gnyadEE9fyxv5va8hoyG8d4Nc9X8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISD7BlBss72FCMC8Ose+KLa3MY9y2ApNqU6ObbLymLpYzTO3ec
-	5VXN4OE+2E/M3GiOaIejbBG6ZRggJHtbOgBYPkZ4B3iGn4N5ohEkgxBwE70sP+qDii3J0krk9V6
-	bWHz8fA6A5va0phk4QS+ZlylKh45eOWo=
-X-Gm-Gg: AYBFou20JHYE1nkgx2+MD4RpdILcbk22HRQrdvKXdfAa/gp37T3odh/WDkmm5BXzXc+
-	krwxCW72AP13XmV0t/qwX6ofn8pmdVpJTvAEz+Pvyxp/QjDSMmvBUxN77THhfJQFFEnMIrTvXEu
-	fV4dDqAcaL9JvCmGlmnSIw0BVj9mSN+K9K5NlOyjU2smYAV6BJ9AariECbIY/cx5OEV9hpc4MJL
-	o5k59FRtF+TL60JqyoFvUo0x508Z7MGgVguA5WC3WwglixhAUQlaWsjKxD5frWvZ3UoCozI39as
-	kKY4brvqs20VYlLapDBvrn1vrXXGgzs87nwRfGq+JkORYqNYv8ob3eXQbAW3HdViSI9fwHcXX7c
-	9ZzFI81uxzbJXCIEozh4m572DhfubcJRhOvx/Wf/VDNK2KxTsKVIz/Hx5M4cyRCcuASuPgXOpmS
-	1+ZK6uvhR355tBJJQ+GnfUPWlZ6P6P79GJ3s/1logJshHCFJHwtlE=
-X-Received: by 2002:a05:6512:3041:b0:5b8:f276:ad76 with SMTP id
- 2adb3069b0e04-5ba402c10a5mr849913e87.2.1790789377054; Wed, 30 Sep 2026
- 10:29:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TvzWjXgt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790789380; x=1822325380;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Z+45j+E2SIXO1krqnxt+Ax1Palf6Th7eSTMIXrJXia8=;
+  b=TvzWjXgti665BCDwgGMvm589SGMtVxkogqm3XXHGAFXLXTmRo9FPBcqM
+   R7KA327xf4qybCIW80JQWohtc+C8wPbMUqe6XbdECrf3ooIwSQeALgDx4
+   GzgQgljiYeXRGyR0SMnvQBnlqKm0LqtedtHpcaWjqptB/rTG+uz2gHMxE
+   tVEYC24q6JxGYQhbgvC7I4x4UbpAdKfsFGrySUrlBWa39u9ss7lSYhlpy
+   l1CkOIXKLrEi4R6Ff2u8uoPRB+g3EAj4USnQ4lvhktksliE4SqPiE44KR
+   fhvcVCgk32Ljg43aU+RXr7NDUb0MZWSDhnvc2vB07fjcqIz9qnyodp4vw
+   g==;
+X-CSE-ConnectionGUID: NPM3JscfR6WnAjms7TvqyA==
+X-CSE-MsgGUID: GJI9rf1BTEi3Im9voSNDig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91632049"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="91632049"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:34 -0700
+X-CSE-ConnectionGUID: v/kU0PRDRP6B2/ERR14NPw==
+X-CSE-MsgGUID: 0WDHCRq4SrS7+m/7/lmW2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="278959389"
+Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:29:34 -0700
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 01/20] platform/x86/intel/tpmi: Use static strings for the feature device names
+Date: Wed, 30 Sep 2026 10:28:58 -0700
+Message-ID: <20260930172918.743656-2-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921115708.4009754-1-gary@kernel.org> <CANiq72nR-QzR3zOiV=RL4je4U8m_hCsPhOD3SxAcjc+4VCrMsw@mail.gmail.com>
- <DLQWWUKZ61KN.1X8VCC2YLPD53@garyguo.net> <CANiq72mOC_-6hzd=dG3YJoaLi=fYCZ620CaSXZv1Oo4ja2v5gQ@mail.gmail.com>
-In-Reply-To: <CANiq72mOC_-6hzd=dG3YJoaLi=fYCZ620CaSXZv1Oo4ja2v5gQ@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 19:29:22 +0200
-X-Gm-Features: AclHuK_Xq2p8rBQSUUCMyP69x91mRVAfhyvtd21Tz9BX7lsLm5p0ul0jSuGOdbQ
-Message-ID: <CANiq72kCPcw-p1auuqvMJgHLq-hto11zgmY2jELBTH=mpZVr=Q@mail.gmail.com>
-Subject: Re: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 2:21=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> Ok, in that case (plus what you mention above and the examples --
-> thanks for those, by the way), I think it is fine either way.
+tpmi_create_device() builds the auxiliary device name in an on-stack
+buffer and hands it to intel_vsec_add_aux(), which stores the pointer in
+auxdev->name without copying the string. The auxiliary device outlives
+tpmi_create_device(), so auxdev->name is left pointing into a stack frame
+that has already been torn down.
 
-Of course, please feel free to add:
+Nothing dereferences auxdev->name after intel_vsec_add_aux() returns
+today: auxiliary_device_init() only checks it for NULL and both
+dev_set_name() calls copy into dev->kobj.name, while driver matching and
+the modalias use dev_name() instead. So this is a latent problem rather
+than a live one, but the auxiliary bus expects the name to outlive the
+device, and the other intel_vsec_add_aux() caller already passes a string
+literal.
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Convert intel_tpmi_name() into a lookup of a static array of string
+literals that already include the "tpmi-" prefix, and pass its return
+value straight to intel_vsec_add_aux(). Using a static array instead of
+a switch statement makes the lifetime of the returned strings obvious:
+they are valid for as long as the module is loaded. The snprintf() along
+with its on-stack buffer and length define are no longer needed.
 
-Cheers,
-Miguel
+The resulting device names are unchanged, so the feature drivers keep
+matching on "intel_vsec.tpmi-<feature>" as before.
+
+No functional change intended.
+
+Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+---
+ drivers/platform/x86/intel/vsec_tpmi.c | 41 +++++++++++++-------------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/intel/vsec_tpmi.c
+index 0153dd57838e..9b2bd0c8cbe2 100644
+--- a/drivers/platform/x86/intel/vsec_tpmi.c
++++ b/drivers/platform/x86/intel/vsec_tpmi.c
+@@ -47,6 +47,7 @@
+  */
+ 
+ #include <linux/align.h>
++#include <linux/array_size.h>
+ #include <linux/auxiliary_bus.h>
+ #include <linux/bitfield.h>
+ #include <linux/debugfs.h>
+@@ -579,33 +580,31 @@ static void tpmi_set_control_base(struct auxiliary_device *auxdev,
+ 	tpmi_info->tpmi_control_mem = mem;
+ }
+ 
++/*
++ * The TPMI IDs are sparse, so the unused entries are left NULL and are
++ * rejected by the caller like any other unsupported feature.
++ */
++static const char * const intel_tpmi_names[] = {
++	[TPMI_ID_RAPL]		= "tpmi-rapl",
++	[TPMI_ID_PEM]		= "tpmi-pem",
++	[TPMI_ID_UNCORE]	= "tpmi-uncore",
++	[TPMI_ID_SST]		= "tpmi-sst",
++	[TPMI_ID_PLR]		= "tpmi-plr",
++};
++
+ static const char *intel_tpmi_name(enum intel_tpmi_id id)
+ {
+-	switch (id) {
+-	case TPMI_ID_RAPL:
+-		return "rapl";
+-	case TPMI_ID_PEM:
+-		return "pem";
+-	case TPMI_ID_UNCORE:
+-		return "uncore";
+-	case TPMI_ID_SST:
+-		return "sst";
+-	case TPMI_ID_PLR:
+-		return "plr";
+-	default:
++	if (id >= ARRAY_SIZE(intel_tpmi_names))
+ 		return NULL;
+-	}
+-}
+ 
+-/* String Length for tpmi-"feature_name(upto 8 bytes)" */
+-#define TPMI_FEATURE_NAME_LEN	14
++	return intel_tpmi_names[id];
++}
+ 
+ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 			      struct intel_tpmi_pm_feature *pfs,
+ 			      u64 pfs_start)
+ {
+ 	struct intel_vsec_device *vsec_dev = tpmi_info->vsec_dev;
+-	char feature_id_name[TPMI_FEATURE_NAME_LEN];
+ 	struct intel_vsec_device *feature_vsec_dev;
+ 	struct tpmi_feature_state feature_state;
+ 	struct resource *res, *tmp;
+@@ -634,8 +633,6 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 	feature_vsec_dev->num_resources = pfs->pfs_header.num_entries;
+ 	res = feature_vsec_dev->resource;
+ 
+-	snprintf(feature_id_name, sizeof(feature_id_name), "tpmi-%s", name);
+-
+ 	for (i = 0, tmp = res; i < pfs->pfs_header.num_entries; i++, tmp++) {
+ 		u64 entry_size_bytes = pfs->pfs_header.entry_size * sizeof(u32);
+ 
+@@ -654,9 +651,11 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 	 * delete is required on error or on module unload.
+ 	 * feature_vsec_dev and res memory are also freed as part of
+ 	 * device deletion.
++	 *
++	 * "name" must outlive the auxiliary device, as the auxiliary bus
++	 * stores the pointer rather than a copy of the string.
+ 	 */
+-	return intel_vsec_add_aux(&vsec_dev->auxdev.dev,
+-				  feature_vsec_dev, feature_id_name);
++	return intel_vsec_add_aux(&vsec_dev->auxdev.dev, feature_vsec_dev, name);
+ }
+ 
+ static int tpmi_create_devices(struct intel_tpmi_info *tpmi_info)
+-- 
+2.43.0
+
