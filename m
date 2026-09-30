@@ -1,350 +1,200 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F71052B1EF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA14754EEAD;
+	Wed, 30 Sep 2026 17:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790116; cv=none; b=tKD7o0RUhKx55iFJBQ0T1AMPIgWlxw6wdrQ9z7RqVni1OzN6QOzD5ElKiMbS8IAs565ezNFJsw9+SgV+JGJj8sTKIrNU2mJA/xpLRQAmXz+380YOV02r1KgAPJ68VovLgH9n5bY1qvmgOdHM3UAnexeYyGWyWNt4BZpifXW9t1w=
+	t=1790790150; cv=none; b=PT6CapNs65fapFZwJOHtS2PrDz30o34oKIfio3OWvIC8ifKD0gCLRvNIEiDPLudlhUIeqjULMQ3ChEOO9d0tp8np38afKt6GbfgCieMumj5A2qhgMU9AbhxgvjjMceq8l5LFmJb4sXpxgL0VDQhxgqRC8GXGpyLPNWwMSgOdACU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790116; c=relaxed/simple;
-	bh=Uyr1RpyXlIyY6KkPKPkDm96tH+iJzRR1ZQPzNIGJgZM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LO9Q4v3CaVwV6kvHRagf4hjbeaouaPaQRp8j4hCZUOhSNL2/pVwvGK/G9kBYO/t3aJlTVa624K1ccFN9QKGWAzTjklaIGVqYy9H59Vk5HOiOttQ08f49sE8yyVWub6JcH6OW6jmKa5ZKobd+e222T1s46MWdzVICaGNbzbt4kl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=CmYZV/2M; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1790790150; c=relaxed/simple;
+	bh=QuujYaaypl7IRSV3jGDsuI0mJI8UGkqO41MzM/0nq9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZwycLJvy6E5qC8PpACQ0az4Mr3TMspwIytQl4prAYvPovsW4z12NfQX/YtMvqi8UV5edYejk1ewenjNtaK/2doPPZyJtQg79URoKpVkhu2Mjw/B8E3R+f1poeUXBd2hX5EG17bbzQ8AcK5A8ZWNEn0ITfa8xM4nDRns4xuDjagw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wqDVrX7z; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=09r9Offy; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=xswSzu+M; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=JM/K7Zdg; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="CmYZV/2M"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 0E4DC240027
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:41:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1790790111;
-	bh=I+uTcAW8u8uHMkPAau7RErYoiCyAQlm8Ewbm3HbHyss=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=CmYZV/2MG0WEhi4+1luKeVDiorswRV4sI4kW0+LOacqDp05BpZUDHT4tQ03EZEY/b
-	 LfYoebei5s8XgKE3mv50PN7l4Jka1nIk3tRJY6mFYY/zY4k4E8HizdTkYfKkM24AKc
-	 8mylbRzaXtwfS5syPBOiH++bWERVmcUkBxpfaiKWDxk4k0GUtIB+4IKg+Z65iRZBSU
-	 gKLnuWxNuNpWg9p39HMJUlTNcJbDLtZ4ELqs403KIia1gsszTUfCnS9YWnKo+inN27
-	 DKYh1yKPBuWmveM+sb4/zsCZd2NaModSDOD3Cj4Y7IV0dA/rJcAB7aoVeVt25iO/QF
-	 0JSORhQWKn41w==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hw2RG0mpLz6tsb;
-	Wed, 30 Sep 2026 19:41:46 +0200 (CEST)
-Message-ID: <6fa1d763b656ea9f212584cd20485a9314941f93.camel@posteo.de>
-Subject: Re: [PATCH v3 2/4] tty: serdev: Export functions to pause
- receive_buf callback calls
-From: Markus Probst <markus.probst@posteo.de>
-To: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
- Alex Elder <elder@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Miguel Ojeda	 <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
- <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Lorenzo Stoakes	
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Jiri Slaby	
- <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev
-Date: Wed, 30 Sep 2026 17:41:49 +0000
-In-Reply-To: <20260930-rust_serdev_probe_refactor-v3-2-d1b6e77135e0@posteo.de>
-References: 
-	<20260930-rust_serdev_probe_refactor-v3-0-d1b6e77135e0@posteo.de>
-	 <20260930-rust_serdev_probe_refactor-v3-2-d1b6e77135e0@posteo.de>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-dy6088XJdc08HjE7tRiN"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wqDVrX7z";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="09r9Offy";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="xswSzu+M";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="JM/K7Zdg"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0F8B01FAC1;
+	Wed, 30 Sep 2026 17:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790790141; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gh0wG/EqtxYcMc4HYi/iYIKkERDHRoWoA70kqpa4cwk=;
+	b=wqDVrX7zsOdGSYgEMM336pdhvVTRdHMvNRJmDlSMwRrCihsev6tXKlkcDkA6xNQDw4ETO3
+	UYPBzo/o0CdKuWzPsunRcEotkDNaAS6VylXwzJ24mODZtZLon0T7u61eKwWY5g5boIdjm8
+	YuN6U/9sMqyTrVsV7yIcEES+WVPjeRI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790790141;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gh0wG/EqtxYcMc4HYi/iYIKkERDHRoWoA70kqpa4cwk=;
+	b=09r9OffyjYZHNhDVdMwYIyaz9Yo/z2reRwEwGVUMHTzgyl5uZmFY3WIh3PRUxuZfGfNLLE
+	WSND6xLRop3kG+AQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xswSzu+M;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="JM/K7Zdg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790790137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gh0wG/EqtxYcMc4HYi/iYIKkERDHRoWoA70kqpa4cwk=;
+	b=xswSzu+M6c97DvP3eocXEVzfG8frpPm8zMY4BnL2p/YrJh6/13DnX+i+JCl2DkmYGPhwO9
+	hbgbwGJl0tgMG1aFOwYxHZHIHowlNybj1OFZPMOS9myjirIT4XyTPaaTc4bSsGH6plP9zR
+	qyBCxyJ4EEQ2q+YBGoEuruG2P0m68ko=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790790137;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gh0wG/EqtxYcMc4HYi/iYIKkERDHRoWoA70kqpa4cwk=;
+	b=JM/K7Zdg4NdoopgMVIVEpcpG6x2OzdlneSlJs/CnuAec86qWBrymJXH7Xgc5398Mh7cViE
+	plX0F+0GkypCzEDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC31913AF5;
+	Wed, 30 Sep 2026 17:42:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id H2RRIPhJvWoHSAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 17:42:16 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 341B1A13AD; Wed, 30 Sep 2026 19:42:12 +0200 (CEST)
+Date: Wed, 30 Sep 2026 19:42:12 +0200
+From: Jan Kara <jack@suse.cz>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] ext4: fix shrinker scan budget accounting in
+ ext4_es_scan()
+Message-ID: <z2e3rg6225tozwa7lp7pgmuusqga6hiafeyvgodzkcg25yrb7g@y6m5kjtugmce>
+References: <20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com>
+ <20260930-fix-ext4-es-scan-nr-scanned-v3-1-9aef0be87d21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-fix-ext4-es-scan-nr-scanned-v3-1-9aef0be87d21@gmail.com>
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim]
+X-Spam-Score: -2.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 0F8B01FAC1
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
+On Wed 30-09-26 15:11:37, Qiliang Yuan wrote:
+> The extents_status shrinker's count_objects() callback,
+> ext4_es_count(), reports the number of shrinkable extent_status
+> objects via a percpu counter. do_shrink_slab() reads this count
+> exactly once per invocation and derives a one-shot scan budget
+> (total_scan) from it, then repeatedly calls scan_objects() in
+> fixed-size batches until that budget is exhausted.
+> 
+> ext4_es_scan() never signals SHRINK_STOP, so do_shrink_slab() has no
+> way to tell "there was nothing to reclaim this pass" from "a full
+> batch was scanned and none of it was freeable". It keeps calling
+> scan_objects() until the original, one-shot total_scan budget is
+> drained, even when sbi->s_es_list has had nothing left to give for a
+> while.
+> 
+> Return SHRINK_STOP whenever __es_shrink() frees nothing, so
+> do_shrink_slab() stops calling us for the rest of this reclaim pass
+> instead of burning through its scan budget against the same stale
+> freeable count.
+> 
+> Tested by fallocate(2)-ing 10000 4K files (to populate the shrinker
+> with reclaimable unwritten extents without also exercising the
+> extent_status "referenced" second-chance path, which needs a
+> separate two-pass accounting of its own) and triggering
+> "echo 2 > /proc/sys/vm/drop_caches", while tracing the
+> ext4_es_shrink* tracepoints:
+> 
+>                       total scan_objects()   calls with
+>                       calls                  nr_shrunk == 0
+>   before this patch   429                    189 (44%)
+>   after this patch    238                      1 (0.4%)
+> 
+> Fixes: 1ab6c4997e04 ("fs: convert fs shrinkers to new scan/count API")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
---=-dy6088XJdc08HjE7tRiN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+...
 
-On Wed, 2026-09-30 at 17:32 +0000, Markus Probst wrote:
-> These functions will be used to simply the serdev rust abstraction. It
-> also contributes to the fixing of 2 race conditions in the serdev rust
-> abstraction.
->=20
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  drivers/tty/serdev/core.c           | 44 +++++++++++++++++++++++++++++++=
-+++++-
->  drivers/tty/serdev/serdev-ttyport.c | 33 ++++++++++++++++++++++++++++
->  include/linux/serdev.h              |  6 +++++
->  3 files changed, 82 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-> index 77e8e1d4d2a6..af1470e33620 100644
-> --- a/drivers/tty/serdev/core.c
-> +++ b/drivers/tty/serdev/core.c
-> @@ -191,6 +191,45 @@ void serdev_device_close(struct serdev_device *serde=
-v)
->  }
->  EXPORT_SYMBOL_GPL(serdev_device_close);
-> =20
-> +/**
-> + * serdev_device_pause_rx() - pause data receive
-> + * @serdev:	serdev device
-> + *
-> + * Pause calls to receive_buf.
-> + *
-> + * Note that if a call to receive_buf is currently executed, the functio=
-n will
-> + * sleep until it has finished.
-> + */
-> +void serdev_device_pause_rx(struct serdev_device *serdev)
-> +{
-> +	struct serdev_controller *ctrl =3D serdev->ctrl;
+> diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+> index 6e4a191e82191..d88af807d36e7 100644
+> --- a/fs/ext4/extents_status.c
+> +++ b/fs/ext4/extents_status.c
+> @@ -1783,6 +1783,16 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
+>  
+>  	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+>  	trace_ext4_es_shrink_scan_exit(sbi->s_sb, nr_shrunk, ret);
 > +
-> +	if (!ctrl || !ctrl->ops->pause_rx)
-> +		return;
+> +	/*
+> +	 * es_stats_shk_cnt is a percpu counter, so it can stay positive
+> +	 * after sbi->s_es_list has nothing left to give. Stop this reclaim
+> +	 * pass once a call frees nothing, instead of burning through
+> +	 * do_shrink_slab()'s scan budget against a stale count.
+> +	 */
+> +	if (nr_shrunk == 0)
+> +		return SHRINK_STOP;
 > +
-> +	ctrl->ops->pause_rx(ctrl);
-> +}
-> +EXPORT_SYMBOL_GPL(serdev_device_pause_rx);
-> +
-> +/**
-> + * serdev_device_resume_rx() - resume data receive
-> + * @serdev:	serdev device
-> + *
-> + * Resume calls to receive_buf.
-> + *
-> + * This can be called even if not paused to ensure data receive is activ=
-e.
-> + */
-> +void serdev_device_resume_rx(struct serdev_device *serdev)
-> +{
-> +	struct serdev_controller *ctrl =3D serdev->ctrl;
-> +
-> +	if (!ctrl || !ctrl->ops->resume_rx)
-> +		return;
-> +
-> +	ctrl->ops->resume_rx(ctrl);
-> +}
-> +EXPORT_SYMBOL_GPL(serdev_device_resume_rx);
-> +
->  static void devm_serdev_device_close(void *serdev)
->  {
->  	serdev_device_close(serdev);
-> @@ -402,6 +441,7 @@ EXPORT_SYMBOL_GPL(serdev_device_break_ctl);
->  static int serdev_drv_probe(struct device *dev)
->  {
->  	const struct serdev_device_driver *sdrv =3D to_serdev_device_driver(dev=
-->driver);
-> +	struct serdev_device *sdev =3D to_serdev_device(dev);
->  	int ret;
-> =20
->  	ret =3D dev_pm_domain_attach(dev, PD_FLAG_ATTACH_POWER_ON |
-> @@ -409,7 +449,9 @@ static int serdev_drv_probe(struct device *dev)
->  	if (ret)
->  		return ret;
-> =20
-> -	return sdrv->probe(to_serdev_device(dev));
-> +	serdev_device_resume_rx(sdev);
-> +
-> +	return sdrv->probe(sdev);
->  }
-> =20
->  static void serdev_drv_remove(struct device *dev)
-> diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/ser=
-dev-ttyport.c
-> index c11908f5e1ce..2bed0e54202a 100644
-> --- a/drivers/tty/serdev/serdev-ttyport.c
-> +++ b/drivers/tty/serdev/serdev-ttyport.c
-> @@ -7,8 +7,10 @@
->  #include <linux/tty.h>
->  #include <linux/tty_driver.h>
->  #include <linux/poll.h>
-> +#include "../tty.h"
-> =20
->  #define SERPORT_ACTIVE		1
-> +#define SERPORT_PAUSE_RX	2
-> =20
->  struct serport {
->  	struct tty_port *port;
-> @@ -35,6 +37,9 @@ static size_t ttyport_receive_buf(struct tty_port *port=
-, const u8 *cp,
->  	if (!test_bit(SERPORT_ACTIVE, &serport->flags))
->  		return 0;
-> =20
-> +	if (test_bit(SERPORT_PAUSE_RX, &serport->flags))
-> +		return 0;
-> +
->  	ret =3D serdev_controller_receive_buf(ctrl, cp, count);
-> =20
->  	dev_WARN_ONCE(&ctrl->dev, ret > count,
-> @@ -177,6 +182,32 @@ static bool ttyport_close(struct serdev_controller *=
-ctrl)
->  	return true;
->  }
-> =20
-> +static void ttyport_pause_rx(struct serdev_controller *ctrl)
-> +{
-> +	struct serport *serport =3D serdev_controller_get_drvdata(ctrl);
-> +	struct tty_struct *tty =3D serport->tty;
-> +
-> +	guard(mutex)(&serport->lock);
-> +
-> +	set_bit(SERPORT_PAUSE_RX, &serport->flags);
-> +
-> +	if (test_bit(SERPORT_ACTIVE, &serport->flags))
-> +		tty_buffer_flush_work(tty->port);
-I just realised this could result in a deadlock.
 
-Since the mutex already prevents calling of
-`serdev_controller_receive_buf`, it is safe to completely remove this
-section (if statement + `tty_buffer_flush_work`).
+I think this is wrong. It breaks proper aging of es entries. It can easily
+happen that nr_shrunk is 0 because we've just cleared EXTENT_STATUS_REFERENCED
+flag on each es we've met. I think your previous version was actually
+better as much as I agree with Yi that there are some chances for increased
+scanning as well.
 
-Thanks
-- Markus Probst
+								Honza
 
-> +}
-> +
-> +static void ttyport_resume_rx(struct serdev_controller *ctrl)
-> +{
-> +	struct serport *serport =3D serdev_controller_get_drvdata(ctrl);
-> +	struct tty_struct *tty =3D serport->tty;
-> +
-> +	guard(mutex)(&serport->lock);
-> +
-> +	clear_bit(SERPORT_PAUSE_RX, &serport->flags);
-> +
-> +	if (test_bit(SERPORT_ACTIVE, &serport->flags))
-> +		tty_buffer_restart_work(tty->port);
-> +}
-> +
->  static unsigned int ttyport_set_baudrate(struct serdev_controller *ctrl,=
- unsigned int speed)
->  {
->  	struct serport *serport =3D serdev_controller_get_drvdata(ctrl);
-> @@ -281,6 +312,8 @@ static const struct serdev_controller_ops ctrl_ops =
-=3D {
->  	.get_tiocm =3D ttyport_get_tiocm,
->  	.set_tiocm =3D ttyport_set_tiocm,
->  	.break_ctl =3D ttyport_break_ctl,
-> +	.pause_rx =3D ttyport_pause_rx,
-> +	.resume_rx =3D ttyport_resume_rx,
->  };
-> =20
->  struct device *serdev_tty_port_register(struct tty_port *port,
-> diff --git a/include/linux/serdev.h b/include/linux/serdev.h
-> index 0f4e81c0950d..02773554e759 100644
-> --- a/include/linux/serdev.h
-> +++ b/include/linux/serdev.h
-> @@ -89,6 +89,8 @@ struct serdev_controller_ops {
->  	int (*get_tiocm)(struct serdev_controller *);
->  	int (*set_tiocm)(struct serdev_controller *, unsigned int, unsigned int=
-);
->  	int (*break_ctl)(struct serdev_controller *ctrl, unsigned int break_sta=
-te);
-> +	void (*pause_rx)(struct serdev_controller *ctrl);
-> +	void (*resume_rx)(struct serdev_controller *ctrl);
->  };
-> =20
->  /**
-> @@ -194,6 +196,8 @@ static inline size_t serdev_controller_receive_buf(st=
-ruct serdev_controller *ctr
->  int serdev_device_open(struct serdev_device *);
->  void serdev_device_close(struct serdev_device *);
->  int devm_serdev_device_open(struct device *, struct serdev_device *);
-> +void serdev_device_pause_rx(struct serdev_device *serdev);
-> +void serdev_device_resume_rx(struct serdev_device *serdev);
->  unsigned int serdev_device_set_baudrate(struct serdev_device *, unsigned=
- int);
->  void serdev_device_set_flow_control(struct serdev_device *, bool);
->  int serdev_device_write_buf(struct serdev_device *, const u8 *, size_t);
-> @@ -233,6 +237,8 @@ static inline int serdev_device_open(struct serdev_de=
-vice *sdev)
->  	return -ENODEV;
->  }
->  static inline void serdev_device_close(struct serdev_device *sdev) {}
-> +static inline void serdev_device_pause_rx(struct serdev_device *serdev) =
-{}
-> +static inline void serdev_device_resume_rx(struct serdev_device *serdev)=
- {}
->  static inline unsigned int serdev_device_set_baudrate(struct serdev_devi=
-ce *sdev, unsigned int baudrate)
->  {
->  	return 0;
-
---=-dy6088XJdc08HjE7tRiN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmq9SdkbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSdSsP/1aadVwJQNPm0NLQiSDA
-rumkbifsSrW/sUOr3yEhnrdWRcx55sto8VmWjGBDbvVsm0mRTGgRZfzuMTdEVoA0
-ngS1cQpcxiritOEnTZ3xjljAddE4AM04TD4PYnC3hyZGLbNP8eKOA1/Ew7iTEwUY
-NppQt0vYzdOvemHiskIZJZE2mCppRYPa9xJvlIg19e1YTESx5WTjKpxP5IQR6Fr7
-Q+rlWH4220ByPs8Xy9sqFToh/C6NZ18YpF7ezwODURGBvmmrkzL88raIspxmGP5E
-/RTxvZEiOfm1Qi8TmKbCK/sR50ZLO7253lWOI+3fyM0WTsCDyMpwzMaujg7mIwjo
-6GK/SoAw3gtw/RoFTEQi5uNC4FRRI3FMMgO3T2t6FI0O5bFIzvTypvSS83WzJMgR
-9llH79DCpw6hJJICtdIULfvaYM5MrVNQ/RrKgG/0J5vwBRRTHC0PNKNxZJnaN/Xb
-yKIiKz7/3w9oGGf2cfH9h6leLpHzKHBhKXuNu2vu+wgB12uHnFzrlatvgwzQVuoC
-v4v4eHAQqX64u9fawTmZWpz17ikH38L1CXqGvGzeo7wnTEdjcUo/v5373wa5iiU2
-PxZnSbj09cjtpJpoOROMb2xMTdrRAZrxec6MvGVZcoylvK3loYYHw0lKBhHCjmgv
-RUg07VB0KB7ED28LoM02XRUb
-=8CHL
------END PGP SIGNATURE-----
-
---=-dy6088XJdc08HjE7tRiN--
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
