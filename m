@@ -1,28 +1,28 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011010.outbound.protection.outlook.com [52.101.52.10])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCDE3B6C19;
-	Wed, 30 Sep 2026 06:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5283B27DE;
+	Wed, 30 Sep 2026 06:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748842; cv=fail; b=bmDffHv87TvQxc6pUv789p/lxRKU8c/AXrBUxmjBgJJyrmhqjQYxT4g+Lk5Uxgb0C+VLgxC9mr9TydXBW/bLwC40FkRLGBeNp8Ud1BF2iIWWbeWvCSgWsHzZQGwYAYd869JA8m4lnIeglu/y4hP9v/knQmioGxOI15RIX5zkeuk=
+	t=1790748843; cv=fail; b=WuooyIZV7gbrFzbdm6X/3GmZy7IVgD7fg6ulnafnzB2UiGM+TIhoS4OSAxUJ6qHXf0fWgvcXZEJzd+id7blBi+bk/JMMzbx0liHW0/4poBCRSCW76LztVqsroBgDwjmjcUyp6w1l/rtzfRelQI7skRJK70YgfgtsuhfFUR6XMlo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748842; c=relaxed/simple;
-	bh=geYS4lF8PGw329t8jsJTHBafieE8kshS8yFcPlXsJuQ=;
+	s=arc-20240116; t=1790748843; c=relaxed/simple;
+	bh=5RZ1RfIdjdjaOZZlPF9JU0G0si+Dt32L+PBFrlbY3K4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=TTTIXdkFmk4n1DFAutChg4h52LdIT2Nh7E8bYTwSbauzTj/W3l/ucBRlKPikoxoUEfV6Lu1IWqlBV1apXcWkhMrfkPM1lKXVvgeXCpAtvIlaV/wO59RRNRgR/WKP2JDHGm55ia4c6CSY6pgp0vtA5LMeThX8Sjk1QYBKM4uGEc4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=nt/2GFUz; arc=fail smtp.client-ip=52.101.52.10
+	 In-Reply-To:To:CC; b=Q6g2SznqsB7DzDwJZ0nh1KOy6RoJgeG1CmZO4uKXjFP1T1fyWdDhcgHcpcE0IC22MwEZgUP0gdNixMaxPdahvhLHFJhFA5KM0kMNbydPusTAZwWjPriQySbBrFEQ0Ki2WHG+I8SjcPN9iiObEnTsp6r9fHyhFvjXgK6d1mo+qKU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=ZJWdURVt; arc=fail smtp.client-ip=52.101.53.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nt/2GFUz"
+	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZJWdURVt"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QPiS2gGLL1HOSxCYgsh+r5drENAXq8hUC5pconf0GVEZFawhe3+EmRpNUnt8eqNpLXXaqSXm7QRmqYtr1XWyKy5GeWq5VhMwpgcqZgw7bEzHDL0aRr//wlkPch/0qT+IU3i4qNiawuQEvO51cFkXxzayfudBeAhOfOLaTE7QGYUNTJrCAX3Vb3LUKw4g48v0nNZXOvZDrBm3hL673/7p5pTrkXfIMLTschoSo4gCMqbrgtwKy9YjNDJyAQnX2P27diIcOH/CQiplRXQ4riKAzEOPJuY7xonqCob568FFU7XBfVaGguRAVK+jF6RIQC5nO8kYV+JMu1hXXOabuR+eDg==
+ b=y/2IeUma4SsPlbgT2TDXFYKr83IGglrAlm/PcqOcuN8JMRO/sIGBdeoJFZRsjeb9hRty7XO9wEIx0Xlqtf4ybUQSx1N2daz9cplBp3gTvk16YqN+F7SVSWBznRlre2JduBrFgSdpctFJXTZyqPYLtyv9mYxnUFQUuN1pnNDwBzaCo5U3Hzzhvn9ce2BEFmedlROuzo78Ypoqy/HdVZZymook1/S7o5pj0etfeTdmws6dh+jHJkG3VlgYCNdJebME/rlcLjZ4Os4H6zjqeaShutfLNtBSaX0oFX9jsm3mb8A2520mmGR8eDk1ng1NprTeZ45N2Naim+Q+9PUAxC1dbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9kSpXbIl7uyCbma4TQ7vyMsXR0GriMgKcxLGj6DB5k8=;
- b=shdneQFN0eG6m8LNcO9t+0uTEGKQEDUxBMQOodGvTTsBXWdVc8WEd/FsqJtaULFHH+e91KN2kFL0JvCFsBTESe5ZWi4dmeafMeT7NNEu34J6SZDJLMYwOW7wP8UJMTqhBK/TSXj0cVOW3Se6ASKJgggHJ7wysGVOFtfi6bZWp25kMxtXfEiGF5q+ski0DXhkxJGt63vyxkqxxHcbzdIIvuOcZQ0QJ+4eXYLXLFth6O+UF7EPrysTAGz+kEs/f+UJtXP5sNCQ33VqSx3G3jzfEcn8GnJ5Js61cfKEn65w0xdOp6jqTPLpXF8ayC1F/TiyAcrYfmx0Sj0CcvzPmTMdzg==
+ bh=4/s6FlFwAKjgFLjZDZcFhJiBB4O4U8XepmrU/CXy4uk=;
+ b=I242mOY8QygEXiB7sRXPziGS66A6AIZRwEVwJtgEYZl0CLI8SJ3mtSG3PqQ6Q2CZAz0fOZVTlKuQmKGDxiw86UDpGlstwDJw1/7DgWV+EgUwnki3ygkCb5Erbc/sB2ygy08f9tIg4xSEVOXt7bsr+sTxEOfUZHLycwsV1bp1dYfyA3HiNd7tJnTTHhp93ZNizLi4SvOD2zJDfJ7RunCYaK9MRfZTV6Egg2K7BFhhikfGtyVbf2jfGbK7p89tuA8pS8Xb7C/Kwkz6l89FO+NGEkcMLq8T75+Iir8AzrU8SI744vr2Kv3g59NaHC/KYsezS5Uxo0K/y1yKvkIX3FlPIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=gmail.com;
  dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
@@ -30,42 +30,38 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kSpXbIl7uyCbma4TQ7vyMsXR0GriMgKcxLGj6DB5k8=;
- b=nt/2GFUzsXcKILR56LTpqsgthFMuy+Xh8BaaHnRxssfO40KcUadungwrAyKc5ndx18OlLNi7vucghuSL/sBGw9yBnTNHOoMMJDHkfawz2lwuA3ARYmr2R5onNUHPUwYsjo8vfUGsIL4Jmq+bRbAuCrAVL6VkEgZUwpmQusOI4S1ok2MfUuAQNh8fx5biWUzCUBxUvpJ9rLFOSmoCFzsTyZdsMnYIa6Z8uHywi8jDPAZNOFdjM1zLisCh9jrLajTMc4Lf9fmDYSeoecmeYsgy6HxqChglNCw+u9PLdAZjtvE7qK/qibZISRw4D/IHmlwYkR6bUc4pTOWCTiJM0KCDGA==
-Received: from BN0PR07CA0005.namprd07.prod.outlook.com (2603:10b6:408:141::20)
- by SA1PR12MB8841.namprd12.prod.outlook.com (2603:10b6:806:376::5) with
+ bh=4/s6FlFwAKjgFLjZDZcFhJiBB4O4U8XepmrU/CXy4uk=;
+ b=ZJWdURVt2lrsoSzIW2aieIh/PhoHIOxFNyxgXGp7TCPnlubVpXDhgAzZeIx22APZtN3aeLgqdKKA+LalOMJjP8ZH0jj2z7V+qJrr5cRx9Y2ceuGh9jY+wmAWRotCZ5DdW542ONhz1U78F2msLP9JmYMe1YyUFkqs+ZBtHw0JOuFuQhI1G1YaHmssz2DTkEPDbvs2m3DWOSLWEw+NsrM9ZyF3YGjOQPsxjePQ2JGVE4gMco7kwDhoKoSAawMLCao4ctIVIPP38aatattL/WvQPfDEgOgM81UK5tJrNeujWOrtqSr78XVQfTI6Pptfp0g1Wn+UiZDtb0uCX5kBZNS+Bw==
+Received: from BN0PR02CA0055.namprd02.prod.outlook.com (2603:10b6:408:e5::30)
+ by SA5PPFCAFD069B8.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e1) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 06:13:53 +0000
-Received: from BL6PEPF0002256F.namprd02.prod.outlook.com
- (2603:10b6:408:141:cafe::78) by BN0PR07CA0005.outlook.office365.com
- (2603:10b6:408:141::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 06:13:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 06:13:56 +0000
+Received: from BL6PEPF00022572.namprd02.prod.outlook.com
+ (2603:10b6:408:e5:cafe::b) by BN0PR02CA0055.outlook.office365.com
+ (2603:10b6:408:e5::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
+ 30 Sep 2026 06:13:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
  IP is 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=gmail.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  gmail.com discourages use of 165.204.84.17 as permitted sender)
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0002256F.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ BL6PEPF00022572.mail.protection.outlook.com (10.167.249.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 06:13:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.451.8 via Frontend Transport; Wed, 30 Sep 2026 06:13:56 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 01:13:52 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 01:13:52 -0500
+ 2026 01:13:55 -0500
 Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 01:13:49 -0500
+ Transport; Wed, 30 Sep 2026 01:13:52 -0500
 From: Colin Huang <u8813345@gmail.com>
-Date: Wed, 30 Sep 2026 14:10:13 +0800
-Subject: [PATCH v9 05/15] ARM: dts: aspeed: anacapa: Add eeprom device node
- for NFC adaptor board
+Date: Wed, 30 Sep 2026 14:10:14 +0800
+Subject: [PATCH v9 06/15] ARM: dts: aspeed: anacapa: Align PDB fan GPIO
+ numbering
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-5-f08aa0d7182d@gmail.com>
+Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-6-f08aa0d7182d@gmail.com>
 References: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 In-Reply-To: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -83,76 +79,102 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Billy Tsai <billy_tsai@aspeedtech.com>
 CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>, Carl Lee
-	<carl.lee@amd.com>
+	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>, Rex Fu
+	<rex.fu.amd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=833;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=1800;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=pAsMpGEbYbQLqQx0xG8zEgHoAeRohruYjFh5hP58kBE=;
- b=0WpRjQtwXOiMx8prUuyEdMO+x/kGUL4CwZWSM9fuMSa/gjrqDSt45eQCzI5r5YH0TYhH9mA2H
- 78qhbYzVVv+AKkRG9orEY6SJOl/6fY4rIlZK7o1DeTHJAnbVOmzjRoW
+ bh=BVJMmVa6hiP62Rq3KeFZsYo9O8NS8epFWSmQDw7StNA=;
+ b=VXijVoEnoR4Yy4i0XxrxsvNFnhghhnVnx3vks3uPXQhbi/Jpj+jrY0uSBZMKIl9Fq8PF5+oGB
+ 2L1dL+DvA84DOH9NOgD24une5owPkei3TZQAZuYoF7iuvyX3ae93wGH
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|SA1PR12MB8841:EE_
-X-MS-Office365-Filtering-Correlation-Id: f205d76b-efcf-4933-6cd3-08df1eba009e
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022572:EE_|SA5PPFCAFD069B8:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0598973c-c5c8-4efa-29f3-08df1eba0265
 X-MS-Exchange-SenderADCheck: 2
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|7093399015|35950700016|61400799027|48200799018|82310400026|11063799006|4128699003|10067099003|56012099006|16102099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|48200799018|7416014|7093399015|35950700016|61400799027|82310400026|56012099006|10067099003|11063799006|4128699003|18002099003|16102099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	+Q4KPhfnx8O3d2OaIaTGSTJc6E+lxAEGEb6V+zcUkX/9so7qbdSpUw7AvPgx37T/Tzb9aib58cqv9ECok8vbmd2dyBZM1u+CItwb95Nt5l/oEqEPmlwxDMZxCSCxBKdh1zQYKp29oY5NvBX9TR+5/INSEagX13NKFg9SaWrzepGeNa3bJb07WVSsNf6ZLBJ3/rPoomr9JDcSG8bWzmvcyKC/QLMY8e/DPFYiPXc7jqu6HKN/v/9PhpkB5JiO6H9EFWjeCQacpiw4FgOxuzune8H9wjlU22wCvSqVgUgMnaGTvtADInwYWh4EHu4bUCg+vP94HncdmX3IQf7npY5pKF0cTO5TWklPjdEhUBLVMVdH2LS4lcXjXs1LE5vOcwPdVNmy4jLOnt3m9AGO6rJiogFJc2goyb8iNUAWmbtZdDTFznMs9DnaJ7mL0DTFTZrS4qbem9rslQ2FsoOfXPRCVZyneJC6BglcekEA0Lo/JgPqH2WrG7hCPocPAQwBUKN0q9lIXAMTk/9XbaTg3R78Eok7JzrSm3sHKLwQRSNfq8KV2z1oLZxTqJ20ExKOIk3RCILDgBVfM9L1YsIs7EriGoFWq5OcJFq3EgM0Y4VGgdAJZUhfZjZFSlU8IvXLgueGADDs+tvdHwoG6DWBXPNw8a9VRhAOzYXxTUhRTSZYBh78ULH5sx+o8wRXFzV3uEjlMaTeVntgauvtuDW4Fea1NA==
+	Aaints30NnFPUKgSfGUw6Qhd1n0rzIOG1y/rOaAiB2QvHpNgVIxzMY40DiI7Hdc7CPml1ua9hmzulhFqB5KNAPWxrOdVvQoyRpCHslC4JAVIIVZ3miyYZJNMWrNtpsKEpoZ59l9J6PWmoJwdnuWVZGhg7aqjSlYHLatQ5ero9P+qeScZuwrQwtOZegML91ftQubv9N2mgCq7FvULYexaWkpWuM2YPjqlvin5VcfAqEPJWD+F2XCqL9J9CAQizCs1i/5Cfs1Y+7VkV6YNAkMIe0AlcpSR9RIRxPFK3AL3m/kXzdo5FCUCYmsfzWRKLv9ugYkm1gG3cjWEXFHAip39b53CUIWWgQH5FFFJDg4tDJyTR7do0PAyMhlJD8Z2EStQMZGZHUHtsNZtzDaZdfdVxSCn2+9XxYNPtC6i5zoxvXAUa4d2dIBBgC063gzGEykgEjKDGKJqSLvrmImxl1Xv6gkuTdVyziQCiWylCgRLUMxgk3hOIOTYONaMKuVGbLwkUsvvR4bTfj/VdtLmyYT5rRJyzdJnJTSsefbkBYB250r9QgHjISywPOwQ/iheDFnZ1DOmL/purKn+SlhXRIvF937YXphy4dIrPKRxJNx0R+XOUiB9MZbKEOfOca+wnro5Jq/CPyMEqCJcvdfk1VBwX4BUoxwUjYBVeNHaFUjAFWbVMyGZAHceQdRE/Mz4WrVFP62dBvFU3f+8Qo80Ivinqg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(7093399015)(35950700016)(61400799027)(48200799018)(82310400026)(11063799006)(4128699003)(10067099003)(56012099006)(16102099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(48200799018)(7416014)(7093399015)(35950700016)(61400799027)(82310400026)(56012099006)(10067099003)(11063799006)(4128699003)(18002099003)(16102099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	K4uqSKLKRqDs+/wXmrHg1bNqsF5VGL5M6+dYqbTlUkogmHVC8uEeOB98SmRhH1JeUfp4b138jx7o0vV3QhQsKSDTCjmisVNHh8AwPaluREz3RfFtIYjoDaan1deK2KOcCiHkOwiEIDNRAdHWl2OqDru3LplPCMXJh4ohdiLfbsYT5PkrrSmY0qLr3MOrtpNFH0whhlWTQicKMRl8EtrvwPyWDq2620LifHxfEJqljWgJ3NeDGAj4tZVq8zTPa9Vm/JJKTulzX4eXoq8sRrvtgoIXaFI7/N1z37UecEF0ctpDbDYZX0WudCzW9wEu0fqn/34IdT6hPpILUSKLG0Mu7eeaCCA7UJ1LeAc+09jljxdePwLzxdipM6ZDa9CB4ByFL3q9db+8fS8BW1dcrGkqLxB1Dh6J6tpsk8+KA/1HUpy2s9OTrr+LKkKgGLNfTSIg
+	0M5sv+s9VW1GDBlccm2wVkl+hDJXbyfjl6KPB7NC0dh3bQXPrUwHSf+kCbT3/PSuAHU5HZBnjuTGzCmA6ErgAj5/hzbiqHnZ1ZLxUDkq/9/nBehwR1rqBIaKqx3V3c/nHcf24Vs4fmZNmZ0xGZ2EKYhJfwgTEuXC1UwKXTUJfpqdhnWeOLj/7zX8YYSLzh+AHokI9RvzL/MspPaPLJ663lR/hlOHvSbGwt5zKK4i3lfNp9i2iyMUJcPXUtrV2vDbD9YY7+bsHzd1L21IRyVRGT98HSOQkMb8ban0N+4c49NAY9L1wHm1b1n8UGoNtHrQywsSPI4mADTHECQ6p8pdL0aEsDelghFb5dmmpK3i4EM+EerIpiezaMHTlRtpUCaw6bPhOnHa6QhDsQ9T/iDmqFYcE9TAq2GQqTRU0bDJQKv4GwTfh0hRBaTmSwGPsOdr
 X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:13:53.2591
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:13:56.2382
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f205d76b-efcf-4933-6cd3-08df1eba009e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0598973c-c5c8-4efa-29f3-08df1eba0265
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0002256F.namprd02.prod.outlook.com
+	BL6PEPF00022572.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8841
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCAFD069B8
 
-From: Carl Lee <carl.lee@amd.com>
+From: Rex Fu <rex.fu.amd@gmail.com>
 
-Add eeprom device node for NFC adaptor board FRU.
+Update the LPDB and RPDB fan GPIO line names to align with the platform
+fan numbering scheme.
 
-Signed-off-by: Carl Lee <carl.lee@amd.com>
+The LPDB fan GPIOs are named FAN0 through FAN4, while the RPDB fan GPIOs
+are named FAN5 through FAN8. This keeps the GPIO line names consistent
+with the fan inventory and platform-level fan numbering.
+
+Signed-off-by: Rex Fu <rex.fu.amd@gmail.com>
 ---
- .../boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 34 ++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-index 8c4a03a82d44..a2392f684b80 100644
+index a2392f684b80..3ea5d67865d4 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-@@ -16,6 +16,19 @@ eeprom@51 {
- 	};
- };
+@@ -2,6 +2,40 @@
  
-+// MB
-+&i2c13 {
-+	i2c-mux@70 {
-+		i2c@7 {
-+			// NFC adaptor board FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c128";
-+				reg = <0x50>;
+ #include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
+ 
++// MB - PDB
++&i2c8 {
++	i2c-mux@72 {
++		i2c@0 {
++			gpio@24 {
++				gpio-line-names =
++					"RPDB_EAM2_PRSNT_MOS_N_R", "RPDB_EAM3_PRSNT_MOS_N_R",
++					"RPDB_PWRGD_P50V_HSC4_SYS_R",
++					"RPDB_PWRGD_P50V_STBY_SYS_BUF_R",
++					"RPDB_P50V_FAN5_R2_PG", "RPDB_P50V_FAN6_R2_PG",
++					"RPDB_P50V_FAN7_R2_PG", "RPDB_P50V_FAN8_R2_PG",
++					"", "RPDB_FAN5_PRSNT_N_R",
++					"", "RPDB_FAN6_PRSNT_N_R",
++					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
++					"", "";
++			};
++		};
++
++		i2c@1 {
++			gpio@24 {
++				gpio-line-names =
++					"LPDB_P50V_FAN0_R2_PG","LPDB_P50V_FAN1_R2_PG",
++					"LPDB_P50V_FAN2_R2_PG","LPDB_P50V_FAN3_R2_PG",
++					"LPDB_P50V_FAN4_R2_PG","LPDB_FAN0_PRSNT_N_R",
++					"LPDB_FAN1_PRSNT_N_R","LPDB_FAN2_PRSNT_N_R",
++					"LPDB_FAN3_PRSNT_N_R","LPDB_FAN4_PRSNT_N_R",
++					"","",
++					"","",
++					"","";
 +			};
 +		};
 +	};
 +};
 +
- &sgpiom0 {
- 	gpio-line-names =
- 	/*in - out */
+ // SCM
+ &i2c9 {
+ 	// SCM FRU
 
 -- 
 2.34.1
