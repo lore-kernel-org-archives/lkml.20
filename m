@@ -1,66 +1,66 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578A344F56E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514F93BBFAF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754539; cv=none; b=Bmr1Huy8BR4pMnpjqqCnO2HSAE4g8MZRc/ngHpOPsR/7q/NvChZCMilPDHyK6dumjzWHrtfLaTu4o8RlwnTecuwmRd63OLqJ+oGAUZfO4w2zQZVeBZ0w0j+brXYgADLWXSie2jogseiKqbz7V549yVrMHyKKRhHxFFGkbJ/QM2Y=
+	t=1790754541; cv=none; b=GDCEpqCcyRljCVEgPByvmDspEtyulkIv5f2txLwXG+/OnWGiIZR+o2tR6YCoxWHrE6byhloV1oCxQ9xpnyKcxRyct69hNAO0ctIcWu4xgx0o/TaKU8CNBah+03NKVy9pvanSv3F5Bo/ysPyT5quZR9CeD4j74S0vDztZ6OBJzqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754539; c=relaxed/simple;
-	bh=3w5BbDKPepU8mBMOX3dhCfOjjm8w0wlAQiggXHD5Vmo=;
+	s=arc-20240116; t=1790754541; c=relaxed/simple;
+	bh=uGsfs2DK/8iKOR0jIBI43Dd61dqBAmynhEDo4Fw0n6g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rbH/74kNDuHHy6IL+VaVZ/laac2mZugRgROnm+5DI/SwGDmMmOjTLpFYKkC7j635rfKVAuzBRmzhaxwEZ00H2xOoJFRT4mIL+8Ou0yUo3e6v62z6gfM8ycUGagBc6k1pHpQTfSNpwYdEKwuFDeezTSaRVYFh1SdKMF/bvYiakEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=omxj08JE; arc=none smtp.client-ip=74.125.228.37
+	 MIME-Version:Content-Type; b=Vtt15PqiWUroenLjUu/CTsh+I5DDFgA1R9If0uYH0s/eKJFJjrwChR6hnH1n9Wk0uflI5JjiBaCvR3wOWksuq1HDDg8fMEzR1aDBR+39Y16llOmEoBYGc630x5dcEi96949bZT8CXOSSqyN4PyTXftZsCMl7XyxGGSiB4VywSis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MCgUqWe2; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="omxj08JE"
-Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7d27b7410so458799a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:48:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MCgUqWe2"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-88379342f7fso1934706b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790754534; x=1791359334; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790754535; x=1791359335; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pV8LsaTP1EHfiM4Wd101Evv/UuZGOjLB8O3Pkph9NAU=;
-        b=omxj08JEnqExWRadrfKRD3QoJ6F4Dpq0DD8hmeZYqC44KVa8pndlpPRzn8331Lq1JJ
-         rukBevIlOA7GCch7qNd5kErB/UEw3EPLyJhoAekxeP/2+dusPVW0yBwaQK/RWSQgqkTc
-         77MU9OKaMPQcgCyB73OFCG2xfxSExkGqMhZoIJdbLhdcd9jyUY/TS4dvSvTR70OYrkuM
-         Wh1LGgwFvYhOM1invYUhiJCMoxU/PBCiORZ4c+Qga/yzJP07pcKjNJYl4qiKHOHubWX5
-         TunmJEIkKtPWAwCVJHDko0YXvLbEHNmB2bQQq1SgpkzQIoEcVgXC1z3U9IfauaLER4eb
-         o5UQ==
+        bh=CLNiYBnWBySrGmvyKG0sfUJh2e5Yl6VfGdIE3Jf5vdA=;
+        b=MCgUqWe229jck/GKLd8NY5iqGSRf6cOkLmeW2bXJynXMjZwE2bL6maMLCnTsHKZ1lt
+         8N9vTpPmE9VAUO3m2cWYCIyK50itSzTsiJoSy8u8YpsmTKQ5zUgVfgZdQgasVOXAAbMs
+         bApMZ6gsBZcxH79DUzZutqF1ClUB2OuCO1wiKmdGOjFRImbnI1/OkMeV8OJ8ZUP+8kw6
+         N5Qfx/c6EZJu6BxACdkz6GPrMm6HrouhOyALGDtkOqHIgtXDUwiUegxzJl/lfhZL1uVq
+         0F1pqzV2EfCwAjlMW7+PPOv5AJ2NeDkcKVkYwREmQkJSeGxWVxnC8oi0RAr2BwNjKpdf
+         6s0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790754534; x=1791359334;
+        d=1e100.net; s=20260707; t=1790754535; x=1791359335;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pV8LsaTP1EHfiM4Wd101Evv/UuZGOjLB8O3Pkph9NAU=;
-        b=eTRLhotWR5Eqa/rT4SuIpO5VNf3K2ZgOItNZec6cIhuBkecUUB/wnq7saVD0qAdefW
-         7VvQNmvwgI90pMHApxmdhjHIWjUcQRW0y2LKYZnN4WDL3kNbte9QCSh0MnZ7bt6CtCSC
-         JCYcIhebys8f0sGOV9l4wushLjVQO3Ny+Lpf9TM+TdladZYkuUFMaEBVIVbkcYz+WQ4L
-         HsRezSTWt8c2O7FiLKF9Q2fwaCXQdqIBiVMuTF0fspxj5g5cy3ti+Gr0UO7Se0MY3mam
-         jne3NY07VUEYvRst4TUdfLk+mKQUaKA+I2bothCqKELi8aodwaXBib9vxVskohCdH/NB
-         H5nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKwPvZz4L1jb3SqybwvtYSobOdUI9G0ywTAN+WEFGZrQ+yxtkIcq8Vlph4EhzfSPEFJoNGskS2kUKPDYc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVOJKlE7i4P/J2HR9zgm8Nj9tuXkmbGMzIfK7ZpcQYFXFSciux
-	j0kyYNhsLrYJs3gDikMGm5JCn+QplWBY6eMlp6TZfrQnwoCScwh/CFkd
-X-Gm-Gg: AYBFou2CAGNXfBMC8Aoay5d98eyiNspUbjykNlwfPiZ7s1KOMcD0A1zfoWMZImEWM0p
-	hDL7ktdjx2KSxjJNrS4UmcGUh4mw4MEi8c0EyPvp5TjISpz8y7rl9JxBSGaxKx/A0NwwG0PV3xV
-	43xpeUt3JSXvXfTm2NaUtfjENYpmTSpi6g1DCE4qD65Myx0qHX+AePB4B6+ChlbuGhMwjFJV7aB
-	bsiaOzWKUb/qsQqjwI+CTUkfxHoa/QROxTiO+SaiC8QMJmFoU+CFkU4NRMg2t/HlcvDsbgAhFcZ
-	qwWi3PdFmx1QjJ1sJkGxU8cnLrDdXQ0vIYjieDd/I5kuNGtWYpbkSMWxMdVzPFfTZP1sG8e3ApW
-	BcSLt4DPjOkqXt0YhWsr/zrjE3mPZuDzyf0r2jv4uI0dackS/tjpHCDln0iPUp91HZtSfB5aPBZ
-	sJ/+fJ4ErVfSPHOHL8dAJXLoqLrTgBwYGuCfgClEPGNPqaUNjw6shb6IeVh8rXCbXXUqWj2BLxg
-	EgdCdX9RuZVj9K9jmvQ/iPKRInTkS7zAdptld00xJ+J325hiHJ0/Q0TJ4qZLrgkoyAdLxJ6KLcI
-	UyCqQzr7fA==
-X-Received: by 2002:a05:6a21:7001:b0:3de:557e:5ea6 with SMTP id adf61e73a8af0-3de9e8093acmr677760637.27.1790754533970;
-        Wed, 30 Sep 2026 00:48:53 -0700 (PDT)
+        bh=CLNiYBnWBySrGmvyKG0sfUJh2e5Yl6VfGdIE3Jf5vdA=;
+        b=WN94BsmLLJrAB/lL46sEh99IVBtXAIM6vhxFg0AMjGt7C3pOH8pYWpTXLQbDX0Mwce
+         aDZkVpHwhK4ZWUz5/UITAcpv3cwCUAE8MkxlVFGmi7PQpUNm1K21jlsBjPSS33UQ2XzP
+         k6J0fB1R5+wbCEVQQq/RULWHcALXolP+5ro0yX2bsY0/+8KgdYlDFl1FpRslC5gFNdW3
+         jwsw+qVt5VF4x5ybDe1ynB+wfGbe1qQV84DmRcfStp7Z0IZ6/01xx76M+lRL8dX3YoIH
+         5cpTfK8ecrixNz9LHH99SkGYCHO+wsWYnxIm1Vqv+xlbbgDgxxNM2ZidnmAbhn8gSl+j
+         OiZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxzNuM6HOB4YZ33bxnqVg4zzDkVGHplDPiyjbNFRv/JnBn2nWD+DIEariz/MXcbtxjD7S6Ug1MKsn0C68=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfnYijkx3BCIF705qDfg87kN0Eh+Qbimj2lS6rvPwCFn03djEq
+	16z9EvyLCp4yaaHlAbu+IG3LgYgCaeaGYTsBA7EfQbNVxzF3BG99B50/
+X-Gm-Gg: AYBFou1OtHpphIJyN6GFkyMiXhtaayIDs+dP2ssQ1i6WnSyhNM6seonL70NKT+8SahT
+	qaOa//BiXg9j1D+rLPcLv6/P2I0Dc0wTC1ovIHI+JLrIqyXWw+/8vIhNqb5rrIMCRUHPLGYdqy+
+	mGEh6gdvj6jlktWUrZFr0daJHFjHWpEqrksMFTwh8L80YkngBgtqbe5Nof4YhxvoRiBDHA/8LHm
+	vkypzvuZs4HN2MuZ/4cWnK/bgwDW3JIb5NHexImuZuUEqR6f2mWfB01rf2zodA1HQgKCsQik9LT
+	qYfX5cc6OEeQddoFB7MSv3ZnYZkV9wEcJ/6cdJ5w+/gt9X+nA80N3dcO9UIXF0Fbb9y2IwAyuwS
+	6ulPWkd6q7rg/q79wZUHct8QSue9FnbZRo6zSfl73YJGheh7OAKFiYxTb6m1APBjQAYtT1qr47m
+	jFsCRj2ORQ7H1oKuciw1MaNsHPWfrGg1NHmWwGQ9okbCfaS62vA7MsPdtrR+yCu4G3Jdg4Obp5U
+	sWhY4FraLJbR7B3+xCu3EdMCMFeCNMMMMG6sLwKgguvmpJo8nmje7jRdtXd3E2G+c9vbpJEbI3j
+	kQX3Af+SlQ==
+X-Received: by 2002:a05:6a00:4b07:b0:886:8600:97e7 with SMTP id d2e1a72fcca58-8874a4b0f01mr385952b3a.27.1790754535369;
+        Wed, 30 Sep 2026 00:48:55 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725881fa6sm376732b3a.27.2026.09.30.00.48.53
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725881fa6sm376732b3a.27.2026.09.30.00.48.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:48:53 -0700 (PDT)
+        Wed, 30 Sep 2026 00:48:54 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jiri Slaby <jirislaby@kernel.org>,
@@ -71,9 +71,9 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v6 1/3] serial: 8250: fix deadlock in serial8250_register_ports()
-Date: Wed, 30 Sep 2026 07:48:48 +0000
-Message-ID: <20260930074850.465003-2-benquike@gmail.com>
+Subject: [PATCH v6 3/3] serial: core: reject baud_base values that overflow port->uartclk in uart_set_info()
+Date: Wed, 30 Sep 2026 07:48:50 +0000
+Message-ID: <20260930074850.465003-4-benquike@gmail.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260930074850.465003-1-benquike@gmail.com>
 References: <20260930074850.465003-1-benquike@gmail.com>
@@ -86,37 +86,57 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In serial8250_register_ports(), mutex_lock(&hash_mutex) is acquired while
-holding spinlock_t serial_port_lock during IRQ chain registration:
+In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+uport->uartclk (an unsigned int):
 
-  spin_lock_irqsave(&serial_port_lock, flags);
-  mutex_lock(&hash_mutex);
+  uport->uartclk = new_info->baud_base * 16;
 
-Acquiring a sleeping mutex while holding a spinlock causes a
-sleeping-while-atomic bug and potential deadlock.
+While uart_set_info() checks if (uartclk == 0), when new_info->baud_base
+exceeds UINT_MAX / 16 with low bits set (for example, 0x10000001),
+multiplying by 16 wraps around in 32-bit unsigned arithmetic to a small
+non-zero value (16), bypassing uartclk == 0 and setting uport->uartclk = 16.
 
-Replace mutex_lock(&hash_mutex) with spin_lock_irqsave() in
-serial8250_register_ports().
+Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
+uart_set_info() to reject baud_base values that overflow 32-bit unsigned
+arithmetic.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+&ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
+TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
+(TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
+TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+
+Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divide by zero")
 Cc: stable@vger.kernel.org
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
- drivers/tty/serial/8250/8250_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v6:
+- Use check_mul_overflow() as suggested by Jiri Slaby.
 
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index 9e4f5a2a2eaa..f64a1b0a2eaa 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -102,9 +102,9 @@ static void serial8250_register_ports(struct uart_driver *drv,
- 	struct uart_8250_port *up;
+Changes in v5:
+- Collect Reviewed-by from Ilpo Järvinen.
 
- 	for (i = 0; i < nr; i++) {
--		up = &serial8250_ports[i];
-+		up = &serial8250_ports[i];
- 		up->port.dev = dev;
+ drivers/tty/serial/serial_core.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 95774b0f1484..75bb1eaa27e7 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -935,11 +935,6 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+ 		unsigned int uartclk;
+
+ 		/* check needs to be done here before other settings made */
+-		if (new_info->baud_base > UINT_MAX / 16)
+-			return -EINVAL;
+-
+-		uartclk = new_info->baud_base * 16;
+-		if (uartclk == 0)
++		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) || !uartclk)
+ 			return -EINVAL;
  	}
- }
+
+-- 
+2.47.3
