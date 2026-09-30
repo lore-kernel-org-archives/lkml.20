@@ -1,65 +1,65 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6C44E1C88
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51923E7167
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807253; cv=none; b=hn+fq6ypE7kT/ZUE4dC2Z48iwF5n09s3HeuQd6soou27Lfk4AlKD1x9ngaSVCkqleYDnyjc3r0klCyDWuIHEH3t/53mZlMCDQ1j51sTube4hUM43eMGd5In5Y5g7lII4BTUwrRb32X3FloL+N/y0FZGhJn4aALQ9a2h1TEE/w8c=
+	t=1790807269; cv=none; b=tOxQ+Jyqsi+TDc2XqtvVSb7/grFyWqLY5EnEg6BKjZHW2gZvbD8PnUNTZQ49Ks379Z3xLrkNB/3Wtvx8S00u8Seub2zJLrnibrXw7cSPmpwa8CkWTik5jnHLe8M4SujS8CVZtcUTNr2EAnpP+wAKvGEWOeLW+5qqJg87aZk/6w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807253; c=relaxed/simple;
-	bh=jju1N8zT9e2tyYTiQp3P1ITPo8JhtLK+vJE2fDFLE3w=;
+	s=arc-20240116; t=1790807269; c=relaxed/simple;
+	bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VH4u70kXM7qixjDJodiCnV0jnB1gx+oLfzEHkJLFGkW1E8cL/MJ+cduIixIiwYDv5GQOmDwqkAl88f9EjLaldkCd47i7byVHDRf+OsI4Hl11usGKb2zc9CK0HD6Lq/uaR6Gj4X6VVwle1jZ93NE4xYDq2Pv8nKXE1JgYFVR/6m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=DeA1gcsv; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=HlwnHai73VbdEXAw5Z9bwUYHNGURvPvxCCRDyMOEG0sEr4N5CIT9x1ekllmgyvkr9fjRDT+Gj4wy6Lk04Mfj6cqUcXuBfPau3xqgZj7JFh/GQCCIMKd1vVT7OlqWCDXjc4evTm0YkuvyIhGIVy6eudIVR48m1xTP4VF4YDoefXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=kQDXVqFX; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="DeA1gcsv"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af5ae31d8so2016019f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:27:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="kQDXVqFX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so34965315e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:27:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1790807249; x=1791412049; darn=vger.kernel.org;
+        d=blockcast.net; s=google; t=1790807266; x=1791412066; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jju1N8zT9e2tyYTiQp3P1ITPo8JhtLK+vJE2fDFLE3w=;
-        b=DeA1gcsvixRktiaPUgmMLMzjw5Y26CcIP3JCfsTxCzu/TV5PnQWcXGwUri3Rm5avmj
-         r3EjAuPFfWFAnYVUnnK1+0jSirfIzJg1MFGJ07m248DTQfvuil1nMcVLbe86eMKop32f
-         CTg9plt5hPV9jJM3i79sAxB/HtL4944TEXXA09R752yPY74W/CsSwRMHdPFlWU1sfznQ
-         CtQfWC7gYoD5m+gLc98oE3saUfGIo+hFD2Uqr0gp9Rsw/4zzGMSGBnGYDMpX+uZTaXjA
-         IxIiXZm2j8cjhWb/jctGeRoch1LxwVPiTRV7JL5Tw842fzohXD04DIeyMjmf2SsVdJWs
-         o46w==
+        bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
+        b=kQDXVqFXYzulDpIu4sviPqPJLzPmK9tuMlFlUdZ1shePGvXm1TsirEPuA//09X+btp
+         BNUzDDH9jlKsgycYrnHkWcmMcZr8skXmQA0nq2C5mAQacyTA48YzvSbulvBQGjPR5iNp
+         lUJQpPo6/8NUeV5+B8QV+i4DBZ9NsLN+jp6rw9VuDBLimH6hOlLHf75k1gUoyj8fk3IR
+         +/7j8C3T1zkC7Ecyte7mibuunQR+FhUvDfpLZ9L70EiCHXUNUJi3UYB1PTUpUvbhzfzn
+         tvk3oMP5X9EcPXn0RnRpp2ZEsrhN8BZM5K5O8FdfOId2XtQF8inyTIGQPlhkJjQVwo1W
+         TCyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790807249; x=1791412049;
+        d=1e100.net; s=20260707; t=1790807266; x=1791412066;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jju1N8zT9e2tyYTiQp3P1ITPo8JhtLK+vJE2fDFLE3w=;
-        b=ix4vLxLcefQ6QvlJ/S9CcIYq6qn4e4WwFBUOYsCxmPHd9q2k/E9t9yxs6qIu+u/ys4
-         vGDGsHCCqC9Xl4jtHy7kF5zAcSeAxW/dShwCpA0hn4jyZFVUgprL8s/MODUpgM4+bYUx
-         nH39W2haqKnDRn+gb+gHps/INQk5k3bJWpuMHmGTaQXsDLEnHhEeVvTpdwZyaSGGni0W
-         mFtcYXldP8/Nc6WusvaD94iQI5rKsKPKYh4yjDA7draettbim6UDs9DN7Uy929WN2K3S
-         QVheNbMLw/s0mK/TQswrTrwRtwWjluKS10G0mCZNcT8JjJ79Zg4lOC7wPFO9kzY/2l9e
-         8EBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKkg4YxNPwx2KnVlca6D+B0MkCWpADfWaULJNXheDDCfmjwMJECI1GPRnrA5Z87ogYw6YIFO2kJjxeAiA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmBL89rLC5xT6iG770LRO4z4HVfZw0vUkK2lB2xXQr2BJ2Jvy/
-	LBzRRxU3fYV9wVYRR6JxSnIZBC1hCMh2pr5WhAawQGH48P7QFmrrqFQQXnTv/FXtOTQ=
-X-Gm-Gg: AYBFou0sGpodEOQUmLhMueicloA0xlBYM1L+ouoAGDHaITJHFeFb5n7ZYWskZrjbp/m
-	B6DUOXFqNGtOJVkLUqy4lPQRTBVMy3tQd4jVw0yIwukNQ9CmKGOqtuekG2ifawKSTlvphsttzdB
-	I8eV2PtCiwpMrRP62VdSefEITzvmQWk2BcB8oSLgxT8aRBCc/sxkvrmAc8uSo+ms80OfnHjHHvb
-	EK6gaetzdAwBGNgcGXJbmmyJB/Vt8JUgdr1tEa7VPkcr8+iJ+urEQTsA/PbD5gCV2vRBi1A9pKT
-	elihmKMXCk3qNOUpxXEkypRXVAl47EPquSeJbOhpS4anTUuwEh6bdPykAuoJg1LqLNBUcJx9Y+U
-	Pn0taUo8S2/h54A7170Ky38L0LlOiG42VGoH6KSrjbxBdq7XPhxmOOk/2K0XGYXSVUy+Nglr9ml
-	DeUiTQaoMk3M2J+02fByWbqUyH+1CUUhho1nBUxP3IC4nOqTS+HyF2j/+Luq8cnnQ+DPUk8kB74
-	16OXgXTwbvLN4G5iOVsT8QNpqUcVMV+BdB++9OcvSnKLGDWpulsVsM36hB2rz7eQvXhxPO7dk01
-	1a+l
-X-Received: by 2002:a5d:5f92:0:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-48b02525dc7mr5136306f8f.28.1790807248617;
-        Wed, 30 Sep 2026 15:27:28 -0700 (PDT)
+        bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
+        b=L5vSefLcwAm+IKI3//XWRZ1e8uaXGAeTLu+Q5dzkjRvSChBq4olpgJXfCf/rcbrd2T
+         XU5p0pwrS2AgHKNoyFYT5IadZWz6yd64aefgBOCoLX25rZk5eTt7ZZ1mCQnZilp3wcYd
+         YmLCSNfkrSdqU/fLltf5u+qsSxZPKz3QBv3d5w3Z0FQo2JUQrI33ypiCbIQ1MJckSK+u
+         WOJcnpnQltzdfQxput0YvPsNqCM8mptF/EDi8Yyj58FBcX177RQUeHMNtE0BMRutG5rJ
+         p27hsr23nGQmRcTAvta9joLZdxmxzfDPKXnIInqgUONd4QxQColV5Q/rU6xtXap6drv3
+         di4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzJmkwiJG4MBKDOOAK5PMHbHmUncpUURa10YyS/AgEVaVF4oY83bO9bYa6oi64iOi9Bh1nRxhUC0oDqOxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfcI7X7csFHXVpZWKrTBsz3GQbAJDsYs1/HiskEjez0zV4q5va
+	N78JT4SH/J1h0RtOUzbNpw6UiDfjIypGTo558fAxxkXDO7w+66Uc54vaFrVQYDg3bdA=
+X-Gm-Gg: AYBFou0RPd6HFgrN6EWeQS7yzcbWDkjSlLz9HvcnPo7QWb/TsCEHrRXjZOtjr3Rrjm1
+	jSgDuSR+QcxYvyR/janyq2XL+aPJDfsNwFqXrjvQW7PQ/Pbn9umlw1SyzIe6ifAzK0FY6LzshEi
+	nGB58CMQ4HfnASjWBcn84zeGVsuSxb/OdBvR671o3XDV1sWBgX3Ui0zHVIwISzh+LaxIye5geJA
+	iWsbizf7O1KlIpO+8oMaqq5g4cOpEWownz3aaV0aqBQBusBy5Viw8QO5Ia7uWr3Aj295Z9yuaw9
+	+AYFG/KBCveaZVxutf6dSTGolbmUVkvtqoabGjw84KxhzMOb5/105jxZ3mIFsnFeWc2iGjRAqC0
+	sHXay2TxWoBDG9QNTXoNp6CphWWOdkhZ8kQE2Lw5tFvex7wIjZexZZHz/eb2LRzHOeZlPu/X6MO
+	gZCLQVuG9V5J6TdhZg2AoJGY3kDDhu5ZvyE9L0pk8Vc5oJtPOpRxCdi/YSq8AVCyYhi6W4Jy++/
+	yPIaz5piUfT5SzE5mswc0FJRwSsmZvgwN/B4SlpNvHK+e8y3vcOsnqNUcYURgb0WjSZooGWIO/X
+	wTo=
+X-Received: by 2002:a05:600c:1f86:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-4a01aff3978mr44945685e9.25.1790807265320;
+        Wed, 30 Sep 2026 15:27:45 -0700 (PDT)
 Received: from localhost.localdomain ([197.51.54.220])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff891sm1997599f8f.9.2026.09.30.15.27.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01feb7198sm9238075e9.1.2026.09.30.15.27.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 15:27:27 -0700 (PDT)
+        Wed, 30 Sep 2026 15:27:44 -0700 (PDT)
 From: Omar Ramadan <omar@blockcast.net>
 To: netdev-bot+sinfo@kernel.org
 Cc: Taehee Yoo <ap420073@gmail.com>,
@@ -71,12 +71,12 @@ Cc: Taehee Yoo <ap420073@gmail.com>,
 	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] amt: do not offer software GSO on the amt device
-Date: Thu,  1 Oct 2026 01:26:51 +0300
-Message-ID: <20260930222700.45470-1-omar@blockcast.net>
+Subject: Re: [PATCH net] amt: pull the AMT header behind the transport header in amt_parse_type()
+Date: Thu,  1 Oct 2026 01:27:28 +0300
+Message-ID: <20260930222733.47563-1-omar@blockcast.net>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <179061959167.31693.11895969550331516671@kernel.org>
-References: <20260928181554.85766-1-omar@blockcast.net> <179061959167.31693.11895969550331516671@kernel.org>
+In-Reply-To: <179061960357.31693.937915571809434718@kernel.org>
+References: <20260928181557.85796-1-omar@blockcast.net> <179061960357.31693.937915571809434718@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,16 +86,15 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Found by code inspection: an LLM-assisted review of drivers/net/amt.c
-while I was working on an IPv6 outer transport for amt.
+while I was working on an IPv6 outer transport for amt, whose ICMPv6
+errors would go through amt_err_lookup() the same way.
 
-It has not been triggered. I have no reproducer, and I have not seen
-it in production or in testing; it comes from reading the code. The
-path is a GSO skb, for example from a UDP_SEGMENT sender or a GRO
-merged UDP flow, that is routed to a relay's amt device: it reaches
-amt_dev_xmit() unsegmented because the device offers
-NETIF_F_GSO_SOFTWARE, and the outer UDP layer later segments each
-per-tunnel copy at the inner gso_size.
+It has not been triggered. I have no reproducer; it comes from reading
+the code. It needs an ICMP error reaching a gateway's encapsulation
+socket that quotes only the IP and UDP headers of a Request, so that
+amt_parse_type() reads the AMT header past the data it pulled.
 
 Testing: W=1 build with CONFIG_IPV6=y and =n, and
 tools/testing/selftests/net/amt.sh passes with the patch applied, but
-amt.sh never sends a GSO skb, so nothing exercises the changed path.
+no test injects such an ICMP error, so nothing exercises the changed
+path.
