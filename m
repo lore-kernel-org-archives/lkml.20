@@ -1,57 +1,57 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABB542BEA4
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C6843DEC6
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797002; cv=none; b=WTzJllA6H7ym3QlsYzN9AAAEn02wDG6zHlESDGbz2BziLuuGg9SQ6tvEEaQMYkUnxs2yjc9MK9/jWG50w5eRL3DE8Y3YhyZ3dc2WGYg+sliZp9iGHvaIi60x83nI1s+4U0i2A4+fuE9BPcSoNpDWxAY38WP0PeWcYvZcYNdVqp4=
+	t=1790797004; cv=none; b=Cwu12iI4BPp4HynOntCPS33t/jTGBU3kDKSQNn8gP4gNB4r7/M+xtxt6h0l+IMP97F5sFhGnAXqy5GW2KLuR3Dvom8jan652oyew/ciNUkPps2aMLoEAE8XY4OCnIBNc+l5DVUmJwDu97ssNT34xAo0wXnA5eptXbKkCe9tdqp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797002; c=relaxed/simple;
-	bh=IG1RFG7JM2igBgdTr4qbALiuJCKa94wBRCLlp9vz/Yk=;
+	s=arc-20240116; t=1790797004; c=relaxed/simple;
+	bh=ElgxEW6lOhjTcQ0sPGPYJIl4XkjO88C2Pm126cID8VQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FSGAs3UZzzGhQ9wSe0ZPAZ6CWdQM0vWef1dR7G4F40gS7bSn7t2uRP25bF2KtiClt2wQuB6sJJUh+oTT8p+oputf+i9NFIFm8ITI7bYxTIt3j9rPnY1u5ERuziChTEldQS5ZduQdhYxBpfM2Ozu+XFKBx2BPzEKshQAxbwcfA3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JEvL+U1S; arc=none smtp.client-ip=209.85.214.198
+	 To:Cc:Content-Type; b=TA4HFtZoAy7C4wOSitKsjjq0N1dCyqsqdRthfBupY3k2qcQQ3Wu7md3gIfjMrRxT5C6bWXfR8fIm3R+pvgzI8G+nhjXoaWJkhqznytTv8uAxLJQ6Qh1sSiKGaugGCN4nXAB/uXdzGGkqexSMU7RdOJ8iTvbInS3dDPPFx07bnv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cHjHWK9n; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JEvL+U1S"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8cffbdbaso39365135ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cHjHWK9n"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so54422535ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790797001; x=1791401801; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790797002; x=1791401802; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Zf6V7qVlBg/9H6Aj6n5GwJRdbCo9HKQWheBBXTou4EY=;
-        b=JEvL+U1SNsIaOPugcePFTUs40StUfWhTSbveghtvL+HH5Ob8R+njVuwMfAn0dVeHPO
-         uPn5Kd0MV5Mi3/mrqkWaHPeL51aEJKGxsdU7nCvDs4IP4YbVcXAsfjWqAqW0pwLJI/C5
-         jtujCWYw09ZW9LX9NBGo9PyYezULAejI3T/t7lka0+PfhBH/o0a/vIeQNPl+2tGORkTG
-         jI5uJb4EVXNCtyH3BumIUC89udX0fMPVt4XCElPImIPCESTQ2FsEGdiZN3cB246uMtLG
-         AxKayQKWXt6xrb9jmbH+ZCyMNh0oU2zdM/2AxyGVOY6YopcaTktUZDquoQLRGc3XbM1L
-         fDbA==
+        bh=gsm0Z8tsp+/USWWrr0ezp3yOKKjCMmloBgzjcNPK3i8=;
+        b=cHjHWK9ndvsrhfrWWWmLunh35M+/wH/qNQXQRwlk+LyPmBwCOpJjcQfbjWUm1YWTkj
+         8OIh4RflRWEfoeqXWlDL5VnoVwHR8ipvBFgD3D5aYbm2YMqQ0HJfkbFv1QEtTLNQ1aen
+         0AM8rVAseV4sStZO96lBkjDGbj9MUR3fK5jCUlGYoLll13ih+pPV7T93JvxZxnptH0HG
+         2gs53ELTBarr+isejzHB41EMbVCTBZEHOqNvtJibKTBGvQOz//0hX+BMa+JUPM+pA4PT
+         LVN9AuGqkun0Z8GSpxzH+AphDgdrtYpyZcsBWSdXFhtrQ6eq4bbwnKQ6uKQobXBGqRb+
+         B4/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797001; x=1791401801;
+        d=1e100.net; s=20260707; t=1790797002; x=1791401802;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Zf6V7qVlBg/9H6Aj6n5GwJRdbCo9HKQWheBBXTou4EY=;
-        b=R9yUDJe3EsB1EiBJ3lDfuXtpLOByCLW8+x1kUIqtdwW+9D5aoBki4FtzB6SFDHZCQ0
-         k6xJ3Mr9vJPaZkjG+/cKnDft/hltTKspXCc3wg1twMJzZoPfjR354gSTrERCVypIUsT8
-         /7cv/Bx0pHc+uNr55F6BHlWuyqgsRI7syWbdf7QRiDuJPX5XIFROAgbdazjyq0Xv/rWb
-         UGj5Co6QKLMbNmoF/LYcA2RTzHQsQgG6K6zuaXbb1Kb11bTian0+3ZhtNY64EKfUUz7X
-         2UW9gkH7j8GVDiWR/L075CS4tbsThKhQhW+xNKJV73aPZPNseDDWJE+N6zA8RipppqUf
-         HttQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGyQOEhFXbruFN3+wGVVD4taHeyFJt/qyttmALZKK/SYUkqkOou3FRLc1a1uDfrnT7fp78x3KcwjlBAT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUJwuW27QtvvuIkO1fjwQSkrB3zgzHwKVKRpw+aGLi1tfLaW5D
-	xb21GXA6UalUPWAoE6EiH634omj4KzOoJ+V6OP2pulLXRPGxwGoALwHkHYPXX4/5tGu6dCTIuP9
-	QTJq8ug==
-X-Received: from plct20.prod.google.com ([2002:a17:902:d294:b0:2e3:214:e99a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:db08:b0:2e2:db9f:3e88
- with SMTP id d9443c01a7336-2e2e4b85249mr18284175ad.52.1790797000662; Wed, 30
- Sep 2026 12:36:40 -0700 (PDT)
+        bh=gsm0Z8tsp+/USWWrr0ezp3yOKKjCMmloBgzjcNPK3i8=;
+        b=OYXIWve8xEQMWKXk+6Ngx12yHM0RNqYHvJyw/nb6nlXehf3Hnm2ep+M66u7dbqatT0
+         X1WZnhG7+FXPMKBorNn64s1yO14X+RNBgsYACAZNbvnbwcI6ZKK/lZND+7BwAwA8drfc
+         sOfX1EGiTfH5UJMRpisvJZP/Y7I+xGYs/A2s2l4ZC8vr4iyMk3bpz8qSnTvb6/RGUljN
+         n3BNAOGpshcwnBusi7dPCoSRKwgASEr7wRxFXAtcrZTR1jipZ4qaG8qmYNSCB6ZofzLv
+         Lxb9kpABKuaJROFNrx9ZZq21ij9tbJAvOYZNc/3zihU5fHAkU44GBlaPgRKMkYH8BSBj
+         0SGA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/DJYNs9wjnk8uVvW13eVrwdermpGGMfufeTwWAHmONC1rj5yEtT5nWHQN6qBuKFPCqESwWmqp4bVbcFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMxmZ3YsdjkUfJSJ98vbOeR+dgZFyDEJ3YCz5XwWOU4kXceaz3
+	YbMzhZoBzG/VjfFQ3DyGN/RQvRQY6d7gBgXNgR3ceXdnS6Nb8thu66sLdKor94CNaWu7y3zQl7d
+	b+sxWHg==
+X-Received: from plme18.prod.google.com ([2002:a17:903:4912:b0:2e1:32aa:622b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3c6f:b0:2dd:c053:e0f3
+ with SMTP id d9443c01a7336-2e2e4b3509dmr17949975ad.34.1790797001921; Wed, 30
+ Sep 2026 12:36:41 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 12:36:25 -0700
+Date: Wed, 30 Sep 2026 12:36:26 -0700
 In-Reply-To: <20260930193634.3415089-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930193634.3415089-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930193634.3415089-4-seanjc@google.com>
-Subject: [PATCH v6 03/12] KVM: Return an "unsigned long", not "u64" for the
- fixed-1 DR6 bits
+Message-ID: <20260930193634.3415089-5-seanjc@google.com>
+Subject: [PATCH v6 04/12] KVM: x86: Force fixed-1 bits in DR6 after
+ synchronizing with hardware
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -72,40 +72,59 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Tom Lendacky <thomas.lendacky@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Return an "unsigned long" instead of a "u64" from the helper to get the
-fixed-1 DR6 bits, as debug registers are natural width registers, not
-64-bit registers.
+Set all fixed-1 bits in KVM's version of DR6 after synchronizing with
+hardware to paper over as much of the virtualization hole as possible.
+Because KVM dynamically disables DR interception, a guest can write any
+DR6 bit that isn't fixed in bare metal, even if the bit is supposed to be
+fixed from the guest's perspective.
 
-No functional change intended (the fixed-1 bits only set bits in 31:0, and
-the sole caller truncates the value to an "unsigned long").
+In addition to providing some amount of consistency in KVM, this will allow
+adding sanity checks that KVM never ends up with fixed-1 bits clear in its
+version of DR6.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/regs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/x86/kvm/regs.c | 2 +-
+ arch/x86/kvm/regs.h | 1 +
+ arch/x86/kvm/x86.c  | 1 +
+ 3 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 62075443f6b9..f74a29621661 100644
+index f74a29621661..db43ade8ceb1 100644
 --- a/arch/x86/kvm/regs.c
 +++ b/arch/x86/kvm/regs.c
-@@ -772,15 +772,16 @@ void kvm_update_dr7(struct kvm_vcpu *vcpu)
+@@ -772,7 +772,7 @@ void kvm_update_dr7(struct kvm_vcpu *vcpu)
  }
  EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_update_dr7);
  
--static u64 kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu)
-+static unsigned long kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu)
+-static unsigned long kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu)
++unsigned long kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu)
  {
--	u64 fixed = DR6_FIXED_1;
-+	unsigned long fixed = DR6_FIXED_1;
+ 	unsigned long fixed = DR6_FIXED_1;
  
- 	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_RTM))
- 		fixed |= DR6_RTM;
- 
- 	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_BUS_LOCK_DETECT))
- 		fixed |= DR6_BUS_LOCK;
-+
- 	return fixed;
- }
+diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
+index 447f0ec3e63e..3ca5cd8a8d95 100644
+--- a/arch/x86/kvm/regs.h
++++ b/arch/x86/kvm/regs.h
+@@ -62,6 +62,7 @@ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4);
+ int kvm_set_cr8(struct kvm_vcpu *vcpu, unsigned long cr8);
+ int kvm_set_dr(struct kvm_vcpu *vcpu, int dr, unsigned long val);
+ unsigned long kvm_get_dr(struct kvm_vcpu *vcpu, int dr);
++unsigned long kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu);
+ unsigned long kvm_get_cr8(struct kvm_vcpu *vcpu);
+ void kvm_lmsw(struct kvm_vcpu *vcpu, unsigned long msw);
+ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index ea1406c3b260..99518e3265b4 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8417,6 +8417,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 		WARN_ON(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH);
+ 		kvm_x86_call(sync_dirty_debug_regs)(vcpu);
+ 		kvm_update_dr0123(vcpu);
++		vcpu->arch.dr6 |= kvm_get_dr6_fixed_1(vcpu);
+ 		kvm_update_dr7(vcpu);
+ 	}
  
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
