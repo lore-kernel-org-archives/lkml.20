@@ -1,131 +1,197 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C251F4D09FC
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E5C4CDDEE;
+	Wed, 30 Sep 2026 12:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790771134; cv=none; b=NilemQin30dwp4fWszcjOsHAEgBjIZhdLRcyutOR317UPNlr8vu3PoP7DmGd42elJ2VnmKgxxKfv5iw7AIB4JwNeFx4aa6GNBZipINi7+IZ/uUe1q4pYmuXbQRrKXr900NEohmiYl2nSk+bHV3wFGvWYJiK/TjeGhh/vVjgg59E=
+	t=1790771207; cv=none; b=WuMF8U1+sifSopA1eNZgpjOkUW4xmmZTct461LnzTq6WTjr0OeVsz/w0LtdmK1hL1pjdRp37WPk5g5e0HLBhLRsSI/tA4X4FCv+Megy19XJQZXHcDKiORFPlbFv41kC2HfdTow1JFRL3csk213rd2LqyNUJRi2YqI/0CLqTZk7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790771134; c=relaxed/simple;
-	bh=zebZfUoPIHJt+rmMkSu7Jx8Y7uL+tCkoh8Qa3svfgI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UV33M5X2mfxfltVuw2m8QRY4kasOZgtHsKIiLfHBvKdl6S+O9FanZQ8QoXxemb4NND2pR0v6NceAYQikwWe8hBTr5ROvEtVk5VHlkwCeajLOfsFQzpR3xFncKj3U+RS7ggQNDPmtQiGpMtaIKRLR7AuAkYKT2V3/fF4iRMLZRRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dfimvSPf; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790771207; c=relaxed/simple;
+	bh=yVxRvI9JVsWe/+h24RYwqxlTmD9+UjC3L6/yrCuPLjQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VesvGhdlkrSEW8frMWlC6jR7P6AlS6kKF3BdnuzBvgsrmIIgukzqp2ZMR6G4CmMzvdF/QSRHbueKblMQ4rG852AIjCNY0HHFpw5VN514cEDY/jS0TFTEBRoZjESrlr3Nlo8BMqLYRfio3uwPO8FfAclsSsmBXKn2zTb83D19Wiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=Oagr8CmS; arc=none smtp.client-ip=212.227.15.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dfimvSPf"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b0219bso2796889f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:25:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790771131; x=1791375931; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AE3TJ96gqAayN6Olyj2FbVbcdzFNDjBGHX1lD/f5unU=;
-        b=dfimvSPf0uU7lIqKTkdW3k+RzuVlsk2cZDqYR1JlXA+Jf1EDt8eHg7PnbGc0yiY4OO
-         eQkpcbxYCBdRc1Z6TgKGPl+1cefpKtth7z+Vdb5cOCnjcaoSk4wW37zyqlKqxQUq/x3c
-         5wXaYqc3yLM5sD+cH5+9vpXgGl5oVlC7OmaLWdvmhCDlfciB6N4riOw9gIcIMc40XptB
-         qOnVB+xKnHHd2M/rHjN7ANu5qMe/VCcGD9+48XB3JmPsvQO/J+2V8xnbDuZxO7dProQz
-         dN71Vsuo1LmMFtx/ErpIOuVpaeg/Exq0KSEPoZifn9WcCf17XIJ8jKfz3KTd4SLfgmcL
-         kVnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790771131; x=1791375931;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AE3TJ96gqAayN6Olyj2FbVbcdzFNDjBGHX1lD/f5unU=;
-        b=cxPpfLtjZkmMelG6o/VTQv2AnTdQFLgXGD4wPIV3yH3LTwinSAcWCmWwR/JaieyDrB
-         vmIoZhrlAD5tYgqIjgwFVdf1PCPSJFAHy8Af2pGw3M1k+Jk2axthG4814HRXDPHxr+ZU
-         StxDdcOQLmecHeSvZmYRReS7kHnpuNdc6Ac93iSsXYgvQGa+4A7xbCLoNjvX3623oFx/
-         y+JNsHJMRO/lA3j01nlDTi37vDqJDfQFN+s7bqvGpO4VbbAAetLQkxMV6bTWXFNxgSXq
-         2SKRkyz16DnV3Zuvm7YX19UpXRLt1vIbEElYgcb0sl34ad7fekgR6zGNTNZxdkvLNTkD
-         m3XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpD+8VQMJu+EXC08jTtVvpUQYpN51w0xv4PKYcXB56Y6qJzx+omYaKA/ucoUiyVCvcx6rRojPpwZUZxVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKA8iQRaPWWbKFLrJDINbUPBlqnYnmhXqP2TL77MGkeXDY6Mz/O
-	PcU1Kesl+qaLOBS2/9buzot2k5KtlgiYCv2uYd6dsZbPWwmcJioMedziy5ZRRb8yWn6G1MDO8ks
-	l9xiVvZRogA==
-X-Gm-Gg: AYBFou1bUuD6vbEN8R9dC9YUa1YqyYzZXOGFPs30JtWvLZbDA6XyMhcOCIr9g7L4iod
-	Bw1DWkyF1bHImuG6xxrN0QCgCSGQin1+Pi+0hhjMMF2N2YumWRyi/jycuRcop7eCN5KErGZP/Hr
-	T835GMfBvIfpWpq2Dgr1bn5ijT6mQJXTdkrBVTzrnYC5xRCsYVaoo9XWYwz+N23qT7PuzvDVcbI
-	nuDeYw+YW1VzuT0pOspfBM8AJ8ky4V5SJpvPN0Nv1jzBhHrhHTEliTO/nYNElmoEdn9OuM6uzUO
-	PoGvODwvq4QNctrYBDldHsqNN1K2GGsIEEiwKtwRjzTp9LxxaJ5OQtV4cf3sFLmAaYR/Yln1iB6
-	1Z5zPro97tQyon/j59jyqW/rYCfYYVb7iD7FNW8il6VQuWsqWSdDFffvDyzce0c1teTwwtryR0p
-	ejDvSH1NdBu3gU9j2CTu7OYkC3E4u8pF3t6Rwv0pKMid1sX+HozhDnq3qNEmv5a7z72FA=
-X-Received: by 2002:a05:6000:471e:b0:488:5fca:a837 with SMTP id ffacd0b85a97d-48b024d96a3mr2492614f8f.20.1790771130871;
-        Wed, 30 Sep 2026 05:25:30 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::6:13b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bf85dsm3449812f8f.13.2026.09.30.05.25.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 05:25:30 -0700 (PDT)
-Date: Wed, 30 Sep 2026 08:25:28 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, rppt@kernel.org, mhocko@suse.com, corbet@lwn.net, 
-	skhan@linuxfoundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
- with MPOL_WEIGHTED_INTERLEAVE policy
-Message-ID: <arz-iKWj1gRO3ALw@gourry-fedora-PF4VCD3F>
-References: <20260930072617.64665-1-lizhe.67@bytedance.com>
- <arzLw18RiTN6Hmey@fedora>
- <7df34f77-2c52-47a3-a495-d782009ab543@bytedance.com>
- <arzR_QtoMPtM5kUB@gourry-fedora-PF4VCD3F>
- <e195b784-8a78-4bbb-97ed-168dd86b3d89@bytedance.com>
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="Oagr8CmS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1790771200; x=1791376000; i=markus.elfring@web.de;
+	bh=9w6FdvLkFHDISQUf8R9Wx+ErljlSQRIrNMQGUpXNgTE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=Oagr8CmS6GGuY7utBaJTb2973vvEr7v8MnCIE8X9qdLk+SHF/5wbyou4kKbh64k7
+	 66wFb1v9fEyZq8P3nkOmNnigakUj53tNwgCw1czWH86hjXhJK3Y8dEq8dqpadHCFB
+	 VH7GqJFA9cFu4z9p+kbsXSO4eraucDb4yz3kzuUHaAzRkiea/UPWCNP8UP+SSnoff
+	 f0erUhUwxosrR1gNX13HfMR3XfSCYJFWKBoNyvHqO9T5tUxs1CuYiXxpngl7BHW29
+	 EZMYgWeomt9WLoqySonC75yFIJL8Ft8CNbtZ/LjIlzRaMf5VlUjEsHs91u30wL8ou
+	 /P6NGwFlQVHUAstPkg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N1Lwd-1wjrpN0ufT-00vqlp; Wed, 30
+ Sep 2026 14:21:10 +0200
+Message-ID: <1b56f03e-fab7-42a6-ac49-7b05a081639e@web.de>
+Date: Wed, 30 Sep 2026 14:21:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e195b784-8a78-4bbb-97ed-168dd86b3d89@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [v3] dmaengine: tegra186-gpc-dma: Read channel state under the
+ lock
+To: Ginger Li <ginger.jzllee@gmail.com>, dmaengine@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>, Vinod Koul <vkoul@kernel.org>
+References: <20260929194434.29937-1-ginger.jzllee@gmail.com>
+ <20260930071916.35722-1-ginger.jzllee@gmail.com>
+ <0593ff86-c6ab-4c64-88a3-e500ed335760@web.de>
+ <CAGp+u1aTQvE_o=nObMb0LvuwmdFukG9qBeKGDvwcf5-ckG9xyg@mail.gmail.com>
+ <cb64813e-0a11-4c14-9bea-45f8dceff115@web.de>
+ <CAGp+u1Yw24hRsZfnD7sePs4C=xp-VLe1=OitaVRUrvE9tyNiiQ@mail.gmail.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <CAGp+u1Yw24hRsZfnD7sePs4C=xp-VLe1=OitaVRUrvE9tyNiiQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:zaqDEe7Z/wtfLmZd6KUx4w9WXEqBEnl21vt/UFY3LyZIwJ8oQHq
+ 7uIAbIYx3IZQaF3kXWJp65NuzZPXjKjH9P8tX/7Xs6XfRHRpErwDEa+fQYrg8wTMazZafK8
+ hQBwb8JyH5qUGgyu99yk20333B/0eT8OYwKkZcHJNSaBktTXW2IQN1qTDz8gKFJII8ngU5Q
+ SONtoHn43dQTFaFTqjbFw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:wrz1qXgXvkA=;clNzfxgy18WOpd5VMWValpS4LEQ
+ 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
+ XLJI
 
-On Wed, Sep 30, 2026 at 07:22:10PM +0800, Li Zhe wrote:
-> Yes, that makes sense to me.
-> 
-> I do not see a reason to keep the MPOL_F_MORON handling limited to
-> specific policy cases. The flag already means that migrate-on-fault
-> placement should target the accessing CPU's node, and the nodemask check
-> is the common constraint we want for all policies that opt in to this
-> behavior.
-> 
-> I will rework v2 to handle MPOL_F_MORON before the policy-specific
-> switch. Then the switch can remain responsible for the non-MPOL_F_MORON
-> misplaced logic, while MPOL_BIND, MPOL_PREFERRED_MANY, MPOL_INTERLEAVE
-> and MPOL_WEIGHTED_INTERLEAVE can share the same migrate-on-fault path.
->
+>> How does this feedback fit to other known guidance?
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/process/researcher-guidelines.rst?h=3Dv7.3-rc5#n5
+>=20
+> I can update more information about the static analyzer (i.e., it is
+> experimental and its reported log) in the patch.
+> I believe this aligns with the known guidance,
 
-I do think it's worth breaking this up a bit, we can decide whether we
-want to apply it to interleave separate of the larger change.
+Partly.
 
-there is also slightly different behavior for task-mempolicy and
-vma-mempolicy, because vma-mempolicy applies interleave via index while
-task mempolicy does it based on a rolling counter, so you'll want to
-think about what happens on repeated faults
+How many contributors would be involved in the mentioned software research=
+ so far?
 
-i.e.
 
-1) fault in a VMA interleaved based on idx
-2) a bunch of tiering and pageout/swap happens
-3) we fault a page back in based on idx - that means this page is
-   forever-faulted onto that location rather than taking that as an
-   indication that maybe it should be local
+>                                                but I cannot provide
+> the source code links.
 
-Maybe we're ok with that, but we should probably think about it a bit.
+Do you try to follow scientific development methods?
 
-We may also want to limit this based on NUMA balancing being in tiering
-mode vs normal mode.  This only makes sense in tiering mode, in my
-opinion.  In normal mode i'm not sure it makes as much sense - and
-that's probably where this all came from.
+Will publishing requirements grow accordingly?
 
-tl;dr: If we want to change this behavior for interleave, we should
-probably give more thought for how it should apply more generally
-instead of just hacking on support to one or two modes.
 
-~Gregory
+>>>>> Were any more of your contributions supported by advanced source cod=
+e analysis tools?
+>>>
+>>> If you meant AI tools, then at this stage, no. For this patch, I have
+>>> used AI tools to help phrase
+>>> the patch better, but I did not use them for code analysis.
+>> Will this information trigger further collateral evolution?
+>=20
+> The collateral evolution will only affect the experimental analyzer.
+> It does not affect the submitted patch.
+Will opportunities be taken better into account for improved change descri=
+ptions?
+
+Regards,
+Markus
