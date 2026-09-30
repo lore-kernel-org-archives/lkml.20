@@ -1,331 +1,256 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF679493D38;
-	Wed, 30 Sep 2026 11:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DB22AEEB;
+	Wed, 30 Sep 2026 11:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768010; cv=none; b=FLCuMiPda39W3KB58ZuqXuiI1DS8ZvbTJgDfekx9kRTYBBuo4o9ewpWCQ/Yh81J2dV0Z9zY0sF7INlIknkz0FwTnDlNEzNsaapwAO66nRdpuiTJqA7YkTrtV7cGHhv5hSRcWZ4oKCv6khuBBCOK9YRoeF8xi20w739FLkzkJBag=
+	t=1790768046; cv=none; b=TcuQz8LM4LN1vTzoU9LnuHnBK8IsMaHHoteytZognJjWR1lAByFZ0zjG6Lu8HGaXWyoOaDL0gwM3T0bQrgW4h2Htu9G68moXix0xFfkEEjXZQoY7UDaXfJI0lmQX6Hn3Uidlzh7ORnCSAm2teAmHpCZTjRIsHLjXgwQKAskSxOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768010; c=relaxed/simple;
-	bh=qfYvpbkvCjgO+gNwLs+8stzM6mlcbsjXQYgdvQTB2iU=;
+	s=arc-20240116; t=1790768046; c=relaxed/simple;
+	bh=CmWysLMga2qvG/l1NVuKy643fhuHle4zYD1qmtCZAC0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TyB/gwsZXtARlg7sgyZLP2NnT0c/yB3iDB1IEHplwm1AHEIgdETEPrDS4BfPDookvFhmthEjsdQ19/PsuMECaym3SdD1ySlMoPG6k/TJcLzztLTAexGxvJDF9XpRm4eNYjRKR8bFFthBVVL4q1POZ4ynKgwu4QG9OykFIE3guX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=VfyAz2oV; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7mCpRhOLkuv0sBAA+wG36sEffw8pUDECM9HHxhG7jiv7scXgKc4ATxblQJhJx0tlf+NUPw6WwCShyBiSauba5SoxgURFhfmk/jxGCiPaE8Z9ddnMsZttq3l5Q41utErSuce0RwTyYDbXPnSCA6AcfPjSqrD6sY69ajMzViJ+EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJln5r1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="VfyAz2oV"
-Received: from example.com (p3e9c0608.dip0.t-ipconnect.de [62.156.6.8])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 27AB420B7166;
-	Wed, 30 Sep 2026 04:32:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 27AB420B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790767955;
-	bh=IVzJ5txJuIurtxqsx4zJfjelXwCKsR+9jPL0vAiFilU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VfyAz2oVAtwf7S+5YmpjH+Rf8nGzuSAdz8IkfMz00cfhTW1wylMMXSAwQamtoBeIj
-	 QVr/0ZqsuwczzTHw4RU6/zJ9oO+wzSTZj1IR9iWtUptKPN+gRJg0QyJK78hv8MDxnc
-	 FlpvgMih+QKJgOzgbYXXRnhThFW4gPeplNvASHok=
-Date: Wed, 30 Sep 2026 13:33:22 +0200
-From: Magnus Kulke <magnuskulke@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Wei Liu <wei.liu@kernel.org>
-Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
-Message-ID: <arzzghes/vN/1WSf@example.com>
-References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
- <SN6PR02MB4157B2D3C47289305C6E487CD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJln5r1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A781F000FF;
+	Wed, 30 Sep 2026 11:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790768044;
+	bh=Flr3+GGP3TPmQvHBee/nC5aClMMVtkJOvhVsHYP44Jw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HJln5r1FM98WBeLs7XUSvG/yAXxwvSZTn+E3qku7Fcw7QA70Y5PV2GcYMSGQSJBwq
+	 VnysVYjfQjFuvK8+MrEELJkhIlSVBYdS/3CU0+iv9k2Ajlsci/8xGoeojxrQ3xRvfR
+	 GvQ90wuGG0SBsySlnyRXaMBJHymxkonwG+b8AbWjMDqCcaAeh+FQSGWfgzlCnpQ6YA
+	 WUqlMFRL+jH9zjujPu6F8RxD3ubOphumLBhx0eCaAVAU1G7brwDmWGhUnHdM4YnEOE
+	 23YIdYjbItbNFOPUqpSN+1GqIBtP1IO2L9ppWjyZpN92UE9iOI4Nn4MnkLMnLKoEEr
+	 wIv2P4K7MUBlA==
+Date: Wed, 30 Sep 2026 13:34:02 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Kartik Rajput <kkartik@nvidia.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] scsi: ufs: tegra: Add Tegra264 UFS host
+ controller driver
+Message-ID: <arzsK8U8Nw39Pwu-@orome>
+References: <20260929-tegra264-ufs-v2-0-f0467b9c503e@nvidia.com>
+ <20260929-tegra264-ufs-v2-4-f0467b9c503e@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jp336opcm6u7er2z"
 Content-Disposition: inline
-In-Reply-To: <SN6PR02MB4157B2D3C47289305C6E487CD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
+In-Reply-To: <20260929-tegra264-ufs-v2-4-f0467b9c503e@nvidia.com>
 
-On Fri, Sep 25, 2026 at 04:23:15PM +0000, Michael Kelley wrote:
-> From: Magnus Kulke <magnuskulke@linux.microsoft.com> Sent: Thursday, September 17, 2026 1:11 PM
-> > 
-> > hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
-> > guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
-> > ownership of those pages and per contract revokes root partition
-> > access to them, raising a #GP on access from the L1VH root partition.
-> > 
-> > However, the pages remain mapped in the kernel direct map, so kernel
-> > code may still access them even though the hypervisor has revoked
-> > access.
-> > 
-> > Helpers such as "load_unaligned_zeropad()" deliberately read past the
-> > end of a buffer and across page boundaries. A read into an unmapped
-> > page is tolerated and triggers a #PF, for which the kernel executed
-> 
-> s/executed/executes/
 
-ack
+--jp336opcm6u7er2z
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/4] scsi: ufs: tegra: Add Tegra264 UFS host
+ controller driver
+MIME-Version: 1.0
 
-> 
-> > a fixup in the exception table.
-> > 
-> > If such a call steps into a page that has been deposited, the access
-> > raises a #GP by the hypervisor from which the above handler cannot
-> > recover and the kernel panics:
-> > 
-> >   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
-> >   RIP: 0010:csum_partial+0xe5/0x110
-> 
-> Is there any possibility of updating the load_unaligned_zeropad() fixup
-> handler to handle the #GP like #PF? I had looked at a variant of this
-> problem a few years back for CoCo VMs. See the code comment above
-> hv_vtom_clear_present(). In that case, a smarter load_unaligned_zeropad()
-> fixup handler wasn't an option because these were #VC or #VE exceptions
-> routed to the paravisor instead of the main Linux guest. But in your case,
-> the Linux gets the #GP, so I wondered if a smarter fixup handler would be
-> possible. Of course, both the x86 and arm64 versions would need updates.
-> 
+On Tue, Sep 29, 2026 at 03:15:10PM +0530, Kartik Rajput wrote:
+> Add a driver for the UFS host controller found on NVIDIA Tegra264 SoCs.
+> The controller has Tegra-specific auxiliary registers, clocks and resets,
+> and it drives the four M-PHY lane directions exposed by the Tegra264
+> M-PHY driver.
+>=20
+> Co-developed-by: Thierry Reding <treding@nvidia.com>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
+> ---
+>  drivers/ufs/host/Kconfig     |  14 +
+>  drivers/ufs/host/Makefile    |   1 +
+>  drivers/ufs/host/ufs-tegra.c | 686 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 701 insertions(+)
+>=20
+> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> index ff170c0b6da0..7ca317d25251 100644
+> --- a/drivers/ufs/host/Kconfig
+> +++ b/drivers/ufs/host/Kconfig
+> @@ -168,3 +168,17 @@ config SCSI_UFS_AMD_VERSAL2
+> =20
+>  	  Select this if you have UFS controller on AMD Versal Gen 2 SoC.
+>  	  If unsure, say N.
+> +
+> +config SCSI_UFS_TEGRA
+> +	tristate "NVIDIA Tegra264 UFS controller platform driver"
+> +	depends on SCSI_UFSHCD_PLATFORM
+> +	depends on ARCH_TEGRA_264_SOC || (COMPILE_TEST && 64BIT)
 
-I wouldn't rule it out, but I found it daunting. We don't have a proper
-faulting address ("maybe for address"). AFAIU, for a #PF the CR2 is
-populated with the actual faulting address, so the fixup handler knows
-that it is within the trailing bytes. For a #GP this page is hardcored
-to 0, so we would have to have another sourcefor the actual fault
-address.
+=46rom a quick look I couldn't spot anything specific to 64-bit in the
+driver. Did I miss anything?
 
-> > 
-> > This condition will appear on L1VH system that have created L2
-> > partitions (and hence deposited pages) and exercise networking code
-> > paths such as csum_partial() can trigger this condition when a buffer
-> > ends close to a page boundary (e.g fffc in the above example).
-> > 
-> > The fix is to remove the deposited pages from the direct map before
-> > they are passed to the hypervisor, and restore them when the hypervisor
-> > returns them again.
-> > 
-> > We want to avoid flushing the TLB in the loop, so we use the _noflush()
-> > variant of set_direct_map_valid() when marking a deposited page invalid
-> > and flush the affected page ranges in one go ourselves. In the opposite
-> > direction this is not required:
-> > 
-> >   > If a paging-structure entry is modified to change the P flag from
-> >   > 0 to 1, no invalidation is necessary. This is because no TLB entry
-> >   > or paging-structure cache entry is created with information from a
-> >   > paging-structure entry in which the P flag is 0.
-> > 
-> > (Intel SDM Vol. 3, 4.10.4.3)
-> > 
-> > Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
-> > ---
-> > Changes since v2:
-> > - Checkpatch format fix
-> > 
-> > Changes since RFC:
-> > - Handle direct-map restoration failures without returning unmapped
-> >   pages to the allocator.
-> > - Move freeing of withdrawn pages into the restoration helper.
-> > ---
-> >  drivers/hv/hv_proc.c           | 77 +++++++++++++++++++++++++++++++++-
-> >  drivers/hv/mshv_root_hv_call.c |  4 +-
-> >  include/asm-generic/mshyperv.h |  4 ++
-> >  3 files changed, 81 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-> > index 57b2c64197cb..2a392b45205d 100644
-> > --- a/drivers/hv/hv_proc.c
-> > +++ b/drivers/hv/hv_proc.c
-> > @@ -7,7 +7,9 @@
-> >  #include <linux/cpuhotplug.h>
-> >  #include <linux/minmax.h>
-> >  #include <linux/export.h>
-> > +#include <linux/set_memory.h>
-> >  #include <asm/mshyperv.h>
-> > +#include <asm/tlbflush.h>
-> > 
-> >  /*
-> >   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
-> > @@ -15,6 +17,35 @@
-> >   */
-> >  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
-> > 
-> > +/*
-> > + * Add or remove a set of physically contiguous page runs from the kernel
-> > + * direct map. Once a page has been deposited the hypervisor owns it and
-> > + * revokes root partition access to it.
-> > + */
-> > +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
-> > +					int num_allocations, bool valid)
-> > +{
-> > +	int i, err, ret = 0;
-> > +
-> > +	for (i = 0; i < num_allocations; ++i) {
-> > +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
-> 
-> Just a heads up, there's a patch set pending that eliminates the API
-> set_direct_map_valid_noflush(). [1] As described in that cover letter, the
-> the behavior is inconsistent across architectures. The intent is that
-> set_direct_map_invalid_noflush() and set_direct_map_default_noflush()
-> should be used instead. But the latter two currently operate one page
-> at-a-time, so they are being updated to take a page count argument.
-> 
+Also, we really shouldn't depend on ARCH_TEGRA_264_SOC since this
+controller exists on prior generations and we will eventually want to
+support them, too.
 
-I will keep an eye on that.
+> +	select PHY_TEGRA_MPHY
 
-> Michael
-> 
+Maybe to complement what Krzysztof already said: Kconfig dependencies
+are primarily build-time dependencies. This driver uses the generic PHY
+API to access the M-PHY functionality, so GENERIC_PHY is the correct
+build-time dependency. The driver is purposefully agnostic to the
+specific implementation of the PHYs that it uses so that it can work
+with (potentially) many different PHY implementations.
 
-thanks,
+We use device tree to hook up the runtime dependencies. If the M-PHY
+driver is not enabled we get the probe deferred because the PHYs that
+were hooked up in DT haven't been registered and hence can't be found
+(by the generic PHY framework). On other devices the PHYs might end up
+being backed by completely different implementations and they could
+still work just fine.
 
-magnus
+> +	help
+> +	  Enable support for the UFS host controller on NVIDIA Tegra264
+> +	  SoCs. The driver relies on the Tegra264 M-PHY driver
 
-> [1] https://lore.kernel.org/lkml/20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org/
-> 
-> > +		if (err && !ret)
-> > +			ret = err;
-> > +	}
-> > +
-> > +	if (valid)
-> > +		return ret;
-> > +
-> > +	for (i = 0; i < num_allocations; ++i) {
-> > +		unsigned long addr = (unsigned long)page_address(pages[i]);
-> > +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
-> > +
-> > +		flush_tlb_kernel_range(addr, addr + size);
-> > +	}
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
-> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  {
-> > @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  	}
-> >  	num_allocations = i;
-> > 
-> > +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
-> > +	if (ret)
-> > +		goto err_restore_direct_map;
-> > +
-> >  	local_irq_save(flags);
-> > 
-> >  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
-> > @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  	if (!hv_result_success(status)) {
-> >  		hv_status_err(status, "\n");
-> >  		ret = hv_result_to_errno(status);
-> > -		goto err_free_allocations;
-> > +		goto err_restore_direct_map;
-> >  	}
-> > 
-> >  	ret = 0;
-> >  	goto free_buf;
-> > 
-> > +err_restore_direct_map:
-> > +	/*
-> > +	 * We don't want to return pages to the allocator if weren't able to
-> > +	 * mark them valid in the direct map.
-> > +	 */
-> > +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
-> > +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
-> > +		     num_allocations);
-> > +		goto free_buf;
-> > +	}
-> > +
-> >  err_free_allocations:
-> >  	for (i = 0; i < num_allocations; ++i) {
-> >  		base_pfn = page_to_pfn(pages[i]);
-> > @@ -110,6 +156,35 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  }
-> >  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
-> > 
-> > +/*
-> > + * Put withdrawn pages back in the direct map. Counterpart to the direct map
-> > + * removal done by hv_call_deposit_pages().
-> > + */
-> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
-> > +{
-> > +	int i, ret = 0;
-> > +	struct page *page;
-> > +
-> > +	for (i = 0; i < count; ++i) {
-> > +		page = pfn_to_page(pfns[i]);
-> > +		ret = set_direct_map_valid_noflush(page, 1, true);
-> > +		/*
-> > +		 * HV_DEPOSIT_MAX is capped at 511, so a deposit range cannot cover
-> > +		 * a 2MiB page, so deposited pages are of 4k granularity and cannot
-> > +		 * be collapses into a 2MiB page, which would require an allocation
-> > +		 * and can potentially fail.
-> > +		 *
-> > +		 * Should it fail anyway we leak the page, if we would hand it
-> > +		 * back to the allocator we would introduce faults into random other
-> > +		 * parts.
-> > +		 */
-> > +		if (WARN_ON_ONCE(ret))
-> > +			continue;
-> > +		__free_page(page);
-> > +	}
-> > +}
-> > +EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
-> > +
-> >  int hv_deposit_memory_node(int node, u64 partition_id,
-> >  			   u64 hv_status)
-> >  {
-> > diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-> > index cb55d4d4be2e..150a0c63ebc8 100644
-> > --- a/drivers/hv/mshv_root_hv_call.c
-> > +++ b/drivers/hv/mshv_root_hv_call.c
-> > @@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
-> >  	struct page *page;
-> >  	u16 completed;
-> >  	u64 status, withdrawn = 0;
-> > -	int i;
-> >  	unsigned long flags;
-> > 
-> >  	page = alloc_page(GFP_KERNEL);
-> > @@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
-> > 
-> >  		completed = hv_repcomp(status);
-> > 
-> > -		for (i = 0; i < completed; i++)
-> > -			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
-> > +		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
-> > 
-> >  		if (!hv_result_success(status)) {
-> >  			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
-> > diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-> > index bf601d67cecb..397c8ec0ce9a 100644
-> > --- a/include/asm-generic/mshyperv.h
-> > +++ b/include/asm-generic/mshyperv.h
-> > @@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
-> >  bool hv_result_needs_memory(u64 status);
-> >  int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
-> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
-> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count);
-> >  int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
-> >  int hv_call_notify_all_processors_started(void);
-> >  bool hv_lp_exists(u32 lp_index);
-> > @@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
-> >  {
-> >  	return -EOPNOTSUPP;
-> >  }
-> > +
-> > +static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
-> > +
-> >  static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
-> >  {
-> >  	return -EOPNOTSUPP;
-> > --
-> > 2.34.1
-> > 
+I would suggest dropping references to Tegra264 here. The driver is not
+specific to Tegra264. There are older Tegra SoCs that have (earlier)
+generations of this IP and that should still work with this driver
+(maybe with some parameterization).
+
+> diff --git a/drivers/ufs/host/ufs-tegra.c b/drivers/ufs/host/ufs-tegra.c
+> new file mode 100644
+> index 000000000000..f12265432592
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-tegra.c
+> @@ -0,0 +1,686 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +// Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserv=
+ed.
+> +// NVIDIA Tegra264 UFS host controller driver.
+
+Tegra264 can be dropped here as well.
+
+[...]
+> +#define UFS_TEGRA_HS_CLK_RATE_HZ		5840000000UL
+
+Do we assume that this will always be the same value? Maybe this should
+be turned into SoC data? We could always do that when necessary, of
+course.
+
+[...]
+> +static int ufs_tegra_mphy_power_on(struct ufs_hba *hba)
+> +{
+> +	struct ufs_tegra *ufs =3D ufshcd_get_variant(hba);
+> +	int err;
+> +
+> +	err =3D phy_power_on(ufs->mphy_l0_rx);
+> +	if (err) {
+> +		dev_err(hba->dev, "failed to power on mphy-l0-rx\n");
+> +		return err;
+> +	}
+> +
+> +	err =3D phy_power_on(ufs->mphy_l0_tx);
+> +	if (err) {
+> +		dev_err(hba->dev, "failed to power on mphy-l0-tx\n");
+> +		goto out_power_off_l0_rx;
+> +	}
+> +
+> +	err =3D phy_power_on(ufs->mphy_l1_rx);
+> +	if (err) {
+> +		dev_err(hba->dev, "failed to power on mphy-l1-rx\n");
+> +		goto out_power_off_l0_tx;
+> +	}
+> +
+> +	err =3D phy_power_on(ufs->mphy_l1_tx);
+> +	if (err) {
+> +		dev_err(hba->dev, "failed to power on mphy-l1-tx\n");
+> +		goto out_power_off_l1_rx;
+> +	}
+> +
+> +	return 0;
+> +
+> +out_power_off_l1_rx:
+> +	phy_power_off(ufs->mphy_l1_rx);
+> +out_power_off_l0_tx:
+> +	phy_power_off(ufs->mphy_l0_tx);
+> +out_power_off_l0_rx:
+> +	phy_power_off(ufs->mphy_l0_rx);
+> +
+> +	return err;
+> +}
+
+Almost seems like we need phy_bulk APIs. Again, doesn't need to be part
+of this series, but maybe something to keep in mind.
+
+[...]
+> +static int ufs_tegra_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
+> +			     enum ufs_notify_change_status status)
+> +{
+> +	if (status =3D=3D PRE_CHANGE)
+> +		return 0;
+> +
+> +	/* Runtime H8 park keeps the M-PHY powered; only tear it down
+> +	 * on the full-teardown paths (system suspend, shutdown, or
+> +	 * runtime PM with LINK_OFF).
+> +	 */
+
+Comment style needs the first line to be /* on its own, except for the
+net subsystem, if I recall correctly. There are other occurrences of
+this elsewhere in the file.
+
+Also, I read "H8" as "hate" at first and it took me a little bit to
+realize it meant "hibernate" in this case. Looks like the rest of UFS
+uses "hibern8". Maybe stick to the convention?
+
+[...]
+> +static int ufs_tegra_pwr_change_notify(struct ufs_hba *hba,
+> +				       enum ufs_notify_change_status status,
+> +				       struct ufs_pa_layer_attr *dev_req_params)
+> +{
+[...]
+> +	if (dev_req_params->hs_rate =3D=3D PA_HS_MODE_A ||
+> +	    dev_req_params->hs_rate =3D=3D PA_HS_MODE_B) {
+> +		err =3D clk_set_rate(ufs->hs_clk, UFS_TEGRA_HS_CLK_RATE_HZ);
+
+What if hs_rate !=3D PA_HS_MODE_A or PA_HS_MODE_B?
+
+> +static int ufs_tegra_set_dma_mask(struct ufs_hba *hba)
+> +{
+> +	return dma_set_mask_and_coherent(hba->dev, DMA_BIT_MASK(32));
+> +}
+
+I have a feeling like the 32 is here on purpose, but I can't fully
+remember why it's not something like 40, which is the standard on recent
+Tegra devices.
+
+Maybe we should add a comment explaining why this needs to be so narrow.
+
+Thierry
+
+--jp336opcm6u7er2z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq886cACgkQ3SOs138+
+s6GdQxAAmLZzF9sJFE536oAWmTNQI9D2+UMoQmKCgyANxCKt1hphd8gO9qhAdDtd
+WkG7dHXvZqGDpDVwiC/SdQUwySkpHnfM68lqABGScHTBH1mY+8BxufnqOLooJ1AV
+in06DLEgN0G3wGNx45CllJmg9plimxKAEFXbv9MYxbg3hyf4jcdEMKdFsXMSBG8b
+ka7E3RqWt8nuiK5M1oi7HbdiOeRYay37L/HJ6Cw2p9GPgFCl9/yPuX2X53RguzfJ
+0A8fGV3K69skmsFmDcY3AficeHN6hfNNHSDqjPXBinCbMiI+h4WX4ceqhCWnmxE8
+j1SJg8u9hv10VXRsTfurJ2iBZxHNmLxdt1MM8PiFlZD8QPAHB9KEBJM0fx2i2UR7
+Xhnx2iLCexGxGsFfdt5PWlpsGI84dJ443YSK7GkD4hCqiyDZM0Bf5aL6LOKzvKsA
+TOUJjC7p2xD3mXn5wi7FTg91yxhZR7dow6+ibronLCEEmJPlmA89l1D+FhPaeOfl
+UGAbBsX2PtztusqkMhR7VGWSAuBD8cF4JICKVSeVC5nH5HnUtgkpzDBySt2WfGY0
+4AppFkRnnYQhgmeas6kjwyG8HBBrlJsSdIps6CdhHGgVh9SEvycEbT2Ft1ZFR1xp
+qbzMSzMj0DFkKEdVSKC9BjwM4mVBe1OUyQrxqt18sw0gl6tNJL8=
+=IQBi
+-----END PGP SIGNATURE-----
+
+--jp336opcm6u7er2z--
