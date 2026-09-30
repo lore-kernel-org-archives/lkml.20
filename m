@@ -1,123 +1,180 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97AA3AFD15
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767296; cv=none; b=mbCIIzLPdVASAB18+AhX5kObbI0TLqTLe2y+qhhTLxLzJYlf6m27OBGqGvumUHpJcah9Lj80pEbYB6EEx4n9/QoWP1JSfJWej/6JvUY/2IkAWfMnNyoqb7Gfbm2TUSx2TZRpuzfMPMBGS6w2JzF6++CcrgbF7rhsTQSXODS69U4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767296; c=relaxed/simple;
-	bh=FD1pr5DrizgzuENw1wnmYGy0dP08nL9ePVrSwgEhIos=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVfqy5/oW5eWmXW7R9XoQPJ9bBw2lFpGoAVjRLCR2d9hrJmXk4v5P3IWWNoAynf1i4dRQT7Cex6aR+oDBtB56AgbHCPwSNzpcuG8s+O8ODFFbghNgvbuAVUGdeMtfrYxXv53+llGb0pRI1pqGKiTRd9COZZVzu9EyXmvM3pr8S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=noV4VyuV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66CD4915B9
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.230
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790767314; cv=pass; b=Bjp8mvtNFfLGH13oSOoDsDruaMv8vNkkCVPNVVC8TEnGM1dYqxOMVX+eS/e6J5fV6E3djQZD9PsSqWCdoyGRUGuLyCmTlU+VtaUlkdbVqL2zQyWR0cr2Ljjx6RJ6K4VIoG/pfALCI9fIRpww42f+5CNpGwiwf16BhAZsh/UqSzw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790767314; c=relaxed/simple;
+	bh=nDG4cmfEbSlkfCKB3UpP5C6IJQLVyHZ+Tm6WTD0xZDU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qsDBda37aMCCdU4zqu1UAQSmpgQz7w3HKDEFggh1odIPVwH2VH1JhwzeaQPrhrwJe/9odIVdxr+jT33qpZ9EDAGci8b11zfkQMAmYg+DxoUyT4bTZn3RajYMHw75LybsAkYlicGsmu7GYjO12NSOmck8xfXoELEG5rqPU8N2nqY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wb6SqNIN; arc=pass smtp.client-ip=74.125.230.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="noV4VyuV"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so2473153a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:21:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wb6SqNIN"
+Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5333729ca3dso37771991cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:21:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790767311; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VmIlo41wd8w8T4S9UvPnlhAr4gJqQfA+VCzOTz1jkonCSOtON2OWY/8oaA2BjSPr9e
+         MLqlCj171Z4vMPnESVA+ZOJx5Bu5HzwnqbLf+2OfPZO4cs1RPgoxf1GDimOr9b8q/QHt
+         xurQd/jncnmQ8RW/mIocCUEeAxV1cyeOzk2UIoueBA3Ep7I/ehYrj30EVKWYcggNKrUP
+         bn0UyDxHOMDCw6vjkH1LVVD+AKCSeV5hqm3X4zT0seVincSd2LO5O0PbBmJYdgVqkBwh
+         J1MV94EpDvnRmkn1nKX1MZ+UUJoKSmodns/X39UpPVyci+9+6TlKQD9xNkAnQFTqdRK6
+         n5iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
+        fh=rDd+dpcOIY7ANvddZsg8u82zk0LJ4wKI0EtB/upU+ps=;
+        b=iDLMR9fqJHKw1L8MvEEP1gYeFjzTqkicrytiYJfELKoIVrtnbR+m7GO4svPrR2q7OX
+         zQh/U0FKqatDHkR350Pv4d+5YiPJVvkEhExGzZCEmjOz0iQl0Eq5Ha0O0z6YX4qDYew/
+         XyxDY6B8b84KpZThxRPYyPZCzybe0hijRKn0HxKtFfF6EEUnn1KHtZOHWzBX8qW43P2Y
+         PIjAp1p6fzQTzyEET6boOZduVk3vdyP37G3BZBiBzWnN932GfEr0XTkoHULfFNJW364L
+         Vf0xuqJR+Gn4jMO20hju1+xxqhL5RioKo144s84WYthBSqjc2hGBPtpwsMhRQQ/PmiIX
+         P21g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767294; x=1791372094; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PfoRY3WgOFVsoBc2PGlUbg76fc6RUwYrOcpdYt4Z5U4=;
-        b=noV4VyuVT4lXfAMkRB3s9jGHAD2njOEP45iw3jl9P8wOdSxQaqkaGBMY/uzPSbSwfn
-         5gPvCBleSEyaM7ZmhdPH/TeDTkuIx3EFJapTuOn2yT+VOMH4hKJmNIEb5S5Df3RmPlgt
-         Mzkoe8T/lx2dpPzYI8FvMbcSEw1Nqdsng/cRo+apmuQSKOjAkPyPoRjxSovsjVuL+lxa
-         FYpebqbBtHzLBnck7d+8BLIn9ZZzd0HB+ATqAfOBAhUiGcEfkgXH2OJnUSTQxKayCqrE
-         KshX/mykshHzEVu/J1rhRKOu9qTakxMW82/Z41lyH03hb/gE1WWtKUM8LcSRds6FpkgW
-         fqwg==
+        d=google.com; s=20251104; t=1790767311; x=1791372111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
+        b=Wb6SqNINtqLZ8SBCO1EFhtCGRmjq83Qqs4k4VOB/55N3pFqah9bOxrYRMwnImUmskG
+         KCpE2vzmcduVXdZ6wkmPQ/c/32fA+/lZe8fmJc8uER1Djf4VoFwbB5j4b+ycnBEWdTC1
+         nsofptYgx/RQsbjpD/Qm6JK/8hPU/2RmdjvUSuVwottldGc4lY4hJLbCSKWkNyfob2W8
+         JuEABsXW/B34D5LvcWFzTEUCVXAORe44vgF/i+IV4EnPQtAUTN9wsYQj2CAFOcxsdMHa
+         lwcpK1z6ymXpapgDBeGVADrtEwQ9xr/3rQm8JMV2XmS572xVfq5NMz705lZVdKNba7uQ
+         OABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767294; x=1791372094;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PfoRY3WgOFVsoBc2PGlUbg76fc6RUwYrOcpdYt4Z5U4=;
-        b=UVzIH3vowXzXzJA9Wx3kZpjKoa3FoWgTSJ1qT/5rDcpeP/9hHcY8qrScpiBpM08+ne
-         s1Jkz3k7mkVuhOj9+/07pGUz2AoFesWSn8rMGIQ6zdUxznSm/gzh/i+hXEJTz8uQct52
-         +3/GXC0DD77uWgeIX3rvhxpjwgLBc/N9OOC73se9S1XE0UAWKWTRO0DAJ8rzSYScyHiX
-         nx6BP8I8//RyGrmf6OAukOUBvLMe2p9oxwTCDFibeixONv0uZdrKS1VL1XSvMBIWvu4f
-         +Nwesdt2gbAe9YowUk07v7J/Pw5ftTHYVzKDbMZ3XCe+9P+OsB5vKf4J/VKKb9p21E6G
-         8Guw==
-X-Forwarded-Encrypted: i=1; AKwUvBxX33C9gFRBLpEBIBzHdmjz7AcE26wS3nYD5stq5dkZ8MO6hetl/66DU28DHDHCWyO/tp0hntfJxssh4bk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDfsh+Z19/nlJPutUhedi2g9QDHeE93gL9+jIFS9v8k2yXKl2O
-	Svb417qkFBxkMRgmdJ91Fq3iNGUd3G02DAv4MeXNWN/WtXmhp4OfxSlu
-X-Gm-Gg: AYBFou0XVIbMIUEVYwTHc4o2ejZ6rJBYJ8J8eFT0Y2atWnCorWMLrw5sib+CY5QrFcO
-	Q6/9kkUgTKLyDmLQ0ZG7YsE8v9J7Mg7XrPariprpcXTQBkml5/3BmXZlWhTglgtdAnG6JZPvWPM
-	iZzcauB0vutX2XmwYUwTNz00kNatL3O0VHWelORzkatwSwsSYx4b6sYb9UgRqy5jhMlwbwF4YTN
-	d+8T1TFW/x1ta6wZeX+mCFy/wUwYmnUlhYXLdWto5UjNHlGJMT9xL6QbB1NqBS5rXiHBapbvLCT
-	DliqNNHldSwTdmk4fIT5SUdFsRa2ZP9y374GXLLtmBBCZ8olMGOiNMOtchKH0bofniJQ0nww6lO
-	+hc7p0UiHRpgaRkdCroKdotU0lDGrVZ5fykbvrleGC2eRi1fkVMkGZcoEZwex0faBZ0ghznnPi+
-	izpd98upm4v9sFmSRdmX8U62UVuPWk9mOYog3rQvKMZw==
-X-Received: by 2002:a17:90b:4d81:b0:3a0:22bd:6ee5 with SMTP id 98e67ed59e1d1-3a4d1509bafmr977540a91.14.1790767294158;
-        Wed, 30 Sep 2026 04:21:34 -0700 (PDT)
-Received: from linux.. ([2409:8a2b:a18:4ab0:713c:5fa2:817b:4330])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4cac0d4fesm3170316a91.10.2026.09.30.04.21.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:21:33 -0700 (PDT)
-From: Binglei Wang <l3b2w1@gmail.com>
-X-Google-Original-From: Binglei Wang
-To: xiang@kernel.org,
-	chao@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: zbestahu@gmail.com,
-	jefflexu@linux.alibaba.com,
-	dhavale@google.com,
-	hongbohbli@tencent.com,
-	guochunhai@vivo.com,
-	liubo03@inspur.com,
-	linux-erofs@lists.ozlabs.org,
-	l3b2w1@gmail.com
-Subject: [PATCH] erofs: fix folio reuse from a different address_space in erofs_bread()
-Date: Wed, 30 Sep 2026 19:21:27 +0800
-Message-ID: <20260930112127.27059-1-l3b2w1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790767311; x=1791372111;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
+        b=yRBMo9NQ47BdJSj5xRd48PfFfm8zx+gbMJtOEA6zJTAO5TW0WND/z+U7A5jpl8hQCN
+         9h2MX63rhoEHUsO5xUMNEpL7c/fJLN5gLz1PQ+kwtDgTBuzrywS/zIXbwwuOvM0FySR1
+         Bv4Cn4zyjF1ausZipXFC2cXrkJ3Zb9M3y2sW9KaxVLu0Tvo+r9jyGBCKmQMGJwAM1rHe
+         r4l3wIj1IFa+FUbD+TWtv4N0VFqHFZb6m+93amIvz3lO2bIg5ksXvkt1neEL9AArNhZB
+         9ynFMfZXCWmKSF6xi6mLoYydfckFI5TogoY+eqx6ltL/dGZL9NY/s+9EPe6blUMnykdz
+         eiCw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/Pj6LU5GJ14ii7/1tGg8kyylEibWPLeOz9i3XphMV4oJoW0XOk/TY+P7ac4LdtNYWu5VIaivGzGy+XBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++keLWmOdbMiD//N/i4wMIHWdlcUCqM8OI4u+UwnxCKji1/UzTie
+	v89BH67S/wGP+m/dhySV3GdiRBn7CzMr4nFruUkUyfYR+UdmSsCkNVhg7VUkO/QmSyQviKn+jim
+	cfPF/ggDae74HZ6zC2HFOI343gBw1SVFjbcm2Mlxn
+X-Gm-Gg: AYBFou3htyu0BYLgGBAy64qKsqxdBejAu3MvRwr1yEsQS7akgt/yWb2hM3io53nsRYb
+	ZTCgX3DdDfoqSwBuqiDxWT89SIdLG31TBOPxIFQMlpE4QHNiyznbW5m74G/as9zI8TkK1sIZfZT
+	nuuzW2i2OfQCYTGmFpa4Y4ikN/jSjkfUVFkVTQ1x7tupoMaTcn3HAVSVdEMAYRLXGjJvMm3hKqH
+	Q4V/j/Z6COLL7ZRGwDpfUjibz4xTm4KlpGtzctyG0rLSZWmxwYdrfXLUbT72xwliP64R0X5QNPo
+	p8KUgL1jyhldyWc50QoWUsOs1Ki6WtKrQ3ovNYd/tsBt+0YeX95sfQ1YJd/5ghTC6gpMfCfLyWa
+	77NnB7f9Fm5EQb9e2xs1415zE43lDNWjxsGMKo1v4G2rg4eQi0zUrKjyKhK0CvKJj9STK
+X-Received: by 2002:a05:622a:1443:b0:533:4b39:4e28 with SMTP id
+ d75a77b69052e-53374d85b1emr19082141cf.33.1790767310634; Wed, 30 Sep 2026
+ 04:21:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930100937.206377-1-jiayuan.chen@linux.dev> <20260930100937.206377-4-jiayuan.chen@linux.dev>
+In-Reply-To: <20260930100937.206377-4-jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 30 Sep 2026 13:21:39 +0200
+X-Gm-Features: AclHuK8zNCR_V-ToSw-vF65D2n_UEp7o3edqp2vCKW91KoxifKRbepto8X6oeW4
+Message-ID: <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
+Subject: Re: [PATCH net-next 3/3] tcp_cubic: fix divide by zero and endless
+ loop on bad module params
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Binglei Wang <l3b2w1@gmail.com>
+On Wed, Sep 30, 2026 at 12:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.d=
+ev> wrote:
+>
+> beta_scale and cube_factor are computed once at module init, and they
+> need 1024 - beta and bic_scale * 10 to be positive: beta =3D=3D 1024 or
+> bic_scale =3D=3D 0 crash right there, beta > 1024 or a negative bic_scale
+> gives garbage or wraps to 0. Negative beta can also make beta_scale 0.
+> Reject them.
+>
+> A small beta also gives a small beta_scale, and (cwnd * scale) >> 3
+> truncates to 0 for a tiny cwnd (e.g. 2), so the TCP friendliness loop
+> never ends. Clamp delta to 1.
+>
+> Fixes: df3271f3361b ("[TCP] BIC: CUBIC window growth (2.0)")
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+> Target net-next since it is not a big problem.
+> ---
+>  net/ipv4/tcp_cubic.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
+> index 119bf8cbb007c..2f04dca5be095 100644
+> --- a/net/ipv4/tcp_cubic.c
+> +++ b/net/ipv4/tcp_cubic.c
+> @@ -298,7 +298,7 @@ static inline void bictcp_update(struct bictcp *ca, u=
+32 cwnd, u32 acked)
+>         if (tcp_friendliness) {
+>                 u32 scale =3D beta_scale;
+>
+> -               delta =3D (cwnd * scale) >> 3;
 
-erofs_bread() reuses a cached folio on page index match without checking folio->mapping.
+I would prefer not adding a test in the fast path to work around
+silly module parameters.
 
-xattr.c calls erofs_init_metabuf() twice on the same buffer without erofs_put_metabuf();
-the two in_metabox sources differ, so buf->mapping can switch
-while buf->page still belongs to the old address_space.
-The next erofs_bread() then reads the wrong mapping, dropping shared xattrs with METABOX.
+beta_scale is computed once at module init, we can make sure it is >=3D 8
+there. tcp_snd_cwnd() is >=3D 1, so delta would be >=3D 1.
 
-We require folio->mapping == buf->mapping in the reuse check;
-otherwise drop the cached folio and re-read via the slow path.
+With the integer divisions, beta_scale >=3D 8 iff beta >=3D 512,
+so the default beta (717 -> beta_scale =3D 15) is not affected.
 
-Fixes: 414091322c63 ("erofs: implement metadata compression")
-Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
-Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
----
- fs/erofs/data.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index be63b89f0862..d8b6523bc218 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
- 	if (buf->page) {
- 		folio = page_folio(buf->page);
--		if (folio_file_page(folio, index) != buf->page)
-+		if (folio->mapping != buf->mapping) {
-+			/* the cached folio belongs to another address_space */
-+			erofs_put_metabuf(buf);
-+			folio = NULL;
-+		} else if (folio_file_page(folio, index) != buf->page) {
- 			erofs_unmap_metabuf(buf);
-+		}
- 	}
- 	if (!folio || !folio_contains(folio, index)) {
- 		erofs_put_metabuf(buf);
---
-2.43.0
+> +               delta =3D max((cwnd * scale) >> 3, 1U);
+>                 while (ca->ack_cnt > delta) {           /* update tcp cwn=
+d */
+>                         ca->ack_cnt -=3D delta;
+>                         ca->tcp_cwnd++;
+> @@ -504,6 +504,11 @@ static int __init cubictcp_register(void)
+>
+>         BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
+>
+> +       if (beta < 0 || beta >=3D BICTCP_BETA_SCALE || bic_scale <=3D 0) =
+{
 
+bic_scale * 10 can overflow if bic_scale > INT_MAX / 10
+
+> +               pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n", be=
+ta, bic_scale);
+> +               return -EINVAL;
+> +       }
+> +
+
+Something like this (untested) :
+
+if (beta < 0 || beta >=3D BICTCP_BETA_SCALE ||
+   bic_scale <=3D 0 || bic_scale > INT_MAX / 10) {
+    pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n",
+      beta, bic_scale);
+    return -EINVAL;
+}
+/* Precompute a bunch of the scaling factors that are used per-packet
+* based on SRTT of 100ms
+*/
+beta_scale =3D 8*(BICTCP_BETA_SCALE+beta) / 3
+/ (BICTCP_BETA_SCALE - beta);
+/* bictcp_update() needs (cwnd * beta_scale) >> 3 to be >=3D 1 */
+beta_scale =3D max(beta_scale, 8U);
+
+Thanks.
