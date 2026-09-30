@@ -1,103 +1,229 @@
-Received: from mail-pj2-f37.google.com (mail-pj2-f37.google.com [74.125.227.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B55451996
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.165
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798497; cv=none; b=Pv2Fe06c6bABFv9bWegs/oEtqBxUkD0ak3gtxeBtyo0kbKoghzuPZugiQ7VZ8qjovrv5zI+GbdshxTPoCwK3BnPd6VwvaWXdoUTmTDZdVQ+koFUGty42wTYKmTt4ErrWz+7bxL8yRKHoJOWaoMQSasewhzJFy/ELdQ9KAa8VKfs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798497; c=relaxed/simple;
-	bh=dfmbAABZOBNzKBzZGaNTByGahqCTy+OziV7PoeK5W7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PthxKA9iLmncalXcO/mJg0XqOewVOwl5eW55UWnGmWl3cLw4wiL7zNzDHXlMCkeXZptJp5Fu2jr2Qc2ifiQHtGsQA6QYv3lMMMrgHk7OAXKw88Jcg2mJjHiGz2K+ie+6/asDn71UYshnYIk5HQ5ez/Sl3CQv7PO4VkWf4M3jSyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=roM/2cnu; arc=none smtp.client-ip=74.125.227.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272914156ED
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790798557; cv=fail; b=VKj/brntRgmfb8HCyf9KWFmPKGErClBr/3961N0S/BER8rtfMNj1z3kR9cu+OSzQ6ZAaRmzKDxbjf7qk1DAOx0WKvWzUdUIuneQp+xJH4xPdzYEtuQ9r39hkcbVlz7hb3YBAfJLJQSOOh+9xdvmZ6+M/u4UcTswfweDXtcp9nC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790798557; c=relaxed/simple;
+	bh=v8bUqLlNJZQnQ07TG5blTVZcLrxmig7rToqTQS9UL10=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N+pVXjG/eJXesg6O89kT57SEF6Wc/hUcbp763brOZbQ+z0ulveDyiE25vmtSA76EKOLBaNGb6AMRhjJlcL+mhYmxJmrmA6IoJCwpX68j5UYcTSL27UneqHpt3X6W/YfRS0ixDnD65/hGgZyxh50sp9x7L9d7gRc2xET0aR3dK2g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=JuMTUnnO; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=mCk+RSLw; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="roM/2cnu"
-Received: by mail-pj2-f37.google.com with SMTP id d9443c01a7336-2e300fa47a5so928655ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="JuMTUnnO";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="mCk+RSLw"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UJtHGH032925;
+	Wed, 30 Sep 2026 15:02:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=eUn2fZXP7TMiFarUnbrkOuT/imSBS2K8yas19IQsa
+	dg=; b=JuMTUnnOYBXWG8bC/vwFPsSMvAhsTRjCEzPdx5EMHU4Tah/SsC4eIcMgR
+	ETXRl5nBcTqz73vSkaG3tz11wXQeH6aaZ0Zdqh8PtxfLypDqmL/+y/OH1CA8lmlT
+	rePkSZjVDAq/Bw8UZfGt245SF+tA6kDy9pyhgSypIb5vBIkxpVJwqo/lqIWWbisT
+	dNNTGDX5ndUORLPU7+rG5YRJ2POmL0YhOFOawx2wsN90yiZJfto7RVI6QxmZ0fcs
+	TQYYqAYVs1b81OKsrxAPYm/Ge/3OcXGTwyeWlloXJc+dph3MSYOCHMlP6/TfHBMy
+	waxgP7jzqStucdZVYBfIIXfAPd4Pw==
+Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011016.outbound.protection.outlook.com [40.107.208.16])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h0ydvbn5u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 15:02:33 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l4x61HQB9sYqrSYmAq9uFCLI5x1zEDjUs+LZP72wpvD9xeRdd+xJoy2/PxLsBJDBVdgrD4ZM4MG6ZRu1lFnuhVLS3ZhRm42NMjBFj1Gf49J3qJG3t39KTiZKRTAnQ8/2yaWo+VregBQg93Ox6VOPLDIBa0gxO6JaDerlmVCKvFfAvd5mEOrHtYccSxZUuxbpOGwAqRGSyzuv04omPH70ds5nQFp4g1LEQZo5VhqixeQ98iCccNu3mk4NXtZdwbmp9dKQaDYFBrjLcs4mD51NHp0G3lf+AjfB+Xmx+jB2BckYuQAp8YAwcN1HqiqbdcSKLklXkQONo3VDjOFdi+Ut5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eUn2fZXP7TMiFarUnbrkOuT/imSBS2K8yas19IQsadg=;
+ b=WYH8DVb3qyjCsVYEw2Z+03UTaMAIALtPTHuAleXnKZb8r5CbsO2lrMYxZ1e8tE/V5ctNhaXgpP+U+ngjAUyUOAcyDt571KIJlnF9bEqqOqYFTJN9pjidz7y7OZM52+ck03hARZgwqwsK/bDXWeFC8WgHbmlr4ILdG79GKfZAmw9L0iD/nmJN0o6kn5DlY3i1Va7ASU1xgQMP4qZDJoHmD58LMDFlh5WYNtAphcaJB+p17DO0MRAplkb6Z/GlAAGT1Xg9tFxinHuLbIyReTeOHE/lpFLjPKlYrq01bfOySx+sFvtrzoI0mOTK3tjp4G3Z5mhl3vtNkLj7jAFqntBZKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790798496; x=1791403296; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dfmbAABZOBNzKBzZGaNTByGahqCTy+OziV7PoeK5W7U=;
-        b=roM/2cnuFHR5Uf1Vyvw0wOILfZBHiEdnnXsPue2z1iB6sYX5TpLNDHFpto7sqhfbN8
-         OwidsSiqlVvOD0s2ZxOllbmTLUp3zYMg8r9r/baMFr7skJZJz6rDLP38v2dCqT9n+aHo
-         hqtxYvAIgLe0j9ISl0K4VTa1swtKTgXPsolW8NI9DkUCCY3fqcDvk5MxJ5PtRGw/SgUI
-         TQmPQD94cH+kD7kdyewHLZgeMG0nhS9TQ12ZgIkyMjHr+4TyOzHm0pY0srBCU55+Euob
-         AAf6La0h0xnfE82QDA48x5/x8DygVIW3RZOpgbA9lfrGZ4Mn8/lJxAVnB3+NKonNmXRL
-         1myA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790798496; x=1791403296;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dfmbAABZOBNzKBzZGaNTByGahqCTy+OziV7PoeK5W7U=;
-        b=pId6kbRCorY2et05VY5DVIED8uekME0cLV7rNkWFyYR/Tmm3WmNdYDapLTc0Dh4meu
-         tOWQ7puHrBdu80EyXOjufFG3I4lswzchqi8gBRegNpOPUN7ywleSdsgGVCQxBmIDvRCJ
-         qbUi3yYKRpWxDPrcf5/1APudqumx+KCxftZRAaMZAwnwcaAU3S/puYGcipOvjkItuLx5
-         v2ighBiuKmL9cZ3t1D/nS+bQnK4ieuhfRR45wNUxLQ1sesAN9JCrgUKmoXgmiLS+4psz
-         rEM11F0PWDdVsQWaIGqxdF1LDYhKl3CX9/ssMkzA4cCZXCP3KHTKgeeRB13og8JXjVwq
-         b1ew==
-X-Forwarded-Encrypted: i=1; AKwUvBxSgmQRYTJdiCH5IYhIkvQAqMyJrEN1WQQeHwGihyjEEwa73coT2+xwoK/S9QZOfTQoEJIIXC9j/iwHHVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7AcIqwdF10igBKrEvIKnQF2/g61yu3Co6q2ZH9GCJQ5q39U5m
-	t57VcHdu6uRR0YupWGFJ7mUGWtXUuvy5io8V4cbphm+89hAgPqdJZI56yXgJN4U3gF8=
-X-Gm-Gg: AYBFou2BrnJoLpHH4DrNHxdlUdBgTUgqfjhNu3yF2UVFC2F/2RgykhCmSCQorTuRPbq
-	HdcFxxT6xWTRFDKUMAn9VGJaw3DFsiHok8WInmuPj0C/j+KgplVcoL9z8pbgNVzIZyj1E6HaF0E
-	2TJZHukvgzrXzAiyQQGDrNYtXTEP5Iy2mNqTsaszGtABOU7nRk0f+qbxbjiWn2vzA6gppG0kYeE
-	QtI5xYv3jCy6Grrjf8KApVDIdA3iC9GG2hkO2qDy13tM2sb6NW+qqUgbHRVA2C90YK15VllY42K
-	UW6VKmI9JSPuGJRaL+hnFWLKPSlWUp2L+B3lAx63dK+FQR7cEKBvRe2P0/DMeQOWSpu0K1Ug0gO
-	ofT4ybREoZQkAnJVHUQhOuLlxq1ImKczgVLAIu8Kf+UYWhWZZTJkMhSFWPFMNUM5mUpzSsfd3J+
-	EzCLOoB0/HDcRebKLiUz0rOgT1Gom14XAhlYlvTvQUqMOdzgjT94iAhNOBeHGHDUfFKKv48beMG
-	TUWEyi/fMwuHa0m+WgUb1c=
-X-Received: by 2002:a17:902:f78e:b0:2dd:ad74:ac2c with SMTP id d9443c01a7336-2e2e4a24efemr20316165ad.30.1790798495635;
-        Wed, 30 Sep 2026 13:01:35 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:70::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300b6f9d3sm1812355ad.75.2026.09.30.13.01.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 13:01:34 -0700 (PDT)
-Date: Wed, 30 Sep 2026 13:01:33 -0700
-From: Joe Damato <joe@dama.to>
-To: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com,
-	mengyuanlou@net-swift.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, aleksandr.loktionov@intel.com,
-	u.kleine-koenig@baylibre.com, weirongguang@kylinos.cn,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	leitao@debian.org
-Subject: Re: [PATCH net v3 0/2] net: ngbe: fix error handling in resume and
- open paths
-Message-ID: <ar1qnabXsHMZQBVk@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Zhang Yunfei <zhangyunfei1@kylinos.cn>, netdev@vger.kernel.org,
-	jiawenwu@trustnetic.com, mengyuanlou@net-swift.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
-	u.kleine-koenig@baylibre.com, weirongguang@kylinos.cn,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	leitao@debian.org
-References: <20260930094748.1198085-1-zhangyunfei1@kylinos.cn>
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eUn2fZXP7TMiFarUnbrkOuT/imSBS2K8yas19IQsadg=;
+ b=mCk+RSLw6YbDlKSKv11Snv+rRlpBIJ4U4GhR5rILmztfaec5tbPp6uSKD5YqHQP8eqvTW986mvYrBStNQUpsYtbo+Mwu+28UBSLu4PEoqqzDmfibTh0B0FwWqroj01Avk+Luc9YYgGcKYllAYFt2Sjw6HK48qFEN9DHn7E3Kou8=
+Received: from SJ0PR13CA0060.namprd13.prod.outlook.com (2603:10b6:a03:2c2::35)
+ by CO6PR10MB5554.namprd10.prod.outlook.com (2603:10b6:303:141::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 30 Sep
+ 2026 20:02:29 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::89) by SJ0PR13CA0060.outlook.office365.com
+ (2603:10b6:a03:2c2::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 20:02:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 20:02:29 +0000
+Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 15:02:07 -0500
+Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
+ 2026 15:02:07 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 30 Sep 2026 15:02:07 -0500
+Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UK20Nw513314;
+	Wed, 30 Sep 2026 15:02:05 -0500
+From: Beleswar Padhi <b-padhi@ti.com>
+To: <jassisinghbrar@gmail.com>, <nm@ti.com>, <afd@ti.com>, <u-kumar1@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <b-padhi@ti.com>, <vigneshr@ti.com>
+Subject: [PATCH v3 1/2] mailbox: ti-msgmgr: Do not report rx poll timeout as a send failure
+Date: Thu, 1 Oct 2026 01:31:57 +0530
+Message-ID: <20260930200158.174118-2-b-padhi@ti.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930200158.174118-1-b-padhi@ti.com>
+References: <20260930200158.174118-1-b-padhi@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930094748.1198085-1-zhangyunfei1@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|CO6PR10MB5554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19e73561-5140-402c-ae73-08df1f2dc202
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	BV5OjmbTWxxPUxvLpLtusANdVQzfCnhC+FBqo36qouyLTmVHjFreaQyE4ytMmPEzLImQXZiCfHPgvp4J+lXEUgQ/OmIR9iNuPFOTi1E9RqTlhsRk0kcZ5cChb4EO5Z9UsHR6DIahfbk3UjBtohPGx/QA+GeJWrqunqhp261aQserMPdyVaJL+q8SLLBEd/Xf8IlyTKipPG9Jbk+CPl7PBEoC9xiobQlU/1lFKtPzXmjLAmQgG5H+Oef6+lwVQi+s2e00ziCBx7cTC8KxTO0bmaOzzOdOHZ6YDLhP25LdbbYc/CamTuieAyhJFTACqFRWX1j24JA6R7b6WgvxsqQtMS6Mn6rs38qmCkv0h53PtKsDtL1ykJ5SGeUVOIuoY5XwJLbYwPPWV9hHOjSpAPosW+XLFej/cp2wiYTHyKBGCodSTSuO7/d705Seu5ANxYhfDQe4tXX2KJSJXjLxc06fBLOBwVgY1hzCZgwrb+t6+U5dmZqPQBfEoAIEH8x5HtGVVQ7c6L9h/Md46dE3UstfipNhEtXvz/9FVKurQti8ONUlrE4U+3Z7EE6Izf5mJffbF90WOghrIO3kqVcOVuqS2WxXeG/zym0CX4gLTKZZiIsqe1qAltpg55b2axPvV0GOiOju3CxYdxaUGsxf6+xPExXEtSfVU4wzAnMVxQMZA/JPdpW1ASFsFv70LrjHU+ZZEVmXRUgA3Pu2PXj+Q93ekg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RPliiGJQjWZjZMHq0MiroHHZg30eZohfFeJQfvP2+TLb3HaE5vMKY/yFkuwy3JQYVIIkGI+VO30e+3ObyLRikERydt17vpWz7CDkT4OW2iUz4DmlrzJps6Km4gl9/WPKPRjGx95P7XjI7boMa1ez5G2pR/tj1RqNtRx4eaTDAZwgtcoDY2/y1++kRMzU58BzQI7rhdl2KbOa14c/6Al+cO/rbaIlhhRfXSUnZTn1lr71nyDWmdz4+BF5F6+qVnqX0yEjURjN5frbrTUvAbopJvJOcJRkLwiJiszO9jA8RpYOgOqiY0iW0XarBkeGP6aP97NR//gxo5CjdrQCJCRnlBhch2/5d7kWtulYMZTQzDYdjKNAGVtq419ZDbMiwNnU381wgR6QbT8UtAEjl4YyVPpbgRDbsT7+p9iX9CevJSi2Efl6aoGc5skwDTWzP42Q
+X-Exchange-RoutingPolicyChecked:
+	YUeUqhUkCmVlBdFQAFXXckkZAwnze0Lb5oMcIWRgp4i1KPJkDhBkbRNmyu3u3/jF3rUnGee8FRsTzua74oaZGFMRMQchykEa3pize/7Vd5l/l54pC40dsLJ6tymnBVt+XTawA/SS7cg025Yqj5ZU1Yt1Xl+sRa9NF1uyL/mdvxjih9U6bQ8W3OioofbKHRuIlIcV2wXtNC2DQCaWLxn/IZEfz8iF6KeKXIYBO3yjQPRQTo+TWfmflIL6VI2Q9TTkt3dyWvPlm1MlXHG6DlatwDqBQ8FZmMURvrn/rZC+58lpkntXy+WxvamrK+2OmRiiGhhMeJx1QPBQR8AoqJ6HRQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:02:29.7454
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19e73561-5140-402c-ae73-08df1f2dc202
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5554
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA4MSBTYWx0ZWRfX3acYpU7hD3GQ
+ zUcgufvjxWFg1F668x48v0ugX2Z+aV3/U9fGB+lkbgHKODTLbR8u2LE45q6KhJLn7DjDaU0X1Q3
+ Jz69B5oUZSP9hlvqUlckvLMiJ3cfPbs=
+X-Proofpoint-GUID: LaxHqa53nCtu0cCPQLEdkh9GYJLXxHN_
+X-Authority-Analysis: v=2.4 cv=TegDJhQh c=1 sm=1 tr=0 ts=6abd6ad9 cx=c_pps
+ a=CJt2AWVwLbfAHulDA2arTw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=_XyyNiWMlt3iJy3YHq0A:9
+X-Proofpoint-ORIG-GUID: LaxHqa53nCtu0cCPQLEdkh9GYJLXxHN_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MSBTYWx0ZWRfX33TLsUozSJ3Y
+ si7tYQ+8DfZII+7UZI5YKxPUZetu61AT5pZw9dTNBQ/hf4gOO717gq+zuYSmgaz2i4AQUI4RpK6
+ 4uAMNtcMctEraYZ2cd8DE8HISq0Bk4eTm6p+48KfwATJekh6Th2dQX7cGbSTyP8EcCPbSVolILi
+ zSwLVY43mWIlmJmIStJ/PTsJZ/mkcYZCn0Z40w76/sjUpVhrm2GuncLj7f35lPpKSCUrN0hYSWc
+ SYVw91Y7exEThdrmNXnlSy9moiq0bdvmlPD5mGvGAGS3S4R/kxCIyNPPP57T2Sb1R/BmTPtBV0V
+ YawinAEsxN51J7lo56YjCWZXrY3eXAbhrs+InwURSn6fc4JptrP56iSZOMlcvI1S5aksV0Qwlez
+ JF90YY5c7KmXhBjdhT2avsXxWDGqzjTQXVbwSMBxN0YU/gx+UoR18yuDX/CLeSnKi7tS9YtWgEV
+ delpk8bazqRw80e15Fw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300081
 
-On Wed, Sep 30, 2026 at 05:47:46PM +0800, Zhang Yunfei wrote:
-> Two error-handling fixes for the ngbe PM/open paths.
+In polled rx mode, used from system suspend until resume,
+ti_msgmgr_send_data() writes the message to the tx queue and then
+waits for the response. If no response arrives in time it returns
+the poll error.
 
-[...]
+The mailbox core treats a ->send_data() error as a send failure.
+So, it leaves the message queued without making it the active request,
+and mbox_send_message() still returns success. The message is then
+submitted again on the next tx_tick() or mbox_send_message(), after the
+client has probably timed out and moved on. So, the firmware receives
+the same message twice, and later requests are sent late and can have
+responses matched to the wrong request.
 
-whole series feels very AI-y but from my reading of the proposed patches they
-seem reasonable, hence my tags.
+The message has already been transmitted at this point, so return 0
+and only log the missing response. The client detects this case with
+its own response timeout anyways.
 
-idk if these failure modes are real enough to be fixes or not though.
+Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+---
+v3: Changelog:
+1. None to this patch.
+
+Link to v2:
+https://lore.kernel.org/all/20260930143810.2419010-2-b-padhi@ti.com/
+
+v2: Changelog:
+1. None to this patch.
+
+Link to v1:
+https://lore.kernel.org/all/20260929200159.4033010-2-b-padhi@ti.com/
+
+ drivers/mailbox/ti-msgmgr.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/mailbox/ti-msgmgr.c b/drivers/mailbox/ti-msgmgr.c
+index 8eb8df8d95a4c..425d5f9d9d0e3 100644
+--- a/drivers/mailbox/ti-msgmgr.c
++++ b/drivers/mailbox/ti-msgmgr.c
+@@ -445,12 +445,24 @@ static int ti_msgmgr_send_data(struct mbox_chan *chan, void *data)
+ 		data_reg += sizeof(u32);
+ 	}
+ 
+-	/* If we are in polled mode, wait for a response before proceeding */
+-	if (ti_msgmgr_chan_has_polled_queue_rx(message->chan_rx))
++	/*
++	 * If we are in polled mode, wait for a response before proceeding.
++	 *
++	 * The message has already been transmitted at this point, so do not
++	 * report a missing response as a send failure. Doing so would make
++	 * the mailbox core keep the message queued and submit it again later,
++	 * after the client has possibly given up on it. The client detects the
++	 * missing response by itself timing out.
++	 */
++	if (ti_msgmgr_chan_has_polled_queue_rx(message->chan_rx)) {
+ 		ret = ti_msgmgr_queue_rx_poll_timeout(message->chan_rx,
+ 						      message->timeout_rx_ms * 1000);
++		if (ret)
++			dev_err(dev, "Queue %s timed out waiting for response: %d\n",
++				qinst->name, ret);
++	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ /**
+-- 
+2.34.1
+
