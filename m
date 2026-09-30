@@ -1,692 +1,190 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012017.outbound.protection.outlook.com [40.107.200.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B13F503BEE
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782344; cv=none; b=m5+uKeM6P55rU6MsKbBDxRHgEsuzDMJlCseWTopXI67vBPmfJ4sAI9GWhrU3uFyou4riVxYAIZNXfmD5ixZKLc41n1RwYOtzwjG+Wo5A8Ym70RV0SxJHtIoLHUgYdHZqAvQyzpW9ZcKxUYOfVvTyiHSvqbNzLm6RlINijmpQp5A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782344; c=relaxed/simple;
-	bh=FYoQlUDgCRNSVctLBUq2157n5gxHm80aT5LNffMkb04=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iIoR70dSNGbvvPj2MdLf8caPoLHDnOrepduNbVT5BYw2DrNtI4xeeexw55nskh3kfa4rn6yyimGoG+w3+f7mKrMU56XdTQWgQLaZ9L+prEDoOFmZz3qzjf/Urr2xTTaoMJedoIkM33S2RGUJCccQtEuqyYQdCNZhbp+MD4oUkmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=PX1Gu3nR; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC78F3E0C44;
+	Wed, 30 Sep 2026 15:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790782355; cv=fail; b=qGtBtN+IexUF/fxbt2MwYeV++ozgBSeiUXDqNqTMXIoTkeVCrE4oPto9hKlxNe2xHY/nIZkK0iNI8n7iJLMrhe/aZ42SeVjnW5H95YaQQSHuvdCShm/4rABGvByZivFJwBKmzgmTVAkGF9qQg/Q/Vqb3Qzal2tMxoCxVZH0nNPo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790782355; c=relaxed/simple;
+	bh=yDQwuaECQWqATx3O7B3tSG/8XXqUR3IrCzUPlpmHPPU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ar8FqnRXi4M+lkZDnnkyXRNlFD58helgmvVLF4q8a/jDGpgxml77tbV5K17/CVR1ybav7lnJdr51aZ5vjBBETvw4BHfLa3GEJMtoUUz0XBkgzbvulQDD5Dm3EpeTuI/6msh5APSSOmroc3XZxFsgw1Sscg/q+IdWn+/s98Jl8Kw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kEb3RVe2; arc=fail smtp.client-ip=40.107.200.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="PX1Gu3nR"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 734DB240101
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:31:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1790782314;
-	bh=ce/UduRNkMNJQ2TzeVdWzc7HEaRTTcY3rIYP1QPIoe4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=PX1Gu3nRedPy259fMtuZ+Lac3/xjBc0iFb7v60EbKCLC/YMoI4/a55pSNRZPAwnKt
-	 tZN9E2+37jy/f9VDOQG77XDasWjgr/SGq5X2qwc2A621gZe8633lLxV8KWYuHZBxGf
-	 atYsIWLDzTG/rxby1MGQschavpD0I2Dx5qUBzCP8llsVCBx+YQ1/8lT5SBroqrvbqz
-	 b/30B7vMGuTWKxNtencJlPg5IiNAh5WxHkVKtcziTPa8Or3uwbh6eEJjw/gFg8bNlk
-	 2Umb/O/fqKaQG+zYFa5wLyTJtThS+1E17TY+OYR2KvCH7kIdj2dB3R1+tEwcD0CW5k
-	 HeWzucZBJluuA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hvzYL4ydBz9rxb;
-	Wed, 30 Sep 2026 17:31:50 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Wed, 30 Sep 2026 15:31:52 +0000
-Subject: [PATCH v10 5/6] rtc: s35390a: Add pinctrl
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kEb3RVe2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AlG6x3QxvPh1uDTSUBDM/yNRKMN2eSsFhxGAvQH9Va2gghSup7wqGvC999svEc2+yzEkCqP41Cbh03QUcfDhQjwoX6NvZpv5y2Bop9znbl0dpInFZvlRvmFB/3tEIcWpOVrAeofnVGVeC3eBiK3A804Y5+1Ac+k24nhinHntvQT/7TRjB0f00ziC9/f6flaZEpDElkqX3mfbw3xHLImby8Y6SPVGo2n3LkhhWBn2G/WtIiNkYCUb6LCjEvnJG7zdf27pla3gQ0JoVPrCC8GDMZ243a2dpf0HGYSHxWlLVD/nzzx2j3lBk3+CbqQHOaVrtfangHB2TtCUOw9Q45n/KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M9IgtqlCjJX+Q6AKo/SZmzzhpaFljZyI0z0Z4iusfdg=;
+ b=h7wn4w6XS85NYz8VH/9EGy91J+HNpf/WeS2y+GsgxC+udBvTcolI3lb4GIfkZ1brIgzZgdw2XjX3xkkYwALqmMri2IdtFbblNfUGupnG/kkXPp5jNGzmDiSzMTX6oBDHIL0dtZD2ia27la8bbOnT6LMvrF8MPVy1XnbzX34QslcAL4mvqZkrLXP314WpOXYWKxxpWFXSDJmI1Fq6NqUiDOBeUQSbytpefhBb+DQ/7UKHp8bruwhO4rgN1qxMTHAO9BblrAqu+ScXfkmmYFB6PTmcARDQeoSTwNxnqFbj6bTZq1gugLVWqGkMjfRoe1isNSHWMvienVCyoKZs/Dyy9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M9IgtqlCjJX+Q6AKo/SZmzzhpaFljZyI0z0Z4iusfdg=;
+ b=kEb3RVe2mSiqEn6k3v4sXjaLaP+D6lFWfx5sOuznLTupfIPNQHcYjA3SLI4AO6X1rROnbnQ7DjCc1XJ8ZSZpbSY5U+pw7njkT+9zQfCketDDfGDZ+I67A2/yzQS34iM0rfi+Cdiy9zdyenFYnDhy+GNB5CdmAx4uarnqBT6BZ9sV6V9lis1TydSbEkiCA4pgHDcczufIfGNeB2x11eek6ehp2M69emNbvCOmMlHSHldN2wmgIWEIf+hJX5ldmim+Usl4bE3KUOP4avBMHE7oPZxxTRX3JAOPJ+aSu7MWpcjjeNV3niVuiGYm9mruQ7beLhjjlFWbdmKO/uNynec6Ew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com (2603:10b6:930:43::6)
+ by CH1PPF5EBD457EF.namprd12.prod.outlook.com (2603:10b6:61f:fc00::610) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 15:32:08 +0000
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b]) by CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b%3]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 15:32:06 +0000
+Message-ID: <d90ce22d-3acd-42a3-89a2-fa9c53c95034@nvidia.com>
+Date: Wed, 30 Sep 2026 11:32:00 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/1] vfio/pci: Give drivers control of PCI driver_data
+To: alex@shazbot.org, jgg@nvidia.com
+Cc: dakr@kernel.org, acourbot@nvidia.com, yishaih@nvidia.com,
+ skolothumtho@nvidia.com, kevin.tian@intel.com, jhubbard@nvidia.com,
+ ecourtney@nvidia.com, cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com,
+ alkumar@nvidia.com, ankita@nvidia.com, aniketa@nvidia.com,
+ kwankhede@nvidia.com, targupta@nvidia.com, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org, zhiwang@kernel.org, zhiw@nvidia.com
+References: <20260930143641.4160785-1-xinmengs@nvidia.com>
+Content-Language: en-US
+From: Simon Song <xinmengs@nvidia.com>
+In-Reply-To: <20260930143641.4160785-1-xinmengs@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY1P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:59d::12) To CY5PR12MB6549.namprd12.prod.outlook.com
+ (2603:10b6:930:43::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-rtc_s35390a_int1-v10-5-e7b1cbc50a7b@posteo.de>
-References: <20260930-rtc_s35390a_int1-v10-0-e7b1cbc50a7b@posteo.de>
-In-Reply-To: <20260930-rtc_s35390a_int1-v10-0-e7b1cbc50a7b@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Michael Langer <michael.brainbug.langer@googlemail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18551;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=FYoQlUDgCRNSVctLBUq2157n5gxHm80aT5LNffMkb04=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqvStfFWBG7NZrR5jCUoGnLgS1XugAtCaB4ROKo
- emLrNoszACJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCar0rXxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9INbQ//VrrMNiMf1SMI088D0encoAy0mevsa8I
- Q6gquUCfo5GACSjr/COAG8PTpzZtl9SAdjnysR/bFo/YOJHjD+4CFOTLtyB8JN8nn4iDAXN4NHn
- RVJ78d4xoVZjnBKG6dGOaROBdioS0eOqev6KlHyS3Vu8vvAUtsGI5U4W4FIA+qqxxbe4l1a7Bry
- kQ9AzkxS6mopr5XN+fITDPaqNSoHAs01Bf8qcYVc9m3EMsk7ahpG3r4ZwiyvGzaASJ8LJxrtSNl
- KKOH4bPce0YiKBC3svEWf5mRdZnbnD+JEz5cylse4cNmoNNGcud39X/b6PbCneiEkddiauQ3pHt
- dgI/j0zwEYg6lAvz6woPq2LRKcM846zzEz5U+NCdKC6xV4qL8x1EqqqwAlW5iTV7bDQ0qBdkZhP
- XIYdiW+/OuRBG086MtzZuX4stUJMgnVbMthOwnJSG1JvliXkv6q0zhtTSoJB6ZLQzmqh3DRFh7d
- iDokHuyhNF6c3P//yDztJ7i4EM2EnRrLYI/x/1/6Gx8QoOc+Hi02E1r52KczsPbs/mvnaZiDC/K
- 44lR6qDkRk/j8T6RGltDBKqcZabX/3jrSYhyAgYZq4YWj3cYT4US0FZiyy19Sgqf06webbsbBX6
- j5ZPgYNuH2yFgjFTRbp05o88ausPcoAzLnUa+q7/j/ropz9XSrT0=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6549:EE_|CH1PPF5EBD457EF:EE_
+X-MS-Office365-Filtering-Correlation-Id: d740a372-58bf-47ff-7ac9-08df1f07fbc5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	sjPctykdUXQXu7DwhD9XJTLBw8Yn5+LmSp0iUmhwVCFm2KOmwzwSOaXyWzLUZNqtzJFv1OCcbdZXzFLwOZZoeuFEgn0OHYDMkjBvQq9gnApO0geV9ZDHUBFRC2TQuNdei0bhri/kgSHFxGe1GU3v9NIJyTBG9Ya/UGdebm2aX97RH+xfp/41mrYGSJ58j8NZ/KIZ7Ouv+RyS3yKvkHm5E3Y88pOldTMEYKN2qKQHajjhDKhO6Avw3YWxsLJqELZ4OTsfooyA8MRqRQqehVBv4NxuktOTgh6IaEvp0ZYlVZlNHyvCmIaC6opqDlvLkE36O/V0qi8xBeAB/Pz/wKGYItAkaFY4mFCk/5NZhsNgTeY4JMrQL3Q19iWnpza8sA9V2c/P/nQlKKFd/54MeeDwMeMZY/PRYnmMA5QWCBVBCDFn67ksF/7qNJQ+YlvtPri5RvA20akMPFVq7PTYQnYIxp0c5BlrK/1nwtHv31+VertbfD/NMqqdy+e2ZWKiSVBcJt8oeLQUz+RqGDiviOdeIxQif814dYqBa4GDoYUrO2yE+UxmGAr2PcYoPyTtThVqJaSOwqai6hQWU+N0FiWjfMZknuLD7gdb+R0WgSq8kRQ9SmWUEo6INIkx8dQNMHgLPhnNbovrLphMmX+pagFrJQEY/qVzzzzFbrk4H5OdA/8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6549.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?akwvcTdhaHFqMEFIdUkxdU85b2YrdjlpRHZON29Idll4U2UrOW1TWnNxTzBC?=
+ =?utf-8?B?TWhNR1lDUE9aUVZyY3haN1NHRFdsL01JSTR3SWdrRWtqalJDZDVXUzBidWZj?=
+ =?utf-8?B?Tm5tMzduSkdybmNRUmo5elVsOTUwOHF5aVRFdHRHSU1aU2tBbllSaXozeSsx?=
+ =?utf-8?B?eXFhRGJmdDhXaFEyRkhQVGt3elUvUFE4Sll6ajMyV3B3Nkh6WElXdGpOVkhT?=
+ =?utf-8?B?c2ZIek9yU0Z6WUdhOWc5bDA0MWhOWUduSWZBWGc2dGNoUkxlZzFmcGMvYmdJ?=
+ =?utf-8?B?L0Z0WVdwREFhQUZnZ2s1cFRDdElwc2FjMjJXamJKWHc4ZHBWVGtzRm5IQW1j?=
+ =?utf-8?B?RXhzNEZKYlRNWGNScTlXVjZ4KzkrYkJsMU9tWlBDR29pbDgvRGVTR2VIbnVh?=
+ =?utf-8?B?KzlmWWNmelRZbmVhR0tpV1BvQXlTVmRzSUZScGZyOW83aFJhMzFVam9vNXBT?=
+ =?utf-8?B?dmJSNHZnTmMyUmwzcFNhK1VrcWcyb2xrWndlMWU2czhiajgxbUw2T0hKa2F2?=
+ =?utf-8?B?aE84c3JyUGYyWEZ6bnJYWldzWHBxSS92Q2p5aFdYRDhPY0J5cjgyVTcvQkdI?=
+ =?utf-8?B?MnY2aXVXbWxhbG05ZVZWZllzTndXL2tYcU82Qmc3V1ZxK0FzNHpVTDhaOG5l?=
+ =?utf-8?B?NU90TjdYbWJYaWpWVHAwK3RsTzVYbEpnL0p0UkxtZzYxUWhORm9RWXp5YkNI?=
+ =?utf-8?B?QWl0RkM1ckVPR0xueWdjTFVWOExjOHd4RTdxa2J5eHA3czc2dnNMTjJRTDZa?=
+ =?utf-8?B?cUtrMnROZXFhU2NhcmZFbVp4L09sS0tsU2lGTS9TZjVDYmRiZk1lMVdydXNt?=
+ =?utf-8?B?N2IxVHQ4ZVM5VzBZNkJUcTZlOGhHYmdiYWlEN3NkODdEbmVjUDVldlVyTThp?=
+ =?utf-8?B?U1ZlRFRGTmE5UHo4aWRnOC9PMTlhVVlvRjB6eVhzdXpMSWJiTkwreitvVW0r?=
+ =?utf-8?B?MUV5NC82dnJPcUl3NFEzMVhVTXlrTGdjd2R1Q3c1eDN1c2JqVWM0OTc2UzZs?=
+ =?utf-8?B?V2FjS2l4K3RtZkRXMmtWbzF5K1pTa3ZxNHBOdDVKYlhKSWtUY09pSTZOZ2pD?=
+ =?utf-8?B?WlR1aTVZcDZSdTErMnhzSFN5cEtld2pDZmt4ZmNoL1ZBQ3ljaXhGVmlGNVpK?=
+ =?utf-8?B?V1BkVEZ5RGZ4S3hYZ2NmOE9XS0tlOUZYQlBaL2R5S01IbVNWZmZCanVpYXk0?=
+ =?utf-8?B?NUlUTTA2aTNXUUxablYrb09KVm0yNTU3eEZRY2tRM1lpajYxZWR1NitOZWRo?=
+ =?utf-8?B?OEVBS1ZBTHBjck5XQVBqRGtlOUIwSHpvc1ZVWm51K3RucTZhNkZPelc2T3o2?=
+ =?utf-8?B?dmwyL1lsRVVFMzV5SXcrOHFIVkFLUjlqOEZ0cDdJRUZibWNPMUpDWDF4Y3ZY?=
+ =?utf-8?B?TVJWRTJzelZPY0JEWjFCM3FROGwvTDVsNXE0dlBvNnVFMTNnTHhsalZuaHdK?=
+ =?utf-8?B?Y0JtanlkVmxTUzJ2RXNxSXlSUTVQS1BNVmYrQTNaS3JSU3VETUdZVU9aWFA2?=
+ =?utf-8?B?SVVhWTZ1czV3dTBxdjJQQVR2UWQxS3p0a0RmZGlzNjFNbGpwMGU1SndycnZM?=
+ =?utf-8?B?MitTdTRiNitJK2pEbmNhL1liNFJrT2k5SGtuM2N3Myt2RkE0YUJyU0FWZThX?=
+ =?utf-8?B?TnJTckk1MVlROFZUTkJRd3ZNcW14b0U4NjdaQjNldEpOWk1WY3UxVlRhbEwr?=
+ =?utf-8?B?QkczSWRQaThMVDRqdHpldzZNUUdYT3pwMjU2R1lteUZlWHl4WUk3YThiTmZt?=
+ =?utf-8?B?a1Z3dDRVdjVoMmRvbm5pNmRLM3ZocnNPK0NjL1IvN0pTUXdaY1dVY0czSHdw?=
+ =?utf-8?B?RytNM0ZBSkJDbExKMEZEa3lRVUNKWlFLb2YybHdHNklCSUNmcnZIbGZmbTls?=
+ =?utf-8?B?ckV6emE3QTdGSEtaMXJKWThMZTZMQmhGU21qNFpzNTVRNXJyYTJUWjRUU0VB?=
+ =?utf-8?B?eVo0THdEdGJCUXBJT0pid1M3UTllNmFYZThGR09yNUFDcmZzcVdCVXl2T2JF?=
+ =?utf-8?B?OEE2eG9jTGZWaGduSENka3FlTVlYQnZvYU93K0pDQytuNEZTS0ZWaGRGaCtL?=
+ =?utf-8?B?WUVxN1ZZanR3NmZhMlJBRWxha2dRZUZINmVyZmJHc3dRK2RoNmNUNktSbkdv?=
+ =?utf-8?B?dmQvVmpBWm9TS2V1UG51Z2V3YUpZWU1YemorS2JKbGo4TmRBd1ZldnVmV2Yy?=
+ =?utf-8?B?UXJYaTBnaXhYYUNYbnhmQVJsUW1MN2NPNytBZGFja0hSdllLa2xSaG9hc0tT?=
+ =?utf-8?B?bVZMcDk5ei9LSHkrR2I0RUx5dDFPZDQ2Y1hScmZzN0RRbGNlNmF1NjZnTS9o?=
+ =?utf-8?B?ek9nTVpRc0phZWxsNktOM08vZlVST2pnYzRQSXlHaHl4Q1hRdkM4dz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d740a372-58bf-47ff-7ac9-08df1f07fbc5
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:32:06.1303
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sa67fejrl4WwI3iVko+IyRWVzPLO0kS4QS3CDQ8oD1rg8D4vRvXR1h62gNS2VQfI+xEIeyhebalBWGZd9EpOTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF5EBD457EF
 
-Allow configuration of pin functions, including:
-- keeping the previous configured function
-- disabling output
-- waking up the system
-- minute periodical interrupt (1: 50% duty, 2: 7.81 ms)
+On 9/30/2026 10:36 AM, Simon Song wrote:
+> Hi All,
+> 
+> During the discussion of the proposed Rust NVIDIA vGPU VFIO variant
+> driver [1], Danilo mentioned that vfio-pci-core requires pci driver_data
+> to point to vfio_pci_core_device, this conflicts with driver data
+> managed by proposed nvidia vfio variant driver.
+> 
+> This patch moves the responsibility for interpreting driver_data to the
+> pci driver, the vfio core functions (PM, AER, VGA) takes an explicit
+> vfio_pci_core_device pointer and no longer depend on pci driver_data
+> 
+> VFIO_PCI_CORE_DEFINE_CALLBACK marcos generate the wrappers for existing
+> vfio variant drivers, each driver also assigns its own PM ops table to
+> replace the operation done by vfio-pci-core during registration.
+> 
+> For VGA, drivers provide its decode callback to
+> vfio_pci_core_register_device, VGA setup/teardown remains inside vfio
+> core registration/unregistration, this preserves vga initialize
+> sequence and also remove the core dependacy on driver data.
+> 
+> 
+> [1] https://lore.kernel.org/all/DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org/
+> 
+> Simon Song (1):
+>   vfio/pci: Remove the core dependency on driver data
+> 
+>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 27 ++++-----
+>  drivers/vfio/pci/ism/main.c                   | 19 +++---
+>  drivers/vfio/pci/mlx5/main.c                  | 13 ++--
+>  drivers/vfio/pci/nvgrace-gpu/main.c           | 19 +++---
+>  drivers/vfio/pci/pds/pci_drv.c                |  8 ++-
+>  drivers/vfio/pci/pds/vfio_dev.c               |  5 +-
+>  drivers/vfio/pci/qat/main.c                   | 12 ++--
+>  drivers/vfio/pci/vfio_pci.c                   | 33 +++++++++-
+>  drivers/vfio/pci/vfio_pci_core.c              | 60 +++++++------------
+>  drivers/vfio/pci/virtio/main.c                |  8 ++-
+>  drivers/vfio/pci/xe/main.c                    |  8 ++-
+>  include/linux/vfio_pci_core.h                 | 42 ++++++++++++-
+>  12 files changed, 160 insertions(+), 94 deletions(-)
+> 
 
-If no function has been configured, fallback to previous behaviour.
+Hi All,
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- drivers/rtc/Kconfig       |   2 +
- drivers/rtc/rtc-s35390a.c | 375 ++++++++++++++++++++++++++++++++++++++--------
- 2 files changed, 313 insertions(+), 64 deletions(-)
+I forgot to include "changes since v1" from the cover letter, see below:
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 05b9233b9418..c73c7d9751d9 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -668,7 +668,9 @@ config RTC_DRV_RC5T619
- 
- config RTC_DRV_S35390A
- 	tristate "Seiko Instruments S-35390A"
-+	select PINCTRL
- 	select BITREVERSE
-+	select GENERIC_PINCONF
- 	help
- 	  If you say yes here you will get support for the Seiko
- 	  Instruments S-35390A.
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index 12ed504db94d..649d36d37f1f 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -12,11 +12,17 @@
- #include <linux/bcd.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
-+#include <linux/pinctrl/pinctrl.h>
-+#include <linux/pinctrl/pinmux.h>
-+#include <linux/pinctrl/pinconf-generic.h>
-+
-+#define DRIVER_NAME "rtc-s35390a"
- 
- #define S35390A_CMD_STATUS1	0
- #define S35390A_CMD_STATUS2	1
- #define S35390A_CMD_TIME1	2
- #define S35390A_CMD_TIME2	3
-+#define S35390A_CMD_INT1_REG1	4
- #define S35390A_CMD_INT2_REG1	5
- #define S35390A_CMD_FREE_REG    7
- 
-@@ -36,19 +42,38 @@
- #define S35390A_FLAG_POC	BIT(0)
- #define S35390A_FLAG_BLD	BIT(1)
- #define S35390A_FLAG_INT2	BIT(2)
-+#define S35390A_FLAG_INT1	BIT(3)
- #define S35390A_FLAG_24H	BIT(6)
- #define S35390A_FLAG_RESET	BIT(7)
- 
- /* flag for STATUS2 */
- #define S35390A_FLAG_TEST	BIT(0)
- 
-+#define S35390A_INT_MODE_NOINTR	0x00
-+
- /* INT2 pin output mode */
- #define S35390A_INT2_MODE_MASK		0x0E
--#define S35390A_INT2_MODE_NOINTR	0x00
- #define S35390A_INT2_MODE_ALARM		BIT(1) /* INT2AE */
- #define S35390A_INT2_MODE_PMIN_EDG	BIT(2) /* INT2ME */
- #define S35390A_INT2_MODE_FREQ		BIT(3) /* INT2FE */
--#define S35390A_INT2_MODE_PMIN		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
-+#define S35390A_INT2_MODE_PMIN1		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
-+
-+/* INT1 pin output mode */
-+#define S35390A_INT1_MODE_MASK		0xF0
-+#define S35390A_INT1_MODE_ALARM		BIT(5) /* INT1AE */
-+#define S35390A_INT1_MODE_PMIN_EDG	BIT(6) /* INT1ME */
-+#define S35390A_INT1_MODE_FREQ		BIT(7) /* INT1FE */
-+#define S35390A_INT1_MODE_PMIN1		(BIT(7) | BIT(6)) /* INT1FE | INT1ME */
-+#define S35390A_INT1_MODE_PMIN2		(BIT(7) | BIT(6) | BIT(5)) /* INT1FE | INT1ME | INT1AE */
-+#define S35390A_INT1_MODE_32768KHZ	BIT(4) /* 32kE */
-+
-+#define S35390A_FUNC_IGNORE		0x00
-+#define S35390A_FUNC_DISABLE		0x01
-+#define S35390A_FUNC_WAKEUP		0x02
-+#define S35390A_FUNC_CLOCK		0x03
-+#define S35390A_FUNC_PMIN1		0x04
-+#define S35390A_FUNC_PMIN2		0x05
-+
- 
- static const struct i2c_device_id s35390a_id[] = {
- 	{ .name = "s35390a" },
-@@ -64,6 +89,10 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
- 
- struct s35390a {
- 	struct i2c_client *client[8];
-+	struct rtc_device *rtc;
-+
-+	struct mutex pinfunction_lock; /* lock preventing concurrent access of pin function */
-+	int pinfunction[2];
- };
- 
- static int s35390a_set_reg(struct s35390a *s35390a, int reg, u8  *buf, int len)
-@@ -165,20 +194,6 @@ static int s35390a_read_status(struct s35390a *s35390a, char *status1)
- 	return 0;
- }
- 
--static int s35390a_disable_test_mode(struct s35390a *s35390a)
--{
--	u8 buf[1];
--
--	if (s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, buf, sizeof(buf)) < 0)
--		return -EIO;
--
--	if (!(buf[0] & S35390A_FLAG_TEST))
--		return 0;
--
--	buf[0] &= ~S35390A_FLAG_TEST;
--	return s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, buf, sizeof(buf));
--}
--
- static char s35390a_hr2reg(int hour, bool twentyfourhour)
- {
- 	if (twentyfourhour)
-@@ -281,10 +296,25 @@ static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled
- 	u8 sts;
- 	int err;
- 
--	if (enabled)
--		sts = S35390A_INT2_MODE_ALARM;
--	else
--		sts = S35390A_INT2_MODE_NOINTR;
-+	guard(mutex)(&s35390a->pinfunction_lock);
-+
-+	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-+	if (err < 0)
-+		return err;
-+
-+	if (enabled) {
-+		if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP)
-+			sts = (sts & ~S35390A_INT1_MODE_MASK) | S35390A_INT1_MODE_ALARM;
-+
-+		if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP)
-+			sts = (sts & ~S35390A_INT2_MODE_MASK) | S35390A_INT2_MODE_ALARM;
-+	} else {
-+		if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP)
-+			sts = (sts & ~S35390A_INT1_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+
-+		if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP)
-+			sts = (sts & ~S35390A_INT2_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+	}
- 
- 	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
- 	if (err < 0)
-@@ -305,7 +335,19 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 		alm->time.tm_min, alm->time.tm_hour, alm->time.tm_mday,
- 		alm->time.tm_mon, alm->time.tm_year, alm->time.tm_wday);
- 
-+	guard(mutex)(&s35390a->pinfunction_lock);
-+
-+	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
-+	if (err < 0)
-+		return err;
-+
- 	/* disable interrupt (which deasserts the irq line) */
-+	if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP)
-+		status2 = (status2 & ~S35390A_INT1_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+
-+	if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP)
-+		status2 = (status2 & ~S35390A_INT2_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+
- 	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
- 	if (err < 0)
- 		return err;
-@@ -315,16 +357,6 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	if (err < 0)
- 		return err;
- 
--	if (alm->enabled)
--		status2 = S35390A_INT2_MODE_ALARM;
--	else
--		status2 = S35390A_INT2_MODE_NOINTR;
--
--	/* set interrupt mode*/
--	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
--	if (err < 0)
--		return err;
--
- 	if (alm->time.tm_wday != -1)
- 		buf[S35390A_ALRM_BYTE_WDAY] = bin2bcd(alm->time.tm_wday) | 0x80;
- 	else
-@@ -340,10 +372,32 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	for (i = 0; i < 3; ++i)
- 		buf[i] = bitrev8(buf[i]);
- 
--	err = s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf,
--								sizeof(buf));
-+	if (alm->enabled) {
-+		/* set interrupt mode */
-+		if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP)
-+			status2 = (status2 & ~S35390A_INT1_MODE_MASK) | S35390A_INT1_MODE_ALARM;
-+
-+		if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP)
-+			status2 = (status2 & ~S35390A_INT2_MODE_MASK) | S35390A_INT2_MODE_ALARM;
- 
--	return err;
-+		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
-+		if (err < 0)
-+			return err;
-+	}
-+
-+	if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP) {
-+		err = s35390a_set_reg(s35390a, S35390A_CMD_INT1_REG1, buf, sizeof(buf));
-+		if (err < 0)
-+			return err;
-+	}
-+
-+	if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP) {
-+		err = s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(buf));
-+		if (err < 0)
-+			return err;
-+	}
-+
-+	return 0;
- }
- 
- static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
-@@ -351,7 +405,9 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct s35390a *s35390a = i2c_get_clientdata(client);
- 	u8 buf[3], status1, status2;
--	int i, err;
-+	int i, err, reg;
-+
-+	guard(mutex)(&s35390a->pinfunction_lock);
- 
- 	err = s35390a_read_status(s35390a, &status1);
- 	if (err == 1)
-@@ -363,18 +419,24 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	if (err < 0)
- 		return err;
- 
--	if ((status2 & S35390A_INT2_MODE_MASK) != S35390A_INT2_MODE_ALARM) {
-+	if (s35390a->pinfunction[1] == S35390A_FUNC_WAKEUP &&
-+	    (status2 & S35390A_INT2_MODE_MASK) == S35390A_INT2_MODE_ALARM) {
-+		reg = S35390A_CMD_INT2_REG1;
-+	} else if (s35390a->pinfunction[0] == S35390A_FUNC_WAKEUP &&
-+		   (status2 & S35390A_INT1_MODE_MASK) == S35390A_INT1_MODE_ALARM) {
-+		reg = S35390A_CMD_INT1_REG1;
-+	} else {
- 		/*
- 		 * When the alarm isn't enabled, the register to configure
- 		 * the alarm time isn't accessible.
- 		 */
- 		alm->enabled = 0;
- 		return 0;
--	} else {
--		alm->enabled = 1;
- 	}
- 
--	err = s35390a_get_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(buf));
-+	alm->enabled = 1;
-+
-+	err = s35390a_get_reg(s35390a, reg, buf, sizeof(buf));
- 	if (err < 0)
- 		return err;
- 
-@@ -383,7 +445,7 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 		buf[i] = bitrev8(buf[i]);
- 
- 	/*
--	 * B0 of the three matching registers is an enable flag. Iff it is set
-+	 * B0 of the three matching registers is an enable flag. If it is set
- 	 * the configured value is used for matching.
- 	 */
- 	if (buf[S35390A_ALRM_BYTE_WDAY] & 0x80)
-@@ -464,13 +526,168 @@ static int s35390a_nvmem_write(void *priv, unsigned int offset, void *val,
- 	return s35390a_set_reg(s35390a, S35390A_CMD_FREE_REG, val, bytes);
- }
- 
-+static const struct pinctrl_pin_desc s35390a_pins_desc[] = {
-+	PINCTRL_PIN(0, "int1"),
-+	PINCTRL_PIN(1, "int2"),
-+};
-+
-+static const unsigned int int1_pins[] = { 0 };
-+static const unsigned int int2_pins[] = { 1 };
-+
-+static const struct pingroup s35390a_pin_groups[] = {
-+	PINCTRL_PINGROUP("int1_grp", int1_pins, ARRAY_SIZE(int1_pins)),
-+	PINCTRL_PINGROUP("int2_grp", int2_pins, ARRAY_SIZE(int2_pins)),
-+};
-+
-+static int s35390a_pinctrl_get_groups_count(struct pinctrl_dev *pctldev)
-+{
-+	return ARRAY_SIZE(s35390a_pin_groups);
-+}
-+
-+static const char *s35390a_pinctrl_get_group_name(struct pinctrl_dev *pctldev,
-+						  unsigned int group)
-+{
-+	return s35390a_pin_groups[group].name;
-+}
-+
-+static int s35390a_pinctrl_get_group_pins(struct pinctrl_dev *pctldev, unsigned int selector,
-+					  const unsigned int **pins, unsigned int *npins)
-+{
-+	*pins = s35390a_pin_groups[selector].pins;
-+	*npins = s35390a_pin_groups[selector].npins;
-+	return 0;
-+}
-+
-+static const char * const all_groups[] = { "int1_grp", "int2_grp" };
-+static const char * const int1_groups[] = { "int1_grp" };
-+
-+static const struct pinfunction s35390a_functions[] = {
-+	[S35390A_FUNC_IGNORE] = PINCTRL_PINFUNCTION("ignore", all_groups, ARRAY_SIZE(all_groups)),
-+	[S35390A_FUNC_DISABLE] = PINCTRL_PINFUNCTION("disable", all_groups, ARRAY_SIZE(all_groups)),
-+	[S35390A_FUNC_WAKEUP] = PINCTRL_PINFUNCTION("wakeup", all_groups, ARRAY_SIZE(all_groups)),
-+	[S35390A_FUNC_CLOCK] = PINCTRL_PINFUNCTION("clock", all_groups, ARRAY_SIZE(all_groups)),
-+	[S35390A_FUNC_PMIN1] = PINCTRL_PINFUNCTION("pmin1", all_groups, ARRAY_SIZE(all_groups)),
-+	[S35390A_FUNC_PMIN2] = PINCTRL_PINFUNCTION("pmin2", int1_groups, ARRAY_SIZE(int1_groups)),
-+};
-+
-+static int s35390a_pinctrl_get_functions_count(struct pinctrl_dev *pctldev)
-+{
-+	return ARRAY_SIZE(s35390a_functions);
-+}
-+
-+static const char *s35390a_pinctrl_get_function_name(struct pinctrl_dev *pctldev,
-+						     unsigned int selector)
-+{
-+	return s35390a_functions[selector].name;
-+}
-+
-+static int s35390a_pinctrl_get_function_groups(struct pinctrl_dev *pctldev, unsigned int selector,
-+					       const char * const **groups,
-+					       unsigned int * const ngroups)
-+{
-+	*groups = s35390a_functions[selector].groups;
-+	*ngroups = s35390a_functions[selector].ngroups;
-+	return 0;
-+}
-+
-+static int s35390a_pinctrl_set_mux(struct pinctrl_dev *pctldev, unsigned int function,
-+				   unsigned int group)
-+{
-+	int err;
-+	u8 status2, flag, mask;
-+	struct s35390a *s35390a = pinctrl_dev_get_drvdata(pctldev);
-+
-+	mask = group == 0 ? S35390A_INT1_MODE_MASK : S35390A_INT2_MODE_MASK;
-+
-+	guard(mutex)(&s35390a->pinfunction_lock);
-+
-+	dev_dbg(&s35390a->client[0]->dev, "%s: function=%d group=%d\n",
-+		__func__, function, group);
-+
-+	if (function == s35390a->pinfunction[group])
-+		return 0;
-+
-+	if (function != S35390A_FUNC_IGNORE) {
-+		err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &status2, 1);
-+		if (err < 0) {
-+			dev_err(&s35390a->client[0]->dev, "error reading status\n");
-+			return err;
-+		}
-+
-+		switch (function) {
-+		case S35390A_FUNC_DISABLE:
-+		case S35390A_FUNC_CLOCK: /* not implemented */
-+			status2 = (status2 & ~mask) | S35390A_INT_MODE_NOINTR;
-+			break;
-+		case S35390A_FUNC_WAKEUP:
-+			flag = group == 0 ? S35390A_INT1_MODE_ALARM : S35390A_INT2_MODE_ALARM;
-+
-+			if ((status2 & mask) != flag)
-+				status2 = (status2 & ~mask) | S35390A_INT_MODE_NOINTR;
-+
-+			break;
-+		case S35390A_FUNC_PMIN1:
-+			flag = group == 0 ? S35390A_INT1_MODE_PMIN1 : S35390A_INT2_MODE_PMIN1;
-+			status2 = (status2 & ~mask) | flag;
-+			break;
-+
-+		/* INT1 only modes */
-+		case S35390A_FUNC_PMIN2:
-+			if (group == 1)
-+				return -EINVAL;
-+
-+			status2 = (status2 & ~mask) | S35390A_INT1_MODE_PMIN2;
-+			break;
-+		}
-+
-+		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, 1);
-+		if (err < 0) {
-+			dev_err(&s35390a->client[0]->dev, "error setting interrupts\n");
-+			return err;
-+		}
-+	}
-+
-+	s35390a->pinfunction[group] = function;
-+
-+	return 0;
-+}
-+
-+static const struct pinctrl_ops s35390a_pinctrl_ops = {
-+	.get_groups_count = s35390a_pinctrl_get_groups_count,
-+	.get_group_name = s35390a_pinctrl_get_group_name,
-+	.get_group_pins = s35390a_pinctrl_get_group_pins,
-+#if IS_ENABLED(CONFIG_OF)
-+	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
-+	.dt_free_map = pinconf_generic_dt_free_map
-+#endif
-+};
-+
-+static const struct pinmux_ops s35390a_pinmux_ops = {
-+	.get_functions_count = s35390a_pinctrl_get_functions_count,
-+	.get_function_name = s35390a_pinctrl_get_function_name,
-+	.get_function_groups = s35390a_pinctrl_get_function_groups,
-+	.set_mux = s35390a_pinctrl_set_mux,
-+	.strict = true,
-+};
-+
-+static struct pinctrl_desc s35390a_pinctrl_desc = {
-+	.name = DRIVER_NAME,
-+	.pins = s35390a_pins_desc,
-+	.npins = ARRAY_SIZE(s35390a_pins_desc),
-+	.pctlops = &s35390a_pinctrl_ops,
-+	.pmxops = &s35390a_pinmux_ops,
-+	.owner = THIS_MODULE,
-+};
-+
- static int s35390a_probe(struct i2c_client *client)
- {
--	int err, err_read;
-+	int err;
- 	unsigned int i;
- 	struct s35390a *s35390a;
- 	struct rtc_device *rtc;
--	u8 buf, status1;
-+	struct pinctrl_dev *pctl;
-+	u8 status1, status2;
-+	bool irq = false;
- 	struct device *dev = &client->dev;
- 	struct nvmem_config nvmem_cfg = {
- 		.name = "s35390a_nvram",
-@@ -481,6 +698,7 @@ static int s35390a_probe(struct i2c_client *client)
- 		.reg_read = s35390a_nvmem_read,
- 		.reg_write = s35390a_nvmem_write,
- 	};
-+	int fallback[ARRAY_SIZE(s35390a_pin_groups)];
- 
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
- 		return -ENODEV;
-@@ -489,7 +707,11 @@ static int s35390a_probe(struct i2c_client *client)
- 	if (!s35390a)
- 		return -ENOMEM;
- 
-+	mutex_init(&s35390a->pinfunction_lock);
-+	memset(s35390a->pinfunction, -1, sizeof(s35390a->pinfunction));
-+
- 	s35390a->client[0] = client;
-+
- 	i2c_set_clientdata(client, s35390a);
- 
- 	/* This chip uses multiple addresses, use dummy devices for them */
-@@ -504,33 +726,34 @@ static int s35390a_probe(struct i2c_client *client)
- 		}
- 	}
- 
--	rtc = devm_rtc_allocate_device(dev);
--	if (IS_ERR(rtc))
--		return PTR_ERR(rtc);
--
--	err_read = s35390a_read_status(s35390a, &status1);
--	if (err_read < 0) {
-+	err = s35390a_read_status(s35390a, &status1);
-+	if (err < 0) {
- 		dev_err(dev, "error resetting chip\n");
--		return err_read;
-+		return err;
-+	}
-+
-+	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
-+	if (err < 0)
-+		return dev_err_probe(dev, err, "disabling alarm and test mode failed\n");
-+
-+	if (status1 & S35390A_FLAG_INT1) {
-+		status2 = (status2 & ~S35390A_INT1_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+		irq = true;
- 	}
- 
- 	if (status1 & S35390A_FLAG_INT2) {
--		/* disable alarm (and maybe test mode) */
--		buf = 0;
--		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
--		if (err < 0) {
--			dev_err(dev, "error disabling alarm\n");
--			return err;
--		}
--	} else {
--		err = s35390a_disable_test_mode(s35390a);
--		if (err < 0) {
--			dev_err(dev, "error disabling test mode\n");
--			return err;
--		}
-+		status2 = (status2 & ~S35390A_INT2_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-+		irq = true;
- 	}
- 
--	device_set_wakeup_capable(dev, 1);
-+	status2 &= ~S35390A_FLAG_TEST;
-+	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(status2));
-+	if (err < 0)
-+		return dev_err_probe(dev, err, "disabling alarm and test mode failed\n");
-+
-+	rtc = devm_rtc_allocate_device(dev);
-+	if (IS_ERR(rtc))
-+		return PTR_ERR(rtc);
- 
- 	rtc->ops = &s35390a_rtc_ops;
- 	rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
-@@ -539,9 +762,33 @@ static int s35390a_probe(struct i2c_client *client)
- 	set_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features);
- 	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
- 
--	if (status1 & S35390A_FLAG_INT2)
-+	s35390a->rtc = rtc;
-+
-+	device_set_wakeup_capable(dev, 1);
-+
-+	if (irq)
- 		rtc_update_irq(rtc, 1, RTC_AF);
- 
-+	err = devm_pinctrl_register_and_init(dev, &s35390a_pinctrl_desc, s35390a, &pctl);
-+	if (err)
-+		return dev_err_probe(dev, err, "pinctrl register failed\n");
-+
-+	err = pinctrl_enable(pctl);
-+	if (err)
-+		return dev_err_probe(dev, err, "pinctrl enable failed\n");
-+
-+	/* If no pinmux function is defined in DT, fallback to previous behaviour */
-+	fallback[0] = S35390A_FUNC_IGNORE;
-+	fallback[1] = S35390A_FUNC_WAKEUP;
-+
-+	for (i = 0; i < ARRAY_SIZE(s35390a_pin_groups); i++) {
-+		if (s35390a->pinfunction[i] == -1) {
-+			err = s35390a_pinctrl_set_mux(pctl, fallback[i], i);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
- 	nvmem_cfg.priv = s35390a;
- 	err = devm_rtc_nvmem_register(rtc, &nvmem_cfg);
- 	if (err)
-@@ -552,7 +799,7 @@ static int s35390a_probe(struct i2c_client *client)
- 
- static struct i2c_driver s35390a_driver = {
- 	.driver		= {
--		.name	= "rtc-s35390a",
-+		.name	= DRIVER_NAME,
- 		.of_match_table = of_match_ptr(s35390a_of_match),
- 	},
- 	.probe		= s35390a_probe,
+Changes since v1:
+- Extend VFIO_PCI_CORE_DEFINE_CALLBACKS() to accept the driver's private
+  structure type and its member (Jason, Alex)
+- Select VGA decode callbacks inside vfio-core and restore to use 1-argument
+  vfio_pci_core_register_device() interface
+- For vfio variant driver, store its private driver_data to pdev instead of
+  the vfio core driver data
 
--- 
-2.55.0
-
+Thanks,
+Simon
