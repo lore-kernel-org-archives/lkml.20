@@ -1,86 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD2D30ACF1;
-	Wed, 30 Sep 2026 21:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30AF3C7DF5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804784; cv=none; b=Ssg7DO1tmnk3V7RL2/v05bg8LckHBV/cy5XRq3x2FwZQyUVDhjNdvSB5WY/442biDRCKB51QSlZ/Nt5chKKaBypbGgNZYNu7s2cXnv080s8U/bHdehcxxD+F5caWw+7QxWzYHJ3/0U6vA1JCjM7WkUzGDVIR6/h43GQlYLpM5EQ=
+	t=1790804813; cv=none; b=Yve9fg23tjf51DfIkC+YZpTlrVK/Ty2Lo01YIQl5k4428/xmIdoMshg/j1DkGKuQh8aVmWgmfZGKjSsZQH0aD/Wly0QaoPRNuGuY5B1dC5oDkTvqNuePU/WLMUMCf9LGo8ZPXnnTFN7K9Ww4XVesaVADatJfZ6NA9tDooZnPn+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804784; c=relaxed/simple;
-	bh=3iuEjO2MpK0D95af1nsWvN600i/DZSAMF6zrFFAr3/E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=racB1tnhwG7oQw58z87i7hfRoTZbqH6IpyOmGZk89JGxo2pulqbTEjtjKvcf7ZAVG81U8k8U7E7hQZ5FeD+S66MDbi5yXJz46BsQ4p2LxrEWuGaaZeS6VT7Q7WD0XfOJBTKhLZoRYueOsQaX3h1aPhH9kmFX+dMB/jkidLHZbCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooFvwKMj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790804813; c=relaxed/simple;
+	bh=4vB5pZ+vDsOwv7LEsW5BbV0+5k8Loaeqo9BFNQkcgj8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A2OXv8VkbYKEt4D1cO1OTr2UQaAAdaXZHtMMUR9o3WMT8m1HN1J+kUh+v4YLUpZU/5H0gYEcPN1Apzm0r8TJENmlhL+SHbE3vtq7585NlEzMN0Rc1iKRUvbfBn6r1YMV/VU2nT89fI6p4ZZRiRL/5O4jvr0+xDu0CHV8+4ygtPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zelnj7jD; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooFvwKMj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5FEE1F000FF;
-	Wed, 30 Sep 2026 21:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804782;
-	bh=ldMOrQjh0P5/jcFu0TzEsRwLwVAqyKDcS37asFhMWNY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ooFvwKMjCPrhFufbh/VTKIh1OGcN4OomhCW9dRuQTQBObPjNCTFjyX3hWncitgwYO
-	 +8yhpdZcACJNvEadcSpOrtOSNIxPZ0V5jFuu65mTRIVaBoyZ88qs0+wX4w6v1IfGkj
-	 qkGq/hjXHMLwMr+3kmxm/vrc+ch42wltCRJH3Q+WLMxo4UCo5wV9QUdb0gXthcDWnv
-	 hWWAgi8Y102z0tSiuFVQDBkFIREMzlpshwLuZoYlTMqbsfuRXmgKfs0apPxpvMOVBD
-	 Hwaw81h2p5RBikr+KxbxJ8B8xxzuIpRSBbTqfphOjp6Cj50f9QXBZ3sTSe7dmaX6xn
-	 P9GfZcBm7PL+w==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Marc Zyngier <maz@kernel.org>, Mayank Rungta <mrungta@google.com>, Wim
- Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, "Kirill A.
- Shutemov" <kas@kernel.org>
-Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during
- NMI teardown
-In-Reply-To: <CAD=FV=WE-Wn60zTn=nsq4qLis_zjncrS37fND6ehtpuvxYp+DA@mail.gmail.com>
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
- <20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
- <87fqzp8jex.ffs@fw13> <87wlt13zj1.wl-maz@kernel.org> <87v78l6oha.ffs@fw13>
- <CAD=FV=Wdqn7UiuRy1VY-qH+JYChLTEQgmj2q6Q=FBjCZ+5eo1A@mail.gmail.com>
- <CAD=FV=WE-Wn60zTn=nsq4qLis_zjncrS37fND6ehtpuvxYp+DA@mail.gmail.com>
-Date: Wed, 30 Sep 2026 23:46:13 +0200
-Message-ID: <87o6deh0pm.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zelnj7jD"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so43906355e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:46:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790804810; x=1791409610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o8F0B9o5+5M0c+UxYik91VjRVJghzAaWSkO19sfhWyU=;
+        b=Zelnj7jDysImilWjrq+TyjX8Zey9LXjwNIRrE1uzr9VGCWxJd6hUkpqc6qTLKUpjZa
+         ixwFOKzDVMoNOE1LdBsYi2sqjhnIW4pzake+LzOBpPNQ80Tgwnp2cHzzgKwAx6b5wWjZ
+         9ySbvUn0UYtv9m+zcgU0WncM5rgjfYeVeqq+X5GkCRpMfGWU5k8g550O+lYCsZXMBF5n
+         IIbhXisA+T7Ax9BGLZnpRWVVn3gXa8GcKOfyDZRSEo5OU5FLZ/ggu65qNNMLqTppfcrw
+         zsBWAXI0FgaQS7K/gaz67NbUmXHisq7K4tpfa/3RTYn713UTzWW1Yop5zqt2A/YJ7gBx
+         nE2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790804810; x=1791409610;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o8F0B9o5+5M0c+UxYik91VjRVJghzAaWSkO19sfhWyU=;
+        b=03TCF1B+T2yLyGC4mRyiCokdoH3JygmruFxSrS/LjSeWX+DtvcXphoAk8z3HXbxVro
+         6d5VHCS2O4+J69K3wdsj+auKQF4YX6qWuNH4Yt8Q5U8xCwtNcS+RLJ9ek9vZkE7hyzD2
+         9q/YzmafsV/RPNdOvZewymC+96mX4CiClWWVsdKyknnqkKwUzDoIpnUsURTH0y2v5wCK
+         6JtKDNHy2g6jJAIOCNB/4Nj2OQXxkamIoH9J6mMDDfamP1oAbUS60oMNs7m7lMrdoMWY
+         90usn7wn3vCvg/QKyKZlgbCTHwBprHUoqHpjrYyME+zDbs6bGPR2E8hpwLd4AbvaKFPF
+         w+QA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8wPPgNNingowpzJkelhkKVzwVxR0PBzpWhpf7rFhqvHrIqlSks3O+olWfQaCSQfzFCgpKy5EYYlsENPc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lToohEBbVTISGIoVCHcFK2TUp6DmJZzXgYGWiw6iX/qz2LJCXE
+	nDKt3o2ktEECHjFkizBn2NPD8QqfjG6GVvgNEVNvw9phSFRU+G8wLtGF
+X-Gm-Gg: AYBFou31EbXP8fYWrtDnyQ0DqUpfvfdeEhWly7lt2lXMsff6g/4aCrux/ZAjB3wHMbG
+	Q56ga0iH181JA5LljKTy3kI3L0lzsmGZy5GZHdAwSrRf30EJ7KPj6kTqLHIc55Ih+9uJebA5UVV
+	WBuluwvPs1ekWjFNymBn1aPBS1ddM0p+wLAz20CoFbxpbBIHdT1hEeK+6jXVJPPMa3U8qWM+pgi
+	ePNrpodA6CMAH1/f6mjnh6ETxg3PcneXp0ILo2YmozuXBsJ3lFpse8+7yHsIteuw1qQVoelPgnw
+	DrOq2jUMtUSpOt6niYAvaUtzF5nuMVJ432XJqRml6rYanLirjGBoE+6FbTwgk4S+zG33n9dr9P4
+	6S6au1MDuBlm7tho1p1m0Eqce5Y65stEZM1KiytyLMoLS4GdaLML5H2YQ6VhTQnVrmK5G7zfyAm
+	nXW4eWIGDl/SUaQyECYL4jsEKyPT22B46wudF59GDKASo7BKnw4DRidGKbakIgOJTSFHBLryNyL
+	LPU/Q==
+X-Received: by 2002:a05:600c:4f56:b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-4a01b0079cdmr60549185e9.17.1790804809753;
+        Wed, 30 Sep 2026 14:46:49 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f99a96fsm14092065e9.13.2026.09.30.14.46.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 14:46:49 -0700 (PDT)
+Message-ID: <0f32b66a-c5fe-407a-92ff-387c3fe39e64@gmail.com>
+Date: Thu, 1 Oct 2026 00:46:47 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 rtw-next 2/7] wifi: rtw88: assign the RCR per chip in
+ rtw_core_init
+To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michael Straube <straube.linux@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>
+References: <20260930091604.52891-1-luka.gejak@linux.dev>
+ <20260930091604.52891-3-luka.gejak@linux.dev>
+ <d398a8dd-a182-4e69-8f5e-12a820594093@gmail.com>
+ <3c53130d1d4738a9b3173806264fc1d0b5682072@linux.dev>
+ <a6ea2df9-b2c9-4417-ade4-f3947f36d139@gmail.com>
+ <5b31fdb4474eea9b9403fc6ff466994b62a79fd3@linux.dev>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <5b31fdb4474eea9b9403fc6ff466994b62a79fd3@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28 2026 at 09:14, Doug Anderson wrote:
-> On Fri, Sep 4, 2026 at 8:26=E2=80=AFAM Doug Anderson <dianders@chromium.o=
-rg> wrote:
->> On Fri, Sep 4, 2026 at 8:11=E2=80=AFAM Thomas Gleixner <tglx@kernel.org>=
- wrote:
->> > Of course this is a regular global interrupt otherwise it couldn't be
->> > requested normally. So this sets IRQF_PERCPU (it has to otherwise
->> > request_nmi() would fail), but that looks like a hack to me.
+On 01/10/2026 00:29, Luka Gejak wrote:
+> September 30, 2026 at 23:27, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mailto:rtl8821cerfe2@gmail.com?to=%22Bitterblue%20Smith%22%20%3Crtl8821cerfe2%40gmail.com%3E > wrote:
+> 
+> 
 >>
->> At least on GIC, promoting a regular global interrupt to NMI (or
->> pseudo-NMI) level is possible, and Mayank's use case here seems
->> legitimate. Any suggestions you have for making this look less like a
->> hack are appreciated! :-)
->
-> Throwing an extra plea out here to see if we can make forward
-> progress. IMO being able to make watchdog driver "bark" interrupts run
-> at NMI (or pseudo-NMI) level is an important thing to do for
-> debuggability of the kernel. It sounds as if there are no general
-> objections to the idea. I guess the next step is to make this look
-> less hacky. Is that something we could send patches for? Any hints for
-> what you'd like this to look like would be greatly appreciated.
+>> On 30/09/2026 23:36, Luka Gejak wrote:
+>>
+>>>
+>>> September 30, 2026 at 20:03, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mailto:rtl8821cerfe2@gmail.com?to=%22Bitterblue%20Smith%22%20%3Crtl8821cerfe2%40gmail.com%3E > wrote:
+>>>  
+>>>  
+>>>
+>>>>
+>>>> On 30/09/2026 12:15, Luka Gejak wrote:
+>>>>
+>>>  The receive control word is the same for every chip today. The generic
+>>>  default is written in rtw_core_init(), so a chip that needs a different
+>>>  value has to overwrite it afterwards, in its own init path, far away
+>>>  from where the default is decided.
+>>>
+>>>>
+>>>> I still don't understand why RTL8723B(S) would need a different value.
+>>>>
+>>>  
+>>>  Because 0x700060ce is what the vendor driver leaves in REG_RCR for this
+>>>  chip, and it is what rtw8723x_mac_init() already writes for it. I have
+>>>  both from tracing this card: a register dump at the end of
+>>>  rtl8723bs_hal_init prints RCR=0x700060ce, and the same dump in rtw88
+>>>  matched it field for field.
+>>>  
+>>>  The default is a different filter. It sets BIT_PKTCTL_DLEN, which the
+>>>  8723B vendor HAL and rtlwifi's rtl8723be never set, and it clears
+>>>  BIT_AMF, BIT_CBSSID_DATA and BIT_CBSSID_BCN, which the vendor value
+>>>  sets. Four bits in total.
+>>>
+>> It will work fine...
+>>
+> 
+> Want me to drop the patch?
 
-I think the objections have been layed out in course of the discussion, no?
+Yes. If you check the vendor drivers for the other chips,
+they're all in the same situation.
 
-> I'll also be in Prague next week for both Plumbers and ELCE, so I'd be
-> happy to discuss this in person if that helps.
+> 
+>>>
+>>> That value does not survive rtw_core_start(), which writes REG_RCR from
+>>>  hal.rcr after power_on. The field is what keeps it. BIT_APP_FCS is the only
+>>>  bit added on top, because rtw88 advertises RX_INCLUDES_FCS.
+>>>  
+>>>  Best regards,
+>>>  Luka Gejak
+>>>
+>>
 
-I'm going to be there, but I don't know about Marc.
-
-Thanks,
-
-        tglx
