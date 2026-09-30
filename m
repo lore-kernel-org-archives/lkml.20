@@ -1,67 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC5D35C694;
-	Wed, 30 Sep 2026 01:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0BB35DA53
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733579; cv=none; b=lz0jxCtqs4kqnkuDg+qIyR+JUZWXGJwXNmWyrpYRfvLFSo2xtcZirOkMk/a4FZPgQS9zUaEo6TF2MD6F/F4ab0Jwx8ojZVkbA8t4KqEWNR2hiJU0s/c9+mMJ2ZMNQT3r6zRPEC5J45IOEZobN213QkcvR1f2QtxC0MH8ptWKD+Y=
+	t=1790733585; cv=none; b=AEQSqdRM/ECbIQWk9AkwITc3nMefhKrCDqykqTAnBVYmWlugo90yva8fru3wMAsk8GnYrsUBIPcPN5VqTPjrVSVo88mrDmugcdSFTwQhQhxVwdjqgAwoLw0UgBXhUybOUc5dmxYup0cdItXpzVyJyg7bSsoSLpkuMIsrY5pNfjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733579; c=relaxed/simple;
-	bh=KFGeCKbg4CYXwolsSNFD4SjR0QSQDZ4XOsA3L5iCQR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PQFxyXEgoebtmy6hyh+udj06i/jVLQhWNp/YYWSIqFNS/uzenTCPhz4XFb7ANfLnxQ6RHgevcxFSkODG8dpZEVIAyuU6Ow6GTW8CU7nSq36IO5lyVwUefja+BlxlfCEbXMGJUgogxeMR+D14cO4EA61qvsV42icxLeSVKouLBfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REtHWVNL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790733585; c=relaxed/simple;
+	bh=ZSpwe7rsVqJAy+Ym7JWQyKwbpk/MrY90addnSZTlJ1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R6pKK7lQnWMZQuziDHLgKnzU1Q43c3ACJXI9SYH3JBSKkbfPMV5GWH3V75q3yfl1o3Fd30Z8HLl+leRAKpryduh6RgjZ3lwBU+BaGFlVxE2xLYW2Mp9vWIxOGaA4lwrCRoD7iDINPDRGhd+urTP+gYPct8dOyr2mO75v1Kyr1pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OSFDdqjQ; arc=none smtp.client-ip=91.218.175.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REtHWVNL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031D21F000FF;
-	Wed, 30 Sep 2026 01:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790733577;
-	bh=0vLjdzZVo2qjctqqDpE5Ro7QbiQoISQRnLovdDe46Yk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=REtHWVNLtp5xQUCYPa1SNv2wi1HPGDYr4bMdLX8DmmFWKRvTZO94mb+fuKwphevzm
-	 BbuXAJo2x+BIfNeo+Mdhaa5263nz4Dae5Do+Q2P/a6KIGP6sBRc43sSthi2fu7/ES6
-	 z1/1j6h1vUR1BRTIziw6vk0cQlhEMApW148dwC/60GAuofVdgWwGNjpH9vrgppHIH7
-	 hNwkBH3uNN1S21RVOt4Mg35BzoN2ExDC0FRWHRoopz7DDuMMq5T155eVYmpGkjmsxT
-	 dfxwW1uh3ubmIEZreQOlSP2EqGECgSqR42LCqVAUiwMr/d0MMqEhhTnzM6bT5TTywK
-	 lWU7k4swLgxpQ==
-Date: Tue, 29 Sep 2026 18:59:36 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Quentin Freimanis <quentin@q-lab.dev>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>, UNGLinuxDriver@microchip.com,
- Lars Povlsen <lars.povlsen@microchip.com>, Bjarni Jonasson
- <bjarni.jonasson@microchip.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: sparx5: make ports inherit the switch base mac
- address type
-Message-ID: <20260929185936.687250f9@kernel.org>
-In-Reply-To: <20260928045012.30178-1-quentin@q-lab.dev>
-References: <20260928045012.30178-1-quentin@q-lab.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OSFDdqjQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZSpwe7rsVqJAy+Ym7JWQyKwbpk/MrY90addnSZTlJ1Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790733582; v=1; x=1791338382;
+ b=OSFDdqjQb/XAfR6rHlhRygCQd31jjeZX7hKfGAI+U3m4uKqpDMOLMCOf//hTV/SDsvgz+33W
+ GwlYH/Kyf/c4IWQwWnjru3Wddz1tq31PLpBX400avzrMb6tpQH58qfNtzXS4S9cMbKLmiPNActR
+ /T5gN4djGiQb40MwaJnG25Sk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4a8f199eb519d264;
+	Wed, 30 Sep 2026 01:59:42 +0000
+X-Mizu-Trace-ID: 4a8f199eb519d264
+X-Migadu-Flow: FLOW_OUT
+From: Yuntao Wang <yuntao.wang@linux.dev>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuntao Wang <yuntao.wang@linux.dev>
+Subject: [PATCH] init: simplify initramfs.o build rule
+Date: Wed, 30 Sep 2026 09:57:48 +0800
+Message-ID: <20260930015748.311366-1-yuntao.wang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 21:50:12 -0700 Quentin Freimanis wrote:
-> 0 is NET_ADDR_PERM, so userspace thinks this is a stable address. 
+CONFIG_BLK_DEV_INITRD is known to be enabled in the else branch,
+so there is no need to use obj-$(CONFIG_BLK_DEV_INITRD). Use obj-y
+directly to make the build rule clearer.
 
-Could you please explain the end-user impact of this?
-Unclear to me from the commit msg if this is something that broke
-your deployment / scripts or maybe you simply noticed it from code
-inspection / LLM scan.
+Also, reorder the condition to make the code easier to follow.
 
-No need to repost, just explain, I'll add it when applying.
+No functional change.
 
-> Fix by tracking the base MAC address assign type in the sparx5 struct
-> and applying it to each port's netdev.
+Signed-off-by: Yuntao Wang <yuntao.wang@linux.dev>
+---
+ init/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Generally no need to repeat what an average reader can easily grok 
-from the diff.
+diff --git a/init/Makefile b/init/Makefile
+index d6f75d8907e0..9102fc34c0cc 100644
+--- a/init/Makefile
++++ b/init/Makefile
+@@ -6,10 +6,10 @@
+ ccflags-y := -fno-function-sections -fno-data-sections
+ 
+ obj-y                          := main.o version.o mounts.o
+-ifneq ($(CONFIG_BLK_DEV_INITRD),y)
+-obj-y                          += noinitramfs.o
++ifeq ($(CONFIG_BLK_DEV_INITRD),y)
++obj-y                          += initramfs.o
+ else
+-obj-$(CONFIG_BLK_DEV_INITRD)   += initramfs.o
++obj-y                          += noinitramfs.o
+ endif
+ obj-$(CONFIG_GENERIC_CALIBRATE_DELAY) += calibrate.o
+ obj-$(CONFIG_INITRAMFS_TEST)   += initramfs_test.o
+-- 
+2.55.0
+
