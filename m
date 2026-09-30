@@ -1,175 +1,95 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F743503BF7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7D75187F2;
+	Wed, 30 Sep 2026 18:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792128; cv=none; b=Ak+NPvIDwjph1/hyxg7DM4rvgJDv9TXEgQf6JmGlFCOeirx4gsb4xahzDldB+rsDWN/NnBp3CSQDeLfcmtK6tX+KVoTUOhfqLjEgeGklQu0IfLiXhf/RAGBd7J9H1scwDHZJmND6RDR742FJmVqlUbYwll8lGKQjw9sa9Q2Bagw=
+	t=1790792133; cv=none; b=TGL4fpIgYPdiex3B60GWAa3ISmRrwuD2uzjAvEsuKpAFBPdTyrcsor9ePcVTiJu6fnqPjoZ7CxbEqXmk9LsDAwj0fOdaS50ES+c/OpV9R+MQ8rqvjN0rrsVAYkB6lOIndW4LC9C44LKBCJGB/lxLytYmsGf89RqS8vF2xYYiy8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792128; c=relaxed/simple;
-	bh=PjwQSo8+rc1z4kQGROqeb9DwEQTAe+aDRBgukQAKf5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=imiY/FPEDAtZ1+uRqBrV5TsEzKohpFWahMv6+mjIZtLH9jG3TiDYOfi9bYs7IyaOr0ptVdCtT2r0ND21EebHXOc1RsBVZTf77bVVdY1oeZlLg+8fet5Yh6d7pNbaM+ZC7JTG4yF7Xnn0EfKewluqw2ilCjuj+QS5V8n2t6VtsUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WrdEPs79; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790792133; c=relaxed/simple;
+	bh=9kclRhNa+pdcx2zC17CGOe8yWS8pzYlG0y1InHUdTDc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=t1I5fxyjfTNcQE4NvsFUEZd7C1VxOnF0MajCWPmllI/m7oV8j2UamF+l3iueY1QVGzoVX6vwfMdbtTeFl8Fr4OGmBHk+1eXhm1aSYwH6HGvDj+7VTEpfQyUZNolTzwKg4/Pflcytqs3pNx4eMAZ+CvEcTi0dwVOhCN+ejcAzHFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcPUuqYm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WrdEPs79"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c2a97ec17so1077214eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:15:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790792126; x=1791396926; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wH6osFmbfPcAMlnmB5/HkiVaJyqglqDpKQWfsMmkLu4=;
-        b=WrdEPs79QdOoJmkRxK2aWw31Wbv87SoEwgFBzJQ38rF9lFZjE9aMMoBDBZbo/U9QmA
-         ynrQptzq0uq7NSSwigYknpdNZOT6RHXLQCzBa5fQC93tMQ0VhscWJ7z3gDLVTD7c9QgN
-         Avu5yETt2rsWqohRf731jKWVKdP0BCCb+l2ZqsW+2880EtFcHq/tpRehvTcja0e3kjdS
-         l0MO+kL/6DNvQFXLZXYsO4B09fwThABSBCrWO475eeXDrfqgbvlJrPzYcdDZ3H8biD8H
-         SDra9T0iBtUath5eribXHvdy8/XL9Kogd3mM/QgNfcfQq8p8XaMZwFYQadzqIrIiKk++
-         tAxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790792126; x=1791396926;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wH6osFmbfPcAMlnmB5/HkiVaJyqglqDpKQWfsMmkLu4=;
-        b=kS/PY6XEx2pRsZRTeR+qNoPczuulEx9hHV7M2xgCX9JrP3dDRm/fJWmd1LMT4bjfad
-         C8L5Y/wmCDvfsaL4uPoMCUNYLfUx6vG3d2EbJKLBP/TW/E/CyuIDQyfXB6VKVjy6PmpF
-         HUxIw+WAHDBcx/bVdkaUpwZklV5B+T6ZrwVTNCgZKS9IRKTKA49uCJsUt1Az9q1N4Sw1
-         bn4B8lWbCZDtI4LkSsQd7aHdqGt/zRWiFFpYwWbrqQ45T4WYnuWU6Xa4udZ9ftaeQz88
-         VXwqj3kzZfAUuAlbkcAt78pt9pbe/VCK+xpfTiD+90q5ice+rMNYt1iqljhVQA5hgI+n
-         N3Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfabDageEB8zdwHjHcJshuBqUbsS5qgsQKWChitPnsMIF/GsoPAUxIPeYiPl80mtZMilwzGt9hweByMaA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiYdPXwbp2gnbc4sokvX6g8SXsVX+Np4Dh+R5T6RXnu9i+aRCg
-	/Rvk485JAJA5Sw3asbp7azasX4+WBceLihFuduxPl+wHd1RhQIquziJa
-X-Gm-Gg: AYBFou2bTrBlUF/wwnQxWb9eHN6CFN1TRNVSchw9CuE+NzAwoyIwci9JN5Wb/p9Uclp
-	e0QXv7D9bOL4ITLRhbU6Pdr6d9296WHY7CAgzLoCt1W1fZRj6AhniaeF2d+pAuH6DgYIKPPDpSa
-	ctZCsxRmCTfj4RTD9wrBkErxkdZeeeRt0G3MnENgb4nTLYO3MHzKmAT8w/mHHv6xd0jsJxhf7zH
-	BmQ1r0yq7tNzGHakTwuj3aa7qJxaKJBGvQhyh4OR0lekGqf5mQGOhw7ZbrRCaLZs/ib/svOxZO6
-	HM/4vCGXEt9Pv7Xf0EIeYwzIGfOTKx4bkp7IEAJ8hjuPzzxIiMdhmtp7weutnxZZyubV9bpl4VQ
-	+IspM1CZSlv0Oxg3ELeBDvajOltHd7c1CTEIpK0juaHsTKl4gdGjn1R4znSeq37EfbBFIuu9Wqh
-	Jk44WLkU3OkTzS/iv60p3SuTwrjln9zNMDK5MiGS6Anla/dJtB4e7oIhv0+s47TBNHU1X58ozAx
-	bPkA030LoxWgDPxzLFLQ8DY+9uXM7xEFTX2mf/z
-X-Received: by 2002:a05:7301:1a02:b0:34b:ee3a:10af with SMTP id 5a478bee46e88-34cd91735admr2161022eec.4.1790792126094;
-        Wed, 30 Sep 2026 11:15:26 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:f011:1d53:dc9c:51d4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3f3159dsm572457eec.20.2026.09.30.11.15.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:15:25 -0700 (PDT)
-Date: Wed, 30 Sep 2026 11:15:22 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Habil Eren =?utf-8?Q?T=C3=BCrker?= <habilerenturker@gmail.com>
-Cc: Habil Eren =?utf-8?Q?T=C3=BCrker?= <habilerenturker@hotmail.com>, 
-	sashiko-bot@kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2] Input: fix potential use-after-free in
- input_devices_seq_show
-Message-ID: <ar1RZeMi9OK4Gro2@google.com>
-References: <20260928171306.59206-1-habilerenturker@hotmail.com>
- <20260928172128.D6AB41F000FF@smtp.kernel.org>
- <20260928181704.61015-1-habilerenturker@hotmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcPUuqYm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4872D1F00898;
+	Wed, 30 Sep 2026 18:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790792132;
+	bh=FMhj9LPnggBc3k7PWtzDXIA2bZfV2+53XsnLhzsJWyo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=kcPUuqYmmbImumhD621BfOC59ga9ygnENuCJdqtPzcs5bFriF1UJDjwc+7IRh/bM4
+	 D9mP/oM9kJOVjeLOfFGxqnZmFRMt2Blm6Cg8NoC7L8s6wTH38JW8V25g9nkAqXY5Vz
+	 gePjpd3g4DzetiUvomaDIKvIkpNpAzZEJgdWtGcEJJN6MFnk1UJCTkp+tDr/OWDpu1
+	 B5k/xTCRKX17lAmMCZMxg/0I+z7kIod5I/esAkoevtKJi0Ch0vWxUWUrFceMyXHh8D
+	 B+VpEysb086S08teoMLfC1gUn0pEfELWCma9FpNYY/MP8oO1K9SogEv6dW+1CZAFxg
+	 p/SvFYSY8YjFA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Ridham Khurana <khurana.ridham222@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Nirmala Devi Mal Nadar <m.nirmaladevi@ltts.com>, 
+ Bhargav Raviprakash <bhargav.r@ltts.com>, Lee Jones <lee@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+ Brigham Campbell <me@brighamcampbell.com>, 
+ linux-kernel-mentees@lists.linux.dev, stable@vger.kernel.org
+In-Reply-To: <20260930105333.3522412-1-khurana.ridham222@gmail.com>
+References: <20260930105333.3522412-1-khurana.ridham222@gmail.com>
+Subject: Re: [PATCH] regulator: tps6594-regulator: Fix n_linear_ranges for
+ TPS65224 BUCK2-4
+Message-Id: <179077659988.116826.5599228318428196647.b4-ty@b4>
+Date: Wed, 30 Sep 2026 14:56:39 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260928181704.61015-1-habilerenturker@hotmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1168; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=9kclRhNa+pdcx2zC17CGOe8yWS8pzYlG0y1InHUdTDc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqvVG/xqKWEo2c3uvKQck9L+WyHaScNcEEKGRM4
+ oIitsGrd26JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar1RvwAKCRAk1otyXVSH
+ 0JeWB/9JVzKZQuoO434mCKdykiGdKmQpbPP1jirj5S6oHNOckC/rn7OXc/VSbJ+SoofuS7b8vhb
+ DUxJ4MdBBpUb9UDcr6olCDxupcCvUhg7zwA6iCFZmNneqZBc/qsLIQN3BFbnAMRQyWsEPI/a1om
+ 0qxVsCijAgvBWNFsHJYYCiaODKATzn3RgbEajE+tT35PwTSv1QRQl5OI/efD87uzlKvXzjwdtMG
+ n/Mp6zVZxnsUj2au4B+rp5uve2mELWf4fG/Oz07oX6KnktLlYvxpbzX26kmgYNaT+LtaMRtCWny
+ uBlNcmBPlqxtnqcnjGE4n5b5HnbInvYYwuONT/wzpaAVo4AG
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Türker,
+On Wed, 30 Sep 2026 10:53:25 +0000, Ridham Khurana wrote:
+> regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
 
-On Mon, Sep 28, 2026 at 09:15:24PM +0300, Habil Eren Türker wrote:
-> This patch is withdrawn.
->
-> Sashiko's assessment is correct. input_mutex already protects the device
-> during seq_file iteration, so the explicit refcounting is unnecessary.
-> Additionally, the patch had two bugs: a refcount imbalance in next() and
-> a missing IS_ERR() check in stop(), which could lead to a kernel panic
-> or use-after-free.
->
-> I will investigate the actual root cause further.
+Applied to
 
-To save you some time digging through the syzbot reports I had an LLM
-scan them and here are the findings:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-It is not the struct input_dev itself that is being freed while on
-input_dev_list, but rather the strings pointed to by dev->name or
-dev->phys when a driver either fails to unregister its input device
-before freeing its private data, or leaks an input_dev instance.
+Thanks!
 
-Because syzbot groups KASAN crashes by the top frame (string_nocheck() ->
-string() -> vsnprintf() -> seq_printf()), the 63 crash reports under
-https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f actually
-belong to three separate bugs:
+[1/1] regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
+      https://git.kernel.org/broonie/regulator/c/2f15518682c7
 
-1. 25 of the 63 reports crash in irq_seq_show() (kernel/irq/proc.c:601)
-   when reading /proc/interrupts, which is unrelated to input.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-2. 29 of the reports (including the initial syzbot report [1]) crash in
-   input_devices_seq_show() on line 1178 when formatting dev->name:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-     seq_printf(seq, "N: Name=\"%s\"\n", dev->name ? dev->name : "");
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-   In all 29 reports, the bad read is at offset 0x758 (1880 bytes) inside
-   a kmalloc-2k object. In most runs that slab slot had already exited
-   the KASAN quarantine and been reallocated (for example by netlink
-   __alloc_skb() or sk_prot_alloc()), masking the original owner.
-   However, one report [2] (log [3]) caught the object before reuse:
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-     Allocated by: redrat3_dev_probe() (drivers/media/rc/redrat3.c:1023)
-     Freed by:     redrat3_delete() <- redrat3_dev_probe() (redrat3.c:1124)
+Thanks,
+Mark
 
-   redrat3_init_rc_dev() registered the rc_dev (and its input_dev, with
-   input_dev->name pointing to rr3->name at offset 0x758 of struct
-   redrat3_dev), and when redrat3_enable_detector() subsequently failed,
-   the error path freed rr3 without calling rc_unregister_device(),
-   leaving the input_dev registered with a dangling dev->name pointer.
-   This is already fixed in linux-next by commit af452b9e0133 ("media:
-   redrat3: fix UAF in probe error path leaving rc device registered").
-
-3. The remaining 9 reports crash in input_devices_seq_show() on the next
-   line (drivers/input/input.c:1179) when formatting dev->phys:
-
-     seq_printf(seq, "P: Phys=%s\n", dev->phys ? dev->phys : "");
-
-   (dev->name does not fault there because xpad->name points to a static
-   string literal in xpad_device[].) All 9 reports read offset 0x220
-   (544 bytes) inside a kmalloc-1k object (offsetof(struct usb_xpad,
-   phys)). Two reports [4] (log [5]) and [6] caught the struct usb_xpad
-   object before slab reuse:
-
-     Allocated by: xpad_probe() (drivers/input/joystick/xpad.c:2052)
-     Freed by:     xpad_disconnect() (drivers/input/joystick/xpad.c:2236)
-     Last work:    xpad360w_process_packet() <- xpad_irq_in()
-
-   In xpad360w_process_packet(), xpad->pad_present is updated in URB
-   completion context and schedules xpad->work (xpad_presence_work()).
-   If presence packets toggle xpad->pad_present (true -> false -> true)
-   before xpad_presence_work() runs, xpad_presence_work() sees
-   xpad->pad_present == true and calls xpad_init_input() again even
-   though xpad->input_created is already true. That overwrites xpad->dev
-   (and xpad->led) and leaks the old input_dev on input_dev_list (in [5]
-   it registers input69 through input79 on the same USB interface). When
-   xpad_disconnect() later runs, xpad_deinit_input() only unregisters
-   the last xpad->dev and frees xpad, leaving the leaked input_dev
-   instances on input_dev_list with dev->phys pointing into freed
-   xpad->phys.
-
-[1] https://syzkaller.appspot.com/text?tag=CrashReport&x=12bef8c9580000
-[2] https://syzkaller.appspot.com/text?tag=CrashReport&x=15d46e79580000
-[3] https://syzkaller.appspot.com/text?tag=CrashLog&x=16cc5679580000
-[4] https://syzkaller.appspot.com/text?tag=CrashReport&x=115fd67e580000
-[5] https://syzkaller.appspot.com/text?tag=CrashLog&x=17f40456580000
-[6] https://syzkaller.appspot.com/text?tag=CrashReport&x=11131092580000
-
-Thanks.
-
--- 
-Dmitry
