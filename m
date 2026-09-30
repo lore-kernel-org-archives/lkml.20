@@ -1,141 +1,199 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8015441A502
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E54397E89;
+	Wed, 30 Sep 2026 19:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797514; cv=none; b=afCmppyYiE6y6KdSjZjmpoTrC2KRZYEcM2Wx5tnXJz0eaKrx7JKbh/IHJNlGKdrg+Ea4jW9E/l04J2NLGskvZf27lhB7bO/ZRLE9nNrds3x0aQYTaiKp5ezBc7wajjZu6iG7A2POd9n765mkh6TzaxhN6ZIs4Qy2QeogngLUIN4=
+	t=1790797532; cv=none; b=fdhXSH3p/M8tQVQSMF5HqevsE7hOWFhUZ7SVjJa6OO9V5JxflkWQBpggLodcwrZ6nNRLEdLLGrWNcPMxReXVht+3X0106wR6sYYFXe+Yb5UiukILAiyQTRCf2Ozfq3Rmi+HXwAxQ6yc1vh9hfhf+540Mv5aEr9GaTAOXqQGNeLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797514; c=relaxed/simple;
-	bh=oEJ9pL2ufHgP3SOJQR5MsVD6wC4aYmWLe1U7dUsX/t0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mHmy1l/5XGLpW82hlx8Tt27nNxgyXvOLT7ew3f2k21My0BC84YG6TjNubyPWtgnqWyEAqIA/R5VRJ60weeonbOWN8gUAptOA5b9cqigewpxvChiwYPfcqlJuglDTKYnooIFJoI1UVL6TVfRCN+PpYnadLIliw83F9Y6bT7N91Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HqOXyU/r; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HqOXyU/r"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e028ed54dso279287666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:45:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790797511; x=1791402311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mHNTp1AZTn0ZS3nuL3EGnRpKBBCGGCs0wPlH2fLdFaY=;
-        b=HqOXyU/rc+zswoa3OnqJkYF2tubohskHSSEws19UygUljU4Zq7vNkpvNjCFg3XEjLe
-         DelkwYzZyL10YlxyexIxXCXyGKuhSVaEsP6TGnTxljT94zvgnqugCxweI42u7kAs/GDk
-         YssAwBmfx2nFR8gzcvccthWtXUwdLtekGBlfk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797511; x=1791402311;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mHNTp1AZTn0ZS3nuL3EGnRpKBBCGGCs0wPlH2fLdFaY=;
-        b=PC+A83Cs8wzh0D6qhndqoXf5tJsxpLgVcmpBdlpwZ6vLTdtTK90N74JOEeGdEox7hB
-         tlZP2HumXUdRYcdx64P2bzgH67i4uwcMIdV4CgPOzRIOqDNy3TRxgI7zGWYX21LlEK+n
-         pvOa1TxFDqjhcMmR5SNxcuc8Ql5tGCQjHlreenUeJ+xYS+NZFQ0wLDtJxpVb4EjXi8QX
-         NlnBdXkR2YTWifzybruw0UdUaWyGhoRbKsc0pz8+0lOsIQDfvM9OGJS5xDOlOeoJQXA1
-         gae6BrYgTi4x2hOU3z9wv0hby2B61u3cebHcjyiMuY4FPoY+TZVz3kZt0JjZFY3AUhnE
-         SGAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpVHbjdjPabomAT3T4ZiWlk0k56udnsblj8zvgaLmILmBQ/htt4+jyFgVVlo003m3CVVLVeguhg6vPLEs=@vger.kernel.org
-X-Gm-Message-State: AFuF++my0MfQ/dO7ISR69iDRzKgLM7XQuiaztffO6sJ3mxxMF1YxV2HC
-	bgLI1G5GJ0KZZRa20JFcQzcCXEEFORg/2/cmuRvDIbK66twuIL/EuuGU/elE5G71sfVGb7DDa4L
-	jCPV3kA==
-X-Gm-Gg: AYBFou0A/we6E/8ZF07kPXIAvur79v2k6uvGPwxYZkn69JOrI0LwwCWI6EqXgSNQD9B
-	PDrVlDWa1NmFr3uyOYP5O7KBBqCHJyi2qaeLNppzkw6TJW+i9PoXLkriHIzT1nOm9eb6HAM8jvr
-	2aUA7OlwjFYB7JCrxfv/DbDsIzs0SvU8+xTSOfPfOD+TuIwlJ9TMzqM6laTs38/eoflLCgsIwZW
-	y3AN+9/jKispDxXqx/vpxvqNkANi1Hpm8OJoVOnuxmXNp586UNiuiAun3h6IDJzjtfqfQcBovSR
-	dy73Z1sLex90mPWvRlD5oPM9/kWFB8BNi3bK9YzSUKDGvJT1NsY5ceTue4EeuPrgS21eVP5xh8m
-	LD5W1L1FpqOL64ku0AtCy2EqVeSet0tFeHGRUpcwLNaYMAmkQB8iHXRXIeTyDpBKTDPEJ0sMWUE
-	IakrSACYXNpdC6zMa/ga2qFYj/03zfFGHHmiSEjRMOZcJW9CZ+XTuFQ/CT+ySzoVSX7qE6BRxd5
-	Vi7uz+2mCWIszihijwKEwPGjG03IFAbc1QP9g==
-X-Received: by 2002:a17:906:6a0f:b0:c29:f5d8:9c7c with SMTP id a640c23a62f3a-c2e23d2a4b9mr204695566b.43.1790797510731;
-        Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31dd9fbfsm48923566b.71.2026.09.30.12.45.10
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so3538863f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzWFHMascN4jnapktCengHuGTzVobdrCwM1MbPLkMPF8vMIyohl30MizUtltygV4m8IN3RNtC0xtgbDDME=@vger.kernel.org
-X-Received: by 2002:a05:6000:25c6:b0:48a:faf0:bdee with SMTP id
- ffacd0b85a97d-48b0252bc90mr4838704f8f.45.1790797509042; Wed, 30 Sep 2026
- 12:45:09 -0700 (PDT)
+	s=arc-20240116; t=1790797532; c=relaxed/simple;
+	bh=Ap7gjptWSBx2aSITXfZEAci+z47z7ruonMtULLZKu54=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JpNKz6Zor04BedYEPgX3W9DBffx6Y7lB1UKBpC2oUWyWl0Qd+gSwvtpXVqVOfu3/Ij1LZ8tKylQbCYsJEPXWAnOFo5deTHCgtMNxPof0yIWlwB72MIpZppNkjv2L8epo3tQtDp/3MKvpKTnWQYhOVOgtC90SjMnyo56BFA89nOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06715415|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0175374-0.00032872-0.982134;FP=16785222267020860626|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jSgVdPP_1790797513;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jSgVdPP_1790797513 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 01 Oct 2026 03:45:19 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v23 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+Date: Thu,  1 Oct 2026 03:45:10 +0800
+Message-Id: <20260930194513.663575-1-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930013029.3241267-1-hungen3108@gmail.com>
-In-Reply-To: <20260930013029.3241267-1-hungen3108@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 30 Sep 2026 12:44:57 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WoNqqYOYTXEnv+Z7Kx2cA1PkYhLqZ9VKTASixJuLJaDw@mail.gmail.com>
-X-Gm-Features: AclHuK_q8n2VplupGbm1CQbFF7zgz0MF-_7CVjuB8tEzVBqsiKmLQaKI4IO57P8
-Message-ID: <CAD=FV=WoNqqYOYTXEnv+Z7Kx2cA1PkYhLqZ9VKTASixJuLJaDw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: ronbo-rb070d30: Ignore DCS errors in disable()
-To: Hsieh Hung-En <hungen3108@gmail.com>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This patchset mainly implements the phy8824 driver. The phy8824 is
+an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+The driver mainly covers two application scenarios:
+ 1. external PHY8824
+ 2. PHY8824 embedded in a switch.
+The patchset mainly consists of three parts:
+ 1. the DTS for the phy8824
+ 2. a generic template testmode configuration api.
+ 3. the phy8824 functional functions.
 
-On Tue, Sep 29, 2026 at 6:31=E2=80=AFPM Hsieh Hung-En <hungen3108@gmail.com=
-> wrote:
->
-> If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
-> clearing panel->enabled. unprepare() still powers the panel off, but the
-> next drm_panel_enable() sees the panel as already enabled and does
-> nothing, so the panel stays dark.
->
-> Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
-> by mipi_dsi_dcs_enter_sleep_mode_multi().
->
-> Suggested-by: Douglas Anderson <dianders@chromium.org>
-> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
-> ---
->
-> Notes:
->     This applies on top of:
->     https://lore.kernel.org/all/20260929080143.559685-1-hungen3108@gmail.=
-com/
->
->     As suggested by Doug in:
->     https://lore.kernel.org/all/CAD=3DFV=3DUU+NS0T-Ga8i12QKTNCYOu8kar_6=
-=3DNsH0=3D4FVUFyKB7A@mail.gmail.com/
->
->     Compile-tested on arm64 with W=3D1; not tested on hardware.
->
->  drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/d=
-rm/panel/panel-ronbo-rb070d30.c
-> index ebe6352db..2d54182fe 100644
-> --- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> +++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> @@ -87,7 +87,7 @@ static int rb070d30_panel_disable(struct drm_panel *pan=
-el)
->         struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
->
->         mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> -       return dsi_ctx.accum_err;
-> +       return 0;
->  }
+changes in v23:
+1) Remove meaningless comments in driver.
+2) Using #define to replace magic numbers during PHY8824 init.
 
-It's probably worth adding a comment explaining why we are purposely
-ignoring the error value. Something about
-mipi_dsi_dcs_enter_sleep_mode_multi() already having logged the error
-and how a failure here shouldn't really block us continuing on to
-unprepare to power the panel off.
+changes in v22:
+1) Using motorcomm,package-mode to replace phy-mode in DTS.
+2) The corresponding parsing has also been updated, using
+   "motorcomm,package-mode".
 
--Doug
+changes in v21:
+patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
+    2) Using 10g-qxgmii instead of usxgmii.
+patch 3: 1) Change the usxgmii space to serdes space.
+         2) Add lock operation during phy-package init in probe()
+         3) Add check for whether auto-negotiation is enabled
+         when updating the link status in read_status().
+
+changes in v20:
+patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
+
+changes in v19:
+patch 2: Replace the int type with the u16 type for test_mode.
+patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
+         yt8824_utp_invalid_test_mode_paged() into 
+         yt8824_utp_set_template_test_mode().
+  2) Add a fatal error return when phy-mode is missing in
+         the DTS.
+
+changes in v18:
+1. Split the template_testmode() into a small patch 
+   and optimize the implementation.
+2. Optimize the definition and initialization of 
+   interface_mode by adopting the existing approach.
+
+changes in v17:
+patch 1: Remove redundant description.
+         Use phy-mode instead of motorcomm,interface to describe the
+         interface.
+         Add the required checks.
+patch 2: Use phy-mode to get interface mode.
+         Need return after init configuration is done to avoid falling
+         into the error path.
+
+changes in v16:
+1. Add DTS documentation.
+2. Fix redundant initialization.
+
+changes in v14:
+1. Refactor the error return path to preserve and return the initial error,
+   rather than letting later errors mask it.
+
+changes in v13:
+1. Fix the lock release issue on the error path to prevent potential
+   deadlock or resource leak.
+2. Add a func yt8824_restore_defaults() to restore configuration on
+   the error path,ensuring the hardware/device is left in a known
+   good state upon failure.
+
+changes in v12:
+1. Refactor the yt8824_read_status() function to ensure proper state
+   synchronization between hardware registers and the phy_device structure.
+
+changes in v11:
+1. Clean build_clang warning.
+
+changes in v10:
+1. Within the interface that swaps to the USXGMII reg space,the lock
+   include shared_lock and mdio mutex must remain held throughout 
+   the entire operation and should only be released after all steps
+   have completed.
+2. Improve the template interface in phy-c45.c
+3. Fix the handling of some failure paths.
+
+changes in v9:
+1. Add shared_lock mutex prevents UTPs from interfering with each other 
+   due to swapping reg space.
+
+change in v8:
+1. Clean up format warning.
+2. Fix exception handling code logic based on Sashiko/Gemini.
+3. Remove interrupt/handle function
+
+changes in v7:
+1. Refactor the using of mdio lock
+  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
+  at the beginning, switch to the UTP address space after the operation is
+  completed, and then release the lock.The purpose of doing this is to
+  ensure that it will not affect other UTPs operating in the UTP address
+  space.
+2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
+
+changes in v6:
+1. Add  test mode helper in phy-c45.c
+2. Refactor the using of swapping paged for utp and fiber
+
+changes in v5:
+1. Fix diffs issue which caused by unexpected whitespace.
+2. Fix "exceeding 80 columns" warning.
+
+changes in v4:
+1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
+2. Fix locking issue. Since every interface requires switching of space, 
+   the bus is already locked during the space switching process in
+   phy_select_page(), other operations within the interface cannot 
+   be locked again before unlock in phy_restore_page().
+3. Fix warning log identified during the inspection process using
+   checkpatch.pl.
+4. Fix the way of using common api in phy_package.c
+
+
+changes in v3:
+1. Using common apis defined in phy_package.c to handle shared top
+extend register space.
+2. Add dts demo in motorcomm,yt8xxx.yaml.
+3. Fix unnecessary redundant judgments.
+4. Fix BMCR registers operation using magic number.
+5. Rename function based on its approximate functionality.
+
+changes in v2:
+1. Remove duplicate code and replace it with existing api.
+
+Kyle Switch (3):
+  dt-bindings: net: Document Motorcomm YT8824 PHY package
+  net: phy: Add support for Template Control register for PMA
+  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+ .../bindings/net/motorcomm,yt8824.yaml        |   78 +
+ MAINTAINERS                                   |    2 +
+ drivers/net/phy/Kconfig                       |    3 +-
+ drivers/net/phy/motorcomm.c                   | 1887 ++++++++++++++++-
+ drivers/net/phy/phy-c45.c                     |   23 +
+ include/linux/phy.h                           |    1 +
+ include/uapi/linux/mdio.h                     |   12 +
+ 7 files changed, 2003 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
+-- 
+2.25.1
+
