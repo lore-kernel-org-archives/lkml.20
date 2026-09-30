@@ -1,159 +1,257 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB18B471424
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AE4471D1F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758730; cv=none; b=clpgpXUkily45TRNUul+2h61A8xNO32rr/0EbiJrTviaayz1t49CKsOdQ7xKsIi/sDNhkrXZJAZnPh7wYMW31StnLrXuMTxgctEtywO8W3vPSe/i5riv4XL83yS3guO0cLj2G9XRBuqeUJ4EY5zhmKXylWKOemeJuW2T5Juzw4w=
+	t=1790758768; cv=none; b=HaNnGej9SLPa33EjAesA8JzLAHQ6epadj7OegYkvq/QIioO8m7Bue++GkoFeZ2VE68P241YjZwXdeTL2vSjUwF+YhKOR6L+coua4noq3peVRarMpnsHyQY/KAHI+BBflZCIPg59mGDK6WneAdEj5jp7i9uvYgpMOlGkXnl4xX60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758730; c=relaxed/simple;
-	bh=mZ62Kng/0Rgnxdkn4HmMlG6Oxc+tVal1JPFn6pjaB3U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cYgN27jmYRasPMpoe+2pP9PKDg4wIhxGNfDPfn56pseFvJOpgkaBaH26gDhOvc1VkOUdgCJVkRWxUTO33OnGRSmUt8vUHj8NeLcCP7Y95fu+2A7oYDTr5Sc9U78ag5HJFQvqFEKAxq8wzTocPEKxJoIcTu+nw5HRlwasSPevl2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WHqrHBC8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K5LI9n/L; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790758768; c=relaxed/simple;
+	bh=mpQhRYCu0dg3KElr3JPFwpohTwn3Jjao9cHLc/MGV8s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FnFBUkmxwQtzihFiWhfNWjKHn+uVE61F9vX5vtwSmU29aKi/GZJLaMYlNfAK10Jkb+24agzZ5Vfumy6LLUZ0h+pskMXxJcyzFkMrjYraN/rEBt3STbkuReFDh3mYxFel8QqGTGAyq48RFVnNTk63haCzqIJkr8CDSRvcxvO0y3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z40h7m98; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WHqrHBC8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K5LI9n/L"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dNfC3082220
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=; b=WHqrHBC8V4pGgxVA
-	VfNRGe3zNT/WpiNniEJpuWIi2pZQX6kET54Sb4TmmoCPtzFWuJny1SxESPsDqcM0
-	Exe0ObADWSHVwWqlv+UTWqaXMrvJ+l44iY5SUGr2e9LHSnuBHCK2ggOPciEb5B5j
-	ecHhtI65evHiOrlZ3YNRzSGzk2rYDOIjcrmqyp7Y+j+EGPce60B+6HNS/Z12fWY+
-	n27bgDUvNbVoMTRfw9UIdjoiQTQBdyFt0ibzUyeV2IjlyGNPFNJC3WYUk7j8q43s
-	cdOYNwwgO8P+8izf2v/5lR2XdJO7Hffqd1Mo/MbUFyN8Mt+t9QIvC8DISXDwJvMi
-	u6pAxA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0w140p4e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:46 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530d522a20dso14168191cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:58:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z40h7m98"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so463312a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:59:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790758726; x=1791363526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=;
-        b=K5LI9n/LEBSCGzZqqzT3US6Df3aOh/5cpCFhzkDw8Wrtoyj0NRIDrzibziWPsK8pHl
-         WNwWViRL0Hhb7nIbpqRmdVKIgAWJp7y9iug2ShRxlTBwT4mepK8DTMZUJoSVpEgsw4kb
-         HMoB8Rq6WSZovdM9zQgGTzAUoe8GEi2OL+0Wx5LPCrrK1eQaTOowo8Bape00SXAW+BpT
-         xa3NARcDF90c773JqQzOVt+sTLR31NhweP+hthOjXxsk43xl61dObm7CbXcGhNwhENPi
-         RuMikjclLF1p9+jSAiDEvMKhs3qN/K/YBQwYRYLQrpL2iR4sGbiYA302QnOjPBg595gC
-         /t5Q==
+        d=gmail.com; s=20251104; t=1790758763; x=1791363563; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lwqDJJxq+i6yiMKe3H7XeoLAk9BxxMBDZsuZ7Sfnq6I=;
+        b=Z40h7m98z323VKNhgYINYG1pSkBNiWTyHRUIrbeNRgNEezEmN1tslyZKU4yMmcmzSb
+         TfT8da0Mj9usF1wNbnfw8Lrdk5QWSTuVXeQQICZt2KxiTyujissCbjnouwhfrT/3hoXK
+         P3ohdcjmi5t9XqxMR0Ja/o2cs+BM1Cun++ZJcfFDsnPgA7vGz5ocgLfzjUMsXA5q+Owv
+         N7bWF8Fk/Kfhznc9d8U7ShS1iK+lecr+BaAKVJbj3JlSfb2OKiaUj+bJb5fi0QkByw6W
+         T11mF5fZCyq+aAEmwPnpcXmSx6tkoFqYb2Wn28pDifwsubH1lbwjxdXWDqRXkdz6BtLV
+         yGag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790758726; x=1791363526;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rmkFRaiiplQ+paOGLk3epfQou5738Zs3wOw+JTEUgjM=;
-        b=lsHtMsIlTPIPc8or8kdGsDtyr27u40nnmQYU2OCaLs926VdfvZoCmfuym3LIXBxoKW
-         /89MPLVyF3ffVXbZQpVQHrqu4wHIOpHeQTA17e3mpujOMpcx+5Vj56D0d96S3oZXqe2o
-         9B0JRDyCGSnfxZ4XOT6D184P1ujYoXtp75x9fqDg1l8SlmKQOE2IwrtI19gQUBE6keMJ
-         m5mI+3Q3kUT8HmTTt8CNE8Nq7mmFixeS6fiQbg64iZqLWMCv+62VtaVvi4nWR9Y0TkDN
-         fVe318m8aHgIJsn9DZb1qy06MB7VYgcaLd575EPXVRkYaX0btiKe+yHe4DHOF8QsETRi
-         0xow==
-X-Forwarded-Encrypted: i=1; AKwUvByZT6knD+WsMipsQxZ7wzOyXfseSbf4NLYdviRaBAjDpeRssAUVInYYXghRtQ9FtYy+H5zfpGHHjM1bZ/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFz5xgvwOBDtqBzrVbVHG98eUqCF1k0ij+12XHpOl9Xds5v3NL
-	/guRf6FUbCmaTCIEVw+Ia73GiDomDg3snsFiRIuInzwkrlRzi4gxiouALqEeQ4fkMnldF3Ze1ve
-	6NfXfFMf7RalfPscLIoXRJpCq8lF/2LSIO/rBJtZtFxf0gtPrUMW95pxaI5GYtTsFV8zduGd41H
-	c=
-X-Gm-Gg: AYBFou05swQ7knwgXbWt+yWiqEWQj5kRO3bNbwNaMx1++Y5H30Hs/48+CPb9RkjbrqQ
-	/Gl3fQnp9LQL+k86L36Ao1mYrUrHCOo+81AEoFvk4s1ev7StPnkYKaKFUpHKawGiER4Fv2hojhW
-	fWYedY+5G4bygt4GSAMbTp+s+0sgSlDYXio/RViquyJEMeSsvzHznIoBMGtQbqQ6U3F0YIgh5gS
-	rwFrdES7FJ1kiO+CelPoDamna20enlS5ve0vWGki6rhcTyjUyzYwVxfyh4RWsdM5R5bFo6/09aA
-	EClMclsDuovjgmVmrfzxeUs6ZquvsNHmUlfhNu/Ofx2edn7wyc8zzboSbpIyckbP+VyB/5DigAQ
-	Li1WRJMW4TUKsBDVYQdERmg==
-X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id af79cd13be357-93ca9880834mr94463985a.5.1790758725782;
-        Wed, 30 Sep 2026 01:58:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id af79cd13be357-93ca9880834mr94461185a.5.1790758725400;
-        Wed, 30 Sep 2026 01:58:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f79497sm31063166b.39.2026.09.30.01.58.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 01:58:44 -0700 (PDT)
-Message-ID: <9b4eb301-5bb6-45c4-94eb-a6a3a2540309@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 10:58:42 +0200
+        d=1e100.net; s=20260707; t=1790758763; x=1791363563;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lwqDJJxq+i6yiMKe3H7XeoLAk9BxxMBDZsuZ7Sfnq6I=;
+        b=bKNm8VIte/FWz6dRvC/IhIpHNJXELF1hv/hRd5HCUPA3uY/iZTOXj6ftefRRxuA6pm
+         qj1JeYCWhi310QCYR8hqFgu/dFBuFGLck1CYsGhDsYylsAU6VPitKk+HIVCgJSGiqpTb
+         Er3fjsX3IAPz+/dmFh/3Q9jI951gXbQe+/3bdTwIR/cMj125G58PiqkbL5e4UK6eRld1
+         xdcJBdV+AboyPFt9zumzR0Tr0E6mBKv2F6oylrzYmWTekGq+MtCK/ZV8Bqp8GVJQYURE
+         sjiuHH0b5OecLle+RrZXVeomAxR5J05zUzM2R+Q7fmO4tKBb6kHyQHR9HsM3FWL4Ih+V
+         7O0A==
+X-Forwarded-Encrypted: i=1; AKwUvByheYTwHwUNXy6Jxio7FeXaynbYh/5xMBuVVzwls2cpoUUCqtU+9yN9+bBXNgcChjE+I6GJ/Nd2SMgDHSA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKD7uNXk01iVQmXKMtQKHhYT0qKY2yQ+rrm/6n8Ua02TWA91ohn
+	gvKdxYJNWKGsQn2D7pc8rOQPqRfKuyCscEV3eis9C/eTH8oElOCio8c7
+X-Gm-Gg: AYBFou0mNTIX00mfHuRHGxxEQ99iEGuMMuKiw2JOtR8dT1BJeMkLnhXeOLbm3W5yyLZ
+	C1eLCUFP1uF6go8FzhZtfnsU69l6qyPVySospM4/1s/i0a8LcidWvVl03TEPjx8+Xauben9ljSD
+	EZ4yda2/3yAfARBK544+EWZgfee6RCRtG7oNaYzGLfGyq3OsmOvXpYe24sIZ17LzK3G7o8haOCl
+	pyOxGmWV1LZEdTRnIXMYfZLw5QyTaLdp23TSehrGgwGQpQ8Jgkw5eCI91hUs6maYudE4PBzDEzi
+	nLGKXZX8NaeXGynrrL0LFCKkts6T24Gw1dh3YS7ef8Nfpi70R9GNiO2+dQcQ6Up3oS871FH88iY
+	z954FkuGBuhoVmbYK2IYjxnWtYK9NtFK7b/4JEaINoRzzQOtr93LgqmKvg7E1Uw8BM8JrmzSdWI
+	QRtKbEDR9yCGGbTBl/jNXRLzZI8kweeRcCg5SsM2JkVM3/2t/Qx/3Vcx961wpIABtSuYW8tg==
+X-Received: by 2002:a17:90b:1d0d:b0:3a0:e476:576b with SMTP id 98e67ed59e1d1-3a4d179ece8mr721296a91.37.1790758763142;
+        Wed, 30 Sep 2026 01:59:23 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce16ac10sm2149770a91.8.2026.09.30.01.59.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:59:22 -0700 (PDT)
+Date: Wed, 30 Sep 2026 16:59:13 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 3/5] phy: core: Add phy bulk data helper functions
+Message-ID: <arzLeuO0qbRxofFv@inochi.infowork>
+References: <20260929085235.469515-1-inochiama@gmail.com>
+ <20260929085235.469515-4-inochiama@gmail.com>
+ <arzGyL8gGrxeZoN7@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] clk: qcom: gcc-sdm660: Keep the USB GDSC in retention
-To: fabricioakio@gmail.com, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-        Martin Botka <martin.botka@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260928-sdm660-clk-fixes-v1-0-5d5bb84e3258@gmail.com>
- <20260928-sdm660-clk-fixes-v1-1-5d5bb84e3258@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260928-sdm660-clk-fixes-v1-1-5d5bb84e3258@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfXxM7D8A2O+Bu9
- UAk1B0Q1iQrUWlYLUc+RpzgVdhIRO786UbNzYsmfhgRwDwX+JgTPHHcVMX0Zrkmx37v4OjsxrUv
- GYgp14xa7JF/6jj7jrdb5RdfODShPKE=
-X-Proofpoint-GUID: L6gdJaCVb0FZlhKvWmtoPjgY5u_4fGG-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzNSBTYWx0ZWRfX8vhT7sQhrOUU
- x/OXmgyz+eB4guskuxfGByIkMbAWrFdODhofbK70d7KTVt6Sud0rrCPdUWUhqKrEZNma8lWMbf+
- ShmYyXI1a2wNZ7z5fVozQE1Yyrvyv8thO7/fGR+zuH8PB2jr4rZV13Moz7zVnnDtukdLpTPWfAB
- Z20vnYME3m7L2KvX8n2r0FsxOboPR0bBXCjGF3ID1ie/kXSQKa7PUSbvo77oFOM3e7CDrqom+nv
- rS1Z7rWQpXGulY4F5IkDBPCY7c75/7GXU8b/KFFDWAo6adv7DHvfxJAoVIK3gI3ktiZyu5jX+EO
- XulZ3Dr7/V/2oTmRydUsEbwsXQgEES9pvl2PWixfvQ/gK+xCL+MqVDDT7gfH0O7V5i5RLqsU9eD
- 7CQmq05CCmmYB0+vXa2XYZ7Qj1W0DgziLMopsxPikDcj+1ki5QrnyrY3ZUAif8vrr9TFX2bsuuw
- loIqXcMCwTh7Fik2sjA==
-X-Authority-Analysis: v=2.4 cv=J8Q/fwnS c=1 sm=1 tr=0 ts=6abccf46 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=fhGIgCobiWGKHZvJdykA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: L6gdJaCVb0FZlhKvWmtoPjgY5u_4fGG-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300035
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arzGyL8gGrxeZoN7@ashevche-desk.local>
 
-On 9/28/26 7:41 PM, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
+On Wed, Sep 30, 2026 at 11:22:32AM +0300, Andy Shevchenko wrote:
+> On Tue, Sep 29, 2026 at 04:52:33PM +0800, Inochi Amaoto wrote:
+> > Add several helper functions that allow drivers to get several phy
+> > consumers in one operation. If any of the phy cannot be acquired then
+> > any phys that were got will be put before returning to the caller.
+> > 
+> > This can relieve the driver owners' life who needs to handle many phys,
+> > as well as each phy error reporting.
 > 
-> The DWC3 glue writes its QSCRATCH configuration only at probe. When
-> system suspend switches usb_30_gdsc off, that configuration is lost
-> and on resume the core fails to enable endpoint 0. Keep the GDSC in
-> retention, as is already done on:
+> ...
 > 
->   commit 78a2f2a04fb5 ("clk: qcom: gcc-msm8996: Update the .pwrsts for
->   usb gdsc")
->   commit 83fddbcc8337 ("clk: qcom: gcc-msm8998: Update the .pwrsts for
->   usb gdsc")
+> > +/**
+> > + * of_phy_get_count() - Get the number of phys of a device node
+> > + * @np: device_node for which to get the phy
+> > + *
+> > + * Return: the phy count if successful, %0 if no phy handle is found,
+> > + * negative error value if error occurs.
+> > + */
+> > +static int of_phy_get_count(const struct device_node *np)
+> > +{
+> > +	int count;
+> > +
+> > +	count = of_count_phandle_with_args(np, "phys", "#phy-cells");
 > 
-> This change should be reverted when a proper suspend sequence is
-> implemented in the USB drivers.
+> > +
 > 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
+> I would drop this blank line.
+> 
+> > +	if (count == -ENOENT)
+> > +		return 0;
+> 
+> I'm not sure about usefulness of this kind of trick in the _count API.
+> 
+> > +	return count;
+> > +}
+> 
+> ...
+> 
+> > +static void phy_bulk_put(struct device *dev, unsigned int num_phys,
+> > +			 struct phy_bulk_data *phys)
+> > +{
+> > +	while (num_phys--) {
+> 
+> > +		if (!IS_ERR_OR_NULL(phys[num_phys].phy))
+> 
+> This should be part of phy_put(). In general many kernel resource release APIs
+> are NULL and/or error pointer aware. This is a slow path and it makes user's life
+> easier
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Something reasonable, As of_phy_put does have a check, but phy_put
+does not and it use phy->dev directly. I think this is acceptable
+QoL change.
 
-Konrad
+> > +			phy_put(dev, phys[num_phys].phy);
+> > +		phys[num_phys].phy = NULL;
+> > +	}
+> > +}
+> 
+> ...
+> 
+> > +static void of_phy_bulk_put(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	while (num_phys--) {
+> > +		of_phy_put(phys[num_phys].phy);
+> 
+> > +		phys[num_phys].phy = NULL;
+> 
+> Is NULLification mandatory?
+> 
+
+I think it may not be as the phy is managed internally.
+But I think it could be keeped to avoid misuse.
+
+> > +	}
+> > +}
+> 
+> ...
+> 
+> > +static int of_phy_bulk_get_by_index(struct device_node *np,
+> > +				    unsigned int num_phys,
+> > +				    struct phy_bulk_data *phys)
+> > +{
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		phys[i].id = NULL;
+> > +		phys[i].phy = NULL;
+> > +	}
+> 
+> But why? The below does the assognments.
+> 
+
+I refered of_clk_bulk_get(). And at least I think the init for
+phy field should be kept for an initial state. For id, I think
+it is possible to be removed.
+
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		of_property_read_string_index(np, "phy-names", i, &phys[i].id);
+> 
+> > +		phys[i].phy = of_phy_get_by_index(np, i);
+> > +
+> > +		ret = PTR_ERR_OR_ZERO(phys[i].phy);
+> > +		if (ret) {
+> > +			phys[i].phy = NULL;
+> 
+> Same Q: do we need a NULLification in this case? Perhaps the respective APIs
+> should be error pointer aware?
+> 
+
+I think this should be removed to keep the error info. This is the
+thing I have missed. Thanks.
+
+> > +			goto err;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err:
+> > +	of_phy_bulk_put(i, phys);
+> > +
+> > +	return ret;
+> > +}
+> 
+> ...
+> 
+> > +/**
+> > + * phy_bulk_exit() - exit multiple PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to exit
+> > + *
+> > + * Exits the PHYs in reverse array order. All PHYs are processed even if an
+> > + * error occurs.
+> > + *
+> > + * Return: %0 if successful, the first negative error code otherwise
+> > + */
+> > +int phy_bulk_exit(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	int ret = 0;
+> > +	int err;
+> > +
+> > +	while (num_phys--) {
+> > +		err = phy_exit(phys[num_phys].phy);
+> > +		if (err && !ret)
+> > +			ret = err;
+> > +	}
+> > +
+> > +	return ret;
+> 
+> So, we return an arbitrary error and inconsistent state of the phys[] array.
+> What can caller do about all this? Any type of recovery? TL;DR:
+> I put in doubt the function prototype and the implementation (error handling).
+> 
+
+This is something I have done wrongly. It should return when the first
+error occurs. So the caller can continue to exit the left phys.
+
+As the phy_exit() does not check whether the init_count is 0, I think 
+an additional check is needed fpr phy_exit() to avoid a negative 
+init_count.
+
+> > +}
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+
