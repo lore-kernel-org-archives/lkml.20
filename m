@@ -1,110 +1,79 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA76E1E1A3D;
-	Wed, 30 Sep 2026 01:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EE91E1A3D;
+	Wed, 30 Sep 2026 01:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730493; cv=none; b=C/dDOaLiJPH+KNv0nZVVlIs4ejmhtCZmXi60mJGcPeWc0+x0eGMQR7fsHxzKwUJPL3zAe1ijn7rwjFFsNptMTNeXfvwvXXZniHzAiVkEdKvB3oYAwB9drBehpIYLR1mvHVwUpmsClWh6A7StBXuVXBieX4NcS6AJjBc2b0Rx7nM=
+	t=1790730571; cv=none; b=LpS4/LckW3SfG1uycPu/BWET2w9TDIV/QCQmlZ7mNKZzB8PMSH6m+/3TEh4j0cFgxYIV3l4Fi3AdynhvZ7ikAFX/Qu2uMsKkK9VrVLafOXGi/6JVM3cVtYkmJBhP0PGa9BPVfBkr94uNG2TQA/qTPDxrcjjgisQLn/hVwJ/tNlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730493; c=relaxed/simple;
-	bh=70J7NNdFN9iAGf3Qj3JyXlavrQs1w70uu+ZcCSB862w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FwqyetztZj5L6SxYfrc2hOhaB907UphSDjddGwAor9WsnAqsMM3D202WKGIAMj4vmpzncF0I+zRPfUIqBf57muUxhICFKRirQ8eAeefH3SGmu8ScoxND9lyQI3F+9A3pBEI6ZaBMVnu+Zoa1e+tLEwU/+cI5oAF6ds3dJi5OKxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
-X-QQ-mid: zesmtpsz6t1790730460t0f88200f
-X-QQ-Originating-IP: OwcfBdNuqctd8CjiAUHOXhQcKMNZu3TocnKPXxHAhGQ=
-Received: from [192.168.21.56] ( [111.8.45.130])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 30 Sep 2026 09:07:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8595862658938292285
-EX-QQ-RecipientCnt: 6
-Message-ID: <E7FFA319011BB387+42ce8b1d-eafe-4cfd-8711-a783b4e068f0@kylinsec.com.cn>
-Date: Wed, 30 Sep 2026 09:07:37 +0800
+	s=arc-20240116; t=1790730571; c=relaxed/simple;
+	bh=fWQtMqQtZ8CuGK4opxBxrzBeDCvijwDYNaKWzT5HhCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EpynZnmstj8EMd6SIfjFWRe7oL+AiwY03NugnIHLi+rsZ1DQIhqLjLxL2M3lemFZsBTVFjDCgrExeUIkEySfwS53i0tpiKqdcsSCEmHo1QG+b844v8DYJ/vcy5gi4jG1/i8A98DEmbzUy58irAooxzcxlMjtYXe2+i3VBHIvtf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fSOCQkQ8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fSOCQkQ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BAFC1F000FF;
+	Wed, 30 Sep 2026 01:09:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790730569;
+	bh=u4G3sKWZIlCfo2hjBMDIfRgFkOo3aOxVZX09z7zcj3o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fSOCQkQ8n6pZPkXZDoHF8wcQke84pv6gMjBzBCiLHDy/HlPQ2W+vniU8herUwFNWw
+	 CHhSK0y28CdCLm4ik3KSQ4mNZcUQ0RY4hFihRosnnttXsJ6MNXm6fY3tSdcP7r5rmK
+	 +2YzxFo0IwJFNYSQfsSMeEOpekooL5wY6D/5moaPR3voISvDqPDVL3UUWXUlj72OLE
+	 9xlO7SF0SOhGcuEgROBaipK4VF3Wi2Id3nh4597MEpT9rYEYl7TF4twvm/8dFtpR7W
+	 H8DETQggxKwciqIqAcjE9yPQ0W1LbP9H338mwHIhzeZPncnQWblTD5dj6rXq0xTwRj
+	 0aQYnQbomFf1Q==
+Date: Tue, 29 Sep 2026 18:09:28 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ horms@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux@armlinux.org.uk, nb@tipi-net.de, jitendra.vegiraju@broadcom.com,
+ thomas.petazzoni@bootlin.com, alexis.lothore@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, pbrobinson@gmail.com
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Don't set or get RSS
+ parameters when not supported
+Message-ID: <20260929180928.546f23af@kernel.org>
+In-Reply-To: <71adb267-2dd9-4225-91e5-19848a87eb49@bootlin.com>
+References: <20260928145043.1228968-3-maxime.chevallier@bootlin.com>
+	<179067171307.434549.1093187286398187440@kernel.org>
+	<71adb267-2dd9-4225-91e5-19848a87eb49@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rtc: rs5c372: add missing error code for unknown RTC type
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Deng Yingchao <dengyingchao@kylinsec.com.cn>,
- Qin Yungao <qinyungao@kylinsec.com.cn>, Luo Qiu <luoqiu@kylinsec.com.cn>
-References: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
- <2026092921481727857dc7@mail.local>
-Content-Language: en-US
-From: liudalin <liudalin@kylinsec.com.cn>
-In-Reply-To: <2026092921481727857dc7@mail.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NSVxyzdiwvnqcyhdX/1KNK14ZSuKaddh6FANlULDrhBfirme/fBOKSNd
-	sVDdEC2orii49lVwODPhSNoMveNnr2M2wT+y8BXiJkfLmd+qNmHPKDQRAx7wVXgK+U645AS
-	yN7tbq0PCnYBsMHcKqwnNZC1WY0EvI2vB2j9xdEvp7v/ya1/a91dEHGqTiKuGvY9CGBxuYh
-	/1IHZ5NWRoJoP4Xzky4dPpfcpiBPsBX81vFd3r5DAEY/0reyblCkwYZ05Ko2M8hOMXvJOpC
-	VdMZmjT6v7oyKt4cEZPxgr9h5+Qnqpp/soNYuVyP5d20r9unGI/V6lgMCcKMRyIeFC2VYoV
-	6BM/ivTT5NlblkpTZRZOiqR5oW1WX84NtQzgllaZlW9hbA4m2ljnT8DE3CtVBgsVcecdg/4
-	I2fE80avT2frnI0s2EUhifGs0oK892tFmd/WmzPyq23aSuJsDW1sQqUws4wQntnkyrdZU/c
-	ZUGsMaQmkkKGFtHKbYt1dsNc9dU9yfSv+KzGykaPRWwJZOlqCuP3nUE8lzbepGEMnzMNHDH
-	QTvtwFNGturglRRlPcczu94lAEp4xaXGYoOzt9HbRtUArhJ21nJnY/pxMnmDaVNAsqKZulB
-	+TLRmmzg+vzYQQ5tLURtApD1iou2VU14paNr/xvLZ3fcIymX6dG/RZ5krcPqqIKZNl4olcJ
-	Zv+WaFbkZuR+GeXPeQHd7/vZ1Z74zW/DWszr5W5NNVRXDYyozJRyiXkJ9ro+fPROopCnmr4
-	9EklKk5KIvEIXQMFwZkAdabYi+HTOjru2ZfynOqZAR/mur6fDMvNPSFTbbxCyXn0ysi27ng
-	Ck89O3XUFyQcTG1QdNw4868PSuFRmSrezc9VBPoFv3EwKIZr0/2tCGldBay+TCVm9ZohJmg
-	PZhBNzfLFw2rDO/ULdKYBauU6eFxrrZwBa9Z1Ga4D6NWOhYZPVtnhe8D1RTrpCQ/txsJm2j
-	tSf+Qm71yL2IL+9SMfYDKalKp07/GWGJnaTwduSnhe3UzQPuUB7zQKfc0tDNbLFXie475FX
-	BZjBbhcBSielT6adffdbYZZk0uuCxi5SsQGwUWNPoklh5LwIs3NrSbx2el8/KUUvmQQXBmg
-	JpEtMi/ZEmEszjJ/G7Q6MM=
-X-QQ-XMRINFO: OD9hHCdaPRBwhLtWeuGpOsVHN6RvCZWPxQ==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 29 Sep 2026 10:57:10 +0200 Maxime Chevallier wrote:
+> >> @@ -943,6 +949,9 @@ static int stmmac_get_rxfh(struct net_device *dev,
+> >>  	struct stmmac_priv *priv = netdev_priv(dev);
+> >>  	int i;
+> >>  
+> >> +	if (!stmmac_rss_is_supported(priv))
+> >> +		return -EOPNOTSUPP;
+> >> +  
+> > 
+> > [Severity: Medium]
+> > Does this -EOPNOTSUPP break namespace-wide ETHTOOL_MSG_RSS_GET dumps?  
+> 
+> This was reported by Nicolai already, and other drivers report -EOPNOTSUPP
+> here.
+> 
+> If we address that, I'd say we do that in the RSS ethnl code.
 
-在 2026/9/30 05:48, Alexandre Belloni 写道:
-> On 27/08/2026 09:58:46+0800, Liu Dalin wrote:
->> In rs5c372_probe(), when an unknown RTC type is encountered in the
->> switch default case, the local variable 'err' is still 0 from its
->> initialization. The subsequent goto to the exit label then returns
->> success, even though probe has failed.
->>
->> Set err = -ENODEV before jumping to exit to properly report the
->> failure to the caller.
->>
->> Fixes smatch warnings:
->> - drivers/rtc/rtc-rs5c372.c:860 rs5c372_probe() warn: missing error
->>    code 'err'
->>
->> Fixes: cb26b572dc394 ("[PATCH] Update the rtc-rs5c372 driver")
->> Assisted-by: smatch:2.0 [static analysis]
->> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
->> ---
->>   drivers/rtc/rtc-rs5c372.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
->> index 24bd795d9d95..84407119caba 100644
->> --- a/drivers/rtc/rtc-rs5c372.c
->> +++ b/drivers/rtc/rtc-rs5c372.c
->> @@ -857,6 +857,7 @@ static int rs5c372_probe(struct i2c_client *client)
->>   		break;
->>   	default:
->>   		dev_err(&client->dev, "unknown RTC type\n");
->> +		err = -ENODEV;
-> But isn't this dead code that will never be reached? In what case would
-> you be probed and not match any i2c_device_id?
-
-Thanks for reviewing.
-
-You are correct that the default case is dead code for current driver logic.
-
-Alternatively we could remove the default case entirely, but keeping it 
-with proper error assignment is safer for future maintenance.
-
-
+Let's get this in the same series, cause I'm not 100% convinced.
+My instinct is that returning 0 size for indir table and key
+would be correct and less hairy for the core to handle.
+All pieces of RSS are optional so returning 0 size for everything
+should be equivalent to having no RSS.
+-- 
+pw-bot: cr
