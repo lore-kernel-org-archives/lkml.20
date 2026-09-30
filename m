@@ -1,278 +1,97 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73F84DDB33;
-	Wed, 30 Sep 2026 15:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AEC4C9DFD;
+	Wed, 30 Sep 2026 15:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781193; cv=none; b=H6VzNPYnCrp9weqO3yhKrIS5DbSiI20amAyhH3SQ54zg/UjeoEiL4oZ0TlQHysUkmnGEqAje34jK4Vj23DKcikli4nB8RvZj3lRjmfCOmefTBTMOpkBttkwWj9UR7jFnpUgnezNbtEKN/e/SjUNMXztVWayOqo5dt+1AofHUUGM=
+	t=1790781237; cv=none; b=VQOJk5sPXFV6nC/fEvZTyMviLws1Z2E3URY8mU9ufl9aT6kVSzpWRv94XpfVejoMUsgNKQaGPCQqyIYZYYHjWzO60A+tMACN8KWuatzK1dgc3ZXrtHxNmR7puG/CJIONR2XbS47EjcUmhgWf3sBEpTDYynPYXaq3SnPti1L2xPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781193; c=relaxed/simple;
-	bh=GWvXpMCyRz23vwGyByDqhR0iZB1dcjWq3CJUnwuL7hw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=svlKd2t0vf2W7qNdatYp0N3pXGy/Z44FX0aQ6Hofsl8ErEE1Z/YN4YY0PQVWvtqOjeiKJVtLDDX/CM+BL3S8RmGfPZkKjcN7loQbwR9zRUqEd/ZUZi5B5LgTJzjlR0qXeL2qw/Be9N+8pCeE4oTfFTIQTikQqSJm2lyEH25/RnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YoxwdqYy; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790781237; c=relaxed/simple;
+	bh=hIZ8w5BRtWK9k+pdO+taZIGlaFDD5KANeuDVg/5jR7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VanJnv45PfWXoqzhmqKkeN2YZo2CHJDD7wbMdPwDacqpKbnf3K4fFjFlMEqTg4as8DC1vhNjooGvtH4waH4gOE1YGES/2FVl845gq2tpTO6O74P0usNDhZTeoHzKA8pGhmAAgLCTVZ4x3N0xAj6mn6ffOlo6+IqR3ptkPO/1Pk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n05xolRq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YoxwdqYy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790781167;
-	bh=GWvXpMCyRz23vwGyByDqhR0iZB1dcjWq3CJUnwuL7hw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YoxwdqYyIWHZkoSWlbEjf/zfYxAq8toBZ9BwWuim733cXmLWBDAVsUKjivIXfvRfU
-	 UONx7JmVc+6gaGavNX/AluiYBIbC8quppuPSl2mOVRuDhk7KJW7C1U40pO8ghrhg5i
-	 0Oq3Gfs+Yqf8ah+/JpX8v0/MIK54t7Jpd60nhzhWZCDJFSpbqD/KmF57xpay5+zPgV
-	 yDXAIfWa28yPY/ucL49bWqFVsO8U0u8je2rnmKU4Zc5buL/nX0oXcbCyUXEq0g1jS6
-	 NydG1PzsCvq999/8c1kJNM3KBe4WZj+tkfSBAOYhQBLyFjl1p2AV5LRUJdZoaglbid
-	 s8xTXqahhP8XA==
-Received: from benjamin-XPS-13-9310.home (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3EA4617E01D6;
-	Wed, 30 Sep 2026 17:12:47 +0200 (CEST)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: nicolas.dufresne@collabora.com,
-	benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	conor@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: [PATCH v6 1/3] media: verisilicon: Remove deprecated nxp,imx8mp-vpu variant
-Date: Wed, 30 Sep 2026 17:12:39 +0200
-Message-ID: <20260930151241.58233-2-benjamin.gaignard@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930151241.58233-1-benjamin.gaignard@collabora.com>
-References: <20260930151241.58233-1-benjamin.gaignard@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n05xolRq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD9E1F00893;
+	Wed, 30 Sep 2026 15:13:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790781227;
+	bh=VjvLVAMdH25Pwcx27KXLJsLgwjves/K/FG5W879yHtw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n05xolRqMZoeGMX1Ra4yjBtIDnmfnQ1LRl61P06RLuxE0uOOHM/URSrWqCi1e5N5n
+	 +mdD4PMTU1Q5epP+tXpj2DjPMhXSXpLaFHOJqibdDNkpBWWZ/nVCo2zgFbkYaLSUF1
+	 YufuCIwyVjzc1U2iSBQhPuWlPi1tqYXi0imKd0lPbYcF2S28XjmlPiWUlpR8etfQvF
+	 ahR1ytm89zid5O4hkJLCUT8HepSgXHEJCFv3ViscDLZ4eEWA5fb406Hz9q21Z7AgLj
+	 QKh8gF/YA+kzVc4c2H/gw4DLcW6PckFQ+eVhgrUAY04S9NR7ZD3xsEA7stQCEkG7oz
+	 yjSHW/SJMBLDg==
+Date: Wed, 30 Sep 2026 17:13:37 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <20260930151337.GD3142230@ax162>
+References: <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
+ <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
+ <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
+ <areYMjNcaqe86ds4@zx2c4.com>
+ <9d1c338b-368f-4ea2-a12e-c28d49adff5e@kernel.org>
+ <are6s5e6On3hpD3M@zx2c4.com>
+ <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
+ <20260930133813.GA3142230@ax162>
+ <ar0a4b9CjL2YHCkY@zx2c4.com>
+ <ar0gTS71qxnx9AkW@zx2c4.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0gTS71qxnx9AkW@zx2c4.com>
 
-"nxp,imx8mq-vpu" is tagged as deprecated since:
-commit f3116f2e52e6 ("media: dt-bindings: media: nxp, imx8mq-vpu: Split G1 and G2 nodes")
-merged since v5.17-rc1. There is more reference to it since that.
-Remove all references to it into the driver and remove dead code.
+On Wed, Sep 30, 2026 at 04:44:29PM +0200, Jason A. Donenfeld wrote:
+> Nathan, would this be okay with you?
+> https://git.zx2c4.com/linux-rng/commit/?id=d216701724b7d8209ff42150658ad5c712bdb503
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
----
-changes in v6:
-- rework patch 1 commit message
-Keep hantro_runtime_resume() because it harmless and futur patches will
-need it.
+Can you stick
 
- .../media/platform/verisilicon/hantro_drv.c   |  10 --
- .../media/platform/verisilicon/hantro_hw.h    |   1 -
- .../media/platform/verisilicon/imx8m_vpu_hw.c | 117 ------------------
- 3 files changed, 128 deletions(-)
+  Cc: stable@vger.kernel.org # v6.12+
+  Closes: https://github.com/ClangBuiltLinux/linux/issues/2183
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index ad71c0402ef3..12c804dcc669 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -725,7 +725,6 @@ static const struct of_device_id of_hantro_match[] = {
- #endif
- #ifdef CONFIG_VIDEO_HANTRO_IMX8M
- 	{ .compatible = "nxp,imx8mm-vpu-g1", .data = &imx8mm_vpu_g1_variant, },
--	{ .compatible = "nxp,imx8mq-vpu", .data = &imx8mq_vpu_variant, },
- 	{ .compatible = "nxp,imx8mq-vpu-g1", .data = &imx8mq_vpu_g1_variant },
- 	{ .compatible = "nxp,imx8mq-vpu-g2", .data = &imx8mq_vpu_g2_variant },
- #endif
-@@ -1100,15 +1099,6 @@ static int hantro_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	/*
--	 * Support for nxp,imx8mq-vpu is kept for backwards compatibility
--	 * but it's deprecated. Please update your DTS file to use
--	 * nxp,imx8mq-vpu-g1 or nxp,imx8mq-vpu-g2 instead.
--	 */
--	if (of_device_is_compatible(pdev->dev.of_node, "nxp,imx8mq-vpu"))
--		dev_warn(&pdev->dev, "%s compatible is deprecated\n",
--			 match->compatible);
--
- 	INIT_DELAYED_WORK(&vpu->watchdog_work, hantro_watchdog);
- 
- 	vpu->clocks = devm_kcalloc(&pdev->dev, vpu->variant->num_clocks,
-diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index 13e573f1f19d..865de26ffbce 100644
---- a/drivers/media/platform/verisilicon/hantro_hw.h
-+++ b/drivers/media/platform/verisilicon/hantro_hw.h
-@@ -405,7 +405,6 @@ enum hantro_enc_fmt {
- extern const struct hantro_variant imx8mm_vpu_g1_variant;
- extern const struct hantro_variant imx8mq_vpu_g1_variant;
- extern const struct hantro_variant imx8mq_vpu_g2_variant;
--extern const struct hantro_variant imx8mq_vpu_variant;
- extern const struct hantro_variant px30_vpu_variant;
- extern const struct hantro_variant rk3036_vpu_variant;
- extern const struct hantro_variant rk3066_vpu_variant;
-diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-index fa4224de4b99..0d6a71ae5f45 100644
---- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-@@ -13,67 +13,6 @@
- #include "hantro_g1_regs.h"
- #include "hantro_g2_regs.h"
- 
--#define CTRL_SOFT_RESET		0x00
--#define RESET_G1		BIT(1)
--#define RESET_G2		BIT(0)
--
--#define CTRL_CLOCK_ENABLE	0x04
--#define CLOCK_G1		BIT(1)
--#define CLOCK_G2		BIT(0)
--
--#define CTRL_G1_DEC_FUSE	0x08
--#define CTRL_G1_PP_FUSE		0x0c
--#define CTRL_G2_DEC_FUSE	0x10
--
--static void imx8m_soft_reset(struct hantro_dev *vpu, u32 reset_bits)
--{
--	u32 val;
--
--	/* Assert */
--	val = readl(vpu->ctrl_base + CTRL_SOFT_RESET);
--	val &= ~reset_bits;
--	writel(val, vpu->ctrl_base + CTRL_SOFT_RESET);
--
--	udelay(2);
--
--	/* Release */
--	val = readl(vpu->ctrl_base + CTRL_SOFT_RESET);
--	val |= reset_bits;
--	writel(val, vpu->ctrl_base + CTRL_SOFT_RESET);
--}
--
--static void imx8m_clk_enable(struct hantro_dev *vpu, u32 clock_bits)
--{
--	u32 val;
--
--	val = readl(vpu->ctrl_base + CTRL_CLOCK_ENABLE);
--	val |= clock_bits;
--	writel(val, vpu->ctrl_base + CTRL_CLOCK_ENABLE);
--}
--
--static int imx8mq_runtime_resume(struct hantro_dev *vpu)
--{
--	int ret;
--
--	ret = clk_bulk_prepare_enable(vpu->variant->num_clocks, vpu->clocks);
--	if (ret) {
--		dev_err(vpu->dev, "Failed to enable clocks\n");
--		return ret;
--	}
--
--	imx8m_soft_reset(vpu, RESET_G1 | RESET_G2);
--	imx8m_clk_enable(vpu, CLOCK_G1 | CLOCK_G2);
--
--	/* Set values of the fuse registers */
--	writel(0xffffffff, vpu->ctrl_base + CTRL_G1_DEC_FUSE);
--	writel(0xffffffff, vpu->ctrl_base + CTRL_G1_PP_FUSE);
--	writel(0xffffffff, vpu->ctrl_base + CTRL_G2_DEC_FUSE);
--
--	clk_bulk_disable_unprepare(vpu->variant->num_clocks, vpu->clocks);
--
--	return 0;
--}
--
- /*
-  * Supported formats.
-  */
-@@ -234,45 +173,10 @@ static const struct hantro_fmt imx8m_vpu_g2_dec_fmts[] = {
- 	},
- };
- 
--static int imx8mq_vpu_hw_init(struct hantro_dev *vpu)
--{
--	vpu->ctrl_base = vpu->reg_bases[vpu->variant->num_regs - 1];
--
--	return 0;
--}
--
--static void imx8m_vpu_g1_reset(struct hantro_ctx *ctx)
--{
--	struct hantro_dev *vpu = ctx->dev;
--
--	imx8m_soft_reset(vpu, RESET_G1);
--}
--
- /*
-  * Supported codec ops.
-  */
- 
--static const struct hantro_codec_ops imx8mq_vpu_codec_ops[] = {
--	[HANTRO_MODE_MPEG2_DEC] = {
--		.run = hantro_g1_mpeg2_dec_run,
--		.reset = imx8m_vpu_g1_reset,
--		.init = hantro_mpeg2_dec_init,
--		.exit = hantro_mpeg2_dec_exit,
--	},
--	[HANTRO_MODE_VP8_DEC] = {
--		.run = hantro_g1_vp8_dec_run,
--		.reset = imx8m_vpu_g1_reset,
--		.init = hantro_vp8_dec_init,
--		.exit = hantro_vp8_dec_exit,
--	},
--	[HANTRO_MODE_H264_DEC] = {
--		.run = hantro_g1_h264_dec_run,
--		.reset = imx8m_vpu_g1_reset,
--		.init = hantro_h264_dec_init,
--		.exit = hantro_h264_dec_exit,
--	},
--};
--
- static const struct hantro_codec_ops imx8mq_vpu_g1_codec_ops[] = {
- 	[HANTRO_MODE_MPEG2_DEC] = {
- 		.run = hantro_g1_mpeg2_dec_run,
-@@ -319,30 +223,9 @@ static const struct hantro_irq imx8mq_g2_irqs[] = {
- 	{ "g2", hantro_g2_irq },
- };
- 
--static const char * const imx8mq_clk_names[] = { "g1", "g2", "bus" };
--static const char * const imx8mq_reg_names[] = { "g1", "g2", "ctrl" };
- static const char * const imx8mq_g1_clk_names[] = { "g1" };
- static const char * const imx8mq_g2_clk_names[] = { "g2" };
- 
--const struct hantro_variant imx8mq_vpu_variant = {
--	.dec_fmts = imx8m_vpu_dec_fmts,
--	.num_dec_fmts = ARRAY_SIZE(imx8m_vpu_dec_fmts),
--	.postproc_fmts = imx8m_vpu_postproc_fmts,
--	.num_postproc_fmts = ARRAY_SIZE(imx8m_vpu_postproc_fmts),
--	.postproc_ops = &hantro_g1_postproc_ops,
--	.codec = HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
--		 HANTRO_H264_DECODER,
--	.codec_ops = imx8mq_vpu_codec_ops,
--	.init = imx8mq_vpu_hw_init,
--	.runtime_resume = imx8mq_runtime_resume,
--	.irqs = imx8mq_irqs,
--	.num_irqs = ARRAY_SIZE(imx8mq_irqs),
--	.clk_names = imx8mq_clk_names,
--	.num_clocks = ARRAY_SIZE(imx8mq_clk_names),
--	.reg_names = imx8mq_reg_names,
--	.num_regs = ARRAY_SIZE(imx8mq_reg_names)
--};
--
- static const struct of_device_id imx8mq_vpu_shared_resources[] = {
- 	{ .compatible = "nxp,imx8mq-vpu-g1", },
- 	{ .compatible = "nxp,imx8mq-vpu-g2", },
+on that? Otherwise, looks good to me, that's basically what I had for my
+v3 locally.
+
 -- 
-2.53.0
-
+Cheers,
+Nathan
