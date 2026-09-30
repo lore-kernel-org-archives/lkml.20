@@ -1,182 +1,290 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3D74DA541
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C6B4DE701;
+	Wed, 30 Sep 2026 13:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775555; cv=none; b=iH1rX4qI4QYP3cvLblpDN4EcKVooHE0mOEaH6tQcNoqnwpoalAXh952zi4XdrwQVMVN9idwfhzbxD2ffx1lO1T9lekZbovxUR5P5Yq27/psAxOPxHkSylbhcM2zZJE8sQ23VgXWaABCZqeRYrGpef9JzhCqhCDJIauCb/idjOlo=
+	t=1790775553; cv=none; b=Sw9xGgszWxh1Yn/TsTcimI70RHzxctLWpZm+Q8tfHJxOPW2T/9iFrFkMOTwtBEwTzMsrcwDKLee9yTOG6XILLOi4OMV9WCxc6G/Rz4SnrrFVcVWqDzejbqJ399p+sM+Cebw+v4BUkLftnJ6saDAUIvK2IGPazGK0M3kuGkwRoCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775555; c=relaxed/simple;
-	bh=A4FkOd1rsHBO9TbAATH42i8t6LdywS4oKcOnDIsJL6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DExbIDxoSyrhKTWR1oInZYvqXoX5MoO7nX/ZmhvsBg1DXu+jCr5ZOcUkc9B/VbzdlZkbt6U7+XrwFIaO2T2P6Mb3e591MCV39rF++JQMrsk7gh/5bFFq51vC8xKyqiRm9ywpnlBDH1/Q697QOcuhEStpsqMCdZrX7N0z7QYz/nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jDFEAdnq; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790775553; c=relaxed/simple;
+	bh=h22vSDkbVAwxIYjX0M0qIc6dpj1iaZQkWyUg5l7W5dM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NQ13mOahK+r7KHPjVODRWuKWi+oH0V8iqNEvkKk1vg2ksg2JN8e44sKzYuS8tUuhozvLWzQOl9lNopYXyKu6VU8EbTpDAjM+YppFXIVhkFLoL8LJFiI7jIxIosOR5EP+T9vD7QW8AvJufCqs16pj6gPki7cnBJVm4ziIEaewroA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=C6bVeoF7; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jDFEAdnq"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f2baso1641873f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790775536; x=1791380336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vqNw45I5i0A+TvN7Yvp1p4lxx6mkgXUC3KRKlj0F9r4=;
-        b=jDFEAdnqQQfoyp8qvfvoTdx4GHvMSrU14HM1MkbuVJocHbuNw/6oskblOn40/H/1tN
-         yXvxfBFYrMTgLczVFwmzqr5s/FdqBZi/Eh4gIsfaVWLDts1IOvapNhTbXteMzZWhP+xp
-         Po1N7NZoZlj6GM4LuFTYZdK6VT1fv40Kp25axbajQ7Z+f54HSO7mc6dvBc2Kh9+AkkEQ
-         nP8YBvtaDd6NpTPAt/a2QCXpTZRd/k2WJmWWm8l72cXH2ahRciOAbx4TlEyIF5Qg3y2H
-         2emYh4uQBU7X4YZj/hVVXpy32LjDypbtusFkpLkaETdTnJ4p8aWQC50SiGbUlf6gvi67
-         aI0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775536; x=1791380336;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vqNw45I5i0A+TvN7Yvp1p4lxx6mkgXUC3KRKlj0F9r4=;
-        b=mpdyceT3phyRj96nnQnAS5CQNQQZK9HBLAkiLE5f8wAFU6D2tmzb4nl6c6qJhaXQ7m
-         YXgCKxgMpCFNQtpnD1vsAuaNV9Eq8wIiktUqra3TCGbCHqLu94dstrzzWSZHqF092edC
-         IP9NkNcWNGCYVF+WlFaRjfYN419DhKYURJELjYz7z3ac9tKoK3VPqCeRf5t3znU5OUsg
-         Uk8Ck1Xr/re2qgkyx1ca9udxLCE9hmYFBjqhKoZEirPiIQXS/8zVeKXdWkoGz9mAeh8N
-         zTJJsOl/G3ldRgFmPPkWpMdthehSV4V+ntKEj67HKH7P8WVw7aLCugo6yu6Y+o2HGSk2
-         KORg==
-X-Forwarded-Encrypted: i=1; AKwUvByF+7DstyGULZII4nvJd/Ohp82ciMe5N2Z0FPqzzaaLSdV3R2pwAEs99UwTxhW/wO7TJKKCgZmLYrKtsfw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9RUVK9YxCoPq3IMd6aER8YetMZ1L8g0jKi/Cs+oGzADDtCwSi
-	yKD7xh9TVFDRFwf/iJcknISCm8ikgRpMIN/gYGZYUMZ9AY9fS6Y6vqet
-X-Gm-Gg: AYBFou2JLy+j8yLtnMxBIDBXJcQfjdOVJUTXqwLZSTP6LzGSq/r+mK92IocXQfixqTD
-	IFrIo06Ah8Ik97C3UN9Rv/Su1VST0GlM76vW/WwcRXX0piYZa4lU/rIGb6fWaZ5j/dRHS/iyOBK
-	HnXWLTiGNKCMLRzV2IitvBJ3gbrue1PKGucwCezVXUrqtB+xHTq725OJNguaswbPOfsdcFRnZDk
-	kJOi/Lmd2HOKNlts4bJqcpMIsDpdS1sR3szWOIWCbrvINhyfqxJ8T8ZpWGFY0weesgU/Cav47qH
-	fcwjTlBN3XhyVeoy2TIYOnHm1HnB1jdK4AZvSCXtuGEfqOSKmrBakjP5cOBKiypLfsYJfZDe4C/
-	kWBkP5GK/vOzbUQAokTGWV7+5gcrl7hDTRb+IZfePVKg/DcOydEq/UxBWGzkfRAkUf5z3rqN0mP
-	VTw8oBbwKrbqisfuLv1RwjSpLnpeWgEC3IJXHRa1iLnN+EENA/I48EF2rBHQUnpB2P66STYxCGq
-	D85y3t/No27JEPR6K2Hmi+tRn/jses3/MPQkyjQ
-X-Received: by 2002:a05:600c:3145:b0:49f:bd3c:bc1a with SMTP id 5b1f17b1804b1-4a01b00d9bamr25280835e9.21.1790775535365;
-        Wed, 30 Sep 2026 06:38:55 -0700 (PDT)
-Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029d61e4sm3504730f8f.15.2026.09.30.06.38.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 06:38:54 -0700 (PDT)
-From: Sagi Maimon <maimon.sagi@gmail.com>
-To: netdev@vger.kernel.org
-Cc: radhey.shyam.pandey@amd.com,
-	michal.simek@amd.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	daniel@iogearbox.net,
-	jacob.e.keller@intel.com,
-	joe@dama.to,
-	suraj.gupta2@amd.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net v2] net: axienet: free outstanding TX buffers in axienet_dma_bd_release()
-Date: Wed, 30 Sep 2026 16:38:51 +0300
-Message-ID: <20260930133851.663023-1-maimon.sagi@gmail.com>
-X-Mailer: git-send-email 2.47.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="C6bVeoF7"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB5NVi2798326;
+	Wed, 30 Sep 2026 13:38:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=j0LRCX
+	QRdK8U0mZCDcxBrktz5SCPHZj5h5xK40AbDWY=; b=C6bVeoF7FyGyoYZGP78mDL
+	w+zvISG2GqybXhgt+p+K4ft+yC2QOz5jXeuvsBqQyE921kCJQKZEGCgDbvstN2zv
+	0CaGeFGcuuinTJh0LPTztuH4gTyAH9XOUdrWQTT5veyHTnRKlwiVBwSNmiDMq8CQ
+	q2TfeWLtVKMyORYZ4crXKixU0iSdsvx1wJtsHgVNzIiWzRqPFvKCkK9mHgZyc7ud
+	LJiXZofTQlNZ8UwaG7h4K/g6D9oc06U0sg5uMnnQmQY4ptY+DLcmwFp+wwYXROS7
+	dGKH7Zih61+7XEoYgr5sc2OVuPCF8kaXrZwuuIirtHQ4RzUeUwOJQebMg8NETO6Q
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5s5d7hj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 13:38:26 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UBHURp3353630;
+	Wed, 30 Sep 2026 13:38:25 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0j23kupe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 13:38:25 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UDcLRk27459952
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 13:38:22 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CB7F820040;
+	Wed, 30 Sep 2026 13:38:21 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E781820043;
+	Wed, 30 Sep 2026 13:38:15 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 30 Sep 2026 13:38:15 +0000 (GMT)
+Date: Wed, 30 Sep 2026 19:08:26 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org, Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+Subject: Re: [RESEND PATCH 2/3] KVM: PPC: Book3S HV: Add preempt_disable()
+ around virtual-mode HPTE bit-lock users
+Message-ID: <20260930180232.ffed855b-03-amachhiw@linux.ibm.com>
+Mail-Followup-To: Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	kvm-ppc@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Gautam Menghani <gautam@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	R Nageswara Sastry <rnsastry@linux.ibm.com>, Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org, 
+	stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+References: <20260928122837.8782-1-amachhiw@linux.ibm.com>
+ <20260928122837.8782-3-amachhiw@linux.ibm.com>
+ <57f589e4-b7cc-43d1-8d02-732d10118833@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <57f589e4-b7cc-43d1-8d02-732d10118833@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1NCBTYWx0ZWRfX4EgFbb6zL1BS
+ cNrvtNMsBgt3gkhirmgxsVnMCLCRc/qT5adQVks46oBQnvn5XMp9ADb1c3mvfbW5uOmqoshnoB6
+ GYM8s8ilUPQIiF7Y+M+adLwevqhkyko=
+X-Authority-Analysis: v=2.4 cv=HJ5WhYtv c=1 sm=1 tr=0 ts=6abd10d2 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=c92rfblmAAAA:8
+ a=VnNF1IyMAAAA:8 a=A1fdaXlmI8BdxGPDefsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: DKTSW_9HlJkEjTjvjdXXIDw1J-ICCYRx
+X-Proofpoint-ORIG-GUID: Iok8jqdxo72sJXwY6sEBRb8KbdrFdBE8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1NCBTYWx0ZWRfXwBe+XxtmE3ND
+ rIJV3dJAHr4G7dV4+AfJ5tKccIUUPbn0dWP5pEl6RBdNgy1qw0iRbCd6zVOPHjLnfPxagueEkyZ
+ duFcUNDtw4do337neU1Xw1HirXT3KL9m5sM3zHaUZEsPGDGrlwtzYIghVt2dVvpmrHjl+hCrJSG
+ 6HaClja19CW0PN8c5hzz8S6zvPMymUawHaXShtdoyTdeI7SDJ+HSJ3/raxlRTn/w+hDhydF5DLu
+ cbj3NXIm3MySMaZAxNbGFz99dno60dB1DLp/aVB1iSYVzyNqkK2N02K2MGAGyKRzAn76nfcvVfm
+ s3hcpxih7qpVNYYeAiWZIedjU0v8e0EYrO6Bu3D+x32h6k6rtqMsD+JW405/ql4tDSEjOOktR+W
+ k0EZR3CeCl0RQEhiEEjSpQgAIr58uQlblQfxeuoqOlKTTzfI2uRv4jwE3WON/pgE4KNRTLh4Amr
+ gLPbh+UmZa139v3fEIQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300054
 
-axienet_dma_bd_release() walks the RX ring to unmap and free every
-receive buffer before releasing it, but frees the TX descriptor ring
-with dma_free_coherent() alone.  Any descriptor that
-axienet_free_tx_chain() had not yet reclaimed still holds its skb and
-its streaming DMA mapping, and both are lost.
+Hi Shrikanth,
 
-axienet_stop() disables TX NAPI and stops the DMA engine before calling
-it, so nothing reclaims those descriptors afterwards.  Bringing the
-interface down while frames are in flight therefore leaks up to
-lp->tx_bd_num skbs and mappings each time.
+Thanks for taking a look at this patch.  Please find my responses inline.
 
-Walk the TX ring the way axienet_dma_err_handler() already does: unmap
-every descriptor whose cntrl is still set - axienet_free_tx_chain()
-clears it on reclaim - and free any skb still attached, as a drop since
-it was never transmitted.  This relies on axienet_stop() having stopped
-the DMA engine first, as the RX walk in the same function already does.
+On 2026/09/29 11:48 AM, Shrikanth Hegde wrote:
+> 
+> 
+> On 9/28/26 5:58 PM, Amit Machhiwal wrote:
+> > kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
+> > preemption disabled, because it can return with HPTE_V_HVLOCK still held
+> > until the caller later unlocks the HPTE.  Existing virtual-mode callers
+> > in book3s_64_mmu_hv.c already follow that rule.
+> > 
 
-tx_bd_v is NULL when axienet_dma_bd_init() did not get as far as
-allocating it: axienet_open() does not check the result of the reset
-that runs it.  dma_free_coherent() accepts that, so skip the walk then
-too, and drop the comment claiming the ring is always allocated.  On
-the axienet_dma_bd_init() error path the TX ring has just been
-allocated zeroed, so the walk does nothing.
+<..snip..>
 
-This was reported by the Sashiko AI review bot.
+> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> > index aa51968e206a..52f72f30baf0 100644
+> > --- a/arch/powerpc/kvm/book3s_hv.c
+> > +++ b/arch/powerpc/kvm/book3s_hv.c
+> > @@ -1212,9 +1212,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+> >   	case H_CLEAR_REF:
+> >   	case H_PROTECT:
+> >   	case H_BULK_REMOVE:
+> > +		preempt_disable();
+> >   		idx = srcu_read_lock(&kvm->srcu);
+> 
+> Please add a comment above kvmppc_pseries_do_hpt_hcall, saying preemption
+> is disabled and one cannot make any blocking call.
 
-Tested on an AXI Ethernet MAC behind a PCIe endpoint: traffic passes,
-and after each of ten down/up cycles and five module reloads, all made
-with traffic running and each running axienet_dma_bd_release(), traffic
-resumes and nothing is logged.  The leak itself was not measured.
+Sure, will do.
 
-Fixes: 8a3b7a252dca ("drivers/net/ethernet/xilinx: added Xilinx AXI Ethernet driver")
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Assisted-by: LLM sparse
-Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
----
+> 
+> >   		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
+> >   		srcu_read_unlock(&kvm->srcu, idx);
+> > +		preempt_enable();
+> >   		if (ret == H_TOO_HARD)
+> >   			return RESUME_HOST;
+> >   		break;
+> > @@ -1834,8 +1836,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+> >   		else
+> >   			vsid = vcpu->arch.fault_gpa;
+> > +		preempt_disable();
+> >   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+> >   				vsid, vcpu->arch.fault_dsisr, true);
+> > +		preempt_enable();
+> >   		if (err == 0) {
+> >   			r = RESUME_GUEST;
+> >   		} else if (err == -1 || err == -2) {
+> > @@ -1881,8 +1885,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+> >   		else
+> >   			vsid = vcpu->arch.fault_gpa;
+> > +		preempt_disable();
+> >   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+> >   				vsid, vcpu->arch.fault_dsisr, false);
+> > +		preempt_enable();
+> >   		if (err == 0) {
+> >   			r = RESUME_GUEST;
+> >   		} else if (err == -1) {
+> 
+> Please check if below is possible case.
+> 
+> https://sashiko.dev/#/patchset/20260928113704.48912-4-amachhiw%40linux.ibm.com
 
-Notes:
-    Changes in v2:
-    - Skip the TX walk when tx_bd_v is NULL, which axienet_open() allows
-      when the reset fails; v1 would have dereferenced it where the old
-      dma_free_coherent() did not (Sashiko).  Drop the comment that claimed
-      the ring is always allocated.
-    - Free the skbs with dev_kfree_skb_any(), so they count as drops as in
-      axienet_dma_err_handler(), rather than as consumed (Sashiko).
-    - Say that the walk relies on axienet_stop() stopping the DMA engine
-      first, rather than stating it as a guarantee (Sashiko).
-    - Kept Jacob's Reviewed-by, as the changes are small; please say if
-      that is not OK.
-    - The hardware test is v1's.  The changes do not touch the path it
-      exercised other than how the freed skbs are accounted.
-    - v1: https://lore.kernel.org/netdev/20260927081034.350422-1-maimon.sagi@gmail.com/
+Thank you for raising this point and bringing Sashiko AI's review comment to
+attention.  After conducting a deep-dive audit of the preemption paths and the
+virtual-mode locking context, it looks like Sashiko's finding is legitimate, and
+extremely subtle.
 
- .../net/ethernet/xilinx/xilinx_axienet_main.c | 23 ++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+The Deadlock Mechanism:
+=======================
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 1722b7038f34..8bf27e20e103 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -186,7 +186,28 @@ static void axienet_dma_bd_release(struct net_device *ndev)
- 	int i;
- 	struct axienet_local *lp = netdev_priv(ndev);
- 
--	/* If we end up here, tx_bd_v must have been DMA allocated. */
-+	/* tx_bd_v is NULL if axienet_dma_bd_init() did not get as far as
-+	 * allocating it; dma_free_coherent() below accepts that.
-+	 */
-+	for (i = 0; lp->tx_bd_v && i < lp->tx_bd_num; i++) {
-+		struct axidma_bd *cur_p = &lp->tx_bd_v[i];
-+
-+		/* axienet_free_tx_chain() clears cntrl when it reclaims a
-+		 * descriptor, so a non-zero value means the mapping is live.
-+		 */
-+		if (cur_p->cntrl) {
-+			dma_addr_t addr = desc_get_phys_addr(lp, cur_p);
-+
-+			dma_unmap_single(lp->dev, addr,
-+					 (cur_p->cntrl &
-+					  XAXIDMA_BD_CTRL_LENGTH_MASK),
-+					 DMA_TO_DEVICE);
-+		}
-+		/* never transmitted, so account it as a drop */
-+		if (cur_p->skb)
-+			dev_kfree_skb_any(cur_p->skb);
-+	}
-+
- 	dma_free_coherent(lp->dev,
- 			  sizeof(*lp->tx_bd_v) * lp->tx_bd_num,
- 			  lp->tx_bd_v,
+In this patch we added preempt_disable() / preempt_enable() pairs exclusively
+around the guest vCPU HPT hcall paths (kvmppc_pseries_do_hpt_hcall) and page
+fault paths (kvmppc_hpte_hv_fault) in virtual mode to satisfy the HPTE locking
+preemption contract.
 
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
--- 
-2.47.0
+However, several host-side virtual-mode paths still acquire and hold the HPTE
+bit-lock (HPTE_V_HVLOCK) with preemption enabled.  Specifically:
 
+- While MMU notifier paths (unmapping, aging) and the dirty-log path are safe
+  (since they are called with kvm->mmu_lock held, which disables preemption),
+  the memslot flushing path (kvmppc_core_flush_memslot_hv() ->
+  kvm_unmap_rmapp()) runs with only the slots_arch_lock mutex held, leaving
+  preemption fully enabled.
+
+If a host-side thread executing kvm_unmap_rmapp() successfully acquires the
+HPTE_V_HVLOCK on CPU X and is preempted, a guest vCPU thread subsequently
+scheduled on CPU X will enter the hcall or fault path, disable preemption (via
+the current change), and spin indefinitely on try_lock_hpte().  Because
+preemption is disabled on the spinning vCPU, it will never yield CPU X.  The
+preempted host-side lock owner can never be rescheduled on CPU X to release the
+lock.
+
+This converts a potential latency/livelock issue into a permanent hard deadlock.
+
+Proposed Solution:
+==================
+
+To make this fix completely watertight and eliminate the deadlock window, no
+thread must ever be preempted while holding HPTE_V_HVLOCK in virtual mode.  This
+means we must disable preemption during the lock-hold window on both the
+vCPU-side and the host-side paths.
+
+In the next version, I'll be making following changes:
+
+Host-Side Preemption Disabling: Add preempt_disable() / preempt_enable()
+brackets around the HPTE_V_HVLOCK hold windows inside the four host-side
+virtual-mode functions in arch/powerpc/kvm/book3s_64_mmu_hv.c:
+
+  - kvm_unmap_rmapp()
+  - kvm_age_rmapp()
+  - kvm_test_clear_dirty_npages()
+  - resize_hpt_rehash_hpte()
+
+For example, inside kvm_unmap_rmapp():
+
+ diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+ index 2ccb3d138f46..59da958e09cb 100644
+ --- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
+ +++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+ @@ -823,7 +823,9 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+                  */
+                 i = *rmapp & KVMPPC_RMAP_INDEX;
+                 hptep = (__be64 *) (kvm->arch.hpt.virt + (i << 4));
+ +               preempt_disable();
+                 if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+ +                       preempt_enable();
+                         /* unlock rmap before spinning on the HPTE lock */
+                         unlock_rmap(rmapp);
+                         while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+ @@ -834,6 +836,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+                 kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
+                 unlock_rmap(rmapp);
+                 __unlock_hpte(hptep, be64_to_cpu(hptep[0]));
+ +               preempt_enable();
+         }
+  }
+
+To ensure complete consistency and verify there are no other potential
+preemption deadlock sites, I conducted a full audit of all 8 occurrences of
+try_lock_hpte() inside arch/powerpc/kvm/book3s_64_mmu_hv.c.
+
+The proposed v2 fixes simply bring the host-side lock users into alignment with
+the established, pre-existing design pattern used by every other virtual-mode
+caller of try_lock_hpte() in this file:
+
+- Established safe callers (4) — already wrapped in preempt_disable() /
+  preempt_enable() blocks by design:
+	- kvmppc_book3s_hv_page_fault()
+	- read_hpte_for_cma()
+	- kvmppc_hpte_hv_page_debug()
+
+- Symmetrical alignment in v2 (4):
+	- kvm_unmap_rmapp()
+	- kvm_age_rmapp()
+	- kvm_test_clear_dirty_npages()
+	- resize_hpt_rehash_hpte()
+
+This ensures 100% preemption-safety symmetry across all virtual-mode
+lock-holding windows in KVM.
+
+I hope this sounds good to you.
+
+Thanks,
+Amit
