@@ -1,85 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36AC318EEE;
-	Wed, 30 Sep 2026 07:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE233A3816;
+	Wed, 30 Sep 2026 07:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754033; cv=none; b=UeYcTAbIbsnBEKeEiuy5jy5WRCSVICDNa9/wyO8WTCWSkA+i6GHJwSDh/NR4FpOfcgPucR3X7/SoJdoS8EXaSlvXLNKgkpOFRlbtJo3aZjqQN2QHTBPdVoQFJ90eaCV9wHPuKT9sFaxd5+46UOqI4vwxXBEGx3dquAr7EaJ62L4=
+	t=1790754034; cv=none; b=FHVa+OvYV4y0MiueQ+BJWRaqEgbea95A8pFrKsdXscgH3n71g1I1M2i89eYm9xY/Yi9s14vaZqiZc5CEq9TJmeKndPrbTfo/ya59FPI23UNGTepLcwBujCo2pvpEDvD60MyaOBAQ6zssFiV6+dy8ujHhtUQdHA0Vq2Z8VJoKSX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754033; c=relaxed/simple;
-	bh=/a+o5SVv2KpXfJ74qvmES6DYcke7aJf6hODVlYKxKIA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Message-Id:Date; b=YTp4XterVNgDJ15o2gGrABVcJa/v8FOBbPoPk3r7jmkk1l0m/pyI3BI6FqCMat60G5pE9zKg9NjJOIFqazNN6aDwIQyG32U2Zu6WWIP4rtsgy6709AeSF/0L0vKvUHV66rzT3Jl4HTeZqa5pjyvZvB19A/rrZYfsoch+rMWicCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VmFlGgfp; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790754034; c=relaxed/simple;
+	bh=oyOiJYkJ/EWDLviWCX2is2ruTUp3N3AD7lWOUAhaWxs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eGSB4SPAJrFDmz7Ghcb5WlGTfoURbmQHqu0YQPs4EqrqjmaoTXh17uf3j/EXocENHn1Pf5Ug8Y1XUIV1iAU9BhTehmtCpZDEH0LKMPisq2DztXFmvWl+PdtUqQYD/9p3KDLO7iEI9SlleIhowIfFePJqbemmBVu7gnMovf7w1fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iMdulFhA; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VmFlGgfp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Message-Id:Date; bh=PL4Ft7v/JyB4yYo
-	qsmQzVyzNnO5ByprM+v3I7ZTprvE=; b=VmFlGgfp8gE8FB0JR0Z3rfh9AZPDsNK
-	EkJ6eBaZx/EPOC6SDdwF0Kkw0erHDF2IDq23HES6YCcZYa1FvcnbKpFTrzWh4MIF
-	rmSAVglnORX2ecAoF5+5IWSAEgXegKYKVGZzuY4agdii9Oo6siMOAweqsjR/yT7d
-	+qK1ExZ0hJHY=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Eduard Bostina <egbostina@gmail.com>,
- dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: ti, tpd12s015: Convert to DT schema
-In-Reply-To: <20260930052925.GA931211@killaraus.ideasonboard.com>
-References: <20260916015833.112753-1-quchaosheng000406@163.com> <20260916123210.107841-1-quchaosheng000406@163.com> <179028680032.1886779.12172352669683602550.robh@kernel.org> <20260930052925.GA931211@killaraus.ideasonboard.com>
-X-CM-TRANSID:_____wD33_7YvLxqrVnvBg--.1786S2
-Message-Id:<6ABCBCD9.079C08.00008@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyfWFyktF4kGF4DAFW7XFb_yoWkZwb_u3
-	WDGrZ7Jw18Crn7Ja17GrsIva13ta18urs5XF1vqFWI9ryrZFs8W34xZrn3WF1kGw4rtrs8
-	G3s5JF1ku34akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRErb1DUUUUU==
-Date: Wed, 30 Sep 2026 15:40:10 +0800 (CST)
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BkvpGq8vNmTeQAA3v
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iMdulFhA"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce8847;
+	Wed, 30 Sep 2026 15:40:28 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Sukhdeep Singh <sukhdeeps@marvell.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
+Date: Wed, 30 Sep 2026 15:40:23 +0800
+Message-Id: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0f141fa7203a1kunm04033f5326fc01
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSENMVkIdGRhCGR5LQ0oaSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=iMdulFhAPcFv61U4S39ZIKHC5ARAgnEswSnxxbN79anvfTgznj+yaZeVSdeXjIrNubOZtfKiKhWbtQNFfE9qTLqTbE0zlUtQtitKc4/YjKjpIRe18PYhnKBMgTOhKcKIVhG7zZb0bYzxfuMYl/70ZXq9W6228iiijR6QCtdo0DQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=R5W59/fVYd+hNmXhpZXRzCWCoXxUcslCvKKG1I34EC8=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Laurent,
+aq_nic_start() requests the PTP IRQ before it finishes the rest of the NIC
+startup sequence. A later startup failure reaches aq_nic_stop(), which
+calls aq_ptp_irq_free() even when aq_ptp_irq_alloc() skipped request_irq()
+or when request_irq() failed.
 
-You are right, and the two extra entries should not be in the binding.
+Track whether the PTP IRQ request succeeded. Only call free_irq() after a
+matching request_irq().
 
-Both drivers take exactly three GPIOs:
+Fixes: 04a1839950d9 ("net: aquantia: implement data PTP datapath")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/net/ethernet/aquantia/atlantic/aq_ptp.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-  drivers/gpu/drm/bridge/ti-tpd12s015.c:150,157,164
-  drivers/video/fbdev/omap2/omapfb/displays/encoder-tpd12s015.c:237,246,255
-
-They ask for indices 0, 1 and 2 -- CT_CP_HPD, LS_OE and HPD.  Nothing reads
-index 3 or 4, and neither file mentions scl, sda or ddc.
-
-The text binding I replaced said the same thing:
-
-  - gpios: CT CP HPD, LS OE and HPD gpios
-
-omap5-igep0050.dts passes two more, and there is no pinctrl group for them
-and nothing in-tree consumes them.  v3 raised maxItems to five only so that
-dtbs_check would keep passing for that board.  That was the wrong direction:
-it wrote a defect of the DT source into the binding instead of holding the
-binding to what the hardware and the driver use.
-
-So it splits the way you pointed at earlier:
-
-  - the conversion keeps gpios at three entries, which is what the driver
-    requires, and
-  - a separate patch drops the two extra entries from omap5-igep0050.dts.
-
-My earlier question still stands: would you rather have that as a v4 from
-me, or should I leave it to Eduard's series?
-
-Thanks,
-Chaosheng Qu
-
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
+index 558ac9237..a5b69f1c7 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
+@@ -84,6 +84,7 @@ struct aq_ptp_s {
+ 	struct ptp_tx_timeout ptp_tx_timeout;
+ 
+ 	unsigned int idx_ptp_vector;
++	bool irq_allocated;
+ 	struct napi_struct napi;
+ 
+ 	struct aq_ring_s ptp_tx;
+@@ -1033,6 +1034,8 @@ int aq_ptp_irq_alloc(struct aq_nic_s *aq_nic)
+ 	if (pdev->msix_enabled || pdev->msi_enabled) {
+ 		err = request_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector),
+ 				  aq_ptp_isr, 0, aq_nic->ndev->name, aq_ptp);
++		if (!err)
++			aq_ptp->irq_allocated = true;
+ 	} else {
+ 		err = -EINVAL;
+ 		goto err_exit;
+@@ -1050,7 +1053,11 @@ void aq_ptp_irq_free(struct aq_nic_s *aq_nic)
+ 	if (!aq_ptp)
+ 		return;
+ 
++	if (!aq_ptp->irq_allocated)
++		return;
++
+ 	free_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector), aq_ptp);
++	aq_ptp->irq_allocated = false;
+ }
+ 
+ int aq_ptp_ring_init(struct aq_nic_s *aq_nic)
+-- 
+2.34.1
