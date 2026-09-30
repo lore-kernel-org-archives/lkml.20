@@ -1,70 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FC42EBDE9;
-	Wed, 30 Sep 2026 11:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7774CB8A0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769293; cv=none; b=Svzumrn+aFO6jGjNHUdble7nmO/FngmTiSPcVBUZsslC+VLyxDCDN7e+KyIfg4fuqPNbxh3U+vBXpYblcgu0a7y0JmEa1rv1nY7W3tM/MfnHN4clDvhJmEPyCUaw50PAwft1biGBFuY7utjC/5Rt/hbuqHLlLw+OcPilQkrGqks=
+	t=1790769298; cv=none; b=oEZSs8oQ9wOAtUFrZbe5xGZ5g6p0IfpX+CAD4fMKNU4yctwgP+cyge9ZyyzgGxtaA4ruDxdIYhlpOe+DNjkWkvS0x9lAreBAAzjD9RsR61kl7qA6EPbLqXWiCE+ctu18pc6R/NYgtPA2+flVe48QPCVlRa1qdMfZDvdghs7E/xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769293; c=relaxed/simple;
-	bh=iMvDvDD50O7JPJhDEfQJ6xQHelyxs1neFd2ZSH5mpcw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UcFghViz7xjayH9KvqB3x9BJAru3X8gqWWUcVb0kTfLHldFnQU8rt7jaSkSav4i9SVFs3kxMCvshpZrOuFO+3Ph2CrEYAl/aGdN4XJ1mz+S3AmdW3UaJ/9px3iDeoa4U8fbUv/gMo9yisby+acO9ARtVMsrcuB63Zu/jZDDIEMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/ZeSvsx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790769298; c=relaxed/simple;
+	bh=kq5W5nIu5PLv0CsnhiAfj/Rik2O1CWjzqKYPXqcV1qk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=cMbj6tPZiFrv+jFIHbQSir3JhC3ezH7X4FtzUFcbPLKynWBygrcV3eDkqZIyRhuqK7s8VGvRsKwm1WrQ+3jMbbZ6tYv/Mi0rnnknWkDEMdjJ3VoTo2MjNrYuK6jafmKlFgUeOBPeSmv+0LJlQSwcngLQwy7xmolabJHy7Ockyls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pN29opNM; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/ZeSvsx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDDF71F000FF;
-	Wed, 30 Sep 2026 11:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790769292;
-	bh=Y9OY6q6JtpMyCLRK/JVfImQPXMO8EqrZtQgE/hDe7r8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A/ZeSvsxkd55ckxzmhNhhS4lTyNHbLPkxSjNIyueAHU0fWB/Nk2mBw58n3P+xTcFg
-	 TWzu1nl6a45veYCXELWYCVMXyqFMofSTdiGUG4l2gbGjE3IcIF2MnUdVWbvNfrDKPJ
-	 2o7NjCpo4L+bjT4zQLiclA3/VBGS4D3mnca7RUxHdmwrwLBw6NN8MnfNlhWY/rxXij
-	 B9iLRlyaEqHmNzWWqBKtb8eNjVxNreIHiCQMrKmj8B31L58MToTrbgbRPc9Hx3gzAB
-	 qOlsmhzZcsps9VMJnKes4AGHiPBKQsXQFQxHuzYUZNtzAD+9/laiBOT+qOz9CXSldf
-	 e89UvwBjhrWYQ==
-Date: Wed, 30 Sep 2026 19:54:49 +0800
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/8] watchdog: core: Update last_keepalive in
- watchdog_start()
-Message-ID: <arz4iU0SQDRDFMjU@tzungbi-laptop>
-References: <20260929134635.2567137-1-linux@roeck-us.net>
- <20260929134635.2567137-9-linux@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pN29opNM"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso7892340a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:54:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790769295; x=1791374095; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aVzuXE/DlhAkuriCQToRPrh16XzvOjKZo5qCvzwYsCc=;
+        b=pN29opNMxSwQgnLw0POUd1TLywrUAkSo/Cobmj7smnNGNuoxsmw3jqUG5tQNc0Tk43
+         oy2wfQAFgdBJmuZrY0HDHK/axqxtmWPeenPBkqt8MmnmPLGE6Ew7VDQxmbXrEIdjTUCK
+         jorF0Y7FddHtH+SiVliSDJAKZ4wXT8syDRkHtRkxLjReHu9n78gXgpaKPw5IKmBZ8pZO
+         V7jeXGgQZYKjtrJG1L1ZwgindFmwieHe01qFQT8i2LsUTCG+wvk4zogXwjOlEj8Aa4qM
+         q+SJFUMYhpQGdCDOQxmRIpWQ1FbMmyQXD1ihw7Hseaq0EIjb+L+VQDcyUcOPD6x+jIre
+         4hWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790769295; x=1791374095;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aVzuXE/DlhAkuriCQToRPrh16XzvOjKZo5qCvzwYsCc=;
+        b=aOX44jP6hy+cV0C2yBnh7FjksPZboR53n6uUDW+EyAf+ATv4CUwJCHcj0Lh5230oAS
+         enPbF68DA+v1nJFQal8nBnHha9+VPjBtQ1zfKqWckf7a0zg+DYnkkX5xwxM8JKi1dvZe
+         mY4dZLG76wGXJdpxTIEQDrRjfwBnRuQMSIeZdAjmOMl5jVy8/0DaoPLYCC/HnE9qQ/hr
+         XuP0wmBn9my/Q8ZDXfVElGIsWJ5p1tehz0Yc0i1h8FHyUxbfOI1jyPt7hCCB7npHXajt
+         iPJz7ei/Maum3tGZ/BkBjkyLo5tNGtI+pMM8eEhxEkUgUFE76swQFqtUC+A7yUc9zZ/t
+         kEFw==
+X-Forwarded-Encrypted: i=1; AKwUvBx97h4BaUXotMtVCdqeDopLEsYsWqnyyRGFa0yB7rH/1lBdXE0cgp6Y7bS30TM2QCYhcD77goV3u8g2+Ig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKIeftBPJGQSykgYWMg7rIzA6ZAVJZQK75L3P6dFxTK61pBvX7
+	k5gyP3yfHJxmIMPM6uUv23I+Ghl+klXjlEmqfskFc76810Aus1vU8gulZj3mTH3B6ee6eCepa5j
+	IrhjkvEg=
+X-Gm-Gg: AYBFou1dQ2eUXyvqUQumG7YH+T/gliCYdR6XubIYbeCbMTG/LvaVNj9A8vJbhtNrZM6
+	2RPP9XJEVGoOlmyvHQwWmK2M9q8qGZhVLZ6LySC634fzMxTqieMF6hltcxWCSOeJQnKL5ecScob
+	qxnxDgTUpquuqlC1PV9vsa1ORVFMdyYmB9/uv1L1uc/QaT1qW/XBJ7j9ttkH8W/B/hYZ91orD+Y
+	I3tCn3cBpTqI2tOgF8oXbJ5a61C2mPQeQLUFjhOR7VepBcoEdVWxh2MyhoDeYM+CGwffM0PTnRG
+	vMEAdQPR8CXAId3l9ca5S1rbOP1slRWQHbnKFM8DuXtzuLELQ+/AHk2Z+2tSRHL8/PI8bLDCklc
+	BM7TI0mTP+yQMajCUNRGKUeTPLCUWoE3lPWQBBTOBYTlyvoAoAb7PILn/SFpy5VXHhdlfqcKQnS
+	UwjKczCV2j0PmJHOx5nLUNqB2AyE5SMWd+Vo/sWU5t0yk9TMR2YAjvlyXXRiOwqb1DSRBeSHGh/
+	u92r+W4nyYbKuov0+STaQArAzsiO/uOXFJgJrvHJ/I6CCoMhfWkXU8vhpp4ONzV
+X-Received: by 2002:a17:907:2d8e:b0:c29:3c97:c994 with SMTP id a640c23a62f3a-c2e23d94b26mr97396666b.35.1790769294780;
+        Wed, 30 Sep 2026 04:54:54 -0700 (PDT)
+Received: from localhost ([2a00:2381:fd67:101:2655:b567:7e10:e7eb])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22e16137sm55259666b.9.2026.09.30.04.54.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 04:54:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929134635.2567137-9-linux@roeck-us.net>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 12:54:53 +0100
+Message-Id: <DLSMQGCHNINR.ZPYVN1SR0GM2@linaro.org>
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Sam Protsenko"
+ <semen.protsenko@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>
+Cc: "Thomas Turner" <tturner@lineageos.org>,
+ <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] arm64: dts: exynos850: Add ACPM firmware node
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.20.0
+References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org> <20260929-exynos850-acpm-node-cpufreq-v1-1-5a86c1d404b8@linaro.org> <7b5dded4-c475-40dd-b5c4-5086bab4162e@linaro.org>
+In-Reply-To: <7b5dded4-c475-40dd-b5c4-5086bab4162e@linaro.org>
 
-On Tue, Sep 29, 2026 at 06:46:35AM -0700, Guenter Roeck wrote:
-> When starting a watchdog whose hardware is already running,
-> watchdog_start() calls __watchdog_ping() before marking the watchdog
-> active, and fails to update wd_data->last_keepalive. As a result:
-> 
-> 1. wd_data->last_keepalive remains 0, causing watchdog_get_timeleft() to
->    calculate the elapsed time since the epoch and return 0 time left.
-> 2. watchdog_update_worker() inside __watchdog_ping() evaluates
->    watchdog_need_worker() and watchdog_next_keepalive() while WDOG_ACTIVE
->    is still clear, using wd_data->open_deadline instead of
->    wd_data->last_keepalive. If open_deadline has expired, the background
->    keepalive timer is not armed; conversely, if the active watchdog does
->    not need a worker, the boot keepalive timer is not canceled.
-> 
-> Set WDOG_ACTIVE and wd_data->last_keepalive to started_at before calling
-> __watchdog_ping(), and revert WDOG_ACTIVE and update the worker if
-> __watchdog_ping() fails.
-> 
-> Fixes: fbbe35dfcf94 ("watchdog: use __watchdog_ping in startup")
-> Assisted-by: LLM
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Hi Tudor,
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+On Tue Sep 29, 2026 at 10:02 AM BST, Tudor Ambarus wrote:
+> Hi, Alexey,
+> On 9/29/26 6:10 AM, Alexey Klimov wrote:
+>> Add the ACPM firmware node with cpucl0 and cpucl1 clocks. ACPM firmware
+>> protocol provides interface for all client drivers to actually use
+>> features exposed by the APM co-processor.
+>>=20
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> ---
+>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
+>>  1 file changed, 13 insertions(+)
+>>=20
+>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos850.dtsi
+>> index 8a4771899a8e..91c6cee8f483 100644
+>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>> @@ -11,6 +11,7 @@
+>>   */
+>> =20
+>>  #include <dt-bindings/clock/exynos850.h>
+>> +#include <dt-bindings/clock/samsung,exynos850-acpm.h>
+>>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>  #include <dt-bindings/soc/samsung,exynos-usi.h>
+>> =20
+>> @@ -170,6 +171,18 @@ timer: timer {
+>>  		     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
+>>  	};
+>> =20
+>> +	firmware {
+>> +		acpm_ipc: power-management {
+>> +			compatible =3D "samsung,exynos850-acpm-ipc";
+>> +			mboxes =3D <&ap2apm_mailbox>;
+>> +			shmem =3D <&apm_sram>;
+>> +			clocks =3D <&cmu_cpucl0 CLK_FOUT_CPUCL0_PLL>,
+>> +				 <&cmu_cpucl1 CLK_FOUT_CPUCL1_PLL>;
+>
+> Why do you describe these clocks?
+
+>> +			clock-names =3D "cpucl0", "cpucl1";
+
+To link these clocks with ACPM clocks from this list:
+(file drivers/clk/samsung/clk-acpm.c)
+
+static const struct acpm_clk_variant exynos850_acpm_clks[] =3D {
+	ACPM_CLK("mif"),
+	ACPM_CLK("int"),
+	ACPM_CLK("cpucl0"),
+	ACPM_CLK("cpucl1"),
+	ACPM_CLK("g3d"),
+	ACPM_CLK("aud"),
+	ACPM_CLK("cam"),
+	ACPM_CLK("disp"),
+	ACPM_CLK("cp"),
+};
+
+Eventually to have some sensible/working ->recalc_rate() for ACPM
+cpucl{0,1} clocks.
+
+Which is needed, for instance, for cpufreq_dt because it registers with:
+
+static struct cpufreq_driver dt_cpufreq_driver =3D {
+        .flags =3D CPUFREQ_NEED_INITIAL_FREQ_CHECK |
+                 CPUFREQ_IS_COOLING_DEV,
+
+Don't know if it answers the question (if I understood it correctly)?
+
+Best regards,
+Alexey
