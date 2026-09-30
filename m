@@ -1,142 +1,168 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB60B48F837
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D4B49362E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790810277; cv=none; b=rNY43BKRN+RXgaiw8xFWwR1FM/yrnjO9UyLmIZ0T/4tq5tqftu0n6kzVfc2BP7LkcLFuR9/6pTz9OuB35+I91r7FNfT0ML5bHnoLUYhQkDjkCCEoJOYITm1aKE/Et/c8nr2EeScHTAT3IqO/XxzgQTiC5WnQACrLUihRtuHFmkg=
+	t=1790810274; cv=none; b=kgH7PCn0whhOEG+vqih8LlAwoqgtIpKyu47HYyCFUkVyPFlYF1MNXVZoXRSLooZVzDuNaHtoT6pZFfKbzYY1IIsrvt/HPlg8PQrhsYcQ3is3OjaHrQ9BumtY3ycP0AdW+lo3Kx1Edop37CFD+JlAtRHykMMOUbgye4dI7AgevpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790810277; c=relaxed/simple;
-	bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NUVdKTMPJrkj8WBWDfiQxERNTk6NHPn5vaM/tTKBD0JLv9mYdCHXTlIGYqdwjE5aoUpnLb5w+cfW5idSkxQ+0mh1RkcZzMAiPnKc/eIlqOWV84VeC/W2YYBmLy9R3QjVreSx72bltX6SprIvRMyUragwt84e9qJCLCSJhMU3luk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bbNm1bcZ; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790810274; c=relaxed/simple;
+	bh=AxYe7f6nYh3N2l6QrGsfcXVIKFgSksN/xsT6CCS4mRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=M1VM8+umf/NZjS7MylAFFQDZHLUaBxqLsEIhX7dsvZ9xFD08qTduftmoP6NOYdfYwkEKnDP3diWfoBtCojXxm1awpAEsv5epzqmF+usEW2vnuzfMyrkWOTBSQ5Iqp49d4DQvWSkBeBQAfyb2CPyWPbXksdukpVV7mnd7PbQtzQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name; spf=pass smtp.mailfrom=chrisdown.name; dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.b=dnU4zxxk; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bbNm1bcZ"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba3feee1d2so941484e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:17:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.b="dnU4zxxk"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48affb828f1so1305191f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:17:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790810271; x=1791415071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
-        b=bbNm1bcZLW/4PhXvUVqT3GSWJEzzmfBnklS2Ag0bpisyIN2//R5Q2chIxjpvtWln8g
-         4A+V+lSUxtB3af2JmF77n3u3ahNxVDFrF2+kgZCiwCULPokQCRnrjFeoTbYtyZQAMnXG
-         fYp67UhIEqERjDu2jW2iFgaRn/2sO52cjoisA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790810271; x=1791415071;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chrisdown.name; s=google; t=1790810262; x=1791415062; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MQVYYLbltUu3gM+x2chnL6/HZHcYyjfddY/XCJbMqzk=;
-        b=buvnAxMvhYEYYW3/4hQEggaUIoiurc5cphHdO+J0wRJP5IAXS1kPPl6s3J7G+SrSY2
-         NJNnUXJgHjg/rnsBHwwvRMI3j5J4vvSTLIyxvvHrapwAZjsUiVxmGVy9zKB40YQP+WYq
-         ZOMW9r+hO4jE9tfere90RuXByf7EuFzcNzRxHIfXW0mIY9Q6DBzhEZZgCLsijNKwM8Le
-         MosIto88aBlOb7RKk7f0mOupSrEtSHxw++jjQeVXUodDIYyzlQx21BCsA7kMheKfVlLM
-         hUIjUTVBxBBxGBzjl+WGr9MIKcsnKjVCDEch7Zg+pPijnweXZHFlfstnoXQcC5q69SOC
-         9u2A==
-X-Forwarded-Encrypted: i=1; AKwUvByt03vDPL0q5q9E/+/0GXaKeG/UfauzO4Nlr5CkFUwgFZSA7BMc5ooldshXCd0t/+jVLkr30pehBUNfI/I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJU1PA5pN6a0o6NLiW8vJU5ngcsLdsyRfmkiZIfXUh4Zrr3NybE
-	kihCbNhN4kwlugAwzaiOBecUGBSw/Lp6wMOqzEORwGcQVErLVcAEiLTjMYDXKkmzL32C4SGrftd
-	ahZv8dw==
-X-Gm-Gg: AYBFou0OWXMOAjf+xG4fzDD7zslGsXCoNZqiGSHGspuWbAWy7fq5GeHLFIQqPm4/mMc
-	w/inbvLbi3VzBlLCPOuXAZnYdfaZUB5urC73dbGo0iactdt/Y4Q7dCXQ/JzZUuCycP1VFlzIeO7
-	/JHiIO6XBziFX04sTLNTSzT0WUc6Nm6RRkKapbh5Jz+W1uijBGEUD7lobydPahBWx5jBVgVA9X5
-	UO+LzMhz3rNLvk/sxgX7UMgZtzmlIHPcVDX3EYFDIBxuEy9lR979yciEz26t5Cdk7ILos+ShpVw
-	fZVESqRejHO6wKkveR1MxB6U9o0hU5wdBO5X/uaJODHWat+R8Jzgyr7rlzW3G4NmmSpL5ZW+UpS
-	71E2Ky686rkHoj+LjLeUyDRHYYXh4f+05wFkmccf7UqT+tXlRPlWWm4qeH5/JfyIbEDJCNmM3J6
-	uRcuRq7Fg04nL3r2GxJLpTcvBTG1S401At1lRTtRTpqSq8Q2xvtTAjQrtIBxTroaJP6zjaKcL75
-	IpJDC2OPb6YWGrjo97qMgwaEmBgGOwfBaTKL2unCUgk2Xyd
-X-Received: by 2002:a05:6512:114c:b0:5b8:997b:c606 with SMTP id 2adb3069b0e04-5ba44074560mr189667e87.41.1790810270951;
-        Wed, 30 Sep 2026 16:17:50 -0700 (PDT)
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com. [74.125.225.98])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbf03csm279766e87.77.2026.09.30.16.17.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 16:17:48 -0700 (PDT)
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so1045177f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:17:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxIF289PpPq0NifTXYBLUuu73aLDS6t8EOOmR7Fl5M91O08WKgYzmRNMNj3tR0VkcdKAVaeB3AxOOGq2ks=@vger.kernel.org
-X-Received: by 2002:a05:6000:2885:b0:487:9a8:9f31 with SMTP id
- ffacd0b85a97d-48b025295ebmr5666042f8f.41.1790810266894; Wed, 30 Sep 2026
- 16:17:46 -0700 (PDT)
+        bh=Qqmx+w7wWMgcq8gW6PkHYUS1zHw7Tje/ih/ffys9GY0=;
+        b=dnU4zxxkJPTvTnB1YAOf7BpNu8LLB5yPTxKhu/XyYW/mYSNNyJGGzYtlFMHZx1gP7U
+         XCA1Zs/QB/oY9IobZAEqtGcn+s1Azy0/9eLzceFZ3tKmzRNnBXtnHnQas52Hw29In4kK
+         dTu4qXGR9+d+sTj5I/5JkiWCPVkpXBOP62MXk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790810262; x=1791415062;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Qqmx+w7wWMgcq8gW6PkHYUS1zHw7Tje/ih/ffys9GY0=;
+        b=Rl5jIPtyYPNsS93k3dDx22mtW6N+8WRm0hXm92bLhjiIf6xvMmVQpwgftUGkeZ8DB4
+         C4sN3ftipuUfSh9IiL7XAVH7VkhgJG8WbLzik45DW+qcH79gWzDaXlYRHfP1QV4LCj/O
+         h3mBU+iuDPYbSuNIylsfyFvUH/veJNyWyVsn8cnThwaVPv9PpNVvG/W3W63Iv7W8CrQ/
+         0/TefoHjWVaq6xjpFlbe96N86XCn7D4C7PxkFfsUmbJNFouia3bX1x3I8T0ZrGRfsGTq
+         1UlXb1kA1U2NX7iWypqBZwUCTbJbB3UOrUSARx19X3Hq7xWFtwrVdJhbev+ALKoysgP0
+         LQng==
+X-Forwarded-Encrypted: i=1; AKwUvBzb9VUT8U6Dz3qWqgU7DrbtWGieNU+m9YPpyfMxESUUfFldhnQMPLoTB7AlJ4g0XGUpAGVXRK8Ti36yvyQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaUEl8nbYDSsMEb/bKE7pRwZyNSlAYDaF88DwioJ8JFy+FgDwH
+	Tqq3GpgglH8nYiMf+dNmjP6Qv/NJkA+2piVYCaq1tbQFAIcrv/GTHy3mFwUfqDi1UGo=
+X-Gm-Gg: AYBFou1f/Jt8VPsUSuQBfKAfXz1Vv3nSftG3/3pLU8BzYTkeySrWk09IhVMWWrYNrmT
+	I8nQS8tEgmkvXmK82F8gs5OmBbnw3672B3yhmcQy0rpdTKzbgOCIS3C2nK59IV8CpU77aejIlP2
+	4r4hTBwlc8HmONdalY5P4WdrcfkK9iy1L9EX2txHhIiM9g1k25ziHd+oRKgW7p0nwdtKp6OnW7/
+	5xrxqG4rBKJOIOczebEmGB/K386vaZSWq36ax8gDFlaE2eUpnFSnkCXCGkjZAOdpPljnqRq6Kdz
+	sQL1Jd2DYFJ3PxVa6Aj/sO4voS+trCvLhKStQor7j+rBPYhF3fIxylJ/CktF0aUziuWF1Q7OV/p
+	kmQpwh6ULd8JswjHUXSKUwJ93t8Pc8mbxnea31EP71PFjAHyBJalp2zMbRq3PgeFiA6Ny4iHm6K
+	EMTwvSDwEmBbRk3O7vUbm9WT02ve8g4uC0/aHjzoFy9pqjaYBq8K2c5CYUTIOIbFO5neTqfJ+nG
+	Y6DtEFU/wdw8O1Ms817F2OojhM=
+X-Received: by 2002:a05:6000:4811:b0:488:8546:d0b2 with SMTP id ffacd0b85a97d-48b0253956cmr6174897f8f.51.1790810262482;
+        Wed, 30 Sep 2026 16:17:42 -0700 (PDT)
+Received: from localhost ([213.61.32.212])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690e060sm2332276f8f.19.2026.09.30.16.17.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 16:17:41 -0700 (PDT)
+Date: Thu, 1 Oct 2026 01:17:40 +0200
+From: Chris Down <chris@chrisdown.name>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Ying Huang <huang.ying.caritas@gmail.com>,
+	Kelley Nielsen <kelleynnn@gmail.com>,
+	Vineeth Pillai <vineeth@bitbyteword.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH] mm: Make swapoff interruptible when unusing mms/shmem
+Message-ID: <ar2YlFYjYUZ49ZA5@chrisdown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
- <20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
- <87fqzp8jex.ffs@fw13> <87wlt13zj1.wl-maz@kernel.org> <87v78l6oha.ffs@fw13>
- <CAD=FV=Wdqn7UiuRy1VY-qH+JYChLTEQgmj2q6Q=FBjCZ+5eo1A@mail.gmail.com>
- <CAD=FV=WE-Wn60zTn=nsq4qLis_zjncrS37fND6ehtpuvxYp+DA@mail.gmail.com> <87o6deh0pm.ffs@fw13>
-In-Reply-To: <87o6deh0pm.ffs@fw13>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 30 Sep 2026 16:17:31 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VuSEzHw8JJsTXuGEEe-w_T=_w6ycsqpzpNWDHxMqyJdQ@mail.gmail.com>
-X-Gm-Features: AclHuK_lONYIi2Rjd5xeZvJ8IkAtljr3_IbRPhmnlL1GcuMTyl7rym8vZ20aZcw
-Message-ID: <CAD=FV=VuSEzHw8JJsTXuGEEe-w_T=_w6ycsqpzpNWDHxMqyJdQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during NMI teardown
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Mayank Rungta <mrungta@google.com>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	"Kirill A. Shutemov" <kas@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-Hi,
+try_to_unuse() only checks for a pending signal between mms, and
+shmem_unuse() doesn't check at all. That means that once swapoff gets to
+a process or a shmem file with a lot swapped out, nothing can interrupt
+it until every last page of it has been read back in.
 
-On Wed, Sep 30, 2026 at 2:46=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> w=
-rote:
->
-> On Mon, Sep 28 2026 at 09:14, Doug Anderson wrote:
-> > On Fri, Sep 4, 2026 at 8:26=E2=80=AFAM Doug Anderson <dianders@chromium=
-.org> wrote:
-> >> On Fri, Sep 4, 2026 at 8:11=E2=80=AFAM Thomas Gleixner <tglx@kernel.or=
-g> wrote:
-> >> > Of course this is a regular global interrupt otherwise it couldn't b=
-e
-> >> > requested normally. So this sets IRQF_PERCPU (it has to otherwise
-> >> > request_nmi() would fail), but that looks like a hack to me.
-> >>
-> >> At least on GIC, promoting a regular global interrupt to NMI (or
-> >> pseudo-NMI) level is possible, and Mayank's use case here seems
-> >> legitimate. Any suggestions you have for making this look less like a
-> >> hack are appreciated! :-)
-> >
-> > Throwing an extra plea out here to see if we can make forward
-> > progress. IMO being able to make watchdog driver "bark" interrupts run
-> > at NMI (or pseudo-NMI) level is an important thing to do for
-> > debuggability of the kernel. It sounds as if there are no general
-> > objections to the idea. I guess the next step is to make this look
-> > less hacky. Is that something we could send patches for? Any hints for
-> > what you'd like this to look like would be greatly appreciated.
->
-> I think the objections have been layed out in course of the discussion, n=
-o?
+Just as one example of where this can concretely show up, freezing tasks
+for suspend or hibernation has to wait for swapoff to notice the
+freezer's fake signal, and gives up after freeze_timeout_msecs (20
+seconds by default).
 
-I guess I'm still unclear on one key question: if we post up clean
-patches that allow promoting global interrupts to NMI (or pseudo-NMI)
-level, would you be willing to review and eventually land? I got a bit
-of a vibe that you just didn't like the idea in general, but maybe I
-misunderstood. I just want to make sure Mayank doesn't spend a bunch
-of time trying to solve this problem if it has zero chance of actually
-landing.
+Here's a facetious example where one swaps out 2GiB of one process to a
+swap file on ext4, starts swapoff, and half a second later tries to
+freeze with pm_test=freezer. Writing to /sys/power/state then fails with
+EBUSY and this in dmesg:
 
+    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
+    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
+    Call trace:
+     [...]
+     io_schedule+0x44/0x70
+     folio_wait_bit_common+0x1ec/0x3d0
+     __folio_lock+0x24/0x40
+     unuse_pte_range+0x2d0/0x348
+     unuse_vma+0x158/0x248
+     unuse_mm+0xfc/0x150
+     try_to_unuse+0x104/0x3f8
+     __do_sys_swapoff+0x220/0x5d8
+     [...]
 
-> > I'll also be in Prague next week for both Plumbers and ELCE, so I'd be
-> > happy to discuss this in person if that helps.
->
-> I'm going to be there, but I don't know about Marc.
+The same goes for anything else that wants swapoff to stop, like an
+admin hitting ^C in a panic, of course.
 
-Great, I'll make sure to look for you.
+Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+try_to_unuse() was driven by find_next_to_unuse() which checks for a
+signal before every entry, so let's restore that behaviour.
 
--Doug
+Just as an example of the improvements, here's how long freezing takes
+in the same test while swapoff is happening on my computer:
+
+                      before                  after
+    400MiB anon       8.925s                  0.028s
+    400MiB shmem      1.639s                  0.003s
+    2GiB anon         failed after 20.003s    0.011s
+
+Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+ mm/shmem.c    | 4 ++++
+ mm/swapfile.c | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index ae08cff4500c..72c8a61db76f 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
+ 		if (ret < 0)
+ 			break;
+ 
++		if (signal_pending(current)) {
++			ret = -EINTR;
++			break;
++		}
+ 		start = indices[folio_batch_count(&fbatch) - 1];
+ 	} while (true);
+ 
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 254ce86fa923..c3288910b3e3 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ 		cond_resched();
++		if (signal_pending(current))
++			return -EINTR;
+ 		next = pmd_addr_end(addr, end);
+ 		ret = unuse_pte_range(vma, pmd, addr, next, type);
+ 		if (ret)
+
+base-commit: 2ddb90ee544ae97215afc4698dc223293997cc43
+-- 
+2.50.1
+
