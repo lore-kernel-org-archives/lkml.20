@@ -1,212 +1,148 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA9D522F0A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790388; cv=none; b=B5S+2QS/sVXe8uf2iEN3ypYr+KmL4BP0d2ajeI3n9UOIies7WIr0a2ittPSgYd8dKavWY1KdAW7/OubVP7c7Bie1VgQAcklWxKSgm1UyCFd9gHcYSR7+RAma+w5g7RarIE5vfTiVDq4hKYEBVnx9WlDZgYRWKkyxSaFdB1i243I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790388; c=relaxed/simple;
-	bh=ZMPvizXY0n4wJBRhWagF96puBKwM0aSHYQ9ejsD+41I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U+r3me9ITlBSiVMPs/kOBUTOlR2j3vrTzM3yYkPGfWZbfO24kIrh63UOSSTvyKdYGXPGkXBBhOH++V4cWrmS+Ml67pjgzpfy2RNB+dKHY9XmAwgxCu0iCymD3Q5Uyw8E7CiTjAsc8cy8Nybj6bGaVrBwe/z3MNwcI0XEreqvawE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=roQuzNca; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D7755C31C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790790398; cv=pass; b=EwWpPr0iG1zi9wC5cDLSn1TicnNU0ezTDVbuEtTlPZFJJOmb7eIMGB26IBENHDjKcmQR/KYToFbv/PmO0yhXQRlrHngDvvOcdapJyzYUmYKzn+M3rL18JSJTfnDi+f46GSnXzvBUtyI1sstnW0ad2FiC5r2pbYq71IMAw1yugpA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790790398; c=relaxed/simple;
+	bh=w0tICuoTa2+9t83PhN3/TCdqvSbLHcBiTxwpgG1m2wg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YXxWKxk8+DVhvTnGwvbzV57H6m1TrLYI/1Nr+MRcW84nUtiQM50ZN/E8800LaY38XsKE372eseIrkWAzEFlTPLn03j8PPBwYYgh2/FqUEJ4sY3+gRXnoAyqaHHA9ZfwZA8RS73sFgtb5htkdnrq7t3ZMeqoZ56lNIlP9qMRV5wc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vl2j8dSo; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="roQuzNca"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso30227575e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:46:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vl2j8dSo"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2db33db4de9so5775ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:46:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790790396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DCKN3EijTkI/xQWWPt7jtZ4Gx4XbjEwd8oHJe/XjM4tZa5j2ZCtdX8V3YbPLlejwqG
+         2Jdb9U/QQl/gnScsRZjz2x2a/bDrgzE1oKWJrD2mcrJFxAHAhTPpErOW5CH83FHXUizg
+         URMoY+EK1hdqpbyIQiB/MFMYsxsSYIJFgYsRdXKHsA5r+Qk/qH6RrJ6fKAJ7qD55G77F
+         xw3FWSNmsZko75rOgOI6Dw04xHN9Azkm7ho/omlfJedgMarFJrASzVMVI818BrG6qUWB
+         ZuDXE6Z2rCr0MbwiXbAErGDA4XbXfB1XR4KLx9qvNTnHDz5O2NT6IrI5YucoKF8iclAF
+         0XlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=owfGESY65vbCjIAUrqy6g/URvmlOMSe0YC9FIcjy/6A=;
+        fh=N4VHKR28jsRd4fOlx8V+3qdGhgRRYk9ZaCHW0NtQd/4=;
+        b=AxRhrqiPcbCjuF/VK+91eO/6ZEV0W9bRdcLPc4750kHG9YNoH16AUqmZP4OHcWHh+o
+         oSo9JCEaOOnxcIJt0s/lvtmIaFPdPi6BRTgdeAHORWnBBM7egTOn0pdAIrEJOqa73Y3d
+         hFsZmvtYaKcxux+5INJXmvX20vc8NiZHojUcUaZU0CKHXHa8h3OYGbmeGEsvoTPx3sla
+         U4WSap+meE02zRphoBTxn2yhiiL2IwvmgyRSZzZYUCmXAQcYPgiGgCs9YhScsrlLNQfJ
+         ZDX9QnJUIvgWGHJiP7dsjze+tWzQkoa+LA37QWgv0CiljeVSSv82uy5vHS+b0vgpe8aY
+         cjjQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790790385; x=1791395185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1SPOcicpnjQVn4bx3oXODthmXye0yocSFDhSVyIxBW4=;
-        b=roQuzNcaQrCVAolwbUIel8QJpa/fPYbn6igvxUqWGLBgKRLUCLlZb15vMB1o7Nh+bS
-         DLxLisUDiJl0MTwBOfnaf0GHveZ5E7ZJSeJUbh7MYSRH7mRy7o//AIN6CbkVVMWpP3Iq
-         UJRAqgEf4yZ7VxG74sXnzAOQwsDL1Og7GIMc0PCISnx9xarQMuVl+NLMbjXDtZRLn2Do
-         44PiDXCa/koesUNU6pNm+AWTivaS7N9x9htVrLPxjxZkkJPFvyIuSAyudr6c8sVzHKVS
-         0Tk8w/3WJNGSZVTxjStTf0yfkIgmPj29wS6dWwsskENkNJoWRQmEbuXoonRdoaDs7xVd
-         x9JQ==
+        d=google.com; s=20251104; t=1790790396; x=1791395196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=owfGESY65vbCjIAUrqy6g/URvmlOMSe0YC9FIcjy/6A=;
+        b=vl2j8dSoWT8FZQqYlYNTq4ID7QzjgUYE5KmHXAlBlnR/3mfq+ujvKgLsQt7PA9k6gE
+         Fh186emZnYpzdZvxterExpx/yMtNYnEIlbegfH824yd5rCQF44wA330Gr0ee1lK3NRv+
+         8w1nvoPgS38aBnn3kmNX9LYvq5Eu2rVIgWt8UQmrNa8Ss+XjLEJ5cvR/Op5LR3EXHBrH
+         82WrRuFHhEciohoSuBurypNtw/OBquMFFSWHDJ5uljl3sT8olSJAi98l+J8e+xIEvsWe
+         xz6Gji4xkXWbYZq4eewezXizsKsQamCk5bhh4QMHSahsOtNZhIFCxv9tXgvVn6nLKqo0
+         LjXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790790385; x=1791395185;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1SPOcicpnjQVn4bx3oXODthmXye0yocSFDhSVyIxBW4=;
-        b=PXDITCwbNmdTo2zjg+hyjwcSWtPXtxqY2aNQVXGrpn7w2mruJMAzYBZJXRtxoB9guq
-         TH+ZfrHafWaxPwCi/xevXqBZe0g9AjBIvqT6l2YrtMCZcwJPML5mdmNZ7GKrTOhdgdwL
-         6dVmLmXq9fs4ULIBi01aiHT3crBsCK+bvTjozY+CPne1rc8HZ1DN0sZsa2cwmf7WzIqj
-         5VdsyhBJwaRd8CwP777OCrzgVl3JSiNgusvGO3ahQ0TJ3l5BV7izafTDQU1ynNtt88ST
-         fOy0INaYtX5AEMYnya/qSr6WyVPoysxz6KXv32vKiZAULb6C7LRb1VvcZJ2QbK/g3rHH
-         YTzg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9+5D9Py+/BQvMpxU5zBUs/76rctXCNmGyx7dpvx+vmQ0o4c/DaIq9tkLFDcsGh3GUAEpeCJy8ihbs7W8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k79u8nOln7YXoBNA1ScSa9+OL97VpdPffDKBjw/ZbYCm6htTwt
-	UHUExX24SKkqPdf82LqRx8oUXPbDAkKzSmG4Rb6MUgLWNhBuDt0A4Itz
-X-Gm-Gg: AYBFou0191kUERJVxehQFU7dTnl0zzXhOdXy+RYkaqJTO20MmAReRXSyHaJsMKV+txc
-	FMTHU9DzjhXsw/VhU5o6uT0/vluJWkZKnIEx41VMpXvKbmViNC1a10kR3UgqwH6NFd4GdPA7P8t
-	83CoMsvY7RcOMHFCYsjHtlE61EyaJkMTV5P5H3/nnakBpYjkaifUELT76dgF7rsh9XdjKxMU+mo
-	tR20hx4vhepqgV352nQaapI83DwNs04hXkjm+QGlT+/tk+iIYQBKy68sz6e2JhDnHuDZhGsO7LG
-	dG9yRi5alEk6EtDaYeEfApeRVEiVk/e9UBZMxX4eS58vZrr+8KvZbG2d1QikqpgU9N6zLDFNKE+
-	zWYWgzc/hYOTtwYZzF0lXVzTT1IjBep9ETpf8hbvrWGTToAcd2UZWIlHRB6BdEeOqKPkBVSKaaE
-	L34JxU2JPvDqSMTuMK4TVxxZIGOv6ySOaXQuDcds/RX6N/kp1zaQhXJ3P0SX/eXx/0Y6qymI59y
-	FpHABhdGLdEh8avdqBVA/8TDGYdcF6O8vuBeWUGMjgGa+7SwSynJ4BlZts=
-X-Received: by 2002:a05:600c:1c16:b0:4a0:a34:f6fe with SMTP id 5b1f17b1804b1-4a01b01bb21mr43230055e9.17.1790790384597;
-        Wed, 30 Sep 2026 10:46:24 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01eba6fd7sm6723965e9.10.2026.09.30.10.46.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 10:46:24 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nayden Kanchev <nayden.kanchev@arm.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: mali-c55: Fix frame sequence numbers on dual-pipe hardware
-Date: Wed, 30 Sep 2026 18:46:21 +0100
-Message-ID: <20260930174621.791831-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790790396; x=1791395196;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=owfGESY65vbCjIAUrqy6g/URvmlOMSe0YC9FIcjy/6A=;
+        b=hVkkv6lDmu3BMPh1+yxwkrW8Dl1KvxTKYsItxWyuQZ0znp4aiHrVGn0/xTeN6c9tSE
+         IjLfJrqSPSygFKEXz5KQsvkYVq5oTENrWeBJUOlP/eo7ZBoUfw2Jhdb/gBLMBFWncSR+
+         uJQBupwdg6M6vBChhMUQMY5X9TiTUXNFcV+VFS4Rw38yJF1GfEmXc7YMZm4l16K8GhHm
+         VjJ9vpiyVrPxQarSmIoAQUr7tGyMz9T4Bs0Yj9wsCqqGV4rF1jEfXoduTYtDT9Ho6MPw
+         hlRLswgODQYKgtsBzZAOseCEdbZx9VJ3GlLK8BivBQqLn9vp6h0F8JABcKJ2MpKVuzV6
+         +ysQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPJkf2/0tR24N0fJVDfbs/afVPGvh0nxBY+hg0t6VYC/wU5Y8ZxSkHKNwndKthSJwizs41GszSc9py5pM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZloPAzhyzRxG4l1fxqen3lhLsJjMJUdk9/NOQ+yu3uZsdXySS
+	EENx10TzmlPf0ROuiPYioRAgF8bJddsCHZWNrWuj3cwo3v0E9j6xdQmg3i5yPt79pOjqKom4xg8
+	7VdaQsZxiiv7rdthA8ebgBlYcUOumD0ro6m9tCMCR
+X-Gm-Gg: AYBFou3/bqVzCCOLFWNIM+DM5XC2eYUNtnXr2BrKMu12Ks78ciX/FQuXWDSzhUHQy6d
+	sP3lOTReNJdrQikflH4to09RumBDrsqcxqZx85U46Bs/qxXIzU78BO1o+RHFETfU5XbOe+t9q3O
+	mSlamGoly/G8UKR/VwwhOwQSLfGc9hvwUD6KjoGVaNjgJdupY71wEVu+xenV2nCz5/NVu2oid6M
+	cjDFsi1lRs7aqdDZYUSsm3fL9soGJ6ydEEJVeG+MfY/FhIIbFbPOetWC96NP1W21y8mDqaN73pP
+	GY6NbXzFJnjaXRI3AC2qlBu9eY05ACKnbQSgIBW9cGmWKaxdqLmyzkC3kFklB8c+Stynm/wyVR4
+	UQa/3pqffGA==
+X-Received: by 2002:a17:903:40c5:b0:2df:9957:d1bd with SMTP id
+ d9443c01a7336-2e2de7b2ba8mr4902705ad.18.1790790395316; Wed, 30 Sep 2026
+ 10:46:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930-perf_fix_pylint_errors-v2-0-945cd526576b@arm.com> <20260930-perf_fix_pylint_errors-v2-4-945cd526576b@arm.com>
+In-Reply-To: <20260930-perf_fix_pylint_errors-v2-4-945cd526576b@arm.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 30 Sep 2026 10:46:20 -0700
+X-Gm-Features: AclHuK8a28BfpDM1TaVvVdEZDtDcaID83iikH9N8YTnc3Afd31SS0Gk0oIXvWO8
+Message-ID: <CAP-5=fUyzOYv_f1apjXyOLRUzmCPTTk3yDXAOb=wUbukoENHNw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] perf python: Avoid shadowing exception name in
+ PostgreSQL exporter
+To: Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Aishwarya TCV <aishwarya.tcv@arm.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The single frame_sequence counter in struct mali_c55_isp is incremented
-in mali_c55_set_plane_done(), which runs once per completed buffer per
-capture device rather than once per frame. Hardware fitted with the
-downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
-start the ISP unless both the full-resolution and the downscale queues
-are streaming, so the counter advances twice per frame.
+On Wed, Sep 30, 2026 at 6:11=E2=80=AFAM Leo Yan <leo.yan@arm.com> wrote:
+>
+> During the perf build, pylint reports:
+>
+>   ************* Module export-to-postgresql
+>   python/export-to-postgresql.py:319:8: W0621: Redefining name 'e' from o=
+uter scope (line 100) (redefined-outer-name)
+>
+> Rename 'e' to 'db_error' to clear the warning.
+>
+> Fixes: b1f968c9656a ("perf python: Port export-to-postgresql to perf modu=
+le")
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
 
-Each video node then reports sequence numbers 0, 2, 4, ..., which
-userspace reads as a dropped frame between every pair of frames, and the
-two pipes never number the same frame alike, contrary to
-Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
-event and the statistics and parameters buffers only read the counter,
-so their sequence numbers stop identifying a frame too.
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-Increment the counter once per frame, when the ISP start interrupt is
-handled, and stamp each capture buffer when mali_c55_set_next_buffer()
-programs it, as it is written out during the following frame. Stamping
-at completion would be off by one whenever DONE(n) and START(n+1) are
-handled in the same interrupt, since ISP_START is processed first. Hold
-the counter at UINT_MAX while the ISP is stopped, as the first buffers
-are programmed before it starts, so the first frame gets sequence zero.
+Thanks!
+Ian
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-v2:
- - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
-   at completion, which broke when START(n+1) and DONE(n) are handled
-   together (Jacopo)
- - Reset the counter when the ISP stops instead of when it starts
-
-v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
----
- drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
- drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
- drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
- drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
- 4 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-index ff01553026fb..fa073ce4b2bd 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-@@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
- 		return;
- 	}
- 
-+	/* The buffer is written out during the frame following this one. */
-+	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
-+
- 	pix_mp = &cap_dev->format.format;
- 
- 	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
-@@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
- void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
- 			     enum mali_c55_planes plane)
- {
--	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
- 	struct mali_c55_buffer *buf;
- 
- 	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
-@@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
- 
- 	/* If the other plane is also done... */
- 	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
--	buf->vb.sequence = isp->frame_sequence++;
- 	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
- }
- 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-index 13a3e9dc4243..50f2b7a85f62 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-@@ -76,6 +76,10 @@ struct mali_c55_isp {
- 	struct media_pad *remote_src;
- 	/* Mutex to guard vb2 start/stop streaming */
- 	struct mutex capture_lock;
-+	/*
-+	 * Sequence of the frame being processed, incremented at SOF. Held at
-+	 * UINT_MAX while stopped so the first frame gets sequence 0.
-+	 */
- 	unsigned int frame_sequence;
- };
- 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index fb81141d1653..be562156b295 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
- 	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
- 		switch (i) {
- 		case MALI_C55_IRQ_ISP_START:
-+			mali_c55->isp.frame_sequence++;
- 			mali_c55_isp_queue_event_sof(mali_c55);
- 
- 			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-index e128adf6ee37..dd3bce287a3d 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-@@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
- 
- 	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
- 
--	isp->frame_sequence = 0;
- 	ret = mali_c55_isp_start(mali_c55, state);
- 	if (ret) {
- 		dev_err(mali_c55->dev, "Failed to start ISP\n");
-@@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
- 	isp->remote_src = NULL;
- 
- 	mali_c55_isp_stop(mali_c55);
-+	isp->frame_sequence = UINT_MAX;
- 
- 	return 0;
- }
-@@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
- 	int ret;
- 
- 	isp->mali_c55 = mali_c55;
-+	isp->frame_sequence = UINT_MAX;
- 
- 	v4l2_subdev_init(sd, &mali_c55_isp_ops);
- 	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-
-base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
--- 
-2.55.0
-
+> ---
+>  tools/perf/python/export-to-postgresql.py | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/tools/perf/python/export-to-postgresql.py b/tools/perf/pytho=
+n/export-to-postgresql.py
+> index b6782129354ed3b1bd750af41e7a002c7134bf12..9cac64dee361214de3d1f9907=
+c5e6849327c8ed7 100755
+> --- a/tools/perf/python/export-to-postgresql.py
+> +++ b/tools/perf/python/export-to-postgresql.py
+> @@ -316,9 +316,9 @@ class PostgresExporter:
+>              # SQL identifiers are double-quoted; escape embedded double =
+quotes by doubling them.
+>              db_name =3D self.dbname.replace('"', '""')
+>              self.do_query(f'CREATE DATABASE "{db_name}"')
+> -        except Exception as e:
+> +        except Exception as db_error:
+>              shutil.rmtree(self.output_dir_name, ignore_errors=3DTrue)
+> -            raise e
+> +            raise db_error
+>          self.disconnect()
+>
+>          self.connect(self.dbname)
+>
+> --
+> 2.34.1
+>
