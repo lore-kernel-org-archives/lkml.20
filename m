@@ -1,66 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756A93BE659;
-	Wed, 30 Sep 2026 10:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1090230BD5;
+	Wed, 30 Sep 2026 10:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762813; cv=none; b=GEFxFCkKMnHZcxoAjB960cJIxyr33RwmJvEp17W7wium4WM6L8nVnApVAG7r2xFqbChYFGy9O+Mb1575vNnc+mJcDGqEM9iSBF3JGIIAI8+FS17P2JQoyOafKmY2XPmV8aSgw+TUWmCEnd+gyU/VsW9Ay1HWF64q03SV7jl0hVM=
+	t=1790762880; cv=none; b=CNMi7MSkvTmtdBm80gx7zjyzK76lr1w4Bjm/S3XKG9tSJm0nv6azzxBOWV3L8Mvg+snYkaOVW3rec8yfuDgGCuKjr1jHf3zy5rTLEmfwrxExPm2TrmS7R45Kycub/TSlrni8cpNiyClz6VbyuXSfZ4HKf6FzPFzCByYEyStFNMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762813; c=relaxed/simple;
-	bh=ubAvfkCp5vsdwUjCVnZQk0oMqZ99KBbjxOYN5RzNHz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bdHeM9y6ktU3w9JyNic3OqDKRMad1WubJuxOaI48kX/fjuvutDyL8NGr5J+BLLAA6PW1JUvrAyd4BF8uHxUv1uZJLAh+OxSS8ocPjWpt0IXXWtPOYZdsa0VGri3zoQG7Q3t6HMaZov4LsG7CNnPfqjKwD4Aqe8xkav8VE0BivTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfJ/AmNx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762880; c=relaxed/simple;
+	bh=SHJ8hA6cabe4Iy/NBsVsa6CmVruqC9L/5DF3S0RW1vM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F6rnNCxPbcaop7nGcUfW6+Tj+ErZjvfdTEs/GpyQvnwU3qsUfSH85ii+GYTKt0LMmq9KwGyEEHsZ1CkdQpRfvo2+TSbXQ2l1NxXHyIJZ6N9AaI4RUMTbgAeAKiFzGXjXHIvizCSnBqPpTb+dqP680KXvFcOv/VKKtYoeBiYlQ7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=eGdlbMWQ; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfJ/AmNx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F771F000FF;
-	Wed, 30 Sep 2026 10:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762812;
-	bh=Q9yiKYavryXT+brJQyEy24mXi4JWCHIusIicf28HZnE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WfJ/AmNxHbH3gx7b57FwObyYPWoGBd/CHHeB1e0Oun037vUW75D/Pc3kUrV44bqX1
-	 NsA82hecWQSdk8FkiS87UgBmOBrjES7EFAEG8Re4d3G9H1vS9ScnXBnndb09bkq8dr
-	 AoHBUun3DucjgsbpBBmiWGY1TmDjcpjF/8u6IglR+g9O7jjPbHhPqFz3omUSM3xsub
-	 yfgDgcvlI7M370/zdFArEUb1wgMBN9tiAXjSRh198fYyWb9BPpU5EzXr/fhoOgtryk
-	 SdghhvyApBY7mWcMDIcxIFUp2NbjaQutFkGVQugusvCUqE3bjuXWfs6AS6BH2jnkH3
-	 qSuiHvIXTmRLw==
-Date: Wed, 30 Sep 2026 12:06:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Po-Yu Chuang <ratbert@faraday-tech.com>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: net: ftgmac100: Add AST2700 compatible
-Message-ID: <20260930-rare-sarcastic-angelfish-21cfeb@quoll>
-References: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
- <20260927-support_ast2700-v1-1-9f03f29d2c82@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="eGdlbMWQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=SHJ8hA6cabe4Iy/NBsVsa6CmVruqC9L/5DF3S0RW1vM=; b=eGdlbMWQKzvcgAr9rF59gzttIy
+	jXONQXqjCqmZb+u+8sNnSDDe5skaRKLMeyYQoUIIkcy6HJUOWKNlnI7ksYql+vlBiLdcgvzrogEv7
+	PLBHtKCRmBsZXFFKy40faSAFGvnWPQTXnBnb+4Kvof8aib58IF1z6yOIjhq2BNvYszN69p1CBsYzr
+	eXQX1glxoZF+RH85bDcvcAhFgnRWk+sCqNOQsRCfT+464eRQhiEpILP9h9pCqQUnd/Eo1HmscTBTL
+	7RSQnrYdBIabM4vgGm5f8uMlKOKwx5/emEh6AH8Jjb46UsVtYJqp2q8LV8ZDgqVm/Dnl8V0SRwsQW
+	gVUsPr4Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Subject:
+ Re: [PATCH v5 10/21] drm/bridge: inno-hdmi: Add .disable platform operation
+Date: Wed, 30 Sep 2026 12:07:35 +0200
+Message-ID: <14018012.nUPlyArG6x@diego>
+In-Reply-To: <20260929-jh7110-clean-send-v5-10-82b4d8e3c6c7@samsung.com>
+References:
+ <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103227eucas1p1a8ef8d6ebb77a6f2cca192e8bc0b4e1c@eucas1p1.samsung.com>
+ <20260929-jh7110-clean-send-v5-10-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927-support_ast2700-v1-1-9f03f29d2c82@aspeedtech.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Sun, Sep 27, 2026 at 03:16:20PM +0800, Jacky Chou wrote:
-> Add AST2700 to the FTGMAC100 compatible list and document that its
-> RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line for
-> AST2700 as it follows the same reset requirements as AST2600.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> ---
->  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+Am Dienstag, 29. September 2026, 12:31:07 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Michal Wilczynski:
+> The Innosilicon HDMI driver supports platform-specific behavior through
+> the `inno_hdmi_plat_ops`. While it provides an `.enable` hook for
+> platform-specific power up sequences (like enabling PHYs), it lacks a
+> corresponding hook for power down.
+>=20
+> This patch adds a new `.disable` op to the `inno_hdmi_plat_ops` struct
+> and calls it at the beginning of `inno_hdmi_bridge_atomic_disable()`.
+>=20
+> This allows platform specific drivers, such as the StarFive JH7110,
+> to implement their own power down sequence (e.g., calling
+> phy_power_off() and clk_disable_unprepare()).
+>=20
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Best regards,
-Krzysztof
 
