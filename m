@@ -1,107 +1,66 @@
-Received: from mta0.migadu.com (out-167.mta0.migadu.com [91.218.175.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57A53B14A8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1446317173;
+	Wed, 30 Sep 2026 10:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763020; cv=none; b=hxILPIq/Wq6HcsoMEfuCAt35Uw1u0KaP2tUTOUJ1A/alsJtSoqQCpee6Wt7fefSSgaHHOIgKL38lpgoOW2FfSAbYmoKnyGrO63/WhGgoFxlLXxAJS1Oq+TfIuDHxrc+cxjNdJ06ilUdZFvEO6M4Ot69xUiTedgWmvHaBnOJQo88=
+	t=1790763039; cv=none; b=MqPbhsclhE7OOWYDw69O74+YDYeS1yrhHm+G+7BZU1qt1TAPA9+DFTHNliqd9fe3R3X6Tp+isHlylzm1cmUcbtiwRY8YBfZgowi8aO8jwWXhkTZH5RiveHzRXtVviXsqYcvz+d4Cojr51oBlSUwX+SKO9x0JW6WG9kkwtRaEP20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763020; c=relaxed/simple;
-	bh=Q5AkoNztmUhqfq/M4oFXRdYxicGteR+QcwAAPrg1Geo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uUeE86nqtQOdjCXi+xpge/YiQentlygHA0osoiNdFKOS1w5M9YmlLhteQykTAO2m3GNu0CaTzTiwK4+WrQbOcWddatEk8bCHwoNMPDn8nb5zkpEBD3dzZzf9L7mJXac8C6YN8zroa0066GfoYsyk2wGLxbo6nuSMQfgRJZihwL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iMaguGyr; arc=none smtp.client-ip=91.218.175.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790763039; c=relaxed/simple;
+	bh=onxhY7qFW3wqD6tIOnfRIki+3UkB41+NNqfblBmh3Lc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMo0f6fYLpu9qxTbObi8XB2pFBR4Ub7/QWwKAWjSQYHYUHe3Lv8SE8LSX7jB92NoKJ3H+yXEFy02iO4YhRNpNH0YR0Xug12rN4wbdHIX3mzrejkmvFdQ7eg3MqBP6SiMz8kcaivRuK5f5AEW+3JbrwIV9mXBBZokncho6eKRC2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgEkZ1Sy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iMaguGyr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Q5AkoNztmUhqfq/M4oFXRdYxicGteR+QcwAAPrg1Geo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790763016; v=1; x=1791367816;
- b=iMaguGyriKG7Kt7vMghsIPLdHQkYbha+Mf2bkViIDmMO/HqeHrEJ9zmY+D4j12tls+QvMjFr
- J7PMsfQjaZrTyZqx0tV+AFpn2/1K10QyJJ9ZY3dvSzHoMkQUUiRjt6O9Ffh5NHnrrgy2fA/a7MR
- dWZsKwxT+tBfAjPc529ajRDU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f03b88fa8acaa0b7;
-	Wed, 30 Sep 2026 10:10:13 +0000
-X-Mizu-Trace-ID: f03b88fa8acaa0b7
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	VEGA <vega@nebusec.ai>,
-	Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 1/3] tcp_bic: fix divide by zero on max_increment == 0
-Date: Wed, 30 Sep 2026 18:09:30 +0800
-Message-ID: <20260930100937.206377-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930100937.206377-1-jiayuan.chen@linux.dev>
-References: <20260930100937.206377-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgEkZ1Sy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C2A1F000FF;
+	Wed, 30 Sep 2026 10:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790763038;
+	bh=vHfIlpHAKIFPPGeTX2D09og3//FoLgPKp4mRy4VEQkU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mgEkZ1SyRI8K37jdaZ0dnzHrhi0Z4YkrL7rpHe1/qvh5qnww2L/4cGvKrG3fIgaPh
+	 sHq1rdElmDjtY478yz461FFYX9i8EQin91eBehPi4WpGiUML69OB1/Urk9ZNQ+C+4l
+	 rYhzUqYgozRhik33xsAPMhTubLycjkvwgaHWzn6IrABHP0hCFH+iD2w7KFAMTOGjHE
+	 dWmgwsTARIRVkFhBxoW3baqzV3oaM2oHOSEJMIo7yF8rv1vjAVpr1Qh+2K+s3U8acZ
+	 fdfD05lIscrAE4aFgN7Plo3XddfeRgYneuncnujFREihuFURjvEEgz2fSSbIo+ReMP
+	 nibLEDiMIalww==
+Date: Wed, 30 Sep 2026 12:10:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 05/11] dt-bindings: rtc: sun6i-a31: add Allwinner B288
+Message-ID: <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
+References: <20260927151016.186493-1-pmazzini@gmail.com>
+ <20260927151016.186493-6-pmazzini@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260927151016.186493-6-pmazzini@gmail.com>
 
-max_increment is how many packets cwnd can grow per RTT, so 0 makes
-no sense, and bictcp_update() divides by it.
+On Sun, Sep 27, 2026 at 04:10:10PM +0100, Pablo Mazzini wrote:
+> The B288 RTC wires one alarm interrupt, not two.
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>  .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml        | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Reject values below 1 when the parameter is written.
+Seems like valid and unaddressed comment from Sashiko, so dropping from
+DT Patchwork.
 
-Fixes: 83803034f423 ("[TCP]: Add TCP BIC congestion control module.")
-Reported-by: VEGA <vega@nebusec.ai>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-Target net-next since it is not a big problem.
----
- net/ipv4/tcp_bic.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv4/tcp_bic.c b/net/ipv4/tcp_bic.c
-index 65444ff142413..27d2e38ff7932 100644
---- a/net/ipv4/tcp_bic.c
-+++ b/net/ipv4/tcp_bic.c
-@@ -27,15 +27,25 @@
- 					  */
- 
- static int fast_convergence = 1;
--static int max_increment = 16;
-+static unsigned int max_increment = 16;
- static int low_window = 14;
- static int beta = 819;		/* = 819/1024 (BICTCP_BETA_SCALE) */
- static int initial_ssthresh;
- static int smooth_part = 20;
- 
-+static int max_increment_set(const char *val, const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 1, INT_MAX);
-+}
-+
-+static const struct kernel_param_ops max_increment_ops = {
-+	.set = max_increment_set,
-+	.get = param_get_uint,
-+};
-+
- module_param(fast_convergence, int, 0644);
- MODULE_PARM_DESC(fast_convergence, "turn on/off fast convergence");
--module_param(max_increment, int, 0644);
-+module_param_cb(max_increment, &max_increment_ops, &max_increment, 0644);
- MODULE_PARM_DESC(max_increment, "Limit on increment allowed during binary search");
- module_param(low_window, int, 0644);
- MODULE_PARM_DESC(low_window, "lower bound on congestion window (for TCP friendliness)");
--- 
-2.43.0
+Best regards,
+Krzysztof
 
