@@ -1,111 +1,81 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m11878.qiye.163.com (mail-m11878.qiye.163.com [115.236.118.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3524BF947
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1974C10D5;
+	Wed, 30 Sep 2026 11:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767363; cv=none; b=CkHgiPaQGd+M5BOSwykoAM1UrrjmKU/AtnVS7djw0EOE2o3UmsLjX7rlhc+/8mV5MPuLeWGKvlSuqF5KNuzGfIB5PjL28a7v1Q1T3CBdufYSpLQs72AeOp2wb3hD0cdTERCCQlhE7TJ++0VgN6Fgu0xweJCjMfxboqLuV3nMWEU=
+	t=1790767364; cv=none; b=fKH6LaPwNOzIQm7L7x3rJ6IbEHP2Bg7xhhsfrXDrMOulzgen7nwC9AiV0kPTX36Qj1ijttFHMNv6JhsyCTCa9wL6Rdb2FDu4IBfXiDsKAnY/s+wTW8VaHMGspKeoX6yJc1DfHFAY9KE7IxApIVD88TWf3nc1bvV74yIxQrrvAU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767363; c=relaxed/simple;
-	bh=XN3wQlJauJDLEikCs33ocxfxn7Vb58M8N9vPatzIA3g=;
-	h=Date:In-Reply-To:Content-Type:Cc:Subject:Mime-Version:Message-Id:
-	 To:From:References; b=nAwLNhx1WoDHXzh3awODuNL5oPPdHV2wKNCptWPOqC1Z8JaoAuepqXrUXej7f+o5IqEnFuKo+0B3OE2uEqxUuVjgO09pldEdtv0GTCvk+Q6nqldM09/z9iDufzOZ4dJ953EXnSKg0OKCKyj+1bHYeXKg07Qn1N49K4NjNuOZX38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=h/re0Uxu; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790767364; c=relaxed/simple;
+	bh=HNLNkNnB+uimBeIDmwyGeswJ5Z+LFw0oy5d+ifD11lE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=oEBYIdaM5fF4itpDdjDd2ap+y2FZMdf3HPRQkZQkFu7oxuo2J7RrqBHYBg4pEl1yLNwhwtqyZjpqoiqhz7gV3kggQJKrwbBxvTYdy5L5iSE6/R/ACpQxj4HMBCegbMkAdIkT/fP+EvJzrYRqGdYR5KduPAnwGYOgbcKZI4dScG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ZkCC/jh7; arc=none smtp.client-ip=115.236.118.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="h/re0Uxu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790767356; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=NU0OQAMOUoLo7I1A1g/IyX/TQMOjf6Pp2QYWnGCx/48=;
- b=h/re0Uxugwa2OhK6hXIoeL2/y2BAP4NFKM9YSsuKuE8HRSFjzsTzgKJcd4cw3wL8mPcw5U
- rv+HYfJAiubLCJv/kTynWkLUcIJ2T1TRmbDCDYZdqpu3fB2ZteCEvZm1+cMOgHUYhE/Okh
- smYvWYUYCgn11yd7FFPKZtz/NKvPvHsFckpn7luZYLSOd5dix6qIZZd3xQklBMZ1+IwQoL
- WY/5sPfQ4mn89cqushvLRYUoh1W0BBXCkkA6QXO+eGtYY+NWnC2v7dIlatcagPWuFffzbP
- Did6g7h/0Hu2syF8+WD4JC+pZl+2jsjtynj43ilFTbIKeUhBSE2DPFsUxo7tnA==
-Date: Wed, 30 Sep 2026 19:22:10 +0800
-X-Lms-Return-Path: <lba+26abcf0fa+310b0a+vger.kernel.org+lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <arzR_QtoMPtM5kUB@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
-	<liam@infradead.org>, <rppt@kernel.org>, <mhocko@suse.com>, 
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <ziy@nvidia.com>, 
-	<joshua.hahnjy@gmail.com>, <ying.huang@linux.alibaba.com>, 
-	<apopple@nvidia.com>, <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference with MPOL_WEIGHTED_INTERLEAVE policy
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ZkCC/jh7"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f96815d4;
+	Wed, 30 Sep 2026 12:32:47 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH 1/2] mmc: sdhci-msm: Initialize the local ios in msm_toggle_vqmmc()
+Date: Wed, 30 Sep 2026 12:32:30 +0800
+Message-Id: <1790742751-245571-2-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1790742751-245571-1-git-send-email-shawn.lin@rock-chips.com>
+References: <1790742751-245571-1-git-send-email-shawn.lin@rock-chips.com>
+X-HM-Tid: 0aa0f09626d103a4kunm0766139d8bc9b2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQkpMGlYZTEMeQhpLQk
+	kfSkhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ZkCC/jh7fUpr6OzCI5UKrgECKkiYCsktmLxAvKBG3u91W9yHtUetDtxlJ3IQ8RKINhHBN3hMBoTsO7M8heacA2pq6eqQbKl+g3zJQtJ8wqQsqQrQ7j52MnQOM30OxJ37Xq+025JATFpc6S9JhnwHpT1816qHJGsTOA0XIihv2so=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=JE0zDmeTxTFr8HX9ReQ+t9VWrkjJmNTfZeeeWnJnkAI=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-Id: <e195b784-8a78-4bbb-97ed-168dd86b3d89@bytedance.com>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-To: "Gregory Price" <gourry@gourry.net>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-References: <20260930072617.64665-1-lizhe.67@bytedance.com> <arzLw18RiTN6Hmey@fedora> <7df34f77-2c52-47a3-a495-d782009ab543@bytedance.com> <arzR_QtoMPtM5kUB@gourry-fedora-PF4VCD3F>
 
-On 9/30/26 5:11 PM, Gregory Price wrote:
-> On Wed, Sep 30, 2026 at 04:59:50PM +0800, Li Zhe wrote:
->> On 9/30/26 4:43 PM, Gregory Price wrote:
->>> On Wed, Sep 30, 2026 at 03:26:17PM +0800, Li Zhe wrote:
->>>> Allow MPOL_F_NUMA_BALANCING for MPOL_WEIGHTED_INTERLEAVE.  As with
->>>> MPOL_BIND and MPOL_PREFERRED_MANY, keep migration constrained by the
->>>> policy nodemask: if the CPU's node is outside the nodemask, do not
->>>> migrate the folio there.
->>>>
->>> Why for WEIGHTED_INTERLEAVE and not INTERLEAVE as well?
->>
->> Thanks for pointing this out.
->>
->> I focused on MPOL_WEIGHTED_INTERLEAVE in v1 because the motivating use
->> case is to seed memory across tiers with a configurable ratio at
->> allocation time, and then let NUMA balancing/memory tiering adjust the
->> placement based on access patterns. With equal weights,
->> MPOL_WEIGHTED_INTERLEAVE can also cover the regular interleave
->> allocation pattern.
->>
->> That said, I agree that MPOL_INTERLEAVE can be handled consistently as
->> well. Since this is still an explicit opt-in via MPOL_F_NUMA_BALANCING,
->> unless others see a reason to keep MPOL_INTERLEAVE out, I will extend
->> this in v2 to cover both MPOL_INTERLEAVE and MPOL_WEIGHTED_INTERLEAVE
->> with the same nodemask constraint.
->>
-> Looking at it, is there an actual reason to limit F_MORON at all? Or
-> should we just lift
->
->                  if (pol->flags & MPOL_F_MORON) {
->                          /*
->                           * Optimize placement among multiple nodes
->                           * via NUMA balancing
->                           */
->                          if (node_isset(thisnid, pol->nodes))
->                                  break;
->                          goto out;
->                  }
->
-> Out ahead of everything?
-Yes, that makes sense to me.
+msm_toggle_vqmmc() builds a local struct mmc_ios and only initializes
+its signal_voltage, leaving vdd and the other members uninitialized
+when passing it to mmc_regulator_set_vqmmc(). It happens to work
+because the function only looks at signal_voltage today, but the next
+patch makes mmc_regulator_set_vqmmc() honor ios->vdd when calculating
+the 3.3V voltage range, which would read the uninitialized member.
 
-I do not see a reason to keep the MPOL_F_MORON handling limited to
-specific policy cases. The flag already means that migrate-on-fault
-placement should target the accessing CPU's node, and the nodemask check
-is the common constraint we want for all policies that opt in to this
-behavior.
+Start the local ios from mmc->ios so that all members are valid.
 
-I will rework v2 to handle MPOL_F_MORON before the policy-specific
-switch. Then the switch can remain responsible for the non-MPOL_F_MORON
-misplaced logic, while MPOL_BIND, MPOL_PREFERRED_MANY, MPOL_INTERLEAVE
-and MPOL_WEIGHTED_INTERLEAVE can share the same migrate-on-fault path.
+Cc: linux-arm-msm@vger.kernel.org
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+---
 
-Thanks,
-Zhe
+ drivers/mmc/host/sdhci-msm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> ~Gregory
+diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+index aecd425..32b1bcb 100644
+--- a/drivers/mmc/host/sdhci-msm.c
++++ b/drivers/mmc/host/sdhci-msm.c
+@@ -1490,7 +1490,7 @@ static int msm_toggle_vqmmc(struct sdhci_msm_host *msm_host,
+ 			      struct mmc_host *mmc, bool level)
+ {
+ 	int ret;
+-	struct mmc_ios ios;
++	struct mmc_ios ios = mmc->ios;
+ 
+ 	if (msm_host->vqmmc_enabled == level)
+ 		return 0;
+-- 
+2.7.4
+
