@@ -1,139 +1,85 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ci.icloud.com (ci-2006h-snip4-1.eps.apple.com [57.103.90.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014EA457E70
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798310; cv=pass; b=TNsQz2hEQUxauXcGmSOlx6E7kpjhOu7XueEbmfj9y/rtFmxDH/YAg48XiqSIBPzecF5p7Yki+blt3mluLY5J8rcsBFWwqJXONhQ0rGnLKwt9Gku+vAH+uQJJsWrMR9rW1KCZAQceXovc+X8Rvao159zRWFqWiaDVR/lVb01zUlQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798310; c=relaxed/simple;
-	bh=IYWiKJkDCp5x3ARAQGdZNJcgTTfydtt28kmbsykDHMk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jRkxuH7wigIclmJlfbECrbJMRi1OfWd08XFsaNM3hQ4PMCQB094bkYphtUHg3XZ+L2gflcNkzz8/7jBYNWR5GA6EP0LblUol7YbLNvbs7NWT/D5FHKm3aAoLdOmdxHVSfH6VyzjAllVn0SAvknvDfqTOGvhSPn+zBEQrcwqsvIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=JF9PTfE5; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822053DA7D7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:59:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.90.202
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790798342; cv=none; b=hZEE5v2H874WZRuAWShKkhLe7RFyrFH2ZbHGSXAK1pGtaDwtH1KWkhgopBORTS9khZAlHZCPtZvMzLzptM1nUB2Hq5dey8sQks4efEbR4s/n09nW3lcHH57k72ZcokJhIQZRSCD5ZspjQgCfJCrr29J9ErwdmrPRRvehvBYSwA8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790798342; c=relaxed/simple;
+	bh=RGsx7d8YxrSJ957myMpLdIcSFy/GszTr01KBM3l5WF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KkTEGkPwjCl7kURBB3j5D+HHSdC0gy5e1IZvgefISIf6eloDib/hp9Uob7t1Qkvhb5F83oz+FtReth818cUcxhCphtUggXoFJgbq8J1FdIINIaVOIDKTCxqf1e3VygrB1fz5uo5CD4qxlNMT/coCkTiZkQIEQP4Sw7LY4di5pyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=eTDyJp6c; arc=none smtp.client-ip=57.103.90.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="JF9PTfE5"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fded6b087so5382684d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:58:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790798308; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oWUdqD1cwG3zKLMcL5aQZhIaQ2+Sw0M+KlJkLn2eFtXNnXaQyrUts2QJSgfFCTfnzV
-         YNOC+0ixZ4r/cQ0QhN1Y8tE4ioVDwZisX1TN1Y6w4Z12duC3Try3IbKMqzTvt/qSqQTr
-         /ZhBV26cJJImLSVXWOfE37pX3UONO/ElGmRGpha49g+4BugKRBg+qJLUN+psz2zO74qn
-         WhMZ1Nfo0z2ho5Y76O/UwTRRhZjD6qtmwyCDQpUNTAAN3xDKT6HzApeqVSYY+aW8G1oV
-         UINwc54Leis+bO2SAhi7iVASFiEkO94CkbwKI80RK8Od4PHYsfnsPdac77tE8BoN02Ht
-         Squg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IYWiKJkDCp5x3ARAQGdZNJcgTTfydtt28kmbsykDHMk=;
-        fh=dSia1VFgMXm7wym4dAeQjiM2DfrlZdTVW7d4srSaSoQ=;
-        b=gHCxEQFR3zBfjbr2xzLgomH3CQUl1Kj8o6loE9chiSYbftrvnruR8urkrxfzRxy9Qf
-         sCCA/ETHzLeS7xC6N8mLU/Zvn4T1KwpD2SGqO6V+2yuxNDNc2oy4yP474kON6svfOCHn
-         F6A7k1phClSa1L7hBH5KkDTTnTWS1bs7PBMGG/Msut+9lQ9S4CF5+vyQu0bdX3KMJdPa
-         1OXcPxQk5xiU6b2OWoMocjaVozeQcYeZ7hPkXYmDZaXS1lvDB1Ty9+VhhQHTJkZbFWWT
-         zDO0HYQiQVBvysdL2eH9FOS76uybCZCzc4Ml7DLoNjqsNLqZ2U04b8jCUD311nSOw0HI
-         t1rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790798308; x=1791403108; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IYWiKJkDCp5x3ARAQGdZNJcgTTfydtt28kmbsykDHMk=;
-        b=JF9PTfE5fRuc/2lBIe3zThtPWeWV5KaH+CYo9nEaaZESjnxqWwLFwfCNCkFdLZ/waO
-         7ayuh96QFv070tV6HGcUurElPdVbVdy6G5aKz9y99AE3xAkBxJbmqg+u0slOocFYSnzL
-         OfRkVo6Y0S7LOAeauEXgi1QTLA2pMW3bUGX9g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790798308; x=1791403108;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IYWiKJkDCp5x3ARAQGdZNJcgTTfydtt28kmbsykDHMk=;
-        b=elx+qgA2kXcwcjAXewNh5CVN9K5Nvu2E+zwh7eU0K/AtxQmofI+s3fbRuViScnUzfR
-         5Lj4wmPgBzQHf0jNnveNIYeyIISoBU85JtnOa0BjKkp/yqpSVkpCcJ/69bwL7KnQRctz
-         3FFntsLer/gGV0BuaZHHD5LmBbZJgJPom67QvsXAzHD+Kjw6mkrXeH+j5aZizvPnNZDi
-         r2QVOmR4NuKQI79MiOtjpdT2p/nyA1tm9DV6PQpsQRU0L3PcbGVbHmgA4PkdUEiEPZlT
-         dxuRuV6hn5UAZvoVO+JeC//z6Ttd4bJGbx3QDgqcSPZVhb3mqUUurH8kwRGnDFbWf7q/
-         /jvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFl3YjaWNhsMZsPr68yPhBIl+rg8FxIeFTwgbSJvM3X7tOiHvcGkfJkSsFVV6587cT+yCIuFZhStCZehs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoFnxdCr/g2k+jNz1GjU/zNFTRf2zhJRmN6St2hMc252ym+0cm
-	xwd8aboPSF4fsNrRgFmz6yKRSzUGUycWYpylxIXHmwGM1xiIaVSFejeiv5HDTezYO7YVBDvjFfx
-	EKMhH+glDKZAHt/fbb2Q8/gbU52L+yDe0dxfAninol6pBQxUxClXxYZoGDg==
-X-Gm-Gg: AYBFou2G1pQLV+Xq6KTKxxdQcwD72rIQ/GWBO6FogwfsQopdDNNliY98EMRizb1XR9M
-	oJQVxiDkzDE4hMsl8pIqLi11XL2e94L2psVQRRjda9Eej5EWcOe03AhbaDhIW2kHpIK915wM+R6
-	fA6yXbAFj+FYOhCQo3Mknwlc2P1ZPNoKePWimajP84CE1v2JMbWF0N3EYxSgS1oy/Or/xbAoVHo
-	k3SeitdOzreMJxLu3mx3mLySgK1sYPswRT9yfWovoaPEbnQVLURRL9MV8ArR+1gZdX+jG447Han
-	2ERMMpa/qVrmxCvE9BBXQPznOw2eP0Sa7w5W8Aecm17pS8PaELPG0WLJWFe0g2Kvnyho5N1WRAx
-	Bjs1xAdA3vf8=
-X-Received: by 2002:a05:690e:d5b:b0:674:2041:89e with SMTP id
- 956f58d0204a3-676834672fdmr1239550d50.42.1790798307260; Wed, 30 Sep 2026
- 12:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="eTDyJp6c"
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPS id AA41E18000DB;
+	Wed, 30 Sep 2026 19:58:59 +0000 (UTC)
+X-ICL-RepId: 01a0f3e6-1e41-72ce-b032-cd2c2001953b
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFLHV8HWBxHD1YKTVIPDxYKFkFcWytfFRcbXAAXDVZNVB0dDlgGEgJaRQtNXw5eHwQXRhlVBEceXVZQBBkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4AUkVRH1RYXgRTVg5CCUoFXQ5YAkEATQtYBUUBQQlJClkARgNdX0tdHwYHch1cVlACWlUSBEAIVlBeCF4fTBw=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1790798340; x=1793390340; bh=zJcTaZYxavhBdn1eQQ/e1H1+1iNILcKE8DTRtC1gIuI=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=eTDyJp6czbidF800GPLXRt5fF6Zy1cQA8G25ox5aoPriprmXxrCW0lZ/Hj93RhFbrsAwbAf18UwL90YUbkJ2jj0Pw84UHMUK0DQ3TzshJN5QGkkLGTVo5YhUVsryxW0hKWXx2+xk3ZkZZQ+fq0/Aw1nTrtt0DmAcjBxjJDoA3UInFovIePnr4zlGjDtseGZSWyE13p5DWE/8Ev1747yiNHq8gFeXMp6I3bp6xekztCqlac8fzPXdfkWwyohcgIS6kQnOd0HRFz2xwxUCvrWP6C0Zwo0yMSq/NzXailau9DK7w1CHDePXQDmi9ljyOnLy9Yn8BHPSlFa/7W/uJwhW5A==
+Received: from fedora.vpn.altanet.fr (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPSA id D8F151800162;
+	Wed, 30 Sep 2026 19:58:57 +0000 (UTC)
+From: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>
+To: Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>
+Cc: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>,
+	Ivan Gorinov <linux-kernel@altimeter.info>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>
+Subject: Re: [PATCH 0/2] HID: winwing: two teardown fixes
+Date: Wed, 30 Sep 2026 15:58:52 -0400
+Message-ID: <20260930195852.3101947-1-f3nr1l@me.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1790795726.git.f3nr1l@me.com>
+References: <cover.1790795726.git.f3nr1l@me.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
- <CAP-5=fWLp5c9HYZ6oTsfPhWprz3uMTT=mt3M-OVu8GEjzSpEww@mail.gmail.com>
- <CA+w=M=Tdyt=s9FTvDH_4ozk_1MM09J6xTdLrsq-WNhQ1S+ACXQ@mail.gmail.com> <CAP-5=fWMF=HrQwBObz1ryc7e+=0iJAwT=QSa0neYT73xCfqAjg@mail.gmail.com>
-In-Reply-To: <CAP-5=fWMF=HrQwBObz1ryc7e+=0iJAwT=QSa0neYT73xCfqAjg@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Wed, 30 Sep 2026 12:58:10 -0700
-X-Gm-Features: AclHuK_SPtTsJugnN6QRlQJvW6Bus54R8VrCRQSl71DQf_wzl1pLk8I7Dle5dp4
-Message-ID: <CA+w=M=TP=uMcYd2SEG0NvZ=2uLNKD8kekAEVsrBjPKGTTn_9XA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] perf script: Bounded and lazy symbol loading
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: Bh_Ef1kIElePAbo-NHAvQvHPZQRE7Y79
+X-Proofpoint-GUID: Bh_Ef1kIElePAbo-NHAvQvHPZQRE7Y79
+X-Authority-Info-Out: v=2.4 cv=T4+BjvKQ c=1 sm=1 tr=0 ts=6abd6a04
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=M51BFTxLslgA:10 a=x7bEGLp0ZPQA:10 a=tnT-KND3AOYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=hCq73as0fieUF7sB1GUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MSBTYWx0ZWRfX5pur28cfAAkw
+ 8Qqh+OfMIqTpzgpWNOwTd+aB8cGdvmp3S8B1+ZRwW2diMptqln6/M4gooMS/6PM6/16uDYu5RLT
+ 7Y5djVX21ipR6aW+MTViF0vrfbReihkAs8Sjgblep5T/fjuTFFShn0atChTNMYzt5dI2B35NSbJ
+ RdxKG9gVjp/k2lkq4ZkrHGZhV1cjjStRTX1ChRLLUwX44jnaC+EnpmSVe9IFBZaw1ISisPgixqt
+ i/QwDw7zFzJeI4UulUyKzKpjHeYbIRtPEl6qjaE3J0bfjjgJ6sDLcEXo3fbd+eKhbrjyqZoLVHy
+ 3pR2FJN8rKDaTbIrnEMcZcBFX1m/yhoxqXuLZuXCSfwn3rGbxYQuauwsEhyC7U=
+X-JNJ: AAAAAAABBghs0Svo0th2mMm2+QWCc0Gqce4mw2bWDqV0eU0rY6uCvczqTw5lQqa97r2XQEHKT/+NSrCaNdoylCom0mXL76LKBv+FhCD4IE18ZpOsTcufmjtbKUWUwYIJvjO0Bx7cpKkiMqSlSJcEgdTzumgV3aRdWNZs1Yadc/0bHoYavSKr4OKBo93syxzKHN56Y3cGs3UErf6QlfvvlzrTVb/CM8JlNcXMVtgzm8jBEgSrzBpfp4LyyYr0lXb42SFJDQEXDwfora7tGJmXnmmYphj4t5mNF5DzlZ6Q1DQrtLoXu6PQB2c3yVAuaUB1acFyFtJ7HfIqdpXxUeEaMkJUm/400fzwR+Qt0Ttv91mDck7vdZcWfehy1Naml/A5KmON31yPHgK7OS7ScqTEfuj1cZhyP/fLhtNzoslNTmZdWD1OJPzA/2f2yrxQn4tMY1PvgrfPBv1ADTcoSFDFTPYXUIvrpxeDNHYtJqRgAcVEhVI3wTeFvFbmbdXLCGq7D66oYwKtivbTsABVCpXMQNx/IDs4N9vPitdxOc2hDP1gC4c86Urlvnr65JaOcAQrYPY0qdnIWBehivEafJprycd93w6sXmmk2+ey1G+f+sVW3DfHYncioOINLz/+DZK3C25VVQ+wcwsQjqegqjESufjXQmwmZZBc1hWa1A1jIUjbpoLo4U+mBL07dH5pxAB7QurUrvpfg0eaGsB8nGgOU9A6uXA6PAVFTuwvW8CVrKLn23Ep5RzDZD5htAh3BHHMI6CY/zOuA+KddyyYz7i3xc/DTh4jKI57IfAK7mlzsZuqO92EDwLy8sq5VSrnQV0khaH1DlzhojNtk+tSNpzH052EHrH+28NgxI8NKjYhhAij8W9IU82O06iPLAKN4AVICmafzlLagQFpJ5unkWZlhh8ugB6Sm9SGgU7Fnc2iamEp2X3q1gDF5qS5VjGzIAWrPevIuCnL1FHwkA5IJ4Lwzyl+solGXfR
+ di8RDl/03hXWHwHM7ZbdD62g3bxuz+MoNo8D45WZakz4ioJtKBQBMFCP8gUtR/VBje9vE3D4pngs1LHa3bNh/9AsaLYEO9oepDq+LND8uT87CRBQ2usZupOiOz90Vk6u31vOqb2SUy/LHwr9x+WarXXyJa3IhQE+qamrxLXO8zNxcFyj/qH7oXQ4pHo2L+RrscNC4272mPSJU0zeB5E+NLT+HUmRCZrVGy0ed2kyBq9MQpcvZcz7dFgup2PkH4mj/pu+Qf1ar9cCXa7PjLPdiIoXabPkVXLfdvRo=
+X-Apple-Category-Label: MjczODQ1OTkzOiRjYXRlZ29yeSRfUGVyc29uYWws
 
-On Fri, Sep 25, 2026 at 2:56=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
-te:
->
-> So, I'm pretty against the complexity of dealing with symbols that may
-> fail due to a memory pressure issue.
+A note for whoever picks this up: patch 1 touches the same lines of
+winwing_remove() as Guangshuo Li's "HID: winwing: remove unpaired
+hid_hw_close()", posted on 13 September:
+https://lore.kernel.org/linux-input/20260913143909.1589019-1-lgs201920130244@gmail.com/
 
+The two changes are compatible. With both applied, the end of
+winwing_remove() becomes:
 
-Hi Ian,
+	hid_hw_stop(hdev);
 
-That was aimed at --max-symbol-bytes. I'll drop it in v4.
+	/* ...comment from patch 1... */
+	if (data)
+		cancel_work_sync(&data->rumble_work);
 
-Following the other thread [1], it looks like we agree that lazy loading is
-worth having on its own. Whether or not the reference-counting series
-lands, loading a name only when a sample needs it is a good change. As
-in the numbers I posted there, it cuts memory use substantially and
-makes perf script faster. I'll prepare v4 of this series without the
-cap:
+Whichever goes in first, I am happy to rebase mine on top of it.
 
-1. the ELF_C_READ_MMAP fix
-2. reading DSO data from the debug file the symbol table came from
-3. the shared duplicate-symbol selection
-4. --lazy-load-symbols
-5. the lazy-loading tests
-
-Patches 2 and 3 stay because lazy loading needs them, and Namhyung
-asked for them.
-
-Namhyung, on that thread you suggested a limit that prints an offset
-when the name is not loaded. I said I could do that for the byte cap
-in v4. I'd rather land lazy loading first and add that limit later if
-there is a need or interest.
-
-[1] https://lore.kernel.org/all/20260928075237.3055101-1-irogers@google.com=
-/
-
-Thanks,
-Alireza
+René
