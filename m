@@ -1,79 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EEB3D410E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024B435A39F;
+	Wed, 30 Sep 2026 07:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754840; cv=none; b=UfKfBts/4rFyvWeH/cAOqYocG7NIZm5sq3XJxFB+hbzkBzBhmZ8kRuhlDNr9vda4i3gnVC/Fuz88XXvkZiJIRuoYwQi5lYTZIPY/uLg6NCuNA+0JzypahNVR4qicYCOX/uhvpMJ766r7ahPVsoL07hMr6XjsI8Lv14xWzBp2GJA=
+	t=1790754852; cv=none; b=Ko4QUn9Mla1SGvuojHWDbuXyRdkVQMAXCrVSP2atd0OIG8wJC2jhYaL4Qq/52Eg650XkRa+N/HHJTre4p0jZ8ROosaWvS9BXzZx141G8Vhn5SixXQ2mchEFXaA3ju5YlCWJms6MAqPsMs2wqmQmPpSje9mG/tjHqEESEyyzSsyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754840; c=relaxed/simple;
-	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BpY8StREFh2AH2CUCJSIAMk09BogjMWGCb7xsZVhXm77oJc2CGDpUnRzbWLosjDrydjPKmb30wF/CWZm0ex6Z2Iz3vwwn1v10/e+FRCW6EesNpifT6MvZ4n+0O4QjtjUBDfPlWhlTw+Ou2c+nV0AOX6NcbypQtQfP1usfwMs3XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUUxkOtg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790754852; c=relaxed/simple;
+	bh=bp4reCZPd2XicV3CZCU05AoXT61eeQMuU3TMTWKtudM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iwpme6F0MY7QtGV0dteYaf+Pa0r4BmlJ2AdUFbd5HBZHTp5W/4C/IU8oRAoAvn41NlgNxwXss9YpVQxNyHT/cy3wI4lp/NULYIDyvbQNqXlE0rVZgqciZf9pK+QiRNxYPSSwFNhJ/qvXqb231x8XJnikS5EtWZ2btOdODRD3EJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZsvQoenG; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUUxkOtg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C38D1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754839;
-	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=ZUUxkOtgzhi1Q9N62ORXiHk/J3rf2zvdX2UOKTcMkQYhx9W0FZVO7uiIwJSBMjUCS
-	 ttu09aKi/NMV640uKB02QdKg0C5urdSYtQXCkA7zxmsDhg0aa5qj8g7Uap/+2QeAYb
-	 LIpk5dhMZjxezm6f3lq0m3eqskHddWL0BdYa5AiPBy8LoCk2Sg+bVBc8qLnk2HwgTF
-	 3xGltqxpEDpwVtQsn5d6qzH/QIaHR+L3pMRKiTiRkI7/X2DWE07zwtc+oUl21UYMEj
-	 rcERDx0VjDTXdcHUUT9jLDrlv1b4CLQa+ItiSiv5Bp+ZAlbB6FeKo7wq8V3C5cEbSN
-	 LAV2PqPbYF6kQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8eb3a9d9bso4531084e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:53:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxp2gr89ni+Vute4zaQ67khApuROlF/zXfgRbbaK0hfaQxqvXNVlnZuo+pYcfXLe/FcOVw8e5WCvfk5kac=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpaNgzGaqeR7P3D6TIC/p1mHNTnFi+de+hH+K8F6iFFf9cqvw9
-	99Dj+tIEZ70lCS33VzEge04sJ73rQ8wEBY4rc5tKCtrb4xxJNpiNtz1/mgH66WMZ3oG/nQSzjzt
-	H2Az2cXVM3/kPLG4O/qDKw39PoLOtNZt79hUGCB3NjQ==
-X-Received: by 2002:a05:6512:31cf:b0:5ba:3c49:6ccf with SMTP id
- 2adb3069b0e04-5ba402b853bmr239606e87.1.1790754837737; Wed, 30 Sep 2026
- 00:53:57 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZsvQoenG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790754851; x=1822290851;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bp4reCZPd2XicV3CZCU05AoXT61eeQMuU3TMTWKtudM=;
+  b=ZsvQoenGSXuj+4sZfap/tgcp5WbI4NeXzbp3MTzcY3O9jtUitRIqwD5P
+   YpE8KIbMFHTkzGm+3E2jmWbYPm92OYtKqTn2KrT0G4vp7r7s2hqlHVLwc
+   9sIgdS9tHhenDYFFHtSdGPLW0TjILAVM2Ezcgx6yFr+7KKLDYC0Q+mtHB
+   5r3bzpBho5MYvHFfRwudXBKYNPL2eisDbPKGiuiRzElimd+8En7flBtQi
+   yKrMzLT5AWmWwIncs1JoQmoUNjkS70H/r/vhM59BVFmXSnlnUCAybDhze
+   OkWO/c+kwMQ8rwNGdCR35cw5GIHWuGjZhejSEPCLtz2RASCGzRrNwP8Pa
+   Q==;
+X-CSE-ConnectionGUID: rfAH74fqQV+YOZXxRnvGTg==
+X-CSE-MsgGUID: gcFLZK+rSf6e8ebGKoV+TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90346974"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90346974"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:54:10 -0700
+X-CSE-ConnectionGUID: KyEvnr4UQQ6q6aJZsLT+gg==
+X-CSE-MsgGUID: VBbluRZLSkqZAQgOMC+6EA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="278823387"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:54:03 -0700
+Date: Wed, 30 Sep 2026 10:54:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+Message-ID: <arzAGOKLOustEW7F@ashevche-desk.local>
+References: <20260929083755.458238-1-inochiama@gmail.com>
+ <20260929083755.458238-7-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 00:53:55 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
-X-Gm-Features: AclHuK-bKs-DiLDJzi14gqE5ctPrjcYpWHqNaXVB07vwyWRRN1rks3MP-AEwIX0
-Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] gpio: shared: fix no-device, fwnode-based lookup
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083755.458238-7-inochiama@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, 29 Sep 2026 14:32:02 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> Abel reported to me a crash on Eliza linked to fwnode GPIO lookup for
-> shared GPIOs. The second patch fixes the issue, the first fixes another
-> problem the clanker found during review.
->
-> Tested that the issue no longer happens and that sharing of GPIOs still
-> works on Qualcomm Eliza.
->
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
+On Tue, Sep 29, 2026 at 04:37:52PM +0800, Inochi Amaoto wrote:
+> The PCIe controller on Spacemit K3 is almost a standard Synopsys
+> DesignWare PCIe IP with extra link and reset control. Unlike
+> the PCIe controller on K1, this controller supports external MSI
+> interrupt controller and can use multiple PHYs at the same time.
+> 
+> Add driver to support PCIe controller on Spacemit K3 PCIe.
 
-Please disregard this version. I need to account for multiple fwnode requests
-for the same con_id which currently fails.
+...
 
-I'll send a v2.
+> +static int k3_pcie_init(struct dw_pcie_rp *pp)
+> +{
+> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> +	struct k1_pcie *k1 = to_k1_pcie(pci);
+> +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
+> +	u32 val;
+> +	int ret;
+> +
+> +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
+> +
+> +	k1_pcie_toggle_soft_reset(k1);
+> +
+> +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
+> +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
+> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
 
-Bart
+Would it make sense to define permutations
+
+  PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE
+
+for here...
+
+> +	ret = k1_pcie_enable_resources(k1);
+> +	if (ret)
+> +		goto failed_resources;
+> +
+> +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
+> +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
+> +
+> +	ret = phy_bulk_init(k1->phy_count, k1->phys);
+> +	if (ret)
+> +		goto failed_phy_init;
+> +
+> +	ret = phy_bulk_power_on(k1->phy_count, k1->phys);
+> +	if (ret)
+> +		goto failed_phy_power_on;
+> +
+> +	msleep(PCIE_T_PVPERL_MS);
+> +
+> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
+
+...and
+
+  PCIE_PERSTN_OUT | PCIE_PERSTN_OE
+
+for here and elsewhere?
+
+> +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
+
+> +	val = u32_replace_bits(val, BIT(7),
+> +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
+
+It's perfectly a single line. Check your editor settings (I believe I have
+commented on a such in one of the previous rounds).
+
+> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
+> +
+> +	k1_pcie_set_device_id(k1);
+> +
+> +	/* Finally, as a workaround, disable ASPM L1 */
+> +	k1_pcie_disable_aspm_l1(k1);
+> +
+> +	return 0;
+> +
+> +failed_phy_power_on:
+> +	phy_bulk_exit(k1->phy_count, k1->phys);
+> +failed_phy_init:
+> +	k1_pcie_disable_resources(k1);
+> +failed_resources:
+> +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
+> +			   PCIE_PERSTN_OE);
+> +
+> +	return ret;
+> +}
+
+...
+
+You checked everything but regmap IO. Why? Do you except it won't ever fail?
+Perhaps to add a note about this (if not yet) to the cover letter?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
