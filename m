@@ -1,238 +1,245 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013034.outbound.protection.outlook.com [40.107.201.34])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023143.outbound.protection.outlook.com [52.101.83.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486434FD267;
-	Wed, 30 Sep 2026 14:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAE036A033;
+	Wed, 30 Sep 2026 14:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.143
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780241; cv=fail; b=o6ppuqbKOYAjX641IO5kXT93dYtV9a+/tFUvCQ3wm3gnlbrnFpjHTZTsXhFlsTcW/FbhsJuKZWBNRdKtdvkdDolE+uupZHkyB1htXp2Kj1tzJvFdnauS4zNirJB32X7tbKscvY7etwtHORM/M46bDx02oCu0Pu2MKm5kf08FjQI=
+	t=1790780241; cv=fail; b=c+dWayZIUeOEX0MIg054oZcAkmBc5GGEj7qmbolquziROoO4AYjPvES3Ivg1tV2ZYwMjBslD9YHfvlMVzOTb9yTpLccfOLW9oC5wR0UG/xKvHecHS+bExaOe5C590ID3LvX4D4VcWtsra4bk+rPpNuGfMLCG2O+6cIiVtz2305Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790780241; c=relaxed/simple;
-	bh=v7IAdhfwNRDNYR12Fwla/Mw6PW3tIFPoc5Q0N34mygE=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Y44uduUkH4NhE12nfW9ROKtQ17Y9OLLs8LCBi2iEAbyjuQ/lQVTQNR8BISXyoopiAs0o4FOtHjHkFpvm+UEdt/gdGP4C/LKThcyeslQDH2EmRA2yiswyZtEeCzWm77+Yd8ofYckbxZU7YETKEuDBIaOEGO+oYS0EbezQdCSbjNw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o9OeWF9h; arc=fail smtp.client-ip=40.107.201.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	bh=RfiKif3gie8nifzR9tS11fZAdYpgUh3gLSSSfJK4w1E=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iWfLkTjq/krmyoMTX98XOa4rvwLRtFWNy1Y0NiUjr3PQNAD6KPDT5ZgSjAmz/SAEIlPyk0PTWp9zQarT5BpIb35349nlnasA9jBkFsddDqnGi3GQ5gveGtAixe2mXnY3D3cTz4f14njx1Nw4UhIVk7X3CPiWcIhb9R0SLpPo0TI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=Rx8f8gkz; arc=fail smtp.client-ip=52.101.83.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o9OeWF9h"
+	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="Rx8f8gkz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yIwZtMMJ0bfpU+/MGGK062pdRdr8IHtWSpoAKzt9Z8NhA+tAt8jLL9gmb2pji6WCo9rML8781vX3ipSqjALkzYWTHPLP0FRh5cfFNFcRoHRnr2miZNwNnumWHe8FA9e9WKjM0d8RLFdilPkTqGppBaS+MJc0Z2OJyLXeCjxYIzD6T4wtsJ8y4ZprfpoadGxAdFmh1vL/t/Wpjf9qlfN0zCDlcrgTdqdAtbFi4ON3Jn0/gcr2mUSiEQet8Qsgg6qxdKt5azzKGHOBvhGEIb9Ld2lEIG1oSAop3d/2G3yj10n5uEeW9K/4S5y/dtl5gJb77bhq6tDdgby1YP5IYnkfTg==
+ b=iqGA1SRuPok8INmlG57qQPazIdKECzrxwc7+vIylH2r/T93H8EpolACIC8w8L8Q57vwdQCF0TiWlOq0N0gpZVZaQRJNBmIswqrE7ofX0ziosC8f9PC01LuWGJ0/GveAaVbQC5D/yZFpFAoyKQY3wku0yUxjgmHaQxwfGX5Xh03XlRLDmmbfBnluRpulpl8075MU05LYyCIblGKDzXvRbrllCkAkbzb/ZEsRUvRogF4yNnfLJBsxW/ksqX8N0Ki+TyDurRw5c+UndAeRTXVirGYT/BsaFD8caiPPtFVgXicD9Wrj7sFIONE369D0U9pAB9y0wAXMs4H3q6ik+iCqdaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQ9APqN/lZ35U9+oMCw6a72bug2p+o5VID34NGtvVac=;
- b=oul1qnQpNZuRqZnAPJqhMFw4ln+3tT+i1F7K0cOqJzlFGMywBZJTn6K6py1x85TwTeF+P6TyABXj53V0dfwINhsLxhmz3M1yJTKY1tvibD7mpAwyM4FNKwSo/5wX5j7LwMznNXLzrAWPIEmJfXcK3Qn2wRJ6in139kqwSgg9PNq67X9Q/9YlTp+fWiVkujfToe+Lz9TFPuIt6M7fQ5JmOOpOCLU8CaAUs5lXsQVnRqf29TiHCADTZnf6BZzdA9U6bzbfTXh55fatALMRmzs2KFgJLBY5HblVPg4FLiLNnSPIWag+U2llU7gJrrHFmEwGODE08+FUvn7dtS6/iNALBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=GZ1qFuSYxvCbzqn2P94rX7E3SNTJcRG1DmCnVAY7SWM=;
+ b=klrRebuakArWzwtJB+BFoI8gJ0woRWSdDldwTmNvwbzMcClN13jvdC9Ix02ttNXELXHKS8fXWnVjb9ocFOfUDLz5m4e5z4v81bG0HVoMmOtuKEjz6sK0HCH4vGegRG4805TaGspQLCX2s2u8H+sRBMoQUjBV60elLuFTfAnnNHM71bFxUdaaqIdka/pVnIkZHBPxO3OPABp/26YtbrxMR+jZDFDsrhTeei7CvHPFoIvoz2Uc2IZVONge76ZTgqZCoMOX1NP0XNc7gtVZSGV4aAH1f84xZi7TEln9B6sWZBVfE0l0R0K4T+UQW1Sdv3ZA4XiFSuYgVOqr0Pb63tdnug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 13.74.137.176) smtp.rcpttodomain=linuxfoundation.org
+ smtp.mailfrom=ziehl-abegg.de; dmarc=pass (p=quarantine sp=quarantine pct=100)
+ action=none header.from=ziehl-abegg.de; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xQ9APqN/lZ35U9+oMCw6a72bug2p+o5VID34NGtvVac=;
- b=o9OeWF9hML1AFiSiW6+9qLQlbjtbfaL6c8Th0dMfULagrQVEhqP8T+eBL4i62C+xg/3+/aN4XB7PoigVeCRcxUBaIZcy8pgWYvqpLYuc/K/V5dwuff6sNqvsHmiB6T51Elt9WUXz8AG/TdPhihXFxlxH2E+UjR+VnO71KhezJFv4bWOlwYTlg7HqFDVZinjqr4w3V5/mmGNqUm/gO6VssYozSY8l3vveTysSTvtxhdJCeAKtFG2cYhXDN9G34HanBSr9Sj01lnAtFdPOy2gdusMsflULZlxlAmrObTcyMOxQ33aY/T6ZHjVyN1YhoC+11Y0nVeBZRtoH/9isMsxCcw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM3PR12MB9392.namprd12.prod.outlook.com (2603:10b6:0:44::8) with Microsoft
+ bh=GZ1qFuSYxvCbzqn2P94rX7E3SNTJcRG1DmCnVAY7SWM=;
+ b=Rx8f8gkz3KTECSRGoBEscO866duN1Euq6ndvIKljCevqFfObFoVW4hdJuN5Ymm2SURqXndyqnjUkxH1ZfowY6IPUNj/jICSjXvbhMhYbaShko24G5+oqNLfaRP3KvJGHBqn3g6OwbZcRxFRbummukCcArMz54RJQmvotCQg1iDg=
+Received: from PR3PR09CA0010.eurprd09.prod.outlook.com (2603:10a6:102:b7::15)
+ by DBAPR02MB6104.eurprd02.prod.outlook.com (2603:10a6:10:183::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:57:05 +0000
+Received: from ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
+ (2603:10a6:102:b7:cafe::78) by PR3PR09CA0010.outlook.office365.com
+ (2603:10a6:102:b7::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 14:57:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
+Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
+ designates 13.74.137.176 as permitted sender)
+ receiver=protection.outlook.com; client-ip=13.74.137.176;
+ helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
+Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
+ ZR1PEPF0000E6B3.mail.protection.outlook.com (10.167.241.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.15; Wed, 30 Sep 2026 14:56:55 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 14:56:55 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Subject: [PATCH v3 0/9] gpu: nova-core: gsp: prepare the command queue for
- r000 dual-message types
-Date: Wed, 30 Sep 2026 23:55:39 +0900
-Message-Id: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyQrCMBRFf6VkbSR9tZMr/0NcZHixT+hgUoNS+
- u8mdSXo8sA95y7MoyP07JgtzGEgT+MQodhlTHdyuCInE5mBgEq0UHPdmzt3k+ZoStuUQoGokcX
- 55NDSc0udLx/2D3VDPSc/LTry8+he21fI0+5HNuRc8AbAqFLaNhd4GgIZkns99ix1A/wzIZq6s
- FUlsS4UHr7MdV3fqIh1pe0AAAA=
-X-Change-ID: 20260927-cmdq-rpc-ed5f850b207e
-To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4PR01CA0060.jpnprd01.prod.outlook.com
- (2603:1096:405:370::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:57:05 +0000
+Received: from AM0PR07CU002.outbound.protection.outlook.com (40.93.65.70) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Wed, 30 Sep 2026 14:57:04 +0000
+Received: from PA7P264CA0199.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:36d::19)
+ by DB5PR02MB11889.eurprd02.prod.outlook.com (2603:10a6:10:655::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:57:01 +0000
+Received: from MI3PEPF0000848E.eurprd03.prod.outlook.com
+ (2603:10a6:102:36d:cafe::ac) by PA7P264CA0199.outlook.office365.com
+ (2603:10a6:102:36d::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 14:57:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 91.26.242.194) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=ziehl-abegg.de;
+Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
+ designate 91.26.242.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.242.194; helo=mail.za.ziehl-abegg.de;
+Received: from mail.za.ziehl-abegg.de (91.26.242.194) by
+ MI3PEPF0000848E.mail.protection.outlook.com (10.167.240.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:57:00 +0000
+Received: from vEX02.za.ziehl-abegg.de (10.1.201.106) by
+ DEKUN-EX01.za.ziehl-abegg.de (10.1.200.169) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 30 Sep 2026 16:56:34 +0200
+Received: from localhost (10.1.200.37) by vEX02.za.ziehl-abegg.de
+ (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Wed, 30 Sep
+ 2026 16:56:34 +0200
+From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>
+CC: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<hugo@hugovil.com>, <tobias.gannert@ziehl-abegg.de>,
+	<joachim.knorr@ziehl-abegg.de>, <david.laight.linux@gmail.com>,
+	<Maarten.Brock@sttls.nl>, <crescentcy.hsieh@moxa.com>, Paul Mbewe
+	<paultyson.mbewe@ziehl-abegg.de>
+Subject: [PATCH v2 RESEND 0/2] serial: sc16is7xx: improve TX FIFO refill
+Date: Wed, 30 Sep 2026 16:56:26 +0200
+Message-ID: <20260930145628.566535-1-paultyson.mbewe@ziehl-abegg.de>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM3PR12MB9392:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d8ce0de-2593-4d70-ee54-08df1f031179
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: DEKUN-EX02.za.ziehl-abegg.de (10.1.200.170) To
+ vEX02.za.ziehl-abegg.de (10.1.201.106)
+X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30228.007
+X-TM-AS-Result: No-10--25.468000-8.000000
+X-TMASE-MatchedRID: CWQJsOwPredWBEdhLwMbrFmcWIT2GKzJJeVHOyz36PTCnG8raj995953
+	NOvzenyJChCyLfzUZU11Rj39DGmIDxs3vNxgt2OKna3BSe2k24bAEu0pi7xsSyqKSt7G+YfDXD4
+	Vo+DvQOgdZWjAopQrSZvEOW0bxEpHN7b5iLtubbMIjw+vaMoImxD+Fz0WotuszkXxOoyxTZPJZ8
+	m9qdKV9cxYH586jJpeKzjPGuLUS9lK9X0C36DkhO5IMXeX4OViIjLninA2ln0IC+C9uSYtVKuCy
+	a2Pe1wkheeWLNKPyWxhlCnNRJU2fcIow0J4q7BtXIfz2HpK/wQK5Gej4vD4ObyEkHXsVu8JFRjL
+	i/+L8AKHgSKIUSkqFt9RtdIEmsIU/vXcNl2CXMDzpCt7lk4qW0D52DVfPxI8+wWpop+OSdyHbUQ
+	HMhvqjFz8XVkX8kqE+7BBmnJyAhrh+0R5IBKRsr/a0nd+hIFClofw80OHMvhP8StIwFbkBA==
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--25.468000-8.000000
+X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30228.007
+X-TM-SNTS-SMTP: 2FEE40DF2D2438AA7F1DC52B8F0FB8F23B176BC476E5D93459AB47FA1482630A2000:8
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	MI3PEPF0000848E:EE_|DB5PR02MB11889:EE_|ZR1PEPF0000E6B3:EE_|DBAPR02MB6104:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ab649e6-3794-40e4-e25c-08df1f0317cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|13003099007|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info-Original:
+ 12QiwE5u1uNzRTW2+R/IAzxT7HodVrY614OuCCV1ATPCCwYUBBTSZTZSEehl8+76nobevmf7W2xYMcO0gkjBn4JKD+LIhVGbDV9QNu18PP87VmmuIspLKYEtHDUNbPchkWJ+L13lkJfXQfzvmHr44zfhyRQKpoV4wBLbnSitG3e5KV+f4aFdNBvcIsgTJwGk7F5ibJOx/nYsWgBi0OkqXLUtZcFVbiCnihvs7D8U3+VTe02Q5x17qTQqUWloW3kjU9C37dSXDfM8+lNWyC1cwXd0CFyKRzgPy+GRqp7nUdFIeYCJiZ8MCCq+FUWiXiI+EuIBHeExzqTt1x3ji+P4aEDnMGzNgpA6KcTg9Xwgtkxeedj7TXhL3VnrHK5Re1bDi0M+1PngYir19kzvhY31mX1Pa0zVeNFYj6qqJL45i3fF/RdG/B5NUMmdgx7St/IJZNxzkWMRtlZw28vfyjPsx2nchh/TViBI2fL+EU3PnDBjcFDCAmcsHMRAN+PPycakAt1uZBZf7LcVwBQ5WK1+HlT6aQkUAoBL59aWAdyBdfd3ZZUbCG1NhXjKqArv83whhiPzO38/2UgdIAmmXfhvvAc0r2snvpQIyrKL9sPRw88xz2inHB0iDm0n36BTSicWfqP9KaN4HLWZ4V/9wUX4KWfwZX/PVgSBRA1utK+b6MA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:91.26.242.194;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: sUbRWFvzW0o7QQA417sFu4IPQGnLYsohI9kgHolyAnsdP5wdiQk+N+ZZzHHFOnIag+H3zQrGaTNCn0uSLcUrJN4DB8PnalnBvi73F0mEVN151Kg2xx5cGYkRHz7oUFgpxhD1FVzg7G8bpxomFx/UDrlEejWw3OjjSPVEcMpyA9r7qhOR4h5LFXdJ7XXM5uvkPJGIVNIoyT8EeuSKpg7Baz9USqduQox3GMMSEhhxHGIuLRhZYtwWeydJUKEhf9oufFVvu0o+3dyLSzZzs5XWK6i936KuJEGUsvKBRsWdKmrG1703/AbtS6O0uWPrTwHWR3RhRqnDs/N7fdcyE9Q0NQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR02MB11889
+X-CodeTwo-MessageID: 42dafd48-3299-4723-a54e-9b5b825f929b.20260930145704@eu21-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	11af58ee-004f-4c2d-ee4f-08df1f03150e
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|376014|7416014|23010399003|11063799006|10067099003|260925022911599003|260925021311599003|260925021911599003|3023799007|56012099006|18002099003;
+	BCL:0;ARA:13230040|23010399003|14060799003|36860700016|1800799024|82310400026|376014|35042699022|10067099003|56012099006|6133799003|11063799006|18002099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	I2ItdsY1AmBemkMXDEbTy4ewx8qX7L8JqASvUjDzMqgz8BtFWeqcVAn8biHOFhuBDJN9m0n4UWydJIg9O7Js5QaftKtL4xuz8h3O1d3yLj3Zq/FdJ9YtRjgemfGDfPINNDU9/Zy3WfvRVHWS03yqioRcP2ACPQN96D70oq2VoZb1e7FH4/IoMuM+cCUgESwq3xtyGVau/86yQFKOGRwQfv8gWd7hckXu3f+FCZuS/N17JPUq6mlWF76aoVOaUDmEij+g4DAqMbVyrj/9YR+W9LZFRHsDM9lycc0yLY4XKZpDyrBx22Z9v5qxxKHBXFibaSZLqE2RGuZ5D0PQgJma72Xv1sxca6GHbILLiAJEqK5kpkcDIXJSchc+dJ1bQOlJ8utBHm94scFnfgg/P9TgHNSzpc1gXlxR+79TCzaZErMGQ8H17qZJLZ/45s7L4cZDr0b/sItU3Oa/E3X0WbFsGKH8/Zb06mjHjLKEH0FKgoin/1Hom0X4Ds6qMI873qKPXoplHKKFw2sVjySnK/Z5bFshqZ2DmMK/qzEbyqZ4k5TWNbKjCwwt7fR5J1UsePYdzG+6IPyiaHyxnXt3ajaeLC/6gnbs8bftEXp3ilC2BLrWiH+s24qK7og++nPGOMqzesohBwOjeuPiu9wBBH1ve9Xio5Q4PXatgiqjT1Rdyc0=
+	5IZ8j/aR2/iDskMbB9Yh16c2y+i3afkRJAWgn9j5k3WyS76nvHxzV1q6rSBSzxhxB1pbPVQ3+jHloV3jx6jSNmEIkMBMu+aCoWgL3yG5wOoDvBPTQwXpWFB1auHarl4wephS9sJmx4yBAwW59genSKgkanUa3yPK0uBg/rGqyD6heYJpGNq8aRkiJCOieqRjny/gBtJDKPFnSRjxah3ABf3kZnQNaob7eIgh9Q0K3x7Le3Zt8K+VZHIeZpxE8C2e2gDiOzBfSmWCZ/mfzY3IribfXnJDrb1jzlS22f4WHGbb/HXi9T9xKwLfoFbY4YMjQoTpFQX92U6j/6mLFz7Vbx+jXaMhfSPrNz92I4TT55eue5/x45p4BxxxyK3V+O40jY2Veepwwd3Udie+GekUc3G1gm2BLlT2zaEn6FMNe+gN8UNbqUp5yu6EIyFuXxQCDrTAkLe7rmRUcAmrkXm09sY8rJR1pYjCSeJMwBCkuzoyWCf2PEtoCzt4N3k8oQLHzvYlkCTbnDlxU2igYPO+rVa1ZbExIhm6t1NYXRCvNQGp7cjZiXauiukWboJqkDEWAnlKUqxNHeT/KL46zmLvlUC8DkLBEXsk5in0fnWbdqf6tdlOq+ejspvRYMlpJnivHEYpt0tdj/4DGhCqKACa90fJQZwVZIfBkmGSLvftK6Q=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(7416014)(23010399003)(11063799006)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(23010399003)(14060799003)(36860700016)(1800799024)(82310400026)(376014)(35042699022)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?czRVaVc1N1NTa0xyNDJsSzdCZzZqQkVUWE91eVdNQm9Lb1hZMlo0MTdQM1Nv?=
- =?utf-8?B?V3ZKcjRwRmM1c01RMTNrS211OEZZR3ByOUx3UVpGZTdwQXdVSEhHamxuTGh3?=
- =?utf-8?B?WUJlOFljOXZyVFNoR3ZRTWRSRnIwNW9tV3YxRWc2Nk9Cc0F6MmdEQ1NXck9x?=
- =?utf-8?B?S0NWVHUrTi9DS1BVQVF1VGNlV2NsK2VhaHpWNy9lRmYzVkFreldhNmhFenNs?=
- =?utf-8?B?Y1NqUTRvSmwwZDhaa1dmRzgwaHVZZEt0K3FLWDBxaDFNNEJLaTlTUWFGcjgy?=
- =?utf-8?B?emVxSjc5MDA4R3lodFhKQTg1THNwQzRGVkNkVHBWQ0tVSnB0OVFLU0VRSGd2?=
- =?utf-8?B?bmxxQnRnVUxFRTdyeXFrTjNXUEI2N21tdjZCVUlMakpsWDhnZm9CMTExSHg1?=
- =?utf-8?B?ZkxDaTh3MFNYMFkzQWtrSlBpMitaUUtkTnBGeFh5a3hpZ2FNYkZmWGo3T1JK?=
- =?utf-8?B?NVIveUphZ0taY09yZkpYWlhwZVFqaGxnb2FUZUFieTEvSjNaVXYycWw2ZGVX?=
- =?utf-8?B?cGJEaEg4N21yVW9yckZsVE9ZdzhYOXpTU1NJMnl3RG9JZHEwZSt2NWlwRW8x?=
- =?utf-8?B?QndGbDRXcHduTDFFcHZoY1VLaGFRb2Q5VWRQRUpuSjQrRUFsVUFUQXRRUDBJ?=
- =?utf-8?B?aUcxLzc2Rk8wajg2MXZ6d29QUWZrUWZseVdkR1lzQnhnMlJ3WVJQa0hIaS92?=
- =?utf-8?B?NkdwNjdlOXhDMTYyUHdKdjRCcWxZUmV4Y29lRDZWRDZraWdyQncrSzBJbmNB?=
- =?utf-8?B?aC8vcno3L2N0czl4Q3pMNGxqcnJId1VxTWV4bzlhUnFZcS9Va0ljd2dtMExI?=
- =?utf-8?B?R1R1VzltUWord1JlUmtSM2o0VEhPNWE3WDhsQ3IvdHR0NXlXYSt1bEl0RXNw?=
- =?utf-8?B?VEozbVp2Y3gzV0JJb1ZySFVoSXFtK1NzVmlkUHBtS1JpVkFBKzIyNVZUNHBx?=
- =?utf-8?B?Z3dEZ1Fackx3cGdxMHlsSFJyaXdJemlsb1FlR01yZHYwNUpuRG1zQmRqV0tz?=
- =?utf-8?B?YmVvTTVLRzBHL2w5ZzFMNFN6ZzJGMWhIdnhJSkJ6QVJMRU85R0RMS0FuTyty?=
- =?utf-8?B?RCtPanNjdmlpTjY4M3k4NEJiMXVXNVJaOU9Ba09tZU1VczFYNHB5Q1dBV0gv?=
- =?utf-8?B?UWwwVEZvcCs3eE8vK3hoMHNVSFg4bFByMmoxcEFhVDI3bVBnT0FCaVd1ZFAy?=
- =?utf-8?B?SmlCa3ZhMktxQjZxQk04cXRlQjAxNU5JR0NFZm1nSkVDN1czbXhXWDR1S1E3?=
- =?utf-8?B?WW5XWnFJK2VKaGNCamZWL2h5REl2a28yY056ak1SZHR3akZLbVpvdVp1RWdy?=
- =?utf-8?B?UTBXd21DZFJ6QU1nTldxZENCZFNzYU9QeTV2cW9QcndkNTI3VmY4U1ZwWXl5?=
- =?utf-8?B?UVBGNmVSb24wYVNTblMvcTN4dzdGbDNXZUYyWVpGdVJHUDVxNGY1T1Y5d0Rk?=
- =?utf-8?B?SGxmZFRtWldLZWJJeVV6U1JCbDgxSkNHNUtCcC9tUDNGZmxGVUxGejdwK2hi?=
- =?utf-8?B?a09mQW5kT2UrQkpiMnBQZGVHdDBYZk84TGdieXRjaGI1ZWkyZ2x1encvMENk?=
- =?utf-8?B?Qm1CTVR1Umk4STRHckpNd1RLMzQ5SVJyQmF2YnMvOUlhd2wyRUpzR3BaZEFy?=
- =?utf-8?B?ckM0Y1Zqb2ZLZDBTaDZkTkVjWUJaUWxiSmN3N0laOTI2VW1ucEdndE9QWUNH?=
- =?utf-8?B?SW5BK2VqT1JUTlN0V2dTdFJWTFp0aWRsa0d3dGlkVVF1bndSNUJaOUU1ZFUw?=
- =?utf-8?B?WHlrbWRUMW5IdXZJSkVFa25VcWsxcjdscXg4RmR2bkVGTGYvWHpHMGpGVFp2?=
- =?utf-8?B?TWVjY05FeSs0Tm1QMk50WDIrZkJ0KzM3MFJQQjNCbEVTSFphVG5nLzNyVUJI?=
- =?utf-8?B?RzNwZm8vOU03WThZb0VvQVhtMlhRd3Uvck9Jcjlwd2dPaDZqcjJncW5YalAr?=
- =?utf-8?B?Y0hpbXdQczBKRUpDVVZYTzVRYkRockowdjBtOFBoSTJYZDk0R1dsaGExWnJw?=
- =?utf-8?B?ZHBYY2hQdEFTSG1Ec21lMFJ2WGx2Wk95TUpTTWZTbWhnVHluNGZha1d0bFlF?=
- =?utf-8?B?U1loZUhjZVI2LzVDSkg5bkxYYmRjbldOOWQ1b1BENGJpSE8zLzR2N1dENVZy?=
- =?utf-8?B?b2Y0WkdRcFJ4NlBOblRkNWhvc1huWWEwSG1vNm51V0RRL013SDdKWEZ6eDl3?=
- =?utf-8?B?YmJZRzdzVzdJQTBoaWNhSzUzYTBQZFc1bnltOThja2VTUFByNUxRbUxkK1h5?=
- =?utf-8?B?UjBtWnJrTm54SjdEM1JCT3RwVk4xYkdBUjA1MlBsbnFMM2dxZndtdkZnUTFX?=
- =?utf-8?B?S3FYZ3V3SmlFTkJxd1d5OVd4NFJobUhNcmJaZ1VZTDE5ZTJSMTFnTjMwV3M3?=
- =?utf-8?Q?nQ0FxbJ/ZNQZBAdo9VRttI4YKJMKGSls5ha8bNeipwVHQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4IbBpOdLhToVnQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d8ce0de-2593-4d70-ee54-08df1f031179
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:56:55.0178
+	YNgV9iXhUlCY2qurHumEzruaTqqxywjrpcyZj4VR1NaF5eP5YTaSYLuwwAVtKAxR2FBcUALLCImEGkOW8pCbbLZYUEavMKM/wIC45Ix0ixz6AlLoewkHC7vnzo+zFr+xubBRloBi2S/VYnqdMZA/2QNFMqWarTNOe5trNjxI38RgRq0J2NXCIcyw5Rqtd4bRT+3ogFCBayZGOOpSXU89YeZbN0C8/qqzznkO8cWmDwj+v+BPJd8J/eof4lcgyB07mmEfIr6+HItKz5RV2pHKvTDfM1F7SIG8LXMXgMrq/fPUjaTwdzYmRe+WlWo4xZyITUC7kHacoqtYHYI/L7IHZEcb1Tzw1NXh4Eso/SPWS0wiEkFBpGIu5X5nSlkOMId/S5ACFtsFAdL6OADZShnMXxL+TFXVuyl2eheR8Ldd/mvRwGOg/oKXuMQhf4RKQsMq
+X-OriginatorOrg: ziehl-abegg.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:57:05.2059
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gaJ9m3+moIs61e8zovBcc9NoL7oCMcoi7OYmMeNrBQpqovv4FXX/P1ENl04Vpbub7J/8pK1758RMEDyGv7VaSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9392
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ab649e6-3794-40e4-e25c-08df1f0317cf
+X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR02MB6104
 
-The upcoming r000 firmware support [1] introduces a new type of command
-named GMC alongside the existing and already supported RPC command type.
+This series follows the TX inter-frame-gap work submitted as:
 
-Since RPC was the only command type supported so far, it was embedded
-into the lowest command queue level: the message header actually
-includes the RPC header and the code considers them as one.
+  [PATCH 0/2] serial: sc16is7xx: fix TX inter-frame gaps on SPI UARTs
 
-This makes the r000/GMC support difficult to land without a refactor,
-with the result of transport layer code being duplicated between the two
-message types, and no clear separation between the RPC and GMC code
-which are mixed together in the command queue. Merging the code that way
-would introduce quite some technical debt.
+Following review, the kfifo wrap-around fix was resent separately as a
+standalone v2 patch:
 
-Thus, this series prepares a proper landing ground for a new message
-type by extracting all the RPC layer code and moving it into its own
-sub-modules, making the `cmdq` module completely agnostic of the type of
-message it transports. By the end of the series, the only mention of RPC
-in `cmdq.rs` is for the `rpc` sub-module.
+  https://lore.kernel.org/linux-serial/20260930143207.542930-1-paultyson.mb=
+ewe@ziehl-abegg.de/
 
-With the transport and message layers properly separated, support for
-GMC can be added into sibling modules of `rpc`, and the transport layer
-can be converted once when doing the switch to r000.
+This series depends on that fix because patch 1/2 extends its
+multi-segment TX refill loop.
 
-This moves quite a bit of code around, but most of it is moved verbatim.
-No significant functional change is intended.
+The original trigger-level patch has been split into:
 
-For the r000 series, this essentially means the following:
+  1. a stale-TXLVL under-fill correctness fix; and
+  2. a separate trigger-level load-reduction change.
 
-- Its patch 7 making `allocate_command` generic can be dropped as the
-  transport layer makes no assumption about the message type.
-- Patches adding GMC support will do it in dedicated `gmc` sub-modules,
-  following the model set by RPC. These `gmc` sub-modules will start as
-  `dead_code` as they are being built.
-- The "switch to r000" patch will essentially operate on the transport
-  layer level, i.e. `cmdq.rs`.
-- There should be no need for extra post-switch RPC fixing, as the
-  transport layer code will already be shared with GMC.
+Patch 1/2 re-reads TXLVL after each hardware TX FIFO write while data
+remains queued. It continues refilling until the xmit kfifo is empty or
+the hardware TX FIFO free space is strictly below the programmed
+trigger. The hardware trigger and software refill threshold use the
+same constant.
 
-Overall, this should make the r000 series much easier to review and
-eventually land, while not creating new technical debt.
+Patch 2/2 raises that trigger from 8 to 32 free spaces. This reduces the
+TX refill rate by about 4x, but also reduces the time-to-empty after THRI
+from 56 to 32 byte times.
 
-This series is based on `drm-rust-next`.
+The changes were tested with SC16IS752 over 1 MHz SPI on an i.MX6ULL
+single-core PREEMPT_RT system, transmitting RS-485 at 115200 baud 8N1
+under continuous Modbus RTU load. Each transaction used an 8-byte RX
+request and a 255-byte TX response.
 
-[1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia.com/
+For the benchmark, "both TX fixes" includes the standalone kfifo
+wrap-around fix and patch 1/2. "Fixes + trigger" additionally includes
+patch 2/2.
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+                         before fixes   both TX fixes   fixes + trigger
+                                           trigger=3D8       trigger=3D32
+  SPI IRQ thread CPU          16%            15%             5%
+  system CPU                  49%            44%            29%
+  idle CPU                    36%            40%            52%
+  one-minute load             2.04           2.02           0.99
+  samples                     579            547            535
+
+Comparing the final two configurations isolates patch 2/2. Raising the
+trigger reduced median SPI IRQ thread CPU usage from 15% to 5% and
+median system CPU usage from 44% to 29%, while median idle CPU increased
+from 40% to 52%.
+
+RX trigger tuning and generic RX/TX trigger configuration are left for
+follow-up work.
+
+Paul Mbewe (2):
+  serial: sc16is7xx: refill TX FIFO below trigger using fresh TXLVL
+  serial: sc16is7xx: reduce TX refill rate with half-FIFO trigger
+
+ drivers/tty/serial/sc16is7xx.c | 38 ++++++++++++++++++++++++++++++--------
+ 1 file changed, 30 insertions(+), 8 deletions(-)
 ---
-Changes in v3:
-- Use dedicated `RpcMessage` type to distinguish parsed RPC message from
-  the transport-level `GspMessage`.
-- Introduce traits for sending and receiving elements on the command
-  queue (thanks Eliot!).
-- Split unsafe blocks, drop unused impls, and other fixes on patch 2.
-  (thanks Eliot!)
-- Squash the two move commits into a single one.
-- Link to v2: https://patch.msgid.link/20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com
+Resent after fixing the mail configuration so that all CC'd reviewers recei=
+ve
+unmodified plain-text copies of the patches. No patch changes since v2.
 
 Changes in v2:
-- Fix checksum on receive incorrectly using the whole slots allocated
-  to the message instead of its actual length. (Sashiko)
-- Drop patch 1 to avoid having to validate the `elemCount` header
-  member against edge cases. (Sashiko)
-- Fix incorrect layer separation in receive path, where the CPU read
-  pointer was advanced in the message layer.
-- Fix doclinks pointing to old function names. (Sashiko)
-- Link to v1: https://patch.msgid.link/20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com
+  - Submitted the kfifo wrap-around fix separately as a standalone patch
+  - Split the original trigger-level patch into a stale-TXLVL correctness
+    fix and an independent trigger-level load-reduction change
+  - Re-read TXLVL and refill until free space is strictly below the
+    programmed trigger; use the same constant for hardware and software
+  - Corrected the trigger trade-off explanation and added post-fix A/B
+    CPU and load measurements
+  - Deferred generic RX/TX trigger configuration
 
----
-Alexandre Courbot (9):
-      gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
-      gpu: nova-core: gsp: introduce and use proper RpcMessageHeader type
-      gpu: nova-core: gsp: cmdq: group the RPC-specific part of send_single_command
-      gpu: nova-core: gsp: cmdq: split the transport part of the send path
-      gpu: nova-core: gsp: cmdq: split RPC parsing part of the receive path
-      gpu: nova-core: gsp: cmdq: split the transport part of the receive path
-      gpu: nova-core: gsp: cmdq: move the RPC code into a sub-module
-      gpu: nova-core: gsp: move the RPC commands into a sub-module
-      gpu: nova-core: gsp: add `rpc` to RPC message send/receive methods
+Link: https://lore.kernel.org/linux-serial/20260623112225.82386-1-paultyson=
+.mbewe@ziehl-abegg.de/
+prerequisite-message-id: <20260930143207.542930-1-paultyson.mbewe@ziehl-abe=
+gg.de>
+prerequisite-patch-id: c177f0e42a7122bbb1accf4397c73ccec4eaabb6
 
- drivers/gpu/nova-core/api.rs                       |   2 +-
- drivers/gpu/nova-core/gpu.rs                       |   2 +-
- drivers/gpu/nova-core/gsp.rs                       |   4 +-
- drivers/gpu/nova-core/gsp/boot.rs                  |  12 +-
- drivers/gpu/nova-core/gsp/cmdq.rs                  | 351 +++----------------
- drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 380 +++++++++++++++++++++
- .../nova-core/gsp/cmdq/{ => rpc}/continuation.rs   |   0
- drivers/gpu/nova-core/gsp/commands.rs              | 335 +-----------------
- drivers/gpu/nova-core/gsp/commands/rpc.rs          | 339 ++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw.rs                    |  88 +++--
- drivers/gpu/nova-core/gsp/sequencer.rs             |   6 +-
- 11 files changed, 834 insertions(+), 685 deletions(-)
----
-base-commit: 10a6623a24a85708650efad7be15182289403cd7
-change-id: 20260927-cmdq-rpc-ed5f850b207e
-
-Best regards,
---  
-Alexandre Courbot <acourbot@nvidia.com>
-
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+--=20
+2.43.0
