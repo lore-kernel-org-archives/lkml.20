@@ -1,1191 +1,326 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4F45208C5;
-	Wed, 30 Sep 2026 21:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C0F51CF46;
+	Wed, 30 Sep 2026 21:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804893; cv=none; b=s1mwbJD2eOa3zEGNTVtgfmwDQdc3aqhXjJEEyFAS1yRzhXCclFh9Kt7w+/+KbUM8ez81cfKvAGExquo3u/2pj2ABHO3TgbYbC9LRpkKrZgOTdtV+aRP5OBGXzmVWFBUs5CRQT/2O0SXG8R/n4IggN1Oc9cGkKuv7s9JX/0qlxYw=
+	t=1790804935; cv=none; b=AD1QtKbIQ3HGyUGrJiUZqhvm7pbwjQHZI04Cf0vbo4Ldcd2i0dSrr+rq3u/yU94dTFBuFKlE5f4dnC48mNNCFMOVugpq2pIuBa5Msvt0pU2HveYUoFaYsJ6Qbaz57EM2nxBg6/aYKGaAFRdqFtEa1jZLT1way2Iwrm2YcBpGaXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804893; c=relaxed/simple;
-	bh=QCCQyLZ8GVE4pJIqAXl1X/yBfWzu3jVqcQ8GEjH1sDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eaQ0sNJ5a9auelwN79HZsCYkoaxplif+4tyoya3HYpsgxBsOxV2j58GGc64ySMsFEiQxFfEU58o3w66NXybAs0tGRfxcBJ+KDNGKSlyu8guJaUBaikTLesTHZmUhchNowU+F0vJp9GATBeaZpLdI9Im8GCuQ1M/SXHhMgmcK3g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EDHCzgFQ; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1790804935; c=relaxed/simple;
+	bh=v+tDIe2bYsLeFuxQFNRoHsarF1iqezQy1Lpm3BSHqxk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SmE98b900AiImQdsnYzlH++Jrai+HNtCIRsm5YmcYyBA4gLaKi2swo7yUAwlK6D2/3j8EVHyhpeOSZq1GPaN8Qseb2mcL5O1xojzwjlehTfgK9zRLonoLac6odkZgppXayRmtHuaBA4VV10CnNdsBCZRYev+3tTVxgdfbzILAVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcLMukfH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EDHCzgFQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E3EB10716F;
-	Wed, 30 Sep 2026 23:48:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790804885; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rEa2slH7hr2+xJEr8oxTJ3K9QXAr3NwCr/MsW1VKw3M=;
-	b=EDHCzgFQCI3u+CRttFrEVzau3wuPJlKBSheOLDApv2DY7Zrx79UpTW9QKtFDRrxNVucqVJ
-	SOAOKHgZLFfHNkeP25wA+h/D+fBSdfKE9FWKMtMQgz6ZwAymMoVjHcQiRCuoqCIpUcmrTn
-	qEZWpDZv8app4G5eDIPs7Wgp26nb1JLYQm5Px2vQ9Irdi73PL+KHhU8yzLmfSCf/Nkx30E
-	aAxtRG+0zJI+mlm6DzId24bAAmv4GfVvdGHa+XKru8Sr/BXsU/MZvFEZwuvxo3FlpJBhIB
-	oFnlWo4WeVOU5NoOFZf/8NEX6ZCQethvpeSuVSSQgvIMAIejkxcte3JhnSYg7w==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 3/3] arm64: dts: imx95: Add support for Data Modul i.MX95 eDM SBC
-Date: Wed, 30 Sep 2026 23:46:40 +0200
-Message-ID: <20260930214729.809649-3-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930214729.809649-1-marex@nabladev.com>
-References: <20260930214729.809649-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcLMukfH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1C71F00898;
+	Wed, 30 Sep 2026 21:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804933;
+	bh=bFy3jTIJd0CBUdXyZYoM8DX2iCT9pxoBv6EcSa0Ixd8=;
+	h=From:Subject:Date:To:Cc;
+	b=PcLMukfHRQaVJaWDLFBq+edP2aE+4+KzWQhIguSqkypvzPj8+SyBedZiYcEoMyGcz
+	 t+8lRRVDFjteUni1aWozFjBEvpcMkurS4oEhDY6EDVVP8yTzkVkj+YTg9QgDz36cvB
+	 EBns7khkqi3w7AFmBW1QYOsYKGVx01QLI8zK2nqzsnYvM2tCMoONvkLB1Fbjp3l9gk
+	 LFOa+lpkPgzzfRlOtiqlS/LxXiNxaCgBo9NkZftl/UJ7aHKJ/uT8mr7uwIeAS8Stf2
+	 PtsggXuMXm0+BmpHQdzKLcf5wHpncFee3gCMJ3jreIcoGcjaLznADGkdpCD8fiqnMi
+	 5xwXONvhQOC6Q==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v21 00/15] KVM: arm64: Provide guest support for GCS
+Date: Wed, 30 Sep 2026 22:48:10 +0100
+Message-Id: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJuDvWoC/23US27bMBAG4KsEWlfFzPDdVe9RZMHH0Bba2IEUG
+ A0C371kglqkaWglQh/J4fzUx7TxuvA2/Xj6mFa+LNtyPpUXwm9PUzz604HnJZWBiYAElGf264u
+ W8yFuMwtEHyBZQ24q3we/8RxWf4rHKt5eXuvo68p5+fu5xK/n8n5ctrfz+v654gXr6NfcBnUz9
+ wVnmENW2mQnQvD6529eT/zn+3k9THWaCzWUZEup0BQpYpIyEoeBioYKbKkoNKaUXXYWkrMDlTu
+ 1YFoqC9U2Zi/KlkG7gaqGErVUFeo4o8WUtCA5UH2jCOBaqgs1lpVK7L1MaaBmp9ivagolwCitC
+ MkYNVD7n0qgrvEXW4/JZY7GaCM4D9TtVJNqqSsUshZSahdshoEi7NZC1x2EesbOMYVE6GDsLGK
+ D+3KxJkpisOik4RjGepFa3B0z1kxJKhUXLIX2I76FSpYe9duuqSKiYGy5K8w8Ytni7ryw5kqVQ
+ EFMGhw9qPkWLFW2DR2uyVIshEwebbBjslDv2GF/YDVbWgrFiqMw6cHKt3Dp+4uE5mtlFz1gQPm
+ gZrtj28cLa75yslFCVj7Z8Rqia/DdtmvCHILyZQayPo5/Dtix61tFNWFZoFEQUvZ3NV+v139+G
+ 6CFMQUAAA==
+X-Change-ID: 20230303-arm64-gcs-e311ab0d8729
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Peter Maydell <peter.maydell@linaro.org>, 
+ Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+ Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-doc@vger.kernel.org, kvmarm@lists.linux.dev, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Thiago Jung Bauermann <thiago.bauermann@linaro.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11678; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=v+tDIe2bYsLeFuxQFNRoHsarF1iqezQy1Lpm3BSHqxk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqvYOzUcUTCh61ohFa79m0Es/zHw4CYG/nUT95O
+ QKR6/cCyDmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar2DswAKCRAk1otyXVSH
+ 0MvLB/44y/UytoybP5f3vbX03aCxLX4aCD6ucZqgje4CGMwrjD/KFdthDgUAfWPic5MaB5ikibV
+ YVp1MXk8uOeO33goZK8pVWj9pwSO1OdNwXkkN/LfrW44P8af/YbqbOVFHSvUYtXbbsBKEQLTcPp
+ 51btDdhugIo+TKtKznfiprSPjb66RALVNRxGNUTiEEP6A6Qwe2UEDjDTjN0nP4L0x0FPOazCBhd
+ NWsypJpQWibuF1Vc9rE+KHtEL6IWtEa+HVeS/rqSJZsY7MUzSI0Eie4UgXIO5hqbxumaIgD2LCq
+ aJg2+rOaS2kPK64QajuaS3kNS9nOMVFyetXOa9HxHJl3Yfgz
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Add support for Data Modul i.MX95 eDM SBC board. This is an
-evaluation board for various custom display units. Currently
-supported are serial console, ethernet, eMMC, SD, SPI NOR,
-USB host and PCIe.
+The arm64 Guarded Control Stack (GCS) feature provides support for
+hardware protected stacks of return addresses, intended to provide
+hardening against return oriented programming (ROP) attacks and to make
+it easier to gather call stacks for applications such as profiling.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Aswath Govindraju <a-govindraju@ti.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-can@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: - Rename PCIE_M2-E_EN to PCIE_M2-M_EN
-    - Fix the PCAL expander GPIO reset
-V3: - Fix regulator-5p0v node name
-    - Use reset-gpios consistently
-V4: - Replace gpio with gpios DT property
-V5: - Rebase on next-20260928
-V6: - Remove backlight supply nodes
----
- arch/arm64/boot/dts/freescale/Makefile        |    1 +
- .../freescale/imx95-data-modul-edm-sbc.dts    | 1079 +++++++++++++++++
- 2 files changed, 1080 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+When GCS is active a secondary stack called the Guarded Control Stack is
+maintained, protected with a memory attribute which means that it can
+only be written with specific GCS operations.  The current GCS pointer
+can not be directly written to by userspace.  When a BL is executed the
+value stored in LR is also pushed onto the GCS, and when a RET is
+executed the top of the GCS is popped and compared to LR with a fault
+being raised if the values do not match.  GCS operations may only be
+performed on GCS pages, a data abort is generated if they are not.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a09672b49709e..b6acdc1689a3d 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -965,6 +965,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-clover.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-data-modul-edm-sbc.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-osm-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596la-mba95xxca.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-new file mode 100644
-index 0000000000000..5ca26c6ab665f
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-@@ -0,0 +1,1079 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2025-2026 Marek Vasut <marex@nabladev.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/i3c/i3c.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include <dt-bindings/usb/pd.h>
-+#include "imx95.dtsi"
-+
-+/ {
-+	model = "Data Modul i.MX95 eDM SBC";
-+	compatible = "dmo,imx95-data-modul-edm-sbc", "fsl,imx95";
-+
-+	aliases {
-+		ethernet0 = &enetc_port0;
-+		ethernet1 = &enetc_port1;
-+		gpio0 = &gpio1;
-+		gpio1 = &gpio2;
-+		gpio2 = &gpio3;
-+		gpio3 = &gpio4;
-+		gpio4 = &gpio5;
-+		i2c0 = &lpi2c1;
-+		i2c1 = &lpi2c2;
-+		i2c2 = &lpi2c5;
-+		mmc0 = &usdhc1;
-+		mmc1 = &usdhc2;
-+		mmc2 = &usdhc3;
-+		serial0 = &lpuart1;
-+		serial1 = &lpuart2;
-+		serial2 = &lpuart5;
-+		serial3 = &lpuart7;
-+		serial4 = &lpuart8;
-+	};
-+
-+	chosen {
-+		stdout-path = &lpuart1;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0 0x80000000>;
-+	};
-+
-+	bt_sco_codec: bt-sco-codec {
-+		compatible = "linux,bt-sco";
-+		#sound-dai-cells = <1>;
-+	};
-+
-+	flexcan3_phy: can-phy0 {
-+		compatible = "microchip,ata6563", "ti,tcan1042";
-+		#phy-cells = <0>;
-+		max-bitrate = <5000000>;
-+		standby-gpios = <&i2c2_gpio_expander_20 15 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	flexcan5_phy: can-phy1 {
-+		compatible = "microchip,ata6563", "ti,tcan1042";
-+		#phy-cells = <0>;
-+		max-bitrate = <5000000>;
-+		standby-gpios = <&i2c2_gpio_expander_20 16 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	led {
-+		compatible = "gpio-leds";
-+		pinctrl-0 = <&pinctrl_led>;
-+		pinctrl-names = "default";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "off";
-+			function = LED_FUNCTION_INDICATOR;
-+			function-enumerator = <0>;
-+			gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-1 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "off";
-+			function = LED_FUNCTION_INDICATOR;
-+			function-enumerator = <0>;
-+			gpios = <&gpio5 8 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	reg_1p8v: regulator-1p8v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <1800000>;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-name = "VDD_1V8";
-+	};
-+
-+	/* PF09 SW1, but the PMIC is controlled by CM33 */
-+	reg_3p3v: regulator-3p3v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "VDD_3V3";
-+	};
-+
-+	reg_5p0v: regulator-5p0v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <5000000>;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-name = "VDD_5V0";
-+	};
-+
-+	reg_pcie0: regulator-pcie0 {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "PCIE_M2-B_EN";
-+		gpios = <&i2c2_gpio_expander_20 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_pcie1: regulator-pcie1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "PCIE_M2-M_EN";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&i2c2_gpio_expander_21 7 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usb2_vbus: regulator-usb2-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB2_VBUS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&i2c2_gpio_expander_21 16 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "VDD_SD2_3V3";
-+	};
-+
-+	sound-bt-sco {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-inversion;
-+		simple-audio-card,bitclock-master = <&btcpu>;
-+		simple-audio-card,format = "dsp_a";
-+		simple-audio-card,frame-master = <&btcpu>;
-+		simple-audio-card,name = "bt-sco-audio";
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&bt_sco_codec 1>;
-+		};
-+
-+		btcpu: simple-audio-card,cpu {
-+			dai-tdm-slot-num = <2>;
-+			dai-tdm-slot-width = <16>;
-+			sound-dai = <&sai5>;
-+		};
-+	};
-+
-+	sound-micfil {
-+		compatible = "fsl,imx-audio-card";
-+		model = "micfil-audio";
-+
-+		pri-dai-link {
-+			link-name = "micfil hifi";
-+			format = "i2s";
-+			cpu {
-+				sound-dai = <&micfil>;
-+			};
-+		};
-+	};
-+
-+	sound-tas2552 {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-master = <&cpudai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&cpudai>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,name = "tas2552-audio";
-+		simple-audio-card,routing = "Speaker", "OUT";
-+		simple-audio-card,widgets = "Speaker", "Speaker";
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&tas2552>;
-+		};
-+
-+		cpudai: simple-audio-card,cpu {
-+			sound-dai = <&sai3>;
-+		};
-+	};
-+};
-+
-+&enetc_port0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enetc0>;
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&enetc_port1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enetc1>;
-+	phy-handle = <&ethphy1>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&flexcan3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan3>;
-+	phys = <&flexcan3_phy>;
-+	status = "okay";
-+};
-+
-+&flexcan5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan5>;
-+	phys = <&flexcan5_phy>;
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	gpio-line-names =
-+		"", "", "", "",
-+		"", "BOOT_MODE0", "", "BOOT_MODE1",
-+		"", "", "SYS_WAKEUP", "BOOT_MODE2",
-+		"", "BOOT_MODE3", "", "";
-+	status = "okay";
-+};
-+
-+&gpio5 {
-+	pcal6524-reset-hog {
-+		gpio-hog;
-+		gpios = <10 0>;
-+		output-high;
-+		line-name = "IO_XPNDR_RST_1V8";
-+	};
-+
-+	pewake0-hog {
-+		gpio-hog;
-+		gpios = <14 0>;
-+		input;
-+		line-name = "PCIE_PEWAKE_M2-B";
-+	};
-+
-+	pewake1-hog {
-+		gpio-hog;
-+		gpios = <17 0>;
-+		input;
-+		line-name = "PCIE_PEWAKE_M2-M";
-+	};
-+};
-+
-+&i3c2 {	/* Feature connector I2C/I3C */
-+	i2c-scl-hz = <400000>;
-+	pinctrl-0 = <&pinctrl_i3c2>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&lpi2c2 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpi2c2>;
-+	status = "okay";
-+
-+	i2c2_gpio_expander_20: gpio@20 {	/* U12 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
-+		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"UART8_RS232-485_MODE0", "UART8_RS232-485_MODE1",
-+			"UART8_RS232-485_Term_TX", "UART8_RS232-485_Term_RX",
-+			"UART8_RS232-485_EN", "VDD_3V3_M2-E_EN",
-+			"VDD_3V3_M2-B_EN", "M2_I2C_ALERT",
-+			/* Port 1 */
-+			"M2-B_FULL_CARD_PWROFF", "M2-B_W_DISABLE1",
-+			"M2-B_W_DISABLE2", "M2-B_RESET",
-+			"M2-E_W_DISABLE1", "M2-E_W_DISABLE2",
-+			"M2-E_SDIO_RESET", "CAN3_STBY",
-+			/* Port 2 */
-+			"CAN5_STBY", "V_LCD_EN",
-+			"V_LCD_SEL_3V3", "V_LCD_SEL_5V0",
-+			"V_LCD_SEL_12V0", "V_12V0_CC",
-+			"V_12V0_PG", "AUDIO_EN";
-+	};
-+
-+	i2c2_gpio_expander_21: gpio@21 {	/* U14 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
-+		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"V_BKL_PWM_SEL_5V0", "V_BKL_EN_SEL_5V0",
-+			"UART7_RS232-485_MODE0", "UART7_RS232-485_MODE1",
-+			"UART7_RS232-485_Term_TX", "UART7_RS232-485_Term_RX",
-+			"UART7_RS232-485_EN", "VDD_3V3_M2-M_EN",
-+			/* Port 1 */
-+			"TOUCH_INT", "TOUCH_RESET",
-+			"CAMERA_PWREN", "CAMERA_LED",
-+			"MIPI_DSI-CSI_BL_EN", "MIPI_DSI-CSI_RESET",
-+			"MIPI_DSI-CSI_INT", "LVDS_PANEL_GPIO",
-+			/* Port 2 */
-+			"USB2_PWR_EN", "USB2_PWR_OC#",
-+			"VDD_1V2_USB_PG", "PF09_PG",
-+			"USB_HUB_RESET", "PF09_FS0B",
-+			"PF53_VDD_ARM_PG", "PF53_VDD_SOC_PG";
-+
-+		usb-hub-hog {
-+			gpio-hog;
-+			gpios = <20 0>;
-+			output-high;
-+			line-name = "USB_HUB_RESET";
-+		};
-+	};
-+
-+	i2c2_gpio_expander_22: gpio@22 {	/* U13 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x22>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
-+		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"eMMC_RESET", "WDOG_IRQ#",
-+			"FAN_ALERT", "VDD_1V2_ETH_PG",
-+			"ENET1_RESET", "ENET2_RESET",
-+			"TPM_IRQ", "TPM_RESET",
-+			/* Port 1 */
-+			"FEATURE_CONN_GPIO1", "FEATURE_CONN_GPIO2",
-+			"FEATURE_CONN_GPIO3", "FEATURE_CONN_GPIO4",
-+			"FEATURE_CONN_GPIO5", "FEATURE_CONN_GPIO6",
-+			"", "",
-+			/* Port 2 */
-+			"", "", "", "", "", "",
-+			"UART5_SEL", "EEPROM_WRITE_ENABLE";
-+	};
-+
-+	fan_controller: fan-controller@2f {
-+		compatible = "microchip,emc2301", "microchip,emc2305";
-+		reg = <0x2f>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		#pwm-cells = <3>;
-+
-+		fan@0 {
-+			reg = <0x0>;
-+			pwms = <&fan_controller 26000 0 1>;
-+			#cooling-cells = <2>;
-+		};
-+	};
-+
-+	tas2552: audio-codec@40 {
-+		compatible = "ti,tas2552";
-+		reg = <0x40>;
-+		#sound-dai-cells = <0>;
-+		avdd-supply = <&reg_1p8v>;
-+		iovdd-supply = <&reg_3p3v>;
-+		vbat-supply = <&reg_5p0v>;
-+		enable-gpio = <&i2c2_gpio_expander_20 23 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	temperature-sensor@43 {
-+		compatible = "ti,tmp110", "ti,tmp102";
-+		reg = <0x43>;
-+	};
-+};
-+
-+&lpi2c5 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpi2c5>;
-+	status = "okay";
-+};
-+
-+&lpuart1 {	/* A55 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&lpuart2 {	/* M33 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart2>;
-+	status = "reserved";
-+};
-+
-+&lpuart5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart5>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpuart7 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart7>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpuart8 {	/* M7 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart8>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpspi1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi1>;
-+	cs-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+
-+	flash@0 {	/* W25Q128FVSI */
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <10000000>;
-+	};
-+};
-+
-+&lpspi6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi6>;
-+	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+&micfil {
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pdm>;
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_PDM>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>,
-+				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>,
-+			       <3612672000>, <393216000>,
-+			       <361267200>, <49152000>;
-+	status = "okay";
-+};
-+
-+&mu7 {
-+	status = "okay";
-+};
-+
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_emdio>;
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
-+		compatible = "ethernet-phy-id0022.1640";
-+		reg = <1>;
-+		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-+		reset-assert-us = <1000>;
-+		/* RESET_N signal rise time ~100ms */
-+		reset-deassert-us = <120000>;
-+		reset-gpios = <&i2c2_gpio_expander_22 4 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
-+		compatible = "ethernet-phy-id0022.1640";
-+		reg = <2>;
-+		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-+		reset-assert-us = <1000>;
-+		/* RESET_N signal rise time ~100ms */
-+		reset-deassert-us = <120000>;
-+		reset-gpios = <&i2c2_gpio_expander_22 5 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&netc_timer {
-+	status = "okay";
-+};
-+
-+&netcmix_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&pcie0 {	/* M.2 Key-B */
-+	pinctrl-0 = <&pinctrl_pcie0>;
-+	pinctrl-names = "default";
-+	reset-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-+	vpcie-supply = <&reg_pcie0>;
-+	status = "okay";
-+};
-+
-+&pcie1 {	/* M.2 Key-M */
-+	pinctrl-0 = <&pinctrl_pcie1>;
-+	pinctrl-names = "default";
-+	reset-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;
-+	vpcie-supply = <&reg_pcie1>;
-+	status = "okay";
-+};
-+
-+&sai3 {
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_sai3>;
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI3>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>,
-+				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>,
-+			       <3612672000>, <393216000>,
-+			       <361267200>, <12288000>;
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&sai4 {
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI4>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-+	#sound-dai-cells = <0>;
-+	pinctrl-0 = <&pinctrl_sai4>;
-+	pinctrl-names = "default";
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&sai5 {
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI5>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-+	#sound-dai-cells = <0>;
-+	pinctrl-0 = <&pinctrl_sai5>;
-+	pinctrl-names = "default";
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&thermal_zones {
-+	pf09-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 2>;
-+
-+		trips {
-+			trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53arm-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 4>;
-+
-+		cooling-maps {
-+			map0 {
-+				trip = <&pf5301_alert>;
-+				cooling-device =
-+					<&A55_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+			};
-+		};
-+
-+		trips {
-+			pf5301_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5301_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53soc-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 3>;
-+
-+		trips {
-+			pf5302_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5302_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+};
-+
-+&tpm3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_tpm3>;
-+	status = "okay";
-+};
-+
-+&tpm4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_tpm4>;
-+	status = "okay";
-+};
-+
-+&usb2 {
-+	dr_mode = "host";
-+	vbus-supply = <&reg_usb2_vbus>;
-+	status = "okay";
-+};
-+
-+&usb3 {
-+	status = "okay";
-+};
-+
-+&usb3_dwc3 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+&usdhc1 {	/* eMMC */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc1>;
-+	bus-width = <8>;
-+	non-removable;
-+	no-sdio;
-+	no-sd;
-+	status = "okay";
-+};
-+
-+&usdhc2 {	/* SD-Card */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc2>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc2>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&usdhc3 {	/* M.2 Key-E */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc3>;
-+	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc3>;
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&wdog3 {
-+	fsl,ext-reset-output;
-+	status = "okay";
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hog>;
-+
-+	pinctrl_hog: hoggrp {
-+		fsl,pins = <
-+			/* PCIe 0 PEWAKE */
-+			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x4000031e
-+			/* PCIe 1 PEWAKE */
-+			IMX95_PAD_GPIO_IO37__GPIO5_IO_BIT17			0x4000031e
-+			/* BOOT_MODE2 */
-+			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_GPIO1_IO_BIT11		0x4000031e
-+			/* IO_XPNDR_RST_1V8 shared by multiple expanders */
-+			IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10			0x40000b9e
-+			/* IO_XPNDR_INT_1V8 shared by multiple expanders */
-+			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_emdio: emdiogrp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC		0x50e
-+			IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO		0x90e
-+		>;
-+	};
-+
-+	pinctrl_enetc0: enetc0grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e
-+			IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e
-+			IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e
-+			IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e
-+			IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK	0x58e
-+			IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e
-+			IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x50e
-+			IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x50e
-+			IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x50e
-+			IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x50e
-+			IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK	0x58e
-+			IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e
-+		>;
-+	};
-+
-+	pinctrl_enetc1: enetc1grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET2_RD0__NETCMIX_TOP_ETH1_RGMII_RD0		0x57e
-+			IMX95_PAD_ENET2_RD1__NETCMIX_TOP_ETH1_RGMII_RD1		0x57e
-+			IMX95_PAD_ENET2_RD2__NETCMIX_TOP_ETH1_RGMII_RD2		0x57e
-+			IMX95_PAD_ENET2_RD3__NETCMIX_TOP_ETH1_RGMII_RD3		0x57e
-+			IMX95_PAD_ENET2_RXC__NETCMIX_TOP_ETH1_RGMII_RX_CLK	0x58e
-+			IMX95_PAD_ENET2_RX_CTL__NETCMIX_TOP_ETH1_RGMII_RX_CTL	0x57e
-+			IMX95_PAD_ENET2_TD0__NETCMIX_TOP_ETH1_RGMII_TD0		0x50e
-+			IMX95_PAD_ENET2_TD1__NETCMIX_TOP_ETH1_RGMII_TD1		0x50e
-+			IMX95_PAD_ENET2_TD2__NETCMIX_TOP_ETH1_RGMII_TD2		0x50e
-+			IMX95_PAD_ENET2_TD3__NETCMIX_TOP_ETH1_RGMII_TD3		0x50e
-+			IMX95_PAD_ENET2_TXC__NETCMIX_TOP_ETH1_RGMII_TX_CLK	0x58e
-+			IMX95_PAD_ENET2_TX_CTL__NETCMIX_TOP_ETH1_RGMII_TX_CTL	0x57e
-+		>;
-+	};
-+
-+	pinctrl_flexcan3: flexcan3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO28__CAN3_TX				0x39e
-+			IMX95_PAD_GPIO_IO29__CAN3_RX				0x39e
-+		>;
-+	};
-+
-+	pinctrl_flexcan5: flexcan5grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO30__CAN5_TX				0x39e
-+			IMX95_PAD_GPIO_IO31__CAN5_RX				0x39e
-+		>;
-+	};
-+
-+	pinctrl_i3c2: i3c2grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET1_MDC__I3C2_SCL				0x40000186
-+			IMX95_PAD_ENET1_MDIO__I3C2_SDA				0x40000186
-+		>;
-+	};
-+
-+	pinctrl_led: ledgrp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DQS__GPIO5_IO_BIT8			0x14e
-+			IMX95_PAD_XSPI1_SCLK__GPIO5_IO_BIT9			0x14e
-+		>;
-+	};
-+
-+	pinctrl_lpi2c2: lpi2c2grp {
-+		fsl,pins = <
-+			IMX95_PAD_I2C2_SCL__AONMIX_TOP_LPI2C2_SCL		0x40000b9e
-+			IMX95_PAD_I2C2_SDA__AONMIX_TOP_LPI2C2_SDA		0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_lpi2c5: lpi2c5grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO22__LPI2C5_SDA				0x40000b9e
-+			IMX95_PAD_GPIO_IO23__LPI2C5_SCL				0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_lpspi1: lpspi1grp {
-+		fsl,pins = <
-+			IMX95_PAD_SAI1_TXC__AONMIX_TOP_LPSPI1_SIN		0x3fe
-+			IMX95_PAD_SAI1_TXD0__AONMIX_TOP_LPSPI1_SCK		0x3fe
-+			IMX95_PAD_SAI1_RXD0__AONMIX_TOP_LPSPI1_SOUT		0x3fe
-+			IMX95_PAD_PDM_BIT_STREAM0__AONMIX_TOP_GPIO1_IO_BIT9	0x3fe
-+		>;
-+	};
-+
-+	pinctrl_lpspi6: lpspi6grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO00__GPIO2_IO_BIT0			0x3fe
-+			IMX95_PAD_GPIO_IO01__LPSPI6_SIN				0x3fe
-+			IMX95_PAD_GPIO_IO02__LPSPI6_SOUT			0x3fe
-+			IMX95_PAD_GPIO_IO03__LPSPI6_SCK				0x3fe
-+		>;
-+	};
-+
-+	pinctrl_pcie0: pcie0grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO32__HSIOMIX_TOP_PCIE1_CLKREQ_B		0x4000031e
-+			IMX95_PAD_GPIO_IO33__GPIO5_IO_BIT13			0x31e
-+		>;
-+	};
-+
-+	pinctrl_pcie1: pcie1grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO35__HSIOMIX_TOP_PCIE2_CLKREQ_B		0x4000031e
-+			IMX95_PAD_GPIO_IO36__GPIO5_IO_BIT16			0x31e
-+		>;
-+	};
-+
-+	pinctrl_panel_backlight_lvds: backlightlvdsgrp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO27__GPIO2_IO_BIT27			0x31e
-+		>;
-+	};
-+
-+	pinctrl_pdm: pdmgrp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO04__AONMIX_TOP_PDM_CLK			0x31e
-+			IMX95_PAD_GPIO_IO05__AONMIX_TOP_PDM_BIT_STREAM_BIT0	0x31e
-+			IMX95_PAD_GPIO_IO06__AONMIX_TOP_PDM_BIT_STREAM_BIT1	0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai4: sai4grp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DATA0__SAI4_TX_BCLK			0x31e
-+			IMX95_PAD_XSPI1_DATA1__SAI4_TX_SYNC			0x31e
-+			IMX95_PAD_XSPI1_DATA2__SAI4_TX_DATA_BIT0		0x31e
-+			IMX95_PAD_XSPI1_DATA3__SAI4_RX_DATA_BIT0		0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai5: sai5grp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DATA4__SAI5_TX_DATA_BIT0		0x31e
-+			IMX95_PAD_XSPI1_DATA5__SAI5_TX_SYNC			0x31e
-+			IMX95_PAD_XSPI1_DATA6__SAI5_TX_BCLK			0x31e
-+			IMX95_PAD_XSPI1_DATA7__SAI5_RX_DATA_BIT0		0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai3: sai3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO16__SAI3_TX_BCLK			0x31e
-+			IMX95_PAD_GPIO_IO17__SAI3_MCLK				0x31e
-+			IMX95_PAD_GPIO_IO18__SAI3_RX_BCLK			0x31e
-+			IMX95_PAD_GPIO_IO19__SAI3_RX_SYNC			0x31e
-+			IMX95_PAD_GPIO_IO20__SAI3_RX_DATA_BIT0			0x31e
-+			IMX95_PAD_GPIO_IO21__SAI3_TX_DATA_BIT0			0x31e
-+			IMX95_PAD_GPIO_IO26__SAI3_TX_SYNC			0x31e
-+		>;
-+	};
-+
-+	pinctrl_tpm3: tpm3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO24__TPM3_CH3				0x51e
-+		>;
-+	};
-+
-+	pinctrl_tpm4: tpm4grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO25__TPM4_CH3				0x51e
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX		0x31e
-+			IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX		0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart2: uart2grp {
-+		fsl,pins = <
-+			IMX95_PAD_UART2_RXD__AONMIX_TOP_LPUART2_RX		0x31e
-+			IMX95_PAD_UART2_TXD__AONMIX_TOP_LPUART2_TX		0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart5: uart5grp {
-+		fsl,pins = <
-+			IMX95_PAD_DAP_TDO_TRACESWO__LPUART5_TX			0x31e
-+			IMX95_PAD_DAP_TDI__LPUART5_RX				0x31e
-+			IMX95_PAD_DAP_TMS_SWDIO__LPUART5_RTS_B			0x31e
-+			IMX95_PAD_DAP_TCLK_SWCLK__LPUART5_CTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart7: uart7grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO08__LPUART7_TX				0x31e
-+			IMX95_PAD_GPIO_IO09__LPUART7_RX				0x31e
-+			IMX95_PAD_GPIO_IO10__LPUART7_CTS_B			0x31e
-+			IMX95_PAD_GPIO_IO11__LPUART7_RTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart8: uart8grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO12__LPUART8_TX				0x31e
-+			IMX95_PAD_GPIO_IO13__LPUART8_RX				0x31e
-+			IMX95_PAD_GPIO_IO14__LPUART8_CTS_B			0x31e
-+			IMX95_PAD_GPIO_IO15__LPUART8_RTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x15fe
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x13fe
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x13fe
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x13fe
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x13fe
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x13fe
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x13fe
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x13fe
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3: usdhc3grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3_100mhz: usdhc3-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3_200mhz: usdhc3-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+};
--- 
-2.53.0
+The combination of hardware enforcement and lack of extra instructions
+in the function entry and exit paths should result in something which
+has less overhead and is more difficult to attack than a purely software
+implementation like clang's shadow stacks.
+
+This series implements support for managing GCS for KVM guests.
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Changes in v21:
+- Drop "KVM: arm64: Fix FGT mapping for HFGITR_EL2.nGCSEPP" which was
+  applied as 089e4f3c4862.
+- Reject creation of guests with GCS without S1PIE, or S1PIE/S1POE
+  without TCR2.  Add selftest coverage for this.
+- Flip order of GCSPR_EL2 and GCSCR_EL2 in el2_reg in get-reg-list.
+- Remove ineffective selftest cases with HFGITR_EL2.ERET set.
+- Formatting and clarity tweaks.
+- Link to v20: https://patch.msgid.link/20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org
+
+Changes in v20:
+- Rebase onto v7.3-rc1.
+- Relax GCSB DSYNCs, remove them when loading the vCPU and move them to
+  vcpu_put() on the outgoing path.
+- Make kvm_check_illegal_exlock_returns() mode change checks more
+  similar to compute_exlock().
+- Use kvm_has_gcs() in ctxt_has_gcs().
+- Move some EL2 register saves under S1PIE checks.
+- Link to v19: https://patch.msgid.link/20260812-arm64-gcs-v19-0-9105afd828ac@kernel.org
+
+Changes in v19:
+- Fix accessor for GCSCR_EL2 in emulation.
+- Correct locate_direct_register() for EL0 registers.
+- Don't check for GCS without S1PIE when restoring vEL2.
+- Move barriers to align better with nearby dsbs.
+- Link to v18: https://patch.msgid.link/20260803-arm64-gcs-v18-0-fd8c40f5ad88@kernel.org
+
+Changes in v18:
+- Reinject all GCS exceptions from nested guests.
+- Include GCSCRE0_EL1 and GCSPR_EL0 in the live CPU register accessors.
+- Sort el2_regs in get-reg-list.
+- Link to v17: https://patch.msgid.link/20260731-arm64-gcs-v17-0-5e39ca01b14e@kernel.org
+
+Changes in v17:
+- Rebase onto v7.2-rc4.
+- Fix mapping of HFGITR_EL2.nGCSEPP.
+- Implement a test for NV emulation around EXLOCK.
+- Fix NV exception emulation issues.
+- Add GCS[PC]R_EL1 to locate_direct_register().
+- Add barriers.
+- Add ID_AA64PFR1_EL1.GCS to set_id_regs.
+- Comment updates.
+- Link to v16: https://lore.kernel.org/r/20250912-arm64-gcs-v16-0-6435e5ec37db@kernel.org
+
+Changes in v16:
+- Rebase onto v6.17-rc3.
+- Also expose the feature to nested guests.
+- Implement emulation of EXLOCK when returning from nested guests.
+- Rename enter_exception_gcs() to compute_exlock().
+- Move all ID_AA64PFR1_EL1 handling to the final kernel patch.
+- Drop unneeded forwarding of GCS exceptions.
+- Commit and cover message updates.
+- Link to v15: https://lore.kernel.org/r/20250820-arm64-gcs-v15-0-5e334da18b84@kernel.org
+
+Changes in v15:
+- Rebase onto v6.17-rc1.
+- Link to v14: https://lore.kernel.org/r/20241005-arm64-gcs-v14-0-59060cd6092b@kernel.org
+
+Changes in v14:
+- Rebase onto arm64/for-next/gcs which includes all the non-KVM support.
+- Manage the fine grained traps for GCS instructions.
+- Manage PSTATE.EXLOCK when delivering exceptions to KVM guests.
+- Link to v13: https://lore.kernel.org/r/20241001-arm64-gcs-v13-0-222b78d87eee@kernel.org
+
+Changes in v13:
+- Rebase onto v6.12-rc1.
+- Allocate VM_HIGH_ARCH_6 since protection keys used all the existing
+  bits.
+- Implement mm_release() and free transparently allocated GCSs there.
+- Use bit 32 of AT_HWCAP for GCS due to AT_HWCAP2 being filled.
+- Since we now only set GCSCRE0_EL1 on change ensure that it is
+  initialised with GCSPR_EL0 accessible to EL0.
+- Fix OOM handling on thread copy.
+- Link to v12: https://lore.kernel.org/r/20240829-arm64-gcs-v12-0-42fec947436a@kernel.org
+
+Changes in v12:
+- Clarify and simplify the signal handling code so we work with the
+  register state.
+- When checking for write aborts to shadow stack pages ensure the fault
+  is a data abort.
+- Depend on !UPROBES.
+- Comment cleanups.
+- Link to v11: https://lore.kernel.org/r/20240822-arm64-gcs-v11-0-41b81947ecb5@kernel.org
+
+Changes in v11:
+- Remove the dependency on the addition of clone3() support for shadow
+  stacks, rebasing onto v6.11-rc3.
+- Make ID_AA64PFR1_EL1.GCS writeable in KVM.
+- Hide GCS registers when GCS is not enabled for KVM guests.
+- Require HCRX_EL2.GCSEn if booting at EL1.
+- Require that GCSCR_EL1 and GCSCRE0_EL1 be initialised regardless of
+  if we boot at EL2 or EL1.
+- Remove some stray use of bit 63 in signal cap tokens.
+- Warn if we see a GCS with VM_SHARED.
+- Remove rdundant check for VM_WRITE in fault handling.
+- Cleanups and clarifications in the ABI document.
+- Clean up and improve documentation of some sync placement.
+- Only set the EL0 GCS mode if it's actually changed.
+- Various minor fixes and tweaks.
+- Link to v10: https://lore.kernel.org/r/20240801-arm64-gcs-v10-0-699e2bd2190b@kernel.org
+
+Changes in v10:
+- Fix issues with THP.
+- Tighten up requirements for initialising GCSCR*.
+- Only generate GCS signal frames for threads using GCS.
+- Only context switch EL1 GCS registers if S1PIE is enabled.
+- Move context switch of GCSCRE0_EL1 to EL0 context switch.
+- Make GCS registers unconditionally visible to userspace.
+- Use FHU infrastructure.
+- Don't change writability of ID_AA64PFR1_EL1 for KVM.
+- Remove unused arguments from alloc_gcs().
+- Typo fixes.
+- Link to v9: https://lore.kernel.org/r/20240625-arm64-gcs-v9-0-0f634469b8f0@kernel.org
+
+Changes in v9:
+- Rebase onto v6.10-rc3.
+- Restructure and clarify memory management fault handling.
+- Fix up basic-gcs for the latest clone3() changes.
+- Convert to newly merged KVM ID register based feature configuration.
+- Fixes for NV traps.
+- Link to v8: https://lore.kernel.org/r/20240203-arm64-gcs-v8-0-c9fec77673ef@kernel.org
+
+Changes in v8:
+- Invalidate signal cap token on stack when consuming.
+- Typo and other trivial fixes.
+- Don't try to use process_vm_write() on GCS, it intentionally does not
+  work.
+- Fix leak of thread GCSs.
+- Rebase onto latest clone3() series.
+- Link to v7: https://lore.kernel.org/r/20231122-arm64-gcs-v7-0-201c483bd775@kernel.org
+
+Changes in v7:
+- Rebase onto v6.7-rc2 via the clone3() patch series.
+- Change the token used to cap the stack during signal handling to be
+  compatible with GCSPOPM.
+- Fix flags for new page types.
+- Fold in support for clone3().
+- Replace copy_to_user_gcs() with put_user_gcs().
+- Link to v6: https://lore.kernel.org/r/20231009-arm64-gcs-v6-0-78e55deaa4dd@kernel.org
+
+Changes in v6:
+- Rebase onto v6.6-rc3.
+- Add some more gcsb_dsync() barriers following spec clarifications.
+- Due to ongoing discussion around clone()/clone3() I've not updated
+  anything there, the behaviour is the same as on previous versions.
+- Link to v5: https://lore.kernel.org/r/20230822-arm64-gcs-v5-0-9ef181dd6324@kernel.org
+
+Changes in v5:
+- Don't map any permissions for user GCSs, we always use EL0 accessors
+  or use a separate mapping of the page.
+- Reduce the standard size of the GCS to RLIMIT_STACK/2.
+- Enforce a PAGE_SIZE alignment requirement on map_shadow_stack().
+- Clarifications and fixes to documentation.
+- More tests.
+- Link to v4: https://lore.kernel.org/r/20230807-arm64-gcs-v4-0-68cfa37f9069@kernel.org
+
+Changes in v4:
+- Implement flags for map_shadow_stack() allowing the cap and end of
+  stack marker to be enabled independently or not at all.
+- Relax size and alignment requirements for map_shadow_stack().
+- Add more blurb explaining the advantages of hardware enforcement.
+- Link to v3: https://lore.kernel.org/r/20230731-arm64-gcs-v3-0-cddf9f980d98@kernel.org
+
+Changes in v3:
+- Rebase onto v6.5-rc4.
+- Add a GCS barrier on context switch.
+- Add a GCS stress test.
+- Link to v2: https://lore.kernel.org/r/20230724-arm64-gcs-v2-0-dc2c1d44c2eb@kernel.org
+
+Changes in v2:
+- Rebase onto v6.5-rc3.
+- Rework prctl() interface to allow each bit to be locked independently.
+- map_shadow_stack() now places the cap token based on the size
+  requested by the caller not the actual space allocated.
+- Mode changes other than enable via ptrace are now supported.
+- Expand test coverage.
+- Various smaller fixes and adjustments.
+- Link to v1: https://lore.kernel.org/r/20230716-arm64-gcs-v1-0-bf567f93bba6@kernel.org
+
+---
+Mark Brown (15):
+      arm64/gcs: Ensure FGTs for EL1 GCS instructions are disabled
+      KVM: arm64: Refuse to start a guest with S1PIE or S1POE but not TCR2
+      KVM: arm64: Manage GCS access and registers for guests
+      KVM: arm64: Ensure GCS memory effects are visible
+      KVM: arm64: Set PSTATE.EXLOCK when entering an exception
+      KVM: arm64: Validate GCS exception lock when emulating ERET
+      KVM: arm64: Forward GCS exceptions to nested guests
+      KVM: arm64: Enforce EXLOCK for SPSR and ELR
+      KVM: arm64: Allow GCS to be enabled for guests
+      KVM: selftests: arm64: Check that invalid feature combinations are rejected
+      KVM: selftests: arm64: Add GCS registers to get-reg-list
+      KVM: selftests: arm64: Add GCS to set_id_regs
+      KVM: selftests: arm64: Only restore SPSR_EL1 and ELR_EL1 if they change
+      tools: Synchronise the kernel esr.h
+      KVM: selftests: arm64: Add GCS EXLOCK exception emulation test
+
+ arch/arm64/include/asm/el2_setup.h                 |   5 +
+ arch/arm64/include/asm/kvm_emulate.h               |  11 +
+ arch/arm64/include/asm/kvm_host.h                  |  14 +
+ arch/arm64/include/asm/kvm_nested.h                |  32 ++
+ arch/arm64/include/asm/vncr_mapping.h              |   2 +
+ arch/arm64/include/uapi/asm/ptrace.h               |   1 +
+ arch/arm64/kvm/arm.c                               |   7 +
+ arch/arm64/kvm/emulate-nested.c                    |   5 +-
+ arch/arm64/kvm/handle_exit.c                       |  18 +-
+ arch/arm64/kvm/hyp/exception.c                     |  37 +++
+ arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h         |  27 ++
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c                 |   7 +
+ arch/arm64/kvm/hyp/vhe/switch.c                    |   4 +
+ arch/arm64/kvm/hyp/vhe/sysreg-sr.c                 |  10 +
+ arch/arm64/kvm/nested.c                            |   3 +-
+ arch/arm64/kvm/sys_regs.c                          | 113 ++++++-
+ tools/arch/arm64/include/asm/esr.h                 | 113 ++++++-
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+ tools/testing/selftests/kvm/arm64/gcs_exceptions.c | 336 +++++++++++++++++++++
+ tools/testing/selftests/kvm/arm64/get-reg-list.c   |  12 +
+ tools/testing/selftests/kvm/arm64/set_id_regs.c    |  95 ++++++
+ tools/testing/selftests/kvm/lib/arm64/handlers.S   |  10 +
+ 22 files changed, 840 insertions(+), 23 deletions(-)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20230303-arm64-gcs-e311ab0d8729
+
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
