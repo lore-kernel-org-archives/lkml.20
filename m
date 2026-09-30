@@ -1,103 +1,125 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B6C4E50A7;
-	Wed, 30 Sep 2026 14:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8FB125A0;
+	Wed, 30 Sep 2026 14:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778767; cv=none; b=TkXvBCmHyH2K60eQumEhAsUsVB6c3uJ2vC7PhfW8CxJQPKsp1ktVMspzk5JJ0yjvzoj81rxIgzqK843T4IxUHg5FTWeXu343hHs+QBsYAjykGTaOoN9XP3VIh2voc/nfGfokJla3gMzSDxvf8s2+YdW6ZnA+v95/lqfkD+DsX2Y=
+	t=1790778773; cv=none; b=KSRBE+vfoIvHKf3Z5PxPZqeuqv7Gy0L+5ljod3ab3la09QvsMHGxHWrugp1Tp2iPr0pRu1d/f5iUSkfkwrUuh0WUbBwt2YkSLtX+pDXHO7/ggLcaGxtjB9cOl+IvLfD75Pp1tOz/dtakg4fYxX/XXfKy8ag4QvQfvqNPZe1u46c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778767; c=relaxed/simple;
-	bh=vzRnkfd6Bh23V2t9FkYG3oKkN1fe1gV1DgjJYGDDMpg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m7gWmeQRnGz6B/4FSBH70+Ig1rO+QkK8oBxvK73vfu38Eblk4JsxxGHnG9QXq50X7BeYREJ9whWGb5HPugn3GfCxxmXClaygyuJvlQ7xh5V4vZP1MIcN2mRnZ10GjqKL3+YLLrbPrCJiWt6kaIwGJDmLIJLqX7nuzn/PAbpiTC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=aYsXghDR; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1790778773; c=relaxed/simple;
+	bh=P4M1O9ZWDdE1zPTrPCdBm3aKgXJiaaUGQ1nS3Hg0HFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gzALh2C/h9ypJsETWchFXlZmquOGeMpoiyqQwv9fCsBXh0jd1OhGQ2SlmR68adTbpJe5tGZpc8Rf4wIuFLDtmRTSm5uwRBsbaSzQQ9F5hLyIPWPulUoywPu7QUU35VprFFQZrVSqH5f5wTmsx41lSL703on2WfdV+MCCC9sy6dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7eb6PkZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="aYsXghDR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=WNgWQ++5bvjPUMOSIdc7aHt8/9NgBV0Oam8GVheP5hI=; b=aYsXghDRM01lguKV1hs
-	cihQGvJ/39qTCSyllg98yazpbSSnA5m9NSZPqs1DE2ZXKNqt172bLA/j2of5we85UKpQ1dFSg1m3P
-	8G0zPruVXXcaGpa4rvsjTdQLDiU/XkFrxN9pq5fjJ9AszG5Cw5YnVOnaSWgZYzdmoK0+zcv4JzU4i
-	x/c+z18onAaaN2KQCQ7Lr+rIcrfKkZjZZDEC47ozKOISsooVY7hSC4OdQZj5HTO8MAv2YslsM7Fxk
-	TnuYfZwtfOhvhlXoqJhv4MOYt89LLrjF0+F9V7BdLKjvAKsRTufnpZyAijc6pgYngW/3iG6401LMr
-	DAdGEzraEFIsVug==;
-Received: from [130.117.225.5] (helo=dev010.ch-qa.vzint.dev)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <vasileios.almpanis@virtuozzo.com>)
-	id 1xBvJ5-006Oij-22;
-	Wed, 30 Sep 2026 16:32:26 +0200
-From: Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
-Date: Wed, 30 Sep 2026 14:32:26 +0000
-Subject: [PATCH] block: drop the cached plug time when blk_add_rq_to_plug()
- flushes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7eb6PkZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476821F00893;
+	Wed, 30 Sep 2026 14:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790778761;
+	bh=C8YotGbPpTw8fr4pGnkC5Uowc5xDPlhqj6/H6+qjLVQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g7eb6PkZBOpj4//48iMPaLuU6J5ykwBODB2lvFBuyn8/AHuDAX1gdNPbqabkNY0SH
+	 vJ6QsnP+H2oNx6z+SBuMG9s2hj2/Ux+ofsOeOqdxlnvzPtkj0kEeY0a30tkhIRv93c
+	 cu/Hgglwg1U0ckdVtNkD0hQGTGZfeS/tJ7nnjV2/ztNfSvKtj1Oi9RvYtjfzslqXya
+	 LYXhdI883ZoVWo8mZEweA8DVSU5V5rJcZPlIltFtfWLyGeYwwR7UywHgbU5YTzu1Lc
+	 omctTAq70INmIdlBwx35izI23SIazv890eiUVKU0I/ziohHH0803OuaWHZGfiwUA5v
+	 NcTlNAXcbckoA==
+Date: Wed, 30 Sep 2026 17:32:37 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260930143237.GI3401365@unreal>
+References: <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-blk-plug-ts-flush-v1-1-bf8ca7bc5cd6@virtuozzo.com>
-X-B4-Tracking: v=1; b=H4sIAHkdvWoC/yXMQQqDMBBA0avIrDsQDYbqVaQLTUYdDSoZUwri3
- Y12+Rb/HyAUmATq7IBAXxZel4T8lYEd22UgZJcMhSqMqrTCzs+4+TjgLtj7KCNqU1pHldHKvSF
- 1W6Cef8+z+fwtsZvI7vcIzvMCYOKO2XUAAAA=
-X-Change-ID: 20260930-blk-plug-ts-flush-365cde9630d8
-To: Jens Axboe <axboe@kernel.dk>, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790778747; l=1605;
- i=vasileios.almpanis@virtuozzo.com; s=20260812; h=from:subject:message-id;
- bh=vzRnkfd6Bh23V2t9FkYG3oKkN1fe1gV1DgjJYGDDMpg=;
- b=GF1ifJykS3ZNBY7AJWDGuIVLusgEY0GGJDIT3zFsmPbyHJnrTCBqcRd2z66Zmr0nlnPrMyHBv
- JJGYiXg5ljDB2nrW64YEyqHhsku/cce9ldPTeCbvabbPzm3UXBrzvb8
-X-Developer-Key: i=vasileios.almpanis@virtuozzo.com; a=ed25519;
- pk=HhuHDXAcPva9A8zccWEMRsb36reu+y4IVbBjXKxNUjw=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
 
-blk_time_get_ns() caches the current time in the task's plug. The idea
-is that the cache lives for one plug and is dropped when the plug is
-flushed. __blk_flush_plug() and finish_task_switch() do that.
+On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
+> On 9/30/26 13:43, Leon Romanovsky wrote:
+> > On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
+> >> On 9/30/26 10:18, Leon Romanovsky wrote:
+> ...
+> >>>
+> >>> At a minimum, exporters need to pass `p2pdma_provider`.
+> >>
+> >> No, exactly that is a no-go. The neither the framework nor the importer should see the p2pdma_provider.
+> >>
+> >> Only fully translated addresses where the DMA access should happen.
+> >>
+> >>>
+> >>> If I keep the “dma-buf: Let exporters hand out the P2PDMA provider behind a
+> >>> buffer” patch, I can move the P2P TLP types back into `p2pdma.c` and export
+> >>> only the function that indicates whether ATS is required.
+> >>>
+> >>> Is it ok?
+> >>
+> >> What you can do is to forward declare enum pci_p2pdma_map_type and than pass that 1 to 1 from the exporter to the importer.
+> > 
+> > Unfortunately, neither suggestion applies to RDMA NICs. They need to know,
+> > before mapping addresses, whether to create the memory region with ATS
+> > enabled.
+> 
+> The design principle here is that the final location and access path of the data isn't determined when the buffer is created.
+> 
+> The importer first need to attach before it can query such information from the exporter.
 
-blk_add_rq_to_plug() also flushes, when the plug has too many requests
-or the last request is at least BLK_PLUG_FLUSH_SIZE. But it calls
-blk_mq_flush_plug_list() directly and never drops the cached time. So
-a task that keeps submitting without sleeping stamps every request
-after that with the time first cached in the plug. start_time_ns and
-io_start_time_ns are stale and the disk stats charge each request for
-the whole time since the plug began.
+In attach yes, this is why importer digs in dma_buf ops to get
+p2pdma_provide, however it is before addresses are known.
 
-Drop the cached time after the flush, same as __blk_flush_plug() does.
+> > The importer needs a way to obtain device information from the exporter so
+> > that it can configure itself correctly.
+> 
+> That won't work with DMA-buf then, the exporter is completely opaque to the importer and that is for really good reasons.
+> 
+> Why in the world does the importer needs to know the information from the exporter before the mapping is created?
+> 
+> It is the exporter who decides how data is accessed by the importer and not the other way around.
 
-Fixes: da4c8c3d0975 ("block: cache current nsec time in struct blk_plug")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
----
- block/blk-mq.c | 1 +
- 1 file changed, 1 insertion(+)
+There are several reasons:
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index a26a11c73ee3..7a37d9f1647d 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -1384,6 +1384,7 @@ static void blk_add_rq_to_plug(struct blk_plug *plug, struct request *rq)
- 		   (!blk_queue_nomerges(rq->q) &&
- 		    blk_rq_bytes(last) >= BLK_PLUG_FLUSH_SIZE)) {
- 		blk_mq_flush_plug_list(plug, false);
-+		blk_plug_invalidate_ts();
- 		last = NULL;
- 		trace_block_plug(rq->q);
- 	}
+1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on the ODP
+   mechanism, which requires an MKEY to be created first. See commit
+   90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory region”).
+2. P2P routing is a property of devices, not memory. It is known and remains
+   stable.
+3. See the VFIO TPH ST discussion, where the requirement to obtain the
+   exporter’s P2P information in the importer was raised again.
 
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20260930-blk-plug-ts-flush-365cde9630d8
-
--- 
-Best regards, Vasileios Almpanis
-Software Developer, Virtuozzo.
-
+Thanks
