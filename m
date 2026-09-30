@@ -1,79 +1,131 @@
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A568D4D956D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561AF4E01FA;
+	Wed, 30 Sep 2026 13:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775286; cv=none; b=nTIYLgNJ8Sc+yubhciNpzZC/Cc1akRCkGohawHHtjHcj2WrfHokOnkPcbKgAtSUE9mGuu2/CKbanfio668lmaPQI04h2EQLxmzKcAz8a//ns8/dAah+Odzxiy6HNas/V75dnJkZOFOjiIonNypYf/u6wUJyxCbdlfWqYr6FYQ5Q=
+	t=1790775335; cv=none; b=mSZ+ep22nWo0b0/jAgfgYDCgEK+f83ONXaZND6XcyIOEivceA0rJHBVbOhCothzFR/JZabY6wvY8042OMzI/wCIbIGpXuwwqdGIvXrSvTHMES7g1Cd72OoIqiCGzvIO2EE5NsmOT6Dzyw9ZICP22XFaq2prb8kTg7cD4Bp1tL6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775286; c=relaxed/simple;
-	bh=1lbZl9nkJ82vbkiJlH5OL4e/xaiwFhHCQ+ecAokrDMY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tHX4oiFaJ8A4wJ7tE6u2q00ixAOxQCBI/cTP4oBwhc25OMFyCaBzN9A0CI3SlRHyfSIkeKbpBuo78DFpTUivJ38lh2JSRp8HdwMJzEJaG0xy0HPRA3rOs4VwsXl7gpoPTQGceuqqNcLzrp0ZCcaOfEWf+hY85WNYRAoggTwYPH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=K8obilNN; arc=none smtp.client-ip=209.85.208.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1790775335; c=relaxed/simple;
+	bh=r7h4U9YKMPrR7nlChjWCNOB1XfOyNYsr7P795fJvqrk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EZvbpS7keLp7OuY3RqPdPffNur/XRk0XQN3gf52IyI2wfH8voS0XY0UuRxWeqgePqReHm4t8hY+7OtjsxOwVSXrcs5rGd0ZcHokg9SioqorJKNVU8mgKAFWDs2o+STrpFgpxu+X+4dHwJm6ZocXYmqCmYlYtn7ncQ6VcGVvJVUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=STvwneNc; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="K8obilNN"
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6a9cdcbe249so7361429a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:34:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790775275; x=1791380075; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y9SK7+tlKw2iGM3TW7g2rjyMMpGtpW6NrO3ZYW8LWuc=;
-        b=K8obilNNF6084QNSAqA69WN7KvjeegT5TLH63n0KjP18nUPX+KqaA0x1X2AW0dR6pp
-         dnGJNAct/FPEl4IRNVnLTBw8KsnQGe1o7jefRVjNrmC0f06cMS3SbXLK/b2sfIzslbAl
-         BRcpw1Qqd9H57wCC0QDXeO63iK/UzRCqYaEduV1mbuIDbS3rBdAd700VnnDKRX56Hkxi
-         LgiphM7XAt9GOoKTVSsHTJUDhu174CC3r2yDNLHIi4cPPnjEZPhTP1Knk64U/MdgLcuj
-         Eo9UWraKzpBbfVJ+qBNDOuWEN042UsiOwQi8wGFD8h6yDgs8PZCAItY+ZMxUciRaqVug
-         2lUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775275; x=1791380075;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y9SK7+tlKw2iGM3TW7g2rjyMMpGtpW6NrO3ZYW8LWuc=;
-        b=pMe7OTCdAsSTpuy79bxJ313JVrKj+3FwpAdxCRSlgDeEgIGNbVvAkiNck5s7LlKqtL
-         QutVUBP6WTpI1e//049DI8Hxt/4cIJf6gCjqZLzIA/Gd/VKuQ+741a6J7zIU45YP/QKK
-         k8wj7AZF6GzsMI/BUJbuliLM4+JUgPAewD+wKutf0ZfH8b7NQkk2nFbbX38u9yji+kL9
-         3CVp11Sehp7qrqwj3idJxHYhDMfzW429/3nPKpdimxCNvoggtOavC+c+sM0Oy+OItZ0y
-         DAoLuo9cI1EwABUA8KeP0eZdUbTXYGgd08PlYGTyGpwt8LNl0i0INruJRO98SbB6rU3r
-         PdLg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVvzxooiOCkfaAeeC83vWIHhcKuYrBoW6oOL5/nkdIPF74KuhydoynwB6mLdp/gIUGnnlap7ZrZ23z8Zo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIC0S660nsXAjVRwYNK/g4HzUZi+GSzTXJGwLtKFc0wcgVeKT3C
-	2pzNviE6V0vibWm/JiGKg5KK9gTt0+RJ2rRWmeI3wD9TqzR4RNxyFaW48vJm9Vn8L52/RH1d1Aq
-	Gq6vHQ16T+58B/H+ePQ==
-X-Received: from edzg16.prod.google.com ([2002:a05:6402:910:b0:6ae:16f4:b498])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:270d:b0:6aa:9f93:e991 with SMTP id 4fb4d7f45d1cf-6ae1985dfc4mr1066814a12.3.1790775275068;
- Wed, 30 Sep 2026 06:34:35 -0700 (PDT)
-Date: Wed, 30 Sep 2026 13:34:34 +0000
-In-Reply-To: <20260910165734.80378-1-gary@kernel.org>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="STvwneNc"
+Received: from localhost.localdomain (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 5AFF1780389;
+	Wed, 30 Sep 2026 15:35:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790775309;
+	bh=r7h4U9YKMPrR7nlChjWCNOB1XfOyNYsr7P795fJvqrk=;
+	h=From:Date:Subject:To:Cc:From;
+	b=STvwneNc2hVxo0oL1+sq+XJZnHj7SB3S9QyRxa0O4wgimFpAI5JLaGfd8J7N+yJRf
+	 +/7JD8CQFtjbUZskViwOiJZqvBgo7/oLrwDbl1LFpdByeWVshrnvvZrPSgdMVkTjII
+	 TphaWtrR7XXQznb0YTdDs260autB/T8nAzpZolfltFNDR5GjJ2HNdH2y+DjfVXA8MA
+	 6u2DYr0J83XSubLPut0Yo3U++Nw2u/G5l4xZsvvAMgoCTr5W+9TrpWhwJjDKoRUNTU
+	 f9NQiDmhad7n2qBC0nJ4p1+caIvtnO6Qxdy8U/DF+rIrp0EfuhaIjJs2DkVj6V4dOB
+	 R6RNBTi7iajIg==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Date: Wed, 30 Sep 2026 15:34:48 +0200
+Subject: [PATCH] can: peak_usb: Add support of loopback mode to the
+ PCAN-USB FD family
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910165734.80378-1-gary@kernel.org>
-Message-ID: <ar0P6kAyX5EH6xhy@google.com>
-Subject: Re: [PATCH] drm/tyr: use `bitfield!` instead of `register!` for non-registers
-From: Alice Ryhl <aliceryhl@google.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260930-peak_usb-canfd-loopback-v1-1-fdcb87611fc6@peak-system.fr>
+X-B4-Tracking: v=1; b=H4sIAPcPvWoC/y2NUQrCMBBEr1L220DaolCvIiJJuqtrJYnZRoTSu
+ 7tq5+/BzJsFBAujwLFZoOCLhVNUaHcNhJuLVzQ8KkNnu4MdemsyuulSxZvgIo3mkVL2LkyGNGi
+ JBtvuQde5IPH7Zz6d/yzV3zHMX93WKPisejlvtXX9ALVFAJ+QAAAA
+X-Change-ID: 20260930-peak_usb-canfd-loopback-ffffe0ff9015
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+X-Mailer: b4 0.16.0
 
-On Thu, Sep 10, 2026 at 05:57:33PM +0100, Gary Guo wrote:
-> From: Gary Guo <gary@garyguo.net>
-> 
-> `SectionFlags` and `MMU_MEMATTR_STAGE1` are not registers themselves. Use
-> `bitfield!` directly.
-> 
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-Applied to drm-rust-next. Thanks!
+This commit adds loopback mode support for all PEAK-System USB-to-CAN FD
+interfaces.
+
+The implementation follows the same approach as the peak_pciefd driver.
+The only difference is local echo handling: on USB devices, transmit
+confirmations are provided through USB write acknowledgments rather than
+through the reception of a controller-generated loopback frame.
+
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+index 5840623662af..a00ce1f52341 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+@@ -934,6 +934,12 @@ static int pcan_usb_fd_encode_msg(struct peak_usb_device *dev,
+ 	if (dev->can.ctrlmode & CAN_CTRLMODE_ONE_SHOT)
+ 		tx_msg_flags |= PUCAN_MSG_SINGLE_SHOT;
+ 
++	/* Request controller loopback and mark the frame as self-received,
++	 * matching the behavior of the peak_pciefd driver.
++	 */
++	if (dev->can.ctrlmode & CAN_CTRLMODE_LOOPBACK)
++		tx_msg_flags |= PUCAN_MSG_LOOPED_BACK | PUCAN_MSG_SELF_RECEIVE;
++
+ 	tx_msg->flags = cpu_to_le16(tx_msg_flags);
+ 	tx_msg->channel_dlc = PUCAN_MSG_CHANNEL_DLC(dev->ctrl_idx, dlc);
+ 	memcpy(tx_msg->d, cfd->data, cfd->len);
+@@ -1266,7 +1272,7 @@ const struct peak_usb_adapter pcan_usb_fd = {
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+ 			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
+-			CAN_CTRLMODE_BERR_REPORTING,
++			CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1343,7 +1349,7 @@ const struct peak_usb_adapter pcan_usb_chip = {
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 		CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+ 		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
+-		CAN_CTRLMODE_BERR_REPORTING,
++		CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1420,7 +1426,7 @@ const struct peak_usb_adapter pcan_usb_pro_fd = {
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+ 			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
+-			CAN_CTRLMODE_BERR_REPORTING,
++			CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1497,7 +1503,7 @@ const struct peak_usb_adapter pcan_usb_x6 = {
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+ 			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
+-			CAN_CTRLMODE_BERR_REPORTING,
++			CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+
+---
+base-commit: baf950233c8efcd3807f771ae5dc3cd6f5326278
+change-id: 20260930-peak_usb-canfd-loopback-ffffe0ff9015
+
+Best regards,
+--  
+Stéphane Grosjean <s.grosjean@peak-system.fr>
+
