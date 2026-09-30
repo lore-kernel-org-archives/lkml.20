@@ -1,249 +1,117 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013010.outbound.protection.outlook.com [40.107.201.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1002D9484
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791950; cv=fail; b=oEtuw2fjRSa1e8nNoJIJTsxUaf56GQ+eCGNW3Tgd9tLPPkxdKQnBUJCzBWqfGJPfjhKFiNywzxQ5620xWJjc1tZyFILRvAyVM6FHW/b6WgPZuP13ehtwnPB57UNEric3xqZfsgJTMr5MGT2NpuRqyVzG6spju/FoHesmQM62qzg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791950; c=relaxed/simple;
-	bh=SsNh2xiQ8Y3/CBklSOm8dmLphqaHkeECk42/Q4pyvLM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SKeJucqOyZLvmtk3rb8QP54tjx3iSik8/Of/Aifi/Xcwl1RyJrlRi7gL/bPPv0z8LX9TzX7CxT6eYne7thw277ESx2iqhzZa6bF2Rbcn3lyJ0p60yLSRTB+5aquECMYDdhZZlAgpY+w60TKwIAYidTPOOFzXk55CPEREBoQGJWE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DDe2ahDR; arc=fail smtp.client-ip=40.107.201.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAE22D9484
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790792048; cv=none; b=SslYlah/tlInNbFi/HAHoLyii9pf8lu5Q4NtPWE4rjcIcn0FNXFDfam/jhc5GnqY9ddHyyR3X8cGn7Q5R+B8PfMU05fu6UBpuKOGnzerdb8o7eq2DqVNCLTWAmMPpL3osoRXYtFB0wguxjjqp3FjCZdKxzPhVL0MELQrcFgyNSA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790792048; c=relaxed/simple;
+	bh=OPGYFVz4FMWfgFxxKo+7+LipMYnld5aLYNDtgnYN3dk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d3hJyJhtkfZrz2R40WJZTQwy1+lj4MD922jstWmH/2h6ADIWB/G0ivzNnG3Nqp9qyTICpUxEhWyFCL8p0LDRTj+DPExNakCCWKN66xjbSmTXDc8vn97wGc8Jdkcsc0b2Lba90dsUZaQ1jmj+jlIoP0yvh2WaCQEC0XiEeW7J9XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZciYRAXW; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DDe2ahDR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wt050UO68/gnObmRp0lKIjMrFTFugswaOczqNP9HhZZ6R6xdb9vZ/4huCAOdvhjTZTOkMHZ2siK2XkhF3iUZ7SdKzyL7XgGIMPm7scHUzkba6Get32JP8jOojyo1YP7HFjjY1OaX8QurSj1XimvlZcW5ytJVmjEIxQ4RPQhvcin8SRqJW9xJTeGcpWqWkRLtbmpRHASdOL7zJEEbIb8oJZH8hM/1zNlfjJyoy+iGMKxt4Y0GYuTPDYeuWpLmkvx4uNl8yoNc7/K/wgo5EXkne4M+l9rxkqNvK5uDKHhHC6v0XFEuwlvau+7Y7ypQuNQb0GnKADjEQcCxnG0BjsNLmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MlVNtksnZMNArGISGJluDS8pd/34+GDyaZ64wnMYQmQ=;
- b=iY/R5TABeiw5wDF/ILP7ezavocuQdL4RKN13L8/u2CaZfNY4Iwzo39JbNPuHbIbmX89QgSftrbh8fSDUhhK28wqZGNJDFrYMa8vWsdMsrVqo6r/kFfw80wYLilI2a1KQ1sOIDDFF+d1pZJ9d2VXZrgqOZnr9oGXiO6UMQ7qOHY7ZSC3ZWeAOOIyx4nMfD1uTlGUPx4TTSpH7wOOXSea8sfqUhIoxZdUxX8NmnqoEpi+ZAzNiXZtF5ykDw99u1wdcUGAVYAypMb4kcs3ilUNmVY5MJASZyIswABLSTwBHxMC3DSIk2E0PQy+eFRXJjDmfUZxuI37K9QSk55PaKauHYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MlVNtksnZMNArGISGJluDS8pd/34+GDyaZ64wnMYQmQ=;
- b=DDe2ahDRuh/aWnAPVhoYefHVM8hj8/HoO+SAwVAlU9AL76hRA+8t1Cu8FusGmW3au2MplpC60VqvbZ2nqvETVECufOC1Fqntt/46+FgU5OqPyGEEU85L81i1YpIVykBu8Nq8WZd2WfdjZPYEoQTRVmTW4z6FNE/2xqTjs7mFBGy0jvd+2gXkPx/wyPYoAEZE+qcHZmxkSddAyT5aJ83y8SVouw41xHXLDyyF2Pr19kF2GrfeRQF3sHtmqNGDe6bSY1JLwN+J5hND04XI0h6JhXUbs+faXqGCl0gkAXpCq41Zx00c055iHwFH/wParYEt0498sn53k8IwafskakasWA==
-Received: from CH2PR19CA0001.namprd19.prod.outlook.com (2603:10b6:610:4d::11)
- by IA1PR12MB8357.namprd12.prod.outlook.com (2603:10b6:208:3ff::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 18:12:24 +0000
-Received: from CH3PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:610:4d:cafe::66) by CH2PR19CA0001.outlook.office365.com
- (2603:10b6:610:4d::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 18:12:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 18:12:24 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 11:11:56 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 11:11:56 -0700
-Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.129.68.6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 11:11:54 -0700
-Date: Wed, 30 Sep 2026 11:11:51 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
- Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, Peng Fan
-	<peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v3 1/3] iommu/arm-smmu-v3: Support shared SIDs in
- insert/remove_master
-Message-ID: <ar1Q5y/xoa+Fcex7@nvidia.com>
-References: <20260930-smmu-shared-sid-v3-0-8abe6c1b4c20@nxp.com>
- <20260930-smmu-shared-sid-v3-1-8abe6c1b4c20@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZciYRAXW"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e986b8b1so5782227e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:14:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790792044; x=1791396844; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gXJfGzAbYR0X8APYsn/Qsci/3IB2V96SpvMDDyKvBfA=;
+        b=ZciYRAXWm7k9GId00uG9c0oYp+FD4K3EghpwTzLt1hrJd8js4Pz2952Sr0rHpQLYI/
+         PUWFP6X9BUIZ/OW4wqx8U6z97QIHMCeqCVMb/Fig1rKJZcSm0av/J0p1MrEKKhuUkx7G
+         SOMdhUY4y5l1esG05/jvHEx36tB5xNenxwG74gXUUsqk6nknakfdZ7gBQwQrCsbdAjkz
+         9FU9OGKP87K2q1IdufiKTyZidh14Cr3oaoJZtLtyWXEQTQZMayTRA2/2+ugjZOdCCSWp
+         LmB3MvSavYfq9NObuQUEQCs4DQ5OvABd0miMXYtAO0M3MoAgc1cDqv/anjZAKuOgOwph
+         nuuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790792044; x=1791396844;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gXJfGzAbYR0X8APYsn/Qsci/3IB2V96SpvMDDyKvBfA=;
+        b=ecfhgFK8dxlemGuMm+pJCCZGninK5A4p3qjOXrZugPaf82casySqauKcVAaEvvqbaV
+         ipkzfkaFClvRk9wRuObHXt+b4+XcTrn4XoykFkVF828+qp5xO6t6SOuiDUQvfy9X7uUy
+         7FKOci982/6+K2J+El3BwujwVJD/95lCFKdNqRKPcH0Zily7BEiYSaRx0+WMdsFiS0rT
+         diQpjyOGUtldHeUaSVHTQYfZzzuOLEmISZs1lZj3I/XvB17pU8MapbMDZiUHt3kx5Ad9
+         tH52ExLVs8Bwu8+He7eE7cQ/7FJc+USlayJXs92BCY4tWCfDKziGCPuyZb66O+zMWmE4
+         SIvA==
+X-Forwarded-Encrypted: i=1; AKwUvBx18NjqEjYG+XDuz/trxOFPDPb1NeXPAV2bPWLH54hRdA9r8ueGRB1RRb8oqylvdkFvmvUaUaSfoSkrvgM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqlannAeKlbUWaOl1xXxC05qtQ8su0msgcqUzs0UQoAP9vcJcH
+	grSDmSZaArtvZZ5kGFhPgsuFFlg+Rb7J3FuYPLCprZb5f/qdAMMiJLd0
+X-Gm-Gg: AYBFou3W3KZ0vx1QX5SCh1PVgD0puGQcAGB7HphaQPGGWWeDIs0I85kcSyLcf5NXoUJ
+	5g+FrEiVJ7FbadZdzonTfphEYS9dwW8qj3Zj3wyMz+RjlIgW49+hZobdFI7zw4Zv3zYl4k0GGZj
+	m0grK/L2EqcH5wZFySCdnHKsnJyQoDhytOrMkkEaPL2Z/OmpN5uul4OgT9D0SqNxLek/P45xJhS
+	LqkD52a7qlhIlQjX7WmuEOztGm7cusGGZglIwfwE4ojAJN/x1ZzaQ4BcndWN75nXyA4MWSkIquT
+	QYLlBIcP99zbMQFS1qtsKIqMZTeYOJJyDD1FLWIems09IsK9bVg+Tvras8gQnm4x4NXksBSyYLC
+	xZt1cXNJaO0FKWiVFPaXKajbKcWWLbWY4n9nBnQI01eQ1Jlj2Z1YeJXfWbZ+E/w1CCQJFVB5vxX
+	RSw6IYT+6ajDHNKLHz+xCLHhO8+qwW4N7jxItBjZfiz9UDdSmducE/vjX4aXPn9ZMuDtdkvro/p
+	GtrySkFuC0kwRc=
+X-Received: by 2002:a05:6512:1593:b0:5b7:6581:8924 with SMTP id 2adb3069b0e04-5ba402b8471mr841779e87.7.1790792043979;
+        Wed, 30 Sep 2026 11:14:03 -0700 (PDT)
+Received: from localhost.localdomain ([95.31.11.153])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fb83b2sm143201e87.52.2026.09.30.11.14.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:14:03 -0700 (PDT)
+From: Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+Subject: [PATCH] Bluetooth: btusb: add ASUS 0b05:1825 to QCA Rome quirks
+Date: Wed, 30 Sep 2026 21:11:04 +0300
+Message-ID: <20260930181104.3375-1-qwertyuiopyyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260930-smmu-shared-sid-v3-1-8abe6c1b4c20@nxp.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|IA1PR12MB8357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d3355d9-241c-4d3d-891c-08df1f1e60b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|20046099003|22082099003|18002099003|13003099007|4143699003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	aeyoFC8LSfb2vB38aEDOac5dzJUU8yM+nPgJBiQZdqq4GmYVllbNhUO60wZpSNPNc3nNvBkEr1R72DhdPqeBi9fY5bJHkpDLZXJB0tFEOeW1/uPlaFH18B+FhC1uYkAZPlvS/hqB2HZGT0feu7BVjizt/z2ful5aX309Z8mz/8cYqqFK5+D+d1OTGfC+M17ZeYOijk+6jSASyS0irF9p+JlXsR+kAmsgoFNGFgSzEgnC2CuxlOLDK19cBd2BPh8Js5hBigA8n89ERha/0gnzaVO2c5hIGr+16ScrbcjsCSKQW928AGJyJoEaPIOLXYHcH2Fmr5cDbrAo/U+CaPUFe3/Rlfk4KLZI2FSUL1zMo/owdJuLhVFozK9KshvEkkINcOIM/iIKi6E/6gowoNpm1NfBJkH7fGC+++CLbBN9oV0bqTin9aKWXIAeCAkzoZsjGsr3KpfPmqF3xmxh0mXDGgEh99zYuUWupbwI8MpXqlOG0TriV5GF+64jCdFnzT8CBuI+mvfBNtFBRy36IHWPiIpdfR+Qr7fHsQOLw4RzmCqh+9PAQk3zakPme8FyXn7QH9zQHg3w4Rpix23907L7Ew5a/xzoYAm6OvztNPD08X+Mz2vDF27qrsiwjO4UKqdFbp96wCoKgBu5m4dVXRYNhiHCWT9D2QWOMohpXboc49EIPqfLqQUpmp0RYgtU+wdLg97l8+HSBgN3s0iKH/EVmQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(20046099003)(22082099003)(18002099003)(13003099007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Zk4Trw0nlEichuXutExvHrHqogIA160jyyfVRj+kfVW51xRRsAQPn5ZrukT6OyOELhR5Ag4/Is/YTDBRWxhiO+PiaAEpCRGmvN+dsb0bmyDvyvYLShq5Jpfr3YOhg8VNg9xrwPCjT6HMUTBoacmidMq1J7yGMyNMHFELc7BgYyDXsUJycnGS4nTAlGkyi1ZYO0bFZJKswWNj5IZmtooacJM0fzUhAfxJ2wyBrnfsw1eGiLTeoArpBJCmL6v78/4pxXbhCb6nwm1ByWCofrALTuU23vGZkiF0OH0YWEXUCCQUXm3dP14yyAq8NE3cx3um6IeLhAsbnoOdgxFnQJlXz6qVQLCM3N6nnxW5aRwEI75PIycRXXypjKhw/Li0HbZkxWngXDBEvK7FD+Wqkmles1qtmV1kxNj6eBvZVh1WfXwCVkM1kxXbo+X3jqO0Q16R
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:12:24.0236
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d3355d9-241c-4d3d-891c-08df1f1e60b5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000009.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8357
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 07:25:01PM +0800, Peng Fan (OSS) wrote:
-> @@ -4115,7 +4128,10 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->  
->  		new_stream->id = fwspec->ids[i];
->  		new_stream->master = master;
-> +		new_stream->ste_installed = false;
+The Bluetooth controller with USB ID 0b05:1825 found on ASUS
+systems uses a Qualcomm QCA Rome chipset, but is currently matched
+only by the generic Bluetooth USB entry.
 
-ste_installed is zero-ed.
+Without BTUSB_QCA_ROME, the driver does not load the QCA rampatch and
+NVM firmware. BLE scanning also repeatedly reports:
 
-> @@ -4136,23 +4152,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->  		existing = rb_find_add(&new_stream->node, &smmu->streams,
->  				       arm_smmu_streams_cmp_node);
->  		if (existing) {
-> -			struct arm_smmu_master *existing_master =
-> -				rb_entry(existing, struct arm_smmu_stream, node)
-> -					->master;
-> +			struct arm_smmu_stream *existing_stream =
-> +				rb_entry(existing, struct arm_smmu_stream, node);
->  
->  			/* Bridged PCI devices may end up with duplicated IDs */
-> -			if (existing_master == master)
-> +			if (existing_stream->master == master)
->  				continue;
->  
-> -			dev_warn(master->dev,
-> -				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
-> -				 sid, dev_name(existing_master->dev));
-> -			ret = -ENODEV;
-> -			break;
-> +			if (master->num_streams != 1) {
-> +				dev_warn(master->dev,
-> +					 "Shared StreamID 0x%x not supported for multi-SID masters\n",
-> +					 sid);
-> +				ret = -ENODEV;
-> +				break;
-> +			}
-> +
-> +			list_add_tail(&master->shared_masters_elm,
-> +				      &existing_stream->shared_masters);
+    Bluetooth: hci0: unexpected event for opcode 0x2005
 
-This version still uses the duplicated stream structures, not the
-shared stream structure that I pointed out here:
-https://lore.kernel.org/linux-iommu/arG6hmng3NddGEHm@nvidia.com/
-?
+Mark the device as BTUSB_QCA_ROME with wideband speech support, in
+line with the other QCA Rome USB IDs.
 
-This will have problems.
+Same issue as https://github.com/bluez/bluetooth-next/pull/833 but
+with different device id. After patching bluetooth is working fine,
+no unexpected events in log.
 
-  master_b->stream[0] --> new shared stream (SID=X) {shared_masters}
-           |
-           ---------------- shared_masters_elm ----------|
-                                                         v
-  master_a->stream[0] --> existing stream (SID=X) {shared_masters}
-           |
-           ---------------- shared_masters_elm -----> {NULL}
+Tested on: Qualcomm Atheros QCA6174 SoC integrated in motherboard
+ASUS Z170I PRO GAMING, USB device id: 0b05:1825
 
-First, the owner (master_a) doesn't add its shared_masters_elm to
-any shared_masters list. This would fail the test on the owner:
-    !list_empty(&master->shared_masters_elm)
+Signed-off-by: Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+---
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Then, ...
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index dc7191bf4..66e12b15e 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -270,6 +270,8 @@ static const struct usb_device_id quirks_table[] = {
+ 	{ USB_DEVICE(0x0489, 0xe03c), .driver_info = BTUSB_ATH3012 },
+ 
+ 	/* QCA ROME chipset */
++        { USB_DEVICE(0x0b05, 0x1825), .driver_info = BTUSB_QCA_ROME |
++                                                     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0x535b), .driver_info = BTUSB_QCA_ROME |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0xe007), .driver_info = BTUSB_QCA_ROME |
+-- 
+2.43.0
 
-> @@ -4167,14 +4189,38 @@ static void arm_smmu_remove_master(struct arm_smmu_master *master)
->  {
->  	int i;
->  	struct arm_smmu_device *smmu = master->smmu;
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
->  
->  	if (!smmu || !master->streams)
->  		return;
->  
->  	mutex_lock(&smmu->streams_mutex);
-> -	for (i = 0; i < fwspec->num_ids; i++)
-> -		rb_erase(&master->streams[i].node, &smmu->streams);
-> +	list_del_init(&master->shared_masters_elm);
-> +	for (i = 0; i < master->num_streams; i++) {
-> +		u32 sid = master->streams[i].id;
-> +		struct arm_smmu_stream *stream;
-> +
-> +		if (i > 0 && master->streams[i - 1].id == sid)
-> +			continue;
-> +
-> +		stream = arm_smmu_find_stream(smmu, sid);
-> +		if (!stream)
-> +			continue;
-> +
-> +		if (stream->master != master)
-> +			continue;
-> +
-> +		if (list_empty(&stream->shared_masters)) {
-> +			rb_erase(&stream->node, &smmu->streams);
-> +		} else {
-> +			struct arm_smmu_master *next;
-> +
-> +			next = list_first_entry(&stream->shared_masters,
-> +					struct arm_smmu_master,
-> +					shared_masters_elm);
-> +			list_del_init(&next->shared_masters_elm);
-> +			stream->master = next;
-> +		}
-> +	}
->  	mutex_unlock(&smmu->streams_mutex);
->  
->  	kfree(master->streams);
-
-.. when the owner stream gets freed with the master_a, the shared
-stream would UAF:
-
-  master_b->stream[0] --> new shared stream (SID=X) {shared_masters}
-           |
-           ---------------- shared_masters_elm ----------|
-                                                         v
-                                                      {freed}
-
-This should be changed to the model that I suggested in v2:
-
-      |---------------------------------------------------------|
-      |                                                         |
-      |     |----------- shared_masters_elm --------|           |
-      v     |                                       |           |
-  master_a->stream[0] --|                           v           |
-                        |--> stream (SID=X) {shared_masters; master;}
-  master_b->stream[0] --|                           ^
-            |                                       |
-            |----------- shared_masters_elm --------|
-
-When any master is removed:
- * Delink its shared_masters_elm
- * Free the shared stream when its shared_masters is empty
-
-If shared_masters isn't empty but the owner is removed:
- * Give the ownership (stream->master pointer) to the next master
-
-Nicolin
