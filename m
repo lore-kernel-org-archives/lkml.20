@@ -1,40 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F6B4FB9D7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783034; cv=none; b=twCNpoXqBjywTyLMsWzA1QJgInVfcAQAWzQEbpz9blkhPhmoahCFW3RQVr5l8Qvk/vP4AElkzqOgIbvgAomIjAkv+7Qh1xrPYimCE5Oo3+yVQpklyE1/TCAyIgJne2bqjpdcclL72QwjUzF/oT2Zq+GKq+zVj05Th+mP7fGLGbU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783034; c=relaxed/simple;
-	bh=XH49CGixjjksXun7g5i7bMMAdjRXsDHjHFvYOdHvpVM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7176A33938E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783068; cv=pass; b=MXfJgVqul+aUPgcVXMr6c94c9s88wR1Ef2bvivwVKFpt9HeNBOT3xJAFUVFZZcc1lMPE/yUBYtTN2nbTCdZtEdrQYBPYmmAl649L3HnnK8574xf4a2PJhBw8/8bFO0IQVwoYWsEERW7Pt6TnxRcwWT8sij3MYhCe7GA3E3ASHrY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783068; c=relaxed/simple;
+	bh=damBzxG+fn4m3ZeH5aFlurkQ/0yU3qlYJQG+bVWoujs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o0CACqvBJP16+aj7iojv46EjL6XxpWUrLh/j0vNLybVXocHEcm8j0Muyq2Y4LUMkbkBGyxVZl4VZLSBt60OzLbr8Ntcl5NLqFmgKGsTk7OGzx5PDoKUbgCTOgEpE3w5JIWTjljO8qsDadlTz34p/d38cogLDOMXi9NieEI6DxP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H28pCtz/; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=TqQZ4Q96eGvJy2RJFUb20aeNcbU83sdAGVxXmtet/tQVb9bNXRVacCLsaZ3vsbkBAtlu7sVo6HfMjg67NBvrjSQan1eWD7pDb6F1WzCtH4KcVBmAzLaglyrGgtQAGKit6/+ZUWYZltZz9CkZeRsQKrOGcWttA+GVcoGznvmJYEc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CSVCp4zq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=an3bgkaZ; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H28pCtz/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B051F0089D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790783024;
-	bh=RgDyfRoaqiRPgneHgZKWaqHOPayWQXCh/v6+T6AoTk4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H28pCtz/NWuzAwuSUne6iRNSKDiSGDJ1B7T1jhz6DHg9DW3wVWjuwS4SSjagOP9FT
-	 BU8GLcXVVvCv2PAj/xhmfxZvLzPS6itsWej4IKVLwdYHsBEhoSWitobKyoIekD28Sx
-	 n7tTYJcJOWYZ2hrU1Cwy9Azl3nxY+PD0of/ld5M6ol8kPGwbdmiTKVwwYxEOYWlZcP
-	 2WQH68SaE8y2r9r/haTx/0pWHWm83lG2gh3HwJq5EVV1koxXb/PPwQ/sBCqmeY4Rg2
-	 C7VZL2o29MtWSZLjV6WSfIvs9YPOlgEQg9gVcYFf+ZM8z261A4qIhW3F4NpJjIhEf0
-	 M8A6h2iFGUaIA==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5919af2eeso45177041fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:43:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCkJPc9sZAvVqf7NGRUSvTVs9eP+UwEGt1ZdPIPmRu9zYKT8mRGaaVZBXysSIzLRjboFaMcpN93nfEAJ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7kxAWekJQfeSaDGO8fTHdwoPiIOfICyyfUAvsA/zVsZGx4Jt3
-	rYZO/h11JRY2AtopHh1v6YFyUXNeBGSzqSF15G1TOAWwX8maDydHGHnDLAWvYbWy/65HXB+trZ7
-	/9/JXW8a8kQGpDzdQnxKy+XogTGnptNw=
-X-Received: by 2002:a05:651c:1986:b0:3a6:636b:63c5 with SMTP id
- 38308e7fff4ca-3a7791c27b5mr6513401fa.16.1790783022385; Wed, 30 Sep 2026
- 08:43:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CSVCp4zq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="an3bgkaZ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UDxtgo2404723
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:44:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	f+t3oags9ojBBG5hv4c71YSluCEXo6cKQ0qthqidNfU=; b=CSVCp4zq/nInEzIA
+	edbbtIDb0beiW5ml/235qQGBNWpt585iC/U7I0v4a6zGzSR3QLpdTUcZjRJLlIHz
+	H2RmOFqJuLHH+8mumSXW2oJKQyng5umd+9VpchfGuQuMFWX3MN1SuwPg7NuN3xIL
+	Q+z0PoXK0L5WrkVuRxH/o337t0lZJWVHwovruQcSO8IkmHJLzB7bWgJRIDBg+BI5
+	2/NJ/YZNVdR1Lt5s86jjkFjAsKBu4jkrwpDenVxsmKZcgkUKLJJiHvXuU3TJgHQz
+	7Gi3QI9Yh9QbHaMYM0OxlpHiVdBIzP/n6iZ+1jrPMKXjoWnAzFpP9l9W0vHPowmH
+	PYjuJQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x1c25m4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:44:19 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86261e66700so4123835b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:44:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790783059; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RQ37dA/e4hqxEXRoPLWLn9w2lcJKWmk7kfFxrVvXxP64gTgiS80vsLozUOuykIRkWi
+         h2G/vaTDtka79cqnMievZiyatxt/VeCbkeu2HCd5edZOYhAk8d6KYWChwfU2Nw9WjyW7
+         wTusVJOV6jDpKDkcmRZG7QgmJ1L2bRduzA2A6D9hAmwo5B1JnrFEM7W9BZDJkX2EtFxn
+         mGlGSwRVGu4tEhpzEBHerbqd5urBGk8lNXgJXebN+V1Akipfj3D3sb+iU2Itrm4KhS0m
+         ftTiRf70WWNB7o3/e9dqGTf1j5OxZnlKHFejxr3s2DkGVVpeLHugPOcMuO4RIEhuM44D
+         YmEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=f+t3oags9ojBBG5hv4c71YSluCEXo6cKQ0qthqidNfU=;
+        fh=qECAgLltJgSdg5NXp0JHL6n5epVn6YWmdq1f78JHClo=;
+        b=pwe+rF2flpH/qywlbeAu0FTyZSPcylQUoXQubiemqqiUHTGVVVqg7fEPFVO6oJgfjT
+         qV4ejfGngDKotmD0sZc7UJwsv8vMPpc5/OcQFYnD4QoBsqVD1dWsGFpAVUwqRXmBdQdr
+         0Nuj6I8Ji4F7HDTJwclRwUE2SLNbTDL3QII+z6bG+Xx0axVdeyl15rltlNreJ2fe7/Bf
+         szzY6FMaXDsT/D2gni3BmHiJkQowGDrGnIcBbmQqDGmOSIH0EqgeqwO5sbIzHnkehWtQ
+         ge9yqHEfMWyCcxwYvX5M7+WUk2nqI6PUgTcJo3sBAOhbmRxwcdTSHFmQfw/Y5O45EEZ6
+         81/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790783059; x=1791387859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f+t3oags9ojBBG5hv4c71YSluCEXo6cKQ0qthqidNfU=;
+        b=an3bgkaZtV465UYIDwbAoBOKq31VPRab8vEIRpwKTDVSELbccbA+Qc4POLkn2hx68b
+         HdYNzXU/8niK0Ofev3Q2pWKDsIIB441aDuod5gpqxA/ijUPQ9UqzBwsFf4iEYH8pqtt8
+         LZzzX6aMqXZYLWm1Or/Fv2CsjaVIIi26tSK1fB/2unyPaGmMT2zVlt6axwiCxWsIBi1U
+         XQZdp2m87FWBk3EXeq6tR03r89cvIAGblzO9pj8Oo9NY+z0c8OSLOel7npTat35cc/Rz
+         nx78AGtl0EBMEixtgY6G/QYGutSCA/lwXZ2GIraKpASoXMYojonxVceJqX5oLuYrLb40
+         9/2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790783059; x=1791387859;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f+t3oags9ojBBG5hv4c71YSluCEXo6cKQ0qthqidNfU=;
+        b=J9h/r5lp/53tpHv/9tzy4non4JDHpw01H4axevXvFu7+Sc3vFZ5xIdqBtp8+12Cayv
+         3yVyPzGYwIiMUKudGFpcws0EQ+i92E0g67Sxte3MtMKnYnVQx7aOyjwdeAZLMWeJ12TQ
+         wz8VpiHlaiqa+WMTirpddnMO4n+matJKE8B6PuFnDzQ0F0lt0zdjsJYTFoT7XIxeAtbO
+         vmWVdofDE5ZbwVHTX7DUNnmiViSqSlWzTcJGciM+h6oyqr6IJeI1DvFDjI7ayzAhrFZm
+         RohDmSNagad+/b5Q8ZRytD/s+KjRZCZbebuMdV1wxRCPjBz0f01aUT3B8pr8tp+UTR+n
+         ul5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz6k6ZVWmX9rITNTOLNPoTaVHaN2Zco8e2YZxrDYt5T3gosSso1XKYOArZ+TmiX7yxTjiXyia/DZedAT0I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWi07zZ4yPBDnbfMShDkpiTukfZqP83Y0HnmckPp6HHNGhEWVS
+	/mrBmVDSW1a6MSfpzEXfw8ok3754M3rfQvka3ysYEM3F7JvKAB+kgzsSem1yk01svtXhLHEcaIZ
+	+6BLYIb9UU8W2JvFjThDB27K0nxWsgLHZOgEbjqeQCWrbKJE0Hac5ivlYcSHaTe/ubWgEZxYkbg
+	QhbtguiH52oA4GDwckAejtcGs+2RutIVZM42wrqB5jwA==
+X-Gm-Gg: AYBFou2NzxJTQuPjPDsRwrUC/NHk9xU6v1Qjq4LwHtgE9taNxITXDVPtvVwJ7uUfF/j
+	KhsUdEZ3BeWHHo2qHyhnR8PV+xkz4f3rFs7wpxecSUT5IQE+Bd2EnH6mHzBu8tPNEHlmG81zoIE
+	fne04zVyfSgY6Fr1MlDHFToSbegah1dE8gfUCKMmKpOHl0enC5SVgFBme/VQ==
+X-Received: by 2002:a05:6a00:1d93:b0:82f:38df:681c with SMTP id d2e1a72fcca58-887477b090amr1428407b3a.6.1790783058997;
+        Wed, 30 Sep 2026 08:44:18 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1d93:b0:82f:38df:681c with SMTP id
+ d2e1a72fcca58-887477b090amr1428374b3a.6.1790783058280; Wed, 30 Sep 2026
+ 08:44:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,19 +103,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260930025044.104824-1-briannorris@chromium.org> <20260929194956.v3.7.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
 In-Reply-To: <20260929194956.v3.7.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 30 Sep 2026 17:41:56 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0ifwGx-1H-YVM63-0HUD5cs+5W4Tk8T+2LdLZpy5sLS9w@mail.gmail.com>
-X-Gm-Features: AclHuK8cCRtb72aYjdwV70zWye9WCjL7mKQ8pDTimUJJiieKZ6fYVm3sRZLghLQ
-Message-ID: <CAJZ5v0ifwGx-1H-YVM63-0HUD5cs+5W4Tk8T+2LdLZpy5sLS9w@mail.gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 17:44:07 +0200
+X-Gm-Features: AclHuK-vSgUuZfyztG-XM3sRstvPqGYOBe5EhRZhnG8uAIC9nY9bBuEtL3UJ-qI
+Message-ID: <CAPx+jO-1UO5WbLxWa1tiE4KmZW8BoHAgwNDGw0YR-7mxd_BF0w@mail.gmail.com>
 Subject: Re: [PATCH v3 7/8] PM: runtime: Expand introduction with core
  concepts and structure
 To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Doug Anderson <dianders@chromium.org>, Ulf Hansson <ulfh@kernel.org>, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Len Brown <lenb@kernel.org>, linux-kernel@vger.kernel.org
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Doug Anderson <dianders@chromium.org>, Ulf Hansson <ulfh@kernel.org>,
+        linux-doc@vger.kernel.org, linux-pm@vger.kernel.org,
+        Len Brown <lenb@kernel.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2MiBTYWx0ZWRfXzNZhJkdSGHpS
+ qdwIbI9fz6buyGep2IqaodbGrHqWvu6AWsHt0RxoJ+q0ioJJ4uMkVmA1KXkuzqlJgRMOKLMWS/m
+ a3L3Uy23vmBAB/G3qy1TmeNyOe9a2vA=
+X-Proofpoint-ORIG-GUID: 3Ay6iUWbgTo-36osAY8IaCo3fyyg7pos
+X-Authority-Analysis: v=2.4 cv=VrC2kO2n c=1 sm=1 tr=0 ts=6abd2e53 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=cm27Pg_UAAAA:8 a=VwQbUJbxAAAA:8
+ a=VJfNW8GwkHAFg5Y_f4cA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: 3Ay6iUWbgTo-36osAY8IaCo3fyyg7pos
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2MiBTYWx0ZWRfX5vUVCY3LFuyW
+ B7JCGaxHY+usF+RUc3tPk6WdOepC+HoYYmnFo1/LjQ7TUl8rzSKyZmbvzWB3u+YpjOK5FmIl7Z4
+ 4EYTRhuqJM5dvj98CZ/A9PBW29KBS8F5Lu2vp/C5FXJP7wcHkGB7buTE38aM34CdHDjdpwONFnH
+ gtNJfnTDc2eWm/QIysLKPHUcdSBZnhDv2yRWhgt+MVvcjnzGMBWgiHRG+ZWl0nmMLfum9ys6A0d
+ zxdFj4Kt+FcZehGPcAkZ8lcTLNJATzMfK8RnQCSiIqIopATcnk8ftLURjL/8uDsyBSjaKL6KADm
+ lm30ZC8L+kvav9xz6UlkUTzSnZ7gF00ss3+hlBm/xmVqVc7ORuQ6+6x8HfbUMTm2GE6iwTW/5H7
+ IR6RX/xRCJMoa4BS2wH4QghGS5iqS/j/HWIKwSPrypXB6bNm+eFYKqdcWXuZSF9vi9p3otKz6NJ
+ UE89J3CAtLADHW23zAA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300062
 
 On Wed, Sep 30, 2026 at 4:51=E2=80=AFAM Brian Norris <briannorris@chromium.=
 org> wrote:
@@ -90,6 +176,15 @@ org> wrote:
 >     are variations of put() and 8 of which are variations of get().
 >
 > Signed-off-by: Brian Norris <briannorris@chromium.org>
+
+I guess Rafael may have some further comment on this one, but from my
+point of view this looks fine. Please add:
+
+Reviewed-by: Ulf Hansson <ulfh@kernel.org>
+
+Kind regards
+Uffe
+
 > ---
 >
 > (no changes since v2)
@@ -146,16 +241,6 @@ ows
 > +dynamically while the system is running, conserving power without waitin=
 g for a
 > +system-wide sleep state.
-
-I would rephrase the above as follows:
-
-"Runtime power management (or runtime PM, sometimes also referred to
-as RPM) allows individual I/O devices that are not in active use to be
-put into low-power states, in which they may not be operational or
-even accessible, and go back to the fully operational state as needed.
-Power can be reduced this way without waiting for a transition into a
-system-wide sleep state."
-
 > +
 > +Core Concepts
 > +-------------
@@ -247,93 +332,6 @@ he PM
 ferent
 > +than the ``control`` notion of "auto" (i.e., "allowed"). Autosuspend is
 > +described in more detail in `Section 9`_.
-
-Regarding the above, I have reconsidered it with the conclusion that
-it would be better to describe "active" and "suspended" first and
-"enabled" and "disabled" subsequently, and maybe without going too
-much into details yet.  Here's my version of it:
-
-"There are some device-level concepts that need to be grasped in order
-to understand runtime PM as a whole.
-
-First of all, runtime PM tracks whether or not devices are in active
-use, which generally means that they are accessible and operational,
-and may be depended on by something (for example, other devices or
-user space).  That is represented by the **active** meta-state of a
-device from the runtime PM perspective.  The other persistent device
-meta-state used by runtime PM, called **suspended**, represents a
-promise that the given device will not be accessed.  This covers
-devices in low-power states, but it also may include devices that are
-not fully operational, or are regarded as such, for other reasons.
-There are also two transient meta-states, **suspending** and
-**resuming**, that represent transitions between **active** and
-**suspended** often referred to as *runtime suspend* and *runtime
-resume*, or just *suspend* and *resume*, respectively.  Every device
-handled by runtime PM is in one of these four meta-states at any time
-and the meta-state it is in is expected to reflect its actual physical
-configuration (that is, for instance, if the device is not accessible,
-it cannot be **active**).  The term "runtime PM state" used in what
-follows refers to the meta-states described above.
-
-Second, in order to track the runtime PM state and carry out
-transitions between **active** and **suspended**, runtime PM needs to
-be **enabled** for the given device.  If it is **disabled**, it
-generally leaves the device alone.  This means in particular that the
-runtime PM state of a device and its actual physical configuration may
-get out of sync after disabling runtime PM for it.  Analogously, the
-runtime PM state of a device may need to be explicitly adjusted to
-reflect its current physical configuration before enabling runtime PM
-for it.  Moreover, it is generally not recommended to leave devices in
-the **active** meta-state after disabling runtime PM for them because
-that may affect what can be done to their ancestors and suppliers
-going forward.
-
-More specifically, in addition to tracking the runtime PM state of
-every device, runtime PM tracks dependencies between different
-devices.  In fact, that dependency tracking mechanism is the main
-reason for using runtime PM.  The idea is that in order for a device
-to become **active**, all of the devices it depends on must also be
-**active** and that is enforced by runtime PM.  Accordingly, an
-attempt to resume a device causes all of the devices it depends on to
-become **active** and remain **active** until the given device is
-suspended.  In turn, an attempt to suspend a device may allow the
-devices it depends on to also suspend unless they are additionally
-depended on by something else.  While desirable so long as runtime PM
-is **enabled**, this may become problematic when runtime PM is
-**disabled** because the tracking of dependencies does not stop
-automatically at that point and it may cause some devices to remain
-**active** unnecessarily.
-
-As a rule, runtime PM is **disabled** for all devices to start with,
-but there are bus types that enable it for every device (for instance,
-the PCI bus type does so).  Generally speaking, drivers are expected
-to know which bus they belong to and so they should also know whether
-or not runtime PM has been enabled for the devices handled by them
-already.  In the cases in which runtime PM is not enabled by the bus
-type, drivers are responsible for enabling it if they want to
-participate in it.  The devices for which runtime PM has never been
-enabled are black boxes from its point of view.
-
-Finally, runtime PM may be **forbidden** even though it has been
-enabled.  Doing so causes the given device to transition into the
-**active** meta-state (unless it has been **active** already before)
-and prevents it from being suspended.  In other words, a device with
-forbidden runtime PM remains **active** at least until runtime PM is
-**allowed** for it again.  This mechanism is not only available to
-kernel code, but it may also be used by user space through the
-``/sys/devices/.../power/control`` *sysfs* attribute of the given
-device.  Namely, writing ``on`` to that attribute causes runtime PM to
-be forbidden for it, and writing ``auto`` to that attribute causes
-runtime PM to be allowed.  User space may use that attribute at any
-time, so the ability to transition a device into the **suspended**
-meta-state via runtime PM must not be relied on for correctness, among
-other things."
-
-I think that it provides all of the information needed to start with
-without pulling too much stuff documented elsewhere.
-
-If you agree with the above, I'll send my version as a separate patch.
-
 > +
 > +Implementation Structure
 > +------------------------
@@ -383,7 +381,5 @@ lows
 >  .. _Section 2:
 >
 > --
-
-The last part above looks fine to me.
-
-Thanks!
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+>
