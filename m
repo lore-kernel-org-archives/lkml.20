@@ -1,677 +1,377 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011057.outbound.protection.outlook.com [52.101.57.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782684E2F3A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773566; cv=none; b=Og7siJjn1K6gPILTSG0LVPTtgjenh/PHKI1a6DElrfQ2Xt+emXfs33jf1Aa+tq1No85mnN1I9QWZLZRGbWsOCLAoOdEFrG1cQyFa02KOtyC1tBp0eZdUHn2fxinRb3r7gTghIlzCK9CIDDCeQ2MjjIzD2sMHLPLCanyhHcdsFUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773566; c=relaxed/simple;
-	bh=Fdf0ujZp9uset6Tyli77mymh1DvGXFNFX6j1xjZgYtI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oUMNDmxkjK5QACrrSGMoYZdveKkV21JJphhJWPQH6BAFJyJXKLSvk+mTA6DkDzk6rl4sA7PKmaRdfJ6dLEfISqSodvRQSsF0L3VjfzxLRsIUrkaeCz7XV0zAttsl2DG623DcWaoMZP4nmzRjNdBQzWOhdZUKyvv0i/2SQc73XEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=IU4mPf2D; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D283415B62;
+	Wed, 30 Sep 2026 13:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790773631; cv=fail; b=RvqxFFCtEI9bFGP/zrRzsLD6i9heGJjNE3KK79B41tfcg8Rr+EufI6t5JXYKg4WLhzmM49+NvQCvuYQ00pbbevYgFQzlzi2vMZyhMBDc9sNVW51azva/u7FSpGOqqXqH8G5PeNMAXb12Kxm4F2Bi4oGGQEMOunrv5OfWBqVK+7o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790773631; c=relaxed/simple;
+	bh=VvN9lJ0jKZWnk+bin6XuuPVM3F8CjXCjmxPmyOEMku8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OhNgmt6kIvecPYoJpaLq437g0tAY/zEPCZqBC94tjEXEajH1RcOajBC3P+K7Av1gq+asd8amr31jE6n53Jx0OgkqfzeXQcvekuHpeZbqeaxaGa5xXmGMsjvTfAmnaliXT1RZXciwvq3osu2zPRR+qAToPQcW7Rmub6ZWyS2Nnv8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=VSLz8i9o; arc=fail smtp.client-ip=52.101.57.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="IU4mPf2D"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id E9D97240103
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:05:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1790773533;
-	bh=MpF97Vp6dIWigwF/0mWEV0kfev5xoQU2+BQ0/68c/BM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=IU4mPf2DuxElTo3X8WcjUhpJaUdFqSvTsl9JiIcBtLjT9Qdws5ZpY4mnCfwnQOYFk
-	 zN/QTRdGLhjhuVSZyLjTSNVMA+zoWyzT/y697DDsmGU0VliC019Lsw/DgdguiiI8F/
-	 3yBRuTsMjwKGygedvlGWjEq1wuIcYlMt2sAqEqWeZZcExF0znJXHUx/qQ/eiMLUQM3
-	 6XKyNkQwKCBELkEVQWuuv0E7KVfTaZ9HF5oPnJ4DvBLyLhlNqHbRBHoP8kHWtwzrqw
-	 rLfODFxvtnYCmoP0ZDwjM6t9pnnfAJu8XAl9ichiquhnwNaTrYjd7EzwbaZP07lLFn
-	 mkhIHDTxo//9A==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hvwJT72bMz9rxR;
-	Wed, 30 Sep 2026 15:05:29 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Wed, 30 Sep 2026 13:05:32 +0000
-Subject: [PATCH v26 3/4] rust: leds: Add multicolor classdev abstractions
+	dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="VSLz8i9o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nS4fm1J0AP11QCPK1Yjb4z/iQZ7UM5im1W1A8Gt7YMNoxgNZAg816npDVItbG+N3l4LKPB/OIxlFF4KvGbF1MgVM2aaK/zaK8j84IkDsmoJtdux0024ACm85Fn90o+yUAV8M5iMspFGxsEyd2o8lb0YTcp0LbGYlvqPf2+ye/Kudk/gd0FZH4i2xQfTNkooxqdQonbTBEs4mAmG9ib3hGinuEllkJrmxKLyc9LmDJUV3RJbN347C2VU+6m5ZGfQZ/NPvz3rlniAiDkkXLmH5WQMe2rlUl1s1Hb3ULXx0xeQ2tsu+VLeAJDOiYgeFlrcsqnCXO1fd+6D3SPUgCMlOBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VvN9lJ0jKZWnk+bin6XuuPVM3F8CjXCjmxPmyOEMku8=;
+ b=HVVLOTh0v34gFeLUvMP4dX1j5jIgxG5JQXzODw+8Gtfr502YgnUR07n45zhzWT0aEL+BpgVa5R9fEH1qcS+9pwSyHyERqmDxdsoqWonpjd8KZUEgYRn/XtbWEfHuOxTjANqXtZpoU2I3+aOQZ0IjhCX5poNaDLNnhWRW25Go6eVqbHbIlf20RaqFeZnHBCHKs2F+Tkmmh5KxKorrSXjmSGD3W7Q+t9KGwL2Dyb+E/+voKQZ7xv3OQajCs8INuvyowM2I6LWdjUwKejA1Y6548Ohg3QF3etJ0rfa4yavZHqVhodtW0DKsVz4mfs9ac/HCc1I0Ms9L3Lb0imi9bkr6Bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=einfochips.com; dmarc=pass action=none
+ header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VvN9lJ0jKZWnk+bin6XuuPVM3F8CjXCjmxPmyOEMku8=;
+ b=VSLz8i9ovhd2T5cLQCrc0qSONtYxqfhJaLXO0pwr8zis0hc5GA/MFC5RsS7RCBunBR4C2xW+M1PqHgx22FqY/xOrb6p/JHX/BQdaO4AoZgMq5dCrulwlb8rwDiU880gr7i/9HxWcSavzGafJqX+UN6eL9GiT5/A8/p6PDe7l778=
+Received: from BY5PR04MB7025.namprd04.prod.outlook.com (2603:10b6:a03:22f::17)
+ by MN2PR04MB6926.namprd04.prod.outlook.com (2603:10b6:208:1e7::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 13:06:48 +0000
+Received: from BY5PR04MB7025.namprd04.prod.outlook.com
+ ([fe80::97f1:60bb:2ae8:6f01]) by BY5PR04MB7025.namprd04.prod.outlook.com
+ ([fe80::97f1:60bb:2ae8:6f01%4]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 13:06:46 +0000
+From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+To: Samuel Holland <samuel.holland@sifive.com>
+CC: Yulin Lu <luyulin@eswincomputing.com>, Darshan Prajapati
+	<darshan.prajapati@einfochips.com>, Pritesh Patel
+	<pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Andi Shyti
+	<andi.shyti@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Min Lin
+	<linmin@eswincomputing.com>
+Subject: Re: [PATCH v4 6/7] riscv: dts: eswin: add I2C controller support
+Thread-Topic: [PATCH v4 6/7] riscv: dts: eswin: add I2C controller support
+Thread-Index: AQHdUNyMNOO4QQT2+UGfT/qoqAORjA==
+Date: Wed, 30 Sep 2026 13:06:46 +0000
+Message-ID:
+ <BY5PR04MB70253B3321460DCF7ADB54DF838B2@BY5PR04MB7025.namprd04.prod.outlook.com>
+References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
+ <20260814070007.1662455-7-pinkesh.vaghela@einfochips.com>
+ <a55c26e3-1bf0-4ba1-b8b9-14ad76a44a14@sifive.com>
+In-Reply-To: <a55c26e3-1bf0-4ba1-b8b9-14ad76a44a14@sifive.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=76548b96-2cef-412a-9c44-4e9e26db14aa;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-09-30T12:58:33Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
+ 3, 0, 1;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=einfochips.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR04MB7025:EE_|MN2PR04MB6926:EE_
+x-ms-office365-filtering-correlation-id: d602bee0-e883-438e-0aa4-08df1ef3ae9d
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|55112099003|18002099003|22082099003|38070700021|4143699003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ rR11SzoVtqaQn4cQSl07Wh5ZxZWzU6r8p5VrBWRjF0Uc8Q2NKrZuA99ZTxx7IVioxwOXE26+5oZ0XjadqtcRWSV0SK521lu10/zH5tS3/3tRUNk1n1R6NzHqTqBq8m7xw8qXacfgtVirqv9N+9J+tfh1njGUsJSvtzSV7d8QKteaOQXRgpDY2fEucn8sHmpxVkdajIhA2njfaD/NVRA4tSSdRAO0xLZQykil5hUj9KHX3tQJAgh+NIbh2WN/CmjNpjJgC+hg1kxU+J8x1Z+g67fdUxR/pLAgWb5tFUqcaZ99rE9FvNV3+7bcWDFn5xT95KjV5KkWBiP1EEtRN1l0xjJp/bM3H2WpnM7hqlWi8uiXXNGXLnpz59ANW1atEkXaFohqY9XONrSjUB5ig0bDI9dlwM6v0DR466jDlmfAJmgjQ33dDkHD5iixZ4Mgp+CN0flMdY7EGQYnQrnb+3/gbN5sZhJLHmr8S0++fdqyILycw7e+mBADfRxPolV2i2bOBKpAP9V2e1majHzOegSoqephq310aYnMJJopjJ3zuPrp8yfGuDXavD8j7MC+BoGWdLumEUQm333IJJH8HxRaEfvH1zNyL7Y8990+gJ06wXLAvJqWQXwD35s0KBJbtKBW/nd8Ew7hAPVvSmTrvTb/91NbYnHgf2C7taaC5M3rvWoy+yIUIclvozs0WXjKvcGNo5XOotI78qmT7yYiI8wj58XnGkIEWm/dFpNTo6DR3XI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB7025.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(55112099003)(18002099003)(22082099003)(38070700021)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QWxWbFVVWnE4cGdmSWY5S1dDMCtIUlVDUFNVRFRPa1V5d0Vmc0dWNnhFeWVU?=
+ =?utf-8?B?alFvL051V1VHMFN2MCtROW9jNkpzVk9mOWUxeW1BNWhKekRyR0pEbnI0Qm8v?=
+ =?utf-8?B?ODh1QWRjNkZ3K2ptcnRCT3JMcmlDeE9uZVI5VmZuOTh4bGphbENxRHU0S0w1?=
+ =?utf-8?B?QllFT3JNbGtIekNTdEtESU5VdEdjcDBXeU9WdzFyaUR5S2c0MjhrZWZ6ang5?=
+ =?utf-8?B?SlBPditRbWZpS0hyV245Y2Y5UGxCdzRzbHd0UkY4Q2VMZzdQWE1ObjRnVURt?=
+ =?utf-8?B?TmR5cmMvRllFRzJjeGlabkpieWt4RVBJa1BjdFRzanZza1J3dWZjZmVGVWVi?=
+ =?utf-8?B?ZE12NkZncmZzTmZjcjJFaVFUTVZiRmtTV3B4K0RNM3FIY3JYd3F5TmR5SFc3?=
+ =?utf-8?B?WjRUeFlWY2NobVViUktCNFhOdXVrZCtVK0RPQXR6ZmNlSFhVTFJuSnRsR2Zv?=
+ =?utf-8?B?ZFVEcFBYdXZOTkJadHg0MkV2TkxWVE94cUErR3NjRkJib1Vud2xIZXA5QW1M?=
+ =?utf-8?B?VmtPckRhZlRmT1d3czVTV1dBL2ZOMkt1MlMwUmNrV2FrZHRld3ZUSUFHbUtl?=
+ =?utf-8?B?djdUckFoN3RIUFBQMHpMSkRwZ0wwcTMyL2JUSmI4WFJJQ0RhT2FNZUZwejUv?=
+ =?utf-8?B?elRsbEJhSkI0eHlaWlZibXhYclI3azYxWWw1eFdQS3BSZG5wbjdzWG1ibHAr?=
+ =?utf-8?B?OXd2WWZLNU9EcW93UWx1ZFR3ZVREeU1DcjVHL2p4OFQrV0lXNGtUYTd2dSt4?=
+ =?utf-8?B?RzluajFvanRXZDhMemtIUTY3WjNvdVI1d2diaWdjNS9veW1kN0lvSWoxalJF?=
+ =?utf-8?B?eDd2RHR1bEFVMW5jd2hXeTlHaVZJRi8rOWl0T0JtY0U1WTY0cFYrS0xJV0hl?=
+ =?utf-8?B?OW14cDhXdmZaVithb3JSajdsUzd2Q1pCLzZWZ1p4d2s4QlVPRUZkSTlRZ2Uv?=
+ =?utf-8?B?cnVyY3lSb0FKY3BYUVBLSm1JalZ0WEhYSW1kM3MzWDlFS3F6bzRYR2hCTCtM?=
+ =?utf-8?B?SGoyM2lHY21Ca1c5dG1MbkVycjllZ2hQQ2hqYlB6MUhUdEI3OUEyaTZvcHFx?=
+ =?utf-8?B?aVc5V0sxbml2MTZtWThvYUxTNnJwOWxMNVZvMnZwNWhYSm1WVldWZ3NLWTR3?=
+ =?utf-8?B?d2ZNZzlqSUFDbGY1Q2s2S1Z0a2tQbTZuQXNRTVVNMW8zQmtFT2JnVjhxdEJv?=
+ =?utf-8?B?VGlxMDBpVzRjRUNNYWhrSk1LNzlzb042Rk02OFNCNHVTUDF0ZG9RTlQwYnN2?=
+ =?utf-8?B?K2FNZzRUSXI1aW1JVzZzK2hRNzRWNXQ0MHBpaWo4TXRCVzM4M1pmTXp3V2hE?=
+ =?utf-8?B?VTNac1FPaFY0YThGbThqNmhtN0RsTEJVa0pmeUdsdG1seFZaQW5paUd0eXRq?=
+ =?utf-8?B?cmhjeDBjYXZ1YlVKNVF0NisxNXpKbTVNTmQ0U1dObU55VStLelF4NTRkYVZP?=
+ =?utf-8?B?WG0yQmZ0aEZwREZqZGoycWhEdXdjbXFMSjFZNmx2eG9qRU4yOThFUXkzaEJF?=
+ =?utf-8?B?RnZkNFNKeHowUUZtTUZlOWJSNm5zcEVxY29tYnpwMXJaYXlsZk9UWlppVUpD?=
+ =?utf-8?B?dGw2RnB2Q3BFMTlZdFlXNm1mb3NYd294akxhMGVPNVNGdmFOQUVRenNnaTJt?=
+ =?utf-8?B?cXdmWDgvcFErMHVpWUNjejMwR2d3R1lQdHI4QVI4em9VYkZ1RFlWNEwzNTNS?=
+ =?utf-8?B?dmlkNjRreHpxZUJWQ3dSaCtNMkV5UzQ1Y1ljVFpoSWJEbTFlNjB3ZE5HMzJT?=
+ =?utf-8?B?TEtDS25pbkhCeDZiNmNEN214RDl6UktMOHU0a0k2V1FndFJNZ0t1ZUxHWFhr?=
+ =?utf-8?B?STlSY2lBTzJhOW1kNVdxY0RCdXRML3h2K1A2VzVBcXBJdEV2OWI5RDhwazJE?=
+ =?utf-8?B?Wlk5dFozTW9EaEsyV3A1Zkh0ZWZEK0NldFZveTNUcW9Da1paQzEvd05qem1Q?=
+ =?utf-8?B?UUtnWGpFQWcrYzFQN3dNczV5bE9qcXhzVktzcTNmYWdVUUcvNU5Da1QyTUln?=
+ =?utf-8?B?MnBWZ3ByOUFhdkMxS3UrVkVHbDRrSEdkSzUvT3hqWGRsUHVRMk84RlNIdHVJ?=
+ =?utf-8?B?K0dJVFhZR0REVEpwNXp3QWhXVWZJaEVEQnBzbG1EUHcySGNtejNRdTJIUk5F?=
+ =?utf-8?B?TE0yRlEwMkZsWTJyaVRuZG9LcS9mNjBqZHFkNHpFbmZaYTRLSHVpZ1ZYY0J4?=
+ =?utf-8?B?V3B2T21tOVN4TGxYZ2tqT2VaUzBSb2Q2UWVJZmFUcjBCckJvcTN3V1NxMzEz?=
+ =?utf-8?B?VEhjRWp5UWs1MVQvSjY2dmFFM3F5dTJVajRSVVNvNUVNbFFhMUpCRjlrd1VH?=
+ =?utf-8?B?OXYzZjhGZVMxTEp0bDk0TnV4aXh1eTFwNEs5dVRSZlNiODdvMmJnSm1kM2hs?=
+ =?utf-8?Q?pY51UuFJa9zBIC5c=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-rust_leds-v26-3-83837331020e@posteo.de>
-References: <20260930-rust_leds-v26-0-83837331020e@posteo.de>
-In-Reply-To: <20260930-rust_leds-v26-0-83837331020e@posteo.de>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Ira Weiny <iweiny@kernel.org>, Boqun Feng <boqun@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22223;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=Fdf0ujZp9uset6Tyli77mymh1DvGXFNFX6j1xjZgYtI=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqvQkRausHxlCLYbnlQr0IwTu3OPHC/Vdbiwz2F
- lP5+GxRhnaJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCar0JERsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JWtQ//TTWKm1NMDNZDnl7MFxgo8YvSkdpQDiK
- EEHN+/Y/U1E2pUvklKniKzhwvLuLk8Ul2ZEh9CD6errib70JFnpkmUAZprmkbJv1yxyQqgbLqN7
- zUrx6nZYYwtmAiSmdpFnwuFyhTtHCLzCpLqRF0fDwe2CGXJG7uLTPPkVy3Bi/DQR4HwxO6mRME/
- lqhU/6YRqXHaahIbcBPXER6IF9neAGwfDhvA5fmT/Sd7UnqXYF2/BAIIUbYHV1oCONwgXSqdlAe
- 5+bCXljVGrZ8MLiECZ7LxiCs0Pm0feLNZ5gFxthvRR/qn8ZVf+92T1u6HL7GcTaIe2Eh+2Ovu77
- 72on3wMh5F96HZwWCQOpTkYi1tWZahDgArsk6YoY/TGpMVLUQ94iXHIjueHRDVE+7PDECx2EWlu
- hBgqUvWmIcu+YTE2LuqMNFV2b4E2IKTwrm7BfA2N+zIIYUiuLF625/b4KOMw34MGG6N757+hnC+
- 4MRSQ7eo7amrKNi6rNWbHVzOaiJ0rnudqB2ZiBcOi42mDleigGb77uhI9qg1Nav+PmYnpU47T+D
- G4renPAgcPhVWIadwVNnrQD/QGOAi8rh3PoF1H8H8qEJez8TGC+yAmYHiWGtiEspKc/WZCsXtP2
- OE/Fliz6NnafdWZZW/OYi0NXE93AsvhSTaB7ycNM17Ggp5mSThzM=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+X-OriginatorOrg: einfochips.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB7025.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d602bee0-e883-438e-0aa4-08df1ef3ae9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 13:06:46.5100
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2kx+DtKH9i3UpQq+Mp3H7d1+B4SPgUtIMrSbRIdkbFtkNjH4LFvRmDWlkBFjEQ7aMq1EcAX9DKeIvogCZcG5t2/IuwFe6mF0+Qt5D8ORVBc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6926
 
-Implement the abstractions needed for multicolor led class devices,
-including:
-
-* `led::MultiColor` - the led mode implementation
-
-* `MultiColorSubLed` - a safe wrapper arround `mc_subled`
-
-* `led::MultiColorDevice` - a safe wrapper around `led_classdev_mc`
-
-* `led::DeviceBuilder::build_multicolor` - a function to register a new
-  multicolor led class device
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- rust/bindings/bindings_helper.h |   1 +
- rust/kernel/led.rs              |  34 ++-
- rust/kernel/led/multicolor.rs   | 445 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 479 insertions(+), 1 deletion(-)
-
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 4b31aa7f432f..81a03985322a 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -69,6 +69,7 @@
- #include <linux/iosys-map.h>
- #include <linux/jiffies.h>
- #include <linux/jump_label.h>
-+#include <linux/led-class-multicolor.h>
- #include <linux/mdio.h>
- #include <linux/mm.h>
- #include <linux/miscdevice.h>
-diff --git a/rust/kernel/led.rs b/rust/kernel/led.rs
-index c17f8ef75006..4b66fe41a80c 100644
---- a/rust/kernel/led.rs
-+++ b/rust/kernel/led.rs
-@@ -30,8 +30,16 @@
-     types::Opaque, //
- };
- 
-+#[cfg(CONFIG_LEDS_CLASS_MULTICOLOR)]
-+mod multicolor;
- mod normal;
- 
-+#[cfg(CONFIG_LEDS_CLASS_MULTICOLOR)]
-+pub use multicolor::{
-+    MultiColor,
-+    MultiColorDevice,
-+    MultiColorSubLed, //
-+};
- pub use normal::{
-     Device,
-     Normal, //
-@@ -233,7 +241,24 @@ pub enum Color {
-     Violet = bindings::LED_COLOR_ID_VIOLET,
-     Yellow = bindings::LED_COLOR_ID_YELLOW,
-     Ir = bindings::LED_COLOR_ID_IR,
-+    #[cfg_attr(
-+        CONFIG_LEDS_CLASS_MULTICOLOR,
-+        doc = "Use this color for a [`MultiColor`] led."
-+    )]
-+    #[cfg_attr(
-+        not(CONFIG_LEDS_CLASS_MULTICOLOR),
-+        doc = "Use this color for a `MultiColor` led."
-+    )]
-+    /// If the led supports RGB, use [`Color::Rgb`] instead.
-     Multi = bindings::LED_COLOR_ID_MULTI,
-+    #[cfg_attr(
-+        CONFIG_LEDS_CLASS_MULTICOLOR,
-+        doc = "Use this color for a [`MultiColor`] led with rgb support."
-+    )]
-+    #[cfg_attr(
-+        not(CONFIG_LEDS_CLASS_MULTICOLOR),
-+        doc = "Use this color for a `MultiColor` led with rgb support."
-+    )]
-     Rgb = bindings::LED_COLOR_ID_RGB,
-     Purple = bindings::LED_COLOR_ID_PURPLE,
-     Orange = bindings::LED_COLOR_ID_ORANGE,
-@@ -274,7 +299,14 @@ fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
- ///
- /// Each led mode has its own led class device type with different capabilities.
- ///
--/// See [`Normal`].
-+#[cfg_attr(
-+    CONFIG_LEDS_CLASS_MULTICOLOR,
-+    doc = "See [`Normal`] and [`MultiColor`]."
-+)]
-+#[cfg_attr(
-+    not(CONFIG_LEDS_CLASS_MULTICOLOR),
-+    doc = "See [`Normal`] and `MultiColor`."
-+)]
- pub trait Mode: private::Sealed {
-     /// The class device for the led mode.
-     type Device<'bound, T: LedOps<Mode = Self> + 'bound>: Deref<Target = T>;
-diff --git a/rust/kernel/led/multicolor.rs b/rust/kernel/led/multicolor.rs
-new file mode 100644
-index 000000000000..309487bdf38a
---- /dev/null
-+++ b/rust/kernel/led/multicolor.rs
-@@ -0,0 +1,445 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Led mode for the `struct led_classdev_mc`.
-+//!
-+//! C header: [`include/linux/led-class-multicolor.h`](srctree/include/linux/led-class-multicolor.h)
-+
-+use core::{
-+    cell::UnsafeCell,
-+    num::NonZero,
-+    ptr, //
-+};
-+
-+use crate::types::ScopeGuard;
-+
-+use super::*;
-+
-+/// The led mode for the `struct led_classdev_mc`. Leds with this mode can have multiple colors.
-+pub enum MultiColor {}
-+impl Mode for MultiColor {
-+    type Device<'bound, T: LedOps<Mode = Self> + 'bound> = MultiColorDevice<'bound, T>;
-+}
-+impl private::Sealed for MultiColor {}
-+
-+/// The multicolor sub led info representation.
-+///
-+/// This structure represents the Rust abstraction for a C `struct mc_subled`.
-+#[repr(C)]
-+#[derive(Debug)]
-+#[non_exhaustive]
-+pub struct MultiColorSubLed {
-+    /// The color of the sub led
-+    pub color: Color,
-+    brightness: UnsafeCell<u32>,
-+    intensity: UnsafeCell<u32>,
-+    /// The maximum supported intensity value.
-+    ///
-+    /// If None the maximum intensity equals to [`LedOps::MAX_BRIGHTNESS`].
-+    pub max_intensity: Option<NonZero<u32>>,
-+    /// Arbitrary data for the driver to store.
-+    pub channel: u32,
-+}
-+
-+// SAFETY: `MultiColorSubLed` can be shared among threads.
-+unsafe impl Sync for MultiColorSubLed {}
-+
-+impl Clone for MultiColorSubLed {
-+    fn clone(&self) -> Self {
-+        Self {
-+            color: self.color,
-+            brightness: self.brightness().into(),
-+            intensity: self.intensity().into(),
-+            max_intensity: self.max_intensity,
-+            channel: self.channel,
-+        }
-+    }
-+}
-+
-+// We directly pass a reference to the `subled_info` field in `led_classdev_mc` to the driver via
-+// `Device::subleds()`.
-+// We need safeguards to ensure `MultiColorSubLed` and `mc_subled` stay identical.
-+const _: () = {
-+    use core::mem::offset_of;
-+
-+    const fn assert_same_type<T>(_: &T, _: &T) {}
-+
-+    let rust_zeroed = MultiColorSubLed {
-+        color: Color::White,
-+        brightness: UnsafeCell::new(0),
-+        intensity: UnsafeCell::new(0),
-+        max_intensity: None,
-+        channel: 0,
-+    };
-+    let c_zeroed = bindings::mc_subled {
-+        color_index: 0,
-+        brightness: 0,
-+        intensity: 0,
-+        max_intensity: 0,
-+        channel: 0,
-+    };
-+
-+    assert!(offset_of!(MultiColorSubLed, color) == offset_of!(bindings::mc_subled, color_index));
-+    assert!(
-+        offset_of!(MultiColorSubLed, brightness) == offset_of!(bindings::mc_subled, brightness)
-+    );
-+    assert!(offset_of!(MultiColorSubLed, intensity) == offset_of!(bindings::mc_subled, intensity));
-+    assert!(
-+        offset_of!(MultiColorSubLed, max_intensity)
-+            == offset_of!(bindings::mc_subled, max_intensity)
-+    );
-+    assert!(offset_of!(MultiColorSubLed, channel) == offset_of!(bindings::mc_subled, channel));
-+
-+    assert_same_type(&0u32, &c_zeroed.color_index);
-+    assert_same_type(&rust_zeroed.brightness.into_inner(), &c_zeroed.brightness);
-+    assert_same_type(&rust_zeroed.intensity.into_inner(), &c_zeroed.intensity);
-+    assert!(size_of_val(&rust_zeroed.max_intensity) == size_of_val(&c_zeroed.max_intensity));
-+    assert_same_type(&rust_zeroed.channel, &c_zeroed.channel);
-+
-+    assert!(size_of::<MultiColorSubLed>() == size_of::<bindings::mc_subled>());
-+};
-+
-+impl MultiColorSubLed {
-+    /// Create a new multicolor sub led info.
-+    #[inline]
-+    pub const fn new(color: Color) -> Self {
-+        Self {
-+            color,
-+            brightness: UnsafeCell::new(0),
-+            intensity: UnsafeCell::new(0),
-+            max_intensity: None,
-+            channel: 0,
-+        }
-+    }
-+
-+    /// Set arbitrary data for the driver.
-+    #[inline]
-+    pub const fn channel(mut self, channel: u32) -> Self {
-+        self.channel = channel;
-+        self
-+    }
-+
-+    /// Set the initial intensity of the subled.
-+    #[inline]
-+    pub const fn initial_intensity(mut self, intensity: u32) -> Self {
-+        self.intensity = UnsafeCell::new(intensity);
-+        self
-+    }
-+
-+    /// Set the maximum supported intensity of the subled.
-+    #[inline]
-+    pub const fn max_intensity(mut self, max_intensity: NonZero<u32>) -> Self {
-+        self.max_intensity = Some(max_intensity);
-+        self
-+    }
-+
-+    /// The intensity of the sub led.
-+    #[inline]
-+    pub const fn intensity(&self) -> u32 {
-+        // SAFETY:
-+        // - `self.intensity.get()` is a valid pointer to `u32`.
-+        // - We don't have exclusive or immutable access to `self.intensity`,
-+        //   but the alignment should prevent "load tearing".
-+        unsafe { *self.intensity.get() }
-+    }
-+
-+    /// The brightness of the sub led.
-+    #[inline]
-+    pub const fn brightness(&self) -> u32 {
-+        // SAFETY:
-+        // - `self.brightness.get()` is a valid pointer to `u32`.
-+        // - We don't have exclusive or immutable access to `self.brightness`,
-+        //   but the alignment should prevent "load tearing".
-+        unsafe { *self.brightness.get() }
-+    }
-+}
-+
-+/// The multicolor led class device representation.
-+///
-+/// This structure represents the Rust abstraction for a multicolor led class device.
-+#[pin_data(PinnedDrop)]
-+pub struct MultiColorDevice<'bound, T: 'bound = ()> {
-+    #[pin]
-+    ops: T,
-+    #[pin]
-+    classdev: Opaque<bindings::led_classdev_mc>,
-+    _p: PhantomData<&'bound ()>,
-+}
-+
-+impl<'init, S: DeviceBuilderState> DeviceBuilder<'init, S> {
-+    /// Registers a new [`MulticolorDevice`].
-+    pub fn build_multicolor<'bound: 'init, T: LedOps<Mode = MultiColor> + 'bound>(
-+        self,
-+        parent: &'bound device::Device<Bound>,
-+        ops: impl PinInit<T, Error> + 'init,
-+        subleds: &'init [MultiColorSubLed],
-+    ) -> impl PinInit<MultiColorDevice<'bound, T>, Error> + 'init {
-+        const_assert!(T::MAX_BRIGHTNESS <= i32::MAX.unsigned_abs() || !T::HAS_BRIGHTNESS_GET);
-+
-+        try_pin_init!(MultiColorDevice {
-+            ops <- ops,
-+            classdev <- Opaque::try_ffi_init(|ptr: *mut bindings::led_classdev_mc| {
-+                let mut colors = [false; bindings::LED_COLOR_ID_MAX as usize];
-+                for subled in subleds {
-+                    if colors[subled.color as usize] {
-+                        dev_err!(parent.as_ref(), "duplicate color in multicolor led\n");
-+                        return Err(EINVAL);
-+                    }
-+                    colors[subled.color as usize] = true;
-+                }
-+                let subleds_box = KBox::pin_slice(
-+                    |index| Ok::<_, Error>(subleds[index].clone()),
-+                    subleds.len(),
-+                    GFP_KERNEL,
-+                )?;
-+                let subleds_box_raw = KBox::into_raw(Pin::into_inner(subleds_box));
-+
-+                let subled_guard = ScopeGuard::new(|| {
-+                    // SAFETY: `subleds_box_raw` is guaranteed to be a valid pointer to
-+                    // `[MultiColorSubLed]`.
-+                    drop(unsafe { <KBox<[MultiColorSubLed]>>::from_raw(subleds_box_raw) });
-+                });
-+
-+                // SAFETY: `try_ffi_init` guarantees that `ptr` is valid for write.
-+                // `led_classdev_mc` gets fully initialized in-place by
-+                // `led_classdev_multicolor_register_ext` including `mutex` and `list_head`.
-+                unsafe {
-+                    ptr.write(bindings::led_classdev_mc {
-+                        led_cdev: bindings::led_classdev {
-+                            brightness_set: (!T::BLOCKING)
-+                                .then_some(Adapter::<T>::brightness_set_callback),
-+                            brightness_set_blocking: T::BLOCKING
-+                                .then_some(Adapter::<T>::brightness_set_blocking_callback),
-+                            brightness_get: T::HAS_BRIGHTNESS_GET
-+                                .then_some(Adapter::<T>::brightness_get_callback),
-+                            blink_set: T::HAS_BLINK_SET.then_some(Adapter::<T>::blink_set_callback),
-+                            max_brightness: T::MAX_BRIGHTNESS,
-+                            brightness: self.initial_brightness,
-+                            color: self.color as u32,
-+                            name: self.name.map_or(core::ptr::null(), CStrExt::as_char_ptr),
-+                            ..bindings::led_classdev::default()
-+                        },
-+                        num_colors: u32::try_from(subleds_box_raw.len())?,
-+                        // CAST: The safeguards in the const block ensure that
-+                        // `MultiColorSubLed` has an identical layout to `mc_subled`.
-+                        subled_info: subleds_box_raw.cast::<bindings::mc_subled>(),
-+                    })
-+                };
-+
-+                let mut init_data = bindings::led_init_data {
-+                    fwnode: self
-+                        .fwnode
-+                        .as_ref()
-+                        .map_or(core::ptr::null_mut(), |fwnode| fwnode.as_raw()),
-+                    default_label: core::ptr::null(),
-+                    devicename: self
-+                        .devicename
-+                        .map_or(core::ptr::null(), CStrExt::as_char_ptr),
-+                    devname_mandatory: self.devname_mandatory,
-+                };
-+
-+                // SAFETY:
-+                // - `parent.as_ref().as_raw()` is guaranteed to be a pointer to a valid
-+                //    `device`.
-+                // - `ptr` is guaranteed to be a pointer to an initialized `led_classdev_mc`.
-+                to_result(unsafe {
-+                    bindings::led_classdev_multicolor_register_ext(
-+                        parent.as_ref().as_raw(),
-+                        ptr,
-+                        if self.name.is_none() {
-+                            &raw mut init_data
-+                        } else {
-+                            core::ptr::null_mut()
-+                        },
-+                    )
-+                })?;
-+
-+                subled_guard.dismiss();
-+
-+                core::mem::forget(self.fwnode); // keep the reference count incremented
-+
-+                Ok::<_, Error>(())
-+            }),
-+            _p: PhantomData,
-+        })
-+    }
-+}
-+
-+impl<'bound, T: 'bound> MultiColorDevice<'bound, T> {
-+    /// # Safety
-+    /// `led_cdev` must be a valid pointer to a `led_classdev` embedded within a
-+    /// `led::MultiColorDevice`.
-+    #[inline]
-+    unsafe fn from_raw<'a>(led_cdev: *mut bindings::led_classdev) -> &'a Self {
-+        // SAFETY: The function's contract guarantees that `led_cdev` points to a `led_classdev`
-+        // field embedded within a valid `led::MultiColorDevice`. `container_of!` can therefore
-+        // safely calculate the address of the containing struct.
-+        let led_mc_cdev = unsafe { container_of!(led_cdev, bindings::led_classdev_mc, led_cdev) };
-+
-+        // SAFETY: It is guaranteed that `led_mc_cdev` points to a `led_classdev_mc`
-+        // field embedded within a valid `led::MultiColorDevice`. `container_of!` can therefore
-+        // safely calculate the address of the containing struct.
-+        unsafe { &*container_of!(Opaque::cast_from(led_mc_cdev), Self, classdev) }
-+    }
-+
-+    /// Returns the subleds passed to [`Device::new_multicolor`].
-+    #[inline]
-+    pub fn subleds(&self) -> &[MultiColorSubLed] {
-+        // SAFETY: The existence of `self` guarantees that `self.classdev.get()` is a pointer to a
-+        // valid `led_classdev_mc`.
-+        let raw = unsafe { &*self.classdev.get() };
-+        // SAFETY: `raw.subled_info` is a valid pointer to `mc_subled[num_colors]`.
-+        // CAST: The safeguards in the const block ensure that `MultiColorSubLed` has an identical
-+        // layout to `mc_subled`.
-+        unsafe {
-+            core::slice::from_raw_parts(
-+                raw.subled_info.cast::<MultiColorSubLed>(),
-+                // CAST: It is guaranteed that `num_colors` fits into an `usize`.
-+                raw.num_colors as usize,
-+            )
-+        }
-+    }
-+}
-+
-+impl<'bound, T: LedOps + 'bound> Deref for MultiColorDevice<'bound, T> {
-+    type Target = T;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.ops
-+    }
-+}
-+
-+// SAFETY: A `led::MultiColorDevice` can be unregistered from any thread.
-+unsafe impl<'bound, T: 'bound + Send> Send for MultiColorDevice<'bound, T> {}
-+
-+// SAFETY: `led::MultiColorDevice` can be shared among threads because all methods of `led::Device`
-+// are thread safe.
-+unsafe impl<'bound, T: 'bound + Sync> Sync for MultiColorDevice<'bound, T> {}
-+
-+struct Adapter<T: LedOps<Mode = MultiColor>> {
-+    _p: PhantomData<T>,
-+}
-+
-+impl<T: LedOps<Mode = MultiColor>> Adapter<T> {
-+    /// # Safety
-+    /// `led_cdev` must be a valid pointer to a `led_classdev` embedded within a
-+    /// `led::MultiColorDevice`.
-+    /// This function is called on setting the brightness of a led.
-+    unsafe extern "C" fn brightness_set_callback(
-+        led_cdev: *mut bindings::led_classdev,
-+        brightness: u32,
-+    ) {
-+        // SAFETY: The function's contract guarantees that `led_cdev` is a valid pointer to a
-+        // `led_classdev` embedded within a `led::MultiColorDevice`.
-+        let classdev = unsafe { MultiColorDevice::<T>::from_raw(led_cdev) };
-+
-+        // SAFETY: `classdev.classdev.get()` is guaranteed to be a pointer to a valid
-+        // `led_classdev_mc`.
-+        unsafe { bindings::led_mc_calc_color_components(classdev.classdev.get(), brightness) };
-+
-+        let _ = classdev.brightness_set(brightness);
-+    }
-+
-+    /// # Safety
-+    /// `led_cdev` must be a valid pointer to a `led_classdev` embedded within a
-+    /// `led::MultiColorDevice`.
-+    /// This function is called on setting the brightness of a led immediately.
-+    unsafe extern "C" fn brightness_set_blocking_callback(
-+        led_cdev: *mut bindings::led_classdev,
-+        brightness: u32,
-+    ) -> i32 {
-+        from_result(|| {
-+            // SAFETY: The function's contract guarantees that `led_cdev` is a valid pointer to a
-+            // `led_classdev` embedded within a `led::MultiColorDevice`.
-+            let classdev = unsafe { MultiColorDevice::<T>::from_raw(led_cdev) };
-+
-+            // SAFETY: `classdev.classdev.get()` is guaranteed to be a pointer to a valid
-+            // `led_classdev_mc`.
-+            unsafe { bindings::led_mc_calc_color_components(classdev.classdev.get(), brightness) };
-+
-+            classdev.brightness_set(brightness)?;
-+            Ok(0)
-+        })
-+    }
-+
-+    /// # Safety
-+    /// `led_cdev` must be a valid pointer to a `led_classdev` embedded within a
-+    /// `led::MultiColorDevice`.
-+    /// This function is called on getting the brightness of a led.
-+    unsafe extern "C" fn brightness_get_callback(led_cdev: *mut bindings::led_classdev) -> u32 {
-+        // SAFETY: The function's contract guarantees that `led_cdev` is a valid pointer to a
-+        // `led_classdev` embedded within a `led::MultiColorDevice`.
-+        let classdev = unsafe { MultiColorDevice::<T>::from_raw(led_cdev) };
-+
-+        // CAST: Resulting value will be casted back to i32 in the led subsystem.
-+        from_result(|| {
-+            classdev
-+                .brightness_get()
-+                .inspect(|val| debug_assert!(*val <= T::MAX_BRIGHTNESS))
-+                .and_then(|val| Ok(i32::try_from(val)?))
-+        }) as u32
-+    }
-+
-+    /// # Safety
-+    /// `led_cdev` must be a valid pointer to a `led_classdev` embedded within a
-+    /// `led::MultiColorDevice`.
-+    /// `delay_on` and `delay_off` must be valid pointers to `usize` and have
-+    /// exclusive access for the period of this function.
-+    /// This function is called on enabling hardware accelerated blinking.
-+    unsafe extern "C" fn blink_set_callback(
-+        led_cdev: *mut bindings::led_classdev,
-+        delay_on: *mut usize,
-+        delay_off: *mut usize,
-+    ) -> i32 {
-+        from_result(|| {
-+            // SAFETY: The function's contract guarantees that `led_cdev` is a valid pointer to a
-+            // `led_classdev` embedded within a `led::MultiColorDevice`.
-+            let classdev = unsafe { MultiColorDevice::<T>::from_raw(led_cdev) };
-+
-+            classdev.blink_set(
-+                // SAFETY: The function's contract guarantees that `delay_on` points to a `usize`
-+                // and is exclusive for the period of this function.
-+                unsafe { &mut *delay_on },
-+                // SAFETY: The function's contract guarantees that `delay_off` points to a `usize`
-+                // and is exclusive for the period of this function.
-+                unsafe { &mut *delay_off },
-+            )?;
-+            Ok(0)
-+        })
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<'bound, T: 'bound> PinnedDrop for MultiColorDevice<'bound, T> {
-+    fn drop(self: Pin<&mut Self>) {
-+        let raw = self.classdev.get();
-+        // SAFETY: The existence of `self` guarantees that `self.classdev.get()` is a pointer to a
-+        // valid `led_classdev_mc`.
-+        let dev: &device::Device = unsafe { device::Device::from_raw((*raw).led_cdev.dev) };
-+
-+        let _fwnode = dev
-+            .fwnode()
-+            // SAFETY: the reference count of `fwnode` has previously been
-+            // incremented in `led::DeviceBuilder::build_multicolor`.
-+            .map(|fwnode| unsafe { ARef::from_raw(NonNull::from(fwnode)) });
-+
-+        // SAFETY: The existence of `self` guarantees that `self.classdev` has previously been
-+        // successfully registered with `led_classdev_multicolor_register_ext`.
-+        unsafe { bindings::led_classdev_multicolor_unregister(raw) };
-+
-+        // SAFETY: `raw` is guaranteed to be a valid pointer to `led_classdev_mc`.
-+        let led_cdev = unsafe { &*raw };
-+
-+        // SAFETY: `led_cdev.subled_info` is guaranteed to be a valid pointer to
-+        // `[MultiColorSubLed]` with length of `led_cdev.num_colors`.
-+        // See `led::DeviceBuilder::build_multicolor`.
-+        drop(unsafe {
-+            KBox::from_raw(ptr::slice_from_raw_parts_mut(
-+                led_cdev.subled_info.cast::<MultiColorSubLed>(),
-+                // CAST: `num_colors` was originally converted from a `usize` in
-+                // `DeviceBuilder::build_multicolor`. Thus it is guaranteed that
-+                // `num_colors` fits into an usize.
-+                led_cdev.num_colors as usize,
-+            ))
-+        });
-+    }
-+}
-
--- 
-2.55.0
-
+SGkgU2FtdWVsLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFNhbXVl
+bCBIb2xsYW5kIDxzYW11ZWwuaG9sbGFuZEBzaWZpdmUuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBT
+ZXB0ZW1iZXIgMjksIDIwMjYgNjo0MCBQTQ0KPiBUbzogUGlua2VzaCBWYWdoZWxhIDxwaW5rZXNo
+LnZhZ2hlbGFAZWluZm9jaGlwcy5jb20+DQo+IENjOiBZdWxpbiBMdSA8bHV5dWxpbkBlc3dpbmNv
+bXB1dGluZy5jb20+OyBEYXJzaGFuIFByYWphcGF0aQ0KPiA8ZGFyc2hhbi5wcmFqYXBhdGlAZWlu
+Zm9jaGlwcy5jb20+OyBQcml0ZXNoIFBhdGVsDQo+IDxwcml0ZXNoLnBhdGVsQGVpbmZvY2hpcHMu
+Y29tPjsgUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz47IEtyenlzenRvZg0KPiBLb3psb3dz
+a2kgPGtyemsrZHRAa2VybmVsLm9yZz47IENvbm9yIERvb2xleSA8Y29ub3IrZHRAa2VybmVsLm9y
+Zz47IFBhdWwNCj4gV2FsbXNsZXkgPHBqd0BrZXJuZWwub3JnPjsgUGFsbWVyIERhYmJlbHQgPHBh
+bG1lckBkYWJiZWx0LmNvbT47IEFsYmVydA0KPiBPdSA8YW91QGVlY3MuYmVya2VsZXkuZWR1Pjsg
+QWxleGFuZHJlIEdoaXRpIDxhbGV4QGdoaXRpLmZyPjsgQW5kaSBTaHl0aQ0KPiA8YW5kaS5zaHl0
+aUBrZXJuZWwub3JnPjsgTWlrYSBXZXN0ZXJiZXJnDQo+IDxtaWthLndlc3RlcmJlcmdAbGludXgu
+aW50ZWwuY29tPjsgbGludXgtaTJjQHZnZXIua2VybmVsLm9yZzsNCj4gZGV2aWNldHJlZUB2Z2Vy
+Lmtlcm5lbC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LQ0KPiByaXNj
+dkBsaXN0cy5pbmZyYWRlYWQub3JnOyBNaW4gTGluIDxsaW5taW5AZXN3aW5jb21wdXRpbmcuY29t
+Pg0KPiBTdWJqZWN0OiBbRXh0ZXJuYWxdIFJlOiBbUEFUQ0ggdjQgNi83XSByaXNjdjogZHRzOiBl
+c3dpbjogYWRkIEkyQyBjb250cm9sbGVyDQo+IHN1cHBvcnQNCj4gDQo+IEhpIFBpbmtlc2gsDQo+
+IA0KPiBPbiAyMDI2LTA4LTE0IDI6MDAgQU0sIFBpbmtlc2ggVmFnaGVsYSB3cm90ZToNCj4gPiBG
+cm9tOiBQcml0ZXNoIFBhdGVsIDxwcml0ZXNoLnBhdGVsQGVpbmZvY2hpcHMuY29tPg0KPiA+DQo+
+ID4gQWRkIEkyQyBub2RlcyBmb3IgRUlDNzcwMCBTb0MuDQo+ID4gQWxzbyBhZGQgbm9kZXMgZm9y
+IGNvcnJlc3BvbmRpbmcgc2xhdmUgZGV2aWNlcyBpbiBkdHMgZmlsZSBhbmQgZW5hYmxlDQo+ID4g
+dGhlbSBmb3IgSGlGaXZlIFByZW1pZXIgUDU1MCBib2FyZA0KPiA+DQo+ID4gU2lnbmVkLW9mZi1i
+eTogUHJpdGVzaCBQYXRlbCA8cHJpdGVzaC5wYXRlbEBlaW5mb2NoaXBzLmNvbT4NCj4gPiBTaWdu
+ZWQtb2ZmLWJ5OiBQaW5rZXNoIFZhZ2hlbGEgPHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNv
+bT4NCj4gPiAtLS0NCj4gPiAgLi4uL2R0cy9lc3dpbi9laWM3NzAwLWhpZml2ZS1wcmVtaWVyLXA1
+NTAuZHRzIHwgIDU2ICsrKysrKysNCj4gPiAgYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3
+NzAwLmR0c2kgICAgICAgIHwgMTU2ICsrKysrKysrKysrKysrKysrKw0KPiA+ICAyIGZpbGVzIGNo
+YW5nZWQsIDIxMiBpbnNlcnRpb25zKCspDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9yaXNj
+di9ib290L2R0cy9lc3dpbi9laWM3NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTAuZHRzDQo+ID4gYi9h
+cmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL2VpYzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMN
+Cj4gPiBpbmRleCAzMTAxZmQ5MGQxNzEuLjVkZGRjZjEzZmQyNSAxMDA2NDQNCj4gPiAtLS0gYS9h
+cmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL2VpYzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMN
+Cj4gPiArKysgYi9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL2VpYzc3MDAtaGlmaXZlLXByZW1p
+ZXItcDU1MC5kdHMNCj4gPiBAQCAtMTMwLDYgKzEzMCw2MiBAQCAmZ3BpbzExMV9waW5zIHsNCj4g
+PiAgICAgICBpbnB1dC1kaXNhYmxlOw0KPiA+ICB9Ow0KPiA+DQo+ID4gKyZhb25faTJjMCB7DQo+
+ID4gKyAgICAgc3RhdHVzID0gIm9rYXkiOw0KPiA+ICsgICAgIHBpbmN0cmwtbmFtZXMgPSAiZGVm
+YXVsdCI7DQo+ID4gKyAgICAgcGluY3RybC0wID0gPCZpMmMxMF9waW5zPjsNCj4gPiArDQo+ID4g
+KyAgICAgZWVwcm9tQDUwIHsNCj4gPiArICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXRtZWws
+MjRjMDIiOw0KPiA+ICsgICAgICAgICAgICAgcmVnID0gPDB4NTA+Ow0KPiA+ICsgICAgIH07DQo+
+ID4gK307DQo+ID4gKw0KPiA+ICsmYW9uX2kyYzEgew0KPiA+ICsgICAgIHN0YXR1cyA9ICJva2F5
+IjsNCj4gPiArICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KPiA+ICsgICAgIHBpbmN0
+cmwtMCA9IDwmaTJjMTFfcGlucz47DQo+ID4gKw0KPiA+ICsgICAgIGFkY0AxMCB7DQo+ID4gKyAg
+ICAgICAgICAgICBjb21wYXRpYmxlID0gIm1pY3JvY2hpcCxwYWMxOTM0IjsNCj4gPiArICAgICAg
+ICAgICAgIHJlZyA9IDwweDEwPjsNCj4gPiArICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0g
+PDE+Ow0KPiA+ICsgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKw0KPiA+ICsg
+ICAgICAgICAgICAgY2hhbm5lbEAxIHsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVnID0g
+PDB4MT47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHNodW50LXJlc2lzdG9yLW1pY3JvLW9o
+bXMgPSA8MTAwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGxhYmVsID0gIlZERF9TT00i
+Ow0KPiA+ICsgICAgICAgICAgICAgfTsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgICBjaGFubmVs
+QDIgew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgyPjsNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgc2h1bnQtcmVzaXN0b3ItbWljcm8tb2htcyA9IDwxMDAwPjsNCj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgbGFiZWwgPSAiVkREX1NPQyI7DQo+ID4gKyAgICAgICAgICAg
+ICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGNoYW5uZWxAMyB7DQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgIHJlZyA9IDwweDM+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBzaHVu
+dC1yZXNpc3Rvci1taWNyby1vaG1zID0gPDEwMDA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICBsYWJlbCA9ICJWRERfQ1BVIjsNCj4gPiArICAgICAgICAgICAgIH07DQo+ID4gKw0KPiA+ICsg
+ICAgICAgICAgICAgY2hhbm5lbEA0IHsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVnID0g
+PDB4ND47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHNodW50LXJlc2lzdG9yLW1pY3JvLW9o
+bXMgPSA8MTAwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGxhYmVsID0gIlZERF9MUERE
+UiI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsgICAgIH07DQo+ID4gKw0KPiA+ICsgICAg
+IHBvd2VyLXNlbnNvckA0NCB7DQo+ID4gKyAgICAgICAgICAgICBjb21wYXRpYmxlID0gInRpLGlu
+YTIyNiI7DQo+ID4gKyAgICAgICAgICAgICByZWcgPSA8MHg0ND47DQo+ID4gKyAgICAgICAgICAg
+ICAjaW8tY2hhbm5lbC1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgIGxhYmVsID0gInN5
+c19wb3dlciI7DQo+ID4gKyAgICAgICAgICAgICBzaHVudC1yZXNpc3RvciA9IDwxMDAwPjsNCj4g
+PiArICAgICB9Ow0KPiA+ICt9Ow0KPiA+ICsNCj4gPiAgJnBpbmN0cmwgew0KPiA+ICAgICAgIHBp
+bmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7DQo+ID4gICAgICAgcGluY3RybC0wID0gPCZncGlvMF9w
+aW5zPiwgPCZncGlvNV9waW5zPiwgPCZncGlvMTFfcGlucz4sIGRpZmYNCj4gPiAtLWdpdCBhL2Fy
+Y2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcwMC5kdHNpDQo+ID4gYi9hcmNoL3Jpc2N2L2Jv
+b3QvZHRzL2Vzd2luL2VpYzc3MDAuZHRzaQ0KPiA+IGluZGV4IDc3MWE4ODY0NWQ4My4uYzEzNDMy
+ZDE0NTA0IDEwMDY0NA0KPiA+IC0tLSBhL2FyY2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcw
+MC5kdHNpDQo+ID4gKysrIGIvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3NzAwLmR0c2kN
+Cj4gPiBAQCAtMzE1LDYgKzMxNSwxNjIgQEAgdWFydDQ6IHNlcmlhbEA1MDk0MDAwMCB7DQo+ID4g
+ICAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gICAgICAgICAg
+ICAgICB9Ow0KPiA+DQo+ID4gKyAgICAgICAgICAgICBpMmMwOiBpMmNANTA5NTAwMDAgew0KPiA+
+ICsgICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImVzd2luLGVpYzc3MDAtaTJjIiwg
+InNucHMsZGVzaWdud2FyZS1pMmMiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICByZWcgPSA8
+MHgwIDB4NTA5NTAwMDAgMHgwIDB4ODAwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGlu
+dGVycnVwdHMgPSA8MTA1PjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgY2xvY2tzID0gPCZj
+bGsgRUlDNzcwMF9DTEtfR0FURV9MU1BfSTJDMF9QQ0xLPjsNCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgY2xvY2stbmFtZXMgPSAicmVmIjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgY2xv
+Y2stZnJlcXVlbmN5ID0gPDEwMDAwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlc2V0
+cyA9IDwmcmVzZXQgRUlDNzcwMF9SRVNFVF9JMkMwPjsNCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICNzaXpl
+LWNlbGxzID0gPDA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBzdGF0dXMgPSAiZGlzYWJs
+ZWQiOw0KPiANCj4gRWFjaCBjb250cm9sbGVyIHRoYXQgaGFzIG9ubHkgb25lIHBvc3NpYmxlIHBp
+bm11eCBzaG91bGQgcmVmZXJlbmNlIHRoZQ0KPiBjb3JyZXNwb25kaW5nIHBpbmN0cmwgbm9kZXMs
+IHNvIGl0IGRvZXNuJ3QgaGF2ZSB0byBiZSBkdXBsaWNhdGVkIGluIGV2ZXJ5DQo+IGJvYXJkIERU
+Uy4NCg0KV2Ugd2lsbCB1cGRhdGUgdGhpcyBpbiBuZXh0IHZlcnNpb24uDQoNCj4gDQo+ID4gKyAg
+ICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzE6IGkyY0A1MDk2MDAw
+MCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcw
+MC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+IHJlZyA9IDwweDAgMHg1MDk2MDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgaW50ZXJydXB0cyA9IDwxMDY+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9j
+a3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkMxX1BDTEs+Ow0KPiA+ICsgICAgICAg
+ICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0kyQzE+Ow0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9
+ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAg
+ICAgIGkyYzI6IGkyY0A1MDk3MDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGNvbXBh
+dGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1MDk3MDAwMCAweDAgMHg4MDAwPjsN
+Cj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwxMDc+Ow0KPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkMy
+X1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0K
+PiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4g
+PiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0ky
+QzI+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4g
+PiArICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0K
+PiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzM6IGkyY0A1MDk4MDAwMCB7DQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxk
+ZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1
+MDk4MDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0
+cyA9IDwxMDg+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3
+NzAwX0NMS19HQVRFX0xTUF9JMkMzX1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBj
+bG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1mcmVx
+dWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZy
+ZXNldCBFSUM3NzAwX1JFU0VUX0kyQzM+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAjYWRk
+cmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMg
+PSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+
+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzQ6IGkyY0A1
+MDk5MDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4s
+ZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgIHJlZyA9IDwweDAgMHg1MDk5MDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwxMDk+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkM0X1BDTEs+Ow0KPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAg
+ICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0kyQzQ+Ow0KPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAg
+ICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0
+YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAg
+ICAgICAgICAgIGkyYzU6IGkyY0A1MDlhMDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+IGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7
+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1MDlhMDAwMCAweDAgMHg4
+MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwxMTA+Ow0KPiA+
+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xT
+UF9JMkM1X1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJy
+ZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAw
+PjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JF
+U0VUX0kyQzU+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwx
+PjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAg
+ICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzY6IGkyY0A1MDliMDAwMCB7DQo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAi
+c25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDww
+eDAgMHg1MDliMDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50
+ZXJydXB0cyA9IDwxMTE+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNs
+ayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkM2X1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9j
+ay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRz
+ID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0kyQzY+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgI3NpemUt
+Y2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxl
+ZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzc6
+IGkyY0A1MDljMDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAi
+ZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1MDljMDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAg
+ICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwxMTI+Ow0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkM3X1BDTEs+Ow0K
+PiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0kyQzc+Ow0KPiA+
+ICsgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4g
+PiArICAgICAgICAgICAgIGkyYzg6IGkyY0A1MDlkMDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJl
+LWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1MDlkMDAwMCAw
+eDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwxMTM+
+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19H
+QVRFX0xTUF9JMkM4X1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1l
+cyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8
+MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3
+NzAwX1JFU0VUX0kyQzg+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxs
+cyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+
+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAg
+ICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIGkyYzk6IGkyY0A1MDllMDAwMCB7
+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1p
+MmMiLCAic25wcyxkZXNpZ253YXJlLWkyYyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJl
+ZyA9IDwweDAgMHg1MDllMDAwMCAweDAgMHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgaW50ZXJydXB0cyA9IDwxMTQ+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3Mg
+PSA8JmNsayBFSUM3NzAwX0NMS19HQVRFX0xTUF9JMkM5X1BDTEs+Ow0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICBjbG9jay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+cmVzZXRzID0gPCZyZXNldCBFSUM3NzAwX1JFU0VUX0kyQzk+Ow0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+I3NpemUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJk
+aXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAg
+IGFvbl9pMmMwOiBpMmNANTE4MzAwMDAgew0KPiANCj4gUGxlYXNlIGtlZXAgbm9kZXMgc29ydGVk
+ICh0aGUgYW9uIGJsb2NrIGNvbnRyb2xsZXJzIGdvIGJlbG93IEdQSU8sIGV0Yy4pLg0KDQpBcyBw
+ZXIgRFRTIGNvZGluZyBzdHlsZSBkb2N1bWVudCBbMV0sICJPcmRlciBvZiBOb2RlcyIgc3RhdGVz
+IHRoYXQNCiJOb2RlcyBvbiBhbnkgYnVzLCB0aHVzIHVzaW5nIHVuaXQgYWRkcmVzc2VzIGZvciBj
+aGlsZHJlbiwgc2hhbGwgYmUgb3JkZXJlZCBieSB1bml0DQphZGRyZXNzIGluIGFzY2VuZGluZyBv
+cmRlci4gQWx0ZXJuYXRpdmVseSBmb3Igc29tZSBzdWJhcmNoaXRlY3R1cmVzLCBub2RlcyBvZiB0
+aGUgDQpzYW1lIHR5cGUgY2FuIGJlIGdyb3VwZWQgdG9nZXRoZXIsIGUuZy4gYWxsIEkyQyBjb250
+cm9sbGVycyBvbmUgYWZ0ZXIgYW5vdGhlciBldmVuDQppZiB0aGlzIGJyZWFrcyB1bml0IGFkZHJl
+c3Mgb3JkZXJpbmcuIg0KDQpEbyB5b3Ugc3RpbGwgcHJlZmVyIHRvIGNoYW5nZSBvcmRlcj8NCg0K
+WzFdIGh0dHBzOi8vZG9jcy5rZXJuZWwub3JnL2RldmljZXRyZWUvYmluZGluZ3MvZHRzLWNvZGlu
+Zy1zdHlsZS5odG1sDQoNClJlZ2FyZHMsDQpQaW5rZXNoDQoNCj4gDQo+IFJlZ2FyZHMsDQo+IFNh
+bXVlbA0KPiANCj4gPiArICAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJlc3dpbixl
+aWM3NzAwLWkyYyIsICJzbnBzLGRlc2lnbndhcmUtaTJjIjsNCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgcmVnID0gPDB4MCAweDUxODMwMDAwIDB4MCAweDgwMDA+Ow0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgICBpbnRlcnJ1cHRzID0gPDI5MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+IGNsb2NrcyA9IDwmY2xrIEVJQzc3MDBfQ0xLX0dBVEVfQU9OX0kyQzBfUENMSz47DQo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgIGNsb2NrLW5hbWVzID0gInJlZiI7DQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgIGNsb2NrLWZyZXF1ZW5jeSA9IDwxMDAwMDA+Ow0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICByZXNldHMgPSA8JnJlc2V0IEVJQzc3MDBfUkVTRVRfQU5PMD47DQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgc3Rh
+dHVzID0gImRpc2FibGVkIjsNCj4gPiArICAgICAgICAgICAgIH07DQo+ID4gKw0KPiA+ICsgICAg
+ICAgICAgICAgYW9uX2kyYzE6IGkyY0A1MTgzODAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1pMmMiLCAic25wcyxkZXNpZ253YXJlLWky
+YyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg1MTgzODAwMCAweDAg
+MHg4MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwyOTE+Ow0K
+PiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNsayBFSUM3NzAwX0NMS19HQVRF
+X0FPTl9JMkMxX1BDTEs+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9
+ICJyZWYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jay1mcmVxdWVuY3kgPSA8MTAw
+MDAwPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyZXNldCBFSUM3NzAw
+X1JFU0VUX0FOTzE+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9
+IDwxPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAg
+ICAgICB9Ow0KPiA+ICsNCj4gPiAgICAgICAgICAgICAgIGdwaW9ANTE2MDAwMDAgew0KPiA+ICAg
+ICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gInNucHMsZHctYXBiLWdwaW8iOw0KPiA+
+ICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgwIDB4NTE2MDAwMDAgMHgwIDB4ODA+Ow0K
+DQo=
