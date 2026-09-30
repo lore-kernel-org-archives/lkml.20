@@ -1,197 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.73.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F0045A2A2;
-	Wed, 30 Sep 2026 08:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F43A3438A9;
+	Wed, 30 Sep 2026 08:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.73.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755409; cv=none; b=sXlbAeoZL5CK+kLKOtwMqjDonZoCxGe+Hdc1OXMsZDX67qKMMGqDHFS5dIMeDu9D65EvLe9taj6FGd/k+bWZMif5Xx8AbRUdxvnKyeRb7UdRXmPopGcQ5+joNhN8F3lq8nd3VERR0VT263dbo8akDqSgJkQmPb/FbWO202Kyfl8=
+	t=1790755461; cv=none; b=DOWOSNuSI4g5O0qNSCP45SA8Vb7puojf1+NdSZdTRz78ctVPYog0202vjNaCVwTfhqEHEItCVI94eMRRwknH7XMqp95OQ99rDt8W5hycCHmHrmfC4wHD0RPs6+PBgYjcHn0u3vgkV8s12UCva4ow+VXhCGYA1jXLcZEaSuO0XgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755409; c=relaxed/simple;
-	bh=LSD0H7hlTgsIK48icru9I/onbn3XKpj8p7mhQiQrTUg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=da5x0MtzXaqEsN9+RBP84ciG7we585oqyajw6E4bbPcyX6tp5YBzmjGZhG/flbgFaINQhqu7IcI8xkyWnuu0OF69KOZaN0ArbmPL6YG1xxqd7QGQFtPhSnZbtw1L8TIOxW60c1OLsg4TBQUATNZua2rlq+8Uz4wCMqhiUP6DfpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hd0+t+cp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790755461; c=relaxed/simple;
+	bh=oPT3tg2L6HmLsILUaRQtcWroKgIIt/TdhpZ7yEk7Uho=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R3kS7QI1Rp0BvLt4ApJVQFRsYVTHdYX/atD2FLGoRHW88YtkWv4oOK9hUqtwNetxhG6xb0t9o9NDYY1oM0eoBniiocqZg4Y2EgqajfzssTkgmWwY3oAGful3bnGBKpkouU+r6QwhZK2GuQUtacwq8Gbenq02qfxZq2AkLYerh/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=DqeG1QQG; arc=none smtp.client-ip=114.132.73.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hd0+t+cp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0567A1F000FF;
-	Wed, 30 Sep 2026 08:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790755407;
-	bh=w9zOxQ2Xp6lP5o/Tko+m/wjgpl8Fwpt+CqNeRAhSwXE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Hd0+t+cpt41c4LYVSklR73f+gLWB9/zmTXMCDWih/gR4ZLXKt8iAOR+aE3Gc2Teqe
-	 MbVmDnkB9qw9pZn7yV8m647PcWIVsAqpNmmQEeaWHpmPX5AaRfPlOa10AlAk3357xy
-	 hfw9SYVlu4iUYm3dfgim6ms7xKQKkO4tyhJxNzLOH3cRdCpXxPs7KidEH5HsFvKJDn
-	 QZA6h6OeSxVWceH7i83IXRUpr9gvM+UF+//IukGuLV0TdSgda17aNzo3owL+1mU+wX
-	 QtG2j0X55ujiANkhhe3JGk05Wo9jpAyusLpGn+IgvikGlEM87PBUfqpu3szeCwdgHx
-	 ljVnnt+0EpOZg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 09/11] iommufd: Add the vdevice TSM request ioctl
-In-Reply-To: <179027891417.104879.282447770434616733.b4-review@b4>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-10-aneesh.kumar@kernel.org>
- <179027891417.104879.282447770434616733.b4-review@b4>
-Date: Wed, 30 Sep 2026 13:33:17 +0530
-Message-ID: <yq5a7bk3upx6.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="DqeG1QQG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1790755385;
+	bh=B1xaRJPj1w1p0V5KG4GDUYATKKaieqfDd6pMYauV7vg=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=DqeG1QQGaHcvf1HKThqjcdp81HOJW/+lgMr42I6vvU20KDKXFGJcBKgploSmstNq0
+	 Csfe/umtbwbp0N6Ywbtat/L2qV1lwKchwjcy1EOMD35oBCWUcjSyS9eKQDjWVh6ICq
+	 to+1wnEAuDCmrXGBMNdDFKWFi1r9yuRMtX9nCZzs=
+X-QQ-mid: zesmtpgz7t1790755366t5415e8df
+X-QQ-Originating-IP: JsKWQKryqfAHbSkD8GCJzK/uJ5Jcb+q5d8aNCaXg+Oc=
+Received: from uniontech.com ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 30 Sep 2026 16:02:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12572682429920885809
+EX-QQ-RecipientCnt: 10
+From: Yichong Chen <chenyichong@uniontech.com>
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	Yichong Chen <chenyichong@uniontech.com>
+Subject: [PATCH] ext4: drop tmp inode ownership before migration cleanup
+Date: Wed, 30 Sep 2026 16:02:41 +0800
+Message-Id: <20260930080241.414973-1-chenyichong@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MgIyGr9KWTnBG3Rh32fDhinrJs1J9kMiPYpssQ+xlMeKGpSJ6k0plS09
+	Z8ap2egc7QRTzBO/Rh0Eyn+xUr7Tu7L3KS9yBkYjvE7NGAJP7e9900JwPo1Nuj368FYZT18
+	iPIkmLXiYNxgXX+SGeo7BSA0Ro2oMcb7H0hEG0ApAYPqcABTVDHCJRQ/lZmYQX6FrK4t0s/
+	Whc6X8ME05OdCpguRRtn32XmqL9cQcC7/56AeOjuFHI1cy+hYGqxXG6abVv56gVkn2HRdvy
+	zPZeCkodJiqQabUmU9zsnT3yE4RgWetM5hZAqc9B+8FI+oxokzALSwl4zJEPDjZgGY5OExa
+	5XhRVycn2YCR31etq25R5IRpvmI8o77gjateEoZPqqZN2Zt0/v6iDEJlojM9fdjyGVppA8w
+	NG1c3nFoF93I0UBsVbtmI57CT0dERUa+ZzSDD08OxQ57nXkUOmxxSLugfFXsTCyxapBBYR1
+	5IlWbehDvaO1od8zTVXOBeKoccI+qh7gA24IRl+uBhdidJwA85rvZ+qTSnYh86BvTN3MH4K
+	mYFq6Nq4Kxkg+JMQoDhiWjyc6S0YfeEgqukKa5EyOGJ7t0yU25vXAys2AghVOQiAAS6M6f9
+	OvZHttM03Gp0Mc0L9Kns5DMvDP0bTiDEJ+frUKCIgktbO03QNoXLoKAfg4Ir6PYfZLEgwQG
+	oZtbX9pbGcnEqj4TVKOb3wafXNpKTlgS6ZZ4t4CHPQVlZilA5HB973Ze+vYx3VhlhgKWhTr
+	zOc2t8hM62Y6vCjyXwcS98mPrwArYgUZt3e65a4vGul3jZbQDbnaSj8dEiz7nMzZHVrTalM
+	7ph8KnVoJ1aYFTVyVD2MwU3D4dFPINVgiVndVB2tX/xY6pBUXSDjYAEEiNVdNonw7e+gLus
+	mNGdkyBXxVO9uBrSgXwc4WXGPw2s5ZT/6w6Me2xa2awyZrHoKy/b2884OGOm8wpDjhSZbWP
+	UFFflO4BEwKXp6jjgwBJm/Q+UvTx4gjwp3wYXUx4KmRhe9wzPpQ1MsZSoDBh1KOmKxUuIHC
+	Ir17S7O1ynJq0SsuzlJGPn5jsrcjE=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+After the extent tree is transferred to the original inode,
+ext4_journal_ensure_credits() can fail before tmp_inode is cleared.  The
+subsequent iput(tmp_inode) may then free the transferred tree.
 
->> [ ... 95 lines skipped ... ]
->> +static bool iommufd_vdevice_tsm_req_arch_valid(u32 tvm_arch)
->> +{
->> +	switch (tvm_arch) {
->> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_CCA:
->> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_SEV:
->> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_TDX:
->> +		return true;
->> +	default:
->> +		return false;
->> +	}
->> +}
->
-> Generally speaking we should not do things like this, the viommu
-> object should declare what it supports if we want to have validation
-> on the iommufd side.
->
->> [ ... 140 lines skipped ... ]
->> +#ifdef CONFIG_TSM
->> +/**
->> + * struct tsm_guest_req_info - parameters for a guest-initiated TSM request
->> + * @op: operation for the guest-initiated request
->> + * @tvm_arch: guest TVM architecture
->> + * @req: request data buffer filled by guest
->> + * @req_len: the size of @req filled by guest
->> + * @resp: response data buffer filled by host
->> + * @resp_len: the size of @resp buffer filled by guest
->> + */
->> +struct tsm_guest_req_info {
->> +	enum iommu_vdevice_tsm_guest_req_op op;
->> +	enum iommu_vdevice_tsm_guest_tvm_arch tvm_arch;
->> +	sockptr_t req;
->> +	size_t req_len;
->> +	sockptr_t resp;
->> +	size_t resp_len;
->> +};
->
-> Why is this struct in tsm land?
->
-> I'm not seeing why the iommufd interface should be locked to tsm, as I
-> said other viommus need this kind of command channel too. Can't we
-> have a general one?
->
-> Why would it ever not be tied to userspace pointers? I don't want
-> an in kernel user ever using this kind of struct?
->
+Clear tmp_inode's size and block count as soon as ownership is transferred.
 
+Fixes: a413036791d0 ("ext4: Provide function to handle transaction restarts")
+Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+---
+ fs/ext4/migrate.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The previous discussion suggested that another kernel subsystem might
-need to use this low-level TSM interface, although no concrete example
-was identified. In other words, an opaque guest request could be issued
-from either userspace or kernel space. 
+diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
+index e588b4157604..11b3da396966 100644
+--- a/fs/ext4/migrate.c
++++ b/fs/ext4/migrate.c
+@@ -570,6 +570,12 @@ int ext4_ext_migrate(struct inode *inode)
+ 			free_ext_block(handle, tmp_inode);
+ 	}
+ 
++	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
++		i_size_write(tmp_inode, 0);
++		tmp_inode->i_blocks = 0;
++		EXT4_I(tmp_inode)->i_csum_seed = tmp_csum_seed;
++	}
++
+ 	/* We mark the tmp_inode dirty via ext4_ext_tree_init. */
+ 	err = ext4_journal_ensure_credits(handle, 1, 0);
+ 	if (err < 0) {
+-- 
+2.51.0
 
->
->> [ ... 34 lines skipped ... ]
->> +/**
->> + * enum iommu_vdevice_tsm_guest_req_op - operation for guest TSM requests
->> + * @TSM_REQ_VALIDATE_MMIO: Validate MMIO for the TDI
->> + * @TSM_REQ_SET_TDI_STATE: Set TDI state
->> + * @TSM_REQ_SEV_ENABLE_DMA: Enable SEV DMA
->
-> That seems wrong.. The hypervisor should not have control over T=1
-> DMA.
->
-
-This was added specifically for AMD SEV, which requires an IOMMU-side
-update to enable DMA.
-
->
->> + * @TSM_REQ_SEV_DISABLE_DMA: Disable SEV DMA
->> + * @TSM_REQ_READ_OBJECT: Read a TSM object
->> + * @TSM_REQ_REGEN_OBJECT: Regenerate a TSM object
->> + * @TSM_REQ_OBJECT_INFO: Read TSM object information
->> + */
->
-> These operations will need alot more commentary. Use kdocs inside the
-> enum below to make that easier.
->
-
-
-I will add kernel-doc comments for the operations used by CCA.
-
-We have gone through several iterations to identify the guest
-passthrough request facility we need. IIUC, both TDX and CCA give the
-hypervisor some control over the request type, while SEV-TIO is more
-opaque.
-
-
->
->> [ ... 10 lines skipped ... ]
->> +/**
->> + * struct iommu_vdevice_tsm_req - ioctl(IOMMU_VDEVICE_TSM_REQ)
->> + * @size: sizeof(struct iommu_vdevice_tsm_req)
->> + * @vdevice_id: vDevice ID the guest request is for
->> + * @op: One of enum iommu_vdevice_tsm_guest_req_op
->> + * @tvm_arch: One of enum iommu_vdevice_tsm_guest_tvm_arch
->> + * @req_len: Size in bytes of the input payload at @req_uptr
->> + * @resp_len: Size in bytes of the output buffer at @resp_uptr
->> + * @req_uptr: Userspace pointer to the guest-provided request payload
->> + * @resp_uptr: Userspace pointer to the guest response buffer
->> + * @tsm_code: TSM-specific result code returned by the TSM implementation
->> + *
->> + * Forward a TSM request to the TSM bound vDevice. This is intended for
->> + * guest TSM/TDISP message transport where the host kernel only marshals
->> + * bytes between userspace and the TSM implementation.
->> + *
->> + * The request operation is guest initiated. The TSM backend validates
->> + * @tvm_arch against its bound TVM architecture assumptions.
->> + *
->> + * The request payload is read from @req_uptr/@req_len. If a response is
->> + * expected, userspace provides @resp_uptr/@resp_len as writable storage for
->> + * response bytes returned by the TSM path.
->> + *
->> + * The ioctl is only suitable for commands and results that the host kernel
->> + * has no use, the host is only facilitating guest to TSM communication.
->> + */
->> +struct iommu_vdevice_tsm_req {
->> +	__u32 size;
->> +	__u32 vdevice_id;
->> +	__u32 op;
->> +	__u32 tvm_arch;
->> +	__u32 req_len;
->> +	__u32 resp_len;
->> +	__aligned_u64 req_uptr;
->> +	__aligned_u64 resp_uptr;
->> +	__aligned_u64 tsm_code;
->
-> out_tsm_code
->
-
-That is required for SEV-TIO.
-
--aneesh
