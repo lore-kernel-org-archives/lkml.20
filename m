@@ -1,122 +1,86 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1B93E7BC4
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A9151EE0F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804584; cv=none; b=UsZk29vq+UeoO9meV5NgnJoOfiR4oDn08egpfhA+I38oNZpFJauQLHzxmf1ivV5HVSKRIpomCeXRXVMvV0+7EbWoqLfUZBTmRl8xAJ5cqerbWfLls73weBQzQrYLceU1mp1acUxNYX6Jyotx256QSnFsSdT9BGMN1ORppcjCFXQ=
+	t=1790804586; cv=none; b=oCBl7ZFFEHFSZFTM0Qs2imlulxGJq+xLuXgQSDLzk+aufLSViW6usFcd8z0W1Y1jbuP2rmpIVoEwtaIqIFquwvjrKwWceetY2wrksikMxURDb5+TjusVlZumuoIOxTs6BF87coq0W8VvE4WdjeiUzyROddRI+8/9DjlNwpMSm3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804584; c=relaxed/simple;
-	bh=GZc8KZekvqxs/WEqCkku5bM6XIO8TsX64V5xkY4tyUY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tZmtZfgjr4sf1PB+C4ytJUhCsy4QlQk3DnjJt6cAHafkfIL1nj/rMSkkMJfjnIuzBiTauYSpcBJvcZOTJlyqZT+QXCb/qnAI7yErjq/Qt5Sm/YTh/u5X8RN2pRXPecOQHOJLYV2k1axnYz/0wYxKitSIcO0Lls2HBUH+jSnwVQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wWq8lA4j; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790804586; c=relaxed/simple;
+	bh=fSiI3TMsEzDueDKVgqXkfgIYEvxjScP+rhYWfresjgM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pD/OYtJ66NwHMzv1vtF4NvTcba1+lO5+iB617qpkiiU8QogCVUIj7cR7qk8dcW1FfD7iBfICu3QbSJylPbz6rjWJcRK/8k7CiSaS3oZ/cfNj90Ey6Ykte2oqJaduCOR25/pIp4yHrNUnVrN1rA4xJo6+e8KO+WWuBrDCgwIFtQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFHGvzW0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wWq8lA4j"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C302A4E410DC;
-	Wed, 30 Sep 2026 21:43:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F42460749;
-	Wed, 30 Sep 2026 21:43:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E477103298BA;
-	Wed, 30 Sep 2026 23:42:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790804579; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=2tf3AicESXUN6zuzkl4u0tQ13NoG3pfVJBuiqaZBvBM=;
-	b=wWq8lA4jkXbXyIYIi/p642+Ci9bSZu3PRIhX4K8SASZRLhSn6gmX4nNtsJm5c07SRvsx/F
-	/IWwOfD5fT7y+7zgOqB8p8biMUCxKPV1tnjW/JOnXKiN/GHhr4B4TGzPWK33l8BecRGwMv
-	lil80UiHe7VrH5SzyDw8ItgQ7e7O3b9hB0N/m6FK0iUWDIZiEE/lRJTqappRMwuwfdxFGt
-	XZjyJSFZf5LLHNybBvis8UnE8viBPnOh3Se18Bpvx4/wYonqvagSM/H9UPKHK/YGc99LSK
-	ellb3bQwsrRUhhLVjvWxxgs3PA53tfI2395U0zMnusrA9wMje+vsQXGPMrrDIA==
-Message-ID: <87598792-c93d-4e2b-9094-0f3e9c72e2c8@bootlin.com>
-Date: Wed, 30 Sep 2026 23:42:54 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFHGvzW0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD8A1F008A6
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804584;
+	bh=kP2Hc0xVxHp38/pOSmhAb4V3iGOUVb5jZAxSa8LNMDo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jFHGvzW0d5XOYcFhKadHZWWVSm7jpwI0YuWUXBX2LbXTQsdwPiqKRpWeymsacUxbJ
+	 Nl55Hak93RxBiw3IXEJ9rPlTeL6H58yK0yToOzdkOWt69KyqgeBd8+hxiiuMLojQdS
+	 kpFPaPCZKPQIgc8r8ymxA4jdXOjNMNKLycFX1U7INUJgy48alP5+yIcmDhxO0CVgXe
+	 wJdbrOkRJPA6Sjn7D9mgsIuBWy25l7E31gEr5S0u6hAU1SZLZCcMusieCA0wY39i/q
+	 kaW6DhB4SV3Nmy9ONOEH1vmjhXk2wPRJqjVz5NoBmWt1FtMDYCAxTnJVWMDCBrbQJl
+	 0Zo6XnDSIkM1Q==
+Received: by mail-lr2-f23.google.com with SMTP id 38308e7fff4ca-3a782bdc1dbso4033661fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:43:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw6aWtme1GSTHXa4mpXoGcRcWhf2Bb8I6e1uJgUK6chtfhOCGILZyxcTdjbewECejvLYon+ZOAtEMuMxvg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2DIBKqbp1POa555xp+Qze4Fqh6fHvwbwWaXv2l/Fjtc46g4sW
+	4ALgtmTLqXmUuj8iT6CWoSmiVgWm+5qZx6B7zKrFre8hjpTFw25XVTtqOfNWGzyNo9bUV0x4hKR
+	awCjBBEC0zw8xrr59KYDDahuM+7p6t8o=
+X-Received: by 2002:a2e:b8d2:0:b0:3a5:b524:e28c with SMTP id
+ 38308e7fff4ca-3a7791af9a8mr9222391fa.11.1790804583296; Wed, 30 Sep 2026
+ 14:43:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v6 4/5] net: stmmac: Do not advertise S-VLAN stripping
- when it is disabled
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>, recv.jo@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, jun.ann.lai@intel.com,
- yi.fang.gan@intel.com
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260928203441.34876-1-ovidiu.panait.rb@renesas.com>
- <20260928203441.34876-5-ovidiu.panait.rb@renesas.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260928203441.34876-5-ovidiu.panait.rb@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260918161407.2300-1-will@kernel.org>
+In-Reply-To: <20260918161407.2300-1-will@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 23:42:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
+X-Gm-Features: AclHuK_u2Nc1iLerOHkQ6hvbUCBpiEkacWiDJM0sMa6PBj21Y5wcS7mqWJaIpQs
+Message-ID: <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
+Subject: Re: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel
+ sp into SP_EL0
+To: Will Deacon <will@kernel.org>, Usama Anjum <usama.anjum@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
+:
 
-On 9/28/26 22:34, Ovidiu Panait wrote:
-> C-VLAN and S-VLAN tag stripping are both controlled by the EVLS bit,
-> so disabling rx-vlan-offload also disables S-VLAN tag stripping.
-> However, rx-vlan-stag-hw-parse keeps being advertised as enabled:
-> 
-> root@rzv2h-evk:~# ethtool -K end1 rx-vlan-offload off
-> root@rzv2h-evk:~# ethtool -k end1 | grep -i vlan
-> rx-vlan-offload: off
-> tx-vlan-offload: off [fixed]
-> rx-vlan-filter: on [fixed]
-> vlan-challenged: off [fixed]
-> tx-vlan-stag-hw-insert: off [fixed]
-> rx-vlan-stag-hw-parse: on [fixed]
-> rx-vlan-stag-filter: on [fixed]
-> 
-> Fix this inconsistency by making NETIF_F_HW_VLAN_STAG_RX follow
-> NETIF_F_HW_VLAN_CTAG_RX.
-> 
-> Fixes: 750011e239a5 ("net: stmmac: Add support for HW-accelerated VLAN stripping")
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> This is version two of the kernel stack juggling patches I previously
+> posted here:
+>
+>   https://lore.kernel.org/r/20260907164247.17223-1-will@kernel.org
+>
+> Changes since v1 include:
+>   * Fixed suspend/resume paths to handle the stack pointers properly
+>   * Fixed restoration of ptrauth keys on resume
+>   * Added tags
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Overall I like what I see, but can we split it in two... like first the pat=
+ches
+up to fixing the overflow handling using SP_EL0 and finalize that?
 
-Maxime
+Hopefully Usama can test just that part and see if it has a lesser
+performance impact as well.
 
+Then we can think about the rest once that is merged and works.
 
-> ---
-> v6 changes: None.
-> 
-> v5 changes:
-> - Rebased on top of the rename patch: used dwmac_is_xmac() instead of
->   the dropped hw_svlan_en flag.
-> 
-> v4 changes:
-> - New patch.
-> 
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 0d70eb452af7..b007ff120471 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -6211,6 +6211,13 @@ static netdev_features_t stmmac_fix_features(struct net_device *dev,
->  	if (priv->plat->bugged_jumbo && (dev->mtu > ETH_DATA_LEN))
->  		features &= ~NETIF_F_CSUM_MASK;
->  
-> +	if (dwmac_is_xmac(priv->plat->core_type)) {
-> +		if (features & NETIF_F_HW_VLAN_CTAG_RX)
-> +			features |= NETIF_F_HW_VLAN_STAG_RX;
-> +		else
-> +			features &= ~NETIF_F_HW_VLAN_STAG_RX;
-> +	}
-> +
->  	return features;
->  }
->  
-
+Yours,
+Linus Walleij
