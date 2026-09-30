@@ -1,101 +1,166 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A523051616F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1444F4049
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:38:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793525; cv=none; b=c02AC5n919INjrudRIuvYb+VbuVOwvOx1sMzuQ8p8YOva6STylvB43OciqcPu5Qj92ucyk0J7Td+YPPtjGBrzK4fj2B1juJtriN13/nI/xbvPuZib1SqROmJ4jxO591SjJFhZqHvENlR3y9cFa5Dpp1Onc1gsBjdc9vvf3HZrPk=
+	t=1790793533; cv=none; b=omEDOUxHKCXl/I6kKMFiwT4T2NNjrJazmgvGxo1iJniZQc6AXFtGifs5dEduW+2YDCNxa1I3SZhvD4bNv01gD2evLaxDp8g+jrzdPAztHEI9zJNZ0Nas2tQS/ZO9P34BUQ8V6urDoRk74wdhMzXrak82mYn+9+fI6CxrTBAGiZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793525; c=relaxed/simple;
-	bh=qIYeVUCO05ZbZhdAAAoZexxaRjrSKWkj1JQrUJwwZr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d+thLkxxXZlhjQWMKKj1D7kjmiIZVJr1uQhMZFeNjhZApeCnpwAjwrpgQ5qTMgCdBgiK5O1EZAsdDn9ADNqLrrg/QA9S+MihdiP6rhWPwzkefIfIWj8lqOzngPzJ3z+20JGQxYsHtG6XCGsrubsHY8dDCwLjnCvgkOpXg4lssGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nyu8+fl+; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790793533; c=relaxed/simple;
+	bh=gwB6d9Z3k0CW/Oqy+i7I0rfrOnAAIB0oSBCF2qad6Ws=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cJWrOh6q2+BJDNP0x6jv0HrSIERaBb37oMDT5xDPeCvYtfkSmibL5ZAxhvuAcUqo3cVsoEKiuztW3tNotzvm1GlfSKsfiv1yAbUPlSoTuAZxYbioZQ/VUTk8177n+Gn2LCik/jGZGbJSBMxJotvia5aiX26z1Z0kI3lLPFT+UhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gaNbWlLm; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nyu8+fl+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so9716995e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:38:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gaNbWlLm"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c6so3441926b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:38:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793522; x=1791398322; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X/kW+42sSDWDUbw6VMWjlova15EUzqflh+DF1qz2pHg=;
-        b=Nyu8+fl+9C0oTojAC9MciU8R4YNL7wQ7rEibxddMpIWYU+7X3C+IHEKm791q5fV7sj
-         15MTvicEaq6YvPzvZrMICs6c8KIAGtD0dMPuAat3ogEh1iURaeYsrLH9NgsSCQCEq1ry
-         Fsx3bI68ZegE9P34gIvRXAkGcdyRpQIaXkJxn+kyNVqfecpD0t/iueq3XpcrNSLd08r8
-         F1gHeG25h99CA5yqW9kV8jb7dCI0qe3FnTNptdBJ+IaEf+Wugfx4GwItKE6V9FHRJRJr
-         XlG/lxC6xpQDe72NW96eP2BdTF6nsAw0uDj3oj1U1HrSTfx8C8QLylDRyDZln/9EXwtR
-         nVrg==
+        d=gmail.com; s=20251104; t=1790793531; x=1791398331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tcLxcO8uIEkG6hV4cv0W1hvR/CfXs/3hY5D6RxZfqyQ=;
+        b=gaNbWlLmbCHahLBE/8kn2wmZo3jtZXwIArNRajRoMWjHOb/lSx8WomEhiHTpgVE7sA
+         f40AW1w5lCdYnuZWrP7WYySUq3upntvmSTaKoX+BM4lIFNdZ8DmgAiQ10Ejsxg3ZcTCa
+         8FFwD8LMQWrxmgq1FOBmCd31qm4UJdBvT9zvfATMExSKBT6j2jR926bDruGvuxhGpOTy
+         Z1Hv2kSSFNZ68BGSk0hzqP8Subl85bQoR6bDRCUP5poIdk0qAo5LaRz483XnaEhHY8Dl
+         ojzqLuIV4YAyYdvpZpBluL56MWMJq4o3cZ+MTCOKNl/8T4l92jPsfjAxi0Tnfq/asRqF
+         VBhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793522; x=1791398322;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X/kW+42sSDWDUbw6VMWjlova15EUzqflh+DF1qz2pHg=;
-        b=pW9EJNXLuJW+/Z9LXgIEP/5hjEBre7T9m7/fk52dRBXx9zqjeXweJ217IuhE4FZofY
-         2FRm5lz1ZdbtZCgsC/M4rnCECWitTbD1Je2kaGH+kASBbK257quAwnJR6BTe0TcwqUG3
-         SqkJaFxNwmbmH7vbB3FOYo2GwdMjCUsX4KjV/j5BXFIMkiW4pUv0BxlEp1IrSNVgw/qL
-         EvDPgXwG8cP8lCXx+sOwtHtEI1UjtkEmOZ9cClI8q3RGeF5tSccu9GdSD8sv7S5qFTyE
-         hFBree8TN9P++SfRoXSYfe4yAG4ab3oIyIK6ygzYuU/gmJeFh3c4OSrFeJzAUUxvSWXl
-         oF0g==
-X-Gm-Message-State: AFuF++nVpZ4McnUFLrsLxBCOdUJLRBZs6MdttyXWAb8zcUzXEkA7C509
-	PmPS0eOENZP0eaxyIzfaKQoQKy2mTiqlnfGeGWEIdmi+3m28C8/njolQ
-X-Gm-Gg: AYBFou0u4dLgrWkzZsvMIswJ+26OkpHiKWdMWtVQbne98iWkpRTFg/9LjECgsix5wBQ
-	SA2GcNf4W3q7x39etLkBPjYp66HUXw4ltfHEomU+FfgqRZZn9Cppyt6teTMsI1YAORl0VdMUVuG
-	HMXuXIh/i5MmyHNGdndeKTdHW3Q2hiHcVlJR0HH+qFTfZP6QM5iXpO/2PQh62aOJY0JbkBw0eAg
-	iLKJfDoLRCUV+jN4NV312LW5fno4UYr6MI/E1699PLYKFLXIXdPFbilfcGpt6sOBuvFHh3mVPjW
-	ue74LKzvW2YqLCFB//us9azPTFNeJlxJBsAxcPB0CtIOyzLEeDNUlGyeGCqRCeG8c3tIc4XIx6u
-	0wJAEbTtb9CpzY0SlYJ0Eycs12Y1Hv3eMFoAvmaTItfJAvL9mvyw2E+A9zY1EEqyrSm6DNVZ3zl
-	gyNzGM6AHS+c6J6jTvvh2QUKGmEzZcFsWojYzsDVK6hpKmJqltQ1PkAVwu7DPvqsginSoytQ1We
-	5yv6b9FZp2um+TfP5EoQH2kxPb68h8eIJlSG1DJdY7/24g5O3GwSY2QvraubL1cTd+66WdEkSWS
-	Op4OKIEVr7ALT9/gwSwNN4F8luRxzAy9hLlkHndfkql7ay5MAvMV15tAmlfQNqudeG/GGR3+IQ=
-	=
-X-Received: by 2002:a7b:ca5a:0:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-4a01eb19ffdmr6267285e9.17.1790793521692;
-        Wed, 30 Sep 2026 11:38:41 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979bbcsm1867795e9.5.2026.09.30.11.38.40
+        d=1e100.net; s=20260707; t=1790793531; x=1791398331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tcLxcO8uIEkG6hV4cv0W1hvR/CfXs/3hY5D6RxZfqyQ=;
+        b=HrnEuz5xHgbNG6xn0EZZqug74HWQpc0xc0AV4HR8IFP2KTcX1TPkQ7noJD+aYKa4+H
+         S/gXhJG1i+1HCqD0wdHzZsUeGc8nCVXEUeZv9wRTDwF169jzTd+PtNJTyeUjc8jGpI4S
+         AIq/IpiQgyafpxTw2fo25/8mP9UAEXuGFSd8aYL2iXtwAaIZiO8gwMGMLT4zNfdMSrpi
+         Fa0nwvAJxAXmBwSxspuMKNbwOpeIgHxhzmJXcGZYsgwrSfjOT0M8Obf0/Awz7kDYqtRQ
+         svCn/6OhyM3D+ACaKIHjnkjnfrSyvZrx7PjCIAAenEt70vVWM934lSSSY/1f8mqTxWmO
+         3X9g==
+X-Forwarded-Encrypted: i=1; AKwUvBy9bstW2IOlIGW3drLr1SA0Y7hzqelhEQc5ydRaipfY4Ho7kMPaqzikU2+6EBayMB3lAqYIFkZvVpN/KRI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMS472vrQ0RW9/p83f2vLe8Dz0X5nO/fUEQi2Dic9LHHhJK6Z6
+	zluOSQTzhCUYeU2T5mw6PkCqfWRNiLHWvsUY/6//tMVP4XSCAbQ1v271
+X-Gm-Gg: AYBFou196yXlr46QFRRCJ9ej3/DJ1yH0Wp5dJcwk/p0H6e6RAXnnVgDFFXvKdeFtzwq
+	NntIPyxBI55nVPHQ+O1h5ryjtTioWgf2Or/rN77JTRgmDh7b1GTvmNeMx5DxLHJMxkSyrseRNzM
+	H2sLiRxS1wqQlJQs/6nKjBJgErG1s+tIaacgXh1o8mDhiLdRqMG1+ZdExcUtGiVJa+oLZ1+SMrZ
+	gmNnv3f/SRDm2brPURwKFA4sykWvkHWJNUagJbBhXOQSnmZBCq5iVK2vsnIshphbNA5VQlsGXUs
+	GCg8ZPnWfEDK1Ois+Zecdhe7t6un04qytqDbIkemhzMYgpc3nOAesn+Qa/utct9Yuul66GNGSll
+	r0t2G7s57c3FC7gRmCnuGUkDUceLeYEKENgO9lJJqkP6ly+f20mqL1b3V7q3DjJ5GaZTiQ7wjT7
+	hWNnU5Ar7OPxwSBnAYc8JK1U3fZb0whA75iCXIebhGNcRQVp07+xUWJJA/PTPIiAkaZV+DrIm22
+	3klw5ICJchDASONYmSR5Cu/2Ao/+jjRx6HVv8AU9ZUw1pxt5QYrDNWL0FR4jANHZCIPcwijK/8+
+	+EqrN3E2qZ4qm1r6RaPf3jl44tWf3LeGjosg
+X-Received: by 2002:a05:6a21:7001:b0:3d3:aec2:4dcd with SMTP id adf61e73a8af0-3de9e6dc7a9mr2517958637.25.1790793530634;
+        Wed, 30 Sep 2026 11:38:50 -0700 (PDT)
+Received: from rahuls-x2elite ([157.51.37.69])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e539e30esm347997a12.3.2026.09.30.11.38.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:38:41 -0700 (PDT)
-Date: Wed, 30 Sep 2026 20:38:39 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	netdev@vger.kernel.org, sashiko-bot@kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Stephen Hemminger <stephen@networkplumber.org>
-Subject: Re: [PATCH net 2/2] netpoll: avoid blocking on the transmit lock in
- queue_process
-Message-ID: <ar1VeFD4pTgsG0i0@gmail.com>
-References: <20260928064239.32456-1-kmehltretter@gmail.com>
- <20260928064239.32456-3-kmehltretter@gmail.com>
- <20260929064307.569CE1F000FF@smtp.kernel.org>
+        Wed, 30 Sep 2026 11:38:49 -0700 (PDT)
+From: Rahul Pon <theflyingrahul@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sean Paul <sean@poorly.run>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH msm-next v2] drm/msm/a8xx: report the GMEM size of the active slices
+Date: Thu,  1 Oct 2026 00:08:39 +0530
+Message-ID: <20260930183840.1171-1-theflyingrahul@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929064307.569CE1F000FF@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 06:43:06AM +0100, sashiko-bot@kernel.org wrote:
-> > +			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
-> > +			return;
-> 
-> [Severity: High]
-> Does this schedule an excessively long delay when encountering a transient
-> spinlock contention?
+A8xx GPUs split GMEM evenly between their slices, and parts can have
+slices fused off: a8xx_gpu_get_slice_info() reads the active slice mask
+and folds the slice count into the chip ID. The GMEM size reported to
+userspace (MSM_PARAM_GMEM_SIZE) is still the catalog value for all
+slices, so on a part with fused-off slices userspace would size its
+tiles and place its CCU caches past the end of the GMEM that exists.
 
-Yes, HZ / 10 is too long for transient TX-lock contention. I've changed
-it in v2 to retry after one jiffy. The existing HZ / 10 backoff remains
-for a stopped transmit queue or NETDEV_TX_BUSY.
+Qualcomm's downstream driver reports GMEM for the active slices:
+gen8_get_gmem_size() in KGSL divides the GMEM size by the number of
+physical slices and multiplies it by the number of active ones. Do the
+same when reading the slice mask. The GMEM protection and UCHE setup
+still cover the full range, as in KGSL.
 
-Karl
+Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
+Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
+---
+Changes in v2:
+- Reword the commit message without the device it was found on
+- Parenthesize the GMEM expression and keep it on one line
+- Link to v1: https://lore.kernel.org/r/20260930111711.1160-1-theflyingrahul@gmail.com
+
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c   | 3 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 ++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+index add93c1fa0..2f6f36fb8b 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -112,6 +112,9 @@ void a8xx_gpu_get_slice_info(struct msm_gpu *gpu)
+ 	/* Chip ID depends on the number of slices available. So update it */
+ 	adreno_gpu->chip_id |= FIELD_PREP(GENMASK(7, 4), hweight32(slice_mask));
+ 
++	/* GMEM is split evenly between slices: report the active share */
++	adreno_gpu->gmem = (adreno_gpu->info->gmem / info->max_slices) * hweight32(slice_mask);
++
+ 	/* Update the gpu-name to reflect the slice config: */
+ 	const char *name = devm_kasprintf(dev, GFP_KERNEL,
+ 			"%"ADRENO_CHIPID_FMT,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 5832dc25d6..dadfe4c694 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -379,7 +379,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+ 		*value = adreno_gpu->info->revn;
+ 		return 0;
+ 	case MSM_PARAM_GMEM_SIZE:
+-		*value = adreno_gpu->info->gmem;
++		*value = adreno_gpu->gmem;
+ 		return 0;
+ 	case MSM_PARAM_GMEM_BASE:
+ 		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
+@@ -1205,6 +1205,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	adreno_gpu->funcs = funcs;
+ 	adreno_gpu->info = config->info;
+ 	adreno_gpu->chip_id = config->chip_id;
++	adreno_gpu->gmem = config->info->gmem;
+ 
+ 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
+ 	gpu->pdev = pdev;
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 114a40f79e..8e6a881036 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -204,6 +204,8 @@ struct adreno_gpu {
+ 	struct msm_gpu base;
+ 	const struct adreno_info *info;
+ 	uint32_t chip_id;
++	/* GMEM size available to userspace, see a8xx_gpu_get_slice_info(): */
++	uint32_t gmem;
+ 	uint16_t speedbin;
+ 	const struct adreno_gpu_funcs *funcs;
+ 
+
+base-commit: d33622598496c8994c35ba0a8a913de064dfc1a4
+-- 
+2.53.0
+
