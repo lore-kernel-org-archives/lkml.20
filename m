@@ -1,56 +1,56 @@
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B112C4D4899
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD454C650B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772548; cv=none; b=NTCFnCfd7fKzTbtIAMNkMsG7mxXVNdcugIIqqQKaiEFvAaxsPm1s2958FBW/+4rVSi7uryzI2zRZrwj6y2snhk/w0egNWKyiB4dABJdzRyY4QOiYd5OliiUrWkpecboYOTK3PqiyAdRj4a4RYfr3pd+MxoUmFRMXEga/9SY2cDQ=
+	t=1790772553; cv=none; b=PVb1biGQekfUSGxRO30MT2dGpaDb9PcBhkJsb2WZjhsRK+WRoHYKmGKUNACSnQv8cVeFUNU7vtC5L+znDyRV/2wCjD4LkpA+vfFOoJjieLIOwD5w7lisqpemRlMglHrhXoWU2GFAo5ZeBMs4x5Q6TlpeNOGcK36/5Jw0wOkR4LM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772548; c=relaxed/simple;
-	bh=wDqQEHeexHbDetU+PIWj4LWacJQ70vCFskpK210m9Uc=;
+	s=arc-20240116; t=1790772553; c=relaxed/simple;
+	bh=vGGDVjLC09s48U3k1qX7gwjaijwncQ7MReLddgaTPd4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=O9A/ekouKDxawxUOzw7jPzUZfJuE8dmpnpcP7sF+65iwl6HwvzxcqASjvPiQtIc0O12VUYRbHjiFdVv4opcblk4ZRWDAn1uOcezsuVSgTR51WsnShme1hhcwPJ/9YOxzP9NnK8Vm3AGJVgR1u4IHfaw0MKXwJ1EmoSVu/RC64Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sDC5mqB0; arc=none smtp.client-ip=209.85.218.69
+	 To:Cc:Content-Type; b=k5ojTVegkO7Z49q/n2FdiMTVPgg5MMuZvrig7hvdQLpPvLuMCHDWPP+Gvz2DFYx6/hFVnsu9zxEjGcAkLRTvakHQ/ypUCOihLL4BoPYaTM6bFIAp1Z5v6STdW1qF6dBqGJ62oiiGBndjFg9BdcVNaiaTZ22ripZu6IGNSAfrFOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q3R1De6p; arc=none smtp.client-ip=209.85.221.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sDC5mqB0"
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c210c66672eso713073466b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:49:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q3R1De6p"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f2de3ba47so4065574f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:49:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790772538; x=1791377338; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790772539; x=1791377339; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dVNexAVC0V5li+k/F16CN+7KdwSpTXSAvB2yMa317GU=;
-        b=sDC5mqB0dbJdeufHtpGZMcCXupPxUd9Isuo/BiH/Gjen74BsGx9v8kvpc3GuWCyUAC
-         xXZ/1GKY5ezuTW+TLl7w+jnbd3SITuYQXpnYeAMDWJ7A6GnfIAhXz/3ZNIc92leMxllD
-         2MphEcjo8hDYr27jp03LkSQzrbq+38DMKnuQwEwclIAgFEVwTXhEo1issydO3oynfimZ
-         mUdQVRWgwTxq7N1ijtHnw1u3yoqkpsZPAaUn+0IIbd9rg/W5CF2j7g+SYlN8/hPbktNx
-         6L8KUD5i/EqBUl/iHrKhRLEmGJHKUlhLyZ9RcGK43XW84ov4LH/ByXc1d4QHd9Nv6Vyh
-         rXrA==
+        bh=blqXgq5EGfKzLgsqXCTXwzj804Jg40uRL0YfTN/510s=;
+        b=Q3R1De6pnXqv76jmq7u+N9Hx4+89E0wxSxpxVU5diXjO44qJSn2gJ6p2R1sIxtWRQA
+         IQBnSE3IPxYjVAoyQnGeffJyU2OdiG2tsMAhuU9r2bfrd9oK7+PWKC0A43Znj5JUCtE0
+         5fOfjLfqY1HfsD7Mm03Ng24M1zH9NAV5QSP0MaHWEPThEkDUbcHCRPUgl6GEgn2pM03I
+         vstJOuf+nqHEvrvbMB3kpE1DRqYYpyGYy73jtVHGyUGX1Gzx0NDvqLog+MOBZSoBNqAM
+         R0hAjBavAtgRzrqG9SjLSXXNSNzsYiEuyTYWRTJEC8/AKdpCUbYPl1QtzWiQAOjIvPT/
+         uVYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790772538; x=1791377338;
+        d=1e100.net; s=20260707; t=1790772539; x=1791377339;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dVNexAVC0V5li+k/F16CN+7KdwSpTXSAvB2yMa317GU=;
-        b=IyeqjbCW1EsmqdekalX6BqXmd0eC9IDOTH2jjKjzyFH5ecTTI68EX67vsgtfTGkBZc
-         9mGi+Pb9rYbiQyNgZk8eLyMCQtARp+CfqOBf8QA8dYY1qPIda5MnWZTBV71/U3aPymCQ
-         sbEfWVX7Rw+FYrYJSWojiXYc12ltQBPO93VgubCPw0GQcP0CdMqtqM+sYtWrFXP4nPJI
-         d+22jDrH7oKsfafku/4/tBKvZbXyJ9cnByquOZPxn+pjgiAmZ6irybmis4n9NzG6dCTa
-         re6bhUioB9Z/HWjGbkqJsJC54xz71DuniOrCKCpf5jTWBkFT02EP2GAslrxwgPRskXyE
-         Is8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzgD54vH7ZTW8hRTDPxuVWx5HvBXmNMHzWkrs5YGXaneHs5Mj+94LJLtRUSre8AUdmc57c+qFoToHW8LvI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncNZBuZLqB4zoAMZHZvJPnKJuC5WHr2LkAdePYKFK7rGB2JeDV
-	E8x+/mN3FD1SGehy1XxcvSIapOK17u1SCFbTF4ppLE8FBiIzzZ3UwJquOjQA9A01ZLMH9KfdnfZ
-	8EwcyumWZfadJIle1Xg==
-X-Received: from ejri23.prod.google.com ([2002:a17:906:6997:b0:c2d:23a4:edf3])
+        bh=blqXgq5EGfKzLgsqXCTXwzj804Jg40uRL0YfTN/510s=;
+        b=f9gxjvBuj4jtfNGBd+wLDta1A7/UwOpIWCeu9RF5fkSMDOCzU/jjpPHHq/dEf+g8to
+         ZQhitfmPiJYqaAwwjWCg++oc92zkP4C87j7rd5GX/+OtGH/fq69C9ehsA7gQ/zVnr9JP
+         sypURS0yQsYymepRYvaGYNp0PkQR1v4ASRw7JvvcZWHwfBcWQUyJplQh1g4UvzSbekY7
+         4L0XFMDAzjITFpLNbUkgtgPqFWliMBkMFY68tLlEpfcvckCTiaxWJBfQ0+DHrjkMPSrN
+         EGqUe7uba1LiFlwivyWVp7jA1UBBfx8EQc4LQh9QIancbZJLHhWIuKtQMVOIC13v4fwP
+         /crA==
+X-Forwarded-Encrypted: i=1; AKwUvBzb9bv0LP6szwBZlmiATKC6exyx6wpAuzSxXDOIvjVJbLLDW7Xb02SGQJcwvTiJLmfZMjFCJ/cELi9/Jf4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfBcdKX+qVdQBJERYClIy+P45RF4ooaU1rtOCNhJe8iNXxOiPm
+	PFc/f4JDcrlqj6gDwHvxK7kNdFxiShuCYWCUuDma3gX3Mi0kEO5xsd2sfrZx7PRs2OCdxXDG2RF
+	KTLLPypb8G+tT6/Wx6g==
+X-Received: from wrye16.prod.google.com ([2002:a05:6000:1950:b0:48a:fae6:ea9f])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:7208:b0:c2e:969:a4b0 with SMTP id a640c23a62f3a-c2e23cf74d8mr117438966b.38.1790772537773;
- Wed, 30 Sep 2026 05:48:57 -0700 (PDT)
-Date: Wed, 30 Sep 2026 12:48:42 +0000
+ 2002:a05:6000:144e:b0:487:360:58d8 with SMTP id ffacd0b85a97d-48b02522883mr2802123f8f.46.1790772539247;
+ Wed, 30 Sep 2026 05:48:59 -0700 (PDT)
+Date: Wed, 30 Sep 2026 12:48:43 +0000
 In-Reply-To: <20260930-binder-transaction-log-v1-0-3d832fb30388@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,22 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930-binder-transaction-log-v1-0-3d832fb30388@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1066; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=wDqQEHeexHbDetU+PIWj4LWacJQ70vCFskpK210m9Uc=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqvQU2BFFh0KH0ZXKTw+QSI/Cr7JUn+q8DrwVkR
- hgri6PRhn6JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCar0FNgAKCRAEWL7uWMY5
- RjJED/93ufabr1xR5jeYtifrnwaBiMPJTpvMKlznunkVDGSVCedE+pbZI5qAODNlXOEBgLw5JUN
- BcyQVHehdoe9AVG+hpLl4cr4jqAKoRle7SW9ul8vVldbKj1bQykmDWXyXvg3ltCr9GxbQff/6lQ
- 6V1t0qkZsKq1NinQ1EeAkUKAahD1WzNMjkJSE3die8Qvxh/4V1i5J/zJ2Hev++zuEDs8GhPSzRW
- plD16KFFlLNr+N2CBGxsWIyMjdYEVWaFUaepkED4ibD2aeCF+YvaTV4CDqKHnMDAsrcSzvAKqCg
- a9OrACtcQtSj2c+pMCNTtrsvnnouqcbFv5+qeTec5o0VBcYvx1SwJXIPEYf85sGgA8cIJV9kA6q
- XK0fcHh0lVUVUjeAuwdxkqrY3t7GwtyJLtA+z04VZI99GsAKkGz14bCvstvVuAeEWgcNn1bAbwa
- x7cBhM3hckG7poUlmaOvmVZt2MRUn65QndOSvw//j2KRWD9h1U2YGYvl8flvv6PEjcG0XyuwfGA
- KagFZj9uf8djslrqBmhlBiGyuixFQZ3jLoLVgnkqM6FTXdUx34ctwkoC2zCT3U4cbTc9TCy7G35
- tPrWh1HkqmLSZwDm+ZqtAxTHXZNMXQWx061N4m0OyPjuK6fLJgHMVKEyEzL60QxBa745RYSv2nf IZOpYo4T+9gRj0A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7267; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=vGGDVjLC09s48U3k1qX7gwjaijwncQ7MReLddgaTPd4=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqvQU2LhyWMoQNdJ1RjV63PLv+GbTotCvRYpVwq
+ UpvJY4ov3qJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCar0FNgAKCRAEWL7uWMY5
+ RnaPD/4g/lVAvpP9Oey+uLu0Sx+q3GaLjT8HHclH2fDJgxjYrH8lGPfREqBDa/8P9D8sOqoYROF
+ bXtuGDuNzdZHBwPwqxaOtFOuscFh1XcLn48whwWG19LAksVqgcJAJufojZfl4BT0BNrzmwhfpAO
+ 7KbwgJVLI97WKftjrzpbTr1bJts/sk8lltd0Urn4f9d/eiDpRGpUtMqd5PIxXWVuUxaW4Sha9Yy
+ U50ShJNuccAMbHktrvRa3GFNJk0btizyTq44tX4FDacukJHU4M8kJaJYqU8Brt0BHQzA2BPPz3c
+ +TuAnWoC++p0aq5PN4EeTALIv2ypL9BFKrtJM4FuB9Xc2EXe8JYIJ9BkI2F8J/qKscfLuvEGiYy
+ e4KV5PN4z5vVQrnB2zjA7fPwwSN8SNDh+YLnAOeh/UjnepiTT9aOvIN+0yTf2phf9ogmmsm21fs
+ rwdHjTOrCTQ8a6m/hc6whBIiMjrUjdrO0riHqXFra0kuGv6/90CnqgBuejyBX0aSeK4oZGox8pD
+ mIPcOun3GEdLK7WAkrXxCT/3m7kTRExiuZX/AZXa+iA6jryFVuwk9+XV3xROVuDvMjq+o8Q+cv7
+ fIZqUVyq2ZRZtQJL6VXjbv6R0HCMpDUdxpykS9Rtydf2oJG9X7ibrVVOW5MsiVOBl6+2sNgxQ43 A4+nKvfJxZhJV1Q==
 X-Mailer: b4 0.14.3
-Message-ID: <20260930-binder-transaction-log-v1-1-3d832fb30388@google.com>
-Subject: [PATCH 1/3] rust_binder: start debug_id at 1
+Message-ID: <20260930-binder-transaction-log-v1-2-3d832fb30388@google.com>
+Subject: [PATCH 2/3] rust_binder: track caller location in BinderError
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -87,33 +87,201 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <ga
 	rust-for-linux@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-In the C Binder driver, debug IDs are allocated with
-atomic_inc_return(&binder_last_id), so valid debug IDs start at 1 and 0
-is never assigned.
+Record the caller's location in BinderError using #[track_caller] and a
+new ErrorLocation wrapper around &'static Location<'static> across all
+BinderError constructors and From implementations. ErrorLocation
+implements Display by stripping the directory prefix so locations are
+formatted as filename.rs:line (e.g. process.rs:422).
 
-Start NEXT_DEBUG_ID at 1 in Rust Binder as well so that 0 can be used as
-a sentinel for an absent or uninitialized debug_id (such as in
-TransactionInfo::to_node_debug_id and in transaction log entries).
+In Context::get_manager_node and Process::buffer_alloc, avoid passing
+BinderError::new_dead() or BinderError::from() as function pointers to
+Option::ok_or_else() and Result::map_err() so that #[track_caller]
+captures the call site in rust_binder correctly.
+
+Include the error location in the FailedTransaction debug print and
+prepare for recording it in the binder transaction log. Example output:
+
+  rust_binder: 840:4583 transaction async to 7656:0 failed ESRCH, code 1 size 428-16 line thread.rs:711
 
 Assisted-by: LLM
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- drivers/android/binder/rust_binder_main.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/android/binder/context.rs |  8 ++++----
+ drivers/android/binder/error.rs   | 39 +++++++++++++++++++++++++++++++++++++++
+ drivers/android/binder/process.rs |  5 ++++-
+ drivers/android/binder/thread.rs  |  5 +++--
+ 4 files changed, 50 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 955c4c348f73..e360df991d51 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -96,7 +96,7 @@ fn default() -> Self {
- };
+diff --git a/drivers/android/binder/context.rs b/drivers/android/binder/context.rs
+index ddddb66b3557..bcc97ddaacd7 100644
+--- a/drivers/android/binder/context.rs
++++ b/drivers/android/binder/context.rs
+@@ -134,13 +134,13 @@ pub(crate) fn unset_manager_node(&self) {
+     }
  
- fn next_debug_id() -> usize {
--    static NEXT_DEBUG_ID: Atomic<usize> = Atomic::new(0);
-+    static NEXT_DEBUG_ID: Atomic<usize> = Atomic::new(1);
+     pub(crate) fn get_manager_node(&self, strong: bool) -> Result<NodeRef, BinderError> {
+-        self.manager
++        Ok(self
++            .manager
+             .lock()
+             .node
+             .as_ref()
+-            .ok_or_else(BinderError::new_dead)?
+-            .clone(strong)
+-            .map_err(BinderError::from)
++            .ok_or_else(|| BinderError::new_dead())?
++            .clone(strong)?)
+     }
  
-     NEXT_DEBUG_ID.fetch_add(1, Relaxed)
+     pub(crate) fn for_each_proc<F>(&self, mut func: F)
+diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
+index 1296072c35d9..41b07d687b30 100644
+--- a/drivers/android/binder/error.rs
++++ b/drivers/android/binder/error.rs
+@@ -2,6 +2,7 @@
+ 
+ // Copyright (C) 2025 Google LLC.
+ 
++use core::panic::Location;
+ use kernel::fmt;
+ use kernel::prelude::*;
+ 
+@@ -9,32 +10,65 @@
+ 
+ pub(crate) type BinderResult<T = ()> = core::result::Result<T, BinderError>;
+ 
++/// Wraps a `&'static Location` to format it as `filename.rs:line` without the directory prefix.
++#[derive(Copy, Clone)]
++#[repr(transparent)]
++pub(crate) struct ErrorLocation(&'static Location<'static>);
++
++// SAFETY: `ErrorLocation` is `repr(transparent)` over a shared reference, which is part of the
++// option layout optimization guarantee, so all zeroes is a valid representation for `None`.
++unsafe impl pin_init::ZeroableOption for ErrorLocation {}
++
++impl ErrorLocation {
++    #[track_caller]
++    pub(crate) const fn caller() -> Self {
++        Self(Location::caller())
++    }
++}
++
++impl fmt::Display for ErrorLocation {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        let file = match self.0.file().rsplit_once('/') {
++            Some((_, file)) => file,
++            None => self.0.file(),
++        };
++        write!(f, "{}:{}", file, self.0.line())
++    }
++}
++
+ /// An error that will be returned to userspace via the `BINDER_WRITE_READ` ioctl rather than via
+ /// errno.
+ pub(crate) struct BinderError {
+     pub(crate) reply: u32,
+     pub(crate) source: Option<Error>,
++    pub(crate) line: ErrorLocation,
  }
+ 
+ impl BinderError {
++    #[track_caller]
+     pub(crate) fn new_dead() -> Self {
+         Self {
+             reply: BR_DEAD_REPLY,
+             source: None,
++            line: ErrorLocation::caller(),
+         }
+     }
+ 
++    #[track_caller]
+     pub(crate) fn new_frozen() -> Self {
+         Self {
+             reply: BR_FROZEN_REPLY,
+             source: None,
++            line: ErrorLocation::caller(),
+         }
+     }
+ 
++    #[track_caller]
+     pub(crate) fn new_frozen_oneway() -> Self {
+         Self {
+             reply: BR_TRANSACTION_PENDING_FROZEN,
+             source: None,
++            line: ErrorLocation::caller(),
+         }
+     }
+ 
+@@ -46,25 +80,30 @@ pub(crate) fn is_dead(&self) -> bool {
+ /// Convert an errno into a `BinderError` and store the errno used to construct it. The errno
+ /// should be stored as the thread's extended error when given to userspace.
+ impl From<Error> for BinderError {
++    #[track_caller]
+     fn from(source: Error) -> Self {
+         Self {
+             reply: BR_FAILED_REPLY,
+             source: Some(source),
++            line: ErrorLocation::caller(),
+         }
+     }
+ }
+ 
+ impl From<kernel::fs::file::BadFdError> for BinderError {
++    #[track_caller]
+     fn from(source: kernel::fs::file::BadFdError) -> Self {
+         BinderError::from(Error::from(source))
+     }
+ }
+ 
+ impl From<kernel::alloc::AllocError> for BinderError {
++    #[track_caller]
+     fn from(_: kernel::alloc::AllocError) -> Self {
+         Self {
+             reply: BR_FAILED_REPLY,
+             source: Some(ENOMEM),
++            line: ErrorLocation::caller(),
+         }
+     }
+ }
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 5372bfbd93b3..dcf6ba4bc71b 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -1066,7 +1066,10 @@ pub(crate) fn buffer_alloc(
+ 
+         let (new_alloc, addr) = loop {
+             let mut inner = self.inner.lock();
+-            let mapping = inner.mapping.as_mut().ok_or_else(BinderError::new_dead)?;
++            let mapping = inner
++                .mapping
++                .as_mut()
++                .ok_or_else(|| BinderError::new_dead())?;
+             let alloc_request = match mapping.alloc.reserve_new(reserve_new_args)? {
+                 ReserveNew::Success(new_alloc) => break (new_alloc, mapping.address),
+                 ReserveNew::NeedAlloc(request) => request,
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 18a14aa8a835..0891a36e9cbd 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1310,7 +1310,7 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+ 
+                     binder_debug!(
+                         FailedTransaction,
+-                        "transaction {} to {}:{} failed {:?}, code {} size {}-{}",
++                        "transaction {} to {}:{} failed {:?}, code {} size {}-{} line {}",
+                         if info.is_reply {
+                             "reply"
+                         } else if info.is_oneway() {
+@@ -1323,7 +1323,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+                         err,
+                         info.code,
+                         info.data_size,
+-                        info.offsets_size
++                        info.offsets_size,
++                        err.line
+                     );
+                 }
+             }
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
