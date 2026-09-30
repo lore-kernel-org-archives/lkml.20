@@ -1,47 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D884B331EA4;
-	Wed, 30 Sep 2026 08:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4915D4611CF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758568; cv=none; b=k70UHIbFRbkxZrxs8iAeDPv1ZAuIGM8Rw/CiqLMN3lAudaTJ+da2c3rhS2wlg6g7oI8UYIwk/VJCk9tYd6aAePV9kaqY8h6pzdexZ6yPwPMUEPVfjDYGKQ8I8ZfJD/aY/76OvqPsA96PFYdFeH2huwYMW44rczR8CNJ5e1FUWb8=
+	t=1790758604; cv=none; b=VE4KqZnJp/GvZeB5G7QbWqCqOemJJPJQd46Pcq+Qu2L6vJNX/X5u3Z2RVVNDw++wWsU4fmaZnpr2h/+7jkihsazuGg1Tu4VDq6WaLepQ3hy4O+s2Huc4+35XnjNvZqN0mw5xfF0bPxmMjk4vlgsdanORLeF2OBkRrtYHy4dUrC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758568; c=relaxed/simple;
-	bh=OtlmDjEzOhdqKstpXY7dfzcR7Nv+cf6VxH4Hvby8RD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hbXyZxHbeGF07zY57MLx9uLZouIlDo5r/mOHN9l2or+xfyihpYwgQSJtY+7t/9TffzmoXXB0iia9umP+Hm1Z9HzlkBZde/tp9YQVaRH3mGPojKAzFkWJ+IHIKjHedOcuoz6D3nM77I9+XuOs6jpfqGn6VEUqRuJtlBEDc12uo6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqFHVofN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790758604; c=relaxed/simple;
+	bh=oAk9CTHOeEEgac07xVr7ONG4c89i0VcXBB26FcNwNAk=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=uImJW0idNnmIGQppiOTLMMkaBJ+OemtdbjMc8DyQ7r2g+HsSiOeiCxzPrU6IpIQaWMFUE1bEDoKsdR3UWuJTJdFyQQpKoVsBQ6qHAz7ZPxnKPX9patyFrH8c0NesufJHbD7d4y2aKIfHeZTBBwxKyR8C1/0q62HqsFBfdy2R9rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LaiRlkaZ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqFHVofN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833BA1F000FF;
-	Wed, 30 Sep 2026 08:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790758566;
-	bh=sYPjnCbAgZIi3AiT+FWm5Nd5exsKvc5ZrIAbenlDVCI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SqFHVofNhmK4pHxg9u2KPmfAkp9FMXNocokWn1aNa+EWPttpDkZ/LjUIxEt4lzNCO
-	 kQ3BVp9f2EIlrYBo1PoPSZ08FrFQ72PCRULosHZFVWPf5sbiXbxg+PO0sOq9r41rra
-	 NWeXBlsj2MH7JmtUWZ/jGMhntq29eT9OaZQ4ysTgN8c87TbLPg+6ssG13OQrissyuU
-	 8Om2M0pb6ikSkSDcbj6R1NwIkoibsoVvXZW12Gu5Hx1r/vaiyEO2y2D6qjsgKwwGSv
-	 xbJScNoKqO95qaF0QhpsDNBln2+g5AucGvgHqURIt311uuoKjYKzJcrrgORnUtEvuT
-	 /IKjgyZirMYLQ==
-From: Niklas Cassel <cassel@kernel.org>
-To: dlemoal@kernel.org,
-	hengyul@cs.unc.edu
-Cc: Niklas Cassel <cassel@kernel.org>,
-	mkp@kernel.org,
-	ipylypiv@google.com,
-	linux-ide@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
-Date: Wed, 30 Sep 2026 10:55:21 +0200
-Message-ID: <179075848958.1151028.10537312460612176838.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929164135.266708-1-hengyul@cs.unc.edu>
-References: <20260929164135.266708-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LaiRlkaZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso15873555e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:56:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790758596; x=1791363396; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KB63AmDfCzUIzXvzx7Y0obbjfVyZCi8GFe+cdX17Bpc=;
+        b=LaiRlkaZSn8qZlWGc95pYo1CJy3eBH6SAUDMyDeZF1vG+fl16mVgbmL/wc9FvRTDTq
+         4pvv1tLzAdsefcP+FoYRwvIZKE1RxwMkKWlFbKp6VtIark/hd42RS6Ne0au3SMgWlg5C
+         BfZG0LccmF4pE4LdRKpBJS3E7qE2fm01SfyhxezQQ1BdM1YcYCqDXVwEAK1dj8ni6QjF
+         D9mU64NWfzP0/35YDQAcozpP3+QAIrSdTqz9G8uT/dLvRRXlqUs/ofdM2Pw3SFHxYZrt
+         NedEE11nhF6KeeFwNZL1GRwhCkuw94mUQsrfW96hjnsxdH25gpc7zEww4HtGL3No74GW
+         Ipfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758596; x=1791363396;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KB63AmDfCzUIzXvzx7Y0obbjfVyZCi8GFe+cdX17Bpc=;
+        b=iLDOIQRKJoUBGvYLo52mNIiaOeOGWNStWoPigxQ3O18a6uEeNLxTcD7Q3dY6vvpY4B
+         gAZDdPjCIDNGcxATCP6YtTt969GudxlnFVKn8K9UfD/wVfEzbo6WQFgYKXKlOrvzEbwT
+         EwjcUjP4f4wsOve8lKTcWDorUapI3c7oMHks6N2fymbp+8DWEDKkd/X2aTFancAl8UYj
+         u1cNnoFXOktxpWW779WX79DuqA5kUZnaaDyBEts+VWcFXcz+wdQoKUg7i7mUkpfU7ImX
+         wuU3K1gw1vIqU7ed8FD1dJAMNmiZe58xm7uar04dR2L8II8TZYDUY2Nuk9H194PHnfkV
+         sE1g==
+X-Forwarded-Encrypted: i=1; AKwUvBync0mYbxGBuqAHyFBWojUExXEXnoORKKIR1dshsN29CcalgE9nClRHgIsdjlg3BHNNahyOZgQisle9c1M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNcXgTL4SvAzi8csH7gvGUTSo47xrYnFWHxXJb/DERB9TcU5tv
+	gm1lWLkgHq99y9AwxYSVoMevz54xfcgS3Sn12se/lvmAG3ayyQjS6J6om0Uu1mzBHYk=
+X-Gm-Gg: AYBFou0xff5hCoGsbDqntoKKNpi2OCBBgzjuNjB+FKdaBLfYjiDfwHucBZ4GRFPW/uW
+	Do16PPSVqkakENLTQNpznF6QQgZqOLc4rfYf/z2PlIVqApXwJDphEXKjyX+dT1o+j96MPKn+y4L
+	oNVnfWDqkeroVqAhW1XojGen0lc8E0qXvksiEwn2rTkhM+LryYHSkJi9tV4m5xqBmqgaOrbWU42
+	HUgc4yrH6RpyRXKQwTDiOFapcZa5lPTvDHCXplOwThhClVKgaFmKj1ga+NPhQIhg054mpSYzoiK
+	btcDrYuYQ2/fmzT+wH0m/9qQjQiTFzfdFSte0JYBAOFs8iCIt0TbSRuX3dT6VMJdREmxrCW9Q1Y
+	gfdZpV3v6d60sVwi2SKYiOJ2Cfv/vi0THHbu4vVI/4VzXvmpWxVnK940XB2OqYuk5gGg38yRoyi
+	vR9an/3M/lQUZMYOCHb2kpCi7Ju+0/AqzOZFOh3MKxWvI1yJp/XidMIRnuLrjyWeuhV5LXgTNiJ
+	ZHLJRQd0Q+QLYzl/g==
+X-Received: by 2002:a05:600c:3145:b0:49f:ce73:7a9 with SMTP id 5b1f17b1804b1-4a01b0072cfmr11716995e9.34.1790758596318;
+        Wed, 30 Sep 2026 01:56:36 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017b7337bsm22084495e9.3.2026.09.30.01.56.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:56:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,34 +67,659 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=cassel@kernel.org; h=from:subject:message-id; bh=OtlmDjEzOhdqKstpXY7dfzcR7Nv+cf6VxH4Hvby8RD4=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLL2nKtyiO9apCEuz1cY1+7wP+W35bTH9xdvO+mg1/Pza A/rAv+/HaUsDGJcDLJiiiy+P1z2F3e7TzmueMcGZg4rE8gQBi5OAZgIxzpGhr/va+3NvUvnnV9u O0Xyw/aNnApffqcXyt92vr/qKYt3zE6G/7XLFrn65Ag21DJY/fm2TvPN82dN2iWF7q8+qbXslAr ayA8A
-X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock
+ driver
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Emil Renner Berthing <kernel@esmil.dk>, 
+ Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, 
+ Alexey Charkov <alchark@gmail.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, Hal Feng <hal.feng@starfivetech.com>
+In-Reply-To: <20260828095608.19955-3-changhuang.liang@starfivetech.com>
+References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+ <20260828095608.19955-3-changhuang.liang@starfivetech.com>
+Date: Wed, 30 Sep 2026 10:56:34 +0200
+Message-Id: <179075859479.1471718.5492634704694937513.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20132; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=oAk9CTHOeEEgac07xVr7ONG4c89i0VcXBB26FcNwNAk=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFl7zh0uD9ILEv+2qWJ/WauC68Gcv59nLSmxzClJmZvRs
+ PbSwS6ejlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAExkRSrDP9WKvjuCi4/Nk6th
+ jWARie2SPCsiwjDHpy/19fxbF0qPsDP8d7m9/sJZpiu1vAoTjFi/3vCOaZoWs6d6x3aPefGxX58
+ xMQAA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Tue, 29 Sep 2026 12:41:35 -0400, hengyul@cs.unc.edu wrote:
-> Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
-> on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
-> failed command only if cmd->result is zero, so that the DID_TIME_OUT or
-> DID_REQUEUE host byte of a terminated command is preserved.
+On 2026-08-28 02:56 -0700, Changhuang Liang wrote:
+> Add system-0 domain PLL clock driver for StarFive JHB100 SoC.
 > 
-> However, cmd->result can also be non-zero for a regular failed ATAPI
-> command completed through libata EH: ata_eh_analyze_tf() calls
-> ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
-> data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
-> midlayer internal byte of the result for some sense codes, e.g.
-> SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
-> COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
-> SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
-> ERROR). For such commands, atapi_qc_complete() keeps the result as is and
-> the command completes with a GOOD status byte, even though it failed and
-> valid sense data is available.
+> This driver is instantiated either as an MFD cell of the sys0 system
+> controller (added in a later patch) or by matching the per0/per1 syscon
+> nodes directly.
 > 
-> [...]
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Xingyu Wu <xingyu.wu@starfivetech.com>
+> ---
+>  drivers/clk/starfive/Kconfig                  |  10 +
+>  drivers/clk/starfive/Makefile                 |   1 +
+>  .../clk/starfive/clk-starfive-jhb100-pll.c    | 524 ++++++++++++++++++
+>  3 files changed, 535 insertions(+)
+>  create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-pll.c
+> 
+> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
+> index 852464949334..2603d054173f 100644
+> --- a/drivers/clk/starfive/Kconfig
+> +++ b/drivers/clk/starfive/Kconfig
+> @@ -117,6 +117,16 @@ config CLK_STARFIVE_JHB100_PER3
+>  	  Say yes here to support the peripheral-3 clock controller
+>  	  on the StarFive JHB100 SoC.
+>  
+> +config CLK_STARFIVE_JHB100_PLL
+> +	bool "StarFive JHB100 PLL clock support"
+> +	depends on ARCH_STARFIVE || COMPILE_TEST
+> +	select STARFIVE_JHB100_SOCINFO
+> +	select MFD_SYSCON
+> +	default ARCH_STARFIVE
+> +	help
+> +	  Say yes here to support the PLL clock controller on the
+> +	  StarFive JHB100 SoC.
+> +
+>  config CLK_STARFIVE_JHB100_SYS0
+>  	bool "StarFive JHB100 system-0 clock support"
+>  	depends on ARCH_STARFIVE || COMPILE_TEST
+> diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefile
+> index f00690f0cdad..547a8c170728 100644
+> --- a/drivers/clk/starfive/Makefile
+> +++ b/drivers/clk/starfive/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER0)		+= clk-starfive-jhb100-per0.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_PER1)		+= clk-starfive-jhb100-per1.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_PER2)		+= clk-starfive-jhb100-per2.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_PER3)		+= clk-starfive-jhb100-per3.o
+> +obj-$(CONFIG_CLK_STARFIVE_JHB100_PLL)		+= clk-starfive-jhb100-pll.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+= clk-starfive-jhb100-sys0.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS1)		+= clk-starfive-jhb100-sys1.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS2)		+= clk-starfive-jhb100-sys2.o
+> diff --git a/drivers/clk/starfive/clk-starfive-jhb100-pll.c b/drivers/clk/starfive/clk-starfive-jhb100-pll.c
+> new file mode 100644
+> index 000000000000..e23365164497
+> --- /dev/null
+> +++ b/drivers/clk/starfive/clk-starfive-jhb100-pll.c
+> @@ -0,0 +1,524 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * StarFive JHB100 PLL Clock Generator Driver
+> + *
+> + * Copyright (C) 2024 StarFive Technology Co., Ltd.
+> + *
+> + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/debugfs.h>
+> +#include <linux/device.h>
+> +#include <linux/kernel.h>
+> +#include <linux/math64.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/units.h>
+> +
+> +#include <dt-bindings/clock/starfive,jhb100-crg.h>
+> +
+> +/* this driver expects a 25MHz input frequency from the oscillator */
+> +#define JHB100_PLL_OSC_RATE		(25 * HZ_PER_MHZ)
+> +
+> +/* System-0 domain PLL */
+> +#define JHB100_PLL2_OFFSET		0x00
+> +#define JHB100_PLL3_OFFSET		0x0c
+> +#define JHB100_PLL4_OFFSET		0x18
+> +#define JHB100_PLL5_OFFSET		0x24
+> +
+> +#define JHB100_PLL_CFG0_OFFSET		0x0
+> +#define JHB100_PLL_CFG1_OFFSET		0x4
+> +#define JHB100_PLL_CFG2_OFFSET		0x8
+> +
+> +#define JHB100_PLLX_CFG0(offset)	((offset) + JHB100_PLL_CFG0_OFFSET)
+> +/* fbdiv value should be 16 to 4095 */
+> +#define   JHB100_PLL_FBDIV			GENMASK(13, 2)
+> +#define   JHB100_PLL_FOUTPOSTDIV_EN		BIT(14)
+> +#define   JHB100_PLL_FOUTVCOP_EN		BIT(16)
+> +
+> +#define JHB100_PLLX_CFG1(offset)	((offset) + JHB100_PLL_CFG1_OFFSET)
+> +/* frac value should be decimals multiplied by 2^24 */
+> +#define   JHB100_PLL_FRAC			GENMASK(23, 0)
+> +#define   JHB100_PLL_LOCK			BIT(24)
+> +
+> +#define JHB100_PLLX_CFG2(offset)	((offset) + JHB100_PLL_CFG2_OFFSET)
+> +#define   JHB100_PLL_PD				BIT(13)
+> +#define   JHB100_PLL_POSTDIV			GENMASK(15, 14)
+> +#define   JHB100_PLL_REFDIV			GENMASK(23, 18)
+> +
+> +#define JHB100_PLL_TIMEOUT_US		1000
+> +#define JHB100_PLL_INTERVAL_US		100
+> +
+> +struct jhb100_pll_preset {
+> +	unsigned long freq;
+> +	u32 frac;			/* frac value should be decimals multiplied by 2^24 */
+> +	unsigned fbdiv		: 12;	/* fbdiv value should be 16 to 4095 */
+> +	unsigned refdiv		: 6;
+> +	unsigned postdiv	: 2;
+> +	unsigned foutpostdiv_en	: 1;
+> +	unsigned foutvcop_en	: 1;
+> +};
+> +
+> +struct jhb100_pll_info {
+> +	const char *name;
+> +	const struct jhb100_pll_preset *presets;
+> +	unsigned int npresets;
+> +	unsigned long flags;
+> +	u8 offset;
+> +	bool continuous;
+> +};
+> +
+> +#define _JHB100_PLL(_idx, _name, _presets, _npresets, _offset, _flags, _cont)	\
+> +	[_idx] = {							\
+> +		.name = _name,						\
+> +		.offset = _offset,					\
+> +		.presets = _presets,					\
+> +		.npresets = _npresets,					\
+> +		.flags = _flags,					\
+> +		.continuous = _cont,					\
+> +	}
+> +
+> +#define JHB100_PLL(idx, name, presets, npresets, offset, cont)			\
+> +	_JHB100_PLL(idx, name, presets, npresets, offset, 0, cont)
+> +
+> +struct jhb100_pll_match_data {
+> +	const struct jhb100_pll_info *pll_info;
+> +	int num_pll;
+> +};
+> +
+> +struct jhb100_pll_data {
+> +	struct clk_hw hw;
+> +	unsigned int idx;
+> +};
+> +
+> +struct jhb100_pll_priv {
+> +	struct regmap *regmap;
+> +	const struct jhb100_pll_match_data *match_data;
+> +	struct jhb100_pll_data pll[];
+> +};
+> +
+> +struct jhb100_pll_regvals {
+> +	u32 fbdiv;
+> +	u32 frac;
+> +	u32 postdiv;
+> +	u32 refdiv;
+> +	bool foutpostdiv_en;
+> +	bool foutvcop_en;
+> +};
+> +
+> +static struct jhb100_pll_data *jhb100_pll_data_from(struct clk_hw *hw)
+> +{
+> +	return container_of(hw, struct jhb100_pll_data, hw);
+> +}
+> +
+> +static struct jhb100_pll_priv *jhb100_pll_priv_from(struct jhb100_pll_data *pll)
+> +{
+> +	return container_of(pll, struct jhb100_pll_priv, pll[pll->idx]);
+> +}
+> +
+> +static int jhb100_pll_prepare(struct clk_hw *hw)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +
+> +	return regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
+> +				  JHB100_PLL_PD, 0);
+> +}
+> +
+> +static void jhb100_pll_unprepare(struct clk_hw *hw)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +
+> +	regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
+> +			   JHB100_PLL_PD, JHB100_PLL_PD);
+> +}
+> +
+> +static int jhb100_pll_is_prepared(struct clk_hw *hw)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = regmap_read(priv->regmap, JHB100_PLLX_CFG2(info->offset), &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return !(val & JHB100_PLL_PD);
+> +}
 
-Applied to libata/linux.git (for-7.3-fixes), thanks!
+Why are you using prepere_ ? Are you register access on a slow bus like i2c ?
 
-[1/1] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
-      https://git.kernel.org/libata/linux/c/bc8ce2ce
+> +
+> +static int jhb100_pll_regvals_get(struct regmap *regmap,
+> +				  const struct jhb100_pll_info *info,
+> +				  struct jhb100_pll_regvals *val)
+> +{
+> +	u32 value;
+> +	int ret;
+> +
+> +	ret = regmap_read(regmap, JHB100_PLLX_CFG0(info->offset), &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val->fbdiv = FIELD_GET(JHB100_PLL_FBDIV, value);
+> +	val->foutpostdiv_en = !!FIELD_GET(JHB100_PLL_FOUTPOSTDIV_EN, value);
+> +	val->foutvcop_en = !!FIELD_GET(JHB100_PLL_FOUTVCOP_EN, value);
+> +
+> +	ret = regmap_read(regmap, JHB100_PLLX_CFG1(info->offset), &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val->frac = FIELD_GET(JHB100_PLL_FRAC, value);
+> +
+> +	ret = regmap_read(regmap, JHB100_PLLX_CFG2(info->offset), &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val->postdiv = FIELD_GET(JHB100_PLL_POSTDIV, value);
+> +	val->refdiv = FIELD_GET(JHB100_PLL_REFDIV, value);
+> +
+> +	return 0;
+> +}
 
-Kind regards,
-Niklas
+Looks like a bit of churn to me ? Can you just read the field when you need them
+
+> +
+> +static unsigned long jhb100_pll_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	struct jhb100_pll_regvals val;
+> +	u32 power = 0;
+> +	u64 rate;
+> +	int ret;
+> +
+> +	ret = jhb100_pll_regvals_get(priv->regmap, &priv->match_data->pll_info[pll->idx], &val);
+> +	if (ret)
+> +		return 0;
+> +
+> +	/*
+> +	 *
+> +	 * if (foutvcop_en)
+> +	 *      rate = parent * (fbdiv + frac / 2^24) / refdiv
+> +	 *
+> +	 * if (foutpostdiv_en)
+> +	 *      rate = parent * (fbdiv + frac / 2^24) / refdiv / 2^(postdiv + 1)
+> +	 *
+> +	 * parent * (fbdiv + frac / 2^24) = parent * fbdiv + parent * frac / 2^24
+
+This show the overcomplexity you've put in this driver by mixing toghether the PLL with the 2 skip-able post dividre
+You could simply decribe the topology.
+* 1 PLL
+* 2 Post-divider and 2 muxes to skip them.
+
+CCF already provide the helper for those.
+
+> +	 */
+> +
+> +	if (!!val.foutvcop_en == !!val.foutpostdiv_en || !val.refdiv)
+> +		return 0;
+> +
+> +	rate = mul_u32_u32(parent_rate, val.frac) >> 24;
+> +
+> +	if (val.foutpostdiv_en)
+> +		power = val.postdiv + 1;
+> +
+> +	rate += mul_u32_u32(parent_rate, val.fbdiv);
+> +	rate = div_u64(rate, (u64)val.refdiv << power);
+> +
+> +	return rate;
+> +}
+> +
+> +static int jhb100_pll_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +	const struct jhb100_pll_preset *selected = &info->presets[0];
+> +	unsigned int idx;
+> +
+> +	/* if the parent rate doesn't match our expectations the presets won't work */
+> +	if (req->best_parent_rate != JHB100_PLL_OSC_RATE) {
+> +		req->rate = jhb100_pll_recalc_rate(hw, req->best_parent_rate);
+> +		return 0;
+
+Yet you still return a rate. Are you preset, which presumably describe some constraints
+for fractional multiplier properly described ?
+
+Add just below you do not care for the preset ...
+
+> +	}
+> +
+> +	/* continuous means support any rate */
+> +	if (info->continuous)
+> +		return 0;
+
+??
+
+I somehow doubt that you support everything down to the 1 Hz. You still must determine
+what you will provide.
+
+> +
+> +	/* find highest rate lower or equal to the requested rate */
+> +	for (idx = 1; idx < info->npresets; idx++) {
+> +		const struct jhb100_pll_preset *val = &info->presets[idx];
+> +
+> +		if (req->rate < val->freq)
+> +			break;
+> +
+> +		selected = val;
+> +	}
+> +
+> +	req->rate = selected->freq;
+
+Instead of storing plain rate in your preset table, you could just store the multiplier you
+support and let reclac_rate do the job
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int jhb100_pll_set_preset(struct clk_hw *hw, const struct jhb100_pll_preset *val)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +	unsigned int value, cfg;
+> +	int ret;
+> +
+> +	cfg = FIELD_PREP(JHB100_PLL_FBDIV, (u32)val->fbdiv) |
+> +	      FIELD_PREP(JHB100_PLL_FOUTPOSTDIV_EN, (u32)val->foutpostdiv_en) |
+> +	      FIELD_PREP(JHB100_PLL_FOUTVCOP_EN, (u32)val->foutvcop_en);
+> +
+> +	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG0(info->offset),
+> +				 JHB100_PLL_FBDIV | JHB100_PLL_FOUTPOSTDIV_EN |
+> +				 JHB100_PLL_FOUTVCOP_EN, cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG1(info->offset), JHB100_PLL_FRAC,
+> +				 FIELD_PREP(JHB100_PLL_FRAC, val->frac));
+> +	if (ret)
+> +		return ret;
+> +
+> +	cfg = FIELD_PREP(JHB100_PLL_REFDIV, (u32)val->refdiv) |
+> +	      FIELD_PREP(JHB100_PLL_POSTDIV, (u32)val->postdiv);
+> +
+> +	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
+> +				 JHB100_PLL_REFDIV | JHB100_PLL_POSTDIV, cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* waiting for PLL to lock */
+> +	return regmap_read_poll_timeout(priv->regmap, JHB100_PLLX_CFG1(info->offset),
+> +					value, value & JHB100_PLL_LOCK,
+> +					JHB100_PLL_INTERVAL_US,
+> +					JHB100_PLL_TIMEOUT_US);
+> +}
+> +
+> +static int jhb100_pll_rate_to_preset(struct clk_hw *hw, unsigned long rate,
+> +				     unsigned long parent_rate)
+> +{
+> +	struct jhb100_pll_preset val = {
+> +		.refdiv = 1,
+> +		.postdiv = 3,
+> +		.foutpostdiv_en = 1,
+> +		.foutvcop_en = 0,
+> +	};
+> +	unsigned int power = 0;
+> +	u64 fbdiv_24, t;
+> +	u32 fbdiv;
+> +
+> +	if (val.foutpostdiv_en)
+> +		power = val.postdiv + 1;
+> +
+> +	t = (u64)val.refdiv << power;
+> +	t *= rate;
+> +
+> +	fbdiv = div64_ul(t, parent_rate);
+> +	if (fbdiv < 16 || fbdiv > 4095)
+> +		return -EINVAL;
+> +	val.fbdiv = fbdiv;
+> +
+> +	fbdiv_24 = div64_ul(t << 24, parent_rate);
+> +	val.frac = fbdiv_24 - ((u64)fbdiv << 24);
+> +
+> +	return jhb100_pll_set_preset(hw, &val);
+> +}
+> +
+> +static int jhb100_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> +			       unsigned long parent_rate)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
+> +	const struct jhb100_pll_preset *val;
+> +	unsigned int idx;
+> +
+> +	/* if the parent rate doesn't match our expectations the presets won't work */
+> +	if (parent_rate != JHB100_PLL_OSC_RATE)
+> +		return -EINVAL;
+> +
+> +	if (info->continuous)
+> +		return jhb100_pll_rate_to_preset(hw, rate, parent_rate);
+> +
+> +	for (idx = 0, val = &info->presets[0]; idx < info->npresets; idx++, val++) {
+> +		if (val->freq == rate)
+> +			return jhb100_pll_set_preset(hw, val);
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +static int jhb100_pll_registers_show(struct seq_file *s, void *unused)
+> +{
+> +	struct jhb100_pll_data *pll = s->private;
+> +	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
+> +	struct jhb100_pll_regvals val;
+> +	int ret;
+> +
+> +	ret = jhb100_pll_regvals_get(priv->regmap, &priv->match_data->pll_info[pll->idx], &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	seq_printf(s, "fbdiv=%u\n"
+> +		      "frac=%u\n"
+> +		      "refdiv=%u\n"
+> +		      "postdiv=%u\n"
+> +		      "foutpostdiv_en=%u\n"
+> +		      "foutvcop_en=%u\n",
+> +		      val.fbdiv, val.frac, val.refdiv, val.postdiv,
+> +		      val.foutpostdiv_en, val.foutvcop_en);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_SHOW_ATTRIBUTE(jhb100_pll_registers);
+> +
+> +static void jhb100_pll_debug_init(struct clk_hw *hw, struct dentry *dentry)
+> +{
+> +	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
+> +
+> +	debugfs_create_file("registers", 0400, dentry, pll,
+> +			    &jhb100_pll_registers_fops);
+> +}
+
+regmap already provided a way to see the register through debugfs.
+This debugfs whole debugfs section can go away
+
+> +#else
+> +#define jhb100_pll_debug_init NULL
+> +#endif
+> +
+> +static const struct clk_ops jhb100_pll_ops = {
+> +	.prepare = jhb100_pll_prepare,
+> +	.unprepare = jhb100_pll_unprepare,
+> +	.is_prepared = jhb100_pll_is_prepared,
+> +	.recalc_rate = jhb100_pll_recalc_rate,
+> +	.determine_rate = jhb100_pll_determine_rate,
+> +	.set_rate = jhb100_pll_set_rate,
+> +	.debug_init = jhb100_pll_debug_init,
+> +};
+> +
+> +static struct clk_hw *jhb100_pll_get(struct of_phandle_args *clkspec, void *data)
+> +{
+> +	struct jhb100_pll_priv *priv = data;
+> +	unsigned int idx = clkspec->args[0];
+> +
+> +	if (idx < priv->match_data->num_pll)
+> +		return &priv->pll[idx].hw;
+> +
+> +	return ERR_PTR(-EINVAL);
+> +}
+> +
+> +static int jhb100_pll_probe(struct platform_device *pdev)
+> +{
+> +	const struct jhb100_pll_match_data *match_data;
+> +	const struct platform_device_id *id;
+> +	struct device *dev = &pdev->dev;
+> +	struct jhb100_pll_priv *priv;
+> +	struct device_node *np;
+> +	unsigned int idx;
+> +	int ret;
+> +
+> +	id = platform_get_device_id(pdev);
+> +	if (!id)
+> +		return dev_err_probe(dev, -EINVAL, "no match data\n");
+> +
+> +	/*
+> +	 * Instantiated as an MFD cell of the sys0 system controller,
+> +	 * which owns the DT node describing the PLL registers.
+> +	 */
+> +	match_data = (const struct jhb100_pll_match_data *)id->driver_data;
+> +	np = dev_of_node(dev->parent);
+> +
+> +	priv = devm_kzalloc(&pdev->dev, struct_size(priv, pll, match_data->num_pll),
+> +			    GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->match_data = match_data;
+> +	priv->regmap = syscon_node_to_regmap(np);
+> +	if (IS_ERR(priv->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(priv->regmap),
+> +				     "failed to get syscon regmap\n");
+> +
+> +	for (idx = 0; idx < match_data->num_pll; idx++) {
+> +		struct clk_parent_data parents = {
+> +			.index = 0,
+> +		};
+> +		struct clk_init_data init = {
+> +			.name = match_data->pll_info[idx].name,
+> +			.ops = &jhb100_pll_ops,
+> +			.parent_data = &parents,
+> +			.num_parents = 1,
+> +			.flags = match_data->pll_info[idx].flags,
+> +		};
+> +		struct jhb100_pll_data *pll = &priv->pll[idx];
+> +
+> +		pll->hw.init = &init;
+> +		pll->idx = idx;
+> +
+> +		ret = devm_clk_hw_register(dev, &pll->hw);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return devm_of_clk_add_hw_provider(dev, jhb100_pll_get, priv);
+> +}
+> +
+> +static const struct jhb100_pll_preset jhb100_pll2_presets[] = {
+> +	{
+> +		.freq = 903168000,
+> +		.fbdiv = 72,
+> +		.frac = 4252017,
+> +		.refdiv = 1,
+> +		.postdiv = 0,
+> +		.foutpostdiv_en = 1,
+> +		.foutvcop_en = 0,
+> +	},
+> +};
+> +
+> +static const struct jhb100_pll_preset jhb100_pll3_presets[] = {
+> +	{
+> +		.freq = 800000000,
+> +		.fbdiv = 64,
+> +		.frac = 0,
+> +		.refdiv = 1,
+> +		.postdiv = 0,
+> +		.foutpostdiv_en = 1,
+> +		.foutvcop_en = 0,
+> +	},
+> +};
+> +
+> +static const struct jhb100_pll_info jhb100_sys0_pll_info[] = {
+> +	JHB100_PLL(JHB100_SYS0PLL_PLL2_OUT, "pll2_out", jhb100_pll2_presets,
+> +		   ARRAY_SIZE(jhb100_pll2_presets), JHB100_PLL2_OFFSET, false),
+> +	_JHB100_PLL(JHB100_SYS0PLL_PLL3_OUT, "pll3_out", jhb100_pll3_presets,
+> +		    ARRAY_SIZE(jhb100_pll3_presets), JHB100_PLL3_OFFSET,
+> +		    CLK_IS_CRITICAL, false),
+> +	_JHB100_PLL(JHB100_SYS0PLL_PLL4_OUT, "pll4_out", NULL, 0,
+> +		    JHB100_PLL4_OFFSET, CLK_IGNORE_UNUSED, true),
+
+Please comment when adding CLK_IGNORE_UNUSED so people have an idea why
+it is needed and how it can be removed
+
+> +	_JHB100_PLL(JHB100_SYS0PLL_PLL5_OUT, "pll5_out", NULL, 0,
+> +		    JHB100_PLL5_OFFSET, CLK_IGNORE_UNUSED, true),
+> +};
+> +
+> +static const struct jhb100_pll_match_data jhb100_sys0_pll = {
+> +	.pll_info = jhb100_sys0_pll_info,
+> +	.num_pll = ARRAY_SIZE(jhb100_sys0_pll_info),
+> +};
+> +
+> +static const struct platform_device_id jhb100_pll_ids[] = {
+> +	{
+> +		.name = "jhb100-sys0-pll",
+> +		.driver_data = (unsigned long)&jhb100_sys0_pll,
+> +	},
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(platform, jhb100_pll_ids);
+> +
+> +static struct platform_driver jhb100_pll_driver = {
+> +	.probe = jhb100_pll_probe,
+> +	.id_table = jhb100_pll_ids,
+> +	.driver = {
+> +		.name = "clk-starfive-jhb100-pll",
+> +		.suppress_bind_attrs = true,
+> +	},
+> +};
+> +builtin_platform_driver(jhb100_pll_driver);
+> -- 
+> 2.25.1
+> 
+> 
+
+
