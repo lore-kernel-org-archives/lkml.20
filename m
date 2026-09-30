@@ -1,311 +1,450 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167384C900C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776461; cv=fail; b=P5PcH+c2F1cH9uyy/H3C5ipdYh+DbvDz/Mc27CJm55uAe/ZNNSt8EMoF/mHvpH0A2wnVuOk+AFUGZFLQntBMgQpUk9DW6Pcgxf702i4nITCeQ/UVCfTQbEZHQDzGr1dXizbwHBDsqVQ0Kcp8SDkmTUvhDwo2/lRhFVqhcIH04CM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776461; c=relaxed/simple;
-	bh=bVTxio82X9oaXdAEearzuR7Mm42kprHtjNIn0wnisVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IYTijdEdyuEvCxBsnajZPP1onorzgNJwnhUk/cnT1nLGnwNRK8bKTaGzqRfOOwXay50hsS5Oe+4Ri/IzH1UCvJRNslnAqEHeVgpCkHpr1AZDI8/mcDcr4ixv7nqvGeNEQBg+w+n/4yqCU5Zn8inaqbs2HOKgoBsJ0SEAiZKfcEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=q22gTTxq; arc=fail smtp.client-ip=52.101.56.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4F94E50A6;
+	Wed, 30 Sep 2026 13:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790776472; cv=none; b=TWT6dr91HJqkOywu4DviKH8uQDyCxCy1QMTYr/fJgMekgLNJtH1GI03e8AVMqzLSPNPvtjjyG2tH752Mi5DH/odUKqA++LMVk8oLuOaTG3HhlDKyOzvol8upWUsp8EnaT+rsr8j4GG53GcUxpYB15rWYdXApH+T/Xpdqjq8Jnlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790776472; c=relaxed/simple;
+	bh=D3VdTbEqMD9ShWbrIRdevDX/hse4XQWZBULHpw9DK6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G3uAgbN0BxS9caHUVPGosgrBp6uT/LLDuiABSLAEp0W2iiSmBlNlyRv+LiuSkw3v+CaOJ7NBKqMfm2tkccHkxTKdO06PBts4T7W763fZwj+JR2YrYgzHEvYL2nDX/oioXKaq6gxIH5PE9oC7g1Hn/PB9wfWde3wpUZntnmeI6wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=koH1DJbW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=96h+oruI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xW4Q+5tr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wo3kVPfS; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="q22gTTxq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mVsHn4S/Sl1vbcEjulWjSt+8i7AuoRii8nVnGXfOthnWjr0MupY39i98P7tKPOXp75fYOgoXD0+2dWhUyfUMJIE3k7fGhVrJC58eDcfe0YJkxx2jnxQkHxs6jOiR/w88xnnGYaki3NhNcGmr/6CXB4yioA2qhLK9GDSzu8Igw+XGsk7Xwm1cIkfpt64affLz7xA8youOo3TdphxIORbWgX7P1ClNGXkkH57kb7TG/rks+cxNY9pokUZJxDeW47Z+7oj8hluYtZb5g3GU3+uSOyrg1gT9UI95LpJQqU8zL5UEMBOiYKq6Scf00HG+gCSQt3y1QW+H3ayemZfkFKm7PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E2Yuzn+PwDvD1/jyNI/oQm665H/eW/zRucG8khdmaN4=;
- b=w9eHD01koPxdWbA60OMuh6qywStAjI1iAdv6cL+3kpKho4LWS+ZSeN9IuFCKiNJBU3d335jfhEnQeG83Qv6p1oxjS7lVwaaDkVbukZ0xSFFSpJhAAweokj8p6IrOLGg/SEHMapzA4CDDVnagzLpJfiTOw2QD3pnoHvsx6WWwzPLjZG8ZydcUFTIFaSF3NMP50Nd9pJHFqt9ewkwyoWw7KOFpyJMgzB63kNPLLbhTb/JuTyCKDbFBJIsmLK0gTpYjBPX4KEWrEqxE4it87LXxcwbhgMwdCv5WmcRRDnb3uCa8GoorXU0r6J7TmkCXrdpTZ4o+tVRoQvGF2pQGQ6jcMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E2Yuzn+PwDvD1/jyNI/oQm665H/eW/zRucG8khdmaN4=;
- b=q22gTTxqHxLeDLZTBbQOBLXSuG+71ui9PAFx1MJJJg3tdtAGo4K+BtKaxTBVowrtvEOU32WdTHnABwX0tCuYnDJu/NZ9df3bwZIKv4P36e6e13Dn2oQzzP1GL5CLel4vbOQJbZMImh9GgRpEV+Vwre/AF9kP+Kw3L+OzUEkDO2W9VKWt6qyfDDYJo5qiAMjTrc2PUywhC+6dgMbjCCCRYa7dESD1g/EZPuBKoZF6aO0YQTrNMdtqqOkN2oxxzu7BNO11HUBjMkC8P/CvBf2whdk/pSKUyTv7I6nD/03J6nwXAY+Wdxa5SjYqPSvZiYgWUMZ126ReWilx0+X8K5PDEw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH3PR12MB8404.namprd12.prod.outlook.com (2603:10b6:610:12d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 13:53:57 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 13:53:57 +0000
-Date: Wed, 30 Sep 2026 15:53:47 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Kuba Piecuch <jpiecuch@google.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="koH1DJbW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="96h+oruI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xW4Q+5tr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wo3kVPfS"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0DF5C21E35;
+	Wed, 30 Sep 2026 13:54:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790776450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lhni3is6EbtM9KITkGC8PhBPvn9IjE2XPwQ1jRAFRug=;
+	b=koH1DJbWbzvYGQDEUgXP43IhT1lKepYqWhI7v+ThL88IiZ69UEKrL9Iwzw/IVZL8n1iZtS
+	slk2FHXglE7AHhfE2BRP13iu+Tr0ULe1vQwPiphufuvnlsdIfNZJT9csYRImeiuQkcFVeY
+	csKczoS1Udg+KCanrJ/TphtpBRjGRJ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790776450;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lhni3is6EbtM9KITkGC8PhBPvn9IjE2XPwQ1jRAFRug=;
+	b=96h+oruI+vN6xIcZiXPCq3TMz0V+2ZF4i/jOGaveBoCzFCp5J+MNaze4Z6/3L4H1ujcisv
+	7ZeWwzUC/dRSx1Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790776446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lhni3is6EbtM9KITkGC8PhBPvn9IjE2XPwQ1jRAFRug=;
+	b=xW4Q+5trQTLw8OZNJY5CKrbJAT3EdjYee8vRv0z1uzrTp/dS/igSFozIn1A2SlMiFDW9i9
+	FNdnVv7P2CsXMNueOWbfgD6D+UOgr0hz913G73GQ5n1OsAijQd3W0625qXW7DO3l0dIj6U
+	uovsgUi67GX1tavBqQKcdowef/2W9oA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790776446;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lhni3is6EbtM9KITkGC8PhBPvn9IjE2XPwQ1jRAFRug=;
+	b=wo3kVPfSPeu5Z8WeeXvdRQFRVHk9bg7Odsvt/ZoZ8QW+VpSJNMyHz93fmgz/ZA6H1+pB/5
+	nwIN4vlA6oQyO4Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F379813ABD;
+	Wed, 30 Sep 2026 13:54:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id fJXpHGIUvWqUTwAAD6G6ig:T4
+	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:04 +0000
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@kernel.org,
+	davem@davemloft.net,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Eric Dumazet <edumazet@google.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Kees Cook <kees@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Jeff Layton <jlayton@kernel.org>,
+	Qi Tang <tpluszz77@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] selftests/sched_ext: Add a test for ops.dequeue()
- on remote local DSQ moves
-Message-ID: <ar0Ua_zkwY7P22iI@gpd4>
-References: <20260930114725.331370-1-jpiecuch@google.com>
- <20260930114725.331370-3-jpiecuch@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930114725.331370-3-jpiecuch@google.com>
-X-ClientProxiedBy: MI2P293CA0007.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:45::7) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH 03/16 net-next v3] net: inet: relocate ip_generic_getfrag and guard IPv4 socket logic
+Date: Wed, 30 Sep 2026 15:52:46 +0200
+Message-ID: <20260930135334.4739-4-fmancera@suse.de>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260930135334.4739-1-fmancera@suse.de>
+References: <20260930135334.4739-1-fmancera@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH3PR12MB8404:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e8768f6-6f53-464d-4355-08df1efa45db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XNHTQArasOAUJ0nzf9ZwPHv+0kCegeDpctH7yRDzJpirVZ2baoygbOPbHWnuDzYeR+9JxO/fbJ0w0EBt4KP2yPdW/iNGgys4/tRpB6xOgJ4JCte077yFANeIx7dUwJ8zo3nwusnlhG9nNpGiGPm+OElzmQikQ7EaiDNLvXyM/TF/CoK+oCDkgYlV8xX5a3LDxn4of1D6TquVd0CZV1xunssyI9g2kz0DZQL71VaTNPXdKo0Vav1Xx0PoMeNCbxO8eZLm2q/hVpahtq1tknD51yRy+zHIc/6vqNMhmLY9mSq+Bd6tsTPBeYP3Psy1hNTPo7S+9M5L0yUT51B6o1HVVlpvNpYRCnrLQOsh8uyhJwulzV6QJdqJdjgbKBCguXCiY4MXUC9rX02u+59tY4yjp5jW/XKpGGubgfrT7WBHfoqMu+DpEp+Iet+mpGAMHoW6ibj57UteK4U+Mq8F77AI2DZbHr6TV3oVLtYep7DAixvbjEUyCHODua+xcVpFS3JMz6buqsUYCiVua+9G9t1ns2TjOaM+OtHUdXhUMdButiCgPVRcjAOPZ/IqcF+htFObbORfoa6DpKLFld4V1FfeL4s+yEn8i33/Mdsq3q7RaoU+dNjl0FCu9m3XGjVFvZLgtQ4nCKWxynfxjfeqmnOz/EzBvovSyOuztfUdnsIMpIM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0dXGfWBtCwfzsavv0jjFkZ8wWphr8dbuxw/ZkwB48wItwLXlLRt0JToTqC1l?=
- =?us-ascii?Q?hU7ks04EtNy/4b9Eff4edSWxGPTj4rmFr334R229wSytlNWdmCDwJQMa8OyW?=
- =?us-ascii?Q?xJ/VV5FQoqI8p3T7ZH2ldQDlshnFwHxuguoPdYZRUgan1JXNaOs0V3P5H/Yu?=
- =?us-ascii?Q?8zs7Y1Dxmr9lunzoiLKugIFKixOLi7ucHRbmi1kDNbCZTHjThCH7zucgBR2y?=
- =?us-ascii?Q?odYY6WSIZjcAN6xc9bY7Niy1FkSI0gWBF3GGCWhbWVM5je8xLYCxApfGodGp?=
- =?us-ascii?Q?S4/764qPwtLDFK5HJUlF9i2LCaxljyqkcISvrlrYkNOX3tx2xAQVnq37cP40?=
- =?us-ascii?Q?xOTZUoKlQIfWFL7vzhTcxPBDLuhz+JLZGbUfO5sfK7+2Sy9wzPYUORr6Y2Vo?=
- =?us-ascii?Q?JsQgRrpC9Ae52DzJ3VXTvbx0TKJg6IT9evqJlTLJoUO6i0nZRFQFuef005ja?=
- =?us-ascii?Q?PrnkdenpTizSU/FxFikfXvcrH7MeF1ruKyHoNZePDWTmEnROJDSmxqQ4KpnC?=
- =?us-ascii?Q?eFAF8VPVlvZ7+Fa7dEF6I/JygSNqK2E0uwTE/exhvSM6LzmZZB7ELsqApY2U?=
- =?us-ascii?Q?79EOFV3yJmJ71XRwrFRJdChonTXYO8LrnQe401pugiqJOVozDW4EfcRES89H?=
- =?us-ascii?Q?PxaJArewvuHWb4GIlxrv0YDtqKbYCjigPJylH9YjK2058VcYMqLC42ltFBeT?=
- =?us-ascii?Q?qPyw6IYIvmeD1TiwrS3LkcnK8OXr+cVJqLFHZI5pWJPg3YhWKhxW1F5abVJs?=
- =?us-ascii?Q?G1jn1+WFMXs3qNrCu+RMFioj/MB6LrWI/hG4NbJC6KlGCmWGCLlbXHbpFtmA?=
- =?us-ascii?Q?FmcLBJA0p7vd3Q6mAOdTRLME+sEN4O4NcIWDyFmbOYUPsS7Uk4/wMaS2o/EN?=
- =?us-ascii?Q?clnxKExjjBn0Hu4QzqjMNfdnr6mdWx1iKV2Y2e3jWfgeqDaiALXgdsyp1NJ8?=
- =?us-ascii?Q?1ilfZ784JRKJbS+2Q9J3jNFV2FmTTGcsuFL68KN6nck8ebh6e8EaXU5p3Oht?=
- =?us-ascii?Q?ZayQf6Tcl3dGj7JK9TuAMZXKsIW2QvWGavkyVy47WuhtLLCfh55ys6PLCGMe?=
- =?us-ascii?Q?vxrX/woHfk3xGFGq13EVrfT/fsBQb377eXSmDxFOkMt7a4sZGPqe+cX+Us4r?=
- =?us-ascii?Q?SHmozAK+VWgd3Up8+df9OZSA7Uyr61NryRa+B309foQs9E3CdcyjzmUIprei?=
- =?us-ascii?Q?mxWqDO04Vb4Iu1LwcFydSq/U3RANpVoZSrxnikRyZBwJOSFVU4ns2QkAeNl8?=
- =?us-ascii?Q?9sFtvVnGwvxRwXyLOfp9ZhrH+iTMweRbmWMYtPCWPBgwFpxtlhGRvw+0m09P?=
- =?us-ascii?Q?TjbOIGJW788enJlAqk99KyBI536sCdDQbr4D90Za4/h5G8fO+aPDsH62RHWD?=
- =?us-ascii?Q?iSEBVH8PnHYqRalKmIYu/p6MZY9tKae/8CfRhSbrZi8/Uf/swBCFrVzBglW1?=
- =?us-ascii?Q?zvfN70z2Asp7jos0bbuC6SOQYogIbORRKTb0HdWR1c6Bx/5Pw+Fud72wKleC?=
- =?us-ascii?Q?OcYlsR3kkUM9pDlNe7IpnE2PDFrZvM8v/CE1uWMUpm882S3qX2c3dJffscYb?=
- =?us-ascii?Q?R2jz3fAiHFzwbvNr55YAdT2ScdYxhQZWGUWQejVnDtFuGMtY9mVEIoBy13gP?=
- =?us-ascii?Q?ODxOcu+Wy7CUJzfPVqzkVr/YwooVz4k2cucePle7Xexz8N58kqWyfF4UpWNa?=
- =?us-ascii?Q?7cuAdwRCRsICj4Y4rkLZoBNnJ4TPZZpf4OwyfSJeHisv9xnnFMYpH34mFW16?=
- =?us-ascii?Q?sojsyWYoYw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e8768f6-6f53-464d-4355-08df1efa45db
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:53:57.4484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lADRyupMYM/YsRiv68ySn/WLFzs+F7ANmkLvnT2XUZ78ArvktUeUPY/UrEM8TvIBdInJiiZoWUHjElZHj8Tu9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8404
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-6.80 / 50.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.979];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,redhat.com,davemloft.net,suse.de,google.com,nvidia.com,linux.dev,gmail.com,vger.kernel.org];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Score: -6.80
+X-Spam-Level: 
 
-Hi Kuba,
+To enable compiling the INET subsystem without IPv4, shared generic
+utilities must be relocated and IPv4 socket logic must be guarded for
+CONFIG_IPV4.
 
-few nits below, none of them are blockers.
+This patch moves the generic ip_generec_getfrag() from ip_output.c to
+af_inet.c. It also introduces CONFIG_IPV4 guards around af_inet.c to
+reject IPv4-specific ioctls, protocol registrations and bind requests.
+The same guard is added to reject IPv4-mapped IPv6.
 
-On Wed, Sep 30, 2026 at 11:47:23AM +0000, Kuba Piecuch wrote:
-> Add a dequeue_remote test that makes moves of tasks in the BPF
-> scheduler's custody to another CPU's local DSQ the common case, both via
-> SCX_DSQ_LOCAL_ON dispatch and via scx_bpf_dsq_move_to_local(). The BPF
-> scheduler tracks each task's custody state and triggers scx_bpf_error()
-> if a custody period doesn't end with exactly one ops.dequeue() before
-> the task runs, or if it ends with an SCX_DEQ_CORE_SCHED_EXEC dequeue of
-> a task without a core cookie.
-> 
-> Without the previous patch, the test fails with:
-> 
->   sched_ext: dequeue_remote: dequeue_remote.bpf.c:141: 15 (rcu_preempt): late ops.dequeue() with SCX_DEQ_CORE_SCHED_EXEC (enq_cpu=3 cpu=2 seq=1)
->      ...
->      ops_dequeue+0x114/0x170
->      set_next_task_scx+0x104/0x1e0
->      __pick_next_task+0xc7/0x180
->      __schedule+0x154/0x1870
-> 
-> Assisted-by: Claude:claude-opus-5.5
-> Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
+---
+ net/ipv4/af_inet.c   | 122 ++++++++++++++++++++++++++++++++-----------
+ net/ipv4/ip_output.c |  18 -------
+ net/ipv6/af_inet6.c  |   5 ++
+ net/ipv6/datagram.c  |   4 +-
+ 4 files changed, 99 insertions(+), 50 deletions(-)
 
-...
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+index d9421ac38d78..a9d46a178f9a 100644
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -129,6 +129,28 @@
+ int disable_ipv6_mod;
+ EXPORT_SYMBOL(disable_ipv6_mod);
+ 
++/* Keep the function here for now as it is generic, it should be moved
++ * to a common L3 place
++ */
++int
++ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
++{
++	struct msghdr *msg = from;
++
++	if (skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (!copy_from_iter_full(to, len, &msg->msg_iter))
++			return -EFAULT;
++	} else {
++		__wsum csum = 0;
++
++		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
++			return -EFAULT;
++		skb->csum = csum_block_add(skb->csum, csum, odd);
++	}
++	return 0;
++}
++EXPORT_SYMBOL(ip_generic_getfrag);
++
+ /* The inetsw table contains everything that inet_create needs to
+  * build a new socket.
+  */
+@@ -426,7 +448,8 @@ int inet_release(struct socket *sock)
+ 			BPF_CGROUP_RUN_PROG_INET_SOCK_RELEASE(sk);
+ 
+ 		/* Applications forget to leave groups before exiting */
+-		ip_mc_drop_socket(sk);
++		if (IS_ENABLED(CONFIG_IPV4))
++			ip_mc_drop_socket(sk);
+ 
+ 		/* If linger is set, we don't return until the close
+ 		 * is complete.  Otherwise we return immediately. The
+@@ -486,6 +509,9 @@ int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
+ 	u32 tb_id = RT_TABLE_LOCAL;
+ 	int err;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return -EAFNOSUPPORT;
++
+ 	if (addr->sin_family != AF_INET) {
+ 		/* Compatibility games : accept AF_UNSPEC (mapped to AF_INET)
+ 		 * only if s_addr is INADDR_ANY.
+@@ -968,6 +994,9 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+ 	struct ifreq ifr;
+ 	struct rtentry rt;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return -EOPNOTSUPP;
++
+ 	switch (cmd) {
+ 	case SIOCADDRT:
+ 	case SIOCDELRT:
+@@ -1023,6 +1052,9 @@ static int inet_compat_routing_ioctl(struct sock *sk, unsigned int cmd,
+ 	compat_uptr_t rtdev;
+ 	struct rtentry rt;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return -EOPNOTSUPP;
++
+ 	if (copy_from_user(&rt.rt_dst, &ur->rt_dst,
+ 			3 * sizeof(struct sockaddr)) ||
+ 	    get_user(rt.rt_flags, &ur->rt_flags) ||
+@@ -1201,6 +1233,9 @@ void inet_register_protosw(struct inet_protosw *p)
+ 	int protocol = p->protocol;
+ 	struct list_head *last_perm;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return;
++
+ 	spin_lock_bh(&inetsw_lock);
+ 
+ 	if (p->type >= SOCK_MAX)
+@@ -1243,6 +1278,9 @@ EXPORT_SYMBOL(inet_register_protosw);
+ 
+ void inet_unregister_protosw(struct inet_protosw *p)
+ {
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return;
++
+ 	if (INET_PROTOSW_PERMANENT & p->flags) {
+ 		pr_err("Attempt to unregister permanent protocol %d\n",
+ 		       p->protocol);
+@@ -1267,6 +1305,9 @@ static int inet_sk_reselect_saddr(struct sock *sk)
+ 	struct ip_options_rcu *inet_opt;
+ 	int err;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return -EAFNOSUPPORT;
++
+ 	inet_opt = rcu_dereference_protected(inet->inet_opt,
+ 					     lockdep_sock_is_held(sk));
+ 	if (inet_opt && inet_opt->opt.srr)
+@@ -1371,6 +1412,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
+ 	int ihl;
+ 	int id;
+ 
++	if (!IS_ENABLED(CONFIG_IPV4))
++		return ERR_PTR(-EPROTONOSUPPORT);
++
+ 	skb_reset_network_header(skb);
+ 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
+@@ -1876,14 +1920,12 @@ static struct packet_type ip_packet_type __read_mostly = {
+ 	.list_func = ip_list_rcv,
+ };
+ 
+-static int __init inet_init(void)
++static int __init inet4_init(void)
+ {
+ 	struct inet_protosw *q;
+ 	struct list_head *r;
+ 	int rc;
+ 
+-	sock_skb_cb_check_size(sizeof(struct inet_skb_parm));
+-
+ 	raw_hashinfo_init(&raw_v4_hashinfo);
+ 
+ 	rc = proto_register(&tcp_prot, 1);
+@@ -1959,6 +2001,45 @@ static int __init inet_init(void)
+ 
+ 	ip_init();
+ 
++	return 0;
++out_unregister_raw_proto:
++	proto_unregister(&raw_prot);
++out_unregister_udp_proto:
++	proto_unregister(&udp_prot);
++out_unregister_tcp_proto:
++	proto_unregister(&tcp_prot);
++out:
++	return rc;
++}
++
++static void __init inet4_late_init(void)
++{
++	/*
++	 *	Initialise the multicast router
++	 */
++#if defined(CONFIG_IP_MROUTE)
++	if (ip_mr_init())
++		pr_crit("%s: Cannot init ipv4 mroute\n", __func__);
++#endif
++	ipv4_proc_init();
++
++	ipfrag_init();
++
++	dev_add_pack(&ip_packet_type);
++}
++
++static int __init inet_init(void)
++{
++	int rc;
++
++	sock_skb_cb_check_size(sizeof(struct inet_skb_parm));
++
++	if (IS_ENABLED(CONFIG_IPV4)) {
++		rc = inet4_init();
++		if (rc)
++			return rc;
++	}
++
+ 	/* Initialise per-cpu ipv4 mibs */
+ 	if (init_ipv4_mibs())
+ 		panic("%s: Cannot init ipv4 mibs\n", __func__);
+@@ -1980,35 +2061,20 @@ static int __init inet_init(void)
+ 	if (icmp_init() < 0)
+ 		panic("Failed to create the ICMP control socket.\n");
+ 
+-	/*
+-	 *	Initialise the multicast router
+-	 */
+-#if defined(CONFIG_IP_MROUTE)
+-	if (ip_mr_init())
+-		pr_crit("%s: Cannot init ipv4 mroute\n", __func__);
+-#endif
+-
+ 	if (init_inet_pernet_ops())
+ 		pr_crit("%s: Cannot init ipv4 inet pernet ops\n", __func__);
+ 
+-	ipv4_proc_init();
+-
+-	ipfrag_init();
++#ifdef CONFIG_PROC_FS
++	if (ip_misc_proc_init())
++		pr_crit("%s: Cannot init ipv4 misc proc\n", __func__);
++#endif
+ 
+-	dev_add_pack(&ip_packet_type);
++	if (IS_ENABLED(CONFIG_IPV4))
++		inet4_late_init();
+ 
+ 	ip_tunnel_core_init();
+ 
+-	rc = 0;
+-out:
+-	return rc;
+-out_unregister_raw_proto:
+-	proto_unregister(&raw_prot);
+-out_unregister_udp_proto:
+-	proto_unregister(&udp_prot);
+-out_unregister_tcp_proto:
+-	proto_unregister(&tcp_prot);
+-	goto out;
++	return 0;
+ }
+ 
+ fs_initcall(inet_init);
+@@ -2028,12 +2094,8 @@ static int __init ipv4_proc_init(void)
+ 		goto out_udp;
+ 	if (ping_proc_init())
+ 		goto out_ping;
+-	if (ip_misc_proc_init())
+-		goto out_misc;
+ out:
+ 	return rc;
+-out_misc:
+-	ping_proc_exit();
+ out_ping:
+ 	udp4_proc_exit();
+ out_udp:
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index a24cc8ee11d3..4c6b34e70990 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -932,24 +932,6 @@ int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ }
+ EXPORT_SYMBOL(ip_do_fragment);
+ 
+-int
+-ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
+-{
+-	struct msghdr *msg = from;
+-
+-	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+-		if (!copy_from_iter_full(to, len, &msg->msg_iter))
+-			return -EFAULT;
+-	} else {
+-		__wsum csum = 0;
+-		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
+-			return -EFAULT;
+-		skb->csum = csum_block_add(skb->csum, csum, odd);
+-	}
+-	return 0;
+-}
+-EXPORT_SYMBOL(ip_generic_getfrag);
+-
+ static int __ip_append_data(struct sock *sk,
+ 			    struct flowi4 *fl4,
+ 			    struct sk_buff_head *queue,
+diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
+index f0efdc13baf4..f220eaab085b 100644
+--- a/net/ipv6/af_inet6.c
++++ b/net/ipv6/af_inet6.c
+@@ -302,6 +302,11 @@ int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
+ 		struct net_device *dev = NULL;
+ 		int chk_addr_ret;
+ 
++		if (!IS_ENABLED(CONFIG_IPV4)) {
++			err = -EADDRNOTAVAIL;
++			goto out;
++		}
++
+ 		/* Binding to v4-mapped address on a v6-only socket
+ 		 * makes no sense
+ 		 */
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+index 191c9733ff9f..079d1951405b 100644
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -153,7 +153,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	int			err;
+ 
+ 	if (usin->sin6_family == AF_INET) {
+-		if (ipv6_only_sock(sk))
++		if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk))
+ 			return -EAFNOSUPPORT;
+ 		err = __ip4_datagram_connect(sk, uaddr, addr_len);
+ 		goto ipv4_connected;
+@@ -186,7 +186,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	if (addr_type & IPV6_ADDR_MAPPED) {
+ 		struct sockaddr_in sin;
+ 
+-		if (ipv6_only_sock(sk)) {
++		if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk)) {
+ 			err = -ENETUNREACH;
+ 			goto out;
+ 		}
+-- 
+2.55.0
 
-> +void BPF_STRUCT_OPS(dequeue_remote_dispatch, s32 cpu, struct task_struct *prev)
-> +{
-> +	struct task_ctx *tctx;
-> +	struct task_struct *p;
-> +	s32 pid;
-> +	int i;
-> +
-> +	if (test_use_move_to_local) {
-> +		scx_bpf_dsq_move_to_local(SHARED_DSQ, 0);
-> +		return;
-> +	}
-> +
-> +	/* pop past stale entries so that they don't leave this CPU idle */
-> +	bpf_for(i, 0, MAX_DISPATCH_POPS) {
-
-If there are MAX_DISPATCH_POPS or more stale entries in front of a valid one, we
-return without dispatching anything and the CPU goes idle. It's quite unlikely,
-but maybe we could re-kick this CPU when the loop runs out of pops while the
-queue is still non-empty to make the test a bit more robust?
-
-> +		if (bpf_map_pop_elem(&global_queue, &pid))
-> +			return;
-> +
-> +		p = bpf_task_from_pid(pid);
-> +		if (!p)
-> +			continue;
-> +
-> +		/*
-> +		 * Entries are stale if @p left custody through a property
-> +		 * change dequeue or was dispatched from a duplicate entry.
-> +		 */
-> +		tctx = lookup_task_ctx(p);
-> +		if (!tctx || tctx->state != TASK_ENQUEUED) {
-> +			bpf_task_release(p);
-> +			continue;
-> +		}
-> +
-> +		if (bpf_cpumask_test_cpu(cpu, p->cpus_ptr)) {
-> +			if (scx_bpf_task_cpu(p) != cpu)
-> +				__sync_fetch_and_add(&remote_dispatch_cnt, 1);
-> +			scx_bpf_dsq_insert(p, SCX_DSQ_LOCAL_ON | cpu,
-> +					   SCX_SLICE_DFL, 0);
-> +		} else {
-> +			scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, 0);
-> +		}
-> +
-> +		bpf_task_release(p);
-> +		return;
-> +	}
-> +}
-> +
-> +void BPF_STRUCT_OPS(dequeue_remote_running, struct task_struct *p)
-> +{
-> +	struct task_ctx *tctx;
-> +
-> +	tctx = lookup_task_ctx(p);
-> +	if (!tctx)
-> +		return;
-> +
-> +	/* tasks can only run from a local DSQ, i.e. after leaving custody */
-> +	if (tctx->state == TASK_ENQUEUED) {
-> +		__sync_fetch_and_add(&missed_dequeue_cnt, 1);
-> +		scx_bpf_error("%d (%s): running without ops.dequeue() (enq_cpu=%d cpu=%d seq=%llu)",
-> +			      p->pid, p->comm, tctx->enq_cpu,
-> +			      scx_bpf_task_cpu(p), tctx->enqueue_seq);
-> +		return;
-> +	}
-> +
-> +	if (tctx->enq_cpu >= 0 && tctx->enq_cpu != scx_bpf_task_cpu(p))
-> +		__sync_fetch_and_add(&remote_running_cnt, 1);
-> +	tctx->enq_cpu = -1;
-> +}
-> +
-> +s32 BPF_STRUCT_OPS(dequeue_remote_init_task, struct task_struct *p,
-> +		   struct scx_init_task_args *args)
-> +{
-> +	struct task_ctx *tctx;
-> +
-> +	tctx = bpf_task_storage_get(&task_ctx_stor, p, 0,
-> +				    BPF_LOCAL_STORAGE_GET_F_CREATE);
-> +	if (!tctx)
-> +		return -ENOMEM;
-> +
-> +	/* task storage persists across attachments, start from scratch */
-> +	tctx->state = TASK_NONE;
-> +	tctx->enq_cpu = -1;
-
-Nit: maybe reset enqueue_seq as well?
-
-> +
-> +	return 0;
-> +}
-> +
-> +s32 BPF_STRUCT_OPS_SLEEPABLE(dequeue_remote_init)
-> +{
-> +	return scx_bpf_create_dsq(SHARED_DSQ, -1);
-> +}
-> +
-> +void BPF_STRUCT_OPS(dequeue_remote_exit, struct scx_exit_info *ei)
-> +{
-> +	UEI_RECORD(uei, ei);
-> +}
-> +
-> +SEC(".struct_ops.link")
-> +struct sched_ext_ops dequeue_remote_ops = {
-> +	.select_cpu		= (void *)dequeue_remote_select_cpu,
-> +	.enqueue		= (void *)dequeue_remote_enqueue,
-> +	.dequeue		= (void *)dequeue_remote_dequeue,
-> +	.dispatch		= (void *)dequeue_remote_dispatch,
-> +	.running		= (void *)dequeue_remote_running,
-> +	.init_task		= (void *)dequeue_remote_init_task,
-> +	.init			= (void *)dequeue_remote_init,
-> +	.exit			= (void *)dequeue_remote_exit,
-> +	.flags			= SCX_OPS_ENQ_LAST,
-> +	.name			= "dequeue_remote",
-> +};
-> diff --git a/tools/testing/selftests/sched_ext/dequeue_remote.c b/tools/testing/selftests/sched_ext/dequeue_remote.c
-> new file mode 100644
-> index 000000000000..0f03044a5bc6
-> --- /dev/null
-> +++ b/tools/testing/selftests/sched_ext/dequeue_remote.c
-
-...
-
-> +static enum scx_test_status run_scenario(struct dequeue_remote *skel,
-> +					 bool use_move_to_local,
-> +					 const char *name)
-> +{
-> +	enum scx_test_status ret = SCX_TEST_PASS;
-> +	struct bpf_link *link;
-> +	pid_t pids[MAX_WORKERS];
-> +	int nr_workers, nr_forked, i;
-> +
-> +	nr_workers = 2 * nr_cpus;
-> +	if (nr_workers < 4)
-> +		nr_workers = 4;
-> +	if (nr_workers > MAX_WORKERS)
-> +		nr_workers = MAX_WORKERS;
-> +
-> +	skel->bss->test_use_move_to_local = use_move_to_local;
-> +	skel->bss->enqueue_cnt = 0;
-> +	skel->bss->dequeue_cnt = 0;
-> +	skel->bss->dispatch_dequeue_cnt = 0;
-> +	skel->bss->change_dequeue_cnt = 0;
-> +	skel->bss->remote_dispatch_cnt = 0;
-> +	skel->bss->remote_running_cnt = 0;
-> +	skel->bss->missed_dequeue_cnt = 0;
-> +	skel->bss->core_sched_exec_dequeue_cnt = 0;
-
-Nit: uei isn't reset between scenarios, so in theory this check in the
-second scenario could pass using the exit record of the first one. So maybe we
-should add:
-
-    memset(&skel->data->uei, 0, sizeof(skel->data->uei));
-
-Overall, the test looks good.
-
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
-Thanks,
--Andrea
