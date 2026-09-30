@@ -1,247 +1,375 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D38511E9F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6693374A16;
+	Wed, 30 Sep 2026 16:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786443; cv=none; b=f3JRBfb4gD7/DpZzx7mw7639lIM9KeeqASZBY9gIhX9JMSOwrY30SxBME97BKIVq/as6GekCsbG7D2HVM1J7J94TiZ9+eJDpHNK30ubjVXDD5nICE9H/NLskkPR682cCzh3cMQYPVRWHF6fAaJhEOswmRihbu6CLtFwneJZSmeU=
+	t=1790786497; cv=none; b=BgjtRkgRreswMkypstEmXgjTcie016fkq2RyWx5YQnRbHovJvboibw4w91VdMruZ0uT/57VpfDoWX0JA1MUZeIO6xBJa/E95siUXMK4G4SQdeAbkaWMP/YtcqrAlTk78j2ZlY+xMXpOEy+5YCbj1UbiOb44DcO9gj5FJjKzhgqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786443; c=relaxed/simple;
-	bh=IGjKYCcj33wJ8f6hSu4GlUqk6V+8agpe53HSKiZNqmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PPBbLRTiqQEiuk/IU4Dl2rbgowiESJ2kAfUya0reeJ7piXsRys86jTg4W/bT1z+2PBoUphoxf7vbrou+ompAZRw8JqSWJ+9XVBCLvxKPBKsdBKAsMN1E94QTHKZYWEy4/wVC7xySvsSpdEioW6VsfwYyPmGwoFFdhgNtLVlyk30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s2IHtmWO; arc=none smtp.client-ip=74.125.227.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790786497; c=relaxed/simple;
+	bh=zIybdkD3SEiIpHFkwMna4obYsUSyKvnYrWjR1/XxsAI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R1H++p7eHUJzaV10KgrvEImkk0ZAMu3tnlRDh8yBjv0/khSdfdLWMIdgktf7Qm9SPVcNe/n013GV6gty3D+TsjY4TsF+87thTKpc0bPzA4NqtDcmw7PRheHklJfPftJMqiMNv+r1mvrK5FeJzlYAH3cYH+fg8wzKlMlRqKDTJdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bywaKIpC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s2IHtmWO"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e2f1147c57so1496145ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:40:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790786440; x=1791391240; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iWp0mZm/dpV9j6Y/XOFxLUMhWESv+JE7A5/M2q1MLDU=;
-        b=s2IHtmWOrjxcHC7VTQB5V5ytGNHG3JxXOcHTfKmBWPgCg2GZOuaUZcgSN4nLoMWnNs
-         +nAsWORq+nYlTsGh9fxAdb9nW7p3z7UQcvyFUnU6nM+vqnh4FjqgoqjV5kq80eMBtQCS
-         zVGWWG3d+xjqmdoWW5bnTikhXTmd/v2sj5HnCsPdaulQzNBr9y8nBhFfGdqnIseclEaJ
-         UqgeWwxsIeYV/NeeTI8HL+5mNvpZtCZkoUMroR44VKgHxf1nATeJR8J6Oe9JjubutuXW
-         gdm+vh/S4fqQqA1KyTvPqvMXKDj81N2BltfGNEcyesRRoE3NHYDRooRlTVdS+THYfPXX
-         p7Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786440; x=1791391240;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iWp0mZm/dpV9j6Y/XOFxLUMhWESv+JE7A5/M2q1MLDU=;
-        b=A1fSrjHOydpeTzyE7jFKT9XDHSA7E9Ut1L1d136K2wTJFpe8jSAPD+h77aDEOWQl0N
-         1PQkzk3agdiQjiVlYy2YMIEvSlwKSHTkcO3zpFoyiz+1ucfXKPQ9yUC6h1P+z9cYQnZe
-         H8jQFC6RG79OmziLtNrqkfOK/NoHm8aw0FSzSowIaGZnsEhJ8FQ1oWWJfrhVsFI5ok4g
-         mQaHs5AwUb+SpVaR5rmuuf7vrbhmC3Oq/VeaCwlDR+sEoNkR9ZvY2usmJ9D0XpVL9zA1
-         tOgvS2ixUaMviB8GU7AM+F4uvnUR/YHwxHuVlReY9j6fi9Opf8WT9keLEOsbqKWjKZ7D
-         sHrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMUkdcW/n6WdLkLmMxge4lmPr1O8/zUlnBmkC0xvtDiSK7u4ssXymC/mdEMMeUC+/NTbWmMKRXTaVlnOs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIVzM6DwHlcVNY7FC1MYsQC8nNAETxzf0IEyKbMVuO/rUWXPUM
-	uXuHY4CnLEgZ6FronfddkCRgQDidVpAp9h05YHOyBGFY5OScNnhx+KNS
-X-Gm-Gg: AYBFou36pV8B0//Z7M2Iwz6cjTU12XBqhWrpz4kMTA5vBaI+PtV4WMVNKLamKLfC6DV
-	+KQgdtO+6OP2XlAn3ohg4WyR7uQ1cs0gm3GX3BqUV47k+eJeaLENud8MfpvunDKLwM6wCV5rW4F
-	peuBEvSihoXF51r2z6uJjEcXwit6XiVsYL+bF8n6ISoDfF0lvUhiP1dF5NUN+/q6Gtt1I9l6OmW
-	tJw4ewYqywmc+1Zp1BCu1vPlPMuUAiosHA404G9QvWjdX7Emvvdc/zFdHy3bERwZt0oZk84aIWG
-	qJrEJ8EuaF5Xj1u15EK0fkdrrhP/VjN/82IZwepJ6sAARuh8XnAcvWQoWXVAyxLiRbyxQU+Mg7P
-	DQeKFQLJt4UGhhC6IKATUCkI3Hq0qylWdRVeBUDfX7rd0cDupIQZjd3SSFmYKysPPIs56esjz6R
-	HrR1hplO+nE575+VOTkdoCEcecEXueOJrozPeFmI3/yfKEuZ/yVIFrAxWjEig8+LZd+U4G9RhJx
-	vVGYjlJ6qTHNHdJ8MXXIw860g==
-X-Received: by 2002:a05:6a20:3949:b0:3de:3d35:c646 with SMTP id adf61e73a8af0-3de9e01da33mr1932270637.4.1790786440522;
-        Wed, 30 Sep 2026 09:40:40 -0700 (PDT)
-Received: from J4f-Laptop.localdomain ([120.235.123.90])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e54a4121sm168735a12.20.2026.09.30.09.40.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 09:40:39 -0700 (PDT)
-From: Shihuang Liu <shlomojune6@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Shihuang Liu <shlomojune6@gmail.com>
-Subject: [PATCH bpf v3 2/2] bpf: reject incompatible protocol changes
-Date: Thu,  1 Oct 2026 00:40:20 +0800
-Message-ID: <20260930164020.41006-2-shlomojune6@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930164020.41006-1-shlomojune6@gmail.com>
-References: <20260930164020.41006-1-shlomojune6@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bywaKIpC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68E8B497;
+	Wed, 30 Sep 2026 09:41:30 -0700 (PDT)
+Received: from [10.57.11.217] (unknown [10.57.11.217])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 521153F85F;
+	Wed, 30 Sep 2026 09:41:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790786493; bh=zIybdkD3SEiIpHFkwMna4obYsUSyKvnYrWjR1/XxsAI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bywaKIpClqDxFUujRdn49tJkf6bDl2U1HXjFnnn27wkFTcXfLxpdQMvHoMyU5sH8p
+	 Pznv0wx7zx8UiQml44Jw7YmE0427PiAqVRhqQ8v4gFJEBFum9yURknlyixlaHgu0Z7
+	 PyfPpdgAoHXdlCH0nFjqGdcL3W4GlODRyVA1Fq/A=
+Message-ID: <0c1797bc-0325-44ad-b43f-83353edf81eb@arm.com>
+Date: Wed, 30 Sep 2026 18:41:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 13/13] arm_mpam: detect and enable MPAM-Fb PCC support
+To: Ben Horgan <ben.horgan@arm.com>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+ Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
+ Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+ Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260924152739.2865510-1-andre.przywara@arm.com>
+ <20260924152739.2865510-14-andre.przywara@arm.com>
+ <ca45592b-0b63-45ef-8afe-0a6f50eb73bf@arm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <ca45592b-0b63-45ef-8afe-0a6f50eb73bf@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-An skb assigned to a socket by bpf_sk_assign() can later have its L3
-protocol changed by bpf_skb_change_proto() or bpf_skb_adjust_room().
-Without revalidation, this bypasses the assignment-time family check.
+Hi,
 
-Reject incompatible protocol changes before modifying the skb, including L3
-encapsulation and decapsulation. Reuse the assignment family predicate and
-preserve the socket assignment when the change is rejected.
+On 9/30/26 16:15, Ben Horgan wrote:
+> Hi Andre,
+> 
+> On 24/09/2026 16:27, Andre Przywara wrote:
+>> The Arm MPAM-Fb specification [1] describes a protocol to access MSC
+>> registers through a firmware interface. This requires a shared memory
+>> region to hold the message, and a mailbox to trigger the access.
+>> For ACPI this is wrapped as a PCC channel, described using existing
+>> ACPI abstractions.
+>>
+>> Add code to parse those PCC table descriptions associated with an MSC,
+>> and store the parsed information in the MSC struct.
+>> There can be multiple PCC channels, and each channel can serve multiple
+>> MSCs, so we need to keep track of the channel usage, using a list and
+>> a refcount.
+>>
+>> This will be used by the MPAM-Fb access wrapper code.
+>>
+>> [1] https://developer.arm.com/documentation/den0144/latest
+>>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> Tested-by: Ritwick Sharma <ritwick.sharma@arm.com> # on Arm AGI CPU
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Tested-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+>> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>> ---
+>>   drivers/resctrl/Kconfig         |   1 +
+>>   drivers/resctrl/mpam_devices.c  | 119 +++++++++++++++++++++++++++++++-
+>>   drivers/resctrl/mpam_fb.c       |  41 +++++++++++
+>>   drivers/resctrl/mpam_internal.h |   2 +
+>>   4 files changed, 161 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+>> index 9591d792736e5..f5ff9b1f6c48e 100644
+>> --- a/drivers/resctrl/Kconfig
+>> +++ b/drivers/resctrl/Kconfig
+>> @@ -2,6 +2,7 @@ menuconfig ARM64_MPAM_DRIVER
+>>   	bool "MPAM driver"
+>>   	depends on ARM64 && ARM64_MPAM
+>>   	select ACPI_MPAM if ACPI
+>> +	select PCC if ACPI
+>>   	select MAILBOX
+>>   	help
+>>   	  Memory System Resource Partitioning and Monitoring (MPAM) driver for
+>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+>> index ce20dc44d5d40..ca7e0fe75f24f 100644
+>> --- a/drivers/resctrl/mpam_devices.c
+>> +++ b/drivers/resctrl/mpam_devices.c
+>> @@ -20,14 +20,19 @@
+>>   #include <linux/irqdesc.h>
+>>   #include <linux/list.h>
+>>   #include <linux/lockdep.h>
+>> +#include <linux/mailbox_client.h>
+>>   #include <linux/mutex.h>
+>>   #include <linux/platform_device.h>
+>>   #include <linux/printk.h>
+>> +#include <linux/property.h>
+>>   #include <linux/srcu.h>
+>>   #include <linux/spinlock.h>
+>>   #include <linux/types.h>
+>>   #include <linux/workqueue.h>
+>>   
+>> +#include <acpi/pcc.h>
+>> +#include <acpi/acpi_io.h>
+>> +
+>>   #include "mpam_internal.h"
+>>   
+>>   /* Values for the T241 errata workaround */
+>> @@ -50,6 +55,87 @@ static LIST_HEAD(mpam_all_msc);
+>>   
+>>   struct srcu_struct mpam_srcu;
+>>   
+>> +/* PCC channels might be serving multiple MSCs, so keep a refcounted list. */
+>> +static DEFINE_MUTEX(pcc_chan_list_lock);
+>> +static LIST_HEAD(pcc_chan_list);
+>> +
+>> +static void mpam_pcc_chan_release(struct kref *ref)
+>> +{
+>> +	struct mpam_pcc_chan *cur = container_of(ref, struct mpam_pcc_chan,
+>> +						 refcount);
+>> +
+>> +	pcc_mbox_free_channel(cur->pcc_chan);
+>> +	list_del(&cur->pcc_chans);
+>> +	mutex_destroy(&cur->pcc_chan_lock);
+>> +	kfree(cur);
+>> +}
+>> +
+>> +static struct mpam_pcc_chan *mpam_pcc_chan_get(struct device *dev,
+>> +					       int subspace_id)
+>> +{
+>> +	struct mpam_pcc_chan *cur;
+>> +
+>> +	guard(mutex)(&pcc_chan_list_lock);
+>> +
+>> +	list_for_each_entry(cur, &pcc_chan_list, pcc_chans) {
+>> +		if (cur->subspace_id == subspace_id) {
+>> +			kref_get(&cur->refcount);
+>> +
+>> +			return cur;
+>> +		}
+>> +	}
+>> +
+>> +	cur = kzalloc_obj(*cur);
+>> +	if (!cur)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	cur->pcc_cl.tx_block = true;
+>> +
+>> +	cur->pcc_chan = pcc_mbox_request_channel(&cur->pcc_cl, subspace_id);
+>> +	if (IS_ERR(cur->pcc_chan)) {
+>> +		long err = PTR_ERR(cur->pcc_chan);
+>> +
+>> +		kfree(cur);
+>> +		return ERR_PTR(err);
+>> +	}
+>> +
+>> +	/*
+>> +	 * Timeout based on the "nominal latency" in us, from the
+>> +	 * PCC ACPI table. tx_tout is in ms.
+>> +	 * Add some margin here to be on the safe side.
+>> +	 */
+>> +	cur->pcc_cl.tx_tout = DIV_ROUND_UP(cur->pcc_chan->latency * 5, 1000);
+>> +
+>> +	mutex_init(&cur->pcc_chan_lock);
+>> +
+>> +	cur->subspace_id = subspace_id;
+>> +	kref_init(&cur->refcount);
+>> +
+>> +	list_add_tail(&cur->pcc_chans, &pcc_chan_list);
+>> +
+>> +	return cur;
+>> +}
+>> +
+>> +static int mpam_pcc_chan_put(struct mpam_pcc_chan *pcc_chan)
+>> +{
+>> +	struct mpam_pcc_chan *cur, *tmp;
+>> +
+>> +	if (!pcc_chan)
+>> +		return 0;
+>> +
+>> +	guard(mutex)(&pcc_chan_list_lock);
+>> +
+>> +	list_for_each_entry_safe(cur, tmp, &pcc_chan_list, pcc_chans) {
+>> +		if (cur == pcc_chan) {
+>> +			kref_put(&cur->refcount, mpam_pcc_chan_release);
+>> +
+>> +			return 0;
+>> +		}
+>> +	}
+>> +
+>> +	return -ENOENT;
+>> +}
+>> +
+>>   /*
+>>    * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
+>>    * can be enabled.
+>> @@ -2272,6 +2358,8 @@ static void mpam_msc_destroy(struct mpam_msc *msc)
+>>   	list_for_each_entry_safe(ris, tmp, &msc->ris, msc_list)
+>>   		mpam_ris_destroy(ris);
+>>   
+>> +	mpam_pcc_chan_put(msc->pcc_chan);
+>> +
+> 
+> Last one from Sashiko [1] and I haven't spotted anything else either in the patches or from giving
+> it a go on the arm agi cpu. :)
+> 
+> Does the mpam_pcc_chan_put() need to go after the list_del_rcu() and wait for a srcu synchronization
+> to avioid a race between iterating through the list while acessing the msc and tearing down the channel.
 
-Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
-Assisted-by: LLM
-Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
----
-Changes since v2:
-- Check compatibility before changing the skb, preserving the socket
-  assignment instead of calling skb_orphan().
-- Cover L3 encapsulation and decapsulation in bpf_skb_adjust_room(), as well
-  as bpf_skb_change_proto().
+I wonder if we can really do any MPAM-Fb requests after mpam_disable() 
+has been called, because that function first thing clears the static branch.
 
-Changes since v1:
-- Revalidate prefetched sockets after bpf_skb_change_proto() changes the
-  packet protocol, closing a bypass of assignment-time validation.
-- Preserve compatible dual-stack assignments and release incompatible
-  assignments through their existing skb destructor.
-- Split the fix into two patches and target the BPF fixes tree.
+But regardless, I swapped mpam_pcc_chan_put() and list_del_rcu(), and 
+also added a synchronize_rcu() call inbetween. Not sure how far we want 
+to go here, though, seems like a very pathological case to me?
 
-v2:
-https://lore.kernel.org/netdev/20260911172313.64009-2-shlomojune6@gmail.com/
+Cheers,
+Andre
 
-v1:
-https://lore.kernel.org/netdev/20260823101809.26802-1-shlomojune6@gmail.com/
----
- include/uapi/linux/bpf.h       | 10 ++++++++++
- net/core/filter.c              | 23 +++++++++++++++++++++++
- tools/include/uapi/linux/bpf.h | 10 ++++++++++
- 3 files changed, 43 insertions(+)
+> 
+>>   	list_del_rcu(&msc->all_msc_list);
+>>   	platform_set_drvdata(pdev, NULL);
+>>   
+>> @@ -2295,7 +2383,7 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
+>>   static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>   {
+>>   	int err;
+>> -	u32 tmp;
+>> +	u32 pcc_subspace_id;
+>>   	struct mpam_msc *msc;
+>>   	struct resource *msc_res;
+>>   	struct device *dev = &pdev->dev;
+>> @@ -2339,7 +2427,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>   	if (err)
+>>   		return ERR_PTR(err);
+>>   
+>> -	if (device_property_read_u32(&pdev->dev, "pcc-channel", &tmp))
+>> +	if (device_property_read_u32(dev, "pcc-channel", &pcc_subspace_id))
+>>   		msc->iface = MPAM_IFACE_MMIO;
+>>   	else
+>>   		msc->iface = MPAM_IFACE_PCC;
+>> @@ -2360,6 +2448,33 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>   		}
+>>   		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+>>   		msc->mapped_hwpage = io;
+>> +	} else if (msc->iface == MPAM_IFACE_PCC) {
+>> +		u32 mpam_fb_msc_id;
+>> +
+>> +		msc->pcc_chan = mpam_pcc_chan_get(dev, pcc_subspace_id);
+>> +		if (IS_ERR(msc->pcc_chan)) {
+>> +			pr_err("Failed to request MSC PCC channel\n");
+>> +			return ERR_CAST(msc->pcc_chan);
+>> +		}
+>> +
+>> +		err = mpam_fb_check_shared_buffer_size(msc);
+>> +		if (err) {
+>> +			mpam_pcc_chan_put(msc->pcc_chan);
+>> +
+>> +			return ERR_PTR(err);
+>> +		}
+>> +
+>> +		err = mpam_fb_check_protocol_version(msc);
+>> +		if (err) {
+>> +			mpam_pcc_chan_put(msc->pcc_chan);
+>> +
+>> +			return ERR_PTR(err);
+>> +		}
+>> +
+>> +		if (device_property_read_u32(&pdev->dev, "mpam-fb-msc-id",
+>> +					     &mpam_fb_msc_id))
+>> +			mpam_fb_msc_id = msc->id;
+>> +		msc->fb_id = mpam_fb_msc_id;
+>>   	} else {
+>>   		return ERR_PTR(-EINVAL);
+>>   	}
+>> diff --git a/drivers/resctrl/mpam_fb.c b/drivers/resctrl/mpam_fb.c
+>> index 8298fcedd2be7..d90888944abbd 100644
+>> --- a/drivers/resctrl/mpam_fb.c
+>> +++ b/drivers/resctrl/mpam_fb.c
+>> @@ -20,10 +20,15 @@
+>>   #define MPAM_FB_PROTOCOL_ID		0x1a
+>>   
+>>   #define MPAM_PROTOCOL_VERSION_CMD	0x0
+>> +#define MPAM_FB_VERSION_MAJOR_MASK		GENMASK_U32(31, 16)
+>> +#define MPAM_FB_VERSION_MINOR_MASK		GENMASK_U32(15, 0)
+>> +
+>>   #define MPAM_MSC_READ_CMD		0x4
+>>   #define MPAM_MSC_WRITE_CMD		0x5
+>>   
+>>   #define MPAM_FB_PROT_HEADER_LEN		sizeof(u32)
+>> +/* The longest message is MPAM_MSC_WRITE, with 4 parameters. */
+>> +#define MPAM_FB_MAX_MSG_SIZE		(4 * sizeof(u32))
+>>   
+>>   #define MPAM_FB_SUCCESS		 0
+>>   #define MPAM_FB_ERR_NOT_SUPPORTED	-1
+>> @@ -210,3 +215,39 @@ int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value)
+>>   	return mpam_fb_send_request(msc, msc->fb_id, reg, &value,
+>>   				    MPAM_MSC_WRITE_CMD);
+>>   }
+>> +
+>> +/* We only support MPAM-Fb protocol version 1.x */
+>> +int mpam_fb_check_protocol_version(struct mpam_msc *msc)
+>> +{
+>> +	u32 version;
+>> +	int ret;
+>> +
+>> +	ret = mpam_fb_send_request(msc, 0, 0, &version,
+>> +				   MPAM_PROTOCOL_VERSION_CMD);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version) != 1) {
+>> +		pr_err("Incompatible MPAM-Fb protocol version %d.%d\n",
+>> +		       FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version),
+>> +		       FIELD_GET(MPAM_FB_VERSION_MINOR_MASK, version));
+>> +
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc)
+>> +{
+>> +	int min_buffer_size = MPAM_FB_MAX_MSG_SIZE +
+>> +			      sizeof(struct acpi_pcct_ext_pcc_shared_memory);
+>> +
+>> +	if (msc->pcc_chan->pcc_chan->shmem_size < min_buffer_size) {
+>> +		pr_err("MPAM-Fb PCC channel size too small.\n");
+>> +
+>> +		return -ENOMEM;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+>> index 99057d6abee1e..ee7c3953a9b6c 100644
+>> --- a/drivers/resctrl/mpam_internal.h
+>> +++ b/drivers/resctrl/mpam_internal.h
+>> @@ -538,6 +538,8 @@ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
+>>   /* MPAM-Fb Firmware-backed protocol wrappers */
+>>   int mpam_fb_send_read_request(struct mpam_msc *msc, u16 reg, u32 *result);
+>>   int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value);
+>> +int mpam_fb_check_protocol_version(struct mpam_msc *msc);
+>> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
+>>   
+>>   /*
+>>    * MPAM MSCs have the following register layout. See:
+> 
 
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index 5d8f5e2c8db38..d1897ee13a66c 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -2659,6 +2659,11 @@ union bpf_attr {
-  * 		checked and segments are recalculated by the GSO/GRO engine.
-  * 		The size for GSO target is adapted as well.
-  *
-+ *		If the skb was assigned to a socket by **bpf_sk_assign** and
-+ *		the requested protocol is incompatible with that socket, the
-+ *		helper returns **-EAFNOSUPPORT** before translating the packet.
-+ *		The skb assignment is preserved.
-+ *
-  * 		All values for *flags* are reserved for future usage, and must
-  * 		be left at zero.
-  *
-@@ -3067,6 +3072,11 @@ union bpf_attr {
-  *		removed from the packet. This handles cases where all tunnel
-  *		layers have been decapsulated.
-  *
-+ *		If an L3 encapsulation or decapsulation would produce a
-+ *		protocol incompatible with a socket assigned by
-+ *		**bpf_sk_assign**, the helper returns **-EAFNOSUPPORT** before
-+ *		changing the packet. The skb assignment is preserved.
-+ *
-  * 		A call to this helper is susceptible to change the underlying
-  * 		packet buffer. Therefore, at load time, all checks on pointers
-  * 		previously done by the verifier are invalidated and must be
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 5f64065523584..09816da113554 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -3549,6 +3549,12 @@ static bool bpf_sk_assign_family_ok(const struct sk_buff *skb,
- 	return bpf_sk_assign_family_ok_proto(sk, skb_protocol(skb, true));
- }
- 
-+static bool bpf_skb_proto_change_sk_ok(struct sk_buff *skb, __be16 proto)
-+{
-+	return !skb_sk_is_prefetched(skb) ||
-+	       bpf_sk_assign_family_ok_proto(skb->sk, proto);
-+}
-+
- BPF_CALL_3(bpf_skb_change_proto, struct sk_buff *, skb, __be16, proto,
- 	   u64, flags)
- {
-@@ -3556,6 +3562,12 @@ BPF_CALL_3(bpf_skb_change_proto, struct sk_buff *, skb, __be16, proto,
- 
- 	if (unlikely(flags))
- 		return -EINVAL;
-+	if (((skb->protocol == htons(ETH_P_IP) &&
-+	      proto == htons(ETH_P_IPV6)) ||
-+	     (skb->protocol == htons(ETH_P_IPV6) &&
-+	      proto == htons(ETH_P_IP))) &&
-+	    !bpf_skb_proto_change_sk_ok(skb, proto))
-+		return -EAFNOSUPPORT;
- 
- 	/* General idea is that this helper does the basic groundwork
- 	 * needed for changing the protocol, and eBPF program fills the
-@@ -3699,6 +3711,11 @@ static int bpf_skb_net_grow(struct sk_buff *skb, u32 off, u32 len_diff,
- 		if (inner_mac_len > len_diff)
- 			return -EINVAL;
- 		inner_trans = skb->transport_header;
-+
-+		if (!bpf_skb_proto_change_sk_ok(skb,
-+						flags & BPF_F_ADJ_ROOM_ENCAP_L3_IPV6 ?
-+						htons(ETH_P_IPV6) : htons(ETH_P_IP)))
-+			return -EAFNOSUPPORT;
- 	}
- 
- 	ret = bpf_skb_net_hdr_push(skb, off, len_diff);
-@@ -3786,6 +3803,12 @@ static int bpf_skb_net_shrink(struct sk_buff *skb, u32 off, u32 len_diff,
- 			return -ENOTSUPP;
- 	}
- 
-+	if (decap &&
-+	    !bpf_skb_proto_change_sk_ok(skb,
-+					flags & BPF_F_ADJ_ROOM_DECAP_L3_IPV6 ?
-+					htons(ETH_P_IPV6) : htons(ETH_P_IP)))
-+		return -EAFNOSUPPORT;
-+
- 	ret = skb_unclone(skb, GFP_ATOMIC);
- 	if (unlikely(ret < 0))
- 		return ret;
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index 5d8f5e2c8db38..d1897ee13a66c 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -2659,6 +2659,11 @@ union bpf_attr {
-  * 		checked and segments are recalculated by the GSO/GRO engine.
-  * 		The size for GSO target is adapted as well.
-  *
-+ *		If the skb was assigned to a socket by **bpf_sk_assign** and
-+ *		the requested protocol is incompatible with that socket, the
-+ *		helper returns **-EAFNOSUPPORT** before translating the packet.
-+ *		The skb assignment is preserved.
-+ *
-  * 		All values for *flags* are reserved for future usage, and must
-  * 		be left at zero.
-  *
-@@ -3067,6 +3072,11 @@ union bpf_attr {
-  *		removed from the packet. This handles cases where all tunnel
-  *		layers have been decapsulated.
-  *
-+ *		If an L3 encapsulation or decapsulation would produce a
-+ *		protocol incompatible with a socket assigned by
-+ *		**bpf_sk_assign**, the helper returns **-EAFNOSUPPORT** before
-+ *		changing the packet. The skb assignment is preserved.
-+ *
-  * 		A call to this helper is susceptible to change the underlying
-  * 		packet buffer. Therefore, at load time, all checks on pointers
-  * 		previously done by the verifier are invalidated and must be
--- 
-2.43.0
