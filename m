@@ -1,89 +1,219 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC3745041A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 746BC472F7D;
+	Wed, 30 Sep 2026 09:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759020; cv=none; b=RHNZFBbMC+syivGu8yAZXjME7hXT+M/Q8zWjhL9a0pQ1rwTAx0EcOj4DU7N9ObSnMXBUyfMEeyNp6EhZlPoNnhIVT57b7fo33pDC2yUz3kePoOVg5VAwZto+46slQf4JggSrGI5NQbm1iLJqiyQdAeEcjIk4EJUBiLxexpn/iK8=
+	t=1790759038; cv=none; b=oDjjWKdIAlnzVta7EW5AlzbORfN7RX0BNI0WqP+i0LE2lss0R8PqZA7KAVVVJC4VJvH4sf0n2IMdnN7fNx49cBX73etDEKOwLt90N8d+s/jNCJq6YMS7tTUpPegyf7+uvAMUwyC/U+SfYQLRWy9iw1NxT2xLfsVw/btNXUQTnEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759020; c=relaxed/simple;
-	bh=mV1nNnynm4md9lfuABy40w9KFyX35KTgSZO/0RIffFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c8rLCecXn+F5xAWkuco//1bDWQH5aS/06y11skilyWsIkjDE6sVui3hwoxWh5FHh4CXW1uxG18gobMhU72PFLMFj6B6Dvyqb3+4QxMVEU2ZrP6AtRRuw/8MiwEf2wwPRPZlWf9FF14M9nPu9HTgS3wdv2fh9afsC1gNeCiuhufY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vz2XJ4dz; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vz2XJ4dz"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba91so2411569a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790759018; x=1791363818; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lQ3EyRImtKEZ5L5nNxlrjsnwSL+RNEJ4KU3mDLLBvow=;
-        b=Vz2XJ4dzyClw7PNiAJjhoUFBe7g8X0Qyw0gU3rYjXp7LlG0CfOZyXiTVFkr2RPG8U/
-         Fw5IM8JFbVWDzbt0W7FgH6TQrgwKQ5kjAeuAY+LQHvuKAh/gcwo7zwYj1JrrFilyLpuj
-         Yxb4MXaLTxsSAx/AnfCS6EDcBi5G96lKWK5TtJMDChlqR3Gq/mcrB2MNxyluo1z2d58c
-         gvDuCedUNCz6ZvFCS51bsicMpq2cekUSkpZLS6z7ZD9ARDiXovFJd0xdvhpAUKPUuOZ/
-         JZC4ZT//2rOrC1KH5/JvO9jGd6NJEg13S/tqRmZHC9mJVZdmz8jHykqYQ8DsmoihYGe/
-         7w6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790759018; x=1791363818;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lQ3EyRImtKEZ5L5nNxlrjsnwSL+RNEJ4KU3mDLLBvow=;
-        b=paoB7FYHBw1iZbv8VdfQgfPpqIVYpzJJGPWgE+4TC4/prA1TgLtWm5mTiEZSoUkr7K
-         jzrBsnOh8nO9GqN3ahz5p8YVwNbnTmo/jucdwVwv4ZLcfgX8a6WiZB2D+RgKCLbAseDH
-         Z9UVPJ5Cq0c4QMM13nLMi9qguyIWUSbMS/l3mTnA3iz2RS+XBDc6vnpb02mcS0vCR92i
-         ZKMd1j1bsaPKHtrFG6u16PxoI75gb6pxNrUGesMQ/5T10uaemvfQkwCnzilaw0yXotFY
-         8ilYTSlnAoSZe51cxI4r3ulUoAYMTfS0KHn1E9OG64vbgEul6I8R4szGSGUFRT6pbRaM
-         uyvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaDPnJVTQEAjVwiFlX06s+aFaOiYCgtbwfiFJdfgjes67sQKeNLi2PMt0WmzMJdFz5eqSmc6scr+O1/oA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNBlq1FGQMrvXSWD2tBMg/lpXWaBE2oizwE55jkudxQXJtRbq8
-	Zp9npK+aU/7ttNCCAfaENl34nSuIzr6FXD/m5qcbxyIo4uugd998tl0F
-X-Gm-Gg: AYBFou17SL7S+1NScpBO8VvSul2WJ6paYD13JQOjHEY17yom3S0BeKLp4at7X8wWRy6
-	wzLaOgbriEQxSZMt0VrUYz8Xb3XYbk/DfLnTcBL37QBWwcGlBdSDoUSfS4JsUaBnhjAEO46yxU6
-	tNBfa5yLVWrRmJvRShqWmnEgH/RBwJyiRYHbMdE8VJd4RlhKPFt+YRCOQm331HZvAbPx73B3xlj
-	MsJZQ8K8HJczBpau6RiN07MMJQpf6etN1lQ8lnxXzk9h/oSwL6mwx7k5Cw3PT0+4Ulukhc7vics
-	kyB9ooJqq5P0jJ2SrPm102zTvBtbWZTlWzjm2LZXnVLbFoQqJVAeTxCxo3ekV1c7b98GblgkmoR
-	3TSPfu4cgfG0n4BPITCxPnWGOdDBV9NkOo5gtpd0DtxIRMrfXDpcZVhv0yKNf87SpHRIfCnw4/3
-	6TrYWjlBllzAZL8xcYsCvbTbwizkYzCSj9yX3n7C8GVHHJqj2N61E8QuqZoGyC
-X-Received: by 2002:a17:90b:2791:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3a4d0f022a1mr654285a91.5.1790759018103;
-        Wed, 30 Sep 2026 02:03:38 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4cac328c6sm2555182a91.12.2026.09.30.02.03.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 02:03:37 -0700 (PDT)
-Date: Wed, 30 Sep 2026 18:03:33 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] ntfs: fix the $MFT bootstrap hang and reads of
- unmapped runlist ranges
-Message-ID: <arzQZXZamgPEBhX6@hyunchul-PC02>
-References: <cover.1790684177.git.matthias.goergens@gmail.com>
+	s=arc-20240116; t=1790759038; c=relaxed/simple;
+	bh=VHeSbzs1UinsNwkf4348U8S8hziaR0ZBIVjleEL227Q=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=bcea/5q6Xf81N17DvDxp1jXzR25xbj51h7XuMdYf5ev/SoDANsx9f/jLRZ4PSwqhPplF9QcQSyMSj0bzWbbVGB6gfCTBQISwEcthNm+0tlp06XZTWE7GSFjPw/RR5MpA+6hR1I/JgD2ap5rUrPSMUxV3PPizsJJv4hl2Flk1raI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8Bxb9Nt0LxqdkwRAA--.50539S3;
+	Wed, 30 Sep 2026 17:03:41 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJAx3c5s0LxqWe4mAA--.17039S2;
+	Wed, 30 Sep 2026 17:03:40 +0800 (CST)
+Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn,
+ zhaotianrui@loongson.cn, loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260929102821.36112-1-cui.tao@linux.dev>
+ <20260929102821.36112-5-cui.tao@linux.dev>
+ <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
+ <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
+ <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
+ <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
+ <CAAhV-H5yXR8vN0NdiHWRTbGOsrqrVxZFd9g9QdaZGhdLR=BA7A@mail.gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <3aada818-e1e1-a802-2547-b8e41618df32@loongson.cn>
+Date: Wed, 30 Sep 2026 17:05:04 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1790684177.git.matthias.goergens@gmail.com>
+In-Reply-To: <CAAhV-H5yXR8vN0NdiHWRTbGOsrqrVxZFd9g9QdaZGhdLR=BA7A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx3c5s0LxqWe4mAA--.17039S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3JrWUKryDJw4rtw47JFyrGrX_yoW7ur17pr
+	WUAa98CF4UGr1UGr1Ivwn8XF1xtr4xKw1Fgr1UtFyUCwn0vry5Xr18Jr4DuF1DJw48G3WI
+	qF45G34av3WUAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
 
-The whole series looks good to me.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+On 2026/9/30 下午4:52, Huacai Chen wrote:
+> On Wed, Sep 30, 2026 at 10:33 AM Bibo Mao <maobibo@loongson.cn> wrote:
+>>
+>>
+>>
+>> On 2026/9/30 上午10:24, Huacai Chen wrote:
+>>> On Wed, Sep 30, 2026 at 9:53 AM Bibo Mao <maobibo@loongson.cn> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 2026/9/29 下午8:43, Huacai Chen wrote:
+>>>>> Hi, Tao,
+>>>>>
+>>>>> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
+>>>>>>
+>>>>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>>>>
+>>>>>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+>>>>>> invocation: every call overwrites pch_pic_base and registers the same
+>>>>>> kvm_io_device on the MMIO bus at the new address, while
+>>>>>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
+>>>>>> init, MMIO to the stale ranges computes its register offset against the
+>>>>>> new base and silently reads 0 / drops writes, and the leftover bus
+>>>>>> entries persist until the VM is destroyed.
+>>>>>>
+>>>>>> Reject repeated initialization with -EEXIST, tracking the state with
+>>>>>> a has_init flag so the check and the MMIO base update are atomic
+>>>>>> under slots_lock.  The base is only committed after a successful bus
+>>>>>> registration, and the real registration error is propagated instead
+>>>>>> of being replaced with -EFAULT.
+>>>>>>
+>>>>>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
+>>>>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>>>>>> ---
+>>>>>>     arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+>>>>>>     arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
+>>>>>>     2 files changed, 11 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>>>> index 887b0431fd20..679132d840e6 100644
+>>>>>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>>>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
+>>>>>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
+>>>>>>            spinlock_t lock;
+>>>>>>            struct kvm *kvm;
+>>>>>>            struct kvm_io_device device;
+>>>>>> +       bool has_init;
+>>>>>>            union pch_pic_id id;
+>>>>>>            uint64_t mask; /* 1:disable irq, 0:enable irq */
+>>>>>>            uint64_t htmsi_en; /* 1:msi */
+>>>>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+>>>>>> index 7a704f18880d..a884a043feef 100644
+>>>>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>>>>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>>>>>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>>>>>>            struct kvm_io_device *device;
+>>>>>>            struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>>>>> Why so complicated? The below is enough, no?
+>>>>>
+>>>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
+>>>>> b/arch/loongarch/kvm/intc/pch_pic.c
+>>>>> index 2b63b0c2c7ce..7855d78304b7 100644
+>>>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>>>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>>>>> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
+>>>>> *dev, u64 addr)
+>>>>>            struct kvm_io_device *device;
+>>>>>            struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>>>>>
+>>>>> +       if (s->device->ops)
+>>>>> +               return -EEXIST;
+>>>> This can work, however I think that it is not a good idea to access
+>>>> internal structure field about kvm_io_device. If so, there is no use
+>>>> about API kvm_iodevice_init(), just s->device->ops = &kvm_pch_pic_ops is ok.
+>>> I'm a little not agree. :)
+>>>
+>>> I think kvm_iodevice_init() is designed to do more work rather than
+>>> just set the ops (though it just set the ops now), otherwise its name
+>>> should be kvm_iodevice_set_ops().
+>>>
+>>> In addition, even if kvm_iodevice_init() is really a setter, there is
+>>> no getter for the ops, so when we need to access ops, we can only
+>>> open-code it.
+>> if so, you can try to add kvm_iodevice_get_ops API and check the
+>> response of KVM community.
+> There is not a setter, so I don't think a getter is necessary.
+why setter is necessary, getter is not necessary.
+> 
+> Moreover, you said "no other architectures directly access ops", but
+> in fact, __vgic_doorbell_to_its() from arch/arm64/kvm/vgic/vgic-its.c
+> directly accesses ops.
+If it is used by others, I have no objection any more. But for me I 
+never write such code.
 
--- 
-Thanks,
-Hyunchul
+> 
+> 
+> Huacai
+> 
+>>
+>> Regards
+>> Bibo Mao
+>>>
+>>>
+>>> Huacai
+>>>
+>>>>
+>>>> If adding has_init is redundant, maybe we can set s->pch_pic_base with
+>>>> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
+>>>> think directly accessing kvm_io_device::ops is not a good method, no
+>>>> other architectures do in such way.
+>>>>
+>>>> Regards
+>>>> Bibo Mao
+>>>>> +
+>>>>>            s->pch_pic_base = addr;
+>>>>>            device = &s->device;
+>>>>>            /* init device by pch pic writing and reading ops */
+>>>>>
+>>>>>>
+>>>>>> -       s->pch_pic_base = addr;
+>>>>>>            device = &s->device;
+>>>>>>            /* init device by pch pic writing and reading ops */
+>>>>>>            kvm_iodevice_init(device, &kvm_pch_pic_ops);
+>>>>>>            mutex_lock(&kvm->slots_lock);
+>>>>>> +       if (s->has_init) {
+>>>>>> +               ret = -EEXIST;
+>>>>>> +               goto out;
+>>>>>> +       }
+>>>>>>            /* register pch pic device */
+>>>>>>            ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
+>>>>>> +       if (!ret) {
+>>>>>> +               s->pch_pic_base = addr;
+>>>>>> +               s->has_init = true;
+>>>>>> +       }
+>>>>>> +out:
+>>>>>>            mutex_unlock(&kvm->slots_lock);
+>>>>>>
+>>>>>> -       return (ret < 0) ? -EFAULT : 0;
+>>>>>> +       return ret;
+>>>>>>     }
+>>>>>>
+>>>>>>     /* used by user space to get or set pch pic registers */
+>>>>>> --
+>>>>>> 2.43.0
+>>>>>>
+>>>>
+>>
+>>
+
