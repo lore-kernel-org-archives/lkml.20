@@ -1,97 +1,199 @@
-Received: from smtpcmd12132.aruba.it (smtpcmd12132.aruba.it [62.149.156.132])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57B24D1780
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FACB4CE688;
+	Wed, 30 Sep 2026 12:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770510; cv=none; b=NJwO0Ja/dv7+juMmBKosMZuNMmUu99M3t586xsAXNGARhHYEDg9DaiSAEsuC2Y/5evyOZEFwU8xZ+Xk71qLWKe4TW7u+ynaMYxCAV2yA+nZeETxQoNsJ4LmF0rcRmm4LIWfSA2J8qttj8lDHhjTwtepUMe8aaHLNhgvA0Ruxqd4=
+	t=1790770565; cv=none; b=dglFTjOuzRcXBrR5wdnw6stPlBcsD+8IvS9O7QdDNefKZlqGv/JaRe1zq83luXDXAG6RN5JpR5gx3ITTX3qaXwbcu6o13lEWDgZS+CzFuoRm9i1d/1M7Z3broTUWViguXH89BClAUvQn3PpMAE6FqlDL0YP1Q8bF5cciV5+WHrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770510; c=relaxed/simple;
-	bh=7nR7ToxbmF2vXPy/2r05JJLxk0ahQyjYyzObpufFnqI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qZ0GJvY0bVrMLbfPBp4ZhmcKBQdO8v1FEajLt8lylC5cEcG4nbwwbwKz82CRx2igifJNNJRhkDuaQTR6xgDDGtRb1GBhTm+keRdyPcvQbajtiEZUmEHodplzWKz7szuSIVTj3n+tY6Ha2NRRe7Dcyi7kWqm6BoK7GMAN1xvpDv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=KqMgfzH9; arc=none smtp.client-ip=62.149.156.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790770565; c=relaxed/simple;
+	bh=O2T7cgLC7o0DlEiWg1oByORFowPDVnrqcwK/iNI/Udw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AQKVfVnd05DTdUyQlF0K7vulJeoSIREQndF+DwhmC3/2HRmMPOqzh+EBQpCJx13UcLaertXnX9XUfsNNseq6iLkG/5da8fF4NUSyRHZ4QYn5u791YFIZJD/QnD2FTsRG89c3oQ9qTnwYmM3B/I2K6Ya1q5aD4keB/8lIoyMih1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOI5pq/h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="KqMgfzH9"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id Bt6Jxwm5xxUh5Bt6NxVwKy; Wed, 30 Sep 2026 14:08:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790770080; bh=7nR7ToxbmF2vXPy/2r05JJLxk0ahQyjYyzObpufFnqI=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=KqMgfzH9MBaLdaPI+QSpYJj8Qa0DG8KfPVPdFedn+oOScNZwn9I7TOUOYVOU+VEc2
-	 cS6LUtg5sO+R2VwpkEq40txU0R5pIEy9gcZ0b8Uabzyq1yeSsSwtwpB01PHU+vp+3q
-	 3PMeA6847XxU0/dGh96pltZ7IHacryJS5HsYQrENVK14Ac4E4h4X5NkfkE36cFRKTG
-	 zhOXULpKdtJeDoHqupRN7fHfeSLLxS2zClYTXHc5bxbLXZZq1+MMZBgHsbAWv+VIkf
-	 RmhhqS0bzceThGfT32PcLQkSCcrRH4C8NwydgSuZ6Ouj4otXUYoBTaUSSyx6/PxJmI
-	 N9rDjFYfibEig==
-Message-ID: <83bf278d-ea13-4e1a-b6b2-a114051cd62c@enneenne.com>
-Date: Wed, 30 Sep 2026 14:07:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOI5pq/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CFB1F000FF;
+	Wed, 30 Sep 2026 12:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790770564;
+	bh=H4zXzPrnJja1BHKDHtq5BxDIJftOHm+1n2VssXkb234=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nOI5pq/h0txyI18c+h/bCV9PuUjVb4+ME26pgb6r4PjLF+7OhidsG1JbxpRhDtw2v
+	 54+L0EnPa1449AKTlT3pufKrvxDz453fqUexrChx6ciWPBxYFGWpVaq7GcE+MxVU9P
+	 1uyYmPDusXLpbqHuGcpjipIG8tuHq85hrQ8+c/zM62rs1GEcMtB0qI7AXVuvJzcxl3
+	 ct86envx4ATsUcEMZfzttOGLGbEClCSr6ISa5gpLnqDWrYDRo+SPyuYB08B5P1cNH9
+	 LKWLAfSJ8Z11xUBgqdT5S1N1aZjDxURpMkingW12k2j2rKq3vyCh5OVJKBEd/mXc2y
+	 CYRse6GPqc4xg==
+Date: Wed, 30 Sep 2026 07:16:02 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: jic23@kernel.org, krzk+dt@kernel.org, dlechner@baylibre.com,
+	linux-kernel@vger.kernel.org, nuno.sa@analog.com, andy@kernel.org,
+	marcelo.schmitt1@gmail.com, skhan@linuxfoundation.org,
+	Michael.Hennerich@analog.com, linux-iio@vger.kernel.org,
+	conor+dt@kernel.org, linux@analog.com, corbet@lwn.net,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 09/13] dt-bindings: iio: adc: adi,ad4134: Document
+ external multiplexer usage
+Message-ID: <179077056179.2288166.13408399366910214654.robh@kernel.org>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <4c6b88d4332a3fd6d4c3f7a65478b24d2015226f.1790719425.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] pps: generators: fix use-after-free when closing a
- removed device
-Content-Language: en-US
-To: Danish Khateeb <danishkhateeb03@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
- <20260929124937.51114-2-danishkhateeb03@gmail.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260929124937.51114-2-danishkhateeb03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfIreEbdPnEpmxLjwIvayXYXH1yNzYXWLnxwLxBdlnMMVtLV8N7qkiM2+XxIaTkkRj5woJV7Gm76gb7bFp4F30EiZby5bmdjqsPobpCq43ZN6Es9lju7x
- lBwOwKXPl/t4Vp2Bu0Xdx+ZneV14Q4hi5BYKLUS8E95ZVKWCuik/+Nn9+jjwMS6XJLMlspzcj6AjcZl27jBuMtoI6eqDfdqfZs2iMMEmLa7xksCg+h2Egf34
- CmnaiHX4EM9T+T6QZuWG17WeGJfhoVUSacjE4k8BIotggX7ZaZjiUM4SeNlCN3UrFcisj4AFAH4dBVhKPSYA5NoAfjuD7KiyoFyQhh1dRtiW++1UQAW1dn0L
- 1h6ZoI1QUtqgyiJTLaqZ9WYQ8pFTycF6ZhBepbGvzqfOr1ScvbbZZV34VuhWa5iHy0S8J10C
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4c6b88d4332a3fd6d4c3f7a65478b24d2015226f.1790719425.git.marcelo.schmitt@analog.com>
 
-On Tue, 29 Sep 2026 07:49:34 -0500, Danish Khateeb wrote:
-> The cdev of a PPS generator is embedded in struct pps_gen_device, but
-> nothing ties the lifetime of that structure to the cdev: pps_gen is
-> freed by the release function of its device, and an open file holds a
-> device reference only until pps_gen_cdev_release() drops it.
->
-> When the generator is unregistered while /dev/pps-genN is open, that
-> put_device() drops the last reference and frees pps_gen, and __fput()
-> then calls cdev_put() on the freed cdev:
->
->   BUG: KASAN: slab-use-after-free in cdev_put+0x53/0x60
->   Read of size 8 at addr ffff88801383e138 by task ppsgen64/149
->   Call Trace:
->    cdev_put+0x53/0x60
->    __fput+0x745/0xad0
->    fput_close_sync+0xd9/0x1b0
->    __x64_sys_close+0x86/0xf0
->   ...
->   Freed by task 149:
->    kfree+0x25a/0x6d0
->    device_release+0xca/0x3c0
->    kobject_put+0x169/0x320
->    pps_gen_cdev_release+0x51/0x80
->    __fput+0x36a/0xad0
->
-> pps.c had the same bug, fixed in commit c79a39dc8d06 ("pps: Fix a
-> use-after-free").
->
-> Fix it the usual way: embed the struct device in pps_gen_device and
-> register both with cdev_device_add(). This makes the device the parent
-> of the cdev, so the cdev holds a device reference until the last file
-> is closed.
->
-> Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+On Tue, 29 Sep 2026 19:44:42 -0300, Marcelo Schmitt wrote:
+> The AD4134 design has two data interfaces. One interface allows register
+> access for device configuration while the other (separate interface)
+> provides ADC sample data. One way of handling both peripheral interfaces is
+> to merge them into a single SPI interface by switching between register
+> access and sample access according to device user requests. Though, such
+> solution requires extra hardware, external to the ADC chip. The access mode
+> switch can be done with an external multiplexer selecting either AD4134 SDO
+> or AD4134 DOUT0 to connect to the controller. The external multiplexer
+> becomes part of hardware requested for AD4134 device operation and thus
+> must be provided for operating the peripheral in such merged interface
+> schema. Still, there are alternative ways of handling the two AD4134 data
+> interfaces so the multiplexer is not always required.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> Change log v2 -> v3:
+> - Included the example right away with the doc update that documents it.
+> - Dropped mux provider from offload example.
+> 
+> Currently, SPI offloading is only supported in 4 wire mode. So, offloading
+> wouldn't be usable if added before the 4-wire patch.
+> 
+> 
+> Detailed reasoning for the external multiplexer usage.
+> 
+> Before coming to the current solution, the following configuration was tried.
+> 
+>   +-----------------------+                           +-----------------+
+>   |       AD4134          |                           | SPI Controller  |
+>   |                       |                           |                 |
+>   | SPI interface         |                           |                 |
+>   | for register     SCLK |<--------------------------| SCLK            |
+>   | access             CS |<--------------------------| CS              |
+>   |                   SDI |<--------------------------| SDO             |
+>   |                   SDO |---+                       |                 |
+>   |                       |   |                       |                 |
+>   | Data interface  DOUT0 |---+---------------------->| SDI0            |
+>   | for ADC data    DOUT1 |-------------------------->| SDI1            |
+>   | read back       DOUT2 |-------------------------->| SDI2            |
+>   |                 DOUT3 |-------------------------->| SDI3            |
+>   |                 DCLK  |<--------------------------| DCLK
+>   |                 ODR   |<------------------+    +->| Offload Trigger |
+>   +-----------------------+                   |    |  +-----------------+
+>                                               |    +--| PWM1            |
+>                                               +-------| PWM0            |
+>                                               +-------| GPIO            |
+>                                                       +-----------------+
+> 
+> Though, because DOUT0 never goes high-Z, the DOUT0 pin keeps driving the data
+> line, causing register reads to fail.
+> 
+> Alternatively, we could have something like
+> 
+>   +-----------------------+                           +-----------------+
+>   |       AD4134          |                           | SPI Controller  |
+>   |                       |                           |                 |
+>   | SPI interface         |                           |                 |
+>   | for register     SCLK |<--------------------------| SCLK            |
+>   | access             CS |<--------------------------| CS              |
+>   |                   SDI |<--------------------------| SDO             |
+>   |                   SDO |-------------------------->| SDI0            |
+>   |                       |                           |                 |
+>   | Data interface  DOUT0 |-------------------------->| SDI1            |
+>   | for ADC data    DOUT1 |-------------------------->| SDI2            |
+>   | read back       DOUT2 |-------------------------->| SDI3            |
+>   |                 DOUT3 |-------------------------->| SDI4            |
+>   |                 DCLK  |<--------------------------| DCLK
+>   |                 ODR   |<------------------+    +->| Offload Trigger |
+>   +-----------------------+                   |    |  +-----------------+
+>                                               |    +--| PWM1            |
+>                                               +-------| PWM0            |
+>                                               +-------| GPIO            |
+>                                                       +-----------------+
+> 
+> The downside of the above is the peripheral would need fine-grained config of
+> controller SDI lines to only read SDI0 for register access, and only read SDI1,
+> SDI2, SDI3, SDI4 for ADC sample data (currently available
+> SPI_MULTI_LANE_MODE_STRIPE reads from all SDI lines).
+> 
+> The currently proposed solution looks like the following
+> 
+>   +-----------------------+                         +-----------------+
+>   |         AD4134        |                         | SPI Controller  |
+>   |                       |                         |                 |
+>   | SPI interface    SCLK |<------------------------| SCLK            |
+>   | for register       CS |<------------------------| CS              |
+>   | access            SDI |<------------------------| SDO             |
+>   |                   SDO |------->|¯¯¯¯\           |                 |
+>   |                       |        |MUX  >--------->| SDI0            |
+>   | Data interface  DOUT0 |------->|____/           |                 |
+>   | for ADC sample        |          ^              |                 |
+>   | data read       DOUT1 |------------------------>| SDI1            |
+>   |                 DOUT2 |------------------------>| SDI2            |
+>   |                 DOUT3 |------------------------>| SDI3            |
+>   |                  DCLK |<------------------------| DCLK            |
+>   |                   ODR |<----------------+    +->| Offload Trigger |
+>   +-----------------------+          |      |    |  +-----------------+
+>                                      |      |    +--| PWM1            |
+>                                      |      +-------| PWM0            |
+>                                      |      +-------| GPIO0           |
+>                                      +--------------| GPIO1           |
+>                                                     +-----------------+
+> 
+> By being able to mux between AD4134 SDO and AD4134 DOUT0, the peripheral can be
+> connected to a single bus such that controllers able to read from multiple lines
+> will be able to gather ADC sample data from all SDI lines (SPI_MULTI_LANE_MODE_STRIPE).
+> With that, AD4134 maximum data throughput can be supported with what is already
+> available from the SPI core. See additional details on the AD4134 IIO
+> documentation (patch 13).
+> 
+> Yet another possibility would be to have the peripheral sitting in two buses.
+> 
+>   +-----------------------+                           +-----------------+
+>   |       AD4134          |                           | SPI Controller A|
+>   |                       |                           |                 |
+>   | SPI interface    SCLK |<--------------------------| SCLK            |
+>   | for register       CS |<--------------------------| CS              |
+>   | access            SDI |<--------------------------| SDO             |
+>   |                   SDO |-------------------------->| SDI             |
+>   |                       |                           +-----------------+
+>   |                       |                           | SPI Controller B|
+>   |                       |                           |                 |
+>   | Data interface  DOUT0 |-------------------------->| SDI0            |
+>   | for ADC sample  DOUT1 |-------------------------->| SDI1            |
+>   | data read       DOUT2 |-------------------------->| SDI2            |
+>   |                 DOUT3 |-------------------------->| SDI3            |
+>   |                 DCLK  |<--------------------------| DCLK            |
+>   |                 ODR   |<------------------+    +->| Offload Trigger |
+>   +-----------------------+                   |    |  +-----------------+
+>                                               |    +--| PWM1            |
+>                                               +-------| PWM0            |
+>                                               +-------| GPIO            |
+>                                                       +-----------------+
+> 
+> That may be a fallback option if what's currently being proposed fails to comply
+> to Linux code standards.
+> 
+> 
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 47 +++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
