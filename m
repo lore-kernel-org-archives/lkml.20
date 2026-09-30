@@ -1,197 +1,131 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f18.google.com (mail-wr2-f18.google.com [74.125.225.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F4D3F58C2;
-	Wed, 30 Sep 2026 10:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87D03C13F5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763613; cv=none; b=ERLxnh4ZDYVusjqTIst12JDU5UzFXP6AvKtWTfxgZeZPc5DX22+AuasHkHRZZ8VRWMBPD5yjqgrlcjlkTxyjo9s9/IK5z+DEgl6OyqMYAek0R0ckRY4nGbxUm49Mf+54cp7hNslGhRR9DTsFjkhPH7BUEjA7QzKwg9C3uctSfIs=
+	t=1790763650; cv=none; b=jrTg2yBXJu99DRmckTM45S1w+eRgDjMjW7ZcVmcpKaubQrm0lbHb9XElaUxp8y+wypUB7g1hNlL1Wak4wkEGiZAMdQW09tRzjatR9Tcz8b/o882lwMXWiDCRPxcP35pIDQyG5dCs2BuwZygAOEy+FILfeUlpKN2834aTZPDngWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763613; c=relaxed/simple;
-	bh=KFZpG+GqbCUyP6pa4OrLY7SJDV6NDylKoci6ExXpMXM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:MIME-Version:
-	 Message-Id:Content-Type; b=ueV8a+9e8ndkGhVHyRJzetJ2GEH+hplz+ZNEs/MWMUTPMqzW7eQhm8rMPXU1JfPRAx+Quhq1zT8F2U2VHFmj46GS2Oqb5DAsDGsHLJl1s1Q0NJqevgYTW7QXYwsOOdGCC32LEEHTaz79UARFU0HMB4EwDswE9yDQ8GS0qLOiNJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id B5448455C5;
-	Wed, 30 Sep 2026 12:20:09 +0200 (CEST)
-Date: Wed, 30 Sep 2026 12:20:04 +0200
-From: Fabian =?iso-8859-1?q?Gr=FCnbichler?= <f.gruenbichler@proxmox.com>
-Subject: Re: [PATCH] apparmor: handle NULL peer label in AF_UNIX context
- updates
-To: apparmor@lists.ubuntu.com, Maciek Borzecki <maciek.borzecki@gmail.com>
-Cc: Georgia Garcia <georgia.garcia@canonical.com>, John Johansen
-	<john.johansen@canonical.com>, linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-References: <9a2d420a1757516f1e9ad4e9a0e9f17b9ba92c72.1789628002.git.maciek.borzecki@gmail.com>
-In-Reply-To: <9a2d420a1757516f1e9ad4e9a0e9f17b9ba92c72.1789628002.git.maciek.borzecki@gmail.com>
+	s=arc-20240116; t=1790763650; c=relaxed/simple;
+	bh=yCEUIDG2Y5GxlvT/wMCKh81Uule45kf/VzVdVnRjAAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RwCyKobESX+BfaABeNgrrA29nCrhmW1gfGNudwf9llGQs24Wk8pgddRqVPuEsxzMpGIkgI1ZVsvKefj+rj1/Z7H6/ar0ytG1dvJKmUUuQfflXQPOF41t7DQO1kkdXJ7p1RaI9pb2sKTVqQLPGL55IcPfY8HR9LGhQqrPhyO9PNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eDN3W9i0; arc=none smtp.client-ip=74.125.225.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eDN3W9i0"
+Received: by mail-wr2-f18.google.com with SMTP id ffacd0b85a97d-48435ae9ca4so581604f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790763647; x=1791368447; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Trz0Hy57r+e4WvJzgKsYO+aJWqbZyy7nYQ+SL8BlRbg=;
+        b=eDN3W9i0h0hlOFCy+ixfJ22h6587/Hg+2/cL1G4sit6SheMSXOExRfnQaU1EunKoGd
+         9cIkUCxTZwigCLcUF0jxwUNBKrGwu98lnSO7GFN9jNWpFo3U3zbk92PZ+OYNcKBWw2vn
+         5pvyn1a5k9cQ2LVnReS5jKa5zpoc/phvXJIO/XUPFBBrLZQYbdug09noosxcY/D2WbW2
+         +OHXVkSUoVQ1AMQnA0gAa9cBl2IIAMEAufEUOBxj26/pbSram8UBxKwPcy142sJJpX5D
+         LtgxFLZAOseYa1Mou3vz9MK7VHm6AQcOSeEUnMnhgABIBo63++ZOkfiHKYXbid0ipj3F
+         kumg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790763647; x=1791368447;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Trz0Hy57r+e4WvJzgKsYO+aJWqbZyy7nYQ+SL8BlRbg=;
+        b=O82GiAEvFErWskh3bZ1Ii9vNjtGBrmv5jlDDP5YyLcZWfeuSRaG3SzZ9RFevGwj8Ji
+         Pp4MSYkAIi5n/bhCzz99MX+Y4GGAmbwjaYtvvKXff4Uj5N+tdzTVJdmX7JpErp2H5lp5
+         bpMLXoo1Y8mLpiK1ledagI3TD/uYQNMfL/LV8VEJoH8l1I8XLWtx2LhGpmtvotAI04aL
+         5AjpVTfb/ceKGrbwDt6Z541tQCjUYeY3OrhvSw02CkIN5V6QdmDhITRtey3P8MpzvR8/
+         CEC79DgWjrTfx+mfQqtuTGTeOhjPtqDPEq21ebWf4bRx4K+eDMNjiXdWGT7NhxVJQGjx
+         VvQg==
+X-Forwarded-Encrypted: i=1; AKwUvBw4x9kwmCv/3LEy8DhoBjHTsEp5VeNGr02jm8n15X2/lSzE9+aOMcbsaG6MI4nI1Ra6bnApuYwn32KaUXM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLf2YwgN6kvJgaYuuvtADil6CP/kpmPRpyx1R55TDA4xTO5Li4e
+	mZ7wIUx/CfdgigGH70RSP+wwwg95ar65L2BrcAL2kGxZELsuM72/cTYG
+X-Gm-Gg: AYBFou0kGI/bllrjD6cS/7YxG+aIxefN0C+raKAcTUPykrbwH/PV6COClijwHud6VRe
+	vq5myOQvX4sRD1ob9eMjfvaLlCwwT/ubk19uMBPDpYkV0ouZUt91Wnd3t6M9B8mTk+EhukFKjb4
+	Ak5GHwKiM+Bj2cRSB/c0S+pf8zST6s653UNxR2B3zg1XYKpJoV04dPTQYA7MuWbMXlgSJeCLGId
+	0hxEd5eKqf2gvbfT12QuacxJx/PL3kDNebDcfoZMF4nMUIxQtxJ39rg6h//jl2Q1P61Ap5AO//j
+	Xi9Y+xnNFC2kuEWFMYPmPQJPlnWdiRxya0fDafIGDrmRmkdlFkCax7qV8VB+B1mvD17WlGGIDpl
+	5bVlLCuw4X1YtcLo2WOs/Uxcuy24WKpE6OVIRK9d84J1s6fPQTgJwn7B6z0KI/R3b5t0kEBQ2VX
+	G6gJd0aoGIQkf+kDMjDOuTDAiiywLy9qF11HojFI8DLimjZDKhbGl2RFocuY9a1RpzsU0ieeGPn
+	E+LqDGb0KleDy6dzZEEYSu1q7FDk0E=
+X-Received: by 2002:a05:6000:4a19:b0:488:82e6:265c with SMTP id ffacd0b85a97d-48b02381237mr2123548f8f.0.1790763646785;
+        Wed, 30 Sep 2026 03:20:46 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029fc420sm2328850f8f.28.2026.09.30.03.20.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 03:20:46 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@kernel.org,
+	rostedt@goodmis.org,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
+Date: Wed, 30 Sep 2026 13:20:43 +0300
+Message-ID: <20260930102044.208070-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929085320.337703476@infradead.org>
+References: <20260929085320.337703476@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: astroid/0.17.0 (https://github.com/astroidmail/astroid)
-Message-Id: <1790763266.aoz82d3wso.astroid@yuna.none>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1790763608653
+Content-Transfer-Encoding: 8bit
 
-On September 17, 2026 9:15 am, Maciek Borzecki wrote:
-> When a confined process performs the first file permission revalidation o=
-n
-> an AF_UNIX socket, both update_sk_ctx() and update_peer_ctx() can be call=
-ed
-> before the socket's peer label cache (ctx->peer) has been populated. In
-> those cases they pass NULL as a label argument to aa_label_is_subset() or
-> aa_label_merge(), which immediately dereferences label->size and causes a=
-n
-> Oops:
->=20
->   RIP: __aa_label_next_not_in_set+0xd/0x110
->   CR2: 000000000000004c
->   Call Trace:
->     aa_label_is_subset
->     aa_unix_file_perm
->     aa_file_perm
->     apparmor_file_permission
->     security_file_permission
->     rw_verify_area
->     vfs_write
->     ksys_write
->=20
-> Observed on Arch Linux kernels 7.2.4-arch1-2 and 7.2.6-arch2-1, triggered
-> by snapd unit tests writing to a connected AF_UNIX socket. The issue
-> persists across those stable updates.
->=20
-> Why this can happen:
->=20
-> * apparmor_socket_socketpair() calls unix_connect_peers(), which pre-
->   populates ctx->peer for AF_UNIX socketpairs. Because of that, simple
->   socketpair() tests never exercise the NULL-peer path.
->=20
-> * For an AF_UNIX SOCK_DGRAM socket that is connected explicitly (or via
->   any path that does not go through unix_connect_peers()), ctx->peer is
->   still NULL the first time aa_unix_file_perm() runs. The permission chec=
-k
->   succeeds, then update_peer_ctx() tries to merge label into ctx->peer an=
-d
->   update_sk_ctx() calls aa_label_is_subset(plabel, ctx->peer). Both
->   dereference NULL.
->=20
-> The following reproducer profile demonstrates the bug:
->=20
->     profile aa_unix_server /path/to/repro {
->         #include <abstractions/base>
->=20
->         change_profile -> aa_unix_client,
->         file,
->         unix,
->         /path/to/repro rmix,
->     }
->=20
->     profile aa_unix_client {
->         #include <abstractions/base>
->=20
->         file,
->         unix,
->     }
->=20
-> Run a program that binds an abstract AF_UNIX SOCK_DGRAM socket under the
-> server profile, then forks a child that changes into the aa_unix_client
-> profile, connects the DGRAM socket to the abstract address, and writes().
-> The write() path reaches the context-update code with ctx->peer =3D=3D NU=
-LL and
-> oopses.
->=20
-> Fix all spots in update_sk_ctx() and update_peer_ctx() that can see a NUL=
-L
-> ctx->peer:
->=20
-> 1. update_sk_ctx() RCU check: only call aa_label_is_subset() when
->    ctx->peer is non-NULL. If it is still NULL, an update is required.
->=20
-> 2. update_sk_ctx() spin-locked section: treat a NULL old peer label as
->    "plabel is a superset", i.e. populate ctx->peer with plabel.
->=20
-> 3. update_peer_ctx(): if ctx->peer is currently NULL, just store the new
->    label directly instead of trying to merge with NULL.
->=20
-> Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correct=
-ly updated.")
-> Signed-off-by: Maciek Borzecki <maciek.borzecki@gmail.com>
+Hi Peter,
 
-The oops triggers during execution of rustc's testsuite on a system with
-AA enabled. This is identical modulo the first hunk to the other, older,
-also not yet applied patch referenced by Aurelien. Both patches prevent
-the oops triggered by rustc's testsuite.
+I checked everything *again* to make sure;
 
-Tested-by: Fabian Gr=C3=BCnbichler <f.gruenbichler@proxmox.com>
+> -	if (!se) {
+> -		cfs_rq->h_load = cfs_rq_load_avg(cfs_rq);
+> -		cfs_rq->last_h_load_update = now;
+> -	}
+> +	/*
+> +	 * The above (forward) leaf_cfs_rq_list traversal will have done
+> +	 * update_cfs_rq_load_avg() in a bottom-up fashion. Now iterate the
+> +	 * list backwards, such that we're ensured to have visited every
+> +	 * parent of the current group to update h_load in a top-down fashion.
+> +	 */
+> +	list_for_each_entry_reverse(cfs_rq, &rq->leaf_cfs_rq_list, leaf_cfs_rq_list)
+> +		update_cfs_rq_h_load(cfs_rq, NULL, NULL);
 
-> ---
->  security/apparmor/af_unix.c | 24 +++++++++++++++---------
->  1 file changed, 15 insertions(+), 9 deletions(-)
->=20
-> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-> index b908e744818c9bfef1638c6abadec75c241dc9b9..4762b70cdc43b5dac87f07906=
-7eca0ca74d5dd52 100644
-> --- a/security/apparmor/af_unix.c
-> +++ b/security/apparmor/af_unix.c
-> @@ -659,7 +659,8 @@ static void update_sk_ctx(struct sock *sk, struct aa_=
-label *label,
->  	rcu_read_lock();
->  	update_sk =3D (plabel &&
->  		     (plabel !=3D rcu_access_pointer(ctx->peer_lastupdate) ||
-> -		      !aa_label_is_subset(plabel, rcu_dereference(ctx->peer)))) ||
-> +		      (rcu_access_pointer(ctx->peer) &&
-> +		       !aa_label_is_subset(plabel, rcu_dereference(ctx->peer))))) ||
->  	  !__aa_subj_label_is_cached(label, rcu_dereference(ctx->label));
->  	rcu_read_unlock();
->  	if (!update_sk)
-> @@ -682,7 +683,7 @@ static void update_sk_ctx(struct sock *sk, struct aa_=
-label *label,
->  		if (old =3D=3D plabel) {
->  			rcu_assign_pointer(ctx->peer_lastupdate,
->  					   aa_get_label(plabel));
-> -		} else if (aa_label_is_subset(plabel, old)) {
-> +		} else if (!old || aa_label_is_subset(plabel, old)) {
->  			rcu_assign_pointer(ctx->peer_lastupdate,
->  					   aa_get_label(plabel));
->  			rcu_assign_pointer(ctx->peer, aa_get_label(plabel));
-> @@ -700,13 +701,18 @@ static void update_peer_ctx(struct sock *sk, struct=
- aa_sk_ctx *ctx,
->  	spin_lock(&unix_sk(sk)->lock);
->  	old =3D rcu_dereference_protected(ctx->peer,
->  					lockdep_is_held(&unix_sk(sk)->lock));
-> -	l =3D aa_label_merge(old, label, GFP_ATOMIC);
-> -	if (l) {
-> -		if (l !=3D old) {
-> -			rcu_assign_pointer(ctx->peer, l);
-> -			aa_put_label(old);
-> -		} else
-> -			aa_put_label(l);
-> +	if (!old) {
-> +		rcu_assign_pointer(ctx->peer, aa_get_label(label));
-> +	} else {
-> +		l =3D aa_label_merge(old, label, GFP_ATOMIC);
-> +		if (l) {
-> +			if (l !=3D old) {
-> +				rcu_assign_pointer(ctx->peer, l);
-> +				aa_put_label(old);
-> +			} else {
-> +				aa_put_label(l);
-> +			}
-> +		}
->  	}
->  	spin_unlock(&unix_sk(sk)->lock);
+
+>  static unsigned long task_h_load(struct task_struct *p)
+>  {
+>  	struct cfs_rq *cfs_rq = task_cfs_rq(p);
+>  
+> -	update_cfs_rq_h_load(cfs_rq);
+> -	return div64_ul(p->se.avg.load_avg * cfs_rq->h_load,
+> +	return div64_ul(p->se.avg.load_avg * READ_ONCE(cfs_rq->h_load),
+>  			cfs_rq_load_avg(cfs_rq) + 1);
 >  }
-> --=20
-> 2.55.0
->=20
->=20
->=20
->=20
+
+Is updating the root less often intentional? 
+Or am I missing something and we update the root more than the old code?
+
+Also, there's a typo:
+
+> + * Pelt uses apprixmate 'us' as ns/1024; and then uses time segments of 1024
+> + * 'us'. As a result each segment is in fact '1<<20' ns.
+
+'apprixmate' :-).
+
+Thanks,
+Kayra
+
+
 
