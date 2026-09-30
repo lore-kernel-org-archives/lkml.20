@@ -1,94 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A085B52842B;
-	Wed, 30 Sep 2026 17:40:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3C7538D81;
+	Wed, 30 Sep 2026 17:40:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790047; cv=none; b=pi7IxUJsZUXfW7EcNnmhxTvVikUu0OvHQpXdoRArVP5hcVXI5PqHuUzjx7pKELrRRGu8wtnEsGv2XWlXUtwRo54NhRHu/vFChxBXoeTfUFoAHbTcDv9xuEGKJQLNsxAF8/ynivj8eVFSboUF28TDV/EGF0DBHoP9fQ45cR1OmkY=
+	t=1790790050; cv=none; b=fwXovkcPbMvYF0093V3C+CnefZzMt1VabyAERj6w1F6IrI8/QEhDxxH41z6+7RFgyrXZAGKaXgUtyQyyVd6w4cWzBzTlx5aJ2I1Q0tdHzGoa7Hle6w+tTovBA1jFtww30xkJSaOMcM2H9AhFZd4IhcrbE4d77BVvvL50B5gD8m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790047; c=relaxed/simple;
-	bh=UFEEaU8VSNcczL2s8tDNC/map7bcN1duSucun+XsqFg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=OBUkEauNNTc+YJIcughPIBlxAecDw6Do7W+XIE98wMykxhgAMbqDJf1JCsczkvNisV0C7uscqC0XpDwMSK/3RI8nCACgG9jYEdTJz8XNKAhmdK2vSqGaifYhz+4rt7AwQId53HNKxXn0O0J1Bb08+JrNmbar37i5Rbg17M2w70U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8nND1KS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790790050; c=relaxed/simple;
+	bh=F/NvKDalXNIIfR6m4FdI5unaI125NQ8Aa6oYjU4JVHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dSEw5YdVQh7K2CfNjaibSAKUk3/01fA79ibj6cfc+suCD4qFQRpa8TVWgo2cApM3XdKyU030d8le9dm0X42EaYLr0eLCDU5fm9uUCrXGS9DcyYDTbaG4D7bybEC0Kl0YkhPSqqVws4hbzMeJlLsx+Ql2Pvxj/9dH3xNROSMdrMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEt7auJd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8nND1KS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62801F00898;
-	Wed, 30 Sep 2026 17:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEt7auJd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405CD1F00899;
+	Wed, 30 Sep 2026 17:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790790046;
-	bh=YhVZFG5in0F6n1NwsGrKsPvZtMr7DkwLGnxnIpNEZlg=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=V8nND1KSs7ybLY2op+fQghxOr6z/M2H1Wx2fmTCEEARj2nS4gfLwD8IcSVzzOk25W
-	 1s3c7Kv6ko5uPGyMowgWPCi7DSeYS16Kd8gjGCasAP/Q4oK9k5khN6yRZf7nCpEVnw
-	 eACzrS4+Am2jJ32wBEoFAaVqjai/a3GZw7cnE9Uo3uTfK5NFjZcBqVNTlw/ZyV/J8i
-	 MXTTiR40Ozy0RY745BhfMf4zLYSLyIX/dRrYLnmycyX2Bol2DIM2m6GVb8Nbt/yoFD
-	 nBHvuQnycd0xqcc7x1Ge+uDfscqdUpIRGOjSArQSXUbGq9H8KErvE8XfwU6G2eeYvZ
-	 1VzxMQUyWJ9Gw==
+	s=k20260515; t=1790790048;
+	bh=pJxP02jgtsYKvx2G2NNGwZtK03ROopISrRswIgnOLg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mEt7auJdWJUg5J4oqGJ2f4A0mfumXKjZmabsGsBBUteaFnfqtPvpZKtBFwH9UyYp7
+	 bcPXNFOyJ3QRNegNFvBCKJcfsgTxBiMGMiUrDrv1ri9eZ6u79p4vMGP/x3zXaUR1qr
+	 Ff1JW3ph5GmwUZp3W/1BTDVm25dTpdKsBEBBshkAEu54gxLbXSC34+9BvI33WOKYWm
+	 2iRPuaIV9fUtUKU2RurSggm7CK0Mg1vxfQsSoj9RUBwvwOLZU/2OQdHAlXEtoNuXSg
+	 VtvyVweIeEVf0PGQIaSnXjS88RxMQMuNPACKeMNPPHLrc4stAurlwhnkddei1deHAd
+	 4MsXVgJD/5hoQ==
+Date: Wed, 30 Sep 2026 18:40:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shih-Yuan Lee <fourdollars@debian.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v17 3/6] spi: pxa2xx: acquire active PM runtime reference
+ in interrupt handler
+Message-ID: <2070ad49-b017-4caf-822d-0ad8ef520f79@sirena.org.uk>
+References: <20260930160629.1822-1-fourdollars@debian.org>
+ <20260930160629.1822-4-fourdollars@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GTUHbOsFbl4ZReX2"
+Content-Disposition: inline
+In-Reply-To: <20260930160629.1822-4-fourdollars@debian.org>
+X-Cookie: (null cookie
+
+
+--GTUHbOsFbl4ZReX2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 19:40:39 +0200
-Message-Id: <DLSU375MUCEM.QQ89C9WM16H5@kernel.org>
-Subject: Re: [PATCH v2 1/1] vfio/pci: Remove the core dependency on driver
- data
-Cc: <alex@shazbot.org>, <jgg@nvidia.com>, <acourbot@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <kvm@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>, "Alex
- Williamson" <alex.williamson@nvidia.com>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260930143641.4160785-1-xinmengs@nvidia.com>
- <20260930143641.4160785-2-xinmengs@nvidia.com>
-In-Reply-To: <20260930143641.4160785-2-xinmengs@nvidia.com>
 
-On Wed Sep 30, 2026 at 4:36 PM CEST, Simon Song wrote:
-> vfio-pci-core currently has runtime functions that interpret pci
-> driver_data as a pointer to vfio_pci_core_device, and enforce vfio
-> variant drivers must set vfio_pci_core_device to their pci driver_data.
-> This constrains variant drivers' private-data layout, including the
-> typed driver data used by the Rust PCI infrastructure.
->
-> Added VFIO_PCI_CORE_DEFINE_CALLBACKS marcos to generate wrapper code for
-> each vfio variant driver, update vfio variant drivers to store their
-> private strctures in driver_data and use generated wrapper to pass the
-> vfio core device to helpers.
->
-> Select the vga decode callback during vfio_pci_vga_init based on if
-> vfio_vga_disabled, the callback only use pci_dev and does not require
-> driver_data
->
-> Assisted-by: LLM
-> Link: https://lore.kernel.org/all/DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org/
-> Co-developed-by: Alex Williamson <alex.williamson@nvidia.com>
-> Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+On Thu, Oct 01, 2026 at 12:06:26AM +0800, Shih-Yuan Lee wrote:
+> On a shared interrupt line, ssp_int() can be invoked while the SPI
+> controller is suspended or transitioning power states. In ssp_int(),
+> evaluating device power state without acquiring a reference before
+> accessing MMIO registers is not atomic: another thread executing
+> pm_runtime_suspend() can drop the last reference and gate the clock
+> immediately after the check passes. Accessing unclocked registers then
+> leads to PCIe Completion Timeouts and system hangs.
 
-I like that this moves the PM ops to static initialization. One nit below, =
-but
-either way:
-
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-
-> @@ -2332,10 +2324,9 @@ void vfio_pci_core_unregister_device(struct vfio_p=
-ci_core_device *vdev)
->  }
->  EXPORT_SYMBOL_GPL(vfio_pci_core_unregister_device);
+> @@ -1464,22 +1481,31 @@ int pxa2xx_spi_probe(struct device *dev, struct s=
+sp_device *ssp,
+>  		}
+>  	}
 > =20
-> -pci_ers_result_t vfio_pci_core_aer_err_detected(struct pci_dev *pdev,
-> +pci_ers_result_t vfio_pci_core_aer_err_detected(struct vfio_pci_core_dev=
-ice *vdev,
->  						pci_channel_state_t state)
+> +	ret =3D request_irq(ssp->irq, ssp_int, IRQF_SHARED, dev_name(dev),
+> +			drv_data);
+> +	if (ret < 0) {
+> +		ret =3D dev_err_probe(dev, ret, "cannot get IRQ %d\n", ssp->irq);
+> +		goto out_error_clock_enabled;
+> +	}
+> +
+>  	/* Register with the SPI framework */
+>  	dev_set_drvdata(dev, drv_data);
 
-The state argument is unused. Since this is not installed as a direct PCI
-callback anymore it technically doesn't need to retain its signature.
+We need the driver data before we request the interrupt, the interrupt
+handler does runtime PM and the runtime PM operations use driver data.
+
+--GTUHbOsFbl4ZReX2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq9SZoACgkQJNaLcl1U
+h9Cs3Af+LNc0+SJ5Y6YknMd3CLLOdUOalJr8UqvKUwpHVit5RsQkYbKXimsWEmFP
+k1lEO3dyX+h0QhqFL3txzMQimFFnnfHTZAhXhDEVl8999xlNFmW+1k0Bwk6xesxd
+StLhG6GcLi1zPl+8VAkYq5MJzxy8fxBwjO3umEzlcnLaw3c+t9Y/IVmTrY9SKaU3
+hpir4cMgqB9pmtC84uegwD4jzZmvjBGkIsV+NwkkEP6DI9TjJQvnEHY0cqkiyLZh
+kLww5lxAs5xzfeLshBt9WVgNJx3kn1AmRMmUyIjZ+BksvEr/IYkQDu6n4RkcBY17
+a6jYxCY3E6mrmrkqTvFfQrf8MG2sgA==
+=vbC9
+-----END PGP SIGNATURE-----
+
+--GTUHbOsFbl4ZReX2--
