@@ -1,114 +1,99 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA233BE15F;
-	Wed, 30 Sep 2026 10:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B433CF69E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762508; cv=none; b=WI2FR4DbsB3ourK+n59OYCcn/gU6Bt0RYYA2a/rPCO7yO3GN/JEIw0YQxdT5hLHeSnNXZ5sLeyIlKo2G5iqg22UpGKrRrVtm7C4J1jYAzSJyVakW8YP9MTHtrZc3ndIzuDb9Z+Z6YdiAXSj4Q/AxwXK264ubYgE6EkqkCuUV5is=
+	t=1790762511; cv=none; b=VZr62kjp5g9lfYUVBz1EumCnCaM7G6ba4yOg8lnyA7LcJxCfW5QNFBPTVDJu5jpNwK57k7+NzqPOEzrUG+iE4Sg7q+N1A2zjTo1t3VPiGxhSekLe9iPsIy+nuFGky7FBS+bzr92EDprSduqPQ74inq4d9Huu3ylHh9rOaA3cfyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762508; c=relaxed/simple;
-	bh=7aT6bgcPtCW5oehmL96KGS4fT0bM4ebVvrP97MFYTVs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Rtegxyq8b3xfyx2McxQGg9pM/36xygk41HYov5V7xnNiWMvFcBWxhFZ9XWOEALTyNToVhJcajGlpPwzVQsmUtofszFcciSYtIyA52px4XV9vd9WyLp6c7ZMSlLxAaxdMlKMJQv9Xc2YmeGsnsv7QzgSUOw4JIf9SQcEZNUY9+gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=PCYs5c3S; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790762511; c=relaxed/simple;
+	bh=kCHCHQfJzfg0Bs1eiO7xT/Q6SblBi2fuN7AUltRtD2c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a7ofYca0Q7+U7MboRWzwds+y+zt2PCp5GiyaxTRLAGQheXm8jltstuV5HvJP1AA3ihhk/MjNkzsfXAcxD2w0OLRLS+nEeRVjXoJpfq1F0cEqkjhSXWaYz6beHUwaugJKyDgggMBjLLuCmv3k4sDA3mBC5JWG0/0Cz+atHgllDVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbAAhxih; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="PCYs5c3S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790762506; x=1822298506;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7aT6bgcPtCW5oehmL96KGS4fT0bM4ebVvrP97MFYTVs=;
-  b=PCYs5c3SGW3FOYYftqM8YH/0tMZAHUqejxSyhiW1PUkUVzyDTfMdEALU
-   X59/zhNSdctvvqxzJryUjYcuKgxvi0Z9mHwFvrLxOk/RbfIEaJIh0/bnt
-   fmBLEUCr4dnDJXmu+RS0HsbRGtj8DAJM8Mnq/p4qbQAJMAttzmfZNHe/T
-   B433/npNo1E7s1+6moFTQPMnR34VjMphtfSp9zZdB36RA4cXL9z/jwGD+
-   B8po4SIYnb2MzmJYxZk4ADQrt+VnDeSBA7KUPe+6OcnYKENctbZ/bQkDq
-   NuUMjS4u993v7OIuuI1hvVEFFbMbRFy+ZNOwvBQe9nA98EPGOApmDSlO4
-   w==;
-X-CSE-ConnectionGUID: l70GvazLT6CO1ji4/fGI7Q==
-X-CSE-MsgGUID: LVwpygnjTQOmfk5PeePuCg==
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="295774315"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 30 Sep 2026 03:01:44 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 30 Sep 2026 03:01:44 -0700
-Received: from [10.40.24.197] (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 30 Sep 2026 03:01:40 -0700
-Message-ID: <ffd9c6b8-1169-4fde-ad84-581aa27ec827@microchip.com>
-Date: Wed, 30 Sep 2026 15:31:39 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbAAhxih"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1AA1F0089F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790762510;
+	bh=/77b7tpaX0IwG1F2p/oj+zPmslsEIceRWx3ywaCJbao=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XbAAhxihvq3X6cp/ooGX+9gjCx7cGjKtNmz8t2jgW1kQu1xNMKZpGviQnXvnSP3ZR
+	 iFfg64TfFpfdeTQKifI/NcNRZ4QuQ/aobMXSDWaQaMMf2o0hNAvesC6pW9Uu/ZHUaq
+	 QhnV+45aH67m38gnJ/KOv+Ch9RwxPPKziFMzqSmpUwsoVe3gbUKvItVN9bXrFv1mPA
+	 rZ/40vO8nuwgsKul2mD874GeneupgUdGNA5KdyvlKWFREsUV1VO2sUwIVf07BsVqnb
+	 yKD68VrwO1BCqZG7f2QQo//UcLRu2Q84ebr6Ibt7Is2o0KPKJxvRDed+Z1ehkK2WEP
+	 psGZU88KXXSjQ==
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso9141294a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:01:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzZPcmYUa6/7LGRWB2IzZtzzvHjXEHEVy32GIAjQYtYO3Lwr+yS5Qwt8yZtrNfpssuhaALtRfc/WaUnQDA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltoCW0ZyI67CvjmRMLfhQGrMzF8nSmdD6mFlQ6FQsM4YydBJJ2
+	1vypgo6tfOvKSEaL912BWBUXQ80Z6C3V6tSwqz73sBInbVzcvdjH5SaXGlb9BulzCQ2Qu1VakH+
+	Za+2XxNdbQhhRX+ajMixHj6eC74xkxs0=
+X-Received: by 2002:a17:907:3e18:b0:c2e:856:2a08 with SMTP id
+ a640c23a62f3a-c2e23749254mr69929866b.1.1790762508881; Wed, 30 Sep 2026
+ 03:01:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 0/4] net: microchip_t1s: fix collision
- detection on PLCA status change
-To: <netdev-bot+sinfo@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <UNGLinuxDriver@microchip.com>
-References: <20260929125928.611784-1-parthiban.veerasooran@microchip.com>
- <179068710834.31693.5197444123173344784@kernel.org>
-Content-Language: en-US
-From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-In-Reply-To: <179068710834.31693.5197444123173344784@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260927080305.831641-1-chizhiling@163.com>
+In-Reply-To: <20260927080305.831641-1-chizhiling@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 30 Sep 2026 19:01:35 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
+X-Gm-Features: AclHuK-_Hp3kM3VG9WhX8ROHQ1VcBmyadbVuAWRyD35V6F-5xhp_l3vFFO17T84
+Message-ID: <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
+Subject: Re: [PATCH v1 0/5] exfat: fix valid_size handling and locking
+To: Chi Zhiling <chizhiling@163.com>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, Yuezhang.Mo@sony.com, 
+	chenxiaosong@chenxiaosong.com, dxdt@dev.snart.me, hyc.lee@gmail.com, 
+	liubaolin12138@163.com, sj1557.seo@samsung.com, 
+	Chi Zhiling <chizhiling@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sun, Sep 27, 2026 at 5:04=E2=80=AFPM Chi Zhiling <chizhiling@163.com> wr=
+ote:
+>
+> From: Chi Zhiling <chizhiling@kylinos.cn>
+>
+> valid_size marks the on-disk up-to-date region of an exFAT file. It is
+> advanced from the write path, from read/zeroing completion, and via
+> truncate, while it is read without i_rwsem from ->iomap_begin and from bi=
+o
+> completion context. This series fixes several races and stale-data window=
+s
+> that follow from that split ownership.
+>
+> Patches 1-2 are self-contained fixes: an append write may be moved to EOF
+> by generic_write_checks(), so valid_size must be advanced using the
+> recalculated position; and exfat_zero_new_range() must mark non-uptodate
+> pages dirty so the whole page is written back.
+>
+> Patches 3-4 are prerequisites for patch 5: truncate now holds the
+> invalidate lock so it is mutually exclusive with mmap writes, and
+> valid_size/zeroed_size become atomic so they can be read safely outside
+> i_rwsem. Patch 5 then takes exfat_page_mkwrite() out from under i_rwsem,
+> since blocking on the inode lock under mmap_lock could deadlock and its
+> VM_FAULT_RETRY result is not honored, and advances valid_size under the
+> folio lock to keep the page cache and valid_size consistent.
+>
+> Link: https://lore.kernel.org/exfat/10029d6f-13cc-4d17-a2f9-b093a8339dde@=
+163.com/T/#t
+>
+> Chi Zhiling (5):
+>   exfat: advance valid_size to EOF for append writes
+>   exfat: dirty all new pages when extending valid_size
+>   exfat: hold the invalidate lock while truncating
+>   exfat: make valid_size and zeroed_size atomic
+>   exfat: use folio lock to protect valid_size
+Could you check the review comments from Sashiko ?
 
-Thanks for the feedback.
+https://sashiko.dev/#/patchset/20260927080305.831641-1-chizhiling%40163.com
 
-The issue was identified during production level testing of the
-LAN865X/LAN867X-based system. The issue was observed when the device
-transitioned between PLCA mode and CSMA/CD mode based on BEACON
-availability. The existing collision-detection handling did not
-correctly track these autonomous PLCA state transitions.
-
-The changes were tested on a Raspberry Pi 4 with the LAN865X/LAN867X
-devices.
-
-Best regards,
-Parthiban V
-
-On 29/09/26 6:35 pm, netdev-bot+sinfo@kernel.org wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> 
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->   - How the issue was discovered, e.g. hit in production, hit during
->     development, syzbot report, manual code inspection, LLM or static
->     analysis tool scan.
-> 
->   - Whether the issue was actually triggered, or is only theoretical
->     (e.g. found by code inspection). If it was triggered please include
->     the symptoms, like the stack trace or error messages.
-> 
->   - What hardware the change was tested on. For driver fixes please
->     mention the device (and if relevant firmware version) used for
->     testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
-
+Thanks!
