@@ -1,82 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF8B49D5AF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765194; cv=none; b=jurvqxTacxO/k4rt8qfTwv0B5FC3AwxoZDRey0XCMVFBfQr5QFeTEMSfHqrox7GYXTxD6o7nN5avwWxDPMwKKAOexTy20zIjoc/fgN5dd7AC9TfnjuU7ordH+zXOsOp7VWSxK5yWWJ1A+ebXPWzuboRrgjCsF9qy6fjUpht2oPo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765194; c=relaxed/simple;
-	bh=z3BNd3t5QI0iZuIsQagNY7Y2xxs7h9n+zoA/0fsn5lI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DB849DB90
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790765278; cv=pass; b=bsvZ5hornTR/9bkMplmxpQhlmb3p26xt0+FEXBMeK3Bm4ivrNwJaj1AQ99JPYinLGOSPUpqNQPBMO9z/AiuIsfWAIHwIDO7uRaxmgNkru4lL8gVPN6HYK8oJJoqWnYS416bIe1Bfyhm/uqFKXhxG1wQ9SxgY0cJv8cI8o594pPg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790765278; c=relaxed/simple;
+	bh=BJbbh5rIl1dEuHCd/t+PuKNfcL4FcSDDMLm4FZ7TkbY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OOZjPeY2doanA0Bh6UmgXx4puX2Hb3sGcsCEcd2LXOZilyYy/Yw2bTJ8w2WARQjJnx//Yn63tCAyVE6S7c86xRvhdYfi8vIwC+D0tMckoGXJ3C0RtMDKPf+ZmXZgyGFYj9GAZ1HuFHAiMs7aHr3gstHrCbg8W0nEuiU/5OTQa4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBgP2REI; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=m5eefoDY1Essrhn+wsXJY8E31FeHhL6Y4Vg34au2QcTuDBpvgeVf3IMkXps9eqgTtB3u6GFbH2IU65hLGbr0H2nemVgl4r5J1i6NUFowKEEVjmw5Hwud4gcvKVUm+M5z9C1Z3KZgZirhKlsHBYANMGKjAF6OkTQQhPOyDuJQY/c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qP3uvbAJ; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBgP2REI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB211F000FF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765179;
-	bh=z3BNd3t5QI0iZuIsQagNY7Y2xxs7h9n+zoA/0fsn5lI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IBgP2REIcEx+w+IJM3M7B78p8wLDKNpqHBl3GWaVQWbmSSQgxcx8xWJscOl1vl3Qb
-	 KFPzKiBSFaQ9I3s/Yy/jDXHsFVk77iaj7MpA0KK1CiNm5nFZggYhs4KsfWPvw3sp2I
-	 uRPFhvrkSziUf3ydJujWOlTDggp/D769/ZQ0EWefwgEUk1oDn41HcsgJI53rhhQT0N
-	 W5xk4jYpBjtTtIr3LvhXyi3NVxwXWvCMkjt+gaXcfLW+7ggkwZEaAoNmNxaatb126n
-	 nc9OLCdYSYHRYSQ2ufeXychtAuNisu5sWRgWZopwixyjEzkszw+vy+ig6HzOot8lmH
-	 JpR8Ujoo92GHA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330a7e46so1402183e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:46:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxfRXVPhEIQDYMijGU4Lv7btpxGFQqlwAuCmRIbaPkQaCYVRX1uoTa0ZOjpIbC/nciJ6TtR8IS9O2L8PUo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIxJ+7MUZBASCsYwRxOJJFfcQAxNLWRr9b4Hk0z4drQGQ1ZeZ7
-	tdZhnR7lI8lA/V2SElMU11JJ5uc6W3AzyX+sJeiSbmx7+BGjkc5+rFJYmuWoZ+XUbD6h6mJftDA
-	S2dMkaBLsNd+GVXlTaRwEPJ7FWSJXc0A=
-X-Received: by 2002:ac2:5962:0:b0:5b6:1a7c:fd8a with SMTP id
- 2adb3069b0e04-5ba40609bbfmr334357e87.48.1790765178551; Wed, 30 Sep 2026
- 03:46:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qP3uvbAJ"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso2203902b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:47:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790765268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dYptY6ZsZbq+WqFExmk1fDzwcKhEhSUjwHJJM95cRI59WewVlqug6MBGIlxV4elLar
+         235VcmwUWfCJk4aWkK3gJ+vsUxTfXT411XIlMG356Rc2X7mR0fY2Te6hv6+bZ+VXSbnP
+         Bw/M/qMriRMERqnKl9B1tsaGuvWO4CJK4YgqOyIj+BKu/c1l0FxwdouA0WM/8EgBBeLd
+         y30NQXkFzekIiPh02hNkz7nTThh4i/pzQmE7XQEIS1uyKdkHnEnmyYAGy7vMEGrJypCP
+         kp6hna4MrFaGP4gST+ex6YkbmTJRNop4vdIPTHwt6pcOsUr2pmfH9T2Y1WKx5e2+dNT7
+         WA2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        fh=a2S6TtF7gcK+hhr6EiWPy4AV1VZ/Y4GyCv4B63iwOGQ=;
+        b=IZiwxl8XNYa4wMlRByg7EZYLNDtNxk2sCuVppmAsO3klX5BonoOQpgY5K7jWkEcchx
+         +1upISShv8gPcb0KQ+Ovb0HOJQzK0QNZat6zOGDG7K8fENe5x8s1SFaz+oKK2azRj3Ge
+         liae+ImXyL5+7Ctxgofd84Oi93P7u5txsYnA6nonkLewx8fuPF6M3SGFT+gfwkmZO35T
+         0FvnB95iMPvQL26cw8kEjMG1HESIe9u1O9g02Gbti83JU++/TOg4XJthS2PorMgvx0E8
+         GD3W23/bZ7glvIBv+xz75qJlnqHhT2VQ4W8RWTqnky7DaRjKyuLuZw+dC30MUKuQuX6n
+         cXvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790765268; x=1791370068; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        b=qP3uvbAJc+BVGMRsNqrXSmbmrVa3FHC242tujymtCMQZy5pY8KR4iEIX4tfjUk5E2X
+         03V3Z3I6pM/K2uQmX5B9QmRlv/IFau0ifvJqUx0VGpl/735baM6JgLm12MWESCsgaeZO
+         sk88OeYx/0dyvyw2eHY61UiJQquOU8yK1U4dxJiEnScX4YptIfZEyvayf/+5ekFB+b4M
+         IHtKYTctXJqMWEOY/nu32C4yCBm0/V5ATDL5eG6iIlkFv2NVyWln2wj3iqqi57JJ5dcm
+         SGIvKz0l4mcL+ZzZJ8wrRvdf+s1QzaZI4jjnfulgYZ/CGgP307wuA6Mz+wpFnTRZLQyJ
+         o1oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790765268; x=1791370068;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        b=mpDysVHi+rPUM52GYZS/pvmTimP4HmJyjtfkdHqFwyqh0UgPwGSJ+1s0xaHKZ3Myl7
+         jL29WW/OQdIkZjp6R56+5qNARDOYWg7KHcTBp7GcZY4Z3rWwW4EbNWc+qqbNowtaCwWJ
+         htEkFIXgqj5s9Ue8XKRif4A2rEsq1gxLbWFVfV9Oo3RPzGIEc+vdryv0ZMLgcpEODjw2
+         Os1gQpzNRrImEvFoNhly3keVC64yfWSUaGJeChKkvbdZZL0nPTaZb8+aHsw7q/7YJl3u
+         S2S74WMiW4R8FCwN5nyhpopZG++KmQls+5Opvn4qRS/WmS2Ueew0yLa5530nYUauze6/
+         N2sg==
+X-Forwarded-Encrypted: i=1; AKwUvByBgZTl/Ls69Y3ffkbM41DMiilFqm2adpZ1G3nEmBAWgASFe+lB1OQ0gZ0Zcijt/mGNeCksLieCoW7NQOw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMVRXsFLvUvCkibn5Y9oxGdFx3Uxwk96ZA1CU98JmYv+LrgghP
+	pCMxOntSZ38VTNDWRXZm2o1mI9/Tu+jtCcuooZ94Dcdf7kM1UK3kjrOZQoxYjPTKvI+Macjb9kz
+	+H44HAbbtLTnvsjYgxyrVcMV35rI36N0=
+X-Gm-Gg: AYBFou0t0mVh38rt8xonfGKojnrrtdK6/5Gs5+YRVhrlrqidKjVpWTSXAR/KKfkjE/c
+	UITp6J/F28B2kh/8BnhXwgNwC7+IRVs1Wx0P/ZQ30QCX3hn7RvyJKyRqB6sogqaMkkWBjKpo93+
+	TyjWxYEwWVttAcsQHiPWKHLImC+fhdHWHvM6Snyo6vylsYkMVX7XvwLMwj5VgkzUvIkgOwL+ZLB
+	VJd9usimWOxBEdHiZJB4JX+AYVoJxp2PAGgjnHNrIEKXNoXrCVilakDf9nGmFJVpYaIbdXzM0N5
+	9J4eqLbearc0u9saTfpfc9yf6yFISXDGkXrdAvFGomHfm8TZb2E8R7wTUGMr6tD0AUZjRDo=
+X-Received: by 2002:a05:6a00:6c8d:b0:880:3b31:a4bb with SMTP id
+ d2e1a72fcca58-8874a89ae36mr654876b3a.20.1790765268145; Wed, 30 Sep 2026
+ 03:47:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-hibernate-tlb-flush-v1-1-a0143c144c19@amlogic.com>
-In-Reply-To: <20260930-hibernate-tlb-flush-v1-1-a0143c144c19@amlogic.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 12:46:05 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkB9KE_XEcHDHj576oUzXUyAN3KX2DxjENDwzSNpu1ohQ@mail.gmail.com>
-X-Gm-Features: AclHuK-mQu3SqsQZujhGStlMhedJD3jinzee-CBwOj6U-mdqpZr3J1pXDQy3c2o
-Message-ID: <CAD++jLkB9KE_XEcHDHj576oUzXUyAN3KX2DxjENDwzSNpu1ohQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: hibernate: flush TLB after switching to idmap
-To: Chongchong Ding <chongchong.ding@amlogic.com>
-Cc: Russell King <linux@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Florian Fainelli <f.fainelli@gmail.com>
+References: <20260927151016.186493-1-pmazzini@gmail.com> <20260927151016.186493-6-pmazzini@gmail.com>
+ <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
+In-Reply-To: <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Wed, 30 Sep 2026 11:47:05 +0100
+X-Gm-Features: AclHuK8o0ZcgRpk54PvKUPvKEFYR13nUvSknbUcihyLHytfHbaM-Aa-FPmvKY64
+Message-ID: <CAAxh=jsr1M-RHfqPF-hgQnM+RmH_D82=YX==Vn5-r2=1AB9eMA@mail.gmail.com>
+Subject: Re: [PATCH v2 05/11] dt-bindings: rtc: sun6i-a31: add Allwinner B288
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-sunxi@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 8:14=E2=80=AFAM Chongchong Ding
-<chongchong.ding@amlogic.com> wrote:
+Hi Krzysztof,
 
-> On 32-bit ARM, hibernate switches to the identity mapping to copy pages.
-> The idmap keeps an early RW snapshot of kernel mappings, so
-> STRICT_KERNEL_RWX text/rodata can be written during restore.
+Thanks, will fix in v3.
+
+Regards,
+Pablo
+
+
+
+On Wed, Sep 30, 2026 at 11:10=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
 >
-> cpu_switch_mm() does not drop the global TLB entries from swapper.
-> copy_page() can therefore still hit the old RO translations and fail to
-> restore kernel RO sections.
+> On Sun, Sep 27, 2026 at 04:10:10PM +0100, Pablo Mazzini wrote:
+> > The B288 RTC wires one alarm interrupt, not two.
+> >
+> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> > ---
+> >  .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml        | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
 >
-> Flush the local BTB and TLB after installing the idmap, matching
-> setup_mm_for_reboot() and the cpu_suspend() resume path.
+> Seems like valid and unaddressed comment from Sashiko, so dropping from
+> DT Patchwork.
 >
-> Signed-off-by: Chongchong Ding <chongchong.ding@amlogic.com>
-
-Ooops yes this does look like a real bug, albeit rarely exercised.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Please put this into Russell's patch tracker:
-https://www.arm.linux.org.uk/developer/patches/
-
-Yours,
-Linus Walleij
+> Best regards,
+> Krzysztof
+>
