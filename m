@@ -1,159 +1,198 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011056.outbound.protection.outlook.com [40.107.130.56])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020137.outbound.protection.outlook.com [52.101.84.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF073ECBC7;
-	Wed, 30 Sep 2026 11:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9033ECBC7;
+	Wed, 30 Sep 2026 11:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.137
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767645; cv=fail; b=gAyFJVZKMQkb5WJaWUZLtPPqO92GfUX2iDRmpfCt/znJKt/wuV/nj4DyMa1GzRN18iyNUIRkp4HckPEqrj5iYjr1BU4GgMoHJIa1/Kl5zNKktVKnSIvtdLFZLoG+UuUOKFrGTfm4ZV5btfX9glHk+OOnzIzEZN0XWEqqX7dn3jo=
+	t=1790767697; cv=fail; b=X4/5FT8LGrIWU1X7lDyb3TWiKvSjnZiyrT/KqiviQfDuZ646rz89D1Gmd1lLysbs0tr+QRS2TWT38HixfhyInrq6Nj+gDrL3eyatVprkgQFPm66oZ/HIwobLZ2gr7o98v4d/T4emct8txrymNHEJ7aCLbyJNeJRZoRyhIRSFrgI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767645; c=relaxed/simple;
-	bh=BY92gyEgRZJFdK7yWCNUmNenkCuYF6jLSps3cV4LQhM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Y95JZO6935LY/3Fn1rSHqX0VEvGLsfuNzKKRBnEKRXJCf78wEbfp2E+CEeLQqFMHoEU56wWStnPZasuHx34NBt6QOa70hnjXvjaJxDCHwRGX5tlpjiGmnPbAWioSiBfZa5FFrfhSphHJd6JPIaVXk9LdvucFzuClO8va2riBc5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hGLVXjBr; arc=fail smtp.client-ip=40.107.130.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1790767697; c=relaxed/simple;
+	bh=jZ3VmDLccpHMpalhssmyKslgSYSnZcCyuBudh0dTgNY=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=BJ6L3Ak+3JYQqlGbJQLQu1XBfQLMee5iU+EeQ5tiT6FfkTmtngZdscNhbgYny4mVhv7RspfhU4+AQzE18TvObrx0yz4PxgaUVhE3BCSzHqhwpyFMfWsnOcO02BP2FrgUBBlCl6bV7YB6Qm+y7ENQm2J+i2MRXJMAdDdT3913Kks=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=santannapisa.it; spf=pass smtp.mailfrom=santannapisa.it; dkim=pass (1024-bit key) header.d=santannapisa.it header.i=@santannapisa.it header.b=ZkEu9nDc; arc=fail smtp.client-ip=52.101.84.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=santannapisa.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=santannapisa.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hGLVXjBr"
+	dkim=pass (1024-bit key) header.d=santannapisa.it header.i=@santannapisa.it header.b="ZkEu9nDc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TVvnqfUrYMfyg89UXkW+B2EvZwcOEN17qEenG4lgwCnClCxWGBFASH7fh0BV9cThMuUzSf9vYeNtFj8CfF+MaurIGNU14pFAMbf8e5eF9EJtVuCBoMKOCbvAF4LkvRtHl3m7Lgdyv2x7WN7+mTA/lZ0pbUVzlvkgwVTJgIuxbi6AqceNUrIT8j7F/5yIPnyyNIE2ZNc21qojmjg/LdOFEiaDT4wFV42VQeoX/oh4DsF4ENN3O5/Ukqcxkr1L32jXxAQvtx2pEvLCAuBSdRuXiXuUzoQUixzK5NDp8k63MdEOWIXBbX6heETo0QVienCJE4na4stqXlzZLSPyQoOXsw==
+ b=r7U300mtnsNrDbMVBlZAwUcDrL6ZPH6eSOWEaN4siOtFYPwjLKYuMsNJDD2IrqioUOrEJoeoPmU2NP5eJD/2T1gQKDIuTUhpTsH2UYVTMCYm/aY+EmQ4VvQu9FFiGNzsHpzFmKGn11ALdEI1JUEGmH0u3wTospUg3yDQZT2z41x8zhl4OF0t1ro0p27paIp6UYajZhDIjv9Cr3kZDq/9U57eIjJNR1LUQW0Sc6Kn6HESe941CI1/6Z2EcfEQF5mj4QKl1B5n+Qo8TZ0ydkMBd+XaHzUB+LZEE+Xn/UldcvX6ZosZMkvSpLXg2zNhjxGuVTIruKkQAwdIB2WoMoFymA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iYXWdMLR8iugqleTQ3LlFZqtwoT5q1dXxktEtIFsP5s=;
- b=e9KmehzmCeJD18brj3JCBYYNiacE+BdX4LArhTHmrccnuM4pjmbWucr3miQNhw952kTv77ANCM8aI26I7a1RMo4SPc1O1l/bO9TW2E4TNAUJ5ieWY3V1BGtOZ92Q4Dv9mLBrMpe7R714Djf1kq1VKaMLA7KUcXuW3wcJXlaUXL2/c2RDaXmhEmav+auM1nwIFirakKzU268DNvwGdXanlHrCdI4hzdC3k4b1/HrpMPo1o1Xjf4XnhvRZRA9x63bUFtzginnDWFazm23SunSF1PwHqixg56Z28b9eqLGhoxaCKLKzJDkZqSpWusjbZBLETfAz6fWePiqo9vr/2UQLPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=fqwqf.xyz smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=KMoMP5mMVl/wOIHleAbkCYoZx7xCxqEtNpebg0bgco0=;
+ b=DqGrlKaoW5uQArfA0IW8ltwFyKPTGXFRwFR2vEe4tywKN/REaIoTZDePeMHSo23IQESLgbXNLy2L5z8G9nD6lfhPFEgHzzCgpYBZnmOUHMpdVRDbcoE3v6RJycWWroN6cEe1gAlSgDlbCBetMNVawlbjb1sS0cOTXmHUIKt66cZ4WBWfBFZK4t9gIUUveI6NfhFtEI6ymnI/MOMOg9+DB6CBDevhGXtUMrr5u3u3cm0N+uQqES60d8Zd/H7GZhBLgpsA/0bdmjz5HQa9ZVBq+dmpzCwVCkuHo2/a1QuRRjXvH2mk/QfaR1OV75SyzSFDVxRnV7yyn/KW0UTfVp+9jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=santannapisa.it; dmarc=pass action=none
+ header.from=santannapisa.it; dkim=pass header.d=santannapisa.it; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=santannapisa.it;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iYXWdMLR8iugqleTQ3LlFZqtwoT5q1dXxktEtIFsP5s=;
- b=hGLVXjBrQqEV8Ua7jmSg/KJleCA2lgdGvRjbExW5PLkxTjIxGbO88pwjaHrivHtSciShx+piOCLCQShuW/rIatMjvqmzko1dezhRd1FmlY/I96VZFE0x5UetgZesZFHiDRBUqdPnyEivYTBc1Cr3dfO8i7lAli7XAEIjx4MXtp7U4wuVNI9QMJsDkopzfvI6sc6ngGBk9aJ47GMZqKKP/exRwXTC4fBuo6yzMV7SFp2LcS5RM2Q1MZJuFy/3dtejYscqktnznQNFETtDUTsrGJNIEU3BHMzxpef9vq2GgySMvAAy0RMQthXMH0npAlJgK6cMid1T2A/R0Wm12UM6Aw==
-Received: from PAZP264CA0181.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:236::35)
- by VI1PR10MB218467.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:174::9) with
+ bh=KMoMP5mMVl/wOIHleAbkCYoZx7xCxqEtNpebg0bgco0=;
+ b=ZkEu9nDcDHs7YjIPvsJTX86dZPItNzxgbcSUFcVLpXrsbm9uV1fVZMNgU7RdvUxgX6xeX6PHYnu9IxmFtetB7hJKRDbrxY9jY4/Ya0GXQc4ZJMvSeOfTSSne5OB5NJ+y/Ui06w8lEgR3We4z4Pbj7bhKjJCVDlcUo2jkXaadduk=
+Received: from AM0PR03MB4113.eurprd03.prod.outlook.com (2603:10a6:208:74::27)
+ by AM9PR03MB6836.eurprd03.prod.outlook.com (2603:10a6:20b:2d8::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 30 Sep
- 2026 11:27:20 +0000
-Received: from MI3PEPF0000855B.eurprd05.prod.outlook.com
- (2603:10a6:102:236:cafe::63) by PAZP264CA0181.outlook.office365.com
- (2603:10a6:102:236::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 11:27:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000855B.mail.protection.outlook.com (10.167.240.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 11:27:19 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 13:33:10 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 13:27:16 +0200
-Message-ID: <cc54c76f-5f56-4f48-b05e-b740056fe2cb@foss.st.com>
-Date: Wed, 30 Sep 2026 13:27:15 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 11:28:11 +0000
+Received: from AM0PR03MB4113.eurprd03.prod.outlook.com
+ ([fe80::57d1:3e47:721f:a0a0]) by AM0PR03MB4113.eurprd03.prod.outlook.com
+ ([fe80::57d1:3e47:721f:a0a0%6]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 11:28:08 +0000
+From: Mauro Marinoni <Mauro.Marinoni@santannapisa.it>
+To: "miguel.vadillo@intel.com" <miguel.vadillo@intel.com>,
+	"mchehab@kernel.org" <mchehab@kernel.org>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+Subject: [PATCH] media: i2c: cvs: Register subdev nodes upon binding remote
+ sensor
+Thread-Topic: [PATCH] media: i2c: cvs: Register subdev nodes upon binding
+ remote sensor
+Thread-Index: AQHdUM6zy4KzYqIh8EmqxrbA7zHptQ==
+Date: Wed, 30 Sep 2026 11:28:08 +0000
+Message-ID:
+ <AM0PR03MB4113B0FE1173B693F4598C7A918B2@AM0PR03MB4113.eurprd03.prod.outlook.com>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=santannapisa.it;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR03MB4113:EE_|AM9PR03MB6836:EE_
+x-ms-office365-filtering-correlation-id: b6d114f8-4603-4793-55b0-08df1ee5e6fb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|786006|18002099003|38070700021|3023799007|6133799003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ je2oHHV3V1r5naQrA+Y52kQq/vO/hJlSALgWOgYlJAYSswvsZ5BrWjyTG03cFtxF1FGdPNU24jtYzDC2kaplyIsodWIPrx0NRr7HSjYdKZd2pn0RQYjDAe3H6YSUHg8gXnDH2rjAleGenNu3Y9ZkIToi9sDKKszUHC8spdTGVHC1Nvbr8Rw9ujZYq5W2i0ONqP2W/HxhgPqlhfP518/wEINmZ+8oUMN6OiSO0uddYC+2x+mWLvbxtwqcTUettkLGjce7nbeKsheGPdL/sUa6xgODOL4KOWScywL/eJIN2xMWA64TK9isfSnswtPVfqBpJ+uMh34qYWb2h/4o8prFDl9MD5tI6N5qHrcDYdEIzG/P7jSZ9ucWc19cZDE13/xEzY3lCkuS4RqxAr0xQvlUlPxSYPb32+rM2cX5MP2ZXtdT7m9reUqtPRtk+JbEhoA9ss1sg20bKRp3RnNMWKf3acIulIRDa/JnNt+JarndysYqSiq87vOejG5G1/jjLqkpTLVzql59H/MY5iUdAeLdOQpaDOwYoUbRHjM9vzeQ249F5QI2VLluEfaejmByd5/z6S8Xf/DEzJ7fLEvBb0bpSynyhZ1fa/DMBU51Y2aymlAvVA6v8KfIM/tKHE+9QFf7thpqa5F6eoQM0bXMNAhz2u4r2HXlJzMoJetbTT3OlnQmbKQopXx589qbvjHMd2wm8FWLTA1lmkVZTh/obI6Z0aQOEgZBWmWRVy1UdxXg2lo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4113.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(786006)(18002099003)(38070700021)(3023799007)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?ciZd6bNj1I4ha9G8vJeYgJZQQ58vkAzVt3lspc0PwwbxoKzWmKSaHgeBzb?=
+ =?iso-8859-1?Q?pe6HWDfKRjG6llm6xcABuJIWVnYoOI/TEM5RDwo6b4zpKnfRRv5AMkFIrf?=
+ =?iso-8859-1?Q?lMPwA0ulK1V5rBUJtflN4QyckSH3+N2jX1oOJezgjzU8D9V6MDlqU/LcQm?=
+ =?iso-8859-1?Q?ojNg8kkEaFRzN5oOToy9CkK07kzg02ZYUTWb8CS0hmTCauSD02bL/HOI4T?=
+ =?iso-8859-1?Q?VBklwNNjufvre6Ef19hreLvN3eMufAWV0oxhqxx5I8TBQg5LZaz1a1egiX?=
+ =?iso-8859-1?Q?/+dh3HtY8IA4AdGvDMZVDadF4j9Y7YSLSgaQ5+q1ZAyUZ3+6g349mPMXWl?=
+ =?iso-8859-1?Q?CmCP+KePrncLQstCu0L55j1lTSGhncwI23WHgzGKAVC/Uhr3VJiS3iyFt7?=
+ =?iso-8859-1?Q?h5lwPZukoDoRzHpIt+H5a5McsSbRAkwv3c2R6EIyL/uez904tWC3Qs97X0?=
+ =?iso-8859-1?Q?RIIWCxM9Qk2rp9bQSmtZxL3lDQPzyMiK62tHGn2yp39MUFqdgcZcQuyqGX?=
+ =?iso-8859-1?Q?1PJwt+l4f8DOvwL8tL4dZXPGvd9LkC6gWajuQguIA3TqSffpo9aki0cQSl?=
+ =?iso-8859-1?Q?j9EL3HIJP1zGV4LvLS5282lQSu0jYyPOgVVZ9ktqtoor8QnO0rYzgo4woZ?=
+ =?iso-8859-1?Q?aLtD8u/rgZ1mP9/d/HLKFpFp+lY42g7w9c334jULPdEVbkCH3IrP5s7F4V?=
+ =?iso-8859-1?Q?w84th+a1SUcmNQvXVP7I+EVBXzjkdTqUnQTHJ0qYCa9+hBMXOrnE1JxKZP?=
+ =?iso-8859-1?Q?EikZtVFlGGAqMytGyKUBSdiKOuSKST+tssyleQyYAh1DPaATNXR+lQ84OF?=
+ =?iso-8859-1?Q?G47s6CVk11Ku6n986SJ3laGKC0JlhsMMTX6MYFBMyG46SBpaiTZWc4QZ6q?=
+ =?iso-8859-1?Q?ysDqJ1x5zdc25EHjacEs7QwO3TF92sNVPpfFrhkhXgFuTOhD2uB4sMa4/Q?=
+ =?iso-8859-1?Q?/2qD7emLVSGqn/lHQ37RrNiDUd1YfAJuCu2L0PozqMdLJr0zfr0Lrv7FcA?=
+ =?iso-8859-1?Q?tBHQYzEEYpkwXunMrhKfyMjDMvOgeKSQqnZuIjuE4P7E+Y3QNddjxK/Oev?=
+ =?iso-8859-1?Q?Ja6PvJRsJ9HsvVPBYtl/5RDSPy02UKHlAv9w0YgM86p89pBUiQdlP91x6i?=
+ =?iso-8859-1?Q?BJQD9pGcX46BOa3LJQ34Qjs4uIoq7Z0CEbHIOkvsoLV3f2m+ffyCTq9xv/?=
+ =?iso-8859-1?Q?0VgLnatMlIs5LxSIxNetaGAs1nbfAO7KkzH3GOk8WMtyHBuLuJWjOalhwl?=
+ =?iso-8859-1?Q?m0fLpHUHI0w09Cwl/cSFPbyCB2+TWmnowL83qyxyw9UBzno974YnyTzYgc?=
+ =?iso-8859-1?Q?K8TWzfUDeBc5/MyrHrk0Y2i4qnKK4lmR6bvQqnqgDmS7FRR0Fb6C9B1tKu?=
+ =?iso-8859-1?Q?WpAXU133aGtb+xKq36eQsCb/P1kcw5tSmPTsdbGW1jz015nymqw9CYDkmq?=
+ =?iso-8859-1?Q?J1SOSeaFj4WyB2qJmzI5IP5vla5NAg42Zlb1icb7c5W5abBoaStNtUQRrf?=
+ =?iso-8859-1?Q?htFk02DbSYDaZRi8KR2s9p+o/GHLoB00Ba7nDUZ7fqTKyWvG6H2j8G87u/?=
+ =?iso-8859-1?Q?efoU3xDP45yHd08JS1KHrLtmQrB9FK1xJSJAfHWqR5G7nCMxh8AFM1vVu7?=
+ =?iso-8859-1?Q?82MZTVWzpOTBbdpuciPUyLiVekyJAtS6oBoAMFyU/iiWJmxZaiY3RkUD8Y?=
+ =?iso-8859-1?Q?+6VQBvWSit9gIKRXj+WRFikfxmn8vJ8xtZwttNk2ExRMtTobpfjfegaWzK?=
+ =?iso-8859-1?Q?rFeDKVEz28VaV7yIZZbbrqseRM0f66L1kHYZRcSe4ZmmMbxN3QCGDcU4qE?=
+ =?iso-8859-1?Q?51kfh2Xxvg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] media: i2c: vd55g1: preserve the stream-start
- error
-To: Jizhou Tong <fqwqf@fqwqf.xyz>, <sakari.ailus@linux.intel.com>,
-	<sylvain.petinot@foss.st.com>
-CC: <mchehab@kernel.org>, <hverkuil@kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260930070802.102127-1-fqwqf@fqwqf.xyz>
- <010601a0f124796f-bedf55eb-df52-48e1-ab13-f59cd2dea8e0-000000@ap-northeast-1.amazonses.com>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <010601a0f124796f-bedf55eb-df52-48e1-ab13-f59cd2dea8e0-000000@ap-northeast-1.amazonses.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000855B:EE_|VI1PR10MB218467:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9018e65-556b-4acd-dc17-08df1ee5ca4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|4143699003|10067099003|6133799003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	R4mTsxlMJHi2Fj1uhv2un7EFk+bV886UoRsRSRc6IJXaJQngUdDv2XwW+D5UnedDjavrcbsTrck1oiOqeNQmsDEqA+X4CyYkiP7V5S71WPccE0FIm8UjhM6x938eM/q/rgu2o6tmtlPmHUiKHLD3zS8L3wGg9tVPim5k0yYtFFnWN6JZjf7jXiis6kNP5pkGkNzOegMxmYc7HdXYL695zNYuSCs9FzQxSSDllve2nkj6u2pVkeeyRU8KnX51y65HSSXzolS7jRluNinf67GgVu0lhP8xYDihd4bGPJmODlMt7jzSovYzDdK3wPUeMQEermLvuABLixFw2NMaLiaGypZ+XroJkO7Pcj6FrLJ9xqMt3FnF2hgSxsJTwnspIr4gEDg/u0nqn14c7n+D062MYla2397Q+GAoRbV6JSym7J5Ozy41rbnKSeYQHOWqoDFj9p6cRbDp92bzU3HfvGZ1zf6KEVW95KolaEo8rypyKVkPIBZhgcB/7f+OXv1eEEZKwwpYqsLutSsz9FIPaMoGn4ravvQddsNKyq4/W8lgPR/ccGvTmVBFnpPU8RjyDKGOsu4rSn6y0WLIbK6frPA+tr40KWAnPFVUmJFx0rUD94292+BX+qRtQReO44vu7mWkTMG63S3jnXQaSYmBxf7bL297wO0kr6YETP89v4/uVVrnKgvCypjnRBleWByP+mfGL7w0BQpB5JHy3/ACCU8xUw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(4143699003)(10067099003)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	FFudfRnYNlCG1hTxb9+YS9jhsivZFs5MH1avjZaJfcCJCXKUMcyyiyHw6NgrEQOb+gcJ/w1oOFSE/e4jvVirRgJo4v6lIg32kwA5U8E1qrfL6S2fZz4Bc/Sx+cNFT7yXE+7WziAgNxIydZQ+rudrY1CpIu224xmcAgchbsxRxII+mH1Xa1p4ewzNvkWLq98YQZxJRc/lHJwTc+GT+5CqxF0Oh/lw/qOfICO83MzzLPAJF3lnA41NmAPMRIsCUj33L4KXz2nZROfwlJOdZruyzFfuJTZ3H9FdkPL1K68OMAd3ktS48S0OlrCyIcsxeurpzLtjvxI4HdpnX3YUCWUMWOA1TrSoeti8F99MQo2G9pwv/dppIsdz45RURhMpKCWIrsOaTZf/2vZRXtQSvwrC6Qdvk/5IloweNt7i6s5OT/Knt1mHcOIgAHWBp2KKWQCS
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 11:27:19.9751
+X-OriginatorOrg: santannapisa.it
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4113.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6d114f8-4603-4793-55b0-08df1ee5e6fb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 11:28:08.0877
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9018e65-556b-4acd-dc17-08df1ee5ca4f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000855B.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB218467
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d97360e3-138d-4b5f-956f-a646c364a01e
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qIfIPZyLIFi+Ye2sv+BPe2p0IKIyrcX1NjBF79gFAlJqB5kfRVNrX3B8ZjYozrts7XppD8AqQiC2UgbujgecKK/kGCnk/5W5D9Ndf2iBANo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6836
 
-Hi,
-
-Thank you for your patch.
-
-Le 30/09/2026 à 09:08, Jizhou Tong a écrit :
-> The stream-start error path replaces failures from register accesses and
-> sensor configuration with -EINVAL. This hides the cause of failures such
-> as an I2C error or a timeout.
-> 
-> Return the saved error after dropping the runtime PM reference. All
-> paths reaching this label already set ret to the error that triggered
-> cleanup.
-> 
-> Fixes: 5931eed35cb6 ("media: i2c: vd55g1: Fix return code in vd55g1_enable_streams error path")
-
-By adding "Fixes:" you must also CC stable, I guess you can just remove
-the "Fixes:" tag as this does not fix a big issue anyway.
-
-Same for your other patch.
-
-> Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
-> ---
-> Fault-injection harness:
-> https://gist.github.com/fQwQf/60bd12627e06b10a2fc159e545f85dae/7b21a7d3a1b676a0e4cdaba06168ede09a2949e3
-> 
->  drivers/media/i2c/vd55g1.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index 6f458f611f63451c97c708e187a313cf7b2aab4c..78e4aebfdd3b24b867ea4d077dc1b676c4a595da 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -1178,7 +1178,7 @@ static int vd55g1_enable_streams(struct v4l2_subdev *sd,
->  
->  err_rpm_put:
->  	pm_runtime_put(sensor->dev);
-> -	return -EINVAL;
-> +	return ret;
->  }
->  
->  static int vd55g1_disable_streams(struct v4l2_subdev *sd,
-
--- 
-Regards,
-Benjamin
-
+The Intel CVS driver acts as an intermediate CSI-2 bridge between=0A=
+the host receiver (e.g. IPU7 ISYS) and the downstream camera sensor.=0A=
+When the host driver initializes, its async notifier completes upon=0A=
+binding the CVS bridge and registers its initial subdev nodes.=0A=
+=0A=
+However, when the CVS bridge subsequently binds the downstream sensor=0A=
+via its own async notifier callback (cvs_csi_notify_bound), it creates=0A=
+the media pad link but omits calling v4l2_device_register_subdev_nodes().=
+=0A=
+As a consequence, downstream sensors declaring the flag=0A=
+V4L2_SUBDEV_FL_HAS_DEVNODE (such as ov02c10) never have their=0A=
+/dev/v4l-subdev* character device created, preventing userspace=0A=
+frameworks like libcamera from opening the sensor.=0A=
+=0A=
+Call v4l2_device_register_subdev_nodes() in cvs_csi_notify_bound() once=0A=
+the media pad link is established to expose newly bound subdevices.=0A=
+=0A=
+Signed-off-by: Mauro Nino Marinoni <mauro.marinoni@santannapisa.it>=0A=
+---=0A=
+ drivers/media/i2c/cvs/v4l2.c | 15 ++++++++++++---=0A=
+ 1 file changed, 12 insertions(+), 3 deletions(-)=0A=
+=0A=
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c=0A=
+index 9fadca7a3bee..6ac4ad6d871c 100644=0A=
+--- a/drivers/media/i2c/cvs/v4l2.c=0A=
++++ b/drivers/media/i2c/cvs/v4l2.c=0A=
+@@ -13,6 +13,7 @@=0A=
+ #include <media/v4l2-async.h>=0A=
+ #include <media/v4l2-common.h>=0A=
+ #include <media/v4l2-ctrls.h>=0A=
++#include <media/v4l2-device.h>=0A=
+ #include <media/v4l2-event.h>=0A=
+ #include <media/v4l2-fwnode.h>=0A=
+ #include <media/v4l2-mc.h>=0A=
+@@ -401,6 +402,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notif=
+ier *notifier,=0A=
+ {=0A=
+         struct icvs *ctx =3D notifier_to_csi(notifier);=0A=
+         int pad;=0A=
++       int ret;=0A=
+ =0A=
+         pad =3D media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode=
+,=0A=
+                                           MEDIA_PAD_FL_SOURCE);=0A=
+@@ -409,9 +411,16 @@ static int cvs_csi_notify_bound(struct v4l2_async_noti=
+fier *notifier,=0A=
+ =0A=
+         ctx->remote =3D &sd->entity.pads[pad];=0A=
+ =0A=
+-       return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,=
+=0A=
+-                                    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLE=
+D |=0A=
+-                                    MEDIA_LNK_FL_IMMUTABLE);=0A=
++       ret =3D media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity=
+,=0A=
++                                   ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED=
+ |=0A=
++                                   MEDIA_LNK_FL_IMMUTABLE);=0A=
++       if (ret)=0A=
++               return ret;=0A=
++=0A=
++       if (ctx->subdev.v4l2_dev)=0A=
++               return v4l2_device_register_subdev_nodes(ctx->subdev.v4l2_d=
+ev);=0A=
++=0A=
++       return 0;=0A=
+ }=0A=
+ =0A=
+ /**=0A=
+--=0A=
+2.53.0=0A=
