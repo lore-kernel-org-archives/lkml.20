@@ -1,89 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD583749FA;
-	Wed, 30 Sep 2026 15:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA0B5012A4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783303; cv=none; b=Cwe2+I4b+jOoxvULIOqeNPSrD1bjJMW5I4YeEdDFaOzIb7hFT30OcAJeVHqg+l2ZXGUUSTJBpv/Epd+JoowyIcqbKqdcNrsY/lTAdr0nZ1LJ+HUM8f2BH9Vkt6SydNdSJUu5dM9MHgTBtUX7lmO4SkHfwaq3O6Q5jmsOLYBC8FE=
+	t=1790783311; cv=none; b=EOmJJLMJJ9rHzHg8IepOLMnWr0n8+e3WZcErj6WacfO0RHDaFLAXozzHvvoUVDmMDFgGnGYlGtB4+zzm6aDvoLwpSO/vco2mITKsHxYmmPNhQmRpjJFuwKk3x8s1I+Kd4nY4z2zgACLcG+8Oiyr5RqU5+DLOiUy4KvnAsqCQX4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783303; c=relaxed/simple;
-	bh=MJOgAvAcfwjCPLRrSS8M66NTXmnn994l12opYVC7Kjc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=gfaM7lpdhlmIxpPZqRVJPGhBX5rpU4RRQuKewbUtHvSrkEZbaq2xO6rYf10aO9krfiitrNq0G1LJlvOalU54EOiVhOcHr2JqMLMiPoLA2vqK98B6OkTJFdeCmpD/dbsCRtIdCNsoTsCE/CPbS0Fj6kIJ4UlH1UEl0hhEOm2MPQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XE6fwnUA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790783311; c=relaxed/simple;
+	bh=qOBjwCcfI5evA6OLYTxFgZKZTFT4cAFa94K+/RHug9o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QOu+GnSl8KvgOsNic2FMgvCnT+vbLYWoIKZdmzmYyCbRKQJT7MFsKFNkTLoc/cl2/DaC8rAo8u9DtUE0dvbjLCmUJXm8kGtkW0SK9+n7F4X7jUSor+AfK81pGyJ0i6NIx74/8i649rQ4R5Kc7ku5zPBg0tR0K1matsUz3FxVzKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YARfEmzm; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XE6fwnUA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4B11F00899;
-	Wed, 30 Sep 2026 15:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790783299;
-	bh=Q3dyweEFIw9MMaAQ3qtHiJGRvzjhtsRVs97Lrtaxxi0=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=XE6fwnUAwglbhcdAUGpYMPdG6pAocT+0GJ5tREtciyKq9M/ayirFD3z5tatqi/m2y
-	 XdnU+DEV3c5XAPWOkwrLafhvFCPr+WvbtIWvwMFLr8oJJpojVgbaRASMJn5fVHsRN6
-	 TslBl21/rtXKG4Bvps/fJmnjganr3OjcNR2VXt9jURpgGNhl0y2wLQf/JRbdHHPo7C
-	 Ra8AJpFvppqxFtYgVPFoyzk+GNHG8yTfdcMxAY2+zGOzicmp7EiQkAxuzvZk03oRdO
-	 8D3na2MB1l0tLPvqflMEvx3Pm41YQ605NginVf9qZWEzym/LrxgeI6AZ/rmr/nZrn3
-	 DGtyGapgXY0kA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YARfEmzm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790783306;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ERP04hVaKtD7Z/9InYPyGlPl22CrT3NV1AkjD/nHO9o=;
+	b=YARfEmzmX22pJaZkqXi1QMUxagQzEs3VMX3yFVKIf2DJ4SvsvJPV1A3hprYkuHMmZOjM1E
+	9rUJT/YbdxceK7WoaUOZkzy4MaM2ADURYya3Ym+YsmbdGBqe2MKKcRPxlTZJYgc8v9zJ2/
+	4JKuzO4W3x84ZMAkTxuXdtqgoCQXFsw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-283-hjsv9SoVNdufnbTH7-_spA-1; Wed,
+ 30 Sep 2026 11:48:22 -0400
+X-MC-Unique: hjsv9SoVNdufnbTH7-_spA-1
+X-Mimecast-MFC-AGG-ID: hjsv9SoVNdufnbTH7-_spA_1790783301
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DDB63188305E;
+	Wed, 30 Sep 2026 15:48:20 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 01A5F1800576;
+	Wed, 30 Sep 2026 15:48:18 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrea Righi <arighi@nvidia.com>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] cgroup/cpuset: Use cpuset_v2() in cpuset_num_cpus()
+Date: Wed, 30 Sep 2026 11:48:00 -0400
+Message-ID: <20260930154800.698360-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 17:48:08 +0200
-Message-Id: <DLSRP1M7HK6V.PJ3SDXZ991JU@kernel.org>
-Subject: Re: [PATCH 2/7] rust: pci: expose the VF index within its PF
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
- Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>, "Peter
- Colberg" <peter@colberg.org>, "Simon Song" <xinmengs@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <cover.1790764573.git.zhiw@nvidia.com>
- <5828df56a42b784ce9da005b338e8580ea63294c.1790764573.git.zhiw@nvidia.com>
-In-Reply-To: <5828df56a42b784ce9da005b338e8580ea63294c.1790764573.git.zhiw@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Wed Sep 30, 2026 at 12:57 PM CEST, Zhi Wang wrote:
-> @@ -40,6 +40,14 @@ pub fn is_virtfn(&self) -> bool {
->          // SAFETY: `self.as_raw` is a valid pointer to a `struct pci_dev=
-`.
->          unsafe { (*self.as_raw()).is_virtfn() !=3D 0 }
->      }
-> +
-> +    /// Return the zero-based VF index within its PF, or an error for a =
-non-VF device.
-> +    pub fn vf_id(&self) -> Result<u32> {
-> +        // SAFETY: `self.as_raw()` points to a live PCI device; the help=
-er checks VF membership.
-> +        let id =3D unsafe { bindings::pci_iov_vf_id(self.as_raw()) };
-> +        to_result(id)?;
-> +        Ok(id as u32)
-> +    }
+The cpuset code has 2 different helpers for determining if it is in a
+v1 or v2 working environment - cpuset_v2() and is_in_v2_mode().
 
-In my PoC I had this implemented for Device<Bound>, but here it is implemen=
-ted
-for just Device I think? It's not visible from the context, but IIRC you mo=
-ved
-is_virtfn() in an impl Device block (which is correct).
+cpuset_v2() checks the binding of the cpuset subsystem is on a v1
+or v2 hierarchy. It can also help to optimize out v1 specific code
+if CONFIG_CPUSETS_V1 isn't defined.
 
-So, if this is correct, please move it under Device<Bound>, as offset and s=
-tride
-are not guaranteed to not be concurrently modified otherwise.
+is_in_v2_mode() layers on top of cpuset_v2() and returns true if it is in
+a v2 hierarchy or in a v1 hierarchy with "cpuset_v2_mode" mount option
+enabled to make "cpuset.cpus" and "cpuset.mems" behave in a way similar
+to their v2 counterparts. However the cpuset hierarchy may still be a
+standalone one separated from the other cgroup hierarchies.
+
+Commit 90ac22ffef48 ("sched/fair: Add cgroup_mode: max") adds a new
+cpuset_num_cpus() helper to return the number of effective CPUs in a given
+cgroup. It is part of the "sched: Flatten the pick" patch series to help
+flatten the cpu cgroup runqueue hierachies. cpuset_num_cpus() currently
+uses is_in_v2_mode() to determine if it is in a v2 environment. However
+is_in_v2_mode() can be true in a v1 environment where the cpuset and cpu
+cgroup subsystems can be in two separate hierachies. The current use
+case [1] for cpuset_num_cpus() assumes that it can return the number
+of effective CPUs present in the current cpu cgroup which may not be
+the case.
+
+Fix that by switching to use cpuset_v2() which signifies that it is in
+a unified hierarchy where both cpuset and cpu cgroup subsystems share
+the same cgroup hierarchy if it returns true.
+
+[1] https://lore.kernel.org/lkml/20260930081125.GF88198@noisy.programming.kicks-ass.net
+
+Fixes: 90ac22ffef48 ("sched/fair: Add cgroup_mode: max")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cgroup/cpuset.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 4a2b6f154609..cbf67ad13874 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -4251,7 +4251,7 @@ int cpuset_num_cpus(struct cgroup *cgrp)
+ 	int nr = num_online_cpus();
+ 	struct cpuset *cs;
+ 
+-	if (is_in_v2_mode()) {
++	if (cpuset_v2()) {
+ 		guard(rcu)();
+ 		cs = css_cs(cgroup_e_css(cgrp, &cpuset_cgrp_subsys));
+ 		if (cs)
+-- 
+2.55.0
+
