@@ -1,117 +1,208 @@
-Received: from outbound.baidu.com (mx16.baidu.com [111.202.115.101])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id C830C36212C;
-	Wed, 30 Sep 2026 03:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.115.101
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A9F2F7EFE;
+	Wed, 30 Sep 2026 03:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790740208; cv=none; b=nyLOv6jL+6EuZMvnMCmp+ZXQxlXmxckAyFBsw5hGm58jvr62T3xbvJ9OoKavdM57y1AT7uFIZeRIxIaHUqhHTx5YxkJZhXdZSy3xK4hCBcJBtB3f/j7OB9IR59hh84YA6QBGJzLiyiEaeYiHcok0q+AyPHFbL2+q+uF2q1EYQqc=
+	t=1790740256; cv=none; b=dcci0G3RinvxhYE2ZV9KLWgTIT2Swm50n6rZKqMX+KqvuY0YWVJYU4T0zThFuGWtaJpB9LA/tSzrOIfaM5el4Bh9gCPZ+FGaSCj+I02s6x7lebbkLmUMkLuP3/RFlSaZiYW+g+qjWVm/6/SEJ6mYDepqKEjzwWa/SP9vNIO1oHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790740208; c=relaxed/simple;
-	bh=Ic8nqWQeCEBR/NN+vIdgf9HuTys7Ex96tdp1kivxrIc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kg2sYhfkrWij6i5G9pb/cqogZM9zdLnUlM4sITIxwmy2+mULx8MIOgi+AHAo7yYA8moivDvAsINxcsrV7kEx7AbpgODZSFqrae4wgCDEWzk5mhXRFqfQiKjrZqyU2e1KJeru9XkzC5N1C7FqmNBMNrPT6CLCoh9G6MtILc9IfYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=b5BH2Hn9; arc=none smtp.client-ip=111.202.115.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	s=arc-20240116; t=1790740256; c=relaxed/simple;
+	bh=MY0hnxQ8zicQMoF+nFHkYkdiuqPro4ONr3l+kY7pIio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QHFMuBMahNAvQuEOZ8Z5ZmdKJ4UGhYJeOBFLFFzoRHdKUM0TCO20zqA6E+EPC6FO6sygM6MWK6u3vRgpD9uctSet+bHkZTIkDi9CkE6dGPvZq/oxZbt0wN7mqadzvCQno9QUlxLGJ01E7sFJamu3axtFatchX4+Kf/hzfOmwQ/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idijhjYW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="b5BH2Hn9"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Jens Axboe <axboe@kernel.dk>, Coly Li <colyli@suse.de>, Geliang Tang
-	<geliang@kernel.org>, Xiao Ni <xni@redhat.com>,
-	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] badblocks: actually round to block boundaries in set/clear/check
-Date: Wed, 30 Sep 2026 11:49:41 +0800
-Message-ID: <20260930034941.1814-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idijhjYW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581471F000FF;
+	Wed, 30 Sep 2026 03:50:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790740254;
+	bh=2G/WSetac0z27j/7WYeDBAR0yQWWa8dcPZZs1aY5FPs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=idijhjYWm5maSd7p9ZG/AevsjHRYgJeMzKBXI9aLLhJL6AinAj/heB1jrroLSb9pw
+	 +k1aIFoTJtrwjItwlTIz8j02F40uT5HI4gM8GsU8phhcKsff/3b5JzG4PjA4subfRP
+	 U3lnfr9SDEm7vNz7dBjK2eCEqD+/Q93GqHiCKxMx6QCwGGQTJoC2y6bFJo5OwYRX9H
+	 Iuy+gzsj++PkW06lt825Ew2jnzh93azLowvGAnTdfuXNWEV7WzMwC+0e3TAspT6uh+
+	 KM3KVDMUyHOoMSnEoxseLU+ugSLYuODvBIzgp8fiVbbJ1UXQAXzGtRC0SZyIvaCmLr
+	 htz7AWjnX2Okg==
+Date: Tue, 29 Sep 2026 20:50:51 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 01/26] perf trace: Set the augmented arg header in the
+ augmenters that omit it
+Message-ID: <aryHG8O0JUM2F9GA@google.com>
+References: <cover.1790145937.git.irogers@google.com>
+ <20260928182605.3649015-1-irogers@google.com>
+ <20260928182605.3649015-2-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc5.internal.baidu.com (172.31.50.49) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1790740190;
-	bh=/33CsaBKM/LGw8D9fyhF4Ou5EfH0WoXT3K9BKseATzc=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=b5BH2Hn91Wse1eo3fAaEhpfffAAJWksKYSq55K74HHrnuV2IbS5ezlCflKPfe9DDc
-	 G9kfiWsN/O0bmkxYcAoQbBsAg4HiinHNHz738esREYU3D789EwuplhbXy8XLrjYAJX
-	 O0BrHNtkX4aqjMq06cL54MG27wZLu6bqTgjtESZwIs+453wt9+vL2/I5P9+8hLXnDM
-	 KxwegkgCY1olj4BsIEXgEcmhk8vTQQRpM8Vp3nWJG/HPAbPGrqjnWrng8x36S+VY2Z
-	 w2Ob7YXXJMZmwy5xijrhph6sB2zsvNCiaOXYjphuRZwyHS4yVnPRIXaFKNqW4r8KWD
-	 hfpyBnLDLK7KA==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260928182605.3649015-2-irogers@google.com>
 
-From: Li RongQing <lirongqing@baidu.com>
+On Mon, Sep 28, 2026 at 11:25:40AM -0700, Ian Rogers wrote:
+> The augmenters build records in augmented_args_tmp, a per-CPU scratch
+> buffer reused by every syscall, so a header field that isn't written
+> holds a stale value from an earlier syscall. sys_enter_sendto(),
+> sys_enter_perf_event_open(), sys_enter_clock_nanosleep() and
+> sys_enter_nanosleep() never set the struct augmented_arg size and err,
+> and augment_arg() doesn't set err.
+> 
+> Set both. When bpf_probe_read_user() fails in the connect, sendto and
+> nanosleep augmenters, report a zero sized payload and the error rather
+> than the stale scratch contents.
+> 
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-_badblocks_set(), _badblocks_clear() and badblocks_check() intend to
-round the start/end of a range to the bb->shift block boundary before
-operating on the bad-blocks table. They call rounddown()/roundup() as
-bare statements:
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
 
-	rounddown(s, 1 << bb->shift);
-	roundup(next, 1 << bb->shift);
-	sectors = next - s;
+Thanks,
+Namhyung
 
-But rounddown()/roundup() (include/linux/math.h) are value-returning
-statement-expression macros; they do not modify their argument in
-place. The results were discarded, so s and next/target were never
-rounded and "sectors = next - s" collapsed back to the original
-length. The whole "if (bb->shift)" block was a no-op, and ranges on
-devices with bb->shift > 0 were stored/queried at raw sector
-granularity instead of being block-aligned -- exactly the "think a
-block is not bad when it is" hazard the _badblocks_clear() comment
-warns about.
-
-Assign the rounded values back so the alignment takes effect.
-
-Fixes: 3ea3354cb9f0 ("badblocks: improve badblocks_check() for multiple ranges handling")
-Fixes: db448eb68629 ("badblocks: improve badblocks_clear() for multiple ranges handling")
-Fixes: 1726c7746783 ("badblocks: improve badblocks_set() for multiple ranges handling")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- block/badblocks.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/block/badblocks.c b/block/badblocks.c
-index ece64e7..eafdb6a 100644
---- a/block/badblocks.c
-+++ b/block/badblocks.c
-@@ -857,8 +857,8 @@ static bool _badblocks_set(struct badblocks *bb, sector_t s, sector_t sectors,
- 		/* round the start down, and the end up */
- 		sector_t next = s + sectors;
- 
--		rounddown(s, 1 << bb->shift);
--		roundup(next, 1 << bb->shift);
-+		s = rounddown(s, 1 << bb->shift);
-+		next = roundup(next, 1 << bb->shift);
- 		sectors = next - s;
- 	}
- 
-@@ -1071,8 +1071,8 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
- 		 * isn't than to think a block is not bad when it is.
- 		 */
- 		target = s + sectors;
--		roundup(s, 1 << bb->shift);
--		rounddown(target, 1 << bb->shift);
-+		s = roundup(s, 1 << bb->shift);
-+		target = rounddown(target, 1 << bb->shift);
- 		sectors = target - s;
- 	}
- 
-@@ -1307,8 +1307,8 @@ int badblocks_check(struct badblocks *bb, sector_t s, sector_t sectors,
- 		/* round the start down, and the end up */
- 		sector_t target = s + sectors;
- 
--		rounddown(s, 1 << bb->shift);
--		roundup(target, 1 << bb->shift);
-+		s = rounddown(s, 1 << bb->shift);
-+		target = roundup(target, 1 << bb->shift);
- 		sectors = target - s;
- 	}
- 
--- 
-2.9.4
-
+> ---
+>  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 37 ++++++++++++++++---
+>  1 file changed, 31 insertions(+), 6 deletions(-)
+> 
+> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> index 3bc9e28a9b8a..f7c9eb49648f 100644
+> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> @@ -210,6 +210,7 @@ int sys_enter_connect(struct syscall_enter_args *args)
+>  	const void *sockaddr_arg = (const void *)args->args[1];
+>  	unsigned int socklen = args->args[2];
+>  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+> +	int err;
+>  
+>          if (augmented_args == NULL)
+>                  return 1; /* Failure: don't filter */
+> @@ -217,9 +218,11 @@ int sys_enter_connect(struct syscall_enter_args *args)
+>  	_Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr)), "sizeof(augmented_args->arg.saddr) needs to be a power of two");
+>  	socklen &= sizeof(augmented_args->arg.saddr) - 1;
+>  
+> -	bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+> +	err = bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+> +	if (err)
+> +		socklen = 0;
+>  	augmented_args->arg.size = socklen;
+> -	augmented_args->arg.err = 0;
+> +	augmented_args->arg.err = err;
+>  
+>  	return augmented__output(args, augmented_args, len + socklen);
+>  }
+> @@ -231,13 +234,18 @@ int sys_enter_sendto(struct syscall_enter_args *args)
+>  	const void *sockaddr_arg = (const void *)args->args[4];
+>  	unsigned int socklen = args->args[5];
+>  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+> +	int err;
+>  
+>          if (augmented_args == NULL)
+>                  return 1; /* Failure: don't filter */
+>  
+>  	socklen &= sizeof(augmented_args->arg.saddr) - 1;
+>  
+> -	bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+> +	err = bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+> +	if (err)
+> +		socklen = 0;
+> +	augmented_args->arg.size = socklen;
+> +	augmented_args->arg.err = err;
+>  
+>  	return augmented__output(args, augmented_args, len + socklen);
+>  }
+> @@ -372,6 +380,9 @@ int sys_enter_perf_event_open(struct syscall_enter_args *args)
+>  	if (bpf_probe_read_user(&augmented_args->arg.value, size, attr) < 0)
+>  		goto failure;
+>  
+> +	augmented_args->arg.size = size;
+> +	augmented_args->arg.err = 0;
+> +
+>  	return augmented__output(args, augmented_args, len + size);
+>  failure:
+>  	return 1; /* Failure: don't filter */
+> @@ -384,6 +395,7 @@ int sys_enter_clock_nanosleep(struct syscall_enter_args *args)
+>  	const void *rqtp_arg = (const void *)args->args[2];
+>  	unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+>  	__u32 size = sizeof(struct timespec64);
+> +	int err;
+>  
+>          if (augmented_args == NULL)
+>  		goto failure;
+> @@ -391,7 +403,11 @@ int sys_enter_clock_nanosleep(struct syscall_enter_args *args)
+>  	if (size > sizeof(augmented_args->arg.value))
+>                  goto failure;
+>  
+> -	bpf_probe_read_user(&augmented_args->arg.value, size, rqtp_arg);
+> +	err = bpf_probe_read_user(&augmented_args->arg.value, size, rqtp_arg);
+> +	if (err)
+> +		size = 0;
+> +	augmented_args->arg.size = size;
+> +	augmented_args->arg.err = err;
+>  
+>  	return augmented__output(args, augmented_args, len + size);
+>  failure:
+> @@ -405,6 +421,7 @@ int sys_enter_nanosleep(struct syscall_enter_args *args)
+>  	const void *req_arg = (const void *)args->args[0];
+>  	unsigned int len = sizeof(augmented_args->args);
+>  	__u32 size = sizeof(struct timespec64);
+> +	int err;
+>  
+>          if (augmented_args == NULL)
+>  		goto failure;
+> @@ -412,7 +429,11 @@ int sys_enter_nanosleep(struct syscall_enter_args *args)
+>  	if (size > sizeof(augmented_args->arg.value))
+>                  goto failure;
+>  
+> -	bpf_probe_read_user(&augmented_args->arg.value, size, req_arg);
+> +	err = bpf_probe_read_user(&augmented_args->arg.value, size, req_arg);
+> +	if (err)
+> +		size = 0;
+> +	augmented_args->arg.size = size;
+> +	augmented_args->arg.err = err;
+>  
+>  	return augmented__output(args, augmented_args, len + size);
+>  failure:
+> @@ -445,6 +466,7 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>  			      struct beauty_payload_enter *payload, u64 offset)
+>  {
+>  	int index, value_size = sizeof(struct augmented_arg) - offsetof(struct augmented_arg, value);
+> +	int read_err = 0;
+>  	struct augmented_arg *payload_offset;
+>  	s64 aug_size, size;
+>  	bool augmented;
+> @@ -467,8 +489,10 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>  	if (size == 1) { /* string */
+>  		aug_size = bpf_probe_read_user_str(payload_offset->value, value_size, arg);
+>  		/* minimum of 0 to pass the verifier */
+> -		if (aug_size < 0)
+> +		if (aug_size < 0) {
+> +			read_err = aug_size;
+>  			aug_size = 0;
+> +		}
+>  
+>  		augmented = true;
+>  	} else if (size > 0 && size <= value_size) { /* struct */
+> @@ -498,6 +522,7 @@ static inline int augment_arg(struct syscall_enter_args *args, int i,
+>  			return -1;
+>  
+>  		payload_offset->size = aug_size;
+> +		payload_offset->err = read_err;
+>  		return written;
+>  	}
+>  
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
