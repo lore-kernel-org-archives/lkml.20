@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAB41DF261
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1AC3F1AAD
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750395; cv=none; b=SdYYgKFjK6uB+3F1en8nxIwrK5wBgWUi9EAcZ/HMluAwb5LmERGTlVpLKu9mPcgnVvfau06wstZ+u4TeNCv5XLDSjWwZScbUdgqIuIpErEkzniKHECJEfXUU5AkM4kcF2SCU4Rr2nKFvnXTd62J1MpSXi0NJeLrv9MwNqmmp3nQ=
+	t=1790750401; cv=none; b=VOx5E/1WB+AreGl7B5pLLbHDjK0QBnt0jESVsM8izxO2tvU/MmdbXzwUmBIZCZIM+zWUHEghSxJK1VfAzf4VXGgPcbHqSuUqAdi4QyIFakOsxwlEt9O60GXnsZIYKd6rZ9rEYgdvIUNtSX+iolO/Zjk9/Qrq6nWuUyjrebT+t94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750395; c=relaxed/simple;
-	bh=MnEHdRXB8Kx+Y4sIstudNAZykh2ay2IXR5jExQRD9FY=;
+	s=arc-20240116; t=1790750401; c=relaxed/simple;
+	bh=HGxGXTXLvBaqhWYOpegzS4m5eh3oHIWzLhknBT8tLo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q7XU2lL2ahXZZbaDsrArrtqR35whGuKQY/c81KBPw4sHpPdQ7KSKi5HZvMOUTJRw4x1V3OimXZhB3nsK9w5ruPFaAEvb+zln5eeIWh4LGz5oR3OOeh9gFHr8//KCMJWvUQEEsHsX4DwL664lqKccb8vO8d7XJqkKVJ8eNNxxhYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MS8wrvSI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NSnAzmuv; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=T9ubKG/U9MwkT+hrX28kOrzOk7q9c0ujWsP4IYMtN19F+pTpzBnsB1s+8qCyFV9QV3xMl8J1G0opC/8pR4TTjDgftf2zbn1V9J+siBu4mI+izYH1Y61OyfXO8gxX7dGJYfYuOKuTprQnQdFs9vHKb/mIM6Q8PHzh9ks5FCysd4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rlt/F4xF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=De74wb76; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MS8wrvSI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NSnAzmuv"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rlt/F4xF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="De74wb76"
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U64kUs2249803
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:52 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U67lm82250195
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=sMxi/Z81iYD
-	fge4GQABNNwApMyHGie11g9z5WvCjmF8=; b=MS8wrvSIUKSQiabcLyM0T9GfncL
-	s+vfF3c606Zs9oVevSqQHOCgwoT81pB8CCYiWVjJ4tbtjLhRlW4S0IV10jRP48q6
-	8GySLeIbXA00RTsul3zGyKXrdjyGlbL3pqdqMQhOPxzVtJW2/QZTDNSZCi0sOlxU
-	zn9B/tYXM+T3+RyJhBIBeqNcKtBGOTP37YC46hDFuigDGMf+Fwfzfdl2hQe6DbEL
-	E5mUwI/G+IQ09LBbJB0FIEGdS6yxzgXK5VOamRzbVXZXmMkU3R0zJilRvLS9jQAo
-	zmARm3tx4cySanD+0uo3QOnYe7F+WbApK7r+7XpqURQS0HPJjlgR3UHQ3Uw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0nm3hv83-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=e9SunJHY/49
+	eRz/XxwO9Hm0rNLEpbDgeen5GEOzxiJQ=; b=Rlt/F4xFMIe86HlRua1WEZLPU93
+	GqbRwtOGO+8PmO2LXSTlC2ERM5a/yk8FYyO1GgYwhGIP+Ihk0g4SxmfC8uQ/88tm
+	tQFCDghmS4HyI/xldFweS+6j95aBOriE7rAsZhr0qir44GJiEb41Gm1wHDDCWx3l
+	kSd8yKZJaef1NYnP5U+feqbjKvVphCdjFPd+WFQhwRxqNi5KrdJV5AUoNjM/f6/C
+	cgnxiiqUXeE4XJ54N7OP4ocfpRSQFhJYYBAIMR4WM2UzEJ/axfDFk5xoNNyaWAb7
+	IIKWAU/yO4PqS3IoaFeX3oiX/P9JvTa9lTIVbKW1cRfMbs7aze9qQJQhG2Q==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0nm3hv8m-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:52 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3282d5302ffso2896026eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:39:51 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:57 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-142f4306744so3888478c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:39:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790750391; x=1791355191; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790750397; x=1791355197; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sMxi/Z81iYDfge4GQABNNwApMyHGie11g9z5WvCjmF8=;
-        b=NSnAzmuvHy+CmfLIz8KtEKDyvM7dJkRVo2UxvPaAVq1bTXUAaM1REKPlhylaRisbOW
-         rHzroQo2d2/JUEaAaw7oS850cgkai5Ks7/f3oLkBzr3qIm0BTWBvUU65XTPBlWrmF7zj
-         QX9+sO/EO0MwVHhZGI6xhjY6/FqIW6scI5nX6i1rbp0wJXPfw3e+3+Y7BP7Vt9tzcHjn
-         ABrxHPG/SC2OIv8yzhyZ7GIKCXXhH1xGi+lRtoWRm6OZV9d2Ifc/pPxWvIa3pNwxeBLJ
-         ZiYepv+f8WqztfFD83D64lFt7ZbXX2562s1aHqVgW5zan3L6ecDUfhL8644bZaCrFTEO
-         VRdw==
+        bh=e9SunJHY/49eRz/XxwO9Hm0rNLEpbDgeen5GEOzxiJQ=;
+        b=De74wb76AXTMn0ajdsg8mWI3wc6Cg8jOssW+nAqKQBtpubMardN5dH9zJvsiAJIg8w
+         KnHpcdLpOhkXlaFism/aUehVSk8Nb4H/rUEau/DTuDSqVCTxMkt6/Mcd9dKIpuoj1uCj
+         Nv5ybDtOSpUY0RiEmYJIE2yb0tuTKJrVU97YsTCSp2ELueRiyIMIdjVZTT5nAZAKUmyx
+         2I8TMlzVOjGbR1pYZMF4dz5I7TZVkRRj/k6RGegH4eoP1ziXun5CXXiUHSj22bRwRFBx
+         gAxTieZHUenY2m+v6GqxdXDBs+u8uaQUm4NLSvjwJ6YCRp4B0JKTRl2M4A+RpSSX6l6b
+         bJhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790750391; x=1791355191;
+        d=1e100.net; s=20260707; t=1790750397; x=1791355197;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sMxi/Z81iYDfge4GQABNNwApMyHGie11g9z5WvCjmF8=;
-        b=bW2fDgB65tD/tN3EfyDPt2s5TCYeOuSwKxwvsEG7escK6lz1IAVK21ALTAG7sfdFnF
-         I0hWiDgqxpNeOUt8hfJzA8/n2m7bhLc8hhD3GWD5z9QQShu47nDAHK9K05g0k8/gJe5a
-         39+dLWpRjrAN6uV1HIWbEHbh5/oXG+89z79rRHwhq1IqckOaMp8vBTnCyKAEesT8Mc9w
-         q9syBU/CDsO8y+ub4FkMB0AL6K8cXMNMNzcyoYFbpIum4+OFYO3ACzJ1XOM+YSud6RQa
-         D/GbfVSSef+WPJ8PcnWPy9yINPCcZ1PELaPMLEwsYrjFpEYG/FKKRHDnN3CuPLz1pOid
-         D7/w==
-X-Gm-Message-State: AFuF++ncDF+yGim13warDG6fGLYSLMoWxXwLu8DMMWjfZoieErulnQMu
-	89MFkAWui4kOouzchMI0100MLoCdFDoWAZupP1FJDA7SLD7uZ5ofehGR7b2aMMPGV1ubcGO3Ql4
-	1XAffmtTqGorK0pGyZLOiK9q5UqyO1LiOWNlU5iyJhSUHdhOb1tbROQfIdQfqL/bmc/N0tBMKvq
-	0=
-X-Gm-Gg: AYBFou2Yu0ZKsqbTzY8K2YYSIJbhh782KThlQUUtnX+Aez22/dHnoFOotmMqQNt0uMu
-	k7aR6U0W5yfMjzKrZoRKLXjLde/1vQMGVjnhnX5PU3cK2iwc48quN7+GiiZ/Ww2ke4WUnzb6ZVp
-	c7CVEyVFWjPPrTQJppwGjzWwHIsVUpB2JTfr+owlJP9p0iGSGCjUtfMhyLxA1xZkJscvKp5/rYZ
-	qZrDsliBaApiEV8Fohb6b9KazbSJu8wOfichvBNxmclmU7MSoCrvBj8vac6CrAr2agm1yorab2/
-	yrVRQSAibio+iYwg/f9pZwdmoHGhVKB6ySGEswm2ZiyfRN6ko5CXWox9BkHIR/1Sou/BSCDGLYp
-	/t0B9tgWrXtctLorgVO4gWxFUS1KJblvISmU7yXpVFQ9GaasT3ErVxz7/KWbgXfGodoAw4E5HFN
-	eZRgtVMa+sj/eflQlA6a4Kltkj
-X-Received: by 2002:a05:7022:ba5:b0:147:5261:ee2e with SMTP id a92af1059eb24-14d398ed392mr413086c88.21.1790750390959;
-        Tue, 29 Sep 2026 23:39:50 -0700 (PDT)
-X-Received: by 2002:a05:7022:ba5:b0:147:5261:ee2e with SMTP id a92af1059eb24-14d398ed392mr413022c88.21.1790750390306;
-        Tue, 29 Sep 2026 23:39:50 -0700 (PDT)
+        bh=e9SunJHY/49eRz/XxwO9Hm0rNLEpbDgeen5GEOzxiJQ=;
+        b=kgmZFNAQ4xQkWp1h96mH+6b2HW9Iav5xB9aORUPeYa+WRo1rTnErvpYOC8y7r6e1IH
+         5VbNgqEBMzoSZChKQ4ZrVg4RUoFJaEuvkg8IDTox1AWUysK7FZEN1JMSo3LCyp6Krn7p
+         P0zTI1GPkObfSRIR1wk0ylFka2t4myhjDmv3sOZR/EBOUGhLj3WBPqtcVYADSXLSZWu9
+         jQrfOnvCNILd9GGRr/CuVX8nMJu2SWynXbq90DVpEY8HNc3deqXVWYDfP+8r0lFtTk+n
+         UpK/wYPryemJSaLTHnmw8Hjru2ZCRGcgU04Dx3YYoap4Klxk8gkzotqwuStVXvXIhBlQ
+         kASA==
+X-Gm-Message-State: AFuF++knMjVQv2wzDn7TsjctFjVQQ3gjNbJ4sMER0nxrJF37gio3agNI
+	8a9+WXcg9VYDmrZbJw7NdBgWQkATk5Iq2+kOIMQVGBN7Lp+VovpB5fxjncw/1V5CAA/CqWAutGu
+	E6jHJUxHVGENot+shUbj77fDyqDJMU4gtYec/L3pLHPXF/zKhoODlYLRl56VT2GWhqiWEMlXIKR
+	I=
+X-Gm-Gg: AYBFou0YBH1FkB+S+guEDQ8JTg2df8EwB6nDj0TkGxovFFARqFbQYGM/BZathF5bbp7
+	wYg6k2eUE3+OPiXWekBxn9TI38U1fcZEWSyd/WsOb2EiuEWTEWsuOZKuHUPC4BY+il1NMtuBq9p
+	cA8L7jAm+kthp1PwW8KkZWv16XaT2NTMJgoPyu4MUY8YiURPYYhiTOlpdW+9JVRWocCFrMNRKzu
+	uviwc9WM4JqSSK5eRZLu6OT6rkA5lisMDunkpYcUtgcY/srgFXrHGJ4nWTmT92FkDNgINOty0Z6
+	9nnIzaQg1axfglzLT4lM4Yoolj+N8OIh2fIzY+hdaIEdC9nmlNhdaHtYj9FShBbaj58OOglRI+G
+	v+oPTFi6jIRWWxaVfoJ95tSL171dP5YU72gn/vH7c7L3GIqJYuY+7u0wu9cXUoXcQEua1+Gmb8f
+	qC5P8HRWhPCkHRbPG8DxBWpykh
+X-Received: by 2002:a05:7022:238c:b0:143:46a6:b04f with SMTP id a92af1059eb24-14d32bde173mr538883c88.31.1790750396415;
+        Tue, 29 Sep 2026 23:39:56 -0700 (PDT)
+X-Received: by 2002:a05:7022:238c:b0:143:46a6:b04f with SMTP id a92af1059eb24-14d32bde173mr538801c88.31.1790750395492;
+        Tue, 29 Sep 2026 23:39:55 -0700 (PDT)
 Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.45
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:39:49 -0700 (PDT)
+        Tue, 29 Sep 2026 23:39:55 -0700 (PDT)
 From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 To: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
         linux-perf-users@vger.kernel.org
@@ -86,9 +86,9 @@ Cc: peterz@infradead.org, mingo@redhat.com, alex@ghiti.fr,
         pjw@kernel.org, qingfang.deng@linux.dev, shuah@kernel.org,
         thecharlesjenkins@gmail.com, cp0613@linux.alibaba.com,
         Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Subject: [PATCH v7 4/8] selftests/breakpoints: extend riscv test for ptrace hw break/watchpoints
-Date: Wed, 30 Sep 2026 12:09:15 +0530
-Message-ID: <20260930063919.608911-5-himanshu.chauhan@oss.qualcomm.com>
+Subject: [PATCH v7 5/8] RISC-V: Add fetch and decode helpers to a common file
+Date: Wed, 30 Sep 2026 12:09:16 +0530
+Message-ID: <20260930063919.608911-6-himanshu.chauhan@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
 References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
@@ -99,25 +99,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: geI9gjnSUblxGQ3B2jmqIzj6Vl1G_IaA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX+DLV61vDhtqA
- iWC634JXfBS599FzeKYubvw9xxQxfI7pDfHcc5RZ8b882g0QetTmGxF2wc4EnQ6ZCdmMR1gf85P
- MFVh/I35/zsl6VSlQunyH2bQEsiR/ugTWm+KTkS+EZKYIR57M0PPzKBKbXrbKbUq3IIYNzOG5aK
- RzQKJtVuAvnKE9k0sGOlPhJVacSVCq1xux0+G96rYfLe5uBIPBJrCJG0Vzs0XRVq2bIl0PNgFsk
- benoqAVyqNiIt+FIp/PHwJlyXtNIlCLamU7RpXFy+jHuRnSnCe6GXjKgsqumK04OK8qQwuSQM3x
- 5jXKmthI/27kFKf+Dh+01YzHjobeqeTLcBoNlh2N3r3GurQK6mJ5HeqmFExFH7IkgpbXtXi0UXr
- FUALD/4o5JF/yBYVgic34nrUqYKSCFXvn9glIll9ABVnUiT/Sx7lIuiMdgChvAQj9wdT2c8jR8l
- SkOqzyTFAMEt3ZwY/Zw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXz33bby8xqwbC
- D8k3nUv1GYJbQjPIYzez8oajTkJStK9JSt4gJXg0K4Bklv3J7qTWCPuh90gd2XR1ueX8X2IXbEm
- EUDm6fdQ6MURhWqLlF+HbJ8G4fJSBsc=
-X-Proofpoint-GUID: geI9gjnSUblxGQ3B2jmqIzj6Vl1G_IaA
-X-Authority-Analysis: v=2.4 cv=fqxJ914f c=1 sm=1 tr=0 ts=6abcaeb8 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: o8t5iAwImYkRT1MKZPtSvWjv5IYgOboo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX1W7VieJInpWT
+ GzXdn8iQxm0C5KN2HRLCyuJPGRVw6GWbBHJYuugCrqpyKBy+YvAfn4kmDKytxnNciP+0lEBoldG
+ ZjnMGI+9HiYhGc6bRayTEAuXrK1gJYbWN8/JkogyYrw9uETGp747DH6WVTh4lDA+YUvZ9ZH6oAx
+ Sm3U2uY25P2xo6RSR0KRiDR+Bc1GLw2E3UaL7u/R1MofeEgGJgZwxchaQR2XmLzLQGrFkHFInQL
+ H1VDz3EXcldOekFw8g2TA8fBhlIxNIXLS2owbaj9RenP5hDZ4dLwDHqRQJPhY7PWMFBcIl2WWw6
+ hKDHCr2MB84eoTciyHQQKlVc8wMYaSJTJLa2geTpq1DVS2u4cE+gSZ1XQ70t+mSIXczJdJtJXiU
+ ifh645KifIQT8wsuC/zw5jF1TNtCAjaZYZBMMVKRBytHXpOxdBfApoJRkmWLPTw3vmhbeAhsTmC
+ m/gIWi8qOcQK+0k3OjA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX7HEs4XvRF7dI
+ HEkpnes5ltKRjUhcucBmGnnLscvgVzeaTMIYtrVRZ/HJE3N/6PbVTQF4UjLvYuyAFAV5+iMfBVI
+ TorERQy02+xtjhomjRqfPUlN31LSbW4=
+X-Proofpoint-GUID: o8t5iAwImYkRT1MKZPtSvWjv5IYgOboo
+X-Authority-Analysis: v=2.4 cv=fqxJ914f c=1 sm=1 tr=0 ts=6abcaebd cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=07_doiqUAAAA:8 a=vV4cC3RZRCDA8ntysFEA:9 a=PxkB5W3o20Ba91AHUih5:22
- a=S1vEknPFSxWy9jUyH7lK:22
+ a=20KFwNOVAAAA:8 a=XkDl4Et5ty8ZtOCQo2QA:9 a=vr4QvYf-bLy2KjpDp97w:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
@@ -127,716 +126,412 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300026
 
-Cover the new ptrace-based hardware breakpoint/watchpoint support
-added for riscv: exercise the PTRACE_GETREGSET/SETREGSET regset path
-as well as the raw PTRACE_GETHBPREGS/SETHBPREGS interface, alongside
-the existing perf_event-based tests.
+Move get_insn() and __read_insn() from traps_misaligned.c
 
-Also drop a leftover #if 0 block duplicating the HWDEBUG_* control
-field macros already defined in uapi/asm/ptrace.h.
+Add helpers for RISC-V register access and control-flow emulation
+
+Add helpers to retrieve RISC-V register values, calcuate the next
+execution address based on current pc, register states and by evaluating
+conditional branch instructions. the helpers accommodate both compressed
+and standard instructions. Add helper to determine is brach will be taken
+by current pc. It supports register-based jumps, immediate jumps, BEQZ/BNEZ
+conditional branches, and signed and unsigned comparisons for standard
+conditional branch instructions.
 
 Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Co-developed-by: Jesse Taube <jtaubepe@redhat.com>
 ---
- .../breakpoints/breakpoint_test_riscv.c       | 594 +++++++++++++++++-
- 1 file changed, 572 insertions(+), 22 deletions(-)
+ arch/riscv/include/asm/insn.h        |  15 ++
+ arch/riscv/kernel/traps_misaligned.c |  52 +-----
+ arch/riscv/lib/Makefile              |   1 +
+ arch/riscv/lib/insn.c                | 263 +++++++++++++++++++++++++++
+ 4 files changed, 280 insertions(+), 51 deletions(-)
+ create mode 100644 arch/riscv/lib/insn.c
 
-diff --git a/tools/testing/selftests/breakpoints/breakpoint_test_riscv.c b/tools/testing/selftests/breakpoints/breakpoint_test_riscv.c
-index 0649940b709e..13d6b3ff1b6e 100644
---- a/tools/testing/selftests/breakpoints/breakpoint_test_riscv.c
-+++ b/tools/testing/selftests/breakpoints/breakpoint_test_riscv.c
-@@ -9,6 +9,7 @@
- #include <linux/perf_event.h>    /* Definition of PERF_* constants */
- #include <linux/hw_breakpoint.h> /* Definition of HW_* constants */
- #include <sys/syscall.h>         /* Definition of SYS_* constants */
+diff --git a/arch/riscv/include/asm/insn.h b/arch/riscv/include/asm/insn.h
+index c3005573e8c9..b2125728d4e9 100644
+--- a/arch/riscv/include/asm/insn.h
++++ b/arch/riscv/include/asm/insn.h
+@@ -227,9 +227,16 @@
+ #define RVC_MASK_C_EBREAK	0xffff
+ #define RVG_MASK_EBREAK		0xffffffff
+ #define RVG_MASK_SRET		0xffffffff
++#define RVC_MASK_INSN		GENMASK(15, 0)
+ 
+ #define __INSN_LENGTH_MASK	_UL(0x3)
+ #define __INSN_LENGTH_GE_32	_UL(0x3)
++
++static __always_inline bool riscv_insn_is_compressed(u32 code)
++{
++	return (code & (__INSN_LENGTH_MASK)) != (__INSN_LENGTH_GE_32);
++}
++
+ #define __INSN_OPCODE_MASK	_UL(0x7F)
+ #define __INSN_BRANCH_OPCODE	_UL(RVG_OPCODE_BRANCH)
+ 
+@@ -600,4 +607,12 @@ static inline void riscv_insn_insert_utype_itype_imm(u32 *utype_insn, u32 *itype
+ 	*utype_insn |= (imm & RV_U_IMM_31_12_MASK) + ((imm & BIT(11)) << 1);
+ 	*itype_insn |= ((imm & RV_I_IMM_11_0_MASK) << RV_I_IMM_11_0_OPOFF);
+ }
++#ifndef __ASSEMBLY__
 +#include <asm/ptrace.h>
- #include <unistd.h>
- #include <stdbool.h>
- #include <stdio.h>
-@@ -18,18 +19,576 @@
- #include <fcntl.h>
- #include <signal.h>
- #include <sys/mman.h>
-+#include <sys/ptrace.h>
-+#include <sys/wait.h>
- #include <string.h>
- #include <semaphore.h>
- #include <errno.h>
-+#include <stdint.h>
-+#include <stddef.h>
-+#include <linux/elf.h>
++
++int get_insn(struct pt_regs *regs, ulong epc, ulong *r_insn);
++int get_insn_safe(struct pt_regs *regs, ulong epc, ulong *r_insn);
++unsigned long get_next_insn_address(struct pt_regs *regs, ulong insn, ulong pc);
++#endif /* __ASSEMBLY__ */
++
+ #endif /* _ASM_RISCV_INSN_H */
+diff --git a/arch/riscv/kernel/traps_misaligned.c b/arch/riscv/kernel/traps_misaligned.c
+index 6e8ae6c66322..541e6a5b8039 100644
+--- a/arch/riscv/kernel/traps_misaligned.c
++++ b/arch/riscv/kernel/traps_misaligned.c
+@@ -10,6 +10,7 @@
+ #include <linux/irq.h>
+ #include <linux/stringify.h>
  
- #ifndef noinline
- #define noinline __attribute__((noinline))
- #endif
++#include <asm/insn.h>
+ #include <asm/processor.h>
+ #include <asm/ptrace.h>
+ #include <asm/csr.h>
+@@ -129,57 +130,6 @@ static unsigned long get_f32_rs(unsigned long insn, u8 fp_reg_offset,
+ #define GET_F32_RS2C(insn, regs) (get_f32_rs(insn, 2, regs))
+ #define GET_F32_RS2S(insn, regs) (get_f32_rs(RVC_RS2S(insn), 0, regs))
  
-+#include "kselftest.h"
-+
-+static int test_func_sink;
-+
-+/*
-+ * Keep a real instruction address for HW execute breakpoints: prevent inlining
-+ * and force a visible side effect so the function can't be optimized away.
-+ */
-+static noinline void test_func(void)
-+{
-+	test_func_sink++;
-+	__asm__ __volatile__("" : : "g" (test_func_sink));
-+}
-+
-+/*
-+ * BREAKPOINT TEST USING PTRACE
-+ */
-+static int do_wp_child(void *addr, size_t size)
-+{
-+	if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) != 0) {
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_TRACEME) failed: %s\n",
-+			       strerror(errno));
-+		_exit(1);
-+	}
-+
-+	if (raise(SIGSTOP) != 0) {
-+		ksft_print_msg(
-+			       "raise(SIGSTOP) failed: %s\n", strerror(errno));
-+		_exit(1);
-+	}
-+
-+	sleep(1);
-+	switch (size) {
-+	case 1:
-+		*(uint8_t *)addr = 47;
-+		break;
-+	case 2:
-+		*(uint16_t *)addr = 47;
-+		break;
-+	case 4:
-+		*(uint32_t *)addr = 47;
-+		break;
-+	case 8:
-+		*(uint64_t *)addr = 47;
-+		break;
-+	default:
-+		ksft_print_msg("Unknown watchpoint access size %u\n", size);
-+		break;
-+	}
-+
-+	_exit(0);
-+}
-+
-+static int do_bp_child(void (*bp_func)(void))
-+{
-+	if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) != 0) {
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_TRACEME) failed: %s\n",
-+			       strerror(errno));
-+		_exit(1);
-+	}
-+
-+	if (raise(SIGSTOP) != 0) {
-+		ksft_print_msg(
-+			       "raise(SIGSTOP) failed: %s\n", strerror(errno));
-+		_exit(1);
-+	}
-+
-+	bp_func();
-+}
-+
-+unsigned long var;
-+
-+static bool set_watchpoint(pid_t pid, int size)
-+{
-+	uint8_t *addr = (uint8_t *)&var;
-+	unsigned int control = 0;
-+	struct user_hwdebug_state dreg_state;
-+	struct iovec iov;
-+
-+	/* Write watchpoint */
-+	control = (HW_BREAKPOINT_W << 14) & ((0x7 << 14));
-+	control |= (HW_BREAKPOINT_LEN_8 << 4) & ((0x1f << 4));
-+	memset(&dreg_state, 0, sizeof(dreg_state));
-+	dreg_state.dbg_regs[0].addr = (uintptr_t)(addr);
-+	dreg_state.dbg_regs[0].control = control;
-+	iov.iov_base = &dreg_state;
-+	iov.iov_len = offsetof(struct user_hwdebug_state, dbg_regs) +
-+				sizeof(dreg_state.dbg_regs[0]);
-+
-+	if (ptrace(PTRACE_SETREGSET, pid, NT_RISCV_HW_WATCH, &iov) == 0) {
-+		memset(&iov, 0, sizeof(iov));
-+		memset(&dreg_state, 0, sizeof(dreg_state));
-+
-+		iov.iov_base = &dreg_state;
-+		iov.iov_len = offsetof(struct user_hwdebug_state, dbg_regs) +
-+			sizeof(dreg_state.dbg_regs[0]);
-+
-+		if (ptrace(PTRACE_GETREGSET, pid, NT_RISCV_HW_WATCH, &iov) == 0) {
-+			ksft_print_msg(
-+				       "ptrace(PTRACE_GETREGSET): Number of watchpoints: %u\n",
-+				       dreg_state.info);
-+			ksft_print_msg(
-+				       "ptrace(PTRACE_GETREGSet): addr: 0x%lx control: 0x%x\n",
-+				       dreg_state.dbg_regs[0].addr, dreg_state.dbg_regs[0].control);
-+		} else {
-+			ksft_print_msg(
-+				       "ptrace(PTRACE_GETREGSET): Failed\n");
-+			return false;
-+		}
-+
-+		return true;
-+	}
-+
-+	if (errno == EIO)
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_SETREGSET, NT_RISCV_HW_WATCH) not supported: %s\n",
-+			       strerror(errno));
-+	else
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_SETREGSET, NT_RISCV_HW_WATCH) failed: %s\n",
-+			       strerror(errno));
-+	return false;
-+}
-+
-+static bool set_breakpoint(pid_t pid, void (*bp_func)(void))
-+{
-+	struct user_hwdebug_state dreg_state;
-+	struct iovec iov;
-+	unsigned int control = 0;
-+
-+	control = (HW_BREAKPOINT_X << 14) & ((0x7 << 14));
-+	control |= (HW_BREAKPOINT_LEN_8 << 4) & ((0x1f << 4));
-+	memset(&dreg_state, 0, sizeof(dreg_state));
-+	dreg_state.dbg_regs[0].addr = (uintptr_t)bp_func;
-+	dreg_state.dbg_regs[0].control = control;
-+	iov.iov_base = &dreg_state;
-+	iov.iov_len = offsetof(struct user_hwdebug_state, dbg_regs) + sizeof(dreg_state.dbg_regs[0]);
-+
-+	if (ptrace(PTRACE_SETREGSET, pid, NT_RISCV_HW_BREAK, &iov) == 0)
-+		return true;
-+
-+	if (errno == EIO)
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_SETREGSET, NT_RISCV_HW_BREAK) not supported: %s\n",
-+			       strerror(errno));
-+	else
-+		ksft_print_msg(
-+			       "ptrace(PTRACE_SETREGSET, NT_RISCV_HW_BREAK) failed: %s\n",
-+			       strerror(errno));
-+
-+	return false;
-+}
-+
-+static int run_ptrace_wp_test(void)
-+{
-+	pid_t pid = fork();
-+	pid_t wpid;
-+	siginfo_t siginfo;
-+	int status;
-+
-+	if (pid == 0)
-+		do_wp_child(&var, 8);
-+
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg(
-+			"child did not stop: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGSTOP) {
-+		ksft_print_msg("child did not stop with SIGSTOP\n");
-+		return false;
-+	}
-+
-+	if (!set_watchpoint(pid, 8))
-+		return false;
-+
-+	if (ptrace(PTRACE_CONT, pid, NULL, NULL) < 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_CONT) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	alarm(3);
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	alarm(0);
-+	if (WIFEXITED(status)) {
-+		ksft_print_msg("child exited prematurely\n");
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop\n");
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGTRAP) {
-+		ksft_print_msg("child did not stop with SIGTRAP\n");
-+		return false;
-+	}
-+	if (ptrace(PTRACE_GETSIGINFO, pid, NULL, &siginfo) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_GETSIGINFO): %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+	if (siginfo.si_code != TRAP_HWBKPT) {
-+		ksft_print_msg(
-+			"Unexpected si_code %d\n", siginfo.si_code);
-+		return false;
-+	}
-+
-+	kill(pid, SIGKILL);
-+	wpid = waitpid(pid, &status, 0);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg("[ptrace]: Watchpoint test passed!\n");
-+
-+	return true;
-+}
-+
-+static int run_ptrace_bp_test(void)
-+{
-+	pid_t pid = fork();
-+	pid_t wpid;
-+	siginfo_t siginfo;
-+	int status;
-+
-+	if (pid == 0)
-+		do_bp_child(test_func);
-+
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg(
-+			"child did not stop: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGSTOP) {
-+		ksft_print_msg("child did not stop with SIGSTOP\n");
-+		return false;
-+	}
-+
-+	if (!set_breakpoint(pid, test_func))
-+		return false;
-+
-+	if (ptrace(PTRACE_CONT, pid, NULL, NULL) < 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_CONT) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	alarm(3);
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	alarm(0);
-+	if (WIFEXITED(status)) {
-+		ksft_print_msg("child exited prematurely\n");
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop\n");
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGTRAP) {
-+		ksft_print_msg("child did not stop with SIGTRAP\n");
-+		return false;
-+	}
-+	if (ptrace(PTRACE_GETSIGINFO, pid, NULL, &siginfo) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_GETSIGINFO): %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+	if (siginfo.si_code != TRAP_HWBKPT) {
-+		ksft_print_msg(
-+			"Unexpected si_code %d\n", siginfo.si_code);
-+		return false;
-+	}
-+
-+	kill(pid, SIGKILL);
-+	wpid = waitpid(pid, &status, 0);
-+	if (wpid != pid) {
-+		ksft_print_msg(
-+			"waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg("[ptrace]: Breakpoint test passed!\n");
-+
-+	return true;
-+}
-+
-+/*
-+ * BREAKPOINT TEST USING PTRACE_SETHBPREGS / PTRACE_GETHBPREGS
-+ */
-+static bool set_hbpregs_watchpoint(pid_t pid)
-+{
-+	struct __riscv_hwdebug_state state;
-+
-+	memset(&state, 0, sizeof(state));
-+	state.addr = (unsigned long)&var;
-+	state.len  = HW_BREAKPOINT_LEN_8;
-+	state.type = HW_BREAKPOINT_W;
-+	state.ctrl = 0; /* enabled */
-+
-+	if (ptrace(PTRACE_SETHBPREGS, pid, 0, &state) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_SETHBPREGS) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	/* Read back and verify */
-+	memset(&state, 0, sizeof(state));
-+	if (ptrace(PTRACE_GETHBPREGS, pid, 0, &state) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_GETHBPREGS) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg(
-+		"[hbpregs] watchpoint readback: addr=0x%lx type=%lu len=%lu ctrl=%lu\n",
-+		state.addr, state.type, state.len, state.ctrl);
-+
-+	return true;
-+}
-+
-+static bool set_hbpregs_breakpoint(pid_t pid, void (*bp_func)(void))
-+{
-+	struct __riscv_hwdebug_state state;
-+
-+	memset(&state, 0, sizeof(state));
-+	state.addr = (unsigned long)bp_func;
-+	state.len  = HW_BREAKPOINT_LEN_4;
-+	state.type = HW_BREAKPOINT_X;
-+	state.ctrl = 0; /* enabled */
-+
-+	if (ptrace(PTRACE_SETHBPREGS, pid, 0, &state) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_SETHBPREGS) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	/* Read back and verify */
-+	memset(&state, 0, sizeof(state));
-+	if (ptrace(PTRACE_GETHBPREGS, pid, 0, &state) != 0) {
-+		ksft_print_msg(
-+			"ptrace(PTRACE_GETHBPREGS) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg(
-+		"[hbpregs] breakpoint readback: addr=0x%lx type=%lu len=%lu ctrl=%lu\n",
-+		state.addr, state.type, state.len, state.ctrl);
-+
-+	return true;
-+}
-+
-+static int run_hbpregs_wp_test(void)
-+{
-+	pid_t pid = fork();
-+	pid_t wpid;
-+	siginfo_t siginfo;
-+	int status;
-+
-+	if (pid == 0)
-+		do_wp_child(&var, 8);
-+
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGSTOP) {
-+		ksft_print_msg("child did not stop with SIGSTOP\n");
-+		return false;
-+	}
-+
-+	if (!set_hbpregs_watchpoint(pid))
-+		return false;
-+
-+	if (ptrace(PTRACE_CONT, pid, NULL, NULL) < 0) {
-+		ksft_print_msg("ptrace(PTRACE_CONT) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	alarm(3);
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	alarm(0);
-+	if (WIFEXITED(status)) {
-+		ksft_print_msg("child exited prematurely\n");
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop\n");
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGTRAP) {
-+		ksft_print_msg("child did not stop with SIGTRAP\n");
-+		return false;
-+	}
-+	if (ptrace(PTRACE_GETSIGINFO, pid, NULL, &siginfo) != 0) {
-+		ksft_print_msg("ptrace(PTRACE_GETSIGINFO): %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+	if (siginfo.si_code != TRAP_HWBKPT) {
-+		ksft_print_msg("Unexpected si_code %d\n", siginfo.si_code);
-+		return false;
-+	}
-+
-+	kill(pid, SIGKILL);
-+	wpid = waitpid(pid, &status, 0);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg("[hbpregs]: Watchpoint test passed!\n");
-+	return true;
-+}
-+
-+static int run_hbpregs_bp_test(void)
-+{
-+	pid_t pid = fork();
-+	pid_t wpid;
-+	siginfo_t siginfo;
-+	int status;
-+
-+	if (pid == 0)
-+		do_bp_child(test_func);
-+
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop: %s\n", strerror(errno));
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGSTOP) {
-+		ksft_print_msg("child did not stop with SIGSTOP\n");
-+		return false;
-+	}
-+
-+	if (!set_hbpregs_breakpoint(pid, test_func))
-+		return false;
-+
-+	if (ptrace(PTRACE_CONT, pid, NULL, NULL) < 0) {
-+		ksft_print_msg("ptrace(PTRACE_CONT) failed: %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+
-+	alarm(3);
-+	wpid = waitpid(pid, &status, __WALL);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+	alarm(0);
-+	if (WIFEXITED(status)) {
-+		ksft_print_msg("child exited prematurely\n");
-+		return false;
-+	}
-+	if (!WIFSTOPPED(status)) {
-+		ksft_print_msg("child did not stop\n");
-+		return false;
-+	}
-+	if (WSTOPSIG(status) != SIGTRAP) {
-+		ksft_print_msg("child did not stop with SIGTRAP\n");
-+		return false;
-+	}
-+	if (ptrace(PTRACE_GETSIGINFO, pid, NULL, &siginfo) != 0) {
-+		ksft_print_msg("ptrace(PTRACE_GETSIGINFO): %s\n",
-+			strerror(errno));
-+		return false;
-+	}
-+	if (siginfo.si_code != TRAP_HWBKPT) {
-+		ksft_print_msg("Unexpected si_code %d\n", siginfo.si_code);
-+		return false;
-+	}
-+
-+	kill(pid, SIGKILL);
-+	wpid = waitpid(pid, &status, 0);
-+	if (wpid != pid) {
-+		ksft_print_msg("waitpid() failed: %s\n", strerror(errno));
-+		return false;
-+	}
-+
-+	ksft_print_msg("[hbpregs]: Breakpoint test passed!\n");
-+	return true;
-+}
-+
-+static void run_hbpregs_tests(void)
-+{
-+	run_hbpregs_bp_test();
-+	run_hbpregs_wp_test();
-+}
-+
-+/*
-+ * BREAKPOINT TEST USING PTRACE_SETHBPREGS / PTRACE_GETHBPREGS - END
-+ */
-+static void run_ptrace_tests(void)
-+{
-+	run_ptrace_bp_test();
-+	run_ptrace_wp_test();
-+}
-+
-+/*
-+ * BREAKPOINT TEST USING PTRACE - END
-+ */
-+
-+/*
-+ * BREAKPOINT TEST USING perf events
-+ */
- static int gfd;
- sem_t ib_mtx, wp_mtx;
- static int bp_triggered, wp_triggered;
--static int test_func_sink;
- static const int wait_timeout_sec = 5;
- 
- int setup_bp(bool is_x, void *addr, int sig)
-@@ -56,7 +615,7 @@ int setup_bp(bool is_x, void *addr, int sig)
- 
- 	fd = syscall(SYS_perf_event_open, &pe, 0, -1, -1, 0);
- 	if (fd < 0) {
--		printf("Failed to open event: %llx\n", pe.config);
-+		ksft_print_msg("Failed to open event: %llx\n", pe.config);
- 		return -1;
- 	}
- 
-@@ -75,11 +634,10 @@ static void sig_handler_bp(int signum, siginfo_t *oh, void *uc)
- 
- 	bp_triggered++;
- 
--	printf("Breakpoint triggered!\n");
- 	ioctl(gfd, PERF_EVENT_IOC_DISABLE, 0);
- 	ret = sem_post(&ib_mtx);
- 	if (ret) {
--		printf("Failed to report BP success\n");
-+		ksft_print_msg("Failed to report BP success\n");
- 		return;
- 	}
- }
-@@ -88,28 +646,17 @@ static void sig_handler_wp(int signum, siginfo_t *oh, void *uc)
- {
- 	int ret;
- 
--	printf("Watchpoint triggered!\n");
- 	ioctl(gfd, PERF_EVENT_IOC_DISABLE, 0);
- 	wp_triggered++;
- 
- 	ret = sem_post(&wp_mtx);
- 
- 	if (ret) {
--		printf("Failed to report WP success\n");
-+		ksft_print_msg("Failed to report WP success\n");
- 		return;
- 	}
- }
- 
--/*
-- * Keep a real instruction address for HW execute breakpoints: prevent inlining
-- * and force a visible side effect so the function can't be optimized away.
-- */
--static noinline void test_func(void)
--{
--	test_func_sink++;
--	__asm__ __volatile__("" : : "g" (test_func_sink));
--}
+-#define __read_insn(regs, insn, insn_addr, type)	\
+-({							\
+-	int __ret;					\
+-							\
+-	if (user_mode(regs)) {				\
+-		__ret = get_user(insn, (type __user *) insn_addr); \
+-	} else {					\
+-		insn = *(type *)insn_addr;		\
+-		__ret = 0;				\
+-	}						\
+-							\
+-	__ret;						\
+-})
 -
- static int trigger_bp(void)
- {
- 	struct sigaction sa;
-@@ -119,14 +666,14 @@ static int trigger_bp(void)
- 	sa.sa_flags = SA_SIGINFO;
+-static inline int get_insn(struct pt_regs *regs, ulong epc, ulong *r_insn)
+-{
+-	ulong insn = 0;
+-
+-	if (epc & 0x2) {
+-		ulong tmp = 0;
+-
+-		if (__read_insn(regs, insn, epc, u16))
+-			return -EFAULT;
+-		/* __get_user() uses regular "lw" which sign extend the loaded
+-		 * value make sure to clear higher order bits in case we "or" it
+-		 * below with the upper 16 bits half.
+-		 */
+-		insn &= GENMASK(15, 0);
+-		if ((insn & __INSN_LENGTH_MASK) != __INSN_LENGTH_32) {
+-			*r_insn = insn;
+-			return 0;
+-		}
+-		epc += sizeof(u16);
+-		if (__read_insn(regs, tmp, epc, u16))
+-			return -EFAULT;
+-		*r_insn = (tmp << 16) | insn;
+-
+-		return 0;
+-	} else {
+-		if (__read_insn(regs, insn, epc, u32))
+-			return -EFAULT;
+-		if ((insn & __INSN_LENGTH_MASK) == __INSN_LENGTH_32) {
+-			*r_insn = insn;
+-			return 0;
+-		}
+-		insn &= GENMASK(15, 0);
+-		*r_insn = insn;
+-
+-		return 0;
+-	}
+-}
  
- 	if (sigaction(SIGIO, &sa, NULL) < 0) {
--		printf("Failed to setup signal handler\n");
-+		ksft_print_msg("Failed to setup signal handler\n");
- 		return -1;
- 	}
- 
- 	gfd = setup_bp(1, test_func, SIGIO);
- 
- 	if (gfd < 0) {
--		printf("Failed to setup breakpoint.\n");
-+		ksft_print_msg("Failed to setup breakpoint.\n");
- 		return -1;
- 	}
- 
-@@ -151,14 +698,14 @@ static int trigger_wp(void)
- 	sa.sa_flags = SA_SIGINFO;
- 
- 	if (sigaction(SIGUSR1, &sa, NULL) < 0) {
--		printf("Failed to setup signal handler\n");
-+		ksft_print_msg("Failed to setup signal handler\n");
- 		return -1;
- 	}
- 
- 	gfd = setup_bp(0, &test_data, SIGUSR1);
- 
- 	if (gfd < 0) {
--		printf("Failed to setup watchpoint\n");
-+		ksft_print_msg("Failed to setup watchpoint\n");
- 		return -1;
- 	}
- 
-@@ -204,7 +751,7 @@ int main(int argc, char *argv[])
- 		return -1;
- 
- 	if (bp_triggered)
--		printf("Breakpoint test passed!\n");
-+		ksft_print_msg("[perf_event]: Breakpoint test passed!\n");
- 
- 	sem_init(&wp_mtx, 0, 0);
- 	if (trigger_wp() < 0)
-@@ -213,7 +760,10 @@ int main(int argc, char *argv[])
- 		return -1;
- 
- 	if (wp_triggered)
--		printf("Watchpoint test passed!\n");
-+		ksft_print_msg("[perf_event]: Watchpoint test passed!\n");
+ union reg_data {
+ 	u8 data_bytes[8];
+diff --git a/arch/riscv/lib/Makefile b/arch/riscv/lib/Makefile
+index f668b98970bd..84cdd35afa42 100644
+--- a/arch/riscv/lib/Makefile
++++ b/arch/riscv/lib/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ lib-y			+= delay.o
++lib-y			+= insn.o
+ lib-y			+= memcpy.o
+ lib-y			+= memset.o
+ lib-y			+= memmove.o
+diff --git a/arch/riscv/lib/insn.c b/arch/riscv/lib/insn.c
+new file mode 100644
+index 000000000000..361cac7abe10
+--- /dev/null
++++ b/arch/riscv/lib/insn.c
+@@ -0,0 +1,263 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright 2026 Qualcomm Technoloies, Inc.
++ */
 +
-+	run_ptrace_tests();
-+	run_hbpregs_tests();
- 
- 	return 0;
- }
++#include <linux/uaccess.h>
++
++#include <asm/insn.h>
++#include <asm/ptrace.h>
++#include <asm/uaccess.h>
++
++/**
++ * __fetch_insn() - Fetch a RISC-V instruction parcel from memory
++ * @regs: Register state used to determine the access context
++ * @insn: Variable receiving the instruction value
++ * @insn_addr: Address from which to read the instruction parcel
++ * @type: Instruction parcel type, either @u16 or @u32
++ *
++ * Fetches an instruction parcel from user or kernel memory, depending on the
++ * execution context indicated by @regs. RISC-V instruction parcels are
++ * stored in little-endian byte order, so the fetched value is converted from
++ * little-endian to the native CPU representation before being assigned to
++ * @insn.
++ *
++ * The conversion is a no-op on little-endian targets and performs the
++ * required byte swap on big-endian targets.
++ *
++ * Return: 0 on success, or a negative error code if reading user memory
++ *         fails.
++ */
++#define __fetch_insn(regs, insn, insn_addr, type)		\
++({								\
++	type __val;						\
++	int __ret;						\
++								\
++	if (user_mode(regs))					\
++		__ret = get_user(__val,				\
++				 (type __user *)(insn_addr));	\
++	else {							\
++		__val = *(type *)(insn_addr);			\
++		__ret = 0;					\
++	}							\
++								\
++	if (!__ret) {						\
++		if (sizeof(type) == sizeof(u16))			\
++			(insn) = le16_to_cpu((__force __le16)__val);	\
++		else							\
++			(insn) = le32_to_cpu((__force __le32)__val);	\
++	}							\
++								\
++	__ret;							\
++})
++
++/**
++ * get_insn() - Fetch and decode a RISC-V instruction
++ * @regs: Register state used for instruction access
++ * @epc: Address of the instruction to fetch
++ * @r_insn: Pointer to store the fetched instruction encoding
++ *
++ * Fetches the instruction at @epc and stores its encoding in @r_insn.
++ * Both standard 32-bit instructions and compressed 16-bit instructions are
++ * supported. If a 32-bit instruction is split across two 16-bit instruction
++ * accesses, the halfwords are combined into a single instruction encoding.
++ *
++ * Return: 0 on success, or %-EFAULT if instruction access fails.
++ */
++int get_insn(struct pt_regs *regs, ulong epc, ulong *r_insn)
++{
++	ulong insn, tmp;
++
++	if (!(epc & 0x2)) {
++		if (__fetch_insn(regs, insn, epc, u32))
++			return -EFAULT;
++
++		if (riscv_insn_is_compressed(insn))
++			insn &= RVC_MASK_INSN;
++
++		*r_insn = insn;
++		return 0;
++	}
++
++	if (__fetch_insn(regs, insn, epc, u16))
++		return -EFAULT;
++
++	insn &= RVC_MASK_INSN;
++	if (riscv_insn_is_compressed(insn)) {
++		*r_insn = insn;
++		return 0;
++	}
++
++	if (__fetch_insn(regs, tmp, epc + sizeof(u16), u16))
++		return -EFAULT;
++
++	*r_insn = (tmp << 16) | insn;
++
++	return 0;
++}
++
++int get_insn_safe(struct pt_regs *regs, ulong epc, ulong *r_insn)
++{
++	int ret;
++
++	pagefault_disable();
++	ret = get_insn(regs, epc, r_insn);
++	pagefault_enable();
++
++	return ret;
++}
++
++/**
++ * riscv_get_reg_value() - Get the value stored the given RISC-V register number
++ * @regs: Register state containing the saved register values
++ * @regno: RISC-V register number
++ *
++ * Returns the value of the RISC-V register identified by @regno. Register
++ * x0 always returns zero, as required by the RISC-V ISA.
++ *
++ * Return: The register value, or zero if @regno is zero.
++ */
++static unsigned long riscv_get_reg_value(struct pt_regs *regs, unsigned int regno)
++{
++	return regno ? regs_get_register(regs, regno * sizeof(unsigned long)) : 0;
++}
++
++/**
++ * get_next_insn_address_compressed() - Calculate the next address for a compressed
++ * RISC-V instruction
++ * @regs: Register state used to evaluate indirect jumps and conditional
++ *        branches
++ * @insn: Compressed RISC-V instruction encoding
++ * @pc: Current program counter
++ *
++ * Determines the address at which execution should continue after processing
++ * the compressed instruction in @insn. Indirect jumps use the value of the
++ * instruction's source register, unconditional jumps use the encoded
++ * immediate, and conditional branches evaluate the relevant register value.
++ *
++ * For a branch that is not taken, or for an unsupported compressed
++ * instruction, the address of the following 16-bit instruction is returned.
++ *
++ * Return: The next instruction address.
++ */
++static unsigned long get_next_insn_address_compressed(struct pt_regs *regs, u32 insn,
++						      unsigned long pc)
++{
++	unsigned int rs1_num;
++
++	if (riscv_insn_is_c_jalr(insn) || riscv_insn_is_c_jr(insn)) {
++		rs1_num = RV_X(insn, RVC_C2_RS1_OPOFF, 5);
++		return regs_get_register(regs, rs1_num * sizeof(unsigned long));
++	}
++
++	if (riscv_insn_is_c_j(insn) || riscv_insn_is_c_jal(insn))
++		return RVC_EXTRACT_JTYPE_IMM(insn) + pc;
++
++	if (riscv_insn_is_c_beqz(insn)) {
++		rs1_num = RV_X(insn, RVC_C1_RS1_OPOFF, 3) + 8;
++		if (!rs1_num || riscv_get_reg_value(regs, rs1_num) == 0)
++			return RVC_EXTRACT_BTYPE_IMM(insn) + pc;
++		return pc + 2;
++	}
++
++	if (riscv_insn_is_c_bnez(insn)) {
++		rs1_num = RV_X(insn, RVC_C1_RS1_OPOFF, 3) + 8;
++		if (rs1_num && riscv_get_reg_value(regs, rs1_num) != 0)
++			return RVC_EXTRACT_BTYPE_IMM(insn) + pc;
++		return pc + 2;
++	}
++
++	return pc + 2;
++}
++
++/**
++ * riscv_branch_taken() - Determine whether a RISC-V conditional branch is taken
++ * @regs: Register state used to obtain the source operand values
++ * @insn: RISC-V branch instruction encoding
++ *
++ * Evaluates the branch condition encoded in @insn using the values of its
++ * source registers from @regs. Signed comparisons are used for BLT and BGE,
++ * while unsigned comparisons are used for BLTU and BGEU.
++ *
++ * Return: %true if the branch condition is satisfied, or %false otherwise.
++ *         Unsupported branch instructions also return %false.
++ */
++static bool riscv_branch_taken(struct pt_regs *regs, u32 insn)
++{
++	unsigned int rs1_num = RV_X(insn, RVG_RS1_OPOFF, 5);
++	unsigned int rs2_num = RV_X(insn, RVG_RS2_OPOFF, 5);
++	unsigned long rs1_val = riscv_get_reg_value(regs, rs1_num);
++	unsigned long rs2_val = riscv_get_reg_value(regs, rs2_num);
++
++	if (riscv_insn_is_beq(insn))
++		return rs1_val == rs2_val;
++	if (riscv_insn_is_bne(insn))
++		return rs1_val != rs2_val;
++	if (riscv_insn_is_blt(insn))
++		return (long)rs1_val < (long)rs2_val;
++	if (riscv_insn_is_bge(insn))
++		return (long)rs1_val >= (long)rs2_val;
++	if (riscv_insn_is_bltu(insn))
++		return rs1_val < rs2_val;
++	if (riscv_insn_is_bgeu(insn))
++		return rs1_val >= rs2_val;
++
++	return false;
++}
++
++/**
++* get_next_insn_address_standard() - Compute the next PC for standard RISC-V
++* control-flow instructions
++*
++* @regs: Register state of the current context.
++* @insn: Instruction located at @pc.
++* @pc: Address of the current instruction.
++*
++* Determine the address of the next instruction to be executed after @insn.
++* The function evaluates control-flow instructions whose target cannot be
++* obtained by simply advancing the program counter:
++*
++* - Conditional branches: returns either the branch target or @pc + 4
++* depending on the branch outcome.
++* - JAL: returns the jump target encoded in the instruction.
++* - JALR: returns the computed indirect jump target using the instruction
++* immediate and the value of the source register.
++* - SRET: returns @pc, as control transfer is handled by the trap return
++* mechanism.
++*
++* For all other instructions, execution is assumed to continue at the next
++* sequential 32-bit instruction and @pc + 4 is returned.
++*
++* Return: Address of the next instruction to be executed.
++*/
++static unsigned long get_next_insn_address_standard(struct pt_regs *regs, u32 insn,
++						    unsigned long pc)
++{
++	unsigned int rs1_num;
++
++	if ((insn & __INSN_OPCODE_MASK) == __INSN_BRANCH_OPCODE)
++		return riscv_branch_taken(regs, insn) ?
++			RV_EXTRACT_BTYPE_IMM(insn) + pc : pc + 4;
++
++	if (riscv_insn_is_jal(insn))
++		return RV_EXTRACT_JTYPE_IMM(insn) + pc;
++
++	if (riscv_insn_is_jalr(insn)) {
++		rs1_num = RV_X(insn, RVG_RS1_OPOFF, 5);
++		return RV_EXTRACT_ITYPE_IMM(insn) + riscv_get_reg_value(regs, rs1_num);
++	}
++
++	if (riscv_insn_is_sret(insn))
++		return pc;
++
++	return pc + 4;
++}
++
++/* Calculate the new address for after a step */
++unsigned long get_next_insn_address(struct pt_regs *regs, ulong insn, ulong pc)
++{
++	if (riscv_insn_is_compressed(insn))
++		return get_next_insn_address_compressed(regs, insn, pc);
++
++	return get_next_insn_address_standard(regs, insn, pc);
++}
 -- 
 2.43.0
 
