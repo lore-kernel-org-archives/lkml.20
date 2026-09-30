@@ -1,165 +1,387 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421264BFE6D;
-	Wed, 30 Sep 2026 15:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783812; cv=fail; b=nBWND8icG7d4sef+nNsA1SOPaHZztVSL5OS56yvAaXbF2iyBpnTLBsX3nRndmkyBIGJXyQc9y94fOdp5DFhNr0trrVOuPDIdG08AimqvuRTQpbHxryn8yo0DE1oJUbOwijIaOs4gDTFJeOvq1Ge892LndLGfuCjjeRt8ilW9yw8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783812; c=relaxed/simple;
-	bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dBd0+vc76Wyv1S6T3mQ+JQiDyVcS6LosK+FFYXD3qsDSK5Ws7E+jmrxPjwjOExN3L0DPoiS7fEY9xekAgpEUUQ/9ohY5tEF0uZZnJQsuE95ZgWp1UOasFbcI6iNZxwQZ9ImjD7u2VfAVJQ/T0eBPy0Yp+2w/7vHS6eloPmdUGoc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lShUrDFK; arc=fail smtp.client-ip=40.107.159.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFC474E780D;
+	Wed, 30 Sep 2026 15:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783886; cv=none; b=kduJ2vI5L6Sk1D55MXjX/mRxmb09rYW1NXWjjGT9Nvv7yVIZcusT/pH2P5y/2zW96vqCuagJHo3hmq2q3osC7sMf6MKtNQ7HUiD9cyT/5nlXXDwnJEPjX3x7ANef/jlGEIUBw6JaXittBvOfVQ2zUo2Ue0pPV1O545r+p/g+HOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783886; c=relaxed/simple;
+	bh=5jZg6iv6NWVEGrlBgZMC0jVgzD5L0hoB5RF/9I6xxy4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FNcpEmmOLYipCVK1FGQZee2o4dxWgXbGnhwYn/B8yVU5g9fQwyZQcu7LvXuz0qzL8/sAX50k3SDjWG2N0Qb2yCYE6EwuE5zHcvgg2ke/LT2a9ZMjspMnDa0Fo7BX+IxZ1W0SI27Ek9fCnQhMYGgi7ulc8oTI/ErJfD+1qPMcD8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Mn63Vh0C; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lShUrDFK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AuSIts35AD99PLJh2f3NEg21v29WmUmTueDflI88Lz4pBHHhM3/iw6YZD8Uc7QP0Jsbzpe2IUkPVria7v9yYWfRwqjDI0aE0HCUvX9jXZC8PIYY3lj+UK3OqUG7A39lZO2dtjGrhJLiIBIYYZT9whnZ7KDzORQCZEb4B0teRZT7mnc1PM2J0NK/tID2dvokt4N3jJ8R+D5SGbFYWion2TgA+RmHavVcgA3n5qdK+rT+tP+QJ+ZUW/lCHglCAzptFoXtToV/a8/nNanrzL9CHIvU0Bky9dB+3gfcmL/9tKzPJG5eX5SRZ8STDSIl91zPgyKAUQdZYiwom1XFbGazMkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
- b=R0eYFoPOugmxhC2f5+kuT0knre3xkN+kR5nUyDZvOOdYr6APq15hJPAdjjt5nQ4KTMkb8Xu5oevL8NwWHLoZd3AzoveJ5edizhy4Jcj1ppgWhtEAuUwdTVHb7LPoRUmwC4rCfedABodlGt/NXT+RVz6/on7TaimDkqr5pnjgf3B6IIwh1IBCTxvxnSaMUzvCiZ7fJWLMdQP7l/jl+73YKDxpNnjHLL2xlC65H/PlTk/q0YbYRrmkIdId7IMB3EcjsRdVJbE77F2RLWaDoou7fsivf9hJwjbhMbXTUrPVlkdxFOkV40PBfoZa15pxBALl9ha/f9BES67bVpL5N8woUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
- b=lShUrDFKUf5rrcFn2vFZQioDruYsbbsQ57okLzJUgztDWbBpcL2BUq2xxOsSSddyR0q6y8moE5P/VfOdHs5t+O7fk8Z4LdeAAbU8KVBM/ezgI7SyCKmS/9HzgKzU5Bs7kiWQcnqMI08whaFomp7AaUa0V5Qpf4qTltk4WGp1Tvjhc+WFB7J/Tz+qyfmUBZhmZW6Og2+3qTp6x6P80cQ4skXLsKPfGEIRZFXrzMdH72njJWnGl3Eca55TudYzzc/szbmKabCuahExYbD0cp4/uBZLelrJF5kWbCqQtPCizbA5kS+YUyIs3AaLz2IS17fRzx3Oy9PskE9Vk0GYtA2r2w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10356.eurprd04.prod.outlook.com (2603:10a6:150:1e3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 15:56:36 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 15:56:36 +0000
-Date: Wed, 30 Sep 2026 10:56:22 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guido =?iso-8859-1?Q?G=FAnther?= <agx@sigxcpu.org>,
-	Robert Chiras <robert.chiras@nxp.com>,
-	Tim Harvey <tharvey@gateworks.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux@ew.tq-group.com, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 2/8] dt-bindings: embedded-controller: remove
- #address-cells and #size-cells from required
-Message-ID: <ar0xJqmSOdZCIW3Y@SMW015318>
-References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-2-f999fafbca60@nxp.com>
- <20260930-light-whippet-of-fruition-faf077@quoll>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-light-whippet-of-fruition-faf077@quoll>
-X-ClientProxiedBy: PH0PR07CA0109.namprd07.prod.outlook.com
- (2603:10b6:510:4::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Mn63Vh0C"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2BAB497;
+	Wed, 30 Sep 2026 08:57:54 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9397F3F86F;
+	Wed, 30 Sep 2026 08:57:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790783878; bh=5jZg6iv6NWVEGrlBgZMC0jVgzD5L0hoB5RF/9I6xxy4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Mn63Vh0CEm3S32fZ4038kKfpiBheiqU0mMpwlQMmGIeN9U+6ixpZS/XvdEfw+GM6a
+	 DVVv2DH54oNeXf5FFOv/9LiZwPUZwI0I+Q2QyRanwiHKl9HYBIPOb9njPNGLLRfPLP
+	 VxkYsrB3ZDONpR8iJT2BlB41SIf+9q0xetCUnTwU=
+Message-ID: <c094216a-cef8-437f-90ba-a1c60384e1ce@arm.com>
+Date: Wed, 30 Sep 2026 17:57:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10356:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc64dfc3-0750-4b68-f23e-08df1f0b67af
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|23010399003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- ++OwVAnpyZV8uyC4sKLjlGlioSJT2XCsE33K5b4moFdKq5FynXNfIfU4LcxUoT1JCruKv7QcgN93WzEPyF+teAj6u/pcl5JjzY49ZgR9akQxwfxISk8vv5LJ73ceW23JyrNWcPivG8jCsSvujG9j3ApTLJudPFieybAkNq3M0uya9zwymosdajFknLIfNPYEOBs90iQL7fjP1fyJgU/DMAZgmtMLZet6ubes15P9PPo5iSaa9Q2xf9edhKGxHXFmPhgVHn6p8zuzOGvkBzD0sGySkLDP8PvHUhVgVSHnhUPF9F5n51qJEW+VfHVOo99zP9ZVkJGfgbdUrqluJzgsZF8A397QWNR0z5p1Jtkmf0Ra+OdZyvDcfb/i4tC+2TSpxMDZG5KBAtrop8JU+kv/JvXUizAF8dCo4AxEy5V7UJVqpySVASrSOtKkfhSMjqkpHDJMYKwLSn/o5eqagikF7WhjGEDhVdNbD6rQkFzv7P6o+CmYcAyM/t+fqWvZK/UW8kr/9kxTv8m6XZtdsba1OYA17LG+xBKsbVUXoeEjaeioH+6n2SgFvmKgKo2fqyQAl8gilqAySDHrVm9vxPrm6ZKzrFtGlfk9hVIIQ31rNRRCwOHfrpSelkblcvACKiwx3e6LSP9SGzttxNmnu+HRJQz9dDUQM4Y3stAq7BFed9Q=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?ACg3hxHb2iPC5FquT5NaHCx8e9VBNvlk3oE0ePb49P0m7Y/77jTraJdCFcSi?=
- =?us-ascii?Q?bLkJsUw4gKglzpk5drwd0EwQdX/C413TlhBdvmyyx7YyBItv3IRTLHjDZg98?=
- =?us-ascii?Q?Vv/cORSCey6wvudO/SYuPjmdS8TWEkkdLSPKiqUnLq6Q4xNegaYHQYYx77uk?=
- =?us-ascii?Q?H2B1O0C/jW6+ZZ5gIWdeVdfXuq+y2z0yT0lJdLzSyfJG93erB4PP70swGCgE?=
- =?us-ascii?Q?HosFmYCfbsDSJjVjSX/3mZlx4UKisAfBZeHH0aPg2CZMxa5tK6iDBNS/P8+K?=
- =?us-ascii?Q?9RpFRZAlR0ca0+Iz4nyE0DxLhGne/9nWaZVBufD/DMpDVY2cHGRgv4NNH4eE?=
- =?us-ascii?Q?3TcBLw4dapWDqwIfhpget6i0NbT3ZwFuLgyYeA61JbTSX2fvHGajCTckuEQ5?=
- =?us-ascii?Q?I9zKti6F+wHe4XkD8ZlbtVlKfsw+3TyM7oC2uLEqlKLoaDQuQqZ5xLlwUHu2?=
- =?us-ascii?Q?CKwrKGOXpoyw/Dp4BjpPb5lYiq6HrIkwB/9OyttbEnpEyknIiz7/+uFy4wN2?=
- =?us-ascii?Q?WEeSBXscSi426p8M5JZr36dD5UVVEzm69Kxd96KWy+02ZfgmbkEuVYFjv196?=
- =?us-ascii?Q?Ff077WlbzXGsWvqdXS9jUI5YfGRNkTERgWhZpRYfjtPrJnyT/hyPKVgFPZzb?=
- =?us-ascii?Q?NXsCA6cuwRrt/yCO52PfAQEFazyj67rvFWbrLhFHdaEYoIjwB+JthwJhhIlm?=
- =?us-ascii?Q?Ukc5hpY4O1d8ZRBDzokYDA9ErixSZyAHRafzCz4+rD3tFJNJiJ4LnR0YAaqp?=
- =?us-ascii?Q?bRuMe3n/rqfVi0CmtMIAZde3mXSZ9YZ8pvCocnmAe14aToWQlKXmdJTxxgY0?=
- =?us-ascii?Q?LXi8qvI/T4716RqjOTlnQT7NuaDFrze2vJiI4tPXWwJkSCNseo4lNkw1rBsX?=
- =?us-ascii?Q?uwT7yJvJsIhwDkLJ5guIUyIJWnlXLDKWZsxHt1SjRdRtRacFqLDPwMVC1O3g?=
- =?us-ascii?Q?1iwfvMZIrhRs+i/G/gwBWbkS/HROSNj4Yy3SvrHkiWlPO5vWkgdO788txi0g?=
- =?us-ascii?Q?ZDY41/6JqZ3XCuIVIlQbQeKImaiJ/mH6POlTLbv67soAsXaKNsOUOOy5f9u7?=
- =?us-ascii?Q?UktqwSOTCrtJ13+7OCalrh8uqEvlgqYL0K12oNUP+KOt0gxkg844APSJo9Yl?=
- =?us-ascii?Q?ZIdpQqQ2vFWqUjOQ8FpsW5XRbkQM1Q++2Nw1BaSk2T/k2AaZeabLDUgm+NDo?=
- =?us-ascii?Q?pZX/v+QuT/D/2d+mFkd3wotvVfbQmMFUwwqErceH0tVerj+RdiHpimN1CN5y?=
- =?us-ascii?Q?wnEYtxS/Y82mqGsuGp+GAmOyBZK0bXkO/FkxYT6zWs8+H59QCrAkESZyfMe6?=
- =?us-ascii?Q?ZthblkAYl1XYRjOcGrv7atJqoXUUjDqfiAzxdkHXhj/cCEODsW5Lh9kQRjq8?=
- =?us-ascii?Q?Z7cVhkfZ0ZMuAtI5nS8ZxhhAatB3zD582UVCBM1r3NcJceXY4WLggi5nssdX?=
- =?us-ascii?Q?bms8e5ohyQp5aTQvR8ehR6ZkVNSs7HjHcmc+FDtA7G0NQP0DZsDDwfFdAzgn?=
- =?us-ascii?Q?V+/R2I+uGKgeEVCLAziWRqbzjT91p1TCoK8tTNe68dBZkWRrlOJ0U/Bp53vM?=
- =?us-ascii?Q?ePieuh231wGIDwTgS/Sjs4KXxeZyl+S5rSX6VeyoWL1Bq9qAuq9adVsqQekw?=
- =?us-ascii?Q?JQnFsbNCTCZBmnU/h56Ke++hdLVgdBMVK0kMg0ttdtepDwsBQcSApD/NrMv/?=
- =?us-ascii?Q?fTlvuzRJP/im+KkaGriiDhHPi52bsAH14tr6qgJSQv02CjzKAupSRZ+Lnaq5?=
- =?us-ascii?Q?wSl2jyRHfUVWQE49toJXz/YBWmAIgB5SYr0FAjKaZcdImBfa+Sjl?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc64dfc3-0750-4b68-f23e-08df1f0b67af
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:56:35.9801
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HVRD6ah47HQpGKVka87aeKNA7eI+MevapBUWTfpvaqr1gjF+AMo09K6jVuiW/O3cZvG89sDBbhkRMQsGDX39q7m1qA56w2vuusZEfFSrM0LaoMPiRCPmuxktYaTxJ8jE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10356
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 02/13] arm_mpam: propagate MSC access errors for
+ hw_probe functions
+To: Ben Horgan <ben.horgan@arm.com>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+ Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
+ Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+ Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260924152739.2865510-1-andre.przywara@arm.com>
+ <20260924152739.2865510-3-andre.przywara@arm.com>
+ <4cc35ee7-c4d3-40c0-b1f9-24ef5a2f5844@arm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <4cc35ee7-c4d3-40c0-b1f9-24ef5a2f5844@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 11:59:47AM +0200, Krzysztof Kozlowski wrote:
-> On Fri, Sep 25, 2026 at 12:37:51PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Frank Li <Frank.Li@nxp.com>
-> >
-> > The "^fan-controller@[0-9a-f]+$" child node is optional, so it is not
->
-> Why is it optional? Hardware can be fan-less? This should be the reason
-> here.
+Hi Ben,
 
-binding doc said as
+On 9/30/26 16:01, Ben Horgan wrote:
+> Hi Andre,
+> 
+> On 24/09/2026 16:27, Andre Przywara wrote:
+>> Allow the functions probing for MSC hardware and features to return an
+>> error, and propagate read and write errors from the lower level up.
+>> This uses some "scoped cleanup" functions like scoped_guard() and
+>> ACQUIRE() to avoid the complexity of error handling when a lock has been
+>> taken. Since the mon_sel_lock is a bit special (even more so in an
+>> upcoming patch), we define a new GUARD type for it.
+>>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>> Tested-by: Gavin Shan <gshan@redhat.com> # on NVIDIA Grace Hopper
+>> ---
+>>   drivers/resctrl/mpam_devices.c  | 126 +++++++++++++++++++++-----------
+>>   drivers/resctrl/mpam_internal.h |   4 +
+>>   2 files changed, 87 insertions(+), 43 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+>> index c7686d3799653..22069e7f7bb05 100644
+>> --- a/drivers/resctrl/mpam_devices.c
+>> +++ b/drivers/resctrl/mpam_devices.c
+>> @@ -798,38 +798,46 @@ static bool mpam_ris_hw_probe_csu_nrdy(struct mpam_msc_ris *ris)
+>>   	bool can_set, can_clear;
+>>   	struct mpam_msc *msc = ris->vmsc->msc;
+>>   
+>> -	if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
+>> +	ACQUIRE(mon_sel_lock, guard)(msc);
+>> +	if (ACQUIRE_ERR(mon_sel_lock, &guard))
+>>   		return false;
+>>   
+>>   	mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, 0) |
+>>   		  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
+>> -	mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
+>> +	if (mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel))
+>> +		return false;
+>>   
+>>   	/* Hardware might ignore nrdy if it's not enabled */
+>>   	ctl_val = MSMON_CFG_CSU_CTL_TYPE_CSU;
+>>   	ctl_val |= MSMON_CFG_x_CTL_MATCH_PARTID;
+>>   	ctl_val |= MSMON_CFG_x_CTL_MATCH_PMG;
+>>   	ctl_val |= MSMON_CFG_x_CTL_EN;
+>> -	mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0);
+>> -	mpam_write_monsel_reg(msc, CFG_CSU_CTL, ctl_val);
+>> +	if (mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0))
+>> +		return false;
+>> +	if (mpam_write_monsel_reg(msc, CFG_CSU_CTL, ctl_val))
+>> +		return false;
+>>   
+>> -	_mpam_write_monsel_reg(msc, MSMON_CSU, MSMON___NRDY);
+>> -	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+>> +	if (_mpam_write_monsel_reg(msc, MSMON_CSU, MSMON___NRDY))
+>> +		return false;
+>> +	if (_mpam_read_monsel_reg(msc, MSMON_CSU, &now))
+>> +		return false;
+>>   	can_set = now & MSMON___NRDY;
+>>   
+>> -	_mpam_write_monsel_reg(msc, MSMON_CSU, 0);
+>> +	if (_mpam_write_monsel_reg(msc, MSMON_CSU, 0))
+>> +		return false;
+>>   	/* Configuration change to try and coax hardware into setting nrdy */
+>> -	mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0x1);
+>> -	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+>> +	if (mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0x1))
+>> +		return false;
+>> +	if (_mpam_read_monsel_reg(msc, MSMON_CSU, &now))
+>> +		return false;
+>>   	can_clear = !(now & MSMON___NRDY);
+>> -	mpam_mon_sel_unlock(msc);
+>>   
+>>   	return (!can_set || !can_clear);
+>>   }
+> 
+> I've had a look at the Sashiko reports [1] for these patches. I'll call out the things that I feel
+> need answering.
+> 
+> As sashiko says, mpam_ris_hw_probe_csu_nrdy(), this swallows the error rather than propagating. It
+> would be better if this returned success/error and the answer to whether or not the h/w supports
+> nrdy separately. As we make other accesses to the msc later it is unlikely this will ever cause a
+> failing probe to report success though.
 
-"refer to the board hardware user manuals to see what features are present"
+Well, what I could offer is to make mpam_ris_hw_probe_csu_nrdy() return 
+an int, with negative values meaning an error, 0 meaning false, and 1 
+being true.
+Then, in the caller, do:
+	err = mpam_ris_hw_probe_csu_nrdy(ris);
+	if (err < 0)
+		return err;
+	hw_managed = err;
 
-fan-controller is one of features, which may not present at boards.
+I think a fairly straight-forward change, does this sound OK?
 
-Frank
+Cheers,
+Andre
+> 
+> Thanks,
+> 
+> Ben
+> 
+> [1] https://sashiko.dev/#/patchset/20260924152739.2865510-1-andre.przywara%40arm.com
+> 
+>>   
+>> -static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>> +static int mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   {
+>> -	int err;
+>> +	int fw_has_nrdy_err, err;
+>>   	struct mpam_msc *msc = ris->vmsc->msc;
+>>   	struct device *dev = &msc->pdev->dev;
+>>   	struct mpam_props *props = &ris->props;
+>> @@ -842,7 +850,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   	if (FIELD_GET(MPAMF_IDR_HAS_CCAP_PART, ris->idr)) {
+>>   		u32 ccap_features;
+>>   
+>> -		mpam_read_partsel_reg(msc, CCAP_IDR, &ccap_features);
+>> +		err = mpam_read_partsel_reg(msc, CCAP_IDR, &ccap_features);
+>> +		if (err)
+>> +			return err;
+>>   
+>>   		props->cmax_wd = FIELD_GET(MPAMF_CCAP_IDR_CMAX_WD, ccap_features);
+>>   		if (props->cmax_wd &&
+>> @@ -867,7 +877,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   	if (FIELD_GET(MPAMF_IDR_HAS_CPOR_PART, ris->idr)) {
+>>   		u32 cpor_features;
+>>   
+>> -		mpam_read_partsel_reg(msc, CPOR_IDR, &cpor_features);
+>> +		err = mpam_read_partsel_reg(msc, CPOR_IDR, &cpor_features);
+>> +		if (err)
+>> +			return err;
+>>   
+>>   		props->cpbm_wd = FIELD_GET(MPAMF_CPOR_IDR_CPBM_WD, cpor_features);
+>>   		if (props->cpbm_wd)
+>> @@ -877,8 +889,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   	/* Memory bandwidth partitioning */
+>>   	if (FIELD_GET(MPAMF_IDR_HAS_MBW_PART, ris->idr)) {
+>>   		u32 mbw_features;
+>> -
+>> -		mpam_read_partsel_reg(msc, MBW_IDR, &mbw_features);
+>> +		err = mpam_read_partsel_reg(msc, MBW_IDR, &mbw_features);
+>> +		if (err)
+>> +			return err;
+>>   
+>>   		/* portion bitmap resolution */
+>>   		props->mbw_pbm_bits = FIELD_GET(MPAMF_MBW_IDR_BWPBM_WD, mbw_features);
+>> @@ -907,8 +920,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   	/* Priority partitioning */
+>>   	if (FIELD_GET(MPAMF_IDR_HAS_PRI_PART, ris->idr)) {
+>>   		u32 pri_features;
+>> -
+>> -		mpam_read_partsel_reg(msc, PRI_IDR, &pri_features);
+>> +		err = mpam_read_partsel_reg(msc, PRI_IDR, &pri_features);
+>> +		if (err)
+>> +			return err;
+>>   
+>>   		props->intpri_wd = FIELD_GET(MPAMF_PRI_IDR_INTPRI_WD, pri_features);
+>>   		if (props->intpri_wd && FIELD_GET(MPAMF_PRI_IDR_HAS_INTPRI, pri_features)) {
+>> @@ -929,20 +943,24 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   	if (FIELD_GET(MPAMF_IDR_HAS_MSMON, ris->idr)) {
+>>   		u32 msmon_features;
+>>   
+>> -		mpam_read_partsel_reg(msc, MSMON_IDR, &msmon_features);
+>> +		err = mpam_read_partsel_reg(msc, MSMON_IDR, &msmon_features);
+>> +		if (err)
+>> +			return err;
+>>   
+>>   		/*
+>>   		 * If the firmware max-nrdy-us property is missing, the
+>>   		 * CSU counters can't be used. Should we wait forever?
+>>   		 */
+>> -		err = device_property_read_u32(&msc->pdev->dev,
+>> -					       "arm,not-ready-us",
+>> -					       &msc->nrdy_usec);
+>> +		fw_has_nrdy_err = device_property_read_u32(&msc->pdev->dev,
+>> +							   "arm,not-ready-us",
+>> +							   &msc->nrdy_usec);
+>>   
+>>   		if (FIELD_GET(MPAMF_MSMON_IDR_MSMON_CSU, msmon_features)) {
+>>   			u32 csumonidr;
+>>   
+>> -			mpam_read_partsel_reg(msc, CSUMON_IDR, &csumonidr);
+>> +			err = mpam_read_partsel_reg(msc, CSUMON_IDR, &csumonidr);
+>> +			if (err)
+>> +				return err;
+>>   
+>>   			props->num_csu_mon = FIELD_GET(MPAMF_CSUMON_IDR_NUM_MON, csumonidr);
+>>   			if (props->num_csu_mon) {
+>> @@ -960,7 +978,7 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   				 * Accept the missing firmware property if NRDY appears
+>>   				 * un-implemented.
+>>   				 */
+>> -				if (err && hw_managed)
+>> +				if (fw_has_nrdy_err && hw_managed)
+>>   					dev_err_once(dev, "Counters are not usable because not-ready timeout was not provided by firmware.");
+>>   			}
+>>   		}
+>> @@ -968,7 +986,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   			bool has_long;
+>>   			u32 mbwumon_idr;
+>>   
+>> -			mpam_read_partsel_reg(msc, MBWUMON_IDR, &mbwumon_idr);
+>> +			err = mpam_read_partsel_reg(msc, MBWUMON_IDR, &mbwumon_idr);
+>> +			if (err)
+>> +				return err;
+>>   
+>>   			props->num_mbwu_mon = FIELD_GET(MPAMF_MBWUMON_IDR_NUM_MON, mbwumon_idr);
+>>   			if (props->num_mbwu_mon) {
+>> @@ -1001,16 +1021,22 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>>   		u16 partid_max;
+>>   		u32 nrwidr;
+>>   
+>> -		mpam_read_partsel_reg(msc, PARTID_NRW_IDR, &nrwidr);
+>> +		err = mpam_read_partsel_reg(msc, PARTID_NRW_IDR, &nrwidr);
+>> +		if (err)
+>> +			return err;
+>> +
+>>   		partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
+>>   
+>>   		mpam_set_feature(mpam_feat_partid_nrw, props);
+>>   		msc->partid_max = min(msc->partid_max, partid_max);
+>>   	}
+>> +
+>> +	return 0;
+>>   }
+>>   
+>>   static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>>   {
+>> +	int ret;
+>>   	u64 idr;
+>>   	u16 partid_max;
+>>   	u8 ris_idx, pmg_max;
+>> @@ -1025,11 +1051,15 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>>   	}
+>>   
+>>   	/* Grab an IDR value to find out how many RIS there are */
+>> -	mutex_lock(&msc->part_sel_lock);
+>> -	mpam_msc_read_idr(msc, &idr);
+>> -	mpam_read_partsel_reg(msc, IIDR, &msc->iidr);
+>> +	scoped_guard(mutex, &msc->part_sel_lock) {
+>> +		ret = mpam_msc_read_idr(msc, &idr);
+>> +		if (ret)
+>> +			return ret;
+>>   
+>> -	mutex_unlock(&msc->part_sel_lock);
+>> +		ret = mpam_read_partsel_reg(msc, IIDR, &msc->iidr);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>>   
+>>   	mpam_enable_quirks(msc);
+>>   
+>> @@ -1040,10 +1070,15 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>>   	msc->pmg_max = FIELD_GET(MPAMF_IDR_PMG_MAX, idr);
+>>   
+>>   	for (ris_idx = 0; ris_idx <= msc->ris_max; ris_idx++) {
+>> -		mutex_lock(&msc->part_sel_lock);
+>> -		__mpam_part_sel(ris_idx, 0, msc);
+>> -		mpam_msc_read_idr(msc, &idr);
+>> -		mutex_unlock(&msc->part_sel_lock);
+>> +		scoped_guard(mutex, &msc->part_sel_lock) {
+>> +			ret = __mpam_part_sel(ris_idx, 0, msc);
+>> +			if (ret)
+>> +				return ret;
+>> +
+>> +			ret = mpam_msc_read_idr(msc, &idr);
+>> +			if (ret)
+>> +				return ret;
+>> +		}
+>>   
+>>   		partid_max = FIELD_GET(MPAMF_IDR_PARTID_MAX, idr);
+>>   		pmg_max = FIELD_GET(MPAMF_IDR_PMG_MAX, idr);
+>> @@ -1051,17 +1086,22 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>>   		msc->pmg_max = min(msc->pmg_max, pmg_max);
+>>   		msc->has_extd_esr = FIELD_GET(MPAMF_IDR_HAS_EXTD_ESR, idr);
+>>   
+>> -		mutex_lock(&mpam_list_lock);
+>> -		ris = mpam_get_or_create_ris(msc, ris_idx);
+>> -		mutex_unlock(&mpam_list_lock);
+>> -		if (IS_ERR(ris))
+>> -			return PTR_ERR(ris);
+>> +		scoped_guard(mutex, &mpam_list_lock) {
+>> +			ris = mpam_get_or_create_ris(msc, ris_idx);
+>> +			if (IS_ERR(ris))
+>> +				return PTR_ERR(ris);
+>> +		}
+>>   		ris->idr = idr;
+>>   
+>> -		mutex_lock(&msc->part_sel_lock);
+>> -		__mpam_part_sel(ris_idx, 0, msc);
+>> -		mpam_ris_hw_probe(ris);
+>> -		mutex_unlock(&msc->part_sel_lock);
+>> +		scoped_guard(mutex, &msc->part_sel_lock) {
+>> +			ret = __mpam_part_sel(ris_idx, 0, msc);
+>> +			if (ret)
+>> +				return ret;
+>> +
+>> +			ret = mpam_ris_hw_probe(ris);
+>> +			if (ret)
+>> +				return ret;
+>> +		}
+>>   	}
+>>   
+>>   	/* Clear any stale errors */
+>> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+>> index def0e3a65c230..68a6cf2b9cc73 100644
+>> --- a/drivers/resctrl/mpam_internal.h
+>> +++ b/drivers/resctrl/mpam_internal.h
+>> @@ -162,6 +162,10 @@ static inline void mpam_mon_sel_lock_init(struct mpam_msc *msc)
+>>   	raw_spin_lock_init(&msc->_mon_sel_lock);
+>>   }
+>>   
+>> +DEFINE_GUARD(mon_sel, struct mpam_msc *,
+>> +	     mpam_mon_sel_lock(_T), mpam_mon_sel_unlock(_T));
+>> +DEFINE_GUARD_COND(mon_sel, _lock, mpam_mon_sel_lock(_T), _RET);
+>> +
+>>   /* Bits for mpam features bitmaps */
+>>   enum mpam_device_features {
+>>   	mpam_feat_cpor_part,
+> 
 
->
-> Best regards,
-> Krzysztof
->
