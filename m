@@ -1,80 +1,81 @@
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10403B6BF0
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B112C4D4899
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772547; cv=none; b=sxYILqKJ+Ike1T/wzzTyT2jrCoLWBhLcXOb7706f0TVf5vzaCV7Iz9USDzU1GaRpAtX8fY9Ig8RRpbHnO+a9m4m0DXC7jrHoie52fuvrH4cRl8bZpVylI+2e5HDQcD0jZ9q5oHlfwCiqVaTAK40JwH1ILpQhuQZSjSvho8bHAUg=
+	t=1790772548; cv=none; b=NTCFnCfd7fKzTbtIAMNkMsG7mxXVNdcugIIqqQKaiEFvAaxsPm1s2958FBW/+4rVSi7uryzI2zRZrwj6y2snhk/w0egNWKyiB4dABJdzRyY4QOiYd5OliiUrWkpecboYOTK3PqiyAdRj4a4RYfr3pd+MxoUmFRMXEga/9SY2cDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772547; c=relaxed/simple;
-	bh=FJCJ78xmhtGVgtD0VY4vXLRzPOnLFDj8Tk7B0+nxelQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TzORYbyQIS1UjOu5qBkrxUHe2+nGP5RmcXifWxLoDuqDzgFPvkPcIrHAlpzKjRI40S6ts/Y6WIMOBfX5XWNQ8mbwJZ33dGHztjDmBPECPnRhVT9hDXuX6ZERWM/O5rbJW5SyFQZzlr4VUJ6ve3SvOV/ir/D8qsvFfDy6WxtpYP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L57QC4zt; arc=none smtp.client-ip=209.85.218.71
+	s=arc-20240116; t=1790772548; c=relaxed/simple;
+	bh=wDqQEHeexHbDetU+PIWj4LWacJQ70vCFskpK210m9Uc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=O9A/ekouKDxawxUOzw7jPzUZfJuE8dmpnpcP7sF+65iwl6HwvzxcqASjvPiQtIc0O12VUYRbHjiFdVv4opcblk4ZRWDAn1uOcezsuVSgTR51WsnShme1hhcwPJ/9YOxzP9NnK8Vm3AGJVgR1u4IHfaw0MKXwJ1EmoSVu/RC64Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sDC5mqB0; arc=none smtp.client-ip=209.85.218.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L57QC4zt"
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c2dd1f915e2so301465066b.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sDC5mqB0"
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c210c66672eso713073466b.2
         for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:49:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790772536; x=1791377336; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mt4jfo1X+Tq1Da4a3Y+n/0v/LLWT128QeB7gA9Kbmo8=;
-        b=L57QC4ztbP6Oney2X7tjHKrMFiSjGxlUQrU3nC6fMjtonRCwdDT6y+yFAvW0vncsfp
-         2LUhz/k/MjpM8qBPOmCA/a0y99IStIPN1z8nxkAbhYo60SdWLFcsV4IWQ+dYcwtcHC4c
-         jzifgiCzuDva8STLgsSgsU49mIrVCFLHePCByNF9YUEtceEC38ka8cWl87VqcDJU5/7h
-         vc77w3DAiXctGgwGxr6QrnJ4q569cuzR5QTmhaSFg8eJ1voNxo10VZIQhsRfRdTFG1f1
-         ae4s161OLbXTa79E1kPlmaXSEC8OYhl9rG3gJ1OOZAYiXelmV4m1onN69ZQ78MZHWhtj
-         1qdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790772536; x=1791377336;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790772538; x=1791377338; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mt4jfo1X+Tq1Da4a3Y+n/0v/LLWT128QeB7gA9Kbmo8=;
-        b=DcnBUERdfqQKCUqh9HAo/Nu4pl8rf8g4xPBpF3QR0/wIFkgexF2CATWnYeoQCYkKga
-         a+v7s21J9NUSrH0BIcjS1Zr3DZQ5up2tftqvBLq1GATZDt7TFOtDAEit6JIIIhrCjVt+
-         JH4kb3P9OdsHIlIWLRQuKEm6qfLdZLDiQSTI1bPbVtkgBXYCu5aA1GrUIRNX7AIh5HMk
-         dd+MZ5o2WZ3XZcI0HJ6gsUnSq1ZolTul80YI9mzpZT0HV93c4M2QVJ0eI7PXjHnHtCJx
-         MdYX7oRG5USWAo52monGMDK9Xs7yp2H0dAbJPvm6KvWwB2wgnLIDEJ//+DIfVPhC6BbZ
-         Ln0w==
-X-Forwarded-Encrypted: i=1; AKwUvBywoUO5DJrfUQETZujBfFhrVxA+2fA6JGCKUMg3lTdtcx4j+RhTzzJZUZufGHAh+2LUg2PtbgOidXTn1YQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfj/UjFoUz+UKgLL1LuFYn7smjMYLkMa3TFTOAy48pkIhHw+QO
-	47TsibkPhyKF5M95IMS3lhIeJX3f1xEaHi6hAoI5znxX6JI8WkPMWoljfxZcWNht4sGmmef3lUq
-	Lua30hH6cbZP/06rDhQ==
-X-Received: from ejbvl21.prod.google.com ([2002:a17:907:30d5:b0:c2e:27b8:8564])
+        bh=dVNexAVC0V5li+k/F16CN+7KdwSpTXSAvB2yMa317GU=;
+        b=sDC5mqB0dbJdeufHtpGZMcCXupPxUd9Isuo/BiH/Gjen74BsGx9v8kvpc3GuWCyUAC
+         xXZ/1GKY5ezuTW+TLl7w+jnbd3SITuYQXpnYeAMDWJ7A6GnfIAhXz/3ZNIc92leMxllD
+         2MphEcjo8hDYr27jp03LkSQzrbq+38DMKnuQwEwclIAgFEVwTXhEo1issydO3oynfimZ
+         mUdQVRWgwTxq7N1ijtHnw1u3yoqkpsZPAaUn+0IIbd9rg/W5CF2j7g+SYlN8/hPbktNx
+         6L8KUD5i/EqBUl/iHrKhRLEmGJHKUlhLyZ9RcGK43XW84ov4LH/ByXc1d4QHd9Nv6Vyh
+         rXrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790772538; x=1791377338;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dVNexAVC0V5li+k/F16CN+7KdwSpTXSAvB2yMa317GU=;
+        b=IyeqjbCW1EsmqdekalX6BqXmd0eC9IDOTH2jjKjzyFH5ecTTI68EX67vsgtfTGkBZc
+         9mGi+Pb9rYbiQyNgZk8eLyMCQtARp+CfqOBf8QA8dYY1qPIda5MnWZTBV71/U3aPymCQ
+         sbEfWVX7Rw+FYrYJSWojiXYc12ltQBPO93VgubCPw0GQcP0CdMqtqM+sYtWrFXP4nPJI
+         d+22jDrH7oKsfafku/4/tBKvZbXyJ9cnByquOZPxn+pjgiAmZ6irybmis4n9NzG6dCTa
+         re6bhUioB9Z/HWjGbkqJsJC54xz71DuniOrCKCpf5jTWBkFT02EP2GAslrxwgPRskXyE
+         Is8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzgD54vH7ZTW8hRTDPxuVWx5HvBXmNMHzWkrs5YGXaneHs5Mj+94LJLtRUSre8AUdmc57c+qFoToHW8LvI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncNZBuZLqB4zoAMZHZvJPnKJuC5WHr2LkAdePYKFK7rGB2JeDV
+	E8x+/mN3FD1SGehy1XxcvSIapOK17u1SCFbTF4ppLE8FBiIzzZ3UwJquOjQA9A01ZLMH9KfdnfZ
+	8EwcyumWZfadJIle1Xg==
+X-Received: from ejri23.prod.google.com ([2002:a17:906:6997:b0:c2d:23a4:edf3])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:7296:b0:c2a:f2bb:326d with SMTP id a640c23a62f3a-c2e23ca71e0mr92233066b.9.1790772536018;
- Wed, 30 Sep 2026 05:48:56 -0700 (PDT)
-Date: Wed, 30 Sep 2026 12:48:41 +0000
+ 2002:a17:907:7208:b0:c2e:969:a4b0 with SMTP id a640c23a62f3a-c2e23cf74d8mr117438966b.38.1790772537773;
+ Wed, 30 Sep 2026 05:48:57 -0700 (PDT)
+Date: Wed, 30 Sep 2026 12:48:42 +0000
+In-Reply-To: <20260930-binder-transaction-log-v1-0-3d832fb30388@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIACkFvWoC/x2MQQqAIBAAvxJ7bsFMKvtKdLBcayEs1ogg+nvSc
- WBmHkgkTAn64gGhixPvMUNVFjCvLi6E7DODVrpRtlY4cfQkeIqLyc1n1nHbF7TGdjaYdqqMhhw fQoHvfzyM7/sBFQ1dWmgAAAA=
-X-Change-Id: 20260930-binder-transaction-log-94989f47b142
+References: <20260930-binder-transaction-log-v1-0-3d832fb30388@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1246; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=FJCJ78xmhtGVgtD0VY4vXLRzPOnLFDj8Tk7B0+nxelQ=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqvQUx1UkjVlqIAzLTm4KjQrBy5suuQ32eNQ1yG
- Vlan/y0eUaJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCar0FMQAKCRAEWL7uWMY5
- RlIJEAChyXcuNzYJCn/kcxnNLEec1MYXo2yOVQRngYn2aiujnkW9j0SIryMXMV2kb28fGhTGKon
- X5iSUqgzjsB5VXeyNhY1V3x4NEO7iWtghEhOa+0W93HAVL41L1RsbRJr5G4t3kg+Fo9MN/i7qhU
- aC7HJe3LgeHKjHBiVNAjnWa9MPKt0E6G2zzfa/b3MjrdcPKBDOGepxcmhookSlzTNO1vEBPwXZl
- dp3I/YowAQm052XU/ngQ4HFtVrVzpWAInRaW81Id5JGkS1CvmcMSUeE8p9dDn5V2i/Oh8Mo9tnU
- DcwJsee2qWexPh4VMWIn/f/rTUsSomPErSsfdLytc+2ornBTMYmyYNSD99Rx3Qir4tDzK6kPEmE
- RUji0lDAj0QNCDH1jLY844uZCWbYlGc/dtXhxmT59k8qDukBUvvLuGSf+ivClz8RWCmsiO1GBcA
- eq851O6/KAhFzb7kpHja6tKEEmREdhm86uhdC5IAW+amYWcuy5GZnTpaZxfz1OpS8PJwUOS2Lgh
- sKUkNTvcww398F6/h1o5oEGPtF2Yss8HfXsddBtVJvQ6cECWWbOkCxl/poVDHg55cAmjm75BeRk
- +zLH5aOzUHFVAqFiIk9yG3r6qVvjXtHcQIwaUco/Oz0buJXtKNpp7twubyuksnWxioGECqrWqjU 28UE3loojMH7pTQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1066; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=wDqQEHeexHbDetU+PIWj4LWacJQ70vCFskpK210m9Uc=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqvQU2BFFh0KH0ZXKTw+QSI/Cr7JUn+q8DrwVkR
+ hgri6PRhn6JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCar0FNgAKCRAEWL7uWMY5
+ RjJED/93ufabr1xR5jeYtifrnwaBiMPJTpvMKlznunkVDGSVCedE+pbZI5qAODNlXOEBgLw5JUN
+ BcyQVHehdoe9AVG+hpLl4cr4jqAKoRle7SW9ul8vVldbKj1bQykmDWXyXvg3ltCr9GxbQff/6lQ
+ 6V1t0qkZsKq1NinQ1EeAkUKAahD1WzNMjkJSE3die8Qvxh/4V1i5J/zJ2Hev++zuEDs8GhPSzRW
+ plD16KFFlLNr+N2CBGxsWIyMjdYEVWaFUaepkED4ibD2aeCF+YvaTV4CDqKHnMDAsrcSzvAKqCg
+ a9OrACtcQtSj2c+pMCNTtrsvnnouqcbFv5+qeTec5o0VBcYvx1SwJXIPEYf85sGgA8cIJV9kA6q
+ XK0fcHh0lVUVUjeAuwdxkqrY3t7GwtyJLtA+z04VZI99GsAKkGz14bCvstvVuAeEWgcNn1bAbwa
+ x7cBhM3hckG7poUlmaOvmVZt2MRUn65QndOSvw//j2KRWD9h1U2YGYvl8flvv6PEjcG0XyuwfGA
+ KagFZj9uf8djslrqBmhlBiGyuixFQZ3jLoLVgnkqM6FTXdUx34ctwkoC2zCT3U4cbTc9TCy7G35
+ tPrWh1HkqmLSZwDm+ZqtAxTHXZNMXQWx061N4m0OyPjuK6fLJgHMVKEyEzL60QxBa745RYSv2nf IZOpYo4T+9gRj0A==
 X-Mailer: b4 0.14.3
-Message-ID: <20260930-binder-transaction-log-v1-0-3d832fb30388@google.com>
-Subject: [PATCH 0/3] rust_binder: error line numbers and failed_transaction_log
+Message-ID: <20260930-binder-transaction-log-v1-1-3d832fb30388@google.com>
+Subject: [PATCH 1/3] rust_binder: start debug_id at 1
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -86,34 +87,34 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <ga
 	rust-for-linux@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-When diagnosing Binder issues, it's useful to know what the most recent
-failed transactionas are, so include a transaction log with this content
-matching the C Binder transaction log.
+In the C Binder driver, debug IDs are allocated with
+atomic_inc_return(&binder_last_id), so valid debug IDs start at 1 and 0
+is never assigned.
 
-While we're at it, improve the line number information emitted by Rust
-Binder using #[track_caller].
+Start NEXT_DEBUG_ID at 1 in Rust Binder as well so that 0 can be used as
+a sentinel for an absent or uninitialized debug_id (such as in
+TransactionInfo::to_node_debug_id and in transaction log entries).
 
+Assisted-by: LLM
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Alice Ryhl (3):
-      rust_binder: start debug_id at 1
-      rust_binder: track caller location in BinderError
-      rust_binder: add transaction_log and failed_transaction_log
+ drivers/android/binder/rust_binder_main.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/android/binder/context.rs             |   8 +-
- drivers/android/binder/error.rs               |  39 ++++++
- drivers/android/binder/process.rs             |   5 +-
- drivers/android/binder/rust_binder_internal.h |   1 +
- drivers/android/binder/rust_binder_main.rs    |  26 +++-
- drivers/android/binder/rust_binderfs.c        |  19 +++
- drivers/android/binder/thread.rs              |  12 +-
- drivers/android/binder/transaction.rs         | 193 +++++++++++++++++++++++++-
- 8 files changed, 293 insertions(+), 10 deletions(-)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-binder-transaction-log-94989f47b142
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index 955c4c348f73..e360df991d51 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -96,7 +96,7 @@ fn default() -> Self {
+ };
+ 
+ fn next_debug_id() -> usize {
+-    static NEXT_DEBUG_ID: Atomic<usize> = Atomic::new(0);
++    static NEXT_DEBUG_ID: Atomic<usize> = Atomic::new(1);
+ 
+     NEXT_DEBUG_ID.fetch_add(1, Relaxed)
+ }
 
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.56.0.rc1.315.gc6ed9934b7-goog
 
