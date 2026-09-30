@@ -1,155 +1,304 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010022.outbound.protection.outlook.com [40.93.198.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97158521216;
-	Wed, 30 Sep 2026 21:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805575; cv=fail; b=cwEXmB4WJvhRJJ3T/V9eqyIy1KfHkpRbFT/H7ygY1p/g+aqlNrIGozPTeqnoWruLi5cr1vYsigj0ZCa7VGygznoXrrh+Rb6l5FbITLL2a8fo+rjBF6UKTfnkMgfPbhFwqnMcHjnoygPlnAPkpykBF4/duJPd3z8rPLU71lRQYek=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805575; c=relaxed/simple;
-	bh=aGmZFW22sfE4sSERtJrpM8gvBDTGflUKqyl4Vp5VAE0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eRQ+asV4paYlvisEBpqwefcW4khw/cKhc22pJDhP6KgezMb4qvBXfCMM++24q+0JEXgWLmHkd6bqo3pNSv9rpZluW8PTHToCDRWuIfgr0wM9FaBGAegnIZFsUpltPdSvOJatLk6y2k4+YvSnLTNb12NageIPA21SKcXzxNq2bwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Cs90Jy/J; arc=fail smtp.client-ip=40.93.198.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4424B3B95EB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.134
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790805710; cv=none; b=Zcz7Hj41P8SW7zqp8fIgn2b24Ds3GuHtA4QZ8PW83zmkRGVe4GeTvq739VWxhzWTRdmaMbTXT2d0dvVTAf/PLSKYl47vXCBwOu7sDJ7RDmgdX0NwcS7+bYG9R/8T/AcV+7copmnbR2EcZHVoMPgVCGX44rWMDRs0jLfWRBT6dyk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790805710; c=relaxed/simple;
+	bh=jTaStd3+0ew72+ffXTT1sChu/gNIAwqoQJW8VrkxEfU=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Oh8bufLKsYpAKTFvk7rXvtYZpYERQUqF2jjTJoC57Hmpl1sdSM09/iIltDbSRiOzxNS625eq6iY7HfJFmsQI/iPqcNME7Vp8r6Lh9HhpEc9z2YQvJ4NvYEKz1gEsZK8SvIYPAL+qKen7aQMH8DvqdLRJerQlo4eJWNQq5/ZH6HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AmlvrPSG; arc=none smtp.client-ip=95.215.58.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Cs90Jy/J"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DkAaX6WQuh/STDL5rGhJGH1tUnXGDGZ3R72qnFsjG8mch0w8MeEDiG/2rYH+P+fr7FTKJYay/WPN2M542H6UA9gC32YHICUTIMmxMJOMiw+76ngjar8DRDS5AuHVQCJl3jkNJIkwikJYcmPQHLkjFrlGJB5g/iZ4yOlHE7P8KkYjwOXZxgM1xcChLBqs1wp476Ykl2B/vANFxr6y6EOPXX+fUQ8zr5Za/P03JQC1awGR9Kqu7OuO7IShSJmYnzXK/wR8AvLpRr1tCNtpKh647Mq/VINln6HUFTbo+em30ls9XgRgfUb1q5Qekndlh2Is2UNKW75yO7CIUxg2LUNM2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h7Ot/8/uHwozDy7LiXhR/xVvAiuRIceJ/kfOPBcAFZk=;
- b=lZShDK4he6jCdd4nfuv4WBsXivUgNRvop3lnQR5pes8nadJhaqHLox3vxePGMOS4PNjxuB53D8GHT9UUEoNatgVtpcRj85YGor4R4HVSFd41/XAtNs8+cWdI3INgEC1COhgnqAXJbTF+JXwO6oZ4mUV1xU0maSL56ZCOJA3S5hSBaTQTBOaTQc5ALC+gYDx033E5uMewcS+Vx/C537n82VL8XWipNaU6j4Kb+fYz+ObS6GlJj6x+IOWRIWSmfncQE6ufjP2rDrnAmZDEYqYfVGxWYxPS2b0Uedx9mGT7Uja161JNCCnBnfSaXUbovA7D4nt6op6FLIkB0SuCJ8PARg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=valla.it smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h7Ot/8/uHwozDy7LiXhR/xVvAiuRIceJ/kfOPBcAFZk=;
- b=Cs90Jy/JyEEDu54y+6dqynIiW3Wxkm/9rRKMfvMNWZH1TGg8wP5/zFBF3zQ9ROCotQV0X2gjNzpql834oGtweT42vLn1vgufo3uOp0mpnzCYEvfFJIicj4k+CmDOCJeJ256oXfmWTVI6wmid2Cm/QsF4aIxNJhDT5epdwZs1BsI=
-Received: from PH8PR20CA0002.namprd20.prod.outlook.com (2603:10b6:510:23c::6)
- by CY5PR12MB6106.namprd12.prod.outlook.com (2603:10b6:930:29::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 21:59:30 +0000
-Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
- (2603:10b6:510:23c:cafe::18) by PH8PR20CA0002.outlook.office365.com
- (2603:10b6:510:23c::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 21:59:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 21:59:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 16:59:27 -0500
-Received: from [192.168.1.205] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 16:59:27 -0500
-Message-ID: <44648601-e04e-4d6e-a192-3df6dc1b3b24@amd.com>
-Date: Wed, 30 Sep 2026 16:59:27 -0500
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AmlvrPSG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jTaStd3+0ew72+ffXTT1sChu/gNIAwqoQJW8VrkxEfU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790805702; v=1; x=1791410502;
+ b=AmlvrPSGOX54R5C+MoF799SXqHCsnSfoD+voZGy0PkOqL3xh9J72cc064E1msjnS41YAgwFD
+ XkgIIucFTIV2c599vk3nBmQnfeMImBB7nU+LVBlJxDYHcawAENPIAVlGm02jhmW0Z3cRrrwvCde
+ jJmLrOIIwsPwTMFaMf4nQ5L4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id de2e50cb399fccd8;
+	Wed, 30 Sep 2026 22:01:41 +0000
+X-Mizu-Trace-ID: de2e50cb399fccd8
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: <tanmay.shah@amd.com>
-Subject: Re: [PATCH] remoteproc: remoteproc_virtio: reset vdev before removing
- it
-To: Francesco Valla <francesco@valla.it>, Tanmay Shah <tanmay.shah@amd.com>
-CC: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <ohad@wizery.com>,
-	<linux-remoteproc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260924205901.2505186-2-tanmay.shah@amd.com>
- <arjZvftSMlG3OMHP@bywater>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <arjZvftSMlG3OMHP@bywater>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|CY5PR12MB6106:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2799a727-e4fd-4164-2e6d-08df1f3e1949
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|260925022911599003|260925021911599003|260925021311599003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	aj31QP4cIfA1LSj6K1CI8pJC4cpYNgk/MF30DKjz9wYyp/fXJhP2sOhnLoTJQJncv7X3jz8m8ZilFTt0k4+QvMXKoQjerju21GIw2seD9/0R63yoSmn3lzlWSs6OjHiGc6b0DFZMD7thy5/jX+4a6oIpDEhm84lIbZm7zdpFUKQsWNc8KkOWPwgcmNpUnC5qZWtxbY9xnyfycfJZFdzNMtPO+stCSgy1pC8h2qaVsaGdiTvYhh3xKFzue7XlenML42BNEzhKg/kiUNMlgjDTXjkSA2hQ/MmuPiMoIiJCDaU8dsDSx4cEjIEk5EaRyUImCIC7S7EOqDjwPUSYqQRKuyMrsSLhJUAnc7QIcbyodLftlcGwkjIawEHZIZ6SaGJFFTpyvYkT378B4ZUc1PfjT4I+LkzU+zhvqxZAbl7yI5Z4cmkKE4L9m7PQ9BNGk4YnhRmypNirUA6P7oGz2pu4HR/kywhQg5Iq/uS0Cl0c6houExzWe78b7d9U/YCJBfwfrI0zljHkrOsTvz/k9kEnd25IceIqw52gMd8YucBmLWYR4jypF3aJTHvOnMrBZ6gHkDVMrGFgJsZnd5xiTdkXdPPf6JFIj7FsLRdk3ZaTyLHrdqPmL0w/LtFjYsmpYd1hFMUuF81sHhpBv5EEGvOvXpq8oC5rj2R+dliQgDa8cIgqNJtoJMlQUIZVHo3Jb2xO8ZrfgqSYyDGzxJGhCUT4Zw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(260925022911599003)(260925021911599003)(260925021311599003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	owb70Ce898HD7HnnTlgl4ArNtXVg6kJpOMhJHvGrpSu09fA0vQAWcasWpY2bOeIxDPBwrSgJr3HGhCpWgvi2vFqZQQeUzCJ09BlVx0ofNbh/pWTr4aOqUz8pRH24g2AMiola/c5YfkJOvSvu763xn4EFLZnsAvJQPJQgLLJMcVuSH9pJ64aIRSjgCpe9xnpVvTMxGXU721go0YYeT3qzBbzLEPgBZrebNV6j3Lkje1a1HJcmax4M1i1JfCd1ZOigQIrqgM8QdruW6frXpKGB/CJGZCtNCXk+2tvuSueFkL6Kipp6CuicdIyl/feEW+QbINS1ZJBzDfUVT/ePDM8EU8Lk4X+Aolv6HqsIWZd3Nyi2LkOgIRlMqRvqKEROmKXmALYAGMsecdb7QamMiE40UUY0IDzN0FISLQBvSKlBZQAPnW4WeLF7scsHZ5T4XgkU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 21:59:28.1926
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2799a727-e4fd-4164-2e6d-08df1f3e1949
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D3.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6106
+Date: Wed, 30 Sep 2026 22:01:41 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
+Message-ID: <ff47014b7b55c9b6219c52c02d112ac65e20b39d@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v6 2/5] platform/x86: bitland-mifs-wmi: Merge the
+ function  of redmi-wmi into the bitland driver
+To: "Mingyou Chen" <qby140326@gmail.com>, "=?utf-8?B?SWxwbyBKw6RydmluZW4=?="
+ <ilpo.jarvinen@linux.intel.com>, "Hans de Goede" <hansg@kernel.org>
+Cc: "KentoNion" <kento@kekto.ru>, platform-driver-x86@vger.kernel.org, "ted
+ eric" <ericted8810@gmail.com>, "Armin Wolf" <W_Armin@gmx.de>,
+ linux-kernel@vger.kernel.org, "Chris Taraszka" <chris@miget.com>, "Matias
+ Civadda" <matias.civadda2342001@gmail.com>,
+ "=?utf-8?B?6auYIOS/iuaWhw==?=" <btx342@gmail.com>, "powerfullz"
+ <wleizc7319@gmail.com>, "=?utf-8?B?5a2ZIOiqiemTrQ==?="
+ <wolf109909@outlook.com>, "=?utf-8?B?TWlsb8WhIFZsa3U=?="
+ <vlku.milos.fun@gmail.com>, "Rsplwe" <i@rsplwe.com>, "Bozhen Peng"
+ <bozhenpeng93@gmail.com>, "Nika Krasnova" <nika@nikableh.moe>, "Musaev
+ Ibragim" <atomicus.xyz@gmail.com>
+In-Reply-To: <20260929134503.17249-3-qby140326@gmail.com>
+References: <20260929134503.17249-1-qby140326@gmail.com>
+ <20260929134503.17249-3-qby140326@gmail.com>
 
+On 9/29/26 16:45, Mingyou Chen wrote:
+> The bitland-mifs-wmi and legacy redmi-wmi drivers both attempt to bind
+> to the same WMI GUID (46C93E13-EE9B-4262-8488-563BCA757FEF). This
+> overlap causes a device registration conflict, preventing one of the
+> drivers from loading properly depending on the module initialization
+> order.
+> > Merge the event handling logic from redmi-wmi into bitland-mifs-wmi. =
+By
+> handling both device layouts within a single driver, we eliminate the
+> GUID ownership conflict.
+> > Tested-by: Nika Krasnova <nika@nikableh.moe>
+> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+> ---
+>   drivers/platform/x86/bitland-mifs-wmi.c | 139 ++++++++++++++++-------=
+-
+>   1 file changed, 96 insertions(+), 43 deletions(-)
+> > diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platfo=
+rm/x86/bitland-mifs-wmi.c
+> index dd1648b7de77..e1a81e89856e 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -35,6 +35,11 @@
+>   #include <linux/units.h>
+>   #include <linux/wmi.h>
+>   > +#define BI_HOTKEY_CODE(id, low, high) \
+> +	(((u32)(high) << 24) | ((u32)(low) << 16) | ((u32)(id) << 8) | WMI_EV=
+ENT_TYPE_HOTKEY)
+> +
+> +#define AI_KEY_VALUE_MASK    BIT(8)
+> +
+>   #define DRV_NAME		"bitland-mifs-wmi"
+>   #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
+>   #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
+> @@ -607,18 +612,59 @@ static const struct attribute *const laptop_attrs=
+[] =3D {
+>   ATTRIBUTE_GROUPS(laptop);
+>   >   static const struct key_entry bitland_mifs_wmi_keymap[] =3D {
+> -	{ KE_KEY, WMI_EVENT_OPEN_APP, { KEY_PROG1 } },
+> -	{ KE_KEY, WMI_EVENT_CALCULATOR_START, { KEY_CALC } },
+> -	{ KE_KEY, WMI_EVENT_BROWSER_START, { KEY_WWW } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_J, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_F, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_0, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_1, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_2, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_3, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_4, { KEY_RESERVED } },
+> -	{ KE_IGNORE, WMI_EVENT_FN_5, { KEY_RESERVED } },
+> -	{ KE_END, 0 }
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_OPEN_APP, 1, 0), { KEY_PROG1 } },
+> +
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CALCULATOR_START, 1, 0), { KEY_CAL=
+C } },
+> +
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_BROWSER_START, 1, 0), { KEY_WWW } =
+},
+> +
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_J, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_4, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 0, 0), {} },
+> +
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_2, 0, 0), { KEY_SELECTIVE=
+_SCREENSHOT } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_3, 0, 0), { KEY_ALL_APPLI=
+CATIONS } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 0, 0), { KEY_CONFIG } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 1, 0), { KEY_CONFIG } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), { KEY_SWITCHVID=
+EOMODE } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH=
+_RATE_TOGGLE } },
+> +
+> +	/* AI button has code for each position */
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
+> +
+> +	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
+> +
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0x80), {} },
 
+Sorry, I missed this in my previous email.
 
-On 9/27/2026 3:55 AM, Francesco Valla wrote:
-> Hi Tanmay,
-> 
-> On Thu, Sep 24, 2026 at 01:59:02PM -0700, Tanmay Shah wrote:
->> The virtio device is removed when the remoteproc device is removed. The
->> driver should issue reset on the virtio device so the remote can do
->> corresponding cleanup.
->>
-> 
-> Shouldn't be the driver, and not the transport, the one that calls
-> virtio_reset_device()?
-> 
+0x00800501 -> BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x80, 0),
+probably a typo?
 
-Hello Francesco,
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 5, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x0a, 0), {} },
+> +
+> +	/* Xiaomi G Command Center */
+> +	{ KE_KEY, BI_HOTKEY_CODE(0x0a, 1, 0), { KEY_VENDOR } },
+> +
+> +	/* OEM preset power mode */
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 1, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 2, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 3, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 4, 0), {} },
+> +
+> +	/* Fn Lock state */
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), {} },
+> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), {} },
 
-Thanks for your reviews. I will look into it.
+These keys are reported as KEY_FN_ESC in the current redmi-wmi driver
+(commit e0d6312578e1fd03738fc2ac8ac21c8bd84e965e), so those mappings
+(and other from that commit) in bitland-mifs-wmi should be updated.
 
-Tanmay
+Cc'ing the commit author, who highlighted those issues during the v1
+review. Please see his other comments in [1] (and don't forget to cc
+the reviewers on future submissions [2]).
 
->> Fixes: 7a186941626d ("remoteproc: remove the single rpmsg vdev limitation")
->> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
->> ---
->>  drivers/remoteproc/remoteproc_virtio.c | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
->> index d5e9ff045a28..1cb0ee0ea656 100644
->> --- a/drivers/remoteproc/remoteproc_virtio.c
->> +++ b/drivers/remoteproc/remoteproc_virtio.c
->> @@ -469,6 +469,8 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
->>  {
->>  	struct virtio_device *vdev = dev_to_virtio(dev);
->>  
->> +	virtio_reset_device(vdev);
->> +
->>  	unregister_virtio_device(vdev);
->>  	return 0;
->>  }
->>
->> base-commit: 5f639b3018c0026a5341949724b4b921cf3a3d5d
->> -- 
->> 2.43.0
->>
+[1]: https://lore.kernel.org/all/178444076601.4076.16818759313258005640@g=
+mail.com/
+[2]: https://docs.kernel.org/process/submitting-patches.html#respond-to-r=
+eview-comments
 
+> +	/* Fn+`/1/2/3/4 */
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 1, 0), { KEY_F13 } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 1, 0), { KEY_F14 } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 1, 0), { KEY_F15 } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 1, 0), { KEY_F16 } },
+> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 1, 0), { KEY_F17 } },
+> +
+> +	{ KE_END }
+>   };
+>   >   static void bitland_notifier_unregister(void *data)
+> @@ -736,12 +782,35 @@ static int bitland_mifs_wmi_probe(struct wmi_devi=
+ce *wdev, const void *context)
+>   				       &drv_data->notifier);
+>   }
+>   > +static void bitland_mifs_wmi_report_key(struct wmi_device *wdev, u=
+32 payload)
+> +{
+> +	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(&wdev->dev);
+> +	struct key_entry *entry;
+> +	bool autorelease =3D true;
+> +	int value =3D 1;
+> +
+> +	entry =3D sparse_keymap_entry_from_scancode(data->input_dev, payload)=
+;
+> +	if (!entry) {
+> +		dev_dbg(&wdev->dev, "Unknown WMI hotkey with payload 0x%08x\n", payl=
+oad);
+> +		return;
+> +	}
+> +
+> +	/* AI key quirk */
+> +	if (entry->keycode =3D=3D KEY_ASSISTANT) {
+> +		value =3D !(payload & AI_KEY_VALUE_MASK);
+> +		autorelease =3D false;
+> +	}
+> +
+> +	guard(mutex)(&data->lock);
+> +	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease=
+);
+> +}
+> +
+>   static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
+>   				    const struct wmi_buffer *buffer)
+>   {
+> -	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(&wdev->dev);
+>   	const struct bitland_mifs_event *event =3D buffer->data;
+>   	struct bitland_fan_notify_data fan_data;
+> +	u32 payload;
+>   	u8 brightness;
+>   >   	/* Validate event type */
+> @@ -758,24 +827,13 @@ static void bitland_mifs_wmi_notify(struct wmi_de=
+vice *wdev,
+>   		blocking_notifier_call_chain(&bitland_notifier_list,
+>   					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
+>   					     &brightness);
+> -		break;
+> +		return;
+>   >   	case WMI_EVENT_PERFORMANCE_PLAN:
+>   		blocking_notifier_call_chain(&bitland_notifier_list,
+>   					     BITLAND_NOTIFY_PLATFORM_PROFILE,
+>   					     NULL);
+> -		break;
+> -
+> -	case WMI_EVENT_OPEN_APP:
+> -	case WMI_EVENT_CALCULATOR_START:
+> -	case WMI_EVENT_BROWSER_START: {
+> -		guard(mutex)(&data->lock);
+> -		if (!sparse_keymap_report_event(data->input_dev,
+> -						event->event_id, 1, true))
+> -			dev_warn(&wdev->dev, "Unknown key pressed: 0x%02x\n",
+> -				 event->event_id);
+> -		break;
+> -	}
+> +		return;
+>   >   	/*
+>   	 * The device has 3 fans (CPU, GPU, SYS),
+> @@ -783,6 +841,14 @@ static void bitland_mifs_wmi_notify(struct wmi_dev=
+ice *wdev,
+>   	 */
+>   	case WMI_EVENT_CPU_FAN_SPEED:
+>   	case WMI_EVENT_GPU_FAN_SPEED:
+> +		/* Redmi refresh rate toggle quirk */
+> +		if (event->event_id =3D=3D WMI_EVENT_CPU_FAN_SPEED &&
+> +		    event->value_low =3D=3D 0 && event->value_high =3D=3D 0) {
+> +			payload =3D BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0);
+> +			bitland_mifs_wmi_report_key(wdev, payload);
+> +			return;
+> +		}
+> +
+>   		if (event->event_id =3D=3D WMI_EVENT_CPU_FAN_SPEED)
+>   			fan_data.channel =3D 0;
+>   		else
+> @@ -793,27 +859,14 @@ static void bitland_mifs_wmi_notify(struct wmi_de=
+vice *wdev,
+>   		blocking_notifier_call_chain(&bitland_notifier_list,
+>   					     BITLAND_NOTIFY_HWMON,
+>   					     &fan_data);
+> -		break;
+> -
+> -	case WMI_EVENT_AIRPLANE_MODE:
+> -	case WMI_EVENT_TOUCHPAD_STATE:
+> -	case WMI_EVENT_FNLOCK_STATE:
+> -	case WMI_EVENT_KBD_MODE:
+> -	case WMI_EVENT_CAPSLOCK_STATE:
+> -	case WMI_EVENT_NUMLOCK_STATE:
+> -	case WMI_EVENT_SCROLLLOCK_STATE:
+> -	case WMI_EVENT_REFRESH_RATE:
+> -	case WMI_EVENT_WIN_KEY_LOCK:
+> -		/* These events are informational or handled by firmware */
+> -		dev_dbg(&wdev->dev, "State change event: id=3D%d value=3D%d\n",
+> -			event->event_id, event->value_low);
+> -		break;
+> +		return;
+>   >   	default:
+> -		dev_dbg(&wdev->dev, "Unknown event: id=3D0x%02x value=3D0x%02x\n",
+> -			event->event_id, event->value_low);
+>   		break;
+>   	}
+> +
+> +	payload =3D get_unaligned_le32(buffer->data);
+> +	bitland_mifs_wmi_report_key(wdev, payload);
+>   }
+>   >   static const struct wmi_device_id bitland_mifs_wmi_id_table[] =3D=
+=20{
