@@ -1,135 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB713AAF60;
-	Wed, 30 Sep 2026 08:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 614342F25F3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758027; cv=none; b=CEbS2EpswMckwf7GZ3ei+ZiHiWpm1lb94xeOFT+/CRXtMrnYN987CZqiY1k3hexi6NapiYZONDipZaPY27ZS5+2q4r4RmGL1i+7cQ2jkWLHnMOe34m61gbWRCkI72hLT5XdlmB7In6fsAwxRoF7bFjMIKo1+9CAxNWL+ThOrt+M=
+	t=1790758082; cv=none; b=lMqISN1AGWHjJtpL2SojATdU9NJzHFeTg6WUILAAWGnj64Fd1eeUi6hNIbDprLYH9CsAgTJt1AhoF69Ov6zGqgiPAMTvaNucNnAfETk2NYXYZIjvUGZy5nnbtXIZod0r443i7x9N9rWCU/RJXfuhQ97rduy1TV+w0b3HKKLi09k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758027; c=relaxed/simple;
-	bh=AkvUq0pC4ZvJyS3Jk4xgbCF+oh+bUEfwi3a4UPhs8tA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r9KTsUZFDW8d23e22blurmMp0toGUU+wwkmmeB1fj4+zSUhL2KG5v9L+yVORSKZ3TJ35x0hT6rulYtPShpzWpnL3V7H3ClrwcrYZIe5089Z9aohVSNZnMw53uCt8pACjCcq7vUNkEsif/uoSd+NpWvgIBE2fBUv4F3exycaz1bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9JsBKGj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790758082; c=relaxed/simple;
+	bh=X6Thh2YT8+9Ct2b1BhmXw10QAko2EidJ5329cy+wzFk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HfBEVkDAjFIFeQMjrWguUVdAddi75xbWQsJHoxg/iSxqBrK5fX9B2AvogXE1Y6IPpEQ5iCiKiQSpx+YvIJT4J0p7L6gVeoQdJJg+eIbqN+dfvc3jcpcbLrvxJa0vSpPxQIrWfS5fr6eYiT9m14a5ocDxfEAIe8b7D1rXt1WP03s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ch9aemyr; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9JsBKGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589D21F00893;
-	Wed, 30 Sep 2026 08:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790758024;
-	bh=dXYx3+EiBk9/ho0dEeq/QLvZ8MeUmFOk1BYe/4MQKZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J9JsBKGjgHoXeTcujl/ZvQ4JIhqK9A629I9OTXF7oiUBqn8WliL9TD7lg9Z/iIpYE
-	 ZHuDHIeAiCZ6d2a1uXjGBLIBkNimbztsI7gLcDVaG2qBY7moI1/QJHJoeAEjcj/9d9
-	 4dbIu0E7PYaHo8QetQV3uJ5gkG8/7XOCBG1MAEc5E0Fr4oJrFWUNpxDnn1/e7Qsq8s
-	 Q1ibi8kcRQ0ocdLYm23xmdXvRnJ/TQF5d7Nu+5Ic6KRTrC6n+BsUQDpmp/W9hpwJHu
-	 iNHZXlfbiKyEayBXxpo4Il8ApOGSx1DwFnvXrWGJuT1DBfdgMIijPGqa4BWky620pF
-	 PMR+BN/0N6HLA==
-Date: Wed, 30 Sep 2026 10:47:02 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <arzMF0wjcF_SVxpE@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ch9aemyr"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C1F3143D;
+	Wed, 30 Sep 2026 01:47:56 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.52.74])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 214C73F85F;
+	Wed, 30 Sep 2026 01:47:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790758079; bh=X6Thh2YT8+9Ct2b1BhmXw10QAko2EidJ5329cy+wzFk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Ch9aemyr+88r5wZljd1p0U2cxFMdINAnTJaNCrzY/eOTvDhlFYGOeP1q/D06VlRA0
+	 jRk5l1dt1D2bQca1kjGRRQoPe3svfPDOEq1dmLBgfYzOvZJqOAe09FP3FhNe9xE745
+	 mGRYle+K7Tqr9OSTM4KI0NDjUM8T2ehiRmU9zGDc=
+From: Christian Loehle <christian.loehle@arm.com>
+To: linux-kernel@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	kayracizmeci@gmail.com,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH 0/2] sched/eevdf: Fix slice protection across state changes
+Date: Wed, 30 Sep 2026 09:47:36 +0100
+Message-Id: <cover.1790756779.git.christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w7pdjaspmarkr4mf"
-Content-Disposition: inline
-In-Reply-To: <20260930070535.47130-4-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+These two fixes address slice-protection boundaries that become stale
+after a request-size or weight change, found when testing a few edge
+cases for Vincent's series:
+https://lore.kernel.org/lkml/20260921152238.3804392-1-vincent.guittot@linaro.org/
 
---w7pdjaspmarkr4mf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+Patch 1 caps every fresh protection grant at the selected minimum slice.
+A preserved deadline can outlast a task's new, shorter request, including
+when current itself owns the minimum slice. In that case the existing
+slice != se->slice condition skips the cap. This completes the minimum-
+slice bound from aae2a33ea662 ("sched/eevdf: Ensure that vprot will never go
+above a min slice").
 
-On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++++
->  1 file changed, 138 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidi=
-a,tegra-8bit-cpu.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
--8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,teg=
-ra-8bit-cpu.yaml
-> new file mode 100644
-> index 0000000000000..f0dab608b2936
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-c=
-pu.yaml
-> @@ -0,0 +1,138 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-cpu.y=
-aml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> +
-> +maintainers:
-> +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> +
-> +description: The display controller in Tegra20/30 SoCs features an
-> +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> +  protocol and is referred to as '8-bit CPU'. Each display controller
-> +  provides two such interfaces, which can be used to send MIPI DCS
-> +  commands to initialize and control the panel while image data is
-> +  transmitted via 16/18/24-line RGB.
-> +
-> +properties:
-> +  compatible:
-> +    const: nvidia,tegra-8bit-cpu
+Patch 2 keeps expired protection expired when reweighting moves vruntime.
+An old absolute vprot can otherwise become live again and cause current
+to be selected over an eligible entity with an earlier deadline. Anchor
+the expired boundary at the new vruntime while retaining the existing
+rescaling of live protection.
 
-The description says that this is a feature of the display controller,
-so adding a new binding and compatible string for this is not the right
-move. This is all covered by the "nvidia,tegra{20,30}-dc" already, just
-need to extend that with whatever is new.
+For the first case a task reducing its request from 100 ms to 100 us can
+receive over 26 ms of fresh protection while competing with a 1 ms task.
+For the second case directed cgroup-weight changes show expired protection
+becoming live and affecting selection.
 
-Thierry
+Based on v7.3-rc5 plus:
 
---w7pdjaspmarkr4mf
-Content-Type: application/pgp-signature; name="signature.asc"
+  c72945693b90 sched: Restart fair hrtick after same-task repicks
+  aae2a33ea662 sched/eevdf: Ensure that vprot will never go above a min slice
+  4bf32ec3327d sched/eevdf: Align update_protect_slice to set_protect_slice
+  d2e010082757 sched/eevdf: Handle more short slice waking cases
 
------BEGIN PGP SIGNATURE-----
+(Patch 2 is independent, patch 1 follows Vincent's minimum-slice change)
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8zIMACgkQ3SOs138+
-s6GTCg/+Kv7yeuHDG6BKZXdZH+vhsuXyRFcZVboHZi3zbPX7DueMcwpWGt84fSqg
-RtyH+L1yGxAnT6+cblKGEkRkgbf7VvjwVMyCUm0JGYWj9zO+Nkl1f6jxGeq6SVel
-erB+i9h45f5YVFh39KdCm8P/dLGas8m7eH6a5T+vzhtpQY9rm4euhsmda7ciovvo
-zAJF/WIIG/KSoqnbcf5N5r+OsUJahZR2ciDi83bHA8ywSrT9fKfi5ZmLIbVZNhOR
-A+l2delE4DyUJzCgq7eWPen1uJYMLReXGfU3QUsu4cOqLbQSoSAMtHlp6hgX1LLY
-pCTtVWYCI4H5L4UHJsl6jPsOGm38kZTzn5Q43Ca6+6bzIGHXQKK+Tx+hLRdnpGIh
-ReUQduCoW0HlkMdoTwfetbsikX6iOE5eg/76k6vZrtn9V/hT8/jkVnYjTNxYGGo5
-8CgiWZDTITw2LUN3dFDMz8OeYuM2QWhdAHoakNoRM8FQcXbUNS+RPwa7hdPwOs4n
-pVLkACNEz0YKTA6lE6QMVMEPCWTnHcNiGgjw+qHnw9K6RpOau0sQxmJIVPYVKCBa
-rlMts7akcvkzDGWpqCc8GQYIOcB/V0RSoE0tmJmRH8Bz9RCGYkdoy2Xc1ShIRGD/
-Rh+f6sEfTpVaAo61kHtLp7LUmxIppT5RC9BscIKwn08JqjedW6s=
-=DvAr
------END PGP SIGNATURE-----
+Thanks,
+Christian
 
---w7pdjaspmarkr4mf--
+Christian Loehle (2):
+  sched/eevdf: Cap protection when current has the shortest slice
+  sched/eevdf: Keep expired protection expired across reweighting
+
+ kernel/sched/fair.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
