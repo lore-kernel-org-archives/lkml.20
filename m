@@ -1,124 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494DD48F846;
-	Wed, 30 Sep 2026 10:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B053492E2C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764753; cv=none; b=SMAWXg1Y7b22R5jTxVC3sq02YJlJY3PaOppJHpx8iEmpiHuVF7+qg9uUa83Q2Ws0gTP535805CMc7dhDUATFXHGYNJdQAfbSxZx32jjJC1By0rjDnl3sdVE/EPSv8v6hyW5Q/2vSQJ6i+MwYIAHl0/dhvIkphtNO+Kmq/7OgeJ4=
+	t=1790764784; cv=none; b=lwOjK+asKB5QOUXtHKVpP6zta2nPI7USxPzi2KMldKq1MdUAUfarO7w0Bvjav3Cnv2L7SV8CTCY4M9ua2oX6CGun3h0zi8JiPdb9XRzL3XD4eqpNuVeuE2c9gBtUlN3FyqkF7vKuoluRMaTyndY0m6hh+xTshKXB1RDuLD5hhyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764753; c=relaxed/simple;
-	bh=rv5gx3fDT9i+N8SB6hWcjTDTpJiTAkjOXQyZwVxvfNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WCrvmH/3eaFIXNpIBpU7NRXQFKIfOKXQ4c3MnD1IKtoFqK+VIEw8HQ1Df88Z5D9gjiIJuc4NUGFd9TTjaisvM10sNqR9fv3YEkEwe2yr3nEVrkqpijHdw+TnyooVlZOg769gCHmvYIUqqZRRpqsFwAxzFx9/hpZYeTw/5bPbbTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URdDuFZY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790764784; c=relaxed/simple;
+	bh=MljuINYsDSt6Mx+ws1xsI7mhRVCt9e9IkBdqLRkBIaA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i9wBmBQxuwWe10rkJ8M07++vsDE5et43GTglx+j/Bqny0YtYKbtA7dsXVSeILUkuaQTcW1kkfJtgV8jbsG0hVF8bfXcGXEP8cixw0fkttjW8gjbHIxP+iUc1FhGdKAUDWB/9thO4ELYeYI+JOHuXTentwT8TBPUps1eO93QRpCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kdgVkpsL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URdDuFZY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA581F000FF;
-	Wed, 30 Sep 2026 10:39:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kdgVkpsL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D4D1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790764745;
-	bh=tGFtMM2F77TT7uxlHemaNZrtS7chdzgDhP0DLWrj3QE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=URdDuFZYMOB0KJ3EHnp/XFnKkA5OJRrie0b8tMbQgLKw5iE7YrjBIy1pxZGUlsT4u
-	 WUMueqTDoUT9Nt+yCPXvfKOTBa4Cp+438AM3xfumhShyR92YPfaBtI6k1PRlaxhVpV
-	 Nt1DVku/cbQzVUeLtwuw/1Y1RP30LJc5Ztiu9+3q/vrZ+I3CM6bZt7D84cqrReSSD2
-	 zB8Gq5C9FelfYvXQ20pvn9UDb3BPuUWfyg26VMWYoKLDXwZwXGnyIBrUc+QCJNe6PF
-	 Af03FNTHASTt0NeOs1zYtKFlpw67ugJxCplASx32oK9FsguwRWb3j/yxG6zvQbYurN
-	 khqawdi0AZ1+w==
-Date: Wed, 30 Sep 2026 12:39:03 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <arzmMa0tlhhJ2n78@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-5-clamor95@gmail.com>
- <arzMjoi2LcyfxCzN@orome>
- <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
+	s=k20260515; t=1790764775;
+	bh=MljuINYsDSt6Mx+ws1xsI7mhRVCt9e9IkBdqLRkBIaA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kdgVkpsLTN9PPbjs/FjH2VDONRjypKtQS7nnwPHqxETnWJr/EIYoC0vWaOAom+X6Q
+	 q/zx7TavDdPeNeYWqJKLZFklyCeqbRF/FaACp9HQsP5uUz1EaSukQVe8Ykmph+J6r9
+	 INE4KIbUL8xxS+HpCOYkNXcFiQWa8xv2aIitnFk0E1Sh36ZsFaTh9O7kLuFogi2Uhw
+	 +Slc9ozKNkyEVuolDNZgpSbjVB0MpVVp0yYGAprl4+cohLWTbMr94e7A7QeWLhBdpa
+	 nKnMDMc0yjuINPA9O33kKCcKB8r6l6lo5mKCQiY5K7qf46sUWG9IpMqj52KRAepNww
+	 x6QzfqAMVZ38A==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5b2864f1cso44038001fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:39:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5ywNig0yS04jizYFLBCgbYc09nK1IWYTibs4Zadp+c6zBPQiOoKJMSJvfvc9emWK9DbUrvfLOGC4AuJY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkOXmXi4rfwCbdG4x5Z824b0sSgHqEVX1wlkzU4nQ5SzgFrXsQ
+	IMOo5Ba7lJu9E31SIcFa8lYs4OnB51Bjwcm8AFWUWlUFop17Jdfui64ansrjRZqwUwGLVngqsE9
+	p5WDhMUCZg5dQ0V2WtNE6LfOxLjfkjL0=
+X-Received: by 2002:a05:651c:418d:b0:3a5:afec:9cf9 with SMTP id
+ 38308e7fff4ca-3a7791923f5mr3833601fa.7.1790764774294; Wed, 30 Sep 2026
+ 03:39:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mb6amis5vjytdup7"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
-
-
---mb6amis5vjytdup7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 12:39:22 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com>
+X-Gm-Features: AclHuK8pjnujBafapCpTqZDZIjiOhJbKtLdqSmgcu4GAW7cTFljMh260Y9sM-wQ
+Message-ID: <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/10] ARM: Add support for Cortina Systems CS75xx and
+ Securifi Almond+
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 12:02:14PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:48 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 10:05:33AM +0300, Svyatoslav Ryhel wrote:
-> > > The display controller in Tegra20/30 SoCs features an 8-bit SPI inter=
-face
-> > > that closely resembles the MIPI DBI Type B protocol and is referred t=
-o as
-> > > '8-bit CPU'. Each display controller provides two such interfaces, wh=
-ich
-> > > can be used to send MIPI DCS commands to initialize and control the p=
-anel
-> > > while image data is transmitted via 16/18/24-line RGB.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/tegra/Kconfig      |   7 +
-> > >  drivers/gpu/drm/tegra/Makefile     |   1 +
-> > >  drivers/gpu/drm/tegra/cpu-bridge.c | 427 +++++++++++++++++++++++++++=
-++
-> > >  3 files changed, 435 insertions(+)
-> > >  create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
-> >
-> > This doesn't need to be a separate driver. It should all live in dc.c.
-> > Or maybe even rgb.c, since it uses pretty much the same pins and is
-> > quite similar to it.
-> >
->=20
-> I don't mind moving this to dc or rgb, my intention was to avoid
-> bloating them with smth that is not used often and is present only on
-> Tegra20 and Tegra30.
+Hi Filipp,
 
-I don't think we've ever used rgb beyond Tegra30, so I wouldn't worry
-about that. Even with this integrated into rgb.c, we'll end up with
-around 1000 lines of code in that file, which is still quite manageable.
+On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-Thierry
+> There is no public documentation for the SoC. The register information
+> comes from the GPL vendor kernels (Linux 2.6.36 for the Almond+, Linux
+> 4.9 for the Verizon FiOS G1100 which uses the same SoC) and from
+> disassembly of the stock U-Boot 2009.11. A full out-of-tree port
+> (clock, irqchip, GPIO, I2C, RTC, NAND, PCIe, MDIO and the packet engine)
+> runs on Linux 6.18 in OpenWrt
 
---mb6amis5vjytdup7
-Content-Type: application/pgp-signature; name="signature.asc"
+Is this OpenWrt fork public?
 
------BEGIN PGP SIGNATURE-----
+Actually what I'm most curious about is the packet engine, which may or
+may not be related to drivers/net/ethernet/cortina/*
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq85scACgkQ3SOs138+
-s6Gtuw/9FP+6Dk73iUJajgZE7NHK28W/1w8RCo3JUL+muKlehzTvBjzkctjLTRJF
-KjIhpyINwgN1yc+C6m/MpIBh7f1bD6HSfDY2rF0E+CpRh4gvUdVOX8gbCtHjyTRO
-zPZFGJaHjfJkICMU6mtRbdfQ/JEkMBR0b6GJo8Ws93bsnOXVSuhN8Xm9vO6GgQHA
-agtkwliX9oUy4Un82PHCqhcLZrvK2tZ75pcdVwpxeGvTWwEzEutbTafBXXUcShjq
-f3hSw22zFMsXdH4zSh+sw6+TY++ZcfgzipkTDh24AOn4tHd4bTBH7nT6mlo83Ge1
-/TFxTz/+Isq/7IBmQOSe8UXppM7uh6JD2qiPyC2yrijaz89t+k1DSqrUhkBgbRPZ
-MqVqPqACZRh22x3AlvfHVh3L3jVhTTdMwrQeCUVabzoMvoD2BXZCOtyKOYI6NcyK
-VoAXqfhC8q/4BBkCK0DbgWJDwLpC2mmf2xOahvStsV9UUnAhJVOpnVRsB5+BICb+
-akRnpzln4nePAjNWD1RmFvA4XAcR/ASnxqCchp8VLovXb6ViPmaTYIxDQ6ZvSkqz
-p8gkqtHIGPWNEmaCmeOjBFAI5qeyQpf8JGyVxV6aGa6YaOPgMdi1L6psDMLadYKt
-hwibuXj954+zq08AqId5nyBb+RIKDeO65IXEa0modmdB9eUaexQ=
-=OKun
------END PGP SIGNATURE-----
+On the Gemini that was the only part of the SoC that was actually made
+by StorLink (later acquired by Cortina) while the rest of Gemini was
+Faraday IP blocks.
 
---mb6amis5vjytdup7--
+Yours,
+Linus Walleij
