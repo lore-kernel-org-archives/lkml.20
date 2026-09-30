@@ -1,129 +1,94 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B9444F571;
-	Wed, 30 Sep 2026 09:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759425; cv=pass; b=nua3cW2eftFMaT1tsVH0NBjCg4tvnU3CONnzGD6Cw5VxyH5OC3Bab3ezeLqmsYD0FMgHQhADXTMGxlXDL4bDMu84o5NE4sHNRA1Ej4ewNAhSK/uTFy73eGuxlEfDWkMLpACBPQ8BzThNDlssP7rPiIxlhWRerEPuEsv4bUnqbUE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759425; c=relaxed/simple;
-	bh=nct9/Nx3C+4l0oA0T/6l4uV8s71nB+zp1yop0l+kc3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rhUkwxmv6MeRX3CSdgv3BTu9KQ23gTJUPa6Q6NPTwZnANH4DcWmCyOczIzVhFuGjf1ft90zRCFq9bWZpS5Sbv0vTLKRWQ9/9sESiZG6GcH7nNrKe+vCBqIX+BK9s+eaDSsebneAlAxDbbAkujWVqzohYabanx6CP26Nd65ZpRcY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=cMeI52cv; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE9541F7EA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790759438; cv=none; b=mEakZGq+1dSLbBmIZGsP9U5G3NecsbhEN5U216lNYsEEVB+nTkieHwJzlPcuH4UB2YaOQe/64EjtDeorwShoigUE9zqelG/ViElNet3fiVLl+N/PDpuo+dGMIo3XcOAzM23lMyaxDrzyvuXYsiLjF7aw34wAxFFBzAwJDxb70pQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790759438; c=relaxed/simple;
+	bh=y1dRcM1u4ia4jyoRkwNbhGlt1395IprSJeY5SdwYuVk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uSy7bW3W2R8Psx4N+gHCZPwWjE9XyQAg6IHRg1NoRtnlteCd+f2QHlnPY1SMsq5XBeyOy+ZtVn0ABcM8ivIwKBWJupHDzA98/j2EMC2T2lN4xaNlQBu18z9lHSJ8yvn6/nLpv3Xulp944uQCpdaL2BHtl9mlQraUiGb28j+/dQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LYCjaNhT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="cMeI52cv"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2A5A82009BC;
-	Wed, 30 Sep 2026 11:10:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790759420;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U36sbeeGfRxFYHE2IN2SCF0g/Itq/Yc3Bj3U3Ma2AUc=;
-	b=cMeI52cvgsV+VA3hv9iMfUyxx+9Nsndlrgw0c2VvCXaHPIiGcuAnNlOVKmzPrEbQV5ku9V
-	1gcz+8fFLXOIpfjpbYeiZbvrrzVWae/jTbkBcNQ/sMFCYrRK5VNURR6MlTgRGz+1+E6Da2
-	Qg3oNOvdFQYRG7ixiPFWB1DZDGrh9UpHsQwU+emCq4f2HrKnFN8pA+qT/929esSsOCNIJW
-	nArANbHyHDEekvCS9bpTIwlQwjl6RJ8l44p59iHhMBJHHl3b2uiFJuN1pfNLT9drJrWsK/
-	L4Ckk/jEfRIVtMtQH1l1S0fNDFOO0dol1aZUZwpa4NJG2z8BEZFXTDovkeTscQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790759420; a=rsa-sha256;
-	cv=none;
-	b=hBOaKd42hgjnuC4gTa83r4fxvUjqL5p1MTdBZg2vQjl2OglPg1PIrmNf+buIQqw2BpmK6J
-	d++lkndOjrav9PfV6b1Uw3EYeoce/yaantuMv1++iduGoBLo7lb3gpLuDrKQgqYaDTZ2ii
-	ntDBAeWSGmJ/j24cKy66if1jgS3RMenwf/1L5F5H5SR6chrIoEZA52cFnbc0IgdfCePWpZ
-	9mQUK6bECeF8o34tMfuRX+zQlTKbuRwxWyzP+ajxPQZN9t/fffLoiyWp79lhOZKsLTte/i
-	IgnK/+IAZil40NWLibaV6e3OePdu1NThX1vNbSoeAWtFoS9zNr39s4h7qwVSAg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790759420;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U36sbeeGfRxFYHE2IN2SCF0g/Itq/Yc3Bj3U3Ma2AUc=;
-	b=dxpap2QFY4IySUOOIPP5t6BLDVYAPplCsNbXxIivXJFjBlutC0oGOHLjfoj5IBhxxzgzNQ
-	jA8IYbyrJdc9C/sb+sBktCYYjFPeOVSY1ZRcEzzoGkI/uSYLqr261DpOqeOwNiaCcIL8KK
-	NXuq8JHeT6r5WAvfbGLRgf7iiuOd2IzXU2dOitm5vegOWV3s9mrSx/T27AYQlz6vA0Klt/
-	uRGJRpIH0bTW0XzRx5Qh3FLXp0iZ3jDXPO+Wnq/pIduZqP/sTl7sR3HaMIgD5TCYI1Lcrd
-	UK6KrQhnNE0iA2HrMXA0RU5ILfSghwiR6ZYKMbFVmYohgQcVkEbyLuIibbTpHQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBqKS-003XEm-0D;
-	Wed, 30 Sep 2026 11:10:20 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id B9FC65B54CB;
-	Wed, 30 Sep 2026 09:10:19 +0000 (UTC)
-Date: Wed, 30 Sep 2026 11:10:19 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>
-Subject: Re: [PATCH v3] can: peak_usb: Add bus error reporting for the
- PCAN-USB FD family
-Message-ID: <20260930-wondrous-unbeatable-guan-f7b2e1-mkl@pengutronix.de>
-References: <20260930-peak_usb-canfd-berr-v3-1-0506dfba9fb4@peak-system.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LYCjaNhT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so21118015e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:10:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790759435; x=1791364235; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y1dRcM1u4ia4jyoRkwNbhGlt1395IprSJeY5SdwYuVk=;
+        b=LYCjaNhTjr66jzChECMrEj14LAClcHPcCdzFt3TUrlG3xPQlBE6crZ6eLxOedlSF8u
+         Vi18ZwnUpyQJz87aAnJyhwgEmABPUtkJb7/K4gPRhf3PO/X8QNnQbj15LYlBWQLQnW/O
+         OoZzUsEvC3XHMxGjSq54ejukSoHxZkpCthJ5t5ClhDXa+8UVubMzJzOdOrDuxNiQBtQd
+         O42Hvem2Kp01bh/zCJmMehywrGjv2BJMW04b2AV4Pq6PH+hgS+iiLyyDtXUYtXP1w+6u
+         ECMiW2vknnTn/2B+Ez3Vd/v1BMBMUX+DQ2vsrTVhWUtA9VPhJCouaiC0gD+XVy81ggYw
+         HznA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790759435; x=1791364235;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y1dRcM1u4ia4jyoRkwNbhGlt1395IprSJeY5SdwYuVk=;
+        b=j6IQFQd9HVWbZ++Nyi+X0MNDuYM5s7EZFAOZsi3DGm5bhPURSwXtpkeSkC1Iv7rB9D
+         cRlV/AVYuExToWvt11A/5bZ/XZ98VP4mk6JgFrP5rhM5m8UCJb2xUJxIJ0VGWMcst/Xx
+         iGkdd3kr6UQOfle0CuOKoSOo+RRdJUspqDp9M2qg31hwaofDWw3ucf0ozL9sjmZuxE8S
+         NjkRoi/Na/6NWLUHN7fbzWE9X3konn2flarijZkcdfBdhHXJX0WGZI7mYCYr0ioirF5p
+         NMCI2s4ZKzvQ/LpAMMZzCFK+pw1BnTs2bTn2ZsO1ppJzxRRIHai0bh7oMTIzyY6g4Qlb
+         wvSQ==
+X-Gm-Message-State: AFuF++l/n/FDZKq1zEbV+Qxq+uaMhoF4sAF+xnduYy6NdpbZanFVoRSn
+	ECLnPFGHAhHk0OuFUWgVNLBklWRr3gMJfZElEyI85smxoJMYSpueuvAXFgJen+/feyY=
+X-Gm-Gg: AYBFou243xC0vLfwb0yx51TYho4Dyu0WqmDSDd0wR3LoV0PwOsAJaSJTXbzl0knO8ZK
+	bi/n97XSPJU7OqPqFupPlGsaWcxAVA/pCtQK8px1ICWit6m0W91udewZAk4Y5jcED8y+mfJ3gJu
+	USaF1a6ykPQha6X18tVsXYSXr4xNTpbz6Fe5gTLf4xdvj+PFsHGLtxEVL48F0BAA4zzsWcGq7fT
+	3m4pSUYmLvSdlDwayLCzaagJXCNfDudeWpt6VKk24hED597WaAdVN6pRviljW5CcIwdO+7FfSt/
+	pRMDhCNKM2MsVC2qpNAOP1j1/SAJMVxmFkSTojDFHrp25BrySfGVeCBim40z3qGx9iQ1KftgLji
+	XZcbQBi9pcHRe9ouQQrXhw6wTDe5VUdPNaJERi+aM0D6+BY9Z8gcuRlCzV5eUhKtHJL0D28luA8
+	dzON7xqDOiv2ctp3XJ0aDGxHWV4CY1kXGPuPYc8azBy36gBDCIQ/TAx2TH6A6dYZQQt2WKN5U70
+	H9v/kJxdLCpcHJNXSSA
+X-Received: by 2002:a05:600c:840d:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a01b128472mr12394495e9.32.1790759434607;
+        Wed, 30 Sep 2026 02:10:34 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a0175161c2sm45458125e9.4.2026.09.30.02.10.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 02:10:33 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Pierre Gondois <pierre.gondois@arm.com>
+Cc: linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Subject: Re: [PATCH v3 0/2] sched/cpufreq: fix schedutil's boost frequency handling
+Date: Wed, 30 Sep 2026 11:10:24 +0200
+Message-ID: <179069242536.2121.14601372514436460845@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
+References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6skv3plv2o2ydxmp"
-Content-Disposition: inline
-In-Reply-To: <20260930-peak_usb-canfd-berr-v3-1-0506dfba9fb4@peak-system.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Tested on a Lenovo Yoga Slim 7x Gen 11 (Glymur): boost off 4032000,
+boost on 4723200, back to 4032000 when boost is disabled again.
 
---6skv3plv2o2ydxmp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] can: peak_usb: Add bus error reporting for the
- PCAN-USB FD family
-MIME-Version: 1.0
-
-On 30.09.2026 10:44:33, St=C3=A9phane Grosjean wrote:
-> From: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
->
-> CAN bus error reporting is currently missing for all PEAK-System
-> USB-to-CAN FD devices. Add support for reporting bus errors by enabling
-> bus error notifications in the firmware for each CAN channel. Parsing of
-> the entire URB is aborted if the firmware reports an invalid channel.
->
-> Signed-off-by: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
-
-Good work. Applied to linux-can-next.
-
-Thanks,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---6skv3plv2o2ydxmp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCarzR9wAKCRDMOmT6rpmt
-0tCfAP0Uc+FvLrMIlMTyyTKmRQ0PFk8wsDZEuLE0IJ2TjmtVCwEA6UcKFKIWjR7O
-xb/5/v1NLEx0NC/aal2vwCp7F7sTxAU=
-=mdLW
------END PGP SIGNATURE-----
-
---6skv3plv2o2ydxmp--
+Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11
