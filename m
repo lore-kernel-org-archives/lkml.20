@@ -1,260 +1,130 @@
-Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA1D40627F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A255447DD58;
+	Wed, 30 Sep 2026 23:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790809666; cv=none; b=Q3zkC4wQbOIUabSZH7ALUP8zjK+nU3qgnIN1jQbLj3azR7SGiFppHWohbHPXalW5u8U9gglfkUxXxBbRpeezufooKTEelJL36U8avqrKJOO0zoWS9p86WJpqTFWgDMnf5699Qix1QKEiIq33fsfrnnSm9Q3sCMVAbU1mMK1P1yE=
+	t=1790809706; cv=none; b=r3Hy1HSic9Qc92I5iPVn1Ua6nJyFeK0P+iE7jYxzXZUHH90CpRkTwU2HqYW03SzUC3l3j/46US7SrHW5/ZJIfm3EDXJF0Ki+axF3i8Ifr8FqA7sBRLLlUi0drJiWm4yhvzqAFYFD4+kpTsVj0sq/AVFuFdCt580KxCmgGqrXkSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790809666; c=relaxed/simple;
-	bh=04ieIlc6aU4Ve4Y+NdGSZT+Urd6ATWlIU5xxlRqKmY0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XjfzQHLczyZxlyHAuT7lBFXnS2C/K8iaBdgdr5R5JK7xZwkJU7G9SdH6M/aXq5sbZGzABp9HabgWCl2a/CA9wJ0SzxNEWUyHOSDyzxlrNygFd8xuNAwyKU598sPLp7p7pIldk4cC85NTFlhOkXUtMYBUMkakhxhvIktyFsp3Vjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vOEddTjI; arc=none smtp.client-ip=95.215.58.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790809706; c=relaxed/simple;
+	bh=E0wiH1cVOoZl1B6eWZGEUj8IWbMAvcdH9u2DdTbsOu0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OT5q4bQmp2tseWuRl27YTkOXpTzhFCsFNLa7jbqP2gM/9KNE6QkJnzq0NLSLtSvJWau7WT43RO8VIV7/jxOB2S3yzfeWQhAJnwOVcH/rLShlDHPjiQlJrl0WljEd1PbYv1fczhPPSERsywkdcm9l659oTTPDhTj1vVkvJSR5Vsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBZgOYng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vOEddTjI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=04ieIlc6aU4Ve4Y+NdGSZT+Urd6ATWlIU5xxlRqKmY0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790809658; v=1; x=1791414458;
- b=vOEddTjIRAERxbVyzBLH+HN1cWKmKSf0/AizpuweP1iO4W4ZkdWQsfTbusJYIvyTOAqxqVtJ
- DK+9u4r7Phxrc5DD7KSG2pJelEEHI75HhCViLOLaKK3gYneVvatD6C65x5MbxKz78dmeaf9CSbZ
- 6szyX/lL/22yhFL6mbepg2hw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id cd417db66a4fe8dc;
-	Wed, 30 Sep 2026 23:07:38 +0000
-X-Mizu-Trace-ID: cd417db66a4fe8dc
-X-Migadu-Flow: FLOW_OUT
-From: Atish Patra <atish.patra@linux.dev>
-Date: Wed, 30 Sep 2026 16:07:31 -0700
-Subject: [PATCH 6.18.y] mm/execmem: make the populate and alloc atomic
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBZgOYng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78991F000FF;
+	Wed, 30 Sep 2026 23:08:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790809699;
+	bh=EhbS6DD4ZxRw/wqbVQ1rsbt1wNsbaNE1BQ4GSkIL1vI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QBZgOYngZm2VLNPViTxEZYbSxy5dlGvZhRfx5QtYlQ9rJAsesGAS3BQExFATBZJL/
+	 ORZsR/zx59T61g8f4x4GimGPhjyClajlPice8pYDC95UbA9A1zxmoJY1wOS3Nl1d3u
+	 QcyaItVzgNknPcGViDIa0A/1Q9UOl/jbrxo6jJkG5VhCOh+xZJ6wVBCiPHt+tYUpZW
+	 5i4rUPdxsYJwQhAfYHDz8NKi5Zw+8qjVtBlvIP9p2jYIpEfYirdRwng9D44jf++N4j
+	 bHL4yQW6V5HM5SPt8FfDzSu0C9g327iNIq+H7FvcUlqLd0xQX8bhCn6vt4s8ytStax
+	 Wy8hr1XhuFK3A==
+Date: Wed, 30 Sep 2026 16:08:17 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 06/26] perf trace: Copy sockaddr arguments by their
+ length
+Message-ID: <ar2WYemXnrbDx-Il@google.com>
+References: <cover.1790145937.git.irogers@google.com>
+ <20260928182605.3649015-1-irogers@google.com>
+ <20260928182605.3649015-7-irogers@google.com>
+ <ar1fon_Z4uT3Cd22@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-execmem-atomic-6-18-y-v1-1-bd35d4523aab@meta.com>
-X-B4-Tracking: v=1; b=H4sIADKWvWoC/x3MQQ6DIBBG4auYWXcMqEHpVZouCPy2s0ANmEZiv
- HuJy2/x3kkZSZDp2ZyU8JMs61KhHw35r1s+YAnV1KnOKNsrxgEfEdntaxTPhvXEhYPV3g4OARi
- ptlvCLMf9fZFp9dQWel/XH6pK1+RvAAAA
-To: stable@vger.kernel.org
-Cc: Hubert Mazur <hmazur@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Stanislaw Kardach <skardach@google.com>, 
- Michal Krawczyk <mikrawczyk@google.com>, Slawomir Rosek <srosek@google.com>, 
- Atish Patra <atishp@meta.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ar1fon_Z4uT3Cd22@x2>
 
-From: Hubert Mazur <hmazur@google.com>
+On Wed, Sep 30, 2026 at 09:14:42PM +0200, Arnaldo Carvalho de Melo wrote:
+> On Mon, Sep 28, 2026 at 11:25:45AM -0700, Ian Rogers wrote:
+> > The BTF augmenter copies sizeof(struct sockaddr), 16 bytes, for the
+> > sockaddr arguments of connect, bind and sendto, and runs before the
+> > sys_enter_connect and sys_enter_sendto programs that copy their length.
+> > An IPv6 address needs 24 or 28 bytes, so the rest was read from past the
+> > payload, and now that the printers are bounded only its family is shown.
+> > 
+> > Copy them as buffers sized by the length argument after them, up to the
+> > 32 bytes augmented buffers are limited to. That holds an IPv6 address
+> > and doubles the AF_LOCAL path shown.
+> > 
+> > Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
+> > Assisted-by: Antigravity:gemini-3.1-pro
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > ---
+> >  tools/perf/builtin-trace.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> > index 85db74965280..f94745a60f4a 100644
+> > --- a/tools/perf/builtin-trace.c
+> > +++ b/tools/perf/builtin-trace.c
+> > @@ -4159,7 +4159,12 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
+> >  				continue;
+> >  
+> >  			bt = sc->arg_fmt[i].type;
+> > -			beauty_array[i] = bt->size;
+> > +			/* Copy a sockaddr as a buffer sized by the next argument, e.g. addrlen. */
+> > +			if (strcmp(name, "sockaddr") == 0 && field->next &&
+> > +			    strstr(field->next->name, "len"))
+> > +				beauty_array[i] = -((i + 1) + 1);
+> > +			else
+> > +				beauty_array[i] = bt->size;
+> 
+> 
+> Humm, I thought that this would be called in BPF handlers like:
+> 
+> SEC("tp/syscalls/sys_enter_connect")
+> int sys_enter_connect(struct syscall_enter_args *args)
+> {
+>         struct augmented_args_payload *augmented_args = augmented_args_payload();
+>         const void *sockaddr_arg = (const void *)args->args[1];
+>         unsigned int socklen = args->args[2];
+>         unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+> 
+>         if (augmented_args == NULL)
+>                 return 1; /* Failure: don't filter */
+> 
+>         _Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr)), "sizeof(augmented_args->arg.saddr) needs to be a power of two");
+>         socklen &= sizeof(augmented_args->arg.saddr) - 1;
+> 
+>         bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+>         augmented_args->arg.size = socklen;
+>         augmented_args->arg.err = 0;
+> 
+>         return augmented__output(args, augmented_args, len + socklen);
+> }
+> 
+> And it knows how many bytes to read by looking at socklen
+> (args->args[2]), i.e. not use the generic BPF handler that uses this
+> beauty_array, because knowing how many bytes to read in this case is
+> dynamic, varies with each syscall, according to one of its arguments :-\
+> 
+> What am I missing?
 
-[ Upstream commit 1871d548fc4feb007644efb6d669c93a4e191254 ]
+I think Ian's patch update the beauty map which is used by
+augment_sys_enter() before tail-calling syscall-specific functions.
 
-When a block of memory is requested from the execmem manager it tries to
-find a suitable fragment by traversing the free_areas.  In case there is
-no such block, a new memory area is added to the free_areas and then
-allocated to the caller by traversing the free_area tree again.
+It'd be great if we cover all syscalls in the BPF skeleton and switch
+to the beauty-map and discard the functions.
 
-The above operations of allocation and tree traversal are not atomic hence
-another request may consume this newly allocated memory block which
-results in the allocation failure for the original request.  Such
-occurrence can be spotted on devices running the 6.18 kernel during the
-parallel modules loading.
-
-To mitigate such resource races execute the cache population and
-allocation operations under one mutex lock.
-
-Link: https://lkml.kernel.org/r/20260320075723.779985-1-hmazur@google.com
-Signed-off-by: Hubert Mazur <hmazur@google.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Stanislaw Kardach <skardach@google.com>
-Cc: Michal Krawczyk <mikrawczyk@google.com>
-Cc: Slawomir Rosek <srosek@google.com>
-Cc: Hubert Mazur <hmazur@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Atish Patra <atishp@meta.com>
----
-Please apply this fix to the 6.18.y stable tree.
-
-We noticed that kvm module loading failures on intel cooperlake/AMD
-Milan hosts recently. This race condition might have contributed to
-that. The issue was reproduced with a test module that widened the
-window beteen populate-to-allocate interval and queued the
-normal execmem cache-clean worker.
-
-On an unpatched 6.18.53 kernel, the forced race reproduced the missing
-/dev/kvm failure in 2 of 2 kexec boots.  A parallel module-load test
-running five modules for ten rounds produced 15 ENOMEM failures from 50
-loads.
-
-With the upstream fix applied, 10 of 10 kexec boots verified successuflly
-with no issues with kvm module loading. The same parallel module loading
-test completed with 50 iterations.
-
-The patch applies cleanly to v6.18.54 with no changes from upstream.
-Please let me know if anybody needs other information.
----
- mm/execmem.c | 55 +++++++++++++++++++++++++++++--------------------------
- 1 file changed, 29 insertions(+), 26 deletions(-)
-
-diff --git a/mm/execmem.c b/mm/execmem.c
-index 810a4ba9c9243..084a207e4278b 100644
---- a/mm/execmem.c
-+++ b/mm/execmem.c
-@@ -203,13 +203,6 @@ static int execmem_cache_add_locked(void *ptr, size_t size, gfp_t gfp_mask)
- 	return mas_store_gfp(&mas, (void *)lower, gfp_mask);
- }
- 
--static int execmem_cache_add(void *ptr, size_t size, gfp_t gfp_mask)
--{
--	guard(mutex)(&execmem_cache.mutex);
--
--	return execmem_cache_add_locked(ptr, size, gfp_mask);
--}
--
- static bool within_range(struct execmem_range *range, struct ma_state *mas,
- 			 size_t size)
- {
-@@ -225,18 +218,16 @@ static bool within_range(struct execmem_range *range, struct ma_state *mas,
- 	return false;
- }
- 
--static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
-+static void *execmem_cache_alloc_locked(struct execmem_range *range, size_t size)
- {
- 	struct maple_tree *free_areas = &execmem_cache.free_areas;
- 	struct maple_tree *busy_areas = &execmem_cache.busy_areas;
- 	MA_STATE(mas_free, free_areas, 0, ULONG_MAX);
- 	MA_STATE(mas_busy, busy_areas, 0, ULONG_MAX);
--	struct mutex *mutex = &execmem_cache.mutex;
- 	unsigned long addr, last, area_size = 0;
- 	void *area, *ptr = NULL;
- 	int err;
- 
--	mutex_lock(mutex);
- 	mas_for_each(&mas_free, area, ULONG_MAX) {
- 		area_size = mas_range_len(&mas_free);
- 
-@@ -245,7 +236,7 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	}
- 
- 	if (area_size < size)
--		goto out_unlock;
-+		return NULL;
- 
- 	addr = mas_free.index;
- 	last = mas_free.last;
-@@ -254,7 +245,7 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	mas_set_range(&mas_busy, addr, addr + size - 1);
- 	err = mas_store_gfp(&mas_busy, (void *)addr, GFP_KERNEL);
- 	if (err)
--		goto out_unlock;
-+		return NULL;
- 
- 	mas_store_gfp(&mas_free, NULL, GFP_KERNEL);
- 	if (area_size > size) {
-@@ -268,19 +259,25 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 		err = mas_store_gfp(&mas_free, ptr, GFP_KERNEL);
- 		if (err) {
- 			mas_store_gfp(&mas_busy, NULL, GFP_KERNEL);
--			goto out_unlock;
-+			return NULL;
- 		}
- 	}
- 	ptr = (void *)addr;
- 
--out_unlock:
--	mutex_unlock(mutex);
- 	return ptr;
- }
- 
--static int execmem_cache_populate(struct execmem_range *range, size_t size)
-+static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
-+{
-+	guard(mutex)(&execmem_cache.mutex);
-+
-+	return execmem_cache_alloc_locked(range, size);
-+}
-+
-+static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
- {
- 	unsigned long vm_flags = VM_ALLOW_HUGE_VMAP;
-+	struct mutex *mutex = &execmem_cache.mutex;
- 	struct vm_struct *vm;
- 	size_t alloc_size;
- 	int err = -ENOMEM;
-@@ -294,7 +291,7 @@ static int execmem_cache_populate(struct execmem_range *range, size_t size)
- 	}
- 
- 	if (!p)
--		return err;
-+		return NULL;
- 
- 	vm = find_vm_area(p);
- 	if (!vm)
-@@ -307,33 +304,39 @@ static int execmem_cache_populate(struct execmem_range *range, size_t size)
- 	if (err)
- 		goto err_free_mem;
- 
--	err = execmem_cache_add(p, alloc_size, GFP_KERNEL);
-+	/*
-+	 * New memory blocks must be allocated and added to the cache
-+	 * as an atomic operation, otherwise they may be consumed
-+	 * by a parallel call to the execmem_cache_alloc function.
-+	 */
-+	mutex_lock(mutex);
-+	err = execmem_cache_add_locked(p, alloc_size, GFP_KERNEL);
- 	if (err)
- 		goto err_reset_direct_map;
- 
--	return 0;
-+	p = execmem_cache_alloc_locked(range, size);
-+
-+	mutex_unlock(mutex);
-+
-+	return p;
- 
- err_reset_direct_map:
-+	mutex_unlock(mutex);
- 	execmem_set_direct_map_valid(vm, true);
- err_free_mem:
- 	vfree(p);
--	return err;
-+	return NULL;
- }
- 
- static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
- {
- 	void *p;
--	int err;
- 
- 	p = __execmem_cache_alloc(range, size);
- 	if (p)
- 		return p;
- 
--	err = execmem_cache_populate(range, size);
--	if (err)
--		return NULL;
--
--	return __execmem_cache_alloc(range, size);
-+	return execmem_cache_populate_alloc(range, size);
- }
- 
- static inline bool is_pending_free(void *ptr)
-
----
-base-commit: 1b357ecb321392158d507b04672ffee57bfa071d
-change-id: 20260930-execmem-atomic-6-18-y-d91c94aedee7
-
-Best regards,
--- 
-Atish Patra <atishp@meta.com>
+Thanks,
+Namhyung
 
