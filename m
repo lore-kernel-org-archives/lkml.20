@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1A13AD539;
-	Wed, 30 Sep 2026 04:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9AA3ACEFE;
+	Wed, 30 Sep 2026 04:52:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790743924; cv=none; b=YbQaK8eV+mVyGy3ONeVE3fW8w2R0Rw8JutH9rmTA2rL6RXUayV8TR678axBLiKFSDpxxCoa+hQYw5u/YkVeh7liu0IukvqTjoxnwy/PDxgtEKSqQbW731xUchovIwfzbLYlxNHVjGNWrRwocfpfqzo7cx57verFPnV02JB3TVEs=
+	t=1790743935; cv=none; b=uExPbebt7tW+xF1Ryyo9kXpRjusK8+Uz1d4xDzxXM8TMHi2BDB/LCfcqTt1R9HVzlQ58Wk2eNSw1dB8KxSszGjBY5vkiJWLtkEYwceFJOe8ubDU3cWqvPMeq9f14lYWrsKUggrwRI6GntKRxp6/Pkl9lGvukmvzKzKybwYEoNOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790743924; c=relaxed/simple;
-	bh=df1pSSG34gO+mAKZQn2WV73rJLwUuwpRQt6pKH2NkDQ=;
+	s=arc-20240116; t=1790743935; c=relaxed/simple;
+	bh=8ywhAYWoPbgS+Gbsxai8A6lph1XhhnXID54X3n2FXb4=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NurRTYkTpgS/srmIfTOopaausKRvX1fPeH0USqxWCLAFJlLUClt0C+PvTgh/1V9qR2pKEv0oL/MGudMlgnAC+Oe6x+QFL27eRS6zMK8WPvGd0DBYZizG6PYTwfmEvBoClUq9B2WupRxJQyoTSgsBcMJly7ZagxhkOFquHFqhlss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQZGrlci; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=LeumhdAkuyvi4MLo4IIyx8LtnmTB4g9W5G5ND1NP0yXlnmbzpRi4+Z+loxRl+Y35muhe/QqLOqqpSBRG8r3GpY3hbjDkpXLl8IORM62DrQyjtRgOBQn6JNMiFsWpwClk8L+vToqFj7aa/HZqvt7dvz/6gYaV/B+jZVRVUFbsSZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNejObcC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQZGrlci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08F31F00899;
-	Wed, 30 Sep 2026 04:51:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNejObcC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9A21F000FF;
+	Wed, 30 Sep 2026 04:52:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790743921;
-	bh=vrN+A0X0KTyilFwWOzxsQiFyGJzVtrqK0X8cSfJxtTE=;
+	s=k20260515; t=1790743928;
+	bh=igtVl4jmPv/GxYhXWE0vCTn4PzBIYTexddEIEcvNIbI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NQZGrlci67oXn07kJR/S8vO9EjhhN+/fdlYufDGobWIM/uUMGA4mxr33rrc06UpUp
-	 KWXoYJN8JZfeURBP7IOs9T9wZp07EFSrLcRE5IFRYQNVsnxrDw21ECCp8gau4wOC0u
-	 ssDszhS7WixSfMgpwxqCA/CA54//34JteoA0YE4Xb+P2cuM7PeK1zP7u8WCkeQM95m
-	 bIPjRkSBLedvjjmUakZWmoNSeFSP+51Qkld/wq5zVfurI0GSa/kStCgyA//6+VkSvU
-	 /PVwRO1sdeExBIn7gxwrtA6xHF2Bc3Tewl5H6UO9q3UR2fmon6pQDdKy9sN/qirrfR
-	 zQpkQC8acr+Gg==
-Subject: Re: [PATCH net v4 13/15] net: stmmac: retain DMA memory until
- hardware shutdown completes
+	b=DNejObcCs7NshfvN5OW0lISSTMy8XWLv0DCXfQZGQKXI7SUay+G0avPo7qTTDnYwk
+	 RuJySsbOj2uupimKSG+qU6F3UW+rLi6NA1cYfN1cGMJqrhNP1Vf2oNGVb73XPLO/wR
+	 N/wJubOZJAB/8YfyJNKIMMJ3oqF8NjeEpTL+dVI2T6hr2mCZyTAsZs64QZGwTuUz9H
+	 myhqJLkUTgi51qA/3VT2+EmN+l+fSFotUn1Ql8YGOwFWtdURZvH/vGKusUvNwtankt
+	 mzM8G7tXmWJLSqFIAOgbOpMm6p0Yl6QncmsQSBFUMcX17BgeDbM7uwXCtjAs58tru/
+	 YoLnY88h4d82w==
+Subject:
+ Re: [PATCH net v4 15/15] net: stmmac: retain DMA resources across MTU changes
 From: netdev-bot+sashiko@kernel.org
 To: james.hilliard1@gmail.com
 Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
@@ -50,13 +50,13 @@ Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
  linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
  zhaojinming@uniontech.com, lorenzo.bianconi@oss.qualcomm.com,
  dinghui1111@163.com, linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev
-Date: Wed, 30 Sep 2026 04:51:57 +0000
-Message-ID: <179074391749.434549.15093720940446108090@kernel.org>
+Date: Wed, 30 Sep 2026 04:52:04 +0000
+Message-ID: <179074392485.434549.10940493400361936935@kernel.org>
 In-Reply-To:
- <20260926-submit-stmmac-reset-fixes-v1-v4-13-ec1c0250b3c9@gmail.com>
+ <20260926-submit-stmmac-reset-fixes-v1-v4-15-ec1c0250b3c9@gmail.com>
 References:
- <20260926-submit-stmmac-reset-fixes-v1-v4-13-ec1c0250b3c9@gmail.com>
-X-sashiko-severity: High
+ <20260926-submit-stmmac-reset-fixes-v1-v4-15-ec1c0250b3c9@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -66,10 +66,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 3 · Low: 0
+Critical: 0 · High: 0 · Medium: 4 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,312 +77,238 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Resume puts retained RX descriptors back into service after the
-  reset without rewriting their buffer addresses.
-- [High] After a failed close, the retained ring set can stay attached to
-  priv->dma_conf with all its allocations but with dma_owned cleared, so…
-- [Medium] TX error recovery can now be lost for good.
-- [Medium] On a failed DMA shutdown, stmmac_detach_xsk_buffers() sets
-  every dma_conf->tx_queue[q].xsk_pool to NULL but never calls…
-- [Medium] Once a config is left dma_owned by a failed drain, removal
-  never retries the stop or reset before stmmac_free_dma_conf()…
+- [Medium] stmmac_reconfigure_mtu()
+  (drivers/net/ethernet/stmicro/stmmac/stmmac_main.c) calls…
+- [Medium] stmmac_reconfigure_mtu() takes priv->ptp_mutex
+  (stmmac_main.c:6668) before it calls phylink_stop().
+- [Medium] stmmac_reconfigure_mtu() masks only the per-channel DMA
+  interrupt enables (stmmac_set_dma_irq_state -> set_irq_mask).
+- [Medium] Before the first stmmac_hw_setup(), stmmac_reconfigure_mtu()
+  calls phylink_prepare_resume().
 
 --
 
-net: stmmac: retain DMA memory until hardware shutdown completes
+net: stmmac: retain DMA resources across MTU changes
 
-Before rings and buffers are released on close, XDP/XSK replacement or a
-failed open, this patch waits for the DMA engines to report idle. If
-they do not, it falls back to a completed global reset. Configurations
-the hardware may still reach are tracked on a list and kept until a
-later successful reset, and XSK DMA references are held independently.
-TX hard error recovery moves to the process-context reset path, and
-resume-time descriptor cleanup moves after the reset.
+This patch replaces the release/reopen sequence for live jumbo MTU
+changes with a new function, stmmac_reconfigure_mtu(). The new function
+keeps the old rings and IRQ registrations so a failed setup can be rolled
+back. If the rollback also fails, the interface is left detached in a new
+STMMAC_DATAPATH_HALTED state that close or a later down/up can clean up.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index edcb9a025385b..4d70645c4a4f8 100644
+> index 08049c05ffc48..8964f52c26bae 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 
 [ ... ]
 
-> +static void stmmac_detach_xsk_buffers(struct stmmac_priv *priv,
-> +				      struct stmmac_dma_conf *dma_conf)
-> +{
-> +	u32 queue;
-> +
-> +	/* Socket teardown cannot retain the pool itself. Drop software-only
-> +	 * references, but keep each xsk_dma reference: hardware can still reach
-> +	 * the mapped UMEM pages even after the pool and its heads are freed.
-> +	 */
-> +	for (queue = 0; queue < MTL_MAX_RX_QUEUES; queue++) {
-> +		struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
-> +
-> +		if (!rx_q->xsk_pool)
-> +			continue;
-> +		dma_free_rx_xskbufs(priv, dma_conf, queue);
-> +		xsk_pool_set_rxq_info(rx_q->xsk_pool, NULL);
-> +		rx_q->xsk_pool = NULL;
-> +	}
-> +	for (queue = 0; queue < MTL_MAX_TX_QUEUES; queue++)
-> +		dma_conf->tx_queue[queue].xsk_pool = NULL;
-> +}
-
-[Severity: Medium]
-Are the zero-copy XSK TX frames still in the retained TX ring ever
-completed after a failed shutdown? Each one reserved a completion queue
-slot in xsk_tx_peek_desc() through xskq_prod_reserve_addr().
-
-After a later successful reset, the retained config is freed through
-free_dma_desc_resources() -> dma_free_tx_skbufs(). There,
-stmmac_free_tx_buffer() counts the STMMAC_TXBUF_T_XSK_TX entries in
-xsk_frames_done, but the completion is gated on the pool pointer:
-
-    if (tx_q->xsk_pool && tx_q->xsk_frames_done) {
-        xsk_tx_completed(tx_q->xsk_pool, tx_q->xsk_frames_done);
-
-tx_q->xsk_pool was already cleared here, so those frames are dropped.
-
-The socket can stay bound across ifdown/ifup, an XDP program swap, or a
-pool change on another queue. In that case the next open attaches the
-same pool, which still holds k reserved but unsubmitted CQ slots.
-
-xskq_prod_submit_n() publishes entries in reservation order. Wouldn't
-every later completion then report an address k frames behind, with
-those k CQ slots and UMEM frames lost for good?
-
-[ ... ]
-
-> @@ -3072,25 +3205,17 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue,
->   * stmmac_tx_err - to manage the tx error
->   * @priv: driver private structure
->   * @chan: channel index
-> - * Description: it cleans the descriptors and restarts the transmission
-> - * in case of transmission errors.
-> + * Description: stop submissions and request process-context DMA recovery.
->   */
->  static void stmmac_tx_err(struct stmmac_priv *priv, u32 chan)
->  {
-> -	struct stmmac_tx_queue *tx_q = &priv->dma_conf->tx_queue[chan];
-> -
->  	netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, chan));
-> -
->  	stmmac_stop_tx_dma(priv, chan);
-> -	dma_free_tx_skbufs(priv, priv->dma_conf, chan);
-> -	stmmac_clear_tx_descriptors(priv, priv->dma_conf, chan);
-> -	stmmac_reset_tx_queue(priv, chan);
-> -	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
-> -			    tx_q->dma_tx_phy, chan);
-> -	stmmac_start_tx_dma(priv, chan);
-> -
->  	priv->xstats.tx_errors++;
-> -	netif_tx_wake_queue(netdev_get_tx_queue(priv->dev, chan));
-> +	/* Recovery must wait for DMA before freeing or rewriting descriptors.
-> +	 * Use the process-context reset path, not teardown in hard IRQ context.
-> +	 */
-> +	stmmac_global_err(priv);
+> @@ -6601,6 +6651,109 @@ static void stmmac_set_rx_mode(struct net_device *dev)
+>  	stmmac_set_filter(priv, priv->hw, dev);
 >  }
+>  
+> +static int stmmac_reconfigure_mtu(struct net_device *dev, int mtu)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&priv->ptp_mutex);
+> +	stmmac_block_ptp(priv, true);
+> +	netif_device_detach(dev);
+> +	phylink_stop(priv->phylink);
 
 [Severity: Medium]
-Now that the in-IRQ restart is gone, TX recovery depends only on
-stmmac_global_err() queueing the reset work. Can that request be lost?
+Can holding ptp_mutex across phylink_stop() create a lock ordering cycle?
 
-stmmac_service_event_schedule() queues the work only when
-STMMAC_SERVICE_SCHED is not already set:
+phylink_stop()->phylink_run_resolve_and_disable() does:
 
-    if (!test_bit(STMMAC_DOWN, &priv->state) &&
-        !test_and_set_bit(STMMAC_SERVICE_SCHED, &priv->state))
-            queue_work(priv->wq, &priv->service_task);
+    queue_work(system_power_efficient_wq, &pl->resolve);
+    flush_work(&pl->resolve);
 
-stmmac_reset_subtask() clears STMMAC_DOWN right after dev_open() has
-re-requested the IRQs and restarted DMA. STMMAC_SERVICE_SCHED is only
-cleared once the subtask returns:
+so lockdep records a ptp_mutex -> resolve work dependency.
 
-stmmac_reset_subtask()
-    dev_open(priv->dev, NULL);
-    clear_bit(STMMAC_DOWN, &priv->state);
-    clear_bit(STMMAC_RESETING, &priv->state);
+On link down, the resolve worker runs
+phylink_resolve()->phylink_link_down()->phylink_deactivate_lpi()->
+stmmac_mac_disable_tx_lpi(), and that takes priv->lock. With MAC WoL,
+phylink_stop() also calls phylink_link_down() directly under state_mutex.
+
+stmmac_resume() takes the two locks in the opposite order:
+
+    mutex_lock(&priv->lock);
     ...
-stmmac_service_task()
-    stmmac_reset_subtask(priv);
-    clear_bit(STMMAC_SERVICE_SCHED, &priv->state);
+    mutex_lock(&priv->ptp_mutex);
 
-Suppose a TX hard error lands in that window. It stops the queue and the
-TX DMA channel, turns the carrier off and sets STMMAC_RESET_REQUESTED,
-but no work gets queued. The worker also never re-checks
-STMMAC_RESET_REQUESTED.
+Together these form ptp_mutex -> resolve work -> priv->lock -> ptp_mutex.
+Both the MTU path and the resume path hold RTNL today, so this may not
+deadlock in practice. The resolve worker does not hold RTNL, though.
 
-With the carrier off, dev_watchdog() won't call ndo_tx_timeout either.
-Does the channel then stay stopped until an administrative down/up or a
-link change?
+Once an MTU change, an LPI link-down and a resume have all run, won't
+lockdep report a circular dependency? Before this patch, nothing called
+phylink_stop() with ptp_mutex held.
 
-[ ... ]
+Could ptp_mutex be taken after phylink_stop() and stmmac_quiesce()
+instead?
 
-> @@ -3350,6 +3476,19 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
->  		netdev_err(priv->dev, "Failed to reset the dma\n");
->  		return ret;
->  	}
-> +	stmmac_dma_reset_complete(priv);
-> +	priv->dma_reset_needed = false;
+> +	stmmac_quiesce(priv);
+> +	if (stmmac_fpe_supported(priv))
+> +		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
 > +
-> +	if (reinit) {
-> +		stmmac_reinit_dma_desc(priv);
-> +	} else if (priv->datapath == STMMAC_DATAPATH_SUSPENDED) {
-> +		/* Suspend only requested a stop. Do not modify its descriptors
-> +		 * or release pending TX buffers until this reset has completed.
-> +		 */
-> +		stmmac_reset_queues_param(priv);
-> +		stmmac_free_tx_skbufs(priv);
-> +		stmmac_clear_descriptors(priv, priv->dma_conf);
-> +	}
-
-[Severity: High]
-The commit message says:
-
-  "Rebuild retained RX descriptors after reset with buffer addresses and
-  chain links written before ownership."
-
-and:
-
-  "Likewise, move resume-time TX cleanup and descriptor rebuilding after
-  the reset succeeds."
-
-That rebuild is stmmac_reinit_dma_desc(), which only runs when reinit is
-true. No caller in this patch passes true.
-
-A later patch in the series ("net: stmmac: retain DMA resources across
-MTU changes") passes it only for MTU rollback. At the end of the series,
-stmmac_resume() still does:
-
-    ret = stmmac_hw_setup(ndev, false, false);
-
-So resume takes the STMMAC_DATAPATH_SUSPENDED branch above, which only
-calls stmmac_clear_descriptors(). On GMAC4 that goes through
-dwmac4_rd_init_rx_desc() -> dwmac4_set_rx_owner(). On XGMAC it goes
-through dwxgmac2_init_rx_desc() -> dwxgmac2_set_rx_owner(). Both only OR
-flags into des3:
-
-    p->des3 |= cpu_to_le32(flags);
-
-stmmac_suspend() disables NAPI in stmmac_quiesce() before
-stmmac_stop_all_dma(). Frames the DMA completes in between stay in
-writeback format: des0 holds VLAN tags or zero, and des1/des2 hold
-status. Entries whose refill failed (buf->page == NULL) also stay in
-writeback format.
-
-After stmmac_start_all_dma() on resume, would the RX DMA take those
-writeback words as buffer addresses and write received data there?
-
-[ ... ]
-
-> @@ -7967,6 +8183,8 @@ int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size)
->  		netif_device_detach(dev);
->  		__stmmac_release(dev);
->  	}
-> +	if (stmmac_dma_busy(priv))
-> +		return -EBUSY;
->  
->  	priv->dma_conf->dma_rx_size = rx_size;
->  	priv->dma_conf->dma_tx_size = tx_size;
-
-[Severity: High]
-Can priv->dma_conf still hold all of its allocations while dma_owned is
-false, so that this check doesn't catch it? One sequence that seems to
-get there:
-
-1. ndo_stop -> __stmmac_release() -> stmmac_drain_dma(): the idle wait
-   and stmmac_reset() both fail. Config A stays dma_owned.
-   free_dma_desc_resources(A) only calls stmmac_detach_xsk_buffers(), so
-   A keeps its descriptors, buf_pool, page_pool and tx_skbuff /
-   tx_skbuff_dma arrays. A is not marked retired, because only
-   stmmac_put_dma_conf() sets that.
-
-2. ndo_open: stmmac_open() allocates config B. Then
-   __stmmac_open(B) -> stmmac_hw_setup() -> stmmac_init_dma_engine()
-   resets successfully, and stmmac_dma_reset_complete() sets
-   A->dma_owned = false without freeing A.
-
-3. A later step of the open fails, for example stmmac_rxp_config(),
-   stmmac_tc_restore_filters(), stmmac_tc_restore_est(),
-   stmmac_request_irq() or netif_set_real_num_queues().
-   err_dma_resources restores priv->dma_conf = A and frees B.
-
-4. With the interface down, ethtool -G reaches
-   stmmac_reinit_ringparam(). stmmac_dma_busy() returns false, and
-   A->dma_rx_size and A->dma_tx_size are overwritten.
-
-5. On the next successful open, stmmac_put_dma_conf(A) ->
-   free_dma_desc_resources(A) frees A using the new sizes.
-
-If the new sizes are larger, dma_free_rx_skbufs() and
-dma_free_tx_skbufs() loop up to the new size. Would they then write
-buf->page = NULL and tx_skbuff_dma[i].buf = 0 past the ends of buf_pool
-and tx_skbuff_dma, and unmap or free pointers read from beyond them?
-
-Would dma_free_coherent() also be called with a size that doesn't match
-the original allocation?
-
-[ ... ]
-
-> @@ -8508,12 +8740,28 @@ void stmmac_dvr_remove(struct device *dev)
->  {
->  	struct net_device *ndev = dev_get_drvdata(dev);
->  	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	struct stmmac_dma_conf *dma_conf;
-> +	u32 queue;
->  
->  	netdev_info(priv->dev, "%s: removing driver", __func__);
->  
->  	pm_runtime_get_sync(dev);
->  
->  	unregister_netdev(ndev);
-> +	rtnl_lock();
-> +	/* A failed ndo_open has no matching ndo_stop. Its retained resources
-> +	 * still need retirement, or software-only disconnection on timeout.
+> +	/* Drain handlers before the final TX stop and configuration swap,
+> +	 * and keep the registrations for rollback.
 > +	 */
-> +	list_for_each_entry(dma_conf, &priv->dma_confs, list) {
-> +		free_dma_desc_resources(priv, dma_conf);
-> +		for (queue = 0; queue < MTL_MAX_RX_QUEUES; queue++) {
-> +			struct xdp_rxq_info *rxq = &dma_conf->rx_queue[queue].xdp_rxq;
-> +
-> +			if (xdp_rxq_info_is_reg(rxq))
-> +				xdp_rxq_info_unreg(rxq);
-> +		}
-> +	}
-> +	rtnl_unlock();
+> +	stmmac_set_dma_irq_state(priv, false, irq_mask);
+> +	stmmac_synchronize_irq(priv);
 
 [Severity: Medium]
-If an earlier ndo_stop left a config dma_owned, is the stop or reset
-ever retried before stmmac_free_dma_conf() quarantines it?
+Only the per-channel DMA interrupt enables are masked here. What happens
+to the MAC core interrupt sources? On dwmac4, dwmac4_core_init() writes
+GMAC_INT_DEFAULT_ENABLE (PMT, LPI and TSIE) to GMAC_INT_EN, and none of
+those are masked.
 
-With the datapath already DOWN, __stmmac_release() returns early when
-unregister_netdev() calls ndo_stop:
+While ptp_blocked is set, stmmac_common_interrupt() skips the timestamp
+acknowledgement:
 
-    if (priv->datapath == STMMAC_DATAPATH_DOWN)
+    if (!READ_ONCE(priv->ptp_blocked))
+        stmmac_timestamp_interrupt(priv, priv);
+
+The only place that clears the TS interrupt is timestamp_interrupt(),
+which reads GMAC_TIMESTAMP_STATUS.
+
+Suppose an extts snapshot or a PPS target time event arrives between
+stmmac_block_ptp(priv, true) and the unblock at the restart label. Can a
+level-triggered line then keep firing, with stmmac_interrupt() returning
+IRQ_HANDLED every time? That window includes the sleeping
+phylink_stop()/flush_work() and synchronize_net(). It also covers the
+time after stmmac_ptp_restore() re-arms extts/PPS inside
+stmmac_hw_setup().
+
+On a single-CPU system, could this stop the thread that performs the
+reset from ever running?
+
+The failed rollback branch further down has a related problem:
+
+    stmmac_set_dma_irq_state(priv, false, irq_mask);
+    stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
+    ...
+    priv->datapath = STMMAC_DATAPATH_HALTED;
+
+The failed stmmac_hw_setup() has already run stmmac_core_init(), which
+re-enables the MAC interrupts, before its later fallible steps
+(stmmac_rxp_config(), stmmac_tc_restore_filters(),
+stmmac_restore_timestamping(), stmmac_tc_restore_est()).
+stmmac_mac_set(false) only clears RE/TE.
+
+stmmac_request_irq_single() registers dev->irq with IRQF_SHARED. If the
+MAC raises LPI, TS, PMT or safety status after the handler is freed,
+could the shared line storm until the IRQ core disables it? That would
+break the unrelated devices that the commit message says this design
+keeps working. The old failed-reopen path behaved similarly for this
+second case, but the ptp_blocked window above is new.
+
+> +	stmmac_stop_tx_queues(priv);
+> +
+> +	ret = stmmac_prepare_rx_buffers(priv);
+> +	if (ret)
+> +		goto restart;
+> +
+> +	stmmac_stop_all_dma(priv);
+> +	phylink_prepare_resume(priv->phylink);
+> +
+> +	/* MAC receive limits must be programmed for the prospective MTU. */
+> +	WRITE_ONCE(dev->mtu, mtu);
+> +	priv->dma_conf = new_conf;
+> +	stmmac_reset_queues_param(priv);
+> +	ret = stmmac_hw_setup(dev, false, true);
+
+[Severity: Medium]
+Does passing keep_ptp=true here still work if the PTP reference clock
+was never enabled at open?
+
+stmmac_setup_ptp() only warns when the clock fails to enable:
+
+    ret = clk_prepare_enable(priv->plat->clk_ptp_ref);
+    priv->ptp_clock_enabled = !ret;
+    ...
+    if (ret < 0) {
+        netdev_warn(...);
         return;
+    }
 
-This loop then only calls free_dma_desc_resources(). For owned configs
-that is just the software XSK detach; neither stmmac_drain_dma() nor
-stmmac_reset() is called.
+However, stmmac_restore_timestamping() checks only dma_cap and
+clk_ptp_rate before it programs the counter. It does not look at
+priv->ptp_clock_enabled:
 
-Further down, stmmac_dvr_remove() asserts the IP reset:
+    if (!(priv->dma_cap.time_stamp || priv->dma_cap.atime_stamp) ||
+        !priv->plat->clk_ptp_rate)
+        return 0;
 
-    if (priv->plat->stmmac_rst)
-        reset_control_assert(priv->plat->stmmac_rst);
+    ret = stmmac_init_tstamp_counter(priv, priv->systime_flags);
 
-dma_owned is never cleared, though, so the devm action
-stmmac_free_dma_conf() skips kfree() for those configs.
+Further down,
+stmmac_hw_setup()->stmmac_restore_timestamping()->stmmac_ptp_restore()->
+config_addend() polls TSADDREG for up to 100ms:
 
-After one transient stop/reset timeout followed by an unbind, wouldn't
-these leak until reboot?
+    return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
+                                     !(value & PTP_TCR_TSADDREG),
+                                     10, 100000);
 
-  - the coherent rings
-  - page_pool pages and TX skbs
-  - the xsk_dma references, with their UMEM pin and the device and
-    netdev references taken by xp_dma_get()
+On hardware where this handshake cannot complete while the reference
+clock is gated, the rollback stmmac_hw_setup(dev, true, true) would fail
+the same way. Wouldn't that leave the interface in
+STMMAC_DATAPATH_HALTED?
 
-The commit message describes quarantine as happening "If hardware still
-cannot stop or reset at removal". Does removal ever actually test that?
+Before this patch, the MTU path went through __stmmac_open(). That called
+stmmac_hw_setup() with keep_ptp=false and then stmmac_setup_ptp(), which
+tolerates this failure. Should stmmac_restore_timestamping() also check
+priv->ptp_clock_enabled?
+
+> +	if (ret) {
+> +		stmmac_stop_all_dma(priv);
+> +		stmmac_mac_set(priv, priv->ioaddr, false);
+> +		priv->dma_conf = old_conf;
+> +		WRITE_ONCE(dev->mtu, old_mtu);
+> +
+> +		/* Reuse the retained rings. Reinitialize them only after reset
+> +		 * has completed, not merely after clearing the DMA enable bits.
+> +		 */
+> +		restore_ret = stmmac_hw_setup(dev, true, true);
+> +		if (restore_ret) {
+> +			stmmac_stop_all_dma(priv);
+> +			stmmac_mac_set(priv, priv->ioaddr, false);
+> +			/* Setup may have restored DMA interrupt enables. */
+> +			stmmac_set_dma_irq_state(priv, false, irq_mask);
+> +			stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
+> +			stmmac_stop_tx_queues(priv);
+> +			stmmac_stop_all_dma(priv);
+> +			memset(irq_mask, 0, sizeof(irq_mask));
+> +			stmmac_set_dma_irq_state(priv, true, irq_mask);
+> +			priv->datapath = STMMAC_DATAPATH_HALTED;
+> +			netdev_err(dev, "MTU rollback failed: %pe; interface remains detached\n",
+> +				   ERR_PTR(restore_ret));
+> +			goto free_new;
+
+[Severity: Medium]
+Does anything undo the earlier phylink_prepare_resume() on this path?
+
+On mac_requires_rxc platforms, phylink_prepare_resume() calls
+phy_resume() on the PHY that phylink_stop() has just suspended. The
+HALTED branch never calls phylink_stop() or phy_suspend(). The PHY stays
+powered and can present link to the partner while the interface is
+detached. That lasts until close, when __stmmac_release() calls
+phylink_stop().
+
+The init_error path in __stmmac_open() does undo it:
+
+init_error:
+	phylink_stop(priv->phylink);
+	stmmac_drain_dma(priv);
+	phylink_stop(priv->phylink);
+
+Should the HALTED branch also call phylink_stop() before it returns?
+
+> +		}
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9%40gmail.com
