@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885B4403135;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A69407563;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750570; cv=none; b=uMAOIQRvn50Vp+zvi+3E+luF1moaFxh1OV/QMI4Pu4LPMdwVBm3S2vYJnOWfckZEYhxvUOo7Lxhl76M8MQB+rmMY4b9nyg7hIit/nvmwXrLHttb5xznE0B9E82H8pEaBGM78VBC6DxB8WOlvBxLQM3QahCw2Qvs8Sbg87tNMIR4=
+	t=1790750570; cv=none; b=XiojYsIO/Fb4+evV8tT/HRGJcfcGS31ztkuVCXT0wFq/3rwpfpu8kfcdJxmGypgnXl211exZY3RF1L6yg5lB+7PLLMn8QPYLqqBsmt/+rDTbNf+S3F//Ye7t4MZRcHx23lu+8xF1pYytEENN0POLcLn4x6WQ0OiHcPb2Bx10Kk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750570; c=relaxed/simple;
-	bh=TWatsb3kz0z7BnGaaPPrhTcmuHGXiQGWMLpkSmqT2Ns=;
+	bh=aX+32NWpgpWpN5xHW8WmnoJSFaDqy0e88aDoAo90UWM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H49lkqasoyWPz9tieV9VAsm3tMGgRMKj5mO6LEhFa71TyNc0TX67uu3S4D+S0O0u209OsCXCHZlYPmM/L27WxMhmNukIs4uOIt3RxX/SRSo3W0p1jPFKcle+iVRcoapQiIkFEZfv8cjOBFm5dPycLcKhfBhJmGxMAPghCrEQqcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBrGY8Fk; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=eeFxZSU1h0dLLangMeRjfdM/2frlGp1ysL0bb+erntFHqOP4001b+jJE4iAlRqgbCXtx0XXHXu80xxlV8euJwey2NVa2k0yzq6gn7FV7d6rrl9OmCYG+8wyPHQgH9+flZ98SugbVMDKWJ9nFYRcqyi7dNX4mHKPXpQKCv4QVbWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cH3Gjv6T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBrGY8Fk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 328B3C4AF67;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cH3Gjv6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 91EA7C4AF1C;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790750570;
-	bh=TWatsb3kz0z7BnGaaPPrhTcmuHGXiQGWMLpkSmqT2Ns=;
+	bh=aX+32NWpgpWpN5xHW8WmnoJSFaDqy0e88aDoAo90UWM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=fBrGY8Fk6fwlw4sBqy4vzCa53cbh2u20xYV1Fh5HultEFIF9q83BwEI2gvq8OFnt+
-	 qno/7K7pXxMDY8bkEyp8T2ZANuL9n22mnd8/rgMfqHJp0ln6AwDyOlajWB7eQCXHSh
-	 ck9n2BAy+0gIptN8g3ODvUBHb47t5FeCo4kyC3JqjPr5EQiseKhySrY0s+yf6aezXp
-	 eYiMBUtnuIlOkx2Zf3QSD5VUtEqksdXgXa/R9zKp0rdaqDblK4CaTGUHbnMLbaKx0R
-	 LgcVHPsCSPQceKf9CD3I1qYvBJvu2kPh5ONanS5Z6W3x3bJNK3QPt7oD2ICZukWzoZ
-	 fiXX2dClyXqNw==
+	b=cH3Gjv6TW0qW6hWI6kmoG/JO12jgMKvoZI1dCHnmN27DLCRZq0IQ0kbTsA+44DzPS
+	 hXrhfdi61hX6EGRi8Ezl62ZQBV7GNyl5N7la2QSlnmZDp923uisxMutZvdyzQWn98B
+	 HkVVIchffYTgKFgkktAg2RjAwTEpxrqugJjmlgs/GpF8fsyGm5lVEWLUaizATYg0CB
+	 9y4n/tvBj0OOMX04+UMp0ZS9VAERwgU00VUodsXitluv2VWPljZrHEpbg8RYlHN2e5
+	 8Daqqh7ma/+ggvtjZDpkgLLYGGC1oANo/N4n9i2wpvLA/IuZXeoOTCRii5W2DU4r/C
+	 NO+kOroMPRwfA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21AD6CA5FBB;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FA5BCA5FB1;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:24 +0800
-Subject: [PATCH v2 06/21] media: i2c: it6625: use unsigned int loop indices
- in table lookups
+Date: Wed, 30 Sep 2026 14:41:30 +0800
+Subject: [PATCH v2 12/21] media: i2c: it6625: use unaligned/units helpers
+ to decode pixel clock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-6-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-12-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1788;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1921;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=Itu8nqafqSgZFUOiiGQ7HvAR9weeiTDf2BIBCspj7RM=;
- b=2IJPYSHeAcAs7xNCzpdoDiOQoVcBKxr7SkLWs68196lCZ+Z4LeRSwkE77oxwGbDqRILDOFD0L
- ACDCLY4IO/xACSo1Mfovb3FA0vaOeTxkNiJrh+CupeG0/PgPgVp2iAM
+ bh=8ZknusIer/QhqdsYanmDhev+LrXQmML7xisTSO61el8=;
+ b=GdMeC9TOcWdmfDi7E9VhUmWjUFp8gWqmKpXUbro+JtkbM7j2A7UPknMNloWFc+giBQn7q+wTS
+ PaEfs0pyfiEDBWHKQZt8ChCPRsXgiru8fX9GZjIieI3o27qWc1GTvfI
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,55 +67,65 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-it6625_csi_format_idx(), it6625_csi_mbus_code_idx(), and
-it6625_regdump_print() iterate with a plain-signed loop index against
-an unsigned bound. Declare the index as unsigned int directly in the
-for() statement instead.
+it6625_get_pclk() manually assembled a big-endian u32 from a 4-byte
+buffer with a shift-and-OR sequence, and multiplied by a bare 1000.
+Read the register range with sizeof(ck), decode it with
+get_unaligned_be32(), and use HZ_PER_KHZ to convert the kHz register
+value to the Hz value V4L2 DV timings expect. Add the linux/unaligned.h
+and linux/units.h includes these need. While touching this declaration
+block, reorder it per reverse fir-tree.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/media/i2c/it6625.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index b747c08e092c7b35994cb36bb5bf7b99495282cb..9382a64706919d380e8318c3139b42a4a7b2fd55 100644
+index b72b1fdc8f6b96c807bf767b82a953a89b08120a..f77eb3ed63f7695cf9da277b46d9bab4a526e065 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -375,9 +375,7 @@ static const struct it6625_format_info {
+@@ -18,6 +18,8 @@
+ #include <linux/slab.h>
+ #include <linux/time64.h>
+ #include <linux/timer.h>
++#include <linux/unaligned.h>
++#include <linux/units.h>
+ #include <linux/v4l2-dv-timings.h>
+ #include <linux/videodev2.h>
+ #include <linux/workqueue.h>
+@@ -633,28 +635,22 @@ static int get_audio_sampling_rate(struct it6625 *it6625)
  
- static inline int it6625_csi_format_idx(u8 csi_format)
+ static u64 it6625_get_pclk(struct it6625 *it6625)
  {
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
-+	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
- 		if (it6625_formats[i].csi_format == csi_format)
- 			return i;
+-	u32 pclk;
+ 	u8 ck[4];
++	u32 pclk;
+ 	int ret;
+ 
+-	ret = it6625_read_bytes(it6625, REG_VID_PCLK, ck, 4);
++	ret = it6625_read_bytes(it6625, REG_VID_PCLK, ck, sizeof(ck));
+ 	if (ret < 0) {
+ 		dev_err(it6625->dev, "failed to read pixel clock");
+ 		return 0;
  	}
-@@ -387,9 +385,7 @@ static inline int it6625_csi_format_idx(u8 csi_format)
  
- static inline int it6625_csi_mbus_code_idx(u32 mbus_fmt_code)
- {
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
-+	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
- 		if (it6625_formats[i].mbus_fmt_code == mbus_fmt_code)
- 			return i;
- 	}
-@@ -1895,11 +1891,9 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+-	pclk = ck[0];
+-	pclk <<= 8;
+-	pclk |= ck[1];
+-	pclk <<= 8;
+-	pclk |= ck[2];
+-	pclk <<= 8;
+-	pclk |= ck[3];
++	pclk = get_unaligned_be32(ck);
  
- static void it6625_regdump_print(struct seq_file *s, const u8 *reg_buf)
- {
--	int i;
--
- 	seq_puts(s, "     0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F\n");
+ 	v4l2_dbg(1, debug, &it6625->sd, "%s: pclk=%u (%08x)",
+ 		 __func__, pclk, pclk);
  
--	for (i = 0; i < 256; i++) {
-+	for (unsigned int i = 0; i < 256; i++) {
- 		if (i % 16 == 0)
- 			seq_printf(s, "[%02X] ", i & 0xF0);
- 		seq_printf(s, "0x%02X ", reg_buf[i]);
+-	return (u64)pclk * 1000;
++	return (u64)pclk * HZ_PER_KHZ;
+ }
+ 
+ static int it6625_read_edid(struct it6625 *it6625, u8 *edid, int start_block,
 
 -- 
 2.34.1
