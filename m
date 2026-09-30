@@ -1,32 +1,32 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827863546CC;
-	Wed, 30 Sep 2026 12:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743BD3F5BE6;
+	Wed, 30 Sep 2026 12:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772201; cv=none; b=bK9RCOzzzBDRHH2nS7CMx7cgU2veTB8UQDjqiv2KKnR6h8m0ZN4JNyWHOMx59wJW/X1PX4KEciDvKDixWYHd6yH/el/dhsT0PXuwhwej//fh3XFWd1gOx2LSQ82Kf3Bf3exmVlllq0dkc5ZkpH89LcxO477Qfi6dvSvGWlKvIrk=
+	t=1790772226; cv=none; b=p91cGWkI9LmXzLFNogTfdeWY0B4fCj+qha0n8hw/tFX0MfxB0uaAZNgUrcB3k6m4+a+NjkO/88IA69Q3wjJrboJV5p8MoG/1oYQDf8qlNCISEaXwji35uH/u/MdJQD5Nx/aoHdw+JkSh+VmT/FyWE35yEHFV5Bm3Y2ET6vYpBSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772201; c=relaxed/simple;
-	bh=Li99yqPRw0UnF7s6fDANEJDsnjXuUUhvb0y6Pc2dEfk=;
+	s=arc-20240116; t=1790772226; c=relaxed/simple;
+	bh=RQTW9FqPueCQSZPHJ76XPxFed33TC+kZy34ScyyRoYg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JSAo2Q9n1IlixTu1JZwOthafKzJnkAWzj6R870ik38QpJIXKGx7DllTwW+O08iyg6QEs4IaY7h38GrtVXmX1Phrd4bAVzFFEi/aY46yUsaxQ13NMZAVtH2DkgK+/oJoRTRQCt27GJU/vwUAhj2XlTRWrqeg2+hooV51kE1FpHW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
+	 In-Reply-To:To:Cc; b=ldbMt/sGg42cjQdd4DgF2ukFqvIQI200XNSkJvl4ooGUcuMRQkb3dX5AU7Upxo5FUq7dvFqZjfEAQlGiGXpQ5am8V97M3UXcKJ7V2hREWzq9WSCDGn4xrTNFDeqwQJjgNciKmsFQrlJZ3xhcKHRrvDlF1Xq0CJ0j3iTrVO/9OK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=43.154.197.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1790772152t7dc9c172
-X-QQ-Originating-IP: WceE0gQRa+4Zl99cOV+oa3GjiJFg+QGWfuaL0DqcC08=
+X-QQ-mid: zesmtpip3t1790772163t07ddc1c2
+X-QQ-Originating-IP: HH3deTPG2oeB7yf67F2S1AMFUkldv1DBKOV6BqlS2/g=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 30 Sep 2026 20:42:30 +0800 (CST)
+	id ; Wed, 30 Sep 2026 20:42:41 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15150268539478603505
+X-BIZMAIL-ID: 702636443561893348
 EX-QQ-RecipientCnt: 16
 From: Xilin Wu <sophon@radxa.com>
-Date: Wed, 30 Sep 2026 20:41:49 +0800
-Subject: [PATCH 05/13] drm/msm/dp: Unwind resources when enabling a stream
- fails
+Date: Wed, 30 Sep 2026 20:41:53 +0800
+Subject: [PATCH 09/13] drm/msm/dp: Track output bit depth in bridge atomic
+ state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-msm-dp-hdr10-v1-5-dbbf8b2b42bc@radxa.com>
+Message-Id: <20260930-msm-dp-hdr10-v1-9-dbbf8b2b42bc@radxa.com>
 References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
 In-Reply-To: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,435 +50,416 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  Xilin Wu <sophon@radxa.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13206; i=sophon@radxa.com;
- h=from:subject:message-id; bh=Li99yqPRw0UnF7s6fDANEJDsnjXuUUhvb0y6Pc2dEfk=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZfWGlkLLOdNO/NZsltwm12o8CeXnrgNeR92Cuh1f
- bJaa/mlo5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwEQS2Rj+J3jEvpWNOPd9juva
- L9o93YfUtu+K2uyrVbrft1PiP/Psg4wMHQcObfq/9ulXB/G/e3YtvlRxSsH7VsH8U3xPf5zcvPz
- bJ14A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14198; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=RQTW9FqPueCQSZPHJ76XPxFed33TC+kZy34ScyyRoYg=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZcJFPrOzHfcuuZuXvRfa/WkRYlNtlEsx2a6GEsFf
+ /2pc1O/o5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETMzjEy/Nv7LFnr+bL22y+v
+ dKhasU7cLHt46drrvZsVo6akhT33rWT47y60fO+K3xzlGjNzrjJbaai3TCo8wPxrUsjya1e+puu
+ Z8AAA
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MJYuk1ZES9E0DFE3V4tMoSn8mNLab3J7LTQ8IfJ4+qGagUik5HcEezt4
-	MWjU0/FTz6vb/iiDMdSimhzKDYCOT8pJTCo7SYmE59WqzX7BFo2piNUaVysYwMNmH41wEo5
-	zYrlot3jv+KBjv3lEUHMUyfAnMFEBEcGNuOpiaQVGh8A4nAkaofFjNoE9QTKC94GTJBV4tA
-	f47a01/v+dL5ZWZGp4ZKpD9BspyS81btOyX7vnP0yGpgOOrH7xr+297aC0ywzT+XVjofWTR
-	rB2fKEW4WqgxwFalXOo11QT1t2BPz/kUaYtQ4kfG4btgD1bxTxb8B3RXBZlHUzzuBEOuPLO
-	FGWuHWnJPFFS/y0i6HIkDFFyfGz+SFd81KBSBqrxeinIgMoy2V2BB6b+687M1bHDGiBwnTD
-	HUOFL0OdQp44Zocy1vtEsrWfR9+5vsDyGP664II34wKVXfw9sQSuVXTN7vVWw3ZQ1ma4K+M
-	LgKlrZ99IkktlwTd9mqnM/C7mh3T0spUk/s0VOTRh8kbRDSNM7INIq/SGDncjmJGJ3lg4vT
-	Lr5HXuldY/84YWDJTkBDHmNa8iexwV3R7EcUZIt0hbbYVsbObPgK9h9v9hf9Ml3vK6OFfUY
-	Q6kE86QUfogrNZuWjDHHIlTTadF63w4Q9uBH4h2/HpzslDRUi3eLJrJqV2UN+gWevkER7WI
-	DjKINOtNEh2dlAOQvSPx0/AEPTGN13ZRvKFzhU0iAjEVDCR84vNy0NHwVVwD0yDsvWuU/Qq
-	fPc1Irj6YiGHdhs0DCW7iFjjkd8WZxxV0mIRjyjdr8FK4Y5lNZyS6k3nq/0GtYecBio6Oo8
-	JPnCTG0WG8XB4feaW2L2DDh/ofwBnXBvPEs+vWssbp9gmoIxg4YIogbY2LIO16uM70DgwMh
-	nnn4ZWoZtpdbPU7YGUAoPgVdf5ch0E5osopYCjIuAVjwNvsNQUMYT9W4DAJDhnekHsbH5Cq
-	4nEPn7dSw69S/tXhSdy6fytETHPlF2yxhXdT2a0ajZQ57qZ1polDuYG63qXrxtWjfVmZe9f
-	BV8GC8YSAqYXjTa6R91pKyXGBrnso9/kYSKhIAmFAzGeIYQwa1B9ZPZ+N+x0g=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: My5OXIb+boh/6a0s/m6n601o3zFhk9luMQYilgGdMIsi2qNHp2XFPB6d
+	avRAJ/SgE9petIcoDlBtc9V/YOmeYZOSw8lRkbtTpiGzR6JNE//zRfObABpRjUIzjcTY2pP
+	eXE9lH24GruViJR7PmuOd29pf/PiZ0EEgntc0hthk4fFShBZ8MFFWKPkdI6JHY93CfeKSqY
+	mdt5jxppRmSCdza8c6jvIQQt1tnZ88gqLkKZ1qh53QCHBo8apZrLvo+K/sxYjXgd5KMUQLJ
+	sTMykbUZSUPBNkuQkneT7pqiX6zJX4mcgnwF5JBMkEHxXpk3MuMtr2RWcMAcA6PI5BhHM9Z
+	QD6s7rDX2kkBTvq2ciILPIGV1noRXcPJFiwXYINxaiWJa80t/k/R/Jcj5jKFXZiEtq6IrYm
+	e1tlUoSgmCYSBQi2DSjCfFfiijFt0G+OxrDvIdRL31WC4BkYQnOaWorHK4J6vuaWJlMfZor
+	DJUcZPrt/E8ByahgYcC01QbOo8SkzR/qdP3BBF1piGEu0oNQoig6arK1M2qP/G6LQULKeio
+	B6LV42zR7xW2v0p6Q3msCL6x7wg7TJx5oWuZJ1X99TFhh5bZGaipVS63GuUKZSEkZItOcOw
+	QHzWtOdSL5Yhm2xruykYCXcTcCMCAn/zOnMr+NM+FKNHAq08phumfMAIgvve7n05wCU7/Mg
+	e83xW0dy/xUJ0DSEa4ignzAbxcMwVS/UAGLSamDJzlggeSVJwfYA436fW/9yfXW77AylvRi
+	78codCkW/BEOk2oZ0iyhBChH1G6I45OEYEizYOIbqmNPVIzpTsh4QLh31AoldIQiFwg2Xf/
+	WURolIMIuCIT0gX3hNu4xtkePKedgcD3DG/W8zyzYKwFN/GirlARj9I3ZBUYXe1vaMWyLrw
+	1Fekwhmslmp0oEQIyd1PV6z45zN1xCaYmMI2KodgNJK0s7S0TmJ/RwW24cypfrIuLtJBPXv
+	P5zM3Uj9h3IY0Q+JeOD2sS76usn2jhoLhTA2P8sWcmOGdJQyhggFtWUu3fvG/lYiXkSinkw
+	WCAN5D1nhmOVzgHQjeITJZZZokRitjnhaPmMZE0KEmG1W/EYbKO+5xSaGfANw6PDj7xYS51
+	q3gXnTdQw+R
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-Stream enable can fail after acquiring a runtime PM reference or
-starting the link. Returning directly leaks those resources, while a
-later disable can release a reference that was never acquired.
+Expose max bpc on DP and eDP and select a supported component depth from
+the new connector state. Keep the result in a private bridge state so
+TEST_ONLY atomic commits do not modify the running stream. Force a modeset
+when max bpc changes to apply the new depth to the stream.
 
-Track the stream PM reference and whether mainlink startup was
-attempted. Use one rollback path for prepare, enable and post-enable
-failures, and share the bookkeeping with normal disable to avoid
-repeated release.
+Read cached capabilities under the plugged lock and defer the bandwidth
+check if they are not yet valid. Recheck the selected depth against the
+trained link before enabling video, including the reduced pixel rate of
+YUV420. Retain support for 6 bpc SDR panels.
 
-Keep AUX available for a connected external DP peer, including a
-dongle without a downstream sink. If mainlink startup was attempted,
-restore the AUX PHY after link shutdown, since partial startup can
-power down AUX as well. Use plugged_lock to serialize this decision
-with HPD processing; leave the connection PM reference for the HPD
-path to release.
-
-Only access mainlink and SDP registers while the link clocks are
-enabled. Startup or link reinitialization can fail with those clocks
-already off; keep the controller reset and remaining PHY cleanup
-independent of them.
-
-With ownership tracking and rollback in place, propagate errors from
-PHY initialization, configuration, power-on, eDP discovery and stream
-retraining. Do not mark failed PHY initialization as successful, and
-balance resources in the plug, detect and runtime resume paths as
-well.
+Retain the generic bridge helper's missing-state guard in the custom
+duplicate callback. Initial state allocation can fail at bridge attach;
+return NULL in that case so atomic state acquisition reports -ENOMEM
+instead of copying from a NULL pointer.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c    |  45 +++++++++-----
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |   2 +-
- drivers/gpu/drm/msm/dp/dp_display.c | 120 +++++++++++++++++++++++++++++++-----
- 3 files changed, 135 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 +++++++
+ drivers/gpu/drm/msm/dp/dp_display.c | 39 ++++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_display.h |  6 +++
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 81 +++++++++++++++++++++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_drm.h     |  7 ++++
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  5 ---
+ drivers/gpu/drm/msm/dp/dp_utils.c   | 20 +++++++++
+ drivers/gpu/drm/msm/dp/dp_utils.h   |  4 ++
+ 8 files changed, 162 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index f005421630c6..16c9165b5f31 100644
+index 16c9165b5f31..f41924e75854 100644
 --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1856,17 +1856,22 @@ static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
- 	ctrl->phy_opts.dp.link_rate = ctrl->link->link_params.rate / 100;
- 	ctrl->phy_opts.dp.ssc = drm_dp_max_downspread(dpcd);
+@@ -23,6 +23,7 @@
  
--	phy_configure(phy, &ctrl->phy_opts);
-+	ret = phy_configure(phy, &ctrl->phy_opts);
-+	if (ret)
-+		return ret;
- 	if (!ctrl->phy_powered) {
- 		ret = phy_power_on(phy);
--		if (!ret)
--			ctrl->phy_powered = true;
-+		if (ret)
-+			return ret;
-+		ctrl->phy_powered = true;
- 	}
+ #include "dp_reg.h"
+ #include "dp_ctrl.h"
++#include "dp_utils.h"
+ #include "dp_link.h"
  
- 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
- 	ret = msm_dp_ctrl_link_clk_enable(&ctrl->msm_dp_ctrl);
--	if (ret)
-+	if (ret) {
- 		DRM_ERROR("Unable to start link clocks. ret=%d\n", ret);
-+		msm_dp_ctrl_phy_power_off(ctrl);
-+	}
- 
- 	drm_dbg_dp(ctrl->drm_dev, "link rate=%d\n", ctrl->link->link_params.rate);
- 
-@@ -1980,7 +1985,7 @@ static void msm_dp_ctrl_phy_reset(struct msm_dp_ctrl_private *ctrl)
- 	msm_dp_write_ahb(ctrl, REG_DP_PHY_CTRL, 0x0);
- }
- 
--void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
-+int msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
- {
- 	struct msm_dp_ctrl_private *ctrl;
- 	struct phy *phy;
-@@ -1989,7 +1994,7 @@ void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
- 	phy = ctrl->phy;
- 
- 	msm_dp_ctrl_phy_reset(ctrl);
--	phy_init(phy);
-+	return phy_init(phy);
- }
- 
- void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl)
-@@ -2021,7 +2026,9 @@ static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
- 	 */
- 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
- 
--	msm_dp_ctrl_phy_power_off(ctrl);
-+	ret = msm_dp_ctrl_phy_power_off(ctrl);
-+	if (ret)
-+		return ret;
- 	/* hw recommended delay before re-enabling clocks */
- 	msleep(20);
- 
-@@ -2038,16 +2045,21 @@ static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
- 					     struct msm_dp_panel *panel)
- {
- 	struct phy *phy;
-+	int ret;
- 
- 	phy = ctrl->phy;
- 
--	msm_dp_ctrl_mainlink_disable(ctrl);
-+	/* Reinitializing the link may already have disabled its clocks. */
-+	if (ctrl->link_clks_on)
-+		msm_dp_ctrl_mainlink_disable(ctrl);
- 
- 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
- 
- 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
- 
--	msm_dp_ctrl_phy_power_off(ctrl);
-+	ret = msm_dp_ctrl_phy_power_off(ctrl);
-+	if (ret)
-+		return ret;
- 
- 	/* aux channel down, reinit phy */
- 	phy_exit(phy);
-@@ -2583,8 +2595,11 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
- 		}
- 	}
- 
--	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
--		msm_dp_ctrl_link_retrain(ctrl, panel);
-+	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl)) {
-+		ret = msm_dp_ctrl_link_retrain(ctrl, panel);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* stop txing train pattern to end link training */
- 	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
-@@ -2671,9 +2686,11 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ #define POLLING_SLEEP_US			1000
+@@ -2620,6 +2621,20 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
  
  	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
  
--	msm_dp_panel_disable_vsc_sdp(panel);
--
--	msm_dp_ctrl_mainlink_disable(ctrl);
-+	/* Link startup may have failed before enabling the link clocks. */
-+	if (ctrl->link_clks_on) {
-+		msm_dp_panel_disable_vsc_sdp(panel);
-+		msm_dp_ctrl_mainlink_disable(ctrl);
++	/* Link training may have reduced the available bandwidth. */
++	if (!panel->video_test) {
++		u32 clock = panel->msm_dp_mode.drm_mode.clock;
++
++		if (panel->msm_dp_mode.out_fmt_is_yuv_420)
++			clock /= 2;
++		ret = msm_dp_utils_select_bpp(panel->msm_dp_mode.bpp / 3, 10,
++					      clock, ctrl->link->link_params.rate,
++					      ctrl->link->link_params.num_lanes);
++		if (ret < 0)
++			return ret;
++		panel->msm_dp_mode.bpp = ret;
 +	}
- 
- 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 5902cf7e746a..42c5f847cb02 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -39,7 +39,7 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev,
- 
- void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl,
- 		       struct msm_dp_panel *panel);
--void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl);
-+int msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_irq_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
++
+ 	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
+ 	pixel_rate = pixel_rate_orig;
  
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 3ca039ff57b8..ae967ca652c9 100644
+index 9c5b1cd200f8..af6bc179723c 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -52,6 +52,8 @@ struct msm_dp_display_private {
- 	bool core_initialized;
- 	bool phy_initialized;
- 	bool audio_supported;
-+	bool stream_pm_active;
-+	bool stream_link_attempted;
+@@ -28,6 +28,7 @@
+ #include "dp_panel.h"
+ #include "dp_display.h"
+ #include "dp_drm.h"
++#include "dp_utils.h"
+ #include "dp_audio.h"
+ #include "dp_debug.h"
  
- 	struct mutex plugged_lock;
- 	bool plugged;
-@@ -322,22 +324,26 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
-  *
-  * Prepare DP PHY for the AUX transactions to succeed.
-  *
-- * Returns: true if this call has initliazed the PHY and false if the PHY has
-- * already been setup beforehand.
-+ * Returns: 1 if this call initialized the PHY, 0 if it was already
-+ * initialized, or a negative error code on failure.
-  */
--static bool msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
-+static int msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+@@ -662,7 +663,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 
+ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 				   const struct drm_display_mode *adjusted_mode,
+-				   struct msm_dp_panel *msm_dp_panel)
++				   struct msm_dp_panel *msm_dp_panel,
++				   const struct msm_dp_bridge_state *state)
  {
-+	int ret;
-+
- 	drm_dbg_dp(dp->drm_dev, "type=%d core_init=%d phy_init=%d\n",
- 		dp->msm_dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized);
+ 	struct msm_dp_display_private *dp;
+ 	u32 bpp;
+@@ -672,7 +674,7 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	if (msm_dp_display_check_video_test(msm_dp_display))
+ 		bpp = msm_dp_display_get_test_bpp(msm_dp_display);
+ 	else
+-		bpp = msm_dp_panel->connector->display_info.bpc * 3;
++		bpp = state->bpp;
  
- 	if (!dp->phy_initialized) {
--		msm_dp_ctrl_phy_init(dp->ctrl);
-+		ret = msm_dp_ctrl_phy_init(dp->ctrl);
-+		if (ret)
-+			return ret;
- 		dp->phy_initialized = true;
--		return true;
-+		return 1;
- 	}
+ 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
  
--	return false;
-+	return 0;
+@@ -682,6 +684,34 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	return 0;
  }
  
- static void msm_dp_display_host_phy_exit(struct msm_dp_display_private *dp)
-@@ -419,7 +425,12 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
- 
- 	msm_dp_aux_enable_xfers(dp->aux, true);
- 
--	msm_dp_display_host_phy_init(dp);
-+	ret = msm_dp_display_host_phy_init(dp);
-+	if (ret < 0) {
-+		msm_dp_aux_enable_xfers(dp->aux, false);
-+		pm_runtime_put_sync(&pdev->dev);
-+		return ret;
-+	}
- 
- 	ret = msm_dp_display_process_hpd_high(dp);
- 
-@@ -628,8 +639,11 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 
- 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
- 
--	if (msm_dp_display->is_edp)
--		msm_dp_hpd_plug_handle(dp);
-+	if (msm_dp_display->is_edp) {
-+		rc = msm_dp_hpd_plug_handle(dp);
-+		if (rc)
-+			return rc;
-+	}
- 
- 	rc = pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
- 	if (rc) {
-@@ -637,18 +651,22 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 		return rc;
- 	}
- 
-+	dp->stream_pm_active = true;
-+
- 	if (dp->link->sink_count == 0)
- 		return -ENOTCONN;
- 
- 	if (!msm_dp_display->power_on) {
--		msm_dp_display_host_phy_init(dp);
-+		rc = msm_dp_display_host_phy_init(dp);
-+		if (rc < 0)
-+			return rc;
- 		force_link_train = true;
- 	}
- 
-+	dp->stream_link_attempted = true;
- 	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
- 	if (rc) {
- 		DRM_ERROR("Failed link training (rc=%d)\n", rc);
--		// TODO: schedule drm_connector_set_link_status_property()
- 		return rc;
- 	}
- 
-@@ -730,6 +748,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
- 		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
- 
- 	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
-+	dp->stream_link_attempted = false;
- 
- 	if (dp->link->sink_count == 0)
- 		/* re-init the PHY so that we can listen to Dongle disconnect */
-@@ -912,7 +931,12 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
- 		return status;
- 	}
- 
--	phy_deinit = msm_dp_display_host_phy_init(priv);
-+	ret = msm_dp_display_host_phy_init(priv);
-+	if (ret < 0) {
-+		pm_runtime_put_sync(&dp->pdev->dev);
-+		return status;
-+	}
-+	phy_deinit = ret;
- 
- 	msm_dp_aux_enable_xfers(priv->aux, true);
- 
-@@ -1294,6 +1318,7 @@ static int msm_dp_pm_runtime_suspend(struct device *dev)
- static int msm_dp_pm_runtime_resume(struct device *dev)
- {
- 	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
-+	int ret;
- 
- 	/*
- 	 * for eDP, host cotroller, HPD block and PHY are enabled here
-@@ -1306,7 +1331,12 @@ static int msm_dp_pm_runtime_resume(struct device *dev)
- 	msm_dp_display_host_init(dp);
- 	if (dp->msm_dp_display.is_edp) {
- 		msm_dp_aux_hpd_enable(dp->aux);
--		msm_dp_display_host_phy_init(dp);
-+		ret = msm_dp_display_host_phy_init(dp);
-+		if (ret < 0) {
-+			msm_dp_aux_hpd_disable(dp->aux);
-+			msm_dp_display_host_deinit(dp);
-+			return ret;
-+		}
- 	}
- 
- 	enable_irq(dp->irq);
-@@ -1431,6 +1461,53 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
- 	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
- }
- 
-+static void msm_dp_display_abort_enable(struct msm_dp_display_private *dp)
++int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
++				struct msm_dp_bridge_state *state,
++				const struct drm_display_mode *mode,
++				const struct drm_connector_state *conn_state)
 +{
-+	bool keep_aux;
-+	int ret;
++	const struct drm_display_info *info = &conn_state->connector->display_info;
++	struct msm_dp_display_private *dp;
++	unsigned int clock = mode->clock;
++	int bpp;
 +
-+	/* Do not access the controller if stream preparation never resumed it. */
-+	if (!dp->stream_pm_active)
-+		goto unplug;
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
 +
-+	scoped_guard(mutex, &dp->plugged_lock) {
-+		keep_aux = !dp->msm_dp_display.is_edp && dp->plugged &&
-+			msm_dp_aux_is_link_connected(dp->aux);
++	if (drm_mode_is_420_only(info, mode))
++		clock /= 2;
 +
-+		if (dp->stream_link_attempted) {
-+			/* The AUX peer is the remaining dongle, not its absent sink. */
-+			if (keep_aux && !dp->link->sink_count && dp->phy_initialized)
-+				msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
++	guard(mutex)(&dp->plugged_lock);
 +
-+			msm_dp_ctrl_off_pixel_clk(dp->ctrl);
-+			msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
-+			dp->stream_link_attempted = false;
++	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc,
++				      clock, dp->panel->link_caps_valid ?
++				      dp->panel->link_info.rate : 0,
++				      dp->panel->link_info.num_lanes);
++	if (bpp < 0)
++		return bpp;
 +
-+			/* Mainlink power-off can also power down the AUX circuitry. */
-+			msm_dp_display_host_phy_exit(dp);
-+			if (keep_aux) {
-+				ret = msm_dp_display_host_phy_init(dp);
-+				if (ret < 0) {
-+					DRM_ERROR("Failed to restore AUX PHY: %d\n", ret);
-+					msm_dp_aux_enable_xfers(dp->aux, false);
-+				}
-+			}
-+		} else if (!keep_aux) {
-+			msm_dp_display_host_phy_exit(dp);
-+		}
-+		dp->msm_dp_display.power_on = false;
-+	}
-+
-+unplug:
-+	if (dp->msm_dp_display.is_edp)
-+		msm_dp_hpd_unplug_handle(dp);
-+
-+	if (dp->stream_pm_active) {
-+		pm_runtime_put_sync(&dp->msm_dp_display.pdev->dev);
-+		dp->stream_pm_active = false;
-+	}
++	state->bpp = bpp;
++	return 0;
 +}
 +
- void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
- 				  struct drm_atomic_commit *state)
- {
-@@ -1442,20 +1519,26 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
- 	rc = msm_dp_display_prepare_link(dp);
- 	if (rc) {
- 		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
--		return;
-+		goto err;
- 	}
- 
- 	rc = msm_dp_display_enable(dp, dp->panel);
--	if (rc)
-+	if (rc) {
- 		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
-+		goto err;
-+	}
- 
- 	rc = msm_dp_display_post_enable(msm_dp_display);
- 	if (rc) {
- 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
--		msm_dp_display_disable(dp, dp->panel);
-+		goto err;
- 	}
- 
- 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
-+	return;
-+
-+err:
-+	msm_dp_display_abort_enable(dp);
- }
- 
- void msm_dp_display_atomic_disable(struct msm_dp *dp)
-@@ -1485,7 +1568,10 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
  {
  	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+@@ -1497,6 +1527,7 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+ 	struct msm_dp_display_private *dp;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *crtc_state;
++	struct drm_bridge_state *bridge_state;
  
--	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
-+	if (dp->stream_pm_active) {
-+		pm_runtime_put_sync(&msm_dp_display->pdev->dev);
-+		dp->stream_pm_active = false;
-+	}
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
  
- 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+@@ -1504,13 +1535,15 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+ 	if (!crtc)
+ 		return;
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++	bridge_state = drm_atomic_get_new_bridge_state(state, msm_dp_display->bridge);
+ 
+ 	/*
+ 	 * The DPU encoder's .atomic_enable() reads the mode's YUV420 / wide bus
+ 	 * state and runs before the bridge's .atomic_enable(), so the mode must
+ 	 * be programmed here, in .atomic_pre_enable().
+ 	 */
+-	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
++	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel,
++				to_dp_bridge_state(bridge_state));
  }
+ 
+ static void msm_dp_display_abort_enable(struct msm_dp_display_private *dp)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 83117e7619f3..6a77e5952530 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -11,6 +11,8 @@
+ 
+ #define DP_MAX_PIXEL_CLK_KHZ	675000
+ 
++struct msm_dp_bridge_state;
++
+ struct msm_dp {
+ 	struct drm_device *drm_dev;
+ 	struct platform_device *pdev;
+@@ -43,4 +45,8 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 					       const struct drm_display_info *info,
+ 					       const struct drm_display_mode *mode);
+ 
++int msm_dp_display_atomic_check(struct msm_dp *dp, struct msm_dp_bridge_state *state,
++				const struct drm_display_mode *mode,
++				const struct drm_connector_state *conn_state);
++
+ #endif /* _DP_DISPLAY_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index 7332fbfe1644..7c18ddcdd19b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/string_choices.h>
++#include <linux/slab.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_bridge.h>
+@@ -116,10 +117,71 @@ static enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *drm_brid
+ 	return msm_dp_display_mode_valid(dp, info, mode);
+ }
+ 
++static struct drm_bridge_state *msm_dp_bridge_create_state(struct drm_bridge *bridge)
++{
++	struct msm_dp_bridge_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_bridge_state_init(&state->base, bridge);
++	return &state->base;
++}
++
++static struct drm_bridge_state *msm_dp_bridge_duplicate_state(struct drm_bridge *bridge)
++{
++	struct msm_dp_bridge_state *state;
++	struct drm_bridge_state *old_state;
++
++	if (WARN_ON(!bridge->base.state))
++		return NULL;
++
++	old_state = drm_priv_to_bridge_state(bridge->base.state);
++	state = kmemdup(to_dp_bridge_state(old_state), sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return NULL;
++
++	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
++	return &state->base;
++}
++
++static void msm_dp_bridge_destroy_state(struct drm_bridge *bridge,
++					struct drm_bridge_state *state)
++{
++	kfree(to_dp_bridge_state(state));
++}
++
++static int msm_dp_bridge_atomic_check(struct drm_bridge *bridge,
++				      struct drm_bridge_state *bridge_state,
++				      struct drm_crtc_state *crtc_state,
++				      struct drm_connector_state *conn_state)
++{
++	struct drm_connector_state *old_conn_state;
++	int ret;
++
++	if (!conn_state->crtc)
++		return 0;
++
++	ret = msm_dp_display_atomic_check(to_dp_bridge(bridge)->msm_dp_display,
++					  to_dp_bridge_state(bridge_state),
++					  &crtc_state->adjusted_mode, conn_state);
++	if (ret)
++		return ret;
++
++	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
++							    conn_state->connector);
++	if (old_conn_state->max_requested_bpc != conn_state->max_requested_bpc)
++		crtc_state->mode_changed = true;
++
++	return 0;
++}
++
+ static const struct drm_bridge_funcs msm_dp_bridge_ops = {
+-	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
+-	.atomic_create_state           = drm_atomic_helper_bridge_create_state,
++	.atomic_check           = msm_dp_bridge_atomic_check,
++	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
++	.atomic_destroy_state   = msm_dp_bridge_destroy_state,
++	.atomic_create_state           = msm_dp_bridge_create_state,
+ 	.atomic_pre_enable      = msm_dp_bridge_atomic_pre_enable,
+ 	.atomic_enable          = msm_dp_bridge_atomic_enable,
+ 	.atomic_disable         = msm_dp_bridge_atomic_disable,
+@@ -154,7 +216,7 @@ static int msm_edp_bridge_atomic_check(struct drm_bridge *drm_bridge,
+ 	if (crtc_state->self_refresh_active && !dp->psr_supported)
+ 		return -EINVAL;
+ 
+-	return 0;
++	return msm_dp_bridge_atomic_check(drm_bridge, bridge_state, crtc_state, conn_state);
+ }
+ 
+ static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+@@ -303,9 +365,9 @@ static const struct drm_bridge_funcs msm_edp_bridge_ops = {
+ 	.atomic_disable = msm_edp_bridge_atomic_disable,
+ 	.atomic_post_disable = msm_edp_bridge_atomic_post_disable,
+ 	.mode_valid = msm_edp_bridge_mode_valid,
+-	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_create_state = msm_dp_bridge_create_state,
++	.atomic_duplicate_state = msm_dp_bridge_duplicate_state,
++	.atomic_destroy_state = msm_dp_bridge_destroy_state,
+ 	.atomic_check = msm_edp_bridge_atomic_check,
+ 	.debugfs_init = msm_edp_bridge_debugfs_init,
+ };
+@@ -385,11 +447,16 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
+ 					    struct drm_encoder *encoder)
+ {
+ 	struct drm_connector *connector = NULL;
++	int ret;
+ 
+ 	connector = drm_bridge_connector_init(msm_dp_display->drm_dev, encoder);
+ 	if (IS_ERR(connector))
+ 		return connector;
+ 
++	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	if (!msm_dp_display->is_edp)
+ 		drm_connector_attach_dp_subconnector_property(connector);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+index da412c788503..cd755f7205ef 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+@@ -17,6 +17,13 @@ struct msm_dp_bridge {
+ 	struct msm_dp *msm_dp_display;
+ };
+ 
++struct msm_dp_bridge_state {
++	struct drm_bridge_state base;
++	u32 bpp;
++};
++
++#define to_dp_bridge_state(x) container_of((x), struct msm_dp_bridge_state, base)
++
+ #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
+ 
+ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index f7aac0d25c87..f288571798d3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -690,11 +690,6 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
+ 				drm_mode->clock);
+ 	drm_dbg_dp(panel->drm_dev, "bpp = %d\n", msm_dp_panel->msm_dp_mode.bpp);
+ 
+-	msm_dp_panel->msm_dp_mode.bpp = msm_dp_panel_get_mode_bpp(msm_dp_panel, msm_dp_panel->msm_dp_mode.bpp,
+-						      msm_dp_panel->msm_dp_mode.drm_mode.clock);
+-
+-	drm_dbg_dp(panel->drm_dev, "updated bpp = %d\n",
+-				msm_dp_panel->msm_dp_mode.bpp);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
+index 72bae48a1fe0..3e49854d73fb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.c
++++ b/drivers/gpu/drm/msm/dp/dp_utils.c
+@@ -89,6 +89,26 @@ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
+ 		FIELD_PREP(PARITY_3_MASK, msm_dp_utils_calculate_parity(sdp_header->HB3));
+ }
+ 
++/* A zero link rate means that a powered-down eDP panel has not been probed. */
++int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
++			    unsigned int clock, unsigned int rate,
++			    unsigned int lanes)
++{
++	unsigned int bpp;
++
++	bpc = min3(bpc ? bpc : 8, max_bpc, 10U);
++	bpc = round_down(bpc, 2);
++	if (bpc < 6)
++		return -EINVAL;
++
++	for (bpp = bpc * 3; bpp >= 18; bpp -= 6) {
++		if (!rate || (u64)clock * bpp <= (u64)rate * lanes * 8)
++			return bpp;
++	}
++
++	return -EINVAL;
++}
++
+ bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
+ {
+ 	/* active_changed alone also describes a normal self-refresh exit. */
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+index 5d86c978dffd..a32e313d910d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.h
++++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+@@ -36,6 +36,10 @@ u8 msm_dp_utils_calculate_parity(u32 data);
+ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
+ 				  u32 header_buff[2]);
+ 
++int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
++			    unsigned int clock, unsigned int rate,
++			    unsigned int lanes);
++
+ bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state);
+ 
+ #endif /* _DP_UTILS_H_ */
 
 -- 
 2.55.0
