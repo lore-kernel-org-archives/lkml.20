@@ -1,129 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12EC44A40B;
-	Wed, 30 Sep 2026 08:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1F4334692
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757237; cv=none; b=fpz14Jp9tzLPCRfI9FkiQ27GT2/WgMvoJKGjQJIreF7AgJjLZiVL/Em3nQHVJdk3vxoTbWBegc8Mp/qKxoxnK3uVHpsrmcjAlWhNP1OQfqz9vv4hbHFZPyVEmW5py3Fmr/spCf80XjGlVIXwlGIPCxi2P3swDbwLh1fOwhTCtiQ=
+	t=1790757256; cv=none; b=fM7DMLAftIWwcNk855LhY4aoqTNd+v2XaeYnNHG0uiWAgJECi28MHumm0lqcaT90h99eAfA00XjjW89Xf69BF10wmfwLOsvxuNTwGZln4rN4FlWS5z/RTIcakxKhjXLdzYj3faUt7I+TC9tRmqW+I3VrKl6U+ypRz4F97cJoJZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757237; c=relaxed/simple;
-	bh=MMtdk41NBB+Qc3t0U9od8tLeaTfZYIc2vmIwOCe7IgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZqwHUlOE1cccXW1YPWVhl8F4UgBVZ//yMCQMoyC/lXG3tjdKdint7iJbCv/mtdWPu66gF+U7SuyLkfiu7e795fLJBsS73uVRCryHXu3o4r2hf0uAEAwwGB92s9RqUYppTvtavZ9oeTateRv5JvcZad6ikZIPmXhW0dHKLU0diM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hkB5m3tN; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790757256; c=relaxed/simple;
+	bh=pmdUtLHiDBYPwdKz6lOBEihhJVlCk8853EgW8s9fCWc=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JRjwJIuJxYxCqHnDgvFBDw+5OHraYIPI60bEsxab7vZjLKfhqEUlrxjyVJkDrEenpI2120Ep2NmiZbi9/4Lfycr6OkbanDZhN4cGHEkjXAlG41oJe/wdiPsGauaoo9fsQGmtTy7F+SbPG6Nt3gnDSamWpCScir9Tz2AR0oE07kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7KGKPAX; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hkB5m3tN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790757231; x=1822293231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MMtdk41NBB+Qc3t0U9od8tLeaTfZYIc2vmIwOCe7IgA=;
-  b=hkB5m3tNy39Snvzy2IqYbgOYOQd6S4dVtvgYdwdi+NYMsxaMpzIaIhBq
-   M8qW1XCxXa12ncgO8/rXri8r784NVAw/e7DCZCubGFpQabADW3mMbW/lK
-   hYyc9FPJ/S98w5lyKzWedDrxsBbPJQDR7iKLEtGokig+InupSgSixUvom
-   BZs4GvpCdiIHw1v2no56EH8Pgx1SeT3qVbOgaF+euX8emtNcIVCbkYTs4
-   fZz+3WQRZReUTbiu6pfT8kuIyzuceaHMWBP1l1D06OyAa45hFD9LWqRKc
-   eA1gS3U+pLKibDL3izByHSLZJYxKVWDbZgDQSG2WKMjS73mKVm6bmnVVk
-   w==;
-X-CSE-ConnectionGUID: xkD0SSvqQyqD3qF2OAA+3g==
-X-CSE-MsgGUID: IHW2AefqSKu9NXL50mTD9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90443707"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90443707"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:33:44 -0700
-X-CSE-ConnectionGUID: T7JBMI1SSi2mJ6wrZLV/ag==
-X-CSE-MsgGUID: LajcXhi9TGmpIrpaZz5Xuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="274233722"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:33:40 -0700
-Date: Wed, 30 Sep 2026 11:33:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Cheick Traore <cheick.traore-ext@st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
-Message-ID: <arzJYg3cg73vYCOE@ashevche-desk.local>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
- <arWPjx-JKt1IZCZl@ashevche-desk.local>
- <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7KGKPAX"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af3701927so768689666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:34:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790757247; x=1791362047; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uQBLg1lOxnEKgr89MFlKuWhU+DKGispKKqyorNYQTaM=;
+        b=i7KGKPAXmt+ZuptqaIzfIC3G6alJDnPdCO+Iy+N9tGHabaik0MKSu9XENv3X6z9nbi
+         hthoqZ5J9eZi/sXH42cZsOpzE0tpcaxB6Q2aZwm2nsmWn0lTA9Am6Z7NtBO7mTRI0tBh
+         A1Q8yqlOyK0YbpcsEl/3jiASAWVRVj2fdqAriZE9lmoUMbbrTqAFb3hF5F19j+NqYMiM
+         sxZ+pCLJnoa/q39n4UefNPrsqjao3vwl2ori7MIUzj2vUpCJbSyKoxZuM8aQMocKimqF
+         0H15Umgwf51PcgyWyroXUUlVCJjba6ERy50K2CvQ9I7vFE6U/f88AAZIqZIo3RGgCbh7
+         ewUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790757247; x=1791362047;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uQBLg1lOxnEKgr89MFlKuWhU+DKGispKKqyorNYQTaM=;
+        b=JkC9oFpWcAdR4+i57c/M9gsgV4E6EE6NhxN43YXyU7eb8iLkuaKMba218rM8DK0Wa3
+         tf03OLsgsRcZcBFQQUR3FB9kw57IpdQXoeWK8c0wpf4pjymJM4fLl7Vu1yIby3n+FZGG
+         biPqzdNTqEBjy3f1uEwSJyfGTFnQXa4SYasKlDKaoeHjFXsu5Q4WWy4fswGrA5D6kz56
+         o1srCahqfnoPLXk9MkuZjjQnqVsIVbtxx3F3DFErdc9vGYw7I8jUcC28ulaaTciOiiH+
+         uWRY1m+HS1P7xBEemPh72X1N+kAznnWyAJr9T8+347fMxRzQ3Le+cnDFRv1FwA+o78Kv
+         FrlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz6+Jqb5RQFHH+JyA0b/KW3PePb2SHhWxXl8eq2U7f8qKq0IaHifg+0+25OBBMnk2VDJs5JNTOuN1gUd2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9EO6yCAIQCTRT6n5qaOfGj164VKIXB4pAC5OyaDGZZdGq/7cQ
+	lzqNDz8pT3E/j1md6S7sj+VN6mj1Zt14lnLqrLDRYa3XamUf8QFPCWFF
+X-Gm-Gg: AYBFou2ftnoHYs1fJGDeliyW0rHtlUiXyzPFpZbvCMR48phyYHWibVkslWRFEaYqXxq
+	qHcyIsD9Fd0lGK5XqiVlJAhkk8tuz3wGff2B7z4NTGSlITe0Dn5fM/3UqlAJpFvrXJttdwFq7Zd
+	8SmNOsouqtoB3AM1PCcXnZYRtJ1xOJ8NXf+ImflnwDlU8vNXbildjSKng/YJsc6xcnDkmIgRL4y
+	DVbLQLHgaoO4VqHkexn1OwxcSpRi8TXtcsP351hVh84Vfymh3I6pyENnXJyx4sVVEXxg2dZjPdw
+	JzuSzL4nYrdi8/42HTNQd+UXO8s61YbVMnXDPN84FiK9M/PNgMXnr/jgLU1ynX2alGGpuelnT43
+	DK5k39WKfafJpPYnY+lX1/SbIi9HLXJBFMhgVynFT65IztAKUHAQ/5uLuJ/CGlUQCtloMQi52iO
+	XgPw2285FqG8cUU96dJkMdT+e+viBfTdKghcK9
+X-Received: by 2002:a17:907:3f18:b0:c2d:d89d:346a with SMTP id a640c23a62f3a-c2e23663b74mr51705266b.3.1790757246934;
+        Wed, 30 Sep 2026 01:34:06 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22fa41e8sm27570366b.55.2026.09.30.01.34.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:34:06 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Wed, 30 Sep 2026 10:34:03 +0200
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
+	kasan-dev@googlegroups.com
+Subject: Re: [PATCH v11 0/7] alloc_tag and module codetag section fixes
+Message-ID: <arzJez4VNWEVnXiF@milan>
+References: <20260929082014.160587-1-hao.ge@linux.dev>
+ <20260929134401.a1a385ff4369661f879b5d2f@linux-foundation.org>
+ <CAJuCfpFRW3uNUW_VrjpOfLwS1LBHqGEpqK3yBTPSpGOORY5jiQ@mail.gmail.com>
+ <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
 
-On Tue, Sep 29, 2026 at 06:48:28PM +0200, Fabrice Gasnier wrote:
-> On 9/24/26 23:01, Andy Shevchenko wrote:
-> > On Wed, Sep 23, 2026 at 05:39:10PM +0200, Fabrice Gasnier wrote:
-
-...
-
-> >>  		.compatible = "st,stm32mp13-adc-core",
-> >>  		.data = (void *)&stm32mp13_adc_priv_cfg
-> >>  	}, {
-> >> -	},
-> >> +		.compatible = "st,stm32mp25-adc-core",
-> >> +		.data = (void *)&stm32mp25_adc_priv_cfg
-> >> +	}, {
-> >> +	}
+On Wed, Sep 30, 2026 at 11:26:41AM +0800, Hao Ge wrote:
+> Hi Suren and Andrew
+> 
+> 
+> On 2026/9/30 10:39, Suren Baghdasaryan wrote:
+> > On Tue, Sep 29, 2026 at 8:44 PM Andrew Morton <akpm@linux-foundation.org> wrote:
+> >>
+> >> On Tue, 29 Sep 2026 16:20:07 +0800 Hao Ge <hao.ge@linux.dev> wrote:
+> >>
+> >>> With profiling toggled off, the overflow check in
+> >>> reserve_module_tags() did not run, a module could load with more
+> >>> tags than the page flags can address, and re-enabling profiling
+> >>> then silently corrupted /proc/allocinfo. On overflow the fix shuts
+> >>> profiling down, releases the reservation and returns -EAGAIN, and
+> >>> the codetag section lands as regular module data in the same load,
+> >>> so the module loads without profiling.
+> >>>
+> >>> Review of the earlier series by Sashiko turned up more problems.
+> >>>
+> >>> One is a race. layout_sections() and move_module() both asked
+> >>> codetag_needs_module_section() where a codetag section goes, and
+> >>> mem_profiling_support can change between the two calls, for instance
+> >>> when another module load overflows the tag index and shuts profiling
+> >>> down. move_module() then copied the codetag section to offset 0 of
+> >>> its regular destination and clobbered the first section placed in
+> >>> that region.
+> >>>
+> >>> v7 reworks where codetag sections are allocated, on a prototype by
+> >>> Petr Pavlu [1]. The allocation runs before layout_sections() and the
+> >>> placement is decided in one step, so nothing re-asks the question
+> >>> and the race is gone. The retry is gone too, on -EAGAIN the section
+> >>> is laid out as regular module data right in the same load.
+> >>
+> >> Thanks.
+> >>
+> >> Seven patches, all cc:stable.  Why is a backport proposed?
+> >> Documentation/process/stable-kernel-rules.rst gives guidelines - does
+> >> this series meet them?  Does Suren have thoughts?
+> 
+> Thanks, I've just gone through this carefully.
+> 
 > > 
-> > Same issue and now it's a regression from maintenance perspective: you added an
-> > unnedeed churn that has to be handled from now on... TL;DR: do add trailing
-> > commas to the non-terminator entries and remove trailing commas in the
-> > terminator entries.
+> > I think vmalloc fix in patch#2 should be posted separately and clearly
+> > quialifies for backporting as if fixes issues Hao found at [1].
+> 
+> Agreed. Patch #2 was added to this patch series because vm_module_tags_populate
+> suffers from the same issue. If we want to be more conservative, I'd prefer to keep
+> vm_module_tags_populate as it was in V10:
+> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/
+> 
+> Then we can submit a fix for __GFP_NOFAIL retry loop in __vmalloc_area_node() as a hotfix together
+> with our new patch #2. While at it, we can also check if there are any unnecessary calls to
+> vunmap_range family functions that can be cleaned up now that patch #2 is applied.
+> 
+Yep, this should be a separate fix for vmalloc.
 
-> Do you wish I add a separate cleanup patch for existing match table ?
-> This can also fit into 100 chars line now:
-
-This is, of course, is up to you, but my comment was solely against the
-trailing comma removal.
-
-> static const struct of_device_id stm32_adc_of_match[] = {
-> 	{ .compatible = "st,stm32f4-adc-core", .data = (void
-> *)&stm32f4_adc_priv_cfg, },
-
-Here is actually the opposite, no inner trailing comma should be added as it's
-a one-line entry.
-
-> 	{ .compatible = "st,stm32h7-adc-core", .data = (void
-> *)&stm32h7_adc_priv_cfg, },
-> 	{ .compatible = "st,stm32mp1-adc-core",	.data = (void
-> *)&stm32mp1_adc_priv_cfg, },
-> 	{ .compatible = "st,stm32mp13-adc-core", .data = (void
-> *)&stm32mp13_adc_priv_cfg, },
-> 	{ }
-> };
-
-> >>  };
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--
+Uladzislau Rezki
