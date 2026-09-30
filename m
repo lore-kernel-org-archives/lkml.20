@@ -1,100 +1,97 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51923E7167
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED81515995;
+	Wed, 30 Sep 2026 22:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807269; cv=none; b=tOxQ+Jyqsi+TDc2XqtvVSb7/grFyWqLY5EnEg6BKjZHW2gZvbD8PnUNTZQ49Ks379Z3xLrkNB/3Wtvx8S00u8Seub2zJLrnibrXw7cSPmpwa8CkWTik5jnHLe8M4SujS8CVZtcUTNr2EAnpP+wAKvGEWOeLW+5qqJg87aZk/6w4=
+	t=1790807403; cv=none; b=mALV1U24Ju4dcGqkzgEALqFJzr8+xOXu+9QIJ8adnsWKBymd/tUsP0UQnWK8or+rwxGev8VsJ22T50bC7xAj8HaemVrDQK5Xj69uHGMWgrQEtgl4HMn9o/DiAcYUcXlZW/T7MxHVracCB5peC4ZLXfwXIqnGJ8EVNkbh2vKn/Dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807269; c=relaxed/simple;
-	bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HlwnHai73VbdEXAw5Z9bwUYHNGURvPvxCCRDyMOEG0sEr4N5CIT9x1ekllmgyvkr9fjRDT+Gj4wy6Lk04Mfj6cqUcXuBfPau3xqgZj7JFh/GQCCIMKd1vVT7OlqWCDXjc4evTm0YkuvyIhGIVy6eudIVR48m1xTP4VF4YDoefXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=kQDXVqFX; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	s=arc-20240116; t=1790807403; c=relaxed/simple;
+	bh=u4WuMN5gvyBKdJCjeN/mXG8s2/tAu5mNwGmdgCldP10=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LAyL6o81TZD2N1APyB8o+La4+XRtzmGNpf8h0kYrq4iXm4xvfl/jNkzin5YXkq4mH2DcCr0mWigNYBDR5LOcnI1x32EQQs/rwamY/ZYnGVCpwM1VbwIQFAL7W7pdhRVIVe00qawUzi1R2pQycCeJABnt3Fya+WLu7C8Jkr7u89c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qhfkh+Qk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="kQDXVqFX"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so34965315e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:27:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1790807266; x=1791412066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
-        b=kQDXVqFXYzulDpIu4sviPqPJLzPmK9tuMlFlUdZ1shePGvXm1TsirEPuA//09X+btp
-         BNUzDDH9jlKsgycYrnHkWcmMcZr8skXmQA0nq2C5mAQacyTA48YzvSbulvBQGjPR5iNp
-         lUJQpPo6/8NUeV5+B8QV+i4DBZ9NsLN+jp6rw9VuDBLimH6hOlLHf75k1gUoyj8fk3IR
-         +/7j8C3T1zkC7Ecyte7mibuunQR+FhUvDfpLZ9L70EiCHXUNUJi3UYB1PTUpUvbhzfzn
-         tvk3oMP5X9EcPXn0RnRpp2ZEsrhN8BZM5K5O8FdfOId2XtQF8inyTIGQPlhkJjQVwo1W
-         TCyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790807266; x=1791412066;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZSwULQAHzGA0yfFQVkuurUtRXeq+EcSnpkm1sjqtUG8=;
-        b=L5vSefLcwAm+IKI3//XWRZ1e8uaXGAeTLu+Q5dzkjRvSChBq4olpgJXfCf/rcbrd2T
-         XU5p0pwrS2AgHKNoyFYT5IadZWz6yd64aefgBOCoLX25rZk5eTt7ZZ1mCQnZilp3wcYd
-         YmLCSNfkrSdqU/fLltf5u+qsSxZPKz3QBv3d5w3Z0FQo2JUQrI33ypiCbIQ1MJckSK+u
-         WOJcnpnQltzdfQxput0YvPsNqCM8mptF/EDi8Yyj58FBcX177RQUeHMNtE0BMRutG5rJ
-         p27hsr23nGQmRcTAvta9joLZdxmxzfDPKXnIInqgUONd4QxQColV5Q/rU6xtXap6drv3
-         di4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzJmkwiJG4MBKDOOAK5PMHbHmUncpUURa10YyS/AgEVaVF4oY83bO9bYa6oi64iOi9Bh1nRxhUC0oDqOxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfcI7X7csFHXVpZWKrTBsz3GQbAJDsYs1/HiskEjez0zV4q5va
-	N78JT4SH/J1h0RtOUzbNpw6UiDfjIypGTo558fAxxkXDO7w+66Uc54vaFrVQYDg3bdA=
-X-Gm-Gg: AYBFou0RPd6HFgrN6EWeQS7yzcbWDkjSlLz9HvcnPo7QWb/TsCEHrRXjZOtjr3Rrjm1
-	jSgDuSR+QcxYvyR/janyq2XL+aPJDfsNwFqXrjvQW7PQ/Pbn9umlw1SyzIe6ifAzK0FY6LzshEi
-	nGB58CMQ4HfnASjWBcn84zeGVsuSxb/OdBvR671o3XDV1sWBgX3Ui0zHVIwISzh+LaxIye5geJA
-	iWsbizf7O1KlIpO+8oMaqq5g4cOpEWownz3aaV0aqBQBusBy5Viw8QO5Ia7uWr3Aj295Z9yuaw9
-	+AYFG/KBCveaZVxutf6dSTGolbmUVkvtqoabGjw84KxhzMOb5/105jxZ3mIFsnFeWc2iGjRAqC0
-	sHXay2TxWoBDG9QNTXoNp6CphWWOdkhZ8kQE2Lw5tFvex7wIjZexZZHz/eb2LRzHOeZlPu/X6MO
-	gZCLQVuG9V5J6TdhZg2AoJGY3kDDhu5ZvyE9L0pk8Vc5oJtPOpRxCdi/YSq8AVCyYhi6W4Jy++/
-	yPIaz5piUfT5SzE5mswc0FJRwSsmZvgwN/B4SlpNvHK+e8y3vcOsnqNUcYURgb0WjSZooGWIO/X
-	wTo=
-X-Received: by 2002:a05:600c:1f86:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-4a01aff3978mr44945685e9.25.1790807265320;
-        Wed, 30 Sep 2026 15:27:45 -0700 (PDT)
-Received: from localhost.localdomain ([197.51.54.220])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01feb7198sm9238075e9.1.2026.09.30.15.27.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 15:27:44 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: netdev-bot+sinfo@kernel.org
-Cc: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] amt: pull the AMT header behind the transport header in amt_parse_type()
-Date: Thu,  1 Oct 2026 01:27:28 +0300
-Message-ID: <20260930222733.47563-1-omar@blockcast.net>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <179061960357.31693.937915571809434718@kernel.org>
-References: <20260928181557.85796-1-omar@blockcast.net> <179061960357.31693.937915571809434718@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qhfkh+Qk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABBD41F000FF;
+	Wed, 30 Sep 2026 22:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790807401;
+	bh=u4WuMN5gvyBKdJCjeN/mXG8s2/tAu5mNwGmdgCldP10=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qhfkh+QkLZBV20AbieskJQTSYN9OyyYIbR5JBWIzqZRENSxMzqbK8lbLAdogQr4Sx
+	 l4xci+56RotTVgqfj/Ssnx26GXlWBKH+YB+/dpPr3Ewx2AmjkHoGI9gRgSfPqCC/jp
+	 oNi699zrkcS5nbU2JJ4S3jvoe8zTiMS6+RI0juJaFUQ2mJHA9Fu6pgzXsBVRwaVw26
+	 tV12/VYhbJBjNGponhlEB6y6Mr9ahYtj9/UjExG2OPVtnxp2PzOPZ7HBKr+zx+2HY6
+	 eD6mxHfs++vdwfu1SEWs822Iun7MSO4i2FlBUF/OFwTsJszJJXMZO51KHhIMXaEj8Z
+	 Ma5kiDym4NkSQ==
+Date: Wed, 30 Sep 2026 23:29:56 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v3 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260930-fraction-unharmed-eb98b084df48@spud>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EBwA5Wz55DSFLoUE"
+Content-Disposition: inline
+In-Reply-To: <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 
-Found by code inspection: an LLM-assisted review of drivers/net/amt.c
-while I was working on an IPv6 outer transport for amt, whose ICMPv6
-errors would go through amt_err_lookup() the same way.
+--EBwA5Wz55DSFLoUE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-It has not been triggered. I have no reproducer; it comes from reading
-the code. It needs an ICMP error reaching a gateway's encapsulation
-socket that quotes only the IP and UDP headers of a Request, so that
-amt_parse_type() reads the AMT header past the data it pulled.
+On Tue, Sep 29, 2026 at 07:44:22PM -0300, Marcelo Schmitt wrote:
+> Document how AD4134 chips are connected to the host SPI controller
+> according to different wiring configurations.
+>=20
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-Testing: W=1 build with CONFIG_IPV6=y and =n, and
-tools/testing/selftests/net/amt.sh passes with the patch applied, but
-no test injects such an ICMP error, so nothing exercises the changed
-path.
+Modulo the issue the bot flagged, I'm happy with this.
+
+> ---
+> Change log v2 -> v3:
+> - Adjusted spi-rx-bus-width constraints.
+>=20
+> Unfortunately, I missed SPI connection mode properties when introducing A=
+D4134
+> dt-doc and the device driver defaulted to a no-CS configuration. Due to t=
+hat,
+> conventional 4-wire mode can't be made default without leading to a regre=
+ssion.
+> Still, updating the SPI mode default to 4-wire is a sensible thing to do =
+later
+> on if acceptable.
+
+I dunno, it's probably not really a big deal to leave it as it is, it's
+just a default and it's probably just not worth affecting what users
+there may be.
+
+
+--EBwA5Wz55DSFLoUE
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar2NZAAKCRB4tDGHoIJi
+0vr2AP9gAWcPw95MKb76XVaxQkOmeMd8tI6J7BxGtvGr76EkewEAoJqk2fRTR4zw
+pCveUCp7y8hAjER52AldujHMEVAI3QU=
+=SopS
+-----END PGP SIGNATURE-----
+
+--EBwA5Wz55DSFLoUE--
