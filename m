@@ -1,122 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12D23B2D1A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8015441A502
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797495; cv=none; b=MKA4ZeX5CaBuk01Sqw6Cg4sCAfnuJ9z4QekAhX/15ICkwcfVl1MK5ybSUlBkyTb//MeUCQRdQdPEa/I1U5QwPphk36Bwz+GX025fEW6SGBwvLZe029mNnuYhX5VIm0cmEiB9adTgfWbbmdZskJFAW83FNsLPa/CJsoBz57Qa2iQ=
+	t=1790797514; cv=none; b=afCmppyYiE6y6KdSjZjmpoTrC2KRZYEcM2Wx5tnXJz0eaKrx7JKbh/IHJNlGKdrg+Ea4jW9E/l04J2NLGskvZf27lhB7bO/ZRLE9nNrds3x0aQYTaiKp5ezBc7wajjZu6iG7A2POd9n765mkh6TzaxhN6ZIs4Qy2QeogngLUIN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797495; c=relaxed/simple;
-	bh=q+bWtDiDG6j9HrzC+c8m9pU40rXgpApbukotzqZv8H8=;
+	s=arc-20240116; t=1790797514; c=relaxed/simple;
+	bh=oEJ9pL2ufHgP3SOJQR5MsVD6wC4aYmWLe1U7dUsX/t0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LYXlxuYUzcEHPbxmbTe2xrO5ByryQ9TQulcAvL2YiAuoli0jhWaCPwNdSKI7f02pl+Zyjudm0CAEaI/zHD+fHENWQscOgr2bpoPIASCVaJDoOarJ2hnhnrPP2TwDWdkkCTMyATsUvUbQDYhNPBkxpt1tNceHmG1k94lIQhyNZnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5Ox4MEu; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=mHmy1l/5XGLpW82hlx8Tt27nNxgyXvOLT7ew3f2k21My0BC84YG6TjNubyPWtgnqWyEAqIA/R5VRJ60weeonbOWN8gUAptOA5b9cqigewpxvChiwYPfcqlJuglDTKYnooIFJoI1UVL6TVfRCN+PpYnadLIliw83F9Y6bT7N91Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HqOXyU/r; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5Ox4MEu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B173E1F000FF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790797493;
-	bh=VwKsTpswmlMVB+LMODH+J9Vdjg6BRBH7E4RDvw9O45I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=R5Ox4MEuEVna8olGNdw6Bty+y8M/4/yK9wxhjyx/HozvjvoZ34k+8wNMKZUqBDCK1
-	 PwAVHX+iBHtdb/02em/EhpMYRXTkL8pW602hRy8bbr7Ut2GPAsPyXLfYBAbrKVqI1+
-	 3etHPkLeJk2+OinlLpX6BsnCit/40HtJM7+Mjoe/MmOi7p2cpECSFc0ld8KHJv6TQ6
-	 T6vte0VF0cXcNbn9PNRE63D+Ef+Og7Fv59AB1826OCNkD/ypdmUoit85G0Aq8QtLCq
-	 glSL0FzcE0KFDjzcATgl5zGJ5Fsa8cYLGawjwJBIWx3Z7eCgJ0uSKqmGkBKxFbbCYl
-	 IIJLPMgWXZgEg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba379d8804so1801173e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:44:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzAZQYbGqb8epVAdtA7ux1QWAGVKcxD/WRPQHQb4skx7hXeWtFWcbzDy1D0gSgaBLeizH3DKcUr2kA7WZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuObJYyOxeZRn5nf6kQcHOGTSBXZQdvrjawoscTw/3t4+OIosg
-	flHZNC+v16NWXZ8ZvKK5O0jCqLnDYadsWFRmczEztV/18Q4yPQWgXpzd0k39y5h4pyfJ4Z0vOJ0
-	Uo6/DpPg+caijdpNqA5FFuPR7bzzYl7c=
-X-Received: by 2002:a05:6512:66c9:10b0:5b8:f2bf:6b9d with SMTP id
- 2adb3069b0e04-5ba406197f3mr806651e87.59.1790797492205; Wed, 30 Sep 2026
- 12:44:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HqOXyU/r"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e028ed54dso279287666b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:45:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790797511; x=1791402311; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mHNTp1AZTn0ZS3nuL3EGnRpKBBCGGCs0wPlH2fLdFaY=;
+        b=HqOXyU/rc+zswoa3OnqJkYF2tubohskHSSEws19UygUljU4Zq7vNkpvNjCFg3XEjLe
+         DelkwYzZyL10YlxyexIxXCXyGKuhSVaEsP6TGnTxljT94zvgnqugCxweI42u7kAs/GDk
+         YssAwBmfx2nFR8gzcvccthWtXUwdLtekGBlfk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790797511; x=1791402311;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mHNTp1AZTn0ZS3nuL3EGnRpKBBCGGCs0wPlH2fLdFaY=;
+        b=PC+A83Cs8wzh0D6qhndqoXf5tJsxpLgVcmpBdlpwZ6vLTdtTK90N74JOEeGdEox7hB
+         tlZP2HumXUdRYcdx64P2bzgH67i4uwcMIdV4CgPOzRIOqDNy3TRxgI7zGWYX21LlEK+n
+         pvOa1TxFDqjhcMmR5SNxcuc8Ql5tGCQjHlreenUeJ+xYS+NZFQ0wLDtJxpVb4EjXi8QX
+         NlnBdXkR2YTWifzybruw0UdUaWyGhoRbKsc0pz8+0lOsIQDfvM9OGJS5xDOlOeoJQXA1
+         gae6BrYgTi4x2hOU3z9wv0hby2B61u3cebHcjyiMuY4FPoY+TZVz3kZt0JjZFY3AUhnE
+         SGAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpVHbjdjPabomAT3T4ZiWlk0k56udnsblj8zvgaLmILmBQ/htt4+jyFgVVlo003m3CVVLVeguhg6vPLEs=@vger.kernel.org
+X-Gm-Message-State: AFuF++my0MfQ/dO7ISR69iDRzKgLM7XQuiaztffO6sJ3mxxMF1YxV2HC
+	bgLI1G5GJ0KZZRa20JFcQzcCXEEFORg/2/cmuRvDIbK66twuIL/EuuGU/elE5G71sfVGb7DDa4L
+	jCPV3kA==
+X-Gm-Gg: AYBFou0A/we6E/8ZF07kPXIAvur79v2k6uvGPwxYZkn69JOrI0LwwCWI6EqXgSNQD9B
+	PDrVlDWa1NmFr3uyOYP5O7KBBqCHJyi2qaeLNppzkw6TJW+i9PoXLkriHIzT1nOm9eb6HAM8jvr
+	2aUA7OlwjFYB7JCrxfv/DbDsIzs0SvU8+xTSOfPfOD+TuIwlJ9TMzqM6laTs38/eoflLCgsIwZW
+	y3AN+9/jKispDxXqx/vpxvqNkANi1Hpm8OJoVOnuxmXNp586UNiuiAun3h6IDJzjtfqfQcBovSR
+	dy73Z1sLex90mPWvRlD5oPM9/kWFB8BNi3bK9YzSUKDGvJT1NsY5ceTue4EeuPrgS21eVP5xh8m
+	LD5W1L1FpqOL64ku0AtCy2EqVeSet0tFeHGRUpcwLNaYMAmkQB8iHXRXIeTyDpBKTDPEJ0sMWUE
+	IakrSACYXNpdC6zMa/ga2qFYj/03zfFGHHmiSEjRMOZcJW9CZ+XTuFQ/CT+ySzoVSX7qE6BRxd5
+	Vi7uz+2mCWIszihijwKEwPGjG03IFAbc1QP9g==
+X-Received: by 2002:a17:906:6a0f:b0:c29:f5d8:9c7c with SMTP id a640c23a62f3a-c2e23d2a4b9mr204695566b.43.1790797510731;
+        Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31dd9fbfsm48923566b.71.2026.09.30.12.45.10
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so3538863f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:45:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzWFHMascN4jnapktCengHuGTzVobdrCwM1MbPLkMPF8vMIyohl30MizUtltygV4m8IN3RNtC0xtgbDDME=@vger.kernel.org
+X-Received: by 2002:a05:6000:25c6:b0:48a:faf0:bdee with SMTP id
+ ffacd0b85a97d-48b0252bc90mr4838704f8f.45.1790797509042; Wed, 30 Sep 2026
+ 12:45:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924160052.2858456-1-superm1@kernel.org> <20260924160052.2858456-2-superm1@kernel.org>
- <213bc2ba-2ee4-4a89-9054-3bd953546789@arm.com> <c20aa0b6-30a7-4c88-80e0-21bd5e97c0c8@kernel.org>
- <CAJZ5v0iYf1dXVX4LFeWnnsatA8b0LahRfJUe8hH7-978z+nKxg@mail.gmail.com> <01667c52-284d-47ba-aa9b-2b0ff685610a@kernel.org>
-In-Reply-To: <01667c52-284d-47ba-aa9b-2b0ff685610a@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 30 Sep 2026 21:43:07 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0ig_sfHd6iG0n4ZA=957+YuvYE3y08xbj93n6ktaV9PVg@mail.gmail.com>
-X-Gm-Features: AclHuK9VJjaSDUCWTz5H8motFXKbHGpCXbJAGZbK9EJQWdg6WKHmNMzCrSOFlH0
-Message-ID: <CAJZ5v0ig_sfHd6iG0n4ZA=957+YuvYE3y08xbj93n6ktaV9PVg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] ACPI: CPPC: Refactor boost ratio handling
-To: Mario Limonciello <superm1@kernel.org>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
-	Mario Limonciello <mario.limonciello@amd.com>
+References: <20260930013029.3241267-1-hungen3108@gmail.com>
+In-Reply-To: <20260930013029.3241267-1-hungen3108@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 30 Sep 2026 12:44:57 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WoNqqYOYTXEnv+Z7Kx2cA1PkYhLqZ9VKTASixJuLJaDw@mail.gmail.com>
+X-Gm-Features: AclHuK_q8n2VplupGbm1CQbFF7zgz0MF-_7CVjuB8tEzVBqsiKmLQaKI4IO57P8
+Message-ID: <CAD=FV=WoNqqYOYTXEnv+Z7Kx2cA1PkYhLqZ9VKTASixJuLJaDw@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel: ronbo-rb070d30: Ignore DCS errors in disable()
+To: Hsieh Hung-En <hungen3108@gmail.com>
+Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+	airlied@gmail.com, simona@ffwll.ch
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 9:41=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
+Hi,
+
+On Tue, Sep 29, 2026 at 6:31=E2=80=AFPM Hsieh Hung-En <hungen3108@gmail.com=
+> wrote:
 >
-> On 9/30/26 14:37, Rafael J. Wysocki (Intel) wrote:
-> > On Fri, Sep 25, 2026 at 4:54=E2=80=AFPM Mario Limonciello <superm1@kern=
-el.org> wrote:
-> >>
-> >> On 9/25/26 04:40, Christian Loehle wrote:
-> >>> On 9/24/26 17:00, Mario Limonciello (AMD) wrote:
-> >>>> From: Mario Limonciello <mario.limonciello@amd.com>
-> >>>>
-> >>>> Rename amd_get_boost_ratio_numerator() to amd_get_effective_highest_=
-perf()
-> >>>> to better reflect that it returns the effective highest performance =
-value
-> >>>> for a CPU, accounting for preferred cores and heterogeneous topologi=
-es.
-> >>>>
-> >>>> Add a new helper amd_get_boost_ratio() for doing both for boost
-> >>>> ratio calculations and update callers to use it.
-> >>>>
-> >>>> This refactoring is needed because on some AMD systems (Zen6+),
-> >>>> the boost ratio should be calculated from frequency values rather th=
-an
-> >>>> performance values.
-> >>>
-> >>> I think I see why you chose to implement it this way (the x86 APERF /=
- MPERF)
-> >>> issue, but I'd still prefer it to be spelled out here why this is nec=
-essary.
-> >>>
-> >>
-> >> Do you mean in the commit message, like spin the patch?  Or just in th=
-is
-> >> thread?
-> >>
-> >> Not all cores will operate at the same frequency and fixed scaling
-> >> values from CPPC perf don't apply anymore.
-> >
-> > Well, CPPC is per-CPU at least in principle, so the above doesn't
-> > explain much TBH.
-> >
-> > It kind of follows from the cover letter that there's something
-> > missing in CPPC, so this is a stop-gap thing, but it would be good to
-> > put the information from the cover letter to the changelog of this
-> > patch.
+> If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
+> clearing panel->enabled. unprepare() still powers the panel off, but the
+> next drm_panel_enable() sees the panel as already enabled and does
+> nothing, so the panel stays dark.
 >
-> OK; I'll respin the series with the detail in this commit message.
-
-Thanks!
-
-With that, please feel free to add my ACKs to the first two patches in
-this series and route it as a whole through the amd-pstate tree.
-
-> And yeah; this is totally stop gap to allow other development that needs
-> this.
+> Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
+> by mipi_dsi_dcs_enter_sleep_mode_multi().
 >
-> Once next ACPI spec is out I'll tear out the stop gap and put in the
-> right support.
+> Suggested-by: Douglas Anderson <dianders@chromium.org>
+> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
+> ---
+>
+> Notes:
+>     This applies on top of:
+>     https://lore.kernel.org/all/20260929080143.559685-1-hungen3108@gmail.=
+com/
+>
+>     As suggested by Doug in:
+>     https://lore.kernel.org/all/CAD=3DFV=3DUU+NS0T-Ga8i12QKTNCYOu8kar_6=
+=3DNsH0=3D4FVUFyKB7A@mail.gmail.com/
+>
+>     Compile-tested on arm64 with W=3D1; not tested on hardware.
+>
+>  drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/d=
+rm/panel/panel-ronbo-rb070d30.c
+> index ebe6352db..2d54182fe 100644
+> --- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+> +++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+> @@ -87,7 +87,7 @@ static int rb070d30_panel_disable(struct drm_panel *pan=
+el)
+>         struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+>
+>         mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> -       return dsi_ctx.accum_err;
+> +       return 0;
+>  }
 
-OK
+It's probably worth adding a comment explaining why we are purposely
+ignoring the error value. Something about
+mipi_dsi_dcs_enter_sleep_mode_multi() already having logged the error
+and how a failure here shouldn't really block us continuing on to
+unprepare to power the panel off.
+
+-Doug
