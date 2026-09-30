@@ -1,202 +1,160 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4432F515964;
-	Wed, 30 Sep 2026 17:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAEE515964
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787734; cv=none; b=rqKrMH7U5dEIAd2VMWY2SoafyeRSPs150HOex14YQH6DxiGJ8WFBcIANNi1a4LA8cfml3JtRMn0DFnV1hNCGwr3Qj7oVIaHhNbGMRy0gYERFu5XPyh3Rx/QBvviDnZSkg5g8kh0E+K3eoMiof73jEoEm2brBvcJvL9LjN5iOxnQ=
+	t=1790787762; cv=none; b=hJzA8/9mfnde0JThRdXa24vgGFX5CD85CvCn447TC4b42XNeyN/YpLSn0jQ0z9rMIjvWlR2RUn9u83IZL4ctjwHCfhMYgS1v5u1Or0MseX0SsRBww/v2cjNXaquYq792MnEJvCCypnRll26TkGXq4wK5/iS4cDQx/JMT4lZhaVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787734; c=relaxed/simple;
-	bh=9lMV5dgcBCBmAm7tn/MclC+xRIeMw2vFnKEJ5c6rgFg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Disposition; b=ZN0S/eOMxBT3GLyElhXYmmqnxqJ/N9SNByMKoHk4xwD7JWrfrN2s7LBYpAzLRs+t60SMWrFKwz2pFZzSzcRAeGVVr9fYoXj2oxZY99Av8YA9mP5mfXxARtx8is6N1pugxrZ/0U43T+0uS9cz3TreM26WaAyeXtafj/pJIdcpK1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=fqJB8AnY; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="fqJB8AnY"
-Received: from [100.96.208.60] (unknown [52.179.129.152])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 3A68720B7166;
-	Wed, 30 Sep 2026 10:01:18 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3A68720B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790787680;
-	bh=J4FHysKmL3sST3B6JYnWBExkNR6TyUEiXRkB5SFBJQA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=fqJB8AnY0C0Mq2QOcZ1YCLFv0XUWWYTx2I86zAQN0rU1/2quofja7K/tU0ZKhk715
-	 MiLXiQue02RBuXUNUXvWpKyWTl2ECXmL6J5pjVxxqDP3b8/eyTxoei4k09x29s1P6N
-	 fBYGiIrKjlCDCa6cbNAiEzSLmOrUJdKEbhL2U/YI=
-Date: Wed, 30 Sep 2026 13:02:08 -0400
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: "=?utf-8?Q?linux-pci=40vger.kernel.org?=" <linux-pci@vger.kernel.org>, 
- "=?utf-8?Q?minghuan.Lian=40nxp.com?=" <minghuan.Lian@nxp.com>, 
- "=?utf-8?Q?mingkai.hu=40nxp.com?=" <mingkai.hu@nxp.com>, 
- "=?utf-8?Q?roy.zang=40nxp.com?=" <roy.zang@nxp.com>, 
- "=?utf-8?Q?lpieralisi=40kernel.org?=" <lpieralisi@kernel.org>, 
- "=?utf-8?Q?kwilczynski=40kernel.org?=" <kwilczynski@kernel.org>, 
- "=?utf-8?Q?mani=40kernel.org?=" <mani@kernel.org>, 
- "=?utf-8?Q?robh=40kernel.org?=" <robh@kernel.org>, 
- "=?utf-8?Q?bhelgaas=40google.com?=" <bhelgaas@google.com>, 
- "=?utf-8?Q?Zhiqiang.Hou=40nxp.com?=" <Zhiqiang.Hou@nxp.com>, 
- "=?utf-8?Q?linuxppc-dev=40lists.ozlabs.org?="
- <linuxppc-dev@lists.ozlabs.org>, 
- "=?utf-8?Q?linux-arm-kernel=40lists.infradead.org?="
- <linux-arm-kernel@lists.infradead.org>, 
- "=?utf-8?Q?imx=40lists.linux.dev?=" <imx@lists.linux.dev>, 
- "=?utf-8?Q?linux-kernel=40vger.kernel.org?="
- <linux-kernel@vger.kernel.org>, "=?utf-8?Q?stable=40vger.kernel.org?="
- <stable@vger.kernel.org>
-Message-ID: <0FEA6868-5A7C-4955-9FBB-BE9A1AE8D3F7@getmailspring.com>
-In-Reply-To: <ar07ubdYLk-Tje1q@SMW015318>
-References: <ar07ubdYLk-Tje1q@SMW015318>
-Subject: Re: [PATCH] PCI: layerscape: use default error response
- behavior
-X-Mailer: Mailspring
+	s=arc-20240116; t=1790787762; c=relaxed/simple;
+	bh=dALmUEdG5EWfXTijtmFQiMsJEwrQV+3rOWZZ8DyLmx8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=XEqWbed4VpXKG9OdEVhSLPmumYzVg75T5sE3QhRy6tT5Iwxgyvwv5NPZ5YoWZLQar4AlhxaKSemO79s5f4Hwtx5QzJDFPL8wBtG4spZ2vZjE+RSud/3lUWPbfgK6hywaprkTjDHMyebPMf/lf/7i13TkmvYNYN3IvPK/30idUj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-81c1dde0219so6511727a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:02:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790787760; x=1791392560;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WmynAp8tHrw2Eto/AmEqwtrm2Mc1Vd5QPga8ueQFsN4=;
+        b=pbJSAopEfQHxxoPxW/MVKTst71LRrdD0ICcICEY0zm+boxGLqIgHl7dXGOGPJ9S/3m
+         nzgObABjur+Y2AudHv0VQrkvqlv6zRw9bd47zfm08t4V2XSxf2BZyvQUbE1rrxWLldrg
+         jho82laie7QMbq2ISmM2QV3XR0aBgQm61XagnMiC6oTs1XguqU6Eh9XXQn/Gvp/PKUCQ
+         neKXHsPwTm/bufywuYcd5UBj3UlMtRebbuox1NPzDIZiic1WTDoYr8E09X9Z0Tsazexo
+         33TOuN5933LdQZo0PypjEszCbPd/9bq42THKAq4mEg3Hvll4SvzXfbK4JDhOl9iboqMb
+         yyAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxe+PzVEIOPaiXCGSeNlhm1+s91wdMo7Oxm1mJGDiAObEDUpaHNypOlHKTWfaSv21YVk9CdWFhbScJuxA0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg802ivJWsIlI7+HDQoZ6ck2R4Ids8q/hpTIAKM5DxE0M3W0+W
+	m/NmWEpvXSbFQ4Yni0F51k3pPC+88EsFoTm2tzEJQHTbQoOGor0dKZQd8BYArrelt3hNd5EYfTE
+	TGXLVoP6Br4bk+Dch2EnqJppKI1+3Ep/yYEyTFqDaH891ScxQ+rvP1IE9sDE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:bce:b0:4d6:90d3:e18e with SMTP id
+ 5614622812f47-4f1b85c2d2dmr2235776b6e.45.1790787759808; Wed, 30 Sep 2026
+ 10:02:39 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:02:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abd40af.fac9d4e5.17396.0008.GAE@google.com>
+Subject: [syzbot] [openvswitch?] WARNING in set_ipv6_addr
+From: syzbot <syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com>
+To: aconole@redhat.com, davem@davemloft.net, dev@openvswitch.org, 
+	echaudro@redhat.com, edumazet@google.com, horms@kernel.org, 
+	i.maximets@ovn.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    47a144672573 Merge branch 'mptcp-misc-improvements-for-v7-4'
+git tree:       net-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=1342db25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=88147dd7e4cb6a0f
+dashboard link: https://syzkaller.appspot.com/bug?extid=4cc63fcfb3845e149969
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c35e05580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11908035580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/974586b80355/disk-47a14467.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/05ff7f1eb7cf/vmlinux-47a14467.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d63ff990e2c6/bzImage-47a14467.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com
+
+ovs-dp0: entered promiscuous mode
+------------[ cut here ]------------
+!skb_transport_header_was_set(skb)
+WARNING: ./include/linux/skbuff.h:3075 at skb_transport_header include/linux/skbuff.h:3075 [inline], CPU#1: syz-executor463/5635
+WARNING: ./include/linux/skbuff.h:3075 at skb_transport_offset include/linux/skbuff.h:3250 [inline], CPU#1: syz-executor463/5635
+WARNING: ./include/linux/skbuff.h:3075 at update_ipv6_checksum net/openvswitch/actions.c:361 [inline], CPU#1: syz-executor463/5635
+WARNING: ./include/linux/skbuff.h:3075 at set_ipv6_addr+0x462/0x660 net/openvswitch/actions.c:399, CPU#1: syz-executor463/5635
+Modules linked in:
+CPU: 1 UID: 0 PID: 5635 Comm: syz-executor463 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:skb_transport_header include/linux/skbuff.h:3075 [inline]
+RIP: 0010:skb_transport_offset include/linux/skbuff.h:3250 [inline]
+RIP: 0010:update_ipv6_checksum net/openvswitch/actions.c:361 [inline]
+RIP: 0010:set_ipv6_addr+0x462/0x660 net/openvswitch/actions.c:399
+Code: f6 e8 12 d3 05 00 ba 10 00 00 00 4c 89 ef 48 89 ee 48 83 c4 20 5b 41 5c 41 5d 41 5e 41 5f 5d e9 14 89 7a f6 e8 ff 80 0a f6 90 <0f> 0b 90 48 8b 44 24 10 42 0f b6 04 30 84 c0 0f 85 c8 01 00 00 41
+RSP: 0018:ffffc90003b3ee68 EFLAGS: 00010293
+RAX: ffffffff8bbd5b01 RBX: 000000000000ffff RCX: ffff8880780bbe80
+RDX: 0000000000000000 RSI: 000000000000ffff RDI: 000000000000ffff
+RBP: 000000000000004c R08: 0000000000000001 R09: 0000000000000011
+R10: 000000000000001f R11: 0000000000000000 R12: ffff888071cdbd36
+R13: ffff88802d028396 R14: dffffc0000000000 R15: ffff888071cdbc80
+FS:  0000555579c36400(0000) GS:ffff888124dc5000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd90696af0 CR3: 000000007065a000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ set_ipv6 net/openvswitch/actions.c:531 [inline]
+ execute_masked_set_action net/openvswitch/actions.c:1073 [inline]
+ do_execute_actions+0x557e/0x8600 net/openvswitch/actions.c:1366
+ ovs_execute_actions+0xde/0x520 net/openvswitch/actions.c:1592
+ ovs_packet_cmd_execute+0xb4f/0xf10 net/openvswitch/datapath.c:705
+ genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
+ genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+ genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
+ netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2572
+ genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+ netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+ netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1361
+ netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1916
+ sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
+ __sock_sendmsg net/socket.c:818 [inline]
+ ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
+ ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
+ __sys_sendmsg net/socket.c:2801 [inline]
+ __do_sys_sendmsg net/socket.c:2806 [inline]
+ __se_sys_sendmsg net/socket.c:2804 [inline]
+ __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2804
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe073a4fd39
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffece969af8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 00007ffece969c28 RCX: 00007fe073a4fd39
+RDX: 0000000000000000 RSI: 0000200000000040 RDI: 0000000000000003
+RBP: 0000000000000001 R08: 00007ffece969c28 R09: 00007ffece969c28
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffece969c18
+R13: 0000000000000002 R14: 00007fe073ae0ca0 R15: 0000000000000002
+ </TASK>
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On Sep 30 2026, at 12:41 pm, Frank Li <Frank.li@oss.nxp.com> wrote:
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> On Tue, Sep 29, 2026 at 03:43:39PM -0400,
-> jeffbarnes@linux.microsoft.com wrote:
->> [You don't often get email from jeffbarnes@linux.microsoft.com. Learn
->> why this is important at
->> https://aka.ms/LearnAboutSenderIdentification ]
->> 
->> From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
->> 
->> The Layerscape PCIe driver programs PCIE_ABSERR to forward errors from
->> outbound non-posted requests to the internal AXI interface.
->> 
->> A PCI configuration access can race with the link going down after
->> dw_pcie_other_conf_map_bus() checks the link but before the MMIO access
->> is performed. When the resulting Completion Timeout is forwarded to
->> AXI, it causes an asynchronous SError and kernel panic.
->> 
->> For example:
->> 
->>   Kernel panic - not syncing: Asynchronous SError Interrupt
->>   ...
->>   Call trace:
->>    arm64_serror_panic+0x78/0x90
->>    do_serror+0x84/0x90
->>    el1h_64_error_handler+0x30/0x40
->>    el1h_64_error+0x68/0x70
->>    pci_generic_config_read+0x64/0xb0
->>    dw_pcie_rd_other_conf+0x1c/0x68
->>    pci_bus_read_config_word+0x68/0x118
->>    pcie_capability_read_word+0xa8/0xd8
->>    find_device_iter+0x8c/0x160
->>    pci_walk_bus+0x60/0xb8
->>    find_source_device+0x78/0xb0
->>    aer_isr+0x1dc/0x230
->> 
->> Restore the controller's default error response behavior instead of
->> forwarding these errors to AXI.
->> 
->> Reproduce the race by instrumenting dw_pcie_rd_other_conf() to call
->> map_bus() while the link is up, then schedule a worker on another CPU
->> to set PCI_EXP_LNKCTL_LD. Synchronize the CPUs immediately before the
->> Link Disable DBI write, then perform readl() using the address returned
->> by map_bus() concurrently with the link transition.
->> 
->> Without this change, the overlapping configuration read results in an
->> asynchronous SError and kernel panic. With this change, the same test
->> returns 0xffffffff from the configuration read. In this test, AER
->> reports a non-fatal Completion Timeout, and no SError or kernel panic
->> occurs.
->> 
->> This effectively reverts the error response behavior introduced by
->> commit 84d897d69938
->> ("PCI: layerscape: Change default error response behavior").
-> 
-> Subject should be revert ...
-> 
-> I am not sure what's expect behavior by other dwc PCI controller. returns
-> 0xfffffffff or report bus error.
-> 
-> Frank
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-Thanks, Frank.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Agreed on the subject. This is mechanically a revert of 84d897d69938, so
-I'll change the subject to:
-Revert "PCI: layerscape: Change default error response behavior"
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-Regarding the expected behavior on other DWC controllers, I don't have
-hardware available to test those implementations, so I don't want to speculate.
-
-What I have verified on Layerscape is that with PCIE_ABSERR programmed,
-the failed configuration access is forwarded to AXI and results in an
-asynchronous SError and kernel panic. With the controller's default
-response, the identical injected race returns 0xffffffff and the kernel survives.
-
-Please let me know if you think the behavior of other DWC
-implementations needs to be established before proceeding with this revert.
-
-Thanks, Jeff
-
-> 
->> 
->> Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
->> ---
->>  drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
->>  1 file changed, 12 deletions(-)
->> 
->> diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
->> index 14d6ac4fc53f..d333f1ae8a41 100644
->> --- a/drivers/pci/controller/dwc/pci-layerscape.c
->> +++ b/drivers/pci/controller/dwc/pci-layerscape.c
->> @@ -28,8 +28,6 @@
->> 
->>  /* PEX Internal Configuration Registers */
->>  #define PCIE_STRFMR1           0x71c /* Symbol Timer & Filter Mask
->> Register1 */
->> -#define PCIE_ABSERR            0x8d0 /* Bridge Slave Error Response
->> Register */
->> -#define PCIE_ABSERR_SETTING    0x9401 /* Forward error of non-posted
->> request */
->> 
->>  /* PF Message Command Register */
->>  #define LS_PCIE_PF_MCR         0x2c
->> @@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
->>         iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
->>  }
->> 
->> -/* Forward error response of outbound non-posted requests */
->> -static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
->> -{
->> -       struct dw_pcie *pci = pcie->pci;
->> -
->> -       iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
->> -}
->> -
->>  static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
->>  {
->>         if (pcie->big_endian)
->> @@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
->>         struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
->>         struct ls_pcie *pcie = to_ls_pcie(pci);
->> 
->> -       ls_pcie_fix_error_response(pcie);
->> -
->>         dw_pcie_dbi_ro_wr_en(pci);
->>         ls_pcie_clear_multifunction(pcie);
->>         dw_pcie_dbi_ro_wr_dis(pci);
->> --
->> 2.43.0
->> 
->> 
-> 
+If you want to undo deduplication, reply with:
+#syz undup
