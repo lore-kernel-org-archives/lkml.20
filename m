@@ -1,28 +1,27 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C69E46A60D;
-	Wed, 30 Sep 2026 08:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E87E341ADD;
+	Wed, 30 Sep 2026 08:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757087; cv=none; b=YfY/WvUOUW9jhUz7jDapPwqGp8H2s17aHsz3yRElKPpFlYKF0ZOag6Ua0bBJllsIuSHBTIGt9eO/bDP3Yyc65yH7YjjFH1cuO364NXi+PNto7kw1O2PiUyrPsnOQDgzVRa+Dz+5RND9S4hCDMoxvgRoXkDqXspcC7Y+gMAMfaJY=
+	t=1790757089; cv=none; b=uOMLvSBeRaXvNIZllNQO5VkBii7BBay0NImz7bRsoykWABL2ubKelTORa76ZgyzvLhM+KFf/9uwdV95KyjQ0JTjCDpAltQU9kyItLkJi4ktCOsNiDiDOMEuIoDeKzW6wFVTNt0P/zd9rGtvbezXRv1aLuB1Qzcf+EheaDt3H1WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757087; c=relaxed/simple;
-	bh=Km2xZkmkLKBW4ecZ5V90FNwDATFDvl5jlAwZuYRFCZg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YrSzRX2Sq3NlNGJhbkejSVfv/EG0/OKm+apmhOem3rpZdi2fdtiWG0hpf9WE9NXDH1oLo18HPsaFelN3t8/hktrJrx3RNwhMcI+wkxKb0JU2i5opiuLbjHjqp9w95B9jc2fXdYr7dKlnpLEZKdRvLCXuyBFK+pWIFvU2YrNPbts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+	s=arc-20240116; t=1790757089; c=relaxed/simple;
+	bh=gUb34fs6wqHqGoeJQwZq2pZDXwYl369jj/nVD0Mg0fY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=me6Egr+jjl5ZpTT1/Xundzw/FHo/DUtQmXY2UH09QKNJ8j4u+UjrVLa8z7fZB03Lkfdxskguw/t5MiHcjMqWD9iGFVy+NXSVWvE0SMrpIzS6NdhdvFQ5/YATz68RFP/vTCZA9SGeFptkPIIaWZbCrLQyWRv35QesPQPkZi6mP2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hvpCP3MMYzKHMc1;
-	Wed, 30 Sep 2026 16:30:41 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hvpCX5g5tzYQtwH;
+	Wed, 30 Sep 2026 16:30:48 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 805A840574;
-	Wed, 30 Sep 2026 16:31:18 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id 6884D4056F;
+	Wed, 30 Sep 2026 16:31:17 +0800 (CST)
 Received: from ultra.huawei.com (unknown [10.90.53.71])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDXpyrRyLxq8dflCA--.24306S6;
-	Wed, 30 Sep 2026 16:31:18 +0800 (CST)
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDXpyrRyLxq8dflCA--.24306S2;
+	Wed, 30 Sep 2026 16:31:15 +0800 (CST)
 From: Pu Lehui <pulehui@huaweicloud.com>
 To: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	bpf@vger.kernel.org,
@@ -45,72 +44,88 @@ Cc: Alexei Starovoitov <ast@kernel.org>,
 	Alexandre Ghiti <alex@ghiti.fr>,
 	Pu Lehui <pulehui@huawei.com>,
 	Pu Lehui <pulehui@huaweicloud.com>
-Subject: [PATCH bpf-next v3 4/4] selftests/bpf: Update DENYLIST.riscv64
-Date: Wed, 30 Sep 2026 08:35:22 +0000
-Message-Id: <20260930083522.1914145-5-pulehui@huaweicloud.com>
+Subject: [PATCH bpf-next v3 0/4] riscv, bpf: Prepare for upcoming daily CI
+Date: Wed, 30 Sep 2026 08:35:18 +0000
+Message-Id: <20260930083522.1914145-1-pulehui@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930083522.1914145-1-pulehui@huaweicloud.com>
-References: <20260930083522.1914145-1-pulehui@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgDXpyrRyLxq8dflCA--.24306S6
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17WrykZFy7tw4DZF4ktFb_yoW8Wr1DpF
-	ZIgw1Yk3s5XF4avr1xGrWDGFWFvrWkZFWfJw48Xry3ArsrtFW7uan2gayftrn3urWUW34a
-	yF1Iy345uryDJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE
-	3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
-	x0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
-	JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
-	ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
-	z7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zV
-	AF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4l
-	IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
-	1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
-	CTnIWIevJa73UjIFyTuYvjTRNdb1DUUUU
+X-CM-TRANSID:gCh0CgDXpyrRyLxq8dflCA--.24306S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw4ruw4kKFy8XFWUZFy8Grg_yoW5Xr4UpF
+	Z5Cr15ur95Wr1aq39Fk3y7ZFW0gr4kCr13Cw18Ww15ZrZ0gFy0qrn29rWYqFZxCFyDW3ya
+	ya4agrnY9w18ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7sRidbbtUUUUU==
 X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
 From: Pu Lehui <pulehui@huawei.com>
 
-Both probe_user and stacktrace_build_id fail on riscv64 due to riscv64's
-trap-based kprobe handling.
+For some time, bpf selftests on riscv64 have suffered from several
+silent breakages and test failures. These mainly stemmed from changes
+such as riscv ftrace atomic patching [0], qemu pmu behavior changes, and
+environment mismatches. While some issues have already been addressed in
+previous patches [1-3] and some are in progress [4], the remaining ones
+are handled in this series.
 
-For probe_user, kprobes on riscv64 are handled via traps where the entry
-path invokes irqentry_nmi_enter(). Because bpf_probe_write_user()
-rejects execution in NMI context, the test fails. Upstream discussions
-regarding NMI semantics on riscv are ongoing [0] and will be tracked.
+To catch regressions promptly and close this long-standing riscv bpf CI
+gap, the riscv-bpf-daily project [5] is introduced here. With the
+assistance of LLMs, putting together this automated workflow was fairly
+straightforward. The pipeline pulls the latest bpf-next branch daily,
+executes both test_progs and test_verifier, and automatically creates
+github issues with brief failure descriptions and sends notifications
+when failures occur. It has been running smoothly for over a week and
+has already proven its value by catching some real jit bugs.
 
-For stacktrace_build_id, under the kprobe trap context with interrupts
-disabled, bpf_get_stackid() obtains a valid build_id, but the queued
-irq_work is deferred. As a result, subsequent bpf_get_stack() fails to
-acquire mmap_read_trylock() and falls back to BPF_STACK_BUILD_ID_IP,
-causing an inconsistency between the two results.
+To pave the way for riscv-bpf-daily, this patchset addresses the
+remaining fixes, test adaptations, and environment dependencies.
 
-Since stacktrace_build_id is already included in the generic DENYLIST,
-only add probe_user to DENYLIST.riscv64.
+[0] https://lore.kernel.org/all/20250407180838.42877-5-andybnac@gmail.com/
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2820d227ad4e
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f2aaa6215910
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c7e617552938
+[4] https://lore.kernel.org/bpf/20260722140015.1982158-1-varunrmallya@gmail.com
+[5] https://github.com/pulehui/riscv-bpf-daily
 
-Link: https://lore.kernel.org/linux-riscv/20230702025708.784106-1-guoren@kernel.org [0]
-Signed-off-by: Pu Lehui <pulehui@huawei.com>
----
- tools/testing/selftests/bpf/DENYLIST.riscv64 | 1 +
- 1 file changed, 1 insertion(+)
+v3:
+- Update comment in vmtest.sh about qemu.
 
-diff --git a/tools/testing/selftests/bpf/DENYLIST.riscv64 b/tools/testing/selftests/bpf/DENYLIST.riscv64
-index ca1beae7fe8f..75a9690fb2f2 100644
---- a/tools/testing/selftests/bpf/DENYLIST.riscv64
-+++ b/tools/testing/selftests/bpf/DENYLIST.riscv64
-@@ -1,2 +1,3 @@
- # riscv64 deny list for BPF CI and local vmtest
- exceptions					# JIT does not support exceptions
-+probe_user					# kprobe hit in trap
+v2: https://lore.kernel.org/bpf/20260930064607.1908864-1-pulehui@huaweicloud.com
+- Change test value in setget_sockopt to avoid quantization error.
+- Drop path modify in d_path testcase as will mount /dev/shm in rootfs.
+
+v1: https://lore.kernel.org/bpf/20260929083924.1851840-1-pulehui@huaweicloud.com
+
+Kumar Kartikeya Dwivedi (1):
+  bpf, riscv: Fix stack-passed arguments for indirect trampolines
+
+Pu Lehui (3):
+  selftests/bpf: Avoid jiffies quantization error in setget_sockopt
+  selftests/bpf: Update qemu config for riscv64 in vmtest.sh
+  selftests/bpf: Update DENYLIST.riscv64
+
+ arch/riscv/net/bpf_jit_comp64.c                    | 14 ++++++++++----
+ tools/testing/selftests/bpf/DENYLIST.riscv64       |  1 +
+ tools/testing/selftests/bpf/progs/setget_sockopt.c |  4 ++--
+ tools/testing/selftests/bpf/vmtest.sh              |  6 +++---
+ 4 files changed, 16 insertions(+), 9 deletions(-)
+
 -- 
 2.34.1
 
