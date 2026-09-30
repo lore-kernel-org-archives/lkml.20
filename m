@@ -1,94 +1,89 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32E04562B0;
-	Wed, 30 Sep 2026 13:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6548C4EC65E;
+	Wed, 30 Sep 2026 13:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773783; cv=none; b=dp63O/BVf09wBmv9Pouu6LPyLoxT/jQY5aeEtAGBBQa2XBh9VTdJR9Nwvdb7Awr+f3BfmBryrhNK2m5iGqLpGV6M6uXtzxDyf9g13UWjO6UPoGDm8Mev2aI77JBTQriDULz0W4msG4qEJfxmICsPfjMoyl0v8OBDOrhp163c6FA=
+	t=1790773790; cv=none; b=SmYjC0F5ZFLicTe1A38TAyStwVCOfZ3vupYd78q4OmJoERjrymB7cRhFqfaSWgVRnHmCK15zbt/1Vxj0tgAgflh11gpgm1G+8p63lL4sdHDLP2tgLlm4qjAXVk0M7Ca/iXsFFSrXBMcaa63AhoMUSwK/W7WWHlSOYGJLJFo1xOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773783; c=relaxed/simple;
-	bh=ll2LPvIKpEkwZ77h4B19yw/2rk8FFkU9LL8yKpswNyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jrfPqHDb4bZhE2VUo02mtGXM+R9JftL4Tov/QzPp44rr4sMT//tpyNQ8J7ddK7ReyHqed3/uC/X0SapqvZgZvVoM0prA0+tg75Fm3AEBxhfx5uNxO71UBXfF53xuLpAg5eJSeggI0CW12CbJP+3EJe6t5OhckdDRZFL1neKt0Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rllCC+fK; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790773790; c=relaxed/simple;
+	bh=J++qny+EBJxZHEZ4LSRSNmEN90XEpcwVvG5UR83jBqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UTyQMaLfkMzoWyd5wXPoHWUGRQklwOjvT+pT6USMNT9y4e+aYpYJMb63EeoSfQhZ2SeCqcQkT/uBK7Rhadw+JDzKp7xO/yimkflkImtimXH3e0FawmCxdrOdv1C9j7zA67rWhZt3+DrxawF5GyLUMBOtDQqdwi4b+jwS6FETH28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvO0649/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rllCC+fK"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id AF7E21A1074;
-	Wed, 30 Sep 2026 13:09:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7FA1560749;
-	Wed, 30 Sep 2026 13:09:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8685110328C6D;
-	Wed, 30 Sep 2026 15:09:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790773760; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=LclRS6GiAqzpJ+OFOtJcaTT8MvnLFW6hByRdlzKJ/3c=;
-	b=rllCC+fKRbDgQq4uVuZXlMEAXyLuvu58maz0mxCqZe38hn+XDf60Ke0NqIwvp43VWXttdQ
-	HnVr47dtfsVdu+uN0q+/LkrSY0cRKkdzR7tZd2NrRyj0YZZOnjxX5/3mJTITUee24WHKNl
-	8y6MA7a9uN2IgKaT7e4J3qZblrB2G9fW+psPO6fPvlIezIjZeFN1EOCGcO6I5LC4kfrFNi
-	wFGGR3jLpCC1DuXBFwpBra8nanmowfMmLeRr0yZFJiVQFXV+20syWN8EDaPHlMndO425FX
-	9w1Nn1vp9GuPlkKTP1IlkEXFMTKOYT0MgTlm8WoxqId9/gtyA8BKAz53m0dGJg==
-Message-ID: <4115d11a-20bd-4d8b-91db-a995b69dc989@bootlin.com>
-Date: Wed, 30 Sep 2026 15:09:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvO0649/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8171F000FF;
+	Wed, 30 Sep 2026 13:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790773774;
+	bh=4woHoEVaTQEBheXiZHyVF4iXX9NPIEm5bR+jZ3AOrk8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YvO0649/rX1Z5taZFH7CD9y/xYnJnE2JnmJ6ZKLiFpfAP5yyCrq3Gssre+d3nfQaF
+	 v9uM58hIoSg7MfO02fg5zOo+s9wRlwPSn/FVow3AVzsKaknjOnKs2NTJPOSPhCe2/j
+	 bDc22wN8V0PVWINcCHwKxEtyMfXIRH3mmHP37HWu7QO3i+nULU4IeFEZFAuzrzXoOi
+	 ocigvdvVCkeTY+3IGoscWH08aw3bYR7qgqyO3Po9BdUc+AdIJqh21oai8FUPEv9HEL
+	 FWwgsrXerBTYLmnRO0TkHHMQx4tYtJONHDdvMc+c2WoHUoGqq/4m+L4c6wUT6mlj3W
+	 dD0L2Q1+eMjoA==
+Date: Wed, 30 Sep 2026 14:09:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jonathan Santos <Jonathan.Santos@analog.com>
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com,
+	michael.hennerich@analog.com, jonath4nns@gmail.com,
+	andriy.shevchenko@intel.com
+Subject: Re: [PATCH v2 2/2] spi: axi-spi-engine: fix stale SYNC IRQ pending
+ in trigger_enable
+Message-ID: <8ba05b99-36ac-4a76-ac11-e6ad92c631d4@sirena.org.uk>
+References: <cover.1790731588.git.Jonathan.Santos@analog.com>
+ <b1573f16b8e30f22877677026bc2296420a0c527.1790731588.git.Jonathan.Santos@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v18 07/10] net: phy: phy_link_topology: Add a
- helper to retrieve ports
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- hkallweit1@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
- herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
- kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
- nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
- romain.gantois@bootlin.com, daniel@makrotopia.org,
- dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it,
- f@lex.la
-References: <20260927133619.955236-8-maxime.chevallier@bootlin.com>
- <179064232141.3145.9140453636997333793@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <179064232141.3145.9140453636997333793@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wbbwOVWLGMatWhGR"
+Content-Disposition: inline
+In-Reply-To: <b1573f16b8e30f22877677026bc2296420a0c527.1790731588.git.Jonathan.Santos@analog.com>
+X-Cookie: (null cookie
 
 
+--wbbwOVWLGMatWhGR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 9/29/26 02:38, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 0 · Low: 0
-> 
+On Tue, Sep 29, 2026 at 11:17:45PM -0300, Jonathan Santos wrote:
+> spi_engine_trigger_enable() sends SYNC(1) and polls SYNC_ID, it never
+> clears the INT_PENDING[SYNC] bit afterward. This leaves a stale pending
+> interrupt that can fire spuriously when INT_SYNC is later enabled.
 
-> 
-> [Severity: High]
-> No reference is taken on the returned port. The only thing keeping it
-> alive is RTNL, and ASSERT_RTNL() only warns. The commit message states the
-> rule as "the caller must hold rtnl until it's done with it".
-> 
-> Do all the paths that erase and free ports hold RTNL?
+> +
+> +	/* Clear the stale SYNC pending bit so it doesn't fire when the IRQ is later enabled */
+> +	writel_relaxed(SPI_ENGINE_INT_SYNC, spi_engine->base + SPI_ENGINE_REG_INT_PENDING);
+> +
+>  	if (ret)
+>  		return ret;
 
-Nope, but really this isn't that simple, unbinding a MAC/HY with an SFP
-module that itself has a PHY isn't straightforward, we deadlock if we
-grab rtnl as the SFP cleanup path also acquires it.
+I'm not seeing anything here for the issue with ensuring posted writes
+are completed before we drop the lock?  The write may not be visible on
+enother CPU, we need a read from the controller or something.
 
-unbinding is a blind spot for the PHY-in-SFP case it would make sense to address
-that as a separate work :(
+--wbbwOVWLGMatWhGR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Maxime
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq9CgkACgkQJNaLcl1U
+h9AY+gf+IcpTdrqN5pgjRTov3ioF32wKPIKxhbplBRj64csGTaNi291GCQ1Jprco
+nMBjc3Dz4SBU/bTqfdbIfaeD1VhDYfp9DwHXCAlJhAQz/P2x3ImpVBy56k+3rjVq
+G4FAaz4OUa6hCYrnch1lODnSF1sXnDO0RmjKlE77w9PjKSCeCCmI3iU3ey2Oqid+
+QXd9nbp1XpxQwRBs8M/EWP9H1sy7LSPLfzQEyq4L0P6b8cVXLQTCvk2ZK/3nCcE7
+zl1wqL1gmnQLMj+buo/IuoET3P/r+OzJphHMyzO6jwWf6pLHy5hU3A09tQmN1Te2
+Sy0UcXNpDmAFG6k76d4jVwoozmeu9A==
+=Ep6t
+-----END PGP SIGNATURE-----
 
-
+--wbbwOVWLGMatWhGR--
