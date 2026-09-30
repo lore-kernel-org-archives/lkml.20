@@ -1,138 +1,152 @@
-Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACDE52842B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312E7511208
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805002; cv=none; b=PH1monPFSrj8rOuj/1gziF6SIb/XeavXxZgATu811FKcQ65cOCD03bZOAge1ZLkr16TFmgavovEIgIa5nwQFKReu/OO61HPbylgWz5TFUNTAahLHcMtKf40SVkBb8h9cX1V0ib+isw3ONqgYp5qLX18iQwyb4MnjSO9Ha7NHQRM=
+	t=1790805067; cv=none; b=YSXfIusbt+aEwnqXdgdcO1q/1fwgUNXDNPsOU2l3XlFQ4vxe/VN6GdHUyoeEdi7DrwFGKBKKcUK6yaheWiWDrFyMj/A34sGWTiwyCSSOdXSMEosR11kbt7gv6EYDp0R1+6p0FK36Y0sZk0a0+RgxpnHwKqeVD9ZaxpGa4w41aIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805002; c=relaxed/simple;
-	bh=5i1ANq/Smk5Laa7zjnvg47gWby2Li5Aw4qx1cKOpiKE=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=LZdTl9KeScYvqvDwh3/qe/y0Ovg9c7X8lIRsw2xk0Pip5HpBNmD7JYeFN+Cak7yO4yoUJovsr5MFT2vIwcxpr0Jxg7ju6FmgsIdOkneZSnXMQK3+nR8alRb3jzg5K+G4pOrOexklCeo4Gc0R0AN3ACcBG1ftk7GIU2Fs2LmXkTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZoKODLS1; arc=none smtp.client-ip=91.218.175.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790805067; c=relaxed/simple;
+	bh=S22VfBD4pPls7UNG2NGxhpfRB45ROGORhMSqMHSQu6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kem2bAsACwFzRUaDfCxJQ+KyapQWmlQJRAP5Vrd+XgW+tlO2V/mJCrgXkZnn5eMhsR9HetY/dY5OG8x+1FgDvJCPpurDNedTE9uJ/7q6mtMTX6i2Xy3Oks/lwyz4LuDZ+N6pbVwWHD9QIx5bzdSuf1IZbTYi1xHYlO1mcGUtojY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qts7upZX; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZoKODLS1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5i1ANq/Smk5Laa7zjnvg47gWby2Li5Aw4qx1cKOpiKE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790804998; v=1; x=1791409798;
- b=ZoKODLS1sBAsr5xpb0OJvFS8ERMnWggPIu/W1grVcjMdYi6g0gAGC85kAvuR7FqqBVamqtW1
- amUgxbuKNlOstip6/xjoIWpNbA90S+oQ+Rnq3GrFFS3dXapA7gVvuIMnj+XwblawNhx/DlX8xpf
- SBbdbGg7WvdP3wHi9AnPB3kM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 627e79e027d2c8b3;
-	Wed, 30 Sep 2026 21:49:48 +0000
-X-Mizu-Trace-ID: 627e79e027d2c8b3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qts7upZX"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso43395975e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790805064; x=1791409864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8LP8CV7WHWqRDeEIDZ1+1JYJj+ocKrw1BORKdvPxNb8=;
+        b=Qts7upZXHfzDn7Iy13fsIBPnv9thUWdpaxbsjgvCS5XgctLBIyjXxyvi0hcj2oSZ+P
+         YD2DgPXYRxspt9bDXqkuByIjD4moULTqf7YOHHrh0NvhHIj+YabcuED2tbXoSw3CypvU
+         o/DiWuPZXeUi9q7Xuv9Gfyfvw0k2Npm6aXozgm/c4+ReWAz+rn9K86/bjXXJGq8j/kmd
+         m9S73z7np8+TQPkxxXUPzs8L8//ke1Y2Xp62bkRWye2wU0/WCi+zJHw1ag7qpAWiQo9n
+         efXrt8zMDfUth3lgcARbV3MqfNyTkUJponBpl33dQaav7jr2aPvPnSqOOpSN5/ELofEx
+         KqhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790805064; x=1791409864;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8LP8CV7WHWqRDeEIDZ1+1JYJj+ocKrw1BORKdvPxNb8=;
+        b=KTdDC4PcZP37a1HbRr90abe/Lrn1Gv/6j2OvjAFgj8Z+XRnJL45TyHII2AB8qQ5KlW
+         N1Kj0/RpTldamI8lOrmC9IZsPT/PGB0ZosUrQk+cdHK8bGKO584YZ1oU7EI7QHL4ruw7
+         /uzkk5Q+ZC5cWvevZI8ZeESX3xh6MLs6qkz09HbbhY34lhqYhOTvz7L28JjtQSk6yoRC
+         G6Nm+1sSrw7o06o8hNE7vB97xTzFS5Eiygd4vuh6kEzNntnrwupPvOr1tG91QXUqj2oI
+         f0V5sJn7gUQ8osdVpfcRBrt0FiR8rJvc7pM/wVyOLxTWHb38FKUAsL3XjmeyaeHg6kUV
+         rxdA==
+X-Forwarded-Encrypted: i=1; AKwUvByh/gKRULL3PSQTDsW8QpxKiqTUeDiY/5TIdZ6sl3DWYE8rV57wBhsdLw/XqTcekVMAYqr7J7f/QGAU/Qw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7Y6p/cRHfzsBo2FImj6mEUn4I/P3Z6ibhof/X4JtxDFFog0NX
+	8/FLQb/Ruc6xvoxA04ilqNRgRoL17TY80yK48UoAwRMkh5/tVng26IpD
+X-Gm-Gg: AYBFou3QaizwRQ/hjHMAoryzS0eKh6+XzEbsZ2D5f+zXQIVYWzGPXQ22MQObqrk/9Rt
+	TXOcyEcIo96ouAW4h1X82g3rQbYNBiwuUOg2pxy5ohN3eWWCMSDi3Drw1Pyhuz2lyGIML4pW6eP
+	6hE4x25TAv0BQ+1I015gewYWc7VuzhUeT7JzBx23biXPkUqGnHxQXXuUbP3OWn+tzgLyGuf7EGN
+	9HwBgCNkfymXQ0AsxgVDcJWGisV3416tGj6FS3Z6ElV+Aqmzvt+1Unr/mzjygilAWpmgRKw1x4P
+	DZmqTJQmNZ8A7x12SB8gT+N0j359Cvbz39vqkjMf9KLY4JbJ+FDbUR/Kk85dRIFpMgjR8HheVe5
+	ef7aKIyMlz+TfvC3CHCFBNkJ4N4rziiaXwyVRpmOfWkFiKJsiaoINShuPbXpA6pFkmhldk4LAp8
+	gbRCZdR+wFPHfLQq0vSy0gphenZQb3xrVF36ilOojMo31ehTvUD1Zx1ogZ9YSHnFbBPGm+
+X-Received: by 2002:a05:600c:638e:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a01aff908dmr42791025e9.26.1790805064167;
+        Wed, 30 Sep 2026 14:51:04 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979bbcsm12937155e9.5.2026.09.30.14.51.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 14:51:03 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: netdev@vger.kernel.org
+Cc: oneukum@suse.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	david.laight.linux@gmail.com,
+	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH net v5] usbnet: fix smp_processor_id() use in preemptible context
+Date: Thu,  1 Oct 2026 00:37:12 +0300
+Message-ID: <20260930215047.718270-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 21:49:47 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <dbebd1c7deff61626d9f5daaf32332b0ca11f457@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v5 rtw-next 2/7] wifi: rtw88: assign the RCR per chip in
- rtw_core_init
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, luka.gejak@linux.dev
-In-Reply-To: <0f32b66a-c5fe-407a-92ff-387c3fe39e64@gmail.com>
-References: <20260930091604.52891-1-luka.gejak@linux.dev>
- <20260930091604.52891-3-luka.gejak@linux.dev>
- <d398a8dd-a182-4e69-8f5e-12a820594093@gmail.com>
- <3c53130d1d4738a9b3173806264fc1d0b5682072@linux.dev>
- <a6ea2df9-b2c9-4417-ade4-f3947f36d139@gmail.com>
- <5b31fdb4474eea9b9403fc6ff466994b62a79fd3@linux.dev>
- <0f32b66a-c5fe-407a-92ff-387c3fe39e64@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-September 30, 2026 at 23:46, "Bitterblue Smith" <rtl8821cerfe2@gmail.com =
-mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821=
-cerfe2%40gmail.com%3E > wrote:
+usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
+disabling preemption, which triggers a BUG when running with PREEMPT_FULL:
 
+  BUG: using smp_processor_id() in preemptible code in tx_complete
 
->=20
->=20On 01/10/2026 00:29, Luka Gejak wrote:
->=20
->=20>=20
->=20> September 30, 2026 at 23:27, "Bitterblue Smith" <rtl8821cerfe2@gmai=
-l.com mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Cr=
-tl8821cerfe2%40gmail.com%3E > wrote:
-> >=20=20
->=20>=20=20
->=20>=20
->=20> >=20
->=20> > On 30/09/2026 23:36, Luka Gejak wrote:
-> > >=20
->=20>  September 30, 2026 at 20:03, "Bitterblue Smith" <rtl8821cerfe2@gma=
-il.com mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3C=
-rtl8821cerfe2%40gmail.com%3E > wrote:
-> >=20=20
->=20>=20=20
->=20>=20
->=20>  On 30/09/2026 12:15, Luka Gejak wrote:
-> >=20
->=20>  The receive control word is the same for every chip today. The gen=
-eric
-> >  default is written in rtw_core_init(), so a chip that needs a differ=
-ent
-> >  value has to overwrite it afterwards, in its own init path, far away
-> >  from where the default is decided.
-> >=20
->=20>  I still don't understand why RTL8723B(S) would need a different va=
-lue.
-> >=20
->=20>=20=20
->=20>  Because 0x700060ce is what the vendor driver leaves in REG_RCR for=
- this
-> >  chip, and it is what rtw8723x_mac_init() already writes for it. I ha=
-ve
-> >  both from tracing this card: a register dump at the end of
-> >  rtl8723bs_hal_init prints RCR=3D0x700060ce, and the same dump in rtw=
-88
-> >  matched it field for field.
-> >=20=20
->=20>  The default is a different filter. It sets BIT_PKTCTL_DLEN, which =
-the
-> >  8723B vendor HAL and rtlwifi's rtl8723be never set, and it clears
-> >  BIT_AMF, BIT_CBSSID_DATA and BIT_CBSSID_BCN, which the vendor value
-> >  sets. Four bits in total.
-> >=20
->=20> >=20
->=20> > It will work fine...
-> > >=20
->=20>=20=20
->=20>  Want me to drop the patch?
-> >=20
->=20Yes. If you check the vendor drivers for the other chips,
-> they're all in the same situation.
->=20
+Fix by using get_cpu_ptr()/put_cpu_ptr() which disable preemption
+and return the per-CPU pointer atomically.
 
-Ok,=20I will drop it in v6.
+Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Reported-by: syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
 
-> >=20
->=20> That value does not survive rtw_core_start(), which writes REG_RCR =
-from
-> >  hal.rcr after power_on. The field is what keeps it. BIT_APP_FCS is t=
-he only
-> >  bit added on top, because rtw88 advertises RX_INCLUDES_FCS.
-> >=20=20
->=20>  Best regards,
-> >  Luka Gejak
-> >=20
->=20> >=20
->=20> >=20
->=20> >
-> >
->
+---
+v5: Keep _irqsave seqcount helpers, only change pointer acquisition
+    to get_cpu_ptr()/put_cpu_ptr() as suggested by David Laight.
+
+ drivers/net/usb/usbnet.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+index a19ecf718f36..84f97f448b2d 100644
+--- a/drivers/net/usb/usbnet.c
++++ b/drivers/net/usb/usbnet.c
+@@ -325,7 +325,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
+  */
+ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
+ {
+-	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
++	struct pcpu_sw_netstats *stats64;
+ 	unsigned long flags;
+ 	int	status;
+
+@@ -338,10 +338,12 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
+ 	if (skb->protocol == 0)
+ 		skb->protocol = eth_type_trans(skb, dev->net);
+
++	stats64 = get_cpu_ptr(dev->net->tstats);
+ 	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
+ 	u64_stats_inc(&stats64->rx_packets);
+ 	u64_stats_add(&stats64->rx_bytes, skb->len);
+ 	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
++	put_cpu_ptr(dev->net->tstats);
+
+ 	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
+ 		  skb->len + sizeof(struct ethhdr), skb->protocol);
+@@ -1298,13 +1300,15 @@ static void tx_complete(struct urb *urb)
+ 	struct usbnet		*dev = entry->dev;
+
+ 	if (urb->status == 0) {
+-		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
++		struct pcpu_sw_netstats *stats64;
+ 		unsigned long flags;
+
++		stats64 = get_cpu_ptr(dev->net->tstats);
+ 		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
+ 		u64_stats_add(&stats64->tx_packets, entry->packets);
+ 		u64_stats_add(&stats64->tx_bytes, entry->length);
+ 		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
++		put_cpu_ptr(dev->net->tstats);
+ 	} else {
+ 		dev->net->stats.tx_errors++;
+
+--
+2.55.0
+
