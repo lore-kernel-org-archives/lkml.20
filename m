@@ -1,48 +1,79 @@
-Received: from mta1.migadu.com (out-42.mta1.migadu.com [95.215.58.42])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1192476046
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E351947F764
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759788; cv=none; b=SKSbKqUfSdBxcaSAVY0vD0ZDDrHwWDpFBCWX6ihLl6/yL18S82+noX/WVmrQ7Pn9gk0Oe9zaqmDmays0xm+0LIi0Z7p9dwQY6p495PrupCV6YHtwNINEjoiEqcSyEWG88/U8rrtTUK+AoeWib6xiUPZJ0og4VvmNMP1ZfIsHtnM=
+	t=1790759792; cv=none; b=sFdBBaat97NDs2NGode1c2iVe6Na8YI3BsUEw7qJyDxp49rmdJZUhoYJG5fSYZJXRC2eaaKyynMqf3BIcFx01/XBi5a5dj9hQ6qm46HGllRK6/Hnb8noGPOJqLf8QXqzM8JNiQrwmO16rbHqYV+KNqwx2a6iTeIi93WeouKwqlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759788; c=relaxed/simple;
-	bh=Ca5BbrAJIBa3O09AXU0PUuW4/9AxSHHQmz5hoAQr6OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q21FCf822a8bpLLy7Q5uNMDnfkzm+p5Rd+/Ee+8UWomoxaUV1CCQ3aNzZtacJjFH9lqfi022SzZFCPupIcGJhzfkXmCrbMoP8ptsEcjdaqaL6uko49Ss53+nm7iLBrFZ8R+yLegTkvszzk6ao0PD1Us8Z1/jCyFqSfIl4y1X5yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fuH8Id5l; arc=none smtp.client-ip=95.215.58.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790759792; c=relaxed/simple;
+	bh=g4Y5Ioh1PNKD1m8pIgh2Ofp5Df1IWYwPbOTKbtrXEy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hFtstQ4qlHdwHREsn6LYdnci4TgYpVIrBIV5KWUzPwsEa/NJxoSwNVhVYMTJcn5aY/Lz026ABLO95xLrw5zXTY3il/lEd0Xg/sAyY1EWjWf+0EUFd624QZdggOHhaFwVhyBDCTNfOBh6qjGkt5VrNjL7+uKR8lBZFhlI2Nn7m+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=syTZTJyz; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fuH8Id5l"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ca5BbrAJIBa3O09AXU0PUuW4/9AxSHHQmz5hoAQr6OY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790759780; v=1; x=1791364580;
- b=fuH8Id5l9SaMRGwv93NHc/aogoNqBdvmKU5Huj0EriR/K3p01uTEeZuUiMRNgoG36UTSGvPQ
- gbY2SIQJQAeCqLdjZYySSyglCNnQHVZeKCoD6D/iwXKPU+8Ptnb27Em+Q5yR49+yMJiQpYKVGJs
- Mtwj3XC8mzkbwsDqOStMjHPI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d01d68e6b6dd3b1a;
-	Wed, 30 Sep 2026 09:16:20 +0000
-X-Mizu-Trace-ID: d01d68e6b6dd3b1a
-X-Migadu-Flow: FLOW_OUT
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="syTZTJyz"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7d1802740so605537a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:16:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790759790; x=1791364590; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WYucAYlC1aLIWcQy1lYFzdZNT5TnSScFxgAFNJOXc7Y=;
+        b=syTZTJyzR3VQNuu8rTfCd/UFGciECHndY9/LrYc290c4MgbVStmoWoZkD0MvkztGXc
+         dZmo1QBwfxKD3O47l4AJZMn2vxmLJDYiBBhyh5AUyCf+S8+0+RpNcz/WmPlYUgH8A7dt
+         4VEG7TjCuqJ+tP1XdngbwH99RLfWHQIE+q3IIwpTsOgv1WlIap5Bx0DJM4s9iRI+4gKI
+         0wM+cYpMdHAoqdlwpge4B4d6VGFPWFftloEpmFxyF/7xeeKfHQ6NE40T6CaDJmTPqwbY
+         9rYyExoftWqxsxB279NXpDkwTm7acmuT3cht9nDu9F9i1yVVPXFk4y+HWCd1l2KYzird
+         IrsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790759790; x=1791364590;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WYucAYlC1aLIWcQy1lYFzdZNT5TnSScFxgAFNJOXc7Y=;
+        b=AtJGDlgfTJDhYI/ni3Bjv/Pjao4J/XdF/XyfPvpQPwafCd6KqPzjSEsdNaueY08CoV
+         8qYF/I0D77BlE5KBQV3DSqucNr7P88qvFCp9kwKzbZv3SQFv9l4+bK87nrp9+4TiXc3N
+         krMIrNZlnz5564NE2NFhVr4Qy2feQ53xarwLLl97EHz5kQY1MumyeqSukXuTDCiBwMvO
+         iWEdj2g9Pd1UvSPBChevCZ/FuL3D9KDsZa3EG9DVcZ3tWAQQZS4c+NZ9UJtbsCvKqH/s
+         h8BHPROGehglfiQQy6lYupW4YavjWT0FT4A9E2akct2tG2z+uM03nkIkzxrOQnx4En/R
+         Ii+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxH6M0o5pYRqOReOTRYkiP9X8blQfe4Gdwj7lqzHaY0HtXn6mdi4iNzR8V5ZKo0nZCaR99KQ7RrHymeZsc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyR5L8Izgi25uXP8MVZn15sQVt7XSG7pAm4vfVNbf3YRI9gnQd
+	/WoQ/H103OkRuoV3rr85PWBFaRdt0OmlGkN39FwgE7N4HrLHQ4d4vQbP
+X-Gm-Gg: AYBFou0pg1zrZX3+l8eLjNNAtapmEsOLQhe21YHRHNu5WAXBnVUi9PhqIBD+UyA6KSo
+	vtK4QLRSWmdhPrRWkTHV/xBk09BK38AgUG69ws8gsqaPatXmmdM542eGrgVInxwVMD7s6OHCYp3
+	z33ecNzCizUmxQbQyDViUmR2FFzmWBF9TzKt1EvylV+XJMqWnCIFD1Q1hsHnbTf3+WRTqqi0JFP
+	++VWCdKGF1EtUfl3L6BNmrGUGDa9F5pAIIjxiNnikneBVwQbXMkJUPcrt8evlO1QSrSsCTOgURp
+	rNMnUvFxhA6SN70Q9n1g1e8YYj0CQFvsTyxqOTwbF2Zt0kNoEfLkDSyADjAOjop/ERo0/5+7fae
+	gBRARJPUfEmd94G1gDu167uOUwMFO2A75KBHciov7QISItWnL/FlwUuKYJWDMS85QiA3kiGiKsb
+	5MmYLlb2gzBqCY7tf3fnCYdCrm7oDN3XrYsuRRj/wVHONEGQ3DGFn5TxC90CHT6tD8og==
+X-Received: by 2002:a17:90b:538f:b0:39e:6c68:c77b with SMTP id 98e67ed59e1d1-3a4d18d5da0mr736762a91.49.1790759789619;
+        Wed, 30 Sep 2026 02:16:29 -0700 (PDT)
+Received: from morefine ([5.34.221.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce419342sm2291724a91.16.2026.09.30.02.16.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 02:16:29 -0700 (PDT)
+From: Changbin Du <changbin.du@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
 	linux-kernel@vger.kernel.org,
-	Michael Straube <straube.linux@gmail.com>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH v5 rtw-next 7/7] wifi: rtw88: 8723bs: enable building the RTL8723BS driver
-Date: Wed, 30 Sep 2026 11:16:04 +0200
-Message-ID: <20260930091604.52891-8-luka.gejak@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930091604.52891-1-luka.gejak@linux.dev>
-References: <20260930091604.52891-1-luka.gejak@linux.dev>
+	linux-perf-users@vger.kernel.org,
+	Changbin Du <changbin.du@gmail.com>
+Subject: [PATCH] perf bench: Add atomic CAS benchmark
+Date: Wed, 30 Sep 2026 17:16:17 +0800
+Message-ID: <20260930091617.4189736-1-changbin.du@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,70 +82,405 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that the chip support, firmware interface, coexistence, power
-management and the SDIO transfer and association paths are all in place,
-add the Kconfig symbols and Makefile rules that build the RTL8723B chip
-module and the RTL8723BS SDIO front end.
+Add a new 'atomic' collection to perf bench for benchmarking
+compare-and-swap (CAS) atomic operations with multi-threaded
+contention testing.
 
-Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+The benchmark tests __atomic_compare_exchange_n operations
+with configurable thread count and iteration count to measure
+atomic contention effects.
+
+Why this benchmark is needed:
+- CAS operations are fundamental to lock-free algorithms and data
+  structures. Understanding their performance characteristics under
+  contention is critical for designing high-performance concurrent
+  applications.
+- The benchmark helps identify atomic operation latency and
+  scalability issues across different thread counts, revealing
+  contention patterns that are not visible in single-threaded tests.
+- Useful for evaluating atomic implementation quality on different
+  architectures and for regression testing after changes to atomic
+  primitives or memory ordering.
+
+Measurement methodology:
+- Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
+  after synchronizing on a pthread_barrier, ensuring all threads
+  begin simultaneously.
+- Each thread performs a hot loop of atomic compare-and-swap on a
+  shared u64 counter, incrementing from 0 to iterations.
+- The shared counter is cache-line aligned (64 bytes) to isolate
+  contention to the target cache line and avoid false sharing.
+- The wall-clock time is measured as the max of all per-thread
+  runtimes (the time for the slowest thread to finish).
+- The first repeat is excluded from statistics as a warmup phase
+  to avoid cache-cold effects.
+Example usage:
+  $ perf bench atomic cas --threads 2
+  # Running 'atomic/cas' benchmark:
+
+    Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
+    Avg wall-clock time: 7365.480 msec  (stddev 66.014 msec)
+    Total ops: 200,000,000
+    Throughput total: 27,153,697 ops/sec
+    Per-thread times and throughput (last repeat):
+      fastest:  7510.031 msec  (13315525 ops/sec)
+      slowest:  7581.678 msec  (13189692 ops/sec)
+      avg:      7545.854 msec  (13252310 ops/sec)
+
+Output fields explained:
+- Threads: number of contending threads
+- iterations/thread: CAS operations each thread performs
+- repeats: number of test runs (first is warmup)
+- Avg wall-clock time: mean time for all threads to complete
+- stddev: standard deviation across repeats
+- Total ops: threads x iterations/thread
+- Throughput total: aggregate ops/sec across all threads
+- Per-thread times: fastest/slowest/avg thread completion time
+- Per-thread throughput: per-thread ops/sec (shows scheduling imbalance)
+
+Assisted-by: opencode:DeepSeek-V4-Pro
+Signed-off-by: Changbin Du <changbin.du@gmail.com>
 ---
- drivers/net/wireless/realtek/rtw88/Kconfig  | 18 ++++++++++++++++++
- drivers/net/wireless/realtek/rtw88/Makefile |  6 ++++++
- 2 files changed, 24 insertions(+)
+ tools/perf/Documentation/perf-bench.txt |  22 +++
+ tools/perf/bench/Build                  |   1 +
+ tools/perf/bench/atomic.c               | 229 ++++++++++++++++++++++++
+ tools/perf/bench/bench.h                |   1 +
+ tools/perf/builtin-bench.c              |   8 +
+ 5 files changed, 261 insertions(+)
+ create mode 100644 tools/perf/bench/atomic.c
 
-diff --git a/drivers/net/wireless/realtek/rtw88/Kconfig b/drivers/net/wireless/realtek/rtw88/Kconfig
-index 3736f290bd42..e1f40d6785e6 100644
---- a/drivers/net/wireless/realtek/rtw88/Kconfig
-+++ b/drivers/net/wireless/realtek/rtw88/Kconfig
-@@ -36,6 +36,10 @@ config RTW88_8703B
- 	tristate
- 	select RTW88_8723X
+diff --git a/tools/perf/Documentation/perf-bench.txt b/tools/perf/Documentation/perf-bench.txt
+index c5913cf59c98..9cdc19f02bcf 100644
+--- a/tools/perf/Documentation/perf-bench.txt
++++ b/tools/perf/Documentation/perf-bench.txt
+@@ -58,6 +58,9 @@ SUBSYSTEM
+ 'numa'::
+ 	NUMA scheduling and MM benchmarks.
  
-+config RTW88_8723B
-+	tristate
-+	select RTW88_8723X
++'atomic'::
++	Atomic operation benchmarks.
 +
- config RTW88_8723D
- 	tristate
- 	select RTW88_8723X
-@@ -159,6 +163,20 @@ config RTW88_8723CS
+ 'futex'::
+ 	Futex stressing benchmarks.
  
- 	  If you choose to build a module, it'll be called rtw88_8723cs.
+@@ -283,6 +286,25 @@ SUITES FOR 'numa'
+ *mem*::
+ Suite for evaluating NUMA workloads.
  
-+config RTW88_8723BS
-+	tristate "Realtek 8723BS SDIO wireless network adapter"
-+	depends on MMC
-+	select RTW88_CORE
-+	select RTW88_SDIO
-+	select RTW88_8723B
-+	help
-+	  Select this option to enable support for 8723BS chipset
++SUITES FOR 'atomic'
++~~~~~~~~~~~~~~~~~~~
++*cas*::
++Suite for evaluating compare-and-swap (CAS) atomic operations under
++multi-threaded contention.
 +
-+	  This module adds support for the 8723BS 802.11n SDIO
-+	  wireless network adapter.
++Options of *cas*
++^^^^^^^^^^^^^^^^
++-t::
++--threads=::
++Number of threads contending for the shared counter (default: 2).
 +
-+	  If you choose to build a module, it'll be called rtw88_8723bs.
++-i::
++--iterations=::
++Number of iterations per thread (default: 100000000).
 +
- config RTW88_8723DU
- 	tristate "Realtek 8723DU USB wireless network adapter"
- 	depends on USB
-diff --git a/drivers/net/wireless/realtek/rtw88/Makefile b/drivers/net/wireless/realtek/rtw88/Makefile
-index 0b3da05a2938..6889b3796449 100644
---- a/drivers/net/wireless/realtek/rtw88/Makefile
-+++ b/drivers/net/wireless/realtek/rtw88/Makefile
-@@ -55,6 +55,12 @@ rtw88_8703b-objs		:= rtw8703b.o rtw8703b_tables.o
- obj-$(CONFIG_RTW88_8723CS)	+= rtw88_8723cs.o
- rtw88_8723cs-objs		:= rtw8723cs.o
++The per-thread fastest/slowest/avg summary is only printed when
++running with more than one thread.
++
+ SUITES FOR 'futex'
+ ~~~~~~~~~~~~~~~~~~
+ *hash*::
+diff --git a/tools/perf/bench/Build b/tools/perf/bench/Build
+index 67b76fe20ba6..c64c52468d3d 100644
+--- a/tools/perf/bench/Build
++++ b/tools/perf/bench/Build
+@@ -3,6 +3,7 @@ perf-bench-y += sched-pipe.o
+ perf-bench-y += sched-seccomp-notify.o
+ perf-bench-y += syscall.o
+ perf-bench-y += mem-functions.o
++perf-bench-y += atomic.o
+ perf-bench-y += futex.o
+ perf-bench-y += futex-hash.o
+ perf-bench-y += futex-wake.o
+diff --git a/tools/perf/bench/atomic.c b/tools/perf/bench/atomic.c
+new file mode 100644
+index 000000000000..ce97025018ab
+--- /dev/null
++++ b/tools/perf/bench/atomic.c
+@@ -0,0 +1,229 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Changbin Du
++ *
++ * Benchmark for atomic compare-and-swap (CAS) operations.
++ *
++ * Measures throughput (ops/sec) of contended CAS on a single shared
++ * counter across multiple threads. Each thread performs a hot loop
++ * of compare-and-swap, competing with all other threads for the
++ * same cache line.
++ */
++#include "bench.h"
++#include <linux/compiler.h>
++#include "../util/debug.h"
++
++#ifndef HAVE_PTHREAD_BARRIER
++int bench_atomic(int argc __maybe_unused, const char **argv __maybe_unused)
++{
++	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
++	return 0;
++}
++#else /* HAVE_PTHREAD_BARRIER */
++#include <stdlib.h>
++#include <stdio.h>
++#include <unistd.h>
++#include <pthread.h>
++#include <time.h>
++#include <inttypes.h>
++#include <err.h>
++#include <linux/types.h>
++#include <linux/kernel.h>
++#include <linux/time64.h>
++#include <subcmd/parse-options.h>
++#include "../util/stat.h"
++
++static unsigned int threads	= 2;
++static unsigned int iterations	= 100000000;
++
++static const struct option options[] = {
++	OPT_UINTEGER('t', "threads", &threads,
++		     "Number of threads contending for the counter"),
++	OPT_UINTEGER('i', "iterations", &iterations,
++		     "Number of iterations per thread"),
++	OPT_END()
++};
++
++static const char * const bench_usage[] = {
++	"perf bench atomic cas <options>",
++	NULL
++};
++
++static u64 shared_counter __aligned(64);
++static pthread_barrier_t start_barrier __aligned(64);
++
++struct worker_stats {
++	u64	runtime_ns;
++};
++
++static void *worker(void *arg)
++{
++	struct worker_stats *ws = (struct worker_stats *)arg;
++	struct timespec tstart, tend;
++	u64 i;
++
++	pthread_barrier_wait(&start_barrier);
++
++	clock_gettime(CLOCK_MONOTONIC, &tstart);
++	for (i = 0; i < iterations; i++) {
++		u64 old_val, new_val;
++
++		do {
++			old_val = __atomic_load_n(&shared_counter,
++						  __ATOMIC_RELAXED);
++			new_val = old_val + 1;
++		} while (!__atomic_compare_exchange_n(&shared_counter,
++						      &old_val, new_val,
++						      false,
++						      __ATOMIC_RELAXED,
++						      __ATOMIC_RELAXED));
++	}
++	clock_gettime(CLOCK_MONOTONIC, &tend);
++
++	ws->runtime_ns	= (tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
++			  (tend.tv_nsec - tstart.tv_nsec);
++
++	return NULL;
++}
++
++static void print_default_format(struct worker_stats *wstats,
++				 struct stats *time_stats)
++{
++	double time_avg, time_stddev;
++
++	printf("  Threads: %u, iterations/thread: %u, repeats: %u (warmup: 1)\n",
++	       threads, iterations, bench_repeat);
++
++	time_avg    = avg_stats(time_stats);
++	time_stddev = stddev_stats(time_stats);
++
++	printf("  Avg wall-clock time: %.3f msec  (stddev %.3f msec)\n",
++	       time_avg / (double)NSEC_PER_MSEC,
++	       time_stddev / (double)NSEC_PER_MSEC);
++	printf("  Total ops: %'" PRIu64 "\n",
++	       iterations * (u64)threads);
++	printf("  Throughput total: %'.0f ops/sec\n",
++	       (double)(iterations * (u64)threads) /
++	       (time_avg / (double)NSEC_PER_SEC));
++
++	/*
++	 * Per-thread statistics from the last measured repeat show
++	 * fairness / imbalance in CPU scheduling.
++	 */
++	if (threads > 1) {
++		u64 min_ns = UINT64_MAX, max_ns = 0, total_ns = 0;
++		double min_thru, max_thru, avg_thru;
++
++		for (unsigned int t = 0; t < threads; t++) {
++			if (wstats[t].runtime_ns < min_ns)
++				min_ns = wstats[t].runtime_ns;
++			if (wstats[t].runtime_ns > max_ns)
++				max_ns = wstats[t].runtime_ns;
++			total_ns += wstats[t].runtime_ns;
++		}
++
++		min_thru = (double)iterations * NSEC_PER_SEC / min_ns;
++		max_thru = (double)iterations * NSEC_PER_SEC / max_ns;
++		avg_thru = (double)threads * iterations * NSEC_PER_SEC / total_ns;
++
++		printf("  Per-thread times and throughput (last repeat):\n");
++		printf("    fastest:  %.3f msec  (%.0f ops/sec)\n",
++		       min_ns / (double)NSEC_PER_MSEC, min_thru);
++		printf("    slowest:  %.3f msec  (%.0f ops/sec)\n",
++		       max_ns / (double)NSEC_PER_MSEC, max_thru);
++		printf("    avg:      %.3f msec  (%.0f ops/sec)\n",
++		       (total_ns / threads) / (double)NSEC_PER_MSEC, avg_thru);
++	}
++}
++
++static int run_cas_benchmark(void)
++{
++	pthread_t *thread_ids;
++	struct worker_stats *wstats;
++	struct stats time_stats;
++	unsigned int r, t;
++
++	thread_ids = calloc(threads, sizeof(pthread_t));
++	if (!thread_ids)
++		return -1;
++
++	wstats = calloc(threads, sizeof(struct worker_stats));
++	if (!wstats) {
++		free(thread_ids);
++		return -1;
++	}
++
++	init_stats(&time_stats);
++
++	for (r = 0; r < bench_repeat + 1; r++) {
++		u64 max_runtime_ns = 0;
++
++		shared_counter = 0;
++		pthread_barrier_init(&start_barrier, NULL, threads);
++
++		for (t = 0; t < threads; t++) {
++			if (pthread_create(&thread_ids[t], NULL,
++					   worker, &wstats[t]))
++				err(EXIT_FAILURE, "pthread_create");
++		}
++
++		for (t = 0; t < threads; t++)
++			pthread_join(thread_ids[t], NULL);
++
++		pthread_barrier_destroy(&start_barrier);
++
++		for (t = 0; t < threads; t++) {
++			if (wstats[t].runtime_ns > max_runtime_ns)
++				max_runtime_ns = wstats[t].runtime_ns;
++		}
++
++		/*
++		 * Exclude the first repeat (warmup) from statistics so
++		 * that cache-cold and lazy-init effects are not counted.
++		 */
++		if (r > 0)
++			update_stats(&time_stats, max_runtime_ns);
++	}
++
++	switch (bench_format) {
++	case BENCH_FORMAT_DEFAULT:
++		print_default_format(wstats, &time_stats);
++		break;
++
++	case BENCH_FORMAT_SIMPLE:
++		printf("%.0f\n",
++		       (double)(iterations * (u64)threads) /
++		       (avg_stats(&time_stats) / (double)NSEC_PER_SEC));
++		break;
++
++	default:
++		fprintf(stderr, "Unknown format: %d\n", bench_format);
++		exit(EXIT_FAILURE);
++	}
++
++	free(thread_ids);
++	free(wstats);
++
++	return 0;
++}
++
++int bench_atomic(int argc, const char **argv)
++{
++	if (parse_options(argc, argv, options, bench_usage, 0)) {
++		usage_with_options(bench_usage, options);
++		exit(EXIT_FAILURE);
++	}
++
++	if (threads < 1) {
++		fprintf(stderr, "Invalid thread count: %u\n", threads);
++		return 1;
++	}
++
++	if (iterations < 1) {
++		fprintf(stderr, "Invalid iteration count: %u\n", iterations);
++		return 1;
++	}
++
++	return run_cas_benchmark();
++}
++#endif /* HAVE_PTHREAD_BARRIER */
+diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
+index 8519eb5a42fa..01eb6ceffb8d 100644
+--- a/tools/perf/bench/bench.h
++++ b/tools/perf/bench/bench.h
+@@ -30,6 +30,7 @@ int bench_mem_memcpy(int argc, const char **argv);
+ int bench_mem_memset(int argc, const char **argv);
+ int bench_mem_mmap(int argc, const char **argv);
+ int bench_mem_find_bit(int argc, const char **argv);
++int bench_atomic(int argc, const char **argv);
+ int bench_futex_hash(int argc, const char **argv);
+ int bench_futex_wake(int argc, const char **argv);
+ int bench_futex_wake_parallel(int argc, const char **argv);
+diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
+index 02d47913cc6a..aeffa0826aea 100644
+--- a/tools/perf/builtin-bench.c
++++ b/tools/perf/builtin-bench.c
+@@ -14,6 +14,7 @@
+  *  syscall ... System call performance
+  *  mem   ... memory access performance
+  *  numa  ... NUMA scheduling and MM performance
++ *  atomic ... Atomic operation performance
+  *  futex ... Futex performance
+  *  epoll ... Event poll performance
+  */
+@@ -115,6 +116,12 @@ static const struct bench uprobe_benchmarks[] = {
+ 	{ NULL,	NULL, NULL },
+ };
  
-+obj-$(CONFIG_RTW88_8723B)	+= rtw88_8723b.o
-+rtw88_8723b-objs		:= rtw8723b.o rtw8723b_table.o
++static const struct bench atomic_benchmarks[] = {
++	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic		},
++	{ "all",	"Run all atomic benchmarks",			NULL			},
++	{ NULL,		NULL,						NULL			}
++};
 +
-+obj-$(CONFIG_RTW88_8723BS)	+= rtw88_8723bs.o
-+rtw88_8723bs-objs		:= rtw8723bs.o
-+
- obj-$(CONFIG_RTW88_8723D)	+= rtw88_8723d.o
- rtw88_8723d-objs		:= rtw8723d.o rtw8723d_table.o
- 
+ struct collection {
+ 	const char		*name;
+ 	const char		*summary;
+@@ -128,6 +135,7 @@ static const struct collection collections[] = {
+ #ifdef HAVE_LIBNUMA_SUPPORT
+ 	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
+ #endif
++	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
+ 	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
+ #ifdef HAVE_EVENTFD_SUPPORT
+ 	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
 -- 
-2.55.0
+2.53.0
 
