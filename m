@@ -1,175 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6424DE728
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987474DE728;
+	Wed, 30 Sep 2026 14:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778311; cv=none; b=UY0RXcV01O9arNecTE1DYY+L5PfCsY60th4175wtcQK0piy2LZDiXnR+wIf6F3dZ6SFmFFaSVaxPPNi+hQOTpeVWnKZoZiYLf9p3lMeiDbXBqzuK67j51s/99Ey18d0TcwK153KYBuWQIXGBnUHr4L7wZuX9MlSrBzpm3P7HtHw=
+	t=1790778355; cv=none; b=UM/Yy0XrN1zDL3c1SjmxoWvgVQnpUM00xk1jEox0lWbW894RIpXYVe9joKaGW3CZVIB2zfT2gTr9/pcITjkQXzH2wE1JEtJAQV1RpUPs112c0HWmQfZsGmFW9O2vxdxf8w/aZqxEe+XbnSWQR0Kt2Qw7pf/6V7sVS6ps75exYUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778311; c=relaxed/simple;
-	bh=6XX/mbi7gy8/2ofVApvgqfPc7bRQKgya0ZaSKKV+QfI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YYgZ+q+CVIeCwL7zkt2M8wWVaqILw/I/iW/SIrTF/6xgtizFJ5BUa42cMsl2AuMTSeMlVW0NNFzcZIFjf2Us6jy0GKosjKYtkbk941RItGCw1M4RCUVC9YUm8QsMZVxZ3GZ7bdp/CuY5zjiwq1UOcUBfOdGsG02eHy2t0wP6GUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cHKsg/zH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790778355; c=relaxed/simple;
+	bh=sFTRJFqtVYKWAfrFtg2v2Y1AVLhVCYKz9iekFUdvHhA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=KqC3/64UQAclnrdzaGaS+FbgNDCDovzMFeJRgKxUf945P0iL9aRE5zqyes/4wqm398GZL1ECOoObmS1Mn4jAbs13nLskAnzC/XSfIjw/cnKSu5BXYtn84GJTQ05wSzLHiUkCbbJQ03c9ARRluHrMYqT3S7NH/Nzc2iel2R3BeQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTppVOQq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cHKsg/zH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790778293;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qrMOOS/D9EUBGZMO6OeW7Lw5PFy3M+31Pwt16QAA64Y=;
-	b=cHKsg/zHTbYUkQm6YEeIYnNrOKsEwZ0UnXgeAwa4PJnqc0nZXgHaB4kXiB7E6sfbbiBhct
-	A2/4oq0Zk+81rn3VuXM8qj/y9blAVVOdRJ3NVAIdTGciPnNt9YqNKo6rf6PT2gwJQg8ssX
-	6cXLqGsEwodeXaBA3UUIm1X+2+OSKHE=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-380-zugMvPWqPcqTA-G4QDcUeA-1; Wed,
- 30 Sep 2026 10:24:47 -0400
-X-MC-Unique: zugMvPWqPcqTA-G4QDcUeA-1
-X-Mimecast-MFC-AGG-ID: zugMvPWqPcqTA-G4QDcUeA_1790778285
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DF85C195399C;
-	Wed, 30 Sep 2026 14:24:44 +0000 (UTC)
-Received: from [100.90.87.156] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B674030000E7;
-	Wed, 30 Sep 2026 14:24:41 +0000 (UTC)
-Message-ID: <cd768cab-78b7-4269-9e86-2bd49d261e1c@redhat.com>
-Date: Wed, 30 Sep 2026 16:24:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTppVOQq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328521F000FF;
+	Wed, 30 Sep 2026 14:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790778343;
+	bh=Jqaukmxoh+YmJmbm/EJ3OHqbjz+fE8i2VWtHgQPGwbo=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=eTppVOQqzCpPEmLEytkG1MLDSXhlxypE36QFo6qp0UrfRANgPu11aWJHiaPip3kNZ
+	 oU7NfPFOorpQ90KxV6rhOYt4e1tzkB4deBOJK2Wxbzu9gS8i3BE+v32nE+m7kN3kqw
+	 8nMVR7aUyZclv9wkIvkruhuDPc7FffLEeVSym5ahgHLGYOwoNBrgWrlg9vLD87KtAE
+	 0enOppQyziCs57SxJzp4WCqmCKukWstT/5J6K4HYxocR8cqthIg62xxl4joo6fZD+7
+	 YFTKHc4ooj1UXldEIyfLypFPJX3kmxlxEmO3KnD7NPVgb9hPjXQMZ5R8nE0bghpH+Q
+	 bztKY0xT9D5eA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/6] dpll: zl3073x: notify sibling pin when
- shared output config changes
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev-bot+sashiko@kernel.org, Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Chris.duQuesnay@microchip.com,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, min.li@microchip.com,
- pabeni@redhat.com, poros@redhat.com, richardcochran@gmail.com,
- vadim.fedorenko@linux.dev, linux-kernel@vger.kernel.org
-References: <20260928185552.1103515-2-ivecera@redhat.com>
- <179075143120.434549.1576015918203645155@kernel.org>
- <d631d2ed-63b5-4785-80ae-b16deb3edd1a@redhat.com>
-Content-Language: en-US
-In-Reply-To: <d631d2ed-63b5-4785-80ae-b16deb3edd1a@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 16:25:36 +0200
+Message-Id: <DLSPXUPSF0TC.3PC9F8RTDV1IL@kernel.org>
+Subject: Re: [PATCH v3 08/10] rust: pci: add SR-IOV enable and disable
+ tokens
+Cc: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <aliceryhl@google.com>,
+ <bhelgaas@google.com>, <kwilczynski@kernel.org>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <markus.probst@posteo.de>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <acourbot@nvidia.com>, <jhubbard@nvidia.com>, <zhiwang@kernel.org>,
+ <jgg@nvidia.com>, <alex@shazbot.org>, "Peter Colberg" <peter@colberg.org>
+To: "Zhi Wang" <zhiw@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <cover.1790705494.git.zhiw@nvidia.com>
+ <9b092d339961f744c7ded1e4f21911b66c80ecb4.1790759932.git.zhiw@nvidia.com>
+In-Reply-To: <9b092d339961f744c7ded1e4f21911b66c80ecb4.1790759932.git.zhiw@nvidia.com>
 
-On 9/30/26 9:49 AM, Ivan Vecera wrote:
->> [Severity: High]
->> Can sibling->dpll_pin be NULL, or the sibling already freed, by the time
->> it is dereferenced here?
->>
->> zl3073x_dpll_output_pin_sibling_get() returns any output pin on
->> zldpll->pins with the matching id. It does not check that
->> sibling->dpll_pin is still set. The lookup runs under zldpll->lock, but
->> the dereference happens after mutex_unlock().
->>
->> The teardown path does not take zldpll->lock:
->>
->> drivers/dpll/zl3073x/dpll.c:zl3073x_dpll_pins_unregister() {
->>     list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
->>         zl3073x_dpll_pin_unregister(pin);
->>         list_del(&pin->list);
->>         zl3073x_dpll_pin_free(pin);
->>     }
->> }
->>
->> zl3073x_dpll_pin_unregister() ends with:
->>
->>     dpll_pin_put(pin->dpll_pin, &pin->tracker);
->>     pin->dpll_pin = NULL;
->>
->> and dpll_pin_put() has already dropped dpll_lock at that point.
->>
->> zl3073x_dpll_pins_register() uses list_add(), so the N pin (2k+1) sits
->> before its P pin (2k) on the list. That means N is torn down while P is
->> still registered and reachable over netlink.
->>
->> One possible interleaving:
->>
->> CPU1 (devlink reload, flash_prepare or unbind)
->> zl3073x_dev_stop()
->>    zl3073x_dpll_unregister()
->>      zl3073x_dpll_pins_unregister()
->>        dpll_pin_put(N)          /* dpll_lock released */
->>
->> CPU0 (DPLL_CMD_PIN_SET on P, dpll_lock held)
->> dpll_pin_freq_set()
->>    zl3073x_dpll_output_pin_frequency_set(P)
->>      mutex_lock(&zldpll->lock)
->>      sibling = zl3073x_dpll_output_pin_sibling_get(P)  /* finds N */
->>      mutex_unlock(&zldpll->lock)
->>
->> CPU1
->>        N->dpll_pin = NULL
->>        list_del(&N->list)
->>        zl3073x_dpll_pin_free(N)
->>
->> CPU0
->>      __dpll_pin_change_ntf(sibling->dpll_pin)
->>
->> In that case, would __dpll_pin_change_ntf() get NULL and oops on
->> pin->id and pin->clock_id in dpll_pin_notify()? Or would CPU0 read the
->> freed zl3073x_dpll_pin?
->>
->> The list walk in zl3073x_dpll_output_pin_sibling_get() can also run
->> while list_del() is in progress, because the writer never takes
->> zldpll->lock.
->>
->> zl3073x_dpll_output_pin_frequency_set() and
->> zl3073x_dpll_output_pin_phase_adjust_set() have the same pattern.
->>
->> The later patch "dpll: zl3073x: add PTP periodic output support" also
->> calls zl3073x_dpll_output_pin_sibling_get() from
->> zl3073x_dpll_ptp_enable() without holding zldpll->lock at all.
-> 
-> This cannot happen; the notification is already serialized against pin
-> teardown.
-> 
-> The output setters (esync_set / frequency_set / phase_adjust_set) run
-> with dpll_lock held: the dpll core invokes the pin ops under dpll_lock,
-> and they use __dpll_pin_change_ntf(), whose contract is exactly "caller
-> must hold dpll_lock" (dpll_netlink.c: lockdep_assert_held(&dpll_lock),
-> "suitable for use inside pin callbacks which are already invoked under
-> dpll_lock"). So sibling_get() and the __dpll_pin_change_ntf() call - even
-> though it runs after mutex_unlock(&zldpll->lock) - are all covered by
-> dpll_lock.
-> 
-> Pin teardown frees the sibling via zl3073x_dpll_pin_unregister() ->
-> dpll_pin_unregister(), which takes dpll_lock. While a setter holds
-> dpll_lock for the whole callback, teardown cannot even reach
-> dpll_pin_unregister(N), let alone the following list_del()/kfree(). The
-> proposed interleaving (CPU1 freeing N while CPU0 notifies) is therefore
-> impossible: CPU0 holds dpll_lock throughout.
-> 
-> The PTP enable() path (zl3073x_dpll_ptp_enable(), added in patch 6) does
-> call sibling_get() outside dpll_lock, but it is serialized differently:
-> zl3073x_dpll_unregister() unregisters the PTP clock *before* the pins
-> (zl3073x_dpll_ptp_unregister() then zl3073x_dpll_pins_unregister()), and
-> ptp_clock_unregister() quiesces in-flight enable() callbacks. No
-> enable() can run while the pins are being freed.
-> 
+On Wed Sep 30, 2026 at 12:18 PM CEST, Zhi Wang wrote:
+> +pub struct SriovEnable<'callback> {
 
-More thinking about it... and yes this can happen :-(
-The pin removal from the list must be performed prior its unregistration
-and also the list management has to be protected by zldpll->lock.
+I understand why you chose 'callback, but I think just 'a is good enough.
 
-Will fix and send as bugfix to net branch with proper Fixes: tags.
+> +    pdev: &'callback Device<device::CoreInternal<'callback>>,
+> +    num_vfs: u32,
 
-Thanks,
-Ivan
+Please see patch 1.
 
+> +}
+> +
+> +impl<'callback> SriovEnable<'callback> {
+> +    /// Returns the number of VFs requested for this callback.
+> +    pub fn num_vfs(&self) -> u32 {
+> +        self.num_vfs
+> +    }
+> +
+> +    /// Enables between one and the requested number of VFs.
+> +    ///
+> +    /// VF drivers can probe before this method returns, so the PF resou=
+rces they access must
+> +    /// already be initialized. The returned guard disables the VFs if s=
+ubsequent setup fails.
+> +    /// Return it from `sriov_enable()` to leave the VFs enabled on call=
+back success.
+> +    pub fn enable(self, num_vfs: u32) -> Result<SriovEnabled<'callback>>=
+ {
+> +        if num_vfs =3D=3D 0 || num_vfs > self.num_vfs {
+> +            return Err(EINVAL);
+> +        }
+> +        let num_vfs =3D c_int::try_from(num_vfs).map_err(|_| EOVERFLOW)?=
+;
+> +
+> +        // SAFETY: The PF's driver data and registration remain installe=
+d throughout this callback.
+> +        // The registration owns final VF teardown after the enable guar=
+d is disarmed.
+> +        if unsafe { (*self.pdev.as_raw()).vf_registration_data_rust }.is=
+_null() {
+> +            return Err(ENODEV);
+> +        }
+> +
+> +        self.pdev.enable_sriov(num_vfs)?;
+> +        Ok(SriovEnabled {
+> +            pdev: Some(self.pdev),
+> +            num_vfs,
+> +        })
+> +    }
+> +}
+> +
+> +/// Enabled VFs awaiting successful completion of `sriov_enable()`.
+> +pub struct SriovEnabled<'callback> {
+> +    pdev: Option<&'callback Device<device::CoreInternal<'callback>>>,
+
+This doesn't need to be an Option.
+
+> +    num_vfs: c_int,
+> +}
+> +
+> +impl SriovEnabled<'_> {
+> +    #[expect(dead_code)]
+> +    fn disarm(mut self) -> c_int {
+> +        self.pdev =3D None;
+> +        self.num_vfs
+
+Instead of the Option dance, you can use ManuallyDrop to prevent the destru=
+ctor
+from running.
+
+> +    }
+> +}
+> +
+> +impl Drop for SriovEnabled<'_> {
+> +    fn drop(&mut self) {
+> +        if let Some(pdev) =3D self.pdev.take() {
+> +            pdev.disable_sriov();
+> +        }
+> +    }
+> +}
