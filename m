@@ -1,148 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFB32FF641;
-	Wed, 30 Sep 2026 10:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763911; cv=none; b=pzlD6/t6CmR5/EYEQ/QNhx1JPRCX8JaFO0/89ovbUCDEnpoTW/Od6bihMGu2KllayVU0jM5MMs3+pZajMiwb/5BKsK4fV62bSzt7aeQJmRBJHiokGUkcx52FLYBuQ3lx0lggQJli87yxL2MT9CbX2iMRYcWrYaP7NgXgIQ+bEtw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763911; c=relaxed/simple;
-	bh=+boDduFSuvEjo4XKTynqe8K77shm/qn0Gn+aUrjOfWc=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Q4BIOTdqIxkhbmrhwzJwi2eRobgUizCMuhssH29g9DpiQwTJTFhBcWfV0PMzQkyskuR+JPMUbmA7pXMRZn+MyYyfoTmYOlZbBYQQExAlUe+S3hnI8g6gQyj9hb/lkhkBj6x7/JONxn3jAIdeyLI53HGjb5rAX2q6jcCV36nDvVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jpMSOPm4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ABB31F98E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790763918; cv=pass; b=HG2jDKuhh6tSuzDZqrLFomepVDxhxjU1HchbYcbynbANPIOGcmBH3K3BN2IjaUk0A1PdaAimCTtU6cEptS3UpoJHj8JhccYCPa8GgoVHfkJlabDe+9BWep/kTQusl5Op7F8heJk/SFj8QSUIOmIW2/IiT7U0UmZsVhozi2KlV2M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790763918; c=relaxed/simple;
+	bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UzFsVlpTfCowyllJGxcTRHSTGkcaQGSbn7zFueyDPLjkjc6KR0RMFeCc51XKRPzNxufGvMAcsrBvqyLaosSehUIoqjNE7QStwfmi4EljW+lk1JNcoGWWyCTjgTkHamYdjjy/jaWgURst2aGDInMeW791T/QJdCLAT2Wr9rhoVQc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWtfpqn+; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jpMSOPm4"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BD6321F000FF;
-	Wed, 30 Sep 2026 10:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763909;
-	bh=4TiuIDlrZdsvIUWkkkMxnBqP0w8dRUDI9uLg70d6m/Y=;
-	h=From:To:Cc:Subject:Date;
-	b=jpMSOPm4QWeYrVo22cbLTzVJ6DczjrMJx/AS1helZOhxvncfzmscVkhPr+tPJDtQH
-	 TcUq9YNSaxP2iOytcK3nrpNW05r/DoS6f4iaC9ESvZ2hcX0HvGwobt6S5oi6hwHNfN
-	 Dav3wX9tu77+tToJSpdH3iIArKgOSSv64q8SvY2TwZi5KxteRzRaOiUU2gapnxyT3l
-	 5+TWqlkV0VA/z93hlwCOiVGBOSDZaQuGHwmSZ7btznwfnau94vxhV9VkcdCHy9Yfxg
-	 fCV6ko4M5RqnQg5MNhO3g4AYrUVfhDr/kXsE4c+jXyJ0sn583tl0sWoDWS1MW/akMh
-	 YhHrFYwJSu43A==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>, <jfs-discussion@lists.sourceforge.net>, "Dave Kleikamp" <shaggy@kernel.org>
-Cc: kees@kernel.org, linux-kernel@vger.kernel.org, syzbot@lists.linux.dev, yun.zhou@windriver.com
-Subject: [PATCH] jfs: validate dmap start before block allocation
-Message-ID: <b63dd8ae-464b-40d7-bbb8-031cfdc90909@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWtfpqn+"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343bdca7590so205193eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:25:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790763917; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WOP5CST7G3MKny3kKwSTOSqNN+dfr5MD0AzdvyzSTAAN0HnHyU3YQXQP6fMZZKPDak
+         tp6/dvc1Xrzd098UhzLgnWsJBmF82XqBd7BL49PJc19LGFbwmsVvcG06Meq/9qIPO4ou
+         VLPlX0dThMHRd430aszfqzLbJhFMs76psZA643Nzed4QbQPHslhVkf5zxhOt2N8GFS1z
+         6LP0iYhnV1mdoqkFYk4qdQWKb5Qn1TED/uU1nbwsnwCz4eQFDMa3ndthomkHmR71iWTz
+         y25qi7efk4zSXStsBov/vwZzYGHoGIFuBnxdN5m5NsyWt18ukyml0mIneGM2wsRwcvQ4
+         Q/Ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
+        fh=raMI9a4MqTrFISbr6d1iotD8HrhEASCVOYzzurrUGSs=;
+        b=Rb9pxu9b3fccqBdyjqNwkfblQ2X38XiFdAjtzxjFYSlH+Xs/Wqm5wUM1ZM5AyG4XGd
+         vvrNdqcpURhSRWxK4dk08tHkiPNDOarJkLuXXK+rOmUDYbqTzbqL1ze1HavPHCmV7HX/
+         oxMRSLz1dtE1327TPgEB8YjmObkXlfSKgvPPcz7aaHYuetMsEEIAk1w7haUjNmomNtOg
+         1IT8J7Eul0hbHD3Zy6YysHVgjnAnpEIK8yupD1/bmrcBlVQTjZegAL6YflNkL720rkI+
+         wCUjhjCcOeg5Tp/4cq3te50WhtqmeyeZ+QDBOvS05YZmO60jyeDO1bgDfhtkAJeDwdO0
+         +ZGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790763917; x=1791368717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
+        b=KWtfpqn+MiEDSxElROEkXnhpxWnj/WeM4n+DWGyL9b0Vlym+6J/NW9IV+fI5aCsFIG
+         2plL2ED3CWJWWBQNsX/zBCZjQyj9S5PhRLxkmlpmcvKAuDbfqf+ruhY3H3Omk4SY0B1q
+         o1C0nxl9D9hzSATzyuOHMZ4Ega8XKYy8lA/9bNTD34UR5wOMAjx09vitDIPhDd+6tcrl
+         QPzymo4Cj+P5Ld6i3SNdCaRyTEntzPql+KGYG1QCXWbIDL+OwmmcpzL6AOwk/1HDsJjD
+         BBmN9xaFgbFGoJdbsob3NJncKDOBJLjP/MpaqtEg4DIkwDH8JJBqNU5wLFnp4IAPYwJ3
+         qFyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790763917; x=1791368717;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+BckQeqCjf5DtL02w8iZxJTDEf4ptNGWbQZiIUkA1OQ=;
+        b=oPy4KU8oqQMwSpC7vmau9lLegMhljTz0IeygAyDxeDuTS3OBdOLjvM4v8YwAYjgQw7
+         aTxolED1li4+jhd+k5CqT90aBYXlIvwC7OcHho3sf56pLQSrX7hGcCeWBn9WojyOG11u
+         cQnobnrkZmccgoW3q2y0Pi+NBK4y0zwQ+qdiPbNygGt7M0xJD8NcdLMLJOuo4dMo5bGR
+         wrGOH/VCPvBrIWHsbz0oI/ZjX+MGKgC8D9QiavOq7+fkH/dVv0ubqnki317Fo6KZatR2
+         FyiwqtdTcS05ZX8dBpeL/jHIIbHWQTtl6U01gEYAMxg/CqUTMknHDyocPudQmvbN0+ub
+         CfpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB5Oc77ThPjNirqPorKcnXJYlMatR8op/38slgECtFaF+vrhcov/taO3ke0kD5hhYOZoYY9fJ2/FZNTI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5hf9dBiAiAYjLHf+3hlwAX8voQu/yHTLVRpGORfLtctvciy74
+	WDPF1eCbrmG1Zns7FNLjN0IZnXw+uAddNJZ1865OsoHkTztIzxQEWpp3hbxemOIkBDKXPHsltNp
+	TZXDVVnGVuixUUFbik4YfDrYN4vAnpig=
+X-Gm-Gg: AYBFou3Lx89kbw1MhHkG8x4QwQHAKbRE+BSWH8I5PJQEfRacoTTc0QsU1ERZwhlbyky
+	hjdNBP2LIWCORScfAdQbiNdTz/djcQ3l+d9YQs0JaC/LYhAAEvpI/iE1B7dBjNNf5EmpYXNEyc9
+	MaZZudO3f/VKW5r7a47UAy/ZUazC00iyMlqwYl8zAtNiBJBw8W5pyrgMt8xdc34XlQ6OyhkXryh
+	P1DJwtU3emx6wNml9joV1XuKmzbGo07xW5818n4CP9i3ONjaSYgKX2CcY9htaWj5bD38f8AT9Ud
+	tGZIDDI2ORVSZaQsxFfHKu1FBMkMOZfDIR+oBV1IJt9tyODlxu6XHCzenrT/lLhU5wegz9CYF7r
+	j8fmuqrTLUb6LBj1claNsKZ7dH3foFS6A609JabzZ1o4VOlKVtGgumMTkjk2YmtJatny3zG4zQY
+	skiUlDYvaDO3zO5N11uuEpeGCZUKFWtDgRdqTtWYZ5H5fnrUxILOc=
+X-Received: by 2002:a05:693c:2808:b0:34c:3ae5:ebc with SMTP id
+ 5a478bee46e88-34cd60f8956mr2288650eec.0.1790763916685; Wed, 30 Sep 2026
+ 03:25:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Wed, 30 Sep 2026 10:25:08 +0000 (UTC)
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org> <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+ <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 12:25:02 +0200
+X-Gm-Features: AclHuK-9soeSKJJsB6DKjyrXynv8FkCP8rCSGYJyZXnDc7m1U0RM0WwdazlNfrs
+Message-ID: <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C function
+To: Andreas Hindborg <a.hindborg@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
+On Wed, Sep 30, 2026 at 9:46=E2=80=AFAM Andreas Hindborg <a.hindborg@kernel=
+.org> wrote:
+>
+> Yes, this one is independent. At v1 I had 2 patches adding helpers, that
+> was the only thing relating them. I thought it was better to lump them,
+> but maybe not?
 
-A corrupted JFS filesystem image can cause a state where the block
-allocation map (bmap) and the dmap pages are out of sync. Specifically,
-dbAllocNear() and dbAllocDmapLev() derive the returned block number from
-on-disk dp->start, which can cause duplicate allocation if dp->start does
-not match the selected dmap boundary. In this scenario, the allocator
-returns a block number that is already in use (e.g., as an inode table
-block or metadata) while marking a completely different block as allocated.
-When a thread later attempts to lock this duplicate block (for example,
-during a directory btree split), txLock() detects a metapage conflict
-because the block is already locked for another purpose, triggering a
-kernel BUG:
+Thanks for clarifying!
 
-kernel BUG at fs/jfs/jfs_txnmgr.c:836!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-RIP: 0010:txLock+0x1cc3/0x1d10 fs/jfs/jfs_txnmgr.c:836
-Call Trace:
- <TASK>
- dtSplitRoot+0x38d/0x18a0 fs/jfs/jfs_dtree.c:1924
- dtSplitUp fs/jfs/jfs_dtree.c:990 [inline]
- dtInsert+0xeb2/0x5890 fs/jfs/jfs_dtree.c:868
- jfs_create+0x730/0xae0 fs/jfs/namei.c:138
-...
+By the way, do you think the new header is worth it instead of using
+the existing `cpu.c` one? If we do that, then we should probably add
+it under their `MAINTAINERS` file.
 
-Validation of dp->start against the expected dmap boundary in dbAlloc() and
-the single-dmap path of dbAllocCtl() prevents inconsistent allocation.
-Rejecting a mismatched start with -EIO prevents duplicate allocations
-before txLock() is reached. Additionally, preserve the existing independent
-geometry check (dp->tree.budmin < 0) in dbAllocCtl(). Both a mismatched
-start and a negative budmin will now fail with -EIO early, preventing
-corrupted dmap structures from causing duplicate allocations and subsequent
-transaction lock crashes.
+tip may want to take a look or give an Acked-by...
 
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+a843f6ae2130a987d63b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a843f6ae2130a987d63b
-Link: https://syzkaller.appspot.com/ai_job?id=922ceb61-4be2-4af9-b2fe-9977a2549134
-Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-
----
-diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
-index a841cf21d..9bdbc55d8 100644
---- a/fs/jfs/jfs_dmap.c
-+++ b/fs/jfs/jfs_dmap.c
-@@ -98,6 +98,9 @@ static int blkstol2(s64 nb);
- static int cntlz(u32 value);
- static int cnttz(u32 word);
- 
-+static bool db_validate_dmap(struct super_block *sb, const struct dmap *dp,
-+			     s64 expected_start);
-+
- static int dbAllocDmapBU(struct bmap * bmp, struct dmap * dp, s64 blkno,
- 			 int nblocks);
- static int dbInitDmap(struct dmap * dp, s64 blkno, int nblocks);
-@@ -886,6 +889,12 @@ int dbAlloc(struct inode *ip, s64 hint, s64 nblocks, s64 * results)
- 
- 		dp = (struct dmap *) mp->data;
- 
-+		if (!db_validate_dmap(ip->i_sb, dp,
-+				      blkno & ~(s64)(BPERDMAP - 1))) {
-+			release_metapage(mp);
-+			goto read_unlock;
-+		}
-+
- 		/* first, try to satisfy the allocation request with the
- 		 * blocks beginning at the hint.
- 		 */
-@@ -1902,7 +1911,9 @@ dbAllocCtl(struct bmap * bmp, s64 nblocks, int l2nb, s64 blkno, s64 * results)
- 			return -EIO;
- 		dp = (struct dmap *) mp->data;
- 
--		if (dp->tree.budmin < 0) {
-+		if (dp->tree.budmin < 0 ||
-+		    !db_validate_dmap(bmp->db_ipbmap->i_sb, dp,
-+				      blkno & ~(s64)(BPERDMAP - 1))) {
- 			release_metapage(mp);
- 			return -EIO;
- 		}
-@@ -2134,6 +2145,18 @@ static int dbAllocDmap(struct bmap * bmp, struct dmap * dp, s64 blkno,
- 	return (rc);
- }
- 
-+static bool db_validate_dmap(struct super_block *sb, const struct dmap *dp,
-+			     s64 expected_start)
-+{
-+	if (le64_to_cpu(dp->start) != expected_start) {
-+		jfs_error(sb, "corrupt dmap page: start %lld expected %lld\n",
-+			  (long long)le64_to_cpu(dp->start),
-+			  (long long)expected_start);
-+		return false;
-+	}
-+
-+	return true;
-+}
- 
- /*
-  * NAME:	dbFreeDmap()
-
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Cheers,
+Miguel
