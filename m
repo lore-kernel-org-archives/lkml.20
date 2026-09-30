@@ -1,233 +1,314 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AADE3E00A1;
-	Wed, 30 Sep 2026 19:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D6F3B994F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795120; cv=fail; b=qczlqm9jKgb8pOeCBp6D+HUn+YLc9WkVLrN8elVItMM6LOgE2m76Yh+86IHO7Owp7w/0EYeWLNU520dLvcpyZnzWYRNLR6/f4+FWdwxXwGIPLowsZvCndHGOf+obEgAG5cBhm8ASC9xl70I6r1+LpF58+h1NsOWbJiLLwDnbWhA=
+	t=1790795182; cv=fail; b=miiOYZYZJCqFexirMKaB/0c1TBd5YoMQazGwtsGrC3JZb/5OB/boWXglPIvTdgD4DVob5FNUYUfHIrRjjcz8kQn2hTn1fzQ7I3gVEc6ZW0ieT+yAe5xQ/qCSNvq/5fM7KxESVP15yIDAm/O1fW47l9YAvniODzo/s0f/l6IhZ9U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795120; c=relaxed/simple;
-	bh=yzpSG347wwuz7/IhYk4JhzVz+0ZQ7L4FIzBaU+A7U6Y=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bNvPOeliQV06phraQd6tZGhqbb6X8+Pu6UF7iWQg2P/UYXOoi0mVA2AWnOMKUCv1/e1YqR0a7eUhzYT0elYaiH7bXQmNQ1HP1o8llLW3G/pVh1Nm4qG1Toou0ai22qnJ2zhfhNTIaQFODop4VQoumDM8b6LWctCAs2LrOtTGIds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Kwdg5iqN; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=P48wu9IK; arc=fail smtp.client-ip=148.163.154.28
+	s=arc-20240116; t=1790795182; c=relaxed/simple;
+	bh=6hwWjNkHNqGUmxaWFyoxFv2+rw5My+QJQbz7YUjGEFU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=LT1Q7EG612vzgnkV9i6JYoJwR6b1L1CFRiU9d4Gm8E0XnqkOYVfOwNXUaId7pbGayo0dp0rFvY8qeSNkw2jNc/qFT5bCJ6bxQ37dHFaJQXQ1FG3oYug1pSWUop7dWmt2psR4ng8QxdGsgIW7ObOudQyVAktbDhWQcSsofU53NDk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=ZPsgx6tF; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=bqFDTWcH; arc=fail smtp.client-ip=148.163.150.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Kwdg5iqN";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="P48wu9IK"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UI640M3525057;
-	Wed, 30 Sep 2026 14:05:10 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="ZPsgx6tF";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="bqFDTWcH"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68UHfGOU3755908;
+	Wed, 30 Sep 2026 14:06:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=V/cz6BCje1meH
-	DEU6Tke6O8BtcJt9cMRIp+yBsplEqQ=; b=Kwdg5iqNGbeMQ7TMqedRpcCIkMK/i
-	5q4+dDAizlQzjopgUWLubOWbrLcXRdnrTCf63Pkxn0dlz/G6HD7m+BIzN8ti33Dn
-	g+56U7mMaAib5NaX6UKRrPlyx5vWoZbN1JoC53hi672jd5R07Y4nk4dNGNz6/aRO
-	twBoy7RG/rxqw/mgAVtWZ5bQWFLy3hs48P5IeVClt/38p3gRKv+BZcOtGSWFLOHN
-	fI/dV2ne8x7XJGnqjFVCC5/dqVoeQHj3HiDk62AlGYLXhhCkAIvRDmS2zP2ZUrAR
-	oHGhQ/UTq4STSkkvHZhoHsXLzuJpPzepyG1Cydftp/HA6xlXZJfwTmZNg==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012003.outbound.protection.outlook.com [40.93.195.3])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h17djr95c-1
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=0SLZJ2816Ai+Fuh0HasewGcjiVyulY4FyEpbQkTyC
+	bM=; b=ZPsgx6tFoH190MPw095QdtR2oHVpXO9IER3SXzXkYGq53sSv8A/h2ilnF
+	EF1fOW3NJAeshiNn8/HrBQmx2CngEipw9EVB1ow2NtI5emTPbS/mVnCViMRQpbJ4
+	0sCAPSrc42CVD+DtBso8nUn7q45/K4XHfRxudM4Xvr4CACitUPHQ0Kzn9LI77CoN
+	Kncv2ym+k+57ZEB/F9fn5c7DcnG6dSVjRhogW/5hNvzt7pW/pT9pLQcq3vDsnBEi
+	0jDl5Gb7EbDxBs4MctxpGnZPwrufkEMkykTSdHYkTnJQxhRxdeplOJo83EPFSUGQ
+	fE3Js8GgTbpFKxWfGAZt5ngHbQC8g==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4h10t1tvw6-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 14:05:10 -0500 (CDT)
+	Wed, 30 Sep 2026 14:06:16 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oTrCxkeCje45H7bWJq+0g2lKBAVUgZ0pN/BhwB43/cpA2X5unM3X0YDVZjqNwWk77AafuzNya5Vh/aTFLyEBDV7Bs8p/Z94EUXIeLtYU+4cy4yUV3J3xccG+n1PSrUbHOhabqhcw+0NDSFqQYF2tMmugVtDYtJl9Pq+PEz71slKqcw2aLK43J9VIKWmm5pUAe93T9PYfZRb6T9VOO3ABmDopsYm6TMylaxjKtlUSVgUDaLeYu4OTqTQUTq8ldipmtAe3zIOLXLGt6QD4sgO3VVr6Sp+bK6WEWHntEdyr2eNcRiJsY6PRn+r71o4UkuFNXmHmaZXCwN2aH9ZEVcQKrw==
+ b=DdtyXNAi6COHdxG3JcIBZrc5V4yZqkcq/oV/pBnOtzZf8D25+xL/s2O8ZOI4uEw+Jm/XO3YW1oypDqpDSswCLH2L7+Qti0OAV2VLSs39dVTbiV2IpR92l2Wu3uqn9m0W6ak75KJ5a7fTBP9iJigvz4CPZA/0JBKFvC6iKj8TIee1QSLO8XFD0JHjsR8IReS9ADDpMq+cf0Aq3lLSaRdLt1XIr9tML7zpXXCKIT7WMdGPVIDiF3PB9uJnbd8v2vJgK1llmp4RQkEf2F3Td6s7jsjQxRf/spj3shRBlcVachXZc6TVHk66RdGy70AXe1aquigxaoGS/mZQa7JC4hbvPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V/cz6BCje1meHDEU6Tke6O8BtcJt9cMRIp+yBsplEqQ=;
- b=mcyzkbM+a/eGodzqj+aHdc4DlaaoBvGIhbWaZDW1imJMPevCzd3QgfG4vaNiCk+pMsReNzP3nZFIovS+JltriETjDTaOIx5HJ0lbmyN8EwQivifmI6ugSp3L/jCkAoyzkyNaoDZOu0UaLCeou6ZDLwN8iik0XEB5/c+E6hERMKoB+Voyr/nA5sxTMGrmzTOxCCLydLvI9ksRJQVkh3XwXnx6wTwN1szYmCrz7KKGrHMTiT2fd+OuFr5zFpftNIYWCVgXs5EowShSbkkNAOlgDYujI7SBpebCGUpB33yQ6plG66X5Nbr3yu2Lr5JusxZxq1JqXWwUucooTajYwrko4Q==
+ bh=0SLZJ2816Ai+Fuh0HasewGcjiVyulY4FyEpbQkTyCbM=;
+ b=vpLv5qN2LzA2f/prFxmwS05o5imOulqXPWIe57V5K6lD3D/ZMobDTiVJh0PK4mkLZUPN5nCWuJhSyJaQhacgy8q6g4IaDJbmk5mfq3p1bq85qO0tEviCFt0ZWXxz2ZLP0NxNmuUPArqOZay9TwDONoeFWGGxu1T8QNC2OUuXWh32LYy7SIzkRlIpbPtYRx/wxj7wKcZ182uLulM3cXy+oHdU6KcGvlbBK9o1wWpAEYBTClyPkfuMhEziRPdRWGYKXfOZK2NjTJkX/ZIfFHn7K9etVEUvAazCGjECyB1rcbLU5J6s65TMrzlpm6HnlkKPs4MZPj4u49bWPH4wZgpMzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.23.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/cz6BCje1meHDEU6Tke6O8BtcJt9cMRIp+yBsplEqQ=;
- b=P48wu9IKCcJYBpuse8rJbeX2zu4OJcFQxxvAZRnSPuPh9YROq1NEBvV6RbXHcKlVjp2dfD5xZnJIoEzei2EJWPwLcN4aVECV4LVZl33UtxEgMgm+o8gOAzhmLxY7R6JHAGR2v0keN0TqJVArxNHWdHq3pjduLRrP7ii1zZTgNOA=
-Received: from PH8P221CA0021.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::22)
- by DS0PR10MB6703.namprd10.prod.outlook.com (2603:10b6:8:139::12) with
+ bh=0SLZJ2816Ai+Fuh0HasewGcjiVyulY4FyEpbQkTyCbM=;
+ b=bqFDTWcHhrdGvAptbktJQueD2+Zk03dzqM/GyfefaK5thwheZ/qwAdEKHFOCf1MK9kjRUTjHf+fkSaTTkXn5VFwWyaAb0jbjFJEtGoaZMlWyhAYY4VAGcX4tOpiFzium5ggnwceQ26LkE21E0UJPmRCcePFjT5ZoG0XJcF1bAfs=
+Received: from CH0PR04CA0049.namprd04.prod.outlook.com (2603:10b6:610:77::24)
+ by SN4PR10MB5558.namprd10.prod.outlook.com (2603:10b6:806:201::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Wed, 30 Sep
- 2026 19:04:57 +0000
-Received: from SJ1PEPF000037AB.namprd03.prod.outlook.com
- (2603:10b6:510:2d8:cafe::2c) by PH8P221CA0021.outlook.office365.com
- (2603:10b6:510:2d8::22) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 19:06:14 +0000
+Received: from CH2PEPF00000145.namprd02.prod.outlook.com
+ (2603:10b6:610:77:cafe::5e) by CH0PR04CA0049.outlook.office365.com
+ (2603:10b6:610:77::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 19:04:57 +0000
+ 30 Sep 2026 19:06:14 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ1PEPF000037AB.mail.protection.outlook.com (10.167.244.185) with Microsoft
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CH2PEPF00000145.mail.protection.outlook.com (10.167.244.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 19:04:56 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 19:06:13 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 14:04:09 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 14:05:53 -0500
+Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 14:04:09 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 14:05:53 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 14:04:09 -0500
-Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UJ45um437712;
-	Wed, 30 Sep 2026 14:04:05 -0500
-From: Beleswar Padhi <b-padhi@ti.com>
-To: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>,
-        <sboyd@kernel.org>, <bmasney+clk@redhat.com>,
-        <jbrunet+clk@baylibre.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <linux-clk@vger.kernel.org>, <afd@ti.com>, <u-kumar1@ti.com>,
-        <vigneshr@ti.com>, <b-padhi@ti.com>
-Subject: [PATCH] clk: keystone: sci-clk: Handle missing get_num_parents operation
-Date: Thu, 1 Oct 2026 00:33:48 +0530
-Message-ID: <20260930190348.11720-1-b-padhi@ti.com>
-X-Mailer: git-send-email 2.34.1
+ Transport; Wed, 30 Sep 2026 14:05:53 -0500
+Received: from [10.249.33.42] ([10.249.33.42])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UJ5qSP439893;
+	Wed, 30 Sep 2026 14:05:53 -0500
+Message-ID: <19a772de-bd07-43d8-853b-8f68b262f996@ti.com>
+Date: Wed, 30 Sep 2026 14:05:52 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 16/22] firmware: ti_sci: Move the huge ti_sci file into
+ its own directory
+To: Beleswar Padhi <b-padhi@ti.com>, <nm@ti.com>, <kristo@kernel.org>,
+        <ssantosh@kernel.org>, <vigneshr@ti.com>, <u-kumar1@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20260930160607.2674980-1-b-padhi@ti.com>
+ <20260930160607.2674980-17-b-padhi@ti.com>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20260930160607.2674980-17-b-padhi@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AB:EE_|DS0PR10MB6703:EE_
-X-MS-Office365-Filtering-Correlation-Id: f309aeff-2b4c-4c53-096c-08df1f25b7b9
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000145:EE_|SN4PR10MB5558:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d3ad4b1-2838-48e1-4a78-08df1f25e59b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|13003099007|56012099006|6133799003|10067099003|5023799004|18002099003;
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|6133799003|22082099003|18002099003|3023799007|56012099006|10067099003|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	TKSLfTCahcD8oBK2g4yKUdxhJtoWOuVwy+dMwVcOfTgn7s4Pg1iYDfwhiQUk2Ijs+5FLs/yjrtC4G8H+6EEUydirsZ+1j/HND5xTwvGgNJw4ugwzrlFGfcPPAyo06j8NIEFG04/P83qHjceqomYrRT0EmXn27aM+BsddD4vkXyo8sUuycdACn25gB71he0zeTDMr0oQbEMK0pf4p44Q5W9ULRRAGhbv74FD+YpWt/2T/lZIP+CtTho6ygbHML1J4sHq44W5QTa55wp2nUEt0ziJMWpS/dT8r5N8GauFbH8irUdyCr6XDTuUFbMqix+OivW8R5d5tM/A3PDV1PPRjOBnA13KfpQ3265qgtDpgxsHl/Yxtr8XCdSEc+07CC1/oK3WvhcSiY5++X5dufNbwu+J/vO7u5Fj21DYTiMNOJhJwADFTtXB9X1kS0l2T/cw4XKcitnM4C1APzIzSRnZ152mOu9j1PcayCDsk5r2v4Eo3D+4mIAoYeo7b4dUNb6h9PDkTJgSplqi9+9FCRDWaQgVRD9sjoAky6A28Dd1mCbVAxie1HIRiiPq1tuY1Zr1fKS3EhWHNCjM5YvAGeE4w9Wg9eoRiUfbn2P0meHjXVTnRv/EzOm2m7Zv3RSMbDWq4HpbPUSrT4VrdTJT72ywUbh8A1/zihEMgFRBBoDrbX7/CsB8sfNnZ088SzysYsFIk20G64+9fzeSuPS6egtWeCw==
+	NEQRC4w+lCLxxOe6biLmOqQAFfjGowLNZb+W7rpD+o9lAYuuXZhn8kOrq6E8Q5jFWXaNST/o6ZNSo8PNy9rkPCDkKr1jJUIOsuJZr1daQ4eGYgoTIsV6fHqM02HmUQTQWrgo4uJgWgxlCyP0B51m8MCFJyiPLxfKthJvGNZmaZN/Rsl1GhjLsbY8DgRPiaWF2JZhVgAyveVhI6OTTvg6mkrDylGSub/GS9jd6avFN4tAqaw48vKk4vNvB8ArmI4sT9+9dhoj3GFiF7i+cldPTx6AZyktCIDchtfNx4Eyom8HuBBppuUD08m/44MtkAI7D3cPk1RAoHcb3QG76oTyjZ2vd8OSf1TSt4l7NT1cVWq7oSU8FmkXx2yShsOOrvpjN7Xe45J7cUlMyRKxyz7QBB0XWzzMRahq18ZC+XINDr+oJNZxr0Spx3VeaakcUDvy0XovtqAX3d5T6mmKrFt/0a5R65yJZZM6GuOrwbB/FTIpyjva049VTHHxnHqY7/3Mpwf7NfaqAVplu8kAV8hmt4njfLBEqQxg71pTuffi8MC6SM1F9LfPFbMKqIg/+FPWW6jm4FyVw876AHujg9aC3SNUTC+Zj3b57LDTG/Rl2GeqILYTpMbs1/C5u8LPlvJRARqJeasbTRzMC7avzYZLiDTuqj/YJi+MiubQO3icR4TL2z6jmMD+i4RAWgvC2U+ir7GNV1oSJOYpSlWxtnpfaA==
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(13003099007)(56012099006)(6133799003)(10067099003)(5023799004)(18002099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	EGw0hsyOG6aNm/NvwERxfA1LWDhE4iNXu8ox0L2/1O5kdXiMfLMhCzYoQzpNUjng6NT5uD5Yee2Ex8lk0tgng0ERW7l3mf9cWAXDSKK1mQ40TY8aqUXu/Eshaoa/p/PCyUNHQLHObMcR9dAtyo4FBFz2xUjr2rTBTpvOFoAWJZV90bOxbAO+UpyOQAf10+RjrbLs/V7JA3Waod0arv2pNlAlbEqC0FFHelsgil+30MZjQ6C9jGWENj+FkxOhlu76pkJuEQP4KfVFqVHODajrH2UBxBLjx/NgzJwp41wE0gQTo2Q6TflnIlftmYB1mN7WSnEntWItv6w0h2NYawdEN8ahgNeQvuxgAuEe8Bk4xbD95fv3d9Qo1X6UMCWRM6VcrpjnI6wVNXbZfMi9a+hNc2E4Y3TQDfM5D7hZcECIhJ23tAAyeleveL229l9qbjE6
+	vhH91Rdf5CkQxbfi/vzSqi2X/rgrsNJHnqjGi1rjPKY5yc0kaORo6V8p+lasnHHIFyh5hMRePUbljYTFmpG9VwQsIpyKPKv8X/f/dS6jzhQTceTDdwAWC543O+egokpYXBYXxVVMBKs3Kpm5flByJPwXYq/lm7Slke07tUP+L8fM5Zr+yTFiYvGHbwE+G1cIrWpJQugBpp8P+pL8+Q01w/LG0xwV6JL1WnzagGl+R6TMBQpJGBXz16qfyc4szsGvy+CT+T2vlHUkY1yTSPAnbfp741iM6goKCRg6M1GDi2YS1zVK5QWVNfcfJED2SlgJBgt+wsDlhA7tKpTXlQscTwEMAsgVemqOAWdJTYTWVLiXQXsRRLKJo1EejMBsByhHCAlMwiB/Qux8i5Zv/tKdQM4Q7u+ah6ZUPexAhgQE+sUohngOhLzJ+Xu9QnBAIYmW
 X-Exchange-RoutingPolicyChecked:
-	WHVEh8B1/jmCG29sZ0YJcfqH0rbwierT36YruLx7yr+PDkGrOsBGxQ22NfsHJt6XQ2oa0f/KLDJ7h9NtiVEAOKIPSsfULEtzYdLcyYjAJ7iFCnOhgwVgw05iQzXuh/8zsXcVuxcxSs4RosM3cg10eTUoTxnQXMHKiKsHifVbPmSAfgZkL8/oGmSmqQ069/a0cD+3FnT730RTmOJ+y2hXOf1BGZi8dY/LEmh65KWuPirO0wLUaunXKuhUyOHzreF8bwPDG5v/4G9QgmP0BoP2z5QqTjOknak3gvA02Q3q1TSm9YwN5SjrSnI7cNb5XrHhbt123yE1c7zCvvvd3JLfdQ==
+	WhOaEfB78FEIn8gwUy/7n/9x/mV/V+D4Apwf2q5POVuHqgdqGq3SY3cuizgM87r9rkvxQsoC9rIqnNcKagePsSEN2xQh1EV6zxbeW2ZKj14l83pghYcitfuFe8ZOCX3hbbTpW6jxjDUaj92ZCSOf/mGdP3oeinIUz3LAQmbKHux6GHy/LiG9/JNKSzQDKqDaCvdjZBbIH35LsIHStywjpGJMLGb6aXRzkBIUATwpwJiTSUwcwUP1gEn2G5HRABU+xopodPepxJMmuWowDMW7/XEmdiavPzRKo85GcE/scQ+kFwG3C7MjyfBYzbOwKdVPiDYh/jyXo39rZ8aIzxK6GQ==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:04:56.5151
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:06:13.5426
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f309aeff-2b4c-4c53-096c-08df1f25b7b9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d3ad4b1-2838-48e1-4a78-08df1f25e59b
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037AB.namprd03.prod.outlook.com
+	CH2PEPF00000145.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6703
-X-Proofpoint-GUID: pCYcr_yO4p767nQa2ASwGJJfNfe2Jz8Y
-X-Authority-Analysis: v=2.4 cv=aswnmiZV c=1 sm=1 tr=0 ts=6abd5d66 cx=c_pps
- a=4HEXQ/P5pkaUFkQJdDnQHg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=NEAV23lmAAAA:8 a=sozttTNsAAAA:8 a=uzs227ONIdg_jjjOc1UA:9
-X-Proofpoint-ORIG-GUID: pCYcr_yO4p767nQa2ASwGJJfNfe2Jz8Y
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfXw0dnBtuehi/u
- aASbWoIjcALMkiNZRvRs0F7dE/ugilIvU3+bnBU4PqoTn5KoEHCtwdfMYY6aNNdWyuyHmTLofi7
- 6PWGoGFd11JBSk4XwR6XGAN2R0yGMyE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfXyW4fu+P2YX6b
- tB5FRIK2/e/tujwfhfQchbeE0I502yLreUA2SeH0zLpj0mttDemXRKAbC8yTLzTdw/9aE8Jg0UN
- Nn7RnI0FjUBdbogUVVVa497WrYIUStR3kj2uGw2m6MSGmzbZaXbv/vVV6GpEfqrVDJ0BQ+eAIr9
- jh0JTcPxrz9aDd81iCatZjAycj3htckweeGEIVK2JnNOSRoCd4gYZOLo6qU73alRMvCijEuuUxH
- MDjcH/ius9ECeF4JptNu/DQWOmbNp4pB4CVDIcEK5gmSJg4llR2LsbJvrVZ8OAUOk+A7SNcM1h3
- n1YSjC1/vpuh333hyRXgiddy52QDOsCAeTg2Kjyq0gui/tEk2EKEQHzOAQIWr7FuD/rc5fxQ1Ga
- qkSO1V1WERj1qZ/sHWDs/5WFUr5y1zwO0r2HQmZWVj1822yjMix6I3IzNdLFihzfcWo9+QxaR6Y
- ToDJ+YINZjyvgXJaDgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB5558
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfX/kWE/4BFNwHe
+ uUh6PVMJDv2t6NDm2mp4xybUZeK2kC3fSroxQlOViHMCjrV2q9PrJgI0xzQ7VBaKEocqPx9S7kI
+ ZckRas8iZYON8JQLNYFfZiYJ6AALPhc=
+X-Proofpoint-ORIG-GUID: RsDiqm1ylF7_3OX4pkFzw6VmOGqKusRc
+X-Authority-Analysis: v=2.4 cv=C7R8WgP+ c=1 sm=1 tr=0 ts=6abd5da8 cx=c_pps
+ a=WJg1qJ+8ll6SXBP1xA03Zg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=7Fxcqgx5KeWqRHTrcwcA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: RsDiqm1ylF7_3OX4pkFzw6VmOGqKusRc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3OCBTYWx0ZWRfX1vYqV7CAzYXQ
+ Oo2UpAp3NOGG+iRy0Wg2VFoiw9tEnAf4MPuV29wg+MgM2gK8QN/XxGVEhtwWSohYhmgZyzFJO+W
+ b/ONbdQsSegjxkq2GEkPIqAWWgVtu9ZwlmopYGR1UdbXSNIc3ioh9ieJffm/IGGl1A08pf3K79K
+ UCOJILp8VGWxW20ClTHPpQa/7bliRllkzwNFoeFDzMGbmVfHjEf9s4qRI02brixPU4fa+tyI97j
+ vsY6FyB6Epbzh5RqaZpWHs5p/r3fXzaE+eOvB4P+dtfahnN/8ynSZiVj4vBRS9L8iPnzf69L0oJ
+ wTaMW79sOFXiKe7wrmqkaGhKg0UTRmr4JPJkGtJzro1mW7e/7tKU/CCQUEFMNF3ZGT1WctmPUeU
+ 0PBYs9ddi3rSgaZktYV3R6BsZYqQYzrkhtFj1oGs8yyOM4B6W1NsCcRDkixF4RVQD73uhhpq6wk
+ TBGwFbuA+0Utr/MpwZQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- bulkscore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300078
 
-The sci-clk driver unconditionally calls the get_num_parents TI-SCI
-operation while scanning clocks, both from DT and from firmware. This
-works for all cases today, but with future support for some System
-Controllers (e.g. PDM on TDA54), this may not be always right.
+On 9/30/26 11:06 AM, Beleswar Padhi wrote:
+> From: Andrew Davis <afd@ti.com>
+> 
+> Move the huge ti_sci.c file and its header into its own "ti"
+> sub-directory. This allows for cleanups later where this file will be
+> broken down into smaller files tied to operations.
+> 
+> Signed-off-by: Andrew Davis <afd@ti.com>
+> Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+> ---
 
-The PDM system controller on TI TDA54 SoC manages clock parents
-internally and does not support the clock parent related ops. Therefore,
-when scanning clocks from DT, treat the clock as having a single parent
-if get_num_parents is not provided. Such a clock is registered without
-parents, so the get_parent and set_parent operations are never invoked
-for it.
+Can probably do the rename in this patch too, get it out of the way
+while moving the file. Instead of renaming it later in [18/22].
 
-Scanning clocks from firmware relies on get_num_parents to discover the
-valid clock IDs, so return -EOPNOTSUPP in that case instead.
+Just remember to put this[0] in the Makefile here so the module
+name doesn't change in-between these two patches.
 
-Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
----
-Testing Done:
- - Boot test on all keystone and K3 platforms.
- - Verified that the patch does not result in any warnings or errors
+[0]
+ti_sci-y			:= ti_sci_core.o
+obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
 
-Logs:
-https://gist.github.com/3V3RYONE/d821cea46f5dc1e70a759c97878fa487
+Andrew
 
-Note:
-This patch is independent and can be applied directly.
-
- drivers/clk/keystone/sci-clk.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/clk/keystone/sci-clk.c b/drivers/clk/keystone/sci-clk.c
-index 9d2094bd48e3b..5bf615893a8c0 100644
---- a/drivers/clk/keystone/sci-clk.c
-+++ b/drivers/clk/keystone/sci-clk.c
-@@ -468,6 +468,13 @@ static int ti_sci_scan_clocks_from_fw(struct sci_clk_provider *provider)
- 	int gap_size = 0;
- 	struct device *dev = provider->dev;
- 
-+	/*
-+	 * Clocks are discovered by probing the firmware with get_num_parents,
-+	 * which is not available with every system firmware (e.g. ABI5.0 PDM).
-+	 */
-+	if (!provider->ops->get_num_parents)
-+		return -EOPNOTSUPP;
-+
- 	while (1) {
- 		ret = provider->ops->get_num_parents(provider->sci, dev_id,
- 						     clk_id,
-@@ -589,10 +596,18 @@ static int ti_sci_scan_clocks_from_dt(struct sci_clk_provider *provider)
- 				sci_clk->dev_id = args.args[0];
- 				sci_clk->clk_id = args.args[1];
- 				sci_clk->provider = provider;
--				provider->ops->get_num_parents(provider->sci,
--							       sci_clk->dev_id,
--							       sci_clk->clk_id,
--							       (void *)&sci_clk->num_parents);
-+				/*
-+				 * Firmware without get_num_parents (e.g. ABI5.0
-+				 * PDM) manages clock parents internally, so
-+				 * treat the clock as having a single parent.
-+				 */
-+				if (provider->ops->get_num_parents)
-+					provider->ops->get_num_parents(provider->sci,
-+								       sci_clk->dev_id,
-+								       sci_clk->clk_id,
-+								       &sci_clk->num_parents);
-+				else
-+					sci_clk->num_parents = 1;
- 				list_add_tail(&sci_clk->node, &clks);
- 
- 				num_clks++;
--- 
-2.34.1
+> v2: Changelog:
+> 1. None to this patch.
+> 
+> Link to v1:
+> https://lore.kernel.org/all/20260929201746.4078803-17-b-padhi@ti.com/
+> 
+>   MAINTAINERS                        |  2 +-
+>   drivers/firmware/Kconfig           | 17 +----------------
+>   drivers/firmware/Makefile          |  2 +-
+>   drivers/firmware/ti/Kconfig        | 17 +++++++++++++++++
+>   drivers/firmware/ti/Makefile       |  3 +++
+>   drivers/firmware/{ => ti}/ti_sci.c |  0
+>   drivers/firmware/{ => ti}/ti_sci.h |  0
+>   7 files changed, 23 insertions(+), 18 deletions(-)
+>   create mode 100644 drivers/firmware/ti/Kconfig
+>   create mode 100644 drivers/firmware/ti/Makefile
+>   rename drivers/firmware/{ => ti}/ti_sci.c (100%)
+>   rename drivers/firmware/{ => ti}/ti_sci.h (100%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 30c1cdd0fb385..fe53e152f2249 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27517,7 +27517,7 @@ F:	Documentation/devicetree/bindings/interrupt-controller/ti,sci-intr.yaml
+>   F:	Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
+>   F:	Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
+>   F:	drivers/clk/keystone/sci-clk.c
+> -F:	drivers/firmware/ti_sci*
+> +F:	drivers/firmware/ti/*
+>   F:	drivers/irqchip/irq-ti-sci-inta.c
+>   F:	drivers/irqchip/irq-ti-sci-intr.c
+>   F:	drivers/reset/reset-ti-sci.c
+> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> index c183d98c1e8f5..69cce12ae8651 100644
+> --- a/drivers/firmware/Kconfig
+> +++ b/drivers/firmware/Kconfig
+> @@ -233,22 +233,6 @@ config TH1520_AON_PROTOCOL
+>   	  the kernel through the Always-On protocol, using hardware mailbox as a medium.
+>   	  Say yes if you need such capabilities.
+>   
+> -config TI_SCI_PROTOCOL
+> -	tristate "TI System Control Interface (TISCI) Message Protocol"
+> -	depends on TI_MESSAGE_MANAGER
+> -	default ARCH_K3
+> -	help
+> -	  TI System Control Interface (TISCI) Message Protocol is used to manage
+> -	  compute systems such as ARM, DSP etc with the system controller in
+> -	  complex System on Chip(SoC) such as those found on certain keystone
+> -	  generation SoC from TI.
+> -
+> -	  System controller provides various facilities including power
+> -	  management function support.
+> -
+> -	  This protocol library is used by client drivers to use the features
+> -	  provided by the system controller.
+> -
+>   config TRUSTED_FOUNDATIONS
+>   	bool "Trusted Foundations secure monitor support"
+>   	depends on ARM && CPU_V7
+> @@ -309,6 +293,7 @@ source "drivers/firmware/qcom/Kconfig"
+>   source "drivers/firmware/samsung/Kconfig"
+>   source "drivers/firmware/smccc/Kconfig"
+>   source "drivers/firmware/tegra/Kconfig"
+> +source "drivers/firmware/ti/Kconfig"
+>   source "drivers/firmware/xilinx/Kconfig"
+>   source "drivers/firmware/arm_rmm/Kconfig"
+>   
+> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+> index a855d36961732..309145992ee5d 100644
+> --- a/drivers/firmware/Makefile
+> +++ b/drivers/firmware/Makefile
+> @@ -20,7 +20,6 @@ obj-$(CONFIG_FW_CFG_SYSFS)	+= qemu_fw_cfg.o
+>   obj-$(CONFIG_SYSFB)		+= sysfb.o
+>   obj-$(CONFIG_SYSFB_SIMPLEFB)	+= sysfb_simplefb.o
+>   obj-$(CONFIG_TH1520_AON_PROTOCOL) += thead,th1520-aon.o
+> -obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
+>   obj-$(CONFIG_TRUSTED_FOUNDATIONS) += trusted_foundations.o
+>   obj-$(CONFIG_TURRIS_MOX_RWTM)	+= turris-mox-rwtm.o
+>   
+> @@ -38,5 +37,6 @@ obj-y				+= qcom/
+>   obj-y				+= samsung/
+>   obj-y				+= smccc/
+>   obj-y				+= tegra/
+> +obj-y				+= ti/
+>   obj-y				+= xilinx/
+>   obj-y				+= arm_rmm/
+> diff --git a/drivers/firmware/ti/Kconfig b/drivers/firmware/ti/Kconfig
+> new file mode 100644
+> index 0000000000000..07d7968f9cc8f
+> --- /dev/null
+> +++ b/drivers/firmware/ti/Kconfig
+> @@ -0,0 +1,17 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config TI_SCI_PROTOCOL
+> +	tristate "TI System Control Interface (TISCI) Message Protocol"
+> +	depends on TI_MESSAGE_MANAGER
+> +	default ARCH_K3
+> +	help
+> +	  TI System Control Interface (TISCI) Message Protocol is used to manage
+> +	  compute systems such as ARM, DSP etc with the system controller in
+> +	  complex System on Chip(SoC) such as those found on certain keystone
+> +	  generation SoC from TI.
+> +
+> +	  System controller provides various facilities including power
+> +	  management function support.
+> +
+> +	  This protocol library is used by client drivers to use the features
+> +	  provided by the system controller.
+> diff --git a/drivers/firmware/ti/Makefile b/drivers/firmware/ti/Makefile
+> new file mode 100644
+> index 0000000000000..433b108782fbe
+> --- /dev/null
+> +++ b/drivers/firmware/ti/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
+> diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti/ti_sci.c
+> similarity index 100%
+> rename from drivers/firmware/ti_sci.c
+> rename to drivers/firmware/ti/ti_sci.c
+> diff --git a/drivers/firmware/ti_sci.h b/drivers/firmware/ti/ti_sci.h
+> similarity index 100%
+> rename from drivers/firmware/ti_sci.h
+> rename to drivers/firmware/ti/ti_sci.h
 
