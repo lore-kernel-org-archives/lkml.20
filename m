@@ -1,118 +1,211 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA188403E8D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D3441DE18
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751957; cv=none; b=GVaVykHUZP47REHi2YYMHBBP8BkfO7KoWBlGFDKqAfckRI6nAIWpNcCguGQp38IiEW9gEt2R5mLRsM4siS/opkDw6aXBTUUyQQcikCNxUDNbEbZ2FUucFjrA+7RZJ86Mn/+05GxuPFUDzAcbwahxX74j7qDTA1R/hncZyc9NHUo=
+	t=1790751963; cv=none; b=b7zOTnsFK7vjcW4ABI7NWBQK1dO/b0IuLxkTG117RegSqVoD3RFThJsFfOb1/LkOsQcT+NJZwP58CjBdGWR6sIDdsY2yaldA3RLYmX8zQo8SmSKmQh04AUMXkBukR1Kj2q9TiKajn78YHWVMC1jDF/NCOj2Un3aehzDgnDlHlXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751957; c=relaxed/simple;
-	bh=6x6zUfX3HAgCXeFMP5IQJ8hlZ04cJus+Y81jg3rYM3c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iIkD8WAV8FdERd96JS2d4m0mEy8YOjgThkP/oBtq3w4baOeDatQu05xh2K4Hdkn7cXVrV9m4AW/qgfFC7BZLP9PS+OC0gt9r9x55+UuHkCqgmH/eb4vs4VluT/JUDE45a5ZSW4BvMyU3xcUDRYTfhVVHliUzJDxBXsUzT2Hhtfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1790751963; c=relaxed/simple;
+	bh=JJGLHM3hPZ+UMs4RGoCV5Erf8UQ5+s0zcBkra5RR7XA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uxFd82ZBmRpcF22yJHaboqSr0dhNqY6zBtnCqKKl41sW65s2sFlNAEV0ToldWdKqehOFdAa8EWPY0XNXEmQkZbMgoFRwUma24Tv3VgfzJSYEUrIXCumFptizyI0zKdXhGlBve1R8PakIr6jXj/Q6nu84El3J6f5tBBIUdwnAlbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H7EDd9Dn; arc=none smtp.client-ip=74.125.225.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c83fbd23a5so1322309e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:05:52 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H7EDd9Dn"
+Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so2877983f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790751957; x=1791356757; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u+ufq/9OYpFWz0jYyxkMsrt/5JaGVR8WMolNjJI/6Zo=;
+        b=H7EDd9DnT1UkPvL+3ZSD8yrw73RkLRA1mAExBnr5oFYDk/jFShGatpvuKqRyDX5nAq
+         fzBc+DUX1ptIggMoxOJrI1ea3c+vzindDHnART6Pzo3S408l5LJrW9OMmniVG/hR6cPk
+         KkZ2l9C2+xRpFxInaCe53tdLwAndCXsZdG7mZFRiZoHdh/ImoepXPF18Clwum1voS70H
+         reM6ln/JgP4Jt1JMEE6YqZfb0/W1zZydc1cSlLxvdKmlvJkX5n3SnlDO39hu0ioslcTP
+         GFeght9IBTDfr3/Id3lgZhomKGvm7yA5X86vqMr62Il6/B4i1QgLEvTR/q3iFZ1Jf3iz
+         z94w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790751949; x=1791356749;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KRLyqaFR+2tvKEVGCS6TXPlesufaQZLklH2Mpn/Gp60=;
-        b=u9zW17e0RDk0wfwcF2vQtI5mzpr14ckOHktIf8QGifduonRTc6nMCrhAwyanC4ARjq
-         C67EK0wKMPN8kUkGMKAWuHnCbFKzpwvX9+IDrtHkaVDfAjvOOIOZu+wCUlAsqkssXJI7
-         UyZd9Ns5ucxm4gD4lbok8ftPGadIjNcqEl9tUiN9DFW7O04S9JJOLx1mY6KwXs72RgEr
-         L99K8ar6daHf3ERijoIWxcpJO5wpZqfafsLefwn4dNr9OLSyjqh5vnYiyXF0lLlVusQH
-         kmMEimrWO4lznMY9ONpv/yjAOR0YBYh3z7Xku+ibCplgaGsXvrXipfbY1gAlYImwEH15
-         LQUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJEhVXEAhnSHIp3gBnSb8IpgBDsYn01v2zfzENSfudYIPEdrwcJxoNql4SKKH/6Lc/Rdg0R8sT6RX7PKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVrr3/YXcstdGqCMF9vSNDv0PykHsLoexkAcjwcVf3mviQCE7Z
-	DbvlsSqHVCZH+Mj4tz6TQX3K9+OYZq0/bkuUXWP/qZTf0avDLlsR9nogwry4nyPv
-X-Gm-Gg: AYBFou2XB81qqeFAdsI1F4e6+s/vsSsgxzdfUza6/vN2mOPzdkqmnXGOpnz66BIX2pT
-	aJiQ+yC2wQF0VfbNx3T0MN61+HBeX9EzxL0u+Zmy8khxv8tVLFTtpczTgDy8YttQb159SUsTPr1
-	rkrkDqdK7VvO4ibHLmH8uGXy5vErPSwh0jAOzObYxjUOu27xKkfE0Cm7o93Eiod2Gzl+gQMM4jK
-	PiqhxnIWPi4N85AgrBXVp0cJ0cdXTu/c+Bl6hMMGv1pnL6IMfSfdmw6HSy8kjd5OBjR49cHSI9X
-	ioQXDmJnePTLrL8ybWQVGtha6fftSlCnLB0N33qkM1+FImOkfuV/uO8X6qSRmJIbquw/Mb98rf3
-	+ooRU5j/Ob/nrtU2vOZuvGQ55X7BBmQIt7+IahdGpdMqdRmdhIR9tQ7gvNEoMgeQ4+scl4CWfXz
-	iZY4gtC9ccpv/HUUXy5RP5SoDTzLYOwrh3L4+14JjW8NX+L4T4WQvY3qrO3T9tgCmmcQAR+z1sD
-	kQ9UlTEHs+q//qTFpEFuhakXBOFNZ9zVi9WzQDl9BlKdlk=
-X-Received: by 2002:a05:6102:8391:20b0:7bc:ce17:aa76 with SMTP id ada2fe7eead31-7be73a8ed3dmr35311137.36.1790751949212;
-        Wed, 30 Sep 2026 00:05:49 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-988d95a9531sm687582241.13.2026.09.30.00.05.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 00:05:48 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1182855137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:05:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByDXed22Qu6BSN7HTmRFCqNhkZzLW3AwPpGpFLObrGc0EhfvC/vccQzcosR+sdyZ36XSXfB9bRy8/b/dNo=@vger.kernel.org
-X-Received: by 2002:a05:6102:6112:10b0:7ab:9152:1c6e with SMTP id
- ada2fe7eead31-7be733a556emr39198137.27.1790751948220; Wed, 30 Sep 2026
- 00:05:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790751957; x=1791356757;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u+ufq/9OYpFWz0jYyxkMsrt/5JaGVR8WMolNjJI/6Zo=;
+        b=VAGExs4UjoeuW9wR9MIg0X3Ib8lL0EOvtvuvTD/pUxbZ2smdpPB2/xAUNXPxon8vPK
+         UcYt4u9xyMppdTKnx7Z5qsDLP3v64BEzmea0CmO2sbBykpvQRFq9he7ADknwMs+nsZ3Z
+         HmyyHjvBerU90hVX7q0mA7feR4bl2sJnzhMYtIzKkiGahByL/vYks08VIZb/+IIgJHxg
+         wWUVXo5hpQwtB8ZMZouXV+ZCQ6maN2AjTsPxPPIZkpgD9lOvKgQRTE/2kxdzI3xA/9bk
+         Yjl7GiBRsASrhJjd/W3tj78Yc8Y93Pvi95Ci4is45t2ETMkBEwkkaE76emQ5Nrg8ySXX
+         cgeA==
+X-Forwarded-Encrypted: i=1; AKwUvBwu4lV9HvlhSBy0jm+3OsZaIMHXCEbmTt0Ynu3NsfnogzIxnYFcFxI/6KqwYGuyvCKDZYpPkqDr6bQs6dQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMD56ymoinRjoNdMmeh0GEDQ8GfSoSP/O92KtQpMy8ogSFVcaR
+	rg8LNgvXVm3dxg0/u/TI9Fs7vR00r8ngbxA/flZede5eT70lrHfaH6Su
+X-Gm-Gg: AYBFou0IHpUYA4xfi+91AL5XRLGO1fjWb+Ub3V/FfrGRfykA7gNMyuI1uohMeURzuje
+	xS/8IttMc4UpC3NMZEMCJGaAOoU7uca/QxRC3FUgKjzPv79eRtjL8FqP9tijpBlUbQc7se9M//X
+	PbGQWEUSLd3SbWaqgP3f5rnwov5XaBGJIZy5JY/MIDx6o+r2+ozqHwRMh5rO8vEb2v/C0FowjZ7
+	IXHJiO2GsEUFQM/eMqxlWWg8rULdwbQ2EblGRSy5mTIKjg8K8mTMg2Z9QwNnPplrpRBVmg+HIS2
+	sCgBcSENcPKlKkp0c8rQFqp5LpAqIvvTR+gDOGPfbR74INcQeFDwjvnFx2SIcfRr1UV3Aj/AY+o
+	Eu6sJR5Bo4VRzir0eRVV8ojc92v6QSdEAlM1ksQ38UfptQ/eJ2ClO5EdOy2rqr9D31usi5uD2zJ
+	vfXeaUqbpyIzRv/IRsD3Fx7srUcHQOKS/IDsfBwDJMREUwloFmRFPXVbVziNL7bYr12C2v/LJh4
+	eGSWA9wgrCQmK46y/MqEzvr8IV5unk=
+X-Received: by 2002:adf:e191:0:b0:487:aa6:c90d with SMTP id ffacd0b85a97d-48b0244dde4mr898761f8f.1.1790751956592;
+        Wed, 30 Sep 2026 00:05:56 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.05.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:05:55 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+Date: Wed, 30 Sep 2026 10:05:30 +0300
+Message-ID: <20260930070535.47130-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930070535.47130-1-clamor95@gmail.com>
+References: <20260930070535.47130-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com> <20260929-rsk7203-properties-v3-1-02f84aeb8e47@gmail.com>
-In-Reply-To: <20260929-rsk7203-properties-v3-1-02f84aeb8e47@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 30 Sep 2026 09:05:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVpevoQLHepf06K1=YLRr+BUF9s3W_zaQkO24qiY2_DOg@mail.gmail.com>
-X-Gm-Features: AclHuK9T_GF3rRYO4h8sYrJYvPsih0XtUnox4vMWY5UxSoWqqC_FxwtdTdbQ_M0
-Message-ID: <CAMuHMdVpevoQLHepf06K1=YLRr+BUF9s3W_zaQkO24qiY2_DOg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] pinctrl: renesas: gpio: isolate function gpiochip
- from parent fwnode
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Arnd Bergmann <arnd@kernel.org>, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sept 2026 at 06:58, Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
-> The sh-pfc driver registers two separate gpiochip instances: one for
-> real GPIOs and another for function GPIOs. Since both share the same
-> parent platform device, gpiolib's fallback logic causes both chips to
-> share the same firmware node (fwnode).
->
-> This causes ambiguity when using software nodes to describe GPIOs, as
-> gpiolib may apply hogs meant for one chip to the other if they share the
-> same node.
->
-> Explicitly set gc->fwnode to ERR_PTR(-ENODEV) for the function GPIO
-> chip. This satisfies gpiolib's check for an existing fwnode and prevents
-> it from falling back to the parent device's node, while ensuring that no
-> actual properties or hogs are found on the function chip unless
-> explicitly assigned later.
->
-> Assisted-by: LLM
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Expand existing DC register definitions with additional fields in
+preparation for adding the 8-bit CPU interface.
 
-> --- a/drivers/pinctrl/renesas/gpio.c
-> +++ b/drivers/pinctrl/renesas/gpio.c
-> @@ -278,6 +278,12 @@ static int gpio_function_setup(struct sh_pfc_chip *chip)
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/gpu/drm/tegra/dc.c |  3 ++-
+ drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+ 2 files changed, 51 insertions(+), 6 deletions(-)
 
-As this function is only used on SH:
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index b0bfa946e6979..5c67928bcabfa 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	if (dc->rgb) {
+ 		/* XXX: parameterize? */
+-		value = SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
++		value = SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
++			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+ 		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+index 0cb0515968b35..5679e1ca0c2a5 100644
+--- a/drivers/gpu/drm/tegra/dc.h
++++ b/drivers/gpu/drm/tegra/dc.h
+@@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_COM_CRC_CHECKSUM			0x301
+ #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+ #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
++#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+ #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+ #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
++#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
++#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+ #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+ #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+ #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+@@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+-#define H_PULSE0_ENABLE (1 <<  8)
+-#define H_PULSE1_ENABLE (1 << 10)
+-#define H_PULSE2_ENABLE (1 << 12)
++#define H_PULSE0_ENABLE				BIT(8)
++#define H_PULSE1_ENABLE				BIT(10)
++#define H_PULSE2_ENABLE				BIT(12)
++#define V_PULSE0_ENABLE				BIT(16)
++#define V_PULSE1_ENABLE				BIT(18)
++#define V_PULSE2_ENABLE				BIT(19)
++#define V_PULSE3_ENABLE				BIT(20)
++#define M0_ENABLE				BIT(24)
++#define M1_ENABLE				BIT(26)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+ 
+@@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define BASE_COLOR_SIZE_888    (  8 << 0)
+ #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+ #define BASE_COLOR_SIZE_121212 ( 12 << 0)
++#define DISP_COLOR_SWAP_BGR	BIT(16)
+ #define CMU_ENABLE_ENABLE      (1 << 20)
+ 
+ #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+-#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+-#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
++#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
++#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
++enum {
++	SC_H_QUALIFIER_DISABLE,
++	SC_H_QUALIFIER_NONE,
++	SC_H_QUALIFIER_HACTIVE,
++	SC_H_QUALIFIER_EXT_HACTIVE,
++	SC_H_QUALIFIER_HPULSE,
++	SC_H_QUALIFIER_EXT_HPULSE,
++};
++#define SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
++#define SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
++enum {
++	SC_V_QUALIFIER_NONE,
++	SC_V_QUALIFIER_RSVD,
++	SC_V_QUALIFIER_VACTIVE,
++	SC_V_QUALIFIER_EXT_VACTIVE,
++	SC_V_QUALIFIER_VPULSE,
++	SC_V_QUALIFIER_EXT_VPULSE,
++};
+ 
+ #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
+ #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+@@ -493,6 +521,22 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_DISP_CURSOR_POSITION_NS		0x441
+ 
+ #define DC_DISP_INIT_SEQ_CONTROL		0x442
++#define SEND_INIT_SEQUENCE			BIT(0)
++#define INIT_SEQUENCE_MODE_SPI			BIT(1)
++#define INIT_SEQUENCE_MODE_PLCD			0x0
++#define INIT_SEQ_DC_SIGNAL_SHIFT		4
++#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
++enum {
++	NO_DC_SIGNAL,
++	DC_SIGNAL_VSYNC,
++	DC_SIGNAL_VPULSE0,
++	DC_SIGNAL_VPULSE1,
++	DC_SIGNAL_VPULSE2,
++	DC_SIGNAL_VPULSE3,
++};
++#define INIT_SEQ_DC_CONTROL_SHIFT		7
++#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
++
+ #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
+ #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
+ #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.53.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
