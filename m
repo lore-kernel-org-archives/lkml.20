@@ -1,148 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3970E4C8C54;
-	Wed, 30 Sep 2026 12:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24484C8C54
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770974; cv=none; b=purHw+fzbTga5E0hwqCzaozhfH0exCI5cpib5ngYvXlV9iOtF2mAbr9noceaZMTgR4pDIabiCNEx4UIoAIhgrSGbNDYh2+UAEdSPZbByuiHglohxLexy7MS1rJRRSyrMxyGUpivsAz14qzgh7Ha6xWxrdPL1azO89EYSZwTYOQ4=
+	t=1790770996; cv=none; b=LiUIbV04Z5mcVjbduLZChPoXRqjUn4yS8aBmXUbRdUGxQaVY9ayVLbKCtga/EH00bPBTOYz+4rspoLESs4xFYAPmA5FKB67W3idlNAd8rIhwce1JPcf5dJgSmO4C9AuUpcazIaAjIiApS82qnPYvXrWwjK9Ykr80D+yMIh0Q0To=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770974; c=relaxed/simple;
-	bh=R0iufsfkkM+S0LEUEzWV9BMHm7KUVrqY2MjsW9zOOuw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T8cUjpVtcBOfz9XOn5ehDfpKKvIUf3i7oxPKGUziIOSSmonZOiEP4oP4NQ0wFhNTXTaej8cVG8y1IN/cX9ROFbcufBHIsq5D/snxlakXkyyBG62PIqlvlK+oS1F37zuqAFFLmYM73GYcQXkKAZc7Bpd92h1xyKbnvyjFq/MziKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0oRsWWX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790770996; c=relaxed/simple;
+	bh=hd66VCJ3K0RoXkl/bUrVexrnvv/K041uRHih0HcPJLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q9ozv3jjZndW2orgpmNdCbIAFgFhVKOWmM7V+UNyLqS6t2wGb+rLu2bvsUiQ2H2He/peN/YjKEQosl9FYeqCREKYPFmRXDFWBc7cbCl25p8EVyMIzJcK4XqUW9sgJUIjQ7WStwBZxa6UomSvN+JRkDx7ZMtFf/ZoPMt4Dy688s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=AR7Kjy4h; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0oRsWWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DCF61F000FF;
-	Wed, 30 Sep 2026 12:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790770972;
-	bh=e940AjQ0jQQWP5rvA/K+cI8JuO4iBqCxD/BwdAtAYs4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F0oRsWWXI7cbEARvdQkabseN2gp44WIpQVNuE/0AkzSDAGAgCZXFPcsVXdXOr+geq
-	 GGYwyMqQ9suXrzuHRYoXQTn4NOKC+ohlTrADPmXyMS2HtJ1Ht0XVvJbBu7+aquz7z5
-	 cJzQu3XiOuJ+WN2nw/do4NQ17GWT0wnMy6nOjV87y3B1xVeaaYaKfQodMmx8qk9D//
-	 FBRbTLog09XQEzFfg63eT4h0npUi6RNaa9/M1uFzmZxO9SaBSkbXB+bcWPEZPGjCbE
-	 G8X4ej00Dsb/LGM7V82i3+ND78qecMiGc/J69Ru1VYwi2GlxFAOo/wcULsj3Ok8u3B
-	 zhhITKCmiPxSQ==
-Message-ID: <4d3be415-6d51-46f7-81ca-ab2dcf0f0f74@kernel.org>
-Date: Wed, 30 Sep 2026 14:22:43 +0200
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="AR7Kjy4h"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so8430863a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1790770993; x=1791375793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uTmXsnC8RxOPoTRudDkJpI91DV2+W3uFeKU9KvirJ9Q=;
+        b=AR7Kjy4hQnaTlj9ensLiGt5clD38S8VlpsFB7IJErtO77C5cjJHEOnMSMSOC9C++d7
+         BJpfRYlwt+RcW37w8I7uwQh3EFVCiQiE6hL+oZk5bgL2eAZzprPebRFSTYv1xMX6VH8Y
+         zs3do4A4lQf6ij6ZkGnVT6Nwwswg5nF6adcKdiGivpgLXKLb93kCkY7xZS0IsdHSA67C
+         yewrMpJJl7BixUSB2Dqkb+QkQxRmYLx5BzRdeXUBocGZF2aD/Lz5BpB1oq8altRT6o7w
+         91UnZey9R2nZwBU+HNZBuldEbm2M74l5rfhn46RvBF4AAjGHo7kV5oNEvDhcCQO3zhsA
+         3ALQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790770993; x=1791375793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uTmXsnC8RxOPoTRudDkJpI91DV2+W3uFeKU9KvirJ9Q=;
+        b=oa/HzewNkPnHTcxy6L9yx1HX2Bdo43DrXWZb/b/FCFAX7My8HgZsZVgZXb9PByAB9p
+         u2iVpdn+6jzTOXxMZUHNdGiIQpkBXX8klhN5O/03dNF/RvLhHddUzXs/0OD0s1cc5kUq
+         8vRn28abg3dDotVSYhPPxv5yCgna4781Hi8J4wBPO6P4iQ6SMl6GF7cWgd3AYjVlfSfD
+         b8h7qqdsF1G0iGbcCCVj1Oo12nSRpsrTgUA6EcDbxPb5DbQHzwuPK8p7B/nSeAastmDm
+         LNJUTI+Dk6ALk6QM7/NzNlUXMXusqvVsHdd6RDU7JNp+qckHRLE2zysPzNKjHvAjyB1k
+         59ZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIaOpOaOAOLbXgIONKrMN/Ny9mw1GFv2w4Se9K7WB9j8I3QXJI8ns/B4L9NUCzBiS/8Msj90ZS1eOS4Rw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0wPqtvpnPl8LQuxz/2ETBRJ8d1gc/IJQyhPv+Ac5bsFOOvmNn
+	B1b2DQURvzxIqSQsqFpdSewNJk9D71dIhHy+Z2jzGfPWasA9dFcV9PpdoxcYzG00ulg=
+X-Gm-Gg: AYBFou1/0TW1azDUKL5FKgj/2pOUbnFhqmHHd5zz+ZSVeDI7MZ6KRN/gV4z3OCG8uFo
+	JUPzB6Mzh4W6joDQlJIY+UcVwuveDwH5l4f2K2DUeDheonn4sUkHJ71rz07F7QeRiU82e6pdvtV
+	tlbt973ftc9oJCTPkAHiJpe/lvLE93WkK8vNJpQRiSUFqsditAQPIPn3wD2kPKflFrTgRHPyIpi
+	lHC2Rd5sayfSojhnTVRYvKD3Uz1R7JJjhHhV39iJV2Us817AckjKTXLG98tl+CsLRFr2Vfsh8pG
+	z7pObShXeee3dE4gF0w5qzLzbMBqDYKV1SUz7zA92jKcpV2El1Gt60d7ZZmM2RscI//4sOxN6eU
+	D4DL+QzXhOfWtFK62A8tqUA/z0sdXa20EeW3JM2hJH6WTc5c0jXDbFHipIgO2neFKXpV/zvjE8T
+	yUdqnSyUcdpLe8pfMnaExoAqbYc3lLBBdXqkzmkIhNss0w6/4vtq1mnmTfH6ixb3TAHKMUXrgd4
+	/6J/jXM5YFasn++1DZ9lp9MqUUyDLP2LD2mGOtAAqkzTm3AFzZD6xtVdQJChOFr7PcbGv1UBSH9
+	dDA82HF3ZczSbUWO9f5aTWERLRAeIQ==
+X-Received: by 2002:a05:6402:23cf:b0:6ab:373:54fd with SMTP id 4fb4d7f45d1cf-6ae1993bc30mr808003a12.44.1790770992881;
+        Wed, 30 Sep 2026 05:23:12 -0700 (PDT)
+Received: from threadripper-fedora-workstation (dh207-15-187.xnet.hr. [88.207.15.187])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e5a3sm744042a12.20.2026.09.30.05.23.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 05:23:12 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	hkallweit1@gmail.com,
+	lxu@maxlinear.com,
+	michael@walle.cc,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH 1/5] dt-bindings: net: maxlinear: add MxL86211C MDIO I/O regulator
+Date: Wed, 30 Sep 2026 14:22:13 +0200
+Message-ID: <20260930122305.293686-1-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 9/9] firmware: arm_rmm: hotplug: Skip memory added to
- ZONE_MOVABLE
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
- yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
- <20260929221623.1342076-10-suzuki.poulose@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260929221623.1342076-10-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/30/26 00:16, Suzuki K Poulose wrote:
-> If the hotadded memory is in ZONE_MOVABLE, we could allow that to proceed
-> without the RMM having fine grained tracking, as we won't allocate pages
-> from there for guest-memfd or kernel allocation
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> Changes since v19:
->  - New patch in v20, keeping this at the tail to allow for the rest of the
->    series to proceed, while this patch gets discussed.
-> ---
->  drivers/firmware/arm_rmm/rmi.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> index d4d098448e46e..ef0a171ba9677 100644
-> --- a/drivers/firmware/arm_rmm/rmi.c
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -1043,6 +1043,18 @@ static int rmi_memory_notifier(struct notifier_block *nb,
->  	start = PFN_PHYS(arg->start_pfn);
->  	end = PFN_PHYS(arg->start_pfn + arg->nr_pages);
->  
-> +	/*
-> +	 * If the hotplugged memory region is in ZONE_MOVABLE, neither the
-> +	 * guest-memfd nor the kernel allocations can come from there. So we are
-> +	 * fine to skip this.
-> +	 * For boot time memory, we don't allow this discount, as the
-> +	 * decision to move boot memory pages to ZONE_MOVABLE is purely
-> +	 * a kernel choice and the firmware must have decided what it covers.
-> +	 */
-> +	if (page_zonenum(pfn_to_page(arg->start_pfn)) == ZONE_MOVABLE &&
-> +	    page_zonenum(pfn_to_page(arg->start_pfn + arg->nr_pages - 1)) == ZONE_MOVABLE)
-> +		return NOTIFY_DONE;
-> +
+Document the MDIO I/O voltage regulator exposed by the MxL86211C PHY.
 
-is_zone_movable_page(pfn_to_page(start_pfn)
+The regulator configures the MDIO, MDC, and MDINT pad voltage
+between 1.8 V and 3.3 V.
 
-as used by virtio-mem should be sufficient. Checking only the start pfn is
-sufficient.
+Restrict the regulator subnode to the MxL86211C PHY ID and document
+the board requirement for VDDP to use the selected voltage.
 
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+---
+ .../bindings/net/maxlinear,gpy2xx.yaml        | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+index 8a3713abd1ca9..0645e885f1747 100644
+--- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
++++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+@@ -12,6 +12,29 @@ maintainers:
+ 
+ allOf:
+   - $ref: ethernet-phy.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ethernet-phy-idc133.5400
++      required:
++        - compatible
++
++    then:
++      properties:
++        mdio-regulator:
++          type: object
++          description: |
++            Initial data for the MxL86211C MDIO I/O voltage regulator. Set
++            this to 1.8 V or 3.3 V to configure the MDIO, MDC, and MDINT
++            pad voltage. The board must supply the VDDP pin at the selected
++            voltage.
++          $ref: /schemas/regulator/regulator.yaml#
++          unevaluatedProperties: false
++
++    else:
++      properties:
++        mdio-regulator: false
+ 
+ properties:
+   maxlinear,use-broken-interrupts:
+@@ -45,4 +68,21 @@ examples:
+         };
+     };
+ 
++  - |
++    ethernet {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@0 {
++            compatible = "ethernet-phy-idc133.5400",
++                         "ethernet-phy-ieee802.3-c45";
++            reg = <0>;
++
++            mdio: mdio-regulator {
++                regulator-min-microvolt = <1800000>;
++                regulator-max-microvolt = <1800000>;
++            };
++        };
++    };
++
+ ...
 -- 
-Cheers,
+2.55.0
 
-David
