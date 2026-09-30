@@ -1,85 +1,119 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D0B45DF7F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22BF35A39F;
+	Wed, 30 Sep 2026 07:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752985; cv=none; b=uxoGH05bX3MUkLQeTpMybKxkbaGBW6uDQrlelVFFFPb5kFd9DZ8bEvhXdH9B6PFj5CWE6s5lAqwQYatnn5AWHc27KL1Fmzp5lzgFHtyI23KJsb8uYwJCsElfU1UqjnzKp3mEpvaKeu3kUKygDXu5OzxJs3GOBOoZvloemU0PXOg=
+	t=1790753038; cv=none; b=c//0TttwnGtD41tfJDzh6IZYgsIe5qLA7WBE2AOROOhss1OXnA5WWKaUKcxWQG+Uu2egjG7fRx0L76VRG3j6LsQu2aEQZpwYW0TDG6d9YYoNsvKz1W9fYC1MRCCBzUdBBmoxQFNeZh+iGyxuMCxYvf6GNuYD8PjVPZcR8k1BkMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752985; c=relaxed/simple;
-	bh=Joi2OZuTmjgbDN57dzLD+JcRLScvJC3JC66V30FnFJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qTGqHizW9jl5jG/+2Yw210HgAeCGIMH1S0rEAX4mK/N0qWfR+0bp74iJm8ihueXuRg+i44NsJKbe+7pFh1Zy7VK1zghDHJ7gr2IO7gCPiXN4RF4Y6Lq1FnZfVi3jggxWe3WJgbQ7P93kNit1DGe7hef30jD6NPaYakp13X9MLJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PVuIBfP1; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790753038; c=relaxed/simple;
+	bh=8ovQOQFomO670I1SSxlwhAd7XXPAPJRNzMsRd+Njyrw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=RtBVywzLAqVGZ4tcy8KocHwLeJX9COcUSUZE7xAB/QL62aRWEgjX9JiXaJ5Mpo4Gm/Gxgiv1S8k+6RmBHyHJadZ5wHZf1d0wh+WRYJcyQPuYz+0Mfz1+LC2WtApUhqpfwe+bBL3JOrsBS7+WUd8T75+4pNn0mXAiXD+Qpivcz5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkyE0HsG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PVuIBfP1"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso776398a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752983; x=1791357783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Joi2OZuTmjgbDN57dzLD+JcRLScvJC3JC66V30FnFJs=;
-        b=PVuIBfP1Hkj0GNMbPlHeYSE/ADA0psq9TJpm1sHfqZcx5fUaNTVNAtHLsq+vQxsxzo
-         XGoLyAlYfJd7xxh9jBlLLPvhm0kgXhnBLSh8WBvve3l6BdOyRoz/B2qs8QYn0NUdIaIW
-         210iHvRxDyLnl63CSfDNQG/jSEjhYq4TEWsL19jHTiQxOfu19rl72B74p53CIINHOk6G
-         hHUSifOS3PLhqUTTJZ4mBM3AK7W0TwQL/pFdd5rA4Y9N8RD84zu05YmxfKWw1W9Azc7S
-         QbcN9uRZxppsjU84AbY8B6QexNqoji4NU9zCz0itPKKIeXgI9jemKofJBTRTYbGNzIFM
-         ufjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752983; x=1791357783;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Joi2OZuTmjgbDN57dzLD+JcRLScvJC3JC66V30FnFJs=;
-        b=u1epLzWmKOTWKhWxJU4sIC7Cw8bO1MDuVgwGZzca50wXu3tNOg1FnNBW45z1QSunzx
-         5aCFxcU0qcba5rnWAfKaOtYxAcSTic3DnK0+SvO6UjfD4O7yrN3bj2B/0HylBcrWJIuk
-         q9RYLJy/bn5meQyIJMvM8j3KyHAS67Z2O/I4tA8cTle55D15dpT4W6kkm8TEt0qlX3Fw
-         zz/VyzgGeAPRoca6gcDVR4rSV3BV1yHRKS8gz+6coNftXUtb3Hmhv5EMknPRTzEaCYCe
-         4IFVNZnzR4MLmihAl3OWd+HPJ1qSJRBVniQ1YJL8X2ytJ7OjYHabdEklmLXdL4Nclc/o
-         1frA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXIZ6UVuYNVTKAvPDAxTRN+N6WLTwY7VAB2veDTYQNk10TvIWSW3CAdfAm8bmIqLXhu6VLka0gWovPTOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXaXhjXaiCfz86gg5wRXeC2VAAHXUM5IxstvG4fZMLYs1Fmbiy
-	GAajd4aEaRGWRCvIu/yspI5iKde9rnbp7W2O9pPWfoyyxHu3s/dsGZNHn+9RBH9N80QKsA==
-X-Gm-Gg: AYBFou3W8dBQZRu9Er0M26bYNMn3r4RJ9rwh1/oDKXk7+hcoiP7AnPYtF9LyAg9j4Y8
-	sKmqev201cWar/OL1mFTGcL+7tLQ9UirKbOQoa5ObVhaUHOmwrttcv87m7EBddQbitGdMec32U6
-	SVN2XMsz4RYggUJOyQpEkyuuGRQfYq9J9mBq/3tpgQCH2WaToWEf4O9STt79+lK+RLBfnFQjsLu
-	TvTuTWROD9w4fQjJCAtNNKaJdVShz4Grm7ZFGdzxVuHYtOESsXrlTLeEtG7e2XEHDbp4OrUyPba
-	D3Um9+yL7zZhMQhcWO7PdSnnukZY+Zx1iY5zhnMymtsq4pkMaggitxv2N4wrMTNGBLZ7DuUh61z
-	S8R9OX+SbS/ydPpt33OicYgLUCEmOUgXd0IF9QlG/i4guMIHNaI3pC0k/t6CoB1fcV0VNfHfAkT
-	7OZNIQEi/3z1xGgp9lgAwc9jZwHNq29gu0zfL+1g0sYu2A+u2J8IKduAbqu9MhEeQSBPnbWmae7
-	v50deOvDc83tyNfVzsCNNttWBme/h/pBQ1bd5vPkGDuWezq19gTHai8EAUSwDoKFYAW+HQwQv26
-	Pdv6OD+DqOrgspekxaAkapWBNyf0nk1Bo9dtNHoFFKYQS4Tl2oKVyS07CiU=
-X-Received: by 2002:a17:90a:fc45:b0:3a4:cbb2:f35c with SMTP id 98e67ed59e1d1-3a4d13a690bmr382719a91.22.1790752983099;
-        Wed, 30 Sep 2026 00:23:03 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7da14e8c5sm345460a12.12.2026.09.30.00.23.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:23:02 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Anders Larsen <al@alarsen.net>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] qnx6: validate sb_blocksize before dividing in qnx6_mmi_fill_super()
-Date: Wed, 30 Sep 2026 15:22:59 +0800
-Message-ID: <20260930072259.1167895-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930031604.70544-7-benquike@gmail.com>
-References: <20260930031604.70544-1-benquike@gmail.com> <20260930031604.70544-7-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkyE0HsG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93001F000FF;
+	Wed, 30 Sep 2026 07:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790753036;
+	bh=cr/9LDksl3pKOtz+kT5jzTq+mDMuvbziSeLAOVrtDYg=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=EkyE0HsGbpRfHw6YDFSO8SiO4E9KXyWnu+n2AO2NSA3UhSy3w9Am6ZZkz1ylkvPvb
+	 2uT82/pEZODNHWy8B+sWY42snzepfuf9ZndSnVFWJtVvIMlvexVQ/uABHlEG4vAcWG
+	 BkduXhrEOhoHRKEO8TpZomNxYyhx0FKmzhK2NrK6D777Dhpu9nIe7Neq2GJpzNm2LR
+	 hqPXa5IR05Bak4yPqn1jBRfBecZs6Eklnl7sL2w9MJNJp9zVrYvfnpdQznpRXX8GhN
+	 JeaNOPw5awPmM9rnbdQwNgDUQpk9E9034gZIUsD9CWIuQ/jkS9tuY7kQ76lLLQP7/j
+	 KmCYR6QktB30Q==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 058721980047;
+	Wed, 30 Sep 2026 03:23:54 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 03:23:54 -0400
+X-ME-Sender: <xms:B7m8arn74lgOCxu6FXOVKWiWOnyUvys5aubXdnX_eQc20TaCYL-0SA>
+    <xme:B7m8apo36B5PE7W5D-44IlqhK8n74WCjSgSvtv2t0qB7nGTZDURNM_OuXbL4YIXRl
+    QsNgwWtwnECXBPHWzCr1moN7AuiQvXBtm6ag310k5XIei4jRRGXhR3O>
+X-ME-Proxy-Cause: dmFkZTFMDVMhJEQ7J1ew9e5PwLvolqMVIYEh3QICZKpARowJS0MkFY0pIRzQhMxMJ6kLIl
+    QckxKCguSItFlX1qpSuXiq6C8zIQfWDtJXSaS3LR/Y9LucCR6MwyCutc7jXmXvzGNo/NkI
+    6eZzHAPt4FaBaCIhCKT07SbWIVSAQtN7caoBEaFMxWJvUJL5QfnyK1PdrynQO4eJvIeHDZ
+    Z84ZKkE1u0EAoPfDAQnV2NrEPBxD2CV49a3gUFowFkeLRPiaKwZQ6V8ay+fePP9Bp3ImGJ
+    yjAbM9teHQPng2gwuZwlglLWlJbsF44UeuktAjisrqw9HmxSPKPTmQ2Q7ImTf3mx1TAntR
+    BrZE+IgqCIqsJVftswzBW3O2J93DKgfcKw+ksYXOLBAwhOL2GsZsOZm+ou0/vb5nUQ5LfZ
+    ToeLaI407ekVaIK+14zksQzIBkTryd8JL39GVV0vqNOl5+LjagPXUSG4dso2AXxSaEV7wn
+    GcobcDlTSr8RIkSYmkXrBNacWcJFrebuX3U0DIDTk4zcQUWOx4PaYkmDicN4UoCxvgknEM
+    f6/7MSv8vt1qeYsPA2/oCNIwtzN7MWqjmi+VvF84vmwK2wn9GZtrh79DFA+zlPCkRc1Lfz
+    xN7oCAP2TRJIO8XXbRFrOUatZaHZLuUPga8LngRN3qLUeEJfqlw9VCtBvDow
+X-ME-Proxy: <xmx:Cbm8avhHWT_T6en8ejsvNshgtxSV131vxA6mZcylH1A-FkgdC5VBcw>
+    <xmx:Crm8areYs7PfCn6Ho2oJAjzeiDcVFUlv0M7YOyDNhFGuYYb9heXbog>
+    <xmx:Crm8agJ1i-2ov4bBAj6FtKGVgZrFuggL_A7VRA8KUBc36jDdbgtTHA>
+    <xmx:Crm8agkRAz1-3WvEhUPsehnbKx6xUhBM--fuHg0lqcNK6aeXtnkGlw>
+    <xmx:Crm8agfHy55Uzk8wVG0oK1XfPZyFnv1Z5fCRTxPIu2shR7fN1G_Oeh5H>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 7167C32A008E; Wed, 30 Sep 2026 03:23:51 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A1EAYUxGQhrR
+Date: Wed, 30 Sep 2026 09:23:21 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Rich Felker" <dalias@libc.org>,
+ "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
+ "Yoshinori Sato" <ysato@users.sourceforge.jp>
+Cc: "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Message-Id: <3a51385d-9649-4bd7-87b3-0caf9e462b2e@app.fastmail.com>
+In-Reply-To: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
+References: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
+Subject: Re: [PATCH v3 0/5] sh: mach-rsk: rsk7203: switch to using static device
+ property, drop legacy gpio API
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Tested as described in my reply to the cover letter.
+On Wed, Sep 30, 2026, at 06:57, Dmitry Torokhov wrote:
+> This series of patches converts rsk7203 to use static device properties
+> for its devices, including gpio-keys and gpio-leds, and removing
+> dependency on legacy gpio API (in favor of gpiod API).
 
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
+The patches look good to me. I have build-tested this with the snippet
+below and my series from
+https://lore.kernel.org/all/20260907090956.2825703-2-arnd@kernel.org/
+to check that no use of the legacy interfaces remain.
+You can probably fold my one-liner into your last patch.
+
+There is a trivial conflict between your series and my patch 2/2
+"gpiolib: remove linux/gpio.h", but if yours gets merged, I can
+resend mine without that line.
+
+> To configure pin functions the board is switched to use gpio-hogs, as
+> doing full conversion to pinmux is too challenging without access to
+> hardware.
+
+I would guess even with access to hardware testing is going to be
+challenging, I noticed that the defconfig kernel does not fit on the
+4MB flash any more (even without rootfs), and the USB support was
+never added for rsk7203, only for 7264/7269.
+
+     Arnd
+
+--- a/arch/sh/boards/mach-rsk/Kconfig
++++ b/arch/sh/boards/mach-rsk/Kconfig
+@@ -12,7 +12,6 @@ config SH_RSK7201
+ config SH_RSK7203
+        bool "RSK7203"
+        select GPIOLIB
+-       select GPIOLIB_LEGACY
+        depends on CPU_SUBTYPE_SH7203
+ 
+ config SH_RSK7264
