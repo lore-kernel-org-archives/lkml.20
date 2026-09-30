@@ -1,47 +1,90 @@
-Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC59344DB7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C623E39CCF5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748296; cv=none; b=NcZ9mLonBgnVabycCdbfJJ0Tbap2NtdW0hgM1gGStJTD6CHXBwatPsgNZurzlR0Wm9CeOXpzZ3dsWu4UsElaWxqFnSpOryektmxCGKLfnyyHYhPcOKGTyJnU6PiNv0p8ZIbP4W0vZlTAb/N4JCAJNf2kH/VZJSmayJ+k4YXUJHQ=
+	t=1790748489; cv=none; b=XPZKain5uqZy6RLWgxsyzBCeCfrpaZX5aqhdujwaa0eRKQDu0h3r6WEe6Pls44iXqD9rk6+t5hmViuCsszRPgqBMzgtdSdIFs18gu/10QIbeM8t7p0u6YR/ATknWMC2MT1VzvdgexosR8k+teimuLhp9ypYnCRM6xVrIGDlDMh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748296; c=relaxed/simple;
-	bh=HeK8ZDCCOt1Xu9LSP0fGs8eVYgK1CGaMuUWO4rHDwzI=;
+	s=arc-20240116; t=1790748489; c=relaxed/simple;
+	bh=FQT7C9mEtUI9zyQeAiy/rz7mwvm/L9IqR2P4MCxmtag=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pkKq50N1XNOT5z2AkG/XGhulFc3n9MOXmPcT3yWsx3TGI1gA+DSfQJ3JXxYN5slidfPqgarOrYYsrJJ4Gef5Dct1nijtRh1V7sEzeDPH5tvtcQb6DSQtRtop0algUOGQQoQ303cFzlgthZjTC+GMxZUP3ProDZZTlVYPUisIm0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XN2ihUCZ; arc=none smtp.client-ip=95.215.58.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=pJKDZcnzH+2jAyESJOMvJIV1HdvjF1agxe5SafmTeM9n0q/8vSTUX+88Eua4APy0+qFZRjitunv+YBUJOF5DxENddmyN7D4LljRjSudi+ZNbHNJfGh6Ma1ZU9C+Xe/tABGs1wI1JM78/MJYD9oVRjThIv0fEOdqpKPjpDiDzf0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=GpLOQ885; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XN2ihUCZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HeK8ZDCCOt1Xu9LSP0fGs8eVYgK1CGaMuUWO4rHDwzI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790748292; v=1; x=1791353092;
- b=XN2ihUCZfElhlpVlbh1JW2TtMdFkt97O3cPDlXmiAPf3mUhmrq+qLDC5xIh095jx3x5jTVBC
- i5WU5tRHck1d5X9td/jEHj81VJBHRts11pkSYZamHc/R9wfkKngLUIaTdNY4aDmFVHZ4Uuffdmw
- absxiyQXSGnHQLsAJG7snxKI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e486eb0ba4f1d327;
-	Wed, 30 Sep 2026 06:04:51 +0000
-X-Mizu-Trace-ID: e486eb0ba4f1d327
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 30 Sep 2026 14:04:35 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>, co+2cf741c3005abc20@bugs.sh,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: team: stop reusing skb after queue override
-Message-ID: <arymc6JbQN5GDBaF@fedora>
-References: <20260926090039.1714460-1-bestswngs@gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GpLOQ885"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b355ffso2125345b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790748487; x=1791353287; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CgFmFj2igJGpmbRflOSd7wans++uMlq7r70gUY54Vy0=;
+        b=GpLOQ885YueQnMRr7aYksbM090881sDEr8Fe1usp/q0pr6fKEwx2Cglw8wGIeuqXfo
+         z9+qdro7WLQlY5O7IK5f2JeUGmrO0obUFcd+Na/uUiQIuolwIOhoYcdmwDhyJuUCflos
+         uNc3Zr3tAz8ZSh0r82sTNNcJOP6oSeRIpn2Zg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790748487; x=1791353287;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CgFmFj2igJGpmbRflOSd7wans++uMlq7r70gUY54Vy0=;
+        b=yXflfAuFDLTP83fVrgfgm6VMIijyDXcYqZPF28zvtprityW95BThCg9Xe0GMvfB7uz
+         BTLUut9j9fNIzIFLvMjGHABetwYQCNfvTruxk3DCgtN8EW5EZ4AZch5yKztxeW5k3Erg
+         8gt4l/PQs9fNKouhly6fO7KOfxpTICB1KWv86CAxza2aFUV43ZAyGeRl5odRYBS9G9wV
+         xmNqbOxslvkYDaIQ6O8L9GIvdpUhUmHcCoGULarnqHQ4U9HuToV454U/a9uOUAspOpj4
+         4Y6iqJnKdI+79e/zhKWXb0wZ+cJkU8xPh2gboOSsR9gY48u/99vYa9akQPr5Gobip4gX
+         c5nw==
+X-Forwarded-Encrypted: i=1; AKwUvBxmeC/z51PoxnAdVLOEI4R7AFaAn5RA76oadt8nx8Q+ipZlJQetPSeOB63+Rxjli1LxM/KnXqPrbz2pqwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6YDs/JKOEM7Z7gXywewb59as2o8kp3CHpUFOE+GUhQXULKwdI
+	SQVYP4ugS07zYkX4ElMBTyEfKN2h131RpO+JYYcxxlssatVUZC9Mksx58Syrgqyi4g==
+X-Gm-Gg: AYBFou1hHe7VCfjVq1iNYYMpQMb9ZBRCl8G2JCKTh9Avy1xZlgd2bY8uunRJNMlS0oS
+	+NFxobXOVKTxCIndKAwstzZ6T71HwWHepKrNhRQm7IaVTP6waXD7TpnzsnyETGHov/RfK6Mu+Md
+	3hO4cYV+fJExbIU1dKqbBUNnOx9JMLrPrEERzfAuK7IPSwR/d3AVECHgit4iWYptCVI+K13hChP
+	biA3pdBhdCpsR8SBL5Cyb1YyR1UJbI+b0R7uvNGF987cj2bSKvfftxwxD6+7XEcKzJtioequ7Pk
+	ccwRnCcBwKb7PH1qZeV79YueIYbELKggjtusOSwumeUtZV4WLTLkkd66fITBsg+PqcdYsZp0KPS
+	jdmUCcNk6QDFOi3SC5bNrOIrrEqCn4nT6l5c7mqvj2xIPGNy2ryPGCfs4ipsLso+Qm7zw1DMGyW
+	OZsHirJS8F1D4a6SnOd0FceHE15kiTczC+M4cz1lHVqCV1baGslQlblKMSrSXULXkbHaN6oq0GY
+	/XA/+EJpfTNF96vkDO6Yot0MPKfrNbKkTy9sh7zlImAMM6+sA==
+X-Received: by 2002:a05:6a21:492:b0:3de:3bd5:604c with SMTP id adf61e73a8af0-3de9e87f358mr387844637.41.1790748487167;
+        Tue, 29 Sep 2026 23:08:07 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:31b3:f8c3:893a:d0bb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725d68389sm247895b3a.39.2026.09.29.23.08.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 23:08:06 -0700 (PDT)
+Date: Wed, 30 Sep 2026 15:07:56 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Phillip Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, 
+	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH RFC 1/9] lib/lz4: import upstream LZ4 sources verbatim
+Message-ID: <aryehUJml8fTy0o-@google.com>
+References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+ <CGME20260925113452eucas1p170bfdb34dfbf670a14a6f8f0c2f5094a@eucas1p1.samsung.com>
+ <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,98 +93,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260926090039.1714460-1-bestswngs@gmail.com>
+In-Reply-To: <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
 
-Hi Weiming,
-On Sat, Sep 26, 2026 at 05:00:39PM +0800, Weiming Shi wrote:
-> dev_queue_xmit() consumes the skb regardless of its return value, but
-> team_queue_override_transmit() treats a non-zero result as if no handoff
-> occurred.  An AF_PACKET sendto() can therefore make team_xmit() pass a
-> freed skb to another override port or the mode fallback when the port qdisc
-> drops the packet.
-> 
-> Report the handoff decision separately from transmit success and stop after
-> the first override port.  This preserves the existing success and drop
-> accounting.
-> 
->   BUG: KASAN: slab-use-after-free in sk_skb_reason_drop
->   Read of size 4 at addr ffff88800d5e979c by task poc/131
->   Call Trace:
->   ...
->   sk_skb_reason_drop (net/core/skbuff.c:1220 net/core/skbuff.c:1249)
->   team_dummy_transmit (drivers/net/team/team_core.c:502)
->   team_xmit (drivers/net/team/team_core.c:1869)
->   __dev_direct_xmit (net/core/dev.c:4990)
->   packet_xmit (net/packet/af_packet.c:286)
->   packet_sendmsg (net/packet/af_packet.c:3140,3172)
->   __sys_sendto (net/socket.c:800,815,2281)
->   __x64_sys_sendto (net/socket.c:2288,2284)
->   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->   Freed by task 131:
->   ...
->   __tcf_kfree_skb_list (net/sched/sch_generic.c:59)
->   __dev_queue_xmit (net/core/dev.c:4353,4884)
->   team_xmit (drivers/net/team/team_core.c:832,1867)
->   __dev_direct_xmit (net/core/dev.c:4990)
->   packet_xmit (net/packet/af_packet.c:286)
->   packet_sendmsg (net/packet/af_packet.c:3140,3172)
->   __sys_sendto (net/socket.c:800,815,2281)
->   __x64_sys_sendto (net/socket.c:2288,2284)
->   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->   Kernel panic - not syncing: KASAN: panic_on_warn set ...
-> 
-> Fixes: 8ff5105a2b9d ("team: add support for queue override by setting queue_id for port")
-> Reported-by: <co+2cf741c3005abc20@bugs.sh>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->  drivers/net/team/team_core.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-> index beffbe450612..59dd94271ff1 100644
-> --- a/drivers/net/team/team_core.c
-> +++ b/drivers/net/team/team_core.c
-> @@ -820,7 +820,8 @@ static struct list_head *__team_get_qom_list(struct team *team, u16 queue_id)
->  /*
->   * note: already called with rcu_read_lock
->   */
-> -static bool team_queue_override_transmit(struct team *team, struct sk_buff *skb)
-> +static bool team_queue_override_transmit(struct team *team, struct sk_buff *skb,
-> +					 bool *tx_success)
->  {
->  	struct list_head *qom_list;
->  	struct team_port *port;
-> @@ -829,8 +830,8 @@ static bool team_queue_override_transmit(struct team *team, struct sk_buff *skb)
->  		return false;
->  	qom_list = __team_get_qom_list(team, skb->queue_mapping);
->  	list_for_each_entry_rcu(port, qom_list, qom_list) {
-> -		if (!team_dev_queue_xmit(team, port, skb))
-> -			return true;
-> +		*tx_success = !team_dev_queue_xmit(team, port, skb);
-> +		return true;
->  	}
+On (26/09/25 13:27), Michal Wilczynski wrote:
+[..]
 
+> +void LZ4_resetStream_fast(LZ4_stream_t* ctx) {
+> +    LZ4_prepareTable(&(ctx->internal_donotuse), 0, byU32);
+> +}
 
-Since dev_queue_xmit() consumes the skb and we should not loop for all
-the ports. Is there still a need to using list_for_each_entry_rcu()?
+[..]
 
-Thanks
-Hangbin
+> +void LZ4_attach_dictionary(LZ4_stream_t* workingStream, const LZ4_stream_t* dictionaryStream)
+> +{
+> +    const LZ4_stream_t_internal* dictCtx = (dictionaryStream == NULL) ? NULL :
+> +        &(dictionaryStream->internal_donotuse);
+> +
+> +    DEBUGLOG(4, "LZ4_attach_dictionary (%p, %p, size %u)",
+> +             workingStream, dictionaryStream,
+> +             dictCtx != NULL ? dictCtx->dictSize : 0);
+> +
+> +    if (dictCtx != NULL) {
+> +        /* If the current offset is zero, we will never look in the
+> +         * external dictionary context, since there is no value a table
+> +         * entry can take that indicate a miss. In that case, we need
+> +         * to bump the offset to something non-zero.
+> +         */
+> +        if (workingStream->internal_donotuse.currentOffset == 0) {
+> +            workingStream->internal_donotuse.currentOffset = 64 KB;
+> +        }
+> +
+> +        /* Don't actually attach an empty dictionary.
+> +         */
+> +        if (dictCtx->dictSize == 0) {
+> +            dictCtx = NULL;
+> +        }
+> +    }
+> +    workingStream->internal_donotuse.dictCtx = dictCtx;
+> +}
 
->  	return false;
->  }
-> @@ -1864,8 +1865,7 @@ static netdev_tx_t team_xmit(struct sk_buff *skb, struct net_device *dev)
->  	bool tx_success;
->  	unsigned int len = skb->len;
->  
-> -	tx_success = team_queue_override_transmit(team, skb);
-> -	if (!tx_success)
-> +	if (!team_queue_override_transmit(team, skb, &tx_success))
->  		tx_success = READ_ONCE(team->ops.transmit)(team, skb);
->  	if (tx_success) {
->  		struct team_pcpu_stats *pcpu_stats;
-> -- 
-> 2.55.0
-> 
+Just a side note,
+there is a bunch of new helpful API added in this release.  Currently,
+we do some memcpy hacks to avoid re-init of lz4 C/D-dict in zram, but
+once this series lands I'll be happy to send some trivial EXPORT_SYMBOL
+patches so that zram (and other lz4 users) can use standard lz4 dict
+API instead of hacks.
