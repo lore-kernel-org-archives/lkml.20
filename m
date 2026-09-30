@@ -1,339 +1,215 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A996354AEB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EFC2798F8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790732883; cv=none; b=h9T9NXvIVioOUH5SvZjcKJIYY2X8VFT7Qm+MVqIcH6pqhb+GjQFf+BG0+4d3I6a8jJcwCyYyMw/S4JhXS6Kd5RLckFnJJ+V5Y4AuQX61RKwA2fmVBqfqqQrifPAgZK1h38MA5AbKJMS8+XBEBG8sjaqhaDo7EUxdItRnBQS4oSc=
+	t=1790732952; cv=none; b=OqaiXTcR4XW8huTiUXYtbU6rjKjFcAsI5jQkOVLnlFzllzNGOGG/XfjekfYNOkmkThQGgMBqtP+gv9C0PSaHPYiY+JNRtDfex01d6EVuRJkaLxL9I9pd4/t5dyFB8Hhu2jVSTztF2+jlPPqD312M90MiucUMsZlwVUnU9YY4ZS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790732883; c=relaxed/simple;
-	bh=2PqkwI/InovNG8yMKe/s046gGFjIXWUjj4W48YhNpkE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b8h/W5VlF57Ha/hmJnqo+Es2fi7WzGC2kZt6/bNQkB94oaa2bLPFAo18H99kpHFJQIHUQzbPi6+6mWRkcYfECVMHi+SWPunF603AiwmQBUPCj5mB7Wcw6mt0CtLjsoSEQyd4EYclcoOCfdJcgusAbqtCA6HnGjlcaxiK004NxHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=8A2d3LwE; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=kuaZsxk+; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="8A2d3LwE";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="kuaZsxk+"
-DKIM-Signature: a=rsa-sha256; b=8A2d3LwE/b4fESaXPpvUVAyFd0uKBiJVgyEjOVhztwJKUSQEqB4ytlUYL/FLP4Mcq2jYMzoRzZpHqhng55R7V0XXYkI2ceqX9t4cG+Lg6OSVzFxoXL2YUMPkVJjrDUaOKrGVudoG9IEZpFvBvSesLObm8G7DwloFm2IgpB2nnaM5umnRyd+QfQ0DynQmDIcyq13evND34dlh6FftYBG/pUPLGhKcWbfW5N16B7fLanhxVJpAZLGxZaTZHLEeTTADCiZ/dkJVXw0vwJSFdKbHAg1wYMlqkL6/IOsSSkcAKlOgQ9eJQwQvQLBAmrf1fpxQUjkiBxL6EKQ9VM4dn+cQqg==; s=purelymail3; d=q-lab.dev; v=1; bh=2PqkwI/InovNG8yMKe/s046gGFjIXWUjj4W48YhNpkE=; h=Received:Date:Subject:To:From;
-DKIM-Signature: a=rsa-sha256; b=kuaZsxk+nbBvQhmsA4tVa072AW8R20mTs4KgaZfTJAUh8ja752QGiGZstl01STyyUizGi3cQkJiioKGT1TVANmdCkS+3i2HZxBz59Fy3nE+EK+9X4puaNwT3h4K4ed4Zo09LT3Ih304CTaAVskpi9gT2ER02cn5eI9ZecRNsJC9jLx0fmNsbEhUTA0GucRE5coLsSMSgfB6JhUio8tTBghZP2Zx/NCWS964GY80q/7QxatiVrpgWp17U1CRsjFXcuOFAgnEkqUpM+wPZEsNzbIRUpE9mB6vYjO2qz6kK+KK2D5Cl3hozsdSIdY4QWpfVCif+lyeQUqhfeRltdBP8vQ==; s=purelymail3; d=purelymail.com; v=1; bh=2PqkwI/InovNG8yMKe/s046gGFjIXWUjj4W48YhNpkE=; h=Feedback-ID:Received:Date:Subject:To:From;
-Feedback-ID: 284201:25281:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 757948366;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Wed, 30 Sep 2026 01:47:19 +0000 (UTC)
-Message-ID: <09daa7d0-16a8-40be-999b-9cc608e700db@q-lab.dev>
-Date: Tue, 29 Sep 2026 18:47:04 -0700
+	s=arc-20240116; t=1790732952; c=relaxed/simple;
+	bh=I2ovEOAXneyLxutSNibHXXsOoWtfbs1hM9wv03I2ZLc=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=RLtSSsLZg08/c8NQagqzYoOjWU+RsOLVrsW9OWNoBRyPe052DTdsCNgA7CMseW2UfABNkpvJLIB52+JvHVVWdmAlKZ6bsmiUnYMnknr7OG78HVhNVdyVecj24QdxEmsDko+ppBJ4Zyh6E9vc+hIWsPnHXxYnB4z82CqE0umtGQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hvdJ05lPjz5BNRf;
+	Wed, 30 Sep 2026 09:49:04 +0800 (CST)
+Received: from szxlzmapp01.zte.com.cn ([10.5.231.85])
+	by mse-fl2.zte.com.cn with SMTP id 68U1mu9a068312;
+	Wed, 30 Sep 2026 09:48:56 +0800 (+08)
+	(envelope-from gao.rui@zte.com.cn)
+Received: from mapi (szxlzmapp04[null])
+	by mapi (Zmail) with MAPI id mid12;
+	Wed, 30 Sep 2026 09:48:57 +0800 (CST)
+X-Zmail-TransId: 2b066abc6a899f1-0e97a
+X-Mailer: Zmail v1.0
+Message-ID: <202609300948576198tT3nfO5VwsTwUw23gA9v@zte.com.cn>
+Date: Wed, 30 Sep 2026 09:48:57 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: sparx5: start the domain 0 TOD counter on
- non-PTP lan969x variants
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Steen Hegelund <Steen.Hegelund@microchip.com>, UNGLinuxDriver@microchip.com,
- Richard Cochran <richardcochran@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260928044955.29647-1-quentin@q-lab.dev>
- <20260928151453.fzch356vrp3ergy7@DEN-DL-M70577>
- <4e1ef527-e843-4f1b-9f7f-cf2400fa443e@q-lab.dev>
- <20260929120900.zld2c3h4keqcnmcj@DEN-DL-M70577.microsemi.net>
-Content-Language: en-US
-From: Quentin Freimanis <quentin@q-lab.dev>
-In-Reply-To: <20260929120900.zld2c3h4keqcnmcj@DEN-DL-M70577.microsemi.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <gao.rui@zte.com.cn>
+To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <jiangfeng@kylinos.cn>,
+        <david.laight.linux@gmail.com>
+Cc: <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <jmontleo@redhat.com>
+Subject: =?UTF-8?B?W1BBVENIIHYzXSByaXNjdjogZml4IHN0cm5sZW4oKSBvdmVyZmxvdyBpbiBaYmIgaW1wbGVtZW50YXRpb24=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68U1mu9a068312
+X-TLS: YES
+X-ENVELOPE-SENDER: gao.rui@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 30 Sep 2026 09:49:04 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ABC6A90.000/4hvdJ05lPjz5BNRf
 
-On 9/29/26 5:09 AM, Daniel Machon wrote:
-> Hi Quentin,
-> 
->> Hi Daniel, thanks for taking the time to reply.
->>
->> On 9/28/26 8:14 AM, Daniel Machon wrote:
->>> Hi Quentin,
->>>
->>>> Currently the base non-PTP capable lan969x variants don't forward any
->>>> ethernet frames. Testing showed that starting the domain 0 TOD counter
->>>> gets them working again.
->>>
->>> Ack. Not initializing the TOD domains on certain variants is a problem.
->>>
->>> However, TOD domains shouldn't affect basic forwarding. I tried it on my board
->>> with PTP forced off - no forwarding issues.
->>>
->>> Certain TSN features do require TOD domains to be configured, though. How did
->>> you test this, and what exactly did you see fail?
->>
->> Here is my test setup:
->>
->> - a LAN9698-V/3KW purchased on digikey in October 2025.
->>
->> - My SoM dtsi [1], board dts [2], schematics of the som [3] and
->> schematics of the carrier board [4].
->>
->> - net/main commit a7bfaba4823e
->>
->> - a minimal buildroot initramfs [5]
->>
->> - eth10 in the test log is a 1g RGMII port connected to a RTL8211F PHY.
->>
->> Note: I've snipped the output of some commands to save space.
->>
->> Without this patch, right after a reboot:
->>
->>      $ cat /proc/cmdline
->>      console=ttyAT0,115200 earlycon
->>      systemd.mask=systemd-networkd.service
->>      systemd.mask=systemd-networkd.socket
->>
->>      $ uname -a
->>      Linux buildroot 7.3.0-rc4 #11 SMP PREEMPT Mon Sep 28 19:14:03 PDT
->> 2026 aarch64 GNU/Linux
->>
->>      $ ip link set eth10 up
->>
->>      $ ip addr add 10.0.0.45/24 dev eth10
->>
->>      $ ping 10.0.0.1
->>      PING 10.0.0.1 (10.0.0.1): 56 data bytes
->>      --- 10.0.0.1 ping statistics ---
->>      9 packets transmitted, 0 packets received, 100% packet loss
->>
->>      $ cat /proc/interrupts
->>                  CPU0
->>      20:          0  GIC-0  120 Level     sparx5-fdma
->>
->>      $ ip -s link
->>      12: eth10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq
->> state UP mode DEFAULT group default qlen 1000
->>          link/ether 4e:b7:8e:61:37:1e brd ff:ff:ff:ff:ff:ff
->>          RX:  bytes packets errors dropped  missed   mcast
->>              53745     278      0       0       0     174
->>          TX:  bytes packets errors dropped carrier collsns
->>                  0       0      0       0       0       0
->>          altname enx4eb78e61371e
->>
->> After a fresh boot with this patch:
->>
->>      $ cat /proc/cmdline
->>      console=ttyAT0,115200 earlycon
->> systemd.mask=systemd-networkd.service systemd.mask=systemd-networkd.socket
->>
->>      $ uname -a
->>      Linux buildroot 7.3.0-rc4 #10 SMP PREEMPT Sun Sep 27 21:23:12 PDT
->> 2026 aarch64 GNU/Linux
->>
->>      $ ip link set eth10 up
->>
->>      $ ip addr add 10.0.0.45/24 dev eth10
->>
->>      $ ping 10.0.0.1
->>      PING 10.0.0.1 (10.0.0.1): 56 data bytes
->>      64 bytes from 10.0.0.1: seq=0 ttl=64 time=1.927 ms
->>      64 bytes from 10.0.0.1: seq=1 ttl=64 time=0.876 ms
->>      64 bytes from 10.0.0.1: seq=2 ttl=64 time=0.832 ms
->>      --- 10.0.0.1 ping statistics ---
->>      3 packets transmitted, 3 packets received, 0% packet loss
->>      round-trip min/avg/max = 0.832/1.211/1.927 ms
->>
->>      $ cat /proc/interrupts
->>                  CPU0
->>      20:       2039  GIC-0  120 Level     sparx5-fdma
->>
->>      $ ip -s link
->>
->>      12: eth10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq
->> state UP mode DEFAULT group default qlen 1000
->>          link/ether a2:ef:53:a5:06:73 brd ff:ff:ff:ff:ff:ff
->>          RX:  bytes packets errors dropped  missed   mcast
->>              147075    1646      0      96       0      61
->>          TX:  bytes packets errors dropped carrier collsns
->>              75918     957      0       0       0       0
->>
->>
->>>
->>>>
->>>> Fix by moving the TOD counter start code into a helper and calling it in
->>>> sparx5_ptp_init(). Non-PTP capable lan969x parts now start the domain 0
->>>> counter, and PTP-capable parts start all three, as they used to. A similar
->>>> workaround that starts all three and registers the PHC clocks is
->>>> implemented in the vendor BSP 6.18 kernel [1].
->>>
->>> What we do downstream, is to ensure that all domains and PHC's are configured
->>> and registered on all variants, with a very simple is_sparx5() check.
->>
->> My reasoning for only enabling the first counter and not registering the
->> clocks is that the part does not have SPX5_FEATURE_PTP, so it should not
->> expose any PTP features to userspace.
->>
-> 
-> I acknowledge the problem, and I agree that the PHCs should not be registered.
-> As for the solution, downstream we always start all three TOD domains, including
-> on sparx5. If you take the same approach here, you don't need the new helper.
-> Just move the existing TOD start sequence above the if (!sparx5->ptp) early
-> return, so the counters are always started, while the PHC registration below it
-> is still skipped on the non-PTP variants.
-> 
+riscv: fix strnlen() overflow in Zbb implementation
 
-ok, in v2 I'll drop the helper and always enable all 3 counters.
+The RISC-V Zbb optimized strnlen() implementation can return incorrect
+results when very large count values are supplied.
 
-pw-bot: cr
+The previous implementation calculates an end address based on the
+input pointer and count. When count is close to SIZE_MAX, the address
+calculation may overflow, resulting in incorrect termination checks and
+wrong return values.
 
->>>
->>>>
->>>> [1] https://github.com/microchip-ung/linux/tree/bsp-6.18-2026
->>>>
->>>> Fixes: 207966787b71 ("net: sparx5: add feature support")
->>>> Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
->>>> ---
->>>> If anyone with access to documentation more detailed than the
->>>> register map knows WHY this clock needs to be running, I'd like to add
->>>> that to the commit message.
->>>
->>>
->>>>
->>>>    .../ethernet/microchip/sparx5/sparx5_ptp.c    | 72 +++++++++++++------
->>>>    1 file changed, 49 insertions(+), 23 deletions(-)
->>>>
->>>> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
->>>> index 5953e04ef14e..b436684ddae6 100644
->>>> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
->>>> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
->>>> @@ -573,6 +573,42 @@ static int sparx5_ptp_adjtime(struct ptp_clock_info *ptp, s64 delta)
->>>>           return 0;
->>>>    }
->>>>
->>>> +static int sparx5_ptp_tod_start(struct sparx5 *sparx5, u8 phc_mask)
->>>> +{
->>>> +       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
->>>> +       int i;
->>>> +
->>>> +       if (phc_mask > GENMASK(SPARX5_PHC_COUNT - 1, 0))
->>>> +               return -EINVAL;
->>>> +
->>>> +       /* Disable master counters */
->>>> +       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
->>>> +
->>>> +       /* Configure the nominal TOD increment per clock cycle */
->>>> +       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(phc_mask),
->>>> +                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
->>>> +                sparx5, PTP_PTP_DOM_CFG);
->>>> +
->>>> +       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
->>>> +               if (!(phc_mask & BIT(i)))
->>>> +                       continue;
->>>> +
->>>> +               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
->>>> +                       PTP_CLK_PER_CFG(i, 0));
->>>> +               spx5_wr((u32)(tod_adj >> 32), sparx5,
->>>> +                       PTP_CLK_PER_CFG(i, 1));
->>>> +       }
->>>> +
->>>> +       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
->>>> +                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
->>>> +                sparx5, PTP_PTP_DOM_CFG);
->>>> +
->>>> +       /* Enable master counters */
->>>> +       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(phc_mask), sparx5, PTP_PTP_DOM_CFG);
->>>> +
->>>> +       return 0;
->>>> +}
->>>> +
->>>>    static struct ptp_clock_info sparx5_ptp_clock_info = {
->>>>           .owner          = THIS_MODULE,
->>>>           .name           = "sparx5 ptp",
->>>> @@ -605,7 +641,6 @@ static int sparx5_ptp_phc_init(struct sparx5 *sparx5,
->>>>
->>>>    int sparx5_ptp_init(struct sparx5 *sparx5)
->>>>    {
->>>> -       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
->>>>           const struct sparx5_ops *ops = sparx5->data->ops;
->>>>           struct sparx5_port *port;
->>>>           int err, i;
->>>> @@ -622,8 +657,17 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
->>>>                   sparx5->ptp = 1;
->>>>           }
->>>>
->>>> -       if (!sparx5->ptp)
->>>> +       if (!sparx5->ptp) {
->>>> +               if (!is_sparx5(sparx5)) {
->>>> +                       /* the base, non-ptp-capable lan969x variants need the first tod counter
->>>
->>> Nit: s/the/The
->>>
->>>> +                        * running to forward frames.
->>>> +                        */
->>>> +                       err = sparx5_ptp_tod_start(sparx5, BIT(0));
->>>> +                       if (err)
->>>> +                               return err;
->>>> +               }
->>>>                   return 0;
->>>> +       }
->>>>
->>>>           for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
->>>>                   err = sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
->>>> @@ -635,27 +679,9 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
->>>>           spin_lock_init(&sparx5->ptp_ts_id_lock);
->>>>           mutex_init(&sparx5->ptp_lock);
->>>>
->>>> -       /* Disable master counters */
->>>> -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
->>>> -
->>>> -       /* Configure the nominal TOD increment per clock cycle */
->>>> -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0x7),
->>>> -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
->>>> -                sparx5, PTP_PTP_DOM_CFG);
->>>> -
->>>> -       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
->>>> -               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
->>>> -                       PTP_CLK_PER_CFG(i, 0));
->>>> -               spx5_wr((u32)(tod_adj >> 32), sparx5,
->>>> -                       PTP_CLK_PER_CFG(i, 1));
->>>> -       }
->>>> -
->>>> -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
->>>> -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
->>>> -                sparx5, PTP_PTP_DOM_CFG);
->>>> -
->>>> -       /* Enable master counters */
->>>> -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0x7), sparx5, PTP_PTP_DOM_CFG);
->>>> +       err = sparx5_ptp_tod_start(sparx5, GENMASK(SPARX5_PHC_COUNT - 1, 0));
->>>> +       if (err)
->>>> +               return err;
->>>>
->>>>           for (i = 0; i < sparx5->data->consts->n_ports; i++) {
->>>>                   port = sparx5->ports[i];
->>>> --
->>>> 2.55.0
->>>>
->>>>
->>>
->>> /Daniel
->>
->> [1]
->> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/board/qlab/openswitch-lan969x/dts/microchip/lan9698-openswitch.dtsi
->> [2]
->> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/board/qlab/openswitch-lan969x/dts/microchip/lan9698-openswitch-10x10g.dts
->> [3]
->> https://gitlab.com/qfreiman/openswitch-lan969x/-/blob/master/openswitch-lan969x.pdf
->> [4]
->> https://gitlab.com/qfreiman/openswitch-10x10g-carrier/-/blob/master/openswitch-10x10g-carrier.pdf
->> [5]
->> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/configs/qlab_openswitch_lan969x_defconfig
->>
->> - Quentin
->>
-> 
-> /Daniel
+This issue was observed while running device-mapper tests:
 
-- Quentin
+dmsetup create testname9 --table "0 8 zero"
+cat /sys/block/dm-*/dm/name
+dmsetup remove testname9
 
+Rework the Zbb implementation to use a word counter instead of an end
+address. This removes the dependency on end-address calculations,
+avoids overflow entirely, and simplifies the termination condition of
+the word scanning loop. The final length is calculated using the saved
+original pointer.
+
+Performance was evaluated with string_bench_strnlen:
+
+New Implementation Previous Implementation
+
+len=0 : 71 ns/call 70 ns/call
+len=1 : 82 ns/call 81 ns/call
+len=7 : 83 ns/call 81 ns/call
+len=8 : 83 ns/call 81 ns/call
+len=16 : 94 ns/call 90 ns/call
+len=31 : 117 ns/call 113 ns/call
+len=64 : 175 ns/call 167 ns/call
+len=127 : 259 ns/call 258 ns/call
+len=512 : 802 ns/call 833 ns/call
+len=1024 : 1512 ns/call 1536 ns/call
+len=3173 : 4581 ns/call 4640 ns/call
+len=4096 : 6256 ns/call 6068 ns/call
+
+Results show comparable performance to the previous implementation
+while fixing the overflow issue.
+
+Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
+Suggested-by: DavidLaight <david.laight.linux@gmail.com>
+Signed-off-by: Gao Rui <gao.rui@zte.com.cn>
+
+---
+v3:
+- Keep the original register allocation (t0-t4) and numeric labels.
+- Keep the original comments.
+- Calculate word count as (remaining - 1) / SZREG + 1, removing the
+  branch from the calculation.
+v2:
+- Rework the Zbb implementation to eliminate end-address overflow
+  instead of falling back to the generic path.
+- Use a decrementing word counter for word scanning.
+- Run KUnit string tests successfully.
+- Add string_bench_strnlen benchmark results.
+---
+ arch/riscv/lib/strnlen.S | 54 +++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 25 deletions(-)
+
+diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
+index a8911605c248..000000000000 100644
+--- a/arch/riscv/lib/strnlen.S
++++ b/arch/riscv/lib/strnlen.S
+@@ -73,6 +73,9 @@
+ 	/* If maxlen is 0, return 0. */
+ 	beqz	a1, 3f
+
++	/* Save original pointer for final length calculation. */
++	mv	t4, a0
++
+ 	/* Number of irrelevant bytes in the first word. */
+ 	andi	t2, a0, SZREG-1
+
+@@ -82,15 +85,6 @@
+ 	li	t3, SZREG
+ 	sub	t3, t3, t2
+ 	slli	t2, t2, 3
+-
+-	/*
+-	 * Aligned boundary.  Use the address of the last valid byte
+-	 * (s + count - 1) to avoid loading a word past the count
+-	 * boundary in the loop below.  count == 0 is handled above.
+-	 */
+-	add	t4, a0, a1
+-	addi	t4, t4, -1
+-	andi	t4, t4, -SZREG
+
+ 	/* Get the first word.  */
+ 	REG_L	t1, 0(t0)
+@@ -125,15 +119,26 @@
+
+ 	bgtu	t3, a0, 2f
+
+-	/* All remaining bytes are in the first word, no loop needed. */
+-	bgeu	t0, t4, 2f
++	/*
++	 * Use a word counter to avoid calculating an end address,
++	 * which might overflow when count is close to SIZE_MAX.
++	 */
++	sub	t2, a1, t3
++	beqz	t2, 3f
+
+-	/* Prepare for the word comparison loop. */
+-	addi	t2, t0, SZREG
++	/* Calculate the word count: count = (remaining - 1) / SZREG + 1 */
++	addi	t2, t2, -1
++#if defined(CONFIG_64BIT)
++	srli	t1, t2, 3
++#else
++	srli	t1, t2, 2
++#endif
++	addi	t2, t1, 1
++
+ 	li	t3, -1
+
+ 	/*
+-	 * Our critical loop is 4 instructions and processes data in
++	 * Our critical loop is 6 instructions and processes data in
+ 	 * 4 byte or 8 byte chunks.
+ 	 */
+ 	.p2align 3
+@@ -141,23 +146,22 @@
+ 	REG_L	t1, SZREG(t0)
+ 	addi	t0, t0, SZREG
+ 	orc.b	t1, t1
+-	bgeu	t0, t4, 4f
+-	beq	t1, t3, 1b
++	bne	t1, t3, 4f
++	addi	t2, t2, -1
++	bnez	t2, 1b
++
++	/* Scanned all words without finding NUL, return maxlen. */
++	mv	a0, a1
++	ret
++
+ 4:
+ 	not	t1, t1
+ 	CZ	t1, t1
+ 	srli	t1, t1, 3
+
+-	/* Get number of processed bytes. */
+-	sub	t2, t0, t2
+-
+-	/* Add number of characters in the first word.  */
+-	add	a0, a0, t2
+-
+-	/* Add number of characters in the last word.  */
++	/* Length = (current - original) + offset in final word. */
++	sub	a0, t0, t4
+ 	add	a0, a0, t1
+-
+-	/* Ensure the final result does not exceed maxlen. */
+ 	minu	a0, a0, a1
+ 2:
+ 	ret
+--
+2.27.0
