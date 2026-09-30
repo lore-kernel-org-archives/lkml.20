@@ -1,143 +1,113 @@
-Received: from mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC89F1A6811
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3751A6811;
+	Wed, 30 Sep 2026 01:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790731593; cv=none; b=JUf2ODbE8TdyuZnWXTFWKn977X9we75IMm/rgTD3o/kqKkpsi21Vf9p+OgGi1wcm01F0MPHujZyZyUyDSkPPKMcKcas943gyFh7VNhxTQ5kMSsdw3f4oH17oAMGbrD+CBSROaEub8aDpae0H0PyxPMMNK/JFa8jeBap3zS4iqwQ=
+	t=1790731722; cv=none; b=XdHyxIYKEbMJ91e6YQhZ8a6/K2/QyQ9z9XJkGycsJXOa6CTVNboJHWMubx28UUVntQsoSPpQP7fNPArVgCWqkOYxaeJWc85ogAX7vwdvQ/V8eb6GBhyRHBisTl0rbHAnD8/LY0RN44bDT5Cv7SynO28LwqspiW3NJMd5eI+7R08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790731593; c=relaxed/simple;
-	bh=IQRBqTSVWWALaW1mPWAac9TGAVH6p8Unuj/FQbT1y4Y=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Wgn7JvexUlghwWRtKWE7p50UmVb0+uiBn3VoblM14sZaotyKPhQpANQAOJu+nK1zaBE1/G0FsLMhqnJithMx7GTN9KfTQM2MSwIUDG1GzltULBJAVRaef2T9CVFa4r+pv2PiPOcR04YfCrwnJ3PsG/XIsbp8qs0WME8PpRtOuJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WDOIv36O; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790731722; c=relaxed/simple;
+	bh=URq4TpIYI+NXTK4BAUeL7vsLy98CUY12sWfdNUO8bWA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MgVzhbWaqJ5K4YIi5EEH5Xo8i6vfLqh7Z0R9Dwz46LpyEPvT3+sGK5Dftll6YunQ+for2KtSVtKoEbtkjcefZ9Rw4arMfmeCPo+OR79uAvUS0QpyvMDqtX2D0rbzs3/ITGoX/n1k7OvjNoxbGGPUAq8c1V803D7jBYP8EBSggPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jjxRzqGT; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WDOIv36O"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IQRBqTSVWWALaW1mPWAac9TGAVH6p8Unuj/FQbT1y4Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790731588; v=1; x=1791336388;
- b=WDOIv36OO9lrltIsdKn1p/Dl5TCsZQOqtzhZ8Dh1WEGBKT/HjfCUvVmpfOfIXp1XoKlaFc5q
- Z3PVdE5TDYrfp7jP531Qv+J/ZtxbQfGTyP0S81oSGM/0+/SL5QyDC3zfxAlgMxdGtO07+QVXXD2
- I9GSrh5b69ZqKxDrURbeoZXg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c8969253a912e5f2;
-	Wed, 30 Sep 2026 01:26:28 +0000
-X-Mizu-Trace-ID: c8969253a912e5f2
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jjxRzqGT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=y4LgJcxG58FFth/hB4/i7KbJf2H3darIqdWGj6YwQ/s=;
+	b=jjxRzqGTAYcYRKiHAHIVCbgcrTAW/dqGYAbEjBqLST5e81bz9cyk0EZOljUVwv
+	YiJa/Qmillt5urd1n7wlLmwWLeZsQ1fa4RAfaXMcwGZ/bPW/TLSwG1u5fDjNQeps
+	hUs5bBmyQ9VD2y8ZPgKQuBMw6abZAk8KFv2VpQlN1AmQw=
+Message-ID: <e8a9863f-d4ea-4796-8dfe-c59f5e379687@163.com>
+Date: Wed, 30 Sep 2026 09:27:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v3 0/6] mm: Unify device DAX and HugeTLB vmemmap
- population paths
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260929143214.9061bcf284369163192968d1@linux-foundation.org>
-Date: Wed, 30 Sep 2026 09:26:09 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Mike Rapoport <rppt@kernel.org>,
- David Hildenbrand <david@kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D1333E60-93C8-4459-9CC0-48D6F10D3EC0@linux.dev>
-References: <20260929053231.66085-1-songmuchun@bytedance.com>
- <20260929143214.9061bcf284369163192968d1@linux-foundation.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] PCI: dwc: Align register macros with Synopsys
+ documentation
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, bhelgaas@google.com,
+ heiko@sntech.de, mani@kernel.org, yue.wang@amlogic.com, pali@kernel.org,
+ neil.armstrong@linaro.org, robh@kernel.org, jingoohan1@gmail.com,
+ khilman@baylibre.com, jbrunet@baylibre.com,
+ martin.blumenstingl@googlemail.com, cassel@kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, Feizhou Yu <yufeizhou201@163.com>
+References: <20260928215110.GA2266447@bhelgaas>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <20260928215110.GA2266447@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3B4aDZbxq7D5eBg--.58103S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWkWw1fJFy3Ary3Wr17Jrb_yoW8urWxpa
+	1xJF4rtw4DXF4aqw4Ig3WrX3W7Xrn3JrZ8X3yvqw18tan5Xr93Gr40grWjkFWkZrn3Kr1j
+	qr4jq3yxWry3Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UC2NNUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCwwRE52q8ZYQf4QAA3t
 
 
 
-> On Sep 30, 2026, at 05:32, Andrew Morton <akpm@linux-foundation.org> =
-wrote:
->=20
-> On Tue, 29 Sep 2026 13:32:25 +0800 Muchun Song =
-<songmuchun@bytedance.com> wrote:
->=20
->> This v3 is based on mm-new commit 2ddb90ee544a, which contains v5 of
->> "mm: Switch device DAX to section-based vmemmap optimization" [1].
->>=20
->> This series is split out from the earlier, larger series "mm: =
-Generalize
->> HVO for HugeTLB and device DAX" [2]. While the parent series =
-generalizes
->> vmemmap optimization across HugeTLB and device DAX, this subset =
-addresses
->> a single, self-contained step: unifying their vmemmap population =
-paths.
->>=20
->> After the preceding Device DAX conversion, both HugeTLB and Device =
-DAX
->> describe optimized vmemmap mappings through memory-section metadata =
-and
->> use per-zone shared tail vmemmap pages. The generic code, however, =
-still
->> carries a Device DAX-specific population flag and compound-page =
-population
->> path, along with arguments and helpers needed only by that path.
->>=20
->> This series first removes VMEMMAP_POPULATE_DAX and moves selection =
-and
->> reference handling for the shared tail page into the common vmemmap
->> population path. It then removes the generic Device DAX-specific
->> compound-page population path and routes section vmemmap population
->> through vmemmap_populate(). The powerpc radix path continues to use =
-its
->> architecture-specific compound-page population implementation for
->> optimizable sections.
->>=20
->> The remaining patches remove the unused ptpfn argument, open-code
->> vmemmap_populate_address() now that no caller needs its returned PTE, =
-and
->> add a warning for inconsistent zone initialization of shared tail =
-vmemmap
->> pages.
->>=20
->> This is the fourth smaller step toward the broader HVO =
-generalization.
->> After this series, HugeTLB and Device DAX use the same population =
-model
->> instead of parallel generic paths, while powerpc keeps its
->> architecture-specific implementation.
->=20
-> afaict the whole series is "no functional changes intended".  Apart
-> from [6/6]'s new WARN_ON.
+On 9/29/26 05:51, Bjorn Helgaas wrote:
+> On Mon, Sep 28, 2026 at 04:50:09PM -0500, Bjorn Helgaas wrote:
+>> On Sat, Sep 12, 2026 at 12:25:36AM +0800, Hans Zhang wrote:
+>>> The DWC PCIe register and field macros are inconsistently named and
+>>> often do not match the Synopsys DesignWare PCIe Controller Reference
+>>> Manual.  This makes it harder to cross-reference the code with the
+>>> documentation when debugging or maintaining the driver.
+>>
+>>> +#define  PORT_AFAC_L0S_ELS		24		/* L0s Entrance Latency shift */
+>>> +#define  PORT_AFAC_L0S_ELM		GENMASK(26, 24)	/* L0s Entrance Latency mask */
+>>> +#define  PORT_AFAC_L1_ELS		27		/* L1 Entrance Latency shift */
+>>> +#define  PORT_AFAC_L1_ELM		GENMASK(29, 27)	/* L1 Entrance Latency mask */
+>>
+>> Surely we don't need both the shift and the mask?  Maybe a separate
+>> patch convert to FIELD_PREP()?
+> 
+> Oops, sorry, didn't notice that Mani had already applied these.  This
+> could be material for follow-on patches.
 
-Yes.
+Hi Bjorn,
 
->=20
-> And [3/6] is the one which could cause unintended fuctional changes!
+I will send a patch separately based on the branch controller/dwc.
 
-Understood. However, the resulting vmemmap layout is intended to remain
-unchanged.
 
->=20
-> Thanks.  I'll queue it.  Reluctantly.  We're up to 688 MM patches this
-> cycle and it's time to stop.
+Best regards,
+Hans
 
-Thanks for taking it despite the load.
 
-Muchun,
-Thanks.
+> 
+>>> +#define  GEN3_CTRL_RATE_SHADOW_SEL_SHIFT 24		/* Rate Shadow Select shift */
+>>> +#define  GEN3_CTRL_RATE_SHADOW_SEL_MASK	GENMASK(25, 24)	/* Rate Shadow Select mask */
+>>
+>> Ditto.
+>>
+>>> +#define MSIX_DOORBELL			0x948
+>>> +#define  MSIX_DOORBELL_PF_SHIFT		24
+>>
+>> Probably would be better to define a mask so we have the position
+>> *and* the width.
+>>
+>>> @@ -621,15 +621,15 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
+>>>   	u32 val;
+>>>   
+>>>   	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+>>> -				PCIE_RAS_DES_EVENT_COUNTER_CONTROL);
+>>> +				RAS_DES_EVENT_COUNTER_CONTROL);
+>>>   	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
+>>>   	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+>>>   	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
+>>>   	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+>>
+>> Probably a good chance to convert these to FIELD_PREP() etc. as well,
+>> maybe in a separate patch.
 
