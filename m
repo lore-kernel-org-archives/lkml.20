@@ -1,45 +1,46 @@
 Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010011.outbound.protection.outlook.com [52.101.193.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AE1379EF9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:43:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDA235F19D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739796; cv=fail; b=XJr6rEKl9A3QHqDyOQbgD8QlX2YkNOQJJj/eg8h+Ko7F7aPjyD/Tmf72hyIFpXJXcuk3kcR6YiKSpHD5USf+zrIx0CC45sx1kCFinq/DAbBVvVmh+79/LbemfSX/ccFnnnZB5BrOOJ/S5RbMJ7HHO2HV5f+UFClMFJeWeAER1ok=
+	t=1790739799; cv=fail; b=EPEVsIoIaDu99o7BEaAAKFplZtuWuWFpYrTSjI5Wh0tfgtBd9+Uq4INRA2qmyEN+0lu2Wus7kyUr+YefOvGaFHGcIFItEbbMN4ciemYlHbEpc2jMnY6zhrYow0muBEOdb85ub4dAO0+/qavYotWuV1lwlEmnWiUpSzHRDKhM0KI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739796; c=relaxed/simple;
-	bh=vZ4eR7TYFqajMCkrB3ywd8V6krVx0LnD0vbifTP/3WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=aNpwG+wjDixKmfhMHyp2zqCRsLFFq0B2ltZG/XaXXWYy3q/9mFJ6J2Z/bYXE8vAKhBhtnJQ7HqnKR9cVsBbcOZMxfC9TWIx115IsbraM0L4gwYrc6MMkdowChq8fWJ0UXj0mCqhbl53D7k0t4ARxA1Tgyaa5JQyqtQd8JhkRKdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=g5aLG+jn; arc=fail smtp.client-ip=52.101.193.11
+	s=arc-20240116; t=1790739799; c=relaxed/simple;
+	bh=1Kk7b3twWjNCMvIJQ1DXCJfJzwpnTygobjCzBaqHZRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ol/vEvsVWcJ3UeFq868HyTH6+7Wphntf6adnoy17siN+9b46ZQfV58vnk2fZXBh+lmP2psizQHV6l8rloNn8sGI86/SMllD4ZRp8+lHvA4xAA6avrOh5rKJ2IwbgXvQqx/aWcjY7PwsATtaO3wcby5DoTx7lEEd/ye2Ptn2tRbo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WswZz+DA; arc=fail smtp.client-ip=52.101.193.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="g5aLG+jn"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WswZz+DA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GlzY9ZGxeEKuKIvSf4wLW0imOji8mOu+gYhxqYyT2rq8n9rwKw1+7KmDGalDkZiKVlMhml5U85CZmVRUSDlxyQieHuAOjk7j2QY6zeuTCNR1zeM31hHk+nY/1rlbYnbzvlyFKUF5YcP9bSfxrGfWcLatZHi1w9VCHWvh9kSqV+Yo7pW+4zLPkp1rgxM/WmT5Ld/EKCASh/Dp+wU7UP5IvuEhK9yVfMEmm/CneMn68oMe19+p8yf8Op4z9wQB8a+N51tEMlZhRuUknJUl6oMCyBHtATwRzwcwKCrKjYKd75JBpOkNJHXazyQAbQnwnYTMA3n+EJu/veSNMSgkTOjM2Q==
+ b=qwjxl7xXF8vGrMlSfvKT6amO7jccu/CuPi/SVGfRw8a5ZqHo7HoadLAa0xl72Iezhwx92LRV1vFoLPRygTPgXF1NaYe+Iw+2ui8VsPbHydZUjJnHMMIGaf1UzaoxU/otL1lWdTlyBmdjm3euRn+lHprrBU9vKkUCzLub1gvBrmZSygwdTQINhsZ0Xlk60fEy1IDZZI0BizGQotGOO5TJZj/UBJ0swWZqzfn4NAs7GGasOPNGLhLbziypE88svUQBM3GjPH4vzWqAe2L6ZfeMTTQoEsQgInp3eMCSvUfZx9rpraoVW5zFklq981w2XEAEc5tx5g53+TX8YO3nn7sQGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pl/Z2qcde3FaEqu6j1zVEXWeUan9H1YA+j8/EsWOBcI=;
- b=hSXdFairTCIaoLJ54/8Gmc9gOLSRhZrzyYBMQgd0w5ZWUPrBKqt5Zhy3NYjmE8l+9PNQBb00mVJtrBu67kY68fylnU3kVXHQlX46QN2CB5fmindnGaPG05+asJ+T/bbz/r/fVYWiUU1qJRvU5oW5zBfNdCSFAQkRv3tQbCeHhe24tTkLYujzA3AGwppd/+977Tah4cB/jdK5QF58FYA5CN3WPIavYoJ4dOJdNBaVKShBLqmIt7kwSCzNlJw04NgDAwV+28YPpgPUrW/sd2zkN52f8S79JSSW/naGj0EytozdPl6Kzqk6hUGC8+uTZXMSpQNw7FGTtgdvJVU0HH+U1A==
+ bh=7gP4g9u+NALNUZlpxocV+7gJvw39s9yk8jrazeZP7Oc=;
+ b=f2m3PqX1pDtvfxEawHkBfFIk4kvqn1dE1SKKugmWmej712+ekLN+kfe3Dhvlzr6jEtttmXohQcry80AzICyVDaw6TkFs7SZQlg+qq30iok+8XHIPmMJkhCBXU7dscylSeWLmVg/nCAbJ0yizeAePdf+dC2Z6VBtPwYpMfBXSuHDPGHsYC4d+utpAQnQPTnbosmrXjov+Q6ezzFRMeUwXRUnPtCVo0/PxGoB6ryyQBaADmpr2JviZT2tZ2ObzvCC8OoLoj7IGZux2vG+TdMe9oq+JEzpTMjDpZOQO0f6pmsdZE+lwQRx1DccyA2WRJlrQjYCHcWjZp+P/9NKYjnhfPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pl/Z2qcde3FaEqu6j1zVEXWeUan9H1YA+j8/EsWOBcI=;
- b=g5aLG+jnScQV7vzheQiflD2uoaQ3OTSSXc6LGfAE9lj6+XcHkenzSo0mNbrYKCASJiBVLaUDKME+i/9zQemhpn0cMkzZafqw8xWB/HN73WNbi6h09af6Of6ZevBxuouWSlzo/VeWD/3Mzvh6FxofOiXiqZSB9yCSh4SzqtlyQulpkugHEjTBiYDhYfJ9niECcQkY6CsPNRpj4pBaci37wPPtKTjSlGgG8NnqIkBGgCAOaqQSxjLtE2DPQA+FHE7uuXZ5DRWFG7o2Fm0JjpCA43GBdbNb1+aJZRUZTbRJoJng0jOMbShMlWx7jdm1mXwWcwS/jm4CczdVSb7hI1Rbrg==
+ bh=7gP4g9u+NALNUZlpxocV+7gJvw39s9yk8jrazeZP7Oc=;
+ b=WswZz+DAOcsUd3F+y2VCWJ7lZwHdrQ4Zs/liHkicSQBY8jSieNeytdSsGKXXCZ1iMpCIRdDDhwEMCy/g086kVsxNVeVi6FWdD3F97++b0VDZBSj5qpFoAKsoJIewSSbwfhXP2ruMctNgMvn9h7gTUbvVHQCxgFWU2WhUZSAtXYUG/JfkAfma2Gxd2xwhBijzrcs5CGNZmtRQ/E1MqF1seRVnI4HyJsnuhgPzxL4ZrwN4n8U/s3gj/Qyt5fEPznd6IhwCIUvuKFq5nTD5Z07Vx/5h4rTEQRAaj3/tzct0bVGbE+i3Fc+r/meWjcDCzgyZAfWscBAoC4jgnMU/funGlw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.26; Wed, 30 Sep 2026 03:42:07 +0000
+ 15.21.451.26; Wed, 30 Sep 2026 03:42:20 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 03:42:07 +0000
+ 03:42:20 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -62,15 +63,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v5 00/15] nova-core: GPU interrupt support and GSP event delivery
-Date: Tue, 29 Sep 2026 20:41:33 -0700
-Message-ID: <20260930034148.590687-1-jhubbard@nvidia.com>
+Subject: [PATCH v5 09/15] gpu: nova-core: log GSP events instead of discarding them
+Date: Tue, 29 Sep 2026 20:41:42 -0700
+Message-ID: <20260930034148.590687-10-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930034148.590687-1-jhubbard@nvidia.com>
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH8P222CA0028.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:2d7::9) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH8P222CA0022.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::33) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,196 +83,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2305f958-b957-4bff-7b85-08df1ea4ccd6
+X-MS-Office365-Filtering-Correlation-Id: f47ce58c-367f-43a9-ebef-08df1ea4d4ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|5023799004|11063799006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	GBGUWWw1Z0fEf0ITtCtkPiZ3l9xxl0qtd7T4hB6ZGLo3xiMEpaT7EW16mmbnG+vRHAb6E8rhBQdZ8Gj56AWV8RTcV+KHh8aL2odCdzDlBDge3irdayd+WYxXrxcPsogP/LP0SPPU6uh/20ytb0mped/rcRwKvkdnSuiSFZyJkUM8/rWnPF4Dvmex2Fq0EKZWF7x1O1vXj3FCgqi7yyE43cnmh3WEi7y9MUu3rwS6pDmZ+eQRxhWGqWQlnOTNQWgsi1Hs+2z7Sq8kAwwmzUQtYnbmoltJIrUhc82wptwP5EvSiBKwZFiZ365YgRJGpEy80BsitddyQNYO/6gKg4MkH9V19vEt7uc1Rjlgr5pxMQUE1VupZVrY7MBWrEhMDwuoGV00s78uxOflcq422aBhlfuAhOae5QUMxTB3Qubnx2AyrB6HCCvB48UG/elUrRGyWSYDJxAq+fLqKMujwHCyjf8YBWoWX9LBPzvvSrdZAJE0WCc3CMDqQoidp4Yo4J1jC0Ysg6KwLQmTZIAcbZ6/wrh+Ozy0zpoun9Fh87V7k2vbvsfZ0rfZOcQcSXl1DUti98tTCkjmNf985FH0c+YplDPN1cqAEwRQ0Pvy5DKol0UxDyc76ysvphBbt+Fk5tcvG87SggOuroZYzFrkuG9XdYDJjp7LWLYgtG8rC5eBw6w=
+	vPhcBv/Uqxhca1hsjTpPAfP9itm00O047o6LkpjV9x/ofVSoA8FV/ARwjoEWs/d0NJIawkWyQhmDLM3XvIRb762K8jNrdIus2NYZwfU7FTS1UOTajEFUSOyWrebwlzs/3r4x5oxfrEkGwVzYm3cYJbZR7gO6/kYH8N0XnW1rdyD6b+IXfjx/alQ3D0acSjyFHPN7jDePo7oqkmRDW1GfZNRCEOFvzGNb0HVxf2jEcGO1BIiHAnzYOmt0HEyFoEpPfKmd9a6r3001m2dkVl9A97Mu1cIUcwLV5flQqKNYhxalrotVpDtcpTV76nOdY1MirD1NOPc+NfNxCZmIWIZREpyDSVZBa+1KXp3mUBf7lLgkGvhvYwoKNxK+O0DcnYkGgiL1rGDiF0yP2C7VN0Jd3tSny9/fkuJ054P7/uP/mrgzf9GfVWhzqaJazgwrad0KWOeQ7Q/23bee3K1HNT1D7fz49lxewjrLOw4lPm6ToaeHIAZPDi/p6TQJ1eWYxL1If1COM1cR5lQh/Kqu8///LsG+9AKz7XaWHdOkwz20Yf/ZNzi508Xa+seRUziIOkM4tWTjf58ndjm3id9m1W/laABDKii9s0FSSOY3tkAWx3a2iT2+mvRgSsyRel+kYCZeBW55R1WT1MMuZvh9CRHplWRihI672guTIANzlUQzELs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UTf9sNKRB1AVYIfeIunKxy1sQoXl/AzzN7TyMd3PoO1L/OD7ACxwhyXxqrMh?=
- =?us-ascii?Q?8VUAZx4opvKUc7y0mbNlgmk1+ZJrZuCPv2ej2Rs2AJ54GYwr0oxdd6NkEF4m?=
- =?us-ascii?Q?cCwDeF4Pl1Hxp8vqkc4IYo94P/nDdAH2Q0YkjrktLbAajOQCN+cBgmPS3Boi?=
- =?us-ascii?Q?t8PlzFGq7vYpesVzDmVUFHoVGI+pzLSYsKqLoNc5YfJSM99JTdV4M61jIhyQ?=
- =?us-ascii?Q?1XX6gN/sxkorhvlHAfGZnkzmx+ztuZwtSQkSUsrHN0xtdEX9ixPsv6mSXKud?=
- =?us-ascii?Q?L8LMuys6MH9YVwmgbQLDJcUwUX3GZU6akUk5vGNwpuoXPAk0krTJ77aKyFLN?=
- =?us-ascii?Q?HPR2NfbcaxY829j9VbyTSTtKixrumsHsxshwGc1bYl+fZ7fQKAQNhcNT67rZ?=
- =?us-ascii?Q?ctCNbyJNyAY1q9F5hXS/uOqkRi28Z8hOCH9UyttLzls++GKLQ8Znw8gi1Ksz?=
- =?us-ascii?Q?+KKDWDp6CKpsz7s6SL0J2sFV6tUQ2zYJBrBbq2XsDAFIOmdFrroaF/EQxbnW?=
- =?us-ascii?Q?dW8E3qHcYRE/Au/uNsklPlfUS7LP6AwL5n2u2GsZ+cdxn9gTfJ+WIhLU4qwQ?=
- =?us-ascii?Q?Dz9Bbn86+8VN9fiUwNdnc0ZB6+ZnOFyBPvO+KVxTGowUZ+n0rhSA9Nyp++Pd?=
- =?us-ascii?Q?8ix3fSSLRo2N+ucZDOPKIedXOnU8P5n8021CtXLhuLa9r60YsrzSV3B1fKFt?=
- =?us-ascii?Q?LuoaiIV5kiCaYScWA6V+Ss4E+XoMeyLP+i3Imv8Wn3KW2KwcbWPDFop2TN26?=
- =?us-ascii?Q?0Wio6DCwj5vzPTfl+yMjExlIaXWhpS1Ifl6canjQIwl6DC8n/g/lWSpmMpI4?=
- =?us-ascii?Q?A0xwEY5DCskUN/mql629iCUyftsOpoTpRqTSqacjYEEQrkgS31LKd9Emmp8b?=
- =?us-ascii?Q?bWBf7L5Az7AVPgsB3Rmke3LQyqkf1/RyasWqSRuN+JwncSArhjvNrhawSp4f?=
- =?us-ascii?Q?hgp86PaXLPPmc5YykHjDmTF7VggDnrl81kpTO1ma6xie51YvMtatVsUEYiBq?=
- =?us-ascii?Q?PjdcknioPRi7RML41hu45fptdKOO4Vv4cpOrdGdYLr7DH9FTEcB7fTC9AJLu?=
- =?us-ascii?Q?M35Bz7avResAObbX0FBHbaZaLP63OKNRAJ+meuE7F6gL4b0flmlYgB+OCn6k?=
- =?us-ascii?Q?clth2rsRzyITQSc6+AmwOkxhmWDWLRs88gMIYtan8JeOrBBOrQk2MmQ8lHyz?=
- =?us-ascii?Q?7ZtiUGIpuhTWf88y4OmHHRCLmIZll213MfCIrD+mbVT+9sUE78YvTrRXdHCM?=
- =?us-ascii?Q?02mBhVqmVGBB/ivHSaguWMEIGy8G8Z7s6xGdq44Zr08mz3b0Zt+dIw1yy7NU?=
- =?us-ascii?Q?zufYIjm5Du85zSXLV3YxeNi5IelpE8nPvn8Sc0f/YOEf8eFtfrJquHGmezY5?=
- =?us-ascii?Q?Sm/FWwMDSofSsHVpJvtUzImeGu0wk7rroSCunIYEtHW5xhxoKCD0ABwUmNiB?=
- =?us-ascii?Q?l78ObkGvBTOaTTFwQCQxt08kvHSxdSAkHUhYijPCJjgeHfPnoKPJ8OwhH9+a?=
- =?us-ascii?Q?UyzdMcOgDaBMASsx+s+Y7xIeFuNxWXfmIjJoGBwTL6KF7gGviB3pCpK7ERBG?=
- =?us-ascii?Q?S7OfWLHkHjm11V9yZ0siMnSwbFJdV76/a6Ky7SnHPgJWxpWgJczrb9nSLsYj?=
- =?us-ascii?Q?/oVk68RVomZbcSmhScEmTzpjHEbNadVmgAoFFftp3RwUxu/GfqYjzOvUA5J1?=
- =?us-ascii?Q?M5kK0UoK3cgKq26VrEXNYGQozvc0nNbhq29d8zsTTn5OoOHBPyDsLHxYt655?=
- =?us-ascii?Q?2+QksBYKhA=3D=3D?=
+	=?us-ascii?Q?Srt0xZqUlJRcXMGgpNhjp1ziGAXioqU0A2QbWzMP931xEbw/OklTm3XawDON?=
+ =?us-ascii?Q?L6OSnVtNEo7ETMynXfY1S02qs9T7pC+XmSA1i7Db/9LOFr0WOjUPZTb4LDpC?=
+ =?us-ascii?Q?uBJQHGZngx8qlORvZFF+Fj15PfKqLaIi24BCFA5DsX8nXNp+8X5GMnOWddaN?=
+ =?us-ascii?Q?1i5qZvnRO3GRF5OxeIQyazhqjZ3fAYN/cNsfILrvy7gnyJYVNMY88d6zLUmD?=
+ =?us-ascii?Q?WlnpU8Jsir4HnjMvyvyerPt0fePrOlHGh+oAtS2pPljM3KMly1VnRkxouKwG?=
+ =?us-ascii?Q?sBjS5zMqV1Ixu6zOX996PN2ot3gNce+dhZmHCRsJexnkF3cNUCprUVYgV3UX?=
+ =?us-ascii?Q?4CY0lyciBxJjVzyCsWv3XH/2ZSGUg795oVBxk8UCiymRGfOYc0slfQ9zT2ns?=
+ =?us-ascii?Q?BfLDjAQOtEYV14NbIyW2fbqEVJv3SRK3cnL6+glAz+3/EGoQB1hn+G9gyoWY?=
+ =?us-ascii?Q?h50VPbJj53BJZfGJP1CQ3fgW2h8EbxAxwsQP80PZqStrQr1+0IT1BYQ1W6YD?=
+ =?us-ascii?Q?bvOWcURFba12XeI4ULDmQQfrd32Oa4BTUhjLzKxhZxIi+BhRCBXgTAM1JItR?=
+ =?us-ascii?Q?Nbijd889e+7BQBfsLFm8yxByucz0TRaSDBxQQbv6Xb0ccsw42w3QS9H1Idgd?=
+ =?us-ascii?Q?hYO47PF3TvRULc/rJSzrGhV2cEBN4A5+YQZQ6GkZSWHgoteiMg4CVfZKoUhH?=
+ =?us-ascii?Q?9UAJWucawYNPLxm+OAD+jRbDERthFvQsDky6YadYMKsnp+yLYeGm99cceDTq?=
+ =?us-ascii?Q?dM6nc7e0Nlo9QuPIt4kXn+iU1WTklxYWbeiZ8bnUjimeNTvDKqe7Hl8HvUFm?=
+ =?us-ascii?Q?KX7c5gGBKr0uZ9f74ZIeuXokVRvDK7WVOqCD4WtugwsF4EvmLyblr2Va6RUw?=
+ =?us-ascii?Q?7roIXCioL5+hNoFbVOlDL3Y1L5Zv7IBSgDxlottN9Zl1Far78TC4+Z2uqKt0?=
+ =?us-ascii?Q?V5pOLa737256k+UpA4Xd7VVpUcSaYszRK/oP5AQCVr0qqgixsHcgVyVJVtYU?=
+ =?us-ascii?Q?JvKks7V1pdpMzXCHsT6aPO03kfpRGzPh8XEP1r6CPPnfULLfUpuJcHIwIkHu?=
+ =?us-ascii?Q?T4b7dtM0vEsLR14tDtFM/m8i3RlsvZCtE30x+V3xyQyHmZafT+i1b11eDsfr?=
+ =?us-ascii?Q?aqdoP2JRCmCIKb4AenCAGvxIIjZ+I+nRVEiw+YNVCy2e7zwiD/GkW4HaG1+E?=
+ =?us-ascii?Q?PjngttDjRUBlLY9KKsEA8Ts+sFX4eeaL3IqeZCTqf8OgvjVEeJGlFe4VZA+x?=
+ =?us-ascii?Q?9gaFTmXQatE7IQ7ZvF5bZBgtrawAg+4IdIm3YufZphCvPLDhoZYdPYgv07wc?=
+ =?us-ascii?Q?6CJ4Yd9OjXUSqEbVCV8063+G+RCz6EdJuOmfxvguS4uO3SDbCsMfbjgzi4Fd?=
+ =?us-ascii?Q?H0tjVyZodyRjxc6JMLJm6aTPLrsMlgZ4kF0t1Q8UHIbYGPdraI/liy1pPybT?=
+ =?us-ascii?Q?G+YalpVLNI9QlSCotOqtByd6xviEOISnaaZAXAhHK2Q0KZA+S2KeQxNvjUVo?=
+ =?us-ascii?Q?ppz0prQJqbCGnGQzh0v5K869fNwF9JN7SCsO/N2oYHFeXDyR25JwRZZO6B54?=
+ =?us-ascii?Q?uEJGducyKn7s/0glEpG+vMjyc3zJSnkvMpuDCSuwytRc98wHqvmrz5mIRyCq?=
+ =?us-ascii?Q?+QAVVPk0UwH2BhDR1BO4HYvFidOIKoCU15CQ9F6mqPQ6+evcSNtGH+4yrQG+?=
+ =?us-ascii?Q?xWaulESkNnfyCVAPBvsNE9LLBxV0HcnKZD9MQ3CmOyyUAcmAr1h+p+qW6IKN?=
+ =?us-ascii?Q?F8iI8gq/cQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2305f958-b957-4bff-7b85-08df1ea4ccd6
+X-MS-Exchange-CrossTenant-Network-Message-Id: f47ce58c-367f-43a9-ebef-08df1ea4d4ee
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:07.1235
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:20.6927
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8BHhC5ohDWkIbTRkc/m1/d6chCUAifsdOMGpqxqRP3FjS0Gv+hWW49DB0uUtOK90ie49iUyUwT6gbtXI2W67vw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ge2kxq/YwKovUwx8KfljE2npfdz/pu2iWSIAQ9KZ4TQij6rpuu6+j4c5TI/gmY56Xwex+sMRH9Er8jybO2RuIQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
 
-This series adds GPU interrupt support to nova-core, so that GSP events
-reach the driver as interrupts instead of only when the driver polls.
-v5 applies Alex's review of v4, and makes three of the design changes
-that he had set aside for after the merge. The series is 15 patches,
-down from 17. The two rust/ patches are unchanged.
+The GSP posts unsolicited messages on the same queue that carries
+command replies: log records, OS error and robust-channel records, and
+lifecycle notices.
 
-GIN, the GPU Interrupt and Notification unit, is the GPU's interrupt
-controller, and it latches pending interrupts in a two-level register
-tree. TOP, the tree's top-level enable register, holds one enable bit
-per subtree.
+nova-core discarded every message that was not the reply that a caller
+was waiting for, and an unrecognized function code aborted the in-flight
+command. The GSP's error reports never reached the kernel log.
 
-The design uses a threaded IRQ handler. The top half reads and writes
-only GPU registers, while the threaded bottom half drains the message
-queue.
+Log every non-reply message according to its function code, on the
+receive path that already reads it, and leave the in-flight command
+waiting for its reply. Event payloads, such as XID numbers and log
+contents, are not decoded.
 
-Still TODO after this: retrieve the dynamic interrupt routing tables
-from GSP, and use those, instead of the simple, hard-coded approach that
-was done here for these first two interrupts.
+Assisted-by: LLM
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp/cmdq.rs | 52 ++++++++++++++++++++++++-------
+ 1 file changed, 41 insertions(+), 11 deletions(-)
 
-The series is based on drm-rust-next at commit 658c5f0042e6 ("gpu:
-nova-core: use a single try_pin_init!() block in probe()"), and it
-carries no prerequisite commits.
-
-The patches, as applied to drm-rust-next, are on a git branch:
-
-    https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tree-v5/
-
-Changes in v5:
-
-* Dropped the patch that poisoned the message queue after a framing or
-  checksum failure. (Alex)
-
-* The GSP interrupt handler borrows the GSP falcon and the command queue
-  instead of holding a BAR and a chipset. (Alex)
-
-* The per-chipset falcon interrupt operations are methods of the
-  existing falcon HAL rather than of a separate falcon interrupt HAL.
-  (Alex)
-
-* The PCI vector allocation and the interrupt tree are one type, which
-  the Gpu owns and the GSP handler borrows. (Alex)
-
-* The tree reset is a method of the tree, and it disables the serviced
-  subtrees at TOP last. (Alex)
-
-* The Gpu holds the TOP enable of the GSP subtree, and the GSP handler's
-  registration holds only the leaf enable of its own vector. (Alex)
-
-* The interrupt tree's trigger and the message queue's drain are added
-  by the patches that first call them, so the separate message queue
-  drain patch is dropped. (Alex)
-
-* The two KUnit suites that tested the HAL dispatchers are removed, and
-  the tree suite's chipset check covers every chipset. (Alex)
-
-* Smaller items from the same review (Alex):
-
-  * repr(u32) on the leaf count, and an if/else in the vector check.
-
-  * The interrupt HAL performs the rearm, and the tree holds the HAL
-    instead of a leaf count and a rearm method.
-
-  * The GFW comment restored at the wait in probe, where GFW is the
-    GPU's boot firmware, and one import group in probe.
-
-  * The self-test handler's clear and rearm grouped ahead of the count,
-    and the superfluous dev local removed.
-
-  * A comment at the MSI fallback in the vector allocation.
-
-  * "chipset" for "part", and "OpenRM" for "Open RM".
-
-  * The falcon HAL patch's message no longer claims that a HAL call
-    allocates, since there is no separate HAL left to justify.
-
-TESTING: Tested on Turing (TU117), Ampere (GA104), and Blackwell
-(GB202), covering probe and chipset identification, the interrupt
-self-test, a GSP name query over the command queue, driver unload and
-reload, and the KUnit suites. No test produced a GSP fault on any of the
-three chips, so the fault path is untested.
-
-Joel Fernandes (2):
-  rust: sync: completion: add wait_for_completion_timeout()
-  gpu: nova-core: add the GIN interrupt tree and allocate its vectors
-
-John Hubbard (13):
-  rust: pci: declare IrqType and IrqTypes with impl_flags
-  gpu: nova-core: add the GIN vector, leaf and subtree types
-  gpu: nova-core: add the GIN CPU interrupt tree and MSI EOI registers
-  gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
-  gpu: nova-core: wait for GFW boot in probe, not in the Gpu constructor
-  gpu: nova-core: add an interrupt delivery self-test
-  gpu: nova-core: log GSP events instead of discarding them
-  gpu: nova-core: return ENOMSG for an unmatched GSP message
-  gpu: nova-core: bound a GSP wait by a single deadline
-  gpu: nova-core: add the falcon interrupt registers and HAL methods
-  gpu: nova-core: service GSP events from the SWGEN0 interrupt
-  gpu: nova-core: add KUnit tests for the interrupt tree
-  gpu: nova-core: document the GIN interrupt controller and GSP events
-
- Documentation/gpu/nova/core/interrupts.rst  | 679 +++++++++++++++++++
- Documentation/gpu/nova/index.rst            |   1 +
- drivers/gpu/nova-core/Kconfig               |   5 +
- drivers/gpu/nova-core/driver.rs             |  19 +-
- drivers/gpu/nova-core/falcon/gsp.rs         |  47 +-
- drivers/gpu/nova-core/falcon/hal.rs         |  19 +-
- drivers/gpu/nova-core/falcon/hal/ga102.rs   |  16 +
- drivers/gpu/nova-core/falcon/hal/tu102.rs   |  49 +-
- drivers/gpu/nova-core/gpu.rs                | 122 +++-
- drivers/gpu/nova-core/gsp/cmdq.rs           | 166 ++++-
- drivers/gpu/nova-core/gsp/commands.rs       |   8 +-
- drivers/gpu/nova-core/gsp/sequencer.rs      |   8 +-
- drivers/gpu/nova-core/irq.rs                |  29 +
- drivers/gpu/nova-core/irq/doorbell_test.rs  | 257 ++++++++
- drivers/gpu/nova-core/irq/gsp.rs            | 196 ++++++
- drivers/gpu/nova-core/irq/hal.rs            |  67 ++
- drivers/gpu/nova-core/irq/hal/gh100.rs      |  40 ++
- drivers/gpu/nova-core/irq/hal/tu102.rs      |  43 ++
- drivers/gpu/nova-core/irq/interrupt_tree.rs | 682 ++++++++++++++++++++
- drivers/gpu/nova-core/irq/regs.rs           |  88 +++
- drivers/gpu/nova-core/nova_core.rs          |   1 +
- drivers/gpu/nova-core/regs.rs               |  69 ++
- rust/kernel/pci/irq.rs                      |  68 +-
- rust/kernel/sync/completion.rs              |  23 +-
- 24 files changed, 2594 insertions(+), 108 deletions(-)
- create mode 100644 Documentation/gpu/nova/core/interrupts.rst
- create mode 100644 drivers/gpu/nova-core/irq.rs
- create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
- create mode 100644 drivers/gpu/nova-core/irq/gsp.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
- create mode 100644 drivers/gpu/nova-core/irq/interrupt_tree.rs
- create mode 100644 drivers/gpu/nova-core/irq/regs.rs
-
-
-base-commit: 658c5f0042e6e897338dd04330a363aa7022c85d
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index a5595da23407..4591f6c61ce6 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -559,8 +559,7 @@ fn notify_gsp(bar: Bar0<'_>) {
+ 
+     /// Sends `command` to the GSP and waits for the reply.
+     ///
+-    /// Messages with non-matching function codes are silently consumed until the expected reply
+-    /// arrives.
++    /// Events that arrive before the reply are logged and consumed.
+     ///
+     /// The queue is locked for the entire send+receive cycle to ensure that no other command can
+     /// be interleaved.
+@@ -819,8 +818,8 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+ 
+     /// Receive a message from the GSP.
+     ///
+-    /// The expected message type is specified using the `M` generic parameter. If the pending
+-    /// message has a different function code, `ERANGE` is returned and the message is consumed.
++    /// A message whose function code is `M::FUNCTION` is decoded and returned. Any other message
++    /// is logged as an event.
+     ///
+     /// The read pointer is always advanced past the message, regardless of whether it matched.
+     ///
+@@ -829,8 +828,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
+     /// - `EIO` if there was some inconsistency (e.g. message shorter than advertised) on the
+     ///   message queue.
+-    /// - `EINVAL` if the function code of the message was not recognized.
+-    /// - `ERANGE` if the message had a recognized but non-matching function code.
++    /// - `ERANGE` if the message was not the awaited reply.
+     ///
+     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
+     fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
+@@ -839,11 +837,11 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
+         Error: From<M::InitError>,
+     {
+         let message = self.wait_for_msg(timeout)?;
+-        let function = message.header.function().map_err(|_| EINVAL)?;
++        let function = message.header.function();
++        let seq = message.header.sequence();
+ 
+-        // Extract the message. Store the result as we want to advance the read pointer even in
+-        // case of failure.
+-        let result = if function == M::FUNCTION {
++        // An early return here would leave the read pointer on this message.
++        let result = if matches!(function, Ok(f) if f == M::FUNCTION) {
+             let (cmd, contents_1) = M::Message::from_bytes_prefix(message.contents.0).ok_or(EIO)?;
+             let mut sbuffer = SBufferIter::new_reader([contents_1, message.contents.1]);
+ 
+@@ -854,11 +852,13 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
+                         dev_warn!(
+                             &self.dev,
+                             "GSP message {:?} has unprocessed data\n",
+-                            function
++                            M::FUNCTION
+                         );
+                     }
+                 })
+         } else {
++            self.log_event(function, seq);
++
+             Err(ERANGE)
+         };
+ 
+@@ -869,4 +869,34 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
+ 
+         result
+     }
++
++    /// Logs an event, meaning a message that no caller was waiting for.
++    ///
++    /// An OS error or robust-channel record is logged at error level and an unknown function code
++    /// at warning level. Every other event is recorded only by the receive trace in
++    /// [`Self::wait_for_msg`].
++    fn log_event(&self, function: Result<MsgFunction, u32>, seq: u32) {
++        match function {
++            Ok(MsgFunction::OsErrorLog) => {
++                dev_err!(&self.dev, "GSP reported an OS error (seq {})\n", seq);
++            }
++            Ok(MsgFunction::RcTriggered) => {
++                dev_err!(
++                    &self.dev,
++                    "GSP triggered robust-channel recovery (seq {})\n",
++                    seq
++                );
++            }
++            // Nothing to do for the remaining known function codes.
++            Ok(_) => {}
++            Err(raw) => {
++                dev_warn!(
++                    &self.dev,
++                    "unknown GSP message function {:#x} (seq {})\n",
++                    raw,
++                    seq
++                );
++            }
++        }
++    }
+ }
 -- 
 2.55.0
 
