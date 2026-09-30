@@ -1,118 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A218A4BD373;
-	Wed, 30 Sep 2026 12:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770428; cv=none; b=lMt7NpV2DjlYB/VxuCqkMtki2KFx4sWzOnSnpi3R4aS7ViQOLySmNyqR+Ix9IYWV5NJrBpBom7+gcbl4JMwj3KBRbyGJtUxpm8qNRZ+BEcyJ1SJsTITd7u8wEGqHMQ8fQcFxNbQ4iddSaPd6LGuM5DXcayzUkHASUvCb2fwgFIU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770428; c=relaxed/simple;
-	bh=9FpGNfTFf1S/Ukozb67nQJXbP8V2TJQFVE0zX2bbHBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=OeLvC4rPn0HKeXs9nW8ZmpDpxVixq9YtnWrtbdxF2mFuFfIAmkzGwRA9fRwBk0+ZKqsuiFG5VPmYCvN97cJqPb30MtLILlfIvgRs3hINpjUUqLo8X0AyZ1IYZJm7yBiwONjIDJzGDP1misn03poClmbvy1CWl8VMNVs4G+hX5mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+ExrBuL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E214BD0FB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790770441; cv=pass; b=fjVRuNh5WVVBlJoaBd/6+7talZClJYHqexFvY9l9+5HOLCidtzggiUmpxt1tSRQESDTySjYVpANL4FwVfYDOr442yKtfOf9gCm371sgXla1sTnZzR1hlzRR40yicRstGApLYyMgizjviYZSnx3H8Eo3DQglgagfj9TtLUNw6z/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790770441; c=relaxed/simple;
+	bh=2n4+UnejlqYn1u6OpHJx7OaKBKukorY5gDQh8E11BEI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UnFbV5keBCqUmwvPrFOhY+iGwWrURB9gC21jXjPS+GWqb2ZajqzPuoUCivLL7hJcT34SE14MwYLUJc4sVbbUlKT2vea1GoUzUZA3XN7tP2XiT4CBsCfGvU8SJDxOZri6I/BgUlBaUKP49PH/8pLm/w9bWXEDbk/QJ6Lkf3xBv+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lr6HBdvp; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+ExrBuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC491F000FF;
-	Wed, 30 Sep 2026 12:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790770427;
-	bh=gEn//jDKdqgWTRAHO+zQ8xWN0dXBaFIBswswlPw/Wz4=;
-	h=Date:From:To:Cc:Subject;
-	b=Y+ExrBuL9okLGt9u0+nXvwi0E5uSMFG18nKoa13dFHyynoVzXh79GFdxLJJsL8xm+
-	 Qph5z70wXr+8ljRqoMqYNdcQpSUyFKPu08nQ+P2Grqq3nP7s/xU9+LM4UDiK9t8jSP
-	 LwKjMQEH0eI+30U1U5CvjEQC+iKvSrp2n2lIyLyxEMPvMaPUxhbz4gq2kP4+OilQjh
-	 879nZxR/f9yR0VEOX7pAjL/r/sQgDqJlF8BS5q4YTiRystM3WdD4dS6Kc8ZU4QPyCB
-	 3y253WTA+8Wl2Uf5S0qd46g/LaQ6GII6G4+UZF7qgSBpNo16HqXQ3HzZNrFetP2fma
-	 q0PS1ddp+YY2w==
-Date: Wed, 30 Sep 2026 13:13:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Norbert Szetei <norbert@doyensec.com>
-Subject: linux-next: manual merge of the rdma tree with the origin tree
-Message-ID: <arz896tY_DVOs8sP@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lr6HBdvp"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34ba85727b6so143790eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:13:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790770439; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VmANkPZNHubmobYsoHPbXxD2qnqB+wnWxzf7J5ahJtd5i+6KzONN5A+vbijUYQeD2f
+         sW0b8qYzuIqfYrRUTmqgjUTY+tb2vEhpjP9PqvsuicH1r50ADWVhElaVtNwpd4lUaf9P
+         ln7OGoGId9n3uni8OT2rjADYcILUvMEDxNN9X6pkGo1R34Hk6W1rbvhTuwZw6ypw/KnQ
+         GqUX8KfDXYRjkWEGgThfet9P1KbnROOD7B6DtjM4jiHK11rheoksqE9Wo4upOPrKaZuq
+         xxEC1S9Z6jvSPZ3SIeQJl0aDKPYxLp60ZxoJ6ZhF8jp1OwKSwvPZY7b8mCG/2ZSR7Naq
+         9Ypg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2n4+UnejlqYn1u6OpHJx7OaKBKukorY5gDQh8E11BEI=;
+        fh=7RPkcbXKUrNftIBtPCM0DTxOe+cewq63YPl1dXkRdk4=;
+        b=hZQm3ut8WIzaW/20dPSrnPpLLIabxz2larXORT/LOS953Ir7J2RYIRyRQEPYXCMd1M
+         kM93k2BShrDcEjOo8lSZKN8gm4gcmT1ygC5PDSdXQrCPVTkj309Or/BEE6muSLMKGKrc
+         p2LRjDPVNY7z4e0RcSt2N/WCbdFdFiYsdDe0k93XVlPfOliYBQtwnhr7W4kpG59NaAWu
+         6dVhBV3NuFTvocqg554sykb4a8lCGrGAq48EPi0r4hs0Ak8VkbInGzus3Ftr1Qqa3QAF
+         qgRKOrOMWC5qpdd9U+AoDP7Yrps9HW1BrwQ+lc5q95plx6gEEzbvxlPZTkQyUBeFdZeW
+         9EUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790770439; x=1791375239; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2n4+UnejlqYn1u6OpHJx7OaKBKukorY5gDQh8E11BEI=;
+        b=Lr6HBdvpcK5gG3UJ90OoWJqwkSP6ZlqHmdnYLL+cfa8QgrsMSWUTgBdya7bqYL/BE+
+         TL0+0tKyL7s/C09bRHjxMhn4KGCtk0j/3MsLAuW2KD+imYKJTOYHBJPsFPje1/U/7fnj
+         wTP9ARh4w1acgjLpMKbpP809VU6qXT8PU6vLSnQYI7m6GZ2iQnuRrEwVuevDYuQojgRQ
+         JgdbG5xKOVKW86YoRYQdWHO+mC7Vct3h2YiYvL5Lx9Ukw/9ECCGRGqlSkKgQTGppYSy9
+         Cl4MR4Y6q58tyC1Fqem2oh01WjE6UxPOr4ZzIq4QkauTDulcjkOUDDRjbiqLMSQYPYXs
+         Mldw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790770439; x=1791375239;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2n4+UnejlqYn1u6OpHJx7OaKBKukorY5gDQh8E11BEI=;
+        b=TsOk/jJjkquC+mFK6nqeWfrar58rbM/YknAEjAYMNsgMBhyyDjVHHbKx9HoSplfqrR
+         w6kYdIDtE+n2dOMvBWZ5RXHWJgV+zNR1WWaY48xoZk/k7dfwNyGoY8D8ugIpCnUeMJcp
+         5JepwlBmjUQB2LbAZLEcR0WIAI2Yx2wLAtv6Bf9twb7Y2TkZl840CAv5dysdwxI4GAtd
+         574Rwu0VNFlVYGF3q3ffnBZQ+Nwvvxt47FVQ/tf7vRnMKe9kUk/c5CvzGrCORzdrc0IL
+         ONi309hCk690q4f4NgAxFPcpR2bLx83TSpuAWwHZO1J0WKN0AeXvXzWC7UmXBPqju3Ne
+         ASNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzr4LYvAhb185Ztu1TunWoTwJBVFwY64eho/yR+nBTQNu3DxC/TNJ3ZxP/YK/LbFp5FhREnKFAJFDuFYDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqHxeOzWD3T/l1Wo/e6N5Ks52yro/sh5L1aVZiCMIZS9cWnCH5
+	4LmIOXsl1vUb/mgGCrq8wgf88x4zpgw0nlob4AFar2pEFcgJZYdh5IQpgMCOvsm5Zf8AR90yYnm
+	KUGtU6wAlQbX+sJFbrNyp70n9OSkTABs=
+X-Gm-Gg: AYBFou3A4dJKpyrhMyyiAAYqfw3SpVLshI2Elnnqh0ccJOTNYbZjxWws4tOVsAatKj8
+	+NuneJgNWsO8cUffyCOZ9gYabO1Qi3aeYzH9I6Hoi1XWMYx3N4T64znMdYd9ptOBTSs1EgW8ybO
+	vaFZX27Ln3jEqGqRo8OU0CLpQdBdC2+ODnzyAjrVspsRHTR2tlHKUAb8jHNqiY8smz+STnQvJYs
+	pwD0mjMg6rVHQhdBijTqOFHMunddTZNwjqe5CgAroDeg4qjf0vM3BzuHrzjeFxErfPRxGufBoEp
+	+beFz9LGGnP1sSBTMFT/uuU8fAE2g0P0xR3SSDziwaCtPF0f4lBvId5dvEslVWvV+ZOGLhF91bm
+	h/clTFg5OhTIXH6ZrcKHYeb1BdvL7kXs7S5RIiz7YS7iCr/2B80kgD8PmVdh/yQfZLPdT6dq6Je
+	wo1yMqisPpMOBXWQYlBz6GNrL4yTtbol7Wi9UYo4ET2dHDlYuL/E8=
+X-Received: by 2002:a05:7301:6192:10b0:34b:101f:cdaf with SMTP id
+ 5a478bee46e88-34cde6749bbmr2785844eec.1.1790770438477; Wed, 30 Sep 2026
+ 05:13:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W6xSrHRgh371D+3u"
-Content-Disposition: inline
-
-
---W6xSrHRgh371D+3u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260917051147.98775-1-tweek@google.com>
+In-Reply-To: <20260917051147.98775-1-tweek@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 14:13:45 +0200
+X-Gm-Features: AclHuK-6adfLavzkp4ECmLqb4CW3_hXGJszcDPcphNHw_O5mw99JF2JHAArmZF8
+Message-ID: <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Thu, Sep 17, 2026 at 7:11=E2=80=AFAM Thi=C3=A9baud Weksteen <tweek@googl=
+e.com> wrote:
+>
+> Module authors may have non-ASCII characters in their names. In C,
+> `MODULE_AUTHOR` allows arbitrary string literals which are emitted as
+> raw UTF-8 bytes into the `.modinfo` section, and multiple in-tree
+> modules use non-ASCII author names.
+>
+> Originally, the single `author` field permitted arbitrary string literals
+> including non-ASCII characters. When support for multiple authors was
+> introduced in commit 38559da6afb2 ("rust: module: introduce `authors`
+> key"), it reused the `expect_string_array` helper that had originally bee=
+n
+> added for module aliases. Because that helper enforced an ASCII check,
+> `authors` inadvertently became restricted to ASCII-only string literals.
+> Later, when the macro parsing was rewritten to use `syn` in commit
+> c578ad703ae9 ("rust: macros: use `syn` to parse `module!` macro"), this
+> restriction was carried over by using AsciiLitStr in `authors` type.
+>
+> Change the element type of `authors` in `ModuleInfo` from `AsciiLitStr`
+> to `LitStr` so that UTF-8 author names are permitted.
+>
+> Fixes: 38559da6afb2 ("rust: module: introduce `authors` key")
+> Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
 
-Today's linux-next merge of the rdma tree got a conflict in:
+This looks good, thanks! We did discuss allowing non-ASCII long ago,
+so this wasn't intentional.
 
-  drivers/infiniband/sw/rxe/rxe_verbs.c
+Petr & modules: I can pick this on up (an Acked-by would be nice!),
+unless you want to pick it.
 
-between commit:
+By the way:
 
-  ae36a5b609ae7 ("RDMA/rxe: validate access flags before swapping the MR's =
-PD")
+Cc: stable@vger.kernel.org
 
-=66rom the origin tree and commit:
-
-  2dac7006b9fb4 ("RDMA/rxe: Reject IB_ACCESS_ON_DEMAND changes after MR cre=
-ation")
-
-=66rom the rdma tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/infiniband/sw/rxe/rxe_verbs.c
-index 3864284522ebc,21855274f63ae..0000000000000
---- a/drivers/infiniband/sw/rxe/rxe_verbs.c
-+++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
-@@@ -1331,12 -1331,12 +1331,18 @@@ static struct ib_mr *rxe_rereg_user_mr(
-  	if (err)
-  		return ERR_PTR(err);
- =20
- +	if ((flags & IB_MR_REREG_ACCESS) &&
- +	    (access & ~RXE_ACCESS_SUPPORTED_MR)) {
- +		rxe_err_mr(mr, "access =3D %#x not supported\n", access);
- +		return ERR_PTR(-EOPNOTSUPP);
- +	}
- +
-+ 	if ((flags & IB_MR_REREG_ACCESS) &&
-+ 	    ((access ^ mr->access) & IB_ACCESS_ON_DEMAND)) {
-+ 		rxe_err_mr(mr, "cannot change IB_ACCESS_ON_DEMAND\n");
-+ 		return ERR_PTR(-EOPNOTSUPP);
-+ 	}
-+=20
-  	if (flags & IB_MR_REREG_PD) {
-  		rxe_put(old_pd);
-  		rxe_get(pd);
-
---W6xSrHRgh371D+3u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq8/PYACgkQJNaLcl1U
-h9BzjQf+NpglwU/5aamvKtH8YhZ+FSlYuNu+K31DH4vvDDnJCtoAe2j/07gZMu1s
-Y2nay3sUeivZ5Nhqxfqe/1KQoinvL5SLuahRaW671VNjIq7zU/K+P5Sna32LXev7
-jbjmiWIvKHUtEqa/IIuymUkBAUHfFKzyIGoLIMe8IkffzIK+DH4MgKPq6iJGMWzr
-Mn1K41ui87ABuY48o01dz1+FysFqrD+Q9E90R7x/nHm2pbR6ZnivWS81/rf1TjcO
-Cq+eOjLmaCyTf+S5suXSVnQ05mu2aVL/b1gNb1PCBYmlQRrJM3yVu4YaB81SjYIE
-H+vBuCNtFZw7qv+fgYnrCFu4Fp4U/w==
-=88iT
------END PGP SIGNATURE-----
-
---W6xSrHRgh371D+3u--
+Cheers,
+Miguel
