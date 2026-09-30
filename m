@@ -1,142 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C04D17A7;
-	Wed, 30 Sep 2026 12:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5AB4CDDE3;
+	Wed, 30 Sep 2026 12:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790771304; cv=none; b=N5sVWYJVUZngtEO6cQv7TmfJFmO09Z686rOz3u+4zCi3JS7Mt1b5ACeVgYML0C8sds5UWGUc0AexvFSnsaii+nsD2L0+E+blhuDnEmNXSezVtwuoVJapp0WFh405DGRoCiPTF8UrZ2YT9g9KnN8ptKi5RFtrHRdwiHPTeEIiPl4=
+	t=1790771396; cv=none; b=kmZE307gTe77x/gtwpe76o/HSf/w1pNoqZPl7HR5rUCyc6BISQJS9gIeVTysBZXgtoepzpImPuqPkDZ0NEzz9ZCcA7vJK+q1F5Ee9ZNH1IjA4fS+qybHl2j9QnZ/AkKmnlOZml//Vg4XHjVSsnXGddqlv1yXfe8yX3FwWYug8hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790771304; c=relaxed/simple;
-	bh=9lmVFQC9Z4KGtoW38DAAhc2bvTVrr3skeuO3USIIg7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kjNL3Iip1vqt/cY+/EUpxZ9IfRDUAi0QP7j6a3sdJqsu0R6I/RB0umEoFpqSPrvANR6T+JoN9RvrG4uThPBNcDwedAoPbhPbaVQO4GkvT9UX8/Aq1wIu7V2z76xqPWC107NbJ5PQsq9IgCpvUe9nY+bGyNejZ7qsA/OMMcH3DNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZW7CboBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790771396; c=relaxed/simple;
+	bh=bHED2PalCqWqy+ej+XzZ/mrvSZuXl3/01whc4XeqaA0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lPMYWWHhh9LfalQ0ho+UD6LyHLqlOho1S0aZGKcaZSDHUaTZVzFLp8/v2Tpml00WrMTD9+wCbptyN0/pQtAYOvuPJ6ZqgW0TewY7v4/P0oMemMOcJbsZyJepqtP+oO/K2SX95yCMf5f+rlVjR5rzb1LAi40YOD1+tJq1vkLTpAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wxrU+Juq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hPet5eMN; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ta+zdnB+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oijDvPnv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZW7CboBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4421F000FF;
-	Wed, 30 Sep 2026 12:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790771301;
-	bh=3homTzU0A5b5rw9eK11AZ6XdME+l9JWLnwxZWPVmGdc=;
-	h=From:To:Cc:Subject:Date;
-	b=ZW7CboBubk39tvnYuGIZ5tXL+A0YFTPJJ2igNcxtbe8dp9Kh5SjalN1XLxq+NljCt
-	 3P78bGnK4azx8QEdlT+glzg356U4xxF0CSLLQqo0+f5A/stM8VfMNwMSwKI36T2oZt
-	 7aXL1FWA8l0ZwioPGA2ugwMIYKFQOFqlPiFuv0KZVBZekXPlAa/h8EnAxL8CcljzkC
-	 zt8H/MDI7YHtHwBSCpjpxpfq72fBkDmhQTbsQyw3Yt5G20YFXfNw6DT8W/4exY2rET
-	 ya5edFpNyiAXfkUNNoaihAjxXu5FWqhznT7HFyx8iO5U80og+97E4rUt9Zd+1m8lxL
-	 DvMTQWREcqLag==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] rust: DmaFence: Remove static lifetime
-Date: Wed, 30 Sep 2026 14:27:56 +0200
-Message-ID: <20260930122755.1657820-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wxrU+Juq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hPet5eMN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ta+zdnB+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oijDvPnv"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A475A21A95;
+	Wed, 30 Sep 2026 12:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790771388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dVgNp1NNSNJOQL5dXm2cx/tsAEGEMCocD6Vj6jjfI/I=;
+	b=wxrU+JuqvMrj+keQ7ZqDNuabDGjLSBaqH30yA5fGGhxplu08vuNoFUzoFCE1vuhYZMPDo+
+	lbkunEWGvAh5RLACaK0xbuuoEPYR51RuQGXGbpLyKZi7tPqOgKR4ukEYFxwNy3U/ledPoG
+	tpklEaOFP3nOtLodkIKo9LXy6exn3EI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790771388;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dVgNp1NNSNJOQL5dXm2cx/tsAEGEMCocD6Vj6jjfI/I=;
+	b=hPet5eMNKQjiOPSKx+o3TLR0TIUA1zn+B1jAdiSzNE7DPQ29u6prfNzyQ1aWAyLxyKa7h2
+	44b2UYvkiS6MuYBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ta+zdnB+;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oijDvPnv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790771384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dVgNp1NNSNJOQL5dXm2cx/tsAEGEMCocD6Vj6jjfI/I=;
+	b=Ta+zdnB+T5bbhW2n0PE4b9YbbI29yJmoXvrHzfjBBTwownwhbUcVsVWo2cAYw8lbeJtQw8
+	ibbuy1U0ddsPTuydj04D//+1V5wXhqVUxCCfFZZOrZhKQ+3fhwuBYCOYbtjMYn8BsElxmZ
+	w+7kofAw62TNkg1385TKYnt4VuJKPyg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790771384;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dVgNp1NNSNJOQL5dXm2cx/tsAEGEMCocD6Vj6jjfI/I=;
+	b=oijDvPnvKfZHYmhkScRV4J8ZImFFK+Ob+664i0t8zHJZXbCfERg3KgpZlPOwfo2o/2Xtnx
+	G7GO+L3C7qAeqtBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 50911136AD;
+	Wed, 30 Sep 2026 12:29:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id diY3CrgAvWpEdwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 30 Sep 2026 12:29:44 +0000
+Date: Wed, 30 Sep 2026 14:29:43 +0200
+Message-ID: <87zewy53d4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Harin Lee <me@harin.net>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Dany Patoine <dany_patoine@hotmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH] ALSA: ctxfi: Fix silent playback on Titanium HD (SB1270)
+In-Reply-To: <20260930115824.739412-1-me@harin.net>
+References: <20260930115824.739412-1-me@harin.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: A475A21A95
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[hotmail.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,hotmail.com,vger.kernel.org,lists.linux.dev];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,harin.net:email];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
+X-Spam-Level: 
 
-A FenceCallbackRegistration can stem from another party than the one
-that has created a Fence. Should that party forget the registration
-object (for example through a refcount cycle) and then unload the
-module, a fence signaling would run into the unloaded module, causing
-UAF bugs.
+On Wed, 30 Sep 2026 13:58:24 +0200,
+Harin Lee wrote:
+> 
+> Commit 4b490e0d103c ("ALSA: ctxfi: Add ADC helper functions for GPIO")
+> moved the GPIO_DATA read into hw_adc_stop(), but the Titanium HD
+> (SB1270) setup in hw_adc_init() uses the local data variable holding
+> the GPIO_CTRL value.
+> 
+> Writing this value to GPIO_DATA sets the output mute bits. Playback
+> runs without errors, but the outputs stay muted.
+> 
+> Re-read GPIO_DATA before setting the speed mode bits. Also, add the
+> delay after writing the mode bits, as in the original sequence.
+> 
+> On affected kernels, switching the output selection was reported to
+> restore clean playback.
+> 
+> Fixes: 4b490e0d103c ("ALSA: ctxfi: Add ADC helper functions for GPIO")
+> Cc: stable@vger.kernel.org
+> Reported-by: Dany Patoine <dany_patoine@hotmail.com>
+> Closes: https://lore.kernel.org/linux-sound/DM6PR02MB5433A42E81FEFAC400DD1905EA8B2@DM6PR02MB5433.namprd02.prod.outlook.com/
+> Signed-off-by: Harin Lee <me@harin.net>
 
-So far, this has been solved by demanding that the payload data of the
-registration object demanding static lifetime.
+Applied now.  Thanks.
 
-It turns out, however, that this is harmful because the static lifetime
-bubbles up to all users, ultimately potentially causing a large amount
-of driver data to be static, which renders the lifetime obsolete.
 
-Solve this issue instead through an unsafe requirement which demands
-that the user does not forget the registration object. This is also the
-solution chosen by ScopedWork.
-
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Reviewed-by: Onur Özkan <work@onurozkan.dev>
----
-Changes in v2:
-  - Safety Docu: Be more precise about what must not be forgotten.
-    (Gary)
----
- rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 18a43e1bb442..a1d851656562 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
- ///     }
- /// }
- /// ```
--pub trait FenceCallback: Send + 'static {
-+pub trait FenceCallback: Send {
-     /// Called when the fence is signaled.
-     ///
-     /// This is called from the fence signaling path, which may be in interrupt
-@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
- /// When this object is dropped, the callback is automatically removed if it
- /// hasn't been called yet.
- #[pin_data(PinnedDrop)]
--pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
-+pub struct FenceCallbackRegistration<T: FenceCallback> {
-     #[pin]
-     callback_foreign: Opaque<bindings::dma_fence_cb>,
-     callback: ManuallyDrop<T>,
-@@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
-     /// On success the callback is pinned in place and will fire when the fence
-     /// signals. On `AlreadySignaled` the callback is returned to the caller so
-     /// that owned resources can be reclaimed.
--    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
-+    ///
-+    /// # Safety
-+    ///
-+    /// The callback registration must not be forgotten.
-+    pub unsafe fn new<'a>(
-+        fence: &'a Fence,
-+        callback: T,
-+    ) -> impl PinInit<Self, CallbackError<T>> + 'a
-     where
-         T: 'a,
-     {
-@@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///
- /// let cb_data = CallbackData { };
- /// let waiting_fence = ARef::from(fence.as_fence());
--/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
-+/// // SAFETY: `cb_data` is not forgotten.
-+/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
- /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
- ///
- /// // TODO signalling guards
-
-base-commit: 6bd5eaeb9827ca7ba953b68fb27948fdb3e40630
--- 
-2.55.0
-
+Takashi
