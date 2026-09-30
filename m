@@ -1,86 +1,314 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A9151EE0F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402F13B3BE1;
+	Wed, 30 Sep 2026 21:43:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804586; cv=none; b=oCBl7ZFFEHFSZFTM0Qs2imlulxGJq+xLuXgQSDLzk+aufLSViW6usFcd8z0W1Y1jbuP2rmpIVoEwtaIqIFquwvjrKwWceetY2wrksikMxURDb5+TjusVlZumuoIOxTs6BF87coq0W8VvE4WdjeiUzyROddRI+8/9DjlNwpMSm3c=
+	t=1790804599; cv=none; b=W7FBsoo8Q72E8AZ7hCQwmN5u5siDdncHOe9aYmyLYDXhGzW8FFpJ2H2h1xsEVp5d1UfrLXkhz9TXYoUnJbjuaYd/8qV3xnBkzSCAO8B7x5C7NxSryaJLJt5WGUHgn+cbHW4u+DVphTeL1Y3080iBLd2BHL5cAoU9GgPw8lcPlQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804586; c=relaxed/simple;
-	bh=fSiI3TMsEzDueDKVgqXkfgIYEvxjScP+rhYWfresjgM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pD/OYtJ66NwHMzv1vtF4NvTcba1+lO5+iB617qpkiiU8QogCVUIj7cR7qk8dcW1FfD7iBfICu3QbSJylPbz6rjWJcRK/8k7CiSaS3oZ/cfNj90Ey6Ykte2oqJaduCOR25/pIp4yHrNUnVrN1rA4xJo6+e8KO+WWuBrDCgwIFtQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFHGvzW0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790804599; c=relaxed/simple;
+	bh=qPzoPj/3g3IBXcccrTxQbyuhpTt4N63RGUerAq5cxhk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IkrQ6e2rHbLGcKQ6Y+5hCXhJjuleBBJN4okXwrMLnFKytQfVn2wCYk9U4SypvH9Y2rGG2V5XCRh73J+4nNxWicmxEUH8ZT/8e/+MvVJuFgZ1yydkgwldLX5dQspasJAbKb692GzayIN8SrQ/yRcJp8z4QUSCpdN8pBSsGvxRRSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT2jUSSA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFHGvzW0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD8A1F008A6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT2jUSSA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451721F000FF;
+	Wed, 30 Sep 2026 21:43:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804584;
-	bh=kP2Hc0xVxHp38/pOSmhAb4V3iGOUVb5jZAxSa8LNMDo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jFHGvzW0d5XOYcFhKadHZWWVSm7jpwI0YuWUXBX2LbXTQsdwPiqKRpWeymsacUxbJ
-	 Nl55Hak93RxBiw3IXEJ9rPlTeL6H58yK0yToOzdkOWt69KyqgeBd8+hxiiuMLojQdS
-	 kpFPaPCZKPQIgc8r8ymxA4jdXOjNMNKLycFX1U7INUJgy48alP5+yIcmDhxO0CVgXe
-	 wJdbrOkRJPA6Sjn7D9mgsIuBWy25l7E31gEr5S0u6hAU1SZLZCcMusieCA0wY39i/q
-	 kaW6DhB4SV3Nmy9ONOEH1vmjhXk2wPRJqjVz5NoBmWt1FtMDYCAxTnJVWMDCBrbQJl
-	 0Zo6XnDSIkM1Q==
-Received: by mail-lr2-f23.google.com with SMTP id 38308e7fff4ca-3a782bdc1dbso4033661fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:43:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6aWtme1GSTHXa4mpXoGcRcWhf2Bb8I6e1uJgUK6chtfhOCGILZyxcTdjbewECejvLYon+ZOAtEMuMxvg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2DIBKqbp1POa555xp+Qze4Fqh6fHvwbwWaXv2l/Fjtc46g4sW
-	4ALgtmTLqXmUuj8iT6CWoSmiVgWm+5qZx6B7zKrFre8hjpTFw25XVTtqOfNWGzyNo9bUV0x4hKR
-	awCjBBEC0zw8xrr59KYDDahuM+7p6t8o=
-X-Received: by 2002:a2e:b8d2:0:b0:3a5:b524:e28c with SMTP id
- 38308e7fff4ca-3a7791af9a8mr9222391fa.11.1790804583296; Wed, 30 Sep 2026
- 14:43:03 -0700 (PDT)
+	s=k20260515; t=1790804597;
+	bh=9XRsQIPFhVNyzXB9n5MWns+D7GBRR2fZhi9ptJ44Pu4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=XT2jUSSAf5rkPWrmet45jQfPoLj3i8O4B4KMw1WfCB1WWZ/3vBOFUHjrZwsfFRQND
+	 GIf3Mf11CdHUzDX5haKnjyrjHlPY2EYqvqoOdt9ik65hampFGx6gLsbclP0+AbBOZl
+	 VTmSvCe843dFBhrJt15V+ntINOVYhXKsMtrSxez00+YDS7dIQBDnyQ59h66MJLipji
+	 EeS9NvBY4WJxEtEOw0srpfxNY6Q4e6weeiKkepBXuilYBer1PN5Dnzio+9nZ6ws0B+
+	 mGRxjmiDjKMzILOGRUTWNPRdyYlbICcyZ2OYpthz42YRfvtG5ZNRcw6X8X/c0ricbn
+	 ZrQDYZ96Fw5lQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker
+ <frederic@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lyude
+ Paul <lyude@redhat.com>, John Stultz <jstultz@google.com>, Stephen
+ Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
+In-Reply-To: <DLSOFOGGZC92.12KYHEALX1271@garyguo.net>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-1-90411c6217c7@kernel.org> <877bk3ixp5.ffs@fw13>
+ <DLSOFOGGZC92.12KYHEALX1271@garyguo.net>
+Date: Wed, 30 Sep 2026 23:43:11 +0200
+Message-ID: <87qziah0uo.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918161407.2300-1-will@kernel.org>
-In-Reply-To: <20260918161407.2300-1-will@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 23:42:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
-X-Gm-Features: AclHuK_u2Nc1iLerOHkQ6hvbUCBpiEkacWiDJM0sMa6PBj21Y5wcS7mqWJaIpQs
-Message-ID: <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
-Subject: Re: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel
- sp into SP_EL0
-To: Will Deacon <will@kernel.org>, Usama Anjum <usama.anjum@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
-:
+Gary!
 
-> This is version two of the kernel stack juggling patches I previously
-> posted here:
+On Wed, Sep 30 2026 at 14:14, Gary Guo wrote:
+> On Tue Sep 29, 2026 at 9:56 PM BST, Thomas Gleixner wrote:
+>> hrtimer_forward_safe_from_callback(timer)
+>> {
+>>         base = lock_running_timer_base(timer);
+>>         if (!hrtimer_is_queued(timer))
+>>         	hrtimer_forward(timer);
+>>         unlock_timer_base(base);
+>> }
 >
->   https://lore.kernel.org/r/20260907164247.17223-1-will@kernel.org
+> FWIW we did discuss about this option. Here's the list of all options that we
+> come up with:
 >
-> Changes since v1 include:
->   * Fixed suspend/resume paths to handle the stack pointers properly
->   * Fixed restoration of ptrauth keys on resume
->   * Added tags
+> 1. Take base lock before calling forward and release it afterward (the one you
+>    mentioned above). This one requires exposing the base lock (at least to Rust
+>    abstraction).
 
-Overall I like what I see, but can we split it in two... like first the pat=
-ches
-up to fixing the overflow handling using SP_EL0 and finalize that?
+Why?
 
-Hopefully Usama can test just that part and see if it has a lesser
-performance impact as well.
+With the above C core function Rust does not even know that the
+base lock exists. Rust invokes the function and relies on the guarantees
+it provides.
 
-Then we can think about the rest once that is merged and works.
+And the function is not Rust specific at all. You can use it to paper
+over the i915 bugs too, no?
 
-Yours,
-Linus Walleij
+> 2. Prevent timer operation from within the callback and have hrtimer core doing
+>    it (Andreas's patch).
+
+Which adds overhead into the hotpath and creates yet another weird
+"scratch my itch" API.
+
+> 3. Force users to stop the timer before re-arming. This was dismissed because
+>    stopping the timer will require waiting for the callback, and this is prone to
+>    deadlock condition.
+
+Obviously and that's one of the reasons that the code is implemented the
+way it is, which puts some reasonable responsibility to the users for
+the sake of simplicity and performance.
+
+Now you want to reverse that and add overhead and complexity to the core
+to cater for the potential stupidity of users without even solving _all_
+related problems:
+
+   You again forgot that simply setting the new expiry time from the
+   callback without invoking forward() has exactly the same issue.
+
+Maybe you can prevent that on the Rust side, but the C side still allows
+that so your magic new callback is just providing a false sense of safety.
+
+> 4. Add a lock to Rust side that all users must take to forward / start. We don't
+>    want to add a new lock just for this, and taking base lock would be more
+>    favourable.
+
+There is a reason why it is documented that this needs external
+serialization.
+
+Neither this magic inject callback variant nor what I proposed solve the
+underlying problem of two competing contexts which try to rearm the
+timer to a context dependent expiry time.
+
+All they can do is prevent inconsistent state, but the price to pay in
+terms of overhead and complexity are very different. And as I said above
+neither one of them solves the 'set expiry directly from the callback'
+problem.
+
+> We consider (2) the best option because it avoids several pitfalls with (1):
+>
+> - It is impossible to forget to forward and return restart, or forward but
+>   return norestart.
+
+Forward and forget to return RESTART is harmless. All what happens is that the
+timer won't fire so some device won't work as expected. There are a
+gazillion of other ways to achieve the same result.
+
+Forget forward and return RESTART will result in a hrtimer interrupt
+overrun warning and if you fail to figure that out when implementing
+your callback then you (and the AI you are relying on) should go and
+resort to HTML coding.
+
+> - The base lock is not unlocked before relocked, so the forward and restarting
+
+What means unlocked before relocked?
+
+>   is atomic. So it's impossible to have the condition where the forward occurs,
+>   but before returning RESTART, the hrtimer is concurrently queued.
+
+What's the problem with that?
+
+If the callback invokes hrtimer_forward_safe_from_callback() then you
+have these scenarios:
+
+#A
+        callback()
+          safe_forward()
+            lock()
+            if (!queued)  // true
+               forward()
+            unlock()
+                                        lock()
+                                        start()
+                                        unlock()
+            return RESTART
+          lock()
+          if (!queued)    // false
+             start()
+          unlock()
+
+#B
+        callback()
+          safe_forward()
+                                        lock()
+                                        start()
+                                        unlock()
+            lock()
+            if (!queued)  // false
+               forward()
+            unlock()
+            return RESTART
+
+          lock()
+          if (!queued)    // true
+             start()
+          unlock()
+
+In both cases the external start() wins.
+
+Sure in #A it overwrites the forward result, but that's what the user
+asked for and it is not at all different from this sequence:
+
+        callback()
+          safe_forward()
+            lock()
+            if (!queued)  // true
+               forward()
+            unlock()
+            return RESTART
+          lock()
+          if (!queued)    // true
+             start()
+          unlock()
+                                        lock()
+                                        start()
+                                        unlock()
+
+IOW, you cannot prevent the forward result from being overwritten and it
+does not matter at all whether the overwrite happens before or after the
+callback returned RESTART. The outcome is exactly the same. No?
+
+And no, checking hrtimer_is_queued() before invoking the start sequence
+does not prevent that simply because that check is lockless:
+
+        callback()
+          safe_forward()
+            lock()
+            if (!queued)  // true
+               forward()
+            unlock()
+            return RESTART
+          lock()
+          if (!queued)    // true	if (!queued)      // true
+             start()
+          unlock()
+                                          lock()
+                                          start()
+                                          unlock()
+
+Even if it would be protected by the base lock it would result in a
+temporary state which can be invalid when invoking the function:
+
+        callback()
+          safe_forward()
+            lock()
+            if (!queued) // true
+               forward()
+            unlock()
+            return RESTART
+            				lock()
+            				cond = !queued  // true
+                                        unlock()
+          lock()
+          if (!queued)  // true	      
+             start()
+          unlock()
+          				if (cond)       // true
+                                          lock()
+                                          start()
+                                          unlock()
+
+No?
+
+To prevent that you'd need a start_if_not_queued() function:
+
+        callback()
+          safe_forward()
+            lock()
+            if (!queued) // true
+               forward()
+            unlock()
+            return RESTART
+          lock()
+          if (!queued)  // true	      
+             start()
+          unlock()
+                                        lock()
+          				if (!queued)    // false
+                                          start()
+                                        unlock()
+
+Even that would not solve all possible problems either. That's an
+application problem. The core can only provide tools to avoid damage but
+it cannot prevent application logic bugs at all.
+
+Adding complexity to prevent that has been pointed out to be the wrong
+solution by Dijkstra long ago:
+
+  "Complexity breeds bugs. Simplicity is the prerequisite for
+   reliability."
+
+Don't get me wrong. I'm a great fan of Rust, but I have a background in
+ADA programming (admittedly from decades ago) and I studied the
+limitations of provided safety measures in practice enough to know that
+Dijkstra is absolutely right. There is a reason why ADA grew a massive
+static analysis toolset around it which is sadly not easily exploitable
+due to the design decisions of Rust which borrowed a lot of the
+incomplete ADA concepts... But that's a different discussion to have.
+
+> - Unlock/relock have an overhead (we didn't quantify how much impact this will
+>   be, though).
+
+The extra lock operations won't be measurable except for situations
+which have high lock contention on the base lock independent of the
+problematic scenario. If that's the case then the extra lock/unlock pair
+will just add to the noise.
+
+> I supposed another alternative is to add a mode in hrtimer core where the base
+> lock is not unlocked before calling the callback, and expose base lock APIs
+> (like option 1) so that the Rust hrtimer abstraction can unlock it before
+> calling the callbacks.
+
+That's even worse and Option 1, i.e. the core function I proposed is
+_NOT_ exposing base lock at all.
+
+So what's your actual argument that you can't build a "safe" Rust API
+around this?
+
+Thanks,
+
+        tglx
