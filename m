@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A782E51614A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78E9516168;
 	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787139; cv=none; b=lxfvQ9BtR3Uidqx8hNzVEIp0FesQLxjS2MbA1nZqLJJIwKXPQhNJDMjK0UbOA0Zxm5JeEfJepsR0Rc2E+rJAz6NhkJ4xbZGRlBHgFCxIlMZVJT/lftyqy9PduMYhB+DKSiGGROeO9f0Zsj1ZpvvIDI4tBKZ9n05VEQBnBgOfH+o=
+	t=1790787139; cv=none; b=EBvYrQHU5FYeW0dAkSSqACc8YB8EVG51SATntsd23VgduceFek6xiFCPwJoA9/ciml+ce+kgCZ3Q2G6oq98zXtmYnpbNU1da2aTD/MExM3n6DqDsiM/MvfRPtIGPu3np7VNBwkRaHQGnSQZo+M6MyuLXTm7dYHqHhWggitam5j0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790787139; c=relaxed/simple;
-	bh=FkTS1J850r7Vj79AJGPS5AoW9XnMem2eGQVjUeS1sP0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mBH6md6gz+LHdX4KHU63junSUu3ycByXYTO/JwBypkGbeqHYMjRtbve/tEroGJjH5ta9hzKNw1X8x666vBxDjbz/Grai9Ni7oIQVaZSEDYyuQ/JbVOCNPdgWUPcKzphKLPwIcd3rPz5ifqHljbV2njGk8qsuKe4dMuRmCsjLYgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lckSvKwt; arc=none smtp.client-ip=10.30.226.201
+	bh=f/PpISk6g+62l+NZnebi+m8lkyLjsj4FeTpom7vbKjQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Latt/hHOJwo5Dvb4QgWgFeNF49JVE2fah282x3ftXaWDGT1iVVbY1+SC2nTUiBdzbDHVA/kJ67PUwB6srGi0CM4aVx3MhqDgB7dFZWydeWKdfJMsOqNBghUaXkUqg1LEyaH9PuUJUM23TY7JYgvTMD1w2uigxz+/ofrUp7Vp4yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sY0pnqyF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lckSvKwt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DE0BC2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sY0pnqyF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5A797C4AF13;
 	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790787139;
-	bh=FkTS1J850r7Vj79AJGPS5AoW9XnMem2eGQVjUeS1sP0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=lckSvKwt9uj2sA4OcHoQgoHsE0dffyzGcWOAzHJiVv59EeBnnec0g11ALlfc9bxor
-	 LVaIdi7DdeORzdo/WOfCosWO4YMMT0QIzV1/PBaB97npNcetJA8/RzMUIMHu9pVfa4
-	 RbN1ETezqlQXdOxL9VowXGRSJgWTqxQMcPbWup7TbjERXTuFa0qL5mYCCpA3qNPwCn
-	 R5zeSicjup/NtJlidOMxT+wW79Nmo2jLdaTmtKEnfXF/vRMhiADp+A1MhXhn4Np0aH
-	 n3PrKWsR2F8/fwLqjlo3JTXI/WkTDxG12ZLr5/PKmslrUqcEkxq+bd2WqS6VU0dPuS
-	 l4E01elod9Rxg==
+	bh=f/PpISk6g+62l+NZnebi+m8lkyLjsj4FeTpom7vbKjQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=sY0pnqyF8/s6VHRIeJv7BYYFbow+9oPipA5lk+cKbbk/AyRwZq0iPBkiRWJb5D/mw
+	 RGQBu2ZX2XSPrqLqrcF1De7TMcZ6gK223XxSTYLiIjkYa3hIJPZgoi6jBs2G8hobw7
+	 ws701xHbcVC57dkb5R74szktohsobdrswe3KppD+vdVBHSV55mxbtvKM7N/Mi/lDgV
+	 N9ysUpWVcZ7+0ekwDHTMTmrm7EeQshtlW0NNAUmKV3D4E99xfHoWbRzmx3x3M7xmap
+	 JbgW4k6qaxp263Gnlcc9SwOYgFjEB+9nny1OvdBsTv5VGldJFkRHm1zfC1thGqnKn/
+	 pYBBRCQDBoixA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A483CA5FC5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48DDDCA5FCB;
 	Wed, 30 Sep 2026 16:52:19 +0000 (UTC)
 From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: fix the SPI
- NOR
-Date: Wed, 30 Sep 2026 16:52:13 +0000
-Message-Id: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
+Date: Wed, 30 Sep 2026 16:52:15 +0000
+Subject: [PATCH 2/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: run the SPI
+ NOR at 40 MHz
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD0+vWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS2MD3YxkE93igkzdvPwi3UQLA0NTo1Rjg9REQyWgjoKi1LTMCrBp0bG
- 1tQBEQpybXQAAAA==
+Message-Id: <20260930-hc4-spi-nor-v1-2-9a3351e2984e@iav.lv>
+References: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
+In-Reply-To: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
@@ -53,40 +53,57 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=793; i=iav@iav.lv;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=iav@iav.lv;
  h=from:subject:message-id;
- bh=FkTS1J850r7Vj79AJGPS5AoW9XnMem2eGQVjUeS1sP0=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl77Ry+ae2L8vxTvSl2tdjba93Cf4SeTfPdmyhyauPpT
- a01a7vmdpSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJpP9n+CtQL/L8hb3782ns
- JguX1ZY/FWj5UX7k4/PN2fzcutNfB1oy/BX5NsVdR+DUgfvdxj/qn75j3sLie8H6e0ZN4sHcqpW
- bNbkB
+ bh=EpGmYpLlMviVEwXG8x1TChGxSFfpKyMpVV1+YR4B4L0=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl77RwN7TTrC1x5sp0jGAySzj6IuL8++L9j51HN4mebL
+ dffPMLSUcrCIMbFICumyDLhkMatjCVX//p7mD+AmcPKBDKEgYtTACZSfojhf26vZp+N08/3J6ea
+ mM6a5NhaxmwYmqr+Yu+zNctWLzS+U8fwz+7+31+tU4/uPjcne4p3tcAhr8PauWK30/wkUp1V3to
+ t5AAA
 X-Developer-Key: i=iav@iav.lv; a=openpgp;
  fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
 X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
 X-Original-From: Igor Velkov <iav@iav.lv>
 Reply-To: iav@iav.lv
 
-Two fixes for the SPI NOR flash on ODROID-HC4. Patch 1 lets the flash
-probe after a boot from SD past the SPI. Patch 2 lowers the clock to
-40 MHz, where reads stop returning corrupted data.
+From: Igor Velkov <iav@iav.lv>
 
-U-Boot takes this device tree from dts/upstream and gets the fixes with
-the next sync.
+At 104 MHz, reads return corrupted data: bit 0 of the first byte of a
+transfer flips from 0 to 1 part of the time. The same byte read as the
+second byte of a transfer was correct in all 100 reads. One 4 KiB block
+read 200 times came back wrong 157 times. Writes are unaffected.
 
+flashcp verifies while it writes, so a bootloader update erases blocks
+it should skip and can abort halfway, with the flash half written.
+
+The Hardkernel vendor device tree for this board uses 40 MHz. At 40 MHz
+the same tests pass: 200 block reads with no mismatch, and 14 flashcp
+runs with no block erased.
+
+Tested on ODROID-HC4 with an XT25F128B.
+
+Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+Assisted-by: LLM
 Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-Igor Velkov (2):
-      arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the SPI NOR HOLD# and WP# pins
-      arm64: dts: amlogic: meson-sm1-odroid-hc4: run the SPI NOR at 40 MHz
+ arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
----
-base-commit: 065957517880dc7053e0723cc9532b6e78c8855c
-change-id: 20260930-hc4-spi-nor-a80152e30ea1
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+index 5ce76a1bfe02..8f09f2b74bdd 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+@@ -144,7 +144,7 @@ flash@0 {
+ 		#size-cells = <1>;
+ 		compatible = "jedec,spi-nor";
+ 		reg = <0>;
+-		spi-max-frequency = <104000000>;
++		spi-max-frequency = <40000000>;
+ 	};
+ };
+ 
 
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
+2.43.0
 
 
