@@ -1,78 +1,37 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DFE4EA39C;
-	Wed, 30 Sep 2026 13:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B904D0A0D;
+	Wed, 30 Sep 2026 13:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776501; cv=none; b=kGlCKBY2vZVlmaFMbxapYk7bbMXyYiOBVmPaj2f0EVyTfiZ0D7xJnD5mwvusHrN9wOcxr6xsREcw59Am6Lofwh6U5iFkzrJ6DzaQnzE2Jo6fI1wo+5ud1Js/AnWBwAxHcigboLzQYrxOgtGZetbld7glMYV2yrSBwxRhktUmvv8=
+	t=1790776511; cv=none; b=Dqo0cgLRNWgEN6Rc+7BqdAxLMGdNEwEX77ce/XyixRzjdXC7vwgzF71/j7TiM5KHaEsRRTf1zXvrIUjz3luesXCzp765/+Un7luM3tY0fByaY76Mw3BqYZW1S/YQvebYuYyqaXZNcfsaxUoFhEqd15gcTj6A/FLrjnDM1mLX20I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776501; c=relaxed/simple;
-	bh=d9drHmILXEV/jetVTacifv1X2zzQVL3f9Sxkt32srjQ=;
+	s=arc-20240116; t=1790776511; c=relaxed/simple;
+	bh=8Daqr49GTkOdyPVcu3YfH7zRwQ2q2SKCN6OFsi9VlEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V994YHuWE87PT2ezvDhzkTiljqLXsInNc1nD8qX4nmTCC1TXVBA7g1vgdqfvcr+NTqQERqQ7OWJLQqn5V3DMH5A8SP/fA0PgBWioE6cmdi6Ri+X0yBLP5Hqm5cim9i44p1lYcQcB2MwIZ2QWct1JX1QGUOxYg1BoOJOxJ0dsp0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0ruPs7Sc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EcqJkjDm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SvaSWLNe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Z82ddSQQ; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=rKD67sR+h0Kv6gXHoLwo1zQjs/JqzY2ds3mfXhfFlthzO0rCIE9le6wUYz4lBIkFo6NjiOItgT/42FhLdUcJi7dixAs4ex0mOuNKBvow697WBVkQX1ERAtA0xPLqLAkxG4cs9meY5kAs2ALJCz6PQjybK3z2mWGQ3St+mbOy/dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0ruPs7Sc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EcqJkjDm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SvaSWLNe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Z82ddSQQ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0999C1F8C2;
-	Wed, 30 Sep 2026 13:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790776477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lmTgeUzU0YmUVH0feM6irFKttZnTSx5LJxFjsE4sn9o=;
-	b=0ruPs7ScM9TJCH495NkHx0FE9RhidyQj2qw/Vtl355amUUi/lY7mcBfuzkpHcri4mThhZ+
-	iGn9Ps6pv2b5jpQLSoG40dm0mUyqv5n4+gmWa2ceR35rl9Mb4/SkLvV7lLR3qrPRgoIIqx
-	GbQ8vm+MrHANX2nXJuocFKXOCmpDZGo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790776477;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lmTgeUzU0YmUVH0feM6irFKttZnTSx5LJxFjsE4sn9o=;
-	b=EcqJkjDmsf9LZBFcM9W/8Rp8revsCjDy9jISbM/mp11BHswoFQ4OCfU2mjlUiswOJx31W2
-	W3H4HiQPqC3xXwDw==
-Authentication-Results: smtp-out2.suse.de;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E431321E26;
+	Wed, 30 Sep 2026 13:54:51 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790776473; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lmTgeUzU0YmUVH0feM6irFKttZnTSx5LJxFjsE4sn9o=;
-	b=SvaSWLNe01hQrEbga/+0cpJCyOPEU68jUzKaB9dwAS5rrhWqEImIpg5e+zCXuaWyR68tsx
-	l4XSdSHaNJB0OJiqDjV+YOhg6xSx8aFJDCWc9Kb5a1jbYkF1oV/BPChG61enZCO5NuWNTu
-	nL40mdWORTjluGiZd/wHtQ56BghUta8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790776473;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lmTgeUzU0YmUVH0feM6irFKttZnTSx5LJxFjsE4sn9o=;
-	b=Z82ddSQQCdCUJhsqzJ+H1QupVqB/5CacAkK/0Q/thF5QwvvAm2o8mvkF/GglCbvveiauAg
-	dryTk8uU31sD4ZAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D533713722;
-	Wed, 30 Sep 2026 13:54:31 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F32413ABC;
+	Wed, 30 Sep 2026 13:54:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fJXpHGIUvWqUTwAAD6G6ig:T9
-	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:31 +0000
+	id fJXpHGIUvWqUTwAAD6G6ig:T16
+	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:50 +0000
 From: Fernando Fernandez Mancera <fmancera@suse.de>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -81,21 +40,25 @@ Cc: horms@kernel.org,
 	edumazet@kernel.org,
 	davem@davemloft.net,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Paul Moore <paul@paul-moore.com>,
 	Eric Dumazet <edumazet@google.com>,
-	Florian Westphal <fw@strlen.de>,
-	Neal Cardwell <ncardwell@google.com>,
+	Casey Schaufler <casey@schaufler-ca.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
 	Willem de Bruijn <willemb@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
 	Eric Biggers <ebiggers@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	"yuan.gao" <yuan.gao@ucloud.cn>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH 08/16 net-next v3] ipv4: ping: split IPv4 specific logic into ping_ipv4.c
-Date: Wed, 30 Sep 2026 15:52:51 +0200
-Message-ID: <20260930135334.4739-9-fmancera@suse.de>
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Florian Westphal <fw@strlen.de>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 15/16 net-next v3] netlabel: cipso: introduce CONFIG_CIPSO to decouple IPv4 dependency
+Date: Wed, 30 Sep 2026 15:52:58 +0200
+Message-ID: <20260930135334.4739-16-fmancera@suse.de>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260930135334.4739-1-fmancera@suse.de>
 References: <20260930135334.4739-1-fmancera@suse.de>
@@ -106,558 +69,239 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.78 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.18)[-0.920];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -6.78
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
 X-Spam-Level: 
+X-Rspamd-Queue-Id: E431321E26
 X-Spam-Flag: NO
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
-To enable compiling INET subsystem withot IPv4, ping socket IPv4
-specific functions must be isolated from the generic ping
-infrastructure.
+Currently, the Commercial IP Security Option (CIPSO) is unconditionally
+tied to CONFIG_NETLABEL. Because CIPSO is inherently an IPv4 protocol
+feature, this creates a transitive dependency where subsystems relying on
+NetLabel (such as Smack) are forced to depend on CONFIG_IPV4, even if
+the user only wants to utilize IPv6/CALIPSO.
 
-This patch creates ping_ipv4.c and move all the functions for packet
-transmission and the AF_INET ping_prot definition from ping.c to the new
-file. The Makefile is updated to compile ping_ipv4.c only when
-CONFIG_IPV4 is enabled.
+This patch introduces a new CONFIG_CIPSO boolean that is automatically
+enabled only when both NETLABEL and IPV4 are selected. It abstracts the
+CIPSO-specific Makefile targets, sysctls, and kernel APIs behind this
+new config.
 
+By safely stubbing out the CIPSO netlabel_kapi functions to return
+-ENOSYS when disabled, this allows NetLabel and Smack to be successfully
+built and used on IPv6-only kernels.
+
+Acked-by: Paul Moore <paul@paul-moore.com>
 Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
- net/ipv4/Makefile    |   2 +-
- net/ipv4/ping.c      | 210 +--------------------------------------
- net/ipv4/ping_ipv4.c | 228 +++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 234 insertions(+), 206 deletions(-)
- create mode 100644 net/ipv4/ping_ipv4.c
+ include/net/cipso_ipv4.h         | 18 +++++++++++-------
+ net/Kconfig                      |  3 ---
+ net/ipv4/Makefile                |  2 +-
+ net/ipv4/sysctl_net_ipv4.c       |  4 ++--
+ net/netlabel/Kconfig             |  4 ++++
+ net/netlabel/Makefile            |  2 +-
+ net/netlabel/netlabel_cipso_v4.h |  7 +++++++
+ net/netlabel/netlabel_kapi.c     |  3 +++
+ security/smack/Kconfig           |  1 -
+ 9 files changed, 29 insertions(+), 15 deletions(-)
 
+diff --git a/include/net/cipso_ipv4.h b/include/net/cipso_ipv4.h
+index d6780d7903f4..6f50a0a6951b 100644
+--- a/include/net/cipso_ipv4.h
++++ b/include/net/cipso_ipv4.h
+@@ -100,7 +100,7 @@ struct cipso_v4_std_map_tbl {
+  * Sysctl Variables
+  */
+ 
+-#ifdef CONFIG_NETLABEL
++#ifdef CONFIG_CIPSO
+ extern int cipso_v4_cache_enabled;
+ extern int cipso_v4_cache_bucketsize;
+ extern int cipso_v4_rbm_optfmt;
+@@ -111,7 +111,7 @@ extern int cipso_v4_rbm_strictvalid;
+  * DOI List Functions
+  */
+ 
+-#ifdef CONFIG_NETLABEL
++#ifdef CONFIG_CIPSO
+ int cipso_v4_doi_add(struct cipso_v4_doi *doi_def,
+ 		     struct netlbl_audit *audit_info);
+ void cipso_v4_doi_free(struct cipso_v4_doi *doi_def);
+@@ -144,19 +144,23 @@ static inline struct cipso_v4_doi *cipso_v4_doi_getdef(u32 doi)
+ 	return NULL;
+ }
+ 
++static inline void cipso_v4_doi_putdef(struct cipso_v4_doi *doi_def)
++{
++}
++
+ static inline int cipso_v4_doi_walk(u32 *skip_cnt,
+ 		     int (*callback) (struct cipso_v4_doi *doi_def, void *arg),
+ 		     void *cb_arg)
+ {
+ 	return 0;
+ }
+-#endif /* CONFIG_NETLABEL */
++#endif /* CONFIG_CIPSO */
+ 
+ /*
+  * Label Mapping Cache Functions
+  */
+ 
+-#ifdef CONFIG_NETLABEL
++#ifdef CONFIG_CIPSO
+ void cipso_v4_cache_invalidate(void);
+ int cipso_v4_cache_add(const unsigned char *cipso_ptr,
+ 		       const struct netlbl_lsm_secattr *secattr);
+@@ -171,13 +175,13 @@ static inline int cipso_v4_cache_add(const unsigned char *cipso_ptr,
+ {
+ 	return 0;
+ }
+-#endif /* CONFIG_NETLABEL */
++#endif /* CONFIG_CIPSO */
+ 
+ /*
+  * Protocol Handling Functions
+  */
+ 
+-#ifdef CONFIG_NETLABEL
++#ifdef CONFIG_CIPSO
+ void cipso_v4_error(struct sk_buff *skb, int error, u32 gateway);
+ int cipso_v4_getattr(const unsigned char *cipso,
+ 		     struct netlbl_lsm_secattr *secattr);
+@@ -303,6 +307,6 @@ static inline int cipso_v4_validate(const struct sk_buff *skb,
+ 	return err_offset;
+ 
+ }
+-#endif /* CONFIG_NETLABEL */
++#endif /* CONFIG_CIPSO */
+ 
+ #endif /* _CIPSO_IPV4_H */
+diff --git a/net/Kconfig b/net/Kconfig
+index ca86f20540dd..2ef4ea6ce056 100644
+--- a/net/Kconfig
++++ b/net/Kconfig
+@@ -136,10 +136,7 @@ if INET
+ source "net/ipv4/Kconfig"
+ source "net/ipv6/Kconfig"
+ source "net/mptcp/Kconfig"
+-
+-if IPV4
+ source "net/netlabel/Kconfig"
+-endif # if IPV4
+ 
+ endif # if INET
+ 
 diff --git a/net/ipv4/Makefile b/net/ipv4/Makefile
-index 651835073a29..83c25f52eb58 100644
+index 83c25f52eb58..871187937add 100644
 --- a/net/ipv4/Makefile
 +++ b/net/ipv4/Makefile
-@@ -14,7 +14,7 @@ obj-y     := inetpeer.o protocol.o inet_hashtables.o inet_timewait_sock.o \
- obj-$(CONFIG_IPV4) += route.o ip_input.o ip_fragment.o ip_forward.o ip_options.o \
- 		      ip_sockglue.o tcp_ipv4.o datagram.o arp.o devinet.o igmp.o \
- 		      fib_notifier.o ip_output.o fib_frontend.o fib_semantics.o \
--		      fib_trie.o raw_ipv4.o udp_ipv4.o icmp_ipv4.o
-+		      fib_trie.o raw_ipv4.o udp_ipv4.o icmp_ipv4.o ping_ipv4.o
+@@ -62,7 +62,7 @@ obj-$(CONFIG_TCP_CONG_YEAH) += tcp_yeah.o
+ obj-$(CONFIG_TCP_CONG_ILLINOIS) += tcp_illinois.o
+ obj-$(CONFIG_NET_SOCK_MSG) += tcp_bpf.o
+ obj-$(CONFIG_BPF_SYSCALL) += udp_bpf.o
+-obj-$(CONFIG_NETLABEL) += cipso_ipv4.o
++obj-$(CONFIG_CIPSO) += cipso_ipv4.o
  
- obj-$(CONFIG_NET_IP_TUNNEL) += ip_tunnel.o
- obj-$(CONFIG_SYSCTL) += sysctl_net_ipv4.o
-diff --git a/net/ipv4/ping.c b/net/ipv4/ping.c
-index 223a0108b74c..ada4ff932734 100644
---- a/net/ipv4/ping.c
-+++ b/net/ipv4/ping.c
-@@ -285,19 +285,6 @@ void ping_close(struct sock *sk, long timeout)
- 	sk_common_release(sk);
- }
+ obj-$(CONFIG_XFRM) += xfrm4_policy.o xfrm4_state.o xfrm4_input.o \
+ 		      xfrm4_output.o xfrm4_protocol.o
+diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+index 6096e9e4d82d..89b0caf5a9f5 100644
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -573,7 +573,7 @@ static struct ctl_table ipv4_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dointvec
+ 	},
+-#ifdef CONFIG_NETLABEL
++#ifdef CONFIG_CIPSO
+ 	{
+ 		.procname	= "cipso_cache_enable",
+ 		.data		= &cipso_v4_cache_enabled,
+@@ -602,7 +602,7 @@ static struct ctl_table ipv4_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dointvec,
+ 	},
+-#endif /* CONFIG_NETLABEL */
++#endif /* CONFIG_CIPSO */
+ 	{
+ 		.procname	= "tcp_available_ulp",
+ 		.maxlen		= TCP_ULP_BUF_MAX,
+diff --git a/net/netlabel/Kconfig b/net/netlabel/Kconfig
+index 4383ac29693e..bcc27196d5bd 100644
+--- a/net/netlabel/Kconfig
++++ b/net/netlabel/Kconfig
+@@ -17,3 +17,7 @@ config NETLABEL
+ 	   * https://github.com/netlabel/netlabel_tools
  
--static int ping_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
--			    int addr_len)
--{
--	/* This check is replicated from __ip4_datagram_connect() and
--	 * intended to prevent BPF program called below from accessing bytes
--	 * that are out of the bound specified by user in addr_len.
--	 */
--	if (addr_len < sizeof(struct sockaddr_in))
--		return -EINVAL;
--
--	return BPF_CGROUP_RUN_PROG_INET4_CONNECT_LOCK(sk, uaddr, &addr_len);
--}
--
- /* Checks the bind address and possibly modifies sk->sk_bound_dev_if. */
- static int ping_check_bind_addr(struct sock *sk, struct inet_sock *isk,
- 				struct sockaddr_unsized *uaddr, int addr_len)
-@@ -308,6 +295,9 @@ static int ping_check_bind_addr(struct sock *sk, struct inet_sock *isk,
- 		u32 tb_id = RT_TABLE_LOCAL;
- 		int chk_addr_ret;
- 
-+		if (!IS_ENABLED(CONFIG_IPV4))
-+			return -EAFNOSUPPORT;
+ 	  If you are unsure, say N.
 +
- 		if (addr_len < sizeof(*addr))
- 			return -EINVAL;
++config CIPSO
++	def_bool y
++	depends on NETLABEL && IPV4
+diff --git a/net/netlabel/Makefile b/net/netlabel/Makefile
+index 5a46381a64e7..8afc1bf00424 100644
+--- a/net/netlabel/Makefile
++++ b/net/netlabel/Makefile
+@@ -12,5 +12,5 @@ obj-y	+= netlabel_mgmt.o
  
-@@ -527,7 +517,7 @@ void ping_err(struct sk_buff *skb, int offset, u32 info)
- 	harderr = 0;
- 	inet_sock = inet_sk(sk);
+ # protocol modules
+ obj-y	+= netlabel_unlabeled.o
+-obj-y	+= netlabel_cipso_v4.o
++obj-$(CONFIG_CIPSO) += netlabel_cipso_v4.o
+ obj-$(subst m,y,$(CONFIG_IPV6)) += netlabel_calipso.o
+diff --git a/net/netlabel/netlabel_cipso_v4.h b/net/netlabel/netlabel_cipso_v4.h
+index 9518ab56ec98..fb718f86bcbd 100644
+--- a/net/netlabel/netlabel_cipso_v4.h
++++ b/net/netlabel/netlabel_cipso_v4.h
+@@ -147,6 +147,13 @@ enum {
+ #define NLBL_CIPSOV4_A_MAX (__NLBL_CIPSOV4_A_MAX - 1)
  
--	if (skb->protocol == htons(ETH_P_IP)) {
-+	if (IS_ENABLED(CONFIG_IPV4) && skb->protocol == htons(ETH_P_IP)) {
- 		switch (type) {
- 		default:
- 		case ICMP_TIME_EXCEEDED:
-@@ -580,7 +570,7 @@ void ping_err(struct sk_buff *skb, int offset, u32 info)
- 		if (!harderr || sk->sk_state != TCP_ESTABLISHED)
- 			goto out;
- 	} else {
--		if (family == AF_INET) {
-+		if (IS_ENABLED(CONFIG_IPV4) && family == AF_INET) {
- 			ip_icmp_error(sk, skb, err, 0 /* no remote port */,
- 				      info, (u8 *)icmph);
- #if IS_ENABLED(CONFIG_IPV6)
-@@ -625,21 +615,6 @@ int ping_getfrag(void *from, char *to,
- 	return 0;
- }
- 
--static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
--				       struct flowi4 *fl4)
--{
--	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
--
--	if (!skb)
--		return 0;
--	pfh->wcheck = csum_partial((char *)&pfh->icmph,
--		sizeof(struct icmphdr), pfh->wcheck);
--	pfh->icmph.checksum = csum_fold(pfh->wcheck);
--	memcpy(icmp_hdr(skb), &pfh->icmph, sizeof(struct icmphdr));
--	skb->ip_summed = CHECKSUM_NONE;
--	return ip_push_pending_frames(sk, fl4);
--}
--
- int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
- 			void *user_icmph, size_t icmph_len)
- {
-@@ -685,160 +660,6 @@ int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
- 	return 0;
- }
- 
--static int ping_v4_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
--{
--	DEFINE_RAW_FLEX(struct ip_options_rcu, opt_copy, opt.__data,
--			IP_OPTIONS_DATA_FIXED_SIZE);
--	struct net *net = sock_net(sk);
--	struct flowi4 fl4;
--	struct inet_sock *inet = inet_sk(sk);
--	struct ipcm_cookie ipc;
--	struct icmphdr user_icmph;
--	struct pingfakehdr pfh;
--	struct rtable *rt = NULL;
--	int free = 0;
--	__be32 saddr, daddr, faddr;
--	u8 scope;
--	int err;
--
--	pr_debug("ping_v4_sendmsg(sk=%p,sk->num=%u)\n", inet, inet->inet_num);
--
--	err = ping_common_sendmsg(AF_INET, msg, len, &user_icmph,
--				  sizeof(user_icmph));
--	if (err)
--		return err;
--
--	/*
--	 *	Get and verify the address.
--	 */
--
--	if (msg->msg_name) {
--		DECLARE_SOCKADDR(struct sockaddr_in *, usin, msg->msg_name);
--		if (msg->msg_namelen < sizeof(*usin))
--			return -EINVAL;
--		if (usin->sin_family != AF_INET)
--			return -EAFNOSUPPORT;
--		daddr = usin->sin_addr.s_addr;
--		/* no remote port */
--	} else {
--		if (sk->sk_state != TCP_ESTABLISHED)
--			return -EDESTADDRREQ;
--		daddr = inet->inet_daddr;
--		/* no remote port */
--	}
--
--	ipcm_init_sk(&ipc, inet);
--
--	if (msg->msg_controllen) {
--		err = ip_cmsg_send(sk, msg, &ipc, false);
--		if (unlikely(err)) {
--			kfree(ipc.opt);
--			return err;
--		}
--		if (ipc.opt)
--			free = 1;
--	}
--	if (!ipc.opt) {
--		struct ip_options_rcu *inet_opt;
--
--		rcu_read_lock();
--		inet_opt = rcu_dereference(inet->inet_opt);
--		if (inet_opt) {
--			memcpy(opt_copy, inet_opt,
--			       sizeof(*inet_opt) + inet_opt->opt.optlen);
--			ipc.opt = opt_copy;
--		}
--		rcu_read_unlock();
--	}
--
--	saddr = ipc.addr;
--	ipc.addr = faddr = daddr;
--
--	if (ipc.opt && ipc.opt->opt.srr) {
--		if (!daddr) {
--			err = -EINVAL;
--			goto out_free;
--		}
--		faddr = ipc.opt->opt.faddr;
--	}
--	scope = ip_sendmsg_scope(inet, &ipc, msg);
--
--	if (ipv4_is_multicast(daddr)) {
--		if (!ipc.oif || netif_index_is_l3_master(sock_net(sk), ipc.oif))
--			ipc.oif = READ_ONCE(inet->mc_index);
--		if (!saddr)
--			saddr = READ_ONCE(inet->mc_addr);
--	} else if (!ipc.oif)
--		ipc.oif = READ_ONCE(inet->uc_index);
--
--	flowi4_init_output(&fl4, ipc.oif, ipc.sockc.mark,
--			   ipc.tos & INET_DSCP_MASK, scope,
--			   sk->sk_protocol, inet_sk_flowi_flags(sk), faddr,
--			   saddr, 0, 0, sk_uid(sk));
--
--	fl4.fl4_icmp_type = user_icmph.type;
--	fl4.fl4_icmp_code = user_icmph.code;
--
--	security_sk_classify_flow(sk, flowi4_to_flowi_common(&fl4));
--	rt = ip_route_output_flow(net, &fl4, sk);
--	if (IS_ERR(rt)) {
--		err = PTR_ERR(rt);
--		rt = NULL;
--		if (err == -ENETUNREACH)
--			IP_INC_STATS(net, IPSTATS_MIB_OUTNOROUTES);
--		goto out;
--	}
--
--	err = -EACCES;
--	if ((rt->rt_flags & RTCF_BROADCAST) &&
--	    !sock_flag(sk, SOCK_BROADCAST))
--		goto out;
--
--	if (msg->msg_flags & MSG_CONFIRM)
--		goto do_confirm;
--back_from_confirm:
--
--	if (!ipc.addr)
--		ipc.addr = fl4.daddr;
--
--	lock_sock(sk);
--
--	pfh.icmph.type = user_icmph.type; /* already checked */
--	pfh.icmph.code = user_icmph.code; /* ditto */
--	pfh.icmph.checksum = 0;
--	pfh.icmph.un.echo.id = inet->inet_sport;
--	pfh.icmph.un.echo.sequence = user_icmph.un.echo.sequence;
--	pfh.msg = msg;
--	pfh.wcheck = 0;
--	pfh.family = AF_INET;
--
--	err = ip_append_data(sk, &fl4, ping_getfrag, &pfh, len,
--			     sizeof(struct icmphdr), &ipc, &rt,
--			     msg->msg_flags);
--	if (err)
--		ip_flush_pending_frames(sk);
--	else
--		err = ping_v4_push_pending_frames(sk, &pfh, &fl4);
--	release_sock(sk);
--
--out:
--	ip_rt_put(rt);
--out_free:
--	if (free)
--		kfree(ipc.opt);
--	if (!err)
--		return len;
--	return err;
--
--do_confirm:
--	if (msg->msg_flags & MSG_PROBE)
--		dst_confirm_neigh(&rt->dst, &fl4.daddr);
--	if (!(msg->msg_flags & MSG_PROBE) || len)
--		goto back_from_confirm;
--	err = 0;
--	goto out;
--}
--
- int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags)
- {
- 	struct inet_sock *isk = inet_sk(sk);
-@@ -976,27 +797,6 @@ enum skb_drop_reason ping_rcv(struct sk_buff *skb)
- 	return SKB_DROP_REASON_NO_SOCKET;
- }
- 
--struct proto ping_prot = {
--	.name =		"PING",
--	.owner =	THIS_MODULE,
--	.init =		ping_init_sock,
--	.close =	ping_close,
--	.pre_connect =	ping_pre_connect,
--	.connect =	ip4_datagram_connect,
--	.disconnect =	__udp_disconnect,
--	.setsockopt =	ip_setsockopt,
--	.getsockopt =	ip_getsockopt,
--	.sendmsg =	ping_v4_sendmsg,
--	.recvmsg =	ping_recvmsg,
--	.bind =		ping_bind,
--	.backlog_rcv =	ping_queue_rcv_skb,
--	.release_cb =	ip4_datagram_release_cb,
--	.unhash =	ping_unhash,
--	.get_port =	ping_get_port,
--	.put_port =	ping_unhash,
--	.obj_size =	sizeof(struct inet_sock),
--};
--
- #ifdef CONFIG_PROC_FS
- 
- static struct sock *ping_get_first(struct seq_file *seq, int start)
-diff --git a/net/ipv4/ping_ipv4.c b/net/ipv4/ping_ipv4.c
-new file mode 100644
-index 000000000000..4489aa292a4e
---- /dev/null
-+++ b/net/ipv4/ping_ipv4.c
-@@ -0,0 +1,228 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * INET		An implementation of the TCP/IP protocol suite for the LINUX
-+ *		operating system.  INET is implemented using the  BSD Socket
-+ *		interface as the means of communication with the user level.
-+ *
-+ *		"Ping" sockets
-+ *
-+ *		IPv4 specific functions
-+ *
-+ *		code split from:
-+ *		net/ipv4/ping.c
-+ *
-+ *		See ping.c for author information
-+ */
-+
-+#include <linux/bpf-cgroup.h>
-+#include <linux/in.h>
-+#include <linux/socket.h>
-+#include <linux/types.h>
-+#include <net/ping.h>
-+#include <net/udp.h>
-+
-+static int ping_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
-+			    int addr_len)
+ /* NetLabel protocol functions */
++#if IS_ENABLED(CONFIG_CIPSO)
+ int netlbl_cipsov4_genl_init(void);
++#else
++static inline int netlbl_cipsov4_genl_init(void)
 +{
-+	/* This check is replicated from __ip4_datagram_connect() and
-+	 * intended to prevent BPF program called below from accessing bytes
-+	 * that are out of the bound specified by user in addr_len.
-+	 */
-+	if (addr_len < sizeof(struct sockaddr_in))
-+		return -EINVAL;
-+
-+	return BPF_CGROUP_RUN_PROG_INET4_CONNECT_LOCK(sk, uaddr, &addr_len);
++	return 0;
 +}
++#endif
+ 
+ #endif
+diff --git a/net/netlabel/netlabel_kapi.c b/net/netlabel/netlabel_kapi.c
+index 3583fa63dd01..c088f599b53d 100644
+--- a/net/netlabel/netlabel_kapi.c
++++ b/net/netlabel/netlabel_kapi.c
+@@ -332,6 +332,9 @@ int netlbl_cfg_cipsov4_map_add(u32 doi,
+ 	struct netlbl_domaddr_map *addrmap = NULL;
+ 	struct netlbl_domaddr4_map *addrinfo = NULL;
+ 
++	if (!IS_ENABLED(CONFIG_CIPSO))
++		return -ENOSYS;
 +
-+static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
-+				       struct flowi4 *fl4)
-+{
-+	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
-+
-+	if (!skb)
-+		return 0;
-+	pfh->wcheck = csum_partial((char *)&pfh->icmph,
-+				   sizeof(struct icmphdr), pfh->wcheck);
-+	pfh->icmph.checksum = csum_fold(pfh->wcheck);
-+	memcpy(icmp_hdr(skb), &pfh->icmph, sizeof(struct icmphdr));
-+	skb->ip_summed = CHECKSUM_NONE;
-+	return ip_push_pending_frames(sk, fl4);
-+}
-+
-+static int ping_v4_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
-+{
-+	DEFINE_RAW_FLEX(struct ip_options_rcu, opt_copy, opt.__data,
-+			IP_OPTIONS_DATA_FIXED_SIZE);
-+	struct net *net = sock_net(sk);
-+	struct flowi4 fl4;
-+	struct inet_sock *inet = inet_sk(sk);
-+	struct ipcm_cookie ipc;
-+	struct icmphdr user_icmph;
-+	struct pingfakehdr pfh;
-+	struct rtable *rt = NULL;
-+	int free = 0;
-+	__be32 saddr, daddr, faddr;
-+	u8 scope;
-+	int err;
-+
-+	pr_debug("ping_v4_sendmsg(sk=%p,sk->num=%u)\n", inet, inet->inet_num);
-+
-+	err = ping_common_sendmsg(AF_INET, msg, len, &user_icmph,
-+				  sizeof(user_icmph));
-+	if (err)
-+		return err;
-+
-+	/*
-+	 *	Get and verify the address.
-+	 */
-+
-+	if (msg->msg_name) {
-+		DECLARE_SOCKADDR(struct sockaddr_in *, usin, msg->msg_name);
-+
-+		if (msg->msg_namelen < sizeof(*usin))
-+			return -EINVAL;
-+		if (usin->sin_family != AF_INET)
-+			return -EAFNOSUPPORT;
-+		daddr = usin->sin_addr.s_addr;
-+		/* no remote port */
-+	} else {
-+		if (sk->sk_state != TCP_ESTABLISHED)
-+			return -EDESTADDRREQ;
-+		daddr = inet->inet_daddr;
-+		/* no remote port */
-+	}
-+
-+	ipcm_init_sk(&ipc, inet);
-+
-+	if (msg->msg_controllen) {
-+		err = ip_cmsg_send(sk, msg, &ipc, false);
-+		if (unlikely(err)) {
-+			kfree(ipc.opt);
-+			return err;
-+		}
-+		if (ipc.opt)
-+			free = 1;
-+	}
-+	if (!ipc.opt) {
-+		struct ip_options_rcu *inet_opt;
-+
-+		rcu_read_lock();
-+		inet_opt = rcu_dereference(inet->inet_opt);
-+		if (inet_opt) {
-+			memcpy(opt_copy, inet_opt,
-+			       sizeof(*inet_opt) + inet_opt->opt.optlen);
-+			ipc.opt = opt_copy;
-+		}
-+		rcu_read_unlock();
-+	}
-+
-+	saddr = ipc.addr;
-+	ipc.addr = daddr;
-+	faddr = daddr;
-+
-+	if (ipc.opt && ipc.opt->opt.srr) {
-+		if (!daddr) {
-+			err = -EINVAL;
-+			goto out_free;
-+		}
-+		faddr = ipc.opt->opt.faddr;
-+	}
-+	scope = ip_sendmsg_scope(inet, &ipc, msg);
-+
-+	if (ipv4_is_multicast(daddr)) {
-+		if (!ipc.oif || netif_index_is_l3_master(sock_net(sk), ipc.oif))
-+			ipc.oif = READ_ONCE(inet->mc_index);
-+		if (!saddr)
-+			saddr = READ_ONCE(inet->mc_addr);
-+	} else if (!ipc.oif) {
-+		ipc.oif = READ_ONCE(inet->uc_index);
-+	}
-+
-+	flowi4_init_output(&fl4, ipc.oif, ipc.sockc.mark,
-+			   ipc.tos & INET_DSCP_MASK, scope,
-+			   sk->sk_protocol, inet_sk_flowi_flags(sk), faddr,
-+			   saddr, 0, 0, sk_uid(sk));
-+
-+	fl4.fl4_icmp_type = user_icmph.type;
-+	fl4.fl4_icmp_code = user_icmph.code;
-+
-+	security_sk_classify_flow(sk, flowi4_to_flowi_common(&fl4));
-+	rt = ip_route_output_flow(net, &fl4, sk);
-+	if (IS_ERR(rt)) {
-+		err = PTR_ERR(rt);
-+		rt = NULL;
-+		if (err == -ENETUNREACH)
-+			IP_INC_STATS(net, IPSTATS_MIB_OUTNOROUTES);
-+		goto out;
-+	}
-+
-+	err = -EACCES;
-+	if ((rt->rt_flags & RTCF_BROADCAST) &&
-+	    !sock_flag(sk, SOCK_BROADCAST))
-+		goto out;
-+
-+	if (msg->msg_flags & MSG_CONFIRM)
-+		goto do_confirm;
-+back_from_confirm:
-+
-+	if (!ipc.addr)
-+		ipc.addr = fl4.daddr;
-+
-+	lock_sock(sk);
-+
-+	pfh.icmph.type = user_icmph.type; /* already checked */
-+	pfh.icmph.code = user_icmph.code; /* ditto */
-+	pfh.icmph.checksum = 0;
-+	pfh.icmph.un.echo.id = inet->inet_sport;
-+	pfh.icmph.un.echo.sequence = user_icmph.un.echo.sequence;
-+	pfh.msg = msg;
-+	pfh.wcheck = 0;
-+	pfh.family = AF_INET;
-+
-+	err = ip_append_data(sk, &fl4, ping_getfrag, &pfh, len,
-+			     sizeof(struct icmphdr), &ipc, &rt,
-+			     msg->msg_flags);
-+	if (err)
-+		ip_flush_pending_frames(sk);
-+	else
-+		err = ping_v4_push_pending_frames(sk, &pfh, &fl4);
-+	release_sock(sk);
-+
-+out:
-+	ip_rt_put(rt);
-+out_free:
-+	if (free)
-+		kfree(ipc.opt);
-+	if (!err)
-+		return len;
-+	return err;
-+
-+do_confirm:
-+	if (msg->msg_flags & MSG_PROBE)
-+		dst_confirm_neigh(&rt->dst, &fl4.daddr);
-+	if (!(msg->msg_flags & MSG_PROBE) || len)
-+		goto back_from_confirm;
-+	err = 0;
-+	goto out;
-+}
-+
-+struct proto ping_prot = {
-+	.name =		"PING",
-+	.owner =	THIS_MODULE,
-+	.init =		ping_init_sock,
-+	.close =	ping_close,
-+	.pre_connect =	ping_pre_connect,
-+	.connect =	ip4_datagram_connect,
-+	.disconnect =	__udp_disconnect,
-+	.setsockopt =	ip_setsockopt,
-+	.getsockopt =	ip_getsockopt,
-+	.sendmsg =	ping_v4_sendmsg,
-+	.recvmsg =	ping_recvmsg,
-+	.bind =		ping_bind,
-+	.backlog_rcv =	ping_queue_rcv_skb,
-+	.release_cb =	ip4_datagram_release_cb,
-+	.unhash =	ping_unhash,
-+	.get_port =	ping_get_port,
-+	.put_port =	ping_unhash,
-+	.obj_size =	sizeof(struct inet_sock),
-+};
+ 	doi_def = cipso_v4_doi_getdef(doi);
+ 	if (doi_def == NULL)
+ 		return -ENOENT;
+diff --git a/security/smack/Kconfig b/security/smack/Kconfig
+index b4e6d0168bd1..5a8dfad469c3 100644
+--- a/security/smack/Kconfig
++++ b/security/smack/Kconfig
+@@ -3,7 +3,6 @@ config SECURITY_SMACK
+ 	bool "Simplified Mandatory Access Control Kernel Support"
+ 	depends on NET
+ 	depends on INET
+-	depends on IPV4
+ 	depends on SECURITY
+ 	select NETLABEL
+ 	select SECURITY_NETWORK
 -- 
 2.55.0
 
