@@ -1,133 +1,201 @@
-Received: from mail-pj2-f30.google.com (mail-pj2-f30.google.com [74.125.227.158])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A19374E62
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.158
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739365; cv=none; b=KSlFsDuzd/O9+ch5Uu+5CqFqZZVYoGMVb4kAmZIP4XlpnyTcEPnQR1z9WcP57ID4LqnIVTcsiZjJ+OdH3DXGM4sDhKseZEH9ucBgubZKXt0yiXPff1jhT+Bf5JFBMFuBXMIPij+7+K3dPz93taPNQPC3V88CE/sxajUwNF9Y0g4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739365; c=relaxed/simple;
-	bh=mh9mhqu0ZQ4ExEhM/xNb5urFxToWZfUd4NS+sOdTViI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XS5QHXDm5WoHshC9PSdOyXVOqKMqqKO7Ws12GA8o9Emc7jt/7mJJZNS/3FGZlxieNN+7OotsCnf+/fq75B1fj+HaqYJgmX88C/LOVFuKKjEa0RZZoeoqDHKvpkHzesaO6EpGAdvDjZbgiHtG5L7ke7c5ShcwunxMj+QidaYDmk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bk+KLBp5; arc=none smtp.client-ip=74.125.227.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AB536F419
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790739487; cv=pass; b=k4JLC6KTaThZiGO+WA58FeruKl5/Y80UB/vFlhom8kPTBWiSZE84fTxOCHXdysjlzf8QnoAiVQ6Poz3wGvAxqyMIBN3ZFVz1rx0ZscCVDpCwWuZhK2HfBnfgr8zCl/NgHRSPQc8x6fYxltazFGlTnJZcXiaaWoOtDp8n7S0RQj4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790739487; c=relaxed/simple;
+	bh=yrPH5+9Fa98StjobtUiDayiS4Cf06izKvzRTp/usc0I=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=qz5cnYTrskVYMZjYnuuuRBpSSV9hT8I8rJ/zRcGwAGenwNZPIUBufp8NaURWZeZTHINRw/HyB1n2i72EPVs0lZSzseaSd8pynmal6nhw19LwH9vxJnJcxJoKW2MINPuePgsG6f8un1z1/vmYB2LdtwoclVqHXONTaSurtCGJzus=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l5aV+GM1; arc=pass smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bk+KLBp5"
-Received: by mail-pj2-f30.google.com with SMTP id 98e67ed59e1d1-3a4c6bfce73so178959a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:36:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l5aV+GM1"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4451233c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:38:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790739485; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OMxwXnMeeKpnGt2PpMk7O9OR2QEXQz3a5AfMWSciNhj+2QRUj5yvNxfuW1eDETK8NQ
+         lZrNOcggwRhuGAa5Jck+/1jnHLJSYkDWEFgbVsMMCeW1SLdrs7STlH4TFhOH9nv0E0gw
+         ZZqPjPWxHu3ZzQkMnCikcmvUJAw5klhvwvKc6hXrsFk8BRwCKnO0n2WXRfiXJ7+V8Mdp
+         vZLMZwgeZ5efJXcjUy7uqGJPFh73oJgd+CIA7xq4IUmD/V9ZaixWDsMAD+xvstT3rda5
+         wtjP4VCE/pD2R6OZ51KSPeLlEWOM3nQ3lcIACS71umvjfICbDAvLcLlL+8u24UU3Vvgi
+         9teQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=+Hf5YnZpc1V7IGSMbtPymIkH7UZS8gGKRoIdelBrOCI=;
+        fh=EgwnO/Q7gzhN8er7tZlc0ioRjIGPBYfEijDpp1LI2aU=;
+        b=qMWWQoitLRi87KFFbN7JcsvSE6mdEXW0t1OVSyDfylZYg6FMJG3BGqZi0R8IevhqIz
+         xjcY80Y+vLDJW4q7yTQwuP89GqM2l+AxThXyzouSVbz0y2Q0rmb0MCVU+gjr+2UAgwEO
+         70Pui3To8i11cJYUa+8nm+j2p/xQz0ZDS4Kf4mu3yt8Fad6Ixo98plkUElqfmHEBLjxh
+         1kCyOUneu2VFT/Vz0c7XE4gbNf0sNC2bkI2cPqjMEEP7cJB71vOEk0NTvzjnq8BnBIiH
+         cQ5DFbbbtCSOdA9GcU+xcq0texjoYviVfNPZtMSTmv+ateyHljq0ZUOX0wHJogEIS+uU
+         ji+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790739363; x=1791344163; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5BQMjxmVq6FxLbCtymk4LuxsnfyC3FQKLzprKTNA/Kw=;
-        b=Bk+KLBp5AWDSLsm+jyk75ffqslIK27fAhnc5+A4g9GnAWLMee3Yu6irAiLnMIe7quN
-         5z+hCjzmYMuzT2pMR+BS4uRnG2SZBU1OweFP0FQv6mR+j8D0Jdx9aytETSP0fXz6XcVY
-         5aoXvQaQB0QlRtHE9C0tRlKkpLZR2jBHCYH7GRPFYNfYWg7bpFe1jj5C9gmyWLJTSm0Q
-         XS2LB7hFnRinzS49JvN4H/ovH57MVV9aeRz+4bkHl5XuPCxDorILj8h0zTFKjMwZKTz3
-         4KomHGUSsJmSVSSu6SxNg6PbpGB9L9vjZxZ0msb/VhfxlKLyHxcVv5vlW8T3EpXcSIhh
-         +Gdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790739363; x=1791344163;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20251104; t=1790739485; x=1791344285; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5BQMjxmVq6FxLbCtymk4LuxsnfyC3FQKLzprKTNA/Kw=;
-        b=EUBru/8cDbjMqJapbWwL/dOL1MgigWvvt5uYR1NjN5yfpjfQ3st6PboVZE4XPLhwHe
-         JC38xM/TDytu9jLBDtuCIIfhaeHcH2L//ieo29DHu7iF85ovY08eq/8aYgwozH8RdNLi
-         JCiSOdAtdQc4Wg3o9qWNeS7AKU/Xz1tFtzuLPuzv4PJjVP6kRrIeqfXuj01lFohFckVD
-         mnoEuty8RhsnZchm/xmgzd067Z2hqzt6jJs/QIIxJwrT6hztlcd5TRC1BB6qhPnAyfvh
-         aS7dOqhz8CVuUsTkspBSH+KTRe1L1nHhbCLyfeA+NV1ASOpgMp0OtUvuA66T3fvoPm79
-         l3JA==
-X-Forwarded-Encrypted: i=1; AKwUvBy21ahB2FanQG7K2hz09g61OW+ezffulUqFMqmTb5fbr5v/K2sSqBYjquSa3trVbTfO4yGw5yAFiJ/EV04=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBYyCjep1IhSFxxS415+EuSqX6nZVRqChVc+0UVPrRcSLdBHTN
-	5YzQDSNJAcPI3W1ATrUB6vvhpyJGL82w7RvD41riuf/qQ3d7uBYm5hymtelK1FQayuY=
-X-Gm-Gg: AYBFou1MyQXWCowuBQ2WKOJSLssi3Q1qR+Vw1UaGSxeJQsY2WcfBDQPE+g5m38Zww3I
-	pEi7GSLTMNerGb75ntU5tOCg/MM3Fnc/NtEurV4md3oY8Yvh0mZtJpjgVxNOAAh+u2ggBWoIRzt
-	NqMlViugu6KUUHDLnjcFT1Kf+DAHdn0TdLGgsOlTq+zhjH+xVv3/qgIksr6Hz/rlCJ6PAaPtIyj
-	dIAo5lN53xN3KB+ZfV683huc31MteBGLS55BnQPC5U1sRzmwOiaPp1A4iJXT9N5kHjoB84Jy3Hj
-	6dYwjWeuXYzoKll0m8FDdSFFh4QgHFgUxHXuUHy59iXQjnFfjuw9p2I/vp3VcafcqQAMhlFt/M2
-	X2uVGR/l0BNWupJyt0IE1h//vqCq8ctRM6rjvVwOeQf0foTq9H0PbaTlemPYaKkaAjOqy0TUT7Y
-	p7dF2mbx4v13SnWEpx7hQ4qXJFYeHFmCctQMXKkPTp1dYXbiUie77V4Au825SC4cRaUnnnDc9OM
-	IISKOOVdavEBQgsXeM+D6Fme+hd6BeSUm0IE1IIsChNT+Se+b9cV1Txz+biTfeDFpRs4mfvsszy
-	eDf/xozUbAAlWTNJM3yvpod0GtAU1+PMXOATUwqw6ZLbo6xzj5vIFise2EQ=
-X-Received: by 2002:a17:90b:4fc6:b0:3a0:8133:69a4 with SMTP id 98e67ed59e1d1-3a4d175e86cmr120507a91.26.1790739363226;
-        Tue, 29 Sep 2026 20:36:03 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce16abc2sm669108a91.9.2026.09.29.20.36.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 20:36:02 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ntfs: do not use a stale runlist pointer when undoing $MFT extension
-Date: Wed, 30 Sep 2026 11:35:56 +0800
-Message-ID: <20260930033556.169300-3-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930033556.169300-1-matthias.goergens@gmail.com>
-References: <20260930033556.169300-1-matthias.goergens@gmail.com>
+        bh=+Hf5YnZpc1V7IGSMbtPymIkH7UZS8gGKRoIdelBrOCI=;
+        b=l5aV+GM11W7rHgtcC3ysLoWO6KXe7SGRsjY6WERGuVmoXqGG/mKS1r9MKVI92QelDd
+         dHJMOrOXz4YOecGk3ZGy2rGHGEjKUs7mgqmZzI9R1YClutHKhKUXoyDAeuEeHvIFYMHi
+         TrPdDobqTGV59Tgg8iook6mwmuAl6/wTTrg1lXeX3blXwGbMmalDI2AN05yWc8RXtyoo
+         t+kzV2EAUhtp7as3QfJHLFBRd+RbJX86j97nLkcrHXcMdGDGw4X6PpZ3t3a2tv4OtMWq
+         76SFKDRosXA2yME7f+gALCgOJJo21DkKctzOSsCSerm+Qel/uazTFNxb37SzcPzEfHZC
+         xeUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790739485; x=1791344285;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+Hf5YnZpc1V7IGSMbtPymIkH7UZS8gGKRoIdelBrOCI=;
+        b=gVt1d3PaNiC98nuH9Lr86jY4xnMbHhCiOlqhvdUZ/3M2+IG4E1fUrNVU20hvoxnKu+
+         biyZDRhvkqT8ZF+rlrjpFRn30Mos/q0JhhBdc4ujWMfHuOuTIP3vdiQE920QHRzVHnXI
+         qboq3/FzP4NPSd0i/+vBELciF95CcB8UworClepGQRZLmoqhfH9sD8XPAp4Zq9qECEzG
+         wDT/AIwFlTKRfW1pKaQstukVyXYPk1wrtAePumyUAKJS6SEldSIdvcdI8iMDcwQZ+4wf
+         jJa52u1HjOEg8BPEuofpn4YKIosVgywZTPmFjHdNWxa2D2MgvoV8teKM8Y+Y2vii2Z6O
+         FldQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzel7V4KKG3qPkH5mYwdZBmK6KFnEZyhbcaWT3bk23Tpt/B92lAnhdFOwIE8EYgti/aWaQoUUo4FVW88LY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6zsV77OrqoIBu42V21nuLjf151aDQnBqX/1RnIab0BNor/zR+
+	bjk31/P0vrjXev4+0l8+Cbp8gsArjo5gQQt8hMmdeS2jVeijCAmRTtbrDefP/U5o6Gza/Bw0Y1K
+	wwHHBuxcmjDVF2Ic+9P9+Mq7RwvpoYlc=
+X-Gm-Gg: AYBFou0v7aVTQGrhxUHc9yU/XLJ2q+PYL2oUsIJc4DJ21I4jc4mlvGvxKRCCK7G69Yk
+	5ZX/WmSLvWq4xXBqVzIJ1uUqPySX4SBVqhLIXaRF46h+bDDKyEMellwjiXBh3aqPN0o1KG0RYo5
+	cZV3QOhnyuUOxxZCP4kTo3YUlfBXx2Iq3TvSFSjUwL3unkdeSvcdax6MGe5jX1XpZfGDeSD+N8A
+	sOsaGVm8Hc3A/b2V5zo9woCX6IEtIwQJQt2TorRYsPV3gOOayppT1PR2foMYnVYPOMmSB1OMv1K
+	+IG9GaSkZte9oJ1JsxgW8KfUaGTkrLiLk04BvEcAIvWafZjhReHeyUtc
+X-Received: by 2002:a05:701b:420d:10b0:148:4d6c:2018 with SMTP id
+ a92af1059eb24-14c9ec43b4emr1371468c88.22.1790739485046; Tue, 29 Sep 2026
+ 20:38:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: binglei wang <l3b2w1@gmail.com>
+Date: Wed, 30 Sep 2026 11:37:53 +0800
+X-Gm-Features: AclHuK8mhsClsok-OH4eVXMSpnBvvb4uhzTatcayPdIhb6tlYUz196i8X08PhQU
+Message-ID: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
+Subject: [PATCH] erofs: fix folio reuse from a different address_space in erofs_bread()
+To: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org
+Cc: zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com, 
+	hongbohbli@tencent.com, guochunhai@vivo.com, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000e4ae4c065cab0633"
 
-When ntfs_mft_data_extend_allocation_nolock() fails after it has
-rebuilt the mapping pairs of the last $MFT data extent, undo_alloc
-truncates the runlist and then rebuilds the old mapping pairs from rl2,
-a pointer into the runlist taken before the truncation.
-ntfs_rl_truncate_nolock() can reallocate the runlist, and KASAN then
-reports a use-after-free in ntfs_mapping_pairs_build().
+--000000000000e4ae4c065cab0633
+Content-Type: text/plain; charset="UTF-8"
 
-Pass the start of the runlist instead, and hold the runlist lock for
-reading while the mapping pairs are built from it.
-ntfs_mapping_pairs_build() skips to the element containing the first
-vcn by itself.
+erofs_bread() caches the last folio in struct erofs_buf and reuses it when
+the next request lands on the same folio, but the reuse predicate only
+compares the page index; it never checks that the cached folio still
+belongs to buf->mapping.  Correctness therefore relies on an invariant
+that is nowhere enforced.
 
-Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-Cc: stable@vger.kernel.org
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+fs/erofs/xattr.c already breaks it: erofs_xattr_iter_inline() and
+erofs_xattr_iter_shared() call erofs_init_metabuf() on the same buffer
+with no intervening erofs_put_metabuf(), and their in_metabox arguments
+come from different sources (per-inode vs per-fs).  When the two differ,
+buf->mapping is switched while buf->page still holds a folio of the
+previous address_space, so the next erofs_bread() can return data from
+the wrong one.
+
+This is observable with METABOX enabled, where shared xattrs silently
+disappear on the mounted fs, while the same tree built without METABOX
+reports them fine.
+
+Fix it by validating the address_space in the reuse predicate too: if the
+cached folio belongs to another mapping, drop it so that the existing
+slow path re-reads from buf->mapping.  Reading folio->mapping is safe
+here because a reference on the cached folio is still held; if the folio
+was already truncated, folio->mapping is NULL and the slow path is taken,
+which is the safe direction.
+
+Fixes: 414091322c63 ("erofs: implement metadata compression")
+Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
+Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
 ---
-v2: unchanged.
+ fs/erofs/data.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-A forced lookup failure of the first $MFT data extent, on a volume
-whose $MFT has several extents, gives the KASAN report before this
-patch and nothing after it.
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index be63b89f0862..d8b6523bc218 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf,
+erofs_off_t offset, bool need_kmap)
 
- fs/ntfs/mft.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 8edc65911aa2..f1b2c3b51fd4 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -2086,11 +2086,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	if (ctx) {
- 		a = ctx->attr;
- 		if (mp_rebuilt && !IS_ERR(ctx->mrec)) {
--			if (ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
-+			int err;
-+
-+			down_read(&mft_ni->runlist.lock);
-+			err = ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
- 				a->data.non_resident.mapping_pairs_offset),
- 				old_alen - le16_to_cpu(
- 					a->data.non_resident.mapping_pairs_offset),
--				rl2, ll, -1, NULL, NULL, NULL)) {
-+				mft_ni->runlist.rl, ll, -1, NULL, NULL, NULL);
-+			up_read(&mft_ni->runlist.lock);
-+			if (err) {
- 				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
- 				NVolSetErrors(vol);
- 			}
+  if (buf->page) {
+  folio = page_folio(buf->page);
+- if (folio_file_page(folio, index) != buf->page)
++ if (folio->mapping != buf->mapping) {
++ /* the cached folio belongs to another address_space */
++ erofs_put_metabuf(buf);
++ folio = NULL;
++ } else if (folio_file_page(folio, index) != buf->page) {
+  erofs_unmap_metabuf(buf);
++ }
+  }
+  if (!folio || !folio_contains(folio, index)) {
+  erofs_put_metabuf(buf);
 -- 
-2.55.0
+2.33.0
 
+--000000000000e4ae4c065cab0633
+Content-Type: text/x-diff; charset="US-ASCII"; 
+	name="0001-erofs-fix-folio-reuse-from-a-different-address_space.patch"
+Content-Disposition: attachment; 
+	filename="0001-erofs-fix-folio-reuse-from-a-different-address_space.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_munk0zf80>
+X-Attachment-Id: f_munk0zf80
+
+RnJvbSBhMTdlYWY2YjQ3NmE2NmU2YmM2ZDg1YzU2OTU4NDkxMWFjY2IwNWJmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBCaW5nbGVpIFdhbmcgPGwzYjJ3MUBnbWFpbC5jb20+CkRhdGU6
+IFdlZCwgMzAgU2VwIDIwMjYgMTA6MzQ6NDggKzA4MDAKU3ViamVjdDogW1BBVENIXSBlcm9mczog
+Zml4IGZvbGlvIHJldXNlIGZyb20gYSBkaWZmZXJlbnQgYWRkcmVzc19zcGFjZSBpbgogZXJvZnNf
+YnJlYWQoKQoKZXJvZnNfYnJlYWQoKSBjYWNoZXMgdGhlIGxhc3QgZm9saW8gaW4gc3RydWN0IGVy
+b2ZzX2J1ZiBhbmQgcmV1c2VzIGl0IHdoZW4KdGhlIG5leHQgcmVxdWVzdCBsYW5kcyBvbiB0aGUg
+c2FtZSBmb2xpbywgYnV0IHRoZSByZXVzZSBwcmVkaWNhdGUgb25seQpjb21wYXJlcyB0aGUgcGFn
+ZSBpbmRleDsgaXQgbmV2ZXIgY2hlY2tzIHRoYXQgdGhlIGNhY2hlZCBmb2xpbyBzdGlsbApiZWxv
+bmdzIHRvIGJ1Zi0+bWFwcGluZy4gIENvcnJlY3RuZXNzIHRoZXJlZm9yZSByZWxpZXMgb24gYW4g
+aW52YXJpYW50CnRoYXQgaXMgbm93aGVyZSBlbmZvcmNlZC4KCmZzL2Vyb2ZzL3hhdHRyLmMgYWxy
+ZWFkeSBicmVha3MgaXQ6IGVyb2ZzX3hhdHRyX2l0ZXJfaW5saW5lKCkgYW5kCmVyb2ZzX3hhdHRy
+X2l0ZXJfc2hhcmVkKCkgY2FsbCBlcm9mc19pbml0X21ldGFidWYoKSBvbiB0aGUgc2FtZSBidWZm
+ZXIKd2l0aCBubyBpbnRlcnZlbmluZyBlcm9mc19wdXRfbWV0YWJ1ZigpLCBhbmQgdGhlaXIgaW5f
+bWV0YWJveCBhcmd1bWVudHMKY29tZSBmcm9tIGRpZmZlcmVudCBzb3VyY2VzIChwZXItaW5vZGUg
+dnMgcGVyLWZzKS4gIFdoZW4gdGhlIHR3byBkaWZmZXIsCmJ1Zi0+bWFwcGluZyBpcyBzd2l0Y2hl
+ZCB3aGlsZSBidWYtPnBhZ2Ugc3RpbGwgaG9sZHMgYSBmb2xpbyBvZiB0aGUKcHJldmlvdXMgYWRk
+cmVzc19zcGFjZSwgc28gdGhlIG5leHQgZXJvZnNfYnJlYWQoKSBjYW4gcmV0dXJuIGRhdGEgZnJv
+bQp0aGUgd3Jvbmcgb25lLgoKVGhpcyBpcyBvYnNlcnZhYmxlIHdpdGggTUVUQUJPWCBlbmFibGVk
+LCB3aGVyZSBzaGFyZWQgeGF0dHJzIHNpbGVudGx5CmRpc2FwcGVhciBvbiB0aGUgbW91bnRlZCBm
+cywgd2hpbGUgdGhlIHNhbWUgdHJlZSBidWlsdCB3aXRob3V0IE1FVEFCT1gKcmVwb3J0cyB0aGVt
+IGZpbmUuCgpGaXggaXQgYnkgdmFsaWRhdGluZyB0aGUgYWRkcmVzc19zcGFjZSBpbiB0aGUgcmV1
+c2UgcHJlZGljYXRlIHRvbzogaWYgdGhlCmNhY2hlZCBmb2xpbyBiZWxvbmdzIHRvIGFub3RoZXIg
+bWFwcGluZywgZHJvcCBpdCBzbyB0aGF0IHRoZSBleGlzdGluZwpzbG93IHBhdGggcmUtcmVhZHMg
+ZnJvbSBidWYtPm1hcHBpbmcuICBSZWFkaW5nIGZvbGlvLT5tYXBwaW5nIGlzIHNhZmUKaGVyZSBi
+ZWNhdXNlIGEgcmVmZXJlbmNlIG9uIHRoZSBjYWNoZWQgZm9saW8gaXMgc3RpbGwgaGVsZDsgaWYg
+dGhlIGZvbGlvCndhcyBhbHJlYWR5IHRydW5jYXRlZCwgZm9saW8tPm1hcHBpbmcgaXMgTlVMTCBh
+bmQgdGhlIHNsb3cgcGF0aCBpcyB0YWtlbiwKd2hpY2ggaXMgdGhlIHNhZmUgZGlyZWN0aW9uLgoK
+Rml4ZXM6IDQxNDA5MTMyMmM2MyAoImVyb2ZzOiBpbXBsZW1lbnQgbWV0YWRhdGEgY29tcHJlc3Np
+b24iKQpDYzogQm8gTGl1IChPcGVuQW5vbGlzKSA8bGl1Ym8wM0BpbnNwdXIuY29tPgpTaWduZWQt
+b2ZmLWJ5OiBCaW5nbGVpIFdhbmcgPGwzYjJ3MUBnbWFpbC5jb20+Ci0tLQogZnMvZXJvZnMvZGF0
+YS5jIHwgNyArKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0
+aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZnMvZXJvZnMvZGF0YS5jIGIvZnMvZXJvZnMvZGF0YS5jCmlu
+ZGV4IGJlNjNiODlmMDg2Mi4uZDhiNjUyM2JjMjE4IDEwMDY0NAotLS0gYS9mcy9lcm9mcy9kYXRh
+LmMKKysrIGIvZnMvZXJvZnMvZGF0YS5jCkBAIC0zMyw4ICszMywxMyBAQCB2b2lkICplcm9mc19i
+cmVhZChzdHJ1Y3QgZXJvZnNfYnVmICpidWYsIGVyb2ZzX29mZl90IG9mZnNldCwgYm9vbCBuZWVk
+X2ttYXApCiAKIAlpZiAoYnVmLT5wYWdlKSB7CiAJCWZvbGlvID0gcGFnZV9mb2xpbyhidWYtPnBh
+Z2UpOwotCQlpZiAoZm9saW9fZmlsZV9wYWdlKGZvbGlvLCBpbmRleCkgIT0gYnVmLT5wYWdlKQor
+CQlpZiAoZm9saW8tPm1hcHBpbmcgIT0gYnVmLT5tYXBwaW5nKSB7CisJCQkvKiB0aGUgY2FjaGVk
+IGZvbGlvIGJlbG9uZ3MgdG8gYW5vdGhlciBhZGRyZXNzX3NwYWNlICovCisJCQllcm9mc19wdXRf
+bWV0YWJ1ZihidWYpOworCQkJZm9saW8gPSBOVUxMOworCQl9IGVsc2UgaWYgKGZvbGlvX2ZpbGVf
+cGFnZShmb2xpbywgaW5kZXgpICE9IGJ1Zi0+cGFnZSkgewogCQkJZXJvZnNfdW5tYXBfbWV0YWJ1
+ZihidWYpOworCQl9CiAJfQogCWlmICghZm9saW8gfHwgIWZvbGlvX2NvbnRhaW5zKGZvbGlvLCBp
+bmRleCkpIHsKIAkJZXJvZnNfcHV0X21ldGFidWYoYnVmKTsKLS0gCjIuMzMuMAoK
+--000000000000e4ae4c065cab0633--
