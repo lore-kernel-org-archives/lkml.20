@@ -1,132 +1,154 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93374C0424
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4B2446823
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799318; cv=none; b=NP7Sj2ZlwXn3arWVodO3MNUViQHgogJkeg8kkWSn5TMM1k0fYf+ueGPNOt/knpNKK4xMOJsfRZehEjehrPa85FgCRVNxI5nD9A3grl/BSeBhlNW7khMGRyEYXGezpVoCd91aNgUOJy0Vj2Yr/IbQmEsWzu61wGljhwrnA2BzV5U=
+	t=1790799353; cv=none; b=pFR6nSoov7y93S9j2tZrIIHj+N0TG8ZRFHSvXQl3BsQyjfWeKMbWjhwezrg3HKB/euAKj3k6mvBydQ+RIzfocPfWbeGqljKHXDlJNdgICDvR+D/uqZZl/lamozAhK4x1LYTq3M9dMM5NXZwVVrBettq4HX0AikeoCg4XTYErQGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799318; c=relaxed/simple;
-	bh=dkl74J2iGAfgs5zwrml4l7A6bTNzb1g1T7sdU85oCTk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VQ/TvvQN1CKkhbTEZbFnD4lfvpuYpd66OWkdRE1YPmtjvOMvPHD8ssRTCAbvuP+PY4rwVQLIe5yM/OtVTFmRZbwusa4E18EaT6+DWTbg1HS6iS63LcVae5iTp7EBm1cAAf6PmnF5Vkkzv3/78WSekRXaoxIzpNuVBryfyBpUd6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=kzj5VrLh; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790799353; c=relaxed/simple;
+	bh=4kcMV2ayuSWtjNTLFAWlAtj1LSmyR3M6MFYIU6IRV+8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MlxKaeROQPLQGmhg+ZK7ixpzp7RDNmHfUsu5TMWciaSe014lBXOw7+UJEOgGEqoi/mK5FEfblmAo6xewBYE72xOr18YTVuY4Yx+t+Pul75X9wW+D1uXH8T6QzEsE0Tryd5d4cdhaP65d/VZk7YqHLeg5GPzz1eL1ur+yFeEYm1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXEtoFW6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="kzj5VrLh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=U5331XFavrhG70kE99m0/AzAYBB0fxfgmvEAiEWpiw0=; b=kzj5VrLh0IYfIYuSTLN4Ncyr1e
-	p8wcQExUx0sBaxeTgvND5CmjlGjPR83zq+P9ASKupEaieHV7ubm6JuIPmnzKTvbalmJgATRFGCQEE
-	S+yYrcrNCOZU/gbSw95foEgaEjzud8dL3r5MskEshwpu+MKnTqMpftv+zQQaUeMjno4iDqGMbWQPd
-	POdPr63i37KYqHflK8iKZ50dEg05DkEgZ7vmeQeIDPjZv0f3yu3aGTGG1Bk9qirm7JbXlileIzDsx
-	HlXugteEUqoV/AEa1SCm9Fgnyx5Ewj5+t3HEKAwpDm9cSEULPMT765dlyRybyOn1peHDH42RAqbgx
-	gAa38U5g==;
-Received: from [151.115.150.205] (port=55214 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xC0hw-0000000BVHF-35sh;
-	Wed, 30 Sep 2026 22:15:14 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>
-Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
-	v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@kernel.org
-Subject: [PATCH] 9p: pin request under client lock in p9_tag_lookup
-Date: Wed, 30 Sep 2026 20:13:58 +0000
-Message-ID: <20260930201357.590469-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXEtoFW6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ED6FFC2BCB9;
+	Wed, 30 Sep 2026 20:15:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790799353;
+	bh=4kcMV2ayuSWtjNTLFAWlAtj1LSmyR3M6MFYIU6IRV+8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=eXEtoFW6DqypfdVBNXJ4+UdQRIV05YFPtHjiXZkaoGl+yCNWhKUomUxDCRIc+aTyK
+	 xPHyGWkpeniX01ECLtevqWVYch+6RBS8l2FmhyVXKclxdVVJ/8HYYPrxoo6r0DxUoA
+	 q/Mx4ds6wmFyZIplNhyjh42ZkokwRpcOnC0UvItTpSXJt1XyTdEuBQOw8eEyyos4qF
+	 FTbY7tvHXjVvdsx1aX5yEW1+Z34khfI0eMfxc1XrvoZ8aSbpFvjzHvrZH36uUywB0B
+	 K1IWwPjbzzA0kvIbro6Wdwp53Vy4SRG2mG6IH7baiXRpiNx/I6Bfm2r08fkR1MVPQj
+	 bGPfHcvlH/vPw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3CC2CA5FC5;
+	Wed, 30 Sep 2026 20:15:52 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Wed, 30 Sep 2026 22:15:48 +0200
+Subject: [PATCH v2] bus: fsl-mc: drop the fwnode links of the dpmacs nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-for-upstream-fsl-mc-dpmac-fwnode-links-v2-1-13f7b6ef000f@free.fr>
+X-B4-Tracking: v=1; b=H4sIAPNtvWoC/5XNQQ6CMBCF4auQrh0DI8HiynsYFi2dSiO0zRRRQ
+ 7i7lRu4/N/ifatIxI6SuBSrYFpccsHnwEMh+kH5O4EzuQWW2JQtSrCB4RnTzKQmsGmEqQcTJ9W
+ DfflgCEbnHwkaRC1JGd1KJfJZZLLuvUO3Lvfg0hz4s7tL9Vv/JpYKKtCyPTdY1/ok9dUy0dGy6
+ LZt+wJ+p8jc2gAAAA==
+To: Ioana Ciornei <ioana.ciornei@nxp.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790799351; l=3039;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=MLGDYZOw45UD6Di3KCAHNR0GWLFDDhooxe3jcyGjVtM=;
+ b=MM/lP60BsIy9mdVuQDHAoaw5n5UB2wX0fYSiZT9X2/SO1doHHOsw8KBr4mk0W0WxUN/RwWgnt
+ XPjF0wbsqdrCNK2c8DdY1ToyPJSotDqmJmdS1dxPNgjVIqJetBVrmD6
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-9P clients keep separate request tables but share one request cache.
-p9_tag_lookup() can race with the final p9_req_put() and pin a request
-reused by another client. Both clients can then complete it, freeing
-its response while the caller still parses it, creating a UAF that
-KASAN reports as:
+From: Vincent Jardin <vjardin@free.fr>
 
-  BUG: KASAN: slab-use-after-free in p9pdu_readf+0x362/0x2130
-  Read of size 4 at addr ffff888009520000 by task repro/82
+A DPMAC node under dpmacs/ is never the fwnode of any device:
+  the fsl-mc bus creates dpmac.N objects without one,
+  then dpaa2-mac finds its node in dpmacs/ at connect time.
 
-  Freed by task 50:
-   p9_req_put+0x1a4/0x1f0
-   p9_read_work+0x916/0xf80
+fw_devlink therefore attaches the supplier links of those nodes (phys, ...)
+to the nearest ancestor device, the fsl-mc bus, as SYNC_STATE_ONLY proxies.
 
-Hold the client lock while finding and pinning the request, preventing
-removal and reuse between these operations.
+device_link_add() refuses such a link once the consumer has probed, and
+fw_devlink logs the refusal as an error.
 
-Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
-Cc: stable@kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+On an LX2160A board with 4x25G DPMACs for which phys = <&serdes_1 N>,
+the Serdes PHY binds after the bus and then at every boot it shows:
+
+  fsl_mc_bus 80c000000.fsl-mc: Failed to create device link (0x180) with supplier 1ea0000.phy for /soc/fsl-mc@80c000000/dpmacs/ethernet@3
+
+once per port!
+
+To fix it, when the root MC bus probes, purge the fwnode links of every
+child of its dpmacs node, so fw_devlink has no supplier link left to
+proxy to the bus and no longer tries to create those device links.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Tested-by: Ioana Ciornei <ioana.ciornei@nxp.com> # LX2160ARDB
 ---
- net/9p/client.c | 26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
+The dpmacs node is the documented child of the
+fsl-mc node: Documentation/devicetree/bindings/misc/fsl,qoriq-mc.yaml
+(and bindings/net/fsl,qoriq-mc-dpmac.yaml for its DPMAC subnodes).
 
-diff --git a/net/9p/client.c b/net/9p/client.c
-index ef64546c6d52..fd72f05128d1 100644
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -235,24 +235,18 @@ p9_tag_alloc(struct p9_client *c, int8_t type, uint t_size, uint r_size,
- struct p9_req_t *p9_tag_lookup(struct p9_client *c, u16 tag)
- {
- 	struct p9_req_t *req;
-+	unsigned long flags;
+Changes in v2:
+- Improve commit log (Christophe)
+- Collect Ioana's Reviewed-by and Tested-by
+- Link to v1: https://lore.kernel.org/r/20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr
+---
+ drivers/bus/fsl-mc/fsl-mc-bus.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+index 5878eafd8d44..0c37b6780c84 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-bus.c
++++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+@@ -11,6 +11,7 @@
+ #define pr_fmt(fmt) "fsl-mc: " fmt
  
--	rcu_read_lock();
--again:
-+	/*
-+	 * Pin the request while removal from this client's IDR is excluded.
-+	 * Tag equality alone cannot distinguish a request recycled for another
-+	 * client from the same SLAB_TYPESAFE_BY_RCU cache.
-+	 */
-+	spin_lock_irqsave(&c->lock, flags);
- 	req = idr_find(&c->reqs, tag);
--	if (req) {
--		/* We have to be careful with the req found under rcu_read_lock
--		 * Thanks to SLAB_TYPESAFE_BY_RCU we can safely try to get the
--		 * ref again without corrupting other data, then check again
--		 * that the tag matches once we have the ref
--		 */
--		if (!p9_req_try_get(req))
--			goto again;
--		if (req->tc.tag != tag) {
--			p9_req_put(c, req);
--			goto again;
--		}
--	}
--	rcu_read_unlock();
-+	if (req && !p9_req_try_get(req))
-+		req = NULL;
-+	spin_unlock_irqrestore(&c->lock, flags);
- 
- 	return req;
+ #include <linux/module.h>
++#include <linux/fwnode.h>
+ #include <linux/of_device.h>
+ #include <linux/of_address.h>
+ #include <linux/ioport.h>
+@@ -1033,6 +1034,20 @@ static int fsl_mc_firmware_check(struct platform_device *pdev)
+ 	return 0;
  }
+ 
++static void fsl_mc_purge_dpmac_fwnode_links(struct device *dev)
++{
++	struct device_node *dpmacs, *child;
++
++	dpmacs = of_get_child_by_name(dev->of_node, "dpmacs");
++	if (!dpmacs)
++		return;
++
++	for_each_child_of_node(dpmacs, child)
++		fwnode_links_purge(of_fwnode_handle(child));
++
++	of_node_put(dpmacs);
++}
++
+ /*
+  * fsl_mc_bus_probe - callback invoked when the root MC bus is being
+  * added
+@@ -1134,6 +1149,8 @@ static int fsl_mc_bus_probe(struct platform_device *pdev)
+ 						&mc->num_translation_ranges);
+ 		if (error < 0)
+ 			goto error_cleanup_mc_io;
++
++		fsl_mc_purge_dpmac_fwnode_links(&pdev->dev);
+ 	}
+ 
+ 	error = dprc_get_container_id(mc_io, 0, &container_id);
+
+---
+base-commit: 7b3b0598c00e67f2df85d0b4cd99eaa3be6c9bfd
+change-id: 20260928-for-upstream-fsl-mc-dpmac-fwnode-links-622b8eadb98a
+
+Best regards,
 -- 
-2.47.3
+Vincent Jardin <vjardin@free.fr>
+
 
