@@ -1,46 +1,46 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011048.outbound.protection.outlook.com [52.101.52.48])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010012.outbound.protection.outlook.com [52.101.85.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD3A3E3DB8;
-	Wed, 30 Sep 2026 09:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A2D479883
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760252; cv=fail; b=HjCzIYV1rLZqXe7w+T/d59bdE1DRBSz1vdRDSGL0tCJKmpcVcWBzQkHOFQg5xIMHdiatYKPgk132I88vwNF0GgTwGWUiibh0OlnUfJWWErcRgT/pDfqjKvq+rCzGnGKKwqlTwoDZ1eJHsDvNdeq1p6JYmxFWVW+iPg9fSJdD7JU=
+	t=1790760258; cv=fail; b=R/3uJM+ILi7pMMbE1g0ffBA5FEqXZQCTQvRDI+fGoqOnMxZn9O6Ls4n/LYI+fS/UZ6rVnWlmond1Z/9uj84OLiiXA0n1snQ+HtRVIB9mepX1TEKKZst1Si9X9SR3a8TTLZMgyGdHRPt1I6YEOHqpnXNqQVWm4/dywl9ToPlA00c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760252; c=relaxed/simple;
-	bh=Ax4cWwD8fXsVKYSUD9zpjsc2pNGES0dAW4DROMlsgSU=;
+	s=arc-20240116; t=1790760258; c=relaxed/simple;
+	bh=/Y2PQl0vJnjW2tmf54ugY+um95UjPb9FnJ6D/9kW22w=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Md8S2d7HdAvz/f1qs4Ig5Ke1nsCkDfBP91KEjWWdw2PXKCzABh5fTMFxo9R9Z/dDxVsdJXKbqmSUHgeYiXI727FY/IXWkRIec/+iNrYVx7Yb/KrM0y4ZRtZsQIZVVgvn+CQ4HMp2UTfNIsH5G0YtBb5Q6uJpOyF9CSphd6+rROs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fWtQA098; arc=fail smtp.client-ip=52.101.52.48
+	 MIME-Version:Content-Type; b=f5bX9837ECknfHXJ2aM6J8EJ9JZnk5z9jQFHVLP7N/Kj4brnb6AF28f86/jskP9xhwamLpH59MeXvBMQ885T6Ng3hjfwqgTQ6VbgwFxlF1/PL8hcICXw47iffwjXdDTtk6LjB1xVfFvYss/CiMLGvxXBYdlZRs6cufUpNLNIIzI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dDnZ2AQ0; arc=fail smtp.client-ip=52.101.85.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fWtQA098"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dDnZ2AQ0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b8wy30h7v7G6i+qBixsxbMpIoXqxUSeeMPPVPSTQi6j2xu6tVIgh9HnGsARH2bR11tmR5acgEQS8sflQBgcNZEzOu4nExLFa5QXc0UL0CEbTSea91UKguJAvFcJmFwtMOBJjcoeEDE0X2yeokLNAFnRKuxl8axuvVGeun3fClfzi/iZSQE+Dj7eb5s+/ypuFXCtb6qC/HO8zmvyQR5X4/22Zh2uUWFrbZN60AZPd65MSKdZM2+I1FAZvjffOtdxYxp1gnE4bD64wLnjwizLalesppgR5NTcCqe063XMglY7FNW6u+tEwkPpD87GWcdq+yfHX4bZlomnV/GmihFDkuQ==
+ b=iR6co7FFC48HFFmVPQhPLc9VO0Im/pXCvEXHGh5mxNG4FfcC9zhsP/mf9wV73qY/uccH/lnbSWWDNmQ9fLd/0NL4L26/8OICkZrZf0f3diEKATHn/zYWMCfBGMGVRZkdcPdMXZb/dSEEUacRodhipYTYpd1ZMGhrE1XKMGTMiWprF+fRIp4OrUTRYCpLvOQHauUnY/dKmHmX0h5C1vYMOCT+nKD/fwme7lDfAfJKdEgKAvAR0xE9EaG0xYbUy4w5PuV/ZXEWVkuaFit62hddWYeYQ0S6YQn5r81C0S8/ZaTgDDg6LDETJiDgkJLcYhK6WjIV1inAbT/tLoaT0Zh70Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yQOl11d3kvdeSAELIMiTDvh5hBH0f4SAk9IjriaTRts=;
- b=oBJF9MSqvdz7j1Ahn2gJ36AsgUCRkAsjYZla1uB3vna1igfwhMqfLaCgcXYwTK8MGMzAA4suOwPIEAJHgDFx1oDxFN+YvAwRBehGRjnq0FEBdFeIm9sxJMFMXqAQ+g/8Z/Iqvyw6DuALYg8TcIZ1r/Vy0AAZ54iF0FZCc0zI/ynOs1X5EZA2d3eZOCJelHA69P4VIZFZtLAp0e5Qc9Wp7ALLieKbEKqVj+rRhPmkr4wZ/4X90VjL8v11h5duR26ikjavGPk3kJAKE/2SF0rzMXkVGKcPvMPys4+bOWD2DaXenrzNph4mcjmsF9Kv8DALDTj4nqMwc0Aqrn/qrVK0xg==
+ bh=wx89cAN1XzONKzeV3Cn94rs4Y+inKDiYKDwx9ZYCjHI=;
+ b=atQQhvAmXxrHd+yE8NRSX5QGtE/Q5PQDhHYyPP9rQElIXcUV6dTYf6hynjiqe1hl9ZM9vXoS4kb72S14Szs3ZX9pe0oCn5JirChFFGwUavGYwxvQdjQ6pACKXy/VwGVBXzyaLgwfDlnl7snGlyJ1wgRAyzVMv3Zn5l3xzE/F9UegxUXiDU0vMUjqDxNoTi143ZlWtEdJ9eu3T9ZGvoZTjuuEe85AQX3P4svx39RJAS6R0UczUDWD91lXb1G0oW6xIBlwSxnA5tHTtKQmbX9zd9y808AW5cxXoHEKs7VkJchSBUFmmpjHnMQL5/jNIqioq0tighNfHKrWAmeBW4rWQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yQOl11d3kvdeSAELIMiTDvh5hBH0f4SAk9IjriaTRts=;
- b=fWtQA098ZTKWf3SPxmjI1qGYU22nGAezkiOyFB7tP2Qg3wdAUN/+j9hByGmJIUMV91drNMNa9wfY5W7iP3VWhmm/pswKLPzSqnVLNa4CQzuSgqNkyeWcg0Ncnot8wNoLemrNDgYvaWDDZ5e1gie61Vr6f1wvaPMQ5FCqY7Ao6u0=
-Received: from CY5P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::12)
- by CH1PR12MB9671.namprd12.prod.outlook.com (2603:10b6:610:2b0::8) with
+ bh=wx89cAN1XzONKzeV3Cn94rs4Y+inKDiYKDwx9ZYCjHI=;
+ b=dDnZ2AQ0hEgVoy0bj9lIieW3RNueKbmtGTk7G6G9fJmf4ndYF1KtuBfL4zZkarhR3Uh+79v+JQLnIFLA44rZhJddJXna5SG8ekOntdlYChf995ogC5Lfcm5FIyQgYZPX7oq2i3AtolKSUy0SJy5KNHFffOCSSg8B/tw8ikvwg58=
+Received: from PH8PR20CA0021.namprd20.prod.outlook.com (2603:10b6:510:23c::26)
+ by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
- 2026 09:22:00 +0000
-Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
- (2603:10b6:930:ed:cafe::7e) by CY5P220CA0001.outlook.office365.com
- (2603:10b6:930:ed::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 09:24:11 +0000
+Received: from SN1PEPF000397B0.namprd05.prod.outlook.com
+ (2603:10b6:510:23c:cafe::22) by PH8PR20CA0021.outlook.office365.com
+ (2603:10b6:510:23c::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 09:21:59 +0000
+ 30 Sep 2026 09:24:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,33 +48,30 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
+ SN1PEPF000397B0.mail.protection.outlook.com (10.167.248.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 09:21:59 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 09:24:11 +0000
+Received: from purico-ed03host.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 04:21:35 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 04:21:34 -0500
-Received: from xhdipdslab46.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 04:21:31 -0500
-From: Abhijit Gangurde <abhijit.gangurde@amd.com>
-To: <jgg@ziepe.ca>, <leon@kernel.org>, <brett.creeley@amd.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <allen.hubbe@amd.com>, <a.k@amd.com>, <nikhil.agarwal@amd.com>,
-	<linux-rdma@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Abhijit Gangurde <abhijit.gangurde@amd.com>
-Subject: [for-next v4 1/5] net: ionic: Fetch qid allocation and SRQ capability from firmware
-Date: Wed, 30 Sep 2026 14:51:07 +0530
-Message-ID: <20260930092111.3176738-2-abhijit.gangurde@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20260930092111.3176738-1-abhijit.gangurde@amd.com>
-References: <20260930092111.3176738-1-abhijit.gangurde@amd.com>
+ 2026 04:24:05 -0500
+From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+To: <linux-kernel@vger.kernel.org>, <iommu@lists.linux.dev>,
+	<joro@8bytes.org>, <jgg@nvidia.com>
+CC: <yi.l.liu@intel.com>, <kevin.tian@intel.com>, <nicolinc@nvidia.com>,
+	<vasant.hegde@amd.com>, <jon.grimm@amd.com>, <santosh.shukla@amd.com>,
+	<Sairaj.K@amd.com>, <jay.chen@amd.com>, <Ming.Shu@amd.com>,
+	<SooJin.Tan@amd.com>, <chrisl@kernel.org>, <wvw@google.com>,
+	<wnliu@google.com>, <dantuluris@google.com>, <kpsingh@google.com>,
+	<alejandro.j.jimenez@oracle.com>, <joao.m.martins@oracle.com>,
+	<guanghuifeng@linux.alibaba.com>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>
+Subject: [PATCH v6 01/24] iommu/amd: Introduce vIOMMU-specific events and event
+Date: Wed, 30 Sep 2026 09:23:21 +0000
+Message-ID: <20260930092344.5616-2-suravee.suthikulpanit@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,118 +80,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|CH1PR12MB9671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bb8dd26-2e4e-438c-9e74-08df1ed447da
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B0:EE_|PH7PR12MB5950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c3a05a0-b396-46b7-4d32-08df1ed49668
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|36860700016|82310400026|22082099003|18002099003|3023799007|10067099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|23010399003|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	uiBNi1LZDpyiRZ+lVVz9P/nTcIewOePODmhsInQEHlMv3j8f3+pnRxvGOOekOOE70MRC293wh8zwr4m5nc6WVYDuzZNK1A99+y5blT8xIpFxBEpj0gFf3zTb9hm+ahLgZHW4dgt/WM9sFJS2qiqlNyKxM9Iga4hIzkMaS/U2rknsr1nprXYjw0EnrPFXNnpIKXCQsUEAT/ohyfmUJtL9K5T4GDvJvOHBIt6wG8SIK82KdAaaxSxDSNVqvaQchIZyfm9lL84rfnedG4tWyqsqX4jF/4Oujtr0Rfx+UuSDfSypaLcHHoZCrSimKF94KZTAhwQfPbfzbpM0n8Oi1FWvD7BhiiY4U8ryLCCOUwjbYZ052q3RssQMC6AkdqY/Dz+A9oE+UDb297Amg8859ZRQgZmaQMsQ9046tWAwi5Di4lhyWb/GmGc+9CZhte1VvIYmHYmsrjyt2leOZMB5t5ybB2MZrM4CdhxM5WZE5aSo8r94JFmO096ESBNN7U9trcgGrXSNv0AD2w54AEluAdgRR+kCJdTEzOY1lYTcyboyrfl35JuEaNcUFzQx2ByE2v90UVJH8Iq0YHcdm13zpsR9JArA6rxOCAm9Nkz/fl4Ek1dHLvnX/n1F4nJhLSLlmgN6CQ4AMhp8EjoLIWCYvg1isnURzMP082cy6jFyUT5Ti9skUQnL1CbBBD1r6Cq/EA7W+bvL7ROewI6/fg3nqunsgw==
+	8SdG4NH8/SCWrkPT7USdSsNFLvD0x7X6LiJ0dH1ArSFQo6bDCqHAmJbvOOK/v+VwFUYTcaB7bfluK1K1vBBn45cDKbhKTTy764+BaDlesf+Cl2WPwuAwlpIBxGFi/P3DImBf4MJh3uTKRWVkd1xjhM7E/JOCj+lUSLaaj+hOqfcUl6P+MUbBI0MCHl6lHHYwSVcC1wgOYSvA8Aalg8QpajFVh4ieCmMTeOc7fY8rlZ/Y0ycwXy6Tme7fl4pqvZizJZvResmJOrGadcuIgMeS3JKYlbW6FllqeJ+sEpXj7biSjWJME5uveeneX5dVV+VgYDSk5P377wd+9ZUwu61D5hGfZXoZHtkZZE7L0eD1l8Qyp7FUHA1lgh6dQyzGvkow1emnjHvgWcy1XpE1OIXlQoz0mvpx8kDEQqTUUWr7l7W7lJ6Wi3kKKPLo/M73A8Fl8pN3j3zHQujrwGC/zb9YMfKR3S4OE81YvrTTh3fS33Irn/UPWZY57YINtWlxdiZjkzWD1FeS9jGRlSy6TSicNsJTMZ4UbhOY7qdl7zRRv/f/HPW47W4Qb266mk7h5AzHC9t6daBIH7JKP/37ahQhvJ7WKG7VIPX8PNrBXJBdPTK19b/9kTfKHy/kb0W3XnN0uegpkgLOcpIaDthIiZHkW/3WgJ4LKQyxrj4Mk1TJBe+gicTCS3wzGl61mye+vBJ/ApRCbz5pXiC3pLROXbYbTQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(36860700016)(82310400026)(22082099003)(18002099003)(3023799007)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	BZ71k4MudwcFR36Iab/59HUtcVlug3MP3/z+2nb+xSq7lb0ms8Mt6W+ygPGKv91gWe/tR91+lF7Z6+5gNEnY7TgXFUml0IVzkfy/e/lt9TD4EpKvKRtRpqpXiKf94xOJegsARUBAUhaOFlfZ8KPS/PVLZProIOvxiTTU1ReMH3w6tcc+PPfIy9Lrs3gTvDYV4XlUr9ZI38dhvc2KISVf9m0tcQ8FioJRLQXIRb4NbPX7oF1n7CMTmAa1RSi8log9P0M75/9Nog0Bw3WcNPglOf1MjtRUXu9dgBIzmnXUhTKNeut0+OUjnBDNUGON7LwmhcIGd89TANTucIP3iQh2IMXVhD5VGWJngOjgtrHqzyePMzZlB9XcYyj19W2xi0CrUPw+DMV8UexHP0iKYADXdapxRP4gJZbT3fnjSce9FJCwRwtE22dt+rlPbZdnz9W1
+	xkIrq4ENezCCRDe6cF7LFTGPJmwgwflTCAjxPHOSSnPQBqfBwb36fX0XnhseEkJzLotCPH6TJBS4XnTIvpcmk1T6NFlRrvTU4kWGvmHdPwtzUnr3Yupho+CHLZRAwnvaKrW2hHvY6lrp8AZRf5jSobJCHZx6Q7FcE8NgH8tx2vcXH1nsgC6tec3bMYxL99/j1GyC+In9LWWYvMcjGPzifx7a4+WOwfTWsty9ZST4cGLly13k0zwa3vrYevKsDzx+9hk0d7uylMPsXlDo6JDlS4Rr4fRKp83Rb41xNoDgoar7ccbsgFgM/UYOVsT/6M4HQ/PwM+LPZtjL3GTyA59wfoD1DbAGD8Hzy1tQ1zeERYZokAM3wBsap29fUTz5aQDxPruL6cyNRwPnEDIM54NFKKVHkZf97vvybUhdfUN74bgzaK61SUVhKhh7V0byzV6T
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:21:59.6943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:24:11.4504
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb8dd26-2e4e-438c-9e74-08df1ed447da
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c3a05a0-b396-46b7-4d32-08df1ed49668
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B3.namprd05.prod.outlook.com
+	SN1PEPF000397B0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9671
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
 
-Read the qid allocation and SRQ capability from the RDMA LIF identity
-reported by firmware.
+Adding support for new vIOMMU events:
+  * vIOMMU Hardware Error event
 
-Signed-off-by: Abhijit Gangurde <abhijit.gangurde@amd.com>
+Also, adding support for the additional vIOMMU related flags
+in existing events.
+
+Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 ---
- .../net/ethernet/pensando/ionic/ionic_if.h    | 31 +++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ drivers/iommu/amd/amd_iommu_types.h |  5 ++++
+ drivers/iommu/amd/iommu.c           | 37 +++++++++++++++++++----------
+ 2 files changed, 29 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ethernet/pensando/ionic/ionic_if.h b/drivers/net/ethernet/pensando/ionic/ionic_if.h
-index 15f2bc3f4043..e911fad545d6 100644
---- a/drivers/net/ethernet/pensando/ionic/ionic_if.h
-+++ b/drivers/net/ethernet/pensando/ionic/ionic_if.h
-@@ -7,6 +7,7 @@
- #define IONIC_DEV_INFO_SIGNATURE		0x44455649      /* 'DEVI' */
- #define IONIC_DEV_INFO_VERSION			1
- #define IONIC_IFNAMSIZ				16
-+#define IONIC_CREATE_CQ_CMD_V2_MAGIC		-1
- 
- /*
-  * enum ionic_cmd_opcode - Device commands
-@@ -513,6 +514,23 @@ enum ionic_lif_rdma_cap_stats {
- 	IONIC_LIF_RDMA_STAT_QP = BIT(1),
- };
- 
-+/**
-+ * enum ionic_lif_rdma_alloc_qid - RDMA QID allocation capability
-+ *
-+ * Bitmask of RDMA queue types for which firmware can automatically
-+ * allocate queue IDs. When a bit is set, the driver can request the
-+ * firmware to allocate QIDs for that queue type during creation.
-+ *
-+ * @IONIC_LIF_RDMA_ALLOC_QID_CQ:  Firmware can allocate QIDs for
-+ *                                Completion Queues
-+ * @IONIC_LIF_RDMA_ALLOC_QID_SRQ: Firmware can allocate QIDs for
-+ *                                Shared Receive Queues
-+ */
-+enum ionic_lif_rdma_alloc_qid {
-+	IONIC_LIF_RDMA_ALLOC_QID_CQ = BIT(0),
-+	IONIC_LIF_RDMA_ALLOC_QID_SRQ = BIT(1),
-+};
+diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+index 8241ef922519..f26a9059a356 100644
+--- a/drivers/iommu/amd/amd_iommu_types.h
++++ b/drivers/iommu/amd/amd_iommu_types.h
+@@ -138,6 +138,8 @@
+ #define EVENT_TYPE_IOTLB_INV_TO	0x7
+ #define EVENT_TYPE_INV_DEV_REQ	0x8
+ #define EVENT_TYPE_INV_PPR_REQ	0x9
++#define EVENT_TYPE_VIOMMU_HW_ERR	0xc
 +
- /**
-  * struct ionic_lif_identity - LIF identity information (type-specific)
-  *
-@@ -557,6 +575,10 @@ enum ionic_lif_rdma_cap_stats {
-  *	                       (enum ionic_lif_rdma_cap_stats)
-  *	@rdma.rsvd:            Reserved byte
-  *	@rdma.rcq_sign_bit:    RCQ sign bit
-+ *	@rdma.srq_qtype:       RDMA Shared Receive Qtype
-+ *	@rdma.rsvd2:           Reserved byte(s)
-+ *	@rdma.alloc_qid_cap:   RDMA queue type QID allocation capability
-+ *	                       (bitmask of enum ionic_lif_rdma_alloc_qid)
-  *	@rdma.rsvd1:           Reserved byte(s)
-  * @words:               word access to struct contents
-  */
-@@ -604,7 +626,10 @@ union ionic_lif_identity {
- 			__le16 stats_type;
- 			u8 rsvd;
- 			u8 rcq_sign_bit;
--			u8 rsvd1[160];
-+			struct ionic_lif_logical_qtype srq_qtype;
-+			u8 rsvd2[5];
-+			u8 alloc_qid_cap;
-+			u8 rsvd1[142];
- 		} __packed rdma;
- 	} __packed;
- 	__le32 words[478];
-@@ -2608,6 +2633,7 @@ struct ionic_rdma_reset_cmd {
-  * @depth_log2:    log base two of queue depth
-  * @stride_log2:   log base two of queue stride
-  * @dma_addr:      address of the queue memory
-+ * @udma_idx:      udma index
-  * @rsvd2:         reserved byte(s)
-  *
-  * The same command struct is used to create an RDMA event queue, completion
-@@ -2637,7 +2663,8 @@ struct ionic_rdma_queue_cmd {
- 	u8     depth_log2;
- 	u8     stride_log2;
- 	__le64 dma_addr;
--	u8     rsvd2[40];
-+	u8     udma_idx;
-+	u8     rsvd2[39];
- };
+ #define EVENT_TYPE_RMP_FAULT	0xd
+ #define EVENT_TYPE_RMP_HW_ERR	0xe
+ #define EVENT_DEVID_MASK	0xffff
+@@ -251,6 +253,9 @@
+ #define EVTLOG_SIZE_MAX		SZ_512K /* 32K entries */
+ #define EVTLOG_LEN_MASK_MAX	(0xFULL << EVTLOG_SIZE_SHIFT)
  
- /******************************************************************
++/* Constants for vIOMMU event fields */
++#define EVENT_VFLAGS_MASK		GENMASK_ULL(31, 27)
++
+ /* Constants for PPR Log handling */
+ #define PPRLOG_ENTRY_SIZE	0x10
+ #define PPRLOG_SIZE_SHIFT	56
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 56262f6b1f70..43a5690721af 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -859,7 +859,7 @@ static void amd_iommu_report_rmp_fault(struct amd_iommu *iommu, volatile u32 *ev
+ 
+ static void amd_iommu_report_page_fault(struct amd_iommu *iommu,
+ 					u16 devid, u16 domain_id,
+-					u64 address, int flags)
++					u64 address, int flags, u8 vflags)
+ {
+ 	struct iommu_dev_data *dev_data = NULL;
+ 	struct pci_dev *pdev;
+@@ -894,13 +894,13 @@ static void amd_iommu_report_page_fault(struct amd_iommu *iommu,
+ 		}
+ 
+ 		if (__ratelimit(&dev_data->rs)) {
+-			pci_err(pdev, "Event logged [IO_PAGE_FAULT domain=0x%04x address=0x%llx flags=0x%04x]\n",
+-				domain_id, address, flags);
++			pci_err(pdev, "Event logged [IO_PAGE_FAULT domain=0x%04x address=%#llx flags=0x%04x vflags=%#x]\n",
++				domain_id, address, flags, vflags);
+ 		}
+ 	} else {
+-		pr_err_ratelimited("Event logged [IO_PAGE_FAULT device=%04x:%02x:%02x.%x domain=0x%04x address=0x%llx flags=0x%04x]\n",
++		pr_err_ratelimited("Event logged [IO_PAGE_FAULT device=%04x:%02x:%02x.%x domain=0x%04x address=%#llx flags=0x%04x vflags=%#x]\n",
+ 			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
+-			domain_id, address, flags);
++			domain_id, address, flags, vflags);
+ 	}
+ 
+ out:
+@@ -950,6 +950,7 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
+ 	int count = 0;
+ 	u64 address, ctrl;
+ 	u32 pasid;
++	u8 vflags;
+ 
+ retry:
+ 	type    = (event[1] >> EVENT_TYPE_SHIFT)  & EVENT_TYPE_MASK;
+@@ -970,29 +971,30 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
+ 		goto retry;
+ 	}
+ 
++	vflags = FIELD_GET(EVENT_VFLAGS_MASK, event[0]);
++
+ 	if (type == EVENT_TYPE_IO_FAULT) {
+-		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags);
++		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags, vflags);
+ 		return;
+ 	}
+ 
+ 	switch (type) {
+ 	case EVENT_TYPE_ILL_DEV:
+-		dev_err(dev, "Event logged [ILLEGAL_DEV_TABLE_ENTRY device=%04x:%02x:%02x.%x pasid=0x%05x address=0x%llx flags=0x%04x]\n",
++		dev_err(dev, "Event logged [ILLEGAL_DEV_TABLE_ENTRY device=%04x:%02x:%02x.%x pasid=0x%05x address=%#llx flags=0x%04x vflags=%#x]\n",
+ 			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
+-			pasid, address, flags);
++			pasid, address, flags, vflags);
+ 		dev_err(dev, "Control Reg : 0x%llx\n", ctrl);
+ 		dump_dte_entry(iommu, devid);
+ 		break;
+ 	case EVENT_TYPE_DEV_TAB_ERR:
+-		dev_err(dev, "Event logged [DEV_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x "
+-			"address=0x%llx flags=0x%04x]\n",
++		dev_err(dev, "Event logged [DEV_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x address=%#llx flags=0x%04x vflags=%#x]\n",
+ 			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
+-			address, flags);
++			address, flags, vflags);
+ 		break;
+ 	case EVENT_TYPE_PAGE_TAB_ERR:
+-		dev_err(dev, "Event logged [PAGE_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x pasid=0x%04x address=0x%llx flags=0x%04x]\n",
++		dev_err(dev, "Event logged [PAGE_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x pasid=0x%04x address=%#llx flags=0x%04x vflags=%#x]\n",
+ 			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
+-			pasid, address, flags);
++			pasid, address, flags, vflags);
+ 		break;
+ 	case EVENT_TYPE_ILL_CMD:
+ 		dev_err(dev, "Event logged [ILLEGAL_COMMAND_ERROR address=0x%llx]\n", address);
+@@ -1021,6 +1023,15 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
+ 	case EVENT_TYPE_INV_PPR_REQ:
+ 		amd_iommu_report_ppr_err(iommu, event, devid, address, flags);
+ 		break;
++	case EVENT_TYPE_VIOMMU_HW_ERR:
++	{
++		u16 gid = event[0] & 0xFFFF;
++		u8 src = (event[0] >> 16) & 0x3;
++
++		dev_err(dev, "Event logged [VIOMMU_HW_ERR gid=%#x address=%#llx src=%#x flags=0x%04x vflags=%#x]\n",
++			gid, address, src, flags, vflags);
++		break;
++	}
+ 	default:
+ 		dev_err(dev, "Event logged [UNKNOWN event[0]=0x%08x event[1]=0x%08x event[2]=0x%08x event[3]=0x%08x\n",
+ 			event[0], event[1], event[2], event[3]);
 -- 
-2.43.0
+2.34.1
 
