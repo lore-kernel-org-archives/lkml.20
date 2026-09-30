@@ -1,298 +1,153 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C08D45A2A8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DD333B6CC;
+	Wed, 30 Sep 2026 08:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755640; cv=none; b=svAX7+LhSlnpqVNkENbMscQ7yA1VY1+r6/EDwOdl6mpCZJmVB3bPegb2ItCr5p6skYJnzSkwsJxqR8YxbDIGUejAfRWtvVFBykXR7b843/vQn4gYyQahVhS+S2eD2cplXEpHoUM+JN33rLw6utY/+GYipuZuecBLpyx8XlbEbv8=
+	t=1790755690; cv=none; b=PK/5hHy3bgKLwx8prOdt9VLhSdPJTdce2b7t7N1HnAB0s2KPBxy9IdOvg5NvRIB5nAnpeLLklFvzO82S2vEACNIeFPsi8Pa+rygKDROBNdUIGeCOW0YLMrGNYfwgfZxq9CxAUZba+dkz6oXujQO19Nj+lwAAp5IXGCaxwPQKfU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755640; c=relaxed/simple;
-	bh=sgRHL4cRyFoz0iUc5GBtv9Nss+laGnmGI8TZWvOA21U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ghfePkNGosbncb9x2IZZRNCDvUNZ5mkGQ2wDj6ejUM3mUS3o4n7dvc3hRIbA4fK+rvvdevO2tM2obVj9ExBDajBRooMpJ+qG5n6ZZxrzfpU4QdNwK2zhZ1m9Bbspc47EGubawQXsAD3kzvyolx0eM0ByM1Qbeu+INEB+CHCMhB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XiJ3FfuE; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790755690; c=relaxed/simple;
+	bh=zMTLFhhNl8tcGnAVHgj20uCYU6JP6rD5KzbE/DhQ6RY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ia1AHgJ9WhziYJlUi3pmopN6R6MYOp91rzdlMxC7hGsG1rI6dWXhqYFWphBTO9ypZPSqz1h4hKlD86PBlzpHuHaymyJoDw1K2V5MvUE53uFfr5UanDel5oFFIdkcEHxUMFylPdNssq6YiEtE4k0JNHiTmBNlHQTkylb/ehWwsAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hvI2uYCv; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XiJ3FfuE"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a003bd18e5so16688905e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:07:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790755634; x=1791360434; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R9Z12L+fXWCFDTbxFKxbwYJjVd8WMY/ksKqgATnsUOk=;
-        b=XiJ3FfuESS3alwck6UVTxa6SPofS0r91m/yp59B0e0ym/eH+0RR1uQm9FwO9atKelf
-         nqJKfOWY7Rqrru1/bF4o/s1EpXLD4YsD8b24wKMqqsIDTqOXoa2noR2grEe6N7IUX1Dn
-         vekPuCOe3rV2UhgzO/nD0wweg3h1XxzO+/0Bbx57e0moKqSXIfVVWY7FQ8xU3e3r+aZa
-         W327uMr3Qzlt+7oAqAxqKYdZimJQrnZ5xYKt6aR3tssY7aqze10hFs1MBJYRCGAkmZTp
-         Xf1VdVOQcrQ7WWrrsa7qmFLlURDG6rghTItgf5rb8cF/cUS15lFHX/5Iirpkc3fqwjr8
-         /JXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790755634; x=1791360434;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R9Z12L+fXWCFDTbxFKxbwYJjVd8WMY/ksKqgATnsUOk=;
-        b=dKIPXKu10cJMBiwr2NqytCb05icOB7mmrzRdogNXLmkkzhKD+g8pRmz31BG4fo714X
-         aU7HtHdRSI1vXJ02lOt3I0KmV9JYs7EeYNd8Wqi65E2aPEKWd8I4h/dJp0yjlHCHcx6g
-         uyZuyVsEkgzIWnoOqEjEQEo4k7XbeH6CQ8qC4gbRN+JgurqL/wH7+tdwVqSFwLRHnHj7
-         dxAZMVW7taFqwDWtViaDBEOSf0jNOG2jZ7zKBItGfXAVuWxvtE3tFqNhB9Gsp6rQSgd/
-         ak3aeZuHmQoFAU/CdDyJCLc0fFr4Jto1+CbR7oxmd2OGJU8WNskjqbNZ/nKCRb+CacnP
-         k/UA==
-X-Forwarded-Encrypted: i=1; AKwUvByU1TqN18syM7ek1RgCh4VlIFGTzIr0Mr2IxtDWrthu3g1QUzMlkLOq/pZHVhEoa43rSYBHiH5P+YbcG68=@vger.kernel.org
-X-Gm-Message-State: AFuF++k38HE4oMDgqnvP+9CJU/yyfmUJDwoGJfSsPfL12fjO0rkVXTMf
-	tGH3bHPYhsJf9Q2A3k/vsSIaUkicDJj63/ZF9lj3xAof/dM3gwwejYnuGiKjD3w4Yxk=
-X-Gm-Gg: AYBFou3zYVA0Bsg/daj4mQkYe5W1YwSxbMDmAaImeqwkmfH+2kMSdGdeF+8XH8Hm02a
-	B+lju7pgkaIuzsIsteyNIxKiPshFNSPpLeVLSojoHi6XOClrTIS2Xdh3ntMn040BqGznTn4eN6x
-	yQ5eOdK56m4oNaDihJwoqm30j7kfDQB71POth3IH5shsdLTWlUNLfeL1HRR1fhQnC2oOTXakjHb
-	ERqphhpQYzQTU2BtG+dBqpyCBl3VwWCufZ0i9ab7JiDrN/wGC4BgNWYv10ts3lWS/1wAtrNqx9A
-	G+YGtgr/+v3phCKtZK3xqxY6ywB2/rIisIZLeGe5dfImu/11HCVBxOYFzSFtDerU6/+h0bI6I4v
-	JAVdKgtiOcfMJ1fhRPruBdFt9jJ9EZ8XU7kfxiPhO7gl5E4AWFqJkIYTo8Ow98P3rsbodKlVUCW
-	oOYLR0aEM8fD2YyLAvM5adOxIBAGQeCrMiITe/tPaLP9xYJk6vzIi479dwvezyCCJJZkPHT/TPp
-	EvUeDoO7fJpB5wvrE8rxaimHY+a
-X-Received: by 2002:a05:600c:3486:b0:49e:7c7e:274c with SMTP id 5b1f17b1804b1-4a01afec552mr8494615e9.14.1790755634409;
-        Wed, 30 Sep 2026 01:07:14 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01751613dsm33464255e9.3.2026.09.30.01.07.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:07:13 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
- <mturquette@baylibre.com>, Brian Masney <bmasney@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
- <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Kees
- Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>,
- Richard
- Cochran <richardcochran@gmail.com>
-Cc: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Hal Feng
- <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v4 03/22] clk: starfive: Rename file name "jh71x0" to
- "common"
-In-Reply-To: <ZQ4PR01MB12022FD5940DAA1AC1279B8FF28D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
- <20260920120044.194901-4-changhuang.liang@starfivetech.com>
- <1jqzih73ob.fsf@starbuckisacylon.baylibre.com>
- <ZQ4PR01MB12022FD5940DAA1AC1279B8FF28D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Date: Wed, 30 Sep 2026 10:07:11 +0200
-Message-ID: <1jtsn72mds.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hvI2uYCv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790755689; x=1822291689;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=zMTLFhhNl8tcGnAVHgj20uCYU6JP6rD5KzbE/DhQ6RY=;
+  b=hvI2uYCv/VOqirDgWtj5aA9p6LOLV9F/mMq/n/q/Rr4hN1Hu51pd/2zZ
+   RGfEcnfiZNK7BYz/ko7N05wgHfkVSnPGns+IjDrejpHNNYSkdGOXo+i8m
+   ZZ4hxix26W2tdmzMG8R3o4l08OK4d4p2g6ngHHNCQ82QIrGA8wFN3I3Zg
+   n5WcQIgYleqCbW2b8FXHLzCO2jmo+D46u5jKDDLyMgDKv5tLCgslEkxYs
+   D9CRZmakcXrrZ0SKGonE1RtQbN2LRhFJakIWwJUgb3AsWChdBkcdLIMO7
+   rR38ST1I2faICXxlgMu9YjZrK571Z22kpa0zr2cmPQgQcIPcqqq+WFJJM
+   g==;
+X-CSE-ConnectionGUID: GZI0BudLQainFwyDBs7tMA==
+X-CSE-MsgGUID: fEioKn9RQXKXSmy82CcTMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107873691"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="107873691"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:08:08 -0700
+X-CSE-ConnectionGUID: nL6c7xIUT2OF3zQp2APcCQ==
+X-CSE-MsgGUID: xRPYioFETp+kRJAFDNznEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275762294"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:08:04 -0700
+Date: Wed, 30 Sep 2026 11:08:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
+Message-ID: <arzDYjM78QJYhbQS@ashevche-desk.local>
+References: <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
+ <20260928123446.GH106095@black.igk.intel.com>
+ <CAHp75VfxMwLMPDQr9f=3ea8Z+5zja=kT01o-fhkyrc-V1rh3Hg@mail.gmail.com>
+ <8fa77d7021ddf66f344c139d3bbeebcdb47ebfa8.camel@linux.intel.com>
+ <CAHp75VcqqsTSiyGxeZeNXHAVM2ujux26Nmc5C4CNJA-Fqxn5Kg@mail.gmail.com>
+ <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com>
+ <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
+ <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
+ <CAHp75VcpK-Kv2tfR+fAuTWE15b2j34M8X+_UEkBGz_V=QJPbEA@mail.gmail.com>
+ <arwXRBDZI5ottKmL@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arwXRBDZI5ottKmL@kekkonen.localdomain>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On lun. 28 sept. 2026 at 11:10, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
+On Tue, Sep 29, 2026 at 10:53:40PM +0300, Sakari Ailus wrote:
+> On Tue, Sep 29, 2026 at 06:09:20PM +0300, Andy Shevchenko wrote:
+> > On Tue, Sep 29, 2026 at 5:05 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
+> > > On Tue, Sep 29, 2026 at 3:31 PM Andy Shevchenko
+> > > <andy.shevchenko@gmail.com> wrote:
 
-> Hi, Jerome
->
-> Thanks for the review.
->
->> On dim. 20 sept. 2026 at 05:00, Changhuang Liang
->> <changhuang.liang@starfivetech.com> wrote:
->> 
->> > From: Sia Jee Heng <jeeheng.sia@starfivetech.com>
->> >
->> > StarFive JHB100 shares a similar clock and reset design with JH7110.
->> > To facilitate the reuse of the file and its functionalities, files
->> > containing the "jh71x0" naming convention are renamed to use the
->> > "common" wording.
->> 
->> Is this really necessary ? Rename are generally not recommended.
->> Do we really care if your new soc use something named after the older one ?
->> 
->> You are naming it common now but how long is it going to stay "common" ?
->> If your next SoC does not use this anymore it won't be common for long ...
->> 
->
-> Okay, I will drop the current PATCH 1/2/3/4 and directly reuse the current JH71x0-related interfaces.
->
+...
 
-Please make sure your series applies on clk-next next time around.
-This one failed to apply when it was sent.
+> > > > > > in any case my series is blocked as I have not seen
+> > > > > > a consensus on what to do. Or do we? Bart, Sakari?
+> > > > >
+> > > > > If I didn't make myself clear: I would love it if there was a single source
+> > > > > of intel GPIO pull-requests (most likely Andy) for *all* intel GPIO drivers
+> > > > > even if they have additional reviewers. I'd also love for them to live in
+> > > > > a single subdirectory at drivers/gpio/intel/. Otherwise, it's still chaos like
+> > > > > right now, just worse.
+> > > > >
+> > > > > This is in line with pinctrl vendor directories. I also don't see a reason for
+> > > > > moving Kconfig options into their own vendor submenus if we keep the top-level
+> > > > > entries sorted by driver type.
+> > > >
+> > > > So, as of now it doesn't seem like an agreement among all parties. My
+> > > > opinion is that it's good to have PMIC be separated from the other
+> > > > code, although I don't know if the camera PMIC GPIO driver that is
+> > > > used with IPUx is good to go under the intel/pmic subfolder. I also
+> > > > believe that camera related drivers are the best to be handled by the
+> > > > media tree (as it's done, exempli gratia, for int3472).
+> > > >
+> > > > At the end of the day you will have a single PR from me, but it won't
+> > > > include camera stuff unless Sakari agrees to send a PR to me (which I
+> > > > think won't be the case).
+> 
+> That'd work, sure, but there are often dependencies between all three USBIO
+> related drivers (main, I²C and GPIO) so they'll all go typically via usb
+> tree in that case. Having them all be merged via the media tree would
+> require more discussions.
+> 
+> > > I thought we agreed usbio would be moved out of drivers/gpio/ and into
+> > > media? That leaves intel/pmic as the only subdirectory IIUC.
+> > 
+> > Hmm... I cited the int3472 MAINTAINERS record to point exactly on the
+> > variant where it's left under drivers/gpio. Also IIUC Hans' opinion is
+> > that GPIO drivers even being USB GPIO expanders for camera are still
+> > GPIOs.
+> 
+> Indeed.
 
->> >
->> > Signed-off-by: Sia Jee Heng <jeeheng.sia@starfivetech.com>
->> > Reviewed-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
->> > Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
->> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
->> > ---
->> >  drivers/clk/starfive/Kconfig                              | 8
->> ++++----
->> >  drivers/clk/starfive/Makefile                             | 2 +-
->> >  .../{clk-starfive-jh71x0.c => clk-starfive-common.c}      | 4 ++--
->> >  .../{clk-starfive-jh71x0.h => clk-starfive-common.h}      | 4 ++--
->> >  drivers/clk/starfive/clk-starfive-jh7100-audio.c          | 2 +-
->> >  drivers/clk/starfive/clk-starfive-jh7100.c                | 2 +-
->> >  drivers/clk/starfive/clk-starfive-jh7110.h                | 2 +-
->> >  7 files changed, 12 insertions(+), 12 deletions(-)  rename
->> > drivers/clk/starfive/{clk-starfive-jh71x0.c => clk-starfive-common.c}
->> > (99%)  rename drivers/clk/starfive/{clk-starfive-jh71x0.h =>
->> > clk-starfive-common.h} (98%)
->> >
->> > diff --git a/drivers/clk/starfive/Kconfig
->> > b/drivers/clk/starfive/Kconfig index bd29358ffeec..ff8eace36e64 100644
->> > --- a/drivers/clk/starfive/Kconfig
->> > +++ b/drivers/clk/starfive/Kconfig
->> > @@ -1,12 +1,12 @@
->> >  # SPDX-License-Identifier: GPL-2.0
->> >
->> > -config CLK_STARFIVE_JH71X0
->> > +config CLK_STARFIVE_COMMON
->> >  	bool
->> >
->> >  config CLK_STARFIVE_JH7100
->> >  	bool "StarFive JH7100 clock support"
->> >  	depends on ARCH_STARFIVE || COMPILE_TEST
->> > -	select CLK_STARFIVE_JH71X0
->> > +	select CLK_STARFIVE_COMMON
->> >  	default ARCH_STARFIVE
->> >  	help
->> >  	  Say yes here to support the clock controller on the StarFive
->> > JH7100 @@ -15,7 +15,7 @@ config CLK_STARFIVE_JH7100  config
->> > CLK_STARFIVE_JH7100_AUDIO
->> >  	tristate "StarFive JH7100 audio clock support"
->> >  	depends on CLK_STARFIVE_JH7100
->> > -	select CLK_STARFIVE_JH71X0
->> > +	select CLK_STARFIVE_COMMON
->> >  	default m if ARCH_STARFIVE
->> >  	help
->> >  	  Say Y or M here to support the audio clocks on the StarFive JH7100
->> > @@ -33,7 +33,7 @@ config CLK_STARFIVE_JH7110_SYS
->> >  	bool "StarFive JH7110 system clock support"
->> >  	depends on ARCH_STARFIVE || COMPILE_TEST
->> >  	select AUXILIARY_BUS
->> > -	select CLK_STARFIVE_JH71X0
->> > +	select CLK_STARFIVE_COMMON
->> >  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
->> >  	select CLK_STARFIVE_JH7110_PLL
->> >  	default ARCH_STARFIVE
->> > diff --git a/drivers/clk/starfive/Makefile
->> > b/drivers/clk/starfive/Makefile index 199ac0f37a2f..012f7ee83f8e
->> > 100644
->> > --- a/drivers/clk/starfive/Makefile
->> > +++ b/drivers/clk/starfive/Makefile
->> > @@ -1,5 +1,5 @@
->> >  # SPDX-License-Identifier: GPL-2.0
->> > -obj-$(CONFIG_CLK_STARFIVE_JH71X0)	+= clk-starfive-jh71x0.o
->> > +obj-$(CONFIG_CLK_STARFIVE_COMMON)	+= clk-starfive-common.o
->> >
->> >  obj-$(CONFIG_CLK_STARFIVE_JH7100)	+= clk-starfive-jh7100.o
->> >  obj-$(CONFIG_CLK_STARFIVE_JH7100_AUDIO)	+=
->> clk-starfive-jh7100-audio.o
->> > diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c
->> > b/drivers/clk/starfive/clk-starfive-common.c
->> > similarity index 99%
->> > rename from drivers/clk/starfive/clk-starfive-jh71x0.c
->> > rename to drivers/clk/starfive/clk-starfive-common.c
->> > index 80e9157347eb..4aecb65e9fd7 100644
->> > --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
->> > +++ b/drivers/clk/starfive/clk-starfive-common.c
->> > @@ -1,6 +1,6 @@
->> >  // SPDX-License-Identifier: GPL-2.0
->> >  /*
->> > - * StarFive JH71X0 Clock Generator Driver
->> > + * StarFive Clock Generator Driver
->> >   *
->> >   * Copyright (C) 2021-2022 Emil Renner Berthing <kernel@esmil.dk>
->> >   */
->> > @@ -10,7 +10,7 @@
->> >  #include <linux/device.h>
->> >  #include <linux/io.h>
->> >
->> > -#include "clk-starfive-jh71x0.h"
->> > +#include "clk-starfive-common.h"
->> >
->> >  static struct jh71x0_clk *jh71x0_clk_from(struct clk_hw *hw)  { diff
->> > --git a/drivers/clk/starfive/clk-starfive-jh71x0.h
->> > b/drivers/clk/starfive/clk-starfive-common.h
->> > similarity index 98%
->> > rename from drivers/clk/starfive/clk-starfive-jh71x0.h
->> > rename to drivers/clk/starfive/clk-starfive-common.h
->> > index 9d5dec1d5cd1..f634c62c196a 100644
->> > --- a/drivers/clk/starfive/clk-starfive-jh71x0.h
->> > +++ b/drivers/clk/starfive/clk-starfive-common.h
->> > @@ -1,6 +1,6 @@
->> >  /* SPDX-License-Identifier: GPL-2.0 */ -#ifndef
->> > __CLK_STARFIVE_JH71X0_H -#define __CLK_STARFIVE_JH71X0_H
->> > +#ifndef __CLK_STARFIVE_COMMON_H
->> > +#define __CLK_STARFIVE_COMMON_H
->> >
->> >  #include <linux/bits.h>
->> >  #include <linux/clk-provider.h>
->> > diff --git a/drivers/clk/starfive/clk-starfive-jh7100-audio.c
->> > b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
->> > index de1cf717e391..0e363b971e9d 100644
->> > --- a/drivers/clk/starfive/clk-starfive-jh7100-audio.c
->> > +++ b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
->> > @@ -14,7 +14,7 @@
->> >
->> >  #include <dt-bindings/clock/starfive-jh7100-audio.h>
->> >
->> > -#include "clk-starfive-jh71x0.h"
->> > +#include "clk-starfive-common.h"
->> >
->> >  /* external clocks */
->> >  #define JH7100_AUDCLK_AUDIO_SRC			(JH7100_AUDCLK_END
->> + 0)
->> > diff --git a/drivers/clk/starfive/clk-starfive-jh7100.c
->> > b/drivers/clk/starfive/clk-starfive-jh7100.c
->> > index 761e46ed0ffd..ca81ccb5af94 100644
->> > --- a/drivers/clk/starfive/clk-starfive-jh7100.c
->> > +++ b/drivers/clk/starfive/clk-starfive-jh7100.c
->> > @@ -14,7 +14,7 @@
->> >
->> >  #include <dt-bindings/clock/starfive-jh7100.h>
->> >
->> > -#include "clk-starfive-jh71x0.h"
->> > +#include "clk-starfive-common.h"
->> >
->> >  /* external clocks */
->> >  #define JH7100_CLK_OSC_SYS		(JH7100_CLK_END + 0)
->> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110.h
->> > b/drivers/clk/starfive/clk-starfive-jh7110.h
->> > index 0659adae4d76..6b1bdf860f00 100644
->> > --- a/drivers/clk/starfive/clk-starfive-jh7110.h
->> > +++ b/drivers/clk/starfive/clk-starfive-jh7110.h
->> > @@ -2,7 +2,7 @@
->> >  #ifndef __CLK_STARFIVE_JH7110_H
->> >  #define __CLK_STARFIVE_JH7110_H
->> >
->> > -#include "clk-starfive-jh71x0.h"
->> > +#include "clk-starfive-common.h"
->> >
->> >  /* top clocks of ISP/VOUT domain from JH7110 SYSCRG */  struct
->> > jh7110_top_sysclk {
->> > --
->> > 2.25.1
->> >
->> >
->> > _______________________________________________
->> > linux-riscv mailing list
->> > linux-riscv@lists.infradead.org
->> > http://lists.infradead.org/mailman/listinfo/linux-riscv
->> 
->> --
->
-> Best Regards
-> Changhuang
->
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+So as I see now there is a consensus that
+1) it's good to have Intel related GPIO drivers to be in 'intel' folder;
+2) the USB GPIO drivers are still a GPIO and should reside under drivers/gpio/ (somewhere beneath that, subfolder or not).
+
+We do not have a consensus on:
+1) PMIC separation to the 'intel/pmic' subfolder;
+2) USB GPIO route for patches (with them still be somewhere under drivers/gpio/).
+
+Unanswered question:
+1) do we need to consider gpio-tps68470 (camera PMIC on Intel HW) as part of
+'intel/pmic' or even 'intel' in general? Currently the Intel HW is the only
+user of it.
+
+P.S. It seems a big deal to move the drivers from one folder to another :-)
 
 -- 
-Jerome
+With Best Regards,
+Andy Shevchenko
+
+
