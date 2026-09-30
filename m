@@ -1,86 +1,79 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C56457E78
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F7D45090A;
+	Wed, 30 Sep 2026 07:22:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752978; cv=none; b=bRcuvX8rfW7imhevFecCgjLQ07768mOIMkB4eZ1Yo/lAEPL6Qr+aeVBUWkipqLpnHaufepCpck3Mbbl0UULeown5TPcJRCbOSwKS+/ekck32IHeb1zgdf5+pTpQoUikuKeQ0Bnd+sLN2Wlz20rYY3Hc1sFTs/LeJPP7LcxCkoKY=
+	t=1790752980; cv=none; b=SWy7BIl/BUMWULYEOdO+xIYxIkRRevfJArCsl/JdPEcyCOgi66dnoKIdekkhSQx7smgtin26urG8oKICr+tGjw2DCPrVS5RW8WCGObuzb6gBoUJnBIs0OkIO4b78Wq02swzZoAJkEvt0gN45DSyPTg3dQXMk0BmpOJCcVR1hQAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752978; c=relaxed/simple;
-	bh=W1/LVnypA/Fa1aCBl0ZqrQ5A0oO0YsvOH2E8+KStOoc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vnf5r8OcOOg7i/WkhedZcNDBfq+yQaPBt7EUTf5B+S7hq1hWtXdLZV6sIwqSEHRV6+QPNX5pVSeNCjwp/xyaEBe3gUQg8+pKaP9eZTOjdJEDZFZ4Lzszn9n/xCVNF39VnWSYKLCTizThjeXvGM7eDlMcMKOfmq01L/u0nehHMCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OKooYsxu; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790752980; c=relaxed/simple;
+	bh=6WPCKXDrK4HlXoB/bRAko8257iwE0s7ZcXFG3kZdjXQ=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=i9Xl/iIeXA42QuNFXB8/0kY/78Wlv9JTe1mFVpo8rwxxhN8OJigQ0kZnJqehz5GZH7gaOGeoEx/UJwMpA2O9QixWKfuACbtdqMHlkOSiUR7wADQwVUSuc1v3angz6esz8KUHdYjBSexN+/dz0zQ9T9GkHHqj2kFUlFRYwOdBQzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=u3KC4B+I; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OKooYsxu"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc78dd412cfso1925700a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:22:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752976; x=1791357776; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W1/LVnypA/Fa1aCBl0ZqrQ5A0oO0YsvOH2E8+KStOoc=;
-        b=OKooYsxuxS7mVDS1ykhNyBazFIJl7y547ngTCQA2R52NjYlEFoQajPS6A1oM1C0u/C
-         YK2WM+qjAZt75vUYmXc+g0TRpInUL3B8n4EQ/1DEMx0FHhVKSWn4LOviAounEE6g29Z3
-         fV0/xAPpHQP6flJp6fCOcRGqfwZ3pjdu2z3Y0+oxFH8/m7lfxK20O15dHYzZRsqCkjdS
-         mcInj2+aQTdcP2xRSr8H9frycNRepsDr258+juLkxJYODGnJ5DCJoQPCI+yEB1ojYU8f
-         PK5i0KjdxGesex4fCdHxsgTFe2s8/wDYjkyTVQ7+xrfHcgpVdQVda35RKv0lV2GvyK2O
-         i6PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752976; x=1791357776;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W1/LVnypA/Fa1aCBl0ZqrQ5A0oO0YsvOH2E8+KStOoc=;
-        b=xd+OsQ3twa6yT5qhMFxS25arFlfCwBJo8klx1gktfaCozRYC7xOcijcn1agbYk/Pos
-         /NC6Bwqy8JgX1Ttf1By6k5cvqitGtyWIJlZgOrbaC2ZzQb1NcTTQO+M9/f9BsnVrrOW0
-         TVcNsz/GsnRtzlQ3j5BMrQdYPPYM/iccpatpffAUdHnQfn39zviglBb+Twkv1DzFX2bs
-         wSDC0CcUpoI6XZG9pjUlm0G6h6TGVrzno9lmGZSo5+WLAJdgyrKWipTnQ7SyIHEQZQP2
-         iPVO64rF/VP5OWY9JQ6WkjnbApelhmKtT6bMj60YhplhSARkdKpAB4c6qOu5HKyHn5ap
-         OdjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwyMvTH1ueHS8T4C1zrrq+worVdsSUGcncqop2iGyPtP946+piwRkpRJBjY9dSUEkSQUt6ufK3GVNTU3NA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly9nozhKizY69VFQrw2VR1bo7UxYvi+lZgWijPauewe9kRR2Ly
-	XK5hA1XHcU7uTvIOXLIDZWv+vxAxT8GzrpLYnx8Votae7y4ad9lo1s95
-X-Gm-Gg: AYBFou0AU2C5Y6oZ+fyZVRgLLSVtYw40ZNLGzaIUVussgVdqxV6txXJ0WzYr/gLchF9
-	tBAvbOiZUjBTmFin08t0qe0SasPTR7nsFwTLog+VRSuBLWaYGZ/sx2W86FhBOLYQkFNbjAx0yoj
-	Uv2bx+pCoyeY35LnLryJP1ERjB/qBtS8puhAnVQEuJCeHHX+3Cy41v32TyM65S+F9nQUMOVU+yj
-	bk4qy2lrTM3usWF9pJ7GT7mu4KyMKuRgav8X1zNEmfJfVhQQGfMiIovIcunQUe4wHzu81M1XWjq
-	SOiej3oazHDWphV0IleRYecrN3lFmtFihTY5XNq2mGGjnaY3I5zTojPbY1XGZQP2ghpXwHlMbqk
-	NtztxBh7vXiqMxY/1H2+DW3zp/Sd7s8u20Jfc+67o1UIbWjImneTjxn60Esf7OYbNrWauG2pEHy
-	hCgd+P/paLDDQmbG9DD2X0a9LOATLVrC9YnPl7gbrWsSqRvInpLBtuQPZseBuRVfSylNnxYBCOU
-	RSt5cTlJCA/hSOPzqqKbNZGAKvZj1fnyJIYh44OUOuc/bpPvzp54BpyXhrQh2zDU/q2DmBiZV8J
-	dMkPTwjMNXZ/CoI/hfXjeqfLd+CFeptJneiZCCCW5pAksv+Z2Q5g34V0nrU=
-X-Received: by 2002:a05:6a20:5681:b0:3de:79fe:142 with SMTP id adf61e73a8af0-3de9e6ef0f2mr581578637.49.1790752975531;
-        Wed, 30 Sep 2026 00:22:55 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725881fa6sm342045b3a.27.2026.09.30.00.22.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:22:55 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Anders Larsen <al@alarsen.net>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] qnx6: release bh on error path in qnx6_block_map()
-Date: Wed, 30 Sep 2026 15:22:52 +0800
-Message-ID: <20260930072252.1167730-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930031604.70544-3-benquike@gmail.com>
-References: <20260930031604.70544-1-benquike@gmail.com> <20260930031604.70544-3-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="u3KC4B+I"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=xp1c3slZF9aZ329lhM+c9GDRbvB1vFE3cbAoP4eTrNA=;
+	b=u3KC4B+Ib/qBvkobYbxBZ3/iVxIW8zTy6wk/bDYKPFkgRv6aI/IGgGDpi/5Ss6AsMUU1jRkek
+	XcV65qU3YbCWjBwbB4JySHM1kZGJOmz0wUy6GviawWFOPSncfCqvnA91FUcaSIOKsblIvYk59X6
+	wBdjbQJHteY6rWk8bvFyqLE=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hvmR60kS6z1K9D2;
+	Wed, 30 Sep 2026 15:10:42 +0800 (CST)
+Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
+	by mail.maildlp.com (Postfix) with ESMTPS id DDBF84057A;
+	Wed, 30 Sep 2026 15:22:51 +0800 (CST)
+Received: from [10.67.113.213] (10.67.113.213) by
+ kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 30 Sep 2026 15:22:51 +0800
+Message-ID: <6ABCB8CA.7040005@hisilicon.com>
+Date: Wed, 30 Sep 2026 15:22:50 +0800
+From: Wei Xu <xuwei5@hisilicon.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: "Rob Herring (Arm)" <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+CC: <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to
+ DT schema
+References: <20260928124448.3754740-1-robh@kernel.org>
+In-Reply-To: <20260928124448.3754740-1-robh@kernel.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200006.china.huawei.com (7.202.194.72)
 
-Tested as described in my reply to the cover letter.
+Hi Rob,
 
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
-Reviewed-by: Matthias Goergens <matthias.goergens@gmail.com>
+On 2026/9/28 20:44, Rob Herring (Arm) wrote:
+> Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
+> 
+> Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
+> properties which were not documented.
+> 
+> The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
+> optional.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+
+Acked-by: Wei Xu <xuwei5@hisilicon.com>
+
+Thanks!
+
+Best Regards,
+Wei
