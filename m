@@ -1,50 +1,77 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13E83F5BE4;
-	Wed, 30 Sep 2026 08:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9F93F5BE4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758698; cv=none; b=nkbom4Yn9MLiCRqkh1t3oZstaseTiceLglqwixrTHURqV3vlEpObAl42A4LOb0Q3hZkmp6tZLi9iYXu6Hz4X7Q6YGM11eLxv/CdCY/laF8sTDhXFzC3TOxeQfy+8B3lCjxwGG0FT6Kz47Zp/YaMIKYGrUdEwRns35+IQWSBjAyo=
+	t=1790758710; cv=none; b=lPH0Q9JKjAPBTN9qmXrpVCgWdTlcGX8I9rAfbc7NB0QAkjx1r5SOSDJsh9C2QxngDXGVC7W26c0HO+4zY4VKa19PK6/X0YLct9ifl1TH+OEyjiZYHzvGQLkG6v83A9FQpyYIX8+XYpuD+pMiSLl+Q8vgnl1n1FwthynQgii6FBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758698; c=relaxed/simple;
-	bh=+RTQv8Io/NvQaQx5zXyiGR0aZJHnu9/eQlVoWE/Z9Pg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=r11fhSgc2v2Q4fXtg/l6e7biteqj5NQ3FUm8NC/d0eO4ButhWTFG9RHT34rcZFC+kaFv8ndNMRTldU2pChaTXezkcH3UY24PPtsQZa5SCnV13UbX3329UtSoo1glMHJ9gZzpekx7nmgAzh8SVi81r37qv+2hWrx4lAGX2ruNpMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 03fdf52ebcad11f19a56ed5b684f684d-20260930
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:27b706e8-0716-4a9c-8778-f31f6d7ddcc6,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:7bae3513a2468c1f4f4bc08ab2526897,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|123|136|850|865|898,TC:nil,Content:0|15|
-	50|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
-	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 03fdf52ebcad11f19a56ed5b684f684d-20260930
-X-User: fengchenguang@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <fengchenguang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 798653724; Wed, 30 Sep 2026 16:57:50 +0800
-From: fengchenguang@kylinos.cn
-To: linux-media@vger.kernel.org
-Cc: hverkuil@kernel.org,
-	mchehab@kernel.org,
+	s=arc-20240116; t=1790758710; c=relaxed/simple;
+	bh=b/z0q4/78sft7ci2/Yt1TSP9crXmve3hk7VMB/CxXxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KKS4vUd3dcogKKVmSHinReJvHwcBZJmfEiQDsbS8xBnt7DXuwop7t5gIKTkXffR/gabSnwjsNgr0FPrgH76m5Ry6tlgnIwePzjKt4QJcCdba7Rp4meYrkI0YNrGdpF1XC4caHOzKhfnwaRVbt6DSST0msx/svgDEAxE9dO6lGT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NYOlOoR3; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NYOlOoR3"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so4968736e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:58:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790758706; x=1791363506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AHFL6RmgBhtI7Ch3hS1eUkcuhMzk4tvhyeKZz8DJl0c=;
+        b=NYOlOoR3PdtoFYssS9EKdzk1g0ALiM2ljZBzvS8Yh41tpW4BwQHft0CJsk7QV0kMdw
+         c0F21lU7F19eQlTbIOytv15MnROkKZu9ST3WHUpGgNFevw/rHjIH4J5QgrizrbO0Waf3
+         oRq8kT/XK0tKts+A1Wkd0U9kzmUt20e/UaKcLD6MABBjrsb0oRhIZoFwjxSkyYPokPJq
+         lfaxgHNYijWGHHrEhzw4LoPDZAlT9tAkFC7BpQpRgOFH8/ipxSwen9DeruqEQikonWjR
+         MlULNCVLVsVxczi3OiEpf9k5cgNpENov/Op9myT4CT/b72sPxXAzs5sVcItRlH/xKSYY
+         h8BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758706; x=1791363506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AHFL6RmgBhtI7Ch3hS1eUkcuhMzk4tvhyeKZz8DJl0c=;
+        b=NazE9BGCwonv/MRyfGyqXEYXH9HxO6/Ou++cC9+fpNatWMbQXe/hgpJWSwgSKrIHca
+         zWa4Ta/7XvOtxlzP8xeJNibtPOV3cBvYuU5SEcbrp7kLo+wOtsuF25aXwCAVgPNO9b1t
+         nmU+adSIP/W/gURZzP90P6Iyh1gK1S0UreX4vCK+/jyRw9wNL/RqwwyRJV3tn1Md9jgK
+         nUIkLGrJL5EPgRJpVrRCd03s/74NefEdHJ82PfhJ6ycboIBGudszbit79CfKL8MA0+vV
+         GSSVulCJfOBnUSxyWzTRPPgQ/7BRYEI3+b8uloRU2J6N6qXZrjS9C1V82csxLilO+kTH
+         eZ0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwRia7P+3PlJmmVT5OnnhhMJh598ew5XESemMYq25pydssOlK2J0/qvgLzsEmNTVa6eUIrU5hGRG+FP4Dc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJunfZso52qTC8RHNHJpXDsMtgIvyQYQeI03P7WaZS43C/HIItu
+	FhJ3DNWxmCW6074JPAIsWAwNuiFjTblBytKD2uWzmfX1ZCB+JjdLbkhKlnTh03eh
+X-Gm-Gg: AYBFou0dcX/Rr3dvtjp12HPyX1cYmVH29/GdeTHCEC0X5pWxmZwZsW2TVZ4AxAiYCBm
+	pAo9nsgWRyzcous/cKkqLrs/cUC7iPKT7noH8hEH6S3oXuP2av2hNOeQ2o7ymDKG3x7E0x+z7aL
+	nvFC6SHuxPZ+s8CHV2ryLi8jJgXl1RiJB7Srwvt/c43tMQp+nbbl2m0D4gawBkJl1g/LMEgC561
+	N9NXSfBy9tk7m4Pg68cDGdEC9j3oDFCuETSxieeFGiYX0J/02JlOlFL5ZvF8Ge+WQRdnnT/0uSn
+	cSGxyQ7pzdXgiId+kmtesRubkfy1bdDM5mI7scdp63Vyjmi9ZbZeAbuW1Q0VOdGtLbaYE1JXlC8
+	TgmDo/zLn6csZPLTjFlXxKPN2fWU2W32ERZfDEldiP7An0aQg6ASY3vTye3ueD0bhBvKf52XI5E
+	/flPi8QGC1ZYq+Ii8+9NnfaJBt8I0S+yyJENJuGVHzsiWJawqs9rZ3tsW1xVZf8KJ26JBczfQ8f
+	Zao9bVn9Mjh03Fh31XIlii/w2DwkB8zU89f7fC081GTPLq16asydqVU/lWObbNL43GPUg==
+X-Received: by 2002:a05:6512:1309:b0:5ba:3b49:1f44 with SMTP id 2adb3069b0e04-5ba402b3e93mr329182e87.4.1790758706300;
+        Wed, 30 Sep 2026 01:58:26 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fbbc051sm211389e87.1.2026.09.30.01.58.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:58:25 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chenguang Feng <fengchenguang@kylinos.cn>
-Subject: [PATCH 06/10] media: gspca: spca505: Fix block comment style
-Date: Wed, 30 Sep 2026 16:57:34 +0800
-Message-Id: <20260930085738.239952-6-fengchenguang@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260930085738.239952-1-fengchenguang@kylinos.cn>
-References: <20260930085738.239952-1-fengchenguang@kylinos.cn>
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] iio: pressure: dps310: fix overflow in pressure compensation
+Date: Wed, 30 Sep 2026 11:58:19 +0300
+Message-ID: <20260930085819.886339-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,46 +80,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chenguang Feng <fengchenguang@kylinos.cn>
+p^3 * c30 and t * p^2 * c21 overflow s64 at most oversampling ratios,
+and pressure comes out about 150 Pa low on a DPS310 here.
 
-Fix coding style issues reported by checkpatch.pl:
-- move closing */ of block comments to a separate line
-- align * on subsequent lines of block comments
+Use Horner form, dividing by scale factor at each step. Overflow then
+needs a raw value far outside sensor range and returns -ERANGE.
 
-No functional changes.
+Checked against datasheet formula at all eight ratios.
 
-Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
- drivers/media/usb/gspca/spca505.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+v2: (s64)BIT(20) instead of BIT_ULL(), min() instead of min_t() (Andy)
+v1: https://lore.kernel.org/linux-iio/20260928101803.547005-1-zoone.rupert@gmail.com/
 
-diff --git a/drivers/media/usb/gspca/spca505.c b/drivers/media/usb/gspca/spca505.c
-index 0e8cccbb6d80..0042d74a0861 100644
---- a/drivers/media/usb/gspca/spca505.c
-+++ b/drivers/media/usb/gspca/spca505.c
-@@ -117,8 +117,10 @@ static const u8 spca505_open_data_ccd[][3] = {
- 	/* This could be a reset */
- 	{0x03, 0x00, 0x01},
+Based on iio/testing, since the buffer series reworked this function.
+Can send a version for fixes-togreg if you prefer.
+
+ drivers/iio/pressure/dps310.c | 94 +++++++++++++++--------------------
+ 1 file changed, 39 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 85df58ac1809..f59fbd586ffd 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -19,6 +19,7 @@
+ #include <linux/limits.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/overflow.h>
+ #include <linux/regmap.h>
+ #include <linux/unaligned.h>
  
--	/* Setup compression and image registers. 0x6 and 0x7 seem to be
--	   related to H&V hold, and are resolution mode specific */
+@@ -660,75 +661,58 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 	}
+ }
+ 
++/* Fixed point one for the compensation fractions */
++#define DPS310_CALC_ONE		((s64)BIT(20))
++
++/* *acc = (*acc + coef) * raw / k, with coef scaled to match *acc */
++static bool dps310_horner_step(s64 *acc, s32 coef, s64 raw, s64 k)
++{
++	s64 prod;
++
++	if (check_mul_overflow(*acc + coef * DPS310_CALC_ONE, raw, &prod))
++		return false;
++
++	*acc = div64_s64(prod, k);
++
++	return true;
++}
++
+ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	__must_hold(&data->lock)
+ {
+-	int i;
++	s64 p = data->pressure_raw;
++	s64 t = data->temp_raw;
++	s64 prs = 0;
++	s64 tmp = 0;
++	s64 pressure;
++	int kp, kt;
+ 	int rc;
+-	int kpi;
+-	int kti;
+-	s64 rem = 0ULL;
+-	s64 pressure = 0ULL;
+-	s64 p;
+-	s64 t;
+-	s64 denoms[7];
+-	s64 nums[7];
+-	s64 rems[7];
+-	s64 kp;
+-	s64 kt;
+ 
+-	rc = dps310_get_pres_k(data, &kpi);
++	rc = dps310_get_pres_k(data, &kp);
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = dps310_get_temp_k(data, &kti);
++	rc = dps310_get_temp_k(data, &kt);
+ 	if (rc)
+ 		return rc;
+ 
+-	kp = (s64)kpi;
+-	kt = (s64)kti;
+-
+-	p = (s64)data->pressure_raw;
+-	t = (s64)data->temp_raw;
+-
+-	/* Section 4.9.1 of the DPS310 spec; algebra'd to avoid underflow */
+-	nums[0] = (s64)data->c00;
+-	denoms[0] = 1LL;
+-	nums[1] = p * (s64)data->c10;
+-	denoms[1] = kp;
+-	nums[2] = p * p * (s64)data->c20;
+-	denoms[2] = kp * kp;
+-	nums[3] = p * p * p * (s64)data->c30;
+-	denoms[3] = kp * kp * kp;
+-	nums[4] = t * (s64)data->c01;
+-	denoms[4] = kt;
+-	nums[5] = t * p * (s64)data->c11;
+-	denoms[5] = kp * kt;
+-	nums[6] = t * p * p * (s64)data->c21;
+-	denoms[6] = kp * kp * kt;
+-
+-	/* Kernel lacks a div64_s64_rem function; denoms are all positive */
+-	for (i = 0; i < 7; ++i) {
+-		u64 irem;
+-
+-		if (nums[i] < 0LL) {
+-			pressure -= div64_u64_rem(-nums[i], denoms[i], &irem);
+-			rems[i] = -irem;
+-		} else {
+-			pressure += div64_u64_rem(nums[i], denoms[i], &irem);
+-			rems[i] = (s64)irem;
+-		}
+-	}
+-
+-	/* Increase precision and calculate the remainder sum */
+-	for (i = 0; i < 7; ++i)
+-		rem += div64_s64((s64)rems[i] * 1000000000LL, denoms[i]);
 +	/*
-+	 * Setup compression and image registers. 0x6 and 0x7 seem to be
-+	 * related to H&V hold, and are resolution mode specific
++	 * Section 4.9.1 of the DPS310 spec in Horner form. Multiplying the raw
++	 * powers out first overflows s64 at every oversampling ratio but 16.
 +	 */
- 		{0x04, 0x10, 0x01},
- 		/* DIFF(0x50), was (0x10) */
- 	{0x04, 0x00, 0x04},
-@@ -654,7 +656,8 @@ static int sd_start(struct gspca_dev *gspca_dev)
- 	reg_write(gspca_dev, 0x05, 0xc2, 0x12);
++	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
++	    !dps310_horner_step(&prs, data->c20, p, kp) ||
++	    !dps310_horner_step(&prs, data->c10, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c01, t, kt))
++		return -ERANGE;
  
- 	/* necessary because without it we can see stream
--	 * only once after loading module */
-+	 * only once after loading module
-+	 */
- 	/* stopping usb registers Tomasz change */
- 	reg_write(gspca_dev, 0x02, 0x00, 0x00);
+-	pressure += div_s64(rem, 1000000000LL);
+-	if (pressure < 0LL)
++	pressure = data->c00 + div64_s64(prs + tmp, DPS310_CALC_ONE);
++	if (pressure < 0)
+ 		return -ERANGE;
  
+-	*val = (int)min_t(s64, pressure, INT_MAX);
++	*val = min(pressure, INT_MAX);
+ 
+ 	return 0;
+ }
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
 -- 
-2.25.1
+2.43.0
 
