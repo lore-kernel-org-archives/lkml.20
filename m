@@ -1,87 +1,76 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257E74DEC26;
-	Wed, 30 Sep 2026 18:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051C95187F2;
+	Wed, 30 Sep 2026 18:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792450; cv=none; b=J08ZR4bOtCBUvZctfn+UJau+EBhpS6gsF/Cq1DsE3bhZ9qOMt6oeRLwAAAvV0flSXIIOIey4iQaYdlBMdmfaHgdN98lc0nLSuDXEFN9w3imoAymVi9yquGN2eyMtCtx2KWdboQYnLzdkwdwD7oKNjzD37ykNccwpjMypjFhB1Z8=
+	t=1790792452; cv=none; b=UFSxbfy5SqS2DosyWLe28f4V/UBciQqlBcMfr86R4K+wcNRD1T2zOPIRMIWJ7OIcBLGb5KVS3oUzWIddOg81KW3ZJhrWx4GpGesWoW/wp+AW4Ou4mqv674bUVFBaAjL9qfU6jfI8FhVvyhWq7opTyWEx5l2Cxj/DDSoj9a7GcL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792450; c=relaxed/simple;
-	bh=ezBJ+zy0e5reHdRsuZ4tpWukuZ4wZScsXD6apZTSgiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sygKdjMWgoAA1VDliT3BVTz+I+NR+SzeHvX/zYTGEe+ifMGrOG0ePn1oQTADGLS5ecpJbVPOz34mnWlJ8m3/UpRqWhrLA4OK0GFqaa+guus/9rVFV1B4HGiFXtRAzzDSmVDqeh4tASHlI5oWN4Pw5Sp4QNZZcppDm/96XIT9ph4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=RSbRlzBW; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790792452; c=relaxed/simple;
+	bh=iKB0Xr798o8BJ/ut3lm9p2YkMA5yP6qEFVA1Z1Go+O0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jh9ImACMibPl2L7fGkbfuCXtFToJzVcTmDEcLJ1gaBfJ2sbq8ZxY8TC+GJKlpTZxC2Q4MLQTszwnb6PZcHBAkRka3xixceNM1ohXrgFWBJ/dxfJgi5Y3YYaiPL/L6Z8lSMQewDNBFmxMXrLXG97a+RIodBAoloUulhFeM1fKK7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnYqD3A7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="RSbRlzBW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=mUEIu4CoGpjPxI2NwTPet4Gva46cYnBcLeV2lVdhRNg=; b=RS
-	bRlzBWo3ts7fMXb0bDxyfBA06MJQ7KcTnV6jquVYnx9KJ6k7XRQXE7f4GKB9VylOC6WH527XV0Mw8
-	romvFiVsEbm9mmkwiqbzYPkNw+gVqNLULJjf3O9ffh3jVfIWan0+0vA2ww0ERBfna/3607THPCe2l
-	a9jMBUiwULhTA1Y=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xByut-008DJq-1u; Wed, 30 Sep 2026 20:20:31 +0200
-Date: Wed, 30 Sep 2026 20:20:31 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
- controller driver
-Message-ID: <26a505c2-526c-43d3-aa9a-2ba4afb39b69@lunn.ch>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
- <e4440c27-5551-482c-95ae-9b75481bcf7b@lunn.ch>
- <2c0a9d5f183cb9537b3f89016800247bb7b673c3.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnYqD3A7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1EF1F00898;
+	Wed, 30 Sep 2026 18:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790792450;
+	bh=iKB0Xr798o8BJ/ut3lm9p2YkMA5yP6qEFVA1Z1Go+O0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=ZnYqD3A7oykjQNYGXJK1Vx9gr4KPzsnjxa7+IC058q+p7gjS0Gi04R+9dr0Oz26Y8
+	 G6OclGLe+7e2ZGmDppUKwPvanz+aiesTF3pC9Z1nxKsyxyNAjeG/GZfiE3d6AUFQfn
+	 ESDIuK/Zj8HZTJwCKZM65bxLklrxW7CqUIgvNft1GFiEfg0yDq8y4Uj/bgsopQZ5VE
+	 n8itb6h/+OMlnk6cp/FDn1+jASJS9BhWpmBhcibpv3OoNdyBAQzrqLSCiCpgpGy9Wb
+	 P7Q3XZHYqeUwc5BV7K510bvK4qqLIEjwk5tCmF9S1Af/ClWhcabiFj/dU3sH4TT3f8
+	 OZrtdon53UWWw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Filipe Xavier <felipeaggger@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj?=
+ =?utf-8?Q?=C3=B6rn?= Roy
+ Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Filipe Xavier <felipe_life@live.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Filipe
+ Xavier <felipeaggger@gmail.com>
+Subject: Re: [PATCH v2] rust: impl_flags: add conversions for raw flag
+ representations
+In-Reply-To: <20260920-add-from-raw-conversions-v2-1-cef8e6e23ae2@gmail.com>
+References: <20260920-add-from-raw-conversions-v2-1-cef8e6e23ae2@gmail.com>
+Date: Wed, 30 Sep 2026 20:20:37 +0200
+Message-ID: <875wzmbnyi.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2c0a9d5f183cb9537b3f89016800247bb7b673c3.camel@linutronix.de>
+Content-Type: text/plain
 
-On Wed, Sep 30, 2026 at 07:23:38PM +0200, Vasilij Strassheim wrote:
-> On Sat, 2026-09-26 at 01:10 +0200, Andrew Lunn wrote:
-> > > diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-> > > index 048586746026..079b46dea25f 100644
-> > > --- a/drivers/net/mdio/Makefile
-> > > +++ b/drivers/net/mdio/Makefile
-> > > @@ -23,6 +23,7 @@ obj-$(CONFIG_MDIO_OCTEON)		+= mdio-octeon.o
-> > >  obj-$(CONFIG_MDIO_PIC64HPSC)		+= mdio-pic64hpsc.o
-> > >  obj-$(CONFIG_MDIO_REALTEK_RTL9300)	+= mdio-realtek-rtl9300.o
-> > >  obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
-> > > +obj-$(CONFIG_MDIO_SOCE)			+= mdio-soce.o
-> > >  obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
-> > 
-> > Maybe the indentation is wrong here?
-> 
-> This looks fine in code.
+Filipe Xavier <felipeaggger@gmail.com> writes:
 
-Sometimes happens with tabs that the patch looks wrong, but is in fact
-correct.
+> Extend the impl_flags! macro to support conversions between generated flag
+> types and raw C/UAPI integers. Implement TryFrom<Repr> for individual flags
+> (exact variant match) and flag sets (rejecting unknown bits), along with an
+> unsafe from_raw() constructor for flag sets. Additionally, add BitOr and
+> BitOrAssign implementations between the raw representation and flag types.
+>
+> Suggested-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Suggested-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Filipe Xavier <felipeaggger@gmail.com>
 
-Thanks for checking.
+I feel like I already sent a patch for at least part of this [1]. Please
+go review that one and maybe use it as a dependency.
 
-	Andrew
+Best regards,
+Andreas Hindborg
+
+[1] https://lore.kernel.org/all/20260605-impl-flags-additions-v2-1-0d27242f460b@kernel.org/
+
