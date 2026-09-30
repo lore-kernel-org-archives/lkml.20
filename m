@@ -1,108 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA49F4BEE38;
-	Wed, 30 Sep 2026 13:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2875B4E3247;
+	Wed, 30 Sep 2026 13:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773914; cv=none; b=V4auQHANugwHA06xnlWhndCJHWLVBt30ajYpyTLtK4nxLAe8KgisE/MZ7bOZmfufBfGtq3H90Gm042wawnzbFaZYtb1wI2nAX0+ZefKJIQhw3ZVGhPFjEt2/P46aI8ZxBObmZyFFoiTimFp4533aQmNeMkMoUH2UtWSpT5+o4oo=
+	t=1790773914; cv=none; b=CiQ+rZ48DicoB1ruJz2qPOf5z8sGwgkbY2cKA3zUqGhQiUcX623C+YVxDnDf3lloCq7eE1ScbBBzWA4M0dbzwSXuIkTqWwEAoc2qMk8n89YrU2C7fpQd/DsDBVolJhpahzgsHl9ZlY6Y5iR+wvZOgtWdPlZQC6aeOhmjJ8q/l/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790773914; c=relaxed/simple;
-	bh=NXIKV0QZVWBgN25oqgaa6GjmQk1Nftn3SVI+OVPkSxA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DEJJGklhsRybCY6UK42AdH1JGALRstb/bmO2GRHu6CudiJlJv3LShSKJ2zquvakrEOBYpw0uLwoQ/3XdEz5QUQXVb8ndTXa+CHl2SKSHD4Ko9T5AGwXKkfiQMj3YA1Mn4xwcyUD7UC8GhnkOnuzEj6uw1Gv55kfdxfcAhUB31Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=grgDidvi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=ww8M/QnA9OPPQElHyvnBWa+YoAUC18Cqvz6wJTSWbFM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fus6z+tJSrkW6sMBYcu2thwfRhW0VV9e5slQKwL5fm8NskHdSIRKKQ8cl05Ns3ig5yYdk2ZV4epe1LV025NmWWtDQ656vQrK11sCHVIxIRLAU7fo8J57RRAc2+6LuiQWERqSGYL5gzMtg0ItcOWR2Q/aEHDcw3S5KdrwJv32cHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BT3gTff2; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="grgDidvi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4654B497;
-	Wed, 30 Sep 2026 06:11:43 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1EA703F86F;
-	Wed, 30 Sep 2026 06:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790773906; bh=NXIKV0QZVWBgN25oqgaa6GjmQk1Nftn3SVI+OVPkSxA=;
-	h=From:Subject:Date:To:Cc:From;
-	b=grgDidvi6tQRYRKlrLhBCpjxQ5GNOJW5+P0uH+hYLF0v0DJKeH2eXtJ6QbDsDBcZP
-	 mrgNjCBhZjMeFCr//ftB/bNGei3keZQbZ35u7Dbz+UyApx9+jaquLpKhtBs3h2Xt2q
-	 QZMVruFCBFj+2ph81oByfu2PZEImbQ/KUNk3iA2o=
-From: Leo Yan <leo.yan@arm.com>
-Subject: [PATCH v2 0/4] perf build: Fix pylint build failures
-Date: Wed, 30 Sep 2026 14:11:35 +0100
-Message-Id: <20260930-perf_fix_pylint_errors-v2-0-945cd526576b@arm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BT3gTff2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=RQmSvA6LECXzyDxWy2pOxmNQIrvr7sbOLRWYdtXIe7E=; b=BT3gTff2xdZdqJ/ds6f2QZOkfR
+	qx8uNzIL2UB4MOUTvhdUndl7i2i9BUJsIUKdevGCqr8qDkcVGWpHWwxEj/4AN9SiuL1RVfTsMK0e9
+	64YaMddz0cMbTzdSQAu3/Q91ZSWLkhUow86+9JRyPTSjsJjlu8/r3vOHoUlmWwMG06GM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBu5m-008A5e-Hq; Wed, 30 Sep 2026 15:11:26 +0200
+Date: Wed, 30 Sep 2026 15:11:26 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: Marek Vasut <marex@nabladev.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Message-ID: <c09f289e-4831-4171-abba-4f1d006b3532@lunn.ch>
+References: <20260924180607.60932-1-marex@nabladev.com>
+ <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+ <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIgKvWoC/4WNUQ6CMBBEr0L225q2WEG/vIchBMpWNhFKtqSRk
- N7dygX8fJOZNzsEZMIA92IHxkiB/JxBnwqwYze/UNCQGbTUV3krpViQXevo0y7bm+a1RWbPQZQ
- WnanLXuGlgjxeGHPpED+bzCOF1fN2/ET1S/8qoxJSuEoro4a618Y8Op7O1k/QpJS+E5DIz7oAA
- AA=
-X-Change-ID: 20260930-perf_fix_pylint_errors-3cef583b1e47
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Aishwarya TCV <aishwarya.tcv@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790773904; l=1958;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=NXIKV0QZVWBgN25oqgaa6GjmQk1Nftn3SVI+OVPkSxA=;
- b=6mZTFSObmumwv8GOfmkKeDeCZlCSWG2oXJPNd7pEMEbzkPDP6L3AlKBBjtNdpgxhIrUUvd08s
- lDxbPRjiDVLC6Yn5jsfbHnrSHnMIupKytItWHRU0bMVO/cboB3jEr48
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
 
-Recent changes to perf's Python module, including enabling pylint by
-default, exposed build failures in our CI. For example:
+> No, we typically hardcode the clock frequency in the driver based on the NETC
+> version. Another simple method is to set the divisor to 166 instead of 66, which
+> will not cause any problems for using a 400MHz NETC.
 
-  tests/shell/lib/perf_brstack_max.py:8:0: E0401: Unable to import 'perf' (import-error)
+There are use cases where you want the MDIO bus running at the 802.3
+speed, or higher.
 
-This series builds the perf Python extension before running pylint on
-its consumers without delaying C builds. It also prepends the output
-Python directory to PYTHONPATH for out-of-tree builds.
+Some PHYs need firmware download because the OEM saved $0.02 by not
+putting on an EEPROM. I've seen boards take 10s of seconds to download
+the firmware on boot.
 
-The series also mutes the optparse deprecation warning from older pylint
-versions. Python has reversed this deprecation, and newer pylint
-versions no longer report it.
+The Marvell PHYs allow you access to the raw TDR cable testing values,
+which is a lot of data. Getting it faster allows nicer and more
+responsive tools.
 
-A final patch renames an exception variable in the PostgreSQL exporter
-to fix pylint warning.
+There might be an MDIO managed switch hanging off the MDIO bus, so
+again, lots of traffic.
 
-Tested on an x86 Intel Xeon(R) w7-3465X (28 cores, 56 threads), the
-average real build time over three runs was 20.104s for v1 and 18.998s
-for v2, about 1.1s (5.5%) faster.
+So please look at setting the divisor correctly to achieve 2.5Mhz, and
+maybe consider implementing the device tree property:
 
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
-Changes in v2:
-- Run pylint after the Python extension without delaying C builds
-  (Sashiko).
-- Fix the PostgreSQL warning.
-- Link to v1: https://lore.kernel.org/r/20260930-perf_fix_pylint_errors-v1-0-f72151d8b255@arm.com
+  clock-frequency:
+    description:
+      Desired MDIO bus clock frequency in Hz. Values greater than IEEE 802.3
+      defined 2.5MHz should only be used when all devices on the bus support
+      the given clock speed.
 
----
-Leo Yan (4):
-      perf build: Build the Python extension before pylint consumers
-      perf build: Add the output Python directory to pylint's PYTHONPATH
-      perf test: Suppress optparse deprecation warning with older pylint
-      perf python: Avoid shadowing exception name in PostgreSQL exporter
+so it can be overclocked.
 
- tools/perf/Build                          |  4 +++-
- tools/perf/Makefile.perf                  | 17 ++++++++++++++++-
- tools/perf/python/export-to-postgresql.py |  4 ++--
- tools/perf/tests/Build                    |  4 +++-
- tools/perf/tests/shell/lib/attr.py        |  3 ++-
- 5 files changed, 26 insertions(+), 6 deletions(-)
----
-base-commit: 45d15e89a783a0a279b7a54f9018c230127380d7
-change-id: 20260930-perf_fix_pylint_errors-3cef583b1e47
-
-Best regards,
--- 
-Leo Yan <leo.yan@arm.com>
-
+   Andrew
