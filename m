@@ -1,83 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDE851B167
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2495F51AED3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790801452; cv=none; b=hzSjszNuK1Hv+FIQWKwq5AQYFeSgP918aEmcAd2NdpV6vOtVxCyVSqVmfEd3zeFNZjI65MVh+GG+mRFZkHnDYbiJAIkkYXcWDRjgL2vHb+YLdIRyogEkgur9GJXxmVR1Xvzu4GIcvAWfuRL7xuIOHpJMw7mzhHV/m26iKa7xB64=
+	t=1790801465; cv=none; b=ZUeBU8MQ60hTrZp4vmzYYrd3lIzKJfwZUQgD1Fjh0vyaS3EM1n+T70pOSdmgjlBOIsGR3s153sIIjyVxz4lecnwehr2krw5NZGZ1E9g0PO20+pwt4lQLjxlSOk/seTRenOGwRdESbShWq48bIxS2/1u7SuGfgkGgv28+kNwq4vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790801452; c=relaxed/simple;
-	bh=M+/OyhH3Msg6tLgpwLBJhE4kGp7BkelrRjhrjnMBWTw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qjqrK/DShCN2JsvcETQDQlQYa9E5nBR5tibF6bZ7ynvmnXq789Dfh9R8pzlBBaBsnM5ABu0JN7SxlwCRax7EqDY6C4JwDMmLDBB9FKGuXKeHKlOQYyAiuLDHbDiErT/2RdXUZPPSQvaBNF2DzTBIWc2889maa7408lsLSiY3CGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZcQ2S60; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790801465; c=relaxed/simple;
+	bh=o6JsEQle2TgBGXyra/fkAAW50pTRLJXiPJdy1imZk68=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eb9Uxv3cjz1dVoD87AeQ4/HslOlDYHwSWNMo8U7xkdzkAIqia1yzYFKngxANQB+awzoPoE5FPuB8SEMT6tfvj4jScOELXDUeQ9Uy0SITuqAA7E4gyvVX+im83d4zXghzzXsnhUvR9DVfBTfO4MsqVQhivKCiLosVVHSYeMfIA/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HfXxO7UU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZcQ2S60"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB22E1F000FF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790801449;
-	bh=M+/OyhH3Msg6tLgpwLBJhE4kGp7BkelrRjhrjnMBWTw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EZcQ2S60TURDf6RFzJiWhjm+o8/pmGx8wukMMT1q4m3AHbpqyJ3kMHVS96VN6+gff
-	 18fNggtgil4NYvRcbOSQviZraYzceFnV6sl5gLCSmaLuDwBUH/sHemD2dTPF1zRy/I
-	 ckHufBDhqtRt/Kt/56GL0AVJC4Yn5Jw6b8b9AsSKVJnqp+ZC/DmVSf4jqfcw57cUE6
-	 HWV+l2ZztouEzfqiUzYrvr99snV/FLahPucf1N2LrvLDx8Mfvu+m+Zbb2eGdyv747b
-	 OEIvbdF72Qu1SGqLVw21QS+NmoJ4LVHKQiXUxAljHVMUfD7Go99NykZnQgqgenXcmM
-	 y86tL3LQlcr3A==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba3fc22439so934532e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:50:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx16LQwnXIjVnHO82PXAX7tzZuZJV061CRQC9XA6ddITZq+pYqb+cygq8bQE5j4RWp3VYP8YLJ7QBeoVLw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKICl2aSZDX1mrOnMo3OvumTB0Ml3VidlWnEWVypCKGfpHSIxqH
-	AwaUFtvYMc328Bl04Yg1FGC1UoS4KL6ZamCQnwtlSWapRgEgbUC/r/jPfM52q9fpN2dDu2pZkpq
-	xmOVGOtGbkowP55FQG8R/N+tBqnObfUI=
-X-Received: by 2002:a05:6512:3195:b0:5b8:f494:da93 with SMTP id
- 2adb3069b0e04-5ba405d9c1cmr1310761e87.33.1790801447761; Wed, 30 Sep 2026
- 13:50:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HfXxO7UU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 31FD2497
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:50:57 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 679F93F85F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790801460; bh=o6JsEQle2TgBGXyra/fkAAW50pTRLJXiPJdy1imZk68=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HfXxO7UUjD8Bm3t+Sx6f9dO02Cb0BQ1HdQip/w+jyV5397NOtgWZeeRQNrfbVpL0/
+	 I3Qb2X7erXt+9zKaEIGkPE3XINmRnDKcAFboB58j1ZTy/hUiVxhDUjFJz2ekVKrHup
+	 ms4Fr38S7VOyv0rVPmoqqz7MLL3Sqs0kNNx6HWHo=
+Date: Wed, 30 Sep 2026 21:50:51 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Weigang He <geoffreyhe2@gmail.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ARM: vexpress: fix device_node refcount leak in
+ vexpress_smp_dt_prepare_cpus()
+Message-ID: <ar12K0NGkuO9_XK_@e142607>
+References: <20260925173252.933705-1-geoffreyhe2@gmail.com>
+ <20260925173252.933705-3-geoffreyhe2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918161407.2300-1-will@kernel.org> <20260918161407.2300-3-will@kernel.org>
-In-Reply-To: <20260918161407.2300-3-will@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 22:50:35 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkyS-ZOkpEXeEDzhfe7t4sn8NbzEeNO4a8WKsk_OfRLmQ@mail.gmail.com>
-X-Gm-Features: AclHuK9k9Dqon_4_7OCW1CMCtBrEiAX2BH_LGhxILnxAEFTHu__0YdC-t83XsPc
-Message-ID: <CAD++jLkyS-ZOkpEXeEDzhfe7t4sn8NbzEeNO4a8WKsk_OfRLmQ@mail.gmail.com>
-Subject: Re: [PATCH v2 02/21] arm64: entry: Only check for stack overflow on
- exceptions from EL1
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925173252.933705-3-geoffreyhe2@gmail.com>
 
-On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
-:
+On Sat, Sep 26, 2026 at 03:32:52AM +1000, Weigang He wrote:
+> vexpress_smp_dt_prepare_cpus() obtains a reference to the SCU device
+> node via of_find_matching_node() and passes it to of_iomap(), but never
+> calls of_node_put() on it. of_iomap() does not take ownership of the
+> node, so the reference is leaked. The function is the .smp_prepare_cpus
+> hook invoked once from the __init SMP bring-up path, so this is a
+> one-shot leak of a single refcount during boot, with no functional
+> impact.
+> 
+> Annotate scu with the __free(device_node) cleanup attribute so the
+> reference is released when the function returns.
+> 
+> Found while reviewing a CodeQL report for vexpress_flags_set() on the
+> same SMP bring-up path.
+> 
+> Fixes: d2606f81d563 ("ARM: vexpress: Simplify SMP operations for DT-powered system")
+> Assisted-by: LLM codeql
+> Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 
-> Checking for kernel stack overflow on entry from EL0 is largely
-> pointless and gets in the way of using SPSel to switch to the overflow
-> stack. If the kernel stack overflows on entry from userspace, that
-> implies that it was unbalanced on the last exception return which means
-> we can't sensibly reason about the state of the system given that we
-> could've returned to an arbitrary virtual address in an arbitrary mode.
->
-> Remove the stack overflow check from the EL0 exception entry path.
->
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-I agree with this reasoning, and it confirms my own understanding
-of the futility of checking this at entry from EL0.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Best regards,
+Liviu
 
-Yours,
-Linus Walleij
+> ---
+> 
+> Notes:
+>     Compile-tested only (ARCH=arm multi_v7_defconfig, W=1). Not tested on
+>     hardware; I have no Versatile Express board.
+>     
+>     The CodeQL query behind this report was synthesized with LLM assistance,
+>     and the fix and changelog were drafted with LLM assistance; I have
+>     reviewed them.
+> 
+>  arch/arm/mach-versatile/platsmp-vexpress.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm/mach-versatile/platsmp-vexpress.c b/arch/arm/mach-versatile/platsmp-vexpress.c
+> index 1ee3c45e71c99..b810ad50b98ce 100644
+> --- a/arch/arm/mach-versatile/platsmp-vexpress.c
+> +++ b/arch/arm/mach-versatile/platsmp-vexpress.c
+> @@ -61,8 +61,8 @@ static const struct of_device_id vexpress_smp_dt_scu_match[] __initconst = {
+>  
+>  static void __init vexpress_smp_dt_prepare_cpus(unsigned int max_cpus)
+>  {
+> -	struct device_node *scu = of_find_matching_node(NULL,
+> -			vexpress_smp_dt_scu_match);
+> +	struct device_node *scu __free(device_node) =
+> +		of_find_matching_node(NULL, vexpress_smp_dt_scu_match);
+>  
+>  	if (scu)
+>  		scu_enable(of_iomap(scu, 0));
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
