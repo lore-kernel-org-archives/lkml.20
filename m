@@ -1,151 +1,132 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD84372ECF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEDF36F8FE
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790738663; cv=none; b=Fyk27NJDNMZCYCU0eFlw849hAuBybsVHKIxc8B/w6LMLIHSHMu9KNeVZeyWT1SzUdua9Ak+Dv9cAMBkgO40OMhoCvh5pvPok6p9rWD+qEWs+C/eWaeeSdal+d3ECYQSv0v6Q2vVsWfNxLF12f2lt+Y9xd1CRhqNM9oKOt8sO+b4=
+	t=1790738731; cv=none; b=ZZF6S6iKQV+UBuXXiLNOezNJlhIOnoDCIptpP8oWKM9FWw6xcqPtRNi7nV9sLmwO6J+E7x+RM/dIFel+wl+iijoRAE2baBVCsbOc4MrXU5P2uonRIfi1/WAU3ZFVuifY8+Cc6DmEGCL+7I+7o3nMYfZchrVAbVhtc+JpAoNG5+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790738663; c=relaxed/simple;
-	bh=n1DADKhe9xRV3sNCWeM67fzx17yWLTOn9FAz5GnZbEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=JGYK4lChjgvWvxwwIYjFF58PgBbrhsRnScN7eBZmkiUPumPSVBTFvCCM1yPU4O47w/acYeIvCIaD1g7YGVrTPqjjZma8GZA6GqIpbCs0fBskCbGY3JZfsrTRWt6ftWl1/R7DNDvVILuUUO8RNdKcq4YFjqeexZBBkk1UmDL8w30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dKbR2kIw; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790738731; c=relaxed/simple;
+	bh=X93RA5rgWCekk+Xsp5aOujEMtC+NO/2XlXgFmidXf8A=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=jGBxhzQ4Sp4pB0Ln5Ns5GVY8pUCmzAx9DZw0uhZuRt5t6uHwXm28fQiGzAOTx7Fw7VCMqRvw0ip1sRoulBqT2MlDUghE0ftTrqM7B6c80Bd6rMLh0ahmAImL1EarpR6WNu/LmrGN6RvkmqX7wfYsbJQCfVR4ansDzNUJ24Ie5A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YJ/7lv1N; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dKbR2kIw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790738661; x=1822274661;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=n1DADKhe9xRV3sNCWeM67fzx17yWLTOn9FAz5GnZbEw=;
-  b=dKbR2kIw1OlZw9VAA8JRMEBwN2PeZo5nj6hehc47jmuAPkvQmpAd8lmt
-   0nnZMFLHBr7xlPuPE072Nh7XuaQWYyb3BUskU99C0UxEkI1HVfnoKV4aZ
-   fpnmUqqKLvYnJDiZxyyrZxuiQtFXSK1RjEGXni9/UIg/ylkED69tfzMDr
-   IAMuTdXNCThzOw0r+Nt06NDJLLQxki82hiR5hEay6eEDodMTcx15N58/0
-   pYlrtQotl2OmGWugP91qAdBLO4QJN/JW1s58H9VB75YCXE3hcUjqOt6ZW
-   2wQE8KRX8zI1VeKi/O1aABDSayb51NEwe1jX6QIaDGUKU8Z4NTOHUL8uY
-   A==;
-X-CSE-ConnectionGUID: taY5MTfjRO+aLsltmjRROw==
-X-CSE-MsgGUID: hj9sXzo8SXCrkBpQXcTUIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="95280787"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="95280787"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 20:24:20 -0700
-X-CSE-ConnectionGUID: VnyXi1hdT7OT0v18A97Vqg==
-X-CSE-MsgGUID: kHYUENvuTiKPKYkUD4bebg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="275593739"
-Received: from igk-lkp-server01.igk.intel.com (HELO 04362d00df5a) ([10.211.93.152])
-  by orviesa009.jf.intel.com with ESMTP; 29 Sep 2026 20:24:19 -0700
-Received: from kbuild by 04362d00df5a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xBkvW-000000001it-1GQS;
-	Wed, 30 Sep 2026 03:24:14 +0000
-Date: Wed, 30 Sep 2026 05:23:21 +0200
-From: kernel test robot <lkp@intel.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
- "Thomas =?utf-8?Q?Wei=C3=9Fschuh"?= <thomas.weissschuh@linutronix.de>
-Subject: [tip:timers/vdso 4/4] include/linux/compiler_types.h:702:38:
- error: call to '__compiletime_assert_5' declared with attribute error:
- BUILD_BUG_ON failed: clock >= BITS_PER_TYPE(msk)
-Message-ID: <202609300510.Ej5t8KO8-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YJ/7lv1N"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260930032520epoutp045f33ce864540c91440e8385c5235b482~Z_2Dcw1Le2905129051epoutp04m
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:25:20 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260930032520epoutp045f33ce864540c91440e8385c5235b482~Z_2Dcw1Le2905129051epoutp04m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790738720;
+	bh=qV/9he1CawIScaCGwp9M2kCWY31FQD0hOy1LYFGRfWQ=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=YJ/7lv1NTqkHWVZJBDhKZGIA6PI9CmYxFlGMYE3ZLIjz9PSymQqjaJJXw8+e1jNOO
+	 iQUVkyHFIu62a3ZiIVITzpGd5v3jOIa/YrZWD0KhNwtIL995PUH908SvuXnNQszqPR
+	 qJeHKVJrLJjI3TWIMTpxE4CYlBhmBfIJwgTOLMxg=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260930032519epcas5p3ad47f970405abdcfcd06ac7290b08725~Z_2DDEJ9F0907109071epcas5p3Z;
+	Wed, 30 Sep 2026 03:25:19 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hvgR1131Jz6B9m4; Wed, 30 Sep
+	2026 03:25:17 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260930032516epcas5p4d193b18297c922226d567018e738bf41~Z_1-jov4d1681816818epcas5p4X;
+	Wed, 30 Sep 2026 03:25:16 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260930032514epsmtip2aff10d7c9cb83aa870b567b932aff677~Z_199F3SY1916719167epsmtip2P;
+	Wed, 30 Sep 2026 03:25:14 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, <peter.griffin@linaro.org>,
+	<robh@kernel.org>, <conor+dt@kernel.org>, <linusw@kernel.org>
+Cc: <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-watchdog@vger.kernel.org>,
+	<linux@roeck-us.net>, <hajun.sung@samsung.com>, <wim@linux-watchdog.org>
+In-Reply-To: <4cc0ca7d-82ae-493d-ac15-478cdd8f0e08@kernel.org>
+Subject: RE: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+Date: Wed, 30 Sep 2026 08:55:12 +0530
+Message-ID: <13f401dd508b$4fac48b0$ef04da10$@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/vdso
-head:   ca46a07c4b68246c4e400ce3649ab7228a878d8f
-commit: ca46a07c4b68246c4e400ce3649ab7228a878d8f [4/4] vdso/gettimeofday: Assert that the clockid fits into the u32 bitmask
-config: sparc64-randconfig-2001-20260930 (https://download.01.org/0day-ci/archive/20260930/202609300510.Ej5t8KO8-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 9.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609300510.Ej5t8KO8-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609300510.Ej5t8KO8-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from <command-line>:
-   arch/sparc/include/uapi/../../../../lib/vdso/gettimeofday.c: In function '__cvdso_clock_gettime_common':
-   arch/sparc/include/uapi/../../../../lib/vdso/gettimeofday.c:288:24: error: implicit declaration of function 'BITS_PER_TYPE'; did you mean 'BITS_PER_LONG'? [-Werror=implicit-function-declaration]
-     288 |  BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
-         |                        ^~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: in definition of macro '__compiletime_assert'
-     682 |   if (!(condition))     \
-         |         ^~~~~~~~~
-   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
-     702 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |  ^~~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
-      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-         |                                     ^~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:51:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-      51 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
-         |  ^~~~~~~~~~~~~~~~
-   arch/sparc/include/uapi/../../../../lib/vdso/gettimeofday.c:288:2: note: in expansion of macro 'BUILD_BUG_ON'
-     288 |  BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
-         |  ^~~~~~~~~~~~
-   In function '__cvdso_clock_gettime_common',
-       inlined from '__vdso_clock_gettime64' at arch/sparc/include/uapi/../../../../lib/vdso/gettimeofday.c:310:7:
->> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_5' declared with attribute error: BUILD_BUG_ON failed: clock >= BITS_PER_TYPE(msk)
-     702 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |                                      ^
-   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
-     683 |    prefix ## suffix();    \
-         |    ^~~~~~
-   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
-     702 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |  ^~~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
-      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-         |                                     ^~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:51:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-      51 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
-         |  ^~~~~~~~~~~~~~~~
-   arch/sparc/include/uapi/../../../../lib/vdso/gettimeofday.c:288:2: note: in expansion of macro 'BUILD_BUG_ON'
-     288 |  BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
-         |  ^~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGT+8p9vB0AkaS/QifuXnNLP8ZDSgH+CJFiAV/CSEW3XjBwgA==
+Content-Language: en-us
+X-CMS-MailID: 20260930032516epcas5p4d193b18297c922226d567018e738bf41
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb
+References: <CGME20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb@epcas5p3.samsung.com>
+	<20260927152738.3673504-1-alim.akhtar@samsung.com>
+	<4cc0ca7d-82ae-493d-ac15-478cdd8f0e08@kernel.org>
 
 
-vim +/__compiletime_assert_5 +702 include/linux/compiler_types.h
 
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  688  
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  691  
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  692  /**
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  696   *
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  699   * compiler has support to do so.
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  700   */
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
-eb5c2d4b45e3d2 Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-eb5c2d4b45e3d2 Will Deacon 2020-07-21  703  
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: Sunday, September 27, 2026 10:41 PM
+> To: Alim Akhtar <alim.akhtar@samsung.com>; peter.griffin@linaro.org;
+> robh@kernel.org; conor+dt@kernel.org; linusw@kernel.org
+> Cc: linux-samsung-soc@vger.kernel.org; linux-kernel@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-watchdog@vger.kernel.org; linux@roeck-
+> us.net; hajun.sung@samsung.com; wim@linux-watchdog.org
+> Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855
+> watchdog compatible string
+> 
+> On 27/09/2026 17:27, Alim Akhtar wrote:
+> > Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+> > watchdog device tree binding documentation. The Exynos8855 watchdog
+> > nodes use two clocks (bus clock and source clock), require
+> > samsung,cluster-index and samsung,syscon-phandle properties, similar
+> > to Exynos850 watchdog implementation.
+> >
+> > Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> > ---
+> > * Changes in V2:
+> >  - Fixed Sashiko review comment
+> > 	- [Low] dt-bindings: watchdog: missing comma in
+> > samsung,syscon-phandle description
+> >
+> >  Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6
+> > ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> > b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> > index a32c47831577..3f8c3e56ea07 100644
+> > --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> > @@ -25,6 +25,7 @@ properties:
+> >            - samsung,exynos5515-wdt
+> >            - samsung,exynos7-wdt                   # for Exynos7
+> >            - samsung,exynos850-wdt                 # for Exynos850
+> > +          - samsung,exynos8855-wdt                # for Exynos8855
+> 
+> 
+> Just drop the comment like we did for 5515.
+> 
+Sure, will update in next version
 
-:::::: The code at line 702 was first introduced by commit
-:::::: eb5c2d4b45e3d2d5d052ea6b8f1463976b1020d5 compiler.h: Move compiletime_assert() macros into compiler_types.h
+> Reviewed-by: Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+Thanks for your review. 
 
-:::::: TO: Will Deacon <will@kernel.org>
-:::::: CC: Will Deacon <will@kernel.org>
+> Best regards,
+> Krzysztof
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
