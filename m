@@ -1,119 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC933B3C1D;
-	Wed, 30 Sep 2026 05:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2E63B4EB0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:45:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747104; cv=none; b=K/D370RlnB8+hvzfWXouSxax/7aHCWPOvYwN7l/edfcF3rgpz935TJVp+/xwUxYK1dgEtqVJh3sWemelal3T7Sv8CH9QTmUebD/uN95UFZtZ4ZBy3bqaFWj4Y8P5S62kQUrEqZJbQlZu2/QSJwH1ESjbvW3wZcqzVyEKnRzespg=
+	t=1790747108; cv=none; b=FJaMUptoqC/eGVHaa4b8OxVNcSu3fQ1UzmgE02t1lHXQ5iqkz7SkU0B1wOp+pNiwlD1aStwqzeIhwQnwgpujHuq9LwuRNRAWgYi9Mq4vQb++OkGk5E4h2ImiE4LIe995A93M7QKCsLfmHp8qgKs1xvYU/YaUY2N2BzDWvUXgVqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747104; c=relaxed/simple;
-	bh=uElt3Ok62PszBQUaZDkViu/o9w6BhPQfp95NOBN4SrY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=d3DbY0CY0JXodvMVb1HPwLI/Lp50AfObF7DYwKF5zBlKyeYPNPYULULUoaq3zgHzF/k4FUr92tQU69p3/PXJv6PCA9ZdnfhgKZaE7u99Bm3qt2WmWdQHxE1M0ElPzuzlLa6yhAGuTGbLXzhbF55iMvD4VyQgJp20qfBzyZvC5LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ix4KRmjl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790747108; c=relaxed/simple;
+	bh=bDfwVhCGhtV1v5j74Ct11DYRMo2xgvgHkiLDWkr6sr8=;
+	h=Mime-Version:Subject:From:To:CC:Message-ID:Date:Content-Type:
+	 References; b=JotjZFd5pdK66vju3zw1+8NIAdNKPS85bwruuryW2H4yG/JBHW4CTcYWIOuiv8QVwkXG8XjFU6inOEloVja5VjJGt32lUh9o96OpEkjg1ndcd6pN9Wml9x06n4XtG07Nz1k5bYG+yPWjZAd1sG3YStDSnTMqWU6xkygyTqT+m6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=hFXHPmuk; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ix4KRmjl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33D11F000FF;
-	Wed, 30 Sep 2026 05:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790747102;
-	bh=2UJ8s3pj9393LiD9ywCmm2MgNwUeaGY4TUu3kOYIEu0=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=ix4KRmjla3s+19pS6IOdZ3GAdTtHES/dqTR7WGAjq1nimJg7nUGiQmPu9U7ZlyRCG
-	 Zjfmv/FBH+7icLaC1+2UBm1gh2vrcKEijvs3q2KoOu5FQb4w8VmrfIJYIuy+G7PhBA
-	 kw/JUtTWWpWb6sYICQ7yFUOJPpOo8pm4vgE5ydLDH59F7cbE8FwX5QJsCOfoFiuX5a
-	 MJ6gFs7bJhFN/SSS86I3tQM5wgDEOF247HymEOMLsnImixnxnqN7m6n2KMvWi8o2HP
-	 kIO1E3YJnXSnvvOujr5PmRwrg/HjlZtyTiHvAwSvNJW9Msn+vziY65gApxc5kAmrvb
-	 MMVV7yQr092AQ==
-Message-ID: <a7d26f7a-a7ef-46da-ae9b-82363c7493f6@kernel.org>
-Date: Wed, 30 Sep 2026 07:44:54 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="hFXHPmuk"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260930054502epoutp031844f682e78d101753d209b98934a466~aAwCaG8lw0299902999epoutp03e
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:45:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260930054502epoutp031844f682e78d101753d209b98934a466~aAwCaG8lw0299902999epoutp03e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790747102;
+	bh=3jzsdyLtHQ5MZolOYlY3x6jVlWVSyruCr4hTcRaZm8g=;
+	h=Subject:Reply-To:From:To:CC:Date:References:From;
+	b=hFXHPmuk/WzD2p/MJts0x28TDiS6F5K5iAzWqfELKuSsj5h7/0GGI41IQgxq2tzAC
+	 7GHKEC1D43r+Zxj9MMYIAlxM/rWSPf/3LPcRql5Rkis1cMuAYOWCbgbMIl1h8pAQz0
+	 COiaND1y0ETbF2pTZlEnclMxkhFdAW7RSDC6kjvA=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260930054502epcas2p2bfdf130bae7923a6be66a6392f6f3bee~aAwB7mA2Q0152701527epcas2p22;
+	Wed, 30 Sep 2026 05:45:02 +0000 (GMT)
+Received: from epcpadp1new (unknown [182.195.40.141]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hvkXG2rzvz6B9mN; Wed, 30 Sep
+	2026 05:45:02 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH 2/7] ARM: dts: axis: artpec6: align all continued
- lines
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jesper Nilsson <jesper.nilsson@axis.com>,
- Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- Henrik Grimler <henrik.grimler@axis.com>
-Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Henrik Grimler <henrik@grimler.se>
-References: <20260928-b4-artpec6-cleanup-v1-2-e3b75e10acc6@axis.com>
- <179074623976.18076.8809897213040972245.b4-ty@b4>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179074623976.18076.8809897213040972245.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Subject: [PATCH v2 0/2] scsi: ufs: batch device-init reads with UFS 5.0
+ aggregated read
+Reply-To: hyenc.jeong@samsung.com
+Sender: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+From: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+To: "James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
+	"avri.altman@sandisk.com" <avri.altman@sandisk.com>, "bvanassche@acm.org"
+	<bvanassche@acm.org>, "peter.wang@mediatek.com" <peter.wang@mediatek.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>
+CC: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
+	<alim.akhtar@samsung.com>, "beanhuo@micron.com" <beanhuo@micron.com>,
+	"can.guo@oss.qualcomm.com" <can.guo@oss.qualcomm.com>, Hyeoncheol Jeong
+	<hyenc.jeong@samsung.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <1860250540.01790747102385.JavaMail.epsvc@epcpadp1new>
+Date: Wed, 30 Sep 2026 14:02:01 +0900
+X-CMS-MailID: 20260930050201epcms2p13ab67182445b0555acc8d27b927cda86
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260930050201epcms2p13ab67182445b0555acc8d27b927cda86
+References: <CGME20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
 
-On 30/09/2026 07:30, Krzysztof Kozlowski wrote:
-> 
-> On Mon, 28 Sep 2026 14:04:48 +0200, Henrik Grimler wrote:
->> dt-check-style in strict mode reports that there are a bunch of
->> multiline properties that are not aligned, fix them to make the dts
->> easier to follow. Fixes dt-check-style warnings like:
->>
->>   axis/artpec6.dtsi:290: [continuation-alignment] continuation should align to column 34 (to < or ")
->>
->>
->> [...]
-> 
-> Applied, thanks!
-> 
-> [2/7] ARM: dts: axis: artpec6: align all continued lines
->       https://git.kernel.org/krzk/linux/c/60c916de7b3bf0ff2a4d1d31753a29765941ab89
+UFS 5.0 adds the AGGREGATED READ query (opcode 0x9): one QUERY RESPONSE
+UPIU returns many descriptors, attributes and flags as a chain of typed
+groups.
 
-... and dropped, that's not my subsystem. Why am I Cc-ed on this?
+Patch 1 adds the opcode, the request mask, the group header and the reply
+plumbing. Patch 2 uses it during device init: a single aggregated read
+replaces the per-item queries for the attributes, flags and ID strings,
+falling back to individual queries on older devices or a rejected opcode.
 
-Best regards,
-Krzysztof
+No functional change for pre-5.0 devices.
+
+Motivation: on a Qualcomm SM8850 platform with a Samsung UFS 5.0 device,
+timing raw UPIU queries over BSG (100 iterations) shows that replacing the
+device-init read burst with a single aggregated read reduces the query
+time by 75-78% (min 75.3%, avg 76.4%, max 78.5%).
+
+(That setup batched 8 init reads; on current mainline this series batches
+the 6 device-init reads that remain individual queries.)
+
+Changes since v1:
+- Rename UFS_AGG_TYPE_UNIT_DESC to UFS_AGG_TYPE_UNIT_RPMB_DESC (Peter Wang)
+- Add UFS_AGG_GROUP_RESERVED = 0x00 (Peter Wang)
+- Rename hdr_off/next_off to group_off/next_group_off (Peter Wang)
+- Rebased onto v7.3-rc5
+
+Hyeoncheol Jeong (2):
+  scsi: ufs: Add the aggregated read query opcode and its reply format
+  scsi: ufs: Serve the device init reads from one aggregated read
+
+ drivers/ufs/core/ufshcd.c | 364 +++++++++++++++++++++++++++++++++++---
+ include/ufs/ufs.h         |  47 +++++
+ include/ufs/ufshcd.h      |  11 ++
+ 3 files changed, 402 insertions(+), 20 deletions(-)
+
+--
+2.25.1
+
