@@ -1,89 +1,62 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C264FE2C9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFFB50B8A1;
+	Wed, 30 Sep 2026 15:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782469; cv=none; b=P+coaPamziHe9qgT99AC4L9b9Z5jsqVpt/qONqPdhTCF0bl1z2tgoo3pcj5dB90oMCMcknKmmV6SPfwfNPootLyQW+bFZUjfTMPZSXSdotbOPCjEowQBZ5KFdURic4TttFPwB1ZrUcWNS+qhwjYtB4ur/jOL7YjLetK2P/AC8L8=
+	t=1790782523; cv=none; b=bvw6h5k9ObMizje3Sf7bhLrD4bveo/uzeH1slJEPVLRKu5aCafmssvaitpwtv9XuX9+lcizevuV0dHLAtrGcJsKKwh23YL2QkYNq6pGviMs8aQMGeU3bpCqDGDDnOEkwwEiKUc7Cr1RTRx0KoqoVaZ2hKCG2mgnsaOnO99SQjos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782469; c=relaxed/simple;
-	bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lvYMBzlOpLIRsbtebIMnu3mNJdBjHt3MVO5XuweB75oWWD2cZfDx+Fq3GY0z7f/ssnVOdAoAV1Ro5CarCgQLki84zfdxp4bGEMRj1iHKaDr1fXmZzGPy037uMXWj1YcnKTB+Vors6ArgyXQrABr1/HbHNjH1w2I5Exq74gynPaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCoPtEIz; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790782523; c=relaxed/simple;
+	bh=LQ9523PqMwp6asxSRjh88A7+vdB1cQFZ+NZk3IB6XRM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HqcdlHPVi+fJCYvG7bDMCraRXJsh+bwZAC1KjTMipOf0u4LGkm9gVP6eCSK8n076lucilv+6EWPvFmExGTcqKqvyw7U/uQL/Lx0VRNfkOrQrJuzRRhwrcAJQLOyxdm0q6cnqUSohWPf4RzOiYs/kRY6YegTyyhQCm7nGKmyDw1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lPmI/koC; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCoPtEIz"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b03ecc019so68877f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:34:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790782458; x=1791387258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
-        b=tCoPtEIz3mI/9s8IAo8qSQsHCTUUBRflS0U8vwcgPH2JmxxtrEDHxuuaoZrTDXuqPS
-         XwZADs1G85k1CGVBlGdmFE1y3b5PHZXvqRwfSS1gk6W94Pa0tpQrJPv53VW9GKsFT5Af
-         z3iHsIvr64S3D/AeqgUQjg1cSjUXPTiJjZa8U/E8V3D6wTjsikEEGrutnYgMRj7V5YPb
-         FgP7pTiKHYP0+2JvpzaqDH/ijxijAMUkyEg5a4dL/GzB8eKpTN+e63LNb+4Frl/T6K9y
-         jTXSSs2UW5dpTm09cuB0R4Vjsrno83dQWIp2dZpfMYVYU8RTsSe7tp/hgThPNzNzAXTW
-         202w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790782458; x=1791387258;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
-        b=D292AgrbtwxUnUVwT2y0JVsPyvZpz8eBoKk+JRxBmMlwoQLmr9b05UNbywDAVvcHV4
-         bIMuPIh0ny0Ms6cxuJYPR1WnE6n+AfW/+xmUWWDYsjZJ2Xq6gdJP1hXF2y+442EMHW24
-         hUUMuTyR7ov4j5czNs0Ks029MY3ksJlxRUkFsnUxKo8l5Z3DPzlrKHjIucnhyb0qDAGH
-         ws8gVl2I12diwkiRDdylb14r+hZ3Xl5L5olZ0W6DN7grG2kVjX+uQL7KDN4AcgOGOCPj
-         V/8REcD3/jmUyVMGWFZ+ywX/14/wofvE6wdVRNhwadrT3scUXhZnJE5awuZ5P/gx/o3K
-         EMcA==
-X-Forwarded-Encrypted: i=1; AKwUvByUbylpgBeK2djcZv5urCfpToKbTIGbK0yAQ13//LAqCsiPqt+GGtu3BXGI7hqE4X0CqiHKmhZJbJNYORw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTVmMbjQRQsP+68bEmCCToIg2a1X78kMIDtyfHZKK5LOs15O7O
-	z3xgJQt+kfvVa5VUT29BkWHzYQiezpNk5ezWcKmxY1JJcKYQ9oDG8prx
-X-Gm-Gg: AYBFou1cfjs5bUdEKQOSUoiOj5uZ4v1UEqVuejg3u2U7Nuzm6NIbTh0aiW5is59LTuF
-	XV4ZwTwTpQjWrAonv8o/jcdjHdP7cVR89Y+m0YYnOGVg19RkoUJdg8fBgpjc5IHdB9k1hEJQEVL
-	PM4wuqJ4SsvT6mgyBpwtmSpiV5ztF+43IB6RhLMpiQ/5VNU10ap5rQAzueP5JgOaspbZkEpTlYY
-	TWupwc8ylfjuyyb8i8q0y65GYmeeRVfg0Yy3VuGnYdl1MlVriEn8xcNh3H38OTi4xqvXSHzPQ83
-	7vUYkrLy1a+DaUWcH/A7FrDj8gcQxKdh6RHH1DpDnOpMeIb5EoHSAhUwgPE0NgTL8oBw+ir/Mt5
-	dK62j/a281SoUOQiO0yvdQEwKjklJ04i6CvQL3eH1Y0IvW+ccjGfFV/4FQ0zCf9F4ilF00awGGP
-	w/mSkVWmCzd2AW9a2/A0ZclsV8BAkZ7LX1+UoAIIqxj+ZxHqD49RKcP79Aov3+8JrWuV4bxI8Kt
-	LpcBRCRiKjVT3KCNioS
-X-Received: by 2002:a5d:5f83:0:b0:488:85c9:120b with SMTP id ffacd0b85a97d-48b024c5a76mr3382476f8f.3.1790782458127;
-        Wed, 30 Sep 2026 08:34:18 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02a0dd0dsm3972005f8f.35.2026.09.30.08.34.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:34:17 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: dietmar.eggemann@arm.com,
-	kayracizmeci@gmail.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	vincent.guittot@linaro.org
-Subject: Re: [PATCH 2/2] sched/eevdf: Keep expired protection expired across reweighting
-Date: Wed, 30 Sep 2026 18:34:15 +0300
-Message-ID: <20260930153415.214768-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com>
-References: <e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lPmI/koC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=qVYFXys6e8hO1IMWu88kIXYiUK7hAuy8M6s6wk13ceM=; b=lPmI/koCnimrjtsKRJhvsE6xUh
+	YjvV7ede4D9/KzClZ/7ujfvU/0qCsYllIN51KKANhwteNSByrxh5GlvRNUf0t1uWxDRmR8y/gjp1O
+	u9vS/MExF0twQMxe5VKUuWJeVMCYh5xZ7gPHgLFc3jTxv0bT+qTAS5GoQjEF+t7K+WKE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBwKk-008BuX-Fm; Wed, 30 Sep 2026 17:35:02 +0200
+Date: Wed, 30 Sep 2026 17:35:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+	lxu@maxlinear.com, michael@walle.cc, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH 5/5] net: phy: mxl-gpy: support MxL86211C lane mapping
+Message-ID: <3fa11f0a-3b08-460f-9355-72011dcfa7b3@lunn.ch>
+References: <20260930122305.293686-1-robert.marko@sartura.hr>
+ <20260930122305.293686-5-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930122305.293686-5-robert.marko@sartura.hr>
 
-> Thanks, looks legit to me and I did a quick rt-app + trace analysis to confirm.
-> I'll fold that in with you as a reporter if you don't mind.
+On Wed, Sep 30, 2026 at 02:22:17PM +0200, Robert Marko wrote:
+> Configure the MxL86211C physical TPI lane to ASP mapping when it is
+> described in DTS.
+> 
+> MxL86211C supports per lane configuration.
 
-Yeah, I'll won't :-).
+I assume you have a board which needs these features? Is the .dts file
+ready for posting?
 
-
+      Andrew
