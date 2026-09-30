@@ -1,161 +1,173 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011024.outbound.protection.outlook.com [40.107.130.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6187951FCA3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777989; cv=none; b=fv6bG/KVtLEoDBMO6Y7kDFpeyLoIHsYC7DDJ3vsXh86Qjl1Z1xluadOeyOhQtVUJqkLJ3vifO2Ujv995Q/UyuZIOV1lvCU73QeLnzTLVYfmFvtCekBP8XfnIfO3yzQYfcFftfjvB8KToK5DGZtbr4iTJsTXn4IIy6bA8yrkS/DI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777989; c=relaxed/simple;
-	bh=tlStD2UVrqYpJjIpfpo6KwRQYtKcmscPyaVEG+C6G0A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rhARGBHzLbIgnU6jcpZXh9eRf/ChBb2xKA2pumn2GKReC3jlN5wOPGF0azsRsfYda+ps+gei/3NuTsEYVZkvVzjlpSb0XSa8QCUXq6f4Hdiodyg03hVu5IDX+LNZL0lHaFwp+p9SCuULtSDsSeDPAcyH45UoLd+cea/YRWbBUMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ualfd+dX; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C12951E445;
+	Wed, 30 Sep 2026 14:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790777983; cv=fail; b=AjoioWwhZ5tFm9A8sI05XfcuvROcWOO3KUMhQ0TVK17xFlQpumEF8hAQyIFJXL5v6Eq/clDeFZVaVoejalQlWs39knlXHUkM/89JQc0dPSK7JQqWiYXRqxCBPkk8LhRn+9sv6AJ5TIo9Hb+312S9xkdqmeEYq01ULhY4gi4wSp0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790777983; c=relaxed/simple;
+	bh=CxHVTq3S+bpRHL9tJFLfNttBsA0uvwausnCoWJU8NRs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=rSp7OmfJF7Dtcp4qJUEJP7kxoZ+GdtNl/3WkP0N++D34cdfg7lOwWPW21M6FLimR9xOgqt/lc0bqcmZ6bPK+cCsefZAjlwiRWrnqVEPeekQvOpjXMNMLs2Z/n6BlqYymYyEDOpzPXseJ/Fc5dXiR2EH2PZVCChgjFUxdbmQuUB0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Xbm+doNi; arc=fail smtp.client-ip=40.107.130.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ualfd+dX"
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9809ce25a29so1329734241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:19:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790777969; x=1791382769; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ey+xIZJ6nvCAtKQSEHdabfa9JPHPQJSR8WdDbllbvOE=;
-        b=Ualfd+dXi/cNcSLpqRnZU/pBMItg1kDSRE8CJ+53D5mox+X548j3Xq4bQRCwAJx7I4
-         4xltUZee4PxhYJtS5C/rJXSlhJ39XgHqIDrOLlbO79u/xc4rNVFaQndI+THClROIdeKV
-         keW19L8MRRmFmM47Vl1aAqj3170IKu0M6Wna7H44nvjKk3ciY+VX9gwqqbFowWgfz/gn
-         n2gAitjbKTVgfwiNFGMUL8XNEd22rdb9XJXrRkq662zKbxojClbHNOYYv62GnJT7q504
-         hAgKeQ2yOQ1aezv4PGazRU2itctnhy0H2VMMnW0qPamu3WZUFZOhRLqMnAUDG7BeYMb1
-         RUDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777969; x=1791382769;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ey+xIZJ6nvCAtKQSEHdabfa9JPHPQJSR8WdDbllbvOE=;
-        b=gcw2VlbNhEI0FwmUjdeyfStpGTGrCeMKJnQnZFB8b32qnZEMAIKGS6rE7QDWSfMYDv
-         UosrOvM9C4L8cF82yxXp5mHosHUKUk2c3GEmyLjwNryTmZ4ihQrR6PVdqBsaurtG/ykb
-         bu+k35fJ2se8zt4KrvcSrxSYEpF47VNWYGnHmXyf3nkMuwZKAJ+77DyMLpW7rONybyJY
-         VyE32VcRHt+BNWTJX6N+dcVJ8sX4U/J19exFj+yPrD/EvVRTRxwintpkLa2HPx0K3NNF
-         JrIVuhmHt9pNl68SlsQGidIDKmw8BkSJ2zqLMcO19Aov94C4saDbiBvkQzA7OzDOmWIO
-         GV1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBysF2TXsWOWu3VrVxgEtqi0Y3zMn2vvnxkkqp3B0IVEjUKMAQUiiKD1n3aJHQRY9B3GHyK6aSf+s08IH4M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdASiJSIpm386VAjdMJ+6bP8zpRFIicCe2yhOZ3CALSSwN9C+F
-	Re/cWR6XnL14YAKG6pm0oIqQtlOhtJlGVQAWAgtAzz7KMzmZkwI2o1Pe
-X-Gm-Gg: AYBFou135vaysbm41RVbGC8Wu06nbmBDMPExu78/UVm5AKJByKXVcPKsLFMKCKMz4mV
-	assYgwYDkNzyUnPIdyvpYnjrGXo4Lgegor9F5U/RBQiwaqtSWGlRh8nAO0E8TpPiAELQgfBP2kD
-	N6U3qDLQLPok50A++OEaySlGf2QvV40IKPDLyjJhzbm8u4g6dbqoQZ31LriJjPq/BSqfuJFuH1P
-	ztNVD2HtPUdIlxeQfG5o/M9VutUHdJjr1XljKdaExu3NFm8HLW8cMwg63wYbf/Qb5/TiBem5RrH
-	0jp2m3BcOKOxl0c+Xe1SjJ097H6AT09lZyPUO69D4R0RBUtpCfL6Kv1Dx/NXUDDgBnkQtwz3aAw
-	vjNWzYuLhN1dacA5HCDlKrU62KuSvQOJ0fUqXI+DhO+4c75zmzUB/YvmRMvFm2vMOFE1r/k01Qe
-	x5Ppivcc9YwnKYPfGoMqQITfptNTo++t9OdZ+DP8oVA3pMNH02NMMip/G7itbjf1RiCoNdvEsS0
-	euMP37X
-X-Received: by 2002:a05:6102:6112:10b0:7ab:9152:1c6e with SMTP id ada2fe7eead31-7be733a556emr251588137.27.1790777968800;
-        Wed, 30 Sep 2026 07:19:28 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-988d909c4cbsm1793220241.1.2026.09.30.07.19.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:19:28 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] PCI/PM: Do not save the config space of an inaccessible device
-Date: Wed, 30 Sep 2026 11:19:11 -0300
-Message-ID: <20260930141914.6678-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Xbm+doNi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i1j1bT3K/x0ZEET/OzwQ3kVAN0qpISFjsDkz7XvqogPsndBD25upmt7yjXRmsyc8rook7C4R7YIIJTva8jqAMdVrYloh07HdQzTC7PCeMcNg02k+yXQwz/QagOKY1fglTkofeXvwEHw2Vf34uAU5YMV+v/8iJkLZGW6SZGyz6YaUgusmiFFhMyGf+bOk6yN9jUxI1r2iWxfb38dlaDabRSI5Vg6VLhVriMyLSwmsKbJP1RQSbKgz4wZaqll06cubvOjx+k7BPpXxiMlLBkToN4Zm8rg+Nyzvo4uhAVoCpS0vBJCBJLqIxJu308Nhu71nAGJkWCkJuXepBvVuYpyWuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AAE1GuU97+6bxe9iXtFIqCAC1vZBHlYiI40pmMJ5IgM=;
+ b=cYA2zjmVEAGuD7+inn5TyRPuq0hZNcqRGLUI79BFfNOj4g5ZSrJe4rQ1zbJ54iKkIxN896C81TtYtfSPVg7FK0d3Vx2oz9Yl75hH1vDmkuWG6lulbO4bkPOe1SZuj+1wPSwbN7KnWxLehb83yApOSv7ZM17+Dh2G1E7LPn1RtRaAJaMg+sSzUb9XKnWdVXKi6QZQj0b0l1CQV03Ou6kZPpEnQ2Em7Dho4+I2LYvlK8LBZ3v33TkRUR5Ic/ks+fDrPMvOBD3lWyw9APqq7DozE+Zy7KTWyhZOz5SSoKcP5Jn1cwrEkHO7NsC2Z/p5+JBNG9RC8t65Q+oYPtnnnJDlFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=baylibre.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AAE1GuU97+6bxe9iXtFIqCAC1vZBHlYiI40pmMJ5IgM=;
+ b=Xbm+doNipKgDlRdVQzDNW8fzwrd51cu5cVtWaaKc4cePDUHi/DCPhknJVVckZa0YO0AC8IEus9z6BUOc+l9TVqCijuaVgL7pPOBvGBoC0+9Rq1ZwYOz8jjOiGBNPdl0Wm5ZQUY/5DYFcgMJ+zrNhqWUFtvkefg7Mm96ftH4ULyzS/zZwsw2Oq34VJTCq0oW3KhiTJh9DHfsiH63ZClg87ZO+EuaZdI7EDmgcvNNeG7Vaj3lvMklAYIQl+vVGRlUp3ZRPRMi8A81W6zKC6XFeykpYBGs1K1/7+uDtaJPLs4gsy1sircMjk4O9UvXGPWfJiR9es4WRc/iHa43SecAVcg==
+Received: from DUZP191CA0040.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::18)
+ by AMDPR10MB992172.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:70d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:19:24 +0000
+Received: from DU6PEPF0000A7E3.eurprd02.prod.outlook.com
+ (2603:10a6:10:4f8:cafe::8d) by DUZP191CA0040.outlook.office365.com
+ (2603:10a6:10:4f8::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 14:19:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU6PEPF0000A7E3.mail.protection.outlook.com (10.167.8.41) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:19:23 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 16:25:55 +0200
+Received: from localhost (10.252.17.140) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 16:19:22 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Wed, 30 Sep 2026 16:18:36 +0200
+Subject: [PATCH v3 15/15] arm64: dts: st: add ADC support on
+ stm32mp257f-ev1 board
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260930-adc-stm32mp25-v1-v3-15-406834430d72@foss.st.com>
+References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+In-Reply-To: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>
+CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E3:EE_|AMDPR10MB992172:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19933a72-27ba-41c1-9db1-08df1efdd3dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|1800799024|82310400026|376014|10067099003|56012099006|6133799003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	S17R87cFtgr+xKCbvIKeni9Y8Huzt6LDmrronV+XLq8rdpCiTYXrM67HSIurNrWIm46GnNEN7SRvs/bBbuykvrWmWcytOII0K/5kVh5vT97bMAHpPcvNzg9WxOOZ4/ihSqZGE3XwajxYHeE5gS+mlY2/zGfdLCf7FSvl2Rke0AraaXZ4Ky1eLZK4z6GswxdLTzD4FxOgGvzTxySEDyed1RdRnrPEXY+aEdczZZA6IJSrQo7B0j5WxYNDMzj8NtkeOo1kOjbZA0DvX6jlpdlDtzsbw7B5k9WoRVFeLGD0HGaKet1do1q7FFV10WBKbfD2gmxZVfCK1rV3KSQ1tuCFUKdfEkSkBc9LfkNg70n+zQNCejOEVkRVeQKWff52YrXnDMAEwfwastCTp4YrCX5+Ak7R5Wcm+UdiuYY4a9iMGSo2YAXN5hl0ViB4SxwVObA/Hl4ixLeleZi0/G1/8GwSFMe6SkCbm97PuWBv/Y4m1iNlMAQDJwzbCqapWLyS9iMtKzgDxKgpEKQ+GIi7d4oyWvnM/q2/NzBlbrgijQJXQ1tj6DlqDFca2WuFBYpiOEDt9rp74SaNFEp/Sv4SGfS3aGU/zM36u5swfoVvb4qqIRj+RfPZjxIfvZIKLfjglbc2HfWt2FX5DW7ov99DsRQt4x1brja0Q15PDVd2XqkIvjlTSfr50PUhmpdxohYQwSCOLNbAyneRVmzKTLzNV8eESw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(1800799024)(82310400026)(376014)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+CvupByN/t4iCZa3R2/FpD+fdZQyH1udsabZBACgSUNBCFNGQwPfM0nXj1NQTR+hgmWd3p3mt7gs4xlea38tFfib7PLy8X4KlCmLbvchF0QlwDHBZfDxhzm2Rq2uHUTq/6M64PuwgRfEYPIFRKUBJq+6uxQngQBVZpOcCVsj2/ATXLPTA4Can3m0UhCr4hnW51jGwHATrc8xIxkMEzCyCcXYTPlVbvDI6Trhp5ySnomQBvsE4xuX6v9vYcIjOOY2h5ZCpLgaR1gyOME6Wp4Blpf+RBXkXQJb2sg9E3VMAR0DrDZAW8oUytQ+9aebgOAyVFZcq6Y3iLZ5Jz42D8jH8TxfWkEanyDXm1Ut2Z+NoydQULGRxQPutA42Yvjjr83D3U1vfgeGmH8EtVpEM265sPzL2KdO1Z5EcHkQEqIrzJS0DRE5s62CtqAbWMOYgSQm
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:19:23.8763
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19933a72-27ba-41c1-9db1-08df1efdd3dc
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7E3.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR10MB992172
 
-When a PCI device becomes inaccessible while the system is suspending,
-pci_save_state() stores all ones over its saved config space, and
-pci_restore_state() writes that back on resume to a device that answers
-again.  On a MacBookPro14,3 this happens to the upstream bridge of a
-Thunderbolt 3 controller that drops off the bus while the system is
-suspending: after resume the bridge has bus numbers ff/ff/ff and
-Secondary Bus Reset asserted, and the xHCI controllers behind it are
-removed.  Resume also waits about 65 seconds for a device behind a dead
-bridge, because an all-ones Link Status reads as an active link.
+Add ADC support on stm32mp257f-ev1 board. ANA0 dedicated pin is wired on
+mikroBUS connector, through a resistor divided and operational amplifier.
+Configure adc1 channel0, and voltage divider in the DT. Keep it disabled
+by default, to allow ADC to be used freely for other purpose.
 
-Patch 2 makes pci_save_state() refuse to save an inaccessible device,
-using pci_dev_config_accessible() from commit e18d1abc3bff ("PCI: Avoid
-saving config space state if inaccessible"), so that system suspend is
-covered and not only resets.  Patch 1 prepares the USB PCI HCD for it;
-without patch 1, patch 2 makes pci_pm_suspend_noirq() warn.  Patch 3
-stops the link wait code from taking an all-ones Link Status for an
-active link.
+--> | 470K | -+-- > | OpAmp (gain = 1) | --> ANA0 (to ADC1, ADC2 or ADC3)
+              |
+              v
+           | 560K |
+              |
+              v
+             ---
+             GND
 
-Patch 1 touches drivers/usb.  Bjorn, if you take the series, it would
-need an ack from Greg or Alan.
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Changes since v1:
-- v1 2/4 and 3/4 took an all-ones Vendor and Device ID to mean that the
-  device was inaccessible, but that is always the case for SR-IOV VFs,
-  so they broke saving and restoring VFs (as I said in reply to v1).
-  2/3 now uses pci_dev_config_accessible(), which reads the Command and
-  Status registers.
-- Dropped v1 3/4 ("PCI/PM: Do not restore a config space snapshot that
-  is all ones"): it would never restore a VF, and it did not protect
-  what it claimed to, as pci_restore_state() restores the PCIe
-  capability state before the standard header.
-- 1/3: rewrote the commit message and moved the wakeup handling for a
-  dead root hub ahead of the early return.  Alan's Acked-by is dropped.
-- 2/3: the second accessibility check now runs after the capabilities
-  are saved, and state_saved is only set if both checks pass.
-- 3/3: also cover pcie_wait_for_link_status().
-- The v1 cover letter spoke of an earlier version; that version was
-  never posted.
-- Based on pci/next.
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index b5db62a0a550..ed61ff70c0de 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -160,6 +160,28 @@ mm_ospi1: mm-ospi@60000000 {
+ 			no-map;
+ 		};
+ 	};
++
++	vdiv_ana0: voltage-divider-ana0 {
++		compatible = "voltage-divider";
++		io-channels = <&adc1 0>;
++		output-ohms = <560000>;
++		full-ohms = <1030000>;
++		status = "disabled";
++	};
++};
++
++&adc_12 {
++	/* Don't need a pinctrl for ANA0 dedicated pin e.g. Channel@0 */
++	vdda-supply = <&scmi_vdda18adc>;
++	vref-supply = <&scmi_v1v8>;
++	status = "disabled";
++	adc1: adc@0 {
++		status = "okay";
++		channel@0 {
++			reg = <0>;
++			st,min-sample-time-ns = <400>;
++		};
++	};
+ };
+ 
+ &arm_wdt {
 
-v1: https://lore.kernel.org/all/20260924124221.12374-1-fbeltranmillalen@gmail.com/
+-- 
+2.43.0
 
-Testing:
-On a MacBookPro14,3 (two Alpine Ridge controllers), v6.18.49 with
-e18d1abc3bff backported and this series, S3 entered by closing the lid
-(158 s asleep), a USB disk on one controller and nothing on the other:
-
-- In pci_pm_suspend_noirq() the bridges of both controllers, including
-  the upstream bridge 04:00.0, were inaccessible and their state was not
-  saved ("Device config space inaccessible; unable to save state").
-- On resume the controller with nothing attached came back: 04:00.0
-  kept bus numbers 04/05/79 and Bridge Control 0x0002, the link came up
-  at 8 GT/s and its xHCI controller resumed.  Before the series the same
-  bridge came back with ff/ff/ff and Bridge Control 0x005f (Secondary
-  Bus Reset asserted), and both xHCI controllers were removed.
-- The controller with the disk did not come back (its link does not
-  train, which is a separate problem); resume waited 1 s for its xHCI
-  controller instead of 65 s.
-- No "State of device not saved" warning.
-
-With the separate Alpine Ridge quirk applied, the xHCI controllers of an
-empty controller are inaccessible in hcd_pci_suspend_noirq(); four S3
-cycles went through patch 1 without warnings and everything resumed.
-
-When the machine wakes up again after a few seconds (with the lid open
-it does, after about 3.5 s), the empty controller does not come back
-either, with v1 as with v2, so there is nothing for the series to
-preserve.  The "1 of 2 controllers instead of 0 of 2" in the v1 cover
-letter holds only for the longer sleeps.
-
-I have no SR-IOV hardware, so the VF case is untested, and the machine
-never reaches the pcie_wait_for_link_status() change.
-
-Francisco Beltrán Millalén (3):
-  usb: hcd-pci: Honour pci_save_state() failure
-  PCI/PM: Do not save the config space of an inaccessible device
-  PCI: Do not mistake an absent device for an active link
-
- drivers/pci/pci.c          | 69 ++++++++++++++++++++++++++------------
- drivers/usb/core/hcd-pci.c | 15 +++++++--
- 2 files changed, 61 insertions(+), 23 deletions(-)
