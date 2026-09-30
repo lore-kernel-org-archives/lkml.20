@@ -1,108 +1,230 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E2814BF92
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A28813B58C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727099; cv=none; b=BSFHs8VcDG/XPcnY7nDewb52bQELjLPlhmXgMdzew3iOhe2+GblRwYneHuKRgV/HKNfwWLsZM80/Ea+ZDbmaW+S0nbz4lrqJqc/F/aAl5nBXFJesihVk8UQScnE00JYjP87l32x71KKkWO9RZHH2zdRsnjfFBlBecdPG4uBW7vo=
+	t=1790727192; cv=none; b=ipQnrCD+tAiqOdpHixqnw7OKUiRHtt8QK1hzHUxG5+sLzl8bW0JI2yr5/wKUVglGKvT4J3nJa6AW3SB1t50Vvxr18H7vAFL5LaiMiSsuDfWeIL0fUKIc6v/3/h6t0tGA6lg/23J0T4Qmo0r3nhaXXzB/T2cqAnZURbaOrMvKEiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727099; c=relaxed/simple;
-	bh=A7IRWuPMCa9/K6ayW7GZntUsPEZAJO7D1Iq8/qQOpAw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TSpca4IWrixNNck8o231CMykkmAV7rRk8dKbgH/efHLcqdRpmphVcVgYRN60MLqqtIHwk4BGIY+OUgPjcON3XRKfR+cl3T7XH9wrQzC+tCcsbEXur37z/c4tqalolFZVLc+EAVLSxQNgkI0mGzOuWpN0vF4bzqZ9r6Nbvp1r2Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kZVzMVzj; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790727192; c=relaxed/simple;
+	bh=wAKEXXGW5dVCAd3402N5Hwz5uEUwFSDhP6KQffQQSCc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D/8FX12jgnJwnmqEUOugBO8C+w94V2vrdcgCqsvfG4KhXrACZvmV3m6CYLRqLUWijQZ80kB/5beUQwHswtuKm6NgdAFGZnbOWpavsthXAplqIeY2007Xx4vy7hX8JDEqUWql+O57JsyCpxxA+ufadJiJQRdzdJEk/f7cNyQ/5jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=n7HjRYpY; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kZVzMVzj"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b6416441eso8180051a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:11:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="n7HjRYpY"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso44384145e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790727098; x=1791331898; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1790727189; x=1791331989; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=jH3B8GV0tS9VtL5MIP+jFUJJXxCC4SF+dpbD+h0RZUM=;
-        b=kZVzMVzjFdLJdtOCRKU/JAQJ0M/wwktoLGDeQIR15WParOIVG+ro3AlRwihjNQZRzk
-         lH8Y3JrRBD11GWNeetH2RpmH5LxpHriUcWmq9KA2tPMGr6E2OgkhZZskLosezTmE1csW
-         Ww7llXb9J5SEpXNJW+OAfHNic9PKCiwYVIiTwv48vzIqIP2KgUhkPC47eAKeZWK8WYR1
-         yjJYgzdR8cXIdrNO8kEdDJPvbvhvQ3rg9Y/x4LzebcyI52bIw3b4dFf3utMQopMnURLN
-         WYGsVP64AqxkOzJh+Y08AmNaKuUohxRj+6cvHVXiS0ySueUW3GZ7w7xNLPeh5R+8ZRN7
-         qiyA==
+        bh=6opwUVOPGXBFiHif49iUV/cuGJwm1ECibxjiyMFNcWM=;
+        b=n7HjRYpYip/WLp9sLYLotThPkjvkz2YLFpH4Y/CkcefNCdn0WxETsj0VPbJZ298z1/
+         sxHZhshyghhpS2yGkEv/yvqpZUdEXSyZIj8SKmh0mH6x4S0zaUDc39Xow6PIJsxalGSy
+         hXBY2JH5f+suVPumjElCKZpe6ZOXI/Vx3muY3NThcnK4p2y/NqImYf2ouKnvzc894kzC
+         Po6uluzFUSZnkUyLnN6Ku/EuIPplgpxVm9XWxuTcvBGeweBlpj/IGUvC7VfJdGc+oxBR
+         3MT2Y5H++Yu2Ao0tA4ze1gRuHH4tu01SkIp4G/f+fQOik9FWwI3e8NvjksKoMrEMWM1U
+         N0tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790727098; x=1791331898;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jH3B8GV0tS9VtL5MIP+jFUJJXxCC4SF+dpbD+h0RZUM=;
-        b=qyokA4StNLPuPC/HXGGN0Gpp93qqfcEid/upKAyQiJmy4N1EDFAd7SAN0oeZgw2GOT
-         fA4CNFpP94vIvZy6+bRvlvtd2ifMKSX6YhCVMBProwdFR92BXQh9X2U3kjp4UA/cJ/zd
-         IcHMvne35hrnsxvuP0KaSVcEz+0tEmFR1YPH675yX5NospH+yUkFmy27kMeOFaxjiIEt
-         H2ootyKlpW6eJid1jziSJiCsZjmHM3+1tAdVktF3iSKk1GdRTYidoWnekJXNfuzxH5Af
-         kQ6suWY/U6/vsxqx1kUKtp831lvSlRh7yqVahonBfX7ShhJrDXMmr2d7cXxeYtDp54K6
-         mi3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxrvO421U5yMvBcLK+tdLX9lQbAlRMqBFwSGOYD6/N8v9fwvmg014gLqS0vlja6loM6z5vGYixCOZBw5r4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWcKpG1NIrhGNd3ShaVDJzipzn3TrtlX6Z2W9CGIa0O6FSRHca
-	Cuf2PO3LWuWjgA8+2tL+HVdJP9V0b1026rF9IlMtSc+VKsygYrEPtK4OF+7YPwaYA5zTnuKNt/F
-	p4eXpkQ==
-X-Received: from pgdu24.prod.google.com ([2002:a05:6a02:2f58:b0:cc7:d188:3fa])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:ec8e:b0:3a4:ba95:5731
- with SMTP id 98e67ed59e1d1-3a4bfe553d6mr786254a91.36.1790727093138; Tue, 29
- Sep 2026 17:11:33 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 29 Sep 2026 17:11:27 -0700
-In-Reply-To: <20260930001127.3170009-1-seanjc@google.com>
+        d=1e100.net; s=20260707; t=1790727189; x=1791331989;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6opwUVOPGXBFiHif49iUV/cuGJwm1ECibxjiyMFNcWM=;
+        b=ZL4k4KtNwXW1z1t4jQsxJaR3pg8KIbEzvcXEEoBNKOPOqYTaSKJVhoR5HU9OPZqVab
+         e8TQYQ2rLKG2LPAZxMYjqlTlh/3amCowEkV3jzshhlFAuQzCQRCIRTuO0qFQXNgNTZeR
+         gR5JUFgtHc5IAzF/oqF7Exp+6D2s1JOKG3o81kRrDBhfp2z19O/JcGQWZU1B3DGIQqbS
+         HSD875yUuqRphcltHSu/rzkGgifkjfa9dkqYNTAseU073sTTpfznCUfbLnq44DpPMuO0
+         HPISCr7FKPsVCF7wzZZmFipQcUZCZ5KtwCIkSoYjj2PhLSABd04hDrsWCbIRLJNiPe+0
+         CZmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVxhGBht1IhbN3Gtg7mW5Dwj0JDEYP5OBQtRe3XzOfXt+Zd7yxjVCIqpgnKG8yr+IupHQsbJUWEJLvNgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLVKIe10pmyNeP0FRFjtXy4tYpAKfp1I4app96Itbm/dqMlpQ5
+	fGpGTRyBFVN3xDyYC+blvfv7j9fsNEAFxzpvp8cycEGKIbdVURpZirf+A3+mFDtyurA=
+X-Gm-Gg: AYBFou1hX1psaq4z1F6TrpxcezdFxN9vBtE3BI1HKHIbphA9cmU3uPEXoRlkkS2VnrE
+	9u+xla8rk9uGYtv3Xwz3kc+Bda/hh5DMrZiTlHp9WBNJns1wyihHUlBPTLBaAbj6EmuwliNueGF
+	1FufWIP/1etVOYD55Swy04BRurDPODTSRkEEIIWl/lL1JzCExFImq6UdbrCNZKJWaaJQ3EZT5ac
+	6zBCgBOdfKclmQOSG9/gDo2tDBxsbQ4Gx5Pz0BN+SrCdeqMd0TABFamHmoG0okfQK12myi/2bOE
+	c3F5WbG5ZJ/8M3WxJtglsDTDLi5lvCEXk3JI/f4JQHqymsKxUPYxHNftHrMZZLXld37cZaLWP2h
+	lIDq2S/VYlt4nhjCdCT4GHXeq4INxirAI/+rmBP86dhJv74EucXw7LSaplSuh/zC8lMRDNKO6Jt
+	2/AvIEkBu47T0Adh5EYetcOUGUfPoZxvstckjWIoU8EZVPqxJOi/kqs0X0jC5D6TWs03D6votnl
+	xEaA6nT6ioWiKvZGACZwUyQnnuNRxfGBNpmnUt7CUkTu1zX+4tpWVZVj895Vg==
+X-Received: by 2002:a05:600c:4744:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a014fd1fd1mr13203315e9.4.1790727188823;
+        Tue, 29 Sep 2026 17:13:08 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015a89ffasm6320635e9.1.2026.09.29.17.13.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 17:13:08 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH v7 0/6] Exynos-pmu: Generalise cpu{hotplug,idle},PMU intr
+ gen and add Exynos850 CPU hotplug
+Date: Wed, 30 Sep 2026 01:12:55 +0100
+Message-Id: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930001127.3170009-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930001127.3170009-4-seanjc@google.com>
-Subject: [PATCH v2 3/3] KVM: TDX: Ratelimit the "EPT Violation on pending
- acceptance page" warning
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, kvm@vger.kernel.org, x86@kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	James Houghton <jthoughton@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Yan Zhao <yan.y.zhao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
-	Ackerley Tng <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAdUvGoC/4XSzW7DIAwA4FeJOI+JXxN62ntMOxBiWqTmZyGJW
+ lV999FUWlZF0Q4cDOKzsbmRhEPERA7FjQw4xxS7NgfmrSD+5Noj0ljnmAgmgAkBFC/XtkulZtT
+ 306kb+/N0pGADtwYQgytJvtoPGOJlYT+/cnyKaeyG65Jl5o/df8CZU0YNr41XDKQsxcc5tm7o3
+ rvhSB7iLFZFMb6jiKx47QwwJ1Fou1HkH0WyHUVmJdQgNK+ZcNxsFLUqmssdRWVFq4BeB9ASti/
+ SqwLM7ig6K6USwoeS1UpWGwVWxTKxo0BWXKmrSufFefmi3J8DHPB7yt9hfE6RNJiSW77DoXjqv
+ /2ifTMtfJ9Pz0iX0T/axqkSYOtcr7bmJUlOUbmE1HdNE8dDAdJoBO4ZRytRakTjfC0lOCit8zw
+ 4VJVmNld3/wFgJaWAtAIAAA==
+X-Change-ID: 20260226-exynos850-cpuhotplug-69f1976eefa8
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Henrik Grimler <henrik@grimler.se>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Ratelimit TDX's kernel logging when a guest accesses an unaccepted page and
-has opted to disable EPT Violation #VEs for unaccepted accesses, as the
-pr_warn() is trivial for a misbehaving userspace to trigger.
+Series generalises the GS101-specific cpuhotplug, cpuidle and PMU interrupt
+generation block support, which is currently implemented specifically for
+the google GS101 SoC, to make it reusable by other Samsung Exynos SoCs.
 
-Fixes: e6a85781f783 ("KVM: TDX: Detect unexpected SEPT violations due to pending SPTEs")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260923164348.2DB2D1F000FF@smtp.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+The PMU interrupt generation IP block introduced for google GS101 is a
+standard Samsung Exynos block found in other SoCs, including Exynos850,
+and it is not strictly exclusive to google Exynos-based platforms.
+Access to this block is required to implement and enable cpuhotplug
+on Exynos850-based boards.
+
+As a next steps it will be possible to enable idle states on top of it
+(if we get our hands on correct firmware).
+
+First patches work on DT bindings to reflect that Exynos850 SoC predates
+gs101 one and adding mandatory property 'google,pmu-intr-gen-syscon'
+for exynos850-pmu.
+Then series generalises ("Exynosizes") cpuhotplug/cpuidle routines by
+deferring platform-specific PMU and PMU-intr-gen updates to platform-
+specific callbacks and then finally introduces new file exynos850-pmu.c
+where such callbacks are implemented for Exynos850. Last commit adds
+pmu_intr_gen DT node to exynos850.dtsi.
+
+This series depends on
+[PATCH v3] soc: samsung: exynos-pmu: fix error paths in cpuhotplug/idle states setup
+https://lore.kernel.org/linux-samsung-soc/20260930-exynos-pmu-cpuhp-idle-fixes-v3-1-4269d8425978@linaro.org/
+
+Sashiko bot reported issues here:
+https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=4
+
+The are basically no updates in this v7 series, just a rebase on top of
+an dependency patch.
+
+This series was again re-tested on Exynos850 WinLink E850-96 board:
+-- by spinning "chcpu -d 1-7; chcpu -e 1-7" in a loop for a few hours;
+-- by running script [1] that randomly offlines or onlines random cpus
+   for a few hours.
+
+Thanks to Peter for testing!
+
+Thanks,
+Alexey
+
+[1]: https://github.com/laklimov/xlam/blob/main/e850_cpuhotplug_random.sh
+
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
- arch/x86/kvm/vmx/tdx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v7:
+- rebased on top of -next and patch (it is dependency):
+  [PATCH v3] soc: samsung: exynos-pmu: fix error paths in cpuhotplug/idle states setup;
+- retested;
+- Link to v6: https://lore.kernel.org/r/20260902-exynos850-cpuhotplug-v6-0-a85bb55bb118@linaro.org
 
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index e3723f1222fc..4cac43299851 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -1937,8 +1937,8 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
- 
- 	if (vt_is_tdx_private_gpa(vcpu->kvm, gpa)) {
- 		if (tdx_is_sept_violation_unexpected_pending(vcpu)) {
--			pr_warn("Guest access before accepting 0x%llx on vCPU %d\n",
--				gpa, vcpu->vcpu_id);
-+			pr_warn_ratelimited("Guest access before accepting 0x%llx on vCPU %d\n",
-+					    gpa, vcpu->vcpu_id);
- 			kvm_prepare_shutdown_exit(vcpu);
- 			return 0;
- 		}
+Changes in v6:
+- rebase on top -next and "fixes" series, basically no other updates;
+- Link to v5: https://lore.kernel.org/r/20260609-exynos850-cpuhotplug-v5-0-8422cf80d43b@linaro.org
+
+Changes in v5:
+- updated the commit message of ("soc: samsung: exynos-pmu: add Exynos850
+  CPU hotplug support");
+- the if-check for the presense of pmu_data->cpu_pmu_{offline,online}
+  callbacks in setup_cpuhp_and_cpuidle() was moved to before acquiring ref
+  counter to intr_gen_node (the initial issue was reported by Sashiko);
+- added pr_fmt to exynos850-pmu.c to have more meaningful error
+  messages;
+- added parentheses around the `cl` in `EXYNOS850_CLUSTER_CPU_OFFSET` macro
+  (as suggested by Sashiko bot);
+- custom syscon regmap with raw_spinlocks for pmu offline/online callbacks
+  (the initial issue was reported by Sashiko);
+- using topology_cluster_id() and topology_core_id() in exynos850-pmu.c
+  (the initial issue was reported by Sashiko);
+- removed smp_processor_id() usage fomr pmu offline/online callbacks
+  (the initial issue was reported by Sashiko);
+- added/resorted headers in exynos850-pmu.c;
+- Link to v4: https://lore.kernel.org/r/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org
+
+Changes in v4:
+- remove blank line in file exynos850-pmu.c, commit (as suggested by Krzysztof);
+- only update trailers/tags in commit messages;
+- Link to v3: https://lore.kernel.org/r/20260430-exynos850-cpuhotplug-v3-0-fd6251d02a17@linaro.org
+
+Changes in v3:
+- dropped two commits where samsung,pmu-intr-gen phandle is introduced and
+  where google,pmu-intr-gen-syscon is deprecated (as suggested by Rob Herring);
+- addtion to maintainers file was moved to separate entry, change commit message;
+- commit message in "generalise gs101-specific cpu{idle,hotplug} for Exynos SoCs"
+  was updated since it no longer touches samsung,pmu-intr-gen-syscon;
+- added missing asm/cputype.h header to exynos850-pmu.h
+  (reported by Henrik Grimler);
+- new commit "dt-bindings: soc: samsung: exynos-pmu: Require
+  pmu-intr-gen-syscon for Exynos850";
+- Link to v2: https://lore.kernel.org/r/20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org
+
+Changes in v2:
+- moved gs101 cpu {offline,online} callbacks to gs101-pmu.c, updated MAINTAINERS;
+- added new file exynos850-pmu.c with cpu {offline,online} callbacks and
+  exynos850 pmu data;
+- new patch that adds exynos850-pmu.c to MAINTAINERS;
+- moved pmu_intr_gen to right after pmu_system_controller@11860000;
+- merged two patches that update google,gs101-pmu-intr-gen.yaml together,
+  now rename and adding exynos850 entry goes in a single patch;
+- commits 5 and 6 from RFC series are merged together and reworked,
+  cpu_pmu_{offline,online} callbacks are moved into pmu_data struct, and
+  callbacks now need pmu_context as an argument, exynos_pmu_context and
+  CPU_INFORM defines are moved to exynos-pmu.h, gs101 callbacks
+  renamed. It is really better to check commit description.
+- Link to RFC (v1 from b4 point of view):
+  https://lore.kernel.org/r/20260226-exynos850-cpuhotplug-v1-0-71d7c4063382@linaro.org
+
+---
+Alexey Klimov (6):
+      dt-bindings: soc: move,rename google,gs101-pmu-intr-gen and add exynos850
+      dt-bindings: soc: samsung: exynos-pmu: Require pmu-intr-gen-syscon for Exynos850
+      soc: samsung: exynos-pmu: generalise gs101-specific cpu{idle,hotplug} for Exynos SoCs
+      soc: samsung: exynos-pmu: add Exynos850 CPU hotplug support
+      MAINTAINERS: add Exynos850 PMU entry
+      arm64: dts: exynos850: add PMU interrupt generation node
+
+ .../bindings/soc/samsung/exynos-pmu.yaml           |   1 +
+ .../samsung,exynos850-pmu-intr-gen.yaml}           |   8 +-
+ MAINTAINERS                                        |   9 +-
+ arch/arm64/boot/dts/exynos/exynos850.dtsi          |   6 +
+ drivers/soc/samsung/Makefile                       |   2 +-
+ drivers/soc/samsung/exynos-pmu.c                   | 149 +++++++--------------
+ drivers/soc/samsung/exynos-pmu.h                   |  34 +++++
+ drivers/soc/samsung/exynos850-pmu.c                |  95 +++++++++++++
+ drivers/soc/samsung/gs101-pmu.c                    |  51 +++++++
+ include/linux/soc/samsung/exynos-regs-pmu.h        |  15 ++-
+ 10 files changed, 260 insertions(+), 110 deletions(-)
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260226-exynos850-cpuhotplug-69f1976eefa8
+prerequisite-message-id: 20260930-exynos-pmu-cpuhp-idle-fixes-v3-1-4269d8425978@linaro.org
+prerequisite-patch-id: d9ac215f16060e07e9cfe193e7c9af7c8913bdae
+
+Best regards,
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Alexey Klimov <alexey.klimov@linaro.org>
 
