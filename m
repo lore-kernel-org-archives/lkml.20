@@ -1,144 +1,99 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315494C0424
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A353E315C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797016; cv=none; b=nl/j8zPWyCT1fwLVJK/8zMRcia9+DMzfpeX6bIiIhAfA2bWGtqALqGwZtle8eF3MOBNux4tB1iIDedDaUyUKZzfQMFaBw7vOb6TpodZUUu2p3A/TjYhJJhiZOvIh6lxgYbq6eU4sWVTMyOowZzbIQz7czn/6iIQGa67iJViMlYw=
+	t=1790797026; cv=none; b=lvruQOkNdGx6qLd6L81Mo2nWqO6+AEDs6k+C+WC9BfzdqDIkoKV9qtGmq612/c3z+Rw6AHZL93ecroT50UlnRJH/Guaelt/vwcqiFxhhYpheT+dx1H/t3RQuZpsMpKdYBdHzXz4r6j3RNnvN0wvhMS95+BI9mbft4JJqInnp9hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797016; c=relaxed/simple;
-	bh=Jgndf1FLVPtw1RjeBvHSK/j9YvB+rS6M1T9+7Mb9Hxw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qOjuyy1gFztBIfyZFrKVzrVqF+y7ayabb02l8/oKj7b/rbkdJ4Y86ovxDYZPfF2X7Lb7rpfNMyCO2+Mb9abf5inRntpntpkn3eLU4pidDxMj6vT6+kg4Ui1kresELlPwbIBAw+222GP2foLMTNBHXNIcyeFZWkMm7VIRz3ibTfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vfKuo4hb; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790797026; c=relaxed/simple;
+	bh=8P29LOmFjgcISOAW4/oHY1+cnoKgk0nwXWScc9rmSEA=;
+	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Xkaxf3cszq3OxB+/N24ypW2IxQHDXy4pOYvpxDqUyugkeiwcwUTCGOJCho+1EhUwHdueK5NZDixWuvpI83QDuNgAffLBjiy209tkhz5gzgcViMn9OO5z5qaaBDl9se5fRfbOVjCpa3/jce/+61o022+QuaaFgMYyXGfjTae5ZQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2QPiZ5j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vfKuo4hb"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2e7d08ab7so6524145ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790797014; x=1791401814; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5ZPdaAVKbCuct+Drs4hq/dXnJoZKDoPUJjaVzhPw8KY=;
-        b=vfKuo4hbwNLfmDjS2UikM8pr8u6kt147HBAnmycH1kXJNtn87sMEc/ZGDnE006fHhc
-         h0uhh5H9R8w6au3DB7qd6Sk4eyqc9gUykZHlvMjvr5qFQ0a/6Wl1lB06/+xrvKS9Xyvf
-         2854Ib1SN9zQT3jXCNS2LlfIMmlI/5mP6fjceUZS+Yegd05ci8blHehgZzhhvrcYQzbP
-         NCXRG7Y0dLQD7jNf1DMsak3UEwxLrGPDxKS2p6pxQ63qatwXWgtv1y/lNd4yfTpJiHQs
-         M9YmE4I0ETPHaaLpXtmg8yBFyVd6nzYebm6zd91ZnD74hq6goqgBckEhtdvd+3+3W8Px
-         X9GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797014; x=1791401814;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5ZPdaAVKbCuct+Drs4hq/dXnJoZKDoPUJjaVzhPw8KY=;
-        b=m+x/eNkteTDhATBMf5CbefNqWvIf8ZvqzBWLGuWhZoLkuQxk9sXNIOmKc77OY15tis
-         Oa/38qoKFfPOxZwu4n5jvFEqQAEFvthO9gpX+jngAZAjYdEG8+hkODEa1REhaAT5vvsV
-         GRfl1Revvp0QSuw7AbFIF8lEv1zjTeMfrVR//VoETkS4f3hLotDrDDjbNUQ0cff4C5/Z
-         LEBh8b65tV8i0hNEI1GnpWvbfeJK50ezvF6CpbphJZG2fXda8DeVXY/eFO9c0mcP4G34
-         Xfa/BcgJJhdHVjvcjKpgXCRGH3IIHPMa26XLY3IwtQcUoOlV6uK7gTZBIw64kSfK9Pn6
-         eJcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8V0tnqzHQKqvNZ23jeZ5h7IDJWjizkNp2i2s6V0MUNqsZjs5qfjMmVB+YrvTqWxv7sBhr0dsGEZ5LV9U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4eLz5N2pbn6gGDBvbdI+kGxcvsFROvc2ebYBFPLBYXuIURdDK
-	KgfOI0rRrMW47hXOKqQ/J3WhjiPjjPoby+MtJ+yzA4zo9rOlHqAmvgIejwUptOoBfXPjaEFd56p
-	7P2f8KA==
-X-Received: from plaw3.prod.google.com ([2002:a17:902:c783:b0:2e2:f0cb:c185])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:228e:b0:2e2:c459:2ed
- with SMTP id d9443c01a7336-2e2e4b551bfmr18928225ad.42.1790797014291; Wed, 30
- Sep 2026 12:36:54 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 12:36:34 -0700
-In-Reply-To: <20260930193634.3415089-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2QPiZ5j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4F41F00898;
+	Wed, 30 Sep 2026 19:37:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790797024;
+	bh=w2qh18/xuz3/VOI454cQgEZkqBks5yM6N0YivZBgREY=;
+	h=From:To:Subject:In-Reply-To:References:Date;
+	b=m2QPiZ5jdvyS2B/IXrVQ2pZOQ6S/D8VQFOrUKxEzRi/iX1URh94APMEWdtpi2Jv32
+	 t3VR3ZdySb30kq2K9flh9RoPaKTOPGcJLi0s6BxcHFX22mHbFm7LBv5FSqgkudAV8D
+	 k5+SG9PJTqVPfXnPkE11JGfdNXuTP8NXwDP7YijWblxFn78SAru7enkAjD1aHfl9dp
+	 1hqfE1IepL2r3YIsvYmvmtSG9nycORraki68w2qWIigJnioQMiYznjUnWzxRFCnx+v
+	 LvRI6XX3aW5UqeBpQO/emJde6wq9j7ST1pOCoDyLG0mprtU70zdgrF9rUbsWeuuuOq
+	 VxMy4qIHmFqpg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Sergey Shtylyov <s.shtylyov@auroraos.dev>, Anna-Maria Behnsen
+ <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
+ Ingo
+ Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tick/sched: check skew_tick kernel parameter's validity
+In-Reply-To: <d95d424c-77a7-4c59-a7cb-9e547af7461c@auroraos.dev>
+References: <20260829202535.46470-1-s.shtylyov@auroraos.dev>
+ <87ecebj080.ffs@fw13> <d95d424c-77a7-4c59-a7cb-9e547af7461c@auroraos.dev>
+Date: Wed, 30 Sep 2026 21:36:57 +0200
+Message-ID: <87tsn6h6p2.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930193634.3415089-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930193634.3415089-13-seanjc@google.com>
-Subject: [PATCH v6 12/12] KVM: SVM: Add support for virtualizating Bus Lock Detect
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Yosry Ahmed <yosry@kernel.org>, Shivansh Dhiman <shivansh.dhiman@amd.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain
 
-From: Ravi Bangoria <ravi.bangoria@amd.com>
+On Wed, Sep 30 2026 at 22:01, Sergey Shtylyov wrote:
+> On 9/29/26 11:01 PM, Thomas Gleixner wrote:
+> [...]>> In skew_tick(), the result of get_option() call is ignored, so even if a
+>>> value of the skew_tick kernel parameter was not specified (or specified
+>>> as a list or range), the kernel won't complain. Add the missing check...
+>>>
+>>> Found by Linux Verification Center (linuxtesting.org) with the Svace static
+>>> analysis tool.
+>>>
+>>> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+>>>
+>>> ---
+>>> The patch is against the timers/nohz branch of the tip.git repo...
+>>>
+>>>  kernel/time/tick-sched.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+>>> index c1ee0b256445..34ceccdd49b5 100644
+>>> --- a/kernel/time/tick-sched.c
+>>> +++ b/kernel/time/tick-sched.c
+>>> @@ -1483,7 +1483,8 @@ static int sched_skew_tick;
+>>>
+>>>  static int __init skew_tick(char *str)
+>>>  {
+>>> -     get_option(&str, &sched_skew_tick);
+>>> +     if (get_option(&str, &sched_skew_tick) != 1)
+>>> +             return -EINVAL;
+>>>
+>>>       return 0;
+>>>  }
+>> 
+>> sched_skew_tick should be converted to bool and this function should
+>> simply do:
+>> 
+>>        return kstrtobool(str, &sched_skew_tick);
+>
+>    Thanks for your comment!
+>    OK, I'll do that (and add the Suggested-by: tag, of/c)...
+>
+>> And to make it complete, sched_skew_tick should be annotated with
+>> ro_after_init.
+>
+>    I guess you meant __ro_after_init? Would it then be OK adding it
+> in the same patch?
 
-Advertise support for virtualizing Bus Lock Detect and allow the guest to
-enable BUS_LOCK_DETECT if LBR Virtualization is enabled (Bus Lock Detect is
-enabled through MSR_IA32_DEBUGCTLMSR, which context-switched if and only if
-LBR Virtualization is enabled).
+As you change the data type of the variable anyway that's fine. Just
+mention it in the changelog.
 
-Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Co-developed-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
-Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
-[sean: massage changelog]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/svm/svm.c | 12 ++++++++++--
- arch/x86/kvm/svm/svm.h |  7 ++++++-
- 2 files changed, 16 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 1e58ad8691e9..e7c296c52591 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -879,7 +879,7 @@ static bool svm_need_lbr_virtualization(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 
--	if (svm->vmcb->save.dbgctl & DEBUGCTLMSR_LBR)
-+	if (svm->vmcb->save.dbgctl & (DEBUGCTLMSR_LBR | DEBUGCTLMSR_BUS_LOCK_DETECT))
- 		return true;
- 
- 	return is_guest_mode(vcpu) &&
-@@ -5712,9 +5712,17 @@ static __init void svm_set_cpu_caps(void)
- 	 * Clear capabilities that are automatically configured by common code,
- 	 * but that require explicit SVM support (that isn't yet implemented).
- 	 */
--	kvm_cpu_cap_clear(X86_FEATURE_BUS_LOCK_DETECT);
- 	kvm_cpu_cap_clear(X86_FEATURE_MSR_IMM);
- 
-+	/*
-+	 * LBR Virtualization must be enabled to support BusLockTrap inside the
-+	 * guest, since BusLockTrap is enabled through MSR_IA32_DEBUGCTLMSR and
-+	 * MSR_IA32_DEBUGCTLMSR is virtualized only if LBR Virtualization is
-+	 * enabled.
-+	 */
-+	if (!lbrv)
-+		kvm_cpu_cap_clear(X86_FEATURE_BUS_LOCK_DETECT);
-+
- 	kvm_setup_xss_caps();
- 	kvm_finalize_cpu_caps();
- }
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index c3380d865b75..6d0242966dc8 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -789,7 +789,12 @@ BUILD_SVM_MSR_BITMAP_HELPERS(void, set, __set)
- 
- static inline u64 svm_get_supported_debugctl(struct kvm_vcpu *vcpu)
- {
--	return DEBUGCTLMSR_LBR;
-+	u64 debugctl = DEBUGCTLMSR_LBR;
-+
-+	if (guest_cpu_cap_has(vcpu, X86_FEATURE_BUS_LOCK_DETECT))
-+		debugctl |= DEBUGCTLMSR_BUS_LOCK_DETECT;
-+
-+	return debugctl;
- }
- 
- /* svm.c */
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+        tglx
