@@ -1,99 +1,69 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6482E1F0E;
-	Wed, 30 Sep 2026 11:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0733B9D8D;
+	Wed, 30 Sep 2026 12:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769553; cv=none; b=ABswKrG+PqnAXWmanNH4SrnOZwmhZUf0qyH+YjFkr4B7RnaHrMyP4HAJgrz2+0lv+6R9NNVIXC2Np349dqBGrtFaCBsiF8nHgen1MSCd0PJL1Wp0gZuemZJBdF81jWorHGvT3LIAEJIpgnUl7GTfBkWEyBFkVrH6zi6GogvVXAI=
+	t=1790769644; cv=none; b=KQdQOjymqat1/Uv3GNKFku5M1WUOnufv+yPR6MX7smQ9QRnkekyt/QvQ0a0Kcj73Tpm3yIsMAIzEARZCSR/Ubd1RBizlalCitFfBIzqSTCRBMZktyh24qH0tsVVDiX9fL2BZTwiap6/JpYwcIiBqf6Ti/GTBryLeLBzBPlZfnTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769553; c=relaxed/simple;
-	bh=BOHgcZ4PSyIZcrNqgud/9Z0G8mIte3cRGS8ieMS63pk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fPY27yVi3/q0f8eqKANN+l90xKn/DIb8BG4H/wZxdaGgv7HBULLKCAKuPtU1xaIsFDFth8qlokGvagxneEneeX92wI4sY1SzQZCd3hSs9MHq06gpsbTlH1y1NlvwUt6Bti85meglcGlswPIRy8VppgsWogfq1zdbpEXYJUtlP7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XVbBqckD; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790769644; c=relaxed/simple;
+	bh=wszQkN1GJqDwPiLZzvHAvrJVpaCUtN+auewvBQyY7Ic=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=m4Dtu3e30DvcurjyEaxmIEh7ko1+pNXHONyM3vuxOpQqGFRQHTdTOCTzrq14p5HBfj20GMrzMFqJcO42+Z1jcpgcA0+j+LxyLJ7SjSWYIhbUN4sLyP8Xvsnrb7FaGI7tH9g5+Hw4p17xs1mDbWDCpUfMhEuSdWzP1AQ1v8Fdmgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6+SBTTI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XVbBqckD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790769551; x=1822305551;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BOHgcZ4PSyIZcrNqgud/9Z0G8mIte3cRGS8ieMS63pk=;
-  b=XVbBqckDocQUMQUrZ40M/+ImhJ7ohJ6rKvGZTB37yqWRxHdS135RQKkV
-   Sw6J4+PeTk3wAwF5drpcS2wfqBRbfWlDa7PxTYTeTWhaX1Ztv0gWs8xxd
-   PPeajyKNbavENkA9qxOXMMMruHqf2f5UW2zn8S7BvOj6ZxusJ8Kv3k71g
-   E8+7YFj8Cdfighzl6zko+1bNBoqW0QeQInhbA/O+KbXu3ToxYrvshbmb0
-   fn5fu+9ZRjEO9EMufjddylvLkmAVLFqo0WXoHkDIwTC67xF+NkVuL2StP
-   pehGNW2c+alSihJ+k87Z3iw7IUR5yeQ62nt2r+vCGhi6wgRA+s/jwGOdB
-   g==;
-X-CSE-ConnectionGUID: Qj43hrHaRuKvRdv8XLC5bg==
-X-CSE-MsgGUID: lGdMKaFzT5ecZEdJ/fMJOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="113291031"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="113291031"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 04:59:11 -0700
-X-CSE-ConnectionGUID: aoImiJTmRUiPU2R/ridMsg==
-X-CSE-MsgGUID: QhCwNY+aThap12M7J9SGvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="273474335"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 04:59:09 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2E91511F925;
-	Wed, 30 Sep 2026 14:59:12 +0300 (EEST)
-Date: Wed, 30 Sep 2026 14:59:12 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-To: Mauro Marinoni <Mauro.Marinoni@santannapisa.it>
-Cc: "miguel.vadillo@intel.com" <miguel.vadillo@intel.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] media: i2c: cvs: Register subdev nodes upon binding
- remote sensor
-Message-ID: <arz5kIUTJ4YPuFm3@kekkonen.localdomain>
-References: <AM0PR03MB4113B0FE1173B693F4598C7A918B2@AM0PR03MB4113.eurprd03.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6+SBTTI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE6A1F000FF;
+	Wed, 30 Sep 2026 12:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790769643;
+	bh=rCXPgRht0qSLZf0OgWnuc60RKYdtwcJbAZyGAof2KhM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=c6+SBTTIXMk9pXdKjNAO6FBvlPYZV98G7Y0mBQYyNovlBDrz6nPAYuhCV08Oi02nk
+	 Y3Ndixhyvw866RSJz+OpkPx+5r7FvGEYymNIk4qA5OHZoqYCGZswN3ir62+nWgqeZo
+	 2bVP5hOx4CCIe2xjuC2wYa7PF5Nwu3MIwQEKbOcaERFlNfaAMGn8IVfFYK/jdXcUuq
+	 8cqsBVSvDWLbsprilRiMbGKi4KVRZhJkKuvpwRHdinWw4f4bnaFySVsJ5FbiwRPEKr
+	 3NDFKuzvh5hqbef7Lkp1OI3diLiTXi4o2yW13rWbJD4XIEo0NRafODG7BCoUav8MK7
+	 CqOiOLVsmaSfA==
+From: Leon Romanovsky <leon@kernel.org>
+To: dennis.dalessandro@cornelisnetworks.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Hongyan Xu <getshell@seu.edu.cn>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ jianhao.xu@seu.edu.cn, Leon Romanovsky <leon@kernel.org>
+In-Reply-To: <20260928134151.1213-1-getshell@seu.edu.cn>
+References: <20260928134151.1213-1-getshell@seu.edu.cn>
+Subject: Re: [PATCH] RDMA/hfi1: shut down the trap timer before
+ unregistering
+Message-Id: <179076964043.226697.10963286150621176370.b4-ty@kernel.org>
+Date: Wed, 30 Sep 2026 08:00:40 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AM0PR03MB4113B0FE1173B693F4598C7A918B2@AM0PR03MB4113.eurprd03.prod.outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-Hi Mauro,
 
-On Wed, Sep 30, 2026 at 11:28:08AM +0000, Mauro Marinoni wrote:
-> The Intel CVS driver acts as an intermediate CSI-2 bridge between
-> the host receiver (e.g. IPU7 ISYS) and the downstream camera sensor.
-> When the host driver initializes, its async notifier completes upon
-> binding the CVS bridge and registers its initial subdev nodes.
+On Mon, 28 Sep 2026 21:41:51 +0800, Hongyan Xu wrote:
+> MAD processing arms a trap timer embedded in each hfi1_ibport. Device
+> unregistration does not stop the timer, so its callback can run after
+> the port and its containing hfi1_devdata have been released.
 > 
-> However, when the CVS bridge subsequently binds the downstream sensor
-> via its own async notifier callback (cvs_csi_notify_bound), it creates
-> the media pad link but omits calling v4l2_device_register_subdev_nodes().
-> As a consequence, downstream sensors declaring the flag
-> V4L2_SUBDEV_FL_HAS_DEVNODE (such as ov02c10) never have their
-> /dev/v4l-subdev* character device created, preventing userspace
-> frameworks like libcamera from opening the sensor.
+> Shut down every port timer before unregistering the IB device. The
+> shutdown form also prevents a concurrent path from rearming the timer.
 > 
-> Call v4l2_device_register_subdev_nodes() in cvs_csi_notify_bound() once
-> the media pad link is established to expose newly bound subdevices.
-> 
-> Signed-off-by: Mauro Nino Marinoni <mauro.marinoni@santannapisa.it>
+> [...]
 
-Please post patches against the media committers tree next branch or
-linux-next master. This issue has been fixed by commit
-7456b40bc992a3fc34b587545716729923d507b9 .
+Applied, thanks!
 
+[1/1] RDMA/hfi1: shut down the trap timer before unregistering
+      https://git.kernel.org/rdma/rdma/c/23baaac7287bd6
+
+Best regards,
 -- 
-Regards,
+Leon Romanovsky <leon@kernel.org>
 
-Sakari Ailus
