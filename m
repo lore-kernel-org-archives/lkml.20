@@ -1,208 +1,144 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748281FBEA6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23D0356748
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733064; cv=none; b=DWzKdU4spXpHVfjztBTZWl7eRNcUuGZ6jdP0JCbTTSmB9BvuU4DCO4qNv39Jbsxa45/dGp6tdNlOeRnAO+RkFLiw/5+hgPenw2GqCDKukLX6CzlExDpW/JCxbB5mlOqiHjGPJmRs05p7E3WQnjqZJaL3Nhl/4cIKa2mZqqibqo0=
+	t=1790733066; cv=none; b=Isx1GMoLnuGiBFtldAyQcjxxNM0kMLoQJOGxqdua0w7S4/Y2ik7Iu2V/ZUFwp81VeEkISVLeW19k387rHZQXWjdcfrWpYy+Vw/RGmP5fEwDC6idlCXZa0CGhyFrHhwBBy12LphIgdTb7FBiwg/eE1TnV/sjuQzsdze9RPbqMQs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733064; c=relaxed/simple;
-	bh=KuptGMg8i+lMOdb4G4QPGs68Ey/P4pbNtBZTiMUAF/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CoQHYBYU+nm5C3Imb+uMDE9znIZE/NwVloxbFg/NxXOdkQcKugRacf/YFbPdrRS2EhChsG4bs5avBE8j1Va2UJxQEPEP8w0JQOfnoDxY9ha0kk3GGCEEdqzjr+YfiY3bn80jxCgKbhwnAYQPIqk/Qr+c2SnhN4NFRaQTjYOWjH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oXpfzOfO; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790733066; c=relaxed/simple;
+	bh=Tn05cvxXAdfvbxzvgikH6KLdzf1LmzDwP+xIl5hNs+o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=q2sle9cxKfXvjjj3GFsSOskqilpkuZwXZuPEGmJmKjzXNHRGBqcgxz4AQAIjAhHLefWegb1nrN9sH08nyupYRqm2ONecAScO6u9Ya0f0YEa8MaJ4xn42xRlBlhsJK9yFFdBmGAkxy1Mr6a8WDSLqkR/1ooMN9Au236xjLu4mejI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=i8FawI6R; arc=none smtp.client-ip=95.215.58.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oXpfzOfO"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8eacb7c8fso4193172e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790733060; x=1791337860; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gPiQMKdaV9lHeNVJbcTX0RY2MR9chP31sQ3+yrzJHeA=;
-        b=oXpfzOfO79h2LcFrKf3co40AIO0QBqo4PA5exf4/inrGm+S2TfrX6NewQHJthHJIld
-         ThpD0fhsVIEwBWHkWpqUogqrM/XTPC/7zcLmQuWwJE8xkJTaI8EqAZ2Tw7C6lzmjXyUX
-         OQdLEY1vzWHmTSIN+BYqCWUnaMFGlKHIpt5vSoH5zsBEQr+W6yi09ZXwPGbpKFQ+uQyC
-         XXu5uzL9lHtFrjRYdmi48f5FO9RK2gMb0kSCIFpZpc0yXNUsDy8KX0Hf6+tzCYivUnKu
-         F1vN0L2sGD3x67QIvIjiLMfxwB/I06KsPWxZKukSqJ1ZI+YdtjFKwTSXPtFJRoGlctPv
-         JQ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790733060; x=1791337860;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gPiQMKdaV9lHeNVJbcTX0RY2MR9chP31sQ3+yrzJHeA=;
-        b=WArjnXDAHpoTZFBJf0Cb4cOuuO4d/yeO3erc5guaa2PPtCGdJ0tAWI7Wuk6wAEoJjg
-         p5jmryD4MkWqZPlgRBtDhJfHO2PptjMG6OpDY8Ft2z8Q8PijrFzWICIBtaHhfJxmGmkE
-         15zhe7FKkZ9i2rWD94aMteKEyG0li4RW2cKNsTQxv8J7mjFIuB2QgWBjN0gDreR58xcm
-         A18TlyaDglRvWf2D0qz6GuYwXNascF/SXqDOEv79omS5ph9dCsPJDaLI27bmEYX3ML/k
-         4JEnBtthSl2fOWuDukAXR1VQPc/x398j/MlYmMT45bbI1urx/0T+0i901QprT5QqYFPz
-         P5Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7RdsHuuK77bpOWGh6nIxa3s1TALQA/aS7nh8iElZIAhpqydrHdCzsW6WIfCIo8DN6+Gydwmg1bDi/kTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUHmDSNs8RCi/s53W/hTZpyJ6r7hGkuqQSDrajJePn9zE8+nmn
-	jlCl+lStWsRPjudULuZtPITCMgtoRPDqYDTfKAEOpSXYL7zUeopcyk8L
-X-Gm-Gg: AYBFou21s4VUJDBdDf+wHKYCpW+whOV3y5sMqgF6VL2cxteJkqkIbSWIAV9C71KmERv
-	iSxYScdlLo63D0MBxVE6IfAWXLOWs5exO02yTi0tUeHtT6ZL3W4vGVgBAGCd31o1zdOx+6S207P
-	1hhOAvCvtgoWpKam+yfys5QuHvuBjYypY0Zw1lmDMv1qoXiKxy5rneBKOMW9P4h0R2exJyAXJP/
-	5AQGUnCfLvzIu87okiBGWITufmGHDLgbI84Y1qO3X3A+1AfPkZgww+pOMBg2deH535Y9j60byyA
-	WuLdKFEv4fb9bZDm5l8n1lk68j8QauuyXWqn6e7xDdI/OpzAbZNtntWff+khBXSilCjNSkSEt3h
-	Y4HKb2hVTJdMu12VAdZFGJ6qkHXB29ziiFQAf8ftnYtydoV1F8OExafu03aYj6YA6YPg8xvsAhk
-	dQxZwuMIUdRLhmyzjfsKn9SscIvJAoFwBKSllLzqUmlXeHMBPCewhGxvqWVLj08FQXKeAftfE/i
-	2CVMfunrOpjmJ8NcQ8/3n7hHg6wZ0pesq7X/x1UFYvRJVhFptlbvJSafUSV93JM7op+
-X-Received: by 2002:a05:6512:3daa:b0:5b6:1a7c:30 with SMTP id 2adb3069b0e04-5ba3becf14bmr453295e87.51.1790733059951;
-        Tue, 29 Sep 2026 18:50:59 -0700 (PDT)
-Received: from wildarch.lan ([109.72.228.33])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3b8670dasm342408e87.73.2026.09.29.18.50.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 18:50:59 -0700 (PDT)
-From: Anton Karasev <uselessfire@gmail.com>
-To: qby140326@gmail.com
-Cc: ilpo.jarvinen@linux.intel.com,
-	hansg@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	W_Armin@gmx.de,
-	ilya.gladyshev@linux.dev,
-	foxido@foxido.dev,
-	kento@kekto.ru,
-	ericted8810@gmail.com,
-	chris@miget.com,
-	matias.civadda2342001@gmail.com,
-	btx342@gmail.com,
-	wleizc7319@gmail.com,
-	wolf109909@outlook.com,
-	vlku.milos.fun@gmail.com,
-	i@rsplwe.com,
-	bozhenpeng93@gmail.com,
-	martiya.ar@gmail.com,
-	aleksejirlik@gmail.com
-Subject: Re: [PATCH v6 5/5] platform/x86: bitland-mifs-wmi: Add per-machine ops table
-Date: Wed, 30 Sep 2026 04:50:58 +0300
-Message-ID: <20260930015058.3076905-1-uselessfire@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929134503.17249-6-qby140326@gmail.com>
-References: <20260929134503.17249-1-qby140326@gmail.com> <20260929134503.17249-6-qby140326@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="i8FawI6R"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Tn05cvxXAdfvbxzvgikH6KLdzf1LmzDwP+xIl5hNs+o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790733062; v=1; x=1791337862;
+ b=i8FawI6RTQaCOyhRteNsbQ5TvfuWwIp34ngoFuXQXH5eN10grTwcmjHdbgehw/awV+4Ec+OK
+ P0izL1nSam2F4GxzHrsJX6P9tXwXjNdwDQ2F4tj7YiUU33xSdDBIjpuYueXZrNd3ni14NRNqG8K
+ f/ZmJLvDvF6AfBdb7w8hFILs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ed7fe68c89be53de;
+	Wed, 30 Sep 2026 01:51:02 +0000
+X-Mizu-Trace-ID: ed7fe68c89be53de
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH net-next v3 0/6] netlink: add lwtunnel encap sub-message
+ support to rt-route
+Date: Wed, 30 Sep 2026 09:50:51 +0800
+Message-Id: <20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBBFf8XM2po+sKAr/8MYUnCQRjKQtmkgh
+ H+3qRtxeXJzzl3Bo7Po4XpYwWG03o6UQB0P0PaGXsjsMzFILjW/8IotNNQu1EitmZgSBRdcNUp
+ XBpIyOezsnHN3IAyMcA7wSEtvfRjdkn+iyPs3Kcp9MgrGWdc0qFFX/FyK23sZLI3+1FIuRfljS
+ /5ny2S3WhdGYSl1p3f2tm0foHl4OPEAAAA=
+X-Change-ID: 20260908-ynl_rt_encap-3140103b368a
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-Hi,
+This series adds YNL sub-message support for lwtunnel encap data in
+the rt-route netlink family, and describes the tunnel-specific
+attribute sets that were previously opaque binary blobs.
 
-Data for the per-machine table from a Xiaomi Redmi Book Pro 16 2024
-(DMI: sys_vendor "XIAOMI", board_name "TM2309"; BIOS RMAMT6B0P0B0B,
-bios_release and ec_firmware_release 1.11), the same model as in
-Martiya's report. RMAMT6B0P0B0B (August 2025) is the latest BIOS Xiaomi
-publishes for this model, so this is what an entry would be written
-against. Its values match neither the Bitland defaults nor the Redmi map
-proposed in v5 6/6. The full acpidump is attached to bugzilla 222062:
-https://bugzilla.kernel.org/attachment.cgi?id=310971
-The WMI method is \_SB.PC00.WMID.WMAA in the SSDT with OEM Table ID
-XMCC1806; QFAN and NTDP are in the DSDT.
+The kernel currently emits encap_type after the encap payload nest,
+but YNL sub-message parsing needs the selector (encap_type) first to
+dispatch on the correct attribute set. Patch 1 reorders the kernel
+output, and patch 2 teaches the YNL C code generator to convert enum
+selectors to their string form for sub-message dispatch.
 
-Mode values
------------
+Patches 3-6 extend the rt-route YAML spec.
 
-WMAA stores the value written with WMI_FN_SYSTEM_PER_MODE in the EC
-register QFAN as is (5 and 7 go to a separate register, SMMD, instead),
-and NTDP in the DSDT maps QFAN to the DPTF variable \_SB.ODV1 (odvp1 in
-sysfs) that thermald --adaptive uses to pick the policy from the GDDV:
+Tested with ynl selftest and checked with following cmds
 
-  QFAN   meaning                          ODV1
-  0, 1   balanced (Fn+K sets 1)           0
-  2      quiet                            2
-  3      performance ("Turbo")            1
-  4      full speed ("Geek")              4
+ # modprobe ila
+ # modprobe xfrm_interface
+ # ip addr add 10.1.0.1/24 dev lo
+ # ip route add 10.1.0.0/24 dev lo encap mpls 100 via 10.1.0.254
+ # ip route add 10.2.0.0/24 dev lo encap ip id 1 dst 127.0.0.1 src 127.0.0.1
+ # ip route add 2001:db8:3::/64 dev lo encap ila 1:2:3:4 csum-mode no-action ident-type luid hook-type output
+ # ip route add 2001:db8:4::/64 dev lo encap ip6 id 1 dst 2001:db8::5 src 2001:db8::1 hoplimit 64
+ # ip route add 2001:db8:5::/64 dev lo encap seg6 mode inline segs 2001:db8::1
+ # ip route add 2001:db8:6::/65 dev lo encap seg6local action End flavors psp,next-csid lblen 32 nflen 16
+ # ip route add 2001:db8:7::/65 dev lo encap bpf in ob /tmp/kself/net/lib/xdp_dummy.bpf.o sec xdp
+ # ip route add 2001:db8:8::/64 dev lo encap rpl segs 2001:db8::1
+ # ip route add 2001:db8:9::/64 encap ioam6 trace prealloc type 0x800000 ns 0 size 4 dev lo
+ # ip route add 2001:db8:10::/64 dev lo encap xfrm if_id 100
+ # ip route show
+ 10.1.0.0/24  encap mpls  100 via 10.1.0.254 dev lo
+ 10.2.0.0/24  encap ip id 1 src 127.0.0.1 dst 127.0.0.1 ttl 0 tos 0 dev lo scope link
+ # ip -6 route show
+ 2001:db8:3::/64  encap ila  1:2:3:4  csum-mode no-action  ident-type luid  hook-type output dev lo metric 1024 pref medium
+ 2001:db8:4::/64  encap ip6 id 1 src 2001:db8::1 dst 2001:db8::5 hoplimit 64 tc 0 dev lo metric 1024 pref medium
+ 2001:db8:5::/64  encap seg6 mode inline segs 2 [ 2001:db8::1 :: ] dev lo metric 1024 pref medium
+ 2001:db8:6::/65  encap seg6local action End flavors psp,next-csid lblen 32 nflen 16 dev lo metric 1024 pref medium
+ 2001:db8:7::/65  encap bpf in xdp_dummy.bpf.o:[xdp] dev lo metric 1024 pref medium
+ 2001:db8:8::/64  encap rpl segs 1 [ 2001:db8::1 ] dev lo metric 1024 pref medium
+ 2001:db8:9::/64  encap ioam6 freq 1/1 mode inline trace prealloc type 0x800000 ns 0 size 4 dev lo metric 1024 pref medium
+ 2001:db8:10::/64  encap xfrm if_id 100 dev lo metric 1024 pref medium
+ # ./tools/net/ynl/pyynl/cli.py --family rt-route --dump getroute > /tmp/route_dump.json
 
-GET returns QFAN for 1..4 and 0 otherwise (so 0 after a SET of 0).
-Fn+K on this model cycles 1 -> 3 -> 2.
+All the result looks good.
 
-I tested this with a local build that maps low-power/balanced/
-performance to 2/1/3: power-profiles-daemon power-saver, balanced and
-performance give odvp1 2, 0 and 1, and thermald loads the matching GDDV
-targets (PL1 limits, TCC offset), both on AC and on battery.
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v3:
+- patch 02: return local_vars and define new helpers is_enum_val and
+  get_enum_name (Jakub Kicinski)
+- patch 03: alphabet order for header files in Makefile (Jakub Kicinski)
+  set byte-order for ila-attrs. ILA_ATTR_IDENTIFIER is not used, so no
+  need to set byte-order. (sashiko)
+- patch 04: add multi-attr: true for geneve opts (sashiko)
+- patch 05: remove lwt-bpf-prog from seg6 local, add a seg6 specific one
+  in patch 06 (sashiko)
+- patch 06: add seg6-local-bpf and seg6-local-flv-ops. Set enum-as-flags
+  for seg6-local-flv-ops, set max-len for seg6-local-bpf-prog-name (sashiko)
+- Link to v2: https://lore.kernel.org/r/20260920-ynl_rt_encap-v2-0-c664a3e726f6@kylinos.cn
 
-On the DMI match: the v5 6/6 match on sys_vendor "Redmi"/"TIMI" would
-not cover this machine, and performance = 0 from that map is balanced
-here. The REDMI Book Pro 16 2025 in Aleksey's report also has
-sys_vendor "XIAOMI" but uses different values, so an entry for this
-model has to match board_name "TM2309". The Pro 14 2024 (TM2307) is
-built on the same platform (Xiaomi's downloads for both, the BIOS
-included, are filed under one platform name, N56N57) and may behave the
-same; I cannot verify that.
+Changes in v2:
+- Patch 1: Check ops->fill_encap before setting encap_type_attr
+- Patch 2: Get string in generated sub-message parser and check it before reference
+- Patch 3-4: set byte-orders and max-len
+- Patch 5: include lwtunnel.h
+- Link to v1: https://lore.kernel.org/r/20260917-ynl_rt_encap-v1-0-fbbe6e680571@kylinos.cn
 
-Capability checks
------------------
+---
+Hangbin Liu (6):
+      net: lwtunnel: change encap fill order
+      tools: ynl: convert enum selector to string for sub-message parsing
+      netlink: specs: rt-route: add lwtunnel encap sub-message support
+      netlink: specs: rt-route: describe lwtunnel IP options
+      netlink: specs: rt-route: describe lwt BPF program options
+      netlink: specs: rt-route: describe seg6-local attrs
 
-a) Performance on AC and on battery. WMI_FN_SYSTEM_AC_TYPE is not
-   implemented on this BIOS, so with Armin's "Treat
-   WMI_FN_SYSTEM_AC_TYPE as optional" the capability check passes on
-   AC. The write itself is still reported as failed here, though:
-   WMAA's SET branches set only the return code and leave the function
-   id at 0 (only the GET branches fill it in), so "Detect failed
-   function calls" (23cc56f6dea6 in for-next) returns -ENOMSG for every
-   SET on this BIOS, although the firmware applies it -- the same as
-   Chris reported for the Book Pro 14. I checked it with the for-next
-   version of the driver built for 7.2.7: every write of low-power,
-   balanced and performance failed with -ENOMSG while QFAN changed to
-   2, 0 and 3; with Chris's "Only check the function id of GET
-   responses" on top, all of them succeed.
-   On battery, power_supply_is_system_supplied() still refuses
-   performance, although the firmware supports Turbo on DC: Fn+K
-   reaches it on battery, the GDDV has a DC Turbo target, and writing 3
-   on battery works (odvp1 1, thermald applies the DC Turbo limits).
+ Documentation/netlink/specs/rt-route.yaml | 446 +++++++++++++++++++++++++++++-
+ net/core/lwtunnel.c                       |  35 +--
+ tools/net/ynl/Makefile.deps               |   9 +-
+ tools/net/ynl/pyynl/ynl_gen_c.py          |  34 ++-
+ 4 files changed, 500 insertions(+), 24 deletions(-)
+---
+base-commit: 806487df0088ff5f87890fadf95594d2afc00ff5
+change-id: 20260908-ynl_rt_encap-3140103b368a
 
-b) Full speed. The firmware does not validate the mode at all. Writing
-   4 was accepted and applied (odvp1 4, thermald loads the Geek targets;
-   on AC the PL1 ramped towards the 90 W Geek maximum) both on battery
-   and on a 100 W USB-C PD charger, while Fn+K never offers full speed
-   in either case. It is not a charger thing either: with the stock
-   140 W USB-C charger (the EC register ADPW then reads 140, and GET of
-   command 0x10, subcommand 3, would report the adapter as not below
-   140 W) Fn+K still cycles only 1 -> 3 -> 2. So on this model full
-   speed is never offered by the vendor's own key, and whether it is
-   exposed has to be decided by the driver; the firmware will not stop
-   it.
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
 
-Commands that are not implemented, and one that is dangerous
-------------------------------------------------------------
-
-On this BIOS WMAA implements only command 0x08 (GET and SET), 0x0a
-subcommand 5, and 0x10 (GET subcommands 1-3, SET subcommand 2 only).
-Other command IDs answer 0xE000, among them everything else the driver
-uses: 0x09 (gpu_mode), 0x0d (fan speeds), 0x12 (keyboard brightness),
-0x13 (AC type), 0x14 (fan_boost) and 0x16 (CPU temperature).
-Unhandled subcommands of 0x0a and 0x10 mostly return status 0, and a
-GET of 0x0a answers 0x8000 whatever the subcommand. The hwmon device,
-the kbd_backlight LED, gpu_mode and fan_boost therefore have nothing
-behind them on this machine; probing support at probe time would avoid
-exposing them.
-
-kb_mode is worse than unsupported. kb_mode_store() sends command 0x10
-(WMI_FN_RGB_KB_MODE) with the mode in the first payload byte. On this
-firmware command 0x10 is the battery interface, and subcommand 2 is the
-charge protection (bit 0 of the EC register LONL, 80 % limit; reportedly
-what Xiaomi's Windows tools toggle): WMAA sets the bit only for the
-value 1 and clears it for anything else. "echo fixed > kb_mode" is
-therefore 0x10/2 with value 0. I verified on this machine that it
-silently turns off charge protection -- LONL goes from 0x31 to 0x00, the
-charge limit in the EC goes from 80 back to 100 and the battery, which
-had been held at 80 %, starts charging again -- while the firmware
-reports success (0x8000). That was on 7.2.7, whose driver does not check
-the reply; with 23cc56f6dea6 the write returns -ENOMSG instead, but
-protection is off all the same. I think kb_mode must not be exposed on
-these machines.
-
-Once the generic profile table has settled I can send a patch with the
-entry for this model and the kb_mode fix on top of it, and I am happy to
-test patches in the meantime.
-
-Thanks,
-Anton Karasev
