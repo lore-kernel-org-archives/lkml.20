@@ -1,226 +1,84 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F8937C900
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2ACF19DF6A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744199; cv=none; b=N9brrWLyfBknY5uH6I5LvUOzNv9sCaG+YTNQeAqDk2OBD1d4AdXBq/cTYR02jP+7WFtFWQ6KG2IIjsopTHC8gLGYy8RZOuqQylnWkLUlmgiXIuvP6VREm7ybb+LwAMYPTTDDVatLBWyxEkniiZbGEbpoVHIy7MJgKk+xml5UKtA=
+	t=1790744252; cv=none; b=SeEiYxdoCkOzoRnvfW48oU4y9o3aktIxkJGaB6KnHoYO7CYh6y/j7wpNXdwHDkR49FAgubz3cwxJrxoFDPGoLbYIYHU216NV5qkBwPKiFFCgQ07exwTOl+Xrf+5pgIOg0HVA3f74twsuVJmjF+7ZYLvjXjsri5T4/jSWLt8VWo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744199; c=relaxed/simple;
-	bh=1LzUJWyVpEJ6t0FLAllTJUVlsjTLhKqKyXpXO76wJIg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cyvDXZLR3t5/IcVogDiRigJ0V90e2THCPv9C4HhZfLO4GcgedEwE5y+PKfzL1nL/j35zmaK3lxvULhTIGtjDghQPl2233Wdt36Lww8hXpQ6N4bl9Jk6MW6w3Y2qYBxaaDiYMD0Sl1Kp/6yG3ZUgulyeVC20TQXdkW1yhSW7qa4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=ZJMvIwby; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	s=arc-20240116; t=1790744252; c=relaxed/simple;
+	bh=WMz1SYY9AYH94SZQs17R30ijgQkCs3phclIAQsZcQhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r3bskikvkVtG4A8+qFK35Kc4c8JJvnxyaYnpJV6sCUuTbKCqS9nK7TnmzTFgI/bKckJRUNBIZvV70KE6XpcSsz4Epa0mNdNuij6E30FNteP7PI32wutStf6Z3rX+I4JmCOjgbVxqv8vMV0A4nPhT6HAFlyxet82eqcQg8tfqy44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hGoBZmH8; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="ZJMvIwby"
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68U4uQrb098371
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Wed, 30 Sep 2026 13:56:26 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=Il6Pn8W1NJX9qhwbRcpycT2Saqf/wh2/BgvOLGH6lG4=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250326; t=1790744186; v=1;
-        b=ZJMvIwbyT8HsLngGKDH8Dxl0o6DaQol1ktghTGr8gxAPjovpuDN1bQfkJcXPUJfp
-         VTTNJ22GMW1PslrLxc5OsAR0JsKbo2suAjU0opJkeP9Ive4PqU3sq7Bczbw6wEPl
-         5590um/csXpYGEFb+W0ZkIUy6U6k80/YZgshn2v4rZShf7OJjcaUvRxJZErJFiSB
-         3qA3GqNktTXgv4ChUSK54faOGV209MrbZ/nt+r3vLIocCzAwhMrXedGZtohA/3jC
-         BQDp7FbMNoHyyD6tiMRLLqnALtGhGXfxQTJ2wG6ODOp5pAzsGkthx/tOjcUs9X5T
-         ReqciSAod4gJPVdAE60hcw==
-Message-ID: <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
-Date: Wed, 30 Sep 2026 13:56:26 +0900
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hGoBZmH8"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 79BAF40E01F9;
+	Wed, 30 Sep 2026 04:57:28 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id lVwx6KnDbyW5; Wed, 30 Sep 2026 04:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790744238; bh=DuJpJd+Ily4yKE8DDUsSgR4u7ibq0ab66LllZ+KcdFQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hGoBZmH8LV0nH9se89RJqSjTQEsSC9CUThjzRdMZCP+GuBhLDPDBkEgfkOE1h5c3P
+	 7ybt/rUGXV9Ol8ko6M2Rnbxv2M8vJU7HFkASlFXP6RnTILMjg82zcNKIJ3cdiJGtou
+	 EOZKAotYhajvqpJL+tMqgN6076thMv8VFoVeWz7vWuGF5pZVcJJrqlKlkRn5AOU+YS
+	 AXDUTXMInMI/R/axP2HThSvCBDYrRPaG79sbbhhYu+fGKeQV72je15AY2xQDilgYbQ
+	 YZpThxZkLP5MBxkfEC94d9xbuIQ5km1YScd4f1l7ntsLwuN/k780X+09AFDtXIY3wW
+	 pG9porCgy2Jw1x6iRU1F/IzoV0JfpuNP67PWxWjaCHNQZakRAZxOr9i24ULncwAeDy
+	 r4qnNzQoF7Fx7VVBRy8TRu9HFK2sdRMh90r59T2rCxzK7NbI9bRZlhuLB7fMvvUMtc
+	 mIk7O5JVaWI0ytYSGO7KFlvlH5UvBoAun5CZe9FmlllcuYozBTELl/4rMh5UAo31tE
+	 yEgczbDbeGrClGzbtHORbq6ASrhCat+wqV7kNn6/PPakve9HNmnaDwCEm2LMwRWIId
+	 PQfjkgyvpxKffLlwiwbDGhOe6Am7xu9kUF94jSzkV+p+Rd+cRSDQ4Kg4r/dCUDlvpj
+	 PjK5JmEKJ/63VRXSxCPsG03I=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EEEEF40E015D;
+	Wed, 30 Sep 2026 04:57:10 +0000 (UTC)
+Date: Tue, 29 Sep 2026 21:57:07 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, kevin.shu@intel.com
+Subject: Re: [PATCH RFC v1 1/8] cpu/hotplug: Allow architecture-specific
+ primary CPU bringup
+Message-ID: <20260930045707.GFaryWo1o5SAYwhs8V@fat_crate.local>
+References: <20260912000815.997720-1-chang.seok.bae@intel.com>
+ <20260912000815.997720-2-chang.seok.bae@intel.com>
+ <20260930002010.GDarxVul0JZDam_-bG@fat_crate.local>
+ <67b77f20-53f1-4b3c-8420-f125eaa0fe26@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
-        airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
-        dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-        linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
-        amd-gfx@lists.freedesktop.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
- <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
- <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
- <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <67b77f20-53f1-4b3c-8420-f125eaa0fe26@intel.com>
 
-On 2026/09/29 11:22, Huang, Honglei wrote:
-> 
-> 
-> On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
->> On 2026/09/29 1:22, Huang, Honglei wrote:
->>>
->>>
->>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
->>>> On 2026/09/24 18:55, Honglei Huang wrote:
->>>>> Add userptr blob objects so the guest kernel can pin an existing
->>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
->>>>>
->>>>> - New virtio_gpu_object_userptr type for userptr resources
->>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
->>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
->>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
->>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
->>>>> - Mark writable pages dirty when unpinning
->>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->>>>>    cleanup_object() on the unref response or on create failure
->>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
->>>>> - Reject unaligned or overflowing userptr ranges at create time
->>>>> - Disallow PRIME export of userptr objects
->>>>> - Save CREATE_BLOB params and restore userptr resources after
->>>>>    hibernation without using the shmem restore path
->>>>>
->>>>> The hibernation restore path maps with the same attrs and direction
->>>>> used at create time, as documented next to the call. Like shmem
->>>>> blobs, the DMA API can still bounce through a buffer there. This
->>>>> design only avoids a second guest side shmem allocation and memcpy,
->>>>> nothing more.
->>>>
->>>> I don't see the restore path is documented though this says 
->>>> "documented next to the call".
->>>
->>> Will fix in next version
->>>
->>>>
->>>>>
->>> ...
->>>>> +        goto err_cleanup;
->>>>> +    }
->>>>> +
->>>>> +    userptr->sgt = sgt;
->>>>> +
->>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
->>>>> +        enum dma_data_direction dir =
->>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
->>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
->>>>> +
->>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
->>>>> +                      dir, 0);
->>>>
->>>> I checked the ROCm code and documentation, and I do not see how this 
->>>> mapping satisfies the HIP coherence contract when bounce buffers or 
->>>> explicit DMA cache maintenance are required.
->>>>
->>>> HIP distinguishes two coherence models:
->>>>
->>>>  > Coarse-grained coherence: The memory is considered up-to-date only
->>>>  > after synchronization performed using hipDeviceSynchronize(),
->>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
->>>>  > null stream such as hipMemcpy(). To avoid the cache from being
->>>>  > accessed by a part of the system while simultaneously being 
->>>> written by
->>>>  > another, the memory is made visible only after the caches have been
->>>>  > flushed.
->>>>  >
->>>>  > Fine-grained coherence: The memory is coherent even while being
->>>>  > modified by a part of the system. Fine-grained coherence ensures 
->>>> that
->>>>  > up-to-date data is visible to others regardless of kernel 
->>>> boundaries.
->>>>  > This can be useful if both host and device operate on the same data.
->>>>
->>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
->>>> hip_runtime_api/memory_management/coherence_control.html
->>>>
->>>> Fine-grained access requires coherence throughout execution; copying
->>>> between the original pages and a bounce buffer only at kernel 
->>>> boundaries
->>>> would not suffice. Coarse-grained access could support such copies, but
->>>> they must occur at the required synchronization points. I found no code
->>>> that synchronizes this DMA mapping at those points.
->>>>
->>>
->>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
->>> SWIOTLB behind the device, not by we request. attrs=0 here just 
->>> matches the existing shmem blob path, and is exactly what native 
->>> (non- virtualized) ROCm's own userptr support does too:
->>>
->>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
->>> kfd_mem_dmamap_userptr()
->>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
->>>
->>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
->>> property, it is a GPU VM/cache thing. In upstream KFD it's 
->>> implemented as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the 
->>> SNOOPED bit), set by whichever driver programs the real GPU's page 
->>> tables for this memory:
->>>
->>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
->>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
->>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
->>>
->>> I really want to disable the bounce buffers in DMA, but it is a 
->>> platform behaviour, can not disable it in this layer. And in XEN, the 
->>> dmapping for it is another form of iovector/simple sgtable. And if 
->>> use the virtio-iommu or somthing else, the efficiency and the 
->>> complexity of driver integration are both lower than using iovector/ 
->>> sgtable directly.
->>> And for how to handle the DMA thing for userptr, since we have so 
->>> many concern about it, maybe we can drop this part in next version. 
->>> But we may have the AI review warn/error.
->>
->> Documentation/core-api/dma-attributes.rst says:
->>
->>  > DMA_ATTR_REQUIRE_COHERENT
->>  > -------------------------
->>  >
->>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
->>  > system where SWIOTLB or cache management is required. This should only
->>  > be used to support uAPI designs that require continuous HW DMA
->>  > coherence with userspace processes, for example RDMA and DRM. At a
->>  > minimum the memory being mapped must be userspace memory from
->>  > pin_user_pages() or similar.
->>  >
->>  > Drivers should consider using dma_mmap_pages() instead of this
->>  > interface when building their uAPIs, when possible.
->>  >
->>  > It must never be used in an in-kernel driver that only works with
->>  > kernel memory.
->>
->> This is exactly our use case. Although the platform decides whether a
->> mapping requires bouncing or cache maintenance, 
->> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
->> meet this requirement.
->>
->> The shmem path serves a different use case, but amdkfd is a relevant 
->> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
->> configuration and the DMA mapping established by the kernel driver. 
->> GPU page table attributes alone cannot make a bounce buffer coherent 
->> with the original userspace pages.
->>
->> The amdkfd mapping you cited therefore warrants discussion with its
->> developers as well. I have CCed the maintainer.
-> 
-> 
-> Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
-> And are there some places else need to be modified?
+On Tue, Sep 29, 2026 at 09:44:55PM -0700, Chang S. Bae wrote:
+> But, OTOH, one may also argue the loading scope should be consistent on both
+> ends. So I think it is worth settling down on which approach to go.
 
-I don't have anything else to add right now. As a QEMU developer, I've 
-only reviewed the more obvious aspects of this patch, so others may have 
-deeper kernel-specific feedback.
+Sounds to me you're not really sure what you wanna do but lemme get to the end
+of these first. Right now it feels like a lot of noodling for no good reason.
+But we'll see.
 
-At this stage, my main priority is seeing how the current feedback is 
-resolved. Before we dig deeper into the low-level details, I’d also like 
-to review the virtio specification changes alongside the 
-QEMU/virglrenderer implementation so I can better evaluate the overall 
-design.
+Thx.
 
-Regards,
-Akihiko Odaki
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
