@@ -1,381 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190ED446C00
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3156446C00;
+	Wed, 30 Sep 2026 08:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757119; cv=none; b=C1RL1Zl6eDGF+aQ1J1LHBsTySWUQimq/Rts8O3ODlfRp5Ko5ZvXFgJ0YM0xY723hhyPBLJTKHtZHXTMdEVT69ENpLOW6ReYsSQpFFKbFkp+PA2O1GoDknRPb4SHGV6/kMq2gX08iUuNUV7O5hlVJpX6geFaYuAFH8g3+lBnOLSQ=
+	t=1790757154; cv=none; b=J4qAU0nRcKun+7vvIKHVkW0q2b1F3ZWDKNU4UjWFfrNQ+cf+PcA9TYo+LdpIAnvY/IhdU6tNqL6h0SAjwKeU41UVXq8cp+1L/+MSqAchzKIOsaKr5Rx+Otxe/gTYmMbvF9eTPUx4V+BRwf/3n2w0kfAUYO4fWxgr4v6Y2sipKd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757119; c=relaxed/simple;
-	bh=Opt4VNuc2KPpgMuc2/rksZqDzapRigDwXQ8lJQZDPAg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rS2OQLhQiXgYvGE8tJllxTpTmikSrjnhIQPXzP4yk9kPl0j0x1LzRd2xLhcTaoLw80dKeotGjoLVx9J8tgjDhLMFXrUfM4tZwhbdMisxM8Gmy6/gE/kg41gcLZs3uQtBYANoyNt6n4yM7Eo9f4mGrL1Cu1TaqseVz7Tx9b4kxyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O/Lntel+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cufaX+39; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790757154; c=relaxed/simple;
+	bh=RqeMRAnSUPQdC/xknqu0oC5DvSQ+nhy0gLGCurP7J0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U4z4CnEoyfAVPszjxOvBZcNxY1KwPWTyDhoPWuvkBsVftx61hibcdW8Vcps8JItFxYveH/DxUSJ3e8sywY1w7cuGVYJmSr5PBV80XilLHcE3rRWab/MaeavQnd1Yi21AFuOLJibRfddIoRG2bmNq/dHT0rBwPBhtrDB6qHuXUrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9UMJIgS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O/Lntel+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cufaX+39"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dbZ53489268
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:31:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	y+H1wvxx0wJT8GWVnuJAvDW4MyRHAxC/g56qNfnbS2o=; b=O/Lntel+xwdwmmqN
-	6iphkvMp7V3/0IM04VrEMobR8ZcLReKQEcHV+3bQZA+Y0rrupu86f0ke6pVf971+
-	zu4Ow+lAEOcF9nYT3CAKX3ZHvdRwgraLIj01p51AxENIYVh7KaXxRCMjQXrA3SIM
-	WvFqwyOGG0MleINB91JyN7RiZjnWCx5aWb97Nw3lZUxrsyHXFlsIEe0ZUwO7wNLK
-	RIj3uCMDkT3c2h6m6ZXEFTsTP9jUGx5VhyWK2Wp7uTKbjIMV5QbUJGvbkxsGMB1n
-	TiMqs3A6V4Gm4hViVJcN7to7Hks/DZh7dO2avulCaBIkqMu05N/lDtePC9Y4Ozo6
-	tI4/TA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j97u89g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:31:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a01d1d1b6so915045685a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:31:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790757108; x=1791361908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y+H1wvxx0wJT8GWVnuJAvDW4MyRHAxC/g56qNfnbS2o=;
-        b=cufaX+39rejGHOmCigQaj0sPGb4V1+lzAN2AFAloP31SQfUM8wm/4qCTDkHfll1KXQ
-         9BJrSMJkw8r1IrgmXR19TfWyBwWYNq9RqrEk2fKSiAWHbDJtZmxsYn5kD0P0MKqZiCfg
-         IC5iu0lknNzLlYQhoVj3Ttjipss8QHh8xm4h3ctgRmyHm6sdh135RVCWYQMF9L5dJd9K
-         AQ2ddb5YxhDi1I+1Ab9zrinnV3vM64wkOHTqaY51iamPKwd39sO63CunEWibhYiZs8ni
-         xkUa9a3+S0YpYxAgr2lSAUqAtkw8bSdtqfMMHP5dvI6F6/JaqnUggqOX3WlmaV5ZFRVe
-         Ymnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757108; x=1791361908;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y+H1wvxx0wJT8GWVnuJAvDW4MyRHAxC/g56qNfnbS2o=;
-        b=YQk0JLlQZPK9JypuE1/x/TJ1WHJYUOBZLy16pEnnpMWIzBoPfCZ66HYVImqIc4hyhA
-         Fu11VcQDAf6wV6PkymtEVOOH+Zl/mjDlxpw8ZZ5bAlYTcJp3Y7b1Ohqlhz4eSdHiNsG6
-         53xmwImIaUl+wlmNR3ZkwS1HMYpJgsOroAkkNyYYGDOryEjo6xvjJM1L/StSmntZOwhd
-         bt6GOlcRhi3Fb6fhlFjHv9OKt7Qnlbr6ypqH9Z1s1YLBlxJFb0lf7rjJfCqWJYPebcIh
-         xPZawLC5o6zn/xhAKoD+RExlIPSg1JPOS0bJRuH3jSzTItg0HQxTvIj1OP/+GOZ8pAZO
-         /Z4g==
-X-Forwarded-Encrypted: i=1; AKwUvBy3+jvx7tfHW6C56g2oLQzUeD+tf+brJRpRbGaEXpQVnBo6jfWWDVcJIp6NkRNTjluj0a6ret/lnfEhSoU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxxjICia8012ZgtRI4LdzxLZgBIgDNXHXKxmzKKaVFmJnQc8tj
-	Lqz8Cl805Ee55vh3XX96yL0x0+gaVYovMDKM38RYtfCTRBS/OdICzckevz4+aYS3fGK+EOQbBeD
-	ALnMCKS9lGfe0sB6gWYk0bzkL6IKuQQEDWDjzynHghdTn+PC27Qjt1Skc/JCl6DwGpF8=
-X-Gm-Gg: AYBFou3RF1cGry3nvuU0D8P5VRZ7XGXDWfVIbA1wlR+uDxopgaOwUqhseGKBVrcrSd+
-	yqBOBtKKVZwpr1RGd2jF5PMzr2UGoT9l3wVfc6gVDNoWdYupf8gGkdUGZuhF88pJ/l8Z05vxuey
-	5IN6TBd52LHG76IWlNsClcV3+YNJJBiCTEtbXvjeZfu0ukUOWLSYdlBIqemQUGc4gQkTfPKZoc8
-	hNcOTH6GcO7dzPNG7w8kN1V1//LmH1yFx043pZROjyYMqA3TESjb+OYf9mm8IbqDEsjmr6kIH8q
-	aFH4W/G6f1hRTFkoitL9o8pjmhVhlOSs071CPH9VIb7CX+qNe91WG89SLHtB5xPF0+Wsm9DCEIa
-	7e5GPtzx/U00kL4OAr8BplrmqIzSOQKqZRld/xvLB
-X-Received: by 2002:a05:620a:4398:b0:93c:8d49:ee4c with SMTP id af79cd13be357-93ca96b42b4mr84394985a.27.1790757107565;
-        Wed, 30 Sep 2026 01:31:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:4398:b0:93c:8d49:ee4c with SMTP id af79cd13be357-93ca96b42b4mr84392585a.27.1790757107064;
-        Wed, 30 Sep 2026 01:31:47 -0700 (PDT)
-Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017520e1bsm29919385e9.6.2026.09.30.01.31.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 01:31:46 -0700 (PDT)
-Message-ID: <9394c0d0-1d40-4237-8481-3f7cbebf9980@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 11:31:44 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9UMJIgS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7AD1F000FF;
+	Wed, 30 Sep 2026 08:32:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790757141;
+	bh=7GEwGzPFR3eS1g4eqL+386ChUqhdJX3OYn9ry9qloeg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a9UMJIgSn7nz3T1pogOL3Cfpo86EZ2RED9JQHQgU8+VgWCWsOJmrPygYc40OJN9s4
+	 /W3EfWS4qiDE82jGEjSox+WrPqhuKdmK4v4Mg+pxwpadNEzPoOCycgO0EWuG4ukdjI
+	 VG6XznwyIbIQttpV+EO7sT4Tj7cmjIF0PCQ828yWjUMfTny+0LWqzVs90YoL/iZrA+
+	 Do5Yhxt/StPDSHiJYMuloikvQb3xypTIZIi5JYg7lmsfOZhCfp/gFw8VoUS7Kxt3O4
+	 ci3bakGuc4/WaEwoxJ8GmQttrizsFCye7oEYoh/HFhL9N5BD34T+pJsFLm0TtjCx+w
+	 Ug7b1OIdsFqIA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xBpjf-0000000FDC2-38Va;
+	Wed, 30 Sep 2026 08:32:19 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Mark Brown <broonie@kernel.org>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v4 0/3] KVM: arm64: ID register finalisation fixes
+Date: Wed, 30 Sep 2026 09:32:15 +0100
+Message-ID: <179075713104.3615171.13350186839186516597.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260929-kvm-arm64-idreg-final-v4-0-75296dde994d@kernel.org>
+References: <20260929-kvm-arm64-idreg-final-v4-0-75296dde994d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] interconnect: qcom: Add CAMNOC interconnect
- provider driver
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Georgi Djakov <djakov@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
- <BL_JgUju90yJ83WelqJjGySbDZXaF6FONsvtmnFfm9fSkHcYKfQOQnCXainWwse1bgfCXlxKOhWSNLNPg2uXuQ==@protonmail.internalid>
- <20260819093211.1436275-3-atanas.filipov@oss.qualcomm.com>
- <ea7958f2-44bb-477e-b06a-44153489f396@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <ea7958f2-44bb-477e-b06a-44153489f396@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Sm-BbdIRODLpI-0r2KCj6ILKlfxvBaSD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzMyBTYWx0ZWRfX1T7a9O2eIQGG
- S6XBuvCH/ZNUr4WuwAf6s1ZlzCnxBWzO0kV3B51D1CH8SzCqOwydjXYzbpUkDd9F873k9U6Fs4G
- DB+i8A+C5t7IZaHo0XdzYVrLtgZgS0drePO0bCxZVDz38HaDhtMmrQpEw8pdcUF88EYC7pmwpir
- Kx0Ge2PC+xcJW1Nw9GrucYmxjQGGJz/TEKgThBPcymGjZG/JsylbFWqaEkjODobnpfcO3u5mVqm
- Rpnhyx8q2WiYX7ZZj5oYRoiWXy9alephYiqngiCpJJCDKsQbr5T7Uw4UUioegk6Nin8PGW1bFr/
- xortS6WOr3BhwBJ4L5mSIdDYtwenaw32jADUkKLvJ5g/CzpIJQm51iAOFFzTkE5nLxlq8qqlxa+
- wczQCVNygf/VNz07k+SumhzFu84av3WPFDe/uRU2rjC4myC+yXzeAnpfg84q0MjlGRpVyFPdb7F
- TdBHUujRbT3fwMFoegQ==
-X-Proofpoint-ORIG-GUID: Sm-BbdIRODLpI-0r2KCj6ILKlfxvBaSD
-X-Authority-Analysis: v=2.4 cv=BPImP1QG c=1 sm=1 tr=0 ts=6abcc8f4 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=lZvclhIxJYcy508GXbEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzMyBTYWx0ZWRfXxEhO54ua908Z
- Wy3qoGttOI/rEd0W0SMKEOTvZjhVNBxXYU9NzdJ0Q+CF05k7lAeViuEB3jwvKcU7SweRHmfwGLi
- yygvL8qqLJpq9IIM74E/kRoNgQmwauQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300033
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, broonie@kernel.org, peter.maydell@linaro.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, ljs@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Bryan,
+On Tue, 29 Sep 2026 12:57:57 +0100, Mark Brown wrote:
+> While looking at some feature enablement I noticed that there are some
+> scenarios where we can end up with an inconsistently configured vCPU due
+> to finalizing configuration based on ID registers before we have blocked
+> writes to the ID registers. This series aims to clean up these issues.
 
-On 9/29/2026 11:36 AM, Bryan O'Donoghue wrote:
-> On 19/08/2026 10:32, Atanas Filipov wrote:
->> Add an ICC provider for the Qualcomm Camera NOC (CAMNOC). Multiple
->> camera sub-devices share CAM_CC_CAMNOC_AXI_CLK; direct clk_set_rate()
->> calls from each consumer cause a last-writer-wins race.
->>
->> Each consumer obtains an ICC path to SLAVE_CAMNOC_AXI and votes via
->> icc_set_bw(). The ICC core aggregates votes (max peak_bw) and the
->> set() callback converts the result to clk_set_rate(). Consumers
->> encode the required frequency as peak_bw in kBps.
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   drivers/interconnect/qcom/Kconfig       |  10 +
->>   drivers/interconnect/qcom/Makefile      |   2 +
->>   drivers/interconnect/qcom/qcom-camnoc.c | 279 ++++++++++++++++++++++++
->>   3 files changed, 291 insertions(+)
->>   create mode 100644 drivers/interconnect/qcom/qcom-camnoc.c
->>
->> diff --git a/drivers/interconnect/qcom/Kconfig b/drivers/interconnect/qcom/Kconfig
->> index 5b8a094ca4ed..9d9d238019a0 100644
->> --- a/drivers/interconnect/qcom/Kconfig
->> +++ b/drivers/interconnect/qcom/Kconfig
->> @@ -135,6 +135,16 @@ config INTERCONNECT_QCOM_NORD
->>   	  the RPMh hardware and communicates via Bus Clock Manager (BCM)
->>   	  through the Resource State Coordinator (RSC).
->>
->> +config INTERCONNECT_QCOM_CAMNOC
->> +	tristate "Qualcomm CAMNOC interconnect driver"
->> +	depends on INTERCONNECT_QCOM || COMPILE_TEST
->> +	depends on ARM64 || COMPILE_TEST
->> +	help
->> +	  Say y here to support the Camera Network-on-Chip (CAMNOC)
->> +	  interconnect driver for Qualcomm SoCs. It aggregates bandwidth
->> +	  requests from camera sub-devices (IFE, JPEG, BPS, etc.) and
->> +	  scales CAM_CC_CAMNOC_AXI_CLK accordingly.
->> +
->>   config INTERCONNECT_QCOM_OSM_L3
->>   	tristate "Qualcomm OSM L3 interconnect driver"
->>   	depends on INTERCONNECT_QCOM || COMPILE_TEST
->> diff --git a/drivers/interconnect/qcom/Makefile b/drivers/interconnect/qcom/Makefile
->> index 1c7d410b40cc..52a5998ae6a8 100644
->> --- a/drivers/interconnect/qcom/Makefile
->> +++ b/drivers/interconnect/qcom/Makefile
->> @@ -18,6 +18,7 @@ qnoc-msm8974-objs			:= msm8974.o
->>   qnoc-msm8976-objs			:= msm8976.o
->>   qnoc-msm8996-objs			:= msm8996.o
->>   qnoc-nord-objs				:= nord.o
->> +icc-camnoc-objs				:= qcom-camnoc.o
->>   icc-osm-l3-objs				:= osm-l3.o
->>   qnoc-qcm2290-objs			:= qcm2290.o
->>   qnoc-qcs404-objs			:= qcs404.o
->> @@ -66,6 +67,7 @@ obj-$(CONFIG_INTERCONNECT_QCOM_MSM8974) += qnoc-msm8974.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_MSM8976) += qnoc-msm8976.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_MSM8996) += qnoc-msm8996.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_NORD) += qnoc-nord.o
->> +obj-$(CONFIG_INTERCONNECT_QCOM_CAMNOC) += icc-camnoc.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_OSM_L3) += icc-osm-l3.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_QCM2290) += qnoc-qcm2290.o
->>   obj-$(CONFIG_INTERCONNECT_QCOM_QCS404) += qnoc-qcs404.o
->> diff --git a/drivers/interconnect/qcom/qcom-camnoc.c b/drivers/interconnect/qcom/qcom-camnoc.c
->> new file mode 100644
->> index 000000000000..9a703b052b2d
->> --- /dev/null
->> +++ b/drivers/interconnect/qcom/qcom-camnoc.c
->> @@ -0,0 +1,279 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + *
->> + * Qualcomm Camera NOC (CAMNOC) interconnect provider.
->> + *
->> + * CAMNOC is the internal AXI interconnect within the Qualcomm camera
->> + * subsystem. Multiple camera sub-devices (IFE, JPEG, BPS, etc.) share
->> + * CAM_CC_CAMNOC_AXI_CLK. This driver acts as an ICC provider so that
->> + * each sub-device can independently vote for bandwidth; the ICC core
->> + * aggregates the votes (max of peak_bw across all consumers) and this
->> + * driver translates the result into a clk_set_rate() call, avoiding
->> + * the last-writer-wins race that occurs with direct clk_set_rate().
->> + *
->> + * Consumers express their required clock rate directly as peak_bw in
->> + * kBps (e.g. 400000 for 400 MHz).  The driver converts kBps → Hz:
->> + *   rate_hz = peak_bw_kBps * 1000
->> + */
->> +
->> +#include <linux/clk.h>
->> +#include <linux/interconnect-provider.h>
->> +#include <linux/interconnect.h>
->> +#include <linux/module.h>
->> +#include <linux/of.h>
->> +#include <linux/platform_device.h>
->> +
->> +#include <dt-bindings/interconnect/qcom,camnoc.h>
->> +
->> +#define to_camnoc_provider(_p) \
->> +	container_of(_p, struct qcom_camnoc_icc_provider, provider)
->> +
->> +struct qcom_camnoc_icc_provider {
->> +	struct clk *clk;
->> +	struct icc_provider provider;
->> +};
->> +
->> +struct qcom_camnoc_node {
->> +	const char *name;
->> +	u16 buswidth;
->> +};
->> +
->> +/* IFE */
->> +static const struct qcom_camnoc_node camnoc_master_ife_0 = {
->> +	.name = "master-camnoc-ife-0", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_0_rdi = {
->> +	.name = "master-camnoc-ife-0-rdi", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_1 = {
->> +	.name = "master-camnoc-ife-1", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_1_rdi = {
->> +	.name = "master-camnoc-ife-1-rdi", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_lite_0 = {
->> +	.name = "master-camnoc-ife-lite-0", .buswidth = 8
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_lite_1 = {
->> +	.name = "master-camnoc-ife-lite-1", .buswidth = 8
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_lite_2 = {
->> +	.name = "master-camnoc-ife-lite-2", .buswidth = 8
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_lite_3 = {
->> +	.name = "master-camnoc-ife-lite-3", .buswidth = 8
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ife_lite_4 = {
->> +	.name = "master-camnoc-ife-lite-4", .buswidth = 8
->> +};
->> +
->> +/* BPS */
->> +static const struct qcom_camnoc_node camnoc_master_bps = {
->> +	.name = "master-camnoc-bps", .buswidth = 16
->> +};
->> +
->> +/* IPE */
->> +static const struct qcom_camnoc_node camnoc_master_ipe_0 = {
->> +	.name = "master-camnoc-ipe-0", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_ipe_1 = {
->> +	.name = "master-camnoc-ipe-1", .buswidth = 16
->> +};
->> +
->> +/* JPEG */
->> +static const struct qcom_camnoc_node camnoc_master_jpeg = {
->> +	.name = "master-camnoc-jpeg", .buswidth = 16
->> +};
->> +
->> +static const struct qcom_camnoc_node camnoc_master_jpeg_dma = {
->> +	.name = "master-camnoc-jpeg-dma", .buswidth = 16
->> +};
->> +
->> +/* CDM */
->> +static const struct qcom_camnoc_node camnoc_master_cdm = {
->> +	.name = "master-camnoc-cdm", .buswidth = 4
->> +};
->> +
->> +/* FD */
->> +static const struct qcom_camnoc_node camnoc_master_fd = {
->> +	.name = "master-camnoc-fd", .buswidth = 16
->> +};
->> +
->> +/* SBI */
->> +static const struct qcom_camnoc_node camnoc_master_sbi = {
->> +	.name = "master-camnoc-sbi", .buswidth = 16
->> +};
->> +
->> +/* ICP */
->> +static const struct qcom_camnoc_node camnoc_master_icp = {
->> +	.name = "master-camnoc-icp", .buswidth = 8
->> +};
->> +
->> +/* Slave */
->> +static const struct qcom_camnoc_node camnoc_slave_axi = {
->> +	.name = "slave-camnoc-axi", .buswidth = 32
->> +};
->> +
->> +static const struct qcom_camnoc_node * const camnoc_nodes[] = {
->> +	[MASTER_CAMNOC_IFE_0]      = &camnoc_master_ife_0,
->> +	[MASTER_CAMNOC_IFE_0_RDI]  = &camnoc_master_ife_0_rdi,
->> +	[MASTER_CAMNOC_IFE_1]      = &camnoc_master_ife_1,
->> +	[MASTER_CAMNOC_IFE_1_RDI]  = &camnoc_master_ife_1_rdi,
->> +	[MASTER_CAMNOC_IFE_LITE_0] = &camnoc_master_ife_lite_0,
->> +	[MASTER_CAMNOC_IFE_LITE_1] = &camnoc_master_ife_lite_1,
->> +	[MASTER_CAMNOC_IFE_LITE_2] = &camnoc_master_ife_lite_2,
->> +	[MASTER_CAMNOC_IFE_LITE_3] = &camnoc_master_ife_lite_3,
->> +	[MASTER_CAMNOC_IFE_LITE_4] = &camnoc_master_ife_lite_4,
->> +	[MASTER_CAMNOC_BPS]        = &camnoc_master_bps,
->> +	[MASTER_CAMNOC_IPE_0]      = &camnoc_master_ipe_0,
->> +	[MASTER_CAMNOC_IPE_1]      = &camnoc_master_ipe_1,
->> +	[MASTER_CAMNOC_JPEG]       = &camnoc_master_jpeg,
->> +	[MASTER_CAMNOC_JPEG_DMA]   = &camnoc_master_jpeg_dma,
->> +	[MASTER_CAMNOC_CDM]        = &camnoc_master_cdm,
->> +	[MASTER_CAMNOC_FD]         = &camnoc_master_fd,
->> +	[MASTER_CAMNOC_SBI]        = &camnoc_master_sbi,
->> +	[MASTER_CAMNOC_ICP]        = &camnoc_master_icp,
->> +	[SLAVE_CAMNOC_AXI]         = &camnoc_slave_axi,
->> +};
-> 
-> This will fill up quickly given the number of entries. This should be 
-> moved to a separate file.
+Applied to next, thanks!
 
-Yes that make sense. BTW we plan to move to icc-clk helper so we are evaluating
-how the things will look like.
+[1/3] KVM: arm64: Finalize guest-wide sysregs prior to per-vCPU sysregs
+      commit: 19868b67e3e73c34493efdd5b0791ccfdc7bf192
+[2/3] KVM: arm64: Block ID register changes after we rely on the values
+      commit: 2ce80f62403200f0a59f898dd9cd2ccf756a5a1a
+[3/3] KVM: arm64: selftests: Check ID regs are immutable after a failed run
+      commit: 00e309933879cbf181a95a0bd02384715a381cff
 
-> 
->> +
->> +#define CAMNOC_NUM_NODES	ARRAY_SIZE(camnoc_nodes)
->> +
->> +static int qcom_camnoc_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
->> +{
->> +	*avg = 0;
->> +	*peak = 0;
->> +
->> +	return 0;
->> +}
-> 
-> What's going on here ? This sets everything to zero always ?
+Cheers,
 
-Yes that should be fixed maybe as part of using icc-clk helper.
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
-~Gjorgji
+
