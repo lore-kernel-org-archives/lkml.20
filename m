@@ -1,159 +1,217 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB7B457E7D;
-	Wed, 30 Sep 2026 07:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755091; cv=fail; b=ZMjVmsS0F2eXIZhgYOUdLfRuAzd+otMD6C+GhjVSX61qqF16A/PSgh0vBZt/YwDfHyYMvr+PZz4zA8i9hVF9VrQ2Xhze1jfR0m+qd++KnvsQRHCsJ4ovuWjuLyL+G5ARgTigEeWbilzYRtYrtP9kw48uCC+VOakwdgSCx0ugN8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755091; c=relaxed/simple;
-	bh=0iO4/CHx7cB+ULrTsx/Zh6rUpY8st1E6xCArivtXt9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=sa4YYXEqkw8I8Nk77Ypc4OSyGaB9rV6bo5I2e57CNF5zQ/P33ZUdI7LtU3Di2t7Qg+cVdEU9CS5GRy1TvYaXR/Ed2IunAIHUIxYmUaPJlLBja8pVS+lFtoINlxhtc+Xo+Y2kTgv79dAkpIAuh/8o7UlKJrCWGClVnBNnfNae6Xs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=B9QZcJX0; arc=fail smtp.client-ip=52.101.66.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327303E3DB8;
+	Wed, 30 Sep 2026 07:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790755094; cv=none; b=AvoWWdbHOTEnfHOMVU1ddFoI2ysNdMWUvYinVnVpGmbmXa/iJhnep1VFkkB7pOC+Ql6HWmkL8RxDGO7i0mAS5+1apb8jd3Xmgnk/Enoxdv5mm2Md3UbFpk5ALR01pDtF3I/gtKu78YM2BIMym59qbsy0Pjukv5uGwlc7wIBb818=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790755094; c=relaxed/simple;
+	bh=vyU1ylYRa1VYJwFXCzhmzCMq8+8oCUFfnZETjjTVHQs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PDFuCb2GnF6kco7gjIJzmkqn6+LSA4Obxgs1Z7DbH8NZxnmeQhlucKpTMRiUKpKllQNsL1adW5U7XF3+oECfrfE4EE3D9vpf7Lgp0lenLBN0tZWlg1TjSs+MxEyiKFS6mLRRJ2X+nuSINSEcB+0JNqN7hxt+5WascHO98nP9NAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=IGM0DHlC; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="B9QZcJX0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MLAWHFeNsD3Hl4uW4zemUR/cJETXik9BUFKIspFlyxhd7vmeooak7eezwjOHTYwBp7VwEE4QGZ4C29IPRfySnkx0crZv0Og6tG32lerHuBnTWuLQJUapV3cJhYI1v1PD6qVzz0MFl49VGdGA1ijRZcXDKjdwOlcwWX9mqT8JorKPVOJuiny/DV9DJ1uFULKPJm4FXkC3mPI+UxrnH6GJ5CoGczTznsyBy/+fhO0eqa7UYJJ07k/NXdNbofC4qZRCGv13GivN5mIdphMWrhqlhkxQJTgRj/Eq+Y+jM/Jdoh78ef+9qE9uz1+U3mtm9NMEjPfdBkFJ1jjwAnANvQ7Okw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cBIyYAlE15HZaoHT9vpCMJ/pyHjaVFlI+aVf0Ukn7F8=;
- b=jkkbl5MJYc7yanP78mTpYtTN0IrCBF+QC68k+lBpNje5ApF1altv8yY8sAOwDU2QJ6fPbctOs3mDTXsAe2F0a/QW5bQj+4mv2J9JTCXLjBJILC7SAcs1VCIBD8jjpnVq5dD+R6Svf3l/7aeHYBxIAveiLmULOCfwFOxrenzCMn/pbvb2cntuX45iyUtjGIkxOMbNpXkf04x8hPTTFxOOmCB26nrP1da3RhTiZwM9Zr6lVEzpfaMx6LmZoXUPOq3KVqdf2dfE/7rzXpTS4/h4EAuPusDp4oQF32YP4zLm42Sz6adcd3A+qBtPqX+K6HnMjDcRXdKBRFs6g02nfdqFLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cBIyYAlE15HZaoHT9vpCMJ/pyHjaVFlI+aVf0Ukn7F8=;
- b=B9QZcJX0SQSkntFe7v8XtbH7dubifiNCn34kmasoWB74ZwBsndmmnSM0S608PfEnvTh0EoXfpDMctizVd20zkoGUS9y7YGZjvNM0WcEXGvEkWpN12zYRl7w1Ji8afFbs/qHY9ufSEXUq+4eaXeZui0aliFA6S2ZiBwoGWGg8qwsLEy2Y4TnktajxcZg/1ywEO4LFHA/eecKyLjFxLMZJ8cGqn3rut9CAeUOTdr+JZQgnpoO1TTwDf/tkC8FVxGHmaub5A9jWx1r8VuH7to6e0vQwqG9onZAIvYB2L/h5gFURwdnhL1Ot8Z/ABBoicLQ80ZX22aLicMMxl9dMYFRCBw==
-Received: from LO4P302CA0023.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:2c1::15)
- by AS8PR10MB6843.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5b7::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 07:58:03 +0000
-Received: from MI3PEPF0000847E.eurprd02.prod.outlook.com
- (2603:10a6:600:2c1:cafe::a0) by LO4P302CA0023.outlook.office365.com
- (2603:10a6:600:2c1::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 07:58:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000847E.mail.protection.outlook.com (10.167.240.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 07:58:02 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 10:03:56 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 09:58:02 +0200
-Message-ID: <b0e2f1d3-b22a-458e-9316-636b7dbcca79@foss.st.com>
-Date: Wed, 30 Sep 2026 09:58:01 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IGM0DHlC"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce8add;
+	Wed, 30 Sep 2026 15:58:07 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Tyrel Datwyler <tyreld@linux.ibm.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@kernel.org>,
+	Brian King <brking@linux.vnet.ibm.com>,
+	linux-scsi@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] scsi: ibmvfc: synchronize event timer completion
+Date: Wed, 30 Sep 2026 15:58:01 +0800
+Message-Id: <20260930075801.2949514-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] media: i2c: vd55g1: Add ACPI support
-To: Ruslan Koreev <koreev.r@gmail.com>, <sakari.ailus@linux.intel.com>,
-	<sylvain.petinot@foss.st.com>, <dan.scally@ideasonboard.com>
-CC: <mchehab@kernel.org>, <hansg@kernel.org>, <ilpo.jarvinen@linux.intel.com>,
-	<linux-media@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Peter Marshall <pm@petermarshall.ca>
-References: <20260929092700.1776966-1-koreev.r@gmail.com>
- <20260929092700.1776966-6-koreev.r@gmail.com>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260929092700.1776966-6-koreev.r@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000847E:EE_|AS8PR10MB6843:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5673b8e7-0d96-4e1b-012f-08df1ec88dc1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eUvZKCqAwDmuCMbAyygDHQs2ZyJc44AzW/T0mZ3Yxq/O8XWS4/w5TkuL5iK0zSAHBZfxaxyBIUOtmdZGLTG7vOfF8HTuzIiQ5QpYSv9VuQtw7Kk7ICyXDqBuEDjqmHjB+vskdYOLMkuXWnZA03DgA9XlLxjL69PMvuBaawDYmSYA3F+kZCk2YwjS8SqaPfdTBbY3X8205P1v4GvgBZ6n+y/E8TkAkxcTqdSlJO1ty6r1SlYCReD0CgRZWkZaE7Gz+6G0yOB09D8uFMf6kfr5Tz3+56MToBaDhb8FZGhRX+9lofuGgCrVDxoiOCZtKGd03EoXjZvx/eMZrFIpilBaCVtaInnvGjytTcVGgZyykwa1jmzcPGON92xIaOTVhkawX9uGx+eOdLl0jQdhAYTm0IRgJp4H/Jf5LpqSItE+JMfMH5qJ0/t6kK2IVvWZaV0xBpcayDdUmNnSDvcm0NmGWmG3rrb2TxrCiks+RrBDg/qoUtf9p8ZTEf/Gr4s0J2gYKFtQVU5RCMtv692FyXv1gAkRkRX6cJmTOVc0wnt3cmZAS+Qakh0o7N1v5FZEacf6pLjuYJXl1abU75u7cOACnr85O4Zh25lI6FWwbVf4YWPJYeWGvoc6be8gvJFkJc2jaSF+vGgdA/8vbrdQFiflKp2TlYapyzHaRSo7QBtGt4lFAv2i2YEhMCB8E5eiZpMRlvVvuZFuBAhcyyYnkdCVcA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zKNb/4EqpHeXdr6uxCqkfVkH91fHhZQxEznuvVeWfB6wBk7Io50q3anwSC0JGpnBdYBPKvthsrnA/Sa5lGl7IHJlr0jS8wK0wOVmETf3++WWCbOLNcuByX1r+ldWT0B6UKGNqJcpxKRNm6rXqyyDaCQGBFcrfmIJZcJQ97a3bI+Ti0W/+CaNfH4QnLnGCvS8G9hY+IYfPnsyoW4Vnvf10qjktfG98CJkBGik9tc6QK6jX+LrR4+s5KIfAHkDeT3FRgczhqsZMyUlo96utielZ8KkdaA0YOI8giFDMo+IGIw7OLBGtI+gIYnxIEY0X4pEECvxGCVVeI2QKViuv9E9Q1uzp82drboCtiQl04x8OlfDKojWDVBg0dSYESBF3LugQvgPo0sa84b44Awxd6yTZquy81qrgxb6PXjwooXHCvJM+yUZmlomCEwz1hvTqpHZ
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:58:02.9594
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5673b8e7-0d96-4e1b-012f-08df1ec88dc1
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847E.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6843
+X-HM-Tid: 0aa0f15223fc03a1kunm3c39a5d2270ab8
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGksdVhkfQ0JITUkYTx5PTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=IGM0DHlCUI0ocTU9fMH2w7Jr5IhGm2zIKdcqFY5BTuJSyTVwYXN/UGX4UiMu0qHuDzacSOBLwTllk69uO4ZxApPFga19JbeoJKronBs8WqVYF77MtjCljfGsMHrm3Hd029eZCWT5Z20HP8vdQksLpP9QCmLGbB8mgGk5vn4x3Fw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=BfUiU8sdifpY8ApVkV3WU0a/oKOyPdhWsydCFEavjao=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Ruslan,
+The response and purge paths remove an event from their queue and
+complete it immediately after timer_delete(). A timer callback can still
+be running on another CPU and can access the event while its completion
+returns it to the event pool for reuse.
 
-Le 29/09/2026 à 11:27, Ruslan Koreev a écrit :
-> Add an ACPI match table with the TBE20A1 HID that Lenovo uses for the
-> VD55G1, with the same match data as the st,vd55g1 compatible.
-> 
-> Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
+Use timer_delete_sync_try() in the interrupt-side completion path and defer
+the completion to workqueue context when the timer callback is active.
+Flush the work before releasing the event pool so an event cannot be reused
+or freed while its callback is still running.
 
-Again, can't test but :
+Fixes: 072b91f9c651 ("[SCSI] ibmvfc: IBM Power Virtual Fibre Channel Adapter Client Driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 40 ++++++++++++++++++++++-------
+ drivers/scsi/ibmvscsi/ibmvfc.h      |  2 ++
+ 2 files changed, 33 insertions(+), 9 deletions(-)
 
-Acked-By: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-
-> ---
->  drivers/media/i2c/vd55g1.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index 8043eaa50..e3939bb9b 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -2081,6 +2081,12 @@ static const struct of_device_id vd55g1_dt_ids[] = {
->  };
->  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
->  
-> +static const struct acpi_device_id vd55g1_acpi_ids[] = {
-> +	{ .id = "TBE20A1", .driver_data = (kernel_ulong_t)&vd55g1_versions[0] },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, vd55g1_acpi_ids);
-> +
->  static const struct dev_pm_ops vd55g1_pm_ops = {
->  	SET_RUNTIME_PM_OPS(vd55g1_power_off, vd55g1_power_on, NULL)
->  };
-> @@ -2089,6 +2095,7 @@ static struct i2c_driver vd55g1_i2c_driver = {
->  	.driver = {
->  		.name  = "vd55g1",
->  		.of_match_table = vd55g1_dt_ids,
-> +		.acpi_match_table = vd55g1_acpi_ids,
->  		.pm = &vd55g1_pm_ops,
->  	},
->  	.probe = vd55g1_probe,
-
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+index 93b9f699c..072008411 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
++++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+@@ -811,6 +811,28 @@ static int ibmvfc_send_crq_init_complete(struct ibmvfc_host *vhost)
+ 	return ibmvfc_send_crq(vhost, 0xC002000000000000LL, 0);
+ }
+ 
++static void ibmvfc_complete_event_work(struct work_struct *work)
++{
++	struct ibmvfc_event *evt = container_of(work, struct ibmvfc_event,
++						timer_work);
++
++	timer_delete_sync(&evt->timer);
++	evt->done(evt);
++}
++
++static void ibmvfc_complete_event(struct ibmvfc_event *evt)
++{
++	/* The response path can run in hardirq context, so defer only when the
++	 * timer callback is already executing on another context.
++	 */
++	if (timer_delete_sync_try(&evt->timer) < 0) {
++		schedule_work(&evt->timer_work);
++		return;
++	}
++
++	evt->done(evt);
++}
++
+ /**
+  * ibmvfc_init_event_pool - Allocates and initializes the event pool for a host
+  * @vhost:	ibmvfc host who owns the event pool
+@@ -859,6 +881,7 @@ static int ibmvfc_init_event_pool(struct ibmvfc_host *vhost,
+ 		 */
+ 		atomic_set(&evt->active, -1);
+ 		atomic_set(&evt->free, 1);
++		INIT_WORK(&evt->timer_work, ibmvfc_complete_event_work);
+ 		evt->crq.valid = 0x80;
+ 		evt->crq.ioba = cpu_to_be64(pool->iu_token + (sizeof(*evt->xfer_iu) * i));
+ 		evt->xfer_iu = pool->iu_storage + i;
+@@ -886,6 +909,7 @@ static void ibmvfc_free_event_pool(struct ibmvfc_host *vhost,
+ 
+ 	ENTER;
+ 	for (i = 0; i < pool->size; ++i) {
++		flush_work(&pool->events[i].timer_work);
+ 		list_del(&pool->events[i].queue_list);
+ 		BUG_ON(atomic_read(&pool->events[i].free) != 1);
+ 		if (pool->events[i].ext_list)
+@@ -1134,7 +1158,7 @@ static void ibmvfc_complete_purge(struct list_head *purge_list)
+ 	list_for_each_entry_safe(evt, pos, purge_list, queue_list) {
+ 		list_del(&evt->queue_list);
+ 		ibmvfc_trc_end(evt);
+-		evt->done(evt);
++		ibmvfc_complete_event(evt);
+ 	}
+ }
+ 
+@@ -1162,7 +1186,7 @@ static void ibmvfc_fail_request(struct ibmvfc_event *evt, int error_code)
+ 	else
+ 		evt->xfer_iu->mad_common.status = cpu_to_be16(IBMVFC_MAD_DRIVER_FAILED);
+ 
+-	timer_delete(&evt->timer);
++	timer_delete_sync_try(&evt->timer);
+ }
+ 
+ /**
+@@ -1824,7 +1848,6 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
+ 		atomic_set(&evt->active, 0);
+ 		list_del(&evt->queue_list);
+ 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
+-		timer_delete(&evt->timer);
+ 
+ 		/* If send_crq returns H_CLOSED, return SCSI_MLQUEUE_HOST_BUSY.
+ 		 * Firmware will send a CRQ with a transport event (0xFF) to
+@@ -1836,7 +1859,8 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
+ 				dev_warn(vhost->dev, "Send warning. Receive queue closed, will retry.\n");
+ 			if (evt->cmnd)
+ 				scsi_dma_unmap(evt->cmnd);
+-			ibmvfc_free_event(evt);
++			evt->done = ibmvfc_free_event;
++			ibmvfc_complete_event(evt);
+ 			return SCSI_MLQUEUE_HOST_BUSY;
+ 		}
+ 
+@@ -1851,7 +1875,7 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
+ 			evt->done = evt->_done;
+ 		}
+ 
+-		evt->done(evt);
++		ibmvfc_complete_event(evt);
+ 	} else {
+ 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
+ 		ibmvfc_trc_start(evt);
+@@ -3925,10 +3949,9 @@ static void ibmvfc_tasklet(void *data)
+ 	spin_unlock_irqrestore(vhost->host->host_lock, flags);
+ 
+ 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
+-		timer_delete(&evt->timer);
+ 		list_del(&evt->queue_list);
+ 		ibmvfc_trc_end(evt);
+-		evt->done(evt);
++		ibmvfc_complete_event(evt);
+ 	}
+ }
+ 
+@@ -4031,10 +4054,9 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
+ 	spin_unlock_irqrestore(scrq->q_lock, flags);
+ 
+ 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
+-		timer_delete(&evt->timer);
+ 		list_del(&evt->queue_list);
+ 		ibmvfc_trc_end(evt);
+-		evt->done(evt);
++		ibmvfc_complete_event(evt);
+ 	}
+ }
+ 
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
+index ca80ceffe..fba2e3a23 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc.h
++++ b/drivers/scsi/ibmvscsi/ibmvfc.h
+@@ -14,6 +14,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/list.h>
+ #include <linux/types.h>
++#include <linux/workqueue.h>
+ #include <scsi/scsi_device.h>
+ #include <scsi/viosrp.h>
+ #include <linux/nvme.h>
+@@ -867,6 +868,7 @@ struct ibmvfc_event {
+ 	struct completion comp;
+ 	struct completion *eh_comp;
+ 	struct timer_list timer;
++	struct work_struct timer_work;
+ 	u16 hwq;
+ 	u8 reserved;
+ };
 -- 
-Regards,
-Benjamin
+2.34.1
 
