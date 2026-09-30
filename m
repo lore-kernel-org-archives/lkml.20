@@ -1,212 +1,235 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929E14A2E15;
-	Wed, 30 Sep 2026 10:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD89C38E8BF;
+	Wed, 30 Sep 2026 10:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765439; cv=none; b=PFTil/DuRQqvrLSC5HB3sP2Zs5zrKs+2T63q3DG+/5ZFlzhq9KT1qNB4Hfbsi7qdcsSvyKK50WuTwt0y6RYaCWHPDtcoHueuYZ4Xqg4QE39xse7/J+BWxMMdo2xpDOEvd6C+VsK3YwFqYa8s+2l5GRIaM7a9TeoUzX7eZDAlXtY=
+	t=1790765515; cv=none; b=q0wWOgZXxchvfjN9WB5azZp3Bhpz1WkaIDeT2oz1+MzQKjHsEycRRbzmBBQ12x7Z9rBmEwa/UQE3kCbn44dkm9v8hfBznMgTBP1kVOX2GoiDRCleCPHK7zFYry3J1mGhvgDtecBIYcafGO4FEM24PshvTsMwspf6I5P4Pjj/nN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765439; c=relaxed/simple;
-	bh=b7JfFxQThrhpX7nDPQS014e+jiJF8FMPaLpJ+wV7ghk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u6zi4u2WTUfFr1Zz28UaOY/L2ILXjKZsQHpeJoD1ncrEv1ATmIusvmFerklJ1tOqiHwtF/L8lDU9MH2ZGQ+vE9NqnMKh87Gc/kA58rGhKg+GZLnLGJbxksPcoqL8r/RHDiG3j2Nxe/PySUDSH/JpLXlSchO5mAYmWPKccJGnSW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MY0onT2s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790765515; c=relaxed/simple;
+	bh=VQF0acHLN8pItuol9eiorm9FjFHJnqG0BA2WhzKguYk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ImXcaHlTIS/ILvCAHnCSdKqyGmEUf+nlOgK/vjVf17fV9K5NwlruB7P21+JzXc/Z4n++RUXBLLcz/q0IghkfjdQ/O2ha8jfUNltPqLFAslPtBPzOcVhpsrRKniAJWyP1cEkC0OlEJZr7E4so44XY6Wt6jzYPGett9g85Y5GIpqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KyI30yG0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MY0onT2s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA731F000FF;
-	Wed, 30 Sep 2026 10:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765426;
-	bh=RdDXoYNxFlrj1IuAAP2dqxH+gWSF6G6CSQehHf0sYrc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MY0onT2sZM1Sg1SZWZwfnyDEQpbv7eKoZJV4m4PWFiqmLOjdMWRr4cZF6NAK0mofp
-	 C2Ire7L4/GEtGFjWe/hUlXT6SjuGTRmacoWmrtIAXlYmcwFnvr6G9V+iCU73YBqjgG
-	 aCNVRSwJMnutihtXV/eQDY5WyQmAOm9L+0KNH7TsjC3v4ZIzpWlcTVqtfX8v0JC5/9
-	 5H6zeGDSWkFIewW/rac1ugJQkbGYRgsl3+Et4OS9T1AUM9sonSZ2G3VeWOUpE05PrO
-	 vnPrM3eY/w/8yy/hvTK2sio8Jha3TQUrC2e8URq+ilw8Os3G1niSz1fRFOcTuGPOeo
-	 FuM27LVw3RslQ==
-Date: Wed, 30 Sep 2026 12:50:24 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <arzn-TNbOlqXqQgd@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
- <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
- <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KyI30yG0"
+Received: from [192.168.1.7] (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C210D981;
+	Wed, 30 Sep 2026 12:49:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790765386;
+	bh=VQF0acHLN8pItuol9eiorm9FjFHJnqG0BA2WhzKguYk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=KyI30yG0GkXfrf7+0yug644Wh0YXqK9XJiJIBOFw/gm0T7OzTMK2q56LB74tK//DE
+	 lfv3dLH+ab6q2a4mIpvZbbCS7fS9VWgynGpwqc31VUdw1dIiUevuQh/m2cXz6/KOtd
+	 /dHjt1q97RDRG3b0IfaQ+/QdzW3MLmWtuSqKv8Zs=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v5 0/2] media: i2c: Add driver for Mira016
+Date: Wed, 30 Sep 2026 12:51:18 +0200
+Message-Id: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="phflgpeigirgxuyc"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNy27CMBQE0F9BXuPq+p101f9ALPy4ASMRIxsiK
+ pR/r03VJgtYjjRn5kEK5oiFfG4eJOMUS0xjDWq7If5oxwPSGGomHLiGHjg9x2yBaWoMOu00VyJ
+ IUtuXjEO8P5d2+99cbu6E/tp4axxjuab8/byaWOv9rYr/1YlRoHYAYAIHMBC+YkBb0uiSzeHDp
+ zNp4xNfc7lwXjkLfjBO2A4MvuFizc3CReUOTGe16UXQ6g2Xa94tXLb3XoEC6Zlg/gWf5/kHDrz
+ TXHQBAAA=
+X-Change-ID: 20260902-mira016-77eb6b6253d4
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6045;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=VQF0acHLN8pItuol9eiorm9FjFHJnqG0BA2WhzKguYk=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqvOm4S8W6a7mfPnjKwiiZlkZUV/l/Akb25h6Wm
+ lXODi3IIkSJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCarzpuAAKCRByNAaPFqFW
+ PHK9D/sHmTWEI3sNbvhHhoZgobh3NN1w2f/q9Jsb80wDzxKIyw0XGbTiO/iFc7LR6mKmdtWQBxC
+ dC6pcUVbesVsaeC0DxUUeNZBXT1RM+YlhbUV2K4deRz5tGKBDLxyV2QfivZtJy0VUfiwCXNi/pt
+ opDo7OkoEcIDPEEvaQLAkCVc42vH1BIfqxlMD8dPIVKeEmLYBOYxJSONbieehf75JCSdA32PHZE
+ A2DeS6P25V8Ww4ZLHEFSX7wn37giCwb4MjHqPDxyDBjTyT7GXynEAQcptlEfmT9BIMUrNiG39Aq
+ bB6ccnm1xktHPbnYGAcgzUdLAAJV19OXEBJhGbgZyLJQgjxc/PmfY3LxxaFWsGDmemDBcYKHG91
+ /WnQTAE4RFMLHFs2rCReqIUcXGT7sNCNo3wckkK4ZeKXWaxQkJ2rHV+Nx7uImqbgXsrvH40NX9i
+ z1QoM+LBqAT/hJR+AEqRPt0zhUJ8/Kf6eGgWwCb273fv11q2rnWWA3OWedPibnk7bZHiMYIrhgn
+ jsBUMbP1h8tv0bywGRqOZOnl6J+k8AlFt9IlaiGwD7cpSsgO+4FrsEuakI643jzNt8qRNGWyIQP
+ SONV7ULbztnR3E2QgD1rXU8wgVSxZu7aLZEr3JWlWY1Yc6oXLqkjPb3aGb/MLUbeFv6yws3UpUa
+ YhCPfA9rWaJB2EQ==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
+ams OSRAM Mira016 is a 0.16MP NIR enhanced global shutter image sensor.
+It supports 8, 10 and 12 bits luma-only image formats with configurable
+gains (only in 8 and 10 bit modes, with the 12 bit gains fixed at 1x).
 
---phflgpeigirgxuyc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+Add a Video4Linux2 subdevice driver for it.
 
-On Wed, Sep 30, 2026 at 12:52:18PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:19 Mi=
-kko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > > Tegra20/30 SoCs display controller.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++=
-++
-> > >  1 file changed, 138 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/display/tegra/n=
-vidia,tegra-8bit-cpu.yaml
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,t=
-egra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
-,tegra-8bit-cpu.yaml
-> > > new file mode 100644
-> > > index 0000000000000..f0dab608b2936
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8b=
-it-cpu.yaml
-> > > @@ -0,0 +1,138 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-c=
-pu.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > +
-> > > +maintainers:
-> > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > +
-> > > +description: The display controller in Tegra20/30 SoCs features an
-> > > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> > > +  protocol and is referred to as '8-bit CPU'. Each display controller
-> > > +  provides two such interfaces, which can be used to send MIPI DCS
-> > > +  commands to initialize and control the panel while image data is
-> > > +  transmitted via 16/18/24-line RGB.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: nvidia,tegra-8bit-cpu
-> > > +
-> > > +  dc-gpios:
-> > > +    description: Data/command selection pin.
-> > > +    maxItems: 1
-> > > +
-> > > +  rw-gpios:
-> > > +    description: Read/write pin.
-> > > +    maxItems: 1
-> > > +
-> > > +  cs-gpios:
-> > > +    description: Chip select pin.
-> > > +    maxItems: 1
-> > > +
-> > > +  data-gpios:
-> > > +    description: Specifies a set of 8 gpio pins used to transfer dat=
-a.
-> > > +    minItems: 8
-> > > +    maxItems: 8
-> >
-> > Based on my admittedly brief research, according to the TRM the display
-> > controller can drive all of these pins - of which there are two fixed
-> > sets as you mention - directly. So we'd need to describe which interface
-> > the display is connected to in DT, but not any GPIOs (which they really
-> > aren't).
-> >
->=20
-> I am perfectly fine to not expose any gpios in the binding, if this is
-> preferred. Only question, which method of interface checking would be
-> preferred. I assume if primary then nothing, if secondary - boolean
-> prop "nvidia,secondary"? Feel free to share your vision.
+The Mira016 supports binning, skipping and embedded data. It would be
+an ideal candidate for the new common RAW sensor model.
 
-The driver currently uses the GPIOs to program DBI commands, so I
-suspect we do need some way of controlling those pins. Or is there a way
-to have the display controller program the pins and send commands? That
-would be much preferred because it would more accurately reflect the HW
-design and possibly also simplify the driver because it doesn't need to
-parse the GPIOs and then also not use the GPIO API to set the values.
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
-As for selecting the interface to use, it could probably be just a
-simple, single-cell value with two valid values. That's a bit clearer
-than a boolean, because with a boolean you need to explicitly document
-what happens when it is absent.
+These features will be implemented on top of the new RAW sensor model
+once available.
 
-> > > +
-> > > +  nvidia,init-sequence:
-> > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > > +    description: Device specific set of values used in DC DISP_SPI_I=
-NIT_SEQ
-> > > +      registers.
-> > > +    minItems: 4
-> > > +    maxItems: 4
-> >
-> > And AIUI this is panel-specific DBI commands the display controller will
-> > transmit. So ideally the display driver should receive this data from
-> > the panel driver.
-> >
->=20
-> This is not panel driver data, but it is panel or maybe even more
-> interface itself specific. TRM has no clear method of generation of
-> this seq I am aware of. Maybe I have missed smth. These 4 entries
-> co-respond to DC_DISP_SPI_INIT_SEQ_DATA_A_0,
-> DC_DISP_SPI_INIT_SEQ_DATA_B_0, DC_DISP_SPI_INIT_SEQ_DATA_C_0 and
-> DC_DISP_SPI_INIT_SEQ_DATA_D_0 registers of DC. Maybe you have some
-> info to shed some light onto method of generation of this seq. Then it
-> could be simply removed from binding and calculated internally. Thank
-> you!
+CI pipeline:
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1756788
 
-Even if this is interface-specific data, it is still defined by the
-panel that's being used, right?
+$ ./v4l2-compliance -d /dev/v4l-subdev2
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
 
-As such it'd make sense to integrate it into the panel driver and have
-some side-channel to feed it to the display controller. If there's no
-good standard way of doing so, having the display controller read it
-=66rom the panel node and programming it at the appropriate time could
-work, too.
+Compliance test for device /dev/v4l-subdev2:
 
-Thierry
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
 
---phflgpeigirgxuyc
-Content-Type: application/pgp-signature; name="signature.asc"
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
 
------BEGIN PGP SIGNATURE-----
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq86XAACgkQ3SOs138+
-s6Hjzg//W7hkLOTBX+eR1J5oDtVdKzgpxK0Hb8m5HCnxvGsZTNFjcJLHGIRvQkNZ
-jqMyCrkOQ8CJlik2IAuYKOuCoD8M6X7KWqIJezVPC8prb75C53m3AYTaAPjlcVtS
-Q0baRmtlKmnSMwcZDaOqcEidT07F7x/7bgDOOvOKa0bVEoULDdBO9aYJGXelLfC+
-7uf1/wItwaWD3e/tZePLVrD0YroKmoPCsE9R0jNpRdSa7GTkT05A2sDjN5yHFoa+
-YAwSTphyC7Xp+YoO6pqKWamdfFvdoJ0Ojl/Yr3gZ6yC7VfDuAckCJybwoWt19VIR
-TPg1+pvDK7lYYoAO0x8LSichnmi3cSeAIlviaMTy24JXLemD8zFujMUsIASu0YrX
-kGb716hhW1c3P14UXt6caTCBWIjlwuuUy9kpe5ewt6R7G1cAs/qOoxzpQS2YDDUy
-TIvwr5Wz3nIZKtssCKrrNGJt2oaDcoi0rxe7MmQHcNmALOBIHcR141GiahKLJt/O
-cgLKtHSPPe+oTsUj3c5V+WA7/DztrnClcTEUGJ3EwUifyzD6HjZ93wv6Baip0JJX
-RZl2nU5SDiSqHZkPmGA1AEeQ7EsJ8uWBn24yCKZtNY5SvZ/s8AS8J9AJFtjkSdNC
-eu9bdJm69W4+Z462hpkXEieikDKfpGEzbsGI7BxhTKAhwLARXXM=
-=E3gO
------END PGP SIGNATURE-----
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
 
---phflgpeigirgxuyc--
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 11 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Changes in v5:
+- Rebase and add support for struct v4l2_subdev_client_info
+- Call pm_runtime_set_suspended() conditioanlly
+- Remove start streaming from register sequences
+- Break-out ROW_LENGTH configuration to a dedicated function
+- Remove start streaming from register sequences
+- Link to v4: https://patch.msgid.link/20260908-mira016-v4-0-1950504c131c@ideasonboard.com
+
+Changes in v4:
+- Address Sashiko comments:
+  - Correct XWIN and XRIGHT registers sizes
+  - Correct pll esc_period calculation
+  - Do not mix gotos and cleanup in endpoint parsing
+- Link to v3: https://patch.msgid.link/20260907-mira016-v3-0-b078a6793d65@ideasonboard.com
+
+Changes in v3:
+- dts: remove labels from example
+- Address Sakari's comments
+  - Parse endpoint early
+  - Do not overwrite firmware parsing errors
+  - use div_u64()
+- Link to v2: https://patch.msgid.link/20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com
+
+Changes in v2:
+- Address Sashiko comments:
+    - Do not overwrite cci_write() return error codes
+    - Don't call mira016_calc_row_length() in init_state()
+      - This would re-calculate row length at each open() call and modify
+        the sensor configuration even for TRY states.
+      - The call is also unecessary as:
+        - row_length is initialized in probe()
+        - mira016_calc_row_length() is called by set_pad_format() for ACTIVE
+          states already
+    - Offset the gain codes by 1. The gain LUT tables are 0-indexed while
+      V4L2 controls are indexed by 1. Adjust the gain index before accessing
+      the LUT to avoid and out-of-bounds error
+    - Free the control handler before the subdev state during remove, as the
+      s_ctrl handler uses the subdev active state
+- Link to v1: https://patch.msgid.link/20260903-mira016-v1-0-af0013ef070d@ideasonboard.com
+
+---
+Jacopo Mondi (2):
+      dt-bindings: media: i2c: Add Mira016 image sensor
+      media: i2c: mira016: Add driver for Mira016
+
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml |   97 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira016.c                        | 2309 ++++++++++++++++++++
+ 5 files changed, 2427 insertions(+)
+---
+base-commit: 58348f64125e9a3e44d3abb275ca7f4e6c9641e5
+change-id: 20260902-mira016-77eb6b6253d4
+
+Best regards,
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
