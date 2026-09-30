@@ -1,228 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D5F36B904;
-	Wed, 30 Sep 2026 03:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4ACF36F419
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:13:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790737696; cv=none; b=VTkt6qKUwQpF3e6b18Y5w4FRZCWvKQeoffvRDYiOYxNm+mh9FV63USM4aBcMTNN4Fg7LNMj/w+kDOueTwdcc7ukOSG+cNelv/0RjodphkfjilM0rw5ZnB+Rtjlgr2WGmlp5xm04MPvIrzT60s0LJcs8sw0uFv1P4sdhWbvN/pdI=
+	t=1790738022; cv=none; b=KYsclKxdDmRV/NuG5fP4dD2zw/uain6DcxIMdq1utqhYn0MeX9Kw8gU4qkDvAhH6LG/zNV6gahnPopld6O0IZzgfMQws0ZbuxiPyyL+ZBJ1mnGJt/8NtDX5hHB2AWBDkvF8UTSAYLc4Xe5SLqaTVMPes5DTLNEMld4m14ApOFp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790737696; c=relaxed/simple;
-	bh=Iv4wtlsTIdnAYiTSWW0vCXQOaUSDpeQO5E3NEpFBtvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pi5TGe87+QtbmcUzySqwkJ26D2JDfreY7S7d5SN/AIwQpIwrjUmN1JF6N9I+EjjBPJC4+AbXHeNkNSyqkQX5k82meZId0A6ZDPuMdU21Lt0y1dDpclsYTTtJ7lN4WDaPFZkVdy0CFO4obyTXRPo4O9o+hW+QCPFNqG6SXxKbE9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FfB5ZYAT; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790738022; c=relaxed/simple;
+	bh=0gvfcG9jm07pfn8scXFFmWOynvcSgZoKDjvAIRqNFH0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=t124bGnrkqi6WK6hAY+vbZvK7W6wdRIBm0eG+TIzJxzLKsiTlhqJ9oNiSpu/NekH09r1csMAxcGfS/o9vfwAJZYWKETHvEXtkc4b8UZ3vKVUMfdNwjKfbuMBjA9eLuqgVuEWOrYKwFjtEUDz+siVmcpUwRI2wiwxsv5slrBozz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FGD6UOT/; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FfB5ZYAT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=tJ
-	Vc+ek+/OL7mjlHCz2B1uUEAtE+OkNeX1hqUj5Ew8E=; b=FfB5ZYAT7yn+oTn2nA
-	QhXGqPJvEIoeBzQbxVxTakVvh2UqunacViK8ahrZG2T+U2fJkiGUnC+oUj5DtOzH
-	75qWlhVExPyJ0+bDeVBVCXfZT8FpCbof0tPWWrb56H7MeZ9KR2QwqIhp4w1VBazw
-	Q6FdxIcvuVRSBQ18mozvZZhSI=
-Received: from nans.company.local (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDXf9b1fLxqY4WeCA--.38142S2;
-	Wed, 30 Sep 2026 11:07:34 +0800 (CST)
-From: nanshuaibo <nanshuaibo811@163.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Chris Li <sparse@chrisli.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sparse@vger.kernel.org,
-	nanshuaibo <nanshuaibo811@163.com>
-Subject: [PATCH] tracing: Make branch profiler counters atomic
-Date: Wed, 30 Sep 2026 11:07:28 +0800
-Message-ID: <20260930030728.1144418-1-nanshuaibo811@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FGD6UOT/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790738021; x=1822274021;
+  h=date:from:to:cc:subject:message-id;
+  bh=0gvfcG9jm07pfn8scXFFmWOynvcSgZoKDjvAIRqNFH0=;
+  b=FGD6UOT/941/2bEpDskXC007YQQGc74t18aLslb+nGRu4GmMXlIBf6/7
+   6UqBs6Q5abZPQD4N2wsfBtBl/Hpvt71MF9aJocTfnkqs363EmoBz4YV/I
+   4mwfRnA2mKQEuq9sX1rjUgE4qXe3D/91hcNV0V44FRpkB406Spijb+y+9
+   SNXoqJef/3YPPhn5ajZ6kGKK59cAvGeuKq/rygoLQ2ZrjS26ZPzIYkRhU
+   KTN4nyccqWqIvH9gS6PwL8RmX7/LCkiQDg5JnOrjLtJ59BQChgpWVIM3C
+   Q4wkcoovtzsxJsNgNlPM0KnDBG0k29LC3+oex3EuW1JQLIABpAf6DdQ7M
+   Q==;
+X-CSE-ConnectionGUID: VfJxoTA6SM+JH7/3Z32f7A==
+X-CSE-MsgGUID: XnUG1F2ZTpGvLgcDV5bkSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="108956049"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="108956049"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 20:13:40 -0700
+X-CSE-ConnectionGUID: 5IRk1580TPacb3oM5PGNDA==
+X-CSE-MsgGUID: bhSWN0c2SC2X0hMlewIYkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="313504956"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 29 Sep 2026 20:13:39 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xBklD-00000000Q4f-2oEr;
+	Wed, 30 Sep 2026 03:13:35 +0000
+Date: Wed, 30 Sep 2026 11:13:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ "Paul E. McKenney" <paulmck@kernel.org>
+Subject: [paulmck-rcu:dev.2026.09.18a 24/34] block.c:undefined
+ reference to `cmpxchg_emu_u8'
+Message-ID: <202609301117.nVKrDSkb-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDXf9b1fLxqY4WeCA--.38142S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Xw1DJr1DKr15JFy3XFyxZrb_yoWxGw15pF
-	W8JF97tF4rZFsIgrnF9w4rJw13G3yDta4SgrZrXwnxJF1qyr13KryIkFs0vrnYyryFkrya
-	vryj93yUuwnFq3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pK-eYgUUUUU=
-X-CM-SenderInfo: pqdq2xxxdlu0qyrrqiywtou0bp/xtbCwBcmYWq8fPeUKAAA3x
 
-The branch profiler updates its static counters from arbitrary contexts. Concurrent updates can race and lose counts. KCSAN reports a data race between ftrace_likely_update() invocations.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.09.18a
+head:   90599c372e13369d11f6c1a01ff0094b16f72cf8
+commit: c98d10b438b5626edb3f4e06f4f62bcb6ed6fe90 [24/34] lib: Add two-byte cmpxchg emulation function
+config: xtensa-randconfig-1000-20260929 (https://download.01.org/0day-ci/archive/20260930/202609301117.nVKrDSkb-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609301117.nVKrDSkb-lkp@intel.com/reproduce)
 
-Use relaxed compiler atomic operations for the counters. The profiler metadata is defined in compiler_types.h, before the kernel atomic API is available. The counters do not order accesses to other data.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609301117.nVKrDSkb-lkp@intel.com/
 
-Also use atomic loads when reading the counters for tracefs output and sorting, so readers do not race with atomic writers.
+All errors (new ones prefixed by >>):
 
-Tested on x86_64 QEMU/KVM with KCSAN and CONFIG_PROFILE_ANNOTATED_BRANCHES=y. The baseline reports the race in ftrace_likely_update(); it is not reported after this change.
+   xtensa-linux-ld: fs/crypto/block.o: in function `fscrypt_limit_io_blocks':
+>> block.c:(.text+0x300): undefined reference to `cmpxchg_emu_u8'
+   xtensa-linux-ld: fs/crypto/block.o: in function `fscrypt_zeroout_range_end_io':
+   block.c:(.text+0x31c): undefined reference to `cmpxchg_emu_u8'
+   xtensa-linux-ld: fs/btrfs/bio.o: in function `btrfs_bio_alloc':
+>> bio.c:(.text+0x88c): undefined reference to `cmpxchg_emu_u8'
+   xtensa-linux-ld: fs/btrfs/bio.o: in function `btrfs_bio_end_io':
+   bio.c:(.text+0x8e8): undefined reference to `cmpxchg_emu_u8'
+   `.exit.text' referenced in section `__jump_table' of drivers/staging/vme_user/vme_fake.o: defined in discarded section `.exit.text' of drivers/staging/vme_user/vme_fake.o
+   `.exit.text' referenced in section `__jump_table' of drivers/staging/vme_user/vme_fake.o: defined in discarded section `.exit.text' of drivers/staging/vme_user/vme_fake.o
+   xtensa-linux-ld: block/blk-crypto-fallback.o: in function `blk_crypto_fallback_decrypt_endio':
+>> blk-crypto-fallback.c:(.text+0x10c): undefined reference to `cmpxchg_emu_u8'
+   xtensa-linux-ld: block/blk-crypto-fallback.o:blk-crypto-fallback.c:(.text+0x18c): more undefined references to `cmpxchg_emu_u8' follow
 
-Signed-off-by: nanshuaibo <nanshuaibo811@163.com>
----
- include/linux/compiler.h    | 14 ++++++++++--
- kernel/trace/trace_branch.c | 43 ++++++++++++++++++++++---------------
- 2 files changed, 38 insertions(+), 19 deletions(-)
-
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index cb2f6050b..7efbcd6aa 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -14,6 +14,16 @@
-  */
- void ftrace_likely_update(struct ftrace_likely_data *f, int val,
- 			  int expect, int is_constant);
-+
-+/*
-+ * Branch profiler data is defined in compiler_types.h, before the atomic API
-+ * is available. These counters are independent statistics and do not order
-+ * accesses to other data.
-+ */
-+#define ftrace_branch_counter_inc(counter) \
-+	__atomic_fetch_add(&(counter), 1, __ATOMIC_RELAXED)
-+#define ftrace_branch_counter_read(counter) \
-+	__atomic_load_n(&(counter), __ATOMIC_RELAXED)
- #if defined(CONFIG_TRACE_BRANCH_PROFILING) \
-     && !defined(DISABLE_BRANCH_PROFILING) && !defined(__CHECKER__)
- #define likely_notrace(x)	__builtin_expect(!!(x), 1)
-@@ -66,8 +76,8 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
- 			.line = __LINE__,		\
- 		};					\
- 	(cond) ?					\
--		(__if_trace.miss_hit[1]++,1) :		\
--		(__if_trace.miss_hit[0]++,0);		\
-+		(ftrace_branch_counter_inc(__if_trace.miss_hit[1]), 1) :\
-+		(ftrace_branch_counter_inc(__if_trace.miss_hit[0]), 0);\
- })
- 
- #endif /* CONFIG_PROFILE_ALL_BRANCHES */
-diff --git a/kernel/trace/trace_branch.c b/kernel/trace/trace_branch.c
-index d8e97ad79..36b61b5ed 100644
---- a/kernel/trace/trace_branch.c
-+++ b/kernel/trace/trace_branch.c
-@@ -73,7 +73,7 @@ probe_likely_condition(struct ftrace_likely_data *f, int val, int expect)
- 
- 	strscpy(entry->func, f->data.func);
- 	strscpy(entry->file, p);
--	entry->constant = f->constant;
-+	entry->constant = ftrace_branch_counter_read(f->constant);
- 	entry->line = f->data.line;
- 	entry->correct = val == expect;
- 
-@@ -202,7 +202,7 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
- 
- 	/* A constant is always correct */
- 	if (is_constant) {
--		f->constant++;
-+		ftrace_branch_counter_inc(f->constant);
- 		val = expect;
- 	}
- 	/*
-@@ -213,11 +213,10 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
- 	 */
- 	trace_likely_condition(f, val, expect);
- 
--	/* FIXME: Make this atomic! */
- 	if (val == expect)
--		f->data.correct++;
-+		ftrace_branch_counter_inc(f->data.correct);
- 	else
--		f->data.incorrect++;
-+		ftrace_branch_counter_inc(f->data.incorrect);
- 
- 	user_access_restore(flags);
- }
-@@ -239,13 +238,15 @@ static int annotated_branch_stat_headers(struct seq_file *m)
- 
- static inline long get_incorrect_percent(const struct ftrace_branch_data *p)
- {
-+	unsigned long correct = ftrace_branch_counter_read(p->correct);
-+	unsigned long incorrect = ftrace_branch_counter_read(p->incorrect);
- 	long percent;
- 
--	if (p->correct) {
--		percent = p->incorrect * 100;
--		percent /= p->correct + p->incorrect;
-+	if (correct) {
-+		percent = incorrect * 100;
-+		percent /= correct + incorrect;
- 	} else
--		percent = p->incorrect ? 100 : -1;
-+		percent = incorrect ? 100 : -1;
- 
- 	return percent;
- }
-@@ -282,7 +283,8 @@ static void branch_stat_show(struct seq_file *m,
- static int branch_stat_show_normal(struct seq_file *m,
- 				   struct ftrace_branch_data *p, const char *f)
- {
--	seq_printf(m, "%8lu %8lu ",  p->correct, p->incorrect);
-+	seq_printf(m, "%8lu %8lu ", ftrace_branch_counter_read(p->correct),
-+		   ftrace_branch_counter_read(p->incorrect));
- 	branch_stat_show(m, p, f);
- 	return 0;
- }
-@@ -291,18 +293,21 @@ static int annotate_branch_stat_show(struct seq_file *m, void *v)
- {
- 	struct ftrace_likely_data *p = v;
- 	const char *f;
-+	unsigned long constant;
- 	int l;
- 
- 	f = branch_stat_process_file(&p->data);
-+	constant = ftrace_branch_counter_read(p->constant);
- 
--	if (!p->constant)
-+	if (!constant)
- 		return branch_stat_show_normal(m, &p->data, f);
- 
--	l = snprintf(NULL, 0, "/%lu", p->constant);
-+	l = snprintf(NULL, 0, "/%lu", constant);
- 	l = l > 8 ? 0 : 8 - l;
- 
- 	seq_printf(m, "%8lu/%lu %*lu ",
--		   p->data.correct, p->constant, l, p->data.incorrect);
-+		   ftrace_branch_counter_read(p->data.correct), constant, l,
-+		   ftrace_branch_counter_read(p->data.incorrect));
- 	branch_stat_show(m, &p->data, f);
- 	return 0;
- }
-@@ -329,6 +334,10 @@ static int annotated_branch_stat_cmp(const void *p1, const void *p2)
- {
- 	const struct ftrace_branch_data *a = p1;
- 	const struct ftrace_branch_data *b = p2;
-+	unsigned long a_incorrect = ftrace_branch_counter_read(a->incorrect);
-+	unsigned long b_incorrect = ftrace_branch_counter_read(b->incorrect);
-+	unsigned long a_correct = ftrace_branch_counter_read(a->correct);
-+	unsigned long b_correct = ftrace_branch_counter_read(b->correct);
- 
- 	long percent_a, percent_b;
- 
-@@ -340,9 +349,9 @@ static int annotated_branch_stat_cmp(const void *p1, const void *p2)
- 	if (percent_a > percent_b)
- 		return 1;
- 
--	if (a->incorrect < b->incorrect)
-+	if (a_incorrect < b_incorrect)
- 		return -1;
--	if (a->incorrect > b->incorrect)
-+	if (a_incorrect > b_incorrect)
- 		return 1;
- 
- 	/*
-@@ -350,9 +359,9 @@ static int annotated_branch_stat_cmp(const void *p1, const void *p2)
- 	 * first, we continue that by showing best (correct)
- 	 * cases last.
- 	 */
--	if (a->correct > b->correct)
-+	if (a_correct > b_correct)
- 		return -1;
--	if (a->correct < b->correct)
-+	if (a_correct < b_correct)
- 		return 1;
- 
- 	return 0;
--- 
-2.43.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
