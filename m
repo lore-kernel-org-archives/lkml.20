@@ -1,836 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF833B0580;
-	Wed, 30 Sep 2026 05:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F705363086;
+	Wed, 30 Sep 2026 05:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745300; cv=none; b=BJMWrUObLpVZbLXVR6XJeJ0y1tBh+gUGOBYYr41fVWO43V5biXNM0mv+91rmkFvEBY+tobBPUVIbmFs+6v1znPVMNCo/EA44FI3PnYnVYj3lYn7Y9CC1cZ6qb5qQ9hnc9KoNPu0V1UzwnL1jJeKwXfT3+V+t1Han6D4x17OC1F8=
+	t=1790745311; cv=none; b=CBiWDJyKgSOmzEZmo7AiiJhAtU/F23NxZcI4l+xrhJiBIHKVJ/cr9ivaM8NSSYMlKIzjifTXzVU6IDSpH9Cf5aJ7gqmZg2zmLVphvj3sRpxeBgBA3F6rvF/jzKyLEo3K9vCkZqC+7eKl5QE5jPKNzgJXDDRqXfYlczI6mhJFEWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745300; c=relaxed/simple;
-	bh=VMF8bbzX7F10FQtsgeT1wMb3AXGnt/30jnwIjRC5qNk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QELxqtwniYHZ+9bDcq43PaX5BtYb8Zcob7iEEsogxRvQqp6pzi4nTtCZxR4BaUDWCvzrPtgAIWgko9nWSI6Rya/RkUeD+eu+/BVVlqprO+vVjqgVoxZAJkquAgNcdHbDf23J+pKxZ0dJgPyzsY1BX32GFrtniQdL19DozhWuzZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G4db7yR/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G4db7yR/"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNQA8E2012373;
-	Wed, 30 Sep 2026 05:14:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=nGEgNqOc9Du
-	ianw/WzovK/tf/zF9kc7LQqFG8XGx+B8=; b=G4db7yR/tMqAFvLPjbyrU7S25bZ
-	+fV4vYgbsVMpSJvxoa2Sc5k/oDVNAM7eWO1nU6NpX5Z9adDmeTsrfMtPJ53AReNr
-	+Zn2rrfbIOU/QZ9j1c6Ibkec84a0KDUq/U9M3nevVOQf6CrlaOVSR5QY0pEnN4GM
-	DeixdponWake2ybhvTNx9NvhCP9Rcm78LBmNocaxQafrS++nrAauSQXqS3LQQuz7
-	3C1xTn2TYSB84dohN8vKM7UjhNZqLNuwfFmWDyKe/VVOnLO5mEi6B7gQbr+OOKPU
-	IzeGlrS0+qlWKLtUK3N4dVrT4NSx+wrxsQeUFTncjoKg8uuHvfKFuok6kcA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j0ejgug-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 05:14:34 +0000 (GMT)
-Received: from pps.filterd (nalasppmta01.qualcomm.com [127.0.0.1])
-	by NALASPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68U5E1F01549983;
-	Wed, 30 Sep 2026 05:14:33 GMT
-Received: from hu-devc-lv-u22-c.qualcomm.com (hu-subashab-lv.qualcomm.com [10.81.24.15])
-	by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 68U5EX401552842
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 05:14:33 +0000 (GMT)
-Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 212624)
-	id 2E945AC1; Tue, 29 Sep 2026 22:14:33 -0700 (PDT)
-From: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
-To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, andrew+netdev@lunn.ch, corbet@lwn.net
-Cc: horms@kernel.org, skhan@linuxfoundation.org, rdunlap@infradead.org,
-        netdev@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
-        Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Subject: [PATCH net-next 4/7] net: qualcomm: rmnet: Add DL packet coalescing support
-Date: Tue, 29 Sep 2026 22:13:42 -0700
-Message-Id: <20260930051345.857443-5-subash.a.kasiviswanathan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930051345.857443-1-subash.a.kasiviswanathan@oss.qualcomm.com>
-References: <20260930051345.857443-1-subash.a.kasiviswanathan@oss.qualcomm.com>
+	s=arc-20240116; t=1790745311; c=relaxed/simple;
+	bh=pfBHQqwY0FRL/vJkTp/4D4cyjGIq75z45FRzsyOMCj4=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=PZo7FfmQYLp7rVl4kcOzV7/s1LjnavLVzB7O9lokBy9o16DHSqbhsDuVe7YMEvGASDYYsGdHoF/uYEeqh/GnyhgPK8t1JLC642sMQqYhhk/2VHV9C2MqD3NVC9R4U8OgNaMizhc11WmBfqTk/XyFGxisjCjPlLKiU2DlsFUC55Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 30 Sep
+ 2026 13:14:59 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 30 Sep 2026 13:14:59 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v4 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Date: Wed, 30 Sep 2026 13:14:58 +0800
+Message-ID: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=cqgOAF4i c=1 sm=1 tr=0 ts=6abc9abb cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=KYMRCGCj0O7CP-3BYPAA:9
-X-Proofpoint-GUID: Hm5Ysb9kAfx_xOY_--xXwHhHpATqebON
-X-Proofpoint-ORIG-GUID: Hm5Ysb9kAfx_xOY_--xXwHhHpATqebON
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMCBTYWx0ZWRfX9KQ3MU4cubVV
- l+Cn7PIJXhr0xtUStTFX+4b0JGr6NB0Oj9GFMYVZgo29kPUuPRfX7D5FENNfw4JyeTsjX5bld1q
- BAwXNnJxnwB96VrI6aLmBbY1tUuOMhA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMCBTYWx0ZWRfX7as6QTNdQ8xd
- ln190pZEvcFK7ghwRup4u/SlhBGKJkJl/V8hrR7KyIaW93mlF0rgsPsHYTvs740MDfd58sumb8t
- um+Dj666kZ9aaXHYxfgQqlU7kA3/g5yjtlAJM69syCwKW57Y/i0Flb+jnRwaFY4p6BiMLxqkv6U
- BJD0yUjpd0tklCK9TzvXqurnqKz4RittQF4X3VkIUgtM8cilAgJmn56q3BBgV1ZTojEfDc7+BYI
- yKOJXgnSwbPZj4ZiSOC6ceYToFMzz1vBIULx4zblxFflFeozSJKoyNEEvfdBGVw+cKiggEED7nu
- qgrQzZans908YG/lr6RLVsp2ZIC7BukTBIzYCU1rkp35pRG6DFuiK8EGgvGOpmfYw5q4EbVW+xP
- 7NfYX0+xTqwiyOwCRPKMVOZITLElo3FtajME+As+W10W8KFO/A0ntU8Y0yV6anKlfUtWTJ7Hco/
- 1NupxYvgnl0cA92AUrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300020
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANKavGoC/23MTQ7CIBCG4asY1mLo0FJw5T2MCwqDZWHbQEM0T
+ e8u/Uk00eU3meedSMTgMZLzYSIBk4++7/IojwdiWt3dkXqbNwEGggmoKFptqEQlGDLA2tUkvw4
+ BnX+umest79bHsQ+vtZqK5boFZAFbIBWUUcaVArSoQdUXHQdEO6JpT6Z/kKWS4EtCuUvI0kgrm
+ 0YoXknxV/KPVIXYJc8SOCq04Brr1I+c5/kNMqHP6xEBAAA=
+X-Change-ID: 20260625-edac-8e960e02e7f7
+To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
+	<ryan_chen@aspeedtech.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=4479;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=pfBHQqwY0FRL/vJkTp/4D4cyjGIq75z45FRzsyOMCj4=;
+ b=NlbSINSUFdPmrseU4+qeJZJMs8z7w+3jpAyrHyDJXqrB0lPNiAsyFVEs5T6CThxJkuzNQK6nn
+ s3bBZ3S1aESD7cumxTunaBz8ruEGykldYe6PgIZ5YzSDIQsicDujohb
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Hardware can coalesce multiple IP packets of a flow into a single MAP
-frame carrying a MAPv5 coalescing header and a set of Number Length
-Objects (NLOs) that describe the count and length of the individual
-segments within. The MAP coalescing header encapsulates a single IP
-packet of type IPv4 and IPv6 for protocols TCP and UDP. Up to 48 IP
-packets can be coalesced into a single coalescing packet.
+Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+aspeed_edac driver.
 
-This means that hardware can coalesce up to 6 different sizes within a
-single IP packet. Additionally, hardware can continue to coalesce
-packets even though it may have detected an issue with the checksum. The
-checksum bitmap will give information on the exact segments which
-happened to encounter a bad checksum. In these cases, the packets need
-to be segmented out from the whole IP packet and only the packets with
-same size need to be queued to the stack for valid checksum packets
-while invalid checksum packets are dropped in the driver.
+The AST2700 memory controller keeps the same overall EDAC programming
+model as the earlier Aspeed BMC SoCs, but uses a different register
+layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
+Rather than fork the driver, the existing code is first tidied and
+generalised, then the AST2700 is added as one more per-SoC variant.
 
-Any packet queued to the network stack would have the gso information
-populated in the skb and partial checksum set. If a packet is segmented,
-the IP length and checksum are also updated accordingly.
+Patches 1-4 are bug fixes and cleanups to the existing driver. Patch 5
+documents the AST2700 binding, patches 6 and 7 rework the implementation
+to accommodate it, and patch 8 adds the AST2700 support itself. Patch 9 is
+Stefan's step-down patch, amended to leave the entry in place with me
+as its reviewer.
 
-DL packet coalescing relies on the MAPv5 checksum header being present
-on ingress, so reject any configuration which requests coalescing
-without also enabling MAPv5 ingress checksum offload.
-
-Co-developed-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Signed-off-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Signed-off-by: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 ---
- .../ethernet/qualcomm/rmnet/rmnet_config.c    |  12 +-
- .../ethernet/qualcomm/rmnet/rmnet_handlers.c  |   5 +-
- .../net/ethernet/qualcomm/rmnet/rmnet_map.h   |  18 +-
- .../ethernet/qualcomm/rmnet/rmnet_map_data.c  | 512 +++++++++++++++++-
- .../net/ethernet/qualcomm/rmnet/rmnet_vnd.c   |   1 +
- include/linux/if_rmnet.h                      |  31 ++
- 6 files changed, 563 insertions(+), 16 deletions(-)
+Changes in v4:
+- Put the bug fixes first: the two fixes are now patches 1 and 2, the
+  cleanups 3 and 4, and the bindings patch moves to 5 ahead of the
+  AST2700 work.
+- Explain in patch 1 where the grain value comes from, rather than the
+  warning it silences.
+- Drop the Cc: stable tags from the two fixes. Neither meets the bar in
+  Documentation/process/stable-kernel-rules.rst; the Fixes: tags stay.
+- Merge Stefan's step-down patch into patch 9, keeping the MAINTAINERS
+  entry alive with a reviewer instead of removing it.
+- Link to v3: https://lore.kernel.org/r/20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com
 
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-index 8051aef01ae3..555659c2edc2 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-@@ -30,7 +30,8 @@ static int rmnet_is_real_dev_registered(const struct net_device *real_dev)
-  * offload), MAPv4 (v4 checksum offload) and MAPv5 (v5 checksum
-  * offload). QMAP command support is orthogonal and permitted with
-  * any of the three. Mixing v4 and v5 checksum offload flags together
-- * is not a supported configuration.
-+ * is not a supported configuration. DL packet coalescing additionally
-+ * requires a MAPv5 configuration.
-  */
- static bool rmnet_config_data_format_valid(u32 data_format)
- {
-@@ -39,7 +40,14 @@ static bool rmnet_config_data_format_valid(u32 data_format)
- 	u32 v5_mask = RMNET_FLAGS_INGRESS_MAP_CKSUMV5 |
- 		      RMNET_FLAGS_EGRESS_MAP_CKSUMV5;
- 
--	return !(data_format & v4_mask) || !(data_format & v5_mask);
-+	if ((data_format & v4_mask) && (data_format & v5_mask))
-+		return false;
-+
-+	if ((data_format & RMNET_FLAGS_INGRESS_COALESCE) &&
-+	    !(data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV5))
-+		return false;
-+
-+	return true;
- }
- 
- /* Needs rtnl lock */
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-index ab1dfbd833e3..bb867ceb01c1 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-@@ -96,9 +96,10 @@ __rmnet_map_ingress_handler(struct sk_buff *skb,
- 
- 	__skb_queue_head_init(&list);
- 
--	if ((data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV5) &&
-+	if ((data_format &
-+	     (RMNET_FLAGS_INGRESS_MAP_CKSUMV5 | RMNET_FLAGS_INGRESS_COALESCE)) &&
- 	    (map_header->flags & MAP_NEXT_HEADER_FLAG)) {
--		if (rmnet_map_process_next_hdr_packet(skb, &list, len))
-+		if (rmnet_map_process_next_hdr_packet(skb, &list, len, data_format))
- 			goto free_skb;
- 	} else {
- 		/* Subtract MAP header */
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-index ef738ce015d4..77ddac6023c0 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-@@ -6,6 +6,22 @@
- #define _RMNET_MAP_H_
- #include <linux/if_rmnet.h>
- 
-+enum rmnet_map_v5_close_type {
-+	RMNET_MAP_COAL_CLOSE_NON_COAL,
-+	RMNET_MAP_COAL_CLOSE_IP_MISS,
-+	RMNET_MAP_COAL_CLOSE_TRANS_MISS,
-+	RMNET_MAP_COAL_CLOSE_HW,
-+	RMNET_MAP_COAL_CLOSE_COAL,
-+};
-+
-+enum rmnet_map_v5_close_value {
-+	RMNET_MAP_COAL_CLOSE_HW_NL,
-+	RMNET_MAP_COAL_CLOSE_HW_PKT,
-+	RMNET_MAP_COAL_CLOSE_HW_BYTE,
-+	RMNET_MAP_COAL_CLOSE_HW_TIME,
-+	RMNET_MAP_COAL_CLOSE_HW_EVICT,
-+};
-+
- struct rmnet_map_control_command {
- 	u8  command_name;
- 	u8  cmd_type:2;
-@@ -55,7 +71,7 @@ void rmnet_map_checksum_uplink_packet(struct sk_buff *skb,
- 				      int csum_type);
- int rmnet_map_process_next_hdr_packet(struct sk_buff *skb,
- 				      struct sk_buff_head *list,
--				      u16 len);
-+				      u16 len, u32 data_format);
- unsigned int rmnet_map_tx_aggregate(struct sk_buff *skb, struct rmnet_port *port,
- 				    struct net_device *orig_dev);
- void rmnet_map_tx_aggregate_init(struct rmnet_port *port);
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-index 577f2758e385..bb88e19e28d8 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-@@ -7,7 +7,11 @@
- #include <linux/netdevice.h>
- #include <linux/ip.h>
- #include <linux/ipv6.h>
-+#include <linux/tcp.h>
-+#include <linux/udp.h>
-+#include <net/ip.h>
- #include <net/ip6_checksum.h>
-+#include <net/ipv6.h>
- #include <linux/bitfield.h>
- #include "rmnet_config.h"
- #include "rmnet_map.h"
-@@ -17,6 +21,19 @@
- #define RMNET_MAP_DEAGGR_SPACING  64
- #define RMNET_MAP_DEAGGR_HEADROOM (RMNET_MAP_DEAGGR_SPACING / 2)
- 
-+struct rmnet_map_coal_metadata {
-+	void *ip_header;
-+	void *trans_header;
-+	u16 ip_len;
-+	u16 trans_len;
-+	u16 data_offset;
-+	u16 data_len;
-+	u8 ip_proto;
-+	u8 trans_proto;
-+	u8 pkt_count;
-+	bool zero_csum;
-+};
-+
- static __sum16 *rmnet_map_get_csum_field(unsigned char protocol,
- 					 const void *txporthdr)
- {
-@@ -337,8 +354,8 @@ u32 rmnet_map_validate_packet_len(struct sk_buff *skb, u32 data_format)
- {
- 	struct rmnet_map_v5_csum_header *next_hdr = NULL;
- 	struct rmnet_map_header *maph;
--	void *data = skb->data;
- 	u32 packet_len;
-+	u8 hdr_type;
- 
- 	if (skb->len < sizeof(*maph))
- 		return 0;
-@@ -353,24 +370,28 @@ u32 rmnet_map_validate_packet_len(struct sk_buff *skb, u32 data_format)
- 
- 	if (data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV4) {
- 		packet_len += sizeof(struct rmnet_map_dl_csum_trailer);
--	} else if ((data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV5) &&
-+	} else if ((data_format &
-+		    (RMNET_FLAGS_INGRESS_MAP_CKSUMV5 | RMNET_FLAGS_INGRESS_COALESCE)) &&
- 		   !(maph->flags & MAP_CMD_FLAG)) {
--		/* Mapv5 data pkt without csum hdr is invalid */
- 		if (!(maph->flags & MAP_NEXT_HEADER_FLAG))
- 			return 0;
- 
--		packet_len += sizeof(*next_hdr);
--		next_hdr = data + sizeof(*maph);
-+		if (skb->len < sizeof(*maph) + sizeof(*next_hdr))
-+			return 0;
-+
-+		next_hdr = (struct rmnet_map_v5_csum_header *)(skb->data + sizeof(*maph));
-+		hdr_type = u8_get_bits(next_hdr->header_info,
-+				       MAPV5_HDRINFO_HDR_TYPE_FMASK);
-+
-+		if (hdr_type == RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD)
-+			packet_len += sizeof(*next_hdr);
-+		else if (hdr_type != RMNET_MAP_HEADER_TYPE_COALESCING)
-+			return 0;
- 	}
- 
- 	if (skb->len < packet_len)
- 		return 0;
- 
--	if (next_hdr &&
--	    u8_get_bits(next_hdr->header_info, MAPV5_HDRINFO_HDR_TYPE_FMASK) !=
--	    RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD)
--		return 0;
--
- 	return packet_len;
- }
- 
-@@ -518,13 +539,482 @@ static bool rmnet_map_get_csum_valid(struct sk_buff *skb)
- 	return !!(hdr->csum_info & MAPV5_CSUMINFO_VALID_FLAG);
- }
- 
--int rmnet_map_process_next_hdr_packet(struct sk_buff *skb,
-+/* Stamp GSO metadata so the network stack can segment a coalesced SKB. */
-+static void rmnet_map_gso_stamp(struct sk_buff *skb,
-+				struct rmnet_map_coal_metadata *coal_meta)
-+{
-+	struct skb_shared_info *shinfo = skb_shinfo(skb);
-+
-+	if (coal_meta->trans_proto == IPPROTO_TCP)
-+		shinfo->gso_type = (coal_meta->ip_proto == 4) ?
-+				   SKB_GSO_TCPV4 : SKB_GSO_TCPV6;
-+	else
-+		shinfo->gso_type = SKB_GSO_UDP_L4;
-+
-+	shinfo->gso_size = coal_meta->data_len;
-+	shinfo->gso_segs = coal_meta->pkt_count;
-+}
-+
-+/* Set the transport checksum to the pseudo-header checksum and request
-+ * partial checksum offload, letting the NIC or stack finish it.
-+ */
-+static void rmnet_map_partial_csum(struct sk_buff *skb,
-+				   struct rmnet_map_coal_metadata *coal_meta)
-+{
-+	u16 pkt_len = skb->len - coal_meta->ip_len;
-+	unsigned char *data = skb->data;
-+	__sum16 pseudo;
-+
-+	if (coal_meta->ip_proto == 4) {
-+		struct iphdr *iph = (struct iphdr *)data;
-+
-+		pseudo = ~csum_tcpudp_magic(iph->saddr, iph->daddr,
-+					    pkt_len, coal_meta->trans_proto, 0);
-+	} else {
-+		struct ipv6hdr *ip6h = (struct ipv6hdr *)data;
-+
-+		pseudo = ~csum_ipv6_magic(&ip6h->saddr, &ip6h->daddr,
-+					  pkt_len, coal_meta->trans_proto, 0);
-+	}
-+
-+	if (coal_meta->trans_proto == IPPROTO_TCP) {
-+		struct tcphdr *tp = (struct tcphdr *)(data + coal_meta->ip_len);
-+
-+		tp->check = pseudo;
-+		skb->csum_offset = offsetof(struct tcphdr, check);
-+	} else {
-+		struct udphdr *up = (struct udphdr *)(data + coal_meta->ip_len);
-+
-+		up->check = pseudo;
-+		skb->csum_offset = offsetof(struct udphdr, check);
-+	}
-+
-+	skb->ip_summed = CHECKSUM_PARTIAL;
-+	skb->csum_start = skb->data + coal_meta->ip_len - skb->head;
-+}
-+
-+/* Carve one logical segment from a coalesced SKB and append it to the list.
-+ * Adjusts TCP sequence numbers, IP IDs/lengths, and checksum state.
-+ */
-+static void
-+__rmnet_map_segment_coal_skb(struct sk_buff *coal_skb,
-+			     struct rmnet_map_coal_metadata *coal_meta,
-+			     struct sk_buff_head *list, u8 pkt_id,
-+			     bool csum_valid)
-+{
-+	u32 dlen = coal_meta->data_len * coal_meta->pkt_count;
-+	u32 hlen = coal_meta->ip_len + coal_meta->trans_len;
-+	struct sk_buff *skbn;
-+
-+	/* RFC 768: UDP checksum is optional for IPv4, and is 0 if unused.
-+	 * Such packets are never actually bad, regardless of what the
-+	 * checksum bitmap says.
-+	 */
-+	if (!csum_valid && coal_meta->zero_csum)
-+		csum_valid = true;
-+
-+	if (!csum_valid)
-+		goto next_pkt;
-+
-+	skbn = alloc_skb(hlen + dlen + RMNET_MAP_DEAGGR_HEADROOM, GFP_ATOMIC);
-+	if (!skbn)
-+		goto next_pkt;
-+
-+	skb_reserve(skbn, hlen + RMNET_MAP_DEAGGR_HEADROOM);
-+	skb_put_data(skbn,
-+		     coal_skb->data + coal_meta->ip_len + coal_meta->trans_len +
-+		     coal_meta->data_offset,
-+		     dlen);
-+
-+	/* Restore transport header */
-+	skb_push(skbn, coal_meta->trans_len);
-+	memcpy(skbn->data, coal_meta->trans_header, coal_meta->trans_len);
-+	skb_reset_transport_header(skbn);
-+
-+	if (coal_meta->trans_proto == IPPROTO_TCP) {
-+		struct tcphdr *th = tcp_hdr(skbn);
-+
-+		th->seq = htonl(ntohl(th->seq) + coal_meta->data_offset);
-+		/* Strip dangerous flags from non-final segments */
-+		if ((th->fin || th->psh) &&
-+		    hlen + coal_meta->data_offset + dlen < coal_skb->len) {
-+			th->fin = 0;
-+			th->psh = 0;
-+		}
-+	} else if (coal_meta->trans_proto == IPPROTO_UDP) {
-+		struct udphdr *uh = udp_hdr(skbn);
-+
-+		uh->len = htons(skbn->len);
-+	}
-+
-+	/* Restore IP header */
-+	skb_push(skbn, coal_meta->ip_len);
-+	memcpy(skbn->data, coal_meta->ip_header, coal_meta->ip_len);
-+	skb_reset_network_header(skbn);
-+
-+	if (coal_meta->ip_proto == 4) {
-+		struct iphdr *iph = ip_hdr(skbn);
-+
-+		iph->id = htons(ntohs(iph->id) + pkt_id);
-+		iph->tot_len = htons(skbn->len);
-+		iph->check = 0;
-+		iph->check = ip_fast_csum(iph, iph->ihl);
-+	} else {
-+		ipv6_hdr(skbn)->payload_len =
-+			htons(skbn->len - sizeof(struct ipv6hdr));
-+	}
-+
-+	rmnet_map_partial_csum(skbn, coal_meta);
-+
-+	skbn->dev = coal_skb->dev;
-+
-+	if (coal_meta->pkt_count > 1)
-+		rmnet_map_gso_stamp(skbn, coal_meta);
-+
-+	__skb_queue_tail(list, skbn);
-+
-+next_pkt:
-+	coal_meta->data_offset += dlen;
-+	coal_meta->pkt_count = 0;
-+}
-+
-+/* Parse the IP header of the coalesced frame and perform basic
-+ * validation of header fields.
-+ */
-+static bool rmnet_map_coal_parse_ip_hdr(struct sk_buff *coal_skb,
-+					struct rmnet_map_coal_metadata *meta,
-+					bool *gro)
-+{
-+	struct ipv6hdr *ip6h;
-+	struct iphdr *iph;
-+	__be16 frag_off;
-+	u8 protocol;
-+	int ret;
-+
-+	if (coal_skb->len < sizeof(*iph))
-+		return false;
-+
-+	iph = (struct iphdr *)coal_skb->data;
-+
-+	if (iph->version == 4) {
-+		meta->ip_proto = 4;
-+		meta->ip_len = iph->ihl * 4;
-+		meta->trans_proto = iph->protocol;
-+		meta->ip_header = iph;
-+		if (meta->ip_len < sizeof(*iph) || coal_skb->len < meta->ip_len)
-+			return false;
-+
-+		if (ip_is_fragment(iph))
-+			return false;
-+
-+		if (iph->ihl != 5)
-+			*gro = false;
-+	} else if (iph->version == 6) {
-+		if (coal_skb->len < sizeof(*ip6h))
-+			return false;
-+
-+		ip6h = (struct ipv6hdr *)iph;
-+		protocol = ip6h->nexthdr;
-+		meta->ip_proto = 6;
-+		ret = ipv6_skip_exthdr(coal_skb, sizeof(*ip6h), &protocol,
-+				       &frag_off);
-+		if (ret < 0 || frag_off)
-+			return false;
-+
-+		meta->ip_len = (u16)ret;
-+		meta->trans_proto = protocol;
-+		meta->ip_header = ip6h;
-+		if (meta->ip_len > sizeof(*ip6h))
-+			*gro = false;
-+	} else {
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+/* Parse the transport header following the IP header into coal_meta. The
-+ * available length is checked before any field is read.
-+ */
-+static bool rmnet_map_coal_parse_trans_hdr(struct sk_buff *coal_skb,
-+					   struct rmnet_map_coal_metadata *meta)
-+{
-+	struct udphdr *uh;
-+	struct tcphdr *th;
-+	u32 avail;
-+	u8 *base;
-+
-+	base = (u8 *)meta->ip_header + meta->ip_len;
-+	avail = coal_skb->len - meta->ip_len;
-+
-+	if (meta->trans_proto == IPPROTO_TCP) {
-+		if (avail < sizeof(*th))
-+			return false;
-+
-+		th = (struct tcphdr *)base;
-+		meta->trans_len = th->doff * 4;
-+		meta->trans_header = th;
-+		if (meta->trans_len < sizeof(*th) || avail < meta->trans_len)
-+			return false;
-+	} else if (meta->trans_proto == IPPROTO_UDP) {
-+		if (avail < sizeof(*uh))
-+			return false;
-+
-+		uh = (struct udphdr *)base;
-+		meta->trans_len = sizeof(*uh);
-+		meta->trans_header = uh;
-+		if (meta->ip_proto == 4 && !uh->check)
-+			meta->zero_csum = true;
-+	} else {
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+/* Reject the frame if the total data bytes claimed by all NLOs exceed
-+ * the actual payload in the SKB.  Each pkt_len covers IP+transport
-+ * headers plus per-packet data. Headers appear once, so subtract hlen
-+ * per packet and check the running sum against available data.
-+ */
-+static bool rmnet_map_coal_validate_bounds(struct sk_buff *coal_skb,
-+					   struct rmnet_map_v5_coal_header *coal_hdr,
-+					   u8 num_nlos, u32 hlen)
-+{
-+	u32 total_data = 0;
-+	u32 nlo_len;
-+	u16 plen;
-+	u8 i;
-+
-+	for (i = 0; i < num_nlos; i++) {
-+		plen = ntohs(coal_hdr->nl_pairs[i].pkt_len);
-+
-+		if (plen < hlen)
-+			return false;
-+
-+		nlo_len = (u32)(plen - hlen) * coal_hdr->nl_pairs[i].num_packets;
-+		if (total_data + nlo_len > coal_skb->len - hlen)
-+			return false;
-+
-+		total_data += nlo_len;
-+	}
-+
-+	return true;
-+}
-+
-+/* Attempt the GRO-friendly fast path for a single-NLO, checksum-valid frame
-+ * by reusing the original SKB and stamping GSO metadata instead of copying
-+ * out each segment.  Returns true if the frame was consumed via the fast
-+ * path, or false if the caller should fall back to full segmentation.
-+ */
-+static bool rmnet_map_coal_gro_fast_path(struct sk_buff *coal_skb,
-+					 struct rmnet_map_v5_coal_header *coal_hdr,
-+					 struct rmnet_map_coal_metadata *coal_meta,
-+					 struct sk_buff_head *list,
-+					 u8 num_nlos, bool gro)
-+{
-+	u32 hlen = coal_meta->ip_len + coal_meta->trans_len;
-+
-+	if (!gro || num_nlos != 1 ||
-+	    !(coal_hdr->coal_info & MAPV5_COALINFO_CSUM_VALID_FLAG))
-+		return false;
-+
-+	coal_meta->data_len = ntohs(coal_hdr->nl_pairs[0].pkt_len) - hlen;
-+	coal_meta->pkt_count = coal_hdr->nl_pairs[0].num_packets;
-+
-+	coal_skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	if (coal_meta->pkt_count > 1) {
-+		rmnet_map_partial_csum(coal_skb, coal_meta);
-+		rmnet_map_gso_stamp(coal_skb, coal_meta);
-+	}
-+
-+	__skb_queue_tail(list, coal_skb);
-+	return true;
-+}
-+
-+/* NLO packet lengths are already bounds-checked by
-+ * rmnet_map_coal_validate_bounds() so no further validation is needed here.
-+ */
-+static void rmnet_map_coal_segment_loop(struct sk_buff *coal_skb,
-+					struct rmnet_map_v5_coal_header *coal_hdr,
-+					struct rmnet_map_coal_metadata *coal_meta,
-+					struct sk_buff_head *list,
-+					u64 nlo_err_mask, bool gro, u8 num_nlos)
-+{
-+	u32 hlen = coal_meta->ip_len + coal_meta->trans_len;
-+	u8 pkt, total_pkt = 0;
-+	bool csum_err;
-+	u16 pkt_len;
-+	u8 nlo;
-+
-+	for (nlo = 0; nlo < num_nlos; nlo++) {
-+		pkt_len = ntohs(coal_hdr->nl_pairs[nlo].pkt_len);
-+		pkt_len -= hlen;
-+		coal_meta->data_len = pkt_len;
-+
-+		/* nlo_err_mask is one flat bitstream across all NLOs. Shift
-+		 * it once per packet in absolute frame order and do not
-+		 * re-align at the NLO boundary above. See the comment on
-+		 * rmnet_map_data_check_coal_header() for why.
-+		 */
-+		for (pkt = 0; pkt < coal_hdr->nl_pairs[nlo].num_packets;
-+		     pkt++, total_pkt++, nlo_err_mask >>= 1) {
-+			csum_err = nlo_err_mask & 1;
-+
-+			if (!gro) {
-+				coal_meta->pkt_count = 1;
-+				__rmnet_map_segment_coal_skb(coal_skb, coal_meta,
-+							     list, total_pkt,
-+							     !csum_err);
-+				continue;
-+			}
-+
-+			if (csum_err) {
-+				if (coal_meta->pkt_count)
-+					__rmnet_map_segment_coal_skb(coal_skb,
-+								     coal_meta,
-+								     list,
-+								     total_pkt,
-+								     true);
-+				coal_meta->pkt_count = 1;
-+				__rmnet_map_segment_coal_skb(coal_skb, coal_meta,
-+							     list, total_pkt,
-+							     false);
-+			} else {
-+				coal_meta->pkt_count++;
-+			}
-+		}
-+
-+		/* Flush remaining packets from this NLO */
-+		if (coal_meta->pkt_count)
-+			__rmnet_map_segment_coal_skb(coal_skb, coal_meta, list,
-+						     total_pkt, true);
-+	}
-+}
-+
-+/* Expand a coalesced SKB into individual IP packets placed on the list.
-+ * NLOs with checksum errors are dropped. __rmnet_map_ingress_handler will
-+ * free the SKB in the error case.
-+ */
-+static int rmnet_map_segment_coal_skb(struct sk_buff *coal_skb,
-+				      u64 nlo_err_mask,
- 				      struct sk_buff_head *list,
- 				      u16 len)
-+{
-+	bool gro = coal_skb->dev->features & NETIF_F_GRO_HW;
-+	struct rmnet_map_v5_coal_header *coal_hdr;
-+	struct rmnet_map_coal_metadata coal_meta;
-+	u8 num_nlos;
-+	u32 hlen;
-+
-+	memset(&coal_meta, 0, sizeof(coal_meta));
-+
-+	/* Drop any MAP frame padding. The coal header is counted in len */
-+	skb_pull(coal_skb, sizeof(struct rmnet_map_header));
-+	skb_trim(coal_skb, len);
-+	coal_hdr = (struct rmnet_map_v5_coal_header *)coal_skb->data;
-+	num_nlos = u8_get_bits(coal_hdr->coal_info, MAPV5_COALINFO_NUM_NLOS_FMASK);
-+	skb_pull(coal_skb, sizeof(*coal_hdr));
-+
-+	if (!rmnet_map_coal_parse_ip_hdr(coal_skb, &coal_meta, &gro))
-+		return -EINVAL;
-+
-+	if (!rmnet_map_coal_parse_trans_hdr(coal_skb, &coal_meta))
-+		return -EINVAL;
-+
-+	hlen = coal_meta.ip_len + coal_meta.trans_len;
-+
-+	if (!rmnet_map_coal_validate_bounds(coal_skb, coal_hdr, num_nlos, hlen))
-+		return -EINVAL;
-+
-+	if (rmnet_map_coal_gro_fast_path(coal_skb, coal_hdr, &coal_meta, list,
-+					 num_nlos, gro))
-+		return 0;
-+
-+	rmnet_map_coal_segment_loop(coal_skb, coal_hdr, &coal_meta, list,
-+				    nlo_err_mask, gro, num_nlos);
-+
-+	return 0;
-+}
-+
-+/* Validate the coalescing header and build the checksum error mask.
-+ *
-+ * Checks performed:
-+ *  - MAP pkt_len accommodates the coal header (coal header is counted in
-+ *    pkt_len. pkt_len < sizeof(*coal_hdr) means no payload is possible).
-+ *  - num_nlos is in [1, RMNET_MAP_V5_MAX_NLOS].
-+ *  - Total packet count does not exceed RMNET_MAP_V5_MAX_PACKETS.
-+ *
-+ * nlo_err_mask is NOT six independent per-NLO bitmaps. Each nl_pairs
-+ * slot only has room for an 8 bit csum_error_bitmap, but a single NLO
-+ * can carry more than 8 packets (up to RMNET_MAP_V5_MAX_PACKETS), so
-+ * hardware spills a wide NLO's error bits into the csum_error_bitmap
-+ * bytes of the following slots rather than truncating them. The
-+ * six bitmap bytes are therefore always concatenated in slot order
-+ * into one flat RMNET_MAP_V5_MAX_NLOS * 8 = RMNET_MAP_V5_MAX_PACKETS
-+ * bit value, addressed by a packet's absolute position in the frame,
-+ * regardless of how many NLOs are actually in use. Receivers must
-+ * walk it as a single contiguous stream and must not expect it to
-+ * align it at NLO boundaries.
-+ */
-+static int rmnet_map_data_check_coal_header(struct sk_buff *skb,
-+					    u64 *nlo_err_mask)
-+{
-+	struct rmnet_map_header *maph = (struct rmnet_map_header *)skb->data;
-+	struct rmnet_map_v5_coal_header *coal_hdr;
-+	u8 num_nlos, pkts = 0;
-+	u64 mask = 0;
-+	int i;
-+
-+	/* coal header is counted in pkt_len */
-+	if (ntohs(maph->pkt_len) < sizeof(*coal_hdr))
-+		return -EINVAL;
-+
-+	coal_hdr = (struct rmnet_map_v5_coal_header *)(skb->data + sizeof(*maph));
-+	num_nlos = u8_get_bits(coal_hdr->coal_info, MAPV5_COALINFO_NUM_NLOS_FMASK);
-+
-+	if (num_nlos == 0 || num_nlos > RMNET_MAP_V5_MAX_NLOS)
-+		return -EINVAL;
-+
-+	for (i = 0; i < RMNET_MAP_V5_MAX_NLOS; i++) {
-+		u8 err = coal_hdr->nl_pairs[i].csum_error_bitmap;
-+		u8 pkt = coal_hdr->nl_pairs[i].num_packets;
-+
-+		mask |= ((u64)err) << (8 * i);
-+		pkts += pkt;
-+		if (pkts > RMNET_MAP_V5_MAX_PACKETS)
-+			return -EINVAL;
-+	}
-+
-+	*nlo_err_mask = mask;
-+	return 0;
-+}
-+
-+int rmnet_map_process_next_hdr_packet(struct sk_buff *skb,
-+				      struct sk_buff_head *list,
-+				      u16 len, u32 data_format)
- {
- 	struct rmnet_priv *priv = netdev_priv(skb->dev);
-+	u64 nlo_err_mask;
-+	int rc;
- 
- 	switch (rmnet_map_get_next_hdr_type(skb)) {
-+	case RMNET_MAP_HEADER_TYPE_COALESCING:
-+		if (!(data_format & RMNET_FLAGS_INGRESS_COALESCE))
-+			return -EINVAL;
-+
-+		rc = rmnet_map_data_check_coal_header(skb, &nlo_err_mask);
-+		if (rc)
-+			return rc;
-+
-+		rc = rmnet_map_segment_coal_skb(skb, nlo_err_mask, list, len);
-+		if (rc)
-+			return rc;
-+
-+		if (skb_peek(list) != skb)
-+			consume_skb(skb);
-+		break;
-+
- 	case RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD:
- 		if (unlikely(!(skb->dev->features & NETIF_F_RXCSUM))) {
- 			priv->stats.csum_sw++;
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
-index 5f921cddf82b..e1e319683a55 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
-@@ -323,6 +323,7 @@ int rmnet_vnd_newlink(u8 id, struct net_device *rmnet_dev,
- 	rmnet_dev->hw_features = NETIF_F_RXCSUM;
- 	rmnet_dev->hw_features |= NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM;
- 	rmnet_dev->hw_features |= NETIF_F_SG;
-+	rmnet_dev->hw_features |= NETIF_F_GRO_HW;
- 
- 	priv->real_dev = real_dev;
- 
-diff --git a/include/linux/if_rmnet.h b/include/linux/if_rmnet.h
-index c44bf6e80ecb..5df4d417f3d2 100644
---- a/include/linux/if_rmnet.h
-+++ b/include/linux/if_rmnet.h
-@@ -70,5 +70,36 @@ struct rmnet_map_v5_csum_header {
- #define MAPV5_HDRINFO_HDR_TYPE_FMASK	GENMASK(7, 1)
- #define MAPV5_CSUMINFO_VALID_FLAG	BIT(7)
- 
-+#define RMNET_MAP_HEADER_TYPE_COALESCING   1
- #define RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD 2
-+
-+/* MAPv5 coalescing header */
-+#define RMNET_MAP_V5_MAX_NLOS		6
-+#define RMNET_MAP_V5_MAX_PACKETS	48
-+
-+/* One Number-Length Object pair: per-NLO packet count and length. */
-+struct rmnet_map_v5_nl_pair {
-+	__be16 pkt_len;
-+	u8  csum_error_bitmap;
-+	u8  num_packets;
-+} __aligned(1);
-+
-+/* MAPv5 coalescing header: describes up to RMNET_MAP_V5_MAX_NLOS NLOs.
-+ * The header immediately follows the MAP header in the frame and is
-+ * included in the MAP pkt_len field.
-+ */
-+struct rmnet_map_v5_coal_header {
-+	u8  header_info;	/* MAPV5_HDRINFO_NXT_HDR_FLAG, MAPV5_HDRINFO_HDR_TYPE_FMASK */
-+	u8  coal_info;		/* MAPV5_COALINFO_* */
-+	u8  close_info;		/* MAPV5_CLOSEINFO_* */
-+	u8  veid_info;		/* MAPV5_VEIDINFO_* */
-+	struct rmnet_map_v5_nl_pair nl_pairs[RMNET_MAP_V5_MAX_NLOS];
-+} __aligned(1);
-+
-+#define MAPV5_COALINFO_NUM_NLOS_FMASK		GENMASK(6, 4)
-+#define MAPV5_COALINFO_CSUM_VALID_FLAG		BIT(7)
-+#define MAPV5_CLOSEINFO_CLOSE_TYPE_FMASK	GENMASK(3, 0)
-+#define MAPV5_CLOSEINFO_CLOSE_VALUE_FMASK	GENMASK(7, 4)
-+#define MAPV5_VEIDINFO_VEID_FMASK		GENMASK(3, 0)
-+
- #endif /* !(_LINUX_IF_RMNET_H_) */
+Changes in v3:
+- Establish the AST2700 interrupt mask in the driver rather than
+  deriving it from the register's contents: ast2700_set_irq() now
+  writes the mask outright, masking every source and unmasking only
+  the ECC ones, and the mask is established before the interrupt is
+  requested.
+- New patch: add myself as a reviewer for the driver in MAINTAINERS.
+- Tested on an AST2600 with CONFIG_PROVE_LOCKING=y; injected correctable
+  errors are reported from the interrupt handler with no lockdep reports.
+- Link to v2: https://lore.kernel.org/r/20260824-edac-v2-0-c8d8bb693586@aspeedtech.com
+
+Changes in v2:
+- New patch: free the ECC interrupt before the mem_ctl_info in
+  aspeed_remove(). The interrupt is requested with devm_request_irq() and
+  is only released after .remove() has returned, so edac_mc_free() could
+  free the handler's context while the handler was still running on
+  another CPU.
+- Acquire the register lock with the irqsave variant in init_csrows() and
+  in aspeed_probe(). The interrupt handler takes the same lock in hardirq
+  context.
+- Move the dev_dbg() of the interrupt status register out of the
+  raw_spinlock critical section in the interrupt handler.
+- Opt aspeed_edac.o into context analysis in drivers/edac/Makefile. The
+  check is opt-in per object, so without it the __guarded_by() annotation
+  added by the same patch was never actually verified.
+- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
+  bit is set; the handler clears only the ECC bits, so unconditionally
+  claiming the interrupt could livelock the level-triggered line.
+- Tested v2 on both AST2600 and AST2700 by injecting a correctable
+  error with the memory controller's ECC error injection; each is
+  reported as a CE with the expected failure address.
+- Link to v1: https://lore.kernel.org/r/20260812-edac-v1-0-03992edea297@aspeedtech.com
+
+---
+Ryan Chen (8):
+      EDAC/aspeed: Set the DIMM grain
+      EDAC/aspeed: Free the interrupt before the mem_ctl_info on remove
+      EDAC/aspeed: Clean up whitespace and include ordering
+      EDAC/aspeed: Free the mem_ctl_info unconditionally on remove
+      dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
+      EDAC/aspeed: Replace regmap with direct register access
+      EDAC/aspeed: Abstract SoC differences behind chip data
+      EDAC/aspeed: Add AST2700 support
+
+Stefan M Schaeckeler (1):
+      MAINTAINERS: Step down as Aspeed AST2500 EDAC driver maintainer
+
+ CREDITS                                            |   8 +
+ .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   6 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/aspeed_edac.c                         | 426 ++++++++++++++-------
+ 5 files changed, 293 insertions(+), 150 deletions(-)
+---
+base-commit: 5464985e42c04e335fb30e38fbc409c997db9bec
+change-id: 20260625-edac-8e960e02e7f7
+
+Best regards,
 -- 
-2.34.1
+Ryan Chen <ryan_chen@aspeedtech.com>
 
