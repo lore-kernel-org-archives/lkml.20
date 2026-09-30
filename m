@@ -1,105 +1,120 @@
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D28B37AA95
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A05436998C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794511; cv=none; b=HICNjtjhpb9nuTbq/2MbrQ/t3w8u6JwMyKBJ08ekBqoHx1ZIxdgyxJZ/XyseV9CZpyn0zLPQzYBfYnafGhdJQPPIQoflBUisDeSy6P/9Z9RQaWSuF2k3HTANAj8i2qQcThxyaUctGZFeCiG8mPgY45960xQD343fGj2ghqWtL3U=
+	t=1790794562; cv=none; b=rXytEUWphQhYm2wdC74H8N8P540Dp9+DVFcagflZOC5BqALG0NHUD6x3bpdkM10ixRgBQ6BQ5GKeuzUAfKpzV/50hLGcM7R6t70wYLMzfCMT/ScQpxIkjzZX3GPmC5ZsIpyzLfn9IrP+buF+B7e9wanzLmgknu7kwEistYwwxIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794511; c=relaxed/simple;
-	bh=cswiScNE3E9pNfXIpCP4WFi2Ae4RTtKOoPD0b7LSKkY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=UnUs4c4EIdCmy4L3B0o/KKEkKyVKufFrOdTI35zXvtRJ7AL0jTGedSPg9/JWtRzafFyX4rQKyF3AurDNOWuuYdDb303kwSYukcFF22khSfE+zXXpfMcXQNBLBzTK8LUS6JBoIlv1Dvr2ITjbv9PXa5GZI9dRmWDq5lPiIp1NmnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DUFGOUt7; arc=none smtp.client-ip=209.85.218.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
+	s=arc-20240116; t=1790794562; c=relaxed/simple;
+	bh=Cdi6iEhAkYqeW0kVp4+sYOmNGIGkZo1BMdz1wK3sr3M=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=GfcEQBP/WSpi7k+0ypvZKi3KcjjeSUcHSlUmn2b0xUFUQTqy3PvVgr2afX9DXRJCkUO5VERidhnuPb4qyPUd61vPlWudt4/s2Xld3gWICThG+2QqipILXlvodVA3t0dwbvlEFwHlOKZwvgX7LEQzY3YanoHR1inMRNzqIUgmFIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eC1lgRtw; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DUFGOUt7"
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25501f4aa2so312641966b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790794507; x=1791399307; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xK4JYgRtStNo4V5zoea2qHX3qmnjaW/h2fp97VQUzUk=;
-        b=DUFGOUt7UdZ7rfHx5hyx+matXCsyiNPoyyWv4So8oeZLzT5lx7ReBMM6mICuHSE3zq
-         ePDjqiL5zHN+XjQuYthG029Alds1Q0WcrD35BXcLo4dJ3HShLOE5fn6+QnWYaXmbWVZV
-         EYp+XVhUEQEnpp+ku5mov1ELNqYaHr1KpOrRC24udH9iUEwDLne8TfFy37Hcrg5jdbyb
-         uDzeOCLaH3QwaYYGKE1uVtEnZUjw2wVEH+HDRWnmL+djqVl65jX0JFMftRXFVoQMoV3z
-         be6/qXdT3ojxles49N5dx7rd7TjG6EJWaS/qMan2mNOjkm5VV6/ttVHFtirbbyT11fCy
-         f0pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790794507; x=1791399307;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xK4JYgRtStNo4V5zoea2qHX3qmnjaW/h2fp97VQUzUk=;
-        b=M71k1Zhdc+gLGfItzemUYYKDaMwh1LkDXOVOZjY6GZ9vB3uiJPbusKam2ucgIJHZtq
-         1aJyWJD8no7f6XHSj9QXfdevp1U8d+grMIZg8H7yBg3qhrDpTxLvs+st5K48ajbr+1j/
-         WcZBnDgbpHHc8hcDb+bCBaNtaKihoOKngLUE+75I3ZwO139yUXzF5x1L7t2+9LpwZ3Dq
-         0DgBrR/zDYlHnDnyin/3xWnf+QHX0CZUi/Ist1GV5EyOV5ja6MSN2yu/1gnPFam9l61v
-         C+ASf5DMJMXH/8Zq20oEmUYwevVlpUJLYYd62fLNfIiibWjnbh/t1UnM74n44A2tyBJC
-         0cXg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhYAf+eaN+iQLyYj65rg1K354ldxa1ed/6UUd24pRmaLWcs6sMRBLp1M31EskoMbaog1z9o5uBGSNGxIs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL8XvGGyMk7C9IRTX5g6Q7AkzaUfv8gZrCdyPZnjdp4rMrFUtF
-	1QJXovy5wcaUllY2t6m2WY8Vj5vUWC8CkSdz56eFt3okainCSpKDArzo5A5fD/nHaNrXQIdi1jP
-	Sg4GD1d0ChYs9oD7E/Q==
-X-Received: from edvm11.prod.google.com ([2002:a05:6402:50b:b0:6a8:1d4c:399])
- (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:8997:b0:c26:1cfd:4244 with SMTP id a640c23a62f3a-c2e33ef130cmr47630166b.11.1790794507256;
- Wed, 30 Sep 2026 11:55:07 -0700 (PDT)
-Date: Wed, 30 Sep 2026 20:55:00 +0200
-In-Reply-To: <art-pgdLHXiCm5l4@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eC1lgRtw"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 735F91A107D;
+	Wed, 30 Sep 2026 18:55:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3F3FB60749;
+	Wed, 30 Sep 2026 18:55:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D77310329045;
+	Wed, 30 Sep 2026 20:55:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790794551; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3okyBMtOMrmtHhftnNhQyM7WK76HdKVGQKG0QkKbBRI=;
+	b=eC1lgRtwtPk9bHaaajBwxI6jHrsZ/yOx9zKaRZa3eCNtQ+atj10Lpry9KrXgmZvlU6Ojjr
+	i4on9Iwj5coqd4tI5S5HFa8mbid4zvTYt4/q1ZzwUUQIa5i6H2gahWJr4VUEzFZQzcOICk
+	sdaOQaUo8fjTBhtuMcYWka3TUY+U6ARNg2Ll+ZzC6QpNgxrAF6LvpAzyF287dNp145B8/L
+	D7MaZpCjjNyK1Hr6BHRZts0iqb3sm2wJGOINZfYX3Ke0OMJVKMAgx8zBj8AS28T3UGvBta
+	G2z9KTtBh4bWvFKYoEH4i2nBn4BMXZTClQFMbv7ig69sau9jQCW27xiEx/X9zg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260923174420.2343724-1-mmaslanka@google.com> <art-pgdLHXiCm5l4@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930185500.198456-1-mmaslanka@google.com>
-Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Poll for role swap completion
-From: Marek Maslanka <mmaslanka@google.com>
-To: tzungbi@kernel.org
-Cc: bleung@chromium.org, abhishekpandit@chromium.org, jthies@google.com, 
-	akuchynski@chromium.org, groeck@chromium.org, raduvele@google.com, 
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Marek Maslanka <mmaslanka@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 20:55:47 +0200
+Message-Id: <DLSVOPXORTQN.3VAUYHPWRAYVO@bootlin.com>
+Subject: Re: [PATCH net-next] net: macb: move printk() calls out of bp->lock
+ critical section
+Cc: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Nicolai Buchwitz" <nb@tipi-net.de>,
+ "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>
+To: <netdev-bot+sinfo@kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260930-macb-irq-v1-1-8994a4c8f3bb@bootlin.com>
+ <179079351154.31693.11286897642165841220@kernel.org>
+In-Reply-To: <179079351154.31693.11286897642165841220@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 29, 2026 at 09:02:30AM +0000, Tzung-Bi Shih wrote:
-> On Wed, Sep 23, 2026 at 07:44:19PM +0200, Marek Maslanka wrote:
-> > +	req.swap = USB_PD_CTRL_SWAP_NONE;
-> > +	end = jiffies + msecs_to_jiffies(ROLE_SWAP_TIMEOUT_MS);
-> > +	for (;;) {
-> > +		if ((resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) &&
-> 
-> Shouldn't PD_CTRL_RESP_ENABLED_CONNECTED remain set during the entire poll?
-> 
-> > +		    cros_typec_resp_to_role(&resp, swap_type) == target_role)
-> > +			break;
-> > +
-> > +		if (time_after_eq(jiffies, end)) {
-> > +			if (!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED)) {
-> > +				dev_err(data->dev, "Port disconnected during role swap\n");
-> > +				return -ENOTCONN;
-> > +			}
-> 
-> Same here: if PD_CTRL_RESP_ENABLED_CONNECTED isn't set in the loop, should
-> it return -ENOTCONN early (i.e., out of this if-block)?
+Hello netdev bot,
 
-Yea Right, thanks. PD_CTRL_RESP_ENABLED_CONNECTED remains set
-throughout the role swap in the EC (both TCPMv2 and PDC keep the port
-in an attached state while a PR_Swap or DR_Swap is in progress).
+On Wed Sep 30, 2026 at 8:38 PM CEST,  wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-The original reason for checking PD_CTRL_RESP_ENABLED_CONNECTED before
-comparing the role was to avoid misinterpreting a cleared resp.role (0)
-on disconnect as TYPEC_SINK or TYPEC_DEVICE, but checking
-!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) at the start of the
-loop and returning -ENOTCONN immediately is much cleaner and avoids
-waiting for the timeout when the port disconnects.
+This is mentioned two fold; in the commit message:
 
-I will update this in v2.
+   The netconsole deadlock is theoretical & never reproduced.
+
+And in the cover letter (folded below the '--' line):
+
+   Technically it is a fix, in practice I'm happy for it to go through
+   net-next/main for more testing and it is a theoretical bugfix (as usual
+   nowadays). Decided after seeing Jakub taking a similar patch into
+   net-next this morning:
+   [...]
+
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+
+I do most of my MACB tests on EyeQ5.
+
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
+
+I love this newly introduced message!
+But here it might have been a false positive (?).
+
+ - Can it read what's below the '--' line?
+
+ - Maybe it could trust the driver maintainers, especially regarding the
+   second question about having access to real hardware?
+
+I looked around to see if this infra was open-source but I couldn't find
+it. Only found the https://github.com/linux-netdev/nipa repo but that's
+not it.
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
