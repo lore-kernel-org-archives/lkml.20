@@ -1,524 +1,134 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011018.outbound.protection.outlook.com [40.93.194.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22234F7984;
-	Wed, 30 Sep 2026 12:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773137; cv=fail; b=UX6edkf8+JYO6vzwBFC+095ano2eL/CKGuEp/pYMyqZispilhVZZlLsi6fUPz2RgLvsdm+zm3jwD13xbXElcD8aFYUWOFjrukltrYvDYFJiyJnK6Kqk5lv2uyzzyDOLn687gLcsGxQmOREKQ/j6njPh9bm8Ia4Ik1k2rMgYdZRI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773137; c=relaxed/simple;
-	bh=mZ/4dM3OPxEyapvuqn+aQIFNFw0WeJ6eP1ZakKjxuFk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JJ26P4Rmqo5/8ZwMdmxYJMq4tHVOEkM1AzqiQi7ScVTpYcycenMvpsqWSUmE3sjkA79mMP51NTWq/phshUfFXI2AQ1l6ESBXriSVtxjf5D8+b9FZl8DH1ikFX85ovDnxDegiYfey9egFXELP2kYPQBrQOWimveWE+WP0wATvL/4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AajpTeA3; arc=fail smtp.client-ip=40.93.194.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1A4DEC18
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790773151; cv=none; b=cfYvMZgFHeiRa5ztGk/Pv/pb/dssjBSl3Pa5wOJFDf/JSGawelFgzTph2sHpewjMf4LN5FppYKEolVF3wz7S6WubWoyd7acsWZzzjjCcX6kDs6yneAX2w4xBLpaHjW8Ed0hpnUVL7xtFIDnzyxVGfJbbGy/CdmyaQv1v+kWKmbE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790773151; c=relaxed/simple;
+	bh=8fjom4nHFHl9t4UeW3B6CslryDoQKv7pGaOEJS5e/QI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j8coat+vMkIya3zrdJ8Ih3tSahlRPSoXwxh3DpF3MbacuuPHWo7MUaady5NzNbzeXFiW8zKO77ZCzAT9g5p41M+ZfJ54c+TtFKxlg7CbB3xm7iNwVdiVmErDIT5eSVTugrutOcUP3RK0xNYO599LKC64SLZzxWxaBQM7laDv1OY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFK/9+aq; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AajpTeA3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xTEyOqlWhLKqi3TQtZSlOftblYNLua/+AsyPKMDQzpZwl62oyHxBnzu4IIO4b/S0trzTLkUGEMExeQVhNyRF8td5dyLe/1rSN+pk6oi70mI6yFuc7iqLZI2jpPPsAkOjDx6EUQajaEFd60ooQLUmPoxRMdjwtnqiH+vq5jc1Wjme0zIB3B1LP4uw939RnOgV53AhsQ6YkTk7iSyuv72sRXNq9H4bJPla2cLRodjLCUt0y/K9FQetBnzWAeUXFH9+CkNnOh3sPIjo0w29HWQHDpXWBty5eo1AhXjr+xeqTHg/7rkF3yPMAZRnXLnfp376WQuF7aCHsJarAZTF6N006A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w46/sTMYxZjt9f6NqhDtIynSo9ZqLuGba1heRyAmlXI=;
- b=RJL7Vubo1HpiJ4EDV2a4oxOF99NOh3gRE+BcufTbMhnH58dXJzJnm2QkWL+SyhWltRgtEw623qOOmh7evS06hUtBF/jH0trGgXTFAqegCbyePulKEC0jBPC5FehtsMff9ok6ascuLMWtvuUtXFZaWR1aOz+LY43mJau62jB/A57+d1a5s+rJiLxuw49pMjD/GCQM8VwueHjjlIfRazxIlsqYEHWr1+Zr5I1HkklbaAGFxlsRjD9/g1Rs+YBpOMbzxhGsGpEXWNlr8xonbiwlVLt7Nlc7xqVea1IhW7jJXCPh6DbEIwPn6tFo9OwtXAXQ+OAxHWqC9Zf/dLy0o5sa/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w46/sTMYxZjt9f6NqhDtIynSo9ZqLuGba1heRyAmlXI=;
- b=AajpTeA3sCQ2ZxgD8Y9E5O6wAODDI/uR52OvAkOuS1SX0+fHGiQi+h5LplGkHzejPsFpfCwvIxCxPTiA75OIV/4fVxWFv7xG4S6GHhb9X5hkogwcJh81l638f0axP9cyY3nGxtVM8ClUOQm+1b8CoO8dL2MBkiuwVO1dcc/+ehO9xuVOX/y+I1rhJS6fsMHCc+FNCmv1IsdnXMXCL4tERMQlf9ENaai+svnjT1DdwtXQSbZBYPga9aj7ZHlr/8PLa6H1Iu28dYYYni/b66M8Q3bvcMXOitGJOfEoYCxkLKHeBzpDnkDN0GxZpgPOFzjmLcnbY1QLVexfvUvSVJ+WJQ==
-Received: from BN8PR04CA0061.namprd04.prod.outlook.com (2603:10b6:408:d4::35)
- by IA1PR12MB6018.namprd12.prod.outlook.com (2603:10b6:208:3d6::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 12:58:36 +0000
-Received: from BN3PEPF0000B372.namprd21.prod.outlook.com
- (2603:10b6:408:d4:cafe::81) by BN8PR04CA0061.outlook.office365.com
- (2603:10b6:408:d4::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 12:58:36 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- BN3PEPF0000B372.mail.protection.outlook.com (10.167.243.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 12:58:36 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 05:58:18 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 05:58:17 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 05:58:14 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Carolina Jubran <cjubran@nvidia.com>, Gal Pressman <gal@nvidia.com>, "open
- list" <linux-kernel@vger.kernel.org>, Shahar Shitrit <shshitrit@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>, Leon Romanovsky <leon@kernel.org>, "Mark
- Bloch" <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Dragos
- Tatulea <dtatulea@nvidia.com>
-Subject: [PATCH net-next 5/5] net/mlx5: nodnic: Add health monitoring
-Date: Wed, 30 Sep 2026 15:57:08 +0300
-Message-ID: <20260930125708.144767-6-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260930125708.144767-1-tariqt@nvidia.com>
-References: <20260930125708.144767-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFK/9+aq"
+Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2e2d58a3b05so11279945ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790773144; x=1791377944; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mLsfa7AISEbL2xx9aoGfBDqSveeoW+tgNPNPQlBJYZY=;
+        b=sFK/9+aqEN9bIN5Xv5Hbc5nk/odedfrwiHFswNp8adnksHus5E/XYA/FrZ3Ny/mHNG
+         rwFOmypK2rPk2Zi4ak0pA1qYDgTmk0s2+9cp0M+mwUabD3fpA1E8vEe2Cmwqam8jP1mP
+         74ha5GPRFRxUVSWrM/QLG54ar6ALAT39DS/aI8cUDXHo51cWtAtEHLHL5M9vxkfypXYp
+         nhdV3c9GbF2YxUpKTo0+83zW5dW9Z8uQeFp2y8mm567S5+PlvZiDOYfl5efJgrZ2mKra
+         q4mQ0qPEdfWwnbxsHeCQlA7niyE7X42OPplbb1n1gmGJiJOJrmc65x/jRasXTa2wN9rq
+         gDLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790773144; x=1791377944;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mLsfa7AISEbL2xx9aoGfBDqSveeoW+tgNPNPQlBJYZY=;
+        b=ZmlHFYXXg6v5McJMeGaNApTvHO0UQl9aMzzFDPo2WajlY1rb1T4zLNDU6hLRfC8U1u
+         JpshxPCi4N/f4LOOqys1jIhCzAo8j6eRJ5UbZTVYQv+eHfhSQVKIGzAwqD0HGtRZ8Xz3
+         +7EQkTb9umhbI3oLFXySCDI+k6VX7+JpsMGTTc47NoJJk7gWg5Dykm/dkxZBo4HI++d2
+         9bACDbyLjql3apQp4xHSbn6N339P1Swnx+zAPaga9ZnuKNG9cvSierB3esRiYBZpZA4z
+         e6JTHmK6ffAdyKFsOKUaSgIRd1aGPpML1qE09qMtn+YCJzsXHc6WYVxUak4TR1qu0djY
+         tWOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTXddA98ELWgJndzZ0eQWjpIi2Vhnj/YCLDcXcD3WyIpX3WSFM5zitQC1h0lk+EnBsaRmSze+kh4peO2s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/0ricO3cvKhRtCZbpfIs2pqMDj9m09ICrvsj36XkxQz+jq3lM
+	1yZvlIOk9BQs5eOAXKyRuh3ENznXuduDGD1xfN7nManDmA0mVCzKoexa
+X-Gm-Gg: AYBFou1A0fltWV24dYnm/IlYDezKncQuF9skF9LnstHPISjLQVf7eBvQlbuZ8DHNVtL
+	VmyQHlAC902p1yoaypRpvEbG7CoEPKZ5XPyUFNadimfxjF2ThhV0Wnk+Qj0KwBLpu/wOxNcei9t
+	bEOAnbQodCOgnxtMjqfbIuX+IeRvp3TKFFV7rEnVz0S6g/sP25a9Vd5gOABrkuw0Z7J+eTUjP7O
+	UxsS5Xetn6I5dxAtYA4kOLGzzjrKuGBJBTjA1BMmQgUj6H73IycPmrjb85V5q5HT+xNFNLoEL/f
+	6Mqttn00mU1JY+5CS9njFtHZAooJ6MoO1P3D1mEpm8SzDB0YU+SO0Bp5KS9fMgMkqRvNgQLMnxI
+	kSX1KrO+FkxuuMRHQXPR3GDQzFdJMx8Z2n7YJf63kFWJ/y7qs0tGiQ93Dg0dqlE48hut8zdr4KO
+	MX5QsVXOcCgzazioyEhTMIOZcXvMCR6u0CzL/CV/e2eLFClSNmVOJLBsB3Fp7G/uIMow1+4uQgu
+	koDmpf9huEK7S8nljvMtNXe7BSDngMmmbKLkkdn8utvqrCjAwsQniPf24kX0yByffYQ9JMelXS3
+	eoZ6FiJ0nA==
+X-Received: by 2002:a17:903:2287:b0:2dd:c100:942f with SMTP id d9443c01a7336-2e2e49fd148mr12492185ad.45.1790773144112;
+        Wed, 30 Sep 2026 05:59:04 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5c1b3d7sm6751925ad.70.2026.09.30.05.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 05:59:03 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v7 1/2] serial: core: fix baud rate fallback in uart_get_baud_rate()
+Date: Wed, 30 Sep 2026 12:59:00 +0000
+Message-ID: <20260930125901.778868-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260930125901.778868-1-benquike@gmail.com>
+References: <20260930125901.778868-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B372:EE_|IA1PR12MB6018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 564b063d-a9d3-4813-3424-08df1ef28a8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|18002099003|22082099003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	tZhIb+1cFhMgZL/yEpVPxIcV9X8BFyb4YHUkCn8dM2ZYApnmuCWeAUGpWLEVyo4hUvquiI7lCZRWnol9YGe4KQ4+sw9cOukuvpdMVUaZ+ftLry/oS2U2iVUOGV69AGacZBxADEQG1WbXo1KlldVA0faSuLTHLTozGS2swy03EWpXSrgcH/wEN29H2pupyJa/HWII34fh/aNht5bM/U6o9GjPsjqiuMwkU4MSuyrWJTX+GTcZYxiQ4Id0X8pwooMvWTEFVwQwb/w+IU5uPXciHLf2TZOVKx4NuT4zSmnh/kwtdrPDou2C6ikxTgwXaLL0p4xricMBU5P9IlrdzOMeLpJfsYhKBE/suABiW85A+3vI4+nX/bLTDnAgyHIinGZtcZKxg5wBJwgsqCab8gXQpNLdKqdleu+2CavhPtl1pTiZfOBrO9c8HdBPJ9T+t85jvSIA2Z7G/0Q1yYYSa38sKi+9hmIVFtEqnoLlcrvCj2afJANUgGf/bfVDLB1RVDQSNaINn6Nqg37X8A+8bprIQA5cIlIiB1Z1iY93QZqVZAg906eKH07YN49UCd2GX1OjfYzmz5PTubeWsE+4qxOiOT9mmbxhh6G4t+mlxdnk/hzVJy655ZNVI+qMqSJw/XXTLB5430T23H+IMxqgNo3tFoVRlMB0r+9xXBPZGslSEu4F3MFsyg22tYemTWjfvMKGEn0gDkJHKFdIHNEA81NxDg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oU7hLa8iBO2M8kctk6HUDeLiIOcuAv7SBZvyGvC/Is3DRy4PiAiRy/g93bNNkH6fECYeqHZuHMrnsWm/R0ly6hkGFjsyFzYMtAaHQw3/CVh0/b0K/CMUE9MeZc/l6xp6SRbRex1kMcLcpL2LmRaVaq+4sy4ljaW5+RDZA9p8X/kQar4CJbUubFTvlnARJhncDNgEPfP0hVuInc2TnRQg25xwd8pUtmCW1yWHboCOhotzQ70Jzh9M3MRkrtLYEw2Uh8+Jva4R9GO+3FD3F4bMDWOi6rPVIET6ajaTo85PAXzdi+Nc4xZT8VpbxNkAPJhCx/6O/DZdgebFsEK9hjoky67P5QRl7xKBruL1zopL3NuBcTp6VcBylGuM76a0KDjPdheT2KoyUAFug4HjSjc0S+wquv80Y74KgsOp0Zcg/3zt+4UIH8Mf/otxZdx04mBR
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:58:36.3320
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 564b063d-a9d3-4813-3424-08df1ef28a8b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B372.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6018
 
-From: Shahar Shitrit <shshitrit@nvidia.com>
+When uart_get_baud_rate() is called with a baud rate exceeding the port's
+maximum supported speed (port->uartclk / 16), it clips baud to [min,
+max - 1] and encodes it into termios via tty_termios_encode_baud_rate().
 
-Monitor firmware health by periodically polling the health buffer from
-the initialization segment.
+However, because the loop bound is for (try = 0; try < 2; try++), the
+loop terminates immediately after try == 1 without re-evaluating
+baud = tty_termios_baud_rate(termios) for the clipped rate, hitting
+WARN_ON(1) and returning 0, which then triggers a fatal divide-by-zero
+(Oops: divide error) in uart_get_divisor():
 
-Detect fatal device conditions, firmware health counter stalls, and
-syndrome changes. Report health errors together with their severity
-and mark the device as unhealthy on fatal conditions.
+  WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate+0x136/0x260
+  [ ... ]
+  divide error: 0000 [#1] PREEMPT SMP KASAN
 
-Start and stop health polling as part of the device probe and remove
-flows.
+Increase the retry count in uart_get_baud_rate() from 2 to 3 iterations so
+that clipped baud rates are re-evaluated in the third iteration.
 
-Signed-off-by: Shahar Shitrit <shshitrit@nvidia.com>
-Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Tested in QEMU against Linux 7.3.0-rc3 by setting B4000000 on /dev/ttyS0 via
+tcsetattr(): on the unfixed kernel it triggers WARN_ON(1) and divide-by-zero
+Oops, whereas with this fix applied uart_get_baud_rate() smoothly falls back
+to 115200 without error.
+
+Fixes: 091ea8e5d34e ("serial: core: prevent division by zero by always returning non-zero baud rate")
+Cc: stable@vger.kernel.org
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
- .../ethernet/mellanox/mlx5/nodnic/Makefile    |   2 +-
- .../net/ethernet/mellanox/mlx5/nodnic/en.h    |  12 +
- .../ethernet/mellanox/mlx5/nodnic/health.c    | 315 ++++++++++++++++++
- .../net/ethernet/mellanox/mlx5/nodnic/main.c  |   2 +
- 4 files changed, 330 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/mellanox/mlx5/nodnic/health.c
+ drivers/tty/serial/serial_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/Makefile b/drivers/net/ethernet/mellanox/mlx5/nodnic/Makefile
-index 25865d7244d8..1d09edeaf3af 100644
---- a/drivers/net/ethernet/mellanox/mlx5/nodnic/Makefile
-+++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/Makefile
-@@ -5,4 +5,4 @@
- 
- obj-$(CONFIG_MLX5_NODNIC) += mlx5_nodnic.o
- 
--mlx5_nodnic-y := main.o en.o en_cfg.o tx.o rx.o nodnic_pci_vsc.o
-+mlx5_nodnic-y := main.o en.o en_cfg.o tx.o rx.o nodnic_pci_vsc.o health.o
-\ No newline at end of file
-diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h b/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
-index d811bfe242ac..90e9f273d454 100644
---- a/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
-@@ -113,6 +113,16 @@ struct mlx5_nodnic_working_buffer {
- 	u32 alloc_size;
- };
- 
-+struct mlx5_nodnic_health {
-+	struct health_buffer __iomem   *health;
-+	__be32 __iomem		       *health_counter;
-+	struct timer_list		timer;
-+	u32				prev_counter;
-+	int				miss_counter;
-+	u8				synd;
-+	u32				fatal_error;
-+};
-+
- struct mlx5_nodnic_priv {
- 	struct mlx5_nodnic_core_dev *core_dev;
- 	struct net_device *netdev;
-@@ -128,6 +138,8 @@ struct mlx5_nodnic_priv {
- 	struct mlx5_nodnic_dbr	dbr; /* one shared dbr for TX and RX */
- 	struct mlx5_nodnic_cq	cq;
- 	struct mlx5_nodnic_ring	working_buffer;
-+
-+	struct mlx5_nodnic_health health;
- };
- 
- void mlx5_nodnic_build_netdev(struct net_device *netdev);
-diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/health.c b/drivers/net/ethernet/mellanox/mlx5/nodnic/health.c
-new file mode 100644
-index 000000000000..a981a5195c7e
---- /dev/null
-+++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/health.c
-@@ -0,0 +1,315 @@
-+// SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
-+// Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+#include <linux/kernel.h>
-+#include <linux/random.h>
-+#include <linux/timer.h>
-+#include <linux/types.h>
-+
-+#include "en.h"
-+#include "nodnic_ifc.h"
-+#include "nodnic.h"
-+
-+#define MLX5_NODNIC_HEALTH_POLL_INTERVAL_MS 2000
-+#define MLX5_NODNIC_MAX_MISSES	3
-+
-+enum nodnic_rfr_severity_bit_offsets {
-+	NODNIC_CRR_BIT_OFFSET = 0x6,
-+	NODNIC_RFR_BIT_OFFSET = 0x7,
-+};
-+
-+enum {
-+	MLX5_NODNIC_SEVERITY_MASK	= 0x7,
-+	MLX5_NODNIC_SEVERITY_VALID_MASK	= 0x8,
-+};
-+
-+enum  {
-+	MLX5_NODNIC_SENSOR_NO_ERR,
-+	MLX5_NODNIC_SENSOR_PCI_COMM_ERR,
-+	MLX5_NODNIC_SENSOR_PCI_ERR,
-+	MLX5_NODNIC_SENSOR_NIC_DISABLED,
-+	MLX5_NODNIC_SENSOR_NIC_SW_RESET,
-+	MLX5_NODNIC_SENSOR_FW_SYND_RFR,
-+};
-+
-+static unsigned long get_next_poll_jiffies(void)
-+{
-+	return jiffies + msecs_to_jiffies(MLX5_NODNIC_HEALTH_POLL_INTERVAL_MS) +
-+	       get_random_u32_below(HZ);
-+}
-+
-+static bool sensor_pci_not_working(struct mlx5_nodnic_health *health)
-+{
-+	struct health_buffer __iomem *h = health->health;
-+
-+	return (ioread32be(&h->fw_ver) == 0xffffffff);
-+}
-+
-+static u8 mlx5_nodnic_get_nic_state(struct mlx5_nodnic_core_dev *dev)
-+{
-+	return (ioread32be(&dev->iseg->cmdq_addr_l_sz) >> 8) & 7;
-+}
-+
-+static int mlx5_nodnic_health_get_rfr(u8 rfr_severity)
-+{
-+	return rfr_severity >> NODNIC_RFR_BIT_OFFSET;
-+}
-+
-+static bool sensor_fw_synd_rfr(struct mlx5_nodnic_core_dev *dev)
-+{
-+	struct mlx5_nodnic_health *health = &dev->priv->health;
-+	struct health_buffer __iomem *h = health->health;
-+	u8 synd = ioread8(&h->synd);
-+	u8 rfr;
-+
-+	rfr = mlx5_nodnic_health_get_rfr(ioread8(&h->rfr_severity));
-+
-+	if (rfr && synd)
-+		mlx5_nodnic_core_dbg(dev, "FW requests reset, synd: %d\n",
-+				     synd);
-+
-+	return rfr && synd;
-+}
-+
-+static
-+u32 mlx5_nodnic_health_check_fatal_sensors(struct mlx5_nodnic_core_dev *dev)
-+{
-+	u32 nic_state;
-+
-+	if (pci_channel_offline(dev->pdev))
-+		return MLX5_NODNIC_SENSOR_PCI_ERR;
-+	if (sensor_pci_not_working(&dev->priv->health))
-+		return MLX5_NODNIC_SENSOR_PCI_COMM_ERR;
-+
-+	nic_state = mlx5_nodnic_get_nic_state(dev);
-+	if (nic_state == MLX5_NODNIC_ISEG_NIC_INTERFACE_DISABLED)
-+		return MLX5_NODNIC_SENSOR_NIC_DISABLED;
-+	if (nic_state == MLX5_NODNIC_ISEG_NIC_INTERFACE_SW_RESET)
-+		return MLX5_NODNIC_SENSOR_NIC_SW_RESET;
-+
-+	if (sensor_fw_synd_rfr(dev))
-+		return MLX5_NODNIC_SENSOR_FW_SYND_RFR;
-+
-+	return MLX5_NODNIC_SENSOR_NO_ERR;
-+}
-+
-+static const char *mlx5_nodnic_fatal_error_str(u32 err)
-+{
-+	switch (err) {
-+	case MLX5_NODNIC_SENSOR_PCI_COMM_ERR: return "PCI communication error";
-+	case MLX5_NODNIC_SENSOR_PCI_ERR:      return "PCI error";
-+	case MLX5_NODNIC_SENSOR_NIC_DISABLED: return "NIC disabled";
-+	case MLX5_NODNIC_SENSOR_NIC_SW_RESET: return "NIC SW reset";
-+	case MLX5_NODNIC_SENSOR_FW_SYND_RFR:  return "FW synd RFR";
-+	default:                       return "unknown";
-+	}
-+}
-+
-+static int mlx5_nodnic_health_get_crr(u8 rfr_severity)
-+{
-+	return (rfr_severity >> NODNIC_CRR_BIT_OFFSET) & 0x01;
-+}
-+
-+static int mlx5_nodnic_health_get_severity(u8 rfr_severity)
-+{
-+	return rfr_severity & MLX5_NODNIC_SEVERITY_VALID_MASK ?
-+	       rfr_severity & MLX5_NODNIC_SEVERITY_MASK : LOGLEVEL_ERR;
-+}
-+
-+/* Syndrome values from health buffer (same as mlx5_ifc.h) */
-+static const char *mlx5_nodnic_hsynd_str(u8 synd)
-+{
-+	switch (synd) {
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_FW_INTERNAL_ERR:
-+		return "firmware internal error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_DEAD_IRISC:
-+		return "irisc not responding";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_HW_FATAL_ERR:
-+		return "unrecoverable hardware error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_FW_CRC_ERR:
-+		return "firmware CRC error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_ICM_FETCH_PCI_ERR:
-+		return "ICM fetch PCI error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_ICM_PAGE_ERR:
-+		return "HW fatal error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_ASYNCHRONOUS_EQ_BUF_OVERRUN:
-+		return "async EQ buffer overrun";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_EQ_IN_ERR:
-+		return "EQ error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_EQ_INV:
-+		return "Invalid EQ referenced";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_FFSER_ERR:
-+		return "FFSER error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_HIGH_TEMP_ERR:
-+		return "High temperature";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_ICM_PCI_POISONED_ERR:
-+		return "ICM fetch PCI data poisoned error";
-+	case MLX5_NODNIC_ISEG_HEALTH_SYNDROME_TRUST_LOCKDOWN_ERR:
-+		return "Trust lockdown error";
-+	default:
-+		return "unrecognized error";
-+	}
-+}
-+
-+static const char *mlx5_nodnic_loglevel_str(int level)
-+{
-+	switch (level) {
-+	case LOGLEVEL_EMERG:
-+		return "EMERGENCY";
-+	case LOGLEVEL_ALERT:
-+		return "ALERT";
-+	case LOGLEVEL_CRIT:
-+		return "CRITICAL";
-+	case LOGLEVEL_ERR:
-+		return "ERROR";
-+	case LOGLEVEL_WARNING:
-+		return "WARNING";
-+	case LOGLEVEL_NOTICE:
-+		return "NOTICE";
-+	case LOGLEVEL_INFO:
-+		return "INFO";
-+	case LOGLEVEL_DEBUG:
-+		return "DEBUG";
-+	}
-+	return "Unknown log level";
-+}
-+
-+static const char *mlx5_nodnic_severity_to_kern(int severity)
-+{
-+	if (severity <= LOGLEVEL_ERR)
-+		return KERN_ERR;
-+
-+	if (severity <= LOGLEVEL_WARNING)
-+		return KERN_WARNING;
-+
-+	return KERN_INFO;
-+}
-+
-+static void mlx5_nodnic_print_health_info(struct mlx5_nodnic_core_dev *dev)
-+{
-+	struct mlx5_nodnic_health *health = &dev->priv->health;
-+	struct health_buffer __iomem *h = health->health;
-+	struct device *device = dev->device;
-+	u8 synd = ioread8(&h->synd);
-+	const char *kern_severity;
-+	u8 rfr_severity;
-+	int severity;
-+	int i;
-+
-+	if (!synd)
-+		return;
-+
-+	if (sensor_pci_not_working(&dev->priv->health)) {
-+		mlx5_nodnic_core_err(dev, "PCI slot is unavailable\n");
-+		return;
-+	}
-+
-+	rfr_severity = ioread8(&h->rfr_severity);
-+	severity = mlx5_nodnic_health_get_severity(rfr_severity);
-+	kern_severity = mlx5_nodnic_severity_to_kern(severity);
-+
-+	dev_printk(kern_severity, device,
-+		   "Health issue observed, %s, severity(%d) %s:\n",
-+		   mlx5_nodnic_hsynd_str(synd), severity,
-+		   mlx5_nodnic_loglevel_str(severity));
-+
-+	for (i = 0; i < ARRAY_SIZE(h->assert_var); i++)
-+		dev_printk(kern_severity, device, "assert_var[%d] 0x%08x\n", i,
-+			   ioread32be(h->assert_var + i));
-+
-+	dev_printk(kern_severity, device, "assert_exit_ptr 0x%08x\n",
-+		   ioread32be(&h->assert_exit_ptr));
-+	dev_printk(kern_severity, device, "assert_callra 0x%08x\n",
-+		   ioread32be(&h->assert_callra));
-+	dev_printk(kern_severity, device, "raw fw_ver 0x%08x\n",
-+		   ioread32be(&h->fw_ver));
-+	dev_printk(kern_severity, device, "time %u\n", ioread32be(&h->time));
-+	dev_printk(kern_severity, device, "hw_id 0x%08x\n",
-+		   ioread32be(&h->hw_id));
-+	dev_printk(kern_severity, device, "rfr %d\n",
-+		   mlx5_nodnic_health_get_rfr(rfr_severity));
-+	dev_printk(kern_severity, device, "crr %d\n",
-+		   mlx5_nodnic_health_get_crr(rfr_severity));
-+	dev_printk(kern_severity, device, "severity %d (%s)\n", severity,
-+		   mlx5_nodnic_loglevel_str(severity));
-+	dev_printk(kern_severity, device, "irisc_index %d\n",
-+		   ioread8(&h->irisc_index));
-+	dev_printk(kern_severity, device, "synd 0x%x: %s\n", synd,
-+		   mlx5_nodnic_hsynd_str(synd));
-+	dev_printk(kern_severity, device, "ext_synd 0x%04x\n",
-+		   ioread16be(&h->ext_synd));
-+
-+	if (mlx5_nodnic_health_get_crr(rfr_severity))
-+		mlx5_nodnic_core_warn(dev, "Cold reset is required\n");
-+}
-+
-+static void mlx5_nodnic_poll_health(struct timer_list *t)
-+{
-+	struct mlx5_nodnic_priv *priv = timer_container_of(priv, t,
-+							   health.timer);
-+	struct mlx5_nodnic_core_dev *dev = priv->core_dev;
-+	struct mlx5_nodnic_health *health = &priv->health;
-+	struct health_buffer __iomem *h = health->health;
-+	u32 fatal_error, count;
-+	u8 prev_synd;
-+
-+	if (dev->state == NODNIC_DEVICE_STATE_INTERNAL_ERROR)
-+		return;
-+
-+	fatal_error = mlx5_nodnic_health_check_fatal_sensors(dev);
-+
-+	if (fatal_error && !health->fatal_error) {
-+		mlx5_nodnic_core_err(dev, "fatal error detected: %s (%u)\n",
-+				     mlx5_nodnic_fatal_error_str(fatal_error),
-+				     fatal_error);
-+		priv->health.fatal_error = fatal_error;
-+		dev->state = NODNIC_DEVICE_STATE_INTERNAL_ERROR;
-+		mlx5_nodnic_print_health_info(dev);
-+		return;
-+	}
-+
-+	count = ioread32be(health->health_counter);
-+	if (count == health->prev_counter)
-+		++health->miss_counter;
-+	else
-+		health->miss_counter = 0;
-+
-+	health->prev_counter = count;
-+	if (health->miss_counter == MLX5_NODNIC_MAX_MISSES) {
-+		mlx5_nodnic_core_err(dev,
-+				     "device's health compromised - reached miss count\n");
-+		health->synd = ioread8(&h->synd);
-+		mlx5_nodnic_print_health_info(dev);
-+	}
-+
-+	prev_synd = health->synd;
-+	health->synd = ioread8(&h->synd);
-+	if (health->synd && health->synd != prev_synd)
-+		mlx5_nodnic_print_health_info(dev);
-+
-+	mod_timer(&health->timer, get_next_poll_jiffies());
-+}
-+
-+void mlx5_nodnic_start_health_poll(struct mlx5_nodnic_core_dev *dev)
-+{
-+	struct mlx5_nodnic_health *health = &dev->priv->health;
-+
-+	timer_setup(&health->timer, mlx5_nodnic_poll_health, 0);
-+	health->fatal_error = MLX5_NODNIC_SENSOR_NO_ERR;
-+	health->miss_counter = 0;
-+	health->prev_counter = 0;
-+	health->synd = 0;
-+	health->health = &dev->iseg->health;
-+	health->health_counter = &dev->iseg->health_counter;
-+
-+	health->timer.expires = jiffies +
-+			msecs_to_jiffies(MLX5_NODNIC_HEALTH_POLL_INTERVAL_MS);
-+	add_timer(&health->timer);
-+}
-+
-+void mlx5_nodnic_stop_health_poll(struct mlx5_nodnic_core_dev *dev)
-+{
-+	struct mlx5_nodnic_health *health = &dev->priv->health;
-+
-+	timer_delete_sync(&health->timer);
-+}
-diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/main.c b/drivers/net/ethernet/mellanox/mlx5/nodnic/main.c
-index d77d9dbe3c89..d6720c72905f 100644
---- a/drivers/net/ethernet/mellanox/mlx5/nodnic/main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/main.c
-@@ -814,6 +814,7 @@ static int mlx5_nodnic_probe_one(struct pci_dev *pdev,
- 	dev->netdev_registered = true;
- 
- 	dev->state = NODNIC_DEVICE_STATE_UP;
-+	mlx5_nodnic_start_health_poll(dev);
- 
- 	pci_save_state(pdev);
- 
-@@ -839,6 +840,7 @@ static void mlx5_nodnic_remove_one(struct pci_dev *pdev)
- 	if (!dev)
- 		return;
- 
-+	mlx5_nodnic_stop_health_poll(dev);
- 	mlx5_nodnic_event_irq_cleanup(dev);
- 	mlx5_nodnic_cleanup_netdev(dev);
- 	mlx5_nodnic_dev_cleanup(dev);
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index f91bcfa30113..6ed0195e6912 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -470,7 +470,7 @@ unsigned int uart_get_baud_rate(struct uart_port *port, struct ktermios *termi
+ 	 * Ask the low level driver to verify the baud rate if it can't
+ 	 * then it will have encode_baud_rate set the Closet else .
+ 	 */
+-	for (try = 0; try < 2; try++) {
++	for (try = 0; try < 3; try++) {
+ 		baud = tty_termios_baud_rate(termios);
+
+ 		/*
 -- 
-2.44.0
-
+2.47.3
