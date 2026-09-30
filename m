@@ -1,99 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B433CF69E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B923B47CD
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762511; cv=none; b=VZr62kjp5g9lfYUVBz1EumCnCaM7G6ba4yOg8lnyA7LcJxCfW5QNFBPTVDJu5jpNwK57k7+NzqPOEzrUG+iE4Sg7q+N1A2zjTo1t3VPiGxhSekLe9iPsIy+nuFGky7FBS+bzr92EDprSduqPQ74inq4d9Huu3ylHh9rOaA3cfyo=
+	t=1790762528; cv=none; b=gNlNXYyhFmetB8bzuxDHF+yqF9IcgYtfDqtUvf4atRUc5Rag8bagDODFKFbvp0BbOT+z5DMrMpajmenPG+uNdwXR6LyZH+M7EhmmWLVaO8LMSISPl9JyIE3zwwwHznhiyPDJilUxx/P8HQARo+rEaECmrSdvAQbqFHFfqKFb+3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762511; c=relaxed/simple;
-	bh=kCHCHQfJzfg0Bs1eiO7xT/Q6SblBi2fuN7AUltRtD2c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a7ofYca0Q7+U7MboRWzwds+y+zt2PCp5GiyaxTRLAGQheXm8jltstuV5HvJP1AA3ihhk/MjNkzsfXAcxD2w0OLRLS+nEeRVjXoJpfq1F0cEqkjhSXWaYz6beHUwaugJKyDgggMBjLLuCmv3k4sDA3mBC5JWG0/0Cz+atHgllDVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbAAhxih; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762528; c=relaxed/simple;
+	bh=ArVbgSqduACOmxfcVTHJQFHzScRMnex7G2M+AqLIu0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eA2M78rOKv3H79ZAvABoonI/xigtzAY54w3gd1Sk7zhgtJEbgu+cryrOmP0pkSDmue8F0P6aZbnFK9ZDFBoYhV7ByNJEVwP6mukWwaKzxnB9d/gJ0MJOE7f5yb4i0JnfOsVoRMM7b/PnJkzY1AokwW0Shu6lT37K0YDIFGSdoxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wme4cJXJ; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbAAhxih"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1AA1F0089F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762510;
-	bh=/77b7tpaX0IwG1F2p/oj+zPmslsEIceRWx3ywaCJbao=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XbAAhxihvq3X6cp/ooGX+9gjCx7cGjKtNmz8t2jgW1kQu1xNMKZpGviQnXvnSP3ZR
-	 iFfg64TfFpfdeTQKifI/NcNRZ4QuQ/aobMXSDWaQaMMf2o0hNAvesC6pW9Uu/ZHUaq
-	 QhnV+45aH67m38gnJ/KOv+Ch9RwxPPKziFMzqSmpUwsoVe3gbUKvItVN9bXrFv1mPA
-	 rZ/40vO8nuwgsKul2mD874GeneupgUdGNA5KdyvlKWFREsUV1VO2sUwIVf07BsVqnb
-	 yKD68VrwO1BCqZG7f2QQo//UcLRu2Q84ebr6Ibt7Is2o0KPKJxvRDed+Z1ehkK2WEP
-	 psGZU88KXXSjQ==
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso9141294a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:01:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzZPcmYUa6/7LGRWB2IzZtzzvHjXEHEVy32GIAjQYtYO3Lwr+yS5Qwt8yZtrNfpssuhaALtRfc/WaUnQDA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltoCW0ZyI67CvjmRMLfhQGrMzF8nSmdD6mFlQ6FQsM4YydBJJ2
-	1vypgo6tfOvKSEaL912BWBUXQ80Z6C3V6tSwqz73sBInbVzcvdjH5SaXGlb9BulzCQ2Qu1VakH+
-	Za+2XxNdbQhhRX+ajMixHj6eC74xkxs0=
-X-Received: by 2002:a17:907:3e18:b0:c2e:856:2a08 with SMTP id
- a640c23a62f3a-c2e23749254mr69929866b.1.1790762508881; Wed, 30 Sep 2026
- 03:01:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wme4cJXJ"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3e27d525so363233e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:02:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790762525; x=1791367325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BPEyYiVpY7sAQDhgqXyYJbjm/viUGjaJIIaZNqUOais=;
+        b=Wme4cJXJu7nMmXXbzE0a1JL020CW0OSQdYGSULCuBMMIi9+lNEUdpNlGT5vqVG/qmw
+         OaslFs5bq0BHFEz4SzwhqCsPGPR1B7fBnMYNflwhLZGqCTN4yvGZ/h9bnABETOgis7OZ
+         eS9Djpzdq927juL40aZzF/iEwnD3bKb2fh/g0uUm9M+sGTxr4L6FcK0AniMsFchd1XLG
+         EouKQ6MoRTrByA/P2tEGVytT/P/P1EYczGTJOzRNsrUz6ZkH7oRjs/b4MjlzBdPhzXXH
+         +EqL12NeQCNf7kf8wPc2QZZngTlD7p9hn8CfcDxkAGt1J84f/ByAwTiyDC7/nOxcuLZW
+         XYog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790762525; x=1791367325;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BPEyYiVpY7sAQDhgqXyYJbjm/viUGjaJIIaZNqUOais=;
+        b=qxOpkFjxyR1CFDZeHeySTowggOgcq86RWlUT1jwHAJQOHCibbFM0BPDWL8iNWDyK8D
+         52ZB985cYNRLVwN7v53+YRrj86w7yDEhI22LrEylj7BpTeJCbxlxv3DleT6YtKPm61mk
+         YH/YKj0bAhA1QR+lY+8CFaiW75CkcMtkuKssYYiVPR+DFlUstxGjvdF07iaLsFhOKttV
+         cLeGKuRnsNI/CdbqT9pLlhf2i4G/XgJZbMWa0CGSzgnP2E/cl2wohn5JYgI/IZkh2rJU
+         0pXTmug7pQjfme7jmNRIoRQ+VPldTickXFxmhZwiJbJcSnPBIR5gwFcDpDBj+7dxKE1A
+         R/Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVn0XbszmgjqhXkyOxSr5Excq5Tje16I2RRZiaxttkxLTWxsZsO0RK7yw+PCm5Dz7cGz31733wIoc4/J4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfo14ypvuu8BlZNi8t2gqNOlS9YkfWta8qZ5730YEjqvp78kii
+	RI9ZlXa+6Eiyr/WL0Su9rxY4Zj8P+Yu+50TIeeIHzCUo5Fr76FjF283X
+X-Gm-Gg: AYBFou3BINTN0bHuLlxYr0camPqZaFYNTjpckHKtlaG3BJdDzdSYX+pAz33mHwn2Xt9
+	VsHgHxgcBlnOEKCA277Wl46zNTGsbaC2wD1BPlXxWcN7GUoZD36s8cdTbZQsWWavV9g+iXdCsah
+	NcL0wMDMtskHBpL6ZvBsO6UFqVhSXwQIR3D/xnqIQHDXiDPqe1PTsyLuPUMl6gp/TPmTw0zCA1e
+	nmWbuSqF39UPyYgQiZHpZkm5oc3a7HtgrasoGvadQA5UvcBS9ZCyioJl+F8px8v//j4/ZqDkgGo
+	62wl43GwIFYZcQ4xaBbvRgYWK1qTiVFvipQ4p5z5lpawl9eFBImQuBXljlPCFaH6Rt94eoDEz1K
+	lAcswxllS0NjwnHMWXGY3SvX3QMqKEgLPIaCrAaG/mW4uWoIeKBwo+V/B2hljTBp5LW2000wv8g
+	SBRg993C21NGGevS9beRidR7V6QwqtCe48le2AlGAyyrL585BFRRU9yG0Fij6tNtGYs2pW56dCH
+	HZ6dm3vn2bGqSWds2ccrO81RLPVAKeR0tsTZGgxm1KBJLHv/rLkfC5zHQPOr8Rd+Ks/mszIKaM8
+	Cxcx
+X-Received: by 2002:a05:6512:3da0:b0:5b8:f3d5:f2fa with SMTP id 2adb3069b0e04-5ba4061343emr433495e87.56.1790762524559;
+        Wed, 30 Sep 2026 03:02:04 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fbe6c06sm240422e87.22.2026.09.30.03.02.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 03:02:03 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Rupesh Majhi <zoone.rupert@gmail.com>
+Subject: [PATCH v10 0/4] iio: pressure: dps310: hardware FIFO support
+Date: Wed, 30 Sep 2026 13:01:54 +0300
+Message-ID: <20260930100158.957977-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927080305.831641-1-chizhiling@163.com>
-In-Reply-To: <20260927080305.831641-1-chizhiling@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 30 Sep 2026 19:01:35 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
-X-Gm-Features: AclHuK-_Hp3kM3VG9WhX8ROHQ1VcBmyadbVuAWRyD35V6F-5xhp_l3vFFO17T84
-Message-ID: <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/5] exfat: fix valid_size handling and locking
-To: Chi Zhiling <chizhiling@163.com>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, Yuezhang.Mo@sony.com, 
-	chenxiaosong@chenxiaosong.com, dxdt@dev.snart.me, hyc.lee@gmail.com, 
-	liubaolin12138@163.com, sj1557.seo@samsung.com, 
-	Chi Zhiling <chizhiling@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 5:04=E2=80=AFPM Chi Zhiling <chizhiling@163.com> wr=
-ote:
->
-> From: Chi Zhiling <chizhiling@kylinos.cn>
->
-> valid_size marks the on-disk up-to-date region of an exFAT file. It is
-> advanced from the write path, from read/zeroing completion, and via
-> truncate, while it is read without i_rwsem from ->iomap_begin and from bi=
-o
-> completion context. This series fixes several races and stale-data window=
-s
-> that follow from that split ownership.
->
-> Patches 1-2 are self-contained fixes: an append write may be moved to EOF
-> by generic_write_checks(), so valid_size must be advanced using the
-> recalculated position; and exfat_zero_new_range() must mark non-uptodate
-> pages dirty so the whole page is written back.
->
-> Patches 3-4 are prerequisites for patch 5: truncate now holds the
-> invalidate lock so it is mutually exclusive with mmap writes, and
-> valid_size/zeroed_size become atomic so they can be read safely outside
-> i_rwsem. Patch 5 then takes exfat_page_mkwrite() out from under i_rwsem,
-> since blocking on the inode lock under mmap_lock could deadlock and its
-> VM_FAULT_RETRY result is not honored, and advances valid_size under the
-> folio lock to keep the page cache and valid_size consistent.
->
-> Link: https://lore.kernel.org/exfat/10029d6f-13cc-4d17-a2f9-b093a8339dde@=
-163.com/T/#t
->
-> Chi Zhiling (5):
->   exfat: advance valid_size to EOF for append writes
->   exfat: dirty all new pages when extending valid_size
->   exfat: hold the invalidate lock while truncating
->   exfat: make valid_size and zeroed_size atomic
->   exfat: use folio lock to protect valid_size
-Could you check the review comments from Sashiko ?
+Rest of FIFO series, on iio/togreg which has 1-6 and 10 of v8.
 
-https://sashiko.dev/#/patchset/20260927080305.831641-1-chizhiling%40163.com
+Since v9, from Andy's review:
+ - patch 1: include time.h, one continue in drain temperature branch
+ - patch 4, new: lockdep_assert_held() next to every __must_hold(),
+   including 12 in applied code
 
-Thanks!
+Pressure overflow fix is now at v2:
+https://lore.kernel.org/linux-iio/20260930085819.886339-1-zoone.rupert@gmail.com/
+
+Retested on DPS310 with BeagleBone Black: buffer enables, flush race,
+bad held entry, temperature-only capture. Lockdep asserts tested under
+QEMU with PROVE_LOCKING, including a build with a lock left out.
+
+v9: https://lore.kernel.org/linux-iio/20260928211127.641828-1-zoone.rupert@gmail.com/
+
+Rupesh Majhi (4):
+  iio: pressure: dps310: read buffered samples from the hardware FIFO
+  iio: pressure: dps310: derive the drain interval from the watermark
+  iio: pressure: dps310: implement .hwfifo_flush_to_buffer()
+  iio: pressure: dps310: assert the lock at runtime too
+
+ drivers/iio/pressure/dps310.c | 449 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 439 insertions(+), 10 deletions(-)
+
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.43.0
+
