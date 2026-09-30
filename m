@@ -1,64 +1,64 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DB252FE3A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D95187CA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793583; cv=none; b=AKe1wOJtTFk9FMQEKAASl24MzDdMg9IFxfgv6OaJhUT+Wk7GtSfr3R6H5f6bfStBMgk0LXKkwCUa6xhmyQsnNwFdpEQV7nsZv4FgLRWt1fp9+wRhb3XSqxr4U81geS/At8Ia4g9btRSKeRs6WdD5zugWm2hB6Fkd2AJL1Uexi1Y=
+	t=1790793589; cv=none; b=YQ0XwM8cy0NSM7TvWNN/Rwo3R/+rkPhXfeKZ+Yl3b7RV7DClwPZrmhHfaevNX4QbK8VPt57758NmBLjQ6Y8Q7BSrS6PIdoZHeeLkQnpPSRlJ8Wj3A57vCcO1gqzBPp7jS/1U7AYYqEY9gq47A8ovfHQaTmPFAd+u0H9NRXLNM0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793583; c=relaxed/simple;
-	bh=twfvoMC3+N+PnSeKMbfxHp23xM5ankWQ75YYJKSgQO4=;
+	s=arc-20240116; t=1790793589; c=relaxed/simple;
+	bh=WmojZX7NIQZ4bKwgYfjEYA6u/H5MCNneuKe2H/Wr+nM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HekYdOmXGhEhIeZnhJ/UvOlZoUxWBMb43brmYZgw/qKETrpWiQFfk1Moj0RTUFtwjD6ctCvslmuvTRRcGzkNBYm/QEqE6vtM1su0WbxPp5UO6D69lvuztXc11atXdz8YaCAhgvNGxggQsxSvZP5ZLRneKkPyYFlHi5A+qfPOSlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qEcJM54/; arc=none smtp.client-ip=74.125.229.205
+	 MIME-Version; b=S2txnmscmELC/5ccsOLSSFMNYY6y0ZxJJrhgkSgWxlse+B/VHrnwDlACJEaPnXsFxhSemZ6LNkPcJuSnCJD1Z3oMpTO5Q49aTWi9Z3v4lJfELzmDgvRgg0/cXoBc1Y/zIHzZOjzgtD475GhEgR/S1LXwpLMfz3uw5CIGLYv6bho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0CgT2E9; arc=none smtp.client-ip=209.85.167.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qEcJM54/"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e428so1729353e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:39:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0CgT2E9"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b8b3c8c4bbso52143e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793579; x=1791398379; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790793585; x=1791398385; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yz4gpHoXaPf9Hiy+IUuDzCmyyNdVUHBAR1t9GRZuVBo=;
-        b=qEcJM54/mrTrbnnoi7Q1W4aY5VewUkwsmSfJRdV1jILLZSZgPTyEhYvcJ3wRdsZYeJ
-         Ul+5h3x4k5CUCdajAsSElDRWEDewTEoz7khpOhqqH+TwKJtKUKXbrnorsP78bBMb00Kz
-         UObFVXBnCK5XvNwFqnmF4rF4ZIZ0fHxdKJaxFkX71Ucm+jTkakYEG6IpZh1CejmRH1G2
-         3AF/IAT5zMIbeBbA9AMkXfmuwvLixY2G0H9x33Gs/+KXBADQ4vWbLm05U+GnhNZh5rKy
-         S3IaOP/PhOk8Tz+szrLjh2qNT3pUTc/XWOa4XMvYVxGkEr4JiiwRohT/qpMiW4iFaQYq
-         WW1Q==
+        bh=UJ5fYEtVagCgzeX5DZQ2/ZY0rZBUHHKaKAAihUWn64U=;
+        b=N0CgT2E9i1klCmAMSzFBYy833ow9kI+YFYIAehyLibvZMPrrM2wFBsUGMhCKfD6yk1
+         QX9Ev1tuIO294fNd3KGmWcr2KA/BqCy0Sq1X6mTialxn6me4KJbRMktgSfGmi02BpwtS
+         F2L+m+6mWtQCsKrgcaC60vwn+Q6p4FF5S4l9hAio3dMN992iZfPLczkM20QJABIzWBED
+         p4mGmDaS0OeLW8gh3/QGSaKRxIo8pdEr9dNIDJ/kU+/Nz2jBGc0rloSKZ3D37JwCbuZ2
+         PShULLlxmMtyYvcm69mSapcnS+2cCXY6dbU05Dakq/dkh7azBV2tFrLCJcdYasf5RMCI
+         Julw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793579; x=1791398379;
+        d=1e100.net; s=20260707; t=1790793585; x=1791398385;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yz4gpHoXaPf9Hiy+IUuDzCmyyNdVUHBAR1t9GRZuVBo=;
-        b=ektPBd2Tx8ax9VyKPRPNt5OZN8+8kONyny1ZM3fMUwOEMS/4U9fm4ATMqGt5+cKkv5
-         EYRNyq/1X4zjyRbxXKicfVF3HdMwTjiTqz8Exe1S1qWPsQmKTMF/VcMbdg+QxzLnwTLM
-         OxGc7Ts7mnVwIMv0Gc5dR3o9ayNNfcjfEjeOJ3MOs3c1DM+cCHUOrKkn3uGO9nM+tnWM
-         6vVAt5/hoVPggfb0fsHSiiJHws2RcWXxp+jcr9MfnmQxPCNqfze2IAl2tezi6FSqHsz4
-         eoR577uKfbRT/WPbR72BZ7eXt4LcLYDJP/oCRY1DmiBGPNw+wAxj2ELDx+y+oKC3ROT8
-         1jtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjVkbmzzoQRhqjDO5lM7JTrXwyA2+H5HfiFHAzoZWVm+DYLzYm7GM0fAA5QP63+J1zFOUsL+KwswSixjU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKD1Ncw09EmJW7w7pj9l8zk1C6vNIHJHkIQzGhx2Mbkfz8Q8adj
-	dBLXikbjHj2GeC4hjn0AWiP4QIc4Rg0vOhX4A87j6XkerJmVvtRvNbBj
-X-Gm-Gg: AYBFou0m+G+OFW/TV+y/fULxhOyZDg9e0H8Xag7GZH9uEY5GbTxLUse6GRoW5Rk7Y17
-	WqokHY5DA0CHb+Pt24RqbP4V8DcYMgNasCHYBRavOWB8t8940d5itn0a2zUbC0RWfoX34jROfde
-	hby1m8jz6UG4xi7dYWWLDCOrLYyemBW0sFzjIuXFRTjZWa9TzrEZ3gMmz6Rcdp3ifVrhyOptAJ/
-	hh6enIbOJmC8SCa7gqAM5Wz6hMDHp/4ZtD40XJiodvDbf1/oXT5d2j6dw8TMtLKnJIzTYIayCB1
-	TMj81PvAbfcUl5iZGYQKdZ7eMjDWgIcAISz8kcJbpQV7IMTWfL+F897IAypAbhSKm6FVkExBCW0
-	gv5ircaD9XOZ3FLAdA4eAnsjhZN7/sXEHAclZ43DneP8/J3GGzewYPL7agRhonP1/9jNJ5PrArq
-	azeYaTO97IsQ5L3e4uB0RIdDtyWuHd5AhFrQfWZqNfzRbMH0bPmJy24xndEzdbasaK0D9wFRp4G
-	Z0wQGoFBLedvNngznOI7Lz0+hobSg9d2MUTdIQp79zq
-X-Received: by 2002:ac2:5930:0:b0:5b8:f370:25de with SMTP id 2adb3069b0e04-5ba433af885mr117832e87.8.1790793579460;
-        Wed, 30 Sep 2026 11:39:39 -0700 (PDT)
+        bh=UJ5fYEtVagCgzeX5DZQ2/ZY0rZBUHHKaKAAihUWn64U=;
+        b=VabRVQWvfBJzy8CqmGBQkLAr9tIw2Axoh1ZRUtwU1fIe397eF0QFVBbKfU+yNsefri
+         ma1FYBdHYBeM5iy7cbetTDr2PwakdzKjHBpGmOXbvvllk9sca94+aWbR1G6HqF2xb/JG
+         5EDdLvbG6k9gBCpcavF9BEQmtxdlprOUhB10eKulQNEj46v/8YyRr+zHAhsv5OSmKnkD
+         WWcrrkqED8cj6aL5vYUrYs7DJHgUGoIl6ZvOq1yeVbq/R43cUYesJYyjuQABBDttSiua
+         E/s3Y5SVlX3baVY2iE304dCUNLrhviHG0x/5gaQwwkclHfiKQOVoYcGBEibB8pTCJjf5
+         3Ciw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrya/w/VjrPSIWbFLF+LhGK/keg1DaZinZE5hrJcygbZbNzwNpkwSfcc5OpIdq8MuLpZRok2DSz6WtTvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+l4Ihda7ZElTjASh9ktc0ugKFIi7WrHN0ZZkuPtCJH/5whOh8
+	hfbdU3EUuFxNVCWK3x8deMUH2PHVVi9Q7pZxaxRlK7mExRdpe7XrZM7h
+X-Gm-Gg: AYBFou1krtGjnN+UbCkBGUCRDOHfL3E6oPoWdVt+POhCIPVZf3f+Mdr8UuHHk2oHNIS
+	2M5oNlEUJBi7d/eQvvORKF9eDQmVL0Igcns1ncKmYMSSfgcuQwrF3pvmrU9Tq+7DmnrtRIjO6Iw
+	WPseFbgqIc6CoCcOwY8AP/st/k0jdJ6S7+KoSUW/JSjqUt4GJ07cwgXhWaMUysyQSv5b1ELFq7n
+	9LdRcWG84hXvW7QIhPudwx/ySVWjuQ6fp+XPMiPl09XmFQJWTEiDJuBXY6q0fYkCAMm0xK5QUNb
+	mZOyxOKFMhK+PaPuP7XnBZNjwKTpf4XRajnQCpnz7m+WetZVZqzQ9hsTUcPOKQbDa8n04W89/JS
+	4pEmT3Er70TwvpnzW/AuxjnpdJpXeHOw5KomReR9KA35TwHuHyFSh2rNRMS7tWbxVhuy1xoKYjF
+	ul7SWRMcFH7yFdOvfOgkOYaHY2Zo0lyxfch6YKEgFJByrSE1uzbxbN+9I+0MwLTSuRcFyZY63Hz
+	AmQtJr6dD55m0L6lbgMnzfq3pEstthwMa63mXTAjBBo
+X-Received: by 2002:a05:6512:1287:b0:5b8:c311:88e8 with SMTP id 2adb3069b0e04-5ba433ef5e1mr158262e87.26.1790793585152;
+        Wed, 30 Sep 2026 11:39:45 -0700 (PDT)
 Received: from dau-home-pc.. ([212.35.169.181])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbb999sm156593e87.62.2026.09.30.11.39.38
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbb999sm156593e87.62.2026.09.30.11.39.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:39:38 -0700 (PDT)
+        Wed, 30 Sep 2026 11:39:44 -0700 (PDT)
 From: Anton Danilov <littlesmilingcloud@gmail.com>
 To: netdev@vger.kernel.org
 Cc: "David S . Miller" <davem@davemloft.net>,
@@ -70,9 +70,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Ido Schimmel <idosch@nvidia.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 10/14] ip_gre: add drop reasons to the transmit path
-Date: Wed, 30 Sep 2026 21:39:06 +0300
-Message-ID: <20260930183910.3151873-11-littlesmilingcloud@gmail.com>
+Subject: [PATCH net-next v5 14/14] vxlan: report a circular route as SKB_DROP_REASON_RECURSION_LIMIT
+Date: Wed, 30 Sep 2026 21:39:10 +0300
+Message-ID: <20260930183910.3151873-15-littlesmilingcloud@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260930183910.3151873-1-littlesmilingcloud@gmail.com>
 References: <20260930183910.3151873-1-littlesmilingcloud@gmail.com>
@@ -84,310 +84,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each transmit function of ip_gre ends all of its failures in one
-kfree_skb() and a tx_dropped increment, so a drop can be traced to the
-function and to nothing more precise than "the tunnel did not send it".
+udp_tunnel_dst_lookup() and udp_tunnel6_dst_lookup() return -ELOOP
+when the route to the remote end goes out of the vxlan device itself,
+and vxlan_xmit_one() counts that in collisions, apart from the
+-ENETUNREACH of a failed lookup. The drop reason does not tell them
+apart: both are reported as SKB_DROP_REASON_IP_OUTNOROUTES, which
+describes a failed route lookup.
 
-No new reason is needed. The length helpers already compute one, so
-pskb_inet_may_pull_reason() and pskb_may_pull_reason() are used instead
-of their boolean wrappers, and the rest reuses:
-
- - SKB_DROP_REASON_NOMEM for the headroom expansions, the offload
-   handling and the trims,
- - SKB_DROP_REASON_TUNNEL_TXINFO for the collect_md paths, when the
-   metadata is missing or incomplete,
- - SKB_DROP_REASON_UNHANDLED_PROTO for an ERSPAN version that is not
-   implemented,
- - SKB_DROP_REASON_SKB_CSUM when the checksum starts before the data
-   the tunnel is about to send.
+ip_tunnel and ip6_tunnel make the same check, rt->dst.dev == dev in
+ip_tunnel_xmit() and ip_md_tunnel_xmit() and tdev == dev in
+ip6_tnl_xmit(), and report it as SKB_DROP_REASON_RECURSION_LIMIT since
+earlier in this series. Report the vxlan case the same way, so that
+vxlan and these tunnels name this misconfiguration with one reason.
 
 Assisted-by: LLM
 Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
 ---
- net/ipv4/ip_gre.c | 104 ++++++++++++++++++++++++++++++++++------------
- 1 file changed, 77 insertions(+), 27 deletions(-)
+ drivers/net/vxlan/vxlan_core.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index afd8ece02d7f..58234e857d6c 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -509,6 +509,7 @@ static int gre_handle_offloads(struct sk_buff *skb, bool csum)
- static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev,
- 			__be16 proto)
- {
-+	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	IP_TUNNEL_DECLARE_FLAGS(flags) = { };
- 	struct ip_tunnel_info *tun_info;
-@@ -517,19 +518,25 @@ static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev,
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 0d98e29e2d72..7c94a630d184 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -2547,7 +2547,10 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 					   tos, use_cache ? dst_cache : NULL);
+ 		if (IS_ERR(rt)) {
+ 			err = PTR_ERR(rt);
+-			reason = SKB_DROP_REASON_IP_OUTNOROUTES;
++			if (err == -ELOOP)
++				reason = SKB_DROP_REASON_RECURSION_LIMIT;
++			else
++				reason = SKB_DROP_REASON_IP_OUTNOROUTES;
+ 			goto tx_error;
+ 		}
  
- 	tun_info = skb_tunnel_info(skb);
- 	if (unlikely(!tun_info || !(tun_info->mode & IP_TUNNEL_INFO_TX) ||
--		     ip_tunnel_info_af(tun_info) != AF_INET))
-+		     ip_tunnel_info_af(tun_info) != AF_INET)) {
-+		reason = SKB_DROP_REASON_TUNNEL_TXINFO;
- 		goto err_free_skb;
-+	}
+@@ -2633,7 +2636,10 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 		if (IS_ERR(ndst)) {
+ 			err = PTR_ERR(ndst);
+ 			ndst = NULL;
+-			reason = SKB_DROP_REASON_IP_OUTNOROUTES;
++			if (err == -ELOOP)
++				reason = SKB_DROP_REASON_RECURSION_LIMIT;
++			else
++				reason = SKB_DROP_REASON_IP_OUTNOROUTES;
+ 			goto tx_error;
+ 		}
  
- 	key = &tun_info->key;
- 	tunnel_hlen = gre_calc_hlen(key->tun_flags);
- 
--	if (skb_cow_head(skb, dev->needed_headroom))
-+	if (skb_cow_head(skb, dev->needed_headroom)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto err_free_skb;
-+	}
- 
- 	/* Push Tunnel header. */
- 	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT,
--					      tunnel->parms.o_flags)))
-+					      tunnel->parms.o_flags))) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto err_free_skb;
-+	}
- 
- 	__set_bit(IP_TUNNEL_CSUM_BIT, flags);
- 	__set_bit(IP_TUNNEL_KEY_BIT, flags);
-@@ -546,12 +553,13 @@ static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev,
- 	return;
- 
- err_free_skb:
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	DEV_STATS_INC(dev, tx_dropped);
- }
- 
- static void erspan_fb_xmit(struct sk_buff *skb, struct net_device *dev)
- {
-+	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	IP_TUNNEL_DECLARE_FLAGS(flags) = { };
- 	struct ip_tunnel_info *tun_info;
-@@ -565,29 +573,41 @@ static void erspan_fb_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	tun_info = skb_tunnel_info(skb);
- 	if (unlikely(!tun_info || !(tun_info->mode & IP_TUNNEL_INFO_TX) ||
--		     ip_tunnel_info_af(tun_info) != AF_INET))
-+		     ip_tunnel_info_af(tun_info) != AF_INET)) {
-+		reason = SKB_DROP_REASON_TUNNEL_TXINFO;
- 		goto err_free_skb;
-+	}
- 
- 	key = &tun_info->key;
--	if (!test_bit(IP_TUNNEL_ERSPAN_OPT_BIT, tun_info->key.tun_flags))
-+	if (!test_bit(IP_TUNNEL_ERSPAN_OPT_BIT, tun_info->key.tun_flags)) {
-+		reason = SKB_DROP_REASON_TUNNEL_TXINFO;
- 		goto err_free_skb;
--	if (tun_info->options_len < sizeof(*md))
-+	}
-+	if (tun_info->options_len < sizeof(*md)) {
-+		reason = SKB_DROP_REASON_TUNNEL_TXINFO;
- 		goto err_free_skb;
-+	}
- 	md = ip_tunnel_info_opts(tun_info);
- 
- 	/* ERSPAN has fixed 8 byte GRE header */
- 	version = md->version;
- 	tunnel_hlen = 8 + erspan_hdr_len(version);
- 
--	if (skb_cow_head(skb, dev->needed_headroom))
-+	if (skb_cow_head(skb, dev->needed_headroom)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto err_free_skb;
-+	}
- 
--	if (gre_handle_offloads(skb, false))
-+	if (gre_handle_offloads(skb, false)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto err_free_skb;
-+	}
- 
- 	if (skb->len > dev->mtu + dev->hard_header_len) {
--		if (pskb_trim(skb, dev->mtu + dev->hard_header_len))
-+		if (pskb_trim(skb, dev->mtu + dev->hard_header_len)) {
-+			reason = SKB_DROP_REASON_NOMEM;
- 			goto err_free_skb;
-+		}
- 		truncate = true;
- 	}
- 
-@@ -619,6 +639,7 @@ static void erspan_fb_xmit(struct sk_buff *skb, struct net_device *dev)
- 				       truncate, true);
- 		proto = htons(ETH_P_ERSPAN2);
- 	} else {
-+		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
- 		goto err_free_skb;
- 	}
- 
-@@ -631,7 +652,7 @@ static void erspan_fb_xmit(struct sk_buff *skb, struct net_device *dev)
- 	return;
- 
- err_free_skb:
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	DEV_STATS_INC(dev, tx_dropped);
- }
- 
-@@ -665,8 +686,10 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	IP_TUNNEL_DECLARE_FLAGS(flags);
- 	const struct iphdr *tnl_params;
-+	enum skb_drop_reason reason;
- 
--	if (!pskb_inet_may_pull(skb))
-+	reason = pskb_inet_may_pull_reason(skb);
-+	if (reason)
- 		goto free_skb;
- 
- 	if (tunnel->collect_md) {
-@@ -677,10 +700,13 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
- 	if (dev->header_ops) {
- 		int pull_len = tunnel->hlen + sizeof(struct iphdr);
- 
--		if (skb_cow_head(skb, 0))
-+		if (skb_cow_head(skb, 0)) {
-+			reason = SKB_DROP_REASON_NOMEM;
- 			goto free_skb;
-+		}
- 
--		if (!pskb_may_pull(skb, pull_len))
-+		reason = pskb_may_pull_reason(skb, pull_len);
-+		if (reason)
- 			goto free_skb;
- 
- 		tnl_params = (const struct iphdr *)skb->data;
-@@ -690,25 +716,32 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
- 		skb_reset_mac_header(skb);
- 
- 		if (skb->ip_summed == CHECKSUM_PARTIAL &&
--		    skb_checksum_start(skb) < skb->data)
-+		    skb_checksum_start(skb) < skb->data) {
-+			reason = SKB_DROP_REASON_SKB_CSUM;
- 			goto free_skb;
-+		}
- 	} else {
--		if (skb_cow_head(skb, dev->needed_headroom))
-+		if (skb_cow_head(skb, dev->needed_headroom)) {
-+			reason = SKB_DROP_REASON_NOMEM;
- 			goto free_skb;
-+		}
- 
- 		tnl_params = &tunnel->parms.iph;
- 	}
- 
- 	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
- 
--	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags)))
-+	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags))) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto free_skb;
-+	}
- 
- 	__gre_xmit(skb, dev, tnl_params, skb->protocol, flags);
- 	return NETDEV_TX_OK;
- 
- free_skb:
--	kfree_skb(skb);
-+	reason = reason ?: SKB_DROP_REASON_NOT_SPECIFIED;
-+	kfree_skb_reason(skb, reason);
- 	DEV_STATS_INC(dev, tx_dropped);
- 	return NETDEV_TX_OK;
- }
-@@ -718,10 +751,12 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	IP_TUNNEL_DECLARE_FLAGS(flags);
-+	enum skb_drop_reason reason;
- 	bool truncate = false;
- 	__be16 proto;
- 
--	if (!pskb_inet_may_pull(skb))
-+	reason = pskb_inet_may_pull_reason(skb);
-+	if (reason)
- 		goto free_skb;
- 
- 	if (tunnel->collect_md) {
-@@ -729,15 +764,21 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 		return NETDEV_TX_OK;
- 	}
- 
--	if (gre_handle_offloads(skb, false))
-+	if (gre_handle_offloads(skb, false)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto free_skb;
-+	}
- 
--	if (skb_cow_head(skb, dev->needed_headroom))
-+	if (skb_cow_head(skb, dev->needed_headroom)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto free_skb;
-+	}
- 
- 	if (skb->len > dev->mtu + dev->hard_header_len) {
--		if (pskb_trim(skb, dev->mtu + dev->hard_header_len))
-+		if (pskb_trim(skb, dev->mtu + dev->hard_header_len)) {
-+			reason = SKB_DROP_REASON_NOMEM;
- 			goto free_skb;
-+		}
- 		truncate = true;
- 	}
- 
-@@ -758,6 +799,7 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 				       truncate, true);
- 		proto = htons(ETH_P_ERSPAN2);
- 	} else {
-+		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
- 		goto free_skb;
- 	}
- 
-@@ -766,7 +808,8 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 	return NETDEV_TX_OK;
- 
- free_skb:
--	kfree_skb(skb);
-+	reason = reason ?: SKB_DROP_REASON_NOT_SPECIFIED;
-+	kfree_skb_reason(skb, reason);
- 	DEV_STATS_INC(dev, tx_dropped);
- 	return NETDEV_TX_OK;
- }
-@@ -776,8 +819,10 @@ static netdev_tx_t gre_tap_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	IP_TUNNEL_DECLARE_FLAGS(flags);
-+	enum skb_drop_reason reason;
- 
--	if (!pskb_inet_may_pull(skb))
-+	reason = pskb_inet_may_pull_reason(skb);
-+	if (reason)
- 		goto free_skb;
- 
- 	if (tunnel->collect_md) {
-@@ -787,17 +832,22 @@ static netdev_tx_t gre_tap_xmit(struct sk_buff *skb,
- 
- 	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
- 
--	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags)))
-+	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags))) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto free_skb;
-+	}
- 
--	if (skb_cow_head(skb, dev->needed_headroom))
-+	if (skb_cow_head(skb, dev->needed_headroom)) {
-+		reason = SKB_DROP_REASON_NOMEM;
- 		goto free_skb;
-+	}
- 
- 	__gre_xmit(skb, dev, &tunnel->parms.iph, htons(ETH_P_TEB), flags);
- 	return NETDEV_TX_OK;
- 
- free_skb:
--	kfree_skb(skb);
-+	reason = reason ?: SKB_DROP_REASON_NOT_SPECIFIED;
-+	kfree_skb_reason(skb, reason);
- 	DEV_STATS_INC(dev, tx_dropped);
- 	return NETDEV_TX_OK;
- }
 -- 
 2.47.3
 
