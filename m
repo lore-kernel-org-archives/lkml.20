@@ -1,62 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40043C109A;
-	Wed, 30 Sep 2026 10:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD4B3E9C05
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763079; cv=none; b=X1bImJnoFCSE5wE4YBcAd4bPkNMgpg1ZwOGexKcT7VzT5y9IA/iyIDthK/6b+51mj0UAdViHOlwtAv5GZfypDI4lK/jKfRsuZ+FvKQl4iaFu/RB5yxmhTY7ptJtXfU0dnI+mCvETa8msR0+c+SUU+NBesJJKiiL16vRaHXeDBVs=
+	t=1790763111; cv=none; b=oe+q7TKhHm94y4UIGPOxB1cuxs3swXdafvevN2KHyu5uL/3ssgFHg/5M28kadWB1oPEqo5d9pnPy5Ovp5vksh3RjnZupBGvZ+BU0GZYAeltEqN53t5ksq/zYuhPRERFUuiO/SvQ/f+RjUfHNAiwG/prGtNGeafeAzpW49JPnWZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763079; c=relaxed/simple;
-	bh=HzZRiePTb3YNRIx/koLTtd6xpE+14537wN64ebMJ7eQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KKiFl/mr7Qn+K/DQ5mIaaAXOnvQpqy4bH5y4edlknigxtYrvxfllngLGFe7f8BXpzaVwd4yLTLDifeSvmtDn9vI4Lnf5RhkN7RfhnvXJdk3MBlGPr8y/23QEv3YhWD17Mgtl7AEEb91Yjma9f0RYPnXJ3zDNKsOubCDYNsV2c3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d04wMb1d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790763111; c=relaxed/simple;
+	bh=GNoabt0I2kZBL2emhokLb3YHz3HazhDNBNrySbeHM6w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sfDoZDYlhz4+/anT3BHD9UWfrKAkxwLmuRI/MNsjxyVCn/FNfhPcclswYakilhngFjlSV3/+b5+9CCN360kJ1kogU8CxCOBu8t4prdCBVrJ+qfkxyM8b5VU15larzt0bmIygIWCxQ2ZhVIOiuKU6RTNTche1azj7toCc8u5gFsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDiGOHqI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d04wMb1d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911521F000FF;
-	Wed, 30 Sep 2026 10:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDiGOHqI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A591F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763078;
-	bh=goV0/frG7y4cYBdGEnbNUilQr6kFmD3qvwBP8+Lts/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d04wMb1dKMCwxs24ggMKIKg7HGQ4wSoLN/TkfRQhgPAeoyyNvehm0FoX0A6fmx3H6
-	 Q4stXvj9gkSkf845BZrQrZ4WxpBClFgFjHEmTk+I/7r35Rr+6raR7IcQQoIY+Nv3Zu
-	 foE8V8VX267w7vA6lEzZngr8qBkQ5nGZTrp7Nt1zG0vSjNnIJEVt6L0GWItZqPxmvA
-	 BP7RAsRj+CbfiluJFT33H3uh75opQrfZCFFeQWWlXtZzjkw5Tnvslf/5ZYuk7S+uuP
-	 BhzpIVSCX89Grz4sQS5XLR6o4KuvmGSC6eKzNtSgIegLg0DQEn5HXjMR9Owm2Q20dh
-	 ExrTIks0zdaSQ==
-Date: Wed, 30 Sep 2026 12:11:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Gregory CLEMENT <gregory.clement@bootlin.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 07/11] dt-bindings: i2c: mv64xxx: add Allwinner B288
-Message-ID: <20260930-cyber-marten-of-apotheosis-ce8c6a@quoll>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-8-pmazzini@gmail.com>
+	s=k20260515; t=1790763103;
+	bh=0EWo6p8KlBWCQx6YVQZFYv1sMvH+inX9WO+NPCJKxgw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QDiGOHqIeaUrLYTVZDjKmEMNIIf+qilOJOuYM92pXLHSlUdEH7PJ4lSPMvtpI4sV6
+	 m70WxyfzwDFMPKqj0+cpHTW0VkkD6GxOs8cG+mTXytaFjFq2LYVu7a9I+4Ai8+S32d
+	 g+LHsPP5FzZwMNK0tyRCcNWuKYf72Dv+tkInP5LgBos+Yi3M56J4uFbjXNLFwT0iSB
+	 GzxXC+x6k0SEvSzBtQlzAXMu6utdA/kbTpUVpL8f5tJ1rzEcF5O8K2IwsHP79f0iPb
+	 HbmM3nYW5KH1t9eZM1fB9xuVQWnZUOWLjVGdu/G1TiJHnOD+exyH1nbR3uJI1EgI1A
+	 +RIdtypVFGDjA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3ce4795aso838528e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:11:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByNaIGGgmyKA9BisxYw19q8kHGj4RWWSP/sTVPNUxu8N+qSg5JCMmhoMTu8gWzi/4fru5yHkHyUkd3paWs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbedkJzPpEAFeACIL97DSf9Gpvj8GKtY7f3xiqFNmkLo28uOi9
+	M7Aqe1cwW4NJRPu9IZk12z9CiBqlkw7rcQaLLRySwLZZEEvQFpi9N576hUpwLW2aBCBXYr1/UHc
+	K4VfSvSHRuLeL30PpUjubrmwEGLSoKEM=
+X-Received: by 2002:a05:6512:1284:b0:5b8:eb27:a009 with SMTP id
+ 2adb3069b0e04-5ba403e8c88mr391858e87.17.1790763101738; Wed, 30 Sep 2026
+ 03:11:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927151016.186493-8-pmazzini@gmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 12:11:29 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
+X-Gm-Features: AclHuK9D1YrrFJkuaJFhntBMU6VT-QvYR-f9D3TnSmauiV2lOTXiqfdERNyux_Y
+Message-ID: <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
+Subject: Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 27, 2026 at 04:10:12PM +0100, Pablo Mazzini wrote:
-> The B288 controller follows the existing Allwinner variant.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> ---
->  Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> The Cortina Systems CS75xx ("Goldengate G2") are network processors
+> with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
+> timers and a PL310 L2 cache controller. The CS7542 is used, among others,
+> in the Securifi Almond+ router.
+>
+> The generic DT machine is sufficient for the platform, so only the SMP
+> bring-up needs code: the bootloader parks the secondary core in a WFE
+> loop that polls a global software register, so boot it by writing the
+> physical address of secondary_startup to the register named by the
+> cpu-release-addr property and issuing SEV.
+>
+> The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
+> to that revision and can be enabled on a multiplatform kernel. The PL310
+> is r3p2 and needs none of the PL310 workarounds.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Best regards,
-Krzysztof
+It's a bit weird to have a mach-cortina when mach-gemini is actually
+also a Cortina SoC.
 
+Could we call it mach-goldengate?
+
+> +++ b/arch/arm/mach-cortina/platsmp.c
+> @@ -0,0 +1,71 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * SMP support for the Cortina Systems CS75xx SoCs
+> + *
+> + * The bootloader parks the secondary core in a WFE loop that polls a
+> + * global software register and jumps to the address found there once it
+> + * becomes non-zero. The register is described by the cpu-release-addr
+> + * property of the secondary CPU node.
+> + */
+> +
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/smp.h>
+> +#include <asm/smp_plat.h>
+> +#include <asm/smp_scu.h>
+> +
+> +static int cs75xx_boot_secondary(unsigned int cpu, struct task_struct *i=
+dle)
+> +{
+> +       struct device_node *np;
+> +       void __iomem *release;
+> +       u64 addr;
+> +       int ret;
+> +
+> +       np =3D of_get_cpu_node(cpu, NULL);
+> +       if (!np)
+> +               return -ENODEV;
+> +
+> +       ret =3D of_property_read_u64(np, "cpu-release-addr", &addr);
+> +       of_node_put(np);
+> +       if (ret) {
+> +               pr_err("CPU%u: missing cpu-release-addr\n", cpu);
+> +               return ret;
+> +       }
+> +
+> +       release =3D ioremap(addr, sizeof(u32));
+> +       if (!release)
+> +               return -ENOMEM;
+> +
+> +       writel(__pa_symbol(secondary_startup), release);
+> +       iounmap(release);
+> +
+> +       /* The secondary core waits in WFE, wake it up */
+> +       dsb_sev();
+> +
+> +       return 0;
+> +}
+> +
+> +static void __init cs75xx_smp_prepare_cpus(unsigned int max_cpus)
+> +{
+> +       struct device_node *np;
+> +       void __iomem *scu_base;
+> +
+> +       np =3D of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+> +       scu_base =3D of_iomap(np, 0);
+> +       of_node_put(np);
+> +       if (!scu_base) {
+> +               pr_err("failed to map SCU\n");
+> +               return;
+> +       }
+> +
+> +       scu_enable(scu_base);
+> +       iounmap(scu_base);
+> +}
+> +
+> +static const struct smp_operations cs75xx_smp_ops __initconst =3D {
+> +       .smp_prepare_cpus       =3D cs75xx_smp_prepare_cpus,
+> +       .smp_boot_secondary     =3D cs75xx_boot_secondary,
+> +};
+> +
+> +CPU_METHOD_OF_DECLARE(cs7542_smp, "cortina,cs7542-smp", &cs75xx_smp_ops)=
+;
+
+I am OK with this because it's not like we will add hundreds of these,
+I just note that ARM64 has abstracted the spin table handling into a single
+driver used by all such systems:
+arch/arm64/kernel/smp_spin_table.c
+
+But implementing it for ARM is probably overzealous and just a waste
+of everyone's time.
+
+Yours,
+Linus Walleij
