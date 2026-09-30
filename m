@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0356751D52C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58B451B194
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777401; cv=none; b=RRLz/CWEBlWAdXxCnCMF3Uj7LdXsi2EJzTKOilgV6PfOc+p1K1s/gBGXQoLe8nd4dy3iCwQrYBG8Llqadv9cVrHEfzowHNRa5ZEmo3+zESmeZUwPov5+JUuroVRSoEOZ2Ha2VJiVZZSUrTfyBg1qTq9rzPhYe82s7/cBuKlde3A=
+	t=1790777404; cv=none; b=l9EkRYwLJZV0c1718y9+1psaWOkYI1QmNtGwfwHaeHJV7ZVCywrkHOYP+7yc0qgqIgcF8KNbY8oGJjB1xGaUcC0X6uYpdXgir36hY4ARqpadfvLmj8yqAnpZtN6GK5b2oxgZMShr3vNePkNmN/u73DY9ZwyxrbtEcUuJB5GMmiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777401; c=relaxed/simple;
-	bh=sLDljgy2iUfR4ux4LRoswkUrAQGhocHxixSmputVTh8=;
+	s=arc-20240116; t=1790777404; c=relaxed/simple;
+	bh=VXYSIpNBzjljxOOTtdon4+ERsroM+GnS8vRAxuANfWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QUZbEnX8eHY58DXwkJ1a2njq8aVzqnar0+ijqGDLiotq+e8OKf1pLaw6RPUqTD+dhyccqvcRk1XjSI6BbqMxI3+oPfwO7quyCTOZ0RfRlPn0fTKx/OugUvwSaIU6ZisXrhS8T4KiuXMn1FdOeyGgqrhexoAdvTIdFoFcT8TwF2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CyRU5ysX; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=tGesBcOK8eVIVEdwFzNd6oYcG4tmchbEoFhS5i3in6rr3c5zQGGj/0ZBZRgcgrJb+sJfJ9zaMDqlMkARNwcYLwHEFd7hwgKAI3VVwsu7dX/DhCsY40aWE5bclSnxPkPUlii7TB6L9r9FW8hKZeG6ueNvji3G4uX294zvac0/vIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UO9k3RCN; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CyRU5ysX"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UO9k3RCN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790777378;
+	s=mimecast20190719; t=1790777354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0YVhvO5SMCN7TMiG9ZoSdhyJXNnNMq+CHd4JeeSj0hY=;
-	b=CyRU5ysX8H6/vA2TdH4Q98cmjGsM7YanqK0tF/3tLRI3Z1sX3PSSNxxiNcZtc3Sy+btbsd
-	Tgv1x4speNnygi8P4sgNoO2Y3TBjyJQJD3Q0jL2HaFMO/aud3k0ki3WGjH9IjMhgLEBceA
-	VDbele8IW+eaEo5G6l0eBhJewpbxXIs=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=p3xqmKVAFV4WbQWRk7ZQhQ7LMEFnygykagJl6VwnyQI=;
+	b=UO9k3RCN5WMT0N1dqd0XUxvEHuECzVYmftS+qvQuLb0/JA99Pre8UnuB7l3YBB3Hb2MGIL
+	mHDxh8q8dsw35kA10bRA1bBI65OSukcDTpz7VkzInRo2HxtJTvdFYYTpwYSdkpIVFVNGdc
+	wo+7ISbgkZSLp5yjUgs/Cuc/64eohec=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-610-S2DnP1ZkNd6ZrH8EgANtGw-1; Wed,
- 30 Sep 2026 10:09:32 -0400
-X-MC-Unique: S2DnP1ZkNd6ZrH8EgANtGw-1
-X-Mimecast-MFC-AGG-ID: S2DnP1ZkNd6ZrH8EgANtGw_1790777369
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-307-SOCXgrpmO5qWs48VnazhLw-1; Wed,
+ 30 Sep 2026 10:09:09 -0400
+X-MC-Unique: SOCXgrpmO5qWs48VnazhLw-1
+X-Mimecast-MFC-AGG-ID: SOCXgrpmO5qWs48VnazhLw_1790777347
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 50813180899A;
-	Wed, 30 Sep 2026 14:09:29 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 098451954B1D;
+	Wed, 30 Sep 2026 14:09:07 +0000 (UTC)
 Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 125A61956044;
-	Wed, 30 Sep 2026 14:09:24 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 717C31956044;
+	Wed, 30 Sep 2026 14:09:02 +0000 (UTC)
 From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
 To: bhelgaas@google.com,
 	alex@shazbot.org,
@@ -60,9 +60,9 @@ Cc: johannes@sipsolutions.net,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH 4/7] ath11k: add PCIe link recovery retry
-Date: Wed, 30 Sep 2026 16:08:30 +0200
-Message-ID: <20260930140833.576941-5-jtornosm@redhat.com>
+Subject: [PATCH 1/7] PCI: Add pci_find_free_ext_cap_offset() helper
+Date: Wed, 30 Sep 2026 16:08:27 +0200
+Message-ID: <20260930140833.576941-2-jtornosm@redhat.com>
 In-Reply-To: <20260930140833.576941-1-jtornosm@redhat.com>
 References: <20260930140833.576941-1-jtornosm@redhat.com>
 Precedence: bulk
@@ -74,114 +74,111 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-When ath11k devices are passed through to VMs via PCIe passthrough,
-the PCIe link may not stabilize immediately after global reset due to
-virtualization layer timing variations. This causes MHI initialization
-to fail with "BHI offset: 0xffffffff is out of range" errors because
-the device is read before it's ready.
+Add helper function to find free space in PCI extended configuration
+space. This is needed by VFIO variant drivers that need to use unused
+extended config space for device-specific purposes, such as passing
+metadata to VMs.
 
-Currently, ath11k_pci_soc_global_reset() just warns if the link is
-down but continues anyway, leading to inevitable MHI failures.
+The function scans the extended capability chain and returns an offset
+to a gap of at least the requested size. This allows drivers to safely
+use extended config space without conflicting with existing capabilities.
 
-This patch adds:
-1. A retry loop (up to 5000ms) to wait for the PCIe link to recover
-   after global reset (similar to the existing ath12k LTSSM retry logic)
-2. Proper error propagation to prevent continuing with a dead link
-
-This is especially important for VM environments where timing can vary
-significantly from bare metal.
+Use case: The qcom-vfio-pci variant driver uses this to find space for
+caching host MSI addresses that need to be passed to Qualcomm device
+firmware in VMs.
 
 Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
 ---
- drivers/net/wireless/ath/ath11k/pci.c | 39 ++++++++++++++++++++++-----
- 1 file changed, 32 insertions(+), 7 deletions(-)
+ drivers/pci/pci.c   | 54 +++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/pci.h |  3 +++
+ 2 files changed, 57 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
-index 7114eca8810d..4fc6aaf036c1 100644
---- a/drivers/net/wireless/ath/ath11k/pci.c
-+++ b/drivers/net/wireless/ath/ath11k/pci.c
-@@ -190,8 +190,10 @@ static void ath11k_pci_restore_window(struct ath11k_base *ab)
- 	spin_unlock_bh(&ab_pci->window_lock);
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 8f7cfcc00090..7fa261140457 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -552,6 +552,60 @@ u16 pci_find_ext_capability(struct pci_dev *dev, int cap)
  }
+ EXPORT_SYMBOL_GPL(pci_find_ext_capability);
  
--static void ath11k_pci_soc_global_reset(struct ath11k_base *ab)
-+static int ath11k_pci_soc_global_reset(struct ath11k_base *ab)
- {
-+	unsigned long timeout;
-+	bool link_recovered = false;
- 	u32 val, delay;
- 
- 	val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
-@@ -211,14 +213,29 @@ static void ath11k_pci_soc_global_reset(struct ath11k_base *ab)
- 
- 	mdelay(delay);
- 
--	val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
--	if (val == 0xffffffff)
--		ath11k_warn(ab, "link down error during global reset\n");
-+	/* Wait for PCIe link to recover, especially important in VM environments
-+	 * where timing can vary significantly from bare metal.
-+	 */
-+	timeout = jiffies + msecs_to_jiffies(5000);
-+	while (time_before(jiffies, timeout)) {
-+		val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
-+		if (val != 0xffffffff) {
-+			link_recovered = true;
++/**
++ * pci_find_free_ext_cap_offset - Find free space in extended config
++ * @dev: PCI device to query
++ * @size: Minimum size needed (in bytes)
++ *
++ * Scans the extended capability chain to find a gap of at least @size bytes
++ * in the extended configuration space (0x100-0xFFF). This can be used by
++ * drivers that need to use unused extended config space for device-specific
++ * purposes (e.g., VFIO quirks for VM passthrough).
++ *
++ * Returns the offset to free space, or 0 if no suitable gap found.
++ */
++int pci_find_free_ext_cap_offset(struct pci_dev *dev, size_t size)
++{
++	int pos = PCI_CFG_SPACE_SIZE;
++	int last_cap_start = 0;
++	int free_offset;
++	u32 header;
++	int next;
++
++	if (!pci_is_pcie(dev))
++		return 0;
++
++	while (pos >= PCI_CFG_SPACE_SIZE) {
++		if (pci_read_config_dword(dev, pos, &header))
 +			break;
-+		}
-+		mdelay(20);
++
++		if (header == 0 || header == 0xffffffff)
++			break;
++
++		last_cap_start = pos;
++		next = PCI_EXT_CAP_NEXT(header);
++		if (!next)
++			break;
++		pos = next;
 +	}
-+	if (!link_recovered) {
-+		ath11k_err(ab, "PCIe link failed to recover - device may need power cycle\n");
-+		return -ETIMEDOUT;
++
++	/*
++	 * Use space after the last capability. We align to the next capability
++	 * boundary (typically 4-byte aligned). Start at a safe offset past the
++	 * last capability - capabilities vary in size, so use a conservative
++	 * offset. Most extended capabilities are <= 64 bytes.
++	 */
++	if (last_cap_start) {
++		free_offset = last_cap_start + 64;
++		free_offset = ALIGN(free_offset, 4);
++		if (PCI_CFG_SPACE_EXP_SIZE - free_offset >= size)
++			return free_offset;
 +	}
- 
- 	/* Restore window register as its content is cleared during
- 	 * hardware global reset, such that it aligns with host cache.
- 	 */
- 	ath11k_pci_restore_window(ab);
 +
 +	return 0;
- }
- 
- static void ath11k_pci_clear_dbg_registers(struct ath11k_base *ab)
-@@ -373,8 +390,10 @@ static void ath11k_pci_force_wake(struct ath11k_base *ab)
- 	mdelay(5);
- }
- 
--static void ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
-+static int ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
- {
-+	int ret;
++}
++EXPORT_SYMBOL_GPL(pci_find_free_ext_cap_offset);
 +
- 	mdelay(100);
+ /**
+  * pci_get_dsn - Read and return the 8-byte Device Serial Number
+  * @dev: PCI device to query
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 2c4454583c11..5d1ccbb2ed29 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1287,6 +1287,7 @@ u8 pci_find_ht_capability(struct pci_dev *dev, int ht_cap);
+ u8 pci_find_next_ht_capability(struct pci_dev *dev, u8 pos, int ht_cap);
+ u16 pci_find_ext_capability(struct pci_dev *dev, int cap);
+ u16 pci_find_next_ext_capability(struct pci_dev *dev, u16 pos, int cap);
++int pci_find_free_ext_cap_offset(struct pci_dev *dev, size_t size);
+ struct pci_bus *pci_find_next_bus(const struct pci_bus *from);
+ u16 pci_find_vsec_capability(struct pci_dev *dev, u16 vendor, int cap);
+ u16 pci_find_dvsec_capability(struct pci_dev *dev, u16 vendor, u16 dvsec);
+@@ -2160,6 +2161,8 @@ static inline u8 pci_find_next_capability(struct pci_dev *dev, u8 post, int cap)
+ { return 0; }
+ static inline u16 pci_find_ext_capability(struct pci_dev *dev, int cap)
+ { return 0; }
++static inline int pci_find_free_ext_cap_offset(struct pci_dev *dev, size_t size)
++{ return 0; }
  
- 	if (power_on) {
-@@ -387,8 +406,12 @@ static void ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
- 
- 	ath11k_mhi_clear_vector(ab);
- 	ath11k_pci_clear_dbg_registers(ab);
--	ath11k_pci_soc_global_reset(ab);
-+	ret = ath11k_pci_soc_global_reset(ab);
-+	if (ret)
-+		return ret;
- 	ath11k_mhi_set_mhictrl_reset(ab);
-+
-+	return 0;
- }
- 
- static void ath11k_pci_init_qmi_ce_config(struct ath11k_base *ab)
-@@ -818,7 +841,9 @@ static int ath11k_pci_power_up(struct ath11k_base *ab)
- 
- 	ab_pci->register_window = 0;
- 	clear_bit(ATH11K_FLAG_DEVICE_INIT_DONE, &ab->dev_flags);
--	ath11k_pci_sw_reset(ab_pci->ab, true);
-+	ret = ath11k_pci_sw_reset(ab_pci->ab, true);
-+	if (ret)
-+		return ret;
- 
- 	/* Disable ASPM during firmware download due to problems switching
- 	 * to AMSS state.
+ static inline u64 pci_get_dsn(struct pci_dev *dev)
+ { return 0; }
 -- 
 2.53.0
 
