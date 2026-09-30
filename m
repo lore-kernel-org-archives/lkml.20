@@ -1,192 +1,125 @@
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79EA4611CF;
-	Wed, 30 Sep 2026 08:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE144611CF;
+	Wed, 30 Sep 2026 08:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756939; cv=none; b=a3XWDUWZW7I7srbdJQq4TINAslYycgJDUiRlt/YbCd7yBYpM4uogwEYjDjSpypzG2L1K2/pxeIkrPw6klMZkiDIhuUaKfC1AJK7VN9YqaOqBVSuzbzHKPXBcNw0CRwSqW6YjbQvjJ9POvVsT6ZpuvJfDyP+yJ1Q4pXrYV6+1azE=
+	t=1790756947; cv=none; b=sT4s5r+AwynkKBD1rLNAK0mcCy1btEskbZwx9560rqHwAOV32222vcY3p0/wtWFcn7k+eTkweFDtB+RjfkwHaZZGwp4S6JO3TiHHkasYkkcxhxjwRHb4R83obK6K1OdKiTexHWcvSajCNaioCOKM6sFcS+q2BAjs3yw7vetoX8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756939; c=relaxed/simple;
-	bh=hrRo4iHvOFteEii1fLjsxxErXsDOCIAJEpbxHTHg1WQ=;
+	s=arc-20240116; t=1790756947; c=relaxed/simple;
+	bh=qJaKz00fj7KxDc0CGeVJJ+tvs/tiUbxN90/yhOIRNLk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jImoHqO7ZbOHJEACRCf1w1SFGTFKvmSQZ2+OGpSCSSc+pUt6DZ5qsLaz0jquzy5B/Pv125YkvL2Ow8R4TknXM4in8X4TmYD7GrMTOcs8v2AozDVdvywvzLToU5oivv0bs6RMN7MuyM70/gaglTTcf2K4+n8VT7s1xqveQgdLYNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=Zfr20NvS; arc=none smtp.client-ip=217.70.183.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=rfuiSYEBD0eb4iK9pA3FlwQO+MyhoSEnKxx2wsnLAs7pB6g6oVpkvtoqWq9veKUcKA7k9qjasJHG17AOGmDFk+/HZVg4T3WmyT5A831QXu8vVdc3gjV84QEtOhq1UaJRxMsuaDEmrsI8QRKt8cctdss18kKUYGfQU9NGeEjORCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aM+UxX3N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="Zfr20NvS"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D94DD3EB90;
-	Wed, 30 Sep 2026 08:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790756929; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=EK6rK5UvTaistktgw1jCehgeAUAnCfSbI+UwNU2TkAU=;
-	b=Zfr20NvSRLXnBGaCzenxKaZYlNR1d6ggpbOaimoRTD6/WWohmBdNIKuN9tTVM2CH2sBLWJ
-	Yz365+o6obeYm11rghbCuSd7vYYun+fTi8bPBkCMW2vM0FBauza7SSECFWt830fj1aD31a
-	jrDpKUTrsDx93rcu+HtkHTMZexmDhotG0iD3tnRg8OtHUHZdFt8I8wRbwk3QqG/S3mxPBo
-	7h7YfJ+MEeXQabMU33WYIITVTB/ds6DPfiUeftQKgm8jOG1YWSU4X4thhy2MNm2X+T46IP
-	pKFdM0X2qx5Wti29YUdVr7xheI1rqVm1GV7jSpzOCV6E1K4UfOTTzz+WWjJIvQ==
-Date: Wed, 30 Sep 2026 10:28:45 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v11 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Message-ID: <20260930082845.GA84786@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260924-wiznet-link-gpio-v11-3-42a332517b30@marmottus.net>
- <179059099826.3145.7654211997843249181@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aM+UxX3N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F9E1F000FF;
+	Wed, 30 Sep 2026 08:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790756946;
+	bh=qJaKz00fj7KxDc0CGeVJJ+tvs/tiUbxN90/yhOIRNLk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aM+UxX3Nsf7rGPDSu7WqIGPpBgtIL9y6uXTb03PDTCRdL1BV2wsbPkB8Tc1POFQ+g
+	 51T0NbnqKsbXyjol17cNTjMIthKpV4QHOKhpLoAMArFhGyGy5U8z4q5OKamMF9zplv
+	 E64LdT4GbWj5U6JvejiVIWyyw456gmiHaiAslm2NUxPoGoBpj4iSdU0dJxl7IMy5ep
+	 R+ZkuSIPi6I199YwCzkYLnduUoJbHo9emYfYyZ0fgN7ZZ859P7AL89ULIXsPL3pPMb
+	 9IwqwlNUmF/A+OMOiTlnggN7wglFo9a0UAibUh8dYuTA/iOSxEcxqU4b8pfxd5EauH
+	 Y9vB6QTwHqddA==
+Date: Wed, 30 Sep 2026 10:29:03 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+Message-ID: <arzDId4Mxryrfa7m@orome>
+References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
+ <ary71zC1e-bySLFW@orome>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="44hvupbkmw3pca6w"
 Content-Disposition: inline
-In-Reply-To: <179059099826.3145.7654211997843249181@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Cause: dmFkZTEh1VmwNUjjxurnXkY/b4R7bZnpO/OS/5ckYwW7fxTbdm7aYf4fs5ZgRP9qBczC/tgOSi+GPb9IvnL7zBQuVh8xLo1VB7oD118U2kzNyZoBs38SBYbwKtnFA0WdU5luWYqfvegXMFG597iMFxwKu46vt9L9CqJO3uMVDJKjq/yHEQpZGkzPCxGtVHowrybZGsvzINQWxU0NVCj/WDbu33VBo/vVyq3+g1dA36kChOnAPgdYEe/JyyRUge+L0M68z5Zaza0SQaWicOyfFaKmOcBZ/FfNFRH+BectZD9Jxc0eE77tYIMn4iOqEAm8Lv9M9E0tZzE6VIuZN/40zMPNDkdnDXn3IETQHUM/yAiOEvV+jY7MX0JSAhwjYE8mEdvitQa5EqgRQc9rB/NI1WdTq6qHXFG2QU4fzAk0K4CO8mSgtE1mtMZ4W+w1YnTlwPRFEwDfzdy9VoSizDfMd8flah/uX5R9G1VteliHmxF2xKWzY+wdBh7SBn4dybK8T4zCsIr+/DHQCQLf+1xx+38YAwap6mr3OQz4/Yn/6jUwhWvc9k57Ho1tiDJmEPt4OO1oPT7oYnNLX1YZ+u4uzonBiuSM996WzMqBu1ULMi4+MIVymUHpw/xpws/vwxpt42QleZTg7WH9P66mfaAilN7EBQuVlPV/vki6JkUpviBXanyLSQ
-X-GND-State: clean
-X-GND-Score: 0
+In-Reply-To: <ary71zC1e-bySLFW@orome>
 
-On Mon, Sep 28, 2026 at 10:23:18AM +0000, netdev-bot+sashiko@kernel.org wrote:
->> +static irqreturn_t w5500_detect_link_interrupt(int irq, void *ndev_instance)
->> +{
->> +	struct net_device *ndev = ndev_instance;
->> +
->> +	if (netif_running(ndev))
->> +		w5500_report_carrier_state(ndev);
->> +
->> +	return IRQ_HANDLED;
->> +}
->
->[Severity: Low]
->What happens if all three PHYCFGR reads in w5500_get_phycfgr_lnk() fail on
->the link-up edge?
 
-The driver will log the error but I do not think this patch can much
-more than that.
+--44hvupbkmw3pca6w
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+MIME-Version: 1.0
 
->[ ... ]
->
->> @@ -448,12 +531,28 @@ static void w5100_restart(struct net_device *ndev)
->>  {
->>  	struct w5100_priv *priv = netdev_priv(ndev);
->>
->> +	if (!netif_running(ndev) || !netif_device_present(ndev))
->> +		return;
->> +
->> +	disable_irq(priv->irq);
->> +	if (priv->link_irq > 0)
->> +		disable_irq(priv->link_irq);
->> +
->>  	netif_stop_queue(ndev);
->> +	w5100_hw_close(priv);
->> +	flush_work(&priv->rx_work);
->> +	flush_work(&priv->tx_work);
->>  	w5100_hw_reset(priv);
->
->[Severity: Low]
->This isn't a bug introduced by this patch, but netif_stop_queue() doesn't
->wait for an ndo_start_xmit that is already running. Can w5100_start_tx()
->still queue tx_work after flush_work(&priv->tx_work) here?
->
->w5100_start_tx() {
->	...
->	if (priv->ops->may_sleep) {
->		WARN_ON(priv->tx_skb);
->		priv->tx_skb = skb;
->		queue_work(priv->xfer_wq, &priv->tx_work);
->	...
->}
->
->If it can, tx_work could issue SPI transfers at the same time as
->w5100_hw_reset() during tx timeout recovery. The baseline w5100_restart()
->had no flush at all, so this patch narrows the window rather than opening
->it.
+On Wed, Sep 30, 2026 at 09:40:51AM +0200, Thierry Reding wrote:
+> On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
+> > The DSI driver ignores the reset line if a power domain is configured.
+> > This was originally added to support Tegra210, where the power domain
+> > provider has to control the reset line -- at that time, older SoCs
+> > didn't have a power domain for DSI. Now, however, they do with the core
+> > power domain.
+> >=20
+> > This happens to work on most systems due to DSI already being out of
+> > reset when booting the kernel, but on Tegra114 Dalmore, this is not the
+> > case and causes the system to hang during boot.
+> >=20
+> > Ownership of the reset line is no longer a problem with reset
+> > acquire/release semantics, so control the DSI reset unconditionally
+> > from the DSI driver (possibly in addition to the power domain driver).
+> > The device tree bindings already require the reset and it is present
+> > on all platforms, so this is safe to do.
+>=20
+> That seems backwards to me. The whole point of doing this via power
+> domains was because it's explicitly not safe to toggle that reset line
+> outside of the powergate switching sequence.
+>=20
+> Also, the power domain code paths are supposed to work regardless of
+> whether the DSI was already out of reset or not. If that's not working
+> right now, I think that would qualify as a bug in the power domain code
+> rather than the DSI driver.
+>=20
+> Shouldn't this be fixed at the powergate level? My recollection is that
+> DSI is tightly coupled to the display powergates, though it's been a
+> long time. Do we maybe need to reflect that in DT? There's a TODO in
+> tegra114.dtsi that seems to indicate that we're missing DIS and DISB
+> powergate implementations, so maybe that's where we should start to try
+> and resolve this.
 
-True, the low risk still exists.
+Looking at this a bit more, pd_core doesn't seem to make sense for DSI.
+Basically what that does, semantically, is claim that there's a power
+domain responsible for powering up and down the device, but in reality
+it doesn't to squat.
 
->[ ... ]
->
->> @@ -667,13 +772,40 @@ static int w5100_stop(struct net_device *ndev)
->>  	struct w5100_priv *priv = netdev_priv(ndev);
->>
->>  	netif_info(priv, ifdown, ndev, "shutting down\n");
->> -	w5100_hw_close(priv);
->> -	netif_carrier_off(ndev);
->> +
->> +	disable_irq(priv->irq);
->> +	if (priv->link_irq > 0)
->> +		disable_irq(priv->link_irq);
->> +
->>  	netif_stop_queue(ndev);
->>  	napi_disable(&priv->napi);
->> +
->> +	cancel_work_sync(&priv->restart_work);
->
->[Severity: Medium]
->Can a restart_work that is already running wake the queue again after the
->netif_stop_queue() above?
->
+Does the hang you observe go away if you remove the power-domains
+property for DSI? pd_core should probably be removed for both display
+controllers and HDMI as well. Probably also TSEC, though the TRM isn't
+clear about what power partition that's in (probably DISB because it's
+used primary for HDMI, which is in DISB as well).
 
-With the correct timing, technically yes it could.
+Thierry
 
->[ ... ]
->
->> @@ -839,10 +1011,11 @@ static int w5100_suspend(struct device *dev)
->>  	struct w5100_priv *priv = netdev_priv(ndev);
->>
->>  	if (netif_running(ndev)) {
->> -		netif_carrier_off(ndev);
->> +		mutex_lock(&priv->link_lock);
->>  		netif_device_detach(ndev);
->> +		mutex_unlock(&priv->link_lock);
->>
->> -		w5100_hw_close(priv);
->> +		w5100_stop(ndev);
->>  	}
->>  	return 0;
->>  }
->
->[Severity: Medium]
->What happens if the core calls ndo_stop between this suspend and the
->matching resume?
->
->Here w5100_stop() disables both irqs and calls napi_disable(). However,
->__LINK_STATE_START stays set, and suspend takes neither rtnl nor the netdev
->lock.
->
->A kernel-initiated dev_close() can run during the suspend window, for
->example from cleanup_net() on the non-freezable netns workqueue. In that
->case w5100_stop() runs a second time:
->
->__dev_close_many()
->  w5100_stop()
->    disable_irq(priv->irq)          <- disable depth now 2
->    napi_disable(&priv->napi)
->      napi_disable_locked()         <- SCHED/NPSVC still set from the
->                                       first napi_disable()
->
->napi_disable_locked() would then spin forever in usleep_range() while
->holding rtnl.
->
->After that, netif_running() is false, so w5100_resume() skips w5100_open().
->The irq disable depth stays raised, and a later ifup leaves both irqs
->disabled.
->
->Before this patch, suspend only called w5100_hw_close(), which touched
->neither NAPI nor the irq disable depth.
->
+--44hvupbkmw3pca6w
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Taking rtnl_lock/unlock in suspend/resume could close this gap
-but it is again probably something very unlikely to happen.
+-----BEGIN PGP SIGNATURE-----
 
-Arthur
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8yEsACgkQ3SOs138+
+s6GyMxAAp9uLoaTsunXUnAeKt9b5BUcYGzsEZkNCKAszdDlAbAhjVNZbve4gxwOE
+4JXThjK9j1V73ttROhKen3ki47423XeHNL1bbmeM6tm2MrjO92e6u8zsGLg5xbkg
+HNCX6b/AuxxjgsqpDsWSAniwmc4orAHfkuvPoeZdQ4TSBnfHHhbWnmnuybHZy1/K
+aM++rdwn75/rabxQF3qqkjc/aR4lYlrRQSHs3VQJlmZrDlUfk4lNSk3y/1MPICuA
+hMKVHIy1AdDmWL5Es4Ie1+XoCtMWTDAiiaZl7nVy5AYXRxNlurZTAPeA3hzMXlxr
+zGVQ87xzWYUwP2nBOJVqqE7tto+G6pbW3xoyoKMsXA3+dxCgxNjT3BR+sA9BaXuH
+Vu82yaviphSxjUpTbKPQXVbN4qHPxVIMQUBQBDCnYqqWtZpcOB5/4de2+m44iKyV
+ACiE7ajMIUVZvNbj/HDQ6aEEsZGWVq+4xtNPGgO0jMFPpukogDH8HdTV2xDsXT50
+W1lQXpfjPK3qiWZjRTLHLka5UdGp2LRMW8QG6HtIIr5lS41glxtf/pIPBaatnAvp
+oA9g2XCxdsuGnjBZOM3SMyh0TCwwuCzjffXohxqDzuDCybyuiHrPnu6W57VUBsbY
+/I1BIjJGVjxDppiEtY67U1yaimL0Ca/F1YOez/i6DrRXCIhI4mg=
+=ItIw
+-----END PGP SIGNATURE-----
+
+--44hvupbkmw3pca6w--
