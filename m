@@ -1,160 +1,135 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAEE515964
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787762; cv=none; b=hJzA8/9mfnde0JThRdXa24vgGFX5CD85CvCn447TC4b42XNeyN/YpLSn0jQ0z9rMIjvWlR2RUn9u83IZL4ctjwHCfhMYgS1v5u1Or0MseX0SsRBww/v2cjNXaquYq792MnEJvCCypnRll26TkGXq4wK5/iS4cDQx/JMT4lZhaVU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787762; c=relaxed/simple;
-	bh=dALmUEdG5EWfXTijtmFQiMsJEwrQV+3rOWZZ8DyLmx8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=XEqWbed4VpXKG9OdEVhSLPmumYzVg75T5sE3QhRy6tT5Iwxgyvwv5NPZ5YoWZLQar4AlhxaKSemO79s5f4Hwtx5QzJDFPL8wBtG4spZ2vZjE+RSud/3lUWPbfgK6hywaprkTjDHMyebPMf/lf/7i13TkmvYNYN3IvPK/30idUj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-81c1dde0219so6511727a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:02:40 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D34D3750CF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790787865; cv=pass; b=Ju2VXDkqyl3Bl6qYy7zGmCuYWi8g39xtrmMvbXzjlfb4fmP87URC+djkoUsdORXGUPmrCXH+B7idsSX05GyQxTv5+b3Dv0a+EXYZxhSRtosOk4iLRa0Q6K80IQKty4UnfjLAKZP38Hrw1aogBAm4R+nYMZ147+ybl9qWSzedFJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790787865; c=relaxed/simple;
+	bh=YPB0OuzgSu6bYeqdbKJsDvFZ0QIOxvCezfQ72jpnedE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K3B+OBGP7vUx8bzZ8ZCBApX30cr4QMB7XxofbVb+VS5u30nwZSjAc5ewZhp6QWvJiAzr5BQkR++kUjQEqpUSkkm0mnpNPBBSLr/6ClWwMKI+mkUg3lqIvJOFF+mSWO59VyarQiEUbxk2xfc3IZ71DZRuWvX20wvNWpYleiK81Ao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ivTyT5JU; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ivTyT5JU"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so3458455f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:04:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790787863; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f8oc+MNruG8SFKvcXltxCxxbdR/JmKI7dnp7GM0hpms77ZSfxI2i/dLY9D45P+NCLh
+         UdPmkcN1AN0rL6zRj4mQQ6QlJHHMJs3vTQxaUumTorvJvBxNzpHxPpG/iT8ZD/VkoYIG
+         dwvrqbEklWwMVuN7QH1kupWSQoxEOjnojtPOGU/SsiPPpCt3B1vvJXH3FWvix4HTvVZb
+         uoH8nouwuIAEjgvR/PtojTCjjA0PI1FvbWgTXnPZrUW4P8JLs88pE1Ihkdtj9NsBNiOQ
+         1E9UBAGYWprYwr4dkVaGoBl5FzGHztfL7e99M8pZlSxxho9PBq6zcaJ7ByUjUSwVnuAd
+         qWYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zbCTMDLKH8sxYxpZqqOg0zEN33xQKgj6205FhZee8H4=;
+        fh=41t64nVPa7jhJ2Pj7MWmweSoQvxudIF9UXxtHIO9nvM=;
+        b=X6L9nHW9lFMTbMyT/HLCU6mqA/nUsVicWLe8S66ZEgxMkQXMVGvPDo9fVR8A3SoX+e
+         dLS87/nkbqTVJturCZ2AI7qwAA4L7rA5x4TEJLDkSemttC6dRAehJvShPbYsWl4txcDW
+         NJTQDoi8sSAwD05IKVgSqSxXuljEn2ivjqQXejG1eqbu+tWgdmQHrQKB7G8cK8+jLXyx
+         UPXVlvyBbCF+lm3dmgAh9IxPBlh1DyR/TwTEevFm/9hsQQonPNrlF+T6WkDDUuZCuEVR
+         YXFkBPwUos6XwGr2k2Gp4gCLwaZjSIzfvIko9uHZ730GjRfhwkyTHZXzKzf4+j2D9krQ
+         lgsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790787863; x=1791392663; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zbCTMDLKH8sxYxpZqqOg0zEN33xQKgj6205FhZee8H4=;
+        b=ivTyT5JUHKeGqQuEuNbfdAGYblvHXNS4/cO+fgAoTGcyxuty/wgF03oAUMwj1lM80i
+         lp0f/IBpZKvT2slcDmaOsfl6LAoSc19DgvJlOJRXn+OQukYfFWu1BlJ5BVCNd3ImmpPc
+         eBKqB95iAqIn7eWFOAoQxmZG7v4Y3fvy7vllRxa7mfnOORdW6rbHcVmuI0qVx96C5efk
+         HvrKNEKcYn9yTYyFKSgMWj/sf0T2+Cf8L0WFXC7pYWmf85Hu3ttNEybGwuxhu1q4nDFm
+         Z4JJskBc9pGj38DTriJuzMWfv1K2RkxK8kfCthViHRDvkGP3q8iODb4iJ0Y5XAco1fcX
+         QfZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787760; x=1791392560;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790787863; x=1791392663;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WmynAp8tHrw2Eto/AmEqwtrm2Mc1Vd5QPga8ueQFsN4=;
-        b=pbJSAopEfQHxxoPxW/MVKTst71LRrdD0ICcICEY0zm+boxGLqIgHl7dXGOGPJ9S/3m
-         nzgObABjur+Y2AudHv0VQrkvqlv6zRw9bd47zfm08t4V2XSxf2BZyvQUbE1rrxWLldrg
-         jho82laie7QMbq2ISmM2QV3XR0aBgQm61XagnMiC6oTs1XguqU6Eh9XXQn/Gvp/PKUCQ
-         neKXHsPwTm/bufywuYcd5UBj3UlMtRebbuox1NPzDIZiic1WTDoYr8E09X9Z0Tsazexo
-         33TOuN5933LdQZo0PypjEszCbPd/9bq42THKAq4mEg3Hvll4SvzXfbK4JDhOl9iboqMb
-         yyAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxe+PzVEIOPaiXCGSeNlhm1+s91wdMo7Oxm1mJGDiAObEDUpaHNypOlHKTWfaSv21YVk9CdWFhbScJuxA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg802ivJWsIlI7+HDQoZ6ck2R4Ids8q/hpTIAKM5DxE0M3W0+W
-	m/NmWEpvXSbFQ4Yni0F51k3pPC+88EsFoTm2tzEJQHTbQoOGor0dKZQd8BYArrelt3hNd5EYfTE
-	TGXLVoP6Br4bk+Dch2EnqJppKI1+3Ep/yYEyTFqDaH891ScxQ+rvP1IE9sDE=
+        bh=zbCTMDLKH8sxYxpZqqOg0zEN33xQKgj6205FhZee8H4=;
+        b=ivyAnLTShWVDVXa5EIM8moKBWxyFw7pjk6ymRD8ej6DAsD1svgk8xlduUR1jD+g6VP
+         2JoS8G5FqrlRWhifUX7oS2qX4uK5pcZKYSyVRKoBLRTOjUZznY4p5cayzZg2kfONt7gQ
+         7WfXoU7wghN/NLQVPuIlnhEzfvhvfjaPsBwFs8FeTd+Z8tuFxpR85Kgcs1xQD8DKAZNe
+         WgvEK27cIaXsWVbd058pCNvfMfRTcgsWKwBst2hJjbk8n+5ooWJK65ndYOUqfpzgzH2l
+         3f6+BPfmi+jkrLwfTeKqz4Vf5QQaPkmZtdZfx2PTE1ehMzbffPWDdkPXa1Z5jmfgCjkV
+         ChTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEptbcHuWgxC6WesZf1RSfC65qlHJAyw2wllHysPpAx/D1STAc99pyZgNT4476OGMuxb7+I7F8AVWjo/w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIK4Lq387P/zsYM9fl7Zh2jCFu6yTcLlTnLf6L/B/jPyjcYwSYX
+	1wQVJvliMeRX6GF29bCFGzRqCzofGyLMsglk0i4ZQgbjyJm+2kU59flJ5CFhUgOBjYxWhNQtQOQ
+	vI1RinUpwmOgftrodmfZvbt6hn8BDNGk=
+X-Gm-Gg: AYBFou16QQN8bmc5miLvlgI0PzM7dg81lPTkizu3o1VfNobCB8otFQyGgvfJZcd8vXJ
+	x+4NgcbTMX9EoeS8yfVnUmAH4rE9LWDN0xXBBaW7P3NGgD9dqqii6oXbJfl8+nrk4JgbflQSqjm
+	Zp1R2tHTLyYPKreeUA33OhNtewcOfhMYUV7zIZwd0nx75e2Bz52txjPPW5dVMTXUi/Q4zsKKaSo
+	o3XzoJV06u0y3yYJmdSSfODreBf8XkQf7VKA0Z2jJTUBV2vGDh9YmqMx5yiff3v/P5MeCX5WqrJ
+	vz2Bt/udVGf7PGDbtmqWtO3YmgjwFm3mCAzMSrB4ciNvtv9LcT+9jSFYIjKDlxNG0AUSVySgu08
+	TRk9CQNhcGM4w/7ifhX8PP2ZPM5la+NQHgi8cQfIKJpmIYyR74N0T1D3K4Dg2TRlM6W6NkiQQb6
+	A=
+X-Received: by 2002:a05:6000:4283:b0:487:106f:ee31 with SMTP id
+ ffacd0b85a97d-48b02524089mr4421323f8f.27.1790787862365; Wed, 30 Sep 2026
+ 10:04:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bce:b0:4d6:90d3:e18e with SMTP id
- 5614622812f47-4f1b85c2d2dmr2235776b6e.45.1790787759808; Wed, 30 Sep 2026
- 10:02:39 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:02:39 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abd40af.fac9d4e5.17396.0008.GAE@google.com>
-Subject: [syzbot] [openvswitch?] WARNING in set_ipv6_addr
-From: syzbot <syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com>
-To: aconole@redhat.com, davem@davemloft.net, dev@openvswitch.org, 
-	echaudro@redhat.com, edumazet@google.com, horms@kernel.org, 
-	i.maximets@ovn.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-8-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzWMViKacekCSdS@ashevche-desk.local>
+In-Reply-To: <arzWMViKacekCSdS@ashevche-desk.local>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 30 Sep 2026 18:03:56 +0100
+X-Gm-Features: AclHuK9LOI7GwX6WVy-CRezdreahkEzOs_5YWlyyazInLnkw8984BuD6XWEzDWY
+Message-ID: <CA+V-a8swr65n3hnGA_a2L-uGfLbzAKeQ3TqddjcyC+iWF52Vgg@mail.gmail.com>
+Subject: Re: [PATCH 7/8] iio: adc: rzt2h: Use scan type for ADC scale
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hi Andy,
 
-syzbot found the following issue on:
+Thank you for the review.
 
-HEAD commit:    47a144672573 Merge branch 'mptcp-misc-improvements-for-v7-4'
-git tree:       net-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1342db25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=88147dd7e4cb6a0f
-dashboard link: https://syzkaller.appspot.com/bug?extid=4cc63fcfb3845e149969
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c35e05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11908035580000
+On Wed, Sep 30, 2026 at 10:28=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Tue, Sep 29, 2026 at 01:42:47PM +0100, Prabhakar wrote:
+>
+> > Prepare the driver for RZ/V2H(P) support, where the ADC supports both
+> > 12-bit and 8-bit conversion resolutions.
+> >
+> > Use the current IIO scan type to determine the ADC resolution when
+> > reporting the scale instead of assuming a fixed 12-bit resolution.
+>
+> ...
+>
+> > +#define RZT2H_ADC_VREF_MV            1800
+>
+> _mV (yes, as it's called officially for millivolts).
+>
+Ok, I will rename the macro.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/974586b80355/disk-47a14467.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/05ff7f1eb7cf/vmlinux-47a14467.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d63ff990e2c6/bzImage-47a14467.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com
-
-ovs-dp0: entered promiscuous mode
-------------[ cut here ]------------
-!skb_transport_header_was_set(skb)
-WARNING: ./include/linux/skbuff.h:3075 at skb_transport_header include/linux/skbuff.h:3075 [inline], CPU#1: syz-executor463/5635
-WARNING: ./include/linux/skbuff.h:3075 at skb_transport_offset include/linux/skbuff.h:3250 [inline], CPU#1: syz-executor463/5635
-WARNING: ./include/linux/skbuff.h:3075 at update_ipv6_checksum net/openvswitch/actions.c:361 [inline], CPU#1: syz-executor463/5635
-WARNING: ./include/linux/skbuff.h:3075 at set_ipv6_addr+0x462/0x660 net/openvswitch/actions.c:399, CPU#1: syz-executor463/5635
-Modules linked in:
-CPU: 1 UID: 0 PID: 5635 Comm: syz-executor463 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:skb_transport_header include/linux/skbuff.h:3075 [inline]
-RIP: 0010:skb_transport_offset include/linux/skbuff.h:3250 [inline]
-RIP: 0010:update_ipv6_checksum net/openvswitch/actions.c:361 [inline]
-RIP: 0010:set_ipv6_addr+0x462/0x660 net/openvswitch/actions.c:399
-Code: f6 e8 12 d3 05 00 ba 10 00 00 00 4c 89 ef 48 89 ee 48 83 c4 20 5b 41 5c 41 5d 41 5e 41 5f 5d e9 14 89 7a f6 e8 ff 80 0a f6 90 <0f> 0b 90 48 8b 44 24 10 42 0f b6 04 30 84 c0 0f 85 c8 01 00 00 41
-RSP: 0018:ffffc90003b3ee68 EFLAGS: 00010293
-RAX: ffffffff8bbd5b01 RBX: 000000000000ffff RCX: ffff8880780bbe80
-RDX: 0000000000000000 RSI: 000000000000ffff RDI: 000000000000ffff
-RBP: 000000000000004c R08: 0000000000000001 R09: 0000000000000011
-R10: 000000000000001f R11: 0000000000000000 R12: ffff888071cdbd36
-R13: ffff88802d028396 R14: dffffc0000000000 R15: ffff888071cdbc80
-FS:  0000555579c36400(0000) GS:ffff888124dc5000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd90696af0 CR3: 000000007065a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- set_ipv6 net/openvswitch/actions.c:531 [inline]
- execute_masked_set_action net/openvswitch/actions.c:1073 [inline]
- do_execute_actions+0x557e/0x8600 net/openvswitch/actions.c:1366
- ovs_execute_actions+0xde/0x520 net/openvswitch/actions.c:1592
- ovs_packet_cmd_execute+0xb4f/0xf10 net/openvswitch/datapath.c:705
- genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
- genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
- genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2572
- genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
- netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1361
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1916
- sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
- __sock_sendmsg net/socket.c:818 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
- __sys_sendmsg net/socket.c:2801 [inline]
- __do_sys_sendmsg net/socket.c:2806 [inline]
- __se_sys_sendmsg net/socket.c:2804 [inline]
- __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2804
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe073a4fd39
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffece969af8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-RAX: ffffffffffffffda RBX: 00007ffece969c28 RCX: 00007fe073a4fd39
-RDX: 0000000000000000 RSI: 0000200000000040 RDI: 0000000000000003
-RBP: 0000000000000001 R08: 00007ffece969c28 R09: 00007ffece969c28
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffece969c18
-R13: 0000000000000002 R14: 00007fe073ae0ca0 R15: 0000000000000002
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Cheers,
+Prabhakar
