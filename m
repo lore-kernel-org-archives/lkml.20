@@ -1,57 +1,57 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189264078C1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2AC41C2E4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797000; cv=none; b=OHMh5krIg6tK9nnqpXRl+yjfpQfgytWvZQ2+jzEeEdq9/rzlto/mMXQxy0R/DczSeHyCPb2M/RlQFFdHguyYjTtuIS6KKRKn3lEONAtHMS2JbbY+XdIwaz+rYrnvMus3dppfqHz7W9uTemqoQn6mOYL4FuigJDdw3+OGPYvhNJg=
+	t=1790797001; cv=none; b=Vo+MV8nwt8Iw7ea5wSP8UzRMi9f9CRK2q85h9jNlcdJ6iI0mdIB7uiPwWh4Ib82XxYn5xLk+7d/GCfWJP0VxD2YhFF8QtFDg+qIO0uZm9y2R1KI3GnYnA0hSKZ+svJjVhqYT9w4+fgVpNiFGpiSJoryZVazp0qi6Q12bVFbgqk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797000; c=relaxed/simple;
-	bh=A/nFV5I8OILCijxu4ThN2Sks1ZObqHSvT04Eu0v4C6Q=;
+	s=arc-20240116; t=1790797001; c=relaxed/simple;
+	bh=wqr+SMrt7dxBNk54DLAnLV4dP8Pt5nYHC5LIfJSQCT4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tmLJNOpZBC08XNmj0hFMe09AObpgsgxcW/9n7X0hIwB9r5NKFShlRRLoYWuBOYSZ8p3FqCMrSdru4WZT7oQv0ihifOVnmlNtUy7VNsrEQdrYzlHpPkNKL2WEMyoNrE4S87HHf9aYTdW8/93o3+N/XlBgXxm+unWlfKql8oPq6KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pcXVhaAY; arc=none smtp.client-ip=209.85.214.200
+	 To:Cc:Content-Type; b=qk7SUlFe1E6sveIbvyJOxzHHFQPbdGvKm9avmtJJWByLKsamE5LCvhTqukm3ZhHb9w05yzhpJd7mcFaJtjqK/VeT3hcB1eUIYw2vFfGk9RTmFKHv09cKA6UuUMhbPn0SwDj6uBmVpS+2YM5PCRnLJCo8VOhDXXoDf+yxXKLhols=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hZvuV7Qr; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pcXVhaAY"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6f75c1219so72630035ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hZvuV7Qr"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2dc7312e5so11302125ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790796998; x=1791401798; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790797000; x=1791401800; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=A3HfqFgv58Oe77VJobLdkIke4fLE6/94erxxiYljr/o=;
-        b=pcXVhaAYTG7jONtryJiaD6+6Nq+oCIBi0ieL8tGy0qroGzGGT1o8nD2nNsRyeiCI3p
-         wO0Kubyr8axlglLV2WaJ4lWFERQyPbfvloLNj0vJ56MDSm/JYnC6TGAX0FQvPBqfMdyD
-         Vzn57HdyhPnHuRE1htoLXqvu+J28z1n2qgAWTeNfU7cdiuHQegQ4bWKYw8ziASx7YdLN
-         pl3gdfghhMOuQnzl+y1b4iv7XulaVO3al5wI2AgokcvF61h+LmSgK6zI3Z/adD+kSJ68
-         EHwXS7mPtlG4l9MTl8l8Bw/9LlNUjsDomAxCPU4bpF6QxujqBo6E64js2aZwnAYArZpo
-         sjRw==
+        bh=APU6Hsi/UB4LmSAjtjOtU74/6EleNQVrcW2jpeijhhA=;
+        b=hZvuV7QrFdx5c67bWd4iQoIgSavrp8Dw+9adPylsDquqD9XKsL2/tJ7MFu+vEkbUTn
+         xE/WfaQgL/EfzFtv/sX4fFfg2BvvyrtOZlqjnO3I44OHwR2bPVCB8Gby1hhr6It4c3Ug
+         LKYw8rXev17e+k062Srd5ggyYowgDCWiFKOVBYv36QkO1x5aKfTGyTp/Lpwg5Y7O/73R
+         pxg4eM08O4JI+mpeiRddVWehNQejjqMElxonAqBzzV/9LLNjKdHgmCoXgr6cGNbGQqVn
+         G2x1g1rKBEer7SUv9rk5IPlGfjtezahifgYF5frQLRQPdC7SW+hZn4KDs0VFHOixfmo/
+         U3Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790796998; x=1791401798;
+        d=1e100.net; s=20260707; t=1790797000; x=1791401800;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=A3HfqFgv58Oe77VJobLdkIke4fLE6/94erxxiYljr/o=;
-        b=QY4lpnhRXVzUHtzOsaufytmnLnOyaSutvabZZHiDwxhRAHHvcVyPeAipiS/dJD+r9+
-         NkUjnzjK1MoNt4U026K2CpPC1DQdH5v9oa2PEK4kGCN+8veVDBVVEuhywCZspBWenWsy
-         WaucGwG2EfzUlUVTZZfkFTTJqwI42tey9GFCpzPmh0fs56F10PeUpR514KESl53vv1/p
-         1anZmV2dy2ceoWV+CqoNZbFueYARNbFm79fnz4AWVb+TOEwzPqng2L5E8W+MpyQNYw+r
-         ZW9Vjjy+IULQaayhlLKKPPN+hzDnjrCFhkXx7Adj6HbCi2PtWI6UFSm5SmRticYjFtSX
-         lcmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmLgBeDFfE2oJh6yHDeolk2BHT4s9pahLkV4sfjl6VnIjzdfXMak/q8JKlB1g/eoXgUNeAsMDxUVNbscY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyNgB+hLYbGh0G3UNNyveFqZcL6cCAiH2O468M+SlmuefpX6/m
-	yU1RYl1o1Dz/84CkaCgJpFVYk5KgbzcYWpVClqwOCftD28KnEmipn0uZ2wAh3I6AJ2vRYy+oep+
-	+XTSRjw==
-X-Received: from plae3.prod.google.com ([2002:a17:902:e0c3:b0:2e2:d9e8:ae73])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2a8f:b0:2e2:d77b:e586
- with SMTP id d9443c01a7336-2e2e4bbe047mr20545405ad.60.1790796998157; Wed, 30
- Sep 2026 12:36:38 -0700 (PDT)
+        bh=APU6Hsi/UB4LmSAjtjOtU74/6EleNQVrcW2jpeijhhA=;
+        b=rvcEkCipLMkPLzfyHL4C2XW76RiOEX4lzI3fDM1tRXf/d097bH7rAy2ShhygelNTVR
+         K+HvLftwXrkYYFNsLf+mvuQFaJimR0CxRNVbisHRGMpP50FDVnmTeqiyVbZxgtw39fWw
+         BtkDiIXDNKO86IgqNPc4+ts/jesp7P5AZ621OCW1goY2wm1t0d8xt0GLi1OMAZI30IJI
+         HJKU7+6wNhVURwNzQLe+5NovlyGdRq4gl4go/FNnL5Zsr7osCjdw2KUtK1vnl8CyNwzC
+         ua8CW60iBxJCWT0BJ5lHpxil0Gk7tBLAT8O1nI6OBDF/8LbzqnaLfhC1rzqyoXA9+VL+
+         YOdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9N9De1nmL/O/fYqIVeIl6j1qZpSuOXQm+nhfxMWVZn+FZR5Rcg0m4jkp0qkzDyJR9Gjzaoc5tT3GxSwg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOdntvtStUt3MAOgt2U8IhX8qJFgfKpIijYPLpX9Dnx4o0YhJt
+	1/k/jKI/UNyI13Zm1hGNHEF3xvzfWqbp+GbgKpKBHQpFc7M/3nUkWm/3+UGUfc8xdXPGPgqSPFD
+	I+Yt21A==
+X-Received: from ploc14.prod.google.com ([2002:a17:902:848e:b0:2e0:895a:d3be])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2c8b:b0:2df:8b09:93c2
+ with SMTP id d9443c01a7336-2e2e4b7cd7amr18282055ad.43.1790796999428; Wed, 30
+ Sep 2026 12:36:39 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 12:36:23 -0700
+Date: Wed, 30 Sep 2026 12:36:24 -0700
 In-Reply-To: <20260930193634.3415089-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930193634.3415089-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930193634.3415089-2-seanjc@google.com>
-Subject: [PATCH v6 01/12] KVM: x86: Preserve DR6.BLD (Bus Lock Detect) when
- delivering #DB payload
+Message-ID: <20260930193634.3415089-3-seanjc@google.com>
+Subject: [PATCH v6 02/12] KVM: x86: Rename kvm_dr6_fixed() => kvm_get_dr6_fixed_1()
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -72,105 +71,38 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Tom Lendacky <thomas.lendacky@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Preserve Bus Lock Detect if it isn't present in the payload.  Unlike RTM,
-which is explicitly modified on every #DB,  DR6.BLD is modified if and only
-if the #DB is due to a (coincident) Bus Lock Detect.
+Rename kvm_dr6_fixed() to kvm_get_dr6_fixed_1() to make it more clear that
+the helper retrieves the fixed-1 DR6 bits for a given vCPU.
 
-Per Intel's SDM:
+No functional change intended.
 
-  Other debug exceptions do not modify this bit.
-
-And AMD's APM
-
-  All other #DB exceptions leave DR6[BLD] unmodified,
-
-Restore the explicit RTM handling that was clobbered by commit
-9a3ecd5e2aa1 ("KVM: X86: Rename DR6_INIT to DR6_ACTIVE_LOW"), as the
-semantics of any given bit are feature specific, i.e. are obviously not
-consistent for active-high versus active-low.  In other words, while the
-bug was technically introduced when support for Bus Lock Detect was added,
-it's really that attempt to genericize handling of active-low bits that set
-KVM up to fail.
-
-Fixes: e8ea85fb280e ("KVM: X86: Add support for the emulation of DR6_BUS_LOCK bit")
-Cc: stable@vger.kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/x86.c | 52 ++++++++++++++++++++++++++--------------------
- 1 file changed, 30 insertions(+), 22 deletions(-)
+ arch/x86/kvm/regs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index cf3fcdfd8ad2..ea1406c3b260 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -401,30 +401,37 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
- 	switch (ex->vector) {
- 	case DB_VECTOR:
- 		/*
--		 * "Certain debug exceptions may clear bit 0-3.  The
--		 * remaining contents of the DR6 register are never
--		 * cleared by the processor".
-+		 * DR6 is a mess.  Reserved/unused bits are fixed-to-1, and so
-+		 * to maintain backwards compatibility with existing software,
-+		 * features that use previously-reserved bits have active-low
-+		 * semantics, i.e. clear the bit when the feature is present in
-+		 * the payload.
-+		 *
-+		 * Further complicating matters, some DR6 bits are preserved by
-+		 * hardware, while others are explicitly modified on every #DB.
-+		 * The trap bits are always set based on the payload, as is the
-+		 * RTM flag (but it's active low).  All other bits are modified
-+		 * if and only if a relevant debug exception occurs, e.g. BD,
-+		 * BS, and BT are never cleared by hardware, and BLD is never
-+		 * set by hardware (when supported, excepting RESET).
-+		 *
-+		 * Lastly, the payload does NOT have active-low semantics, e.g.
-+		 * so that it's compatible VMX's pending debug exceptions and
-+		 * qualification fields, and to avoid bleeding the DR6 madness
-+		 * into other KVM code.
-+		 *
-+		 * To compute DR6:
-+		 *
-+		 *  1. "Reset" the bits that are modified on all #DBs
-+		 *  2. Clear active-low bits that are present in the payload.
-+		 *  3. Set active-high bits that are present in the payload.
-+		 *  4. Clear fixed-0 bits.
-+		 *  5. Set fixed-1 bits.
- 		 */
- 		vcpu->arch.dr6 &= ~DR_TRAP_BITS;
--		/*
--		 * In order to reflect the #DB exception payload in guest
--		 * dr6, three components need to be considered: active low
--		 * bit, FIXED_1 bits and active high bits (e.g. DR6_BD,
--		 * DR6_BS and DR6_BT)
--		 * DR6_ACTIVE_LOW contains the FIXED_1 and active low bits.
--		 * In the target guest dr6:
--		 * FIXED_1 bits should always be set.
--		 * Active low bits should be cleared if 1-setting in payload.
--		 * Active high bits should be set if 1-setting in payload.
--		 *
--		 * Note, the payload is compatible with the pending debug
--		 * exceptions/exit qualification under VMX, that active_low bits
--		 * are active high in payload.
--		 * So they need to be flipped for DR6.
--		 */
--		vcpu->arch.dr6 |= DR6_ACTIVE_LOW;
--		vcpu->arch.dr6 |= ex->payload;
--		vcpu->arch.dr6 ^= ex->payload & DR6_ACTIVE_LOW;
-+		vcpu->arch.dr6 |= DR6_RTM;
-+		vcpu->arch.dr6 &= ~(ex->payload & DR6_ACTIVE_LOW);
-+		vcpu->arch.dr6 |= (ex->payload & ~DR6_ACTIVE_LOW);
+diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
+index fad31b59c622..62075443f6b9 100644
+--- a/arch/x86/kvm/regs.c
++++ b/arch/x86/kvm/regs.c
+@@ -772,7 +772,7 @@ void kvm_update_dr7(struct kvm_vcpu *vcpu)
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_update_dr7);
  
- 		/*
- 		 * The #DB payload is defined as compatible with the 'pending
-@@ -433,6 +440,7 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
- 		 * breakpoint), it is reserved and must be zero in DR6.
- 		 */
- 		vcpu->arch.dr6 &= ~BIT(12);
-+		vcpu->arch.dr6 |= DR6_FIXED_1;
+-static u64 kvm_dr6_fixed(struct kvm_vcpu *vcpu)
++static u64 kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu)
+ {
+ 	u64 fixed = DR6_FIXED_1;
+ 
+@@ -798,7 +798,7 @@ int kvm_set_dr(struct kvm_vcpu *vcpu, int dr, unsigned long val)
+ 	case 6:
+ 		if (!kvm_dr6_valid(val))
+ 			return 1; /* #GP */
+-		vcpu->arch.dr6 = (val & DR6_VOLATILE) | kvm_dr6_fixed(vcpu);
++		vcpu->arch.dr6 = (val & DR6_VOLATILE) | kvm_get_dr6_fixed_1(vcpu);
  		break;
- 	case PF_VECTOR:
- 		vcpu->arch.cr2 = ex->payload;
+ 	case 5:
+ 	default: /* 7 */
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
