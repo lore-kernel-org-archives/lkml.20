@@ -1,92 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D9F4CEE6B;
-	Wed, 30 Sep 2026 20:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93374C0424
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799278; cv=none; b=C9OWv9CSpTEUjbr5813KLRXJveMzcfBvnfJe+dRvxp8cVLsyx6XWciR8ZVuftkr3TD2PBQop3f60CLohvhM87u2htBhqfEEzqN/sAxzxMpawc5aCGgEqkLbEZdRBvpzAeD9ab0rtf0a5nWpfp1OJMfWWPZBqfQnTZ4iPo0V/GgA=
+	t=1790799318; cv=none; b=NP7Sj2ZlwXn3arWVodO3MNUViQHgogJkeg8kkWSn5TMM1k0fYf+ueGPNOt/knpNKK4xMOJsfRZehEjehrPa85FgCRVNxI5nD9A3grl/BSeBhlNW7khMGRyEYXGezpVoCd91aNgUOJy0Vj2Yr/IbQmEsWzu61wGljhwrnA2BzV5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799278; c=relaxed/simple;
-	bh=jBh29V7lXWDaQ1OWFYNzYZPO+3CDjuUVa1CxNBSUIyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=asNItaz7pB92I3M+UQK6sboJjj1GRzT8E2cb/rWypNi8JyBIzmLtAFyNiTfj8F8shxtIu0YYdwixcHKsNoy0311NQtOM3vdPsKz1Vza4lihWw1+HL+x72NfJBvuY02+QwxOoLSxCcsHOsOHrvhH5RHucGji8OsnoFsFdAKOblXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wm8rj2Mc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790799318; c=relaxed/simple;
+	bh=dkl74J2iGAfgs5zwrml4l7A6bTNzb1g1T7sdU85oCTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VQ/TvvQN1CKkhbTEZbFnD4lfvpuYpd66OWkdRE1YPmtjvOMvPHD8ssRTCAbvuP+PY4rwVQLIe5yM/OtVTFmRZbwusa4E18EaT6+DWTbg1HS6iS63LcVae5iTp7EBm1cAAf6PmnF5Vkkzv3/78WSekRXaoxIzpNuVBryfyBpUd6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=kzj5VrLh; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wm8rj2Mc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080141F000FF;
-	Wed, 30 Sep 2026 20:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790799276;
-	bh=Jh9wopEdiGr68kmPZd9LyAO78ha3dVq5Jg4mF7rTlfI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wm8rj2McmLUtm0s5iraBnwgg/RBLC2Wh9hYWgLS3F+pyiBXUqpZ2bQfNHQQk7ghIr
-	 YlmEkwd9QmLrZlLChWZ9oVBQIpEi1xX2nLj/qZIDkqY+Gfb3aneNTC3bsbNF39/1Vr
-	 bx7dKdDkTeHaVlEVCM9FHVYdkN+utAR9BObz17+EhFJ3nOMx8TX6BWO+i5IBt9s1/q
-	 P4Ud0G5IG+7mkJBUTHXE/lRlzq/EKcRWMJQvp2s14LFcZBKwtkfVqd3De8eXgo+pTH
-	 lzoHcJ6NADdZFcToiV16BdZ722vMMlJ9s6CV2gncbtUWYEyIAPQavb7StmrQ+Ih9HK
-	 gOaA99QE8djeg==
-Date: Wed, 30 Sep 2026 20:14:34 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Jonathan Corbet <corbet@lwn.net>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 13/13] lib/crypto: Add documentation about zeroization
- of key and context data
-Message-ID: <20260930201434.GA61218@google.com>
-References: <20260916095022.604354-1-thuth@redhat.com>
- <20260916095022.604354-14-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="kzj5VrLh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=U5331XFavrhG70kE99m0/AzAYBB0fxfgmvEAiEWpiw0=; b=kzj5VrLh0IYfIYuSTLN4Ncyr1e
+	p8wcQExUx0sBaxeTgvND5CmjlGjPR83zq+P9ASKupEaieHV7ubm6JuIPmnzKTvbalmJgATRFGCQEE
+	S+yYrcrNCOZU/gbSw95foEgaEjzud8dL3r5MskEshwpu+MKnTqMpftv+zQQaUeMjno4iDqGMbWQPd
+	POdPr63i37KYqHflK8iKZ50dEg05DkEgZ7vmeQeIDPjZv0f3yu3aGTGG1Bk9qirm7JbXlileIzDsx
+	HlXugteEUqoV/AEa1SCm9Fgnyx5Ewj5+t3HEKAwpDm9cSEULPMT765dlyRybyOn1peHDH42RAqbgx
+	gAa38U5g==;
+Received: from [151.115.150.205] (port=55214 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xC0hw-0000000BVHF-35sh;
+	Wed, 30 Sep 2026 22:15:14 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>
+Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
+	v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@kernel.org
+Subject: [PATCH] 9p: pin request under client lock in p9_tag_lookup
+Date: Wed, 30 Sep 2026 20:13:58 +0000
+Message-ID: <20260930201357.590469-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916095022.604354-14-thuth@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 16, 2026 at 11:50:15AM +0200, Thomas Huth wrote:
-> +What to zeroize
-> +---------------
-> +
-> +The following types of structures hold sensitive material and should be
-> +zeroized after use:
-> +
-> +- **Key structures** (e.g. ``struct aes_key``, ``struct hmac_sha256_key``):
-> +  contain expanded round keys or prepared key material.
-> +
-> +- **HMAC/MAC context structures** (e.g. ``struct hmac_sha256_ctx``,
-> +  ``struct aes_cmac_ctx``): contain inner and outer hash states derived from
-> +  the key.
-> +
-> +- **Hash context structures** (e.g. ``struct sha256_ctx``): may contain
-> +  sensitive data being hashed.
-> +
-> +Not all of these require explicit cleanup by callers.  Many ``..._final()``
-> +functions already zeroize their context internally (see `Automatic vs. manual
-> +zeroization`_ below).
+9P clients keep separate request tables but share one request cache.
+p9_tag_lookup() can race with the final p9_req_put() and pin a request
+reused by another client. Both clients can then complete it, freeing
+its response while the caller still parses it, creating a UAF that
+KASAN reports as:
 
-This should mention that the raw key that the key struct was prepared
-from needs to be zeroized as well.  Every in-kernel user of a keyed
-algorithm has to deal with this problem, as to "prepare" a key, you need
-to have the key already in the first place (whether it's passed in from
-userspace, or derived from some other key, or something else).
+  BUG: KASAN: slab-use-after-free in p9pdu_readf+0x362/0x2130
+  Read of size 4 at addr ffff888009520000 by task repro/82
 
-Zeroizing a 'struct aes_key' for example is kind of useless if the
-actual raw AES key is still in memory somewhere.
+  Freed by task 50:
+   p9_req_put+0x1a4/0x1f0
+   p9_read_work+0x916/0xf80
 
-Any interest in sending a follow-up patch that clarifies this?  It
-really should clarify that users of cryptography in the kernel should
-apply zeroization to the full flow of their keys through the system
-including system calls, key derivation, key preparation, etc.
+Hold the client lock while finding and pinning the request, preventing
+removal and reuse between these operations.
 
-- Eric
+Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
+Cc: stable@kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/9p/client.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
+
+diff --git a/net/9p/client.c b/net/9p/client.c
+index ef64546c6d52..fd72f05128d1 100644
+--- a/net/9p/client.c
++++ b/net/9p/client.c
+@@ -235,24 +235,18 @@ p9_tag_alloc(struct p9_client *c, int8_t type, uint t_size, uint r_size,
+ struct p9_req_t *p9_tag_lookup(struct p9_client *c, u16 tag)
+ {
+ 	struct p9_req_t *req;
++	unsigned long flags;
+ 
+-	rcu_read_lock();
+-again:
++	/*
++	 * Pin the request while removal from this client's IDR is excluded.
++	 * Tag equality alone cannot distinguish a request recycled for another
++	 * client from the same SLAB_TYPESAFE_BY_RCU cache.
++	 */
++	spin_lock_irqsave(&c->lock, flags);
+ 	req = idr_find(&c->reqs, tag);
+-	if (req) {
+-		/* We have to be careful with the req found under rcu_read_lock
+-		 * Thanks to SLAB_TYPESAFE_BY_RCU we can safely try to get the
+-		 * ref again without corrupting other data, then check again
+-		 * that the tag matches once we have the ref
+-		 */
+-		if (!p9_req_try_get(req))
+-			goto again;
+-		if (req->tc.tag != tag) {
+-			p9_req_put(c, req);
+-			goto again;
+-		}
+-	}
+-	rcu_read_unlock();
++	if (req && !p9_req_try_get(req))
++		req = NULL;
++	spin_unlock_irqrestore(&c->lock, flags);
+ 
+ 	return req;
+ }
+-- 
+2.47.3
+
