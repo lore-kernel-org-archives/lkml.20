@@ -1,122 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1703A6B6A;
-	Wed, 30 Sep 2026 22:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807649; cv=none; b=VlMUYa7VY/wcQeFTBPL9kQbzDkIGxmLAGRbOlLC0sR1ninfAYT+K3mdwNKDz2RsUrVTKmqYaHp5HMkXfqnDQIeXT94APzOfQj+pksBNjWJ18lVN1j5cWiFx5EJv6v5g2r5vfgyPuac7r8aUb6qkmEsgTBrA2HGcQvTPFz4h8npY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807649; c=relaxed/simple;
-	bh=oJr76kD3h0PbBc6aH4cXmFFu2b6XnB90saVnn8Xl5wg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=afj9UblgNHBbKxL4lqK7bEzDqvvtqZz26rvpfRWK69I97X4TEM4NrqbA2q7CJaDSF+4+FPUU/rVguU2FQrbOIKvXk5bg4uMA+6pxn/C8btdrGsSy9AHt0Hyf5iXXqH0Vi/vuF0KGvd+CRC7VDJH9qfXvUPOyOSkKoO9TFY03BlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaqhdASa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB954519A4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790807655; cv=pass; b=bygWXovGdlK8ELruiIxifXoD+Cg11YACf04F/zQ/muR0vvLWUviCSAn0zG1SOyN0yhRt0TgscPMj4mdTeSHi8A7VwyIiUg39WrZa4PW0El8E/yOU6kAEqX4CijMkfFaOpRPJh7IhSzVhETX+DGdYg7kt/fdCDanbNPU1xhft4Gw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790807655; c=relaxed/simple;
+	bh=PIC7chzdq1cHhl4PkxeRxKhky/x9i9QT91XRVBcM9Z0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jFkjsepJVxUrKdiPCDgvzP1XZ5Fm56m6RFIbUyHlZ/MpRGASodLsUHy3Fz72dpuEklQplW0AbTqIvYvX+5mFdb4uuUCWY7IeG+My5VbNKR/7h+8aecuHwpgEy79ukc56D5nc4QFTRg2XtYPt+jW4m/lXRR9R8/rPEJKyP+ebV5Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKAK+tep; arc=pass smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaqhdASa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C661F000FF;
-	Wed, 30 Sep 2026 22:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790807647;
-	bh=Y9zMIJNxKpa5Bhx46XZTOnTAHlsLD1gKMetTQhVVcgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AaqhdASa8v9wWTPxKWm2KF3pmZykgLgqZfaVVC+OKDJthjCaVn0MR9j+myN4oxS87
-	 3ml3pP9tZs41KnQSCrcScQgRK0U46yRAa2dSCtVLqeJlXQLfVoReLzYRrT1JDtjhAD
-	 jRCyOn9Bmuo8c0qloxjFBB3uNGHYIOoVfszPhdmLO5qDD1J2FSFC1+jNOA/5a50aF3
-	 8oBkd41Nh6wuVNPxDRXeuFsMANxdca1bCvdyIpvZTSYhxXRiYMM3xLvOH6qDYy4zGd
-	 4mzKvVZEHqsZN0SrfcMLGuM/rj18CbQvBCbKHnBqdo8e30rAo7fJzR3YEx1czWF2W+
-	 o+pnzAnGkFrww==
-Date: Wed, 30 Sep 2026 23:34:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
-Message-ID: <20260930-frantic-enviable-55c1a78fe7d4@spud>
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
- <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKAK+tep"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab46253999so26856147b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:34:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790807653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qb1aSTsWqP6k7qMdCLSVwRo0kMWTUg0/lRDdRPy/UqB+yKYNz0xExFquI7DbFxmbo7
+         TX31uFPPOSJvUC5fpN0lZbKha7V8tQlynDLx/tYh9ByKZ8v3EJF3WgCzp8p8YItuZVey
+         iqVrVSyGrPhyGj23oITC+rnKb+3OO0Z5eqhw0xsjdn3uEfRQnIhj9p1NbmBISxZJRARk
+         wzAf58tUw4cwSu1mKe0OBWZ8wBVRX5c9qwuGGtnRw8YagR9q9UmWfA6oPs/CxuoHtJP0
+         fvG7609WyPR2S8OlAFSD108xMzmYwuSXalOgdT/pVhh+b5efiSnN00tl/Kkraaf6vbYr
+         W7Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
+        fh=LghAoFo9FNiz9KuSD8+IXwHA3d3Hft7Nf6XxIcPX99A=;
+        b=aJePJh/jRFwv9poYKAeTto6dBkKIi6jUJkHZb9T7okR8mKGZRIonFJZNHeDldZrhj+
+         56zP7b5h/4Vd1Guc7hAChjP6Hftfn1PRq+QYvuzOLPVpXTGbLxMeZW1AUsVc/PaO6MQA
+         URerYsntdN6ZsarFp0jm2AGmAQ93uFKLq2vN3QUVEPdbPdCsfnFnsH8FnC44YAxNJMHJ
+         JUjQPiL22aU/x3wMU4gOoMW6Mij1Wv4zjC/HpU8C3Dpsa6diQ/weDS7u1xDQO4koQUcJ
+         mnsREDVfsubHVrA+KYh+JhVcaRHXft3kIoDWC9HUl8RmEsJ6qlugD85oTWWaN0pJ9ZUp
+         Prng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790807652; x=1791412452; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
+        b=AKAK+tepaK4rDsxS4ZKxhopV70hfrQR0aj//8qbnTlG6/IwLkcFsgxuNBEZ2jhGbwG
+         uImfXkYdQ0kQAKkFeClFyDEyf2ZpC6gmMlphdnoMn7I60LZPxP2PO6io9C3a58eVD0rR
+         JILQAZU7mluE+Rxu5sczN4pntBMFL+kC2hojp/IKoCt0mUHh/zWE9y6dRj5+oixhZhDc
+         e3x0ciQCaw7clXbsziLkG9gNmwEmohMTIoy7gzAYxJb5y/CfraWetkaSYTLJTR6GvZoX
+         ENJIUy4srswLAM7a/03DUe0LlhokbOLmP1KHJnoGfoeDD0qTbVI9qbXpeE/eU3VaZc/k
+         XKzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790807652; x=1791412452;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
+        b=QVYMINc3IlguAxpmYwMTbzR19FlRlonaNWYlmc1GgM9VZL2/lE+LW6s6oaYF88Fgs5
+         iHSKbkyby4Jq3pRxpLAqTUKQVmbLIUftmajcD+7002XP0uNJ285qwKLbPSrCIuNZRMOf
+         BQHgK8YE1to/gRu4zVKmj/TuXLesBBMFWhk7uoCw3HaAycB8CA8ws/fAj4Ge/bclb3XN
+         VnySJ+SnXeBDLFs7UkuiSdmognpDmesEeGH9/tu8P6OvVhwX/KV+LZJKxB/6ebvSC+nc
+         Dx7CO3oRrJq6YsWFeLzCTqQenuXj56tLE6Ge23yrEwsnPgN7uO104Fji4x4VFTBXO330
+         7JGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoDhJC9JQoXzkrEW9mzhv8ed1SkQ6vLM4eLCnj2+3o8NhUuSgRQJhj7MT6Tygxa+pZWOwCm4Jag68DRrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYL0IsN0rylbKzeYjQliGqMlByCNyUpWtYBXaKk3i/C1hPDcw9
+	xI0ZL979GDrNYz1sKYuBW+J6wAjlJ8J/KfsufIBbK58iy+U2J+p6a3tXcf42Q5DkDBhh3SHdHyx
+	omZX0CEmS1XMBm75LWbA7k2M2fQs3LG0=
+X-Gm-Gg: AYBFou2e2XpscAqGGZQ5pbIDrfijRjBIGhWiXokP36pOALxVvYiwD5kqaO5d4o1IlYJ
+	wmmQRHSa6hcnayqD0zRbiC6SLXGF/emFA0HWTHufS6uiIfCBrGKg/1fjTC3AcaQyUVoLiiLbVMW
+	bHALmRo/+rsSozipDpyNnLLGRNCTZlczoU7h+/Ca65SqicPvOtqnhFDHr9RZBm1PNp3ENtJ1NSS
+	gdTUB/w0TrzkDwg07LH43Jdoi0ORESo4/DMa1Ip0igH7viGN7YHDSpbZye78EA5MXMJT+5EiGM0
+	20VL7ngvxB9pJj2YTIGp3E+4R5xNs+nREwN11rPSiuG8nXx6lUKnUmhn5T5ftgdme4wL+JXw/hi
+	pqDboYhUi4vGiH2bQwC1aG+OSGdVZM575+Ns1DfDDSo5xQnteo/kuDPatlCbzyaCo7FKp7vQXxA
+	==
+X-Received: by 2002:a05:690c:4486:b0:8a8:86cc:f0d9 with SMTP id
+ 00721157ae682-8ac947b8c1amr15185617b3.66.1790807652652; Wed, 30 Sep 2026
+ 15:34:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PlRoT138GtctrPoH"
-Content-Disposition: inline
-In-Reply-To: <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
+References: <20260930164704.1049735-1-max.zhen@amd.com>
+In-Reply-To: <20260930164704.1049735-1-max.zhen@amd.com>
+From: Eva Crystal <0xiviel@gmail.com>
+Date: Thu, 1 Oct 2026 10:37:16 +1300
+X-Gm-Features: AclHuK8jqvs2xKPcwrh1EjUjBtMkQLDOpjFfC1OF9RWzwzIg9hc1qWQAaXEwGyg
+Message-ID: <CA+pz=kLERMEUwN5OQf7=aDDqkH93CHXHUuD+aA0tuYN2xCk3tQ@mail.gmail.com>
+Subject: Re: [PATCH V1] accel/amdxdna: eliminate GFP_KERNEL allocation from
+ mailbox send path
+To: Max Zhen <max.zhen@amd.com>
+Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com, 
+	dri-devel@lists.freedesktop.org, mario.limonciello@amd.com, 
+	karol.wachowski@linux.intel.com, lizhi.hou@amd.com, 
+	linux-kernel@vger.kernel.org, sonal.santan@amd.com, 
+	Min Ma <mamin506@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
---PlRoT138GtctrPoH
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Max,
 
-On Thu, Oct 01, 2026 at 12:20:01AM +0200, Linus Walleij wrote:
-> Hi Changuang,
->=20
-> On Thu, Sep 10, 2026 at 12:04=E2=80=AFPM Changhuang Liang
-> <changhuang.liang@starfivetech.com> wrote:
->=20
-> > Changhuang Liang (22):
-> >   dt-bindings: pincfg-node: Add property 'input-debounce-ns'
-> >   pinctrl: pinconf-generic: Add property 'input-debounce-ns'
-> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 per0 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 per1 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 per2 controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
-> >   dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
-> >   pinctrl: starfive: Add StarFive JHB100 per3 controller driver
->=20
-> All of those applied to the pinctrl tree!
->=20
-> I had to manually adjust the MAINTAINERS patch because it is based
-> on some reset controller patch I don't have in v7.3-rc1.
+> +#define MSG_BUF_SZ(chann)                                    \
+> +     (mailbox_get_ringbuf_size(chann, CHAN_RES_X2I) +        \
+> +      sizeof(struct mailbox_msg))
 
-I believe that patch doesn't exist anywhere other than on the mailing
-list :p
+> +     mb_chann->msg_buf = kcalloc(n_msg, MSG_BUF_SZ(mb_chann), GFP_KERNEL);
 
-> >   riscv: dts: starfive: Add JHB100 pinctrl pad number header
-> >   riscv: dts: starfive: jhb100: Add pinctrl nodes
->=20
-> Please funnel these through the SoC tree.
+rb_size comes from the firmware-provided channel info, and with this
+change it now sizes a host allocation as well as the ring itself.
+Nothing bounds it before the kcalloc(), so a bad or compromised
+firmware value turns directly into an arbitrarily large kernel
+allocation. Could rb_size be checked against the ring window it
+describes before the pool is allocated?
 
-Ye, I got my eye on them, don't worry.
+> +     if (!mb_chann->msg_buf)
+> +             return -ENOMEM;
 
-btw, are you going to be at LPC or OSS Linus? I'll have to make sure to
-say hi if so.
+This adds another failure path out of xdna_mailbox_start_channel()
+before request_irq(). On failure the caller still holds the freed
+channel pointer, which "accel/amdxdna: clear the mailbox channel
+pointer when starting it fails" (Reviewed-by: Lizhi Hou) fixes, so the
+two patches should be fine in either order.
 
---PlRoT138GtctrPoH
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks,
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar2OWgAKCRB4tDGHoIJi
-0grzAP9Fs6ouvcThAMVjQbj6XU2gdVLZc/LBnWTeH4InJf79kQEAohOH8MQi/Wti
-rReWTShRPoUOU1zat+wE0KfWpAY7owM=
-=TNVs
------END PGP SIGNATURE-----
-
---PlRoT138GtctrPoH--
+Eva Crystal (0xiviel)
+XSource Security
+https://xsourcesec.com
