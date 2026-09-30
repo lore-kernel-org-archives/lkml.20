@@ -1,84 +1,140 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2ACF19DF6A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6704119DF6A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744252; cv=none; b=SeEiYxdoCkOzoRnvfW48oU4y9o3aktIxkJGaB6KnHoYO7CYh6y/j7wpNXdwHDkR49FAgubz3cwxJrxoFDPGoLbYIYHU216NV5qkBwPKiFFCgQ07exwTOl+Xrf+5pgIOg0HVA3f74twsuVJmjF+7ZYLvjXjsri5T4/jSWLt8VWo0=
+	t=1790744307; cv=none; b=DiOnlJOdHRrBoFFYqHxYDW0LVz2eaVks5r3uYFBfUmReeQybJlRbLpwKbIHNYk9ZJvxcCd9hki4lRaPPGiUu5tshQmM+ka2PvEz1fZD8+tv6ULkirUf4qFWr6nJsYwX7cCLJVhwak7aexojXjwTPWSZK0XdhsRhIZxDkQ/cvdKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744252; c=relaxed/simple;
-	bh=WMz1SYY9AYH94SZQs17R30ijgQkCs3phclIAQsZcQhE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r3bskikvkVtG4A8+qFK35Kc4c8JJvnxyaYnpJV6sCUuTbKCqS9nK7TnmzTFgI/bKckJRUNBIZvV70KE6XpcSsz4Epa0mNdNuij6E30FNteP7PI32wutStf6Z3rX+I4JmCOjgbVxqv8vMV0A4nPhT6HAFlyxet82eqcQg8tfqy44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hGoBZmH8; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790744307; c=relaxed/simple;
+	bh=bocwqw7X310Ap6HbvXN88unuvzXmO6SuDNjdejac4+s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u5TcIdbgsbSQB72Z2SJ6flwhPeW7R0IO+9CzBB5o2KvJfUIfj32frxk23nwEf3dci2D3kMeigfRVkNQP3Ui2pAvrSEI9aHdfzO49jY0NAjWbvCU0CZMjp0UHcTB09WAb9qLSeiZ64QuXtz5EFaOZj/jK665+CwIa0o3BMCrJZBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AT7DDBaR; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hGoBZmH8"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 79BAF40E01F9;
-	Wed, 30 Sep 2026 04:57:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id lVwx6KnDbyW5; Wed, 30 Sep 2026 04:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790744238; bh=DuJpJd+Ily4yKE8DDUsSgR4u7ibq0ab66LllZ+KcdFQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hGoBZmH8LV0nH9se89RJqSjTQEsSC9CUThjzRdMZCP+GuBhLDPDBkEgfkOE1h5c3P
-	 7ybt/rUGXV9Ol8ko6M2Rnbxv2M8vJU7HFkASlFXP6RnTILMjg82zcNKIJ3cdiJGtou
-	 EOZKAotYhajvqpJL+tMqgN6076thMv8VFoVeWz7vWuGF5pZVcJJrqlKlkRn5AOU+YS
-	 AXDUTXMInMI/R/axP2HThSvCBDYrRPaG79sbbhhYu+fGKeQV72je15AY2xQDilgYbQ
-	 YZpThxZkLP5MBxkfEC94d9xbuIQ5km1YScd4f1l7ntsLwuN/k780X+09AFDtXIY3wW
-	 pG9porCgy2Jw1x6iRU1F/IzoV0JfpuNP67PWxWjaCHNQZakRAZxOr9i24ULncwAeDy
-	 r4qnNzQoF7Fx7VVBRy8TRu9HFK2sdRMh90r59T2rCxzK7NbI9bRZlhuLB7fMvvUMtc
-	 mIk7O5JVaWI0ytYSGO7KFlvlH5UvBoAun5CZe9FmlllcuYozBTELl/4rMh5UAo31tE
-	 yEgczbDbeGrClGzbtHORbq6ASrhCat+wqV7kNn6/PPakve9HNmnaDwCEm2LMwRWIId
-	 PQfjkgyvpxKffLlwiwbDGhOe6Am7xu9kUF94jSzkV+p+Rd+cRSDQ4Kg4r/dCUDlvpj
-	 PjK5JmEKJ/63VRXSxCPsG03I=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EEEEF40E015D;
-	Wed, 30 Sep 2026 04:57:10 +0000 (UTC)
-Date: Tue, 29 Sep 2026 21:57:07 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, kevin.shu@intel.com
-Subject: Re: [PATCH RFC v1 1/8] cpu/hotplug: Allow architecture-specific
- primary CPU bringup
-Message-ID: <20260930045707.GFaryWo1o5SAYwhs8V@fat_crate.local>
-References: <20260912000815.997720-1-chang.seok.bae@intel.com>
- <20260912000815.997720-2-chang.seok.bae@intel.com>
- <20260930002010.GDarxVul0JZDam_-bG@fat_crate.local>
- <67b77f20-53f1-4b3c-8420-f125eaa0fe26@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AT7DDBaR"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34ca54bfc48so366322eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790744303; x=1791349103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uEa+/CcqrhlXh9egqa2jk7iOVWdF6h8G71PxTzsaVVk=;
+        b=AT7DDBaRlgxqE5QlgB2sbI5BWR5GkjRwziO+IrDLO0I+hwDH86FtYEADRW99Tft9Lh
+         Iatm4mCwlQT269h0uhR74TCyS8ZTtFCnTOPPSX8WSCmvs6dWB0s/j8wpug7ic/bntkqk
+         RK1I3VkeVZKzeC3YQcM8Y0206QAYeYw0c4o7fE2hH67tMOIntui/KFi/Ig2nhxjPArxa
+         Buk++fkVXOPEMSP91VSLWieErsRJCc6xIqedcZ9SamSS+d1XXxRAHD4I57/hHrx0lKVa
+         XqiaYMWiAsJo0coNRsw9DKazohn7vhm563tuOFQK9eW9I+Xiz311VW4szHG3wHbH6eco
+         3TcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790744303; x=1791349103;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uEa+/CcqrhlXh9egqa2jk7iOVWdF6h8G71PxTzsaVVk=;
+        b=zC9vmqBPb8ygb7l8UNA7bIMAi/oegvAUxwPprlWxpikT6iTTBVLuMdHaBV3yr/GzWq
+         5PRnofsw8GecQrvQTFscIYVdT/avpbzs1C7XDPa7WvkJTWlVlKEYl7l6VK3yvlWV2147
+         wrseghBCpkzAYsT6xoCQcBrRyZyGDw0AuVyF+pM0x/IKePxdl6vzNw3RoSA9u8CBqohR
+         yA9HLsRFmjXAP9qC8x38QT5BRHfa04wHnkcymYS6yaMQi5Tu6r9Jl7nqrbCpaesbqlOM
+         h5EJBGx3GWQnWeQXLjyu5uqvxncXvrhOctszwbpq8BjS1hQMnxNKRKSKdau2wIea09fu
+         n0ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBw15IpsvRf3t3+3QSxjlRCKCQ93CG2cyx+j1/TlUR7CW+A9QGSEoX4WxRknk85Hkyt0e13U1qr533a+zfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcWPSUM/Wli58t0PQgqiddx+GwPGG9zMS//giGia88r2maIbtw
+	MuifcKfJrTBaFm2yT/IgKtdBRBk8+vpCmkocLWU9JQbUlaNPrZSL1ZJo0HS6qSwp
+X-Gm-Gg: AYBFou2IQg6K8OEq1H9y80a1glz1zwWHIYRTRsu0+eoWNYCXtNDEAT9RehiYVkF36Nj
+	jD+ZemunMoLc0RmhnBUfjELXRB8D2e3BVtxdIrwLGCXPNu+wwc2EZpwqxa+yB6Ctc00HYqKqWU0
+	Y3EYHRz4izvTX3+/ciVPHzKl78VeitzUPMV5G0fa41kk/kjiIBoyeZCZ+ZNL3SB8yckRl2lAzbN
+	pE6WhoUggCuAzXagUIo6i1mdVIgfdfk2YFH1jZDDkT1oag0BP3D4DgBBhkjB7gy67ws5rt+p/q2
+	j4TvCyEeRAtuCwnKhQaMV5xx4nhl3+Eie6FofDM6Wjv6pS6VQvhQyKCNosh4uHUaTH3xsEoYh1U
+	PAxrGzim7A2vrvg1p3G0+9d+Z5h4MqoiOFNvWEJ5vbed/R2k8TCb4Boq1NFZqm29wa2ngdbMQwv
+	WwzMachKUKcw1LF2TFO8Ila70x/fWG4MBYMGtV24TvjaHbLxXYgcmdD7i07hAmjEek+bjmb/hwL
+	COGsnSerIBc6A72AuN6ckI1ojfmo3HrOMtdsWbFujQu36A+N0HMZvjdtsy8ueo=
+X-Received: by 2002:a05:7301:d38c:b0:33b:dfe3:250d with SMTP id 5a478bee46e88-34cdc9b6537mr582806eec.23.1790744303385;
+        Tue, 29 Sep 2026 21:58:23 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:101a:5ce6:a15e:d8ca])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf514b783sm571056eec.13.2026.09.29.21.58.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 21:58:22 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH v3 0/5] sh: mach-rsk: rsk7203: switch to using static
+ device property, drop legacy gpio API
+Date: Tue, 29 Sep 2026 21:57:59 -0700
+Message-Id: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <67b77f20-53f1-4b3c-8420-f125eaa0fe26@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANeWvGoC/x3MSw6DIBRA0a00jEuCiJ921H00HQA+BC2fAtVG4
+ 95LHJ7BvTtKEA0kdL/sKMJikvGuoL5ekNTcjYDNUIwooS2pK4JjmjtKahyiDxBzaXFPhaKyouL
+ WN6iEIYIyv3P6fBWr6C3OOgI/V9OaBx8yz5vyrLMiWDutWuvJMSvWFubAxux9kLzjm5Dw9o/vk
+ je20pE3H4eO4w9iiNjntgAAAA==
+X-Change-ID: 20260310-rsk7203-properties-82bf2c12b985
+To: Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Arnd Bergmann <arnd@kernel.org>, linux-sh@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.17-dev-6c14f
 
-On Tue, Sep 29, 2026 at 09:44:55PM -0700, Chang S. Bae wrote:
-> But, OTOH, one may also argue the loading scope should be consistent on both
-> ends. So I think it is worth settling down on which approach to go.
+This series of patches converts rsk7203 to use static device properties
+for its devices, including gpio-keys and gpio-leds, and removing
+dependency on legacy gpio API (in favor of gpiod API).
 
-Sounds to me you're not really sure what you wanna do but lemme get to the end
-of these first. Right now it feels like a lot of noodling for no good reason.
-But we'll see.
+To configure pin functions the board is switched to use gpio-hogs, as
+doing full conversion to pinmux is too challenging without access to
+hardware.
 
-Thx.
+Changes in v3:
+- Avoided using inline compound literals for property entries in
+  software node initializers to fix compilation errors with older GCC
+  compilers (GCC < 14).
+- Collected Acked-by and Reviewed-by trailers from Bartosz Golaszewski
+  and Linus Walleij.
+
+Changes in v2:
+- Added a patch to isolate the function gpiochip from the parent fwnode
+  to prevent ambiguous property lookups.
+- Added a patch attaching a software node to the main PFC gpiochip device.
+- Adjusted the board setup to use the PFC software node for LEDs and
+  GPIO keys instead of creating a standalone node.
+- Added support to sh-pfc for configuring the secondary "function"
+  gpiochip via a "functions" child software node.
+- Converted board pin configuration from legacy gpio_request() to GPIO
+  hogs, using postcore_initcall to ensure nodes are available during
+  driver probe.
+
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Dmitry Torokhov (5):
+      pinctrl: renesas: gpio: isolate function gpiochip from parent fwnode
+      sh: pfc: attach software node to the GPIO chip
+      sh: mach-rsk: rsk7203: use static device properties for LEDs and GPIO buttons
+      pinctrl: renesas: gpio: support software nodes for function GPIOs
+      sh: mach-rsk: rsk7203: convert pin configuration to using software nodes
+
+ arch/sh/boards/mach-rsk/devices-rsk7203.c | 314 ++++++++++++++++++++++--------
+ arch/sh/include/cpu-common/cpu/pfc.h      |   3 +
+ arch/sh/kernel/cpu/pfc.c                  |  20 +-
+ drivers/pinctrl/renesas/gpio.c            |  28 +++
+ 4 files changed, 281 insertions(+), 84 deletions(-)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260310-rsk7203-properties-82bf2c12b985
+
+Thanks.
 
 -- 
-Regards/Gruss,
-    Boris.
+Dmitry
 
-https://people.kernel.org/tglx/notes-about-netiquette
