@@ -1,185 +1,200 @@
-Received: from mail-oa2-f34.google.com (mail-oa2-f34.google.com [74.125.231.98])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8F9547074
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC733B19C6
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770323; cv=none; b=purg7pFqRQFWJ4e0oOzzKfCleiR3E76ulBjFSLUPjafJP3+e0cQeUJ3yTP/GfxX4dLgevk99F0UNEswyn9SDW/Isp9ojrOfeVljB0S0Tt6xOu3TsTGBI1zgOe3VycBhMzIPXrYpjC9Nsc74w3PWMc9bZU7ocNvs6l8JC6Mskla0=
+	t=1790770331; cv=none; b=Xw6HuHdlYFbGjhflx6z6V83XaweRSE1wrVNDs8i+EIiuFpWerA//gnqvRQad2LtHY4IjgBnKNNTnlsGV6EELDl98Tjm5xM3Nb/TItxxHn/eK0Owpv5HSzJeMM7BijQxxjMs/J7U/FQeupHli5C2S+xEztZEfsHUemlUbUjz8l5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770323; c=relaxed/simple;
-	bh=heiLNgxCRShurwcEkBpHOEt50V9w8wXC0MeKwIR/wJE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lupqyjSGo6sqSgdTts+3uyWsysJM7sraFugiIAxOcKZqzg8Ysc4cixYPabK2W2N2vMBEvtwIZX208/xlwMjXJv8iRIJnNK8mYdQK18/99sUkmo07egj/DmIf1II/tR4Ja1W5lAbcAvfFurGw5sd3dD3Lg61/hPkI8QiHoRB4A0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6z0fnEj; arc=none smtp.client-ip=74.125.231.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790770331; c=relaxed/simple;
+	bh=1Ud4xzGqcr1aXqgg3blxBT8OmlKDXmH72QXq8TrjxLc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=fup52JYkcPbwSOCAsL0U8fM5yFZ74Xc5vvsnNEycphdJ3ODl0qao56b9Fehaoyx8mm0Jur+QpQdrD68W/Ob+fpTBqDtDwiV07XjwHHK3Jb/OJ+8hETYeOqIW/QodxEG0JN+uj72jyH74qhFhjVzV7O6nka3A90fLxgQHW2KEk/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fuPxU8oR; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6z0fnEj"
-Received: by mail-oa2-f34.google.com with SMTP id 586e51a60fabf-499c0f06935so1170299fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:11:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fuPxU8oR"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so8813185e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790770317; x=1791375117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZFYvPCDLrvrC5oT74t7swbnU8bzwyNGtjBbSx2EyWUU=;
-        b=K6z0fnEjZUNruyGZwT7EUz7Ktdq+q9ZGwpSQS/eESmThnUQFCdeKQ8XFBWQ7HIY1cR
-         GNeIE84dgpiYTOfEjYShPhQ6QIaRsqZTWlxvqbPwgRyEGe7Cl7NXZycxRUIcvpbVQsAb
-         vVRrq/AEpNhS7w3EpMexz/wl5CgzopLSizPs/cDep+qZ1avYziKQ9b7KeJ+P0T6ooSo8
-         8+pO4T/bDYmkEryrCc8wZ0v8z/wqMqp0uxDrzcai8Cs6JHRMstX8oReYETlKeM+YTt4H
-         vsrul9XMrT9rHKHHnXzrmH3GmXPaJJOZUf7nDOI9D2cDntEa2AOilepcUgXJF8yihFsa
-         LA6Q==
+        d=baylibre.com; s=google; t=1790770325; x=1791375125; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
+        b=fuPxU8oRcYVBcXesYe5XgpmdO6qEOclRtBm0q4BE3Fs19XT1Qyaz0td8ldCId4Ru2j
+         FNekoWjWHzNYXxt+OQz2c9IOLPgiSEp/a3n6y30IGcAzKpmga+vd7KjaBfDArlexjaeX
+         59Da2yZFBaGA6ky+eAkLnSixL8AqSL/vdHagPufyFAP/WcUIY2tWFhyKi3rUpEn//Fdv
+         JonwDIh8jJEkDbmb88eMxFKj595XLoGPTMKSE0Fgo4QviXFnNpCbcAOEgOzaaP91J3rQ
+         8h3n27WWsmkykokqVDwaf/XYFYIGgMzYAQVEsQvlwnyi2FYNBK4tXfsu9++yQV1w6fTV
+         s8Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790770317; x=1791375117;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZFYvPCDLrvrC5oT74t7swbnU8bzwyNGtjBbSx2EyWUU=;
-        b=OZpx33BMHNijgsyahtFrlkaWQ7BsEqxNPe6XPyP42laHgfPyI+S2/qnGYjGQhPN4ec
-         aBfVuEnkKfOI2NQZYlsQSti0G89qB9ddswfdkyBVgpzci6cwPoGcNlBE4BGzlMUuHsDq
-         yqo50Y7vGiPBDb6518wN72xVcowX/L30mCzIp0xtT9NG6kPUoKPu/bq0gWupiXQnDHQm
-         bync9TpYCP1TzPUP4GhJeOWihX9Si4wgoiXeIdhvfBtuSoadh0pk/XXxVpEYu/+OCcvp
-         k9Y/BEx2Xco3souqmaSQU4aQYb4rZWeYy1PEGWuii85LR30FwkecD0Z2nARdgPrASpYC
-         lKkg==
-X-Forwarded-Encrypted: i=1; AKwUvByj0HX+FqPohT1sbJR0QDhPfSzOtRXNZ5DKuJgWEM+K6LLkt096P2Otl+9FDC3W38Pm92BhO5y/rVxVDZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjGH1qd0Mk7xEypQhB08aG+P/AE4JOh+V1LsfRQFzV63UKUhDa
-	kZaDvuQ09ZTJnRoSDY4fUyqXJrwHptOSO9yp7YOQlAo421c2bwa0qacv
-X-Gm-Gg: AYBFou26SNNtYfYkASoevs49Ey9+d/r2ZWgbPn93/XQADW1L8s1PCLASN7uSGXHUdVy
-	nqkYNcbTRgEGFuO9+swD84M1uDnEIkok+e5r0w7HasaHZk7LXKq2nf+yI1pTGKkZdr9PGV0EZvm
-	QXZ3KFQaUSYO8Hn9Ky25p478sgzurmW/nCvCC9VgFMSfG2eZI9suJqfmvJZY9uYZ6GQlpmspPQe
-	2LqkfKRNLnDOxJPNHrYDFSh8i5MLMBKF6SRlvHiSokX5+pYGtTK6b2//JLnGMuq31WRObF3B4vY
-	yG23zOhJ1I5YNZH0g2ZHZ2rw2T+3vgzz42npZOzzJlEmuo5qNYA5iT8+pUv9gGhMDfEiBomUZrE
-	8YhF4lDet8hc2Simf0vhOgVxd0YG99JMkZNs8esc0EW6JWcyuQ8RBUtqRPsy9cCCjXAaCJZDZHs
-	2xUcweOBDu+yojz5nARxcE0HBVAxzsibXhaeRqanuAM1cqjp1kFDsVP9bEj/W1AMe0VAQphWXCu
-	lyas3wOWXz4F/7EJOE6ome6T/P7GQ==
-X-Received: by 2002:a05:6870:9615:b0:49d:c9ed:21f2 with SMTP id 586e51a60fabf-49ddda314d9mr1064165fac.18.1790770317220;
-        Wed, 30 Sep 2026 05:11:57 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:8::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49de00cd469sm522330fac.17.2026.09.30.05.11.55
+        d=1e100.net; s=20260707; t=1790770325; x=1791375125;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
+        b=pRD9owdX5UCEoXSPJEEJi+HrrjBtfXXrtzbxKVddkuJt7+ml6JaKZxV6P/fX6SDoIN
+         SxMSCBf++4eid7y1EJSvhaxfWJBapONL8HnhKEiBOm+9mU6qxULgPXpmpC9Zq+cE2Zv4
+         Hkmg+G+s6gFxEh6DE+fDy1pUxtyhkWVxUJbQQuFgyZBQ/6jNjCZ0BNaUrHVYpgX+VLzH
+         jgShWcsGfTWyDBGHH/Q+OTPFEI91P+VP/6+jkEK2AcSBGBOf7oS+QBh0VbpbLDm/2+pi
+         pXIsvLvx3CkKKv8HWfSydn4wiemR07sf2EzM2WdlpLbf6SYd8Sgerc5UbWsQF7sD4q9s
+         N1PA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjFByL5JJvXS8jgyed9kxDGH08GAlVJo7h3NmJ/fLlAOEcnLwiZz7M9bBbLUbXznpK13KVe/AuSH2/4Xk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mczitIq9DfAujknwngW+droJoQUKg9Jywx+Jw1goPw/7eC6xMx
+	ZirACGN5Jw9Nl3UfB5wHEQNPM55dznjQVsC2NUuCYWWgx8iNXC8iftc4SBRaekm8yT8=
+X-Gm-Gg: AYBFou2lVCqJwlsIcamvaSs+acGTREeU0Ube0ReQee/Mjt2VyNknQkQZlSrdxrIVYVR
+	br0FplSqltMwW6CGlCxRrfr0Xy5rtEaySSY7lmvSmWkh85cVjWSg1letWUDwJj1HbFDZxBiARrZ
+	LLfQMNbxG8lXeS8O6TedO90c/yvlN/YdVz90KiprlnmlGaO8gZo5kP72/xaoTXpbu1TQr8KEid5
+	pjCa1dFAFhkadqx5xGkqmr2djOuqw8p0p30W64PQ2EQkxsa6oOuAaElIKygnsWz7ZHP/MPRfKcM
+	PcgjfsbPFyaGlhvlRjGfg4LiLk312XI/edFkPRuBGglqHSmFnpLSI/xpqMEQlcJLYzaJiE+hSUk
+	biEguUn4nubPGs3aYyzhHyZV/GeHYPnwUZcmCuEawMvo+g+27lsIiUpFOrciyelIYQZmhobRdXF
+	pbDybieJc0g/sUPiY/IStSX9HAnpAbQUdtckpNmmTN17BcyP/IghWr8hu4ffdEFzzBq2nUxlFDE
+	ld/
+X-Received: by 2002:a05:600c:4691:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a01b188fafmr17252615e9.3.1790770325183;
+        Wed, 30 Sep 2026 05:12:05 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:8223:c4e6:4d28:61c:74bb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017468b10sm67033075e9.0.2026.09.30.05.12.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 05:11:56 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: "Li Zhe" <lizhe.67@bytedance.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	mhocko@suse.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference with MPOL_WEIGHTED_INTERLEAVE policy
-Date: Wed, 30 Sep 2026 05:11:52 -0700
-Message-ID: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <808292b4-841c-45bd-aacd-b487be1858ca@bytedance.com>
-References: 
+        Wed, 30 Sep 2026 05:12:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 30 Sep 2026 14:11:55 +0200
+Message-Id: <DLSN3HSWU044.10UYU9AQX2MV4@baylibre.com>
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Kendall Willis" <k-willis@ti.com>, "Dmitry Torokhov"
+ <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
+ <s-tripathi1@ti.com>, <vishalm@ti.com>, <linux-input@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] Input: gpio-keys - support wakeup pinctrl state
+ on suspend
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com>
+ <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
+In-Reply-To: <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
+
+--556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sep 2026 19:52:05 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
+On Fri Sep 25, 2026 at 11:52 PM CEST, Kendall Willis wrote:
+> GPIO can be used as a wakeup source for TI K3 AM62 devices during
+> suspend to RAM states. The GPIO controller is powered off in these
+> states, so a wakeup enable flag must be set on the GPIO pin in the
+> pinctrl in order to allow wakeup.
+>
+> If the device is wakeup enabled, select the wakeup pinctrl state on
+> suspend and restore the default pinctrl state on resume.
+>
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
+> ---
+>  drivers/input/keyboard/gpio_keys.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>
+> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
+gpio_keys.c
+> index 129fc4212a5ed126496b331ce626682d441c53bf..d3fbc9776ac8cbdc7349a28df=
+990ee609edf9e59 100644
+> --- a/drivers/input/keyboard/gpio_keys.c
+> +++ b/drivers/input/keyboard/gpio_keys.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/spinlock.h>
+> +#include <linux/pinctrl/consumer.h>
+>  #include <dt-bindings/input/gpio-keys.h>
+> =20
+>  struct gpio_button_data {
+> @@ -60,6 +61,8 @@ struct gpio_keys_drvdata {
+>  	struct input_dev *input;
+>  	struct mutex disable_lock;
+>  	unsigned short *keymap;
+> +	struct pinctrl *pinctrl;
+> +	struct pinctrl_state *pinctrl_wakeup;
+>  	struct gpio_button_data data[];
+>  };
+> =20
+> @@ -884,6 +887,10 @@ static int gpio_keys_probe(struct platform_device *p=
+dev)
+>  	platform_set_drvdata(pdev, ddata);
+>  	input_set_drvdata(input, ddata);
+> =20
+> +	ddata->pinctrl =3D devm_pinctrl_get(dev);
+> +	if (!IS_ERR_OR_NULL(ddata->pinctrl))
 
-> On 9/30/26 7:26 PM, David Hildenbrand (Arm) wrote:
-> > On 9/30/26 09:26, Li Zhe wrote:
-> >> MPOL_WEIGHTED_INTERLEAVE is useful on tiered-memory systems because it
-> >> can seed a workload's new allocations across fast memory and slower
-> >> capacity memory according to a configured ratio.
-> >>
-> >> That initial placement is useful for workload managers and orchestration
-> >> systems.  They can take the amount of fast memory and slower capacity
-> >> memory on a machine into account before starting a workload, and choose a
-> >> weighted policy that seeds the workload across the tiers at allocation
-> >> time.  This avoids starting from an all-fast or all-slow placement and
-> >> then relying on promotion or demotion to reshape a large working set.
-> >>
-> >> After those pages have been placed, however, the policy cannot currently
-> >> opt in to migrate-on-fault placement.  set_mempolicy() and mbind()
-> >> reject MPOL_WEIGHTED_INTERLEAVE when MPOL_F_NUMA_BALANCING is specified,
-> >> so memory tiering cannot promote hot pages that were initially placed on
-> >> the slower nodes by the weighted policy.
-> >>
-> >> Initial placement is only a starting point.  Pages initially allocated on
-> >> fast memory are not necessarily the long-term hot pages, and pages
-> >> initially allocated on slower memory may become hot as the workload's hot
-> >> set changes.  The policy therefore needs to be able to combine weighted
-> >> initial placement with memory tiering's NUMA fault based hot-page
-> >> promotion.
-> > Ok, so memory allocation will respect the weights but balancing will ignore
-> > them? That really sounds rather odd to me.
-> >
-> > And I assume that was the reason why we might have disallowed the combination:
-> > it turns a weighted mechanism into an unweighted mechanism.
-> >
-> > So are we really sure these semantics that you would essentially set in stone
-> > here are the semantics we want? (ignoring weights)
-> Yes, that is a fair concern. It does look odd if the weights are
-> interpreted as a hard resident placement ratio.
-> 
-> My understanding of the existing MPOL_WEIGHTED_INTERLEAVE ABI is that
-> the weights are allocation weights, not a long-term resident ratio. The
-> sysfs ABI documentation says that these weights only affect new
-> allocations, and that changing them at runtime will not migrate already
-> allocated pages.  The implementation also has normal allocation fallback
-> if the selected weighted target cannot satisfy the allocation.
-> 
-> The use case here follows that interpretation.  The weights are used to
-> seed the initial placement across memory tiers.  After that, with an
-> explicit MPOL_F_NUMA_BALANCING opt-in, memory tiering would promote hot
-> pages based on access patterns, not based on the original allocation
-> ratio.  Users that want weighted allocation without that behavior would
-> keep using MPOL_WEIGHTED_INTERLEAVE without MPOL_F_NUMA_BALANCING.
-> 
-> That said, I agree that allowing this flag combination would set the
-> semantics for it.  If reusing MPOL_F_NUMA_BALANCING for this is too
-> ambiguous, do you think we should model this as a separate opt-in ABI
-> for "weighted initial placement plus access-based balancing" instead?
-> For example, a separate flag or policy mode would make it clearer that
-> the weights are not intended to constrain migrate-on-fault placement.
-> 
-> If the allocation-only interpretation of the weights is acceptable, I
-> can make it explicit in the commit message and documentation in v2.
-> Otherwise I would appreciate your suggestion on the preferred interface.
+Should this check for -EPROBE_DEFER and error out in that case?
 
-I see two usecases for weighted interleave. Let's say you first allocate
-all the cold memory, and then all the hot memory using an interleave
-policy. This leaves the same hotness in both tiers since they are
-interleaved:
+Otherwise looks good to me.
 
-In one scenario you might genuinely want to keep some hot memory in
-both tiers to maximize bandwidth utilization.
+Best
+Markus
 
-But in the other case when you are not limited by bandwidth, you might
-indeed want to start out with a weighted interleave allocation to
-reduce variance on where hot memory lands, and then make promotion /
-demotion decisions based on access.
+> +		ddata->pinctrl_wakeup =3D pinctrl_lookup_state(ddata->pinctrl, "wakeup=
+");
+> +
+>  	input->name =3D pdata->name ? : pdev->name;
+>  	input->phys =3D "gpio-keys/input0";
+>  	input->dev.parent =3D dev;
+> @@ -1010,6 +1017,12 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *=
+ddata)
+>  	int error;
+>  	int i;
+> =20
+> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup)) {
+> +		error =3D pinctrl_select_state(ddata->pinctrl, ddata->pinctrl_wakeup);
+> +		if (error)
+> +			return error;
+> +	}
+> +
+>  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
+>  		bdata =3D &ddata->data[i];
+>  		if (bdata->button->wakeup) {
+> @@ -1023,6 +1036,9 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *d=
+data)
+>  	return 0;
+> =20
+>  err_out:
+> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
+> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
+> +
+>  	while (i--) {
+>  		bdata =3D &ddata->data[i];
+>  		if (bdata->button->wakeup)
+> @@ -1039,6 +1055,9 @@ gpio_keys_disable_wakeup(struct gpio_keys_drvdata *=
+ddata)
+>  	struct gpio_button_data *bdata;
+>  	int i;
+> =20
+> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
+> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
+> +
+>  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
+>  		bdata =3D &ddata->data[i];
+>  		bdata->suspended =3D false;
 
-Zhe, do you have a specific use-case in mind? For the second use
-case I would be curious to see if you see any meaningful performance
-differences in startup time when comapring a workload using other
-mempolicies for the allocation and then tiering vs. using weighted
-interleave and then tiering. 
 
-But yeah, I think David is right that we should go over the semantics
-and really make sure this is what we want to commit to.
 
-Thanks again Zhe! Have a great day,
-Joshua
+--556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> Thanks,
-> Zhe
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCarz8ixsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlPB
+rgD/RvPG9MIG+abj3sGJsRRPXb05u6y2oKt7iWyCnIJnPmcA/i4fICzTuQuY1jiO
+YEW6EdYtDK17cq0rhe1HPUWOOa8J
+=HyDX
+-----END PGP SIGNATURE-----
+
+--556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c--
