@@ -1,130 +1,164 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB954519A4
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807655; cv=pass; b=bygWXovGdlK8ELruiIxifXoD+Cg11YACf04F/zQ/muR0vvLWUviCSAn0zG1SOyN0yhRt0TgscPMj4mdTeSHi8A7VwyIiUg39WrZa4PW0El8E/yOU6kAEqX4CijMkfFaOpRPJh7IhSzVhETX+DGdYg7kt/fdCDanbNPU1xhft4Gw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807655; c=relaxed/simple;
-	bh=PIC7chzdq1cHhl4PkxeRxKhky/x9i9QT91XRVBcM9Z0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jFkjsepJVxUrKdiPCDgvzP1XZ5Fm56m6RFIbUyHlZ/MpRGASodLsUHy3Fz72dpuEklQplW0AbTqIvYvX+5mFdb4uuUCWY7IeG+My5VbNKR/7h+8aecuHwpgEy79ukc56D5nc4QFTRg2XtYPt+jW4m/lXRR9R8/rPEJKyP+ebV5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKAK+tep; arc=pass smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D800455171
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790807671; cv=none; b=O83uCI9qkbJY2mVrjFL+u+mibGqotIxvWoU/+p5wHdMWp1YCsEhKSyO/4JxNeepXhNKH1PvaS8OGwyROAdjlb1w7dh9A4g0spAojw89Yb79KEewXw2LW84YUCT88zJTb3oZUp5IXkyFz0OLA3aXLnboodVj9Ek84kX3jmTgwxUc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790807671; c=relaxed/simple;
+	bh=2JGLJJSgKSISnblt+VHqklAJMZE9HuyGtCVMUFaTON0=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=bZYeAVALtItTjCR+EQkYYxVeePes4DBY0JzcSnhlkncPVcUqZkSzB+snVdc9ESml/o4HTSzDWDzK+Y40fLy8QibhkuEx0fynkfZJp3gHZUJBTIZJ6PoMPJeh32nKPGc0DZ5TTXZlDOMI30tGIJPXLZASk7x2kol9LLvH9yswWGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=FNZh8ClQ; arc=none smtp.client-ip=195.121.94.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKAK+tep"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab46253999so26856147b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:34:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790807653; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qb1aSTsWqP6k7qMdCLSVwRo0kMWTUg0/lRDdRPy/UqB+yKYNz0xExFquI7DbFxmbo7
-         TX31uFPPOSJvUC5fpN0lZbKha7V8tQlynDLx/tYh9ByKZ8v3EJF3WgCzp8p8YItuZVey
-         iqVrVSyGrPhyGj23oITC+rnKb+3OO0Z5eqhw0xsjdn3uEfRQnIhj9p1NbmBISxZJRARk
-         wzAf58tUw4cwSu1mKe0OBWZ8wBVRX5c9qwuGGtnRw8YagR9q9UmWfA6oPs/CxuoHtJP0
-         fvG7609WyPR2S8OlAFSD108xMzmYwuSXalOgdT/pVhh+b5efiSnN00tl/Kkraaf6vbYr
-         W7Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
-        fh=LghAoFo9FNiz9KuSD8+IXwHA3d3Hft7Nf6XxIcPX99A=;
-        b=aJePJh/jRFwv9poYKAeTto6dBkKIi6jUJkHZb9T7okR8mKGZRIonFJZNHeDldZrhj+
-         56zP7b5h/4Vd1Guc7hAChjP6Hftfn1PRq+QYvuzOLPVpXTGbLxMeZW1AUsVc/PaO6MQA
-         URerYsntdN6ZsarFp0jm2AGmAQ93uFKLq2vN3QUVEPdbPdCsfnFnsH8FnC44YAxNJMHJ
-         JUjQPiL22aU/x3wMU4gOoMW6Mij1Wv4zjC/HpU8C3Dpsa6diQ/weDS7u1xDQO4koQUcJ
-         mnsREDVfsubHVrA+KYh+JhVcaRHXft3kIoDWC9HUl8RmEsJ6qlugD85oTWWaN0pJ9ZUp
-         Prng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="FNZh8ClQ"
+X-KPN-MessageId: eeb4c18f-bd1e-11f1-bfbc-00505699b430
+Received: from mta.kpnmail.nl (unknown [10.31.161.189])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id eeb4c18f-bd1e-11f1-bfbc-00505699b430;
+	Thu, 01 Oct 2026 00:33:17 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id eeb3aa59-bd1e-11f1-a0a1-0050569981f5;
+	Thu, 01 Oct 2026 00:33:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790807652; x=1791412452; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
-        b=AKAK+tepaK4rDsxS4ZKxhopV70hfrQR0aj//8qbnTlG6/IwLkcFsgxuNBEZ2jhGbwG
-         uImfXkYdQ0kQAKkFeClFyDEyf2ZpC6gmMlphdnoMn7I60LZPxP2PO6io9C3a58eVD0rR
-         JILQAZU7mluE+Rxu5sczN4pntBMFL+kC2hojp/IKoCt0mUHh/zWE9y6dRj5+oixhZhDc
-         e3x0ciQCaw7clXbsziLkG9gNmwEmohMTIoy7gzAYxJb5y/CfraWetkaSYTLJTR6GvZoX
-         ENJIUy4srswLAM7a/03DUe0LlhokbOLmP1KHJnoGfoeDD0qTbVI9qbXpeE/eU3VaZc/k
-         XKzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790807652; x=1791412452;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
-        b=QVYMINc3IlguAxpmYwMTbzR19FlRlonaNWYlmc1GgM9VZL2/lE+LW6s6oaYF88Fgs5
-         iHSKbkyby4Jq3pRxpLAqTUKQVmbLIUftmajcD+7002XP0uNJ285qwKLbPSrCIuNZRMOf
-         BQHgK8YE1to/gRu4zVKmj/TuXLesBBMFWhk7uoCw3HaAycB8CA8ws/fAj4Ge/bclb3XN
-         VnySJ+SnXeBDLFs7UkuiSdmognpDmesEeGH9/tu8P6OvVhwX/KV+LZJKxB/6ebvSC+nc
-         Dx7CO3oRrJq6YsWFeLzCTqQenuXj56tLE6Ge23yrEwsnPgN7uO104Fji4x4VFTBXO330
-         7JGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwoDhJC9JQoXzkrEW9mzhv8ed1SkQ6vLM4eLCnj2+3o8NhUuSgRQJhj7MT6Tygxa+pZWOwCm4Jag68DRrA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYL0IsN0rylbKzeYjQliGqMlByCNyUpWtYBXaKk3i/C1hPDcw9
-	xI0ZL979GDrNYz1sKYuBW+J6wAjlJ8J/KfsufIBbK58iy+U2J+p6a3tXcf42Q5DkDBhh3SHdHyx
-	omZX0CEmS1XMBm75LWbA7k2M2fQs3LG0=
-X-Gm-Gg: AYBFou2e2XpscAqGGZQ5pbIDrfijRjBIGhWiXokP36pOALxVvYiwD5kqaO5d4o1IlYJ
-	wmmQRHSa6hcnayqD0zRbiC6SLXGF/emFA0HWTHufS6uiIfCBrGKg/1fjTC3AcaQyUVoLiiLbVMW
-	bHALmRo/+rsSozipDpyNnLLGRNCTZlczoU7h+/Ca65SqicPvOtqnhFDHr9RZBm1PNp3ENtJ1NSS
-	gdTUB/w0TrzkDwg07LH43Jdoi0ORESo4/DMa1Ip0igH7viGN7YHDSpbZye78EA5MXMJT+5EiGM0
-	20VL7ngvxB9pJj2YTIGp3E+4R5xNs+nREwN11rPSiuG8nXx6lUKnUmhn5T5ftgdme4wL+JXw/hi
-	pqDboYhUi4vGiH2bQwC1aG+OSGdVZM575+Ns1DfDDSo5xQnteo/kuDPatlCbzyaCo7FKp7vQXxA
-	==
-X-Received: by 2002:a05:690c:4486:b0:8a8:86cc:f0d9 with SMTP id
- 00721157ae682-8ac947b8c1amr15185617b3.66.1790807652652; Wed, 30 Sep 2026
- 15:34:12 -0700 (PDT)
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=FpACFrWzswCDMWDakD+E9dviGFux98HDkp1LoJR5/vI=;
+	b=FNZh8ClQmVpViz22cSV+LBRp33lnkwGJszZWTW4aTvySDzQQ8a82nMjdTINdVdazewBd8qG58M7JL
+	 VzlAdhiLRjzzLNzTs4c1ERJEJt4FlOR+fyUjzfgMcOY89FIZrwH2SwbO6dAN8TYWPGhlf2JoQcCcCo
+	 quFZ1WyEz1QN4SOjk5K5AUbeovSX4cRdr95X25X4G5GRV5Oqg91dBRveJmj3cnQ/zEP2bFuT/wKufZ
+	 ytqsx7xxzZZ+n4I9OAKVMTj224eTzqCYm9M+Fq/gh6K9u6r+1genYPdbxeqYI542TnHaVrgkjkYSn3
+	 0tPyfN/0KFEQVB7+citNb91hlK3D6qQ==
+X-KPN-MID: 33|gMznQ5Bkw0rlmJ81f4jDokLGcOpVpvzuk7Ppmjb9vja7gFDNXFnFdu6B3cxIsDI
+ kn+CcFV/t/wphdxytTSwBTe0sYipWk92bynzYKoI5E9k=
+X-CMASSUN: 33|E+zCT0t2xz8e8bi7dabAtuxaGhgcpuF+AHSwTZHVmMMLAMN1d3Z7fFkBQzyejqM
+ 8A7iCfvN3176rBWk1lkOICw==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh08 (cpxoxapps-mh08.personalcloud.so.kpn.org [10.128.135.214])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id eea99974-bd1e-11f1-916a-005056995d6c;
+	Thu, 01 Oct 2026 00:33:17 +0200 (CEST)
+Date: Thu, 1 Oct 2026 00:33:17 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: NeilBrown <neil@brown.name>, NeilBrown <neilb@ownmail.net>
+Cc: Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <1315372552.791055.1790807597593@kpc.webmail.kpnmail.nl>
+In-Reply-To: <179072013439.37859.465558431050704411@noble.neil.brown.name>
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+ <20260913185016.523376-8-jkoolstra@xs4all.nl>
+ <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+ <178972607557.207413.4312278359822083538@noble.neil.brown.name>
+ <178977609418.207413.15011378414000392029@noble.neil.brown.name>
+ <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
+ <179072013439.37859.465558431050704411@noble.neil.brown.name>
+Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930164704.1049735-1-max.zhen@amd.com>
-In-Reply-To: <20260930164704.1049735-1-max.zhen@amd.com>
-From: Eva Crystal <0xiviel@gmail.com>
-Date: Thu, 1 Oct 2026 10:37:16 +1300
-X-Gm-Features: AclHuK8jqvs2xKPcwrh1EjUjBtMkQLDOpjFfC1OF9RWzwzIg9hc1qWQAaXEwGyg
-Message-ID: <CA+pz=kLERMEUwN5OQf7=aDDqkH93CHXHUuD+aA0tuYN2xCk3tQ@mail.gmail.com>
-Subject: Re: [PATCH V1] accel/amdxdna: eliminate GFP_KERNEL allocation from
- mailbox send path
-To: Max Zhen <max.zhen@amd.com>
-Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com, 
-	dri-devel@lists.freedesktop.org, mario.limonciello@amd.com, 
-	karol.wachowski@linux.intel.com, lizhi.hou@amd.com, 
-	linux-kernel@vger.kernel.org, sonal.santan@amd.com, 
-	Min Ma <mamin506@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-Hi Max,
 
-> +#define MSG_BUF_SZ(chann)                                    \
-> +     (mailbox_get_ringbuf_size(chann, CHAN_RES_X2I) +        \
-> +      sizeof(struct mailbox_msg))
+> Op 29-09-2026 18:15 EDT schreef NeilBrown <neilb@ownmail.net>:
+> 
+>  
+> On Tue, 29 Sep 2026, Jori Koolstra wrote:
+> > > Op 19-09-2026 02:01 CEST schreef NeilBrown <neilb@ownmail.net>:
+> > > 
+> > > > 
+> > > > nfsd_create_locked() used to do that before vfs_mkdir() could return a
+> > > > dentry, but it doesn't any more.  The reason was because
+> > > > d_splice_alias() on might return a different dentry. 
+> > > > In this case we want the same dentry, but we need to do a lookup on it.
+> > > > 
+> > > > I'd rather fix this in kernfs, but maybe that is a longer-term goal.
+> > > > 
+> > > > The comment in kernfs_dop_revalidate() suggests the we should d_drop()
+> > > > the negative dentry and d_alloc_parallel() a new one and ->lookup that.
+> > > > I'm not certain that is needed if we keep the parent locked, but we
+> > > > would need to be certain.
+> > > > We at least need to d_drop() the dentry before ->lookup as ->lookup
+> > > > cannot handle hashed dentries and a hashed-negative dentry is passed
+> > > > to ->mkdir.
+> > > > 
+> > > > I wonder if we could just disable O_CREATE|O_DIRECTORY on kernfs ....
+> > > > probably not.
+> > > > 
+> > > > Summary: I think that if vfs_mkdir() returns NULL (success) but the
+> > > > dentry is negative, we need to d_drop() and call ->lookup with a big
+> > > > comment about kernfs.  But we need to double-check that this will do the
+> > > > right thing with ->d_time (I think it will).
+> > > > We also need to think carefully about races with
+> > > > kernfs_dop_revalidate(), which could happen concurrently with the
+> > > > ->lookup.
+> > > 
+> > > I've thought a bit more about this ...  I think that doing a lookup after
+> > > the vfs_mkdir() results in a negative is a bit ugly.  It assumes things
+> > > about the fs that I would rather not assume.
+> > > 
+> > > I would rather have the current proposed code check for a negative
+> > > dentry, and fail with -EIO or similar.
+> > > 
+> > 
+> > I just noticed that there's precedent for this in overlayfs in super.c:
+> > 
+> > 		/* Weird filesystem returning with hashed negative (kernfs)? */
+> > 		err = -EINVAL;
+> > 		if (d_really_is_negative(work))
+> > 			goto out_dput;
+> > 
+> > Shall we just do this for current kernel release, then we can add support
+> > later if wanted.
+> > 
+> > (But let's do EOPNOTSUPP instead of EINVAL)
+> > 
+> > What do you think?
+> 
+> The problem with this approach is that open(.., O_CREAT|O_DIRECTORY)
+> might create the directory, then return -EOPNOTSUPP.  This is weird and
+> I'd rather it not be visible.
+> 
 
-> +     mb_chann->msg_buf = kcalloc(n_msg, MSG_BUF_SZ(mb_chann), GFP_KERNEL);
+Err, *derp*, what a stupid suggestion of mine.
 
-rb_size comes from the firmware-provided channel info, and with this
-change it now sizes a host allocation as well as the ring itself.
-Nothing bounds it before the kcalloc(), so a bad or compromised
-firmware value turns directly into an arbitrarily large kernel
-allocation. Could rb_size be checked against the ring window it
-describes before the pool is allocated?
+> Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather it
+> remain a -EINVAL on any filesystem which doesn't completely support
+> the functionality.
+> 
 
-> +     if (!mb_chann->msg_buf)
-> +             return -ENOMEM;
+I don't think that works for the reason I just wrote in my email to Amir:
+it would make lookup dependent on the dentry cache. If it's in-cache, you get
+your dir, otherwise suddenly -EINVAL.
 
-This adds another failure path out of xdna_mailbox_start_channel()
-before request_irq(). On failure the caller still holds the freed
-channel pointer, which "accel/amdxdna: clear the mailbox channel
-pointer when starting it fails" (Reviewed-by: Lizhi Hou) fixes, so the
-two patches should be fine in either order.
+> To do that we need some way to detect kernfs and tracefs.  I think
+> the only way we can do that is to make some change to those two
+> filesystems.
+> Maybe a new  SB_I_ flag in sb->s_iflags would be ok in the short term.
+> 
 
-Thanks,
+We can just implement atomic_open() for kernfs/tracefs, do a lookup there,
+and if negative with O_CREAT return maybe -ENOENT (or really we need a new
+error that says "the requested create could not be serviced," like -ENOCREATE,
+or whatever). And if it is positive we do finish_no_open().
 
-Eva Crystal (0xiviel)
-XSource Security
-https://xsourcesec.com
+It's a bit of a hack because it does not really have anything to do with
+atomicity, but it does short-circuit the mkdir call in lookup_open(). I guess
+that would work. Maybe I am confused, but wasn't that what you proposed here
+earlier?
+
+Best,
+Jori.
