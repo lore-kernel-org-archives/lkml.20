@@ -1,261 +1,200 @@
-Received: from mta1.migadu.com (out-137.mta1.migadu.com [95.215.58.137])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CFA498922
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03E03BED42;
+	Wed, 30 Sep 2026 11:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766726; cv=none; b=DHL0PdgjwPRmc8clE34DPETaj2VZEacWgmBM3Qb3Ao8HwS2w4i6p/GA786bOMwsmsDQltWlE/ewHSshUy9ofJiOcWYRNvrSpEVdfM07N7OkGIWSDWqDTPguolzh3HRqu9KPkz0z59xIoORQ7mprGbj3SN4z5+xtDDgakAcXYMZ8=
+	t=1790766794; cv=none; b=Tzj4Krvhh92pSjhv6ugVMb8SJprK9UFIB5ARF/8Au5+Sa6D75pQxpBB2BcZS7IlaZcRCXYMdY33IHftiGY1HmDy6AcJfV6GP3qvjx91KqOakj5EIImhlVonJ96fWKZHHxCAntgwOVqgYbmQMsJP1XcCi0EfPT7uG/rKLM9b5Swk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766726; c=relaxed/simple;
-	bh=sQXlo+ttkX3rsFF/+duoz9qqV2dVYCVBWBpWC91yIf8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=gAPJGnNJ0G9Rd16TMGh7f6ubcHF9JjwShMKfGr8lfjgNuyobIAQZYfTt+5qIsrpMjdCjo8ibB4znGqrKUNyvtHyX5QE7/H2LdW6vsIl+5jTl7kkBiaYQUQLEo2sBv2oaG+TbxjlOJvqXkZNRFWJeqQ3s20HVrPkTfS33LDZo5nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XNkyp1M5; arc=none smtp.client-ip=95.215.58.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790766794; c=relaxed/simple;
+	bh=HCN2jr2A1MK/DojBSS2GHsoErO9YBbFI6yl8PU3zZQs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l5DJC/FbQQOYPIhbcWvBuo26PyLf3vGikbDf3nDYRG7PgsbgCBJpC9Jc2MfKPyyX5Wz1l8creXReJAHi68tfBFDudFFcBqpM2hn+HCFRAzlJPYKbxuij04fpwzzEtX1yqCeAya08VlFIjnY0AVppygkSSMPDBjwW+5JhagoD3+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=APSYSy+6; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=G2kptKsM; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=axv1hXdx; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=96G+LUCY; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XNkyp1M5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sQXlo+ttkX3rsFF/+duoz9qqV2dVYCVBWBpWC91yIf8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790766718; v=1; x=1791371518;
- b=XNkyp1M5k18XTsctUQAfN1VTrqKrnLIO4zb+bTWVxNSiLkr3rEid5M42A57KenHF4HMknEMH
- ToE9G7G7q/4jAV/ihpHF06aKsjh54cHlPkW77c8f4v3rDk1wTK6qDrBFFrvguKYZlRaApeMXn6H
- ttuBmGUyq8gX0tocN9OOavzE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 7bc8601425e44f03;
-	Wed, 30 Sep 2026 11:11:58 +0000
-X-Mizu-Trace-ID: 7bc8601425e44f03
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="APSYSy+6";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="G2kptKsM";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="axv1hXdx";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="96G+LUCY"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EC18321D5A;
+	Wed, 30 Sep 2026 11:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790766786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RlWAC1FOPXiYK+mass3+oE6Lbhbou709kgHAdPXZrEs=;
+	b=APSYSy+6o7PqcbV2k/NT186elLlttJsYQGwmaBY7BCqADCTVADYwS6aAIdFeQEuKeqcNZi
+	CSgX4eXDVHvoVRIIcNfjnmRnHmqSsOlXsIgVEmw9oTmk0/XPg6mc7YwKRAfdOpvcbAYGib
+	2D3/i2yB0lfA8GRNzPEb9nHpX9VSCy0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790766786;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RlWAC1FOPXiYK+mass3+oE6Lbhbou709kgHAdPXZrEs=;
+	b=G2kptKsMS/Ym9y1vZ3AEahHtzD9j/a/BhCyTvSd8NQnO8sQTOjf+qKapicETYMJBZKOhbh
+	dGPoWEwYF6MHARAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790766781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RlWAC1FOPXiYK+mass3+oE6Lbhbou709kgHAdPXZrEs=;
+	b=axv1hXdxDS87OVauNh7uelcfwmNXv3zH0PwNeiXdMVu6mx5nDUhTVi8KD/Xw4lmWdXOdpj
+	ow4GYNNRjrn7+ZI4YnWdtPCeKwoUx34ovCs0HasZ2lIdute9uohjIB8RWTndYTTMQf0PD+
+	z+SWwKG3qnlQI1UxBoXDXjkxp1TTrTY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790766781;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RlWAC1FOPXiYK+mass3+oE6Lbhbou709kgHAdPXZrEs=;
+	b=96G+LUCYea67mNryWh7SXd5upwm/m9HUI5vRFMTEw48i7wI/drBTKvX+AzuAKjY/Yw2dKp
+	y1tSFE7sgLFc1nDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5C6613722;
+	Wed, 30 Sep 2026 11:13:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6VN9KL3uvGonKAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 11:13:01 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4EBFBA13AD; Wed, 30 Sep 2026 13:13:01 +0200 (CEST)
+Date: Wed, 30 Sep 2026 13:13:01 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] isofs: bound the name conversion and return long
+ Joliet names whole
+Message-ID: <uxcpgccobifwkptga6ukhm2colgm757q6rnmmpacsk3lbolbds@pdt7bl5wgmhu>
+References: <20260926042916.3277409-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v3 2/6] mm/sparse-vmemmap: support device DAX in common
- vmemmap path
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260930085329.17337-1-lance.yang@linux.dev>
-Date: Wed, 30 Sep 2026 19:11:45 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- maddy@linux.ibm.com,
- rppt@kernel.org,
- akpm@linux-foundation.org,
- david@kernel.org,
- mpe@ellerman.id.au,
- npiggin@gmail.com,
- chleroy@kernel.org,
- ritesh.list@gmail.com,
- sshegde@linux.ibm.com,
- ljs@kernel.org,
- liam@infradead.org,
- vbabka@kernel.org,
- surenb@google.com,
- mhocko@suse.com,
- qi.zheng@linux.dev,
- linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <62E3517E-517D-4C23-A04A-F5BEB0A84C60@linux.dev>
-References: <20260929053231.66085-3-songmuchun@bytedance.com>
- <20260930085329.17337-1-lance.yang@linux.dev>
-To: Lance Yang <lance.yang@linux.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926042916.3277409-1-matthias.goergens@gmail.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+On Sat 26-09-26 12:29:12, Matthias Goergens wrote:
+> Honza, this reworks v1 along the lines of your review, on top of your
+> for_next: both converters take the buffer size, the callers pass it, and
+> the buffer shrinks to what they need, without size asserts.  But on long
+> Joliet names it deliberately goes the other way: 1/4 returns them whole
+> instead of cutting them at NAME_MAX, and 2/4 reports the longer limit in
+> statfs.  1/4 also corrects the v1 history of the PAGE_SIZE bound.
+> 
+> 1/4 is also a fix.  get_joliet_filename() keeps the converted length in
+> an unsigned char, so a Joliet name longer than 255 bytes of UTF-8 wraps
+> and is listed under a garbled short name that cannot be looked up.
+> PowerISO and UltraISO write such names by default (up to 110 UTF-16
+> units, 330 bytes for CJK).
+> 
+> Such names are rare: in the Joliet trees of a few thousand archive.org
+> images, mostly CJK, Thai or Indic, none is longer than 255 bytes.  The
+> images I wrote with PowerISO and UltraISO (under wine), a crafted image
+> with 111-unit names, and the survey scripts are at
+> 
+>   https://github.com/matthiasgoergens/linux/tree/isofs-joliet-long-names
+> 
+> (or I can post them here).
+> 
+> Why whole: as with empty directory blocks [1], I'd follow Windows.
+> Joliet is Microsoft's extension, discs with such names are made with
+> Windows tools for people who read them on Windows, and Windows returns
+> the names whole, including 111-unit names in records that leave out the
+> padding byte.  Scripts and CI logs:
+> 
+>   https://github.com/matthiasgoergens/isofs-windows-probe
+> 
+> On Linux, vfat and exfat already return names of up to 765 bytes and
+> report a limit of 1530 in statfs, vfat since f68e542f3478 ("fat: Fix
+> statfs->f_namelen"), and the VFS itself only limits a name to PATH_MAX
+> (verify_dirent_name()).  So what breaks is what breaks with vfat today:
+> copying such a file to ext4 or tmpfs fails with ENAMETOOLONG, which cp,
+> tar and rsync report before carrying on; readdir_r() and inotify readers
+> sized by the man page fail; and fanotify reports the event without the
+> name and hits the WARN_ON_ONCE() in fanotify_info_copy_name(), for which
+> I have sent a fix [2].  1/4 has the full list.  Cutting at NAME_MAX
+> avoids all of this, but lists names that Windows does not show and that
+> can collide within a directory.
+> 
+> If you still prefer NAME_MAX, I have that version ready and tested the
+> same way: there 1/4 cuts long names at NAME_MAX on a character boundary,
+> 2/4 is dropped, and 4/4 shrinks the buffer to NAME_MAX + 1.
+> 
+> Testing: a KASAN and UBSAN kernel under qemu, 19 images mounted with no
+> iocharset, utf8, iso8859-1, cp932 and euc-jp, each with and without
+> norock.  Only the four images with names over 255 bytes change, and only
+> with no iocharset or utf8: their long names are now listed whole and
+> open.  Everything else lists, looks up and reads as before.  Under a
+> Debian userspace, ls, find, cp, tar, rsync, Python, readdir_r(), inotify
+> and fanotify behave on the long-name images, including a crafted one
+> with 111-unit names, as they do on a vfat with 765-byte names.  This
+> replaces v1 2/2's claim, whose test never ran the Joliet or zisofs code.
+> 
+> v1: https://lore.kernel.org/all/20260922155524.1993425-1-matthias.goergens@gmail.com/
+> [1] https://lore.kernel.org/all/cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n/
+> [2] https://lore.kernel.org/all/20260926020851.2938961-1-matthias.goergens@gmail.com/
 
+Thanks! The patches look good and I've added them to my tree. I've just
+added the following hunk to your last patch to document the situation in
+the code:
 
-> On Sep 30, 2026, at 16:53, Lance Yang <lance.yang@linux.dev> wrote:
->=20
->=20
-> On Tue, Sep 29, 2026 at 01:32:27PM +0800, Muchun Song wrote:
->> The common vmemmap population path cannot yet handle optimized Device =
-DAX
->> mappings on its own. It uses pfn_to_zone() to find the shared tail =
-page,
->> but Device DAX populates its vmemmap at runtime before the =
-ZONE_DEVICE span
->> is initialized.
->>=20
->> Teach the common path to use device_zone() for runtime optimized =
-vmemmap
->> population while retaining pfn_to_zone() for early boot. This allows =
-the
->> same path to support both early boot mappings and Device DAX.
->>=20
->> The backing PFN supplied by the Device DAX-specific population path =
-is no
->> longer used, allowing the redundant lookup and population code to be
->> removed later.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->> ---
->> v3:
->> - Collect Acked-by from Qi Zheng
->>=20
->> v2:
->> - Expand comments around slab initialization to explain zone lookup =
-and
->> page refcounting (suggested by Qi Zheng)
->> ---
->> mm/sparse-vmemmap.c | 64 =
-+++++++++++++++++++++++++--------------------
->> 1 file changed, 35 insertions(+), 29 deletions(-)
->>=20
->> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
->> index 8219abc6c3e5..ee4c113ca938 100644
->> --- a/mm/sparse-vmemmap.c
->> +++ b/mm/sparse-vmemmap.c
->> @@ -237,18 +237,43 @@ static __meminit void =
-*vmemmap_alloc_pte(unsigned long pfn, int node,
->> struct page *page;
->> const unsigned int order =3D pfn_to_section_compound_order(pfn);
->>=20
->> - /*
->> -  * Device DAX still relies on vmemmap_populate_compound_pages() for
->> -  * head/first-tail allocation and tail-page reuse.
->> -  */
->> if (!vmemmap_optimizable_pfn(pfn))
->> return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
->>=20
->> - zone =3D pfn_to_zone(pfn, node);
->> + /*
->> +  * Before slab is available, vmemmap optimization is used for early
->> +  * system RAM, whose zone can be determined from the PFN.
->> +  *
->> +  * Once slab is available, only ZONE_DEVICE memory reaches this
->> +  * optimized population path. Its zone span has not been =
-initialized
->> +  * while its vmemmap is being populated, so pfn_to_zone() cannot be
->> +  * used. Obtain ZONE_DEVICE directly from the node instead.
->> +  */
->> + zone =3D slab_is_available() ? device_zone(node) : pfn_to_zone(pfn, =
-node);
->> page =3D vmemmap_shared_tail_page(order, zone);
->> if (!page)
->> return NULL;
->>=20
->> + /*
->> +  * During early vmemmap population, the shared tail vmemmap backing
->> +  * page is allocated from memblock before its struct page can =
-safely
->> +  * participate in page refcounting. Therefore, no reference can be
->> +  * held for each shared PTE mapping, and the mappings must be =
-unshared
->> +  * before the vmemmap is depopulated.
->> +  *
->> +  * Once slab is available, the shared backing page is allocated =
-from
->> +  * the buddy allocator and can be refcounted. Hold one reference =
-for
->> +  * each shared PTE mapping. The architecture vmemmap teardown drops
->> +  * the reference through __free_pages() when removing the mapping,
->> +  * preventing the backing page from being freed while it is shared.
->> +  *
->> +  * The backing page may be shared by enough PTE mappings to exhaust
->> +  * the positive range of its reference count. Stop populating the
->> +  * vmemmap if another reference cannot be acquired.
->> +  */
->> + if (slab_is_available() && !try_get_page(page))
->> + return NULL;
->=20
-> BTW, shouldn't __add_pages() undo the earlier sections on a population
-> failure? Say the first section is added successfully, but populating =
-the
-> next one fails, e.g. due to an allocation failure:
->=20
-> void *memremap_pages(struct dev_pagemap *pgmap, int nid)
-> {
-> 	...
-> 	const int nr_range =3D pgmap->nr_range;
-> 	int error, i;
-> 	...
-> 	pgmap->nr_range =3D 0;
-> 	error =3D 0;
-> 	for (i =3D 0; i < nr_range; i++) {
-> 		error =3D pagemap_range(pgmap, &params, i, nid);
-> 		if (error)
-> 			break;
-> 		pgmap->nr_range++;
-> 	}
->=20
-> 	if (i < nr_range) {
-> 		memunmap_pages(pgmap);
-> 		pgmap->nr_range =3D nr_range;
-> 		return ERR_PTR(error);
-> 	}
-> ...
-> }
->=20
-> We still need to undo the sections already added in the failed range,
-> though ... memunmap_pages() won't touch those, since it only removes
-> completed ranges.
->=20
-> If the range starts at a section boundary, we'd hit -EEXIST in
-> fill_subsection_map() on retry while those subsection bits are still =
-set.
->=20
-> The old DAX path had this issue too. Could we roll back [start_pfn, =
-pfn)
-> in __add_pages() as a separate fix? Something like this:
->=20
-> ---8<---
-> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-> index 796af1028ee2..16a0a2c885bc 100644
-> --- a/mm/memory_hotplug.c
-> +++ b/mm/memory_hotplug.c
-> @@ -380,6 +380,7 @@ EXPORT_SYMBOL_GPL(pfn_to_online_page);
-> int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
-> struct mhp_params *params)
-> {
-> + 	const unsigned long start_pfn =3D pfn;
-> 	const unsigned long end_pfn =3D pfn + nr_pages;
-> 	unsigned long cur_nr_pages;
-> 	int err;
-> @@ -417,6 +418,10 @@ int __add_pages(int nid, unsigned long pfn, =
-unsigned long nr_pages,
-> 			break;
-> 		cond_resched();
-> }
-> +
-> + 	/* Roll back the sections added before the failure. */
-> + 	if (err && pfn !=3D start_pfn)
-> + 		__remove_pages(start_pfn, pfn - start_pfn, altmap, =
-params->pgmap);
-> 	vmemmap_populate_print_last();
-> 	return err;
-> }
-> --
->=20
-> Hope I haven't missed anything :)
++       /*
++        * Rockridge can produce names of NAME_MAX size, Acorn extensions at
++        * most 227 chars.
++        */
++       BUILD_BUG_ON(JOLIET_NAME_MAX < NAME_MAX || JOLIET_NAME_MAX < 227);
 
-Good catch. This is indeed a pre-existing issue, and the old DAX path =
-was
-affected as well.
+I've also noticed we are somewhat inconsistent with the terminating \0
+character. In particular get_joliet_filename() -> utf16s_to_utf8s() doesn't
+null-terminate the returned string. Similarly isofs_name_translate()
+doesn't result in null-terminated string. Other functions do terminate it
+(which isn't really necessary AFAICS). It would be nice to clean this up if
+you're interested.
 
-Your proposed fix looks correct to me. I would slightly prefer keeping =
-the
-rollback close to the failure:
-
-           err =3D sparse_add_section(nid, pfn, cur_nr_pages, altmap,
-                                    params->pgmap);
-           if (err) {
-                   __remove_pages(start_pfn, pfn - start_pfn, altmap,
-                                  params->pgmap);
-                   break;
-           }
-
-If the first section fails, this simply calls __remove_pages() with an
-empty range, which is a harmless no-op.
-
-Would you mind sending this as a separate bug fix? I will ACK it.
-
-Thanks,
-Muchun
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
