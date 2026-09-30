@@ -1,237 +1,146 @@
-Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A041E5714
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5565136197E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790734009; cv=none; b=jd0oKXF5azq6IDcS6ByRiRm0fd39paDyXI9QJD3gHoSrdEwqWMNc7pMRYeq+Wg80ywZ+He3O5Gt1EO3xSK8PF/y5urajCTWQ9YaGeue5KSBjDtBiLO/DGjDTBCsSucpynSpi1VbpreOnhDEuZSz9bJQ16vdo3/MOQzSjJzdlKI0=
+	t=1790734080; cv=none; b=UsmjiesOtrP8hUjNXNWF5Kt/h2rByfu0th+rM5ByZKtb3vyTPACAx5ERS5upTIv2J1WXBX2QtuwwNjuC6CXyqVynugl36IaU7mJhjbZe+jUxHKsJWzqHelykMdiHkrU96C10BhaZWVAYAxpTrIsqIgOALejI8WR9pDLcEszl2u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790734009; c=relaxed/simple;
-	bh=jMips3+FZBXuIixKWdRfLebaiayb1vhjySsdj1aIq1Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PPRnCHXEJPh/TsRjcjq7Zrc6V6pqFZ+bEs9VMtPBGMJ56FjFzfhVrFg3vw7bN2N/xeXLgWryF5G3hZYLsSIj88ri5kTxzFiXjXbxzfj7XxK2AZcFlCfJrSGyOxTbLUvELBoeXAi8c69M1Mrf9xrUAUjrcl5DEm0DZJ5luem08UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ggz0ySXf; arc=none smtp.client-ip=91.218.175.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790734080; c=relaxed/simple;
+	bh=j1Ni7tBKh1a7tkJJg9B48MG5RjW+DM36zVpSIvXS8uk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VJO4xGYxZVqg2Ev3/BFGvaW5h7AqVwplfDUiIE3bmIGMPD0ZkIdAen12El0eTClNaWtMyDURRauh44v4N7PNyfAm6975QE2ec/IYZqyCp7iS0b3tf3rUg4HvcaOksH9Doumu8c8WpsDrMx8FI37dYnOKMYUINoV3FUnIZhWuwAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pewoM4yg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SovKqDFO; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ggz0ySXf"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jMips3+FZBXuIixKWdRfLebaiayb1vhjySsdj1aIq1Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790734005; v=1; x=1791338805;
- b=ggz0ySXf7UZ8vP7qTyZaRczHPxMfymnYx5TJCl1yAl/aTUuFDi1D+jCCTIQHPn1A1+IKOXk7
- jNo19Y1uP3cTvPjI4F5LWwHg/xJlbAdj4LFyZU/11B/ENiyR9bFuS8z+2vyjgmLxWf3XN1t/CO9
- T9I1nSbyFduuN+2b7J7NFaQI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5d095c98bfbb9fde;
-	Wed, 30 Sep 2026 02:06:44 +0000
-X-Mizu-Trace-ID: 5d095c98bfbb9fde
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Wed, 30 Sep 2026 10:06:24 +0800
-Subject: [PATCH net-next v2] selftests: fib_tests: use per-test return
- value in subtests
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pewoM4yg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SovKqDFO"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U1AQqh1264055
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:07:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=WTItptXsNpsX0KmzqsHPB3FdHZtYdhRX31N
+	Ltm42Hns=; b=pewoM4ygPb/I45bHNgJYykTXzvNTWt5Zxt8UcyMTfJZFLWWii4Y
+	oy9gpfZC4P9ac3eBOQX6FHyvyrDt0yWJFMcme1L08sHeC9iwwAmmYQC7ICoNnk6x
+	ryLjo8MSNdnHfJJ+cTXVcewlrHfFMGjfwlvQXCBqmWr120zhRVPP+7Rbhi9rltgS
+	6M5YzNF2LePH3QR8swRYKPobgvPP6AlXrRY3Kk34qQimiOEshKlJ9hD/8EcssSsl
+	Hut64VYYhTI5Bn3Byd1f8JezYxuvYJKiP/HcmqE9xON9e3kEpuKH6+Tvn7AZ2h5v
+	OdmrxjLcAB2kAGoWpP76fwjIF5oUetxvS5g==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rheg6hr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:07:58 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so1289608eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:07:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790734077; x=1791338877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WTItptXsNpsX0KmzqsHPB3FdHZtYdhRX31NLtm42Hns=;
+        b=SovKqDFOqsVsDY9adgUuKgA5CJ6JCoIpZfK7SVEowcVQdUZW9deMyLU1R17qsKRuM8
+         vYOthmDSe5e3eN66zolkr675EZqLTYln1hAKXPX4Pr7mlq7/FEoRIY7WcNTMI5fs7Wum
+         BWP+KOiK2RG3fT9BFYCUQvNeXgc9b5vEHGcnWQYh8iSWwdibhQlvcsC3GCGtp72E9ckU
+         21T0uuoHNTm+YCH7q3WpT3+74uOFDnfiL/22XqkWWQLpXjQ5BgQtVuQucYHugL4H16Ju
+         4IQOgqMJgMmuQmbjwS9ozpKxBJnOH9m85nnVI0WiQ4LenQXt0iZaEi9R+W6vZPTKZs5g
+         6s9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790734077; x=1791338877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WTItptXsNpsX0KmzqsHPB3FdHZtYdhRX31NLtm42Hns=;
+        b=kwyT8F/aLDO3DGWxZMcBa/vTIn+TAR3orEegDS9ozJVl9WbXdk95GipcZbNbKuS6N+
+         lTJbAk2pUEClqUEqy9dhxMrPYHUJb7P6dt05yZoyqJy7YXY2WnqWYe4yq0aZY5FTCMe5
+         ZlMytzPbXgl9tdGobhsOt21iQqTTVAe0lYSXuKg+1arzvPgGHhHaUjsoTy+sc5q9+CTP
+         ImN2uFK3GlIhJR70i6Km3pa9HKRSjDzQ/VFL5Zq+GnqvdLGPIWB91mNXbOughNXPnIUB
+         lrrgXFOJmAG1A7jv2eX7+xDB8kXnzNFLAF1T7dNPzYiUjr77gJlbUiTGTYlItKr7RkXI
+         jutA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3QXxVCgp6o3EqlnBIeHHgmrsQmjXIU4pT6E7dRtcDERe2f/jSHYGyt7ErQ0pYuP5qarEilHOHaTmDU1A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTEBwoCOnMlJajaXvowKVsBWSgbwNkojpU7YJLLShHROztpms4
+	UrCpANubk8plKhs80ttuXFIZkXJd+4z9T7qprHjhL/BEmPbz1S1romQ87jIbih9IOS2Nk/zXl+f
+	wAGG2ALI2+TzSsmptuuUbHE3rsFQAaEVMGZl5iMPLdBYTHybpLcDCYsR+6Vy1Mb9OsTk=
+X-Gm-Gg: AYBFou3FLqBgYh1AXLrXsQuECHPFB8zz2EHmQ6wPwBLK8Xrxh7pn30aVtLegoHF340O
+	bTbURrbpZx9iCfi3YYPVnRHnN+86c3hrBZyRf1EXjkyx4u7LGIrjQOw7vRX0rEkSWBsjl8/StfZ
+	QFRcyPai7oasLegza9CMNiD22G/IsD+3fWUBr4MXOPA5AxfLxLnxhxpQqLOcmGMV3NPz9iv+49S
+	lVk1kilY2uOOtBF0r4lnP8Y8L3eUPQEGb/6UUBoelI+j4iT9GjfRS2QlZyu8hmOM2+RHt5gY5lo
+	VwqY0YHql7UV2SNVrkN7I73t0kaLsWzBB3S2RqXmfUx4K4Zy1HWHkvpZoGWU1gPmQPVppf9m11x
+	fURfE+wZZEgZZ+DuT2DNNWij8D9yMJrOp1KPvDX23p8seqh9xiSYyAsQoAIo=
+X-Received: by 2002:a05:7300:2143:b0:340:e422:fd3d with SMTP id 5a478bee46e88-34cdbad6906mr196171eec.17.1790734077105;
+        Tue, 29 Sep 2026 19:07:57 -0700 (PDT)
+X-Received: by 2002:a05:7300:2143:b0:340:e422:fd3d with SMTP id 5a478bee46e88-34cdbad6906mr196126eec.17.1790734076558;
+        Tue, 29 Sep 2026 19:07:56 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm2782812eec.16.2026.09.29.19.07.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 19:07:56 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] remoteproc: qcom_q6v5_pas: Drop early_boot flag for Nord ADSP
+Date: Wed, 30 Sep 2026 10:07:45 +0800
+Message-ID: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-self_fib_tests-v2-1-3053e649d341@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NwQqDMBBEf0X23JQYqdSe+h9FJImbulSiZENQJ
- P/eID31MIfHMG8OYAyEDI/qgICJmBZfQF0qsJP2bxQ0FgYlVSs7dReMsxscmSEiRxZylDfXtai
- dMVBGa0BH2yl8gccoPG4R+tJMxHEJ+/mU6rP/Sbt/aapFLSRq0+rGNiXPzz6TX/hqPfQ55y98E
- LW5twAAAA==
-X-Change-ID: 20260928-self_fib_tests-0d05f96eafbb
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, Ido Schimmel <idosch@mellanox.com>, 
- David Ahern <dsahern@gmail.com>, netdev@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hangbin Liu <liuhangbin@kylinos.cn>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: ItaxXctnAyL3vvXQ4R97nohKk3nNh2HA
+X-Proofpoint-ORIG-GUID: ItaxXctnAyL3vvXQ4R97nohKk3nNh2HA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAwOCBTYWx0ZWRfXzY6pqE3wylC2
+ w1D9fTMFjUaZi2F3tTyWywZl30KkbkQDmjvsTbooMC8NCUFkYzstb9ptQRau7oT2ATlVIM21CBD
+ kBE/QlhZ9S6LqmBXViv3wxAuA8DXZ/dby+zLHjEMIGo8D/uO+wdgaiG4d6IcvEOgR4O0mQdKKZ6
+ +xlcWQeHKJRfr/MNmUYD3pF2fnoHCQ9ICyHeuXMThAdvzv3wNT5br4lZvHyocFC5cRqMgDFcgNm
+ /JpGwvFNJnpKJRgWFnPZzegQjwX+FfUcnBFGB05URCVrx7znfovIn7M6rTpTXBTlPTJp/AST9+0
+ 8BM3A5GI3ruhzBXhwnijiknc5yIdPBvHaOiq3JviYD6fffAA+GQSX3W/3uaesYTOCKTTc6qNyJb
+ E45gL2CvOcEkKVXWBVio2KrUxlbUmaSDxV36xhG+1q2leXHyZmqMYHSr1uywhdDoyD09mBI47nK
+ 7MMHRbAIfuzgstfvVFQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAwOCBTYWx0ZWRfX66NcCYSbfDNH
+ 7DpXguC47GBdWEH/GjUyzoKbmjDJJdwQiQKZD16haPr3P3wJ9+ASTlCo6kRHKeFO7sW2NpFe1xQ
+ z0JlsZxPrE9kHF130Aq6O+gWrVGwE7c=
+X-Authority-Analysis: v=2.4 cv=Tu1zFzXh c=1 sm=1 tr=0 ts=6abc6efe cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=sh0ooE54KQypwE_MK_IA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300008
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+Qualcomm NHLOS team changes XBL for Nord IOT/Embedded variant, leaving
+ADSP to be powered up by Linux remoteproc, so that Nord IQ10 Qualcomm
+Linux (QLI) behavior gets aligned with IQ8/9. Drop early_boot flag from
+Nord ADSP for that purpose.
 
-fib_tests mixes use of $ret for both per-test return value and global exit
-code. If an earlier subtest fails and a later function sets ret=0, the
-script will exit with status 0 even though [FAIL] lines were printed.
-
-Use RET as the per-test return value, as already defined in lib.sh. The
-exit code ret will only be set in log_test().
-
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
-Changes in v2:
-- target to net-next since this doesn't fix a regression (Ido Schimmel)
-- remove RET in fib_carrier_unicast_test which is not used (Ido Schimmel)
-- Link to v1: https://lore.kernel.org/r/20260929-self_fib_tests-v1-1-0eab6a3c3a3c@kylinos.cn
----
- tools/testing/selftests/net/fib_tests.sh | 40 +++++++++++++++-----------------
- 1 file changed, 19 insertions(+), 21 deletions(-)
+ drivers/remoteproc/qcom_q6v5_pas.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/tools/testing/selftests/net/fib_tests.sh b/tools/testing/selftests/net/fib_tests.sh
-index b338bfb196a2..47184d201d33 100755
---- a/tools/testing/selftests/net/fib_tests.sh
-+++ b/tools/testing/selftests/net/fib_tests.sh
-@@ -369,8 +369,6 @@ fib_carrier_local_test()
- 
- fib_carrier_unicast_test()
- {
--	ret=0
--
- 	echo
- 	echo "Single path route carrier test"
- 
-@@ -685,12 +683,12 @@ fib6_notify_test()
- 
- 	err=`cat errors.txt |grep "Message too long"`
- 	if [ -z "$err" ];then
--		ret=0
-+		RET=0
- 	else
--		ret=1
-+		RET=1
- 	fi
- 
--	log_test $ret 0 "ipv6 route add notify"
-+	log_test "$RET" 0 "ipv6 route add notify"
- 
- 	kill_process %%
- 
-@@ -732,12 +730,12 @@ fib_notify_test()
- 
- 	err=`cat errors.txt |grep "Message too long"`
- 	if [ -z "$err" ];then
--		ret=0
-+		RET=0
- 	else
--		ret=1
-+		RET=1
- 	fi
- 
--	log_test $ret 0 "ipv4 route add notify"
-+	log_test "$RET" 0 "ipv4 route add notify"
- 
- 	kill_process %%
- 
-@@ -763,9 +761,9 @@ check_rt_num()
- 
-     if [ $num -ne $expected ]; then
- 	echo "FAIL: Expected $expected routes, got $num"
--	ret=1
-+	RET=1
-     else
--	ret=0
-+	RET=0
-     fi
- }
- 
-@@ -812,7 +810,7 @@ fib6_gc_test()
- 	sleep $GC_WAIT_TIME
- 	$NS_EXEC sysctl -wq net.ipv6.route.flush=1
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection"
-+	log_test "$RET" 0 "ipv6 route garbage collection"
- 
- 	reset_dummy_10
- 
-@@ -830,7 +828,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (with permanent routes)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (with permanent routes)"
- 
- 	reset_dummy_10
- 
-@@ -848,7 +846,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (replace with expires)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (replace with expires)"
- 
- 	reset_dummy_10
- 
-@@ -868,7 +866,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 5 $($IP -6 route list |grep -v expires|grep 2001:20::|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (replace with permanent)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (replace with permanent)"
- 
- 	# Delete dummy_10 and remove all routes
- 	$IP link del dev dummy_10
-@@ -923,7 +921,7 @@ fib6_gc_test()
- 	# rt6_nh_dump_exceptions() just skips expired exceptions.
- 	$NS_EXEC sysctl -wq net.ipv6.route.flush=1
- 	check_rt_num 0 $($IP -6 route list cache | grep 2001:10:: | wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (promote to permanent routes)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (promote to permanent routes)"
- 
- 	$IP neigh del fe80:dead::3 lladdr 00:11:22:33:44:55 dev veth1 router
- 	$IP link del veth1
-@@ -960,7 +958,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (RA message)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (RA message)"
- 
- 	set +e
- 
-@@ -1589,7 +1587,7 @@ fib6_ra_to_static()
- 	# Expire is back, on-link route is now owned by RA again
- 	check_rt_num 2 $($IP -6 route list |grep expires|wc -l)
- 
--	log_test $ret 0 "ipv6 promote RA route to static"
-+	log_test "$RET" 0 "ipv6 promote RA route to static"
- 
- 	# Prepare for RA route with gateway
- 	$NS_EXEC sysctl -wq net.ipv6.conf.veth1.accept_ra_rt_info_max_plen=64
-@@ -1606,7 +1604,7 @@ fib6_ra_to_static()
- 
- 	check_rt_num 2 "$($IP -6 route list | grep -c "nexthop via")"
- 
--	log_test "$ret" 0 "ipv6 RA route with nexthop do not merge into ECMP with static"
-+	log_test "$RET" 0 "ipv6 RA route with nexthop do not merge into ECMP with static"
- 
- 	set +e
- 
-@@ -1651,18 +1649,18 @@ fib6_temp_addr_renewal() {
- 	# Restore it
- 	$NS_EXEC ra6 -i veth2 -s fe80::1 -d ff02::1 -P 2001:12::/64\#LA\#3600\#3600 -e
- 
--	ret=1
-+	RET=1
- 	for i in $(seq 1 25); do
- 		sleep 1
- 		num_dep="$($IP -6 addr | grep -c "temporary deprecated" || true)"
- 		num_tot="$($IP -6 addr | grep -c "temporary" || true)"
- 
- 		if [ "$num_dep" -eq 1 ] && [ "$num_tot" -ge 2 ]; then
--			ret=0
-+			RET=0
- 			break
- 		fi
- 	done
--	log_test "$ret" 0 "IPv6 temporary address cleanly deprecated and regenerated"
-+	log_test "$RET" 0 "IPv6 temporary address cleanly deprecated and regenerated"
- 
- 	set +e
- 
-
----
-base-commit: 8c2493eef43ab8592738a5398c74af268c0fefdf
-change-id: 20260928-self_fib_tests-0d05f96eafbb
-
-Best regards,
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 2e1e39826ffa..9e7fb5c5610e 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -1582,7 +1582,6 @@ static const struct qcom_pas_data nord_adsp_resource = {
+ 	.dtb_pas_id = 36,
+ 	.minidump_id = 5,
+ 	.auto_boot = true,
+-	.early_boot = true,
+ 	.proxy_pd_names = (char*[]){
+ 		"cx",
+ 		"mx",
 -- 
-Hangbin Liu <liuhangbin@kylinos.cn>
+2.43.0
 
