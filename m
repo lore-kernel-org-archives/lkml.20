@@ -1,127 +1,185 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011011.outbound.protection.outlook.com [52.101.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D474E1C9A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783139; cv=none; b=ZviXV2bnn7t0MZY0lWBOX2Ix6X9+LFNObwwEzN4ISnVrMfnHOyfxGuxzcp+3Y4S5DIF6Po7dWKo/8x4cNW939/T2LGq6NqcxUGCVc/2zo3bS7LV4YIwRMUwvgdtCfYjJd7K8engHAMSSlX1R1mYd6H168Gwi+gJMLgd2AC0ADAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783139; c=relaxed/simple;
-	bh=+E3nu9cp5XTg7fUnblx7dymG1E3XKTDKsq+/0nB3mAY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=LTdUtJWNYoCLYSFCbA7yEGWI5u6mGLVZkPSf+Qet9SZrj0mUWX7f/pNiACLoebnnUJc5hHPJ7KYJm3zdG+Afij7M29BUZxQFeOK6zF+RowCNcMnFE+zumA7NRuW0fv0LRjNqKBfCIfLITXQ0MWluobeDMGUVGufJPCKyISmUc80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ak600XQZ; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731B6389104;
+	Wed, 30 Sep 2026 15:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783166; cv=fail; b=rQ/UY1/9ZnIh7UqLn+YfjvK4wZkkl9MPpj2IICggM3KiuGuD3jcY6B9Z1FXgwxV/nB/xvm7NYWHKjjPowSTJDp3r6OBqR5qvoXqKzbIGDWJp3VDyPsdyMtsALwEOnIsbNEXKYh8gFOOk3+CQRa+c72kdgsPte6WaNthtGWEXuvA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783166; c=relaxed/simple;
+	bh=nsWDq+AV4VRK+wCT5oYmmKpDzFHIv9pE1HGtoIMSHVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=p5gzo1ZhfGNu5QBTGColV6GulCv9J3e9ctkujQQcy76iPzUJaoQKgqw1FibX5P+k8Kak5AvM3VPPg/dw88IanoIUwH0pDP+uRq1aNAXZv4AtlUx3rMTEedrwqFdyxWPEH0xLDllw+ij2JogTrYjQL4fZD2FANwYzp5idTbbVpns=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vpG8BtUH; arc=fail smtp.client-ip=52.101.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ak600XQZ"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4c1fc9ceaso3350761a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:45:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790783129; x=1791387929; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n2DlYQ7GMNGNdg9PlylvSRmsL7W6iomB+l9xX198ogw=;
-        b=Ak600XQZZRQ9aWZ5Cs38TRVJfQy6Kz+eqLXcsLc1siC4NbaamlJlYL2GIXWgQQXOpb
-         4IgRTUr+6fbsuU9Dr7R6iq5eDfNtSDe9k2HFEb7golGc0S/6rFFKz/0y6vYe+yhCWWmI
-         +8ctcRvmIKdIAaP4Qcz9YGdgZmtzTH0VAqd6fGt/V/7eQ1FxfloYx48GeFM9BAh+vbxj
-         3Di44P8+1LScYMONeUx2UKMvJ1OP/LB5M22FptoiCARThaFbbrQ3kIoHPsmdrD6eqkV2
-         9Jn3UbRlSc52RagQjDTxUy6iAPcgn9LB+x7NgsJzlw5aalcptaRGItmIN+46QuPmXE3q
-         3zYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783129; x=1791387929;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n2DlYQ7GMNGNdg9PlylvSRmsL7W6iomB+l9xX198ogw=;
-        b=d5BlUYYk5De1BHgUzjFJj+WbtL0cKifUD+enDXAfmEx8CCuBktrHSVyDXqw3/h9XNY
-         YfuQ67hleIwCoFOseEjnmqnTrojAH9citchagLSGbYLAuakQzfkwDExG1Qkd7D+Fun3y
-         aX8X1+s63vl6GpBLKPJqajzfcV+5x7B1+YrnL8JoEzCzCrpYm5KZq4NC1Y4VwEB1tEtT
-         np5T3l8dyNGbya36mZw1fvMntX1xnI68XcbenwdssCg6iAm63RG1hVpWonyieeum60dR
-         jp7pkKpClrRfLRvqxPXoKmiBcy6YVRXwBMZ2SG8FLxVrstkUHvcdePBf3s3OQM5kA6Zo
-         8gcg==
-X-Forwarded-Encrypted: i=1; AKwUvByw2Gbkw68p+brR6w1lWL8yhkf0XY1srRod51ce16FnnThOrNCeuQxR4Cv9yXtHDvBsJik/xXl+mVbVXP8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTcYIWr/8uPAg/wzWafHJXQMkbTVBRp95tFwIYdPxDK39XaaOk
-	xtAKhOTivasAgwy0xNdGZ7MMsTtfyNSpGrYmt9+T7CN16P7PbUEZkrWHuOmtQyU9T0l9mMAaWBE
-	e0Z1BcQ==
-X-Received: from pgbfq17.prod.google.com ([2002:a05:6a02:2991:b0:cc7:9b89:2a72])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:748f:b0:3dd:57bf:7248
- with SMTP id adf61e73a8af0-3de9e6e51fdmr1732868637.18.1790783128364; Wed, 30
- Sep 2026 08:45:28 -0700 (PDT)
-Date: Wed, 30 Sep 2026 08:45:27 -0700
-In-Reply-To: <arzns-SbdhuGntwm@blrnaveerao1>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vpG8BtUH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XXVRVYnXnt6/mEvX8Wciyo9HYpo8qTyoNTz/3mSZXV7etTzvBaWJ5i16a+hmzMVJQwQM9cZcGiBXqWLXROB0XIdVrX4SmtnyaBeJKavKyaOyq/l5RH9m9IwFhQUZDd4x2bP9HMb0BYIBk3Jwj63n0LmCRMiM7bO7vQ/6ZOeklNHPByTBwqQa0RaWF9IU/FonuZuQ1jtHZludKkRXdBE6VJvTKSA9SPr8e0Iydfhf2tz7yQDBC/ZRaekpiBbWF/pq3/HqGbu5tvzNOPId3PD2gl0GoDhvtko6Sjo6rLok9g0FFgnupZiRj6fHCCArPli21qM++KLUREgkrba+E8OG3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
+ b=MmFKQi8wd2s6iuQ+fbSJQdtBqSjuRGU5z5DkhpJ3PjYfnomfKX/RIXdeiAmjJA0yvpm98fqX5DR9idNrygMXWVLwNeJ1/QBUibkZNunTb2PLoREHHTzt05MbutUvQZYP1Iy58GKcaWiJtcUYYIQ+IaTpGEFfXchrutoo2mD/N8IAx15WbOLmtGJefbCw8+TOqC5R4cyiXflglzjAiHmqgTM6XSHg3ANJ0oC45mc+XnXRnMGvzPSdH8nQeZ1T+H5+QNjvPF3SwKhfWYPfGH7MRN+cV11bVeivNyJLGtvaxvx2QUreeQ4GUbMR35/t1sZWTVOL51ZkZkEzXg3k/J7c3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
+ b=vpG8BtUH4L2KNjG+5gILzDp9z+6rETDU3CFOrrb38qPKoEDe5da+DNVcOzWe3Vllr6yITniivj9bWqpLVsgGuDSHSIy/si6ALF3IPmwFdE9Yqwsy+CwMV2qOCooq0Cb57FMhzCrlnnMVNFgNChb1B3PpX4P2v0c6WMMa2lIYKoXUfVxCJ5LtzElJj0uczhq9vE/6pL6f0IlvoLmAQmd/tfAK7kAynf+88Yegx1gPt57OwbjeqEptP+O3wPD+Pe9zF8TZXK5HDFTLjyKBEZmCpzqualXz9laKXgA1rrDaxlmvp0V3IySK4v7CXYi/HGhS03nk4UxOCbTxI9VQdh96iQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB10848.eurprd04.prod.outlook.com (2603:10a6:150:20f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 15:45:54 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 15:45:54 +0000
+From: Frank.Li@oss.nxp.com
+To: Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>
+Subject: Re: (subset) [PATCH v5 0/4] drm: mxsfb: Support LCDIF interface bus width
+Date: Wed, 30 Sep 2026 11:45:46 -0400
+Message-ID: <179078313436.598059.17936202871523895836.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917140042.118181-1-francesco@dolcini.it>
+References: <20260917140042.118181-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P220CA0101.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32d::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1783490022.git.naveen@kernel.org> <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
- <ao8PtliwDo8H49sa@google.com> <arKHLaVluCNCTaau@blrnaveerao1> <arzns-SbdhuGntwm@blrnaveerao1>
-Message-ID: <ar0ul9g3bvHI3VOV@google.com>
-Subject: Re: [RFC PATCH v3 16/27] KVM: SVM: Add handler for VMGEXIT Secure
- AVIC NAE event
-From: Sean Christopherson <seanjc@google.com>
-To: Naveen N Rao <naveen@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>, 
-	David Kaplan <david.kaplan@amd.com>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Michael Roth <michael.roth@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10848:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|376014|7416014|22082099003|18002099003|921020|3023799007|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	WuCPeGkcPrBOxbqRbm31TZ2KSfiOiRfStn5jSsYAJU9d9r0i4a+JZEz+8rgAGOg7j5i719yxPvsC07si7xnsJPQDTInyIKmh32SjtBehp/I5omjBkowkq/mbxa0/NN+3yQAPic9uhrLn0X6vjclebR93Uk85JtgU8u3iiOACVxk7dyKkwo3Wpt3/Rw6D0jKD2x0+wzoVNOtxmmiFLGAXA81pCxj7ZTiWwHkYar1FPJkHyXA46zl94TUSgZavGS6qJUsLufbZZroeuC24Pro1MPoLbjysOXsOziEUem2rxgai3wRregfybjOkxZpKpIbeuKnWgvSM7dxwqn5fono8XZN3EV1tfRHB5MmKhqmHFXh5atbU3SyzmRYxLXdwE+5RBuLJdbFPieKoBmEzrdbdZsP0Tw/Ngrxv5qU5U7ao7YsDx35L5Z68E+yYCCwfCbIeFlV0KS5PLhChdkRJ/rZDZ0JBkxTTor9oSmM/6rMQT2soJzU6/k+Og2di2lIlWFSLQ6HU1EEnPn9gBg8WvDnxLX8a8zkxp93HmDO1Q0V85XbJtXF9UuCOggBONcH8EPQFkk/Nu4JJllUyAWWwzcBbTnW3gRFf2FFeId1MnMYSCD/ntz5x4fNO+aZTw49BaXCEMrDaHMpCdwBtgr1XSGqmTVmLZ0Dtblu6XHDITpXKxlJPqGqn5NjIMYx9zo/MocQRtmN9wOUtKDYiPNg6EJqCpw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(376014)(7416014)(22082099003)(18002099003)(921020)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QlZ5ODFBZFBMRVVVMHM1czR3alFlVlVoTEUvRGxIWVVMTGxrbWVxZFAzc1ZD?=
+ =?utf-8?B?R1VMV0NGcFdvemNaOUJSR0VaS1IreXBNWURnWHp2T0tUZ2JrVHJaSVdkOExm?=
+ =?utf-8?B?R0dKL3hNclFSdGdPUExiVUZxbExYTy85cnUxSmZKRHZVdXpIdGJqdWNJS1hx?=
+ =?utf-8?B?M3J5TVYwUzJmckYzWXV2RTdSVk9USTZ4M3JBRk9qUmhsWVdrRmZld3pmMzIy?=
+ =?utf-8?B?T1V3Y3lVMFZBanVreWV2RWtkWkNCWEZtZ3dCZXpsZEw2UlZwTzZSemY5KzlJ?=
+ =?utf-8?B?eVhzM2VxVklXWFcxQ0htUndTTE5YRXdoQi9rM1gwdm1wRnc4YWwyTVdyQ0Jk?=
+ =?utf-8?B?WlRoa1plZ000TVFqeUg0TWl4NUtpV01ob2hCd3VoMGhHZFBneVBIZWhDLzdl?=
+ =?utf-8?B?YzYyTFE1QWMrZ3A0K1ExdHoyZXV1S3VrWUdMT1g4b25naE9vTG5jMStUdVFU?=
+ =?utf-8?B?T0xyR2Y5amZkWU1rU2M5a0NDRFZ5WE9Bb2ZudkhSNDRTTWhSdFg3MG41T2gr?=
+ =?utf-8?B?OXNpbHJidDhBVHY5ZW81VXlvaWlBOEhpQTJ3MVZ0cjY2S1lCdUwyTVIvK2pL?=
+ =?utf-8?B?bnh1WGg4RlF5bnFwS1JCWTEyUXVIbFR3ek4xV1p3aUxRY2NJU0xLYm9iOXlw?=
+ =?utf-8?B?SWVaYzMzUTdTbnhianp1VFRRK0dra1pmZ0FCWHJGbS9aK0t3MlJtMzdRR0FO?=
+ =?utf-8?B?R0dKdkxsQWw4aTBBMHc1dEVVSXpFTnAzdnlNV1F3MExEZ0JWeFhuKzNKL1U0?=
+ =?utf-8?B?MG1PaXIzL0c0SVV1RGlEenBLUjd3dW1nRDkyNWl0eUxhUWhiWWVIU2xlZWxG?=
+ =?utf-8?B?UWo1VXFVOFE3Q2diUUJrOStZZUxkME5zeEd3cmdsRXlJdExWRDZCNk5rWEJz?=
+ =?utf-8?B?cFJ1LzIrNDR6dXloek1RMngvSnBhR2wrYnBQZUx2bktGRFZZNVpKR204MzVL?=
+ =?utf-8?B?cld4TUNkeUJVZmJVZG1YOG5rU3htNjdReGdzTWc1UWkzMzNkNWpTQ25ZeFpM?=
+ =?utf-8?B?UXVpL09HTG0zK2RIQjhNNkgvUEN0WVY0VHJRZnRiV2xXOU41eE9mY3Z3U3BW?=
+ =?utf-8?B?Z0JqZG1lZ0R3amk2WFZoTnN4d0lRWnNGNHBndXAyVWthc3JIT3RvSHZQU0s1?=
+ =?utf-8?B?VENSbWhOTGgzUUtjcXpkM2xmbCs4RkVUMHVqb3BwakNEMWFJT29hb3cvWS9I?=
+ =?utf-8?B?SUhXL1drZjIrREtzRW10b0NRZHFWc2h2WWp2dWl0MDdwSWNBbURnSWR0Sjk4?=
+ =?utf-8?B?MTFVcWJ2alpXcW93Rk1OUGp1eEdPQmttTjhhRFQwU1htdldObXBra25WWDJ0?=
+ =?utf-8?B?cklKSkJXbitkcVR3VlJJakNzaTZpUXRpeTgyWitUTjgzVS9OR3EwbjBycWdR?=
+ =?utf-8?B?aU5lZW0rSyswYXg4d0x1bFk3UnNxOEY3cEFCR3BsT3dMMmMrSnJGSU1QZkNk?=
+ =?utf-8?B?WE1YdVNnV09EZkVJU0pHRGhlbVVyZ1ZNOW1UODdwdVN3TjZlWFcvWnErSS84?=
+ =?utf-8?B?U3lYNm9Idy9vRjc0cWVGWmVEaU95ZG13WmRnSzAxbUZPN3pNWnJ6VFllYjM1?=
+ =?utf-8?B?b2NKUy9VdlRmVldPTkg3eThuallaMHlPTENKTTVMNlVGSm5COFdkTzJvNXhH?=
+ =?utf-8?B?aTBONmwxaW9qSW5oamNzNFZOeWM1VVBVb1Z0UVFENjhZVTlVSmlwTk5KdXNX?=
+ =?utf-8?B?WnRXZDhyNWg3MkJ6MkM4Q3lvN1E2L1BSa09pdmhqcmZ1cmQ2T3FmRHBPUEFR?=
+ =?utf-8?B?T2ZUdEhiUVR2SEVaSmRVc2RacVlKdkpFNXRTYzl6aVJDaEIzRFBUREZCL1dR?=
+ =?utf-8?B?KzZEYlZlbUMxNXdCa2dnWU9oZGpub1hINnBGR1Q1YzRPMVgvVVlsdlVybDJH?=
+ =?utf-8?B?c2k3LzlqTEtLajkzUFpEYzc1T2h1OXN0L1liYzN3YVZKN3g0ZkxhOWwzQUNK?=
+ =?utf-8?B?di9sZG9uQ3dwTFdRMC82OGQ0VmNXN1dxaDNiczl2elVuR3h2c1lkc2FtTUJp?=
+ =?utf-8?B?WmpBU1g2QVcrTGJDd3BUdDRCT08zcXRuYzdwaEJxZkFrWGNac0JsZG4xTXd3?=
+ =?utf-8?B?aitGWjM5c3Z4Wk0zdmF6MVoya2M3R2FRZDRKbm45R2FVR1Q4ZSsxU1RKaTV2?=
+ =?utf-8?B?VFcyK3dBNklsdEc1OTk2M3RGcklQUms4R1BoSm55MmJCZHkzVXR4N3JlaTJQ?=
+ =?utf-8?B?N3RnaEsyeHFHVFEyMzJHQ21nNVVSaEdrVFFpcHAxY3V2QTN6emVpaDJ3djNR?=
+ =?utf-8?B?KzJVZ2J3bkRvU25ORnozeWF0dkZHWi92bHorVVBZNndEMDZURDJEMlE4SjVn?=
+ =?utf-8?B?T2t4TkR1cGVRdExYdThaODM1bWh5OHlvdWVjTFN0dkZzTnhCRmEwa2NLMmdI?=
+ =?utf-8?Q?VaHehtBh16j/bI1aGonXnuageNJ3KKWhPMi+Y?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:45:54.4396
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U4ids3Z3nrGP/sZ5xTyy1nvEr0ZZIAijBqNIo7HZXFsJj5OffbbboDlJ4vd1R0gzvurJzA377aq7i8z90E77kNicl1zJBQ/u8vEBLkD11eDRwG81JYtwZn7aZvO/VpAC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10848
 
-On Wed, Sep 30, 2026, Naveen N Rao wrote:
-> On Tue, Sep 22, 2026 at 08:31:45PM +0530, Naveen N Rao wrote:
-> With the below hunk, I think we should be able to catch invalidations 
-> due to PUNCH_HOLE, HWPOISON, memslot DELETE and to-SHARED conversions, 
-> and should help make the source of the invalidation clear:
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Thu, 17 Sep 2026 16:00:35 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-> index 96992d10cb2b..3c8daa876045 100644
-> --- a/arch/x86/kvm/svm/sev.c
-> +++ b/arch/x86/kvm/svm/sev.c
-> @@ -5571,11 +5571,36 @@ void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
->                  * vCPU to re-establish its VMSA.
->                  */
->                 gpa_t gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_vmsa_gpa);
-> +               gpa_t savic_gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_savic_gpa);
+> The width of the physical LCDIF output bus can differ from the input bus
+> format advertised by the downstream panel or bridge.
 > 
->                 if (VALID_PAGE(gpa) &&
->                     gpa_to_gfn(gpa) >= range->start &&
->                     gpa_to_gfn(gpa) < range->end)
->                         kvm_make_request_and_kick(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
-> +
-> +               /*
-> +                * All PRIVATE invalidations that hit the Secure AVIC backing page in
-> +                * this path will result in a subsequent access by the Secure AVIC HW
-> +                * to cause a not-restartable #NPF killing the VM. Catch such
-> +                * invalidations here so that the source of those invalidations is
-> +                * clear, rather than a subsequent guest access resulting in a
-> +                * unrecoverable #NPF.
-> +                *
-> +                * This is expected on guest teardown, so check if there is a valid
-> +                * gmem.file before killing the VM.
-> +                */
-> +               if (VALID_PAGE(savic_gpa) &&
-> +                   READ_ONCE(range->slot->gmem.file) &&
-> +                   (range->attr_filter & KVM_FILTER_PRIVATE) &&
-> +                   gpa_to_gfn(savic_gpa) >= range->start &&
-> +                   gpa_to_gfn(savic_gpa) < range->end) {
-> +                       if (!kvm->vm_dead) {
-> +                               vcpu_err(vcpu, "Secure AVIC backing page invalidated, GPA 0x%llx!\n", savic_gpa);
-> +                               dump_stack();
-> +                               kvm_vm_dead(vcpu->kvm);
-> +                               return;
-> +                       }
-> +               }
+> Such a distinction is required when the LCDIF bus width does not match the
+> width of the downstream display interface. For example, an 18-bit or
+> 16-bit LCDIF bus can drive a 24-bit display by wiring the available color
+> bits to the appropriate display inputs. Configuring LCDIF solely from the
+> display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
+> mode, changing the color-bit assignment on the LCD_DATA pins and resulting
+> in incorrect colors.
+> 
+> [...]
 
-This is beyond gross.  If anything, this is just soldifying my opinion that Secure
-AVIC is poorly architected in order to accomodate limitations in hardware/microcode,
-and that KVM should not support Secure AVIC in its current form.
+Applied, thanks!
 
-I'll take another look at some point, but I want to be very transparent that this
-is about as far down on my priority list as something can get without falling off
-entirely.
+[3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus width
+      commit: b1818c5bc05407c6c0ce39898e76f609b4c94199
+[4/4] ARM: dts: imx7-colibri: Set LCDIF bus width
+      commit: bc7c81213293966faaef1e41a624a9092ae89429
+
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
