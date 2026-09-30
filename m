@@ -1,145 +1,215 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7CE4FD78E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B844FDE55;
+	Wed, 30 Sep 2026 15:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781166; cv=none; b=BYS+TuS+LBkFVdp1+YPoGRIRvT8kVOD6TbSJBiBtN742692YdmRBZmjBeBtZDRJXnj66NszoR2M+eqfe6XgMrU4UFh2wLfiSkHh0i1GJizOBGs5502wKW8Yi4sSpZKgCEuNQK/MKlvUS8stdx5Bt4psmMcY82wWc242nIYcqnTQ=
+	t=1790781173; cv=none; b=nEEvLyett9pP4O4uu6PaM9gM9mINONh1O5vBJIlUctH2DxUI5N+D7GbE9KDzG5z98G9R8wk0BOmOo3e58wgabLmVQCTBg2lL4txjnXobIEzY9nj9mjXplmIqyVkOISV+lO4/xmd9qYRs9QWHQRXVxqkDios/tZ8XOYxbSPSFjC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781166; c=relaxed/simple;
-	bh=N5TwGmCOg73FQhkQUlqK26vGWZ+6twK0jOc1jidbG9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Og3e3XgibREq7IaAYJuWqVQxDOylv37rd81CQgsyDKBCLl3CTpuYhIMOX45aInJJgUV2PuK6/LiLspHA5MoILDePNp/PQln28dKK3hrxt0fo+BhgsW3vIRi4tIn2IKQ9atY5lGS/ekO1Iamdfaf/+/stQxut4skgqrSGjbb/e0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=F2LynHut; arc=none smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790781173; c=relaxed/simple;
+	bh=n3nEcG8Xkpjf9XyaMwaGgC3wx6M3LnojIGWNk/zxd5A=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h0q+LYBLcH6w5rD+uGjg/uvDbtFjo1WjwhEiCWWkF7AHYT08qQOGYpJkupVydEwT4+jdoRTVM62nmWNwGH6hpwLZaJMj0S5gp7XDXrwOdEheuMoE/+dDR5jCrD723j+E+ZTBN+W9BjkiCt5PtGaqsn68Do0GbfixV3kZ0PDBp7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbzfmZWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="F2LynHut"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e8e5c8d0ffso1902314b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:12:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790781152; x=1791385952; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i3zztcZwHv33xTSBhcuuRwUuO/mC2YE/oPR+7vCHXWU=;
-        b=F2LynHutv0ZOmuF8vmFQU0cyqiI4GB5kyNhWNIcFmTm03ZYDlIdoeMvOS1ol6pHe7P
-         1opniFMp9w/1hoNxwBw1abApRh1Po/j0x2ZuaQZgt0r7WvI/GTEHkvv7KKThQRNgUeDk
-         U3vhG4nOcBSBbCwSBzxPAF2/N9kbmWUuQeOCbbHXQ+GZ3OEDXh8iCi7m7OhysGURcFuR
-         MYdYJN3ZhgKPd9PQq1QsBlgi+KBVppXhOjswSN+K42z+R3efFI3SH3JDdd9Kub164vap
-         FKr2jNuW6GBhqs4aVFIb+0YT7DujIACVvy1vKyp41BAFenyWoJ63gl+3RGCO5hghcRCU
-         QQ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790781152; x=1791385952;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i3zztcZwHv33xTSBhcuuRwUuO/mC2YE/oPR+7vCHXWU=;
-        b=DYGmA7GFhr/plstX0qUogDQDE0TokPUBYTem6ym8aS6HeQzuL2fdCXyvRR1YtnbM8+
-         za/9tXmSTvUGt8hWLfack0XKGB5r1+tCb70B0pnxZlEPLunKoUPKRszXJF7s/VrDk1xr
-         bzc+cx3CQk8FKLWTaa6NT6HQ48WKRf1ENMWyrRj6C/Ju1jNF3SnBD6pir0FhAumo9Uir
-         87NPiMJhkXPVoq9n8/oogC/X2eRZKnrOlOnToqUBsUQN3ydnoRB1jX1tecsW8sBVMmnQ
-         1YQWVtfs2zPl7buenw6zCvS0jm4vPeUcT9PoNhrnAT1kNQBqChyv4XBKSCRRDVhBBOoF
-         sCGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHVLbRxDiMvg6MUaJL93pKUXwlIo3GJo/m6SsgvpsUjCPkBUXhmCpHGx8zOwj+3xti7N7LpnF+fHHLHo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0kPoBZ3vk4Pfsq1TDRGcqH6dSjqT8+AEwjYy7EgGOrD7tuH1n
-	3LiMksatfalFx/xSSiuM0lR2YfxCeATd/dv+hxuM6dncuumIn0TTRwGLefIlept1nKk=
-X-Gm-Gg: AYBFou2pkpzZzixS03179NN5Q4hXKL5srDbJwexTp0g+kyMMHUe0Y33fY3ku+MuCrTt
-	ZIkyo/CTm/pKhqIP32WqdvQ5FvHVjP7rKaSny5drHWlSf3KLCli9tILiEsboguZ/JKYCAVYPtpE
-	7HYVAsajnOJXE616FIcrf/5ut9eIrdacnE5p5tTsJ9UhW+7bKoL+ISBDdLmkwlECgKLVrDd92XS
-	1Ai3kGCiGmMHvZhLb58HrrRbO3Ryg3bYTAx4LwLydloBjI6Ju+GhmWY4uIQnoX0BsXExwU28dsf
-	b9TaMlfA7WYVeyn5kqffparqTOKj/jgV8GaY9gRIa/D87Wfyya8HBa3oidC5hjAB5iH7kR+xKrI
-	kK8D5pb9n3DN6lLN52fl7yLeadtd5FmZE2XdrH/D23TGgF/fjkdgDWOfT0fLgXSRr/bwmdxWe3p
-	cgzLEbkjSfEKO4f5zkUrih1VYjIKBNAbiGN9Cdzgl4/aHx
-X-Received: by 2002:a05:6808:23cd:b0:4d6:90d3:e187 with SMTP id 5614622812f47-4f1b9a4dd1fmr1463609b6e.48.1790781151901;
-        Wed, 30 Sep 2026 08:12:31 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f1b61be7d8sm1076055b6e.17.2026.09.30.08.12.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:12:31 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xBvyv-0000000BwZW-3H3V;
-	Wed, 30 Sep 2026 12:12:29 -0300
-Date: Wed, 30 Sep 2026 12:12:29 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Cc: bhelgaas@google.com, alex@shazbot.org, jjohnson@kernel.org,
-	johannes@sipsolutions.net, mani@kernel.org, yishaih@nvidia.com,
-	skolothumtho@nvidia.com, kevin.tian@intel.com,
-	linux-pci@vger.kernel.org, kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] vfio/pci: Add qcom-vfio-pci variant driver
-Message-ID: <20260930151229.GR163130@ziepe.ca>
-References: <20260930140833.576941-1-jtornosm@redhat.com>
- <20260930140833.576941-4-jtornosm@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbzfmZWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9451F000FF;
+	Wed, 30 Sep 2026 15:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790781167;
+	bh=RvDEi6ityygBQBBR7ccbCoh0xjOCMqbPQDqOFa9LS4s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BbzfmZWTDGzNmQSevrMImht7PMQu8fEDeXRTyoS/uvkr7BmibZJ1mqKJ1VWm4CzaE
+	 EYgm8P0kiSnhd5BQxE/dGzK9kielLKzHY9LnbpP45v+K9ui0aXT3f4lu8byzlqM5x5
+	 t7rj5tmiuyjJRS4dSiS2TCsS44WlFeKIEbMCo+uAwwNVFhMST9XvafD9Rxilu4P0Wr
+	 dyQCqrp9YXZaKB82MSgjrFC0ZJah0hY4jRGkiRViANRiiKjvkgB2uBS1DXKz87k1dG
+	 u564OCgLrfe/CHyazhNIGOUarqmmK8bwlTuBUCVASkZuRLl4OaG9yMxYQUvo66qNLF
+	 2U2dPMaMM/5Ug==
+Subject: Re: [PATCH net v3 1/2] net/sched: sch_cake: fix shaper stall on segs
+ == 0 in cake_overhead()
+From: netdev-bot+sashiko@kernel.org
+To: ndaugoing@gmail.com
+Cc: toke@toke.dk, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ cake@lists.bufferbloat.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 15:12:46 +0000
+Message-ID: <179078116605.434549.16229112833347396709@kernel.org>
+In-Reply-To: <20260927131009.24250-2-ndaugoing@gmail.com>
+References: <20260927131009.24250-2-ndaugoing@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930140833.576941-4-jtornosm@redhat.com>
 
-On Wed, Sep 30, 2026 at 04:08:29PM +0200, Jose Ignacio Tornos Martinez wrote:
-> Add VFIO variant driver for Qualcomm PCIe devices that require
-> MSI address passthrough for VM operation.
-> 
-> Qualcomm ath11k and ath12k WiFi devices have embedded interrupt
-> controllers that require physical host MSI addresses programmed to
-> device registers. In VMs, the driver only sees virtualized guest
-> addresses, causing firmware initialization to fail.
-> 
-> This variant driver:
-> 1. Caches physical host MSI values after allocation
-> 2. Writes them to extended config space with magic signature "QMSI"
-> 3. VM drivers discover and use these values automatically
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-You should probably explain a little be more here
+Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
 
-1) Linux VM driver fills up the normal MSI-X table
-2) HW has some non-MSI-X table registers
-3) Linux VM driver pokes into the interrupt layer and extracts
-   one of the MSX-X table entries addr/data pair
-4) Linux VM driver now programs that copied addr/data pair into #2
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This is, of course, all wrong. These days it should be using one of
-our mechanisms to allow devices to have their own private MSI
-registers.
+- [Medium] The commit message gets the mechanism and impact of the segs
+  == 0 bug wrong.
+- [Low] The commit message never says how an skb with qdisc_pkt_segs(skb)
+  == 0 reaches the multi-segment arithmetic in cake_overhead().
 
-I forget if this is the right way for PCI, but the driver can call
+Pre-existing issues:
+- [Low] cake_overhead() says its header-length logic is "borrowed from
+  qdisc_pkt_len_segs_init()", but it lacks that function's checks.
 
-  platform_device_msi_init_and_alloc_irqs()
+--
 
-And directly program the MSI registers with their own special
-interrupts vectors, no copying from MSI-X.
+net/sched: sch_cake: fix shaper stall on segs == 0 in cake_overhead()
 
-If the driver is fixed to work like this, as it should be, then it
-fully breaks the scheme you propose here. That's not good.
+This patch changes the single-segment early return in cake_overhead() from
+segs == 1 to segs <= 1. The goal is to stop skbs with a cached segment count
+of 0 from reaching the multi-segment overhead arithmetic.
 
-The problem here is not really a qcom problem, and treating it as a
-qcom quirk is why it keeps being stuck, IMHO.
+> Because segs is an unsigned 16-bit integer, (segs - 1) underflows to
+> 65535 (and is promoted to 4294967295 in the 32-bit unsigned arithmetic
+> above). This multiplies the per-segment overhead by UINT32_MAX, so
+> cake_overhead() returns a length close to 4.29 GB.
 
-The real issue is that this device MSI scheme does not work in VMs at
-all. It does not work because the VM IRQ design requires the VM to
-trap and modify all the MSI addr/data pairs at the register write.
+[Severity: Medium]
+Is this description of the arithmetic accurate? segs is a u16, but it is
+promoted to int before the subtraction, so segs - 1 is -1 rather than 65535.
 
-The technically clean solution is to redo the VMMs so they don't
-require that, ie use interrupt remapping so the VM's view of the
-addr/data pair matches physical. That's super hard and will probably
-never happen.
+The last-segment term also wraps when segs == 0:
 
-But! Now that we have these device MSI domains I wonder if there is
-some half option to provide a hypercall so the device MSI domains can
-call out to the hypervisor to get the true physical addr/data pair to
-program?
+    last_len = skb->len - shinfo->gso_size * (segs - 1);
 
-This is fundamentally an irq layer issue in Linux, not a qcom one.
+This gives skb->len + gso_size. Writing F() for cake_calc_overhead(), the
+old return value reduces to:
 
-Jason
+    F(skb->len + gso_size) - F(gso_size + hdr_len)    (mod 2^32)
+
+F() never decreases as its argument grows. So when hdr_len <= skb->len,
+wouldn't the old code charge roughly skb->len - hdr_len rather than
+something close to 4.29 GB?
+
+The large wrap seems to need hdr_len > skb->len. At this SHA that looks
+possible only when the transport header is unset. In that case
+qdisc_pkt_len_segs_init() returns early and leaves pkt_segs == gso_segs:
+
+net/core/dev.c:qdisc_pkt_len_segs_init() {
+    ...
+	if (!skb->encapsulation) {
+		if (unlikely(!skb_transport_header_was_set(skb)))
+			return SKB_NOT_DROPPED_YET;
+    ...
+}
+
+cake_overhead() then computes hdr_len from the unset transport offset,
+which is around 0xFFFF. The next patch in the series, "net/sched: sch_cake:
+validate transport header offset in cake_overhead()", targets that same
+condition.
+
+The 4.29 GB figure is used to justify Cc: stable. Could the commit message
+describe the arithmetic correctly and state the condition needed for the
+stall?
+
+> Commit c5d34f4583ea ("net_sched: cake: use qdisc_pkt_segs()") switched
+> cake to retrieve the cached segmentation count via qdisc_pkt_segs(skb)
+> instead of calculating it locally for dodgy GSO packets. If an skb with
+> segs == 0 reaches cake_overhead(), it skips the segs == 1 early return
+> and enters the multi-segment arithmetic:
+
+[Severity: Low]
+How does an skb with qdisc_pkt_segs(skb) == 0 get here? For every
+SKB_GSO_DODGY skb that has a transport header, qdisc_pkt_len_segs_init()
+already recomputes pkt_segs, and it drops the skb when payload <= 0:
+
+net/core/dev.c:qdisc_pkt_len_segs_init() {
+    ...
+	if (unlikely(shinfo->gso_type & SKB_GSO_DODGY)) {
+		int payload = skb->len - hdr_len;
+
+		/* Malicious packet. */
+		if (payload <= 0)
+			return SKB_DROP_REASON_SKB_BAD_GSO;
+		gso_segs = DIV_ROUND_UP(payload, shinfo->gso_size);
+		shinfo->gso_segs = gso_segs;
+		qdisc_skb_cb(skb)->pkt_segs = gso_segs;
+	}
+    ...
+}
+
+pkt_segs == 0 seems to survive in only two cases:
+
+  - the early return for a non-encapsulated GSO skb with no transport
+    header set
+  - a non-DODGY GSO skb whose gso_segs was left at 0
+
+The in-tree virtio_net_hdr producers set DODGY. On af_packet they also set
+a transport header.
+
+In the second case, with a valid transport header, the new early return
+charges F(qdisc_pkt_len()), which is F(skb->len - hdr_len). That is about
+what the old wrapped path charged.
+
+Could the commit message name the producer or path that leads here? That
+would let the reproducer and the "tens of seconds" stall be checked, and
+would help stable maintainers judge exposure.
+
+> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+> index dc93267029e70..b0d604a7052a9 100644
+> --- a/net/sched/sch_cake.c
+> +++ b/net/sched/sch_cake.c
+> @@ -1420,7 +1420,7 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  
+>  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
+>  
+> -	if (segs == 1)
+> +	if (segs <= 1)
+>  		return cake_calc_overhead(q, len, off);
+>  
+>  	/* borrowed from qdisc_pkt_len_segs_init() */
+
+[Severity: Low]
+This is a pre-existing issue, not one introduced by this patch. The code
+after this comment in cake_overhead() lacks several of the checks in
+qdisc_pkt_len_segs_init():
+
+net/sched/sch_cake.c:cake_overhead() {
+    ...
+	/* borrowed from qdisc_pkt_len_segs_init() */
+	if (!skb->encapsulation)
+		hdr_len = skb_transport_offset(skb);
+	else
+		hdr_len = skb_inner_transport_offset(skb);
+    ...
+}
+
+Compared with qdisc_pkt_len_segs_init(), it is missing:
+
+  - a skb_transport_header_was_set() guard
+  - a check that __tcp_hdrlen(th) >= sizeof(struct tcphdr)
+  - a pskb_may_pull() of the full header
+
+It also adds sizeof(struct udphdr) for every non-TCP GSO type, not just
+SKB_GSO_UDP_L4.
+
+Of these, only the missing transport header guard can cause a large
+overcharge. With an unset header, hdr_len is around 64 KiB, and each
+segment is charged tens of KB when segs >= 2. The follow-up patch
+"net/sched: sch_cake: validate transport header offset in cake_overhead()"
+adds that guard and a hdr_len < 0 check.
+
+After the full series, is the remaining difference from the core helper
+intended? What is left is small misaccounting: the TCP header length term is
+bounded at 60 bytes, and the extra UDP header is 8 bytes. This code dates
+back to a729b7f0bd5b.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927131009.24250-1-ndaugoing%40gmail.com
