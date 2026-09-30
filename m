@@ -1,138 +1,119 @@
-Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 1B2743EF66B;
-	Wed, 30 Sep 2026 09:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3A3F660F;
+	Wed, 30 Sep 2026 09:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762210; cv=none; b=VilcYpQ1AfZzNRYBllYV/izNelLORmlp6B/YQ7s84lzSzc5XqCqC/wkN+M3gUXbT2xcW0lXO/Uf8ZSA55HB7DNPov8utTEzeTn+MRWmPrsx+kCezOOuYFBIvHxX0c+qC+bX7ZLBP4XWBmJ90Z02C/+VAyPsoNtbn1lJNmYO4nDs=
+	t=1790762293; cv=none; b=RuN+gYMlAfPZtZiJxRiDxmvSD9NIS2d0m0nqZtHqgIkWk2bMtnNP1xLzH2Yj2QYXPnpo47DwpGXDKeu3VpNImPIXtlPAmFgJy5B3PGhu5qK22OUyjPYQYNU1B87vN06tTuUZq4tczduSOCiJBOBKZEZsSrUf5qEOyfeYRxeDqiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762210; c=relaxed/simple;
-	bh=9j7+Yvtkz1Y4BDwYCj8xrPyEWUCrRnxQ6Rz6jVv+sdw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NWhjyNbkSkyIO8XxLlAEh8zoWwdSH5GQ3QjECoBHRvAJZdIu+2CHJmBKLXcIg1BslwqdXeEm9lsf2cSZuBpgjyrm2+1kSMa+ypDSkjxG8vBTkK2WaOzfMPbNslH3k1kbA90nk/XRWaCjgKw/z7Q5t85rOASKcs5dFTcG2J5Jxno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=crjW7S3X; arc=none smtp.client-ip=220.181.50.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	s=arc-20240116; t=1790762293; c=relaxed/simple;
+	bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H47bzVTr9LQbEMQ+8AWceR53lAtKOxafyUuWvQI40djnJ7VEHJPvURdtVipVePGkwXeGGSJQYO2s9vwuVLtr5eJ814X8ZMYqr45MYK+FvBb/J/f8J4AKunX5VbDc06FK1uhAFrmiYAZQiliL5kNxxL0jxjpatKu/XJrKhnfz+Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSMbZaq7; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="crjW7S3X"
-X-MD-Sfrom: zhangyili01@baidu.com
-X-MD-SrcIP: 172.31.51.15
-From: Yili Zhang <zhangyili01@baidu.com>
-To: <linux-cxl@vger.kernel.org>
-CC: <djbw@kernel.org>, <alison.schofield@intel.com>, <dave.jiang@intel.com>,
-	<dave@stgolabs.net>, <jic23@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<shiju.jose@huawei.com>, <vishal.l.verma@intel.com>, <zhangyili01@baidu.com>
-Subject: [PATCH v2] cxl/edac: Fail ECS threshold read for reserved encodings
-Date: Wed, 30 Sep 2026 17:56:27 +0800
-Message-ID: <20260930095627.32616-1-zhangyili01@baidu.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928073553.85669-1-zhangyili01@baidu.com>
-References: <20260928073553.85669-1-zhangyili01@baidu.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSMbZaq7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790762292; x=1822298292;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
+  b=VSMbZaq7Wu2oaLMt452FxFx60ef7dCjUl6AWNxmlArwVEiuUER2ks++y
+   p3L+1Z8F4D7rpUX21C3DQCYOGpjcvW/PN3VqSi7LBvY0qxo5Se5s3uG8s
+   NwkqunpEqZREgCEzbqedssMcE5tSMZlWJ5uqOqfTwqoIV9LYrKHCCsk/e
+   GnXH+TlBV39nWSKjv0M4elL56KOa9Jb1JqEALDVABUnQQKnZ4wIYUBkI1
+   qaBzIoCbUodjX/ZwD/4sCwadk9rnzkWEZTeuKtP0yOhdcxTz8jxO4pxQg
+   Z2vCBcolMegAmdfBmHtOSwXppZF1COmRsYe7HVrKXuBdBQ+n6dbMZihFu
+   g==;
+X-CSE-ConnectionGUID: NBgdiB8WRZqh3VjxjBciDw==
+X-CSE-MsgGUID: pcEebxc3RUezInPru/VBOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102067195"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="102067195"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:11 -0700
+X-CSE-ConnectionGUID: 4cnboKPaRhmQPjO+qr3xAA==
+X-CSE-MsgGUID: G7eqwfBURripQFb5y7//zQ==
+X-ExtLoop1: 1
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:08 -0700
+Date: Wed, 30 Sep 2026 12:58:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Karol Wrona <k.wrona@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
+Message-ID: <arzdLtzXQ4cvObrL@ashevche-desk.local>
+References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc12.internal.baidu.com (172.31.51.12) To
- BJKJY-Exc19.internal.baidu.com (172.31.51.15)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1790762198;
-	bh=nCYWhngtoI586LzvHoYsr085I2qHPdLYXm4hoTYbNFw=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=crjW7S3Xn92ccMj1DEQSpmCnBMhkEK+ndiX6DlWaoN4uUiwAhDcozkvd5cgxUeh1Z
-	 RjftUIbkvnSz6cPTCQM2u26yt3pQuLquKruyC3kuktDNBBtmRp/CbFW6tedhGqvzrh
-	 GixRgAn4dYqi4StkrChwdRSf24WNjVhi7xnSOrlIfRdRq6ipsJoTydYVetfwxegYe0
-	 VSvauMraW1eEqbrQBK5Hun0QAW9e5RcLiPpr5KWXq8dfUEpqtAjNOJyKhDEHDCy4Lj
-	 KjK5Zle2Mpko8Y6z7jzul8D6DjcmMj/n8V7NkljgNtWVQftXzC7HfjJwigp7FvzZuh
-	 at4I9ibNWMEAA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
-device-supplied ECS config word and uses it to index
-ecs_supp_threshold[], which only has 6 elements. A device reporting
-index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
-value is then returned to userspace via the EDAC 'threshold' sysfs
-attribute (small info leak and wrong reported threshold).
+On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
+> The SSP watchdog timer rearms itself from its callback, but the driver uses
+> timer_delete_sync() when the last sensor is disabled and during suspend.
+> Those operations do not prevent a concurrent enable or callback from
+> rearming the timer after the deletion has completed.  The final remove path
+> also used timer_delete_sync(), which does not provide the shutdown
+> guarantee needed before releasing the device state.
+> 
+> Protect the watchdog state and enable reference count with a mutex.  The
+> callback checks a state flag before rearming. Reusable stops clear the flag
+> before deleting the timer. Use timer_shutdown_sync() for the final remove
+> path so that any later rearm attempt is rejected permanently.
+> 
+> Cancel watchdog work after releasing wdt_lock because the reset work can
+> wait for the threaded IRQ handler, which may synchronously wait for refresh
+> work that re-enables sensors and takes wdt_lock. Remove the MFD children
+> before destroying the locks because IIO child teardown can disable an
+> active sensor.
 
-The threshold count field also has reserved encodings 0-2, which
-currently read as 0 from the sparse lookup table. That behavior is
-not intentional; it is just an artifact of the array's implicit
-zero-fill. The ABI documentation only lists 256, 1024 and 4096 as
-supported values, so rather than documenting 0 as well, make the
-read fail for all reserved encodings and only ever report the
-documented values.
+...
 
-Convert the cxl_get_ecs_*() helpers to return an int and write the
-attribute value through an output parameter (u32 * to match the
-macro), so that errors propagate through the shared
-CXL_ECS_GET_ATTR() macro to the sysfs read.
+> struct ssp_data {
 
-Fixes: 85fb6a16ad14 ("cxl/edac: Add CXL memory device ECS control feature")
-Suggested-by: Alison Schofield <alison.schofield@intel.com>
-Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
----
-v2: Per review feedback, fail the read with -EINVAL for all reserved
-encodings instead of returning 0, converting the cxl_get_ecs_*()
-getters to an int return with an output parameter so the error
-reaches the sysfs read.
----
- drivers/cxl/core/edac.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+>  	struct spi_device *spi;
+>  	const struct ssp_sensorhub_info *sensorhub_info;
+>  	struct timer_list wdt_timer;
+> +	struct mutex wdt_lock; /* protects watchdog timer state */
+> +	bool wdt_enabled;
+>  	struct work_struct work_wdt;
+>  	struct delayed_work work_refresh;
 
-diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-index b321971fef58..fd6612dde7f1 100644
---- a/drivers/cxl/core/edac.c
-+++ b/drivers/cxl/core/edac.c
-@@ -624,21 +624,31 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
- 			       0, NULL);
- }
- 
--static u8 cxl_get_ecs_log_entry_type(u8 log_cap, u16 config)
-+static int cxl_get_ecs_log_entry_type(u8 log_cap, u16 config, u32 *val)
- {
--	return FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
-+	*val = FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
-+
-+	return 0;
- }
- 
--static u16 cxl_get_ecs_threshold(u8 log_cap, u16 config)
-+static int cxl_get_ecs_threshold(u8 log_cap, u16 config, u32 *val)
- {
- 	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
- 
--	return ecs_supp_threshold[index];
-+	if (index >= ARRAY_SIZE(ecs_supp_threshold) ||
-+	    !ecs_supp_threshold[index])
-+		return -EINVAL;
-+
-+	*val = ecs_supp_threshold[index];
-+
-+	return 0;
- }
- 
--static u8 cxl_get_ecs_count_mode(u8 log_cap, u16 config)
-+static int cxl_get_ecs_count_mode(u8 log_cap, u16 config, u32 *val)
- {
--	return FIELD_GET(CXL_ECS_COUNT_MODE_MASK, config);
-+	*val = FIELD_GET(CXL_ECS_COUNT_MODE_MASK, config);
-+
-+	return 0;
- }
- 
- #define CXL_ECS_GET_ATTR(attrb)						    \
-@@ -655,9 +665,7 @@ static u8 cxl_get_ecs_count_mode(u8 log_cap, u16 config)
- 		if (ret)						    \
- 			return ret;					    \
- 									    \
--		*val = cxl_get_ecs_##attrb(log_cap, config);		    \
--									    \
--		return 0;						    \
-+		return cxl_get_ecs_##attrb(log_cap, config, val);	    \
- 	}
- 
- CXL_ECS_GET_ATTR(log_entry_type)
+Does `pahole` agree with the given layout?
+
+>  _mod:
+> +	if (READ_ONCE(data->wdt_enabled))
+
+What are we going to do if just after this wdt_enabled becomes false?
+(Is it a possible case?)
+
+> +		mod_timer(&data->wdt_timer,
+> +			  jiffies + msecs_to_jiffies(SSP_WDT_TIME));
+> +}
+
+Same Q to all the below. Hmm... It seems they are all protected by the mutex?
+
 -- 
-2.27.0
+With Best Regards,
+Andy Shevchenko
+
 
