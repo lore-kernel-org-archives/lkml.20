@@ -1,65 +1,65 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB84145A2A8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:19:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DED469837
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756397; cv=none; b=tPbPs218rvdl8jz23/C1+mzcTOHIW37NimPzvS8tj0i/DY956iGbXVq+82swqA/v5hJcf/rKE/Jeubrki0TfArAWVFxFscU/5tufqtzNFSBwEHEZ9Ng2FIzss/ZuEBXxeTxB8bt+Pfu0To6Ncv1qgvlhMSPYqorLnXAzYkpZ/ac=
+	t=1790756398; cv=none; b=fB2+VbQk66bE++DfhHSBAwsnSvL+37j7RgZ7SjU6mS9c/3OQSFRF9agx4CHPs4sThmFS48N7m4e+zJNlXyZInfx0C3WC0St49CLD0YR2g0ICnPskXAnnzHfAYEJ16tinHKcipqQ2jHs+PQI7z7RHTvON8FCI2lJ6/kLy3MHpCM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756397; c=relaxed/simple;
-	bh=LaUvIFoIJ5fl7EpL9XnQaz+5PrNsgxLnKPzAypfXK48=;
+	s=arc-20240116; t=1790756398; c=relaxed/simple;
+	bh=enU0N7uRFm+CiPQQfCZQiNG6I6dn5+gaY0icBM12JG4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IRnIHOJBzvAsJAq3DGYOy0XQ0OnhIJmYqC311eP+AM3xdi20hWVEsgABaPullioWFPDs39pKfpKFJlv5EH2G9cz1P2Szo0XlIFEYNUnYiAK9u6+uquFItSBIg+p0kcabzsTnwTOX6SMr9Msij1b/M7QbcMfXOXH5miHjd/oxOHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIe2fKEg; arc=none smtp.client-ip=74.125.228.39
+	 MIME-Version; b=JsWtjKmNPuGjCyc3jwJtHbPc96sdGzQnW76Cb42yTDH1njYe63AyaOD9dHygXL/UMb8fbd+qVZ72TXcvq3ONX9ziBzjQq5RpP+fEoMSCk2iMqa8xf7PEOPtiUWgdEdHp6FA1X8s3X+J612ML8KfDIcIwHdxvGe7hXC5/IpbxJb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=asMr0gWv; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIe2fKEg"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc794a06e5fso2709960a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:19:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="asMr0gWv"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc433d52421so1821349a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:19:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790756392; x=1791361192; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JaC0ZBcECLxCHu+CEPU7/n3TtHSKBoI07cb0c9RX1Xg=;
-        b=fIe2fKEgK0Mm0Tyr9hvxN7Ozey11vGvdLAFfw0KZrbHY3cNecroXZFCGufUeISgml6
-         t4oQHxTc4gy6xKPCpqPDL0aA+OMSFYXxLp6KAADq2dE/QOsGJw4AXxY3Q5NjCbcPtCur
-         8Mcg6FYhqEXKwxoFB0Et/tSNstBNa7jHjCuYrju0gVaVpmiDQsBUVtJPN0XErkPcbaA5
-         AZiA0qi/WWpqGCWNVrQXtOkIXsMMN70kvcdlplJkw2eLMNmJW2OpDndJxsq+lwPR1YfH
-         41acTqm9PAagOOXz7QRImr6JB9bjAJaSNMbrS7iNYHG6J9lTNRYp8t5TORJqwXfy3dNH
-         lsiQ==
+        bh=5r+yyKKy88D8/jouNE3+ZYHc7zwXUtNu9IJ40uPJuDQ=;
+        b=asMr0gWvrTjdxI39gvU63MGsVsS8zzt/NXQAe5Ggx7HuJn8hMSIhI18zUm0fJlb8R5
+         eTHYWOPiACH+SoRFUG6qwnl3biyF50pCxWsKoHGzf5YOr5wztF0K2Xu1ABJuSaBdtQwO
+         e6fU0sPfju0cSxXMhqAhggK4yKc3CDE2TTOLNeHxM4Q0xtW1DRxWxPUio5BB6bCxJhbQ
+         SEtDXM4oKizoPjao9i3Eam5S1/bkXEAgv6iGIaRfNf/B9oLkdzF2WfxfKmKlCd6nshej
+         53okj1UGRonxBFk9p8xT+FYm+iy0RuZc/wRp9K8qciHNo/+0Czp6vLHfB1kQWN0E26Rh
+         Biqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790756392; x=1791361192;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JaC0ZBcECLxCHu+CEPU7/n3TtHSKBoI07cb0c9RX1Xg=;
-        b=QvYNGNdjGcyi7DqEeHj5kA0rHCbmxaq3j5psbKscVJUocgyh58NaWd9zGsOXjCGorg
-         lq2CWsuwHIa/UUdYUXZx3iZC+6JPnCmiPh3alS4QtUmzeVijnl2YUUZ+fMTXkTfq+HyT
-         DLKPbbTjrSLNkJHxIT3PMH64gAzkjL6ShZEfP52qrc1bdMLXX3nhA8PEr2/tBBuSgMdH
-         ybOFodBnsSG1MZrRg6/DZ6sUIXczsrkBnm52w5bT20uQ/gyeQHzrpoX1xbSZ17cDm5f1
-         Q3EcHzvQ8LiLm9uFHecQGydsXNLTvudtOg5VsVmsHKALHPXsyumWI4oa4rqN4nKUELX0
-         SBVA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6O5AslZ53GZgb0MHlLrPxz9fPaER//y/NCcjFkUEpSR7FGwu3DowmZMgHJ0mtZ3sApn9FGVhem10m+TU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqnIA/UGweraHWdeRT6pv7VCl5kSBMGlw5DIP74Dxu3n5bW0JU
-	gdADzguyM1Zr1QWWHyRvhHiNPKCrLVOl57hcUcklF04BGATxGVFIkoeM
-X-Gm-Gg: AYBFou2RIKBveMGLdwvJISUndO90hhUZjdB7sk5QrKbjuScFt8Xjt4CjbM3AUR/TIOW
-	1wyY/hwaOr3GTySQ/Tba4z0fNnHPEO+T2CgeUQyz5fZJFP4bEMF6prCnQc1sc23HXGnjb+/LM4x
-	eTy/Hsa8Cs/OcHwqxQxrrLc/fXOnWdRVhrUjBJbQlLqGBx+daZ2LHhuLYR0/TQcieC/lTamPNGA
-	GWul2RmM+xWnzh0cGBnqJfrL5GztHuWWZiyfO9SHdLPTsyxUFscWZGIrMj1by8+mLfKmSmycMDn
-	jn4VV9RWDQg2FhxyIMyJOVLKXGJEVTAWOTTXl8X+N9ASFXQPOiodfnsFE5uldbYJ7v204UCvB3T
-	Y6Q0F3zbnm6Qo580NukaPEKKxXdosU0IZlw8dqaKp+17CNeLRtLEAwjdrcGuRIYAYO4gTDuoHW0
-	Ji964Fl+vRpaqLILQSVKIeqBXoYlRZ/tDYKnOOyAVf3LG9fbt9GwVpn4wqPaad3XCkQyfoB2+Rt
-	dVF1pg3ls4HP4L2rUnM3OOc9J1t8zuAYtbD9676MWHuEEUIY2EAa3bYoFBiO8E7dGGRA7L8kQZ6
-	RA8WnlUxHg==
-X-Received: by 2002:a05:6a21:820b:b0:3d2:2011:d184 with SMTP id adf61e73a8af0-3de9e7ab1a7mr693074637.14.1790756391632;
-        Wed, 30 Sep 2026 01:19:51 -0700 (PDT)
+        bh=5r+yyKKy88D8/jouNE3+ZYHc7zwXUtNu9IJ40uPJuDQ=;
+        b=aA2MovJIdxDpaReJkdhsllC1iUEfnGj99wJFa6DgKOHpsM6VH74ksjb9qleMtzeV9c
+         U7deIrsXXbYqIFOH9E7KsquuuobWT85Ikuf7VPGlUFkgT/jMiEzlOm4Nkt3NQNsk0E/U
+         KUW+tPxMrxmaL7TFLyIu4HsEZ/CiPyCOl34QsMBxIefVjYyvZR6UVp+f7g1cXOt1W/Mt
+         bnfBq/EtiloAVEvsGc59wG+aCHlwgbExgqmeZqjwZ+okHKEZ9hphem7OzQuMih418uTg
+         l6iZqcOcv1ELtGmYviXyTlffaCkf5C4+aK3595k3tNFF0qQLNeEJdnMb8x6VQ8U6ZwYw
+         5u2g==
+X-Forwarded-Encrypted: i=1; AKwUvBy5VkVsiVywM0w30WskmDUs75b2z4DKflGDlpLEegWIUsKPOmsQMLL3JUZ6tq+ZXcbRTzWA3zXbDBBsNMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvG/JEI0az9RkHw2F2PcCCaGP/HwBQNapsdqsQYScT+GmHxN1D
+	dkDSDoaqQq9qNBZOocZf3f7lmo5vidG0i+dnV7B+pAa+q4THP0W1cDrR
+X-Gm-Gg: AYBFou1gVdDy6tY3PZR4Kuyx90e46I31EFGeGiUl5eNU75Lh1VPL2VTywxPq1DTxd/y
+	468ZRxYk1W7DxcaUKD5k8yLK0YY51LIVhDvZX1l9I6A31t7sSAoc+70U+hfZ9Y0GOC41zHGdhCO
+	LbpSBnh5xuFRerZOS8lBWkD09mtiHLIAfIMlW0aC2Yc85BlsSlL8IUutvXFyejIqhUMc8+RbuNe
+	5T2amCwHfJM5e635YGQvYS1u+pJRFrdW1zfi15Xy+PvRsp8iWylLIgZw9/aO4+o65FNc02HX5BB
+	R3FLsWotarmn9dnWQ4EimiOWMd7wKJJrQgagRYn0/7T0Or/JCbNCsnkWO2kw5diS49Ont6cvsXc
+	E1ee6Cf4QzpAwno3OVEYvN/vsJlLUWfi2HvRsQ++YUnbz8skTgW7/FI+1uLDgIiICVdxMy0SWF9
+	BJBhPFH3JFp31kY5DSilyrcfs9QX1kSjsARUBEuA3zmC8CpBovvSMAAwPKesZIaxpROF6skTDvT
+	9UUOm+PytQ10cpRwi1oQT8oj9w3jOpZfIc/kzU1oDoKfTp8LDpbBtiheDIyBXH7Xrkla5lf3qCU
+	CH4iSqxBWQ==
+X-Received: by 2002:a05:6a20:d791:b0:3de:2d39:b5fa with SMTP id adf61e73a8af0-3de9e6e5c96mr587085637.14.1790756392513;
+        Wed, 30 Sep 2026 01:19:52 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
         by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7da126a49sm453319a12.7.2026.09.30.01.19.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:19:51 -0700 (PDT)
+        Wed, 30 Sep 2026 01:19:52 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: Anders Larsen <al@alarsen.net>,
 	Matthias Goergens <matthias.goergens@gmail.com>
@@ -67,9 +67,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v5 3/6] qnx6: release bh on error path in qnx6_fill_super()
-Date: Wed, 30 Sep 2026 08:19:44 +0000
-Message-ID: <20260930081947.511613-4-benquike@gmail.com>
+Subject: [PATCH v5 4/6] qnx6: clear sb_buf after brelse in qnx6_mmi_fill_super()
+Date: Wed, 30 Sep 2026 08:19:45 +0000
+Message-ID: <20260930081947.511613-5-benquike@gmail.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260930081947.511613-1-benquike@gmail.com>
 References: <20260930081947.511613-1-benquike@gmail.com>
@@ -81,42 +81,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In qnx6_fill_super(), when indirect block tree level validation fails at
-mmi_success, the code jumps to label out: before sbi is assigned. Reading
-sbi->sb_buf at label out: reads an uninitialized stack pointer sbi, causing
-a general protection fault under CONFIG_INIT_STACK_ALL_PATTERN and leaking
-qs->sb_buf.
+In qnx6_mmi_fill_super(), when superblock verification fails, brelse() is
+called on unselected candidate superblocks, but their buffer pointers are
+left set in local variables.
 
-Use qs->sb_buf instead of sbi->sb_buf at label out: to safely release
-qs->sb_buf when mounting mmi_fs images.
+Defensively clear sb_buf pointers after calling brelse() in
+qnx6_mmi_fill_super().
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 3377755f1064 ("qnx6: add support for MMI (MME) media filesystem variant")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v5:
-- Use qs->sb_buf instead of sbi->sb_buf at label out: to prevent reading
-  uninitialized sbi when mounting mmi_fs images, as pointed out by
-  Matthias Goergens.
+- Updated commit description to clarify that clearing sb_buf pointers after
+  brelse() is a defensive cleanup measure per Matthias Goergens.
 
- fs/qnx6/inode.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/qnx6/super_mmi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
-index 3c880854c867..0a68d0eb4b71 100644
---- a/fs/qnx6/inode.c
-+++ b/fs/qnx6/inode.c
-@@ -465,6 +465,10 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
- out1:
- 	iput(sbi->inodes);
- out:
-+	if (qs->sb_buf && !bh1 && !bh2) {
-+		brelse(qs->sb_buf);
-+		qs->sb_buf = NULL;
-+	}
- 	brelse(bh1);
- 	brelse(bh2);
- outnobh:
+diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
+index a8b512c09890..19f123d45678 100644
+--- a/fs/qnx6/super_mmi.c
++++ b/fs/qnx6/super_mmi.c
+@@ -102,9 +102,12 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+ 	if (fs64_to_cpu(sbi, sb1->sb_serial) >=
+ 					fs64_to_cpu(sbi, sb2->sb_serial)) {
+ 		/* superblock #1 active */
+ 		sbi->sb_buf = bh1;
+ 		sbi->sb = sb1;
+ 		brelse(bh2);
++		bh2 = NULL;
+ 	} else {
+ 		/* superblock #2 active */
+ 		sbi->sb_buf = bh2;
+ 		sbi->sb = sb2;
+ 		brelse(bh1);
++		bh1 = NULL;
+ 	}
 -- 
 2.47.3
