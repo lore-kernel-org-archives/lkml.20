@@ -1,33 +1,34 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86E72FC011;
-	Wed, 30 Sep 2026 18:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED54B2F8BEE;
+	Wed, 30 Sep 2026 18:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794166; cv=none; b=UtED3WV9/A8miwDfQA/J4a568r7uXzBnL09BYuHHNSvh38J0uua7ogAuEh8BtzvL5uxBvyKqMtmS0q8w2fk97cwQyXdbBj80fbKIYXQOqmz6oQVD0C/plbJb8m0YRczUwljGFYB4LI7H/xhKfyyjVOq8EfuCjwlgizUkrpFj+YY=
+	t=1790794166; cv=none; b=MaxI1fnsKLpH1ck7qqYYPhDRPBRd65K+3d/5OUmQHdPHxvQnc/bfs3CL8EWEPm5Ndw07fhiDliobskofXcgOaNe3HJXyq1i9nZbdJea9OP9QcCfdlRhdsXNmNaB+lLgD/S2H+J8g0Xjx6BwjCvrzECfvxBRJ1zn0YI5tLW78OQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790794166; c=relaxed/simple;
-	bh=xu0qtn0q62gkjnRQ0UggGNnUeQmkLLqjyVoUQlOmjbs=;
+	bh=27hrsO8VlYEdJl8DiE0jTqrwz/BBQM2oJHQJtMWitBg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oxkVL92E0B+1W91w+hN1GuSkPpGGtHkAiaY6rdLzmGv7A4aVgGz9jRkWYVy6VocpyfEmmX0CVda3giA+dW8/nd3aMINowrGi+5yQRGl2kUUNfVKj7mfW0YtxO1Jjchk6aRtozWFkAHp41VEAR1nTiuji9EKHtfsRFTU7qq27DZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ReTRdxmI; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=cO3+ZrNkLdgD0p1UEq6A4HvIS7h30zSYhtXrV8b1tcXYnntsoZBzVHaf11Owith4/xE3LHB47IYaBrMnvpCNn1g27rv5qcM1BqEUj/oIhkFqVICEx/SuG1sb/S+6RGpy2NvFtbn0P2Icjimu8aIePpFKFHNCDCw1z/fpx7114ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=uDZ7k2T3; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ReTRdxmI"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="uDZ7k2T3"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Onub4mykYcFwhE0hmKSL3j6CDl+1xSaBRFx2WEGfuGI=; b=ReTRdxmIfg0Hye6ZP10wYTJcXo
-	HoxN6a0/CEio9IG/FYxT4WtT+lpHnSOb5ZxcP2r8NOi1mmPVwqrSkCjMK5GuBHbL8CENzNfG1ksEC
-	1DTlBgjFFjohhv4n8kBpoET4fG+cxcYYr2jXHJcJOaF+d1Zi2l2b/SaYUAymEUDkMfW2Pe4qq2pfZ
-	hv353vlB9D5F3bZECkgIRlxw/7cSHuFhd0ckEwoVh3ReMdjQiDt0qnd/PTDWl2hjF9b7pJcSwXSef
-	RwgPfBgj6qG7+gCywgP2AwKk2VPCGvTO9k7SQCmWyL2IETpU+I/fyyIIhYnxKc0T47DdG+1SJpIAn
-	0cY0qDyA==;
+	bh=ns09Eizq9gM2NnPJw5DNGALzDeb2i0DrDbvIrjDIWdQ=; b=uDZ7k2T3nH12rjcCI6OGpnDxkI
+	dF5BOvVgtoKzSK8HGsNy5x+K25IAkUINHrBX2PGDFmT7d92X7nMwiZTwVOFsqu1YAROMxIHMLFIRc
+	0+HQhHeerEAfcSx5gVww5fUzHSVyALJ4jJmBrScGC/nnpvG6gzbC0UK6c+GsJq6GFdJVfY4dVSCT7
+	XH1zzciEv/zzkqw9/P0nHlD5teNlzWu2vNNVno+g/+bkssyYS8UAc1H0JZxHgouvWpLAmMaUm+uXG
+	+nT3I8/3VN+StF5KqLNjHq17AzNX0LyWOMYKfgFgfapKkKeho0aayLBB3cfb4XQypBgFNhrMOy9yE
+	ccnu7Jvg==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Mizuno Miotsuki <founder@crepuse.com>
+To: Adam Wermuth <adam@wermuth.pl>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jonas Karlman <jonas@kwiboo.se>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -35,12 +36,12 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2 support
-Date: Wed, 30 Sep 2026 20:49:11 +0200
-Message-ID: <179079409728.2398180.15813648897564877390.b4-ty@sntech.de>
+Subject: Re: (subset) [PATCH v2 0/2] arm64: dts: rockchip: Add PWM fan and WWAN overlay for Radxa ROCK 3B
+Date: Wed, 30 Sep 2026 20:49:09 +0200
+Message-ID: <179079409724.2398180.1900201056909150214.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260919134125.59419-1-founder@crepuse.com>
-References: <20260919134125.59419-1-founder@crepuse.com>
+In-Reply-To: <20260925080258.46489-1-adam@wermuth.pl>
+References: <20260925080258.46489-1-adam@wermuth.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,25 +52,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 19 Sep 2026 13:41:29 +0000, Mizuno Miotsuki wrote:
-> Add initial mainline support for the DFRobot UNIHIKER M10 V1.2. Only
-> revision 1.2 is claimed because later board revisions have not been
-> electrically verified.
+On Fri, 25 Sep 2026 10:02:56 +0200, Adam Wermuth wrote:
+> The Radxa ROCK 3B has a 2-pin fan header and an M.2 B-key slot
+> intended for 4G/5G modules, neither of which is currently described
+> in the mainline device tree.
 > 
-> The board device tree enables a conservative core subset for a usable
-> mainline system: CPU regulation, eMMC, SD, RTL8723DS SDIO Wi-Fi, UART0,
-> USB host and peripheral operation, GPIO keys, and the watchdog.
-> Bluetooth, audio, display, touch, IMU, SARADC, and GD32 support are
-> intentionally deferred.
+> Patch 1 adds the PWM fan and ties it to the CPU thermal zone. Patch 2
+> adds a device tree overlay for the B-key slot, enabling the USB 2.0
+> host controller serving the slot as well as its power, RESET# and
+> W_DISABLE1# controls.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: rockchip: Add DFRobot UNIHIKER M10 V1.2
-      commit: 55010621f40c5b129fb0972f07e9d8d52aa6a765
-[2/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2
-      commit: a2ff7779dd92246bd3e34a2f9600dade3794e6d2
+[1/2] arm64: dts: rockchip: Add PWM fan to Radxa ROCK 3B
+      commit: afcfb6982a13fb4b3e0045f96c7aa6d64063a034
+
+Only took patch1 as the discussion in v2 did not seem finished
+and doing it correctly trumps intermediate solutions, especially
+adding overlays we might have trouble removing in the future.
 
 Best regards,
 -- 
