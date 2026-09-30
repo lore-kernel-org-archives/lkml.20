@@ -1,291 +1,380 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6022EDD40
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0563191CA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763175; cv=none; b=p8zstKgiO5MPb1rn/l6VwH2XkCllFA9azFxiQGQKS2F851qLCiVICae5NyaUk6rR91UaSX26dnfdrri9o7P/cpS5JRX0IN8HTeLIhBY6750OKf4gQVmPv8LN12VkdF14JvzEgAMTNBRRtq0yKLnzUbrQSSMxbLPqHGBegu46Gmg=
+	t=1790763240; cv=none; b=bytv4eCdePKrNTJBb3A7C0D1xnPmYZuAGlNeH2qtgjRCCiilOiH5ZlRrhgPDXIaNZWU9R+zCs7fEcdGM9DYHdCnlQ5q5wCeXFyr+00jHkEG+fJrLhmAZelqxfxuxCNj9bqzFhEF6UBNG3Q9r8DavdijEhvpyxvKuDfQB2QdwtlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763175; c=relaxed/simple;
-	bh=NgAJXFhyGAgqz4F/Z+T1d1uiKnNexEPPz0EJIOjXPmg=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ANqhcQCK7T44MIYCZ6VurHZzmyGx57cA4fjSyBkEyb0Z2CrkKBk9iKYXV7Mdhb7WpaMngNot0nV90FHJ2wHIPad5JMiB65mC20NX5nkKQTYh7PBpWhUqUht50TWzgW39xZDFJ4ULN6n2Q7T87CzQOuScamo7JWGiAmbUqMXKj+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pfqAPITH; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790763240; c=relaxed/simple;
+	bh=U6LjHV0s0QPyceru9YKF0edvVEc818Q+qX/8hU/PCaA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sCsF+FSCU6IkOXYdCgYFQlsJIZ80iI85y3X2V8RSSopOqYSlyoy7lu6EYZ85r9Q/lylIu2j+G6VA3qG722V43u8TwjQjpuDw9yuO6dCBFzE8RUr4Bs1ul22NNvv3KvEcbsLPKGfa437CpCsjzDkWW2oqJ956r3lS7UNUs5h1gck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dRArV4sf; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pfqAPITH"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf8415866so6868052a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:12:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790763172; x=1791367972; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VNZxYOPgHhHVtE3mtugzmk7TyFgX/vhP/aUVA52RJRU=;
-        b=pfqAPITH/KEZKPDL3g5PPbjc2U8UMQ7SKIAbZXN2c2xXpm78b2DaUrBT0xLtf5Xu2s
-         /SHnLRUnvIMbtmmPEScORXV0An/4sYmDkFP+zG9TZvYIFPN9baqyj/QPsXXBfs0PqvEJ
-         Ga5cPpXVHaQwo9i4Jtb0bVy2JeSvYXkTDKMTj2aiTv6FdnqLWrcKMd9c6jTatxvBq0Mv
-         3h4lCHW+3f//+KObijclHpo0wId6Wp/A71z3aNFk2QqmAcN7ZbS+acBqZ8Ut7Ls+ssvL
-         CWNNrhZWN/CXPIUy58pFrhmMwDUqKj4S9lBrNJbRmK4o6tOxoe3b5WmqnGY9UQcnaXF7
-         4RsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790763172; x=1791367972;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VNZxYOPgHhHVtE3mtugzmk7TyFgX/vhP/aUVA52RJRU=;
-        b=x0MaB1wo7wJeNu08d9FidVuR6rb3V3vYe1V9A63FrODqUPwfrg9/3soj/BjIhc6qIq
-         un5wnufYEstxUgUhNnUEGo7QwqgHkLuKz1GUqAnOP6SBmqeHypbX9irlpmWZSim2q1bO
-         3SpSZWAjcNlxxQUSrapVu6+qOWbfaTCblzdKq7pl6mJNpF/SOK8Wj82FEOtmtE759zho
-         S0IkHzJjFpp+0vy4c2ohiS5poG6V1MdHffhy/vgoBIpStGSUiTEZsFX0+XmKPUcHB9lI
-         2/zYek3+sa0c/An7QNECZ5AgNkgIpVqyxUVCtNsWThHaY9KBssaN2IBQ2XMiH/udjPtW
-         +/XQ==
-X-Forwarded-Encrypted: i=1; AKwUvByHHk4mhbEv3JTkZ0wR3h/mSuKbvEgZdZjRGKzS2ATKiWDDt+FlPMzB8uW5Eu8Qxq5R5cW2zKh5T6UPIFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILow0blm7PZpuAMXRttBIr52I52GF7WBuv0+VDB6bMhOqsk3Qz
-	2C8e0DOxiiugATSTxyj4MEBCTbYoJ5xm6PeCsDuHH7Rfinau/0wm9OIS
-X-Gm-Gg: AYBFou2k0C+RP0Eo72V5nVIk2G9IHEZkyN/0AbbgNBCeiUGv9gu1qPr2hA6A+/QmPNS
-	fd6Q5MJGtpsuVf45DkVd/17wlZQKqE3KsaoA6kcwTOqm/9/YPCdpczPQT/3PHjU2qKHEm6byL5G
-	7DOFSaabTZr+3FptnplegqiuZOnnw/qqJ80Xoq06iXaOQpADLZn80HvROFTIMVfn+tlQImx73LJ
-	Ixm36hxeWRKcduMQbgnz4zOtvO2D3yJ/17bM8QgsMYbbbp3y2mmV8DZmnXy+v37Ip197PqvfhOc
-	L7UdBL2VpVgDDshL2dTlF37SYRwrYa7rBBkat5VF0vTc9nunkUCEJnrw6CGlKaQi/FJ9ERtW68k
-	PoXbev0O5DojgxjDgcuH89HsANYpv2s0RKYFRnTD2fNwa2xvNxUreQGHTNP9Tj/JHdClp2ztEvV
-	kS6TGkhm6jh6HLgb73EAKjcNo2UalC3yLRrUs=
-X-Received: by 2002:a05:6402:324e:b0:6a9:dc6a:689c with SMTP id 4fb4d7f45d1cf-6ae199462e8mr462834a12.22.1790763172073;
-        Wed, 30 Sep 2026 03:12:52 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae15898cf4sm532500a12.36.2026.09.30.03.12.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:12:51 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Wed, 30 Sep 2026 12:12:49 +0200
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>,
-	=Kent Overstreet <kent.overstreet@linux.dev>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
-	kasan-dev@googlegroups.com, Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
- mapping functions
-Message-ID: <arzgoe-bXAz1poAt@milan>
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929082014.160587-3-hao.ge@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dRArV4sf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790763238;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=akICm7qmmKUiPATlAT6zeTzr8MOpw8unHXFMZuApDR4=;
+	b=dRArV4sfVzLQz4FTJXjavwHJEZxidup1jZwPLDKF+fEdNmHzke462wtJFZgKXuSdMmjSLY
+	cnuSOBAiGH/hyYVHzuUnBKxjgqW4hvh9PbDp5LwpTbDRfXuE3JFhzp3vAo/a2Y7aozt/GP
+	ys8doOTrQ/AVeykin3MCtL2K438pm8M=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-WxvU3GhJMQONlhynN-AIzQ-1; Wed,
+ 30 Sep 2026 06:13:52 -0400
+X-MC-Unique: WxvU3GhJMQONlhynN-AIzQ-1
+X-Mimecast-MFC-AGG-ID: WxvU3GhJMQONlhynN-AIzQ_1790763231
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B4D331954227;
+	Wed, 30 Sep 2026 10:13:50 +0000 (UTC)
+Received: from [100.90.87.156] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 20FBA76B;
+	Wed, 30 Sep 2026 10:13:46 +0000 (UTC)
+Message-ID: <47d19060-5f23-48f5-874b-1e2548d115c0@redhat.com>
+Date: Wed, 30 Sep 2026 12:13:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929082014.160587-3-hao.ge@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 3/6] dpll: zl3073x: allow enabling/disabling
+ output pins
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, Chris.duQuesnay@microchip.com,
+ arkadiusz.kubalewski@intel.com, kuba@kernel.org, jiri@resnulli.us,
+ min.li@microchip.com, pabeni@redhat.com, poros@redhat.com,
+ richardcochran@gmail.com, vadim.fedorenko@linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260928185552.1103515-4-ivecera@redhat.com>
+ <179075143358.434549.273733940449539275@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179075143358.434549.273733940449539275@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
-> __vmap_pages_range_noflush() and friends can install some PTEs before
-> failing and leave them mapped, and the kernel callers do not agree on
-> who cleans them up. For example, pcpu_map_pages() and
-> kmsan_ioremap_page_range() unmap the leftovers themselves, while
-> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
-> __vmalloc_area_node() relied on the mapping functions cleaning up and
-> did not call anything like vunmap_range() themselves. When the same
-> range is mapped again, the attempt hits the leftovers and fails, with
-> BUG() in vmap_pte_range() for huge mappings.
+On 9/30/26 8:57 AM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
 > 
-> After discussing with Suren and Ulad, we decided the cleanup belongs
-> to __vmap_pages_range_noflush() and friends, so the callers no longer
-> need to unmap the partial mappings themselves. Each function now
-> undoes the PTEs it installed itself.
+> Critical: 0 · High: 0 · Medium: 4 · Low: 0
 > 
-> The rollback calls the low-level __vunmap_range_noflush(), it just
-> clears the PTEs of the range it is given, which is all a rollback
-> needs. It cannot use vunmap_range_noflush() because these mapping
-> functions also map the KMSAN shadow and origin, and for a metadata
-> range its hook would look up the metadata of the metadata, get 0
-> and BUG() on addr >= end. The failed mappings were never accessed,
-> no TLB flush needed.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
-> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/kmsan/shadow.c |  4 ++++
->  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
->  2 files changed, 33 insertions(+), 2 deletions(-)
+> - [Medium] On CMOS outputs, the output-wide STOP bit is mixed up with the
+>    per-pin GPO state.
+> - [Medium] CMOS output pins that firmware or board configuration set up
+>    as GPO status, IRQ or unknown-mode outputs…
+> - [Medium] The error path of zl3073x_dev_output_pin_state_set() does not
+>    close the stop/restart bracket symmetrically, for either CMOS pin.
+> - [Medium] The settle delay before the non-glitch-free GPO toggle in
+>    zl3073x_dev_output_pin_state_set() may be too short.
 > 
-> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-> index 0c88d89bf0d6..2166086d3dc3 100644
-> --- a/mm/kmsan/shadow.c
-> +++ b/mm/kmsan/shadow.c
-> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->  					    o_pages, page_shift);
->  	kmsan_leave_runtime();
->  	if (mapped) {
-> +		/* Undo the shadow mapping set up above. */
-> +		kmsan_enter_runtime();
-> +		__vunmap_range_noflush(shadow_start, shadow_end);
-> +		kmsan_leave_runtime();
->  		err = mapped;
->  		goto ret;
->  	}
->
-Can we just do that inside the vmalloc? For example in the
-__vmap_pages_range_noflush() as entry function for all(?) helpers?
-So we do not need do it manually?
+> --
+> 
+> dpll: zl3073x: allow enabling/disabling output pins
+> 
+> This commit adds state_on_dpll_set support for zl3073x output pins.
+> Differential pins are toggled through the output_ctrl_x::stop bit. CMOS
+> pins are muted/unmuted through a GPO override, bracketed by a stop/restart
+> of the whole output. Output pins now advertise
+> DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE.
+> 
+>> diff --git a/drivers/dpll/zl3073x/core.c b/drivers/dpll/zl3073x/core.c
+>> index 7386932df032..89cf46111dcb 100644
+>> --- a/drivers/dpll/zl3073x/core.c
+>> +++ b/drivers/dpll/zl3073x/core.c
+> 
+> [ ... ]
+> 
+>> @@ -667,6 +669,82 @@ int zl3073x_dev_gpo_set(struct zl3073x_dev *zldev, u8 gpo, bool value)
+> 
+> [ ... ]
+> 
+>> +int zl3073x_dev_output_pin_state_set(struct zl3073x_dev *zldev, u8 id,
+>> +				     bool enable)
+>> +{
+> 
+> [ ... ]
+> 
+>> +	/* Bracket the GPO override toggle below with a clean stop/restart,
+>> +	 * since the toggle itself is not glitch-free.
+>> +	 */
+>> +	zl3073x_out_stop(&out);
+>> +	rc = zl3073x_out_state_set(zldev, out_id, &out);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* output_ctrl_x::stop is edge-aligned, so the device can take up
+>> +	 * to half a period to actually reach the stopped state. Wait for
+>> +	 * that long plus 25 ms, to make sure it is really stopped before
+>> +	 * touching the GPO override below.
+>> +	 */
+>> +	delay = 25 * USEC_PER_MSEC;
+>> +	freq = zl3073x_dev_output_pin_freq_get(zldev, id);
+>> +	if (freq)
+>> +		delay += USEC_PER_SEC / 2 / freq;
+>> +	fsleep(delay);
+> 
+> [Severity: Medium]
+> Is this delay always long enough? zl3073x_dev_output_pin_freq_get() returns
+> an integer Hz value:
+> 
+> drivers/dpll/zl3073x/core.h:zl3073x_dev_output_pin_freq_get() {
+>      ...
+> 	freq = zl3073x_synth_freq_get(synth) / out->div;
+> 
+> 	if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
+> 		freq /= out->esync_n_period;
+>      ...
+> }
+> 
+> Sub-Hz rates truncate to 0. Take an N-div N pin with P at 1 Hz and
+> esync_n_period = 2, which runs at 0.5 Hz. freq becomes 0, so the half-period
+> term is skipped. The code then waits only 25 ms, while the real half period
+> is about 1 s.
+> 
+> Also, only the requested pin's frequency is used. On an N-div output, the
+> P pin's delay comes from the fast P rate. If the device aligns the stop of
+> the whole output to the slower N edge, could the P pin still be running
+> when its GPO override is toggled? This second case depends on how the
+> hardware aligns the stop, so it is less certain.
+> 
+> In either case, can the GPO mux switch while the clock is still active and
+> produce the runt pulse that the stop/restart bracket is meant to prevent?
+> This code is still the same at the end of the series.
 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 859e6d2d57a3..9bbf75706627 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
->  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->  		arch_sync_kernel_mappings(start, end);
->  
-> +	/* Undo the PTEs installed before the failure. */
-> +	if (err)
-> +		__vunmap_range_noflush(start, end);
-> +
->  	return err;
->  }
->  
-> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->  	if (!err)
->  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->  					       ioremap_max_page_shift);
-> +	if (err)
-> +		__vunmap_range_noflush(addr, end);
-> +
->  	return err;
->  }
->  
-> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
->  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->  		arch_sync_kernel_mappings(start, end);
->  
-> +	/* Undo the PTEs installed before the failure. */
-> +	if (err)
-> +		__vunmap_range_noflush(start, end);
-> +
->  	return err;
->  }
->  
-The only one user of that function is __vmap_pages_range_noflush()
-so we can cover both cases there small and huge path.
+Two separate points here.
 
-Is that enough just to do unroll in the below:
+1) Sub-Hz truncation to 0: this cannot happen for a pin managed here. The
+    DPLL core does not support sub-Hz frequencies, so an output pin's
+    frequency is always >= 1 Hz and zl3073x_dev_output_pin_freq_get() never
+    returns 0 for the half-period term.
 
-__vmap_pages_range_noflush()
-vmap_page_range()
+2) Using only the requested pin's frequency: good point. The stop applies
+    to the whole output, which settles on its slowest edge, so basing the
+    wait on a fast P pin can be too short on an N-div output. I will compute
+    the delay from the lower frequency of the two pins in the pair:
 
-functions? It will also fix NOFAIL case:
+	freq = min_not_zero(zl3073x_dev_output_pin_freq_get(zldev, id),
+                             zl3073x_dev_output_pin_freq_get(zldev, id ^ 1));
 
-<snip>
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 89c327a6ce7d..fa1f357ecf3f 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
- 
- 	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
- 				 ioremap_max_page_shift);
-+	if (err)
-+		goto error_cleanup_range;
-+
- 	flush_cache_vmap(addr, end);
--	if (!err)
--		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
-+	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
- 					       ioremap_max_page_shift);
-+	if (err)
-+		goto error_cleanup_range;
-+
-+	return 0;
-+
-+error_cleanup_range:
-+	__vunmap_range_noflush(addr, end);
- 	return err;
- }
- 
-@@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
- 		pgprot_t prot, struct page **pages, unsigned int page_shift)
- {
- 	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
-+	unsigned long start = addr;
-+	int err;
- 
--	WARN_ON(page_shift < PAGE_SHIFT);
--
--	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
--			page_shift == PAGE_SHIFT)
--		return vmap_small_pages_range_noflush(addr, end, prot, pages);
-+	if (WARN_ON(addr >= end))
-+		return -EINVAL;
- 
--	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
--		int err;
-+	if (WARN_ON(page_shift < PAGE_SHIFT))
-+		return -EINVAL;
- 
--		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
-+	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-+		page_shift == PAGE_SHIFT) {
-+		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
-+	} else {
-+		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-+			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
- 					page_to_phys(pages[i]), prot,
- 					page_shift);
--		if (err)
--			return err;
-+			if (err)
-+				break;
- 
--		addr += 1UL << page_shift;
-+			addr += 1UL << page_shift;
-+		}
- 	}
- 
--	return 0;
-+	if (err)
-+		__vunmap_range_noflush(start, end);
-+
-+	/* 0 on success. */
-+	return err;
- }
- 
- int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-@@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
- 
- 	if (ret)
- 		return ret;
--	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-+
-+	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-+	if (ret)
-+		/* Cleanup KMSAN metadata. */
-+		kmsan_vunmap_range_noflush(addr, end);
-+
-+	return ret;
- }
- 
- static int __vmap_pages_range(unsigned long addr, unsigned long end,
-<snip>
+>> +
+>> +	if (enable) {
+>> +		zl3073x_out_pin_func_set(&out, id, ZL3073X_OUT_PIN_F_CLOCK);
+> 
+> [Severity: Medium]
+> What happens here to a CMOS pin that firmware or the board set up as a GPO
+> status, IRQ or unknown-mode output (ZL3073X_OUT_PIN_F_GPO_STATUS,
+> ZL3073X_OUT_PIN_F_GPO_IRQ or ZL3073X_OUT_PIN_F_GPO_UNKNOWN)?
+> 
+> zl3073x_dpll_pin_is_registrable() only checks synth/output enablement and
+> signal format, so these pins are still registered.
+> 
+> Before this patch, every registered output pin reported connected. Now
+> zl3073x_dev_output_pin_state_get() reports these pins as disconnected,
+> because their function is not CLOCK:
+> 
+> 	return zl3073x_out_is_diff(out) ||
+> 	       zl3073x_out_pin_func_get(out, id) == ZL3073X_OUT_PIN_F_CLOCK;
+> 
+> zl3073x_pin_props_get() also now sets DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE
+> on every output pin.
+> 
+> A connect request then reaches this zl3073x_out_pin_func_set() call. It
+> clears gpo_en and throws away the status/IRQ function. A clock is then
+> driven onto a line the board may have wired as a lock-status or interrupt
+> signal.
+> 
+> A later disconnect writes GPO_CONST low, so the DPLL API can never restore
+> the original function.
+> 
+> Should pins with a GPO status/IRQ function be excluded from state changes,
+> or at least not advertise STATE_CAN_CHANGE? Neither the commit message nor
+> the rest of the series covers these pins.
 
---
-Uladzislau Rezki
+Agreed - such pins should not be registered as clock outputs at all. In v2
+I will skip a single-ended output pin unless it is a manageable clock output,
+i.e. its function is either CLOCK, or GPO_CONST driving 0 (the driver's own
+disconnected state). A pin in GPO_CONST driving 1, or in the status/IRQ/unknown
+function, is reserved by firmware/board and is skipped, so it is never
+registered.
+
+>> +	} else {
+>> +		rc = zl3073x_dev_gpo_set(zldev, id, false);
+>> +		if (rc)
+>> +			goto restart_output;
+>> +		zl3073x_out_pin_func_set(&out, id, ZL3073X_OUT_PIN_F_GPO_CONST);
+>> +	}
+>> +
+>> +	/* Restart the output regardless of the result below: on failure,
+>> +	 * don't leave the whole output, including the unrelated sibling
+>> +	 * pin, stopped indefinitely.
+>> +	 */
+>> +	rc = zl3073x_out_state_set(zldev, out_id, &out);
+>> +
+>> +restart_output:
+>> +	zl3073x_out_start(&out);
+>> +	rc = zl3073x_out_state_set(zldev, out_id, &out) ? : rc;
+> 
+> [Severity: Medium]
+> What does this restart do if the zl3073x_out_state_set() call just above
+> fails?
+> 
+> zl3073x_out_state_set() writes ctrl first. It stores dout->cfg only after
+> a successful mailbox commit:
+> 
+> drivers/dpll/zl3073x/out.c:zl3073x_out_state_set() {
+>      ...
+> 	if (dout->ctrl != out->ctrl) {
+> 		rc = zl3073x_write_u8(zldev, ZL_REG_OUTPUT_CTRL(index),
+> 				      out->ctrl);
+> 		...
+> 		dout->ctrl = out->ctrl;
+> 	}
+> 
+> 	/* Skip the mailbox commit if nothing else has changed */
+> 	if (!memcmp(&dout->cfg, &out->cfg, sizeof(out->cfg)))
+> 		return 0;
+>      ...
+> 	/* After successful commit store new state */
+> 	dout->cfg = out->cfg;
+>      ...
+> }
+> 
+> After a failed GPO commit, the local out holds the new gpo_en/gpo_config
+> values and the cache still holds the old ones.
+> 
+> The restart call writes ctrl first, which clears STOP and starts the output
+> again. It then sees the cfg difference and retries the same GPO mailbox
+> commit while the output is running. Isn't that the non-glitch-free toggle
+> the bracket is supposed to prevent?
+> 
+> If the retry succeeds, the restart call returns 0 and "? : rc" keeps the
+> earlier error.
+> 
+> zl3073x_dpll_output_pin_state_on_dpll_set() then reports "Failed to change
+> output pin state". dpll_pin_state_set() also skips __dpll_pin_change_ntf(),
+> even though the hardware and zldev->out[] now hold the new pin state.
+
+Two parts.
+
+The glitch will be fixed by the write-ordering change in patch 2:
+zl3073x_out_state_set() will commit the mailbox fields (the GPO change)
+before the direct output_ctrl_x register, so on a restart the GPO write
+lands while the output is still stopped and STOP is cleared last - no
+toggle on a running output.
+
+For the "? : rc" masking, next version will fold the separate "apply GPO while
+stopped" and "restart" writes into a single zl3073x_out_state_set(). With the
+mailbox-before-ctrl ordering that one commit applies the GPO change and
+clears STOP in the right order.
+
+>> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+>> index 2c6de4dab8b4..426974b0b5dc 100644
+>> --- a/drivers/dpll/zl3073x/dpll.c
+>> +++ b/drivers/dpll/zl3073x/dpll.c
+> 
+> [ ... ]
+> 
+>> +static int
+>> +zl3073x_dpll_output_pin_state_on_dpll_set(const struct dpll_pin *dpll_pin,
+> 
+> [ ... ]
+> 
+>> +	guard(mutex)(&zldpll->lock);
+>> +
+>> +	enable = state == DPLL_PIN_STATE_CONNECTED;
+>> +	if (zl3073x_dev_output_pin_state_get(zldev, pin->id) != enable) {
+>> +		rc = zl3073x_dev_output_pin_state_set(zldev, pin->id, enable);
+> 
+> [Severity: Medium]
+> Can a disconnect request on a CMOS pin be silently dropped here?
+> zl3073x_dev_output_pin_state_get() returns false for both P and N whenever
+> the output-wide STOP bit is set, whatever each pin's GPO function is:
+> 
+> 	if (zl3073x_out_is_stopped(out))
+> 		return false;
+> 
+> A CMOS output can be stopped in two ways:
+> 
+> - At probe. zl3073x_dpll_pin_is_registrable() does not reject stopped
+>    outputs, so an output that firmware left stopped is still registered.
+> - After the final restart write in zl3073x_dev_output_pin_state_set()
+>    fails.
+> 
+> Take a stopped CMOS output where N is still in CLOCK function:
+> 
+>    disconnect N
+>      zl3073x_dev_output_pin_state_get(N) returns false, same as enable
+>      -> returns 0, N stays in CLOCK function
+> 
+>    connect P
+>      zl3073x_dev_output_pin_state_set(P, true)
+>        zl3073x_out_start(&out)    <- restarts the whole output
+> 
+> Wouldn't N then drive its clock again, even though userspace was told N is
+> disconnected?
+> 
+> Changing one pin can also change the sibling's state:
+> 
+> - Restarting a stopped output moves the sibling from disconnected to
+>    connected.
+> - A failed final restart moves the sibling from connected to disconnected.
+> 
+> dpll_pin_state_set() only calls __dpll_pin_change_ntf() for the pin that
+> was requested.
+> 
+> Should this follow the pattern that the earlier patch in this series, "dpll:
+> zl3073x: notify sibling pin when shared output config changes", added to
+> zl3073x_dpll_output_pin_phase_adjust_set()?
+> 
+> 	sibling = zl3073x_dpll_output_pin_sibling_get(pin);
+> 
+> 	mutex_unlock(&zldpll->lock);
+> 
+> 	if (sibling)
+> 		__dpll_pin_change_ntf(sibling->dpll_pin);
+> 
+> This is still present at the end of the series. The PTP perout
+> enable/disable helpers added in "dpll: zl3073x: add PTP periodic output
+> support" call the same zl3073x_dev_output_pin_state_get() and
+> zl3073x_dev_output_pin_state_set() pair.
+
+Both symptoms come from a single-ended output being stopped in steady
+state. For CMOS the whole-output STOP is only a transient mechanism inside
+the connect/disconnect bracket (stop -> toggle GPO -> restart, always
+restored); in steady state a CMOS output runs and the per-pin GPO function
+alone determines connection. So the only way state_get() returns false for
+a CLOCK-function CMOS pin is an output that firmware left stopped at probe.
+
+In that stopped case connecting one pin restarts the whole output and
+revives the sibling too, which is exactly what breaks here. In v2
+I will therefore skip a single-ended output pin whose output is stopped.
+Such an output cannot be managed per-pin. (Differential outputs keep stopped
+as their valid disconnected state and stay registrable.)
+
+Thanks,
+Ivan
+
+pw-bot: cr
+
