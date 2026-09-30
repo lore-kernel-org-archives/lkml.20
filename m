@@ -1,32 +1,32 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB9A44E67E;
-	Wed, 30 Sep 2026 12:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827863546CC;
+	Wed, 30 Sep 2026 12:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772202; cv=none; b=i4c6g1x6DopDI+6yjVGrlDIVMUvVyiIhgwqNQ/6T4X6xouZFWiBt78LcwvWDXrYVOBoqkAdGfa9ka/NXBT0aGiSPKjEG46PKql2HvocgxB2hLlgJFw9rt8fCj9192b4FjZ+yQiMPrMEsLgrOcbHj0YbFAJCazSkFXtzWCKAofJs=
+	t=1790772201; cv=none; b=bK9RCOzzzBDRHH2nS7CMx7cgU2veTB8UQDjqiv2KKnR6h8m0ZN4JNyWHOMx59wJW/X1PX4KEciDvKDixWYHd6yH/el/dhsT0PXuwhwej//fh3XFWd1gOx2LSQ82Kf3Bf3exmVlllq0dkc5ZkpH89LcxO477Qfi6dvSvGWlKvIrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772202; c=relaxed/simple;
-	bh=UI8MWclcna3i912ApYu3ZkEYCbnyI0/V3H5NaAfD5xk=;
+	s=arc-20240116; t=1790772201; c=relaxed/simple;
+	bh=Li99yqPRw0UnF7s6fDANEJDsnjXuUUhvb0y6Pc2dEfk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YanBJCxdLQSRiHTGAZJN/LDEYEp3HlKh7S/Kq8S0LSxRQtLXmsB/UwfqcgsU1VRgOSWZQpgmEVjxiDtHqPTKRYChG65ddRnyeZKPPppsR+L7DxoL2iuDrOnYAc/hi0cVA/LVzDZCLLgCI2RSe8ZL/NhGmdJa8tlbWUxOJK5SKjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.129
+	 In-Reply-To:To:Cc; b=JSAo2Q9n1IlixTu1JZwOthafKzJnkAWzj6R870ik38QpJIXKGx7DllTwW+O08iyg6QEs4IaY7h38GrtVXmX1Phrd4bAVzFFEi/aY46yUsaxQ13NMZAVtH2DkgK+/oJoRTRQCt27GJU/vwUAhj2XlTRWrqeg2+hooV51kE1FpHW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1790772160t1bf1ccbe
-X-QQ-Originating-IP: EEFNbyufz4t4oGcF2h6wvs59l8IohGSawwKeAu5M4AU=
+X-QQ-mid: zesmtpip3t1790772152t7dc9c172
+X-QQ-Originating-IP: WceE0gQRa+4Zl99cOV+oa3GjiJFg+QGWfuaL0DqcC08=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 30 Sep 2026 20:42:38 +0800 (CST)
+	id ; Wed, 30 Sep 2026 20:42:30 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7675296171041416644
+X-BIZMAIL-ID: 15150268539478603505
 EX-QQ-RecipientCnt: 16
 From: Xilin Wu <sophon@radxa.com>
-Date: Wed, 30 Sep 2026 20:41:52 +0800
-Subject: [PATCH 08/13] drm/msm/dp: Rebuild the eDP stream on modesets
- leaving self refresh
+Date: Wed, 30 Sep 2026 20:41:49 +0800
+Subject: [PATCH 05/13] drm/msm/dp: Unwind resources when enabling a stream
+ fails
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-msm-dp-hdr10-v1-8-dbbf8b2b42bc@radxa.com>
+Message-Id: <20260930-msm-dp-hdr10-v1-5-dbbf8b2b42bc@radxa.com>
 References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
 In-Reply-To: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,146 +50,435 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  Xilin Wu <sophon@radxa.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4291; i=sophon@radxa.com;
- h=from:subject:message-id; bh=UI8MWclcna3i912ApYu3ZkEYCbnyI0/V3H5NaAfD5xk=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZcFPNY8yD9NbvK8Bdn8TSqTC8xW5Z68+ylTT7Ni7
- w/pn6tYO0pZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEzkQzDDX9mG/8WKN17/fmXw
- TV7+88kf5RF9pqr7f5qabnAx3h8nf5Thf1bNVIFjbLpXpm5cI133xeq/senP8oK5cp8V8m97Su9
- KYQUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13206; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=Li99yqPRw0UnF7s6fDANEJDsnjXuUUhvb0y6Pc2dEfk=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZfWGlkLLOdNO/NZsltwm12o8CeXnrgNeR92Cuh1f
+ bJaa/mlo5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwEQS2Rj+J3jEvpWNOPd9juva
+ L9o93YfUtu+K2uyrVbrft1PiP/Psg4wMHQcObfq/9ulXB/G/e3YtvlRxSsH7VsH8U3xPf5zcvPz
+ bJ14A
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NyTsQ4JOu2J2N79cLSf3J6EkbNcIPutyKW868mULow8KO0STjgAIbh71
-	HPhxUBcVXXZWBR3AkdnMtJ3PmKQL5h2PMSbhhfpmwMOyXVuAEFAkbkWR/c8CzEaCKkKPowM
-	duzGUnBQy6jJiijpDS/lQWw4JKlo1MWPhmeKNRDeDgyULZvLQbXl5trGF5TgRuZyYj/PNWL
-	gaO7l4CKlVUryC5oYhRtCpCfJX1JbnJv6au85F/cXF6LhJex9z2HBIbNc7iVbSeXw8P7cdx
-	tXmdvalM8xjAs5jVLqoIdLXphV0JGwWCU7SDeatCy96mU1ejxFpy63eR7wgoln/f3LtpzDi
-	bUaAPEasnVbJXbq6Tc9fN3WdWTM8NOPdbfCfZEPv+nr9NlF0ZJg+s1pr3Sax+i4zyaqF8z7
-	HA1LFCIaaHn0yYTohGEbKewc0hoWmbQ/11dtookzcugDb1HCrsJB68cgzdKA7tyCH8OGfcw
-	5D6G3+D0OWiehf05CjbsrW1ITC/zj1eNEHy2ieyeebZpeGJKQAGkZqAK5MhTalz4E6hk3Gv
-	D3uGkKM7+SmDE+FJ/S7QpoEOH1rp3h/CltoHtoVOhm/ZHV8c61nQYBkRyQ2LGO3dwJcI1Wg
-	qhMksUw1oc2hiBLlrva6sp8rrj5NfXdupHp9d7Qtw/niuJt+vd5/Ogv9/t96hK95dQ8H4el
-	srnaluVS1HiwRGW9hLazWK8VoEqiWpbyyGr2S5EAaft2/IzO9Pq13YzK2Ss4Pq8J2f86ep2
-	BlAR9httFtI2kQ6rYNYPOvL2Xkxvxyo2ARRYuLu/pA1R8D/nd5n0OX/qOb/cLDnkymzxjbi
-	4hGn0dvRoQy0SIIPWxKwPFXgAAmPibdUi2BL+jk5FQw84xriClFdl8g2HMV4/KYNyhp3J65
-	z5+t6LIQPmFn8TjlhqGiISwt+JvcpgscN9cV3tOR0/v5aptMSVCQZNFivg03RWPUFGZL8yl
-	XNGW4h/qTY+XyjsuT9d/+iTiv+BDpAK1W+46Bgye0TV80cEAdJmRyY/5lO2irVjfwwEU9Qi
-	oASWLL+4NeoGlCD4Os4gDiGiXkZi17i9SuaqOT+Aqx29hRzRKk+Y9Vfpg0agp4s4WC5zMta
-	Q==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: MJYuk1ZES9E0DFE3V4tMoSn8mNLab3J7LTQ8IfJ4+qGagUik5HcEezt4
+	MWjU0/FTz6vb/iiDMdSimhzKDYCOT8pJTCo7SYmE59WqzX7BFo2piNUaVysYwMNmH41wEo5
+	zYrlot3jv+KBjv3lEUHMUyfAnMFEBEcGNuOpiaQVGh8A4nAkaofFjNoE9QTKC94GTJBV4tA
+	f47a01/v+dL5ZWZGp4ZKpD9BspyS81btOyX7vnP0yGpgOOrH7xr+297aC0ywzT+XVjofWTR
+	rB2fKEW4WqgxwFalXOo11QT1t2BPz/kUaYtQ4kfG4btgD1bxTxb8B3RXBZlHUzzuBEOuPLO
+	FGWuHWnJPFFS/y0i6HIkDFFyfGz+SFd81KBSBqrxeinIgMoy2V2BB6b+687M1bHDGiBwnTD
+	HUOFL0OdQp44Zocy1vtEsrWfR9+5vsDyGP664II34wKVXfw9sQSuVXTN7vVWw3ZQ1ma4K+M
+	LgKlrZ99IkktlwTd9mqnM/C7mh3T0spUk/s0VOTRh8kbRDSNM7INIq/SGDncjmJGJ3lg4vT
+	Lr5HXuldY/84YWDJTkBDHmNa8iexwV3R7EcUZIt0hbbYVsbObPgK9h9v9hf9Ml3vK6OFfUY
+	Q6kE86QUfogrNZuWjDHHIlTTadF63w4Q9uBH4h2/HpzslDRUi3eLJrJqV2UN+gWevkER7WI
+	DjKINOtNEh2dlAOQvSPx0/AEPTGN13ZRvKFzhU0iAjEVDCR84vNy0NHwVVwD0yDsvWuU/Qq
+	fPc1Irj6YiGHdhs0DCW7iFjjkd8WZxxV0mIRjyjdr8FK4Y5lNZyS6k3nq/0GtYecBio6Oo8
+	JPnCTG0WG8XB4feaW2L2DDh/ofwBnXBvPEs+vWssbp9gmoIxg4YIogbY2LIO16uM70DgwMh
+	nnn4ZWoZtpdbPU7YGUAoPgVdf5ch0E5osopYCjIuAVjwNvsNQUMYT9W4DAJDhnekHsbH5Cq
+	4nEPn7dSw69S/tXhSdy6fytETHPlF2yxhXdT2a0ajZQ57qZ1polDuYG63qXrxtWjfVmZe9f
+	BV8GC8YSAqYXjTa6R91pKyXGBrnso9/kYSKhIAmFAzGeIYQwa1B9ZPZ+N+x0g=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-The atomic helpers skip bridge disable when an active CRTC leaves self
-refresh. The eDP enable callback also takes a fast path that only exits
-PSR, so a concurrent modeset can leave the retained stream using its old
-configuration, including the output depth.
+Stream enable can fail after acquiring a runtime PM reference or
+starting the link. Returning directly leaks those resources, while a
+later disable can release a reference that was never acquired.
 
-Exit PSR and tear down the retained stream in pre-enable when leaving self
-refresh with mode_changed or connectors_changed set. Install the new state
-and run the normal stream enable sequence afterwards. Keep the fast path
-for ordinary self-refresh exits: active_changed alone does not require
-rebuilding the stream.
+Track the stream PM reference and whether mainlink startup was
+attempted. Use one rollback path for prepare, enable and post-enable
+failures, and share the bookkeeping with normal disable to avoid
+repeated release.
+
+Keep AUX available for a connected external DP peer, including a
+dongle without a downstream sink. If mainlink startup was attempted,
+restore the AUX PHY after link shutdown, since partial startup can
+power down AUX as well. Use plugged_lock to serialize this decision
+with HPD processing; leave the connection PM reference for the HPD
+path to release.
+
+Only access mainlink and SDP registers while the link clocks are
+enabled. Startup or link reinitialization can fail with those clocks
+already off; keep the controller reset and remaining PHY cleanup
+independent of them.
+
+With ownership tracking and rollback in place, propagate errors from
+PHY initialization, configuration, power-on, eDP discovery and stream
+retraining. Do not mark failed PHY initialization as successful, and
+balance resources in the plug, detect and runtime resume paths as
+well.
 
 Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_drm.c   | 24 +++++++++++++++++++++++-
- drivers/gpu/drm/msm/dp/dp_utils.c |  7 +++++++
- drivers/gpu/drm/msm/dp/dp_utils.h |  4 ++++
- 3 files changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  45 +++++++++-----
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c | 120 +++++++++++++++++++++++++++++++-----
+ 3 files changed, 135 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index c1e4147bfef1..7332fbfe1644 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -14,6 +14,7 @@
- #include "msm_kms.h"
- #include "dp_audio.h"
- #include "dp_drm.h"
-+#include "dp_utils.h"
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index f005421630c6..16c9165b5f31 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1856,17 +1856,22 @@ static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
+ 	ctrl->phy_opts.dp.link_rate = ctrl->link->link_params.rate / 100;
+ 	ctrl->phy_opts.dp.ssc = drm_dp_max_downspread(dpcd);
  
- /**
-  * msm_dp_bridge_get_modes - callback to add drm modes via drm_mode_probed_add()
-@@ -54,6 +55,26 @@ static void msm_dp_bridge_atomic_pre_enable(struct drm_bridge *drm_bridge,
- {
- 	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
- 	struct msm_dp *dp = dp_bridge->msm_dp_display;
-+	struct drm_crtc *crtc;
-+	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+
-+	crtc = drm_atomic_get_new_crtc_for_encoder(state, drm_bridge->encoder);
-+	if (!crtc)
-+		return;
-+
-+	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
-+	new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	/*
-+	 * The helpers skip bridge disable when waking an active CRTC from
-+	 * self refresh, even when its color configuration requires a modeset.
-+	 * Tear down the retained stream before installing the new state.
-+	 */
-+	if (dp->is_edp && dp->power_on && old_crtc_state->self_refresh_active &&
-+	    new_crtc_state->active && msm_dp_utils_psr_needs_modeset(new_crtc_state)) {
-+		msm_dp_display_set_psr(dp, false);
-+		msm_dp_display_atomic_disable(dp);
-+		msm_dp_display_atomic_post_disable(dp);
+-	phy_configure(phy, &ctrl->phy_opts);
++	ret = phy_configure(phy, &ctrl->phy_opts);
++	if (ret)
++		return ret;
+ 	if (!ctrl->phy_powered) {
+ 		ret = phy_power_on(phy);
+-		if (!ret)
+-			ctrl->phy_powered = true;
++		if (ret)
++			return ret;
++		ctrl->phy_powered = true;
+ 	}
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
+ 	ret = msm_dp_ctrl_link_clk_enable(&ctrl->msm_dp_ctrl);
+-	if (ret)
++	if (ret) {
+ 		DRM_ERROR("Unable to start link clocks. ret=%d\n", ret);
++		msm_dp_ctrl_phy_power_off(ctrl);
 +	}
  
- 	msm_dp_display_atomic_pre_enable(dp, state);
+ 	drm_dbg_dp(ctrl->drm_dev, "link rate=%d\n", ctrl->link->link_params.rate);
+ 
+@@ -1980,7 +1985,7 @@ static void msm_dp_ctrl_phy_reset(struct msm_dp_ctrl_private *ctrl)
+ 	msm_dp_write_ahb(ctrl, REG_DP_PHY_CTRL, 0x0);
  }
-@@ -157,7 +178,8 @@ static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
  
- 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
+-void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
++int msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
+ {
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	struct phy *phy;
+@@ -1989,7 +1994,7 @@ void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	phy = ctrl->phy;
  
--	if (old_crtc_state && old_crtc_state->self_refresh_active) {
-+	if (dp->power_on && old_crtc_state && old_crtc_state->self_refresh_active &&
-+	    !msm_dp_utils_psr_needs_modeset(drm_atomic_get_new_crtc_state(state, crtc))) {
- 		msm_dp_display_set_psr(dp, false);
- 		return;
+ 	msm_dp_ctrl_phy_reset(ctrl);
+-	phy_init(phy);
++	return phy_init(phy);
+ }
+ 
+ void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl)
+@@ -2021,7 +2026,9 @@ static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
+ 	 */
+ 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+ 
+-	msm_dp_ctrl_phy_power_off(ctrl);
++	ret = msm_dp_ctrl_phy_power_off(ctrl);
++	if (ret)
++		return ret;
+ 	/* hw recommended delay before re-enabling clocks */
+ 	msleep(20);
+ 
+@@ -2038,16 +2045,21 @@ static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
+ 					     struct msm_dp_panel *panel)
+ {
+ 	struct phy *phy;
++	int ret;
+ 
+ 	phy = ctrl->phy;
+ 
+-	msm_dp_ctrl_mainlink_disable(ctrl);
++	/* Reinitializing the link may already have disabled its clocks. */
++	if (ctrl->link_clks_on)
++		msm_dp_ctrl_mainlink_disable(ctrl);
+ 
+ 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
+ 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+ 
+-	msm_dp_ctrl_phy_power_off(ctrl);
++	ret = msm_dp_ctrl_phy_power_off(ctrl);
++	if (ret)
++		return ret;
+ 
+ 	/* aux channel down, reinit phy */
+ 	phy_exit(phy);
+@@ -2583,8 +2595,11 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		}
  	}
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
-index 226b370ce8fe..72bae48a1fe0 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.c
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.c
-@@ -4,6 +4,7 @@
+ 
+-	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
+-		msm_dp_ctrl_link_retrain(ctrl, panel);
++	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl)) {
++		ret = msm_dp_ctrl_link_retrain(ctrl, panel);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/* stop txing train pattern to end link training */
+ 	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+@@ -2671,9 +2686,11 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
+-	msm_dp_panel_disable_vsc_sdp(panel);
+-
+-	msm_dp_ctrl_mainlink_disable(ctrl);
++	/* Link startup may have failed before enabling the link clocks. */
++	if (ctrl->link_clks_on) {
++		msm_dp_panel_disable_vsc_sdp(panel);
++		msm_dp_ctrl_mainlink_disable(ctrl);
++	}
+ 
+ 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 5902cf7e746a..42c5f847cb02 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -39,7 +39,7 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev,
+ 
+ void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		       struct msm_dp_panel *panel);
+-void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl);
++int msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_irq_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3ca039ff57b8..ae967ca652c9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -52,6 +52,8 @@ struct msm_dp_display_private {
+ 	bool core_initialized;
+ 	bool phy_initialized;
+ 	bool audio_supported;
++	bool stream_pm_active;
++	bool stream_link_attempted;
+ 
+ 	struct mutex plugged_lock;
+ 	bool plugged;
+@@ -322,22 +324,26 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+  *
+  * Prepare DP PHY for the AUX transactions to succeed.
+  *
+- * Returns: true if this call has initliazed the PHY and false if the PHY has
+- * already been setup beforehand.
++ * Returns: 1 if this call initialized the PHY, 0 if it was already
++ * initialized, or a negative error code on failure.
   */
+-static bool msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
++static int msm_dp_display_host_phy_init(struct msm_dp_display_private *dp)
+ {
++	int ret;
++
+ 	drm_dbg_dp(dp->drm_dev, "type=%d core_init=%d phy_init=%d\n",
+ 		dp->msm_dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized);
  
- #include <linux/types.h>
-+#include <drm/drm_crtc.h>
+ 	if (!dp->phy_initialized) {
+-		msm_dp_ctrl_phy_init(dp->ctrl);
++		ret = msm_dp_ctrl_phy_init(dp->ctrl);
++		if (ret)
++			return ret;
+ 		dp->phy_initialized = true;
+-		return true;
++		return 1;
+ 	}
  
- #include "dp_utils.h"
- 
-@@ -87,3 +88,9 @@ void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 		FIELD_PREP(HEADER_3_MASK, sdp_header->HB3) |
- 		FIELD_PREP(PARITY_3_MASK, msm_dp_utils_calculate_parity(sdp_header->HB3));
+-	return false;
++	return 0;
  }
+ 
+ static void msm_dp_display_host_phy_exit(struct msm_dp_display_private *dp)
+@@ -419,7 +425,12 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+ 
+ 	msm_dp_aux_enable_xfers(dp->aux, true);
+ 
+-	msm_dp_display_host_phy_init(dp);
++	ret = msm_dp_display_host_phy_init(dp);
++	if (ret < 0) {
++		msm_dp_aux_enable_xfers(dp->aux, false);
++		pm_runtime_put_sync(&pdev->dev);
++		return ret;
++	}
+ 
+ 	ret = msm_dp_display_process_hpd_high(dp);
+ 
+@@ -628,8 +639,11 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 
+ 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
+ 
+-	if (msm_dp_display->is_edp)
+-		msm_dp_hpd_plug_handle(dp);
++	if (msm_dp_display->is_edp) {
++		rc = msm_dp_hpd_plug_handle(dp);
++		if (rc)
++			return rc;
++	}
+ 
+ 	rc = pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+ 	if (rc) {
+@@ -637,18 +651,22 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 		return rc;
+ 	}
+ 
++	dp->stream_pm_active = true;
 +
-+bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
+ 	if (dp->link->sink_count == 0)
+ 		return -ENOTCONN;
+ 
+ 	if (!msm_dp_display->power_on) {
+-		msm_dp_display_host_phy_init(dp);
++		rc = msm_dp_display_host_phy_init(dp);
++		if (rc < 0)
++			return rc;
+ 		force_link_train = true;
+ 	}
+ 
++	dp->stream_link_attempted = true;
+ 	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
+ 	if (rc) {
+ 		DRM_ERROR("Failed link training (rc=%d)\n", rc);
+-		// TODO: schedule drm_connector_set_link_status_property()
+ 		return rc;
+ 	}
+ 
+@@ -730,6 +748,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+ 		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
+ 
+ 	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
++	dp->stream_link_attempted = false;
+ 
+ 	if (dp->link->sink_count == 0)
+ 		/* re-init the PHY so that we can listen to Dongle disconnect */
+@@ -912,7 +931,12 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 		return status;
+ 	}
+ 
+-	phy_deinit = msm_dp_display_host_phy_init(priv);
++	ret = msm_dp_display_host_phy_init(priv);
++	if (ret < 0) {
++		pm_runtime_put_sync(&dp->pdev->dev);
++		return status;
++	}
++	phy_deinit = ret;
+ 
+ 	msm_dp_aux_enable_xfers(priv->aux, true);
+ 
+@@ -1294,6 +1318,7 @@ static int msm_dp_pm_runtime_suspend(struct device *dev)
+ static int msm_dp_pm_runtime_resume(struct device *dev)
+ {
+ 	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
++	int ret;
+ 
+ 	/*
+ 	 * for eDP, host cotroller, HPD block and PHY are enabled here
+@@ -1306,7 +1331,12 @@ static int msm_dp_pm_runtime_resume(struct device *dev)
+ 	msm_dp_display_host_init(dp);
+ 	if (dp->msm_dp_display.is_edp) {
+ 		msm_dp_aux_hpd_enable(dp->aux);
+-		msm_dp_display_host_phy_init(dp);
++		ret = msm_dp_display_host_phy_init(dp);
++		if (ret < 0) {
++			msm_dp_aux_hpd_disable(dp->aux);
++			msm_dp_display_host_deinit(dp);
++			return ret;
++		}
+ 	}
+ 
+ 	enable_irq(dp->irq);
+@@ -1431,6 +1461,53 @@ void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+ 	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
+ }
+ 
++static void msm_dp_display_abort_enable(struct msm_dp_display_private *dp)
 +{
-+	/* active_changed alone also describes a normal self-refresh exit. */
-+	return state->mode_changed || state->connectors_changed;
++	bool keep_aux;
++	int ret;
++
++	/* Do not access the controller if stream preparation never resumed it. */
++	if (!dp->stream_pm_active)
++		goto unplug;
++
++	scoped_guard(mutex, &dp->plugged_lock) {
++		keep_aux = !dp->msm_dp_display.is_edp && dp->plugged &&
++			msm_dp_aux_is_link_connected(dp->aux);
++
++		if (dp->stream_link_attempted) {
++			/* The AUX peer is the remaining dongle, not its absent sink. */
++			if (keep_aux && !dp->link->sink_count && dp->phy_initialized)
++				msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
++
++			msm_dp_ctrl_off_pixel_clk(dp->ctrl);
++			msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
++			dp->stream_link_attempted = false;
++
++			/* Mainlink power-off can also power down the AUX circuitry. */
++			msm_dp_display_host_phy_exit(dp);
++			if (keep_aux) {
++				ret = msm_dp_display_host_phy_init(dp);
++				if (ret < 0) {
++					DRM_ERROR("Failed to restore AUX PHY: %d\n", ret);
++					msm_dp_aux_enable_xfers(dp->aux, false);
++				}
++			}
++		} else if (!keep_aux) {
++			msm_dp_display_host_phy_exit(dp);
++		}
++		dp->msm_dp_display.power_on = false;
++	}
++
++unplug:
++	if (dp->msm_dp_display.is_edp)
++		msm_dp_hpd_unplug_handle(dp);
++
++	if (dp->stream_pm_active) {
++		pm_runtime_put_sync(&dp->msm_dp_display.pdev->dev);
++		dp->stream_pm_active = false;
++	}
 +}
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
-index 2fdb89efc57c..5d86c978dffd 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.h
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.h
-@@ -10,6 +10,8 @@
- #include <linux/bits.h>
- #include <drm/display/drm_dp_helper.h>
- 
-+struct drm_crtc_state;
 +
- #define HEADER_BYTE_0_BIT	 0
- #define PARITY_BYTE_0_BIT	 8
- #define HEADER_BYTE_1_BIT	16
-@@ -34,4 +36,6 @@ u8 msm_dp_utils_calculate_parity(u32 data);
- void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
- 				  u32 header_buff[2]);
+ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+ 				  struct drm_atomic_commit *state)
+ {
+@@ -1442,20 +1519,26 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+ 	rc = msm_dp_display_prepare_link(dp);
+ 	if (rc) {
+ 		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+-		return;
++		goto err;
+ 	}
  
-+bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state);
+ 	rc = msm_dp_display_enable(dp, dp->panel);
+-	if (rc)
++	if (rc) {
+ 		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
++		goto err;
++	}
+ 
+ 	rc = msm_dp_display_post_enable(msm_dp_display);
+ 	if (rc) {
+ 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+-		msm_dp_display_disable(dp, dp->panel);
++		goto err;
+ 	}
+ 
+ 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
++	return;
 +
- #endif /* _DP_UTILS_H_ */
++err:
++	msm_dp_display_abort_enable(dp);
+ }
+ 
+ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+@@ -1485,7 +1568,10 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
+-	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
++	if (dp->stream_pm_active) {
++		pm_runtime_put_sync(&msm_dp_display->pdev->dev);
++		dp->stream_pm_active = false;
++	}
+ 
+ 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+ }
 
 -- 
 2.55.0
