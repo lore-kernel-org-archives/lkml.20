@@ -1,114 +1,123 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2E63B4EB0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AF83A2E39
 	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747108; cv=none; b=FJaMUptoqC/eGVHaa4b8OxVNcSu3fQ1UzmgE02t1lHXQ5iqkz7SkU0B1wOp+pNiwlD1aStwqzeIhwQnwgpujHuq9LwuRNRAWgYi9Mq4vQb++OkGk5E4h2ImiE4LIe995A93M7QKCsLfmHp8qgKs1xvYU/YaUY2N2BzDWvUXgVqA=
+	t=1790747107; cv=none; b=n19o0X8GmPO5gZZXgGriC8y/mJoAWnUNfmJok69sxTqG3u+hgXFz2KeerOPVs91CV/cNuqrWBlqkzFuWzk/H72o4KK/xXRKsodT8M1rl8yhb6WtZAnFbp/7YUckP8dYttvaD4Y2lZTwh4wSGdNIx4OMShUH00Imw6JxG8gzcKM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747108; c=relaxed/simple;
-	bh=bDfwVhCGhtV1v5j74Ct11DYRMo2xgvgHkiLDWkr6sr8=;
-	h=Mime-Version:Subject:From:To:CC:Message-ID:Date:Content-Type:
-	 References; b=JotjZFd5pdK66vju3zw1+8NIAdNKPS85bwruuryW2H4yG/JBHW4CTcYWIOuiv8QVwkXG8XjFU6inOEloVja5VjJGt32lUh9o96OpEkjg1ndcd6pN9Wml9x06n4XtG07Nz1k5bYG+yPWjZAd1sG3YStDSnTMqWU6xkygyTqT+m6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=hFXHPmuk; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790747107; c=relaxed/simple;
+	bh=7CmEFIcJgLXs8nB5jUFO8biLTZyyRf8lOHbDOhyyaig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oQ7nDxjhXIX35RWagPCif6JmAwcVRJkLxJW9kfFzWmMTBwEIkMiNmsIytcV2XNpo32dyOtghr5m1zTMzir5E0VVP/8Q+YBoB1VPYvnCbu3gIHvwWBj1YZcQcn1lUzih05hw3gLNFGoBT8O66+DYSj89M0BshRJ973xIP+Tmdvw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QY8SZY4G; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="hFXHPmuk"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260930054502epoutp031844f682e78d101753d209b98934a466~aAwCaG8lw0299902999epoutp03e
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:45:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260930054502epoutp031844f682e78d101753d209b98934a466~aAwCaG8lw0299902999epoutp03e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790747102;
-	bh=3jzsdyLtHQ5MZolOYlY3x6jVlWVSyruCr4hTcRaZm8g=;
-	h=Subject:Reply-To:From:To:CC:Date:References:From;
-	b=hFXHPmuk/WzD2p/MJts0x28TDiS6F5K5iAzWqfELKuSsj5h7/0GGI41IQgxq2tzAC
-	 7GHKEC1D43r+Zxj9MMYIAlxM/rWSPf/3LPcRql5Rkis1cMuAYOWCbgbMIl1h8pAQz0
-	 COiaND1y0ETbF2pTZlEnclMxkhFdAW7RSDC6kjvA=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260930054502epcas2p2bfdf130bae7923a6be66a6392f6f3bee~aAwB7mA2Q0152701527epcas2p22;
-	Wed, 30 Sep 2026 05:45:02 +0000 (GMT)
-Received: from epcpadp1new (unknown [182.195.40.141]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hvkXG2rzvz6B9mN; Wed, 30 Sep
-	2026 05:45:02 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QY8SZY4G"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so585675f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:45:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790747103; x=1791351903; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7CmEFIcJgLXs8nB5jUFO8biLTZyyRf8lOHbDOhyyaig=;
+        b=QY8SZY4GR2upaMtxLMkkRlZoEE2lI/T08xRlN5NSH8ApxehamNfn1FW3FTJIVhJ+90
+         NETdG9HjtYu8j5nGHGV9DVlMiJD4xBQuj7qBnfXPEcSDwUoc+OihC8g7gxyx5muBzeMR
+         am6YELQjhG1ZJmFQJRi5bZW4tLDS5Z//mCHn6PA09UjY/6UKE0DMWmXDCCxY+hUgIFSg
+         6DqnDrwj/EhP0TxklIgpd7Pi7rPEXUZXHREzo/u3XswpCD7O7Iq4BCzq1l+m39R0k0L1
+         iTczIstkbeBIiuxJCFftxTtb3f3l41SxKjcFM2g61ItGfNVEMNWohFM466QqlyPHiDt4
+         ksSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790747103; x=1791351903;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7CmEFIcJgLXs8nB5jUFO8biLTZyyRf8lOHbDOhyyaig=;
+        b=eSXUyph0Sy7dUrafjWRxtieOkr9qjuoqZfY/9tZ1cmZIvwQvscfEPjAgFDkvUcscqp
+         PyIsjFVO+7pcIAhEa2y5bxffReZpqDV1St6YBumSAZ0YA8mxEBoHdg6qD1LSilX5F4JJ
+         DmuwP2LqElSahRbe4T0tM3byKnhveB08YbpVs4JhHQLJveFRDCj8GZLRwh0c5KuAhqqC
+         T3od2V7EXA1moXNU09kKwmmSLQjwkvF1JZPZ1J+gKnG2MfhGzb+WZd3RISEX6sLVxJuG
+         k6d7ayNPCprtVQYZoSgv1ZJrWJ7Qrbzuw6zP5xLmfT7mSaUBuZUBCIfJk8GBTmwNY1VO
+         PsmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+cMRhCWVh+ZSU840vBHMelORAoA4NKiUm2I1hGKLj8lb6Xmxs2GE9+P84gTuyIMMXwv9ncFcRGGiIjmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILzc/M0SSHNw/nD63q8/QnqRtShsMUKZkMWOe3JgkjBp4c1u6V
+	OAskhaXHB9rAhTtGEYusk19lX5fXPmJPuAyF1LZK0LQPQ1U5aQShAYY0
+X-Gm-Gg: AYBFou0d3oCiAjm3cfe+TIpug6oKMcz/bLw6R6zgtHbl/bj91Bgy4ziwkEsi1UL7JzU
+	kWJe/JR4RuO+Ca7YTqOWll4dmJPkevC9yQ7fWzO3GE/g/t6pjsriG8b8j1ThTWT4hCkwqyEzfGq
+	Lsq7FGwplWFWO7CdR5lPBH3pCMVbhuy7LYRVcJPhsv7GYmbu6a2lv8MZff1wkh5HugEp9Dv7TYq
+	9KF8ijCC0V1B1inQN/GdvtnQUjWO5sTZcdH4Coqv3xPu+bDZd8NcmCaoB8XoVsy2JfrIRuv0Alm
+	jh7XLMVo5tTCDPXGaHIezmzMPqHQVKOriP66sKIdqaX1CWczQ5w/QuMK7OE6hykpXekO9oI11xj
+	weKCOfkqnKEXxI/M38xAQvH/J3fFrneuRA5FQTi2syVW0zdQwxzpYpa3FUTxONdCoJfhZQzV1If
+	q/XsJKd0hi2zLMduz8+kf0I1mTkU0sjWo+YL2vvnPIvhrgxpctgq+ySTWaFBo92dpTdoHty6nuo
+	A7ThNOPHyZ8DuwcS5xK
+X-Received: by 2002:a05:6000:4b18:b0:48a:f3d0:5dbc with SMTP id ffacd0b85a97d-48b024d53bfmr543190f8f.4.1790747103500;
+        Tue, 29 Sep 2026 22:45:03 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02949cf1sm770587f8f.5.2026.09.29.22.45.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 22:45:03 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: kprateek.nayak@amd.com
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@kernel.org,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
+Date: Wed, 30 Sep 2026 08:45:00 +0300
+Message-ID: <20260930054500.206988-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <5a5015bd-ed61-4ef7-a4c9-e759603c4cea@amd.com>
+References: <5a5015bd-ed61-4ef7-a4c9-e759603c4cea@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: [PATCH v2 0/2] scsi: ufs: batch device-init reads with UFS 5.0
- aggregated read
-Reply-To: hyenc.jeong@samsung.com
-Sender: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
-From: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
-To: "James.Bottomley@HansenPartnership.com"
-	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
-	"avri.altman@sandisk.com" <avri.altman@sandisk.com>, "bvanassche@acm.org"
-	<bvanassche@acm.org>, "peter.wang@mediatek.com" <peter.wang@mediatek.com>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>
-CC: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
-	<alim.akhtar@samsung.com>, "beanhuo@micron.com" <beanhuo@micron.com>,
-	"can.guo@oss.qualcomm.com" <can.guo@oss.qualcomm.com>, Hyeoncheol Jeong
-	<hyenc.jeong@samsung.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <1860250540.01790747102385.JavaMail.epsvc@epcpadp1new>
-Date: Wed, 30 Sep 2026 14:02:01 +0900
-X-CMS-MailID: 20260930050201epcms2p13ab67182445b0555acc8d27b927cda86
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260930050201epcms2p13ab67182445b0555acc8d27b927cda86
-References: <CGME20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-UFS 5.0 adds the AGGREGATED READ query (opcode 0x9): one QUERY RESPONSE
-UPIU returns many descriptors, attributes and flags as a chain of typed
-groups.
+Hi Prateek,
 
-Patch 1 adds the opcode, the request mask, the group header and the reply
-plumbing. Patch 2 uses it during device init: a single aggregated read
-replaces the per-item queries for the attributes, flags and ID strings,
-falling back to individual queries on older devices or a rejected opcode.
+> I'm having a super hard time understanding this hierarchy.
+I'm new to drawing these sorry. Yes, it's like the second one.
 
-No functional change for pre-5.0 devices.
+> Yes,d you'll still update h_load for only A and you can have stale
+> h_load for C, D, and E, and for all the tasks queued below them.
 
-Motivation: on a Qualcomm SM8850 platform with a Samsung UFS 5.0 device,
-timing raw UPIU queries over BSG (100 iterations) shows that replacing the
-device-init read burst with a single aggregated read reduces the query
-time by 75-78% (min 75.3%, avg 76.4%, max 78.5%).
+> Since full propagation is expensive, we do those propagation lazily
+> when the task is picked, enqueued, or dequeued
 
-(That setup batched 8 init reads; on current mainline this series batches
-the 6 device-init reads that remain individual queries.)
+> Note: We cannot propagate this up further because we have not yet done an
+> update_load_avg() for the cfa_rq(s) in rest of the hierarchy. Next reweight
+> will see the correct h_load starting from A and propagate it further when
+> needed.
 
-Changes since v1:
-- Rename UFS_AGG_TYPE_UNIT_DESC to UFS_AGG_TYPE_UNIT_RPMB_DESC (Peter Wang)
-- Add UFS_AGG_GROUP_RESERVED = 0x00 (Peter Wang)
-- Rename hdr_off/next_off to group_off/next_group_off (Peter Wang)
-- Rebased onto v7.3-rc5
+> Was that the problem you were talking about or did I totally confuse this
+> with something else?
 
-Hyeoncheol Jeong (2):
-  scsi: ufs: Add the aggregated read query opcode and its reply format
-  scsi: ufs: Serve the device init reads from one aggregated read
+Yes, I was talking about that. Because there are only one use case
+with tg. I'm not sure the NULL is intentional for that case.
 
- drivers/ufs/core/ufshcd.c | 364 +++++++++++++++++++++++++++++++++++---
- include/ufs/ufs.h         |  47 +++++
- include/ufs/ufshcd.h      |  11 ++
- 3 files changed, 402 insertions(+), 20 deletions(-)
+But I can't know for sure Peter can say that. Since..
+He wrote the series. :>.
 
---
-2.25.1
+> > I don't think this is that of a problem tho, and
+> > I could be missing something.
 
+> I don't even see the problem. Maybe I need glasses :-)
+
+Meh. If you need glasses I need an eye surgery or something.
+
+Thanks,
+Kayra
