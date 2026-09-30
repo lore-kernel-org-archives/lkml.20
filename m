@@ -1,127 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373ED39DBFA;
-	Wed, 30 Sep 2026 04:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E71E6399000;
+	Wed, 30 Sep 2026 04:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790742897; cv=none; b=WqyXeEIJLl74irm7tmkLbpJCuHogSkAyTcZRj3rYqzvP3F2NRE+6LFXhSP+38NpF95X8byCfFmd9uhgqgk5kccKE2iadOH93JYKOeZ9JQ/3endpYDQRfa9kNpduIbhTJVX6b++5KEAWbxn0nbFgviVNpIJtIgEsIR+zNQRCSkaQ=
+	t=1790742921; cv=none; b=L3JidtZhdTN05mJGg6tak4M7UkQGtBrzniRXsR86ZfgTMZUm59uWQfdZ4yfZsJu6S+bqAeZ3DEkq2U2mAgUV6/ytMrDgQhElhuoHRDQgJtDpG3HUYh01XTaw/qeQlif/yhtbo5P6ZJ/wjaf3onPX8ZNstk+s6Z2NV4ZdMNN3H9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790742897; c=relaxed/simple;
-	bh=/GpCwoI/WjPqxzTtccOi9AuIhW/vy6RG31Vtz5Jc0nA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nDGVzJX9AcNQaWdI0LpjZpYiFBrn8UJJuV6BI6vfegnoYaCVu18pjTaOTgO6aiRMXL5IG4jejZb3ZisIeix99l+TFwE1IwJI+WLwaTNwFTB/ebmg8YIyKFG85Z6R51xrMyVg6IFvjEl87LDacz2Gbfel10BoMzDdKPmfEHd5i3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XL87/gVM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790742921; c=relaxed/simple;
+	bh=JkHtlPokOn2BvzhlFVjlfx9DCaqfOaYocdfBH7PqihI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dtj2G8o3xfhGNLgYcmHvKQPP8GBUF4yIqU0mHUoenM8sRRDpEVfsJ+8usip0G7eXIoWQ7NZHju23v/9KhL432iUozK/Q4qA569lAqPJVx774kTy9iv+jyyrl84+yGWAdx1quPgCqvs/2AyLoxRaxcrsEZwKce8c7+oA0xCihma0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lgC6/g+m; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XL87/gVM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9D41F00898;
-	Wed, 30 Sep 2026 04:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790742895;
-	bh=qcOzCeldr19i6HEvgjTa/EgucQH9dpxOzxsu/u6z+X4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XL87/gVMAuhyrInZtoduwnj0sdfuTFZfSw2l9D64Vi+Oa0cVs/IdaPV3m032mjiC6
-	 pXYJsJ75R63Bp9MUsvlnfrio7Rd9LALoLIuWEzGKzK8+7yX+CdtXRzokb/27G33MSb
-	 4jY8LCsIIBdblGO5C5+5thyak5oXpADe3IB8vSdY1CbF+oEvPXjC1NEf/SKW6MGX2W
-	 SIEvt7Nq2L5ti1vEY34L9XdV93QHqdG0k5a2V9rrQErUvLFqxoGlj109qCaS1NE8qn
-	 AhgJOh9wXDeqHJTEgZhwWA7y3lzSm590Iyzks2ad4CiBP2ELuh1WMOZQGX6o+q6mWy
-	 iodZIuhTkaQ3Q==
-Subject: Re: [PATCH net-next v9 3/3] net/sched: pie: correct tc_pie_xstats
- field documentation
-From: netdev-bot+sashiko@kernel.org
-To: hemendranaik@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us,
- jhs@mojatatu.com, shuah@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, vishy0777@gmail.com, tahiliani@nitk.edu.in
-Date: Wed, 30 Sep 2026 04:34:54 +0000
-Message-ID: <179074289474.434549.1623558597284494175@kernel.org>
-In-Reply-To: <20260928043358.6866-4-hemendranaik@gmail.com>
-References: <20260928043358.6866-4-hemendranaik@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lgC6/g+m"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D6AF16F3;
+	Tue, 29 Sep 2026 21:35:14 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 957183F85F;
+	Tue, 29 Sep 2026 21:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790742918; bh=JkHtlPokOn2BvzhlFVjlfx9DCaqfOaYocdfBH7PqihI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lgC6/g+mujq1Di8KZWt65mHC5uA/Qzc5xT80jreFuxXslxLv02NzQrV6JYjehoAuH
+	 2P1nYefRlxZyTLzAxT6VXMQKFBlCuTP7bT5bKmsIoL0fufhFfULbvB17Y8MsgFrD5W
+	 iGRIG26gVobM8X7tH+/OJ4uUJIzt6YNGzZ9HwqE0=
+Date: Wed, 30 Sep 2026 10:05:14 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, damon@lists.linux.dev, kasan-dev@googlegroups.com, 
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 3/9] mm: use hw_pte_t for generic PTE table storage
+Message-ID: <xzlxdkrjilskjcagnl33eed7ijxrgfhoalmmmq5ks3wgjmkkhi@zchtxpr2amff>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Tue, Sep 22, 2026 at 06:12:31PM +0100, Muhammad Usama Anjum wrote:
+> Generic page-table interfaces use pte_t * for both pointers to PTE table
+> storage and pointers to software PTE values. Convert the generic
+> declarations and their MM, fs, and kernel users together so parameters,
+> return types, callbacks, and local pointers that designate table storage
+> use hw_pte_t *.
+> 
+> Include linux/pgtable_types.h from headers that expose the converted
+> interfaces. It continues to provide pgprot_t to vmalloc.h through
+> asm/page.h.
+> 
+> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
+> 
+> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
+> remains an alias of pte_t and this changes the interface vocabulary without
+> changing representation or behavior.
+> 
+> Most of this mechanical conversion was generated with the Coccinelle script
+> included in the cover letter. The script deliberately ignores pte_t *
 
-Low priority / nit picks for your consideration:
-
-- [Low] The patch fixes the units for struct tc_pie_xstats in
-  include/uapi/linux/pkt_sched.h, but misses the other in-tree…
-
---
-
-net/sched: pie: correct tc_pie_xstats field documentation
-
-This commit changes the comments on struct tc_pie_xstats in the uapi
-pkt_sched.h header so they match the values pie_dump_stats() exports.
-The delay field is now documented in microseconds and avg_dq_rate in
-bytes/second. There is no layout or runtime change.
-
-> diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-> index fef848eaaab23..445a041cd103f 100644
-> --- a/include/uapi/linux/pkt_sched.h
-> +++ b/include/uapi/linux/pkt_sched.h
-> @@ -920,9 +920,9 @@ enum {
->  
->  struct tc_pie_xstats {
->  	__u64 prob;			/* current probability */
-> -	__u32 delay;			/* current delay in ms */
-> +	__u32 delay;			/* current delay in microseconds */
->  	__u32 avg_dq_rate;		/* current average dq_rate in
-> -					 * bits/pie_time
-> +					 * bytes/second
->  					 */
-
-[Severity: Low]
-Should Documentation/netlink/specs/tc.yaml get the same fix?
-
-The tc-pie-xstats struct in the tc netlink spec still has the old units:
-
-Documentation/netlink/specs/tc.yaml:
-      -
-        name: delay
-        type: u32
-        doc: Current delay in ms
-      -
-        name: avg-dq-rate
-        type: u32
-        doc: Current average dq rate in bits/pie-time
-
-pie_dump_stats() in net/sched/sch_pie.c exports microseconds and bytes
-per second:
-
-	.delay		= ((u32)PSCHED_TICKS2NS(READ_ONCE(q->vars.qdelay))) /
-				   NSEC_PER_USEC,
-	...
-	/* unscale and return dq_rate in bytes per sec */
-	if (st.dq_rate_estimating)
-		st.avg_dq_rate = READ_ONCE(q->vars.avg_dq_rate) *
-				 (PSCHED_TICKS_PER_SEC) >> PIE_SCALE;
-
-After this patch, the header and the spec describe the same fields with
-different units. The generated netlink spec documentation will still
-show "ms" and "bits/pie-time".
-
-The commit message says:
-
-    Documentation-only; no UAPI layout or runtime change. Touch
-    include/uapi/linux/pkt_sched.h only
-
-Could the patch update the delay and avg-dq-rate doc strings in tc.yaml
-too? The same file already uses "microseconds" for similar fields, for
-example delay-c and delay-l in tc-dualpi2-xstats.
-
->  	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
->  	__u32 packets_in;		/* total number of packets enqueued */
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928043358.6866-1-hemendranaik%40gmail.com
+Just wondering - should this Coccinelle script that converted all these
+instances be saved inside ./scripts/coccinelle/ for future referene.
