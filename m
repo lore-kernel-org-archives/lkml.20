@@ -1,124 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1994CDDF8;
-	Wed, 30 Sep 2026 21:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A714BF932;
+	Wed, 30 Sep 2026 21:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804950; cv=none; b=MLwJ7FnSMzPkQvrkSV0ohsnG7lwIbYa0KKbHqszLZyoQz04VZ/HVUHiLUf9KGn54YTnMtSnNkNzs0bSS5cSbVTsQT2gyArBr0B/Rl1qB/XZA0zScxJHIWd2lf1JrKNqabEMDclc1k6V2PoJ2WUbpBgmFxZVXlekxuumstquDsY8=
+	t=1790804952; cv=none; b=eBrwQpGkL7BJjLIItf5cByZyAQ6aqQeH3NIyuGoTJE8aWij21Zkb6pQb686aqqsUs77Z5hve/SKO5mlyoLL1KITO8VQM8z4+LNqQ+6IYgjaitxiD+DJrX9Z9YYKv0C9Cm6KutAmg35rBRQnooZVsZR6VdTzXEohvWz7dzp2z0RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804950; c=relaxed/simple;
-	bh=8EKdi1Ug7yuFBXk2To/23syHRc/c4ByaL1DAe9/Ky+E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bCZZRyjDKfrVlzTfH8A7W2twW24uzIjK8pNZymlLDX61ZG8ailhByw9DLtlyELHgVnsWIoSDt9WAqseD5PhF3Zzk5qmpKsVZUxWGd8sXlDf+FJ34Nu4y1LoQWu+Kxk/0nhCgFtwHyHMoPd8MdLoU1Q2i58o2AE9pnteeJgMLb0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NeCMipxc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790804952; c=relaxed/simple;
+	bh=2k5l6LtRrBi2ihPJ4QrwUC9ZzTJmwXDTgSGZ1qFNpVA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ljze+unnoUJPctNPMhDOPHffyLs/JpJRzVilahF1kaoPyUn9bTRBxp1C6uxK50rrHEEGwCBpJnTeRs4yP/9bmatMJhFhyTkTSwQaZiL1WsBRDm3Qn3A2jlTGPeIrwv/QKFuGSu83fhzzvjsob/+IdpQ0cuH2cAHyQRkOTq6YvK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EosciR1g; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NeCMipxc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B0D1F0089A;
-	Wed, 30 Sep 2026 21:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804949;
-	bh=MQINmNITbwk/CNSnjNxxkSOViUDJsfxpMIuvPsY7vAk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NeCMipxcwj6LMsiGcZqIR0a563XhN3JS4r38Ol+Wts9EONy/7E5yQTTnueHeoba7U
-	 j89ptbpxprPB2FzoL8/eZJNIEm7C2qJ8XJwYJVCqoXc6ivo1bf3Wu5o7CEfxakUB9Q
-	 Qd6RNhlNnL/ORdeEs7x3CtI+8Qc8m28nsr66vSttsFe3UFOY2LoUIZqQQ4WaEB99aM
-	 ZNeoqMwX2GAcpBvF5EtYECuvvu2j+1mAJzNBcNQOzz4KGmgO6yGBXzjZI0uw7a9E3A
-	 hUGHSPAUIiDpdU8XtlIhXn+KmASrJSuT3XIOkseqkGpmzGMbIEdZS62OaWxiU10AJh
-	 d2L6PjeGDLK2Q==
-From: Mark Brown <broonie@kernel.org>
-Date: Wed, 30 Sep 2026 22:48:14 +0100
-Subject: [PATCH v21 04/15] KVM: arm64: Ensure GCS memory effects are
- visible
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EosciR1g"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5BD7110709D;
+	Wed, 30 Sep 2026 23:49:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790804944;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=nGkVLFh4t1/duKSh5UdjNw/Yth278XKTFrmEUlELumM=;
+	b=EosciR1gI97ZJNuK6lrn0GImUmlmIuHdU8v5TNXFFsOGPPBDf74Wx3PvUrE2V7b1W0yfat
+	7QbAILUNAKBddNzuiLY8Ztq2Dr71Y6hontqdji74WqPB4ucP3AMEYnWNN7cV5QoWhFZaWE
+	gU+PjUoXMvcCUDmR75c9OtqI5ruT+S68m4xgd0XfPyMiVog0dw4BVehfwY5R8eOdzmps2j
+	+4nT4VWT04iFVDS83fof/X+tn9Q0eQ70vh16sh5FfOSC48G5ySpuKXXT5kIVwT46AtYyZ/
+	/O4ttEd8fuHGh/jY4nyvK2L5hhftjaptATMz2X2M9P9r+hwgMkrejGhSOY9Qew==
+Message-ID: <4efdcea6-a099-46a6-8d07-dd5c583b962a@nabladev.com>
+Date: Wed, 30 Sep 2026 23:49:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+ linux-arm-kernel@lists.infradead.org, Aswath Govindraju
+ <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928204741.175754-1-marex@nabladev.com>
+ <20260928204741.175754-3-marex@nabladev.com> <arvPDq8sjjv7na01@SMW015318>
+ <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
+ <20260930174413.GA2463938@francesco-nb> <ar1bhpji35CbArtY@SMW015318>
+ <17f240e5-9c65-4562-ba51-535b0c69c5fd@nabladev.com>
+ <ar19W4wX07p8u3_5@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <ar19W4wX07p8u3_5@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-arm64-gcs-v21-4-3556644cd927@kernel.org>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
-In-Reply-To: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
- Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Peter Maydell <peter.maydell@linaro.org>, 
- Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
- Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
- linux-doc@vger.kernel.org, kvmarm@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1978; i=broonie@kernel.org;
- h=from:subject:message-id; bh=8EKdi1Ug7yuFBXk2To/23syHRc/c4ByaL1DAe9/Ky+E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqvYO2lipkyHOAo94DBt+ulXEk70NYLNaxmaxSl
- 7R8oCTkCCmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar2DtgAKCRAk1otyXVSH
- 0J3fB/44lYnNfRDOffasRnt5hOdIs89T8XJhvgnEQHSoFjXZrw9IM+hhtpww/uwBZJ0i0IA1IV+
- MG4rLX+1/47Kh5xncPILkT/oiLmyAmOrYDBB6zW7c+YTMhPBKUF46VwkCO7A6duNPyQxW+o3tR/
- i3M1aqDfaOcK59K3IvKp2aOBzgQmVIwhg+k8hRez08dlaTdRSMxS+wJPyzsGPtWa827cbiXlTy6
- 0Oc8pV47WgzJmQTGIOIaKLlUSnWLDACXEo06GBjvTY/BOqDaFizcSjRoSxF0KgzQgjvn8B+yjTD
- GmRHEMXpNu2Ibol12loW2NLG1ZbkD9hQ3ewAUP5zfC9k7DxX
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Last-TLS-Session-Version: TLSv1.3
 
-In order to allow efficient implementation of GCS implementations are
-permitted to do GCS specific caching, with barriers implicit in stack
-switch operations and GCSB DSYNC as an explicit barrier.  Since we do
-not use GCS in the hypervisor or host kernel the hypervisor cannot rely
-on any barriers being present in vCPU context switches other than those
-it explicitly inserts.  Add explicit barriers when loading and saving
-vCPU state.
-
-Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-Reviewed-by: Leonardo Bras <leo.bras@arm.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- arch/arm64/kvm/arm.c               | 7 +++++++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 7 +++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 8b080804bc90..52f53f682e6a 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -755,6 +755,13 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
- 			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
- 	}
- 
-+	/*
-+	 * Ensure any GCS memory effects from the outgoing vCPU are
-+	 * visible elsewhere.
-+	 */
-+	if (kvm_has_gcs(vcpu->kvm))
-+		gcsb_dsync();
-+
- 	kvm_vcpu_put_debug(vcpu);
- 	kvm_arch_vcpu_put_fp(vcpu);
- 	if (has_vhe())
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 9a3b92e626ad..534db037c5f6 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -261,6 +261,13 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	fpsimd_sve_sync(&hyp_vcpu->vcpu);
- 	sync_debug_state(hyp_vcpu);
- 
-+	/*
-+	 * Ensure any GCS memory effects from the outgoing vCPU are
-+	 * visible elsewhere even if the host skips syncing.
-+	 */
-+	if (kvm_has_gcs(hyp_vcpu->vcpu.kvm))
-+		gcsb_dsync();
-+
- 	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
- 		host_vcpu->arch.ctxt = hyp_vcpu->vcpu.arch.ctxt;
- 	} else {
-
--- 
-2.47.3
-
+On 9/30/26 11:21 PM, Frank Li wrote:
+> On Wed, Sep 30, 2026 at 09:29:34PM +0200, Marek Vasut wrote:
+>> On 9/30/26 8:57 PM, Frank Li wrote:
+>>> On Wed, Sep 30, 2026 at 07:44:13PM +0200, Francesco Dolcini wrote:
+>>>> On Tue, Sep 29, 2026 at 05:20:27PM +0200, Marek Vasut wrote:
+>>>>> On 9/29/26 4:45 PM, Frank Li wrote:
+>>>>>
+>>>>> Hello Frank,
+>>>>>
+>>>>>>> +	backlight_lvds: backlight-lvds {
+>>>>>>> +		compatible = "pwm-backlight";
+>>>>>>> +		pinctrl-names = "default";
+>>>>>>> +		pinctrl-0 = <&pinctrl_panel_backlight_lvds>;
+>>>>>>> +		brightness-levels = <0 1 10 20 30 40 50 60 70 75 80 90 100>;
+>>>>>>> +		default-brightness-level = <7>;
+>>>>>>> +		enable-gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>;
+>>>>>>> +		pwms = <&tpm3 3 5000000 0>;
+>>>>>>> +		/* Disabled by default, unless display board plugged in. */
+>>>>>>> +		status = "disabled";
+>>>>>>> +	};
+>>>>>>
+>>>>>> The both backlight is not used in this dts, can you remove it and
+>>>>>> add these when it real use.
+>>>>> It's the same thing we do on the other boards, so I would prefer to keep
+>>>>> this consistent:
+>>>>
+>>>> I agree with Marek, and I would not use the criteria about being used or
+>>>> not.
+>>>
+>>>
+>>> Others boards: some has dtso, which use it. And krzy have some concern for
+>>> similar case although he have not reply alex's answer.
+>>>
+>>> https://lore.kernel.org/imx/30599533-91de-41fd-9420-3f8693ec92ac@kernel.org/
+>>>
+>>> And it is most likely go through nexus connector node to support display
+>>> panel in future.
+>>
+>> I do not think nexus node will apply to this connector, no.
+>>
+>>> So I suggest remove it now and add it when need.
+>> Can we please go with consistency between these boards from one vendor ?
+> 
+> Yes, I am keeping consistency, then ask remove it. I applied alex's v2
+> version. I put v1 link to show krzy's concern.
+> 
+> https://lore.kernel.org/imx/20260319125013.2421621-3-alexander.stein@ew.tq-group.com/
+> 
+> Changes in v2:
+> * Changed commit message to imperative form
+> * Remove (currently unused) display and backlight nodes
+I sent you a V6 with those nodes removed.
