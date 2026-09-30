@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A6D364059
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:05:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04DF3F23BF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790802332; cv=none; b=PfBn5mp9/HLI1JokJ9wQvJunybp+PN2hAInihdMYOHeqnlvp27hk0rGTfQcNGz35AED+VWYsa6DK4h68WVKk95euLmbSvf+5mE66MlYi9tM1CY2G61MdcB/uB4RyWsOI0Cy1B8/FPt3ktXEw/d6ujM9KxQZdl+vFf3WfuG150Lk=
+	t=1790802346; cv=none; b=WsSfNhuU++NW1y9lnusxSMvbvO+sl+psGWJbNpAxuI3Dc/TrFQtL5fLOGgr3lCetKGG2S2WCNxWfJqNbE3ZImKOAR2wq186g+5F4oVu5FN8twT232VSanoCdxJaM9+J1wknNZn3yBu84XUrzkr+uCZi1yaSEJOwGFKvxagNGDAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790802332; c=relaxed/simple;
-	bh=NnElHm8Q6l/bSL8TEHAw6Ax2AIHtYbElSbr4X4CfGgE=;
+	s=arc-20240116; t=1790802346; c=relaxed/simple;
+	bh=ER+F3xEHsxIRSeDhr0LK2pONxqBKiVac5jIT+RvNPAk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WmXSD70DHe5ZmXHOjbapq19HYK/HXIS1bB3/itmXaWChy2bPqcCFTalhtYb+L5NCsUN2pGBMUnKRbKVE7B5Ge6EULcHjxzWgk4uoGRKqpfvIHno22Dlopy55MJ+pVxVBdLLFtHB0pIV9IxdY6fMGR9ftlReKJvWJY/8262zKxg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbXsixIz; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ADzVu2aJd7i9NWlKvJ3gob8snW1JkPokxvkUVWZSj5UYOSJkiBqMQ/hr+55syMC5TqE3vqFskSlc+JKbXgh6lARkUfhQI7nZe8H+F3+kbfnydmrpSf7GSO1Ba5WF+KnggXq0wZQF/0xicwi/z1L98PVv7yao5ZvE4MgGPrydzDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNAMFkfK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbXsixIz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80631F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:05:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNAMFkfK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1C731F008A2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790802330;
-	bh=NnElHm8Q6l/bSL8TEHAw6Ax2AIHtYbElSbr4X4CfGgE=;
+	s=k20260515; t=1790802345;
+	bh=ER+F3xEHsxIRSeDhr0LK2pONxqBKiVac5jIT+RvNPAk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cbXsixIz22YnxWg62ghrtkjUOdJLcgXnVpmTb8z8xTtrRaGU0y8whehPZXe8vj6X+
-	 h2xrH3L5dnfvooQGig+P+kWLSYPD0JABXTcQePkc4P/DyMZdccK54iAC3blvx9yk/B
-	 4sogQcidA1KhHDlnvcw6Rk5jsUdiJGE9rTktUXcVl0Dx5DakSwF5oKNpIlayGT6kwL
-	 qPALo/Sj7rOktyRrSHneGTHi6meezj13osm4SX325c7HrNzHMWKZreVT9C5p52Qjw8
-	 QmHm5qo6ty2MnpuxxqVoi5T++9LUhjtnWEYwulsGO3mJXDVPf+AqK9ASPFlio3a92d
-	 EsBOvbRPRUAcw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330dbd67so1953965e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:05:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwpsKZP2ouXJfZ1Ml+9K+5olHV2Y70d6GXfgPeudJK2oaCrRlI3xVpLeWRBXgIlGLDXLtA4+xtdIdOe3BU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjORIMcvfkIQU98Rlbsl0xXq62newNfuWVSbQgR+Nq0IYqMji7
-	XHyVuHcL9hlRGIYUtAFlPsJblL/SYo/0p4IyDF8HgGbGV5uuMYeR/DzPFlXHJWVOEt1Ec711hht
-	AH9QTCwwQq9PEa7Y3uTqCfWpLn1Iflgk=
-X-Received: by 2002:a05:6512:244f:b0:5ba:4372:9250 with SMTP id
- 2adb3069b0e04-5ba4372938emr211234e87.4.1790802329621; Wed, 30 Sep 2026
- 14:05:29 -0700 (PDT)
+	b=nNAMFkfKSs18dBdBOKggDv3f8LGpv1riN+zyKRjgKs+/NhZ/yTkTCFyWj7B22ZKgZ
+	 zI+71q6eAXZaGZ084OInR4ibiW3ae1Dpi5SWyeFLE1wi+cqfJBO0/ITV6vhIkhSDfI
+	 gqV6rxdTBrW8K/AW6S9u1C8Yjvg9hPGUb7ANg4Vx5Qxw31Arv7Ujr0QZJzBA+8TCMH
+	 S2CNF1m8542qb0q555ADOxWVin6xEh46H/mXQsTBrbZxl3jL4QQUOFeWKTpFlMsRFZ
+	 2KtqPUFH8HAQvBSMaPImUHbqGLGJbhT34I69LAv3TFVHygpvHUggQJICH2qgm9NkCL
+	 xnKA3+tkcAfHw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e6ec4dd4so4567767e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:05:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwz273yQTeDxnM8AlUaZfUYmIroouGf3FrzpTPmcgfURKS3QlywyrxsreXOiP4bxhsGquiry5+66TIfdDg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnvbBbHq8WcRUYr8/cIPT/DsgRLb/9qvb3uTK8TDk5zY3mzozJ
+	ctKVaXnzIQoUVgnEEJe91dJu6Ktu74RwNiaTQP98e0YgdggoDrmmSQ55AMSwh/jL2eXp2HVEEPy
+	LLz4dMDWMken8QalpDGMJ6tVFGmNQ9IM=
+X-Received: by 2002:a05:6512:239f:b0:5ba:37b8:863b with SMTP id
+ 2adb3069b0e04-5ba405d871cmr1080051e87.24.1790802344493; Wed, 30 Sep 2026
+ 14:05:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,10 +44,10 @@ MIME-Version: 1.0
 References: <20260918161407.2300-1-will@kernel.org> <20260918161407.2300-12-will@kernel.org>
 In-Reply-To: <20260918161407.2300-12-will@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 23:05:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn4Wr+WqQkRweiVa-w-P_U0pMUeQznDWy_h=62FhOJXag@mail.gmail.com>
-X-Gm-Features: AclHuK_03X4xHg6tnkdKzchIyjnd1uMf9JvGEWQecl5CNy_dFoxGynGup1si1S0
-Message-ID: <CAD++jLn4Wr+WqQkRweiVa-w-P_U0pMUeQznDWy_h=62FhOJXag@mail.gmail.com>
+Date: Wed, 30 Sep 2026 23:05:32 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmt=anvUFgBiJ+_fCanJNDUjYBXTnzG+5RznVhSRPLssg@mail.gmail.com>
+X-Gm-Features: AclHuK8POyE_ScdYrWu5hccCf2RiateK4KazdH0tAmqAHtpYIkfp2xNzMS6U_C4
+Message-ID: <CAD++jLmt=anvUFgBiJ+_fCanJNDUjYBXTnzG+5RznVhSRPLssg@mail.gmail.com>
 Subject: Re: [PATCH v2 11/21] arm64: percpu: Annotate __kern_my_cpu_offset()
  as '__always_inline'
 To: Will Deacon <will@kernel.org>
@@ -68,3 +68,8 @@ On Fri, Sep 18, 2026 at 6:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
 > upon to detect stack overflow of the overflow stack from noinstr C code.
 >
 > Signed-off-by: Will Deacon <will@kernel.org>
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
