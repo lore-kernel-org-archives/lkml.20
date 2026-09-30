@@ -1,64 +1,64 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF094DF4D5
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:33:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834ED501285
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775206; cv=none; b=EZ1HR6+t6EdhqNw0T+3wa5pAMsY+FonPcBf24KRCM5f5jEhVj2M448q5lckhABUm5ahAqcqA/kWao3YNaElaOcnkd14XL1tKS3gle3JI3+S4jyYhTwpH8sCrxWRwOUtB01jcIWx3T6DN2zE4Hjj/1BzHTddmCBqXlFDcYtOenjw=
+	t=1790775207; cv=none; b=Xwsn3WmmkDmHM6AetfppGk94Z2gzeVFF2rDddt0BpTLB2QbnHIJsOdP2qpKNKrQTZnL32HCGhWTTIPnsv6DPaQ4LTSPoUTOgtqvcrG7j1LYrinPvc0Ipaz0sd6xnn0NYtuHayL0rBN4NEkA74zjtyya3pwsCf1z91jQwYM34QsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775206; c=relaxed/simple;
-	bh=SXlI8Av0KYoaTnh5jzSGQ7M7fkfdI7Vgy3B40ojVtnw=;
+	s=arc-20240116; t=1790775207; c=relaxed/simple;
+	bh=g/NfNryed5nJATsZ/Sc/dWvIbxA6MU6lclvCcljG50c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bW0Xn0Yp88QZgHB3+vp45fbddlRMNfp7sowjWQpi8P1BsmPu+rP3bet6ZyYlpQzY5qlBUZlb+hL06Bip0eZn51OpHM4LnNL+QOqb5Qkgwx1a1WHzBbTmdvMgiW9Xyqut/rjyrmo5zhCuaY1Z6nrkbjhLSHV1rVWKp4VTSJxviiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9jlApku; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=O3VvH23gU0lWhfeCCKXHCPAXFFonzZlbCnpwzUdHaOJPaRcmhpl1fFZykBC4jbrzUTDfYjYJKlAvCCNA6nze8i9GbB5sAQ78376k8S6LQQDsWkBU/MvsrfHgKQqTov2HLxkGU+c6INyp7hGQeA88Ku70Na6cZvjT3/0Nj7jkoXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rdvC4O5x; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9jlApku"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso28484795e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:33:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rdvC4O5x"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso173193f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:33:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790775192; x=1791379992; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790775182; x=1791379982; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2y6B9VXRwFEy3hkzUoBNwYL6oITXdFH2s65QIYGL97c=;
-        b=o9jlApkupbbWSeHqVsR7llRvLIMVKzw1A1QDNi0YnyUBZy61EyRVP1Fdcpk7z6lGM5
-         s1ArlPeJxTAtsofS0cGeuoiSQK5qS4L44ReQ7N+bQxb7NAov5qmYoGKiN/8ue7xzTETL
-         VoQuAhrAT/Cl4vaKcADHa26eGxrqS3neeOxFsAw6OU0KOYjnq3xnku/kHjuDaJ0KT/89
-         9cqpVJmt3MWeXYapNWNikw3Lk3OyCVSNjWWtyDXu+k0e0po+oEfdBz+Od2tJhNcLjr8P
-         1RwhnQkvgvj/Y8fr+7r/WIwLeTVy/AUtsGwmxPS8TCeZYkBdjxf9xh3viRFXNjkslOvq
-         zksw==
+        bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
+        b=rdvC4O5x5wICJIerGi5cDi2eD8btx7VGreGIV+g9p1ZlIqfslNXkbbpfyujbmWgi16
+         O4qKts6YItvLNvrcUJEOOaoCEM2KU7nTrIdsTPPJFkJHeimPDjIm7FcwHINFonSnADMH
+         Kvvyvyh05HKCPoTMjhA/3REQ2AZMTnWDk9UR4SM0xgHsGcUkG69rUOrfaa+3sdiOVUC5
+         ZmdfcKN2d9s9qWx/1lYpLTzb9lgc8t6Sxom5I9wocm7zjcivtn0AVR4JcER4S+GkMwVp
+         o/hADiUTqC3SBur3VN9NEApAwK+7SK5OUpW6YtKG/dfJhkjERp3Hoa64xtK8LSWyspvz
+         LN2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775192; x=1791379992;
+        d=1e100.net; s=20260707; t=1790775182; x=1791379982;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2y6B9VXRwFEy3hkzUoBNwYL6oITXdFH2s65QIYGL97c=;
-        b=J4T3uhDMXmy5ArqqAFsmdxhOQwhTuuR4NxMRHH7KmJjPhmoqKPqZFZcOm96hXK9z/j
-         bGBGItJxaz+8Ucg9uQ7G7IBDEMStQ2teFChAQmUPTvjN8IwMBJAQEYkAyJG2P2ibk6P0
-         yi2+de39pjpDwWBocSyHX37F/qTyThMqkn0SM3aO3Z0+mOr38IZ3cFRxM19ormfOX0U4
-         WRe3BWGj0euqcDHO+N1huBZKBkv3ILrsBmvqS8wDsKnVOH43bE50aG9EeFYzoYgU/oYs
-         pfEvPcqBLntOA+EuUHKnejXwSF02ek6caOPPw/qHDTIKzvSte+ZBq8v+CQMCUzzlb2LI
-         EISw==
-X-Forwarded-Encrypted: i=1; AKwUvBzg3YqHe7t3qkQ5YwjGTBXzIPs0Kz2mfKCMPhD8JfcEqYFSbv4sSq533nUrLGr2JMbu1Hiu2UeZ+WDZRwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBErv23+0GHD82wo3bErdFbgbzPDHPwjgyBxGKbCgEMiH/iBjI
-	yxthuHNBmA7+M+dd8DoxFod0fKqUikFd1ox+tCpyv2+/qSW0K8GhU/9g
-X-Gm-Gg: AYBFou00wyg49J5M9ojRGP/wcNINM+xvVvMfYGHl/hXKOnkfYOgMxgqOEVq1tZN27MQ
-	N1VY6H6VXIO02QeMNdp+2RgEobSWiN/miR1eOSL37uNgvAnnk54B0mJ3hiNiYOyj5QLh0mGpEkh
-	eELtLTtsbpq0qzHHBmTXr7AAQyDj4fdHxNEldO11XKY3pVB/arw8Eq7LRtPRl7EJdy9j1IDLhUU
-	RYe3gWqK3kI7t6DVIEymLibWv5FfqME+wg6puzX7fcc1p08/A+JDZRE7/pPxYckB6zkaDjEYakQ
-	Kcogd+pCUl+LtEN1YvTARGYQrvp6CoBuQ6jBN+DazcF0fIOkfc0YeutUYFvK09pChqO8gQPaHnM
-	gdAABCJQAWoM19UaRkZ5zOdTYxmzG2HQERr4AeD8H3ZG7D7OOn/40m8493T2k7/GBmSfSmir19e
-	NGkmiqX8OSnAHG/IgJoh3JzfHGEp1FBK0ZdmcVfKvaZirIXg8HXKg0z1DyBaXnQdVZxfUrdPIzR
-	SLn3vq8K2GC5uKYYzChF5o=
-X-Received: by 2002:a05:600d:8648:20b0:49e:6249:268b with SMTP id 5b1f17b1804b1-4a01b12ec83mr18270695e9.32.1790775192075;
-        Wed, 30 Sep 2026 06:33:12 -0700 (PDT)
+        bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
+        b=ATIV/8IVC/AcIo2AOqBFmuI05L0ppPum3EA7352x08BfJRea3z8HK1WxylkeOVFiJ2
+         Ed4JHo1GDTXcsSE9xmOMomOLTHC4onydFDTIV/A5GvV3K3PZSNYgnFLbS5VSIUfGGRxd
+         fpmuOB/RZIfYMLzp+vndSxE4DJX6P9qD3nj2r+mQGx/g44w/ONgcj7EqNIEuewIw0Fpk
+         PUKZz8po6gNp+olvtSJTeKdfc3Kqi7e7+Wvl9sjY/WhK3s3uTuxdDDQwf9WNdshJ5J9j
+         FH08jmaQVoshvlumFiVHItXYum5ghPeLiWMhh+vWZ5S9dVeRLXUiJUY8GZedIcqL5hh+
+         spWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+/RsKys7pVdMQI3NlQwm8arRJdUlcKqF2fYp8GzYZHzaCQrEckbl7ZdVWNrfyInE8uklJLCWDZb77r08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcIgdPMEV8SifGYA6SeC4Yp9W0pSdTOQ+ZWXsMkQ0gQz28B5l5
+	ZGJlO2TNBUcp1d3i7gqHCNKjGSIclvJgNsfb7if5isI76jJRuPu6fJFo
+X-Gm-Gg: AYBFou0clEs8r4D995zb5KVdCi9586ACv8uIrVgVHqSjmoN2OFpZItD1vjMmcTmz2+h
+	M07Ndh1UF9a1owaR1n4I1/s4bF72GJj1/T9cDO3ZaL54oSofkIyDgdSWFgZhittD+pkVN1si4Q4
+	7IV5olVsLZDigxKnb7Jucf4Da/COnVAd0MS04yu6LLeMvwSH57IbiLX1+5MY7J04zI1w4gvyPge
+	VpHZYbPPdftUHrj7rQxozHCaqME0AZloEegFPSyzF4jwyS721AEbYRxxjJu5P+1Wx8GAwHJAtNs
+	ulXCdAAu9oHQjPknfsg+xPxS8rIFtICAz6rSKH0DVdElBWF9h6Qsuovj9ZLzbnZ8kQvElMtj1MK
+	u1TLZ72VMzKrnoUk0zqGhyeULYN1IA/9kEJipnIv+aFfAIW5BqI+2vvYdlkNFaUs2/oM4losQJ1
+	6AmSp2lM8XjMefFqw0+JlCB5onPFFnD266TlFdiOJd4omzh/GwY1WedlnDg4p6yaANuiliz8NNE
+	X+x9QSWSy2iXJBL+dYFER4=
+X-Received: by 2002:a05:6000:288b:b0:488:7ace:9c5c with SMTP id ffacd0b85a97d-48b0250c66cmr3650138f8f.23.1790775181803;
+        Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a702:d301:bade:1500:bcd:b3ec])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 06:33:10 -0700 (PDT)
+        Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -66,18 +66,17 @@ To: Biju Das <biju.das.jz@bp.renesas.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
+	Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org,
 	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>,
 	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH v4 6/9] drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
-Date: Wed, 30 Sep 2026 14:32:48 +0100
-Message-ID: <20260930133257.23210-7-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v4 1/9] drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+Date: Wed, 30 Sep 2026 14:32:43 +0100
+Message-ID: <20260930133257.23210-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
 References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
@@ -91,149 +90,56 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add Display Unit support for the Renesas RZ/G3L SoC (R9A08G046). It is
-similar to the one found on RZ/G2L, but has LVDS support.
+Move the DSIDPHYCTRL0 initialization value into the hw_info structure as
+dphyctrl0_init_val, allowing SoC-specific D-PHY control register
+initialization to be defined per compatible. This prepares the driver for
+supporting SoCs that require a different initial DSIDPHYCTRL0 value.
 
 Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v3->v4:
- * Updated mode_clock_min from 5440->5400 kHz.
- * Collected tag.
+ * No change.
 v2->v3:
- * Set duty cycle handling in DU encoder
- * Added min/max frequencies for DPI.
+ * Collected tag.
 v1->v2:
- * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
- * Dropped the variable rcdu from struct rzg2l_du_encoder.
- * Dropped the variable lvds from struct rzg2l_du_device.
+ * No change.
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 24 ++++++++++++++++++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |  3 ++-
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  | 24 +++++++++++++++++++
- 3 files changed, 49 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index 3d13f61d3c97..adec94a55407 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -55,6 +55,26 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
- 	.mode_clock_max = 83500,
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 0590ade96b91..2128fd16ebc9 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -56,6 +56,7 @@ struct rzg2l_mipi_dsi_hw_info {
+ 	} cpg_plldsi;
+ 	u32 phy_reg_offset;
+ 	u32 link_reg_offset;
++	u32 dphyctrl0_init_val;
+ 	unsigned long min_dclk;
+ 	unsigned long max_dclk;
+ 	u8 features;
+@@ -493,9 +494,7 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	}
+ 
+ 	/* Initializing DPHY before accessing LINK */
+-	dphyctrl0 = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
+-		    DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR;
+-
++	dphyctrl0 = dsi->info->dphyctrl0_init_val;
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
+ 	usleep_range(20, 30);
+ 
+@@ -1531,6 +1530,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+ 	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+ 	.dphy_conf_clks = rzg2l_dphy_conf_clks,
+ 	.link_reg_offset = 0x10000,
++	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
++			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
+ 	.min_dclk = 5803,
+ 	.max_dclk = 148500,
  };
- 
-+static const struct rzg2l_du_device_info rzg2l_du_r9a08g046_info = {
-+	.channels_mask = BIT(0),
-+	.routes = {
-+		[RZG2L_DU_OUTPUT_DSI0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 0,
-+		},
-+		[RZG2L_DU_OUTPUT_DPAD0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 1,
-+		},
-+		[RZG2L_DU_OUTPUT_LVDS0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 2,
-+		},
-+	},
-+	.mode_clock_min = 5400,
-+	.mode_clock_max = 87000,
-+};
-+
- static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
- 	.channels_mask = BIT(0),
- 	.routes = {
-@@ -81,6 +101,7 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
- static const struct of_device_id rzg2l_du_of_table[] = {
- 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
- 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
-+	{ .compatible = "renesas,r9a08g046-du", .data = &rzg2l_du_r9a08g046_info },
- 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
- 	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
- 	{ /* sentinel */ }
-@@ -92,7 +113,8 @@ const char *rzg2l_du_output_name(enum rzg2l_du_output output)
- {
- 	static const char * const names[] = {
- 		[RZG2L_DU_OUTPUT_DSI0] = "DSI0",
--		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0"
-+		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0",
-+		[RZG2L_DU_OUTPUT_LVDS0] = "LVDS0"
- 	};
- 
- 	if (output >= ARRAY_SIZE(names))
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index baf076d69cda..e9626ef37cde 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -25,6 +25,7 @@ struct drm_property;
- enum rzg2l_du_output {
- 	RZG2L_DU_OUTPUT_DSI0,
- 	RZG2L_DU_OUTPUT_DPAD0,
-+	RZG2L_DU_OUTPUT_LVDS0,
- 	RZG2L_DU_OUTPUT_MAX,
- };
- 
-@@ -33,7 +34,7 @@ enum rzg2l_du_output {
-  * @possible_outputs: bitmask of possible outputs
-  * @port: device tree port number corresponding to this output route
-  *
-- * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
-+ * The DU has 3 possible outputs (DPAD0, DSI0, LVDS0). Output routing data
-  * specify the valid SoC outputs, which CRTC can drive the output, and the type
-  * of in-SoC encoder for the output.
-  */
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index 3d0999e4fcfd..a1b48973aa8e 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -7,6 +7,7 @@
-  * Based on rcar_du_encoder.c
-  */
- 
-+#include <linux/clk.h>
- #include <linux/export.h>
- #include <linux/of.h>
- 
-@@ -15,6 +16,7 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_panel.h>
- 
-+#include "rzg2l_du_crtc.h"
- #include "rzg2l_du_drv.h"
- #include "rzg2l_du_encoder.h"
- 
-@@ -64,8 +66,30 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encoder,
- 	return MODE_OK;
- }
- 
-+static void rzg2l_du_encoder_atomic_mode_set(struct drm_encoder *encoder,
-+					     struct drm_crtc_state *crtc_state,
-+					     struct drm_connector_state *conn_state)
-+{
-+	struct rzg2l_du_encoder *renc = to_rzg2l_encoder(encoder);
-+	struct rzg2l_du_crtc *rcrtc = to_rzg2l_crtc(crtc_state->crtc);
-+	struct clk *clk_parent;
-+
-+	clk_parent = clk_get_parent(rcrtc->rzg2l_clocks.dclk);
-+
-+	/*
-+	 * Request appropriate duty cycle
-+	 * - LVDS path has DUTY H/L=4/3, 4/7 duty cycle.
-+	 * - DSI/RGB path has symmetric 50% duty cycle.
-+	 */
-+	if (renc->output == RZG2L_DU_OUTPUT_LVDS0)
-+		clk_set_duty_cycle(clk_parent, 4, 7);
-+	else
-+		clk_set_duty_cycle(clk_parent, 1, 2);
-+}
-+
- static const struct drm_encoder_helper_funcs rzg2l_du_encoder_helper_funcs = {
- 	.mode_valid = rzg2l_du_encoder_mode_valid,
-+	.atomic_mode_set = rzg2l_du_encoder_atomic_mode_set,
- };
- 
- int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
 -- 
 2.43.0
 
