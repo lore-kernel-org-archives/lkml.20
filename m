@@ -1,163 +1,138 @@
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020141.outbound.protection.outlook.com [52.101.195.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC754E324B;
-	Wed, 30 Sep 2026 15:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782663; cv=fail; b=ZCo/wuK5rDLfEtKejq1n657QWbVxUkQ5ZCLG/NriKuhpxPBRb8/OSbeG42NQCnVxtkYcVZwRmLjLtm5nKB0GJ1RvPQAbeyk+EwOUpYH+jLu7BW5wJQvp49riXfH/aSGNSZC0TGiVN93ZZakix2EbyX3WqRJK0/itrbUIwSPyJKg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782663; c=relaxed/simple;
-	bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=fO2O7k7urXGcPutHQukCl4+Bdcn012vgfZpzxQ2WMnFvDSIWJg7hbhEC2zj/Et7mJwgl94ypaHszQknq3tsIn2LDdaRmL6n2Wm3m38fXkueUMrVHuMMl54mttON/OLarD47Q9L9iI8e6cmV12TL8J53xbG84UTk7mwqGzOLM0FU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=SUa/NJAp; arc=fail smtp.client-ip=52.101.195.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1425750B419
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790782695; cv=none; b=R65gDcjsLsXoV+tct2IQUfJ4B2Yt53hFN/tGvE9vwUivcqd0vEmZONS+2hX4MkwVjb49zsraCDhAchr93CkT3y5g9zrGvPugszBtOl2RIyA3IZqD27SGaIRRmGWGnJTVBGJ1HSxVkzxXf8wNnpqPeLsZbKbtAArh7V2+i4A4UdE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790782695; c=relaxed/simple;
+	bh=R2qfNGD51dMVctCpDDzm8hhEzYp4zt7svoW4jPA8eag=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2t1oHoBJJs2kmCNnj5woXJO3F8LBYH2M95BZmjV77b1kaPoQZ/5mVjr0fWEdw5+lBiOyxRX58Y2u0er7jp9QTm4E/TOwyHTLvZZ8mBCmGRUXG8tn8WXgrJtQZ6qn+y1m+ETbfoHc0dlEQGMUliZ5LmgSgU1ryKFKM29JNjw8CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOF+5HdU; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="SUa/NJAp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jQp4wC4rqkP9K5+P2hghrkG5CS5huUnEghGPm61lKpZidpCAXzj5njWz9kfjYS1Th6g2Qq1Q+7ebHDQOFdnn8U69No9zHWqhrVT9scYz/MevwSh1ynYbI1ohiEsjdSk0iuE5Ggt1dRKr6bMg8UR11LkYhyBaPJkq0DRvGVQvZhQCQvvz32G/AzTv8nD/9NA/4mreDQbV8/xhLPrTMJaO8hhl0L862Gp6PL6XsQjKBhfPtxxaD/bob57lbCJWCBg1TQaflNOPpDLFbBguxLCTyMrXzL5zeingqw73y8ZGWc6I2v8evIdgk3EmboNE/pOjTORJ2hN/a/4gkUKAghOOYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
- b=YwgsSMgGf6DMxsWWeFFQjl43J0gfyKwGt1g+EQ/mZQFml/mSDHP0fG7ck7Hi/vkfdk2SFG0VguPO2L3DXsATAnvIHWprtUHd7U2bAzEDn9jGeVjeqBYPLDYaq+Tqntp6JU5qz9y9gImMR3KisvwNjFRODtQmaDDdU5r35E0KBsB2bRfkUnH5kP4wuXhlzDB++Sn/eE3qK3MYDV3Pp9eZTZpwimvn+1teEhchPz0kFch2JVDmeGlLF8fwdC87Z4P439IrNLt9aFJqtohroIoV+ODai5mn1TOsTOfr1ts5/mCkQJVmPGNiDksD03jdI+8Ne4B6cTW3C88XSfNMyXCh2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GHm++a8Yj7uLZczo8tFwcZDOndoSyenTGhgJ+k4ejkI=;
- b=SUa/NJAp7GVDzZ5fFROdbdj/0aUTT41qYXgpDhUPT1i8AeShSKPDRnqjgvlL/2/02IMQDb8pRRT2KoKoQ4Rg0/+Y9Nq1mfsEzPbkDrl5VenWFYFnYGYy47JEDKrTy2JX5vBcgCikk0wd8+R5Ij7UW/OIUd4aWgxbHPsWVQj4ljE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LNXP265MB2428.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:137::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 15:37:28 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 15:37:28 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 16:37:27 +0100
-Message-Id: <DLSRGVBPWMXX.1LAWUQHDYKLCV@garyguo.net>
-Cc: =?utf-8?q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, "Luis
- Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
- "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
- <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260917051147.98775-1-tweek@google.com>
- <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
- <DLSOH1EVCWKD.XEIME3CYEYYJ@garyguo.net>
- <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
-In-Reply-To: <CANiq72m=rhBDJSSPBZ3yXb_r0jiCq7f8KOy+Fs1k8SzWJUwkhw@mail.gmail.com>
-X-ClientProxiedBy: LO4P123CA0068.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOF+5HdU"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af7721e4aso828494866b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:38:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790782683; x=1791387483; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=blz14Kryy333MwsAfcVeWnCS/9nOHGV6aMGIkIjuVtM=;
+        b=bOF+5HdUW7BNuiGncnMaOCC/ZZ633N+D1ZLmFan+W3kNtOUdi5bTzRgBnyR0o8ePwx
+         +g+Pz97xvWVE8ILn0ftU5Eio+oshvQ0qJWhVjE5LqYCrt+Hb4OeVgGiU21IsGITbuMSS
+         lzm2IPh3xsxvnNvf/gtTnM9v0r88g6Mnndze4hkrr4e5rDbx7pIfph5paRyawPGgZptW
+         o2qJbz/j30i0rj8cur3l7EwXIee8MUVt5bG4npqC3VVh5boAwOMqVj1cDMKEXinbNxaq
+         8+2WyEDMBPJkC/xyfLYmGBbqlip6o6p6RtB54RvYbrcYltZShU8R7/5pmBWtKZm3aCGR
+         5PuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790782683; x=1791387483;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=blz14Kryy333MwsAfcVeWnCS/9nOHGV6aMGIkIjuVtM=;
+        b=ttPDJ7DU5nJhXZPv1U0hng8bfSi7n+zmeVCPpKbupkbb07N7px0auuuLicAIU+jSoP
+         lgD/UgEM0iZ6WexSBplg/n4PPxP6pScgnp73y15rpfC30Z8Hmx8qWwjYKOEyINOGMf4z
+         64zreopdPmNtmli4O7ZlGRRWSrXXKpol+hb9i4yKVqYEUBsyXlJZuBufupNio9Kl83yl
+         7NRxRT66LDbsantY7KLSKDISi9jmnUnnDd33u9DvGFr76huIpt6IpPhLemcV6SK0GB0f
+         suyKkIRvxYbT9RC+CmzB4Fr3GD5Ercs7H/Z7pgDRcE3VLo+XZ6J/rgLYSg+TuZBo2bXN
+         qGQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQZKgykojNMEzm0tMjhaz9w2CuxDRH1jCj5inwldVB4P2B7OlmtS40kQ16plqAn8MmA5jcntlXIIAMXQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFoXU3EelnWbo0bvb9tmRgPIJ2o+rxDCsiXW4IngEn8MaXuQJ0
+	fjUghnK2aeDWCqbPEBeNX0W+awPlHQAInE8eBu4GEavSbxz7InYkgI8j
+X-Gm-Gg: AYBFou0QY3cBq0OGUqPMqn8nAu+/BU21XLYT8b5IX54FihI3HOELKmjRYumysvzct12
+	Hi2BXQpN4Km7tFzzXSbbRc035TFNmse8U8eyILNaTU1msWXbnSp4Q2bkt3XQ0IrlI+Kmr3Rx9R6
+	kH/vZJGtKOx0v1Nl3NJHMD2uhoR/EKeWdKlXS/Dl5SLtT9e3n0dgQS0dVXB/bAL+GlM5Bs8O5I9
+	QlBab07FrCUXLfk5dw9yNQ6VXgCDhe45zGZt+uUOnL/4LrxrShBQ8WK7FTyUVngSgI+k/Do2qWz
+	mi/YjtrN6RP/U/9IGuJY4xyMrnw1f+/87V3BLC0IyrRNDRmPAKkqAx9MwL1681KVm0ks9lFjl7E
+	ZOxhCsGFby+l6MwpeeWU8/kjQmuUIr231+yIH0y1uJ+hGqC9keEzKyeJmFMZqyMBV4CHgIz33Xa
+	tLN8BPkm1qSO+SdlZ19XmR1f2BQtaZn5UucUpZ
+X-Received: by 2002:a17:907:9628:b0:c26:24ed:39e5 with SMTP id a640c23a62f3a-c2e23cd72e3mr159226866b.18.1790782682624;
+        Wed, 30 Sep 2026 08:38:02 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31a3eb32sm30808366b.3.2026.09.30.08.38.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:38:02 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Wed, 30 Sep 2026 17:37:59 +0200
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org,
+	chleroy@kernel.org, david@kernel.org, dev.jain@arm.com,
+	jiangwen6@xiaomi.com, leo.yan@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
+	ryan.roberts@arm.com
+Subject: Re: [PATCH v9 05/10] arm64/vmalloc: allow
+ arch_vmap_pte_range_map_size() to batch multiple CONT_PTE
+Message-ID: <ar0s14p8KPgmDKmR@milan>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+ <20260923062832.479455-6-jiangwen6@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LNXP265MB2428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a9463cb-663c-4805-0491-08df1f08bc03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|366016|1800799024|7416014|4143699003|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	20qP1yv6PRKJwvMYVYw+lYJbebROcZT1cYFLfSiN6OSgkkFA9m93RvKrBEphGdp+RJ5qwqZ/jWiCj76o3eXQitU/eFk3aDbMGcu20HQ0I9DlPoqnNuTPwKXNIzri+jL76l6AIoVqSxbw8lbo+WAaId6ANgC/7eiBgey5r8SEVmRDCha6ML5pz4NPZxB24nGJLhAexx+uaIJdi3s837N0Ro+rC3wc8hOywWIzYAJb9GdMjP6mGyGytSocW32NBYqHJoNPye8bkaBntgTtrFtJBl7IVh9vq63GnCe93y30JbIh0xalCMlzAVnLvqCdFN17IEYKF4oNA4amhtdbuNzmsIUM3hVCHWDO0Q4YrAlO0K+po9cEhKmKnMlyWAN8aH01TbspyOVrv3unO10zIP9MUUhqenT5FnkNNngKGsQ0ekV3hvAUE5NI3eZb41TmCVLE2WVr6xUOxu2FA4vJQHsyhB7PN+3NfUTwythVBpeyANnOY19IyjZ4PiM8xGKFvNMkivBEJBQpBscAf8BoKzJsH3htg9F2fTUL9Lsf8E3Z49qMqw6aF8MkRS+npPgURsFPssNzc+IZd/66xzEwQpYQG8kJACy0kf/RhafMXMjYK+Cy2dCyx5gZgSteINYzVoIGVDVL8FusF4rvWNJOqYFgrNYaaCkj18/y4QXXPVwNjD8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(366016)(1800799024)(7416014)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MjF4dnpPVFFYUTM4MmQ0VytkRU9JN1RLZGF1VlN4TGVheGVzRmRQcHlXR2hn?=
- =?utf-8?B?Wis2NVV2YmNxNDR0OWl2Z0psQ0dGQ2V1MFNSWmc1eEFIaWNqLzRkMVZVMXRX?=
- =?utf-8?B?WDcxUFhvL2RRYVNuVjZWcmUrS3A2TWN1M0xqUExIY3BEcVhSa2RMUFBZVWlR?=
- =?utf-8?B?QUNOU3Z1Yld0ZzJzd2VNWlNKU3hLZVBseFFNdkZaWlZhT3lMOWY0R2NQZWVR?=
- =?utf-8?B?T0ZFbnovM2E0aXYrY0xwSnJ5MWZCMFA5Ynd4WitBek5XRmEwbEhpdVBNU1Bp?=
- =?utf-8?B?TExIVUdwdUxkRlQwclJ0RWZlZStHYW54UXVvK1c3MitDcHo4LzJoOGpKaEVw?=
- =?utf-8?B?TTJ0ZHMwWTk2ZXoxczBtUEliZEhvRi8rNmdtV1NQY1NJTzhDMlI3Nmx2Mmlz?=
- =?utf-8?B?NndnSS9nN0xnUnRMdGQ2M0pHcVc3cWtBVktJU3dxSFRWOExTWjA2cStTeGk4?=
- =?utf-8?B?Wk1WN1Q4N1RlQTE3Rk5iekxhaWI1ZmtudVZ3dnNJam55Qk5wTWNQdnVuWC9a?=
- =?utf-8?B?Uy9FdWJkYUtpSXIwb2N1RDMrT3RUOFExT25sNUpHQVBqUDRCY2JJOHJVQ0l2?=
- =?utf-8?B?VCtwd25DYmlWNTJrZlZEa0dXTjhuVHMyRld4WjIyUzVYeGhkKzVEbk0yMjBO?=
- =?utf-8?B?S2VUVFBiY2oyMEhxTTZtTzJ6YTVjWFpKaHpnVVdKWUxlRmVhTDhVanR1bFZ3?=
- =?utf-8?B?bTdiV2xmSCtxaVhYMlo4TlI0S0JvYm5YYmNXY21iNjhuYkJFSGZXMS9ITE9R?=
- =?utf-8?B?NHBUOW5FN1BPZmlEWXJpZmdBL1JadndWT0ppRm4wTjdpNXZHSG12RllpV2hh?=
- =?utf-8?B?TXZKZ0RCQU5wQkkxZkxxVHY0RTVZQUJsQWNUbUQrMHRadlVLUDkvWXN0emEy?=
- =?utf-8?B?RDE2d2s1NFA1SVI3TFFjeU01Qk1yVERmTFNpZWRGS1BPUk50SVJ3TXdhNGF0?=
- =?utf-8?B?SVptWVoyQmFZQ3FJalAvc0k0S2N5ZGF4alVBWFFvanl5UkVpV3c4VXpWdHc3?=
- =?utf-8?B?ZWw3bVJLazlnY1hNYTg4Sm9MdVIyUVBwSk9yMHN3Y1hUVnlJL2ZIbE0zWFQ0?=
- =?utf-8?B?OVoyRGNGb3JLbk5WZmduTWY3R0krTEZtVjdDV2ZHQk9lWEtSSHpqdHZkd0sv?=
- =?utf-8?B?eDh0bW1VdjFIeTBUQ1d4dDFWWTJYNlRoZmhWRXFBZlJ0VDFQVllXeGU1RDBM?=
- =?utf-8?B?bHF4RldRMk92ZjdrVnpZTzV1dFVnT0lYbE1Mdzl5WDFiRDRkUzBYUFZMeGRF?=
- =?utf-8?B?ZkZBdHE3N3lZZWEwSHZKMzZqb1E1cy9GS2lzR2VZZlN4U3l3WWc5QllwZzFl?=
- =?utf-8?B?RkNGVm1VNFMzb1ZSYlpONlgrVGEwbkZWSHlmcjNrS3gzRE5jdHRuNXRWckgr?=
- =?utf-8?B?a3hKTGd1MHMrQmpoSDdqR1pKdGRFcFlJRHJUemszSHV6ZkxjVmQ1Y1ZGZk9l?=
- =?utf-8?B?azNoTG0wS1RacGRVMFBUVURwL0Q4dGdvMVhHZ2p0eEFxdHBxSEY5WVhjQWxC?=
- =?utf-8?B?NWZDQ3g0VURveHZHQnkyaHpSN3g3S05oNkJ6T2FJS3owanlMZmRoSWp1KzRt?=
- =?utf-8?B?cFk5TG9oUGJmMTdEYUFFbS9JL3dUZnVHTWtwRW1sSTk4ZVBwcXVCRDdxSloy?=
- =?utf-8?B?K3BkZHg0QUhGaWJwNUtEbUlVaElEWHg5VjA5OFF3ZDNHODRIRGg4K1NVdlU1?=
- =?utf-8?B?ZW9NdG9EUEpmQ3o1OXJDSmxhUVY2UTl4ZnEyTExnR1ZKU3NpcU9vZ04rSTIw?=
- =?utf-8?B?Wlg1N3lJeUtjSVZ6QmkybUZ2cUtxNGFzVk9HbG5rTDN4U2t3SGxsVnFKdFZG?=
- =?utf-8?B?TlN3RHErYThZbWhWUEp0WW5Rd09Pb0dsQ0xZSXM4TWJQT3R5dUl0N3psczBY?=
- =?utf-8?B?RndDQk42T25LOHBweDJ2ZGZKblN6UzNjanl1ODVUemtKVUlJUHUvRVNWNUR1?=
- =?utf-8?B?NWhSRS9Jb3JueU9vc3Y4M1VsRGp6bzcwZUt3Y2tzMG1pN3BXNjMzMUdIaWpL?=
- =?utf-8?B?Q2I0dVR5ejl2bFpoU051UExidWZ6K1lNZkU2aGdzeXIvMDdNU2pUTEp2ZDJ3?=
- =?utf-8?B?VFNyZ204VjBTeUU3TUpYUktzeTJXK1lzZkFWMEd5bnhTOUpaVmpwTzVENEVF?=
- =?utf-8?B?OGE5T0d0U05wV3lWblJaQUsrS3NlZW5NeUR4SEVCbUw3eDNET2VIV2I1RlJt?=
- =?utf-8?B?TkwrU1Y4M0wyczV4TWt5QWRxWStrVy9SbGk5WWx2ei9EemJqejNaeDIwVEVa?=
- =?utf-8?B?UDdHd3k2NFZZUzduaXA2QjNjWXZzWXY1dGd3NjhhQnpJL3Z3THhIbHVaOHV2?=
- =?utf-8?B?ZDNxaFRjdkt5MzZkTDJtYk5qT1hYbXVzcEI2RlNaTllBMjlTSkxpZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a9463cb-663c-4805-0491-08df1f08bc03
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:37:28.5161
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i6DejOPNCzchXQse0CM/YlsMO6flVHwYgFm+U1jrWOh7rqB3TcMOvpzSXf/UtPZTZ8N0qEZi/u08Q0FVE7SE+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LNXP265MB2428
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923062832.479455-6-jiangwen6@xiaomi.com>
 
-On Wed Sep 30, 2026 at 3:54 PM BST, Miguel Ojeda wrote:
-> On Wed, Sep 30, 2026 at 3:16=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote=
-:
->>
->> I'm not sure that this should be considered a fix. More like a feature.
+On Wed, Sep 23, 2026 at 02:28:27PM +0800, Wen Jiang wrote:
+> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> 
+> Allow arch_vmap_pte_range_map_size to batch across multiple CONT_PTE
+> blocks, reducing both PTE setup and TLB flush iterations.
+> 
+> For CONT_PTE_SIZE-aligned ranges, return a mapping size that may cover
+> multiple CONT_PTE blocks, capped below PMD_SIZE. These sizes are vmalloc
+> mapping spans, not HugeTLB hstate sizes.
+> 
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> Tested-by: Leo Yan <leo.yan@arm.com>
+> ---
+>  arch/arm64/include/asm/vmalloc.h | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
+> index 4ec1acd3c1b34..4053b1ec1902e 100644
+> --- a/arch/arm64/include/asm/vmalloc.h
+> +++ b/arch/arm64/include/asm/vmalloc.h
+> @@ -23,10 +23,14 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+>  						unsigned long end, u64 pfn,
+>  						unsigned int max_page_shift)
+>  {
+> +	unsigned long size;
+> +
+>  	/*
+>  	 * If the block is at least CONT_PTE_SIZE in size, and is naturally
+>  	 * aligned in both virtual and physical space, then we can pte-map the
+>  	 * block using the PTE_CONT bit for more efficient use of the TLB.
+> +	 * The returned mapping size may cover multiple CONT_PTE_SIZE blocks,
+> +	 * capped below PMD_SIZE.
+>  	 */
+>  	if (max_page_shift < CONT_PTE_SHIFT)
+>  		return PAGE_SIZE;
+> @@ -40,7 +44,9 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+>  	if (!IS_ALIGNED(PFN_PHYS(pfn), CONT_PTE_SIZE))
+>  		return PAGE_SIZE;
+>  
+> -	return CONT_PTE_SIZE;
+> +	size = min3(end - addr, 1UL << max_page_shift, PMD_SIZE >> 1);
 >
-> Yeah, I had the same thought, but given we discussed the topic in the
-> past and we supported non-ASCII on purpose on commit b13c9880f909
-> ("rust: macros: take string literals in `module!`"), I thought it
-> counted as such (that is why I mentioned it was unintentional in my
-> previous message).
+Capped below PMD_SIZE? It is half of PMD_SIZE. Where is that limitation
+comes from? I think the commit message should be improved in that sense.
 
-Ah, that's my patch. It had been completely paged out from my memory. In th=
-at
-case this is indeed a fix.
-
-I don't think it's worth tagging stable though. It's not something worth pu=
-tting
-effort backporting, but if AUTOSEL picked it via the fixes tag it doesn't h=
-urt
-either.
-
-Best,
-Gary
-
+--
+Uladzislau Rezki
