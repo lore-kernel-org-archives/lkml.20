@@ -1,712 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508954E36F5;
-	Wed, 30 Sep 2026 14:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019B84E3238
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776915; cv=none; b=YG/exkYC9LoxhOg7xucZleHxgN39j0AL9c5M5Bp04DUiv9te5QSaClZa0EJZzd+J0EmCylpRwAkkGOQp5hKifuvWKGptDvvZ/VWj9CTwD9GNYUUP1FpTqT8RYnk8WOCnB5+t7SFl8On7iDO6kJxaMMxENG5VxI0nLSGo9Jju2UQ=
+	t=1790776930; cv=none; b=N1A6OUf/aWJ4mcIPtE741aD5xCg74H/EUS/zGGN/86ZwB/7dG2RaF/gM0lXgJtA9+UARcJczyq29zzkKwoyZ8b/zABabJevXXyGjx+QzxL7DSg4rFWlLrfWL/wH/xeqj0wUDkOAGOrreCRNkogKgxKdoz/Q+9Jh613mBUpRFS1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776915; c=relaxed/simple;
-	bh=dST97r3LAEaw/PyflLWS5Q9+HD1zA7kN1XtKOCgeuXs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V+WNMI72dKlyMytlRWtCC8ijSGBUFm7nUYwPCW34ezDGi4nErgYypA+IP5Dqx3rIbed5OdgYJ/Ik5TVfFqXRjw6IrASWocmw1EIX+TrkV0UNyxRFl1pUlio8z/r/OIJQxYbW1/xgc6NjHMrooF94ArlDFMbchhAKy15uwII3DV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htCY9Rq9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790776930; c=relaxed/simple;
+	bh=1F1V/rD1y614TqPYCfWDNkmVlHzqqdQCMZ9Th+5moL0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=IJRp1SIj+EzqejsQFI7NZoreLtJdW5lRX4pS2KtZRLkidojHqWZrykgNhOMwt/vttOGSeEVKqCv9RdpeLJKn/Qz+Ewi8U79Q3VWFGJUbqQA6o3ze35nT6CQM1zWBNXUlO92E+VpXS+TIcpkwLLMEXy1Wdk09/i5JzrDjurK7T0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=twEtjkYX; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htCY9Rq9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66F31F00899;
-	Wed, 30 Sep 2026 14:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790776898;
-	bh=DU6bdit+raxlYp4VgYHrPLaGpqqt4jAicr7hgcaMNYc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=htCY9Rq90mMYws9Hep8nUSWNtgDCxND05gNFqBGiOyF9ZOF1M1Kf8MjWNcFvE4+ke
-	 Sfw4gYbj7SgiJftoyV9kuy5VXI5oDEtP2venTVKqkh+vcMYceAdSgrzS+qJnIBA6y9
-	 djXSjfzDUsoS6w0hrjAr02+7Wjcuw9AwkR7Ndjibu+zKcTph1rGpH/IlKKKKKDdOdy
-	 Mgv0Xe4ZAeCECgMxqfWnl6IqCNMOt2D76tYfR76Td4v2mNOhLCuHxxE+dKjO6G7+3y
-	 ft0S2HUNttiZsVSOi3AQOj8X1QY+gZ5JOt8ue/m4UG5SQqvKhthG+3ICOqIC4U/BjY
-	 XF3Q+hzdmchzQ==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Wed, 30 Sep 2026 16:01:23 +0200
-Subject: [PATCH v2 1/3] dt-bindings: mfd: as3722: Convert to json-schema
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="twEtjkYX"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d882so6090966d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790776921; x=1791381721; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qs9QTXyZYNRiUfQ+wZvKCopWk12AffrP+uIc+6uA/NY=;
+        b=twEtjkYXug3JBx6a9VqoPJbXVGWrkEe/btz0u9qN+OOUm/cmw+/ufq5ef2mY+n0W8g
+         rb2PBghFyAImnAvv+mBWnOexAQi/vDGEcU33O6w54g6iXmvp5rtZcCZyW1Y+5NBLPVyw
+         wcsaoho5r9ThEqmSJVQ9cFq8MuBVqENVWAy5LrhtRITkkv6SS9CDys9dWl1dKC6uDsOy
+         hcrCVEo69SJK/ghkJMAH49WDTtQ18miaZ0YUJwAuNLJGHayFIbYfg/vuBWkc5eIE3uQU
+         MdUON6q3dwLIq/4AoapfNbGYwqDEcAuq2bOEzHMvGYVwllygz7pzOvYRdL02mnCZ52Ok
+         5c9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790776921; x=1791381721;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qs9QTXyZYNRiUfQ+wZvKCopWk12AffrP+uIc+6uA/NY=;
+        b=pDRNdLrazNOVS73PRebKe6aaJ19vMuTDSnxyeW1z5apYHj5RW5ii1VxSRqrCOXB+ev
+         crcQrxtoaWe2X1PrCB5c0AaKkuA43rqzOEa2RAi4otmdnj744J0jCCmn6TDWwlGQuK/I
+         69sdff/8ouQMswtJXJMWMTVOOJJvequMM0OWymkNLY7609opWMgFwG+oEr6NWdRSkGqO
+         fc/B68b173NE25W30ZNHs35BqCoyNmP7jd52Fw6PlABjP7yah1q8TQKeJnRHPZEBTYC5
+         3Yxk1d6/O4TmK/bp2YHW78/gIyx9MdxCNqaM1cRkdj8kAXX/29n50/+7qD8LhjYc7iEd
+         1Y8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByTW6uZpqLqOKKfgPJf5nzBmtI18ADM2sNwVd9g3RURXZxIskpCxdz2x16mPIeM7zmZYmBN+F6YO+wKeY0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKf4PZZ8rH6cVQHupD19rQrjdm2ikq0wfX2PUx1OUtTSTU9aLP
+	6UlOMhSBkpAz9dMtbysOgt8oBgQwLLlDW7UiTBst02/22a/o6m3FZzFUiXkok0o0U+E=
+X-Gm-Gg: AYBFou22Gt5KPVKWui/sKHcnHCmuKvlD/ntuDlDMllWUxiQroHdjj4FZHDrVHtJooT0
+	dgTBMcvzhMDJY6CpyK/nhfpAKO+H2TBDqyG9FFW9I0XjMftdvExLqdzYf1mzET8+5fJnkA/0kKg
+	/v8BkEBQHeKXJqbU8hVjameDxqykd3tNdaPHLGjvkWh/0TywBu7YI8/4FU9xB2D6gXWQfWmYiqX
+	mv98i8HEeDilN5u+Xo9FQllh7xsHea40xQEeMZs27fi69Nnb1N46WGd91GXDLelYHiT4DURlIbf
+	wN0WqhTUfGrgp41X7zK3r2RFvKfdhhSwZvm5yuh5zneXpdLJn55K6jXB3S6UpijpG0eWy58iqJr
+	7jfbXa0CpR/lNJ0A3PO7EoRazLc60oEQ/RABaoPfmf3yY9PMMweKIa2YKBiuVcFfs1gXvkD26Ic
+	gNHzVA/uIz7tIFCF14D1Nj2XL4sqNDS46Fv+CANpmUDiXXuKtK6Gns9un9/at5MNOi4ZzDh5mby
+	KLvHe2OV4ojL8lsEyAUH2oEBHRmbCp6G6e+QSkv/ieSJlcaqtEQUnLzl4etEFnCN+pav5sdq7/P
+	oSAeGJmi88ZLj9FpOw==
+X-Received: by 2002:a05:690e:484d:b0:66f:c238:7657 with SMTP id 956f58d0204a3-67683530372mr445880d50.76.1790776917625;
+        Wed, 30 Sep 2026 07:01:57 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67680ac3521sm764290d50.1.2026.09.30.07.01.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 07:01:56 -0700 (PDT)
+Message-ID: <6c581ae0-2480-47a2-b46e-97afadbc7c1f@linaro.org>
+Date: Wed, 30 Sep 2026 16:01:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-as3722-bindings-v2-1-a3bba649ebf9@nvidia.com>
-References: <20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com>
-In-Reply-To: <20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
- linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=20801; i=treding@nvidia.com;
- h=from:subject:message-id; bh=LSLhGpFasvbos8uxwdw6Z4f3+bkCq8/HpYDDTtA7qBs=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqvRY80hRsmK+MCfaJuL6C5mdoj4Q/YiZwFLcg5
- vvYPVi+fl+JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCar0WPAAKCRDdI6zXfz6z
- odoZEAC68rSotK9+Fl6ZxwrHrsqnIIadIRa+pby7n/rOMn7ESeG/aAynOdgiR9tTw7pH0PregGp
- 4+8LaZJiQKUkXAnfCELorwQjWOy5EQVttgvoz9h8lq1fSo1IKcvhxPmpaxJPVnLUG4awG9p5k9o
- D3jLqF603Z0/Zl4sONsD6XohilMgdNz912kbS+LEDEx0+KvrmK6LAAy4FP1rgFLwqFut2x0x+ZM
- JIjpN7yCwY5kiRmMpJgTV7nGjiM/CN4S6xNLmcsG7Hr2DnS7lCvnKZA6CHjzAf7UlXnDuio+tXp
- lSSj9EAn4o/ZQ+2YcESbj903/GB4rtfQM8v5hlsD+gdlyqMUQFgMR0HlSMbYiMZ/BmRtgEpoz2L
- C40PU9iyo1Ip/4IYR0JGTX+2shujm88AAfg7l8+SLeEzDd37cIwQrxMoBj0SPkbvKApoJYWZ+Qg
- +h2JveRJnWID15055wS9YwesE6D91huQMyESNs7qu7RJmZSL4ObOIoG5t0DnLe8q17LqiQTkVKm
- c4Kp+OXP2Ld0pmoslfFgo7d/3kkbbLgOQXXoHYFcRhPO4KqbTigDPS2++9xGG3Rxezj3WaEHwLN
- HNnI7uqpIIa/qlhKPRTiuUx2nYA2qs7y8tmuDnYgXonQe3SS71p4YgNzAbAXg4qKgZigQPMmSsl
- zOlxwzQ8cI+uoQA==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-From: Thierry Reding <treding@nvidia.com>
+On 9/29/26 11:03, Jani Nikula wrote:
+> On Mon, 28 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>> difficult to support and require pretty much a panel driver for each
+>> panel produced. Most of them are pretty simple, and require an opaque
+>> initialization sequence that is usually poorly documented.
+>>
+>> This creates a tension between OEMs and distros because OEMs will
+>> typically get a new panel to react to a sourcing issue during
+>> production, and thus need some swift turnaround between getting their
+>> new panel and it being operational in the OS. Distributions on the other
+>> hand can take years to ship a kernel with that new panel driver.
+>>
+>> To solve this, I followed the example of HID-BPF and wrote a panel
+>> driver that will rely on BPF programs to perform the panel
+>> initialization. That way, we can ship the programs separately from the
+>> kernel, and with a different lifecycle. If this driver is accepted, the
+>> plan is to have a userspace component started by udev to identify and
+>> load the right BPF program for the panels found on the device.
+> 
+> I'd think for most panels it would suffice to have a declarative
+> language describing what to do at what points in time. For example, at
+> poweron, enable this GPIO, wait a little, write this set of DSI
+> commands, etc. You rarely need actual programming, or even ability to
+> read-modify-write something.
 
-Convert the AMS AS3722 PMIC bindings from the free-form text format to
-json-schema.
+Yes we could have a similar panel-simple but with init tables, but
+in reality those panels offers much more features we don't handle because
+the DDIC vendors and panel integrators just don't care exposing those
+features, but they get handled by vendor implementation like for Phones.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
-Changes in v2:
-- use pinmux-node.yaml, pincfg-node.yaml, gpio.yaml and regulator.yaml
-- add #gpio-cells and gpio-controller to list of required properties
-- remove some old and broken references from descriptions
-- use consistent formatting for description property
-- remove some duplicate type definitions
-- add missing additionalProperties
-- order properties consistently
-- constrain #gpio-cells to 2
----
- .../devicetree/bindings/mfd/ams,as3722.yaml        | 293 +++++++++++++++++++++
- Documentation/devicetree/bindings/mfd/as3722.txt   | 214 ---------------
- .../bindings/regulator/as3722-regulator.txt        |  91 -------
- 3 files changed, 293 insertions(+), 305 deletions(-)
+> 
+> It could be, say, YAML converted to some binary representation. Maybe
+> that could be in the DT, or maybe you could override it with the
+> firmware loader. And obviously any vendor "blob" could be trivially
+> converted back to YAML and upstreamed.
 
-diff --git a/Documentation/devicetree/bindings/mfd/ams,as3722.yaml b/Documentation/devicetree/bindings/mfd/ams,as3722.yaml
-new file mode 100644
-index 000000000000..51910042c621
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/ams,as3722.yaml
-@@ -0,0 +1,293 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/ams,as3722.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS AS3722 Power Management IC
-+
-+maintainers:
-+  - Laxman Dewangan <ldewangan@nvidia.com>
-+  - Lee Jones <lee.jones@linaro.org>
-+
-+properties:
-+  compatible:
-+    const: ams,as3722
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  # standard properties
-+  interrupt-controller:
-+    description:
-+      The AS3722 has an internal interrupt controller which takes the interrupt
-+      request from internal sub-blocks like RTC, regulators, GPIOs as well as
-+      external input.
-+
-+  "#interrupt-cells":
-+    description:
-+      The first cell is the IRQ number. IRQ numbers for different interrupt
-+      source of AS3722 are defined at dt-bindings/mfd/as3722.h. The second cell
-+      is the flags, as defined in dt-bindings/interrupt-controller/irq.h.
-+
-+    const: 2
-+
-+  # from gpio.yaml
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+  # optional properties
-+  ams,enable-internal-int-pullup:
-+    description:
-+      Enable internal pullup on interrupt pin when present. Omitting this will
-+      disable internal pullup on INT pin.
-+
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  ams,enable-internal-i2c-pullup:
-+    description:
-+      Enable internal pullup on I2C SCL/SDA pins when present. Omitting this
-+      will disable internal pullup on I2C SCL/SDA lines.
-+
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  ams,enable-ac-ok-power-on:
-+    description:
-+      When present, enable exit out of power off mode with AC_OK pin (pin
-+      enabled in power off mode).
-+
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  ams,system-power-controller:
-+    description:
-+      The AS3722 supports the system power off by turning off all its rails.
-+      The device node should contain this boolean property to enable this
-+      functionality.
-+
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  pinmux:
-+    description:
-+      Device has 8 GPIO pins which can be configured as GPIO as well as the
-+      special IO functions.
-+
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^gpio[0-7_]+$":
-+        description:
-+          Child nodes of the pinmux node represent some desired configuration
-+          for a list of pins. This configuration can include the mux function
-+          to select on those pin(s), and various pin configuration parameters,
-+          such as pull-up, open drain.
-+
-+        type: object
-+        allOf:
-+          - $ref: ../pinctrl/pincfg-node.yaml#
-+          - $ref: ../pinctrl/pinmux-node.yaml#
-+        additionalProperties: false
-+
-+        properties:
-+          pins:
-+            items:
-+              enum: [ gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6, gpio7 ]
-+
-+          function:
-+            enum: [ gpio, interrupt-out, gpio-in-interrupt,
-+                    vsup-vbat-low-undebounce-out, vsup-vbat-low-debounce-out,
-+                    voltage-in-standby, oc-pg-sd0, oc-pg-sd6, powergood-out,
-+                    pwm-in, pwm-out, clk32k-out, watchdog-in, soft-reset-in ]
-+
-+          bias-pull-up:
-+            type: boolean
-+
-+          bias-pull-down:
-+            type: boolean
-+
-+          bias-disable: true
-+          bias-high-impedance: true
-+          drive-open-drain: true
-+
-+        required:
-+          - pins
-+
-+  regulators:
-+    description:
-+      Device has multiple DCDC and LDOs. The node "regulators" is required if
-+      regulator functionality is needed.
-+
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      vsup-sd2-supply:
-+        description: input supply for SD2
-+
-+      vsup-sd3-supply:
-+        description: input supply for SD3
-+
-+      vsup-sd4-supply:
-+        description: input supply for SD4
-+
-+      vsup-sd5-supply:
-+        description: input supply for SD5
-+
-+      vin-ldo0-supply:
-+        description: input supply for LDO0
-+
-+      vin-ldo1-6-supply:
-+        description: input supply for LDO1 and LDO6
-+
-+      vin-ldo2-5-7-supply:
-+        description: input supply for LDO2, LDO5 and LDO7
-+
-+      vin-ldo3-4-supply:
-+        description: input supply for LDO3 and LDO4
-+
-+      vin-ldo9-10-supply:
-+        description: input supply for LDO9 and LDO10
-+
-+      vin-ldo11-supply:
-+        description: input supply for LDO11
-+
-+    patternProperties:
-+      "^(sd[0-6]|ldo[0-7]|ldo9|ldo10|ldo11)$":
-+        description:
-+          These sub-nodes must be named after one of the regulators found on
-+          the AS3277. Each sub-node should contain the constraints and
-+          initialization information for that regulator.
-+
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+        type: object
-+
-+        properties:
-+          ams,ext-control:
-+            description:
-+              External control of the rail. The value of this property will
-+              tell which external input is controlling this rail. Valid values
-+              are 0, 1, 2 ad 3. If this property does not exist, the default
-+              value is 0. The external control pin macros are defined in
-+              dt-bindings/mfd/as3722.h.
-+
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            oneOf:
-+              - description: there is no external control of this rail
-+                const: 0
-+              - description: rail is controlled by ENABLE1 input pin
-+                const: 1
-+              - description: rail is controlled by ENABLE2 input pin
-+                const: 2
-+              - description: rail is controlled by ENABLE3 input pin
-+                const: 3
-+            default: 0
-+
-+          ams,enable-tracking:
-+            description: Enable tracking with SD1, only supported by LDO3.
-+
-+            $ref: /schemas/types.yaml#/definitions/flag
-+
-+unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupt-controller
-+  - "#interrupt-cells"
-+  - gpio-controller
-+  - "#gpio-cells"
-+
-+allOf:
-+  - $ref: /schemas/gpio/gpio.yaml
-+
-+examples:
-+  - |
-+    #include <dt-bindings/mfd/as3722.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@48 {
-+            compatible = "ams,as3722";
-+            reg = <0x48>;
-+
-+            ams,system-power-controller;
-+
-+            interrupt-parent = <&intc>;
-+            interrupt-controller;
-+            #interrupt-cells = <2>;
-+
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&as3722_default>;
-+
-+            as3722_default: pinmux {
-+                gpio0 {
-+                    pins = "gpio0";
-+                    function = "gpio";
-+                    bias-pull-down;
-+                };
-+
-+                gpio1_2_4_7 {
-+                    pins = "gpio1", "gpio2", "gpio4", "gpio7";
-+                    function = "gpio";
-+                    bias-pull-up;
-+                };
-+
-+                gpio5 {
-+                    pins = "gpio5";
-+                    function = "clk32k-out";
-+                };
-+            };
-+
-+            regulators {
-+                vsup-sd2-supply = <&vdd_5v0_sys>;
-+
-+                sd0 {
-+                    regulator-name = "vdd_cpu";
-+                    regulator-min-microvolt = <700000>;
-+                    regulator-max-microvolt = <1400000>;
-+                    regulator-always-on;
-+                    ams,ext-control = <2>;
-+                };
-+
-+                sd1 {
-+                    regulator-name = "vdd_core";
-+                    regulator-min-microvolt = <700000>;
-+                    regulator-max-microvolt = <1400000>;
-+                    regulator-always-on;
-+                    ams,ext-control = <1>;
-+                };
-+
-+                sd2 {
-+                    regulator-name = "vddio_ddr";
-+                    regulator-min-microvolt = <1350000>;
-+                    regulator-max-microvolt = <1350000>;
-+                    regulator-always-on;
-+                };
-+
-+                sd4 {
-+                    regulator-name = "avdd-hdmi-pex";
-+                    regulator-min-microvolt = <1050000>;
-+                    regulator-max-microvolt = <1050000>;
-+                    regulator-always-on;
-+                };
-+
-+                sd5 {
-+                    regulator-name = "vdd-1v8";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-always-on;
-+                };
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/mfd/as3722.txt b/Documentation/devicetree/bindings/mfd/as3722.txt
-deleted file mode 100644
-index 2a665741d7fe..000000000000
---- a/Documentation/devicetree/bindings/mfd/as3722.txt
-+++ /dev/null
-@@ -1,214 +0,0 @@
--* ams AS3722 Power management IC.
--
--Required properties:
---------------------
--- compatible: Must be "ams,as3722".
--- reg: I2C device address.
--- interrupt-controller: AS3722 has internal interrupt controller which takes the
--  interrupt request from internal sub-blocks like RTC, regulators, GPIOs as well
--  as external input.
--- #interrupt-cells: Should be set to 2 for IRQ number and flags.
--  The first cell is the IRQ number. IRQ numbers for different interrupt source
--  of AS3722 are defined at dt-bindings/mfd/as3722.h
--  The second cell is the flags, encoded as the trigger masks from binding document
--	interrupts.txt, using dt-bindings/irq.
--
--Optional properties:
----------------------
--- ams,enable-internal-int-pullup: Boolean property, to enable internal pullup on
--	interrupt pin. Missing this will disable internal pullup on INT pin.
--- ams,enable-internal-i2c-pullup: Boolean property, to enable internal pullup on
--	i2c scl/sda pins. Missing this will disable internal pullup on i2c
--	scl/sda lines.
--- ams,enable-ac-ok-power-on: Boolean property, to enable exit out of power off
--	mode with AC_OK pin (pin enabled in power off mode).
--
--Optional submodule and their properties:
--=======================================
--
--Pinmux and GPIO:
--===============
--Device has 8 GPIO pins which can be configured as GPIO as well as the special IO
--functions.
--
--Please refer to pinctrl-bindings.txt in this directory for details of the
--common pinctrl bindings used by client devices, including the meaning of the
--phrase "pin configuration node".
--
--Following are properties which is needed if GPIO and pinmux functionality
--is required:
--    Required properties:
--    -------------------
--	- gpio-controller: Marks the device node as a GPIO controller.
--	- #gpio-cells: Number of GPIO cells. Refer to binding document
--			gpio/gpio.txt
--
--    Optional properties:
--    --------------------
--	Following properties are require if pin control setting is required
--	at boot.
--	- pinctrl-names: A pinctrl state named "default" be defined, using the
--		bindings in pinctrl/pinctrl-bindings.txt.
--	- pinctrl[0...n]: Properties to contain the phandle that refer to
--		different nodes of pin control settings. These nodes represents
--		the pin control setting of state 0 to state n. Each of these
--		nodes contains different subnodes to represents some desired
--		configuration for a list of pins. This configuration can
--		include the mux function to select on those pin(s), and
--		various pin configuration parameters, such as pull-up,
--		open drain.
--
--		Each subnode have following properties:
--		Required properties:
--		    - pins: List of pins. Valid values of pins properties are:
--				gpio0, gpio1, gpio2, gpio3, gpio4, gpio5,
--				gpio6, gpio7
--
--		Optional properties:
--			function, bias-disable, bias-pull-up, bias-pull-down,
--			bias-high-impedance, drive-open-drain.
--
--			Valid values for function properties are:
--				gpio, interrupt-out, gpio-in-interrupt,
--				vsup-vbat-low-undebounce-out,
--				vsup-vbat-low-debounce-out,
--				voltage-in-standby, oc-pg-sd0, oc-pg-sd6,
--				powergood-out, pwm-in, pwm-out, clk32k-out,
--				watchdog-in, soft-reset-in
--
--Regulators:
--===========
--Device has multiple DCDC and LDOs. The node "regulators" is require if regulator
--functionality is needed.
--
--Following are properties of regulator subnode.
--
--    Optional properties:
--    -------------------
--	The input supply of regulators are the optional properties on the
--	regulator node. The input supply of these regulators are provided
--	through following properties:
--		vsup-sd2-supply: Input supply for SD2.
--		vsup-sd3-supply: Input supply for SD3.
--		vsup-sd4-supply: Input supply for SD4.
--		vsup-sd5-supply: Input supply for SD5.
--		vin-ldo0-supply: Input supply for LDO0.
--		vin-ldo1-6-supply: Input supply for LDO1 and LDO6.
--		vin-ldo2-5-7-supply: Input supply for LDO2, LDO5 and LDO7.
--		vin-ldo3-4-supply: Input supply for LDO3 and LDO4.
--		vin-ldo9-10-supply: Input supply for LDO9 and LDO10.
--		vin-ldo11-supply: Input supply for LDO11.
--
--    Optional sub nodes for regulators:
--    ---------------------------------
--	The subnodes name is the name of regulator and it must be one of:
--	sd[0-6], ldo[0-7], ldo[9-11]
--
--	Each sub-node should contain the constraints and initialization
--	information for that regulator. See regulator.txt for a description
--	of standard properties for these sub-nodes.
--	Additional optional custom properties  are listed below.
--		ams,ext-control: External control of the rail. The option of
--			this properties will tell which external input is
--			controlling this rail. Valid values are 0, 1, 2 ad 3.
--			0: There is no external control of this rail.
--			1: Rail is controlled by ENABLE1 input pin.
--			2: Rail is controlled by ENABLE2 input pin.
--			3: Rail is controlled by ENABLE3 input pin.
--			Missing this property on DT will be assume as no
--			external control. The external control pin macros
--			are defined @dt-bindings/mfd/as3722.h
--
--		ams,enable-tracking: Enable tracking with SD1, only supported
--			by LDO3.
--
--Power-off:
--=========
--AS3722 supports the system power off by turning off all its rails.
--The device node should have the following properties to enable this
--functionality
--ams,system-power-controller: Boolean, to enable the power off functionality
--        through this device.
--
--Example:
----------
--#include <dt-bindings/mfd/as3722.h>
--...
--ams3722 {
--	compatible = "ams,as3722";
--	reg = <0x48>;
--
--	ams,system-power-controller;
--
--	interrupt-parent = <&intc>;
--	interrupt-controller;
--	#interrupt-cells = <2>;
--
--	gpio-controller;
--	#gpio-cells = <2>;
--
--	pinctrl-names = "default";
--	pinctrl-0 = <&as3722_default>;
--
--	as3722_default: pinmux {
--			gpio0 {
--				pins = "gpio0";
--				function = "gpio";
--				bias-pull-down;
--			};
--
--			gpio1_2_4_7 {
--				pins = "gpio1", "gpio2", "gpio4", "gpio7";
--				function = "gpio";
--				bias-pull-up;
--			};
--
--			gpio5 {
--				pins = "gpio5";
--				function = "clk32k_out";
--			};
--	}
--
--	regulators {
--			vsup-sd2-supply = <...>;
--			...
--
--			sd0 {
--				regulator-name = "vdd_cpu";
--				regulator-min-microvolt = <700000>;
--				regulator-max-microvolt = <1400000>;
--				regulator-always-on;
--				ams,ext-control = <2>;
--			};
--
--			sd1 {
--				regulator-name = "vdd_core";
--				regulator-min-microvolt = <700000>;
--				regulator-max-microvolt = <1400000>;
--				regulator-always-on;
--				ams,ext-control = <1>;
--			};
--
--			sd2 {
--				regulator-name = "vddio_ddr";
--				regulator-min-microvolt = <1350000>;
--				regulator-max-microvolt = <1350000>;
--				regulator-always-on;
--			};
--
--			sd4 {
--				regulator-name = "avdd-hdmi-pex";
--				regulator-min-microvolt = <1050000>;
--				regulator-max-microvolt = <1050000>;
--				regulator-always-on;
--			};
--
--			sd5 {
--				regulator-name = "vdd-1v8";
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <1800000>;
--				regulator-always-on;
--			};
--			....
--	};
--};
-diff --git a/Documentation/devicetree/bindings/regulator/as3722-regulator.txt b/Documentation/devicetree/bindings/regulator/as3722-regulator.txt
-deleted file mode 100644
-index caad0c8a258d..000000000000
---- a/Documentation/devicetree/bindings/regulator/as3722-regulator.txt
-+++ /dev/null
-@@ -1,91 +0,0 @@
--Regulator of AMS AS3722 PMIC.
--Name of the regulator subnode must be "regulators".
--
--Optional properties:
----------------------
--The input supply of regulators are the optional properties on the
--regulator node. The AS3722 is having 7 DCDC step-down regulators as
--sd[0-6], 10 LDOs as ldo[0-7], ldo[9-11]. The input supply of these
--regulators are provided through following properties:
--vsup-sd2-supply: Input supply for SD2.
--vsup-sd3-supply: Input supply for SD3.
--vsup-sd4-supply: Input supply for SD4.
--vsup-sd5-supply: Input supply for SD5.
--vin-ldo0-supply: Input supply for LDO0.
--vin-ldo1-6-supply: Input supply for LDO1 and LDO6.
--vin-ldo2-5-7-supply: Input supply for LDO2, LDO5 and LDO7.
--vin-ldo3-4-supply: Input supply for LDO3 and LDO4.
--vin-ldo9-10-supply: Input supply for LDO9 and LDO10.
--vin-ldo11-supply: Input supply for LDO11.
--
--Optional nodes:
----------------
--- regulators : Must contain a sub-node per regulator from the list below.
--	       Each sub-node should contain the constraints and initialization
--	       information for that regulator. See regulator.txt for a
--	       description of standard properties for these sub-nodes.
--	       Additional custom properties  are listed below.
--	       sd[0-6], ldo[0-7], ldo[9-11].
--
--	       Optional sub-node properties:
--	       ----------------------------
--		ams,ext-control: External control of the rail. The option of
--			this properties will tell which external input is
--			controlling this rail. Valid values are 0, 1, 2 ad 3.
--			0: There is no external control of this rail.
--			1: Rail is controlled by ENABLE1 input pin.
--			2: Rail is controlled by ENABLE2 input pin.
--			3: Rail is controlled by ENABLE3 input pin.
--		ams,enable-tracking: Enable tracking with SD1, only supported
--			by LDO3.
--
--Example:
---------
--	ams3722: ams3722 {
--		compatible = "ams,as3722";
--		reg = <0x40>;
--		...
--
--		regulators {
--			vsup-sd2-supply = <...>;
--			...
--
--			sd0 {
--				regulator-name = "vdd_cpu";
--				regulator-min-microvolt = <700000>;
--				regulator-max-microvolt = <1400000>;
--				regulator-always-on;
--				ams,ext-control = <2>;
--			};
--
--			sd1 {
--				regulator-name = "vdd_core";
--				regulator-min-microvolt = <700000>;
--				regulator-max-microvolt = <1400000>;
--				regulator-always-on;
--				ams,ext-control = <1>;
--			};
--
--			sd2 {
--				regulator-name = "vddio_ddr";
--				regulator-min-microvolt = <1350000>;
--				regulator-max-microvolt = <1350000>;
--				regulator-always-on;
--			};
--
--			sd4 {
--				regulator-name = "avdd-hdmi-pex";
--				regulator-min-microvolt = <1050000>;
--				regulator-max-microvolt = <1050000>;
--				regulator-always-on;
--			};
--
--			sd5 {
--				regulator-name = "vdd-1v8";
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <1800000>;
--				regulator-always-on;
--			};
--			....
--		};
--	};
+I don't think we want this, downstream vendors does that and we don't want
+to go there.
 
--- 
-2.55.0
+> 
+> Where that falls short, you could always have a dedicated driver, or
+> extend the declarative stuff.
+> 
+> Now, the question is, how much more BPF solves over that, without
+> requiring a dedicated driver, and is the added complexity worth it?
+
+This is my global question, and this is what I'm evaluating here, and so
+far is created more problem that solutions.
+
+> 
+> FWIW, on the Intel platforms that support DSI, all of the
+> initialization, poweron/poweroff, backlight on/off etc. sequences like
+> that are stored in the BIOS, defined by the OEM. A plethora of DSI
+> panels, one driver. Don't look at it for examples how to implement it,
+> but I think the basic idea is workable.
+
+For _some_ panels, here, as a general solution no because we really
+want to have full support for panel features.
+
+Neil
+
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
 
