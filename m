@@ -1,92 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B193B47C6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32681407575;
+	Wed, 30 Sep 2026 11:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766129; cv=none; b=nGl//7AoiqG9mLyNUgJi6FEKxjM0uc09Fge9XMr9R3qMcXl1Hx0jNcNBtnP4V4lo8XKaT+BhesxbmzfqnXa3lKV1G9lfkh6xIaW2Q4odQDfAjCdQMLDnl7PW6cgYMYDLQcj5wQ6ai0k5owi+u7J1GmOfX19lEVdHNwovQdWAZos=
+	t=1790766228; cv=none; b=andkJ6rbFmac9YxAazBXDNsPo6DR1QJYrE0gypBLP14M7s6pZDHTQhDlzd3RzNyBgij0/DB1VnhsArgioJyVikFbZ3lDmj7xb8ioiyMMq1p5S9Q1QTPG1bFfcAAghPaGsU1A8NC4z3FAUgDKX5frwjaSVggd5+Mk9KuXVcTMjJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766129; c=relaxed/simple;
-	bh=2xX4TGIby4W1lED2iYrPcbVUgLcR8bA1rRp0/n6MmwU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F82BygcCBfMfALuJw+NVKXvQCfs9uTO20A8PAiFGMYQNbqHi+9fifMnZiBWZN/rmFkFCaL02h/gKuwNU4WZ50+zcfyDZaS4BuZ8oOshOsrsakFd3Q8CSNI0AuKNbYJutFrpM+VhusNvT8x4hkohpjeddvGzlcvSnFexvvid0edY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxsQmaiE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790766228; c=relaxed/simple;
+	bh=P5GhoLKF2u9Fjqvd7Iavxwi8Ttw4P05+pmiYTacWllQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=QqsfW7XKU9HfPjgH1CQ74UCs4T6A916ga9qLSCcRxORKGglZIsKq6k3O31qPwTHCDZnSgbUbb0o0drVM+FdEM67s1P0MfDSbIKBXYCTqeWH3hEAtN7aEISYWQQhDoIDnPgXo+MP9hC+6E4FjtfhAkc9D5L5oeoSZKKe/kM6K3bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pr6gP+dM; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxsQmaiE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980D11F00893
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:02:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790766120;
-	bh=wM8W3udRuQDxIq2R1VNl0FNo7Tqwd3aCD0aaYmlp5nI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SxsQmaiE8bMHn80+76krI/+rDRJyVNbtXQvfjM8bKzgFUZzlX8uZWyJUc1HGVHcpk
-	 NKXNYqek4ZfoD2ATyhnwJgnqBmBObWZtv0DX7FenDkiKI+zGfYChfikKOgZf4RowE6
-	 PIopWY/km4MUSmATa4fC4Yvmz4EacBI8bFo0fyQPB82w15Ow6VD8uJmD+pv9GQYHvF
-	 JkEMu916tk7toLxZtX1LKi+5/BZI9rClR6aFohbRoSshTQ10gZO1/0SCJ2GQiQgRkE
-	 TrDtuYSmlfo6TSiac620irkQYyOxLCm0erLfuqEdDXz41VhDH3SuuJCpkRjawnRWug
-	 Cs0P5wmKM7Xrg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a49c068e85so39848101fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:02:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByyp9jqMWuBrx595LyS+Va0wLyBX7/B8JzWqtrRX01p5zzOugiTDYhZMlodQnEknZ6+20sU5qdUQbPNnYE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOo/X/fq2iuyUyuYa2Bqj8QQr+fGkmhXHc2I2XCDtrAJEELyow
-	OrseitaN8qzRVy8LgucNCRESLa2PueoBFlLI0cHYBn+FikynIKt9poNFA2n577EcUSzQDRUOlJP
-	Fxsem3Jafw7gqlKULELx1h8Q0KTJnHmM=
-X-Received: by 2002:a2e:be86:0:b0:3a6:772c:2763 with SMTP id
- 38308e7fff4ca-3a777d41008mr3400901fa.0.1790766119222; Wed, 30 Sep 2026
- 04:01:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pr6gP+dM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3F0B91A107A;
+	Wed, 30 Sep 2026 11:03:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 09A8C60749;
+	Wed, 30 Sep 2026 11:03:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8F3810328F7B;
+	Wed, 30 Sep 2026 13:03:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790766213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ijJfwiKLlTSy9rxP4IMNmmV3iD9aU2IeJcZz/YO1yr0=;
+	b=pr6gP+dMr69oYimKPOIdbp5KMj8d5ltUTNrztyVmewFeK+Il/fJwZkQVcY1nvsumKPbiFp
+	H+ixPwd120YzUC2kNP+ksnghILPnhKRL92J8mbAFq2TrnUc3B16wIb7KsEtjPtsVQxw8Q9
+	4/upitHqXbTfcvdntbX4OARxD27oUI9GIPuzJtCGPaoTj+zXGWoJdplv5vS9pAsh6yNJ1z
+	KE3KLIVbSwaW4bGLL1nl7D/0JciPTA0k/hGlQf6fe88M1BXOItrDU0obTgAzs/Ba+Ixhz6
+	CL4CHf+Nsc6ONlTiDttt0XVoOG9hX6Q0d3ROfYoslREjggy+K5FSmP7xNjL8nA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>, 
+ Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>, 
+ Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ linux-fbdev@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Sashiko <sashiko-bot@kernel.org>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+Subject: Re: (subset) [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP
+ TX
+Message-Id: <179076619955.542608.8005316063997157342.b4-ty@b4>
+Date: Wed, 30 Sep 2026 13:03:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com> <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
- <179076583795.3054628.14443934429806440798@gmail.com>
-In-Reply-To: <179076583795.3054628.14443934429806440798@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 13:01:46 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
-X-Gm-Features: AclHuK_ChPvqXpZcBtgi1ur23GoXeg-9LEYM9g162V4LxDv3fyrrqjh1iIDXE7U
-Message-ID: <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
-Subject: Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 30, 2026 at 12:57=E2=80=AFPM Fil Dunsky <filipp.dunsky@gmail.co=
-m> wrote:
-> On 30/09/2026 12:20, Krzysztof Kozlowski wrote:
 
-> > How is it different from Cortina Gemini?
->
-> Apart from the vendor, they have little in common. Gemini (SL3516/
-> CS3516) is a single ARMv4 FA526 with Faraday peripherals (FTINTC010,
-> FTTMR010, FTGPIO010, a 16550 UART) and builds for ARCH_MULTI_V4. The
-> CS75xx ("Goldengate G2") is an ARMv7 dual Cortex-A9 MPCore with GIC,
-> SCU, TWD/global timer and a PL310, and its UART, GPIO, interrupt
-> controller and NAND controller are different blocks from the Gemini
-> ones. So it cannot share mach-gemini or its drivers.
->
-> >> +machine-$(CONFIG_ARCH_CORTINA_CS75XX)       +=3D cortina
-> >
-> > Arch should be rather per entire family, not one SoC.
->
-> CS75xx is meant as the family (the vendor kernel covers the CS7522 and
-> CS7542 with one ARCH_GOLDENGATE), but I see the name reads like a
-> single part. Following Linus' suggestion of mach-goldengate, v2 will
-> use ARCH_GOLDENGATE and arch/arm/mach-goldengate for the whole family.
+On Tue, 01 Sep 2026 21:50:24 +0300, Cristian Ciocaltea wrote:
+> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
+> management for high TMDS clock ratio and scrambling.  Since SCDC state
+> is lost on sink disconnects, the bridge driver needs to trigger a CRTC
+> reset during connector detection.
+> 
+> To support this at the DRM infrastructure level, the series first
+> introduces the HDMI version enum, then prepares for changing the
+> signature of drmm_connector_hdmi_init(), i.e. dropping the vendor,
+> product, supported_formats and max_bpc arguments, which are being moved
+> into struct drm_connector_hdmi_funcs, by temporarily renaming the helper
+> to drmm_connector_hdmi_ini2().  This lets the new signature be
+> introduced under the original name while callers are converted
+> incrementally.  Note the transitional name matches the original's length
+> so continuation-line arguments stay aligned to the opening parenthesis,
+> keeping the diff to the identifier itself and avoiding re-alignment
+> churn.
+> 
+> [...]
 
-Put the rationale into the commit message, that's exactly what we want to
-see in there.
+Applied, thanks!
 
-Thanks!
-Linus Walleij
+[12/74] drm/bridge: Fix unlocked list_del in drm_bridge_add()
+        commit: b62e3db8cdc1680e1c3390591e872f485148541a
+[14/74] drm/bridge: Fix unlocked list access in drm_bridge_attach()
+        commit: 57889076afd1be890150c32ffde3b691fe5707c8
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
