@@ -1,133 +1,109 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AD244BC94
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4745B44F56D;
+	Wed, 30 Sep 2026 07:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751586; cv=none; b=PAcSHcQbNao8V5m31oxxhkqcyVps7pIkItXAnl+E6VC0UHl8OekmPR6un/mdY3ubtwGRh3wi8BHOsLtF620jZ89UPFxdC7BtVWRNRnKDI7zRLH3opjwcI8uO7jNhoiPpXYFBse096XSP6lsTrRhLfW4gKpoRUj1UE69lhbQzh7s=
+	t=1790751604; cv=none; b=uFaBgFB7pPRJGvqZqsCEHqA5UjTmfCDbf4pqIcsduvviDHW/LGYkg+f0OdzPgV3XialTYHBWVTjL1w57e8YG5d3jTOl+729SbwsChYX3s9mqgL/KZVsqSd5pG0M0riKSe4v91VpHzZGxqGwMDx0KBGp8cUh8AC/h9rODAWB1XTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751586; c=relaxed/simple;
-	bh=zGQ6oA9FdiLwaGDeIJ/lMi9ihRSaaxgnDKhhGJ7zVIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nEcznwyhptLeZxRDlc731YNvjeMA9rBgVlNrTYgZfqsrKGIbXpxvlXBotccp03Qk/gadfp+sGbKxr77m17VaCI0olZphNim7/cXSs/WKM9GNqySTLLWz6eaJZiJoGGi+2HuBkYWxGHzE0ey+cShYWYtxVNGK1bU53ZYDW5PSey8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MspFUoW5; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790751604; c=relaxed/simple;
+	bh=me0/GaYRhRGsLTRt0o/xOAdYgAPd8saMs5gs1pazfMw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GbQX0Y9DN6UT0/dddcjqoW1UbeKTDtRUFuEtct5rSKFP8Hw+YdI92+Uf2KpfyxU9T3zP+JzdH/8zEZhZyCk6TYSwhwLmG316Y70H0fL/yV0fP/0MHthph2dy001MxtWfr6QRCCBAtAazp2XhsXkwxMn0JuWSr9ED0Y0/ewLLYG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBiiYx1i; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MspFUoW5"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ec6188so23966615ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790751559; x=1791356359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
-        b=MspFUoW5A/RFeFFuPjzSbDxh071aZl0nNu8l/YK8BrNfoiRfq4PgI2kpdrtpgl0mgs
-         N6oL9FyuFoX/vBOkDfsBnkbPIVojhGd11E9E652Gr9YLHf8Pfuu5feRBtcaowosZWH1c
-         CTaCrCGFpXS1AhKzZDyU195vnms3coN2nl51O56sfI0/COuLHiiz88uLOHB9YhftTNJc
-         m7MrfiPAcknPQ6wmtyfOvlqYdGM5UJ2eJmwijHT1cx7Q4B1/9SW/97dZAykcS6Zvhe/7
-         Y3tge84NV0u0+tGUwcD8nUZNw8ZieJh2f9x2DichxFWhlpzkj39EcaMlQECL/avpniw/
-         2qhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790751559; x=1791356359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
-        b=PYQVPnYZE532cyuFFqGRHnBFXPrPECZaowSQMBePXs5Kxgjlh8T4kjW0medPygtfq2
-         W/ncI88f7qL2QsZjC0VHJ8IvmfXBNlw/sZ9UV0QN+/xkd91VdYpHpe5/XcERwxQMqXZw
-         +AWf34oe4wXEE8OF5m4uQQIneqda8d32RkNAHOR1X6HCY2SHYngVc3P1S58gGjUIFJel
-         OOmznJvIxC9KZwK2PycZ1WnR6RHej+Q14zFdBaAUtXqi8mLqoo6Q8zny78Lu3m49LrOb
-         kaw+IvTmQ7Zx1tVfU6f0xe97r2kEoKDlB+0JrJg4G3uXJgkFlGXVyeg/txazpLwmNdmN
-         gC4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw3nNqVIQDt4TfxrsC7A26qzcJZTHiQ8e9kYIeZ8PWsL42Dv1622fib5GrcK3XH+qVocBjB2fGB0Jhj8QU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzCCe2OCn7uJ52laBd851ZXx1/oHMHcQCFby7ROl15ev1ccV0f
-	92B6KPRmogGGfYYU/U9cm4xKkSxL14iJ6P12JTDM/1vliHNIQ+8QLS9L
-X-Gm-Gg: AYBFou2FUgQ+Mpit6cmiFJXItX2JAc7BErUYWsIGfKyrWbBaf8g9V8uF7qJSWLwVFtp
-	AEZ7zdMyQiu9jL9Ytriwzt8GmIUe6FQ0IkkUQhNnziTAmFKLADeElcPSJQz29HkbgXZJ4eceJYu
-	qFCm+9B+xzwzKB5P83GQRZ3GI1tci7k9S23BFaoCUB+P+5mxi3dWTsa8DkXaPH6SOyM2FlTZfPp
-	KlG6phaeuQhTlo7022so3wS7GHqy8haLE6koOfiIDJZVgPcTXmlwM1blVjdAK0M2zczc/5Ruifc
-	MXp/gtjSpyW7VRhFbh0Ifo/mWpc10LDyO/4r+KS1NCI/t53wduQOgv+9qzAN3ai3HmpmXCCKCgi
-	cU+5/PcbVIPyBFjL7itQblp3f2UmI8OBk4ARnCoXab+wQlYrd4Kl/z55s6MtrddreyXobPbgEgx
-	mitdEHHgQ5srdYVWBoZWHgFkXsBrZf72lWE/XcVWhwXQhAmgbpKlA2Cl3/wmkTpNo4J7kbVNWnk
-	kSWY4a4QkhbLKTrUme1hF5G2Po6XWtX8KTNGk3GzZXYfCZRqVFuUfG++gGpyXJ8IYc5oO0Ol5/o
-	Hluyj7Y2qA==
-X-Received: by 2002:a17:90b:1e42:b0:39e:6c69:f476 with SMTP id 98e67ed59e1d1-3a4d18c21bfmr485055a91.53.1790751558947;
-        Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 3/5] drm/gud: Prevent shadow_buf UAF by flushing work before reallocating
-Date: Wed, 30 Sep 2026 06:59:12 +0000
-Message-ID: <20260930065914.393939-4-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
-References: <20260930065914.393939-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBiiYx1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D0F0CC4AF14;
+	Wed, 30 Sep 2026 07:00:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790751603;
+	bh=me0/GaYRhRGsLTRt0o/xOAdYgAPd8saMs5gs1pazfMw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=eBiiYx1iUpFLgCs3jPyyLsZR9BoZkOENFXPvq3ecvlkQNGSeSI9XWjINwi7BrTAdp
+	 55IgCDowjZJjY3pPgWvzwrMoPILR41AIfffMjNYCVZVQ0YGTx8CgoQY5K1V0vg9iPp
+	 g6Hop6zLVODjowEapVFM/1RPcp8KB6P7hmWdVSRLC/ZjZa3EPF++b0Gf0k9cyXZ/Od
+	 WdmT7LsPkYoKNkWvx4PWQ4Ak/qtwR9oXmOXRx4gn+kyc0eszAwRvc6t7wyMtqaHbD3
+	 naZqyen/S57ZYy/PFrRus7h/YKQEPSquC72/73x9JAztVR+ayXQeY8HFAfHLhkryGa
+	 Qfh2XOeslNuwQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC888CA5FC2;
+	Wed, 30 Sep 2026 07:00:02 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Wed, 30 Sep 2026 10:00:02 +0300
+Subject: [PATCH RFC 03/10] dt-bindings: arm: cpus: Add Cortina Systems
+ CS7542 enable method
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-b4-cs75xx-v1-3-4617c4463529@gmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Drew Fustini <fustini@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790751600; l=1236;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=zHs4d0oCr/fkCjW2IncoLpYzn3PsYpvSJVPGzM+249Y=;
+ b=5NGp1Z9mv2h2Aiqk1msw4SDQyLOh8bIopneUpk9z2/71v/F+jOsc6UszjLI5N6VAxuYLJ8g2j
+ aJRpOJj1wZlB3JO04HulAycLiCjFcGXIKZCahBcJ84HQ+Wlbe5HNL3d
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-In gud_fb_queue_damage(), freeing gdrm->shadow_buf on framebuffer
-dimension changes while the asynchronous worker gud_flush_work() is
-running causes a race condition where gud_flush_work() dereferences the
-freed gdrm->shadow_buf during a USB bulk transfer, triggering a slab
-Use-After-Free (UAF).
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Flush any pending background work (flush_work(&gdrm->work)) prior to
-freeing and reallocating gdrm->shadow_buf when framebuffer dimensions
-change.
+On the CS7542 the bootloader parks the secondary Cortex-A9 core in a loop
+that waits for an event and then jumps to the address found in a global
+software register. Add the "cortina,cs7542-smp" enable method for it and,
+as with the other release-address based methods, require cpu-release-addr
+to point at that register.
 
-Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by queuing damage
-on a resized framebuffer while background USB flush work (gud_flush_work)
-was actively reading shadow_buf: on the unfixed kernel KASAN detected
-BUG: KASAN: slab-use-after-free in gud_flush_damage(); whereas with this
-fix applied (flushing pending work before vfreeing shadow_buf), 0 KASAN
-warnings were generated.
-
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- drivers/gpu/drm/gud/gud_pipe.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ Documentation/devicetree/bindings/arm/cpus.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index aa7792966287..f9726e3d849f 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -397,6 +407,16 @@ static int gud_fb_queue_damage(struct gud_device *gdrm, struct drm_framebuffer *
- 	struct drm_framebuffer *old_fb = NULL;
- 	struct iosys_map shadow_map;
+diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
+index 96136b70dac..7a394c500d6 100644
+--- a/Documentation/devicetree/bindings/arm/cpus.yaml
++++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+@@ -269,6 +269,7 @@ properties:
+           - brcm,bcm63138
+           - brcm,bcm-nsp-smp
+           - brcm,brahma-b15
++          - cortina,cs7542-smp
+           - marvell,armada-375-smp
+           - marvell,armada-380-smp
+           - marvell,armada-390-smp
+@@ -484,6 +485,7 @@ allOf:
+         enable-method:
+           enum:
+             - spin-table
++            - cortina,cs7542-smp
+             - renesas,r9a06g032-smp
+       required:
+         - enable-method
 
-+	if (gdrm->shadow_buf && gdrm->fb &&
-+	    (fb->pitches[0] != gdrm->fb->pitches[0] || fb->height != gdrm->fb->height)) {
-+		flush_work(&gdrm->work);
-+		mutex_lock(&gdrm->damage_lock);
-+		vfree(gdrm->shadow_buf);
-+		gdrm->shadow_buf = NULL;
-+		gud_clear_damage(gdrm);
-+		mutex_unlock(&gdrm->damage_lock);
-+	}
-+
- 	mutex_lock(&gdrm->damage_lock);
+-- 
+2.53.0
 
- 	if (!gdrm->shadow_buf) {
+
