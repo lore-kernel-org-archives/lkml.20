@@ -1,106 +1,216 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9FA420480
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:57:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CF93ECBED
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798262; cv=none; b=HYJbDZnC/6OJe+GPHbyBPjsC+/+tKE/smAruFFFQ6HP3rjRrvJNTu39hrmq4XuyBPIvAV+vdSDCAzcyYKwaWDHh3oFZuyuNGrj0YkzRL2QJR0UucTDhdQ+Z2wy4jck6y5tPxtBZsEQChNrwd6Gbd9vq5spFZDQLFn/7Vs76O4CA=
+	t=1790798297; cv=none; b=oZBAONxfXHyGc2DFp6jaq5k4Mrpq4aXLAajCDiLWO19rU8Fa5e0s1Sd91L7JEzytWglHIwPAdMyIYEbPOZ7Dgc90AtixxrXnaM45TsjLIjjlaCtUQVmGqmqkLq+7uKEIXSAyzd3GJXtmQSejpOcHL7vVauJGM9CA0wnNVAoRew8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798262; c=relaxed/simple;
-	bh=54ADsi1peMGN+ZsrNHRATDKpWH2hTugBF0P+8IpbUNY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dXrTseKZ8aIflZ17UOjrDTK0MqVBQghI/X4WklPA6ssgdH3/3gITSLBQBpOW1yezfhaAPUCpqRdI/m5REkvd51gZCFGgm403eej4hxJPtRSAMX9NncyKBCn5py8UT36xdXVUmEBr+JjfkZJAMBtbQCpdc6f+HhK6CqgAKW9MGzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F48e8l/i; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790798297; c=relaxed/simple;
+	bh=gZmyvKcU24YPL0JYnQ2y0EuHsjacpVNiYi1hxBaauU0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oa2JxqZYiua0Oypd8qZug5zm6jcOcAKKttGWo7Zqpbyrx3tz4g28zmaCJUSS1jdZU6O2SFu0gv2h8dw57vUN87/V+eBndxLyh8Yh7k6ZUEgH3DlYx7D9SiSf6L1j8ZG5Y3EnLJxtNxRcUegtzfAf1qd4G2S3fEcNF6TYCVnVK8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cEB1onGh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F48e8l/i"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DB1351A1080;
-	Wed, 30 Sep 2026 19:57:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F7EA60749;
-	Wed, 30 Sep 2026 19:57:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 345F01032A657;
-	Wed, 30 Sep 2026 21:57:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790798253; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=uqQYTKm2Wdd7b1tVU8c2yXO4zrRthLuiQutkjRT8Vuk=;
-	b=F48e8l/i+EUn005g7ZmACDDnUwircTAMsIs7ExYiV1VMgZDoVPm/NDfiMOqM3RoBDhAbt4
-	UHEGekREDTi6XilPbdHtrNlnLMBaX3dz4EA1ktbESOT8ojwEEvS3JWC/IKKLJfKikGE/t0
-	dFQPwRi0VRPIY72S42yYn5JNMI+CO/cv+Xjuvu1FnfCsPX12LMrWkU/alP0hEvLdSrjiSW
-	U7bfR/2Kkz73m0TrSJKwcFSDe3TQjnfbq+UdL8lRQr+ebax2Z8edfV9L/OX7rKmlGQeG05
-	kSt957cM+cFLyB5RrMJH5Cap+qKKP1IWmbNQEcX/OFbYL8i+pnC9Lwz6Shzfsw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Russell King
- <linux@armlinux.org.uk>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] ARM: orion/gpio: use __assign_bit() where applicable
-In-Reply-To: <20260920022551.3145595-1-peng.fan@oss.nxp.com>
-References: <20260920022551.3145595-1-peng.fan@oss.nxp.com>
-Date: Wed, 30 Sep 2026 21:57:31 +0200
-Message-ID: <871paa8qc4.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cEB1onGh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D551F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790798295;
+	bh=qBFmkvBDIJi6eYu+4LUakVpF2D37HV9CyyNflsVFlZY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cEB1onGhdLoQ9u2XvBTQ3XafqcrnBCVO8S2b1fUDeuSqO3ho/cl++iysQZrzzKpn/
+	 xo2M37cKECNHt53rsZuVXWBJpU9uchzrJaA2At7OgjhcxLeYJwXkXzp32z3Rkuj1rh
+	 NELrPbhC6Wcscx0dVqux8LTlRO5bxuy2l1ikyjR0/95AmUpiZYfNhoyzMVFw0c1jcx
+	 YSa/QwCBSfLHNZKkOoBc0aZWTlgabMriDIZNhsqn6WCJQDiQy6wpphd3m63rbqkE97
+	 3vEGSgGaKahWiefB1wPtPc8BsMeVXpz7RXBkQ8Sz5DIgi/h8GktDvn1S662iCFVL6x
+	 +RLlDEVy80Z9A==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330dbd67so1899068e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:58:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByCM1Rv18HzaoV1Ac39XFJ5620x2ylC25PY6f1f9p7fQY4RfhNxXox45wpXXGNWCV5IVbQF3BDqgEk5h6g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt/pngeCq/shXg50NGPOlSOmKiJRvXMnZ/nwJ9li2LY6MkeVy8
+	SqQxR/NvJecZcr3CmzYJC1gclyA/9CdH54Pky5C/6PW0GsjWiW4Nu2AZwWeA2ps5rMl+xqscfrM
+	/ERirZxkZhP7MK47BBda1ySskMurqth0=
+X-Received: by 2002:a05:6512:3ca2:b0:5b8:d73d:e0d1 with SMTP id
+ 2adb3069b0e04-5ba402cf15bmr1127523e87.6.1790798294364; Wed, 30 Sep 2026
+ 12:58:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260926032416.467937-1-xiongxin@kylinos.cn>
+In-Reply-To: <20260926032416.467937-1-xiongxin@kylinos.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 30 Sep 2026 21:56:29 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hrqOoYmYDyKFm6URsuPqQJyocGoATTkyH76g_SpHGMYw@mail.gmail.com>
+X-Gm-Features: AclHuK8WtTKczvxzTBn8cx5B0O7bPygT7LdwmEZyNfE8LUhU87rkjIeJvaJLh9Q
+Message-ID: <CAJZ5v0hrqOoYmYDyKFm6URsuPqQJyocGoATTkyH76g_SpHGMYw@mail.gmail.com>
+Subject: Re: [PATCH v2] PM: hibernate: flush icache for restored pages from
+ task context
+To: Xiong Xin <xiongxin@kylinos.cn>
+Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Riwen Lu <luriwen@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Peng Fan,
-
-> From: Peng Fan <peng.fan@nxp.com>
+On Sat, Sep 26, 2026 at 5:24=E2=80=AFAM Xiong Xin <xiongxin@kylinos.cn> wro=
+te:
 >
-> Convert open-coded if/else with __set_bit/__clear_bit to the
-> __assign_bit API.
+> With `hibernate=3Dnocompress`, load_image() submits read bios asynchronou=
+sly
+> and hib_end_io() completes them from hardirq/softirq context.  Commit
+> f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages restore=
+d
+> in-place") calls flush_icache_range() there, which on ARM64 ends with
+> kick_all_cpus_sync() and so triggers
 >
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-
-this file is now removed by the series "soc: deprecated platform
-removal"
-https://lore.kernel.org/all/20260701212353.2196041-1-arnd@kernel.org/
-
-Gregory
-
-> ---
->  arch/arm/plat-orion/gpio.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
+>     WARN_ON_ONCE(!in_task());
 >
-> diff --git a/arch/arm/plat-orion/gpio.c b/arch/arm/plat-orion/gpio.c
-> index 49e29b7894a3..a8412dba97f0 100644
-> --- a/arch/arm/plat-orion/gpio.c
-> +++ b/arch/arm/plat-orion/gpio.c
-> @@ -275,15 +275,9 @@ void __init orion_gpio_set_valid(unsigned pin, int m=
-ode)
->  	if (mode =3D=3D 1)
->  		mode =3D GPIO_INPUT_OK | GPIO_OUTPUT_OK;
->=20=20
-> -	if (mode & GPIO_INPUT_OK)
-> -		__set_bit(pin, &ochip->valid_input);
-> -	else
-> -		__clear_bit(pin, &ochip->valid_input);
-> +	__assign_bit(pin, &ochip->valid_input, mode & GPIO_INPUT_OK);
->=20=20
-> -	if (mode & GPIO_OUTPUT_OK)
-> -		__set_bit(pin, &ochip->valid_output);
-> -	else
-> -		__clear_bit(pin, &ochip->valid_output);
-> +	__assign_bit(pin, &ochip->valid_output, mode & GPIO_OUTPUT_OK);
+> in smp_call_function(), as in_task() is always false in interrupt context=
+.
+>
+> Only the nocompress path is affected: load_compressed_image() flushes fro=
+m
+> the decompression kthread, in task context.
+>
+> Defer the flush to task context.  hib_end_io() now only records the
+> restored page on a per-batch list (page->lru is free to use, as safe
+> in-place pages are on no LRU).  Once hib_wait_io() returns to load_image(=
+),
+> hib_flush_icache_pages() walks the list and flushes each page, preserving
+> the asynchronous batched I/O throughput.
+>
+> Fixes: f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages =
+restored in-place")
+> Assisted-by: GLM:5.3
+> Acked-by: Riwen Lu <luriwen@kylinos.cn>
+> Signed-off-by: Xiong Xin <xiongxin@kylinos.cn>
+
+It would be good to say what changed between v1 and v2, for example
+like in this patch:
+
+https://lore.kernel.org/all/20260930-acpi_spcr-v4-1-ab649aa1f09c@posteo.de/
+
+Also Sashiko still complains about this version:
+
+https://sashiko.dev/#/patchset/20260926032416.467937-1-xiongxin%40kylinos.c=
+n
+
+so please let me know what you think about its findings.
+
+Thanks!
+
+> diff --git a/kernel/power/swap.c b/kernel/power/swap.c
+> index c78f1593600b..6d1019a2780f 100644
+> --- a/kernel/power/swap.c
+> +++ b/kernel/power/swap.c
+> @@ -223,6 +223,8 @@ struct hib_bio_batch {
+>         wait_queue_head_t       wait;
+>         blk_status_t            error;
+>         struct blk_plug         plug;
+> +       struct list_head        icache_pages;
+> +       spinlock_t              icache_lock;
+>  };
+>
+>  static void hib_init_batch(struct hib_bio_batch *hb)
+> @@ -230,6 +232,8 @@ static void hib_init_batch(struct hib_bio_batch *hb)
+>         atomic_set(&hb->count, 0);
+>         init_waitqueue_head(&hb->wait);
+>         hb->error =3D BLK_STS_OK;
+> +       INIT_LIST_HEAD(&hb->icache_pages);
+> +       spin_lock_init(&hb->icache_lock);
+>         blk_start_plug(&hb->plug);
 >  }
->=20=20
->  void orion_gpio_set_blink(unsigned pin, int blink)
-> --=20
-> 2.51.0
 >
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> @@ -249,11 +253,19 @@ static void hib_end_io(struct bio *bio)
+>                          (unsigned long long)bio->bi_iter.bi_sector);
+>         }
+>
+> -       if (bio_data_dir(bio) =3D=3D WRITE)
+> +       if (bio_data_dir(bio) =3D=3D WRITE) {
+>                 put_page(page);
+> -       else if (clean_pages_on_read)
+> -               flush_icache_range((unsigned long)page_address(page),
+> -                                  (unsigned long)page_address(page) + PA=
+GE_SIZE);
+> +       } else if (clean_pages_on_read) {
+> +               /*
+> +                * Stash the page on the batch list, load_image()
+> +                * will flush it once hib_wait_io() has returned to task
+> +                * context. The page is neither on an LRU nor in the page
+> +                * cache, so its lru member is free to use as link node.
+> +                */
+> +               spin_lock(&hb->icache_lock);
+> +               list_add(&page->lru, &hb->icache_pages);
+> +               spin_unlock(&hb->icache_lock);
+> +       }
+>
+>         if (bio->bi_status && !hb->error)
+>                 hb->error =3D bio->bi_status;
+> @@ -295,6 +307,23 @@ static int hib_wait_io(struct hib_bio_batch *hb)
+>         return blk_status_to_errno(hb->error);
+>  }
+>
+> +/*
+> + * Flush the icache for pages restored since the last hib_wait_io().
+> + * Must be called from task context (after hib_wait_io() returned): all
+> + * bios of the batch have completed, so the icache_pages list is no long=
+er
+> + * touched by hib_end_io() and can be walked without the lock.
+> + */
+> +static void hib_flush_icache_pages(struct hib_bio_batch *hb)
+> +{
+> +       struct page *page, *tmp;
+> +
+> +       list_for_each_entry_safe(page, tmp, &hb->icache_pages, lru) {
+> +               list_del_init(&page->lru);
+> +               flush_icache_range((unsigned long)page_address(page),
+> +                                  (unsigned long)page_address(page) + PA=
+GE_SIZE);
+> +       }
+> +}
+> +
+>  /*
+>   * Saving part
+>   */
+> @@ -1116,8 +1145,12 @@ static int load_image(struct swap_map_handle *hand=
+le,
+>                 ret =3D swap_read_page(handle, data_of(*snapshot), &hb);
+>                 if (ret)
+>                         break;
+> -               if (snapshot->sync_read)
+> +               if (snapshot->sync_read) {
+>                         ret =3D hib_wait_io(&hb);
+> +                       if (ret)
+> +                               break;
+> +                       hib_flush_icache_pages(&hb);
+> +               }
+>                 if (ret)
+>                         break;
+>                 if (!(nr_pages % m))
+> @@ -1131,10 +1164,17 @@ static int load_image(struct swap_map_handle *han=
+dle,
+>         if (!ret)
+>                 ret =3D err2;
+>         if (!ret) {
+> +               hib_flush_icache_pages(&hb);
+>                 pr_info("Image loading done\n");
+>                 ret =3D snapshot_write_finalize(snapshot);
+>                 if (!ret && !snapshot_image_loaded(snapshot))
+>                         ret =3D -ENODATA;
+> +       } else {
+> +               /*
+> +                * Reinit the list instead of walking it to avoid
+> +                * use-after-free.
+> +                */
+> +               INIT_LIST_HEAD(&hb.icache_pages);
+>         }
+>         swsusp_show_speed(start, stop, nr_to_read, "Read");
+>         return ret;
+> --
+> 2.25.1
+>
