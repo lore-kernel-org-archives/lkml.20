@@ -1,16 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB383B42D7;
-	Wed, 30 Sep 2026 05:15:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4943B4EBD;
+	Wed, 30 Sep 2026 05:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745319; cv=none; b=pDsnU16R7ZPgsVMM4d2ZJz9pzCvpQV4xq6a3bFIs0niWW+Os1Qn9OV56Hqp1jkz0aaNGOGHDdit1PXW79TLUl3YjeH1XM7tVnn4h7pD38kzelqLCkl8CMGh5NdM2jgIDO+vMDQqi9PbFft+y53zHir2zHNM19ECZG4Va9BaBLkI=
+	t=1790745321; cv=none; b=DDQe+p7p1pKAfaFpzhuM2z2iJ7Ix7rgKdp/7ICebkcUSsN8RaNCYog0oodI1FiSlhIa6C6ls7rAcq++JDSv5WLZWiAVSuFZ5zg07oBRUu0K0kNR3jiIMod7uZ9ycCjF66ILwC9ni7cyo+SMPQ3Dgn/mi3l0iv1JAmEzBUJ/mGIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745319; c=relaxed/simple;
-	bh=7kVBSW+iJq7iG0C/gaN+W7UHNDDfaeN9Q8zh7Gh7SjI=;
+	s=arc-20240116; t=1790745321; c=relaxed/simple;
+	bh=/rj5B9ojWffAdYkp2s4TIp84wfNqe/zSqKMEbEuHOX4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=OfN+GfA3dZlHrTTOuWg67FGLzrmhqVtbdgAYBDX4mO9/mdro7xLyyi8reuaf5FI1hAKLx1pjW9xwOHIig8SVDjApaJMxFion826Djpz2JvZKaCuvmF4vBhcPeZvcWfAjajNNFweEXX/9cNOL7Bz5gBA2+TSPH8ggg/uIKsqAvno=
+	 In-Reply-To:To:CC; b=bL83ep30g/e2PDxPA1qQyqN43iOawUeo1b7wkmFDg4FPj3TcGxCoewBVU672gbg11fBiNRkLJCHZoVMZ8MR4tsZqSmHf5B9hWvPH9ZnYcoN/NpSjIQE70zsS1z+9fQ7C0hsAzH9hubskuq+vxPZg7D53asGTNg4bdpqvxcPzjlc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -22,9 +22,8 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Wed, 30 Sep 2026 13:15:00 +0800
 From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 30 Sep 2026 13:15:02 +0800
-Subject: [PATCH v4 4/9] EDAC/aspeed: Free the mem_ctl_info unconditionally
- on remove
+Date: Wed, 30 Sep 2026 13:15:03 +0800
+Subject: [PATCH v4 5/9] dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -33,7 +32,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-edac-v4-4-c2e526f3ed79@aspeedtech.com>
+Message-ID: <20260930-edac-v4-5-c2e526f3ed79@aspeedtech.com>
 References: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
 In-Reply-To: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
 To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
@@ -43,59 +42,49 @@ To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
 CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
 	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
+	<ryan_chen@aspeedtech.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=1565;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=1457;
  i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=7kVBSW+iJq7iG0C/gaN+W7UHNDDfaeN9Q8zh7Gh7SjI=;
- b=H9Byb9NgdLg6aM+qdKUhskY0XKNa9wuQwv/hYGV/IVIx4+FzRHam+Uz3t55eaUDaRKrtRnhCy
- qdDLVAR5fFgBFRt9FCt3bjZCcOCH6GYL53CQoZE0ZvBMxugVM7OmnRY
+ bh=/rj5B9ojWffAdYkp2s4TIp84wfNqe/zSqKMEbEuHOX4=;
+ b=Z6HQq7mR546yGnzLBw/SsqtjdNjKle8U107kZdQSOE4waSFfUuhGbCIe8C9JljTOo+uU5Mn+k
+ qM0RwE61n72DZDmQGGjfc0FxA/oCbAezVMitvtjEi4Lai8SUPk2ukmR
 X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
  pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-aspeed_remove() is a driver .remove callback, so it only runs for a device
-that has already probed successfully and registered its mem_ctl_info. In
-that case edac_mc_del_mc() always returns the same, valid pointer, and the
-NULL check on its return value can never be false.
-
-Fetch the mem_ctl_info from the platform device's driver data instead and
-free it unconditionally, dropping the redundant check. This also decouples
-the teardown from the return value of edac_mc_del_mc().
+Add the "aspeed,ast2700-sdram-edac" compatible and note DDR5 support.
 
 Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/edac/aspeed_edac.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml         | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-index cd2a6fcca355..352910e1defc 100644
---- a/drivers/edac/aspeed_edac.c
-+++ b/drivers/edac/aspeed_edac.c
-@@ -343,7 +343,7 @@ static int aspeed_probe(struct platform_device *pdev)
+diff --git a/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml b/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+index 09735826d707..685b6815f293 100644
+--- a/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
++++ b/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+@@ -10,8 +10,9 @@ maintainers:
+   - Stefan Schaeckeler <sschaeck@cisco.com>
  
- static void aspeed_remove(struct platform_device *pdev)
- {
--	struct mem_ctl_info *mci;
-+	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
- 	int irq;
+ description: >
+-  The Aspeed BMC SoC supports DDR3 and DDR4 memory with and without ECC (error
+-  correction check).
++  The Aspeed BMC SoCs support DDR memory with and without ECC (error
++  correction check): DDR3 and DDR4 on the AST2400, AST2500 and AST2600,
++  and DDR4 and DDR5 on the AST2700.
  
- 	/* disable interrupts */
-@@ -352,12 +352,11 @@ static void aspeed_remove(struct platform_device *pdev)
+   The memory controller supports SECDED (single bit error correction, double bit
+   error detection) and single bit error auto scrubbing by reserving 8 bits for
+@@ -25,6 +26,7 @@ properties:
+       - aspeed,ast2400-sdram-edac
+       - aspeed,ast2500-sdram-edac
+       - aspeed,ast2600-sdram-edac
++      - aspeed,ast2700-sdram-edac
  
- 	irq = platform_get_irq(pdev, 0);
- 	WARN_ON(irq < 0);
--	devm_free_irq(&pdev->dev, irq, platform_get_drvdata(pdev));
-+	devm_free_irq(&pdev->dev, irq, mci);
- 
- 	/* free resources */
--	mci = edac_mc_del_mc(&pdev->dev);
--	if (mci)
--		edac_mc_free(mci);
-+	edac_mc_del_mc(&pdev->dev);
-+	edac_mc_free(mci);
- }
- 
- static const struct of_device_id aspeed_of_match[] = {
+   reg:
+     maxItems: 1
 
 -- 
 2.34.1
