@@ -1,279 +1,103 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17441A683D;
-	Wed, 30 Sep 2026 02:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF56372680
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790737066; cv=none; b=nc/AI346ljOc7RYTlCALkASP5N7yVTwt5T/RxCyQTR7Aw9zpkG0S52psCqVpg5zUvm+P0mGE2b27CB1bIAOwqJIZ9g5CwmdHaakqeWL8XGz0kxZ0Nd2aTjnzLwQAAkNqgF6Sa3XOTkBP3hNcRVCSU9od+LaCL402mL/p457SX6Q=
+	t=1790737185; cv=none; b=EMuFWitb7CIaT+ljKdaZrFPSV39boTDvydt3btjJTq4cYX/FRSDeOC3cqq9+bstapxyjaPWlv/8KaxBdIkuDfa9KRT2Lly7WteyZrbpiDgI9QeVOkGSMFcXoWqnbh4vVvFsE47B9k2kAlxUzU6TK6kU4AHMpJny0/5rb73Qi0EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790737066; c=relaxed/simple;
-	bh=rp/fa2uhrTfZKpBLhFbKPrXCvV6jaxnedczZC9x4sTA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Eq+hTgUB9is4+8RHIJ1C0f4nq2eASWkjFGc8uKKIk17VhOQkF45cRkdL2R2rq45NpL+6pDOd/b3yfR+Tqkd7lRuq7RDLn/dd6dirA07mWKOrGLLMPkVhwxwXwnqA6c0RpEdXyrLTJdfyzjHwSS+W2Snyj37w/AAi0h2wSXhrws0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=0lCB/uTY; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790737185; c=relaxed/simple;
+	bh=jryVeyCE3ENwhs5+JjIDYwN2HfxA07BwvfI8E+aZm4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fvAJkXXADkFlXVjRjpzRNSSYmmicAOUdKMDbCkdQs6ZSRkqyLlGZBP8orN6W5mrCk6Mo9OEQ4RkH5Zn0by4Hjf0LsB6jRL7s3BnkKPDeXl/MJVWksSofLNPcJq4DrL9eVIeEPnwoS7yOy/gwYWzJIBsmvCnyC9Q0md9rJE1Rib8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UmwSPjcN; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="0lCB/uTY"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=PtER5Ch5agf7GPvfInLQseCkLl2+EkQBBEjndL6mdYQ=;
-	b=0lCB/uTYB7aCqVXW8PztZKfAa6OWU4z20mzjITJY31WXWXn+VD/TqSvCecQB7sVmw+jJQIVui
-	hZWRTNr3yQbyGvwMZDm2ugYfQfEhS9ZdVfmClIhd3W8zhgVxw49QnOf2Kgo3x1WzToQcZ3B6eIl
-	uNIxfa8sIll7qx7Dp53RqAE=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hvfYB2Bznz1T4Lb;
-	Wed, 30 Sep 2026 10:45:34 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 59FE94057D;
-	Wed, 30 Sep 2026 10:57:35 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 30 Sep 2026 10:57:34 +0800
-Message-ID: <ff218960-c412-4283-aa41-b7af2a7048b8@huawei.com>
-Date: Wed, 30 Sep 2026 10:57:33 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UmwSPjcN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ci
+	H9O6vBnrQUkYEAwSQyoqJvAfPordHbh1DsTTGfiks=; b=UmwSPjcNHY0Pe895Lv
+	Uw7Uv0kL7hG98BW9+Z02MWqyTLjIU4bsaI7Jafzc4mdGJ9HFPzemD6+WFAjNRWWf
+	cUBCSLcs+o4XdZIdLKD79/Opr7DYx+U588f/KbC7/4vayc7NBg5QxblSM5SU2Lv7
+	cxiR2sN9e4pIKgC84xRrZ6ZLE=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDXv0PQerxqgrw7Bg--.14814S2;
+	Wed, 30 Sep 2026 10:58:26 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	Quchaosheng <quchaosheng000406@163.com>
+Subject: [PATCH] sched/proxy: Correct the SCHED_PROXY_EXEC dependency comment
+Date: Wed, 30 Sep 2026 10:58:24 +0800
+Message-ID: <20260930025824.79296-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/15] KVM: arm64: Add KVM_PGTABLE_PROT_DIRTY
-To: Oliver Upton <oupton@kernel.org>
-CC: <maz@kernel.org>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<corbet@lwn.net>, <pbonzini@redhat.com>, <leo.bras@arm.com>,
-	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
-	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
-	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
-	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
-	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
-	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
- <20260929103655.85107-3-zhengtian10@huawei.com> <arxZQwkLCLBnITzH@kernel.org>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <arxZQwkLCLBnITzH@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXv0PQerxqgrw7Bg--.14814S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF1DJr4kCFyxGw13ZF47urg_yoW8AFWkpF
+	9rWr18Krn8XF4S9w4UAr1xWF4qvw1DCa15AryUCr10kwn8GF1Y9ws3KrW29FyIyws7Ja98
+	Xr1Ygw1rt3WDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREoGPUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BOcEmq8etNgVAAA3y
 
+The comment on the !PREEMPT_RT dependency reads
 
+	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
 
-On 9/30/2026 8:35 AM, Oliver Upton wrote:
-> On Tue, Sep 29, 2026 at 06:36:42PM +0800, Tian Zheng wrote:
->> @@ -731,8 +731,12 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
->>   	if (prot & KVM_PGTABLE_PROT_R)
->>   		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
->>
->> -	if (prot & KVM_PGTABLE_PROT_W)
->> -		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
->> +	if (prot & KVM_PGTABLE_PROT_W) {
->> +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
->> +
->> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
->> +			attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
->> +	}
-> 
-> Can you introduce the dirty state first? You're temporarily setting
-> DBM+S2AP[1] as a workaround in the preceding patch.
-> 
-> Then we can have it encoded such that when FEAT_HAFDBS is implemented:
-> 
-> 	KVM_PGTABLE_PROT_W	=> KVM_PTE_LEAF_ATTR_HI_S2_DBM
-> 	KVM_PGTABLE_PROT_DIRTY	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
-> 
-> And if FEAT_HAFDBS is *not* implemented:
-> 
-> 	KVM_PGTABLE_PROT_W	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
-> 	KVM_PGTABLE_PROT_DIRTY	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
-> 
-> i.e. aliasing both to bit 7.
-> 
-> Thanks,
-> Oliver
-> 
+That describes what happens once the dependency is removed, not the
+reason it is there, and "fixed" is never defined, so nothing says when
+the dependency can be dropped.
 
-Hi Oliver,
+The build failures are real, but they are not the whole reason. Under
+PREEMPT_RT a mutex is an rt_mutex, and its PI path takes pi_lock under
+wait_lock and rq->lock under pi_lock. find_proxy_task() takes
+mutex->wait_lock under rq->lock, so
 
-You're right, the intermediate DBM+S2AP[1] encoding is not worth
-keeping. I'll introduce KVM_PGTABLE_PROT_DIRTY first, aliased to
-S2AP[1] alongside PROT_W, with no behavior change. In the next
-version I'll then switch the encoding so that:
+	wait_lock -> pi_lock -> rq->lock -> wait_lock
 
-- with FEAT_HAFDBS: PROT_W -> DBM, PROT_DIRTY -> S2AP[1]
-- without FEAT_HAFDBS: both -> S2AP[1]
+closes into a cycle. It stays dormant only because nothing sets
+blocked_on when PREEMPT_RT is set, and it is gone once a mutex is no
+longer an rt_mutex, which is also the condition that lets the dependency
+be dropped.
 
-as you described.
+No functional change.
 
-Thanks,
-Tian
+Link: https://lore.kernel.org/all/20260921102712.3245860-1-quchaosheng000406@163.com/
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ init/Kconfig | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
->>   	if (!kvm_lpa2_is_enabled())
->>   		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
->> @@ -753,9 +757,13 @@ enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
->>
->>   	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
->>   		prot |= KVM_PGTABLE_PROT_R;
->> -	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
->> +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM) {
->>   		prot |= KVM_PGTABLE_PROT_W;
->>
->> +		if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
->> +			prot |= KVM_PGTABLE_PROT_DIRTY;
->> +	}
->> +
->>   	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
->>   	case 0b00:
->>   		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
->> @@ -1288,7 +1296,6 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
->>   int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
->>   {
->>   	return stage2_update_leaf_attrs(pgt, addr, size, 0,
->> -					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
->>   					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
->>   					NULL, NULL,
->>   					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
->> @@ -1368,8 +1375,12 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
->>   	if (prot & KVM_PGTABLE_PROT_R)
->>   		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
->>
->> -	if (prot & KVM_PGTABLE_PROT_W)
->> -		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
->> +	if (prot & KVM_PGTABLE_PROT_W) {
->> +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
->> +
->> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
->> +			set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
->> +	}
->>
->>   	if (prot & KVM_PGTABLE_PROT_X) {
->>   		ret = stage2_set_xn_attr(prot, &xn);
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 2d44cd6a5aed..698a87e85a6d 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1221,7 +1221,9 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
->>   	struct kvm_pgtable *pgt = mmu->pgt;
->>   	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_DEVICE |
->>   				     KVM_PGTABLE_PROT_R |
->> -				     (writable ? KVM_PGTABLE_PROT_W : 0);
->> +				     (writable ?
->> +				      (KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY) :
->> +				      0);
->>
->>   	if (is_protected_kvm_enabled())
->>   		return -EPERM;
->> @@ -1587,7 +1589,7 @@ static enum kvm_pgtable_prot adjust_nested_fault_perms(struct kvm_s2_trans *nest
->>   						       enum kvm_pgtable_prot prot)
->>   {
->>   	if (!kvm_s2_trans_writable(nested))
->> -		prot &= ~KVM_PGTABLE_PROT_W;
->> +		prot &= ~(KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY);
->>   	if (!kvm_s2_trans_readable(nested))
->>   		prot &= ~KVM_PGTABLE_PROT_R;
->>
->> @@ -1658,7 +1660,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->>   	}
->>
->>   	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
->> -		prot |= KVM_PGTABLE_PROT_W;
->> +		prot |= KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY;
->>
->>   	if (s2fd->nested)
->>   		prot = adjust_nested_fault_perms(s2fd->nested, prot);
->> @@ -1690,10 +1692,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->>   	}
->>
->>   out_unlock:
->> +	/*
->> +	 * Dirty the folio for any write-permitting mapping: hardware can
->> +	 * promote a writable-clean entry to writable-dirty without a VM
->> +	 * exit, so a clean release could lose a guest write at reclaim.
->> +	 * The dirty bitmap is only marked for mappings installed dirty,
->> +	 * or pre-copy would treat every writable page as dirty.
->> +	 */
->>   	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
->>   	kvm_fault_unlock(kvm);
->>
->> -	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
->> +	if ((prot & KVM_PGTABLE_PROT_DIRTY) && !ret)
->>   		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
->>
->>   	return ret != -EAGAIN ? ret : 0;
->> @@ -1993,11 +2002,14 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
->>
->>   	*prot = KVM_PGTABLE_PROT_R;
->>
->> -	if (s2vi->map_writable && (s2vi->device ||
->> -				   !memslot_is_logging(s2fd->memslot) ||
->> -				   kvm_is_write_fault(s2fd->vcpu)))
->> +	if (s2vi->map_writable) {
->>   		*prot |= KVM_PGTABLE_PROT_W;
->>
->> +		if (s2vi->device || !memslot_is_logging(s2fd->memslot) ||
->> +		    kvm_is_write_fault(s2fd->vcpu))
->> +			*prot |= KVM_PGTABLE_PROT_DIRTY;
->> +	}
->> +
->>   	if (s2fd->nested)
->>   		*prot = adjust_nested_fault_perms(s2fd->nested, *prot);
->>
->> @@ -2028,7 +2040,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
->>   			    void *memcache)
->>   {
->>   	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
->> -	bool writable = prot & KVM_PGTABLE_PROT_W;
->> +	bool dirty = prot & KVM_PGTABLE_PROT_DIRTY;
->>   	struct kvm *kvm = s2fd->vcpu->kvm;
->>   	struct kvm_pgtable *pgt;
->>   	long perm_fault_granule;
->> @@ -2091,7 +2103,11 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
->>   	}
->>
->>   out_unlock:
->> -	kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
->> +	/*
->> +	 * Speculative folio dirtying: W, not DIRTY, per the contract
->> +	 * documented in kvm_release_faultin_page().
->> +	 */
->> +	kvm_release_faultin_page(kvm, s2vi->page, !!ret, prot & KVM_PGTABLE_PROT_W);
->>   	kvm_fault_unlock(kvm);
->>
->>   	/*
->> @@ -2099,7 +2115,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
->>   	 * making sure we adjust the canonical IPA if the mapping size has
->>   	 * been updated (via a THP upgrade, for example).
->>   	 */
->> -	if (writable && !ret) {
->> +	if (dirty && !ret) {
->>   		phys_addr_t ipa = gfn_to_gpa(get_canonical_gfn(s2fd, s2vi));
->>   		ipa &= ~(mapping_size - 1);
->>   		mark_page_dirty_in_slot(kvm, s2fd->memslot, gpa_to_gfn(ipa));
->> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
->> index b0cb8d84a9e9..a1251e252b4f 100644
->> --- a/arch/arm64/kvm/ptdump.c
->> +++ b/arch/arm64/kvm/ptdump.c
->> @@ -45,6 +45,12 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
->>   		.set	= "W",
->>   		.clear	= " ",
->>   	},
->> +	{
->> +		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
->> +		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
->> +		.set	= "D",
->> +		.clear	= "C",
->> +	},
->>   	{
->>   		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_XN,
->>   		.val	= 0b00UL << __bf_shf(KVM_PTE_LEAF_ATTR_HI_S2_XN),
->> --
->> 2.43.0
->>
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f..b45d8b2 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -936,7 +936,11 @@ config UCLAMP_BUCKETS_COUNT
+ 
+ config SCHED_PROXY_EXEC
+ 	bool "Proxy Execution"
+-	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
++	# Fixing the build failures is not enough: under PREEMPT_RT a mutex
++	# is an rt_mutex whose PI path takes pi_lock under wait_lock and
++	# rq->lock under pi_lock, while find_proxy_task() takes
++	# mutex->wait_lock under rq->lock. The two orders close a cycle that
++	# only goes away once a mutex is no longer an rt_mutex.
+ 	depends on !PREEMPT_RT
+ 	# Need to investigate how to inform sched_ext of split contexts
+ 	depends on !SCHED_CLASS_EXT
+-- 
+2.43.0
 
