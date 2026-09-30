@@ -1,199 +1,96 @@
-Received: from mail-wr2-f8.google.com (mail-wr2-f8.google.com [74.125.225.72])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07509446BF8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF4D457E5E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757830; cv=none; b=TFsN7nN5hhLS1M7bkPI04pKoRapFrihp25qwolVMmcprb5sha6sQZeu6mUWuhTZcS9LXIF2DkgAJLYaiIHVH+8F/9Gb4X3c0Tawk0mZIXxacTJcrrEN3Wa0qDAr7Sm5MK/6iOEyr4PbeGv3mvEUBvdIlJ/D9+e8u9OMGK2jFaZk=
+	t=1790757836; cv=none; b=rFIXaPPKS3SUsWvX8s4YIJIaCLKZS5NoMaTplFjEkFn9fUsuhZ2GvEHopXYYthfHC2fZ2csxTF/CGSqT6v85YkwgxvSg3mqOFFdpyPwZan1j00X0kMpTIHIQaE8b/aYU66nfwsD++7YfNak1V+f6hB+OesR65cjY1WInjNuKzLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757830; c=relaxed/simple;
-	bh=ZqmiIM+1aauWDfyrsibFBf66UYrNpL3a+gp7OyLmUpg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FSCbz2B9W3GRAaGhSuVL6hlNrk6nCXm/OENE1u7tlXBeBfuoFNkRgduExN+4DdxGdAVGHJTy2NaB6vtFttHBjQXXwWj1lzAgz8fOc9OIhQO9baOZ6sA5dmXSFaWWwLyS2kp/1TO0DVzjoywtOFxMyp3j0i8fLRJAJ079OVmbHvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=opnsrc.net; spf=pass smtp.mailfrom=opnsrc.net; dkim=pass (2048-bit key) header.d=opnsrc.net header.i=@opnsrc.net header.b=CcSxM+SG; arc=none smtp.client-ip=74.125.225.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=opnsrc.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opnsrc.net
+	s=arc-20240116; t=1790757836; c=relaxed/simple;
+	bh=UHIktq9hHohxcsnuW+PjvAGKUTvxgMu5Z3skfDIeIVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P5jLURlKI8dMBrctNcGwtY8YVKoRq49RaD6/r5rAswU8sjK7bzGt5OGbdGQDbmW069nTnlYnE6ZcHHPDb1CmvY+/x4J03MEwyTy34cAWiJgVT2Fx3W535flAoq2HiPgfB5pwsBzL2oVpnvpY2MBVG3WyCKyv2DUY8sz3Onv3k84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Qm9JQ4sJ; arc=none smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opnsrc.net header.i=@opnsrc.net header.b="CcSxM+SG"
-Received: by mail-wr2-f8.google.com with SMTP id ffacd0b85a97d-485ac0c75b9so2060107f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:43:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Qm9JQ4sJ"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ac64e54f2fso2283986a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:43:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=opnsrc.net; s=google; t=1790757824; x=1791362624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gourry.net; s=google; t=1790757831; x=1791362631; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jQnxbzB0rX2uzsTz5BeJSh2mtO9nvpvZzzcrUYm1zTA=;
-        b=CcSxM+SGkx4RB2JEyoTtM4Ads29nnc7AjgNstF5OqPi2BGNjI0gYILvPTMy3cScKPy
-         DT3R+U/6UDYyKdN6lQj9YKQH39AStRbPTRQD4teCsHj1/KxhKdlNqPCi2JGhjq0zuPrt
-         FYmh2ctzoKutOf++6jrG7peq0SZVN0StWdUdFRdcXiotbiPa5KJJxfWliFvNlMz54/T0
-         M+WDtupun3l3uMtMfkDiHz5qsioDY/Sr85dyBxbfUvafDB4kn4ExvpJt7vkaWz0oX5Qo
-         GI0PnLK/+1LUIizSTzxaUXAOdokNR/KNgeH6FvUAKY3p4+8hPBGhRCIr7rLb60dDarK/
-         z1qg==
+        bh=11O/i4eaHiTKOHQj5oOKeDGVuB1F5PuQ9vQoJ/Gyud8=;
+        b=Qm9JQ4sJp9p8W9kvU+Yl49C3WZmKFu4Zn+8vFMeElBfWaU09zE00j6c1Uw7QTfJ0YQ
+         yHaBKmtxZAIs1U7BeIAXpnnOLX8iq+IKe2JY8+A2ay7rYZrU9DV48LKitCQ5ofH7n1xK
+         RdnwZOWNRJUoeQouhjF41LNl7CYXApelGOT5os4sb7GFPB8pj22mNv3o//RHHrOCKgjB
+         xW85O4qsP0X9l2u4TufTFX/dSM5F6GepUAnWrU6c/BtV/tjfM0KXfBL1HiGgFWwQGsXf
+         /PnQ0UcRqj16VOXyNT55DXWUU/l8KZ1XGf3ZMIIcEpPINJWrjEL9z5heSXuUVel4cYXT
+         WyZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757824; x=1791362624;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790757831; x=1791362631;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jQnxbzB0rX2uzsTz5BeJSh2mtO9nvpvZzzcrUYm1zTA=;
-        b=ux5vmMzGkNN8e6eIUoVr4zX1IhZ4NDPwcDSGyoqjXpe1LDqNueLiIDR6Th4STq0bBU
-         eZdVSSEBglHIRKYjCURLwbOlQMV6ActM56WHd2qcyhxQ9GSgChYVIZEZbEISjybM1vZp
-         46W9K8lAdKobyzn6Wy3OwSwzQPMD19yLKMeVzM2MqLdRt5hDO3hZrzckzwyvnpu6nGEm
-         i0yQ0Z/jOpaGALblxp38pzgU43Tg5IvS0AX+lyeEKl8MNJ0tQ3rhIij8L6+O+8rriAwk
-         DZ4H9nM5ar2NJvEogj5Yw9tymQOpcktRVfZt99nE9np605gnoxdf6DFzC9QM2fqYGG57
-         ONVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwc4fAv/SO2r94qobWkigYWKMwGkSMbU7b4NGTHsoPSE2fu5f6jSOVG2VzmwsmLbgUyisWP6jtFEGdo55U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCmGQt50hWAvTWlj1W/HJlZALO/Tat0p8k573dEpIc45rjI1sJ
-	dkwldeCmhlRm1s5kXVbU25tY7GV+RQvUY+8NYNaZrDhWC5cDSkSRO/oYjiosOyU8oXQ=
-X-Gm-Gg: AYBFou0mJiSYKvO1BNfd+gqWpPnbWFOL5qsZI9wVik9lu30k6ips29NiSJ0W7eD+ylo
-	YsU0b1Nnjbww0FjeRLccG3iEroAUL+LkvERVjU2ANKkPTt5y5zqmB0+Lwlu+946qQ8MB7xwwBp1
-	BUGJzho2VqAlsWTFX5a9i42EoIl0NwOxOOYd9vApDdCvrHgGmLWSgEgEuffwe86Mt4bmOqsD6Ng
-	U60VSgYlO6jPS2u0LyUOi4lja5kt4P2eZkre5OKGOMDrj1fAVQaZv8FyGAMjCalURH7juLfTe7t
-	JNXLBXLrHhatElyEARnueCob0I9mj6QwLSm84rqRS+O+CukvHe/7Ta3dYBnIVjTnzpKD9N8h7xi
-	WWIxY/uwRYs8oc/j1/7TFMygdZPvxQ9dluB/DieHpvwBO01n87r0G4kwuId9KIVfZz0MBNTAI2L
-	welbQqv70W6GDO2ogYYWnqxiH09VszXOnvZ6QR8ifwc/7/msEyEbv4fah/vM/fF0qPc3pUDjx58
-	MYyZbrVAYVj1cTgulRsLca9bsvNp1wMTMj0f06TXAhQcO/teYjfqHW7AJZV8QN/Phvt9x4=
-X-Received: by 2002:a05:6000:25c3:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-48b0253e9eemr1543524f8f.49.1790757824401;
-        Wed, 30 Sep 2026 01:43:44 -0700 (PDT)
-Received: from localhost.localdomain ([217.146.93.153])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f2b0dsm1702201f8f.25.2026.09.30.01.43.40
+        bh=11O/i4eaHiTKOHQj5oOKeDGVuB1F5PuQ9vQoJ/Gyud8=;
+        b=kD73XE08nr9i5UHYlI6KjKTJOw4gyP+vjiv7TPeZ85WHr4ihBYp/HQZsv5wdbiFKFu
+         R5cHfSCiUG7F1KFKMCaeWv8/tP15KTSX2VYaKEZ5GwZTPzE0e1Ca+dMx1PKu7BzGx3bE
+         0bixdXaPGVUcAEAPOF7FBojg32wlCfo721yvTuCWDRBoBtWGkVpXEJb8Q3aPCX3nMQcd
+         moMBhzcJFVc1oFWyUYHgO9u+QF9QgXFETJ/cFURYYKmFXmbi7WHmTE6jFItNlL9FpZF5
+         e+G0xRkimpBE8GcGyLnBpw7/xvR9X0qWnEHSRabKyFZkSE1vgjwVwiNdPyiV8gpb0cEA
+         NnEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx90Yi64XdPpQsZeNpanI4TqSkYmPBDTk6fQ4iMpETqGg0rgfIH5qUB5gGTGKJTjfA36dTYHkAoiQqpjfw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyo2b4C1Q2X2NKZeGns2eZ0ixvWWgUlkUc03pcOTFQ5ocEeX50
+	akkPVGAcaDMjfpS3fcjKG6jeaLO1ZdrJBYXBSEGTedsN0/JEa5A2LSYuNEwGLzIIh28=
+X-Gm-Gg: AYBFou2pLV42Ya8kMeBC5HKNfmpHBL0FjtC3nBHZHyJ6+EafavN+gszqhRmX7PBJJw9
+	KnHy+/Bo5K3CG/eLZBWLVp5E1o+5XDVlSpRXZRcNKOwlmwcS9xW3vdiRuOIlax6kBRUw0wRxLPX
+	vzZCyVdKLWPk/F4jluJqo0h6AqQHwIiuExZsFd0rDSKCfis5a7hmL96AqdwjGY3xDHmHk4MmgCO
+	UkpKZ+V0X5yjDFrJx7fktauJMKI3kV0JWf12OoMv5dyp2GS/jTtwIGyzI52sN3QOx1FYwQyYoqs
+	YV+EfJ7/XiN64/S1MBAGySe3NUBr4Cvb9AWuPtL3/Mddb/Vlx0bRCX1ucqO0ZCnMM9lE2PXoFrU
+	cSO74r8PCIqqv2z6fJQaiCJXIesEAKc85I261Z8Z1vKlwr6agJ67q5ixvTAcfj9aGOx9vd8gyrX
+	PQQaVCjorWEFLsEJxj6EW7AuMSWu1K5PSXmtGXvUWdK2dFfJwUjZM3pJ559Uo=
+X-Received: by 2002:a17:907:94c4:b0:c2e:22f7:59c5 with SMTP id a640c23a62f3a-c2e23cabdb0mr57793966b.7.1790757830388;
+        Wed, 30 Sep 2026 01:43:50 -0700 (PDT)
+Received: from fedora ([84.207.203.52])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f5f676sm29571566b.26.2026.09.30.01.43.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:43:43 -0700 (PDT)
-From: Salil Mehta <salil.mehta@opnsrc.net>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: catalin.marinas@arm.com,
-	corbet@lwn.net,
-	gshan@redhat.com,
-	james.morse@arm.com,
-	jic23@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mark.rutland@arm.com,
-	peterz@infradead.org,
-	ruanjinjie@huawei.com,
-	tglx@kernel.org,
-	will@kernel.org
-Subject: Re: [RFC PATCH 1/2] cpu/hotplug: Skip disabled CPUs in cpuhp_smt_enable
-Date: Wed, 30 Sep 2026 08:42:46 +0000
-Message-Id: <20260930084246.3238477-1-salil.mehta@opnsrc.net>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <133D63B7-B1DF-4DEB-92F6-B6D785D43457@mainlining.org>
-References: <133D63B7-B1DF-4DEB-92F6-B6D785D43457@mainlining.org>
+        Wed, 30 Sep 2026 01:43:49 -0700 (PDT)
+Date: Wed, 30 Sep 2026 09:43:47 +0100
+From: Gregory Price <gourry@gourry.net>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, rppt@kernel.org, mhocko@suse.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, ziy@nvidia.com,
+	joshua.hahnjy@gmail.com, ying.huang@linux.alibaba.com,
+	apopple@nvidia.com, linux-mm@kvack.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
+ with MPOL_WEIGHTED_INTERLEAVE policy
+Message-ID: <arzLw18RiTN6Hmey@fedora>
+References: <20260930072617.64665-1-lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930072617.64665-1-lizhe.67@bytedance.com>
 
-[Sincere Apologies, sending it again as Plain Text; earlier reply got
-filtered perhaps due to HTML content]
-
-Hi Bradley,
-
-Many thanks for taking a look.
-
-
-On Tue, Sep 29, 2026 at 9:16 PM Bradley Morgan <brads@mainlining.org> wrote:
+On Wed, Sep 30, 2026 at 03:26:17PM +0800, Li Zhe wrote:
+> Allow MPOL_F_NUMA_BALANCING for MPOL_WEIGHTED_INTERLEAVE.  As with
+> MPOL_BIND and MPOL_PREFERRED_MANY, keep migration constrained by the
+> policy nodemask: if the CPU's node is outside the nodemask, do not
+> migrate the folio there.
 >
-> On 29 September 2026 20:41:29 BST, salil.mehta@opnsrc.net wrote:
-> >From: Salil Mehta <salil.mehta@opnsrc.net>
-> >
-> >The CPU enabled mask describes whether a present CPU may currently be
-> >brought online. cpuhp_smt_enable() is an online operation, but currently
-> >walks all present CPUs and only filters CPUs that are already online or
-> >belong to offline NUMA nodes.
-> >
-> >This can make it attempt _cpu_up() for a present CPU which firmware has
-> >not enabled and which has not yet been registered as a CPU device.
-> >
-> >Use the enabled mask for the policy decision it was introduced to
-> >represent. This keeps present-but-disabled CPUs out of the SMT bring-up
-> >path while still allowing registered offline SMT threads to be brought
-> >back online.
-> >
-> >Present and enabled are separate generic CPU states, so callers which
-> >intend to bring CPUs online should not assume that every present CPU is
-> >enabled.
->
-> Ok.
->
-> >
-> >Signed-off-by: Salil Mehta <salil.mehta@opnsrc.net>
-> >---
-> > kernel/cpu.c | 5 +++--
-> > 1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> >diff --git a/kernel/cpu.c b/kernel/cpu.c
-> >index b3c8553d7bd6..988b7a1e8298 100644
-> >--- a/kernel/cpu.c
-> >+++ b/kernel/cpu.c
-> >@@ -2706,8 +2706,9 @@ int cpuhp_smt_enable(void)
-> >       cpu_maps_update_begin();
-> >       cpu_smt_control = CPU_SMT_ENABLED;
-> >       for_each_present_cpu(cpu) {
-> >-              /* Skip online CPUs and CPUs on offline nodes */
-> >-              if (cpu_online(cpu) || !node_online(cpu_to_node(cpu)))
-> >+              /* Skip online/disabled CPUs and CPUs on offline nodes */
-> >+              if (cpu_online(cpu) || !cpu_enabled(cpu) ||
-> >+                  !node_online(cpu_to_node(cpu)))
->
-> Ehh, have you had a issue with this code? Like something e.g: a splat.
 
-No, I am not reporting a new splat or crash on current upstream. This RFC
-is a proactive polite enquiry about the design choice, together with a
-proposed alternative. If you check the the cover letter it provides the
-context, including reproduction of the original warning with the earlier
-present-mask semantics restored and the results with the proposed fix.
+Why for WEIGHTED_INTERLEAVE and not INTERLEAVE as well?
 
-Just for the context, there is also an outstanding QEMU Arm vCPU hotplug
-series awaiting upstream acceptance. The distinction between a CPU being
-present and being enabled has been an important part of the model we have
-been explaining to the QEMU community. Changing those semantics now could
-complicate that work by changing the assumptions on which the interface
-and its explanation have been based.
+Otherwise this seems reasonable.
 
-The underlying CPU architectural requirement remains that all resources
-associated with the possible vCPUs are described at boot; virtual CPU
-hotplug does not dynamically add or remove those resources. The patch in
-contention is not changing that assumption even now but are we changing
-the contract between the ACPI and the kernel or misrepresenting what has
-been discovered already?
-
-My understanding from the earlier design discussions related to support
-of the vCPU Hotplug on ARM was that toggling the present mask to represent
-firmware enablement was considered and ultimately rejected. The intention
-was to keep the kernel’s representation consistent with the ACPI/firmware
-model: a CPU can remain present while firmware controls whether it is
-enabled. The separate cpu_enabled_mask was introduced to represent that
-distinction.
-
-My concern is therefore about the compatibility implications of changing
-this established, userspace-visible meaning. I cannot currently point to
-a specific upper-layer consumer that breaks, but neither is it
-straightforward to establish that no consumers depend on it.
-
-Catalin also initially raised the possibility of breaking other things by
-no longer marking these CPUs present in the discussion of Jinjie’s
-original patch, although he subsequently proposed a present-mask change
-himself:
-
-https://lore.kernel.org/lkml/aeNxKpHzTQX4_kId@arm.com/
-
-What I would like to understand is why changing the present-mask semantics
-is preferable to using the existing enabled mask in cpuhp_smt_enable().
-To me, checking eligibility at this caller appears to address the original
-warning more directly while preserving the present/enabled distinction.
-
-However, I may be missing a deeper constraint or a trade-off discussed
-while I was away from this work. That is why I posted this as an RFC, and
-I would appreciate understanding the reasoning.
-
-Hope this explanation helps.
-
-Many thanks,
-Salil.
+~Gregory
