@@ -1,107 +1,170 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78FB3BFE4C;
-	Wed, 30 Sep 2026 09:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 283CC47A874
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760454; cv=none; b=kLAueeDR/GpKVrldwZl8VNGPgT3qPj6WEZPyPHPjzzLgiE9VuQgWDXN5a8tVD5mG7RibAP09xSbkWMJyLULUn66QClzirqoMw1Z+kCOKrkj49jUfyNs520v9dADL5KAJWsoLBGzUQAtGoRTs3Tok7glQnZNZqxh24fNARJGyfEs=
+	t=1790760454; cv=none; b=GLtZBRFC84hYBndx/3MC3E5dMpnaKhqlXC5++ujMJVlgOYW9Ar02rlyIrjppS2OBPQxM5cPxPjJQjwcn2xXu1Qfd++CMH0Gc2dR5PGuttKHX8/K8ybLzs1kezMDSKEmjKfu5oXB61LQErjmnmB9WgoN1venzS68LuhUX/YWGyEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790760454; c=relaxed/simple;
-	bh=IUynFr7wZp5avB/alZvLSfG0tvwc0yckvvb2xGTxg/4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Yt+U2EVLHOf3lv4Pc4/vKF4BmMefbgLhvCB3ynuNScq42fO5V9ZXo+MFqZOjwn9bwsAqTCsXHQFpSJMC2EIPNqjWFhguX3ZkmLcHZZ9p7FAQxYsFvHVHXq/TNlPFhCQcCrZOWFOquS8UePMT/aFBXncAc6d/J2AaH1K0dtbfUzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=eidK9XzL; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	bh=zEiJnBSX2N316eOkzQul+PbIDHZfjDAS8ydt82bDmkw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G5jsCiTkd+vLgGZepogsLw0hNKQgvO36wbPFYbelb1lGf/zhTg20ztYLtJpE0vZWRTeAURn0z9cgswoh489jBKHgIB/p4gIaV8ZBrW1GKJHk5RdlinKSkhn6u+jL3gDJ7vingZ4axYLkWLl90uxplQputHhA0QnpVrVi4sTklDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qMKDLF4r; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="eidK9XzL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=qSVKMmC0VyXgcJFWSutTuF7MsgWbRqaF6wKIawKhf+g=; t=1790760451;
-	x=1791365251; b=eidK9XzLvNdgPWjYsfAzDSndhHz5EV6Wuxhv+xfxjEd+7NlsOOlO3b5E4XSW0
-	HmJ0Q8U3KC8xeT6utf/cRILyplVKMCYy+JZZ7lm+4qY+5jU4bbtsWN7l9HllB9U0+qczNbpp1m/vp
-	Zvdb6A13AdhkL3ikYraqPyklEwv8MOEUGyb1upUjA549+dMaPZCq6w7VvHIqp01BjlKb8lzGAIa7L
-	ZHkOOrqG9EMgiUhxsU9+eSipUfYaw3G8AntlOc3fhDO45t1sAtU8fAnrpcnnuFBe70x6yZ6zF9bBj
-	gStL/aD7G+ijBFdnHPdjYovyHOGFdWzsvtv9IGwXK9AyrTcjFg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xBqb3-00000002QGV-2B5I; Wed, 30 Sep 2026 11:27:29 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xBqb3-00000003ItU-19ck; Wed, 30 Sep 2026 11:27:29 +0200
-Message-ID: <3ea57d640ac7409fa37b15ec9e3f49126347e432.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some
- optimized AES modes
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Stian Halseth <stian@itx.no>, Eric Biggers <ebiggers@kernel.org>, 
-	linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, "Jason A
- . Donenfeld" <Jason@zx2c4.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- sparclinux@vger.kernel.org
-Date: Wed, 30 Sep 2026 11:27:28 +0200
-In-Reply-To: <25c7a7c7bbe3c7f70fca559867e0883b9e4dc48d.camel@itx.no>
-References: <20260929222752.36427-1-ebiggers@kernel.org>
-		 <322e5255353e3a5f9e3840a496018edd980fb016.camel@itx.no>
-		 <1f85bdb9614365fedda81fb649147da48bf7be13.camel@physik.fu-berlin.de>
-	 <25c7a7c7bbe3c7f70fca559867e0883b9e4dc48d.camel@itx.no>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qMKDLF4r"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C6BA497;
+	Wed, 30 Sep 2026 02:27:28 -0700 (PDT)
+Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 77C703F86F;
+	Wed, 30 Sep 2026 02:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790760451; bh=zEiJnBSX2N316eOkzQul+PbIDHZfjDAS8ydt82bDmkw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qMKDLF4ryvlTnLG8B5XNoqRLtYiGwYldUYZyfkgCXMnB0R+fNGTUfWP/beQCBFKtU
+	 AQFw5aSQ1TEjJGhuAdQu7bPj5wz3muLoNr2IMQc/omUFLhRheGxBfOomnBZ3bRkhHt
+	 myMS5hcAF7kgootl2RjAhKJ6bMS8HSiwgkktMBFs=
+Message-ID: <d0a20ba6-2d1f-4169-9188-15b954c377b4@arm.com>
+Date: Wed, 30 Sep 2026 10:27:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: errata: Add Cortex-A725 erratum 3821522
+ workaround
+To: Beata Michalska <beata.michalska@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
+ James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
+ linux-kernel@vger.kernel.org
+References: <20260929154325.3416271-1-beata.michalska@arm.com>
+ <20260929154325.3416271-3-beata.michalska@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20260929154325.3416271-3-beata.michalska@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Stian,
+Hi Beata,
 
-On Wed, 2026-09-30 at 11:15 +0200, Stian Halseth wrote:
-> On Wed, 2026-09-30 at 09:41 +0200, John Paul Adrian Glaubitz wrote:
-> >=20
-> >=20
-> >=20
-> > Very nice! Do you know which SPARC CPUs support these instructions?
-> >=20
-> > Adrian
-> >=20
->=20
-> SPARC T4 or later.
+On 9/29/26 16:42, Beata Michalska wrote:
+> Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
+> incur a significant increment error when a CPU enters and subsequently
+> exits WFE or WFI, and may no longer track the system counter
+> frequency.
+> 
+> The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
+> frequency invariance and CPPC FFH feedback counters. Wire the affected
+> Cortex-A725 range into the shared broken AMU constant-counter capability
+> so the affected counter is treated as unavailable by returning zero in
+> the AMU counter paths. This prevents the broken counter from being used
+> as a reference source.
+> 
+> The erratum can also affect PMUv3 users of the CNT_CYCLES event,
+> but this workaround intentionally does not change PMU event handling.
+> Hiding or rejecting the PMU event from the erratum code would change
+> the perf-visible PMU event interface, including raw event selection,
+> and would need a separate PMU-specific approach rather than being
+> folded into the AMU reference-counter workaround.
+> 
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+> ---
+>  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+>  arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
+>  arch/arm64/kernel/cpu_errata.c              |  6 ++++++
+>  arch/arm64/kernel/topology.c                |  9 +++++----
+>  4 files changed, 35 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> index ac3248b9f2f3b..99a1eb4b833dd 100644
+> --- a/Documentation/arch/arm64/silicon-errata.rst
+> +++ b/Documentation/arch/arm64/silicon-errata.rst
+> @@ -174,6 +174,8 @@ stable kernels.
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
+> ++----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-X1       | #1502854        | N/A                         |
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 3b6c052d46a18..cab741a695f52 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
+>  
+>  	  If unsure, say Y.
+>  
+> +config ARM64_ERRATUM_3821522
+> +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
+> +	depends on ARM64_AMU_EXTN
+> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +	default y
+> +	help
+> +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
+> +
+> +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
+> +	  increment error when entering and subsequently exiting WFx.
+> +	  As a result, the CNT_CYCLES may diverge from the system counter
+> +	  frequency at which it is expected to increment.
+> +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
+> +	  being unreliable and unsuitable for use.
+> +
+> +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
+> +	  counter return 0 in the relevant paths. This causes users of the counter
+> +	  to treat it as unavailable and is functionally equivalent to firmware
+> +	  disabling the affected counter.
+> +
+> +	  If unsure, say Y.
+> +
+>  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+>  	bool
+>  
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index f18683e56184b..42a6fff8c3f44 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -388,6 +388,12 @@ static const struct arm64_cpu_capabilities arm64_repeat_amu_constcnt_list[] = {
+>  		/* Cortex-A510 r0p0-r1p1 */
+>  		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
+>  	},
+> +#endif
+> +#ifdef CONFIG_ARM64_ERRATUM_3821522
+> +	{
+> +		/* Cortex-A725 r0p0 - r0p2 */
+> +		CAP_MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2)
+> +	},
+>  #endif
+>  	{}
+>  };
+> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+> index 64588554e7f76..fc5d3abd12905 100644
+> --- a/arch/arm64/kernel/topology.c
+> +++ b/arch/arm64/kernel/topology.c
+> @@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
+>  static void cpu_read_constcnt(void *val)
+>  {
+>  	/*
+> -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
+> -	 * of 0 is also returned if the current CPU does not support AMUs or if
+> -	 * the counter is disabled. A return value of 0 at counter read is
+> -	 * properly handled as an error case by the users of the counter.
+> +	 * Return 0 if the current CPU is affected by either erratum 2457168
+> +	 * or erratum 3821522. A value of 0 is also returned if the current
 
-OK, thanks.
+Perhaps wording it generically like:
 
-> The T2 and T3 has a separate crypto unit, but not supported here.=20
-> Support was removed from the kernel in 6.14. Haven't tested it, as I
-> don't have the hardware.
+  Return 0 if the current CPU is affected by a HW erratum.
 
-Why was it removed? I'm not happy about such removals as long as the
-hardware is supported.
+would save us from having to change the comment next time we encounter a broken AMU :)
 
-> Also worth noting, it's only used when the firmware lists the machine
-> description's hwcap-list and the CFR has its bit set.=20
+Thanks
+Vladimir
 
-Is that not the case by default?
-
-> I have no idea about Fujitsu's SPARC64 X family.
-
-I think SPARC64 X is not supported by the Linux kernel at all, is it?
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
