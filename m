@@ -1,218 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AAA3B2FE7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FC12CCC5;
+	Wed, 30 Sep 2026 05:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790747465; cv=none; b=Sp2OuRyf3MOWpIF1IKQWI4upqnRvihCeTM4D+5uy4g/GS1oDMjPkKnMasHx2gL2gitLb3hA7lJE8K9mfTIZxdGXRcImxaL71OE+l2wMRByvSHxyHeHtet/GVlKLMkDAsUkxaUSpF3LlzkN3zQRNEOoM56Cw4pp72GIjNX9j7ZNY=
+	t=1790747535; cv=none; b=dOXhzLA+coSB6hh0eZes8tvB2Is+1RDX84goKBuAcFt3Wu4Weq6ojTLeVW1Fv/H6gOPeSqPK6nV8nKgRjaoanj928jJC8uuKUFpH2yJCRG6ZctOlS+piw189Yyk7R5VFD/PK3Skua0Ef6ED5Jk0qZx7JRj9CFrbsHv47FH5Sr3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790747465; c=relaxed/simple;
-	bh=SBMQ5qrAZ5yu/0snOz+uE+yYBZur5j7xEmTmr+qRiks=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=rmJZ0VUaEQoyh9c2cu9w+hl6IaEPdI3Z1WOb7CZCaXrDvii3RsFTvchmEo66wyzOVtw9SqvjeKES4XXsUrhUh8yXsuXLqlHWFtKWRZQrzKR1iLOVWOi4Ga4G8rLwjWxodLvTzxLBPuZ+MxTmvZweF5B4qJe2nlfQzhsBs264xBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRWQk1Yv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790747535; c=relaxed/simple;
+	bh=IggA075lpKBvqFkqul8Glhx0cPLiFA4k2iwalES6fQ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q5VCy9MgA0l4gqyx5TD+toFz4AiwnUM9A8NqgTpmw5kVVW/VSy1TUmZ7B9MJSxRnJfCIUuNWVy5Bvj5gixNEiCLGLvIIqQozKxpk8iCJVqkZNoeFFE+TxfF0w95vdRyNEu0j3SjV0DGJlYal9Uj1X1vpV2xA9sshbzk+LqNnCYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cvyx/iSK; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRWQk1Yv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627A11F00898;
-	Wed, 30 Sep 2026 05:51:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790747464;
-	bh=IHbXRYFtZI/bnUL44bF/j7F87IwMQs0LtRsynOSxKXI=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=JRWQk1Yved9WLkp5iDT2l+W4Pxti1bacMKwdch8K67TADhlddurQ30A4A5F/8HISl
-	 NoIv4ZyBMsAvyjdP0uOeaPFUy394ATqMpGt1f61VDPi5w5jWvTOclxnE24jNdc9H1A
-	 kf5Fxji/LdIB5zXKbmz28H08NPCkE+pgbPr53EWUH9QHEFX3uMv1uueMhYR0UVCJOg
-	 yUWsOvu3SNSZWp6dZpemY6E09U/F4vSsIuNuAvShMTseS6/wCe5CRXw9U7Kin4BRuj
-	 OvcRVSzTYFoXCoUMDK+Txu2bXCL1+nv8uwmy0imbvn+RzvWBGiO519I5d1mCExDvZM
-	 3zwP+/Y9yN4Ww==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id AB04D198003A;
-	Wed, 30 Sep 2026 01:51:01 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 01:51:01 -0400
-X-ME-Sender: <xms:Q6O8ahG3cE6hJrrWPvOHOxJI_sj4cG0tKJ3gyTh1Rc01OIcj9A15Xw>
-    <xme:Q6O8ahIMsgcBmKpDLhZ6VqJXmP3JOlRLqArFDaOIDAFepcnUnYWR059HrGs3Q1ujd
-    _qvEUkn7HoFrqogAGprlfUrMI6-z9xB6nQ3vX11q_OtJxBZwUjoD6E>
-X-ME-Proxy-Cause: dmFkZTFSJcrBtQWEbmdY9KpRSSoNya1P4NnDPRL0fhq6fme4Lw/QJwVgh+NPSHPIjqR4J/
-    uLo7iJyY81KO5H0sJqBay6vB2ONbtDM0dIHPKbvJXcTXNb2DO2K89CdBmPVL9uuVr6U78i
-    rqRZDe9K3iQJZCJEaOaeXRGcG63+UB9h/g4B6sOpgBK7xA5MzZnUimcHNlhBOR1UnbsXIC
-    Jmb24i7auxNzjx5Q+/xyRaRfb6RPnfxQBd/xGlLacbRyfo8E7aKAC4SKPg7rgtgajQ0Owi
-    rtSk1hTQRVoNJ5Ustc9qXMBOLS9tvhcVEaB7Z4KULJBcfZyyePN63Zsp+H9DI5D3FH66RA
-    xVFWR9bi6DKxsbP+JMa+ISwENtr1o43QAaQvOrh/W6rQB7UqcJDuNoKK8kGOV8Yaut/VyL
-    y6Eexmoh5i982aiwQXfhN7xRz5WK7CJ6K5ez1payzrbA9j/bXx2F+gAFmM2EEDPT8aTGGx
-    g+PRK8WIEog+bmVvY3kQ5MG7RzXunWBRNHTxp3+NqXlTq2HGJVk151lWxcdDKd10YpaZ2w
-    icyncgC32Wo+p0hnjT8ObOzkA9p/8L6HyhMoWDNcZYk4iJAQ8bWoTIR/TyTsNbd+4Bc+3x
-    IvL/r2GTs1TeEOix/Z32LO8iMw8YC3dDduEMVbLUmxPG+4BGQQOvPFP+oQ1A
-X-ME-Proxy: <xmx:RaO8ahmjwdKSKPOOT5txvlsyRBH7wyx9hsm3N4fc1vwLmkq3fASShw>
-    <xmx:RaO8ao3lvp5JRqaPWHXwB50mzLKN3v5G5aWvThT3RfqNpJPAq9n2wA>
-    <xmx:RaO8ap27Q4DSgEebLq8jZhzBqClz246rb9KCQaFX6470Gch2i76yvw>
-    <xmx:RaO8airQ1cT0-wurEpBpIwsaGgKZkatGkZSpHCAGgwRsgPDIgumSNA>
-    <xmx:RaO8atgy5cH95NBmzqhWGG5Fk_VXrnY_fNvoaH526uy4sRHgqMOq_mhG>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 511E2F80086; Wed, 30 Sep 2026 01:50:59 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cvyx/iSK"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNZT0S1171258;
+	Wed, 30 Sep 2026 05:52:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hQY8BM
+	nBJklWk2mbjFQaJuJ2lh+1RdgoYRVU/lkUbRA=; b=cvyx/iSK6HivfFc0nZbV1E
+	4zccFMZeB/r6Lp48tVm99Se9VWjlaksZatVfBVCiDyOectUpm/Bg1kXH6nR0c6hR
+	tSENjLhJK5K3p/DN5d/nYZziz7+H7JFCkpAyTVhaikoDbTTyXS6QndZ7JNFY57pS
+	Zte3ohwZDizdo+bqPhwGOxHb9ZejYUhwnYO0xTzJGBvAJsaT7wtu7bm9EcacWcHu
+	rJDWY/ps7zAl9bXuFDOoBGBIVnI2x4Fzv09zSJyqWhlcqp5hHI6RbWYbHlNsurIY
+	a6on8c6Q5TjkwRopLMjtgrznR2O5NuPwm8E+5IM1nBb2RMz556+Uk7qGrVMn1qMQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fkakue-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 05:52:10 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68U4hHCo1289114;
+	Wed, 30 Sep 2026 05:52:10 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4p92jg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 05:52:10 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68U5q8DC2032466
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 05:52:08 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4DCEE5805E;
+	Wed, 30 Sep 2026 05:52:08 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 782595805D;
+	Wed, 30 Sep 2026 05:52:04 +0000 (GMT)
+Received: from [9.67.100.83] (unknown [9.67.100.83])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 30 Sep 2026 05:52:04 +0000 (GMT)
+Message-ID: <d0079240-f97f-4cfe-b26d-2ad2b88ab3b7@linux.ibm.com>
+Date: Wed, 30 Sep 2026 11:22:02 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 07:50:39 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>, "Stian Halseth" <stian@itx.no>,
- sparclinux@vger.kernel.org
-Message-Id: <2b9f2387-924a-4a3a-bb35-32a8a7cfef5d@app.fastmail.com>
-In-Reply-To: <20260929222752.36427-1-ebiggers@kernel.org>
-References: <20260929222752.36427-1-ebiggers@kernel.org>
-Subject: Re: [PATCH v3] crypto: aes - Fix undesired override of some optimized AES
- modes
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] keys/trusted/tpm2: Validate TPM2_Create object sizes
+ separately
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+        stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com
+References: <20260926184203.479203-1-ssrish@linux.ibm.com>
+ <arwqiNal3ElcgfON@kernel.org>
+Content-Language: en-US
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+In-Reply-To: <arwqiNal3ElcgfON@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: YUMNASIhfsx7r4qtr_c2kjx_ybblRNGe
+X-Proofpoint-GUID: YUMNASIhfsx7r4qtr_c2kjx_ybblRNGe
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfX2tMNTp6w4MGL
+ 4pcd5mcAy73uZnx4qCDfCgys0t4jEUn69JYK4AkoPvNeud7480a/PjRhGbHpiUVkonydDKmjdRu
+ qkQQlZMPcn67FX038X/7xsyXVmEMrwc=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abca38a cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=Su7yy7IH-EJ2G0VEJOIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMiBTYWx0ZWRfX5rdiRM2oII2a
+ XHbEv6EOdRAsN2JWCrQN5GAYybz4y0mODqAlMKf7dTJIlHcCdy/PjpqagDc7k0Bpef4SusphkGR
+ 39mj4a5bdvBvk42Q8NQpk+9DqWmQNWERQM8FnVeQV6NYPKj3k1nZ5uP0wEu6fOmqetBPWz95SW5
+ TnxJvJ1tO6MinZWYtIDPlgdtwvbJN1T6K9auPHmm95LSmbaIiMzvQzfzjTDM888F9BnZp2kklL1
+ +j2ddRvl7N5ogcjQ8TOqfMkj2MTl9ld84vIJ3or+WiBFH6BRCNZQpPyS+koeQi8+aM+5rGwZ3po
+ RQCLSP7Hl88fWqonvY7VGFnqFdxGWn/LiF4eQt83fEmmvnB4Mn8PwTT450gmh94KKWsit6kVAiP
+ Gf8IB95xglN4H6L0xVaG+PHVtvaCUROFxSqYQtUnjH83JeXHWVXzaVErSJcliHx7rSQCUHGUO03
+ qOZNfDQYHaWmJ8K7l6g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300022
 
 
+On 9/30/26 2:45 AM, Jarkko Sakkinen wrote:
+> On Sun, Sep 27, 2026 at 12:12:03AM +0530, Srish Srinivasan wrote:
+>> TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
+>> creationTicket in its response parameter area. However, only outPrivate and
+>> outPublic are included in the trusted key blob. The size of the blob is
+>> therefore not determined by the size of the complete response parameter
+>> area.
+>>
+>> tpm2_seal_trusted() currently compares the size of the complete response
+>> parameter area against MAX_BLOB_SIZE. This can reject a valid response
+>> when the remaining response outputs cause the entire response parameter
+>> area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
+>> TPM2B structures consumed by tpm2_key_encode() remain small enough to be
+>> encoded in the key blob.
+>>
+>> This is observed when creating larger trusted keys using the swtpm TPM 2.0
+>> emulator backed by libtpms.
+>>
+>> For example, requesting a 113-byte key succeeds, 114 fails.
+>>
+>> ~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
+>> 520504613
+>> ~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
+>> add_key: Argument list too long
+>> ~$
+>>
+>> Remove the MAX_BLOB_SIZE check on the complete response parameter area.
+>> Instead, use the response length passed to tpm2_key_encode() to validate
+>> that the outPrivate and outPublic TPM2B structures are fully contained
+>> in the response before accessing them.
+>>
+>> Previously, a response parameter area larger than MAX_BLOB_SIZE was
+>> rejected with -E2BIG before ASN.1 encoding. With this change, if the
+>> resulting encoded blob does not fit in payload->blob, the error returned by
+>> asn1_encode_sequence() is propagated instead.
+>>
+>> Also, use scope-based cleanup to simplify resource management.
+>>
+>> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+>> ---
+>> Changelog:
+>>
+>>   v3:
+>>    - Simplify the TPM2B_PRIVATE and TPM2B_PUBLIC bounds checks
+>>    - Use appropriate error codes for failure returns
+>>    - Use scope-based cleanup to simplify resource management
+>>
+>>   v2:
+>>    - Exclude a comment pointed out by Jarkko
+>>
+>>   security/keys/trusted-keys/trusted_tpm2.c | 42 +++++++++++++----------
+>>   1 file changed, 24 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+>> index 906700c3d7f0..920f45c7864b 100644
+>> --- a/security/keys/trusted-keys/trusted_tpm2.c
+>> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+>> @@ -25,24 +25,36 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>>   {
+>>   	struct trusted_key_tpm *private = options->private;
+>>   	const int SCRATCH_SIZE = PAGE_SIZE;
+>> -	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+>> -	u8 *work = scratch, *work1;
+>> -	u8 *end_work = scratch + SCRATCH_SIZE;
+>> +	u8 *scratch __free(kfree) = NULL;
+>> +	u8 *work, *work1;
+>> +	u8 *end_work;
+>>   	u8 *priv, *pub;
+>> -	u16 priv_len, pub_len;
+>> +	u32 priv_len, pub_len;
+>>   	int ret;
+>>   
+>> +	if (len < 4)
+>> +		return -EINVAL;
+>> +
+>>   	priv_len = get_unaligned_be16(src) + 2;
+>> -	priv = src;
+>> +	if (priv_len + 2 > len)
+>> +		return -EIO;
+>>   
+>> +	priv = src;
+>>   	src += priv_len;
+>>   
+>>   	pub_len = get_unaligned_be16(src) + 2;
+>> +	if (pub_len + priv_len > len)
+>> +		return -EIO;
+>> +
+>>   	pub = src;
+>>   
+>> +	scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+>>   	if (!scratch)
+>>   		return -ENOMEM;
+>>   
+>> +	work = scratch;
+>> +	end_work = scratch + SCRATCH_SIZE;
+>> +
+>>   	work = asn1_encode_oid(work, end_work, tpm2key_oid,
+>>   			       asn1_oid_len(tpm2key_oid));
+>>   
+>> @@ -50,10 +62,9 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>>   		unsigned char bool[3], *w = bool;
+>>   		/* tag 0 is emptyAuth */
+>>   		w = asn1_encode_boolean(w, w + sizeof(bool), true);
+>> -		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode")) {
+>> -			ret = PTR_ERR(w);
+>> -			goto err;
+>> -		}
+>> +		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode"))
+>> +			return PTR_ERR(w);
+>> +
+>>   		work = asn1_encode_tag(work, end_work, 0, bool, w - bool);
+>>   	}
+>>   
+>> @@ -65,8 +76,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>>   	 */
+>>   	if (WARN(work - scratch + pub_len + priv_len + 14 > SCRATCH_SIZE,
+>>   		 "BUG: scratch buffer is too small")) {
+>> -		ret = -EINVAL;
+>> -		goto err;
+>> +		return -EINVAL;
+>>   	}
+>>   
+>>   	work = asn1_encode_integer(work, end_work, private->keyhandle);
+>> @@ -79,15 +89,10 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>>   	if (IS_ERR(work1)) {
+>>   		ret = PTR_ERR(work1);
+>>   		pr_err("BUG: ASN.1 encoder failed with %d\n", ret);
+>> -		goto err;
+>> +		return ret;
+>>   	}
+>>   
+>> -	kfree(scratch);
+>>   	return work1 - payload->blob;
+>> -
+>> -err:
+>> -	kfree(scratch);
+>> -	return ret;
+>>   }
+>>   
+>>   struct tpm2_key_context {
+>> @@ -340,10 +345,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
+>>   		goto out;
+>>   
+>>   	blob_len = tpm_buf_read_u32(buf, &offset);
+>> -	if (blob_len > MAX_BLOB_SIZE || buf->flags & TPM_BUF_INVALID) {
+>> +	if (buf->flags & TPM_BUF_INVALID) {
+>>   		rc = -E2BIG;
+>>   		goto out;
+>>   	}
+>> +
+>>   	if (buf->length - offset < blob_len) {
+>>   		rc = -EFAULT;
+>>   		goto out;
+>> -- 
+>> 2.53.0
+>>
+> Now we can say that it leaves the tree to cleaner state than it was
+> before applying this patch. The first version, despite doing the right
+> thing was simply too convoluted.
+>
+> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-On Wed, 30 Sep 2026, at 00:27, Eric Biggers wrote:
-> The new library APIs for AES encryption modes were wired up to the
-> traditional crypto API via crypto/aes.c.  However, for now the kernel is
-> still in a transitional state where various architectures still have
-> architecture-optimized implementations of AES modes in arch/*/crypto/,
-> wired up to the traditional crypto API only.  Because of that, the
-> crypto/aes.c algorithms were given a cra_priority of only 110 to prevent
-> them from overriding arch/*/crypto/ in the traditional crypto API.
->
-> However, because of how the traditional crypto API works, the
-> cra_priority trick doesn't work in cases where the relevant algorithm
-> isn't directly implemented by arch/*/crypto/ but rather is provided by a
-> template instance using other code in arch/*/crypto/.
->
-> For example, x86 doesn't have its own "ccm(aes)" but rather relies on
-> the "ccm" template constructing it from the x86-optimized "ctr(aes)".
-> The existence of the library-based "ccm(aes)" prevents that, even though
-> its priority is lower than what the template would produce.
->
-> Thus, "ccm(aes)" ends up using the slower single-block AES code.
->
-> Therefore, skip wiring up the relevant library-based code to the
-> traditional crypto API on architectures where this problem can occur, as
-> determined by what exists in arch/*/crypto/ for each architecture.
->
-> This is ugly, but it's also temporary: these conditions will go away as
-> architecture-optimized implementations of AES modes are migrated into
-> the library.  But until then, we need to prevent performance regressions
-> by ensuring that the optimized code continues to be used.
->
-> Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using library")
-> Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
-> Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
-> Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
-> Closes: https://github.com/sparclinux/issues/issues/106
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->
-> This patch is intended to taken through libcrypto-fixes
->
-> v3: Also suppress xts(aes) on SPARC, and improved comments
-> v2: Fixed PowerPC config option, and resent as standalone patch
->
 
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Thanks for the review and for helping improve the patch, Jarkko.
 
 
->  crypto/aes.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
->  1 file changed, 47 insertions(+), 4 deletions(-)
->
-> diff --git a/crypto/aes.c b/crypto/aes.c
-> index 94791f481e98..51eee78396ea 100644
-> --- a/crypto/aes.c
-> +++ b/crypto/aes.c
-> @@ -637,7 +637,18 @@ static struct skcipher_alg skcipher_algs[] = {
->  		.decrypt = crypto_aes_cbc_decrypt,
->  	},
->  #endif
-> -#if IS_ENABLED(CONFIG_CRYPTO_CTS)
-> +	/*
-> +	 * Don't register library-based "cts(cbc(aes))" on architectures where
-> +	 * it might block a "better" implementation from being instantiated 
-> via
-> +	 * the "cts" template.  These exclusions are temporary and will go 
-> away
-> +	 * as the arch-optimized AES code is migrated into the library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	  IS_ENABLED(CONFIG_ARM64) || \
-> +	  IS_ENABLED(CONFIG_PPC) || \
-> +	  IS_ENABLED(CONFIG_S390) || \
-> +	  IS_ENABLED(CONFIG_SPARC))
->  	{
->  		.base.cra_name = "cts(cbc(aes))",
->  		.base.cra_driver_name = "cts-cbc-aes-lib",
-> @@ -687,7 +698,13 @@ static struct skcipher_alg skcipher_algs[] = {
->  		.decrypt = crypto_aes_xctr_crypt,
->  	},
->  #endif
-> -#if IS_ENABLED(CONFIG_CRYPTO_XTS)
-> +	/*
-> +	 * Don't register library-based "xts(aes)" on architectures where it
-> +	 * might block a "better" implementation from being instantiated via 
-> the
-> +	 * "xts" template.  This exclusion is temporary and will go away when
-> +	 * the library AES-XTS is optimized for SPARC.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
->  	{
->  		.base.cra_name = "xts(aes)",
->  		.base.cra_driver_name = "xts-aes-lib",
-> @@ -980,7 +997,20 @@ static __maybe_unused int 
-> crypto_aes_ccm_decrypt(struct aead_request *req)
->  }
-> 
->  static struct aead_alg aead_algs[] = {
-> -#if IS_ENABLED(CONFIG_CRYPTO_GCM)
-> +	/*
-> +	 * Don't register library-based "gcm(aes)" and "rfc4106(gcm(aes))" on
-> +	 * architectures where they might block a "better" implementation from
-> +	 * being instantiated via the "gcm" and "rfc4106" templates.  These
-> +	 * exclusions are temporary and will go away as the arch-optimized AES
-> +	 * code is migrated into the library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	  IS_ENABLED(CONFIG_ARM64) || \
-> +	  IS_ENABLED(CONFIG_PPC) || \
-> +	  IS_ENABLED(CONFIG_RISCV) || \
-> +	  IS_ENABLED(CONFIG_S390) || \
-> +	  IS_ENABLED(CONFIG_SPARC))
->  	{
->  		.base.cra_name = "gcm(aes)",
->  		.base.cra_driver_name = "gcm-aes-lib",
-> @@ -1012,7 +1042,20 @@ static struct aead_alg aead_algs[] = {
->  		.chunksize = AES_BLOCK_SIZE,
->  	},
->  #endif /* CONFIG_CRYPTO_GCM */
-> -#if IS_ENABLED(CONFIG_CRYPTO_CCM)
-> +	/*
-> +	 * Don't register library-based "ccm(aes)" on architectures where it
-> +	 * might block a "better" implementation from being instantiated via the
-> +	 * "ccm" template.  These exclusions are temporary and will go away as
-> +	 * the arch-optimized AES code is migrated into the library.
-> +	 */
-> +#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
-> +	!(IS_ENABLED(CONFIG_ARM) || \
-> +	  IS_ENABLED(CONFIG_ARM64) || \
-> +	  IS_ENABLED(CONFIG_PPC) || \
-> +	  IS_ENABLED(CONFIG_RISCV) || \
-> +	  IS_ENABLED(CONFIG_S390) || \
-> +	  IS_ENABLED(CONFIG_SPARC) || \
-> +	  IS_ENABLED(CONFIG_X86))
->  	{
->  		.base.cra_name = "ccm(aes)",
->  		.base.cra_driver_name = "ccm-aes-lib",
->
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> -- 
-> 2.55.0
+> Br, Jarkko
+
+Thanks,
+Srish.
