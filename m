@@ -1,204 +1,236 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012043.outbound.protection.outlook.com [40.107.209.43])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010056.outbound.protection.outlook.com [52.101.61.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC24339394;
-	Wed, 30 Sep 2026 10:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E39D3F5BE6;
+	Wed, 30 Sep 2026 10:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763580; cv=fail; b=Bd7TLr5mhutHxYZCLEi2B4YkE1ctXdpbY/8R2W6QRojn0OoMbgSqXoV4OX1ggtQYR5U7hlkgfba7/VhERi4GuaNo0SF9nA/+xjEyCjhbvheWoGXya3PBOYZIkqDihjhe2A8V5aC18bXi2l/SPdvC0wHwGMy036cNcsowIUF9LA4=
+	t=1790763581; cv=fail; b=lRW4xNFsqlbwlnePTw3VJWFFizKR3yeV1Q9SpTnYX7L2DMYZ++7nqqLElyymVLvYMn6sFdOGwMSus1HPiyQNdZH9OvQeWtm8c/TMXwKTrg1l9pUb/IrdhpMkV2VG+eoQ7Hg/aeqMDCY7seGLOoWzsfj53E089U6QiLYpL20J+cc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763580; c=relaxed/simple;
-	bh=xaFaOoGDpcmN0ywTzNqlXAkATnhJn770MUjzZUDeqz8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BEWwI1OQ8p7Cc3fxyiIDKX7N1ujs5QLdF/wjD4YuH878feONCrQwasodOAFe3Msl5v3T5asJSxWSgh6MBPqQMchiBNDxFQ6kLnQsDrVyfppLdKvlERyXK1ljkL5rIvLsHkWAYoD1VwCmIjYIeJ2ZoWtXxvhJ/JjO0pA66v+/sic=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Q8qEZmlm; arc=fail smtp.client-ip=40.107.209.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790763581; c=relaxed/simple;
+	bh=r+z/wmzxQ9t4Afv651u5oPjNnNA7RB5uptwvFB9UA1Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ZPbvBGgRlEE97UmstrL8RV4cWJzZjBwvTgfKvD5HRumOnZ33iFhXb8T6HPUOeqyLvMsVXyOVWNeK5lcgqWUk4BlmvpLjXL1pToIKJwEsvFw9Wy5SpqwyzZgSXnU+SCIeneXalM1QS0jwcrc1gTw8YDE966uPwpGtwL7cP2gi1Vs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vvNkc2Ft; arc=fail smtp.client-ip=52.101.61.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q8qEZmlm"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vvNkc2Ft"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mtmiMSMe0RjR8PPFKhiIcnfQWRwcJd2fXwWhvI6ZPwMZRV9nYAg4OM0jvnInFvuiJel8N+7eucDl+QdNfHcFZZxm5NTPiBtJ7oEF+UQ3x4zs1grQf/AcpOb62FZLz78g+sSLrS+SAoTs1LLT0cLKbupPNILFsw2rmGbOPEg0bqqnP5mdYWSD5tPRsjiAOeGqIJA9V1+7ANEc7DXrK9xpu1fN/kJYHCQrxsg1/QtWTAMoePbLeox/qOY193y7kukLoBSbVESr1dPxUB0AeD05nYYZmx+9KmCUIwW1SLIBZ6ETM5qywvg3ctBb8u23W9sQrkPkwEKP7Qgsb0i6LWeB9A==
+ b=LuKMbIpP2g2WG6zrVnlaDeZdouOSS7S5kWNSDyH2RoLes6EHFcZZppW+ezr2mViwy7cHwqPyQv0be0CJBv+gt6bCEWLBjHO0OSbg3a1ka7lDkt5KhA7Kp2sTiY+a+k8YKepO+MmgvAmVgkEcM6MLNbTv0KcEJMpPopGA3vbaMNHy2tlKnc+vOLcdJAyebxiNOuLhpw/UOKyvef4fXfekJGHY0oc8aH7Uy4hBpzkyTa4q7ISO89ISgu+BUtIh69b8IdAO6V/qoZYeuUDUFwmC9PPVQwbqqdVAs+RNV/nXYEZ/Wm4pk4vAJcMwuMFTHy0T0nIJDnZUub5pIpUj6Eh18Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0WLvjId4O7hjrgkonOLHm4BcgM84B/ArLv1WvNfaYVI=;
- b=N+t4C1wtootHkbVRIkxeuW/VbYaA7bRz10dtd+kraWUEvrGvGcyj9qulxGcpyoHqGopOGZlIWxyuq97Ecyg9afgozgXRZd8XVveTgGcA6hLyX5tOpBQT7g902NKQKI9eVWg6MxIhhN0OY3fMkQDVrFR3vmqXUsyV63F4JYYE21CYzv3KfenQSeKtrsuDO+bDlgAE8NG4EHk7r6bA2msjwpSPefWMMdjogWLIs9zcrLMNzHZXx1Lofj1w+Lhi73U3NzvgLoZfxRdB8MaNMkuUVBLz8LB+MHvoz4ldPkMLHwKBtgxryLCe0t9amL3Ssa4EjruXjpoMSXAK1qO5aMeEmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=0WKG3oBYccLzQ3BYVyeJsgMN3gpamG0UYKfzbD+4wp8=;
+ b=gUqSFPiqA6pR+Kt3oL872g4+2h0449Ln4o+v7DBUK6Ucj2BqvtyEikp9cMkEBGl2hgQ1bRjpQ31aZ9dPq1FY92AGryGxasCmF9qclNeq1bvcthL3R/Uldffpc5EzMFTuxhihT/J2neBNcMl2RNEbCd8ZrUa081Lp6t9ZmKhId/WQC7fQFNXS8iAMqOT1il/4hVf5qmrAOrnBs/AeyGFGFo0KZ9FTXAc5u2paSOudHYfoDh8XgCxIcCGfbPweLw2kW1wUHG6KcMXQrNZRT+t8DzW0w7FzD/xod+fvsTBjxDpTjOcnHmmA0twYxlHDmEbdbX5yYFPAyXeX0I3OPgwVzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0WLvjId4O7hjrgkonOLHm4BcgM84B/ArLv1WvNfaYVI=;
- b=Q8qEZmlmZjvFxTG+kSK7mQ5geJVOWR+AWdiRFf5MyJcj3kDWUXdEXm8VMNmwz8pZoZR9P20j1pWwkxTmXBaVdf5UJmxoQhDs6ACm7DUPQtC8jiIR47nDpgypvSFvLTK3G9qBU7sZM20sqsjV8ZkOE09uzUh/aC3QBXlAg/lOFugwQeK2qVdRjJAPdTOZg43qS4D4brzGZw4+SMXuE5ZcrEU612dtH+OUhYjMHVHBjW2+XIOJr+ihrE9YAs/gULdtDIkIT0mgiOETfVFTtXr7PS/LQn05FrpKPbnEsStsPKLY1Y0/W7ehtKJZ3jfc9oqJq79GMuc9PSSTlBzBkvLOZw==
-Received: from BN9P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::12)
- by MN0PR12MB6295.namprd12.prod.outlook.com (2603:10b6:208:3c0::17) with
+ bh=0WKG3oBYccLzQ3BYVyeJsgMN3gpamG0UYKfzbD+4wp8=;
+ b=vvNkc2Fte3A/SytFbtOPCoojZojkNECsJQK54Zxu6MYUadqMHOYg2nsPxBQ+kZxVy0ipKmHG4vu3pGwnC0DlaKmMu6mBTWnrnTKs4PYItQVZTxDrHjV7KxkCcTFWsF+gjRXWl6fgMs3r5MXprIwdUPJsMSq/Y7DKgIua0sjYAMg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
+ by CYYPR12MB8702.namprd12.prod.outlook.com (2603:10b6:930:c8::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 10:19:31 +0000
-Received: from BN2PEPF0000A994.namprd04.prod.outlook.com
- (2603:10b6:408:10c:cafe::62) by BN9P222CA0007.outlook.office365.com
- (2603:10b6:408:10c::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 10:19:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF0000A994.mail.protection.outlook.com (10.167.248.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 10:19:30 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 03:19:12 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 03:19:12 -0700
-Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
- Sep 2026 03:19:03 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dakr@kernel.org>, <aliceryhl@google.com>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
-	<gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
-	<a.hindborg@kernel.org>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
-	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
-	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, <jgg@nvidia.com>,
-	<alex@shazbot.org>, Zhi Wang <zhiw@nvidia.com>, Peter Colberg
-	<peter@colberg.org>
-Subject: [PATCH v3 01/10] rust: pci: add internal SR-IOV enable and disable helpers
-Date: Wed, 30 Sep 2026 13:18:42 +0300
-Message-ID: <af34ce6151b5be98668d712fbe62b5d6af291770.1790759932.git.zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790705494.git.zhiw@nvidia.com>
-References: <cover.1790705494.git.zhiw@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 10:19:23 +0000
+Received: from SA1PR12MB6798.namprd12.prod.outlook.com
+ ([fe80::e317:e4a3:6ae9:8c54]) by SA1PR12MB6798.namprd12.prod.outlook.com
+ ([fe80::e317:e4a3:6ae9:8c54%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 10:19:23 +0000
+Message-ID: <c25e3096-3801-44a1-998f-5f9377bd7161@amd.com>
+Date: Wed, 30 Sep 2026 15:49:14 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] net: axienet: cap the TX poll return value at the
+ NAPI budget
+To: Sagi Maimon <maimon.sagi@gmail.com>, netdev@vger.kernel.org
+Cc: pabeni@redhat.com, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, robert.hancock@calian.com, sean.anderson@linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260930071536.627964-1-maimon.sagi@gmail.com>
+Content-Language: en-US
+From: "Gupta, Suraj" <suraj.gupta2@amd.com>
+In-Reply-To: <20260930071536.627964-1-maimon.sagi@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0054.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:98::20) To SA1PR12MB6798.namprd12.prod.outlook.com
+ (2603:10b6:806:25a::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A994:EE_|MN0PR12MB6295:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cec1a41-0a89-461f-6818-08df1edc5105
+X-MS-TrafficTypeDiagnostic: SA1PR12MB6798:EE_|CYYPR12MB8702:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9a24a16-5603-4ad7-df43-08df1edc4c51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|36860700016|82310400026|18002099003|22082099003|6133799003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|22082099003|10067099003|18002099003|56012099006|5023799004|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	f2II12CbEM4h0RhkX/xg+M8dIDON1fmzNuYHpsJgCIkU448Ju8bTilCfRTttMVUceGvKf6sAv8mhqbo1rmv12549KxPd5sDMLmbcFVwHjQee/sgp1dXWokLN+plHdUYSA4v4XzG+eJjwsJB7/9IEqvsyPd9lUt6MTlEfbm2qLbV+S9LDGTlS1I3Tyyj/rQp75TXBRY5Lo3hpFM0JRQwmQ41zkR5Im48zn92EC3tBtn7NoBm0gB5wMM35NN5wXf6pbHk8gLGXUzMA4n+UzPJPyaNzwmXeuN2y88re6A+5zU26JDenrxayQIGd6xVyBsR7s8aaTq8V2QxbOCMNEIzmc1JsyQuxrVPYudHy9xxvDvLLaRf1z7T84lqc/ZRN6GsHmt2m+ynD/dmdCgN3UNySiAFLtAn9g7CcuAmu0ySjypB8+xdbykFRPfx7FNFLO6Fo1vlX4B1ebvngQZEtM28mfc6KhPaWQNh4Nyij9LjVke1CgjRGSa+Nze/4umiw3uzX9r883WB92/OsyvGeLGaySNNWFmoRuMLiEp/MOnXDgOwkkhHZvFyi3cPrt0zWzO/wH2TtHCGWqqxnKEQHFNfGMGOLcVQv1ujp8mFNOwgumQFWN22CmtNhh2FCc4ZjQq5jGKJ6/NHrsAS3NNT6LVK8AmqWdKTy0lE2BtJ2+mszb7InjC8pjmBInU6u6hnNAm1PWvUg4Ug5NShy0HX9xEboRw==
+	m1UdReGfxtEfI5disR5vba9qsmkiwLmVlFt/Ydz85/w969GPxAQIc9pcRkGoVvSwRggxOm0MMM5opZ+9lPEhsnv+dnPcMdcM35S1ft1ArPVOvLcs7PA2XSCWrohj/KKcSu9pdVOTZ0BBY/zU1EOvGpZzYCjY2FUhhtiYObQBoQKQB76RsFHtvtufnR/wcF0NHhk3/HjBGYwDl+pkCYsYTl78gnsVnzGyv7Th/uEU5YBKJorrVUXKfo+OqjoGOIpiyEKefo9RnvfYNbfdENiM7h5J9V6Yq0eKGRO8s+cw7lp5GFNKKTCgI/mZJ9duXq3GaA4D1TPYH9tRUDWZNSNDq/yWszjYJitbLnXqzvhVZDCxlFmm90ww7Yr4ahpFLHdCSpXFmTbxSKnRRv7dbF8DKWYmi0os53AEmMWXp4eumXEPVwLp+ZsdjspNjnIosnS+3RPsZLJz+NNDqoKK+4jTGorUD2yi+rmS92EoaFa4n5coIeIeTcE90+F2tky8NkrHrFijjkbUTitqh5Vsm5KelrjSWjqB5qAsNY2zFuoU88/isXt6xlm75HsBWaSKfA+0Enrc/5Bd7+lOqq1Z7Sjjw/I5QY/ZVGqTrcmb6VP3Ub2tpdQmnTGM8J06UcvnaORYLRQTHt3aY4jgb5tH9zab4A5S9r74SoRrnWM3Jel17Go=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB6798.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(56012099006)(5023799004)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9KibNGlIKy0jMR1qri51l/b8qcd8/sj64duVhbGQKj8194cBobmVJlONyGOTwmgpn9zUgcrOOPmdX7eV5EmfZ62AejGvMQADQfcrP9EMbMR2FJ5oeyBvImyUI06J2YSgkYz6DRTXHF+CNBESuqK3CmOfyQvLIMT5nMQYEWT+cm2BTvZCxm9miGxTFEqQHYUJ1nILcBUvDNb+/2qoJZt39HndBJUUZ5DTeiCHdK5DMN1hoKVUgvR8YpSL+h2nFlP11gsONUggKGtglsmzqCsHPhYer4czwZC9aSmFXCKIorJr+tDhQtrOC6thidrW6aHcpcSglm9+wyM9KJbvVb0FJwq8vGLZaLbHcTAY2PFxFJhWz8DUxwS3RAel0EOoP8Jr/Ha7nOoIkClkmGOMBerm8sppv2HzrUGeowzzSRETZXkdw1who/F7evPuH9FoKouf
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:19:30.8956
+	=?utf-8?B?cFZ5TWYxb0pJRk1YOVJpMjQwTGF2eXNYc1dYRkQ3NHlhQWFVWkIyK3h0TE9F?=
+ =?utf-8?B?SEt4TkUvVEU2b1hBZFgrT3RYajRqeXQ4bTIyVUg4TENLZzNjMUwyb0dFeWRV?=
+ =?utf-8?B?bEdiL2RYZmthNTI3RW9lZjYzWjY0WUxnWU5hZ1J4SE80STMvVFZtTUJvcndN?=
+ =?utf-8?B?cHBSL0ZidWZxbzdXbzZMam1la2V5aFIvajFJNmNldkdKYUlocndsVW9VMEpp?=
+ =?utf-8?B?T0hsK1VQdVZNSzNNMnFCYWE0S0RYakRNZGF1NkZyVlhWYW52bmJXME5TY2J3?=
+ =?utf-8?B?WGxaVEVWdVBLem1xVnUwUXM4UEw3MSs3amRxMWdhdzVuWFphNFJqRTloTHhO?=
+ =?utf-8?B?eXh2T3o1RmVUd0dvanlPWlNKVmJjTUhXWHI5MXd0SnVXWW5vZUVxYWYwa0lt?=
+ =?utf-8?B?NXBQbG9ranJkVUpDOWZLMUVPb1kzYTQ3cVQxbXdKU0x3djVGemljYUhxbDN3?=
+ =?utf-8?B?UGdheEVFbUhSdDBJRCtnNEdnVXI5M1ZEN1ZGdWFpV24xdlptRyt5RytIRlBa?=
+ =?utf-8?B?YnZlTkFZTnZzZUZ3VUY5YVd4OENTOGgyd1ZFZFcyRk1DOXFVUWNTazJLbGRI?=
+ =?utf-8?B?NUJCQW5QcytFdktKcFI4MmhsWlA0TFRpcHVNNEZubU5WM0N2TW1VYUJCT29K?=
+ =?utf-8?B?dkxEekZYTDlPQ0EvWEJKazlTeFVWZW5PYWVzUXR4YXVrUDl3dWNSRlNlZGtn?=
+ =?utf-8?B?aFNSYzFRaUYxL1BHQVRLbGRKS0wwclJ2cEFwcEhKTW9vR1lBeXRBR1dCSklk?=
+ =?utf-8?B?OEJNb1lQZHJUck9xcG9qWmhDTDVtcFJRdmNOaGY0dWJZQk9zL2hHMjVKRzFl?=
+ =?utf-8?B?eDUzdi9YaEtlYmVxQjJudGZSUU1aNXR6bDlkUnFTemcySXJhM2ZycFdmTzdp?=
+ =?utf-8?B?UEwxOWdnSm04QnpXemJQbmpCU0ZTdXFJenlVY0NQc3lKWkkrTm81d2d5WFlP?=
+ =?utf-8?B?YzhCaXJ2dWx4cnFScHVtRnVnZ0xvNUhjRFJPQkVBRzBBZi9mZVluZUZCR3Mr?=
+ =?utf-8?B?OXZ2R1VseGQ2R3dhV29ZaXNSRWZ3cVprNFJhd0ZldUcxcHVBYlV5TWNkYm9t?=
+ =?utf-8?B?WDBPSnYzRDJtL1pXQ0MrUTBia3VmSWgyWW1iV0Z0eW5EUXR1amNkS1ZHbGYr?=
+ =?utf-8?B?WXJxQkZqc1BzYk1vVEdEVFl6MUZ0aFpEMnZIdDQxc0g1RFNneDByTHBhYXpo?=
+ =?utf-8?B?MU9heVRnZXFubFRlYVlVbFJ1SWJFandGRzh3Sll3UWU1Z29SWS8yYk52VFJo?=
+ =?utf-8?B?K1Vhei9zcGc5QUM3ajY2ZWRoTVVhSnAvSW8zZXo1My9KQkJWMUxJcGlZRE9s?=
+ =?utf-8?B?eTdKYnhQSmpnWkQ2djN6a09aOEs5UGpaRlJXQXM4bGkrckJ2L2pWYXpCdk9w?=
+ =?utf-8?B?L1Nkay9aVndsaFl5amJHZHh3ZHQwSmlUS09yMy90d0ZpY3FmR0J6WnBLN1Y0?=
+ =?utf-8?B?c3BzSzE4QUhReGlxNE96c3U1K0R2YlU1T2picElReGVPc1dabWNhc3gxbW9x?=
+ =?utf-8?B?WkV1NHRyVGU1UDZHZW5oem1JQnRabUtuak1VUWlhY1MxMk1pM3IyVHo0L2dP?=
+ =?utf-8?B?Tzd4RDNIUDJYY1JjYjZyNUw5YTVicjBzQjRablVJTUxnRm9VeXkvT2V1ZXpJ?=
+ =?utf-8?B?MzVkRkdJdU4xVWxMdk1IbkZnTHBnUTRvTUtiZ25oNURUSCsyeGd6ZE1IZkU2?=
+ =?utf-8?B?N2tWeWFpZW5nckkxS01DQlBQN1ZIb2dxcVJaUTFnVzhKMWhHRmFnUVN5MzBp?=
+ =?utf-8?B?TzN2R1MrN1pBMkRYTHZXUUw3bThFR2FJOFlZTzcrRnhGWXhqaVErUmRseTAw?=
+ =?utf-8?B?QkNkRE51VDZTamxETzRmeVlpMXdaT3pFWURkbElHbXJzN1YxYktDeVQ5bmVJ?=
+ =?utf-8?B?a09VTlBKRW5aS1lJZ3JjaEFmcFFLc1hUVitkd0w1VVVveTRMN3FKYWZDS1Iv?=
+ =?utf-8?B?b1FzaldyV013OU5GTmZyZWNjTjF5T2NZOVJidkZULzFqdlFnY2w3Y2xTY0Qy?=
+ =?utf-8?B?bjk2bzE3RHJrWkFGVmxVZWZXaUJuZXFuNnd4dEN0K2pzVkEyQlFnTysxSitC?=
+ =?utf-8?B?a1oyM0NnTUM1UXpUNTVGZEY4Wm9nWTFyT2NaVWFmSDdDc2E3bkNQL0xVNGRQ?=
+ =?utf-8?B?NUdFOUJtZVYwNDBsTmRlaE9pbktRSllUc0N1eGxrVS8xb3lEU2p5SklQS3FX?=
+ =?utf-8?B?Vk84YkZZNHJLeGFTNWlJai9NeWlvVTZNT081VlUzZzBCMFUwR1pnMS8yb05S?=
+ =?utf-8?B?eFV4YzBQeFdvdExmYlFKMG0vQmUvRzFwVm5KU0ptN044VWV2Sktha3dNUHdi?=
+ =?utf-8?B?YzhKaEtEVUd6djZhZlpRbFVwdk82VWM3NVZmZUlreTBDeHBLMDlhQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9a24a16-5603-4ad7-df43-08df1edc4c51
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6798.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:19:23.5085
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cec1a41-0a89-461f-6818-08df1edc5105
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A994.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6295
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4ORwOY6hpJBLRE+Q4VjBicX0AE0BAdnAiF0zCW5l0EydAdQWPuUYTgzg+M9Bi5aCH6izglGGyjhgdhWryzv4qg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8702
 
-From: Peter Colberg <peter@colberg.org>
 
-Wrap pci_enable_sriov() and pci_disable_sriov() on Device<CoreInternal>
-for use by the SR-IOV callback tokens and their rollback guard.
-Keep these operations internal so drivers can only enable or disable
-VFs through the callback-scoped API introduced later in this series.
 
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Peter Colberg <peter@colberg.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
----
- rust/kernel/pci.rs     |  2 ++
- rust/kernel/pci/iov.rs | 46 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
- create mode 100644 rust/kernel/pci/iov.rs
+On 9/30/2026 12:45 PM, Sagi Maimon wrote:
+> axienet_tx_poll() reclaims every completed TX descriptor in one pass:
+> it passes lp->tx_bd_num to axienet_free_tx_chain() as the descriptor
+> limit, and @budget is only used as the napi_consume_skb() bulk-free
+> hint.  It then returns the number of packets reclaimed, which is bounded
+> by the ring size rather than by the budget, so the poll can report more
+> work than it was given.  This was seen after TX completion interrupts
+> had not been taken for a while and a full ring was reclaimed at once:
+> 
+>    eth0: NAPI poll function axienet_tx_poll+0x0/0x180 [xilinx_emac]
+>          returned 96, exceeding its budget of 64.
+> 
+> netpoll is affected as well.  poll_one_napi() polls with a budget of 0
+> to reclaim the TX path only, and warns once if any work is reported.
+> 
+> Keep reclaiming the whole ring and cap only the value returned.
+> Documentation/networking/napi.rst allows a poll to process any number
+> of TX completions; it is the reported work that must stay within the
+> budget.  Stopping the reclaim at the budget instead would also leave
+> completed descriptors for a later poll, which does not come when
+> napi_disable() is pending.  When more than @budget packets were
+> reclaimed, returning @budget keeps the poll scheduled, and the next poll
+> completes NAPI and re-enables the interrupt as before.  A budget of 0
+> now yields 0.
+> 
+> Suggested-by: Paolo Abeni <pabeni@redhat.com>
+> Fixes: 5a6caa2cfabb ("net: xilinx: axienet: Fix packet counting")
+> Assisted-by: LLM sparse
+> Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+> ---
+> 
 
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 3ec897709e89..b11a1d32c5db 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -34,6 +34,8 @@
- 
- mod id;
- mod io;
-+#[cfg(CONFIG_PCI_IOV)]
-+mod iov;
- mod irq;
- 
- pub use self::id::{
-diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
-new file mode 100644
-index 000000000000..c37ce5134673
---- /dev/null
-+++ b/rust/kernel/pci/iov.rs
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Abstractions for PCI Single Root I/O Virtualization (SR-IOV) drivers.
-+
-+use super::Device;
-+
-+use crate::{
-+    bindings,
-+    device,
-+    error::to_result,
-+    prelude::*, //
-+};
-+
-+impl Device<device::CoreInternal<'_>> {
-+    /// Enable the Single Root I/O Virtualization (SR-IOV) capability for this device,
-+    /// where `nr_virtfn` is number of Virtual Functions (VF) to enable.
-+    #[expect(dead_code)]
-+    pub(crate) fn enable_sriov(&self, nr_virtfn: c_int) -> Result {
-+        // SAFETY:
-+        // `self.as_raw` returns a valid pointer to a `struct pci_dev`.
-+        //
-+        // `pci_enable_sriov()` checks that the enable operation is valid:
-+        // - the device is a Physical Function (PF),
-+        // - SR-IOV is currently disabled, and
-+        // - `nr_virtfn` does not exceed the total number of supported VFs.
-+        //
-+        // The CoreInternal device context inherits from the Bound device context,
-+        // which guarantees that the PF device is bound to a driver.
-+        to_result(unsafe { bindings::pci_enable_sriov(self.as_raw(), nr_virtfn) })
-+    }
-+
-+    /// Disable the Single Root I/O Virtualization (SR-IOV) capability for this device.
-+    #[expect(dead_code)]
-+    pub(crate) fn disable_sriov(&self) {
-+        // SAFETY:
-+        // `self.as_raw` returns a valid pointer to a `struct pci_dev`.
-+        //
-+        // `pci_disable_sriov()` checks that the disable operation is valid:
-+        // - the device is a Physical Function (PF), and
-+        // - SR-IOV is currently enabled.
-+        //
-+        // The CoreInternal device context inherits from the Bound device context,
-+        // which guarantees that the PF device is bound to a driver.
-+        unsafe { bindings::pci_disable_sriov(self.as_raw()) };
-+    }
-+}
--- 
-2.53.0
+LGTM
+
+Reviewed-by: Suraj Gupta <suraj.gupta2@amd.com>
+
+Thanks,
+Suraj
+
+> Notes:
+>      Changes in v4:
+>      - Different approach, as Paolo Abeni and the review of v3 suggested:
+>        keep reclaiming the whole ring and cap only the value returned,
+>        instead of stopping the reclaim at the budget.  napi.rst allows any
+>        number of TX completions per poll, and stopping early could leave
+>        completed descriptors behind while napi_disable() is pending.
+>      - Subject changed to match; v1-v3 were "net: axienet: bound TX
+>        completion cleanup by the NAPI budget".
+>      - Fixes: now names 5a6caa2cfabb, which made the return value unbounded
+>        (review of v3).
+>      - Only axienet_tx_poll() and its kernel-doc change now.
+>      - Suggested-by: Paolo Abeni.
+>      - Build-tested only so far; v3 was tested on hardware, v4 not yet.
+>      - v3: https://lore.kernel.org/netdev/20260924135052.185129-1-maimon.sagi@gmail.com/
+>      
+>      Changes in v3:
+>      - Report no work for a budget of 0, so netpoll cannot trip the
+>        WARN_ONCE() in poll_one_napi().
+>      - Add the Assisted-by: tag that v1 and v2 omitted.
+>      - v2: https://lore.kernel.org/netdev/20260917115657.20697-1-maimon.sagi@gmail.com/
+>      
+>      Changes in v2:
+>      - Treat a budget of 0 as no limit, so that netpoll still drains the TX
+>        ring.
+>      - v1: https://lore.kernel.org/netdev/20260914114821.55503-1-maimon.sagi@gmail.com/
+> 
+>   drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 11 ++++++++---
+>   1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> index 1722b7038f34..243b07fd5be8 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> @@ -984,9 +984,9 @@ axienet_start_xmit_dmaengine(struct sk_buff *skb, struct net_device *ndev)
+>    * axienet_tx_poll - Invoked once a transmit is completed by the
+>    * Axi DMA Tx channel.
+>    * @napi:	Pointer to NAPI structure.
+> - * @budget:	Max number of TX packets to process.
+> + * @budget:	NAPI budget, or 0 when polled by netpoll.
+>    *
+> - * Return: Number of TX packets processed.
+> + * Return: Number of TX packets processed, capped at @budget.
+>    *
+>    * This function is invoked from the NAPI processing to notify the completion
+>    * of transmit operation. It clears fields in the corresponding Tx BDs and
+> @@ -1027,7 +1027,12 @@ static int axienet_tx_poll(struct napi_struct *napi, int budget)
+>   		axienet_dma_out32(lp, XAXIDMA_TX_CR_OFFSET, lp->tx_dma_cr);
+>   		spin_unlock_irq(&lp->tx_cr_lock);
+>   	}
+> -	return packets;
+> +
+> +	/* The whole ring was reclaimed above, which may be more than the
+> +	 * budget, but a poll must not report more work than it was given.
+> +	 * netpoll polls with a budget of 0 and expects no work reported.
+> +	 */
+> +	return min(packets, budget);
+>   }
+>   
+>   /**
+> 
+> base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
 
