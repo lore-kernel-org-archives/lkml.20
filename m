@@ -1,74 +1,71 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521B049E138
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8873B3C10
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766984; cv=none; b=B+VCtRsbfR7nUF+I/pxpMbFQ2ALeLkqoz2L2M09u+9BO5QkgGHCxXXDncvree6SGoJ7ehB0VBiVjuJ78iiKGG0ykSYJ8c1zmxSonuTl3eROhjNdkUz7ya2E5/+AOM2d978Fjv1wGiLOrHwa8ujucPfVn3Qvpg12H8pqaeXofOCU=
+	t=1790766998; cv=none; b=ENyDp/pKqaLflCPQzuBbCBOBFLAb7x4GEaMmOoSCVjE945J2dGZdV4yh2/Mgp1+mDEAOp6E0wFKie4nyjdkie0G1t4zjelxHE9Y60vvXaV8UKAJr++ifSxxA2ZPzByMoiHwYXyuJwFRSnMikAIBMQzwWwsFBvYdJQ0CIZXCRWzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766984; c=relaxed/simple;
-	bh=//2HNXquIk9ck0FFhAaqhWFA7k65CQmAWL5qNBLX90E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lAUGEfQwCIjwagkSlCSJWCODF7EbNQ3lwyzjv9fTkcjH1tLyadUHkpakONGiXWdX9QU0WLigqOvOlapYAB9DLr/LKU98a5ISk380YP5tR1IzMeEcQK1o4MfCpxNhjSjRIcKkAt0YjufG6/K1bijKD5tZROZmL3acm9VYsNmhgX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Szt+ujd/; arc=none smtp.client-ip=74.125.229.171
+	s=arc-20240116; t=1790766998; c=relaxed/simple;
+	bh=jyUD4aMy6hVbWC+FaesKvRIuJb1CpPKN4jivhsYe5zc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l+m7n5mIFqorVKt84LP4HAGHOxz998m3/xeQ3O2SKCOgvs8/Di8DfyCGZUzhq9Nc3slnCKdNzc5PZnRnD2d5ZosuqB8zKoU/4zhMiIWNodn/7orb3H8KDXZ/FfiZp4nkm+mmAp6ATr1wNxrG2EpvV6WpUEx4i/tfeJU+XEswczo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1y1f4hz; arc=none smtp.client-ip=74.125.227.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Szt+ujd/"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-14373bcc010so4654602c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:16:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1y1f4hz"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0d31bda43so3176755a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:16:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790766982; x=1791371782; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790766997; x=1791371797; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AChnIhzvWEr/iAcPIjM9g8N+/d4nHDoh5cD1dZYc2VY=;
-        b=Szt+ujd/+EoUWO6fa2YbIqh+F0z7Uuospa2wb/wa7EGpfEJqwFVtA9q+wP1fokDfS3
-         ZSVChFyyQ5QGbSPDJYx9HHF9IX/+wPJF6zCnBvOXXLETG+TX4uj1edftR4noqzMzcsZu
-         tBZyesKwAS7g87haMCYZkz+N/SBH8eJaNM/YPadLGTPH5caMvg9rsbyuouK08p7HBOBk
-         dqr5ZgRbhc38mY6VB+SsQZaa9CqpXPXp8zPBiJqW77TVvVYZr4ujf6AtyD+O+FeIK3H+
-         afB29gZthDTdiDSN31q0H2EKaab2D9Ajszb659YPugx5B2H7EVsfIf0XSPNX5Y1QE4Zd
-         itQw==
+        bh=SD1WRmI1pUkxY4BFxQyfL12jOZ1sUPFD5IX10ds1u8o=;
+        b=G1y1f4hzpZa8PtIBSBBu6/kMxjhYYGcYdLAmWkU7Ghc7zkXnZKmqjCz0jMnL5rnsa4
+         mHGJ4Ohi7sYR+HO9y4aT2aNWrvizlzw32vohnOncSVekdK0xx4ShAY/VMCC8bZx/5S+P
+         AyyRzWpGOcR6vzHPECkK8RPvq/dnbAlAuKItaSbdHKQzSNbu0oMumwLOO/0w8uiQmKXY
+         dZYQkQAXZycRT6eeCK7UgQ65sUt0yJ6/akZKBbpUE3GuE2DrWSi4PF69jZUtIhIEXw40
+         y4S54rCv813k9Xi9aiqrSJctZe8Wyi+63ZGV+nYm9V4/I+A7ABBmrzI3PKQaBtFKURoK
+         QpGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790766982; x=1791371782;
+        d=1e100.net; s=20260707; t=1790766997; x=1791371797;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AChnIhzvWEr/iAcPIjM9g8N+/d4nHDoh5cD1dZYc2VY=;
-        b=JBtJum0gwPpeITQwmUnURQPngsfUlvqWNXyCM7DkumkfKJ6u0p60cYnj0YHK2Mlubc
-         KFi7t/4tVzKK6+55nrkIjnIBl7EEyJRenf333PWvV/Q35fnVlwm67yXJO0k06yKIQwqt
-         PoV0iQ7ced38Nyul3LofVAqLsIzk483TBGBVQvpp0tKlmcMBlBZCOAGlG4vqBGC3arfh
-         ntlWbue2rhSuY1EjCgz7VI7/StrUP4Tx4Rs+Asx5Mrok/5m1eSw/8tBHIqRf2StvLBhz
-         qqdqx1BFzbUNog7Plhj7fIph0x7VskPPHpMFnvq4+4Dwl432ydpXmOgs80KuJqHPLW+U
-         GBhA==
-X-Forwarded-Encrypted: i=1; AKwUvByAVN+Mi/fOeV5YdbaANrG923V1KzDyFWFvL3eVyImC0GeCStj6d+UdeQZdFbDfcY3WSUEGlEbZvDa6++Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXPcfLqGrvCjp4Yiu4aANcMjeaSbZdKJspAyCj9nl5pSORavRP
-	bDkUfuLVRJ+oywoFgqy9Z6rAERMI3UF/cGu+ge8ZSURF/ffH95wjIVkh
-X-Gm-Gg: AYBFou0DW5SBhuB/f3fHy0Z24U7X9FfqlvpjibXtnW31/6XvviWoXAck9lvALa3bT3F
-	Im52GF4lJ1S4lVHdq2UzOeMFO7J2yNaTu8uqPgIOmMZMQdrI9KX7r5Yb13ArfFxrMgwBRfEHGLi
-	ReoHlOgr18HisKiTWv9NP67AkapPDBLsBVbBJYhi6liZ/NGDaYH3aY5jDIynCCyItMW9ua1K/5W
-	75usFMWDhBaVccfJoElf6j9ti9MqrnyCExMVFI/BH16+03MSGQuM0QEGPQA7iaQstPcbSclEjMO
-	/E0b74B9Npy6SCU7attazJmL5Hu6mr2yyyXF/APeujctGrK/MzSWVfZ2scO+WO6sMhHy77pFHxr
-	CDOnEzke6femTcXLdXvC2/fCiEXoJN4nO/eLVEo63L9jPy3BvVQrzosHmFFLgsDXixI5dX9dmx6
-	uK/ew1xBBtlxe9cLwPxjYnDINehE9IyOumdCAW+al4RV5tCqSbMri3b7rbfLlgYvAdjpy2QqrnA
-	0gOGdG1Ip3Y9bE+3uePK0JIE5mzjmeK8+cbpYLd1lxQ+MfK4fUO9+ZCjMsZqOppo1a36ZX3kYlP
-	4LD2DysT0bq5HXFmafhDusOfvrtClhLEndM=
-X-Received: by 2002:a05:7022:e11:b0:141:4951:f150 with SMTP id a92af1059eb24-14d327112dcmr1792750c88.18.1790766982048;
-        Wed, 30 Sep 2026 04:16:22 -0700 (PDT)
+        bh=SD1WRmI1pUkxY4BFxQyfL12jOZ1sUPFD5IX10ds1u8o=;
+        b=knWusp2xqS/EGVWo4bin3fZLwjyBBCIAKfe7REPfP4rzbMqmEKvwqLP/p4QWcdgxR4
+         vhd4+mnak4lqtbREQa0Juhj7JuMcGuEKcNoJQN7gwnajRB2PB7NktTVguaAZ+zBYq6bs
+         9hyHuk0mWxLZzcdi4DrLsH6kAUIUwHAoGjYp99Em4xi5OFaPxoVrB5Zdhvfj4PmKy510
+         oP5FO7SUHiWdKzrLDXQeuerLOayuPZ9DS9wTq+Pso+ixo28cDSjABGY3OfAryy+OHNxC
+         NvyjryGmdhGIav3XjarTYgwxFRXvY7KfiOufyMjSe3VmWdrwGlMLE20RuBLDi8lvE9iw
+         bz5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzCGmiCbO84ACI5DVajsItX59IckaLmqvleHbT4uqe5OSjxLesOHAjt9gjfO/9YejWm/JvKKb/m4T9QR4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfZ+gZ5PvmDrmLQ2/cYlcUTuxxcY/nxtgSs9F70GckjpLxxvzw
+	7vX5G1JTeTHbwlWX5xHUg/Yp2U2xiR089WqQC5iq2WGqOHSHIVi5CbUU
+X-Gm-Gg: AYBFou0gbtotD6ft6m3YOk92k4Vng7jZuoPkBW/kO2jsCVSJjCp/NcP0xwZid6rgLeN
+	LpMC/hnjzpC0KdJ6bh1dpq/kG4q0LD1/lamp4Rc9BCWmLiK8a53gtuOPuRYuru9WO4PoQq1IWbJ
+	10K1aQoXtToQK010obkFvvn7PV0m4l8omPVqBzXG5E9lQVZs/jnzFVZKxxybGh+2WDNFOX/7qlg
+	pahcOy16LBlOwfD7HTitdOSCN9XYN5aP5HQ6hGZIyfVPsVTVvDIjTml4IFl2stegNPpXof+0I9W
+	1KU8LV1S+imo3F92Yblp8AexLA2zlyIzGeQWvTT3txnjuiixowNg5MS1WItIRgtVOpVFfAwa1Ji
+	Wqh7urFbwKw5Pp5XQaPk3MIPiz1LuLu8VwimvDnumAm+PVDq1BnBlajO9rsAgJhW2hRCAcbXthA
+	DA1Cak7b34QXNikFtAN97SRX1GncpnpO64SSKj31/5hU7qJaqovrzMgmFc6DCm9sXkHqelM9Acj
+	T00dXDTXOc70Dj2IpkfI/xi6dVysvyraUGv5lZsHJ6w7rR+pOvmKTQRaHc1PskWVeonimC8qgtm
+	zyCt6u8hmGV7eHUTd+NnhagdaaP34dRk9dI=
+X-Received: by 2002:a17:90b:1c85:b0:3a0:ab20:9e97 with SMTP id 98e67ed59e1d1-3a4d197a3f7mr925070a91.15.1790766996084;
+        Wed, 30 Sep 2026 04:16:36 -0700 (PDT)
 Received: from rahuls-x2elite ([110.226.112.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d090a9b07sm3525955c88.14.2026.09.30.04.16.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ca9c6453sm3180524a91.7.2026.09.30.04.16.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:16:21 -0700 (PDT)
+        Wed, 30 Sep 2026 04:16:35 -0700 (PDT)
 From: Rahul Pon <theflyingrahul@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: GED: Support GpioInt event resources
-Date: Wed, 30 Sep 2026 16:45:05 +0530
-Message-ID: <20260930111505.1108-1-theflyingrahul@gmail.com>
+Subject: [PATCH] soc: qcom: geni-se: don't fail ACPI probe on a missing SE clock
+Date: Wed, 30 Sep 2026 16:46:27 +0530
+Message-ID: <20260930111627.1121-1-theflyingrahul@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -78,136 +75,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Generic Event Device accepts only Interrupt and ExtendedInterrupt
-resources in _CRS. Some ACPI firmware signals GED events through GPIO
-controllers instead: the HP OmniBook 5 16-bf1xxx (Snapdragon X2) describes
-its lid (LIGE) and embedded-controller event device (ECGE) as ACPI0013 with
-GpioInt resources, and both currently fail to probe with "unable to parse
-IRQ resource".
+geni_se_resources_init() tolerates a missing "se" clock for devices with an
+ACPI companion, whose firmware manages the serial-engine clocks, but then
+calls devm_pm_opp_set_clkname() for that same clock unconditionally. It
+fails, so ACPI GENI controllers such as the I2C IDs QCOM0220 and QCOM0411
+no longer probe. Before the OPP call, the error pointer left in se->clk
+would also have reached clk_get_rate().
 
-Handle GpioInt resources: get the Linux IRQ with acpi_dev_gpio_irq_get(),
-which applies the trigger and polarity and returns -EPROBE_DEFER until the
-GPIO controller is registered, and evaluate _EVT with the GPIO pin number,
-as done for GSIs above 255. GpioIo resources are skipped. On a failed walk,
-free the events already requested and propagate the GPIO error (including
--EPROBE_DEFER) instead of -EINVAL.
+Treat an absent ACPI SE clock as firmware-owned: store NULL, which the
+clock API accepts as a no-op (clk_get_rate() returns 0, so the I2C driver
+selects its 19.2 MHz timing table), and skip the OPP clock name. DT
+behaviour is unchanged.
 
-Tested on the HP OmniBook 5 16-bf1xxx: lid close/open run _EVT and reach
-the ACPI button driver and logind.
+Found by code review while bringing up an ACPI-booted Snapdragon X2
+laptop; compile-tested with arm64 defconfig plus ACPI and W=1.
 
+Fixes: 5b8a39dcf909 ("soc: qcom: geni-se: Introduce helper API for resource initialization")
 Assisted-by: LLM
 Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
 ---
- drivers/acpi/evged.c | 46 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 43 insertions(+), 3 deletions(-)
+ drivers/soc/qcom/qcom-geni-se.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/acpi/evged.c b/drivers/acpi/evged.c
-index 5c35cbc7f6..478172ede7 100644
---- a/drivers/acpi/evged.c
-+++ b/drivers/acpi/evged.c
-@@ -43,6 +43,8 @@
- struct acpi_ged_device {
- 	struct device *dev;
- 	struct list_head event_list;
-+	unsigned int gpio_index;
-+	int error;
- };
+diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+index 873bfbd6b2..5d4b26e95e 100644
+--- a/drivers/soc/qcom/qcom-geni-se.c
++++ b/drivers/soc/qcom/qcom-geni-se.c
+@@ -1203,13 +1203,23 @@ int geni_se_resources_init(struct geni_se *se)
+ 				     "Failed to get optional core clk\n");
  
- struct acpi_ged_event {
-@@ -76,7 +78,7 @@ static acpi_status acpi_ged_request_interrupt(struct acpi_resource *ares,
- 	struct device *dev = geddev->dev;
- 	acpi_handle handle = ACPI_HANDLE(dev);
- 	acpi_handle evt_handle;
--	struct resource r;
-+	struct resource r = {};
- 	struct acpi_resource_irq *p = &ares->data.irq;
- 	struct acpi_resource_extended_irq *pext = &ares->data.extended_irq;
- 	char ev_name[5];
-@@ -85,6 +87,33 @@ static acpi_status acpi_ged_request_interrupt(struct acpi_resource *ares,
- 	if (ares->type == ACPI_RESOURCE_TYPE_END_TAG)
- 		return AE_OK;
- 
-+	if (ares->type == ACPI_RESOURCE_TYPE_GPIO) {
-+		struct acpi_resource_gpio *agpio;
-+		int ret;
-+
-+		/* GpioIo resources are not event sources. */
-+		if (!acpi_gpio_get_irq_resource(ares, &agpio))
-+			return AE_OK;
-+
-+		/* The GPIO core applies the GpioInt trigger and polarity. */
-+		ret = acpi_dev_gpio_irq_get(ACPI_COMPANION(dev), geddev->gpio_index++);
-+		if (ret < 0) {
-+			geddev->error = ret;
-+			return AE_ERROR;
-+		}
-+		irq = ret;
-+		gsi = agpio->pin_table[0];
-+		if (agpio->shareable == ACPI_SHARED)
-+			r.flags |= IORESOURCE_IRQ_SHAREABLE;
-+
-+		/* As for GSIs above 255, GPIO-signaled events use _EVT. */
-+		if (ACPI_FAILURE(acpi_get_handle(handle, "_EVT", &evt_handle))) {
-+			dev_err(dev, "cannot locate _EVT method\n");
-+			return AE_ERROR;
-+		}
-+		goto request;
+ 	se->clk = devm_clk_get(se->dev, "se");
+-	if (IS_ERR(se->clk) && !has_acpi_companion(se->dev))
+-		return dev_err_probe(se->dev, PTR_ERR(se->clk),
+-				     "Failed to get SE clk\n");
++	if (IS_ERR(se->clk)) {
++		if (!has_acpi_companion(se->dev))
++			return dev_err_probe(se->dev, PTR_ERR(se->clk),
++					     "Failed to get SE clk\n");
++		/*
++		 * ACPI firmware owns the SE clock and its rate. The clock API
++		 * treats NULL as a no-op, whereas an error pointer must not
++		 * reach clk_get_rate() or the OPP core.
++		 */
++		se->clk = NULL;
 +	}
-+
- 	if (!acpi_dev_resource_interrupt(ares, 0, &r)) {
- 		dev_err(dev, "unable to parse IRQ resource\n");
- 		return AE_ERROR;
-@@ -115,6 +144,7 @@ static acpi_status acpi_ged_request_interrupt(struct acpi_resource *ares,
- 		return AE_ERROR;
- 	}
  
-+request:
- 	event = devm_kzalloc(dev, sizeof(*event), GFP_KERNEL);
- 	if (!event)
- 		return AE_ERROR;
-@@ -138,6 +168,8 @@ static acpi_status acpi_ged_request_interrupt(struct acpi_resource *ares,
- 	return AE_OK;
- }
+-	ret = devm_pm_opp_set_clkname(se->dev, "se");
+-	if (ret)
+-		return ret;
++	if (se->clk) {
++		ret = devm_pm_opp_set_clkname(se->dev, "se");
++		if (ret)
++			return ret;
++	}
  
-+static void acpi_ged_free_events(struct acpi_ged_device *geddev);
-+
- static int ged_probe(struct platform_device *pdev)
- {
- 	struct acpi_ged_device *geddev;
-@@ -152,6 +184,10 @@ static int ged_probe(struct platform_device *pdev)
- 	acpi_ret = acpi_walk_resources(ACPI_HANDLE(&pdev->dev), "_CRS",
- 				       acpi_ged_request_interrupt, geddev);
- 	if (ACPI_FAILURE(acpi_ret)) {
-+		acpi_ged_free_events(geddev);
-+		if (geddev->error)
-+			return dev_err_probe(&pdev->dev, geddev->error,
-+					     "unable to get GPIO event IRQ\n");
- 		dev_err(&pdev->dev, "unable to parse the _CRS record\n");
- 		return -EINVAL;
- 	}
-@@ -160,9 +196,8 @@ static int ged_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
--static void ged_shutdown(struct platform_device *pdev)
-+static void acpi_ged_free_events(struct acpi_ged_device *geddev)
- {
--	struct acpi_ged_device *geddev = platform_get_drvdata(pdev);
- 	struct acpi_ged_event *event, *next;
- 
- 	list_for_each_entry_safe(event, next, &geddev->event_list, node) {
-@@ -173,6 +208,11 @@ static void ged_shutdown(struct platform_device *pdev)
- 	}
- }
- 
-+static void ged_shutdown(struct platform_device *pdev)
-+{
-+	acpi_ged_free_events(platform_get_drvdata(pdev));
-+}
-+
- static void ged_remove(struct platform_device *pdev)
- {
- 	ged_shutdown(pdev);
+ 	ret = devm_pm_opp_of_add_table(se->dev);
+ 	if (ret && ret != -ENODEV)
 
 base-commit: 551c722f40809618230001baccf219193e22fc5a
 -- 
