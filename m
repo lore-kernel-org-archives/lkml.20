@@ -1,139 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE51444AB91;
-	Wed, 30 Sep 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA2B31E830
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756948; cv=none; b=F2pqCM3u236VTBjT4DcGAJyiABOcKgfou09Z2+xGUMS+0OfFAAgiJZkTc/NNwEmCiz3pOrBukhvAcrz8X9eDNS0oqN0ZNfg7ZfvX+FPgVqbzlYEQMe75vyRoo9MfPc39MLPlfAPhb1c/AsN+yVi8pi2nlx1olBPzSRxUs18LGMQ=
+	t=1790757026; cv=none; b=goZHYYwwn++uH64h6k4vbO0Psp13/XGyIXq+l+E60XTAFVtRsqRq/3HUx3P9LRXjkegJz+CHzGtzRxJi3Ng62b5qlAZPlBAz870xpiN5Vs3VjtWAeAciPMM77q6clk/5f0XsTuQmq7/+/4b9ONw4kaT+iEv+rJHn8adN6cGLKlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756948; c=relaxed/simple;
-	bh=Z25ssbYYgPIJRf3a6E0xksOuvmIiLp75bFgZ1UY4UR8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EYaIGn540/drXICzMWkJ50Y91fvnqq229nqLtWdAiuKUadrKUr5ONLLG0qr/zrV/pn6OstBXVsJBNawEpwQ7JXATHa/82lAuzFIXfhgIE03TJw3kapcw6VlMxOrKD44SCseC1HwyQ9mdMTtQ3W4QErIuKxctQisjjs3tZ4ztbJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZMwmfh66; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790757026; c=relaxed/simple;
+	bh=ZTLy2b/aZ6jnk96E49OmqQA6r9eoSOmIhpd2yxFKaIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bVLSR95nFE6d8zdQl0q2h41SUWpcFxYgRded+YXnJWWC5W1oSiMLlL5HwKUS7MJYcJJE8CW/Hf86zBl5VxGfHlmjf+uZ6eikrSwzzKd5Y6QYiJHNZgNycRBTj0HKFtx+3Fo7CuiPrNnfB70ZghcXFMOeVzWdGZFWDwSYN+RE1JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S1w6eAP/; arc=none smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZMwmfh66"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790756947; x=1822292947;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z25ssbYYgPIJRf3a6E0xksOuvmIiLp75bFgZ1UY4UR8=;
-  b=ZMwmfh66IttEywZlQmFnHZK0Ys+zg6Mk16bgGdJuKHbem3z+Sm9LrlNZ
-   07dQr6Oh73ob3PWTN0g2rBOk1Z5LRSl1z3IRLBGe78RDrJoHUskW8kxk8
-   bBgVTP3trqDXwCQPTey0n3pRV5RCY4mvs8sNi0HGuKLOdV/l+qLPf4TKC
-   3Gt953Vtyt2WuR5ilk91Ly6g1F9i7+1r23KcDfQIBOp9AApJ3iB2OtybD
-   IF5NyAU2/MSA1ltnuJl76FyHtHvtKl4j+zSyljYltcWdSQhugXgYmLClR
-   mN0Lnh5RATjdiFn+wsuDQhA2UZtuzCLPA0HBT3ViZmZ8HpvW26oBPAsvX
-   A==;
-X-CSE-ConnectionGUID: CYsR9ofnTlyS6bNPw3Ggzg==
-X-CSE-MsgGUID: wg8F0zO7T2Ks1FKG7pVDAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="91508793"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="91508793"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:29:06 -0700
-X-CSE-ConnectionGUID: xui/SqCMRcKIypiANYyu6A==
-X-CSE-MsgGUID: jN9DPEBDQL+3nuHkVYXM3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="313568986"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:29:04 -0700
-Date: Wed, 30 Sep 2026 11:29:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 4/5] phy: core: Add managed phy bulk data helper
- functions
-Message-ID: <arzITUCmgUp3uiRn@ashevche-desk.local>
-References: <20260929085235.469515-1-inochiama@gmail.com>
- <20260929085235.469515-5-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S1w6eAP/"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76b373063so10820071fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790757022; x=1791361822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HsFzur6ZDixhPdht293SKHwUgftZBx+zn+PzskiFAnU=;
+        b=S1w6eAP/aW4ZcEK9/xRzb9Jj81Ff9uLqlMuzPoaDd3U0qd3nmEx+Hv2qJt982bMZwR
+         vR7YGrciwrIUW4+rMlDc0cvWcS5xpOphkmEKgld5qO6jbSvFc6+guuPgrnoev799iXT+
+         xA2awM0DZ1oZnokupBBpnj4uJzfujVfrXYsechEQwbeI1BJLFYq+o5D84ERfIBomyO8w
+         EagQLq+lYi8cHnKUtQwOH1fO/GlqnCSWLC43cOB4vYU8gnbA7pqUanTgT1M14541g1R6
+         h5JV65uNHAwTI+NNU+8Al5RAjF8wUk5sqVWah5jN9zfS366xDOrEoCuAr+sayxVq7lMp
+         DS7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790757022; x=1791361822;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HsFzur6ZDixhPdht293SKHwUgftZBx+zn+PzskiFAnU=;
+        b=PSex/lis5aH19QqXiJMzQR2M7p7zZXpfa+u88frk1vrkURLMhKKZz+9DEHIFDSeNU4
+         0O3FRJU/qhBnMnV7zvHTuwsS9c7DYB0KoYXSMJ39Fiq5m/YJokHawKXx2OdNU3zqplue
+         6wcUF2IOrItk1XbSa7teTTBPh2LiwCo0SoHvBDeeIy/XDAmH0HFn7VHCVNz0kwjBQEva
+         zBEXVL5LLlHm7tMs27AoBoN/+83Yw/PHkyFxZucTPAr6FivnfYR1374/nY2/kNyRQO/C
+         KV1MIQY5QVwJov+cTLH26khwnWdII2lskNtHbGQBvC+drcdDyLvp24NkQzVMqCg2tglF
+         DpSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIcu8uMjyNkx+thG4bN5mN8o8wVNMwerTnngKN3wOVxO5P8mcgLtbkZLzmxpMnIQqvawV1k0XjszA1WNw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9EmGqv0/Q9/Z8LCI3H9aCT1+puK0Bi1fNvpY8C5YDYx3H70DI
+	xfvE2M90yxNcaQ78TQTp3rU81YnEYcnact2oWLV4mU2gIJqa0tIe2Ekx
+X-Gm-Gg: AYBFou0AjeS0NqZtlW41NWyMq5EGSzCZxg35fBkaYac0IQgtICvBPEhNcr7lg6KxXFL
+	G9y16hwOvBce1GRhvuMNgDU3EYxWvrv5IFDUgNBHep/uhwc7ZtAFaMjYjeKH9qSVO6CWVXQrLXu
+	q5Y/4ghSVfzHz1PHm6zfYUZ3gr0o7K4fwQApkv+8RyDJ04GZu02FSQdeXrBnE3c/Bb7awkw1BEb
+	aOc4iak04h6sn2EQXQv676hXcsg4m7e+uGglXAMST/SduuNr+7n64uRo0L4u5pWjFXxaimeVUhr
+	hcIbyXAsbRtRbifDp1ZiXePkWammkmUvXqypvNab+o0Jtn3yzgLbJ9+dcSMLabTn07+ZUfxReLN
+	wjt01hLzspVUtUfwYzzSYXV6qLv/yJta53T8Lgwz+uaG1ODWHTwy3SxzGsZuv6jy2dBbOLkokez
+	MyB80NE5hSe+oFz5bhkaaDnraDkgnV0KuwpkdRincrbS2T1oEDd0LFiGzQW/68pGVNY1KpZv9vU
+	7Auy5s3wcRWu9XaOiFjsIYjgQua3OxV8pJHfDn7bfOFr+McJmC6aMotxcZlyqZJK7RyneA=
+X-Received: by 2002:a05:6512:b95:b0:5b6:183c:5ca2 with SMTP id 2adb3069b0e04-5ba406177f4mr276043e87.64.1790757022218;
+        Wed, 30 Sep 2026 01:30:22 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fc08d3asm187309e87.80.2026.09.30.01.30.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:30:21 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: andriy.shevchenko@intel.com
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 1/3] iio: pressure: dps310: read buffered samples from the hardware FIFO
+Date: Wed, 30 Sep 2026 11:29:52 +0300
+Message-ID: <20260930082952.878967-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <arriSm8L567yqOjV@ashevche-desk.local>
+References: <20260928211127.641828-1-zoone.rupert@gmail.com> <20260928211127.641828-2-zoone.rupert@gmail.com> <arriSm8L567yqOjV@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929085235.469515-5-inochiama@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 04:52:34PM +0800, Inochi Amaoto wrote:
-> Add device managed variants of the phy bulk helper functions. So
-> the driver can benefit from automatically managed phy handles.
+On Tue, Sep 29, 2026 at 12:55:22AM +0300, Andy Shevchenko wrote:
+> On Tue, Sep 29, 2026 at 12:11:25AM +0300, Rupesh Majhi wrote:
+> > +/* Returns which measurement the entry came from, or a negative error */
+> > +static int dps310_fifo_read_entry(struct dps310_data *data, s32 *value)
+> > +	__must_hold(&data->lock)
+>
+> Hmm... Don't you want to also add lockdep annotations?
 
-...
+All __must_hold() functions here are static and called only from
+dps310.c, which is opted into context analysis since patch 10 of v8, so
+clang checks every caller. If you still want lockdep_assert_held() I
+would add it to all 20 in a separate patch, as 12 are already applied.
 
-> +int devm_of_phy_bulk_get_all(struct device *dev, struct device_node *np,
-> +			     struct phy_bulk_data **phys)
-> +{
-> +	struct phy_bulk_devres *devres;
-> +	int ret;
-
-> +	*phys = NULL;
-
-Why?! In case of error we modify the output, this is usually not the best
-approach as in most of the cases the expectation is that whatever user
-provide (including a garbage) should be left untouched in case of an error.
-
-> +	if (!np)
-> +		return 0;
-
-Same here. On top why do we even care about np like this? Interestingly that
-some other APIs consider this as np == dev_of_node(dev) case, and automatically
-propagate that.
-
-> +	devres = devres_alloc(devm_phy_bulk_release_all, sizeof(*devres),
-> +			      GFP_KERNEL);
-> +	if (!devres)
-> +		return -ENOMEM;
-> +
-> +	ret = of_phy_bulk_get_all(np, &devres->phys);
-> +	if (ret > 0) {
-> +		for (int i = 0; i < ret; i++)
-> +			phy_add_device_link(dev, devres->phys[i].phy);
-> +		*phys = devres->phys;
-> +		devres->num_phys = ret;
-> +		devres_add(dev, devres);
-> +	} else {
-> +		devres_free(devres);
-> +	}
-> +
-> +	return ret;
-> +}
-
-...
-
-> +static inline int devm_of_phy_bulk_get_all(struct device *dev,
-> +					   struct device_node *np,
-> +					   struct phy_bulk_data **phys)
-> +{
-> +	if (phys)
-> +		*phys = NULL;
-
-Same as per above.
-
-> +	return 0;
-
-Why not an error? I do not see the _optional word in the function name.
-
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Rupesh
