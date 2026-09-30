@@ -1,275 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010001.outbound.protection.outlook.com [52.101.69.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21604ED1A1;
-	Wed, 30 Sep 2026 18:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791541; cv=none; b=V0HGzaXgsg40B+HpwyKc9jeZK2KBrq0S+EgSAgLYGANFb5webBXAdgLn0VBffAt2xUH9Gy/nPAMQuq7fTngSLT1ZlP0I3ppbJEChEKJSgyOaN6iZPilhNdoUlyF6XXSGNhHfvZLt6cpsLT252HuhNhiJozcIGDBQ9h/OQvJ5y+o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791541; c=relaxed/simple;
-	bh=7s5qL3VoiRN4QgP/J54GeewUvXqQW/DzC+gYAs1/9kw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o1iurhg2b7nr2t1QnY+/ArK+A1qftzq4kz3aZLndRVYiRMR5nkCbNbkG0dnaA7dPzSKll1Z5TQjavQ0q9U3RS7x5KUISGnlglbZjO7zUSxc5oE2ARUbRX1rccdiLiYBNldWCjdIieqiLMbfuLs+SIs4ZaUk9v7QaTRbn4l1VwpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLaXP/7O; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B1331D366;
+	Wed, 30 Sep 2026 18:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790791567; cv=fail; b=oU3xLV8j0scd/TGVUnZU80kDphszAOMnmbFhaIKcg53UeUZ7YrDxYgk2KmTBCpFWuHPfiUbs+d3BOy1JcNp1QACECraLoS/u1G/g79IMGV2nLIdnlirD3of1zhXKLzMOZxoKjqPLWZVFw4GcJed9FlJD0xhmfE0lG0jpQO3Dudo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790791567; c=relaxed/simple;
+	bh=hJtYboxBFjxyhq3i/A4iFOAQSEebQ+pHDqHjbhxF6XE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kjfohjn5AAwgtJCHhfk12/5IAIaDoA9Hd6EU+wGOQm6koQKZCK/Ke37FoIuLDUdE2JPieU97rggNUfj4zUhxlds6n46Gl4bLl3M5sZhK4H+YbYKBRqH6kusB+HBuaNuQZ7PoHfns5inJZd0gHuZ/ZwVFBAwjAkPGXLXAi27MRnk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=LGdLEsdU; arc=fail smtp.client-ip=52.101.69.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLaXP/7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260EB1F00898;
-	Wed, 30 Sep 2026 18:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790791539;
-	bh=W5ODwbM0MB+eZLv1w+RfFfGPAGIgQCXbgH751X9MUQI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BLaXP/7OeHAOzcjfnsdPyGOttnkx3QXXIQkpdlyqKvdneneVeEHKCrqjEYWP9ldsb
-	 k25CGOA2hPzz3PE9zbhwDdDHnTCONiEI6J7MBDIMs0h10+87oJkHsgDRxqSJ/Thn7N
-	 M51XGtQY3UmgNBF+EBtPpkWYnhjEQri8ANogmK9j+e/oLsSkSjD1Pl98MYvJ5ffpGl
-	 3xH7Vxv8sd8J3WdV7ouFhSSjmv+Zz6EImU1xys0YO4CUYchjACz348//oLeOxTUol5
-	 NmCZbkZwV56dAASKOH5SPtBLd/x7G4kFW905ZQZrpRaw8TikF+nDrfpAV/Ur66XRrP
-	 3IC6bhNtwbGEQ==
-Subject:
- Re: [PATCH] net/atm: fix shift-out-of-bounds in __vcc_connect()/find_ci()
-From: netdev-bot+sashiko@kernel.org
-To: ngocthang2710.1999@gmail.com
-Cc: 3chas3@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 18:05:38 +0000
-Message-ID: <179079153866.434549.5010567126851808519@kernel.org>
-In-Reply-To: <20260927120410.44906-1-ngocthang2710.1999@gmail.com>
-References: <20260927120410.44906-1-ngocthang2710.1999@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="LGdLEsdU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e6qPbukoFHOzOK2JpkC8s/jnllU205YWnk7FGGs6aIIaNqem87pH9pLXI5IroN/1C87c3C967V6IZnhuLHR/e81bwkd9L8yht3u/BqGnmZtLTwnf/S48O2LBWQ5m1Dbuhqtu1ojtmw+NkGN21QchY8fZckpyVaewHoVLTbufycVcFQJ6oNTFB+DQVfpIGocwQUZIOpWS4ri/udKe39B26/0zbY0xSGo0rf7sht1FAXBNmN2hAREqpQvR4MUm7q2jIKi6UfLfOXtkvIPgf3V/IZm/S8N7oXMO9YOxYt5IR8A+lf9jEGwf6IWaUMerwIuU7FNP1Pgz6Q9JiMgfUnKYeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A2tljZQe1pJVyMmhp6RKg8fyz5hw8tyc6Lb4ejZycFM=;
+ b=UVX1MFdgGofUC2QuwcjHwkVxu++9ukR677+7NZuA5WhRcKVootDsKqlqrlRmrgNtp+iePLyGxxlTLjEpzlr1yFO4JgATF87vepQ0RdCTkDCY/WHinaCiJVD6oDIjsNQUmX6pDnKJ++1zfJbBfusWnfap4Gb/uukE40N0zy+hGqdiKwF3Ecvg3jGOHR2djGRChtY0Llhb2Tv8ccpmPFVi//bBCB8i6qIpXl6hujG0WsJgowijM4CvEao1t0E0PzcofdvjCmBvZP5xzSBx6WJ/FNmaw29e3DEKgyqbhHgJPdOCcnp55v3MENdA41bYi42sBXIsiwEopFq6/Edxafq03A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
+ dkim=pass header.d=cherry.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A2tljZQe1pJVyMmhp6RKg8fyz5hw8tyc6Lb4ejZycFM=;
+ b=LGdLEsdUbU9fjbUj+vM7+dBoUZ1wYC7/Wm+XleBN6Q24mHOAMJlZIbdlmY6Ou3PhtUS4kshMVb8+zp4jw/q6FDzouExGHuyDp5tag+b/WHuDV7w+syS4SIt8hGaEALTyJhDSVtYxi4nD/WI09GaQVO+47nsOQqt9MyTrCkyY2ac=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cherry.de;
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
+ by GVXPR04MB10111.eurprd04.prod.outlook.com (2603:10a6:150:1b1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 18:05:57 +0000
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 18:05:55 +0000
+Message-ID: <8ade7dc5-1292-4bad-8148-0bb48963b045@cherry.de>
+Date: Wed, 30 Sep 2026 20:05:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] arm64: dts: rockchip: add RK3588 DP carrier from
+ Theobroma Systems
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ damon.ding@rock-chips.com, Heiko Stuebner <heiko.stuebner@cherry.de>
+References: <20260930162545.2357505-1-heiko@sntech.de>
+ <20260930162545.2357505-3-heiko@sntech.de>
+Content-Language: en-US
+From: Quentin Schulz <quentin.schulz@cherry.de>
+In-Reply-To: <20260930162545.2357505-3-heiko@sntech.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR09CA0157.eurprd09.prod.outlook.com
+ (2603:10a6:800:120::11) To PA3PR04MB11153.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|GVXPR04MB10111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79abae8c-e0f8-415b-cd53-08df1f1d790a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	BB8KZOTOd/WqvV9I1yGEtkaFs0RaFkH/oj3M7uEcaYCbDt/NOmAKMKyQ9iVCLJuIBqyR/5N7/0Nf7uumWSNSOukENebkRbhKm4HIgH285K7j47wfVtJbfamu6aibJaL1edD8HCIT7xMpFMC5tTVe6DJLpuJeMRqkgpQ4nr7VPorg7vtfmlDzt7+X5SmpmSKPweMXKauHKWvViQlMbU/groVEqMW0xUhfkuwwCRYcQYI5J+47ESWpeR/3lR1ScIIjAlrEeGTIj6l7az0b3Ds7afF9Cx8/yoR0MqxEanTB2x5alZWozxx4B5x1ah+kUHdSwGKgXTm30CKgmlFrBcW/+GMBw9THEWg9z5d/l21ePO6W57UpuwCjJBjt48XjsCrW/8YE3SZrxMzrkbaV8zAwq0kn7S2LKHzFerdsMTaCZJxSdzNyi6gHI9utfFgry8I45RdPbkJQx3tqg7giCrPd2EyGDpymSSnsMv7+EdUpjbdXpesCUoFfs6HgZ3LDZBm/VoMjFFFGzo80vtfyNc8fKvZciuCKVrJMEJQm7/VaRSjPJnl3VTPx2j5CItEtNi5oyUKZ+VSJmdVrLygxjDYd8LgtCWozfqvXMC+YeNwRYPOCgzKLCQwhSJIJ2C4ht1noPQxtQoBPxgdlVGeeAEVHsGMqJ8rmFPCrQpCc11Xr1TM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eDVIbk1sZFZIV2p2eVQxU1U4c2xPd2k4RC8zTEZ4eE5NSVV5am9RaXpXOVlM?=
+ =?utf-8?B?Z1ljbFFyMmFyWGhYOHVWczRRYVRVSGI0NFI5dFUra3JyWjRoVmlDNnp5Ykdp?=
+ =?utf-8?B?MVZnaW5uRXZwZkJhakpjb0FIbG1URFRuRDR4aVJZRzVGMGlHYkxUSnNPemV2?=
+ =?utf-8?B?TGNsSktYcHpkL3F2K3B1cFpBbjc2cnZEUkdkd1dJZEpZN21peTVrSEdNTkR2?=
+ =?utf-8?B?cTJrMmJFK3ZydzJEMjlOOWV2TzIxZGdwSUk4K01jZ21vaEU1REdmN2g2TVdx?=
+ =?utf-8?B?cllRbUM4cjBTVVlGcnRkTkF5Z1hFREd4MjRTS0Fzak9EQkU4Nkt1dzN3a1Iv?=
+ =?utf-8?B?YnZlZ0RzQkh6Y3BiTmZuaGhrblVTRFhBMDI3OVBlK3AwQjl3T2R6aHpScnJz?=
+ =?utf-8?B?QmNEcFl0K2tmbEd2dU8rN2tHRlQ4TURneGsrejc2MmdLMHJoYnlDTlFCcmtY?=
+ =?utf-8?B?QnNVME5UMWxkQ3NzMW5XZzI3Tld5RkdZN3IzVFgreE1vRy9HQlVmeTk1cElD?=
+ =?utf-8?B?QnJvL3hZN1d6ZmsxUjJLWmpZQ0NaRTUxWklVUDBOSGZJN29jSjU5bVVZL2lM?=
+ =?utf-8?B?aG5jallPQ29MZjlpRVUyMXlFQzVZTjZxb00zVG1ibW5lVk5DNy84TzQxT29C?=
+ =?utf-8?B?cFhxd01STXo3b3dCNy9oN2JCSXFyaHMxZWRRSE02UFZEdUFUSVI3aTFVb3Nv?=
+ =?utf-8?B?dXpvcG9YMTJ1TXpsZ3BQZWhkMDFYUk9rc3lZOXRkcTlTYW1ZbkcxNCtzRnda?=
+ =?utf-8?B?aUZtbkFuMFF5c3FNaDJrRUR1WHBaWjBPaFlKbEx2eVd2SEhtZG10N3BrZ1BQ?=
+ =?utf-8?B?YlhzSFE1enQwYWlJWTZMYjQra0ZxdkJ6SURwVTFsUVRPRi9xa3FSZVR6dkRa?=
+ =?utf-8?B?UnNVUFpCZFl1ckUxcXptam13TEtXcXpkZDRpajZxK1dtRFhxUHpidnovMTA3?=
+ =?utf-8?B?b3ZNOUpXaFgvQ21SNzJ6YWZTOGF1KzduV1dOeEhSbnRBaTBpeE05VXNSNjZa?=
+ =?utf-8?B?SWt3dVZJcE1wd1gxUDBDeE0yakFGdTN5TW4zZGhUUDhYcjM4a1ZieTdlVDd0?=
+ =?utf-8?B?Zm9JOFJ4QVZ4cCtjN0I1OVNiYTFGSUZyMHZ3c0xuazdiMjRMd2twaU93Yzd4?=
+ =?utf-8?B?bmhFTEN4NE05T3YrS3lJMERreUM4aXQ0a3h2bTJJU1g0aFBFcUpQUE5mMGt4?=
+ =?utf-8?B?TkFVbDBUUVpIMDFLUDB4Q1FyK2VhdTVFT0xNbG1VQ3dLdjV3YXkyVEdVb2xT?=
+ =?utf-8?B?dDhVOXppaVFRNFF2bWI5MzQrSnVJY2QzSTFUZENXT1M4S0lIN0FxUzdmQXNi?=
+ =?utf-8?B?S1d0YXp0T1VWdTNydmk4T21HOUJLMTFOZURxVzRhUVZRNHUwSXNQRWhCWm5J?=
+ =?utf-8?B?OElzUlVZblNaZHNycU5xTWhkdGlQcWFwSERicE5YZWEzc2loOU1BRUcveGRp?=
+ =?utf-8?B?dzdNcmRzdkJuVUJrLzlScGFCUU5pOCtkSEZOQXBBb3ptTUM4NE9kaElzbHJ3?=
+ =?utf-8?B?cllQa3QzaDZZMkk2MU85Kzg1WWRQS2R1ck40TGZ1dkY4THo2aStyRDVrR2NR?=
+ =?utf-8?B?NTNod2NzaEtLeUoyc0RuK0xRdWV3c1Vjd0s4SHdJT25lUGdhbEN0bXl0Z0sx?=
+ =?utf-8?B?aVJjbFk0VThJbVNGRU93WlhKNUdIU2g2dzlGTndmempidHdISUNXcy9CR0VG?=
+ =?utf-8?B?bjk5VEVJa0FpL3FlTmRTbS9oTjczYVdweU5VMTJ1UHlzV3FpVXBaNFNDb1FV?=
+ =?utf-8?B?YWxjK3NKQnNmWlZ3b0NzNEFMRHV6aHVadzBFdENxSGVKdEtVcEpXZTlzbHVD?=
+ =?utf-8?B?dTBvL1dSSjc5WnlDczhTSG9BT1pJWG1hOGVSM04vZ3g2ek1DMVg4N1liT0Jp?=
+ =?utf-8?B?eDdFZ2J4UFBzYkYyUXdBNVpOek9VNkJHT3hNNUxKVEVUUUtOUTVjM2NpMnU3?=
+ =?utf-8?B?VzRUOE1mU0trb0tLb3JQZE82ditPSlZ0c2FGTVRkQklBbWlqcnJRMUdTWUdx?=
+ =?utf-8?B?SHRaemdkRHFSWEhIWlB4TWVVV2ZXOVBKbmxaaHlHd2hMOU1rNk8rUjBudEtO?=
+ =?utf-8?B?RGtTNHpNSXpkVFRUcDdBa04yRGsrdWhKWG1VekdwenFmNWtBd1Z3VTlzalB6?=
+ =?utf-8?B?RmR0N3pKMUh3VG9pamJ3UjFxUlJ2WW5NQTZEMjZGeER4bGN5M1JLcC9uWEdO?=
+ =?utf-8?B?RFNGeE5nMGxjbjdJNWVPLzQrbzBUb3pqQ2NINmRxWmJYZnI4RmpvOUhVUGtv?=
+ =?utf-8?B?YjBnS2hLbEN4RXRTUDd3T1FYaE0vWTYrTThLaXNSRjJsTHJkUHZlZnhQVVJI?=
+ =?utf-8?B?NG1aSnJpNjZXcGM4OGpYQm8yeVI4VTBxOWdVL2ZSaTFkSE9iclRGdz09?=
+X-OriginatorOrg: cherry.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79abae8c-e0f8-415b-cd53-08df1f1d790a
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:05:55.6632
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WzJNjS4pCwPXPNYuwJ462Q6ud2yxgvwQZuFA6uD1K53+a7hvPc4uj3BLnM0O7FwDHGaUGmSbnwnn7dE10uEkIWzoljU6xVxPjT+u6Xr+eOQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10111
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Heiko,
 
-Critical: 0 · High: 0 (2) · Medium: 2 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This patch says it fixes the UBSAN report 'shift-out-of-bounds
-  in net/atm/common.c:382:32, shift exponent -1 is negative'…
-- [Medium] ci_range_bound() (net/atm/common.c:338-343) uses `if (bits <=
-  0 || bits > max_bits) return 1 << max_bits;`, which treats bits == 0…
-
-Pre-existing issues:
-- [High] find_ci() checks the static VPI cache `p` only against its upper
-  bound and never resets it when negative.
-- [High] solos-pci's atm_init() (drivers/atm/solos-pci.c:1348) calls
-  atm_dev_register() at line 1359.
-
---
-
-net/atm: fix shift-out-of-bounds in __vcc_connect()/find_ci()
-
-This commit adds a ci_range_bound() helper to net/atm/common.c. The helper
-turns ci_range.vpi_bits/vci_bits into an exclusive upper bound. It falls
-back to the maximum range for ATM_CI_MAX, or for any other value outside the
-documented range. The direct shifts in find_ci() and __vcc_connect() are
-replaced with it, and __vcc_connect() gains explicit vpi/vci < 0 checks.
-
-Closes: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
-
-> usbatm_atm_init() has exactly that window: it calls atm_dev_register()
-> and only afterwards sets ci_range.vpi_bits/vci_bits. A bind() on
-> AF_ATMPVC/AF_ATMSVC racing in during that window sees a vci_bits (or
-> vpi_bits) value outside the documented range, and the plain shift is
-> undefined behaviour, reported by UBSAN as a negative shift exponent.
-
-[Severity: Medium]
-Is this description accurate for the current tree?
-
-Commit a60fd8c6dbaa76 ("usb: atm: usbatm: fix invalid ci_range
-initialization") already fixes this UBSAN splat. It has the same "shift
-exponent -1 is negative" in __vcc_connect(), reached through
-pvc_bind()->vcc_connect(). In that report the -1 was ATM_CI_MAX, which
-usbatm_atm_init() stored in ci_range permanently. It did not come from a
-registration race.
-
-With that commit applied, usbatm_atm_init() does:
-
-	atm_dev->ci_range.vpi_bits = 8;
-	atm_dev->ci_range.vci_bits = 16;
-
-solos-pci atm_init() does the same. Neither driver implements
-ATM_SETCIRANGE.
-
-The atm_dev comes from kzalloc_obj() in __alloc_atm_dev(). During the
-register-before-assignment window the fields are therefore 0, and shifting
-by 0 is well defined. The new comment above ci_range_bound() makes the same
-claim, that "the all-zero value the field holds before a driver's probe has
-set it" is not a valid shift count.
-
-Is there still a path that reaches a negative or oversized shift count?
-
-The reproduction was run on syzbot's kernel image, which appears to be older
-than a60fd8c6dbaa76. The Closes: tag (extid f6ac161ee9699270b8dd) looks like
-a duplicate of the report that commit closed (extid 6665d3db5fef15914802).
-
-Should this patch be dropped as a duplicate? Alternatively, it could be
-resent as hardening, with a description that references a60fd8c6dbaa76.
-
-> diff --git a/net/atm/common.c b/net/atm/common.c
-> index 81195727fa18b..bb6bc26eb5992 100644
-> --- a/net/atm/common.c
-> +++ b/net/atm/common.c
-> @@ -327,6 +327,21 @@ static int check_ci(const struct atm_vcc *vcc, short vpi, int vci)
->  	return 0;
->  }
->  
+On 9/30/26 6:25 PM, Heiko Stuebner wrote:
+> From: Heiko Stuebner <heiko.stuebner@cherry.de>
+> 
+> The DisplayPort carrier is a very simple baseboard only providing serial,
+> ethernet and a displayport output.
+> 
+> But its main functionality is that it routes the Analogix eDP controller
+> to this DisplayPort output, which allows to test that controller simply
+> by hooking it up to a suitable monitor.
+> 
+> The Analogix-DP controller supports eDP 1.3 and DP 1.2, so can drive
+> both eDP displays as well as full DP monitors. It does not support DP+
+> so passive DP-to-HDMI adapters won't work.
+> 
+> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> ---
+>   arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+>   .../rk3588-tiger-displayport-carrier.dts      | 113 ++++++++++++++++++
+>   2 files changed, 114 insertions(+)
+>   create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> index 2edc9c0aceb5..bf80afba2351 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -217,6 +217,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5t.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-displayport-carrier.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-video-demo.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-toybrick-x0.dtb
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts b/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> new file mode 100644
+> index 000000000000..f6e95047fd5f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> @@ -0,0 +1,113 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 > +/*
-> + * ci_range.vpi_bits/vci_bits are documented as 1..8 / 1..16, with
-> + * ATM_CI_MAX (-1) meaning "no restriction". Neither that sentinel nor
-> + * the all-zero value the field holds before a driver's probe has set
-> + * it (see the register-before-ci_range-is-set race in usbatm_atm_init())
-> + * is a valid shift count, so compute the exclusive upper bound instead
-> + * of shifting a VPI/VCI by a possibly negative or out-of-range amount.
+> + * Copyright (c) 2024 Cherry Embedded Solutions GmbH
 > + */
-> +static int ci_range_bound(signed char bits, int max_bits)
-> +{
-> +	if (bits <= 0 || bits > max_bits)
-> +		return 1 << max_bits;
-
-[Severity: Medium]
-Should bits == 0 really be treated as the maximum-range case here?
-
-A width of 0 bits is well defined. 1 << 0 is 1, so only VPI/VCI 0 is valid.
-
-Before this patch, a device with vpi_bits == 0 rejected any explicit
-vpi != 0 in __vcc_connect(), because vpi >> 0 is nonzero. find_ci() also
-limited its scan to p < 1.
-
-After this patch, __vcc_connect() accepts VPI 0..255 and VCI 0..65535 for
-such a device. find_ci() can also auto-assign values in that range. An unset
-range now gets the most permissive bound instead of the most restrictive
-one.
-
-In this tree, bits == 0 only occurs between atm_dev_register() and the
-driver's ci_range assignment. This change therefore lets explicit-CI binds
-through while the device is only half initialised (see the solos-pci comment
-below). It would also affect any driver that uses 0 bits to mean "VPI 0
-only" and indexes tables by VPI/VCI.
-
-Would it be enough to apply the fallback only for bits < 0 (ATM_CI_MAX)? That
-avoids the undefined shift and keeps the old behaviour for 0.
-
-> +	return 1 << bits;
-> +}
 > +
->  static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
->  {
->  	static short p;        /* poor man's per-device cache */
-> @@ -342,12 +357,13 @@ static int find_ci(const struct atm_vcc *vcc, short *vpi, int *vci)
->  	/* last scan may have left values out of bounds for current device */
->  	if (*vpi != ATM_VPI_ANY)
->  		p = *vpi;
-> -	else if (p >= 1 << vcc->dev->ci_range.vpi_bits)
-> +	else if (p >= ci_range_bound(vcc->dev->ci_range.vpi_bits, 8))
->  		p = 0;
+> +/dts-v1/;
+> +#include <dt-bindings/soc/rockchip,vop2.h>
+> +#include "rk3588-tiger.dtsi"
+> +
+> +/ {
+> +	model = "Theobroma Systems RK3588-Q7 SoM on Tiger Displayport Carrier v1";
+> +	compatible = "tsd,rk3588-tiger-displayport-carrier", "tsd,rk3588-tiger", "rockchip,rk3588";
+> +
+> +	aliases {
+> +		ethernet0 = &gmac0;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial2:115200n8";
+> +	};
+> +
+> +	dp-connector {
+> +		compatible = "dp-connector";
+> +		dp-pwr-supply = <&vcc3v3_baseboard>;
+> +		/* Q7_DP_HPD# but Q7_HDMI_HPD# could be used too */
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch, but the
-patch rewrites this line. Should the static cache p also be reset when it is
-negative?
+Yes, but I believe the signal would then be active high instead 
+(Q7_HDMI_HPD# as seen on Q7 golden fingers is inverted before reaching 
+the SoC pin while Q7_DP_HPD# is directly routed to the SoC pin).
 
-A bind with vpi = ATM_VPI_UNSPEC (-2) and vci = ATM_VCI_ANY runs p = *vpi,
-which leaves the static p at -2. A later ATM_VPI_ANY request, on any device,
-only checks p >= bound, so p stays at -2.
+> +		hpd-gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
+> +		label = "dp0";
 
-The VCI cache has a matching lower-bound check (c < ATM_NOT_RSV_VCI). The
-VPI cache does not.
+Is this required? (Not according to my reading of the DT binding) 
+Because I don't see DP0 (or dp0) written on the board (nor in the 
+schematics where it's marked (on board and schematics) as P2). Not a 
+biggie in any case.
 
-This seems to cause two problems.
+> +		pinctrl-0 = <&edp0_hpd_l>;
+> +		pinctrl-names = "default";
+> +		type = "full-size";
+> +
+> +		port {
+> +			dp_con_in: endpoint {
+> +				remote-endpoint = <&edp0_out_con>;
+> +			};
+> +		};
+> +	};
+> +
+> +	vcc3v3_baseboard: regulator-vcc3v3-baseboard {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc3v3_baseboard";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vcc5v0_baseboard>;
+> +	};
+> +
+> +	vcc5v0_baseboard: regulator-vcc5v0-baseboard {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_baseboard";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +	};
+> +};
+> +
+> +&edp0 {
+> +	status = "okay";
+> +};
+> +
+> +&edp0_in {
+> +	edp0_in_vp2: endpoint {
+> +		remote-endpoint = <&vp2_out_edp0>;
+> +	};
+> +};
+> +
+> +&edp0_out {
+> +	edp0_out_con: endpoint {
+> +		remote-endpoint = <&dp_con_in>;
+> +	};
+> +};
+> +
+> +&gmac0 {
+> +	status = "okay";
+> +};
+> +
+> +&hdptxphy0 {
+> +	status = "okay";
+> +};
+> +
+> +&mmu600_pcie {
+> +	status = "disabled";
+> +};
+> +
+> +&pinctrl {
+> +	edp0 {
+> +		edp0_hpd_l: edp0-hpd-l-pin {
+> +			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>;
 
-First, find_ci() can return *vpi = -2, or -1 after p++, for an ATM_VPI_ANY
-request. vcc_connect() sets ATM_VF_PARTIAL based on the caller's vpi:
+I believe we could also use pcfg_pull_none as we have an external 
+pull-up on the carrierboard with R15 but it doesn't matter much I think :)
 
-	if (vpi == ATM_VPI_UNSPEC || vci == ATM_VCI_UNSPEC)
-		set_bit(ATM_VF_PARTIAL, &vcc->flags);
+> +		};
+> +	};
+> +};
+> +
+> +&uart2 {
+> +	pinctrl-0 = <&uart2m2_xfer>;
 
-The socket is therefore treated as fully connected with a sentinel VPI.
-usbatm and solos then write that VPI into cell/packet headers.
+This property is already in rk3588-tiger.dtsi so you can remove it here.
 
-Second, once old_p is negative, this exit condition can never be met,
-because p++ only wraps back to 0:
-
-	} while (old_p != p || old_c != c);
-
-Take vpi = ATM_VPI_ANY with an explicit vci. If (-2, vci), (-1, vci) and
-(0..255, vci) are all occupied, can this loop spin forever under
-write_lock_irq(&vcc_sklist_lock)?
-
-This sequence seems to reach it for an unprivileged user with a usbatm
-device:
-
-  bind(UNSPEC, ANY)         -> p = -2
-  bind(UNSPEC, 100)         -> occupies (-2, 100), p unchanged
-  bind(ANY, 100)            -> gets (-1, 100)
-  bind(UNSPEC, ANY)         -> p = -2 again
-  bind(0..255, 100) x 256   -> explicit, p unchanged
-  bind(ANY, 100)            -> p never returns to old_p = -2
-
-usbatm_atm_open() does not range-check vpi. It also sets ATM_VF_ADDR, which
-check_ci() needs to detect collisions. The sequence takes about 260 sockets,
-each with UBR QoS.
-
-[ ... ]
-
-> @@ -378,8 +394,9 @@ static int __vcc_connect(struct atm_vcc *vcc, struct atm_dev *dev, short vpi,
->  	int error;
->  
->  	if ((vpi != ATM_VPI_UNSPEC && vpi != ATM_VPI_ANY &&
-> -	    vpi >> dev->ci_range.vpi_bits) || (vci != ATM_VCI_UNSPEC &&
-> -	    vci != ATM_VCI_ANY && vci >> dev->ci_range.vci_bits))
-> +	    (vpi < 0 || vpi >= ci_range_bound(dev->ci_range.vpi_bits, 8))) ||
-> +	    (vci != ATM_VCI_UNSPEC && vci != ATM_VCI_ANY &&
-> +	    (vci < 0 || vci >= ci_range_bound(dev->ci_range.vci_bits, 16))))
->  		return -EINVAL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the zero-to-maximum fallback
-opens a second path to an existing NULL dereference in solos-pci.
-
-drivers/atm/solos-pci.c:atm_init() publishes the device before it sets up
-ci_range and dev_data:
-
-	card->atmdev[i] = atm_dev_register("solos-pci", parent, &fpga_ops, -1, NULL);
-	...
-	card->atmdev[i]->ci_range.vpi_bits = 8;
-	card->atmdev[i]->ci_range.vci_bits = 16;
-	card->atmdev[i]->dev_data = card;
-
-device_create_file(), sysfs_create_group() and dev_info() run in between.
-
-A concurrent bind(AF_ATMPVC) in that window goes through
-pvc_bind()->vcc_connect()->__vcc_connect()->popen(). popen() reads
-card = vcc->dev->dev_data, which is still NULL, and calls
-fpga_queue(card, ...). fpga_queue() then does:
-
-	spin_lock_irqsave(&card->tx_queue_lock, flags);
-
-Before this patch, wildcard binds already passed the zero-width check, and
-find_ci() resolved them to (0, 32). Now ci_range_bound(0, 16) returns 65536,
-so explicit requests such as (0, 32) or (5, 100) also get through. The old
-vci >> 0 check rejected those.
-
-usbatm_atm_open() returns -ENODEV while dev_data is NULL, but popen() has no
-readiness check at all.
-
-Would this need the device to be initialised before atm_dev_register(), or a
-synchronised readiness check in popen()? Changing how the bound is computed
-does not seem enough on its own.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927120410.44906-1-ngocthang2710.1999%40gmail.com
+Cheers,
+Quentin
