@@ -1,147 +1,155 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010022.outbound.protection.outlook.com [40.93.198.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C5D51FCCE
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805519; cv=none; b=odYbyrIX1Ly58hp76qqk08T8/AlPwjYv2O44uUxSsyHXNvo9ysF+kHJNN2jrf+7nPstE259Z3ajZR9SLLoFphlnvMgKuaPevetOzUibdGudcTuQ59KQ+GtA9QC7ZupzOUow4f+RRVIuRQvCrfYgIgoE8hprZMW7J6lYE3wiWkmQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805519; c=relaxed/simple;
-	bh=zUk+kXfcT81eZAHS44EsoY17GzM/VsmPHONlY579Id4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Ct7HtnSvFYBOvolYXak1ppFUF/n7O5sxcSyPyZBOXM92X2ekiVCKuwHa5vg4DsNZKPLss8aheDfZ89rpqLDvR719cVdUyjZB/d0oNLlm1FuKhuIfU4ugzdADmN2rs3wa8rPahVKmrDze2LXPA1CIOCWMIQpTk1Ia1tnt39J+/A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab260600easo374603b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:58:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790805517; x=1791410317;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vc4z7VeRQbe+d36pN2/ovHjhE5bdtXnnqRukeZJMg+0=;
-        b=ebzQ+r5P9/IctQI1ATvdQce6HDZsC0uLJW/UZmn0CAIfRnS7FQhQz6a54Jz9TlC7Hq
-         Oyqvh6YMM8n1Lg5iZt9z4AS4+Le+9Ww1w6VFtsEBM6dBCETI5Y5hjWDMniqEpzun2bdP
-         nbgUmQKqyZ7Y2oBDYgnOihHY6gPjYE9+OpA3DUF8LHBTbNWvayJunF87mxPNBjATM/PS
-         PurOqS6WfmFLmPQ71ROx0FwRPzRMOoQM87yzLFSFnKESRC52TZFGs00VvJop3j7e9M/a
-         kYWYxXeo0iMe4b0Q7kFOPGnkDdORMZkWeIOfx+3U6JukNHjyCs7nZNw9wySZEPhOd4fe
-         N48A==
-X-Forwarded-Encrypted: i=1; AKwUvBwCaLCR4uoXjpnFxbc6D26UFXi2Tv1tFEiL1UX9s3O/L27DgF+rPIjIJ1rk2L9REN7KDO99PhH95PZ07cI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1r46Zz717ZW+2SY10rzflPIamx9KH0v3bwVwQ6lAwD5Bup8Qo
-	up0GF8GM5MW6vgLCTBC2wT3o+VHwhPCj7e8Z/NYmNMqpQplU1P8C5K0ViPEtEQfIrQTnLN1Yfw+
-	xwTRgteqCib9etcls95/C9mh6TVSgfbLkBE7xVB3uXngvE7TgIxIm3rGTd94=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97158521216;
+	Wed, 30 Sep 2026 21:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790805575; cv=fail; b=cwEXmB4WJvhRJJ3T/V9eqyIy1KfHkpRbFT/H7ygY1p/g+aqlNrIGozPTeqnoWruLi5cr1vYsigj0ZCa7VGygznoXrrh+Rb6l5FbITLL2a8fo+rjBF6UKTfnkMgfPbhFwqnMcHjnoygPlnAPkpykBF4/duJPd3z8rPLU71lRQYek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790805575; c=relaxed/simple;
+	bh=aGmZFW22sfE4sSERtJrpM8gvBDTGflUKqyl4Vp5VAE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=eRQ+asV4paYlvisEBpqwefcW4khw/cKhc22pJDhP6KgezMb4qvBXfCMM++24q+0JEXgWLmHkd6bqo3pNSv9rpZluW8PTHToCDRWuIfgr0wM9FaBGAegnIZFsUpltPdSvOJatLk6y2k4+YvSnLTNb12NageIPA21SKcXzxNq2bwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Cs90Jy/J; arc=fail smtp.client-ip=40.93.198.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Cs90Jy/J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DkAaX6WQuh/STDL5rGhJGH1tUnXGDGZ3R72qnFsjG8mch0w8MeEDiG/2rYH+P+fr7FTKJYay/WPN2M542H6UA9gC32YHICUTIMmxMJOMiw+76ngjar8DRDS5AuHVQCJl3jkNJIkwikJYcmPQHLkjFrlGJB5g/iZ4yOlHE7P8KkYjwOXZxgM1xcChLBqs1wp476Ykl2B/vANFxr6y6EOPXX+fUQ8zr5Za/P03JQC1awGR9Kqu7OuO7IShSJmYnzXK/wR8AvLpRr1tCNtpKh647Mq/VINln6HUFTbo+em30ls9XgRgfUb1q5Qekndlh2Is2UNKW75yO7CIUxg2LUNM2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h7Ot/8/uHwozDy7LiXhR/xVvAiuRIceJ/kfOPBcAFZk=;
+ b=lZShDK4he6jCdd4nfuv4WBsXivUgNRvop3lnQR5pes8nadJhaqHLox3vxePGMOS4PNjxuB53D8GHT9UUEoNatgVtpcRj85YGor4R4HVSFd41/XAtNs8+cWdI3INgEC1COhgnqAXJbTF+JXwO6oZ4mUV1xU0maSL56ZCOJA3S5hSBaTQTBOaTQc5ALC+gYDx033E5uMewcS+Vx/C537n82VL8XWipNaU6j4Kb+fYz+ObS6GlJj6x+IOWRIWSmfncQE6ufjP2rDrnAmZDEYqYfVGxWYxPS2b0Uedx9mGT7Uja161JNCCnBnfSaXUbovA7D4nt6op6FLIkB0SuCJ8PARg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=valla.it smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h7Ot/8/uHwozDy7LiXhR/xVvAiuRIceJ/kfOPBcAFZk=;
+ b=Cs90Jy/JyEEDu54y+6dqynIiW3Wxkm/9rRKMfvMNWZH1TGg8wP5/zFBF3zQ9ROCotQV0X2gjNzpql834oGtweT42vLn1vgufo3uOp0mpnzCYEvfFJIicj4k+CmDOCJeJ256oXfmWTVI6wmid2Cm/QsF4aIxNJhDT5epdwZs1BsI=
+Received: from PH8PR20CA0002.namprd20.prod.outlook.com (2603:10b6:510:23c::6)
+ by CY5PR12MB6106.namprd12.prod.outlook.com (2603:10b6:930:29::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
+ 2026 21:59:30 +0000
+Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
+ (2603:10b6:510:23c:cafe::18) by PH8PR20CA0002.outlook.office365.com
+ (2603:10b6:510:23c::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 21:59:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 21:59:28 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 16:59:27 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 16:59:27 -0500
+Message-ID: <44648601-e04e-4d6e-a192-3df6dc1b3b24@amd.com>
+Date: Wed, 30 Sep 2026 16:59:27 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a0f:b0:4f1:5068:b93b with SMTP id
- 5614622812f47-4f307f06067mr1244503b6e.14.1790805516878; Wed, 30 Sep 2026
- 14:58:36 -0700 (PDT)
-Date: Wed, 30 Sep 2026 14:58:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abd860c.9b478af7.e8d7a.0000.GAE@google.com>
-Subject: [syzbot] [net?] WARNING in new_slab (3)
-From: syzbot <syzbot+f95c2f0a71a98cef50eb@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH] remoteproc: remoteproc_virtio: reset vdev before removing
+ it
+To: Francesco Valla <francesco@valla.it>, Tanmay Shah <tanmay.shah@amd.com>
+CC: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <ohad@wizery.com>,
+	<linux-remoteproc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260924205901.2505186-2-tanmay.shah@amd.com>
+ <arjZvftSMlG3OMHP@bywater>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <arjZvftSMlG3OMHP@bywater>
 Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    6f8319e3e9a4 Merge tag 'mm-hotfixes-stable-2026-09-27-19-1..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13af7df5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2a820d8842c77560
-dashboard link: https://syzkaller.appspot.com/bug?extid=f95c2f0a71a98cef50eb
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-6f8319e3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/91b951779fc3/vmlinux-6f8319e3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/18319ae672c1/bzImage-6f8319e3.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f95c2f0a71a98cef50eb@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-current->flags & PF_MEMALLOC
-WARNING: mm/page_alloc.c:4816 at __alloc_pages_slowpath mm/page_alloc.c:4816 [inline], CPU#0: cifsd/12032
-WARNING: mm/page_alloc.c:4816 at __alloc_frozen_pages_noprof+0x1eac/0x3300 mm/page_alloc.c:5449, CPU#0: cifsd/12032
-Modules linked in:
-CPU: 0 UID: 0 PID: 12032 Comm: cifsd Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__alloc_pages_slowpath mm/page_alloc.c:4816 [inline]
-RIP: 0010:__alloc_frozen_pages_noprof+0x1eac/0x3300 mm/page_alloc.c:5449
-Code: 38 d0 7c 08 84 d2 0f 85 de 12 00 00 65 48 8b 05 e2 a7 1c 12 c7 84 24 94 00 00 00 00 80 00 00 f6 40 2d 08 0f 84 ba e7 ff ff 90 <0f> 0b 90 e9 b1 e7 ff ff 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03
-RSP: 0000:ffffc90002e172d0 EFLAGS: 00010202
-RAX: ffff888029380000 RBX: 0000000000000000 RCX: 1ffff1100fffad29
-RDX: 0000000000000000 RSI: 0000000000000002 RDI: ffff88803fffd938
-RBP: ffff88802938002c R08: 0000000000008000 R09: 0000000000000001
-R10: 0000000000000002 R11: 0000000000000000 R12: 00000000000cac40
-R13: ffff88803fffb900 R14: 0000000000000000 R15: 1ffff920005c2e74
-FS:  0000000000000000(0000) GS:ffff888096955000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000008000a000 CR3: 00000000403b5000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3470 [inline]
- new_slab+0x1f6/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- ref_tracker_alloc+0x190/0x590 lib/ref_tracker.c:270
- __netns_tracker_alloc include/net/net_namespace.h:370 [inline]
- sk_alloc+0xcfc/0xe80 net/core/sock.c:2329
- inet_create net/ipv4/af_inet.c:333 [inline]
- inet_create+0x3a0/0x1060 net/ipv4/af_inet.c:259
- __sock_create+0x339/0x860 net/socket.c:1676
- generic_ip_connect+0x826/0x1810 fs/smb/client/connect.c:3377
- __cifs_reconnect+0x348/0xa80 fs/smb/client/connect.c:420
- _cifs_reconnect fs/smb/client/connect.c:596 [inline]
- cifs_reconnect fs/smb/client/connect.c:610 [inline]
- cifs_readv_from_socket+0x7c1/0xa30 fs/smb/client/connect.c:749
- cifs_read_from_socket+0xb8/0x100 fs/smb/client/connect.c:804
- cifs_demultiplex_thread+0x2db/0x2ea0 fs/smb/client/connect.c:1295
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|CY5PR12MB6106:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2799a727-e4fd-4164-2e6d-08df1f3e1949
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|260925022911599003|260925021911599003|260925021311599003|56012099006|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	aj31QP4cIfA1LSj6K1CI8pJC4cpYNgk/MF30DKjz9wYyp/fXJhP2sOhnLoTJQJncv7X3jz8m8ZilFTt0k4+QvMXKoQjerju21GIw2seD9/0R63yoSmn3lzlWSs6OjHiGc6b0DFZMD7thy5/jX+4a6oIpDEhm84lIbZm7zdpFUKQsWNc8KkOWPwgcmNpUnC5qZWtxbY9xnyfycfJZFdzNMtPO+stCSgy1pC8h2qaVsaGdiTvYhh3xKFzue7XlenML42BNEzhKg/kiUNMlgjDTXjkSA2hQ/MmuPiMoIiJCDaU8dsDSx4cEjIEk5EaRyUImCIC7S7EOqDjwPUSYqQRKuyMrsSLhJUAnc7QIcbyodLftlcGwkjIawEHZIZ6SaGJFFTpyvYkT378B4ZUc1PfjT4I+LkzU+zhvqxZAbl7yI5Z4cmkKE4L9m7PQ9BNGk4YnhRmypNirUA6P7oGz2pu4HR/kywhQg5Iq/uS0Cl0c6houExzWe78b7d9U/YCJBfwfrI0zljHkrOsTvz/k9kEnd25IceIqw52gMd8YucBmLWYR4jypF3aJTHvOnMrBZ6gHkDVMrGFgJsZnd5xiTdkXdPPf6JFIj7FsLRdk3ZaTyLHrdqPmL0w/LtFjYsmpYd1hFMUuF81sHhpBv5EEGvOvXpq8oC5rj2R+dliQgDa8cIgqNJtoJMlQUIZVHo3Jb2xO8ZrfgqSYyDGzxJGhCUT4Zw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(260925022911599003)(260925021911599003)(260925021311599003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	owb70Ce898HD7HnnTlgl4ArNtXVg6kJpOMhJHvGrpSu09fA0vQAWcasWpY2bOeIxDPBwrSgJr3HGhCpWgvi2vFqZQQeUzCJ09BlVx0ofNbh/pWTr4aOqUz8pRH24g2AMiola/c5YfkJOvSvu763xn4EFLZnsAvJQPJQgLLJMcVuSH9pJ64aIRSjgCpe9xnpVvTMxGXU721go0YYeT3qzBbzLEPgBZrebNV6j3Lkje1a1HJcmax4M1i1JfCd1ZOigQIrqgM8QdruW6frXpKGB/CJGZCtNCXk+2tvuSueFkL6Kipp6CuicdIyl/feEW+QbINS1ZJBzDfUVT/ePDM8EU8Lk4X+Aolv6HqsIWZd3Nyi2LkOgIRlMqRvqKEROmKXmALYAGMsecdb7QamMiE40UUY0IDzN0FISLQBvSKlBZQAPnW4WeLF7scsHZ5T4XgkU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 21:59:28.1926
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2799a727-e4fd-4164-2e6d-08df1f3e1949
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D3.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6106
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 9/27/2026 3:55 AM, Francesco Valla wrote:
+> Hi Tanmay,
+> 
+> On Thu, Sep 24, 2026 at 01:59:02PM -0700, Tanmay Shah wrote:
+>> The virtio device is removed when the remoteproc device is removed. The
+>> driver should issue reset on the virtio device so the remote can do
+>> corresponding cleanup.
+>>
+> 
+> Shouldn't be the driver, and not the transport, the one that calls
+> virtio_reset_device()?
+> 
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Hello Francesco,
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Thanks for your reviews. I will look into it.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Tanmay
 
-If you want to undo deduplication, reply with:
-#syz undup
+>> Fixes: 7a186941626d ("remoteproc: remove the single rpmsg vdev limitation")
+>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+>> ---
+>>  drivers/remoteproc/remoteproc_virtio.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+>> index d5e9ff045a28..1cb0ee0ea656 100644
+>> --- a/drivers/remoteproc/remoteproc_virtio.c
+>> +++ b/drivers/remoteproc/remoteproc_virtio.c
+>> @@ -469,6 +469,8 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
+>>  {
+>>  	struct virtio_device *vdev = dev_to_virtio(dev);
+>>  
+>> +	virtio_reset_device(vdev);
+>> +
+>>  	unregister_virtio_device(vdev);
+>>  	return 0;
+>>  }
+>>
+>> base-commit: 5f639b3018c0026a5341949724b4b921cf3a3d5d
+>> -- 
+>> 2.43.0
+>>
+
