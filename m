@@ -1,28 +1,28 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011055.outbound.protection.outlook.com [40.93.194.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E956A3AFD1F;
-	Wed, 30 Sep 2026 06:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92833B47D9;
+	Wed, 30 Sep 2026 06:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748833; cv=fail; b=g/G8xBAZIjB7muFiYDIMq83auS2iGCPj4VYMvapH+1qq27U9Po9BMj2NBbCKzw4XPK+Hmd5fXlYojxp5UEHQqDe5N0BsSaGKP75ifboMUrd0nM+PhGI6xj5wToKnNN081GtFiQGEw1e6YumYJMDFACTygPTSHZUoWDOFKSDlqno=
+	t=1790748834; cv=fail; b=V937ADo9HAfGuxgj/VfqPE8oEVEQgUYie8kNfYxTpDjRqZovhOFLLekar3qTYrIx4374SQLcrg7naqe1s1OcbZMR44VicLks6mmy1Z73QLoQ9eivSN7wnnw1pOl9Nm9pD2leZd0pjmB+81KHdCO5KLWNtNzIMnW9iNy8Ilp8Y8Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748833; c=relaxed/simple;
-	bh=bE1xb1OaXR8eZ6VfDKZkB+HVFJAwxHzocx20tKXED/U=;
+	s=arc-20240116; t=1790748834; c=relaxed/simple;
+	bh=AQ5iLkgP6NLAtcRqZ6tcsMzjF1xEYDqVB0kQ/nuplqc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NCLIyGz+9sNa/FmMuJxsCnqAF9uL5tGrsaN/3F6mDy6n1owQvNO3I5hFEiF10qtCrxJoHoPFxqEIUNAj6PD3nYjBilaaxbHfFTaYZADGy2hWP83CWG+FYceJ6R3Tr2DRmiuggMympHSrwixH/UPnaV8L05phvvjQQSPRz3UPVxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=O59/FR+0; arc=fail smtp.client-ip=52.101.48.11
+	 In-Reply-To:To:CC; b=jFeet0lf6Zm5MAmeh8P1gT+lbVsBCGJ+RA0QTXPW4PrHh6sXaIk87S2gw8xHS2GEvdi67irZgMep4dbMwZdfDvjx8HzIKi92UFxq6eJnF2IIpc1CIL8vmd6ILD620pAY1vqFKmk0soh8qjh3LwEqMenYPu8Zv5ljC0yvutipkwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=DfswC/5M; arc=fail smtp.client-ip=40.93.194.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="O59/FR+0"
+	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DfswC/5M"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mfAIws2HxnKf58Gr4cfYsECw/jqlPTnFY49Zo+jKGxXwCG/4+p5RcEVgDyW6uV8QzqCxCeBEQTPzu0zajZhGHjwZOw1a58OJoPzKSGlyEQF9aP82+X965OF9Hu17qWSxX8yIJjpzcTqF7SGySJ+Q/vHPXaSgJq8rX/LXhpN91jOAtwJlFttqT9/dGF5LCX6+Went7D1kgH0tjzwt5wboFc7a3NcrRupewPcKb3E2nsrqbQ9CVXeoEa4EwasEFdMlhMkRd/LbPTtKAOson4XVbTGX4/po9G+HB6Wo7GgBGPPgr6LcG5M8iOj+dqEJ7aSSMn/P6EAkiE6xQUQX4lBpSg==
+ b=oJlSqBy6LYA9Ak+5vSDMQhO3H3Po9/ygvQtQwNdwvT5Rt+B3kewOj9nHvinaYuKtXDAWciomY5bgbrz+4X9mNJBuJiZj0VhZAiU7mmOjoXeqi+4iYIvxxCJulubFH+wf52QxBYojawrxupyjh3PHcy3qVgwaZC2JM+1/xyd9yQR5fDrHsxBWAkgaFEm5V5W2R2FKUv7QeLS4WyFXJr+m1NL2Dy+TVEXHj91hgWjmA4WdQDbtxphNxOOon+9g9Lk8psI/3Ng2Ys1nTG4Uoh4PKUclFXZTLVWsSrGaO9KnAZeGzWOBypPfZRImPyryN6HZ6hfG2uoo4KfoK/PU4MvAWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eVazMF8Xy/35jI1/xVBN45nsZ6yUKZkMIwWRaoAJcww=;
- b=cXNsah4f2ZOErVey2gJRbx4c2u7tb+swb1gFBNqmlmsFyH+6Ug4j2pMc3ojtoEjtzDyDwGlUKFJCQemf0IKFHm0TcTJcAsFDYUfKhuGgzC2gXJ/7qqByY+i0naCTOg+oq/lUfXssvGHZGEPhMe4ht+4SkiRacNTtFBScod46O/SAvqMDFQ0+QDlgfc7c02CrEIyrFgTw6mNND60sP/V2ylXZIQaRo9Ziz6FHdAU4V1cGHC11b+oILCQ90KuRK2jI8mXkFFVwjTH/xH5qq02lXfeGxGdO+V+15rqWgkE/bcjmvBRxXBo1FJ146UejMAbwCiSCmI1Ng00xxZC2wTwxIQ==
+ bh=9RyDa0A6WzUoK+rmtbBYIhb4g+dMi6Svc2oTWEWtxj0=;
+ b=BtDKvBwmsZNBb7Y3M0Ur1CZb0aWaXcMisWjO4ZE/APzwWasQ33cRPhBm3FcMEga+zabAtCO/fypxqWYZkw7w9t4ikEbBojgsGJeKSj4qZHcZA0ZdRypUYw5rCymQB0dS788nWMxdFT15oPNrYJvGv7QS6dVbxc07xsuuYtdkGy1Fku/z/ZmJictwK8+rZAGJngk5IPQwNUoBfOv74we83ID08cOCiPKp277+qInElc1wBFZcI6QCrZIuSyWqv5kF8qxuKyrygqCVL0nTXMXF7gGlIImILtMVIH2zPS8RcMeC7NcjUQOUY6mGwjVBonOYZ0K2ks34HpXwPdPL5eanNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=gmail.com;
  dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
@@ -30,38 +30,38 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eVazMF8Xy/35jI1/xVBN45nsZ6yUKZkMIwWRaoAJcww=;
- b=O59/FR+0AcBlmi4/+hgGnrm0IzbhHFQ05ETzMs5lyPvmoj0cmI6lhg9NgLCqKrdty1eM9hkPsb+51ubPvj14rMo3SFO8dkHtbrxrwxkMLLSvnOMk3ACSjToortiVfI7he4UWDxfZ5TQSbm2j7fKTH6H5rmIbOKF9yDSrR7Vj9UwGns4jB4MADyHyibGaU6GWNTzzHIZS12loVKmAMEa40EG90y8OmRRxpdfbzG3w9KK1dl1UQEeO8F+3r03i4TDhw3xQgYk/0SN90zd3sgxpUlOnVZbsGa0Wc/Yb6D6ZdMxurigsV9+Le4Dd4ADNSWKcFFC5Flra51DdP4FTaBU/WA==
-Received: from BN0PR02CA0052.namprd02.prod.outlook.com (2603:10b6:408:e5::27)
- by SA1PR12MB7149.namprd12.prod.outlook.com (2603:10b6:806:29c::9) with
+ bh=9RyDa0A6WzUoK+rmtbBYIhb4g+dMi6Svc2oTWEWtxj0=;
+ b=DfswC/5MK7Ep3cPR4lkwD9twWGeCgScyjpeTCoGgiXR05cRjlU9t/FzFTANtsC1uKvLxUYUekcu9f/15O+5WZnQ6OKPlmzLj+hfjUOdXgCZf5v58CZWlt2xG21+hW2USI+6am5KEYsCpONbHr00Bs1R+cFo53/mU9QTr+uwDqfCRBqCxUevcuG3JxCE7ntOdpmyjLFFzvNYZLISujznMZhFWCKODP9Kg8Dyoksy/5X0h9h21HrE+c6h1AmC5ubLYOpH1A0gjWURumcZGMBvt75yT5qO0c/nCcb7CNWE8hGXEfUvh3gx9E+iwXtXRDl+LPrB+LeYOk1mJ2RnOaMz2wQ==
+Received: from CH5PR05CA0014.namprd05.prod.outlook.com (2603:10b6:610:1f0::24)
+ by IA1PR12MB6603.namprd12.prod.outlook.com (2603:10b6:208:3a1::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 06:13:44 +0000
-Received: from BL6PEPF00022572.namprd02.prod.outlook.com
- (2603:10b6:408:e5:cafe::1f) by BN0PR02CA0052.outlook.office365.com
- (2603:10b6:408:e5::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 06:13:44 +0000
+ 2026 06:13:47 +0000
+Received: from BL6PEPF00022571.namprd02.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::a0) by CH5PR05CA0014.outlook.office365.com
+ (2603:10b6:610:1f0::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 06:13:47 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
  IP is 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=gmail.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  gmail.com discourages use of 165.204.84.17 as permitted sender)
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022572.mail.protection.outlook.com (10.167.249.40) with Microsoft
+ BL6PEPF00022571.mail.protection.outlook.com (10.167.249.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 30 Sep 2026 06:13:44 +0000
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 06:13:46 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 01:13:43 -0500
+ 2026 01:13:46 -0500
 Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 01:13:40 -0500
+ Transport; Wed, 30 Sep 2026 01:13:43 -0500
 From: Colin Huang <u8813345@gmail.com>
-Date: Wed, 30 Sep 2026 14:10:10 +0800
-Subject: [PATCH v9 02/15] ARM: dts: aspeed: anacapa: Add EVT2 devicetree
- inheriting EVT1
+Date: Wed, 30 Sep 2026 14:10:11 +0800
+Subject: [PATCH v9 03/15] ARM: dts: aspeed: anacapa: Add DVT devicetree
+ inheriting EVT2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-2-f08aa0d7182d@gmail.com>
+Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-3-f08aa0d7182d@gmail.com>
 References: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 In-Reply-To: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -81,59 +81,59 @@ CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
 	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=5680;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=5821;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=bE1xb1OaXR8eZ6VfDKZkB+HVFJAwxHzocx20tKXED/U=;
- b=AkATOu+lyweaH/e28rI8aNILIkARnygHOA7A48BBiKDK0z27iXOwa4m709pjYft1Y8rPminqH
- 9lg7iDloP1nA4vEGVmaPhIoaFRtG7Z8DMItYl3Q8YQLyLh1rf8vzvTt
+ bh=AQ5iLkgP6NLAtcRqZ6tcsMzjF1xEYDqVB0kQ/nuplqc=;
+ b=DrbEi4HVhuPyIirL32Trs975eR4BCo289ycgauPT4tFiE3H7yP8pnANP796fudDsbTGrZYvzP
+ KOVBXbazVIdAsalnCeuF8n6l5XuSgqdwD/Jw5bHUj/RUSq1Hr52CKTI
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022572:EE_|SA1PR12MB7149:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7904159-b94e-4097-79cf-08df1eb9fb39
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022571:EE_|IA1PR12MB6603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8594033e-d0a6-4e57-a3f4-08df1eb9fcd8
 X-MS-Exchange-SenderADCheck: 2
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7093399015|48200799018|61400799027|376014|35950700016|7416014|10067099003|4128699003|6133799003|16102099003|22082099003|18002099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|35950700016|61400799027|7416014|376014|7093399015|48200799018|82310400026|22082099003|18002099003|16102099003|4128699003|6133799003|10067099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	zkBysSFJHOBYfekSYR4jKSfijqGF8/rH4aA1CojJUz7V/XEPvc5SEhDHN5aePP2/uNOe6p+HHsn5epNhIpJf30WkXpYH02dl4hh4RX0vtbO/+jPVBGTsKC1Gh8mR2ZH/7nIXBB34T8PFSt1vxq0z7XUF9EL8DsWyhe2Z1emUIH/EWbsv05UlBTTbUlhz0/nqo7sUFdC7EmhnfWeEn3GemO2/8bIgMJovlyOJUjq5qu8MRY2RwhHaOUGnWwtbGDQbdgOy5iYjZ2ZS5Xub/SAsCZ7W3Z0mpRpbzdM5zjyXlrk8P3ysxuxv8ONXicvtoLsly7Yw4zDC2dHlKzJKwVxwOqMGqtAd22qlW8UGACAvw1YWY04jrCXY4PpjEPcpdaZUvy1cF2UxUMVZa69qW6+rpjjLL24DFda3znHKXuBLj43BzBzJhQ2IYbR5QDClrWo6uDdk4EGR/g/759bJ06rI5DTma7BUKSRDkn4prxV3ubB+WH1GQfsCEwxQXe+7IlWcQ08rNPCCfJ/BBHXl9SVNPJcM8nU7rjgymvBBlz10SdWLK61q8dkqYxrSejVA8XfQzj6CRLcoP+98OWMFVd6MdHHvp5PvG4eS1p7QJ20I8aylBgxn1FQjUogB5IY8umH7m/uckhau5vercB0zpgnvKFYCfoDuRFrkESqcsJ2EkaIVqy4D/mSvZDe/rtla/DQG
+	B7IVjAQ9kI+1OWp5bQKc5Zq3Z0SiPxtLjfwwUXc2v/I0EoUUmrakvgc9xb3ZhWps7u9c4GbbrmKqRvayIYmNWY4fXMpNn4XNNIBKgtKeHl9YRVxyTuzYvCFgWdDV1/e8JGM0OCv6bk4rrQimWhhLOrDK5oSvlOXxiGkEqDnnaZLQ/rMCV8Fy1ZwSeB4rVkUIzs/XpUwVhu6MXPKkIwDAk8KkGF6rEyg/7/2+jv1UhE+SEOcWnFc2uKh9PZ0yOCDvdVvyskDEn/scVZhJXHaK2AmJFu/Sx+1hiIkoEyq6fGfejtPggDuTdY5gRod6YmGuePWQ7yCHhnjP2l1ISDeWmpHvX4RwAdxgqZ+pPeRhGJGspxfTn5oGg3Ol3Cadxguclwts0e/6yZNltn2zap71XvQTGLvOy/LJiAkuERCIlopFcSQxnUVqv+z2yrXTgMOnFiq5FLcFokyuex5JB/aPYCa7Dgfdn4l8nJhrfoT8WPwQopWtmiFL2Hr0gM2iP6Cz+WGClRozJTQVfPSRX+RlN8rKTqakWbmFCB3dA75DHItAiop926GKUK+L2KSUXPwtlkncVRZayvGsKXLV59S3hh4QlFUagALsOaHVmSyhPy2iu0Waml6K8iV6uhXrK0T9D0zvE2epAoKCuX9rdoD0dYutVbvAa/w/F89LfysGr6p7DE2/9vSJzucGcHQz37nL
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7093399015)(48200799018)(61400799027)(376014)(35950700016)(7416014)(10067099003)(4128699003)(6133799003)(16102099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35950700016)(61400799027)(7416014)(376014)(7093399015)(48200799018)(82310400026)(22082099003)(18002099003)(16102099003)(4128699003)(6133799003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	C8gmybWGPJqjlaOLG8fB+p7MccktKcT+k8tOojb5mcZy4TybI55ZaOwdsGRPfj2/Sj1V8nil5lTkLA4o4xzhzvM0o2We3lHLlkC7pkgwUJE5kl4OznSc3cL6Zm41k8r+d4ajYd2uxm0P4dZGQeB9swx4umBhy/X41PG/3sH6imaHsKvXtCRsUVoZUWFAKYi9iWf5Ljgski1nrQJ198M/r3exd3FEx0xFozCGrBMpwXY0gieQx8G8Dtf3mSn3Ud6wJlGcymOhvzGABGIq+Q9uEoBKwdv2dKiHxE6GoKSEUmop2E+SowJueAWELEstQH/DBEOOncL/MsXqGnlPUypk2YTvBeYXhEIL5XBKQZOTkg8aoB02fpHDowMOd5TybAuZ9etMjG27Vj5+7h0Q+JYAjyK9eHl1c7piHj8ez6u/BzfCiLsHX0RgPZbwpZJPdsXY
+	iohZnSYd1Zsh9YNNpn2o/AXszg9d05Uy+jT2UMUNaFCbJJFUq6O3zwrXt/a74mO5A300mbwHSG6hJIDoLfeA2HgB5Ya7kfhUpgrZdeEJL5M+BvQU16L6rlN/dHBrEYv7tY9cpnCcvBXhPbe5viep98HsLnMn0OW10a7w4VKqLIrzcj/RchWZxxQPD/2+gZRq591qtsBy13iAWEuO6N6wg4H3pQj254eskjFD1fxvQK6FtuGzoIOud2/uLTh/ebk7TsfbxA0JXWqG1hMMuGI/DFHg9GRJa2krQHcqllhRCefP/muT3KDxVuXr1UkKulwkfiGkwkC7hL15SEZ70qlMUhUPKEAPmn+8bdELqFz5A37srgdn0XaLemHVuVAvNB8eV3wSZVWDKYDyD2K/K1V/HdqRCjC7w0FbriFt9P7vAuTwyRxUIgwyKQ1rjKz2178B
 X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:13:44.2081
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:13:46.9305
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7904159-b94e-4097-79cf-08df1eb9fb39
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8594033e-d0a6-4e57-a3f4-08df1eb9fcd8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022572.namprd02.prod.outlook.com
+	BL6PEPF00022571.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7149
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6603
 
-Add a development-phase devicetree for the Facebook Anacapa BMC EVT2
+Add a development-phase devicetree for the Facebook Anacapa BMC DVT
 hardware revision and update the Anacapa wrapper DTS to reference
 it.
 
 Signed-off-by: Colin Huang <u8813345@gmail.com>
 ---
- .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 167 +++++++++++++++++++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    | 167 +++++++++++++++++++++
  .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     |   2 +-
  2 files changed, 168 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
 new file mode 100644
-index 000000000000..c43090618c4a
+index 000000000000..0509bc8bb9cd
 --- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
 @@ -0,0 +1,167 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +
-+#include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
++#include "aspeed-bmc-facebook-anacapa-evt2.dtsi"
 +
 +&sgpiom0 {
 +	gpio-line-names =
@@ -163,10 +163,10 @@ index 000000000000..c43090618c4a
 +	"LEAK_DETECT_RMC_N", "RTM_MUX_R",
 +	"HDR_P0_NMI_BTN_BUF_R_N", "FPGA_JTAG_SCM_DBREQ_N",
 +	"Channel6_leakage_present_CPU_DIMM", "whdt_sel",
-+	"", "JTAG_CPLD_TRST_R_N",
-+	"", "",
-+	"", "",
-+	"", "",
++	"R_EAM0_NIC_CBL_PRSNT_L", "JTAG_CPLD_TRST_R_N",
++	"R_EAM1_NIC_CBL_PRSNT_L", "",
++	"L_EAM0_NIC_CBL_PRSNT_L", "",
++	"L_EAM1_NIC_CBL_PRSNT_L", "",
 +
 +	/* D0-D7 line 48-63 */
 +	"Channel0_leakage_present_EAM3", "",
@@ -205,7 +205,7 @@ index 000000000000..c43090618c4a
 +	"R_PRSNT_EDSFF3_N", "",
 +	"HPM_EDSFF_PG", "",
 +	"", "",
-+	"", "FM_BMC_READY_PLD",
++	"P12V_PWR_CABLE_PRSNT_L_R", "FM_BMC_READY_PLD",
 +	"PRSNT_NFC_BOARD_R", "",
 +
 +	/* H0-H7 line 112-127 */
@@ -215,8 +215,8 @@ index 000000000000..c43090618c4a
 +	"R_BNIC2_FLT", "",
 +	"R_BNIC3_FLT", "",
 +	"R_RTM_SW_FLT", "",
-+	"", "",
-+	"", "",
++	"RBB_Cable_Present", "",
++	"LBB_Cable_Present", "",
 +
 +	/* I0-I7 line 128-143 */
 +	"EAM0_BRD_PRSNT_R_L", "",
@@ -299,15 +299,15 @@ index 000000000000..c43090618c4a
 +	"S0_ON", "";
 +};
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 5e76076bdcd4..606dacb605c5 100644
+index 606dacb605c5..1eee0d84c0a8 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
 @@ -1,4 +1,4 @@
  // SPDX-License-Identifier: GPL-2.0-or-later
  
  /dts-v1/;
--#include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
-+#include "aspeed-bmc-facebook-anacapa-evt2.dtsi"
+-#include "aspeed-bmc-facebook-anacapa-evt2.dtsi"
++#include "aspeed-bmc-facebook-anacapa-dvt.dtsi"
 
 -- 
 2.34.1
