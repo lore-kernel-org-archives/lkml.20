@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DD5456DF4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B386456290;
 	Wed, 30 Sep 2026 07:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751604; cv=none; b=gQSHMU3jkNDHT48Y+Oj6P49eTTkwIDjQ9cyLtg02c7BPslf7swjM+26ZGYW9Ib2a9TN+c6SHzVrYpyxYYBDZ45tr2VcnmoQqp+CCpsmHfmrb+0bZIEN3QA7ZbNcBErxi/rd8yFONgXshIPYm/nEkx0eDNfuzi1ZZE/njl4Bt63U=
+	t=1790751604; cv=none; b=IEdpcl5UPRhQd6Wm285bhamcYL+uXogGOPEP3Ps2W7EPnLICBYmUCtxoqcbX6KDqII1lWYftTY9HAl8FfPoF5bw/yg/a4MGa7oXKXDgErVPLLV8blKWNc3STICCB95hktIrpuq1d0cIZu4JkRp+ETTMEWzrr8pCCoOCQj9Umg28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790751604; c=relaxed/simple;
-	bh=2y1q+iJmnahWGIXI35BGpqmCNPDlGoxi7MbuYI02yjk=;
+	bh=hzX+BW99zLKW+UZLSsYAs6LrFdlNAAorh5he6Eb96bk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sRuHBdKUhoqXp98gNYJ5O92/dp7t8yYPVPwWlwRo459uM8rug0HCNNimkhnxWLy/B3Qerk9gyfZ8Ux5R+pE4M+dFMYNt907fi/mVKIL/oHLkMxHozVVmuKjVX9l4YVuv7ZGjZ6KeqXJaBCojx5MTob1sS8AZnMaJlZH+0bDF5lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mimv9vVF; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=lvXEnU39jZA0A4qtEb3ihXpYsY9CEfatYLtV0i7Ke8RFVxGPPd18IH+mzU4m5XrUQv560dxcB2QqH2lYVW9Uej0oZpa5BDmHg+nPojO8MfBSEXI//mApPrMHyuA2nVF5f2iz9cSSYVXWKq6FoibabxRu9iYkNEe+w/5fzNeeb+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LvmtpaXc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mimv9vVF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E695FC4AF16;
-	Wed, 30 Sep 2026 07:00:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LvmtpaXc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0970CC4AF1C;
+	Wed, 30 Sep 2026 07:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790751603;
-	bh=2y1q+iJmnahWGIXI35BGpqmCNPDlGoxi7MbuYI02yjk=;
+	bh=hzX+BW99zLKW+UZLSsYAs6LrFdlNAAorh5he6Eb96bk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Mimv9vVFjKPqdkCE36BaSEhfse9KrBQalHwfyaZ7QyL8vyw0/lYy0r4Pfa9CwBN30
-	 tV0PIwSs12RaoOxBZTsBhvwqY6WTdIFrdMSK9hg8WyCRRFFtQX6DH4Qrl6g3Yicfx4
-	 WG6HdG1SaRmwc/0G9gBc/FhTh/2jUhF0Ghk4SSNCd240iADjZnp+bUflXuwSBak0x2
-	 MFRqnVFPytRpFUZPz09YEbomdE4YO1YJe3xdQvubaK0NQi9ixtkxvPsKicFwB9MEVa
-	 gV3Yd9w43DxxFZbLufRnU1HGNdfZucjnEEEc752rqN6/wmQB1VnpgvSFxaRMvdmxpw
-	 wxAPscvN++Ujw==
+	b=LvmtpaXcPpB6ezZm+lfOrr8CS6JX9wgqQUjR/099MToqbYZkTG/6jTCcJI3CQ3pjq
+	 EUiBNgI+RCwQZpOt77+b82pECCUnsvdVyrsh2Zymp57LppdxYbtwupl51vcsRZnBk+
+	 8F1FDyjYktLxVVsBlzajf6bR2yhPvWw/pV2pSd9krNYU29SeHcxOypg3oos8ExXWXA
+	 wxJtrtqF/Miirg/H3MmEi5pIgQ2sPs8OAZ30GA4LSkDyTO3Qx2dm8pFO7zSxAafpSl
+	 RnjbFMZru8/qRDic1yX4tIVdSNptT5FAEpbeJOIRjYeMovlYurpEQWfMdV8U2mY4PB
+	 ubfhgcGalp+Pw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C56BDCA5FC1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DEB2ECA5FC4;
 	Wed, 30 Sep 2026 07:00:02 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 10:00:03 +0300
-Subject: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC
- family
+Date: Wed, 30 Sep 2026 10:00:04 +0300
+Subject: [PATCH RFC 05/10] ARM: debug: Add Cortina Systems CS75xx UART0
+ support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+Message-Id: <20260930-b4-cs75xx-v1-5-4617c4463529@gmail.com>
 References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
 In-Reply-To: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
@@ -57,11 +57,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790751600; l=5238;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790751600; l=4352;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=2VKUQEfBSc+0ahjwi/i92F1YaqSibK36VZSvj1DRK5w=;
- b=fup57a2yUyKiuVJxQkaFzO0ILGqYuoWnst3gwfo+XeiwrFgtntFbeePEiIHnjxdMBiyi+dOLW
- AQc9iQY2ncEB/nKwU42xpwYMIOrMwzAvWNxp8CYz9HoYUfgbLIrhyMR
+ bh=sEPOw8alv56KPplmHlQD4phQ/jVW47QaipdeKCgPXwk=;
+ b=UirYMOT2tAmsSLcqdN21egSNpm948On/Kbua1bC6dqLJFg8O+WEpk4FMXPzG0XhSZGyayTunQ
+ 0Y9k6JYIxCWBlRQSEsjr2SswS9rRtqOUQpkNcTQD2XKUZnB8qBRmwNt
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -71,164 +71,120 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-The Cortina Systems CS75xx ("Goldengate G2") are network processors
-with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
-timers and a PL310 L2 cache controller. The CS7542 is used, among others,
-in the Securifi Almond+ router.
-
-The generic DT machine is sufficient for the platform, so only the SMP
-bring-up needs code: the bootloader parks the secondary core in a WFE
-loop that polls a global software register, so boot it by writing the
-physical address of secondary_startup to the register named by the
-cpu-release-addr property and issuing SEV.
-
-The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
-to that revision and can be enabled on a multiplatform kernel. The PL310
-is r3p2 and needs none of the PL310 workarounds.
+Add low-level debug output through UART0 of the Cortina Systems CS75xx
+SoCs. The UART is mapped at a fixed virtual address by the generic
+debug_ll_io_init(), so no platform map_io is needed.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- arch/arm/Kconfig                |  2 ++
- arch/arm/Makefile               |  1 +
- arch/arm/mach-cortina/Kconfig   | 18 +++++++++++
- arch/arm/mach-cortina/Makefile  |  2 ++
- arch/arm/mach-cortina/platsmp.c | 71 +++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 94 insertions(+)
+ arch/arm/Kconfig.debug          | 16 ++++++++++++++--
+ arch/arm/include/debug/cs75xx.S | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 0cc289a7184..c4bfdc115ec 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -377,6 +377,8 @@ source "arch/arm/mach-berlin/Kconfig"
+diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+index abcf14f1027..61cd64fc152 100644
+--- a/arch/arm/Kconfig.debug
++++ b/arch/arm/Kconfig.debug
+@@ -308,6 +308,15 @@ choice
+ 		  Say Y here if you want the debug print routines to direct
+ 		  their output to the second serial port on these devices.
  
- source "arch/arm/mach-clps711x/Kconfig"
- 
-+source "arch/arm/mach-cortina/Kconfig"
++	config DEBUG_CS75XX_UART0
++		bool "Kernel low-level debugging messages via CS75xx UART0"
++		depends on ARCH_CORTINA_CS75XX
++		help
++		  Say Y here if you want the debug print routines to direct
++		  their output to UART0 of Cortina Systems CS75xx SoCs. This
++		  is the console port on the Securifi Almond+. The UART is
++		  expected to be set up by the bootloader.
 +
- source "arch/arm/mach-davinci/Kconfig"
- 
- source "arch/arm/mach-digicolor/Kconfig"
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index 573813ef5e7..f8a7090d047 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -181,6 +181,7 @@ machine-$(CONFIG_ARCH_AXXIA)		+= axxia
- machine-$(CONFIG_ARCH_BCM)		+= bcm
- machine-$(CONFIG_ARCH_BERLIN)		+= berlin
- machine-$(CONFIG_ARCH_CLPS711X)		+= clps711x
-+machine-$(CONFIG_ARCH_CORTINA_CS75XX)	+= cortina
- machine-$(CONFIG_ARCH_DAVINCI)		+= davinci
- machine-$(CONFIG_ARCH_DIGICOLOR)	+= digicolor
- machine-$(CONFIG_ARCH_DOVE)		+= dove
-diff --git a/arch/arm/mach-cortina/Kconfig b/arch/arm/mach-cortina/Kconfig
+ 	config DEBUG_DAVINCI_DA8XX_UART1
+ 		bool "Kernel low-level debugging on DaVinci DA8XX using UART1"
+ 		depends on ARCH_DAVINCI_DA8XX
+@@ -1531,6 +1540,7 @@ config DEBUG_LL_INCLUDE
+ 	default "debug/vt8500.S" if DEBUG_VT8500_UART0
+ 	default "debug/zynq.S" if DEBUG_ZYNQ_UART0 || DEBUG_ZYNQ_UART1
+ 	default "debug/bcm63xx.S" if DEBUG_BCM63XX_UART || DEBUG_BCMBCA
++	default "debug/cs75xx.S" if DEBUG_CS75XX_UART0
+ 	default "debug/digicolor.S" if DEBUG_DIGICOLOR_UA0
+ 	default "debug/brcmstb.S" if DEBUG_BRCMSTB_UART
+ 	default "mach/debug-macro.S"
+@@ -1632,6 +1642,7 @@ config DEBUG_UART_PHYS
+ 	default 0xe8008000 if DEBUG_R7S72100_SCIF2 || DEBUG_R7S9210_SCIF2
+ 	default 0xe8009000 if DEBUG_R7S9210_SCIF4
+ 	default 0xf0000000 if DEBUG_DIGICOLOR_UA0
++	default 0xf0070110 if DEBUG_CS75XX_UART0
+ 	default 0xf1012000 if DEBUG_MVEBU_UART0_ALTERNATE
+ 	default 0xf1012100 if DEBUG_MVEBU_UART1_ALTERNATE
+ 	default 0xf7fc9000 if DEBUG_BERLIN_UART
+@@ -1670,7 +1681,7 @@ config DEBUG_UART_PHYS
+ 		DEBUG_RMOBILE_SCIFA4 || \
+ 		DEBUG_S3C64XX_UART || \
+ 		DEBUG_BCM63XX_UART || DEBUG_BCMBCA || DEBUG_ASM9260_UART || \
+-		DEBUG_DIGICOLOR_UA0 || \
++		DEBUG_CS75XX_UART0 || DEBUG_DIGICOLOR_UA0 || \
+ 		DEBUG_AT91_UART || DEBUG_STM32_UART || \
+ 		DEBUG_STIH41X_ASC2 || DEBUG_STIH41X_SBC_ASC1 || \
+ 		DEBUG_STIH418_SBC_ASC0
+@@ -1708,6 +1719,7 @@ config DEBUG_UART_VIRT
+ 	default 0xf7000800 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART2
+ 	default 0xf7000c00 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART3
+ 	default 0xf7020000 if DEBUG_AT91_SAMA5D2_UART1
++	default 0xf7070110 if DEBUG_CS75XX_UART0
+ 	default 0xf7fc9000 if DEBUG_BERLIN_UART
+ 	default 0xf8007000 if DEBUG_HIP04_UART
+ 	default 0xf8009000 if DEBUG_VEXPRESS_UART0_CA9
+@@ -1772,7 +1784,7 @@ config DEBUG_UART_VIRT
+ 		DEBUG_QCOM_UARTDM || \
+ 		DEBUG_S3C64XX_UART || \
+ 		DEBUG_BCM63XX_UART || DEBUG_BCMBCA || DEBUG_ASM9260_UART || \
+-		DEBUG_DIGICOLOR_UA0 || \
++		DEBUG_CS75XX_UART0 || DEBUG_DIGICOLOR_UA0 || \
+ 		DEBUG_AT91_UART || DEBUG_STM32_UART || \
+ 		DEBUG_STIH41X_ASC2 || DEBUG_STIH41X_SBC_ASC1 || \
+ 		DEBUG_STIH418_SBC_ASC0
+diff --git a/arch/arm/include/debug/cs75xx.S b/arch/arm/include/debug/cs75xx.S
 new file mode 100644
-index 00000000000..9d2fc0e3de1
+index 00000000000..d840384cc32
 --- /dev/null
-+++ b/arch/arm/mach-cortina/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config ARCH_CORTINA_CS75XX
-+	bool "Cortina Systems CS75xx (Goldengate G2)"
-+	depends on ARCH_MULTI_V7
-+	select ARM_ERRATA_754322
-+	select ARM_ERRATA_764369 if SMP
-+	select ARM_GIC
-+	select ARM_GLOBAL_TIMER
-+	select CACHE_L2X0
-+	select CLKSRC_ARM_GLOBAL_TIMER_SCHED_CLOCK
-+	select HAVE_ARM_SCU if SMP
-+	select HAVE_ARM_TWD if SMP
-+	help
-+	  Support for the Cortina Systems CS75xx (Goldengate G2) family of
-+	  network processors, such as the CS7542 used in the Securifi
-+	  Almond+ router. These SoCs have two Cortex-A9 cores with a PL310
-+	  L2 cache controller, a packet processing engine, PCIe, NAND and
-+	  the usual low speed peripherals.
-diff --git a/arch/arm/mach-cortina/Makefile b/arch/arm/mach-cortina/Makefile
-new file mode 100644
-index 00000000000..b839201c980
---- /dev/null
-+++ b/arch/arm/mach-cortina/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_SMP)	+= platsmp.o
-diff --git a/arch/arm/mach-cortina/platsmp.c b/arch/arm/mach-cortina/platsmp.c
-new file mode 100644
-index 00000000000..7cd23ee56be
---- /dev/null
-+++ b/arch/arm/mach-cortina/platsmp.c
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/arch/arm/include/debug/cs75xx.S
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * SMP support for the Cortina Systems CS75xx SoCs
-+ *
-+ * The bootloader parks the secondary core in a WFE loop that polls a
-+ * global software register and jumps to the address found there once it
-+ * becomes non-zero. The register is described by the cpu-release-addr
-+ * property of the secondary CPU node.
++ * Debugging macro include header for the Cortina Systems CS75xx UART
 + */
 +
-+#include <linux/io.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/smp.h>
-+#include <asm/smp_plat.h>
-+#include <asm/smp_scu.h>
++#define CS75XX_UART_TXDAT		0x10
++#define CS75XX_UART_INFO		0x18
++#define CS75XX_UART_INFO_TX_FULL	(1 << 2)
++#define CS75XX_UART_INFO_TX_EMPTY	(1 << 3)
 +
-+static int cs75xx_boot_secondary(unsigned int cpu, struct task_struct *idle)
-+{
-+	struct device_node *np;
-+	void __iomem *release;
-+	u64 addr;
-+	int ret;
++		.macro	addruart, rp, rv, tmp
++		ldr	\rp, =CONFIG_DEBUG_UART_PHYS
++		ldr	\rv, =CONFIG_DEBUG_UART_VIRT
++		.endm
 +
-+	np = of_get_cpu_node(cpu, NULL);
-+	if (!np)
-+		return -ENODEV;
++		.macro	senduart, rd, rx
++		ARM_BE8(rev \rd, \rd)
++		str	\rd, [\rx, #CS75XX_UART_TXDAT]
++		.endm
 +
-+	ret = of_property_read_u64(np, "cpu-release-addr", &addr);
-+	of_node_put(np);
-+	if (ret) {
-+		pr_err("CPU%u: missing cpu-release-addr\n", cpu);
-+		return ret;
-+	}
++		.macro	waituartcts, rd, rx
++		.endm
 +
-+	release = ioremap(addr, sizeof(u32));
-+	if (!release)
-+		return -ENOMEM;
++		.macro	waituarttxrdy, rd, rx
++1001:		ldr	\rd, [\rx, #CS75XX_UART_INFO]
++		ARM_BE8(rev \rd, \rd)
++		tst	\rd, #CS75XX_UART_INFO_TX_FULL
++		bne	1001b
++		.endm
 +
-+	writel(__pa_symbol(secondary_startup), release);
-+	iounmap(release);
-+
-+	/* The secondary core waits in WFE, wake it up */
-+	dsb_sev();
-+
-+	return 0;
-+}
-+
-+static void __init cs75xx_smp_prepare_cpus(unsigned int max_cpus)
-+{
-+	struct device_node *np;
-+	void __iomem *scu_base;
-+
-+	np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-+	scu_base = of_iomap(np, 0);
-+	of_node_put(np);
-+	if (!scu_base) {
-+		pr_err("failed to map SCU\n");
-+		return;
-+	}
-+
-+	scu_enable(scu_base);
-+	iounmap(scu_base);
-+}
-+
-+static const struct smp_operations cs75xx_smp_ops __initconst = {
-+	.smp_prepare_cpus	= cs75xx_smp_prepare_cpus,
-+	.smp_boot_secondary	= cs75xx_boot_secondary,
-+};
-+
-+CPU_METHOD_OF_DECLARE(cs7542_smp, "cortina,cs7542-smp", &cs75xx_smp_ops);
++		.macro	busyuart, rd, rx
++1002:		ldr	\rd, [\rx, #CS75XX_UART_INFO]
++		ARM_BE8(rev \rd, \rd)
++		tst	\rd, #CS75XX_UART_INFO_TX_EMPTY
++		beq	1002b
++		.endm
 
 -- 
 2.53.0
