@@ -1,511 +1,501 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1268A51DAE1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B315208DA
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790831; cv=none; b=F5W+1TyMVE+9KWZ5vIJg5VvsUJrTlP0N2YFnh7iOkQfCNEqrcgEEzpdxTWb9nRDLWF46ole62GrlqKyFg3hODW+Q0jmAxRBcthYc/wPALB/ULi4c17ecdwlN1A7i1KllVUP2WmSDR8aQNd1ik3sKPdnMxA661uM15wIUt6ztX14=
+	t=1790790933; cv=none; b=f1/qlFOERtSDWelCqTLO/+WYIEAinB+ayZCQHXmh3XKZv0CqmpvK7ErCyEesKSZyQOtNIsr7apYdkE3O2bNczOUZeQYePGKgNWeLQ9/fGZkEUVA+7zEbNXkudXpijpQBH7/yXt9+9WAUVZqaRFOeRV5yiXrgvND3SIyRQqW5vtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790831; c=relaxed/simple;
-	bh=/u9v33iWlwBpydsQ/YBjmpqjj1cY7t5FLqRteGGl3iY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ifdo7mLZZVZbXymc+8bifwcnP4HYAU7OwkV7mokA0O70jQxDkgKzyfSVPKmy30SpzvOqxlhLMgAI9uHmryp3oIDMo+/t9omLHl4R94KL1X3I8KucoDqvuki6Bnf0V5TnCLLX0bQY1NhqmthUWKn511FzA96ocjbtTJvU8LejqYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wi3QbhlE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790790933; c=relaxed/simple;
+	bh=1IAG9iWUdrE5KXDZksMisPlCAxidmBV6hJZ6/pIvSeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hCwOXSuZnZwVho0xI1I4YVWRPbrLS7ofnaVO+3k7+ADFxwo9W+5UCyRpRKBABOpaOR8Gbqg/ZxXvJ7egDwEZoEl6J6ZGkdeOyTiVJIHYUY+reDVwDxTtaLm7i+thB1jQU9VrmU84Hluen5nNNPA/DbGSPu3y2AOgMu4O85uas9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZdRYsxgR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GS1Qvj8r; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wi3QbhlE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F711F000FF;
-	Wed, 30 Sep 2026 17:53:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790790830;
-	bh=H5f6mYX7zUuljbbM5ONB5c1sCOASZNSuLoqxUSnKaRg=;
-	h=From:Date:Subject:To:Cc;
-	b=Wi3QbhlEoSR4I60NqHejXvoGMpBnPpP34GsGzASRn0RUonsJouN4btDCSSW7RH0/I
-	 wpPZ2zLtPTteoi7Ay4NajoD8B+vgDZl+K8efvNE6wltkkQVPWnw4oMKLMRlv+13TvH
-	 zsPmd2CHk9Rnz23V/TCW1Vnw5mNKoghhi/kxDn0n8+nWubGwiYAFQWcsGw1mf+WABC
-	 L/8WSe7227y8BpByehY5OvuAdEAiPg7xdY4K3F/YrnVBfmqGPnzcikByv9UsMev+0S
-	 kzvyWaiMiQiDFjFJ6CQr6TnKE+Mpbwj7sJbRS5HcrXeUGJgZCj3QtJ6Rt2/OhN3JD+
-	 q0uHHIuRv9fhA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 30 Sep 2026 18:53:36 +0100
-Subject: [PATCH v2] mm/vma: don't remove VMA from rmap if pgoff unchanged
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZdRYsxgR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GS1Qvj8r"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHfESX4014404
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:55:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=; b=ZdRYsxgRd+wadli3
+	kitbAHAEjhqnGplU9+a29ZmZ+giXA5kWGNL8TFCWzmwlJgNgvQjqVMc4ICyXkKh9
+	5kQ84EhrC/h2Bx7onqBt4nKrUxJ8Y86CRGQ6xsVzuU/kir7rcShu6mqaQygMT2Ia
+	vITS24cE2JiSEgFT3l5s6e9dKmq8HXnLJHaDPU1iTO1St6uhyP1H2iwKuoUK6Wlc
+	F3WsqFBGl/xfxYxWpF3k4QvRX/nDmq8z3nPF2XNwJFrEYMMbvcT4/eu2PhN86y9q
+	8ONZIZJ2pdSg5fhnAheTpRetoHypcre9/tasKy/5/Af1+xGHiaG7YCZXiTcOl3gL
+	HjD0jQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x27jtxe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:55:30 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34437a03f3fso383025eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790790929; x=1791395729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=;
+        b=GS1Qvj8r6BzTODjNPAe640iqlSGmYNimt9gZPw3dJUDwryokO1dCgkqOEkHIRIfFZK
+         Ja/ciMQVpK6aRlowKmxgVy1XppGAyP7sHJW5wPBjnTPMDyXfBtLVnmiz5h9/LbcgbQPP
+         5Ndrh/DVPNVcH7ojPQLB/ekrdbHlkckfz/5HemsGkW4zD7YGB6cOa7x9u06Ygc4l1gSz
+         AdE9JFMFg5CkN7ez4ZZU+gekcmTblyl4KAeCWEc69JD8a2cr7lsSA1250Y8UcLWw44ZH
+         Q+SkXpxhICNvfiEKBEYU/QfiR/HuIt227NjFB98q2rMho89JhoUYDFA4l/aq9YCGRXsS
+         ptcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790790929; x=1791395729;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fv3+uB+hNZVh+KZjwVEVQEuptXwi/iHQs2V9ye9BK9o=;
+        b=Av/UN8rHcL8137/brrEnLIUV1ttlHqzgxYQutMds9PJL9tpPwC46W/2v+etr1z+rLL
+         x2cnb0dms3NaZFHzzyI4/JneWbHp9tI7LZScDEpqMHsIKB2DAjP+1xBX5ZU7U0VoD2p2
+         BMybToeD7iKQy2FEK97DWhsjauv/jdfy492QA4muGgXN18dpzxw5xkqZjmy5hMxmt9ql
+         N9whe0QwsFJZcWbGc6IFK6WTpBwRYEd3/OteMy9nhN5ZVTb9vrQ7nP4kLvq1Mr8wWeEu
+         OIZ/nNg/4caCci3KobSfqiZHRdu6EyiUkU8vitS393rf8lR6gt8NShKB7svgSfQKSojr
+         5HvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEpuekevc5qTY/nLLheGbD/ZAjdgbJ9A573+0yqDhKO1WGRcVh1yrwsEt03h5ImGqemcVoh0KfOX+O6Ic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcdfwT0AjOSskMxhgIQkoXWqSJZBqfxpfJvPw7Rg1spB9LZdcV
+	n9OYHhdVUOuRIGqlZMzut41pNrRIKLZk66fOp2zjmT0a2LwLMG5F8prOwoq74WNU7x62alDxOJS
+	2D/YhBLO05rfbFtat8/8HVbwVjCr910PpeioCtVFkK10B7aMwsvO0/WfdhSlb5gMSf/A=
+X-Gm-Gg: AYBFou30dneGJ3W+DHBggzpBih5VNNlYHrnJYWwk3y6iMy6JdIwjqmvgaDSEMFabiTw
+	rcGZtBPk4Nw0CSCmlU2p0jyU9H9cWNDMXmPUhBOMR8sJBUmL5K+R8aH0Zb5MPWm9bPc5QLcFC1t
+	lYD+b4CMkRGFvMEXrMooyJuak23a+inwNthDiHF2F3lVrBuiNkfIA6BILnjG/lsAS3L39tus6Ii
+	lDRH6anAu+WDV1+9mBeE30yzuZXdPe1AxsDqUHO53iBvGnLryHjIcmjS9e7tLBdjm6MZgl0DdhC
+	JFb3CDWsbHDCKo1aU+o6MxRRJwOaUfeqmjAegNl0QLZZUanA2ybhKkRmBHWwLd+IKd6UjJ6FW/Y
+	qOLjNfywynayuINPyX6OHpQ88ZPNeXhcCnsiCaGlhmLWztr8vQ81eXJa1a3JEAAc=
+X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id 5a478bee46e88-34cdbecb18fmr3678497eec.2.1790790928934;
+        Wed, 30 Sep 2026 10:55:28 -0700 (PDT)
+X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id 5a478bee46e88-34cdbecb18fmr3678460eec.2.1790790928141;
+        Wed, 30 Sep 2026 10:55:28 -0700 (PDT)
+Received: from [10.110.82.170] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db31623b6sm578041eec.7.2026.09.30.10.55.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 10:55:27 -0700 (PDT)
+Message-ID: <2fac895e-0ac9-482f-a264-9a75b0741901@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 10:55:25 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata buffer
+ for ROI delta QP
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260924-enc_roi_enable-v7-0-6fa7413af23c@oss.qualcomm.com>
+ <20260924-enc_roi_enable-v7-5-6fa7413af23c@oss.qualcomm.com>
+ <8e350ba2-0eb7-7f69-e36c-7c0294e9c564@oss.qualcomm.com>
+Content-Language: en-US
+From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+In-Reply-To: <8e350ba2-0eb7-7f69-e36c-7c0294e9c564@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7RgooJWV9zAs2jLARCzNVImGc
- HcrF3D5XvLfXyGSMEVoshWEFo48+wTqkIEbjR8IuUsMKlen/KJqjIGow1dA9mEyjlAeJqDOdW9
- tqSvd15C2Qajn9969tYlHjs9ZPvvNUvzsv+JSYIHWWFdpR2eny+udxNN0nGWAdtu2LyRtCb67A
- AAA
-X-Change-ID: 20260925-speed-up-inplace-rmap-808fbb3848f5
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
- Pan Deng <pan.deng@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15717; i=ljs@kernel.org;
- h=from:subject:message-id; bh=/u9v33iWlwBpydsQ/YBjmpqjj1cY7t5FLqRteGGl3iY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLL2+qy0MJ4q8JyDf6vLP6U3cTlG0+5+Wv4jw8oiIsPwt
- NHXIJE7HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIs0JGhmty7/bvKLpqrsC0
- SNfYUmjDmYePDy1zY81Knpd86cRitY2MDJ/15W/39ssUL7htsbCrXHxe5Tzt9GXN6d217B2sigd
- CuAE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MiBTYWx0ZWRfX3LVQBwYgFWBx
+ RNvF95j6JwLDXcmX47LCsVxNjsntYmQWWc+q6ALuqyUo9O9SX+WanFtyGfhIH/Iq7DDuijym8qe
+ dITdp6lX6w7bE4PPElXuiu0TwMn+w7A=
+X-Proofpoint-GUID: dBgcSWe0icbrmACPG17GPSMCiwCRlnyn
+X-Authority-Analysis: v=2.4 cv=W9GtxhWk c=1 sm=1 tr=0 ts=6abd4d12 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=ja7yzqJmmUcjEkDZDlMA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MiBTYWx0ZWRfX6Ta+6Noc07W8
+ 3SzmPCxmYdmzR12OKKziy3scwknaNvtfw3IeJY7Wo0GoKfP4uzzOgM9lGDJsVaDRXn6QmIKy8Ed
+ glXIIHWaw76gFwgBuXa7I7vvDrEbf2IawkxOVnvkjqmdZ7VvkT0EzCw5Os7X92pgjOE4DZwqjIy
+ PzoYvepKqvBOpuVM4CF3RkC3qOKq4Bw1SkMCyUf8zsTqWj892o24tOxhSxuuc8o2Dl/dxuPGuvK
+ PcnQa5xXVxYc5HwjvZd8Dtdou7UbKbReR/3/7hjIyf64Es96vq/lZCApVmDCUdWWaENnbrBLIxG
+ l5B86WyirrOB9LEjZE07PVCdcajubS4vj5MuAOptYv+O+c2Tbgu31Wla4+1f+oOB0npp+ZNmi9d
+ Fks6MiwsLaQ1Jnems7oBq+fBWd0+ZZlqfuLjFKLnO4RccfwRDPzMV8gccqQ7KD1q3c3QkxAJlrz
+ fXxjWjVvEm+Iaygw2jQ==
+X-Proofpoint-ORIG-GUID: dBgcSWe0icbrmACPG17GPSMCiwCRlnyn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300072
 
-When updating a VMA, vma_prepare() unconditionally removes it from its rmap
-interval trees under the rmap lock, and vma_complete() reinserts it before
-releasing the lock.
 
-This is wholly unnecessary if its page offset (file rmap) or anonymous page
-offset (anon rmap) is unchanged.
-
-So, track whether they will change in the newly introduced
-vp->file_pgoff_unchanged and vp->anon_pgoff_unchanged fields, and use them
-to determine whether to remove the VMA or not.
-
-The rmap lock keeps things safe as no rmap walks can concurrently occur
-during the operation.
-
-Additionally, some architectures (arm, parisc, nios2, csky) have dcache
-flush rmap walkers which take only flush_dcache_mmap_lock(), which is
-likewise held across the operation.
-
-If the VMA remains in the tree, it's necessary to keep the augmented
-rb_subtree_last field updated to reflect its changed range.
-
-Provide mapping_rmap_tree_[pre, post]_update() and
-anon_rmap_tree_[pre, post]_update_vma() (replacing the existing logic in
-the anonymous case) to handle both the changed and unchanged cases.
-
-For the anon rmap case, with CONFIG_DEBUG_VM_RB set, avc->cached_vma_last
-is also updated when propagating in place.
-
-When performing a VMA shrink or a split where the VMA is the lower one, the
-page offset cannot change, so set the flags unconditionally in these cases.
-
-When merging VMAs the page offset is unchanged only in some cases, so
-update init_multi_vma_prep() to set the flags only if the page offsets
-remain the same.
-
-Finally, while we're here, also update expand_upwards() similarly.
-
-These changes ultimately result in less rmap lock contention.
-
-Pan Deng reported results using the UnixBench/excel benchmark on a 2-socket
-192 core, 384 thread x86-64 system for v7.3-rc4 with/without the patch
-applied:
-
-Execl Throughput, index score:
-
-                    avg    %stdev      min        max
-  v7.3-rc4        3511.5     0.44%    3494.5    3543.4
-  + patch         4069.0     0.48%    4047.4    4109.5 (+15.9%)
-
-Average wait on file rmap lock in ms, 5 runs per kernel:
-
-               avg      %stdev     min       max
-  v7.3-rc4    9.470     2.91%     9.070     9.820
-  + patch     8.420     3.34%     8.100     8.770 (-11.1%)
-
-Profiling data obtained during the operation highlighted the file rmap lock
-as the primary source of contention.
-
-Suggested-by: Pan Deng <pan.deng@intel.com>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-v2:
-* Added Suggested-by, as per Pan.
-* Added tags (Thanks Rik!)
-* Updated commit message to provide perf data from Pan (thanks! :).
-* Renamed pgoff_unchanged to file_pgoff_unchanged as per Pedro.
-* Implemented mapping_rmap_tree_[pre, post]_update() and
-  anon_rmap_tree_[pre, post]_update_vma() to separate out logic into the
-  rmap/interval tree code as per Pedro.
-* Since this change touched other code, and expand_upwards() is one such
-  case, correctly mark it as pgoff unchanged.
-
-v1:
-https://lore.kernel.org/r/20260925-speed-up-inplace-rmap-v1-1-babc48ce7c83@kernel.org
----
- include/linux/mm.h                |  10 ++++
- mm/interval_tree.c                | 101 ++++++++++++++++++++++++++++++++++++++
- mm/vma.c                          |  74 +++++++++++-----------------
- mm/vma.h                          |   2 +
- tools/testing/vma/include/stubs.h |  22 +++++++++
- 5 files changed, 164 insertions(+), 45 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 6e71eaa4af3f..6da674fe3a93 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4357,6 +4357,12 @@ void mapping_rmap_tree_insert_after(struct vm_area_struct *vma,
- 				    struct address_space *mapping);
- void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- 			      struct address_space *mapping);
-+void mapping_rmap_tree_pre_update(struct vm_area_struct *vma,
-+				  struct address_space *mapping,
-+				  bool pgoff_unchanged);
-+void mapping_rmap_tree_post_update(struct vm_area_struct *vma,
-+				   struct address_space *mapping,
-+				   bool pgoff_unchanged);
- struct vm_area_struct *
- mapping_rmap_tree_iter_first(struct address_space *mapping,
- 			     pgoff_t pgoff_start, pgoff_t pgoff_last);
-@@ -4374,6 +4380,10 @@ void anon_rmap_tree_insert(struct anon_vma_chain *avc,
- 			   struct anon_vma *anon_vma);
- void anon_rmap_tree_remove(struct anon_vma_chain *avc,
- 			   struct anon_vma *anon_vma);
-+void anon_rmap_tree_pre_update_vma(struct vm_area_struct *vma,
-+				   bool anon_pgoff_unchanged);
-+void anon_rmap_tree_post_update_vma(struct vm_area_struct *vma,
-+				    bool anon_pgoff_unchanged);
- struct anon_vma_chain *
- anon_rmap_tree_iter_first(struct anon_vma *anon_vma,
- 			  pgoff_t pgoff_start, pgoff_t pgoff_last);
-diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-index 7bbbf15cfbf0..9e24bb99fd80 100644
---- a/mm/interval_tree.c
-+++ b/mm/interval_tree.c
-@@ -64,6 +64,51 @@ void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- 	__mapping_rmap_tree_remove(vma, &mapping->i_mmap);
- }
- 
-+static void mapping_rmap_tree_update_inplace(struct vm_area_struct *vma)
-+{
-+	/* Propagate all the way up the tree. */
-+	__mapping_rmap_tree_augment.propagate(&vma->shared.rb, NULL);
-+}
-+
-+/**
-+ * mapping_rmap_tree_pre_update() - Prepare the file rmap tree for a change to
-+ * be made to @vma.
-+ * @vma: The VMA about to be updated.
-+ * @mapping: The file rmap to which @vma belongs.
-+ * @pgoff_unchanged: Whether @vma's page offset will remain unchanged.
-+ *
-+ * The file rmap lock must be held across the entire update.
-+ */
-+void mapping_rmap_tree_pre_update(struct vm_area_struct *vma,
-+				  struct address_space *mapping,
-+				  bool pgoff_unchanged)
-+{
-+	/* If the pgoff has changed, then remove and reinsert afterwards. */
-+	if (!pgoff_unchanged)
-+		mapping_rmap_tree_remove(vma, mapping);
-+}
-+
-+/**
-+ * mapping_rmap_tree_post_update() - Update the file rmap tree to reflect a
-+ * change that has been made to @vma.
-+ * @vma: The VMA that has been updated.
-+ * @mapping: The file rmap to which @vma belongs.
-+ * @pgoff_unchanged: Whether @vma's page offset remained unchanged.
-+ *
-+ * mapping_rmap_tree_pre_update() must have been called prior to this.
-+ *
-+ * The file rmap lock must be held across the entire update.
-+ */
-+void mapping_rmap_tree_post_update(struct vm_area_struct *vma,
-+				   struct address_space *mapping,
-+				   bool pgoff_unchanged)
-+{
-+	if (pgoff_unchanged)
-+		mapping_rmap_tree_update_inplace(vma);
-+	else
-+		mapping_rmap_tree_insert(vma, mapping);
-+}
-+
- struct vm_area_struct *
- mapping_rmap_tree_iter_first(struct address_space *mapping,
- 			     pgoff_t pgoff_start, pgoff_t pgoff_last)
-@@ -111,6 +156,62 @@ void anon_rmap_tree_remove(struct anon_vma_chain *avc,
- 	__anon_rmap_tree_remove(avc, &anon_vma->rb_root);
- }
- 
-+static void anon_rmap_tree_update_inplace(struct anon_vma_chain *avc)
-+{
-+#ifdef CONFIG_DEBUG_VM_RB
-+	avc->cached_vma_last = avc_last_pgoff(avc);
-+#endif
-+	/* Propagate all the way up the tree. */
-+	__anon_rmap_tree_augment.propagate(&avc->rb, NULL);
-+}
-+
-+/**
-+ * anon_rmap_tree_pre_update_vma() - Prepare the anon rmap trees for a change
-+ * to be made to @vma.
-+ * @vma: The VMA about to be updated, which has an anon rmap assigned and is
-+ *       already inserted on its interval trees.
-+ * @anon_pgoff_unchanged: Whether @vma's anonymous page offset will remain
-+ *                        unchanged.
-+ *
-+ * The anon rmap lock must be held across the entire update.
-+ */
-+void anon_rmap_tree_pre_update_vma(struct vm_area_struct *vma,
-+				   bool anon_pgoff_unchanged)
-+{
-+	struct anon_vma_chain *avc;
-+
-+	if (anon_pgoff_unchanged)
-+		return;
-+
-+	/* If the pgoff has changed, then remove and reinsert afterwards. */
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
-+		anon_rmap_tree_remove(avc, avc->anon_vma);
-+}
-+
-+/**
-+ * anon_rmap_tree_post_update_vma() - Update the anon rmap trees to reflect a
-+ * change that has been made to @vma.
-+ * @vma: The VMA that has been updated.
-+ * @anon_pgoff_unchanged: Whether @vma's anonymous page offset remained
-+ *                        unchanged.
-+ *
-+ * anon_rmap_tree_pre_update_vma() must have been called prior to this.
-+ *
-+ * The anon rmap lock must be held across the entire update.
-+ */
-+void anon_rmap_tree_post_update_vma(struct vm_area_struct *vma,
-+				    bool anon_pgoff_unchanged)
-+{
-+	struct anon_vma_chain *avc;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (anon_pgoff_unchanged)
-+			anon_rmap_tree_update_inplace(avc);
-+		else
-+			anon_rmap_tree_insert(avc, avc->anon_vma);
-+	}
-+}
-+
- struct anon_vma_chain *
- anon_rmap_tree_iter_first(struct anon_vma *anon_vma,
- 			  pgoff_t pgoff_start, pgoff_t pgoff_last)
-diff --git a/mm/vma.c b/mm/vma.c
-index 077e23694143..ad6be42cc65a 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -201,8 +201,15 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
- 	if (vp->file)
- 		vp->mapping = vma->vm_file->f_mapping;
- 
--	if (vmg && vmg->skip_vma_uprobe)
-+	if (!vmg)
-+		return;
-+
-+	if (vmg->skip_vma_uprobe)
- 		vp->skip_vma_uprobe = true;
-+	if (vma_start_pgoff(vma) == vmg_start_pgoff(vmg))
-+		vp->file_pgoff_unchanged = true;
-+	if (vma_start_anon_pgoff(vma) == vmg_start_anon_pgoff(vmg))
-+		vp->anon_pgoff_unchanged = true;
- }
- 
- /*
-@@ -299,38 +306,6 @@ static void __remove_shared_vm_struct(struct vm_area_struct *vma,
- 	flush_dcache_mmap_unlock(mapping);
- }
- 
--/*
-- * vma has an anon rmap assigned, and is already inserted on its interval
-- * trees.
-- *
-- * Before updating the vma's vm_start / vm_end / vm_pgoff fields, the
-- * vma must be removed from the anon rmap's interval trees using
-- * anon_rmap_tree_pre_update_vma().
-- *
-- * After the update, the vma will be reinserted using
-- * anon_rmap_tree_post_update_vma().
-- *
-- * The entire update must be protected by exclusive mmap_lock and by
-- * the anon rmap root lock.
-- */
--static void
--anon_rmap_tree_pre_update_vma(struct vm_area_struct *vma)
--{
--	struct anon_vma_chain *avc;
--
--	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
--		anon_rmap_tree_remove(avc, avc->anon_vma);
--}
--
--static void
--anon_rmap_tree_post_update_vma(struct vm_area_struct *vma)
--{
--	struct anon_vma_chain *avc;
--
--	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
--		anon_rmap_tree_insert(avc, avc->anon_vma);
--}
--
- /*
-  * vma_prepare() - Helper function for handling locking VMAs prior to altering
-  * @vp: The initialized vma_prepare struct
-@@ -359,16 +334,19 @@ static void vma_prepare(struct vma_prepare *vp)
- 
- 	if (vp->anon_vma) {
- 		anon_vma_lock_write(vp->anon_vma);
--		anon_rmap_tree_pre_update_vma(vp->vma);
-+		anon_rmap_tree_pre_update_vma(vp->vma, vp->anon_pgoff_unchanged);
-+		/* The adjacent VMA's start is moved, so its page offset changes. */
- 		if (vp->adj_next)
--			anon_rmap_tree_pre_update_vma(vp->adj_next);
-+			anon_rmap_tree_pre_update_vma(vp->adj_next, false);
- 	}
- 
- 	if (vp->file) {
- 		flush_dcache_mmap_lock(vp->mapping);
--		mapping_rmap_tree_remove(vp->vma, vp->mapping);
-+		mapping_rmap_tree_pre_update(vp->vma, vp->mapping,
-+					     vp->file_pgoff_unchanged);
- 		if (vp->adj_next)
--			mapping_rmap_tree_remove(vp->adj_next, vp->mapping);
-+			mapping_rmap_tree_pre_update(vp->adj_next, vp->mapping,
-+						     false);
- 	}
- 
- }
-@@ -386,8 +364,10 @@ static void vma_complete(struct vma_prepare *vp, struct vma_iterator *vmi,
- {
- 	if (vp->file) {
- 		if (vp->adj_next)
--			mapping_rmap_tree_insert(vp->adj_next, vp->mapping);
--		mapping_rmap_tree_insert(vp->vma, vp->mapping);
-+			mapping_rmap_tree_post_update(vp->adj_next, vp->mapping,
-+						      false);
-+		mapping_rmap_tree_post_update(vp->vma, vp->mapping,
-+					      vp->file_pgoff_unchanged);
- 		flush_dcache_mmap_unlock(vp->mapping);
- 	}
- 
-@@ -406,9 +386,9 @@ static void vma_complete(struct vma_prepare *vp, struct vma_iterator *vmi,
- 	}
- 
- 	if (vp->anon_vma) {
--		anon_rmap_tree_post_update_vma(vp->vma);
-+		anon_rmap_tree_post_update_vma(vp->vma, vp->anon_pgoff_unchanged);
- 		if (vp->adj_next)
--			anon_rmap_tree_post_update_vma(vp->adj_next);
-+			anon_rmap_tree_post_update_vma(vp->adj_next, false);
- 		anon_vma_unlock_write(vp->anon_vma);
- 	}
- 
-@@ -593,6 +573,8 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 
- 	init_vma_prep(&vp, vma);
- 	vp.insert = new;
-+	vp.file_pgoff_unchanged = !new_below;
-+	vp.anon_pgoff_unchanged = !new_below;
- 	vma_prepare(&vp);
- 
- 	/*
-@@ -1346,6 +1328,8 @@ int vma_shrink(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	vma_start_write(vma);
- 
- 	init_vma_prep(&vp, vma);
-+	vp.file_pgoff_unchanged = true;
-+	vp.anon_pgoff_unchanged = true;
- 	vma_prepare(&vp);
- 	vma_adjust_trans_huge(vma, vma->vm_start, end, NULL);
- 
-@@ -3453,11 +3437,11 @@ int expand_upwards(struct vm_area_struct *vma, unsigned long address)
- 				if (vma_test(vma, VMA_LOCKED_BIT))
- 					mm->locked_vm += grow;
- 				vm_stat_account(mm, vma->vm_flags, grow);
--				anon_rmap_tree_pre_update_vma(vma);
-+				anon_rmap_tree_pre_update_vma(vma, true);
- 				vma->vm_end = address;
- 				/* Overwrite old entry in mtree. */
- 				vma_iter_store_overwrite(&vmi, vma);
--				anon_rmap_tree_post_update_vma(vma);
-+				anon_rmap_tree_post_update_vma(vma, true);
- 
- 				perf_event_mmap(vma);
- 			}
-@@ -3530,12 +3514,12 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
- 				if (vma_test(vma, VMA_LOCKED_BIT))
- 					mm->locked_vm += grow;
- 				vm_stat_account(mm, vma->vm_flags, grow);
--				anon_rmap_tree_pre_update_vma(vma);
-+				anon_rmap_tree_pre_update_vma(vma, false);
- 				vma->vm_start = address;
- 				vma_sub_pgoff(vma, grow);
- 				/* Overwrite old entry in mtree. */
- 				vma_iter_store_overwrite(&vmi, vma);
--				anon_rmap_tree_post_update_vma(vma);
-+				anon_rmap_tree_post_update_vma(vma, false);
- 
- 				perf_event_mmap(vma);
- 			}
-diff --git a/mm/vma.h b/mm/vma.h
-index 7a683272c0a8..074419f2c102 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -28,6 +28,8 @@ struct vma_prepare {
- 	struct vm_area_struct *remove2;
- 
- 	bool skip_vma_uprobe :1;
-+	bool file_pgoff_unchanged :1;
-+	bool anon_pgoff_unchanged :1;
- };
- 
- struct unlink_vma_file_batch {
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index e4acc6f1fe7b..5d4944581b8d 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -267,6 +267,18 @@ static inline void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- {
- }
- 
-+static inline void mapping_rmap_tree_pre_update(struct vm_area_struct *vma,
-+						struct address_space *mapping,
-+						bool pgoff_unchanged)
-+{
-+}
-+
-+static inline void mapping_rmap_tree_post_update(struct vm_area_struct *vma,
-+						 struct address_space *mapping,
-+						 bool pgoff_unchanged)
-+{
-+}
-+
- static inline void flush_dcache_mmap_unlock(struct address_space *mapping)
- {
- }
-@@ -281,6 +293,16 @@ static inline void anon_rmap_tree_remove(struct anon_vma_chain *avc,
- {
- }
- 
-+static inline void anon_rmap_tree_pre_update_vma(struct vm_area_struct *vma,
-+						 bool anon_pgoff_unchanged)
-+{
-+}
-+
-+static inline void anon_rmap_tree_post_update_vma(struct vm_area_struct *vma,
-+						  bool anon_pgoff_unchanged)
-+{
-+}
-+
- static inline void uprobe_mmap(struct vm_area_struct *vma)
- {
- }
-
----
-base-commit: e8d0f6a1b2a447d02845984fa6288787543cb03c
-change-id: 20260925-speed-up-inplace-rmap-808fbb3848f5
-
-Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+On 9/30/2026 3:58 AM, Vishnu Reddy wrote:
+> On 9/25/2026 5:58 AM, Deepa Guthyappa Madivalara wrote:
+>> - Introduce BUF_ROIMB_DELTAQP as a new internal buffer type to carry
+>>    per-macroblock ROI delta QP data to the firmware. This buffer is
+>>    allocated on demand when the application sets ROI parameters via
+>>    V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP, and is queued alongside each
+>>    raw input buffer as an HFI_BUFFER_METADATA packet on HFI_PORT_RAW.
+>>
+>> - The metadata buffer layout follows the firmware-defined metabuf_header
+>>    and metapayload_header structures. The s8 per-MB delta QP values
+>>    supplied by userspace are widened to s16 as required by the firmware.
+>>
+>> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+>> ---
+>>   drivers/media/platform/qcom/iris/iris_buffer.c     | 114 +++++++++++++++++++++
+>>   drivers/media/platform/qcom/iris/iris_buffer.h     |   4 +
+>>   drivers/media/platform/qcom/iris/iris_ctrls.c      |  37 +++++++
+>>   drivers/media/platform/qcom/iris/iris_ctrls.h      |   1 +
+>>   drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |   1 +
+>>   .../platform/qcom/iris/iris_hfi_gen2_command.c     |  24 +++++
+>>   .../platform/qcom/iris/iris_hfi_gen2_response.c    |   2 +
+>>   drivers/media/platform/qcom/iris/iris_vidc.c       |   2 +
+>>   8 files changed, 185 insertions(+)
+>>
+>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+>> index eb8de60c1177f5e1ab83b90a3c8c80e0b4d1f02e..a7f1d74360d6a490959b27936fa5bbc61a7d9358 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+>> @@ -5,11 +5,13 @@
+>>   
+>>   #include <media/v4l2-event.h>
+>>   #include <media/v4l2-mem2mem.h>
+>> +#include <linux/slab.h>
+>>   
+>>   #include "iris_buffer.h"
+>>   #include "iris_instance.h"
+>>   #include "iris_power.h"
+>>   #include "iris_vpu_buffer.h"
+>> +#include "iris_hfi_gen2_defines.h"
+>>   
+>>   #define PIXELS_4K 4096
+>>   #define MAX_WIDTH 4096
+>> @@ -705,6 +707,20 @@ int iris_destroy_dequeued_internal_buffers(struct iris_inst *inst, u32 plane)
+>>   	return iris_destroy_internal_buffers(inst, plane, false);
+>>   }
+>>   
+>> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst)
+>> +{
+>> +	struct iris_buffer *buf, *next;
+>> +	struct iris_buffers *buffers;
+>> +
+>> +	if (inst->domain == ENCODER) {
+>> +		buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
+>> +		list_for_each_entry_safe(buf, next, &buffers->list, list)
+>> +			iris_destroy_internal_buffer(inst, buf);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static int iris_release_internal_buffers(struct iris_inst *inst,
+>>   					 enum iris_buffer_type buffer_type)
+>>   {
+>> @@ -928,3 +944,101 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
+>>   
+>>   	return 0;
+>>   }
+>> +
+>> +static int iris_fill_roi_data(struct iris_inst *inst, struct iris_buffer *buffer)
+>> +{
+>> +	s8 *p_array = (s8 *)inst->fw_caps[ROI_PARAMS].p_array;
+>> +	u32 payload_offset, lcu_width, lcu_height, row_size;
+>> +	u32 array_size = inst->fw_caps[ROI_PARAMS].elems;
+>> +	struct metabuf_header *mbuf_hdr = buffer->kvaddr;
+>> +	struct metapayload_header *mbuf_payload_hdr;
+>> +	struct v4l2_format *f = inst->fmt_src;
+>> +	s16 *p_16, *p_temp;
+>> +
+>> +	memset(mbuf_hdr, 0, sizeof(struct metabuf_header));
+>> +	mbuf_hdr->count = 1;
+>> +	mbuf_hdr->size = sizeof(struct metabuf_header) +
+>> +			 sizeof(struct metapayload_header);
+>> +	mbuf_hdr->version = BIT(16);
+>> +	mbuf_hdr++;
+>> +	mbuf_payload_hdr = (struct metapayload_header *)(mbuf_hdr);
+>> +	payload_offset = sizeof(struct metabuf_header) +
+>> +			 sizeof(struct metapayload_header);
+>> +
+>> +	memset(mbuf_payload_hdr, 0, sizeof(struct metapayload_header));
+>> +	mbuf_payload_hdr->type = HFI_PROP_ROI_INFO;
+>> +	mbuf_payload_hdr->size = array_size * sizeof(s16);
+>> +	mbuf_payload_hdr->version = 1 << 16;
+>> +	mbuf_payload_hdr->offset = ALIGN(payload_offset, (u32)256);
+>> +	mbuf_payload_hdr->flags = 0;
+>> +
+>> +	if (inst->codec == V4L2_PIX_FMT_HEVC) {
+>> +		lcu_width = (f->fmt.pix_mp.width + 31) >> 5;
+>> +		lcu_height = (f->fmt.pix_mp.height + 31) >> 5;
+>> +	} else {
+>> +		lcu_width = (f->fmt.pix_mp.width + 15) >> 4;
+>> +		lcu_height = (f->fmt.pix_mp.height + 15) >> 4;
+>> +	}
+>> +	/* Firmware expects each row to align to 8 LCU */
+>> +	row_size = (((lcu_width + 7) >> 3) << 3);
+>> +
+>> +	/* Firmware expects 2bytes of delta_Qp, int16_t */
+>> +	p_16 = buffer->kvaddr + mbuf_payload_hdr->offset;
+>> +	for (int j = 0; j < lcu_height; j++) {
+>> +		p_temp = p_16 + j * row_size;
+>> +		for (int i = 0; i < lcu_width; i++)
+>> +			*p_temp++ = (1 << 11) | (((u8)p_array[j * lcu_width + i]
+>> +						   & 0x3F) << 4);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst)
+>> +{
+>> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
+>> +	struct iris_core *core = inst->core;
+>> +	struct iris_buffer *buffer, *first_buffer, *next;
+>> +	bool found = false;
+>> +	int ret = 0;
+>> +
+>> +	if (!buffers->size)
+>> +		return 0;
+>> +
+>> +	list_for_each_entry_safe(buffer, next, &buffers->list, list) {
+>> +		if (buffer->attr & BUF_ATTR_DEQUEUED) {
+>> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
+>> +			list_move(&buffer->list, &buffers->list);
+>> +			found = true;
+>> +			break;
+>> +		}
+>> +	}
+>> +	if (!found) {
+>> +		buffer = kzalloc_obj(*buffer);
+>> +		if (!buffer)
+>> +			return -ENOMEM;
+>> +
+>> +		INIT_LIST_HEAD(&buffer->list);
+>> +		buffer->type = BUF_ROIMB_DELTAQP;
+>> +		buffer->index++;
+>> +		buffer->buffer_size = buffers->size;
+>> +		buffer->dma_attrs = DMA_ATTR_WRITE_COMBINE;
+>> +
+>> +		buffer->kvaddr = dma_alloc_attrs(core->dev, buffer->buffer_size,
+>> +						 &buffer->device_addr, GFP_KERNEL,
+>> +						 buffer->dma_attrs);
+>> +
+>> +		if (!buffer->kvaddr) {
+>> +			kfree(buffer);
+>> +			return -ENOMEM;
+>> +		}
+>> +		list_add(&buffer->list, &buffers->list);
+>> +	}
+>> +
+>> +	first_buffer = list_first_entry(&buffers->list, struct iris_buffer, list);
+>> +	ret = iris_fill_roi_data(inst, first_buffer);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return ret;
+>> +}
+>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
+>> index ee2d24bb69c57220b0a735d9b4aae4434a33daf6..df9d018493f3ec37fd5e6b0ba049dba0b5ae76e9 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_buffer.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.h
+>> @@ -28,6 +28,7 @@ struct iris_inst;
+>>    * @BUF_SCRATCH_2: buffer to store encoding context data for HW
+>>    * @BUF_VPSS: buffer to store VPSS context data for HW
+>>    * @BUF_PARTIAL: buffer for AV1 IBC data
+>> + * @BUF_ROIMB_DELTAQP: metadata buffer for ROI MB DeltaQp
+>>    * @BUF_TYPE_MAX: max buffer types
+>>    */
+>>   enum iris_buffer_type {
+>> @@ -44,6 +45,7 @@ enum iris_buffer_type {
+>>   	BUF_SCRATCH_2,
+>>   	BUF_VPSS,
+>>   	BUF_PARTIAL,
+>> +	BUF_ROIMB_DELTAQP,
+>>   	BUF_TYPE_MAX,
+>>   };
+>>   
+>> @@ -139,5 +141,7 @@ int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
+>>   int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
+>>   int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
+>>   void iris_vb2_queue_error(struct iris_inst *inst);
+>> +int iris_hfi_gen2_session_alloc_roi_metadata_buffer(struct iris_inst *inst);
+>> +int iris_destroy_roi_metadata_buffers(struct iris_inst *inst);
+>>   
+>>   #endif
+>> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> index 1ce8eccdedbdeb840833bd92edb3f59dd6962d7f..2ab20cacbc2b79ac4cf28eda88b15cae332c4160 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+>> @@ -1624,3 +1624,40 @@ int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane)
+>>   
+>>   	return ret;
+>>   }
+>> +
+>> +int iris_set_roi_params(struct iris_inst *inst, u32 plane)
+>> +{
+>> +	struct iris_buffers *buffers = &inst->buffers[BUF_ROIMB_DELTAQP];
+>> +	u32 height = inst->fmt_src->fmt.pix_mp.height;
+>> +	u32 width = inst->fmt_src->fmt.pix_mp.width;
+>> +	u32 metadata_header_bytes = 256;
+>> +	u32 lcu_height = 0;
+>> +	u32 lcu_width = 0;
+>> +	u32 lcu_size = 16;
+>> +	u32 n_shift = 0;
+>> +	u32 size = 0;
+>> +	int ret = 0;
+>> +
+>> +	if (!inst->fw_caps[ROI_PARAMS].p_array)
+>> +		return -EINVAL;
+>> +
+>> +	if (inst->codec == V4L2_PIX_FMT_HEVC)
+>> +		lcu_size = 32;
+>> +
+>> +	while (lcu_size && !(lcu_size & 0x1)) {
+>> +		n_shift++;
+>> +		lcu_size = lcu_size >> 1;
+> Since lcu_size can only be 16 or 32 here, is the loop needed?
+> n_shift could be derived using ilog2(lcu_size), and the lcu_size reassignment
+> below could also be avoided.
+>
+>> +	}
+>> +
+>> +	lcu_size = inst->codec == V4L2_PIX_FMT_HEVC ? 32 : 16;
+>> +	lcu_width = (width + (lcu_size - 1)) >> n_shift;
+>> +	lcu_height = (height + (lcu_size - 1)) >> n_shift;
+>> +	size = (((lcu_width + 7) >> 3) << 3) * lcu_height * 2;
+>> +	size += metadata_header_bytes;
+>> +	buffers->size = ALIGN(size, 4096);
+>> +	ret = iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return 0;
+> return iris_hfi_gen2_session_alloc_roi_metadata_buffer(inst);
+>
+>> +}
+>> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> index 9957b69366f50310338a0c1470d9744592655c33..7587dfec052a320863889eb15203416b9c527a40 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
+>> @@ -51,5 +51,6 @@ int iris_set_req_sync_frame(struct iris_inst *inst, enum platform_inst_fw_cap_ty
+>>   int iris_set_time_delta_based_rc(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
+>>   int iris_set_properties(struct iris_inst *inst, u32 plane);
+>>   int iris_set_metadata_delivery(struct iris_inst *inst, u32 plane);
+>> +int iris_set_roi_params(struct iris_inst *inst, u32 plane);
+>>   
+>>   #endif
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+>> index d628bc6748438b19dac01cd11cb9f8da0b8500af..4d40d6733e5877a302ce63fb0b4a61b8f284e6dc 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
+>> @@ -1789,6 +1789,7 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
+>>   		.hfi_id = HFI_PROP_ROI_INFO,
+>>   		.flags = CAP_FLAG_INPUT_PORT | CAP_FLAG_CUSTOM |
+>>   			 CAP_FLAG_DYNAMIC_ALLOWED,
+>> +		.set = iris_set_roi_params,
+>>   	},
+>>   	{
+>>   		.cap_id = MB_SIZE,
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> index cf88dbe11e8e9faef826e661d8e9909fd7f16b94..a1b0c4982f0d789a807f22a1dffdf61decd20d28 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+>> @@ -134,6 +134,7 @@ static u32 iris_hfi_gen2_get_port_from_buf_type(struct iris_inst *inst,
+>>   		switch (buffer_type) {
+>>   		case BUF_INPUT:
+>>   		case BUF_VPSS:
+>> +		case BUF_ROIMB_DELTAQP:
+>>   			return HFI_PORT_RAW;
+>>   		case BUF_OUTPUT:
+>>   		case BUF_BIN:
+>> @@ -1267,6 +1268,8 @@ static u32 iris_hfi_gen2_buf_type_from_driver(u32 domain, enum iris_buffer_type
+>>   		return HFI_BUFFER_VPSS;
+>>   	case BUF_PARTIAL:
+>>   		return HFI_BUFFER_PARTIAL_DATA;
+>> +	case BUF_ROIMB_DELTAQP:
+>> +		return HFI_BUFFER_METADATA;
+>>   	default:
+>>   		return 0;
+>>   	}
+>> @@ -1328,6 +1331,7 @@ static struct iris_buffer *iris_queue_metadata_buffers(struct iris_inst *inst,
+>>   static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
+>>   {
+>>   	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
+>> +	struct iris_hfi_buffer hfi_meta_buffer;
+>>   	struct iris_hfi_buffer hfi_buffer;
+>>   	u32 port;
+>>   	int ret;
+>> @@ -1349,6 +1353,26 @@ static int iris_hfi_gen2_session_queue_buffer(struct iris_inst *inst, struct iri
+>>   					     &hfi_buffer,
+>>   					     sizeof(hfi_buffer));
+>>   
+>> +	/* check if any metadata buffer is available not queued, queue it */
+>> +	if (port == HFI_PORT_RAW) {
+>> +		buffer = iris_queue_metadata_buffers(inst, BUF_ROIMB_DELTAQP, buffer->index);
+>> +		if (buffer) {
+>> +			iris_hfi_gen2_get_buffer(inst->domain, buffer, &hfi_meta_buffer);
+>> +			port = iris_hfi_gen2_get_port_from_buf_type(inst, buffer->type);
+>> +			iris_hfi_gen2_create_packet(inst_hfi_gen2->packet,
+>> +						    HFI_CMD_BUFFER,
+>> +						    HFI_HOST_FLAGS_INTR_REQUIRED,
+>> +						    HFI_PAYLOAD_STRUCTURE,
+>> +						    port,
+>> +						    inst->core->packet_id++,
+>> +						    &hfi_meta_buffer,
+>> +						    sizeof(hfi_meta_buffer));
+>> +
+>> +			buffer->attr |= BUF_ATTR_QUEUED;
+>> +			buffer->attr &= ~BUF_ATTR_DEQUEUED;
+> If iris_queue_buffer() is the only caller, is this needed?
+> The caller already updates QUEUED attribute on successful return.
+This makes it clear that the buffer is actually is not dequeued yet, 
+while I am searching for a
+free buffer in iris_hfi_gen2_session_alloc_roi_metadata_buffer.
+>> +		}
+>> +	}
+>> +
+>>   	return iris_hfi_queue_cmd_write(inst->core, inst_hfi_gen2->packet,
+>>   					inst_hfi_gen2->packet->size);
+>>   }
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> index 84b629b957442c024dccc18b354ac9a7e541abaa..f63e0a7723e8583da818c2b004e367c1dd3d94f7 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+>> @@ -58,6 +58,8 @@ static u32 iris_hfi_gen2_buf_type_to_driver(struct iris_inst *inst,
+>>   		return BUF_PARTIAL;
+>>   	case HFI_BUFFER_VPSS:
+>>   		return BUF_VPSS;
+>> +	case HFI_BUFFER_METADATA:
+>> +		return BUF_ROIMB_DELTAQP;
+>>   	default:
+>>   		return 0;
+>>   	}
+>> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+>> index fcbc60016beec693f2ce27927a09a2d51494bc38..fae3d113a9dc990f06167ee0b7fb8fab24a0552c 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+>> @@ -180,6 +180,7 @@ int iris_open(struct file *filp)
+>>   	INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_2].list);
+>>   	INIT_LIST_HEAD(&inst->buffers[BUF_VPSS].list);
+>>   	INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
+>> +	INIT_LIST_HEAD(&inst->buffers[BUF_ROIMB_DELTAQP].list);
+>>   	init_completion(&inst->completion);
+>>   	init_completion(&inst->flush_completion);
+>>   
+>> @@ -299,6 +300,7 @@ int iris_close(struct file *filp)
+>>   	iris_destroy_all_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+>>   	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+>>   	iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+>> +	iris_destroy_roi_metadata_buffers(inst);
+>>   	iris_remove_session(inst);
+>>   	mutex_unlock(&inst->lock);
+>>   	mutex_destroy(&inst->ctx_q_lock);
+>>
