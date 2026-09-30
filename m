@@ -1,57 +1,57 @@
 Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC984BF959
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703E94D4888
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797010; cv=none; b=tM5RmBMwpJX0TpyF/1uIaA41Qnh0vKDZ3wXu0l12l1Zvglk+j/7LuqFY/mswN9LyIvfwcIHi+/NNXRV9oKpwYAzXZE0pzvt694TePuq6vZi1aufmt14+9mjQMSlIDCbffS11+bIdwrlOi6Sz983cliQhmnruBp3+/7IjmLboQHs=
+	t=1790797011; cv=none; b=rghynDxKYrEtjryafGyQ+oH0i7QmRQFQeIkfmwduj9Cd8uls4XEXNV3BsiQKDmV0p2uPyU8hxBCM4qUQBnNGEvRbwISmk/GNYk38zQVXI5o5ye/8tP8ZR47uou7dBjB8gq4o5xIkOSAhj1Zc6gj3sQGDC1YbFvhHOhPmjs/+J7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797010; c=relaxed/simple;
-	bh=qNaxT1lfEbT1LPSsEVh5+AezcCglRx9kPOdT2poCI4Y=;
+	s=arc-20240116; t=1790797011; c=relaxed/simple;
+	bh=MSuuc/cocbqG6Hsb1NWDCs84MFsTBnA7k6WbI0Ly02c=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Y0tpDdiKJUNl2VTt6Fmgmd1GWDavB4Ipea6utvRK1+K3mn16bZoHlCzRxNO2dxcBpw20O87gLbX0hzxhvFW5NP/abBa1oqpHLG9yh4CZeJUJ4twvX3207Mwzh22B/bn9+S/1jFAFbIHFvelkPAHVbaaZ1VWPky7D9bUc0zy8Dg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VUBsoK46; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=Vr7WrnZatU5RDpopflGMisHoLhUeuAT5H6M46kK1aam8RzjXNgHJTSAstHetEOMJFKbQI7YkUxxxQnXIMyXFqPbUw+zouDQm6SR3gBxhBBVNM8hH8ux+ymc5DGufmY0ilSAsBBxCkS12wYFbTF5tsxKgVagvd0wiMyDDbo1e/A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=alEv9MCf; arc=none smtp.client-ip=209.85.215.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VUBsoK46"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc72777faa2so3337008a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="alEv9MCf"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso5153932a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790797008; x=1791401808; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790797010; x=1791401810; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=vlcl2f6ewwzrBjcQFC4aq+Z9uRrmySkT+V2ro3tMTk0=;
-        b=VUBsoK46WEyZTpYVlR8l0P+kUd03RmBT/YMOzz8Tj8MUsluuwoZfvQHy+pq8PwadMn
-         6i+NdC+SVUWOsaFtP5sDpdBkmpzw6Mz2iYtii6EVRqUypOCnsP2pEHtMSWo9c/Bqi6/H
-         kUvBKupaND7/MkKgUf67nfxwqgyO3xfDY+wddWoHHh2JVTiRMG1HkkxS7FR0qqxn3Cff
-         CNHMUdHaYqcx1BDSr7Iz66cED9E1w+GHjoR47GoRK5BM319xMNHF6WQjNzT1ZQbsmX2r
-         SjEe4MBK7ZS3yiyIWvBjwWxTAIbb/Guft+1LeYwuJG1v1L1VR6z+e/ixywpNoL7stM9N
-         lTMw==
+        bh=b4O4inbQYDjTuXf1AXWgPFLW4HG4gSKfcYxNlQZJdQM=;
+        b=alEv9MCfPLk/asKn+rcOC0L/NnXnBxS/gNIvoOYUE8Lt56og/7EIASPM/scxSpuRoD
+         XLL9Jg2PjTDweWhM5Sd2KuNnf3DK9BchjcJ5QBJwAuvZzZRvNgKF4hkaaYShhygUnCpz
+         a3bfQzZtc6dPrvyxDMftk2nwur67GxVkJbRcQ8jwieoOFyenEw295n+e/hz0PHfTZvqI
+         S2SmKcb0xIukPVXAmcduX8tuSVIUQyKhPXisKYWaLq2jXDZcfIrPhc2JxwMVCTFAQXYC
+         Eo0uq2Br9bR0MvOtPFnhpMnjnx4FnZP++5/YzSkPNr7jJPqFsPChszRzPiWdgiDG8jee
+         yQpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797008; x=1791401808;
+        d=1e100.net; s=20260707; t=1790797010; x=1791401810;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vlcl2f6ewwzrBjcQFC4aq+Z9uRrmySkT+V2ro3tMTk0=;
-        b=Ikv5iOKVkQC1Hrnhkwf9iDLjFNyidjfnT5aeQoCv+uQuEPe6wv6aqSJQTAF1HauhrJ
-         4gPr9PA6mqBXiKimt7hnC7pp1zAjv+Lt9X3pghh54aLr+viRwRu0ldSdGDYoBDI+nJdh
-         p8gPBvCnaDWLQ6ScBbQ3is+M1SIVlItaKDbSoMmFTIU/M+DuuNYdBV2md3rHb41jhoEI
-         o9ntsqxKWyW6cUzsXaFiOlXq1Xp9pPKnNpX3g95PhDSg8f55lVIle3g+wVTq4u1rmumR
-         HE2mBsVxvPmjeKbboKyQ4Zta2mA3QDz58f9dljSrLMxC+2B+N96Rso2vbqDRI/T3Qi6Z
-         T4Cg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkdq6CgQY3rwYWfWaVObh4A8qeYVQEM8fxRs5NNZXqxWNHPd5iyJt2iGibVApe+JsY/P7aFg3iQ+L4Ef0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSuFr/JBn9bXuzsoLK5/L9+CVbiNias5cD+nw4dhlhoqv3oWr3
-	fvSsDI3eVLW/0D0+K92XUHLzR+EeQmdw5ykFhaFCmOlv0RUEy5ItZ6GjoXRKnz5U1nPCp5uTN6g
-	naYn+wA==
-X-Received: from pgbdo4.prod.google.com ([2002:a05:6a02:e84:b0:cc7:d747:ae32])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:2d4b:b0:3de:53ba:4071
- with SMTP id adf61e73a8af0-3de9e740039mr2189302637.32.1790797007784; Wed, 30
- Sep 2026 12:36:47 -0700 (PDT)
+        bh=b4O4inbQYDjTuXf1AXWgPFLW4HG4gSKfcYxNlQZJdQM=;
+        b=GxcZ/fUTrYeUFg0emzZnb6+trrtnBjPszuSl196BwmFf/i0mMu5FI5nk+nH3gO8CE6
+         djeLfYyFoKmHAwMRqRmms6Oz3DLgt6D8WfeQWdF4sEKLDjt+Rusdo+BVfPtyAPrfsCGp
+         06AefudQNaF66nD672xjiDGQ3V05gY9weQmHMS98GFdWQmGlVWwei7plJ/AMWhduaaqq
+         0ePChSkVVQGoJFbJt39MbVhiB3Fytaj9FbNOKjswrprAchD0cKTVOvjMvEJty6CaqT0W
+         CUCypuh0FuNzSb4Vb7BYD0JRdEp5rYzoTaDE7wlAdpSICw56JjIbyIjHrtkmfzWPQ1VG
+         Hz+g==
+X-Forwarded-Encrypted: i=1; AKwUvBzicDtO2S37y7TEFgmLj1aowLPV0oVaL+IcHQxsD0+05UULYWoL6JdIGlETms0J90jAHCMGn39x/3XMUbg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE3BdC9eWE16QqDZeg2orP99ZHGIBJMpVny0EJ7gexehABCKyL
+	n5Dpru/rVIriGHFKqniJBZlHsQS9hBM9tKd2smPiqPoq+Z8g6JVT4PaXyaDDwYTq3MuHTvMxKg4
+	fwE7nFA==
+X-Received: from pgay14.prod.google.com ([2002:a05:6a02:496e:b0:cc7:e378:a127])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6113:b0:3de:773c:df14
+ with SMTP id adf61e73a8af0-3de9e739c6fmr2637009637.24.1790797009545; Wed, 30
+ Sep 2026 12:36:49 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 12:36:30 -0700
+Date: Wed, 30 Sep 2026 12:36:31 -0700
 In-Reply-To: <20260930193634.3415089-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930193634.3415089-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930193634.3415089-9-seanjc@google.com>
-Subject: [PATCH v6 08/12] KVM: nSVM: Disable LBRV in nested control cache when unsupported
+Message-ID: <20260930193634.3415089-10-seanjc@google.com>
+Subject: [PATCH v6 09/12] KVM: nSVM: Open code check on LBR virtualization
+ being enabled in vmcb12
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -71,72 +72,60 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Tom Lendacky <thomas.lendacky@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Shivansh Dhiman <shivansh.dhiman@amd.com>
+Now that KVM clears ENABLE_V_LBR if LBR virtualization isn't supported when
+caching vmcb12 control fields, i.e. now that the logic is a simple
+one-liner, open the check and drop the now-superfluous wrapper.
 
-Clear SVM_MISC2_ENABLE_V_LBR in __nested_copy_vmcb_control_to_cache() when
-the vCPU does not support LBR Virtualization. This lets the cached value be
-consumed directly instead of re-checking X86_FEATURE_LBRV on every access.
+No functional change intended.
 
-Suggested-by: Yosry Ahmed <yosry@kernel.org>
-Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/svm/nested.c | 8 +++++---
- arch/x86/kvm/svm/svm.c    | 2 +-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ arch/x86/kvm/svm/nested.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index b61149814acc..aca2bbc66f47 100644
+index aca2bbc66f47..d3f249cd0f2d 100644
 --- a/arch/x86/kvm/svm/nested.c
 +++ b/arch/x86/kvm/svm/nested.c
-@@ -527,12 +527,16 @@ void __nested_copy_vmcb_control_to_cache(struct kvm_vcpu *vcpu,
- 
- 	/* Always clear misc_ctl bits that the guest cannot use */
- 	to->misc_ctl = from->misc_ctl;
-+	to->misc_ctl2 = from->misc_ctl2;
- 	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_NPT))
- 		to->misc_ctl &= ~SVM_MISC_ENABLE_NP;
- 
- 	if (!gmet_enabled || !guest_cpu_cap_has(vcpu, X86_FEATURE_GMET))
- 		to->misc_ctl &= ~SVM_MISC_ENABLE_GMET;
- 
-+	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_LBRV))
-+		to->misc_ctl2 &= ~SVM_MISC2_ENABLE_V_LBR;
-+
- 	to->iopm_base_pa        = from->iopm_base_pa & PAGE_MASK;
- 	to->msrpm_base_pa       = from->msrpm_base_pa & PAGE_MASK;
- 	to->tsc_offset          = from->tsc_offset;
-@@ -550,7 +554,6 @@ void __nested_copy_vmcb_control_to_cache(struct kvm_vcpu *vcpu,
- 	to->event_inj_err       = from->event_inj_err;
- 	to->next_rip            = from->next_rip;
- 	to->nested_cr3          = from->nested_cr3;
--	to->misc_ctl2		= from->misc_ctl2;
- 	to->pause_filter_count  = from->pause_filter_count;
- 	to->pause_filter_thresh = from->pause_filter_thresh;
- 
-@@ -737,8 +740,7 @@ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
- 
- static bool nested_vmcb12_has_lbrv(struct kvm_vcpu *vcpu)
- {
--	return guest_cpu_cap_has(vcpu, X86_FEATURE_LBRV) &&
--		(to_svm(vcpu)->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR);
-+	return to_svm(vcpu)->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR;
+@@ -738,11 +738,6 @@ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
+ 	return 0;
  }
  
+-static bool nested_vmcb12_has_lbrv(struct kvm_vcpu *vcpu)
+-{
+-	return to_svm(vcpu)->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR;
+-}
+-
  static void nested_vmcb02_prepare_save(struct vcpu_svm *svm)
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 775eccfb7b24..5253c0143666 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -882,7 +882,7 @@ static bool svm_need_lbr_virtualization(struct kvm_vcpu *vcpu)
- 	if (svm->vmcb->save.dbgctl & DEBUGCTLMSR_LBR)
- 		return true;
+ {
+ 	struct vmcb_ctrl_area_cached *control = &svm->nested.ctl;
+@@ -817,7 +812,7 @@ static void nested_vmcb02_prepare_save(struct vcpu_svm *svm)
+ 		vmcb_mark_dirty(vmcb02, VMCB_DR);
+ 	}
  
--	return is_guest_mode(vcpu) && guest_cpu_cap_has(vcpu, X86_FEATURE_LBRV) &&
-+	return is_guest_mode(vcpu) &&
- 	       (svm->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR);
- }
+-	if (nested_vmcb12_has_lbrv(vcpu)) {
++	if (control->misc_ctl2 & SVM_MISC2_ENABLE_V_LBR) {
+ 		/*
+ 		 * Reserved bits of DEBUGCTL are ignored.  Be consistent with
+ 		 * svm_set_msr's definition of reserved bits.
+@@ -1310,7 +1305,7 @@ static int nested_svm_vmexit_update_vmcb12(struct kvm_vcpu *vcpu)
+ 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_NRIPS))
+ 		vmcb12->control.next_rip  = vmcb02->control.next_rip;
  
+-	if (nested_vmcb12_has_lbrv(vcpu))
++	if (svm->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR)
+ 		svm_copy_lbrs(&vmcb12->save, &vmcb02->save);
+ 
+ 	vmcb12->control.event_inj	  = 0;
+@@ -1387,7 +1382,7 @@ void nested_svm_vmexit(struct vcpu_svm *svm)
+ 	if (!nested_exit_on_intr(svm))
+ 		kvm_make_request(KVM_REQ_EVENT, &svm->vcpu);
+ 
+-	if (!nested_vmcb12_has_lbrv(vcpu)) {
++	if (!(svm->nested.ctl.misc_ctl2 & SVM_MISC2_ENABLE_V_LBR)) {
+ 		svm_copy_lbrs(&vmcb01->save, &vmcb02->save);
+ 		vmcb_mark_dirty(vmcb01, VMCB_LBR);
+ 	}
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
