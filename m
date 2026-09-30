@@ -1,203 +1,170 @@
-Received: from mta1.migadu.com (out-16.mta1.migadu.com [95.215.58.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07F7369990
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.16
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AD383403ED;
+	Wed, 30 Sep 2026 01:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733090; cv=none; b=iPxqDM8i5AP3RkjLU4xZZg/lFi+QcW0V3LrkMrT4jcsXuqFMN8OrcGH+QKsO97GZXjN7dfY22HSifgjQx7i5LVtGbE/1/7WENtPRr6DvInasBANouj1XZlMMYIDRoqA6dLk/GNmJfs5iYi1ILw6x4ixCWKCpp4fg6NjUmwZbGfk=
+	t=1790733209; cv=none; b=Vwgmno4SoISnjC1P3oDFDDPOG6+ouV44oKCnyhlc2u0DNP5VVXs9fI4t5y94FfR95fYvkFvuWwv9PLPBi/sZlpdXBZIOYXN2kHAf5YNs5ckWm41gIlaNACq/7BB0rKx7z1lSy/iRdVApOPkawFYKTh5vo1xJ2orRyHghw08oIYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733090; c=relaxed/simple;
-	bh=qOFk/G/6vq5TjaCi32Irwnef+xgEl3KejhukT2/1lGQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=InrgZsC5aDD86e2Bwj9C9hAXk7kFwky2zwALrEbOeRu/exMJ33CKU2zyOGPPg7fw1qGINga5f4s/TVmDzot6//1406siNqRHbpOXKjwcNBIL8wiTJl2PlBfK+m4A95KLekSQbGy8x7rHjyyat2ilocOB8WJNNlwmp6uORCaoNw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=G1tpEwcK; arc=none smtp.client-ip=95.215.58.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="G1tpEwcK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qOFk/G/6vq5TjaCi32Irwnef+xgEl3KejhukT2/1lGQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790733085; v=1; x=1791337885;
- b=G1tpEwcKsptEvEEYy3jj4tRvodocg1lUqInST3qI7f0x64wBWZlE4AVaAWuIg3dKMKrXnRfd
- 9QchpgmxOgD1oL+aJDGMcfarhuoY5w3uHCTRwvPEKugp7BB4pyEmrT3sRPUXU+sjOwSAEodXZg3
- EyiUfFOXI31wwG4A9CAAMEaE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 366241183f6c242f;
-	Wed, 30 Sep 2026 01:51:25 +0000
-X-Mizu-Trace-ID: 366241183f6c242f
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Wed, 30 Sep 2026 09:50:57 +0800
-Subject: [PATCH net-next v3 6/6] netlink: specs: rt-route: describe
- seg6-local attrs
+	s=arc-20240116; t=1790733209; c=relaxed/simple;
+	bh=koW4b9jDjIZuMUVrLX0YUFeqVCFYzvJwCX+kO8a92Ho=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=CzEQC4LR+NdxlPL3Jvudncs6JihHkb0qFFr2PMww4G83l5YtjUtgQQY6TIUxPr4OiT2aSgSvf73xY+16L0hqL1N0vKkugFcx6xyQlE05pXVAiZONfjGzjT9rOdLNnzPHgjwo5TuR+xW1mWqCCShPbbg4eFT6ibKAsSqYReiE1NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxPNKUa7xq1DERAA--.50488S3;
+	Wed, 30 Sep 2026 09:53:24 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCxPs+Ra7xqg84mAA--.16151S2;
+	Wed, 30 Sep 2026 09:53:23 +0800 (CST)
+Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Huacai Chen <chenhuacai@kernel.org>, Tao Cui <cui.tao@linux.dev>
+Cc: gaosong@loongson.cn, zhaotianrui@loongson.cn, loongarch@lists.linux.dev,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260929102821.36112-1-cui.tao@linux.dev>
+ <20260929102821.36112-5-cui.tao@linux.dev>
+ <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
+Date: Wed, 30 Sep 2026 09:54:45 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-ynl_rt_encap-v3-6-4106c21b9ee7@kylinos.cn>
-References: <20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn>
-In-Reply-To: <20260930-ynl_rt_encap-v3-0-4106c21b9ee7@kylinos.cn>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Hangbin Liu <liuhangbin@kylinos.cn>
-X-Mailer: b4 0.14.3
+In-Reply-To: <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxPs+Ra7xqg84mAA--.16151S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF1DXry8tFyDJF1xtw48Zrc_yoWrWr15pF
+	W8Aas8CFW8Wr1xWFs2vw1kXr1xZr4I9w1SgF1UAFWjkwn0vryYqFy8Jrs8ZF98J3yrCF1I
+	qF43G34Yv3WjyabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4AhLUUUUU
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Add SEG6 local actions enums, seg6-local-flv-ops flags.
 
-Replace binary bpf/counters/flavors in seg6-local with
-nested seg6-local-bpf, seg6-local-cnt and seg6-local-flv.
+On 2026/9/29 下午8:43, Huacai Chen wrote:
+> Hi, Tao,
+> 
+> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
+>>
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+>> invocation: every call overwrites pch_pic_base and registers the same
+>> kvm_io_device on the MMIO bus at the new address, while
+>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
+>> init, MMIO to the stale ranges computes its register offset against the
+>> new base and silently reads 0 / drops writes, and the leftover bus
+>> entries persist until the VM is destroyed.
+>>
+>> Reject repeated initialization with -EEXIST, tracking the state with
+>> a has_init flag so the check and the MMIO base update are atomic
+>> under slots_lock.  The base is only committed after a successful bus
+>> registration, and the real registration error is propagated instead
+>> of being replaced with -EFAULT.
+>>
+>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>> ---
+>>   arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+>>   arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
+>>   2 files changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
+>> index 887b0431fd20..679132d840e6 100644
+>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
+>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
+>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
+>>          spinlock_t lock;
+>>          struct kvm *kvm;
+>>          struct kvm_io_device device;
+>> +       bool has_init;
+>>          union pch_pic_id id;
+>>          uint64_t mask; /* 1:disable irq, 0:enable irq */
+>>          uint64_t htmsi_en; /* 1:msi */
+>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+>> index 7a704f18880d..a884a043feef 100644
+>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>>          struct kvm_io_device *device;
+>>          struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+> Why so complicated? The below is enough, no?
+> 
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
+> b/arch/loongarch/kvm/intc/pch_pic.c
+> index 2b63b0c2c7ce..7855d78304b7 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
+> *dev, u64 addr)
+>          struct kvm_io_device *device;
+>          struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+> 
+> +       if (s->device->ops)
+> +               return -EEXIST;
+This can work, however I think that it is not a good idea to access 
+internal structure field about kvm_io_device. If so, there is no use 
+about API kvm_iodevice_init(), just s->device->ops = &kvm_pch_pic_ops is ok.
 
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
- Documentation/netlink/specs/rt-route.yaml | 93 ++++++++++++++++++++++++++++++-
- 1 file changed, 90 insertions(+), 3 deletions(-)
+If adding has_init is redundant, maybe we can set s->pch_pic_base with 
+INVALID_GPA in kvm_pch_pic_create() or some other methods. However I 
+think directly accessing kvm_io_device::ops is not a good method, no 
+other architectures do in such way.
 
-diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
-index afec0375661f..0260fca398d2 100644
---- a/Documentation/netlink/specs/rt-route.yaml
-+++ b/Documentation/netlink/specs/rt-route.yaml
-@@ -116,6 +116,45 @@ definitions:
-       - rpl
-       - ioam6
-       - xfrm
-+  -
-+    name: seg6-local-actions
-+    type: enum
-+    name-prefix: seg6-local-action-
-+    enum-name:
-+    entries:
-+      - unspec
-+      - end
-+      - end-x
-+      - end-t
-+      - end-dx2
-+      - end-dx6
-+      - end-dx4
-+      - end-dt6
-+      - end-dt4
-+      - end-b6
-+      - end-b6-encap
-+      - end-bm
-+      - end-s
-+      - end-as
-+      - end-am
-+      - end-bpf
-+      - end-dt46
-+  -
-+    name: seg6-local-flv-ops
-+    type: flags
-+    name-prefix: seg6_local_flv_op-
-+    enum-name:
-+    entries:
-+      -
-+        name: unspec
-+      -
-+        name: psp
-+      -
-+        name: usp
-+      -
-+        name: usd
-+      -
-+        name: next-csid
- 
- sub-messages:
-   -
-@@ -490,6 +529,7 @@ attribute-sets:
-       -
-         name: action
-         type: u32
-+        enum: seg6-local-actions
-       -
-         name: srh
-         type: binary
-@@ -513,16 +553,19 @@ attribute-sets:
-         type: u32
-       -
-         name: bpf
--        type: binary
-+        type: nest
-+        nested-attributes: seg6-local-bpf
-       -
-         name: vrftable
-         type: u32
-       -
-         name: counters
--        type: binary
-+        type: nest
-+        nested-attributes: seg6-local-cnt
-       -
-         name: flavors
--        type: binary
-+        type: nest
-+        nested-attributes: seg6-local-flv
-   -
-     name: rpl-iptunnel
-     name-prefix: rpl-iptunnel-
-@@ -634,6 +677,50 @@ attribute-sets:
-       -
-         name: name
-         type: string
-+  -
-+    name: seg6-local-bpf
-+    name-prefix: seg6-local-bpf-
-+    attr-max-name: seg6-local-bpf-prog-max
-+    attributes:
-+      -
-+        name: prog
-+        type: u32
-+      -
-+        name: prog-name
-+        type: string
-+        checks:
-+          max-len: 256
-+  -
-+    name: seg6-local-cnt
-+    name-prefix: seg6-local-cnt-
-+    attributes:
-+      -
-+        name: pad
-+        type: pad
-+      -
-+        name: packets
-+        type: u64
-+      -
-+        name: bytes
-+        type: u64
-+      -
-+        name: errors
-+        type: u64
-+  -
-+    name: seg6-local-flv
-+    name-prefix: seg6-local-flv-
-+    attributes:
-+      -
-+        name: operation
-+        type: u32
-+        enum: seg6-local-flv-ops
-+        enum-as-flags: true
-+      -
-+        name: lcblock-bits
-+        type: u8
-+      -
-+        name: lcnode-fn-bits
-+        type: u8
- 
- operations:
-   enum-model: directional
-
--- 
-2.55.0
+Regards
+Bibo Mao
+> +
+>          s->pch_pic_base = addr;
+>          device = &s->device;
+>          /* init device by pch pic writing and reading ops */
+> 
+>>
+>> -       s->pch_pic_base = addr;
+>>          device = &s->device;
+>>          /* init device by pch pic writing and reading ops */
+>>          kvm_iodevice_init(device, &kvm_pch_pic_ops);
+>>          mutex_lock(&kvm->slots_lock);
+>> +       if (s->has_init) {
+>> +               ret = -EEXIST;
+>> +               goto out;
+>> +       }
+>>          /* register pch pic device */
+>>          ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
+>> +       if (!ret) {
+>> +               s->pch_pic_base = addr;
+>> +               s->has_init = true;
+>> +       }
+>> +out:
+>>          mutex_unlock(&kvm->slots_lock);
+>>
+>> -       return (ret < 0) ? -EFAULT : 0;
+>> +       return ret;
+>>   }
+>>
+>>   /* used by user space to get or set pch pic registers */
+>> --
+>> 2.43.0
+>>
 
