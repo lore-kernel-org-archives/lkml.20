@@ -1,25 +1,38 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937AD5187EB;
-	Wed, 30 Sep 2026 18:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB38A51C056;
+	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792611; cv=none; b=ntiFiy0nSvtawYX+icxHuo373lrWm6K9mkMMddD062uJx3uFuDhUR3T3AtCUt1WcIJtZMJ+K4t95tUrErE1qATRYvcrIh+oattEP3/QUHhphZXfG0rGK9S5jsoBdMrdTXkd6nKCdUsvWSWH70rUtrBbTjTua2Rm5sRg+YQ+GIzY=
+	t=1790792617; cv=none; b=YCgReuTEn8uejV27kLton9+jqwfbvs7jRXAQC/2YZKDyLo5YeILpVZmxrJuro2DjiONIb9OIY9tRPeIeHzyulXTZhZOSfeP1KXRfHPGcOsnHP6thThcznafcTERmef1hVzeoyUuqVxABrTCYHT7BFK1u/gPPWBYC7fiTjoATAYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792611; c=relaxed/simple;
-	bh=MAoTJpfR9sQ+sH6Mer8E0bQLsExiA9OmKfJdD4rVNUg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hhBPepeNLC1NVnADe64duemAIftzoIAqhhbSn24XF1VMFkEk+UIFJePWgzWghxR/Zu8sFyrju/vARdiwhUWRiSnp0u/OdJJM5pHQlTXKBlULVY1k5CGUIxUJOiHPYLmVp8w2bKVA1ilTO8Wc+sSTY2H7s/A6vMt1NEIhZszsAeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-01 (Coremail) with SMTP id qwCowAAHofR9U71q8y58CQ--.14027S2;
-	Thu, 01 Oct 2026 02:23:02 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v2 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
-Date: Thu, 01 Oct 2026 02:22:49 +0800
-Message-Id: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+	s=arc-20240116; t=1790792617; c=relaxed/simple;
+	bh=1KaWdWi/RkZIIfrkC3jMiQBwvEHXuNO0nSYjyJcie6Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nU52nK3PNmYRNiQZLDOwTKrvoxuabrs3WDqh8yLXk2jhXI0qfA0tmrndI67jGFedcEKLFx7R75XdqWtzZ4nagIkr+jG9lI3EvbzUy/DDB9qc5b6nY3uXRljRzIW91dOcB3f22tXfEnX6pFeh9kYhWiZ7mIMcOVkGAo6dZYDWdXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDR2sQ2B; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDR2sQ2B"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6878DC4AF14;
+	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790792617;
+	bh=1KaWdWi/RkZIIfrkC3jMiQBwvEHXuNO0nSYjyJcie6Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=SDR2sQ2BAXdIHUZxnlNL2+28+R6Wjgc3l2GxoveL5tNNnIysv2F/RmblJXu9qt5ZY
+	 5z+uTA76xi6BltMtnCSl6qkUA+cT9Geg7rKZbz4J0Y4kfwAxYlfjqlt8NClqsJ+oCK
+	 RE+oBxR4CizLfGIbuQQAmEJD5B0mtntp9ly6XOEDTXV+eYDDTd+T8o9Ur9rFqXtupi
+	 KCt0GkwQnKpmB2jiFigW+FkjE+OiWYTmmqlJp7nQyMY9mD5TaDzuBO3D6f3rL6qUhh
+	 e6e/lSkYV9EvnCJwuoMlPyrluJjGioX4MGIkKR+vm3aQTuNTypeQMz36tiVdSXFGDc
+	 c+mz8PZJE5Osw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B02ECA5FCF;
+	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
+From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
+Date: Wed, 30 Sep 2026 13:23:30 -0500
+Subject: [PATCH v12 02/11] scsi: ibmvfc: fix potential clobbering of rc
+ after failed irq setup
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,80 +41,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHlTvWoC/3WMQQ6CMBBFr0JmbUk7AWxdeQ/Dok4rzAZIxzQY0
- rtb2bt8P/+9AyQmjgK35oAUMwuvSwW8NECzX6aoOFQG1DhoZ67qxbuSCXW3y8Yq+IB2cGifhqA
- 6W4r1cPYeY+WZ5b2mz5nP5rf+K2WjtOrJ9cFTh87bOwt5aT21tMBYSvkCO/ZeBqwAAAA=
-X-Change-ID: 20260917-fix-sg204xspi-dad286928b1c
-To: Mark Brown <broonie@kernel.org>, Longbin Li <looong.bin@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
- Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Han Gao <rabenda.cn@gmail.com>, Hangfan Li <lihangfan@iscas.ac.cn>, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
- linux-riscv@lists.infradead.org, Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:qwCowAAHofR9U71q8y58CQ--.14027S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1xGF4DKFW3WrWkur17Wrg_yoW8WF4UpF
-	4xAanxtw1xGryfAaySqrW2gF93Gr95GF1UJr13Ww4rZwsFvry8WryIkr4IgF9rXr48J348
-	KrZxJFyrCrnFvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
-	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0pRHUDLUUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRQGDGq9GDh2-QAAsr
+Message-Id: <20260930-ibmvfc-fpin-support-v12-2-53a3fff7d77b@linux.ibm.com>
+References: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
+In-Reply-To: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Tyrel Datwyler <tyreld@linux.ibm.com>, 
+ Dave Marquardt <davemarq@linux.ibm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790792616; l=1351;
+ i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
+ bh=bbPsPyhWTG28FH0lecC51eTB+1kMWqBl+dMJDP40IGY=;
+ b=ZbY3zQ6w2RV95z8m039m1RE8eT5Df3x0jpk+eNaeZfXReGAIuhRwGt/FBRvkHDZxKKmqPVkew
+ RgSbKlb4e2mA145eZfqDK9U+d/OrbvInnm+DCXeyNxgpXuaTRkJwHSo
+X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
+ pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
+X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
+ auth_id=689
+X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
+Reply-To: davemarq@linux.ibm.com
 
-The SG204x SPI NOR driver ignores transfer errors and clock limits.
-Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
-SG2042 to match EDK2 and the vendor kernel, respectively.
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
 
-Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
-reads succeed, and two full 64 MiB reads per flash match.
+Fix a variable-shadowing bug in ibmvfc_register_channel() where the
+irq_failed cleanup loop reused rc for the H_FREE_SUB_CRQ hcall result,
+clobbering the error code returned to the caller.
 
-The SRD3-10 patch supersedes the earlier submission [1]. Please disregard
-that version, which used a 133 MHz flash clock limit.
+Introduce hcall_rc for the cleanup loop instead.
 
-[1] https://lore.kernel.org/all/20260902-sg2044-dts-v1-1-aa1fd1a4ec0d@iscas.ac.cn/
-
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
 ---
-Changes in v2:
-- Advertise the controller maximum speed and use the fastest divider when
-  the optional maximum speed is omitted (Mark Brown).
-- Rebase onto Linux v7.3-rc5.
-- Link to v1: https://lore.kernel.org/r/20260917-fix-sg204xspi-v1-0-5c95dac429a8@iscas.ac.cn
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
----
-Han Gao (3):
-      spi: sg2044-nor: Return transfer errors
-      spi: sg2044-nor: Honor SPI clock limits
-      riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+index 1cd0f80cc9df..e847e0e5f0c2 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
++++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+@@ -6391,6 +6391,7 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+ 	struct vio_dev *vdev = to_vio_dev(dev);
+ 	struct ibmvfc_queue *scrq = &channels->scrqs[index];
+ 	int rc = -ENOMEM;
++	int hcall_rc;
+ 
+ 	ENTER;
+ 
+@@ -6446,8 +6447,8 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+ 
+ irq_failed:
+ 	do {
+-		rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address, scrq->cookie);
+-	} while (rc == H_BUSY || H_IS_LONG_BUSY(rc));
++		hcall_rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address, scrq->cookie);
++	} while (hcall_rc == H_BUSY || H_IS_LONG_BUSY(hcall_rc));
+ reg_failed:
+ 	LEAVE;
+ 	return rc;
 
-Hangfan Li (1):
-      riscv: dts: sophgo: Enable SPI NOR on SRD3-10
-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v1.dts       |  4 +-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v2.dts       |  2 +-
- .../riscv/boot/dts/sophgo/sg2042-milkv-pioneer.dts |  4 +-
- .../boot/dts/sophgo/sg2044-sophgo-srd3-10.dts      | 24 ++++++++++
- drivers/spi/spi-sg2044-nor.c                       | 56 ++++++++++++++++++----
- 5 files changed, 77 insertions(+), 13 deletions(-)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260917-fix-sg204xspi-dad286928b1c
-
-Best regards,
 -- 
-Han Gao <gaohan@iscas.ac.cn>
+2.55.0
+
 
