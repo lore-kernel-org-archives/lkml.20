@@ -1,159 +1,161 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010008.outbound.protection.outlook.com [52.101.201.8])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6AC5304AC;
-	Wed, 30 Sep 2026 17:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789930; cv=fail; b=DNla4rrzVU4MIjpJ5rcNTuHnNxbBx1aQFnaVkMe74655Rw0mgzB63VZqXumrav+jmJssgmmm1P+FY7nloY+YGQjkg6CH+lbmoizo7qDseUCa/io47t2T8VwBOJPh0/a17MuF3AJ2j6xObtilaULYOurGbkyVGsfQdDxZkmmnK6g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789930; c=relaxed/simple;
-	bh=h7Tu8nMFBQf73Y4+KsEX0hz5W2oDw0fACJYr4cPYT1Q=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WdABxUY7C8Hxu7wxUWaRKp3mo1CeyGAvYQSL/vdLFHOleSzeQYoGcY8bzsHizwV1775CqSq33GBU/RXmKaVNxfpwi+I1x091sh2QomRal7OkgaFGFwjX2A6TOGwU8B1r4Kypr8rW31VAiS0MNHB4WhQ0W7T7FGjZMCswbUMRBe4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TAR5Uhxt; arc=fail smtp.client-ip=52.101.201.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3C657F733;
+	Wed, 30 Sep 2026 17:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790789934; cv=none; b=mh/1JJQxk3cIfwnO6C6zg+nbIeCOAqi00XKB9MYqRMSb+dd26yN/KSrHp1dGEBUnkTjaj9atPFcQcgEUXEIbrgaHypAwlq0S7hGtUqt6Dq/nIrnFWHR1mfRKkm/vZMLXT93VqgeWEA33R95v8Te8kBzzC8KGKHsopkRlSHM1OqQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790789934; c=relaxed/simple;
+	bh=lkuepaZa13J5l4gWNouNE5EwAE/GWbHv2BVXt5TcBms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ClGed3gtGzVK8g6u11+k01Gu50aS3PqWQvG87DAyLJBsEgupuOHjAcUdOEp59bmhf11kcltoKAylpFjRwT0/hUwrIMbs5MxeZT/A8Llys1mnXopuddNvds9NIF6jkDDs27FWP8Ms/Vnn8hzdAS9w2m40txCE9Vg6by6QwXXvObo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ox5+1+kq; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TAR5Uhxt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bj0X6GtB5KBHKC+LisSy2VM1F8FC1c6mYXamOS5Rqom3Lns3X4QmRZIS1Y82hwKY8wcCNtyhDUKavANM3jexbDE2EYRukjgdmG/YyyqYP2KtfdkXk9im3AWntdoJ0uKZEGOOITX6Dz+f21ILgQbi/ApnFaSaFJHeaChvDZpiy+4VTSRa1xHqAcoWFdt5WCJcYckjF/Zz1ygfJ7aob74zXrkrIHF01CKGhDyj7iSARDLaKrY1OPYFocK4IkHnQz1p9BQ38QYS3nn9ztV+rcFDdt7XW5YdpaJ7zXsJfW0AvJ6xIHZMfcvS+28aQ/Hf1Wg5fCp1UTuzDmnQXOyK0+wJlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9sAUz0R93eUErSdqv6MbEMBCGP4gTsHn0nHdpiLmUNI=;
- b=xtE1nFn+xKCV8U+IE2L1BQeCCv5hIbdF8pHF1NKnEEI6AyRF19boru3WGmwJBPOCoNa4TY8XErfycO2KdWXnY/AymhNgvRXPmEAzIg22Pg+mpnd1DdnHS0EO8arVBYV71V1wy7/IQ5R3NOjnSEVQKRMecWBV3fBhFhW0QyucbTsTNiVGIR/2crVy0SkvWkILKSIIdmcJTvlBzyWnBIqIPaZEQjKkNM0Dkgx9t+lCzzOEpfDlxyELOKbXVv73ROmWFU0aY+Tl446RU6c39LnPbwyptBIClr7Dqnu2lE51/Ilgx0V5TVCIp/iUX2NM87q55pgYsR2D5EMmbPPxWgLqIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=collabora.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9sAUz0R93eUErSdqv6MbEMBCGP4gTsHn0nHdpiLmUNI=;
- b=TAR5Uhxtcb0G+JYyaiSb3FIlKEsnODnFbkZaLaSzORgZwm+o2Bt3r6C4OsqdoAlAZB+X3lOx9so6kSLHFZnVQv0Jxqa7ZlRgEwqsrSgRAuNtV3NMhc/cttjy4awVFIQ2vqQj/1cA0eh6iu7GWC81glliSx2a1YrMtXviU48tuPLaxyJX2HLzRe+rj4pFppUIEdZVeiayPoX+/le0gMDyKwV2oIagbaqD2Z7jG0AQie6+PuWsoO6GQd+SlIqF+0VeJp1LC6jI3vDx4CG942qLBONltdIjG4fwxaoa53MANTqQJiclTjDoh4TfCVOoVRBoIzJ/kbINbmYzUCPMYUlIIg==
-Received: from DS7P222CA0028.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::21) by
- DS2PR12MB9589.namprd12.prod.outlook.com (2603:10b6:8:279::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.16; Wed, 30 Sep 2026 17:38:39 +0000
-Received: from CH3PEPF00000017.namprd21.prod.outlook.com
- (2603:10b6:8:2e:cafe::18) by DS7P222CA0028.outlook.office365.com
- (2603:10b6:8:2e::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 17:38:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH3PEPF00000017.mail.protection.outlook.com (10.167.244.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 17:38:33 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 10:38:08 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 10:38:07 -0700
-Received: from inno-dell (10.127.8.11) by mail.nvidia.com (10.129.68.9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 10:38:01 -0700
-Date: Wed, 30 Sep 2026 20:37:58 +0300
-From: Zhi Wang <zhiw@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-CC: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <dakr@kernel.org>, <aliceryhl@google.com>,
-	<bhelgaas@google.com>, <kwilczynski@kernel.org>, <ojeda@kernel.org>,
-	<boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
-	<markus.probst@posteo.de>, <cjia@nvidia.com>, <smitra@nvidia.com>,
-	<ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
-	<targupta@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
-	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, <joelagnelf@nvidia.com>,
-	<daniel.almeida@collabora.com>, <tamird@kernel.org>, <work@onurozkan.dev>
-Subject: Re: [PATCH v9 1/1] rust: pci: add extended capability and SR-IOV
- support
-Message-ID: <20260930203758.4d8f1b95@inno-dell>
-In-Reply-To: <DL7UAU8JQMJP.JBZ591QQ7LPH@nvidia.com>
-References: <cover.1787830828.git.zhiw@nvidia.com>
-	<2e9d992509299c2f13de48109c4c933f53817acb.1787830828.git.zhiw@nvidia.com>
-	<DL7UAU8JQMJP.JBZ591QQ7LPH@nvidia.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ox5+1+kq"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5Tqv1932767;
+	Wed, 30 Sep 2026 17:38:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=2Y2Ubg
+	dV+77CAyq+MVK/R24FHgPjixP/AxA2RLOoCjo=; b=Ox5+1+kqc0RV3qK8jFZ+o3
+	eO0nk4pb6m8tg2SHN4uaWn6d7BEmJpuh+1lBOep5BNRtQwUtdWBB8Lqpt0ysUN1k
+	ZIRDDCAG7Xh2hgZXrso/HzicqsaEWAp4Sqbt51QDFAJaL/v0Z2h7OBH8da2bZ+7x
+	HLa4GnNepb2wXwvNQ9UzGVmvGiFAMAwG64auMgO/2PIhfXS8ui2SqkHzXuysPebd
+	GwkQNYXyjK8kYJ+pCoxVkA/8u5HVKr6jKFOx12fI8vwTXX8bonIE0uILHZJi5a1w
+	b4aAqxE6VkGu16OpaJbQyJT3k61EbZHTPJ32u2NjQAKXP2XFAl0P/bQaYnG9FFYA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fednk0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:38:34 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE34No3576908;
+	Wed, 30 Sep 2026 17:38:33 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0j23mtyg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:38:33 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHcUow29032894
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 17:38:30 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E934420040;
+	Wed, 30 Sep 2026 17:38:29 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D42782004E;
+	Wed, 30 Sep 2026 17:38:25 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.22.150])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 30 Sep 2026 17:38:25 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+Subject: [PATCH v2 3/3] KVM: PPC: Fix get_d_signext() 12-bit displacement for paired-single D-form
+Date: Wed, 30 Sep 2026 23:07:50 +0530
+Message-ID: <20260930173750.56759-4-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+References: <20260930173750.56759-1-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000017:EE_|DS2PR12MB9589:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52dd15bf-6e5d-4c29-254e-08df1f19a6b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|23010399003|1800799024|10067099003|11063799006|56012099006|4143699003|6133799003|13003099007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	HVMnHf+Z72D845CDOnpBixsBMUxv6HX7hTU/nXFEWIemTkfxxB1SKmaIEGdc6WtseTe8VEpQWORic2/YbIsOm4SzkQcc8v1F06dGUs996bmWOXG28XFxg/QdgTKh75uwku0Agu3yHqKtncj25Drq/MAvYPzkQ+H0cSI6x5/yKiMW7l9rvIYsnmoOqL28fEjJExt/rnQKwmvhNQGl4nzsOH9f/QEK6K7DZ1ZfhchmvkgpTAXsJ/N9VypshHlITbLYMRXLyf5EjrLnKioAFqrZXwbuIgrf+KzLtQN1HKRpJ+y4/yW/Z7h2D7abGe0JqYwmH9Rq+DjwDZ1rV01uwKolleTh6/jJ5tuW+qD5ZVLa+lztTZqLtKMyInZKIDZ24CcO+FNuHLLO+rDQ/W39POc9yviKoX9J1Xei0tUTzW7q3NSTqdk7s8cdoAXjnIrzkXWwvpFdEYUAul/cp+yJrTamt0Cnh1aKjliSgjLtGrBm7VS/LAfcigkX3mgSWivJRLTTdzyLzWjvKvTbFr2wsUViwIJ2DSfORuN7C8bjvd48u3ZOUHPtt5bEhwKfjO2pcVRMeUpJjXavwWvxN0QXNnYoJVZI6ln5wNAyut+OCCyY3ZCJ+1JOKijNapQp/B/sK8BQ0BVD51SC8dC65Gk3Z2JgON/yhlQBKpmyzvNHpfK2z6+3r3DhphM3BEm1XXNqPlrSoqQUCxqRlpJKb0X/N5uDVw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(4143699003)(6133799003)(13003099007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RbSYGvrYkpTXSKrzqsDdoyKG6XDVyWkrmyUfsk9XDVliX/ib4X+qcuMlWf+t3GxAaeM8LG0DuwUCPf577T41iwOP88wtSb+2ApfhsMxsWdpBt6/PCkZBOGzD1sKwZrNVk2Q0KQ38IgAbYTYD1qPBtNMKxyHyKefDe7rrf59sY7FaMfGy5rEKRP/AzORu9t+2WyccI1lwlbmCBio0Jl76psdLwLJ9xE6sla9aO829IzkNKXlOn0MZoJdL8VIzaOSjNyPwrYYMoQuixKQMDgV2yAWdPrw937nV+VCoR4dZd/eU0Pel/DmhxHPnj+tUnK17vrUhmy2M96M3ljqhnUVmxvtheNnzKZNvfQQD2gu2Tjer+yzJMwM3RYlx2dFNoI223OOD91ofS5FvjK4tZqwbcxeadeOUXz8hpXtc929mQuwvGAkf9Dr2CY2RML1RxDGO
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 17:38:33.9856
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52dd15bf-6e5d-4c29-254e-08df1f19a6b5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000017.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9589
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abd491a cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=WFAfMJoNLMmZCboqhGUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfX8H9cJz8GU1d4
+ qiJ0vXR3rC0E43xFykm+ibysWJLDiu+2hiDEpbZWnLoygUzJCnf1dgEnNPjyI5HsmYsXW0IS/GI
+ Q3mcZbhZRXbwriAeNBRp99EE4JSOaOQ=
+X-Proofpoint-ORIG-GUID: 18QNavaaiQSB-U-plhb_z8wwmuhRS_ZU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfX35aPteMlp+Yb
+ Fr8nM6NYTCTLXfxB5Zmx6okE6b/md4HWFi76c3niTYgY52Foa2oS/GQkcsvYtnG711pq6/avZ+x
+ WKtTqHBWf1LRreD15vVh4bqYWv61wPTOF0fQ+iJ+MJm5fLScCzXJzwg0F0OLQQjv7cwZG+dGtWX
+ vTRwe3yKKRG9M0hDl8H9gNee8rj4g56WW4lspsGXesNZWc7aWVHCk4r0Yw2QDDRy51p2I2QY0/s
+ x7NwyhPcvTPeUw5vdQfleNWvYR7xfOPpYOTVLzUZARM0tO/o4wqozYDLucVjilHqqQZ8qLTYgTB
+ UFkw44AJH6a4mZNzxHGrdm0Mj1k58PJvSZG3Qd5klvO2DBp6W+cjXMfXlBDQ/A/TyXg0tY0i3xX
+ 9hW5o8xxqBilLaBKj+Xa61bX6VGQFXivW69xSaKMp0Ggz/3HAx9d1N9Zbr4sy9a7s5kTYC4cCgP
+ N+Gp0QPdM3qtOMA3O3w==
+X-Proofpoint-GUID: wp34fFiTUNpvu3nLQcyNGzVLNcl--0pk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300070
 
-On Sun, 06 Sep 2026 10:24:39 +0900
-"Alexandre Courbot" <acourbot@nvidia.com> wrote:
+get_d_signext() has two compounding bugs since its introduction in 2010:
 
-Gentle ping for the next step. :)
+1. The extraction mask 0x8FF silently drops bits 8-10 of the 12-bit D
+   field (PPC ISA bits 21-23), corrupting any displacement that has any
+   of those bits set.
 
-> On Thu Aug 27, 2026 at 9:18 PM JST, Zhi Wang wrote:
-> > Rust PCI drivers have no typed interface for locating and accessing
-> > PCIe extended capabilities.
-> >
-> > The SR-IOV extended capability describes VF topology and VF BARs.
-> > Expose this information through the Rust PCI abstraction so drivers
-> > can use the existing typed configuration-space accessors instead of
-> > raw bindings.
-> >
-> > Define ExtCapability to associate a capability ID with a register
-> > layout, and add ConfigSpace::find_ext_capability() to locate and
-> > project that layout. Bound the view at the next capability or the
-> > end of extended configuration space. Add ExtSriovRegs and a decoded
-> > VF BAR iterator that reads and validates all six VF BAR register
-> > slots up front, yields decoded BAR addresses and widths in logical
-> > order, and keeps the raw configuration-space slot advancement
-> > internal. Since PCI_EXT_CAP_NEXT() is a function-like macro, expose
-> > it through a Rust helper.
-> >
-> > Keep raw SR-IOV registers private because PCI core owns their
-> > state. Expose the current First VF Offset through a read-only
-> > accessor because the Nova GSP ABI needs the raw 16-bit First VF
-> > Offset in Routing ID space. The pci_iov_virtfn_devfn() helper
-> > instead returns the low eight bits of a calculated VF Routing ID.
-> >
-> > Link:
-> > https://lore.kernel.org/rust-for-linux/20260818084633.1673214-2-zhiw@nvidia.com/
-> > Cc: Alexandre Courbot <acourbot@nvidia.com> Cc: Gary Guo
-> > <gary@garyguo.net> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-> 
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+2. The sign-magnitude idiom "-(d & 0x7ff)" is wrong for two's-complement:
+   for D=0xFFC (encoding of -4) it returns -252 instead of -4.
+
+Together these errors produce a wrong effective address for psq_l, psq_lu,
+psq_st, and psq_stu whenever the displacement is negative or is a positive
+value >= 0x100 with bits 8-10 set — essentially any real-world paired-
+single stack-relative access.
+
+The D field occupies the bottom 12 bits of the instruction word (confirmed
+by the adjacent W and I extractions via inst_get_field(inst,16,16) and
+inst_get_field(inst,17,19)). Replace the open-coded logic with the standard
+sign_extend32(inst & 0xfff, 11), which correctly performs two's-complement
+sign extension from 12 bits to 32 bits.
+
+Fixes: 831317b605e7 ("KVM: PPC: Implement Paired Single emulation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+---
+ arch/powerpc/kvm/book3s_paired_singles.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/arch/powerpc/kvm/book3s_paired_singles.c b/arch/powerpc/kvm/book3s_paired_singles.c
+index bc39c76c9d9f..532f96293de0 100644
+--- a/arch/powerpc/kvm/book3s_paired_singles.c
++++ b/arch/powerpc/kvm/book3s_paired_singles.c
+@@ -479,12 +479,7 @@ static bool kvmppc_inst_is_paired_single(struct kvm_vcpu *vcpu, u32 inst)
+ 
+ static int get_d_signext(u32 inst)
+ {
+-	int d = inst & 0x8ff;
+-
+-	if (d & 0x800)
+-		return -(d & 0x7ff);
+-
+-	return (d & 0x7ff);
++	return sign_extend32(inst & 0xfff, 11);
+ }
+ 
+ static int kvmppc_ps_three_in(struct kvm_vcpu *vcpu, bool rc,
+-- 
+2.54.0 (Apple Git-157)
 
