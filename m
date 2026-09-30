@@ -1,107 +1,96 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097133749EB;
-	Wed, 30 Sep 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53584F3924;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788600; cv=none; b=Pr3Cnk30TYt0htQduTZxokvZBLzEzkqLCjT9otPHQmIN25N+tAjxGKOFgIrPTdfKhcd2znn7rjIsvplW1MX7p4MFj7/guoY8PH86ayev/70c0PNynbBbAYTE50PYJfpNjqHMpRcEPmFNJMLLdEiVmsz9USsDuV+U1whnAjfeRHw=
+	t=1790788731; cv=none; b=mwYo159VgESkCTAawgFiwC5/k2exhbB0uB6IF+xWbTsAZZmAmPK8N9dzWDuvORl+k6QfWNXuAxZnWSp7+Z/2RvFAZ4gcavOoO9Cg3Q8n0x9wyzfs4fysZuEo4zhmu8tFrIM3uogmRVtCZYV4wtfyLr02K1VjMRzsQ/W/E4MMIjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788600; c=relaxed/simple;
-	bh=JLo+iv+3ZbYstDiMfseiwntsoZxaR3qczTVkIStRu0g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qFiRkgPmXWAG+VUp56bQ1/JahbFefF2O4UTNkf2V0ReaA45wuTrEkqqx6X3T/SCX0HLQS/MGBtjh4lp9iexIcZ/V74nccTVo+h2S8NLsmFxqqeGMfcuz9z9EhaRJ6CqIVEQBq4rJx/4TuZy/2e6IHfBdg8ILT4h4UbHPyPo5JXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ULb93avJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o56QJTV+; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790788731; c=relaxed/simple;
+	bh=vhr3jJVJbkkdrVQjQBqkGhncAIMgy0DHJwn54om0vj4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Jx1ZGhe3qv3g67MiHkj/tkT2lawLSwaoQTrfqkGJChEt3PC0Syf/R8BP50bNXWEbCcLqX5W3quDzk8LOVri+YDMAWVkcyARSuIWc4uf5XXHZ+nlD5RjkayjGOkOhJUfKaoPkzu2vV2+bBQMbK7LMjYNr6DwWfnKH/Hguti8/dek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TvFo9BNj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ULb93avJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o56QJTV+"
-Message-ID: <155175624ec0e08a24bf6d5aa131ddd3b67cf005.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790788596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PLWBx49x24eJ/WBj9sS9rnyLnt8D+1BPBBblQQe6xKg=;
-	b=ULb93avJkBkdu/pUbJCPv9ExTHhDfOBurnZrAq0qFRP5OWTkBFqsYLioXT2E7O+a6Zr/nP
-	vtgANrrcJRS92a6mX+ruXCBE0P9fpIiN/bw4gatU4mNLXb7ZNQdR1YTA84RQYJXPFbBkMp
-	DEoUkvGD7PXKQQL0TwJ80wnoJVbp8rlumKjLdroX7lPgoqhgXhXTrXbvdJZdJWli1vfYyZ
-	X0VRChBHTT/OnlXNjPglZxU0+OlESlKUK1q2xLnyH6un6fd/VW1/s2i3CPJiAa8olCNM3f
-	jNSAu0tqXWmuPEh6Vgh9dKlesx7rWGrWh8vIo6+SSPw/CIkWbDjs+kuC5gNIHA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790788596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PLWBx49x24eJ/WBj9sS9rnyLnt8D+1BPBBblQQe6xKg=;
-	b=o56QJTV+irplu6ofyocVA0xCZSpgUYdJoaZpRNzdSJ0MRtffPPRHUNuYcWzCew0BwkDzAZ
-	DzDbHIgI+43r8ZDw==
-Subject: Re: [PATCH net-next v3 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 19:16:35 +0200
-In-Reply-To: <88bd3f83-ce29-4424-b536-e2ab05b8b822@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
-	 <88bd3f83-ce29-4424-b536-e2ab05b8b822@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TvFo9BNj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59912C2BCB9;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790788731;
+	bh=vhr3jJVJbkkdrVQjQBqkGhncAIMgy0DHJwn54om0vj4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TvFo9BNjxijWWSfrorvijo5PuUVxLXsUzTKv7vswL9UEenlqHQCMd+0483IZ9LPY6
+	 KjwLRsiA4q7kNn8hio22XykA7tiEU7454DYZJHKRZZzC0d2w9o/iDyEfNpIW4+wqLi
+	 8m9CpN+jhrtnxgTrLr+lY1Ijw8Ue9eC2t02oq/5WiFkK88cN7/LSijTGuiplCQimG3
+	 J5gBqltt7W6dNxvmCfI+2Vbrl38djgSCsNTJYxqpTdSXoKzyXeObJRAZq/FhGcpkmj
+	 2a8hNZgWdDCPRK2gW0JY5GVoCkAqJpvB7CQEY9YtLstP8J9TiNqB84ChDziVO6SROZ
+	 FAafohyUzen5g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 398B9CA5FCB;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
+Date: Wed, 30 Sep 2026 19:18:50 +0200
+Subject: [PATCH v2 1/2] dt-bindings: input: awinic,aw86927: Add Awinic
+ AW8697
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-mainlining-v2-1-40bb1b3943db@proton.me>
+References: <20260930-mainlining-v2-0-40bb1b3943db@proton.me>
+In-Reply-To: <20260930-mainlining-v2-0-40bb1b3943db@proton.me>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Armandas Kvietkus <armandas.kvietkus@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790788729; l=910;
+ i=armandas.kvietkus@proton.me; h=from:subject:message-id;
+ bh=vjgADZjYsmMEWYX2/CD2xEyWknfDHe2frU9LLl603ik=;
+ b=B+IueZ060LvOlZjs57/4FZIWA3lb84vz2tVlKuYnA7Jfxf7ixoRZVn8evYNFvKSW5JySBHaI1
+ 0LNbLmIPN2lB6TsuYJ3QsJiEiYPmmFFllWS2gmpJqaVHtdgPoSO4HTk
+X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
+ pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
+X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
+ with auth_id=974
+X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Reply-To: armandas.kvietkus@proton.me
 
-On Sat, 2026-09-26 at 01:05 +0200, Andrew Lunn wrote:
-> > +  mdio@204:
-> > +    $ref: /schemas/net/soce,swip-mdio.yaml#
-> > +    unevaluatedProperties: false
-> > +    description:
-> > +      Integrated MDIO controller bus on the master side of the mux.
-> > +
-> > +  mdio-mux@202:
-> > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
-> > +    unevaluatedProperties: false
->=20
-> > +        mdio_parent: mdio@204 {
-> > +            compatible =3D "soce,swip-mdio-23-02";
-> > +            reg =3D <0x204 0xc>, <0x200 0x4>;
-> > +            reg-names =3D "data", "control";
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +        };
-> > +
-> > +        mdio-mux@202 {
-> > +            compatible =3D "mdio-mux-mmioreg", "mdio-mux";
-> > +            reg =3D <0x202 0x2>;
->=20
-> So these two overlap? That is pretty unusual, so might be worth a comment=
- somewhere.
+From: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-No, they don't. I accidentally included the entire register in the
-documentation. However, this register can be split, since only 2 bytes
-are used.
-I will fix this in both bindings and their examples:
-"reg =3D <0x204 0xc>, <0x200 0x2>;"
+The AW8697 uses the same bus, interrupt and reset lines as the AW86927.
+The register map is different, so there is no fallback compatible.
 
->=20
-> 	Andrew
+Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
+---
+ Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Thanks,
-Vasilij
+diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+index bd74b81488f6..f0e26664e3e4 100644
+--- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
++++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+@@ -12,7 +12,9 @@ maintainers:
+ properties:
+   compatible:
+     oneOf:
+-      - const: awinic,aw86927
++      - enum:
++          - awinic,aw8697
++          - awinic,aw86927
+       - items:
+           - enum:
+               - awinic,aw86938
+
+-- 
+2.55.0
+
+
