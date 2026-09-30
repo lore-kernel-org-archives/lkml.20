@@ -1,230 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F664C10E8;
-	Wed, 30 Sep 2026 11:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666C32F4A05
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768478; cv=none; b=r4OYCWRVZUnAqgrNeYtqPVc1WApWj0BvO+fxrAVyupuRyZWsSuHRb3wtXFOqpmDNmnEPg1nBoxvvaLA9q3td3RFyVPBvTBLZkDCrF5AAIh0dpB28DKzjj9H9l8ksZ/EjS3Nb2sQMSsMaKKxnKfZVovNAG9doKOm1NlKoEjZ+Txo=
+	t=1790768586; cv=none; b=XThKaqGEibP54dRGMiHbT/Zg7jSMelMj1fQwVIT7pc47qlZOwawqURGhC2YQm0QiZJWWKt5pVeWQuviwH9rbJqv31XmsIP0ZxmWll7hNNMO9vMyWsXsgLg/N7ZA0022yP/hDVVuchDL4FBKhmeetCTSHQe8a4rOo5zMJgcGDfWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768478; c=relaxed/simple;
-	bh=Nlz55rTBV2dgmdxjmq9Vpo7FPAe5npKBFpmkENWEaD8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HYhq7MhhIr4GjrR1CF/uzhnzSiqq1oYB6pnQZU7CRWt9zkr1Xw3J3bRI5SihywJu7NeK5h0j+EXcCjJLtdNkSr846qotx+6EYBhc+DhWPXFoCgLiDeik4YdhQfWinS1R71VhugxrdD5O9NGBB2pTV4DxobGdl4qjthJ7lvi3dik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkJCUKXq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790768586; c=relaxed/simple;
+	bh=9657krFh9AC6SPymVYaEyQddFx1gc9h9zcaZMHJ79nk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lkNShtSgyyzxal9IROOKT6vZ2+nLQKsHM7WVGLvU6pJYmITEFobx4pzJHJdNmvhKmD77cb9ka9b6oQMDxXwyJBnoJN+SH9cDPqS0pHo6KHUEXFXx5tdMdGcXaAe2ETL8jW26DQovNV32Kzecu75B27v4inehhFXJvQ5YDq+sgCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMOH2XOd; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkJCUKXq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B9D1F000FF;
-	Wed, 30 Sep 2026 11:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790768474;
-	bh=0uhaapHh1fQl5mGq6fUQF0C1kT9MNPfYwDQo75yZQyo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NkJCUKXq/aO1S6/xTKpuIdo9dBO93tuXErXptUkEc+qiDt09wkTKPbGX0bSLT8wsu
-	 kQTDAFRh53cfcRYpGgL3CsY9zrgSKpmcc+nKt7Eo5+5tJ/VFWfBMbj5h9VCBG1wBDy
-	 1uWSkLkycTrHPx6cuax16vYym4kRSmn/RCk8fSSPO1B2kTnVBcbfB0v2N1oUr1aSOt
-	 bCOPcTddnG+93WZtvpK0fjR7AUvIm2XviZ0ypVMPPy2CRbt0ZFKyN1fLPytuWhmHdD
-	 mcfvwiT+u+3QPb+ylJcPxOYCjgFv+idSPvV5b63Py++Nbe53LRf2JGAQ8vwidcCNad
-	 6zOKlM5q/FKsA==
-Date: Wed, 30 Sep 2026 13:41:12 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <arz1BYJT30VTosYj@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
- <arzMF0wjcF_SVxpE@orome>
- <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
- <arzlR8mCg9d_z62L@orome>
- <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
- <arzpluDc-Ib7q-K7@orome>
- <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMOH2XOd"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4742315c88.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:43:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790768584; x=1791373384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8c0BJ0D8z5gH8AMDVEzCJUaQjDllcdyPshnOBMw13dA=;
+        b=YMOH2XOdswHRKr1WX6TF5hQ4soj9oywWTRT2fG3N8hzvYhUM3iH5nWuVK5IMHqkQyf
+         FPoK2JZCY02zFo6mmyOjbeBSAVkBjXNX+hR/hoN2/SuKSx8Tb82KV0yazOYoXQryidWP
+         GxkwbiP+72pBwT3c+xF8Rgzup3YQyozsDeyllnPg4okrx3NZ4bp8To5MbmUEJwNpKNNx
+         5OIzepUd4FQa/Tuex0xwd0nvaiHOQEFui96A4HY1L2PVTYNW8sN+acsOoLOsiY/ik78j
+         CJJw/pRGIQJdztpuTxNthW62DU+3rcVDE+GKAAutZMklJGFaXsuRGDE8ZIBAeL739tVP
+         al5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790768584; x=1791373384;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8c0BJ0D8z5gH8AMDVEzCJUaQjDllcdyPshnOBMw13dA=;
+        b=sW2EUmfTGkAO6wTTbxG2F6P+VC3hkhAMzirKzkpyqXuxwzej5niMAR5wGFd0GuGsUm
+         QYqboVKBgM/B4Q3vKuCHzGuet/GAz5W48UnUYTl7ssk1YEnbf8AuQmNGZnYVWxegyB0X
+         6pJD7qXwC2JjrEidNU43/25iCTuuikPEw8YxKlL7DZGfY819OeHB4RE6tu+eae0ITqd4
+         bZBDnsX9OGrhthFaO+0f10WOFQ61gmvx4dD+r94b5EWSXgr6pSC1YbCkbCUyEsmKmH6J
+         zWLzSwSJyIqiGaOkub2jl2lSMwDqwq/XGcddIZA64vx+lmo6pI9MNkJt9eOgVQI2jwZB
+         OoXg==
+X-Forwarded-Encrypted: i=1; AKwUvByDsmBbnhhMYoa97H14hOvU2mS+7uRjx2ovrziph5e2Ura9INhyx3ZcWNPr5s//Y/HvgocHEGjTAuvIHCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHQJH8veKwwwzNLz1sJbtSYwvtkdHEZId0UH6FfmtaAgGJ38CM
+	wC2s2IYputm8KD9HL6+hJx/+zYnBX0Dj3yD4iildziQaEDmqQR248+Se
+X-Gm-Gg: AYBFou1BdP2Pj6nObfRjFPzlPI0eYUA+Q4fHScXXoL4OmEba3xj/BM2xw619pcG+M9H
+	MvqwJ2fA+hahlfIUY3vXJMvIVu9cM91hTGATSEVhoExPaynx947LID9t9GgroOhUPujvb6koFzm
+	2AdVb4kGZ/Ib6FP0rg2CqIGd+LWUByANA3O5NP79aYoiFu83vOniSAZGqp7ARTH53ImIFw7ShtA
+	R7mgsUwyUC/b68y9sQE987CiPkBJzlAiA1b+/9t3/JwbX8gzcImi+7BLLx9f62tq/S+xDiL+Ys5
+	79ifi7RlxTLUqJa6AHXcUrKaPCa5NMWluUhdkQ/FF/aHpVFCbEyFb7CEwFg7pNKNAYGJa67O5gv
+	Ixv6LTnABrAVgyz4NuYeyJkUg6p2AKXwDLRcGO1U1uSLpW0vKbJmt+8PBGQlPPcoQdR2bRP3XQh
+	+5VjcMl/EDxJiBJQx77wgbecETIN8AkgZAzWbVoglga39iP3De85skt151DdguZ2xDV09wPZKKW
+	QbGeafsi1ZdzzbldUc3
+X-Received: by 2002:a05:7022:ed02:b0:143:2701:9198 with SMTP id a92af1059eb24-14d33491b4amr1010932c88.36.1790768583379;
+        Wed, 30 Sep 2026 04:43:03 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.97])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d083fe71dsm4363940c88.4.2026.09.30.04.42.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 04:43:02 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: Ryder Lee <ryder.lee@mediatek.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C3=85=E2=80=9Eski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v3] PCI: mediatek: Fix integer truncation and handle oversized resources
+Date: Wed, 30 Sep 2026 11:42:18 +0000
+Message-ID: <20260930114218.2655-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r2niuoni5te5qsug"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
+resource_size() returns a resource_size_t, which is 64-bit on 64-bit
+architectures or 32-bit systems with LPAE/PAE enabled. Passing this
+directly to fls(), which accepts an unsigned int, implicitly
+truncates the upper 32 bits.
 
---r2niuoni5te5qsug
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If a
+resource size exceeds 2 GiB (order > 31), the log2 size order
+overflows the 5-bit mask. Clamping the value silently truncates the
+hardware window while leaving the OS resource intact, causing bus
+errors when accessing BARs in the unmapped upper region.
 
-On Wed, Sep 30, 2026 at 02:10:15PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
-> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:3=
-4 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
-> > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE =
-11:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > > >
-> > > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrot=
-e:
-> > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provide=
-d by
-> > > > > > > Tegra20/30 SoCs display controller.
-> > > > > > >
-> > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > ---
-> > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++=
-++++++++++
-> > > > > > >  1 file changed, 138 insertions(+)
-> > > > > > >  create mode 100644 Documentation/devicetree/bindings/display=
-/tegra/nvidia,tegra-8bit-cpu.yaml
-> > > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/=
-nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegr=
-a/nvidia,tegra-8bit-cpu.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 0000000000000..f0dab608b2936
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,=
-tegra-8bit-cpu.yaml
-> > > > > > > @@ -0,0 +1,138 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegr=
-a-8bit-cpu.yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > +
-> > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > +
-> > > > > > > +description: The display controller in Tegra20/30 SoCs featu=
-res an
-> > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Ty=
-pe B
-> > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display c=
-ontroller
-> > > > > > > +  provides two such interfaces, which can be used to send MI=
-PI DCS
-> > > > > > > +  commands to initialize and control the panel while image d=
-ata is
-> > > > > > > +  transmitted via 16/18/24-line RGB.
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: nvidia,tegra-8bit-cpu
-> > > > > >
-> > > > > > The description says that this is a feature of the display cont=
-roller,
-> > > > > > so adding a new binding and compatible string for this is not t=
-he right
-> > > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" alrea=
-dy, just
-> > > > > > need to extend that with whatever is new.
-> > > > > >
-> > > > >
-> > > > > How would you model it? I have tried to model 8bit-cpu as a bridg=
-e, similar
-> > > > > to how DSI bridges are modeled. This reflects interface used to l=
-ink RGB and
-> > > > > panel, without inflating existing DC binding. If you have any ide=
-as in modelling
-> > > > > this, I am open to any suggestions.
-> > > >
-> > > > My suggestion is to integrate this into the existing "rgb" node, or=
-, if
-> > >
-> > > Not an option since it is not clean RGB and there will be no way to
-> > > distinguish RGB from 8bit-CPU.
-> > >
-> > > > that becomes too convoluted, a separate "lcd" node (or "dbi", whate=
-ver).
-> > >
-> > > This is fine by me but nesting nodes without compatible feels weird. =
-Oh well.
-> > >
-> > > dc {
-> > >   compatible =3D "...";
-> > >   rgb {
-> > >     dbi {
-> > >       ...
-> > >     };
-> > >   };
-> > > };
-> >
-> > That's one option, but there's also many other ways you could
-> > differentiate between RGB and DBI. Could be a simple "nvidia,interface"
-> > property in the "rgb" node (that defaults to RGB if absent). It could
-> > also be a node that is a sibling to "rgb" (rather than a child). Or the
-> > child could work, too.
-> >
-> > Ultimately we're still describing aspects of the display controller here
-> > since this is all registers within the display controller's MMIO region.
-> > Nested nodes are purely for adding some logical structure for the
-> > description that makes sense.
-> >
->=20
-> From my understanding data is sent basically as RGB, at least RGB
-> configuration is still used in downstream. Panel commands are sent via
-> DBI
->=20
-> dc {
->    compatible =3D "...";
->=20
->    rgb {
->     port...
->    };
->=20
->    dbi {
->       ...
->    };
-> };
->=20
-> This would work nicely if DBI is modeled using bridge framework. I
-> would strongly insist on keeping it as a stand-alone configuration
-> separated from RGB and DC.
+Fix this by using fls64(size - 1) to accurately calculate log2 size
+orders without off-by-one errors and returning -EINVAL if the resource
+size exceeds the maximum supported 31-bit window order.
 
-Okay, maybe give that a try then. But to clarify: this should all be
-part of the Tegra DC driver and not need an extra compatible string or
-separate driver. The DC itself should be able to function as a bridge.
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/pci/controller/pcie-mediatek.c | 29 ++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
-Thierry
+diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+index a60d1ae076f8..97d13c9d3369 100644
+--- a/drivers/pci/controller/pcie-mediatek.c
++++ b/drivers/pci/controller/pcie-mediatek.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/bitops.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/errno.h>
+@@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+ 	const struct mtk_pcie_soc *soc = port->pcie->soc;
+ 	u32 val;
+ 	int err;
++	resource_size_t size;
++	int size_order;
+ 
+ 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
+ 	if (entry)
+@@ -753,8 +756,18 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+ 		mtk_pcie_enable_msi(port);
+ 
+ 	/* Set AHB to PCIe translation windows */
++	size = resource_size(mem);
++	if (!size)
++		return -EINVAL;
++
++	size_order = fls64(size - 1);
++	if (size_order > 31) {
++		dev_err(port->dev, "Memory resource size too large: %pa\n", &size);
++		return -EINVAL;
++	}
++
+ 	val = lower_32_bits(mem->start) |
+-	      AHB2PCIE_SIZE(fls(resource_size(mem)));
++	      AHB2PCIE_SIZE(size_order);
+ 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
+ 
+ 	val = upper_32_bits(mem->start);
+@@ -775,6 +788,8 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
+ 	struct resource_entry *entry;
+ 	u32 val, link_mask;
+ 	int err;
++	resource_size_t size;
++	int size_order;
+ 
+ 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
+ 	if (entry)
+@@ -829,8 +844,18 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
+ 		mtk_pcie_enable_msi(port);
+ 
+ 	/* Set AHB to PCIe translation windows */
++	size = resource_size(mem);
++	if (!size)
++		return -EINVAL;
++
++	size_order = fls64(size - 1);
++	if (size_order > 31) {
++		dev_err(port->dev, "Memory resource size too large: %pa\n", &size);
++		return -EINVAL;
++	}
++
+ 	val = lower_32_bits(mem->start) |
+-	      AHB2PCIE_SIZE(fls(resource_size(mem)));
++	      AHB2PCIE_SIZE(size_order);
+ 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
+ 
+ 	val = upper_32_bits(mem->start);
+-- 
+2.55.0
 
---r2niuoni5te5qsug
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq89VcACgkQ3SOs138+
-s6EHqQ//aYNTxuvXxI0k+05f8CFxJmke7aO8O+/XJmRJ/lLP9FC9z4B1y+S6Vu8v
-L3FZzMSQlcyWBJtj9s1kQ+qCcgGQr2XSphLpjKTruz6udXibHzijktJIihwE2Rz3
-XhQ/ryWzGFNkTnolHGJJdbowPZWXv+yF3RlghicR2L6zQhkGlTwKKLPFPscSUhLa
-s6cvlP3xSV58K5tVCzaBk8i/ItaK91Z7oPpysDP0xRbSNFsGtNwT71kL+b/p6JPi
-yqIKFsArZyCGzcm/r19mOyx00MDJpBttPjdM3w5ylL6pnaHYZ4dTkl6f/jUrKEOi
-5poQ3w6fmjGTA4IkvtuVSY0UzMfQBrKeLOYZqTuIYEfanUqAVblo78Q0QLGZcn7e
-DUTVjuzaKmYwfdgL0VfDMrNEHRX4Elq+1Wu9tphO1AsRLz0qcXjfcb8PpOWLgAa4
-17GBOuFWkki3N0pGkP0s/4cuyDKso2E92wLqPL1Pzgq0KJcsYDQhzcDEYsRg6uBo
-XzGpTZ/pOjtt6i9Dsb0NAOujaZdMeYQqyYqcwHZ+etOS0zqyHVplXvT0TBqzCw0Z
-ArytEAf+kXPX4yUgDdEnqkxDukSjjiudNMy1Xzzqn3L0bZLfwe1GyuBLkgugRLUG
-e+lk3rwrxcxs7dp9FKHQsZszLU9oX0nsyYaU0YJY5Aq0QPjrt8Y=
-=hL8m
------END PGP SIGNATURE-----
-
---r2niuoni5te5qsug--
