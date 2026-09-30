@@ -1,143 +1,250 @@
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010022.outbound.protection.outlook.com [52.101.56.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866863537CD
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730997; cv=none; b=Fhl1KLR8gR0gu1LFTDulapA6zuxpe2qDltR3WTxmAiXHTrW+c2KcmO2lMfk3IfITPTn0EJKGSLJSfoWULGUSBi7igdEkq8KvNMfRCrsLznN/lOUuFPPwLsQ7Ia0dqk+3bU5C0IhLgRe+N/MOzaC05fm/iPBfZ6/tK5TQOl8r21E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730997; c=relaxed/simple;
-	bh=VOhb+ySPVjRl8pDoPgMbFA9u93Svvz7os4YzgT6Oa/M=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Fis/cBUPJy0W5mVRVl5jJDsHy2w4qFxbqZ9O0dxUSNjiCU8CUHiU7MkvzdCUI8ooT/Dj4k8RN3ITgwM3eoTGX4PSbtvPLYTwpFzulKRjBdj+UzB9bvjTQHG5zJLLD6azg5r7ksicaL30MJCxvZry7FNrZAoS/dO/2S3zWQFX5Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gonzalezerik.com; spf=pass smtp.mailfrom=gonzalezerik.com; dkim=pass (2048-bit key) header.d=gonzalezerik.com header.i=@gonzalezerik.com header.b=IkiGSpOE; arc=none smtp.client-ip=185.70.43.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gonzalezerik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gonzalezerik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5762D343D8A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790731008; cv=fail; b=RXy1mpRd+imnnf5t93KWatfXz+K3Yi3NCUkNqvnDBfKNL+pCnodr9rQOKpVGXrEGJUuSdM9FKAQmIQxv9GxYfj/9Vhd8ZshQaSGfdMU5KryHCx5s3AxYaAP5EC6p7GgunpwtCyVIRgCkJora53IZIurc60Hzl0ECr3GkeDPKYEM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790731008; c=relaxed/simple;
+	bh=UKvwdmuZ3u+zEDfCO6CTRYpOrwj8mX7WYPiaeVV07P4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=FI5Z8qxNQr5KrAUJwHR2exbODASIDuPP0ZDb2zT8fMToL96nFqozhA+3/ywz+Vukf+3o1/ULXI8xFyv8ciV4nJl6QvuGhwSj+1cpJevsHJi2Q2v65iyk15zQG/KhfEtDdH14LlS8ruChq1/MEN7XuDtan5/DlOltK/sOGAdPODY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qFs6xLyy; arc=fail smtp.client-ip=52.101.56.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gonzalezerik.com header.i=@gonzalezerik.com header.b="IkiGSpOE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gonzalezerik.com;
-	s=protonmail; t=1790730988; x=1790990188;
-	bh=RdM+UiliwQYfF+1fJ+nv82vgIHd7yfAaTg60+i6aCqo=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=IkiGSpOEIM4h6WFSE3k2m5p+GByeaNGqppVbGxz2YLrtV2qKvRmyeZErQX24PBXnD
-	 xnHX9nzt1x0gpaXCta43luyN2032c/HOoPCqr96luEukZty3A21DLb12iN9i0MencH
-	 xwl7dvu6kwg91gvyl0qU45WiuMjp9eqbuxlkOknxpQ8Xbq+5FYZXrPx6tKiwApGBK5
-	 UT3UQBN00Eb/FDICC5H0SpLp93pKbg3EbXKkQV+N3Wet8WCeoaCYQdRiqPjsinHpyz
-	 wqw5bmgWONAGExAOCX0nTjWERXBZ+dKaPUl56j7QdcJVzarSw4oLiPVVhw2fkwXosJ
-	 EGDu5i1pkO03Q==
-Date: Wed, 30 Sep 2026 01:16:22 +0000
-To: Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-From: Erik Gonzalez <dev@gonzalezerik.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] HID: amd_sfh: Fix report type of get_report replies
-Message-ID: <20260930011603.476486-1-dev@gonzalezerik.com>
-Feedback-ID: 214839413:user:proton
-X-Pm-Message-ID: 75a657cf4435a63336237d388f829bd3a93cc1fa
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qFs6xLyy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xxXebT/npNMbKN2JoltTmI7Q8u3p8TKFi0aW877Qtzf1BoxLaxuV6BBl/gR+LZbY3DEVMdQOF8KmW0huT4MIHPQ7MBcAh+Bu1lp4VgwaNtUmp7Z/h0cnxf3CW8Et+v7NfNL2d5ylUG1OSUXBMRUEWtMvcltCHPqZ34NRTAKtbbCyY7Ez1fvhUpMubkhsQS3JusZob+hKc2chSFbyp5IZTXfdWUGmNNCpMzwXyCr21W48jEYa5WLKD9oTSmM9M3pTJcUKjM0XkwNHkZ8PEn3fd1uztUXnqFTzB7cPaEhLEkgmBuR5dEkpKCYZ1novKPwUanFSUKEWoTudmc5WYnCMHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8XqcjM6mGnP1BhzzPPQg6XbAsNtOFLKObPJbv+VZQo4=;
+ b=elUpF7XaN9Z/eXe64k81sRzCJRg8Udq2DmxxZDVIdY2JtAgAAqUUrYwnanSqnuzGAY0yFjhm24oGFm5CIWoihbVXWH1lZvIHYGV3lPLYVXSUJlLjVNGA3wcZJiEnsINNwJ8EK0Pis3XXAF6F9tTe0UzLAcdQ5jlTmlwCxoiIy/5Unl08KCuflgv6S5jk+CjdTSV2ndaXpaWz1gXTlfNF8XH4MZ80e57MkdFU5CRLgoGHJRzkD/M+5+neq6seiYYQQvyNR7UawGyQ6P3N10MCgmv77nf/m4b0pvItWYGWSSognqQ6DfxE5nemPO4NN8vBdlcXhv91eZHNwk6FMTGCbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8XqcjM6mGnP1BhzzPPQg6XbAsNtOFLKObPJbv+VZQo4=;
+ b=qFs6xLyyXrrzG2FOM048I7TxCvbu8UqbZDXyg4nl13xWasKpCXhDk1jZ0Pyz+qOELl/26upPUohfi3cXYcfNSa3y23ZUZeMHT29XNdV3S8zHtXppHRk9lQUGkmIa0QW5bnV/aVOoQ+L2ZCzx3Oii8l/aQw4AOgcgzHx6t7Oa7U0=
+Received: from MN2PR08CA0011.namprd08.prod.outlook.com (2603:10b6:208:239::16)
+ by DS0PR12MB999103.namprd12.prod.outlook.com (2603:10b6:8:2fe::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 01:16:44 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:208:239:cafe::d) by MN2PR08CA0011.outlook.office365.com
+ (2603:10b6:208:239::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 01:16:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 01:16:43 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 20:16:43 -0500
+Received: from [192.168.0.226] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 29 Sep 2026 20:16:39 -0500
+Message-ID: <5a5015bd-ed61-4ef7-a4c9-e759603c4cea@amd.com>
+Date: Wed, 30 Sep 2026 06:46:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
+To: Kayra Cizmeci <kayracizmeci@gmail.com>, <peterz@infradead.org>
+CC: <bsegall@google.com>, <dietmar.eggemann@arm.com>, <juri.lelli@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <mgorman@suse.de>, <mingo@kernel.org>,
+	<rostedt@goodmis.org>, <tj@kernel.org>, <vincent.guittot@linaro.org>,
+	<vschneid@redhat.com>
+References: <20260929085320.337703476@infradead.org>
+ <20260929174648.196105-1-kayracizmeci@gmail.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260929174648.196105-1-kayracizmeci@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DS0PR12MB999103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9292c2ad-7fb9-4d7e-ff94-08df1e907d67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	0bfLUB8n8y2sIGLVdGyqLYKUkJS1IYe6sRcmQ/cVvxf4EV6zL7w3IjmW4oGJ1UdH7WHDXAew5oQSrVbr+eq43UI07XFgWif/fEZJR3NzZEUCXUN5tl/SVhqJ8ZH/VitlV2F1Ivgw9h6REI+riUIzfkx6E5WKf3Cshwpv4hqLsLQoRr2HYli1HGDY58//1d2WirdDeojStJ1Si38wUKdLuzejrB91XZaA/HL+nZc9JX2ko14XQ1Q9nOep25v10iE0s0h6XyutQQYVh2AwIzxiGqWDt3HfU9xHLpSB9S2eNVGVfC+XLDopb3/YnJX/cRQik13F5BwmhcJ7Jg4sEi8I2G9ydaVAc8rJj7x+W0wIyCdM9/DfU4jDO02M7OAkCqdWSdb7biwaBtYbav+q/yznt8tOgHFjnvTz8mEZ7Rx3rdZbYTKOwggx5B3fNK6JD47u5hbgfPn36JiqzXLOh0CUiK/duTxj3EYqkiZBQfBBjf2ZZBcYctSJNZxNObtVTphmd0Q8diPqN3R8GuxQ+Nblway7C20lwtI9uB4W6oz8tGqEVCnkk7qf3N9446vtVNAGjahhKHjNUE/9abN62ojUcipHM15JDx82334xhbiTeH73SXqtcALMEAbIWkkkjDx9lgwxtF9cE0W/uCeSITRWipt5hYB+chXe7DO0ZIfvLLTR7AJ7ENj2nEj8brbdwJpk65dyzWBXmtDVf0e32NRciA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ERzHI0cpywnsB5CD6AlhZjkfRjly3xA5Nl7Ie1Pa1NXe4roTBPMAy9x//fgl3BgDqkeNX8odwtE7XY1hkFw5q7dJaNy08OzEqhlhvWtXECgXfj6P/NaexxeOPV+ThOlvb8hWzWT5voq9BtuwOMN5gIZuvAWlInbcIZl2FYJMHgaiW7sznEafi3gPkHgU0gD2DJOYzT+EYiTTTlY5pDSr/6oCsqkFHG0mHK/W9afpeeD0g3+Wci5SJbSmgv9L3u799CEH8qIPWvO5D3zt+aseWbRLFG8PzfbBwCtj76EsqW/cfyN5xS1ZJb0Mio8DCKP68fZ+8Hfdse4PMSd6tZ+ghSjUwNOQPswz6LcngI8wP9DlYh0LBJOgaTONh/RqJV3u4achyU/J/k3+90mZXsrLQGIUc2ioNpKJD+04fb/KdurnVt35CZ9o98JV006pbb91
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 01:16:43.7569
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9292c2ad-7fb9-4d7e-ff94-08df1e907d67
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FC0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999103
 
-amd_sfh_work() passes the reply to a get_report request to
-hid_input_report() with cli_data->report_type[] as the report type. That
-array has never been written since the driver was added, so it is always
-0 (HID_INPUT_REPORT), and replies to feature report requests reach the
-HID core as input reports.
+Hello Kayra,
 
-The HID core then checks the payload against the input report with the
-same ID. Since commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB
-by removing bogus memset()"), a report shorter than that is rejected
-instead of being zero-padded. On an ASUS ProArt PX13 (HN7306EAC) running
-7.2.6 this logs:
+On 9/29/2026 11:16 PM, Kayra Cizmeci wrote:
+> Hi Peter,
+> 
+> (Fun Stuff):
+> 
+>> @@ -15731,6 +15766,8 @@ static int __sched_group_set_shares(stru
+>>  			update_load_avg(cfs_rq, se, UPDATE_TG);
+>>  			update_cfs_group(se);
+>>  		}
+>> +		for_each_sched_entity_bl(se, cfs_rq)
+>> +			update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
+>>  		rq_unlock_irqrestore(rq, &rf);
+>>  	}
+>>
+> 
+> So, the code is this:
+> 	#define for_each_sched_entity(se, cfs_rq)					\
+> 		for (struct sched_entity *_BL = NULL;					\
+> 		     (se) && ((cfs_rq) = cfs_rq_of(se), (cfs_rq)->backlink = _BL, true);\
+> 		     (se) = (se)->parent, _BL = (se))
+> 	
+> 	#define for_each_sched_entity_bl(se, cfs_rq) \
+> 		for (; ((se) = (cfs_rq)->backlink); (cfs_rq) = group_cfs_rq(se))
+> 
+> 
+> (While writing this, a suitcase tried to assassinate me by falling from top of the closet,
+> what follows after this part may be the symptoms of my brain-damage.)
+> 
+> Let's say we have a *thing* like this:
+> 
+>   +----+    +----+    +------+
+>   |se_a| -> |rq_a| -> |task_a|
+>   +----+    +----+    +------+
+>      |
+>      |
+>      |
+>      V
+>   +----+    +----+     +------+
+>   |se_b| -> |rq_b|  -> |task_b|
+>   +----+    +----+     +------+
 
-  hid-sensor-hub 0020:1022:0001.0005: Event data for report 1 was too short=
- (15 vs 14)
-  hid-sensor-hub 0020:1022:0001.0006: Event data for report 4 was too short=
- (18 vs 14)
+I'm having a super hard time understanding this hierarchy.
 
-14 bytes is the size of feature reports 1 and 4 in the report
-descriptors the driver provides; 15 and 18 bytes are the input reports
-with those IDs. Attributes backed by feature reports then read wrong
-values: the accelerometer's in_accel_sampling_frequency reads 10.000000
-instead of 12.500000, and in_accel_hysteresis reads 0.000000 instead of
-1.270000. Input reports are not affected, because their type happens to
-be 0.
+Is it like:
 
-Pass the type of the request being completed instead, and remove the
-unused report_type[] array.
+    root
+    /  \
+   A    B
+   |    |
+ task   task
 
-The same "report 4 was too short (18 vs 14)" message has been reported
-for the Lenovo Legion Go S, where the accelerometer and gyroscope do not
-register. That may be the same bug; I have not tested that device.
+or something like:
 
-The bug was found, and this change and description were written, with
-the help of an AI coding assistant. The analysis was checked against the
-report descriptors of the PX13, and the change was tested on it by
-loading amd_sfh built for the running 7.2.6 kernel without and with it:
-without it, the messages and values above; with it, no messages, and
-sampling frequency and hysteresis read 12.500000 and 1.270000.
+  root
+   |
+   A
+   |
+   B
+   |
+  task 
 
-Fixes: 4b2c53d93a4b ("SFH:Transport Driver to add support of AMD Sensor Fus=
-ion Hub (SFH)")
-Link: https://github.com/ublue-os/bazzite/issues/5796
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Erik Gonzalez <dev@gonzalezerik.com>
----
-Not tested: other devices with the AMD Sensor Fusion Hub (including the
-Legion Go S), and a booted hid.git kernel. The code this touches is the
-same in hid.git for-next and 7.2.6; the patch was build-tested on
-for-next (clang, W=3D1, no new warnings) and runtime-tested on 7.2.6.
+?
 
- drivers/hid/amd-sfh-hid/amd_sfh_client.c | 4 ++--
- drivers/hid/amd-sfh-hid/amd_sfh_hid.h    | 1 -
- 2 files changed, 2 insertions(+), 3 deletions(-)
+> 
+> When we start as task_b, everything goes well. Both groups are updated.
+> On task_a too, only se_a is updated. 
 
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_client.c b/drivers/hid/amd-sfh=
--hid/amd_sfh_client.c
-index ae6add0b9..a68b275f0 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_client.c
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_client.c
-@@ -95,7 +95,7 @@ void amd_sfh_work(struct work_struct *work)
- =09=09=09=09=09=09    cli_data->feature_report[current_index]);
- =09=09if (report_size)
- =09=09=09hid_input_report(cli_data->hid_sensor_hubs[current_index],
--=09=09=09=09=09 cli_data->report_type[current_index],
-+=09=09=09=09=09 node_type,
- =09=09=09=09=09 cli_data->feature_report[current_index], report_size, 0);
- =09=09else
- =09=09=09pr_err("AMDSFH: Invalid report size\n");
-@@ -104,7 +104,7 @@ void amd_sfh_work(struct work_struct *work)
- =09=09report_size =3D mp2_ops->get_in_rep(current_index, sensor_index, rep=
-ort_id, in_data);
- =09=09if (report_size)
- =09=09=09hid_input_report(cli_data->hid_sensor_hubs[current_index],
--=09=09=09=09=09 cli_data->report_type[current_index],
-+=09=09=09=09=09 node_type,
- =09=09=09=09=09 in_data->input_report[current_index], report_size, 0);
- =09=09else
- =09=09=09pr_err("AMDSFH: Invalid report size\n");
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_hid.h b/drivers/hid/amd-sfh-hi=
-d/amd_sfh_hid.h
-index 7452b0302..928cff682 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_hid.h
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_hid.h
-@@ -45,7 +45,6 @@ struct amdtp_cl_data {
- =09dma_addr_t sensor_dma_addr[MAX_HID_DEVICES];
- =09u32 sensor_sts[MAX_HID_DEVICES];
- =09u32 sensor_requested_cnt[MAX_HID_DEVICES];
--=09u8 report_type[MAX_HID_DEVICES];
- =09u8 report_id[MAX_HID_DEVICES];
- =09u8 sensor_idx[MAX_HID_DEVICES];
- =09u8 *feature_report[MAX_HID_DEVICES];
+I'm assuming the hierarchy is like the latter then if traversal from
+B updates A.
 
-base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
---=20
-2.55.0
+> 
+> But when we start as se_a root's backlink is NULL so we don't update anything.
+> While on se_b rq_a's backlink is NULL and update se_a but not ourselfes.
 
+So for that specific section you've highlighted from Peter's patch,
+in __sched_group_set_shares(), we first do a:
+
+    for_each_sched_entity(se) {
+        update_load_avg(cfs_rq_of(se), se, UPDATE_TG);
+        update_cfs_group(se);
+    }
+
+That sets up backlink going until se->parent whose group_cfs_rq() is
+the cfs_rq of tg_se(B) aka the cfs_rq just above the group whose shares
+were altered.
+
+Then we do:
+
+    for_each_sched_entity_bl(se, cfs_rq)
+        update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
+
+Which updates the h_load all the way from the root until the cfs_rq of
+the cgroup we altered.
+
+In case of:
+
+  root
+   |
+   A
+   |
+   B*
+
+  *shares of cgroup is updated
+
+If we update shares of B (aka tg_se(B)), we update the h_load
+until the cfs_rq_of(tg_se(B)) which is till tg_cfs_rq(A).
+
+Now if you have:
+
+   root
+    |
+    A
+   / \
+ *B   C
+      | \
+      D  E
+
+Yes,d you'll still update h_load for only A and you can have stale
+h_load for C, D, and E, and for all the tasks queued below them.
+
+Since full propagation is expensive, we do those propagation lazily
+when the task is picked, enqueued, or dequeued
+
+Note: We cannot propagate this up further because we have not yet done an
+update_load_avg() for the cfa_rq(s) in rest of the hierarchy. Next reweight
+will see the correct h_load starting from A and propagate it further when
+needed.
+
+Was that the problem you were talking about or did I totally confuse this
+with something else?
+> I don't think this is that of a problem tho, and
+> I could be missing something.
+
+I don't even see the problem. Maybe I need glasses :-)
+
+-- 
+Thanks and Regards,
+Prateek
 
