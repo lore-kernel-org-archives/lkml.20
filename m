@@ -1,81 +1,101 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A4A4F30C4;
-	Wed, 30 Sep 2026 16:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784116; cv=pass; b=LFmsSkhipHBzE+U7rLimhrHCiC77F/B3nDQnSV0HLfWGBqLhr4iPehFiDeE79lBraGafO7FNSZgWFh49N2kq2akYey1Yg5VT8gScOVXUd4IUQicOfMHch9Kg/lJ2++5zf7swg6NhJwPKsOcfi1Kau4/KqQCzVUNOS0Qap8w4ZDA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784116; c=relaxed/simple;
-	bh=uSh6Ndk8HHsadtIVQXx7nQmrmgTpDlhjRHbrdndeFDg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4CC4BFE77
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790784239; cv=none; b=PoZnWiDY2aXPi/1wPbxpFoprYwytcPPG1pOdlEgRJq9sIB4wkIq66Pzw6l8wai3FCa2JYb1D7D/Ua/lj3n/53XHRUrPcYVHqJEPP/ckkAUhEUgs1N2OBxm8y5Npbg9Vwp1PkIqPGSwpMFDLeMOiH0ZiJEUxu5QPX6cCnLM/W3jE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790784239; c=relaxed/simple;
+	bh=lqtpsWq3wo4si/QO8G3pKIJCGKQhQ4+/l/BkuckMCt4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igjuGESIdnoGVGQC6qRCI8tlgb7UnGXhp3P20X2PVExUOUO4S9D6sXo1yCuBq1cFjBe/VfgBu4LGhzSIh3KQCcdxvH7aqeggJSoIDsCBygc3nMR47RwF+I1HwXw1YsSvESv8ntuDhu/moypTdReyOXThBdrxuvNAbMv6VPoELB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=Urgn5Ebo; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=KL9852F5; arc=pass smtp.client-ip=185.56.87.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=L19cz69B9Ijccsn10/1cxH2RSZBq4SeWxDKSIQuTIEFkccNvSz3IiMzcbiOYmZ2ZTx3QCCV/hYKAft/+MAgFguKTcYljtuTqOjRGYfIs2pE+5syL6AEHK4gihSYeSHp8xBZRnRkQfEuR9GGIrGHLc1H2Jm81CwEm3EBlcmNo4ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T9OBUABX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MLNDYPre; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="Urgn5Ebo";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="KL9852F5"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-8qcp.prod.antispam.mailspamprotection.com; s=arckey; t=1790784112;
-	 b=O3x2bNZEjIgCjhXbVztrE5tk3WDNcP/rHoIfM7o0OjZ0b9c+DPt4613WLP0PES0Was2EWltbyJ
-	  jVBl3CFTbN52d5ohk1gvvodQ2NkS4ckvlR3DgDVX5i7hFcY1KtZRFhpwEa2naxiKW3hP4gkRc4
-	  Xv+vkA4jCFfxo071hUp0FT5ffQfh5KvkKASBe0jSTtkir2k1htpxiDU4btq9ElehDOEQ3RMcc9
-	  SJ0ytFII9xa37V5CXp03FcdfH6s3BmfDPMMmrQrXADmFfyd4x8Dg2ok5z/TdKFlNQVaghPH5r+
-	  X8y3TVZpwFHQXy6s97bd0zp0sf+CawM5bMmPGKBBho1r7Q==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-8qcp.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-8qcp.prod.antispam.mailspamprotection.com; s=arckey; t=1790784112;
-	bh=uSh6Ndk8HHsadtIVQXx7nQmrmgTpDlhjRHbrdndeFDg=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=K0j1cZZJo7iR0h4N9N04hmCZTUXGMeSEdnOWv58PsmyduBHNaDrKlbwrtyXRpiyrnO9gqcQUF5
-	  /HB+9eWz9dTShqNXTkOj8sghXDZznEpAitXFdMdAENwrAfQe5Ah3/j/eMv3OdKg0pmWkhpafx0
-	  AaR4sO8irK+wf3KFvwgtosNQvgrRmdvMGh+LXzmmibrR3q4O8Q4ol23SLz913DrWW46gh65SBT
-	  t7yedilcReQx6hDT/Y9vqGBoJU0dAnW9CciIwBDRYPwK2xQfQ7QqBzzT94ZG0nxsdQs5AxDlx1
-	  GzTgRUAvp0UOBYRI7n1lRSC/oMQexnB9kA5TtwXt6eaqVg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=dP3jA4xLY1vRZxU2Q34betBGbV5S3gISyd5gwp53GhY=; b=Urgn5Ebor3MJfdfHougbauXTJ5
-	B3BXCZR8Wd/yxgEz48v2M/LOdkHisZzfSoSbzuFN/u8xsih+nXEBqooAWD4LFMTcQTMHrM4f80m4x
-	pDZp+WayDRx+Me1nS+0fSVok0NFJ1R4/SIfURRSqHmNd79+xUycgduD5xHVdu/lgFc3I=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-8qcp.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBwkX-000000030ki-2WmB;
-	Wed, 30 Sep 2026 16:01:42 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=dP3jA4xLY1vRZxU2Q34betBGbV5S3gISyd5gwp53GhY=; b=KL9852F57TwOirk5hpKe/6AAas
-	Ch7amGbhS2pdRcxtmR8nhoAnhQQveQpq29lAnx1yzEUt937S2L0yqYqrNoWrBiW1o6NWcGwwa5bs5
-	qLhD2LlArvXL8SV44ZifN31KEXb6txZ5lJ2z8o652qGHEPo97y3+XqWH+b8JTTfd9ELQ=;
-Received: from [87.14.44.235] (port=62882 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBwkE-000000004sz-36Mg;
-	Wed, 30 Sep 2026 16:01:22 +0000
-Date: Wed, 30 Sep 2026 18:01:20 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
-	Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	virtualization@lists.linux.dev
-Subject: Re: [PATCH 0/2] Add devicetree bindings for spi-virtio
-Message-ID: <ar0wnqVFn10MISod@bywater>
-References: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
- <20260930-neon-automatic-rooster-e2eec5@quoll>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T9OBUABX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MLNDYPre"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UDxobW3063753
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:03:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Mw2NmiDzGrvm0Nc5TJoWz+Vm
+	SYKEEwRfglbvsWyB/cQ=; b=T9OBUABXWxadqO2acfVmAO6Ln3+3dEoJPlZCgzAt
+	yTnk+TPxblHPGXGaEtdrz+FpjA45cJfPr5xaXDhrdJEG72JptZdAGIVIbRMVmEAw
+	JbeDcMh5Tupv1Aw3r4epR3AwtZHAV3lVBK7fFhsWVr1X5epPHYjyg4abarTL2Joc
+	NozTbcICpwOdFRPTvGBgaMbOUq+Oj3Fw648kXEQK4UN0bqJTgjRWKNg9qSEb+u6m
+	nJGlQ/Ypj2KQaq5j3kjaK/1WYkBWDK/RNSOIo09H3n/W4b2U+fRghjxUiKowNkou
+	izxR9OA71idq7ireXNMUvcz/K7fUroVAcYxz+/2x6dG4Dw==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0smjkf1n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:03:53 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7bf67e46ae0so38372137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:03:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790784232; x=1791389032; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mw2NmiDzGrvm0Nc5TJoWz+VmSYKEEwRfglbvsWyB/cQ=;
+        b=MLNDYPre/8zrIiZrQJA4EUQEU3LBby8fyTn+yQUtHkB8ydgI5HRU+aQyWo9+HOKeF6
+         goPTtKCUGZtws43o8/WqXO7NEwwzFmTM31Br/1e4jNoyxY13wjii6bngdeLF6JBKFhCW
+         iooAcfhvxTPXRHwiIlBjdsueyKLJfP25HsN29nWWg/aTgmCUkg98+JypslDnbS7M/iz7
+         7UmjPNg4DgwRVsXQFOo2vTo43o2vQd3SqDTBY91/+bfCf38MBiWDUWye1sOev/bbrlzz
+         dl++MoRcAPeAjWw8i52cofD78KvmSBb6hBbTywJXWZQIMnnVxJcTSF8vE7WlWQ4ACz4u
+         yIPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790784232; x=1791389032;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mw2NmiDzGrvm0Nc5TJoWz+VmSYKEEwRfglbvsWyB/cQ=;
+        b=eyup4Jw/2eJ4paTSVhzcZh5QjGAiGgk97DCc56OOwI0WY7j7vnQNwEd2Zld83fnur5
+         lAMnT3PdnQ+f27TQBm7Gx60Y+w/BXFerwotf6cxKG3KCOPhDNg5pkZmrWp0eGnbG/itC
+         5iOjCkd+Lgb/xkqxci5VY85h2pJUc/81X/6IdzxTIl8jnxWkQJOjNf99O+EI05QBe3ZX
+         Xjs0ay5wMnlw8r8qgz0+VJZO1uDjwzrWWM/t/TXLqgVYU02IEvi+xeUzcyKLikeQPjDO
+         EFL3SWAGaPsRLZsOVCZ6E+CQCs0jwpG7WEfUohVTSHDtFLNiP46eYu5uZGva7Thfdi9u
+         gbqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHuD7iRgBpAFOAM4UZpiYyuTRggk9JDp4Aan0Rs84+2IbKMsA31DDEqx/oM9D9FekXGwx7k3+OpYdRDuI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVMx+Sd4iOlsXDTRPgkGOh1AqowmJbRnDa4az6UOXROiL0xhMU
+	YkQul55I2nGMNZHGPLADF4CjNfJDpo6t2ol4xTNrPVJGzQsuW76gCC3XUOtBpVekh863K7GwNLu
+	0uEHBlPetfkUpr34Ugx6ETfhtq1eEDqRxwfd58KZNyHujENTVovJrei5NZcZOTxpi03k=
+X-Gm-Gg: AYBFou3eaME/DwF1oAy4NwN1tytUdkGQnwsbcp9crR+1D68WZ7yqPdIMY7knTE0ecH7
+	hrbAxQrinDrmrygHp9p0vB3dfsqAqo9ieHu92ndSdDbZ32216sNRQh+gwuNKe2QJYx534uHbxS5
+	o2iDGa0LKFK46ZMg6W7hFoJxVVJJL9ATwvgQ2a+lRBfciDmlQyBogJpdQ4XPP252IxCn1ZLkfak
+	UkKaZZbqZ+Qj6wxmN7u2IEjmrQ9EUdnhp4smy3ZtcHvtQ0geVVlJgMWlani3bnXjhbw0OTfr6Xn
+	SDJwV9oAaA+gip1fZ8xUbYnZlM78/Gs2/rJgROWg7yQqfVjI8HHef28KCLh6J46gi578uI+8qAO
+	5/pwvRnngmJlcVXgbUI0NXB5gUb2X82Y0HLb62f4CY/pKBmPFT0AFXiBizY9tuIHAsB5Ey3XnxD
+	zXl30TtL2VdakL
+X-Received: by 2002:a05:6102:162b:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7be73e956b7mr418891137.30.1790784232415;
+        Wed, 30 Sep 2026 09:03:52 -0700 (PDT)
+X-Received: by 2002:a05:6102:162b:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7be73e956b7mr418863137.30.1790784231690;
+        Wed, 30 Sep 2026 09:03:51 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42faa832sm82205e87.14.2026.09.30.09.03.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 09:03:50 -0700 (PDT)
+Date: Wed, 30 Sep 2026 19:03:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-arm-msm@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm/dpu: Fix GAMMA LUT for sm8750 related DPUs
+Message-ID: <hvd2zaz6zvhcalnjew7p2krbafpctx7hmsgnsbyrvvmh4vhe7z@pdomohlcb4vo>
+References: <20260930152645.22194-1-robin.clark@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,66 +104,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930-neon-automatic-rooster-e2eec5@quoll>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 3a4e81398d2970218aaee88026770dec
-X-AntiAbuse: ID - 3a4e81398d2970218aaee88026770dec
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xBwkX-000000030ki-2WmB-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-8qcp.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+In-Reply-To: <20260930152645.22194-1-robin.clark@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2MyBTYWx0ZWRfX1fb3DahCrrGB
+ fIBFU1euiUiAyoTV9jyTi54d12n63BKNlUsOCz2YIrlJLqCzuJURIWBF2oj0SUjLsU4LZlZOEH8
+ J5zESNJtHjjCrDbddxO0yS4srK6MCuQ=
+X-Proofpoint-GUID: AHL2NCXYy7RFqF7R3S4ZddViKE5OfJy0
+X-Proofpoint-ORIG-GUID: AHL2NCXYy7RFqF7R3S4ZddViKE5OfJy0
+X-Authority-Analysis: v=2.4 cv=KfxHIgYD c=1 sm=1 tr=0 ts=6abd32e9 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=wTaCxXlcGNsknM-wzUMA:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2MyBTYWx0ZWRfXzVG3SJgrzOQ8
+ fkk0rub65IpQXj51JM2Ef48Dmo67jyD4muNmnIdkdnxiqh2jUeLlmlbp0eGJiubOic5tbDpslgk
+ a7CmkiC5b65RckEjNLb/5nxQ8z+ofKTCtmELVQLhq3tV7vVAu8h/zW6PgU8zEz3K+LOloiYHwId
+ W2kDOiLJm/+nDzb07EoyL2Wm4zyTxLqfQZu4U2fAdUmqr9lxQ383hswGZF5eE7zjRV3ZfwNN38G
+ lNq42GdzjV9LpWMk1YabJJ+htCvZQfpVtrY/wzWuTEyVgPgNou9lTxvjr16fqXL3lb+d69o0nfy
+ icIEt9YyKng6OEopRjCWZlHPdoE81sr9UxXbaxeI/l+qNGLg5jqrjMb5Dc5dz86CYHRcQ17g0mA
+ 9KySTHne1Oww/QAvbIR6sqYOvVyWTtdhauI8ypXcq9Xw9ou3r4xIyAEsRKdmIzJMGVdfMqHEKVE
+ F3a/7vp1fPITdSXSWQw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300063
 
-Hello Krzysztof,
-
-On Wed, Sep 30, 2026 at 01:58:38PM +0200, Krzysztof Kozlowski wrote:
-> On Tue, Sep 29, 2026 at 06:41:54PM +0200, Francesco Valla wrote:
-> > Add bindings for spi-virtio, like the ones that already exists for
-> > gpio-virtio and i2c-virtio. A node using these would not be used to
-> > probe the device, which is registered by the virtio transport
-> > (e.g.: virtio-mmio) but to declare properties and/or child nodes.
+On Wed, Sep 30, 2026 at 08:26:43AM -0700, Rob Clark wrote:
+> Add missing GC block.  Fixes GAMMA LUT on glymur/knp/etc.
 > 
-> Keep proper versioning of your work and DO NOT IGNORE previous
-> discussions. This was discussed before, no?
-> 
-> https://lore.kernel.org/all/20260916-remoteproc_virtio_map-v1-7-dac8c5eb4aa9@valla.it/
->
-
-This is correct, the first patch was an accesssory part of a RFC series I
-sent some days ago. I decided to drop it from that series as it was
-outside its particular scope, as Mathieu noted [1], after picking up a
-copy-paste error signalled by sashiko.
-
-I should definitely have mentioned that in the cover letter.
-
-However, I believe this to be independent of that particular series.
-
-> b4 solves the first problem for you.
->
-> Best regards,
-> Krzysztof
+> Reported-by: Connor Abbott <cwabbott0@gmail.com>
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
-Thank you!
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
-Regards,
-Francesco
-
-
-
-[1] https://lore.kernel.org/all/CANLsYkzC5DU8j_QJLkuUcV2tYb=G86L_G4yiBZTePKSqiRdd6w@mail.gmail.com/
-
+-- 
+With best wishes
+Dmitry
