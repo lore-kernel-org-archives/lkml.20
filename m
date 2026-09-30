@@ -1,138 +1,128 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7322E3644C6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB36345EB5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760641; cv=none; b=idCAA2X21KVIJWAvnNQo8llH+kDwO80JPvC2Qeg2FX9kyWhQfvRMzgzKXJ/kypCLWLzH/pqBzyy6laJ59g5RBF4DilEjOA05MhqYeZuv9Oobd4oM3U2xrpmA3JwYIwFHXqrr6omgdJLfXvfsQYGXJ8wxMInhDNWPUB0aJr2sXYI=
+	t=1790760639; cv=none; b=nD5V8tH+eeNlcFRPUq8Hks/WIWjTSnhZzSU1beYiDjC3HTToPVolPfbPqbAhFANROs+BNMYmgNUEzevAZoNhCQ6OfTuQjFsxt7egu8b5m67R0B183DGyq1WcV7EaM/HHEAasBXBVzmoEhfqp/zNzWs12ERuCZfX79QO3kixfqGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760641; c=relaxed/simple;
-	bh=B6KQ7Q761wXAxkqO4A4KBxGTbhjvP4/JfP+EH6M3vPk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IvC5qqAeEoURnnxkG2x9cTn+e/k2MY5cRW3+Ieztb0I6oW4Xuk+735V/vqTcCrwrdV5zRg19szjifU1BBiZwYbKKC2Pv6RKRokVNwpWXPfeh2q5llGcKCaO/9gopUM+LwvEeUDaE6lDDQWAJDy4IW7SGxdLy8aspQyrRpD03XGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4d2f0f77124so6540530b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:30:39 -0700 (PDT)
+	s=arc-20240116; t=1790760639; c=relaxed/simple;
+	bh=jBOWfAe/37a+DtWsY4pcfCQdJQrauO++5rYgJh/u5TQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OBTcuyoVXnkIkrIt99Pl4GrRpdSeyi25tZM7byPjIKMgVW/43OborxFuhVP1DcIpQErN8YZKDZg+WTaoJR40ABDAotPVRyPDumb/GmqORhW0Lg7iiEfckBbWpgLIzNnasjISDYJYKVmCHVQSQqSoCmQ0nwDPQyuqJGRHuT9U9Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g8j1mJCQ; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g8j1mJCQ"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aaf10bf094so7158027a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:30:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790760636; x=1791365436; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Zhvlpv/etnxxE1xo+vE8I3wMg7dBPdkR6wAnk76hoag=;
+        b=g8j1mJCQkDPMu8jxlT2RpqxVoakvYNND34Mf5B0thezLTdpK+bUqARMY6wqsfQ0Qaj
+         CHviQ/fH7CWzaXX+nvAnzgz2/Lstfy+voOYLjEB+ekMd/iUSoCXYibbOKhJ2NUc72bhe
+         qNHaGF2qPJwx6SQapmV8v6uOKCcBlJcnri9iTubMmlPynFpDPc1TCPsXwOeIvNlyqG8b
+         7JGTofqxaC9XvVvoDfuhFyWEM+N30cIRCnKUSHYBg5rTQJm58EnmGgZCABIIGQOwc9Ht
+         9pXkeO0N+70uPxt4vWzxmfr4e1FYFNquLaR+KMNYEV8e3N0PeAc5iXlU38z88nnrb2cH
+         LORg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790760638; x=1791365438;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790760636; x=1791365436;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c432cRXYhw32OvJykm5cpBGmNcdCuznarNCnC6pKqWs=;
-        b=blU5n6/4kYCgCOaM0StP4SkVcZTYPG+5C3zMuKTvyqaGYVvqEcFtNqT16vj0VjRtl6
-         GRnC+hpvO1F5lWi6Wm2Fw/xMqXciFcrZBHqHYnh5WhPTaeubfE/kFOFCfxjU9lPW0JKj
-         Qn1H7b8VSORsQy0gUUbV4wyYm74wN84OBvTBZlbE0u0BhajgoUYVuodAOufnmuxick0u
-         xXGqvwo8KMHf59/xpCj6j3Jrq9N+jw9ux1KAMv4QWsFKfcBbmsTmatAb5uY+h98tnyvE
-         mTjAlnPVR6zHeaFBwhgqEqHb7RkohtlzS8uMrIVyki6r1QI/Ajq5M2yzWa/NSUQKubWe
-         i9Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBxx1OZDspvCksSwMb0kTSYOH/AwNYUjp8ctTTxZv0QtXGw1v2acrne6WliQGN5XiJ2Erhs5yp9/rSR1kCg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQrK7nGVVr1Uw60iq+YEquQy8oN8ho/GUQwzexmw0XpX22hQc4
-	R2P27ibjETwgEO/pEDaE8s/hXHLIvp+L7RjyTABAA9kZCRd35qwXrcORYTsyWK1kt4MTQKJ/MXc
-	7HaPy1XvpRZJxCMmg+SNfLN/DcTtjDTekg/eC8NWzOSxaMMSGBiWdnNVha/o=
+        bh=Zhvlpv/etnxxE1xo+vE8I3wMg7dBPdkR6wAnk76hoag=;
+        b=aT/6oE02wka3dRuBxVkFJYawX4ZbhFF98cYoFIfKmt8GLdnNdQhG/P9VeM1qGvQomf
+         xWzrcOTGkeJTwymZp2NGoZlNDQEcWwB5dtp4uwEtBZ6uXOaxW09fgqaR3DaOenjnSNPG
+         KlS7hy8xNNB9slzP8KYLgpOBdi/ryO/BynuFP4wzCBgkdbLBmzGnFUXospL3eODXbNP6
+         M/Qm50SqqyyisAPuH5djvrsnEmZwizGmhRm13VUe1blGJT5lwvMwzW3ITzMSW8gMQrHd
+         9mORBdBk/R2HhcYDmYayophemwMDrt41ApclcQ+OiEKh3IAXQH4lnuuxOuhGfOlQaW08
+         DFpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTeEWva4bQiUdaxOJDZ7eQw1bB7a2NGW9SoVZSF7xol/GlOgaKYh41q0HPm5JvxmLe/ChZCUUcSqaa0lI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqenpRfLIrQqmnwFzPpa06COnsRcGi+oZ5ETLIQdRLw+BurANE
+	Ahg3x9vsiKE1Cw8VHQxE7fgGKDqSuZqK4nLd1dqykBAAKSk6qpyC0jTV
+X-Gm-Gg: AYBFou0KQI3jngTsRRVz+B9FXX5nUwYVTx8vWxkNhsOtBTEzcc9znX2SYUi2ClMsfth
+	BENZqHXcuj7j2JLDJWpfHtGon+ySULCFZn+wdO363jRNu1wmp463dZTK2nmwrBl2QcMgM2PLxYX
+	w9yUKgPLfrmhCQ1eSKGCJKmI/3xA8GZBesZ4HkUH6wwk1qdpmrxicrDq2by1ulxh6Y6Boawd7Pu
+	1xYWwFmOn09zeJjvGfcSZ/t0FCZVM36I+k2KFCoIW1VfcnCVJzQuD6caDbNN7fVvyILlZ8YdA3/
+	AFLc1bApyLEQLiMkUCEFXVpy/1jOkbFCZlgKC8AGXF/G4YyZLRQv/U3Cm7hzznq5jGT9fl4Qz+m
+	BYktmpm2vxve4i9VDMzyyvHXnTNDUMfLXyjObUywIYCQh44W5Nk+Byt4/zxvzmAbM1vstWcHdFb
+	y4BnpH3T/61xUruvnAZwiMmHOzmGHMSZYZWi3zKXfwp1CGQLwEFCyPMiIjQFqTMKLAL9zNw1U1e
+	tPr4nysUGs=
+X-Received: by 2002:a05:6402:27d0:b0:6ac:68a3:3c30 with SMTP id 4fb4d7f45d1cf-6ae1992b71dmr568888a12.14.1790760636516;
+        Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
+Received: from localhost.localdomain ([193.107.16.39])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e8b2sm485221a12.19.2026.09.30.02.30.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
+From: Dmitry Yashin <dmt.yashin@gmail.com>
+Date: Wed, 30 Sep 2026 14:29:04 +0500
+Subject: [PATCH 1/4] dt-bindings: arm: rockchip: add Forlinx FET3568-C
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6902:b0:4c2:13aa:fa13 with SMTP id
- 5614622812f47-4f1b0d0ce54mr927548b6e.1.1790760638380; Wed, 30 Sep 2026
- 02:30:38 -0700 (PDT)
-Date: Wed, 30 Sep 2026 02:30:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abcd6be.80e1c6cc.1e8e5f.0086.GAE@google.com>
-Subject: [syzbot] [tipc?] INFO: task hung in tipc_net_finalize_work
-From: syzbot <syzbot+920b21f1eb9357bab704@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	jmaloy@redhat.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com, 
-	tipc-discussion@lists.sourceforge.net, tung.quang.nguyen@est.tech
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-ok3568-c-v1-1-a0ffd55f5c95@gmail.com>
+References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+In-Reply-To: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Dmitry Yashin <dmt.yashin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790760632; l=1111;
+ i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=jBOWfAe/37a+DtWsY4pcfCQdJQrauO++5rYgJh/u5TQ=;
+ b=S0YR/mEpWlrZhLop51WlR9UQ85qM7F+MHMXdP7xV2ma/HTK6GtzwTTt6llNqEnCLT+cEvMpYG
+ 44HTadK8PWmDm3OWjTt7yWUx1aR1NxHfxb7wmEM91MYmPejst8jsK+H
+X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
+ pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
 
-Hello,
+FET3568-C is an System on Module made by Forlinx based on Rockchip RK3568.
+This SoM used by OK3568-C Board.
 
-syzbot found the following issue on:
+FET3568-C features:
+- Rockchip RK3568
+- DDR4 1/2/4/8 GB
+- eMMC 8/16/32/64 GB
+- RK809 PMIC
 
-HEAD commit:    c4e9f74da438 Merge tag 'v7.3-p5' of git://git.kernel.org/p..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16609405580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=920b21f1eb9357bab704
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Add devicetree binding for Forlinx FET3568-C SoM.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/2d84978a00bd/disk-c4e9f74d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f8ae6a5a134b/vmlinux-c4e9f74d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a81070fe6b69/bzImage-c4e9f74d.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+920b21f1eb9357bab704@syzkaller.appspotmail.com
-
-INFO: task kworker/1:2:1218 blocked for more than 145 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/1:2     state:D stack:21560 pid:1218  tgid:1218  ppid:2      task_flags:0x4208060 flags:0x00080000
-Workqueue: events tipc_net_finalize_work
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
- tipc_net_finalize_work+0x1e/0x90 net/tipc/net.c:148
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-INFO: task kworker/u8:15:6369 blocked for more than 145 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/u8:15   state:D stack:23624 pid:6369  tgid:6369  ppid:2      task_flags:0x4208060 flags:0x00080000
-Workqueue: events_unbound linkwatch_event
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7433
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
- linkwatch_event+0xe/0x60 net/core/link_watch.c:313
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
-
-
+Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843f74..30a6794861cc 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -324,6 +324,13 @@ properties:
+           - const: firefly,rk3568-roc-pc
+           - const: rockchip,rk3568
+ 
++      - description: Forlinx FET3568-C SoM
++        items:
++          - enum:
++              - forlinx,ok3568-c
++          - const: forlinx,fet3568-c
++          - const: rockchip,rk3568
++
+       - description: Forlinx FET3588-C SoM
+         items:
+           - enum:
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.55.0
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
