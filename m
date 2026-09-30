@@ -1,35 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2F714E0B9E;
-	Wed, 30 Sep 2026 13:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC13C4DDB27;
+	Wed, 30 Sep 2026 13:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773918; cv=none; b=m2KDj/GO09XBcAjEYe5v2j0rTtLyFRiv1NL5hYvK6qQ+oLLHL8jUbPyoVUrbsms5ZEJ5Oi8eC1/0sEjYpjJ0YiSGrof5fkxOJiSHLzzK/Bk0It1ejPyrbI4BMLGiCMDVtRH/mVvrDSfkcIgK1CrXr0YH8Shlu2GUsZqJiMaDC2U=
+	t=1790773934; cv=none; b=NPfGj1GIS38oQzpjoVCzmGaTSKYBK8vhnDY8Gb+tlRYdKOjGsi7vL9Jit8vzryQzvZ5cPGoC+iy1OExVdBaxOzPLqMw7y2Iai0W4YX6RbRAzk+cT3OIq56dL5pHbbAL2AIpXo9bMn46w/WPydk4Ym2mGUXgeDg1JHQFIoCCU99I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773918; c=relaxed/simple;
-	bh=yYL45a3IGyE0kwOi1+o4D9NqH7KyNV2HSrSXiSRTzbI=;
+	s=arc-20240116; t=1790773934; c=relaxed/simple;
+	bh=cYj/IwgZOGpvuHZ3PhyEo2b3WW5jo1U+Y/ZN3oRMbQA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=szL9ylBOglMs32MQJDI37nff22pHKmImxCPI5qYCvtxZp4XJ55WpGWZizZnl0twLEbrGosoyYQ6SPEHjMzScnqe2DjSitkUlFgcItoZbo7nzYnRi9UIFgWConI3eIRl6m00xdmRf8AZ+7Drtmf5k76BEJK6p/6wJbWEkSW4cLDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=W707TjZV; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=rdn8OZfGJ2Ix1hJZX0uL1NojG2dXXbyj9EmiHVQFLIrW1o1Mjnd/2HeVSCJz2WMOKqPIwp4PcpZ/Yiy2XZKFwmvJYJIBDIMo94FFt//IbxhxxumUXe7VsCNop+ZH2DYrexC3IpRmqkiPlhF3gqg6OqAMpwMhf2YlEziI+tVIq/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q5NjspRi; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="W707TjZV"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q5NjspRi"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2ECFB143D;
-	Wed, 30 Sep 2026 06:11:45 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DC42C169E;
+	Wed, 30 Sep 2026 06:11:50 -0700 (PDT)
 Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06F0D3F86F;
-	Wed, 30 Sep 2026 06:11:46 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1B933F86F;
+	Wed, 30 Sep 2026 06:11:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790773908; bh=yYL45a3IGyE0kwOi1+o4D9NqH7KyNV2HSrSXiSRTzbI=;
+	t=1790773914; bh=cYj/IwgZOGpvuHZ3PhyEo2b3WW5jo1U+Y/ZN3oRMbQA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=W707TjZViub0U0fs7xpDWq+95dGnCasy81fQE3A+M/DjtYUIXJmCntvrdb7AZD8aS
-	 t4XQgrgc+oVO7yceVm2K6aLhQsjtYEiVpKigjz0MxzPUPRYq8SzudMfM/WzoyrhN6g
-	 AMfdC6iFA5aADTNc+f7soQ9XQdb9/hlGUppXuUVs=
+	b=q5NjspRiBGJEkU84saywkQXV87ayOGmpuwc9tZxANz3tXNxutYKLwxbBORxmWjFrC
+	 10ZTGrari/GMGNDtjM1J8NyUB2H9oJFO1U2xikOgl14L29ly7QiiNBwn+SaOd2TVOq
+	 x7AmC+IPu/BRAPooAnJTeVGl5zPXHSsp1GkTG0e4=
 From: Leo Yan <leo.yan@arm.com>
-Date: Wed, 30 Sep 2026 14:11:36 +0100
-Subject: [PATCH v2 1/4] perf build: Build the Python extension before
- pylint consumers
+Date: Wed, 30 Sep 2026 14:11:39 +0100
+Subject: [PATCH v2 4/4] perf python: Avoid shadowing exception name in
+ PostgreSQL exporter
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-perf_fix_pylint_errors-v2-1-945cd526576b@arm.com>
+Message-Id: <20260930-perf_fix_pylint_errors-v2-4-945cd526576b@arm.com>
 References: <20260930-perf_fix_pylint_errors-v2-0-945cd526576b@arm.com>
 In-Reply-To: <20260930-perf_fix_pylint_errors-v2-0-945cd526576b@arm.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
@@ -48,91 +48,44 @@ To: Arnaldo Carvalho de Melo <acme@kernel.org>,
 Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Arnaldo Carvalho de Melo <acme@redhat.com>, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790773904; l=2908;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790773904; l=1345;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=yYL45a3IGyE0kwOi1+o4D9NqH7KyNV2HSrSXiSRTzbI=;
- b=yjisxiz0I3UVpGOoFilTh2q/DRJsfzZRcsemFD7n8qSMz2mR2meS8G7E1XyPHZQmZcxsTuaPs
- aH4kh06krh3D+f0ZKmj3Vpcpf9KzJjAXLkw1ZWmpPAc5gV9KcCRUCxi
+ bh=cYj/IwgZOGpvuHZ3PhyEo2b3WW5jo1U+Y/ZN3oRMbQA=;
+ b=kpxLVNL3EO5HLwz1dxjGD8o637iE0kQbCTuLRX1Bs9k3SYvDjCbtV9Pre93cSAXW+CuH88GaU
+ TJyByeDwf+zD5VpeC/ijFpzlEqG4hGa8D4g0Zd2jEp9xTeunDiFUGmB
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Pylint checks for tests and standalone Python scripts can run before the
-perf Python extension is available. On a clean parallel build, an import
-error can stop make before the extension is built.
+During the perf build, pylint reports:
 
-Run the script and test pylint checks in separate sub-makes after the
-language bindings are built. Keep their rules in the respective Build
-files so the perf and perf-test C sub-makes can compile concurrently with
-util and the Python extension. An isolated make perf does not need to
-build the extension just for these checks.
+  ************* Module export-to-postgresql
+  python/export-to-postgresql.py:319:8: W0621: Redefining name 'e' from outer scope (line 100) (redefined-outer-name)
 
-Fixes: 8a54784e708b ("perf build: Add pylint build tests")
-Reported-by: Aishwarya TCV <aishwarya.tcv@arm.com>
+Rename 'e' to 'db_error' to clear the warning.
+
+Fixes: b1f968c9656a ("perf python: Port export-to-postgresql to perf module")
 Assisted-by: Codex:gpt-6
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- tools/perf/Build         |  4 +++-
- tools/perf/Makefile.perf | 15 +++++++++++++++
- tools/perf/tests/Build   |  4 +++-
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ tools/perf/python/export-to-postgresql.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/Build b/tools/perf/Build
-index 8a0b5592a973384deafc5bb5cc7ed0cc91e0257e..09fd88f5aca54118a9b089e9c20124e23de77517 100644
---- a/tools/perf/Build
-+++ b/tools/perf/Build
-@@ -102,4 +102,6 @@ $(OUTPUT)%.pylint_log: %
- 	$(call rule_mkdir)
- 	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
+diff --git a/tools/perf/python/export-to-postgresql.py b/tools/perf/python/export-to-postgresql.py
+index b6782129354ed3b1bd750af41e7a002c7134bf12..9cac64dee361214de3d1f9907c5e6849327c8ed7 100755
+--- a/tools/perf/python/export-to-postgresql.py
++++ b/tools/perf/python/export-to-postgresql.py
+@@ -316,9 +316,9 @@ class PostgresExporter:
+             # SQL identifiers are double-quoted; escape embedded double quotes by doubling them.
+             db_name = self.dbname.replace('"', '""')
+             self.do_query(f'CREATE DATABASE "{db_name}"')
+-        except Exception as e:
++        except Exception as db_error:
+             shutil.rmtree(self.output_dir_name, ignore_errors=True)
+-            raise e
++            raise db_error
+         self.disconnect()
  
--perf-y += $(PYLINT_TEST_LOGS)
-+.PHONY: pylint
-+pylint: $(addprefix $(OUTPUT),$(PYLINT_TEST_LOGS))
-+	@:
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 0102c3468a0b79fb22966d8cbd8fa8525d2ff3ae..0eb4e7c29c400021907d3da716bc4871f0df8d88 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -578,6 +578,7 @@ strip: $(PROGRAMS) $(OUTPUT)perf
- 	$(STRIP) $(STRIP_OPTS) $(PROGRAMS) $(OUTPUT)perf
- 
- PERF_IN := $(OUTPUT)perf-in.o
-+
- export NO_JEVENTS
- 
- build := -f $(srctree)/tools/build/Makefile.build dir=. obj
-@@ -633,6 +634,20 @@ $(SCRIPTS) : $(OUTPUT)% : %.sh
- $(OUTPUT)PERF-VERSION-FILE: .FORCE-PERF-VERSION-FILE
- 	$(Q)$(SHELL_PATH) util/PERF-VERSION-GEN $(OUTPUT)
- 
-+ifdef PYLINT
-+# Run Python checks after the extension is ready, independently of C builds.
-+all: pylint-perf pylint-tests
-+.PHONY: pylint-perf pylint-tests
-+
-+pylint-perf pylint-tests: | $(LANG_BINDINGS)
-+
-+pylint-perf:
-+	$(Q)$(MAKE) $(build)=perf pylint
-+
-+pylint-tests:
-+	$(Q)$(MAKE) $(build)=perf-test dir=tests pylint
-+endif
-+
- # These can record PERF_VERSION
- perf.spec $(SCRIPTS) \
- 	: $(OUTPUT)PERF-VERSION-FILE
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 8fecd539012429c0f517d95f145a91137333322b..05c545aac73232a322652a6119c3178f39b83145 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -119,4 +119,6 @@ $(OUTPUT)%.pylint_log: %
- 	$(call rule_mkdir)
- 	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
- 
--perf-test-y += $(PYLINT_TEST_LOGS)
-+.PHONY: pylint
-+pylint: $(addprefix $(OUTPUT)tests/,$(PYLINT_TEST_LOGS))
-+	@:
+         self.connect(self.dbname)
 
 -- 
 2.34.1
