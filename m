@@ -1,127 +1,95 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE597081A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726585; cv=pass; b=jWnCM7E3XKDe4udc113aJNWMNIRxUH3+JuGCkECltL5rjqWeMPI3ApksGsnSjJzkirq9FLtD33NjbEHfdz4S0o8GtD4NaG0G11042Pmv/7FOMlAWAoQfUiOaa+gcNfqa5KbROjAdRRIoXA0BC7uIg240x5zp/5w8MZwsGxRg4+I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726585; c=relaxed/simple;
-	bh=qHDkxtafVGiLzVypTE9iASPqPy/DZ1H6CNsLVBQXQrs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fafy4aJVTgC5aLu2kqiCukPT4mzcc9aQXpjHrfaaaChrCGeqZ0dljtZJKI0MLPfn+5YZ968eoVAlTM1QhAqrMZb9OMgLgZDw5SV+xsDV4WwEKh9gNRHkMkJaRQp36lP4rJr/K2SennqBztU5c5Wtsrr3fSQ7GwuR/72nz5or30Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=POGr4Xq9; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EE7BA45;
+	Wed, 30 Sep 2026 00:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790726665; cv=none; b=UEOAN4DZim1Iw5d3/epQbflcob84yJXcoU7hKU/RkTxwf84FX5vqdbdbmkdyqR6UXpi1Hm469uMUdNi+MVdFN6AJADfhJjti8NXS0GKrPQnmM08Puk5Nr5p/El9/UOHtAwc3igxnOqqLVK7IIQ8BCHXqMuD/A+seP1fNQ65lztk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790726665; c=relaxed/simple;
+	bh=i7SyyYdTC+BA/DUxLIxmcX+qF+FrVzXcj6VZKWRIEcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p4Wg5irjml4DUZAiBFh6leTlL670ZS0QsHdMi7/9tM7rVqX1zBi75Ip0j+RalpT0U8g+pc01q9S124HqlcLdjptRWgs6W11C8fgCupQtKiKiE1fw6xoTsUcWCNKCYAXiZ6XnEr9tS7PCTLrY3Pwb0YwCVX7PBPxHyrcmIkNVuUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2sNYKbN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="POGr4Xq9"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5333401e359so59611cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:03:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790726583; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bYWZaZN/zO2ZdRqjaoCbIkXsqg4K0UqTkvA5tWHAnjJVfBdBjuCwdO+EErAorMEii4
-         DEijf2OgmM35rRfzTeuKxJNmFlRRnoHspr3xv3J5PP6OAtzAWXn/SOCr6cfJFAguBjk/
-         FvbQEHk4BHOWWgsyEncIaDScHOQjLqpr6+Yea8xeerZHZyAPIMTKlRjfadvt6sxm5JIW
-         EROXOCRtsyqNO9WF//wCVVRTF0Y3HykwhOaSPWFMw70Rlh7/XAW2PM/Y37v9IY12IBj1
-         80F5ETbevECz3ur4m8HqXP+KSjvvqEMGsuHQZYo65J4ORolN8BB67YxBropeLSEfW0l8
-         R+6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qHDkxtafVGiLzVypTE9iASPqPy/DZ1H6CNsLVBQXQrs=;
-        fh=qXzDdGkAous+zG6iVC4fM6EpdnqOKiLh6gincu3+RU4=;
-        b=owI1JKSsIOuNbd4m9fw+9kjX4NiIZ0eVEDJIjluCur1UjM8CYHuIbmp1qXaNTs60TN
-         F7sWIwnnySDdPiUFIHywKgo0fagXmUE8WmiTonK/P+LCy7+n4DpItuO3Lc4lOqZzZFXu
-         2yiL8oQJuHRxkLCDZN3VvO4oV22md+V+6lGAmGXX7XuGm2R47dWnotZ5fiYmrfCuK6fm
-         FUSx/sB8qC3eC4UmomN70zpa39PQRz+3YcEokSiqpV5b2f4C2zu2oNkUD7Yl4ltxpqDG
-         0t+Z7InyHW2Ht6q02Me90xLsDv9WdnnAU7njUl2V5tTD/UBalU5x/g/rMztV2PMKeMxT
-         iaZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790726583; x=1791331383; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qHDkxtafVGiLzVypTE9iASPqPy/DZ1H6CNsLVBQXQrs=;
-        b=POGr4Xq9ndVZoLwEi5L3szFpGmOFlHyB5P3lc/gdzW6BGEaOU8XTBgabt/Oz3fpTpV
-         x0pREqIlMxG35A64vMEI5LoO/hqjeFsxfGBZlYAltQkGr/l0uLy/DsMS2qbdxiBnSpT4
-         Ggf0dwiAt663RHXGH+R0VCF8jLgKvPPxFxlmQThVdpmbK0kWTpKxf9AwahL5ke5zRaLH
-         hRYo7A/DN13FCgLj3X0KwmDM5VQLQa7T9uN+ABsiydkK3nm7mHxN6hE3ClP5jALLxTsj
-         8CiqAKzeSTouRCr+dm9n4+RfUt4B/ahJiCFDVQPBHyANvUKtkHZTrcaa3h1cTc3/acUr
-         yP8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790726583; x=1791331383;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qHDkxtafVGiLzVypTE9iASPqPy/DZ1H6CNsLVBQXQrs=;
-        b=ntrspfh0uB7QMCbrrepdBpYrK/iNTrLdc+2g1SHONxpfsy57MtO2BjsQMMU+ncmety
-         rvFM0E89xh9NuRRM3BdPrnl3bqnHyBft6uoPW1nghSiRn5+NW71jkyiIo8epGdT5WeP4
-         HYS4UwWIji2/5mmLWM3aYGH4ZGGNSpeHkt+0ZBk33ob/WG4jYyD+o/P5cbfCo5RrweS5
-         FaVuxbhlD+zTqDEfAGv1lbno9inDrsyZOiSMueywa57zk5w1+BLT4adWAmRmDyabE07p
-         aNXl6YF/e5iQZbTkN+zh5r3QB/3VIqgPBdGaekYbvVcxxx6kykjs/T4mgoywwm8lEr6v
-         rNrA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVpuWW+/0AN5xVe+Obh6bkJ+nWK7MOqJjWRwOBSLPRQkiVlNqjkFnV82462DdzjwKd4dzy5SATjJptmgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4PmCTmkbsJFciqtl9Kv5KzfBB6VV9tul1CyzEqR6z56HQ5KVC
-	i4sjdXzBpNen3Bou4sa6bM5HZC3CfYMuz8Z5JI96rCHvQ/8Hcl5E9sN69lBKyVTnBnwkXMH+ZxS
-	4m0qZ3YRpCzcMZtNuCEgjMj/2VfeorLBUeVrF3TV2
-X-Gm-Gg: AYBFou3cDzF19zBFHKlru5C/RU1wKiYLkzUd1WL/lEAQ5Lrfz4QjJk0uMQT71Hqf/mi
-	vKc+kJoB0t67X0AMHHX8cFro1G3dLc7ha8L4L4oYBVwyE4LgCEUtLLx/iykyK+kEmxPIGkGS3yG
-	UJqOOzzLqDFXNdnGNpF3VUkantnxEV0m9Otprqjv4hW65plBlwP5YpSPGllE03dnIssjOsLtUCN
-	GzFh9X/3NDZBFtEsrFHDt/0qpu/u4ZN1Rc8Zj1lE3bYcehs3aA08vUhcYLCO4kChhNtcTW8Ig77
-	nbkwJJTEE0xPxjWiE41fzBAUcat6gA9MCBagush29WNDXp/f5Pj8NQ==
-X-Received: by 2002:a05:622a:1bab:b0:532:84d3:abb with SMTP id
- d75a77b69052e-5336b71d9efmr4396791cf.7.1790726581856; Tue, 29 Sep 2026
- 17:03:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2sNYKbN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96B21F000FF;
+	Wed, 30 Sep 2026 00:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790726663;
+	bh=WDCmjDGffxRzaaQLGm1drSoIh8/P2XDE6hbYGjqDK/U=;
+	h=From:To:Cc:Subject:Date;
+	b=F2sNYKbNwG9H4260H18RinW4RtOJHTP6WgWgVNEVQ3iBqk95VMtAAQNM479gUsXPt
+	 uznXTttjQKEW/Y2ucyvmdCTmu8e3sY+c0G+LZebBrDYxUQeOUQ3Gn59YLfgbITMzF3
+	 VeBl1cPPYeMFpbGkrOjdlB+c6Xg86OLCjsCoXV6XGmX5nr552e72q0yaBCayfwm1it
+	 57X4hzo/4zzJirBcgpFZjxX0uee7p/Ohjg6dt/xCt6tgRJ45z7AX4CabgwMc6OOrj+
+	 P4B4biM2kHjioQF7YQx1zgabXEUuKUJtC+HNKpzFQJjJbtDUHptW1qM8sbOwguGJG3
+	 xlwh2gHgsQBRQ==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET sched_ext/for-7.4] sched_ext: Sync tools headers from the scx repo
+Date: Tue, 29 Sep 2026 14:04:20 -1000
+Message-ID: <20260930000422.3350352-1-tj@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929232621.3745312-1-avagin@google.com> <20260929235700.GBarxQTLOrWy1I3UZr@fat_crate.local>
-In-Reply-To: <20260929235700.GBarxQTLOrWy1I3UZr@fat_crate.local>
-From: Andrei Vagin <avagin@google.com>
-Date: Tue, 29 Sep 2026 17:02:50 -0700
-X-Gm-Features: AclHuK8pBAhxHDgkryR_lf8FVefQyFp4c6WdvkftFL3l7q2RpBjFL4gCCGa388A
-Message-ID: <CAEWA0a6McVMNv1ALC7EoEeA9-7_7u_b5JrsqixifvsfVJ7b_8g@mail.gmail.com>
-Subject: Re: [PATCH 0/2] x86/fpu: Allow restoring signal frames with larger xstate_size
-To: Borislav Petkov <bp@alien8.de>
-Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org, 
-	criu@lists.linux.dev, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, "H. Peter Anvin" <hpa@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 4:57=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrot=
-e:
->
-> On Tue, Sep 29, 2026 at 11:26:19PM +0000, Andrei Vagin wrote:
-> > When a process is checkpointed on one machine and restored on another
-> > (e.g., via CRIU during container/process migration), any signal frame o=
-n
-> > its stack carries the xstate layout of the source CPU.
-> >
-> > Commit fd14edd82077 ("x86/fpu: Pre-fault only required size of xstate
-> > buffer") enabled restoring signal frames created on CPUs with a smaller
-> > xstate_size than the destination host's default. However,
-> > check_xstate_in_sigframe() still enforces that a signal frame's
-> > xstate_size must not exceed the current task's fpstate->user_size.
->
-> Hmm, what happened? Change of heart after the fact?
->
-> So I guess I am zapping fd14edd82077 from tip:x86/fpu now and then we tes=
-t
-> some more before we try this again?
+Hello,
 
-I think it is a misunderstanding. This series is actually the next step.
-The first series enabled migrating workloads from older CPUs to newer
-ones. This series enables migrating workloads from newer CPUs to older
-ones.
+The shared BPF headers in tools/sched_ext/include and the scx repo's
+scheds/include have drifted apart since the last sync: the kernel gained a
+size argument on scx_bpf_cid_topo(), scx_bpf_cid_node(), the lazy preemption
+and proxy-exec flags and SCX_OPS_OPEN_OPTS(), while scx grew the cmask
+helpers the cid-form schedulers use and the compat wrappers for the kfuncs
+whose prototypes changed. This patchset copies the merged result back in.
+The scx side is https://github.com/sched-ext/scx/pull/3856.
 
-Thanks,
-Andrei
+Patch 1 syncs the four shared headers and adds the two files they now depend
+on, const-defs.h and features.bpf.h, and converts scx_qmap's cmask calls to
+the three-operand form. Patch 2 syncs the four autogen enum headers, whose
+task state lookups had been under a removed enum type.
+
+Verified by building the kernel, tools/sched_ext and the sched_ext selftests
+against the patched headers, and by a per-file diff showing every shared
+file identical to the scx tree.
+
+Based on sched_ext/for-7.4 (c6fe97c34a1a).
+
+This patchset contains the following 2 patches.
+
+ 0001 sched_ext: Sync common and compat headers from the scx repo
+ 0002 sched_ext: Sync tools autogen enum headers from the scx repo
+
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git scx-tools-header-sync
+
+diffstat follows. Thanks.
+
+ tools/sched_ext/include/scx/cid.bpf.h           | 689 ++++++++++++++++++++----
+ tools/sched_ext/include/scx/common.bpf.h        |  90 +++-
+ tools/sched_ext/include/scx/compat.bpf.h        |  63 +++
+ tools/sched_ext/include/scx/compat.h            |  15 +-
+ tools/sched_ext/include/scx/const-defs.h        |  20 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h |  15 +-
+ tools/sched_ext/include/scx/enums.autogen.h     |  20 +-
+ tools/sched_ext/include/scx/enums_abi.autogen.h |   6 +
+ tools/sched_ext/include/scx/features.bpf.h      |  29 +
+ tools/sched_ext/scx_qmap.bpf.c                  |  14 +-
+ 11 files changed, 837 insertions(+), 127 deletions(-)
+
+--
+tejun
