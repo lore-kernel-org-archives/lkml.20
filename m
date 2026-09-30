@@ -1,167 +1,114 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C31F3B47CA
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA233BE15F;
+	Wed, 30 Sep 2026 10:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762443; cv=none; b=FDLMghSRISp4zOrsnZZXLXnBChLfXcncnr76hStWbRarSyVZIjpszzmVpLCMWPZobuvYVzYefEaGhgLmug98JnE20DVcFlg1lawU//BEcXZHzzVJpl5kXkAPoTU7rR1XTF9L55aWDCLmFKVGJ7r3qp64bkciSzKJ68KgKaOxe6k=
+	t=1790762508; cv=none; b=WI2FR4DbsB3ourK+n59OYCcn/gU6Bt0RYYA2a/rPCO7yO3GN/JEIw0YQxdT5hLHeSnNXZ5sLeyIlKo2G5iqg22UpGKrRrVtm7C4J1jYAzSJyVakW8YP9MTHtrZc3ndIzuDb9Z+Z6YdiAXSj4Q/AxwXK264ubYgE6EkqkCuUV5is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762443; c=relaxed/simple;
-	bh=pm+UitRBOGfKG54X+0W3itQFEz1WkU9YjmSk9yn03+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=upcR1L9oN9eIWOjruP5MmmQJ/5qj/EyY/pbWhCon2JEvyUDdO1HJiItOMcqxbXxiUWyf6LgqklLxBj7kcbpWJcctyvVsN8ELgqhBDs49Ca3CKHaJ+U85MuWGwzznsduPMRQfxe8DmvL+Jf1VjxNZR8Cyf8RMACJob0ya0Js/ZoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfKFpiIS; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790762508; c=relaxed/simple;
+	bh=7aT6bgcPtCW5oehmL96KGS4fT0bM4ebVvrP97MFYTVs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Rtegxyq8b3xfyx2McxQGg9pM/36xygk41HYov5V7xnNiWMvFcBWxhFZ9XWOEALTyNToVhJcajGlpPwzVQsmUtofszFcciSYtIyA52px4XV9vd9WyLp6c7ZMSlLxAaxdMlKMJQv9Xc2YmeGsnsv7QzgSUOw4JIf9SQcEZNUY9+gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=PCYs5c3S; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfKFpiIS"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e17e5de00so113285666b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:00:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790762439; x=1791367239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QgnMCUr5ATcF80ey7meAMPkqM75woYMa14Sfi0A0LQE=;
-        b=OfKFpiISZR+C2wDF6Cc0ZG6KzmpJiw49ZtgL+YywGEg+2J6SND9BXE5srsPLvYUfyh
-         jd8gvbV/b0IOnTsfDzd4epB7qaNJSlT/CVVtFphXWKvqQ0fAxotRdkTlmmKqPNbAMeXR
-         2GtqVSRS6CD3DiDDsu5gGl0etwS14P4Ld6yFGqcLk//hHZB00PCp3gKF2+/ogZ5QzeHQ
-         B/hVcW7qhUmn6ZfCx8H+4Sg8UWC0zpvSB9fi9wvPEV8CDwLbAa5JrbicWj0PAjfNibqg
-         re5bhKKOGfwIKLr9c72FtZIn7jMsIwQE2aQCCQAWGtwTai3MVgXDgO0la0Pifc01jVWy
-         8KOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790762439; x=1791367239;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QgnMCUr5ATcF80ey7meAMPkqM75woYMa14Sfi0A0LQE=;
-        b=A0/XgPPqeqgaqtuEQgetx7/wHpjzpgkieOsC0ajoS0/5QH/Iu1iBjm3aqFD1z1LDh7
-         uOkjZNeXbPnLBUQqqMror1IrNja+TNzrqc/a1PX7YlmQCyWd9se2bTCME3IEH58RwxdK
-         a/XyXccO931aCf/4kE7VKGXqDA5hPWDxrO2yQ1i1dm3h5BF01jIACkIzeDQEO7d5Wo6w
-         l1W8O6URIKEvw1VIp1jl+YnWR9U3oOtJfcrvwlxV8vS4Lj+QIOJlsKH1Wj/9BdI7YNG3
-         d8KYdpvmJb/3Qkjq/tIBEtM5qBY+rKJPD0LMBBB8L4iQFxpD4q1Aasvyk6Yjjv6l8L4h
-         uzYg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+y7XJcS/l0Sth7GJWkqmfGFY+XRd2ZZvHX5lPtZBrlhkhzJ+hoR4SW3svqNNJK9FzIjCu0S6M8ygUd58=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNxNn1AyBjGbi4887Pl2QvPxFVMr7MXoxG8WBF8/8zZNkB3ssp
-	GIObH8SuKBnLTbGjYzhSS9aIyJ/BfjEr6hm+Sdp5eFAm5/MlO3ucQig5
-X-Gm-Gg: AYBFou0VuhGyWf9Z0oRwIrT1SQFpS4mjsmvrIlFhJrM6gQ0BNI/ZzlT3QQ9hHAE3sqn
-	PG164zK+3EcwmHeQErsEfzjLhAMMRDkEY/FWEhuIupHtAaypphvkNVpy6gmtMxNZqcuHKHkhJGV
-	sraP0/Oaf8xaCSAMfILx6ORMS0JhWngpvaPTdNgeMmgXX2Xsq8vl4qRvALHnKj9sQhHtDQvsMwU
-	R7kdfTGaq1DhHRa75jK9+LZTGFLgSNUdStFjV3/eIbZ3UTAgL8POungdJrBd0jXJsyyp8oDTqyJ
-	4FWw3wV85jG0QO8FH1d2v31s5oSqFQr0BNFNBSV5BAMJyL6cg9It+eDriWAVeTJDj2ZkDxsdI6E
-	3NvZFDDhhwgY9Wz260/enWmxuy6CQlzr00kFQQl/KX74wnNqcnONLzZZfvdhbwJB2LeEHyKSSdT
-	A9XcmJmZaX+mERtskFlcv5BVkyePEAvKTkB4DlUJExNinFG1mYRAn0lGcBO2Bn7qbqxledNPPp/
-	NNhRfCxArwWBNeJ
-X-Received: by 2002:a17:907:d25:b0:c2d:8fb:ddd5 with SMTP id a640c23a62f3a-c2e23761f56mr74453766b.5.1790762439152;
-        Wed, 30 Sep 2026 03:00:39 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f7fa5dsm40170366b.43.2026.09.30.03.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:00:38 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: mchehab@kernel.org,
-	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org,
-	nogikh@google.com,
-	johan@kernel.org,
-	lgs201920130244@gmail.com,
-	kees@kernel.org,
-	lkundrak@v3.sk,
-	fsimonce@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-Subject: [PATCH v2] media: usbtv: fix use-after-free and lockdep panic on unbind
-Date: Wed, 30 Sep 2026 13:00:00 +0300
-Message-ID: <20260930100000.41652-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="PCYs5c3S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790762506; x=1822298506;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7aT6bgcPtCW5oehmL96KGS4fT0bM4ebVvrP97MFYTVs=;
+  b=PCYs5c3SGW3FOYYftqM8YH/0tMZAHUqejxSyhiW1PUkUVzyDTfMdEALU
+   X59/zhNSdctvvqxzJryUjYcuKgxvi0Z9mHwFvrLxOk/RbfIEaJIh0/bnt
+   fmBLEUCr4dnDJXmu+RS0HsbRGtj8DAJM8Mnq/p4qbQAJMAttzmfZNHe/T
+   B433/npNo1E7s1+6moFTQPMnR34VjMphtfSp9zZdB36RA4cXL9z/jwGD+
+   B8po4SIYnb2MzmJYxZk4ADQrt+VnDeSBA7KUPe+6OcnYKENctbZ/bQkDq
+   NuUMjS4u993v7OIuuI1hvVEFFbMbRFy+ZNOwvBQe9nA98EPGOApmDSlO4
+   w==;
+X-CSE-ConnectionGUID: l70GvazLT6CO1ji4/fGI7Q==
+X-CSE-MsgGUID: LVwpygnjTQOmfk5PeePuCg==
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="295774315"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 30 Sep 2026 03:01:44 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 30 Sep 2026 03:01:44 -0700
+Received: from [10.40.24.197] (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 30 Sep 2026 03:01:40 -0700
+Message-ID: <ffd9c6b8-1169-4fde-ad84-581aa27ec827@microchip.com>
+Date: Wed, 30 Sep 2026 15:31:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 0/4] net: microchip_t1s: fix collision
+ detection on PLCA status change
+To: <netdev-bot+sinfo@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <UNGLinuxDriver@microchip.com>
+References: <20260929125928.611784-1-parthiban.veerasooran@microchip.com>
+ <179068710834.31693.5197444123173344784@kernel.org>
+Content-Language: en-US
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+In-Reply-To: <179068710834.31693.5197444123173344784@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When a usbtv device is unplugged or unbound, a lockdep panic and
-use-after-free occurs in the driver core.
+Hi,
 
-The sequence of events leading to the crash is:
-1. device_release_driver_internal() acquires dev->mutex.
-2. usbtv_disconnect() is called, which in turn calls usbtv_video_free().
-3. usbtv_video_free() prematurely calls v4l2_device_disconnect() and
-   v4l2_device_put().
-4. This drops the final reference on the parent USB device (intf->dev),
-   triggering synchronous device deletion while the USB core is still
-   holding dev->mutex.
-5. When the core attempts to unlock dev->mutex, it operates on freed
-   memory, causing a lockdep panic.
+Thanks for the feedback.
 
-Furthermore, usbtv_disconnect() continues to access usbtv->udev after
-usbtv_video_free() returns, leading to a direct use-after-free.
+The issue was identified during production level testing of the
+LAN865X/LAN867X-based system. The issue was observed when the device
+transitioned between PLCA mode and CSMA/CD mode based on BEACON
+availability. The existing collision-detection handling did not
+correctly track these autonomous PLCA state transitions.
 
-Note that commit cb705f75d03e ("media: usbtv: fix null-pointer
-dereference on disconnect") recently added a mutex to usbtv_video_free()
-to resolve a separate issue, but left the premature v4l2_device calls
-intact. Because the final reference is still dropped too early, the
-lockdep panic still occurs.
+The changes were tested on a Raspberry Pi 4 with the LAN865X/LAN867X
+devices.
 
-Fix this by removing the manual v4l2_device_disconnect() and
-v4l2_device_put() calls from usbtv_video_free(). This allows
-usbtv_video_free() to safely unregister the video node without destroying
-the underlying structures. The final v4l2_device_put() at the end of
-usbtv_disconnect() will now correctly trigger usbtv_release()
-asynchronously, safely dropping the parent device reference only after all
-system locks are released.
+Best regards,
+Parthiban V
 
-As a result of this cleanup, the dummy v4l2_device_get() previously used
-to prevent premature deletion in the usbtv_probe() error path is no longer
-needed and has been removed.
-
-Fixes: a3550ea665ac ("[media] usbtv: split core and video implementation")
-Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
-Tested-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
-Changes in v2:
-- Rebased onto media-committers/next.
-- Updated commit message to clarify why commit cb705f75d03e does not 
-  resolve this specific lockdep panic.
-
- drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
- drivers/media/usb/usbtv/usbtv-video.c | 3 ---
- 2 files changed, 6 deletions(-)
-
-diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 89c3424e7685..2cd982ca49bf 100644
---- a/drivers/media/usb/usbtv/usbtv-core.c
-+++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
- 	return 0;
- 
- usbtv_audio_fail:
--	/* we must not free at this point */
--	v4l2_device_get(&usbtv->v4l2_dev);
--	/* this will undo the v4l2_device_get() */
- 	usbtv_video_free(usbtv);
- 
- usbtv_video_fail:
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 2a91af8d1e30..999bce621c04 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -964,11 +964,8 @@ int usbtv_video_init(struct usbtv *usbtv)
- void usbtv_video_free(struct usbtv *usbtv)
- {
- 	vb2_video_unregister_device(&usbtv->vdev);
--	v4l2_device_disconnect(&usbtv->v4l2_dev);
- 
- 	mutex_lock(&usbtv->v4l2_lock);
- 	usbtv->udev = NULL;
- 	mutex_unlock(&usbtv->v4l2_lock);
--
--	v4l2_device_put(&usbtv->v4l2_dev);
- }
--- 
-2.47.3
+On 29/09/26 6:35 pm, netdev-bot+sinfo@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> 
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+> 
+>   - What hardware the change was tested on. For driver fixes please
+>     mention the device (and if relevant firmware version) used for
+>     testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
