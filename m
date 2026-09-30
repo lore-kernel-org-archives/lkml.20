@@ -1,75 +1,71 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F9B4C77BD
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9916B3CC337
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767015; cv=none; b=ORu2S+fONqAUBcEjwkics5p1rnIxEGGuuwMs9S6odfle4i8zwyWbgSbgJZjECyq11zI2nMMq3yeyglaogKGFWYRNwdPZCItJya1aEQagS+xoP3eGUMvFleoTPPpDva2KljJK2iZ6snuvFLCx/pisz5v3KJz5AlU5NL5vzFnbvqc=
+	t=1790767028; cv=none; b=WFjA6fZbLCk5/cyloPrGi9ANStl4JJ86RsQJGlC7hSSdvwlju9OSjQPOCS0GDXorqk2nSryWIjKcN0puHUao17q5xo5L3d0OiSKg1Mgmqjb3HVQe7dtrmnKE+mdw/UHT9twX17inHiz6VjcdD6mJufE057Ho1k8p4gv/kWdHyyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767015; c=relaxed/simple;
-	bh=PTm7KfAf22Pq8oTJK9JiCTt7+1syK75vpiOwmFtY9J0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J72IkJgW8o/2iITK7ZtL9b9lDoHqNBWezU4sIUNZv9BW70Z8qe0LigSt7BSV+EqOLroznidCyJOmuJlT4T+mgnqQ2ZEHEp41Vs3liVvjH1Pmnkq/Wp5xPJHRDGwKOfmq2UVbTLAwa9/VlkL6+TgcSgayejyoXCSUc6FlnsHSK/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FUvQzYJe; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790767028; c=relaxed/simple;
+	bh=44g+cwRkcg+sgXv00ki4bHGO1GwDgBVNf/x2lAp1OpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jyPuWJBSej8KARyCCAzD01ShtFSF5RTjRAkJQbSpMz1R98eH73/FJ6DmwQzD1yyVrpLsAAdgc/HU345h1P02irOxCNeh8Bc0g73j/0tI3jGTM7jJNiesSFsg5Aj5jWlXBW25FM/ABo5reLIWMvzuzc17DOnOTzbS8v/bSLJFJ/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IGROV4ER; arc=none smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FUvQzYJe"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2482111a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:16:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IGROV4ER"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so3830026c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:17:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767012; x=1791371812; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790767026; x=1791371826; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wY93XBZD56JE3eyu1OkHEle/LlbtoW01BFCKk6aYmNc=;
-        b=FUvQzYJewIwlr6o5zL/7Vg5RevxVcyF8QJ3I+yogBzB1R/B4ZN1xDLpG0gKYTmvwUj
-         YfPtQ310owCh1dWR6H+YvKehCnuPF0VthJ3IWL+vr3ubtkW+wWV8m9n0tk97MIH++6RR
-         JmrOWoPwfikZa8JAd1fmznCHBol9FBxsOY7QFA7UdUY19u46i/6QoyQrJpys0hsonB/F
-         uCG9RMMcPyUbPLTmWMCKyJONY3dyWFY0sH061xGl28Nn69iPJLLYMQKxce8gCbw8o9ie
-         7bOrbW0MfWCQxuucAbqdY2S3ClqR4zIb666W40k4MUwc9kIp5NiX3kaZjTQMch/ltGmv
-         bsJw==
+        bh=4H/28AxKTyi5/kuGhdFpRuaO8Fax40tORz6GBMg/6GU=;
+        b=IGROV4ERJILiMbjMW5538XwiYCXyACTRfHsxEHCzu+K180Qi4NXRMf9NDXUAUEmuwe
+         GysK3O+2rTZmEIce/mx3vH9vudBkxRic8ZuBV8QUBbnAF4tRmp0kn5M74ddnzpRMlj8R
+         Y+2Ujv17YN0xhciHbzSPKP/nqNfZgHdPFUgOfSv4U8ZmMeJFsX+/JXdriwemKUmpTnV6
+         YxzY/g1/HDBtd9/NCbS9Zdh4R8qXZ+qBFia5skGd3+5d8LEo1jFzpIjM49es856IqWnB
+         UUXqeT+MId8U9PrrlNaLRaKHYN57wCNy6a3xDBtP6twc7Z6wukniAYYcbzW4G3gJ/eFQ
+         8EDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767012; x=1791371812;
+        d=1e100.net; s=20260707; t=1790767026; x=1791371826;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wY93XBZD56JE3eyu1OkHEle/LlbtoW01BFCKk6aYmNc=;
-        b=bROZxqhu1tJpKXqXllxsXCQMf4RUnFQ+c/PcpBUiK8zi14OIEZGndV9oz5Q7BS9M7i
-         Tzb3Z+fUDVaDgC2JpqBYwVv/KC4StB+NbpMFJ+zf0IxQ/TeMaHR176k5so5YzFS31Ff3
-         5hc+gYYLr/ljEpD6//zkFW7YVntEh9Px1NhquhBvo4ymmNMMzCOaP/FiG6kuC7cY7T7k
-         gdiE6gYby83kT5LJljNqdf1z9oQWKjtKW++yidBIF6SjHcYHlsqAnPqikQ2KXxGIK49I
-         hanY5u6u9Yb7ZE2ii69ajq/79A6kLAVPPWdzMhyuzfbw85Nbd1T1l2/6k35oemqSjQ1U
-         OWnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfamp66mVmUythk3nlsE/HzvsUgi5q6ZslFzjeW6AR3x/jza6PwZvXNo6fuFhaNP4ls9UU2KVWOEKPNEM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgcKazNFR+cJQKWpI/6+pONRav99YI2gZ/4+v1idCQUVI1x3HH
-	tOi7fuxC5rFd2fAHdmNGK/tk5CO4TxNs0JaMUE+5+MgJeO/8btoLzb8L
-X-Gm-Gg: AYBFou1sT1ceHUev/elk1fs8PJLFxH1oI4yU3XQ/8kbCideyB+rsnQdgSvRL1SurB/8
-	ro+4pFK7jo/r9s+GwY7vvMj+3zt1OzQuNMoN/wZbB09+v8CkMzFMEYUXQjlAIPA5ZENEtwJF3g+
-	v1/5ada8reYqtPcDkAtbt14/M/lE3SBdrLyWHQLZEW4sXY/UjB1FZhFt82uSSG9ox9C7yHr3GnQ
-	l5+m1Sb521srTuZZlezwCSvpp96zfDbii7N1YUuc2s/wfvG9D0+N9mv/B+OdT/KPvJKX7L2WN+h
-	6O7k5eLIPgwrUCR+jZ7Lt8SD+GdaoqZz2N6RSCIp2IW3ewKTJbVDhdt0mEUI81FTL3P8DVzX+gQ
-	PUxTlbVyfSgknVHaCrtnhQs60228DUejtcXp/x6yNL442eiumcHgcHOWjVn/mlMI+fcQdhdN464
-	f9nuYLC1B65Za/Cz4fF9ustZ4s1OYa12Mu1+hHVn3/J9VD+qWb1XJmvCBnlljAoTJBW54Ev8aZf
-	J80CHFBIDdaTzDr5sYPHIrGHmL67VSWnCiqoR5VWiV1Q/RuEarOMhDTq+QdXYn+ys2XWKpLtSJN
-	a/tAB4U/hI/CHIguPNbdwv2MYExQMohAVG4ocTaTrONkXjc=
-X-Received: by 2002:a17:90b:5830:b0:3a4:a045:27cb with SMTP id 98e67ed59e1d1-3a4d193d3a7mr590091a91.46.1790767011654;
-        Wed, 30 Sep 2026 04:16:51 -0700 (PDT)
+        bh=4H/28AxKTyi5/kuGhdFpRuaO8Fax40tORz6GBMg/6GU=;
+        b=qwJTwVidHslSBhKALDg75uk+5kw6z9meA6CWSWMgLUgEkJUmg+4H0Yzx5liAlJFn0/
+         j3p1qHEfegW4FkdBP338eUcJ9+l650PuHdOXD2+OceE3cH/zKrZVPEpK4sBp4tDBLHyc
+         j/5idOAmVA0tgd6Cb+bJsHfuQ5dtmIWOayjUVdpktmLKlrHzsPtYIvYTUM7ZDMxrHa5v
+         67UiuZST4r/FPPngOFQ2Jb0uxvFYCIPb4TF5RM5D1i8ji6coF7YZs0HE40ckkkUDRpbj
+         V5TSjlFGSYspdjsG7xKp8D4lu03hLRGmNWLP9V2Bx/umsXmXKLsKk4yyK0Bt8xivwVSB
+         VxqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHKPz4knkbuwRU/c9XjVZnCJxkYXedqdexYgr696FAjEvmGwY8JZrPynNaLk+6XdHPaC2wwhc598Xb+Vo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHlYXd9aPZ5abpOHWytFwuyTK4j0HF7HXldC4ttt1zW76F1OIn
+	PepIIi82bo6zwdvg7SIHqzlQD+MHjVQBdB66SLzL6wK6HJx3+qRW/BaCQ4K+q580
+X-Gm-Gg: AYBFou1jnIhJexoHyK6MPkhP9FBnrXvqHdYq85ElBLEONcvKQmczxyE8MkD1jQiFxux
+	TEixgGUmN3JE454HFAbfra2d8ZBg1w4Xe/iAeJFjRy4avDSnXbrFnMKAWOSPidS4iCw+ywRTkt1
+	v+rpimhsU/o4Wcit0q/AIZ7Q1ApvDsHBi1mriXKFL9DvT/WbliIgvHE8ehai1eUlGfkmhkdTTF+
+	x0sbl6OUN+ftrYdC6eo6cXXZ2e7Bz8J1u4Gf4OSa5MxnxkVcoaqViKQfjnKEFgC+9ybJ9wPSQTk
+	pqPQd/gnqcKyMaaXO0Yvh2zoYlXGmsCTZGxrBrH720vJ+4xmuSQXJclNiock1jxHZWDKOEsPWgp
+	MDsnowGZzEvpd13FXBBedgSPF7LVD2nqlwe/WWXfqTq33hqLJaLD+BlRAk5YLImB1UcpHzEWv+M
+	WfMC7mq2IhGic1U9Zbs53HTtPA1xp+cKXR5ryCU43pfRvSkiLBHKHq8szcpA5jwFviHs1d1P/q/
+	bNo6uB6zWYTtojh2Jm0wvWf6BBB81I1QTxwogbdDDT/yuU2hob9quC2gqrmGTlnKGlC6R/XgTaM
+	2kJPtUBMthnft1xZVSkk1OKBOQgjluHur58=
+X-Received: by 2002:a05:7022:1504:b0:143:6ef8:863 with SMTP id a92af1059eb24-14d31c6d7b7mr1167172c88.9.1790767025540;
+        Wed, 30 Sep 2026 04:17:05 -0700 (PDT)
 Received: from rahuls-x2elite ([110.226.112.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce40a6d5sm2873273a91.15.2026.09.30.04.16.46
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d083fe71dsm4168611c88.4.2026.09.30.04.17.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:16:51 -0700 (PDT)
+        Wed, 30 Sep 2026 04:17:05 -0700 (PDT)
 From: Rahul Pon <theflyingrahul@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] i2c: qcom-geni: release runtime PM reference when set_rate fails
-Date: Wed, 30 Sep 2026 16:46:41 +0530
-Message-ID: <20260930111641.1134-1-theflyingrahul@gmail.com>
+Subject: [PATCH] soc: qcom: pmic_glink_altmode: acknowledge notifications on undescribed ports
+Date: Wed, 30 Sep 2026 16:46:56 +0530
+Message-ID: <20260930111657.1147-1-theflyingrahul@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,42 +75,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-geni_i2c_xfer() takes a runtime-PM reference with pm_runtime_get_sync()
-and then returns directly if the set_rate() callback fails, leaking the
-reference and keeping the controller resumed for good. Route that error
-through the existing cleanup path, which drops the reference and resets
-the transfer state.
+The driver enables port notifications from the firmware (ALTMODE_PAN_EN)
+for every port, but only acknowledges them (ALTMODE_PAN_ACK) from the
+worker of a port that has a connector node. A notification for any other
+port is logged at debug level and dropped without an acknowledgment.
 
-Found by code review; compile-tested with arm64 defconfig plus ACPI and
-W=1.
+On an HP OmniBook 5 (Snapdragon X2, Mahua) whose device tree does not
+yet describe the USB-C connectors, the firmware kept charging on the
+connector that was plugged in, but once a notification had gone
+unacknowledged (on unplug), its UCSI connector status reported no
+connection on either port through repeated replugs, and no charging
+session started again. The firmware also reports more UCSI connectors
+than a board may describe to this driver (here a third, USB Standard-A,
+port).
 
-Fixes: 10e74f4c5046 ("i2c: qcom-geni: Enable I2C on SA8255p Qualcomm platforms")
+Acknowledge notifications for ports without a connector node from a
+work item, as pmic_glink_altmode_request() sleeps and the notification
+callback must not.
+
 Assisted-by: LLM
 Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/soc/qcom/pmic_glink_altmode.c | 42 +++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 6a39e21d5e..ed6495ef81 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -1003,13 +1003,14 @@ static int geni_i2c_xfer(struct i2c_adapter *adap,
+diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+index 13c434f8d0..24ee9ecc42 100644
+--- a/drivers/soc/qcom/pmic_glink_altmode.c
++++ b/drivers/soc/qcom/pmic_glink_altmode.c
+@@ -6,6 +6,7 @@
+ #include <linux/auxiliary_bus.h>
+ #include <linux/bitfield.h>
+ #include <linux/cleanup.h>
++#include <linux/devm-helpers.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+@@ -138,6 +139,10 @@ struct pmic_glink_altmode {
  
- 	ret = gi2c->dev_data->set_rate(&gi2c->se, gi2c->clk_freq_out);
- 	if (ret)
--		return ret;
-+		goto out_pm;
+ 	struct work_struct enable_work;
  
- 	if (gi2c->gpi_mode)
- 		ret = geni_i2c_gpi_xfer(gi2c, msgs, num);
- 	else
- 		ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
++	/* Ports without a connector node with a notification to acknowledge */
++	struct work_struct ack_work;
++	unsigned long ack_pending;
++
+ 	struct pmic_glink_altmode_port ports[PMIC_GLINK_MAX_PORTS];
+ };
  
-+out_pm:
- 	pm_runtime_put_autosuspend(gi2c->se.dev);
- 	gi2c->cur = NULL;
- 	gi2c->err = 0;
+@@ -393,6 +398,35 @@ static void pmic_glink_altmode_worker(struct work_struct *work)
+ 	pmic_glink_altmode_request(altmode, ALTMODE_PAN_ACK, alt_port->index);
+ }
+ 
++/*
++ * The firmware expects every port notification to be acknowledged, also for
++ * ports that have no connector node and are otherwise ignored here; one left
++ * unacknowledged can keep it from reporting further connections. Acknowledge
++ * those from process context, as pmic_glink_altmode_request() sleeps.
++ */
++static void pmic_glink_altmode_ack_worker(struct work_struct *work)
++{
++	struct pmic_glink_altmode *altmode = container_of(work, struct pmic_glink_altmode,
++							  ack_work);
++	unsigned int port;
++
++	for (port = 0; port < BITS_PER_LONG; port++) {
++		if (test_and_clear_bit(port, &altmode->ack_pending))
++			pmic_glink_altmode_request(altmode, ALTMODE_PAN_ACK, port);
++	}
++}
++
++static void pmic_glink_altmode_ack_undefined(struct pmic_glink_altmode *altmode, u8 port)
++{
++	dev_dbg(altmode->dev, "notification on undefined port %d\n", port);
++
++	if (port >= BITS_PER_LONG)
++		return;
++
++	set_bit(port, &altmode->ack_pending);
++	schedule_work(&altmode->ack_work);
++}
++
+ static enum typec_orientation pmic_glink_altmode_orientation(unsigned int orientation)
+ {
+ 	if (orientation == 0)
+@@ -441,7 +475,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
+ 	svid = mux == 2 ? USB_TYPEC_DP_SID : 0;
+ 
+ 	if (port >= ARRAY_SIZE(altmode->ports) || !altmode->ports[port].altmode) {
+-		dev_dbg(altmode->dev, "notification on undefined port %d\n", port);
++		pmic_glink_altmode_ack_undefined(altmode, port);
+ 		return;
+ 	}
+ 
+@@ -480,7 +514,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
+ 	orientation = notify->orientation;
+ 
+ 	if (port >= ARRAY_SIZE(altmode->ports) || !altmode->ports[port].altmode) {
+-		dev_dbg(altmode->dev, "notification on undefined port %d\n", port);
++		pmic_glink_altmode_ack_undefined(altmode, port);
+ 		return;
+ 	}
+ 
+@@ -593,6 +627,10 @@ static int pmic_glink_altmode_probe(struct auxiliary_device *adev,
+ 	init_completion(&altmode->pan_ack);
+ 	mutex_init(&altmode->lock);
+ 
++	ret = devm_work_autocancel(dev, &altmode->ack_work, pmic_glink_altmode_ack_worker);
++	if (ret)
++		return ret;
++
+ 	device_for_each_child_node(dev, fwnode) {
+ 		ret = fwnode_property_read_u32(fwnode, "reg", &port);
+ 		if (ret < 0) {
 
 base-commit: 551c722f40809618230001baccf219193e22fc5a
 -- 
