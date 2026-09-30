@@ -1,170 +1,156 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BD03B3C10
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C390048F016
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767046; cv=none; b=WMH1gRiQTFWDNK9nUlaT+3f0RxO0QrSGDLy7mViACh7gge2vwP+TF4dR/UrI6m1RqYmOuk2Oxkss0lWywLQmww/wtFNs2O8UBufqXic4SJ0PiYFKPwH2wlZb6QHJ3WoFInngKtLQjfH2ypFrjucsUZfbNcD/HREWgsDPc35W98Q=
+	t=1790767063; cv=none; b=W8EAhQHwRglA1S6h/flotfoOWH4DPJK8dHrR13ORIZYBHcQgg2ucKQVA6bXWzxOoFzh3Bp/fGSnjMIYtc7vLStdQLJ6OijQUnhkjhZB5unroF2r4ZwFk2h8ZDqd2yOBypOx4YH4v2kQ3w77c0b5yZGj07EQhtJawvyD/gj1wiRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767046; c=relaxed/simple;
-	bh=/2BvJeVcxbBFCAcdbXZWm4C6BhbEe7nLxNUVGsTSCMw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VbzmoSPvZGnjvxeb2+6Ax9aJBXzd3xyqOPfjqmH5zatzLvij5VEGGtWDoGfLT2JGv7E0UWlFauii6j9jyk+9+iEkjVDEkO+zXNxIQ584kQxm3wP2tiwxeIez2/7SRv7+dgZ2FnnqD0TO5WX7fRfZ2y4RmheAAqmBAXW6v8SW2rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NWKfyqex; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790767063; c=relaxed/simple;
+	bh=EeqgvxyLfTni+7IKc4kWoIM6ayYzhXt4o9qX/MOfp4A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qt0dcjhoM+klezeLvpKhWB2Zr8jlwppjSN7YH2WhsyVEfOMdoeoeoJVPIIQ/yCtDdHJwQQWlYqfrvomtfWzUHH/vJ2C0xQy+QVXUUTG3sKTXVEkzBN7Tqa0e+dbm7ndSMkh81jH8UOhykODGj6/KaPQv+Baw1rh94GQd1+itXwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MAmalE74; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WSjwxPbq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NWKfyqex"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd046b87so3826005c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:17:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MAmalE74";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WSjwxPbq"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB7auI319197
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:17:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0GWiw0pJyWEuZ86Zkf+u0yClTNN1vxiSDR7TmXjH+PY=; b=MAmalE74m4oGRRkZ
+	YgpBQMEenKNVe2j7WtcEurb35fYnSCR7ilC5hYyibKe74uJ3X6RzHM6bj79DU4Cs
+	/iF89I4rpvZtwroibcOs4PGkoDgA9bnHbDlLhot6OmuYMvLRBclnfhAeZpBf6B4P
+	wRJ8Rx/srv/10GUtUaelmBGHdaIYS20C6mTl6IC1uN2FgO2hrUIImFsbhqUA8Kcb
+	rnfnJtRho3OB5h6vwihZhjp6Fw2Hmvm5ax5h+mdci3Q0QX+kcT1G0sjgmdZEacqf
+	ZiJkC3eQCixEUMXYhKauFsS6AQW9hZIAhDrxitP4DbPgNStv01BQTlFwiVLUbrm+
+	RQ45WQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0mfabc4y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:17:40 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90c4d46037eso7724976d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:17:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767043; x=1791371843; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O8c6J6a8XxfczhTmsOGt/U+Fg7+WNxgVu0l55UiDc6U=;
-        b=NWKfyqexlAhpyYppH3idiaWHqf/C/Os4HBQsQIzz9lrBQwV9s/AiI7LJyGUUDYU7Wk
-         CRAI/dZMUgPVM+awhNGN+OTpuZNpFVgDVDWU2FcwL8GoIvuQRxexAmindSce0BUkCylo
-         NUCztJ4i769hhvK8oBNwgZ65jOWqRAvxRpYjLAkycjnVk+1vvY/fsq0ozMCOe9QQ683R
-         WMCvj30Gf8V/kxtLpyzMFIeI8RuFavQADt89Soqlr55/d62r3dYXGPe1RlPrwfMmreZD
-         wx6j7TzdPeD6bmSfm/SRKFOREQgPMWCNCyDUNgpgz7ohabRW/RjznPzyYVbBZMSGwWt8
-         zdWQ==
+        d=oss.qualcomm.com; s=google; t=1790767060; x=1791371860; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0GWiw0pJyWEuZ86Zkf+u0yClTNN1vxiSDR7TmXjH+PY=;
+        b=WSjwxPbqaRfjlvBig4tQE5Nx3B5WZrjNOMpnl8ZhSxHJdGKx50Dd/0aj+EwJHKLV3M
+         jl5SqrkIjJoFOBn+IVMkHemyZjD8Tp2ku8Uw8cxDSud210MQNtPhhSp3i/Pch6Y/ETiU
+         MNQxpKSG1ITSHyFtIwZZAj2GMXsIPOTdeg6qPg1DuzJIL2et+9EE4AoiUEuxpg9XRIxr
+         tyJ6YvvbVXzAafe8eSVMnvnRYyV3YhW/5AVrZSv8OFVp3HJkKhahi0R+1wW5R/p2Clxh
+         KzSOsH9JNfyelRxho9jkK3JpFmJIQjRAGHcjGdX5dWvA53s+rsLsHxn3B+ZaI2PYvD9i
+         XzPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767043; x=1791371843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790767060; x=1791371860;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O8c6J6a8XxfczhTmsOGt/U+Fg7+WNxgVu0l55UiDc6U=;
-        b=M23dhkZxd79IyMd+lmJ5ywVGT9So1OpxxXWXmMYHwyw1LOfzE+SMUqLUzwL5umZg2u
-         4H2fnAGErRV6/A4AZz9ksK7YzTEfOyDUFooqZEX9wC8DKpQ5HsVuBrW/U9t0YoN5nfvl
-         rcyrF+CaSRea7rB73UcEqCVb9VohL8bcD2mQAxauCy8fsrBQogCQgpQXkWJ3Et/4K1J0
-         1+pOBwhKE69VRIyw+llHSunnEzgQvWaf50BZjKJtNIDwJu4Ej3HoNbSn/ebJF2vgeHjZ
-         2owTC9QtUUv4iYx/MXUlf5Xjonfa9O0LI7pzbvcJg7Qt30yvU8TX8vowDJuY/tHesTOc
-         ryZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZVk128Al96TfRfhUqcPjbpe1E6jvVTdMukKnova9GDdLtlaqnpGqRq8R+sO1iRKTL5pscbhHqhkM/qi4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni0ixpQwEBq+s4EJmctD8VSmIVMDKeig/Ly0sUfxUge8n1ew7m
-	EzMjQE4OsWJpbf2BPr9riFq5+8n2Of6PvTGSDbAFrM9fOBdlLtyicCfQ
-X-Gm-Gg: AYBFou0pTl/+/BksOHSe+n+QJZpSUMYM1eWjb8q7zMZQfJVc1DnW4g7sfGXsNwjMQcW
-	ZdreCNs243AxfSsyVNdKxUZkq/9R588wtyxJ6x7dcsfLwMvQFcXylmLJtqPt74Wy9vOva5UEYG3
-	/YglLXipiFbd4M2vqadBA4A99rFWVCivHHNZDLbMLqGNnQIsxYFTwaQnwNKQHa8OvVYdPFoOj8L
-	kFnEC7NBd8bUSd6ntEV03WuEx3dUvsk4hBhb9lgKg/H6L30/aRXtnNH3BADYstsPT/3MCPRm+TM
-	buNUSd+43oCwppL/hsiZTJFqaeMa0fgTG9jiHO1QcEnIwLpRMuz1nJv7sTqoIglnz80OI26CNAE
-	PdFT1SERyqj6vBjzzON9xenNmX8F3lJel4rK2lwth8oRDu/HQ14F0fGG/hawNzPGRSN5X4D2TVK
-	5K+etNH9UQKldyCycXcYLbEMD29LJN1SPBK0u+00FsfebZXZllXEg1P7FZxJ9EKvLsOzEE7ZyMI
-	dcSF59NtTWutCrwkDrVaaD4zuRrfZwfNsPclsJndtG1wkTpRVZ+5j01XRuxtwOGpmCU/nKXODIS
-	72MBIbnCwJRHg7UmLLAzrC8zQZFDvcfjinI=
-X-Received: by 2002:a05:7022:49c:b0:143:46a6:b01f with SMTP id a92af1059eb24-14d330b01admr1588765c88.31.1790767042676;
-        Wed, 30 Sep 2026 04:17:22 -0700 (PDT)
-Received: from rahuls-x2elite ([110.226.112.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d063006f7sm4736344c88.2.2026.09.30.04.17.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:17:22 -0700 (PDT)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sean Paul <sean@poorly.run>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH msm-next] drm/msm/a8xx: report the GMEM size of the active slices
-Date: Wed, 30 Sep 2026 16:47:10 +0530
-Message-ID: <20260930111711.1160-1-theflyingrahul@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+        bh=0GWiw0pJyWEuZ86Zkf+u0yClTNN1vxiSDR7TmXjH+PY=;
+        b=Z5aui7b047vCioCeC9rcJOYyKhDbPUu3EDjo9ABJXWT/XzOTcGWtSd9M9ddY9PV68t
+         6xQ9HBczaj0/v4H1iKXaM6metIZvQvjaIxs0lYS5TfkoTSnZrB8BFRE+VxPY5Bk45D9V
+         3K8M2gV3MCYCZHYScix3kFe3YbtbbmeLHQ+HtIeB/0w9X9Cf6bkx6d9Wc1amGZXwrLw6
+         rYrSNGLJcn8W8cIX9+RXydrmwNSJ3LrCG8BYIbLidfoI85zZb9HROhSGTzah/B8z2jNl
+         lj8qO5pcszstIvdk2lx2cVUfkRKeL+knebrF/F5YKekwZYHYexG8kQwTp2SHS3cQPbcd
+         I6AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxq7KIAhZYxMaRF+3r3wHY9yiachkWOAgbAa8rQ7XVZTxLBvMUFiHTa2pFRkFIyE08cwqEdKKkNrJR67aM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzvcNsSLZqcr/lAPQl9CVICMr8flenrVqhUpjYOPImUs+v900K
+	Vg63x3qpGsOSCuwd9UVKtWojAcCvCh+Zd7OMuzeKmIyGRF/5crJN0nQBiWbb9WPMlNdaFLt1YWp
+	ZtIArcHlxH+GnRWySqB5pL6Y9rI8WorbStAHYeN7pEUVaMtqeDS1Iuu+yZXfQhv/APhk=
+X-Gm-Gg: AYBFou21SL3texztS8J/xh6+oytA2fxv6MwXHsIqYlbRO+VZlbCJHnbuPE2X9UdbfHQ
+	HDVBDeM5x2PngUzoBM7rT03qqRAlHIO90+/kbOw108e7tpkwXWnCnILIFcrPPLNLpteWUvsyNhj
+	g40OUeXtVq05iQ7WaEbM3jO7KdfguaS0zQwkglfzrXtwsK5VOEHG6LtyQezxG9pXXcrn0ZICCcC
+	f5ksDU01cPbBfMMs9Me56LLeh6eI1RmYN6jGVNFaNAuA1ehlXtgEDDkZRnu0xORzEeY+pASoBU1
+	mpNQiSIfG1DmCUkvQYv4n5JzgvT4kfzOIjWoSrCYYUOOkJu60yeVk0VfhIlkLOvq6xjuOtHRA3l
+	W0VnDVaAdnoH7Bd5Q2oMjCg==
+X-Received: by 2002:a05:620a:4554:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93ca97b852cmr133008685a.6.1790767059812;
+        Wed, 30 Sep 2026 04:17:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4554:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93ca97b852cmr133001185a.6.1790767059096;
+        Wed, 30 Sep 2026 04:17:39 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1558b289sm616849a12.15.2026.09.30.04.17.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 04:17:38 -0700 (PDT)
+Message-ID: <361320d3-4c4e-448f-b883-1f9d6115f7a4@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 13:17:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] arm64: dts: qcom: hawi: add iris video codec node
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923-add_iris_for_hawi-v2-0-016ec3d24b79@oss.qualcomm.com>
+ <20260923-add_iris_for_hawi-v2-6-016ec3d24b79@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260923-add_iris_for_hawi-v2-6-016ec3d24b79@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NCBTYWx0ZWRfX8KWknOkud5O0
+ SGEMdIeTB1ENJU2T39x7PMPI+8GTld1/TUXh9+BLFfGSeqVAuPehxc38aVs1kv38MSLGBsxssC0
+ ou/DSwoEGfJTjjGNglwOUSg2Niapyua/vSuDnthX8dcbN2KvagjD4EPCI5TDOcecWX/lSHGX0iD
+ kn4ajNwupB/fqV4rYWYehR+h6Cq0KNz7n1HJdtd3gQc8gFs97H3k6aHCd3z0Vzk64FGfRVEFMnC
+ wKtjAEUi/v/pjgnBaX7ifn+8Ea8z5cgWKrUCbiRu861iUhnp7B8pR19AYxWRdayNRhMz2Av9i2p
+ 4PqBBVo7odP/kCIwbFT/XnQtKqDpIBIRynTQdqpq0fMuL47RIJPN9g+I37vzX0j2CxY4GGMDLgq
+ MUEd6fu3GyZj0m0UPo4VHUEh3XD0IfRnPqKKx48nWTwYReJe1BDKp08CueItPHZuwOWyGPuQeAy
+ 2uYLYU7SJf1aGxY3xDg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NCBTYWx0ZWRfX+8NxqPfkIDpt
+ GljUgatq/w/bLi53sPT2KszR0Pwme2cyez1VDH0KX+qXa3HKBM/gUrWgxY95FXcs41Am8Oby6VP
+ ulq02OhL1kY7lVqyAsXz/7LTGrXCzys=
+X-Authority-Analysis: v=2.4 cv=RZEFmFtv c=1 sm=1 tr=0 ts=6abcefd4 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=DhuRJU6gBchJA4Z4gf4A:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: 4ewRHN-wtUdVY0y1WPjYg3N_UHT1WjiZ
+X-Proofpoint-ORIG-GUID: 4ewRHN-wtUdVY0y1WPjYg3N_UHT1WjiZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300044
 
-A8xx GPUs split GMEM evenly between their slices, and parts can have
-slices fused off: a8xx_gpu_get_slice_info() reads the active slice mask
-and folds the slice count into the chip ID. The GMEM size reported to
-userspace (MSM_PARAM_GMEM_SIZE) is still the catalog value for all
-slices.
+On 9/23/26 5:27 AM, Wangao Wang wrote:
+> Add the iris video codec device node for the hawi SoC, describing the
+> register space, interrupt, nine power domains (including the
+> VPU5x-specific mm-int and cx-int domains), thirteen clocks, two
+> interconnect paths for CPU config and video memory bandwidth, IOMMU
+> mappings, and the operating point table covering 150 MHz through 1000 MHz.
+> 
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
 
-On an HP OmniBook 5 (Snapdragon X2 Elite, Mahua), the Adreno X2-85 runs
-3 of 4 slices (chip ID 0x44070031) and the kernel reports 21 MB of GMEM.
-Mesa sizes its tiles and places its CCU caches at the top of that range,
-past the end of the GMEM that exists, and GPU-rendered output is visibly
-corrupted: noise bands and block garbage, across the whole desktop with
-GNOME Shell. Rendering without GMEM (FD_MESA_DEBUG=sysmem) is clean;
-disabling UBWC, LRZ or compressed scanout is not.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Qualcomm's downstream driver reports GMEM for the active slices on this
-GPU: gen8_get_gmem_size() in KGSL returns
-gmem_size / GEN8_1_0_NUM_PHYSICAL_SLICES * active slices, 15.75 MB here.
-Do the same when reading the slice mask. The GMEM protection and UCHE
-setup still cover the full range, as in KGSL.
-
-Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
-Assisted-by: LLM
-Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c   | 4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 ++
- 3 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index add93c1fa039..9b95d9b3826a 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -112,6 +112,10 @@ void a8xx_gpu_get_slice_info(struct msm_gpu *gpu)
- 	/* Chip ID depends on the number of slices available. So update it */
- 	adreno_gpu->chip_id |= FIELD_PREP(GENMASK(7, 4), hweight32(slice_mask));
- 
-+	/* GMEM is split evenly between slices: report the active share */
-+	adreno_gpu->gmem = adreno_gpu->info->gmem / info->max_slices *
-+			   hweight32(slice_mask);
-+
- 	/* Update the gpu-name to reflect the slice config: */
- 	const char *name = devm_kasprintf(dev, GFP_KERNEL,
- 			"%"ADRENO_CHIPID_FMT,
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 5832dc25d6bf..dadfe4c69438 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -379,7 +379,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 		*value = adreno_gpu->info->revn;
- 		return 0;
- 	case MSM_PARAM_GMEM_SIZE:
--		*value = adreno_gpu->info->gmem;
-+		*value = adreno_gpu->gmem;
- 		return 0;
- 	case MSM_PARAM_GMEM_BASE:
- 		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
-@@ -1205,6 +1205,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	adreno_gpu->funcs = funcs;
- 	adreno_gpu->info = config->info;
- 	adreno_gpu->chip_id = config->chip_id;
-+	adreno_gpu->gmem = config->info->gmem;
- 
- 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
- 	gpu->pdev = pdev;
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 114a40f79ef3..8e6a88103610 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -204,6 +204,8 @@ struct adreno_gpu {
- 	struct msm_gpu base;
- 	const struct adreno_info *info;
- 	uint32_t chip_id;
-+	/* GMEM size available to userspace, see a8xx_gpu_get_slice_info(): */
-+	uint32_t gmem;
- 	uint16_t speedbin;
- 	const struct adreno_gpu_funcs *funcs;
- 
-
-base-commit: d33622598496c8994c35ba0a8a913de064dfc1a4
--- 
-2.53.0
-
+Konrad
