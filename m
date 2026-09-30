@@ -1,138 +1,148 @@
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151E74E4322
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13814A441D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777056; cv=none; b=kK8/vdP0aqo1BpaM+gwxbNT7eIMHCSOqQ6JYzG1mf7rrBFj/rBWm0JpBCoABVzu325onRyhKGdUHeKKyrD8INu56VQcTh+EpAIAj5UC4gbVnwcS38Jej+z7fExNpLd5tNfqndEeAZoHhDDkTLF0uRfxaNG7gdFHd1eLkdqFfEvQ=
+	t=1790777071; cv=none; b=Qu+Xb2MqfMUOWhi26BZdLTDRBsiHp1TZNzFhp8D5N3I+B0BeRlj4rZsjTKRoYKlNayCiv+0tcnBzj0zfWwpxdhAVra7tL3YMA/1hm1rS/fTz9WJ37zA5WF/TUZNR82s586nBR+fSIbk1UtwkASZvd48YYf9EDaJZkRuBxIIfWmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777056; c=relaxed/simple;
-	bh=bTlzFUOoLsXskjH0l1jHEaOdwVBHaDbBueIFIf22uqg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ACZrvkyAFvby6KvKCAe8solXMZqZ4V6Axzo6nA0LDeHypBWVrIbB/iSlKJl7/KyQkGoqZ7MUIm7BRl2XM0+jfRzvV54fjE262J97VXWUYIDAZONCY3X/MMG/SaYEkFgbOipjXJGxCiWLPE7SISDfgdXa9InTL8/33E6GJX7DjDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kt3ZlhYD; arc=none smtp.client-ip=95.215.58.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790777071; c=relaxed/simple;
+	bh=dDRtbqYPrbcSZk8XTIR1mhxTewKaoQ7Hl8OVK4zyccw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jkaix8lJsylVygcOUP61NjnObqfEGaNYALarn9FRHIv+o/dznEw4vr8nQNeB+gVH9OKGKttQS+aRve/+AS0EbwZEsfPCl0rLGyX/1waU6nv8iRJ8EKrAjUf1Y1VccjkZ3WOkitWAOdoJUvsCEr5hUrCzD7BP6Pwe9DLjjU6j1oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5xr+1lP; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kt3ZlhYD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bTlzFUOoLsXskjH0l1jHEaOdwVBHaDbBueIFIf22uqg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790777042; v=1; x=1791381842;
- b=kt3ZlhYDbiBp1+8MjFMG62wi1BVrBBYwAdMHmp99uCKocZv7lacqBOosU+vhykhUQEbMXU9B
- 2gSJSRxKhZ449PraubHr0G0JfgNu2/3jHfvT3Yv4anpQX0/AxoVe2PKwxFoTNbr0sOFExOcS2j1
- VZtElxttunQWG6QFAQKkbECA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4463098d89d469e3;
-	Wed, 30 Sep 2026 14:04:02 +0000
-X-Mizu-Trace-ID: 4463098d89d469e3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <79fda08f-46e5-4f98-8051-92dbebb1de73@linux.dev>
-Date: Wed, 30 Sep 2026 22:03:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5xr+1lP"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7c4c92477so1253650a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:04:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790777053; x=1791381853; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0/hVX4C+yQqwsDE4LgI16fX3ANft9SjFARlaoadqqlc=;
+        b=W5xr+1lPy4kXFvznJdBdMZA81GHwJDOEyvkLvK1qXGzVdR54+Y1w/jnsnEsyR6XdYT
+         73zya3usx/nxhX0b4L2cime9dP1bqlLPQ3STEAxH+8S2npascYUrAgmZi/6/u5HF95Co
+         ke3PoUrv3CyQNK0D6VHRIw+WBIjiY6TWTFnwmdKqXwgfBEki7b4ovfMebRI2n0VdI3gy
+         XDrEkkZguSzZ+18kiqVU/g9HsiQwo97wvz/JQTZBk2PZrz7pXPHEVcsUiNLx4ZTijRH8
+         lpKBYou6V3WBUnRxDNbqbHiWO6Ll+JOMCKQY4B40EHHo+5GWEWC2PZFOQdHFda7/4iEs
+         uJvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790777053; x=1791381853;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0/hVX4C+yQqwsDE4LgI16fX3ANft9SjFARlaoadqqlc=;
+        b=w9R4/Sp6mUVZOBrzhHp+eme1ohEJ55U4Zv7WvnxVbUPoXdIfKEQYDeU67nylGETLi/
+         Lj7TQuN+5ub4HVC0wFFHjMcxSP+H7zM+WDLSLaGg/rnvtBSNKhUbDPM9A0dC8nBPEkjh
+         aTW8ZegowbKaX4Fh3Q+/KVFTaYNoI5HbQClqVRTjJkXUBifR/Irn504O8yLJVBdXWo0+
+         Yi/kPaDvPZGuhZO+FIGwTq4dTeB/TuAHKCpGTPCe3ykMP0dhE28OioQeeOReDxfbOyzI
+         MLE7N0nJ3BIqzJGLBfV8wZ4sYXz0OP9kAMCUS9EPrFwC+UHc+f7ic7UdbmhREbgIZPDT
+         SmPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKE9KOJdvchUIK/Rw/bh7WZ8oGuc+XYYnaM9FibWwkQMN3IifDhcQqSqWFEib2toMMYgsdZviUka9WEjE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgbA6PqPnETYUCaWskNJcz02GrBJ40T2VHlf8CpnQq7Oc2BG6w
+	ShTJWhuNYRjIA1TBvS+VcWmcU2hcG5ypwnUBmvi7IQq3PSZG3zzmxOTU
+X-Gm-Gg: AYBFou3Wjab9l+nSZ/x4iLgfCgGFmcTZMAyyhGQtIjiXt4bU7A6OHAlmYWnLo7I6Pn6
+	RmKk3K7R/TCGSQm+tveU7I/dnxgf1LjSXD7EssHtASQcGs7WxyyAQQd1t1fkJL8ryMVKK6IvUGJ
+	QM3DyMBzZHbIkzxK3YlA0FZlh+C88V2TAeR0iTk6zjuvddpBcGlNjnE841jMiUaSUl5F2ISTAUp
+	wmrOpKs0Av72W3n4CfFTJ8XaCOduSBxJHiKy6VZfPLb1kJx4GWSqMO9olkbjjGJVONqNW+LK3hF
+	pWNweGxTFlkkY+0vGBproMQSfeiesJ5sMcJZf+EflJGJOm21iNYv3xPzfY5aAWKW79C7waait7V
+	Ai5O+eizO7+NTmXy9VY8Sej2609y5z3Jo7Qpt3hfUqbFP5hY6dau16lKkAdxKx5odmJfatMMcPA
+	VtspO7/U/HCmzEsmbZbCrmeKLdxhZTWJeGdDkbfRCES/xmFkwVaY73xmatH6fS0D5A43O5l71xg
+	i6Ct2qHKJ0=
+X-Received: by 2002:a17:90b:564e:b0:3a0:d9ee:a2e9 with SMTP id 98e67ed59e1d1-3a4d18c09b8mr1192177a91.45.1790777052463;
+        Wed, 30 Sep 2026 07:04:12 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab202f1sm1031140a12.27.2026.09.30.07.04.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:04:11 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Paul Moore <paul@paul-moore.com>,
+	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>
+Subject: [PATCH net] cipso: adjust cached option offsets when removing CIPSO
+Date: Wed, 30 Sep 2026 23:04:00 +0900
+Message-ID: <20260930140400.2955466-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] tcp_cubic: fix divide by zero and endless
- loop on bad module params
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
-References: <20260930100937.206377-1-jiayuan.chen@linux.dev>
- <20260930100937.206377-4-jiayuan.chen@linux.dev>
- <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+cipso_v4_skbuff_delattr() shifts every IPv4 option after CIPSO left by
+cipso_len, but leaves the cached srr, rr, ts and router_alert offsets at
+their old locations.
 
-On 9/30/26 7:21 PM, Eric Dumazet wrote:
-> On Wed, Sep 30, 2026 at 12:10 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->> beta_scale and cube_factor are computed once at module init, and they
->> need 1024 - beta and bic_scale * 10 to be positive: beta == 1024 or
->> bic_scale == 0 crash right there, beta > 1024 or a negative bic_scale
->> gives garbage or wraps to 0. Negative beta can also make beta_scale 0.
->> Reject them.
->>
->> A small beta also gives a small beta_scale, and (cwnd * scale) >> 3
->> truncates to 0 for a tiny cwnd (e.g. 2), so the TCP friendliness loop
->> never ends. Clamp delta to 1.
->>
->> Fixes: df3271f3361b ("[TCP] BIC: CUBIC window growth (2.0)")
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->> ---
->> Target net-next since it is not a big problem.
->> ---
->>   net/ipv4/tcp_cubic.c | 7 ++++++-
->>   1 file changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
->> index 119bf8cbb007c..2f04dca5be095 100644
->> --- a/net/ipv4/tcp_cubic.c
->> +++ b/net/ipv4/tcp_cubic.c
->> @@ -298,7 +298,7 @@ static inline void bictcp_update(struct bictcp *ca, u32 cwnd, u32 acked)
->>          if (tcp_friendliness) {
->>                  u32 scale = beta_scale;
->>
->> -               delta = (cwnd * scale) >> 3;
-> I would prefer not adding a test in the fast path to work around
-> silly module parameters.
->
-> beta_scale is computed once at module init, we can make sure it is >= 8
-> there. tcp_snd_cwnd() is >= 1, so delta would be >= 1.
+With a valid eight-byte CIPSO option followed by a seven-byte RR option,
+RR moves from offset 28 to 20 while opt->rr remains 28.  The stale offset
+then points into packet payload, letting the sender control both the
+length and bytes copied by __ip_options_echo().  Setting the length to
+255 produced this condensed KASAN result:
 
+  BUG: KASAN: stack-out-of-bounds in __ip_options_echo
+  Write of size 255
+  Call Trace:
+   __ip_options_echo
+   run_cipso_stale_offset [net_candidate_probe]
 
-Agreed. beta_scale is 8 / alpha_cubic, so >= 8 just caps alpha_cubic
-at 1
+The destination holds 40 bytes of option data.  In an existing
+uninstrumented x86-64 v7.2 build, __icmp_send() places that buffer
+immediately before its stack canary, and the 255-byte copy also crosses
+the saved return address.  A canary mismatch unconditionally panics;
+no canary disclosure or control-flow exploit was demonstrated.
 
+Mirror cipso_v4_delopt() and subtract cipso_len from each cached offset
+that follows CIPSO.  cipso_len is the logical distance moved by the first
+memmove(); hdr_len_delta includes padding, while the later header move and
+network-header reset relocate the bytes and their base together.
 
->
-> With the integer divisions, beta_scale >= 8 iff beta >= 512,
-> so the default beta (717 -> beta_scale = 15) is not affected.
->
->
->> +               delta = max((cwnd * scale) >> 3, 1U);
->>                  while (ca->ack_cnt > delta) {           /* update tcp cwnd */
->>                          ca->ack_cnt -= delta;
->>                          ca->tcp_cwnd++;
->> @@ -504,6 +504,11 @@ static int __init cubictcp_register(void)
->>
->>          BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
->>
->> +       if (beta < 0 || beta >= BICTCP_BETA_SCALE || bic_scale <= 0) {
-> bic_scale * 10 can overflow if bic_scale > INT_MAX / 10
+The adjusted input leaves rr at 20 with length 7 and completes without a
+sanitizer report.  Natural remote reachability requires a configured
+SELinux/NetLabel gateway and a later option consumer; the retained test
+invokes the real mutation and echo consumer directly because the available
+rootfs has no SELinux policy or netlabelctl.
 
+Fixes: 89aa3619d141 ("cipso: make cipso_v4_skbuff_delattr() fully remove the CIPSO options")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+ net/ipv4/cipso_ipv4.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Right, will add it.
+diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
+index a05aa075de1a5..135b57c2c4f9e 100644
+--- a/net/ipv4/cipso_ipv4.c
++++ b/net/ipv4/cipso_ipv4.c
+@@ -2272,6 +2272,14 @@ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
+ 	new_hdr_len_actual = hdr_len_actual - cipso_len;
+ 	new_hdr_len = (new_hdr_len_actual + 3) & ~3;
+ 	hdr_len_delta = (iph->ihl << 2) - new_hdr_len;
++	if (opt->srr > opt->cipso)
++		opt->srr -= cipso_len;
++	if (opt->rr > opt->cipso)
++		opt->rr -= cipso_len;
++	if (opt->ts > opt->cipso)
++		opt->ts -= cipso_len;
++	if (opt->router_alert > opt->cipso)
++		opt->router_alert -= cipso_len;
+ 
+ 	/* 1. shift any options after CIPSO to the left */
+ 	memmove(cipso_ptr, cipso_ptr + cipso_len,
 
+base-commit: 99b43ede9e355ba35244cc9470bf1819774ce39d
+-- 
+2.55.0
 
->> +               pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n", beta, bic_scale);
->> +               return -EINVAL;
->> +       }
->> +
-> Something like this (untested) :
->
-> if (beta < 0 || beta >= BICTCP_BETA_SCALE ||
->     bic_scale <= 0 || bic_scale > INT_MAX / 10) {
->      pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n",
->        beta, bic_scale);
->      return -EINVAL;
-> }
-> /* Precompute a bunch of the scaling factors that are used per-packet
-> * based on SRTT of 100ms
-> */
-> beta_scale = 8*(BICTCP_BETA_SCALE+beta) / 3
-> / (BICTCP_BETA_SCALE - beta);
-> /* bictcp_update() needs (cwnd * beta_scale) >> 3 to be >= 1 */
-> beta_scale = max(beta_scale, 8U);
->
-> Thanks.
