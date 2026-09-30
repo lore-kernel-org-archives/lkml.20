@@ -1,107 +1,99 @@
-Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D2020E334
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEE8234964
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790729666; cv=none; b=QpWyAVq1EfqvszWXYZnnFp/Vz153RgMg2AvmJ1Ui0V/YEMHAjWAAoxazgQdmfiTevI85DlJ875NQmrWCpeNI2n2V5mQumVwhFABC0o5QNmLgrfWrmHYORBU+iDbl3J/BObjSQU5Onvrfbdc2j0OSG0I+surO9keYRw1v+bXstTU=
+	t=1790729714; cv=none; b=gAVA6loCIPTujYnGNPWwQ/we6BiNC9BrdI8QIETDXLXBXS8go8wuZMl4PJTyytIQcbSX9mF/jEjE0jSkrtFNK7U/4k/ZfJNa1QribsNcr9mNJhUnxL1cl4Lx7vSNIS8RcQraJjCk8ZuGnGbAE+UPfL8MUmCeibItNF2taMUVOYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790729666; c=relaxed/simple;
-	bh=Z+KFjxZ/7VN7LhoM4Ek2PNsW+mvz4O9ijB5/9/MmV7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=thzBdQ8Sbeol/NzDSXPVH5C20Q1/ZIIPn36pfY9ctAX3DjSNmCkK//cY483/kklivHOpOpMJcOGa+xAUDXFnv0hqUD3O4ajB5wxRf10y2dyzvap6CFtzNm9Xn7hzxFMWuEGOqce7P72Q3ZPPhtxu33ilBGSUn0I7LkztZlyd7Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xqmVVf6z; arc=none smtp.client-ip=91.218.175.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790729714; c=relaxed/simple;
+	bh=p2yWYS6720l1AamDkwuIrJ88Ej7lEOXOTezg8g01GzU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=O5zYYxkKwQ0lBghYCC5+lbkI3rl/Plondv7jgLYwxfYBMVQkdyQp+WF08fnsQndfVUVa+TCrsssH/DfwPG026B54uGb3NgKZpx2bUCgSoIGpucPwTgalHul8OGiH7eitd4PFl9fC3RMctIlpMqrh94dgM4pCHcFCZ9gi335NwvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=od0E8/xw; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xqmVVf6z"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Z+KFjxZ/7VN7LhoM4Ek2PNsW+mvz4O9ijB5/9/MmV7k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790729662; v=1; x=1791334462;
- b=xqmVVf6z8bFh06MlzcqtGRLUovfP9oYR2M/1ahZQRjT0rY9mpPrNw8YFydI1LZhv/lgn7kH5
- QioWy5MYVpaYOnHV3HX2d8z3esVw4cJoo78NR6IS8PiyM9fz8HAPGMQqtR07Zfeq5eB6LYT2yjT
- 6vGgEvVWobJlVndixJmLl7lg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 752e7d1f9e23d04f;
-	Wed, 30 Sep 2026 00:54:22 +0000
-X-Mizu-Trace-ID: 752e7d1f9e23d04f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 30 Sep 2026 08:54:10 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Ido Schimmel <idosch@mellanox.com>, David Ahern <dsahern@gmail.com>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>,
-	Sashiko <netdev-bot+sashiko@kernel.org>
-Subject: Re: [PATCH net] selftests: fib_tests: use per-test return value in
- subtests
-Message-ID: <arxdshcuvddlf5WP@fedora>
-References: <20260929-self_fib_tests-v1-1-0eab6a3c3a3c@kylinos.cn>
- <20260929134517.GA832345@shredder>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="od0E8/xw"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso3200772a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:55:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790729713; x=1791334513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wAW//sr3pC2NBc7liE6tPMI+ECsOTrk881ZsZeZAzE4=;
+        b=od0E8/xwfyZ2Hbq7WqV7nkIrZYe/ExN/TES3AECQENqTks86xxq5gbGqyWZYQIS5PF
+         UUpWlG7cBCmOCvU+lEXc4D7fmGZp8hXWknenYC8LKBoLDzI3KE2yf/YyXcrMAK10lKNf
+         GoX/GOIpe6+hVapbvkNl2FUD7V2rXC0KnycYEq/o448+TA1aVco/1yoI/tRuVSQQ+REq
+         EhYfr1y6BdKdkK2V4SvBw7VsPs4KtxcqdrKXtQiooAfKRpV6vF9RSExqdO0LPF+zR3za
+         Jjc9CcfjAX0hCTcebeMy/t/IaEkYGPoV+5qX1lKBz94SGuvEu8R/wyb+7g8XFn3ImPTa
+         astA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790729713; x=1791334513;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wAW//sr3pC2NBc7liE6tPMI+ECsOTrk881ZsZeZAzE4=;
+        b=x6nva+lhkxe6nmoVGfJ8NQ+B6Kw9zqFX2jyw2PjaNGDhs8Ym7sQ0bu37Q2/gafZjau
+         4Z7zzLnUfs3mB+jmQjWBHiwB34hBVdI+P9bJq9USI+dbvn1r8az+cUU4gzqLfhEUNId2
+         nFbNXnI5w8mXBH1LLVVCPJ1G4bCot/hd2rt78ZxbMT+Odw99yQp6xtt5VTzLWU/LlSpx
+         TT6/ZO74zXVe5V79Jmjo1LPmycAVRlECXdy38bCdl4/XVRrUhVHjNrs0yGJP+/al0k4Y
+         z2TjWDTrLxWdHISE1PTUjc7RAPbMjihbPKfVbEy43RRbb36oWEQosgklHxgpEs+FbI3n
+         R1Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBybeVmj1xo9rVuqHHMLpD/xTiQtwge5LexJhoLkyJnGGthfyv1wPjI8ewdkbOVxQLs7UQhquz64bc7vVGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCIDGIFZX86pLqg9UreTJI6KmOnCCfLhQBxuA9WIgSyjSgXHPK
+	noVJoqyWZOxgKcPJqpHf1KLJgMl6nrPyVY1LcaCvp4KVRatzEJKNR28t3f5C5E5ozRMBGN+LnsO
+	b2dpPJw==
+X-Received: from pgbcw4.prod.google.com ([2002:a05:6a02:4284:b0:cc7:b387:6d4b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7fa5:b0:3de:849f:9053
+ with SMTP id adf61e73a8af0-3de9530b969mr741880637.45.1790729712492; Tue, 29
+ Sep 2026 17:55:12 -0700 (PDT)
+Date: Tue, 29 Sep 2026 17:55:11 -0700
+In-Reply-To: <3c0ee89f560b0235f293b32019327186785aa795.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929134517.GA832345@shredder>
+Mime-Version: 1.0
+References: <20260930001127.3170009-1-seanjc@google.com> <3c0ee89f560b0235f293b32019327186785aa795.camel@intel.com>
+Message-ID: <arxd78Pn6WWL6TGq@google.com>
+Subject: Re: [PATCH v2 0/3] KVM: TDX: Syntehsize SHUTDOWN on unhandled EPT Violation
+From: Sean Christopherson <seanjc@google.com>
+To: Rick P Edgecombe <rick.p.edgecombe@intel.com>
+Cc: "pbonzini@redhat.com" <pbonzini@redhat.com>, "kas@kernel.org" <kas@kernel.org>, 
+	"jthoughton@google.com" <jthoughton@google.com>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yan Y Zhao <yan.y.zhao@intel.com>, 
+	"sashiko-bot@kernel.org" <sashiko-bot@kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
+	"ackerleytng@google.com" <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 04:45:17PM +0300, Ido Schimmel wrote:
-> On Tue, Sep 29, 2026 at 09:57:01AM +0800, Hangbin Liu wrote:
-> > From: Hangbin Liu <liuhangbin@kylinos.cn>
-> > 
-> > fib_tests mixes use of $ret for both per-test return value and global exit
-> > code. If an earlier subtest fails and a later function sets ret=0, the
-> > script will exit with status 0 even though [FAIL] lines were printed.
-> > 
-> > Use RET as the per-test return value, as already defined in lib.sh. The
-> > exit code ret will only be set in log_test().
-> > 
-> > Fixes: 607bd2e502f5 ("selftests: fib_tests: Add test cases for IPv4/IPv6 FIB")
-> > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > Closes: https://lore.kernel.org/all/178961184152.22033.9267194009793243294@kernel.org
-> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> Please target the patch at net-next and drop the Fixes tag. The patch
-> doesn't fix a regression, nothing is failing (or passing when it
-> shouldn't) because of it and it cannot be backported cleanly to old
-> kernels anyway. I targeted similar patches at net-next in the past. See
-> [1], for example.
-> 
-> [1] https://lore.kernel.org/all/20250908073238.119240-5-idosch@nvidia.com/
+On Wed, Sep 30, 2026, Rick P Edgecombe wrote:
+> On Tue, 2026-09-29 at 17:11 -0700, Sean Christopherson wrote:
+> > Signal SHUTDOWN instead of -EIO if the guest accesses an unaccepted pag=
+e and
+> > has disabled EPT Violation #VEs on such accesses.=C2=A0 Returning -EIO =
+is all but
+> > guaranteed to mislead the VMM into thinking KVM (or the VMM) messed up,=
+ and
+> > will likely result in the VM being terminated instead of rebooted.
+>=20
+> I'm pretty sure Yan had a test for this path, and I'd love to see it actu=
+ally
+> exercised. What is the urgency on getting this fix upstream? Can we wait =
+a week?
 
-OK, got it.
-
-> 
-> > ---
-> >  tools/testing/selftests/net/fib_tests.sh | 40 ++++++++++++++++----------------
-> >  1 file changed, 20 insertions(+), 20 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/net/fib_tests.sh b/tools/testing/selftests/net/fib_tests.sh
-> > index b338bfb196a2..9ce5623b049c 100755
-> > --- a/tools/testing/selftests/net/fib_tests.sh
-> > +++ b/tools/testing/selftests/net/fib_tests.sh
-> > @@ -369,7 +369,7 @@ fib_carrier_local_test()
-> >  
-> >  fib_carrier_unicast_test()
-> >  {
-> > -	ret=0
-> > +	RET=0
-> 
-> Looks like this line can be removed (similar to fib_carrier_local_test()
-> above it) given that RET is never used in this function
-
-Right, I will remove it.
-
-Thanks
-Hangbin
+Absolutely.  It can probably wait a month and no one would care.  IIRC, thi=
+s got
+hit by someone (internal to Google) deliberately crashing a guest kernel an=
+d doing
+funky things with kexec.  It showed up on my radar purely because our autom=
+ated
+madness alerted on the resulting assertion (on -EIO) in the VMM.
