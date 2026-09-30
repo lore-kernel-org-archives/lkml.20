@@ -1,28 +1,28 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011039.outbound.protection.outlook.com [52.101.52.39])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3B43B6BEB;
-	Wed, 30 Sep 2026 06:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50EC3B7B71;
+	Wed, 30 Sep 2026 06:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790748852; cv=fail; b=TOJ/W+SQ5zjxn1MtDRkuJ+e8693hRkiL83MOSyDixUb/eisaD+lbkwPXwuRWzG66mYSB6WTqiorsTuRo30yTgRty903oL46L2GyJaxgWCdwsy+1I0PwUmed/68MLWV+PbBUcHXcbMHnwWv2aaJ+i2LbSPiQpw3KSdN3JVRs72u4=
+	t=1790748856; cv=fail; b=PwOOTzt7xeG1oWaOkH4A6+rGbNU0FiuaY5ITor9C9CDK/devymIa6X271qvsLWyaML3vl5ZWXUV08Zg3e1mo1JXIz22TvwO8IUtIB+4rJXaq9PO/vIr1KjGefIb8WhkpOItvU0gbOgfH0AJJBJVuZ/T4XTEpY1JkKwQHGSlu/2c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790748852; c=relaxed/simple;
-	bh=B9qTkr1bjv+amlesawkRaNJYG/MY6u/H/FxTMY8WqeI=;
+	s=arc-20240116; t=1790748856; c=relaxed/simple;
+	bh=QpnYb5Zy5rmoFvrbxaR2FOTHfXuqz9mW5kvaIQfafLM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=S68eR5i0GyMd0cWrG9kWaqI9wRWtHEwDgpMv1eKXgVa6739cAXltGqD3JaL69lihxh37CsdWWnbQ0f02gPUk2CKqVm28CUVBwu7KFl4X0n2IsBA47EW3AfLQbnRtpnGJeYX1/nWTc94NElfrkc+1j713erA5MjapkenA9PMugx0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=ASExM7VN; arc=fail smtp.client-ip=52.101.52.39
+	 In-Reply-To:To:CC; b=TEOsFn6uiLYngNRA/b6MdmSCiAE27NstJ6saHnmynLAaLaH0ASWZVZ5UU4pLSyIOKjUzb0jv2kd8ujcrgQGOVqJnYwA4qlSiREpIHgW5kpyINmdFKhmyz1kMlu5JKBKQnecBPdJfjCIcun26hqufOEdhG1aKDCZR8BYR4+Vx/6g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=H997+ftk; arc=fail smtp.client-ip=52.101.53.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ASExM7VN"
+	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="H997+ftk"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HPTsdtSb5QWvUXdIXW4pZ/JgHy7CH7VJ6yeVqBAESqgsOTF++qP9MB8r8dw1Sm6Bx+VIrWy+FkeirLSxFQdD55GM5Hx/oZFv7mlqokVxgmZMMwDjKMN7Wy67OglmwSMX5N+x5xOUCsl8M9/4opG4oH39zt3lXE0jDPfDootsZkSch0QIGIf1GscgR43g6bbyVlTOzQKKAyZgQ9VQebGnDu4z8F0OsuaOsxN/6r0jyjmJsgGYVzyJNijlpliLQS2rov8kbtgxNy2X0nZXU0QW+Y5bupcR4qnCxm6xiMVcB2gszcT+75h7PYaRAYm/IDDyZNVLyZ69o2nqE0iwChmW7Q==
+ b=UAoc7C/sX6z1lLyE/Ysrxa1HvwNzfFHI/9BzZQ0mlLlV7JbRVVOKoDiRqRbBzAFYItTc1kTQ68fHD6xSpNeiyaWbQqd778kAM7HicYE3oQm9PXbONeIRy4z1ODsreWTBUhdSIqzTZvb/SYseV3DU9kcpjf7vCnIUmFNPfQ26jWxaXQWsrXdDOdB9XMik0tNHuhDdAI+EjqMWEwRmBJa0GklaZeip+XL+zU2epD4+mEd67+AbUJjLgtTLhyDZA1GssjOZtwy2hmyRzPwj28YNR11CugI0WKt3PmbX0LPG6i1ztpu6n2giNRCN8+5YykqyNh0gdoog+85gcpTwDmxvnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EMgFVzONncenVzajSBplgoSS+5bazk53iesp/vegqe8=;
- b=rIf283EvfXVONJF3xkJTH9wHq3yW0cbj3sjwXFI3SSCgO0/P/N4WKtghh/LPalZFpn5dYywg1xaFNTGmn2RJhd1wklNMJ73im3fiLPGLB6e5ufR9MeefkikQg9cRppPDNT9JfXdDfOHrm/mpsaXW5471S3PvdDWSl9LwYLn5fUHfjoUdyvSV9AK0wybWXMMzBN//zeM3lr0k+yQJpeN7NMeRJaVkkxfDhU/3i5eTg3x0f1thlJn8h5qPJuemqzvTvSsOW7WfyAKpb0GuL3LYIJZu3SAvnQomFBwGyMMPK6OpaNuC3uv0e/y5nrpj4OKQxlvpYOBr3tj0RJdGgX9JOQ==
+ bh=UC1UrUC5+1MFX+bsxPknCKB9Evo5iMJG+r1LPOuLMSU=;
+ b=viGNb4xqBsE1AOFaqDbmcHGszaCnhhZk7LVV5lO+XhUDIvcNQ9A+wbRWruQf74YPmfRFitPLczXsqJak8GAP2AGpkrAPsKqx3WEcr8VUr4YhnZ1HLcwdgQssAa7YfPhlL6wTtAIp1J0L0miK16HtvVvmpk3Om20IMjEkrk1pZ+cJ60ctZ+niKzsTPSGcm3eXNNCPGKtYeNU71WpdxMWmOoPrNgftCPxj/GIrXlpWOGNTFbGK9UzR9bo4t4TCWGWGdFlBKsfDEJavHlIqNb9idxZbWAJGf2UmzdO12LG61WzYFK1UfV9YVQRrEHA/FBYDsNR8GR37bhSRiRNJA5jEqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=gmail.com;
  dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
@@ -30,38 +30,42 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EMgFVzONncenVzajSBplgoSS+5bazk53iesp/vegqe8=;
- b=ASExM7VNT2FPi6fxhVAEcfC909O74ssxsnkZ17q4YlfRR8T4W/bFPNasAU9vJR1exbpa/fG1SaVg9eCQdLbwRwbcbTP8Gdgb385MdxQcYl4HtJM51Bv+OXBLmdZostNkzChYxHDyAR6Pwr4M4rr6ofuLollmFfv9qnCBhMzVbKNfprHKRujg97JmU6yxLzWelsFcXfjGIVHDSc2PwTVj00jzqz+NlhjTiZQbBEWEyMbeOvtI2ygcS9gY9uLEqkmvsP04r655yMPZH+XeLhDd7xjDpRf20+ocWVM4FNMBe3fJqaVPSrTZrdMMuKBXfsfKKpQBsaFoVkRpg6P/gI24Pg==
-Received: from CH0PR04CA0041.namprd04.prod.outlook.com (2603:10b6:610:77::16)
- by DS7PR12MB9551.namprd12.prod.outlook.com (2603:10b6:8:24f::13) with
+ bh=UC1UrUC5+1MFX+bsxPknCKB9Evo5iMJG+r1LPOuLMSU=;
+ b=H997+ftkuZLp5Q8ArmfNmKVsJtlxSCnZFOyFCjjAtxEmiIreBinPLunWSTvAIyebB7frYW5OuYW7VuzArRPJkojvJQ79QjJnwn+tbxiYCHPfSWnAqvo6a25zh5Cmx4QJDWv//p0ftxlGdwGDr1AKo8c6VdZithEaE1+gQ906TaglbTxpPR0DpGji3sYlge33lFDvTiFcWmqnDw0HlhBzjh4NW9liImJk6e/cqQ0K+KZ/78uzrLwypZ7rb14qLKDIxsfyhGHCCpcP+zwCcbtyg4A3jfFfcH2DCi1WEh1N+FDnXMXz4bpcyf2TU+KEsH0qProEGISz7Otd1AxsyswN2w==
+Received: from CH5PR05CA0018.namprd05.prod.outlook.com (2603:10b6:610:1f0::28)
+ by SA3PR12MB9158.namprd12.prod.outlook.com (2603:10b6:806:380::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 06:14:07 +0000
-Received: from BN2PEPF0000A7FF.namprd02.prod.outlook.com
- (2603:10b6:610:77:cafe::9e) by CH0PR04CA0041.outlook.office365.com
- (2603:10b6:610:77::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 06:14:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 06:14:09 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::82) by CH5PR05CA0018.outlook.office365.com
+ (2603:10b6:610:1f0::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 06:14:09 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
  IP is 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=gmail.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  gmail.com discourages use of 165.204.84.17 as permitted sender)
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF0000A7FF.mail.protection.outlook.com (10.167.245.166) with Microsoft
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 06:14:06 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 06:14:09 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 01:14:05 -0500
+ 2026 01:14:08 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 01:14:08 -0500
 Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 01:14:02 -0500
+ Transport; Wed, 30 Sep 2026 01:14:05 -0500
 From: Colin Huang <u8813345@gmail.com>
-Date: Wed, 30 Sep 2026 14:10:17 +0800
-Subject: [PATCH v9 09/15] ARM: dts: aspeed: anacapa: Add LPDB fuse monitor
- GPIO expander
+Date: Wed, 30 Sep 2026 14:10:18 +0800
+Subject: [PATCH v9 10/15] ARM: dts: aspeed: anacapa: Simplify leakage GPIO
+ line names
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-9-f08aa0d7182d@gmail.com>
+Message-ID: <20260930-anacapa-devlop-phase-devicetree-v9-10-f08aa0d7182d@gmail.com>
 References: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 In-Reply-To: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -82,157 +86,102 @@ CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>, Rex Fu
 	<rex.fu.amd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=3698;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790748641; l=2443;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=8kEAvGR4wHD+buKRoFqsooBUH7WFB3+NHrtadmWVUT0=;
- b=2c3HR+pBxx+/kYY9AEv5W7vieikGLEJmTk/SKV8LmxjSAyomf4zuqveWQhLtqF6IvGZFgdAce
- 7g408LhQ4SDB34VUseNQ6+Jve1ZH5TaTn802aoZOZ12W4zYZqJaR0R/
+ bh=4zjP23mepqtMKnSPss2kOpsZaw5ldaNVS3sb8oAIS2E=;
+ b=LvjA9+AOsFLr/TkFhgir73ax2bY7L5/ATK8FEEBnKg1lu8XoSBRy4wjz7+zZIHsNXgDDiIJ49
+ /QwaeE8CnlfDvcbmYX3/GZ0xs00FbMKKfiNeRy9J+Hu08oimYrDU1r6
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FF:EE_|DS7PR12MB9551:EE_
-X-MS-Office365-Filtering-Correlation-Id: b43921ac-4022-4dd8-c0c5-08df1eba0837
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|SA3PR12MB9158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ab93c99-b01c-41fd-a2c6-08df1eba0a5f
 X-MS-Exchange-SenderADCheck: 2
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7093399015|7416014|376014|61400799027|48200799018|82310400026|35950700016|10067099003|56012099006|11063799006|4128699003|22082099003|16102099003|18002099003;
+	BCL:0;ARA:13230040|48200799018|376014|35950700016|82310400026|61400799027|7093399015|7416014|4128699003|22082099003|16102099003|18002099003|10067099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	qWvyVCBi8nuIPeYZMFxOSZYFW0EJQTSd7lGShYI5ZLAidcMdqpanXrty5fWOf+KBK2WfIhHMTf7ACNPHZdkHNu55OgzTMvsWTSPyRr6JkAleiHbC0sroyHetkJ84Ab4I4ckIPWMFppxXqmepk43jJo1zvBswMJ8Ooj8jShgDpgqHBE827/WBPsM5sc/aQGeLOwoIBjlLXQxJU8S24kIydghirbctO8KB3VRkPH/Z+df1VZkUFDq2c2rJ8WZCM86CIoASp0nwYZp4AfRjT60Yy8zW7s5BOu0kELBtI36vAwkvtip5uNOQxsDC04MttJv1PVS6TMqdowVjZN6xHCenTtuXcrvkaylektvcfXUGFEh9q5SV12Tgg6nTfKT9L0SdKSpAvmrfgvleD6LonA5WbpVmcwafkO7qvr5F9SmY0URSRA2skSXTVp4Y9EOLYB6qI6npcpC9gpntihuC5TkH5NMu81L8BH1sKd/Y4dsQNBiX1Mrkwsd3RGO18IlTWd6E9T/9QNju4hLlwGEjyBfov6jh2nOTdejeDW8/9FV92Z9i+ufQ08NJtYCPHph00rj3ygsE1Nyy3X/m4lXX2hdOXb8c+8RPaikjkoOSaU/RGREioFnj5ek2TqEX0LEofY+4PysPyCqjYTGv6KksMCV7D7uu+NTEdd7WtwZf0+E5//+HIPBtpWM2IfYRvJx4Eh7NUEzQ2L/VBgf4ZK1fkc/hwQ==
+	QhKeojsVn9/P3v6fA5ptI06s05LFUOl0xl8scQnaxPtTotOebuL02lPjLl2fftGv+UIHDbw1HMkn+gwTJjiQI5hk9ttvYs8JnQ1XD6LI4KumeMBtGZeFMlF2/nPRCOND4DlHd1/8q2o5VnvkxVk1wGfLAU2kABteEZgKjlOhmJkjAZRInQ5urcchvEqUMmVG3BG+zK4hLEypj9X5lwd6S42dxKT5pcMU/5UyeHYKDjcTMrrg3/rD1XQ/8Xd7e8EH64CUHhGzGkIlyd7z7fP1cXicneR0Pl4QsgVu8HwnZ3ehIbyqmUzV5fEOEl53hcaPoruzMvBfbvpg/v4eMee5iNP1Qa2JGxibJA1h9ZOqpU/kfVCEtWNWiGLpRuUdbF+auLkRg7yGA6AAil233Jg7B0FFiaEScI2laXmy7qzVS9MUzaQeyS1Z3iDqavd76uQu4p1w/QPJpRn8ekc9StuJaXiNdORgOXd25bW1i+uNC1P/yZc1nnv+w6y7DLBD4k2UeNcHA1l6Iu1h0No2whCqIzpIgXybdXaCCPyWLoFI3DnDhpLWGUT/fwRrzyUpTRoGp4K+A0qq9RUT35ex+pVc5JRTk1cgmSgnj9Wx2OROUFNJhyrKvFk4scBD3pD2aBxRWrkYeIZTuy25e7D+Nn8IGCyd1dydntnEEoASXYxwQb8tS+wGVCqc4pYNBmlSpF1rl1+DhiBrjjSk7YXqRpmNLw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7093399015)(7416014)(376014)(61400799027)(48200799018)(82310400026)(35950700016)(10067099003)(56012099006)(11063799006)(4128699003)(22082099003)(16102099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(48200799018)(376014)(35950700016)(82310400026)(61400799027)(7093399015)(7416014)(4128699003)(22082099003)(16102099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	P1Dnt3hNWewIwYyX5ALpoOXFaaFwnGBFj6BW6uxG3O8sTVrLenau1H+z/zPLUTW9IQzDAqxryWzHK8L0Dc7/5BWNSUnnEtHfMFhZRhdLsU4qxC6xXrLv1qiKhZ6ISrZSERL9SiMfGB+1KfhCeMHFnGhtXZYO9TNA4mKcL0uGd/NlQ8jHoWnooZY6hMPbVcXcb2wXw8q2w5cBPOndAnuO+ZZ5+GYvBCWITN9lDWrc4PX1mJ2Ll83qTBUuGPri/DBDHSFgxVhQSPLz3IJUx4sXx4ZOrY+nv+6/CU5f2kLt+sQa0t7+WzqSV6K+cjjWlcUfJ3g4WHF/Om/LDpbNpsWTY43Fd63825sjGjCMpuKFbv1QXpUGV11PGDWgnlMgGLuj0Cu2mAZtLhvtXL9BCR1M2sWLeIzAG6khN7cs86IIRKJj7zzZaeqCItlPgYWSo5ev
+	J0BqzyNe3vMqs2r7mNFVpMty1QkgEgt9AL32JOkwTpcAzchpd9i6rTPfM6t9uOVM9swgLSfKyl6p9qFPAShQejJ+e++EFf4elO1E4gFUXjD9fW6+xvtiPDtfN+40AKvF5252p/h9yeXPyyL2J7OGjOSEf5PebZoSs8JSum5XGDjhwAS1DfGhj3epbSZ2h19elHWVHyAPVvT5Qq7pEM/WY9H3j2A+/iH76Hd9FlH1VEvx0Xmh8O0ds2ERyg6XC2Rd1U/A9npQ+ty95SYd2zugNIpXau7B4nwTMv9e+31MqPQo6D20ZmCWfq7plq24Kq/pI/zoQ0KvkYbQYC99Z4X4EPa8UnyMbzhMNnUqcKZkG4ypng2ZeEuP9rKPcAqEi7JX3a9Q46dqPR8Z1OPXml8YgXMOGhWcZd2HMlOLFTYBf3jXO9gDlngWaG4zipBpq4oT
 X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:14:06.0126
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:14:09.6261
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b43921ac-4022-4dd8-c0c5-08df1eba0837
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ab93c99-b01c-41fd-a2c6-08df1eba0a5f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FF.namprd02.prod.outlook.com
+	BL6PEPF00022574.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9551
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9158
 
 From: Rex Fu <rex.fu.amd@gmail.com>
 
-Add PCA9554 GPIO expanders for PDB fuse monitor signals on the
-Anacapa DVT board.
-
-The patch adds GPIO expander definitions for both the left and
-right PDBs under the i2c8 multiplexer and updates the associated
-gpio-line-names to reflect the final signal assignments.
+Remove the board location suffixes from the leakage present GPIO line
+names. The channel number is enough to identify each leakage present
+signal.
 
 Signed-off-by: Rex Fu <rex.fu.amd@gmail.com>
 ---
- .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    | 92 ++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    | 28 +++++++++++-----------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
-index 0509bc8bb9cd..2fd7e46daa63 100644
+index 2fd7e46daa63..3b3967b47980 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
-@@ -2,6 +2,98 @@
+@@ -108,32 +108,32 @@ &sgpiom0 {
+ 	"", "",
  
- #include "aspeed-bmc-facebook-anacapa-evt2.dtsi"
+ 	/* B0-B7 line 16-31 */
+-	"Channel0_leakage_EAM3", "FM_CPU_FPGA_JTAG_MUX_SEL",
+-	"Channel1_leakage_EAM0", "FM_SCM_JTAG_MUX_SEL",
+-	"Channel2_leakage_Manifold1", "FM_BRIDGE_JTAG_MUX_SEL",
+-	"Channel5_leakage_present_EAM1", "FM_CPU0_NMI_SYNC_FLOOD_N",
+-	"Channel4_leakage_Manifold2", "BMC_AINIC0_WP_R2_L",
+-	"Channel5_leakage_EAM1", "BMC_AINIC1_WP_R2_L",
+-	"Channel6_leakage_CPU_DIMM", "CPLD_BUF_R_AGPIO330",
+-	"Channel7_leakage_EAM2", "CPLD_BUF_R_AGPIO331",
++	"Channel0_leakage", "FM_CPU_FPGA_JTAG_MUX_SEL",
++	"Channel1_leakage", "FM_SCM_JTAG_MUX_SEL",
++	"Channel2_leakage", "FM_BRIDGE_JTAG_MUX_SEL",
++	"Channel5_leakage_present", "FM_CPU0_NMI_SYNC_FLOOD_N",
++	"Channel4_leakage", "BMC_AINIC0_WP_R2_L",
++	"Channel5_leakage", "BMC_AINIC1_WP_R2_L",
++	"Channel6_leakage", "CPLD_BUF_R_AGPIO330",
++	"Channel7_leakage", "CPLD_BUF_R_AGPIO331",
  
-+// MB - PDB
-+&i2c8 {
-+	i2c-mux@72 {
-+		i2c@0 {
-+			gpio@22 {
-+				gpio-line-names =
-+					"RPDB_FAN_FULL_SPEED_R_N", "RPDB_I2C_TMP432_U8_ALERT_R_N",
-+					"RPDB_I2C_TMP432_U29_ALERT_R_N", "RPDB_GLOBAL_WP",
-+					"RPDB_FAN_CT_FAN_FAIL_R_N", "RPDB_VERID_A0",
-+					"RPDB_VERID_A1", "RPDB_VERID_A2",
-+					"RPDB_ALERT_P50V_HSC2_R_N", "RPDB_ALERT_P50V_HSC3_R_N",
-+					"RPDB_ALERT_P50V_HSC4_R_N", "RPDB_ALERT_P50V_STBY_R_N",
-+					"RPDB_P12V_MB_VRM_ALERT_R_N",
-+					"RPDB_P12V_STBY_VRM_ALERT_R_N",
-+					"RPDB_PGD_P3V3_STBY_PWRGD_R",
-+					"RPDB_P12V_STBY_VRM_PWRGD_BUF_R";
-+			};
-+
-+			gpio@24 {
-+				gpio-line-names =
-+					"RPDB_EAM2_PRSNT_MOS_N_R", "RPDB_EAM3_PRSNT_MOS_N_R",
-+					"RPDB_PWRGD_P50V_HSC4_SYS_R",
-+					"RPDB_PWRGD_P50V_STBY_SYS_BUF_R",
-+					"RPDB_P50V_FAN5_R2_PG", "RPDB_P50V_FAN6_R2_PG",
-+					"RPDB_P50V_FAN7_R2_PG", "RPDB_P50V_FAN8_R2_PG",
-+					"RPDB_SKU_ID0", "RPDB_FAN5_PRSNT_N_R",
-+					"", "RPDB_FAN6_PRSNT_N_R",
-+					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
-+					"", "";
-+			};
-+
-+			gpio@38 {
-+				compatible = "nxp,pca9554";
-+				reg = <0x38>;
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+
-+				gpio-line-names =
-+					"RPDB_P50V_FUSE2_TVS1", "RPDB_P50V_FUSE2_TVS2",
-+					"RPDB_P50V_FUSE3_TVS1", "RPDB_P50V_FUSE3_TVS2",
-+					"RPDB_P50V_FUSE4_TVS1", "",
-+					"", "";
-+
-+				interrupt-parent = <&sgpiom0>;
-+				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
-+			};
-+		};
-+
-+		i2c@1 {
-+			gpio@22 {
-+				gpio-line-names =
-+					"LPDB_FAN_FULL_SPEED_R_N", "LPDB_I2C_TEMP75_U8_ALERT_R_N",
-+					"LPDB_I2C_TMP432_U29_ALERT_R_N", "LPDB_GLOBAL_WP",
-+					"LPDB_FAN_CT_FAN_FAIL_R_N", "LPDB_VERID_A0",
-+					"LPDB_VERID_A1", "LPDB_VERID_A2",
-+					"LPDB_ALERT_P50V_HSC0_R_N", "LPDB_ALERT_P50V_HSC1_R_N",
-+					"LPDB_ALERT_P50V_HSC5_R_N", "LPDB_I2C_P12V_SW_VRM_ALERT_R_N",
-+					"LPDB_EAM0_PRSNT_MOS_N_R", "LPDB_EAM1_PRSNT_MOS_N_R",
-+					"LPDB_PWRGD_P50V_HSC5_SYS_R", "BARKLIP_PRSNT_N_R3";
-+			};
-+
-+			gpio@24 {
-+				gpio-line-names =
-+					"LPDB_P50V_FAN0_R2_PG", "LPDB_P50V_FAN1_R2_PG",
-+					"LPDB_P50V_FAN2_R2_PG", "LPDB_P50V_FAN3_R2_PG",
-+					"LPDB_P50V_FAN4_R2_PG", "LPDB_FAN0_PRSNT_N_R",
-+					"LPDB_FAN1_PRSNT_N_R", "LPDB_FAN2_PRSNT_N_R",
-+					"LPDB_FAN3_PRSNT_N_R", "LPDB_FAN4_PRSNT_N_R",
-+					"LPDB_SKU_ID0", "",
-+					"", "",
-+					"", "LPDB_PG_P3V3_R";
-+			};
-+
-+			gpio@38 {
-+				compatible = "nxp,pca9554";
-+				reg = <0x38>;
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+
-+				gpio-line-names =
-+					"LPDB_P50V_FUSE0_TVS1", "LPDB_P50V_FUSE0_TVS2",
-+					"LPDB_P50V_FUSE1_TVS1", "LPDB_P50V_FUSE1_TVS2",
-+					"LPDB_P50V_FUSE5_TVS1", "",
-+					"", "";
-+
-+				interrupt-parent = <&sgpiom0>;
-+				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
-+			};
-+		};
-+	};
-+};
-+
- &sgpiom0 {
- 	gpio-line-names =
- 	/*in - out */
+ 	/* C0-C7 line 32-47 */
+ 	"RSVD_RMC_GPIO3", "RTM_MUX_L",
+ 	"LEAK_DETECT_RMC_N", "RTM_MUX_R",
+ 	"HDR_P0_NMI_BTN_BUF_R_N", "FPGA_JTAG_SCM_DBREQ_N",
+-	"Channel6_leakage_present_CPU_DIMM", "whdt_sel",
++	"Channel6_leakage_present", "whdt_sel",
+ 	"R_EAM0_NIC_CBL_PRSNT_L", "JTAG_CPLD_TRST_R_N",
+ 	"R_EAM1_NIC_CBL_PRSNT_L", "",
+ 	"L_EAM0_NIC_CBL_PRSNT_L", "",
+ 	"L_EAM1_NIC_CBL_PRSNT_L", "",
+ 
+ 	/* D0-D7 line 48-63 */
+-	"Channel0_leakage_present_EAM3", "",
+-	"Channel1_leakage_present_EAM0", "",
+-	"Channel2_leakage_present_Manifold1", "",
+-	"Channel4_leakage_present_Manifold2", "",
++	"Channel0_leakage_present", "",
++	"Channel1_leakage_present", "",
++	"Channel2_leakage_present", "",
++	"Channel4_leakage_present", "",
+ 	"AMC_BRD_PRSNT_CPLD_L", "",
+-	"Channel7_leakage_present_EAM2", "",
++	"Channel7_leakage_present", "",
+ 	"", "",
+ 	"", "",
+ 
 
 -- 
 2.34.1
