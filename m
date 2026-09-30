@@ -1,125 +1,100 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3272415665C;
-	Wed, 30 Sep 2026 05:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150C53AE71E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790746462; cv=none; b=rTlozyei57riu3RvBk/2N3rdukwyzCwEYI+Vrtp7/kMZz29lb69feS5F7IyyIQ7rn0eRnERtXv2wleBLMb9A4dDJz8EGgT7hfoxNyb/iMl2epOw/gLzlto5sthiIs7soLFhA+UVPWtg1dN7xAAr9lAY11pgpJ1AbhGeCUHtJf+Q=
+	t=1790746597; cv=none; b=S1dwZ72IRfpJC3m5Om/jjE1NPhHMWhuf+Vwzb1JTutGWbZY067jfqDLBkc1Shr1XWmjO0uFVZ7bxzDj9vGPYAgTUM+EumwyAkDdo9fnRpsg1u9t7Y6V03HlcbJ/tVMPj8KbhcHtwO/4ldGS0QB6UwS45V+kHFeYSM6YdyqVsDAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790746462; c=relaxed/simple;
-	bh=m7klIzOCCxik8g5u4yYWC7x+ksbAsNoEwmsGQxQ29uI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Dy2E5yofw5PO+XGkpS32Ya4FJ6MvC2TlGWaNFSANTLBeaI1YtylNGer15Oa5eoNYRy89vu2Q+x2hYtqP0pB57E5ljPU0s+9OczyxnY2A+d5MKzC9s+H4YivZwJAX8ARN9dfTKuQmCnkjNuqohrb9MMeluhYwcPkIXJuBjzpN/NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=aGtiHdK7; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790746597; c=relaxed/simple;
+	bh=weGHAUr2l8CJamIsh5doUiVjsBwz2X9koep9k05v1c4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u6IJGQ8KfCxTwchADTn127appvlrxmRqZNzFtz5gTo7BeSp/vT1W7i1eyUHWJFnJdEchvIhL8CXdkahbbljfCM4q+v5tA/pby+YQpyZ4kTtwV6E2RW8voLoSeF2tYkKvWHG1sfnBOhvBnenVbIBb0b/xK1g9oHCbMK+R4C5ubbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xZEqCPwU; arc=none smtp.client-ip=95.215.58.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="aGtiHdK7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=4WFj5RlG0eoXnfPuFIfjh+oxW9zqw9UkP92X9uAmUso=; t=1790746458;
-	x=1791351258; b=aGtiHdK78UA+4zTW9wST15GIKbb2biVbDIjlbM20MHr6IMA0lMWyOPo0Z41no
-	sj3Ot7xJLna/lg3BstYRN458vAMLM1FrOCB7i153a+GgcVAAJ9Pe1tTlTKmNmc7LdbLXiR4g9m+3f
-	fF9beG+nIjREsY1phQPMjNgx0ZYlf8bvxagfb+I4aaGh9gNl+y/7YlVlFyfXiWVxwJz+RZQdER2SV
-	PBJ56sC/OabLqcmhPuejlZyptGFUKnSmXFI/1sNhwMgdJEoSjYzxgMwZPRnsrRiA8sSgc2usCL0Md
-	7QS7EpEsEmEhSzudW6gAyDBi7yG7Ib04PYb9Oq9JDhRcvwCMJg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xBmxF-000000012js-1jLt; Wed, 30 Sep 2026 07:34:09 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xBmxF-00000002NST-0cIG; Wed, 30 Sep 2026 07:34:09 +0200
-Message-ID: <db64c4ac5e0ff7a9a10444052d1d23254c923de7.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 2/2] sh: mach-x3proto: convert gpio-keys to software
- nodes
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>,  Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 07:34:08 +0200
-In-Reply-To: <aryX1eOmqUw2x09Z@google.com>
-References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
-	 <20260704-sh-x3proto-swnode-v1-2-0c039549dc46@gmail.com>
-	 <d3a2875ba34bf10ddae3626b77da071cd4624348.camel@physik.fu-berlin.de>
-	 <arn6r3RohRPJrk0_@google.com>
-	 <61edcd485d5f2704a87f208a5d0eec82576a38ae.camel@physik.fu-berlin.de>
-	 <945d56acafd1910b7304903b06f974f41a2a018f.camel@physik.fu-berlin.de>
-	 <aryX1eOmqUw2x09Z@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xZEqCPwU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=weGHAUr2l8CJamIsh5doUiVjsBwz2X9koep9k05v1c4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790746594; v=1; x=1791351394;
+ b=xZEqCPwUGcBMH0ehckWl17hhdy2EWFaHZQtvQ91l8KoJHqCX4vgJvVErKhgGdbAi7K8xPwFr
+ f6NJ8fevID2A56oCNeiOH19LnHILPJhWSOh4O5CcG6u3jWvTfYWVN6qS3ugLppr4xOezvSxHIYL
+ mLnOi6G78hD3bOmHROEaPlqg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 67e0a92a6b2b4068;
+	Wed, 30 Sep 2026 05:36:32 +0000
+X-Mizu-Trace-ID: 67e0a92a6b2b4068
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ingo Molnar <mingo@elte.hu>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH] kprobes: Skip disarmed probes when checking optkprobe overlap
+Date: Wed, 30 Sep 2026 13:36:18 +0800
+Message-ID: <20260930053618.104498-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
 
-Hi Dmitry,
+On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
+probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
+probe C at A+4. It leaves A optimized:
 
-On Tue, 2026-09-29 at 22:03 -0700, Dmitry Torokhov wrote:
-> On Tue, Sep 29, 2026 at 09:31:05AM +0200, John Paul Adrian Glaubitz wrote=
-:
-> > Hi,
-> >=20
-> > On Mon, 2026-09-28 at 07:56 +0200, John Paul Adrian Glaubitz wrote:
-> > > Hi Dmitry,
-> > >=20
-> > > On Sun, 2026-09-27 at 22:28 -0700, Dmitry Torokhov wrote:
-> > > > Hi John,
-> > > >=20
-> > > > On Thu, Sep 17, 2026 at 08:49:15PM +0200, John Paul Adrian Glaubitz=
- wrote:
-> > > > >=20
-> > > > > It took me some time to fully grasp the rewrite, but I think this=
- should work as expected.
-> > > > >=20
-> > > > > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin=
-.de>
-> > > >=20
-> > > > Sorry for bothering you but I do not see it in next. Just want to m=
-ake
-> > > > sure this (and others) is not stalled.
-> > >=20
-> > > Don't worry, I'll merge it today. It's already reviewed, so I just
-> > > need to merge and push it. Sorry for not doing it right away.
-> >=20
-> > Pushed now: https://git.kernel.org/pub/scm/linux/kernel/git/glaubitz/sh=
--linux.git/log/?h=3Dfor-next
->=20
-> Awesome, thank you Adrian!
+              A    A+1  A+2  A+3  A+4
+  A's jump  | e9 | d0 | d1 | d2 | d3 |
+  after C   | e9 | d0 | d1 | d2 | cc |
 
-You're welcome, apologies for the delay.
+The INT3 for C overwrites the last byte of A's jump displacement, so
+execution can jump to the wrong address. B can have prepared optinsns
+while disarmed, but has no jump to unoptimize.
 
-> I also resent the rsk7203 patches folding the compound literals fixes
-> into relevant commits. Hope you will have time to take a look at them as
-> well.
+Continue past disarmed and unprepared probes to find the active optimized
+probe before arming a probe in its jump.
 
-Just saw that, thank you. I will try to review them as quickly as possible
-but it can take a few days as I also got many other patches this cycle whic=
-h
-address important issues and even helped me unbreak the kernel on my SH-778=
-5LCR
-board.
+Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
+Cc: stable@vger.kernel.org
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+ kernel/kprobes.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Adrian
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 6337da5cab9e..e6f6e18fa1b5 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -495,14 +495,16 @@ static bool kprobe_queued(struct kprobe *p)
+ static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
+ {
+ 	int i;
+-	struct kprobe *p = NULL;
++	struct kprobe *p;
+ 	struct optimized_kprobe *op;
+ 
+ 	/* Don't check i == 0, since that is a breakpoint case. */
+-	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
++	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++) {
+ 		p = get_kprobe(addr - i);
++		/* A disabled probe can have prepared, but inactive, optinsns. */
++		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
++			continue;
+ 
+-	if (p && kprobe_optready(p)) {
+ 		op = container_of(p, struct optimized_kprobe, kp);
+ 		if (arch_within_optimized_kprobe(op, addr))
+ 			return p;
+-- 
+2.55.0
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
