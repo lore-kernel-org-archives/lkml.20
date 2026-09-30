@@ -1,180 +1,149 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D672F4562B0
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755136; cv=pass; b=VGXdlHYofcbixVPqh4n/O8w0FOD/vV1D7HTUnC67gvxq73eNlC/xqQi2FjraOr+EZMWDtznQ4jN7fBZsoDjV1d5Y1iw0bJ2yIbwaiiilCJBT3jgP5wCxoUSs2580DePr5OGCsJpctpLdR0eNEGrYlwn35twUFTUFrFhgkWHyyvg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755136; c=relaxed/simple;
-	bh=GQ67D7m6aGzZahEWTzQMkof7xobtH+TCj5JbR+ns31I=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EdYG2n0CqWeo8uYRXoCWSLwr4qBm96iThHS3JW++SQzM7jMCLbdYRSzzhhBV5ufwxvqH3NFD1z0QXpjciwziW+4c5Rgb5gHOrHSlZROu+Eosji+xvRi85LznB2UZ7sHgY6MekX2JPO0CAzPj3QK6sfk2F4aWCDgCqiEVwI3MC0A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YT/tLQt5; arc=pass smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2B0453A2F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790755164; cv=none; b=Mq5hcIWeH4yd/VtjnuM9z+wUjuFWUpiZ8Se46LCSErl8NhDvvp9aZFfvC6WJ5hLrWGrMetsOjUUH6i2GIRbcdSpvPn2OUg2RYkV7izHAOnvSoxt+iNiVwG7dd4Q3x5pvv209urar3SqF1tubYGcMMKqIqhvpFPn9g1kdnswaHfc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790755164; c=relaxed/simple;
+	bh=NI4deWyXYxlDZ5Psff3uegs1r20u4xH144iUxLKtfAw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4Bfu2d3OH7OGyOnwC5jewQ8jpZuMl/Es2vR7sZ7s/l8LBKjHdrPYI7Oa+GB9TVwMFVroncPAXURRHBiXtyUmst+9nr8CdbmEzyLAgkcQcqpcczwJrbmXpVxhbLinB+1WzBk3SPHgzm4di0p5WbMfdAwzN44dvJBUJSAp+LOLZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X2eNdHxO; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YT/tLQt5"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so723460485a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:58:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790755133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E0aAZp/Il3nRJmoabCqyNr9zfopjm+8qxUNTy/l8W99WpWydUt+nuC+ZO8mvUl2jk2
-         kwBywoWOlXPz7PlDbgPAOzi4lwVYMWbZ8U3P6g6jvGt0tTKDt8uSptnIddxcukgePkXY
-         ZvblYGKECbCRkv9M0tUOCSuKDXOsncL+1ucw8+ehJ6K5j5X3VRkTVrjs+CWN00224REs
-         vDNJVVJhsj2oHS9MwmWJnxvtBKE8r0FrZgdZBsVw7ubuGKNaWa74H7wjaPjHmVU9seUN
-         BQDbH+jle7knvrg6SCwkOAPHioLeeymRgucvZehG+Jf/TUEWLoedIVKf+1QmQxZEzIeY
-         nmSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:references
-         :in-reply-to:from:mime-version:dkim-signature;
-        bh=IQcCwsO64O6tzTlMCE1fWnctbm/KS4UpXxHtRBcS6lE=;
-        fh=/c4jcwKH5Ox643ToWLhB2egD5eevz8xvFPaeOEomnSE=;
-        b=kKesEJk2FUjLx0GvOtsOg7Dmv04Wcb79ZFhfXs+IaUBG5GyDt5qAZUqgtgl90tsQdw
-         tLawFOqPRZSOuzBJs2cMFZrJBVgV27n3E46kkLkbOJIrcNxLDRWEb6L+fCQh/MTwsEwi
-         /U2u2K44sxfpM+J5rphhCxYEnPcZ7h4PesP/b3bHjfNFH+34g1Eq45cPp9iIhQHLM97S
-         ypIAhTJLhhCt7J3aZyj/4xoCmLnPy1NG/EDnXDaKAUjn5+soY95VrRELY/wpaN7pn/sS
-         fXBX6lctkFNe1OcDVEF9fQfavdnsjnI0JwI+n/IAPBPG6ZuhXMi8ZhXniEpt91OoWYLh
-         rdTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X2eNdHxO"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a856865so2437449b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790755133; x=1791359933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IQcCwsO64O6tzTlMCE1fWnctbm/KS4UpXxHtRBcS6lE=;
-        b=YT/tLQt5toXIXl3oN0qdQ+RNrUKmGXfNh6jPUxBKmxbYkmwuxdMfhjVwcFktK9hs3F
-         aNxZ8biXmtceJOgS1jZDaalcVgLM6TNs0IiLX8Vct8xi/ekOfVMOAHXssUrN/fx2ngb/
-         pEpOE9zLELnXGBw5cE71nsaAuCcZ5ygOnp09ck2dqQySH9f/u+1DIdxXjVUE/iu9qVdb
-         umQKos7aYuiX4EEaukshKtozCT7NvC5It4F8NEfx+3vchAQj64Cm+IZop4xyngDdug0Y
-         oK4u6JovLfiWvD/54TMzZ9q+qw/7Qt60NmP3UBJeKrzpCMpCg7rEZF6sZ+m++kfQVW5f
-         qWNA==
+        d=gmail.com; s=20251104; t=1790755162; x=1791359962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vfbBhg1DcI7KV0DOQuXjyz/HcnuOmRxLvnIDKvsQamY=;
+        b=X2eNdHxOz8hAbHiEVDXnjJ94ztLEUpz6coimQq6Drda5TD9sVliEdREHaU9Vk6jg/4
+         xPZL0nJXhwbU5JtRvwiqbne1MTrX5S5PDe5xpl3+c0No1I3uanhc1AXSo4zgpfDNL3Ap
+         1XEIbQbGoiaiXaFU+u+0YHjiRFfCpEC/G6t0MJAoDQqWOg60zHGer+ZtM6UeJ8s0XCk8
+         RPIm0v+mtOuMS1Vm0smiIxYubQUWdt0nhrUP4E9mMk0S1gU+PKRVsZQ86kZHS7w7Q46z
+         CLPDlHuj1pFVT8lZpttfeNEgvbBpRklOXxloDvDgCkxpCYT/bdmavf9Mop2p13gMGprq
+         l1XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790755133; x=1791359933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IQcCwsO64O6tzTlMCE1fWnctbm/KS4UpXxHtRBcS6lE=;
-        b=FtKnr56IEhACAnxTaQAnB0QtW9IDtG2iGh6+HJPkHaxP0slF1f+nyRW/VWcpIIiPRb
-         15jO966lq+93PWqo+e7Bs/EOQkvRjusQValBRMAWfWfl6hF7MS/ICvX4tNpWq9bLh1Gv
-         aqQqEZM7Pj+tjlHD9sv8mB6yTEHqAlEN7y6voNn+nPbsNpODocY63MHlUEr/pEL0sBPP
-         3BFUuElh2cT+PLFhvANgXqpJE53eweICRXik4l6+FmMomqg6Mf67pb+A4l110768Jhdw
-         MDyerb4TK76v6gJYLHw+MP5tLFf1SOJQWoU2THNTqAvR1EglZW8to2ts4XFQ5SAxtOb0
-         0ldw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+DYvim8eCvOGVbVYIqz4UaCFu6m2vZ+AansOm728dwEnZ0KfQQpZY9jIkx1yM7lpau/Cq7uzSLEd4FBI=@vger.kernel.org
-X-Gm-Message-State: AFuF++luZw7ILA3l+d1TsaxaFqlosABQV30Fdsz+N0BcA5zjM7w5Y4Ai
-	FR6YcCaK+J3H+5HQ26JyKOKcCqCvqTytm8lnqca+ry6BVxS1oQi9Njop6bJzy1L1fYj3UhcxN1l
-	NKQNc4vNF7sDt6rLqBcNuwu8QlJG2EpY=
-X-Gm-Gg: AYBFou0ef4WmwAjaPmKZq5MNMd5GwSI3mD8dskqAK8/RW0J/hE4Xx1IUYvOglSGNXMM
-	NWxvi0ZUWh6x1rWJhQ1/OycD2HA5uBHzw5WpUSCRKCRhOuzFLEHpXuvzfK7MQJZOQ8h4nI8plv+
-	YfpuPukocPbnPEJqHUjHzf1/vwIVUDvjygt53R/DbUb1uHt8E0AtnX4x69LRsK8vPrzXcctKSdZ
-	2SC6CVIY5HsgaOhP02ImGmSVJ1242mM5eOmNCtXeVwVTK+ygQzvDlcnnFIPQ0oT0p8V36BoDXlm
-	dUjYUjfCq7NJl1H3DRTnifUuriyjlvLQCCyKHCWIflkUcow2NNJj1JE+F8C9fUFw078Y+7IcGne
-	JGeRh6HX3tFfYLCfyyFHCb28CxI8Wh5ppuNwr1HhtyDEsDf/6AzNDg0YouzW4tV9LcwIwMCdodm
-	lgMMlcCegClpHI3I5iRPSaXwmj9oyYDAqAnqx6UTT1mfcsxKIpn0vit1N5QlU5CJ3p9UMU5VUZ3
-	JMm+5NhXT/38Y8=
-X-Received: by 2002:a05:620a:454b:b0:939:b099:d52f with SMTP id
- af79cd13be357-93ca9650a87mr80148785a.20.1790755132822; Wed, 30 Sep 2026
- 00:58:52 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 30 Sep 2026 00:58:52 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 30 Sep 2026 00:58:52 -0700
+        d=1e100.net; s=20260707; t=1790755162; x=1791359962;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vfbBhg1DcI7KV0DOQuXjyz/HcnuOmRxLvnIDKvsQamY=;
+        b=qU0aVATz3CIqoaodH/ekgon4e0Iqel380zYr/VYTF6dAwIqspMxfDRx0kG8IrPqGQq
+         SuBZdyR7cEwIRXbNjrFewxqE1FO1zz9oGdEAzbZBct5Lc5MQTKflzdC1Hs8y0OlU/LkJ
+         wx6jtnuCfctfmHAfyQnJHqiK78BivC6NYt97kOwCzIfOJMxL4qA7jvIhJHpQijrjIrGO
+         UCV9mNCyeEfB6tBZu7mCfZngKX2oHjjvX5nqpN7JCOOHALbEt5zyIqbJd/BLKecDQ5KV
+         8f3rzX2LXsSsuz9tUh8MU9hK/yboKQmy4FugHEwrDHjg0/OqMOIa8sTRd24+N3Pl9XD0
+         kDxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw3/tiD2Sb2Jt0vexgYmMpKTTFARRPrSOk/6kdAYOtOcwS0xUJdv1931DygsoarpmArG6HCwP2qdVwIOro=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk7OCf+KDdSVgeKjcpNls0kElS9bStICbit6O9ewKfZxVhs5if
+	cyCpldeFITzuJXHQ0gHXjD1XMe/0E/1N7bBlxykJz5zlZC7e+pNyqXdx
+X-Gm-Gg: AYBFou1J8muBIZ6EIQsICV+bvnSpppoxc0+pemaQA7k+hlDktr2CaSUTcMrpEiMiH1z
+	inzEvHXGJiyjIvDQuid6RmcIUgjS6JVIB3Seik0cEHnGsQ0EbVi5Sxylw4vGMexji1t25fOszYV
+	bNgNdqiYGlevR85MqRgXohf1Y5o3KxN0TcI1XMa64baRg787Sx6XbBrhUptcwdFdor9u56dhg6O
+	1tzhzH+1JY62zlUijk9EXsmnhfmkPT6kWTz3I6+lgbciVITnQCRPAi2EDTZYAvlxbqwM/AKiM7O
+	aTcD/WKJ4AU8dyjMKAkSyZEKvY9WhVAfGW6GUuKQZz0M9Zp8H+U2zbKTqEaZexJpEKIxDqzeWZK
+	gP+s45IiOlh9vu6ahkOu9Jx+vVBe44eI8oboOfUmlveH77NxnNCYy9twwqiCSYRwHu2V3xZ7der
+	pUpJDVT60tyjNuM/S9qzcjUENq68iDB2ojwnciZ8NfxelbnHYeCNngJPA82VcZQtPWoSR0cwhn3
+	Xn6iAwFeHLaVUdhgzJqLUyHAcDN2zQOG2ETaUqu0Q6RcVYa1WjKAyK97V2Dl7QnFJpJXXeP/V07
+	/i/Z3RxN2A==
+X-Received: by 2002:a05:6a00:1da0:b0:874:705d:f656 with SMTP id d2e1a72fcca58-8874ba252a9mr413795b3a.36.1790755162269;
+        Wed, 30 Sep 2026 00:59:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725d684ccsm403996b3a.40.2026.09.30.00.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:59:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+	Felipe Balbi <balbi@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v4] usb: gadget: f_printer: bound PNP string copy length in printer_func_setup()
+Date: Wed, 30 Sep 2026 07:59:20 +0000
+Message-ID: <20260930075920.483189-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ting-Han Hou <ue081723@gmail.com>
-In-Reply-To: <179071199261.2735405.15944114878466249879.b4-reply@b4>
-References: <179017337986.52388.7943687183785012868@gmail.com>
- <179037565553.3985470.12035061965740287126.b4-reply@b4> <CA+NtrhRdnuZOOFpBXvnfOXFs-HA8q+2sLvR0BxH=BjzVAEZBzw@mail.gmail.com>
- <179071199261.2735405.15944114878466249879.b4-reply@b4>
-Date: Wed, 30 Sep 2026 00:58:52 -0700
-X-Gm-Features: AclHuK_l14BgBlQAEUqwBjjdsg8HswhmB8XtP7bRP6Z064JojK65_GlLOUveE00
-Message-ID: <CA+NtrhQeOacYz+nGqevB778YW01sREPyndzh6QOsKxQR3ON6RA@mail.gmail.com>
-Subject: Re: [PATCH] clang-tools: Import os for broken pipe handling
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-From: Ting-Han Hou <ue081723@gmail.com>
-Date: Sat, 26 Sep 2026 08:52:24 +0800
-Subject: [PATCH] clang-tools: Import os for broken pipe handling
+In printer_func_setup(), when processing a GET_DEVICE_ID class setup
+request, the IEEE-1284 PNP string length value = strlen(*dev->pnp_string)
+is copied into buf without checking wLength (the host's requested buffer
+size):
 
-The BrokenPipeError handler in run-clang-tools.py calls os.open() and
-os.dup2() without importing os. If this handler is reached, it raises
-NameError instead of redirecting stdout and exiting with status 1.
+  value = strlen(*dev->pnp_string);
+  memcpy(buf + 2, *dev->pnp_string, value);
 
-Import os so the handler can work as intended.
+When the host issues a GET_DEVICE_ID request with wLength smaller than
+value + 2, memcpy() writes past the end of the transfer buffer, triggering
+a slab out-of-bounds heap buffer overflow in printer_func_setup():
 
-Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
+  BUG: KASAN: slab-out-of-bounds in printer_func_setup+0x280/0x450
+  Write of size 3074 at addr ffff8880024f8000 by task init/1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x70/0xa0
+   print_report+0x153/0x4c6
+   kasan_report+0xf1/0x120
+   __asan_memcpy+0x3c/0x60
+   printer_func_setup+0x280/0x450
+
+Bound the PNP string copy length using min_t(u16, wLength, strlen() + 2) in
+printer_func_setup() so memcpy() never exceeds wLength.
+
+Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by binding
+f_printer with a 3074-byte PNP string and issuing a GET_DEVICE_ID setup
+request with wLength = 64: on the unfixed kernel this triggers a KASAN
+slab-out-of-bounds write, whereas on the fixed kernel value is bounded to
+wLength and 0 KASAN faults occur.
+
+Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-Hi Nathan,
+Changes in v4:
+- Re-target fix strictly to bound memcpy() size against wLength in
+  GET_DEVICE_ID handling in printer_func_setup().
 
-Sorry about the formatting issue. The diff header was wrapped in my
-previous email. Here is the corrected patch; the code change is
-unchanged.
+ drivers/usb/gadget/function/f_printer.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Thanks,
-Ting-Han
-
- scripts/clang-tools/run-clang-tools.py | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/scripts/clang-tools/run-clang-tools.py
-b/scripts/clang-tools/run-clang-tools.py
-index e78be82..79d58b3 100755
---- a/scripts/clang-tools/run-clang-tools.py
-+++ b/scripts/clang-tools/run-clang-tools.py
-@@ -12,6 +12,7 @@ compile_commands.json.
- import argparse
- import json
- import multiprocessing
-+import os
- import subprocess
- import sys
-
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
---=20
-2.52.0.windows.1
-
-
-On Tue, 29 Sep 2026 21:59:52 +0200, Nathan Chancellor <nathan@kernel.org> w=
-rote:
-> On 2026-09-26 08:52 +0800, 14=E4=BE=AF=E5=BB=B7=E7=BF=B0 wrote:
-> > From: Ting-Han Hou <ue081723@gmail.com>
-> >
-> > The BrokenPipeError handler in run-clang-tools.py calls os.open() and
-> > os.dup2() without importing os. If this handler is reached, it raises
-> > NameError instead of redirecting stdout and exiting with status 1.
-> >
-> > Import os so the handler can work as intended.
-> >
-> > Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python script=
-s")
-> > Assisted-by: LLM
-> > Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
-> > ---
-> >  scripts/clang-tools/run-clang-tools.py | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/scripts/clang-tools/run-clang-tools.py
-> > b/scripts/clang-tools/run-clang-tools.py
->
-> Your patch is mangled, so it cannot be applied (maybe you send it with a
-> different client from your v1?). Please resend properly.
->
-> --
-> Cheers,
-> Nathan
+diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+index a27792966287..f8726e3d849f 100644
+--- a/drivers/usb/gadget/function/f_printer.c
++++ b/drivers/usb/gadget/function/f_printer.c
+@@ -1033,9 +1033,13 @@ static int printer_func_setup(struct usb_function *f,
+ 			if (!*dev->pnp_string) {
+ 				value = 0;
+ 				break;
+ 			}
+-			value = strlen(*dev->pnp_string);
+-			buf[0] = (value >> 8) & 0xFF;
+-			buf[1] = value & 0xFF;
+-			memcpy(buf + 2, *dev->pnp_string, value);
++			value = min_t(u16, wLength, strlen(*dev->pnp_string) + 2);
++			if (value >= 2) {
++				u16 length = value - 2;
++
++				buf[0] = (length >> 8) & 0xFF;
++				buf[1] = length & 0xFF;
++				memcpy(buf + 2, *dev->pnp_string, length);
++			}
+ 			DBG(dev, "1284 PNP String: %x %s\n", value,
+ 			    *dev->pnp_string);
+ 			break;
+-- 
+2.47.3
