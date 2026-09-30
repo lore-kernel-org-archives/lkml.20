@@ -1,104 +1,143 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B24502D40
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB2C511227;
+	Wed, 30 Sep 2026 14:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780338; cv=none; b=uODSK52G3xw2f7K3O9KJy1GACdPqHkotEodDSbpRiYNNmV3iBbBhlYQsEbR7LcP66qe2UmfojZtfL7SlTUvHs9XloqIad72f/rc+vRFmq8TeyEGFydJM/BaD6ruwymsKgx3sgYx8NzpIYeUW9O87EIRm5lVIT3MD7HbbolkDX2Q=
+	t=1790780333; cv=none; b=fy19sBwfkhGkKquNl7dtZS7hNA+vCAk67+zVflEy5vIA0rPnYm1+eynvNzLEKVpe2+eDRAWsIpk5kq3VZXTZ99q82jL84j7VxRSThwn6aesapk3+J5qr01qC8vd5Bwab/wjoX1IHtoX8ZgduX5r/0gn2xXVidCgs3BHpbV5yvA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780338; c=relaxed/simple;
-	bh=2qdW7qPc33fgDVeHmWXq/lgAc7O3FAMhsbwbxQk6sSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DAH7OqUeoWsmjsJi1LSWCVLlUAlmr8M0jdgGk9sYIcZ6d1M4NilwL0GNx826IDjagvszHIQjx75urRorro/85rc2bg16Qo9sAnqSX4ofhlnmMBxUoprskQsK00HZMWMLgQajzcIRjqvP81HXYEDfzSBXxbfPy0cxpLgbIXBrHGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZ0ZAEeA; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790780333; c=relaxed/simple;
+	bh=KXwfS7dOesplNsvN8WR3YoLLgnZMbO3JB+H/onFWdeo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h4Iz2WF77ZAYWDR2zBQyDsQ3vVt/2MTgbS+lJZsT5YMIYphUkNVXAOt3LusZcJB4ZDZIfNGVGcXE2AG+5Z7bq/+1hn/grUtzuRsnq6GrC9xCUz6LfBXJxGkYqSaqrexIQhYh0xx2lDcP2wtoAbocR5KshRuuV6oCf200iXG2wyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=l84tTS8F; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Jcn3U/py; arc=none smtp.client-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZ0ZAEeA"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f635552aso4271088f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:58:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790780324; x=1791385124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ul4pen9AeiIUu90Z55hg1G+SFMqGb/rwLYXQ+Sr+HfU=;
-        b=QZ0ZAEeAVGIoNgbYxkqO4amtVBbjKHraGACOKhRK55OWYGE5LhG87HuJEU1gFSmO7z
-         EovFa+ts/lxINGQGzD1sHGjnWVe/NSfCyU3xgip8tQTE+vr2/B4rcimmuvkGQqMgm+n2
-         E1RJeludAergDPXW+FcTXP02GTAohI7my7ACFTPO6xGdCULGb7XmQo9Mc4u+YT8dT1fT
-         SCjZvzzwixLTKYsrBy/YSJ3tq5FidZZ7P7QrtbUww/c5T2uv7BXl/tSKGdiDtY8ZqSmP
-         V+DT971+ux0PlGbZjuDr9kS78tPOaO+kNKf5BLFNc6FdtwM0mALlS+k7Hh7sG2IxPesC
-         EGhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790780324; x=1791385124;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ul4pen9AeiIUu90Z55hg1G+SFMqGb/rwLYXQ+Sr+HfU=;
-        b=YfUZv5F0TGXAXnDEyTqR0fGUFbgYgi/ASKvvJs8U1SAn34PUHpKiuRVBknPWCfJvs4
-         SjcawKgPHkynrLk7adcGYto/9mc7xcXAUa0PVHM1nj606R3qcNRqpiFOjEMeCb7l+U0V
-         YZREa8P8mMKmL8ya806xKBuJpkrXiSA5FPvcyLOcD66+2XeAmqUEMywze6xiMrgqLSkV
-         1T3NBbg0lC4Q1v/Vks432bOOB04pDdT7PJzF4kPVg0b3JEffHxPF3P/n45SZrRpMBAR6
-         wObZJNum1gjvL0i2DlqgYkdV7aJFYlOVhMFpXeEp3eXI017zISbqX73062E+Fs7zomHi
-         KgKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPjZIW0ln9z/fE+aqqVs067qpWxzHhQZdkPwt8RoZkN3t58JnWyFG6IDbx1uJsWRKmN/ZTjxppWHWG7uU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIArlyFVuGgUJxBc0sVGBzK+yvazocve0t3MOriUBCGvL3CNKtI
-	yWOzo/WG/KWW3bQ+Ys5wrGi0uSYOljNv6Ma1BcF/2LE3q3pcYExGLd91TrylyFAp
-X-Gm-Gg: AYBFou1jVgAMu8bWnsoS0/gE6oB2WJv+Rou1EhCqVojps4eFJ6wOeEs/93OyprR4wJZ
-	dAQjbd8AY3ZUSSzG2LHKePyCoB4xdhN09/E/7mR/l4YI9UgYEXa9t5rhYmvybe4LgyjlA6IZMvv
-	1WwV7nHtmrdoX6NMveDvn3XjhoCrUF7Ts4P/81ZFPlOc8UDnewkEG6gr9Tf+Pmyp/GR67D8HoBR
-	wOOE+ylK+QlWMa/R1B9Rbx/gemxNr5bNiAaMWZomzPCTQFCik/eoYntQAtlKqbss81uRTcCQAui
-	N176mnY1Z/MKO0zvwyDqWRX88UwmNPUdtfBvcgBI5STAN9BhFnrNBlCwwsrlDqxSQtE5RI2z8Hw
-	ZBjc8/r55br2UgKD/4clpLfX8gwehrw7/dFjB4Wg7EE3GSTomJzLqcWV1OCBW0qtjikuM8mHAKY
-	AAl2Y7mkZ6wD63Zf2aKrobnbPujRlndcLXTYnGC7ufHafP0aRUnv909nM2yvYYiVd8vvslinypG
-	bLB
-X-Received: by 2002:a05:6000:4026:b0:487:c3f:5750 with SMTP id ffacd0b85a97d-48b02528ea5mr3207236f8f.40.1790780323426;
-        Wed, 30 Sep 2026 07:58:43 -0700 (PDT)
-Received: from archlinux ([2a02:a31d:a2c4:f100:d7a2:6e0f:6daf:6f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bf85dsm4430576f8f.13.2026.09.30.07.58.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:58:43 -0700 (PDT)
-From: Jakub Gawlik <jakubgawlik13@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jakub Gawlik <jakubgawlik13@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Add micmute LED quirk for Acer Swift SFG16-72
-Date: Wed, 30 Sep 2026 16:58:39 +0200
-Message-ID: <20260930145839.374762-1-jakubgawlik13@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="l84tTS8F";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Jcn3U/py"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 17B867A06D4;
+	Wed, 30 Sep 2026 10:58:39 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 30 Sep 2026 10:58:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790780318;
+	 x=1790866718; bh=aofGckP8hMwHNg+V2dNN47NOQ2mL8aBwuetiA0KNeSI=; b=
+	l84tTS8FrgUObf7LAd5E7HXrG0aQTA3E7zZ92aS6oogpSpg3NpbYcYSIc+mG2z3v
+	HnV4ZSq45l2+HfvzOjInHq8FEV9fOs6Xr0e3UnwggfK2MK2W3yK3t4y+AjcUVjoJ
+	veb+SrCsLAVs1SKVq3LGQXAgOjjOQuWyY6UmkX2F7S5T/sOhi8oCgyoCAIqyiSUQ
+	gKCs9+QDtAEbK0VDulgYJQSqXoaghxAipTOyIN7suAHeVOykBqIYP4ixOORjczIQ
+	xdD2ea1ShJ9eIL0lcYAdCOdQzLMe3QENszU1naI2SFa4MphZt8ovTmJy4eR1JQAI
+	+dzfXHG7+81b3TZzopwjxQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790780318; x=
+	1790866718; bh=aofGckP8hMwHNg+V2dNN47NOQ2mL8aBwuetiA0KNeSI=; b=J
+	cn3U/pyV0fIorRo0sZVuQgzgZ+QPC/Kz3MThX7NR0Wx3IOzag7PcRL3cXdfs6Vmr
+	HzMZ8Mp6XTvjaGRyGcziBu4mfyD49W10X3Z/n4xuHqKVa9j7U7AKwoND5RR4Uirr
+	2MY/qriM0a4cG5QrjUB2bsJOkyH5IcI+OJIKv/lHhpfV36JXGnXi9Wuw2a6n8xmm
+	ClYxxoM3p1N7FevxgWaHiLw4RRfILh86ZAvAocHRyqgMyJk9HEnIFzmT1HdI0KXW
+	6J5P/oWJGhToX7yroVlT1qxHMRHT+N6MxjJKg0e/5pj3tkTIxXu6L9eerEKWTo8V
+	dq2QvPx5B0+YjhoomGUxA==
+X-ME-Sender: <xms:niO9agR179xb22ZoDlQSeTT3t8fQiKXnLZLm7-70ysCff7eRV_gmQw>
+    <xme:niO9aoJ_-xNahCp-iXTdpJjIBOwESZqpnjEMyIX0tDQPmFuAT6DTFI1Hk_Su_DB1r
+    prlvZ5_9qzZiTnf_aC9HKd7GCBAwpa03O3FkjIDqtAoRbm17gqs>
+X-ME-Received: <xmr:niO9aj-2QmuIO8_HgN-bm86cdtJi4fSB9kc_M4aiqqftDjJAqTXYUoC7VcZCv9gK1lfHj8qKyWO-Fh9azhInzqqpKW4wVHRtijG->
+X-ME-Proxy-Cause: dmFkZTEfD0mdmb3Mswe3ZZUc/QdaTwn+jvczmql0T6GcD8zVP1X1Sv5Ylp2gALOomBkT6w
+    Swna1BvEtdPZHclHWMblCv18WVXAEZVgVfA3DnXI8FzjZgvuOGWBFlDqkOTNstrmz/datp
+    zF+oWRUNjhP7lj/rVgNqPjx/3Dk98q9cXhQIpVBjP8/eUAuufEXzl8pE0ZuuRkqVaV+Z2e
+    XLyJw5JEG3ynojpF8CX3Hy62m7xWko9wrspssg1zuThW80rgsGz3/0ARzgloOzVoCDbiKj
+    xMyG3OUrult6K/ubPtEDNZkcBxfrVGLQLlXkmqBQvmhiRS4wjjImDTifq+8aEN4meM4gl+
+    rI0SNd+68pmQ7ncgvEQUP4uNlAWWvN4K6blNoVg33wSu9Q9O13fpzQ7JP0eeUArmH6FjWR
+    4Mi8mymglJbRM+KdpLba+bO8qpwN9IoDloLcT6KrGNdYcR7Lj5K4kawLtRHTNnrYmDzE9o
+    0/6GCXp5OH2YHjO8vSEmqBNhX2M+jCT6OGCb57+Y9l2OaN7qUGIL3eDHKXZaM7WhDi1XNV
+    /TWjwvB4WihRx/eka28k+d6WHtJU4pkCNIVEygapbzRFYWpDv62AtjIxXqXMHJzKUe57PB
+    yTODTDqtYqcmG8phaHMAkQi8dxg7TuiAD6jNy2acnR9mwtExr9Cgj11O+k1Q
+X-ME-Proxy: <xmx:niO9avJWn1pbhP9F60yhDK-MqKkhb2ILQfaB0GexNRcgEAKIHGRUOQ>
+    <xmx:niO9aiF2OFXRYovVgb1FCRUY5iKOOIBp8YhTBKm4pFz_DOik_fNU_g>
+    <xmx:niO9ajxlQrvi8poANEbW3qymjW6_1RECyH0EzbfQSGSNV3gWiDiSGw>
+    <xmx:niO9ar5ybB4JzECTrFvzykhkMXkO_KHWCkSiofPKhXTYBU0OQ89EgA>
+    <xmx:niO9anopPXxc0AwqBNLL6HfQooJH_JIEQslV96cWIS1rWfA6E2YbOA3V>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 10:58:37 -0400 (EDT)
+Message-ID: <3879be34-5389-4115-aeb2-29ba58228392@kroah.com>
+Date: Wed, 30 Sep 2026 16:58:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/10] leds: pca995x: Fix maximum LED index for
+ 16-channel variants
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>, Lee Jones
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Isai Gaspar
+ <isaiezequiel.gaspar@nxp.com>, Marek Vasut <marex@denx.de>,
+ Pieterjan Camerlynck <pieterjanca@gmail.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux@ew.tq-group.com,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
+ <3926421f5734083348a6dc3e3c0d60de5d75a067.1790684839.git.nora.schiffer@ew.tq-group.com>
+Content-Language: en-US
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+In-Reply-To: <3926421f5734083348a6dc3e3c0d60de5d75a067.1790684839.git.nora.schiffer@ew.tq-group.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Acer Swift SFG16-72 (1025:173b) uses the ALC245 codec, but its
-mic-mute LED is not enabled by default. Apply the existing
-ALC245_FIXUP_ACER_MICMUTE_LED quirk to enable the mic-mute LED.
+On 9/30/26 4:25 PM, Nora Schiffer wrote:
 
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Jakub Gawlik <jakubgawlik13@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 5127a111c59c..fbfa515a6b57 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7198,6 +7198,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x173a, "Acer Swift SFG14-73", ALC245_FIXUP_ACER_MICMUTE_LED),
-+	SND_PCI_QUIRK(0x1025, 0x173b, "Acer Swift SFG16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1758, "Acer Nitro ANV15-41", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1826, "Acer Helios ZPC", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1025, 0x182c, "Acer Helios ZPD", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
--- 
-2.55.0
-
+> The pca995x_chipdef for the 16-channel variants PCA9952 and PCA9955B
+> correctly sets num_leds to 16, but the value was not actually used when
+> checking and iterating over the LEDs during probe.
+>
+> Fixes: 68d6520d2e76 ("leds: leds-pca995x: Add support for NXP PCA9956B")
+> Link: https://sashiko.dev/#/patchset/6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com
+> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+> ---
+>   drivers/leds/leds-pca995x.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> index fee6216cd1bd0..8b05b3f12cf38 100644
+> --- a/drivers/leds/leds-pca995x.c
+> +++ b/drivers/leds/leds-pca995x.c
+> @@ -146,7 +146,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   		if (ret)
+>   			return ret;
+>   
+> -		if (reg < 0 || reg >= PCA995X_MAX_OUTPUTS || led_fwnodes[reg])
+> +		if (reg < 0 || reg >= chipdef->num_leds || led_fwnodes[reg])
+>   			return -EINVAL;
+>   
+>   		led = &chip->leds[reg];
+> @@ -157,7 +157,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   		led->ldev.max_brightness = 255;
+>   	}
+>   
+> -	for (i = 0; i < PCA995X_MAX_OUTPUTS; i++) {
+> +	for (i = 0; i < chipdef->num_leds; i++) {
+>   		struct led_init_data init_data = {};
+>   
+>   		if (!led_fwnodes[i])
+> @@ -169,7 +169,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   						     &chip->leds[i].ldev,
+>   						     &init_data);
+>   		if (ret < 0) {
+> -			for (j = i; j < PCA995X_MAX_OUTPUTS; j++)
+> +			for (j = i; j < chipdef->num_leds; j++)
+>   				fwnode_handle_put(led_fwnodes[j]);
+>   			return dev_err_probe(dev, ret,
+>   					     "Could not register LED %s\n",
+reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
