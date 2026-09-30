@@ -1,57 +1,57 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6C56E04E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E00D56E079
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789880; cv=none; b=BPLvXFOb6Mil6t6Rzhe7uTI0pbBOlz2OigCNR5g7KWPHrBshmoAxLt/ltY76gXI5cO5eFb6nMWiYyrdPlzKlkHL/ZXY06FwjWt0J2SmeUaTZ3GtVT75yUcGb5r5dx5L4ThV7YjRiAN+I89vc1xDo5GjBJHy1ds3gkO+1zPKDsyo=
+	t=1790789881; cv=none; b=t05I9FcDUu0A9iANOkwHcP15CXWUnckx78Lvh45iZOq12bw8uE+rBtktwcGW6fpoa6LiLjv0SThlSA8aTWRAG0gxWQXosujtRlxBRV5hRpe0k4AzTx++JtKXnUgdgOFH3lJ//X7NJmELSMFw7SbCpV34yBiJ0kPReuPKi0E0V4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789880; c=relaxed/simple;
-	bh=9hmhRh5px9luXWmWWMKOvbRjwtNqfIreNzXiuFccn5w=;
+	s=arc-20240116; t=1790789881; c=relaxed/simple;
+	bh=LOOaXZKoe8wtNLN7lBkVfIcYsnvbxMTumouxwIMeXQQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=QxoU+IO0gsGV00rHbIGF5YVHVAhAQXp9Ah50qJrPjRA4sflMOyeSUiF/g0oNKfGbxHj6dYNCNNfxqtO+V+/3anIFNBqJe3+e/U9uFOsm/fmXKYlyeVL/aeiT73skOVwv8rlkGlqJc4l3/RGW76fkaCdktbmTRkSPf7fHsxeN2O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T1cPHI4R; arc=none smtp.client-ip=209.85.214.199
+	 To:Cc:Content-Type; b=MpKxijWcJrGIR6fGsHqoSn2fg7BiOmzVteH3ATi9X9CLCzFDMrpkPY/yu4yvtQJOb2kpS8CpXTeweUwHonOvPgTZnKab0pgfD8V0MOD3lcSsb1dWWCjpeOpFF4SMLMZdzetBVaEhAe/YpNSy/V1b/lvs8QWu1DUA5RlWuI+K4as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D/LZelHo; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T1cPHI4R"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df7bc60df6so43743795ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D/LZelHo"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so3337963a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:38:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790789878; x=1791394678; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790789880; x=1791394680; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=T5zTpDjweE+X8PLXaV+IjuPf3lMfM65FW6kqCOR85kY=;
-        b=T1cPHI4RiPxzd+uEeTcZALDaMNM5pcNs61p9NpGYnYD3h4uJdxp86Jdhqh65BGC0zs
-         Jzau/LWSuOjRoT/ky9Q4FUj2Bpc87vEWmz6d6TbIFODnBwggO69uBFTJS5KkWloqvZ/r
-         Ogl9D7qCE36BySR0oGlgmN/bTZ85VaK3PBo6ddO9IJ1pIZ52PyvXs6U1cywewQmYSBF9
-         u41DAy+G6062rx6X2lz1vWV9uFOANAMeHoQtHz31raNrceeSWnVpMUnvKHvGke9s/Ir6
-         56SWssJ2rEuHfagPCZSdZNdy/KVKEiXFvq2AJQ/DVUeN6HdGPmS1yHE3osE7pgPJApN3
-         uALg==
+        bh=Zgtt+cYSmfb6riOCPMQjLHtlD/tz8jpFy9BwyzLAO7g=;
+        b=D/LZelHo6x3T/gTQa2RBSuu36vrYH/0pKG6Jnnv3owp+Z4fKaIuJ0it2Nfn5LC0Ja4
+         a/i/FY6onTQYBm2lvdePl7mWyizIcFm2yjMa7OFHbRDS3nrCrjBdFc5efWyYWNHqkWqd
+         kifGwF3ToWBXu6tH3oyqNvGNELV4R0He6QYDM2ReE3TWfozEbxLFvjojYI4eylzTphBc
+         H1xwyTK3d3uK4LCvcWuUF8D+6bAwkh+1zun3DSf6UHoGjlMrvhTy/NTZ7IDO3HmM/dI+
+         XY2TKtgTYpm52Ysez0MLkGBblZG8psD1nxLdrk4FCCh57WEK0QiHtTrLk//O9JywnK4N
+         ygSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790789878; x=1791394678;
+        d=1e100.net; s=20260707; t=1790789880; x=1791394680;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=T5zTpDjweE+X8PLXaV+IjuPf3lMfM65FW6kqCOR85kY=;
-        b=P6N3GDCXyHbPZnf8hxEBO29RxjCHzbtvRGXjvuQnGQRisro0retOOv9UkG71oQGi7R
-         83a112c+5d3xUDktQdq+bZWLienYOgS9/rh8yU0EpPGqEVDmlq4vqWMsa8CgLXZg9XC0
-         rNbv7fDf+einVr9M16kdN4Ck0BiHIM+C192u8y8c754A2IzqZzWMT4uA5kVPQH1mU3pl
-         HqoWDWT6hZihXynubbv5oC7XlJ5rax3mvSgdOloy7gEtZ2RtZqj/mQgvSgA+aguAn3gc
-         Bk8GCW3wOyLOj21+wij0fQKLm4HuyilHfOYu9fzhAtVyA4miTaDejl5Ct+CGDwYHcEkS
-         2tkg==
-X-Forwarded-Encrypted: i=1; AKwUvByKrW/Xr0q6cS7oyqLjfGQoXA+AtH7m6K0s0H6UDSBVkOUzjZ63s4hV03IT99AEfYvVhtSdJJ+gFKY89fQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEgfm7pojp1EgrEitWRE2W/KO9K/epGIoS3t4JVvniodgDCyMs
-	b7D/SwtBHOsT8KfMKDoHjR0X+tRy0xZehVtcSJi3LE+YtKsJgNypkhA9TbXnk72oYSDRJ2Is1dR
-	f9gbHTg==
-X-Received: from plbg17.prod.google.com ([2002:a17:902:d1d1:b0:2e1:90d7:c716])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e884:b0:2df:ab09:2656
- with SMTP id d9443c01a7336-2e2e4bcdac1mr17967285ad.44.1790789877508; Wed, 30
- Sep 2026 10:37:57 -0700 (PDT)
+        bh=Zgtt+cYSmfb6riOCPMQjLHtlD/tz8jpFy9BwyzLAO7g=;
+        b=kq2vbGBjsJJrmQUoGItnWbaRGtC3G97FlTVFarO9ld4rbijHrRtDEyWTqf/zFXfDXL
+         Zmw0hrXUfByRy7MeAV7o3rjQ1BD91Z+A8vIEM+Jy9lEeJms9EVHPSiB4gGc0kXgzMqfQ
+         bEopEg5s+gZO84lg7Pns9F/1yi7fp1vZDrPiiBrlDZspmmc6NY4wPQMtL3ClGIjjEjND
+         iAoduiU96VR5IYUttLLpiRP6Ueml6Nvyco77yYzw5hqYW44t6ckaH2eszbufHRWBnvkr
+         NRHObO13PoRs3lL6Jy14gJ/+sRdSGmYofAIIIsmw7TT6wJQOBSq2ELnWb+0k6jCIPNLr
+         F8YA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYkwlnRY+MM9kdC2IDCxQ93UnuSjARFwr4soTBjy48E4LO5/orJmYN2dVzKC+2KX+076z3GZgt3XjnngM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPWmR9V38Y3qQKXYNL6iNbGHDtD0gku1P3Ip3Z55DfUZ9FwKfF
+	CKs9W+VkIUtcPkQ806+DeilVK5Y6LUkgmoeVm3Wefddpk+sPaZQpB68VItUG1/r9mx1wwBW4XZW
+	wP0Tl7A==
+X-Received: from pgbgf14.prod.google.com ([2002:a05:6a02:2cce:b0:cc7:b470:94ff])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a10e:b0:3de:517d:fd86
+ with SMTP id adf61e73a8af0-3de9e8511d1mr1994255637.35.1790789879386; Wed, 30
+ Sep 2026 10:37:59 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 10:36:30 -0700
+Date: Wed, 30 Sep 2026 10:36:31 -0700
 In-Reply-To: <20260930173635.3362655-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,83 +61,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930173635.3362655-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930173635.3362655-17-seanjc@google.com>
-Subject: [PATCH v3 16/21] KVM: selftests: Test L1 "up" and L2 "down" in nested
- TSC scaling test
+Message-ID: <20260930173635.3362655-18-seanjc@google.com>
+Subject: [PATCH v3 17/21] KVM: selftests: Verify that KVM saturates L2 TSC
+ freq on {under,over}flow
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Now that the guts of the nested TSC scaling test support scaling L2 down,
-validate all four combinations of scaling up/down L1 and L2.  Ideally, the
-test would also validate integer+fractional scale up scenarios, but
-prioritize keeping the test and math somewhat understandable.
-
-Opportunistically drop the stale file comment about the test's name.
+Extend the nested TSC scaling test to validate the extreme ends of what
+hardware supports, i.e. validate that KVM allows L1 to scale L2's virtual
+TSC frequency up/down to the architectural maximum/minimum, from L1's
+perspective, and that KVM saturates L2's effective frequency when L2's
+frequency can't be virtualized by hardware (which is possible when stacking
+multipliers/ratios across L1 and L2).
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- .../kvm/x86/nested_tsc_scaling_test.c         | 33 ++++++++++++++++---
- 1 file changed, 28 insertions(+), 5 deletions(-)
+ .../kvm/x86/nested_tsc_scaling_test.c         | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
 diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-index ee8fda310e33..1d578af393bd 100644
+index 1d578af393bd..4cacd87f129b 100644
 --- a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
 +++ b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-@@ -1,12 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * vmx_nested_tsc_scaling_test
-- *
-  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  *
-  * This test case verifies that nested TSC scaling behaves as expected when
-- * both L1 and L2 are scaled using different ratios. For this test we scale
-- * L1 down and scale L2 up.
-+ * both L1 and L2 are scaled using different ratios.
-  */
- #include <linux/math64.h>
- #include <time.h>
-@@ -226,7 +223,21 @@ int main(int argc, char *argv[])
- 	/* Sanity check the frequency reported by KVM_GET_TSC_KHZ. */
- 	test_tsc_scaling(l0_tsc_freq, l0_tsc_freq, l0_tsc_freq, BIT_ULL(frac_bits));
+@@ -193,6 +193,7 @@ static void test_tsc_scaling(u64 l0_tsc_freq, u64 l1_tsc_freq, u64 l2_tsc_freq,
  
--	/* Scale L1 "down" and L2 "up" at a random factor from 2 to 10. */
-+	/*
-+	 * Scale L1 and L2 up and down at random factors from 2 to 10.  Current
-+	 * CPUs have two full orders of magnitude of "breathing room" before an
-+	 * ultrafast L0 TSC frequency multiplied by 10x will encounter KVM's
-+	 * signed 32-bit limit on L1's frequency, and it's highly unlikely a
-+	 * CPU that supports TSC scaling will show up running at 100MHz, i.e.
-+	 * underflowing KVM's minimum 1KHz frequency is extremely unlikely.
-+	 *
-+	 * For L2, the frequency is limited only by what hardware can support,
-+	 * not by KVM's limits.  SVM provides 8 bits of integer scale up, and
-+	 * 32 bits of fractional scale down, i.e. can scale up 255x and down a
-+	 * comical amount, so scaling up 100x and down 1/100 is well within
-+	 * hardware's capabilities (VMX provides 16 bits of "up" and 48 bits of
-+	 * "down").
-+	 */
- 	l1_scale = (kvm_random_u32(&kvm_rng) % 9) + 2;
- 	l2_scale = (kvm_random_u32(&kvm_rng) % 9) + 2;
- 
-@@ -234,5 +245,17 @@ int main(int argc, char *argv[])
- 			 mul_u64_u64_div64(l0_tsc_freq, l2_scale, l1_scale),
+ int main(int argc, char *argv[])
+ {
++	u64 min_freq, min_multiplier, max_freq, max_multiplier, l1_max_freq, l1_min_freq;
+ 	u64 l0_tsc_freq, tsc_start, tsc_end, l1_scale, l2_scale;
+ 	u8 frac_bits = kvm_cpu_has(X86_FEATURE_VMX) ? 48 : 32;
+ 	struct kvm_vm *vm;
+@@ -257,5 +258,39 @@ int main(int argc, char *argv[])
+ 			 l0_tsc_freq * l1_scale * l2_scale,
  			 (l2_scale << frac_bits));
  
-+	test_tsc_scaling(l0_tsc_freq, l0_tsc_freq * l1_scale,
-+			 mul_u64_u64_div64(l0_tsc_freq, l1_scale, l2_scale),
-+			 (1ull << frac_bits) / l2_scale);
++	/*
++	 * Test that KVM saturates L2's frequency on both ends if the resulting
++	 * L2 TSC frequency would be below or above what hardware can support.
++	 * Because L2 = L0 * (L1_mult >> frac) * (L2_mult >> frac) needs to be
++	 * distilled down to a single multiplier, very small/large multipliers
++	 * will underflow/overflow the minimum/maximum multiplier supported by
++	 * hardware when L1 and L2 multipliers are combined.  KVM's behavior is
++	 * saturate on {under,over}flow, i.e. to run at the min/max frequency.
++	 *
++	 * Note, userspace can only program L1's frequency in KHz, i.e. can't
++	 * specify an exact multiplier.  As a result, the minimum and maximum
++	 * frequencies are different for L1 vs L2, because L1 is constrained by
++	 * hardware *and* KVM, whereas L2 is constrained only by hardware.
++	 */
++	min_multiplier = 1;
++	min_freq = mul_u64_u64_div64(l0_tsc_freq, min_multiplier, BIT_ULL(frac_bits));
++	min_freq = max(min_freq, (u64)1);
++	l1_min_freq = max(min_freq, (u64)1 * 1000);
++	test_tsc_scaling(l0_tsc_freq, l1_min_freq, min_freq, 1);
 +
-+	test_tsc_scaling(l0_tsc_freq, l0_tsc_freq / l1_scale,
-+			 l0_tsc_freq / l1_scale / l2_scale,
-+			 (1ull << frac_bits) / l2_scale);
-+
-+	test_tsc_scaling(l0_tsc_freq, l0_tsc_freq * l1_scale,
-+			 l0_tsc_freq * l1_scale * l2_scale,
-+			 (l2_scale << frac_bits));
++	/*
++	 * SVM takes a 40-bit value (right shifted by 32), while VMX takes a
++	 * 64-bit value (right shifted by 48).  mul_u64_u64_shr() isn't (yet)
++	 * available in selftests, but mul_u64_u64_div64() does nicely since,
++	 * albeit more slowly (performance is obviously not a concern).  Note,
++	 * because KVM_GET_TSC_KHZ returns a signed 32-bit integer, KVM limits
++	 * KVM_SET_TSC_KHZ to INT_MAX, even though hardware (both SVM and VMX)
++	 * supports much higher frequencies.
++	 */
++	max_multiplier = kvm_cpu_has(X86_FEATURE_VMX) ? -1ull : GENMASK_U64(39, 0);
++	max_freq = mul_u64_u64_div64(l0_tsc_freq, max_multiplier, BIT_ULL(frac_bits));
++	l1_max_freq = min(max_freq, (u64)INT32_MAX * 1000);
++	test_tsc_scaling(l0_tsc_freq, l1_max_freq, max_freq, max_multiplier);
 +
  	return 0;
  }
