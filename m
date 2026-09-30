@@ -1,69 +1,69 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8943470809
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A6619E96D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727193; cv=none; b=QJQtUa5RWCo/KhNvCbCdA+rOiGmLNmGgr5LHWVlDRMz8djy3JNJ9FQz/M2tc3KuuTk7IeiA4P9Bo3B/7b+sxisV5A17OQJ6745DQs1EUD/yBkMw079aPn/SSHHJypuurX3eLLMvs7Om0+XdcWAR90K7Vn4iRNQIgPNu0uZcEFcU=
+	t=1790727195; cv=none; b=ghcr2XF52eUZSbYUPR+h7BuHPrJxicQ5j75ODm79AJMvHXQu2VZT0GtQ7oiqlRfE/u36Lpxv5IFYbR2KjfQDPkD2ASfYDJ9jeozAZrcyf+sQFpCAD6BiWHwPrVHDzr0mBGQDDASDYLLpGdodTkwEhWLxtqRYxhCGIOaciAQuRKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727193; c=relaxed/simple;
-	bh=b7z5f+aN9HjkLJpPXtPz+6mzoIt/UlKHgKR75iFSd0E=;
+	s=arc-20240116; t=1790727195; c=relaxed/simple;
+	bh=rYZ6f8ke4/CgAKpv47zNC1/8drck6P5HXuC4yvBfoRg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kg4Z7xuxw7Z3An86udSvh8opFgab4cwmZoSETHMJKFz4Nn0lip/2xa7gbgUH3OGKSVg6k/jt2y9ZIu0X7olwDJIytwe72YpTi+Rn8LLMouOxygbZ9Hbil8Jm7qht9K1SyojAg5k37wuhz8KaWa7HA2OkyzLsemKHTAA46vD4ryY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sIdY86kX; arc=none smtp.client-ip=74.125.225.141
+	 In-Reply-To:To:Cc; b=d3Z4ZFWljh6wciLC0LvJmjD2GFUpPlj31W1J+pSYWlexdzm4UGAfBEdER1pidleUQ/X+lF4L1cb+/X3GY2CgwH1NGEHxHJj8ArOXo9xis5tTcwqAByoThOWVqPF2B38lQ+uT5TwT6v1cqZNJTN2LoqdGzTBhczAwycdG7VzSc/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oVMiWs+n; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sIdY86kX"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so26772535e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oVMiWs+n"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso35217935e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790727190; x=1791331990; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790727192; x=1791331992; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N8zcsJ6JNS6L3slLlgYZ7yiqUfkHSeYZphHvsSL8bbk=;
-        b=sIdY86kXVvdxyFSEF0nH+iwd2qZ3xxMJfoS8sTvfj5etDiJcaTq6jbUifoxyn1/BBv
-         zkUdHNNmMEgqvK6yUxj7bFPqVHL6M8hjWU/3IyRGnMFfpIA8hooBQAMhZHeL0OUnYMy/
-         tVzvLZNvDTKh4DIpjvU8DRGR4dq6NhZfZdvrJ+Qan2Sv6GZWr9VNOYtntLw4PZ1HlW6k
-         IJ4YVPP9C9FZ7ph/eGq8g6V5WCR0euG96Df5vNmF+0TDLQFfvizYZAfNmLsJyvWi5P0I
-         sWrKVwbRu96eijYj5aJGX55ZfUAm51cBW1u98sCM8cL9HP1eTGYXIg7goSfudzgASyAu
-         ZGtA==
+        bh=bbNhV3sGP6oWXmNCm4cU9gjHDsysd2+OUMzLU54oMEk=;
+        b=oVMiWs+ny7QHSYQ3rAgqrvUaO7wGDex8E7nTySllWBT1FDp8sypk3gk6wyiE3h93Bw
+         14xtmhlxR92hn8nZ/eqIifUQ/VJYO5ZcQcHqiaRacMF5lwNAhRaE26euhIQyR7gSC6re
+         ekQfT45dRks9GxfnJlKB/vta+LWuGV3jDeiDZrOEP24B8LqrNVea003TLzeT9MeToZNT
+         p5yNmBVfOdcIIQUH1ITDRsntjRux7pg++szmmK+bcya5B0ythJj/HDZYxt0gE9nCq8eL
+         MgO2OdxOib5VXkqw12zO7RvAAxAFPHLuLXNHK+fKKlon6H0g8O0yIM6Osi+1VPwEdYxN
+         VBZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790727190; x=1791331990;
+        d=1e100.net; s=20260707; t=1790727192; x=1791331992;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=N8zcsJ6JNS6L3slLlgYZ7yiqUfkHSeYZphHvsSL8bbk=;
-        b=ybO5rzQYQDH4CCU4ZJInpea47MuJOymn6gJxkNE3jS/43IarEbpocE7EZdAegeSP/W
-         /YnvG/AoqOr/+rsjuZVIcV6ILgAOBKZG/Bz+8LJoIeyoSIWC952BO6vnh5K/uDAQOFxe
-         gmvwxRgzRxsQUm5MU25X2htvt3MrN1yYLSeyMUw+Oci6hufwxtKq53GbXccutWOqHHLQ
-         w3RjTajChsgB3sJVOl1TTwHqc/FH/P0w+GuLwTytrQ5IQVlI+RBtjitU8RZiU6ojq1si
-         AOKi97kqjqPsbIkimLL7cawPP2hvWFtU8HHorPq2OjtbmiTytJ58tYDTWN4jtsbLcKgz
-         Ud4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzVstcf0xIk6dl1dEGwKBFLRj9VlOGzeyMRl6sOTGGQN0o+8cosx/NlCIjpDMeouYjA+N7rHibZVBjacw8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmKQJ1hj4mba9rk1/ZpZtK3meAQPeeOLey790A8HBBGf7l7rtC
-	j/6Gvdu7G+yyNsn2ijyU1TpOXYi2ljH2YCpVxBz8VXdgS52zs454R0az8WKAWLfwFn4=
-X-Gm-Gg: AYBFou14I+hH3jT7VaWe8E8yy4b6veOlHC1R/eGmu9SHhcKvc1D/SYpC1iqb7TbJtXL
-	nLwvdky+vbPD8W00vhPFNTXXcurtuUc6GZhYM99j3vmzp2ShnP0fGgQWo/hFB5g+efIr7y+60jj
-	BcC3mn5NHjkvMBGJ+aM/GCsVTiqXfoXX3Jd9vCZm6yeyLHz0cFhPx0re4FOkmEzd7PyKtujwqBT
-	P6BG4B9JJZWfCAfrqEJJUcybCK6clei1De0nou+W8EO0xJl+7yTVN4ZNK2+Av31Wn9m1vH3ou54
-	MTH6rCCpolE2oF6b/VsOh+EU1tNQ45IU5lGqteZmXNTTzJn/a6UxmWivcnJK3fOrohzZdjglPY/
-	fgWk838UIXyzdETidt9VFVb7FHpbnx2dMH+ncte/2iguFzE4rsuZVsqwxP8NTJ064k0ps1ZH1hc
-	CU20i1kt+qFRqozcJBqrWqT5B5PwBBwyqETxcGKTu6XLLeZp4KJ9MEqm4G0fQsKn5dRCAsF73qQ
-	gBUYGBpe88LSajW1fNPWbH13Szp3EQKjqzAvcF2YfjvkUUT6Msx/9bH9hsXXw==
-X-Received: by 2002:a05:600c:800e:b0:4a0:3c3:1ad4 with SMTP id 5b1f17b1804b1-4a01502bd28mr12961385e9.22.1790727189896;
-        Tue, 29 Sep 2026 17:13:09 -0700 (PDT)
+        bh=bbNhV3sGP6oWXmNCm4cU9gjHDsysd2+OUMzLU54oMEk=;
+        b=UkRUgwyY/H0wf5j6Qqxmego/PHAKnUpEp5Idsml7Q/S5w6hTunu6unAynAaIs5PYwW
+         cpup2CLqAAI+3ZOdMycXCwET1ItGafLvtd8zc9QOlXG5OFVsG79vfrynBf2QE33Ah0qt
+         jaoQyywZbm9HEfRWFGF5SCBKHd6pznSWLrLsOnuELAbgsuqY4KeY06OwNG1CrCPH9xj3
+         m4fuKMjIa4in81gUtM3m0jpHtERV232wcd0G/B9i2faspYP9PUXgKLBQEzK57zhB3EuD
+         +jTgXOa8PqVhvGI1vDRUb4nh5Xe+jyIQjgdoF+0CigCT8agMUhu/VfqkGPvzz4C7p0Le
+         0Aow==
+X-Forwarded-Encrypted: i=1; AKwUvBz8GXkpyGDi2LJ/IugmP1nV54OM+hVS4S6SAxgYkxZc0KH9PefyvN1PbMt6WlqafqYk9yAP8LVkwRF2r+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAtc7QudTt/rwthEfqtg6j7Clp+9i+UyqaDXGZHbLuv0wGakNm
+	C1LZPVTBhumJ7ZEyTWw+H/rI8H1iek4tSS7kHWw3We9/iXKQJAhy6glxKLr2fo8Ckog=
+X-Gm-Gg: AYBFou3QuuvnSkeuoOlH0wYwbqz3BiY4RPyVZyKCrPrhqWuUxwFu5ZZs4x5VEhKRFLu
+	iHpC/AOspG2X42Fl23RoZUqxM858MKSvjwG/SUl9RjH8aBdSTyRJBnQ4DjNHsjeZSYRIhzUI09q
+	7MyY+O8FgUwhhTujtGFxh6VQm5yMBuyX5FmLAaMkqrn7nOV99kX99fwn44qulPIdAczrwVRXBnz
+	cjWylh8f+aA+TBRjhZNZB5wEQAIZBDK2YAi6fNucrwfSPsUO/TW82yFRMvPbQLWNtuRMqaPrCnL
+	drM7Sbq4wuv7rsjakKoWtuf5XSpxhrVnQEZt5uEPIKulZWDh3cniCSucKKmyGA7lPyT1cmKDKvg
+	cTeedrxxjSssEOghvGao0sYTvPKv+gNZr1Hfy9fitSyDbnu27O6p1Y/3TxJyPSqY1fmqBbDrrnp
+	AXmlGAPWYLizgJIg30V74mtBz/92SpYQRpkljysDeQ/alLKgvRqyYHqVmcnp/v5eWb4VjTPdXrQ
+	WRaC9dDecOYQTFNaHXvBli/fFltlH44QHT86b5G9H30ZoX3nu9nHnn/nw+1Lw==
+X-Received: by 2002:a05:600c:8b0e:b0:49c:fa20:cbfc with SMTP id 5b1f17b1804b1-4a015028f1emr11800335e9.19.1790727191701;
+        Tue, 29 Sep 2026 17:13:11 -0700 (PDT)
 Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015a89ffasm6320635e9.1.2026.09.29.17.13.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015a89ffasm6320635e9.1.2026.09.29.17.13.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 17:13:09 -0700 (PDT)
+        Tue, 29 Sep 2026 17:13:11 -0700 (PDT)
 From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Wed, 30 Sep 2026 01:12:56 +0100
-Subject: [PATCH v7 1/6] dt-bindings: soc: move,rename
- google,gs101-pmu-intr-gen and add exynos850
+Date: Wed, 30 Sep 2026 01:12:57 +0100
+Subject: [PATCH v7 2/6] dt-bindings: soc: samsung: exynos-pmu: Require
+ pmu-intr-gen-syscon for Exynos850
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-exynos850-cpuhotplug-v7-1-203245826333@linaro.org>
+Message-Id: <20260930-exynos850-cpuhotplug-v7-2-203245826333@linaro.org>
 References: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
 In-Reply-To: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
 To: Sam Protsenko <semen.protsenko@linaro.org>, 
@@ -86,75 +86,34 @@ Cc: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-The PMU interrupt generation block introduced for the Google GS101 is
-actually a standard Samsung Exynos IP block found in older SoCs, such
-as the Exynos850, and is not exclusive to Google SoCs. To accurately
-reflect its origin, move the schema file to under soc/samsung/
-directory and rename it.
-Concurrently, add the new "samsung,exynos850-pmu-intr-gen" compatible
-string to the bindings. Support for this block is required to enable
-power management features like CPU hotplug and idle states on Exynos850
-platforms.
-Also, move this file under Exynos850 SoC in MAINTAINERS entry.
+Update the Exynos PMU schema to mandate the 'google,pmu-intr-gen-syscon'
+property for the 'samsung,exynos850-pmu' compatible so the driver can
+obtain the necessary syscon regmap.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+The Exynos850 PMU relies on a separate system controller block to handle
+interrupts generation, similar to the hardware design of the GS101
+SoC. To ensure the hardware is correctly described, this syscon phandle
+must be explicitly provided.
+
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
- .../samsung,exynos850-pmu-intr-gen.yaml}                          | 8 +++++---
- MAINTAINERS                                                       | 2 +-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
-similarity index 70%
-rename from Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
-rename to Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
-index 2be022ca6a7d..df23467d0e0e 100644
---- a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
-+++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
-@@ -1,10 +1,10 @@
- # SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/soc/google/google,gs101-pmu-intr-gen.yaml#
-+$id: http://devicetree.org/schemas/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Google Power Management Unit (PMU) Interrupt Generation
-+title: Samsung Power Management Unit (PMU) Interrupt Generation
- 
- description: |
-   PMU interrupt generator for handshaking between PMU through interrupts.
-@@ -15,7 +15,9 @@ maintainers:
- properties:
-   compatible:
-     items:
--      - const: google,gs101-pmu-intr-gen
-+      - enum:
-+          - google,gs101-pmu-intr-gen
-+          - samsung,exynos850-pmu-intr-gen
-       - const: syscon
- 
-   reg:
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1c02b919d6ae..137297bf508b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11298,7 +11298,6 @@ P:	Documentation/process/maintainer-soc-clean-dts.rst
- C:	irc://irc.oftc.net/pixel6-kernel-dev
- F:	Documentation/devicetree/bindings/clock/google,gs101-clock.yaml
- F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
--F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
- F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
- F:	arch/arm64/boot/dts/exynos/google/
- F:	drivers/clk/samsung/clk-gs101.c
-@@ -24629,6 +24628,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/clock/samsung,exynos850-clock.yaml
-+F:	Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
- F:	arch/arm64/boot/dts/exynos/exynos850*
- F:	drivers/clk/samsung/clk-exynos850.c
- F:	include/dt-bindings/clock/exynos850.h
+diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+index 5bd39876e3b3..7d58976dccc4 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+@@ -196,6 +196,7 @@ allOf:
+           contains:
+             enum:
+               - google,gs101-pmu
++              - samsung,exynos850-pmu
+     then:
+       properties:
+         reboot-mode:
 
 -- 
 2.51.0
