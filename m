@@ -1,152 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171564A2A45
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:43:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B110D4BF923;
+	Wed, 30 Sep 2026 11:43:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768595; cv=none; b=eYLj0r0XYSi1IwOukeZQX0Uh0t73sG/Cg5Yfxuf9ASKTkuK3gz4BapCF06OAmWxOkRfxK2588VXzhXnHRtSTZTGLsaXWXFxLA4CLe3NbJRudX3FcxyKoXICzJWfT8E6L9Z6aiNPcP/z+oHUA91O5glixzPV4eWkABTkJRQPiybY=
+	t=1790768624; cv=none; b=fYQn+Jc7DrDtDelW9ON3H6IyPmczUEGEJnubwfd2fo53PrsuQP9HTgl3Wn3JFwnCCFz0wdPNW0JYowDHpqKnuF04Z/7InEzMtySbimF6gMYIxLDf0rk7SxY51wt2NGeEnf+TnH/OI6eiBGKyPWTrgwMky6CQSL1SlrV+E0dVDow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768595; c=relaxed/simple;
-	bh=79Jj0Bo7e+myNWt4D66xSn9KzWKtqNWAy4zt6NKZyQY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lmkDYsr61xwTf4jg/gqZRAo/E7qYuI23jd1eB9RABX5/yeywHgmnZFwYtuZu4IHDJ1hwbPri8OEfdps++z16+GOFTFgZlYiut95zk0iK/0zMWEThvd1qK8ACmDioz6uK8bX/+iLb60M9yk6+GGK8824SnGPKq0MluWKgre/09vI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEqFEIN1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790768624; c=relaxed/simple;
+	bh=EobKWXEIvBObH7lCIEsI1YDG35VifTWfBqASgq+A5t4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eaNHBpK4IAgyAlaSc/ArYM2WEWOpuJCSTkpYGnl9kZC52TBZYI41adHL1PQIMQWKChBlkAYewnOjwnaWJLSg5ltBhdKlM7eHp2/uXNlg0VYZ/PI53+nYJohXjL8gEscszvy+ABWEMGaZgGWp9UZRVY717bmMaffauzTLE2FFla0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwIuuhF6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEqFEIN1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F051F000FF;
-	Wed, 30 Sep 2026 11:43:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwIuuhF6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93B51F000FF;
+	Wed, 30 Sep 2026 11:43:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790768591;
-	bh=9uMVOqMiTX1K2XJQJxXE/LwrK8qNT7KXfojMzsVrx8U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UEqFEIN12S69RdNlJmEU6fp0nKhSRNYo2596rxvjxQjmx2chUXZZo9T5Kr7lEEHGq
-	 d53074fabPnHx0Ed7wzeOZvSrzDEhKFOeMprzqQxseYpQ8SM7G8hq5VL9Eqc3Q5NEz
-	 ZUuZGVoVk1oYCpHTte4evrGtrM6DvnkAiuTfQWIfuyHETHInxUkKBPYAfYsbQHrJg3
-	 WZqR2SBTQTSK+VdsJaAThusyW1cmH2rKwTuvE49eqDpsoviY9EFUc1e1GJnZCOb9l9
-	 cXXviEcuLrkC6xBcgysrrfRB8GhwEtKQFh6CKxR8Ft2+934XQpBCsTmMG9PsH8dQGG
-	 iQnFD6ZxPIHgA==
-Message-ID: <7d120555-0c31-474f-893b-e5ee3466ead4@kernel.org>
-Date: Wed, 30 Sep 2026 13:43:05 +0200
+	s=k20260515; t=1790768623;
+	bh=yppF1OaGorQDiNY3DvD8WSBB77whKw7ij8k+uHMlFIU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XwIuuhF62FZQPst4x7lJAk8seXIxor2L9DAgyIGt5YWuI4FWnvHl5ABq8VBruewNF
+	 WvrHLLBAFriE0CCLNulOyNsOotxHRWbQ8drjzv9QKqtV+EH3hql/ItPyRG3WGnwgvO
+	 CDzN4n+xCMpBztF85U7cH7xxNJKxNRLWZf8WcwIclPAj8z0BcHPr8qB98FFYiTj/Kk
+	 wN3AoAdtlPTs+dZ/M2UuKX20oQIwl3tAX4CvSugPN3sbmoUjxlu4AInqcLhQLDWKXS
+	 lt5C2fggjzX1BazdoAQthica7GipeBSRGyoNUX7luq5JeFbKoZ7cLGkwRDNd40lMJx
+	 3hq/41NADSFOw==
+Date: Wed, 30 Sep 2026 13:43:39 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: watchdog: qcom-wdt: Document SM8750
+ watchdog
+Message-ID: <20260930-unyielding-archetypal-mussel-f8fbce@quoll>
+References: <20260929-sm8750-watchdog-v1-0-ea06d5dc7e54@oss.qualcomm.com>
+ <20260929-sm8750-watchdog-v1-1-ea06d5dc7e54@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mlock: fix zero-length request normalization and
- integer overflows
-To: =?UTF-8?B?67CV7YOc7ISgL+y7tO2TqO2EsMK3QUntlZnrtoA=?= <ts930@dgu.ac.kr>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <179066531783.50175.13377521828379196177@dgu.ac.kr>
- <3a95d0e5-7969-4b0d-988a-ead62b06b6f5@kernel.org> <art6x0XpWcT2aUyy@gremlin>
- <CAFPGN2jPGhcWVqa3k16RWMaMR3TwKyhFbYYF4D3L6L85T8E96g@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAFPGN2jPGhcWVqa3k16RWMaMR3TwKyhFbYYF4D3L6L85T8E96g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-sm8750-watchdog-v1-1-ea06d5dc7e54@oss.qualcomm.com>
 
-On 9/29/26 11:39, 박태선/컴퓨터·AI학부 wrote:
-> Understood, and thank you for the feedback.
+On Tue, Sep 29, 2026 at 04:01:21PM +0530, Komal Bajaj wrote:
+> Add the SM8750 compatible string to Qualcomm watchdog binding.
 > 
-> I sincerely apologize for the poor code quality and flawed helper
-> design. I will be much more careful with commenting and ensure future
-> contributions strictly adhere to kernel guidelines.
-> 
-> I will drop this patch.
-> 
-> For David's question regarding reproducers and user-visible issues, in
-> case it is helpful if the core team addresses this later,
-> here is what is observed from a small test program wrote checking
-> /proc/self/smaps on an unpatched kernel:
-> 
-> $ ./test_mlock
-> mlock(p, -1UL)    : ret=0, locked=0  (silent success without actually locking)
-> mlock(p + 5, 0)   : ret=0, locked=1  (0-length request falsely locks 4KB page)
-> munlock(p + 5, 0) : ret=0, locked=0  (0-length request falsely unlocks 4KB page)
-> 
-> Thank you all for your time and the review.
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-The CI seems to complain about test failures:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
 
-# ---------------------------------------------
-# running sudo -u nobody sh -c ./on-fault-limit
-# ---------------------------------------------
-# TAP version 13
-# 1..1
-# ok 1 The map failed respecting mlock limits
-# # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-# [PASS]
-ok 1 sudo -u nobody sh -c ./on-fault-limit
-# ---------------------------
-# running ./mlock-random-test
-# ---------------------------
-# TAP version 13
-# 1..2
-# ok 1 test_mlock_within_limit
-# Bail out! mlock2() succeeds? on 0x7ffff7d2a010(393216) mlock0x7ffff7d44a72(278478)
-# # Planned tests != run tests (2 != 1)
-# # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-# [FAIL]
-not ok 2 mlock-random-test # exit=1
-
-
-So is this patch doing more harm than good?
-
--- 
-Cheers,
-
-David
