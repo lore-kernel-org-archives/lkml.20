@@ -1,109 +1,125 @@
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E3344AB91
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19359466B72
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754756; cv=none; b=F/+urz7Nf+9cjQtuJqYIE0oXq5+DQ444z1P7JCqzB0rihlv9fHF/ycx65ouS618WzGBIz2TEinRSoEkf6CAgiZYKMZfvhOOeRmL30P4Yr60VOFO59UzHoxPjxBbOJVBQSez4ZV3DMR62Ks/LfnpsGoze1EzIDASxrKl71sX5u6E=
+	t=1790754761; cv=none; b=CFfTZKXG0X8DUCY0PFdMU0BHjCOcW/aCzeGqpeW5YsOaKf5udf3QkigaFgVEV+00xfIdjRf1IPZYqkhuuE63occigfMRCTC+2AL9143i3DcZd1TYvLSnzWtyGQo4sfHSHcvj01e0lYYLBcBwJ/2VTFfQs9yaLdsJ7G3MhpFlJtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754756; c=relaxed/simple;
-	bh=8ma5wy0oJIj/chbeeAhuh0ZtFGfNhOnQTVLc6I5RlKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mbodxr+5RTPqO2WwZ0W+pBew3BbfrFYgxFnMAzvylPUk87SwZWQaqZ80xSPmf32PXjlpebd5ie19sv0Sm/J3/mm5n5I5gPDi1fVD7x71p4YguvOH5RCfnIlmDahi2okUdOjuZS76j0inmq8jWc37qocmUQsW+6xDB+W+EJDkzqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hoyIe2tV; arc=none smtp.client-ip=91.218.175.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790754761; c=relaxed/simple;
+	bh=8mga/9C1gJYjL3j4DkG9JzXt1zTEVnD5TgTAH+DV0hY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LljMzFktITU79qvG/FVwJl7yHbhbn0nejeqepijb7HRJ/m9BcPdKYIJBgI5/ysUTaOwySR46EDTZ1Xayolbp2xI+/fcxHSjlOfOpjW1xviyOadBJeD37NsM46Df0ecz3XQ/Ey3L5TLLRULC843iWmkwGRe0r+K30koPjBS2jRFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRIKRrc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hoyIe2tV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8ma5wy0oJIj/chbeeAhuh0ZtFGfNhOnQTVLc6I5RlKQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790754752; v=1; x=1791359552;
- b=hoyIe2tVu7LbrNdOK4BCoPaXkPloBQPEyssSc7kF0Js8c9v8xA2QemWicEDl2OqDyVZGiYzZ
- RWR6Lmt3LpI/XrLGa4RsriPvM5M9TGjN5Ne1HMCH4FxBo0OL4w7Fx7tLYDjzqCMhCY7QQM/1lB1
- 0t2AyW2lyN5zFhmrPQ54bIlI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7b477e88c5b0e9d9;
-	Wed, 30 Sep 2026 07:52:32 +0000
-X-Mizu-Trace-ID: 7b477e88c5b0e9d9
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn,
-	ameryhung@gmail.com,
-	alexei.starovoitov@gmail.com
-Subject: [RFC PATCH v8 4/4] docs: cgroup-v2: document the iocost BPF cost model attachment
-Date: Wed, 30 Sep 2026 15:51:54 +0800
-Message-ID: <20260930075154.189958-5-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930075154.189958-1-cui.tao@linux.dev>
-References: <20260930075154.189958-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRIKRrc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3F81F000FF;
+	Wed, 30 Sep 2026 07:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754760;
+	bh=HG+Asrw3g/mWMsN1/SOW/UfriJ5U+pNGLQlihCs8RCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bRIKRrc9r7IyEvc70N95JxUAf3/OCQjvHIGE5ymmxMkyFfC/BqladvJwSTZ36yOJO
+	 oJlzgtvgll/lEgsAjORo9GbQvs44xf/xOaIke2peIw1qQuQjX9BPgM+VYvwyaJ+rhk
+	 h1bGgbQEtmVfAUZDwSRKljHDvD6vT0l8fxzjZ4YW8UzOjtQXTgr8n/JnJ9NXKrKLrR
+	 TpVW4wbOkO9pwcIpZONL3ZN12b3cA7wTQ+BRJlmUTtRDQfUakf3QjtCoN2wPbahjcb
+	 r5GYJOgabEQlHfNFjAxTiDg1G1a6ZOZHVYsQaarbwWClFtjww6bDt4+l70YA4P0FVp
+	 ZueLzRsbFmw3g==
+Date: Wed, 30 Sep 2026 09:52:34 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: binglei wang <l3b2w1@gmail.com>
+Cc: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] erofs: fix folio reuse from a different address_space in
+ erofs_bread()
+Message-ID: <ary_wjlpYNWbqaHU@MacBookPro>
+Mail-Followup-To: binglei wang <l3b2w1@gmail.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org, zbestahu@gmail.com,
+	jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-kernel@vger.kernel.org
+References: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
 
-Document the BPF cost model attachment in the io.cost.model section
-of the cgroup v2 documentation: attaching an iocost_model_ops
-struct_ops to a device by its major:minor, the model=bpf readback
-while attached (ctrl keeps describing the coefficients), that
-detaching restores the builtin model, and that ctrl= writes never
-select a model.
+On Wed, Sep 30, 2026 at 11:37:53AM +0800, binglei wang wrote:
+> erofs_bread() caches the last folio in struct erofs_buf and reuses it when
+> the next request lands on the same folio, but the reuse predicate only
+> compares the page index; it never checks that the cached folio still
+> belongs to buf->mapping.  Correctness therefore relies on an invariant
+> that is nowhere enforced.
+> 
+> fs/erofs/xattr.c already breaks it: erofs_xattr_iter_inline() and
+> erofs_xattr_iter_shared() call erofs_init_metabuf() on the same buffer
+> with no intervening erofs_put_metabuf(), and their in_metabox arguments
+> come from different sources (per-inode vs per-fs).  When the two differ,
+> buf->mapping is switched while buf->page still holds a folio of the
+> previous address_space, so the next erofs_bread() can return data from
+> the wrong one.
+> 
+> This is observable with METABOX enabled, where shared xattrs silently
+> disappear on the mounted fs, while the same tree built without METABOX
+> reports them fine.
+> 
+> Fix it by validating the address_space in the reuse predicate too: if the
+> cached folio belongs to another mapping, drop it so that the existing
+> slow path re-reads from buf->mapping.  Reading folio->mapping is safe
+> here because a reference on the cached folio is still held; if the folio
+> was already truncated, folio->mapping is NULL and the slow path is taken,
+> which is the safe direction.
+> 
+> Fixes: 414091322c63 ("erofs: implement metadata compression")
+> Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
+> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- Documentation/admin-guide/cgroup-v2.rst | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Thanks for the patch.
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 7fe950425216..5e780bdcf324 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2117,8 +2117,27 @@ IO Interface Files
- 	  =====		================================
- 	  ctrl		"auto" or "user"
- 	  model		The cost model in use - "linear"
-+			or "bpf" while the BPF model
-+			is in use
- 	  =====		================================
- 
-+	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, a BPF cost model
-+	can be attached to a device by loading an "iocost_model_ops"
-+	struct_ops with the whole disk's major:minor in its "dev" member
-+	(a partition's major:minor is rejected).  Attaching creates the
-+	controller if needed, like an io.cost.model write does, and
-+	switches the device's pricing to the model; enabling and
-+	disabling the controller stays with io.cost.qos.  While a model
-+	is attached, "model" selects between it and the builtin model:
-+	"model=bpf" switches to the attached model and "model=linear"
-+	switches back to the builtin model, and neither detaches the
-+	struct_ops; only detaching removes the model, after which
-+	"model=bpf" fails.  "ctrl" keeps describing the builtin
-+	coefficients, which are kept while the BPF model is in use and
-+	take effect again when switched back, and the automatic profile
-+	stepping does not switch profiles while the BPF model is in
-+	use.
-+
- 	When "ctrl" is "auto", the kernel may change all parameters
- 	dynamically.  When "ctrl" is set to "user" or any other
- 	parameters are written to, "ctrl" become "user" and the
--- 
-2.43.0
+ 1) The patch format is still broken as your previous patch, please
+    check your email client again before sending out a new patch
+    (as I said, you could send a patch to yourself and try to apply
+     the patch and see if it works);
 
+ 2) the commit message of this patch is too over long (mostly
+in the LLM-generated style), I think you could simplify a bit since
+it's more friendly to human developers.
+
+> ---
+>  fs/erofs/data.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+> index be63b89f0862..d8b6523bc218 100644
+> --- a/fs/erofs/data.c
+> +++ b/fs/erofs/data.c
+> @@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf,
+> erofs_off_t offset, bool need_kmap)
+> 
+>   if (buf->page) {
+>   folio = page_folio(buf->page);
+> - if (folio_file_page(folio, index) != buf->page)
+> + if (folio->mapping != buf->mapping) {
+> + /* the cached folio belongs to another address_space */
+> + erofs_put_metabuf(buf);
+> + folio = NULL;
+
+     `folio = NULL` is enough?
+
+Thanks,
+Gao Xiang
+
+> + } else if (folio_file_page(folio, index) != buf->page) {
+>   erofs_unmap_metabuf(buf);
+> + }
+>   }
+>   if (!folio || !folio_contains(folio, index)) {
+>   erofs_put_metabuf(buf);
