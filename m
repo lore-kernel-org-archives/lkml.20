@@ -1,126 +1,86 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CAB4F96D3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779290; cv=pass; b=NN62a32YNa7hlXOW77LdVmmVv0iYUcXiYdpJzxA3+DN6vqUOiI9ibD2PTxbNwIDszC3WzMEAsdsb3pKZO4F0Bm1trAsFeHUttk9Snpx8BfCOrwsMEd84fwXNwTRVTJx0oSnKjbIAuYMhghuPJKHpX0a/gsugKJinEv8m2rznLN8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779290; c=relaxed/simple;
-	bh=9sp+r2dymTSIz3G/KUyoL3W5ou2ax6jh34iwuHuVsrY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=blHl08rF0iD5/3u709dT6qCi/+6zXA0Ud4MOJF7sapkdKoT6VNUZO0yVfciK7N+f4vg6VkjdGEeVfQLYNSeSfdVztzcPYyDIDulvJSHEbyu7VPmC0nqm8twx1lLi7W4zof6bLbOFtrgeTzFlqI3yitBP6Q9Q7zrorI2qXrbA0OQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qpFRu80c; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC252571A0;
+	Wed, 30 Sep 2026 14:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790779301; cv=none; b=cAoqnez/D3oDhf6X2QMJNOK2YxZR1FcyF7HmgKPBbHcwe17qIELjOlVEPXua4CJe9IGwaWH+GLHqK7jjR44WncqvCxxaAEgFmmMmymzmfeFoCxuu/hr5ZPiZdbCk7EzFvLm+DTQHpfxR/nWnDSAOo/Ha0GgC2Z3Q03nWvTzdIS4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790779301; c=relaxed/simple;
+	bh=9yqRRq23NwVKIqoGsC2Ia1qOKcGglHeQVUA6Im/RXrQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BcP8bOrOCYt9Y70RMpFBSNYy6C7PI2kiU3OQiAriz1Ep9hyB3t15NV0TQz0j4/1UC67W/FlTahKx1GRpAuxqPmIU78GijhwTLAhOSEW7csXrRtPKMj1nmKbo7cFtwCWQ8snmcIizZYqRRamyrDE2SCZa7I0YdcmhIAhVMYp37X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ChSwMplb; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qpFRu80c"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b010e8c94so204760eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:41:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790779283; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BBEvXbzev7i9/9t++GOmARivE2mZoyhiL4GZZVBfAMM4zaL4rwMN8Hulfs1vsuh4HD
-         /xBJtKcFc3rmzbPS1sVR3DUlz2paRksypjbmO/d6ozKu9FN/f8/nFqvMUty2AF0iYuzE
-         W3TXvj9pr7r2L9keJshQ0nDnVHdQ5x7hxQqQ3JXuiGgXoN+Xgcf9CoNO/V3nFomWFFxr
-         dX0rshRicdtKVbNntqq3E3Ag2yOXGmbO1he6AXqyQUs+ubPI+Q1ea2/Zg77SAaAm/oGp
-         TWeOqgav5kCgP9tmCe1FtRtACKLOzo/94lpAG6Vxrvhxmztj8ksBIxfgNyfsLJmdsSua
-         Xqwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9sp+r2dymTSIz3G/KUyoL3W5ou2ax6jh34iwuHuVsrY=;
-        fh=9k5Ra2S6oqyWYB0zB6j1G1Q07smXw5fyX0rMdz6ptc4=;
-        b=CINPVh2vPTdFmjTZtJOnxJ9swKyIfljWl5BL76FKIovdFts1vYYl2fo762XqxQuiXY
-         0ryCBWUpOoAStAcBZXR4uaLVP63uAPmD2OmrdDvITO2m3mkp7W4cm4sbRr4WcvVMLjIo
-         io7YlHAPu7axgAvUyhzN6hoFqHM5nuXMBbEeMzRkiVCsbvVLWuB0sfGV0GiEWhPkni6B
-         mf4IzXQmTCxwsQKJeUUXE/W9IhpYmcZCyCG7vWNX+1jrCmXaxOnbY/jRrWoAOfy4tizP
-         +IWPoV82dUPz3kYr6YdmGe//+xIh4Y3CNDxSX/fc/scMIifuXVivDbi9cnwVygiFY0p/
-         hZmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790779283; x=1791384083; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9sp+r2dymTSIz3G/KUyoL3W5ou2ax6jh34iwuHuVsrY=;
-        b=qpFRu80cziiqvyGeW8LNUP5vevcE3Jkzzo8yaPs/l57QvxDsbZ4u+IYcGgZn3Rme+F
-         TnAe7X/WKwb0KAKFQh2iP7+2G21eS2Ab34Mfh71WJRRVzzpCrFxqyQmJGtZYIdvGrQ71
-         19Ot334LvbHRH8bZ/lJxzcKgTVvzaQ8JUm7CL/lUr2C0Z3QMVILSvdJinWS/Xyl3eNhh
-         2xF0zyCxAJwhwOOL/48I8OdgoVP4YuyEB2qNGQHiqcWZ9Hew6O1Uqe4i2UAQbfduvNVW
-         wSHRJvwrs9UiSYn8RbwfzfO9u6OmSwWVXFQutYu6mXPaupo55D/C4Mm8K1BO27iKWP2R
-         zzwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790779283; x=1791384083;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9sp+r2dymTSIz3G/KUyoL3W5ou2ax6jh34iwuHuVsrY=;
-        b=NXBe+hCr0PkZtcmyJcMloDmLGy8lKpQNXvyrPJnnyCMrVHnuZwhQYf+2uulbztOd1q
-         kYx694mhcUWEaXszZhxBEuRqVqCaheXpE5c1PLts5SaV94guG/xRLRZbetp/ApUmEE7H
-         cjnUnIdIlqphxFNKG67vroB2vdBhYUuPttP8kBp3F0W8/dIef3jl5sxgI672Qm6ct8Cr
-         MJmGCRVLSyJ3EB176iTzd87D3DRq3VVOJdzCJxyrXaheQIGTaNlVcapWjTMbVwZO3o4S
-         YAYV9c574g1dc71ZMq+cK+Lp5CLgt+PCchygttSi8SR21MyA+6f5R9WszXZd7XkrLxgF
-         /eKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwd1peiSQyoIkNkXHIebUx0KQfr67YhpCMZH8j1Z4SOAsPJK1Ck8CUIagtCzDtj4rvavZsjWFouEmSLhtE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAonCLHzB35NM0MFGR61Vp3VaI3MJgEuyLenF2R2HG0xAbV2pC
-	EoOQi5hZ8S95jIWJ777Nb1j27UrRlvKXfWOR/yzv3W5m4ENXwIb/BANEaVT0GgPYYbG2JhUCTcT
-	U+AV5LH3qVpmJhxyONhfWh9guHlnzvpM=
-X-Gm-Gg: AYBFou10WjVqTJcybbDi3Ug1V3vbBnzw7fp7SOhLCgYlJXv6L23MJpEKPeoLkNeV2GJ
-	TWYXGfprbN8Tx7cKotxpRVkOLACvUxVAV5LFiJwweDn+3uEHYE0Wbtkb1MA5B6xXm4pfvT2R7Z0
-	bvzn+z+a+za+FHHid6uZ7L37jnuAZ9lwzoJd0D/Eov/gjdj1Mp5q6mhJNcviOIgvtk5dHuka0jG
-	T5qh/1kGOgeCja7EioK4hSnI2gH8hsDD9tkd82PaFLu9uqs5ivdoo7imefgiaUCEylDOY+rFlmS
-	4bwqgWWW0aZZ84ndWaNeWWisO5XMAQvw7jkIurFtTQfTJzvuhG9aA3YAx4dlqDgERjuECyZ+FEv
-	6T+9aLFQcvdrOElAQUA65/DK+UFtWOuVoSYTLMQ1abM7VtgcSr5oZhkaiyGI+XL0FbOss6EUiyY
-	bxHMIbzyiqRR61b+1f22KlCkTZ7oPZVNoqvWdPHRJWZqo1Q8Ry/xGDEFqAjj7mYA==
-X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id
- 5a478bee46e88-34cdbcd280emr3610200eec.2.1790779282558; Wed, 30 Sep 2026
- 07:41:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ChSwMplb"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5693F4E410D9;
+	Wed, 30 Sep 2026 14:41:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1CCA560749;
+	Wed, 30 Sep 2026 14:41:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D218010329695;
+	Wed, 30 Sep 2026 16:41:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790779275; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=LGRPZRz2qsm3tuIDtA+8pDXAURoo45DF4vA0Hjc0ty8=;
+	b=ChSwMplbOA0jh3gZRg4sJXIc8pzoN66mFNZ0kTsmkGRvNO/y6gvWRNwa9PPGfzNghnossC
+	pHKvP+x5xNBkKWdpIszb8m75hgWfXzOeKfDPDyliKrKbAyHVacH9CX5ltVwmW8d7ht6PQ3
+	UzoHbe6ezxJV1E70LqTwBFYKmA2uV+vAQ8iAXmaIk19DZgavzQ111pgluC4by43U1bfCsu
+	UF/jZ4l75Jtja7QIvaHUx+5GCl2PgIk/vXvp7LajrB/bpUu+LOWEF/Zt5Cme+Gf+DMYoUc
+	CYbfpGgWM3veDFYJHrsDbSELrtmt25eg5PnvPIfKZzQ4n2yJo1PHiJX77s4zFQ==
+Date: Wed, 30 Sep 2026 16:41:10 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Eddie Huang <eddie.huang@mediatek.com>,
+	Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-rtc@vger.kernel.org
+Subject: Re: [PATCH 0/2] rtc: mt6397: expose the RTC's spare bytes as nvmem
+Message-ID: <179077924632.411665.17496276815862670542.b4-ty@b4>
+References: <20260917-rbrue-suez-upstreaming-mt6397-rtc-nvmem-v1-0-558b8f95cfbc@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
-In-Reply-To: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 16:41:08 +0200
-X-Gm-Features: AclHuK_ynM6whJXw6qHZ7KW0enKmjR2gXUpLMMaayW1XxJgbGhEQ4tEW6NDWhxM
-Message-ID: <CANiq72k2RfFBncNBCGGdWFEJ-wWZ1MzA8ErrBDAcAvbGSRaS=Q@mail.gmail.com>
-Subject: Re: [PATCH 0/3] rust: kunit: support #[should_panic] and same test
- name with different #[cfg(...)]
-To: nico.antinori.7@gmail.com
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn1_gh@protonmail.com>, 
-	Boqun Feng <boqun@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, Jori Koolstra <jkoolstra@xs4all.nl>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Rae Moar <raemoar63@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel-mentees@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-rbrue-suez-upstreaming-mt6397-rtc-nvmem-v1-0-558b8f95cfbc@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 30, 2026 at 3:23=E2=80=AFPM Nicol=C3=A1s Antinori via B4 Relay
-<devnull+nico.antinori.7.gmail.com@kernel.org> wrote:
->
-> This patch series intends to implement two features for KUnit tests
-> written in Rust. The work is based on a TODO comment made in the
-> `bitmap.rs` module [1].
+On Thu, 17 Sep 2026 23:57:45 -0500, Ryan Brue wrote:
+> Four of the MT6397 RTC's alarm registers use only their low bits. Each alarm
+> field lives in the low byte of its own register and the driver masks its
+> writes accordingly, so the high byte of four of them is storage the clock and
+> the alarm never touch. MediaTek's documentation names them RTC_NEW_SPARE0 to
+> RTC_NEW_SPARE3 and assigns the first to a fuel gauge, which is how its PMIC
+> battery drivers carry a state of charge across a reboot.
+> 
+> [...]
 
-I am glad it worked with `b4`! Hopefully no more Gmail issues :)
+Applied, thanks!
 
-(Nit: in cases like this, I would suggest increasing tagging with
-RESEND or maybe increasing the version to avoid the same subject line
-in Lore and other clients.)
+[1/2] dt-bindings: mfd: mediatek: mt6397: describe the RTC's nvmem layout
+      https://git.kernel.org/abelloni/c/8423c476ab2a
+[2/2] rtc: mt6397: expose the spare bytes of the alarm registers as nvmem
+      https://git.kernel.org/abelloni/c/1aaaf94a61ee
 
-Cheers,
-Miguel
+Best regards,
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
