@@ -1,127 +1,340 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1853C3D1A97;
-	Wed, 30 Sep 2026 19:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F3D3CB54E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795687; cv=none; b=WTbXHIQ0uUTnSeTr7ldg5oQFommcxnWn5MQ0E0wnIvB0nejJsvu+4okG9DiGvLiOXelWWTNXDBF6HpS2PGelduJb4XoCXdl1cn6vxJK2H2dANG21k6/LBnTfK5qF90UngWPS5288fTp8fHBHeMfIl02YFxrpiAZNW5jEgPmBrck=
+	t=1790795685; cv=none; b=YAklQPRrg98jpDnZlVyBUMdTDHwxASKkj34l2hW/zAgVJDXaXkCMn6ZgZ38LtilalrV5XT06ZYC/N9Zt25fFMdM9pmeVdQYq9o8tJNUGHZIY9LlorRUwarHV9QRuedvztEnqu+HckeRjSQznU0x+V/Gw+ZlIcn+GleT4ZQ/T2x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795687; c=relaxed/simple;
-	bh=Bt9C70NQRLI1lLUFR6TJPPnnD3XYBOz5O1BWHzwQ5oQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IcsVYK6O1PR82JzuWwVY9vw4O3sLtRqPhlyxNymKeNFZFMXNC+7Fx1U5jOEemZAGi4D9wbN2YGBjkOR7j9eqEEd5uzbS3Oqc7t8qdjkW8ASA7z/jVmohSIPsqs8gsiaXM0+4ZHyKWNcFZhLZtqY5tHO6J480fI3GbB7JlN8a3oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3HWBzZy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790795685; c=relaxed/simple;
+	bh=Q2dfVBTA5NMWKcswYwtN7KVP6XuDzsX/wflSVX+jOE0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fQV1V4GKjeeZ1qW+9RB/4WgAt0lKdxX0rzSZShA05e7+wTINU9RRvjrw7ILJI6hGc8vRKDxKW8KkM5GIlGJZefNKG5S2j+vm9EUDtCNSspuOBo19UfSR/cJx03etkkvdxTPhnF2Eq5uH3D/DMtQ+GPJVQES+0okz6KMbcQ5rCvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hYIYDNri; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3HWBzZy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455141F000FF;
-	Wed, 30 Sep 2026 19:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790795685;
-	bh=CPkOd7/2MOCd1481qdelnJoCv5niJgOW5Kl95Ne6ScA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a3HWBzZyPlEt6CTsktmAcOb6wb4STm3Ht4Vj8u97bNB49Zw6B9/4uFpvMy1cKa6U+
-	 SIgyXYnneHb/PalWG2bjeihPf6CjlLsM+Bws/z5LeWdB5fjJ7PFPcjjsGuA5LvkR3q
-	 X7u+L2ZJpdxs/HAG3fE2FN9lhNLbucfH/wBoDAM89amAE9VBMAG4OPzr+3wt/EWjta
-	 EIKkmoLcAmMke2fbLkbbWOort64vStKjyaKFQsOhcXrJ4SOKOu7dqqIQ4aiOCgsfqd
-	 sibhs+cHeEbTGS7pxmexkCgSfoOslzlKobixxG1ENA+KnNtPVdEgOg+RP0Ne8ttz24
-	 slAqlPdqRWXLw==
-Date: Wed, 30 Sep 2026 21:14:42 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 06/26] perf trace: Copy sockaddr arguments by their
- length
-Message-ID: <ar1fon_Z4uT3Cd22@x2>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
- <20260928182605.3649015-7-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYIYDNri"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso42078025e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:14:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790795682; x=1791400482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3zvnjS+dlt0/FohVtWMLLifkmnbfEBWCuLKr0ZvxY+U=;
+        b=hYIYDNriyQ3AnHHb+2UBj1PB6Us/F9FjlYIha3oFGg0YBbxWs0Exi/9OFNUuLhLb4x
+         UAM2Q5qIIt8Ga5lD1OOIrdWTbbKY4zF6Xwo/YoubEW3aB8gZxcgG/OjI4ZxptuFYpeC8
+         0bxVb2RJZ8xQsnd7lp88d4RSLdajCfJYwoTKxiAlPLI1YKXXiWRKgAmqjQmHdsnT87Fq
+         HTcAvARKTJPFTVLTDOPny3PaE5bA8sy1b9t/Dpwgj9WrQCvApKMxXPtT+1eNaTcdHotX
+         y3RfJW+381Y0bP3Axuyl0xTJ2p4XN8/0mJpgHU/aBbqlN2QNNoz1qjJgq7sCnDYnwLhb
+         T35A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790795682; x=1791400482;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3zvnjS+dlt0/FohVtWMLLifkmnbfEBWCuLKr0ZvxY+U=;
+        b=jHGdPHvmkql5tsEhTg2BgbSRvVUgDeF4hN5wjXEeqPQGJVB4xyyXNliiYFsfJdDxR6
+         ZuJHZZxXGskyu3ispXWoWjkY56p9/5+oRNo+TEmthg4ezYzvoRvrrwMGB943l0vk++fP
+         EEXlgKCxpVWZ5IvbcuhwPEfMe7tvbXRTx/K6L4xjMV96hCR7Zl0ifpGpUS/cSIWQDZBh
+         OwlSTUuUxbdeDSFlY0mG2+ZBQgA0WwXopi3o++1EdRIRjIRI9rSHUmmbfAETlMClI5ZL
+         zu9nDbwmgS40whg7TNonKlNbFglfKBAu+eKHpZZhzMvPaLbgrxd07GZvc+meCcTcXTiW
+         o4Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBxa4jqW5dgApGht4j6uMm+2nia9vS7SXb4c9dQ5UR5TVvC+5IrQdLzY86hzp4crPYAaj5UFsg7i8F81pnA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU5vTTr/RdNXg5gfXt7xSLYEScz4EtejUKfs/BM8ZyPZe2wm21
+	fUmAvzkowOHcGl8tWg8qd9bGz5Crdc6N1OxKnyS8F97dDvcyEd8WT4fb
+X-Gm-Gg: AYBFou3MdLOmT2YCTqWoojAi7F5mSM2Q81caeFF+4TuLxnM8dXwPOZt8mTxxo2ODmjI
+	+V6xT+hZyzfydctK8vhz1oQyvHCFmYc8iYVL1BpH1zut42Rjz+D66rbtNacqofkdf6ouyGLl2B3
+	hEMIFkkwImjNFb5HZ7Lyqv4l9yEBnQHrAwHZt8qr9YsrPK/CZJlK5M7jidyb9pTUuHpftYsn7U2
+	OqiVO0feAYVtobRvxTOdCSAqAXuQi3zTKWXqZEM9V0+CrPsae83Sap8/IvZ6pzkA0O5+QhkkHGv
+	HlbSdZxtsO9kGWrMosBlAkje9kKsXJ/av9KMbvOOqoRfHVo5wIojHAido9vuWEpc2rbLsOGPqWA
+	FCTsnxCLtgqumatiOAJP11OzOuOPLrkOSqA4k3dqNkkOxEdvisc2pdCObcCoJ/lFaOWNIXpAFcA
+	JPiIhm2hpSEChLXB7Mx4lsTB2iWhIqSLGAsl1BqbKqa9gvwwQJvvSHlWBg94fkWU5lrTXwlgbM0
+	O+FdNedVIO5+2Jl4RCyUeyvEYcXqnHVx84p5jzuJvDuTX49X0IN9OJiv11UuZMgEmuECgKK2vk/
+	lLzgjL+O0Nd29KMVJNPtRgMncWip+oFk5bsgwX9Gy7fp9jbXsT1f/bGbW9O8l2NDUQjbq0IDJC1
+	j
+X-Received: by 2002:a05:600c:4445:b0:4a0:1b14:e845 with SMTP id 5b1f17b1804b1-4a01b14e85dmr40903785e9.2.1790795681430;
+        Wed, 30 Sep 2026 12:14:41 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f9145e6sm4184065e9.5.2026.09.30.12.14.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 12:14:40 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Bradley Morgan <brads@mainlining.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH v5] softirq: Preserve interrupt context during IRQ exit
+Date: Wed, 30 Sep 2026 21:14:32 +0200
+Message-Id: <20260930191432.62760-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928182605.3649015-7-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 11:25:45AM -0700, Ian Rogers wrote:
-> The BTF augmenter copies sizeof(struct sockaddr), 16 bytes, for the
-> sockaddr arguments of connect, bind and sendto, and runs before the
-> sys_enter_connect and sys_enter_sendto programs that copy their length.
-> An IPv6 address needs 24 or 28 bytes, so the rest was read from past the
-> payload, and now that the printers are bounded only its family is shown.
-> 
-> Copy them as buffers sized by the length argument after them, up to the
-> 32 bytes augmented buffers are limited to. That holds an IPv6 address
-> and doubles the AF_LOCAL path shown.
-> 
-> Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-trace.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index 85db74965280..f94745a60f4a 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -4159,7 +4159,12 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  				continue;
->  
->  			bt = sc->arg_fmt[i].type;
-> -			beauty_array[i] = bt->size;
-> +			/* Copy a sockaddr as a buffer sized by the next argument, e.g. addrlen. */
-> +			if (strcmp(name, "sockaddr") == 0 && field->next &&
-> +			    strstr(field->next->name, "len"))
-> +				beauty_array[i] = -((i + 1) + 1);
-> +			else
-> +				beauty_array[i] = bt->size;
+On the return from interrupt path, __irq_exit_rcu() removes
+HARDIRQ_OFFSET from the preemption counter at the very top of the
+function. Everything after that reports the current context as task
+instead of hard interrupt. The code in the function itself, such as
+invoke_softirq(), is aware of this and does not rely on the counter.
+Everything else which derives the context from preempt_count gets it
+wrong in that window:
 
+  - ftrace, perf and the ring buffer record task context and use the
+    task recursion and context slots.
+  - KCSAN attributes the accesses to the interrupted task, KMSAN uses
+    and changes its state. KCOV and the printk caller id see a task.
+  - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
+    interrupt context to avoid interfering with PI when the interrupted
+    task is blocked on a lock. That check does not reject calls made in
+    this window. BPF programs attached to sched_waking or sched_wakeup
+    can reach it through kmalloc_nolock().
+  - An oops kills the interrupted task instead of ending in "Fatal
+    exception in interrupt".
 
-Humm, I thought that this would be called in BPF handlers like:
+Tracing and the sanitizers see the wrong context in this window. No
+failure caused by this misclassification is known. The early removal of
+HARDIRQ_OFFSET predates git. lockdep is not affected because
+lockdep_hardirq_exit() is the last operation in irq_exit().
 
-SEC("tp/syscalls/sys_enter_connect")
-int sys_enter_connect(struct syscall_enter_args *args)
-{
-        struct augmented_args_payload *augmented_args = augmented_args_payload();
-        const void *sockaddr_arg = (const void *)args->args[1];
-        unsigned int socklen = args->args[2];
-        unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+Keep HARDIRQ_OFFSET until right before tick_irq_exit(), which needs
+in_hardirq() to be false for the outermost interrupt. Softirq handlers
+must not run with HARDIRQ_OFFSET set, so softirq_handle_begin() replaces
+it with SOFTIRQ_OFFSET and softirq_handle_end() reverts that, each in a
+single raw preempt_count update. The raw operations keep the preemption
+disable location recorded by irq_enter_rcu(), and lockdep is updated by
+hand. softirq_handle_begin() detects the case with in_hardirq() because
+__do_softirq() is reached through the stack switch in
+do_softirq_own_stack() and cannot take an argument.
 
-        if (augmented_args == NULL)
-                return 1; /* Failure: don't filter */
+The checks run before HARDIRQ_OFFSET is removed. !in_interrupt() becomes
+irq_count() == HARDIRQ_OFFSET, as in irq_enter_rcu(). The timer thread
+check becomes (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET. It does
+not test softirq_count(): the timer thread must also wake when the
+interrupt hit softirq processing or a section with BHs disabled.
+A softirq raised in the timer thread wakeup is handled by the timer
+thread, which handles all pending softirqs.
 
-        _Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr)), "sizeof(augmented_args->arg.saddr) needs to be a power of two");
-        socklen &= sizeof(augmented_args->arg.saddr) - 1;
+A softirq raised from a tracepoint on the final preempt_count_sub()
+waits for the next interrupt exit and can trigger NOHZ tick-stop
+warnings meanwhile. That is not the normal path and does not justify a
+check on every interrupt exit. A tracepoint on tick_irq_exit() already
+behaves the same way.
 
-        bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
-        augmented_args->arg.size = socklen;
-        augmented_args->arg.err = 0;
+The number of preempt_count updates and the interrupt time accounting
+are unchanged. The preemptoff tracer now reports the interrupt and the
+softirq processing on top of it as one section, and function graph with
+nofuncgraph-irqs also skips the interrupt exit work, including the
+__do_softirq() frame.
 
-        return augmented__output(args, augmented_args, len + socklen);
-}
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
 
-And it knows how many bytes to read by looking at socklen
-(args->args[2]), i.e. not use the generic BPF handler that uses this
-beauty_array, because knowing how many bytes to read in this case is
-dynamic, varies with each syscall, according to one of its arguments :-\
+Notes:
+    Changes in v5:
+    - Timer thread wakeup: merge the NMI test into the hardirq test,
+      (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET (Sebastian).
+    - Add Sebastian's Reviewed-by, given on v4.
+    - Rebase on v7.3-rc5. The two touched files are unchanged since rc4.
+    
+    Testing: v5 differs from v4 by that one expression. Both forms agree
+    for all 2^32 preempt_count values and at the real site on every IRQ
+    exit in four QEMU boots (arm64, arm32; plain and threadirqs; 1.1M
+    evaluations). gcc 15 emits one conditional branch less on x86-64,
+    arm64 and arm32; clang 22 on arm64, and 16 bytes less on x86-64. On
+    v7.3-rc5, base against v5 in QEMU on arm64 (virt, SMP, lockdep) and
+    arm32 (versatilepb, lockdep): boot and stress, nothing on v5 that the
+    base does not show.
+    
+    v4: https://lore.kernel.org/r/20260926143505.66024-1-kmehltretter@gmail.com
 
-What am I missing?
+ Documentation/core-api/entry.rst | 16 +++++---
+ kernel/softirq.c                 | 65 ++++++++++++++++++++++++++------
+ 2 files changed, 63 insertions(+), 18 deletions(-)
 
-- Arnaldo
+diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.rst
+index 79fdaed954d9..ff3df997b151 100644
+--- a/Documentation/core-api/entry.rst
++++ b/Documentation/core-api/entry.rst
+@@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time accounting. This
+ means that up to the point where irq_enter_rcu() is invoked in_hardirq()
+ returns false.
+ 
+-irq_exit_rcu() handles interrupt time accounting, undoes the preemption
+-count update and eventually handles soft interrupts and NOHZ tick state.
++irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
++possible, undoes the preemption count update and finally handles the NOHZ tick
++state.
+ 
+ In theory, the preemption count could be updated in irqentry_enter(). In
+ practice, deferring this update to irq_enter_rcu() allows the preemption-count
+@@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragraph. The only downside
+ is that the early entry code up to irq_enter_rcu() must be aware that the
+ preemption count has not yet been updated with the HARDIRQ_OFFSET state.
+ 
+-Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
+-before it handles soft interrupts, whose handlers must run in BH context rather
+-than irq-disabled context. In addition, irqentry_exit() might schedule, which
+-also requires that HARDIRQ_OFFSET has been removed from the preemption count.
++Note that soft interrupt handlers must run in BH context rather than in hard
++interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
++SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
++puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit work
++is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
++irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
++that HARDIRQ_OFFSET has been removed from the preemption count.
+ 
+ Even though interrupt handlers are expected to run with local interrupts
+ disabled, interrupt nesting is common from an entry/exit perspective. For
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 5d02c36c40e3..288e9e37b806 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
+ 	local_irq_enable();
+ }
+ 
+-static inline void softirq_handle_begin(void) { }
+-static inline void softirq_handle_end(void) { }
++static inline bool softirq_handle_begin(void) { return false; }
++static inline void softirq_handle_end(bool from_irq_exit) { }
+ 
+ static inline bool should_wake_ksoftirqd(void)
+ {
+@@ -481,15 +481,40 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+ }
+ EXPORT_SYMBOL(__local_bh_enable_ip);
+ 
+-static inline void softirq_handle_begin(void)
++static inline bool softirq_handle_begin(void)
+ {
+-	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
++	bool from_irq_exit = in_hardirq();
++
++	if (!from_irq_exit) {
++		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
++		return false;
++	}
++
++	/*
++	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
++	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
++	 * interrupts. Use the raw operation to preserve the preemption
++	 * disable location recorded by irq_enter_rcu(), and update lockdep
++	 * directly.
++	 */
++	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
++	lockdep_softirqs_off(_RET_IP_);
++	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
++
++	return true;
+ }
+ 
+-static inline void softirq_handle_end(void)
++static inline void softirq_handle_end(bool from_irq_exit)
+ {
+-	__local_bh_enable(SOFTIRQ_OFFSET);
+-	WARN_ON_ONCE(in_interrupt());
++	if (!from_irq_exit) {
++		__local_bh_enable(SOFTIRQ_OFFSET);
++		WARN_ON_ONCE(in_interrupt());
++		return;
++	}
++
++	lockdep_softirqs_on(_RET_IP_);
++	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
++	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
+ }
+ 
+ static inline void ksoftirqd_run_begin(void)
+@@ -605,6 +630,7 @@ static void handle_softirqs(bool ksirqd)
+ 	unsigned long old_flags = current->flags;
+ 	int max_restart = MAX_SOFTIRQ_RESTART;
+ 	struct softirq_action *h;
++	bool from_irq_exit;
+ 	bool in_hardirq;
+ 	__u32 pending;
+ 	int softirq_bit;
+@@ -618,7 +644,7 @@ static void handle_softirqs(bool ksirqd)
+ 
+ 	pending = local_softirq_pending();
+ 
+-	softirq_handle_begin();
++	from_irq_exit = softirq_handle_begin();
+ 	in_hardirq = lockdep_softirq_start();
+ 	account_softirq_enter(current);
+ 
+@@ -670,7 +696,7 @@ static void handle_softirqs(bool ksirqd)
+ 
+ 	account_softirq_exit(current);
+ 	lockdep_softirq_end(in_hardirq);
+-	softirq_handle_end();
++	softirq_handle_end(from_irq_exit);
+ 	current_restore_flags(old_flags, PF_MEMALLOC);
+ }
+ 
+@@ -748,8 +774,12 @@ static inline void __irq_exit_rcu(void)
+ 	lockdep_assert_irqs_disabled();
+ #endif
+ 	account_hardirq_exit(current);
+-	preempt_count_sub(HARDIRQ_OFFSET);
+-	if (!in_interrupt() && local_softirq_pending()) {
++
++	/*
++	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
++	 * softirqs, and only if it did not hit a softirq or BH disabled section.
++	 */
++	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
+ 		/*
+ 		 * If we left hrtimers unarmed, make sure to arm them now,
+ 		 * before enabling interrupts to run softirq.
+@@ -758,10 +788,21 @@ static inline void __irq_exit_rcu(void)
+ 		invoke_softirq();
+ 	}
+ 
++	/*
++	 * Wake the timer thread even if the interrupt hit a softirq or a
++	 * section with BHs disabled. Only nested interrupts and NMIs are
++	 * excluded.
++	 */
+ 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+-	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
++	    local_timers_pending_force_th() &&
++	    (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET)
+ 		wake_timersd();
+ 
++	/*
++	 * tick_irq_exit() relies on in_hardirq() being false for the
++	 * outermost interrupt.
++	 */
++	preempt_count_sub(HARDIRQ_OFFSET);
+ 	tick_irq_exit();
+ }
+ 
 
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.39.5 (Apple Git-154)
 
->  			can_augment = true;
->  		} else if (field->flags & TEP_FIELD_IS_POINTER && /* string */
->  			   strcmp(field->type, "const char *") == 0 &&
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
