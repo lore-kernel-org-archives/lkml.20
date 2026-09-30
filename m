@@ -1,114 +1,99 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AFC3BFE4C;
-	Wed, 30 Sep 2026 09:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677924734FD;
+	Wed, 30 Sep 2026 09:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759927; cv=none; b=dROjwyRpvzhbstokrj8HzeITPKVGMHN2EfCTEsFBMRyW7COyQiS3A44zQYz+AN/MSxtu+gRzFP0Nonmr2qipon3PfWgunoFizyk0rY+yoSVnhaOE9Dd7y/hzKc0HJilRDOW4IA2HzotnwTVNQJOGJ1dPfiltXzB36rew9sCd47Y=
+	t=1790759933; cv=none; b=NDQ9OWUmBZX6T1h1uuBs9OsYuWUwedil5ERjHIy6zPe30gkMWXAW9Ujw1GRT7l+Wp/Lqu8cwU3CTo4smMWtZhrRpbztviF+vBjLRLrvjAizQ6AxzGAdEYe0WW0mvKFPMAdw73D5FRYJmw7dl2MOQByyL12HNr0XoIStFZ3e0PU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759927; c=relaxed/simple;
-	bh=09qIv25SMIlrgx+Qp2nEH6oHH5JZxFNCI+xarH/FmP8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jM5mT+gNBaDE+ItZ42On6TASYkvvQ1ZeeS9oL0BapUglMJA2WOiJc1gZA97pV/WbGLT85vICCChojKZl3eQSSZDfW5t2RJfdxhUjGxfLYijbIzwI5i0vje4Gs5/sxSBUI9KInGtcQba1N2t/BAEaJHEzlPyXVg1/e0lfOp5r0lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=VXHCoEae; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1790759933; c=relaxed/simple;
+	bh=ur94HM4NCGW1jH1XMX+Z74cc3paQBBqXZ1coP0AVx5o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rbB0b2MfbMnREjyQTOHTYwVeB21YRDRZ6FcDsNH+GGjsiBQVa/ppAy+a8IYCpzRJGquImuXEAyKD+7eFi0AUcajVNulbnLwys0UkU0CMD7WFs5eLVVCmkjZI4GJNffIQPNr0coqTvUfcAsUVdpuCu+Ksu9FPVON6I9hpRNvInOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NjnAG+IJ; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="VXHCoEae"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 7F01D403EF;
-	Wed, 30 Sep 2026 19:18:32 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1790759912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=09qIv25SMIlrgx+Qp2nEH6oHH5JZxFNCI+xarH/FmP8=;
-	b=VXHCoEaeGl5zvjzw+uFCIITG9oQh3+wrnh6jNS25cJMKMcFFvcdHhzRckzeT0HTnJIBwi8
-	6CCMCzYTMGoLy+Nb8EeHXEyQMZaOWMCTmqnj40foGfQ0omNk4Xe9bO3tH6Xz9HhVM5WNdq
-	proIqpPpTDegNUYhTpW6/mEuGtoQBa4oAXESkBe7K3iH6CnKQ/JVohvfJvAJp5Q/KkJheI
-	t0rZJKUXLYZh4xkkwWDaXdEpxHeE/FB5VWyRc65xd2Mdt6O9IXmbisBaYyJVOQd1wDlN0v
-	b2a0NX6ABMDLQAxvwhydxiyNWw7iD0bpBdees5PFy7QhIfiVlosyPXZR7G5maA==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	a Linux kernel patch (rtw88 driver) which perfectly aligns with
-	the personal mailbox of alastair@d-silva.org; the From domain (d-silva.org)
-	matches the recipient domain, indicating a personal/professional
-	correspondence; the content contains specific technical details
-	(W1C semantics, RCU preempt kthread) and a valid commit hash (65371a3f14e7)
-	with no signs of marketing, phishing, or urgency.
-Message-ID: <46385ff62fd302329feafacfc37324a0510bb519.camel@d-silva.org>
-Subject: Re: [PATCH v2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	 <ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	 <kvalo@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 19:18:32 +1000
-In-Reply-To: <20260930090714.2779699-1-alastair@d-silva.org>
-References: <20260930090714.2779699-1-alastair@d-silva.org>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NjnAG+IJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790759931; x=1822295931;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ur94HM4NCGW1jH1XMX+Z74cc3paQBBqXZ1coP0AVx5o=;
+  b=NjnAG+IJxt42ba0+eBtmZ+A/bfosB0KaF4jtHaJitTb5ZvUXqyOwGICY
+   u4yp8m9sfOFSxhmLaB0slfcvKcdNcAO93yZLPYeY2w+RF4OaMU87EmQBF
+   yINJaj8KSNZfnr+KjQllDHc7Sl4z2usvIKT0YogNQFO6CmP+D/3FzqBt4
+   Zckd9BdFFrq5MR5en7ZwUol5ONUmtQl8RHPLHFAF76QFh50KI1zeRlXW9
+   FmqirZw2elV/ZIXFDtGue6Xowj20bPZiqtg2LuwL388OJZpgBIEoKgVlF
+   aAmZscpCS77P/AWp6T4dV4ebNxUklOJ7dViCk39sMZBDUeCY0o0OYFMDR
+   Q==;
+X-CSE-ConnectionGUID: FAglAA75QL25Rtk5MFvpMA==
+X-CSE-MsgGUID: 1GmrQQjuQK65CEqhtq8zaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90543384"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90543384"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:18:48 -0700
+X-CSE-ConnectionGUID: zloNdDUDRc+dC+Jn4Hqfog==
+X-CSE-MsgGUID: CItMX/BwQlaX6UY/zMpfog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="278841742"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:18:46 -0700
+Date: Wed, 30 Sep 2026 12:18:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
+Cc: hverkuil-cisco@xs4all.nl, mchehab@kernel.org,
+	sakari.ailios@linux.intel.com, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH v5 2/2] staging: media: atomisp: Remove dbg_level and
+ dbg_func module parameters
+Message-ID: <arzT86qPj-GOFRP-@ashevche-desk.local>
+References: <YOUR_ANDY_EMAIL_MESSAGE_ID_HERE>
+ <20260722054615.21492-1-prajvalchaudhari733@gmail.com>
+ <20260722054615.21492-3-prajvalchaudhari733@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722054615.21492-3-prajvalchaudhari733@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 2026-09-30 at 19:07 +1000, Alastair D'Silva wrote:
-> In rtw_sdio_handle_interrupt(), the HISR status register is cleared using
-> Write-1-to-Clear (W1C) semantics. However, the driver masks out the
-> REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before writing
-> it back, causing a 0 to be written to that bit. This prevents the RX
-> request interrupt from being acknowledged and cleared in hardware, trappi=
-ng
-> the CPU core in an infinite interrupt storm loop (starving the RCU preemp=
-t
-> kthread and locking up the system).
->=20
-<snip>
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
-based chipsets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
->=20
+On Wed, Jul 22, 2026 at 11:16:15AM +0530, Prajval Chaudhary wrote:
+> Remove the 'dbg_level' and 'dbg_func' module parameters to align the
+> driver's debug logging with standard Linux kernel printk infrastructure.
+> 
+> Previously:
+> - 'dbg_level' controlled trace verbosity level (default 0, up to 9).
+> - 'dbg_func' selected whether CSS trace outputs routed to printk (1)
+>   or remained disabled/unrouted (0).
+> 
+> Since module-level custom parameters duplicate modern dynamic debug and
+> printk capabilities, remove them and filter trace messages in
+> ia_css_debug_vdtrace() to IA_CSS_DEBUG_WARNING or lower.
 
-Apologies, I omitted the required attribution tag per Documentation/process=
-/coding-assistants.rst:
+...
 
-Assisted-by: LLM
+>  unsigned int ia_css_debug_get_dtrace_level(void)
+>  {
+> -	return dbg_level;
+> +	return 0;
+>  }
 
-Maintainers, please feel free to add this when applying, or let me know if =
-you would prefer a v3
-respin.
+I believe this changes the flexibility of the tracing. But like I said, the
+whole infrastructure should be switched to use trace events and trace points.
 
-Cheers,
+-- 
+With Best Regards,
+Andy Shevchenko
 
---=20
-Alastair D'Silva
+
