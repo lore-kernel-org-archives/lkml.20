@@ -1,99 +1,100 @@
-Received: from outbound.pv.icloud.com (pv-2001c-snip4-11.eps.apple.com [57.103.64.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30934C10C0
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A27241F34A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797108; cv=none; b=PngcNZlxdXxu8WqB90KuViGNYsT2Zb9vdP6huL0WSLs9wiTKKpRDLY1Sl+QHf1Q2VqYzW88MUFbqy4hxCC9iWwqQHPTC3KaUCZqVvkkEM+Gsuz50UQ9M1MyNulQIXK7RhSEGWjJg7uobKFOq8FsJNDV56G7qmULeb7MBFn+X3yY=
+	t=1790797137; cv=none; b=RXvIuG7ewJ88IWuHv85HawQWry0QOwuubkiIkwf0TO0cdkO8hTDWwqcKKYej+KKMe2Kw2lfbLsnPVF3jGYSUsF0PyrfmJvhl28VaxuyA/o4Nj0Al7k1pCeSG887I+MJ4USMQSX4H0WdtcUNkPYel0M1MdG+f08+5LN0LtjRKUmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797108; c=relaxed/simple;
-	bh=gn4Z7X1Bz8S1aM5L2OBzFtSGg9XUeD4J2mbu052BedY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iPMQZeLxitJI8WbG5YBMwzeQJQrQ1/Mu1C0/PM5scFaLeFRdX7FmZpnXR0v18l/0Q8Wii3s5PaZeOwO1jCu9C0ItFaTUCv1DaidWMwL98qOZU2Fs/Q6bNXbBXqb/L2UycU0O3w8AS+R0+NW/iXEwyeCoEJw3QzzXQ59V+4CfLpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=K6TAIuq9; arc=none smtp.client-ip=57.103.64.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
+	s=arc-20240116; t=1790797137; c=relaxed/simple;
+	bh=qEppF1wtROGh18AU5y2B8FBqsoM94EvZAzeKfrkk3jA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j5kTbWFlmhNm2pN95nVlHcSl7jqvxWnL6Z+TNUH3eqDdD0xwweWcc+5YyIGgRKkDcdkMjaL6ndtAZBUq03nX6jnAV/mn9S48tR2C04Seq+VRbq4tlswDrRI1oxwLoweh0vDYDhuHND7Te6FeiTyNT7z2s6gOBxky2SKl77sMiV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rvjyd3IM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="K6TAIuq9"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPS id A9AEC18004CD;
-	Wed, 30 Sep 2026 19:38:24 +0000 (UTC)
-X-ICL-RepId: 01a0f3d3-45e4-7310-acc8-34173ac3afc9
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFLHV8HWBxHD1YKTVIPDxYKFkFcWytfFRcbXAAXDVZNVB0dDlgGEgJaRQRNXw5eHwQXRhlVBEceXVZDGxkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4AUkVRH1RYXgRTVg5CDU8HVQ9eVkJfSVBVAw1QEVobBV0AWgRDWk5SWAVbAEhfGgMOVg0GXghPCl0AUgdHC04dCl4fHBYKFkFcWytfFRcbXAAJS0YJSR0OBFQHXQVd
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1790797106; x=1793389106; bh=B+qmiAA8NB0KIei/Jc+VzkkUiOV3PQg4tH30TVw13pk=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=K6TAIuq9fVvqjweZdKhtrfUBTpdVW/06ShcGdq1rtWSXOODTWeMtm+eJGKpQyaPQf6V4v9+9A20r5VPd02sfsqY5TwXESs1m0mCvYhGRHC4oC4mvk2F/WY5kDHGY1RLDZLxDcdRnNk6XiuQTJsDWk/XbXrNYydC40Q8TIoXd1kr8AyFATBZUPw4GR3Xwxm7TlkLaE9z8nWOdyJDQMIIBAsk3A58AegdH86Pmkeg9p2ZaRZf27CgWsW2RzFUpskp8o1zJY+V9xIJNyuiaNQaS1cIQqDWmh7GqxCBoy08kx60uVf1vIw35aEaeDhdxcQfCUn4Q/y2adW/PW3wIB0WBLg==
-Received: from fedora.vpn.altanet.fr (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPSA id 5DE221801FD3;
-	Wed, 30 Sep 2026 19:38:22 +0000 (UTC)
-From: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>
-To: Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>
-Cc: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>,
-	Ivan Gorinov <linux-kernel@altimeter.info>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH 2/2] HID: winwing: initialize the lights_lock mutex
-Date: Wed, 30 Sep 2026 15:37:51 -0400
-Message-ID: <2474885d2f1c84fbacc607163c6a52028fb0caf4.1790795726.git.f3nr1l@me.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790795726.git.f3nr1l@me.com>
-References: <cover.1790795726.git.f3nr1l@me.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rvjyd3IM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28691F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:38:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790797135;
+	bh=8Je3TKW6mDtA9RrqaQMnwSzR2irBizMaSxHCErbT//E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Rvjyd3IMLLLZFehYJdbrySRm9qoNuW40yfR61J52lN0GMxoiu8veHsvo8FWOwhGn+
+	 wF0VmZbo0b1EytZ34GGvtUjsGoNoWtFGPvy0WgyGc1Fc3c/ycJG8YN8DFfi/cHBlsB
+	 8pIYwJ3EHCRpEzlXiJQOBV6Nu8ce6qA3Pu4ZhcgV+yiJOBIwTP48JFE97VWUtz13Du
+	 jgn/uPqlhbJChJNKWvkk2PYwIioQN3y/zIICMCHH6lJtjKj3igCAtuiKk4Y0pivnsM
+	 CONR7Dw2YJx7RBCTzj8f11KLxsDawdsWE60iA0hgcHJ6VcCMLxTJ5xoJtl1lJ2m6Vv
+	 etwV3dpjXtPxA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5da7416f9so49348371fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:38:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwNv/JWApubJRwK4+ZeVbDqIgyJn/dQG9ZYUnv+DFWbwXNShBWnUwJOGQX/dNARsEENyoL7rg9kgFX8ORQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwS6ttmIsZF3Av+bU0x6G3ejlgTwlxIv6SyIj4rkEidoKs5/eK
+	lrk5rGGjm0iNPD53HctvkuA8NSqRwYcnd+XVPgLmOWRsFAMAjCQXaE7r75c1IIKvM0YzJnlI9BF
+	O3PS6iyx4nKQdKIID8HmriiE2BH+BRmI=
+X-Received: by 2002:ac2:4c29:0:b0:5b8:bc5e:b576 with SMTP id
+ 2adb3069b0e04-5ba40612544mr668515e87.46.1790797134250; Wed, 30 Sep 2026
+ 12:38:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX0jJsU9jJHaI7
- pT5hAQP8Equuv88KC/bfLoIgPsHsr9mleHBU7yPyc06KNLC6PoJ/ac4P6gCTfs9na7wTos+SmCx
- W5fq1hVDIc2KN5ad8hSs9XrcOWpUTiaI5qJ+k/ZIbPjBfCzUGqs7fREnTb4zBtG2lfL+SCMmlcC
- Nj3nwB79Ef4gtk+eymtQ6z+5q+ng5jsJglUenn+5Wmg1s5vuDnAluz6wGSlb0Q9uEstC5Yd71zf
- jCJJXHR+gFwKNx5NtnC0xRxS3RLFsPykcOAsrikscowGgFT1UTnlabAox9aiOcWWt1YS24zY4lW
- z3OgD5vxXVmz/Tg1nm3Zo48KFieqqhlKrOjF4pjIpWbRXyx5/+8Lgae/eQ3RNc=
-X-Authority-Info-Out: v=2.4 cv=NZXrFmD4 c=1 sm=1 tr=0 ts=6abd6531
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=M51BFTxLslgA:10 a=x7bEGLp0ZPQA:10 a=tnT-KND3AOYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=HHGDD-5mAAAA:8 a=P_iz6yS4q_2TDqSedCgA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: B6v5Q4fGnPcP2EPO5ho4ZoMecOiG8Rc0
-X-Proofpoint-ORIG-GUID: B6v5Q4fGnPcP2EPO5ho4ZoMecOiG8Rc0
-X-JNJ: AAAAAAAB9/6lDtgbTsDbI+bG9U6Bx7xOHMW9/HheUQLbZ/HiNBoMCgS8y1CQ9hW8ugW+bZx7ZudyOo8hkhtwaIUxe9ezkt5dau28vMN1rP/nG6doqugvsxsK+iG1lwOAXXGmdoW6PYMnF4we/fYNcQUuKlmTq9EiiHXUFSRq34hWPeSghn0A0qvmVyiqBCakrnLjSODeG4xuHO82kgm7b/GWm26Q729KYSFmT9lhKGpVMArOEtR9Z1Bt4wUSCBX2954Ts6ZHnW6gaLBacH6C8E8i8IpxiGHxZyx6e4mFxmRv93wzcsH61DtmhtL5hWhSE7d7HUYa56Po5T2/JqNka/x+AQqDdzQwhusDpyPtpaxJIf3w83o4EJub+ISRo0ABJwXzmbk9hAXDLRh1A20cfYs4pZl8bEhXLnPa9kWTofqafnA0AL334BR6gQ6U/2d2yWeKyvbnGQfNuQWmoJB93stAfsp4YALYAsL6AATUGavK33/ykYlOvxkNa0N6hTLCLyK/t1DmvGcBoOlbsF0wdex+tUrwhRLwQqnwpvS5aHwFu2GXswT61LoTRfLT/7FsGdoftMB02F2+xHjf0Vc/H0s3dTVPPNtqk4xvdTCbVfKn2V2abE5GiujH1sPTVUi93Ry6aaefjZLs7Yl1xL4e5J7vEuRl6n3S01ZQPXxxZZvzkMa01j0mqUk/en0iSRksB6Zeepf6Ae+CuojDACpvrDPL3NOEXmvbXpj7zPc3SCy8vDOLMFUoEDHzflEMOXQfHCY8t7Lq6KL6v/KYRrbCfQEQveAGmfmihzNavZGH0sh8Gg==
-X-Apple-Category-Label: MjczODQ1OTkzOiRjYXRlZ29yeSRfUGVyc29uYWws
+References: <20260924160052.2858456-1-superm1@kernel.org> <20260924160052.2858456-2-superm1@kernel.org>
+ <213bc2ba-2ee4-4a89-9054-3bd953546789@arm.com> <c20aa0b6-30a7-4c88-80e0-21bd5e97c0c8@kernel.org>
+In-Reply-To: <c20aa0b6-30a7-4c88-80e0-21bd5e97c0c8@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 30 Sep 2026 21:37:08 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iYf1dXVX4LFeWnnsatA8b0LahRfJUe8hH7-978z+nKxg@mail.gmail.com>
+X-Gm-Features: AclHuK_IQd7EoyZptxoCUg3bgzT-8ulRUStswYqJCMm1GsL6MIhRdqnNJYlVic4
+Message-ID: <CAJZ5v0iYf1dXVX4LFeWnnsatA8b0LahRfJUe8hH7-978z+nKxg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] ACPI: CPPC: Refactor boost ratio handling
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Christian Loehle <christian.loehle@arm.com>, =?UTF-8?Q?Rafael_J_=2E_Wysocki_=E2=8F=8E?= <rafael@kernel.org>, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
+	Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-winwing_led_write() takes data->lights_lock, but that mutex is never
-initialized. winwing_probe() allocates the driver data with
-devm_kzalloc() and only initializes the work item, so the mutex is left
-zeroed.
+On Fri, Sep 25, 2026 at 4:54=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
+>
+> On 9/25/26 04:40, Christian Loehle wrote:
+> > On 9/24/26 17:00, Mario Limonciello (AMD) wrote:
+> >> From: Mario Limonciello <mario.limonciello@amd.com>
+> >>
+> >> Rename amd_get_boost_ratio_numerator() to amd_get_effective_highest_pe=
+rf()
+> >> to better reflect that it returns the effective highest performance va=
+lue
+> >> for a CPU, accounting for preferred cores and heterogeneous topologies=
+.
+> >>
+> >> Add a new helper amd_get_boost_ratio() for doing both for boost
+> >> ratio calculations and update callers to use it.
+> >>
+> >> This refactoring is needed because on some AMD systems (Zen6+),
+> >> the boost ratio should be calculated from frequency values rather than
+> >> performance values.
+> >
+> > I think I see why you chose to implement it this way (the x86 APERF / M=
+PERF)
+> > issue, but I'd still prefer it to be spelled out here why this is neces=
+sary.
+> >
+>
+> Do you mean in the commit message, like spin the patch?  Or just in this
+> thread?
+>
+> Not all cores will operate at the same frequency and fixed scaling
+> values from CPPC perf don't apply anymore.
 
-Locking an uninitialized mutex is undefined behaviour; with
-CONFIG_DEBUG_MUTEXES or lockdep enabled it is reported as soon as a LED
-brightness is written, either from sysfs or by a LED trigger.
+Well, CPPC is per-CPU at least in principle, so the above doesn't
+explain much TBH.
 
-Initialize the mutex in winwing_probe(), next to the work item it is
-allocated with.
-
-Fixes: 266c990debad ("HID: Add WinWing Orion2 throttle support")
-Signed-off-by: René Onier <f3nr1l@me.com>
----
- drivers/hid/hid-winwing.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hid/hid-winwing.c b/drivers/hid/hid-winwing.c
-index e8030fdc14..cbfdb9c66e 100644
---- a/drivers/hid/hid-winwing.c
-+++ b/drivers/hid/hid-winwing.c
-@@ -374,6 +374,7 @@ static int winwing_probe(struct hid_device *hdev,
- 	data->has_grip15 = id->driver_data;
- 	hid_set_drvdata(hdev, data);
- 
-+	mutex_init(&data->lights_lock);
- 	INIT_WORK(&data->rumble_work, winwing_haptic_rumble_cb);
- 
- 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
--- 
-2.55.0
-
+It kind of follows from the cover letter that there's something
+missing in CPPC, so this is a stop-gap thing, but it would be good to
+put the information from the cover letter to the changelog of this
+patch.
