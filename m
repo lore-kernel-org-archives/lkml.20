@@ -1,115 +1,165 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0155B3F4DEB;
-	Wed, 30 Sep 2026 07:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA0C459AC4;
+	Wed, 30 Sep 2026 07:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754950; cv=none; b=cOLL2pqCQ6uldkPwAoFTuzMRIS2gVDoEE1+R3dhYSPuMxa+IiVQW8sdtx3hO4CfAVUMNLtew9BSK12fARKZw64HxkEYhcv7sllSxleJ48OL/D4umGl1gu8i8rWr7gUpNbWBTiR/beRa8hapyS8cFLtsUMTvcoY+IgWPfJPs5ptM=
+	t=1790754954; cv=none; b=P5ihpH/GE5ObpJGND37WioO64q52bdXQDfEMJsaB1S2AsM7UNTNRhnl1AHwBiWqiRyR6WvZXT3Bye+Jh+hqkvSNTNsYM3r95nrJ4StQfEwvNa3TpN1Nu6EPQw03VYO2k30g84JYrdIYR9VmrFRKcZIMpz494SdF8ZVR7ULgtn4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754950; c=relaxed/simple;
-	bh=B9dKQMrl81SvGauYE7esNuwZmF9jAO2bHP30BJAAS00=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IgE/W0e2Mm0rhgKqQB9ZJNtGnxgkw32MhefoQKP+D5EsAvrhV+HwF58v0YiM94PykAR3t3TWGWZ0FrB4ykuf4ZImD3v9slSdf1nSMHMdfKB5/x7E2tuqP2tj8a/ou0g7BOE52n1URhkPGh7fIKw5iVxixttI48PvQ4txR8lP1Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=LORIkH78; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790754954; c=relaxed/simple;
+	bh=cwBMrbgvJXrU6jUHOIJVJAfxp+QQ8oRRQFz3Ew/7r2A=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RKYdCOkf0lcN/FqHG5S2YU7zacC3YrwddvsAp5tSjzH82T5J88JyIVpzxqDxAzrUvgdYfXCRMYvsSw3ZB+Y7WWsAyGZi/QRH7uVG+2UVHGBbkrPmoSWarVP/5GsuBuSyWCSUvwqPSK3zL2B07GgA8Yrb3V01z1OjiEt3JDbHLfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEXWQbhT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="LORIkH78"
-X-UUID: 55f02608bca411f18dc8c9802ae25ab1-20260930
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=TgYUVKMcHeQnZuLO8zQrRpKr0h+wD7vb+q76obf6niM=;
-	b=LORIkH78m05SEwoMbloGpzTjs9LXruM97OhTCNXIiayEoqvNwatvnHewHPuVyO0ibTCe2NvHAQ2G+I1WqR37WlzGf5LYZ9AhDckoPAl0nG8Sgew98tYutOqjXHktDCK96JPp/adQZnt/oKOlgb9UbcWFqCRO1KUtjkXu9UTAOek=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:fbc0330e-8c7c-4749-814d-df171c7047cb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:86854f39-d9dc-4114-a414-20e4faf2028f,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 55f02608bca411f18dc8c9802ae25ab1-20260930
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 809517287; Wed, 30 Sep 2026 15:55:42 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 30 Sep 2026 15:55:41 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 30 Sep 2026 15:55:41 +0800
-Message-ID: <b97d4532feb310a3cbd49a4040c01f6607997fdf.camel@mediatek.com>
-Subject: Re: [PATCH v2 2/2] scsi: ufs: Serve the device init reads from one
- aggregated read
-From: Peter Wang <peter.wang@mediatek.com>
-To: <hyenc.jeong@samsung.com>, "James.Bottomley@HansenPartnership.com"
-	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
-	"avri.altman@sandisk.com" <avri.altman@sandisk.com>, "bvanassche@acm.org"
-	<bvanassche@acm.org>, "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>
-CC: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
-	<alim.akhtar@samsung.com>, "beanhuo@micron.com" <beanhuo@micron.com>,
-	"can.guo@oss.qualcomm.com" <can.guo@oss.qualcomm.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Date: Wed, 30 Sep 2026 15:55:41 +0800
-In-Reply-To: <1653986196.21790747102619.JavaMail.epsvc@epcpadp1new>
-References: <20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
-	 <CGME20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p2>
-	 <1653986196.21790747102619.JavaMail.epsvc@epcpadp1new>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEXWQbhT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279831F000FF;
+	Wed, 30 Sep 2026 07:55:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754952;
+	bh=3A83WqLQprn5b6H5t3n4CWTPEwg+k48YSwSUTlBs4Ec=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PEXWQbhT9MYlJFyvmHMFKYk2atOL8sNTEfJVIz2DUHK/o59vz9qV+cVeNPEyAr5jM
+	 sHK6QTFInakN3Kigofd7hCp9LtzUQxEIA4H3wpdQmb1jlIwRnH/c0PZenVCk8AZHYF
+	 8IIaxypwOmLqaNQ0PZvNoGjVF53cxrXJgVpRz/zbEEc8B5vwallDuPUjvoQ6dI+/pa
+	 WmztZ4eprdfMWauBWD+BKP9vzZqOuRJW775RPtmNOHYRfpkK6AK1OJuj69SJvfiVvA
+	 VeCT//NBjj/ZzGvEyvF7cEMQtJZoE7+ruI2gEPwIlgcTGL//PanIV2uFjLoPuUQosn
+	 NWVeov1TIcMkw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xBpAL-0000000FCJl-38EW;
+	Wed, 30 Sep 2026 07:55:49 +0000
+Date: Wed, 30 Sep 2026 08:55:49 +0100
+Message-ID: <865wzn41h6.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v8 16/29] arm64: Share arm64 headers with s390
+In-Reply-To: <20260930072803.664031-A-seiden@linux.ibm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+	<20260918133107.1042730-17-seiden@linux.ibm.com>
+	<arqQ2Eat4VUBbl49@arm.com>
+	<20260928162345.428362-C-seiden@linux.ibm.com>
+	<ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+	<arvunF8epgpWh1YT@arm.com>
+	<20260930072803.664031-A-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MTK: N
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, catalin.marinas@arm.com, gra@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, arnd@arndb.de, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, 2026-09-30 at 14:18 +0900, Hyeoncheol Jeong wrote:
-> Device init reads several attributes and flags one query at a time.
-> On
-> UFS 5.0, issue one AGGREGATED READ once the device descriptor has
-> established wSpecVersion, cache the reply, and serve the following
-> attribute, flag and ID-string reads from it. Anything not present,
-> and
-> older devices or a rejected opcode, fall back to individual queries.
->=20
-> The following per-item queries are folded into the one aggregated
-> read:
->=20
-> Attributes (ALL_ATTRS group)
-> 	0x0c bMaxNumOfRTT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ufshcd_set_rtt()
-> 	0x17 bRefClkGatingWaitTime=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 -
-> ufshcd_get_ref_clk_gating_wait()
-> 	0x1e bWriteBoosterBufferLifeTimeEst - ufshcd_wb_probe()
->=20
-> Flags (ALL_FLAGS group)
-> 	0x03 fPowerOnWPEn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -
-> ufshcd_device_params_init()
->=20
-> Strings (STRING_DESC groups)
-> 	Product Name string=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ufs_get_device_desc()
-> 	Serial Number string=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -
-> ufshcd_create_device_id()
->=20
-> (bWriteBoosterBufferLifeTimeEst is served from the packet only in the
-> shared-buffer mode)
->=20
-> Signed-off-by: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
-> ---
+On Wed, 30 Sep 2026 08:28:03 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> On Tue, Sep 29, 2026 at 06:00:12PM +0100, Catalin Marinas wrote:
+> > On Tue, Sep 29, 2026 at 06:19:20AM +0200, Andreas Grapentin wrote:
+> > > On Sep 28 26, Steffen Eiden wrote:
+> > > > On Mon, Sep 28, 2026 at 05:07:52PM +0100, Catalin Marinas wrote:
+> > > > > On Fri, Sep 18, 2026 at 03:30:53PM +0200, Steffen Eiden wrote:
+> > > > > > +# Enable all code shared to s390
+> > > > > > +KBUILD_CFLAGS	+= -DARM64_S390_COMMON
+> > > > > > +KBUILD_AFLAGS	+= -DARM64_S390_COMMON
+> > > > > > +KBUILD_CPPFLAGS	+= -DARM64_S390_COMMON
+> > > > > 
+> > > > > Do we actually need these defines? They seem only to be used as markers
+> > > > > for the awk scripts to extract the definitions. Why do we need the C
+> > > > > preprocessor involved at all? Could we not just have comment markers:
+> > > > > 
+> > > > > /* ARM64_S390_COMMON_BEGIN */
+> > > > > ...
+> > > > > /* ARM64_S390_COMMON_END */
+> > > > >
+> > > > No technically we do not need those. They could be useful if we find out
+> > > > that AWK is the wrong tool and move to a C Preprocessor + diff based
+> > > > approach. 
+> > > > 
+> > > > if the ifdev is not closed the compiler will complain, but an 'arm did
+> > > > not destroy us' verifiaction tool ( I will send one soonish) could do
+> > > > the same.
+> > > 
+> > > iirc the last time we discussed this we didn't think that load-bearing
+> > > comments were the right tool here. We also briefly floated the idea of
+> > > using a #pragma region based approach, but in the end we went with the
+> > > #ifdef preprocessor directives instead, as the least invasive
+> > > non-comment marker that was available.
+> > 
+> > The downside is that the macro affects the preprocessed code. We need to
+> > ensure they don't leak in uapi headers for example. Not a fan of this
+> > approach but I don't have a better suggestion either. At least we could
+> > write them as:
+> > 
+> > #if ARM64_S390_COMMON == 1
+> 
+> This is a great idea and an improvement. Thanks.
+> 
+> @Marc: Shall I sent a v9 of this series or do you want to pick v8 and I
+> send this as an improvement once picked?
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Please send a v9. That's invasive enough that it warrants it.
 
+> > It would also be useful for the awk scripts look for the paired #endif
+> > rather than relying on the comment at the end of the line. Otherwise
+> > it's not really different from just sticking to comments.
+> > 
+> 
+> Are you suggesting that the AWK scripts should track the #if% and #endif
+> in the code and warn or reject if the marked endif for the shared code
+> does not match pairing with the starting #if? That makes sense yes. I'll
+> investigate and would add this as an improvement later on.
+
+I think the suggestion is to teach the script about the #if/#endif
+nesting, and therefore to not require the trailing comment on #endif
+(i.e. the script acts as a normal cpp).
+
+It should only be a matter of counting the #{if,ifdef}s and #endif
+past the ARM64_S390_COMMON guard.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
