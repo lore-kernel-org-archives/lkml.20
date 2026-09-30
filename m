@@ -1,199 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f20.google.com (mail-ej2-f20.google.com [74.125.228.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FACB4CE688;
-	Wed, 30 Sep 2026 12:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD9F3DFC74
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770565; cv=none; b=dglFTjOuzRcXBrR5wdnw6stPlBcsD+8IvS9O7QdDNefKZlqGv/JaRe1zq83luXDXAG6RN5JpR5gx3ITTX3qaXwbcu6o13lEWDgZS+CzFuoRm9i1d/1M7Z3broTUWViguXH89BClAUvQn3PpMAE6FqlDL0YP1Q8bF5cciV5+WHrw=
+	t=1790770680; cv=none; b=t6AcYXKF5VGqaAyBD/fQFuaJakigBLz4LiR3BLmdYFsqmZcRZ5tnRc8rdBxU1Zr6HbFMc2ulUbmmFBMOMYpEIDrcCnMSj4PJaJb3+ubJ3gl/L1kks8nWECtRQsnDGZTzggS/M+d1T1fC2xm/UcngudUgjxwe06e8pJd8ufvDFu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770565; c=relaxed/simple;
-	bh=O2T7cgLC7o0DlEiWg1oByORFowPDVnrqcwK/iNI/Udw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AQKVfVnd05DTdUyQlF0K7vulJeoSIREQndF+DwhmC3/2HRmMPOqzh+EBQpCJx13UcLaertXnX9XUfsNNseq6iLkG/5da8fF4NUSyRHZ4QYn5u791YFIZJD/QnD2FTsRG89c3oQ9qTnwYmM3B/I2K6Ya1q5aD4keB/8lIoyMih1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOI5pq/h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790770680; c=relaxed/simple;
+	bh=TTiZSX+Vu/AzQcsdMRHtCMCwgSLVhXM1cLs3BZe1qwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nfFYRXXgUDuBJC3bJKrgf2Wk9jAmBVb5wKaZ3SdF6yD72Z3eMgQ18pVr9PhPr7xzcgXwQb2CIBwNNhl+deHHwMZhZCJJ4KbsNMFpeCfutHEiIg8Fn82RbA13z3EoTKHK6IRphbbXWHatclM9IZB+VsbbCOmAKsuGtehNq9K877M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PqlGKeBe; arc=none smtp.client-ip=74.125.228.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOI5pq/h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CFB1F000FF;
-	Wed, 30 Sep 2026 12:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790770564;
-	bh=H4zXzPrnJja1BHKDHtq5BxDIJftOHm+1n2VssXkb234=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nOI5pq/h0txyI18c+h/bCV9PuUjVb4+ME26pgb6r4PjLF+7OhidsG1JbxpRhDtw2v
-	 54+L0EnPa1449AKTlT3pufKrvxDz453fqUexrChx6ciWPBxYFGWpVaq7GcE+MxVU9P
-	 1uyYmPDusXLpbqHuGcpjipIG8tuHq85hrQ8+c/zM62rs1GEcMtB0qI7AXVuvJzcxl3
-	 ct86envx4ATsUcEMZfzttOGLGbEClCSr6ISa5gpLnqDWrYDRo+SPyuYB08B5P1cNH9
-	 LKWLAfSJ8Z11xUBgqdT5S1N1aZjDxURpMkingW12k2j2rKq3vyCh5OVJKBEd/mXc2y
-	 CYRse6GPqc4xg==
-Date: Wed, 30 Sep 2026 07:16:02 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: jic23@kernel.org, krzk+dt@kernel.org, dlechner@baylibre.com,
-	linux-kernel@vger.kernel.org, nuno.sa@analog.com, andy@kernel.org,
-	marcelo.schmitt1@gmail.com, skhan@linuxfoundation.org,
-	Michael.Hennerich@analog.com, linux-iio@vger.kernel.org,
-	conor+dt@kernel.org, linux@analog.com, corbet@lwn.net,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 09/13] dt-bindings: iio: adc: adi,ad4134: Document
- external multiplexer usage
-Message-ID: <179077056179.2288166.13408399366910214654.robh@kernel.org>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <4c6b88d4332a3fd6d4c3f7a65478b24d2015226f.1790719425.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PqlGKeBe"
+Received: by mail-ej2-f20.google.com with SMTP id a640c23a62f3a-c293c683202so761563966b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:17:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790770677; x=1791375477; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PzFGcomGYdeFAjB1WE4iZyT8RWcWRQdQmOu+87EuTuk=;
+        b=PqlGKeBeKpvhOVUQfid1XVGRDhUlphJZlIslk/x6XMZspos3oAvU5KwOEJUCGFs5+y
+         ZNWcSDWF0xiYxQifTLKbCDhXWL0mIpqAuFMRIgQFc3AN2TgvWkv8wQyWb6O2SfSciD1W
+         tu2Wh9jWEcvuR2EfslHc13QDBbqOKAmGFfgCUW0Fg12daK3RMuShZQaXYlsWJoa53NAm
+         AIU8cxeQ1F4akJ3fD+ih1cG+qNhny1mHNXvshIsXh5wIhHXID2UDwlqyUukoHXOqpzHE
+         9/w79bkEgy6t/RPXXS2g/TNurwabjeG+CA3Ye3hXzpZIRA6KeUOYl9drSF/cSeqmepaQ
+         7B+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790770677; x=1791375477;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PzFGcomGYdeFAjB1WE4iZyT8RWcWRQdQmOu+87EuTuk=;
+        b=C/oV7wjalFrxvgpvkPp0LDl2swHp6Opfuq6ekSNE59dAJ9leVcP1OK5ZdPvISFA/wk
+         8l3VEg640UF0pM8OyHHZTU8pOu6/ic1DbLcOxBImxsozGdsXi5VWv7Qr1e7a8hrb4Bzq
+         Z/1k1fRyBmTxOLfKShc34ccdQVvrjMyWjnebqlGdNwswyRRV48wP37jMYpZBfJTJaLLt
+         NJMYNbNk2e0Npuw93M+AC+Mlv2cLpacPh5ckpbzAHMVWYN+BJD/MD54PnOmsE7mhaPA3
+         HD1Jnfbbcej6CSoaK4Nld8LGypPyarDEFYDfiJe3wAax7lB8Ys2qw7mUG0k93skPaWdE
+         MTig==
+X-Gm-Message-State: AFuF++l1s6EcAKYFXCy5A7rpuM5selToQvnHA3uEfMvWFiiqUT6vuv/3
+	ztz1Jg/y5CEkvhLoU551NUxmc6cxKADpPF674sjbEvzT6sQoFiW96fZA1i65kC9H
+X-Gm-Gg: AYBFou0C7/YxWF+AQIf7xU8jSXZioPPauttkxxFWbYjB3CiWD3BQdWeWCIr0JfI8i43
+	mf4mMu7Z0XXZ89zFjgvqnM+BCGNabEbPQDfuu1i7yBSEo3NVX3xCmhS9VlnjjDYw0TewL57j4XD
+	8l912t/rPTBDzbYXGNPgiL2vx7cp1qEilBuqZ+FTPSbmQ/bIrSYH8YV/1HJyPdyTQAsPFOsc88W
+	jCIHNLnnqSwSH60HS2Fh/6EwU4MIwJmreeZgS5L21ceXNqwyCNI72w6zbSxz2ILuLrTM/urHDDm
+	DqZTvOF3vToQ+N+ICCTDnT8fUQDMG6HzSq1jQ7QSZcKFYkukEZgKevRiWUeLhFoWlGauzAx8GV0
+	Z0zLZDo1lKmOEqG2KKS0PBF7JBqAAuSyKobnoNwTgke5eNSEYpIIJ8WUOmXzMXk/rG5XzzwlGJp
+	wOQN8LxmBJzvQso1rBUW39qjA46MHGNbufF461/yqNX5d2fCLTxSv0arwRr+epqFhSBcKhhuvJB
+	LGWA7C23XWQCvXzmDc5G230RXwo1JVHsfcMKKXwaW3IQIhedRokQrHWDOt+jtNjqouXgkYPrXmD
+	MsFaM+AANe2k18kwP5xDzFXYUyvfx5qjEDKHo3Ucxfv3nmxwGhH9nPv0fc/mx5KLIVqMMX2+Tlu
+	tSzIn1UaSR2disUas+i/bf7XyWqv7Ye6wWA==
+X-Received: by 2002:a17:907:960f:b0:c26:19de:9ac5 with SMTP id a640c23a62f3a-c2e23d99d05mr103066166b.29.1790770676769;
+        Wed, 30 Sep 2026 05:17:56 -0700 (PDT)
+Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f7fa5dsm55982266b.43.2026.09.30.05.17.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 05:17:56 -0700 (PDT)
+Message-ID: <9359c431-d21e-471d-a3e1-76711da7aabb@gmail.com>
+Date: Wed, 30 Sep 2026 14:17:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fat: validate dotdot buffers in VFAT and MSDOS rename and
+ rollback
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+ <20260929090029.742579-1-krystianmkaniewski@gmail.com>
+ <87ld8j4161.fsf@mail.parknet.co.jp>
+Content-Language: en-US
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+In-Reply-To: <87ld8j4161.fsf@mail.parknet.co.jp>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4c6b88d4332a3fd6d4c3f7a65478b24d2015226f.1790719425.git.marcelo.schmitt@analog.com>
 
-
-On Tue, 29 Sep 2026 19:44:42 -0300, Marcelo Schmitt wrote:
-> The AD4134 design has two data interfaces. One interface allows register
-> access for device configuration while the other (separate interface)
-> provides ADC sample data. One way of handling both peripheral interfaces is
-> to merge them into a single SPI interface by switching between register
-> access and sample access according to device user requests. Though, such
-> solution requires extra hardware, external to the ADC chip. The access mode
-> switch can be done with an external multiplexer selecting either AD4134 SDO
-> or AD4134 DOUT0 to connect to the controller. The external multiplexer
-> becomes part of hardware requested for AD4134 device operation and thus
-> must be provided for operating the peripheral in such merged interface
-> schema. Still, there are alternative ways of handling the two AD4134 data
-> interfaces so the multiplexer is not always required.
+On 9/30/26 10:02, OGAWA Hirofumi wrote:
+>> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
+>> index 35bdb6294..cee06e635 100644
+>> --- a/fs/fat/dir.c
+>> +++ b/fs/fat/dir.c
+>> @@ -941,6 +941,40 @@ int fat_get_dotdot_entry(struct inode *dir, struct buffer_head **bh,
+>>  }
+>>  EXPORT_SYMBOL_GPL(fat_get_dotdot_entry);
+>>  
+>> +static int __fat_update_dotdot_de(struct inode *dir, struct inode *inode,
+>> +				  struct buffer_head *dotdot_bh,
+>> +				  struct msdos_dir_entry *dotdot_de,
+>> +				  bool force_sync)
+>> +{
+>> +	lock_buffer(dotdot_bh);
 > 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> Change log v2 -> v3:
-> - Included the example right away with the doc update that documents it.
-> - Dropped mux provider from offload example.
+> This looks like unnecessarily wait the completion of buffer I/O, isn't
+> it? I guess, it is ok to give up to revert if surely I/O error, because
+> the reverted buffer will be the I/O error again.
 > 
-> Currently, SPI offloading is only supported in 4 wire mode. So, offloading
-> wouldn't be usable if added before the 4-wire patch.
+> Thanks.
 > 
-> 
-> Detailed reasoning for the external multiplexer usage.
-> 
-> Before coming to the current solution, the following configuration was tried.
-> 
->   +-----------------------+                           +-----------------+
->   |       AD4134          |                           | SPI Controller  |
->   |                       |                           |                 |
->   | SPI interface         |                           |                 |
->   | for register     SCLK |<--------------------------| SCLK            |
->   | access             CS |<--------------------------| CS              |
->   |                   SDI |<--------------------------| SDO             |
->   |                   SDO |---+                       |                 |
->   |                       |   |                       |                 |
->   | Data interface  DOUT0 |---+---------------------->| SDI0            |
->   | for ADC data    DOUT1 |-------------------------->| SDI1            |
->   | read back       DOUT2 |-------------------------->| SDI2            |
->   |                 DOUT3 |-------------------------->| SDI3            |
->   |                 DCLK  |<--------------------------| DCLK
->   |                 ODR   |<------------------+    +->| Offload Trigger |
->   +-----------------------+                   |    |  +-----------------+
->                                               |    +--| PWM1            |
->                                               +-------| PWM0            |
->                                               +-------| GPIO            |
->                                                       +-----------------+
-> 
-> Though, because DOUT0 never goes high-Z, the DOUT0 pin keeps driving the data
-> line, causing register reads to fail.
-> 
-> Alternatively, we could have something like
-> 
->   +-----------------------+                           +-----------------+
->   |       AD4134          |                           | SPI Controller  |
->   |                       |                           |                 |
->   | SPI interface         |                           |                 |
->   | for register     SCLK |<--------------------------| SCLK            |
->   | access             CS |<--------------------------| CS              |
->   |                   SDI |<--------------------------| SDO             |
->   |                   SDO |-------------------------->| SDI0            |
->   |                       |                           |                 |
->   | Data interface  DOUT0 |-------------------------->| SDI1            |
->   | for ADC data    DOUT1 |-------------------------->| SDI2            |
->   | read back       DOUT2 |-------------------------->| SDI3            |
->   |                 DOUT3 |-------------------------->| SDI4            |
->   |                 DCLK  |<--------------------------| DCLK
->   |                 ODR   |<------------------+    +->| Offload Trigger |
->   +-----------------------+                   |    |  +-----------------+
->                                               |    +--| PWM1            |
->                                               +-------| PWM0            |
->                                               +-------| GPIO            |
->                                                       +-----------------+
-> 
-> The downside of the above is the peripheral would need fine-grained config of
-> controller SDI lines to only read SDI0 for register access, and only read SDI1,
-> SDI2, SDI3, SDI4 for ADC sample data (currently available
-> SPI_MULTI_LANE_MODE_STRIPE reads from all SDI lines).
-> 
-> The currently proposed solution looks like the following
-> 
->   +-----------------------+                         +-----------------+
->   |         AD4134        |                         | SPI Controller  |
->   |                       |                         |                 |
->   | SPI interface    SCLK |<------------------------| SCLK            |
->   | for register       CS |<------------------------| CS              |
->   | access            SDI |<------------------------| SDO             |
->   |                   SDO |------->|¯¯¯¯\           |                 |
->   |                       |        |MUX  >--------->| SDI0            |
->   | Data interface  DOUT0 |------->|____/           |                 |
->   | for ADC sample        |          ^              |                 |
->   | data read       DOUT1 |------------------------>| SDI1            |
->   |                 DOUT2 |------------------------>| SDI2            |
->   |                 DOUT3 |------------------------>| SDI3            |
->   |                  DCLK |<------------------------| DCLK            |
->   |                   ODR |<----------------+    +->| Offload Trigger |
->   +-----------------------+          |      |    |  +-----------------+
->                                      |      |    +--| PWM1            |
->                                      |      +-------| PWM0            |
->                                      |      +-------| GPIO0           |
->                                      +--------------| GPIO1           |
->                                                     +-----------------+
-> 
-> By being able to mux between AD4134 SDO and AD4134 DOUT0, the peripheral can be
-> connected to a single bus such that controllers able to read from multiple lines
-> will be able to gather ADC sample data from all SDI lines (SPI_MULTI_LANE_MODE_STRIPE).
-> With that, AD4134 maximum data throughput can be supported with what is already
-> available from the SPI core. See additional details on the AD4134 IIO
-> documentation (patch 13).
-> 
-> Yet another possibility would be to have the peripheral sitting in two buses.
-> 
->   +-----------------------+                           +-----------------+
->   |       AD4134          |                           | SPI Controller A|
->   |                       |                           |                 |
->   | SPI interface    SCLK |<--------------------------| SCLK            |
->   | for register       CS |<--------------------------| CS              |
->   | access            SDI |<--------------------------| SDO             |
->   |                   SDO |-------------------------->| SDI             |
->   |                       |                           +-----------------+
->   |                       |                           | SPI Controller B|
->   |                       |                           |                 |
->   | Data interface  DOUT0 |-------------------------->| SDI0            |
->   | for ADC sample  DOUT1 |-------------------------->| SDI1            |
->   | data read       DOUT2 |-------------------------->| SDI2            |
->   |                 DOUT3 |-------------------------->| SDI3            |
->   |                 DCLK  |<--------------------------| DCLK            |
->   |                 ODR   |<------------------+    +->| Offload Trigger |
->   +-----------------------+                   |    |  +-----------------+
->                                               |    +--| PWM1            |
->                                               +-------| PWM0            |
->                                               +-------| GPIO            |
->                                                       +-----------------+
-> 
-> That may be a fallback option if what's currently being proposed fails to comply
-> to Linux code standards.
-> 
-> 
->  .../bindings/iio/adc/adi,ad4134.yaml          | 47 +++++++++++++++++++
->  1 file changed, 47 insertions(+)
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Indeed, lock_buffer() may be a bit of an overkill here. Iâ€™ll rework the patch to track the buffer whose synchronous write failed and skip rollback operations that would modify the same buffer, while still rolling back entries stored in other buffers.
+Thanks for the suggestion.
+-- 
+Krystian Kaniewski
