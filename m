@@ -1,544 +1,291 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [148.163.129.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688A84B0497
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790811619; cv=none; b=Vq8r310Lbkp7wlf7j/jJTkS6X9MurxkwS1BKNvGDq/NHv9PNDMi4ElQoXRHmSrd6AJXjFZfyIvPWA7UXr5wps/2vYCzwKmu6uYLqtL0YUKZmj4n+yYRgqa8SmHqQhukOw8vq1FA5flW7ZD1sY+pjZb9+9fPWSJcmlyHW0cnBb78=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790811619; c=relaxed/simple;
-	bh=/wT84atEVTXgORjRobOlq0EX63PcjkCoip+DOkemHzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LTPlBW3vcMENLjoYdqQDcKAowwo/4UiyZV7VwA77/A14AiO3KeIgXguQ2Uj6otR5Q0wHjZBOIHaqlqaBCld+YnS47lJaKiV0Yomuz4Bqs+fP6m0D8WXLSKk+VYFDlsX6xslY5mwg1KwROCs4N8sHRGa8I01dGKq9etSP1KdNdiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Inund3JY; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DA24ACC78;
+	Wed, 30 Sep 2026 23:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.129.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790811708; cv=fail; b=BWedaIO+frOq1i8ooseSRcmWxpwt54a87GoCSw/nqso4wxg0v7176h1GT6vwTtfkz8ZXjoOt6BsRcUMyfIpCVwo2Nb9ndacbBwk5lOLE1x49JO35ZeW59vS9R4GIBJKg9g7TW3rBD4QgZn9GYWA8ye6oDMUdZXSPfemzBit6ghc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790811708; c=relaxed/simple;
+	bh=US3xjaKMXBU7CRFL6NQHdMdfgTv6dWupEaBPA+OyzyU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=CJ6cUPuM5N1spGjXcaauiHgZc2t3y2vpZYz3T/4YDNfx4vLM4eAaDCRa6COrpIc5GFJdAOnEDVfa+NXCvKEiKJOeVMgMwWvOJtbU1fNfnIsRSwGzQkFhoCw/s331Le5Cww3zCMsCBtaW667j2Oohnr2fpkXSs0TBczs5lKxaC+Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=VSLcc/RK; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=IoH2CtyI; arc=fail smtp.client-ip=148.163.129.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Inund3JY"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664c2da6so5076788eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:40:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="VSLcc/RK";
+	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="IoH2CtyI"
+Received: from dispatch1-us1.ppe-hosted.com (ip6-localhost [127.0.0.1])
+	by dispatch1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id 9C93E4498AB;
+	Wed, 30 Sep 2026 23:33:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
+ h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
+ s=mail; bh=338NXdcBYMwbTvMSGXPOHhGvv8CevrR7Ck51UvNh558=;
+ b=VSLcc/RKO845+5clcIO7XIUZJy+SoLCEUJtX9UW5QJly5jYbJr0n5ipKJYZ/SjzAbp+zeGuItbMKfll7WHjdj2TwyDqmRsgyEAACNoIgevIWifBOpX4Ix0RhNQ92FUEx9fy2A/spx3aN2aobGzbWeQQ8IOaQtiq8Vf/hcVhKjYAVkgKXd7gb490Wy2KIv0lXUGod7u8Fy8RMJeK05xhptBAmm/yunpYad1zehjrlFDPfGhc8KWfMKDHVDS6ukJD6wKSM2dJRR1QdOP1amNVxQybFK+rl8o3tiBN6fDJkfD+U3ECrLHJR/hCNT9OaBaPLiyBh8eznGZg7+krjC9/E4g==
+X-Virus-Scanned: Proofpoint Essentials engine
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021098.outbound.protection.outlook.com [40.107.208.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 592C6A80079;
+	Wed, 30 Sep 2026 23:33:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u1SwPXftPWV+mrnqBQbQ2EXLw7B17Wkxn1nBbZjoKlzuUzeOYHKH54RkQlKPzEExpEpHu2WzJXiB+D9/fd8wLSQ9AUk3EqPZ3XQFcq2JmOeCabyHM9iLJEhK9fd/zm/zFSEWZIrH24q0hnj3XAUIaSgPz2au13t4XGuI1swvJwQCKQ4LgNTC0rN4OnmS6FrM/oS72zgf1SooZzW/VInJNSjjbgFxd8yIdUIyJNt9Z6thhSPnB9Xh/cLQVKnRg8ZpyOYfSNy3FLDtRl6SBApH3jTJpy399mpkqlN3IzpfddF76Nf1yqdxH0ZBxSrVNixUzhGUqNVutz3OG581EvMoEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=338NXdcBYMwbTvMSGXPOHhGvv8CevrR7Ck51UvNh558=;
+ b=dZTo4iKc+hyWuSdU7PsHv/0PiKk3uzoUdJuCTW5m+P13jh0Q6+LautC0jHT0497sQp+Va7u0DEVKjISk2OY4OICk5TiWwZZnuMBho+0Q63IVY7OvABYnowRtWowqseMsGeUFJsutGDL4tT+0YVSCxGCVAnI64rk4txxkyS61Rv4PUfyeRX98RdZyy4r19dSMPfQskcssX1TO/nQFqPJvX2eJ66qsr1yDh5Gjb3wf0z4dL6rNcQrjG91byf2rFrJU08MOL75ohGTkr1j0TTior/ahAlINR0e0bJKIyNyWiD0DXkGpv+gy/sbeHgZ63aC3Kp6ju2swsllFyHrPZhegsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
+ dkim=pass header.d=sitime.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790811615; x=1791416415; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l47E9Z6dlv3zY8CaNIvzT71Tj+TWd7f9o2zVJXg7guU=;
-        b=Inund3JYaJeXT7sA6Ok7nmccHTGQuc4fv03gW2i2sLk/muEu94reEQZJyOTD1nnb+d
-         vCKq5HKNwAJyiAhQOoCu2eaucRSv2HfGUnoi17/GOWJ0i1BF3+HKe4DF9/0UKjtctwHs
-         LYnafWBUeTD3SC26PipAzVRHmAA/gDPxM9Zyc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790811615; x=1791416415;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l47E9Z6dlv3zY8CaNIvzT71Tj+TWd7f9o2zVJXg7guU=;
-        b=bLyenqMqYJdtV1kzTfPZgG5LBDEyxKlHJdch1QD9bILcD1AqgTJupC2fcqjss2DvRA
-         zaokrSAk2izmK/NazyM9K0s1vgkybS/2r1E++MYieMA3e7/bZ+fAesW/GJYBvE30gyJQ
-         4BooiE59QQuv6NrmIZyyk2pMP1D6uD/RTeW+zVKt0lIl7ukWucHR64ZzJG7hyLI3PEFg
-         ktEKFCcGODU0nGr5jwfRPNzQ/9jUP8IqB9Ze+piRBxhtsE6Q04u/izydKss/Fb+9eBO+
-         iNTg/4Pg0RYgclpP/QtkVQvhkkB19bKPeOdWNFHYtalyoRKDcWMM3P8pyMfLO4w/EuzG
-         PuMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCJOGGUxKGmJ30LKMc29R2hOGD26kyVBkmAq+Puyribcicgmq+PueUUTbInCu/7OcEzX0pzw6Vg8a5WlQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK3hPLUXo9XPqsc4qDlKfAgB05P0yAOxonuHHAJ3ZN2f67YEJh
-	IJSoNp8W5YOl5CrgR+YTFN9Kcvdo6QdB7RG/LjIvxf2iphUkFmOYD4HUubScxG3wkg==
-X-Gm-Gg: AYBFou0ZP8I7Y14KdHVYyT4xfnkRch6iD8+EfU3t9Bcz3940TbfCyKp7KUQi/W0XEYe
-	isEKJr+vkBccia4HjjXWADdIfk+5x02EZpfZEBnCpgszSAgphR5ObloOQLIlm63GRkGfftOEn1P
-	qfIHV8sRjIaNJxGhN+sQz8XOATRjXZYywvn+GJtjZOhJWI7ZjMhvaGD1QfkuObP4EjJ9xSO4xvT
-	jFVk/srLfGEeFsi64E3L/MU0hWPCcDai8HaLrOuERjfZmnn59rHUF8YK4h3GesPR2YcHgUyygJx
-	uwYbQKLh0XssZGSi+a1vbm4GPGVDgsmvPwxA8RX61WV539JLV1HNK7X6IyCgeH5SKFzVuRfXDLr
-	TkKpR1qKWF+J/x7YErqya8xT0AQsydus/b0/I7BjZsZQR1G7CBbiaemfvb3T0ELzpJfF+me27/+
-	jFFvKaqqXzIvKmjwhBcVVcBuFkKYI+k1G26RT7D8rABQf6QOzVEzqHH7G6k5eSOmDanZP9G5s9x
-	dU2eocnfHZfODaI0h24NonGcCi2vxPal5EohQ==
-X-Received: by 2002:a05:7022:fa2:b0:14a:c6cf:1449 with SMTP id a92af1059eb24-14d330b01b8mr4616808c88.32.1790811615061;
-        Wed, 30 Sep 2026 16:40:15 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:7cf1:ee59:f140:7be9])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-14df49c86b7sm1150029c88.17.2026.09.30.16.40.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 16:40:14 -0700 (PDT)
-Date: Wed, 30 Sep 2026 16:40:11 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Doug Anderson <dianders@chromium.org>,
-	Ulf Hansson <ulfh@kernel.org>, linux-doc@vger.kernel.org,
-	linux-pm@vger.kernel.org, Len Brown <lenb@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] PM: runtime: Expand introduction with core
- concepts and structure
-Message-ID: <ar2d2xCi9ITd3NYH@google.com>
-References: <20260930025044.104824-1-briannorris@chromium.org>
- <20260929194956.v3.7.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
- <CAJZ5v0ifwGx-1H-YVM63-0HUD5cs+5W4Tk8T+2LdLZpy5sLS9w@mail.gmail.com>
+ d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=338NXdcBYMwbTvMSGXPOHhGvv8CevrR7Ck51UvNh558=;
+ b=IoH2CtyIW1Kb1oeNGoy5vXneKRMbidp2Ih8Li/f3qLa7l/2xNI6P9p1sqHH7qmHEP0L04Ze/7nm2aPG4GDX0gcDVefbg/JXYJsIGm2CC01EUgamZJUvu5NuB4qWvqIGGE12ct2J+CJl+H6f38zg5qB235qqUMFDDPQuHwXi3iM1X/SjFGpIXkqs54Vgdy6E6/fb2+bQyTj7I4+BnHAN2EHJXJVgsoasekwSuKtQnUF27dP5VGfoAAPySEQpsbOkEAFXnAudSm68jH2e4RTn0K/bM4UlgWRwAAq6LgVENlJKf+bINKYDN4kpTULAPVNhI6J5mYQlf89HtjlKsdUm3Dg==
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ (2603:10b6:408:3bf::16) by BL3PR20MB6748.namprd20.prod.outlook.com
+ (2603:10b6:208:3bf::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 23:33:14 +0000
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 23:33:14 +0000
+From: Ali Rouhi <arouhi@sitime.com>
+To: "kuba@kernel.org" <kuba@kernel.org>
+CC: Jiri Pirko <jiri@resnulli.us>, Vadim Fedorenko
+	<vadim.fedorenko@linux.dev>, Arkadiusz Kubalewski
+	<arkadiusz.kubalewski@intel.com>, Ivan Vecera <ivecera@redhat.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>, Oleg
+ Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>, Paolo Abeni
+	<pabeni@redhat.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 02/14] dt-bindings: dpll: add SiTime SiT95316 clock
+ generator
+Thread-Topic: [PATCH v10 02/14] dt-bindings: dpll: add SiTime SiT95316 clock
+ generator
+Thread-Index: AQHdSgVXLQ3HaWA+C0iXh/gobXHQUrbgKxsAgAeo7gA=
+Date: Wed, 30 Sep 2026 23:33:14 +0000
+Message-ID: <20260930233306.81858-1-arouhi@sitime.com>
+References: <20260926023438.1567469-1-kuba@kernel.org>
+In-Reply-To: <20260926023438.1567469-1-kuba@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sitime.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|BL3PR20MB6748:EE_
+x-ms-office365-filtering-correlation-id: 9fab4a33-6ac7-40bc-2471-08df1f4b32a5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|38070700021|3023799007|6133799003|10067099003|56012099006|5023799004;
+x-microsoft-antispam-message-info:
+ jpIoPHIvALhhdqZWMvJTvhDrpmUupd2Ibrp5ejgixxg4QIsXU6etwJSgy4Q+yHMLElQBQutgBUhzRwA/KaYJEFTaq7Cv8VnKIGe5a4rsXUVb3EgTmF5nuQ7umulJAMuQO+4qsViYZqjxMa2SZKvPR9EIXrKeQ8TZVbic2Vy5Vm3Otivt5DQsbf6cFa/UaH5vVnrfFbkoK0lVhwsqlDMv05EMnXDrlnPui11jQijlCbvqyXoS9iX/1P3f8BcruMu4L174mAltNnZhAKNvofoIesQ1lX1MPChyzUhfp6Sm01SH2U8T2iYWOJ2RbbZ9Cems76113kjIQV+WIsDWrsEWEu6HQwViREp8UCLL2YsVTm/4Vn4jl5CFSKzlikwso7YOsSvX5cdG6UKaTUvxjJQ9qyyQN9vyDUfPSFi7+udHA38PA4wvbKW6Wmc5Negf1HidrG3Q5MtXYl/3WO6QvxkJXlQWFoM2wCDNGU1jc/u81CLX5+ske2u0Kej0GxqvWYuDYhpPuoBvAquUnrdl61qy1XGi6jNX8jx3b8WZB8M/5zuUgpDYoubEsV98z8P/NzsNjC0I8f31bKNZ+g/5COdqcDoYMwR62dypyhvVJSSu57mnrbIq09uU1wuZCXKWp10lE4Oz8gwVD3eoPsrMkrX7ZvKAuiBTouN7rZwv/qFnv7mm+6Qc3rmADYJxE6VWWLPvlyCCOB2Xngi3ATfTbSY7gtXrssIrT7MaC7z7yXPHhCE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(38070700021)(3023799007)(6133799003)(10067099003)(56012099006)(5023799004);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?RrRD5MmfZORDaukyqwglNiGQaVo+AodPUhaOT57lSxrateMLLijHP4gW/U?=
+ =?iso-8859-1?Q?a+dHo/Q0Voyjl9DVKk3nD2SI/or2/qX4h+TAxBMJSMxZ2gYPU3vulPdDDu?=
+ =?iso-8859-1?Q?is4JSRI/SyOQofb5u88Mq9Vjc4gCCaT5GeiYF8C57H1+CiJ0z1RpJB0ClT?=
+ =?iso-8859-1?Q?zVM1ZEti315pWz8InA8OfpgMwchznDaCAw+e20RCkQUqBGCPzAL4XUbaM4?=
+ =?iso-8859-1?Q?vgqfkz6L0nIaeA8gJSNENfGcKDjsN2UK4kHe8iu/A8wqcVSvVVBasGDpVI?=
+ =?iso-8859-1?Q?spETn4mztFVbtRND8NnLQV7LdXdZS/jr/7Gd7MPxokct6teKAS/1iGz/AW?=
+ =?iso-8859-1?Q?ASYMjPIFbOj6qVgLrpBY1oKzxqj88WkXYds4ui6cIcOcIGNkUkipK5nAja?=
+ =?iso-8859-1?Q?AN/YXldearsYvfl0eenBqMWCNr7y8j4Iadwj/ddMYCjtWr2pitYIDgSXOl?=
+ =?iso-8859-1?Q?+yJoz3jv4OIW7zNHwLx2/TkNNOpYs0JUv8CT1cPUsNn+mbas5eHnsDzY2q?=
+ =?iso-8859-1?Q?TvW0Br+eGTzppkvRzvmpogEkNRUdWRJG1lLL4bufnVaPT0dmNvmjmLRFya?=
+ =?iso-8859-1?Q?Pq70Zs5PsbXCXCO0Y9/U/iJDKEEswlok6WHgJ3Y2D8q0bzwB2yi9HmFkde?=
+ =?iso-8859-1?Q?iDj9TWo3QV2nd9LFxt1C/KSysxFPJdoGG3YTobrPeBVMpYY89T7XuN3poZ?=
+ =?iso-8859-1?Q?mW64R82tAIhCLNVyX+dJMR/btWaNL60GT2hSYjY91pui+ANJ1uoMTffWMf?=
+ =?iso-8859-1?Q?EkLgxqkWDuSPD9Q4IWhvtA/DoMe2rzh+6qETsWtIYi7l9rXTCIsoacNTrD?=
+ =?iso-8859-1?Q?IG9Sus6SLoGVUaoEzfTHyUtj8Va77mM4kzOoPau3b7Z14fgf4ZaPnVYA2u?=
+ =?iso-8859-1?Q?XjTya3p187pkqVZeA+uvSemJ+bku5t/yOGU4iPX+KrcJOmeIsMa2PP5/dN?=
+ =?iso-8859-1?Q?0IHqXNTQiAOFv7cBc8XPIjLbb6LJC2f5O6xDRDdAzHAiGZgrjGgirOaA8r?=
+ =?iso-8859-1?Q?YHrypMF+rTt9qKcrpq82vA+VyzRRnImwQovz/klYyynXtzaR4xPHzZEh1F?=
+ =?iso-8859-1?Q?IQ5EACrgPg5LtqC5+BHfErAjbJb0xygvW8EJ7S+1oDveKAkcDcBmTgExBO?=
+ =?iso-8859-1?Q?ZW5uQEfnqrtee2zcB9Wyvxl0DPZ17lgWM05F6Y8oEfKrrsJjbSHIhEvgR+?=
+ =?iso-8859-1?Q?SE2JQZGcVpB6ywxMdoUPYXjT0IlafVchvMskLDrm7VHJjdMVYHY+YUUb9y?=
+ =?iso-8859-1?Q?Oe/StD9vTUyvM1yOAC1w1hDfMHA1kZ/fH/er9loj+NlOGbaCHi27I3c7ZO?=
+ =?iso-8859-1?Q?NXTOFbXzI9naFjmCkiSLNFnojV+jCf7TSYHrTca2wSwY7yf3F3g6p8L8YA?=
+ =?iso-8859-1?Q?/WtVyUczeqSx/av+pCAwCQVEyKTKEAv/ogrm3pLE8YROu7oyqI8Ji7uPOA?=
+ =?iso-8859-1?Q?iF604VRvuxHgy2iMjyzO09ukp75Anboeyp6/8XkJiv+fl0FW4awUDCKx5K?=
+ =?iso-8859-1?Q?k0/9NrMdwBBYAAl5aGeur7BAPI6vLdYSmiEvzwQ6o8uz9vYy9SFOst5Ia9?=
+ =?iso-8859-1?Q?0USPQVPetivXERK/vlLLRxWwNE+ti5wtqCHuDy2KQEqDQlPhq3hfcWGwd4?=
+ =?iso-8859-1?Q?loobMHDPENV8RSDY+RRSGw1w/2NYiUukBSqcSAgp8woOeVyL1eljIzrlic?=
+ =?iso-8859-1?Q?D5y8ztcGZCbVuoP/Nz4tQ8Q2HE2QDyEusqn2+1TvCxTlWoIQkuJa3l3feN?=
+ =?iso-8859-1?Q?AGD4/yTmfgep92IWYBJXrTc+pgrnbtHO5UM0JjxfjRocKq?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0ifwGx-1H-YVM63-0HUD5cs+5W4Tk8T+2LdLZpy5sLS9w@mail.gmail.com>
+X-Exchange-RoutingPolicyChecked:
+	iQPWL9idcpCVQv/COYXAcHFRfZRwv07B1pVoKv7lcsQ4iiwz2pZtsHi93nE+RJlYR/hyl6rMcIjAh2A0G981hBybEHoQVELYNeRnEbFQZL96FWK6CikiX0i+7Ds1F+3cNiivREl4HoikqN3S5DzXeEynTLE4JI3/TQ9ZmMp21AKQ6ciiHFbEXKeugAw0UXVgRPbBvW8cz4ppXjulYE49PzUNEoN0E23XmCUBhm4qqlTjjQh0DX2rgLptwWHt47ZUCiCjExUG2EDUGl4IcqVn/NZnOpPwLW32tjEN1QawosWKdmchf0W2Xh+8FauXUx1qHxuzx+vCm2pQvVk1hORLzA==
+X-OriginatorOrg: sitime.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fab4a33-6ac7-40bc-2471-08df1f4b32a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 23:33:14.2137
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yOofATbG5+vefo27nQyGXdkhKnJFb/vptloORKtLrIp7JgJawqyetS8kE7icnqTa4mCYdiECCbIZtopsyi/AFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR20MB6748
+X-MDID: 1790811200-Q7OmOvqHy9kR
+X-PPE-STACK: {"stack":"us1"}
+X-MDID-O:
+ us1;ut7;1790811200;Q7OmOvqHy9kR;<arouhi@sitime.com>;ba04557de9d2da8490f5f1e6de07b967
+X-PPE-TRUSTED: V=1;DIR=OUT;
 
-Hi Rafael,
-
-On Wed, Sep 30, 2026 at 05:41:56PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Wed, Sep 30, 2026 at 4:51 AM Brian Norris <briannorris@chromium.org> wrote:
-> >
-> > I commonly see people have difficulty learning how runtime PM works
-> > because of the following key points [*]:
-> >
-> >  1) there are several boolean concepts in runtime PM, with somewhat
-> >     similar meanings:
-> >
-> >      enabled / disabled
-> >      active / suspended
-> >      allowed / forbidden
-> >
-> >  2) if these concepts are documented at all, they're scattered across
-> >     the kerneldoc or Documentation/
-> >
-> >  3) the runtime_pm.rst docs don't make any attempt to ease a reader into
-> >     understanding the concepts, and instead jump straight into how it's
-> >     implemented (queues, 'struct device' fields, helpers).
-> >
-> > Let's try to remedy this a bit by discussing the core concepts and
-> > highlights at the top of the introduction, and introduce a few
-> > sub-headings, so it's easier to navigate different aspects of the
-> > introduction.
-> >
-> > While shuffling the intro around, I also see that the existing text
-> > largely mirrors the layout of the following sections (2, 3, and 4), but
-> > does so out of order. Reorder those, and point to section numbers.
-> >
-> > [*] In addition to API complexity. I count 61 pm_*() helpers, 7 of which
-> >     are variations of put() and 8 of which are variations of get().
-> >
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > ---
-> >
-> > (no changes since v2)
-> >
-> > Changes in v2:
-> > Address review feedback around descriptions of "enabled" and "active". I
-> > know not every point of discussion was settled, but I hope this updated
-> > version resolves many of them and provides a better basis for further
-> > improvement.
-> >  * Avoid calling enabled and active "orthogonal"
-> >  * Describe more of their inter-relationship
-> >  * Prioritize talking about "enabled" first, since that's the first
-> >    concept a reader should know about
-> >  * Brief mentions of parent/child and supplier/consumer, and dependency
-> >    handling
-> >  * Other tweaks
-> >
-> >  Documentation/power/runtime_pm.rst | 103 +++++++++++++++++++++++------
-> >  1 file changed, 84 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-> > index 68903d93a3e7..c63fbf0ff862 100644
-> > --- a/Documentation/power/runtime_pm.rst
-> > +++ b/Documentation/power/runtime_pm.rst
-> > @@ -13,31 +13,96 @@ Runtime Power Management Framework for I/O Devices
-> >  1. Introduction
-> >  ===============
-> >
-> > -Support for runtime power management (runtime PM) of I/O devices is provided
-> > -at the power management core (PM core) level by means of:
-> > -
-> > -* The power management workqueue pm_wq in which bus types and device drivers can
-> > -  put their PM-related work items.  It is strongly recommended that pm_wq be
-> > -  used for queuing all work items related to runtime PM, because this allows
-> > -  them to be synchronized with system-wide power transitions (suspend to RAM,
-> > -  hibernation and resume from system sleep states).  pm_wq is declared in
-> > -  include/linux/pm_runtime.h and defined in kernel/power/main.c.
-> > -
-> > -* A number of runtime PM fields in the 'power' member of 'struct device' (which
-> > -  is of the type 'struct dev_pm_info', defined in include/linux/pm.h) that can
-> > -  be used for synchronizing runtime PM operations with one another.
-> > +Runtime power management (or runtime PM, sometimes shortened to RPM) allows
-> > +individual I/O devices to transition between high and low-power states
-> > +dynamically while the system is running, conserving power without waiting for a
-> > +system-wide sleep state.
-> 
-> I would rephrase the above as follows:
-> 
-> "Runtime power management (or runtime PM, sometimes also referred to
-> as RPM) allows individual I/O devices that are not in active use to be
-> put into low-power states, in which they may not be operational or
-> even accessible, and go back to the fully operational state as needed.
-> Power can be reduced this way without waiting for a transition into a
-> system-wide sleep state."
-
-Sure, looks fine to me.
-
-> > +
-> > +Core Concepts
-> > +-------------
-> > +
-> > +Understanding runtime PM requires distinguishing between several pairs of
-> > +related but distinct concepts that apply to each device: **enabled** /
-> > +**disabled**, **active** / **suspended**, and **allowed** / **forbidden**.
-> > +
-> > +* **Enabled**: To use runtime PM to manage a device's power states, it must
-> > +  first be **enabled**. If RPM is never enabled for a device, it generally
-> > +  stays inactive from an RPM perspective, and the PM core will ignore it.
-> > +  If it is enabled, the PM core can manage the device status (see **Active**
-> > +  below) according to its understanding of whether the device is in use, and
-> > +  perform state transitions via the appropriate PM callbacks
-> > +  (->runtime_suspend(), ->runtime_resume()).
-> > +
-> > +  Each device has an internal disable counter (``disable_depth``) which
-> > +  determines whether runtime PM is currently enabled. Devices are initially
-> > +  registered with runtime PM disabled (``disable_depth == 1``), though some bus
-> > +  types (such as PCI) may enable it before driver probe.
-> > +
-> > +  To opt into runtime PM, a driver first ensures that the device's recorded
-> > +  status matches its actual physical state (for example, by calling
-> > +  pm_runtime_set_active() if the device was powered on at probe) and then calls
-> > +  pm_runtime_enable(), decrementing ``disable_depth`` to zero (i.e.,
-> > +  **enabled**). Runtime PM may be disabled again explicitly via
-> > +  pm_runtime_disable() or temporarily during system sleep transitions.
-> > +
-> > +* **Active**: The PM core tracks a device's runtime status as either **active**
-> > +  (the device is operational, having completed its resume callback or otherwise
-> > +  marked active) or **suspended** (the device is idle or in a low-power state,
-> > +  having completed its suspend callback or otherwise marked suspended), along
-> > +  with transitional **suspending** and **resuming** phases. When runtime PM is
-> > +  **enabled**, state transitions are primarily driven by reference counting:
-> > +  drivers call pm_runtime_resume_and_get() (or related variants) before using
-> > +  the hardware, to ensure the device is active; and pm_runtime_put() (or
-> > +  related variants) once work completes. When a device's usage counter drops to
-> > +  zero and its dependencies (children or consumers) are suspended, the PM core
-> > +  can suspend the device immediately or after an autosuspend delay.
-> > +
-> > +  Besides driving the state of the device in question, a device's runtime
-> > +  status also affects those of its dependencies — its parent (if the parent's
-> > +  ``power.ignore_children`` is false) and its linked supplier device(s) (for
-> > +  links with the ``DL_FLAG_PM_RUNTIME`` flag). An **active** device holds
-> > +  reference counts on its dependencies, preventing them from suspending.
-> > +
-> > +* **Allowed**: System policy and user space govern whether dynamic suspension
-> > +  is permitted through the concepts of **allowed** and **forbidden**,
-> > +  manipulated in-kernel via pm_runtime_allow() and pm_runtime_forbid() and
-> > +  exposed to user space through the ``/sys/devices/.../power/control``
-> > +  attribute. When runtime PM is forbidden (``control`` set to ``on``), the PM
-> > +  core increments the device's usage counter, forcing the device to remain
-> > +  active regardless of whether the driver is idle. When runtime PM is allowed
-> > +  (``control`` set to ``auto``), this reference is dropped, permitting the PM
-> > +  core to automatically suspend the device whenever its driver and child
-> > +  devices are no longer using it.
-> > +
-> > +Notably, runtime PM also has a feature called "autosuspend." This is different
-> > +than the ``control`` notion of "auto" (i.e., "allowed"). Autosuspend is
-> > +described in more detail in `Section 9`_.
-> 
-> Regarding the above, I have reconsidered it with the conclusion that
-> it would be better to describe "active" and "suspended" first and
-> "enabled" and "disabled" subsequently,
-
-I also found it to be not-so-great to put "enabled" first, as it still
-requires forward-references to "active" to cover it sufficiently.
-
-> and maybe without going too
-> much into details yet.
-
-Sure. There are probably some details that could be omitted from my
-version. Frankly, some of those details are there because you asked for
-them though...
-
-> Here's my version of it:
-
-Thanks! My general thoughts are:
-
-1) I think your version adds a few things that are nice to have. For
-   example, a better clarification of what "active" and "suspended" mean
-   from both physical device level, and from abstract RPM meaning. (This
-   may also be where you've insisted on "meta-state" as a term.	I don't
-   agree that "meta" adds any value, but I won't insist.)
-
-   I also think the "forbidden" implication is a good addition: "the
-   ability to transition a device into the suspended meta-state via
-   runtime PM must not be relied on for correctness" -- that's one
-   reason I wanted to put allowed/forbidden up top; that it throws a
-   wrench in many people's assumptions.
-
-   You spend more time on dependencies. That's a good thing IMO.
-
-2) I think your version adds some things that are undesirable for an
-   intro. For one, it spends quite some time to talk about the pitfalls
-   of a "disabled+active" device. I think this is not something that
-   goes in an introduction, and is more of an anti-pattern. If we wanted
-   to document anti-patterns, we could write another few essays, I'm
-   sure... It's also somewhat covered in Section 5 already.
-
-   You've also completely omitted describing reference counting. This is
-   one of the most fundamental aspects of RPM, IMO. (OTOH, omitting API
-   names is a fine choice.) I think your elaboration of "dependencies"
-   is a good time to just break out a section on what constitutes "in
-   use" -- get()/put() references, and dependents.
-
-3) Lack of organizational clarity -- your version looks more like a wall
-   of text essay, which IMO doesn't do so well at engaging introductory
-   readers, or those skimming for one concept (e.g., "forbidden"). I
-   still prefer the structure that clearly highlights the main topics,
-   either with bullets or sections or something.
-
-4) autosuspend -- I think it deserves a mention in the intro, even if
-   it's a pointer to the existing section. Not sure if you meant to drop
-   it.
-
-5) Wordy. Your intro has about ~%50% more words. I think the same
-   content could be represented more succinctly, to make for a better
-   read.
-
-...but:
-
-6) It's better than not having this introduction at all!
-
-So aside from the general thoughts above, I will:
-
-(a) add minimal direct feedback to the text below, in case you'd still
-    prefer taking a variation of your content. That would be OK with me.
-
-(b) provide my own adaptation of my writing + your writing at the end,
-    in case you'd rather try that.
-
-> "There are some device-level concepts that need to be grasped in order
-> to understand runtime PM as a whole.
-
-I think listing the concepts at the top helps, as a sort of introductory
-paragraph/sentence to the following wall of text and/or bullets.
-
-Also, super-nits: you seem to wrap at about 70 chars, while most of this
-doc (and other docs, I think) wraps at around 78-80.
-
-I also see a difference on two spaces after periods or not. I guess most
-of this doc uses two, even though that's not the dominant style these
-days. I'll try to stick with two spaces now that I noticed. (Fun fact:
-it seems browsers automatically collapse these to one space, when
-viewing the generated HTML.)
-
-> First of all, runtime PM tracks whether or not devices are in active
-> use, which generally means that they are accessible and operational,
-> and may be depended on by something (for example, other devices or
-> user space).  That is represented by the **active** meta-state of a
-> device from the runtime PM perspective.  The other persistent device
-> meta-state used by runtime PM, called **suspended**, represents a
-> promise that the given device will not be accessed.  This covers
-> devices in low-power states, but it also may include devices that are
-> not fully operational, or are regarded as such, for other reasons.
-> There are also two transient meta-states, **suspending** and
-> **resuming**, that represent transitions between **active** and
-> **suspended** often referred to as *runtime suspend* and *runtime
-> resume*, or just *suspend* and *resume*, respectively.  Every device
-> handled by runtime PM is in one of these four meta-states at any time
-> and the meta-state it is in is expected to reflect its actual physical
-> configuration (that is, for instance, if the device is not accessible,
-> it cannot be **active**).  The term "runtime PM state" used in what
-
-Somewhat nitpick: everything else seems to call it "runtime PM status"
-or similar, not "runtime PM state". `enum rpm_status`, most of the
-existing doc language, the 'power.runtime_status' field, etc.
-
-> follows refers to the meta-states described above.
-> 
-> Second, in order to track the runtime PM state and carry out
-> transitions between **active** and **suspended**, runtime PM needs to
-> be **enabled** for the given device.  If it is **disabled**, it
-> generally leaves the device alone.  This means in particular that the
-> runtime PM state of a device and its actual physical configuration may
-> get out of sync after disabling runtime PM for it.  Analogously, the
-
-I'm not sure "analogously" is the right word here. It seems like you're
-going for "additionally" or some other similar word.
-
-> runtime PM state of a device may need to be explicitly adjusted to
-> reflect its current physical configuration before enabling runtime PM
-> for it.  Moreover, it is generally not recommended to leave devices in
-> the **active** meta-state after disabling runtime PM for them because
-> that may affect what can be done to their ancestors and suppliers
-> going forward.
-> 
-> More specifically, in addition to tracking the runtime PM state of
-> every device, runtime PM tracks dependencies between different
-> devices.  In fact, that dependency tracking mechanism is the main
-> reason for using runtime PM.  The idea is that in order for a device
-> to become **active**, all of the devices it depends on must also be
-> **active** and that is enforced by runtime PM.  Accordingly, an
-> attempt to resume a device causes all of the devices it depends on to
-> become **active** and remain **active** until the given device is
-> suspended.  In turn, an attempt to suspend a device may allow the
-> devices it depends on to also suspend unless they are additionally
-> depended on by something else.  While desirable so long as runtime PM
-> is **enabled**, this may become problematic when runtime PM is
-> **disabled** because the tracking of dependencies does not stop
-> automatically at that point and it may cause some devices to remain
-> **active** unnecessarily.
-
-Like I said above, I like that you went into more detail on
-dependencies. But I think this is a pretty divergent train of thought.
-In my edited version below, I chose to break it out into a new
-bullet/section, kept after the first 3.
-
-> As a rule, runtime PM is **disabled** for all devices to start with,
-> but there are bus types that enable it for every device (for instance,
-> the PCI bus type does so).  Generally speaking, drivers are expected
-> to know which bus they belong to and so they should also know whether
-> or not runtime PM has been enabled for the devices handled by them
-> already.  In the cases in which runtime PM is not enabled by the bus
-> type, drivers are responsible for enabling it if they want to
-> participate in it.  The devices for which runtime PM has never been
-> enabled are black boxes from its point of view.
-
-I think most of this paragraph is a bit too much, and is easily derived
-from just explaining that "most start disabled; some buses (like PCI)
-make more initial choices for you; choose accordingly".
-
-I'm also not sure what the "black box" mention adds on top of the
-earlier, "If it is **disabled**, it generally leaves the device alone."
-
-> Finally, runtime PM may be **forbidden** even though it has been
-> enabled.  Doing so causes the given device to transition into the
-> **active** meta-state (unless it has been **active** already before)
-> and prevents it from being suspended.  In other words, a device with
-> forbidden runtime PM remains **active** at least until runtime PM is
-> **allowed** for it again.  This mechanism is not only available to
-> kernel code, but it may also be used by user space through the
-> ``/sys/devices/.../power/control`` *sysfs* attribute of the given
-> device.  Namely, writing ``on`` to that attribute causes runtime PM to
-> be forbidden for it, and writing ``auto`` to that attribute causes
-> runtime PM to be allowed.  User space may use that attribute at any
-> time, so the ability to transition a device into the **suspended**
-> meta-state via runtime PM must not be relied on for correctness, among
-> other things."
-
-I still think autosuspend belongs in the intro, even if only to link to
-the existing section. (I also think the "auto" vs "autosuspend"
-disambiguation is important, but I'm also open to moving that part to
-Section 9 or similar.)
-
-> I think that it provides all of the information needed to start with
-> without pulling too much stuff documented elsewhere.
-> 
-> If you agree with the above, I'll send my version as a separate patch.
-
-I'm obviously biased, but I think there's room for improvement. I'm
-providing my adaptation of your text below, but I'm also open to yours
-however you see fit. Like I said, one of these options is better than
-none.
-
-Let me know if I should send the below in v4, or else please mail your
-own for review!
-
-"""
-Runtime PM operates around a few device-level concepts — whether a device is
-**active** or **suspended**; whether runtime PM is **enabled** or **disabled**;
-whether runtime PM is **allowed** or **forbidden**; and whether a device is "in
-use."
-
-* **Active**: Runtime PM tracks whether or not devices are in active use, which
-  generally means that they are accessible and operational, and may be depended
-  on by something (for example, other devices or user space).  This is
-  represented by the **active** meta-state.  By contrast, the **suspended**
-  meta-state represents a promise that the given device will not be accessed.
-  This covers devices in low-power states, but it also may include devices that
-  are not fully operational.  There are also two transient meta-states,
-  **suspending** and **resuming**, representing transitions between **active**
-  and **suspended** often referred to as *runtime suspend* and *runtime
-  resume*, or just *suspend* and *resume*, respectively.  Every device handled
-  by runtime PM is in one of these four meta-states at any time, and its
-  meta-state is expected to reflect its actual physical configuration (that is,
-  for instance, if the device is not accessible, it must not be **active**).
-  The term "runtime PM status" used in what follows refers to the meta-states
-  described above.
-
-* **Enabled**: In order to track the runtime PM status and carry out
-  transitions between **active** and **suspended**, runtime PM needs to be
-  **enabled** for the given device.  If it is **disabled**, runtime PM
-  generally leaves the device alone.  This means in particular that the runtime
-  PM status of a device and its actual physical configuration may get out of
-  sync after disabling runtime PM for it.  Additionally, the runtime PM status
-  of a device may need to be explicitly adjusted to reflect its current
-  physical configuration before enabling runtime PM for it (e.g., during device
-  probe).  Once runtime PM is **enabled**, it begins managing PM status —
-  performing *runtime suspend* and *runtime resume* transitions based on its
-  understanding of whether a device is in use.
-
-  As a rule, all devices are initialized with runtime PM **disabled**, though
-  some bus types (such as PCI) manage some RPM initialization automatically,
-  and therefore probe devices in an **enabled** state.  For other devices,
-  drivers must enable runtime PM on their own to opt in.
-
-* **Allowed**: Runtime PM may be **forbidden** even though it has been enabled.
-  Doing so causes the given device to transition into the **active** meta-state
-  and prevents it from being suspended.  In other words, a device with
-  forbidden runtime PM remains **active** at least until runtime PM is
-  **allowed** for it again.  This mechanism can be managed by in-kernel APIs,
-  but more importantly, it is also available to user space via the
-  ``/sys/devices/.../power/control`` sysfs attribute of the given device.
-  Namely, writing ``on`` to that attribute forbids runtime PM, and writing
-  ``auto`` allows it.  User space may modify that attribute at any time, so the
-  ability to transition a device into the **suspended** meta-state via runtime
-  PM must not be relied on for correctness.
-
-* **In use**: Runtime PM determines whether a device should be transitioned to
-  an **active** state by its understanding of whether a device is in use.  The
-  first way a device is considered **in use** is by its own usage count — a
-  reference counter driven by a variety of get()/put() APIs.  Additionally, a
-  device may be considered **in use** by having active dependents — either
-  child devices, or device-linked consumers.  When a device is no longer in
-  use, runtime PM may choose to transition it to the **suspended** state.
-
-  Thus, when a device moves from a **suspended** to an **active** state, it may
-  also cause its dependencies to resume.  Conversely, suspending a device may
-  also cause its otherwise-unused dependencies to suspend.
-
-* **Autosuspend**: Runtime PM also supports a feature called "autosuspend."
-  This is different than the ``control`` notion of "auto" (i.e., **allowed**).
-  Autosuspend is covered in `Section 9`_.
-"""
-
-Brian
-
-> > +
-> > +Implementation Structure
-> > +------------------------
-> > +
-> > +Support for runtime power management is provided at the power management core
-> > +(PM core) level by means of:
-> >
-> >  * Three device runtime PM callbacks in 'struct dev_pm_ops' (defined in
-> > -  include/linux/pm.h).
-> > +  include/linux/pm.h). See `Section 2`_.
-> > +
-> > +* A number of runtime PM fields in the 'power' member of 'struct device' that
-> > +  can be used for synchronizing runtime PM operations with one another. These
-> > +  are covered in `Section 3`_.
-> >
-> >  * A set of helper functions defined in drivers/base/power/runtime.c that can be
-> >    used for carrying out runtime PM operations in such a way that the
-> > -  synchronization between them is taken care of by the PM core.  Bus types and
-> > -  device drivers are encouraged to use these functions.
-> > +  synchronization between them is taken care of by the PM core. Bus types and
-> > +  device drivers are encouraged to use these functions. They are covered in
-> > +  `Section 4`_.
-> >
-> > -The runtime PM callbacks present in 'struct dev_pm_ops', the device runtime PM
-> > -fields of 'struct dev_pm_info' and the core helper functions provided for
-> > -runtime PM are described below.
-> > +* The power management workqueue pm_wq in which bus types and device drivers can
-> > +  put their PM-related work items. It is strongly recommended that pm_wq be
-> > +  used for queuing all work items related to runtime PM, because this allows
-> > +  them to be synchronized with system-wide power transitions (suspend to RAM,
-> > +  hibernation and resume from system sleep states). pm_wq is declared in
-> > +  include/linux/pm_runtime.h and defined in kernel/power/main.c.
-> >
-> >  .. _Section 2:
-> >
-> > --
-> 
-> The last part above looks fine to me.
-> 
-> Thanks!
+On Fri, 25 Sep 2026, Jakub Kicinski wrote:=0A=
+> [Severity: Medium]=0A=
+> Do clock-frequency, sitime,pll-fvco and sitime,output-pll-map describe=0A=
+> the hardware, or what the Linux driver and clock framework do today?=0A=
+>=0A=
+> Documentation/devicetree/bindings/writing-bindings.rst says:=0A=
+>=0A=
+>   DON'T refer to Linux or "device driver" in bindings. Bindings should be=
+=0A=
+>   based on what the hardware has, not what an OS and driver currently=0A=
+>   support.=0A=
+>=0A=
+> Both vendor properties copy state that the chip already holds in its=0A=
+> programmed configuration, and they would become permanent DT ABI.=0A=
+=0A=
+Both properties are gone in v11, along with the patch that added=0A=
+them. That is part of why the series is 13 patches rather than 14.=0A=
+=0A=
+sitime,output-pll-map described routing the device can be asked for.=0A=
+Each PLL page holds OUT_MAP_LO/OUT_MAP_HI naming the slots that PLL=0A=
+drives, the driver already reads them, and it never writes them, so the=0A=
+routing is fixed by the configuration loaded from NVM at boot and no=0A=
+DPLL call changes it. The property was kept on the strength of a claim=0A=
+that those bitmaps can be ambiguous; they are not, and device tree is=0A=
+for what firmware cannot discover.=0A=
+=0A=
+sitime,pll-fvco is gone for the same reason. The driver derives the VCO=0A=
+frequency from the registers, and that derivation reproduces every rate=0A=
+these parts are configured for. Keeping a property to override a value=0A=
+the device already answers for is the same mistake in a different=0A=
+place.=0A=
+=0A=
+Dropping the map exposed a bug it had been masking, since the register=0A=
+scan is now the only path to the association: on PLLC and PLLD the=0A=
+OUT_MAP_LO/OUT_MAP_HI bit order is reversed relative to PLLA and PLLB.=0A=
+That is fixed in v11 and described in the cover letter.=0A=
+=0A=
+clock-frequency stays, and the description no longer refers to Linux or=0A=
+to the driver. It is not an alternative to the clock framework but to=0A=
+firmware that has no clock provider to describe the oscillator with,=0A=
+which is the ACPI case; there is no fixed-clock node to point at.=0A=
+=0A=
+> Can a static sitime,pll-fvco value stay correct at runtime? Later in the=
+=0A=
+> series, "dpll: sit9531x: model the inter-PLL sync net as a pair of pins"=
+=0A=
+> lets userspace switch INTSYNC through netlink.=0A=
+=0A=
+Moot with the property gone, but the answer was no.=0A=
+=0A=
+> The reasons given also don't match. This binding cites INTSYNC mode. The=
+=0A=
+> later commit "dpll: sit9531x: allow the device tree to override two board=
+=0A=
+> facts" cites "free-run with a divider the configuration never programmed"=
+.=0A=
+> Which case is the override meant for?=0A=
+=0A=
+Neither, in the end. That the two justifications disagreed was the=0A=
+clearest sign the property was describing our uncertainty rather than=0A=
+the hardware.=0A=
+=0A=
+> [Severity: Low]=0A=
+> Is a node that has both clocks and clock-frequency supposed to pass this=
+=0A=
+> oneOf?=0A=
+=0A=
+No, and it did. v11 adds:=0A=
+=0A=
+    dependencies:=0A=
+      clocks: [clock-names]=0A=
+=0A=
+so clock-names is required whenever clocks is present. A node carrying=0A=
+both clocks and clock-frequency then matches both oneOf branches and=0A=
+fails validation, which makes the two mutually exclusive as intended.=0A=
+=0A=
+> [Severity: Low]=0A=
+> This isn't a bug introduced by this patch, but the new binding inherits a=
+=0A=
+> limitation from the shared schema. In dpll-device.yaml, input-pins=0A=
+> children match:=0A=
+>=0A=
+>     "^pin@[0-9a-f]+$":=0A=
+>=0A=
+> output-pins children match:=0A=
+>=0A=
+>     "^pin@[0-9]+$":=0A=
+>=0A=
+> Can outputs 10 and 11 be described with the usual hex unit-address names?=
+=0A=
+> The only way to pass validation seems to be pin@10 with reg =3D <10>, whi=
+ch=0A=
+> breaks the hex convention. microchip,zl30731.yaml (20 single-ended output=
+s)=0A=
+> has the same gap. Should the output-pins pattern in dpll-device.yaml be=
+=0A=
+> changed to match the input-pins one?=0A=
+=0A=
+Yes. That is patch 1 of v11, "dt-bindings: dpll: allow hex unit=0A=
+addresses on output pins", carrying=0A=
+=0A=
+Fixes: 0afcee10dda1 ("dt-bindings: dpll: Add DPLL device and pin")=0A=
+=0A=
+It comes first so that no commit in the series leaves a binding that=0A=
+cannot validate. The example in this patch now includes pin@a, so the=0A=
+series exercises the pattern it changes rather than only depending on=0A=
+it.=0A=
+=0A=
+> [Severity: Medium]=0A=
+> What do the reg values of input-pins and output-pins children mean on=0A=
+> these parts, and which values are valid for each variant?=0A=
+>=0A=
+> Could the binding document the reg numbering and add reg limits for each=
+=0A=
+> variant?=0A=
+=0A=
+Both are in v11.=0A=
+=0A=
+The numbering is stated in the description. An input pin's reg is its=0A=
+lane: 2k is CLKINkP and 2k+1 is CLKINkN. An output pin's reg is its=0A=
+physical OUTn, and the SiT95317 bonds out a subset of the slots rather=0A=
+than renumbering them, which is the mismatch you found between the pin=0A=
+reg space and the dense logical index the dropped map used.=0A=
+=0A=
+reg is now bounded per compatible, so dt_binding_check rejects the=0A=
+cases you listed at review time instead of the driver discarding the=0A=
+node silently:=0A=
+=0A=
+    input-pins   reg maximum 7, the same on both parts=0A=
+    output-pins  reg maximum 11 on the SiT95316=0A=
+                 reg enum [0, 3, 4, 5, 7, 8, 9, 11] on the SiT95317=0A=
+=0A=
+pin@1, pin@2, pin@6 and pin@a no longer validate on a SiT95317.=0A=
+=0A=
+This patch is patch 3 of v11.=0A=
+=0A=
+Ali=0A=
