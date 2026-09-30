@@ -1,80 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85B51FDA61;
-	Wed, 30 Sep 2026 00:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from outbound.baidu.com (mx15.baidu.com [111.202.115.100])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 9F6A71FDA61;
+	Wed, 30 Sep 2026 00:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.115.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790729945; cv=none; b=c23MWbtDaKeawfu+LDmteJK5vjfOjFdwE7J+d89bPWu5vY7JJj+jbwV7+DiY+eeUjbfWC58OwIpdLxoqNXXjWgJ3tceqynIBB7NsBTOafPKi2eeH+gbBIs0IOrdfEyelXYsH6p2+m37DYJaLfwUGq+bxRoj6d+cmJIKZVzEaSoI=
+	t=1790729974; cv=none; b=jMxYbkI/KMWLyCZmoaK1INeJkH8WAHRprgtN9Hm/0YlR5nXx38WK9Fj48HcHX9OfHkA738iEq/g3ZWG3L35rExofxw564HJrQHdDUVD/FCZodnS2Fn1Re3yghNAZsDfAbVI9tLDHEiNMymJSF07sstfTOchJ7QJ14NZZj8Vjje4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790729945; c=relaxed/simple;
-	bh=qx7lmYGSdJRJeo3RiDyeINkO8lC825afuGcmSQbV+qk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=VRRiYIIncSRkIby0O0WLTvrqpBwi/e7tgNCf6sDcKKSTb3HMGijY6h2ciAoCSh7yx9RfmkoV+Ial1HQzpIhOSEZhQFYWy4l1cGl4ZyUOEd8Jt4LSwJTWz4lLbHfl8ZY2ScMsCBun3xnBTK52VVs8dhQ3CHZy1Y14yaO6zlCGSAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biRho/1Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790729974; c=relaxed/simple;
+	bh=OuZ6EjBIIKH7ZQ2utIoQ1iUeQVNILDkfliRbqnLmyrE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=d6yVilBJUtikFVzwWeihQ3zsIH0/03nfzS9CMZIFc3rsNQeUt6uSIRM8Ar9QzD/yxnqUTvCco8DXONMF3jLw1/DlRv0dRlJ0zXkmc4lZjSXgQq0ilxU8EHUaXKrtRkc2mi1SrGRA6D0T4IThSPuboB8hHu7HnGPpPU/kL3a+ZQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=G6CGtdSa; arc=none smtp.client-ip=111.202.115.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biRho/1Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035721F000FF;
-	Wed, 30 Sep 2026 00:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790729943;
-	bh=XTrLrGRG4xIx3eTuE+g1DFQKR2Cwh+SOj4wPxjxRjI0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=biRho/1ZbOutBa/vNiqnRhlY6SwZutcqbYN3Ghx2ERPPdyel9b4jYby9XtC61UEsV
-	 wEgUvhg9aE12hy3ZjO2q31Xf1IxrHiecPibhcOFabPBIgmkqZtnqJ+qeedqXfXbSlf
-	 udBQzNwWqjBULWd5KHkQkAUoMCeLkWzU+D7shyl556qZ7oZKcWzD61hrViPzVGtxPs
-	 T8nGaTpU86WzzgCosyuWxin2kk1hDkVrdVL1jYinoDHqsR6MHIUteQkCVKOghO22hL
-	 icPma4AsQcGvuissGa5Mx+Qf+jkynKalCNVyntsiiZ7z0TUKpDD+i0/bQGgRTNZKu6
-	 zf3/ySVQDBmcg==
-Content-Type: multipart/mixed; boundary="===============6181959472590134412=="
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="G6CGtdSa"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andreas
+ Hindborg <a.hindborg@kernel.org>, <linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH v2] ublk: use global index for reported zones
+Date: Wed, 30 Sep 2026 08:59:14 +0800
+Message-ID: <20260930005914.2133-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <92a44bb46f421bebc4ab85faa0f95944cbb9d877d8e9372f51cfaae358841d2b@mail.kernel.org>
-In-Reply-To: <7c139810be5ffc9764ed4236efc28794@kernel.org>
-References: <7c139810be5ffc9764ed4236efc28794@kernel.org>
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Work around pahole 1.32 dropping scx_bpf_task_set_lazy_resched() from BTF
-From: bot+bpf-ci@kernel.org
-To: tj@kernel.org,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com
-Cc: emil@etsalapatis.com,david.dai@linux.dev,yonghong.song@linux.dev,ast@kernel.org,bpf@vger.kernel.org,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 30 Sep 2026 00:59:02 +0000 (UTC)
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc3.internal.baidu.com (172.31.3.13) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1790729964;
+	bh=bEkkdNMIu2tI1nsr4es61ds0oGFTkZBoeIgpOddJhoI=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=G6CGtdSayRLizLMWWWS57gGdckDHd8vhPaUHOLlQ3UKx2IlH2+1tnxDMeBrI+vlQK
+	 bLVriO2W3SqAtu/14WSkYZraq/OEs4lzQyKHqJ8LPTPtVbvnJhl/0/RZg38HdxKzjb
+	 mNZfsPOHpCieVd65M5KCNnwsTatBHo1Yb5FQFvqpFjRkhUIzGjytBB2j+auwpZNzMk
+	 GPK7ZlIJuEqLLd40ZmZu0hemwNOSLmD9CpyFBcBo6Y3dK5WRfKbrTwrxP7mEpaBgva
+	 OnkhExSW8AmY3sK7RGAkWMxuhAr7eRMLDw4BVT9EpxuXKvJ+Cr3HkA7jT+sBp/N0IS
+	 6QEavjhKf9cfA==
 
---===============6181959472590134412==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Li RongQing <lirongqing@baidu.com>
 
-> sched_ext: Work around pahole 1.32 dropping scx_bpf_task_set_lazy_resched() from BTF
->
-> With clang and pahole 1.32, x86-64 vmlinux BTF lacks
-> scx_bpf_task_set_lazy_resched() and sched_ext fails to initialize:
->
->   sched_ext: Failed to register kfunc sets (-22)
->
-> clang describes the lazy argument only after the prologue moves it into a
-> callee-saved register, which pahole 1.32 rejects as not being the argument
-> register. Released pahole is affected whatever the eventual fix. Keep the
-> argument on the stack with barrier_data() so that its location names no
-> register. OPTIMIZER_HIDE_VAR() would fix x86-64 but break arm64.
->
-> Fixes: f8e5a4e3f3be ("sched_ext: Add lazy preemption support")
+ublk_report_zones() may split a zone report into multiple requests when
+the number of zones exceeds the temporary buffer capacity. The index
+passed to disk_report_zone() must refer to the zone position in the
+whole report, rather than the position within the current request.
 
-Does the Fixes tag reference a commit that exists in this branch's history?
-The tag points to f8e5a4e3f3be, but if that commit is not an ancestor of
-this commit, the Fixes tag would be referencing a commit from a different
-tree or branch.
+Currently, the per-request loop index is used as the callback index,
+causing each chunk after the first one to restart from zero. This can
+make userspace callbacks receive duplicate zone indices and may result
+in blk_revalidate_disk_zones() updating incorrect entries in its zone
+state array.
 
-Can you verify that f8e5a4e3f3be is reachable from this commit's history,
-or clarify which commit in this branch originally introduced the lazy
-preemption support that needs the workaround?
+Use the number of zones already reported as the base index for each
+request so that zone indices remain continuous across all chunks.
 
-
+Fixes: 29802d7ca33b ("ublk: enable zoned storage support")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Diff with v1: pass done_zones directly
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36651688234
---===============6181959472590134412==--
+ drivers/block/ublk_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 66eb55e..ebd01af 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -687,7 +687,7 @@ static int ublk_report_zones(struct gendisk *disk, sector_t sector,
+ 			if (!zone->len)
+ 				break;
+ 
+-			ret = disk_report_zone(disk, zone, i, args);
++			ret = disk_report_zone(disk, zone, done_zones, args);
+ 			if (ret)
+ 				goto out;
+ 
+-- 
+2.9.4
+
