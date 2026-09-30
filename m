@@ -1,125 +1,123 @@
-Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.pv.icloud.com (pv-2001i-snip4-2.eps.apple.com [57.103.64.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F5444AB7A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.166
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797082; cv=pass; b=HMXDW5WphvLwGkJinboVku58EVcoP3MJ/ZHmhvtZ87WRWAwfd4LleUhRVY9L2WGm8BDsWemRnHO7HEugvnUB1j7qpDFYRVzOefOCs9LG+ByRQxoPXrRSSSjhRyGnFEQ4xKT+HUdASov8Bx+A7CAPEsi/PSVrKVTW2RaIRDxhjC0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797082; c=relaxed/simple;
-	bh=PVSaTCIbvuvldSa3Gy7QhKra3/fS4FKyKxTvIAiixZM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ryc3TYMKJj5UP/vwb3QhTZiFQ4QqDSbDh56W3ON7f6ak+7nSFfwSGIgJEAvqojFdNNV4kj0dgN3dJWIRfKEZWhTG0EHIzoTZqiGfnqkxtb7wBzEfOXwrriPYXYJr54f4+tYzlkDfxcAdJYPPp8NOCWlQs2jbWXR+NCKVSH+TVS8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yjcs8Lbd; arc=pass smtp.client-ip=74.125.231.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D2446AA9C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.85
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790797088; cv=none; b=f1ixMUKkWqzOnVfnZtv+bpvQeZX4jXnlFejD6QXxRmYh3xfDiLpUBCPLxWu3qlTh9oN8z1DoWB1q8riIeoOUw78q/1UzFV7yVcUkpQTML9EpZwLWCONLLZlip5YnTdfpZLm+a1k2HpVo8Z8yu7efX1EdMz/kzVKdiRn1DlGimSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790797088; c=relaxed/simple;
+	bh=mHmfLrNTGx+b/0/s87nTCknXQ2zTaqP3hhwitizwAmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DMVm5GEAM44eDUqdWCLA75bkh7mcF+CW2Y35MUn7tbPUHkP0mHbEJA+0dBnrhoFF98vv3chKMzSSjo7MRxb2gY5SN1Dj2yRahytmx+mL/qet1fHO0H710F4K10FN40EntArlyrfj9mnUtIDEn3Aa/A6/NS9G5AkpI8qFjCjt09w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=E8Z9RMTC; arc=none smtp.client-ip=57.103.64.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yjcs8Lbd"
-Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-7f4f0c89e34so3999545a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:38:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790797079; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jXShPmjJ2w5E6eDw3hHbB6nZMF0+hKxhnrgtMWzdX1IZoyretASuTcl9W3VzWUMaHR
-         wFfQa3gQF0GS/BG4EGyokHQsH373B57uOkxCInlTttUqNvOmLMqKn5KUQSh3Qs9yC3h5
-         H2cvaK5wtM2Q9SQhfakLhWL13eslMcOCLF3EW1XUkjRK0TusFGhF+eKzkmdUXYHAXgPo
-         dMJ7n2U/Xl3OZ7adaCmeCfiZlqW53vG11GoMayUOrjquHdV5auO1/M/pq9VFSNpA/3cV
-         U5mfbeiD9gRBdTMJRlHRlk1VqTv8L6F7wYLVC1VBE5fwZpC4MRGtlC2o+BuT6Rkv+OmY
-         N+iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PVSaTCIbvuvldSa3Gy7QhKra3/fS4FKyKxTvIAiixZM=;
-        fh=v96TbxG3m23hcS2t+bM/JW3w4S3dVTDl7jYijl8cksw=;
-        b=rk77RpFJjkk6KwxGXsNCt2Q48uA7bbUKlkV39MuCQoFv3zYeG4UHvouyRyfYtJY6ho
-         H9ebQqR1qOkbZM75NKiA73raBb6QuCO4xY0ga5kaH2O5vu2VbE29Wn96wE91e0MHET0b
-         vnFbL6hsvcdRrhbJKG6xZ3fhosMFJzQTicrSiqcO7+guGm7XnoMCIvD7mc7ghyF18HX4
-         Gg1eAPPeRcEE3ali/6Yr2E4yTlsnznntiAaDBRF10j40D5p5p0cV5uZa8qzIXTLL3T18
-         2Y0eyaHOKC08hY8xxQyd/i/MeWqnG8ZHtp8qWqwTDwiaUAqKi6Sgzfx+ZOY11x4omHvL
-         xLQw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790797079; x=1791401879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PVSaTCIbvuvldSa3Gy7QhKra3/fS4FKyKxTvIAiixZM=;
-        b=Yjcs8LbdszbMEDmNMlQnsMU7lHYG8J/QG8e2oBD5dVJwRo2TYh/aWSVm67lt3dEhKh
-         SGk5bjMRYf25jBOXHK7DkYE2wljCjIfJEcUI66SLJLMmP5d1QYgOjoYvP50+oxKS9yXq
-         W58UzIrLOFR0Pq/268ImDpJaRHWOvewEBHqwCpclUYxfDRSGL6x1FHRmc+rzl4VALwQ2
-         B/hcFtYJvjVFRaz7jvk2aE079IKbr3aZv5okdgPeLiJloD/hwkNfedjrwm/IDd+elxE4
-         /ld1oQAJCZw/nMOXD6eBcR3RPu2/XFcdmIw6fVM6Oz+jGPRs9aTbaGG4qbcwVGpY6hWZ
-         i4sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797079; x=1791401879;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PVSaTCIbvuvldSa3Gy7QhKra3/fS4FKyKxTvIAiixZM=;
-        b=YaGAS6wzYEsBvUr8lO1g3l9hpztMCJ8dT1w4IkyBlSfN5J+4dzDVzLnE2m9lxhwdro
-         z6O19cex0niNI7ip9s8iNbuF7tFM5IlUICUZRooa0qwHBTZ+YDht9LtI+2VnVNrtcy57
-         Yvgg6H9D/APQ3pOPlJQ3L2LA3IeYtC9IR6wRht28cPGgMvFf+NdxU1mSw67GWUVVFIv5
-         282OaeK1i40a60QIRzA0lbjPV4mjB3c/yNNrJT8ks/76l2hu4DrQ499iPoKrC9DlJjzl
-         ry0AXW5KJuRIGJ8/iSHZJ44c+94oGIxINzPwOjrUbMHfgMPWXPjqlRk2fBtgWOsI3OS3
-         sIoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4Mm0N/37MjDqBt6qTAd8vTT4Fz61/sccy4SoOEgV+VpIMRinB5FpLgkUSiWf2RGp12trM6NLXLezAyiU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n17ED22oDxbxh7srGpa5LTskNtyP852hgxRy+dYExOR1FOCqiS
-	Tp1UvtSxuaTWyQWxX/UqJNpscJj9Opqni10m2qaGV38x57q8xLHYHkxM4z0JQ6/GtQps9yTwzGr
-	n8F/dbpI4k0FQEQOy0vnFDQJ2MdqGqMg=
-X-Gm-Gg: AYBFou0+0VzI+WuWXvmXwvdTfDpyL8JIynhD2YFYkXD3QCFqmLtysv7G5pbb0t86Jka
-	eIR++SxKAHFYnbX8XeytsnwE2prM/LJze/2vtdA/rZLhZeSYZli9JchsRMJ7M7886GAnZnBoTxk
-	0jKNY/1yEPZKHq9fbKoozJmpQ/hOHb/Fz4HHLc3TzWwwgIQ2cjsYCaL0Ylu82i+k5T+lqi3jVnc
-	h5EDQxPKtZy2vben9ndjAz7TabMMmnQYaa6F7W3LV+iLAttwZTehm8jyYNuCKi3CkmLqmN0Wm97
-	jy8dVfur96qBNCNV3lPbnrJU21XKSitEHmnCte3fLngMwBnQy8WZig==
-X-Received: by 2002:a05:6830:83a2:b0:81f:707d:7646 with SMTP id
- 46e09a7af769-8204980c727mr3188073a34.14.1790797079277; Wed, 30 Sep 2026
- 12:37:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="E8Z9RMTC"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPS id 0531E180013C;
+	Wed, 30 Sep 2026 19:38:05 +0000 (UTC)
+X-ICL-RepId: 01a0f3d2-fd16-7e79-87e2-5eee55880ac9
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFLHV8HWBxHD1YKTVIPDxYKFkFcWytfFRcbXAAXDVZNVB0dDlgGEgJaRQRNXw5eHwQXRhlVBEceXVZDGxkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4AUkVRH1RYXgRTVg4TVg5WHxlaBUkJTwpYAFkEXl4RR0NRWFwCCBRzAFJFUR9URhMZThtXTVAbXwJCDw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1790797087; x=1793389087; bh=oqR5z2oHEqdzqiAvnE44B60F+sBnKAwcy0aKZtJFpBA=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=E8Z9RMTCm8GqVRXYWrJujRhKS2FCKIZUvXqpgrAj4yilfL4IYG1hc1S92VN5kR5/DB+1TPQS4HFLnIaNWxAp7+hK/aVdHEeUDBAyCJiKeYhieXZUKwzFWx9qEtjQlE247b1QczQDbtcCs4PES7d//v3Yh7+b6m4U+/yGDqN6Dav6o7mLeNub4N03ypqQC1F97WnBHseDXT5g0VHSoOOW8picgeOD78c+ig09e2HGobojFKBs0imZiHVdewwyZ+STUKX96MJrqa8vyfjFahxVsZegZUA+8hreWUNneXaS0EbAkrum4BWH5YlYgE3W2XXGU9nyy2FctHyJFe9s0dEFgA==
+Received: from fedora.vpn.altanet.fr (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPSA id ED04B1801FEF;
+	Wed, 30 Sep 2026 19:38:03 +0000 (UTC)
+From: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>
+To: Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>
+Cc: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>,
+	Ivan Gorinov <linux-kernel@altimeter.info>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 0/2] HID: winwing: two teardown fixes
+Date: Wed, 30 Sep 2026 15:37:49 -0400
+Message-ID: <cover.1790795726.git.f3nr1l@me.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929232621.3745312-1-avagin@google.com> <20260929235700.GBarxQTLOrWy1I3UZr@fat_crate.local>
- <CAEWA0a6McVMNv1ALC7EoEeA9-7_7u_b5JrsqixifvsfVJ7b_8g@mail.gmail.com> <20260930025153.GCarx5SUn-XMHNdly1@fat_crate.local>
-In-Reply-To: <20260930025153.GCarx5SUn-XMHNdly1@fat_crate.local>
-From: Andrei Vagin <avagin@gmail.com>
-Date: Wed, 30 Sep 2026 12:37:46 -0700
-X-Gm-Features: AclHuK9qCi1FrPZuNiOETWOmGmo5wY5-dsXzDO3i3GDoGQmMl29wtmB2ggOwhd4
-Message-ID: <CANaxB-xYziLhUBXreHKf6FRvyvnRnHy5iWu5yKwEAATPoEbQLg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] x86/fpu: Allow restoring signal frames with larger xstate_size
-To: Borislav Petkov <bp@alien8.de>
-Cc: Andrei Vagin <avagin@google.com>, "Chang S. Bae" <chang.seok.bae@intel.com>, 
-	linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, "H. Peter Anvin" <hpa@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: D3Prgu7fvwmrQkJ8W27YYn0gIEqDuZMq
+X-Proofpoint-ORIG-GUID: D3Prgu7fvwmrQkJ8W27YYn0gIEqDuZMq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX/9/6qKAR89XB
+ frbx/oorcqRqcUg1y6EnPakyLMkBVV2eXcQiDQYtGK9fTiNK+5qywlEf4/nT6EIy4eQGni0wde4
+ GrjX0tzyYYwrVISyQmVH318s4GW1H6zPLDyKmtvF+kn9fwU+YVSeoJUmoaQC6Kxhbf3M6gfKotm
+ HevXH5D7P4CYhEkpu0s9ge7txIJTRYEdG9BJ9UXRy76tUwVpss0t2Jmff50mh67LuRxHxffa7kC
+ IuA5R7RTdMLe+2qBltW/GqgvjvSgH3fZ6MXOq3nXB68cePG52Mx1iRzki3IhNeYRZ0uwhHy7xXn
+ i7nclhaE9bO3ojv49wk5gXhvzmVQyTYjKvgNHoAq3+MD9tNxNKEqEF1LZkRv0o=
+X-Authority-Info-Out: v=2.4 cv=IbuKmGqa c=1 sm=1 tr=0 ts=6abd651e
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=M51BFTxLslgA:10 a=x7bEGLp0ZPQA:10 a=tnT-KND3AOYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=NVxr5sMXn2Treso2F6kA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAAB15mj72XKTaP4q27R8zeGtwKfiJCzMcoEvS1jMaj2JEu0jlPJAe8xqYKx7gRZWV3hB+Yfc3UFiQ7d6PJCDf6h9glkBGs43Cgh6uVU13jk5mPgU7Uy9tCPgw0fXyWusNQ82O/6Ny0A5Ohh08++cJGOiMfVfYIxamVrdg/zE4coIqC4rryP/NnNDxWzXP8Cy+FakphLymzGYBPnX1Qe7w5AGCP2mg85nLAm4xl+Bm4S0a5zOZTihNZ3L9jYvVukDNw1qAeROg2dJbhyVUlyRwCVLVhupCHw0U828QUpTqjWccb9nTtIha8A2KPaPb2pQ3EZntuLJm//8rKyh5GG9cejDWHFxnNl6A1opCZAc/487s1PHcq52bEJM6DKojr8rWav9Fi61YuY0D0y3ZUfObP7SjsUWWwAgZ7nJPjtvRlqWL/PwGI9x+t98UzvFM8pNT7WQ66y5fuMM1fEPefCbuUAClNFDc6PHfSFOCQ8O89LT7VWFLf7KO5RRXNMYt/S/MHbq+YrXouix15HBV8IpHqnzx6yiubL1hcqIxNNKhRlCPEkwT2XmM9T+NeyRhyQrGh5h4zmFxNmupU7aCaQgRYjUv3JN4PuIRfiF8DTu+fQY3rI+3gwV+8G8G4VuTrWbayxoQDKrOWs5scwozqP/Eg0C6vs06mXKWtxzOlZ/pDQwHgyTwKzY1/PsQPJEL0qeGDcozC9gihBXkmk1M6ZCByZzA0MEV2JdT07anMQstmFBNuQ3tgKAmA0tydiW1T9vqZ4T6nTN739/PJn43F9hCr3GpW4BayoEJxy9seYrRdiit+ZzhGZYarm682ht2IKn1pMR3L5qNr9WLRyf0fxTkrLhCJTVMPrk6nnPAG6+ju/zbHtlItZpmzef+WAzGq/q7D8G9V8GgCPBSjiAKkTkvCOPCumuOx5EuiV8ydj2Fi4Vp/InpxV14hpQDrQtz5aC9FitOFBYxYNy+igLfY5cqSwH7o
+ unp74Cgo0b/bYT7McazCgSiPuBEVPZ5awAeSyuhWVxNmXjEAGrapuL5eaOmgT/x3X+CjIBJ2ftt82ZnXwFiRSMXm0BxtgqiWxroNL0N7GACbZmLz3cIOes3qIYcKgG9KrF0TWENVs6Hgn8WUqLaj5I/HJVHSI3pL6Tb4hc5hq7rZWi1ciISwnzcTJTcthejDJ5Mwz5bWaLS513zbPACCMioBJzMDDp9YWY/OZNCROWJGvn7K8Cg2WhJ3f
+X-Apple-Category-Label: MjczODQ1OTkzOiRjYXRlZ29yeSRfUGVyc29uYWws
 
-On Tue, Sep 29, 2026 at 7:56=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrot=
-e:
->
-> On Tue, Sep 29, 2026 at 05:02:50PM -0700, Andrei Vagin wrote:
-> > I think it is a misunderstanding. This series is actually the next step=
-.
-> > The first series enabled migrating workloads from older CPUs to newer
-> > ones. This series enables migrating workloads from newer CPUs to older
-> > ones.
->
-> Aha. Any particular reason you're sending this separately, after the prev=
-ious
-> set?
+Two teardown bugs in hid-winwing, both present in mainline. The series is
+based on hid.git for-next, which already carries the related fix
+a1a5ad37e50c ("HID: winwing: fix use-after-free in force feedback
+teardown"); it does not depend on it.
 
-Originally, I sent all these patches in one series. Then, Chang
-suggested splitting them into two parts. The first series was mostly
-straightforward; it contained documentation updates, code refactoring,
-test updates, and bug fixes without any user-visible behavior changes.
+Patch 1 fixes a use-after-free of the rumble work item. winwing_remove()
+cancels the work before it stops the device, but stopping the device flushes
+the force feedback effects, which calls the driver's play_effect handler one
+last time and queues the work again:
 
-The second series introduces a user-visible behavior change and requires
-more careful review.
+  hid_hw_stop() -> input_unregister_device() -> evdev_cleanup()
+    -> input_flush_device() -> input_ff_flush() -> erase_effect()
+    -> ml_ff_playback(dev, id, 0) -> ml_play_effects()
+    -> winwing_play_effect() -> schedule_work(&data->rumble_work)
 
-Thanks,
-Andrei
+The data the work runs on is devm-allocated, and hid_device_remove() releases
+the driver's devres group as soon as .remove returns, so the requeued work
+runs on freed memory. Cancelling after hid_hw_stop() closes the window: once
+the input device is gone nothing can queue the work again, and the driver
+data is still valid until .remove returns.
+
+Patch 2 initialises data->lights_lock, which winwing_led_write() has been
+taking since the driver was merged. The mutex only ever gets the zeroing from
+devm_kzalloc(); CONFIG_DEBUG_MUTEXES and lockdep both flag it on the first
+brightness write.
+
+Patch 1 needs a device with a rumble motor to trigger; patch 2 affects every
+supported device. Both were pointed out by the automated Sashiko review of
+the earlier force feedback fix on linux-input, and confirmed by reading the
+teardown path rather than by a crash. I have since exercised patch 1 on URSA MINOR sticks, with the URSA
+MINOR series (posted separately, on top of this one) applied: unloading the
+module while a 5 s rumble effect is playing. ftrace shows the chain above
+taking place inside hid_hw_stop(), and the requeued work running before
+winwing_remove() returns; no warning or oops (on a kernel without KASAN).
+
+A third, related issue is deliberately left out of this series. The LED class
+devices are registered with devm_led_classdev_register(), so they outlive
+hid_hw_stop() by the length of the devres pass that hid_device_remove() runs
+after .remove returns. A sysfs brightness write in that window reaches
+hid_hw_output_report() on a stopped device; usbhid returns an error once its
+output URB pointer has been cleared, but that check is not serialised against
+usbhid_stop(). Fixing it inside the driver means dropping devm for the LEDs
+and unwinding them by hand in the probe error paths - a fair amount of churn
+for a narrow race, and the same shape exists in other HID drivers that
+register LEDs with devm, so it may belong in the HID core instead. I have a
+driver-side patch ready and will post it separately if you prefer that.
+
+René Onier (2):
+  HID: winwing: fix use-after-free of the rumble work
+  HID: winwing: initialize the lights_lock mutex
+
+ drivers/hid/hid-winwing.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+
+base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
+-- 
+2.55.0
+
