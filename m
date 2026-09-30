@@ -1,152 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7793C4E06EC;
-	Wed, 30 Sep 2026 13:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FD24E06E8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774632; cv=none; b=l+wxrcCs+Fezwe5jBFWpmUDa9pDYHf6vT/3YGSPj/4rz4rTCanMkpXBQUiWmL/5GLoSfH8V2DtO2Sh38/Z6pl+iBeF4KIuA5fMZjUQVNVVF5CA5zGWn8DlUb7REsKd323dfD7vx3dRs/jyKaF+na0kBWYRvA+G1HuYbth2nALaw=
+	t=1790774671; cv=none; b=WDVfioLpFcc3Me6knVQ/0IBkpQc/ah9V8J5oaGxjrzVDvkxQrtLu2lgbeF/ktckA6wBIGRst23NYWS1iVXoX7uWehFAW3mQBSDudUU4zMqid4ARSq2KRfxlbaN0VDcmBHHpSH6/mB7gSEd6WxTyP1RBf1pGK+3afNd2JARhJavo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774632; c=relaxed/simple;
-	bh=VGHctiLRGLtxCXo9/4XFlJUglmSuiMVZOShKuE7rVnw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=icglwt8EEz4Dg2YD9UmBK2MFcD2T2Q1oVzYKvq0UZ5MES7YTWJypbYh0jZCa7cPQFqyVj+jOVFdpvyZ1oIig+sqqdtCyx4NYfDwVWjUJxA0w03NJIUupJ6UXaTB+M3e3nRPJeAGFVZzt0wYuiJ2GimS7OQPkMthjbAxOT0qdD30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJxKcjNk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790774671; c=relaxed/simple;
+	bh=97CUQJ0jx/zZgVtlqnb7GOV+PHKc+AGj9BHEyrV5LUs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=e1/yHaKclwXL6tYDvApL+80s7ozgQmAgD5MPDak+1WXpDGhpB9ZOEoxuDtauB57f91EsV4G1o9NeDJRl/KfVS+v9O1/W7h1gIHfiN5r+abNUWuq0/sXV0z0hEOOzYflQrOQQsvFDP+UJkarba/zXVlFS8io5VWmSHftVO6MaZIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE7/uEcD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJxKcjNk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D12F2C2BCF4;
-	Wed, 30 Sep 2026 13:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790774629;
-	bh=VGHctiLRGLtxCXo9/4XFlJUglmSuiMVZOShKuE7rVnw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=SJxKcjNkWgB9BYVHgZ4TfndRpIWN58d0/pQkdYhugz8GUQVBoYJZY5lsXu8WmGRJg
-	 u60EaChrB5lesHOBAOxXQL6Smrzjo72bW9FrFR7mKggHSpxxAWj1hAVnojszpJn1X2
-	 JxJPyMnCb4hWA8TQuWu8C/4WzaMV1URaM1SBSAaj7Ywbl93+AUMAlzamPd0qST/K6L
-	 67fomaGStR0cXyIlbZ05a+5sL0h68RIkkr82RvGA+Qv3oRdqXJs+lcDoWzoRB0lSSG
-	 Zas+5tpAXwaWvOtd/kjiV4ca1Nx4hfuelke/cd5gZsIzMUh92vQ//5LsKpmd+m5V6w
-	 fwXKykBrwLIZg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B98D4CA5FAC;
-	Wed, 30 Sep 2026 13:23:49 +0000 (UTC)
-From: =?utf-8?q?Nicol=C3=A1s_Antinori_via_B4_Relay?= <devnull+nico.antinori.7.gmail.com@kernel.org>
-Subject: [PATCH 0/3] rust: kunit: support #[should_panic] and same test
- name with different #[cfg(...)]
-Date: Wed, 30 Sep 2026 10:23:27 -0300
-Message-Id: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE7/uEcD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286411F00898;
+	Wed, 30 Sep 2026 13:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790774653;
+	bh=15GFVaEj+V3wbjvGFizhibuNggf64iOZ9yv8oWIFn4I=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=SE7/uEcDlUi+ZPilfbiAa92qwgEnUGteHOFrttn+wU2xGVS7k5nmj00eVFw2jINdi
+	 BFgtdQlHfw4k/sZZ0nokmZB12pxrxUuW/AqqTT9Oqgp7tpqUinmVIuGZJFHS1IXBs+
+	 Lv4OjGOR7V3/FFXLi+sAUxXNCdVjfOP6Dew+AyFfaw+J320vilZeHZv0r7/uHD0Rzy
+	 LAP/1FjnXfSZDLqr8p7OxKL7xet5JooeYvFCxtGvd8AzthMV4FTDY4f08AlF3JVirt
+	 f4iQHXzCfq/i65UTxZLiGJm9LqWik/W/23isqiOcCGLPAdRC+DehqiWSs/S+V3biXN
+	 XlOqapqMWdp6Q==
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfauth.stl.internal (Postfix) with ESMTP id 8B207780043;
+	Wed, 30 Sep 2026 09:24:12 -0400 (EDT)
+Received: from stl-imap-13 ([10.204.2.104])
+  by stl-compute-04.internal (MEProxy); Wed, 30 Sep 2026 09:24:12 -0400
+X-ME-Sender: <xms:fA29alcQnOmc9ooOmHPQaaUI2dEJT_LJ6yDFqO3ugf4SJL9hdrJyfg>
+    <xme:fA29auDy4wtTLs6lpFtyIaVpTY_uSEd3WxSBIuzzqAbW2rAI6AUQY7IQrpA3wK65p
+    bavW-nYq5zCktX3GkWFdye3qqHCg6EpQ1djXF_zS3pmP3WwbNPI7EOU>
+X-ME-Proxy-Cause: dmFkZTEhDQvTHabA0iEeZ8BHxLAv4EGY/+qfs3FRvdRrCMETHzgelsS6lS2ZtSUCeVRZsX
+    2bZExYI1mo6kIJCrx0zn9hMdydRpFtuvtGewAg54ubj15jBRaBUfyk4NU8rkMLkTcRcx7H
+    vI+u0EAlsPdbncIwCqkuXxurV1xHrl9USe/S0U5jTnC2/la163pAjb8sH+JfVBuk3mI6NA
+    Y4JszNaRmVtOMbqVUuYKGVG4HPho0Q55Md+aI9NbQXllwp3Qo1K7bd3Cf3pmQp0KncXtan
+    H/Yd5B46sNhkyqm59aMwkU2prBweuXylfyAVeKANtE0BcV6vuWQ92tIIWvA2UqY2cD+0pH
+    vyu+on3prWpgCEQIcbQ52BRQpmaWlXVJ0VHzEyisXdgn2F7/HB/cl50SPjnbVICZXDqWZU
+    YwLG5bSES0fNkK71WmIxkpOt+DIm8jm/FsaxAF30CKf7kcRW4ULo1sq/AL+4MeT5OuMYrw
+    q76nP/cF8w9q66iWoxgqE7BH1+MfHs964RDTAac3gT71qm7t+mUWcguMT93V79UKmZZxGW
+    E/PYiy3Ep5wEeNZrzOcOi3VSPeTnRGJGqa4k8vzYygqLlNhQcAQdfe35/S/stPzIPA67+g
+    1vwqF5P+Zy0EEV2A2lXhVuWQOQXVeD8r4IVph1Hb4PQFjub5vUjvMqV1dRSw
+X-ME-Proxy: <xmx:fA29ahEe82bEshjiXq9l82BhprGa1TyZN13ZLVHhXxs1IbI77Gmu3Q>
+    <xmx:fA29akIhU5FBtW3TcdadQygsyVBnyDoJq2k-Z1ds3m6nCLZQfdBeSw>
+    <xmx:fA29atmqXyJ9maNQ_T7IQn8abT8X8il5C9OIYvZpfPAD2MlrrJ4CDw>
+    <xmx:fA29akQC3ZKTTunlrlyI-buv1EvFWD5iLFyDPPzi0GliA4J1f8icQg>
+    <xmx:fA29anIivq51mhaI02M2lT4AewJMlzM8b90IUnHgs2ibzfs6udhJaqzc>
+Feedback-ID: iccae4b50:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 38C16F60078; Wed, 30 Sep 2026 09:24:12 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAE8NvWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS2MD3aLS4pL47NK8zJL4MhNd88SkxNRUQ8NUs8RkJaCegqLUtMwKsHn
- RsbW1ANhmrY1fAAAA
-X-Change-ID: 20260930-rust_kunit_v4-7abaee11e6ac
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Miguel Ojeda <ojeda@kernel.org>
-Cc: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn1_gh@protonmail.com>, 
- Boqun Feng <boqun@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Jori Koolstra <jkoolstra@xs4all.nl>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Rae Moar <raemoar63@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
- Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Yury Norov <yury.norov@gmail.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3413;
- i=nico.antinori.7@gmail.com; h=from:subject:message-id;
- bh=VGHctiLRGLtxCXo9/4XFlJUglmSuiMVZOShKuE7rVnw=;
- b=owGbwMvMwCV2QdXfwqNJ1YjxtFoSQ9Ze3uQpQg1cP3Ynumcdyv0WdOoQ62KeWu/bh+zWp745p
- Vg0x8C4o5SFQYyLQVZMkWUu5/vPxrbmFeXSm4Jg5rAygQxh4OIUgIn0KzP8lYxKc6gKZwqMUbg1
- QU7vkcxHxtXNGY7KzwP57nj/vqG4muG/j7K44XTjbblnThzt+nAtf7uU5fmZnxxUp9j+3L3i8P4
- JjAA=
-X-Developer-Key: i=nico.antinori.7@gmail.com; a=openpgp;
- fpr=9D09EFF3333D3778771BB252D0254F3848822532
-X-Endpoint-Received: by B4 Relay for nico.antinori.7@gmail.com/default with
- auth_id=1086
-X-Original-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-Reply-To: nico.antinori.7@gmail.com
+X-ThreadId: A-_873_JFPgw
+Date: Wed, 30 Sep 2026 09:23:52 -0400
+From: "Chris Mason" <mason@kernel.org>
+To: "Peter Zijlstra" <peterz@infradead.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>
+Cc: tglx@kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <d6e1b8cf-ee16-4a8f-b2e5-abc52908e6e3@app.fastmail.com>
+In-Reply-To: <20260930112156.GL88198@noisy.programming.kicks-ass.net>
+References: <20260818011036.1138213-1-mason@kernel.org>
+ <20260818011036.1138213-2-mason@kernel.org>
+ <20260820104015.GE687043@noisy.programming.kicks-ass.net>
+ <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
+ <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
+ <20260930112156.GL88198@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH] futex: sample poll cookie after publishing new hash
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-This patch series intends to implement two features for KUnit tests
-written in Rust. The work is based on a TODO comment made in the
-`bitmap.rs` module [1].
+On Wed, Sep 30, 2026, at 7:21 AM, Peter Zijlstra wrote:
+> On Tue, Sep 29, 2026 at 02:12:53PM -0700, Paul E. McKenney wrote:
+>> On Fri, Sep 25, 2026 at 05:58:13PM +0000, Chris Mason wrote:
+>> > On Thu Aug 20, 2026 at 10:40 AM UTC, Peter Zijlstra wrote:
+>> > > On Mon, Aug 17, 2026 at 06:01:42PM -0700, Chris Mason wrote:
+>> > >> futex_ref_drop() may only skip its grace period when one has already
+>> > >> elapsed since the current private hash was published:
+>> > >>
+>> > >>     kernel/futex/core.c:futex_ref_drop
+>> > >>         if (poll_state_synchronize_rcu(mm->futex.phash.batches)) {
+>> > >>                 /*
+>> > >>                  * There was a grace-period, we can begin now.
+>> > >>                  */
+>> > >>                 __futex_ref_atomic_begin(fph);
+>> > >>                 return;
+>> > >>         }
+>> > >>
+>> > >> The cookie it polls is sampled one statement before that publication:
+>> > >>
+>> > >>     kernel/futex/core.c:__futex_pivot_hash
+>> > >>         new->state = FR_PERCPU;
+>> > >>         scoped_guard(rcu) {
+>> > >>                 mmph->batches = get_state_synchronize_rcu();
+>> > >>                 rcu_assign_pointer(mmph->hash, new);
+>> > >>         }
+>> > >>         kvfree_rcu(fph, rcu);
+>> > >>
+>> > >> get_state_synchronize_rcu() anchors its guarantee at the snapshot, so
+>> > >> the cookie is cleared by the first grace period that starts from there
+>> > >> on, including one starting between the two stores which never waited
+>> > >> for a reader that loaded the old hash after it began.
+>> > >>
+>> > >>     CPU 0 (resize)                    CPU 1 (futex_hash)
+>> > >>     ==============                    ==================
+>> > >>     __futex_pivot_hash()
+>> > >>       batches = get_state_...()
+>> > >>                                       grace period starts
+>> > >>                                       guard(rcu)
+>> > >>                                       fph = old hash
+>> > >>       rcu_assign_pointer(hash, new)
+>> > >>       kvfree_rcu(old hash)
+>> > >>     futex_hash_allocate()
+>> > >>       futex_ref_drop(new hash)
+>> > >>         poll_state_...() -> true
+>> > >>         __futex_ref_atomic_begin()
+>> > >>           atomic = LONG_MAX
+>> > >>                                       futex_ref_get(old hash) -> true
+>> > >>                                       spin_lock(&fph->queues[i].lock)
+>> > >>
+>> > >> The reference count lives in the mm and has just been biased for the
+>> > >> new generation, so the stalled reader pins and then locks the retired
+>> > >> hash that is already queued for free, and its later put is charged
+>> > >> against the live generation.
+>> > >>
+>> > >> Fix by sampling the cookie after rcu_assign_pointer() publishes the
+>> > >> new hash. Drop the surrounding scoped_guard(rcu) while at it: it only
+>> > >> delayed completion of the prematurely anchored grace-period and serves
+>> > >> no purpose once the cookie is sampled after publication. The writer
+>> > >> side is serialized by mm->futex.phash.lock and neither
+>> > >> rcu_assign_pointer() nor kvfree_rcu() requires a read-side section.
+>> > >
+>> > > God, how I hate reading AI output :-(
+>> > >
+>> > > Anyway, the thinking was that by holding rcu_read_lock(), the current
+>> > > RCU-GP cannot change and the cookie and assignment are effectively
+>> > > 'atomic'.
+>> > 
+>> > >From what I can tell there are a few ways for new grace periods to start
+>> > while we're holding rcu_read_lock(), synchronize_rcu_expedited() if no
+>> > GP is currently in flight being the easiest?
+>> > 
+>> > Anyway, this BUG_ON() fires for me:
+>> > 
+>> > diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+>> > index a061f54b6..18d51c145 100644
+>> > --- a/kernel/futex/core.c
+>> > +++ b/kernel/futex/core.c
+>> > @@ -215,6 +215,14 @@ static bool __futex_pivot_hash(struct mm_struct *mm, struct futex_private_hash *
+>> >  	new->state = FR_PERCPU;
+>> >  	scoped_guard(rcu) {
+>> >  		mmph->batches = get_state_synchronize_rcu();
+>> > +		/*
+>> > +		 * Fires only if a grace period started after the cookie
+>> > +		 * above was taken, although rcu_read_lock() is held. That
+>> > +		 * grace period then satisfies the stored cookie, yet it began
+>> > +		 * before the new hash is published below.
+>> > +		 */
+>> > +		BUG_ON(!same_state_synchronize_rcu(mmph->batches,
+>> > +						   get_state_synchronize_rcu()));
+>> >  		rcu_assign_pointer(mmph->hash, new);
+>> >  	}
+>> >  	kvfree_rcu(fph, rcu);
+>> > 
+>> > -chris
+>> 
+>> This matches my understanding of RCU.  Although rcu_read_lock() will
+>> prevent a *new* RCU grace period from ending, it will not prevent an *old*
+>> one from ending or a new one from starting.
+>
+> So, let us consider the dual counter RCU.
+>
+> The RCU state is:
+>
+>   counter[2];
+>   index;
+>
+> rcu_read_lock() would increment counter[index & 1], rcu_read_unlock() would
+> decrement whatever counter it incremented (say rcu_read_lock() returns
+> the index, like SRCU does).
+>
+> GP progression can either be sample or rcu_read_unlock() driven. Either
+> way, when 'counter[!(index & 1)] == 0' is observed, there are no more
+> observers of the old state (and callbacks can be ran).
+>
+> At this point we can flip the counter and start anew: index++;
+>
+> So index changes while counter[index & 1] != 0, which is somewhat
+> fundamental to how the whole thing works.
+>
+> Now, suppose get_state_synchronize_rcu() is simply returning a snapshot
+> of 'index', then same_state_synchronize_rcu() can indeed trigger. The
+> index can get advanced.
+>
+> But that does not mean poll_state_synchronize_rcu() would return true;
+> in the above scheme poll_state_synchronize_rcu() would be something
+> like:
+>
+>   if (index - snapshot < 2)
+>     return counter[snapshot & 1] == 0;
+>
+>   return true;
+>
+> That is, not only does index need to advance, but also the counter needs
+> to drain in order for it to report the GP is complete.
+>
+> And this is where I went wrong, when we hold rcu_read_lock() we pin the
+> counter and thus the GP cannot complete.  But as I now see, that is not
+> sufficient, because there can be observers of the old state in the next
+> GP too.
+>
+> So yes, the code is wrong and the patch is correct.
 
-Changelog:
-- RFC patch: [3]
+Ok, I'll resend against recent git with a better commit message, unless you've already queued up something better suited?
 
-1. Supporting `#[should_panic]` [2]:
-
-KUnit tests in Rust follow the user-space syntax, but at the moment
-`#[should_panic]` is not supported. The first patch of this series adds
-support for the attribute (only in its basic form, `#[should_panic =
-"message"]` is not supported yet).
-
-The way it is supported is by adding a new boolean property called
-`rust_should_panic` to `kunit_attributes` struct in kunit/test.h and
-check for the `try_catch->try_result` code and the named flag to detect
-if there was a panic in `lib/kunit/test.c::kunit_run_case_catch_errors`
-function.
-
-The difference with the previous version [3] is that now, almost
-everything is handled in the C side, meaning that we don't have a
-separate `#[panic_handler]` when KUnit tests are active. In other words
-there's no need of a Rust side panic handler because the C side catches
-Rust's panics too, since the `#[panic_hanlder]` executes a
-bindings::BUG().
-
-2. Allow same test name with different #[cfg(...)]:
-
-When testing `#[should_panic]` in `bitmap.rs` (check the last patch of
-the series) I found that the test that was supposed to panic had the
-same name as another one, but they were run on different configurations.
-This caused the following compilation error:
-
-ERROR:root:error[E0428]: the name `kunit_rust_wrapper_owned_bitmap_out_of_bounds` is defined multiple times
-   --> ../rust/kernel/bitmap.rs:503:1
-    |
-503 | #[macros::kunit_tests(rust_kernel_bitmap)]
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `kunit_rust_wrapper_owned_bitmap_out_of_bounds` redefined here
-    |
-    = note: `kunit_rust_wrapper_owned_bitmap_out_of_bounds` must be defined only once in the value namespace of this module
-    = note: this error originates in the attribute macro `macros::kunit_tests` (in Nightly builds, run with -Z macro-backtrace for more info)
-
-Now, only the tests with an active `#[cfg(...)]` will be executed by the
-runner. Tests with an inactive `#[cfg(...)]` will not appear in the
-report since they are not added to the TEST_CASES array.
-
-[1] https://github.com/Rust-for-Linux/linux/blob/fd73f4a6659897191fa0d40695fe370925dd3780/rust/kernel/bitmap.rs#L592-L600
-[2] https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html#testing-panics
-[3] https://lore.kernel.org/rust-for-linux/cover.1789500084.git.nico.antinori.7@gmail.com/
-
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
-Nicolás Antinori (3):
-      rust: kunit: add #[should_panic] support
-      rust: kunit: allow same test name with different #[cfg(...)]
-      rust: bitmap: kunit: uncomment owned_bitmap_out_of_bounds panic case
-
- include/kunit/test.h   |  1 +
- lib/kunit/attributes.c | 18 ++++++++++++++++++
- lib/kunit/test.c       |  5 +++++
- rust/kernel/bitmap.rs  | 40 ++++++++++++++++++----------------------
- rust/kernel/kunit.rs   | 37 +++++++++++++++++++++++++++++++++++++
- rust/macros/kunit.rs   | 48 ++++++++++++++++++++++++++++++++++++++----------
- 6 files changed, 117 insertions(+), 32 deletions(-)
----
-base-commit: d266640c6c760c9bc215bf5a3ece122ca488b6f5
-change-id: 20260930-rust_kunit_v4-7abaee11e6ac
-
-Best regards,
--- 
-Nicolás Antinori <nico.antinori.7@gmail.com>
-
-
+-chris
