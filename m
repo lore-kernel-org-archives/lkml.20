@@ -1,28 +1,27 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010012.outbound.protection.outlook.com [52.101.84.12])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012066.outbound.protection.outlook.com [52.101.66.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6874FD26B;
-	Wed, 30 Sep 2026 14:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB4947124F;
+	Wed, 30 Sep 2026 14:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777971; cv=fail; b=ukle+S8BSGkpp7K2khtkOVZVJxFSqMsASatudlldAk75mTnzncY+nnZ+amppKJZCG3bkI0RMZDNqDJGr0UbQm7hBJ4p+Zs/WEvXYKv73v32sFI0AU85WxQQR//qR+5feBE3cnEXTqrC4+Q48p1yJsXn0BzAIeowsL6lZ7n6uDSk=
+	t=1790777967; cv=fail; b=AfI/rdIzVlRxhpx2e+xxZRlwAHvrtDioXPj1hPzzt15K9m7jJ33rN6b5dGFpYM69KHr6y/SqkS2Ns2sVo3wCA3qf9WaHlW4gIvGLegnYF+EDuRvmtQK7CBhqLnqaBjaTiDPkeF633zs7gXvoPTpgg66txmQQ/932Bj29uCjcjJA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777971; c=relaxed/simple;
-	bh=i3adXDOHfku8HbvZYf9v8N8HMWemM/fNDIOazavBL/w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=MY9cXdOrsNkmoBULak6PatlLHMc1lq0LGyLX8XTnywtQO1xr7khjkLWT1c2JrpVTPDthicg17SmWJIldJcJPWpgICQNk4km5L9/TJ5oNEgRdbAUCh4gdLEVk4PIhxJIW7+5HZmAi81qPraBExpaWRxVowsligvFOrPIomJmPOVk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=JD+GI37H; arc=fail smtp.client-ip=52.101.84.12
+	s=arc-20240116; t=1790777967; c=relaxed/simple;
+	bh=F7IEsdQlPvo1M3/A74O8858yeiwV5/144kiDDecwhDg=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=h3Ao0rglO7/4hUiTiwrBJW/LRzf1ExrXLf+Hry7yHrz/UjKBB8U/FCz593LyvTMdEBz8MAFT63/eIWE8ByXiqyTes0MK0gCYrhkTpZ7AparoO7w0VpaWYyRZcIlXlY83EHtVFC+ftQ8dk5jD2yErTuGMjwVXpFWwuocTCDJs+s4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=E0ngRwzM; arc=fail smtp.client-ip=52.101.66.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="JD+GI37H"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="E0ngRwzM"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fFqHN1BN454rY1nZSatsChCaseY+cJuFFX/W+x/BD3Oml2ejEQ/2O2vwx0JFRI3+w1p7jZwX0+RuiOj9nWi1QHb4stBGc51WwcpBF3sTn5JmhLVJJvm/P9l7gz1uVSyjHcC5aDYCZNdYmr39l/YSiIjN+QljlYg8yuJrhkEVixAS4SR7kOqmzvYeCm3seIL7434RtrAEhL2YY0HqRNnVyea6oK95yK0te0mmFebJTwO1qKWmZLsfthUYtaxXZ2qYF7IU5sUsVOj5d6j76MfxLp/paGO2abf2JjGQ3W8180+U6UgqPgT32Zgf/6GktcO2giCQJMVngNhUw1vpk4vnLw==
+ b=cCKZ2MVdwqv1rWGa08mHKu4jz2owGG0dE7q//VSLAFxEmOz5YQw77tG7cqha/8jGqZ5g5L5/IWGoEDGWYHXI/5WGCajhTx8xWS1WhvI0X/V5gAYWqda54T2aAhece1wm08dRYSPzim/4fteDaFGAgS9ilCfcBME+ASGAAQCV2d/nrTUTQFMZnggPdaJf8Yu2GuSJ5hS+urqyN+l2MrskcuU4b4OXoZVtJVLYPZkWVb9qrjwQOXnrwKPwtvkMkuB81VgSuSb3Z+AH5i5yJfMnpC5y24Y9S53QOd76mkVhfkuWubYi0C0x2vXazDf8MIO6lYstcLGq67SljiWiTnBS2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0CphBtJFfETMMYL9g8KTvr6X/yFQGXK4A12WUYlObho=;
- b=bkBL66mRUVoQq7pAG8RLb1KnebTdbViFfCBdI1E/WRVhSxch8wD2eP3b85OO3vi2F1axiMWriMxt6sT5LmSsbEk9j3smXADO4Nt4piy9yTTNVk32QdcS8ycvMxGRX8Ec61Fijw+3lTzTNYCLSAc808KBiUj7/196pVTeWenW70ns6hMfVE69YbvxbQEVf44oqOgovKhOYBRL+syKk3Ukw2QEyGJy4JJR+YGuvbJNaiC0Dv57vFo54M6xG7k6Xh0Yae501fRUR1b74TU7QgITVZvRUg1CIlnPTniErx74xWE+lZapUj4qoBUyRoRHtYnWOSrH3lSkdfLluJMEh6nxtg==
+ bh=y8frYTgHxAqHZm9fAR9Hh7CDFzguBpEfPI7HBlluWls=;
+ b=lW7saCzmdZZK94BDo1+b4lbxDErphWrYYBKT+OykvnykQLTDfXzBKb20f58UiyoBLVYQELNMlB7B5rmYdZkZ0nnKcpkSAQb+wJmyG5uERnhWv/X2Nlmq/0M85EtLf1MkPqfm6yLCh9PGrUgxT3AgeRe5FrQuGCM8zBSolYu3aUnvx3S7VClCq/YOTMGtEAxlVz105k6xxc1BM7CM7tyi5iZsXo6fvL6Na6ZNmFBDBMHO9cnEuoqncWJ0h3fH/us2GPfCotENLl5L+Qqpgo5Nh8pWjngTkFMDBC7q6JlrEm1CL3byviryOPeJXBgmayEcT7iIXH15vL3L6By/ssO7pQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=baylibre.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -30,18 +29,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0CphBtJFfETMMYL9g8KTvr6X/yFQGXK4A12WUYlObho=;
- b=JD+GI37HcM9hWH5nqF1pRyxip7PYm88GmNS/KH2B3fQ2+fVj9s/uaHvw+GCyi1jxwp9pms+2BTGuVQbntmuNPqiv05vXqNNkDuFnc5DlTo4UW1M7yG+OZs+t7WSSBesCV0z2Bw8H4K5V1hFLSqn2Zoha/25CIpSYVbcQZy9gQ/OIqKIWx/74D8Qgqp96Ex5hGGq4XYMDN6eVy84qnO9rkJgZzB5JfM2OicwtWYNsPk4Y/hcItlL31PZsUzAG//eEQw5TLiFOWkSeGAuSNqQTAVbfyx9r5if+iATP4bjTmymzCdeb0pECEDo0hci/zSW4eTGFUHw5OU4Oww1rv2XfDA==
-Received: from DU7PR01CA0015.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::13) by PAWPR10MB6757.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:102:331::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 14:19:14 +0000
+ bh=y8frYTgHxAqHZm9fAR9Hh7CDFzguBpEfPI7HBlluWls=;
+ b=E0ngRwzMyAQ7BQZt2mra/iUiTS5fAblJ4lbLDjEF4D1bUAXwIHIGJnPsQAog3lIcio+F0VWDumiFf/uXB7wXFrrCMGC6uESKOlcdHuw9CARm0arRp63FlRq4xJa42yp0Zr2gL3siRxFRtEk6cBQ3dE67NXtW+c22Wf2sUSq0FLILdnKoSagMv7dIwXKOxz//KMjxdE58JJuOeR76TN4wCAE5nlHrPQ87dZO42sJA6u+LyRoTGz5gSFX2RD3j7kPDT4l4s8hhF0PfzCZw9jokRliTKxVNoxDzYYr17fRJX39foFVsDbYUGzQpRUNfulornety/o77sFn76iURgP1nsg==
+Received: from DU7PR01CA0023.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50f::20) by PAWSPRMB0037.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:366::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:19:11 +0000
 Received: from DU6PEPF0000A7E4.eurprd02.prod.outlook.com
- (2603:10a6:10:50f:cafe::4f) by DU7PR01CA0015.outlook.office365.com
- (2603:10a6:10:50f::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:50f:cafe::46) by DU7PR01CA0023.outlook.office365.com
+ (2603:10a6:10:50f::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
- 30 Sep 2026 14:19:14 +0000
+ 30 Sep 2026 14:19:10 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
  is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -51,19 +50,20 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.59) by
  DU6PEPF0000A7E4.mail.protection.outlook.com (10.167.8.43) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:19:14 +0000
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:19:10 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 16:25:46 +0200
+ 2026 16:25:42 +0200
 Received: from localhost (10.252.17.140) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
- 2026 16:19:13 +0200
+ 2026 16:19:10 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 30 Sep 2026 16:18:25 +0200
-Subject: [PATCH v3 04/15] iio: adc: stm32-adc: manage characterization
- voltage diversity
+Subject: [PATCH v3 00/15] iio: adc: stm32: add support for stm32mp23 and
+ stm32mp25
+Date: Wed, 30 Sep 2026 16:18:21 +0200
+Message-ID: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,9 +72,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
-References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
-In-Reply-To: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAC4avWoC/33N3QrCMAwF4FcZvbajTV1nvfI9xIsty1yF/bDUo
+ Yy9u928URAhEA6cfJkF0+iJxTGZxUiTZ993MZhdIrApuitJX8UsQIFVTmtZVCg5tAbaATI5aQk
+ F5gYOWeYqJ+LZMFLtHxt5vrwz38sbYVidtdF4Dv343H5Oeu394eMoiVSDJcIq7lPdM6ccUuxbs
+ T6Y4IMA84OASOxtiUq7zORov4llWV60IscGBwEAAA==
+X-Change-ID: 20260911-adc-stm32mp25-v1-2ac7328559d9
 To: Jonathan Cameron <jic23@kernel.org>, David Lechner
 	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
  Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
@@ -84,125 +86,105 @@ To: Jonathan Cameron <jic23@kernel.org>, David Lechner
 CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Olivier Moysan
-	<olivier.moysan@foss.st.com>
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Cheick Traore
+	<cheick.traore-ext@st.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>, Cheick Traore
+	<cheick.traore@foss.st.com>
 X-Mailer: b4 0.16.0
 X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E4:EE_|PAWPR10MB6757:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffddf0de-833c-4471-0cbf-08df1efdce06
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E4:EE_|PAWSPRMB0037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 811ec305-57cb-4315-b522-08df1efdcc0c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|7416014|376014|36860700016|1800799024|18002099003|22082099003|6133799003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|1800799024|82310400026|376014|260925021311599003|260925021911599003|260925022911599003|10067099003|56012099006|6133799003|11063799006|18002099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	SmH5dZegM9yIhuecvBPkNQEvwMiFz2dmdV0Kul5thuWT7wrwVnH4o9QXDxUiRcuSTLmnkNmAv7ERRKPvbkC+pAKXHAXp6QEEEyAp57brgdc9SflwbQIyGqULsPsgEVn/YcoxWe7ufwEib7It15CPXNMgnTB7AoFr9iHtFhJgcC0zFgPyOgtw6mj0SjnBBDPJv4PFup3MH88KcCo4jiF4QgswxQScI46s90uRVPIRJ53lX0BHCXRJtzxYzeUM0Hq0lsrE7NyyOvVUFGo15xpxuWkuoOD2xIWo5MD6tgzAEyI491G3UWXf49Mr1ekyA0ujs2ha+M+Dna4S3AiJxn8SLfEv1bNDL4ojInXcO/Po+/GoahmJLEWt/sWC37bqkY3cOlqTQRrN6c5iwzjCN5lV1h820QJjCRaDOaMXoP6OyaOF0A+NQqV6XaBGg0MPivQECjB6P8Nqwm9nXePgsBX3m97uqZowxigqPG3bNGuutRfegoVqItkhXNvhYAvZ6lqBxkRRurhkzehGaiMKOneRhWWJqoP9Rn9Bu73TQ91AfJa+tpkyZuRkJtHnbdGTxV3YyB3rgBPK+mjQ7+9jeF1QFl28v1MQ/4s6YsOIl65cay+D0aaWCqJITHSNjY0GfN8BN/TCOJNWIm4EpRvy9lz2Z9eopc8X6tuM30axNGb4Ib9V3/YGpAF4S4uV5UYScVS1+T8EoZUJpU5UxyR9GEwE8A==
+	Dw++E4hbaL0EbRh1S/MDs18F37DkcPm021BDJjxZ6pHq8q6h9n0ca4B6ZT0xmDq596Xt2Y0MPeGbEiNxbVwfHVDZP2TyiXHBk4SjxuuqxKriQgJZ8YVIUz5L/e7tR0YINHBko7Yehx7c9U12WqfvB2QCQOFaWoGjgMwJYVbJ5bPbyFV1WmbjGy9uxV3ylyU+UeCvu1M4fkEE0qinIN9TeJlUU1Y/QBupRBXE1g2w1DQLnxoJphV0areiknUUzYlv9QBT5g8Dyy16Z+nlNlHeU4akwlW4dYIX6r14ciS89+UktRCLbWxaMsUc+hv8/oHV5vCIkQXRFfynbuxEMASSoRGhiIHel3xaZyLbqYFcCs70X4lqaqtlHXuIIbKBAyJc+MhSvMnL66ZiFOG84aQD2J7d5vXKW0agMkHyElmJLtfED+47cngyqZ2gUfGQl7ISDSxgKl220gx0l7WH8PkKrGjT47mZDshlzUgj9+5rpGbjp8016EEtZwqFTeXBLcmNPkW4t2nycbhtkbJpLHWt2ACX3wW/7Wb+P7e0AsivWCE1PKNAbtkLJTZ3Dq2Fcl5i3Ex5Mq6ry7MtFWxvbSE6W2ZpDhRaW654wXTdWAmrxT1RW96WYtEuvgqWubmencikZ8vV79DD2x46n27QjlJFQA==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(376014)(36860700016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(1800799024)(82310400026)(376014)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4/lWhSGRmk8mxd3CAgtGS3bk5o3knj5emRoN6s0uYh8l+rpeBHoRbNruKlkSdUjf1kC1zztVDyA+CHXT6Txs5efoYzWHLMhkiGSOJEhLMFNj2ZQJ0jM6J+nV6WOWVCDx0xz+ZRSpCHF8V69l3FAWDvLhbdtfhMkbqvY1ZqZIwDRJk+A5aM4YlAj8ViNYXYUmtUn4CtIu6w1z454ntf0UGHD8WQTo0zgLn4RqRXReo9nq4UDqI5+HdNRffjXYBH03uvBGVHHJpQEGIbHd7F0di/cRBRs31mdEcUGryNioxSzQjYQuIQXrEDEPIqprxPl8vYkJcEyRKQOHvTTBZnZL+jQKYiqk1rbsBn5CPWSMAxFPD+4OK1UL2VUwM0WgAaOyp4mE/1bVHAwndWlwSEtF3ts3pxepyovjEPC5CVAL8opnCETXKBIda6RvjdCvOgwv
+	8sFq5x0NECsMizU+1puIzAtFnR/tcZWZhnJBXbXev/sEKo/z7kVuFetgs3L7hc9ccPuz1tClA7nlyMfPVjg8l9PTSWBid7HUXaH/9T/OnzAxZ9nFTQv/Ndim7BFNMtdjDJwqpcpwP0rBPYHzHb6E+9UqP4Nnxy0kGyVRGjHmC7G7xX8EJJWNRgF5X0sgoIiXJF6IsA6J57Bk390sw9WaY+kNWl4mJIIQxnqJGLA2eDeEGRGrTxlbdJ40Qyms0UQMDp10DT6SgLPgDY5Rf3+YkiWTWNGzfEt6UcSf1HkyBj2uas2vbQg4KMERmIh0Yev90boJmLqgViaCJykjRS1iaOVMa4IfNGP9TUvCLeFvVtIntkUjN3RBD0mF3cJpL9DfUEE7rJ6C+NG2aYP61JuAmlism+Wp9pFheQXzW8IbpOd/N96ejZpJCcR/2abuDZ2M
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:19:14.0734
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:19:10.7708
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffddf0de-833c-4471-0cbf-08df1efdce06
+X-MS-Exchange-CrossTenant-Network-Message-Id: 811ec305-57cb-4315-b522-08df1efdcc0c
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DU6PEPF0000A7E4.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR10MB6757
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWSPRMB0037
 
-From: Olivier Moysan <olivier.moysan@foss.st.com>
+Add support for STM32MP23 and STM32MP25 Analog to Digital Converter.
+It's a variant of other supported STM32MP ADCs. Add the DT bindings,
+driver, SOC DTS and an example on stm32mp257f-ev1 board.
 
-The characterization voltage used to calibrate vrefint depends
-on SoC family. Add vref_charac_mv field in stm32_adc_cfg structure
-to store the characterization voltage for each SoC, and use it
-in Vref computation formula.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
+Changes in v3:
+- Refactor the calibration routines since Andy comments
+- Style cleanup since Andy comments (added one precursor patch)
+- Adopt field_prep as advised by Jonathan on patch 2
+- Rebased on additional fix that has been applied separately
+  ("iio: adc: stm32: fix minimum sampling time values")
+- Link to v2: https://patch.msgid.link/20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com
+
 Changes in v2:
-- Andy's review comments: rename variable to vref_charac_mv (unit suffix).
-  Drop the const attribute.
+- dt-bindings: updates since discussion with Jonathan. Drop fallback
+  compatible and "st,adc-trigger-sel".
+- driver: address Jonathan and Andy comments and overall:
+  - Split into several pieces to prepare the infrastructure without
+    functional change
+  - Add stm32mp23/25 support
+  - Then add vddgpu feature.
+- Rebased on top of fixes sent separately, since pre-existing issues have
+  been reported by Sashiko on v1.
+  https://patch.msgid.link/20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com
+  https://patch.msgid.link/20260916-adc-fix-div0-v3-1-bedf027a6e7e@foss.st.com
+- Link to v1: https://patch.msgid.link/20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com
+
 ---
- drivers/iio/adc/stm32-adc.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Cheick Traore (1):
+      arm64: dts: st: add ADC nodes on stm32mp231
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 600f975f1d7b..fa46803d54be 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -43,7 +43,6 @@
- #define STM32_ADC_TIMEOUT_US		100000
- #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
- #define STM32_ADC_HW_STOP_DELAY_MS	100
--#define STM32_ADC_VREFINT_VOLTAGE	3300
- 
- #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
- 
-@@ -211,6 +210,7 @@ struct stm32_adc;
-  * @set_ovs:		routine to set oversampling configuration
-  * @smp_cycles:		programmable sampling time (ADC clock cycles)
-  * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
-+ * @vref_charac_mv:	Vref characterization voltage used to measure vrefint calibration value
-  */
- struct stm32_adc_cfg {
- 	const struct stm32_adc_regspec	*regs;
-@@ -230,6 +230,7 @@ struct stm32_adc_cfg {
- 	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
- 	const unsigned int *smp_cycles;
- 	const unsigned int *ts_int_ch;
-+	int vref_charac_mv;
- };
- 
- /**
-@@ -1615,7 +1616,7 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
- 		if (mask == IIO_CHAN_INFO_PROCESSED) {
- 			if (*val == 0)
- 				return -EINVAL;
--			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-+			*val = adc->cfg->vref_charac_mv * adc->vrefint.vrefint_cal / *val;
- 		}
- 
- 		return ret;
-@@ -2713,6 +2714,7 @@ static const struct stm32_adc_cfg stm32f4_adc_cfg = {
- 	.stop_conv = stm32f4_adc_stop_conv,
- 	.smp_cycles = stm32f4_adc_smp_cycles,
- 	.irq_clear = stm32f4_adc_irq_clear,
-+	.vref_charac_mv = 3300,
- };
- 
- static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
-@@ -2734,6 +2736,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_h7,
- 	.set_ovs = stm32h7_adc_set_ovs,
-+	.vref_charac_mv = 3300,
- };
- 
- static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800 };
-@@ -2756,6 +2759,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_mp1,
- 	.set_ovs = stm32h7_adc_set_ovs,
-+	.vref_charac_mv = 3300,
- };
- 
- static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800 };
-@@ -2774,6 +2778,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_mp13,
- 	.set_ovs = stm32mp13_adc_set_ovs,
-+	.vref_charac_mv = 3300,
- };
- 
- static const struct of_device_id stm32_adc_of_match[] = {
+Fabrice Gasnier (11):
+      dt-bindings: iio: adc: stm32-adc: add support for stm32mp23 and stm32mp25
+      iio: adc: stm32-adc: core: manage clock prescaler diversity
+      iio: adc: stm32-adc: core: configurable number of interrupts
+      iio: adc: stm32-adc: rework internal channels data
+      iio: adc: stm32-adc: add vreg enable option to manage diversity
+      iio: adc: stm32-adc: preferred style cleanup
+      iio: adc: stm32-adc: add support for stm32mp25
+      iio: adc: stm32-adc: add support for stm32mp23
+      iio: adc: stm32-adc: add support for vddgpu on stm32mp23 and stm32mp25
+      arm64: dts: st: add ADC nodes on stm32mp251
+      arm64: dts: st: add ADC support on stm32mp257f-ev1 board
 
--- 
-2.43.0
+Olivier Moysan (1):
+      iio: adc: stm32-adc: manage characterization voltage diversity
+
+Patrice Chotard (2):
+      arm64: dts: st: add vrefint calibration on stm32mp23
+      arm64: dts: st: add vrefint calibration on stm32mp25
+
+ .../devicetree/bindings/iio/adc/st,stm32-adc.yaml  |  71 +++
+ arch/arm64/boot/dts/st/stm32mp231.dtsi             | 116 ++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             | 116 ++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |  22 +
+ drivers/iio/adc/stm32-adc-core.c                   | 104 ++--
+ drivers/iio/adc/stm32-adc-core.h                   |  21 +
+ drivers/iio/adc/stm32-adc.c                        | 597 ++++++++++++++++++++-
+ 7 files changed, 987 insertions(+), 60 deletions(-)
+---
+base-commit: 7b05d04fbd3e7aa3380767122eba0b3df2882ede
+change-id: 20260911-adc-stm32mp25-v1-2ac7328559d9
+
+Best regards,
+--  
+Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
