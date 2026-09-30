@@ -1,63 +1,64 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1BE49A3C3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AC5499F09
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790810650; cv=none; b=H8UYTHeyDgRsOgtcoDHZ1M2S45Z6whIswCFiVA1Sju5+Sm1hHBW1raf7X8eIv9UGkExnndtJ4EOG0MkWXL86OO2UlUExFLZKrWhzrwDgrWrmDIj0yfOwMERVngUDf3cUTPZLXeTPXHzADPdZBsVSKQIXwsMxe3gW7AKsrGsb/Uk=
+	t=1790810652; cv=none; b=OdjzJ5MpPMGKJ1mKlgcwgGP1X7mUvZ7eK/Puj1XDXf5R3N6LCcF1a/aAqpLk/ml4FI2CHTRVVM0oHUr+oKfQgsOSCMYwT5yp3hsrB1o9Ml/6ySSmLkNoIYOwfMHhtoe2cCqGWx+9Ly4faSdpjJgUCqoIjtxKBcDexeKRM7+olzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790810650; c=relaxed/simple;
-	bh=BlsXZI6hBuJoZssYWqE3/aU74sAG0IWl3+di5nW8rBo=;
+	s=arc-20240116; t=1790810652; c=relaxed/simple;
+	bh=HSDehu6zKcCUBJdvUllZcY/3rbhZgfYH1a08z42ov6o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XIvTtv+jp32zZ3Aa+siX0u6OXjomYVWGGTVvLtTy7St1T4cgpZ8loT221dsfAFX15xzPymzWH8rJnyHC5LcRqp8yjL1cu3nZzGWT3Kw+gDO31gc9ZgRz6vsVNuRX0eVFaXcPTw4jkGheCVvhNoFKMVjBVTwkAUwvbGoYz7orCtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noroxi.com; spf=pass smtp.mailfrom=noroxi.com; dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b=kv12k8mO; arc=none smtp.client-ip=74.125.229.204
+	 MIME-Version; b=EfM6O0bgPWL3OShF42wO7KzoWGPAUHXt5FisEg8+U77CraCWPCIOrdUm/LS80bIARykqp++Bc/fM09k3q8j2qdeQzJlxy/GDkyUzsRcClm6EAaSZds2Wq8mHX6dYOD22GDavGXkPsYVOX59ZcbZ7/oFe4sBY+eVPaBvhn5mFq14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noroxi.com; spf=pass smtp.mailfrom=noroxi.com; dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b=hfRMbGaJ; arc=none smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noroxi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noroxi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b="kv12k8mO"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3add810eso1486458e87.0
+	dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b="hfRMbGaJ"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba4415869aso139419e87.2
         for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=noroxi.com; s=google; t=1790810644; x=1791415444; darn=vger.kernel.org;
+        d=noroxi.com; s=google; t=1790810643; x=1791415443; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CRhw0Id6strr6ueBVzXyHWWSKhLWhS5obNSqyYPwwPY=;
-        b=kv12k8mOjYwf1jKXpz5SEfwF6Uhy6b1ijxykLpaEUjLRfSKc79CK0IMo5vBAb8APA0
-         SxvS4+8b7NrQftQBZrh1cbikkWoiE2JdMiR2oma/TC8aG0X5ir9Cc58V36dqomPZRJ0a
-         ugKDdJq4HWANNB3Bhqqe8pGOeuaWm0KIBSCdrFaiucknT5kYXlZQYX8YWDhYdcAYD4AI
-         rsKTLEURVfzE6EGR7tJ2o+DmunoyMPZXDfGQ4HX7vU/NGqMIX+cQcx69k97NkJGKna64
-         8Uahj0W7ydPiYv52IgtxM4mRTLss/ogyT4fLQY/WSxD+CDdlY/bOY7nJmAs9SnZGRCu6
-         SZAA==
+        bh=SQ0OdnmP0LrZt1KQaEY+HbbBliVRtQdPTnqFkA08fMc=;
+        b=hfRMbGaJdcpBdtIGMJxRIq2iw4T/NxcgRpKtcDBIlcabytnsiM/71lP1qeKMViArDI
+         tlBxNMhhsqUHL6jWCamYUfhHT/jVQP15JqICFO2ASvEbMtA71ET1S9RWMi46ZLkG1dSY
+         4Tvn3gipduLCs3NblV0PyRxxL+AIC2bBr4C60idc/PWNgYjSKBDEeAU+qs1lJsQNYq05
+         tS8NXsWw6YnI7U4GiwshmvLNPYWCJOx4yApqxUirxuK53VRpIEA3txAYj7WztILAk9UZ
+         M9Nb/sFeBaISO+KON64pYqtfAo3CSzZRfsdmvefJoJt5c6pf4eB+b6D8gD0A4q8gr2rV
+         7Bxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790810644; x=1791415444;
+        d=1e100.net; s=20260707; t=1790810643; x=1791415443;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CRhw0Id6strr6ueBVzXyHWWSKhLWhS5obNSqyYPwwPY=;
-        b=OGNApdhZM5n9P0r5mI1YYshT7J81FFZrvr/Deopy+WkwmgyOC7oCgcv5jON6XOsv7A
-         u79DC0Y0HSm1ip7ViYn0jqWLr87ciDQgVHPeemuIEH4UfIP3w/hONLZcixP9pptEFm6e
-         Ph95BxbeTNDpJO4JilQhgo+wumgn8yKtIdtiDROgnMfRa7C/3m8icBh01p5/VAtbOeQH
-         z2J9HkrGejgszkjf91MwBgq820rGEAqRw5t4WFSCC2o7Kwcx0FYwBnes4C/cLNR8iSKu
-         0L20dr50FTSFr8xIFeS2eWBKKKLeUMp2m5mU+8D2CsQh3C48XZ7iXC3HBA/4QTHogfXI
-         lneg==
-X-Forwarded-Encrypted: i=1; AKwUvBzokidaAq3Z1csz8+p4QJczHCC6LcJLqPhKDlGgJL3eViyR1qQSi83YX3RFSH/eDcRzDaBSfhnTFLbt1Tc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeeKFBUowaMp2kU90Ahv8F9SlLSSOu58z/IW0IuI6SvI1SYugG
-	XmV2wkDXObzdYVZ9huVQwUoKFO0hyZ1rR0AxM+0oj5q6E8ePvXL2n3FuP7LPd3f7Q7YA
-X-Gm-Gg: AYBFou2j+NvtS2n1cOXLr+IqIEhhz96oakCACmzjFmU2mYm4AwSaB5+7ZGAF6XSsdyS
-	Q2I4y0phY1hkmMceDYiNX70SqUjjcQsOcuowJHkj/nxuMPlfBQzWP70neAsLLUgJrvljWPr/Pz9
-	LJ5pLaa0M47DKxbhSagDj5NHXqryW2tX3OcKjeD2GkEkQD6m0Vy8xhqNGnak0T9hw5Qq921y2wr
-	6vStJbNZ/mtdxLvc3c0N3Y7WQJ8UpCFAgkQvlTpAQLVBh8lGBmdWQxvGp38U25US6x+KMmNoima
-	qt247u1/+MQxrZAG/6jwrvOVzlASK2dhwXLH8KTgp73JnEpKoGCyfnB6WRvlT1bP47dMRs2GFds
-	B1TzZYUbmOSnTe2PWbLZ/yTYZSPo3D5Z/OLOn3jaLCt8oSXLPckRMadnwJNo+1Sbdr6OfIZ3eYy
-	3Ns8wzLED8oOqlZSK/b5gWFNaUogxqbg3/z1b8SCs+PF3Z/peuBfjKyx4aNOM1PZle8sTNexrH
-X-Received: by 2002:a05:6512:15a7:b0:5b8:edc5:c9f4 with SMTP id 2adb3069b0e04-5ba403e92b7mr1163263e87.13.1790810643443;
+        bh=SQ0OdnmP0LrZt1KQaEY+HbbBliVRtQdPTnqFkA08fMc=;
+        b=2DugNdgxHM5PMLx9wH2igjXMH9mcoqCiN3FvV0x00KmaP3o7ysuRRcciZGIDFvncar
+         fgYvWz5I/1nP9czXVDY9lGCxSDECSOzMWrvozKfWi0bJmFBV9UbRSo1zQjG+z3N2wJlz
+         7eininEh5+FefL2gTPFEUUIbKBRRv1S39TFQmBzAQrd3E6STTMPyHpsziPquqv1vpIAl
+         m0OgxKV7wc2LOV/Jvo+CbTrnOco1pyjnnxbhPhPJGr7kLBTWuQadZia7U7WITMFJTxjG
+         OvUUdOq3DmAXdFMo1n/n7990Mj113kPTcsVc2hqJBMDbsPbW1WUIrhYh1x6x8SHALnH0
+         /jPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwK57+ZaWXMLjiEWfLfcd0kyAaFlc6gxstSP69DBiFTppuNQrPZ/AaoHGeZbsZy46lU6lAN8QNOL7YD2Zw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLy+jr3lIxL5+1YIc1k613dt0baaOJTiU8KWi5+LEyDmNPFWrGB
+	znTf50PcSN7gA/MauDRjh9LtK4fDHz6alejxwrSbUibvCFaNDrl2KMZ7ySoVB/5rGENd
+X-Gm-Gg: AYBFou1DaYY4CpHvGjY0sBsHA5tIuK0heA9tzspYSgTHIIL/UTsqxkkcrhWwT4o2BOl
+	PGFjCk9B+yUl1ROWV8ozhT5pIrocqJi2rRZG1HFzSRjVF/V0BAX1i3mrgFh8IzQLVekxpIQa9KR
+	CNe9F5G/SFAG4gYkqdMLMe0FlqCPfodsHwA4P3+FI59SQVE9dtNqNDvPo6www4W7g/TpKOXIkfX
+	/Y2Ea/R/1my2wADfQyP7u/MLnHkDH5UGX8QniwPxVpteV1VUgAII6H5OgatbDChhQSDL0UVhzhg
+	Sks5akiY5UAdbgBjJNgiQQxIx2xj0YsSbCJtkMrBIcwZTfkDXGamT9WfLrZlQvfSMRgrcUsEnJF
+	zuoQuHzLRUGziUUg53a4Pq3+2lTRPaiQXfT8esSaBoi3maEvcXwOlE9cE7YndW6mc8tbIqBwDJK
+	WvgCxa28GuzheW32QwK/z3dXvEUeTjYJunscPVc4c3kWZMdWhFAlZzi3fnWrEecCZLQpo1INtCP
+	bGjdaGDSd4=
+X-Received: by 2002:ac2:554a:0:b0:5b8:f960:1bd8 with SMTP id 2adb3069b0e04-5ba40608d46mr811098e87.61.1790810643087;
         Wed, 30 Sep 2026 16:24:03 -0700 (PDT)
 Received: from lab01.. ([2a01:4f9:1a:a462::2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fc8023sm279117e87.81.2026.09.30.16.24.03
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fc8023sm279117e87.81.2026.09.30.16.24.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 16:24:03 -0700 (PDT)
+        Wed, 30 Sep 2026 16:24:02 -0700 (PDT)
 From: Mahmut Emin Kurhan <guvenlik@noroxi.com>
 To: linux-fsdevel@vger.kernel.org
 Cc: slava@dubeyko.com,
@@ -65,13 +66,12 @@ Cc: slava@dubeyko.com,
 	frank.li@vivo.com,
 	linux-kernel@vger.kernel.org,
 	Mahmut Emin Kurhan <guvenlik@noroxi.com>
-Subject: [PATCH v2 1/2] hfsplus: free cached B-tree nodes on hfs_btree_open() error path
-Date: Thu,  1 Oct 2026 01:23:11 +0200
-Message-ID: <20260930232312.1405042-2-guvenlik@noroxi.com>
+Subject: [PATCH v2 0/2] hfsplus, hfs: fix B-tree node leak on hfs_btree_open() error path
+Date: Thu,  1 Oct 2026 01:23:10 +0200
+Message-ID: <20260930232312.1405042-1-guvenlik@noroxi.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930232312.1405042-1-guvenlik@noroxi.com>
+In-Reply-To: <ea8cfa5978a90d27e498fae626edfdae5bf84af7.camel@dubeyko.com>
 References: <ea8cfa5978a90d27e498fae626edfdae5bf84af7.camel@dubeyko.com>
- <20260930232312.1405042-1-guvenlik@noroxi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,96 +80,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfs_btree_open() can fail after hfs_bnode_find(tree, HFSPLUS_TREE_HEAD) has
-already inserted the head node into tree->node_hash.
+This is v2 of the hfsplus B-tree node leak fix.
 
-__hfs_bnode_create() inserts the new bnode into tree->node_hash before it
-reads the node pages; if a page read fails it sets HFS_BNODE_ERROR and
-returns the node still hashed. hfs_bnode_find() then takes its node_error
-path and calls hfs_bnode_put(), which only frees a node once its refcount
-reaches zero *and* HFS_BNODE_DELETED is set. For the errored head node that
-flag is not set, so it stays in tree->node_hash with a zero refcount.
+Slava, thanks for the review. Addressing your points:
 
-hfs_btree_open() then sees IS_ERR(node) and jumps to free_tree:, doing a
-bare kfree(tree). Only hfs_btree_close() walks tree->node_hash[] and frees
-the cached nodes, so the head node is leaked. Mounting a crafted HFS+ image
-whose head B-tree node fails to read leaks kernel memory on every attempt.
+- HFS: you are right. The classic HFS driver has the identical leak:
+  __hfs_bnode_create() hashes the node before reading its pages,
+  hfs_bnode_put() only frees a node when HFS_BNODE_DELETED is set, and
+  hfs_btree_open() does a bare kfree(tree) on its error path. Fixed in
+  patch 2/2.
 
-Factor the node-hash freeing out of hfs_btree_close() into a small helper
-hfs_bnode_hash_free() and call it from both hfs_btree_close() and the
-hfs_btree_open() error path. No hash_lock is taken because the tree is not
-published yet, so no other thread can reach it.
+- Dropped the inline block and the duplicate variable declarations. The
+  freeing loop is now a small helper, hfs_bnode_hash_free(), reused by
+  both hfs_btree_close() and the hfs_btree_open() error path, so nothing
+  extra is declared at the call site.
 
-Found via coverage-guided fuzzing (syzkaller + kmemleak) by Noroxi.
+- hash_lock: correct -- it is not taken because hfs_btree_open() has not
+  published the tree yet (it is only returned on success), so no other
+  thread can reach node_hash. hfs_btree_close() omits it for the same
+  reason.
 
-Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
----
+v1: https://lore.kernel.org/linux-fsdevel/20260930185033.1335238-1-guvenlik@noroxi.com
+
+Changes since v1:
+ - factor the node-hash freeing into hfs_bnode_hash_free() (Slava Dubeyko)
+ - no inline braces / no duplicate declarations (Slava Dubeyko)
+ - add the equivalent fix for the classic HFS driver (Slava Dubeyko)
+
+Mahmut Emin Kurhan (2):
+  hfsplus: free cached B-tree nodes on hfs_btree_open() error path
+  hfs: free cached B-tree nodes on hfs_btree_open() error path
+
+ fs/hfs/btree.c     | 34 ++++++++++++++++++++--------------
  fs/hfsplus/btree.c | 35 ++++++++++++++++++++---------------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ 2 files changed, 40 insertions(+), 29 deletions(-)
 
-diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-index 2ea8cd565..41e01380d 100644
---- a/fs/hfsplus/btree.c
-+++ b/fs/hfsplus/btree.c
-@@ -265,6 +265,24 @@ static const char *hfs_btree_name(u32 cnid)
- }
- 
- /* Get a reference to a B*Tree and do some initial checks */
-+static void hfs_bnode_hash_free(struct hfs_btree *tree)
-+{
-+	struct hfs_bnode *node;
-+	int i;
-+
-+	for (i = 0; i < NODE_HASH_SIZE; i++) {
-+		while ((node = tree->node_hash[i])) {
-+			tree->node_hash[i] = node->next_hash;
-+			if (atomic_read(&node->refcnt))
-+				pr_crit("node %d:%d still has %d user(s)!\n",
-+					node->tree->cnid, node->this,
-+					atomic_read(&node->refcnt));
-+			hfs_bnode_free(node);
-+			tree->node_hash_cnt--;
-+		}
-+	}
-+}
-+
- struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- {
- 	struct hfs_btree *tree;
-@@ -403,6 +421,7 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- 	tree->inode->i_mapping->a_ops = &hfsplus_aops;
- 	iput(tree->inode);
-  free_tree:
-+	hfs_bnode_hash_free(tree);
- 	kfree(tree);
- 	return NULL;
- }
-@@ -410,24 +429,10 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- /* Release resources used by a btree */
- void hfs_btree_close(struct hfs_btree *tree)
- {
--	struct hfs_bnode *node;
--	int i;
--
- 	if (!tree)
- 		return;
- 
--	for (i = 0; i < NODE_HASH_SIZE; i++) {
--		while ((node = tree->node_hash[i])) {
--			tree->node_hash[i] = node->next_hash;
--			if (atomic_read(&node->refcnt))
--				pr_crit("node %d:%d "
--						"still has %d user(s)!\n",
--					node->tree->cnid, node->this,
--					atomic_read(&node->refcnt));
--			hfs_bnode_free(node);
--			tree->node_hash_cnt--;
--		}
--	}
-+	hfs_bnode_hash_free(tree);
- 	iput(tree->inode);
- 	kfree(tree);
- }
 -- 
 2.43.0
 
