@@ -1,225 +1,156 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF9151D50F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FAE4C33E6;
+	Wed, 30 Sep 2026 18:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793347; cv=none; b=iCggQRJw+aXrAwep1WkPMF4+FTnVk/avHCskEt+o0eDRGr4D3WIzBXSDLlE0bvZiamrY6/H8tK55B3+MHRBRjn90bpLfAxAooZtMCYUoK97mCDdMzo1qLGrFaib8rJJQiLdguMoMjMdh5ntPWvD5bQiP9BPWgOGy1KVhsW4sPU4=
+	t=1790793399; cv=none; b=AnLVbo2lfbThIfSZz7aW+XHXjhBxq1NwUhQgWrEVJIGqRldnzEdXm9rZSmMVnpq5A+LUkz49DfhvPhTJYGjDfo/HSthOP8pSxiXd1s3n6pQtNToGzyqqbFRvw3Xg0Ythcxa01NeTiPmsCat8IxDMJ0KOvfACCbvHZJs2F793+80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793347; c=relaxed/simple;
-	bh=Wez9srevnIfC8Rd+n2hLAGeZbyMP2VL+aHaODO0xoeo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qjEoOQlBBgtuBAik/0/BE7XqeSGpQNxXbaRZqAWUZta/CGjy45xt1IKYhRXU+4NXt6wdzKGMarzDXyuX+Vqk8SHseETwCx1T6Qs7cIJ5KyzvDgXeuJGE4QYFBiwsnpoY8UxVdokLFNvVSjwP0iwlPM5TB3Ouo/MxXT0t6O0T1nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cljvbv1m; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790793399; c=relaxed/simple;
+	bh=VUdi90djdUmelPiBH2g9vWrf6a2YP1CNrsGy/AkTM8M=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=rX5fdUqcRnE6CvtVfn4BLoqKmgEqTsAtDtV909vRMb1wnTAXn9ZTBtLEukyzki9RklErIwlX/dJHdIYe1MFyf6FPyomveWmSO9oAkVYO/l++Paut+4jqcw+VYw7NZTdgkEbcr2I09RXab0KDAYe6mEOos1K/JKPKFZKqtvY9Es8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=GKyL+ajY; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CCn5p5YT; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cljvbv1m"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C3FF21A107A;
-	Wed, 30 Sep 2026 18:35:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 95E7960749;
-	Wed, 30 Sep 2026 18:35:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B6995103286B1;
-	Wed, 30 Sep 2026 20:35:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790793341; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=gpYfjJVVvP/BO4iGCfqY670W67tEKCw8EcdA/x14eN4=;
-	b=cljvbv1mvSw8lBQBLKnUAA1p/aLGR9Fs3to25dWU657BqG7yqPHBOcDXTmHF7Pi2/VlCMS
-	opNpJa1WJCMfz+7jB38TM+5M9ylNGPK7d6hab3OaOSDP/aQI8jnAmLoyl43iq50DGqhQ9a
-	/x2bUqslZhMADAh+nxOWKMhQ4bd4qCYXmuitWl5zKqyHpY4ex7OHkm4EhHb/QXPrA9VOH0
-	yuDAdNfhgrOcVDFhzjPwRf7HcOVoDFzx1txmqfGZGKmXln0CYkyMJHdoEoSIZQLadazwBf
-	HaFxHYA6JKUhRoVHIYhtaA+e8BbwJkRSUzLfYFwLtPQcblZe7g2ktdPrl08kMQ==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Wed, 30 Sep 2026 20:35:36 +0200
-Subject: [PATCH net-next] net: macb: move printk() calls out of bp->lock
- critical section
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="GKyL+ajY";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CCn5p5YT"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790793380; bh=yabuR8AUgligfEBOy3I805L
+	BqL6502nnbdZtxaciH8s=; b=GKyL+ajYNWBUQcUwd21Py42wyvn4N7vNnwanEybgfJ9pKZJEkt
+	yDQVWcrrkVQn4PKB/FLP/mSIyfT7Y6X12IVKUH5G4weg+E14V9bcHYQsOYW52Lx8yqz29cnEaT/
+	x9sJW9PfkpsxuPaydXnyqQWrz9R3XAbiTDEFfF0zOuG7ODBJxp1g8w1cZIzEziiF4ADplpE0YMM
+	EUYdk/oWkoubsv2kxiFPoJzePKsBpeD9dvIIZJR3FPtuK4J2atgtmDZC/s3BZ7nvqDKilad3QAo
+	j1fiV+ic0L4U9B7Zk1pFwORJwmDs0BFDgucC7kKLoCScPO8lyeHbDi/u0mKL1G0sZcA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790793380; bh=yabuR8AUgligfEBOy3I805L
+	BqL6502nnbdZtxaciH8s=; b=CCn5p5YT0RxmKY4vXVmzULYrPal8lw3nxrThzdTqvZC554y/VY
+	ZPaAT5nxiZYjgcdjoTHPRNX6gag1j8lKIwAw==;
+Date: Wed, 30 Sep 2026 19:36:20 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org
+CC: arighi@nvidia.com, arnd@arndb.de, arnd@kernel.org, boqun@kernel.org,
+ frederic@kernel.org, gustavold@gmail.com, jiangshanlai@gmail.com,
+ joelagnelf@nvidia.com, josh@joshtriplett.org, kunwu.chan@gmail.com,
+ linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ neeraj.upadhyay@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
+ rostedt@goodmis.org, tglx@kernel.org, tj@kernel.org, urezki@gmail.com,
+ yphbchou0911@gmail.com
+Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
+In-Reply-To: <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
+Message-ID: <28A04B09-71B0-4BBA-825C-7F80E57BCF3A@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260930-macb-irq-v1-1-8994a4c8f3bb@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAHdWvWoC/yWMQQ6CMBQFr0Le2p+UgoBehbho61c/CVXaSkhI7
- 27V5WQmsyNyEI44VzsCrxLl6QvUhwruYfydSa6FoZXu1KlRNBtnScJCZui7Y1MP2rQ9Sv4KfJP
- ttxrhOZHnLeHyN/FtJ3bpe0LOH3cBcZl2AAAA
-X-Change-ID: 20260930-macb-irq-a87653182a47
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: b4 0.15-dev
-X-Last-TLS-Session-Version: TLSv1.3
 
-printk() call while bp->lock is acquired might be a bad idea:
+On 29 September 2026 22:08:49 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
+>> Thanks, Arnd.
+>> 
+>> Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=y:
+>> 
+>> CONFIG_RT_MUTEXES=y: build passes
+>> CONFIG_RT_MUTEXES=n: fails without this patch, passes with it
+>> 
+>> The failure is in tree_stall.h, where rt_mutex_owner() is used
+>> before tree_plugin.h includes rtmutex_common.h. This matches the
+>> reported failure, and the added include fixes it.
+>> 
+>> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+>> Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
+>
+>Bradley and Kunwu, are you OK with my applying your tags to the commit
+>that I am merging this into?
+>
+>1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall
+>dump")
+>
 
- - It grows the spinlock atomic section.
+I'm ok with it
 
- - If netconsole is active on the same interface (and we run on the
-   queue's CPU), we risk a deadlock because macb_poll_controller()
-   calls macb_interrupt() which grab bp->lock if an IRQ is pending.
+>							Thanx, Paul
+>
+>> Thanks,
+>> Kunwu
+>> 
+>> On Fri, Sep 25, 2026 at 9:39 PM Arnd Bergmann <arnd@kernel.org> wrote:
+>> >
+>> > From: Arnd Bergmann <arnd@arndb.de>
+>> >
+>> > The added call to rt_mutex_owner() makes this fail to build in
+>> > some configurations:
+>> >
+>> > In file included from kernel/rcu/tree.c:5121:
+>> > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function
+>'rt_mutex_owner'; ISO C99 and later do not support implicit function
+>declarations [-Wimplicit-function-declaration]
+>> >   333 |                         if
+>(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+>> >       |                             ^
+>> > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and
+>integer ('int' and 'struct task_struct *')
+>[-Werror,-Wpointer-integer-compare]
+>> >   333 |                         if
+>(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+>> >       |                            
+>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
+>> > In file included from kernel/rcu/tree.c:5124:
+>> > In file included from kernel/rcu/tree_plugin.h:14:
+>> > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting
+>types for 'rt_mutex_owner'
+>> >   231 | static inline struct task_struct *rt_mutex_owner(struct
+>rt_mutex_base *lock)
+>> >       |                                   ^
+>> > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is
+>here
+>> >   333 |                         if
+>(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+>> >       |                             ^
+>> >
+>> > There are already a couple of inclusions of
+>"../locking/rtmutex_common.h",
+>> > so assume this is safe to do here.
+>> >
+>> > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU
+>task stall dump")
+>> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>> > ---
+>> > I wonder if it would be better to either move the rt_mutex_owner()
+>> > definition into a global header like include/linux/rtmutex.h, or to
+>> > move the code out of tree_stall.h into a .c file, as this feels like a
+>> > layering violation.
+>> > ---
+>> >  kernel/rcu/tree_stall.h | 1 +
+>> >  1 file changed, 1 insertion(+)
+>> >
+>> > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+>> > index 5dded1e89197..803a56af3259 100644
+>> > --- a/kernel/rcu/tree_stall.h
+>> > +++ b/kernel/rcu/tree_stall.h
+>> > @@ -12,6 +12,7 @@
+>> >  #include <linux/rcu_notifier.h>
+>> >  #include <linux/smp.h>
+>> >  #include <linux/rtmutex.h>
+>> > +#include "../locking/rtmutex_common.h"
+>> >
+>> > 
+>//////////////////////////////////////////////////////////////////////////////
+>> >  //
+>> > --
+>> > 2.53.0
+>> >
+>> 
+>
+>
 
-Three messages are changed:
-
- - In macb_tx_error_task(), defer netdev_err("halt tx timed out") call
-   to after the critical section. Update the message to highlight it
-   occurred in the past. Inherit the buffer exhaustion boolean variable
-   name from the old code comment.
-
- - In macb_tx_error_task(), defer the netdev_err("TX buffers exhausted
-   mid-frame") call out of the loop. This also means it goes from
-   1-per-error to 1-per-task-invocation.
-
- - In IRQ handling, move HRESP error printing out of
-   macb_interrupt_misc() into macb_interrupt(). Again, it means we
-   dedup error reporting if status is read multiple times in a row with
-   HRESP bit set. This is fine as from past instances I've seen, this
-   message spams our log if it occurs.
-
-Notice we *ignore* debug printks; if you are debugging MACB maybe don't
-use netconsole...
-
-The netconsole deadlock is theoretical & never reproduced.
-
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
-This patch used to be part of context swapping V9.
-It got moved out as there aren't any dependency or relationship.
-
-Technically it is a fix, in practice I'm happy for it to go through
-net-next/main for more testing and it is a theoretical bugfix (as usual
-nowadays). Decided after seeing Jakub taking a similar patch into
-net-next this morning:
-
-> Since Linus is pushing back on our number of Fixes let's go for
-> net-next with similar fixes until the merge window
-https://lore.kernel.org/netdev/20260929184531.36ac3dc3@kernel.org/
-
-Changes since context swapping v9:
-- Rebase onto latest net-next/main (47a144672573).
-- Send patch standalone.
-- Simplify the commit message (it was a long and partially wrong
-  rambling before). Also mention that it is a theoretical bugfix.
-- Link to v9: https://patch.msgid.link/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com
----
- drivers/net/ethernet/cadence/macb_main.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 20fe30789834..6725f8ac7606 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1282,6 +1282,7 @@ static void macb_tx_error_task(struct work_struct *work)
- 	struct macb_tx_skb *tx_skb;
- 	struct macb_dma_desc *desc;
- 	bool halt_timeout = false;
-+	bool buggy_driver = false;
- 	struct sk_buff *skb;
- 	unsigned long flags;
- 	unsigned int tail;
-@@ -1308,7 +1309,6 @@ static void macb_tx_error_task(struct work_struct *work)
- 	 * macb/gem must be halted to write TBQP register
- 	 */
- 	if (macb_halt_tx(bp)) {
--		netdev_err(bp->netdev, "BUG: halt tx timed out\n");
- 		macb_writel(bp, NCR, macb_readl(bp, NCR) & (~MACB_BIT(TE)));
- 		halt_timeout = true;
- 	}
-@@ -1353,8 +1353,7 @@ static void macb_tx_error_task(struct work_struct *work)
- 			 * those. Statistics are updated by hardware.
- 			 */
- 			if (ctrl & MACB_BIT(TX_BUF_EXHAUSTED))
--				netdev_err(bp->netdev,
--					   "BUG: TX buffers exhausted mid-frame\n");
-+				buggy_driver = true;
- 
- 			desc->ctrl = ctrl | MACB_BIT(TX_USED);
- 		}
-@@ -1391,7 +1390,14 @@ static void macb_tx_error_task(struct work_struct *work)
- 	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
- 
- 	spin_unlock_irqrestore(&bp->lock, flags);
-+
- 	napi_enable(&queue->napi_tx);
-+
-+	if (halt_timeout)
-+		netdev_err(bp->netdev, "BUG: halt tx timed out, we ignored it\n");
-+
-+	if (buggy_driver)
-+		netdev_err(bp->netdev, "BUG: TX buffers exhausted mid-frame\n");
- }
- 
- static bool ptp_one_step_sync(struct sk_buff *skb)
-@@ -2143,11 +2149,8 @@ static void gem_wol_interrupt(struct macb_queue *queue, u32 status)
- static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- {
- 	struct macb *bp = queue->bp;
--	struct net_device *netdev;
- 	u32 ctrl;
- 
--	netdev = bp->netdev;
--
- 	if (unlikely(status & (MACB_TX_ERR_FLAGS))) {
- 		queue_writel(queue, IDR, MACB_TX_INT_FLAGS);
- 		schedule_work(&queue->tx_error_task);
-@@ -2187,7 +2190,6 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
- 
-@@ -2207,6 +2209,7 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
- 	struct macb_queue *queue = dev_id;
- 	struct macb *bp = queue->bp;
- 	struct net_device *netdev = bp->netdev;
-+	bool hresp_err = false;
- 	u32 status;
- 
- 	status = queue_readl(queue, ISR);
-@@ -2253,15 +2256,22 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
- 			napi_schedule_irqoff(&queue->napi_tx);
- 		}
- 
--		if (unlikely(status & MACB_INT_MISC_FLAGS))
-+		if (unlikely(status & MACB_INT_MISC_FLAGS)) {
- 			if (macb_interrupt_misc(queue, status))
- 				break;
- 
-+			if (status & MACB_BIT(HRESP))
-+				hresp_err = true;
-+		}
-+
- 		status = queue_readl(queue, ISR);
- 	}
- 
- 	spin_unlock(&bp->lock);
- 
-+	if (hresp_err)
-+		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+
- 	return IRQ_HANDLED;
- }
- 
-
----
-base-commit: 068b5854d6cf588826bd876172652e7c1469d4e6
-change-id: 20260930-macb-irq-a87653182a47
-
-Best regards,
---  
-Théo Lebrun <theo.lebrun@bootlin.com>
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
