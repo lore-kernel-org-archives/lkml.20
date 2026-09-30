@@ -1,219 +1,801 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41384CC63A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779164; cv=fail; b=MZnC6iodIA84Hi5KSeyukpQ4pswjl9EWJ2gIWIl1ueZ7cqPx8wnmKXeZ+jFvuRNiTQEUb/WleOtlbkV4KT2EGMgcs5s0pN1ZFw+a/HVt5vGEAu/riLHEWcmIsZZa5VkcVCSFd4R1CGE0J4xM336/yLnErMAs+Qob+XCiutTZ5DA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004A44EFFAB;
+	Wed, 30 Sep 2026 14:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790779164; cv=none; b=LKT7nNz36xBlP9Qc2q7T2iHS7jhISYlySq1K9gkQslTfE7lKV/bcbRUyg7DcGHTAZrJmjTpbFDIaRRzkhXeP1cGppClSpZqrzLyN9lqmpfdEXjRiMNHz81n5rwvW+kYv86OBVKwJHcArn1SNidN3O/JHNC4pQ/wq7OXZwttguVQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790779164; c=relaxed/simple;
-	bh=MGfIt81jYWb940LwdkiuMn+W/x1vB83QFAPT5LQ9KZQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CZKfmhrNEr+LbIDD8UM+7Rkp0/QiODg54JNqIEOLqX0jVB71rmuMreUt+NXzFQLgomyLXGmJ+SMK31ach4/ctggwDPZm0mjRNK0vCQqzeUp2nWrcKSD5LdZycGU2NTim/LLvlMt+Vk+Objc92ddmWZ9o+iv3yv9C6r78B+9e9tU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=TmXbfnGv; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=ZzX/JZar; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	bh=ZQuU4MqAB9SZtEoYb0AWuqh2pJUneaFwtAhjMSxAd0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eKwKEhlgVgKp58SM6ybl7qucuLU8ciOvcNFVMc1v7pjCqw86vXqFkJY+VGlg0CXSqLy2C39GIdAqqD2Sj0UZUqBbpvs9bKE91ctvwXY9SuKeNgOnMbWfrZSAgHsXuFSzBVL9Izle8fCjXRL+15m31BEV5zpiHsKtVHXgTBq0HVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kHjtnK2u; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="TmXbfnGv";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="ZzX/JZar"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68UE1H9s3333348;
-	Wed, 30 Sep 2026 09:39:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=Lb5dMKV+gJqzNoJwGiREFnqTkpX6spFbGIFdS6eFO
-	EE=; b=TmXbfnGvyFzokKUInP3+4sedpuvKfnmLShnWF0zpD0Gwz0sv8HquaRN9g
-	7g5FdrAhkn/dllEjYv92f9OBCCr22MNOs43iS3e4bFC/MjR/rdrOAfgUOQPdL/J8
-	GNDyrywxJsIge+aCUsOvJSNuAUkrPF7Qz/ozIw+b9Y8TMV1TduEr4LH+ItRgDW78
-	cMKahuAoC/34Xdu4NeYo6OBBY9fbCgsJoQoCIFZMQe1zBszOv33gLhNztC9CvyEf
-	lgkARQ6ZJKZp6BgG1sJPg7JWZ6rPN3qhXxgvJWqmXxpTXcY/0SwQsKGl0jN7Iymw
-	8DmmdO9hmQafLJikc16RMm8uKxQeQ==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012025.outbound.protection.outlook.com [52.101.53.25])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4h10t1sc5h-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 09:39:08 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yr/Y6nb/wBThhEyt2kXNurD1/P7IODiAcTZUIDy0a6ZlGmazrbohCgen3dGw/2XYU+JwAeYbwyoTAOEA4bZtY7VNPE+m/lY/r1ivfbNZlnYC6APw/pjv0IFR8xjeXGzStxHyFrBlGMa3nuN4+kG29cdN4iXvVUWAKXGkPFJJc1TN2+dVT9izat5wNBOMYxtbFsQxN6H7lQSn2bFyeQAbfFII9JDAZKbjM5wRbY8UqeD1xQF+V9yaGnUGY0VruJig1u0xPzOK6unQjHV5eyMqC767Jd8ekveYMp69pZUoBfxXhhWyzM9FA+b+K491u/iw9j2PFYxWEd5Vx8rYsBxS9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lb5dMKV+gJqzNoJwGiREFnqTkpX6spFbGIFdS6eFOEE=;
- b=kg3K3+lEXFhHT7as91k8JNgfgxEp4pDpF6Y1Ggzh4RSX6LTfym0E57dFQUAX2S7Xz9mexHiQl0aySMJ/8NOHOhiReqNM8SM3Ig2XBc12e5zpqPIcZ4DCzJZWFUa9JZA+fPwo3HqK5nFVx0gZ+J5YNrhyTncaQvD7/MduX9g44luF9vrHECk7B9M+FKg7U0GeDT9fWmhl0W3PawxPvBXVKosLVUbayYHmt+N/Ny7zZEJMuIKoTLxx/mVbHb5EYwiNhvdM4Dpo4tzGm3CfwozURxysNEl/Kt3oCDDdgCvQifUiT4s0ETgnHXiiooCdAaTJvB1TRjJfnEwqbZe8YRabog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lb5dMKV+gJqzNoJwGiREFnqTkpX6spFbGIFdS6eFOEE=;
- b=ZzX/JZarhVsKFqEQPs+giUYccQfs9tu2lKFzZjWOxFX+YKUpPVSXjvfltOZKN2HBiOVi/E6/TKyOShnqxnWAzYXUolRBMlEJbuWEoQLi6Lz7GkQuxY8QZqJAVS8OgOWOo83rfmZDmtAfkOdzXTa58RF3iPGUndBYjHXwgPpSjxU=
-Received: from PH8PR21CA0012.namprd21.prod.outlook.com (2603:10b6:510:2ce::6)
- by PH0PR10MB5548.namprd10.prod.outlook.com (2603:10b6:510:db::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 14:39:02 +0000
-Received: from BY1PEPF00026966.namprd05.prod.outlook.com
- (2603:10b6:510:2ce:cafe::6d) by PH8PR21CA0012.outlook.office365.com
- (2603:10b6:510:2ce::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.10 via Frontend Transport; Wed,
- 30 Sep 2026 14:39:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BY1PEPF00026966.mail.protection.outlook.com (10.167.244.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:39:01 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 09:38:19 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 09:38:18 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 09:38:18 -0500
-Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UEcAmU3303811;
-	Wed, 30 Sep 2026 09:38:16 -0500
-From: Beleswar Padhi <b-padhi@ti.com>
-To: <jassisinghbrar@gmail.com>, <linux-kernel@vger.kernel.org>
-CC: <afd@ti.com>, <u-kumar1@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
-        <b-padhi@ti.com>
-Subject: [PATCH v2 2/2] mailbox: ti-msgmgr: Read exact number of trailing message bytes
-Date: Wed, 30 Sep 2026 20:08:10 +0530
-Message-ID: <20260930143810.2419010-3-b-padhi@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930143810.2419010-1-b-padhi@ti.com>
-References: <20260930143810.2419010-1-b-padhi@ti.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kHjtnK2u"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 553331A1086;
+	Wed, 30 Sep 2026 14:39:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F31C60749;
+	Wed, 30 Sep 2026 14:39:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 71BEA10328C6D;
+	Wed, 30 Sep 2026 16:38:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790779135; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=38Oz9a1Ag+N2kR26znG03tim1sBdAcNU1KPvExWJ1ro=;
+	b=kHjtnK2ukAFiRn2gCtyKWx3DxRcryQDDA7PxOR3Hx7A5TN9c68jhgYjHy3ZDUDFuFGrWuP
+	K8hbqEcyC8lhwjjghdWG1q36vcM7JVMUSFccSytwVWm3M26pZwMBVnPSXMjuICju6sys+K
+	1LHPuKmpNiGnlikIN5UQlrejtxAKTagY2/cvywgmDmc6+yZ/gdw3LOjuh+9616vNN6UHff
+	FPlehoULGXV800UiG4Udxz5iXcztPfjwQZbVQ1oXrZ329j+Jx+FVD6I3C1uYe5xuoqf1DL
+	qsh81PV6yOCxEli+UkdAw4GKaAgPm4XUmAtiIZ0BIMOVpKA8dDVagPMV/LTqtg==
+Date: Wed, 30 Sep 2026 16:38:43 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rudolf Marek <r.marek@assembler.cz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Duncan Sands <duncan.sands@free.fr>,
+	Chas Williams <3chas3@gmail.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>, linux-watchdog@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org, linux-rtc@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] drivers: Replace __MODULE_STRING() with __stringify()
+Message-ID: <202609301438434ded5bca@mail.local>
+References: <20260922-module-string-v1-0-c18766690185@suse.com>
+ <20260922-module-string-v1-2-c18766690185@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026966:EE_|PH0PR10MB5548:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8dc89ec-a163-44b8-c9b7-08df1f009183
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|18002099003|22082099003|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	inbj8UgO2r3q1NN+7stJp9RsasCnkn99WCClT5QV6LYF0XnckTWTrzEgNy3W+O3hYT8bIm9gEgM3mGo4d+pqEAYrkKDnemCsIjs4W7PaG3yyUSVhhu3b5yeMblHF8aKwSm9Mi6JneJD2O95QtRFcFFTMaf/MlllcLe2Tlmmz7Y9/H3NjFYLmza09/aMzjhg4CDDH0FSvQPGj7Q579sYuAZNzkyOsROS3WObZplQ4OPWx8iatSwgXBvShz6oGnSbY3Mg2FNvVlhqqzqTF5lKEPa0VLvYFbDVVDvszE+nI4a8kvW7PNq2pUBRtoUJJHp1OH/wFhA7i7bso95nj5tg2ihs5Wzcs99B9e05j+/x6hagdUXAmdTp49YqzAIkGykMhpAKeYqCopRRYVxFwRKoO5bEaR0+0YdnadA4nAGEOjYT/ZobScBjKhquZsykhSPBAPppIJAIXZ2j9x81Nx5mRpoOJG9p//MP2OWxAfzvz95LgqYYlc3k5uyP9TML067qJ4wIFOiinMPyMk+PxRutmdyBHU+ZfVM2Ak42baz84Txrw1Yz7PCoX3w5fYbLukIliPgj1EFwXafoDMomJhj64rG1D672+aveC0nr2YG+StBiGqL2SoD14R3eGiCMu8bzc+KQeT6ezwZKM65JsU//iO0JP4zS5GYDVJflpeW7SV3B7LjzvJM8g1+acS7uCATRtu4PIZ5oGUltOLTzP6G2nSg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	f1VLX/Xbdjx/z33/kCArVXjvORUe9L1X0vd2mmwa3nD8/kU3kTqW6Un2WG29pcMeq3rnEdbF+yYq2apob9P+wnLlDgsFOw0Nz/s0d5xhBCibjqAzSzJ8AKp6zKEgWp/rxhr3PR6S+xwgMklsBdluxoZWo/LDSD2b11GdAldGZQE3N/3gQAJuKG4ajYLSikBiW0YPoraXuEfddiIroqHE9D3loVAR0WSbLoyhI+1oEmMOYFKxI8qs5lyHYo5tyGNzMlAC0aybl7lp+fp6Ni+3Vp3gLr0OjlPGRxD3yEqRG02tg3u5dZYdoUtmT1XBPzyFXzCTuVxR+tpnGL5Ojoanc+kL/00482Par9hQ+LN0fYWaQq70JieL/oOBy2OVqeqPoA5amV1XiByLXgNBQ8ejZYJGP35QiR+/MHkr+MalxzVf86TKdFlerv5XcBbopuut
-X-Exchange-RoutingPolicyChecked:
-	GgEPCTT+JStIpi/waKvyr9ZIcns+3/lyvEusAptcrY6TxoFrUHAwEznzpZWMdsWTDN2gxBKuVLPKTt4AYzYyOdkAVyjyD3FHLumEhcbct7dhyDwaYTJaHO0i+bO0ZdYFDhWPQTZKJlJLcQL6VB1b6eegzLGm+U5loWNEIcdw+7Lq3JaiQ0M5oiGVMjEG1jG0tTX+8pL2eSSq4TdePzsK+sU6+HOYL8iNKoiK6C0umyofoO1RJNo6JA3gLHa9jGexYWdWJ58YhYJG3UBwI2KQG+AiPvB/BMldHyQYXtpUSlrhmlNG8V9VT2lBJuoyxFxfV9UofbNy8Pe3+f++pzoSPQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:39:01.0347
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8dc89ec-a163-44b8-c9b7-08df1f009183
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026966.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5548
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1OCBTYWx0ZWRfX+r9I+JkQCBaf
- u53BIUHI0YE+ITJd0lp525nZBL28Eo1bPv5B2Bn6G0VzbxtjBT7grLeaXrjg+cjUgCe76W+heyL
- rS6p7ecVZG5Jfhd4H/RPUNnbtaS34jI=
-X-Proofpoint-ORIG-GUID: pTO442Un5xyvJhOK_W9R9aJ8IBzqFlBG
-X-Authority-Analysis: v=2.4 cv=C7R8WgP+ c=1 sm=1 tr=0 ts=6abd1f0c cx=c_pps
- a=DkeX3LL2/Oc4yJO52xFMkw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=0KoXfk4BxXABeKFHTBYA:9
-X-Proofpoint-GUID: pTO442Un5xyvJhOK_W9R9aJ8IBzqFlBG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1OCBTYWx0ZWRfXxd0sZU1dzO6y
- /PcjxKtKLa0c8ZCsQafEMv2F8BPgzfBP3Sy1rCw3/CbsFMJPVpwtnVHgl/2QhLwqcjLCABVX37c
- yeJgHvCQS75DrmMDO75X9gnsVj6Ms9UjM/II1ie38MFsTvdOe72+v3ImlGsTmfOevamDQBaXook
- M+m+hVSkOOqjHVnxT07ZPNw/1uOGhCXlbauz7N5F081F9HKPCvQwJdiOvl3eyMsnBSJtmYkQknl
- RY68J5o1jjY0kx6D3YsaIdQLsdVYVzvquK/uy50nFHWxArwULsEtI8MfbNk9x7cTrxpN9joNRNC
- D215BIDvuhhlTL3dNPSGbsdaCAoh8HFswn0YpxxlsgV1D0+FjNLg6aKrglJ7MwvqLMlER0H/V5X
- BrjlSUy1BjU0iz6+EHj4dW0HQR4KsOGHRSPBTxJ0J4JzgZ7BMnjHQHZPfl+bMfVq84u4robJhXb
- EM0CB33X4RgaLxQAGNA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300058
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-module-string-v1-2-c18766690185@suse.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-ti_msgmgr_send_data() copies the message to the data registers in u32
-units. This has been harmless so far because the clients (TI-SCI)
-always passed its preallocated message buffer, which is sized to the
-maximum message size (60 or 64 bytes, a multiple of 4), so the extra
-bytes read were still within the buffer. But, with a later TI-SCI
-update, the message size can be varying now and not guaranteed to be a
-multiple of 4, which would trigger KASAN out-of-bounds reports.
+On 22/09/2026 15:32:22+0200, Petr Pavlu wrote:
+> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+> moved it to the graveyard section at the end of linux/module.h
+> 
+> Replace the remaining uses of __MODULE_STRING() with __stringify() in
+> preparation for its removal.
+> 
+> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 
-Therefore, memcpy() only the trailing bytes into a zeroed u32 before
-writing it to the register. This is at most 3 bytes, so the overhead
-is negligible.
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
----
-v2: Changelog:
-1. Use memcpy() to construct the trailing word to handle host
-endianness. (Sashiko bot)
+> ---
+>  drivers/comedi/comedi_fops.c                          |  5 +++--
+>  drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
+>  drivers/hwmon/fschmd.c                                |  3 ++-
+>  drivers/hwmon/nct7904.c                               |  5 +++--
+>  drivers/hwmon/sch56xx-common.c                        |  3 ++-
+>  drivers/hwmon/w83793.c                                |  5 +++--
+>  drivers/i2c/busses/i2c-kempld.c                       |  3 ++-
+>  drivers/net/ethernet/atheros/atl1e/atl1e_param.c      |  9 +++++----
+>  drivers/net/ethernet/atheros/atlx/atl1.c              |  3 ++-
+>  drivers/net/ethernet/atheros/atlx/atl2.c              | 11 ++++++-----
+>  drivers/net/ethernet/intel/e1000/e1000_param.c        | 15 ++++++++-------
+>  drivers/net/ethernet/intel/e1000e/param.c             | 16 ++++++----------
+>  drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c |  7 ++++---
+>  drivers/platform/cznic/turris-omnia-mcu-watchdog.c    |  3 ++-
+>  drivers/rtc/rtc-ds1374.c                              |  3 ++-
+>  drivers/thunderbolt/tb.c                              |  3 ++-
+>  drivers/thunderbolt/tunnel.c                          |  5 +++--
+>  drivers/tty/serial/8250/8250_platform.c               |  3 ++-
+>  drivers/usb/atm/speedtch.c                            | 15 ++++++++-------
+>  drivers/usb/atm/usbatm.c                              | 17 +++++++++--------
+>  20 files changed, 76 insertions(+), 61 deletions(-)
+> 
+> diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
+> index c09bbe04be6c..05d14839c5a6 100644
+> --- a/drivers/comedi/comedi_fops.c
+> +++ b/drivers/comedi/comedi_fops.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/io.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/compat.h>
+> +#include <linux/stringify.h>
+>  
+>  #include "comedi_internal.h"
+>  
+> @@ -82,14 +83,14 @@ unsigned int comedi_default_buf_size_kb = CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB;
+>  module_param(comedi_default_buf_size_kb, uint, 0644);
+>  MODULE_PARM_DESC(comedi_default_buf_size_kb,
+>  		 "default asynchronous buffer size in KiB (default "
+> -		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
+> +		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
+>  
+>  unsigned int comedi_default_buf_maxsize_kb =
+>  	CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB;
+>  module_param(comedi_default_buf_maxsize_kb, uint, 0644);
+>  MODULE_PARM_DESC(comedi_default_buf_maxsize_kb,
+>  		 "default maximum size of asynchronous buffer in KiB (default "
+> -		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
+> +		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
+>  
+>  static DEFINE_MUTEX(comedi_board_minor_table_lock);
+>  static struct comedi_device
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index d4664ed468b2..36009bb02c25 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -31,6 +31,7 @@
+>  
+>  #include <linux/console.h>
+>  #include <linux/export.h>
+> +#include <linux/stringify.h>
+>  
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_drv.h>
+> @@ -54,7 +55,7 @@ static int drm_fbdev_overalloc = CONFIG_DRM_FBDEV_OVERALLOC;
+>  module_param(drm_fbdev_overalloc, int, 0444);
+>  MODULE_PARM_DESC(drm_fbdev_overalloc,
+>  		 "Overallocation of the fbdev buffer (%) [default="
+> -		 __MODULE_STRING(CONFIG_DRM_FBDEV_OVERALLOC) "]");
+> +		 __stringify(CONFIG_DRM_FBDEV_OVERALLOC) "]");
+>  
+>  /*
+>   * In order to keep user-space compatibility, we want in certain use-cases
+> diff --git a/drivers/hwmon/fschmd.c b/drivers/hwmon/fschmd.c
+> index 019fc32bf318..df9418a86c83 100644
+> --- a/drivers/hwmon/fschmd.c
+> +++ b/drivers/hwmon/fschmd.c
+> @@ -35,6 +35,7 @@
+>  #include <linux/miscdevice.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/kref.h>
+> +#include <linux/stringify.h>
+>  
+>  /* Addresses to scan */
+>  static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
+> @@ -43,7 +44,7 @@ static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> -	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +	__stringify(WATCHDOG_NOWAYOUT) ")");
+>  
+>  enum chips { fscpos, fscher, fscscy, fschrc, fschmd, fschds, fscsyl };
+>  
+> diff --git a/drivers/hwmon/nct7904.c b/drivers/hwmon/nct7904.c
+> index 976b8a008e44..04e1a8e6db37 100644
+> --- a/drivers/hwmon/nct7904.c
+> +++ b/drivers/hwmon/nct7904.c
+> @@ -23,6 +23,7 @@
+>  #include <linux/i2c.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/watchdog.h>
+> +#include <linux/stringify.h>
+>  
+>  #define VENDOR_ID_REG		0x7A	/* Any bank */
+>  #define NUVOTON_ID		0x50
+> @@ -113,12 +114,12 @@
+>  static int timeout;
+>  module_param(timeout, int, 0);
+>  MODULE_PARM_DESC(timeout, "Watchdog timeout in minutes. 1 <= timeout <= 255, default="
+> -			__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
+> +			__stringify(WATCHDOG_TIMEOUT) ".");
+>  
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> -			__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +			__stringify(WATCHDOG_NOWAYOUT) ")");
+>  
+>  static const unsigned short normal_i2c[] = {
+>  	0x2d, 0x2e, I2C_CLIENT_END
+> diff --git a/drivers/hwmon/sch56xx-common.c b/drivers/hwmon/sch56xx-common.c
+> index a385aae3bb0f..febb8ba7dc2c 100644
+> --- a/drivers/hwmon/sch56xx-common.c
+> +++ b/drivers/hwmon/sch56xx-common.c
+> @@ -18,13 +18,14 @@
+>  #include <linux/watchdog.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/slab.h>
+> +#include <linux/stringify.h>
+>  #include "sch56xx-common.h"
+>  
+>  /* Insmod parameters */
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> -	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +	__stringify(WATCHDOG_NOWAYOUT) ")");
+>  
+>  #define SIO_SCH56XX_LD_EM	0x0C	/* Embedded uController Logical Dev */
+>  #define SIO_UNLOCK_KEY		0x55	/* Key to enable Super-I/O */
+> diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
+> index c6ef04c69856..e1f2708b5db6 100644
+> --- a/drivers/hwmon/w83793.c
+> +++ b/drivers/hwmon/w83793.c
+> @@ -34,6 +34,7 @@
+>  #include <linux/notifier.h>
+>  #include <linux/reboot.h>
+>  #include <linux/jiffies.h>
+> +#include <linux/stringify.h>
+>  
+>  /* Default values */
+>  #define WATCHDOG_TIMEOUT 2	/* 2 minute default timeout */
+> @@ -57,13 +58,13 @@ static int timeout = WATCHDOG_TIMEOUT;	/* default timeout in minutes */
+>  module_param(timeout, int, 0);
+>  MODULE_PARM_DESC(timeout,
+>  	"Watchdog timeout in minutes. 2<= timeout <=255 (default="
+> -				__MODULE_STRING(WATCHDOG_TIMEOUT) ")");
+> +				__stringify(WATCHDOG_TIMEOUT) ")");
+>  
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout,
+>  	"Watchdog cannot be stopped once started (default="
+> -				__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +				__stringify(WATCHDOG_NOWAYOUT) ")");
+>  
+>  /*
+>   * Address 0x00, 0x0d, 0x0e, 0x0f in all three banks are reserved
+> diff --git a/drivers/i2c/busses/i2c-kempld.c b/drivers/i2c/busses/i2c-kempld.c
+> index 9b4c7cba62b6..d0438960c272 100644
+> --- a/drivers/i2c/busses/i2c-kempld.c
+> +++ b/drivers/i2c/busses/i2c-kempld.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/i2c.h>
+>  #include <linux/delay.h>
+>  #include <linux/mfd/kempld.h>
+> +#include <linux/stringify.h>
+>  
+>  #define KEMPLD_I2C_PRELOW	0x0b
+>  #define KEMPLD_I2C_PREHIGH	0x0c
+> @@ -66,7 +67,7 @@ struct kempld_i2c_data {
+>  static unsigned int bus_frequency = KEMPLD_I2C_FREQ_STD;
+>  module_param(bus_frequency, uint, 0);
+>  MODULE_PARM_DESC(bus_frequency, "Set I2C bus frequency in kHz (default="
+> -				__MODULE_STRING(KEMPLD_I2C_FREQ_STD)")");
+> +				__stringify(KEMPLD_I2C_FREQ_STD)")");
+>  
+>  static int i2c_bus = -1;
+>  module_param(i2c_bus, int, 0);
+> diff --git a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
+> index 6b1d6df8da97..ff3423a4dc2e 100644
+> --- a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
+> +++ b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
+> @@ -7,6 +7,7 @@
+>   */
+>  
+>  #include <linux/netdevice.h>
+> +#include <linux/stringify.h>
+>  
+>  #include "atl1e.h"
+>  
+> @@ -181,7 +182,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Transmit Ddescription Count",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(ATL1E_DEFAULT_TX_DESC_CNT),
+> +				__stringify(ATL1E_DEFAULT_TX_DESC_CNT),
+>  			.def  = ATL1E_DEFAULT_TX_DESC_CNT,
+>  			.arg  = { .r = { .min = ATL1E_MIN_TX_DESC_CNT,
+>  					 .max = ATL1E_MAX_TX_DESC_CNT} }
+> @@ -200,7 +201,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Memory size of rx buffer(KB)",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(ATL1E_DEFAULT_RX_MEM_SIZE),
+> +				__stringify(ATL1E_DEFAULT_RX_MEM_SIZE),
+>  			.def  = ATL1E_DEFAULT_RX_MEM_SIZE,
+>  			.arg  = { .r = { .min = ATL1E_MIN_RX_MEM_SIZE,
+>  					 .max = ATL1E_MAX_RX_MEM_SIZE} }
+> @@ -220,7 +221,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Interrupt Moderate Timer",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(INT_MOD_DEFAULT_CNT),
+> +				__stringify(INT_MOD_DEFAULT_CNT),
+>  			.def  = INT_MOD_DEFAULT_CNT,
+>  			.arg  = { .r = { .min = INT_MOD_MIN_CNT,
+>  					 .max = INT_MOD_MAX_CNT} }
+> @@ -239,7 +240,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Speed/Duplex Selection",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR),
+> +				__stringify(MEDIA_TYPE_AUTO_SENSOR),
+>  			.def  = MEDIA_TYPE_AUTO_SENSOR,
+>  			.arg  = { .r = { .min = MEDIA_TYPE_AUTO_SENSOR,
+>  					 .max = MEDIA_TYPE_10M_HALF} }
+> diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
+> index 98a4d089270e..aef5de6287dc 100644
+> --- a/drivers/net/ethernet/atheros/atlx/atl1.c
+> +++ b/drivers/net/ethernet/atheros/atlx/atl1.c
+> @@ -56,6 +56,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/string.h>
+> +#include <linux/stringify.h>
+>  #include <linux/tcp.h>
+>  #include <linux/timer.h>
+>  #include <linux/types.h>
+> @@ -198,7 +199,7 @@ static void atl1_check_options(struct atl1_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Interrupt Moderator Timer",
+>  			.err = "using default of "
+> -				__MODULE_STRING(DEFAULT_INT_MOD_CNT),
+> +				__stringify(DEFAULT_INT_MOD_CNT),
+>  			.def = DEFAULT_INT_MOD_CNT,
+>  			.arg = {.r = {.min = MIN_INT_MOD_CNT,
+>  					.max = MAX_INT_MOD_CNT} }
+> diff --git a/drivers/net/ethernet/atheros/atlx/atl2.c b/drivers/net/ethernet/atheros/atlx/atl2.c
+> index 5560d5cc3169..853d2e1eb954 100644
+> --- a/drivers/net/ethernet/atheros/atlx/atl2.c
+> +++ b/drivers/net/ethernet/atheros/atlx/atl2.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/string.h>
+> +#include <linux/stringify.h>
+>  #include <linux/tcp.h>
+>  #include <linux/timer.h>
+>  #include <linux/types.h>
+> @@ -2921,7 +2922,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
+>  	/* Bytes of Transmit Memory */
+>  	opt.type = range_option;
+>  	opt.name = "Bytes of Transmit Memory";
+> -	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_TX_MEMSIZE);
+> +	opt.err = "using default of " __stringify(ATL2_DEFAULT_TX_MEMSIZE);
+>  	opt.def = ATL2_DEFAULT_TX_MEMSIZE;
+>  	opt.arg.r.min = ATL2_MIN_TX_MEMSIZE;
+>  	opt.arg.r.max = ATL2_MAX_TX_MEMSIZE;
+> @@ -2939,7 +2940,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
+>  	/* Receive Memory Block Count */
+>  	opt.type = range_option;
+>  	opt.name = "Number of receive memory block";
+> -	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_RXD_COUNT);
+> +	opt.err = "using default of " __stringify(ATL2_DEFAULT_RXD_COUNT);
+>  	opt.def = ATL2_DEFAULT_RXD_COUNT;
+>  	opt.arg.r.min = ATL2_MIN_RXD_COUNT;
+>  	opt.arg.r.max = ATL2_MAX_RXD_COUNT;
+> @@ -2960,7 +2961,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
+>  	/* Interrupt Moderate Timer */
+>  	opt.type = range_option;
+>  	opt.name = "Interrupt Moderate Timer";
+> -	opt.err = "using default of " __MODULE_STRING(INT_MOD_DEFAULT_CNT);
+> +	opt.err = "using default of " __stringify(INT_MOD_DEFAULT_CNT);
+>  	opt.def = INT_MOD_DEFAULT_CNT;
+>  	opt.arg.r.min = INT_MOD_MIN_CNT;
+>  	opt.arg.r.max = INT_MOD_MAX_CNT;
+> @@ -2973,7 +2974,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
+>  	/* Flash Vendor */
+>  	opt.type = range_option;
+>  	opt.name = "SPI Flash Vendor";
+> -	opt.err = "using default of " __MODULE_STRING(FLASH_VENDOR_DEFAULT);
+> +	opt.err = "using default of " __stringify(FLASH_VENDOR_DEFAULT);
+>  	opt.def = FLASH_VENDOR_DEFAULT;
+>  	opt.arg.r.min = FLASH_VENDOR_MIN;
+>  	opt.arg.r.max = FLASH_VENDOR_MAX;
+> @@ -2986,7 +2987,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
+>  	/* MediaType */
+>  	opt.type = range_option;
+>  	opt.name = "Speed/Duplex Selection";
+> -	opt.err = "using default of " __MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR);
+> +	opt.err = "using default of " __stringify(MEDIA_TYPE_AUTO_SENSOR);
+>  	opt.def = MEDIA_TYPE_AUTO_SENSOR;
+>  	opt.arg.r.min = MEDIA_TYPE_AUTO_SENSOR;
+>  	opt.arg.r.max = MEDIA_TYPE_10M_HALF;
+> diff --git a/drivers/net/ethernet/intel/e1000/e1000_param.c b/drivers/net/ethernet/intel/e1000/e1000_param.c
+> index f4154ca7fcb4..5faf6d6280c8 100644
+> --- a/drivers/net/ethernet/intel/e1000/e1000_param.c
+> +++ b/drivers/net/ethernet/intel/e1000/e1000_param.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  /* Copyright(c) 1999 - 2006 Intel Corporation. */
+>  
+> +#include <linux/stringify.h>
+>  #include "e1000.h"
+>  
+>  /* This is the only thing that needs to be changed to adjust the
+> @@ -259,7 +260,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Transmit Descriptors",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(E1000_DEFAULT_TXD),
+> +				__stringify(E1000_DEFAULT_TXD),
+>  			.def  = E1000_DEFAULT_TXD,
+>  			.arg  = { .r = {
+>  				.min = E1000_MIN_TXD,
+> @@ -287,7 +288,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Receive Descriptors",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(E1000_DEFAULT_RXD),
+> +				__stringify(E1000_DEFAULT_RXD),
+>  			.def  = E1000_DEFAULT_RXD,
+>  			.arg  = { .r = {
+>  				.min = E1000_MIN_RXD,
+> @@ -354,7 +355,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  		opt = (struct e1000_option) {
+>  			.type = range_option,
+>  			.name = "Transmit Interrupt Delay",
+> -			.err  = "using default of " __MODULE_STRING(DEFAULT_TIDV),
+> +			.err  = "using default of " __stringify(DEFAULT_TIDV),
+>  			.def  = DEFAULT_TIDV,
+>  			.arg  = { .r = { .min = MIN_TXDELAY,
+>  					 .max = MAX_TXDELAY }}
+> @@ -372,7 +373,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  		opt = (struct e1000_option) {
+>  			.type = range_option,
+>  			.name = "Transmit Absolute Interrupt Delay",
+> -			.err  = "using default of " __MODULE_STRING(DEFAULT_TADV),
+> +			.err  = "using default of " __stringify(DEFAULT_TADV),
+>  			.def  = DEFAULT_TADV,
+>  			.arg  = { .r = { .min = MIN_TXABSDELAY,
+>  					 .max = MAX_TXABSDELAY }}
+> @@ -390,7 +391,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  		opt = (struct e1000_option) {
+>  			.type = range_option,
+>  			.name = "Receive Interrupt Delay",
+> -			.err  = "using default of " __MODULE_STRING(DEFAULT_RDTR),
+> +			.err  = "using default of " __stringify(DEFAULT_RDTR),
+>  			.def  = DEFAULT_RDTR,
+>  			.arg  = { .r = { .min = MIN_RXDELAY,
+>  					 .max = MAX_RXDELAY }}
+> @@ -408,7 +409,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  		opt = (struct e1000_option) {
+>  			.type = range_option,
+>  			.name = "Receive Absolute Interrupt Delay",
+> -			.err  = "using default of " __MODULE_STRING(DEFAULT_RADV),
+> +			.err  = "using default of " __stringify(DEFAULT_RADV),
+>  			.def  = DEFAULT_RADV,
+>  			.arg  = { .r = { .min = MIN_RXABSDELAY,
+>  					 .max = MAX_RXABSDELAY }}
+> @@ -426,7 +427,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
+>  		opt = (struct e1000_option) {
+>  			.type = range_option,
+>  			.name = "Interrupt Throttling Rate (ints/sec)",
+> -			.err  = "using default of " __MODULE_STRING(DEFAULT_ITR),
+> +			.err  = "using default of " __stringify(DEFAULT_ITR),
+>  			.def  = DEFAULT_ITR,
+>  			.arg  = { .r = { .min = MIN_ITR,
+>  					 .max = MAX_ITR }}
+> diff --git a/drivers/net/ethernet/intel/e1000e/param.c b/drivers/net/ethernet/intel/e1000e/param.c
+> index 3132d8f2f207..c6f400e6cdea 100644
+> --- a/drivers/net/ethernet/intel/e1000e/param.c
+> +++ b/drivers/net/ethernet/intel/e1000e/param.c
+> @@ -4,6 +4,7 @@
+>  #include <linux/netdevice.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> +#include <linux/stringify.h>
+>  
+>  #include "e1000.h"
+>  
+> @@ -238,8 +239,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
+>  		static const struct e1000_option opt = {
+>  			.type = range_option,
+>  			.name = "Transmit Interrupt Delay",
+> -			.err  = "using default of "
+> -				__MODULE_STRING(DEFAULT_TIDV),
+> +			.err  = "using default of " __stringify(DEFAULT_TIDV),
+>  			.def  = DEFAULT_TIDV,
+>  			.arg  = { .r = { .min = MIN_TXDELAY,
+>  					 .max = MAX_TXDELAY } }
+> @@ -258,8 +258,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
+>  		static const struct e1000_option opt = {
+>  			.type = range_option,
+>  			.name = "Transmit Absolute Interrupt Delay",
+> -			.err  = "using default of "
+> -				__MODULE_STRING(DEFAULT_TADV),
+> +			.err  = "using default of " __stringify(DEFAULT_TADV),
+>  			.def  = DEFAULT_TADV,
+>  			.arg  = { .r = { .min = MIN_TXABSDELAY,
+>  					 .max = MAX_TXABSDELAY } }
+> @@ -278,8 +277,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
+>  		static struct e1000_option opt = {
+>  			.type = range_option,
+>  			.name = "Receive Interrupt Delay",
+> -			.err  = "using default of "
+> -				__MODULE_STRING(DEFAULT_RDTR),
+> +			.err  = "using default of " __stringify(DEFAULT_RDTR),
+>  			.def  = DEFAULT_RDTR,
+>  			.arg  = { .r = { .min = MIN_RXDELAY,
+>  					 .max = MAX_RXDELAY } }
+> @@ -301,8 +299,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
+>  		static struct e1000_option opt = {
+>  			.type = range_option,
+>  			.name = "Receive Absolute Interrupt Delay",
+> -			.err  = "using default of "
+> -				__MODULE_STRING(DEFAULT_RADV),
+> +			.err  = "using default of " __stringify(DEFAULT_RADV),
+>  			.def  = DEFAULT_RADV,
+>  			.arg  = { .r = { .min = MIN_RXABSDELAY,
+>  					 .max = MAX_RXABSDELAY } }
+> @@ -324,8 +321,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
+>  		static const struct e1000_option opt = {
+>  			.type = range_option,
+>  			.name = "Interrupt Throttling Rate (ints/sec)",
+> -			.err  = "using default of "
+> -				__MODULE_STRING(DEFAULT_ITR),
+> +			.err  = "using default of " __stringify(DEFAULT_ITR),
+>  			.def  = DEFAULT_ITR,
+>  			.arg  = { .r = { .min = MIN_ITR,
+>  					 .max = MAX_ITR } }
+> diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
+> index 81fc5a6e3221..6a1a6678bd1a 100644
+> --- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
+> +++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
+> @@ -7,7 +7,8 @@
+>   */
+>  
+>  #include "pch_gbe.h"
+> -#include <linux/module.h>	/* for __MODULE_STRING */
+> +#include <linux/module.h>
+> +#include <linux/stringify.h>
+>  
+>  #define OPTION_UNSET   -1
+>  #define OPTION_DISABLED 0
+> @@ -440,7 +441,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Transmit Descriptors",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(PCH_GBE_DEFAULT_TXD),
+> +				__stringify(PCH_GBE_DEFAULT_TXD),
+>  			.def  = PCH_GBE_DEFAULT_TXD,
+>  			.arg  = { .r = { .min = PCH_GBE_MIN_TXD,
+>  					 .max = PCH_GBE_MAX_TXD } }
+> @@ -456,7 +457,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
+>  			.type = range_option,
+>  			.name = "Receive Descriptors",
+>  			.err  = "using default of "
+> -				__MODULE_STRING(PCH_GBE_DEFAULT_RXD),
+> +				__stringify(PCH_GBE_DEFAULT_RXD),
+>  			.def  = PCH_GBE_DEFAULT_RXD,
+>  			.arg  = { .r = { .min = PCH_GBE_MIN_RXD,
+>  					 .max = PCH_GBE_MAX_RXD } }
+> diff --git a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
+> index 3ad146ec1d80..daabd88eb913 100644
+> --- a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
+> +++ b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/device.h>
+>  #include <linux/i2c.h>
+>  #include <linux/moduleparam.h>
+> +#include <linux/stringify.h>
+>  #include <linux/types.h>
+>  #include <linux/units.h>
+>  #include <linux/watchdog.h>
+> @@ -25,7 +26,7 @@ MODULE_PARM_DESC(timeout, "Watchdog timeout in seconds");
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> -			   __MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +			   __stringify(WATCHDOG_NOWAYOUT) ")");
+>  
+>  static int omnia_wdt_start(struct watchdog_device *wdt)
+>  {
+> diff --git a/drivers/rtc/rtc-ds1374.c b/drivers/rtc/rtc-ds1374.c
+> index 8c247215d611..2ed6777e7035 100644
+> --- a/drivers/rtc/rtc-ds1374.c
+> +++ b/drivers/rtc/rtc-ds1374.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/workqueue.h>
+>  #include <linux/slab.h>
+>  #include <linux/pm.h>
+> +#include <linux/stringify.h>
+>  #ifdef CONFIG_RTC_DRV_DS1374_WDT
+>  #include <linux/fs.h>
+>  #include <linux/ioctl.h>
+> @@ -381,7 +382,7 @@ MODULE_PARM_DESC(wdt_margin, "Watchdog timeout in seconds (default 32s)");
+>  static bool nowayout = WATCHDOG_NOWAYOUT;
+>  module_param(nowayout, bool, 0);
+>  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default ="
+> -		__MODULE_STRING(WATCHDOG_NOWAYOUT)")");
+> +		__stringify(WATCHDOG_NOWAYOUT)")");
+>  
+>  static const struct watchdog_info ds1374_wdt_info = {
+>  	.identity       = "DS1374 Watchdog",
+> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+> index 47753a5c0f2e..a2459e44e320 100644
+> --- a/drivers/thunderbolt/tb.c
+> +++ b/drivers/thunderbolt/tb.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/platform_data/x86/apple.h>
+> +#include <linux/stringify.h>
+>  
+>  #include "tb.h"
+>  #include "tb_regs.h"
+> @@ -47,7 +48,7 @@ static unsigned int asym_threshold = TB_ASYM_THRESHOLD;
+>  module_param_named(asym_threshold, asym_threshold, uint, 0444);
+>  MODULE_PARM_DESC(asym_threshold,
+>  		"threshold (Mb/s) when to Gen 4 switch link symmetry. 0 disables. (default: "
+> -		__MODULE_STRING(TB_ASYM_THRESHOLD) ")");
+> +		__stringify(TB_ASYM_THRESHOLD) ")");
+>  
+>  /**
+>   * struct tb_cm - Simple Thunderbolt connection manager
+> diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+> index 7e8284575dff..ad4916748789 100644
+> --- a/drivers/thunderbolt/tunnel.c
+> +++ b/drivers/thunderbolt/tunnel.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/list.h>
+>  #include <linux/ktime.h>
+>  #include <linux/string_helpers.h>
+> +#include <linux/stringify.h>
+>  
+>  #include "tunnel.h"
+>  #include "tb.h"
+> @@ -89,12 +90,12 @@ static int dprx_timeout = TB_DPRX_TIMEOUT;
+>  module_param(dprx_timeout, int, 0444);
+>  MODULE_PARM_DESC(dprx_timeout,
+>  		 "DPRX capability read timeout in ms, -1 waits forever (default: "
+> -		 __MODULE_STRING(TB_DPRX_TIMEOUT) ")");
+> +		 __stringify(TB_DPRX_TIMEOUT) ")");
+>  
+>  static unsigned int dma_credits = TB_DMA_CREDITS;
+>  module_param(dma_credits, uint, 0444);
+>  MODULE_PARM_DESC(dma_credits, "specify custom credits for DMA tunnels (default: "
+> -                __MODULE_STRING(TB_DMA_CREDITS) ")");
+> +		 __stringify(TB_DMA_CREDITS) ")");
+>  
+>  static bool bw_alloc_mode = true;
+>  module_param(bw_alloc_mode, bool, 0444);
+> diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
+> index af946d12e764..e060e0427fc9 100644
+> --- a/drivers/tty/serial/8250/8250_platform.c
+> +++ b/drivers/tty/serial/8250/8250_platform.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/moduleparam.h>
+>  #include <linux/once.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/stringify.h>
+>  
+>  #include <linux/serial_8250.h>
+>  
+> @@ -382,6 +383,6 @@ module_param_hw(share_irqs, bool, other, 0644);
+>  MODULE_PARM_DESC(share_irqs, "Share IRQs with other non-8250/16x50 devices (unsafe)");
+>  
+>  module_param(nr_uarts, uint, 0644);
+> -MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __MODULE_STRING(CONFIG_SERIAL_8250_NR_UARTS) ")");
+> +MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __stringify(CONFIG_SERIAL_8250_NR_UARTS) ")");
+>  
+>  MODULE_ALIAS_CHARDEV_MAJOR(TTY_MAJOR);
+> diff --git a/drivers/usb/atm/speedtch.c b/drivers/usb/atm/speedtch.c
+> index 9d28c652bcd8..95cd8ce99a64 100644
+> --- a/drivers/usb/atm/speedtch.c
+> +++ b/drivers/usb/atm/speedtch.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/moduleparam.h>
+>  #include <linux/slab.h>
+>  #include <linux/stat.h>
+> +#include <linux/stringify.h>
+>  #include <linux/timer.h>
+>  #include <linux/types.h>
+>  #include <linux/usb/ch9.h>
+> @@ -77,31 +78,31 @@ static unsigned int num_ModemOption;
+>  module_param(altsetting, uint, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(altsetting,
+>  		"Alternative setting for data interface (bulk_default: "
+> -		__MODULE_STRING(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
+> -		__MODULE_STRING(DEFAULT_ISOC_ALTSETTING) ")");
+> +		__stringify(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
+> +		__stringify(DEFAULT_ISOC_ALTSETTING) ")");
+>  
+>  module_param(dl_512_first, bool, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(dl_512_first,
+>  		 "Read 512 bytes before sending firmware (default: "
+> -		 __MODULE_STRING(DEFAULT_DL_512_FIRST) ")");
+> +		 __stringify(DEFAULT_DL_512_FIRST) ")");
+>  
+>  module_param(enable_isoc, bool, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(enable_isoc,
+>  		"Use isochronous transfers if available (default: "
+> -		__MODULE_STRING(DEFAULT_ENABLE_ISOC) ")");
+> +		__stringify(DEFAULT_ENABLE_ISOC) ")");
+>  
+>  module_param(sw_buffering, bool, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(sw_buffering,
+>  		 "Enable software buffering (default: "
+> -		 __MODULE_STRING(DEFAULT_SW_BUFFERING) ")");
+> +		 __stringify(DEFAULT_SW_BUFFERING) ")");
+>  
+>  module_param(BMaxDSL, uint, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(BMaxDSL,
+> -		"default: " __MODULE_STRING(DEFAULT_B_MAX_DSL));
+> +		"default: " __stringify(DEFAULT_B_MAX_DSL));
+>  
+>  module_param(ModemMode, byte, S_IRUGO | S_IWUSR);
+>  MODULE_PARM_DESC(ModemMode,
+> -		"default: " __MODULE_STRING(DEFAULT_MODEM_MODE));
+> +		"default: " __stringify(DEFAULT_MODEM_MODE));
+>  
+>  module_param_array(ModemOption, byte, &num_ModemOption, S_IRUGO);
+>  MODULE_PARM_DESC(ModemOption, "default: 0x10,0x00,0x00,0x00,0x20");
+> diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
+> index 7b0c791399ea..d4052d206e00 100644
+> --- a/drivers/usb/atm/usbatm.c
+> +++ b/drivers/usb/atm/usbatm.c
+> @@ -64,6 +64,7 @@
+>  #include <linux/signal.h>
+>  #include <linux/slab.h>
+>  #include <linux/stat.h>
+> +#include <linux/stringify.h>
+>  #include <linux/timer.h>
+>  #include <linux/wait.h>
+>  #include <linux/kthread.h>
+> @@ -103,26 +104,26 @@ static unsigned int snd_buf_bytes = UDSL_DEFAULT_SND_BUF_SIZE;
+>  module_param(num_rcv_urbs, uint, S_IRUGO);
+>  MODULE_PARM_DESC(num_rcv_urbs,
+>  		 "Number of urbs used for reception (range: 0-"
+> -		 __MODULE_STRING(UDSL_MAX_RCV_URBS) ", default: "
+> -		 __MODULE_STRING(UDSL_DEFAULT_RCV_URBS) ")");
+> +		 __stringify(UDSL_MAX_RCV_URBS) ", default: "
+> +		 __stringify(UDSL_DEFAULT_RCV_URBS) ")");
+>  
+>  module_param(num_snd_urbs, uint, S_IRUGO);
+>  MODULE_PARM_DESC(num_snd_urbs,
+>  		 "Number of urbs used for transmission (range: 0-"
+> -		 __MODULE_STRING(UDSL_MAX_SND_URBS) ", default: "
+> -		 __MODULE_STRING(UDSL_DEFAULT_SND_URBS) ")");
+> +		 __stringify(UDSL_MAX_SND_URBS) ", default: "
+> +		 __stringify(UDSL_DEFAULT_SND_URBS) ")");
+>  
+>  module_param(rcv_buf_bytes, uint, S_IRUGO);
+>  MODULE_PARM_DESC(rcv_buf_bytes,
+>  		 "Size of the buffers used for reception, in bytes (range: 1-"
+> -		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
+> -		 __MODULE_STRING(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
+> +		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
+> +		 __stringify(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
+>  
+>  module_param(snd_buf_bytes, uint, S_IRUGO);
+>  MODULE_PARM_DESC(snd_buf_bytes,
+>  		 "Size of the buffers used for transmission, in bytes (range: 1-"
+> -		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
+> -		 __MODULE_STRING(UDSL_DEFAULT_SND_BUF_SIZE) ")");
+> +		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
+> +		 __stringify(UDSL_DEFAULT_SND_BUF_SIZE) ")");
+>  
+>  
+>  /* receive */
+> 
+> -- 
+> 2.55.0
+> 
 
-Link to v1:
-https://lore.kernel.org/all/20260929200159.4033010-3-b-padhi@ti.com/
-
- drivers/mailbox/ti-msgmgr.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/mailbox/ti-msgmgr.c b/drivers/mailbox/ti-msgmgr.c
-index 425d5f9d9d0e3..e04b7f721ac8e 100644
---- a/drivers/mailbox/ti-msgmgr.c
-+++ b/drivers/mailbox/ti-msgmgr.c
-@@ -20,6 +20,7 @@
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/soc/ti/ti-msgmgr.h>
-+#include <linux/string.h>
- 
- #define Q_DATA_OFFSET(proxy, queue, reg)	\
- 		     ((0x10000 * (proxy)) + (0x80 * (queue)) + ((reg) * 4))
-@@ -425,10 +426,15 @@ static int ti_msgmgr_send_data(struct mbox_chan *chan, void *data)
- 
- 	trail_bytes = message->len % sizeof(u32);
- 	if (trail_bytes) {
--		u32 data_trail = *word_data;
--
--		/* Ensure all unused data is 0 */
--		data_trail &= 0xFFFFFFFF >> (8 * (sizeof(u32) - trail_bytes));
-+		/*
-+		 * Copy only the trailing bytes instead of reading a full u32,
-+		 * as the message buffer may end right after them and a u32
-+		 * read would go past the end of it. This also leaves all
-+		 * unused data as 0.
-+		 */
-+		u32 data_trail = 0;
-+
-+		memcpy(&data_trail, word_data, trail_bytes);
- 		writel(data_trail, data_reg);
- 		data_reg += sizeof(u32);
- 	}
 -- 
-2.34.1
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
