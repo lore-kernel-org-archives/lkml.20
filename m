@@ -1,44 +1,35 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6E23112DA;
-	Wed, 30 Sep 2026 01:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68B23451A6;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790732363; cv=none; b=bMvUuur04DL8m/p/UqnfNe4gABLJPYQ9N7VJ0CjTFgOTeB0N1Vc+Ikm9Fveh3tQEGCAFUy8F2iznf0+GXbx2MmZ3vK8FghPCKqIh/qDKce0NZn/nXfu05sXnoJZGh8MkDtLdIEHToS6vSYnppu/uUPYD6VuhwoirVkMvx3RUz/0=
+	t=1790732409; cv=none; b=m3vmNF1SyQCyw3NdPL0SeuF1DmdNeuecp0EGnaRmPbUz4B9fPJnPs31qTfLgpy+5h4x2JE1NlsEEL4zW+FEa7kVdgfXr0fyAAHJskrHq7zJxjAjvKMA0z5iqS/Jc7N9NErMSlyJHnDydaxoStLxzn4aY6lHjQLB9YACEavsEd1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790732363; c=relaxed/simple;
-	bh=2JBkwlx0Xg0FuJc1YaHWrHFOoT5R6BiDR576M5UUOjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ob1Y9c7yywcu4432ozf0zImQxbOXI/kS30nb6Vm5FvHo3Wc55IPSyxV945+Si/PQn2W5s5E7aCCTnEDEXrjZdMo7pMyRD4NJarYdxIfOFlPbd4RpQuYwhSh6LbjjNTdHW3nKqD8cmjJDWHmKvUx7fKIE0nDpsGTg2YrtmxCYVBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=E/MgRxgn; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790732409; c=relaxed/simple;
+	bh=rTwaGF6Si9doGtbQ2xytNlzHM5QXDTRl5HHqbST1/L8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cCcczqsusvjXoEDKRNNP/IKG7j33wGtuiHxOloRzk7WJFzdqXJidW0Kv4YdkidbtyZAxE8s4rXQsWOZqkfbAkVDq0k93FwXHGbyZixTsNPmaeyR3XC+uDkEIPfXFo6LAmNSgKanzMbVVDCbk9u1ZtpliKmmhY/vG3wDkYoQ46Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lf+pYSps; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="E/MgRxgn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=UN
-	00LyyiKeg4Z0zeEJCXHV3uBFLbxkBqAN/643+3p/o=; b=E/MgRxgn+qfSmwbsoM
-	Ugf9cR0jqIzKVLc+W/2P7e3r6fKSXrP5X8YlC52uRQ8GYrMx0iPHbIwjJQtg0BGp
-	QMUBP/7C/J+EHlo/IOEnyy7XZK43MG/LjRxJViIpnAtbv4rb/OTSS1LO+c/dzkP/
-	ILeT2WHB2lT9P8AHmPoI3/fgI=
-Received: from Precision-7960.. (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDHDyQxaLxq85GYBg--.38960S2;
-	Wed, 30 Sep 2026 09:38:58 +0800 (CST)
-From: Hans Zhang <18255117159@163.com>
-To: bhelgaas@google.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	jingoohan1@gmail.com
-Cc: robh@kernel.org,
-	a-garg7@ti.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hans Zhang <18255117159@163.com>
-Subject: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
-Date: Wed, 30 Sep 2026 09:38:42 +0800
-Message-ID: <20260930013842.82476-1-18255117159@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lf+pYSps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476541F000FF;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790732408;
+	bh=FJR6AKUyGSUOsMk5lSKuZJ2Wvblf/S3YNFdN/AvpJ1s=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Lf+pYSps/lAIbsWOY9uCo8t96C99/0ySQjrRaxJMx8pWPe43vQ+b1uorWaQTJHp9h
+	 ex2yoxw/HZuOiY9fHJShbg7VbysThdY9FP86ZUMeAnRjaZguFjxJEe2Phiuhte/1bZ
+	 DVKJSpiDUhdXGe7AfPrJTgbU6gGINUCT/Tq24LcRn96rqWlkcgGNiKYgT2mxRG9Oa1
+	 19A4uhuNU/1xiHjw1bNMCSJ/QAr+qid/CwPh43bBj6X8ewI1I1g7YFY3MnGiclVTLQ
+	 MEaCsC7VGjaLdU01gvoGksieuXGPpjqcbYqquiU1hR+XzD+jjK0YUFdU+SekEFVL6p
+	 qcnOj0IYatqzQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3AA3924FEA;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,156 +37,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHDyQxaLxq85GYBg--.38960S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Jw43CF18tr47Zry3Kr1rJFb_yoWxurWUp3
-	W3JaySyF1UtFsxuw1SkFn5Gw13Xr1qyrWDZ3yv9w4IgFs3Zrn2qF48WayrtrZ7ZFWIqF1U
-	Kw4qy347WrW5JwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pitCztUUUUU=
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCxBLvk2q8aDJ7fwAA3i
+Subject: Re: [PATCH net-next v6 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179073240703.1199722.17774874033053476727.git-patchwork-notify@kernel.org>
+Date: Wed, 30 Sep 2026 01:40:07 +0000
+References: <20260927-submit-h616-emac1-v1-v6-0-e64971f4e414@gmail.com>
+In-Reply-To: <20260927-submit-h616-emac1-v1-v6-0-e64971f4e414@gmail.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: richard.genoud@bootlin.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, clabbe.montjoie@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, alastair@d-silva.org, mripard@kernel.org,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ andre.przywara@arm.com, krzysztof.kozlowski@oss.qualcomm.com
 
-Several DWC PCIe register fields are described with a shift macro next
-to their mask, or with only a shift and the field width implied by the
-value written.  Document the field position and width in a single full
-mask and use FIELD_PREP() to encode it.
+Hello:
 
-No functional change intended.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Signed-off-by: Hans Zhang <18255117159@163.com>
----
-- Based on the controller/dwc branch.
----
- .../pci/controller/dwc/pcie-designware-ep.c   |  2 +-
- drivers/pci/controller/dwc/pcie-designware.h  | 12 ++++------
- drivers/pci/controller/dwc/pcie-tegra194.c    | 22 +++++++++----------
- 3 files changed, 16 insertions(+), 20 deletions(-)
+On Sun, 27 Sep 2026 12:52:18 -0600 you wrote:
+> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+> system-control clock register at offset 0x34. Add its binding and a
+> sun8i stmmac variant using that register. A distinct compatible without
+> an older fallback prevents the driver from using EMAC0's clock register.
+> 
+> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+> no external PHY pins. Leave PHY initialization to the PHY driver instead
+> of using the H3 internal-PHY controls. The RMII-only variant does not
+> expose the RGMII clock-delay properties.
+> 
+> [...]
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
-index 0262d85ed390..198823f105c5 100644
---- a/drivers/pci/controller/dwc/pcie-designware-ep.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
-@@ -1077,7 +1077,7 @@ int dw_pcie_ep_raise_msix_irq_doorbell(struct dw_pcie_ep *ep, u8 func_no,
- 	if (!ep_func || !ep_func->msix_cap)
- 		return -EINVAL;
- 
--	msg_data = (func_no << MSIX_DOORBELL_PF_SHIFT) |
-+	msg_data = FIELD_PREP(MSIX_DOORBELL_PF_MASK, func_no) |
- 		   (interrupt_num - 1);
- 
- 	dw_pcie_writel_dbi(pci, MSIX_DOORBELL, msg_data);
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index aea474ad803c..1ff6ed1f9f0b 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -85,9 +85,7 @@
- /* Common Clock N_FTS */
- #define  PORT_AFAC_CC_N_FTS(n)		FIELD_PREP(PORT_AFAC_CC_N_FTS_MASK, n)
- #define  PORT_AFAC_ENTER_ASPM		BIT(30)		/* ASPM L1 Entry Control */
--#define  PORT_AFAC_L0S_ELS		24		/* L0s Entrance Latency shift */
- #define  PORT_AFAC_L0S_ELM		GENMASK(26, 24)	/* L0s Entrance Latency mask */
--#define  PORT_AFAC_L1_ELS		27		/* L1 Entrance Latency shift */
- #define  PORT_AFAC_L1_ELM		GENMASK(29, 27)	/* L1 Entrance Latency mask */
- 
- #define PORT_LINK_CTRL			0x710		/* Port Link Control Register */
-@@ -161,7 +159,6 @@
- #define  GEN3_CTRL_EQ_PHASE_2_3		BIT(9)		/* Equalization Phase 2 and Phase 3 */
- #define  GEN3_CTRL_RXEQ_RGRDLESS_RXTS	BIT(13)
- #define  GEN3_CTRL_GEN3_EQ_DISABLE	BIT(16)		/* Equalization Disable */
--#define  GEN3_CTRL_RATE_SHADOW_SEL_SHIFT 24		/* Rate Shadow Select shift */
- #define  GEN3_CTRL_RATE_SHADOW_SEL_MASK	GENMASK(25, 24)	/* Rate Shadow Select mask */
- 
- #define GEN3_EQ_CTRL			0x8A8		/* Gen3 EQ Control */
-@@ -230,7 +227,7 @@
- #define ATU_UPPER_LIMIT			0x020
- 
- #define MSIX_DOORBELL			0x948
--#define  MSIX_DOORBELL_PF_SHIFT		24
-+#define  MSIX_DOORBELL_PF_MASK		GENMASK(28, 24)
- 
- /*
-  * eDMA CSRs. DW PCIe IP-core v4.70a and older had the eDMA registers accessible
-@@ -278,15 +275,14 @@
- #define RAS_DES_EVENT_COUNTER_CONTROL	0x8
- #define EVENT_COUNTER_ALL_CLEAR		0x3
- #define EVENT_COUNTER_ENABLE_ALL	0x7
--#define EVENT_COUNTER_ENABLE_SHIFT	2
--#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(7, 0)
--#define EVENT_COUNTER_EVENT_SEL_SHIFT	16
-+#define EVENT_COUNTER_ENABLE_MASK	GENMASK(4, 2)
-+#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(23, 16)
-+#define EVENT_COUNTER_GROUP_SEL_MASK	GENMASK(27, 24)
- #define EVENT_COUNTER_EVENT_Tx_L0S	0x2
- #define EVENT_COUNTER_EVENT_Rx_L0S	0x3
- #define EVENT_COUNTER_EVENT_L1		0x5
- #define EVENT_COUNTER_EVENT_L1_1	0x7
- #define EVENT_COUNTER_EVENT_L1_2	0x8
--#define EVENT_COUNTER_GROUP_SEL_SHIFT	24
- #define EVENT_COUNTER_GROUP_5		0x5
- 
- #define RAS_DES_EVENT_COUNTER_DATA	0xc
-diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-index 8c610212a180..285a38178da8 100644
---- a/drivers/pci/controller/dwc/pcie-tegra194.c
-+++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-@@ -622,10 +622,10 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
- 
- 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
- 				RAS_DES_EVENT_COUNTER_CONTROL);
--	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
--	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
--	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
--	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
-+	val &= ~EVENT_COUNTER_EVENT_SEL_MASK;
-+	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
-+	val |= FIELD_PREP(EVENT_COUNTER_EVENT_SEL_MASK, event);
-+	val |= FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
- 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
- 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
- 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
-@@ -661,8 +661,8 @@ static int aspm_state_cnt(struct seq_file *s, void *data)
- 			   EVENT_COUNTER_ALL_CLEAR);
- 
- 	/* Re-enable counting */
--	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
--	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
-+	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
-+	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
- 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
- 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
- 
-@@ -680,8 +680,8 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
- 							PCI_EXT_CAP_ID_VNDR);
- 
- 	/* Enable ASPM counters */
--	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
--	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
-+	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
-+	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
- 	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
- 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
- 
-@@ -715,9 +715,9 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
- 	/* Program L0s and L1 entrance latencies */
- 	val = dw_pcie_readl_dbi(pci, PORT_AFAC);
- 	val &= ~PORT_AFAC_L0S_ELM;
--	val |= (pcie->aspm_l0s_enter_lat << PORT_AFAC_L0S_ELS);
-+	val |= FIELD_PREP(PORT_AFAC_L0S_ELM, pcie->aspm_l0s_enter_lat);
- 	val &= ~PORT_AFAC_L1_ELM;
--	val |= (pcie->aspm_l1_enter_lat << PORT_AFAC_L1_ELS);
-+	val |= FIELD_PREP(PORT_AFAC_L1_ELM, pcie->aspm_l1_enter_lat);
- 	val |= PORT_AFAC_ENTER_ASPM;
- 	dw_pcie_writel_dbi(pci, PORT_AFAC, val);
- }
-@@ -881,7 +881,7 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
- 
- 	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
- 	val &= ~GEN3_CTRL_RATE_SHADOW_SEL_MASK;
--	val |= (0x1 << GEN3_CTRL_RATE_SHADOW_SEL_SHIFT);
-+	val |= FIELD_PREP(GEN3_CTRL_RATE_SHADOW_SEL_MASK, 0x1);
- 	dw_pcie_writel_dbi(pci, GEN3_CTRL, val);
- 
- 	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
+Here is the summary with links:
+  - [net-next,v6,1/3] net: stmmac: sun8i: reset the MAC after PHY initialization
+    https://git.kernel.org/netdev/net-next/c/fee9c17671b6
+  - [net-next,v6,2/3] dt-bindings: net: allwinner: add H616 EMAC1
+    https://git.kernel.org/netdev/net-next/c/1cf9c2ac57fd
+  - [net-next,v6,3/3] net: stmmac: sun8i: add support for Allwinner H616 EMAC1
+    https://git.kernel.org/netdev/net-next/c/61240e48a67d
 
-base-commit: 4996364a46e738cc455f5fa9b8b09f2f3348bcc9
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
