@@ -1,106 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A154EF13C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9977551C328;
+	Wed, 30 Sep 2026 17:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789257; cv=none; b=Xy2LEeLzqH1Sjf/L0ErO7XEC8JlkPBQWu153uTOceZovP9rRF2XSkR/NoiuloxFputw5irHHa/0sWkECzf4CcFA81BuM9UwrVtmbrR2/YNGvXe+s1YmDgAXenbrOLBQAoSV7vIlZP0DaAXvyqP7g/3y+Qsb+ZQfJ7ZozqYLpzDA=
+	t=1790789278; cv=none; b=iJRvG9MyQtqSUb4Ja1T8Bygi43qCIq8Em83EQ2bAYIekIy5gaxTWjiA6pWN83yfIYzBDNig3n761dFLiSkdsqd9XKmblYBgwXqwDk/1cHKmCgXlW3ssdswZowFlNwEDbIT3eD9Z2FlSfz4rLa44uR/LCT6Xd4EZszRB5VOnnPyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789257; c=relaxed/simple;
-	bh=riv0dAnP+WmNZhDp2p0iOVTpSjlSuDe72Jq/YsP2SAw=;
+	s=arc-20240116; t=1790789278; c=relaxed/simple;
+	bh=1YHG2rE9ss1U1QReWOicrFSdQV3cGvCpHHxTMkL5/T8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dlpozucEEYBKQpGZU8I2i5g1hsOXjHnJoK9oYsIX+A39DYNlAtkSC+AL1o8RZMr/EwBmfmzeLtNZkrW07/e3AF7oMaOMFtXeC8BXapPg8mqKX4pQVhSCZHsXHeUT2Xy9kycEUMOKklzYKInoiwWUlz8eqypfWKDGx2QX996uICM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kitgw0dm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UjTtJ08tlOmfPeEeLGn0xRcMH7qFxdNAAnBqhF2KLWBhAhLvH10MxRL55A0K/IJtTDISKOm0dUNL1WqvhZ0zBGNWzPi+N/HaqYdY6sG1lTULxTkJxaLVI9MiCudZsJrhuVWEZHswSK0pdyC2Vr8Zi2OWL1q9dWaejc3rnCKQFsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=ZyV8N3vx; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kitgw0dm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1058A1F000FF;
-	Wed, 30 Sep 2026 17:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790789256;
-	bh=GyghZvqdAdJddV47CNsr4GWT+47Z5Sjzvmlp4S+84dU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kitgw0dmwDA7N2xe7x+U50g9U6PRpKbzSNL+e14juoONe2XLVbng37H1uto7f3/5a
-	 CU9eICQrhQHumGRk1wlISEcw8JXvEKg4OzrmIViQsjhmBv4ofIKqRkl24GqXs8a3Zq
-	 PMnbNi0fZ/7xcptp3ofuwoy/nJwhVMDqIBNzq4SevpdWZKMtzU71qyr2XXAK5BLa9b
-	 p/iKsc13VKdzW6Os00pVXiw0Tw9hxrOyX1UChJ8kYhlD/HFkY0Pw39VOqHbr4118tD
-	 jLJQ4jkQ4PByKmin0459J6PuaYSrjDa6l4rnVbIJUyBbshsFe5TMP80j52l2wRAlow
-	 bbxmX3TsitRhA==
-Date: Wed, 30 Sep 2026 19:27:28 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: Binglei Wang <l3b2w1@gmail.com>
-Cc: xiang@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
-	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com,
-	hongbohbli@tencent.com, guochunhai@vivo.com, liubo03@inspur.com,
-	linux-erofs@lists.ozlabs.org
-Subject: Re: [PATCH] erofs: fix folio reuse from a different address_space in
- erofs_bread()
-Message-ID: <ar1GgGSIZ1h0bBip@MacBookPro>
-Mail-Followup-To: Binglei Wang <l3b2w1@gmail.com>, xiang@kernel.org,
-	chao@kernel.org, linux-kernel@vger.kernel.org, zbestahu@gmail.com,
-	jefflexu@linux.alibaba.com, dhavale@google.com,
-	hongbohbli@tencent.com, guochunhai@vivo.com, liubo03@inspur.com,
-	linux-erofs@lists.ozlabs.org
-References: <20260930112127.27059-1-l3b2w1@gmail.com>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="ZyV8N3vx"
+Received: from L20747.iliad.fr (unknown [213.36.7.12])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 533EA780368;
+	Wed, 30 Sep 2026 19:27:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790789273;
+	bh=1YHG2rE9ss1U1QReWOicrFSdQV3cGvCpHHxTMkL5/T8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZyV8N3vxVwMl6IwLk6s0ocI/xC1/O7RUgZ/DUrXsHz/V6hAIOAIsP9+bWhCHqfUsk
+	 gDGfTWAs6psQ6AYtMEEJnDLwc5uBat3lbqfQOAJcb/9DfXsSzw3b7UJON1wYQcHc8+
+	 6a/UhCVUa0VnKvWz537bhiqhCDSZ2yZdnorJ5zgiW5S/2eM+lL36tHUIfsW/r8LJmW
+	 7HX0p2lUYdpT8Q0RXe6G/rJJJK2cVOirwMVFuG8ebuQtLrX64Pd2HJkyzqm5jrHj61
+	 sgOYqhqLIiSVG7PnB5t10uc5Md+r9btoOVme68qTN3qjUcOdf2jBsqr1IHfWCmuLAq
+	 ycZkbJ7mQXAYg==
+Date: Wed, 30 Sep 2026 19:27:43 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Hsu <ythsu0511@gmail.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Message-ID: <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
+References: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+ <20260930140721.E066D1F0089D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930112127.27059-1-l3b2w1@gmail.com>
+In-Reply-To: <20260930140721.E066D1F0089D@smtp.kernel.org>
 
-On Wed, Sep 30, 2026 at 07:21:27PM +0800, Binglei Wang wrote:
-> From: Binglei Wang <l3b2w1@gmail.com>
-> 
-> erofs_bread() reuses a cached folio on page index match without checking folio->mapping.
+Hi Guenter,
 
-Each line in the commit message should not exceed 72 chars.
+On Wed, Sep 30, 2026 at 02:07:21PM +0000, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> Is it correct to set the cell count constraint to 1 for this hardware?
+>
+> The Devicetree specification generally mandates that single-sensor devices
+> use a cell count of 0, as no index is needed to identify the sensor. By
+> forcing this to 1, it appears we might be baking a Linux-specific driver
+> quirk (the PMBus core's internal 1-based index) into the OS-agnostic
+> hardware description ABI.
 
-> 
-> xattr.c calls erofs_init_metabuf() twice on the same buffer without erofs_put_metabuf();
-> the two in_metabox sources differ, so buf->mapping can switch
-> while buf->page still belongs to the old address_space.
-> The next erofs_bread() then reads the wrong mapping, dropping shared xattrs with METABOX.
-> 
-> We require folio->mapping == buf->mapping in the reuse check;
-> otherwise drop the cached folio and re-read via the slow path.
-> 
-> Fixes: 414091322c63 ("erofs: implement metadata compression")
-> Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
-> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
-> ---
->  fs/erofs/data.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-> index be63b89f0862..d8b6523bc218 100644
-> --- a/fs/erofs/data.c
-> +++ b/fs/erofs/data.c
-> @@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
->  	if (buf->page) {
->  		folio = page_folio(buf->page);
-> -		if (folio_file_page(folio, index) != buf->page)
-> +		if (folio->mapping != buf->mapping) {
-> +			/* the cached folio belongs to another address_space */
-> +			erofs_put_metabuf(buf);
-> +			folio = NULL;
+M. Bot has a point, and it is a PMBus core question, so I would like
+your view before a v2 of this binding.
 
-As I said, you could just drop `erofs_put_metabuf(buf);` here,
-and folio = NULL will do the correct thing instead.
+Since the commit
+  3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+pmbus_core registers each temperature input using its hwmon index as the
+sensor id, so temp1 is sensor 1.
 
-Thanks,
-Gao Xiang
+The hwmon core counts from 0 instead:
+for example temp1 is sensor 0 for jc42, tmp401, lm90 or adt7470.
 
-> +		} else if (folio_file_page(folio, index) != buf->page) {
->  			erofs_unmap_metabuf(buf);
-> +		}
->  	}
->  	if (!folio || !folio_contains(folio, index)) {
->  		erofs_put_metabuf(buf);
-> --
-> 2.43.0
-> 
-> 
+With the 1 based id, a single-sensor PMBus device cannot use
+#thermal-sensor-cells = <0>: thermal_of matches a phandle without
+cells as id 0, and no PMBus sensor has id 0. That is why this patch
+uses const 1.
+
+No current DTS references a PMBus device from a thermal zone, and no
+PMBus binding allows #thermal-sensor-cells yet.
+
+Aligning PMBus on the hwmon core would mean:
+
+drivers/hwmon/pmbus/pmbus_core.c
+static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+  ...
+ 	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
+-		pmbus_thermal_add_sensor(data, sensor, seq);
++		pmbus_thermal_add_sensor(data, sensor, seq - 1);
+
+ 	return sensor;
+ }
+
+
+If you agree, I will send it, with a v2 of this binding using
+const: 0, since each device of mps,mpq8785.yaml has a
+single temperature input. Otherwise, we should keep const 1.
+
+Best regards,
+  Vincent
