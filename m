@@ -1,173 +1,85 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0264537E5CB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7272EBDE9;
+	Wed, 30 Sep 2026 11:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769331; cv=none; b=nsrsAF99qyc0thKvYYXUl28RflfkoLPJr5EaH9NT4EimWOzAlZtFVQESQJwVolj3XLs4kWclwBcUrJJYCvrOtkFvV/mCTVemXXxai5U9yIbCuoz1eBum6cgA5ORwdPQ6BmtpV7WcQDF8coo9Yni9iRgGE35jw6vDaQTVp7oLfTY=
+	t=1790769337; cv=none; b=t5mtyTTBsDo6jJBUVhiajl/YoFy634/Br/3FMsrHZPiozYfxbdemM3Dxp5W7l7vQ/t1yLzxoYFBSC1IfJpQ4T795JRtWJVMhAmc4qbbueuUFbga7T/sjJAai4T075yqHUKZ5cGkcXz/SRA7qnh6h/f/JjkIH2CeGcaFd+Zh6OFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769331; c=relaxed/simple;
-	bh=jEXw+1dybKfo/7wysOU0EiwNfZDua2ATYdO6QyiZDoQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KN+aUvDyMVz+FWoqTQdSmZsGz9WBk+IS9suLcijT0qTZmn/cD+uuaOa2c1D2K5hRD6ISWK3A27dKJnaKLSxHWgrIbbqpsZuP+vJVAEffbzroUUH3wHI0X+g4+Spiw4ylETSwxx//kLDrC72tnL6PpxHpU5LoJ3MOm7d9SdVmw4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=nSerLCyr; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1790769337; c=relaxed/simple;
+	bh=RJ3PFtSXV3VjA/T+92PcgYsKJVGmk8iC6uL5M9GSLx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3p0wZCTWGAXmTWq2ixiD2ob+Z7tD/u5tSaL4E1qX2wjZQWxBUUsgx9vFzhnBGFw4sEh5mH6lj31cVbm1POUowv4pIYxt0LQFwdFe8vfIKfyAbafcM1dfrzhK/FN+kyo0q3ZRBN5noIlNXLCSJYzY/6IBlUStEvorkZ/qEpl1sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzmNi4Da; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="nSerLCyr"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id EE180D09CC;
-	Wed, 30 Sep 2026 14:55:18 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro EE180D09CC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1790769320;
-	bh=DOZsR/ac7GbUoOWLmXgbXKPZIPwkoKZ1eUqerXVBB9U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=nSerLCyr1/edPv0lOSG8NY0WAiOGlubgWbYKYDzQkqp2ZTQByndWc4KTIJrKSqC5z
-	 iB8S4PmUaan0R2vcUuCtzH10cmAiwD3yiNrPGsLFS7X7ZLDHEA/nJGBV77t6Dc/I6b
-	 I4lWxZ6kkgr7Sw+sBZldG6djotXJ4eN4D/1N5Kt+IQhkrzfJ/rjQSU4e45l8fHgiDc
-	 Ry4FPDO1rlkKaVFyLzqRx63vpbbSOW74zIUbNOVHyDPuPZYg8U1xl9Gx7dK1bNs7Fw
-	 vpzPa0S7AanAVDUDij/vDd/5WQXqjIAUm9DFZk0KRsLuAcTQvglUf7szYFuq7a+Qhu
-	 tw36X4301Gc2w==
-Message-ID: <5114dccecac18da35a9c502d04b1ca296a2cbcaf.camel@rendec.net>
-Subject: Re: [PATCH v5] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC
- helpers
-From: Radu Rendec <radu@rendec.net>
-To: Zhu Ling <zhuling2709@phytium.com.cn>, maz@kernel.org, tglx@kernel.org
-Cc: zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 07:55:17 -0400
-In-Reply-To: <20260929031050.16988-1-zhuling2709@phytium.com.cn>
-References: <20260928013209.7242-1-zhuling2709@phytium.com.cn>
-	 <20260929031050.16988-1-zhuling2709@phytium.com.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzmNi4Da"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C5A1F00893;
+	Wed, 30 Sep 2026 11:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790769336;
+	bh=5meFYk8A6OECXcbERFC8vfkK/C/8PqfInrhYe4+ifGk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LzmNi4Daa51WDFjSoir1xbp6dOJXW+dMjTMrMdtLb43+u6E0X6pmPHDFH7bUpBdfh
+	 evfZ6y5kYwH7O3rue728Rh6422nWbNsJiGvmI69G89oEhXRrych7qKgXibxv1hYKwz
+	 N+vOi6fWtCQBWveRnn0uYoRqLUF0GrziA4Fv2IqQGkFGzUxZP8z6wbkTucuvvvYWMZ
+	 EOKuBMTp75lPiDRgzTL0iRS7hAdnIojvWjFXz4vg2MWEbWbXGsRjab/84bbEc8egYm
+	 0ud5d0aIdWGMJRYc4jSJtLPOsTKDbT2fRrbzlsxKsSmIh4M9pnwQj5Y7bum73AL2Bn
+	 pI1jB9Jl9vtNw==
+Date: Wed, 30 Sep 2026 13:55:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, 
+	Shan-Chun Hung <schung@nuvoton.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chi-Fang Li <cfli0@nuvoton.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Avi Fishman <avifishman70@gmail.com>, 
+	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+	Benjamin Fair <benjaminfair@google.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 2/9] dt-bindings: clock: ma35d1: Document the missing
+ crystal inputs
+Message-ID: <20260930-asp-of-pragmatic-discussion-16abe9@quoll>
+References: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
+ <20260929-perso-ma35d1-upstream-clk-v5-2-68533e935ee4@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-perso-ma35d1-upstream-clk-v5-2-68533e935ee4@bootlin.com>
 
-On Tue, 2026-09-29 at 11:10 +0800, Zhu Ling wrote:
-> When running with UBSAN enabled, enabling a GPIO controller that uses a
-> GIC interrupt as its parent triggers several shift-out-of-bounds warnings=
-:
->=20
-> =C2=A0 shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
-> =C2=A0 left shift of 2 by 30 places cannot be represented in type 'int'
->=20
-> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
-> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
-> same signed-shift pattern. These masks are generated by shifting signed
-> integer constants, which invokes undefined behavior when bit 31 is
-> selected.
->=20
-> Use BIT() to generate the masks with an unsigned type and make their
-> intent explicit.
->=20
-> Fixes: f27ecacc54cc ("[ARM] Add support for ARM GIC")
-> Fixes: 5c0c1f08abf0 ("ARM: 6150/1: gic: implement set_type")
-> Fixes: 021f653791ad ("irqchip: gic-v3: Initial support for GICv3")
-> Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
-
-Reviewed-by: Radu Rendec <radu@rendec.net>
-
+On Tue, Sep 29, 2026 at 04:44:45PM +0200, Miquel Raynal wrote:
+> The MA35D1 clock controller takes two crystal oscillator inputs from
+> the board:
+> - HXT, a high-speed 24 MHz crystal for most of the system
+> - LXT, a low-speed 32.768 kHz crytal for the RTC and low power modes
+> 
+> So far the binding was expecting a single crystal. The example named it
+> HXT, but no real definition for it was given. LXT was not even
+> described. In order to remain backward compatible, we will continue to
+> allow either one (HXT) or two (HXT then LXT) input clocks. I propose to
+> give those phandles a name to clarify what these entries expect, but I'm
+> not listing the clock-names property in the required block, for backward
+> compatibility. The rates are fixed by the TRM, so even if the second
+> oscillator is not described, the OS can make an educated guess.
+> 
+> Fixes: 2f8b5eb589cb ("dt-bindings: clock: nuvoton: add binding for ma35d1 clock controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 > ---
-> Changes in v5:
-> - Correct the GICv2 and GICv3 helper Fixes tags to point to the commits
-> =C2=A0 that originally introduced the signed shifts.
+>  .../devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml    | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
 
-Thanks!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> - Add Zenghui's Reviewed-by and Marc's Acked-by tags.
->=20
-> Changes in v4:
-> - Add Fixes tags for the commits that introduced the affected masks.
->=20
-> Changes in v3:
-> - Fix the same issue in the GICv2 gic_poke_irq() and gic_peek_irq()
-> =C2=A0 helpers, as pointed out by Zenghui.
->=20
-> Changes in v2:
-> - Use BIT() instead of explicit unsigned shifts, as suggested by Marc.
-> - Drop the redundant introductory text from the email.
-> - Update the author email address.
->=20
-> Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMb=
-bPhUatLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=3D@proto=
-n.me
-> ---
-> =C2=A0drivers/irqchip/irq-gic-common.c | 2 +-
-> =C2=A0drivers/irqchip/irq-gic-v3.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
-> =C2=A0drivers/irqchip/irq-gic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 4 ++--
-> =C2=A03 files changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-c=
-ommon.c
-> index c776f9142610..8bd1eaa54295 100644
-> --- a/drivers/irqchip/irq-gic-common.c
-> +++ b/drivers/irqchip/irq-gic-common.c
-> @@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk=
- *quirks,
-> =C2=A0int gic_configure_irq(unsigned int irq, unsigned int type,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base)
-> =C2=A0{
-> -	u32 confmask =3D 0x2 << ((irq % 16) * 2);
-> +	u32 confmask =3D BIT(((irq % 16) * 2) + 1);
-> =C2=A0	u32 confoff =3D (irq / 16) * 4;
-> =C2=A0	u32 val, oldval;
-> =C2=A0	int ret =3D 0;
-> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-> index 6e1fa5b247fc..15110d47ddb0 100644
-> --- a/drivers/irqchip/irq-gic-v3.c
-> +++ b/drivers/irqchip/irq-gic-v3.c
-> @@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offse=
-t)
-> =C2=A0	u32 index, mask;
-> =C2=A0
-> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
-> -	mask =3D 1 << (index % 32);
-> +	mask =3D BIT(index % 32);
-> =C2=A0
-> =C2=A0	if (gic_irq_in_rdist(d))
-> =C2=A0		base =3D gic_data_rdist_sgi_base();
-> @@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offs=
-et)
-> =C2=A0	u32 index, mask;
-> =C2=A0
-> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
-> -	mask =3D 1 << (index % 32);
-> +	mask =3D BIT(index % 32);
-> =C2=A0
-> =C2=A0	if (gic_irq_in_rdist(d))
-> =C2=A0		base =3D gic_data_rdist_sgi_base();
-> diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
-> index f6bc29f515fb..fb7a55f5b394 100644
-> --- a/drivers/irqchip/irq-gic.c
-> +++ b/drivers/irqchip/irq-gic.c
-> @@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_dat=
-a *d)
-> =C2=A0 */
-> =C2=A0static void gic_poke_irq(struct irq_data *d, u32 offset)
-> =C2=A0{
-> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
-> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
-> =C2=A0
-> =C2=A0	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d)=
- / 32) * 4);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int gic_peek_irq(struct irq_data *d, u32 offset)
-> =C2=A0{
-> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
-> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
-> =C2=A0
-> =C2=A0	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq=
-(d) / 32) * 4) & mask);
-> =C2=A0}
+Best regards,
+Krzysztof
+
