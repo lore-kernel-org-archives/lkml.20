@@ -1,166 +1,221 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6263CAA55
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38D13C1D42
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790749614; cv=none; b=ZaDDxfWPs7sPqUPeeVpD6zHwprfkXg4kzfM/Q4P7jCKS9hfPIoZY9rqQykQo8GqFxm7hWcolGUo1KbDkQ8ApETXB8TgRcUz6KWdeUrWZPxVaZ3xPxlMOAEC9qj92roINZU5CbQFrGoDfiE6k6c5zisGFYkHfcmxUCKZpZvI6nfo=
+	t=1790749652; cv=none; b=mcGh5u2EHu3nNuN4UU/+f1cDJ7c5zvAobpDNa9p9o70xsqO+afcYDOp+ESbTZtn25dBgnxlq2pPc3pI/7fy7z5QvmVDmFHlAHb3WSQVTz0SQU07DXeQntquv8YtsxeX6CP8eCRreHdvqOENuFkK2+0K+58IKwcQEavvpW3L09ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790749614; c=relaxed/simple;
-	bh=F22y+hLCAnYJAYt6Xv8/W8DAmL+JuAlNySq4CKo7i/Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=shOB0hbwUbC/0sWbriBMhbDI6nzgZkq5TCS8RJBnLYp2tMPbwNF0aUGyG1Pp/Zbw+QF8RPf9TTIh+xE+CTiLO/f1/Cne5kj6sqdQcaMg1Q/MiWR8Zk5ldJC1fTAvhChtr0fbkLXot6DektrY61DnELLkid+egA4tvh929RmYvAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YkLGIZDr; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790749652; c=relaxed/simple;
+	bh=GJNgEKqztoFxFEvYnJMG3Ai2a3tKs0b85VlnyR58z8A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f2Vc3cNgWFK1wWsw3yZmxUYAUlE2ls2u18djSo+2xdUbLiWHJ+/9ZKBQGGww6N84Dpm03iLHLxLx5Row0C5fizIkJQ338yhJ0eJeIfdbnNxp3tuIipg8j5jI2ELvjDsi/65bczF5hifWue9axWCAvVL4o8piglFCY8G5MA9ASLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OSKU+N5X; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YkLGIZDr"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso37454935e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:26:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OSKU+N5X"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so3304089a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:27:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790749611; x=1791354411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=StVMALYl7NrhXL0BqWH9nKh8uCpTcpQuXS9uSRoi8JE=;
-        b=YkLGIZDrHGXYNGWyoRV5NLLwyx47FkL6Uly2LmQ6OnxGdx4Egecv5xlQvSINLYBqIP
-         rQrIfnm9RmgHMeW2ZAo/b3I8C3+AuWfe8Te4Y8EjbSfmrxjIQoOHIYhnPH/Dv8bMhRMH
-         pG6e7BUFqbNlfxxqx6f0t950V/CCALIWpJtE6AM+eLRtJgHIT/Mwmc/Pa3bfZ2ocqDiE
-         0U082Lhe4DZ5Xwfi7qJkWLctqSGW4daXbacIg/QaNPq6nuKnh/aB/vdah3s3JZeExFJU
-         VNVMWUzsDzvJgKb7Qs6eOuXl13qSfg0hjZeXFEHRCjCAI0C61mwz37Be3XBKxbsm50b5
-         03QA==
+        d=chromium.org; s=google; t=1790749650; x=1791354450; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lc1qIpsrNbX+GFd8HSn+Cvyk4IOwYzMrYFI4KpEuUyw=;
+        b=OSKU+N5XH4KbTSOkit1XMJYVLOeqkhL8cD2J5Hjp4XZKYA0jdG5d1VAiRoysmTpzJZ
+         Zd00K09GFe3ewSXrgeTKUBx6TUmmEuCckIdq3HI7UBRu8NyEU1EvpUAz49jHMtA0fFm6
+         KBWkJnSEHkwMaoHnY1pjj2zBW3IpfT3KDSroY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790749611; x=1791354411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=StVMALYl7NrhXL0BqWH9nKh8uCpTcpQuXS9uSRoi8JE=;
-        b=SuHNLYYARQSMnclcidqmugmV+XwaoDpfhhSYa8J82oKaPOIjvGY6UtqTeCNDJIQax4
-         eVYeOu1sy8nUEF64qCLTVcU4Cmq5MDmza3fzNsvCJXEmOuO/GlS70utOU5TRikrGqIGs
-         EnHmvMALN2wuirF3wBVQvqONtoe0nxI2fEkE4FmptGkfL4XVkiBmQhmwfCU2G6wv02jQ
-         3urDwHOejtPeCS97nccMJC6TYB36pjSfHR4WN6C6P6u0c7ud3TITIeZJVu0rYTIrbjMC
-         hOt1DlRwuRKNlMKi/Bu0OoHpWQfW+IEHwWXKb7FdfIlNlgMsJZYe0I6Rz4P8SMqfJ6Oc
-         +u6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzvVS2NLnBRon664k4wykyp57jmybcggJyTFSMeDfquHrIzoJY8dDf4VmdRn/i1ZaMtjx7arF3W9tq1KAs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2PW3Wx3IoinK1mR2+rr0NnOgxF+hHNXIcCOsHPIRyPYzwyNWG
-	O87xfhaXNXMCrWaFIYQEma+++9KOHrSKd5SJJzFsFjzajhrJ/T/wF9vV
-X-Gm-Gg: AYBFou3q7QJJdrW21HcxIEHhlAU0Riq0viHc7XdlmSQAZZaEkZYp8rdzBXp5TxpnUtw
-	+G6UOF0CVpxpzTnu7QaM7/phdt4W2k/7QbgM5tRHPn8PQZPbgo/eM2wXjYYlhWFNogQpBKdtwMX
-	hyOVSyz748uRQ7T0RsngWLMD50vpMIHsNIJ1/LkRoUPleU1obLqOjNxMVyJWLoP8etKb2SFLFcs
-	12IuzZY3bTVg0yoij8XQlKVacAtOWW9pmSEy+AT3lDqvlCnW+/dq6JQ/2+VWQCulXmdBu6PL7XC
-	YUxOs93oIvu6Gh5trDLRjFeykdpY26VIknZ59IomyFbPZOdugk3R8cz1+P5U/bfIkB21iG4oEte
-	hOi1TNrfkGqcxYPyHcQVDJgINhykDpm2O0/r7ykKMHm2T/oGcRDAwhw1pxOdJPOKnjfAoyJY1TN
-	pQEvBdHA05n3AGvhEe9zcbmeS2K4J7v7j4INxrIL1FapwSuCbf+DFfp69EDTOYnYsL1cNXaBpW9
-	0BrquQBtaxdPSSoATAPZIHT0VR2VMNHgweE5u7W+HB1G2gtseuXtB2X5Y+6ZcNajpU=
-X-Received: by 2002:a05:600d:4448:10b0:49f:fd4c:cccd with SMTP id 5b1f17b1804b1-4a01b11e83bmr2983255e9.28.1790749610287;
-        Tue, 29 Sep 2026 23:26:50 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01b1e79e4sm6866825e9.2.2026.09.29.23.26.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:26:49 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Yao Sang <sangyao@kylinos.cn>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com,
-	syzbot+2e02ccadb3c5522a5c59@syzkaller.appspotmail.com,
-	linux-nvme@lists.infradead.org
-Subject: [PATCH] nvme-multipath: revalidate head zones after unfreezing the head queue
-Date: Wed, 30 Sep 2026 07:26:47 +0100
-Message-Id: <20260930062648.73871-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1790749650; x=1791354450;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Lc1qIpsrNbX+GFd8HSn+Cvyk4IOwYzMrYFI4KpEuUyw=;
+        b=KkQUHMbyM1KciE2TzCCoE0aNvuv9KvAez63JD2HLdKPLT9S56rcDRl4vhLSLcuKRR2
+         EWf+JCFWPaT0uspCwRdgEfghNTuFl2mP81JuOx9xZkfjE2OA5sx3GeBK32Gv95Mcfc2O
+         imqz8Vrt+qWyrHaLy1nfoBmTCG57aY18uj89K2r4rLvSLPgVYFDI0GFZTX2+vPx0JUch
+         CQvBZrotrq2RUwho930AEmP0xKuiuOFxjlVLCNBzhkprXexhMORa7fNJTE2v5jGlGs3r
+         8hI0wGCnuBRjF8Fjo7QycXgbv9zIBkLenyDGAdv2bOivZciquLtq5hGk/VZTI+/of3v8
+         tUpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwc00FgP8K04QU2T3IHNDeLfr/dclDsU5QpsH46F1AtqlKZFj4kdoEt/tOIA2onKN4s7D0hRACMtNAt0y0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMGLm2suzw6U42dg4O0V22roc9vkLOXKs3IaxKjV3XkxJwj8pT
+	SnRyuCogfSjrIioQkpvmKK2srH3FZbowaZJDtB+ORX6W2mqjRUvZLekOK0TJgRRh8ftxTySGfIZ
+	MNz0=
+X-Gm-Gg: AYBFou1ctHrKqvAJhuP1q6K8IHqnDQZsLwgl+8NFyua2/dq9oOhYu+nZ0WYWkVDcEk0
+	Azxv26pNlFftvpfYfTLzb7VWIO+jFV1aqdvzkWb/SKQ69jcPH8XQz3RI3Fepb0xFjG/wagXnETq
+	1IHQgN3+ESrpyNL19HRcq3IRpu0aj/FdmDcjSTJbUoBGP6h1oBOF6WLYjyyxmxxoYn+P2P8+N5M
+	lTpgCUjGgVRa/zKUa0S0nJ0XqtdAfg5nyt+8RbhuS0PFL3wh+Ste8fTUGcx6JK5fa5vYddyRgW8
+	W8hjaOMWRJO7ZW71KDazVTK8m8CuSkHPuQHHjHjnz8tP1zN+lbVXlAVfbQvwgvOUI6DPUbcGQnn
+	v/+pqXUBvImWgHWJpxllluZXv/PYoL1l5JBRwLVCnsDOnP+JFlKfHDwqpHenqBSRbU3nERv6zug
+	TnIJD0VFe7578c6vvIhRtqcYwM/IuJygIf4SgrgUuyPL/vVuULNtj4tUsMIGs14CQpT9fZMts+u
+	+dVhxsW0guwmISSEBVRrhtHGeMZEQiU32kCmQ==
+X-Received: by 2002:a17:90b:1d0d:b0:3a0:e476:576b with SMTP id 98e67ed59e1d1-3a4d179ece8mr445946a91.37.1790749650081;
+        Tue, 29 Sep 2026 23:27:30 -0700 (PDT)
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com. [74.125.229.171])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ca78102csm1736005a91.4.2026.09.29.23.27.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 23:27:29 -0700 (PDT)
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1460bcc512eso2926720c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:27:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBysP7OWz6ItqKrGC496oLDhte/XjmnEXo/mTSV4QtUPEx4hyXRLFEErsS6ufyzn+maZTpb6I3h7ftMxyCs=@vger.kernel.org
+X-Received: by 2002:a05:701b:2719:b0:143:57c1:6242 with SMTP id
+ a92af1059eb24-14d32bde9b9mr300065c88.26.1790749647410; Tue, 29 Sep 2026
+ 23:27:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CA+2YD=Nxe25n8rmM-DS+w+Pg0N_YtOf_znJXNMi77SCwk3OUyw@mail.gmail.com>
+ <20260925205706.GA697101@killaraus.ideasonboard.com> <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
+In-Reply-To: <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Wed, 30 Sep 2026 08:27:14 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsuiPN=9PNb9gckRwgZXMEouYTac0_DgbO1Mti+p2zH=A@mail.gmail.com>
+X-Gm-Features: AclHuK-fwd65UvzyRP5lPKeP_uJxaO37ohdi1sIivOyI8BaBY3Yurjj-DcNth6o
+Message-ID: <CANiDSCsuiPN=9PNb9gckRwgZXMEouYTac0_DgbO1Mti+p2zH=A@mail.gmail.com>
+Subject: Re: uvcvideo: Logitech Brio 500 (046d:0943) needs UVC_QUIRK_PROBE_DEF
+To: Perry Joyce <perrygjoyce97@gmail.com>
+Cc: linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, hansg@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When a namespace on a multipath controller is updated,
-nvme_update_ns_info() freezes the head disk queue, commits the new
-limits, and then calls nvme_mpath_revalidate_zones() before it
-unfreezes the queue again.
+Hi Perry
 
-That is the wrong way round for blk_revalidate_disk_zones(). It starts
-a limits update, which takes q->limits_lock, and it freezes the queue
-itself while updating the zone resources. The block layer takes
-limits_lock before freezing the queue, never the other way around, so
-calling it with the head queue already frozen reverses that order.
+Thanks for the report.
 
-syzbot has hit this twice. One report goes through q->limits_lock. The
-other one is on linux-next, where blk_revalidate_disk_zones() also
-takes disk->zone_revalidate_mutex and holds it across alloc_workqueue()
-the first time a disk's zone resources are set up. Lockdep then sees:
+Could you provide the output of lsusb -v -d 046d:0943 ?
 
-  q_usage_counter(io) (frozen head queue, nvme_update_ns_info())
-  --> &disk->zone_revalidate_mutex
-  --> wq_pool_mutex --> fs_reclaim --> q_usage_counter(io)
+If you want to try, you could send a patch like this one (but with the
+right quirk):
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commit/056dfb7bf8c9d62367bd600a175e072692df67a6
 
-  WARNING: possible circular locking dependency detected
-  kworker/u8:10/3352 is trying to acquire lock:
-  (&disk->zone_revalidate_mutex){+.+.}-{4:4}, at: blk_revalidate_disk_zones+0x1c5/0x1650
-  but task is already holding lock:
-  (&q->q_usage_counter(io)#75){++++}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200
-  ...
-   blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
-   nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
-   nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2620
+Thanks :)
 
-The rest of the driver already does this correctly:
-nvme_update_ns_info_block() unfreezes ns->disk->queue before calling
-blk_revalidate_disk_zones(), and nvme_mpath_set_live() revalidates the
-head zones without freezing the queue. Do the same here, and only
-revalidate the head zones once the queue is unfrozen and the limits
-update has succeeded.
+On Wed, 30 Sept 2026 at 01:13, Perry Joyce <perrygjoyce97@gmail.com> wrote:
+>
+> Hi,
+>
+> Resending in plain text as requested.
+>
+> I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
+>
+> uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
+>
+> Kernel:
+>
+> Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17
+> Sep 2026 07:33:37 +0000 x86_64 GNU/Linux
+>
+> The webcam otherwise works normally.
+>
+> Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
+>
+> modprobe -r uvcvideo
+>
+> modprobe uvcvideo quirks=0x100
+>
+> After loading the module with 0x100, the device initializes without
+> the probe-control error:
+>
+> uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter
+> for testing purpose.
+> uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing list.
+>
+> I also tested this across a reboot with:
+>
+> options uvcvideo quirks=0x100
+>
+> and the probe error remains absent. Normal 1920x1080 MJPEG capture at
+> 30 fps continues to work.
+>
+> Device information:
+>
+> idVendor=046d
+> idProduct=0943
+> bcdDevice=0.21
+> Product: Brio 500
+>
+> Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
+>
+> I'm happy to provide additional logs or test a patch if needed.
+>
+> Kind regards,
+> Perry
+>
+>
+> On Fri, 25 Sept 2026 at 21:57, Laurent Pinchart
+> <laurent.pinchart@ideasonboard.com> wrote:
+> >
+> > Hello Perry,
+> >
+> > Your original e-mail was sent as HTML, which gets silently rejected by
+> > the kernel mailing lists. Could you please resend it as plain text ?
+> >
+> > On Fri, Sep 25, 2026 at 09:31:42PM +0100, Perry Joyce wrote:
+> > > Hi,
+> > >
+> > > I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
+> > >
+> > > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> > > uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
+> > >
+> > > Kernel:
+> > >
+> > > Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17 Sep 2026
+> > > 07:33:37 +0000 x86_64 GNU/Linux
+> > >
+> > > The webcam otherwise works normally.
+> > >
+> > > Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
+> > >
+> > > # modprobe -r uvcvideo
+> > > # modprobe uvcvideo quirks=0x100
+> > >
+> > > After loading the module with 0x100, the device initializes without the
+> > > probe-control error:
+> > >
+> > > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> > > uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter for
+> > > testing purpose.
+> > > uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing
+> > > list.
+> > >
+> > > I also tested this across a reboot with:
+> > >
+> > > options uvcvideo quirks=0x100
+> > >
+> > > and the probe error remains absent. Normal 1920x1080 MJPEG capture at 30 fps
+> > > continues to work.
+> > >
+> > > Device information:
+> > >
+> > > idVendor=046d
+> > > idProduct=0943
+> > > bcdDevice=0.21
+> > > Product: Brio 500
+> > >
+> > > Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
+> > >
+> > > I'm happy to provide additional logs or test a patch if needed.
+> > >
+> > >
+> > > Kind Regards,
+> > > Perry
+> >
+> > --
+> > Regards,
+> >
+> > Laurent Pinchart
+>
 
-Fixes: 224041412693 ("nvme-multipath: revalidate zones for namespace heads")
-Reported-by: syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b0910be96b7c31314822
-Reported-by: syzbot+2e02ccadb3c5522a5c59@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2e02ccadb3c5522a5c59
-Link: https://lore.kernel.org/all/2bfc96f2-7d0d-47e0-936e-8810abb31a9f@acm.org/
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Brigham Campbell <me@brighamcampbell.com>
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
- drivers/nvme/host/core.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index ee7d09030c18..5d7dfd7a63d4 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2617,10 +2617,19 @@ static int nvme_update_ns_info(struct nvme_ns *ns, struct nvme_ns_info *info)
- 		set_capacity_and_notify(ns->head->disk, get_capacity(ns->disk));
- 		set_disk_ro(ns->head->disk, nvme_ns_is_readonly(ns, info));
- 		nvme_mpath_revalidate_paths(ns->head);
--		ret = nvme_mpath_revalidate_zones(ns->head);
- 
- unfreeze_head_queue:
- 		blk_mq_unfreeze_queue(ns->head->disk->queue, memflags);
-+
-+		/*
-+		 * Wait until the head queue is unfrozen before revalidating
-+		 * its zones. blk_revalidate_disk_zones() takes the queue limits
-+		 * lock and then freezes the queue on its own, so it must not be
-+		 * called with the queue already frozen. This is also what
-+		 * nvme_update_ns_info_block() does for ns->disk.
-+		 */
-+		if (!ret)
-+			ret = nvme_mpath_revalidate_zones(ns->head);
- 	}
- 
- 	return ret;
-
-base-commit: 4a5e49ba0abb8b4328d6318c9aef0c0121f95507
 -- 
-2.34.1
-
+Ricardo Ribalda
