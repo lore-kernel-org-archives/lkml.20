@@ -1,116 +1,134 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D86C4C33E6
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B89223DE5;
+	Wed, 30 Sep 2026 18:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793990; cv=none; b=ntdtwgx1zF/fRUKtOgGdRZxW60peK2md1MUQ/5gzYFeyx4Y7DtFMbP7vNuqMGJyfpbi0BK2FXSRi/9Cq1w+g2AcTRdqRkBMKyD49cEA1qXQLbKzPxVUJMM62GEFRbW9X1Q95yaorErcbEigYJDI8PaBVpiVIOFRBPqx69LxDIbc=
+	t=1790794050; cv=none; b=e+miEeRyRYd0N0B/xZSKNqbhlBv8cZjeCQCvp8LKUfLaLHrYdX8oQ+sIpbU97cmD/dRQrrOiZlTRfRA0hKv0Eyzw1vFY0JAgpyXLbNrcqgb6b5ESVQYZoQ7o8tpBKtuyxUjC7PKK1gEDaRLWl2mdqsUa2N8SKIV+1fuMCqDEUAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793990; c=relaxed/simple;
-	bh=/Dih9SrtItbcUH/2CE5n62UdEiJQyuq3ooSxlD3/Fp8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O3NRgVZHfTwY2GwC4a++Uksiy0eqt1D4QsxV2u3q0vgQZ9RnQnUM/AXUz5KPrHcHgEE5ONcUawlP7nrCrFA28xC+V//lWNuGXo0vh8mPMmSjQ+0VTtil+mCDpFAmnUTkBIPArmz1dPqVmSBNb6ggR50UjW9QIucsuwu/tUVufF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CMFM3PT9; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790794050; c=relaxed/simple;
+	bh=5wUqWsURO4rs1oMkv+4uI03AHJwb7y6msO+KHQvbPDo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lv9A7kcz4+LCehHQ9yF0HiOHp+ts+yC10OMTNk80/zdqPbSICwbsrCq4xuIkyMlHOVyLB042kKs8n16g4NOyq0/K7UmS5KTkn9xho5jK+iAfhCj2zloN96jF4tqBJNEQoBfv8zGMJ/wzqYlLK/fuZThP6PC9QmDTYOvYRi2UwuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADxd7IJg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CMFM3PT9"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so3538121eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:46:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793988; x=1791398788; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+rnVWzcL1s6imxSLl6Sw7NlkVC1rq2Qam6ENx2rJYs0=;
-        b=CMFM3PT9jeyDDL5eKFfjwM6RVD10O9idpNDH1PoEzTRqxw8SOYDZMD1MUwE91NNrGt
-         omSd3XNkPtT0A0NG3yNzWCCeLIW7MeiUYN/HDlCX9N8bvK1bmoZ+F2Nzvspxh5i0bfHb
-         Wh1ji2Jo1HEmWtmjHt7xR+3FH66zS/CaZkV5yWdX4Qdp1g4P/MfI6VmThtvAPHlaUGqo
-         gy9fmXTvUWSwTq3ZSfWn1upkdLi0aK4tO/U8vQtrKtzS9mlR0ojxPT/g8jqvcYetEq75
-         xLDraB/3eaITXN4UuYEjaus5UZBgxD01cDgC+NO7BVjeG+PGGldtnxG2TbtpKy8bTAzK
-         GdSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793988; x=1791398788;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+rnVWzcL1s6imxSLl6Sw7NlkVC1rq2Qam6ENx2rJYs0=;
-        b=LnNDystHYpu7bsoX7MY73Z9sXfBHjtULQ/m6JpGDhyDuNEX4wRN0H/C9qWn6xIdzR2
-         UyCcxwC5l5NaGF5L+U1T1XHDAqFOyjOyH+ktOKJdZ4wHHyyMNZJ2GIzUdX+us1WoWZnP
-         0vMV0jsGQqMseWgEZTka70E3DrMgtxIdSsLm3HxMyAtL5Qj8nBwnNsrg75T5gDoMr/aB
-         AtKYVRGYs/VJLISfn+eKLUecVQMrOKrEqgPdZetrHix3rL8FuxnDbYKC+wJgyag8IY00
-         V79LvbvLjkPdEP6BBSyfx+lXI/VJITBYAEqGUfQc5px16jGzbdPVvD2+jwvGvwzGNUw1
-         A3xA==
-X-Forwarded-Encrypted: i=1; AKwUvBxpJbTq34Nv+hCEsfUBHfkoZ+y16F0PTOIvkn+n13HX1QThArgL51Cmsw1H7aunM4ivJ9+G+2y30KLPORA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo5KpondhtwYeAya/LgFR61jgNHAny9fHXyU5+cBynaqR/ixhO
-	lzXgBbw2sIRYECAIRuUi7kf5/CIl/d+Ig3Mcx0YrFIs5foSK2G1Hetst
-X-Gm-Gg: AYBFou38QNi/4sHprHWq+9yrL4JmQ3DN+AtB2l67/HZ3EhXKuyBQNrRs1WqRSAp1U6X
-	rkxZ/wYbhjNrXrfj7TcT2W7n7UqEvFcgptO/pD2AWT3Y84ypLup1sRj8hjOx85BMJwOkixxYlU/
-	kJrWqSBLMPh/SgyVLYDF8RjDfPmbX+YvmzAOZvY/V8uIu8qRrPIPKG6YaBMNTqzWHLwtWhXsRJo
-	6ZHJDRJ0Y/fDlkTKoXo/4bBtQ527Y2osp8RZQj1lV/VZGVmiLJRQiwa3wNIoCaCGa2CV2xVMNH0
-	AW7p3GP7/i6WlLYN4ffn2KObduvfz4FVnwugHO+HWp5ZDaH2y9gl8m+9rjXZctuWibyoA2H8/ts
-	TgoqXtnBduOxQdFhcO7kL5tnAxAnGUxGBRVBVWascP1mNoiQAkAL0/rpM6iTRwny7m1M6UjDkkT
-	zDvS0EaE0E6pkPCL6VCEshKkAt3Es8nBM1MIVXeLmUZNIBpGIUltpq3TfncdWUdZV2w/b+y+LY8
-	b8RXoFs+56GRnpYozcPa9otUcs3VZHvQlPPElA=
-X-Received: by 2002:a05:693c:6385:20b0:33b:fc68:9790 with SMTP id 5a478bee46e88-34cdc3c1deemr2690727eec.21.1790793987430;
-        Wed, 30 Sep 2026 11:46:27 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db491fae1sm814955eec.24.2026.09.30.11.46.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 11:46:26 -0700 (PDT)
-Message-ID: <67c415f3-99d0-41aa-88b3-5e94a765d7ca@gmail.com>
-Date: Wed, 30 Sep 2026 11:46:25 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADxd7IJg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451E61F00898;
+	Wed, 30 Sep 2026 18:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790794049;
+	bh=yD+kiY0HoTfxu66erBXAF33xLs4HT8xVVKYchh0t2N0=;
+	h=From:Subject:Date:To:Cc;
+	b=ADxd7IJgoc5YI2gZqwnPdRQnBd2GhhLLKqu6VNKYetbeqpEDWnafR09CiVwl391ok
+	 2LeVaPvqivS45qptH6cB0DzCJJ1a7T1RBohe3a+1cWt3ibs9edPEFRi9N/ENoJiGUY
+	 0937Bi5vVgx6udRaN2VRTvP5SjL2CG/9SRQIM+fiikTi9xDNVKiEA9ip4rnc9u3Dob
+	 Ut8eZ+texE13OAr/+PpznWs2ms1IBz7M7DcYcjOL75fknGaybDkDx90nnaCvDi/EdI
+	 TOuY377A23mWLOeE/tvXlRyVLvS2cyUaOIY0ewOMo5wLg9iaRsHOhDVXxETFpnm4Jv
+	 bA0s5K0ofMMbw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH v2 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Date: Wed, 30 Sep 2026 19:47:08 +0100
+Message-Id: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260930152416.775402466@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WNQQ6CMBBFr0Jm7ZjS2AquvIdhUWQKE7ElUyQaw
+ t2t3MDl+/n//RUSCVOCS7GC0MKJY8igDwXcBxd6Qu4yg1baqlor9PzGLob5FZ5uwsnJzG7ERKP
+ HJ0nun0+urtqyM84ayJpJKG/2i1uTeeA0R/nsj0v5S/+QLyUqtN63xlhf+aq9PkgCjccoPTTbt
+ n0BbkGHcdEAAAA=
+X-Change-ID: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2742; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=5wUqWsURO4rs1oMkv+4uI03AHJwb7y6msO+KHQvbPDo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLL2RtqK7lFwSchj92X9fXVG8fZ7pv8ltG7Mmi5RsUwih
+ dGmt42ro5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNhf87wV/z9xNtfvWfpcBy4
+ viP38oq84i3y9x2iPWK9tUwfuJbrTmH4p2Vtfq3eeUL1iW8s/EXfSx7Je4vqZX71Srp0/dL7x5x
+ V/AA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-On 9/30/2026 8:12 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.189 release.
-> There are 982 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.189-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+mm->locked_vm accounting, but this wasn't the only issue.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+And thus history repeats itself, as it turns out that mm->locked_vm
+accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+and has been broken ever since the feature was introduced.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Both relate to the fact that VMA_LOCKED_BIT is cleared on the source
+VMA (it has to be as all page tables are moved):
+
+1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+   pages.
+
+2. If a partial mremap() is performed on a locked VMA there is a leak equal
+   to the number of pages not copied.
+
+(Both for MREMAP_DONTUNMAP operations only)
+
+Both issues can be fixed by treating the source range as distinct from the
+destination range, which is the definition of what MREMAP_DONTUNMAP does so
+is appropriate.
+
+In case 1, simply disallow the self-merge, keeping adjacent source and
+destination VMAs distinct.
+
+In case 2, split the source range ahead of time if the VMA is mlock()'d, so
+accounting is always correct.
+
+Both changes were tested locally and confirmed to fix the issues.
+
+For the purposes of a backport, the fixes are kept distinct, a follow-up
+series can add self-tests.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+v2:
+* Added tags (thanks everybody!)
+* Updated 2/2 to avoid splitting the VMA if the VMA was not mlock()'d. It
+  is only meaningful and necessary to perform the split in this case. This
+  also fixes the proc_maps_race selftests that broke, as reported by
+  Anirudh.
+
+v1:
+https://lore.kernel.org/r/20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org
+
+---
+Lorenzo Stoakes (ARM) (2):
+      mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+      mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+
+ mm/mremap.c                   | 70 ++++++++++++++++++++++++++++++++-----------
+ mm/vma.c                      | 21 +++++++++++--
+ mm/vma.h                      |  7 ++++-
+ tools/testing/vma/tests/vma.c | 10 +++----
+ 4 files changed, 81 insertions(+), 27 deletions(-)
+---
+base-commit: a3d0117e02bfa1c3bb6c50e7afe42bbecdbb3459
+change-id: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
+
+Cheers,
 -- 
-Florian
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
