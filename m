@@ -1,117 +1,98 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C67B5158B3
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5672650AC0E;
+	Wed, 30 Sep 2026 17:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789022; cv=none; b=nDVs3KfMt+Irx6bs9DukIiQGg/Jdr9oUNPbmtHBbjj68oWtByfzYd5qGnTXX0M7rTGjXzFRkPxcVMsMITx5XKH+TS3IMVd/Z+LAj0ClZPnCeFldf1NjkE3yZl9tCP0CKvTjqNazcyszN41370TiX/9JmC5CYIbbibyw3KuDDaAQ=
+	t=1790789022; cv=none; b=ieeIZlNwL846ccgOLR+PVN/dcG7x2VReAGmcWMgTCpbfWRS/ZVooo/fRZnq22k5bwMYs710uiN+CMXhX1EXbPV9t2VtE06hPAUmuR7nsdcwjDltg/5D7QRru+VHCg7frCp6Aln6WQWOY7bEnh7O8tryk+8g782T9eF5K6j8q/9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790789022; c=relaxed/simple;
-	bh=Br5fuZ4ryUMLMGwj9gH1YIvLvzgbJoEJcgmiUYmIM+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LZEAOKbtvmvpAAIhs1yhJRkb1/iYIKaRGD3RTl4B65ssEeo5qYl6KrzE5soQv6uMSJtGLoOs0OgGw0lnOs/mzFgiMy6jtFiV03wpGXs63RAr3aGV7U8Mz+xqX/ExvDG8zgTJTI/7NiE+w1od1mfx/dqeAkLbOrYKIlXBSgE8yog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Z/uYw6/l; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=R5LanrnPNGM9adp6GAp2YNkPnKVEeuPfLVmOUuhLk5k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l/iyXaTjFhRbKnCtnA93S9SGV6ahVqkJpK/6p02gw9jbbUpuroLaHN776O0PKuxjh229Ylxq6on+wM6T9a9/HiJv4sh58I/sfDbuScKljmpKHyhidW5z6YRAJ3HkFz/BkqZwBeZdYavRWcIPLKOeWt+iswThE6Tr9JxiViwhbSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TM3It2xb; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aOPkZgaR; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z/uYw6/l"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 369F4143D;
-	Wed, 30 Sep 2026 10:23:36 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B95D03F86F;
-	Wed, 30 Sep 2026 10:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790789019; bh=Br5fuZ4ryUMLMGwj9gH1YIvLvzgbJoEJcgmiUYmIM+E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Z/uYw6/l2jrEC4Fdn0qaIvThpjIvjR95Xmpk9kc4FaAXLcbQK4oWMU5DPDvXTDYMM
-	 g/lWd0Lsmhmb1JvnjmJ+g429zdj12nlNGLON+zFh20ncv3c6AnVFB3CmtZME0M12Xe
-	 gaaSm1ZGm8ntaX8mIUqkbgtBwYASeFLeWV+qgcw4=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/3] KVM: arm64: Avoid re-testing walk_continue
-Date: Wed, 30 Sep 2026 18:22:21 +0100
-Message-ID: <20260930172226.2459423-3-leo.bras@arm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930172226.2459423-2-leo.bras@arm.com>
-References: <20260930172226.2459423-2-leo.bras@arm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TM3It2xb";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aOPkZgaR"
+Message-ID: <2c0a9d5f183cb9537b3f89016800247bb7b673c3.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790789019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B6W8wYUuNF+9KH8wiriFXCa8qGDy8H8gBzB8t+V9+Dc=;
+	b=TM3It2xb8wd64B0E8QNfdisnTvhiC0zMBQ9dVYTw/CmcvvndOW+dVJd5OOh6yuha08O+rB
+	P3R86zYifRls6wQR7drgP8d24hJ4swWofUnCGul2IJwjtppymysiyHnh1nS33TD7/1PFDd
+	vI01pTmqqJARSJPyjurhCoEMoktUCzp2f4oDSlXvBRBLY1Ns+Dj6Wfgz5M/GD/o1bVbURy
+	BTUc2HF6t1HrlIWZeyZ2GnvM/JOqmhgHjJ+JE1HXVu+voUrhKbGk4S5x7/ebUQQJkC6WD9
+	EbSridqwxuQayUD/TuTmvcYL6yfCUqX39V4aOAXEMe+kq16newGGftXYtMuOGQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790789019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B6W8wYUuNF+9KH8wiriFXCa8qGDy8H8gBzB8t+V9+Dc=;
+	b=aOPkZgaRgqA2lTa7KLLEOMuRQnFMhkO9KO2Wt3Jt4TgMMDT3SXjs5ecsWO/WNVdLe6uKkI
+	BRBjgP9sxyETsiDA==
+Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
+ controller driver
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 30 Sep 2026 19:23:38 +0200
+In-Reply-To: <e4440c27-5551-482c-95ae-9b75481bcf7b@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
+	 <e4440c27-5551-482c-95ae-9b75481bcf7b@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1905; i=leo.bras@arm.com; h=from:subject; bh=Br5fuZ4ryUMLMGwj9gH1YIvLvzgbJoEJcgmiUYmIM+E=; b=kA0DAAoW7HZo80cCoa8ByyZiAGq9RU2h0IdRfCiNcvabr5HQs/y9ucx40eg3mASTh9Qu7zzuu Ih1BAAWCgAdFiEEHeKfqgz3lGjE1Pig7HZo80cCoa8FAmq9RU0ACgkQ7HZo80cCoa8p0QEAhksf y8vzTm9mCl4nLyXCKjGIdJamwoWZTs4i4doprbsBAOBe3yX5vc+yIM7JChCUP45iFxcBk4Nzaky cgLN+0g0M
-X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
-Content-Transfer-Encoding: 8bit
 
-__kvm_pgtable_visit() performs a bunch of calls to
-kvm_pgtable_walk_continue() to find out whether the walk can continue
-further, and if not, 'goto out', which retests the possibility of
-continuing the walk before exiting.
+On Sat, 2026-09-26 at 01:10 +0200, Andrew Lunn wrote:
+> > diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
+> > index 048586746026..079b46dea25f 100644
+> > --- a/drivers/net/mdio/Makefile
+> > +++ b/drivers/net/mdio/Makefile
+> > @@ -23,6 +23,7 @@ obj-$(CONFIG_MDIO_OCTEON)		+=3D mdio-octeon.o
+> > =C2=A0obj-$(CONFIG_MDIO_PIC64HPSC)		+=3D mdio-pic64hpsc.o
+> > =C2=A0obj-$(CONFIG_MDIO_REALTEK_RTL9300)	+=3D mdio-realtek-rtl9300.o
+> > =C2=A0obj-$(CONFIG_MDIO_REGMAP)		+=3D mdio-regmap.o
+> > +obj-$(CONFIG_MDIO_SOCE)			+=3D mdio-soce.o
+> > =C2=A0obj-$(CONFIG_MDIO_SUN4I)		+=3D mdio-sun4i.o
+>=20
+> Maybe the indentation is wrong here?
 
-Given that it's testing the same ret variable again, there is no reason
-the result of kvm_pgtable_walk_continue() would have changed since the
-previous check. So turn this goto into an early return, simplifying the
-code and paving the way for further rework."
+This looks fine in code.
 
-Signed-off-by: Leonardo Bras <leo.bras@arm.com>
----
- arch/arm64/kvm/hyp/pgtable.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> Otherwise:
+>=20
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index b74dd5ce1efd..7a51f78b6446 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -183,32 +183,32 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
- 	 * Reload the page table after invoking the walker callback for leaf
- 	 * entries or after pre-order traversal, to allow the walker to descend
- 	 * into a newly installed or replaced table.
- 	 */
- 	if (reload) {
- 		ctx.old = READ_ONCE(*ptep);
- 		table = kvm_pte_table(ctx.old, level);
- 	}
- 
- 	if (!kvm_pgtable_walk_continue(data->walker, ret))
--		goto out;
-+		return ret;
- 
- 	if (!table) {
- 		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
- 		data->addr += kvm_granule_size(level);
- 		goto out;
- 	}
- 
- 	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
- 	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
- 	if (!kvm_pgtable_walk_continue(data->walker, ret))
--		goto out;
-+		return ret;
- 
- 	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
- 		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
- 
- out:
- 	if (kvm_pgtable_walk_continue(data->walker, ret))
- 		return 0;
- 
- 	return ret;
- }
--- 
-2.55.0
+Thanks, but I can not use it yet. Need to fix an issue with
+devm_ioremap() return value check in the next version.
 
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0Andrew
+
+Vasilij
