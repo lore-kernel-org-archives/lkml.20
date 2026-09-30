@@ -1,94 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB74A3451A6;
-	Wed, 30 Sep 2026 01:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E582123EAA6;
+	Wed, 30 Sep 2026 01:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790732545; cv=none; b=ENEx2GQTCaEIZcjHfYC85uF/Q/LPT41472yJqq7s+G5+b4rlDSluOxCAyKRRUM27DU1Z0JCMyPG2jYjNL828QJD1naRACCwh/0kaUKd1Vkcc8V9mPDl6qRKmjEPgUsHQ8Wfw6YixdWvhFYfF71Tg5BGJy8BtjXBd+7467cJ1JwU=
+	t=1790732733; cv=none; b=fcF2sGVNxVfVEDWQ+/mfTSXaU46yf3sl+JGwaXo5kFbuYcdI4oqR+b65xACA9K18xDp6qZ5ZO9msVJsoqi0XfrxAR8DUAQaflOQPN95Tb+8EIcrIxgpK2j/2BkyLtRgtcZEAnPHd4I9AUJZGzxWJo5B0ifocpHu+wrFTnjHuNwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790732545; c=relaxed/simple;
-	bh=9/ufpXgRKQmyw20F0nxTinqLXJCyT6Hj4cOvFzY670g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DS1pacM+oEW3+U7inbihPlP1ttPSJcto2HpUjviS5JBHBg0CgZClrmfSdjBApI9QFHlxn8VbPtUUfMWXCBuX5NFDcRyZ1EC2Pnmr15pE5MZGQ7r2wMoFlHiNwMxHPuSbA6pypUXf0Og8xEip2ZfX4KtE1bH34HJY/Jz2tvDYQJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZajFZfH/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790732733; c=relaxed/simple;
+	bh=oYqIi495rAMQhi6h+vSrjdhsHcTJptJcAwm3flZqXZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ogQkOj7h0mCiYmewsigOtd8KUuszDX0U91LLEXKhPveZ4oPETM2faTqoDL0euEjroQ/nwuTVOpNLa5E466v8auyNE6PL/z9a1I/nChw6BbuDe16wMYpAdt6oVpuSCTUul7vyX6EQm64GXBy0JQ3I6XyFWrBk3m3Z3U5RaWbkBvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmkH4gja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZajFZfH/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495501F00898;
-	Wed, 30 Sep 2026 01:42:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmkH4gja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20541F000FF;
+	Wed, 30 Sep 2026 01:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790732543;
-	bh=JdG0BSz+fbqhQOpyolncd1TxC0GQe+jRVeUqSMMx7Mo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZajFZfH/vGJYM8fO6hd9VJN57Bko78bAXcpRJAvvAasjugmE/lkuUSL1WE2w/h/sY
-	 X/5Ydl/zbf/jOV9sVlDo25LjEjjrYTZOzntMNUp5lqFXnamPFjInneZnVYtRh9ZbG8
-	 fBVDt4xEKEWL9JCP4xZZhXRKrFXJ0tcGHUh6Br2YruPSNPyp/hWK9/0CrzR/ZKpj8A
-	 2CDtUh9hltlgtgV/W8v31Nj0c9DYZB2WGPF5wghX8doLXOhc2Lble0rgVvlWcsAQLC
-	 mXhqP8ckBGn6XOuF2i4CCFqOP6ML0HjWjQYvFQO2lDAltoFfOwUcKkcbcxFX0+cy+T
-	 WhQmJha6o67tA==
-Date: Tue, 29 Sep 2026 18:42:22 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
-	linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH] KVM: x86: Clear CR3[63:32] on SMM entry from long mode
-Message-ID: <20260930014222.GA4053400@liuwe-devbox-debian-v2.local>
-References: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
- <20260928072534.1987-1-odys.yuan@gmail.com>
- <20260928174243.GA3705413@liuwe-devbox-debian-v2.local>
- <arqvqW7g72AnVsLK@google.com>
- <20260929005755.64126-1-odys.yuan@gmail.com>
+	s=k20260515; t=1790732732;
+	bh=oYqIi495rAMQhi6h+vSrjdhsHcTJptJcAwm3flZqXZA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VmkH4gjaufsJUd9+6IjlXAO7CaFOF3EAlX8oknO7ARzt0NdIp8Jef/dMt7+2DUJKA
+	 WNHkrN08omaicHE7AUbTGJTL2McPBXfIJpBmr+c+JTDuifEOTeZV3ik3gwdKpyH3s6
+	 Syu7eYqfWQQt6SPBmx+5tWTc52KBR+a2BX2WHDn3zHKrlHxpRmSkW3m6nx5PyDLOSW
+	 oqL/TxulXHBgOddDMXs+4dQSKu2RfZd3JA0siG42rbFB6IPbBDytQOlI6LMhBPl1/P
+	 9PQ68tdDEfJTiD4bL09txrYM4w6rNF8qFCmMLaC0z3GankmeUWB5ka65PAaQg8Plne
+	 imqf7ZiwZc+XA==
+Date: Tue, 29 Sep 2026 18:45:31 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Sean Anderson
+ <sean.anderson@linux.dev>, Antoine Tenart <atenart@kernel.org>, Eric
+ Dumazet <edumazet@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>, Vladimir
+ Kondratiev <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] net: macb: never give hardware a NULL RX
+ buffer
+Message-ID: <20260929184531.36ac3dc3@kernel.org>
+In-Reply-To: <20260925-macb-close-v2-1-360efa565914@bootlin.com>
+References: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
+	<20260925-macb-close-v2-1-360efa565914@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929005755.64126-1-odys.yuan@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 08:57:55AM +0800, Qiliang Yuan wrote:
-> On Mon, Sep 28, 2026 at 10:42:43AM -0700, Wei Liu wrote:
-> > Please share the Windows version from `winver`.
-> >
-> > My colleague said that it had been fixed. Maybe the change needs to be ported.
-> 
-> Windows 11 Pro, version 25H2, OS build 26200.9457, with WSL 2.9.3.0.
-> The host CPU is an AMD Ryzen 9 7940HX.
-> 
-> This machine is fully up to date through Windows Update, and the failure
-> reproduces on this build, so the fix does not seem to have reached the
-> released builds yet.  Which build or channel (e.g. Insider) carries it?
-> I am happy to test it.
+On Fri, 25 Sep 2026 15:59:34 +0200 Th=C3=A9o Lebrun wrote:
+> Theoretical bugfix, never encountered in practice. To reproduce,
+> introduce memory pressure (less than 512 SKBs of free memory) and open
+> the interface.
 
-Windows 11 Pro, version 26H1 should have the fix.
-
-Wei
-
-> 
-> I have also filed it as a WSL issue, with repro steps and the SMRAM
-> analysis: https://github.com/microsoft/WSL/issues/41709
-> 
-> On Mon, Sep 28, 2026 at 11:19:21AM -0700, Sean Christopherson wrote:
-> > Ya, I'd much prefer to get this fixed in Hyper-V.  If we need to carry a KVM hack,
-> > then at the very least it should be limited to when KVM detects that it's running
-> > on Hyper-V.
-> 
-> Understood, a Hyper-V fix is the right answer.  Since current released
-> builds are affected, I can send a v2 that applies the workaround only
-> when KVM is running on Hyper-V, if you'd take that in the meantime.
-> Otherwise I'll drop this and wait for the Hyper-V fix to ship.
-> 
-> Thanks,
-> Qiliang
+Since Linus is pushing back on our number of Fixes let's go for
+net-next with similar fixes until the merge window
