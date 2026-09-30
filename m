@@ -1,33 +1,33 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B24A370AD9;
-	Wed, 30 Sep 2026 10:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA834071E2;
+	Wed, 30 Sep 2026 10:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763428; cv=none; b=Pfb8bFl1cco9vwLeeWjpG7jyFTZ5ZUqx0u9S1WqwsJyCFYJ75AAegVWBa993cE1fSzBjDtXYtIIuqicxJgfh+yVmz9QVYNn8RDX7mzVzHQEvzkvRJEkdm1VoPgroK7HpCkOl+K7gAA/abeFjpBRR37SHdQ+b6Xo+9dGXMzZBl0A=
+	t=1790763434; cv=none; b=RsXrq28XJLEVjEJ0LphNLfDmzk6AWLDKTiqsyiXe3iP818wALXDLti7QNYGqPvD1f4vG0UDN6rhXVyLhrrHtCtAkwG4+V1zZVKk1ziFQoIxRew1jEQ4sfQIyeX/Rg9fVqrjU+KF9OKVndg6CEVy7HQyl40qSt6Sb+/XettJgvg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763428; c=relaxed/simple;
-	bh=PaCIHgj8szxWV2shc5ySGn95Xa9rGf7WuSDPn7hlx9E=;
+	s=arc-20240116; t=1790763434; c=relaxed/simple;
+	bh=kHKljQCjjerbajTRvcE3lhwqr/vGsDpZxL7ec8vxcSs=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rFR2CrTvy4PNhepWOnmGJ4agtFzgvf2mEVudy1Q2V5sRjz2wbkgt/QZYTaV0b7Pp2KKZLRLHoCBopwhpUeBrwBElHKel8wXgQZ1dtlAisRX2Dmzwq+kGl5WyODnhvrTAzFbVO+ohI6Dtq/tjUjqNBGXOqK5xcyVrVWF+dF2Ybdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=R7JGDqv2; arc=none smtp.client-ip=113.46.200.224
+	 MIME-Version:Content-Type; b=RWnCQcGXHZyDr2FbbnTWTjeiT6wcFhPZZm1sda4qH4k9fN9sjYsI8zo0oA6ubWfEkyq+0ljU0p1aMBwByibsuO3gzG0jS5JV46ulxk7tMLLr2rdkt2UouyzexyiVNffD1AsD0bM9r12t+wt1j8wK/xiFim3NkW039aNL1GwEKtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=20kbtBRT; arc=none smtp.client-ip=113.46.200.222
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="R7JGDqv2"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="20kbtBRT"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=hHLlYByo/C9ivcSJfXsIITeY1drtCjXl2ej4OvosGZc=;
-	b=R7JGDqv2tZhZ+j+mSEj+AvYzi91lOBHwOkRDnRhd0hWJmo5WG95fBDkCSQIhTS8pf9tvxD75V
-	Y6bxB4BBB/IzsQ/RreeQiuOH7mz8wios+wTkNe1VrTXPRH4IZ2xrLirf3E4gUZkaX/JxEikqK9y
-	5xYKKj+5jYMXhcOZ8QGrtGs=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hvrKC4BX5z1cyPY;
-	Wed, 30 Sep 2026 18:05:51 +0800 (CST)
+	bh=i6aDCmy4DXVWfeFc2xCrpfQBOwhiqbPPrvBDg2uCO4k=;
+	b=20kbtBRTgislMB7vJO5CiH1mqxwbzw81m9NJ0mKmfaNdrreJ3SwYfpECrqd76BNZNnic8f8Xc
+	RwVUE/KpG/19GUlZ5qY3bWSsKZISis4YcgapNmKJye5DeR0jhNoYxcTPyd+lVN5Zeed//CbqA07
+	lzueKxMX7yytmzk1ahs6Tn8=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hvrJ11c5hzLlX5;
+	Wed, 30 Sep 2026 18:04:49 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2A89340578;
+	by mail.maildlp.com (Postfix) with ESMTPS id D62DA40586;
 	Wed, 30 Sep 2026 18:16:58 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
@@ -44,9 +44,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linux-kselftest@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v20 03/15] arm64: ptrace: Open-code seccomp check in syscall_trace_enter()
-Date: Wed, 30 Sep 2026 18:17:53 +0800
-Message-ID: <20260930101805.1770358-4-ruanjinjie@huawei.com>
+Subject: [PATCH v20 04/15] arm64: ptrace: Rename and clean up syscall_trace_enter()
+Date: Wed, 30 Sep 2026 18:17:54 +0800
+Message-ID: <20260930101805.1770358-5-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260930101805.1770358-1-ruanjinjie@huawei.com>
 References: <20260930101805.1770358-1-ruanjinjie@huawei.com>
@@ -61,60 +61,83 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Refactor syscall_trace_enter() by open-coding the seccomp check to
-align with the generic entry framework.
+Rename syscall_trace_enter() to arm64_syscall_trace_enter() to avoid
+name collisions and clarify the boundary when arm64 eventually switches
+to the generic entry infrastructure.
 
-The generic entry implementation expands the seccomp check in-place
-by testing SYSCALL_WORK_SECCOMP and directly calling the underlying
-__seccomp_permit_syscall() function. Moreover, generic entry explicitly
-re-reads work flags after ptrace handling to ensure any updates to
-seccomp work flags during the ptrace stop are observed.
+In addition, replace direct accesses to regs->syscallno with the standard
+syscall_get_nr() helper for both trace_sys_enter() and the return value.
+This decouples the tracing logic from architecture-specific struct pt_regs
+layouts, aligning the implementation with the generic entry pattern.
 
-Bring arm64 in line with this behavior:
-- Re-read thread flags after ptrace handling.
-
-- Test the updated flags for _TIF_SECCOMP and call
-  __seccomp_permit_syscall().
-
-No functional changes are intended; this change simplifies future
-migration to the generic entry framework.
+No functional changes intended; this is a preparation step for
+converting arm64 to the generic entry infrastructure.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
-Link: https://lore.kernel.org/all/20260713025712.416366-1-ruanjinjie@huawei.com/
-Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/ptrace.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/syscall.h | 2 +-
+ arch/arm64/kernel/ptrace.c       | 6 +++---
+ arch/arm64/kernel/syscall.c      | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/arch/arm64/include/asm/syscall.h b/arch/arm64/include/asm/syscall.h
+index 5e4c7fc44f73..d1dabdcde41c 100644
+--- a/arch/arm64/include/asm/syscall.h
++++ b/arch/arm64/include/asm/syscall.h
+@@ -120,7 +120,7 @@ static inline int syscall_get_arch(struct task_struct *task)
+ 	return AUDIT_ARCH_AARCH64;
+ }
+ 
+-int syscall_trace_enter(struct pt_regs *regs);
++int arm64_syscall_trace_enter(struct pt_regs *regs);
+ void syscall_trace_exit(struct pt_regs *regs);
+ 
+ #endif	/* __ASM_SYSCALL_H */
 diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-index 573b5770698f..f68de40fd351 100644
+index f68de40fd351..96c03922baa5 100644
 --- a/arch/arm64/kernel/ptrace.c
 +++ b/arch/arm64/kernel/ptrace.c
-@@ -2480,11 +2480,16 @@ int syscall_trace_enter(struct pt_regs *regs)
- 		ret = report_syscall_entry(regs);
- 		if (ret || (flags & _TIF_SYSCALL_EMU))
- 			return NO_SYSCALL;
-+
-+		/* ptrace might have changed thread flags */
-+		flags = read_thread_flags();
+@@ -2471,7 +2471,7 @@ static inline void syscall_enter_audit(struct pt_regs *regs)
+ static inline void syscall_enter_audit(struct pt_regs *regs) { }
+ #endif
+ 
+-int syscall_trace_enter(struct pt_regs *regs)
++int arm64_syscall_trace_enter(struct pt_regs *regs)
+ {
+ 	unsigned long flags = read_thread_flags();
+ 	int ret;
+@@ -2492,12 +2492,12 @@ int syscall_trace_enter(struct pt_regs *regs)
  	}
  
- 	/* Do the secure computing after ptrace; failures should be fast. */
--	if (!seccomp_permit_syscall())
--		return NO_SYSCALL;
-+	if (unlikely(flags & _TIF_SECCOMP)) {
-+		if (!__seccomp_permit_syscall())
-+			return NO_SYSCALL;
-+	}
- 
  	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, regs->syscallno);
+-		trace_sys_enter(regs, regs->syscallno);
++		trace_sys_enter(regs, syscall_get_nr(current, regs));
+ 
+ 	if (unlikely(audit_context()))
+ 		syscall_enter_audit(regs);
+ 
+-	return regs->syscallno;
++	return syscall_get_nr(current, regs);
+ }
+ 
+ static inline bool report_single_step(unsigned long flags)
+diff --git a/arch/arm64/kernel/syscall.c b/arch/arm64/kernel/syscall.c
+index 358ddfbf1401..3e78e159b2a1 100644
+--- a/arch/arm64/kernel/syscall.c
++++ b/arch/arm64/kernel/syscall.c
+@@ -113,7 +113,7 @@ static void el0_svc_common(struct pt_regs *regs, int scno, int sc_nr,
+ 		 */
+ 		if (scno == NO_SYSCALL)
+ 			syscall_set_return_value(current, regs, -ENOSYS, 0);
+-		scno = syscall_trace_enter(regs);
++		scno = arm64_syscall_trace_enter(regs);
+ 		if (scno == NO_SYSCALL)
+ 			goto trace_exit;
+ 	}
 -- 
 2.34.1
 
