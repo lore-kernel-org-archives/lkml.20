@@ -1,136 +1,274 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56060371CF8
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465AA3515C0;
+	Wed, 30 Sep 2026 03:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790740134; cv=none; b=LGnxBntx6f1DO6x0IHNp2PxtWGiC+sDCokMpukFJz7Z43ZfRB7PgtournLZEShqzUDAMaZlKmzrloXGryjrDVnFBIF73KAlS5l+QJ//OvRJD5CwdhKEwn/a1HBNGXQOsMBOD8rhw9mDYAPt3stAiet3U4q62HTmnCTtl7HHIGN4=
+	t=1790740132; cv=none; b=kT4pxz6AMHm595FD40BE6tQwc17hn/VX9JoU3auxvGrVzRttyHIJEHMAPHxl6GDK1VVifh9b10GZ/2dFMOC5WkWCud/yEv+DixbqWfBgVxQH+nan3BZGhgWRQryl3F+jCohaWM6o2OJ66dGLd/ugHZrig18+uxqOnoSi3XfMOlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790740134; c=relaxed/simple;
-	bh=WRPywmVYQO0VtIPWxm29CrmFWUlUwbhwwdpQgzpRPMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CzVEzfT3XZa2CrleSeUS0sVtqY/gXk2MuavQ18cgRhtwdBw79RTwLPP0hN4muHXlJIEhK9wBwiL8609CeTgomtXCPUt97TWcybzMoLgcg+eGS9Mn5LQjAJG2Rd4/7aWjeOkso8h88h/eh4jF5d/boN0g7AEQVNGcWUjlvT5zXVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+FHf5Ba; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790740132; c=relaxed/simple;
+	bh=lp5xPjq8zX7LuOkfHkwlpaeHU/dF2qbKn6hWPgeY8ME=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=blVkL6BvWTQnrbRr1mquZwQ9T04kWx58RKwPvbTkoXPsVXAZH9tF8R0qSXYJa4s12nD8GvYc79FHGQeFRelXHICaprxlcYo1c2Vl690cSKMnfGkuSFQqB4dNUl4Sn8Oqo24qnTyGRqvws1yJ80xOHxBVkucnnMRTjiDU11zXdcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Su0j72H4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+FHf5Ba"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so41254765ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:48:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790740129; x=1791344929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ufLJ+ytiFqLa5W5DPoK5dh+B3PH/RjJJE+Ibm3U4zmw=;
-        b=Y+FHf5BaUs1c6cQUa/rBxKi5NC4vDtE1+Rfju4XuKbcJhpZCWU9oCsA89ZJOzFqFAC
-         Ah5yAxXakCuD1NVwFQ+9x12Obl1LTQT1e3xtEnFJUqxZeeyYDM1X/7UdJ5CNGTS2tSzS
-         Ao36KlZZ25m3YDg00SuPEpXTUMx5mDt7tGkse1YKyj9aUb27eUgBOFfHBtW6JyWmDVoc
-         9fsxJyCtL9g3B4XEGHcwkaBKg/h39tpXBzVC+h1ZdKROsyp+9+zSrDI01ahoPAyGBBk8
-         MNBViI1l804eX2y8iwzypLM8uEXynEBTsaulnQCDBHlxL4VeTAXRLTcKxo2RVglXYLkZ
-         Hg6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790740129; x=1791344929;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ufLJ+ytiFqLa5W5DPoK5dh+B3PH/RjJJE+Ibm3U4zmw=;
-        b=TPaHnmlcRjyn+N7XExKmhISkCYWX1eCl2V97mABSqCmRM3mkOeHbcl7MhxG204kiSA
-         jrQfwGwkXIUzZHDr1PBlz1GZl8TdNBtjf261xjzqUHAP0uDvmdzUYFEEBoTpdYnL48Zy
-         vTN+lTAZQU+Xr3GYfMmJTlJAvnrzCHYB8CZetI2x7SjPZ18BXp+uYTIda8M4lXYzxdqL
-         mvZygIOTmj4SaKQorjpnoto3JjTydUTjBTX9WLRX4Mxx4n7ToxgEn0/y3vMNXmyu9H2c
-         OBjkaULb/7XHbfucA8jKmb0xgOJaDabCIyYSj4YxcM33OrkFuHB1jkVhfk1jIyGgCf6q
-         C8XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBydFhcF1pPHFGjPJaaFKbvP3vopKDsvaMIkEQM5l7jL4Y/iOWiGUmTIz04WCwGE54cdcycjt5KZU2uHEag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIufzFfcf90RGHGDaAroGGoliBmqxUPeTlleXOLXD8EfJHPknOD
-	ZDrWQ6SOOsWMGeysEO8IDsUg1AKfilEXt4/Pa2mLJxe+BKrb3q/r0cxy
-X-Gm-Gg: AYBFou3J6de1060F8Wkzusj8XZvT33F4wZuso45I75VvFfbpQsa+qsU5zExO1OLUDsf
-	Reia4gWE605e6tktB6bpjMXcNQ94Td33jBhGkbGgNRVp924dujGhqGBZx42ZSHuGFUfCKvdQrx2
-	zl0z//NanDJi2qCfPK3OZ7930wKLSknlm1ZXlDzx0jlpA1Q6m9yqemRZXOEA5VGiI4CjLOvdjnq
-	/wS6CsemDKLtGu8dDMYX5cUcd/QLuerFb6/zxfvnIgKgDF9xGeiWluI0xmV6LYBKdZTisCuhSYk
-	cD25qkyRfeKAiEOmGXXnMHqz9WVRdTGxH8OmT9NKb16O/RYNgQzNJl0zHlBuobPyM+KZTsQqcmN
-	4unnDnBVh4ayRSVEEoLh/mwSpptSkL/6seQers5ura0Atr4m1YPQhoKV4mO0oZcf7r9zpYMptdV
-	URvCxK4F/UfffPJY/hAig8lmmkekH8QUAJYsiL3NHV8OB/o0goCSDbwfcAxnwtgMpRiVMfGSNkQ
-	8y/rGsRjQbD9TKMMPnCCnxRZWhCPPlY5kwOTqp7T+RJPWRVEC6mkwNNh+3Y7JZrEkNbk6llCjnF
-	w5B7fJ/UQfohlwxu7LTxWNw10V2X/pceb0WouVjJFqfnw0S5ZyT8MXw08vE=
-X-Received: by 2002:a17:902:c94e:b0:2df:991b:4368 with SMTP id d9443c01a7336-2e2e4a24f0amr1533905ad.53.1790740129442;
-        Tue, 29 Sep 2026 20:48:49 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2dd86f3ddsm3760005ad.68.2026.09.29.20.48.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 20:48:48 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: Baolin Liu <liubaolin12138@163.com>,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/6] ntfs: fail the mount when $MFT's data size exceeds its allocation
-Date: Wed, 30 Sep 2026 11:48:34 +0800
-Message-ID: <07983b377d36748124fd5b06012b67ea02a0f642.1790684177.git.matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790684177.git.matthias.goergens@gmail.com>
-References: <cover.1790684177.git.matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Su0j72H4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABC01F000FF;
+	Wed, 30 Sep 2026 03:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790740130;
+	bh=KZHe/FVnfiE45qptdO4PNrZd1FsDbQ5ylcnvWq1RbyU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Su0j72H48UWQx0TELtMc1BpCk5Q2dO4T72aqrb1gWkrvf1xT+PPuvkSUpWWZGqALR
+	 4z4NRo9dUDFcBGEWk+GnXYJCIkfp1PFomoTrt4gEXMA56rcHbaMdrvaWHeKc3rkHiK
+	 s/lxcfp03ke+w4xeG5q5qZ/Fje75rCNjqkFBQVqr9fJq+TkaCNezzPECMgbDO5uCRj
+	 C5fynlJfaRPMCo8ehkf8GMw07emQVFR7Dg0ZtzCrKA27qppiT+RRH6W/t/iejIC4gO
+	 g4Z0DF1iF9e7k/l40cb/2BfD8BnHxjIDKCSiUJ3cmOaVenuCfz7DWuf5OXbcKJWgUa
+	 wS3QRhW4nZF4g==
+Subject:
+ Re: [PATCH net-next v18 3/6] driver core: add device_schedule_reprobe()
+From: netdev-bot+sashiko@kernel.org
+To: daniel@makrotopia.org
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Date: Wed, 30 Sep 2026 03:48:49 +0000
+Message-ID: <179074012933.434549.4644127327520055010@kernel.org>
+In-Reply-To: =?utf-8?q?=3Ce70f147857d21b792de81c7d39c2f74c6e0ec3f5=2E1790426?=
+ =?utf-8?q?599=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+References: =?utf-8?q?=3Ce70f147857d21b792de81c7d39c2f74c6e0ec3f5=2E17904265?=
+ =?utf-8?q?99=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ntfs_read_inode_mount() takes $MFT's i_size from data_size without
-checking it against allocated_size, unlike the resident case in
-ntfs_read_locked_inode().  mft records between the two are not on disk.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-On a crafted volume with 512-byte clusters whose $MFT is cut to 4
-clusters while data_size still says 27 records, reading the folio
-holding records 0-3 finds the end of the runlist at vcn 4.  An unpatched
-kernel hangs there on the folio lock, as in "ntfs: fail the mount when
-$MFT needs its own extent records".  With the previous patch vcn 4-7 are
-past the allocation and so read as a hole: records 2 and 3 come back as
-zeros and the mount carries on until check_mft_mirror() finds the zeroed
-record 2.
+Critical: 0 · High: 0 · Medium: 4 · Low: 0
 
-Refuse such a $MFT before anything is read through it.  The mount now
-fails with:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  ntfs: (device vda): ntfs_read_inode_mount(): $MFT data size 27648
-    exceeds its allocated size 2048. $MFT is corrupt. Run chkdsk.
+- [Medium] In device_reprobe_work_fn() (drivers/base/dd.c), the check `if
+  (ret <= 0 && ret != -EPROBE_DEFER) dev_err(dev, "re-probe left the…
+- [Medium] When probing is blocked, device_reprobe_work_fn() re-queues
+  itself with `queue_delayed_work(system_freezable_wq, &rp->work,…
+- [Medium] The shutdown/suspend gate in device_reprobe_work_fn() is a
+  check-then-act.
+- [Medium] device_schedule_reprobe() pins @dev with get_device() in a
+  delayed work that nothing can cancel or flush: the rp handle is never…
 
-fs/ntfs3 rejects any non-resident attribute whose data_size exceeds its
-allocated size.  This patch checks only $MFT; the next one covers the
-other non-resident attributes.
+--
 
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- fs/ntfs/inode.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+driver core: add device_schedule_reprobe()
 
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index a61f1519549cb..9c97fc3f9e5ff 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -2136,6 +2136,16 @@ int ntfs_read_inode_mount(struct inode *vi)
- 			vi->i_size = le64_to_cpu(a->data.non_resident.data_size);
- 			ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
- 			ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-+			/*
-+			 * Records between allocated_size and data_size are not
-+			 * on disk, and would be read as zeros.
-+			 */
-+			if (vi->i_size > ni->allocated_size) {
-+				ntfs_error(sb,
-+					   "$MFT data size %lld exceeds its allocated size %lld. $MFT is corrupt. Run chkdsk.",
-+					   vi->i_size, ni->allocated_size);
-+				goto put_err_out;
-+			}
- 			/*
- 			 * Verify the number of mft records does not exceed
- 			 * 2^32 - 1.
+This adds device_schedule_reprobe(). It detaches and re-probes a device
+from a driver-core delayed work after a delay the caller chooses. Under
+the device lock, the work checks that the device is still bound to the
+same driver, and it re-arms itself while suspend or shutdown blocks
+probing.
+
+> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+> index f6525a7ee8c54..823a25f9c0895 100644
+> --- a/drivers/base/dd.c
+> +++ b/drivers/base/dd.c
+> @@ -1436,3 +1436,129 @@ void driver_detach(const struct device_driver *drv)
+
+[ ... ]
+
+> +static void device_reprobe_work_fn(struct work_struct *work)
+> +{
+> +	struct device_reprobe *rp = container_of(work, struct device_reprobe,
+> +						 work.work);
+> +	struct device *dev = rp->dev;
+> +	bool detached = false;
+> +	int ret;
+> +
+> +	device_lock(dev);
+> +	/*
+> +	 * rp->drv is only compared, never dereferenced: the driver it points
+> +	 * to may have been unregistered and freed. The saved name rejects a
+> +	 * freed address the allocator has since handed to another driver.
+> +	 */
+> +	if (!dev->p->dead && dev->driver == rp->drv &&
+> +	    !strcmp(dev->driver->name, rp->drv_name)) {
+> +		if (defer_all_probes) {
+> +			device_unlock(dev);
+> +			queue_delayed_work(system_freezable_wq, &rp->work,
+> +					   rp->delay);
+> +			return;
+> +		}
+
+[Severity: Medium]
+What stops this re-arm once shutdown has started? device_shutdown() does:
+
+	wait_for_device_probe();
+	device_block_probing();
+
+device_unblock_probing() is only called from dpm_complete(). Once a reboot
+starts, defer_all_probes stays true, so a pending request keeps
+re-queueing itself until power-off.
+
+device_schedule_reprobe() also accepts delay_ms == 0, which makes
+rp->delay 0:
+
+	rp->delay = msecs_to_jiffies(delay_ms);
+
+With a zero delay, queue_delayed_work() queues the work at once. The work
+then runs back to back and takes and drops dev->mutex on every pass,
+while device_shutdown() walks the device list and takes the same
+per-device locks.
+
+The same applies to the dpm_prepare()..dpm_complete() window when
+system_freezable_wq is not frozen, such as the kexec jump case mentioned
+in the v18 changelog. The in-series mxl862xx caller uses 500 ms, so it
+only gets a periodic re-arm. The exported API still allows the zero-delay
+case.
+
+Should there be a minimum re-arm interval? Or could the shutdown case drop
+the request instead of re-arming? The kernel-doc only says the work
+"re-arms itself after @delay_ms".
+
+> +		__device_release_driver(dev, NULL);
+> +		detached = true;
+> +	}
+
+[Severity: Medium]
+Can defer_all_probes become true right after the check above?
+device_block_probing() sets it with a plain store and takes no device
+lock:
+
+void device_block_probing(void)
+{
+	defer_all_probes = true;
+	/* sync with probes to avoid races. */
+	wait_for_device_probe();
+}
+
+wait_for_device_probe() flushes deferred_probe_work and waits for
+probe_count and async probes. It does not wait for this work item on
+system_freezable_wq.
+
+Suppose the work reads false and calls __device_release_driver(), and dev
+has managed consumers. The device lock is then dropped inside the
+device_links_busy() loop:
+
+	while (device_links_busy(dev)) {
+		__device_driver_unlock(dev, parent);
+
+		device_links_unbind_consumers(dev);
+
+		__device_driver_lock(dev, parent);
+		...
+		if (dev->driver != drv) {
+
+In that gap, device_shutdown() can take device_lock(dev) and call
+dev->driver->shutdown(dev). When the work gets the lock back, dev->driver
+is unchanged, so it continues to device_remove(). That runs ->remove()
+after ->shutdown() on hardware that is already shut down. Consumers that
+the backward walk has already shut down could see the same order.
+
+The kernel-doc says a request "that fires during a shutdown detaches
+nothing" and that the overlap "may run ->remove() in place of
+->shutdown()". Isn't the actual result that both callbacks run, with
+->remove() second?
+
+The lock-dropping loop predates this patch. This helper adds a
+timer-driven unbind that is likely to fire around a reboot that follows a
+flash.
+
+> +	device_unlock(dev);
+> +
+> +	if (detached) {
+> +		ret = device_attach(dev);
+> +		/* 0 is unbound too: a failed probe is folded into "no match" */
+> +		if (ret <= 0 && ret != -EPROBE_DEFER)
+> +			dev_err(dev, "re-probe left the device unbound\n");
+> +	}
+
+[Severity: Medium]
+Will this ever see -EPROBE_DEFER coming from the driver's own ->probe()?
+really_probe() makes ->probe() errors positive:
+
+drivers/base/dd.c:really_probe() {
+    ...
+		ret = -ret;
+		goto probe_failed;
+    ...
+}
+
+driver_probe_device() adds the device to the deferred list when it sees
+EPROBE_DEFER, and it returns the positive value. __device_attach_driver()
+then folds any positive value into 0:
+
+	ret = driver_probe_device(drv, dev);
+	if (ret < 0)
+		return ret;
+	return ret == 0;
+
+So device_attach() returns 0 for a probe-time deferral, and this
+dev_err() fires even though the deferred-probe machinery will retry the
+probe. The ret != -EPROBE_DEFER test seems to cover only the negative
+deferrals, such as bus match deferral, device_links_check_suppliers() and
+the defer_all_probes path in really_probe().
+
+The commit message says:
+
+  so the message is a plain dev_err() that skips only -EPROBE_DEFER, which
+  the deferred-probe machinery retries on its own.
+
+Does the code match this for the common case?
+
+The same message is also printed if dev is unregistered between the
+detach and device_attach(). In that case __device_attach() returns 0 early
+because dev->p->dead is set.
+
+> +
+> +	put_device(dev);
+> +	kfree(rp->drv_name);
+> +	kfree(rp);
+> +}
+
+[Severity: Medium]
+Could this put_device() drop the last reference and call into module
+text that has already been unloaded?
+
+rp is never returned to the caller, and there is no way to cancel or
+flush it. The reference taken by get_device() in device_schedule_reprobe()
+is therefore held for the whole delay.
+
+For example, the mdio bus under the in-series mxl862xx user could be torn
+down within that window through mdiobus_unregister() -> device_unregister().
+If the module that provides dev->release, dev->type->release or
+dev->class->dev_release is then unloaded, the work sees dev->p->dead and
+skips the detach. This put_device() then drops the last reference:
+
+device_reprobe_work_fn()
+  put_device()
+    kobject_put()
+      device_release()
+        dev->release(dev)    <- lives in the unloaded module
+
+The commit message gives "a concurrent rmmod can free the module text the
+epilogue is still executing" as the motivation, and says "The work
+function is built-in text, so a caller needs no module reference". Does
+that still hold for the module that owns the device's release callback?
+
+[ ... ]
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790426599.git.daniel%40makrotopia.org
