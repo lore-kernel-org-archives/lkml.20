@@ -1,69 +1,33 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAC651B16A;
-	Wed, 30 Sep 2026 17:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791190; cv=fail; b=sRqXOtGqwUkrhzyFLkjvPFQ2poi6ua31VuA/HvsDxOEAOila7SnFD5fIO9azetB3dD29AViPAr4CxkCG1GstWbNO58YXgbxkBc7VJR+Og2xBxslpeki4aEybdBDbF5fm6Wja2P1W93B2eSwNhuAVRePV4x8dFzVqBsaf9c8n0So=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791190; c=relaxed/simple;
-	bh=ckNHO1hYjVd28fVIG1trrY7oJb99CIzrCQv9IPQmDEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BHgmBStGA0KOXIDjP0BOhScbmdQIxUS/XlKApdqszNhlhaKPe5ZnjlCWeaOdlFtN1ZtYfuOEJ7hsyFCInhuo7ZwArJ5CBy4wYzVogC3316uP4zjIewsaCvfNPwjRQtSl3gbzBZ1+JDuBkglsAiB9OLo82Ys9ycrEjjc1jdzvV/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YiJnLTIb; arc=fail smtp.client-ip=52.101.56.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6B25208AB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790791234; cv=none; b=rmmcYyMIPw3oIXJa7sg5I/Jsw7R9AqKVlfEcUWV4XgeC0QY3gFyWHMc2/MAopS+Uv9ycXyH/ImjwFMJ5334UyMiJGsp+eGaVLJ0jiscVXD5N44q6FmBoIbBANDTgohRG8fTn3lXz7TvdQ8q4v4kAzu97PKBG7mahpxVDaJ87PzI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790791234; c=relaxed/simple;
+	bh=3AIVWfFPOn4MsvIez3k7rRExhVEE8Pa4q3mYgRv+IcA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Le1CnzF99H8KlN0HZxKuZwDKQp0m1ozExagMEF6CDKrkdE+u7WJJnwUpEUNBIyrj5HXfJrAM19KS9N5eJ7MQA5bN4p6udu5Ep4QnzAepHYMryfKyPYOBOwV409RIaFd86NkNwKjExPmnok0jdcEBjOi9CeT9bqp+GFL113BcW+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0lQ69ZA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YiJnLTIb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y2GC3KCYZnXwZqi7r6zO+lda4jbvFjQ2wSxAAgx+3ZiupMgf0dyYSVRlM8Jos48DTsdHfxeb8X36jQYMfkzhJR/nyjf3JvTKlGkWL2RqU31wIOcs0J16f5TRTcnebZyK9oktieYNKW8TCXjGErbXTDvgd8yVc0XPMVSIj8qQuer+oE7e4igirUfyLTf0DjRx7Xd2MK6jgB3CHApSjyuAcNovwC2buAamEk5WZHdbiea8uWryIE1j0HPJgomMLkq/c3q3eAD/T3JegH9FhBDufc18pJy3h5Zz/OweLbkwQCq+U4a2L+3KzYjyXPIxh1t8ozGJl3fV5E79mnGBy1tKDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FjZDGGZzP7+Oox1GjavcA17V5y6YVFr7aXJkB0T5JAc=;
- b=Cxl9l0ljHep1Yyh0ZW7GpYYd3S+p/1d6T8PATUiaMEYoafxb0UKEFR7LVzcJAeq3PIUiSZMNAtFkmrXYCXtwGKRN2jzuXaUAGTfVx4XKFYZbG78pVjtH95pr0Fa9iZ2DyocUcVwuD2lPiedGVqBSQnYeIqZK6zU5qzSvyyBd9d+O8aD+7/myVoE9McRt1OFxFPp2vaIkAjOw2nDktfB65gF+19yGCqKquHql02eQ8svz72Dwt587fSx7fzkCpcnEIzn7PHoC4rXojg335uGtrVKfgD6UXGlXI1G1yfteHTYQrNYpDhsCi/vCDvGktIXUH/TOlNMOPVsebfjH3MD3aw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FjZDGGZzP7+Oox1GjavcA17V5y6YVFr7aXJkB0T5JAc=;
- b=YiJnLTIbMK96TVaqtga8/TaKicNdXiXt191S3X9GhoxIjNOg1uFM86y8ghBAda4DIQE8GorM9b8Dwd0AZRYM+KINZo+kLvj0Oauure0yEdkw9e6KL6cNZ5wN+8u7SkNCJ7yPgGuPSFpXcvN1y/Hir9p4+/Vycnd+FSwLPMYRTdE=
-Received: from BN9PR03CA0384.namprd03.prod.outlook.com (2603:10b6:408:f7::29)
- by DS0PR12MB8767.namprd12.prod.outlook.com (2603:10b6:8:14f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 17:59:41 +0000
-Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
- (2603:10b6:408:f7:cafe::28) by BN9PR03CA0384.outlook.office365.com
- (2603:10b6:408:f7::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 17:59:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 17:59:41 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 12:59:40 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 12:59:40 -0500
-Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 12:59:40 -0500
-Message-ID: <e4c802fb-652d-4c87-a0e8-1f1d7f566cda@amd.com>
-Date: Wed, 30 Sep 2026 12:59:40 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0lQ69ZA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399611F000FF;
+	Wed, 30 Sep 2026 18:00:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790791232;
+	bh=m/yksmZi4/8K5CoXfwsmRihQ5Y6+rvb/E2mBihR25ec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a0lQ69ZA3EF3oZrA8FJp6gvLHNcjv7sa0CYpXDRp5NCIpQAKZINSlmZePxs0Bu/GG
+	 ZL+K2zBU5VYOUipLGoPXy7oqxQneSnadQ1rQHA8NOucWYetyMEsqX5Z/4SkamW4nc5
+	 1CdVHa1J6L6kTXif3yRviHjfmpYWpcQTuApygeBSOtr/mbYM4/DrinXULausYGEql8
+	 7VYFIfty06grTZp9bcWuMRm+v7INjdNAwKWqGrnz2ZsA7i8lRMoOaaqJylR1vEkrSm
+	 U0STDXgARwrHn6dT0i++Q62rSNwcyw3yoJ7TPi/rAekH7TvRRK7D6GrcYSdaKfLCnS
+	 2PR9tiwtCURkQ==
+Message-ID: <36a39658-1345-40dc-8c25-44c3ec5c9750@kernel.org>
+Date: Wed, 30 Sep 2026 22:00:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,139 +35,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Reply-To: <tanmay.shah@amd.com>
-Subject: Re: [PATCH] remoteproc: xlnx: fix typecast warnings
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, Tanmay Shah
-	<tanmay.shah@amd.com>
-CC: <andersson@kernel.org>, <linux-remoteproc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>
-References: <20260828155846.2883035-1-tanmay.shah@amd.com>
- <ar0oE_M9sgEpJ0st@p14s>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <ar0oE_M9sgEpJ0st@p14s>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|DS0PR12MB8767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f23ab0b-f10e-428b-7c1b-08df1f1c9a11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|11063799006|4143699003|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	Uc9mXs/sD489Fwz5evrzfqx4F3iHlFiRQHJDvy5KcBTknLFh874KtN8GQ6PBDRGwwt5+ROPkE2DrYfxR2V+cn6Leo4/HaqpwshWTriDA3r43JrwH/LK/ocCXHciX33ZHJltVFxKL8zQ0Te59YRJNK3GiCbhLDP4BwVVNXjtXvY3KcVL2gkeVeLVAVmMoJ5T72ILJ2CNlCI+nwgoKsWv3SVbonxXSjN2CLQRGrve0B3hjLSFoSBAwLMNCJsUNYrZbR4hH5khJFc0taVgZ7CDDpqLDjl1ZH/IecZBCvGb/8+pOYsi1KagL0qj7MwzTRQf1nwdZvOpdg+Z81szHFlMDal0Fy06uoQH/hxA9jQ1Kj3nhQrKXTGZYIJTQBlKTgUw3vwlWwhT91pYlvHQRuc8LjyxiJ5gmsO0j5Wwk2r4EnLnKFZeCP4vr0PANVTXc2en406On7qs7W10HU4H41QOZWSf2ebuyibCwTft7tSFgh+l73vjk6vOFOLcn2LDd83reklG21TGMhL2Sh6NG/BdJ2dzgAMsCenDjlM9JGnH9yDgVeuj2OX1/BkKHlsrxraByA+aK7/ruNezSaHkDKmfhgdT+EBHCR2SfHXFSY1zUCf69k5+2eFIyV3tejjsVsGDzpmT0adyOB3dSxm8g93meqU+pVGwXhm3FpcK5ZUavQQM=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(11063799006)(4143699003)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	FJTgoVkg3DIgqWTrlqC5sEjTURb/KE5RzkdI0Y2Yc7k+t6vaL37Cz80McldsF0E0ckcZM7hc+ursy6iWA8+IXc+2d87G/oiR9/YHSR3wVWsUTrVtd9lgB6W4lVCS+YLDbgNHRhd1x8IKZuRmm86LcZxLF/UkZpBZa6u7TX4ovTWTx0LkITy4mP7PuLUdSx6KlnT4W95r2buV/XRi+XCfvUS8z5ffhqv+TIXlF+d8OW+NBR/AauRYFos/pJ7952MFHLcaMeTDtHpInZbGGvQvcNKvCsrS5DDrAhGY7VQS7AsfrasL1AzX4aVpcVa2U6gzygKVNfHAFh8aIMnZSsfX37atbbsQrg44H6l5wfJZ2+ZTvM6reJeIka/S4Pu+5QJLRNomfHK4xWDm0jVuK8YHS3FrnMfrqrxPUAlm7txFTpC5E1nOJ/ca/HOUea1YWCJK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 17:59:41.3858
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f23ab0b-f10e-428b-7c1b-08df1f1c9a11
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8767
+Subject: Re: [PATCH] bus: fsl-mc: drop the fwnode links of the dpmacs nodes
+To: vjardin@free.fr, Ioana Ciornei <ioana.ciornei@nxp.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
 
-On 9/30/2026 10:17 AM, Mathieu Poirier wrote:
-> On Fri, Aug 28, 2026 at 08:58:46AM -0700, Tanmay Shah wrote:
->> Fix following sparse warnings by using __force attribute:
->>
->> sparse warnings: (new ones prefixed by >>)
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:571:20: sparse: sparse:
->> cast removes address space '__iomem' of expression
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:749:17: sparse: sparse:
->> cast removes address space '__iomem' of expression
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:773:24: sparse: sparse:
->> cast removes address space '__iomem' of expression
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:797:25: sparse: sparse:
->> cast removes address space '__iomem' of expression
->>
->>>> drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse: sparse:
->> incorrect type in initializer (different address spaces) @@     expected
->> void *rsc_offset @@     got void [noderef] __iomem * @@
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:
->> expected void *rsc_offset
->>    drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:     got
->> void [noderef] __iomem *
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202608190009.uCbYi1Y5-lkp@intel.com/
->> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+Le 28/09/2026 à 15:52, Vincent Jardin via B4 Relay a écrit :
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> I have applied this patch - apoligies for the delay, it got lost in the heap.
+> A DPMAC node under dpmacs/ is never the fwnode of any device:
+>    the fsl-mc bus creates dpmac.N objects without one,
+>    then dpaa2-mac finds its node in dpmacs/ at connect time.
 > 
-
-Thank You, no problem.
-
-Tanmay
-
-> Mathieu
+> fw_devlink therefore attaches the supplier links of those nodes (phys, ...)
+> to the nearest ancestor device, the fsl-mc bus, as SYNC_STATE_ONLY proxies.
 > 
->> ---
->>  drivers/remoteproc/xlnx_r5_remoteproc.c | 10 +++++-----
->>  1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
->> index c685bb5fa62c..f9cdd3c024dc 100644
->> --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
->> +++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
->> @@ -568,7 +568,7 @@ static int tcm_mem_map(struct rproc *rproc,
->>  		return -ENOMEM;
->>  
->>  	/* Update memory entry va */
->> -	mem->va = (void *)va;
->> +	mem->va = (__force void *)va;
->>  
->>  	/* clear TCMs */
->>  	memset_io(va, 0, mem->len);
->> @@ -746,7 +746,7 @@ static struct resource_table *zynqmp_r5_get_loaded_rsc_table(struct rproc *rproc
->>  
->>  	*size = r5_core->rsc_tbl_size;
->>  
->> -	return (struct resource_table *)r5_core->rsc_tbl_va;
->> +	return (__force struct resource_table *)r5_core->rsc_tbl_va;
->>  }
->>  
->>  static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
->> @@ -770,7 +770,7 @@ static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
->>  		return -EINVAL;
->>  	}
->>  
->> -	rsc_data_va = (struct rsc_tbl_data *)ioremap_wc(res_mem.start,
->> +	rsc_data_va = (__force struct rsc_tbl_data *)ioremap_wc(res_mem.start,
->>  							sizeof(struct rsc_tbl_data));
->>  	if (!rsc_data_va) {
->>  		dev_err(dev, "failed to map resource table data address\n");
->> @@ -794,7 +794,7 @@ static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
->>  		return -EINVAL;
->>  	}
->>  
->> -	rsc_tbl_addr = (struct resource_table *)r5_core->rsc_tbl_va;
->> +	rsc_tbl_addr = (__force struct resource_table *)r5_core->rsc_tbl_va;
->>  
->>  	/*
->>  	 * As of now resource table version 1 is expected. Don't fail to attach
->> @@ -834,7 +834,7 @@ static int zynqmp_r5_handle_rsc(struct rproc *rproc, u32 rsc_type, void *rsc,
->>  				int offset, int avail)
->>  {
->>  	struct zynqmp_r5_core *r5_core = rproc->priv;
->> -	void *rsc_offset = (r5_core->rsc_tbl_va + offset);
->> +	void *rsc_offset = (__force void *)(r5_core->rsc_tbl_va + offset);
->>  
->>  	if (rsc_type != XLNX_RPROC_FW_CRASH_REPORT)
->>  		return RSC_IGNORED;
->>
->> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
->> -- 
->> 2.43.0
->>
+> device_link_add() refuses such a link once the consumer has probed, and
+> fw_devlink logs the refusal as an error.
+> 
+> On an LX2160A board with 4x25G DPMACs for which phys = <&serdes_1 N>,
+> the Serdes PHY binds after the bus and then at every boot it shows:
+> 
+>    fsl_mc_bus 80c000000.fsl-mc: Failed to create device link (0x180) with supplier 1ea0000.phy for /soc/fsl-mc@80c000000/dpmacs/ethernet@3
+> 
+> once per port!
+
+If I understand correctly this explains the problem but it doesn't 
+explain what this patch does to fix it, allthough the patch subject 
+might be the explanation.
+
+I have taken this patch as is to give it a go into linux-next, but 
+please feel free to send a new version with a more obvious explanation 
+before begining of next week.
+
+Another question below.
+
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+>   drivers/bus/fsl-mc/fsl-mc-bus.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+> index 5878eafd8d44..0c37b6780c84 100644
+> --- a/drivers/bus/fsl-mc/fsl-mc-bus.c
+> +++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+> @@ -11,6 +11,7 @@
+>   #define pr_fmt(fmt) "fsl-mc: " fmt
+>   
+>   #include <linux/module.h>
+> +#include <linux/fwnode.h>
+>   #include <linux/of_device.h>
+>   #include <linux/of_address.h>
+>   #include <linux/ioport.h>
+> @@ -1033,6 +1034,20 @@ static int fsl_mc_firmware_check(struct platform_device *pdev)
+>   	return 0;
+>   }
+>   
+> +static void fsl_mc_purge_dpmac_fwnode_links(struct device *dev)
+> +{
+> +	struct device_node *dpmacs, *child;
+> +
+> +	dpmacs = of_get_child_by_name(dev->of_node, "dpmacs");
+
+Is this name a valid API documented in Documentation/devicetree/bindings/ ?
+
+I'm asking because I have already been challenged by devicetree 
+reviewers on a use of undocumentated name.
+
+Christophe
+
+> +	if (!dpmacs)
+> +		return;
+> +
+> +	for_each_child_of_node(dpmacs, child)
+> +		fwnode_links_purge(of_fwnode_handle(child));
+> +
+> +	of_node_put(dpmacs);
+> +}
+> +
+>   /*
+>    * fsl_mc_bus_probe - callback invoked when the root MC bus is being
+>    * added
+> @@ -1134,6 +1149,8 @@ static int fsl_mc_bus_probe(struct platform_device *pdev)
+>   						&mc->num_translation_ranges);
+>   		if (error < 0)
+>   			goto error_cleanup_mc_io;
+> +
+> +		fsl_mc_purge_dpmac_fwnode_links(&pdev->dev);
+>   	}
+>   
+>   	error = dprc_get_container_id(mc_io, 0, &container_id);
+> 
+> ---
+> base-commit: 7b3b0598c00e67f2df85d0b4cd99eaa3be6c9bfd
+> change-id: 20260928-for-upstream-fsl-mc-dpmac-fwnode-links-622b8eadb98a
+> 
+> Best regards,
 
