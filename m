@@ -1,136 +1,132 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DF23EC827
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5254C67F3;
+	Wed, 30 Sep 2026 15:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782140; cv=none; b=mdYaWRG9BU/kZdZIUthBqO5Z3vRejuJT0vSaOv53p8MqxiOxMN5nkD4nxzF03aTPWWrBrq9AkgU78XESZt8vFelhAtUQsQRaKvnHT39A+0dpFMuxGrxk0ANzf4YpEytyJ+GY7IGQTIHsccuJX/92u/gZh2XTsphJ7ZwA2B/rrgc=
+	t=1790782176; cv=none; b=PJ4cp4t80BifAISSl5UQY8v7B5DrIxbcUutt9/j9TkC7QCZ/KxAi142l0MZjis+jk57/jiwab180nlIjWhSPZIT7aB6Lr8IQQzDAsgSpf7zUy1Es7bRXLHYLjhtj53/Ec1GtgeE4+oinsu750+FvzOyrPoOB/zBDp6YQA8sd0+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782140; c=relaxed/simple;
-	bh=2Ggxf1QJMVzAn7z3bWwrwpi9VQNSETBx43AfVJ4a5jE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FBkIDE/7OzfEtGe+BL9oqjj0JX8CEu6oh3nTadKDILTJLIC/r7bXHd4/8o/gCWHb1dt7YGearRC499so+6um7Jf3IPPm//MqUMXi3dvwn2Hw1ySmetXn9gH+A6ugx5DHOSmObEV2HLsV3YsUXbZ2GvVrsogBlm1MEo4Sgz+8Qcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=k41tjchO; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790782176; c=relaxed/simple;
+	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P6aNpwzD1mdHTwWh4siOizX5W2W5dw/oTegkQx56FEWJmjhQ2fXeyQyA7wD86cj9mhjgxZkEI1iFcQUpMC0q+1UfH6HEq6lHphYlTC3dwyanhUMgIkpQ3mKb0pbaS3jf+r3q68gcPN8t6vqBcb1XA8dAS8s2Od/NB8nVyYnQER8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ro0Xaq7j; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="k41tjchO"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c0b552ccfso888368eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:28:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790782124; x=1791386924; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cc+9rKSOSGawoxpJ2ipg52Wvw6p1Y1gNn8hY21fAsGA=;
-        b=k41tjchOeNuQm/A50C17+3cfj639ABE7thfMk6YhMkICiSG5sdsQ5q7om4BYS+5QWn
-         D09YaKyioATHoAaoA3FrW7iYaRPfoX6ME8wx0O9kUTlmhCBpUdB548En+XYverqGsHv2
-         CtTrlRSEyCxSx6qo++UikX+8rrIsCgKmR+X/4dZru2D7DFxbBD/IOSQg7M6KgQt7YwhL
-         DAdFL68a3X2Qk7wJcJmUCkGwJ9Fr78pCP7plXUvjWsp0W2uuxycbZDppl+ggtRNcto0p
-         D9n2mG09dLyW38CBwjv7afMkY717VrE4GOS+j61zx5mNPYeHPQqMKqjI+Det/tVmN3D5
-         lcBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790782124; x=1791386924;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cc+9rKSOSGawoxpJ2ipg52Wvw6p1Y1gNn8hY21fAsGA=;
-        b=JPLZ9TlJI1tGuOZ10CsMin50FJosezBYoZlttB58JjF7W1msDNCEI00yiNdoxBeDZQ
-         WyftAwr0Gkf90BHxN1hs0Mcg9Fw30PQVqRfJk9o92/BWlI62BVIvPlZLr4ktxj+fcwZ+
-         w8JSJMOBngeiERD6DtEUWjG9GCePIGaKA7l0fjBt8M8smO1fAooybgrkSCwTAs7bitmp
-         +QuszK+O1SVRjNKMkW+DDiACLp2BNyDLefXFWLPPqmWZ3WFIF+aAcqr4OIENF9rtJQ/L
-         QmxDb0WVUny0u1Qr2Z5lNkisV/VphORrn9fSQVa2gwclxAkV0V+PgebiOhYYh/mc/UGV
-         V1fQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyOOk4AdHy7UXm0xv9bON5oGwO++TGMfHeBcXUE3S5iFYOCZsi9ItNCz/NQaWqerN4gGpGJnrcS6P9ZyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqanjZumRUGrmWSQ6+UouaSMPeutLHTwZTb0OGTU3rJ8Gmiz71
-	5u6cvbW0E/BdPlRMhGTJyAY2xlVOCmKYdOO2ADpdf9Iz1a2H3to9eWlikprngAaMKwM=
-X-Gm-Gg: AYBFou0lEv8fmQBKaT5zBcoZa0Xw0Sy5gdAk0VMGlMdLbYIULp3/K1SnmkeWaQElHWw
-	4ixIS7QGAXQxDQ2zpAMtQF8znXn3BqKtb0kym8UwAWcLG8zLMoo7L+SDB6QxSOPrGqVDfK3ugfZ
-	pLVQ83vY+sHlVPIu3x2CX2n+fFlWfKZSYIk0zQms4NFlD7giPpXlUfue2bMzFQIAybq8nfuRrAC
-	YGgcA8AERn43xagoaXkYTcGP5FZcqbPuC+lDz3TnmZnMpdC08T43+n08JkXoDTRyRhAsKNQvBzE
-	GlQGUdH/8nRt9+I66/WlFi9BtQ7vYLwwdwYvXDJHe033Cm919tmdgx0791OzsZxOh6/T4sd4DnA
-	iho+21G5euZBZYVleU1TalgUOXOmaY49N3YDJOg+SODmKd9ED00BFKtnLhQlSz+XC1taGcCjOlj
-	GyOFQl0vp7E0Xvt7XuYkKqI480GSRwOCBDqrvWSSz2cB994B1nSwREbP12J9Iwmj++tQYLQ9Bb7
-	GTPjgSMvFERVLA+Sps=
-X-Received: by 2002:a05:7301:fc04:b0:339:85bf:dd89 with SMTP id 5a478bee46e88-34cdd2a42a2mr2004450eec.35.1790782123219;
-        Wed, 30 Sep 2026 08:28:43 -0700 (PDT)
-Received: from G6L4RL2QG9 ([139.177.225.238])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5b3ea3csm5750493eec.23.2026.09.30.08.28.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 08:28:42 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH] fixup! powerpc/mm: switch device DAX to shared tail vmemmap pages
-Date: Wed, 30 Sep 2026 23:28:26 +0800
-Message-ID: <20260930152826.76084-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260930140627.57431-10-songmuchun@bytedance.com>
-References: <20260930140627.57431-10-songmuchun@bytedance.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ro0Xaq7j"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BA6B593;
+	Wed, 30 Sep 2026 17:27:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790782050;
+	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ro0Xaq7jepzZHoQYwP4oaYSE8okA/yRG9K2EU1Pi4LG2Eze2kVxKkZlpTEphjbvM2
+	 GNnEWGlD11DH+ibPAJ8JRmmu2GPh3zvIPfeCxG3Hz5FPTxAtS1P1C7FskMRNpb4VhP
+	 ZuaarDRks4i2pk47k1UAk8EeNF7dv52CEvVofgO0=
+Date: Wed, 30 Sep 2026 17:29:18 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
+	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, nayden.kanchev@arm.com, 
+	hverkuil+cisco@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: mali-c55: Check the statistics buffer address
+ before filling
+Message-ID: <ar0qrapmUzt_TMdY@zed>
+References: <20260906092429.50046-1-devnexen@gmail.com>
+ <20260906092429.50046-2-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260906092429.50046-2-devnexen@gmail.com>
 
-The PowerPC radix path takes one reference for every PTE that maps the
-shared tail page. Unlike the generic path, get_page() lets the counter
-continue after it becomes non-positive and eventually cycle to zero.
+Hi David
 
-Use try_get_page() so vmemmap population fails before the shared page
-reference count can cycle, matching the generic implementation.
+On Sun, Sep 06, 2026 at 10:24:25AM +0100, David Carlier wrote:
+> mali_c55_stats_cpu_read() copies the metering registers into the buffer
+> returned by vb2_plane_vaddr() without checking it. As for the parameters
+> queue, a DMABUF whose exporter cannot be vmapped yields NULL, and the
+> memcpy_fromio() then dereferences it from the threaded interrupt
+> handler.
+>
+> Report the failure to mali_c55_stats_fill_buffer() and complete the
+> buffer with VB2_BUF_STATE_ERROR.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
- arch/powerpc/mm/book3s64/radix_pgtable.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Same as the previous one
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
-index 9ca28e4a610a..a3332f32ffb2 100644
---- a/arch/powerpc/mm/book3s64/radix_pgtable.c
-+++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
-@@ -1042,13 +1042,17 @@ static pte_t * __meminit radix__vmemmap_pte_populate(pmd_t *pmdp, unsigned long
- 			/*
- 			 * When a PTE/PMD entry is freed from the init_mm
- 			 * there's a free_pages() call to this page allocated
--			 * above. Thus this get_page() is paired with the
-+			 * above. Thus this try_get_page() is paired with the
- 			 * put_page_testzero() on the freeing path.
- 			 * This can only called by certain ZONE_DEVICE path,
- 			 * and through vmemmap_populate_compound_pages() when
- 			 * slab is available.
-+			 *
-+			 * Use try_get_page() to prevent the shared page refcount
-+			 * from overflowing.
- 			 */
--			get_page(reuse);
-+			if (!try_get_page(reuse))
-+				return NULL;
- 			p = page_to_virt(reuse);
- 			pr_debug("Tail page reuse vmemmap mapping\n");
- 		}
--- 
-2.54.0
-
+> ---
+>  .../platform/arm/mali-c55/mali-c55-stats.c     | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> index 655e52a5f288..a9c28b090b2a 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> @@ -200,9 +200,9 @@ static const struct vb2_ops mali_c55_stats_vb2_ops = {
+>  	.stop_streaming = mali_c55_stats_stop_streaming,
+>  };
+>
+> -static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
+> -				    struct mali_c55_stats_buf *buf,
+> -				    enum mali_c55_config_spaces cfg_space)
+> +static int mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
+> +				   struct mali_c55_stats_buf *buf,
+> +				   enum mali_c55_config_spaces cfg_space)
+>  {
+>  	struct mali_c55 *mali_c55 = stats->mali_c55;
+>  	const void __iomem *src;
+> @@ -211,12 +211,18 @@ static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
+>
+>  	src = mali_c55->base + MALI_C55_REG_1024BIN_HIST;
+>  	dst = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
+> +
+> +	if (!dst)
+> +		return -EFAULT;
+> +
+>  	memcpy_fromio(dst, src, MALI_C55_1024BIN_HIST_SIZE);
+>
+>  	src = mali_c55->base + metering_space_addrs[cfg_space];
+>  	dst += MALI_C55_1024BIN_HIST_SIZE;
+>  	length = sizeof(struct mali_c55_stats_buffer) - MALI_C55_1024BIN_HIST_SIZE;
+>  	memcpy_fromio(dst, src, length);
+> +
+> +	return 0;
+>  }
+>
+>  void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
+> @@ -224,6 +230,7 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
+>  {
+>  	struct mali_c55_stats *stats = &mali_c55->stats;
+>  	struct mali_c55_stats_buf *buf = NULL;
+> +	int ret;
+>
+>  	spin_lock(&stats->buffers.lock);
+>  	if (!list_empty(&stats->buffers.queue)) {
+> @@ -239,8 +246,9 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
+>  	buf->vb.sequence = mali_c55->isp.frame_sequence;
+>  	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
+>
+> -	mali_c55_stats_cpu_read(stats, buf, cfg_space);
+> -	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+> +	ret = mali_c55_stats_cpu_read(stats, buf, cfg_space);
+> +	vb2_buffer_done(&buf->vb.vb2_buf,
+> +			ret ? VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE);
+>  }
+>
+>  void mali_c55_unregister_stats(struct mali_c55 *mali_c55)
+> --
+> 2.55.0
+>
+>
