@@ -1,143 +1,219 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C104A3F0D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790811029; cv=pass; b=CDtaE1KHogqmP7xSoDMwN8ItaBtDfd7bb/56C8vq8AFMNfbk/Ysz+7XGzRZBP/oJm815rQMynXjYh2jDhw2VDrMHmUkDtzpg50DA8ZmXwoSLTIGs8nm8Op1rJ6bK46YH7fHi1mO/OToFEomQ/fcy1WtimYH7VCZ7j+pGAPyFa9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790811029; c=relaxed/simple;
-	bh=QRhdhkTWAMq6v8F3o09AfM5+4TNnCKpQ5ExWjqlmZM0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i4X9JG7arVIB+a7HBIu6WlUIl2CWTLWtlGyU8eqX/5B/jQ7h6qot49cYY/SaUeqjf4L96UTRfl+kf/8LVBmQ+V3tPp0op8pWKQDsyKH9EMzFpqJcs1oGs4Y7NFP0rA08P6lfJz9zDHcBtoadHMV74uDBzONKQhJ6/4JN2hK3YCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SofLuX+q; arc=pass smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0444A49BC;
+	Wed, 30 Sep 2026 23:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790811132; cv=none; b=kbTifdbePgUZTTY4fELS09KVMfpxdvbwIIcBNsblvpSdZAYeNgjQYqcozmQUvEd0AOugYD+ISwmUwKhILZ5EGGOzgpol7ylGw07VtKUQZuGsEVe5PvjLJ4FoiQLfND71DWJVYhEOoDRcgD5gk8cSZ1sHdsBhINhgbEZzKVh3XXE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790811132; c=relaxed/simple;
+	bh=1C09B0RZHqFGohU41SNKMG9NX6EX0Wfw56ApaRYZINo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WB/Th/9EBa8G1JO6VPOYc6zS3QEuqYnz65Gn/u8h4gIcUfcvWSl6/ZmyBBexmrpVy7NEQ16z07Y+SC0LhvfJNBoK2R9mOfYs0YTEL647MfSF9sefYSY15hfE037NQKZ93WNPoV4VofuUmnG2LSYbGJQSxVRPxUG4qdDQCyBzGzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vhpor0Lj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SofLuX+q"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93c5b7f5bfaso23564185a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:30:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790811025; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M0nH3vYJNOGIOHvCcy8viGaRRPS353lN4ydIFKRlxXkl1ft9Mv4EIDRe4rPPYfXbUk
-         kz0jHc9Cbxf8IxgUNucHQJTpFxoLfkofynXROlmrGSt6ECsZYXgsC4+vwu4cL4jOu1XF
-         dc3/FrqD9fuJjNXFMDIGmZmuQuiMWplsQ0KwelcBKg12G2uWYpv9rykgdWh+DGe55DSc
-         2i3kN5uQz+GFiPJpvlp6TIVWv18sEg5Gnzjy2K9cYnf9pvqyxlpE1duPVIgaWv4jMwAp
-         pfmtmf7it3Zxk/9wh+O0Rdw9DL3i8q3cYOBSbPVjs43OJp6b9q8yv9uPtLUi9mZESvjC
-         7MXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F74ktHoo59KmX1dkAk639aZ/tJPOMLAiH0Q+C4A/UsY=;
-        fh=+S5WkJ8Mqde52VpHzNoZwEV6VIs+/Ieu66ZhC/xt7M4=;
-        b=m2VsQ7qhzbv3uRAZ0pOR61/Stst0AkV97mV4POJwSR5WrJzldO2llAGLoahlVUvSmw
-         WfTP0v+rQ/ixGJa0UGyHdjfYJlQogygzYq1kD8Fxykp79aqzXpBLq32bOizD/FJRyazN
-         RMj1RoYQlbmbMtALU2n4H8NDSGDxq6ZX1aNvNKcqKGU1KqQ6+eglTug0oDxm+QzFYLtw
-         r56cX4XfFJpBum4UrwKi2peP9x8w2P09X9E+xGibWSoMQwnR5TGo0g7rKf2PUI/BU9xv
-         OV6vxJIOKyNqq1Jq83Virvdm9aFpOXG2v6VO9FFCKS/wx/4hUYLos/nwdsCtJ9Kv1gHV
-         gcUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790811025; x=1791415825; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F74ktHoo59KmX1dkAk639aZ/tJPOMLAiH0Q+C4A/UsY=;
-        b=SofLuX+qoadKmbJaTPZ/rAtHdcS0gemHdxYDn73TH7CHtrUIdt9T0hyb+/cq9kMuM0
-         M6ARMVLMIcv7Wn9Ilmk3tfWYxXHpUDbZmR5DImQwiYywzeD+R3YfYX6oKN67KrEFTvnG
-         gepK8RPnlnRRF1KY8ertt0QP3AuSMwFLMnQnvhqBREGou7U80h1bZKcZTzjjqRKnD7rK
-         f7dmGWgMliCepqU0JzkHL/W7FAdjbu72OfjUqw+2mlxlBpLMKkl0rVx7nQutS+Pnjh2+
-         zTZ1EKCgMHtzGiqZf2GLklli55PiORuxi7oubJTwCMnEAGM4eJmGBccTb0MCZlm/LPqX
-         yGvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790811025; x=1791415825;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F74ktHoo59KmX1dkAk639aZ/tJPOMLAiH0Q+C4A/UsY=;
-        b=zc9bBnZM40X0MeUfit9Ro+Yc2AT5ryYNjYR1WzVTQ34yT/mOhuqh/DKzRJ9Tm5anmx
-         hXtMva63+pnuusmOc6S3Xn+qIa9qOyadzzWl91izdgn10WkDbUPXuxOaG2MeprYib05K
-         9qKJKOcIMKoKJbDAoKOpCN4Cdsb6yKqARjh+kiowBXfB2IcJS9XYl20KiutvyZTtE+Dy
-         0imRKETRQ8opGN6yWcNxbqPcp9OtGEq0qx8WgzaP+0Uy+EWE2/jYXHd7i50RQnYY4Mph
-         NyktoGvKVfCiK5Yd96/hQort+ArkNAGqiCgujp/bR0u59S5iJp8/6Ck36kAAss27KRq5
-         yNvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxC8ux/ysmWAtLj9OnYU6zwxk0MpZD94ma9nsF1WNhBsJTaisMrFoit55c+Et3oIgeEKIh9TNGLj2MCmZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUuBjX/ysr3HhtkHsboyMyCSiAbCDrR8NL8t8IKr2rzgDZ4M+O
-	umeSfmcI0/BtlrNH1AqBIx03wibLpzUjCBkcgHcBCGYSoe1yJxgCS2budK+sJWM1qMGnLtucWcJ
-	AVi6DqY8WP1j0IQq0fTb1n76cpLNx6bAa9c8Ross=
-X-Gm-Gg: AYBFou3GoTYWLPUZk0K4AZQBo7utOqJyS9RWgmg5rCDo7e9dGtcY3vXMwaWzuyPcbvF
-	UV9oETwSnh2iuflhZPS+8EyfxxH/AtSvialNm9MCE0YfEtU8iWsi5ifHkB5fTVNBmsxL820FzuF
-	KO7GJrfCeAUMrNLa3co2itA8vKN2+MNsJekk52kxpgE9dVJM41NbEv3wNZYXKQOsP7yw/kUhvNE
-	IUDHzGC3pogtxsLbnIwbPoUCP057Em6NqkN0ciuwGNv60+opUY+a+0baBFiYO6VzfDQeNq3FCa+
-	9atA5vHHPvvqS7zlAdD151bN8yTlJ5CYjeJfs2Msg2GXPrkADxjIOertGse2bHS07YVRDpFRYcB
-	Awr1d6kmlN0dX4m7VB/H/IHW8LAjdNiVr81ocz6vai7jQ0onMqbyxVj/RZapqed3BRnDitQ==
-X-Received: by 2002:a05:620a:2682:b0:93b:cb64:25a5 with SMTP id
- af79cd13be357-93cb5a52e38mr239435785a.12.1790811025015; Wed, 30 Sep 2026
- 16:30:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vhpor0Lj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB4B1F000FF;
+	Wed, 30 Sep 2026 23:32:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790811130;
+	bh=ZEYfCaGXlegQ6ruHliZQgQ4C9on6hKRWUqPbAUl/o/0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Vhpor0LjzY0sdmtSpGWH8dF5IDXZF7VJl0U3VzV5I7yphFW2+2m8TDfZLfEawKbeV
+	 ZHDGeNn+eu58bNxvypQe6HQ5kJUxJop8Y5Zo3/OwjNDBXN8wsZFbmur1Ib1cqUQzE5
+	 gLVqwCuDiY9Pg0LstQE4lQNRihGJHxE2qTlpmCn0CdxXwuiCUiDKxNw+zU7HqoX9oX
+	 MhbanScWLi+wsOSTgkRRisABve9uKSjToiX26SlH1y5jvdkWybqyHFrP6GQFw08Dme
+	 rRvRueSht7OgESTaXkwuBl2vFFMHAI7MFq12zULODSSiUPr6nCic0ynyPbpCMzGTwy
+	 zh4SS66Dfbp/A==
+Subject:
+ Re: [PATCH v3 net] net/packet: guard the ll header push in packet_rcv_spkt()
+From: netdev-bot+sashiko@kernel.org
+To: quchaosheng000406@163.com
+Cc: willemdebruijn.kernel@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mkl@pengutronix.de, socketcan@hartkopp.net,
+ stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 23:32:09 +0000
+Message-ID: <179081112900.434549.3927636774761151103@kernel.org>
+In-Reply-To: <20260928113108.2127215-1-quchaosheng000406@163.com>
+References: <20260928113108.2127215-1-quchaosheng000406@163.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923025148.35637-1-vinicius.m1821@gmail.com> <20260928232540.51083-1-vinicius.m1821@gmail.com>
-In-Reply-To: <20260928232540.51083-1-vinicius.m1821@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Wed, 30 Sep 2026 20:30:13 -0300
-X-Gm-Features: AclHuK8NRbuQAS_waVnj7I_4awYH0UgwVcCCzsszviYWmku8l8ttavFzhdvGZFA
-Message-ID: <CAMAsx6fHNXUvUbacySzcnXGWtaQd+-Nqpst-f21582=DS3MgXg@mail.gmail.com>
-Subject: Re: [PATCH v4] docs: translations: pt_BR: translate threat-model.rst
-To: vinihsr <vinicius.m1821@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 08:25:40PM -0300, vinihsr wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Hi Vini,
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
 
-Thanks for v4. Two comments about the translation, inline.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> +sem privil=C3=A9gios (por exemplo, debugfs). O acesso a esses recursos p=
-or um usu=C3=A1rio
-> +que tenha recebido permiss=C3=A3o expl=C3=ADcita de um administrador n=
-=C3=A3o constitui uma
-> +viola=C3=A7=C3=A3o de seguran=C3=A7a.
-> +
-> +Bugs que permitem violar os princ=C3=ADpios acima constituem brechas de =
-seguran=C3=A7a.
+- [Medium] The history and Fixes attribution in the commit message are
+  inaccurate.
 
-The original uses the same term in both sentences ("does not constitute
-a security breach" and "constitute security breaches"), but here it is
-translated in two different ways: "viola=C3=A7=C3=A3o de seguran=C3=A7a" an=
-d "brechas de
-seguran=C3=A7a". Also, "brecha" is closer to "hole" or "gap" than to "breac=
-h".
-Please use "viola=C3=A7=C3=A3o de seguran=C3=A7a" ("viola=C3=A7=C3=B5es de =
-seguran=C3=A7a" in the
-plural) in both places, so the document uses a single term.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the same CAN
+  RX skb with mac_header == 0xFFFF (left that way by init_can_skb()…
+- [High] This problem wasn't introduced by this patch, but the
+  SOCK_PACKET receive path this patch touches leaks stale skb->cb bytes…
 
-> +  * capacidade de contornar algumas das medidas de fortifica=C3=A7=C3=A3=
-o do kernel sem um
-> +    caminho de explora=C3=A7=C3=A3o demonstr=C3=A1vel (por exemplo, cont=
-orno de ASLR,
-> +    sincroniza=C3=A7=C3=A3o de eventos ou sondagem sem consequ=C3=AAncia=
-s demonstr=C3=A1veis).
+--
 
-The original says "events timing". I think "timing" here is about
-measuring time, not about synchronization ("sincroniza=C3=A7=C3=A3o" would =
-be the
-translation of "synchronization"), so something like "temporiza=C3=A7=C3=A3=
-o de
-eventos" or "medi=C3=A7=C3=A3o do tempo de eventos" may be closer. The orig=
-inal is
-a bit vague, though, so could you please double check what it means and
-adjust if needed?
+net/packet: guard the ll header push in packet_rcv_spkt()
 
-Thanks,
-Daniel
+This patch wraps the link layer header restore in packet_rcv_spkt() with
+dev_has_header(), as packet_rcv() and tpacket_rcv() already do. The
+motivation is a skb_under_panic() on CAN RX skbs whose mac_header is left
+at the 0xFFFF sentinel, because init_can_skb() no longer resets the headers.
+
+> commit d549699048b4 ("net/packet: fix packet receive on L3
+> devices without visible hard header") introduced the helper and changed
+> the two call sites, and this one stayed behind.
+
+[Severity: Medium]
+Is this history accurate?
+
+In net/packet/af_packet.c, d549699048b4 changed
+
+    if (dev->header_ops)
+
+to
+
+    if (dev_has_header(dev))
+
+in packet_rcv() and tpacket_rcv(), and it also updated the block comment at
+the top of the file. packet_rcv_spkt() never had a header_ops guard. Its
+unconditional skb_push() goes back to the initial git import
+(1da177e4c3f4).
+
+The panic in the commit message only happens when mac_header is left at
+0xFFFF. That has been the case since 9f10374bb024 ("can: remove private
+CAN skb headroom infrastructure") removed the skb_reset_*_header() calls
+from init_can_skb_reserve() and init_can_skb(). The current init_can_skb()
+in drivers/net/can/dev/skb.c only does:
+
+    skb->pkt_type = PACKET_BROADCAST;
+    skb->ip_summed = CHECKSUM_UNNECESSARY;
+
+> Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
+> Cc: stable@vger.kernel.org
+
+With this Fixes tag and Cc: stable, the patch would be queued for the 5.10+
+stable trees as a panic fix. CAN RX skbs in those trees still reset their
+headers, so this panic cannot happen there.
+
+9f10374bb024 is the commit that makes the panic reachable, and it isn't
+named in any tag. Should the Fixes tag point at 9f10374bb024 instead?
+
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 7c83e01526ed..a951a1e3c088 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -1911,7 +1911,8 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+>  
+>  	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
+>  
+> -	skb_push(skb, skb->data - skb_mac_header(skb));
+> +	if (dev_has_header(dev))
+> +		skb_push(skb, skb->data - skb_mac_header(skb));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the same CAN RX skb with
+mac_header == 0xFFFF also reaches generic XDP. This guard doesn't cover
+that path.
+
+netif_receive_generic_xdp() in net/core/dev.c does:
+
+    mac_len = skb->data - skb_mac_header(skb);
+    __skb_push(skb, mac_len);
+
+Here mac_len comes out as roughly 4G - 65471, and __skb_push() only has a
+DEBUG_NET warning. skb_headroom() then truncates to 65535, so no
+reallocation happens, and the later __skb_pull() moves data back.
+
+In bpf_prog_run_generic_xdp(), xdp_prepare_buff() gets a headroom of
+skb_headroom - mac_len = 65535. That puts xdp->data at head + 65535, while
+data_end is head + 80. The code then reads the Ethernet header at that
+address:
+
+    eth = (struct ethhdr *)xdp->data;
+    orig_host = ether_addr_equal_64bits(eth->h_dest, skb->dev->dev_addr);
+
+If a generic XDP program is attached to the CAN interface, can this read
+out of bounds for every received CAN frame?
+
+On XDP_TX or XDP_REDIRECT, __skb_push(skb, mac_len) also moves skb->data
+about 4 GiB below head and sets a wrapped skb->len. The skb is then
+transmitted or redirected.
+
+dev_xdp_attach() has no device type restriction for generic mode. When a
+program is attached, do_xdp_generic() runs for every RX skb:
+
+  slcan RX
+    alloc_can_skb()->init_can_skb()   /* mac_header stays 0xFFFF */
+    netif_rx()
+      __netif_receive_skb_core()
+        do_xdp_generic()
+          netif_receive_generic_xdp()
+            bpf_prog_run_generic_xdp()
+
+The af_packet guard alone doesn't close the 9f10374bb024 regression. Does
+the separate init_can_skb() fix mentioned in the commit message need to
+land together with this one?
+
+>  
+>  	/*
+>  	 *	The SOCK_PACKET socket receives _all_ frames.
+
+[Severity: High]
+This is a pre-existing issue, but further down, packet_rcv_spkt() builds
+the sockaddr_pkt in place in skb->cb:
+
+    spkt->spkt_family = dev->type;
+    strscpy(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
+    spkt->spkt_protocol = skb->protocol;
+
+strscpy() writes strlen(name) + 1 bytes and doesn't pad, and nothing clears
+the rest of spkt_device. packet_recvmsg() then copies the full
+sizeof(struct sockaddr_pkt) to userspace:
+
+    memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
+
+Can this leak stale skb->cb bytes to userspace?
+
+On GRO RX paths, cb still holds struct napi_gro_cb, and dev_gro_receive()
+stores a slab pointer and jiffies there:
+
+    NAPI_GRO_CB(skb)->age = jiffies;
+    NAPI_GRO_CB(skb)->last = skb;
+
+Nothing clears these before ptype_all delivery, and skb_share_check() and
+skb_clone() copy cb.
+
+With a 1 or 2 character interface name, cb[4..7] holds the upper 32 bits
+of a kernel sk_buff address. With a 4 to 12 character name, jiffies still
+leaks.
+
+packet_create() checks CAP_NET_RAW with ns_capable(). A user in their own
+user and network namespace can therefore create a veth with GRO enabled
+and pick its name.
+
+This dates back to the strlcpy() version. 8fc9d51ea2d32 swapped in
+strscpy(), which doesn't pad either.
+
+Would strscpy_pad(), or a memset() of the sockaddr_pkt before filling it,
+be appropriate here?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928113108.2127215-1-quchaosheng000406%40163.com
