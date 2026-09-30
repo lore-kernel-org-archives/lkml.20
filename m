@@ -1,144 +1,250 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A797E2749DC;
-	Wed, 30 Sep 2026 00:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C3F2F87B;
+	Wed, 30 Sep 2026 00:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728479; cv=none; b=Gqo4LBU83Za2aiJUVXcceZCtnGa+XO93uz58ABSsOk96gjgqKECZ33RWMFGRoa89bgtyoOGb/DTe8hOgUJiDVOqdWwXFf65R6hEwKrGC0niU+Ehu//A5M5i1wyMywc3rDN0fjjdPsTdYDhtr6eiICCkbKl0bJKMw84yq+pid1AE=
+	t=1790728518; cv=none; b=E5XF6CjzKV5t9jZ7nj1WLYhHHd8snPTKZj2D6GAV/ILIlJ2b2T/1MVqKM6N2PAYLNt9fZor/7W76YEpnN5HnT6mcOY0KATeQ6ZIL32o3ndJPDd2iRSaCQSssd7s/g0V2Muy0BZE+dLKOEJ30JksQ9p15di9Q6pfltzF1uW4JhLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728479; c=relaxed/simple;
-	bh=nQLQnOldjUW7u76mhFdPNQBWr42kuMCBKdhSB0Y+khs=;
+	s=arc-20240116; t=1790728518; c=relaxed/simple;
+	bh=zjkiyRqLL547noCZTyaXMFL+DbNJLuxp50YmxD4PJ2I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NECCxrwF4iT0ILONd/VMgcCOshCiLu2TmAaqQAWdD2S5KkwJ8vMAfIqPClXKAAri0Fx81g2/umH5uw/U44ExClAGc+X1e0XEvXh/ws9LD1N0A61E0/GN0LQnWrgbkKsK/AlqP0iU6Aj20yqnu4FPTpj52su6harlRHHpamWHaqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=a8u2HPpC; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+KdFo5YGGQ/to1eDxeiL7XDKU5L8Kp7p8jY79dtiU3xZ7DjfINDMrWHlBJC2zd+AIWvp6FeKNMUck64M1lxxpmob4BIfOBhj489B6EsWuxrpyD5Som7Yb2B79sLKiva6nSy8xT3JDkR7yOkdOPNnctRlLwHRhAS/y3gAKZsvE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7R0imuU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="a8u2HPpC"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7DA1440E01ED;
-	Wed, 30 Sep 2026 00:34:35 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id GudoapwocObA; Wed, 30 Sep 2026 00:34:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790728465; bh=kusEY4hWkBoVAW+1E85mtLH983ket5Irp56ANr5TYOk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a8u2HPpCeFh/rPp8rBj9cfCsyuBf4cQ01XXJ0fLlbk3Z6uF2puWk8T0iWjP9VW40n
-	 mXMw+N5cAZxwefYvIGhKwEb2K8iWpcc9Y1CNOMdgoFHF2LXuwJN1HRCXIoVxByJzLB
-	 8yEBaFgg3FpRJW/Ts9vIeUaVbaCjXw8Um984uaRKTvlPrE0IAOOkvBCaBAowqiNoSJ
-	 NODwsxwbpY1DmcnF1Zx1HAEoW4K8xtFYTe4AzS+KWut95PUPUK1d7JkvDqH8A2I3zj
-	 apgEmD0+mnKS0vqmCkVC58W+UlnmP4U+QJGcYvkdwuKyZCBrYPI35cnlq7RyIzCiVI
-	 j0C3kzbvcAjy1Msd3HlD5wTJeagdDJVwrSNhLIvlkul5Nax0nYpzga4iYlCNvtnxg0
-	 23G/x2qRbSbxyRgc6sHwx1LdwnfTRTjw/MZsI2xYe2r01nRFVug/OwTUyVAXEH9Lnh
-	 BYECmpgx2LeLobVvHwUzP4tZOvdFuRkC/mVb9pXcEEI7+UUkvEpOpWTQtyoqKwVSRd
-	 d8i0SJvqA+BjXLtjvOUunFTnP0LSNN0G6VNOw7bVhW1b0DVDRVqXkC4rEBzsyVjqTk
-	 V3vf5+fNjIEtr75IAmfRkbrLSiLPNhvBh4bsk0y8DV8pJSBpdKb2y2tT5meLW9hbK/
-	 K/yi8tcIa2fymQ0SsGUC6pVM=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8F64B40E01B4;
-	Wed, 30 Sep 2026 00:34:15 +0000 (UTC)
-Date: Tue, 29 Sep 2026 17:34:12 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, chenhuacai@kernel.org,
-	Wang Jinwei <wangjinwei@loongson.cn>,
-	Yulong Wang <wangyulong@loongson.cn>,
-	Dongyan Qian <qiandongyan@loongson.cn>,
-	Chao Li <lichao@loongson.cn>
-Subject: Re: [PATCH v4 1/3] EDAC/loongson: Encode node and MC info into mc_idx
-Message-ID: <20260930003412.GEarxZBOHFAgZg7TL6@fat_crate.local>
-References: <20260902084827.2652-1-zhaoqunqin@loongson.cn>
- <20260902084827.2652-2-zhaoqunqin@loongson.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7R0imuU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C5E1F000FF;
+	Wed, 30 Sep 2026 00:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790728517;
+	bh=Cr6UdQKdI0xls4OlaLkP7rmWD8zhk3VYrwsH9krw7jM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y7R0imuU10TDOyA5h5xY8NunTH92rKR594grKtQDyTajkI0sTgxH0QtQqcpBT27uK
+	 v/jDcULaKuymQGkyFvycV2q25HWMoizg99vQU9Ktr08NMf/k6gMLY7jzNc0T+/UEeV
+	 9KMQ5hsKDvYFsxePGoJC5mTkxMk7mT1/w+3SYdIJc7Kuz/Ogzq74/VIHss+BdgO+Vg
+	 vliQ6n3zIZJcT11CWqF7ymubvoOv5TXY6cpYQHc1LIJ70Bn9e5yvzlhDACFxCtMP9T
+	 ilwweYwv9xkWcYcYpQ9cZjp6kp2+fUaixo6Z4pK8YLv3Ng4Nbkul7R6rHI9ANhZdSp
+	 +ELyy7HJgVzpA==
+Date: Tue, 29 Sep 2026 17:35:15 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: maz@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	corbet@lwn.net, pbonzini@redhat.com, leo.bras@arm.com,
+	yuzenghui@huawei.com, wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com, caijian11@h-partners.com,
+	liuyonglong@huawei.com, tangchengchang@huawei.com,
+	yezhenyu2@huawei.com, yubihong@huawei.com, linuxarm@huawei.com,
+	joey.gouly@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, fuad.tabba@linux.dev,
+	mark.rutland@arm.com, seanjc@google.com, rdunlap@infradead.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 02/15] KVM: arm64: Add KVM_PGTABLE_PROT_DIRTY
+Message-ID: <arxZQwkLCLBnITzH@kernel.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-3-zhengtian10@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902084827.2652-2-zhaoqunqin@loongson.cn>
+In-Reply-To: <20260929103655.85107-3-zhengtian10@huawei.com>
 
-On Wed, Sep 02, 2026 at 04:48:25PM +0800, Qunqin Zhao wrote:
-> @@ -23,6 +24,8 @@ struct loongson_edac_pvt {
->  	 * register state.
->  	 */
->  	int last_ce_count;
-> +	u32 mcs_per_node;
-> +	bool mc_idx_valid;
+On Tue, Sep 29, 2026 at 06:36:42PM +0800, Tian Zheng wrote:
+> @@ -731,8 +731,12 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+>  	if (prot & KVM_PGTABLE_PROT_R)
+>  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> 
+> -	if (prot & KVM_PGTABLE_PROT_W)
+> -		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> +	if (prot & KVM_PGTABLE_PROT_W) {
+> +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+> +
+> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
+> +			attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> +	}
 
-Why do you need a silly bool if you have valid indices in any case?
+Can you introduce the dirty state first? You're temporarily setting
+DBM+S2AP[1] as a workaround in the preceding patch.
 
-You either get it from edac_device_alloc_index() and in that case, the node
-number is always 0 and when you get it from ACPI, you get the right thing
-anyway?
+Then we can have it encoded such that when FEAT_HAFDBS is implemented:
 
-IOW, you init mc_idx properly in the probe function and then you're all set.
+	KVM_PGTABLE_PROT_W	=> KVM_PTE_LEAF_ATTR_HI_S2_DBM
+	KVM_PGTABLE_PROT_DIRTY	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
 
->  static int read_ecc(struct mem_ctl_info *mci)
-> @@ -44,7 +47,8 @@ static int read_ecc(struct mem_ctl_info *mci)
->  static void edac_check(struct mem_ctl_info *mci)
+And if FEAT_HAFDBS is *not* implemented:
 
-In a prepatch, please remove the "edac_" prefix from all your driver-local
-definitions like edac_probe() or loongson_edac_pvt. The edac_ namespace
-belongs to the EDAC core functions. Since your functions are static, you can
-simply call them probe(), check() etc.
+	KVM_PGTABLE_PROT_W	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
+	KVM_PGTABLE_PROT_DIRTY	=> KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W
 
->  	struct loongson_edac_pvt *pvt = mci->pvt_info;
-> -	int new, add;
-> +	char other_detail[64] = {0};
-> +	int new, add, node, mc;
->  
->  	new = read_ecc(mci);
->  	add = new - pvt->last_ce_count;
+i.e. aliasing both to bit 7.
 
-...
+Thanks,
+Oliver
 
->  static int edac_probe(struct platform_device *pdev)
+>  	if (!kvm_lpa2_is_enabled())
+>  		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+> @@ -753,9 +757,13 @@ enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+> 
+>  	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
+>  		prot |= KVM_PGTABLE_PROT_R;
+> -	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
+> +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM) {
+>  		prot |= KVM_PGTABLE_PROT_W;
+> 
+> +		if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
+> +			prot |= KVM_PGTABLE_PROT_DIRTY;
+> +	}
+> +
+>  	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
+>  	case 0b00:
+>  		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
+> @@ -1288,7 +1296,6 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+>  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
 >  {
->  	struct edac_mc_layer layers[2];
->  	struct mem_ctl_info *mci;
-> +	struct device *dev = &pdev->dev;
->  	void __iomem *vbase;
-> +	u32 mcs_per_node;
->  	int ret;
-> +	bool mc_idx_valid = true;
-
-The EDAC tree preferred ordering of variable declarations at the
-beginning of a function is reverse fir tree order::
-
-	struct long_struct_name *descriptive_name;
-	unsigned long foo, bar;
-	unsigned int tmp;
-	int ret;
-
-The above is faster to parse than the reverse ordering::
-
-	int ret;
-	unsigned int tmp;
-	unsigned long foo, bar;
-	struct long_struct_name *descriptive_name;
-
-And even more so than random ordering::
-
-	unsigned long foo, bar;
-	int ret;
-	struct long_struct_name *descriptive_name;
-	unsigned int tmp;
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+>  	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+> -					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+>  					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+>  					NULL, NULL,
+>  					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+> @@ -1368,8 +1375,12 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+>  	if (prot & KVM_PGTABLE_PROT_R)
+>  		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> 
+> -	if (prot & KVM_PGTABLE_PROT_W)
+> -		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> +	if (prot & KVM_PGTABLE_PROT_W) {
+> +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+> +
+> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
+> +			set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> +	}
+> 
+>  	if (prot & KVM_PGTABLE_PROT_X) {
+>  		ret = stage2_set_xn_attr(prot, &xn);
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 2d44cd6a5aed..698a87e85a6d 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1221,7 +1221,9 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
+>  	struct kvm_pgtable *pgt = mmu->pgt;
+>  	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_DEVICE |
+>  				     KVM_PGTABLE_PROT_R |
+> -				     (writable ? KVM_PGTABLE_PROT_W : 0);
+> +				     (writable ?
+> +				      (KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY) :
+> +				      0);
+> 
+>  	if (is_protected_kvm_enabled())
+>  		return -EPERM;
+> @@ -1587,7 +1589,7 @@ static enum kvm_pgtable_prot adjust_nested_fault_perms(struct kvm_s2_trans *nest
+>  						       enum kvm_pgtable_prot prot)
+>  {
+>  	if (!kvm_s2_trans_writable(nested))
+> -		prot &= ~KVM_PGTABLE_PROT_W;
+> +		prot &= ~(KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY);
+>  	if (!kvm_s2_trans_readable(nested))
+>  		prot &= ~KVM_PGTABLE_PROT_R;
+> 
+> @@ -1658,7 +1660,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  	}
+> 
+>  	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
+> -		prot |= KVM_PGTABLE_PROT_W;
+> +		prot |= KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY;
+> 
+>  	if (s2fd->nested)
+>  		prot = adjust_nested_fault_perms(s2fd->nested, prot);
+> @@ -1690,10 +1692,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  	}
+> 
+>  out_unlock:
+> +	/*
+> +	 * Dirty the folio for any write-permitting mapping: hardware can
+> +	 * promote a writable-clean entry to writable-dirty without a VM
+> +	 * exit, so a clean release could lose a guest write at reclaim.
+> +	 * The dirty bitmap is only marked for mappings installed dirty,
+> +	 * or pre-copy would treat every writable page as dirty.
+> +	 */
+>  	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
+>  	kvm_fault_unlock(kvm);
+> 
+> -	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
+> +	if ((prot & KVM_PGTABLE_PROT_DIRTY) && !ret)
+>  		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
+> 
+>  	return ret != -EAGAIN ? ret : 0;
+> @@ -1993,11 +2002,14 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
+> 
+>  	*prot = KVM_PGTABLE_PROT_R;
+> 
+> -	if (s2vi->map_writable && (s2vi->device ||
+> -				   !memslot_is_logging(s2fd->memslot) ||
+> -				   kvm_is_write_fault(s2fd->vcpu)))
+> +	if (s2vi->map_writable) {
+>  		*prot |= KVM_PGTABLE_PROT_W;
+> 
+> +		if (s2vi->device || !memslot_is_logging(s2fd->memslot) ||
+> +		    kvm_is_write_fault(s2fd->vcpu))
+> +			*prot |= KVM_PGTABLE_PROT_DIRTY;
+> +	}
+> +
+>  	if (s2fd->nested)
+>  		*prot = adjust_nested_fault_perms(s2fd->nested, *prot);
+> 
+> @@ -2028,7 +2040,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+>  			    void *memcache)
+>  {
+>  	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
+> -	bool writable = prot & KVM_PGTABLE_PROT_W;
+> +	bool dirty = prot & KVM_PGTABLE_PROT_DIRTY;
+>  	struct kvm *kvm = s2fd->vcpu->kvm;
+>  	struct kvm_pgtable *pgt;
+>  	long perm_fault_granule;
+> @@ -2091,7 +2103,11 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+>  	}
+> 
+>  out_unlock:
+> -	kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
+> +	/*
+> +	 * Speculative folio dirtying: W, not DIRTY, per the contract
+> +	 * documented in kvm_release_faultin_page().
+> +	 */
+> +	kvm_release_faultin_page(kvm, s2vi->page, !!ret, prot & KVM_PGTABLE_PROT_W);
+>  	kvm_fault_unlock(kvm);
+> 
+>  	/*
+> @@ -2099,7 +2115,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+>  	 * making sure we adjust the canonical IPA if the mapping size has
+>  	 * been updated (via a THP upgrade, for example).
+>  	 */
+> -	if (writable && !ret) {
+> +	if (dirty && !ret) {
+>  		phys_addr_t ipa = gfn_to_gpa(get_canonical_gfn(s2fd, s2vi));
+>  		ipa &= ~(mapping_size - 1);
+>  		mark_page_dirty_in_slot(kvm, s2fd->memslot, gpa_to_gfn(ipa));
+> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+> index b0cb8d84a9e9..a1251e252b4f 100644
+> --- a/arch/arm64/kvm/ptdump.c
+> +++ b/arch/arm64/kvm/ptdump.c
+> @@ -45,6 +45,12 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
+>  		.set	= "W",
+>  		.clear	= " ",
+>  	},
+> +	{
+> +		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> +		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> +		.set	= "D",
+> +		.clear	= "C",
+> +	},
+>  	{
+>  		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_XN,
+>  		.val	= 0b00UL << __bf_shf(KVM_PTE_LEAF_ATTR_HI_S2_XN),
+> --
+> 2.43.0
+> 
