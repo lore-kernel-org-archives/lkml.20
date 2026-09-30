@@ -1,119 +1,122 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB7E4EC66C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770244F7CD0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:03:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773370; cv=none; b=pTjlHIGQLTDaJKTB+ZpsRkjSGQCf/bTw6bJWFDTgJFuchZxCL9MsSR7bDx1B9/nM5xgBRIqbSaCQJa5X3gpDFTFJGhaUXizcEAlNiXprDSFx6z0up1a0TTAZLBKEey3KyPlUxvlzJ3bJ0ONLDxmCxnnHrZlS7n73P45eefJ5gLM=
+	t=1790773413; cv=none; b=T0oESA4N+kYasCUBeucXGfRenhpbpkvG1N+n4oLsYfyAkLquNXEN9eIZ84i9aBmkTeGNNW4KGpkllobLjhWl48mZ4koGHE1ztGKUfHqqTpO4s9O4JWsslt3ZuJQvPbOEWuOIs9jLhzazxRiyOp9sV822M8D+AHGixCE/mRIthfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773370; c=relaxed/simple;
-	bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UHecKl0jWOXW7K9x7oSj5iNT8XAHMLJwUD19ZgrVZKbYWUDhGOxFG6jcYkvDrU7BaQSWZj/T22cyAetHcL26VaIjMbL1c0sYYO5mWg40VqpEZ0WUbG1V/g+kN3PMSjFHrYtUX4i5Ob2rYBVMUqaHYALUISPF9T3+2Gl6KRWlU5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=FFjCu1pS; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1790773413; c=relaxed/simple;
+	bh=H+DcAKtcxqYbxHPTih+Vv3PnTOLzwij99V2TWd7P1DE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eftqKW7EjEgamTNCiGgKIWifcgDixBFvC5Vb7zrAlCjnFXcjOosXqN0Lf3NxgY9qwQfZahbIU3lAHj80im1ixGrs8PJL+uw0Y+a4HLbteW4IlW85/oiGnHB2WhGEQX8p1eTGb/r+pW5/IvmACx9br0VaCM6Z1y5tk0MlqkmOOHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=MNV4Xz6E; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="FFjCu1pS"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1398994a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:02:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="MNV4Xz6E"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843178b1c8so568967f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:03:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790773357; x=1791378157; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
-        b=FFjCu1pS5KghVbeqHLhwRGNL80kvHmLAsLE8uL0wfFNMxIt7b2CpoAXhMpAn7nmIqG
-         Adnr0tsm8JsHaHcJXTOz3o5J55xZ7DsVCLsbWqgndDkxx+d8Xl0xltlWSkwrZQaFe2vM
-         zcArLaNq0KaXkK3LMn8HlIhdJJ+CETLHsBafcFqd0a09xjNkU1cnnvXsPHN7bD++uwL6
-         GvfrtsP+LRLsaaRve9dVFS5iOt1uL/h9spYBFTxSZhJK7G6FRHjkHXqTznDkm4D1HLMx
-         krpJo+pcyffFOmm68m6RVk15EV7b8t4J41wSjUWM/TTQjBesVtsIJcDlc/K4ebd6EUzi
-         B75Q==
+        d=6wind.com; s=google; t=1790773402; x=1791378202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=babN9DRBy5azMYxvib8SKBkZUslU6O5ONocKKc4sKc0=;
+        b=MNV4Xz6EaMuv65MQ7JfswBlkewKV/SH3bn7+57KAcGCM4b6ycvIVU3dQ/HbSYg0xeY
+         svh1pB1BuZblJ5zblhb7YmW4MrZXqCQhnaoQb+Xr8Qhsb+dmD4lFFiL2szvYtDsFdfPr
+         AsIEXGsvT/gRVMP+tVUCVepsk7//eQq253ZoGEUiY4AgUB0W7cHKr932Td+8JKm9fTAa
+         1Kgg4HxXiJX60ZLZ44b2/i14X4d6A8M7AUdJZcb1Xbhr+echJSg4HrU6ZCDJOEYKzZ1Z
+         9dEoJfC12dbGBEp/m+GJnEGh6o0vJm5uIkp64KH4+pEC94moRP6ttlfwX0Bqv/P7LTYe
+         VQWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790773357; x=1791378157;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
-        b=SNSn8Rs7EUPmkCrveYLrwTYdPFt66vckvFteuRGac0bCZXsh0yNV8DKstF325hiD72
-         /Y4iIx+KkhwLzXAABlwvpVkAOMUM87jN/uUhiBMeaspqklZUwMrMiyTmkoCfAzxNaT+V
-         Mqtqn3R9lzZ9V9VKNy02ufUuOJBJ3/HDek5cnjQbQJ9nAlSFHWp5r+LC3pj3qP7+XVA9
-         rHd17jHOXU83XpaTHkDsKdDStbMfDkIFPULxdkyjZIpUy7VwUR9x5aZV2XtNbd7qt8AJ
-         FOLpWul58oWml61mqPqFORWw0W9BeDYj0f5u1voLCXsqaoroEIbmML65ZKQYkMzvvUlc
-         rmaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwoOF8l0BROd/rNEuhcfCJwgw6lozersJJ3QzqaZZUtIaAQucqyLy1+GS648OBoFtsBjrPPipZaftteXZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUAlIOzdoU7pdO5+Oyv7dQFwtBGYTIX04ZYwytPsZGV3/F3DLz
-	U5ENSFs25jRjy3bT5PCopuTNCDJziCcOhpyosalKdYcups1/VDbOAG8t+Q5wgdibsWt6
-X-Gm-Gg: AYBFou1dxEaS6hWj/CBn0bGoucrpUwd0cvcRW0UBRxVap2ekaqGQZMLUgmf0LD6y29k
-	4yvP8zyXIZvf7r6jM6jxol5jPSsXOXqiyR2XjLg6emw0VwWGjLvwIh1+dIe/YhZHxuBh+zxCNDU
-	0O46iz3LBS3ItQvIZpWSfrZcJcMtMs5XZtaxLHRNJQfoXkELyL9WzivTS5a0imgh1/5ma5RrZpD
-	1fDSHRro1D9r7bChNY0MDfYkfEaYpQF1u7kOztzP3q85PqXDkMyQZOXEb+RB6zcvuFBK+/Ujn2S
-	cgzrzRjrnoNU98Scp9Py1qWAMwBZivWnPuW7YUjaGWqkX/SN6ggUQ1WSOFs/0e2i4TyAaQQ5ENW
-	ZHZUj9PveCuqAmFN90ZNCBx3wqlfYuZ7Wl4lcTTubTPSSqNuvDT+IlcOg6pV/9YCMpbe+Ucm7g2
-	4mCjT/FQ+BfPjE/MRyo6n2hQhaVvHwevQdY4/jrk7aAz0vGhIz9YsqhYMvs6Zf+K6b5bHfJkBMD
-	QBh6vw7
-X-Received: by 2002:a17:90b:5343:b0:3a0:25f0:d89f with SMTP id 98e67ed59e1d1-3a4d18e3b8dmr775583a91.54.1790773356655;
-        Wed, 30 Sep 2026 06:02:36 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab424e8sm853583a12.32.2026.09.30.06.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 06:02:34 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Bastian Germann <bage@debian.org>,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
-Date: Wed, 30 Sep 2026 20:02:21 +0700
-Message-Id: <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927132707.5f484946@posteo.net>
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog> <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog> <20260927132707.5f484946@posteo.net>
+        d=1e100.net; s=20260707; t=1790773402; x=1791378202;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=babN9DRBy5azMYxvib8SKBkZUslU6O5ONocKKc4sKc0=;
+        b=OcEmJ5S5r+56XR2cwZVM0LGUgFPXZNM0DQDw9Lbv34JQ5tZ3ZaQXdWCiM6VjSmSm5W
+         U9yxDG0H9ueXVBlufWbfY7sPIO4dAY5Y73ES5/wY3AY7R6orn4k91cb1jL5iJUmZOTIW
+         3o4nm1Cd0RoPsEVE+EGoAu1JPUzpEo0d+oBdhNd06pCROZcNLMAut4wD6anZIZuTZwPE
+         PIOO8LjWWKDlroTtAhuAAim3HMiFZshpcXnJotM88beQgY9c+DnLRVlG8hjPbtnqm44S
+         l1hJyLc8GYc3lW/raviCs4+hu4V2KesB98d2Nax66GXDfOTOXS53G2lKtWdZOMxDHcyi
+         tEAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwQUmkbboB7pd9FFBY4zkYowMJ40ucYeJX0R6483Y2TmtZ7D6Yx4EGYfN+2atHxIDhJTu/77jZLmUA0YA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+EHu4+JYrem4Lp5Yp70IyrnA4xadCM0Z3l9Sp2seM1K0QB0d6
+	QZYEgrYHIpzDRC8jA/+Vvs3OS/qYyiCdnIS0TQV/0vmEEO13Ms/QRKxlPwc1+m5peLg=
+X-Gm-Gg: AYBFou2uSdHYocoeLMR/810I4WG5ZoUF2FKaGv2psUBiLC/+0mb7L6fEJtSD4obdBMl
+	Ejcv+Hp44HssWFuhUyxaiU3/rYDefarXTiuJWmfRthAI5Jh7f+COy9wVQqDRDjIGYMhFf/LIcJ9
+	Xdsn0VA2r4vmXFun7x/CGkktPFr20gWbiSHAuXkxfo+VH1ZQASIniSjvVGHqCMOGIK/BHyAEwk2
+	X9clcX2S1yxSEMnpNL4j2XZUKgum+GiwQw+E4imYhmMqyaxmjbwbqoPNO3w7nJZDnGzTQMMF0RM
+	l7SGApGEvzlqYurwXewGN3WKuVUiHqFf24MMSFsevO3dDcwWrf0rMtXLlf8qzdjl7LTbyWEBJrX
+	T48I+YLmgvVR1856paJUjQ0GwYg1+CRvsaCJlfTVrIGRdYT9nQ2cRLZOD05DqeqpxcHsQ49LoXx
+	KVf5P2DH+FhxPTWdOoGZHkYNP8hYvOxmYuFUmodfGNJyMHshw8F2cqh6k/l/MtQhU6R8rcupwFP
+	wHtXrlVpXh+KJGZlLUzSeOOsrr233sEG4q8eGFf2E+24DkClt4=
+X-Received: by 2002:a05:6000:18a8:b0:487:342:d145 with SMTP id ffacd0b85a97d-48b0245d2ebmr2617321f8f.2.1790773402155;
+        Wed, 30 Sep 2026 06:03:22 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02a0185asm3461189f8f.32.2026.09.30.06.03.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 06:03:21 -0700 (PDT)
+Message-ID: <235a33c2-7138-4815-820d-793568757d95@6wind.com>
+Date: Wed, 30 Sep 2026 15:03:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next v9 2/6] net: change netdev_hw_addr_list count
+ through helpers
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: Ajay Singh <ajay.kathat@microchip.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+ Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
+ Kees Cook <kees@kernel.org>, Kory Maincent <kory.maincent@bootlin.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
+ <20260930112842.21323-3-sigefriedhyy@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20260930112842.21323-3-sigefriedhyy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Wilken,
+Le 30/09/2026 à 13:28, Yuyang Huang a écrit :
+> The count of a netdev_hw_addr_list is changed in several places of
+> dev_addr_lists.c and a few drivers read it directly. The next patch
+> needs to account every change of the count of dev->mc.
+> 
+> Add __hw_addr_count_add(), __hw_addr_count_inc(), __hw_addr_count_dec()
+> and __hw_addr_count_reset(), use them for every change of the count
+> and rename the field to _count so that a direct write stands out.
+> Readers keep using netdev_hw_addr_list_count() and the netdev_uc_count()
+> and netdev_mc_count() helpers, the few that read the field directly
+> are converted. No functional change.
+> 
+> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 
-> Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
-> the driver in the sun6i_hwspinlock_ids struct, drop
-> "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
-> file accordingly?
-
-Thanks for looking at it. Bjorn hasn't replied yet, so I looked a bit
-more at the naming. I'd like to keep the A31 fallback: it's the usual
-pattern, other blocks in this dtsi do the same (timer, I2S, LED
-controller), and Conor already acked the binding in 2/3. If Bjorn
-prefers a driver entry instead, I'm fine to change it.
-
-> Oh, and I may be able to test it against the D1, I own a Sipeed Nezha.
-
-That would be great. You don't need FreeRTOS for it: I tested with a
-small Linux module that takes each lock and checks the status
-register. I can clean it up for the single-core D1 and send it.
+If you respin a version, you can use netdev_hw_addr_list_count() in
+__hw_addr_list_snapshot() also.
 
 Thanks,
-Tien
+Nicolas
