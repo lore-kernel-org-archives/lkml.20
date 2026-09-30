@@ -1,77 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA6B451980;
-	Wed, 30 Sep 2026 07:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E007E445AFC;
+	Wed, 30 Sep 2026 07:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751844; cv=none; b=fmy964LSo7gZkNdmhkAwRx/+2C7k289P9L3xL4IXHFJoc68xp3NdO/catwK9yWuA3OMZH8vruWE4uBMRawaG1ZWuJW8VUaCU5NP7Ebc4EFVocTaoNMdHttyqiHImdTP7emW4NHQQcmaLla3rsO7FjWl2g6zL6O5W23HBBZDsHLo=
+	t=1790751852; cv=none; b=HCDrlp1b/ofE4KoUae5fdyWhYzEaJ2F4nq3iBfpgrL6c5YK9E+5xAA0znlWveX4ClW/9dBcGT9piWmCS3tGw78HGHsghS+Nz0jS7D24ec3Vt8MQsRwv2BbACwyJaCVSc6zHVe819vN4+OFuYKK/QPafAdz10HP7WViS/Gjdrtvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751844; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r0hbSNBoOBLpYo/8ve+3FiqYwxSA7TRAYduW0464T96R7MaCbXtVerKSBnE+yOlAeCI11AOxGjGbRPfpKDY14JA0Zuw3UIbiempWJfEpDRGyFMbiPwlyzbLzzrTGu4Lv6lY09axI2kVkRz1w5UPjDFfIqDppFU2mfZir+VISNI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESuU3Kha; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESuU3Kha"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4801F000FF;
-	Wed, 30 Sep 2026 07:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790751830;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ESuU3Kha9CwkCEgTOA/6gCYu+o1mhp0SJw0SK+wDues2zrZhw97CFFM+k7/kkNQIZ
-	 peta3pNuoDqhGn6s/G/askT2Y/rp+LCah0NOXwW/T0gkGL8dcQ0a33tPmS+6XjnzRx
-	 BUqPGm08DRGKnYtImlaZ3fSVneo21F8iP2Q/d9Y+tcbm3vUfUgyaX8ua6rzL0yLGn/
-	 8blPL9Hdt1N8u4JzzoVdQBM2/HYy6tGwg8cfS1uSSVm0nSmGxlcJdslhO7nUeuHwYR
-	 eXM4V/y90VNCzpjDxgy1Zlhm31xEHHU117Vr04p80N/E5Wex0o632ybd2lvG6apuPV
-	 MjuwSkRLeMtiA==
-From: netdev-bot+sinfo@kernel.org
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Leto Liu =?utf-8?b?KOWImOa2myk=?= <Leto.Liu@airoha.com>
-Subject: Re: [PATCH net v6] net: airoha: Add retry mechanism to
- airoha_qdma_set_trtcm_param()
-Date: Wed, 30 Sep 2026 07:03:49 +0000
-Message-ID: <179075182973.31693.9923122035627324820@kernel.org>
-In-Reply-To: <20260930065855.46171-1-ansuelsmth@gmail.com>
-References: <20260930065855.46171-1-ansuelsmth@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1790751852; c=relaxed/simple;
+	bh=Cm2/40osqJcIeeBGxlyJWWFCuIFIM+wGPhLTFCkARwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WBsr2pK2WjjXcMTJoWvHuhzcH/tQqvTrjTi8vNMXiOwbH9ds1M1Ni68ReA35nyAZhOtRmKii/56mdlDfBGI5hJjeGcvI8fq6zxniioA0+KQmO+4DNmrY2U0qG3mHJhVcYp9IwjpPg+i3b/38TLOIuYznJa/c3Q6cM0G1d+4Nsfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1388332|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0553599-0.00509708-0.939543;FP=7278710166377978061|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jS1YStn_1790751828;
+Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jS1YStn_1790751828 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 30 Sep 2026 15:03:50 +0800
+Message-ID: <82811325-5386-4956-aff7-56da37d898aa@open-hieco.net>
+Date: Wed, 30 Sep 2026 15:03:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/8] x86/hygon: Map CPU NodeIds to DF nodes
+To: Borislav Petkov <bp@alien8.de>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Pu Wen <puwen@hygon.cn>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Tony Luck <tony.luck@intel.com>, Clemens Ladisch <clemens@ladisch.de>,
+ Guenter Roeck <linux@roeck-us.net>, x86@kernel.org,
+ linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260921055603.25112-1-wanglin@open-hieco.net>
+ <20260921055603.25112-3-wanglin@open-hieco.net>
+ <20260930030004.GGarx7NIIToO-fWAww@fat_crate.local>
+Content-Language: en-US
+From: Lin Wang <wanglin@open-hieco.net>
+In-Reply-To: <20260930030004.GGarx7NIIToO-fWAww@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On 9/30/2026 11:00 AM, Borislav Petkov wrote:
+> arch/x86/include/asm/hygon/node.h:81: * hygon_cpu_to_df_node() - Map CPU to dense DF CDD index
+> arch/x86/include/asm/hygon/node.h:95:int hygon_cpu_to_df_node(unsigned int cpu);
+> arch/x86/include/asm/hygon/node.h:138:static inline int hygon_cpu_to_df_node(unsigned int cpu)
+> arch/x86/kernel/hygon_node.c:586:int hygon_cpu_to_df_node(unsigned int cpu)
+> arch/x86/kernel/hygon_node.c:600:EXPORT_SYMBOL_GPL(hygon_cpu_to_df_node);
+> 
+> So why is this function in a header and exported to no one?
+> 
+> Pls export it only when you need it and until then, keep it in the .c file
+> only.
+Right, there is no caller yet. I'll remove the declaration and stub
+from node.h and the symbol export. I'll keep the translation code
+private to hygon_node.c until a consumer needs it.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Thanks!
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Lin
