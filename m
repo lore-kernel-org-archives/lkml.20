@@ -1,228 +1,234 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010063.outbound.protection.outlook.com [52.101.85.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE80457E7D;
-	Wed, 30 Sep 2026 07:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751633; cv=none; b=cTQvJbmx5Bkmjfe9oxY2L9mALnpQgzkyrVooAe7P5TiMGOCBbLRmo25DhMRv1bGQvl+xNMtmUh7Xhqomay/bkjEk00jUze3OUqAioK3QdDQHotEI/zkpBa6lOLnOMJA35JRbuZdrpkNpONo5JMCBK92MBgcQ2r4wovtyhT1yyW8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751633; c=relaxed/simple;
-	bh=trLXQFtHYQ5ZAwvXSMUt8kTeK7KPe1F8rnyEm70OdBc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A6YosPDxAzL6807OxnF9ioy0X08Lk/vzGAZmhkO447HLlc3PrVsO/K33c87oJOJzQJYMpqwJr1YqObVjTJ0Ak76cdjOGGU4nckB1X8vB047gjOvSB9lJCuaQFaSUnhmdxvnvGs6kRbNKnUt2K8UWauW8rzOkP61Q5D7XK6krf0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Ep++CEmq; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50BF34519B3;
+	Wed, 30 Sep 2026 07:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790751683; cv=fail; b=bXfMhou9LjfaBDTqf5Q7Ikv1fbxlUdpfIBnpvMe5ZUtTSUVaXEWWUK5idGwM2frc+P+QqBalwkbsUoJzk7vswx4KTClDGFEagqCSu+z+yIQhXU5kBGcd8SmqN7Vab2J+YHKWwQQifTxlmwAmmLLEjrBND8f6G06vCjtD0z585h8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790751683; c=relaxed/simple;
+	bh=UzQP+Jz96c9j+bYtxra+S4dF2qGDX8UAv224M4jZ5Ro=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=tWVN0VqK73IxcofHnx2EhvJ7wc6Y7DbqSfjtX6UOKfWuLuYVrpAApHZehrrsotOwud4Qz/+XbxQfKwCHzHG5Fyiifgj2EW6l12BHzFtz/X0t4ho8k9UM28Ve8DH0Ynl97Ol6AKPp2CV+TeRhYMkOBkbQX4lvO5PeyM87OCBGV0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rbLGgK7X; arc=fail smtp.client-ip=52.101.85.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Ep++CEmq"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9a97a15;
-	Wed, 30 Sep 2026 14:59:57 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] block: amiflop: synchronize flush timer before track flush
-Date: Wed, 30 Sep 2026 14:59:51 +0800
-Message-Id: <20260930065951.2932739-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rbLGgK7X"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bVLBec1OPwBnNZl/7T1Bv6fHP+NJYXXYUUMs+thIvIcrcRMiO2MNetxipovL5fbDbYOLIEZYKm3nv5vg+z41X817/1tDTZeRORIzReL/rBGLpYmRXiyjmHEGi6HMdOWa+ugELEtB396JOJUyAJbRdUp9cSN/ZkgIgpH91eXCqTube6yyrrIaiGJp23/e7x5UHLDBXeqjdnoDOGrUPsY+JRsIdSfZ2t3D4wTSwr0T+0Acub3t4hNPNgbl6lBGyd4JSghxLwUCsLGSz8oQO5mOYfutu+QahF0P0NEcyOOiFDn1xA7HI1ECb3ZoNPo1H/csI/nZha+qkTi8KWD/+Weetg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qB0piOv5r+/7ZTofJHn29ryFKE/xXRT5rAL22EWBOLQ=;
+ b=ZBLQa+v5lxWq77K5TwHpxtG+QReOq2A2TEH4DPH73idGhmt7vJaWKJJZPpcQFYIGhjWpXqaFhVvjstvKnE9busitc5XCaQfRg8BX9X5cwioTf0SBhFBBF/LVMzLNRgWIZtZ/wrtzHbdvxqj/322pA1m0HbXiuVAxgjDg30rQ4FHsYM+gs7uD4dOWGj/Xz5hb0DvS9t28FGXNOhXzLShPoHuhiBlc7WygERaxKt+WWA8zuisV/QcV4pBYsjMR5E8BQJHP38q8bXe6nAMBvDR87ZVEuumOIILzsDiN5bXXHJx1bFGOWMpwqKY1MqWgPhj2Yj+Tq8nFbPlBnIALCUf6xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qB0piOv5r+/7ZTofJHn29ryFKE/xXRT5rAL22EWBOLQ=;
+ b=rbLGgK7XTObWDGcBM1Yik99Tx1YVmaEGXcwUA0HEoK96T9HyMlaFAlUxXqzw7DMuFDfccrWV2tre8KWpIeyXeZ3oQ1V6zddOCSloAhXmuxAcc4mBqMjMpKXPoQVdv8RNj/8Q0/3BE1KlyrF5VXO9/WV4o70nx2YuBfssQlrAQVU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB8155.namprd12.prod.outlook.com (2603:10b6:510:2b2::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 07:01:07 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 07:01:05 +0000
+Message-ID: <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+Date: Wed, 30 Sep 2026 09:00:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+ <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260929175737.GK563127@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0415.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d0::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f11ce3aa03a1kunm3d7b0fb226d9c3
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaThpOVkoeSEpIQh0YTElPTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Ep++CEmq9AB3RQYZNT3ZduHjDuR0DwLUdehd8g3DfVoad9Z2Pjg4pYNoKR6Sx3k+Q/ezI1eeZrCFZno2A5rHe9XCC+w7CHhHo+bPYYwdVsu/9pByiEQM6TotkfVPneT6azCtdIb71djT35xyG0m/d4AaQdhx1dDnzfsj66pFMKc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=DQqyLL+SSO/iW0ae41xQdf0MHTe1MePD0M0BuhNBpko=;
-	h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8155:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2b4e980-25fb-46aa-3fbc-08df1ec09886
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|18002099003|22082099003|4143699003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	7MWexdFLvXPnE4eXTCyT5clLgorMWCLYf0TAGTKoBYIQxuckXIYoJgzL3Eu7RMi7tewD67A0J/Iq633iDiFA195BmLM3BkGFcIBGTsLRDTKO94tu8df3U7kbkDslApdaoyiBbIItbTrp/qjMLcGH0j+df9Ox2hY+BlHDZLKbH8b/QWNziDZEwL6rLgWl2zVOf2099e1s3D1Qvy4rjSPSXDdU4YuaP1iEd7mFzy2DMd31VHpKcARtaeofTCD5yNec8KZsjwYTJW9V8G6HemLRHRhwfaJWxmQOLNYUuOUaDAYYM8CDj3F/BSllzPRbbtUJeRxci2Tw0cA3DwOQXZCdQjRZTmmxWPKtRh9CfXDoD90iqZS0RX177l3X7vbtjmJuxrzP5IppjLk9rB0e08PTkVOYoT4QDqWjVGBJBtFfyov35Zx5cCdazaZaVlRk7BXth2wae2Ll446fbxoYdGyyKd3gYybtxPLeeWU+JYe7fKF77RtPjMRl3XvpiUnFuBxzKCu+BkUul4Ubsk4tlN1qEVVgIXBZVE+UhZX+bpQYiBNiTIkDhWksZUYvicthzme7lE5pOwhrEy14hF/97FAkA2lYCKqmIDV/SMp4jRLACVqquuLhNcg/Ij7SKHSIVDzz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SnVsbS9zVUFlMkIwWHZUTWFsdlFKdERmK2JRRGkyeWFlYlFVV09WWWJsT1hJ?=
+ =?utf-8?B?L3lPLzlpYy9Qc3ZoNTQxOXlVY2t5SzkvcWI0Wkh2SWFZRU5oUm03VjZEazZ4?=
+ =?utf-8?B?QU8xR1ZMMzhsc1JNbDRuSEU5M2t5Q1QxWmlPenhIRnEyNU9ZUkRZRjdUb1J3?=
+ =?utf-8?B?dVBpMVRJek42T0FJdHl0WVNXRnJxL0YxdVhVOG1LdURkY2pjOGxLUFJZU3BB?=
+ =?utf-8?B?V0lRbUtldmNwWDd4c0tWNURpeWtnbFljSE03NjAxL2lETWMxZE4raXNVZ0JB?=
+ =?utf-8?B?UWJDSFZCYVRNTGkxMitYdytMUEh6Qk83WUJ5cmhTaWFSNlJDM3Q3eVA4RVZ6?=
+ =?utf-8?B?RlZMelIxWTVLOHNyd0FzSm5LSEEzZ3F2akd3Y2hJN2MrK3pGcE5ScDFuMkpa?=
+ =?utf-8?B?STF3TEdXZzdBT3lleTVtMjkyOUIzT2hmSjJMR2EzVEVvRDlCRFNrVEV3RG5N?=
+ =?utf-8?B?NXhKcjlyRjQyckxNVml6UjhFdjB6NHhCNW02TDZCemNxcHlMNzZzcjVQSVhF?=
+ =?utf-8?B?RVdLODFrWmNLY0hRbEdLWFBFVmJ3djI2YTk2clVYSGQxK0xHcFV4anN0SWFV?=
+ =?utf-8?B?MnorUThuRDhPMFk0T05QRUd0TDFhMGNmcFlNcHB6MnJjTTR2UEJpemlIcWRw?=
+ =?utf-8?B?am9pUy80aDZDM0hxY28yMjI0NFBqaFY3SnpWcTNKZy9TZGNvTU1heGxuYUVo?=
+ =?utf-8?B?Wk43clZIZTE4VGlMQzRiRWE3WVpKWGRQTC91TXRCUllmMzZoTG9yd2h1QlNG?=
+ =?utf-8?B?MTc2MVVmY01SdDc4S3dLL0pIaEdkcmFZNVArcUp4OTlzZ2k0aEpTVkFxSkRw?=
+ =?utf-8?B?Y0ZOMW4rZmFXbndHeDVUeTlrcFVWeU1YNytFa2tqbmZmQkp4Y3NlTzh4Skh5?=
+ =?utf-8?B?YWJJSHZQY3A1M3FMR09UUEFFZ29XeUJHekJLc09SbVVidVJCZTlKRFpnTFY0?=
+ =?utf-8?B?bWlLVFpwRE9MSDNYSUdBTE04VW1iQTN4QXJlSGx4UnFwL1U0aDI0bXZnOWM5?=
+ =?utf-8?B?YzJwQlM1OEJKeXY5eHcrN25WZkphNGtCT1VBUDFtQkE1YmduV1V2Z1VWemZS?=
+ =?utf-8?B?MDN6N0FDYlh2cGNVdFhCWTVodC8zUk5hTGsvVmJhTXZkNjFJZVAwc3JlRGxi?=
+ =?utf-8?B?a1B6OHZTZk9WS0Q1Q08ydklVR0ZvOE9yWEIyU3ZnV0YrRDVRK0ttc0Z5Z1h2?=
+ =?utf-8?B?bXlNQTk1ZU9yaCtINFVvWjNtS1ZYRUdnb0UzdmlPM2V3OFpDdVhTa3Bwa2RS?=
+ =?utf-8?B?SEVORjUrRW41SENURmNpalptcDlpak50OGV1SDR3SDNxZDBqSFBtY3lNcktv?=
+ =?utf-8?B?SGNLdTZjRW4yVTVTNS9wN3g1cE5OZFI0STZ6ZE5qZUpoSkFkVlYvQkhSRHc4?=
+ =?utf-8?B?UDNwVUVUUmRma2wwL3JWNlVmWkVsMVhmRFk0N3ppRHdHRkNWeGFlcFprMktB?=
+ =?utf-8?B?MTJhaDBER0tiM3QyUjhrc3BzUG0wczJYaUxtdEwydWY1SEw1L0xhTWgvc2Na?=
+ =?utf-8?B?WnBWTC9FUnQvbmJwSXQ4cEpIUWs5b2lhS1FWdCt0ZVVCZHdYZGVvV2RYd3Q2?=
+ =?utf-8?B?M29UamgyMk9ZZWlEbWV5N2gxUGlsT0ZpRUtVNzYrL0dUclNDVWdISTBwbVVM?=
+ =?utf-8?B?Wi9DNVNaUVB0Tk5TVlhwcGEvVDZqUU82bjhBQzBpOEpJSHdWUU8xcTVxM3NC?=
+ =?utf-8?B?djBQSWdUL3hodUIvRE9PZUJja3FmU0lpVDR3TFZ4WHI2blNaQXp6SHUxSVEz?=
+ =?utf-8?B?Q3ZpOUl6TnplK2JNMFA2dmJvZkd3TXI1WnRCdGpFNDhvTWlxUkYveHlDSnlz?=
+ =?utf-8?B?RzFCMm9ubTZuS1pxYU1BS2pKMjZvTm5IUURZNXY4NHNJSFVlY1JKTmNYejA0?=
+ =?utf-8?B?SkJtYm54SFI0dGdmdzl2a0xVUm1tQ3hTb0hwdnE3VEVxNFVUNjBWNVRHK2NV?=
+ =?utf-8?B?cFR1M2k4alJnVmFETUs1WFZZZks5ZkpVWFMrenZVM09mTTMzZW9xcWxKSU5w?=
+ =?utf-8?B?dExqOFluQ05WZ3UxdEZRcUJ3Qkw1cEhzdTE0MDdXT3RPM0lQUlZsby9WaFJS?=
+ =?utf-8?B?Q1FqT1hwNldoSThKdUdGOTcvc2U4UDNjMWFqOTY3ZVJHajEwdU85K3ZpSExX?=
+ =?utf-8?B?QjdqbjREYjBOTjVOcWNUNTZWajFTL2tpRGR0WTRMVTlXWnhnbC9HOXlUVldB?=
+ =?utf-8?B?bURjeWhnK3V2aDNiQXYyRy9uZ0pSTjVNZ2FYQ2hlNGh0Y25SK0dnWm81M01H?=
+ =?utf-8?B?TGsxallWa012bHVTRml5aFRDN2xMRFlFY1dyNzA0Z2JURW83MTlyQ3RtV2dR?=
+ =?utf-8?Q?YwcccW+0owr4zzV4kD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2b4e980-25fb-46aa-3fbc-08df1ec09886
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:01:05.3043
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G4ymUtqE/ed5dcrsRWr4f7YFPAUZYU6+68mwAFSAgfyuz/ldpLo2bOBa33nAm8jv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8155
 
-The amiflop track buffer is shared with the timer callback. timer_delete()
-does not wait for an in-flight callback, and that callback can rearm itself
-when it cannot acquire the floppy controller. A synchronous track flush can
-therefore race with the callback.
+On 9/29/26 19:57, Leon Romanovsky wrote:
+> On Tue, Sep 29, 2026 at 03:39:42PM +0200, Christian König wrote:
+>> On 9/29/26 15:23, Leon Romanovsky wrote:
+>>> On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
+>>>> On 9/28/26 13:19, Leon Romanovsky wrote:
+>> ...>>
+>>>>> +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+>>>>
+>>>> This function call here *must* be in the exporter and not the DMA-buf framework.
+>>>>
+>>>> So clear NAK to putting that here.
+>>>
+>>> "Look, it is easy to complain you don't like how it looks, but this
+>>> stuff is hard there are lots of competing concerns, if you have a
+>>> better idea now is a good time to present it."
+>>> https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+>>>
+>>> Do you have a viable solution?
+>>
+>> Ok, that sounds like you haven't understood why I'm rejecting this.
+>>
+>> By moving the calls to pci_p2pdma functions into DMA-buf you bypass the NAK to expose those functions to drivers from the DMA maintainers.
+> 
+> No, you have misunderstood Hellwig's position. His request was to ensure that only
+> subsystems deal with P2P internals. He was perfectly fine with bringing P2P
+> complexity into dma-buf, since it is the agreed-upon mechanism for sharing DMA
+> regions between devices.
 
-Stop the timer before synchronous track writes and use timer_delete_sync()
-to wait for any callback already running. Keep callback rearming disabled
-until the write is complete. Apply this to the FDFMTTRK path as well.
+Thanks for clearing that up, I indeed didn't realized that.
 
-FDFLUSH, FDFMTTRK and close-time flushes run outside the blk-mq
-request callback. Freeze their queues so an in-flight request cannot
-change the shared track buffer while it is encoded and written. Restart
-the timer if a track remains dirty after a failed flush.
+But that is pretty much against my standpoint that I don't want any P2P complexity in DMA-buf.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/block/amiflop.c | 71 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 8 deletions(-)
+> 
+> So this is not a NAK bypass; it is a correct implementation of his request.
+> He handled P2P-related complexity in the block layer.
+> 
+> Let's add Christoph to the thread so he can correct me if I'm wrong.
+> 
+>>
+>> I unfortunately didn't understood that when the dma-buf-mapping.c code was added and just assumed that you just needed a place to put some common code.
+> 
+> That is not correct. Devices A and B share a DMA region via the dma-buf
+> mechanism. Where do you expect the code common to dma-buf to be placed?
 
-diff --git a/drivers/block/amiflop.c b/drivers/block/amiflop.c
-index 2932b6653b6f0..a477ada6b1ef5 100644
---- a/drivers/block/amiflop.c
-+++ b/drivers/block/amiflop.c
-@@ -265,6 +265,8 @@ static struct fd_data_type data_types[] = {
- static struct amiga_floppy_struct unit[FD_MAX_UNITS];
- 
- static struct timer_list flush_track_timer[FD_MAX_UNITS];
-+static DEFINE_SPINLOCK(flush_track_timer_lock);
-+static bool flush_track_timer_stopped[FD_MAX_UNITS];
- static struct timer_list post_write_timer;
- static unsigned long post_write_timer_drive;
- static struct timer_list motor_on_timer;
-@@ -1370,11 +1372,22 @@ static void flush_track_callback(struct timer_list *timer)
- 					sizeof(flush_track_timer[0]);
- 
- 	nr&=3;
-+	spin_lock(&flush_track_timer_lock);
-+	if (flush_track_timer_stopped[nr]) {
-+		spin_unlock(&flush_track_timer_lock);
-+		return;
-+	}
-+	spin_unlock(&flush_track_timer_lock);
-+
- 	writefromint = 1;
- 	if (!try_fdc(nr)) {
- 		/* we might block in an interrupt, so try again later */
--		flush_track_timer[nr].expires = jiffies + 1;
--		add_timer(flush_track_timer + nr);
-+		spin_lock(&flush_track_timer_lock);
-+		if (!flush_track_timer_stopped[nr]) {
-+			flush_track_timer[nr].expires = jiffies + 1;
-+			add_timer(flush_track_timer + nr);
-+		}
-+		spin_unlock(&flush_track_timer_lock);
- 		return;
- 	}
- 	get_fdc(nr);
-@@ -1421,6 +1434,35 @@ static int non_int_flush_track (unsigned long nr)
- 	return 1;
- }
- 
-+static void flush_track_timer_stop(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = true;
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+
-+	timer_delete_sync(flush_track_timer + drive);
-+}
-+
-+static void flush_track_timer_start(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = false;
-+	if (unit[drive].dirty)
-+		mod_timer(flush_track_timer + drive, jiffies + 1);
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+}
-+
-+static void flush_track_timer_sync(unsigned int drive)
-+{
-+	flush_track_timer_stop(drive);
-+	non_int_flush_track(drive);
-+	flush_track_timer_start(drive);
-+}
-+
- static int get_track(int drive, int track)
- {
- 	int error, errcnt;
-@@ -1435,8 +1477,7 @@ static int get_track(int drive, int track)
- 	}
- 
- 	if (unit[drive].dirty == 1) {
--		timer_delete(flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
- 	}
- 	errcnt = 0;
- 	while (errcnt < MAX_ERRORS) {
-@@ -1562,6 +1603,12 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDFMTTRK:
- 		if (param < p->type->tracks * p->type->heads)
- 		{
-+			flush_track_timer_stop(drive);
-+			if (unit[drive].dirty == 1 &&
-+			    !non_int_flush_track(drive)) {
-+				flush_track_timer_start(drive);
-+				return -EIO;
-+			}
- 			get_fdc(drive);
- 			if (fd_seek(drive,param) != 0){
- 				memset(p->trackbuf, FD_FILL_BYTE,
-@@ -1570,6 +1617,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			}
- 			floppy_off(drive);
- 			rel_fdc();
-+			flush_track_timer_start(drive);
- 		}
- 		else
- 			return -EINVAL;
-@@ -1591,8 +1639,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDDEFPRM:
- 		return -EINVAL;
- 	case FDFLUSH: /* unconditionally, even if not needed */
--		timer_delete(flush_track_timer + drive);
--		non_int_flush_track(drive);
-+		flush_track_timer_sync(drive);
- 		break;
- #ifdef RAW_IOCTL
- 	case IOCTL_RAW_TRACK:
-@@ -1611,9 +1658,15 @@ static int fd_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			     unsigned int cmd, unsigned long param)
- {
- 	int ret;
-+	unsigned int memflags = 0;
-+	bool freeze_queue = cmd == FDFMTTRK || cmd == FDFLUSH;
- 
- 	mutex_lock(&amiflop_mutex);
-+	if (freeze_queue)
-+		memflags = blk_mq_freeze_queue(bdev->bd_disk->queue);
- 	ret = fd_locked_ioctl(bdev, mode, cmd, param);
-+	if (freeze_queue)
-+		blk_mq_unfreeze_queue(bdev->bd_disk->queue, memflags);
- 	mutex_unlock(&amiflop_mutex);
- 
- 	return ret;
-@@ -1711,11 +1764,12 @@ static void floppy_release(struct gendisk *disk)
- {
- 	struct amiga_floppy_struct *p = disk->private_data;
- 	int drive = p - unit;
-+	unsigned int memflags;
- 
- 	mutex_lock(&amiflop_mutex);
-+	memflags = blk_mq_freeze_queue(disk->queue);
- 	if (unit[drive].dirty == 1) {
--		timer_delete(flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
- 	}
-   
- 	if (!fd_ref[drive]--) {
-@@ -1725,6 +1779,7 @@ static void floppy_release(struct gendisk *disk)
- #ifdef MODULE
- 	floppy_off (drive);
- #endif
-+	blk_mq_unfreeze_queue(disk->queue, memflags);
- 	mutex_unlock(&amiflop_mutex);
- }
- 
--- 
-2.34.1
+In the DMA layer!
+
+>>
+>> So as long as that NAK from the DMA maintainers to expose the pci_p2p functions to drivers stand I will push hard to get that stuff removed again from DMA-buf as well.
+> 
+> Are you seriously suggesting that every dma-buf driver in the world should
+> have to reimplement this mess?
+
+Well I completely agree that this should probably not be replicated into each exporter, but that is the job of the DMA layer and not DMA-buf.
+
+The purpose of DMA-buf is to exchange DMA addresses between an exporter and one or more importers and handle things like lifetime and synchronization of accesses. 
+
+What the framework should do is to transport the capabilities of the importer to the exporter, e.g. what physical connections we have etc..
+
+What the framework can also do is to have additional information from the exporter to the importer regarding addresses and mappings, for example if they are bus, IOVA or some special internal DMA addresses or how to stitch together your PCIe TLP or whatever.
+
+As long as both the exporter and importer agree on what those values mean I have no problem at all with that.
+
+But how those DMA addresses come to be should *absolutely not* be part of DMA-buf! The complexity of that is seriously not something we should have here.
+
+Regards,
+Christian.
+
+> 
+> Thanks
+> 
+>>
+>> What you try to do here is seriously not ok and I will push back hard on that in the future.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>
+>>
 
