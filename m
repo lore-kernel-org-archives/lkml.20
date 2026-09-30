@@ -1,110 +1,104 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C344FE2F7;
-	Wed, 30 Sep 2026 20:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF9E3E024B;
+	Wed, 30 Sep 2026 20:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800571; cv=none; b=seXe9pkrNigzDROXL/UvuMPRTQFiCs10SQ9Y3xHxbIh+SPETKmK4h/+ua4TFK+WPNVpF6Tjb4MIwyUkuHj1/EFAJm7YDYzVSyAxI3QbCz1swEYEt2f+PHMlu4mSkW8hMoi3O/n/X+6x+/XKIl5usxXg1aJw3ukERMJ/p5YAfyZ0=
+	t=1790800580; cv=none; b=r+N8slp2xveNua0HljuWqrmAnbaxjKce9jvvYB+h6+YYL399eiCoHFHj7kKkyKywuUkAoli9NvHnj6SorWa83oaU89vihmltibJaLElfTRdh5SesYLnNTljGoGb76+mAozH7yJG7JjSe9beiqjIOlZf4jFFvvFVYWh1l+1AqjUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800571; c=relaxed/simple;
-	bh=4qfgB6E/tWi2IIqs1u5twh0chMSpd3QQ65g3KPBxFsM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TbrSO+Cfc+AM+QU6ERcai4eFK3RCO26efjrQaTuyPMYHAXJktsuUM2ACG2Phi1HyZtd7zGSfY2u/jN9h1SKcX+z5K4KNUzIiTFzI2fwjdYJdKhl4XpVGJ6ppLa8taUxq3MZ0erD8avtgAGWG4yPoTkuMWzh8IsAUiSKzJWYb0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Nm5i+8dS; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790800580; c=relaxed/simple;
+	bh=tNlIwn1LrJp3ghtDRtGrFyiIHufjQqCG5nlvEpAP99U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EwTzKIz/Z5RW3s/4lb5OdF255fj1zVyay7U9pR0fe6ICSGlss5sxZo7/tjFwuEyoFjmVJVc9rtU4f7Ja7x5EsbLy5GkZ+ClD/K3JbZ9PFyAwnTMPMZxROlOX3ixxKitQ40p+olYU2W97x9bDk9wzQs2QCYwBCqXj1HEYt3hBm8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0y85Hhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Nm5i+8dS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=HW5z+gJzzTYLIYkL6WwaFQ5hSaSwpHHCI/ikDK9InO8=; b=Nm5i+8dSEIupJUMyxW8O4TL/cF
-	AQnYah2KH4CmUCCmr+TxdNj5f4IfrkmB3N2uvb93q/+k9zdjqb7+ridkheiQ7ikbcvWrQVht+g+QB
-	awvcFAtItfLXGnVbiNyak2Ncq4PaTgpafInu/bO9mgKbYjS0hTNARJrRFafmG7+xuNkdR3c/fMxSk
-	S029TUzNVmVTAxq3KK6h+uSiaTdiKMvB8zFQGQmW76qFTQ6derAdzz6u8KC6mPfqWCK2EAQ8Pq8dK
-	LOgBzj+vVFEMCVwcxZqS3yiM4UC6FIkWDhVeXUd0HtTH5uA8f6u7hA2Ct9URbcNV3aJd3H8h3Olc3
-	wrCeLBcQ==;
-Received: from [151.115.150.205] (port=36968 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xC125-0000000BqhO-2oUJ;
-	Wed, 30 Sep 2026 22:36:03 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet number wrap
-Date: Wed, 30 Sep 2026 20:33:33 +0000
-Message-ID: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0y85Hhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8591F000FF;
+	Wed, 30 Sep 2026 20:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790800577;
+	bh=bHRAUieKFXhe3YwL9l8D5DWxS34JW3k2sR3rMEAAkb0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F0y85HhbKndHM6ps70RRuINjylQnVGM2hdfebHSv/6CjxvNtRc4FbUUkJP2eqLc4A
+	 tu32H1RgdKeYtHgl2L225O9MKgfWpVTo+ZL0aPPqLMZwZFhIWgRl6IZ/4aB+Jk6uV/
+	 ZHNOxkxXbX4L48XSl57cCFJRuHnChZ3hLr8exatLe+DA5d/ASeaGxlyhYMYBPzP7AB
+	 creJi/FDzts3PrtzByL6ZeJNUmDXiY3xwUcMo8Y8+eaidxUALx+ju/zW5zFOj3jVTq
+	 Zx1cT9NoHVsc377+v2G5q7B3NI3rtgLb81ciGfKbXuzC2bN0/XwAvpJsoykdEyhPPg
+	 PdhZOYKIUdqtQ==
+Message-ID: <4bb28c93-f4f2-498a-84e6-96670a336bbe@kernel.org>
+Date: Wed, 30 Sep 2026 22:36:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
+ 15IWC11
+To: Martino Papero <martino.papero@lcb.to.it>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <c0b597b8-e7ad-4fba-a2bb-5d252e3dfbd3@lcb.to.it>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <c0b597b8-e7ad-4fba-a2bb-5d252e3dfbd3@lcb.to.it>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 7bit
 
-When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
-packet number, and after allocating it, MACsec deactivates the
-transmit SA and wraps the next packet number to zero. Packets already
-in flight can still be processed after that.
+Hi,
 
-The first late packet gets packet number zero and is dropped, but
-tx_sa_update_pn() has already advanced the stored counter to one before
-macsec_encrypt() drops it. A second late packet can then be sent with
-packet number one again, reusing the AES-GCM nonce from the start of the
-SA.
+On 30-Sep-26 22:10, Martino Papero wrote:
+> The internal keyboard on the Lenovo IdeaPad Slim 3 15IWC11 (83RR)
+> does not work correctly with the default i8042 settings. Using
+> i8042.nopnp=1 and i8042.dumbkbd=1 restores keyboard input, but prevents
+> the Caps Lock LED from working. Using i8042.nopnp=1 alone does not fix
+> the keyboard.
+> 
+> The laptop works correctly when atkbd_deactivate_fixup is used instead.
+> Add a DMI quirk for the 83RR to enable it.
+> 
+> This was tested without any i8042 command-line parameters. Keyboard
+> input and the Caps Lock LED work correctly, including after suspend
+> and resume and after a cold boot.
+> 
+> Link: https://lore.kernel.org/all/4f43465f-98ba-4722-8e29-03df20315369@kernel.org/
+> Signed-off-by: Martino Papero <martino.papero@lcb.to.it>
 
-Keep next_pn at zero after wrap so all late packets are dropped.
+Thanks, patch looks good to me:
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/net/macsec.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 78a19b134632..233391acebb0 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -486,6 +486,9 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 	spin_lock_bh(&tx_sa->lock);
- 
- 	pn = tx_sa->next_pn_halves;
-+	if (unlikely(pn.full64 == 0))
-+		goto out;
-+
- 	if (secy->xpn)
- 		tx_sa->next_pn++;
- 	else
-@@ -493,6 +496,8 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 
- 	if (tx_sa->next_pn == 0)
- 		__macsec_pn_wrapped(secy, tx_sa);
-+
-+out:
- 	spin_unlock_bh(&tx_sa->lock);
- 
- 	return pn;
--- 
-2.47.3
+Regards,
+
+Hans
+
+
+> ---
+>  drivers/input/keyboard/atkbd.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+> index 93650c982..b5ee5697a 100644
+> --- a/drivers/input/keyboard/atkbd.c
+> +++ b/drivers/input/keyboard/atkbd.c
+> @@ -1938,6 +1938,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
+>  		},
+>  		.callback = atkbd_deactivate_fixup,
+>  	},
+> +	{
+> +		/* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
+> +		},
+> +		.callback = atkbd_deactivate_fixup,
+> +	},
+>  	{
+>  		/* Xiaomi Book Pro 14 (TM2424) */
+>  		.matches = {
+> 
+> base-commit: 551c722f40809618230001baccf219193e22fc5a
 
