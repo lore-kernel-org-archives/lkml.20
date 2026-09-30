@@ -1,119 +1,107 @@
-Received: from cvsmtppost21.nm.naver.com (cvsmtppost21.nm.naver.com [114.111.35.34])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC875353A72
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DE13921CE;
+	Wed, 30 Sep 2026 04:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790741896; cv=none; b=lvuP241lPmSSbG0eaM+08hibLqg7i2GzNpLCPU1gRJk7vqh+tBy5fmxHievPigVHB+3OJcrJiCk6Ub2OJbZZMXMd8fshOezJ9JLi42/TN3wEGdFXmgZg5Zdn2j6tIFm+NZDLLfqU3zIC8YTCToIXmnEb0pafA/CWKrvD79PjwsI=
+	t=1790741964; cv=none; b=EKMFOyvsaLmuYE5hAwyMQUNdTJSmg535cQ4X6hJQzGUGWiUooVCnkmo9O7RgtKKhIqhhV8X6TRpPrK/QXbli6mk5EDnGs9yU9RCYY+NpwARHENAxHROhX4LzJTn9uujIjaULMvbwx8dMQeZ6FatddwefUPa5RYodgK827an2KOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790741896; c=relaxed/simple;
-	bh=ZjTG9yNUbRoiE0GdcobNdfLoGv9hmanVKYDsL9+gTPw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZH3Utg5WK+kcxs3+KogvzjkDIFEudSxfyvjIMveOqNu2G258ENSTuh1qqkb4G4HFRgMjuumfB3hFzUGz6ZllKrfV68cH1i/QagqhSRGWx2KiYQ/P+W7u8QHd+kHar94ukfGb2LOYX1pVOSHADLD0t84mTcswn4fdGEzUHSPVgkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=tMholKOF; arc=none smtp.client-ip=114.111.35.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1790741964; c=relaxed/simple;
+	bh=W6oTjCqB7b/JzMZQ5GPKFWJ3siqJQajSbxgWS5eQuwM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eei7oJmRlHbmugtRtRM1jBn9ucqvTNmp4umMrsXd8VZyZh5wh3Wow+Tnsfjd60+dZUOz0llyDQUYqarYcSY3mNq7vLaLY/ALJBOsFisCDAJXDg/vpqcXMrTSctKKB0VdqcM0Ux9Kp8RfBH6lqeO8D+kYEomyid3BVs2l9AjbebM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=bZkj6nfp; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="tMholKOF"
-Received: from cvsendbo034.nm ([10.112.20.50])
-  by cvsmtppost21.nm.naver.com with ESMTP id HPbVgZn9RYehAcjrm-DFSg
-  for <linux-kernel@vger.kernel.org>;
-  Wed, 30 Sep 2026 04:18:12 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1790741892; bh=ZjTG9yNUbRoiE0GdcobNdfLoGv9hmanVKYDsL9+gTPw=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=tMholKOFmOVQRy8r/mhwYyDoYf1AlHZBDgQ2N0RlDj2o+KMJSl/QVgRhyKWKHqU5m
-	 C2xR87m7GrWVoeZmB9rGBDCJCt22gw/p6tjA7w6JA+XPvYe27eR0PoZ02pk/NTixvC
-	 w1qguOoshfje4T5AwOLUI2Gw2fcGF17T+toBsFjnvtDKjeU0MZfNDJd139TcLmb2nF
-	 vgjDsA8fUNI8fxzUswqkA+BIqoggRTHnA+M2e7Khf2XbbvSK/uPKxJhp5SmHIB6hro
-	 K3FzMOprt3lVaMuZsIDbxFmIklnc0I60zfV3XmMYFthdlma5LffTJMCortrxMxGcUW
-	 Pkrnyvcdu63Ew==
-X-Session-ID: ns4qJ9EHSLqO6AP88x0C4g
-X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKBm9jAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: /dYmFqglFqJZ+Hmwaxtl+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by mvnsmtp03.nm.naver.com with ESMTP id ns4qJ9EHSLqO6AP88x0C4g
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Wed, 30 Sep 2026 04:18:11 -0000
-From: tjdqudcks0424@naver.com
-To: jarkko@kernel.org,
-	dhowells@redhat.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=EC=84=B1=EB=B3=91=EC=B0=AC?= <tjdqudcks0424@naver.com>
-Subject: [PATCH] KEYS: Fix add_key() race with keyring restriction
-Date: Wed, 30 Sep 2026 13:18:01 +0900
-Message-ID: <20260930041802.6114-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="bZkj6nfp"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 60DEA106E14;
+	Wed, 30 Sep 2026 06:19:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790741949;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=gqTJHUz7tHNAEycDuNrzBNgDUuLLCrtcBiT40+X0peM=;
+	b=bZkj6nfp8TaAHjFmXc+7PiYudfAKcHMYPf14BM93GeSkydWtQ+ULnDv2MsK/zPswhrMYuI
+	DXyy99PIxruV3/vu7bTmCj72DnLZt/LIuZlyaOt3HutDZqHBw/oY2P0k4x36ExRHS4UUoQ
+	M+RAGzxJYQE2Zl4gRymvlObp5hzMqzkgxzEWI4G5OGnKrhnrKt456fNVeU+QEvXOzsYxtl
+	Ue5pbjNbJK8GG2IfQUGX/3UuKpcWDqcVM5dqnkDFztwxksJhpdBSeEMkl9HWobvVhOisb2
+	IFvYLULOwFHOSAizMNXOPxbkxDxwx3faZGz93CSlh6KtxqxjpMMJyQJieW8W6g==
+Message-ID: <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+Date: Wed, 30 Sep 2026 06:19:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+To: Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+References: <20260924180607.60932-1-marex@nabladev.com>
+ <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: 성병찬 <tjdqudcks0424@naver.com>
+On 9/30/26 5:40 AM, Wei Fang wrote:
+> Sorry, this email was missed because it did not match the filtering rules I set.
 
-__key_create_or_update() snapshots keyring->restrict_link before taking
-the destination keyring's semaphore.  keyring_restrict() installs a
-restriction while holding that semaphore.
+No worries.
 
-This allows a writer to observe no restriction, wait for the keyring
-owner to install a reject-all restriction and return successfully, and
-then link a key using the stale NULL snapshot.  The writer only needs
-write permission on the destination keyring.
+> Hi Valdimir and Claudiu,
+> 
+> Please take a look at this patch, it may affect LS1028A and S32N7 platforms.
+> 
+>> The current eMDIO MDC rate is 558 kHz on i.MX95 B0. This is very low,
+> 
+> The system clock of i.MX95 NETC is 333MHz, AFAIU, the MDC rate should be
+> 333/(2*258+1) = 644KHz. I'm confused that why you said the rate is 558KHz.
 
-Move the restrict_link read after __key_link_lock() and
-__key_link_begin().  The read and the subsequent restriction check are
-then serialized with restriction installation by keyring->sem.
+That is what I observe on a scope on local MX95 board (not the EVK).
 
-The race was reproduced on v7.2.8 in 19 executions where restriction
-installation returned before the link completed.  All 19 linked the key
-despite the reject-all restriction.  With this change, 312 executions
-reached the same ordering and every add_key() call failed with -EPERM.
+>> but also very compatible. However, for example NXP TJA1120 PHY needs
+>> at minimum 1 MHz MDC clock and 558 kHz does not work with that PHY.
+> 
+> We previously used the TJA1120-SDBR daughter card to connect to the ENETC
+> interface (RGMII) of the i.MX95 19x19 EVK board. However, we did not encounter
+> any issues with MDIO access.
 
-The issue was found by manual concurrency analysis assisted by AI-based
-analysis and independently verified with a QEMU reproducer and kernel
-instrumentation.
+Most PHYs are fine with the low frequency.
 
-Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")
-Cc: stable@vger.kernel.org
-Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
----
- security/keys/key.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> Furthermore, I did not see a minimum MDC
+> frequency rate of 1MHz on the TJA1120 datasheet. I'm not sure if this is an errata
+> of TJA1120.
 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index b34a64d81d47..a438c4508595 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -840,9 +840,6 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 
- 	key_check(keyring);
- 
--	if (!(flags & KEY_ALLOC_BYPASS_RESTRICTION))
--		restrict_link = keyring->restrict_link;
--
- 	key_ref = ERR_PTR(-ENOTDIR);
- 	if (keyring->type != &key_type_keyring)
- 		goto error_put_type;
-@@ -880,6 +877,9 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 		goto error_link_end;
- 	}
- 
-+	if (!(flags & KEY_ALLOC_BYPASS_RESTRICTION))
-+		restrict_link = keyring->restrict_link;
-+
- 	if (restrict_link && restrict_link->check) {
- 		ret = restrict_link->check(keyring, index_key.type,
- 					   &prep.payload, restrict_link->key);
+The TJA1120 RM is not public, but look at its predecessor:
 
-base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
--- 
-2.43.0
+https://www.nxp.com/docs/en/data-sheet/TJA1101B.pdf
 
+Page 46 bottom
+Table 37. Dynamic characteristics...continued
+Tclk(MDC) MDC ... clock period ... Min 400 ns
+
+400ns ~= 2.5 MHz .
+
+>> As a minimum change, increase the MDC clock to 2.5 MHz which matches
+> 
+> The prerequisite is that NETC system clock is 333MHz, so that you can get a
+> MDC clock rate of 2.5MHz (333/(2*66 + 1)). But unfortunately, not all NETC
+> versions have a 333MHz system clock. For example, LS1028A is 400MHz, so
+> the MDC rate will be 3MHz, which will be a problem.
+Yes, this is my concern.
+
+Are those clock which feed MDC clock available via clock framework on LS 
+? If so, we could calculate the divider based on those clock.
