@@ -1,104 +1,85 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD7B1E1A3D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 243871E1A3D;
+	Wed, 30 Sep 2026 01:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730309; cv=none; b=dAlJQ+JYmVXXR/czfqfX7p5fVsYOCHcoKZ/33+6hIVRdI8ZbeTfTtTGUVKatNZzIfNVlcYtqoaSdN364am6W4PPWElosFqmDebeQsJGPxE2uQRmWYyzll7Q4cAb+TdqAeWIL3Lrm5hv6finUJyyNCjKH8DdixA1cfCXiA07b6vA=
+	t=1790730412; cv=none; b=COpKfj3VLDXdytHiQRqs333TiKZY7LMoEI9CKXsS7ZNj6OVAG0oDw5/2q4h5OyKQ/hMLmoCVfDgGC5LmT9/RAijAwaoo21/tJhIPDy7xd8QRA6QijgfY32UQAtCG6FrSp0krGHDWLcfBtJqRmj1rrwCdXEu0coDubSMgVxOX3Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730309; c=relaxed/simple;
-	bh=h8oQ2vtatOWugNQ2m73cbra59VtykLLACLyn4sPqM2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tDcJ437R6/P+eZiS3POOHQNF5d/P9jLel12ApzX2RSWESZM70xHZLqmRioB4MBfTFg3s+b8yvG6vrRHq2b9UPU/7ab6pjMdre6gEi9CH1+5ArGRpvoewo0HG7TN3kY/fwd7RjTLCrQ1bL0KHGC3Uk3Lss+NIwc19f81evWKfDvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XsFuEvxl; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790730412; c=relaxed/simple;
+	bh=uapeVomnLxNxJLHUaPzS6XmUPUbQYfYIGHZE0ZTcqYo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IxeqhqaYCws9F7Z49S1balvn7+ziKTabW/IjQQ/A6uYJY67fPTCXUmncgqEM5vAwGobEZVzt0+UKnkJDQVeQEiaS5GNjQxIYKqPlXLN3GQ//Fi68dMdPbOvIwSqosFIrdyY6jVotUgwpZf4ufbUBANPKKK8JglY9d+joeOBy0uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=L/uwWo7Y; arc=none smtp.client-ip=220.181.50.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XsFuEvxl"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so1956483e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:05:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790730307; x=1791335107; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TMQZqq6NsGW7r3Ya7TEGt/n6qCY2JjVoUUL1F7Si3Zc=;
-        b=XsFuEvxlWBY5Osy1yk9wRvbymO2T/xa+23zOmxMX184f+1oJX+dVLXnwdgL97fGCZd
-         qhte+zRQRPos3DrVOQFuqCr4YRK6meL80afhidVub/RzLjSrHJuDOt2cdcH/bcEC5SxT
-         ABOAivb4y0uqYEmrP2crnhEpNPabIzHV+p1TKSg4whzBw1fucc0t+MAE2jMpBB+PlirL
-         dmWaK6GiyslLAQ81PCWSyxz4Bhmvx/Tl7VB2xEDNmvDVnyNWywvGxkfF15/S3bYzSx7m
-         bI08fQIamwKI7VX1GqkZ80HgAvv6j3gN45kHytfgk68Vir9DsBMiIXxN+cGFFyKIMZ7f
-         U1Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730307; x=1791335107;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TMQZqq6NsGW7r3Ya7TEGt/n6qCY2JjVoUUL1F7Si3Zc=;
-        b=2oCcz4Qrq6prSpqU5UMWUrae62aNL1zk5LCe07nnFNSWHMXL170r2gfz2UXhxnMH06
-         wlkKQ8q57xBCIqMYeQzndTwUv09Zg4ix5ysvMzlpWxAycfArP7vlIotZrqhpxwEM8qrb
-         MIJjJA7UJ9J1eIlOAL56Q7qqZW/ci+/vvY8bxyag4V79pRFIoZDutcHr/yCRsQNdaiQ0
-         5ApCR5ad1omc5p2s2aqxKyYeFpNocrrkenqadRdQ97islXk3oEec0TOsLOzKWXuu2svz
-         Q6G+ykwdRd68dUo4CEWohFkm4i0Qi70rKUTx4PHzApQ6MBKwd0iLCouqwvu54+VaAd8m
-         +GMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkhpe7P7EwkDf47xn2Gent1tjIODSy+qqdo/MZDXyF4jEu1rasmZm1bJruFX/B8kuRWsMJ1SCWpsn1QpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuM2rD4q+PsOeoy8zXgjCBoOByw/0J0XNWR3gR232G+PwuRTH/
-	+bJCwVF7kHK78N9kuFZBuXAoaQDcKTZLxR+sTyBOWzwgwLWP37mrSEZZvT6wARpH
-X-Gm-Gg: AYBFou3hWHLWuvmQrxm9QQzCPuJXRkVrTRr6EHt0omKqFjz43R691gpos2CC39FeBvj
-	LzbcNDvJZZioSX05ZC627ipaFSDmyHRJSLwLSGJ+cswyTlZ0Cy/+WE9nhki+MhAZ+bv3D8h1ykc
-	LFNIuC6SLhJN3Ve40J+fD+8P/cNLYBCYBMNIcam23NCv7qfnOdaKxuD1FFJkZcX9sd8jzqcIwPp
-	Dt8E85Z3k8fOjVnEUJIN5XUlbkeqUT16UEqS/5fpYrOvMznLwWb9ooKfqKZOlWT3D1vVehPNzFX
-	e5bmKfSJSZN2UcGm0f2t7QKRHurhiVx4D4Cw5sCJ1zkdSvGXFwxGjIBSXeydo+ylbadyWuiMl7U
-	Q64pcWI8Z1UlZyrMBnmVIAc3ll2If0fxGloNhh2EVVrj/o+YPV750fIiu/pDFFWNu4v60UOEYJB
-	oE9aKXnnbhDuvfzlNkpO3yIPV+AePN3EENrY/CXYooKkmuohNYEAQX4VQwOL0z0YWpuudc5Dz/1
-	f8fp2B+nUD4201oM9kmZiwIJYlzDTINBcZd0CYkRQDNRDacAN99G4OaeO6D9jyxQQwlD9omRY17
-	ZZOXa2hs
-X-Received: by 2002:a67:e045:0:b0:7a1:f7d2:e84b with SMTP id ada2fe7eead31-7bc48eff358mr258529137.27.1790730306667;
-        Tue, 29 Sep 2026 18:05:06 -0700 (PDT)
-Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.53])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-988d2a0a645sm1184024241.5.2026.09.29.18.05.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 18:05:06 -0700 (PDT)
-Date: Tue, 29 Sep 2026 21:05:04 -0400
-From: Frank van de Pol <fvdpol@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, corbet@lwn.net, khan@linuxfoundation.org, 
-	rdunlap@infradead.org, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/1] ALSA: usb: Add support for Reloop Jockey 3 DJ
- controllers
-Message-ID: <2ja7iapaq4aecpz2iem2c4e5aowcm5fjigjqrvbvtvqhyr7bpi@urmbkvhr47rk>
-References: <20260925021915.78909-1-fvdpol@gmail.com>
- <875wzp4a3i.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="L/uwWo7Y"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Eli
+ Cohen <eli@dev.mellanox.co.il>, Roland Dreier <roland@purestorage.com>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH v2] RDMA/mlx5: Fix destination index when resizing a CQ
+Date: Wed, 30 Sep 2026 09:06:30 +0800
+Message-ID: <20260930010630.2797-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <875wzp4a3i.wl-tiwai@suse.de>
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc12.internal.baidu.com (172.31.3.22) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1790730400;
+	bh=40if35n6NlVqKY9auMBmOLh12IWT5zUWspmcFV67IMM=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=L/uwWo7YnRd3YUxoEhnJ4GvsgoLrXOjkptiHrMBNtRgfcM1Fwxybt1IzJFtk/+i4y
+	 09W/47VNZghmyHSzFhGKdKNAak1aptb3Op/CMU/k0fyEQKBxk9YHuyhP2OSGG2wL9h
+	 b2vpDMLurQlN/QymZZIfN+YVrt6ff1jBY4D4PFOj4YQKWWrPexT1050j5vGieldmPs
+	 +Mk+iFd3YOTPxuavCzonj8kKjQ+/Krz7qLY2AtCfwLflyJ0xB0zkMFzNdkc+AOuCoo
+	 jYMlBdiAyMn/oZo55idkgLj0HQfQyfkykC4f+QOBy6+byOWvwe1evbpD5wma79Tj0f
+	 4Midpk/+D5kIA==
 
-On Mon, Sep 28, 2026 at 06:25:05PM +0200, Takashi Iwai wrote:
-> 
-> Thanks for the update.  I think overall the code would be OK, but
-> the problem is that it's a way too big single patch to digest.
-> 
-> Could you try to instruct LLM for splitting logically for easier
-> reviews?  It could be like starting with the core probe skeleton,
-> polytec core stuff, basic PCM loops, the mixer support, the MIDI
-> support, kunit, documentation, something else I forgot, etc.
->
+From: Li RongQing <lirongqing@baidu.com>
 
-Thanks Takashi,
+copy_resize_cqes() uses the absolute consumer index to copy pending
+CQEs into the resized CQ buffer. The destination slot must wrap at
+resize_buf->nent, but the code applies a bitwise AND with nent itself.
 
-That makes sense.  I'm not sure I'd trust the LLM to do that splitting by
-itself, but I can see a couple of large-chuncks that could be separated out
-as individual patches in a patch-set while maintaining a "buildable" driver.
+CQ sizes are rounded up to a power of two, so nent has only one bit
+set. Masking with nent therefore produces either zero or nent instead
+of an index in the range [0, nent). When it produces nent,
+mlx5_frag_buf_get_wqe() accesses one entry beyond the resized CQ buffer
+and the following memcpy() can corrupt memory.
 
-Will also simplify the "Assisted-by tag" as per your recommendation.
+Use modulo nent to calculate the destination slot and keep it within
+the resized CQ.
 
-Thanks,
-Frank.
+Fixes: bde51583f49b ("IB/mlx5: Add support for resize CQ")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+Diff with v1: replace & with %
+
+ drivers/infiniband/hw/mlx5/cq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
+index dc457fa..fc4ee1c 100644
+--- a/drivers/infiniband/hw/mlx5/cq.c
++++ b/drivers/infiniband/hw/mlx5/cq.c
+@@ -1319,7 +1319,7 @@ static int copy_resize_cqes(struct mlx5_ib_cq *cq)
+ 
+ 	while (get_cqe_opcode(scqe64) != MLX5_CQE_RESIZE_CQ) {
+ 		dcqe = mlx5_frag_buf_get_wqe(&cq->resize_buf->fbc,
+-					     (i + 1) & cq->resize_buf->nent);
++					     (i + 1) % cq->resize_buf->nent);
+ 		dcqe64 = dsize == 64 ? dcqe : dcqe + 64;
+ 		sw_own = sw_ownership_bit(i + 1, cq->resize_buf->nent);
+ 		memcpy(dcqe, scqe, dsize);
+-- 
+2.9.4
+
