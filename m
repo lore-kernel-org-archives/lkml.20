@@ -1,208 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027174FDE62;
-	Wed, 30 Sep 2026 15:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D9B4C10DD;
+	Wed, 30 Sep 2026 15:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782898; cv=none; b=l+YdpSrzmXMb+qJ27odog7hQwRIGT1ZP7s6NouFb54uO8P6Am8IjtfNa69VmHvzDWceHK0ERUQ9qkJedDfHlOVdjNtEu7a1BqLm9IoJrq84biEn9WXUTr6OrGw3BXX3CjRwfW6MPeVjEGzyY9abVzMFxFeRQhSHALVvBns72+rU=
+	t=1790782977; cv=none; b=tvEkNB3iuaI6bnrulvX+0mrx74XBVvllUvyIllazkvq7qGOVa+rBSvotahBJBo+7W0Rgp/kSPssF9PbxrL7MJwX59Y6cXU0MG20ZpHAZmDNlt3mhbTWsiSSbaRICx84gVUdPBDk/nRpZCXJN2fYteoJG+0+Denb3OnIlnt4tvB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782898; c=relaxed/simple;
-	bh=d07y4AH12Gb7L+Toaji4x96CQYlqmUb+XYLYmokP/w8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kdaw+bfHvGtEDEDnN8n53h6rEGRRxuHt0yLXoTbl78GDrLOZ8IOGtmT/sNIKb1lNmR7Bg6Qfe4PT3JWTiQkMXfVEcHRwFnJ1QlWHMMXN48MPGHuuFAkBN8IGsGihS5JTRfaIEXAmNPFcMHtp6d6MU9mIHwX1gjzjVzEKjpT9mcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJRi3bpS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790782977; c=relaxed/simple;
+	bh=X+MS5SRZwgMqqOOLs6CQlGLCMoIYnACDuOXrQeMDXC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GzMEUGdtlBz6mHc+WBFEe0tCbz8x/ibebotUQcSkREPNfaQN5C2kbJkkV/JtMX28+680CQA+tbPgqivWqJyZi9M4vuY6KEMbhOJjjgMtgLSszbYnxHEP/+uCj8S02dlwZkUhIb3yPFMk2iF0IlGluF3myiuImxWM6JJUdIjCm2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FA0Un4in; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJRi3bpS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7543E1F0089B;
-	Wed, 30 Sep 2026 15:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790782890;
-	bh=cx/7cpTOyS/9/r2l8q+jaZmiaiNVBtIMxCNWDxZTieY=;
-	h=From:To:Cc:Subject:Date;
-	b=GJRi3bpS409d12xQAjhAgAbhr1WYna/6pgncF8YPWpwBN6Jdhi6x5/pObuTOpL7in
-	 m+JC2kEZaXaBeeX8SEV6aYC+JDGXjcm8J/EZZ74WvtOAs1eS/I9sMxjMPKvLXsj7Qn
-	 cM9ggXp2wmhk88FTkTijbug2ALNtW/X6gnjkpL+VinqUFLdvzIFeinVrvu/q5QRbe1
-	 7EgScxq7iQdXi9pwA83ZSHy5U5/EUFbggUIbGaLvkyYHkIPjb6uE/oAYMYmbIRQhNn
-	 A9JlrSTIf4ru6tlFUJ1kTxdMQJMQ3kWrLxbZ1HZb13l56ZiHQhCj8fXA/6ho9fld5m
-	 9oLKK6HwMgORg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2] rust: sync: Accept errors for Lock payload data
-Date: Wed, 30 Sep 2026 17:41:02 +0200
-Message-ID: <20260930154101.1885705-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FA0Un4in"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C53C3593;
+	Wed, 30 Sep 2026 17:40:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790782858;
+	bh=X+MS5SRZwgMqqOOLs6CQlGLCMoIYnACDuOXrQeMDXC4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FA0Un4inhbFbu6GOt8x7le4ULXIDAkkKBYNnGAP2PMBO0+F7Viq4F9qsQaYe9/f7d
+	 LqZqCHAtz2qLmkqswTzJekY3uKuqJH62Zo9WgMSTJv6TmW3JmTjewosHK5CwtHBQen
+	 4mDC6sYuW7YTl+9LH2Rogta5fp7M9cMJY6eG0fAM=
+Date: Wed, 30 Sep 2026 17:42:47 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: fail power-on when safe stop times out
+Message-ID: <ar0t2x3M-4-CNOU0@zed>
+References: <20260830134609.9886-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260830134609.9886-1-pengpeng@iscas.ac.cn>
 
-The `Lock` baseclass currently does not allow for fallible user-data.
-This can cause conflicts when used with other primitives, for example
-when a lock shall be pin-initialized with payload data that is fallible.
+Hello Pengpeng
 
-Add support for the lock base class so that it works with
-try_pin_init!(). Adjust spinlock and mutex accordingly.
+On Sun, Aug 30, 2026 at 09:46:09PM +0800, Pengpeng Hou wrote:
+> The power-on path requests safe stop to establish a non-streaming state but
+> ignores the polling result and publishes runtime resume success.
+>
+> Power the block back off and propagate a safe-stop timeout.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Changes in v2:
-  - Don't import prelude in doctests. (Gary)
-  - Keep using pin_init! over try_pin_init! in Lock::new(). (Gary)
----
- rust/kernel/sync/lock.rs          | 19 +++++++++++++------
- rust/kernel/sync/lock/mutex.rs    |  6 +++---
- rust/kernel/sync/lock/spinlock.rs | 17 +++++++----------
- 3 files changed, 23 insertions(+), 19 deletions(-)
+I'll add
+Cc: stable@vger.kernel.org
 
-diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
-index 10b6b5e9b024..5467f1d1af55 100644
---- a/rust/kernel/sync/lock.rs
-+++ b/rust/kernel/sync/lock.rs
-@@ -7,11 +7,13 @@
- 
- use super::LockClassKey;
- use crate::{
--    str::{CStr, CStrExt as _},
-+    str::CStr,
-     types::{NotThreadSafe, Opaque, ScopeGuard},
- };
- use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
--use pin_init::{pin_data, pin_init, PinInit, Wrapper};
-+use pin_init::{pin_data, PinInit, Wrapper};
-+
-+use kernel::prelude::*;
- 
- pub mod mutex;
- pub mod spinlock;
-@@ -126,13 +128,18 @@ unsafe impl<T: ?Sized + Send, B: Backend> Send for Lock<T, B> {}
- // data it protects is `Send`.
- unsafe impl<T: ?Sized + Send, B: Backend> Sync for Lock<T, B> {}
- 
-+use core::convert::Infallible;
-+
- impl<T, B: Backend> Lock<T, B> {
-     /// Constructs a new lock initialiser.
--    pub fn new(
--        t: impl PinInit<T>,
-+    pub fn new<E>(
-+        t: impl PinInit<T, E>,
-         name: &'static CStr,
-         key: Pin<&'static LockClassKey>,
--    ) -> impl PinInit<Self> {
-+    ) -> impl PinInit<Self, E>
-+    where
-+        E: From<Infallible>,
-+    {
-         pin_init!(Self {
-             data <- UnsafeCell::pin_init(t),
-             _pin: PhantomPinned,
-@@ -141,7 +148,7 @@ pub fn new(
-             state <- Opaque::ffi_init(|slot| unsafe {
-                 B::init(slot, name.as_char_ptr(), key.as_ptr())
-             }),
--        })
-+        }? E)
-     }
- }
- 
-diff --git a/rust/kernel/sync/lock/mutex.rs b/rust/kernel/sync/lock/mutex.rs
-index cda0203efefb..38d8fb9dad5d 100644
---- a/rust/kernel/sync/lock/mutex.rs
-+++ b/rust/kernel/sync/lock/mutex.rs
-@@ -49,8 +49,8 @@ macro_rules! new_mutex {
- /// }
- ///
- /// impl Example {
--///     fn new() -> impl PinInit<Self> {
--///         pin_init!(Self {
-+///     fn new() -> impl PinInit<Self, Error> {
-+///         try_pin_init!(Self {
- ///             c: 10,
- ///             d <- new_mutex!(Inner { a: 20, b: 30 }),
- ///         })
-@@ -58,7 +58,7 @@ macro_rules! new_mutex {
- /// }
- ///
- /// // Allocate a boxed `Example`.
--/// let e = KBox::pin_init(Example::new(), GFP_KERNEL)?;
-+/// let e = KBox::try_pin_init(Example::new(), GFP_KERNEL)?;
- /// assert_eq!(e.c, 10);
- /// assert_eq!(e.d.lock().a, 20);
- /// assert_eq!(e.d.lock().b, 30);
-diff --git a/rust/kernel/sync/lock/spinlock.rs b/rust/kernel/sync/lock/spinlock.rs
-index aafc80125f59..222443fa1c6c 100644
---- a/rust/kernel/sync/lock/spinlock.rs
-+++ b/rust/kernel/sync/lock/spinlock.rs
-@@ -4,10 +4,7 @@
- //!
- //! This module allows Rust code to use the kernel's `spinlock_t`.
- use super::*;
--use crate::{
--    interrupt::LocalInterruptDisabled,
--    prelude::*, //
--};
-+use crate::interrupt::LocalInterruptDisabled;
- 
- /// Creates a [`SpinLock`] initialiser with the given name and a newly-created lock class.
- ///
-@@ -52,8 +49,8 @@ macro_rules! new_spinlock {
- /// }
- ///
- /// impl Example {
--///     fn new() -> impl PinInit<Self> {
--///         pin_init!(Self {
-+///     fn new() -> impl PinInit<Self, Error> {
-+///         try_pin_init!(Self {
- ///             c: 10,
- ///             d <- new_spinlock!(Inner { a: 20, b: 30 }),
- ///         })
-@@ -199,8 +196,8 @@ macro_rules! new_spinlock_irq {
- /// }
- ///
- /// impl Example {
--///     fn new() -> impl PinInit<Self> {
--///         pin_init!(Self {
-+///     fn new() -> impl PinInit<Self, Error> {
-+///         try_pin_init!(Self {
- ///             c <- new_spinlock_irq!(Inner { a: 0, b: 10 }),
- ///             d <- new_spinlock_irq!(Inner { a: 20, b: 30 }),
- ///         })
-@@ -244,8 +241,8 @@ macro_rules! new_spinlock_irq {
- /// }
- ///
- /// impl Example {
--///     fn new() -> impl PinInit<Self> {
--///         pin_init!(Self {
-+///     fn new() -> impl PinInit<Self, Error> {
-+///         try_pin_init!(Self {
- ///             inner <- new_spinlock_irq!(Inner { a: 20 }),
- ///         })
- ///     }
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-base-commit: f9a6960c7b27c03becd50a2a7620273d80e4040d
--- 
-2.55.0
-
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index f28e9f4354aca..288fba4831808 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -730,8 +730,13 @@ static int __mali_c55_power_on(struct mali_c55 *mali_c55)
+>  	/* Set safe stop to ensure we're in a non-streaming state */
+>  	mali_c55_write(mali_c55, MALI_C55_REG_INPUT_MODE_REQUEST,
+>  		       MALI_C55_INPUT_SAFE_STOP);
+> -	readl_poll_timeout(mali_c55->base + MALI_C55_REG_MODE_STATUS,
+> -			   val, !val, 10 * USEC_PER_MSEC, 250 * USEC_PER_MSEC);
+> +	ret = readl_poll_timeout(mali_c55->base + MALI_C55_REG_MODE_STATUS,
+> +				 val, !val, 10 * USEC_PER_MSEC, 250 * USEC_PER_MSEC);
+> +	if (ret) {
+> +		dev_err(mali_c55->dev, "safe stop timed out\n");
+> +		__mali_c55_power_off(mali_c55);
+> +		return ret;
+> +	}
+>
+>  	return 0;
+>  }
+>
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> --
+> 2.50.1
+>
+>
