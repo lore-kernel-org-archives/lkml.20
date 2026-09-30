@@ -1,33 +1,42 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F7B30C372;
-	Wed, 30 Sep 2026 08:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF804052DE
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757529; cv=none; b=K4+YVOvgMjBm/T/RXBuGBwWgLcMTAW847hqsvEDdckQIXfD2ka55BJslNY/AiumCbeaHwuulJW01tI+mQv5/oOfhQXGK2FnEh3fhZAHQNZgOm6ybpdtGUO2mhtSb9BDyR7bbCyubx/tToBf+Vj8c9LCnVbdYR93chPQstpeSDEk=
+	t=1790757565; cv=none; b=QCyQsqI7Eq+2Ph2wCtHVDy6Jir2bQXKLLmzOR/3MiHqbXHuHL9ajpJ+VliEh7f+cDd7lB30zUdHbbl6riba1ZWDUf7wYy+++7gmLTg2evTaBLcNZR7kwvj7ccvLLRMUUiVZpkn9k5hoddzQB6exFCwHbEvBfcs91Tyt4cJtSGaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757529; c=relaxed/simple;
-	bh=X6cwC2768R8GYJGuNzoGDEZmYz9zrKHDA/Pb+h+aaRs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PYNPiHWx2peu9BHq9XEcMRt3KtIQBlLWyFyrXurbcNYBTlIO1P1ugnHKHLQcgq7b99mHYOkI/+X9LcdaB4NMClXELVfwoG7oO8f3TA7rMbm9oq7GG/Mf/JjfoSsCgSVxHhXSAwNMSdDoCYrT18rh0uJenR6AtLreaVB5facP6pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7lTXtTt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790757565; c=relaxed/simple;
+	bh=5aoc0O/BN2ovURTO1MtYVfaKbRWBuw1kgYR5PqbAdd0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=H8+8uHIMblS4s68yyKqoifK6Al0jYaS49h92U4EcU8hZQRoHOiRMH+qB8wSm04A2bdAk2RlvhndYX09nz1uKWNnlnkc/Yjozj1XcOrEMcLqsHfkbrTxghR50WdD3oB3GBjf0EeLA3oWv3kaZ5czRDFsjN277IskQxcyKEOqvW1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu; spf=pass smtp.mailfrom=bitvisir.nu; dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b=C0YQHFDK; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitvisir.nu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7lTXtTt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CA51F000FF;
-	Wed, 30 Sep 2026 08:38:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790757528;
-	bh=HM0D/IFbXngbw/hJ7nNr3KZZh5bVISdKNKvas5WtV/0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=F7lTXtTtqQlw3yxli0dz+G4nbnfkygOkq/zwMfdhCEIu2LUgnBSa4bpTPmR9lF0sQ
-	 Go+vS/8j6oBp3HuU4Xz6oMWyG7dF3xxvTUQMwmo9YXdOkemO8BcMZAVtxdQ+A6/Hdc
-	 9z2lQcetyu1A9XvrXeU2O9LgZRtLtgtRnLUHiq26fbAMvtuJCV//Cq686HQKHLK92O
-	 2jjyE53uQnhlLXRqGkuMpK003IZbIeGnP3cHXOWftyPoHAKZDVCuVPuWffkOyBgDNL
-	 SyTUbEfKMLIr610WRE38KIWzKv2iV5doD1BO9qUCSDrUtcgP+4hcBEatRn6BZ2nI97
-	 /mvTxeD4Z434w==
-Message-ID: <e28e00ff-0e66-493a-88fb-71b05b253c44@kernel.org>
-Date: Wed, 30 Sep 2026 10:38:44 +0200
+	dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b="C0YQHFDK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitvisir.nu
+	; s=ds202607; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References
+	:To:From:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=jpxDoP16/8PFboV3WtHqz1HCrUuQ6hvio8QU215vsvc=; b=C0YQHFDKG35gJk0DZkq7kHe1oP
+	vnT+b9U3+cMLHBtPy2Ijvu8RHCwZdBRL9TRKPIb1clDU6MjeHErJhNwvFI8CGCvalzIyUM1bYjjjC
+	dyAXLrHj1cfDc+lfZTMMJQ4KV8zwlL9LTi1u5dM0TAv2yLdWa0UYRmoqJi0+qvLco7C+QK6PfTrVJ
+	0eUPMjqs1OhKOuE+Cbk8MWJwz2wI72j7K61sDtv9cTKogD/E2WVezTmaocMml/BqZ+QK+TwBC+fmv
+	7kVHkm9chDuLJu8vIL6GW8pvBjoHfsGQBfv3mIZgyqA/Ck58J0wgM9wC0RkM+ttz433Wn7Nh0u0Cf
+	h4hMfjFg==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1xBpqS-006ZvK-FG
+	for linux-kernel@vger.kernel.org;
+	Wed, 30 Sep 2026 10:39:20 +0200
+Message-ID: <fb7abacd-6893-4beb-a6dd-3feb301e81e1@bitvisir.nu>
+Date: Wed, 30 Sep 2026 10:39:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,95 +44,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: hverkuil+cisco@kernel.org
-Subject: Re: [PATCH] media: usbtv: fix use-after-free and lockdep panic on
- unbind
-To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- johan@kernel.org, lgs201920130244@gmail.com, kees@kernel.org,
- fsimonce@redhat.com, lkundrak@v3.sk,
- syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-References: <20260927180745.2721-1-nsvatoslav515@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260927180745.2721-1-nsvatoslav515@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: Visir 24dB Filter = No GFX Card Needed (Supporting Fair Pay
+ Philosophy Unity and Low Jitter)
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitvisir.nu>
+To: linux-kernel@vger.kernel.org
+References: <584eb9dc-0582-4e60-8eda-b01e362f9bd3@bitvisir.nu>
+ <07b34ea8-6eea-494e-80c0-338ccf9b8bea@bitvisir.nu>
+ <4f248225-f188-49ec-af80-5eb6c4c684af@bitvisir.nu>
+In-Reply-To: <4f248225-f188-49ec-af80-5eb6c4c684af@bitvisir.nu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 27/09/2026 20:07, Svyatoslav Nikolenko wrote:
-> When a usbtv device is unplugged or unbound, a lockdep panic and
-> use-after-free occurs in the driver core.
-> 
-> The sequence of events leading to the crash is:
-> 1. device_release_driver_internal() acquires dev->mutex.
-> 2. usbtv_disconnect() is called, which in turn calls usbtv_video_free().
-> 3. usbtv_video_free() prematurely calls v4l2_device_disconnect() and
->    v4l2_device_put().
-> 4. This drops the final reference on the parent USB device (intf->dev),
->    triggering synchronous device deletion while the USB core is still
->    holding dev->mutex.
-> 5. When the core attempts to unlock dev->mutex, it operates on freed
->    memory, causing a lockdep panic.
-> 
-> Furthermore, usbtv_disconnect() continues to access usbtv->udev after
-> usbtv_video_free() returns, leading to a direct use-after-free.
-> 
-> Fix this by removing the manual v4l2_device_disconnect() and
-> v4l2_device_put() calls from usbtv_video_free(). This allows
-> usbtv_video_free() to safely unregister the video node without destroying
-> the underlying structures. The final v4l2_device_put() at the end of
-> usbtv_disconnect() will now correctly trigger usbtv_release()
-> asynchronously, safely dropping the parent device reference only after all
-> system locks are released.
-> 
-> As a result of this cleanup, the dummy v4l2_device_get() previously used
-> to prevent premature deletion in the usbtv_probe() error path is no longer
-> needed and has been removed.
-> 
-> Fixes: a3550ea665ac ("[media] usbtv: split core and video implementation")
-> Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
-> Tested-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
-> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+IIR version (fastest) can also be modified for impulse response decay 
+optimized for zoom.
 
-Can you rebase on top of https://gitlab.freedesktop.org/linux-media/media-committers, 'next'
-branch?
+ >>> mid pole negative in sum (making a zero).
 
-I wonder if the previous patch cb705f75d03e ("media: usbtv: fix null-pointer
-dereference on disconnect") didn't already fix this.
-
-Regards,
-
-	Hans
-
-> ---
->  drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
->  drivers/media/usb/usbtv/usbtv-video.c | 3 ---
->  2 files changed, 6 deletions(-)
+Den 30.09.2026 10:36, skrev Ywe Cærlyn:
+> 6 point anisotropy I think, lod bias in it. Perfect for Retina, 4k w/ 
+> rYb pixel, 72,7 minimal psychovisual noise refresh rate.
 > 
-> diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-> index 4f10f6613bc4..8a68bc0aa884 100644
-> --- a/drivers/media/usb/usbtv/usbtv-core.c
-> +++ b/drivers/media/usb/usbtv/usbtv-core.c
-> @@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
->  	return 0;
->  
->  usbtv_audio_fail:
-> -	/* we must not free at this point */
-> -	v4l2_device_get(&usbtv->v4l2_dev);
-> -	/* this will undo the v4l2_device_get() */
->  	usbtv_video_free(usbtv);
->  
->  usbtv_video_fail:
-> diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-> index 92bc7a2509c3..9e02038c3ff7 100644
-> --- a/drivers/media/usb/usbtv/usbtv-video.c
-> +++ b/drivers/media/usb/usbtv/usbtv-video.c
-> @@ -964,7 +964,4 @@ int usbtv_video_init(struct usbtv *usbtv)
->  void usbtv_video_free(struct usbtv *usbtv)
->  {
->  	vb2_video_unregister_device(&usbtv->vdev);
-> -	v4l2_device_disconnect(&usbtv->v4l2_dev);
-> -
-> -	v4l2_device_put(&usbtv->v4l2_dev);
->  }
+> Serenity.
+> 
+> Den 29.09.2026 05:42, skrev Ywe Cærlyn:
+>> Here is some graphics on that one aswell: https://bitvisir.nu/Visir_3- 
+>> Bit_D_A.png
+>>
+>> Den 29.09.2026 03:52, skrev Ywe Cærlyn:
+>>> Visir 24dB -
+>>> constitutes RMS, Constant-Q, Anisotropic in one filter.
+>>> 3 poles, 1.3 cut down pr pole
+>>> last pole negative in sum
+>>> IIR typically for Constant-Q (minphase analog) FIR other.
+>>>
+>>> Used via Cache, should abolish the use of GFX Card, and DSP card.
+>>>
+>>> This is part of supporting my work with Fair Pay Philosophy Unity and 
+>>> Low Jitter, for ITS.
+>>>
+>>> Serenity!
+>>> https://bitvisir.nu/
+>>>
+>>>
+>>>
+>>>
+>>>
+>>
+> 
 
