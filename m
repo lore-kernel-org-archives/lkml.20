@@ -1,76 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F288A4756CC;
-	Wed, 30 Sep 2026 10:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752C048489F;
+	Wed, 30 Sep 2026 10:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764489; cv=none; b=WzGFw852y36BR43+p+ZXPTjK7kqLOEz4rnoDfI7/n4wqaWIU7fSpvt2ANy1/AkiL/JERD5+vmuay3k71us/cGrJHzeKlGFolmSZW1kAnl8cnFM94baEtYNlRSZDKD+B4BeUzGBbXieIoMH7SxO9LtklQvY4xoGOiW9jP1TSyoOQ=
+	t=1790764523; cv=none; b=IoIwnNta+m/qY1kxqtXYkAm/H1Qk8pZzl2R92l+y3wuRe2Ced6BUWqSywytQG1sB80MfH7FnUPBsk/GCmrRlFsOyScAwU8SVXY6mrFHGQHIMkYhjTejEp7dcuWnwrXV1CrPL/LXhBGmxiSi8vzc+m3xmSIwv4InnZruIgECtfm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764489; c=relaxed/simple;
-	bh=9gh5LzinjiXuHnf0v3lIoIpge2zdOj9QQCt2WLUj7sc=;
+	s=arc-20240116; t=1790764523; c=relaxed/simple;
+	bh=hv0C92Rh1ksdG89sw30/t5qoFJ2gTwBipcVvty9eSFg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WLnB60R403kVHxTkOR32ZNMuqLp/shaMviggHaqqmXWsyixKhaEFtY0TgJNy7Ieqjpe83NBklYWCbOd7keaFu8UPySpywU5T2vl6a4E49csW2fiuRJkD9TRh8G9qwBtsdDHYBp79rxRgJ6xU6iqzRMe8QsnC4W8iJgqaeRk2r2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eqs1P5Zm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DuJnd75tboJODA1/E220mMfcNVF0DvJDcW/Lotu3l76UcBfzdNQhG8fbwqFTYLhGkgffS95NIB9Sf6NCNlgHX2H/JgkCplia717qsMbiK9Zg6tD+dFmgfSeT6DNby/dTbgWdwjsSCsfwbsx6Ru554SY3xWTtiY3AOaa9xGGn5mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S9PXmf+v; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eqs1P5Zm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A671F000FF;
-	Wed, 30 Sep 2026 10:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790764487;
-	bh=MK828ISuJkI15uMct+0uQ/hrOR+sjobVw+aOebqILII=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Eqs1P5Zmp+e2oKfeptfWqWOrk9J3CdUnv66gyurS1ab3Fj5rN7RS32nv2KBHVqWI9
-	 4mYPESjJN88bxndW2SBj9ZOO4Lfl1nhC7vwl7CxW1gUHobwlTD0ygRe3ba3jwS9HZD
-	 thHJZMH0XWdfk0xS1Lquu6E2xIZcxznpvrr2rxq83OOC564NEDk06ttT9kKcLCTnlW
-	 MO36t3qLjaNtthl0Y3m/WgcH3hLR81HVo8qvH6V9vnFiaZd4O8DGUShjO39wU1g3/v
-	 Yp6rmtjGEKwTNZhHcN4zo8bSYhyLJ+XfU9ytYCrZi0Bxz4+X/EZ/9DZRXynedjMNBi
-	 5exqFF9ECrJYQ==
-Date: Wed, 30 Sep 2026 12:34:43 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com, 
-	Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-Subject: Re: [PATCH v17 02/11] media: dt-bindings: Add CAMSS device for
- Kaanapali
-Message-ID: <20260930-woodoo-crayfish-of-renovation-d6d343@quoll>
-References: <20260928-kaanapali-camss-v17-0-dcf3fd37f76c@oss.qualcomm.com>
- <20260928-kaanapali-camss-v17-2-dcf3fd37f76c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S9PXmf+v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790764519; x=1822300519;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hv0C92Rh1ksdG89sw30/t5qoFJ2gTwBipcVvty9eSFg=;
+  b=S9PXmf+vp9G/hXEjeqgfvgU0hZMP4m178kJHAjDGPJ/djKrdisHPINjV
+   bVMKqU1lXFi9nTYL9wgb5/DeFUpPK68bKWrvxVhCSrvB0YqlKP0WK/put
+   6M9O+etdrJsqkAXVrsYoKFMXsXvMS5ZKyqtaJwGVlttQbOe5hrOf11r5c
+   PHkIBAmMe6Thc+3rDTRSOI+5p0t6KlIY+8DthVNmCzVTQEx+knORmSa2+
+   dOWeXzpIatm5y+xHxz7c4XMVZJ7Wc4JGOL/iaZWY5s6uEB5ig5U1yKtRt
+   U2hxpEapGmZphbN8f/oP853FlsC4RJV3VbVCGGNTAOl5YttpPWZNzAXkB
+   Q==;
+X-CSE-ConnectionGUID: praScGxoSTiX7jd4/S1ecQ==
+X-CSE-MsgGUID: 84HyqWL6SVK9JNoQSuXbDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="91517107"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="91517107"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:35:18 -0700
+X-CSE-ConnectionGUID: zNPcY9sJTDSddwirHiwkPA==
+X-CSE-MsgGUID: yapkq3TbRJ+ofQAaztaWfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275697169"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:35:14 -0700
+Date: Wed, 30 Sep 2026 13:35:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v10 1/4] iio: pressure: dps310: read buffered samples
+ from the hardware FIFO
+Message-ID: <arzl4DK8vhP0g8Hg@ashevche-desk.local>
+References: <20260930100158.957977-1-zoone.rupert@gmail.com>
+ <20260930100158.957977-2-zoone.rupert@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928-kaanapali-camss-v17-2-dcf3fd37f76c@oss.qualcomm.com>
+In-Reply-To: <20260930100158.957977-2-zoone.rupert@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 28, 2026 at 11:00:28PM -0700, Hangxiang Ma wrote:
-> Add bindings for Camera Subsystem (CAMSS) on the Qualcomm Kaanapali
-> platform.
+On Wed, Sep 30, 2026 at 01:01:55PM +0300, Rupesh Majhi wrote:
+> DPS310 has a 32-entry FIFO shared by both measurements. Drain it from a
+> work item and push what it held, so buffered capture needs no trigger.
+> Nothing in tree wires the interrupt pin, so the work rearms itself at
+> half the FIFO fill time.
 > 
-> The Kaanapali platform provides:
-> - 6 x CSIPHY (CSI Physical Layer)
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 2 x CSID Lite
-> - 3 x VFE (Video Front End), 5 RDI per VFE
-> - 2 x VFE Lite, 4 RDI per VFE Lite
+> Each entry carries one measurement, so a pressure entry is compensated
+> with the temperature ahead of it. Pressure read before a session's first
+> temperature is held until one arrives rather than dropped, so the first
+> push can wait a temperature period.
 > 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> FIFO entries are not timestamped, so postenable refuses the timestamp
+> channel unless a trigger is attached.
+> 
+> Tested on a DPS310 on a BeagleBone Black.
 
-Feedback from Sashiko looks reasonable and I do not see it being
-responded to. Dropping from DT Patchwork.
+...
 
-Best regards,
-Krzysztof
+> +/* The drain rearms itself, so stop it even if the buffer never disabled */
+> +static void dps310_cancel_fifo_work(void *action_data)
+> +{
+> +	struct dps310_data *data = action_data;
+> +
+> +	cancel_delayed_work_sync(&data->fifo_work);
+> +}
+
+...
+
+>  	mutex_init(&data->lock);
+
+This has to be devm_mutex_init().
+
+...
+
+> +	INIT_DELAYED_WORK(&data->fifo_work, dps310_fifo_work);
+
+Can't we use devm-helpers.h for this?
+
+...
+
+> +	/*
+> +	 * Both modes advertised: the core picks TRIGGERED with a trigger
+> +	 * attached and falls back to SOFTWARE, which the FIFO path uses.
+> +	 */
+> +	iio->modes = INDIO_DIRECT_MODE | INDIO_BUFFER_TRIGGERED |
+> +		     INDIO_BUFFER_SOFTWARE;
+
+I would rearrange this as
+
+	iio->modes = INDIO_BUFFER_TRIGGERED | INDIO_BUFFER_SOFTWARE |
+		     INDIO_DIRECT_MODE;
+
+...
+
+>  	/*
+> -	 * The device measures continuously in background mode, so a capture is
+> -	 * just a read of the latest results. The trigger is not aligned with
+> -	 * the measurements, so the timestamp is taken in the handler.
+> +	 * The device measures continuously in background mode, so a triggered
+> +	 * capture is just a read of the latest results. The setup ops run the
+> +	 * FIFO drain when no trigger is attached. The trigger is not aligned
+> +	 * with the measurements, so the timestamp is taken in the handler.
+>  	 */
+>  	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
+> -					     dps310_trigger_handler, NULL);
+> +					     dps310_trigger_handler,
+> +					     &dps310_buffer_setup_ops);
+> +	if (rc)
+> +		return rc;
+
+> +	rc = devm_add_action_or_reset(dev, dps310_cancel_fifo_work, data);
+>  	if (rc)
+>  		return rc;
+
+Are you sure it's in the correct location?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
