@@ -1,154 +1,83 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CC83F9A13
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2427C4229D0;
+	Wed, 30 Sep 2026 07:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752073; cv=none; b=JPm6XUNUnz9K+LSut1IH9uQiq5FF4Hrvn2WaWZqDIxdzW3HdpQ4qrBKGDRwMxqDJX4u993urBwiX0bDBKFR3TQKc/HUYa4EvbhVL7RHJF3r0ZdBfyHMYngMI/J6LkJzwH3koDYZEuarDMpk9gU+WLVr5wScrk7n52clFh9pbaV4=
+	t=1790752097; cv=none; b=HklmMsPyDbxWUn09O3OrZVpfAjPsltnHUs+xExlu/ALkZudlP4YiOSkQfXux2z003AqLGq4EIEkbD3+16i6Y7tUnLV4lF2OUyiYNuJZFMDujO6R/Utih8ZaVpBYRiWiZWJPOeScJpnQca4BsX4GPZisklBXddnHKgDHdu5+g57Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752073; c=relaxed/simple;
-	bh=rtEvlpc5RFKwgsy5Faq1Dvca+J9Y2+1PDgdNAuQ81Ko=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oe9b8nDH5x/z/r+9mqQC991lOqpCRLwT2wzOk4iE+j2rq3KcJl38aAQYzqcQGOvNaZJpaiI64RO8ZH6f1tR9gsfkwky1wL5EjnXk5FaKAbklq+TnMtb+U0CwwcsbUUlPXad3TTs7qfDq/OwLKenUP1l4teNyH3/b8TVw1xT+80k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Szt92RVN; arc=none smtp.client-ip=74.125.228.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790752097; c=relaxed/simple;
+	bh=0b9Mt1fRp9dkXfm1i0Z5QIcqasaDZg/0ym/iNvEF6sc=;
+	h=From:To:Cc:Subject:Message-ID:Date:MIME-Version:Content-Type; b=chmWHKPD6dg9LER5zLLun+S6VvhpfBvdAIw9ESQ6WZ9dTkedGIyjY3b3Ev65XAtmU1e24xMS66vwOIBE6zwJjjD7IR1xD8DJgGwrpOou6I9zGkRuxpNYn2SJvRy1k0NeP7rCSW8baIkq6ZHwSbL/nTOtTK9nAj9M8uYLfMA/Y/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=MRVnZzHk; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=Qnvqu1V0; arc=none smtp.client-ip=23.251.234.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Szt92RVN"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19319854so211925a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:07:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752070; x=1791356870; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yPxo5oIesTw/2A8ukKykJpHFhPhcqo3C0UATOY1SYVs=;
-        b=Szt92RVNxsQONHzDiByv/n6PzMGv6h4y6UjVPybFbLRgpjjr8QfsRew1uLr9hQLYxx
-         v70iODpytwPPiZYybLrv13lZWJUfKQw07NWrpb+D7hNlOLrXmxPPFWiy1WUI9OceA/sK
-         I25m64P9h0V38DW/pjKltS3kqj2FjuAo5ymbtKRxkG8XCSrYjUvotKHL2+yE3F9rKsjz
-         Q3+0TLkQl8cLx+wRkjEesdTx9do2aCfAijl1cwDEibmvR8j9goP/sE1l+ksr3fFFp6AT
-         NMdtazOwUg0Yw4UG/z79KEpHrmSYqR8lYQZNc4as5C53Cf9aSkDxPTbRJxJCL9HlEaCv
-         Y7Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752070; x=1791356870;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yPxo5oIesTw/2A8ukKykJpHFhPhcqo3C0UATOY1SYVs=;
-        b=BUn/utE9lSzCgJjAwSBw0/YAOSeuj3x/yWqAMcz3pREggzElnt9aM+gOjmh9+c5JzL
-         daot94wLnnaasyjMCPkXpnMktOogQhta6fhN603tzVIwa+ytPJD3I64PfIcyVJC/Hed4
-         /NNEWnGSv5QVxNQdlzALhLTtChUgFgfzQWfBmPhMku+w7QAVALMaNkodrgqRRIcSjszQ
-         Y7c+6gJIUUpxCqmAVLrOkBtN0Cz/po1LvRSBFXd6ODEv+6KIT5GQPmsWMZLQIBsRHHnZ
-         hrLe8I9xw199ERNn4+pH8bw7PzAH1O8C1GUx4Rl4EnRQe5TGmFL3Mzk7sP3MrZEjdi95
-         RXGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwNvzxPVVUhu95MzuENxx6A47Y2tMsKqP0s1da5b5VPWmB/2/HhztiyCIgiTtvUbg+IjaFslbj62i+nYD8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHGpTyVmwQzQQ8IKhzXTC/Lw+gV4xNJUSgmzSyKLppjXnfTnfG
-	01DioWq/NWdtTg3qO9rLkNw1S0HO711eNynByQL4AeNUvjMl+q92vEeL
-X-Gm-Gg: AYBFou2pljELUT708YdmwPK0dryBWsVBLv5ByYrTIWgL3LfUhowhfa2rDI2YNSl6hKZ
-	8xWOjr0fDXYgj7Fxo/v4/EPtfnn9JkzJFmSmhT9nwfgGGMjVaRsV47gM5+b1uVF3B9nv/QXZHHP
-	IXB5D22WUZXcy14gtyxvBfYwYxTiigwVqsh7XtIEbe37WYixKOS7b8rNe1fI24ukpcBfvUlRB4q
-	j1IOWYQzjwYJINZSBOmmdlKxt5aDgUmRHDgTfnN/e/FKxpY4LbWrWvM2RH5anO8wptwFCfOQ9ou
-	BlW/dBtDuP93FbMdJmzsYL//ANiEMIDyJMUppFblldxDGZpuQ7qKWiGfvuwznhoHKwDBClnCzUh
-	Gu6P8jX6rtoU1252y2bVoP9WiCpcs+YVf6B3QKbxob3vQjIHBTgtBseGZ2Po2DqaRMJlDB19OR8
-	nahGiTZoNunGvXEmEaWCUxFxqXUy24lqaTQltnHZz8PaFL+LxU0aUnp0gcBw==
-X-Received: by 2002:a05:6402:4613:b0:6ae:160a:58a6 with SMTP id 4fb4d7f45d1cf-6ae19963b9cmr194812a12.36.1790752069491;
-        Wed, 30 Sep 2026 00:07:49 -0700 (PDT)
-Received: from krava ([173.38.220.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1558d9b5sm325750a12.17.2026.09.30.00.07.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:07:48 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 30 Sep 2026 09:07:47 +0200
-To: Mark Brown <broonie@kernel.org>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>,
-	Florent Revest <florent.revest@linux.dev>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: manual merge of the bpf-next tree with the bpf tree
-Message-ID: <ary1Q48NrlD4i_Zf@krava>
-References: <arvRs4KdojDnW1O6@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="MRVnZzHk";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="Qnvqu1V0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1790752093;
+	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=0b9Mt1fRp9dkXfm1i0Z5QIcqasaDZg/0ym/iNvEF6sc=;
+	b=MRVnZzHkzcgQh3Gqguxeh9kosMsLDaDTpaJj5qf+rt4C7raBC6cEA8khYsHl/1tE
+	kNT08sfddcIvu/3ddw8lyWH1+WaH1rHMbYj9J9rTQXfI1jP9JfleFL3IrmQaDUhqPVN
+	rojavqfXkVJnE5WP1DIBF11wPw5RIIYg5a4rlJ+8=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1790752093;
+	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=0b9Mt1fRp9dkXfm1i0Z5QIcqasaDZg/0ym/iNvEF6sc=;
+	b=Qnvqu1V0KN5ssDiDzVrWfdEG8E/hiLuQiqIKwm/F4iIboz64C1EIrRz2sdMSQz58
+	gnL6cwuads7EmdIsLl2GqoquBmuwqK57u2wIwoXubfN0BHKNXND+q9O+fpLvAiDoM3T
+	UTEkb/FVbDj9/u1NBhSsLFKA9fYz46mfuqWV+GzE=
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
+	sylvain.petinot@foss.st.com
+Cc: mchehab@kernel.org, hverkuil@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] media: i2c: vd55g1: preserve stream errors and
+ always attempt stop
+Message-ID: <010601a0f1247437-3d2d5494-0cd2-414c-af01-a7618c8602f3-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: 7bit
+Date: Wed, 30 Sep 2026 07:08:13 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arvRs4KdojDnW1O6@sirena.org.uk>
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.09.30-23.251.234.50
 
-On Tue, Sep 29, 2026 at 03:56:51PM +0100, Mark Brown wrote:
-> Hi all,
-> 
-> Today's linux-next merge of the bpf-next tree got a conflict in:
-> 
->   arch/x86/net/bpf_jit_comp.c
-> 
-> between commit:
-> 
->   17637e1a581a2 ("bpf: Skip detached progs in trampoline images that are still in use")
-> 
-> from the bpf tree and commit:
-> 
->   29fcf9ce4bbdf ("bpf, x86: Use global buffer for trampoline size generation")
-> 
-> from the bpf-next tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
+This series fixes two error paths in the VD55G1 driver. Stream-start
+currently replaces the original error with -EINVAL. On stream-off, a
+failed exposure read prevents the subsequent stop command from being
+issued because the CCI error accumulator remains set.
 
-lgtm, thanks
+Preserve the stream-start error and handle the exposure read separately
+from the stop sequence. The first patch builds on 5931eed35cb6, which
+fixed the earlier false-success return.
 
-jirka
+Based on Linux 7.3-rc5.
 
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
-> 
-> diff --cc arch/x86/net/bpf_jit_comp.c
-> index 6bca87457e872,6c7a0578760e7..0000000000000
-> --- a/arch/x86/net/bpf_jit_comp.c
-> +++ b/arch/x86/net/bpf_jit_comp.c
-> @@@ -3817,25 -4152,15 +4158,15 @@@ out
->   int arch_bpf_trampoline_size(const struct btf_func_model *m, u32 flags,
->   			     struct bpf_tramp_nodes *tnodes, void *func_addr)
->   {
->  -	struct bpf_tramp_image im;
->  +	struct bpf_tramp_image im = {};
-> - 	void *image;
-> - 	int ret;
->   
-> - 	/* Allocate a temporary buffer for __arch_prepare_bpf_trampoline().
-> - 	 *
-> - 	 * We cannot use kvmalloc here, because we need image to be in
-> - 	 * module memory range.
-> - 	 * Since it must be writable use execmem_alloc(EXECMEM_MODULE_DATA)
-> - 	 * that returns writable memory in the module address space.
-> - 	 */
-> - 	image = execmem_alloc(EXECMEM_MODULE_DATA, PAGE_SIZE);
-> - 	if (!image)
-> + 	if (!trampoline_size_image)
->   		return -ENOMEM;
->   
-> - 	ret = __arch_prepare_bpf_trampoline(&im, image, image + PAGE_SIZE, image,
-> - 					    m, flags, tnodes, func_addr);
-> - 	execmem_free(image);
-> - 	return ret;
-> + 	return __arch_prepare_bpf_trampoline(&im, trampoline_size_image,
-> + 					     trampoline_size_image + PAGE_SIZE,
-> + 					     trampoline_size_image, m, flags,
-> + 					     tnodes, func_addr);
->   }
->   
->   static int emit_bpf_dispatcher(u8 **pprog, int a, int b, s64 *progs, u8 *image, u8 *buf)
+Validation:
+- ARM64 W=1 driver-object build.
+- ASan/UBSan tests of the actual functions: twelve start failure points
+  with three error codes, and eight stream-off error combinations.
+- Hardware use on a Surface Laptop 7 with downstream VD55G0 support;
+  normal IR capture and face authentication have been working.
 
+Jizhou Tong (2):
+  media: i2c: vd55g1: preserve the stream-start error
+  media: i2c: vd55g1: stop streaming after an exposure read error
+
+ drivers/media/i2c/vd55g1.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.53.0
 
