@@ -1,597 +1,303 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD13A3EC805;
-	Wed, 30 Sep 2026 06:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D353DC4B8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750351; cv=none; b=liVFamJfpma1P6WdRMJNXQz4OtQPEJEX/Zelxzg7D0d28cEdw5+JAG9b0LQsQXSK86L51zwIH2fYcV3Coo42hI6cm9H4wJzB2EG/pPSfrW+i3ZNWcb/mZtPr7KBtmifk7LjDDOfGZgDct+qbZwwPB5CwFlJkfbEjo/bK9oUhC4g=
+	t=1790750374; cv=none; b=pNk1Yq2LhyFmv1c7+KG40M3Knv76+hngW13CuJ3K1OxGvPp5iff1Wlyv7QEcT04Yl0Hu9DRD4QyicZMFzqBAIW9ke87vzBtN6LCkv/lBs/RGBvvTSpvSEwIs1iqqa0oR2q1LJyY/tuj+JkO4x3cu6xlIg9cR5pfJXYFGLlm1nvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750351; c=relaxed/simple;
-	bh=00dQmWupPL5Gfzj13iH4jHhX+Q9fDUiWmT2XVMUn2+o=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=YW/KF9pHdHUmRhizHlV0Z7Rf9P4g3Y+8dkZjqk606gF8QXaIOkFy0qrDvjm2xASS2bmxXUOYx4i0mE5FnzU0MQu3Im5cVkTbxV/FJA0pfMzcf6ULqyfPUQ1EPj/9LPsHrzMS9Kb32KzjHaQTzeTEbctS9FBLtx0QoRGHdX1zSn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WxlJHaVy; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790750374; c=relaxed/simple;
+	bh=0HFCi5ASXn5yNouLn/a1AgOJkQa9R6TzVROmyPIjvlY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=izyitT2kJS6NkgM5vWTfu5e8o0iRLBDp8lTB4zlwMoO60g1iOeHdQMxwKsRCjwq53bM/gIxXHFUsvkNPggOXRfknqlY2aPwCeZWNgvNp4I+TBkgsJZApB4KJ0g21UzaVmXXnvtdaPj8/maliMzvNBMpHGvErqBax7fDmInNpMKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KwD/loRx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hMQ7aA0p; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WxlJHaVy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790750349; x=1822286349;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=00dQmWupPL5Gfzj13iH4jHhX+Q9fDUiWmT2XVMUn2+o=;
-  b=WxlJHaVys5KdovO+SwJ7sd4shmnSxpeYFGAcjIepqFvAFolmkYjtV33P
-   hTikAyBLQGq1zft9CJAKdW1QbD8XYsIWgh0KFdZywp5lfV+TZtvpz5Pxq
-   c5RI3o3FtykT9Ur6N4QHdhWq5F0dhPoK5Wq2zHYg5nXCq3LQEISL/heLP
-   apQzEdxYPMvdrPJRSVTq0+l6y5VlJh9C/pT0TktEiQuMYl51nKIdqyoyc
-   4zyh3cyokVBcQEABPMFvbcnrfAOTBRi5edx92JjHOuCdbzuzeM+l+pceH
-   0yJuGGvu4hht4xmX3/pnuoZ5rXxUECYIXEjbIPwD/Pt4V/UqgTVSBHNZH
-   g==;
-X-CSE-ConnectionGUID: 9r4dK39yTnSbsYgPSrN7KA==
-X-CSE-MsgGUID: mP4bop36Tl6Z+9z48JTN+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90340689"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90340689"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:39:08 -0700
-X-CSE-ConnectionGUID: kBSfPLFyS1aFDUMbMq919g==
-X-CSE-MsgGUID: /nLbdXWpQSGv5RDgjNtIGA==
-X-ExtLoop1: 1
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:39:03 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 30 Sep 2026 09:38:59 +0300 (EEST)
-To: Alex Robinson <alex@ironrobin.net>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-    Konrad Dybcio <konradybcio@kernel.org>, 
-    Steev Klimaszewski <threeway@gmail.com>, 
-    platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC
- driver
-In-Reply-To: <20260929192908.16507-3-alex@ironrobin.net>
-Message-ID: <87af07b0-a2aa-ac88-af6e-372fd6e92f5b@linux.intel.com>
-References: <20260929192908.16507-1-alex@ironrobin.net> <20260929192908.16507-3-alex@ironrobin.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KwD/loRx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hMQ7aA0p"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U68Td22012852
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=P1d6kMS4BrSsV+WBzmEQwwGwhBFS1xtl4NE
+	IYUH1ui4=; b=KwD/loRxaBjPCa39wHnGLTbrs31X/zSYtp56ZGmt+whfVSh2Tav
+	zR5OG8HMZXup5LHih4Sn5wzeUI4OEvZ39MlcIa4dLYFz/1vUyBVJ5rBziObat+hZ
+	ooFKavKFebj5EgrbX8n4Qmzj+XEmpfj9CvLgjBecyF4d8j0pi3CGBVdpsa6gI5SD
+	uQHakXW0a+eJFJLSpJrpgJ8jdxvjFKWKpzjVmu007TWbatqu5MZ179xs0DhrMQzI
+	JHqJmHbJmJIFi+2hcVhz49TidP9VH5ECkhPHYUCuHzGfPoVRKRQW7nPVZGc72tiQ
+	Gt5aaya9DNo3Yv3eg3/mv+Ehutnx0yAQXnA==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j0ejuhd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:31 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1384427c3efso7435794c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:39:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790750370; x=1791355170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P1d6kMS4BrSsV+WBzmEQwwGwhBFS1xtl4NEIYUH1ui4=;
+        b=hMQ7aA0p3sPXWTI8B4HBmcTHY8ZaEHQLoa/lebY9Be56KW+BUMs3PDqfd9QFRkrupe
+         DfEXDnb66DnfLu6IDzioFqwNj42t82UKDANv2ZngfYCCMnDcekATbpBxyhviaEiqEOen
+         xj+LeVuOb/qQh/rVszjMMHhAzeJBJK2oi+E08uvYSPh8OTfdE1HfUEaCOEhn+vTagTOG
+         L0zP5jdjfzT9JlYsSEGKoLGy9U9SWM1SzpiulJg0JIsQL02Q+UXthNzQbDvqoB12xvJy
+         CK/C9cdfiDkFnSP14Pftf4/jzt758GjCuLHC6Yb35MV+nIbu69aAOQKPfnoBPZoLmVX4
+         A2nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790750370; x=1791355170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P1d6kMS4BrSsV+WBzmEQwwGwhBFS1xtl4NEIYUH1ui4=;
+        b=rGk6kwBLfR5VArOoZR9pHA6wdoSMR4MnS1PCxkPG3kEy+FGkPs6JW5EAj/020uThdl
+         T8h/IU4LOOFEexvGkvSP61wjZWidcPAojIY7T09ktbM5I+8y3mjtpdA6DgQC3nGjvcrU
+         0fLJjPXytZynjuS1celrcs1Q7IHA99Wjkd1MokshPSguUBTFB9Ov/IovmM/FYAt2Leyj
+         YHJkSc6sJk7bATxEZmJ7SVMfsYctlh0p8cBLycMszGVEVu7fvtCyEcv0F8h7hxkJ8Hg6
+         gXS2d7j66+erUTXBYsneuzMv7WCOhbDkV46obAw0RdxVceIbmzPRbn2rPn8oHCABQXPS
+         JLyQ==
+X-Gm-Message-State: AFuF++m+fH1zPHY5ZY1GA0XsCayoZhz4x4J8pCuTWAcc9xLJVPA6JJi/
+	xbYyvvTL0lxymmbZVNf3Xrc7QbVrVpluh1EOdE1jsNNbW/so5gNtoeaanMCi8mysvAEVS/X9hGN
+	EFyGyKgtvl4eHMhuiZ4fAwR7AY42bIw64Ba173RAADSc1ZfE6G9EVlfCzB6PPsIXhyNr/k/vsbc
+	0=
+X-Gm-Gg: AYBFou0SuENvoF9FGb96xbM6ouBYuyQwQ9XgS+VWlRl+poiZE24LAxtYKowLOT6VzpE
+	8zsJJNGaMU2xvSkDp1CXsqZQarKlybLjTtQXviHITthJZS1cOEKhfvNk7aL0mAfNH7dtzb3p5NJ
+	tTNkbHIFRGJY76cJx6/l3mkZMDBcIAOmwOqfMlr9098DyBuC22zxMf5jLKYSkCBT4AML/1MGSv7
+	0432KjPO8M9lWv9AGONOok24MCiLmCcuTe6RXNo8Bf/qHIypsD7tu8iaL1uINu2qrS9TDTO/HWD
+	tcK8Mqc3IBxT1PmIAqvLfWyHuF2MLZPFAO9rFVxiy9gLl/VoJE9FZ+xAeXuQAic2fVYPOCf8MhR
+	uhDEJu70BIft2kqK6ODKl6VDiNGJKURkEwnCATbH1/kLB8vChVgEUFCkL4LnwYddJqihRMBDC8e
+	D91GWSRusUhqXEJxxqiZjoNx0Z
+X-Received: by 2002:a05:7022:4595:b0:144:ff51:2d5f with SMTP id a92af1059eb24-14d332a3143mr486551c88.33.1790750370118;
+        Tue, 29 Sep 2026 23:39:30 -0700 (PDT)
+X-Received: by 2002:a05:7022:4595:b0:144:ff51:2d5f with SMTP id a92af1059eb24-14d332a3143mr486496c88.33.1790750369416;
+        Tue, 29 Sep 2026 23:39:29 -0700 (PDT)
+Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 23:39:28 -0700 (PDT)
+From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+To: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        linux-perf-users@vger.kernel.org
+Cc: peterz@infradead.org, mingo@redhat.com, alex@ghiti.fr,
+        aou@eecs.berkeley.edu, jtaubepe@redhat.com, palmer@dabbelt.com,
+        pjw@kernel.org, qingfang.deng@linux.dev, shuah@kernel.org,
+        thecharlesjenkins@gmail.com, cp0613@linux.alibaba.com,
+        Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Subject: [PATCH v7 0/8] riscv: Introduce support for hardware break/watchpoints
+Date: Wed, 30 Sep 2026 12:09:11 +0530
+Message-ID: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=cqgOAF4i c=1 sm=1 tr=0 ts=6abcaea3 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=V1jnuoLLAAAA:20
+ a=NEAV23lmAAAA:8 a=ClvrxCKNdzey32-IL00A:9 a=Fk4IpSoW4aLDllm1B1p-:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: 8lwI50h3wl0NaeE6RI-_1cEcRFR6P8SX
+X-Proofpoint-ORIG-GUID: 8lwI50h3wl0NaeE6RI-_1cEcRFR6P8SX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX42sV7SZkC6zt
+ e1SS3uxrqR2Njw8GLAHglUoUXtigB0vU4PFeztLahZAQ8eDTv1CdmFpXpk5BpJ9VwFEFaX8e8uU
+ feMch4yJUThGLWl348Z94PIgJvLMJAw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXwoJRNk+nK8xl
+ iW8BuzsPueaNDxO3zbKQvF1ZusJ7iWC1cUEyAJZILHxERsCew1Dk/Q6fwv2vhAyqPGIbK7S35uO
+ g4rsuq8471PQ2lou1KxMrsmw1fLhV04vqyB4UL2BNp4NJt6Ij0ql+FjN+ijHfYZGE8Mj3TFzZqA
+ MfosaNnouCBvEy6jo/tgqqrAUE7TPm7LAMqNpnUAC5e2e4+tRwbRmIH1brmLwkd8lUszLDtEz1A
+ OJhLpogg9O/Sp7Dc+fUJW74L+awrJ3Rs5TH9jF44B4mg97x1ZKVpRtn0n2pfItNQfkfbZTqwLHA
+ T4+QyqmYazsXMOlPIPZTnI/7oAMCp/j7UaKMsTN99afsybr4NO6WqDdZktLiSMsCMliDUsUctOb
+ sdtDu8eHXNbkdlIgx8vpYImA4k4ZBAe2vRfYFtd5UGX2B2FbnhUJ5OiJl6QXSY1zonmeDqdc1/M
+ EH5Mcd76iL4R5CU6OTA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300026
 
-On Tue, 29 Sep 2026, Alex Robinson wrote:
+This patchset adds support for hardware breakpoints and watchpoints in the
+RISC-V architecture. The framework is built on top of the perf/ptrace subsystem
+and the SBI debug trigger extension (Sdtrig).
 
-> Add support for the ThinkPad X13s embedded controller to expose keyboard
-> backlight control and firmware-driven brightness changes when booting
-> with Device Tree. Its backlight, event and power-management interfaces
-> differ from the T14s EC and require separate handling.
-> 
-> Preserve brightness across lid and system-sleep transitions using the
-> sequences described by the X13s ACPI firmware.
-> 
-> Leave EC wakeup disabled by default because the shared interrupt can
-> wake the system on lid closure and no selective event mask is known.
-> Userspace can enable wakeup when desired.
-> 
-> This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Alex Robinson <alex@ironrobin.net>
-> 
-> ---
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index cc3cae2e378b34aeb705cef654c720ca9f2ba223..86ae65ac93e7575815f34dbc7a690042ad9ca3b0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27177,6 +27177,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
->  F:	drivers/platform/arm64/lenovo-thinkpad-t14s.c
->  
-> +THINKPAD X13S EMBEDDED CONTROLLER DRIVER
-> +M:	Alex Robinson <alex@ironrobin.net>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
-> +F:	drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> +
->  THINKPAD LMI DRIVER
->  M:	Mark Pearson <mpearson-lenovo@squebb.ca>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..eb0b84e5a93733ca16fc871ea94eda30f5760b3c 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -90,6 +90,22 @@ config EC_LENOVO_THINKPAD_T14S
->  
->  	  Say M or Y here to include this support.
->  
-> +config EC_LENOVO_THINKPAD_X13S
-> +	tristate "Lenovo ThinkPad X13s Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on GPIOLIB
-> +	select NEW_LEDS
-> +	select LEDS_CLASS
-> +	select LEDS_BRIGHTNESS_HW_CHANGED
-> +	help
-> +	  Driver for the embedded controller in the Lenovo ThinkPad X13s.
-> +	  Provides keyboard backlight control, hardware brightness change
-> +	  notifications and system sleep power sequencing.
-> +
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called lenovo-thinkpad-x13s.
-> +
->  config EC_QCOM_HAMOA
->  	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->  	depends on ARCH_QCOM || COMPILE_TEST
-> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-> index 7681be4a46e94e7cb80e50bcc5b724cb0961357b..23ed6eef7ce41a5f45d48f5f83b281ebbca94cbb 100644
-> --- a/drivers/platform/arm64/Makefile
-> +++ b/drivers/platform/arm64/Makefile
-> @@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-> +obj-$(CONFIG_EC_LENOVO_THINKPAD_X13S) += lenovo-thinkpad-x13s.o
->  obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
-> diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..4a7d5d03690955ba6fd3760a8af4e76b999a68bc
-> --- /dev/null
-> +++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> @@ -0,0 +1,435 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Lenovo ThinkPad X13s embedded controller */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/leds.h>
-> +#include <linux/lockdep.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/pm.h>
-> +#include <linux/pm_wakeup.h>
-> +#include <linux/ratelimit.h>
+Single stepping is ready with software support and mc6. Once, icount is fixed, the software
+supported single stepping will be put under a Kconfig option. Until then its default.
 
-I think this was wrong/unnecessary include to add, I was expecting 
-dev_printk.h which has those dev_*_retelimited() (and dev_*() printing in 
-general).
+Virtualization of debug triggers are pending. Patch set is ready but needs testing.
 
-> +#include <linux/slab.h>
-> +
-> +#define X13S_EC_CMD_READ		0x02
-> +#define X13S_EC_CMD_WRITE		0x03
-> +#define X13S_EC_CMD_EVENT		0xf0
-> +#define X13S_EC_REG_POWER_STATE	0x80
-> +#define X13S_EC_POWER_STATE_ENTER	0x55
-> +#define X13S_EC_POWER_STATE_EXIT	0xaa
-> +#define X13S_EC_REG_KBD_BACKLIGHT	0xc0
-> +#define X13S_EC_BACKLIGHT_MASK	GENMASK(5, 4)
-> +#define X13S_EC_REG_KBD_BACKLIGHT_SAVED	0x15
-> +#define X13S_EC_BACKLIGHT_SAVED_MASK	GENMASK(2, 1)
-> +#define X13S_EC_EVENT_FN_SPACE	0x1f
-> +#define X13S_EC_EVENT_LID_OPEN	0x52
-> +
-> +struct x13s_ec {
-> +	struct i2c_client *client;
-> +	struct gpio_desc *power_state;
-> +	/* Serializes EC transactions, backlight RMW and suspend/event state. */
-> +	struct mutex lock;
-> +	struct led_classdev led;
-> +	enum led_brightness saved_brightness;
-> +	bool saved_brightness_valid;
-> +	bool suspended;
+Changes from v6:
+  - Rebased to v7.3-rc5
+  - Added HIT0/1 bit check/clear in breakpoint handler with EPC/Bp address check
+  - Removed dbtr_shmem null check as pointed by Qinfang Deng
+  - Fixed MEM_HI/MEM_LO macros to work both on rv64/32
+  - Changed unsigned long to __u64 from hwdebug state struct and dropped packing
+  - Gated HAVE_MIXED_BREAKPOINT_REGS with PERF_EVENTS
+  - Software base single stepping with mcontrol6 trigger type.
+  - icount is still under development.
+  - Moved and and reworked instruction decoding code to a common file.
+  - perf test suite now supported.
+	- Breakpoint overflow signal handler
+	- Breakpoint overflow sampling
+	- Breakpoint accounting (needs sudo)
+	- Watchpoint
+	  - Read Only Watchpoint
+	  - Write Only Watchpoint
+	  - Read / Write Watchpoint
+	  - Modify Watchpoint
+  - __test_function in "Breakpoint overflow signal handler" is name noinline
+  - Fixed warnings from checkpatch.pl --strict
 
-Why you need this, doesn't pm core already have this information for you?
+Changes from v5:
+  - Rebased to v7.2-rc6
+  - Simplified Macros in hw_breakpoint.h
+  - Took care of the review comments
+  - Added ptrace support for hardware break/watchpoints (new patch)
+    - PTRACE_GETREGSET/SETREGSET via NT_RISCV_HW_BREAK / NT_RISCV_HW_WATCH
+    - PTRACE_GETHBPREGS / SETHBPREGS for direct single-trigger access
+    - HAVE_MIXED_BREAKPOINTS_REGS selected (break/watch share trigger pool)
+    - flush_ptrace_hw_breakpoint / ptrace_hw_copy_thread wired up
+  - Extended selftest to cover ptrace-based hw break/watchpoint paths (new patch)
 
-> +	bool event_pending;
-> +};
-> +
-> +/*
-> + * Each single-message transfer ends in STOP. Hold the bus segment across
-> + * both halves so another client cannot interleave them. Keep the 10 ms
-> + * post-command settling delay, including on failure.
-> + */
-> +static int x13s_read(struct x13s_ec *ec, u8 cmd, u8 reg, u8 *value)
-> +{
-> +	struct i2c_client *client = ec->client;
-> +	u8 buf[] = { cmd, reg, 0, 1 };
-> +	struct i2c_msg request = {
-> +		.addr = client->addr,
-> +		.flags = I2C_M_STOP,
-> +		.len = sizeof(buf),
-> +		.buf = buf,
-> +	};
-> +	struct i2c_msg response = {
-> +		.addr = client->addr,
-> +		.flags = I2C_M_RD,
-> +		.len = 1,
-> +		.buf = value,
-> +	};
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	if (ec->suspended)
-> +		return -EBUSY;
-> +
-> +	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
-> +	ret = __i2c_transfer(client->adapter, &request, 1);
-> +	if (ret == 1)
-> +		ret = __i2c_transfer(client->adapter, &response, 1);
-> +	i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
-> +	fsleep(10000);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != 1)
-> +		return -EIO;
-> +
-> +	return 0;
+Changes from v4:
+  - Rebased to v7.2-rc4
+  - Fixed rv32 build error
+  - Added pr_fmt to print KBUILD_MODNAME
+  - Changed type of shmem_pa to phys_addr_t
+  - Use per_cpu_ptr_to_phys instead of __pa for per-cpu allocated memory
+  - Print successful registration/unregistration message when no error
+  - Added RISC-V DEBUGGING section in MAINTAINERS and added myself as maintainer
+  - Fixed warnings from checkpatch.pl --strict run
 
-Much easier to read, thanks.
+Changes from v3:
+  - Rebased to v7.1-rc3
+  - For watchpoints, check tdata1.hit via SBI_EXT_DBTR_TRIG_READ and keep
+    STVAL-based matching as fallback
+  - Improved watchpoint matching when STVAL reports the lowest accessed address
+    for wider memory accesses
+  - Program execute breakpoints with SIZE=0 (match any size) to avoid misses
+    with 16-bit/compressed instruction addresses
+  - Updated selftest to avoid deadlock by replacing unbounded sem_wait() with
+    sem_timedwait() timeout handling
+  - Updated selftest breakpoint function so it cannot be inlined or optimized away
 
---
- i.
+Changes from v2:
+  - Rebased to v7.0-rc1
+  - Fixed warnings from checkpatch.pl --strict run
 
-> +}
-> +
-> +/* Also used by normal PM callbacks while ordinary EC access is blocked. */
-> +static int x13s_write(struct x13s_ec *ec, u8 reg, u8 value)
-> +{
-> +	u8 buf[] = { X13S_EC_CMD_WRITE, reg, 0, 1, value };
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +
-> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
-> +	fsleep(10000);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(buf))
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int x13s_brightness(struct x13s_ec *ec)
-> +{
-> +	u8 value;
-> +	int brightness, ret;
-> +
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	brightness = FIELD_GET(X13S_EC_BACKLIGHT_MASK, value);
-> +	if (brightness > ec->led.max_brightness)
-> +		return -EINVAL;
-> +
-> +	return brightness;
-> +}
-> +
-> +static enum led_brightness x13s_brightness_get(struct led_classdev *led)
-> +{
-> +	struct x13s_ec *ec = container_of(led, struct x13s_ec, led);
-> +	int ret;
-> +
-> +	mutex_lock(&ec->lock);
-> +	ret = x13s_brightness(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return ret;
-> +}
-> +
-> +static int x13s_set_brightness_locked(struct x13s_ec *ec,
-> +				      enum led_brightness brightness)
-> +{
-> +	u8 value;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	if (brightness > ec->led.max_brightness)
-> +		return -EINVAL;
-> +
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &value);
-> +	if (ret)
-> +		return ret;
-> +	/* Never interpret or overwrite a reserved current brightness. */
-> +	if (FIELD_GET(X13S_EC_BACKLIGHT_MASK, value) > ec->led.max_brightness)
-> +		return -EINVAL;
-> +	FIELD_MODIFY(X13S_EC_BACKLIGHT_MASK, &value, brightness);
-> +	return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT, value);
-> +}
-> +
-> +/* SCMS(0x20): save the brightness obtained from C0 in the EC. */
-> +static int x13s_save_brightness_locked(struct x13s_ec *ec,
-> +				       enum led_brightness brightness)
-> +{
-> +	u8 value;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED,
-> +			&value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	FIELD_MODIFY(X13S_EC_BACKLIGHT_SAVED_MASK, &value, brightness);
-> +	return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT_SAVED, value);
-> +}
-> +
-> +/* SCMS(0x21): restore C0 from the EC's saved brightness. */
-> +static int x13s_restore_brightness_locked(struct x13s_ec *ec)
-> +{
-> +	u8 value;
-> +	int brightness, ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED,
-> +			&value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	brightness = FIELD_GET(X13S_EC_BACKLIGHT_SAVED_MASK, value);
-> +	ret = x13s_set_brightness_locked(ec, brightness);
-> +	return ret ? ret : brightness;
-> +}
-> +
-> +static int x13s_brightness_set(struct led_classdev *led,
-> +			       enum led_brightness brightness)
-> +{
-> +	struct x13s_ec *ec = container_of(led, struct x13s_ec, led);
-> +	int ret;
-> +
-> +	guard(mutex)(&ec->lock);
-> +	ret = x13s_set_brightness_locked(ec, brightness);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Keep software selections across the EC's lid blank/restore cycle. */
-> +	return x13s_save_brightness_locked(ec, brightness);
-> +}
-> +
-> +static void x13s_refresh_brightness(struct x13s_ec *ec)
-> +{
-> +	int brightness, ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	/* Firmware owns the transition; save its result as _Q1F does. */
-> +	brightness = x13s_brightness(ec);
-> +	if (brightness < 0) {
-> +		dev_err_ratelimited(&ec->client->dev,
-> +				    "Backlight refresh failed: %d\n", brightness);
-> +		return;
-> +	}
-> +	ret = x13s_save_brightness_locked(ec, brightness);
-> +	if (ret) {
-> +		dev_err_ratelimited(&ec->client->dev,
-> +				    "Backlight save failed: %d\n", ret);
-> +	}
-> +	led_classdev_notify_brightness_hw_changed(&ec->led, brightness);
-> +}
-> +
-> +static void x13s_query_event(struct x13s_ec *ec)
-> +{
-> +	u8 event;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	/* One query per interrupt, with no event-draining loop or retry. */
-> +	ret = x13s_read(ec, X13S_EC_CMD_EVENT, 0, &event);
-> +	if (ret) {
-> +		dev_err_ratelimited(&ec->client->dev, "Event query failed: %d\n", ret);
-> +		return;
-> +	}
-> +	if (event == X13S_EC_EVENT_FN_SPACE) {
-> +		x13s_refresh_brightness(ec);
-> +	} else if (event == X13S_EC_EVENT_LID_OPEN) {
-> +		ret = x13s_restore_brightness_locked(ec);
-> +		if (ret < 0) {
-> +			dev_err_ratelimited(&ec->client->dev,
-> +					    "Backlight lid restore failed: %d\n", ret);
-> +			return;
-> +		}
-> +		ec->led.brightness = ret;
-> +		led_classdev_notify_brightness_hw_changed(&ec->led, ret);
-> +	}
-> +}
-> +
-> +static void x13s_process_pending_event(struct x13s_ec *ec)
-> +{
-> +	lockdep_assert_held(&ec->lock);
-> +	if (ec->event_pending) {
-> +		ec->event_pending = false;
-> +		x13s_query_event(ec);
-> +	}
-> +}
-> +
-> +static irqreturn_t x13s_irq(int irq, void *data)
-> +{
-> +	struct x13s_ec *ec = data;
-> +
-> +	mutex_lock(&ec->lock);
-> +	/* Coalesce suspended IRQs into one query; never access I2C here. */
-> +	if (ec->suspended)
-> +		ec->event_pending = true;
-> +	else
-> +		x13s_query_event(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int x13s_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct x13s_ec *ec;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> +		return -EOPNOTSUPP;
-> +	if (client->irq <= 0)
-> +		return dev_err_probe(dev, -EINVAL, "Missing event IRQ\n");
-> +	if (irq_get_trigger_type(client->irq) != IRQ_TYPE_EDGE_FALLING)
-> +		return dev_err_probe(dev, -EINVAL, "Expected falling-edge IRQ\n");
-> +
-> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-> +	if (!ec)
-> +		return -ENOMEM;
-> +	ec->client = client;
-> +	ret = devm_mutex_init(dev, &ec->lock);
-> +	if (ret)
-> +		return ret;
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	ec->power_state = devm_gpiod_get(dev, "power-state", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ec->power_state)) {
-> +		return dev_err_probe(dev, PTR_ERR(ec->power_state),
-> +				     "Failed to acquire power-state GPIO high\n");
-> +	}
-> +
-> +	ec->led.name = "platform::kbd_backlight";
-> +	ec->led.max_brightness = 2;
-> +	ec->led.flags = LED_BRIGHT_HW_CHANGED | LED_RETAIN_AT_SHUTDOWN;
-> +	ec->led.brightness_get = x13s_brightness_get;
-> +	ec->led.brightness_set_blocking = x13s_brightness_set;
-> +	ret = devm_led_classdev_register(dev, &ec->led);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register keyboard backlight\n");
-> +
-> +	/* Devres synchronizes the IRQ before unregistering the LED. */
-> +	ret = devm_request_threaded_irq(dev, client->irq, NULL, x13s_irq,
-> +					IRQF_ONESHOT, dev_name(dev), ec);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request event IRQ\n");
-> +
-> +	/*
-> +	 * As on the T14s, disable wakeup by default since selective EC event
-> +	 * masking is not known. Keep runtime IRQ handling enabled.
-> +	 */
-> +	device_wakeup_disable(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int x13s_power_gpio(struct x13s_ec *ec, int value)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = gpiod_set_value_cansleep(ec->power_state, value);
-> +	if (ret) {
-> +		dev_err(&ec->client->dev, "Failed to set power-state GPIO to %d: %d\n",
-> +			value, ret);
-> +	}
-> +	return ret;
-> +}
-> +
-> +static void x13s_exit_low_power(struct x13s_ec *ec)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	x13s_power_gpio(ec, 1);
-> +	/* DSDT: GPIO176 high, Sleep(10), then register 0x80 <- 0xaa. */
-> +	fsleep(10000);
-> +	ret = x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_EXIT);
-> +	if (ret)
-> +		dev_err(&ec->client->dev, "Failed to exit low power: %d\n", ret);
-> +
-> +	/* Resume ordinary access even if the EC exit attempt failed. */
-> +	ec->suspended = false;
-> +}
-> +
-> +static int x13s_suspend(struct device *dev)
-> +{
-> +	struct x13s_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/* Finish in-flight access while the GENI parent is still usable. */
-> +	guard(mutex)(&ec->lock);
-> +	if (ec->suspended)
-> +		return 0;
-> +	/* Only restore a snapshot captured during this suspend. */
-> +	ec->saved_brightness_valid = false;
-> +	ret = x13s_brightness(ec);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to save backlight brightness: %d\n", ret);
-> +	} else {
-> +		ec->saved_brightness = ret;
-> +		ec->saved_brightness_valid = true;
-> +	}
-> +
-> +	/* DSDT: register 0x80 <- 0x55, then GPIO176 low. */
-> +	ret = x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_ENTER);
-> +	if (ret)
-> +		dev_err(dev, "Failed to enter low power: %d\n", ret);
-> +	else
-> +		x13s_power_gpio(ec, 0);
-> +	/* Defer event queries throughout host suspend, even on EC failure. */
-> +	ec->suspended = true;
-> +	return 0;
-> +}
-> +
-> +static int x13s_resume(struct device *dev)
-> +{
-> +	struct x13s_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/*
-> +	 * Normal resume runs after the adapter and its GENI parent. In
-> +	 * particular, device_resume_early() has re-enabled runtime PM:
-> +	 * GENI's resume_noirq() alone is not sufficient for I2C transfers.
-> +	 * Consume the pending query under the IRQ thread's mutex, without
-> +	 * a worker that could race a new IRQ or the next suspend.
-> +	 */
-> +	mutex_lock(&ec->lock);
-> +	x13s_exit_low_power(ec);
-> +	if (ec->saved_brightness_valid) {
-> +		ret = x13s_set_brightness_locked(ec, ec->saved_brightness);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to restore backlight brightness: %d\n", ret);
-> +		} else {
-> +			/* A software restore is not a hardware brightness change. */
-> +			ec->led.brightness = ec->saved_brightness;
-> +		}
-> +		ec->saved_brightness_valid = false;
-> +	}
-> +
-> +	/* A deferred lid-open restore must supersede the PM snapshot. */
-> +	x13s_process_pending_event(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(x13s_pm_ops, x13s_suspend, x13s_resume);
-> +
-> +static const struct of_device_id x13s_of_match[] = {
-> +	{ .compatible = "lenovo,thinkpad-x13s-ec" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, x13s_of_match);
-> +
-> +static struct i2c_driver x13s_driver = {
-> +	.probe = x13s_probe,
-> +	.driver = {
-> +		.name = "thinkpad-x13s-ec",
-> +		.of_match_table = x13s_of_match,
-> +		.pm = pm_sleep_ptr(&x13s_pm_ops),
-> +	},
-> +};
-> +module_i2c_driver(x13s_driver);
-> +
-> +MODULE_DESCRIPTION("Lenovo ThinkPad X13s Embedded Controller");
-> +MODULE_LICENSE("GPL");
-> 
+Changes from v1:
+  - The patch adding the SBI extension and function IDs is already merged; this
+    series builds on top of that
+  - Added breakpoint selftest in tools/testing/selftests/breakpoints/
+
+Specifications:
+~~~~~~~~~~~~~~
+The SBI debug trigger extension is specified in Chapter 19 of the SBI
+specification:
+  https://github.com/riscv-non-isa/riscv-sbi-doc/releases/download/v3.0/riscv-sbi.pdf
+
+The Sdtrig ISA is part of the RISC-V debug specification:
+  https://github.com/riscv/riscv-debug-spec
+
+How to use:
+~~~~~~~~~~~
+OpenSBI:
+  https://github.com/riscv-software-src/opensbi.git
+
+QEMU:
+  https://github.com/qemu/qemu.git
+
+Linux Kernel:
+  Apply these patches on top of v7.3-rc5
+
+How to test:
+~~~~~~~~~~~
+From the Linux kernel directory, first install the UAPI headers (required on a
+fresh tree so the compiler can locate <asm/ptrace.h> and the new
+NT_RISCV_HW_BREAK/WATCH definitions via KHDR_INCLUDES):
+
+  make headers
+
+Then build the selftest:
+
+  make -C tools/testing/selftests/breakpoints/
+
+This produces breakpoint_test_riscv under the same directory. Load it on the
+target and run. Sample output:
+
+  # /apps/breakpoint_test_riscv
+  # [perf_event]: Breakpoint test passed!
+  # [perf_event]: Watchpoint test passed!
+  # [ptrace]: Breakpoint test passed!
+  # ptrace(PTRACE_GETREGSET): Number of watchpoints: 2
+  # ptrace(PTRACE_GETREGSet): addr: 0x82888 control: 0x8080
+  # [ptrace]: Watchpoint test passed!
+  # [hbpregs] breakpoint readback: addr=0x10472 type=4 len=4 ctrl=0
+  # [hbpregs]: Breakpoint test passed!
+  # [hbpregs] watchpoint readback: addr=0x82888 type=2 len=8 ctrl=0
+  # [hbpregs]: Watchpoint test passed!
+
+Perf Test Suite:
+~~~~~~~~~~~~~~~
+~ # /apps/perf test -v 16 17 18 19
+ 16: Breakpoint overflow signal handler           : Ok
+ 17: Breakpoint overflow sampling                 : Ok
+ 18: Breakpoint accounting                        : Ok
+ 19: Watchpoint                                   :
+ 19.1: Read Only Watchpoint                       : Ok
+ 19.2: Write Only Watchpoint                      : Ok
+ 19.3: Read / Write Watchpoint                    : Ok
+ 19.4: Modify Watchpoint                          : Ok
+
+=== Test Summary ===
+Passed main tests : 3
+Passed subtests   : 4
+Skipped tests     : 0
+Failed tests      : 0
+
+Himanshu Chauhan (8):
+  riscv: Introduce support for hardware break/watchpoints
+  riscv: Add breakpoint and watchpoint test for riscv
+  riscv: ptrace support for hardware break/watchpoints
+  selftests/breakpoints: extend riscv test for ptrace hw
+    break/watchpoints
+  RISC-V: Add fetch and decode helpers to a common file
+  riscv: Add software supported single stepping with mc/mc6 triggers
+  perf tests: add noinline to __test_function
+  MAINTAINERS: Add entry for RISC-V Debugging
+
+ MAINTAINERS                                   |  11 +
+ arch/riscv/Kconfig                            |   3 +
+ arch/riscv/include/asm/hw_breakpoint.h        | 331 +++++++
+ arch/riscv/include/asm/insn.h                 |  15 +
+ arch/riscv/include/asm/kdebug.h               |   3 +-
+ arch/riscv/include/asm/processor.h            |  18 +
+ arch/riscv/include/uapi/asm/ptrace.h          |  50 +
+ arch/riscv/kernel/Makefile                    |   1 +
+ arch/riscv/kernel/hw_breakpoint.c             | 879 ++++++++++++++++++
+ arch/riscv/kernel/process.c                   |   5 +
+ arch/riscv/kernel/ptrace.c                    | 507 ++++++++++
+ arch/riscv/kernel/traps.c                     |   6 +
+ arch/riscv/kernel/traps_misaligned.c          |  52 +-
+ arch/riscv/lib/Makefile                       |   1 +
+ arch/riscv/lib/insn.c                         | 263 ++++++
+ include/uapi/linux/elf.h                      |   4 +
+ tools/include/uapi/linux/elf.h                |   2 +
+ tools/perf/tests/bp_signal.c                  |   2 +-
+ tools/testing/selftests/breakpoints/Makefile  |   5 +
+ .../breakpoints/breakpoint_test_riscv.c       | 769 +++++++++++++++
+ 20 files changed, 2874 insertions(+), 53 deletions(-)
+ create mode 100644 arch/riscv/include/asm/hw_breakpoint.h
+ create mode 100644 arch/riscv/kernel/hw_breakpoint.c
+ create mode 100644 arch/riscv/lib/insn.c
+ create mode 100644 tools/testing/selftests/breakpoints/breakpoint_test_riscv.c
+
+-- 
+2.43.0
+
