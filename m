@@ -1,206 +1,333 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16EA3B3BF2
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798007; cv=pass; b=HUdirgXVGabSXfPLEjFjtLdSe0DVLiMohS62FmK04yVT9tdCWExvDDdhw/dqTz+nr4QS59byYFaMO5v8SOVttq0lphgmC7Dhfv0oIGm7tCBgu/TE9VSMnPTR1OdR0YMTOwv22cpAF3ELueDG2qcFE7GY0w6Atl1NhA+Jfqx3w/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798007; c=relaxed/simple;
-	bh=jEjOJJgnQ8TLl1NXrjU0PSvQC15w6bG/fD+IpOaPESg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FD43DAAD8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790798043; cv=none; b=TgBgWe8B0xNRNIYh2YttpKz8eIFe6AG1EEdVPxunC+eHmScH55eFKRucetda32wSm2wStUk9/ExLoC4MpT1W+Gj0DFt27GvOWh/Bz8BYo9tpC3qHeyqD/RgtDd7bBEyrcz9Gvrnpcb3OvXcqgNS5o1KVOWgPql3dOzMKVB18C3A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790798043; c=relaxed/simple;
+	bh=r4EueZ/kPSrqSNB4h3oVad4aRxPelxGBvgtsPYItrWE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U0zAN4CnGJ2UgCWR1IxOi5bIE5dfjo7tuxXtJoUoMtv3v9Fg94c9lAeLYTiqFU+SiyFPiziagA2aijWYpWNdiPh6tD1E9EQ/dl9O7RSCfhWLvqvBcIJ+88Wz9aUstPgNrdmSGbAbYHyIIVDKRxvPnl4I7pDFIYD4aj76f1YcUgA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LNThRzfZ; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=V6Wi/vGC/Eavezak8Hwxg1OUr08i5XTldK8VLBlkQnLGtX09Cad/QWVAXqx091NrDFH56/BUhjnDyM9pbeWMEIxGze9Icd/pcPOl0lI0UERp4ri2rW+zGbc8bW4s4SHUxJNGyNbU/yNXVX9qhqKRoyqg+rdXcfbLo5J+EFAnM/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgzpuYod; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LNThRzfZ"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337c7b9937so63551cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:53:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790798003; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U6HnkUmPaasmYigz31mZuYgeqJ8IDo2oCd1syyNuhSzpguk0e/GSpNVVA9Rto4tfN0
-         i7bmc9pgXrcLHssnasLoZmjA9pVcIBamrPco+cX0N1vV3xMRoS2/GLT+TVxGYKnWkQyk
-         nWR7vCcFZ9ygdjrqUNzYWrj7lrGraLHL9E5/QoeG0GjVce+ZtMD1UsPyxITitFhk9cc+
-         L4XbFghLyxtWYs+Dl7DXdFS4880pXzEHGPoEEjzRQQB5ToX8uYFk7YzkrSew8ZCErpll
-         tGpaIW6hmFlFSvpxtqecCGIgIq250en7DHsVV7cuGPn77vTUetHgzOXfqQUYwh+dwr+Y
-         XXIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0eIq1qnomZnnsUKsF5xFhZ0yFWtEcE3Qo/pF8vzCbBI=;
-        fh=UPc2esRCumh+OI92cEA0Dn1zec3+xRMgQuH+j+WCfJg=;
-        b=nGoqWf7HqGkrRDoTRjbYVbA4qeCq9w6WjrPprwyxG1aTneRtsEJbEAGNot71Y/Bd19
-         EfqGGmMw/Dafbc8wC8qTKlkXcpTlbP1iF1g7FhbinTSa39QlOnxht4/w7wbtxjsdD+zp
-         rpPLJ0dFR8UJOVQI44KhsCwqqADWT4bhJY0u2f3So1KSSbOLmhXNjhuePJeipbT/ym7u
-         YbipbPHU8ZBhQah+EQ9VQkIUtjer5IW3PfCMf8Xdjm1E2hSilHV75GlIJijAUUiNVAxw
-         8k/GCyO+prVx7JZ0vW/F+QVFj2FM4WvnHiH+6cETDziWTU42SDsJqrw8jd8MgFoCCkgR
-         eSNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790798003; x=1791402803; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0eIq1qnomZnnsUKsF5xFhZ0yFWtEcE3Qo/pF8vzCbBI=;
-        b=LNThRzfZxyghISoHjbKesH0mtqWbAY+JNadXmCvZDfwiQAQTYg37VupAsToagdf8ZZ
-         3R0iXfmdnaQTeRi0Hxcp/Qu7BAjWkYrQqR+w+SHZ9XW+okr8TCYPf1wktVth8b9yUrKo
-         mmXTmLmxp1jOYV74tQS4/9/QGLzBx3Tst56IofuSoxysS1pt9nijBxFyIYZNGgnrf6qM
-         hR7PGdsNYv2ADwfrcHw+VqsKlI2wqvNGYSOMxJYrjWBk/V10++LpA+iN3hk7ZOIwdMt2
-         /g6riwK8bIzz8voSw26HWpTbwoMRsb4hQeF5sdRxMc6TptrT94Eii9wbiXBxFEFZCym7
-         tHuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790798003; x=1791402803;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0eIq1qnomZnnsUKsF5xFhZ0yFWtEcE3Qo/pF8vzCbBI=;
-        b=J36gsM2CoQo85s6L3ZTdIWxyVTD/R2kNBpQPAWEvvHxqnPVnOkX9DgO/rXtD+B6LUL
-         5/i3zkxKFgzNg5+0kuuK8h3RYRn3bhUfDzcxkrAWX3PTJhba/lMdVYxIZSxUlsjumgO1
-         YJLuzm7VOSRK9ryn/cvSClUmGz6PWk2y0KnOcFKH49z/Ssm+okcIT4HdTadrig872UXQ
-         IcWQodCLV9EBPYmPvLkvwRtiphicl+1i7EjCOGYVvSD7x2k9GcYGoXc4k6H3Un2SpbE8
-         P51h1feLSmYZ32jpKWEHQvtqXkJ0Dmx8R4HH0xN1uU1dJytWKv4LddSSDiDkNM9RSrvP
-         wo7g==
-X-Forwarded-Encrypted: i=1; AKwUvBz1KNjvAedsayqq2E8jfDeyHFDvcpBxdFo6tY3yY8UYSLDbsRDbNqFRplsG/mP/ZoLc54OZqIASgKE12G0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/ryb47xwS/++xuvuB3rRBdCzDnGZaDz+LJXpq+LEjvrNrEr+J
-	B4fif9+cZz6ZDcEK/r6lVlJiYkxqXqKA/6666i9MUYRrQ0ei4jqq9t+49LAPcVSrxvfdnFsJLyF
-	KRKb5qo/lRoWBvcDGNjhG/JAjYRNbFW+IqHErptFr
-X-Gm-Gg: AYBFou3khed0ZONGQ/G5/7YAonIGM6l4P+ZsR682//lFtTlC7LE8aMgt/Q6UF785R0e
-	tRxXtIxT9onaFtCVvac6Tq/fUOvIeIt4ktNcDCQYTcQOT15yBtkmfpGzcLdWQtSSL6p6+0z8Nys
-	MPa8ZNRhps84rd1+otBt+ASKOv51qtfEqRau/ygSVzglfPVX/FWhEJKWyPYPn7+zMJwg1/zsI47
-	X3q1msMtIjnohFcEBlpjyrQ+7qbjeLY14/hI0m+rfuSncp0bRfv6niJajDzMq15tJbY5UFp+r3a
-	nxfqzm4IFkZYB3uBhb66ocepq/5pqkBZAxxdpbDH9ggnyvDalFLx/Q==
-X-Received: by 2002:a05:622a:610:b0:531:6de:6028 with SMTP id
- d75a77b69052e-53386815ca8mr222861cf.13.1790798002634; Wed, 30 Sep 2026
- 12:53:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgzpuYod"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527C61F0089F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:54:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790798041;
+	bh=McrGr+mWNp/PQ7emF32ERE0RLMv5AFRRptelodwTEZI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZgzpuYodpSk43oSsTxaO5RO5d37g78sCQcdO+5Pa+RYupBRPW7zlzl2I/GeDBGwdh
+	 +vdj8OhuLKubqXQC/yP5Zc+FG1HU8pH19T2EWQfs2tEptQajpT9+xw6O73dQe3VSdB
+	 RAqeWZL5vT8ogierP8gdTuYRlQ///mStgXWKJ87byjMr59QaQgAZOEyh5HtRd6RSmq
+	 YJce2sT/Ob/tzjxUH4hSLZtzKbVwbYpuPsxXg6lmDLmayd1BJyzhmSgPzfJM5Eo05B
+	 xPXfROtapNFyttr5m74jJL5Oz3Ukk/kpb1p0PkwSqUhzPCVIaJngSOprREYB26khYG
+	 eyHs75R3O78xg==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso132350e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:54:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByKtN/dvh+CtVtCmswrqOw0Cm9/QQwioQBNiKMUsLDZD2th8QnL1zEjDfXvvDOeWbH6ga+NdtxO0wSHldg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJu4rmVD82LuUKSrB8+L5qp4S0RW8cukbiTE2PymohXkBe1Fe6i
+	Rlm/IOvEZ8L1vLjUV0gDtiFvjrskGf4xAnz4gnMRLAN8pq5oTJN4PjGwAUjWdFgOY8mEPXKumwH
+	scJX/2j8ybOWH69IbXOU+Y6Z6ZrLoiAM=
+X-Received: by 2002:a05:6512:1287:b0:5b8:c311:88e8 with SMTP id
+ 2adb3069b0e04-5ba433ef5e1mr212198e87.26.1790798039650; Wed, 30 Sep 2026
+ 12:53:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com>
- <20260926-nsfs-prune-rfc-v2-1-53509260e4e7@gmail.com> <CANaxB-yj2QV183nk3UC-2PD6qh6hh-_iLRuryTdUsebd+RqxdA@mail.gmail.com>
- <CAGmPdrwOnNRHJqk1mZVB+tFCnJBr3ZTaSZqbiGu54kXPkMtRoQ@mail.gmail.com>
-In-Reply-To: <CAGmPdrwOnNRHJqk1mZVB+tFCnJBr3ZTaSZqbiGu54kXPkMtRoQ@mail.gmail.com>
-From: Andrei Vagin <avagin@google.com>
-Date: Wed, 30 Sep 2026 12:53:11 -0700
-X-Gm-Features: AclHuK9MG__TVWG37WqPhPUQdYK5bsOXfsAt-eoCDlcKjWQdQUjwS0-jBycCRa0
-Message-ID: <CAEWA0a5OjmjE-CVhiUcLXqrpE4xSd3-L5OszDd41DFDqUgcp1g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
-To: Kirill Kolyshkin <kolyshkin@gmail.com>
-Cc: Andrei Vagin <avagin@gmail.com>, Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, 
-	Jeff Layton <jlayton@kernel.org>, "Eric W . Biederman" <ebiederm@xmission.com>, 
-	David Howells <dhowells@redhat.com>, Amir Goldstein <amir73il@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	containers@lists.linux.dev
+References: <20260929151845.23980-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260929151845.23980-1-fanwu01@zju.edu.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 30 Sep 2026 21:52:15 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0g4qK+ZAgscqYvQ5Vw6wUZ97pV7LazfzoP_j1s5K3ghfg@mail.gmail.com>
+X-Gm-Features: AclHuK-BfvAK2h54ZMHElErScypLwiqeZJ4pwOGvQC30PUhLeIskAhsM4LnPiQY
+Message-ID: <CAJZ5v0g4qK+ZAgscqYvQ5Vw6wUZ97pV7LazfzoP_j1s5K3ghfg@mail.gmail.com>
+Subject: Re: [PATCH v2] thermal: intel: int340x: Fix potential use-after-free
+ in proc_thermal_pci
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: rafael@kernel.org, daniel.lezcano@linaro.org, rui.zhang@intel.com, 
+	lukasz.luba@arm.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	srinivas.pandruvada@linux.intel.com, stable@vger.kernel.org, songl@zju.edu.cn
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 12:49=E2=80=AFPM Kirill Kolyshkin <kolyshkin@gmail.=
-com> wrote:
+On Tue, Sep 29, 2026 at 5:19=E2=80=AFPM Fan Wu <fanwu01@zju.edu.cn> wrote:
 >
-> On Wed, Sep 30, 2026 at 10:22=E2=80=AFAM Andrei Vagin <avagin@gmail.com> =
-wrote:
-> >
-> > On Sat, Sep 26, 2026 at 12:01=E2=80=AFAM Kir Kolyshkin <kolyshkin@gmail=
-.com> wrote:
-> > >
-> > > A recursive open_tree(OPEN_TREE_CLONE) copies the nsfs mounts of any
-> > > mount namespaces pinned below the source.  When the clone is attached
-> > > inside a mount namespace younger than a pinned one, move_mount(2) fai=
-ls
-> > > with ELOOP from check_for_nsfs_mounts(), per the rule from commit
-> > > 8823c079ba71 ("vfs: Add setns support for the mount namespace") that
-> > > prevents mount namespace reference loops.
-> > >
-> > > This breaks container runtimes that use OPEN_TREE_NAMESPACE, such as
-> > > crun [1].  The new namespace is younger than everything else, so bind
-> > > mounting e.g. the host root fails on any host that pins a mount names=
-pace
-> > > (snapd does, under /run/snapd/ns).  By the time it fails, setns() has
-> > > already run and userspace cannot recover: the host tree is out of rea=
-ch,
-> > > and the offending mounts cannot be unmounted from the detached copy.
-> > >
-> > > copy_mnt_ns() and create_new_namespace() already leave these mounts
-> > > behind; only get_detached_copy() copies them.  Add an open_tree() fla=
-g to
-> > > drop them from the clone, as suggested by Aleksa [2].  Locked nsfs mo=
-unts
-> > > are dropped the same way copy_mnt_ns() does it, so nothing new is exp=
-osed.
-> > >
-> > > Keep it opt-in: open_tree(OPEN_TREE_CLONE) plus move_mount(2) is how
-> > > mount --rbind works through a file descriptor, and in the caller's ow=
-n
-> > > or an older namespace such mounts remain usable.
-> > >
-> > > The flag requires OPEN_TREE_CLONE or OPEN_TREE_NAMESPACE.  With the
-> > > latter it is a no-op, so a runtime can pass it unconditionally.
-> > >
-> > > Link: https://github.com/containers/crun/issues/2262 [1]
-> > > Link: https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spi=
-lls-ywC2O3@cyphar.com/ [2]
-> > > Assisted-by: Claude:claude-opus-5
-> > > Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
-> > > ---
-> > >  fs/namespace.c             | 14 ++++++++++++--
-> > >  include/uapi/linux/mount.h |  1 +
-> > >  2 files changed, 13 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/fs/namespace.c b/fs/namespace.c
-> > > index ae5dc64f8b45..a95173996a8f 100644
-> > > --- a/fs/namespace.c
-> > > +++ b/fs/namespace.c
-> > > @@ -3062,7 +3062,8 @@ static struct mnt_namespace *get_detached_copy(=
-const struct path *path, unsigned
-> > >                         ns->seq_origin =3D src_mnt_ns->ns.ns_id;
-> > >         }
-> > >
-> > > -       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE), CL_COPY_M=
-NT_NS_FILE);
-> > > +       mnt =3D __do_loopback(path, (flags & AT_RECURSIVE),
-> > > +                           (flags & OPEN_TREE_DROP_MNTNS_MOUNTS) ? 0=
- : CL_COPY_MNT_NS_FILE);
-> >
-> > Overall, the patch looks good. One small thing is that open_tree() with
-> > OPEN_TREE_DROP_MNTNS_MOUNTS doesn't fail on a mntns file if AT_RECURSIV=
-E
-> > isn't set:
-> >
-> >   open_tree(AT_FDCWD, "/proc/self/ns/mnt",
-> >             OPEN_TREE_CLONE|OPEN_TREE_CLOEXEC|0x4) =3D 3
-> >
-> > With AT_RECURSIVE, __do_loopback() calls copy_tree(), which checks
-> > !(flag & CL_COPY_MNT_NS_FILE) && is_mnt_ns_file(dentry) and returns
-> > -EINVAL, but without AT_RECURSIVE it calls clone_mnt(), which doesn't
-> > have such check.
+> proc_thermal_pci_remove() cancels pci_info->work before disabling the
+> interrupt sources that schedule it. A threshold IRQ which arrives after
+> the cancel but before the THRES_0 and INT_ENABLE_0 MMIO mask can
+> reschedule the work, which may then run after devm cleanup has freed
+> pci_info and dereference pci_info->tzone and proc_priv->mmio_base. The
+> shared IRQ is never freed in remove(), which widens the window, and the
+> probe error paths never cancel the work either.
 >
-> Thanks! A call with arguments like this does not make any sense*, as you'=
-re
-> asking to clone a pinned mount namespace while skipping it.
+> Fix this by cutting off the producers before draining: mask the
+> threshold interrupt, remove the sysfs interfaces which can re-enable
+> the power floor and workload type hint notifications, disable the
+> secondary interrupt sources, including both workload type hint
+> prediction bits, free the IRQs, and only then cancel the delayed work
+> and unregister the thermal zone, with a final mask afterwards. The
+> probe error paths unwind in the same order, and partial MSI setup
+> failures go through the same teardown instead of freeing the requested
+> IRQs inside setup_msi().
 >
-> * except maybe to check if the path is indeed a pinned mount namespace,
-> but there are cheaper ways to do it.
+> The workload type hint helper removes its sysfs group before disabling
+> its interrupt sources and now clears both prediction bits. It is shared
+> with the legacy int340x driver, so the same gap is fixed there too.
 >
-> That said, we can either keep things as is, or
-> 1. require AT_RECURSIVE with OPEN_TREE_DROP_MNTNS_MOUNTS
->     when checking valid flags; probably the easiest thing to do;
-> 2. add a check to a non-recursive path in __do_loopback, something like:
->     if (!(copy_flags & CL_COPY_MNT_NS_FILE) && is_mnt_ns_file(old_path->d=
-entry))
->        return ERR_PTR(-EINVAL);
+> This issue was found by an in-house static analysis tool.
 >
-> I'm going to implement either one in the next iteration (v3); do you have
-> a preference?
+> Fixes: acd65d5d1cf4 ("thermal/drivers/int340x/processor_thermal: Add PCI =
+MMIO based thermal driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-I prefer the first option.
+It would be good to say what happened between v1 and v2, like in this
+patch, for example:
 
-Thanks,
-Andrei
+https://lore.kernel.org/all/20260930-acpi_spcr-v4-1-ab649aa1f09c@posteo.de/
+
+Also Sashiko still complains about this version:
+
+https://sashiko.dev/#/patchset/20260929151845.23980-1-fanwu01%40zju.edu.cn
+
+so please let me know what you think about its findings.
+
+> ---
+>  .../processor_thermal_device.c                | 13 +++++
+>  .../processor_thermal_device.h                |  1 +
+>  .../processor_thermal_device_pci.c            | 57 +++++++++++++++----
+>  .../processor_thermal_wt_hint.c               | 22 ++++---
+>  4 files changed, 74 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_devi=
+ce.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> index f80dbe2ca7e4..a8d355044972 100644
+> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> @@ -335,6 +335,19 @@ void proc_thermal_remove(struct proc_thermal_device =
+*proc_priv)
+>  }
+>  EXPORT_SYMBOL_GPL(proc_thermal_remove);
+>
+> +/**
+> + * proc_thermal_power_limits_attr_remove() - remove the "power_limits" g=
+roup
+> + * @dev:       Device passed to proc_thermal_add().
+> + *
+> + * Remove the group before the power floor interrupt source is disabled:
+> + * a concurrent store to power_floor_enable could re-enable it.
+> + */
+> +void proc_thermal_power_limits_attr_remove(struct device *dev)
+> +{
+> +       sysfs_remove_group(&dev->kobj, &power_limit_attribute_group);
+> +}
+> +EXPORT_SYMBOL_GPL(proc_thermal_power_limits_attr_remove);
+> +
+>  static int tcc_offset_save =3D -1;
+>
+>  int proc_thermal_suspend(struct device *dev)
+> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_devi=
+ce.h b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> index b79937a386ec..918adc6d8712 100644
+> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> @@ -116,6 +116,7 @@ int processor_thermal_mbox_interrupt_config(struct pc=
+i_dev *pdev, bool enable, i
+>                                             int time_window);
+>  int proc_thermal_add(struct device *dev, struct proc_thermal_device *pri=
+v);
+>  void proc_thermal_remove(struct proc_thermal_device *proc_priv);
+> +void proc_thermal_power_limits_attr_remove(struct device *dev);
+>
+>  int proc_thermal_wt_hint_add(struct pci_dev *pdev, struct proc_thermal_d=
+evice *proc_priv);
+>  void proc_thermal_wt_hint_remove(struct pci_dev *pdev);
+> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_devi=
+ce_pci.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_p=
+ci.c
+> index c5131423ec9b..28c5cf53a6f5 100644
+> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.=
+c
+> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.=
+c
+> @@ -302,6 +302,12 @@ static int proc_thermal_setup_msi(struct pci_dev *pd=
+ev, struct proc_thermal_pci
+>         dev_info(&pdev->dev, "msi enabled:%d msix enabled:%d\n", pdev->ms=
+i_enabled,
+>                  pdev->msix_enabled);
+>
+> +       /*
+> +        * Set MSI mode once the vectors are allocated, so a failure belo=
+w
+> +        * unwinds through the caller's masked teardown path.
+> +        */
+> +       msi_irq =3D true;
+> +
+>         for (i =3D 0; i < count; i++) {
+>                 irq =3D  pci_irq_vector(pdev, i);
+>
+> @@ -309,19 +315,12 @@ static int proc_thermal_setup_msi(struct pci_dev *p=
+dev, struct proc_thermal_pci
+>                                                 proc_thermal_irq_thread_h=
+andler,
+>                                                 0, KBUILD_MODNAME, pci_in=
+fo);
+>                 if (ret)
+> -                       goto err_free_msi_vectors;
+> +                       return ret;
+>
+>                 proc_thermal_msi_map[i] =3D irq;
+>         }
+>
+> -       msi_irq =3D true;
+> -
+>         return 0;
+> -
+> -err_free_msi_vectors:
+> -       proc_thermal_free_msi(pdev, pci_info);
+> -
+> -       return ret;
+>  }
+>
+>  static int proc_thermal_pci_probe(struct pci_dev *pdev, const struct pci=
+_device_id *id)
+> @@ -383,8 +382,12 @@ static int proc_thermal_pci_probe(struct pci_dev *pd=
+ev, const struct pci_device_
+>
+>         if (use_msi) {
+>                 ret =3D proc_thermal_setup_msi(pdev, pci_info);
+> -               if (ret)
+> +               if (ret) {
+> +                       /* Full teardown: at least one IRQ was requested.=
+ */
+> +                       if (msi_irq)
+> +                               goto err_free_vectors;
+>                         goto err_ret_tzone;
+> +               }
+>         } else {
+>                 irq_flag =3D IRQF_SHARED;
+>                 irq =3D pdev->irq;
+> @@ -403,8 +406,24 @@ static int proc_thermal_pci_probe(struct pci_dev *pd=
+ev, const struct pci_device_
+>         return 0;
+>
+>  err_free_vectors:
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0,=
+ 0);
+> +       if (!pci_info->no_legacy)
+> +               proc_thermal_power_limits_attr_remove(&pdev->dev);
+> +       proc_thermal_mmio_remove(pdev, proc_priv);
+>         if (msi_irq)
+>                 proc_thermal_free_msi(pdev, pci_info);
+> +       else
+> +               devm_free_irq(&pdev->dev, pdev->irq, pci_info);
+> +       /* Cancel after the IRQs are freed, or the handler may reschedule=
+ it. */
+> +       cancel_delayed_work_sync(&pci_info->work);
+> +       thermal_zone_device_unregister(pci_info->tzone);
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0,=
+ 0);
+> +       if (!pci_info->no_legacy)
+> +               proc_thermal_remove(proc_priv);
+> +
+> +       return ret;
+>  err_ret_tzone:
+>         thermal_zone_device_unregister(pci_info->tzone);
+>  err_del_legacy:
+> @@ -420,16 +439,30 @@ static void proc_thermal_pci_remove(struct pci_dev =
+*pdev)
+>         struct proc_thermal_device *proc_priv =3D pci_get_drvdata(pdev);
+>         struct proc_thermal_pci *pci_info =3D proc_priv->priv_data;
+>
+> -       cancel_delayed_work_sync(&pci_info->work);
+> -
+>         proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
+>         proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0,=
+ 0);
+>
+> +       /* The group must go first: a store could re-enable the source. *=
+/
+> +       if (!pci_info->no_legacy)
+> +               proc_thermal_power_limits_attr_remove(&pdev->dev);
+> +
+> +       /* Secondary sources must be off before the IRQs are freed. */
+> +       proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
+> +
+>         if (msi_irq)
+>                 proc_thermal_free_msi(pdev, pci_info);
+> +       else
+> +               devm_free_irq(&pdev->dev, pdev->irq, pci_info);
+> +
+> +       /* Cancel after the IRQs are freed, or the handler may reschedule=
+ it. */
+> +       cancel_delayed_work_sync(&pci_info->work);
+>
+>         thermal_zone_device_unregister(pci_info->tzone);
+> -       proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
+> +
+> +       /* The work function and trip updates can re-enable the interrupt=
+. */
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
+> +       proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0,=
+ 0);
+> +
+>         if (!pci_info->no_legacy)
+>                 proc_thermal_remove(proc_priv);
+>  }
+> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_h=
+int.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
+> index f8c33e8e5b7a..3e70f66dae8c 100644
+> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
+> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.c
+> @@ -278,17 +278,25 @@ EXPORT_SYMBOL_NS_GPL(proc_thermal_wt_hint_add, "INT=
+340X_THERMAL");
+>
+>  void proc_thermal_wt_hint_remove(struct pci_dev *pdev)
+>  {
+> -       mutex_lock(&wt_lock);
+> -       if (wt_enable)
+> -               processor_thermal_mbox_interrupt_config(pdev, false,
+> -                                                       SOC_WT_PREDICTION=
+_INT_ENABLE_BIT,
+> -                                                       0);
+> -       mutex_unlock(&wt_lock);
+> -
+> +       /* Group removal waits for active stores, so remove it first. */
+>         if (workload_hint_created)
+>                 sysfs_remove_group(&pdev->dev.kobj, &workload_hint_attrib=
+ute_group);
+>
+>         workload_hint_created =3D false;
+> +
+> +       mutex_lock(&wt_lock);
+> +
+> +       /* Disable both bits: the slow prediction bit was never cleared b=
+efore. */
+> +       processor_thermal_mbox_interrupt_config(pdev, false,
+> +                                               SOC_WT_PREDICTION_INT_ENA=
+BLE_BIT,
+> +                                               0);
+> +       processor_thermal_mbox_interrupt_config(pdev, false,
+> +                                               SOC_WT_SLOW_PREDICTION_IN=
+T_ENABLE_BIT,
+> +                                               0);
+> +       wt_enable =3D false;
+> +       wt_slow_enable =3D false;
+> +
+> +       mutex_unlock(&wt_lock);
+>  }
+>  EXPORT_SYMBOL_NS_GPL(proc_thermal_wt_hint_remove, "INT340X_THERMAL");
+>
+>
