@@ -1,178 +1,152 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666C32F4A05
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171564A2A45
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768586; cv=none; b=XThKaqGEibP54dRGMiHbT/Zg7jSMelMj1fQwVIT7pc47qlZOwawqURGhC2YQm0QiZJWWKt5pVeWQuviwH9rbJqv31XmsIP0ZxmWll7hNNMO9vMyWsXsgLg/N7ZA0022yP/hDVVuchDL4FBKhmeetCTSHQe8a4rOo5zMJgcGDfWQ=
+	t=1790768595; cv=none; b=eYLj0r0XYSi1IwOukeZQX0Uh0t73sG/Cg5Yfxuf9ASKTkuK3gz4BapCF06OAmWxOkRfxK2588VXzhXnHRtSTZTGLsaXWXFxLA4CLe3NbJRudX3FcxyKoXICzJWfT8E6L9Z6aiNPcP/z+oHUA91O5glixzPV4eWkABTkJRQPiybY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768586; c=relaxed/simple;
-	bh=9657krFh9AC6SPymVYaEyQddFx1gc9h9zcaZMHJ79nk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lkNShtSgyyzxal9IROOKT6vZ2+nLQKsHM7WVGLvU6pJYmITEFobx4pzJHJdNmvhKmD77cb9ka9b6oQMDxXwyJBnoJN+SH9cDPqS0pHo6KHUEXFXx5tdMdGcXaAe2ETL8jW26DQovNV32Kzecu75B27v4inehhFXJvQ5YDq+sgCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMOH2XOd; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790768595; c=relaxed/simple;
+	bh=79Jj0Bo7e+myNWt4D66xSn9KzWKtqNWAy4zt6NKZyQY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lmkDYsr61xwTf4jg/gqZRAo/E7qYuI23jd1eB9RABX5/yeywHgmnZFwYtuZu4IHDJ1hwbPri8OEfdps++z16+GOFTFgZlYiut95zk0iK/0zMWEThvd1qK8ACmDioz6uK8bX/+iLb60M9yk6+GGK8824SnGPKq0MluWKgre/09vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEqFEIN1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMOH2XOd"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4742315c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:43:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790768584; x=1791373384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8c0BJ0D8z5gH8AMDVEzCJUaQjDllcdyPshnOBMw13dA=;
-        b=YMOH2XOdswHRKr1WX6TF5hQ4soj9oywWTRT2fG3N8hzvYhUM3iH5nWuVK5IMHqkQyf
-         FPoK2JZCY02zFo6mmyOjbeBSAVkBjXNX+hR/hoN2/SuKSx8Tb82KV0yazOYoXQryidWP
-         GxkwbiP+72pBwT3c+xF8Rgzup3YQyozsDeyllnPg4okrx3NZ4bp8To5MbmUEJwNpKNNx
-         5OIzepUd4FQa/Tuex0xwd0nvaiHOQEFui96A4HY1L2PVTYNW8sN+acsOoLOsiY/ik78j
-         CJJw/pRGIQJdztpuTxNthW62DU+3rcVDE+GKAAutZMklJGFaXsuRGDE8ZIBAeL739tVP
-         al5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768584; x=1791373384;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8c0BJ0D8z5gH8AMDVEzCJUaQjDllcdyPshnOBMw13dA=;
-        b=sW2EUmfTGkAO6wTTbxG2F6P+VC3hkhAMzirKzkpyqXuxwzej5niMAR5wGFd0GuGsUm
-         QYqboVKBgM/B4Q3vKuCHzGuet/GAz5W48UnUYTl7ssk1YEnbf8AuQmNGZnYVWxegyB0X
-         6pJD7qXwC2JjrEidNU43/25iCTuuikPEw8YxKlL7DZGfY819OeHB4RE6tu+eae0ITqd4
-         bZBDnsX9OGrhthFaO+0f10WOFQ61gmvx4dD+r94b5EWSXgr6pSC1YbCkbCUyEsmKmH6J
-         zWLzSwSJyIqiGaOkub2jl2lSMwDqwq/XGcddIZA64vx+lmo6pI9MNkJt9eOgVQI2jwZB
-         OoXg==
-X-Forwarded-Encrypted: i=1; AKwUvByDsmBbnhhMYoa97H14hOvU2mS+7uRjx2ovrziph5e2Ura9INhyx3ZcWNPr5s//Y/HvgocHEGjTAuvIHCU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHQJH8veKwwwzNLz1sJbtSYwvtkdHEZId0UH6FfmtaAgGJ38CM
-	wC2s2IYputm8KD9HL6+hJx/+zYnBX0Dj3yD4iildziQaEDmqQR248+Se
-X-Gm-Gg: AYBFou1BdP2Pj6nObfRjFPzlPI0eYUA+Q4fHScXXoL4OmEba3xj/BM2xw619pcG+M9H
-	MvqwJ2fA+hahlfIUY3vXJMvIVu9cM91hTGATSEVhoExPaynx947LID9t9GgroOhUPujvb6koFzm
-	2AdVb4kGZ/Ib6FP0rg2CqIGd+LWUByANA3O5NP79aYoiFu83vOniSAZGqp7ARTH53ImIFw7ShtA
-	R7mgsUwyUC/b68y9sQE987CiPkBJzlAiA1b+/9t3/JwbX8gzcImi+7BLLx9f62tq/S+xDiL+Ys5
-	79ifi7RlxTLUqJa6AHXcUrKaPCa5NMWluUhdkQ/FF/aHpVFCbEyFb7CEwFg7pNKNAYGJa67O5gv
-	Ixv6LTnABrAVgyz4NuYeyJkUg6p2AKXwDLRcGO1U1uSLpW0vKbJmt+8PBGQlPPcoQdR2bRP3XQh
-	+5VjcMl/EDxJiBJQx77wgbecETIN8AkgZAzWbVoglga39iP3De85skt151DdguZ2xDV09wPZKKW
-	QbGeafsi1ZdzzbldUc3
-X-Received: by 2002:a05:7022:ed02:b0:143:2701:9198 with SMTP id a92af1059eb24-14d33491b4amr1010932c88.36.1790768583379;
-        Wed, 30 Sep 2026 04:43:03 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.97])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d083fe71dsm4363940c88.4.2026.09.30.04.42.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:43:02 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: Ryder Lee <ryder.lee@mediatek.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C3=85=E2=80=9Eski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v3] PCI: mediatek: Fix integer truncation and handle oversized resources
-Date: Wed, 30 Sep 2026 11:42:18 +0000
-Message-ID: <20260930114218.2655-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEqFEIN1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F051F000FF;
+	Wed, 30 Sep 2026 11:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790768591;
+	bh=9uMVOqMiTX1K2XJQJxXE/LwrK8qNT7KXfojMzsVrx8U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UEqFEIN12S69RdNlJmEU6fp0nKhSRNYo2596rxvjxQjmx2chUXZZo9T5Kr7lEEHGq
+	 d53074fabPnHx0Ed7wzeOZvSrzDEhKFOeMprzqQxseYpQ8SM7G8hq5VL9Eqc3Q5NEz
+	 ZUuZGVoVk1oYCpHTte4evrGtrM6DvnkAiuTfQWIfuyHETHInxUkKBPYAfYsbQHrJg3
+	 WZqR2SBTQTSK+VdsJaAThusyW1cmH2rKwTuvE49eqDpsoviY9EFUc1e1GJnZCOb9l9
+	 cXXviEcuLrkC6xBcgysrrfRB8GhwEtKQFh6CKxR8Ft2+934XQpBCsTmMG9PsH8dQGG
+	 iQnFD6ZxPIHgA==
+Message-ID: <7d120555-0c31-474f-893b-e5ee3466ead4@kernel.org>
+Date: Wed, 30 Sep 2026 13:43:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/mlock: fix zero-length request normalization and
+ integer overflows
+To: =?UTF-8?B?67CV7YOc7ISgL+y7tO2TqO2EsMK3QUntlZnrtoA=?= <ts930@dgu.ac.kr>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <179066531783.50175.13377521828379196177@dgu.ac.kr>
+ <3a95d0e5-7969-4b0d-988a-ead62b06b6f5@kernel.org> <art6x0XpWcT2aUyy@gremlin>
+ <CAFPGN2jPGhcWVqa3k16RWMaMR3TwKyhFbYYF4D3L6L85T8E96g@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAFPGN2jPGhcWVqa3k16RWMaMR3TwKyhFbYYF4D3L6L85T8E96g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-resource_size() returns a resource_size_t, which is 64-bit on 64-bit
-architectures or 32-bit systems with LPAE/PAE enabled. Passing this
-directly to fls(), which accepts an unsigned int, implicitly
-truncates the upper 32 bits.
+On 9/29/26 11:39, 박태선/컴퓨터·AI학부 wrote:
+> Understood, and thank you for the feedback.
+> 
+> I sincerely apologize for the poor code quality and flawed helper
+> design. I will be much more careful with commenting and ensure future
+> contributions strictly adhere to kernel guidelines.
+> 
+> I will drop this patch.
+> 
+> For David's question regarding reproducers and user-visible issues, in
+> case it is helpful if the core team addresses this later,
+> here is what is observed from a small test program wrote checking
+> /proc/self/smaps on an unpatched kernel:
+> 
+> $ ./test_mlock
+> mlock(p, -1UL)    : ret=0, locked=0  (silent success without actually locking)
+> mlock(p + 5, 0)   : ret=0, locked=1  (0-length request falsely locks 4KB page)
+> munlock(p + 5, 0) : ret=0, locked=0  (0-length request falsely unlocks 4KB page)
+> 
+> Thank you all for your time and the review.
 
-Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If a
-resource size exceeds 2 GiB (order > 31), the log2 size order
-overflows the 5-bit mask. Clamping the value silently truncates the
-hardware window while leaving the OS resource intact, causing bus
-errors when accessing BARs in the unmapped upper region.
+The CI seems to complain about test failures:
 
-Fix this by using fls64(size - 1) to accurately calculate log2 size
-orders without off-by-one errors and returning -EINVAL if the resource
-size exceeds the maximum supported 31-bit window order.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/pci/controller/pcie-mediatek.c | 29 ++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+# ---------------------------------------------
+# running sudo -u nobody sh -c ./on-fault-limit
+# ---------------------------------------------
+# TAP version 13
+# 1..1
+# ok 1 The map failed respecting mlock limits
+# # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
+# [PASS]
+ok 1 sudo -u nobody sh -c ./on-fault-limit
+# ---------------------------
+# running ./mlock-random-test
+# ---------------------------
+# TAP version 13
+# 1..2
+# ok 1 test_mlock_within_limit
+# Bail out! mlock2() succeeds? on 0x7ffff7d2a010(393216) mlock0x7ffff7d44a72(278478)
+# # Planned tests != run tests (2 != 1)
+# # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
+# [FAIL]
+not ok 2 mlock-random-test # exit=1
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index a60d1ae076f8..97d13c9d3369 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
-@@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 	const struct mtk_pcie_soc *soc = port->pcie->soc;
- 	u32 val;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
- 
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -753,8 +756,18 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 		mtk_pcie_enable_msi(port);
- 
- 	/* Set AHB to PCIe translation windows */
-+	size = resource_size(mem);
-+	if (!size)
-+		return -EINVAL;
-+
-+	size_order = fls64(size - 1);
-+	if (size_order > 31) {
-+		dev_err(port->dev, "Memory resource size too large: %pa\n", &size);
-+		return -EINVAL;
-+	}
-+
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
- 
- 	val = upper_32_bits(mem->start);
-@@ -775,6 +788,8 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 	struct resource_entry *entry;
- 	u32 val, link_mask;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
- 
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -829,8 +844,18 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 		mtk_pcie_enable_msi(port);
- 
- 	/* Set AHB to PCIe translation windows */
-+	size = resource_size(mem);
-+	if (!size)
-+		return -EINVAL;
-+
-+	size_order = fls64(size - 1);
-+	if (size_order > 31) {
-+		dev_err(port->dev, "Memory resource size too large: %pa\n", &size);
-+		return -EINVAL;
-+	}
-+
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
- 
- 	val = upper_32_bits(mem->start);
+
+So is this patch doing more harm than good?
+
 -- 
-2.55.0
+Cheers,
 
+David
