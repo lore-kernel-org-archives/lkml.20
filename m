@@ -1,201 +1,257 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E02E3BD24A;
-	Wed, 30 Sep 2026 06:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751075; cv=fail; b=mD70S81eYb9NDE/E4/zHtgezPe5JhRs+ccSQpzSmSUnKT8PzdH1i861avcQTVgN4xIxzI+2tpj+7IjKHNFwhvXRMalNsaUfSMmLIy1ntwDokquqHxcsdsmLZq3XUy0d5nCGwfuJy8d841QpIaCJzoDm1A9c3BgiceTINWvB0ENw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751075; c=relaxed/simple;
-	bh=C8dxjJr7oe7O2LxRT7oRP3KPItvYQGzCtOLVWQiTjnI=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TUMQHXCpwpLqAmpufjh5Ck2e9s1kWiOPIkaj4QvrXdV05DFHXcq64oPlkZiMZZSQSFwXHAFVUwcO0gqC8DzTU/CvWs7youWqVy2dZBWyQWe3axLujZ9AKIJjq8tV+NKK1kNmt59BAjkU/ScVcVjhDisLqD8lftVgfltj8q2IW4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MMht/9Qz; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3B8415B92
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790751080; cv=none; b=VzFqsxOaWRrbm9LooUGQ3yaN4Pp1MwDIMBKxOfEgU9UEQDzZz5QP04nop+Cm+wmjKjMxXpTUPhCX5SnrJB0bN4VVORkurmVw6D8OknMmsVxVpi5ovvdbKZRNjQmDhyjcyU3KXuhllHnuTOi4pACSTt+52Mh/M4h9h8999XvmRQU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790751080; c=relaxed/simple;
+	bh=3K6kvnkLj5WSnE1eeeJrVkkjqHDRVWDsLs2BdrSa/rQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=j36RmT7kLChgCRVGPPhM35tgSBDkafa4uCNBc8fh63/UyTL9icUG51CwNy/8uSPmU4gyGAaCqN156m8zb5wl18WzCDMW1cHIqkaP88XaXW7f4GsptgEnANc5ov1wZHkzS7XxGvOlC2UOPHRE1VdDIWf+pULQl6RDZr8ngsrp19Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gwG/0/0P; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MMht/9Qz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790751069; x=1822287069;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=C8dxjJr7oe7O2LxRT7oRP3KPItvYQGzCtOLVWQiTjnI=;
-  b=MMht/9Qz3HbJCISvPjlQHFcgOHU1x8Yl9QQGP6tTtB7n+VSxnRPhZ0Ue
-   AVzX7HAzLfzRnr5gVi0IqQMXHfEfxswEbGjzQ+Qmt3ZhyubBmDALAdgZ4
-   9j09QKBn0aITATPyeO5vxapeq8a/NNPqcFKZnsuW2mIL/wHRwEFQ8r5bK
-   vkWkeag1gkXA904vxLBknri7OSmDsOsTy83XjT7jJE2HUubekcN/0RR+1
-   0IDU/rfc/t56FdPaj2My6JJOzcrptI+7FVuMiUglf1CqL/8eGpzyf+Otc
-   TRlEPOs/83okosvXz2tTouwFDAnC8/UCVLKAdGz4THbVDvlmylmWpYlzH
-   w==;
-X-CSE-ConnectionGUID: gfxcbiKXRnq3FmP/7ECvbQ==
-X-CSE-MsgGUID: RU/yovyeQvqA5W0oYx25kQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90245886"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90245886"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:51:05 -0700
-X-CSE-ConnectionGUID: i8SQXmO0SW2U7Wx3xL+Z6Q==
-X-CSE-MsgGUID: edBcROdzRMq7JfXcTJlI5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="278948870"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:51:05 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gwG/0/0P"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=RafClpc2VjVNI0OQ8qPqpW5bmNLrbwfDm0/bYkGFEiM=;
+	b=gwG/0/0Pbj/8xAOV9cTAXs/Bwrmonqf+bx3gQ19YHF/NiiC2tiKianNKXO0uYRH5B+3m3ptzZ
+	vzm0v7BsJNX4eWOVv+aCxke/MsHaQ0qdskaVBX/gLZa2sJxV/7sYY6NHMwko1zE40bwZGZSoA6A
+	v/dwl4OjrT2h5gjvB0OLDpg=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hvlkW5S3DzRhQs;
+	Wed, 30 Sep 2026 14:38:59 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id BAD3540561;
+	Wed, 30 Sep 2026 14:51:05 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 29 Sep 2026 23:51:04 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 29 Sep 2026 23:51:04 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.65) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 23:51:04 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YfHimMBolqQO55AEhpIdGAuaXYQM40PAMpKrVbv7jqK5CblRS+k4nZHa1mtNpjZjFraV+4vFO2+QDdrJ0oE/RRSK2AYJPF7yoNxn7yK1WHrkkk61+jNPModG1Y4Shc2ZzSh3C1Ep/Q4uqQ32vJWSV0EqUbJpI+SI09Ntn4NDH3ZlbgJoJ7Q7VarVFkpf3+YF94h37aBn7B9VhmS9yT9PeD4KF1zAaIwUGI9hol18myCr2EkVpf9awEcf/hQexXEo2j6bIhw9rRUlNHFOUpMIqzbbp9Op+gxF6WPTwNZmflooKBZ4wfJTrb78p8bmF1PJK2jTFGFNN0eqVs0DIaVzJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1mVm29waTdS8Kzx5T//OCdDMQh4unFu63KZTNL6rbl0=;
- b=NQsYuxKRNPAEtWvYFBLRButrkzIlHSKxATfHzHapIpA4CU4uxJadPkf+RfkX+Q8msUbYEwSTa7ZH1BFae/m5w5Ieb/mmGkPeA40ZBNgA65I3Sso4Aszg4G2AoY4rwa2damDr7u7mhohCXPTO7CMA11y9D0hD3orXoDVqM+Rh5LKj75avUwdwrtEg5rQ11WKMqFT3hUNZ90UjPve0MSm95Xkx/Dc0gW9Up958wmPJ3P4njzIkGqaEf013dmVg1/RJKrg0X3EeHEaUbzlkjPPQmUsGTFeXl2Sk7U53A9LhpXPD3FJZFmotDh8so/vQKSxo5ptN871VAuRQXIcn+bq44A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
- DS0PR11MB7557.namprd11.prod.outlook.com (2603:10b6:8:14d::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.26; Wed, 30 Sep 2026 06:50:56 +0000
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
- 06:50:55 +0000
-Message-ID: <e3cba491-9fdb-4907-9843-c427c96c3237@intel.com>
-Date: Tue, 29 Sep 2026 23:50:53 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-To: Guixiong Wei <weiguixiong@bytedance.com>, <x86@kernel.org>
-CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H
- . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260929151013.81562-2-weiguixiong@bytedance.com>
-Content-Language: en-US
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0143.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::28) To DS0PR11MB7925.namprd11.prod.outlook.com
- (2603:10b6:8:f8::18)
+ 15.2.2562.45; Wed, 30 Sep 2026 14:51:04 +0800
+Message-ID: <87bb977b-6096-40f2-83c8-f70ad7c6e3f0@huawei.com>
+Date: Wed, 30 Sep 2026 14:51:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DS0PR11MB7557:EE_
-X-MS-Office365-Filtering-Correlation-Id: d91a2c5e-6605-4398-f591-08df1ebf2cca
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|5023799004|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: TsIUvJrXRXQ4V33+D5rntLPzGbwGEfEKLzBqmZYb7f5tzilnj9lz/uySSqRNhUXMitfaS7o6tb3JAv4rND2/clzq5boSovu3LJKvt0ViYqNCMZvLaw8KYFPkDX1/3WUc1Ng8VapI3ruyuDetmYFjdh0c7qOFEpt9hDnK/1zilwMjOeyD20TKdINHzN7sRqBpqnJEYB+YnnEMiOV/fGUfiRlh4RTRyhR7/rihAE1kSEastKf9Hbr052kb6i36lSR2arEAglBgTvDiG0sXb6DUe2gfvhJknqj2E/rK5d/Yz5H5X29KutC1dCa1hL4q/JVXWoGpTSWcKoP5dGkWq2FH+OuHq5hv4rDtNgTNBabHEXK9fD0KBt6kXOpGOxspRgqzp8WMXvVch9ypqVJda9iYb9/20qWZRVERzIdkZVuO6W3Wx9EIPWTXAJ4L9PIwrg2XfGnIM+Lbz9hERJm8X5IX+F/9rG+J9GRXyEcznbiqUSYMzhN20kD7nm2UPI9HuxfCrAPDWTXAxhtqaUOBsuWKKkYsdiwMHB3D+La42c/JUdHfEesjrQWaWifurMjeogcAHythKjhfuI9Wrro6umcx2B4rnpMcryjwTaPApeCLiYgdiHh0BgdHq8gW/S8LevVKuYw4NJ+Lzmg1Ev8+fk+YJKLBT0Ea3IkPMlnqHyenlIs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(5023799004)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3lEbElXUnNMUHBPdUovUExHa21EZWR6d2g3cGM0ZWJpRDlWRXlEbE4xSU51?=
- =?utf-8?B?c1J0d2hQbE8yaWFPMDJPY04wRHo4SmJNaS8vbk5iMkZIdDQ2ZHJVd08vQWl5?=
- =?utf-8?B?alUyQ0FUUlVsU2pNNTRoSmNkWkJUSjJxUFpwOVE4WFR3UlFYQnZvdU1QaGgx?=
- =?utf-8?B?Y3h6TUpXNURpMVlsRzRIcFZmODZicWxHRC9OSCtYQUVySGlVdTYvNUZyRFNM?=
- =?utf-8?B?b0YwaWVwNUVmOWRzWDFNeHpNaUtYSzVmM0EvT0F3aTNyTFBvTVZzVTIzWmZS?=
- =?utf-8?B?Mm9Wd2tIWWR3cDBwOTVJQkF0bEpNUERLQ2QwSGFzVCtSVlhBQTU4bDFPaXlu?=
- =?utf-8?B?Yi9RbzY0eno2U29uV1ZDbWR2OXErUkdGUC9qRnhkWmRVVzcwNUx2dzVhaFVi?=
- =?utf-8?B?Sk0rR01ueDhZU01GNWtUL0xhVHo1WHpUMGtxK0R1RWw1WjFoeUZ6U0tXWkhv?=
- =?utf-8?B?bWxxS1NaN2dNVmFQTjl0TUhDRkJ3R2hnbHdkL2EvOWRMOFdNSUhMWlZmWUZB?=
- =?utf-8?B?eUYyZkNXcjU5QUFsZ1hSUStzTVFVM29xdXJERU5kdDRaV254ZTBXcDJpTjRv?=
- =?utf-8?B?UUdmWDBKdm9oUzNjL1JSTUVnZEpUWUE3ckxhVmF0VzZUWlQ0ZjBTa1A5a1Fh?=
- =?utf-8?B?aVlrWllrQmdvendSRG40ZjA5U2cxZndLVVZMcVl6dG82N3pPdW12YnhtbkVF?=
- =?utf-8?B?Z1IzZW0rODFrNnlxcWFmVGtlRm0yU1BPeVpYMFVOZVBHTVM3WGJMZGlrWUpa?=
- =?utf-8?B?bm1obGJHNTVPdTVObkhMaUFWQmNUNXhZbnh1Q1ZUU3AyZ2h0WUNIQitJZ0Vs?=
- =?utf-8?B?eXRFYkNsUUEvaXh6V3dEdjkwd0VDSUtUSnlxbDZVR1dOT3pGUmt1VGp4WERx?=
- =?utf-8?B?bzhxVVJvQ29CR0xaZDZCMWxVL01VOWJOWTdIVEVKYVZWcDJRNTNwZ2MzR2c0?=
- =?utf-8?B?cktoZHJvMnNMZ1p3ZjJFK2V6dnRQdHFCUndHM2xRWW9wMHU0MGpYUlpSMnNa?=
- =?utf-8?B?MDZ0WWxDSDVOUVhrK3RBdDBBRkJaNjdsWDRMSVlXdlNjZzBCdEV3bmlsbDhV?=
- =?utf-8?B?SWtzZ2w5Z29pbEVOYSsvclYrWVJ6UzkveC9UUG5kRXFoWTNaR3ZVdGZ6d2ZU?=
- =?utf-8?B?NnVhay9oQUpQazlLR0xVaXBuN1Jmb1lBTDRMSTN1RGNRWDBleFlVNmFxaEVm?=
- =?utf-8?B?UStZT0VZdFFyVXg2bzgzMjl0cG5ady9aQUFiYlZNYjlsSCtMZ0tYS1FidWF6?=
- =?utf-8?B?eGFRc2lVR2dQYklHMzNzT2IxbHJyaUUwNElTamlDb013K1A3RmtFaTNpcUI2?=
- =?utf-8?B?Zjl1eVg4amMrUDcraDlHRDE0VEc1bCt6M29LSHhxSnRId2JNSVp1UkpGRlV1?=
- =?utf-8?B?Y3k2ZkdFelp4RHpKd0E4ZFE5alpsWDgxekcxbmtOQjJTeXhQTkFQbXdVcHFS?=
- =?utf-8?B?SjBOcGhNcW5RWTFnbnVOd2VOeTBlVEk4cHJzRXNvdEdFNmN4RDdOMkRtRWVz?=
- =?utf-8?B?OWhJcnJaL0Z0cXZRQmwyZWYyY2k5TllxMjA2YmNBL1pQV0UyUFdRbDZsUzhQ?=
- =?utf-8?B?ZjhrZUhxSGJ0ZVNCVzZHazRCeTNuQWZmTTc5YklMYUhmWVpWTnV4cG9jaVpj?=
- =?utf-8?B?cy9rZCtUS09McU00cWhiYXEyR3VQNEVPSWpSWG4zU2pSN3NBRUpPQzUrWnor?=
- =?utf-8?B?S2pmNmNZb0RrMFk5WG1JbjZkUGlpaFZhbFVNblBzUUJGd0F0RkdBUVFpdTRY?=
- =?utf-8?B?WGhsdThUMlg3akgzRnMxU0xSRTRpQ2xSMG9aa0Y4VHg5eW00SlhKOWV4eC90?=
- =?utf-8?B?WUcrOXZab0NOZk52b1BRZit4L0V5WUZ3QXZ4RzYwcyswaHNONzhRdlVQK25D?=
- =?utf-8?B?MHd2bnNzeWh6UVZZajRBRk1KL3RJYWMyOEdkcVBJdFRidzBpRWVVU3ZLNWNz?=
- =?utf-8?B?UFc0bjZvYTN6ZXc5Y0pXSlljU0hrSklNUTBIODVYUG1ET3FrUmM2dk1PaWJZ?=
- =?utf-8?B?cURaVUsvdTFtdE5NdjBVMTVYTndKNHBPeVRqY3JlMmpaWXpCTXcwcXJIWWJo?=
- =?utf-8?B?dWhEczNpcHZNRUlOeDF2L1poL0IyYmlQSjhybjFRUlJGdkVRb0xhWm9HTXlm?=
- =?utf-8?B?RXQyUEorVkZLK3k2RjVuUVBDTzh2VWNkencreitZbGIyL1Fybk44U1dqVTFp?=
- =?utf-8?B?MmJheDdqaGMzU2VpbFhLdWhRbnNpUzFIRDl1RkM5ZGwxYklyUlI5cEhPaHBh?=
- =?utf-8?B?YnNhUElHeU01N09SVEI3ZjJXbk5TUm1sOW8rcTdaME0rR2R0dlB2NmVja3ox?=
- =?utf-8?B?Q2FsNjcydU5iTFExRHF2VWNIN0EwR21DVG8ycXNIOUJjMmFNald3QT09?=
-X-Exchange-RoutingPolicyChecked: olijRAFXqnEBiiaiCD1SI+oa+PM6eQp7YRmuDIbw3LuTW2NNeJDcxsjbhReDjtROtB1CNVL6nub8lnE/S9LPcP/xXKMppJQCOAZ9nvCxBY5jh64LolKMyVGaba2mMaCNYySVh5k8vQQcTTgdOIcf87tmRPKBjhwcg6SiIn2XU+J6KFbTggIPHDL567rVn6m+pku1Cv7t5qtN9TEpY5BWjAPI6MitvWl5jpLJI7eRrFK7/Y2FClDeMse8cLaNwZhDVwtzap4+dnvoRsL9VrMHNGOnS76HWZyPX0kRx4C6q50qLeY8caEfhmR6l9QD+BiI1U0KAZVQIakOcJ/lcbySoQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d91a2c5e-6605-4398-f591-08df1ebf2cca
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:50:55.1446
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XkmUzEeOpLZYY6oauTNCSHzO8MQijDyN/xpwsdxnqLr+O+HYkKeGakNG2TYBlKvKjTY5F/fcbmylfv6e1dl9VO8n8e92uCzOy0tC8A1t59g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7557
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
+To: Kees Cook <kees@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
+	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
+	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
+	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
+	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
+	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <202609221129.B5E13A7@keescook>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <202609221129.B5E13A7@keescook>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 9/29/2026 8:10 AM, Guixiong Wei wrote:
-> The fpstate embedded in struct fpu only accommodates the default
-> xfeatures. When a task first uses a dynamically enabled xfeature,
-> fpstate_realloc() installs a larger fpstate allocated with vzalloc().
+
+
+在 2026/9/23 2:29, Kees Cook 写道:
+> On Tue, Sep 22, 2026 at 11:54:56AM +0800, Jinjie Ruan wrote:
+>> This series converts arm64 to the generic entry infrastructure.
 > 
-> fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec()
-> without freeing the dynamically allocated one. Once the pointer is
-> overwritten, arch_release_task_struct() cannot free the allocation when
-> the task exits.
+> With my trusty LLM driving a bunch of orchestration, I gave this
+> a fairly wide before/after run under qemu-system-aarch64, trying
+> to cover things beyond the ptrace/breakpoints/abi/fp/vDSO list in
+> the cover letter. But since this is all emulated, it's mainly basic
+> correctness coverage, without any meaningful concurrency coverage. I
+> just wanted to find stuff that maybe hadn't been exercised yet.
 
-Thanks for the finding and fixing this. I see Dave has given good 
-suggestions. I think you can follow those into a revision.
+Hi Kees,
 
-...
+Thank you very much for adding the detailed tests.
 
-> On an AMX-capable system, 1000 iterations of requesting XTILEDATA
-> permission, executing TILEZERO and calling execve() on the same image
-> left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
-> /proc/vmallocinfo. None remained after this change.
+> 
+> tl;dr: the only behavioral difference I could find anywhere is what
+> patch 1 fixed, and I found no meaningful regressions.
+> 
+> Setup: the series applies cleanly to v7.3-rc2 (I only noticed later
+> the series was actually based on -rc4), so "base" is v7.3-rc2 and
+> "patched" is the same tree plus the 14 patches, with each pair built
+> from the same config with GCC 16.1.0. The guest was QEMU 11.1.0:
+> 
+>   -M virt,gic-version=max,mte=on -cpu max,pauth-impdef=on -smp 4
+> 
+> I used four kernel configs, each built for both base and patched:
+> 
+>   plain    defconfig + SECCOMP, USER_NS, AUDITSYSCALL, KUNIT_ALL_TESTS
+>   lockdep  plain + PROVE_LOCKING, TRACE_IRQFLAGS, PROVE_RCU,
+>              DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT
+>   hooks    lockdep + the options that add work to syscall entry/exit:
+>              FTRACE_SYSCALLS, KSTACK_ERASE, LKDTM, NO_HZ_FULL,
+>              CONTEXT_TRACKING_USER (booted nohz_full=2-3)
+>   rt       hooks + PREEMPT_RT
+> 
+> and ran userspace tests from both an AArch64 and an AArch32 (armhf)
+> userspace, since the latter takes the is_compat_task() side of
+> ptrace_save_reg() and the cover letter didn't mentioned COMPAT.
 
-I would be interested in turning this into a selftest if possible. It 
-would be great if you could.
+Good catch!
 
-Otherwise, I wrote a case (using XRSTOR instead) and then saw that 
-amount from fpstate_relloac() in vmallocinfo:
+> 
+> Results were identical on base and patched (pass/fail/skip):
+> 
+>   seccomp_bpf                   98/1/12 (AArch64), 94/2/15 (AArch32)
+>   ptrace selftests              get/set_syscall_info, peeksiginfo,
+>                                 vmaccess: no change
+>   breakpoint_test_arm64         213/0/0
+>   rseq basic, percpu_ops        pass
+>   KUnit (KUNIT_ALL_TESTS)       ~1500 results, no change
+>   MTE selftests                 117/0/0 (but see below)
+>   strace 6.18 test suite        81/6/0 (ptrace/seccomp tests)
+>   audit (a0 filter)             pass
+>   syscall tracepoints           pass (argument recorded correctly)
+>   lkdtm KSTACK_ERASE            pass
+>   lkdtm stack-entropy.sh        7 bits
+>   lockdep/RCU                   0 splats in lockdep, hooks, and rt
+> 
+> The only delta I could find was the expected one:
+> 
+>   sysemu_singlestep (new test)  FAIL on base, pass on patched
+> 
+> So patch 1 fixes the described bug, but it had no in-tree test, so I
+> wrote one. I'll send that separately.
 
-   Caller/Module                            Difference
-   ---------------------------------------------------
-   fpstate_realloc.constprop.0 (pages=3)    +16384000
-   ...
+As I commented in the patch, I think we need to distinguish between
+syscall exit stop and pseudo single-step, and I will also add a test
+case to verify the problems that may arise from arm64’s own missing
+pseudo single-step.
 
-BTW, just curious if it happens with real-world applications. The 
-permission is revoked on exec(), that is a very edge of the TMUL use if 
-so. Is it a case running another application right after matrix 
-multiplications?
+> 
+> Various things I noticed along the way:
+> 
+> - The set of traceable symbols on the syscall path changes:
+> 
+>     removed: syscall_trace_enter, syscall_trace_exit,
+>              el0_svc_common.constprop.0
+>     added:   trace_syscall_enter, trace_syscall_exit,
+>              syscall_enter_audit
+> 
+>   These aren't ABI, and the new names are the same ones x86,
+>   riscv, loongarch, and s390 already expose, so this is really an
+>   improvement. But it might be worth a sentence in the cover letter,
+>   since patch 13's "[Compatibility]" note could be read as "nothing
+>   observable changes", which isn't _strictly_ true. :)
 
-Thanks,
-Chang
+Thanks, this content will be added.
+
+> 
+> - Syscall-path stack use grows by 48 bytes. Base do_el0_svc() has a
+>   16-byte frame and calls el0_svc_common() with a 48-byte frame; with
+>   patch 14 inlining it (plus the __always_inline generic enter/exit
+>   helpers), do_el0_svc() grows from 48 to 808 bytes and 1 to 13 calls,
+>   with a single 112-byte frame: 112 - 64 = 48. lkdtm KSTACK_ERASE with
+>   randomize_kstack_offset=off confirms exactly that at runtime (2288 vs
+>   2336 bytes, ten samples, no variance), on both userspaces and in
+>   both the hooks and rt configs. It's small, but it's not mentioned as
+>   a (minor) trade-off for patch 14's ~1% speedup. Other size deltas:
+>   .text +12K, ptrace.o -3.6K, and +3.1K of shared
+>   kernel/entry/syscall-common.o (all seems expected/unremarkable).
+
+Thanks, will be supplemented for patch 14.
+
+> 
+> - Patch 14 also moves that inlined code into .noinstr.text (+896
+>   bytes). Since arm64 doesn't have objtool noinstr validation like x86,
+>   I checked the images directly: no calls from .noinstr.text to
+>   instrumentation outside the noinstr range, and no __mcount_loc entry
+>   falls inside it, on either kernel. But we don't seem to have anything
+>   that will continue to enforce this?
+
+I think so, the following patch also mentioned this problem.
+
+Link:
+https://lore.kernel.org/all/cover.1786603168.git.hongyan.xia@transsion.com/
+
+> 
+> - CONFIG_DEBUG_RSEQ "depends on ... && !GENERIC_ENTRY", so patch 13
+>   makes it unselectable on arm64 and rseq_syscall() becomes the no-op
+>   stub. Patches 5 and 9 carefully reposition that call, and then patch
+>   13 removes its effect. Not a bug (generic entry does the equivalent
+>   via rseq_debug_enabled, and I can see __rseq_debug_syscall_return()
+>   called from the new do_el0_svc()), but patch 5 reads like a
+>   standalone fix that disappears eight patches later, so a note in the
+>   cover letter might help make sense of this?
+
+Thanks, will be supplemented.
+
+> 
+> - The cover letter includes the gvisor SUD numbers, but SUD needs
+>   ARCH_SUPPORTS_SYSCALL_USER_DISPATCH (as well as GENERIC_ENTRY),
+>   and with the SUD patch dropped in v18, arm64 doesn't select it,
+>   so CONFIG_SYSCALL_USER_DISPATCH can't be enabled yet. (rseq slice
+>   extension is similarly blocked on HAVE_GENERIC_TIF_BITS.) A reader
+>   could take those numbers as something this series delivers.
+
+Thanks, will mention that.
+
+> 
+> - arm64 defconfig has FTRACE_SYSCALLS=n, which means
+>   SYSCALL_WORK_SYSCALL_TRACEPOINT can never be set and the tracepoint
+>   paths touched by patches 2, 3, and 9 aren't even built. So anyone
+>   testing with defconfig isn't exercising those; you may want to test
+>   with it enabled. (Also, compat tasks never hit syscall tracepoints
+
+Good catch!
+
+>   on arm64 at all, due to ARCH_TRACE_IGNORE_COMPAT_SYSCALLS, so that
+>   path can only be covered by native tasks, but that's unchanged by
+>   the series.)
+> 
+> - I verified that the entry work ordering is unchanged. It looks
+>   correct to me: arm64 did ptrace, seccomp, tracepoint, audit; generic
+>   entry does the same. (It also checks SUD and rseq-slice before those,
+>   but neither can be enabled on arm64 yet.)
+> 
+> Suggestions:
+> 
+> - rr: Since you have real hardware, could you also run the rr test
+>   suite? rr has been the most sensitive ptrace user I've encountered,
+>   and it depends on exactly the syscall-stop and single-step behavior
+>   this series touches. I couldn't run it: QEMU's TCG PMU exposes PMUv3
+>   but only counts CPU_CYCLES (BR_RETIRED always reads 0, on every
+>   CPU model I tried), so rr aborts in check_working_counters(). If
+>   you do, note that you'll need "proc_mem.force_override=always" (or
+>   CONFIG_PROC_MEM_ALWAYS_FORCE=y), or three rr tests fail for unrelated
+>   reasons (rr-debugger/rr#4093). Build and test instructions are here:
+>   https://github.com/rr-debugger/rr/wiki/Building-And-Installing#tests
+> 
+> - MTE: I didn't see MTE in the cover letter's test list, and it seems
+>   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
+>   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
+>   on the reworked exit path. The MTE selftests showed no differences,
+>   but a third of them don't actually run for me under QEMU, so they'd
+>   be worth running on your hardware. (Testing MTE under QEMU saw
+>   check_mmap_options hang at test 5, the first test with tag checking
+>   on, and check_child_memory never produces output, on both base and
+>   patched, so only 117 of the 183 planned MTE tests ran. But this is,
+>   of course, a QEMU/selftest issue unrelated to the generic entry.)
+> 
+> So, for the series:
+> 
+> Tested-by: Kees Cook <kees@kernel.org>
+> 
+> -Kees
+> 
+
+-- 
+Best regards,
+Jinjie
+
