@@ -1,213 +1,283 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8352E285C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B813B0582
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794457; cv=none; b=BTp1Ldoe2UVjKSI6lKzi9EiUfhfeI7Ql/iHWkzgWL+eTAIPIxVtg/HTD5w8M5fN+TIUIKGrM0avg9CNAEK6a92gBSotPfZIvdVHuJCabLsM9767yC9+5XNF1sjBrhrYLlzocIhcOwjnp9EHC+HKlZ/BYeV+7+4XvPCGQW6kpwnU=
+	t=1790794470; cv=none; b=pmeSaMb9OrV1zrZVU09SrDZxZiVkFkT6g4Hq7FACMS6m2Jk9DYdposkSkOJgzZDf9n4JL2I7+pNlca1URdpaG0tas3FsI2XnBInq4RZRjvMRJWrS0gbYQTFIfX51o1SGzt/X7a/Kh1ilUzoneL8QtJ5Zo9Q0r5BfepYA+NQYyS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794457; c=relaxed/simple;
-	bh=mBfR8m37lYq2vnd1auojbZ2KSl7yWaueyWc8jTpR7MU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EFZRZlwb9rVBYQaTb71K3HIiLuuvFGcPvGMnM2UNpxPF9+dUoSV30yn+2oJxtgxlXk8ADrQ/bksumM+SzNN7SI7ShEn+hkZv969PPtUCdXXe1JGiWtXBM3mt0lngUWhr0HXJXr7hD/Th15UuqvxYt4IuIT/Xtixv67z6gMXYUno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QJG6Rbqk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A+7NOHk0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790794470; c=relaxed/simple;
+	bh=UCFeSMOs+Qi6rlEif4wp5NL4CT/HAxxrve974CVtz4U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gNg8gDI5O99Dvf2+H1Zd1XIpDbJqTGAIgko22a2reIXhI/5eljExQcd+dfWSd3A8K5bi7RiMqnGNlt+WF8ENfHbIgDnsqrU1zD0incAiZxXWXajAX1I9QTgZjw4WZjnDswX7bm/2XIvhAZtu6McdfcC/G3Em1xun8MQX5ny7zhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TFaeoRf2; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QJG6Rbqk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A+7NOHk0"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHfCdN4014120
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:54:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=gnnRitNHQsGGZhY39Q2WfcsA
-	gBctnLcpoJur/qokc8I=; b=QJG6RbqkWltaOXjdWTCf37r8Jt47ICQMxogyCmWu
-	1Pz2SKFiT32S09RpePoOLYEAMOc95KUtX3ELA8b/wk2qLDBRI8DDWGMhiVlR1DOF
-	WF5eCQ5NeSo7x6ekXDtMGJzF17qEfb794vdPLbQaRcCNPk1ue4YZ1ej14knc2lmE
-	QtIEwfRyw6x5PW+g1k1Myf1MSzsO6DBgngl0wWWU6s5ho+Yc/LCGRnbWdQN3MpxL
-	8hX4LvFyBUys7r2nrI2guUqoGtQOZEUWNG69zrYpjORWBXosS3i76JAIaK+VbvDC
-	/fxvlr61OYa+vTYIpO5Ytf3yRJIvjtUHccm9fK1oafd+Gg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x27k3k2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:54:14 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939c30aa9a0so607096085a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:54:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TFaeoRf2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso59141935e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790794454; x=1791399254; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gnnRitNHQsGGZhY39Q2WfcsAgBctnLcpoJur/qokc8I=;
-        b=A+7NOHk0/LfOf6uDpimET6JvuFlZ5ntC1M4ubxDjwRaiDhzTf8K2Usp+zNwe3obMaJ
-         2qMnHmcbGjUVA359TrsxQLllqzGxiPVZe/yPm2XQ9x+rnVjzccnkfqP9ZIIgzxlLCd1z
-         4khqpNcdLDPDxCcTcTyjA5BgH6BzA9kzmndnT8404NzXAQa+If1iD0vM9FZcWe0FIp7a
-         misZZlkznB4mFPnTVQ0URs0/HTFcIVcEaYWMbAspK5RpwOEo7VpyZ3iRxZIsQT+3kgjm
-         2VlPmYiIyKWSPX6YTdInM0qstHFFha6ikNb2YxCkofFKyZ2NXv3gOuJtyqpph419dW0R
-         raZA==
+        d=gmail.com; s=20251104; t=1790794466; x=1791399266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aIRe9J9nM9kojEK5e8In+q+vzA6ofCEVTiqwmV0m+zo=;
+        b=TFaeoRf2YUJF4S8c0d5gRvToQSkRN7xpVFpxJ85wJjCyv7smv5eZPX2JbczHu7PofJ
+         u5czZAzrmB5bnovhiEbNAlU9Sd90DLb0zjm0DaEKGOYiqfa1dVrxH66yOw/QoMPpETD5
+         93SfSkN1qqWVE9F/YN7uMTzqTAqYeqEUckd7c48+4XTpm8pAXGJeuRmJevhLILcenLvN
+         /rKnBoKvp8wtZLnU6bJp2riTNAv9PFR7sxTtp2z/hjsyk888DZ10y9sdyZGQEJtv0ZBt
+         eKphJG2L8/X4YW1mMBBUMZG6Iw71Q87JyiSi12G0ljKb/ZSZLmnaP9aRC9sT48f9hVn8
+         SSZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790794454; x=1791399254;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gnnRitNHQsGGZhY39Q2WfcsAgBctnLcpoJur/qokc8I=;
-        b=111L4HC1KlNYgw5Wicuaa+jGZtb5yFMyvxAHReBhkdaTrwuO/2Rb8CYnd8qotlYnA9
-         kI4GjJSigColwWH8ST9cQmuOAP6PGpDCySOXE24R458O+WfzJEoRYuAGEMbwBhHYk5P9
-         nBNRg2r3y2hrk/BQOumTRZ5dWSMxQwTrRU2Ssn0E0IwRhkZGXs4PrZptg6gOGqy7MY/R
-         usyqSwJ/y/jFpu0PMFjHstgqJk1Ia7NuohWN3vTRTKsrbcAmfRZ7M+YyXhRqwJj3WOmc
-         /FJ9UOW4jMYvQED/OTbxcZV9CatsF4BD+RN2r5TamAuT6C6GChClXXRoDfKG4rsqxiXd
-         176Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwF7sdTfULdtO7hyXJj/DXF4ng7dBSFR3pd2Upsbese1Qz0oNQaKTCLbQqzi9l+au9W1M/yX3xQMtDovno=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqEtTi7TH8UnWG4SB3GrFuq2edlrz9tRpT90+keztcrWXaG4o7
-	FoN9nHiVdRhiTMeCmup8OEPU1YL48/bmMTCuYQv/9y6WgRcD2Odry/Zm0qA3I9n0l6K8g4ypciM
-	QbO823a/9oHvB5zD//yWmmEsJ3e2dzEdSfBqH8CvVJLISmTH/8URy6qId3k72rDHrpZc=
-X-Gm-Gg: AYBFou0trW4CaR+7u/fItPlDXcBkOUl/PQm6wOLCDMOdNVooz7V//Unznl2G3SN2uzz
-	nEn2LxyZu385ACWV7O1dQxkrh0wbvoeKfq5RjBWoL2o/XW7On/Wn0//lqnfOKllFFFdNFgSJpaj
-	CBE2zC3qlTzQKvn1THbPQ18q1qkSDSR4bBeE1nav6mymH89O4sLt+W292P7F9mZVrT0m/2sQ3Io
-	jBGhSCn6snR+vpqdJi5qxlVo3vEhq3mhWlsitFHBj0bfw1YuJE6ZyUW29ZP9Y20+CasZxjrfTCd
-	/lPVi4rjOweFmy6EA8uiZUc0aicZp9RWetYZ4YnTK2lfi2dylPPllgqBBv8PfC1P/xjp4PRL7n6
-	JmGOEtg4r9FbT+xtfVhYEos1s7pSyuCjg9Ikq1RGwvLishboaQnEGXq7oteLucLo+XVo2k8pSsI
-	BuFyupnqfL7fnv
-X-Received: by 2002:a05:620a:838e:b0:93b:c581:2e16 with SMTP id af79cd13be357-93ca96f18cbmr421033685a.30.1790794454191;
-        Wed, 30 Sep 2026 11:54:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:838e:b0:93b:c581:2e16 with SMTP id af79cd13be357-93ca96f18cbmr421029985a.30.1790794453655;
-        Wed, 30 Sep 2026 11:54:13 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbf388sm163284e87.75.2026.09.30.11.54.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:54:12 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:54:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 13/13] drm/msm/dp: Add static HDR metadata support for DP
- and eDP
-Message-ID: <uaqcvnjhzcj3d6zoq2begzhu6ld4ehfmmsedoc725ubodmmuxv@mjpvzey6ysuz>
-References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
- <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
+        d=1e100.net; s=20260707; t=1790794466; x=1791399266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aIRe9J9nM9kojEK5e8In+q+vzA6ofCEVTiqwmV0m+zo=;
+        b=XlkSnxwmzh99xltBlBak+BYcY9OwyGmFz1Nv+MGOPW+4LFofHwjj9+YD/K5PE6ymmf
+         UVL635HAXQC5s9b5uqW892/nFdTVDgYD7lbDoFnSR7lWn5n6a8Wldn4g6WjlZkXfnTET
+         JlsyON1OICu3UBvsw48Z2SXCIqd/YuW+SMXLNUNuboEIHjEL1Yo8/6VAhl/ycDy+lOwK
+         9u1syJDmtQrdDXi/oZTHYIHJ0pwFT8nTm5xtFeT/NgeBl4qdQklrQqHiuAOYw1p32PwQ
+         wHjRscy5WKHlmi3g+1MFlWpNhX2U/md6QPhrY52CofA+4pHm73CrLrKqZIEoisVl5OaL
+         LKgw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7APO8kchxwhVC3RPGRZTqDyZJ/G2seCcBwC7GEh08DGm4SmNj6/7WPb2ry5/uGwBwjEq4ki1zZMq6ato=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKHptstr4RY7eWJoJSOZmTxvukFhTBFtM1FsxBz2e4Ew7MSvSf
+	UxLH34vh9BYbtb0J+WUOlrkFH9iTs+jXQQUCRrcy1PQdlWEZ67G69Yf1iFTAxOFx
+X-Gm-Gg: AYBFou3tZfvrXV7me0zbVTQIptWeIeRLGGVEP8PAlFYyW2OwajA1d1LrM04bORKt4MD
+	U5AOgh67063waRYxJnOZ9iJ205Oh9Uqcio5mWsaUoTxz569TQLGbxF+tNTZULXIHTZ3ykKWa9Jw
+	3TTlyx0/h15P63wB+pEVclP2bTWdAGAGxO+wU1Y8OIiAPSX8nPSYQVM6ftkp6ZzXjkBS/IgXLJb
+	95DTPs8CkO4o2XdBRrmt767rXPF7Vdkn7fw5gl1oSUnIbtNIuTmCs5ZVokVgf8vNuDentkcsdXe
+	CKxWm0ZoDJKwahyeR0Uv+H0hWiX79A4118ZYg1xXhZvMBujHGoba/t/Kcg+wMXKlmUs9R50Zmix
+	aTGjsHmhOC82Lr/AFPzmc5yMnGl08odYak2MfLkJdA3Pe3lUDHaZNeCAHpdfngAhf0chrkE0qpF
+	3C7M9uNrDgCQMV5HobzgvmA4YYYWxtwcuxTVdlQLQ2Nl0T65IOqL7ars/M5bGr0lzxaz+as9K6N
+	xVObB1e7FCU7WWk8n77MWTS5rCFGy4UFu9GVxdQ9dnRMAuUrPCjuAJ8b9PjfU5bTbHXpWdh03iH
+	0wLYGY29igIuDDuow3+2AjIE9fOIOra8CL9VL556JEstXeapoAI8TFLLW3T8CsCme6fsHphm3vJ
+	f
+X-Received: by 2002:a05:600c:3b99:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-4a01aff6a1bmr50678345e9.23.1790794466174;
+        Wed, 30 Sep 2026 11:54:26 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01fa137basm1542095e9.1.2026.09.30.11.54.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 11:54:25 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll context
+Date: Wed, 30 Sep 2026 20:54:17 +0200
+Message-Id: <20260930185417.61865-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfXwfejwFL/0KZ4
- c958oKcoG3n5jlrYD76H3AbxD4kvO2itZH01i/n04bBPJN0VpdQCWRnmmPTycZTDG34yxGPR0Gl
- 7PLlka36yxuDXpAWqCQtPngZdNqbX98=
-X-Proofpoint-GUID: FkKCZhnwxn2FkqcuP9hOp-6wuYI16n2d
-X-Authority-Analysis: v=2.4 cv=W9GtxhWk c=1 sm=1 tr=0 ts=6abd5ad6 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=ksxQWNrZAAAA:8
- a=CHs-XZVRUtj_WxdIW8AA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfXxIF3HNL70mWl
- 8wX7EpGIp5rYHBN13x7DrkS5P5X5WoWQDun1sDCuem+CSlDD8ehCW7KI4tKtKtX9EJwjpRa7wRz
- z+9S23gZR4rukTouSGjQdqFDbM7b7mm4iU0fRjHUdnksk6oJgKXDDHJs0IvNlKoyWCaKEycJivZ
- n+O/ynukTmetqLjheusWuFL3iXpjQoz8OLityxlLJAuNQ5UOIPuMP/KkFCIBMkI0W3zzYIdQ8HX
- LNyE1PfY95qD6PIYJZX52R3nAvPimpu4xLr7jUIlj+1aB2+qhl36yR4Tgj0pFvGU3DAhiuknAMb
- TKfTVX1u64K2D1CD7d74/YK9g9aSkegG0wxYabQmntawSLdzBUyfO4UUqdjKWdglqKBNquW3SDd
- hL6fBncua92g2iTnvuVtcdmvjpGSVzgFVtE693gmd44AbKpgaGrUJ2sjwOzF87V9j16wIzF9pY7
- fNflsBPCcEQ1TCt/bnw==
-X-Proofpoint-ORIG-GUID: FkKCZhnwxn2FkqcuP9hOp-6wuYI16n2d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300077
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 08:41:57PM +0800, Xilin Wu wrote:
-> Expose HDR_OUTPUT_METADATA and validate and pack it during atomic check.
-> Program Generic2 from the checked bridge state on every stream enable.
-> Reuse the DRM metadata conversion and infoframe packing helpers, omit
-> the HDMI checksum when constructing the DP SDP, and zero reserved bytes.
-> 
-> Require 10 bpc for HDR transfer functions and reject insufficient
-> bandwidth after link training instead of silently reducing color depth.
-> Revalidate sink HDR capabilities after powering up an eDP panel, using
-> the stream enable failure path if the requested output is unsupported.
-> 
-> Force a modeset for metadata changes and include metadata enable and
-> disable in peripheral flush requests. Keep HDR streams out of PSR and
-> clear Generic2 enable state when disabling the stream. Preserve the
-> software metadata across teardown so that every stream rebuild restores
-> the checked packets.
-> 
-> Give checked HDR modesets precedence over SDR video-pattern tests. Reject
-> new test requests with NAK while HDR is configured and return -EBUSY from
-> the debugfs test control. Clear the test override under plugged_lock when
-> applying HDR so that a request arriving after atomic check cannot replace
-> the checked output depth. Keep pending test colorimetry from overriding
-> HDR signalling. Atomic checks leave the running test state untouched.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/gpu/drm/msm/Kconfig         |  1 +
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 ++++--
->  drivers/gpu/drm/msm/dp/dp_display.c | 39 +++++++++++++++++++++---
->  drivers/gpu/drm/msm/dp/dp_drm.c     |  4 ++-
->  drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
->  drivers/gpu/drm/msm/dp/dp_panel.c   | 33 ++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_panel.h   |  3 ++
->  drivers/gpu/drm/msm/dp/dp_utils.c   | 61 ++++++++++++++++++++++++++++++++++---
->  drivers/gpu/drm/msm/dp/dp_utils.h   |  5 ++-
->  9 files changed, 145 insertions(+), 12 deletions(-)
-> 
-> @@ -717,17 +727,25 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
->  
->  	guard(mutex)(&dp->plugged_lock);
->  
-> +	ret = msm_dp_utils_pack_hdr_sdp(conn_state, &state->hdr_sdp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	state->hdr_enabled = !!conn_state->hdr_output_metadata;
+With the default fcmode=0, netpoll calls ndo_start_xmit() with hard
+interrupts disabled and reaches brcmf_sdio_bus_txdata() directly. The
+function takes txq_lock with spin_lock_bh(), and the queue helper takes
+the embedded sk_buff_head lock. These locks may sleep on PREEMPT_RT.
+On non-RT, spin_unlock_bh() can run pending networking softirqs before
+netpoll releases the transmit lock, causing a recursive transmit
+deadlock.
 
-This should be done in atomic_check. Also please make sure that we don't
-copy data from the state to the long-term structures. I'd rather pass
-state pointer around.
+Use spin_trylock() for IRQ-disabled calls and enqueue with the unlocked
+skb helper while holding txq_lock. On PREEMPT_RT, reject hard IRQ and NMI
+callers, where rt-spinlocks cannot be acquired. If the lock is busy or
+the queue is full, return through the existing drop path. Do not evict an
+older packet from this context. Suppress the queue-full printk because
+netconsole can recursively enter this path.
 
->  	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc,
->  				      clock, dp->panel->link_caps_valid ?
->  				      dp->panel->link_info.rate : 0,
-> -				      dp->panel->link_info.num_lanes);
-> +				      dp->panel->link_info.num_lanes,
-> +				      state->hdr_enabled && state->hdr_sdp.db[2] !=
-> +				      HDMI_EOTF_TRADITIONAL_GAMMA_SDR);
->  	if (bpp < 0)
->  		return bpp;
->  
->  	state->bpp = bpp;
->  	state->colorspace = conn_state->colorspace;
->  	state->vsc_enabled = drm_mode_is_420_only(info, mode) ||
-> -			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT;
-> +			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT ||
-> +			     state->hdr_enabled;
->  	if (!state->vsc_enabled)
->  		return 0;
->  
+The flow-control callback takes another spinlock, so defer it when an
+IRQ-disabled enqueue reaches TXHI. The data worker rechecks the bus state
+and queue length under txq_lock before stopping the queue. Existing TXLOW
+handling wakes the queue after it drains.
 
+This fixes the direct SDIO transmit path used by fcmode=0. Modes 1 and 2
+take the FWS lock first and need a separate change.
+
+Fixes: ac3d9dd034e5 ("netpoll: make ndo_poll_controller() optional")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Testing:
+
+- This revision passed W=1 sdio.o builds on x86_64 PREEMPT_RT and
+  x86_64 PREEMPT kernels.
+- This exact revision, together with the netpoll v2 fixes, passed 10/10
+  counted physical boots across a Pi 400 and Pi 500+: three RT and two
+  non-RT boots per board. The softirq trigger delivered 64/64 records on
+  every boot with no driver drop. Every lock-contention run freed all 64
+  skbs without timeout, and every TXHI queue stop subsequently woke.
+- Each board and kernel flavor completed a 1,800-second numbered stream,
+  ten repeated TXHI cycles and a Wi-Fi reconnect. No counted boot
+  reported an atomic-sleep warning, new lockdep splat, stall or lockup.
+- The exact revision passed combined RT and non-RT QEMU softirq,
+  lock-contention and TXHI stop/drain/wake tests.
+- An unpatched PREEMPT_RT Pi 400 reproduced the atomic-sleep report. An
+  unpatched non-RT Pi 400 deadlocked and produced 32 RCU stall reports.
+- An unpatched PREEMPT_RT Pi 500+ reproduced 21 atomic-sleep reports.
+- All brcmfmac tests used the default fcmode=0.
+
+ .../broadcom/brcm80211/brcmfmac/sdio.c        | 91 +++++++++++++++++--
+ 1 file changed, 85 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index 381801af3a..170450306d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -516,6 +516,7 @@ struct brcmf_sdio {
+ 	bool dpc_running;
+ 
+ 	bool txoff;		/* Transmit flow-controlled */
++	bool txoff_pending;	/* Deferred transmit flow control */
+ 	struct brcmf_sdio_count sdcnt;
+ 	bool sr_enabled; /* SaveRestore enabled */
+ 	bool sleeping;
+@@ -2796,8 +2797,53 @@ static bool brcmf_sdio_prec_enq(struct pktq *q, struct sk_buff *pkt, int prec)
+ 	return p != NULL;
+ }
+ 
++/*
++ * The caller holds txq_lock with hard IRQs disabled. Avoid the skb queue
++ * lock, which may sleep on PREEMPT_RT.
++ */
++static bool brcmf_sdio_prec_enq_irqoff(struct pktq *q, struct sk_buff *pkt,
++				       int prec)
++{
++	struct sk_buff_head *list = &q->q[prec].skblist;
++
++	if (pktq_pfull(q, prec) || pktq_full(q))
++		return false;
++
++	__skb_queue_tail(list, pkt);
++	q->len++;
++	if (q->hi_prec < prec)
++		q->hi_prec = prec;
++
++	return true;
++}
++
++static bool brcmf_sdio_txq_lock(struct brcmf_sdio *bus, bool irq_off)
++		__cond_acquires(true, &bus->txq_lock)
++{
++	if (irq_off) {
++		if (IS_ENABLED(CONFIG_PREEMPT_RT) &&
++		    (in_hardirq() || in_nmi()))
++			return false;
++		return spin_trylock(&bus->txq_lock);
++	}
++
++	spin_lock_bh(&bus->txq_lock);
++	return true;
++}
++
++static void brcmf_sdio_txq_unlock(struct brcmf_sdio *bus, bool irq_off)
++		__releases(&bus->txq_lock)
++{
++	if (irq_off)
++		spin_unlock(&bus->txq_lock);
++	else
++		spin_unlock_bh(&bus->txq_lock);
++}
++
+ static int brcmf_sdio_bus_txdata(struct device *dev, struct sk_buff *pkt)
+ {
++	bool irq_off = irqs_disabled();
++	bool enqueued;
+ 	int ret = -EBADE;
+ 	uint prec;
+ 	struct brcmf_bus *bus_if = dev_get_drvdata(dev);
+@@ -2826,22 +2872,39 @@ static int brcmf_sdio_bus_txdata(struct device *dev, struct sk_buff *pkt)
+ 	bus->sdcnt.fcqueued++;
+ 
+ 	/* Priority based enq */
+-	spin_lock_bh(&bus->txq_lock);
++	if (!brcmf_sdio_txq_lock(bus, irq_off)) {
++		skb_pull(pkt, bus->tx_hdrlen);
++		return -EBUSY;
++	}
++
+ 	/* reset bus_flags in packet cb */
+ 	*(u16 *)(pkt->cb) = 0;
+-	if (!brcmf_sdio_prec_enq(&bus->txq, pkt, prec)) {
++	if (irq_off)
++		enqueued = brcmf_sdio_prec_enq_irqoff(&bus->txq, pkt, prec);
++	else
++		enqueued = brcmf_sdio_prec_enq(&bus->txq, pkt, prec);
++
++	if (!enqueued) {
+ 		skb_pull(pkt, bus->tx_hdrlen);
+-		brcmf_err("out of bus->txq !!!\n");
++		/* Avoid netconsole recursion. */
++		if (!irq_off)
++			brcmf_err("out of bus->txq !!!\n");
+ 		ret = -ENOSR;
+ 	} else {
+ 		ret = 0;
+ 	}
+ 
+ 	if (pktq_len(&bus->txq) >= TXHI) {
+-		bus->txoff = true;
+-		brcmf_proto_bcdc_txflowblock(dev, true);
++		if (irq_off) {
++			WRITE_ONCE(bus->txoff_pending, true);
++		} else {
++			WRITE_ONCE(bus->txoff_pending, false);
++			bus->txoff = true;
++			brcmf_proto_bcdc_txflowblock(dev, true);
++		}
+ 	}
+-	spin_unlock_bh(&bus->txq_lock);
++
++	brcmf_sdio_txq_unlock(bus, irq_off);
+ 
+ #ifdef DEBUG
+ 	if (pktq_plen(&bus->txq, prec) > qcount[prec])
+@@ -3754,6 +3817,21 @@ static void brcmf_sdio_bus_watchdog(struct brcmf_sdio *bus)
+ 	}
+ }
+ 
++static void brcmf_sdio_deferred_txflowblock(struct brcmf_sdio *bus)
++{
++	if (!READ_ONCE(bus->txoff_pending))
++		return;
++
++	spin_lock_bh(&bus->txq_lock);
++	WRITE_ONCE(bus->txoff_pending, false);
++	if (bus->sdiodev->state == BRCMF_SDIOD_DATA && !bus->txoff &&
++	    pktq_len(&bus->txq) >= TXHI) {
++		bus->txoff = true;
++		brcmf_proto_bcdc_txflowblock(bus->sdiodev->dev, true);
++	}
++	spin_unlock_bh(&bus->txq_lock);
++}
++
+ static void brcmf_sdio_dataworker(struct work_struct *work)
+ {
+ 	struct brcmf_sdio *bus = container_of(work, struct brcmf_sdio,
+@@ -3763,6 +3841,7 @@ static void brcmf_sdio_dataworker(struct work_struct *work)
+ 	wmb();
+ 	while (READ_ONCE(bus->dpc_triggered)) {
+ 		bus->dpc_triggered = false;
++		brcmf_sdio_deferred_txflowblock(bus);
+ 		brcmf_sdio_dpc(bus);
+ 		bus->idlecount = 0;
+ 	}
+
+base-commit: 6f63e919fe1e335b8abcb3a28bfd4804a98d875a
 -- 
-With best wishes
-Dmitry
+2.53.0
