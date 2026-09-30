@@ -1,129 +1,260 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com [68.232.139.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774F0432BC1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D2A23D2B1
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751963; cv=none; b=Sh+z1Rdf/KmwLLdwmyI5C2uUQSMMEkgHQbUWRSMJOW46KPiDzLL1o0FxRgzQR3W5Tv84trd6WsHIFcrdvbfYI3C0nS2ToR76a5B78EFTzfRfBFgF5MElL+0DMdmEo7IBfRdJQnAeDNiopdh1bR8B4H614Y+Zu80kBY81Tp9QO5c=
+	t=1790751966; cv=none; b=hdxy0JrwDEzCe3IamiD6i5L3dWkBgSi5M/qMcLJspqbRo30wv9w+cMdEn3ym/QBOlMLmujVooNA1uK5GF+pbTellvVnQ3iXJXVCuPwgCCN9pOb/LsXUcepjJ3ouTBrai3mxy8yeV6xurRWMndooq/DXgGLKoDHF4Iy4SLUrK88k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751963; c=relaxed/simple;
-	bh=KquUcj0yy4UIql827S1Ctd9+3+E8Q4jB78n9fzRwyIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HGlQ1czZTe7pKpxbDZya7CXIUXn3ARsjNMRVcsKz9X0Ac6F4OzyvIofBT1btr7sW7NwcXcXIw6CUNrUbzit/aMwFGAQEHlHnawluJQQND+jgTzFZlM31B1KTWuOPjnps76Y+VuIN59/tEXJQ8JQ7iyrUUspvecXFCB9oRAMHtm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gjnuwc9k; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790751966; c=relaxed/simple;
+	bh=FzNd2syg4vvhV3eSW6n06Rt1mk/l3E40AGcK4vrVeP8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qEibR3ZQju9eExf4qaL07HyBFjxoQ5CZpYStiEox7DJdxyqffUG4RKDLhIXnfc3++U8b5xlVbBduXXz+spuVUUpC6pKZqAHeda0+7QAXnFMnkcd1NVZrg+wAJlDEtkrHYyYoRr6vVC+Oo37TvTELA1cDG0Ed///uJ3P2XMC7CBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=arw5WrgE; arc=none smtp.client-ip=68.232.139.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gjnuwc9k"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so3893837f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790751955; x=1791356755; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l4ypwwp7JTLk+2ivLn91M7UclGnNz67wo1x4IhoVtME=;
-        b=Gjnuwc9kXtf/kiuWt9LCw/1FDvCecw4TDAoezRE37g/PQpCobTIkFPWG75+1KMbvzL
-         HX+VJPz8Bfoa5m9KgIWXOYXH1xyJn4/fd/yL0F9k9B9k49PBA7D10W6AaA/tLq0V1PeI
-         ePYGQOxzqdfBvpHQESGmJ+g0uaCFEKIVi2drka+O+btoEpE0XpC8jlElNDqGLrBYPhLx
-         +Mz8qQe3ituF1BvZ2S3D2gsQcdoOPL/6XM4FVQgu7oC04BeJR5Y8gJo1y52EY0rZH6kk
-         53H1uBTzH5Yp7vIMIlwaicRyXgvV8alFh1/pzn3xos3jvkoMYZsFxwh9W+gw3FHh5JQW
-         ffuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790751955; x=1791356755;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l4ypwwp7JTLk+2ivLn91M7UclGnNz67wo1x4IhoVtME=;
-        b=GyhNd8ukAB2B3PquxCc0EkqDKrLWyiHjEVdNNv37soNcIsn5y5ccSoDFWa/djUbQu6
-         FCBvZz7o6+yFJeyZoRVVrV9++eJtaFc84WizFbHB0xjCFQnvdSTgtzf93EO30Y4LDXM4
-         4pRzMmzSoZdFA3DXZbAuix39e4nRRU8ef9YO/mFlytkzQNjSUB0LInC4F1e/QtLreKZG
-         Q6F8ikYeDNx52QJT0DZYPeRB8KnnLF0FDHtGffJoKSn2Ahe1VKYwmWovGUeBHsnNOBqE
-         cUcbzfKBsdIyjS/gcyZ2rNTJnGiO6HAHZ28J6+Hx0C20qwNJ3enyt3bwFktZMUzzCDee
-         nIwA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6KZ//+205QN4TBXIzM6R2txQ/Z62GlUS1jGxCJEqEFkqK9GMetKOrjaamqfWMtdSPmPV4i+DJyIqJIxA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRkaGW9fbaY3RBfWeg1faPYAfv+EBZlPt0T5KdY2p7kNpje86M
-	x11Wmqw6TWWIHvOeTYReVJ1ef/pyr+HBzqIQ2G8PvIybEZLedqh4AkWU
-X-Gm-Gg: AYBFou1zRTPWQrO3T9ekjtii6PuolLq3642NuQxY2cG0qHxxRH30YTxjdKZD727zbdV
-	DM30iuugNBnbSKyHmn/22bwM7ETO/dfxnQKIpGNmqEXwcONf92JY7oc0P3mJLJ1G47WP4Hhb1AD
-	TV9y87oOH7NJWaRhKVmR5ZAFccxgCBYi6jGVoQI4D+AbUvSu7O11E69xmU5JbfXnwqIxA3g0EqA
-	60hmWDOKZfMnilcRvV9xbHQjEe49ZdUNwelGoDj3zIq8F2Vy8a0jy+YYOFUib/IP4S3YOV3sbWN
-	hBYhfLxlerd1znIgory7kQ7gSSk/mV4ZiT0Ys5jEjlkjEC+nuCd+APrUu4QHj/6v7ikQbiUZvP2
-	u6f6Jv5DhMyJZkWQUaGPmk5KLiLJupBWrJCxXj3O/YpRKl2ySCayAjeOs27fooMP6EC4fnQpYDY
-	0gKUKRvSiRBskAxDTx0YFlxqy/wR+RK13Nd4S+ZAxgV+PFYcmBKeszfO5zLFWHsSSUx9HQpWJaV
-	wum2Ch1UiJ5r3srFyM=
-X-Received: by 2002:a05:6000:18a3:b0:488:811c:c78 with SMTP id ffacd0b85a97d-48b024f7a40mr1076050f8f.32.1790751954748;
-        Wed, 30 Sep 2026 00:05:54 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.05.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:05:54 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v1 0/6] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU interface
-Date: Wed, 30 Sep 2026 10:05:29 +0300
-Message-ID: <20260930070535.47130-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="arw5WrgE"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1790751962; x=1822287962;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FzNd2syg4vvhV3eSW6n06Rt1mk/l3E40AGcK4vrVeP8=;
+  b=arw5WrgEvLb5Mk/33MBs0/G19vToJP7C2p7e5QXEnIS1syOpZfUAIQdJ
+   hUd2/jMHif9uFzQ7IXJ8HhsK35QpIw0UHWvHXq4TPnH7OVnW/R1UaCAC4
+   gP9YNq78gPeAWSKDXRw1sLzlXgq3JQT4Zzz9VKAvrCWTzS9zcLgIqf0GK
+   l/h/cBIXHQb8s9iXREsQr7w71Vjtu1Z2i70qlj/SyuDaQhbDX2qsVFW8T
+   NIsVq92fw97AJzEQ3qI63zn4RUE0rTiwvE2nnDXBw0Ug/eSFjkDqnfvGT
+   W76UG8KSIPeg3U/D6abOTUvRqUUYGat6X30mMzyUO+CL4WS1NBl8kaKVh
+   Q==;
+X-CSE-ConnectionGUID: s14ENUUBRMa+kuLVbz7inw==
+X-CSE-MsgGUID: nTi7XTMFSWudHlQzXc6DDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="256172277"
+X-IronPort-AV: E=Sophos;i="6.27,132,1786978800"; 
+   d="scan'208";a="256172277"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 16:04:49 +0900
+Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 98CBC1000350
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:04:49 +0000 (UTC)
+Received: from az2uksmom2.o.css.fujitsu.com (unknown [10.151.22.203])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 43BBC1C00113
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:04:49 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.8.20.173])
+	by az2uksmom2.o.css.fujitsu.com (Postfix) with SMTP id 2BCDE1400245;
+	Wed, 30 Sep 2026 07:04:44 +0000 (UTC)
+Date: Wed, 30 Sep 2026 16:04:42 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Suzuki Poulose <suzuki.poulose@arm.com>, Steven Price <steven.price@arm.com>, 
+	Sami Mujawar <sami.mujawar@arm.com>, thuth@redhat.com
+Subject: Re: [PATCH v2 3/3] virt: arm-cca-guest: Add support for measurement
+ registers
+Message-ID: <arywufbCohZ-U3lN@FCCLS0092175.localdomain>
+References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
+ <20260929-arm_cca_mr-v2-3-1d98bba187fd@arm.com>
+ <arx2hnTv3QaFqMn-@FCCLS0092175.localdomain>
+ <aryZnqqBAjKw5xaP@e129823.arm.com>
+ <arygMte5C5lJDdoi@FCCLS0092175.localdomain>
+ <aryuwukTRtmd2Lft@e129823.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aryuwukTRtmd2Lft@e129823.arm.com>
 
-The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-that closely resembles the MIPI DBI Type B protocol and is referred to as
-'8-bit CPU'.
+On 09/30 07:40, Yeoreum Yun wrote:
+> > > > > +/**
+> > > > > + * arm_cca_measurements - ARM CCA measurement configuration instance.
+> > > > > + *
+> > > > > + * This defines the measurement set and behavior for the ARM
+> > > > > + * Confidential Compute Architecture, enabling measurements
+> > > > > + * for attestation and runtime validation.
+> > > > > + */
+> > > > > +static struct tsm_measurements arm_cca_measurements = {
+> > > > > +	.mrs = arm_cca_mrs,
+> > > > > +	.nr_mrs = ARRAY_SIZE(arm_cca_mrs),
+> > > > > +	.refresh = arm_cca_mr_refresh,
+> > > > > +	.write = arm_cca_mr_extend,
+> > > > 
+> > > > From the RMM specification and the commit message, I understand that a
+> > > > REM can be extended with a measurement value of up to 64 bytes,
+> > > > regardless of the selected hash algorithm (for example, SHA-256 or
+> > > > SHA-512).
+> > > > 
+> > > > However, when SHA-256 is selected, this interface does not allow a REM
+> > > > to be extended with a 64-byte value. The write partially succeeds: the
+> > > > REM is extended with the first 32 bytes, and then the write of the
+> > > > remaining 32 bytes fails with -EFBIG.
+> > > > 
+> > > > As far as I can tell, the write is truncated to the sysfs binary
+> > > > attribute size, which is set to the SHA-256 digest size (32 bytes). The
+> > > > subsequent write at offset 32 is then rejected by sysfs_kf_bin_write()
+> > > > with -EFBIG.
+> > > > 
+> > > > I do not see a straightforward fix because the TSM measurement register
+> > > > interface currently uses mr_size both as the readable digest size and as
+> > > > the required write size.
+> > > > 
+> > > > [Realm VM]
+> > > >   ~ # export REM3=/sys/devices/virtual/misc/arm_cca_guest/measurements/rem3:sha256
+> > > >   ~ # dd if=/dev/urandom bs=64 count=1 of=$REM3
+> > > >   dd: error writing '/sys/devices/virtual/misc/arm_cca_guest/measurements/rem3:sha256': File too large
+> > > >   1+0 records in
+> > > >   0+0 records out
+> > > > 
+> > > > [RMM]
+> > > >   SMC_RSI_MEASUREMENT_EXTEND        4 20 3cfcaa635bca042d c148121346b6e1b5 7342800b438d20d7 3dc7a25048cbbad8 0 0 0 0 > RSI_SUCCESS
+> > > > 
+> > > > Do you have any thoughts on how the TSM interface should represent the
+> > > > maximum extend input size separately from the digest size?
+> > > 
+> > > I don't think we need to represent the maximum extend input size separately.
+> > > 
+> > > The TSM measurement register interface is intended to expose PCR-like
+> > > semantics, where the value being extended is a measurement digest whose size
+> > > is determined by the selected hash algorithm.
+> > > 
+> > > In other words, the extend operation is conceptually:
+> > > 
+> > > new_digest = Hash(old_digest || measurement_digest)
+> > > 
+> > > Therefore, for a SHA-256 measurement register, the extend value should be
+> > > 32 bytes, and rejecting a value larger than 32 bytes with -EFBIG seems
+> > > correct to me and intended. A 64-byte extend value would only be valid for
+> > > a register using a 64-byte digest, such as SHA-512.
+> > > 
+> > > Although the RMM interface may allow a measurement value of up to 64 bytes
+> > > independently of the REM hash algorithm, I don't think that capability
+> > > needs to be exposed through the generic TSM measurement register interface
+> > > in point of viewt to preserve PCR-like semantics.
+> > 
+> > Thanks for the clarification. That makes sense to me.
+> > 
+> > In that case, could the ABI documentation be updated? It currently
+> > states:
+> >   All writes must start at offset 0 and be maximum 64 bytes in size.
+> >   Attempting to write more than 64 bytes will result in EINVAL returned
+> >   by the write() syscall.
+> 
+> Yeap. I'll update accordingly. Thanks.
+> 
+> > 
+> > However, the TSM interface requires the write size to exactly match
+> > mr_size. Therefore, this would be 32 bytes for SHA-256, 48 bytes for
+> > SHA-384, and 64 bytes for SHA-512.
+> > 
+> > My remaining concern is that since sysfs_kf_bin_write() truncates
+> > oversized writes to the binary attribute size before invoking the
+> > callback, tm_digest_write() sees an exact-sized write and extends the
+> > MR. The following validation is useless in this case.
+> > 
+> >   static ssize_t tm_digest_write(struct file *filp, struct kobject *kobj,
+> >   			       const struct bin_attribute *attr, char *buffer,
+> >   			       loff_t off, size_t count)
+> >   {
+> >     [...]
+> >   	/* partial writes are not supported */
+> >   	if (off != 0 || count != attr->size)
+> >   		return -EINVAL;
+> > 
+> > IMO this is not specific to Arm CCA, but do you have any thoughts on
+> > this?
+> 
+> I think this is ultimately a limitation of sysfs. At this layer,
+> simply knowing that userspace supplied a larger buffer does not allow us to
+> determine whether all of the data in that buffer is valid.
 
-Add DC parametrization options needed for fine tuning by bridges.
-Add 8-bit CPU interface in form of a bridge linking to RGB port.
-Add 2 DBI Type B panels used in LG Optimus 2X which work with
-the 8-bit CPU interface.
+I agree that this is a common sysfs/TSM issue rather than something
+that needs to be addressed in this series.
 
-Svyatoslav Ryhel (6):
-  drm/tegra: dc: Expand available registers layouts
-  drm/tegra: rgb: Parameterize configuration based on bus flags
-  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
-  drm/tegra: Add support for 8-bit CPU interface
-  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
-    LH400WV3 panels
-  drm/panel: Add Hitachi TX10D07VM0BAA and LG LH400WV3-SD04 MIPI DBI
-    panel driver
+> 
+> For example, a userspace program could allocate a 64-byte buffer,
+> place only a 32-byte SHA-256 digest in it, and still pass the full buffer
+> size to write(). From the kernel's point of view, there is no reliable way
+> to distinguish that from a valid 64-byte input.
+> 
+> Therefore, I think userspace needs to check the size of the binary attribute,
+> e.g. remX256 in this case, and write exactly that amount of valid data.
 
- .../display/panel/hit,tx10d07vm0baa.yaml      |  55 +++
- .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++
- drivers/gpu/drm/panel/Kconfig                 |  14 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 396 ++++++++++++++++
- drivers/gpu/drm/tegra/Kconfig                 |   7 +
- drivers/gpu/drm/tegra/Makefile                |   1 +
- drivers/gpu/drm/tegra/cpu-bridge.c            | 427 ++++++++++++++++++
- drivers/gpu/drm/tegra/dc.c                    |   3 +-
- drivers/gpu/drm/tegra/dc.h                    |  54 ++-
- drivers/gpu/drm/tegra/rgb.c                   |  36 +-
- 11 files changed, 1121 insertions(+), 11 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
- create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
- create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
+Agreed. Userspace should normally inspect the attribute size and write
+exactly that mount.
 
--- 
-2.53.0
+> 
+> Given the current sysfs interface, I think requiring userspace to check
+> the bin_attr size and provide valid data of exactly that size is the best
+> we can do.
+> 
+> IOW, above sanity check is to catch-up what you worried about as comment
+> say, Its purpose to prohibit the *partial write*.
 
+Right, but my concern is that this check cannot detect an oversized
+write, since sysfs_kf_bin_write() truncates it before invoking
+tm_digest_write(). Consequently, the check passes and the MR is
+extended, even though userspace observes a short write.
+
+I think this could be handled by adding an opt-in option that prevents
+sysfs from truncating writes. I did a basic test with the prototype
+patch below and confirmed that an oversized digest was rejected with
+-EFBIG before the MR was extended.
+
+Anyway, I will look into addressing this separately through the common
+TSM/sysfs code. 
+
+Thanks for the clarification, Yeoreum.
+
+---8<---
+diff --git a/drivers/virt/coco/guest/tsm-mr.c b/drivers/virt/coco/guest/tsm-mr.c
+index 657b9c5739d0..5880b12e1f55 100644
+--- a/drivers/virt/coco/guest/tsm-mr.c
++++ b/drivers/virt/coco/guest/tsm-mr.c
+@@ -215,6 +215,7 @@ tsm_mr_create_attribute_group(const struct tsm_measurements *tm)
+                if (tm->mrs[i].mr_flags & TSM_MR_F_WRITABLE) {
+                        bap->attr.mode |= 0200;
+                        bap->write = tm_digest_write;
++                       bap->no_write_truncate = true;
+                }
+
+                bap->size = tm->mrs[i].mr_size;
+diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
+index cd5bb0f9fee6..1d6a0bf8109e 100644
+--- a/fs/sysfs/file.c
++++ b/fs/sysfs/file.c
+@@ -156,6 +156,8 @@ static ssize_t sysfs_kf_bin_write(struct kernfs_open_file *of, char *buf,
+        if (size) {
+                if (size <= pos)
+                        return -EFBIG;
++               if (battr->no_write_truncate && count > size - pos)
++                       return -EFBIG;
+                count = min_t(ssize_t, count, size - pos);
+        }
+        if (!count)
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index b1a3a1e6ad09..31a4c3cf5d51 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -312,6 +312,7 @@ struct bin_attribute {
+        struct attribute        attr;
+        size_t                  size;
+        void                    *private;
++       bool                    no_write_truncate;
+        struct address_space *(*f_mapping)(void);
+        ssize_t (*read)(struct file *, struct kobject *, const struct bin_attribute *,
+                        char *, loff_t, size_t);
+
+Thanks,
+Kohei
