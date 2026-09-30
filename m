@@ -1,128 +1,192 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AED24D9540
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785752; cv=pass; b=RDq4Nxq93HIvriEcNI6JH1+Td7q9dt78HOHyTPUPdNeukCSiUrMDM5XEMj57L/1Ufa0StKoynd+XKkou1v/4thI9ulCAmKjJeMNQDuBeZjJ0/w/VzeLIqa7k9g1afgYku7kOZb0C+I9l/t8srLDi1l7VskMcevpnIOUwnCwoDvQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785752; c=relaxed/simple;
-	bh=qeh1LiNKQeZHlQZt3TuO+nbUO4zd0nfDJzQn7e6twMk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XbpLowcITjys57Z0/kHmD0nOAJEuYur+HoCOpSszecYzehjJELlgNJpfrwfKby00NTlgdYaBPOHnrKo8GSthu0GY6qttJYy8F2iHk0GyfCIN8tg65OQEGuZ6xcmoXfvzZVTR0Vap6ABnbezC4AsAD6SoESJbs6jGmDGwRY5jARc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mmi2/SkA; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375DA243956
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790785835; cv=none; b=bbBlRlwHMm678nUQ9vMpgQcEDKuCLNXsMvdoC0BH0MOC2gnk8zzRlz3zDGQweoyGiPH6cSi+IkEPWhahXNUEMhTMYrE1+q+Xt31FybXBU5i3F5yk0khk63ce3qWFbpP8u5jOhpK7L/+fLF8VeM3LO5HG1TylDWq/LClEe3K1kxk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790785835; c=relaxed/simple;
+	bh=hcC7y6OqYIBEAIEK61od8XIplz9+KJEh05oZOmF6HrM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cHivAnLksIE82nSonReOCIBfHVv1wokRJ5K59MIXFhI8nSVsf4cAIABhb1gCTarnGzgZvJNwO50DMHjOYfgM2jV0VEXse3H8n2EhMM2O4nrPlOOFrjHTZvvn0iKSU4RUag3wNoNhEnrtybAnXNijlTdC1nlvKKwfKuS+1BtlgtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSrb40ou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mmi2/SkA"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so8910422a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:29:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790785748; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UeBoXVQoFPLp8XKcZpsmiWtylW5N1CRmsVuGSM2i1bunn2eq6DbEH12zu0z7I31tqd
-         mmthOke5z3HMYsB9OiKB4C4Pp778lHSUWXvftu/ok+wbvO5eZmmAQffuBep15aQHfsco
-         UKe/ZqxXO8fMZxgSPkOtGGV1nKLNCDg5VfrkohlDqgBuBkXx8Q+ht787DFf1Ij8KsBhp
-         ivB30vNoVaNKOt4MHqxfEdsOlEKQUqSzoLPU5NWzWnB1Wue/V6XEozxs9B01IpXcTRaf
-         0FU4B9k37C5Gwbz86ydO8uRfXa/nQbPeUNheoSS6/RBSt0lb4/ejB3hQemcX4S50rsa/
-         Hqig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qeh1LiNKQeZHlQZt3TuO+nbUO4zd0nfDJzQn7e6twMk=;
-        fh=UuXZNZg66NbJq5dbSIjVxXUTEnCNzJwcZlVqMKbltQc=;
-        b=NA3VLPL9Nau+yvGBo7m5Z0G5t0LClf4IMrtkIMvoLHEWlVWRl4HKrX83HoMJhbPZKd
-         JOtPUfTJSp9x3zv1IOn8llOvFTPCUjkHLvv4j8DLExwzm6QFQsqn5TDymFaX1AG7EmOk
-         S7ylBxhW16iOD4edfMf7reZaoKGGgdLREIoIXDGllT4VpexXG8F2YUtlLkQA6LO6Hb8w
-         lfiTSzToOAjg+TcJmFPittuvozLoob7TUS9oCPfcRZAh3hozeUbey0xH1yt6mTRkc+sV
-         WkoL1qLG1EXrJr6Hlk+7roT9ysQs2CmD1VuC5bpE5CszGMpS7ghyrpdLcTZv+tQ9xT1W
-         4WlQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790785748; x=1791390548; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qeh1LiNKQeZHlQZt3TuO+nbUO4zd0nfDJzQn7e6twMk=;
-        b=Mmi2/SkAK08l1gaN9JUs8LeUCGya5PxzB/UFs+unZNl4teRH9mCp/eYupdfsnOJQYw
-         EBhv33ZJPEFWvsXDtJS9m9P/uSUFEWDQVAKFgbdTf0GfPWCj84Zb+9DDJNAVZ55uDpFM
-         nr6mbpkqY+bGKsSPgGsXxs0nTAr6TaY59wB0lHctDv31i+Fy353+1BwGdV1wJ6tbrG1B
-         zJBwXGTbiPtqcnzITTNACnoN89Y4OkSe/MbFoBMNH+tC45JYBKGdLjja72AZTN3nZMl0
-         jwgakU7etkJE6uCLLVlP5Fj7SV2yBwlKkvDaHSN3YZpBj52dar3x2izNq9ApjRGPDuT1
-         1iGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790785748; x=1791390548;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qeh1LiNKQeZHlQZt3TuO+nbUO4zd0nfDJzQn7e6twMk=;
-        b=YAdfeILzlYdfVwG9bBYq/CpJfT5VgVbLgtFh+xdozmUZ3NsyvqG5WsV1IHU7pQzSVT
-         W3WisPQoEMOydKNlfH/CtDwyp0Mlf5z0FLXJO1L+q3yGTC7dTDaR2cT4HdnTgcCgGGot
-         yjrd+SYvRlobby5A4SbT1oxNXseNmAkrKwzMoLMJ15iqKr3WIEsH4E4y+Ib5P9E09h+j
-         DYChtmeDtpP+c6eJU22Mfy/cwhDyrn7asoJM+A5MG9N22NFYUA6ZL46Y3IzDMvDXWv1a
-         Zc3PJexEtzgb86reGTCn7+Ig7IyGP9SXN5Lo1NLy0qfizeNGArUZjOdsWw8UXkVaMZi6
-         K4Zg==
-X-Forwarded-Encrypted: i=1; AKwUvByEQCIX8oWHx5zsEJMlq2jO/jGr4XI2QUjxpErYcr4/niDa0BlT94NuIRvFDsLFdmcWLOW01TeZZQ+U8Mo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjd+k/jeRXyfO2BnTI98baJsoHWf1EK6o1u41KqbwTa+QMt77B
-	jIFsjFYFUbU5kONwqLMDXKbFKjWgfLOjnWpatYALVHNCWUfieJTn1pBTJfoc6qXY9tZVQlvCadV
-	95AAf/bdqQcmmgfD9WRwjqMor93XufI9WVesF
-X-Gm-Gg: AYBFou1vwWvdXRJYjewwEU/smXG3EM1woLEzbhf1zqhsIbndoOrga3pe1oOc0Q+319C
-	2lKRmM2Q+ctn7rdAf7DC3L7OsTcaF4ZQwPgueHFvgaau9iMkclDsqNLmI/qVq9UQoalFEKA2PWJ
-	H5DlGCPmZQ7a8aBLFVYD4TRCNsP8HBaLt1Bj5SsqlGf6vrwIdlPSaHAHnhVIBRLTQ/8EGV6Tf5Z
-	stjtDazN4E2wmzF/WFvLPeAVg1wjoIyY4LVK8q9jsLEbjxWnEkYdpVd0T7s4rVSu28BEh+L/4OW
-	MsDf1sTYaAFm+43WEdmyUGIv5mYlxGPpwu7pkN3jpZefWf80C0DUPfSI
-X-Received: by 2002:a05:6402:1d54:b0:6aa:734a:a084 with SMTP id
- 4fb4d7f45d1cf-6ae198f00d8mr1568406a12.27.1790785748326; Wed, 30 Sep 2026
- 09:29:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSrb40ou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C731F000FF;
+	Wed, 30 Sep 2026 16:30:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790785834;
+	bh=hcC7y6OqYIBEAIEK61od8XIplz9+KJEh05oZOmF6HrM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GSrb40ouijyelBGmpHMusFTnG+VaYn88z4GHDNRJ7Amg0hDVxW3wohM7IpGmYKaDg
+	 cChfkyTe58WH0agtynZDr0l5GLOwfNUFUCxl8rK9/VXUOghZCg6CpH6zkmC1T3Penx
+	 f1Ps8yxQ7nghNbPTIaBxScVBK3c7ZgKl7VVmwZcialLvYMHWX5HrShKFe2meKoUBRe
+	 GPUixGrWS8Ih+JOPJjzaJvHCN4ZqOAHsHFizDPzF3zhpr5vJ6pPQnnTqSi3iujcx7X
+	 fshR8nVgVTfz8+g/RI/sSVqSaQSPvpY17TjebA6NR8Qr4veiPZ055FfDcrTtQ8+7o+
+	 Z5NlrRwwD4KKw==
+Date: Wed, 30 Sep 2026 17:30:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Dominique Belhachemi <domibel@debian.org>,
+	Michal Wilczynski <m.wilczynski@samsung.com>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [RFC PATCH 0/2] drm: add a noncoherent mapping checking helper
+Message-ID: <20260930-reoccupy-pupil-6a5d0cace243@spud>
+References: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
+ <20260930-zippy-container-d48f72432c1f@wendy>
+ <32baa664ee2f66618a54c260849b311c581febfc.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920-add-from-raw-conversions-v2-1-cef8e6e23ae2@gmail.com> <DLKOI7QW5M8O.II2G717YJDB7@nvidia.com>
-In-Reply-To: <DLKOI7QW5M8O.II2G717YJDB7@nvidia.com>
-From: Felipe Agger <felipeaggger@gmail.com>
-Date: Wed, 30 Sep 2026 13:28:57 -0300
-X-Gm-Features: AclHuK9uPC1AAVAFHpuASHRR5VxleuHnGeiAFO-3sqvHcRGMxC0vMih1ABiqeGE
-Message-ID: <CAETh986oFE-dHtB_diDETGXQZWsxqx-i7sg5T_wCzVJ2ux6YJg@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: impl_flags: add conversions for raw flag representations
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Filipe Xavier <felipe_life@live.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="47k/3Cbh9i3Er7DT"
+Content-Disposition: inline
+In-Reply-To: <32baa664ee2f66618a54c260849b311c581febfc.camel@icenowy.me>
+
+--47k/3Cbh9i3Er7DT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Em seg., 21 de set. de 2026 =C3=A0s 00:36, Alexandre Courbot
-<acourbot@nvidia.com> escreveu:
->
-> On Mon Sep 21, 2026 at 4:18 AM JST, Filipe Xavier wrote:
-> > Extend the impl_flags! macro to support conversions between generated f=
-lag
-> > types and raw C/UAPI integers. Implement TryFrom<Repr> for individual f=
-lags
-> > (exact variant match) and flag sets (rejecting unknown bits), along wit=
-h an
-> > unsafe from_raw() constructor for flag sets. Additionally, add BitOr an=
-d
-> > BitOrAssign implementations between the raw representation and flag typ=
-es.
->
-> This does 3 different things and would be much more comfortable to
-> review if split into 3 distinct patches.
+On Wed, Sep 30, 2026 at 10:38:07PM +0800, Icenowy Zheng wrote:
+> =E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 15:18 +0100=EF=BC=8CConor Dooley=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > On Wed, Sep 30, 2026 at 03:35:26PM +0800, Icenowy Zheng wrote:
+> > > This patchset tries to address the lack of uncached mapping support
+> > > on
+> > > several SiFive-core-based SoCs, currently targeting JH7110 but
+> > > EIC7700
+> > > would have the same problem (although it uses DC8000 display
+> > > controller
+> > > instead of DC8200 and real display support is pending).
+> > >=20
+> > > Because other users (either SoCs with Xuantie cores, which have
+> > > Xtheadmae extensions or non-RISC-V SoCs) of the driver have proper
+> > > writecombine support, a helper is added to check whether coherent
+> > > (cache-bypassing) mapping is available. This helper currently
+> > > returns
+> > > true for all architectures except RISC-V, and checks whether
+> > > pgprot_writecombine() is a no-op on RISC-V.
+> > >=20
+> > > The patch really enabling manual cache maintenance for the
+> > > verisilicon
+> > > driver is picked from Dominique, and reworked to check both
+> > > dma-noncoherent property and the platform's mapping capaibility.
+> > >=20
+> > > Tested on VisionFive 2 with the display enablement patchset at [1]
+> > > (and
+> > > its dependency).
+> > >=20
+> > > Also tested on Lichee Pi 4A (TH1520, which has Xtheadmae),
+> > > operation is
+> > > not affected, map_noncoherent isn't set and Xorg says kernel dirty
+> > > updates aren't required.
+> > >=20
+> > > [1]
+> > > https://patch.msgid.link/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7=
+@samsung.com
+> >=20
+> > Out of curiosity, have you seen Bo Gan's series from a few months ago
+> > that creates an extension/erratum to get these devices working?
+> > https://lore.kernel.org/linux-riscv/20260316060328.1173634-1-ganboing@g=
+mail.com/
+> >=20
+> > I've been meaning to reply to it over and over again for the last
+> > number
+> > of months, but I just haven't had the time to actually understand the
+> > detail of the EIC7700 solution or check whether it works yet. I know
+> > this is just one driver because the JH7110 only has this problem for
+> > the=20
+>=20
+> I personally think his EIC7700 solution unacceptable -- it's not
+> running directly on EIC7700, but some custom hypervisor (because the
+> uncached offset of EIC7700 doesn't behave as a simple OR opertaion),
+> which requires 3rd party code and prohibits KVM usage of the kernel.
 
-Some things are directly related to this patch, and sending them
-separately wouldn't work,
-as it would break the build (as happened with v1 for Tyr).
-It also seems odd to me to create a class without using it anywhere,
-only to use it in a later patch. But I=E2=80=99m open to hearing other opin=
-ions on this.
+I was actually reading through Bo Gan's patchset when I noticed this
+series, trying to get my thoughts in order and figured a second set of
+eyes and thoughts would be helpful to me.
+
+I've got a similar opinion to yours about the EIC7700 solution, it's
+quite invasive (it'd only be 3rd party if it wasn't accepted) but I
+would consider something invasive firmware wise to be worthwhile if no
+peripheral on the device worked without it.
+
+> > display pipeline, but according to Bo Gan this applies to all
+> > peripherals on the EIC7700.=20
+
+And, as I said, Bo Gan was of the opinion that all of the peripherals
+require it. Of course I suspect that actually meant all DMA capable
+peripherals require it, not all peripherals (especially given there's
+been patchsets adding simpler peripherals).
+
+That said, Samuel's solution does exist and if the feedback was
+implemented by someone that cared about the eic7700 it'd be much more
+acceptable. The fact that you've got a solution here at at least works
+on an interim basis for the JH7110 (although I have no idea what the DRM
+folks will think of it) is another point in Samuel's method's favour.
+
+Thanks. I've got a much better idea of what to say to Bo Gan now.
+
+Conor.
+
+> In fact JH7100 suffers from the same problem too, so JH7110 put some
+> DMA peripherals to the L2 front AXI bus; however although this bus
+> keeps coherency with the CPU, its bandwidth is questionable (I think
+> the bottleneck could be exhibited if you attach a not-too-bad NVMe SSD
+> on JH7110's PCIe).
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > >=20
+> > > Dominique Belhachemi (1):
+> > > =C2=A0 drm: verisilicon: support non-coherent DMA framebuffers
+> > >=20
+> > > Icenowy Zheng (1):
+> > > =C2=A0 drm: add a helper function to check availbility of coherent
+> > > mapping
+> > >=20
+> > > =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 9 ++++++
+> > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 32
+> > > ++++++++++++++++++-
+> > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 ++++
+> > > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 9 ++++++
+> > > =C2=A0include/drm/drm_cache.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 21 ++++++++++++
+> > > =C2=A05 files changed, 77 insertions(+), 1 deletion(-)
+> > >=20
+> > > --=20
+> > > 2.55.0
+> > >=20
+
+--47k/3Cbh9i3Er7DT
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar05DwAKCRB4tDGHoIJi
+0hBMAQCGkXMDU3h/uHOa4tVd6jAtm5+8LSaMtGIKlN36M3r5/wD/baPrkiu8EKfY
+3Ji6X+CNgxudEQ3n4ASGeTxU2/TeMAY=
+=dfvv
+-----END PGP SIGNATURE-----
+
+--47k/3Cbh9i3Er7DT--
