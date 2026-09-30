@@ -1,161 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FAF44AB7A;
-	Wed, 30 Sep 2026 20:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798876; cv=none; b=e0Ges/T38dx1AXn0IZgPv00E0koX0ipeIiee/rPPQDyJhjefdFq3L9juwf58W41jYSSASRHF+vW6O8nyreOnwJ4yvxvfa42U094jK4xMNi0jCVmKkfIVgatyJx01zIlNYHy33KOWkeow3B6qKAz9bejQyWtl6tmXPo73bDdoUq8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798876; c=relaxed/simple;
-	bh=YqXK6Rpcz2AWeHL1OvsEa+i4czIGLK9xGFYhupf8lDQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cfZf1OkP/W0p3tRoiafDxW+oRYCgjpk18vI96vupH2zhQj3tLXcBOVzM5NxhsE9JOGx1/992cVh4J6Q3Y32GTa0uNA7LcL2iCi3/v29No+xwhZIApewdjFAzx6JIsGg2IcNDL6DvNL78sh1C0jhiFIV9gMKbqaZCq7i1uYOW3Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3gW2F7J; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D16455616
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790798933; cv=pass; b=cgpwYWazJ9k3DbKdw884KCWqBwk3CDUz6sCrRv9Xu9P3cOGmVvJ8I4QwXrI8l4xoc5lNMp95liyPz+qN5GwJeQv+fx6Z2Z79XS5kQz6PpeAPx5qMP845i8Zl4KlBYE/KhGGDKYv/Ydh6mDv+Gtb0nSV8x7VCZFjjneZT+Gr5KIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790798933; c=relaxed/simple;
+	bh=bhtUeTWaWQoRsIUq3/0NhMF4yFZyZl+XUqrKwbDuapg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ak6pUMprxut5kWXokl+BXMxEWJFX6QE3IEeKL/RVsnhCc6/Be33PDkpnKxg090yhMhiVKgpqJN+iAt6myh82imxmfD4on/Ux5EwyPtOP497hX3qgKStxc4keTtDsRi3de7GUMAwssiarYQcu0JQRt7rsVRgsbgQGw44MOdeQqaI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IvK3Kal7; arc=pass smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3gW2F7J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB551F000FF;
-	Wed, 30 Sep 2026 20:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790798874;
-	bh=w52W+oynoxsfO2u5xrVEGVREkMzq0Hd9q3rh+myUK/8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=G3gW2F7JBtWE+oTnI/920fdYp5DO+RlG2wfbhUqEvHohH5nowvzs2k5nHiznFUbP1
-	 UfHCN3L+F1GuXDK6ZzgZgDBEaYtVBrM69TBH8MnqTb9hKxrGEjXWM6+9rJu7KbCVq2
-	 tt62kv7Gn1Fy3gjZ5bWnEoYqzb82DCDniIDtmrKPJuwMVCxPEhhqwLHCjPgeTy+uFc
-	 hplUYEM8Hf3gP6jcCBGTmSpNltNJi/ywFrtuWQ604/A+muOjO3OgeqTctG7ieBJBEv
-	 5fh15F7oB2HaQbPjiUyO0p+WDG4fU53sJTa+zuAQLcpXnk+vOOsN9XDfrbhfKLcK17
-	 HY1FudAu+/3yg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1EF52CE097C; Wed, 30 Sep 2026 13:07:54 -0700 (PDT)
-Date: Wed, 30 Sep 2026 13:07:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: arighi@nvidia.com, arnd@arndb.de, arnd@kernel.org, boqun@kernel.org,
-	frederic@kernel.org, gustavold@gmail.com, jiangshanlai@gmail.com,
-	joelagnelf@nvidia.com, josh@joshtriplett.org, kunwu.chan@gmail.com,
-	linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
-	neeraj.upadhyay@kernel.org, qiang.zhang@linux.dev,
-	rcu@vger.kernel.org, rostedt@goodmis.org, tglx@kernel.org,
-	tj@kernel.org, urezki@gmail.com, yphbchou0911@gmail.com
-Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
-Message-ID: <d6a7eadb-a742-40d0-8bd9-a9d5e6f08504@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
- <28A04B09-71B0-4BBA-825C-7F80E57BCF3A@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IvK3Kal7"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4c2c368cb3bso2871723b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:08:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790798930; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nbz26zAEI08+Yq354Fi9RUom3mt3n0K4sPgiowYDLxSCl5bXbiUnI4zDP3safB9rOh
+         LlqSuqkMSPvWm8LfqjMV3nytJacYq2SU9PLPr4ZevIZvbg+U2BuD3WEupCrZtzHV3FNu
+         xoekIvbvyF5o5AQ3kJZXwQZCWc+LNVKxr3ud+StscFRuuibAnPqTqSh+R8X0tu624R3P
+         QgMYEk1D006NT4FwYmm1GFvXgS2P1GNoK9hhmYSQyMB75r6HmpciR4cNrASwXOx6BEUN
+         c6yGGTWzPHoYmz8toQX970AQYQ7obYOcL50IYNeQ3bZBl3ESgXSY9TB0qPv3awhhmMpm
+         XM2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+Ik9zrwtFn6RF0L/JldoutXppR184+mdsZlk8WWANp0=;
+        fh=biNG2ft0SFtvhLB0nQYIM/Ibv1nuq94hgwSZEcvvaF0=;
+        b=MsaV1lmntOJSow5pjbhsN1qjWt13FWFARz2mF6tVk3RzPpq/6On4A5yFJmakhjzaO1
+         kz+evWC+aQp8RcmUhfBma7XGTZUKo+HhQLcRJBNWKsNfF1sWQjhDGWnz0XuuDzmpHJkL
+         lCm70FPKpJ2+YCLi0/boQubeOlXZqj2hATME0XRMgEDcyvTHHW9yDwmKlPbm8/MwtodO
+         p/IFusKeJRDN+5i5vdlH4B/E3PaFS+lLNUmBHd54YTn7eHagw/9KUs+JJRKIQORBUsPz
+         DxghLGwo5chnrAPw5BUdR1hnybbuzZrsht4KeKO0+g4lD+AEV+BYb5mJKT2f5PRbu+pM
+         XV6A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790798930; x=1791403730; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+Ik9zrwtFn6RF0L/JldoutXppR184+mdsZlk8WWANp0=;
+        b=IvK3Kal7LHelIO9CBzwz5UGRF9lFfu5vsZjHENk4M6NNC725xN8yp3+15VlEA4HO4B
+         udkd4FvA7EC5ixbZPsfW4UR2sjQpuLtGWSV5kSNvMbrRkVEY1vmnDXrwDR9mB4UtMvCs
+         Rj/VlLb7Gah6jEKfS1eg+I6Oz4/T9A7vYxBZYqgdO9RL8lCsYtFZpNgiz4I+hP3Mlrfd
+         lPcBGjnQ8PyDLcMl+odSytmi5qHfW4nlirA/VBwB96wHC8ue6vxlUf+uyOmT39EBfV0e
+         eg0jEhTCRUMXDBtWxmbAj4O2jyUkrvixJnmG+DvT68OUEGqYwLrD/7uV3uu+NPBrYc9n
+         nHtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790798930; x=1791403730;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Ik9zrwtFn6RF0L/JldoutXppR184+mdsZlk8WWANp0=;
+        b=F6rPsVgV7NERlycmIdcyakKcKTVkkHA/ainno84T/67F5ZnzWZ/B0huHiBRWobxC8u
+         8G1Iek9ycGn92Z3cSYV5NlmnSdu9hlzA6LYr5zTVGsISNvL4ys3sHUtxFazPZOCPZ5JP
+         6ZH4p6J+dSqqEHCDs6NNz6vFkidBoE+T/a09JBHZjK9JdS+1jnHZp2SNllXJXWI/etil
+         7NiJRuXZT9cML+pJMtLQjjfPD7N4BwN24r/osF0zcZlMMENrNV+jtWqjjRyDBgM61hB3
+         1tGxIQNif4bdvDXXJLbHu4Nuv0KCxWjqb9UVH+g6fUKB5mPBtCbh04qJvPzcgEsQrZmf
+         OuTA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/ItAs73lHjJgmknZxkPyS1i+u86pltvYR+1rRcKHgUsh0M1xgwGK/CYUZ9JgWJdj2o4Lrpf4OdaKrwt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ls/UzHHm+uH90jtgvIq1OagrprG0P+txF4ksrbfsxTPtQE3f4o
+	bcYNXv223n1bB8A5ulI2oxQNEtqseICLEXXli2bJ9WUN9vlrWxD2jQ+6mTuNfWrvHypAOpo0o05
+	uyfWQ+QJpvbMbTB7aSmkdPprkYO8ZTMk=
+X-Gm-Gg: AYBFou35NuPgpMOn5Uo/Z2JItXdiVf3e2sSccbgwuW6xvwfkjX8wsBV8UVJzGmoYe+G
+	SflxMP8Ljg1kJL3WZwZlgr2IvavdFKFEomZq4/9hw2M7oCR0RvMqK2BuAn8ntKXo5zzeoF2WUBL
+	s2ywcbSImiJXvBXi3T3lremsKE123iTafcbw8yor3dkjx50sCX1jSUwiXT3ZE+hTgAxg7zO2qb5
+	BxbDxzunE/6B+G3QGtIqvI1H36YfqtsVE6ytI235TKvoLzt2FRmwGxv+XDRo7CR18oNakH7CSfl
+	hUKgrL5KAFnndb1yQvi2UqxsIJJ82uDWMNZBuleB6g2TNm9d2as/EE6pIBCp2o1JOu7hBEl4RHC
+	7SF/XnZhK3/x5xkVbBWVd/mVKhGX1fNQVL9Fql1i3dmPze9i40uNcjITg
+X-Received: by 2002:a05:6808:3a17:b0:4e8:3e98:6f61 with SMTP id
+ 5614622812f47-4f1b14e6776mr3417147b6e.3.1790798930119; Wed, 30 Sep 2026
+ 13:08:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <28A04B09-71B0-4BBA-825C-7F80E57BCF3A@mainlining.org>
+References: <20260930141151.3973221-1-mmyangfl@gmail.com> <179077766581.31693.7541948300673794721@kernel.org>
+In-Reply-To: <179077766581.31693.7541948300673794721@kernel.org>
+From: David Yang <mmyangfl@gmail.com>
+Date: Thu, 1 Oct 2026 04:08:13 +0800
+X-Gm-Features: AclHuK-snbmRVDYyPlolIVrtHLv51eNL6dnYZYFPumbUT0rmQ_IO9EolJhzK71A
+Message-ID: <CAAXyoMPUhoDNk_CFLXn6oV853Y1wwaJhyigEH9TmaKGnARN-6g@mail.gmail.com>
+Subject: Re: [PATCH net-next v2] net: dsa: motorcomm: Fix register rollback in
+ LED setup
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 07:36:20PM +0100, Bradley Morgan wrote:
-> On 29 September 2026 22:08:49 BST, "Paul E. McKenney" <paulmck@kernel.org>
-> wrote:
-> >On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
-> >> Thanks, Arnd.
-> >> 
-> >> Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=y:
-> >> 
-> >> CONFIG_RT_MUTEXES=y: build passes
-> >> CONFIG_RT_MUTEXES=n: fails without this patch, passes with it
-> >> 
-> >> The failure is in tree_stall.h, where rt_mutex_owner() is used
-> >> before tree_plugin.h includes rtmutex_common.h. This matches the
-> >> reported failure, and the added include fixes it.
-> >> 
-> >> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >> Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> >Bradley and Kunwu, are you OK with my applying your tags to the commit
-> >that I am merging this into?
-> >
-> >1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall
-> >dump")
-> 
-> I'm ok with it
+On Wed, Sep 30, 2026 at 10:14=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-Thank you, queued up for my next rebase.
-
-							Thanx, Paul
-
-> >> Thanks,
-> >> Kunwu
-> >> 
-> >> On Fri, Sep 25, 2026 at 9:39 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> >> >
-> >> > From: Arnd Bergmann <arnd@arndb.de>
-> >> >
-> >> > The added call to rt_mutex_owner() makes this fail to build in
-> >> > some configurations:
-> >> >
-> >> > In file included from kernel/rcu/tree.c:5121:
-> >> > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function
-> >'rt_mutex_owner'; ISO C99 and later do not support implicit function
-> >declarations [-Wimplicit-function-declaration]
-> >> >   333 |                         if
-> >(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> >> >       |                             ^
-> >> > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and
-> >integer ('int' and 'struct task_struct *')
-> >[-Werror,-Wpointer-integer-compare]
-> >> >   333 |                         if
-> >(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> >> >       |                            
-> >~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
-> >> > In file included from kernel/rcu/tree.c:5124:
-> >> > In file included from kernel/rcu/tree_plugin.h:14:
-> >> > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting
-> >types for 'rt_mutex_owner'
-> >> >   231 | static inline struct task_struct *rt_mutex_owner(struct
-> >rt_mutex_base *lock)
-> >> >       |                                   ^
-> >> > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is
-> >here
-> >> >   333 |                         if
-> >(rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> >> >       |                             ^
-> >> >
-> >> > There are already a couple of inclusions of
-> >"../locking/rtmutex_common.h",
-> >> > so assume this is safe to do here.
-> >> >
-> >> > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU
-> >task stall dump")
-> >> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> >> > ---
-> >> > I wonder if it would be better to either move the rt_mutex_owner()
-> >> > definition into a global header like include/linux/rtmutex.h, or to
-> >> > move the code out of tree_stall.h into a .c file, as this feels like a
-> >> > layering violation.
-> >> > ---
-> >> >  kernel/rcu/tree_stall.h | 1 +
-> >> >  1 file changed, 1 insertion(+)
-> >> >
-> >> > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> >> > index 5dded1e89197..803a56af3259 100644
-> >> > --- a/kernel/rcu/tree_stall.h
-> >> > +++ b/kernel/rcu/tree_stall.h
-> >> > @@ -12,6 +12,7 @@
-> >> >  #include <linux/rcu_notifier.h>
-> >> >  #include <linux/smp.h>
-> >> >  #include <linux/rtmutex.h>
-> >> > +#include "../locking/rtmutex_common.h"
-> >> >
-> >> > 
-> >//////////////////////////////////////////////////////////////////////////////
-> >> >  //
-> >> > --
-> >> > 2.53.0
-> >> >
-> >> 
-> >
-> >
-> 
-> --- Thanks!
-> "I'm not a very positive person" - Linus torvalds
+This is a catchup patch of previous misapplied old series version.
