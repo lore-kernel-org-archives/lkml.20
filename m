@@ -1,125 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19359466B72
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EA9453A33;
+	Wed, 30 Sep 2026 07:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754761; cv=none; b=CFfTZKXG0X8DUCY0PFdMU0BHjCOcW/aCzeGqpeW5YsOaKf5udf3QkigaFgVEV+00xfIdjRf1IPZYqkhuuE63occigfMRCTC+2AL9143i3DcZd1TYvLSnzWtyGQo4sfHSHcvj01e0lYYLBcBwJ/2VTFfQs9yaLdsJ7G3MhpFlJtU=
+	t=1790754765; cv=none; b=eekkenuwar4Yt9OFIoBpW+xVhUPLEzrsd/I63FKIJp5xLL0uo5VEDzAHGYqb1ZtpVy1kk9STQZ6lZCDN9LxE4On+sFDriUvI9DMBCDizu8mEQLL7cdcrvaSpfioXp1qnR5Ep4L+vz/qAbe1qbNyOElWl6ymsjhXMYr94DXzNA0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754761; c=relaxed/simple;
-	bh=8mga/9C1gJYjL3j4DkG9JzXt1zTEVnD5TgTAH+DV0hY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LljMzFktITU79qvG/FVwJl7yHbhbn0nejeqepijb7HRJ/m9BcPdKYIJBgI5/ysUTaOwySR46EDTZ1Xayolbp2xI+/fcxHSjlOfOpjW1xviyOadBJeD37NsM46Df0ecz3XQ/Ey3L5TLLRULC843iWmkwGRe0r+K30koPjBS2jRFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRIKRrc9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790754765; c=relaxed/simple;
+	bh=+ZUjpI1bbEQ+Y3jyaObrNhgx4hKta9AFmHyIBk+ib0Y=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=LW2zkb0sonGgnQ/Mq9gHD+O/rp53Wgk6ff5YNVnweaIzATsBF7U4o0ap8WI6ca6g8b/ItEkwytMO/W9SkVZD11NmIxzAFLjEhnw8OX/HY1lyzvXLO9Owiw2fpjoF9dSkMhcjE3BG8ZHfHf0FbPU28f7b4TeK1Kp3DF3HcYQcJDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=mkDauZe8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=d9hRquuf; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRIKRrc9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3F81F000FF;
-	Wed, 30 Sep 2026 07:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754760;
-	bh=HG+Asrw3g/mWMsN1/SOW/UfriJ5U+pNGLQlihCs8RCI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bRIKRrc9r7IyEvc70N95JxUAf3/OCQjvHIGE5ymmxMkyFfC/BqladvJwSTZ36yOJO
-	 oJlzgtvgll/lEgsAjORo9GbQvs44xf/xOaIke2peIw1qQuQjX9BPgM+VYvwyaJ+rhk
-	 h1bGgbQEtmVfAUZDwSRKljHDvD6vT0l8fxzjZ4YW8UzOjtQXTgr8n/JnJ9NXKrKLrR
-	 TpVW4wbOkO9pwcIpZONL3ZN12b3cA7wTQ+BRJlmUTtRDQfUakf3QjtCoN2wPbahjcb
-	 r5GYJOgabEQlHfNFjAxTiDg1G1a6ZOZHVYsQaarbwWClFtjww6bDt4+l70YA4P0FVp
-	 ZueLzRsbFmw3g==
-Date: Wed, 30 Sep 2026 09:52:34 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: binglei wang <l3b2w1@gmail.com>
-Cc: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com,
-	hongbohbli@tencent.com, guochunhai@vivo.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] erofs: fix folio reuse from a different address_space in
- erofs_bread()
-Message-ID: <ary_wjlpYNWbqaHU@MacBookPro>
-Mail-Followup-To: binglei wang <l3b2w1@gmail.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org, zbestahu@gmail.com,
-	jefflexu@linux.alibaba.com, dhavale@google.com,
-	hongbohbli@tencent.com, guochunhai@vivo.com,
-	linux-kernel@vger.kernel.org
-References: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="mkDauZe8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="d9hRquuf"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 91C671D00715;
+	Wed, 30 Sep 2026 03:52:41 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 03:52:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790754760;
+	 x=1790841160; bh=LogGlCJ0mVEO3OVB8MrJLtlRZkt6j829s0jF8jKE/FQ=; b=
+	mkDauZe836rveNeLxwAwB/9HKis53swdNDZJoCsZV55bT8nffQmtfNuWGETEyGyU
+	kaqQc5XA5O7Nrd/0GOpSg5aRAlbBrPfL204IP3QHIprmwD55uEkztLW8nOjNlMbm
+	V4nYnj2J8JV9+ZVrRDiU67KNnryGuYoYzpRgvjKeVaRhWP29PXdRKdAJGMlnIpBK
+	Yifh2/7HFRkVVw6UKfkc5pPYhq/bID2xrK41qyAVosQJM6yYXSzxViG+TFYTVS0e
+	6knSeN899yrjjDqBCmI4Josv5GAsU68KO615A8qJm9FWBTIrAFvhyLcaCbObAmHx
+	cEfbmeligx2jQKLQFsuKmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790754760; x=
+	1790841160; bh=LogGlCJ0mVEO3OVB8MrJLtlRZkt6j829s0jF8jKE/FQ=; b=d
+	9hRquufQpG6Nwd8APPlsH69OKkCBmFqLm7cKmrNATEQkTJ6oOpeEZB2kYA19OcDv
+	BNukcb25lNrVl2vYD1EXIp9I8ejTCkDNsioepVnchZ1ycLmF5aZgsKNnjvz5vygE
+	37E1m7xhxQc+v5Y1vTvyIrb5vH/feGDWqt7YYScQbc7ccG8josKoRjMYN94OUG18
+	mSqjvLFEFerG5/6iFTX9IzWyMJbvGL6HHPONgnsX3+wIqX7p/h2TfELlGoYZ2KB1
+	xqMZ/FpzbN7+eOaslXVGgvil3Ee+wKfEbS6TApF7jTjwaZz0Vl23OPFtlEPtYsgc
+	jBLcP9PsTETEhtIFnbXqQ==
+X-ME-Sender: <xms:xr-8anR4neW_irO6Xt81-Gcpmk0rHtZWNumHCBt8GnOt1b7vXnqx6w>
+    <xme:xr-8ajlVw7zUl8yv_OjLbAZopfEpWSHa5pjOnsxPZOksftdKbQu8QwJTNJjbfuFde
+    WJjx0mjqaznK2G8xh-SLKvIAR98wMsO11xXUSkosjtAuiYVD34-eUmJ>
+X-ME-Proxy-Cause: dmFkZTGmX3wTdRV6d8JIY92p9Kp+huUcE/MQojo/VtO81/18ppr1ZR60bB7cP9Z5dOW8Jd
+    g3BQq01QNYnzP9beah9vomnv9RxIu1Rl6lyeABnLkHMRBqEsGmICIGaOv+tCpiUu1uslIJ
+    CXnHvzQMeeZCebbce0vPSS1sGXrNgMxcL6/ZjboqZMvDigBgDkttHG74h26DS46VMp28IM
+    3sCyUDKXwn0ec/fP46Hd3pQEf8vu5C4mBsaTf8d04IaXcxoflzNR93a2lvnbcB1a+iw/VS
+    0WylwrtgcOsx3jVqFe/vJHZ1QogFQAq19Ck5m2wcRQ6GfVNuKzIbOjikCVatiw6P3vQ7mT
+    eYkSUIXZM7TJ0tAz6/lV9YqymRwuXcBoBb4IYSumSTDodqHeZUlHb8SjBnnM84ZVdtRhG3
+    W0a+tF8U7f9TYiGA6LK1QIWTZSPUzefH73PJt9kkfct0ZGMY6QYQb0iXmObkIlbP6DVsYC
+    Qxvz/y4YDAKDyrY1hu3IdPT+m7ZOgRtMgaZNG3CX2F6m5UPzM+f3LzMdLNhhb1y/wShw0+
+    mmHt8OUVXn8vubm9zyQGc1jYLml4pkwxqnmyZ85KuMWMd0edcWy3RWWdUStLVNMtE15wUO
+    qJr9bnIC6GSHqhUV4464OWZbhKORjFjSBJkLr0l6JXfCEIRGCln8g+Ob6aEw
+X-ME-Proxy: <xmx:x7-8anR38iDq9w28QBGq6FOEm4s6t4Voky-Ja_H_Q_9EG1qvNFoWSA>
+    <xmx:x7-8ajszryQnLXWfTqn3rkGQcPJpVtMsQdxcBo4NJP3eGOsZiJfI0g>
+    <xmx:x7-8ar1IDHl389fgq4qVW6khd6ORnavnL0ygZeM_GnrKYnDDqaH2Bw>
+    <xmx:x7-8asXKnoYj37sZdNYEzGzmSq5H44stY4KKuQxv4SeFCKpHncHXcg>
+    <xmx:yL-8agio6XC88-D1E-_QnLbBXgS9aehcUAzCg6obnywC6PlGk8Uzsb7t>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 9B1B932A008A; Wed, 30 Sep 2026 03:52:38 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAJ3C4KySUqKevOBn=CROzsWkaLdK_X241oLFXO26FKBVq73QJg@mail.gmail.com>
+X-ThreadId: AeRYNq7l0AL7
+Date: Wed, 30 Sep 2026 09:52:18 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Arnd Bergmann" <arnd@kernel.org>,
+ "Johnson Tsai" <wenjie.tsai@realtek.com>
+Cc: "rtl8821cerfe2@gmail.com" <rtl8821cerfe2@gmail.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Message-Id: <0162247f-ca33-4152-bd32-255343c7216b@app.fastmail.com>
+In-Reply-To: <1bde7ea5999c4915b184bf2fcb904901@realtek.com>
+References: <20260929104159.3236854-1-arnd@kernel.org>
+ <1bde7ea5999c4915b184bf2fcb904901@realtek.com>
+Subject: Re: [PATCH] wifi: rtw89: fix LED dependencies
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 11:37:53AM +0800, binglei wang wrote:
-> erofs_bread() caches the last folio in struct erofs_buf and reuses it when
-> the next request lands on the same folio, but the reuse predicate only
-> compares the page index; it never checks that the cached folio still
-> belongs to buf->mapping.  Correctness therefore relies on an invariant
-> that is nowhere enforced.
-> 
-> fs/erofs/xattr.c already breaks it: erofs_xattr_iter_inline() and
-> erofs_xattr_iter_shared() call erofs_init_metabuf() on the same buffer
-> with no intervening erofs_put_metabuf(), and their in_metabox arguments
-> come from different sources (per-inode vs per-fs).  When the two differ,
-> buf->mapping is switched while buf->page still holds a folio of the
-> previous address_space, so the next erofs_bread() can return data from
-> the wrong one.
-> 
-> This is observable with METABOX enabled, where shared xattrs silently
-> disappear on the mounted fs, while the same tree built without METABOX
-> reports them fine.
-> 
-> Fix it by validating the address_space in the reuse predicate too: if the
-> cached folio belongs to another mapping, drop it so that the existing
-> slow path re-reads from buf->mapping.  Reading folio->mapping is safe
-> here because a reference on the cached folio is still held; if the folio
-> was already truncated, folio->mapping is NULL and the slow path is taken,
-> which is the safe direction.
-> 
-> Fixes: 414091322c63 ("erofs: implement metadata compression")
-> Cc: Bo Liu (OpenAnolis) <liubo03@inspur.com>
-> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+On Wed, Sep 30, 2026, at 02:28, Ping-Ke Shih wrote:
+> Arnd Bergmann <arnd@kernel.org> wrote:
+>> The problem is a misunderstanding of how Kconfig dependencies
+>> work, as the 'imply' keyword is not sufficient to enable a
+>> a user-visible dependency, and the boolean 'RTW89_LEDS_MC'
+>> symbol cannot determine whether linking against the MC code is
+>> valid.
+>
+> People intend to weakly select the dependency. I think keeping
+> 'imply' is harmless.
 
-Thanks for the patch.
+Whoever those 'people' are, please tell them to stop using 'imply'.
 
- 1) The patch format is still broken as your previous patch, please
-    check your email client again before sending out a new patch
-    (as I said, you could send a patch to yourself and try to apply
-     the patch and see if it works);
+It's obviously harmless in the sense that it doesn't do enforce
+anything, it just make it more error-prone:
 
- 2) the commit message of this patch is too over long (mostly
-in the LLM-generated style), I think you could simplify a bit since
-it's more friendly to human developers.
+ - the first 'imply' only works because MAC80211_LEDS has
+   the same dependency as RTW89_LEDS, so it works as a 'select'
+   as long as the dependencies don't change. If the dependency
+   were to change, the only difference is that imply makes it
+   harder to debug because it skips the helpful message from
+   kconfig.
 
-> ---
->  fs/erofs/data.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-> index be63b89f0862..d8b6523bc218 100644
-> --- a/fs/erofs/data.c
-> +++ b/fs/erofs/data.c
-> @@ -33,8 +33,13 @@ void *erofs_bread(struct erofs_buf *buf,
-> erofs_off_t offset, bool need_kmap)
-> 
->   if (buf->page) {
->   folio = page_folio(buf->page);
-> - if (folio_file_page(folio, index) != buf->page)
-> + if (folio->mapping != buf->mapping) {
-> + /* the cached folio belongs to another address_space */
-> + erofs_put_metabuf(buf);
-> + folio = NULL;
+- the second 'imply' turns on a random symbol from another
+  subsystem, which is discouraged.
 
-     `folio = NULL` is enough?
+- we already have a mix of 'depends on' and 'select'
+  for the LED support, which can lead to circular dependencies
+  and other problems. Adding a third way can only make it
+  worse.
 
-Thanks,
-Gao Xiang
+>> Address this by using the correct construct to determing whether
+>> linking agains the MAC80211_LEDS and LEDS_CLASS_MULTICOLOR
+>> code is possible, respectively.
+>> 
+>> Fixes: d910631ff352 ("wifi: rtw89: add LED support to reflect the wireless association status")
+>> Fixes: 721d90c8509a ("wifi: rtw89: add multicolor LED support for RTL8852CU valve board")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>> ---
+>>  drivers/net/wireless/realtek/rtw89/Kconfig | 6 ++----
+>>  1 file changed, 2 insertions(+), 4 deletions(-)
+>> 
+>> diff --git a/drivers/net/wireless/realtek/rtw89/Kconfig
+>> b/drivers/net/wireless/realtek/rtw89/Kconfig
+>> index 7c678dd1f6b3..4000ae344544 100644
+>> --- a/drivers/net/wireless/realtek/rtw89/Kconfig
+>> +++ b/drivers/net/wireless/realtek/rtw89/Kconfig
+>> @@ -208,15 +208,13 @@ config RTW89_DEBUGFS
+>>  config RTW89_LEDS
+>>         bool
+>>         depends on RTW89_CORE
+>> -       depends on LEDS_CLASS=y || LEDS_CLASS=MAC80211
+>
+> I remember we fixed to this style years ago by imitating ath10k and iwlwifi,
+> which they look like that still. 
 
-> + } else if (folio_file_page(folio, index) != buf->page) {
->   erofs_unmap_metabuf(buf);
-> + }
->   }
->   if (!folio || !folio_contains(folio, index)) {
->   erofs_put_metabuf(buf);
+ath10k doesn't use ieee80211_led but seems to just duplicate that code.
+
+I do see that my version also got it wrong, as the 
+
++	depends on MAC80211_LEDS=y || MAC80211_LEDS=RTW89_CORE
+
+line is nonsense with MAC80211_LEDS being a 'bool' symbol.
+
+The way this was meant to be used is to have
+
+config RTW89_LEDS
+      def_bool RTW89_CORE && MAC80211_LEDS
+
+or you can skip the symbol entirely and replace all the
+CONFIG_RTW89_LEDS checks in source code and Makefile with
+'#ifdef CONFIG_MAC80211_LEDS', see ath5k and ath9k for instance.
+
+     Arnd
