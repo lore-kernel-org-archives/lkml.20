@@ -1,309 +1,192 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5863F4DD9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF8F3C276E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752706; cv=none; b=Qpq84lgKJ2+jAeoyOvlRmJdMysrFO0bNvAQJCyovT2fXlY9rwxcAkrrG0DW8Zsqqti5BII6rgveF3QFNMF0dgZn6mcLpSaX4ABQmR41FnzS6ryurIlZcVl/PBGYyXJ/+CtmdSQUJWpj6SsChyJ03gU//RnWhUG/mYllKoAan4RU=
+	t=1790752718; cv=none; b=pm0EtRJ97ySYskIra/YGzGG9ZDQrj3VgMUwmExiOjSLpLIhkFMDNWZCjoZHeGUb//2KIrV827gtuoSpruZko0NSaQ6PiYfdQXwgbakbKGVOQ0KouQDvAArltcp5u9ppSwLdH70yqoCZXpJegWC8mBJQeAICT3aNlpxXqB2xoz00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752706; c=relaxed/simple;
-	bh=6wjP423QTF9B3utI0N0aSYizdz2qap+h7XWABKQTx3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g9Nk6GUP6ziaAJrY3y2SwmpY3erd7VhfS0tsfZMSTJp6jHaV+clVq1ZehwKMl1WGtSLkvUYeH2J2XibSSqAuV25f3JsRhKSxmDfyR/E80OrSHR058l7+Sroo7dO+5wF8tm9WLsUrz+3vSi/rDa8RcFMR58AYDcKLwKysk7xM2z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MH4kvZ6f; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1790752718; c=relaxed/simple;
+	bh=GMtjND5ptledmZaDMH/T9/dH+V/0E+i0Av6Y/iGEgXc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=lyvoo1KvyHV5CXGQY3IgIZlHXqz+InjFraFZBj5MJiCDEYDOYrTV0e5NolC/V2OK7a1ACnmlMUffdMbVyz1ISB20Q8Kv6jqoGeD7+teRd3QmkC1rDBJKuULBjyrA8hB6lEYU5piuZ+VsjyXhPjukeBZs184CH2GGg2fhLeVtVXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PpX6NTGl; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MH4kvZ6f"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2e2bfc2540cso9073905ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:18:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PpX6NTGl"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so4320083f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:18:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790752704; x=1791357504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L3CtCQSONkR2hFJ8XJZJB+FK0JQRnLp3oIZztRHfCoQ=;
-        b=MH4kvZ6fKDpXJbmniGUwwcWDxu4zzxsADMREMdbFdvm+dFsGZrc2kNyjXtBtPgf3FK
-         tsX3ZfcENh2lP4aF1NSgzciBqN2PYsmnB+6eHaIYMxKzjJNPrjf8jP112svCcqo9+igE
-         S1C7B56TQ/XKFltVPSQT3NpVyizTP+v1KCY9yOExabtUtVgOXwl1sQkPpWkbVJRz6vpp
-         iYVuaQq73pGHrDQcBzpA2zBNBmnd/LXwBvJC5NMIKuqgGlnrrtPBYgpEBLqY0PYo16wL
-         7b0o4AyWzDvcIQfkgAy4vgP6aWmV3V083wkAcjOrjyWSMTg5t6QiWO/Y4cDKFtCDsIHs
-         B8mA==
+        d=gmail.com; s=20251104; t=1790752715; x=1791357515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y5Ar/J3lXFwxWphKUtD7c9Gh3UMYH3kW8PbvXHpvZmY=;
+        b=PpX6NTGl0ts5aj4P/31JOamR9oEXSWIZcZZwz8EAiKd+HyJ150vMW2aho8dS95Wskq
+         5NhrpTw3b7cYLbaIx8RcXNI1LyfNU+AQrNjkM1JU2CB+AsT/hrLBvo5bspyOEbSLQ2s3
+         ICpZD+R91rSioVsUdUjYkz8dfuuIyAVnF65c/MTDDZyo45anbSy6y7FXpWDaeNHJzUUM
+         5znv7TslxqRKsKVmMPzH0U8LZ8uHvokhpwYfcd7gDmHNzVSIAVwBcDpdLXOLA2jLgEUD
+         Kb+0BwhfzRSTAF8Ew26CTg4zHFzin+ffzUdFyYRgTRaV+LoDvFdn9PHJij/DbOv3WMYD
+         6lvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752704; x=1791357504;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L3CtCQSONkR2hFJ8XJZJB+FK0JQRnLp3oIZztRHfCoQ=;
-        b=TNjrdrPShR1ImY/3Fv6GdD9v6S0y394YqJjseAON9hdzyozt2bypT4C4CYyeU+rmIv
-         AvGW/G2GMUyiK4X97HLBkow/AMHIUlf9LQFgjKs3BuCYvEOwa8ru6VRGvSp+F8b7b/38
-         w1PoPGlrE9jzbmjwj5QSZ8unSHaQ8DjGfzh+wFkxKfr6i2ECaxONrD0bd1+H15VwXpRg
-         gTEXofWSKaL1nAxnG57UBZieQxOiom7M/W+1uXeCU8Ou00BlvoTYVavQ5CL5AHS73Mm5
-         Ci5rg48AZvVez5D2/x4wco0pXEOFNngULUxelz6YplfH8qEy9TXL9esPpIRjSKlYQhKg
-         3l+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxdu6+n+HYuEt75Qsz60h+Pnh9o36e/DVTlzYRkH9G1zfnHbx946olDYR0wL9+0w5L2Y5HUheSIwMDu5Es=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOTW5f6PdtnomwAYcvKNnjm/GZikURuQl73qfMO64VgY+6v+0A
-	5TrkcyMfEkbNuwpmZQS8EDIlE53HLV1bHJ4w6+jwmogVt9h2vByJz0wcBmLeMU7k
-X-Gm-Gg: AYBFou37yXSomI4/R4Az66Kyl3oULPbic95rf51Q/5owHzvnIKxf/GvbqhU+4uf7KzB
-	4ra4dGUsHlC0EpK+jgMTU36vovinFoXAbPKx4y3Q3jgTClh6tFC6j6us9jyy5+d6st3YWCExF3M
-	Sy8/dEXoghiU3WQSAxxliD347NK+ON/QYvwOugMl8j2LzRH9ly+5cVanhh1AnDtMM5TuiyEyu6g
-	vw/N0ujyNxGUGE9GNpWNPJ18vRwX2+j+/HgN2MjNnX+D2I6d46fVFINExJW32WjwbnHRfCFcidk
-	ofy1uCTE2IL+7EyWLOsg+QLASyhX1DBIp94tzKkGP4khsL6Yx9LGkakWYKkrr49BAWT32f5194B
-	bet5xhkNUZIpw46vKlOUdy738NaQ3i0ruryfh8nJ7L96j6ZRFlD3kNyqvESSBQHguREz4QdkK3B
-	p4LrNRZ6jPs5rw0K+BA+/piMFSF56aNJT81Aa36PLIrFxBqM9QwlUKJ9359tLiW1Qr1oO4S5pui
-	mYcNGI9zln7evoNFA==
-X-Received: by 2002:a17:903:2b06:b0:2e2:b624:54b7 with SMTP id d9443c01a7336-2e2e4b5afe6mr4769285ad.17.1790752703950;
-        Wed, 30 Sep 2026 00:18:23 -0700 (PDT)
-Received: from embedsky001.tail6d6b2f.ts.net ([183.12.106.39])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5c38be1sm2384395ad.77.2026.09.30.00.18.22
+        d=1e100.net; s=20260707; t=1790752715; x=1791357515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y5Ar/J3lXFwxWphKUtD7c9Gh3UMYH3kW8PbvXHpvZmY=;
+        b=bZrkTZbqOTa+pWvY/3SV0HyWSTRAsSjwoB975tdU8wzukCvijhEWRR0qDc4wk7Dpju
+         6BJDiEY0JyWXeY1dbSfOHThHfpuhLDNnauC2P+B7z4B4iGtr6KBbpdHiUDpdTYfdCLek
+         GHKTosOnO6U9dkx3Aqkhv0fObKHyxTrMLjZjKcqCkUioxsutOv2kTFGQkf5z/HcGRo8r
+         Ic5TW7hPOXKIN57y30DYZ5uZwWofRk6itMcTB84Sx25yaBpmOMdTim1EghwyYfyhfpYe
+         SPGNpoL6rC16ku4ZOK+K1vQZhAEN0ev4Xi8K+fcuf1SmUZiGLwKSKGG9LxqahLv8kbG3
+         gCKg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7TJwNET93nBRkZvOp/uMjAy3MoMoLWmjZQgU81ULhMq/Hi6X2vcv1zo+82TLVzfMCC8eG3zrFQBSzLmA=@vger.kernel.org
+X-Gm-Message-State: AFuF++miOZ6lqL6lgEdFJQOnPxStnEiP7QU0l2UvS9tcylJpQupU6Ja2
+	PfsxlFEH55NKqC2pT97alf5HUBlRcTRC9viblGcnvqC3P1Iqqszm6zXm
+X-Gm-Gg: AYBFou3aYyTOEGFVE5jGlybq7eq3OBx0+72j8aX8Vd7aPFlfQg6ZMGZT+tRtR1U3fvD
+	eiRIBmvScJ9dgL3Sd7DkPEAklqFAwf2q20zmSd2/Nfkyb30sEWC1RrO4BL5s+9UfBSc5sx3xWUc
+	MF6TjprBMwqLHSGrzXjTsC55yvGRJcEYMuLLvH69nrJ1ZbIFY913NllkwSv0UVhQHvz3yEKrSXL
+	F7yqFSt9aiz+36xPpdy9qkNVLNRE2yYx6zzV51/xqG7XMjDL5gdqNbKLIx4LnlhDa1NTWD2P0EN
+	RFWIzejGk6dEjENRE/oBWggZqyOPocZodrWqCnORcOE3qH1yqzLo1UjldLszk8ajMbM0c7xFjo6
+	bHmHcoJJbLk4AOmIdz4qDCMkl2INs8FJ68xCs6yyDeKIpxnRyvkTRWpIicTXMcWxcjuVXoudh2g
+	8pJ5ONb/nvAJD9lwR5WQcSjMai8uBs+szoH+IoXZa6Ed5COU187HtJotjI/asnWq7aZZ+fZcdiM
+	SJ6LbEBnYrXt7ZKMXSSCBndCDjbIiw6G90IH6c49WNQSXw53mhw2AxG5PiIs3LE
+X-Received: by 2002:a05:600c:3486:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-4a01ad9847amr4981855e9.1.1790752715090;
+        Wed, 30 Sep 2026 00:18:35 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-82-57-191-234.retail.telecomitalia.it. [82.57.191.234])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a01b1e79e4sm10590905e9.2.2026.09.30.00.18.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:18:23 -0700 (PDT)
-Date: Wed, 30 Sep 2026 15:18:19 +0800
-From: Yonghao Zhang <hyz3367@gmail.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+        Wed, 30 Sep 2026 00:18:34 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: core: Fetch the auto-boot firmware only once
-Message-ID: <20260930071819.vse5i32snb744ay7@embedsky001.tail6d6b2f.ts.net>
-References: <20260923025855.2523147-1-hyz3367@gmail.com>
- <arqlFtvlN2LI6cT2@p14s>
- <20260929044312.kkqnizsdtg2axg7c@embedsky001.tail6d6b2f.ts.net>
- <CANLsYkx5VVWsmhaYfMe=gj7nO-8YpOknMvM7gKZ-xFEbGg=zMg@mail.gmail.com>
+Subject: [PATCH v12 0/3] airoha: an7581: USB support
+Date: Wed, 30 Sep 2026 09:18:16 +0200
+Message-ID: <20260930071826.48811-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANLsYkx5VVWsmhaYfMe=gj7nO-8YpOknMvM7gKZ-xFEbGg=zMg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 09:06:35AM -0600, Mathieu Poirier wrote:
-> On Mon, 28 Sept 2026 at 22:43, Yonghao Zhang <hyz3367@gmail.com> wrote:
-> >
-> > Hi Mathieu,
-> >
-> > Thanks for the review.
-> >
-> > On Mon, Sep 28, 2026 at 11:34:14AM -0600, Mathieu Poirier wrote:
-> > > Good day,
-> > >
-> > > On Wed, Sep 23, 2026 at 10:58:55AM +0800, Yonghao Zhang wrote:
-> > > > Auto-boot for an always-on remote processor registers an asynchronous
-> > > > request_firmware_nowait() whose callback discards the fetched image
-> > >
-> > > The callback function is rproc_auto_boot_callback() but I don't see where the
-> > > image fetched by request_firmware_nowait() is discarded.
-> >
-> > It is the release_firmware(fw) called at the end of this callback.
-> 
-> Right, this is happening at the _end_ of the callback, but the
-> changelog says the firmware is discarded and then rproc_boot() called.
-> This is not accurate and needs to be fixed.
->
+This is a major rework of the old v2 series.
 
-The [PATCH v2] I sent earlier today carries a wrong In-Reply-To and
-won't show up in this thread on lore.  It is available here:
+The SoC always support USB 2.0 but for USB 3.0 it needs additional
+configuration for the Serdes port. Such port can be either configured
+for USB usage or for PCIe lines or HSGMII and these are configured
+in the SCU space.
 
-	https://lore.kernel.org/linux-remoteproc/20260930064144.645211-1-hyz3367@gmail.com/T/#u
+The previous implementation of a dedicated SSR driver was too
+complex and fragile for the simple task of configuring a register
+hence it was dropped and the handling is entirely in the PHY driver.
 
-Thanks,
-Yonghao
+Everything was reducted to the dt-bindings to describe the Serdes line.
 
-> > The image fetched by request_firmware_nowait() is never consumed:
-> > rproc_boot() doesn't take it as an argument and fetches it's own copy
-> > with a synchronous request_firmware(). It is that second copy which
-> > rproc_fw_boot() parses and which is release at the end of rproc_boot().
-> > The asynchronous copy is only ever touched by the final
-> > release_firmware(fw) -- fetched, never read, freed.
-> >
-> > "Discarded" in the commit message refers to exactly that. I can send
-> > a v2 that names this release_firmware() explicitly in the first
-> > paragraph if you want the message to be verifiable at a glance.
-> >
-> > Thanks,
-> > Yonghao
-> >
-> > >
-> > > Otherwise I agree with this patch.
-> > >
-> > > Thanks,
-> > > Mathieu
-> > >
-> > > > and calls rproc_boot().  rproc_boot() then fetches the very same image
-> > > > again with a synchronous request_firmware(), so every auto-boot reads
-> > > > the firmware image twice and allocates the buffer twice; on kernels
-> > > > with the sysfs fallback enabled, the uevent round-trip is repeated
-> > > > as well.
-> > > >
-> > > > The asynchronous request exists only so that rproc_add() does not
-> > > > block on the filesystem read; the image it fetches is never used.
-> > > > The core already defers rproc_boot() to a worker for detached
-> > > > processors (attach_work).  Reuse that worker for offline processors
-> > > > too and drop the asynchronous firmware request: rproc_boot() fetches
-> > > > the image exactly once and dispatches between a firmware boot and
-> > > > an attach based on the proccessor state.  The work is renamed to
-> > > > boot_work to match its widened role.
-> > > >
-> > > > commit 400e64df6b23 ("remoteproc: add framework for controlling remote
-> > > > processors") noted back in 2011 that "we must wait until it completes
-> > > > before we try to unregister the device".  rproc_del() now does exactly
-> > > > that: it waits for the boot work with cancel_work_sync(), which also
-> > > > closes the theoretical window in which a pending attach work could
-> > > > outlive the rproc instance.
-> > > >
-> > > > The changed fallback behaviour only matters for legacy
-> > > > configurations.  udev dropped its userspace firmware loader back in
-> > > > 2014, as recorded in
-> > > > Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
-> > > > kernel has documented since commit 02c399306826 ("firmware_loader:
-> > > > enhance Kconfig documentation over FW_LOADER") that "Linux no longer
-> > > > relies on or uses a fallback mechanism in userspace".  Auto-boot now
-> > > > uses the same synchronous fallback semantics as every other explicit
-> > > > boot source (sysfs, cdev).
-> > > >
-> > > > Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> > > > ---
-> > > >  drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
-> > > >  include/linux/remoteproc.h           |  4 +-
-> > > >  2 files changed, 21 insertions(+), 48 deletions(-)
-> > > >
-> > > > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> > > > index 263e12f022ea..f329dc478170 100644
-> > > > --- a/drivers/remoteproc/remoteproc_core.c
-> > > > +++ b/drivers/remoteproc/remoteproc_core.c
-> > > > @@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
-> > > >  }
-> > > >
-> > > >  /*
-> > > > - * take a firmware and boot it up.
-> > > > - *
-> > > > - * Note: this function is called asynchronously upon registration of the
-> > > > - * remote processor (so we must wait until it completes before we try
-> > > > - * to unregister the device. one other option is just to use kref here,
-> > > > - * that might be cleaner).
-> > > > + * Boot or attach the remote processor in the background, on behalf of
-> > > > + * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
-> > > > + * not block while the firmware image is read from storage.  rproc_boot()
-> > > > + * dispatches on the processor state, so this covers both a firmware boot
-> > > > + * and an attach to a processor started by another entity.
-> > > > + *
-> > > > + * Note: rproc_del() waits for this work to complete with
-> > > > + * cancel_work_sync(), so the rproc instance remains valid for the
-> > > > + * entire lifetime of this function.
-> > > >   */
-> > > > -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
-> > > > +static void rproc_boot_work(struct work_struct *work)
-> > > >  {
-> > > > -   struct rproc *rproc = context;
-> > > > +   struct rproc *rproc = container_of(work, struct rproc, boot_work);
-> > > >
-> > > >     rproc_boot(rproc);
-> > > > -
-> > > > -   release_firmware(fw);
-> > > >  }
-> > > >
-> > > > -static void rproc_attach_work(struct work_struct *work)
-> > > > +static void rproc_trigger_auto_boot(struct rproc *rproc)
-> > > >  {
-> > > > -   struct rproc *rproc = container_of(work, struct rproc, attach_work);
-> > > > -
-> > > > -   rproc_boot(rproc);
-> > > > -}
-> > > > -
-> > > > -static int rproc_trigger_auto_boot(struct rproc *rproc)
-> > > > -{
-> > > > -   int ret;
-> > > > -
-> > > > -   if (rproc->state == RPROC_DETACHED) {
-> > > > -           schedule_work(&rproc->attach_work);
-> > > > -           return 0;
-> > > > -   }
-> > > > -
-> > > > -   /*
-> > > > -    * We're initiating an asynchronous firmware loading, so we can
-> > > > -    * be built-in kernel code, without hanging the boot process.
-> > > > -    */
-> > > > -   ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> > > > -                                 rproc->firmware, &rproc->dev, GFP_KERNEL,
-> > > > -                                 rproc, rproc_auto_boot_callback);
-> > > > -   if (ret < 0)
-> > > > -           dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
-> > > > -
-> > > > -   return ret;
-> > > > +   schedule_work(&rproc->boot_work);
-> > > >  }
-> > > >
-> > > >  static int rproc_stop(struct rproc *rproc, bool crashed)
-> > > > @@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
-> > > >     rproc_create_debug_dir(rproc);
-> > > >
-> > > >     /* if rproc is marked always-on, request it to boot */
-> > > > -   if (rproc->auto_boot) {
-> > > > -           ret = rproc_trigger_auto_boot(rproc);
-> > > > -           if (ret < 0)
-> > > > -                   goto rproc_remove_dev;
-> > > > -   }
-> > > > +   if (rproc->auto_boot)
-> > > > +           rproc_trigger_auto_boot(rproc);
-> > > >
-> > > >     /* expose to rproc_get_by_phandle users */
-> > > >     mutex_lock(&rproc_list_mutex);
-> > > > @@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
-> > > >
-> > > >     return 0;
-> > > >
-> > > > -rproc_remove_dev:
-> > > > -   cancel_work_sync(&rproc->crash_handler);
-> > > > -   rproc_delete_debug_dir(rproc);
-> > > > -   device_del(dev);
-> > > >  rproc_remove_cdev:
-> > > >     rproc_char_device_remove(rproc);
-> > > >     return ret;
-> > > > @@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
-> > > >     INIT_LIST_HEAD(&rproc->subdevs);
-> > > >     INIT_LIST_HEAD(&rproc->dump_segments);
-> > > >
-> > > > -   INIT_WORK(&rproc->attach_work, rproc_attach_work);
-> > > > +   INIT_WORK(&rproc->boot_work, rproc_boot_work);
-> > > >     INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
-> > > >     spin_lock_init(&rproc->crash_handler_lock);
-> > > >
-> > > > @@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
-> > > >     if (cancel_work_sync(&rproc->crash_handler))
-> > > >             pm_relax(rproc->dev.parent);
-> > > >
-> > > > +   /* auto-boot may still be fetching firmware: wait for it here */
-> > > > +   cancel_work_sync(&rproc->boot_work);
-> > > > +
-> > > >     __rproc_shutdown(rproc, true);
-> > > >
-> > > >     rproc_delete_debug_dir(rproc);
-> > > > diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> > > > index a44368737b39..d77e24539133 100644
-> > > > --- a/include/linux/remoteproc.h
-> > > > +++ b/include/linux/remoteproc.h
-> > > > @@ -231,7 +231,7 @@ enum rproc_features {
-> > > >   * @subdevs: list of subdevices, to following the running state
-> > > >   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
-> > > >   * @index: index of this rproc device
-> > > > - * @attach_work: workqueue for attaching rproc
-> > > > + * @boot_work: workqueue for booting rproc
-> > > >   * @crash_handler: workqueue for handling a crash
-> > > >   * @crash_handler_lock: serializes crash handler queueing and deletion
-> > > >   * @deleting: remoteproc deletion has begun
-> > > > @@ -277,7 +277,7 @@ struct rproc {
-> > > >     struct list_head subdevs;
-> > > >     struct idr notifyids;
-> > > >     int index;
-> > > > -   struct work_struct attach_work;
-> > > > +   struct work_struct boot_work;
-> > > >     struct work_struct crash_handler;
-> > > >     spinlock_t crash_handler_lock;
-> > > >     bool deleting;
-> > > > --
-> > > > 2.34.1
-> > > >
+Also the property for the PHY are renamed to a more suitable name and
+everything is now mandatory to simplify the implementation.
+(the PHY are always present and active on the SoC)
+
+Also other unrelated patch are dropped from this series.
+
+Changes v12:
+- Rebase on top of linux-next now that clk patch got merged
+
+Changes v11:
+- Remove clk patch and move to dedicated series
+
+Changes v10:
+- Rebase on top of linux-next
+- Add review tag for DT patch
+
+Changes v9:
+- Add spinlock init
+- Add ack tag
+- Add review tag
+- Add additional comments for phys on USB 3.0
+- Add extra logic to make phys optional for USB 3.0
+
+Changes v8:
+- Squash header to clk Documentation patch
+- Address comments from AI Bot
+  Link: https://lore.kernel.org/all/20260520150912.11614-1-ansuelsmth@gmail.com/
+
+Changes v7:
+- Rework to double PHY implementation
+  (suggested by Rob)
+  Now the clk driver expose a PHY for Serdes port
+  USB PHY driver selects it
+- Rebase on top of linux-next
+  Link: https://lore.kernel.org/all/20260519220813.28468-1-ansuelsmth@gmail.com/
+
+Changes v6:
+- Fix kernel test robot (sparse warning)
+  Link: https://lore.kernel.org/all/20260306190156.22297-1-ansuelsmth@gmail.com/
+
+Changes v5:
+- Add Ack and Review tag from Connor
+- Implement Ethernet support in the USB driver
+  (testing support for this Serdes on a special reference board)
+- Use an7581 prefix for USB PHY driver
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v4:
+- Rename PCIe and USB PHY to AN7581
+- Drop airoha,scu (handled directly in driver)
+- Drop dt-bindings for monitor clock in favor of raw values
+- Better describe the usage of airoha,usb3-serdes
+- Simplify values of dt-bindings SSR SERDES
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v3:
+- Drop clk changes
+- Drop SSR driver
+- Rename property in Documentation
+- Simplify PHY handling
+- Move SSR handling inside the PHY driver
+  Link: https://lore.kernel.org/all/20251029173713.7670-1-ansuelsmth@gmail.com/
+
+Changes v2:
+- Drop changes for simple-mfd
+- Rework PHY node structure to single node
+- Drop port-id property in favor of serdes-port and
+  usb2-monitor-clock-sel
+- Make the SSR driver probe from the clock driver
+
+Christian Marangi (3):
+  dt-bindings: phy: Add documentation for Airoha AN7581 USB PHY
+  phy: move and rename Airoha PCIe PHY driver to dedicated directory
+  phy: airoha: Add support for Airoha AN7581 USB PHY
+
+ .../bindings/phy/airoha,an7581-usb-phy.yaml   |  62 ++
+ MAINTAINERS                                   |  11 +-
+ drivers/phy/Kconfig                           |  11 +-
+ drivers/phy/Makefile                          |   4 +-
+ drivers/phy/airoha/Kconfig                    |  24 +
+ drivers/phy/airoha/Makefile                   |   4 +
+ .../phy-an7581-pcie-regs.h}                   |   2 +-
+ .../phy-an7581-pcie.c}                        |   6 +-
+ drivers/phy/airoha/phy-an7581-usb.c           | 559 ++++++++++++++++++
+ 9 files changed, 665 insertions(+), 18 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+ create mode 100644 drivers/phy/airoha/Kconfig
+ create mode 100644 drivers/phy/airoha/Makefile
+ rename drivers/phy/{phy-airoha-pcie-regs.h => airoha/phy-an7581-pcie-regs.h} (99%)
+ rename drivers/phy/{phy-airoha-pcie.c => airoha/phy-an7581-pcie.c} (99%)
+ create mode 100644 drivers/phy/airoha/phy-an7581-usb.c
+
+-- 
+2.55.0
+
