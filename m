@@ -1,80 +1,80 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39004497B74
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61724BF92A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768059; cv=pass; b=DShtV29Ex2LRgzDX4me7xtguDmgMTwLXcXxBxohHgDWvXach2VoqfAJxNXCa5JYMioIzVi6oKmJcS+SPfatPKZkwZRHQdLhKNHDOi6jjU6ruls+p3e165iRPZFVKR0aGlc0atwbf3pA2YNZvdK7t1A/klp5fMVXX7adjvRMQNFE=
+	t=1790768132; cv=pass; b=Gl4dr0279DU/uZ+MTABQ3SY4JLG2aWFxAK0aQVJ9bjfMtYdVN2+E/ntewcAcbOowHPHvhNcdlBzL+z4qU3OES0UyYlLrQfbmU11Z4yBewKucoo+TCuihgr/SHsloIA6yoAMKj1IaGEYMDd7LN2EV9W5rYp3/ruiw9m8/S61kUdM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768059; c=relaxed/simple;
-	bh=aYrSFshnjc1dLaRx+4fcphgUxBfodGw4jGAuwnmXMOE=;
+	s=arc-20240116; t=1790768132; c=relaxed/simple;
+	bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H+yRvU1fOytEIlsO/JAMeMM1oGUdvexA3RZTNr/KGK5LLCjmr71HcMAGnv9vdx6XNXXdHRMGS2IQYWi7ZZ2/KZRblb+vGt21hn9aEwiJuebHAzaKkr5vcLE2ZrXxVNrvgp8V17AKF/2ZmueBLjs/AFMa2hGLJxBl0mzhBMoaOu8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DSLEWDCx; arc=pass smtp.client-ip=74.125.231.167
+	 To:Cc:Content-Type; b=NDv9vkV6URRf0Db5NL9jxXDh66RQkuZhr34Lvr8FxTUn4s5QoJoyuQV6clTHqyzTyJaKkuAz3NpSSwOcgEPfnmrrETyb8bdJrqiEjtBZcHBtePC9Y4I7iNV0GwGrqUekck19gG7qbm9ejhOBhhlCktJFczY0leg11VLfHtIeMH8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HdddWs63; arc=pass smtp.client-ip=74.125.231.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSLEWDCx"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c24d19ebcfso2803595eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:34:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790768057; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HdddWs63"
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c2613d80fbso3123296eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:35:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790768129; cv=none;
         d=google.com; s=arc-20260327;
-        b=cnLWL/UGtXUl4skJ3ThE96KSwb/xCFY8Eg2u/WxBbJa/Qzcq1PkvY9WgO8Yr4i07eF
-         Bm2tof/Exc9lK8plvDuEepjTLRF7wS5a+38+VH++8R+MJMouyHdXmEGtEUtnullFBpsL
-         kGWSyADoRfZ5HkHwFplPpPuAbzwGaqEfSScPh5z12z1TdUIR5Q7ZyPiPvDIjB1IeN943
-         /N05jbRlM92n4K5ezWkY/QUtQFgcXPxdghSCccHewLQNeUq6eUgQpvpnFra2C68NDWcv
-         i/KG5xfeioHjSKOMLNCFx1eFNJj25eCyyOuIFbGQKg+Wo95hCrHUpKM0Mrn20uUUN2jC
-         LY/w==
+        b=A/UTPey8lodb+Ovl6tTiZ22GcXex/RptIKnaeeEk8plccnCUFXBLaEn0HJdjqgUlE6
+         l0lECPR96Y7o08Uvr0YgCE/U3SrOJy1E7bnKh45gE91qhQKCE6uQqfZloTcJB3BhU621
+         2KFobaVo7PoLpfVvoZGhL33OQBXHm5A7DL2fGL75XqW8GAQ++V2oY+jlTjx/1uyhYA1e
+         sEeNR/Z4TL8RhUc59fE+3U0wrI0yQ+yw83gjipnR+cMs77b5SfGcmfasM4uqJsiKY0ws
+         vvbdarUQkRcnn/EN2rCx0wDNCMzAjmCsZF4wQdRbDuBMpUanu/UgdmuP5FcgYNh81I0l
+         9+Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=srVWHQ34fmEZwN42zGAC9YE78eGz/CHZFtfzts5HK8c=;
-        fh=RjaaQTcw5At53Yt/TJjx+gJoZae2EwUvrMoEyZaFL8A=;
-        b=lI8S6/8itQh/YMe0w2eQxAfQU0FNy20WkhI3GBU6bQlf6/hn7kueF50c57TZUS9r/N
-         UaBvUMdjnJT8v0N7GgYr0f3p9oU+vF8/tMvuBCZE1z+R4Qa/jPx0ANsxuFrS43q/xt+N
-         uAZO13O3FFkk9ohkrTWPfGgd2Gv8asXoDc6W0edqJlefDNdOVJR2NFYDeuyFV0PsE9OZ
-         NPCVgwWJ2jUQRKS4EO6BG8UyrMP5Im+rQkxj6k6D/58Zb8AR57qxYUpOMtsvk4+y/Mbv
-         AtNU/51LecQThVUSdBSdnKJBH9RSmp0dnkhEkwh1p5VSulZkUmya2e9C5WM5bm/h25Cq
-         I+8g==;
+        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
+        fh=PoYK9nxLBJf+9btWBUFtgpvT0/Kgd33Q3gaGxR/sksE=;
+        b=YdIdcIxL5B5kk4Zft93v7cBdslBZkAdUC3c7AlVa8AMUsAQHDJg4spNXQ1JJaRNbtt
+         JA9Uxt4RRFbhMbH02XbprKAG8rmK2aDjgc1DK9FSZcIXWT7cDmbn+6NYTfBvTgQSHYGk
+         ORJ12Ee5m7gRloEGKeoXJu22OLlW7m/wKRgj6uBRS71M8+p7C6NoTnuC8U9/B/0M5c6p
+         CZvWTh+Q7m/zjS8v3e5Jr4ixp1s3CA+5k+w+ehKFXLpkzyCd5v5aNwYrxXUavwvZHOmP
+         y4tO9GFrudcpUHYsGewdep0CrJOQqzpi0Tky9Tl5Dp2H6ktZNA7WqZXkcN3hWQAt0WxH
+         iTkA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790768057; x=1791372857; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790768129; x=1791372929; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=srVWHQ34fmEZwN42zGAC9YE78eGz/CHZFtfzts5HK8c=;
-        b=DSLEWDCxtXVZ6Dk0G3hXOPk3okJJEQM5h23blJMnNu9NPvswzaOoAEnQIpCfD+ZRYO
-         DjZHDLdaQAohjSgkJScxpPeRvjDhBJc6FjPC3nKYvd7e11WN3HNBss3jCpimkK0z93o7
-         tKKbym7+bvU/JnBwZOQsphJBY+ZsfpOCQA7PspdGHBeXCsS1WTYUrM1cN7OIuVtXRCu1
-         ngddTig4H2T7MnThDPZrtxN4IX5tIf88kZVTUMeits1Z0Xv5IEG8vsJmx3RC4iOSn6mL
-         R3rFN3V8JYM9tAjcy6CNEINV1RcfZDYhAumKclDHQbPhFEmCCiRzRMgALTpYThBDv/Wl
-         DUxQ==
+        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
+        b=HdddWs632Rj73PqM+qaWPqerAlxbkA7jCCfT7PyN/fSPH1zqNwLYIKTgFVXaFuTVos
+         fmotyEKoR1KMjKh/1NJZw1q15XRCC2EA/H+yJeI3s2OO0JHmZLcSrghRoF3qSPzV9s/i
+         p5wfiklKsQtDW42GxqF0XoCTj+lTpui3g+0v/7GtDZ6Hfc1Da/CdWrBHYSo0RyHal+oI
+         pGzo64gUftbPOBmyLIlELJ8dcJSlTuG96KZlA2ydJEWfkjGWkGlfIab7de+7aKRuRbGv
+         rD3gQ8k/0KqJ2t7+Phaa5wAyT1BwWqmqFpmZ3wf25AZyGvtZSfo/l8EbI2L4ImTo22hk
+         G6yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768057; x=1791372857;
+        d=1e100.net; s=20260707; t=1790768129; x=1791372929;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=srVWHQ34fmEZwN42zGAC9YE78eGz/CHZFtfzts5HK8c=;
-        b=APbeQarwycv9rL5pKB462+KtwEliosc/VLxh4LplzuK/Zb9w4XjaMeaJxwRjBDnAtS
-         HovMxEAkneKAnUZJ/mucjsV710Rd5BJIQWyNicScAww6/ZRDdv8b0LHtVELavj4lIjR1
-         BM8nSvw66RnmdaXuQ2dUAQXOp2lSLEsOqbdT7bC6v2kg6YQTx6JQNBegAK96IciOe5cE
-         Ybf7NTUC1U4ishvzoAnDCU7epvYjwk3ZgO4Z2iqSTp+R1OGIVzfDpfVbTAUJ0/KeHfCo
-         i7pDc1cYAWTNTrvGLD6StdHrrRKDgJWz1TgRCdsPX8O58vvzGSb1zTY++GrEIX0CqySL
-         /Wng==
-X-Forwarded-Encrypted: i=1; AKwUvBwKnYiwCjUiTILQkV7KudzSr5UeUCbOfBCBId2e2OQllq70z8uyIO4NBlwfHrluMZ3NkjMZEMHpSpcRMac=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ0nZIYeQDfB7UzPFRpKyIHU6Bfu8dyeuxyTqxuDJoE+PfMJT1
-	B3o3HfxqLEHBEwSHohhiboaOOiShjiF/Zb6ChBixPW7KSXvKY1wcx5bpzCp3YO0FudIprNbF3GH
-	7paZ1Lnx3XGYuxa1tdDZt2otIvEIFa6A=
-X-Gm-Gg: AYBFou00ojJfjRmipir4M5E/yVD7o5wkagXDe7yRc8wPTMLfVfirNNDueNCIzlpcio1
-	7YRXYFSfUFCUV6HZjmZfd0z3jxIee26b2HDR3PtF0Sx0XppXaX29cJuTUXNMgxCGClzMDJLILC5
-	KlUloxGXA0Imju8m4Ym/PcJPO+OnImhGPhQTYv2aThFw9OrXpYAgLgn+A30SBb5ombZ6aBytZHJ
-	0bsbu6R1QIfr9ohWZQpR407nQHj9c7CcYdEKikW/sHTcSMZnsr7m4HNV15gHasrgIGGnTBFcKac
-	K/r2b5ROGKwS2tnai464/iv27lC1obyageRKvmkXxPli3PRXfGispp3daCVMCeX/D2sm
-X-Received: by 2002:a05:6820:4ccb:b0:6c9:80d8:a205 with SMTP id
- 006d021491bc7-6dcf6b1c1efmr862593eaf.66.1790768057073; Wed, 30 Sep 2026
- 04:34:17 -0700 (PDT)
+        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
+        b=ve5pJ0EreTJKLZ4vGDXMO6sIVMWWWbGe2gPPg2/jQ1HO6hKZaVKQ4rMFRNZcg4zwDQ
+         qbSezNx8RqcyS5Qe7I6qdZABGYjokIMx9aBcQbME+5rYYYLCwD7MZOCgdf6l9QJpPBLS
+         iuz2RC0wtEa9kDxUm5hZze3huDdZkte5ZReoYK7GaMV616MiiYB74ojB7gcGfZuOS5ov
+         B3V8P2SyUHt5zW/H+uj/9qkchDDjRMqe4jVzk+YN1itm+DNz4RouoIjtIUOj6rjMFrud
+         owBSLPumNPu/rxUNgk5AvQO1YRBcM6JC3xvywwhgU0MJOQQ8OaKDqJki23ywYmxUgCky
+         yLIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNy86bWe4UdZDiXGpHEtt901r8UEViDoCoU6enmQFMQjrrEK8UPN8MQ3xCLf3AFMab9OOVPq355a4Hw6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZoKrnme+svlip0d2908A5p47htJeVlaD5UaFfx3bvXcH+bEZd
+	AFdKRrmhSdJUPBC8RQJY/r3PyYO82zm6Wz81FUTLbmQqkehgHJYJSOBT7a7IcUt6PjeMlrF7ozw
+	bVvHM10jx70NeSSAI4moRe1H3YZiPf3o=
+X-Gm-Gg: AYBFou0JA3Dj/lfqj4DDGv9Ub++XaehKQL1t4YDH/4H2S8bkyhn1hyS0d874enuqMHB
+	lKkPpGzmrzkrT+Re3Q77WNUFVvLY4yRy7aFQZkR9HMhxF3ubtmFWX/SiGzOMRV4jfjab5tgzqOg
+	c+Zg+8qzZDw1DrugDi85aIi5TMb3kg2j/WNlnN3AwPRTKc7Jb+fsa4cVy1ytBlVSNxrSvWHVUS+
+	TKHw6IVp+fBM+WC63muSXnqPx/aeU08+CiiasQQ+vJo+AVnWXPg8VOLDSYInXHDRAy8TSFexXRN
+	iaA/3YdqxV3cbV9+YAnuR8XJ2i8gjyWYuha47VzYlUDY36vbQLrGurGUNw==
+X-Received: by 2002:a05:6820:4df3:b0:6ae:8fc0:dbaf with SMTP id
+ 006d021491bc7-6dcf1fa7093mr1040549eaf.1.1790768129547; Wed, 30 Sep 2026
+ 04:35:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,36 +82,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
- <20260929184900.39515-2-abdelnasserhussein11@gmail.com> <arzUmYfK6mbznNre@ashevche-desk.local>
-In-Reply-To: <arzUmYfK6mbznNre@ashevche-desk.local>
+ <20260929184900.39515-3-abdelnasserhussein11@gmail.com> <20260930085640.00000377@gmail.com>
+In-Reply-To: <20260930085640.00000377@gmail.com>
 From: nasser <abdelnasserhussein11@gmail.com>
-Date: Wed, 30 Sep 2026 14:34:06 +0300
-X-Gm-Features: AclHuK88JiQnM2CrEgftb3pl5BF2N7zfRmcPmhGHddpC3jq8LxEOXsr2V5NPP8U
-Message-ID: <CANpqX3bTpB-y2hr2UZZkZWC1+wPNz1M0HQg_h+c5SU+XdR8n_w@mail.gmail.com>
-Subject: Re: [PATCH 1/3] staging: iio: accel: adis16203: fix inclination
- naming and remove unsupported Y-axis
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Date: Wed, 30 Sep 2026 14:35:18 +0300
+X-Gm-Features: AclHuK8untSyrCd6-KRO0IrW6AMVzxM1NtGbJFcEt_bom4eFkclVEvnnxJY74KM
+Message-ID: <CANpqX3bDL-C_w1ttuarPyUvOysCPYOsoLMS6Ri24oFnYmzjOVw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] staging: iio: accel: adis16203: add missing
+ spi_device_id table
+To: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
 	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
 	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com, error27@gmail.com, 
-	narcisaanamaria12@gmail.com
+	linux-kernel@vger.kernel.org, error27@gmail.com, narcisaanamaria12@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Andy
+Hi Joshua,
 
-Thank you for the review.
+Thank you for taking the time to review this.
 
-> Read Submitting Patches about imperative mode (search for "This patch").
+> No need for mod_devicetable.h, this is imported using spi.h
+> C99 initializers please.
+> Additionally, you should delete the MODULE_ALIAS("spi:adis16203") line.
 
-I will reword the commit message to  use the imperative mood in v2.
-
-> This is a staging driver, why do we care about ABI preservations?
-> Yes, ideally it would be good to have existing user space software
-> continue working as before, but if this adds a confusion, better to
-> rework an ABI as well.
-
- I will completely drop the 'X' modifier from the channel definition in v2.
+I will drop the unnecessary header, update the spi_device_id array to
+use C99 initializers, and remove the redundant MODULE_ALIAS in the
+upcoming v2.
 
 Best regards,
 Abdelnasser
