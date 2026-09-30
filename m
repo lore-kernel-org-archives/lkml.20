@@ -1,178 +1,134 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08A03D9667
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753600; cv=none; b=eQq/vsYICpPgQ6OLGKNKZEHLYUmdLdDD1xcgifrd9E7rHJ9TWCquhZX/N9OCFV2A0Oad9Whr0zToVKDjvnedFik5wK3twHIrbUda/emB6Xn3l8cFFVU3ZI8tmsAg5prgpds/xJvfPBTVaA7ozq9pST+BjqRyYMEptLlZZTKyMTk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753600; c=relaxed/simple;
-	bh=rNrXyo3I6zRnxdvJdP3a/vp6Yxq3muePsGScf0r0uH4=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=QFdDnwqk5itBE9Ixx8stbVobwUhip/YPor2Xr7X9hSfCFlsdAlzblHUSJ9KpFXw2yENvQ0zPdHOyX2scJBdz3NDSnfJHYLUA/k5asCrOVisGpc46OJLxxyTJ8zGa3JoE58PNadfuNYuucL7pg8Evj9Cna+I4dBq5loGpEPaxvrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DpN/sP0F; arc=none smtp.client-ip=79.135.106.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D6F37C0FE
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790753638; cv=pass; b=iieGLXIwZxsNL6a/3fFepqJFTTNFv+iq/DNb1YtMSvWFXL3AS1PiK1Oj75+ryzwiooZ0cqv6IA1ibCQLkFFqHffg0fYgx9iRI3zTu6oJPl8jkyy7geYesQoOsVqU0i7/yCfYozaUVFy1j1lPvm6WGWERiPERziJhe4tq87dLBok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790753638; c=relaxed/simple;
+	bh=ZQ9na8R6Owx5vwwgbJYlV2OYkT7SQ1YuPUuVW7uDu60=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S28oKaXrBJBq8tDPES9ITsvEKGnyOTgmSjERnryHQm7g/kMKprDMa1WRnhk3vgb1tg3Onvn2d6do93UkAmlWOT0Bgfhx/07vmc6RHnk7wc7b0pkS5fUkhpZjWpdZerk0nS9inIqsAQMb0x5OT5wlGzxqokWOJH7CnGC2fQuYu5g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RRxZvETw; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DpN/sP0F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790753596; x=1791012796;
-	bh=SPrLrPGlq1dg57chpsJRSqrarxdfRdSY2VEL6IQUkno=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=DpN/sP0FLxS8UbuIEIcJKYqx2aOI4az8Uez6vSp39Iab0E469Cjlxpcnly8w/Rh3E
-	 TcbXBYclGh/LAskI1TTlIrQ2mi+66ZOBROkDzmnhHGpiw1aox1fdEr92ZYRq1nzdn8
-	 Kgj2hACnSJBLHS5PiphsiCt+qBraZfXSLSGfdwZMwOboQuS8XT7R+MBzacynXgYMWz
-	 vZ9DA/EkuunbIP6ls6yto8juIENJBPTUwfluTs7b6dumGGteRbfYPc7EAEEiiE7hsC
-	 6pcoAko6jRN9xuI4pSDg6kAXefOO4H1dbyz+TOrCGzwhcfjpbL85JLSY+rQUtEsRC9
-	 Tt8K64jS3tYxw==
-Date: Wed, 30 Sep 2026 07:33:12 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v4] media: i2c: ov13858: add horizontal and vertical flip controls
-Message-ID: <20260930073308.56811-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 07993aa082c165e676c74e3cfe26a62e56624603
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RRxZvETw"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8d882so5719285d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:33:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790753635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MZMzJ4c/bz/6w2WpCJ5iDm+lSrgJmTGLFSNRUfPZvMHKqkOqrKKGTz0fWO01iAlY60
+         GPskjrkrSs//bYbIod+ivMxisD65mcb5YK62m5OAmbux2oc0M3nddAtCH/JeOrE6f2Wp
+         JcRCOjFdF4gAhJaJbq/BLCbx9lHa480lyEagTXquHSyqgfk5KK1vMurMBLQSm9+gZP4r
+         bwsDEA2Neiinoha3dCZnL5BBYxsnxDRswvOLsb4mW2/EjFUQWnNHiy6o8GQQf1qjqV+H
+         IdJ3am6qlteeZyUREglE2oKeCbWM1kAQhHHO1xqVNKBN8+m7d6vNYcB2DeLYYwRpTWqC
+         u+PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TD0e04Vq0+240ahadbGbuwsBitSBioXyF7M7tnlL6kU=;
+        fh=l8I5kRLCyqZmy3qQkObz/a0odIB6m950uEqdjXyiNnk=;
+        b=F9pWrnwR8d1XwMSolSvcFMMuffotb7O5PmfvLh/Egi60bnr8PLEv5UNqPIrWa9Vq5m
+         S/o8C61iUQW1do0BT+/jyEkLv/bZCe84fsvb2RqYBFzl84Vt1v0dcFhU1LH1NCU45i0a
+         G4nVLeSiFG5IBJk5ItP0KQjqzgHs2Pk/9ROUv4tygDuqVOl+xeH85qdmm5mswDOqk03N
+         jN2Lzbd/sgHqYr3OYqwJhmws76UO+87XM9mf2j5QTkbWrJKzQ1s7KlVpBljiF4N12BlC
+         7RiA1SG9LzDxvO9Rl6vFmnl46J6XAFJAGplk/J+RZFabQcyJm40fP0TtxdpEnvYeYufW
+         qO+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790753635; x=1791358435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TD0e04Vq0+240ahadbGbuwsBitSBioXyF7M7tnlL6kU=;
+        b=RRxZvETw1csmOpk2NlyBiaKR2FkYPnoh5drFAar2txGEz6JbAW/2QF+Zs/DvCMlmX8
+         Qs183SGXr2472RZ3IbFudib+kuy+5nXd3UezA0gNWVtwZpewtAKA/FIfHSJhtIJNKuh8
+         VCo0zsQnt3Y3URgfBnxrwdDgzxBbkezH7717TBFValEkysLB49EPz6r2D5enaUVfZJUz
+         vwc/2+ZQZwYzs4ypfPRLO77G+d6w+MH+lKhWVc29IqZrMJy1/XArROfBVyJep05o4hJG
+         ygDaFrabSUPit4XaApRPTURnv1M1z8sjLa2akTaV+z3Kw7H0IDmJwkeTbW93kUUixUFm
+         KA5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790753635; x=1791358435;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TD0e04Vq0+240ahadbGbuwsBitSBioXyF7M7tnlL6kU=;
+        b=LTNCke5+vV3shZxxrUfxb69132+oqPWJKBydKbYR0MrPOV9EYDfDFFQ3rphVZPV8se
+         lDky/s3BLRe3XATb/E7ICO9mYkWqrnXZ/6lsVgOI7GXPpNcul5oThc1AwGxZq5sby0k2
+         1sn2giXLdMqnyo+y19a9bSJzUHslCZ3psO3aDiXwn7HkL5rbESBddSXcgz5dkuEXlslY
+         2CJNjYyXkYbw5WVV/x3H9ujfXnu/fsBrvAqXE5NV9yN5skITvblLFvedkv34AfWabgMb
+         9Y1Z3DyhzgdI7xLp/GeSjKZIDm9xfh/ITuk0ObCxUjD+hox/r9phHIUBWSFjYYzJx14D
+         kx4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzE2IVZ0Ag5RkifDHHxpYg0FO8nzDkGum0iP9VJ4jDt7bNjROw3uYHNm3pxZcapPmMeZMP9T9D2hTRC0Mg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRgEGU5k5yv3C2mEa4pzE8JygLbz7ffLN74AlSItDL3jhLYzlD
+	OW6MqK9xv6Y7cwg/avrWp9AweGJfTfVE41IoVJJ0vFzDcqlCUheAj09C7D6iLQkSDvdCYOIs4wv
+	zzcFhPqOYvJ9ON/JMISjCtfa3+1lEPbw=
+X-Gm-Gg: AYBFou2afKIUQpp/z241pVBbeLM/T3un9LHyxcNkYMnjnl95uROycqRXZaudk3ATwqs
+	GXaxZkeIV3E22Q+5t7Pz90Ii7wH+N1W8Xl4JhVwDkQ/PP3PsRLb+Miqmab07rn6DCw0/ZrVsJKP
+	ggK7pc1Jx/IUVc85aeyqOjcO9VNdoI6PNWzR+eYHq6PZ1rEQeg75ff3Ht//wkA3OUjZnjwA1zR2
+	fmdMdzjaqCQO+b4cgUqufrdZURSIspj7rt8dbYi5YYBS/ql59sF+uYOqzbPa/VWlXk7bdvAS1xJ
+	aDR9gYf+KndKq/GP0YxdB6p2gI3V8WbhTaMEw9JcvEbyXeIpIDpbz2hLDsoQflxf
+X-Received: by 2002:a05:690e:4411:b0:671:1b72:bd0f with SMTP id
+ 956f58d0204a3-676834ef47amr147001d50.58.1790753635586; Wed, 30 Sep 2026
+ 00:33:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260929194434.29937-1-ginger.jzllee@gmail.com>
+ <20260930071916.35722-1-ginger.jzllee@gmail.com> <0593ff86-c6ab-4c64-88a3-e500ed335760@web.de>
+In-Reply-To: <0593ff86-c6ab-4c64-88a3-e500ed335760@web.de>
+From: Ginger <ginger.jzllee@gmail.com>
+Date: Wed, 30 Sep 2026 09:33:44 +0200
+X-Gm-Features: AclHuK8bAkNOdRlVNFbch7Bc0dDjNYgJqW4vj7CakOzQrTXiV9dA3JxcFXe9oWY
+Message-ID: <CAGp+u1aTQvE_o=nObMb0LvuwmdFukG9qBeKGDvwcf5-ckG9xyg@mail.gmail.com>
+Subject: Re: [PATCH v3] dmaengine: tegra186-gpc-dma: Read channel state under
+ the lock
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: dmaengine@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	LKML <linux-kernel@vger.kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Laxman Dewangan <ldewangan@nvidia.com>, Vinod Koul <vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor
-upside down, as commit b238116ccd4b ("media: ipu-bridge: Add upside-down
-quirk for Surface Pro 11") records, and the driver has no flip controls
-to compensate.
+On Wed, Sep 30, 2026 at 9:25=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
+de> wrote:
+>
+> > My static analyzer detected a potential issue in the dmag engine.
+>
+>                                                        DMA?
+>
+>
+> =E2=80=A6
+> > ---
+> > v3:
+> >  - Acknowledge the usage of static analysis in detecting this problem.
+> > ---
+> >  drivers/dma/tegra186-gpc-dma.c | 5 +++--=E2=80=A6
+>
+> Under which circumstances will additional background information become a=
+vailable?
+>
 
-Add V4L2_CID_HFLIP and V4L2_CID_VFLIP on bits 3 and 4 of register 0x3820.
-The mirror bit is active low, as in Intel's out-of-tree ov13858 driver.
-The Bayer order does not change with either flip, so the controls do not
-set V4L2_CTRL_FLAG_MODIFY_LAYOUT. They are clustered, and grabbed while
-streaming.
+The static analyzer is a research-based one, built upon the LLVM IR.
+The analysis is founded
+on a symbolic model (not an ML model) for concurrency bugs. And due to
+the anonymity
+requirements, I am afraid I cannot reveal further information.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
----
-v4:
- - The comment on 0x3820 now sits on the horizontal flip bit, the only
-   one it is true of. (Sakari)
- - Commit message rewritten shorter. (Sakari)
- - Assisted-by added, per Documentation/process/coding-assistants.rst.
+>> Were any more of your contributions supported by advanced source code an=
+alysis tools?
 
-Only a comment changed in the code, so German's Tested-by is kept.
+If you meant AI tools, then at this stage, no. For this patch, I have
+used AI tools to help phrase
+the patch better, but I did not use them for code analysis.
 
-v3: https://lore.kernel.org/all/20260926080242.93628-1-lsa.uz@pm.me/
-v2: https://lore.kernel.org/all/20260921124444.79396-1-lsa.uz@pm.me/
-v1: https://lore.kernel.org/all/20260921082609.30830-1-lsa.uz@pm.me/
-
- drivers/media/i2c/ov13858.c | 50 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
-
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index de2b79a9a0e..5a49fa0ec02 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -76,6 +76,12 @@
- #define OV13858_DGTL_GAIN_DEFAULT=091024=09/* Default gain =3D 1 X */
- #define OV13858_DGTL_GAIN_STEP=09=091=09/* Each step =3D 1/1024 */
-=20
-+/* Readout direction */
-+#define OV13858_REG_FORMAT1=09=090x3820
-+#define OV13858_FORMAT1_VFLIP=09=09BIT(4)
-+/* Horizontal flip, active low: every mode table sets this bit */
-+#define OV13858_FORMAT1_HFLIP_N=09=09BIT(3)
-+
- /* Test Pattern Control */
- #define OV13858_REG_TEST_PATTERN=090x4503
- #define OV13858_TEST_PATTERN_ENABLE=09BIT(7)
-@@ -1042,6 +1048,8 @@ struct ov13858 {
- =09struct v4l2_ctrl *vblank;
- =09struct v4l2_ctrl *hblank;
- =09struct v4l2_ctrl *exposure;
-+=09struct v4l2_ctrl *hflip;
-+=09struct v4l2_ctrl *vflip;
-=20
- =09/* Current mode */
- =09const struct ov13858_mode *cur_mode;
-@@ -1208,6 +1216,31 @@ static int ov13858_enable_test_pattern(struct ov1385=
-8 *ov13858, u32 pattern)
- =09=09=09=09 OV13858_REG_VALUE_08BIT, val);
- }
-=20
-+static int ov13858_update_flips(struct ov13858 *ov13858)
-+{
-+=09u32 val;
-+=09int ret;
-+
-+=09ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09       OV13858_REG_VALUE_08BIT, &val);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09if (ov13858->vflip->val)
-+=09=09val |=3D OV13858_FORMAT1_VFLIP;
-+=09else
-+=09=09val &=3D ~OV13858_FORMAT1_VFLIP;
-+
-+=09/* The mirror bit is active low, as it is on ov13b10. */
-+=09if (ov13858->hflip->val)
-+=09=09val &=3D ~OV13858_FORMAT1_HFLIP_N;
-+=09else
-+=09=09val |=3D OV13858_FORMAT1_HFLIP_N;
-+
-+=09return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09=09 OV13858_REG_VALUE_08BIT, val);
-+}
-+
- static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- =09struct ov13858 *ov13858 =3D container_of(ctrl->handler,
-@@ -1254,6 +1287,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
- =09=09=09=09=09ov13858->cur_mode->height
- =09=09=09=09=09  + ctrl->val);
- =09=09break;
-+=09case V4L2_CID_HFLIP:
-+=09case V4L2_CID_VFLIP:
-+=09=09ret =3D ov13858_update_flips(ov13858);
-+=09=09break;
- =09case V4L2_CID_TEST_PATTERN:
- =09=09ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
- =09=09break;
-@@ -1481,6 +1518,13 @@ static int ov13858_set_stream(struct v4l2_subdev *sd=
-, int enable)
- =09=09pm_runtime_put(ov13858->dev);
- =09}
-=20
-+=09/*
-+=09 * Do not let the flips change while streaming. ov13858->mutex is the
-+=09 * control handler's own lock and is held here, hence the __ form.
-+=09 */
-+=09__v4l2_ctrl_grab(ov13858->hflip, enable);
-+=09__v4l2_ctrl_grab(ov13858->vflip, enable);
-+
- =09mutex_unlock(&ov13858->mutex);
-=20
- =09return ret;
-@@ -1619,6 +1663,12 @@ static int ov13858_init_controls(struct ov13858 *ov1=
-3858)
- =09=09=09  OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
- =09=09=09  OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAULT);
-=20
-+=09ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_HFLIP, 0, 1, 1, 0);
-+=09ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_VFLIP, 0, 1, 1, 0);
-+=09v4l2_ctrl_cluster(2, &ov13858->hflip);
-+
- =09v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
- =09=09=09=09     V4L2_CID_TEST_PATTERN,
- =09=09=09=09     ARRAY_SIZE(ov13858_test_pattern_menu) - 1,
---=20
-2.54.0 (Apple Git-157)
-
-
+Sincerely,
+Ginger
