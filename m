@@ -1,143 +1,143 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC193BB100;
-	Wed, 30 Sep 2026 14:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779419; cv=pass; b=kSXrkwB4TalObbc7PMZSA26j/TjR4maBx4x8W3i8oNl0yHeDYBXD/aVudO45TuIfNF4aK3eo/jt8WZjbXSiaXLHU6kmehbOKYfNRkc+jo35GhyDJDr7w3aAROM2aujUuJvpjyfrH3oOiiH5WqVOJQtW1W15C6ZMJlRIgmwD2k9g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779419; c=relaxed/simple;
-	bh=gC7bpeQrVK6RffxYDNTJcPCmIsY/6t9K5aytChggGtE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCE64E0211;
+	Wed, 30 Sep 2026 14:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790779493; cv=none; b=iWzFchRRmKSnpFio92OPIM3ttUYTRPqJTNN65gh6JIp8tw+e3ic5+B31yjC/etHVb1b/19b9Ou/DAoGPFtXPS1prILQOkoQDekCsZaeVN+hPBF+PCyxzNZ99g3PggjQEyAZ2aDa/+j+FHFOSX+wbdGYvI/I4Z/bXarXfzApzrUk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790779493; c=relaxed/simple;
+	bh=/hM1w5/BmBCVc2LW35g0T+OFMc+fP5hSm+8wCLn9WNk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y0JF4KJCJgl1JOrHPqHLpYjfWpOtSZ//EeMyV8dct7vQAb0kFm57Gj+sdlMsBy/uXNuMO3fbB0YUjaHI1TOUiAiaTtN/fLOMDlHO8LUX9bmmOOUZ0frOTLilCvylrF1lMG7z5zzVtkBAE9vj93yKLeihMEQRL6z1SoA9c4JORTc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=NVUPza3t; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=kIzr7tS+9Fjb3Lrd39M9of3qhKdTpBdHWAAbcwIM66000zuIdIHCFD59X/A6Ce68Wk0u1zsZ+RrxLu7JISRPrlQW7CFVr0P3TSgKwnaF8p2kPjoIDCVRsa7AT0VVJAK1lRtRwq0x/X+rd/6HHlN9RczxxvNp8/oDlVkPMyVLn0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=eGVmIQ1p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="NVUPza3t"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C1C21200231;
-	Wed, 30 Sep 2026 16:43:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790779402;
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="eGVmIQ1p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 838751F000FF;
+	Wed, 30 Sep 2026 14:44:35 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=eGVmIQ1p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1790779473;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WEqHtFaJO4nw86i8yHOaN/JJX2yBOSoK7qzYEsHVB64=;
-	b=NVUPza3tyZMTAEzr/P8mralKyZddeyWHNamKBUytzlmCcYTOWb9mMVMyJuHeh1C0E1Zc0D
-	tCBA8vW2L+0XdXRfAz1rrjbJ1WUMEib3HqriXdldtDpK44xUInBiCwzlssjsUDMHH+JYiw
-	xaofKNN9fDDsD2vjLdjRVDTjlRBsTyiBeMic/VnQVwfchip1wVXPsSj8MX7Sqgo8oyjTKt
-	xkXmspaW+CZGScsIF+XKiPlnz0oCJgxJk3+PmAQA2D5watqmajo8aLb4tozfe0I0rK04KF
-	P0lm2EBzz1DoUdmR0o2tNS/5wC3RN7lPum2yUXPaJebMGzcOX4INsqyyJ2VreQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790779402; a=rsa-sha256;
-	cv=none;
-	b=NNX8dqf7yVWKH7YlK2br5mEthnV6sioFGNIqfKc33uJRn7kIyg11gbsTlBKh+q+XcMonFh
-	NIbVi4Db4mhvzmczXnrsVMzFNLZRbnRGGD0wDpi/knDGi6eTVDvnImiyJMg4dv6GFDzmF5
-	nHxwUvwZCdrAyd8xE4eK+3hWr+/vWYzZ5/zHoM41zWk7+Xkw/Z8+5RLYdnAYTZOHF7BVT4
-	9RKpaC8nHT8Mg+H1wt9UB5Z/eCPof+qBreAHLzVzi5ZDBNiADs2pfeNqC4mtvF8Sam5P6k
-	5rFpueGnLCo+4jhM37BfHfuO9xcaEsEqtvzIWdGULNUmSMj2Mm8WVo/TxoWzBA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790779402;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WEqHtFaJO4nw86i8yHOaN/JJX2yBOSoK7qzYEsHVB64=;
-	b=NVAIy5bAKYhDsufPN94AKPUyLHG2284mVMdupkhr8dNz34Nv8x3f0nwBPDWk8wIM5rfi4Z
-	lhTsj+w/BRh1K7q/gXrO9pX/hvISmnfChO2W6DxrHPxTJvgJOw9wuteXJIGfa+aV36UfNa
-	UGAxbdP4No7BJpYAPtftMME58mJhwia2wYieSNMSNgfJwcUMqocimPg10UaQpxGllr7lYa
-	zONkx5WdnOzpgsPuzL4S4BxKjwLBXvm1cZpM3vEJGoPoqSqnkZnI39HhR0D8wgSbgNh44x
-	jSlM+zwRsD5yQIHis1wwkTupWyVSoW/Fd4FVPrORK39IoqoXpvAYx1O02NWw4Q==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBvWk-003ZhC-29;
-	Wed, 30 Sep 2026 16:43:22 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 56B7E5B58C9;
-	Wed, 30 Sep 2026 14:43:22 +0000 (UTC)
-Date: Wed, 30 Sep 2026 16:43:21 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>
-Subject: Re: [PATCH] can: peak_usb: Add support of loopback mode to the
- PCAN-USB FD family
-Message-ID: <20260930-thundering-smart-slug-8228c9-mkl@pengutronix.de>
-References: <20260930-foamy-nostalgic-elk-30d429-mkl@pengutronix.de>
- <700277696.812114266.1790778284780.JavaMail.root@zimbra65-e11.priv.proxad.net>
+	bh=qdb5KJwsOub7GoIR9aTYq/rRFnLlERiJ3o2Jnsmzbdw=;
+	b=eGVmIQ1p7gCV5dnk5+JFddnWgLfBu5xMxZ854bpWe1Jl20d7doFs45uLc1gZORYJ0tlqO2
+	uH+lg4TyWRsgbKZe7UJ0gcyw4uEpd0lzcz2PcAO46tun3AzihC/zqqBjfUkChIc/WPoZwv
+	NpC/wsRCLYwN84wsE5WUkj/UVaIoBqo=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id df032bc4 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Wed, 30 Sep 2026 14:44:33 +0000 (UTC)
+Date: Wed, 30 Sep 2026 16:44:29 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <ar0gTS71qxnx9AkW@zx2c4.com>
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+ <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
+ <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
+ <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
+ <areYMjNcaqe86ds4@zx2c4.com>
+ <9d1c338b-368f-4ea2-a12e-c28d49adff5e@kernel.org>
+ <are6s5e6On3hpD3M@zx2c4.com>
+ <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
+ <20260930133813.GA3142230@ax162>
+ <ar0a4b9CjL2YHCkY@zx2c4.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nuunprnzwglxz7y4"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <700277696.812114266.1790778284780.JavaMail.root@zimbra65-e11.priv.proxad.net>
+In-Reply-To: <ar0a4b9CjL2YHCkY@zx2c4.com>
 
+On Wed, Sep 30, 2026 at 04:21:21PM +0200, Jason A. Donenfeld wrote:
+> On Wed, Sep 30, 2026 at 03:38:13PM +0200, Nathan Chancellor wrote:
+> > On Tue, Sep 29, 2026 at 11:24:11AM -0700, Nick Desaulniers wrote:
+> > > arch/arm64/kvm/hyp/nvhe/Makefile has this pattern for exactly the same
+> > > problem I suspect.  Maybe that's the right tool in the toolbox?
+> > > 
+> > > ```
+> > > diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
+> > > index 8dbf2532a573..27fa72d8fb86 100644
+> > > --- a/arch/riscv/kernel/vdso/Makefile
+> > > +++ b/arch/riscv/kernel/vdso/Makefile
+> > > @@ -27,7 +27,7 @@ asflags-y += -DVDSO_CFI=1
+> > >  endif
+> > > 
+> > >  # Files to link into the vdso
+> > > -obj-vdso = $(patsubst %, %.o, $(vdso-syms)) note.o
+> > > +obj-vdso = $(patsubst %, %.o, $(vdso-syms)) note.o ../../lib/memset.o
+> > > 
+> > >  ifdef CONFIG_VDSO_GETRANDOM
+> > >  obj-vdso += vgetrandom-chacha.o
+> > > ```
+> > > Fixes `make -skj"$(nproc)" ARCH=riscv LLVM=1 mrproper allmodconfig
+> > > vdso_prepare` for me, as per
+> > 
+> > For the record, this also happens with the 32-bit PowerPC vDSO, as I
+> > noted in the commit message of v2. I should update the issue too, I only
+> > realized this after wider testing. So if this is the route we want to
+> > go, we would need a memset() for that vDSO as well.
+> > 
+> > > https://github.com/ClangBuiltLinux/linux/issues/2183
+> > > (Nathan, don't forget to link to that in the commit message)
+> > 
+> > Yes, thanks, I have added it for v3.
+> > 
+> > > I'm surprised I didn't need -fno-semantic-interposition (or one of the
+> > > related flags... -fvisibility=hidden)
+> > > 
+> > > If we want to get better, (if performance matters here and we want to
+> > > trade source+build system complexity for absolute code perf) I would
+> > > start with that, then worry about clawing back performance via things
+> > > like:
+> > > - __builtin_memset_inline
+> > > - -finline-stringops=memset
+> > > - -ffunction-sections+-Wl,--gc-sections to dead code eliminate the out
+> > > of line copy of memset, though IIRC there's potential for wasted space
+> > > due to alignment requirements (maybe the out of line copy of memset is
+> > > smaller...idk)
+> > 
+> > Yeah, I guess it is ultimately up to the maintainers what route they
+> > prefer.
+> 
+> I think linking in an out-of-line memset.o is not appealing. This isn't
+> a general library or something. So let's just go with your v2 approach,
+> fixed up in the ways we mentioned.
 
---nuunprnzwglxz7y4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] can: peak_usb: Add support of loopback mode to the
- PCAN-USB FD family
-MIME-Version: 1.0
-
-On 30.09.2026 16:24:44, St=C3=A9phane Grosjean wrote:
-> > > @@ -1266,7 +1272,7 @@ const struct peak_usb_adapter pcan_usb_fd =3D {
-> > >  	.ctrlmode_supported =3D CAN_CTRLMODE_FD |
-> > >  			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
-> > >  			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
-> > > -			CAN_CTRLMODE_BERR_REPORTING,
-> > > +			CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
-> >
-> > Can you keep the CAN_CTRLMODE sorted by their value?
-> >
-> > Please make an incremental patch for the CAN_CTRLMODE_BERR_REPORTING,
-> > I'll squash that...and add CAN_CTRLMODE_LOOPBACK in the appropriate
-> > place.
->
-> Do you want me to post a v2 of this patch with the CAN_CTRLMODE flags
-> sorted by value, or do you prefer a separate incremental patch on top
-> of the bus error reporting series?
-
-Sorry for being unclear. :)
-
-Please a separate incremental patch on top of the bus error reporting
-series.
-
-Then post a v2 of the loopback patch on top of the incremental patch.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---nuunprnzwglxz7y4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCar0gBwAKCRDMOmT6rpmt
-0p/+AP94uIUP1E2uO3a16DvFTBRV8VvxlsxsgRp6N6hJ8s6vGAEAuuALZ2LU4+D3
-R2s6d5WClGB3E+GqaFnIfGnI/ksf6gw=
-=mSOX
------END PGP SIGNATURE-----
-
---nuunprnzwglxz7y4--
+Nathan, would this be okay with you?
+https://git.zx2c4.com/linux-rng/commit/?id=d216701724b7d8209ff42150658ad5c712bdb503
