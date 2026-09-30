@@ -1,33 +1,69 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFDAC359A99;
-	Wed, 30 Sep 2026 13:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E684C4F3915
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775387; cv=none; b=mgY2/erO9+M1e+B7CdIO3FQASwEW3DWPXTl9SGK4baGFYzsXI1aExXqP9LpZeRhJpFYndImAzzYmUkGxJbhuyt9U7ffyXOKcR8V2H3HL6vjVoam4ZXhOlTTqnWASqpz05kOFBewGoX2aEPTLM+J5MsbGAOpgcL5ij2IR3JWPtFE=
+	t=1790775416; cv=none; b=kw5grQofR1+7maeQtFhdRUTwhJyaAg0rTPD5pmyMoG9uuNUYwwfZ/4tI8PZIJ3hgkl2CET2vIXYqxboVK9KDI+cGFNyyOef6txLqaK9QkfCxPn2Ajg/tZPdweYNgUn+dUX//LqzN35nR11YzGHmzDCXr0DS3PU6dDmDk9k1Eyag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775387; c=relaxed/simple;
-	bh=MWCvg4sjK/uErDxiJSNTuEfe/fE6ubDEaPpL4yLsOJU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gN6lNVxBmlj+S87rF8LG+W4aINGotnTasxohfajw2ztq6/G4oc4Ep6q0oX08Jx9dleQNsmOvaQqCNEr2jun80MdK9LB7pdSIsBTCkOhtcYm6TEkZxD+r/5IieGd5Ql5x2WKfKKklrMESaH1fdDSIwzh+QXkcLXTvulzdKtF2ibQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DWAFlDVz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790775416; c=relaxed/simple;
+	bh=HaaQw8ekFxtZ+l5QVtlpbUxOK8bhqLG8/7s9pMLLvUw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=apmxfKecRSWXL+vCZ1sp9ziywaksGA5P6nioBmQgu6QC3H/cn3w1u0zwIET6Rj1gyhsUwDHmsFrUdLhbv9tqDprbEm7qlEZtDZ9AFRZA04yQ+rFdTzSWBQXlWacaG2rVpY0tGEmwMs2s46ys3RsWlFAR5mkrYXlENol45lbsoa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UhdQRXB2; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DWAFlDVz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78BF1497;
-	Wed, 30 Sep 2026 06:36:12 -0700 (PDT)
-Received: from [10.57.85.29] (unknown [10.57.85.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C98E03F86F;
-	Wed, 30 Sep 2026 06:36:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790775375; bh=MWCvg4sjK/uErDxiJSNTuEfe/fE6ubDEaPpL4yLsOJU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DWAFlDVzKXIRcL9optFIbIIh9On6QwWlHn3t84awWXg+fiddvTAT19gXAPZkFhTZ/
-	 G+sFhjcmcySLQfhWIa7n2J032I4Cvi3G+qVeRbWTEqRAFmwsa1/HkWnVxu/BWoDSwt
-	 ts25+5YXwzXpQL8kvczPNYSr+bWaaEkvGMWBwIMU=
-Message-ID: <b782f893-e3ab-40f7-a7c5-ce19660be2c1@arm.com>
-Date: Wed, 30 Sep 2026 14:36:06 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UhdQRXB2"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba418c79ccso263229e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790775404; x=1791380204; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5SCp+zU3LM4gM5+pkGXM0JBbm8ITifADics/CSBcjDU=;
+        b=UhdQRXB2MQIjTSH8mSIB9Q6a/5l5+c83BNcZr+3dM+8KZ+bhUYqob/azloYP5bjoiN
+         6meoHtKvKeBLZMMsUkyLTLu0DzxUjlDdjjjbTb0KMfgWEa/1DFLynmMkoT5rRmmKpyxP
+         +9oELCwBC22uuIFEWCA6o2Wbzo3kwWr1gD8kScgiUIGcqMOYS4PRK8ZT2nTjPwrpkOyq
+         cHo36AxQCYnEMXf1TxPJv89zuesmBDgr0WlQvDvo+BdE6HZSGknc2s04BPmWUTThkAOw
+         gJ+n05DUkbygyAmEBi5O8JLgo8mpEfgE25KhQ7KiPXwL1c0NAheYqyoJLbrGgu6CfQNx
+         tNMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790775404; x=1791380204;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5SCp+zU3LM4gM5+pkGXM0JBbm8ITifADics/CSBcjDU=;
+        b=MYrf3NJWX2h4vzkel8b6+9faGvg7cAFYID9INmhRDmM6XBDiIupVKFqJlhuTvlQcfr
+         VTIG6R5KuTXb3feUMV5hrrQpZRZ6Iy1y4ejyrD9Z0dksjCa7kLfEZqWCRBNfv0xMvb1/
+         S/nJOgkuvTSgcvTvYmjhWoqkDxx1pbITlSdKm10xuaS1Dt2TpG/dBFTU6GNKkbiLMC7Q
+         xOUQAL9TtETT3dFU5Js1KWAQ+y+U7pw9KyK805zQC1yrgYzVQ99q9UPR3PgavshsrCYI
+         p6IjGu4dtxMDFsaYAofZC6wvuA38XhK8irj6R/r9ycu3xtJGs7iI+yqfLGx+qiTBDurF
+         z1EA==
+X-Forwarded-Encrypted: i=1; AKwUvBzmrsz4doNyri8dx47BE0CR7fYNq7XyIU0hY3NxDwuDSN/Nsx//hI52LIWeH5as5N3X+9o2U8iC76brhao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEv8KmJpZmWgnRpKZ9UnWnjcdO89s3KZ6dUsfPs0ZPFAK7/LE1
+	ZTjNHz9u6+RIiGrXdMsXkzBd9CPKAJmZA0lULS1eSRMNtN1L/eCsfoRK3KgFKWmXOd0=
+X-Gm-Gg: AYBFou0t6MJ5Si69K2c981OSG5p03fp60FcK7wf/3wEry1O9AvCNWy6F8REY3igytBM
+	A2dBepF45yVyDNmhvCtyNRclJuxenMIjm99X+BtezPD8G95V4x3fuyZSKPfDdV9LCiprAGwpoBx
+	g9Dlh6kEyiQq3zgd0ycVXm1G2eJEfzLH2d3h6AeFPzT30efh/VJir2umnW7YHKTie4g6CyZQYjf
+	n9L3q/e57UXzGYF4to6srHLCtECOiLuqgf8ipa9StQmlaD/nvsI44VcWZG6hxapeKFr05r/kcJy
+	MeXrBhvlLSh2ZiOjYl0nRpoyFq6ulmEA45Ps5BSw7s25HTux9RboqeDlopDKR8RyfIQEn3Vxvq9
+	Um3MWlpGMjFW87AM1tm3KQ3MnquwPOeJzpIh+3/Pj2VdDvenIvAXgG4dCpkVVf3OmvNyBf0z7qI
+	5DbgBrgD8PhbOCQQnbOH2I8uEPOVpdt/otOrep+o3UWhkfPFAARmy/wMzSvlSDMwvdjRgPtnZEj
+	ogB/G6Px4f1X2I6S8TaEdclbvP6lknTpnNPcX8mQaFagLtpWSzlAyQqZhb7Snlgmh0Y6VJcupgg
+	KnRwnFo=
+X-Received: by 2002:a05:6512:39c6:b0:5ba:3f76:aca9 with SMTP id 2adb3069b0e04-5ba403e962emr726819e87.17.1790775403507;
+        Wed, 30 Sep 2026 06:36:43 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fc023c5sm360682e87.68.2026.09.30.06.36.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 06:36:42 -0700 (PDT)
+Message-ID: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+Date: Wed, 30 Sep 2026 15:36:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,192 +71,273 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/arm-cmn: Allow userspace to select the PMU's CPU
-To: Haris Okanovic <harisokn@amazon.com>, mark.rutland@arm.com,
- will@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260929223244.2411400-1-harisokn@amazon.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929223244.2411400-1-harisokn@amazon.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <artpBMeM13Dd0lLy@houat>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2026-09-29 11:32 pm, Haris Okanovic wrote:
-> arm_cmn_probe() picks the CPU that owns the PMU with
+On 9/29/26 09:41, Maxime Ripard wrote:
+> On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
+>> On 9/28/26 21:48, Benjamin Tissoires wrote:
+>>> On Sep 28 2026, Neil Armstrong wrote:
+>>>> On 9/28/26 19:24, Benjamin Tissoires wrote:
+>>>>> On Sep 28 2026, Neil Armstrong wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>>>>>> difficult to support and require pretty much a panel driver for each
+>>>>>>> panel produced. Most of them are pretty simple, and require an opaque
+>>>>>>> initialization sequence that is usually poorly documented.
+>>>>>>>
+>>>>>>> This creates a tension between OEMs and distros because OEMs will
+>>>>>>> typically get a new panel to react to a sourcing issue during
+>>>>>>> production, and thus need some swift turnaround between getting their
+>>>>>>> new panel and it being operational in the OS. Distributions on the other
+>>>>>>> hand can take years to ship a kernel with that new panel driver.
+>>>>>>>
+>>>>>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>>>>>> driver that will rely on BPF programs to perform the panel
+>>>>>>> initialization. That way, we can ship the programs separately from the
+>>>>>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>>>>>> plan is to have a userspace component started by udev to identify and
+>>>>>>> load the right BPF program for the panels found on the device.
+>>>>>>
+>>>>>> This is kind of late for serious applications except if we manage to
+>>>>>> solve the bootloader to Linux display engine transition.
+>>>>>>
+>>>>>>>
+>>>>>>> This driver is fully functional and works with both 5" and 7" Touch
+>>>>>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>>>>>> typical panel driver in multiple ways:
+>>>>>>>
+>>>>>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>>>>>       choices:
+>>>>>>>
+>>>>>>>       * We prevent the driver from loading until the script itself is
+>>>>>>>         loaded. This has the side effect of preventing any other output to
+>>>>>>>         be used until the initramfs is ran at the earliest, and possibly
+>>>>>>>         ever if the loader isn't installed for example.
+>>>>>>
+>>>>>> This adds a dependency on user-space behavior and if somehow the
+>>>>>> initramfs doesn't load for a reason we won't have a way to display
+>>>>>> an error.
+>>>>>>
+>>>>>>>
+>>>>>>>       * Or we probe the driver all the time, but only report it as connected
+>>>>>>>         once a program has been registered. This is somewhat unconventional,
+>>>>>>>         but allows the other outputs to be functional, *and* allows the user
+>>>>>>>         to force the output if their panel doesn't require any
+>>>>>>>         initialization or during debugging. I chose this solution.
+>>>>>>
+>>>>>> Both options are not really great...
+>>>>>>
+>>>>>>>
+>>>>>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>>>>>       unconventional. This is required because panel drivers don't have
+>>>>>>>       access to a detect callback that is required for the above, but I also
+>>>>>>>       think that the recent work from Luca blurs the line from panels and
+>>>>>>>       bridges and we'll end up going that road anyway.
+>>>>>>
+>>>>>> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+>>>>>> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+>>>>>> a proper way to describe the display/panel/monitor independently of the DDIC.
+>>>>>>
+>>>>>> At first glance it's a nice driver, but moving the timings into a blob moves something
+>>>>>> into possible proprietary binaries with possible closed licence and distribution
+>>>>>> restriction so it's a downgrade for the same of bringing up a panel faster.
+>>>>>
+>>>>> Quick answer on this, because I had the very same questions regarding
+>>>>> HID-BPF:
+>>>>> - in BPF, you can require (and by default it does) that only GPL
+>>>>> 	compatible BPF programs are loaded, closing the argument of "closed
+>>>>> 	licence and distribution restriction"
+>>>>> - also, a BPF program can be disassembled much easier than a binary
+>>>>> 	blob, and I remember Alexei showing me an example where you get almost
+>>>>> 	the source code from the BPF object in just one pass.
+>>>>
+>>>> Right, it "solve" one of my question, but doesn't really solve the issue
+>>>> of vendors providing "GPL" bpf programs with source available "somewhere".
+>>>>
+>>>> Another big issue is the API, I don't want to keep the current API as-is,
+>>>> we plan to support more advanced panel features and use try to use the
+>>>> atomic states to support rate switching for example, and I'm not confident
+>>>> it's a good idea since there's no "simple" and "forever valid" API
+>>>> to initialize panels...
+>>>>
+>>>
+>>> That's exactly where BPF shines. The simple rule of thumb is: there is
+>>> no API stability guaranteed. Basically, thanks to the verifier and CORE
+>>> (Compile Once Run Everywhere), you don't need to keep the API stable and
+>>> available forever. There are multiple ways of dealing with it, but the
+>>> gist is that if a BPF is trying to load an "old" API, it will be
+>>> rejected by the verifier.
+>>>
+>>> Then it's a matter of being nice enough in the kernel and provide ways
+>>> to deal with those.
+>>>
+>>> To give you a few examples:
+>>>
+>>> - in HID-BPF, in userspace, we keep old versions of APIs in separate
+>>> 	compiled objects. Each is incremented (by 10 so we have a little bit
+>>> 	of room in the middle). Then the loader tries first
+>>> 	0020-device-with-new-api.bpf.o, and if it fails, it tries
+>>> 	0010-device-with-old-api.bpf.o
+>>>
+>>> 	I'm not saying we should do the same here, but that's one idea
+>>>
+>>> - recently, a BPF commit broke the ABI of a function while removing
+>>> 	implicits: bpf_wq_set_callback_impl() was replaced by
+>>> 	bpf_wq_set_callback() with a different number of arguments. I simply
+>>> 	had to add a new function in my header which basically does:
+>>>
+>>> 	static inline int
+>>> 	hid_bpf_wq_set_callback(struct bpf_wq *wq,
+>>> 	                        int (*callback_fn)(void *, int *, void *),
+>>> 	                        unsigned int flags)
+>>> 	{
+>>>         if (bpf_ksym_exists(bpf_wq_set_callback))
+>>>                 return bpf_wq_set_callback(wq, callback_fn, flags);
+>>>         if (bpf_ksym_exists(bpf_wq_set_callback_impl))
+>>>                 return bpf_wq_set_callback_impl(wq, callback_fn, flags, NULL);
+>>>     }
+>>>
+>>>     And then I changed the bpf.c to use hid_bpf_wq_set_callback() and the
+>>>     bpf is compatible with both APIs
+>>>
+>>> - with CORE, struct fields are relocated on the fly when you load the BPF
+>>>     So for instance, if my BPF only accesses fields .name, .phys and .id
+>>>     in the BPF, I can define:
+>>>     struct hid_device {
+>>>       char                       name[128];
+>>>       char                       phys[64];
+>>>       unsigned int               id;
+>>>     }
+>>>
+>>>     Then when loading the bpf, the verifier replaces all offset to the
+>>>     ones actually used by the running kernel, and the program loads
+>>>     transparently, even if you add fields before/after or change the
+>>>     fields order in the kernel.
+>>>
+>>> Changing the mindset is the hardest part of it. But once you are making
+>>> the shift, it's actually much better to work with. It doesn't mean you
+>>> can go yolo. You still need to be careful in your choices knowing the
+>>> impact on your users. But the API at version 0 is not frozen and you
+>>> don't need to maintain it forever, especially if you control the loader
+>>> and the headers used to compile the BPFs.
+>>
+>> It's really impressive, but there's no way this would become the de-facto
+>> way to program the panels
 > 
-> 	cmn->cpu = cpumask_local_spread(0, dev_to_node(cmn->dev));
+> Nobody said it would? And like I said in my previous mail, I actually
+> expect us to keep merging panel drivers. Do I think it should become the
+> go-to solution for simple panels? yes. But we can always make
+> exceptions, and for more complex panels we should totally do a more
+> complex driver. Like HID has been doing.
 > 
-> and arm_cmn_event_init() then binds every event to it unconditionally.
-> That choice is only revisited by the CPU hotplug callbacks, so in
-> practice the PMU stays on the first CPU local to the interconnect's NUMA
-> node, which is usually CPU 0.
+>> and if the motivation is to make it simpler this implementation
+>> requires adding bindings and bpf programs which that are the same as
+>> native panel drivers, but won't be able to work until user-space
+>> starts and will require to be in initramfs or rootfs to have
+>> functional display.
+>>
+>> Not sure to understand what are the positive features here except
+>> isolating the panel code in a safe bpf program (is this really needed
+>> ?).
 > 
-> All of the PMU's recurring work therefore lands on one CPU. This is
-> problematic on systems which reserve particular CPUs for latency
-> sensitive work or confine background activity to a chosen set of
-> housekeeping CPUs.
+>  From the cover letter:
 > 
-> There is no way to set it explicitly. perf_event_open() and 'perf stat
-> -C' have no effect because arm_cmn_event_init() overwrites event->cpu;
-> /proc/irq/*/smp_affinity is refused for the DTC interrupts, which are
-> requested with IRQF_NOBALANCING because their affinity has to follow the
-> owning CPU.
+> """
+> Panels in general, and MIPI-DSI panels in particular, are pretty
+> difficult to support and require pretty much a panel driver for each
+> panel produced. Most of them are pretty simple, and require an opaque
+> initialization sequence that is usually poorly documented.
+> 
+> This creates a tension between OEMs and distros because OEMs will
+> typically get a new panel to react to a sourcing issue during
+> production, and thus need some swift turnaround between getting their
+> new panel and it being operational in the OS. Distributions on the other
+> hand can take years to ship a kernel with that new panel driver.
+> 
+> To solve this, I followed the example of HID-BPF and wrote a panel
+> driver that will rely on BPF programs to perform the panel
+> initialization. That way, we can ship the programs separately from the
+> kernel, and with a different lifecycle.
+> """
+> 
+> You can disagree with the solution, that's fair, we can also discuss on
+> how to solve this problem, but I'd appreciate it if you weren't claiming
+> it's all useless.
 
-All system PMU drivers have the same concern in this regard - why should 
-arm-cmn be special?
+I did read the cover-letter and I got the arguments from Benjamin, and
+while in theory it could indeed solve the issue described, in reality
+it won't for the reasons I exposed.
 
-> Make the existing 'cpumask' attribute writable. It already reports the
-> CPU which owns the PMU; writing a CPU number now migrates the PMU there
-> via the existing arm_cmn_migrate(), which moves the perf contexts and
-> the DTC interrupt affinity together. Since the PMU has a single owning
-> CPU, anything other than one CPU number is rejected.
-> 
-> The attribute expresses a preference rather than a guarantee. The
-> hotplug callbacks may still move the PMU, for example when the chosen
-> CPU is offlined.
-> 
-> Signed-off-by: Haris Okanovic <harisokn@amazon.com>
-> ---
-> I made the existing 'cpumask' attribute writable rather than
-> adding a new one. Every other implementation of that file is read-only,
-> so I am happy to switch to a separate attribute if you would prefer to
-> keep 'cpumask' uniformly read-only across PMUs.
-> 
-> Tested on two platforms with CONFIG_PROVE_LOCKING=y:
-> 
->    AWS m9g.metal-48xl CMN S3,  one mesh,   192 CPUs
->    AWS m8g.metal-48xl CMN-700, two meshes, 192 CPUs
-> 
->    - Multiplexing occurs on the configured CPU.
->    - Offlining the owning CPU migrates the PMU and updates the attribute.
->    - Writes racing CPU offline/online produced no lockdep reports.
+And since it's basically allowing to accept out-of-tree downstream
+driver instead of upstreaming, I'm kind against TBH.
 
-Lockdep isn't going to do much anyway, since the whole point is that 
-perf mostly depends on CPU affinity and IRQ masking for mutual exclusion 
-and serialisation, rather than explicit locking. What prevents 
-perf_event_open racing against this update such that the new event->cpu 
-still ends up with the old value, and thus will no longer be correctly 
-synchronised against other scheduling calls/overflow interrupts/etc.?
+But I'm open to discussion, and I'll talk about display Panel in
+XDC today, Plumbers and ELC next week so I hope we'll find time to
+discuss about this in person!
 
-Now yes, I think technically that race might already exist in a tiny 
-window due to the order of hotplug callbacks (yet another reason why I'd 
-like to clean up hotplug handling...), but at worst it's still 
-relatively benign if the old CPU is actually going offline, since it 
-will very soon reach a state where that misconfigured new event just 
-won't work - since trying to schedule or read it depends on 
-cross-calling a CPU that's now gone - but at least it's then not capable 
-of corrupting _other_ events.
+Neil
 
-Thanks,
-Robin.
-
-> ---
->   Documentation/admin-guide/perf/arm-cmn.rst | 18 ++++++++++
->   drivers/perf/arm-cmn.c                     | 40 +++++++++++++++++++++-
->   2 files changed, 57 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/admin-guide/perf/arm-cmn.rst b/Documentation/admin-guide/perf/arm-cmn.rst
-> index 796e25b7027b2..bf75b686cef76 100644
-> --- a/Documentation/admin-guide/perf/arm-cmn.rst
-> +++ b/Documentation/admin-guide/perf/arm-cmn.rst
-> @@ -44,6 +44,24 @@ given type. To target a specific node, "bynodeid" must be set to 1 and
->   "nodeid" to the appropriate value derived from the CMN configuration
->   (as defined in the "Node ID Mapping" section of the TRM).
->   
-> +CPU affinity
-> +------------
-> +
-> +The driver also provides a "cpumask" sysfs attribute, which contains a
-> +single CPU ID, of the processor which will be used to handle all the CMN
-> +PMU events.
-> +
-> +The attribute is writable, and accepts a single CPU ID to move the PMU
-> +to that processor, for instance to keep counter reads, interrupt handling
-> +and event rotation away from CPUs reserved for latency sensitive work::
-> +
-> +  $# echo 5 > /sys/bus/event_source/devices/arm_cmn_0/cpumask
-> +
-> +This expresses a preference rather than a guarantee. In case of the
-> +chosen processor being offlined, or a processor local to the
-> +interconnect's NUMA node coming online while the chosen one is not, the
-> +events and interrupts are migrated and the attribute is updated.
-> +
->   Watchpoints
->   -----------
->   
-> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-> index 5378fba916cf5..4f82d667d8828 100644
-> --- a/drivers/perf/arm-cmn.c
-> +++ b/drivers/perf/arm-cmn.c
-> @@ -5,6 +5,7 @@
->   #include <linux/acpi.h>
->   #include <linux/bitfield.h>
->   #include <linux/bitops.h>
-> +#include <linux/cpu.h>
->   #include <linux/debugfs.h>
->   #include <linux/interrupt.h>
->   #include <linux/io.h>
-> @@ -12,6 +13,7 @@
->   #include <linux/kernel.h>
->   #include <linux/list.h>
->   #include <linux/module.h>
-> +#include <linux/mutex.h>
->   #include <linux/of.h>
->   #include <linux/perf_event.h>
->   #include <linux/platform_device.h>
-> @@ -404,6 +406,8 @@ struct arm_cmn_nodeid {
->   	u8 dev;
->   };
->   
-> +static void arm_cmn_migrate(struct arm_cmn *cmn, unsigned int cpu);
-> +
->   static int arm_cmn_xyidbits(const struct arm_cmn *cmn)
->   {
->   	return fls((cmn->mesh_x - 1) | (cmn->mesh_y - 1));
-> @@ -1519,8 +1523,42 @@ static ssize_t arm_cmn_cpumask_show(struct device *dev,
->   	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpumask_of(cmn->cpu)));
->   }
->   
-> +static ssize_t arm_cmn_cpumask_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t count)
-> +{
-> +	static DEFINE_MUTEX(cpumask_mutex);
-> +
-> +	struct arm_cmn *cmn = to_cmn(dev_get_drvdata(dev));
-> +	unsigned int cpu;
-> +	int err;
-> +
-> +	err = kstrtouint(buf, 0, &cpu);
-> +	if (err)
-> +		return err;
-> +
-> +	if (cpu >= nr_cpu_ids)
-> +		return -EINVAL;
-> +
-> +	/* Serialises multiple writers against each other */
-> +	mutex_lock(&cpumask_mutex);
-> +	/* Blocks hotplug during write */
-> +	cpus_read_lock();
-> +
-> +	if (!cpu_online(cpu))
-> +		err = -EINVAL;
-> +	else if (cpu != cmn->cpu)
-> +		arm_cmn_migrate(cmn, cpu);
-> +
-> +	cpus_read_unlock();
-> +	mutex_unlock(&cpumask_mutex);
-> +
-> +	return err ?: count;
-> +}
-> +
->   static struct device_attribute arm_cmn_cpumask_attr =
-> -		__ATTR(cpumask, 0444, arm_cmn_cpumask_show, NULL);
-> +		__ATTR(cpumask, 0644, arm_cmn_cpumask_show,
-> +		       arm_cmn_cpumask_store);
->   
->   static ssize_t arm_cmn_identifier_show(struct device *dev,
->   				       struct device_attribute *attr, char *buf)
+> Maxime
 
