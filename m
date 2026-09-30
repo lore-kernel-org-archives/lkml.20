@@ -1,264 +1,89 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B834E4C49
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C264FE2C9
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782428; cv=none; b=Pa3VBmxWG8hW+q2dzd3qC44KxCyjFaCFEZVN/JvE/QCiQ4SVx6saPl7J6nT96u2mvbJjhivOcsk76Gcgp3z16QqWmVaxcf2WL9aaPFziKxvV7ipnwdtFD+EzAo1lRtBK/n1URcaLiYQ3OsobEY/o/T4ZBtPNKeSbsHdwzcqZmgY=
+	t=1790782469; cv=none; b=P+coaPamziHe9qgT99AC4L9b9Z5jsqVpt/qONqPdhTCF0bl1z2tgoo3pcj5dB90oMCMcknKmmV6SPfwfNPootLyQW+bFZUjfTMPZSXSdotbOPCjEowQBZ5KFdURic4TttFPwB1ZrUcWNS+qhwjYtB4ur/jOL7YjLetK2P/AC8L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782428; c=relaxed/simple;
-	bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bBAGqLAOR8Y/oKnuT5Hb9ahiCNmNcqS8MVo4r7YvKvyMMT6mg7bYo7H8r+g3itXyS8W8+gZDIXQNpnScjmbQyqGa6DAH0uVYQIMR1cNTdV7nTF4VqfFSIMUxdp2YgB38yvU/kPUBXaCrIUQxOdLm1pyCqjAoqZAnzSIRMFlSiR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=YlSUyJKY; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1790782469; c=relaxed/simple;
+	bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lvYMBzlOpLIRsbtebIMnu3mNJdBjHt3MVO5XuweB75oWWD2cZfDx+Fq3GY0z7f/ssnVOdAoAV1Ro5CarCgQLki84zfdxp4bGEMRj1iHKaDr1fXmZzGPy037uMXWj1YcnKTB+Vors6ArgyXQrABr1/HbHNjH1w2I5Exq74gynPaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCoPtEIz; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="YlSUyJKY"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 52B56240029
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:33:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1790782411;
-	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=YlSUyJKYIpbHJ50TtBkxm74jrB0lfD9DhChK3MGWXp1SPMU4zcFlG0/yaDvGd1dnM
-	 fcF8GibA2Zgv+9BC53yUY0ffAqA0YR4k2bJ1ofw7HCid9SNrbvGMMQmXHDv16Gcs7D
-	 6lIC9UTxpKX5052h3F4TL/fRwYgKGlVCzFD7N8RuhnCtVOd7nKJjcbOqX5b/a706Gh
-	 g007QfKoypluU01hgC3mptJS1dOZHLdE64EnunDGG333Ci0UomkuHimXvtIvfWzCvb
-	 mIY9amZa8FpJAEyAGcXaoD02lFax9SsEF60f3d5h9kSsIOHxANE6VMmtwUveL2hQy+
-	 D1jQ7N/7f3OPA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hvzbG3q93z6tyf;
-	Wed, 30 Sep 2026 17:33:30 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Wed, 30 Sep 2026 15:33:31 +0000
-Subject: [PATCH RESEND v4] ACPI: SPCR: Support UART clock frequency field
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCoPtEIz"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b03ecc019so68877f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790782458; x=1791387258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
+        b=tCoPtEIz3mI/9s8IAo8qSQsHCTUUBRflS0U8vwcgPH2JmxxtrEDHxuuaoZrTDXuqPS
+         XwZADs1G85k1CGVBlGdmFE1y3b5PHZXvqRwfSS1gk6W94Pa0tpQrJPv53VW9GKsFT5Af
+         z3iHsIvr64S3D/AeqgUQjg1cSjUXPTiJjZa8U/E8V3D6wTjsikEEGrutnYgMRj7V5YPb
+         FgP7pTiKHYP0+2JvpzaqDH/ijxijAMUkyEg5a4dL/GzB8eKpTN+e63LNb+4Frl/T6K9y
+         jTXSSs2UW5dpTm09cuB0R4Vjsrno83dQWIp2dZpfMYVYU8RTsSe7tp/hgThPNzNzAXTW
+         202w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790782458; x=1791387258;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RFV4e8w44R9EEfvzAjYTzq77LpYMZclEZGehM0Ksk9k=;
+        b=D292AgrbtwxUnUVwT2y0JVsPyvZpz8eBoKk+JRxBmMlwoQLmr9b05UNbywDAVvcHV4
+         bIMuPIh0ny0Ms6cxuJYPR1WnE6n+AfW/+xmUWWDYsjZJ2Xq6gdJP1hXF2y+442EMHW24
+         hUUMuTyR7ov4j5czNs0Ks029MY3ksJlxRUkFsnUxKo8l5Z3DPzlrKHjIucnhyb0qDAGH
+         ws8gVl2I12diwkiRDdylb14r+hZ3Xl5L5olZ0W6DN7grG2kVjX+uQL7KDN4AcgOGOCPj
+         V/8REcD3/jmUyVMGWFZ+ywX/14/wofvE6wdVRNhwadrT3scUXhZnJE5awuZ5P/gx/o3K
+         EMcA==
+X-Forwarded-Encrypted: i=1; AKwUvByUbylpgBeK2djcZv5urCfpToKbTIGbK0yAQ13//LAqCsiPqt+GGtu3BXGI7hqE4X0CqiHKmhZJbJNYORw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTVmMbjQRQsP+68bEmCCToIg2a1X78kMIDtyfHZKK5LOs15O7O
+	z3xgJQt+kfvVa5VUT29BkWHzYQiezpNk5ezWcKmxY1JJcKYQ9oDG8prx
+X-Gm-Gg: AYBFou1cfjs5bUdEKQOSUoiOj5uZ4v1UEqVuejg3u2U7Nuzm6NIbTh0aiW5is59LTuF
+	XV4ZwTwTpQjWrAonv8o/jcdjHdP7cVR89Y+m0YYnOGVg19RkoUJdg8fBgpjc5IHdB9k1hEJQEVL
+	PM4wuqJ4SsvT6mgyBpwtmSpiV5ztF+43IB6RhLMpiQ/5VNU10ap5rQAzueP5JgOaspbZkEpTlYY
+	TWupwc8ylfjuyyb8i8q0y65GYmeeRVfg0Yy3VuGnYdl1MlVriEn8xcNh3H38OTi4xqvXSHzPQ83
+	7vUYkrLy1a+DaUWcH/A7FrDj8gcQxKdh6RHH1DpDnOpMeIb5EoHSAhUwgPE0NgTL8oBw+ir/Mt5
+	dK62j/a281SoUOQiO0yvdQEwKjklJ04i6CvQL3eH1Y0IvW+ccjGfFV/4FQ0zCf9F4ilF00awGGP
+	w/mSkVWmCzd2AW9a2/A0ZclsV8BAkZ7LX1+UoAIIqxj+ZxHqD49RKcP79Aov3+8JrWuV4bxI8Kt
+	LpcBRCRiKjVT3KCNioS
+X-Received: by 2002:a5d:5f83:0:b0:488:85c9:120b with SMTP id ffacd0b85a97d-48b024c5a76mr3382476f8f.3.1790782458127;
+        Wed, 30 Sep 2026 08:34:18 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02a0dd0dsm3972005f8f.35.2026.09.30.08.34.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:34:17 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: christian.loehle@arm.com
+Cc: dietmar.eggemann@arm.com,
+	kayracizmeci@gmail.com,
+	linux-kernel@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	vincent.guittot@linaro.org
+Subject: Re: [PATCH 2/2] sched/eevdf: Keep expired protection expired across reweighting
+Date: Wed, 30 Sep 2026 18:34:15 +0300
+Message-ID: <20260930153415.214768-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com>
+References: <e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-acpi_spcr-v4-1-ab649aa1f09c@posteo.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Len Brown <lenb@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-acpi@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6200;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqvSvKFi07fAaGbO91OnxOyzL/xJ1SWeUKGIYOK
- RxkAon479aJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCar0ryhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KZhg//YZVNysLcXV/5KG8JMHy8OdJaNhz5FIm
- 03Xmvro/oqzi71pxT/K0zCi/Wk5DVlvzKj0dtV/jUtQpG7UPRUUJmESSbh0hHCsOvpJnLJ+hwac
- 0oQMFcCTo8Mgnx8ckiqJyf5DTGL/22d7CWBo7MsvyivhmZf/51E/DFQMC1OgdpFP3ZB/AJRl2oN
- jUo9/OOFnr7d9IURst8yu6Lr2XdJsbeu/+RDxXHolY28tMz4816n8N7YrFgK9mooMbIjs1J0/DZ
- LXeil9JEpu/rfNq65A2CSXrGPhmunQjZ2DhT4c15pSoj8H/IrNkt8ZxMPP7Mn4ix+CW1Tkuppul
- sBDTr1ag6x3gLkCzt+7Inutp1ooBQeEQppj+AYkGHAgQ+jmT7Bbe1lSxiqbn/jflS/YvPPIFYtE
- ddIMmmZF2UBHlZ1lNBkIG7ul77AEvkeLYXxuNzYZWf5xZnpTx51qsykJN3MZKcKKUc/Rj+Bq9UP
- y8pVncgMeakEvi4xrn6H3SEtjFWGenoa8/YdRY3iG72mXuyZgDApTv8MhNL5FNSGnH75Go7Jiqy
- 96n9iBYBMa7s91QPnYHq2ZMFnPAIjLtkQ781kNAMwO9S+wDjrjrSLRI6bq2gtvH5r2fKRVWcLE/
- zAandPdwCWRKbQY4j3XtC+4F2HnOXGBiRFAqIjTPRBda0PT9LVcQ=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: 8bit
 
-Prior to this patch, we assume the uart clock frequency is 1843200 Hz in
-the early console. This behaviour results in garbage console output if the
-actual uart clock frequency differs.
+> Thanks, looks legit to me and I did a quick rt-app + trace analysis to confirm.
+> I'll fold that in with you as a reporter if you don't mind.
 
-The UART Clock Frequency field was added in the Microsoft Serial Port
-Console Redirection (SPCR) specification revision 1.08. If present, use it
-to configure the serial port with the correct uart clock frequency.
-Fallback to old behaviour if missing.
+Yeah, I'll won't :-).
 
-Add function `setup_earlycon_with_uartclk` to set uart clock frequency
-while still allowing to reuse the same console string with
-`add_preferred_console`.
-
-Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/serports/serial-port-console-redirection-table
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
-Changes in v4:
-- merge patches together
-- rewrite commit message
-- Link to v3: https://patch.msgid.link/20260615-acpi_spcr-v3-0-9a59ebad74ea@posteo.de
-
-Changes in v3:
-- add separate function for earlycon with uartclk
-- Link to v2: https://patch.msgid.link/20260525-acpi_spcr-v2-0-c042089d73ca@posteo.de
-
-Changes in v2:
-- fix uart_clk_freq possibly being interpreted as parity/bits/flow
-- Link to v1: https://patch.msgid.link/20260505-acpi_spcr-v1-1-fd4bc6f4eb53@posteo.de
----
- drivers/acpi/spcr.c           |  3 ++-
- drivers/tty/serial/earlycon.c | 17 ++++++++++++-----
- include/linux/serial_core.h   | 11 +++++++++--
- 3 files changed, 23 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/acpi/spcr.c b/drivers/acpi/spcr.c
-index 73cb933fdc89..c79c809f49d4 100644
---- a/drivers/acpi/spcr.c
-+++ b/drivers/acpi/spcr.c
-@@ -228,7 +228,8 @@ int __init acpi_parse_spcr(bool enable_earlycon, bool enable_console)
- 	pr_info("console: %s\n", opts);
- 
- 	if (enable_earlycon)
--		setup_earlycon(opts);
-+		setup_earlycon_with_uartclk(opts,
-+					    table->header.revision >= 3 ? table->uart_clk_freq : 0);
- 
- 	if (enable_console)
- 		err = add_preferred_console(uart, 0, opts + strlen(uart) + 1);
-diff --git a/drivers/tty/serial/earlycon.c b/drivers/tty/serial/earlycon.c
-index ab9af37f6cda..5a20fe9e3fb6 100644
---- a/drivers/tty/serial/earlycon.c
-+++ b/drivers/tty/serial/earlycon.c
-@@ -135,11 +135,14 @@ static int __init parse_options(struct earlycon_device *device, char *options)
- 	return 0;
- }
- 
--static int __init register_earlycon(char *buf, const struct earlycon_id *match)
-+static int __init register_earlycon(char *buf, unsigned int uart_clk_freq,
-+				    const struct earlycon_id *match)
- {
- 	int err;
- 	struct uart_port *port = &early_console_dev.port;
- 
-+	port->uartclk = uart_clk_freq;
-+
- 	/* On parsing error, pass the options buf to the setup function */
- 	if (buf && !parse_options(&early_console_dev, buf))
- 		buf = NULL;
-@@ -163,8 +166,9 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
- }
- 
- /**
-- *	setup_earlycon - match and register earlycon console
-- *	@buf:	earlycon param string
-+ *	setup_earlycon_with_uartclk - match and register earlycon console
-+ *	@buf:			      earlycon param string
-+ *	@uart_clk_freq:		      uart clock frequency in Hz or 0 for BASE_BAUD*16
-  *
-  *	Registers the earlycon console matching the earlycon specified
-  *	in the param string @buf. Acceptable param strings are of the form
-@@ -177,10 +181,13 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
-  *	<options> string in the 'options' parameter; all other forms set
-  *	the parameter to NULL.
-  *
-+ *	If the uart clock frequency is specified in the 'options' parameter,
-+ *	the value of the param @uart_clk_freq will be ignored.
-+ *
-  *	Returns 0 if an attempt to register the earlycon was made,
-  *	otherwise negative error code
-  */
--int __init setup_earlycon(char *buf)
-+int __init setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
- {
- 	const struct earlycon_id *match;
- 	bool empty_compatible = true;
-@@ -209,7 +216,7 @@ int __init setup_earlycon(char *buf)
- 		} else
- 			buf = NULL;
- 
--		return register_earlycon(buf, match);
-+		return register_earlycon(buf, uart_clk_freq, match);
- 	}
- 
- 	if (empty_compatible) {
-diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
-index bdc214386e4a..9b2bcd4295a9 100644
---- a/include/linux/serial_core.h
-+++ b/include/linux/serial_core.h
-@@ -1099,11 +1099,18 @@ int of_setup_earlycon(const struct earlycon_id *match, unsigned long node,
- 
- #ifdef CONFIG_SERIAL_EARLYCON
- extern bool earlycon_acpi_spcr_enable __initdata;
--int setup_earlycon(char *buf);
-+int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq);
- #else
- static const bool earlycon_acpi_spcr_enable EARLYCON_USED_OR_UNUSED;
--static inline int setup_earlycon(char *buf) { return 0; }
-+static inline int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
-+{
-+	return 0;
-+}
- #endif
-+static inline int setup_earlycon(char *buf)
-+{
-+	return setup_earlycon_with_uartclk(buf, 0);
-+}
- 
- /* Variant of uart_console_registered() when the console_list_lock is held. */
- static inline bool uart_console_registered_locked(struct uart_port *port)
-
----
-base-commit: 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63
-change-id: 20260430-acpi_spcr-61902fd923f2
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqOIQQbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSt08QALWMim65nIIS428BheYg
-aq6BqxDGGqORhlf7aCFGTtNaeNDsu1Tny7sNTe+TEXpKl+AwoFTJ+4+bxl50AYyp
-8Niod0JGjEoxkQKsU/aScvCvEvMuPXOABfUGFtzieNpfswU2n6LHjywy+RP1mTEn
-aPP1arQGGGhe5b5lvolREN0VbGvymtiLr6P+qOhs76ib/dkOegq2/njBX7UlQ7Fy
-dIQo1A/NayUn5F7VWQKUz6ZHLX9bVZYSe2gstKpl5C8Ybwfaj/HgeT1TAdMoQ2K/
-KG0HgcWwIyoIaIms+yED6WSQKJwexx4zn/t2w/Qi2eSVF6WSqNdY3rrHf3sY3luj
-g5wYs2AvNnGjQU6iNGs7DLwwasHgqwZcOwRIdTvY8z3UP5Wpj5y01a+dJJG378zR
-cZhEQUmDn21jBlJvpqSKUoNRZc1L/8uNfQLbnOMVBNOUBXIQ9Z29j2IkqGsYeTG8
-uUndjyA/2SlEU29w2G6/MnJykNiW4oMxryXabXvh8dXc+SPQkUIM71ivo4y2/HgM
-3XGz9l+cgJk61F0oAHtzie7MorsEGVLMA2n4TpibkUCLRIjK3e5QvEBDHZILWHPA
-k2b8dkF2cdu8Q4nbI3PzXUFzuq/rsBpncSvYd/zDQrEMxzhNUVmuX7B9Ws7I0P36
-VKkGQqUFJNNx7LLynD7XaJ7l
-=nupY
------END PGP SIGNATURE-----
--- 
-Markus Probst <markus.probst@posteo.de>
 
