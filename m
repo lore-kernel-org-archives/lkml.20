@@ -1,127 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FED74D7D4C;
-	Wed, 30 Sep 2026 13:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAE24CB8AB;
+	Wed, 30 Sep 2026 13:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775629; cv=none; b=YiasC9ZJUDP+Om55aHUDA4ylLHvBmSiWABtjsmuDFrtgD1hnIuTPVJEDdHn6HQxEf8LgQjT2eQbVe3rDJ2rhZOASZSMQWxtDqoQLn2vwpwuBPYaLV7jWT6qXJ0jms8ROqOkinrEXP8ANhD+v+vIDIkbLTjcrSRK9FpEjVlLsfG4=
+	t=1790775636; cv=none; b=AzxdTmPqw9DytqBcm4Dze7ouVSATD+Dslk1QS9cEttRC/pMDMhv4kol23zRG4kRHCGDO6KOnHJUNB6NDGvdpHsEwEg60dHUDAhO0pEKnysjDueKZbtdui4anrmsV6zeXfARJI31Kf0VWSESeJ8/eKVTgv1kJiIDha17WDc87kQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775629; c=relaxed/simple;
-	bh=gXjhnLdf0di1wH+YN9epKiexWhOlfZuDsVWloANcD/w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q4bFrfFMgSt4kZvglG7d6/b8m0OshBrmjLXi78hoDV9NjllWcOsjtyviF5KKDyyCN6oQoHEJdPU0zvnaxplgTCylRvFoATEQugrrvdvcL6ahxEvcoZF1XuMEHn43OkP25ZJ3VZsjE28AbpTGIKhama2bAZ+7iKa/r01+6IqNW98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ge1pkB74; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790775636; c=relaxed/simple;
+	bh=uzHGM/3maVkIGwCJuKvC/PNaFcYXYyU6EAt9CwiwkGY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kljH8SepuIueXoJyaVYI47jm/xyuxAC+ERzGbuYaP2IVqaCVmq/RXoYxL0egxZDPVJUFWZG1TF9+xK59TMPeEqRvPnazTWgSrXodaIMGNbfw5A0vatd6BRuy460dkJEaWEjMTXSG1FArC4UBgF/pHTfF1jm36h8J6fQUkHuV9V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKtt4/A5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ge1pkB74"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D61D1F00898;
-	Wed, 30 Sep 2026 13:40:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKtt4/A5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607161F000FF;
+	Wed, 30 Sep 2026 13:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790775601;
-	bh=xFqLMFXAho7vsZRRn0lFyqFwU98ZhNOqftrzkrRFoC8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ge1pkB74bT/Wcn4MCiLS13cv/WWIgkybItc4pJaNSoeQGHLZEp1GeXvnih86sfDmQ
-	 gI9SWzwOPFWN0Qe6w0gb4QeVVIABP8/q9zz5LF/N5s2wNyMCKbUZk2Mr+MhdDn/VqM
-	 tGQ4SIXuz7q+43B4g1ur4qsSUxHbBispksRWP2psjje2lyn86DeVIRZuJ0RhWKdk2o
-	 QiJRGkt6QFH4E5uANg129CAH9FTS75B6BrIAK9e5H1TX0R7iappJqztzv9QedxiPhV
-	 ZEFnTpv9B/WTN1s2GIL2Lnm4I5H3idt6CQN4ZW5/qcGgaML3eh21Rg1SjRBWx9NG0+
-	 z/j9HDK2QkQEQ==
-Message-ID: <edae0bd0-e580-45f2-953e-dd117791c488@kernel.org>
-Date: Wed, 30 Sep 2026 08:39:59 -0500
+	s=k20260515; t=1790775620;
+	bh=zbkUDNwMgnqGHrbog0cra0S8SRCtAdGfYKEuqQ54rHU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=XKtt4/A5r/NkfGSvjGsvCW5EFKALT4VUt/RHVBjfHu+gJmFaF8/SWNcnrhlmbywAS
+	 ifcqRGWYrmSjygRyyrsTfwOoN2bR2RY4k37nRTO86Fe/6ZQMJmouyYQepITjzW/tLt
+	 an92bB88qaT5hqoqilJyvJmu9fzkThXkvwq+yIw2k0S/X/1iXOxZ7uRrI2+wOdRlWG
+	 gg5IBr0eTLWXVU78MxgA3y+//L0MbFHibkUIsEBDi1XKQOlJjPlbCAIAprCWNyzfu2
+	 N4dBImdVO92xInyLowtE5Vy0a5O3aWxh1xfY0cTW7PyFmz5QQNqBm+piNDE9yfYwhg
+	 ZZSNukz9/nwOQ==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Luis Augenstein <luis.augenstein@tngtech.com>, 
+ Maximilian Huber <maximilian.huber@tngtech.com>, 
+ Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
+ Willy Tarreau <w@1wt.eu>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Askar Safin <safinaskar@gmail.com>, linux-doc@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+In-Reply-To: <20260928-move-gen_init_cpio-to-scripts-v4-0-f437a33c40ac@kernel.org>
+References: <20260928-move-gen_init_cpio-to-scripts-v4-0-f437a33c40ac@kernel.org>
+Subject: Re: [PATCH v4 0/2] Move tool for generating initramfs cpio to
+ scripts/
+Message-Id: <179077560598.3184845.8880862675609960141.b4-ty@b4>
+Date: Wed, 30 Sep 2026 15:40:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] iommu/amd: Make PerfOpt compulsory
-Content-Language: en-US
-To: Vasant Hegde <vasant.hegde@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-References: <20260929013423.2313648-1-superm1@kernel.org>
- <bd707bac-26c1-4330-9e29-a8eaec07745b@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <bd707bac-26c1-4330-9e29-a8eaec07745b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1195; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=uzHGM/3maVkIGwCJuKvC/PNaFcYXYyU6EAt9CwiwkGY=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFl7BS33Hd+UGvve0kZKZXb3b+nkhL8/ZL9esLiXa6xya
+ v0x49U3O0pZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEPioy/NNPOlPA9cZP+FZm
+ WdDsvrtCQplpXb/C83d5LD07//GadGVGhqs7v7rem/Z96nyOPVe/fK5Nf7Jo0d+HUju3xd+vdmE
+ 8H8wIAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 9/30/26 04:38, Vasant Hegde wrote:
-> Mario,
+On Mon, 28 Sep 2026 19:26:56 +0200, Nicolas Schier wrote:
+> Move tool for generating initramfs cpio to scripts/
 > 
-> On 9/29/2026 7:04 AM, Mario Limonciello (AMD) wrote:
->> PerfOpt is only a feature usable by integrated GPUs and only in identity
->> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
->> an integrated GPU is in identity.
->>
->> This drops quite a bit of compatibility glue.  There was a refcounting
->> system, exported symbols, and device attach/detach logic.  By just setting
->> it immediately it's a lot more straightforward.
->>
->> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
->> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> ---
->> v2:
->>   * Move WARN_ON to amd_iommu_perfopt_clear()
->>   * Make amd_iommu_perfopt_clear() void
->>   * Drop unnecessary cleanup/create paths that unset feature
->>   * Enable the feature in IOMMU if supported (per guidance in IVRS spec)
->>   * Use existing check_feature() helper instead
->> ---
+> initramfs cpio tools had been subject of several recent discussions on
+> linux-kbuild.  Let's get two minor steps forward by enabling a
+> top-level target for building gen_init_cpio w/o the need of a valid
+> kbuild configuration [1] and move the tools for generating the built-in
+> initramfs from usr/ to scripts/ [2].
 > 
-> 
-> .../...
-> 
->> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
->> index c9b28e5e582ea..a1adb40d5b79d 100644
->> --- a/drivers/iommu/amd/iommu.c
->> +++ b/drivers/iommu/amd/iommu.c
->> @@ -2345,6 +2345,35 @@ static void pdom_detach_iommu(struct amd_iommu *iommu,
->>   	spin_unlock_irqrestore(&pdom->lock, flags);
->>   }
->>   
->> +/*
->> + * Program or clear the per-IOMMU PerfOpt enable bit
->> + * This allows a privileged internal GPU to be able to bypass IOMMU when
->> + * in identity mode.
->> + */
->> +int amd_iommu_perfopt_set(struct amd_iommu *iommu, bool enable)
-> 
-> Please move this to init.c file
+> [...]
 
-Thanks, good suggestion.
+Applied to
 
-> 
->> +{
->> +	u32 old, val, readback;
->> +
->> +	if (!check_feature(FEATURE_PERF_OPT))
->> +		return enable ? -ENODEV : 0;
->> +
->> +	old = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
->> +	if (old == U32_MAX)
->> +		return -EIO;
->> +
->> +	val = enable ? old | PERF_OPT_EN : old & ~PERF_OPT_EN;
->> +	if (val != old)
->> +		writel(val, iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
->> +	readback = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
->> +	if (readback == U32_MAX ||
->> +	    (readback & PERF_OPT_EN) != (val & PERF_OPT_EN)) {
->> +		dev_err(iommu->iommu.dev, "Failed to set PerfOpt to %d\n", enable);
->> +		return -EIO;
->> +	}
->> +
-> 
-> May be check return value before enabling dev_data->perfopt?
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
 
-I thought about this.
+Thanks!
 
-Let me know what you think of the approach of clearing the bit in 
-amd_iommu_efr on failures within amd_iommu_perfopt_set().
+[1/2] kbuild: Mark usr_gen_init_cpio as no-dot-config-target
+      https://git.kernel.org/kbuild/c/14e2c1f5431a0
+[2/2] kbuild: Move gen_init_cpio and gen_initramfs.sh to scripts/
+      https://git.kernel.org/kbuild/c/33bef82263082
 
-That would mean that dev_data->perfopt doesn't get enabled later.
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
+
+Best regards,
+-- 
+Cheers,
+Nathan
+
+
