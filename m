@@ -1,120 +1,71 @@
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3022B5012A9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6794EF12D;
+	Wed, 30 Sep 2026 21:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790802889; cv=none; b=dpxZk3dD4LinA0BrM9qU0BmiOGtdlaK1HQpTHuwHiYh5vBsMTPPd84LmF9mhGBy4e2+jSyFhZ0TLT0db9VLLFD8JqsXYt/S7UAHplaoGD7Dj/64iOFfbEJoI6i9YkojDpWkBcm/SU0OW6aHgBNoUAkKEio5VDjSMGW64Pk5483Q=
+	t=1790803033; cv=none; b=jaRyYfA9jxMZKh9moxF0+HSedHArNPJj3VN5MaUUFqZSFuf2uIlTBf3dI1+6F79yzvQNHCuMmuv9KrLABBp1FG7yhluMCwxLdR+vkiCQdK3+nL66c0fr6JkEDthFli2DbQShqxPZJeStzLGVyST1UtIptOhFxYrKrM1t4bgJuPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790802889; c=relaxed/simple;
-	bh=OhJ1JVkBjXZYdK4dsUnAfFBSP+ct1yGQHTyrFbZIrn4=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=vCO27kIJbHPcyx7YkMXJQyFMv8LFawoqw/9K3ILoFww3A6k48gwpn1/mltiHQh8Y8uhRrEzVB3cx1YAza77bD5RilotnuKbuQjljBDqWeC0YERwmYjVVIAB5CEQDLk3DRaTAiovPNbgRsbjyylV1ZHuyLd/rh+IEcrDTvvRUfEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K7IkIXxW; arc=none smtp.client-ip=91.218.175.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790803033; c=relaxed/simple;
+	bh=Yv/LaZ1whxrUp6YSWe41x94vw9lASl7zfoOEpzB4kT0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hNYeokcgGVvtpyY5J+jO7qmz76m12t8utMQ/8AbA8auhCoWI010rkReuQ12Cjd0uztlk3eHlNiZBnI/TEMrfW47d/yh/YbEp6YfYo9eThiwiZTKeENy5Dq3zqU35iYLUvavnXb0P2zFSVSdpwLbe76y9kWBohtj0/Proe+VgY/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cn8r49hX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K7IkIXxW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OhJ1JVkBjXZYdK4dsUnAfFBSP+ct1yGQHTyrFbZIrn4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790802885; v=1; x=1791407685;
- b=K7IkIXxW8VFEENPKm4RHAiCYOBYx7B34qivTsoaWmto2qu1Jt2rrzm1XMLItHFFtFzi4r9up
- Cc+nWVNjstwc51HQobiTDvUZkhdj0M4sz+j7vG/fxgeeGESwVz6FMmO8B8Ohin/gjAMl5/Vysur
- qv/jkd7E4uXv8g4biI6eO6Xo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f78a63fa0a3d697d;
-	Wed, 30 Sep 2026 21:14:45 +0000
-X-Mizu-Trace-ID: f78a63fa0a3d697d
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cn8r49hX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D941F000FF;
+	Wed, 30 Sep 2026 21:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790803032;
+	bh=Yv/LaZ1whxrUp6YSWe41x94vw9lASl7zfoOEpzB4kT0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cn8r49hXSE5h9zDEuG9m5pTebjggbe10rHZnrmuQSuG6rW63VshomJknZ/R1fyW+G
+	 wxiThwcjJ5xJ2SMVzZL7ctJu+c6X0qSV9N+YNwcQdPGFS22pjhq6pdVah3q2Cu+wuP
+	 iu7MffNplQCAOxaGadbADxybOBpwRh6x9lSk7DtD4ZB70HF2agNa7ktQC2FmcFulbw
+	 RresuIGjiUdAJNnFW7I9Kl52JZGisT7tljTGOES4URzhvGuWJ8AUiFL0dRDDfEBOz+
+	 n5m2zNlw5qLq+XY1MKhIrd3yO72ootpKF8LiHHJu23MaCAKpV/YDS6Q+zwLsxUGWQv
+	 aTLrXMADoo82w==
+Date: Wed, 30 Sep 2026 22:17:07 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Beleswar Padhi <b-padhi@ti.com>
+Cc: jassisinghbrar@gmail.com, nm@ti.com, afd@ti.com, u-kumar1@ti.com,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: mailbox: ti,secure-proxy: Add TDA54
+ variant compatible
+Message-ID: <20260930-poison-lapdog-9dea8dbedcfb@spud>
+References: <20260930172948.2901336-1-b-padhi@ti.com>
+ <20260930172948.2901336-2-b-padhi@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 21:14:44 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <bfa45c2b84ee3d06018306c9f7ea599d81e9ec18@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v5 rtw-next 5/7] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, luka.gejak@linux.dev
-In-Reply-To: <6ce7307e-b753-4dd2-a47a-e347f5806100@gmail.com>
-References: <20260930091604.52891-1-luka.gejak@linux.dev>
- <20260930091604.52891-6-luka.gejak@linux.dev>
- <6ce7307e-b753-4dd2-a47a-e347f5806100@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7nacEQ+HAcE6wkSf"
+Content-Disposition: inline
+In-Reply-To: <20260930172948.2901336-2-b-padhi@ti.com>
 
-September 30, 2026 at 20:03, "Bitterblue Smith" <rtl8821cerfe2@gmail.com =
-mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821=
-cerfe2%40gmail.com%3E > wrote:
+--7nacEQ+HAcE6wkSf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
->=20
->=20On 30/09/2026 12:16, Luka Gejak wrote:
->=20
->=20>=20
->=20> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, =
-the
-> >  power sequences, the efuse layout, the RF and IQ calibration, and th=
-e
-> >  chip specific coexistence handling.
-> >=20=20
-[...]
->=20>  +/* The eight per-rate CCK transmit power registers are consecutiv=
-e. */
-> >  +#define REG_CCK_SWING 0x0a22
-> >=20
->=20This should be in reg.h.
->=20
+--7nacEQ+HAcE6wkSf
+Content-Type: application/pgp-signature; name=signature.asc
 
-Will=20move it in v6.
+-----BEGIN PGP SIGNATURE-----
 
-> >=20
->=20> +#define RTW_CCK_SWING_REG_NUM 8
-> >  +
-[...]
-> >  + /* Enable Rx DMA timer masking: clear 0x0[2:0] and 0x2[15:0] only.=
- */
-> >  + val32 =3D rtw_read32(rtwdev, REG_SDIO_TX_CTRL);
-> >  + val32 &=3D 0x0000fff8;
-> >  + rtw_write32(rtwdev, REG_SDIO_TX_CTRL, val32);
-> >=20
->=20This is only for SDIO, it shouldn't run for PCI and USB.
->=20
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar18UwAKCRB4tDGHoIJi
+0hW+AQCgvh4KaC5rcaRwyc72Y90pEFuQ6RuALUSXNrCa89LShwEA+HBDZsv5v/JS
+V6J25TGyrro60BmXE7yAVDIQ09z5EAE=
+=0dxY
+-----END PGP SIGNATURE-----
 
-Understood,=20will add a check for SDIO.
-
-> >=20
-[...]
->=20>  + rtw_dbg(rtwdev, RTW_DBG_RFK,
-> >  + "[IQK]0xc80 =3D 0x%x 0xc94 =3D 0x%x 0xc14 =3D 0x%x 0xca0 =3D 0x%x\=
-n",
-> >  + rtw_read32(rtwdev, REG_OFDM_0_XA_TX_IQ_IMBALANCE),
-> >=20
->=20This is misaligned.
->=20
->=20>=20
->=20> + rtw_read32(rtwdev, REG_TXIQK_MATRIXA_LSB2_11N),
-> >  + rtw_read32(rtwdev, REG_A_RXIQI),
-> >  + rtw_read32(rtwdev, REG_RXIQK_MATRIX_LSB_11N));
-> >  + rtw_dbg(rtwdev, RTW_DBG_RFK,
-> >  + "[IQK]0xcd0 =3D 0x%x 0xcd4 =3D 0x%x 0xcd8 =3D 0x%x\n",
-> >  + rtw_read32(rtwdev, REG_TXIQ_AB_S0),
-> >=20
->=20This too.
->=20
-
-My=20bad, and just one thing: checkpatch didn't catch these.
-Will fix both either way.
-
-Best regards,
-Luka Gejak
+--7nacEQ+HAcE6wkSf--
