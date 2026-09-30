@@ -1,56 +1,56 @@
 Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA6951E42D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:18:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8A951DE18
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803118; cv=none; b=lXAd3I7vXtc7Fto1zPIDK1Ya3Vr9W0RCKSSrKvRjtt+H7H7d0Oujcm1uleV8pItH+c2Pr9KmrIMdPFySUTAjDXUGGRE4o8DEr2vXoD9JNlhTWf2lPjRhrogu4R4rphBsMBaof+ywtNmhh5KdSnm/8GW+VHpBYbjzCmUqPeNLRY8=
+	t=1790803120; cv=none; b=PaSB1SEIWIjcBVXxSw3PQNxr28pRYH18w6lVayyDXAv7gzeoCNcw1TCSfrml4ykG9KfjISQu1ObTG2x7TUkrp8katvA1LGVWHDA0Dh6xeJDp+5EG3Ag4koFVLMJ+dfvWldIQm+P5QvnChnB8+M1Fb+g3RhAWpBps/N56FrVgLds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803118; c=relaxed/simple;
-	bh=1zpGeqQhQHL87M4JhAi1mEkbl1rvBkOkkOhj9EwgPFM=;
+	s=arc-20240116; t=1790803120; c=relaxed/simple;
+	bh=D4RW4eqr7X/vrgI4ObQ8n39ajzCRfOk16wd5+OQqtL0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eRKEbRJK23rm+h4H27e2RQPZB8byP91Ec1h39VlO1yRxF16GfJ6E7enqNZVOmtLZmkSexgVyx1S5U0XpZWvxGEPuZLEQhCjmzZGDXKJclk6u+SxyAAnKkyfqlymQGOkr7S1/81HddYox5NkeghVWmX90uEtmtn55SnesShS8EFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CrYxZnEf; arc=none smtp.client-ip=209.85.167.200
+	 To:Cc:Content-Type; b=WxU8rGJStroIFhHUFvGnw6zxmXt9OChaDRA1L47bM9OdG7hpBnYwH77qjMXTgUcNi/NqHpWKtpCEiOkPOEW1Etymz3w64w8W735ryuFl6uSRVdX+yRM1ucP+WuBt4pssIESqaYDRqrw1uooAz6Q98Ty9VMhjHAX4nYkRZHTbMWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IkILSlu8; arc=none smtp.client-ip=209.85.167.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CrYxZnEf"
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2d1eb484aso9108238b6e.2
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IkILSlu8"
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso8825527b6e.2
         for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:18:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790803116; x=1791407916; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790803117; x=1791407917; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IvNQ4tIxSouECNeVr4s6zto6hS9KDqxG0yViEXlduVY=;
-        b=CrYxZnEfYm+l1P/2utU8zz+ySYiUCCdIPg6XDUIoF3RnpM8/DcBXFHaRW0uVC4uBkG
-         AChKuUdwpS0+5cLAvu+hUuBHjnvU5QMh0CaOiSiaH6/UC8WQGiK+ZuBhj2yrE9kSbqDU
-         TEzL4oAcd/ZSzs7HW0d4pjevM/r4VC4G1pYKM6agE63fzSVw/bQBUSXsWymXM8jWqu4Y
-         kH3QP+DiSDM9BNpyc+4dx4CvNoVFLEXWd+Co7Ufv6RXP2ny8PHRJEawLTeMAoZeHf9yc
-         OwXoBE6VP8G7QMACkDPOnLAQ1J/nBzBA5B9vxlXlpUGU7GzCKYALNxs/kp3ymVYfCZ1m
-         +AwA==
+        bh=o3da3ndZkq5JxsBN5E/e/pVYoGrUCtX487+oH/FKdMc=;
+        b=IkILSlu8YyhvoTbVxfCrq7DGhnU0kBgDYRKCZwRt+j7NavDgr7K67TsB2Si0q5vvaK
+         bgmHyrzbRe+fDJ7OF6sQieHYNxTPavk0RqJdb093yRwic7sr0CdMGplJ2OoI4ieWiRMA
+         kc3Cvf70+iOVXJ5Yz2r0su7367fbZ4wQaz2Dg1dHi7rI/Vdq04inwttpykb7IO2dZRwz
+         IJjG2+JkXUxTcxSZurFPnEdC8t4xF/I2ceKTllMPuVPz1JBS7jJMCD+4Bw7YI8FGjRm3
+         lzk5OMheny3RVctusW6szzGYuVgoA4ewahUFYAjoizRyKwUeVTRDnpF4Z4wh+SIfzwW7
+         dbTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790803116; x=1791407916;
+        d=1e100.net; s=20260707; t=1790803117; x=1791407917;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IvNQ4tIxSouECNeVr4s6zto6hS9KDqxG0yViEXlduVY=;
-        b=nZRmT04II9I/NYwuluALESgCbkx/Rbcro6jbcQpaY6k/Dv54sK3KBE7FqAQoeApEVy
-         B9NaEalQSz0L/JEaMVJ/P43T00pTfcg560rDr35X7AeEi4FOfrUddWihz4PQtn9el++K
-         zlk70m+O7x24t7R5rYXXNHzOhBECwdo/RJAGmRjRBHqRG0IarFwFpIwey59FtmkLmW98
-         xoYapxyDLSin/efXjN+mkAWrU1bl+PjERMmPM4DCUQf1mB7M3WSODlWhMZllJdPHq8mk
-         vIvHBMaUhcG7qv9ihPBf1yQ2J1vByxQXU3oR+RSxb2Mk3YkqtnKjcpJXx3TeMZsmPJna
-         UGoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4v1P/4wk5zOtAkhbpjVwFWke7GxqKyUe5YsDX8jXS2fePlzu3/4fs0mva8mNaHgaz/H9uK4xqQX+4sE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkQZGUvVdYb1RuAzxFLAUEGVZwjL1x8bxD7N15NfanBtUJSAty
-	Qy7c4qn6dun5hEDdu+uaGbC4qhkmzG4kB5AnIA1u6KD5nbOluIwfErw/dPWSq51hxpk92Vfa59/
-	JxAXgL+E2Hat05iZ78y8F3M9AnA==
-X-Received: from iljm9.prod.google.com ([2002:a05:6e02:de9:b0:50d:b61e:e6c3])
+        bh=o3da3ndZkq5JxsBN5E/e/pVYoGrUCtX487+oH/FKdMc=;
+        b=swUqslpEJgdj+8fSacPQrU5fiGihQkCKPJBQBIlmD0pUnF0baAnYX2R0DE/aVx7E1N
+         clsJNjSs6Nls+mXV8l1TAU+SgJdE1zoFh7VII33MdGiezH2oOWAVtbhmSkMhnkaJmX57
+         ENP5klnFp5XZ5hMEtJdNxKub7LKMzcw1v2VgcppMeTRUsnFehyMq9/3TfZWxnrbHdpXt
+         jnGkW75N3ffZARDZRn8t5OA8w0HGKewQfN35Qbnou9fEiJLtovEyl+cs5egyRzeA7aTI
+         ZeuMhk/pTWDrZ0KOVl6S2OUTfMkKUXmNt27vAd4vgh9AZzMA7EYsfwF8txwO4TV//FOv
+         YUaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjfQIKJMksHKsreKEYDuBKL25zBX8cq2X29zddGUH4DffGr3FK2lgV7IVSWTAYiVjpB1ejaqMqWEHjaQE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD2LqcOQdEG+MTfaXPsiNRJmaM/VtzSxjlXpctxT7bCxlPW8tM
+	irKTigjVLUx/rjFhIR6LiTRJTbx+We2RCOYzwBc/bRJLBx/MXIm94OC0oZb2O2sIVGmcvInczOX
+	PCOJJdz2dWqPmeOlDrsn5mCibFw==
+X-Received: from iobir24.prod.google.com ([2002:a05:6602:7158:b0:9c3:8b15:2c82])
  (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1190:b0:4d6:9153:295e with SMTP id 5614622812f47-4f1ba4fc340mr2480554b6e.47.1790803115577;
- Wed, 30 Sep 2026 14:18:35 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:18:33 +0000
+ 2002:a05:6808:138b:b0:4e8:d530:daf6 with SMTP id 5614622812f47-4f1b6c6e13fmr3792236b6e.26.1790803116491;
+ Wed, 30 Sep 2026 14:18:36 -0700 (PDT)
+Date: Wed, 30 Sep 2026 21:18:34 +0000
 In-Reply-To: <20260930211834.2773546-1-coltonlewis@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260930211834.2773546-1-coltonlewis@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930211834.2773546-2-coltonlewis@google.com>
-Subject: [PATCH v2 1/2] KVM: arm64: Handle ID_AA64DFR0_EL1.PMUVer == NI in __kvm_pmu_event_mask()
+Message-ID: <20260930211834.2773546-3-coltonlewis@google.com>
+Subject: [PATCH v2 2/2] KVM: arm64: Check ID_AA64DFR0_EL1.PMUVer in pmu_visibility()
 From: Colton Lewis <coltonlewis@google.com>
 To: kvmarm@lists.linux.dev
 Cc: maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com, 
@@ -71,58 +71,36 @@ Cc: maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
 	Colton Lewis <coltonlewis@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When userspace initializes a vCPU with KVM_ARM_VCPU_PMU_V3 but sets
-ID_AA64DFR0_EL1.PMUVer to NI (0) or IMP_DEF (0xf, which is sanitized to
-NI), resetting the vCPU invokes reset_pmevtyper() and calls
-kvm_pmu_evtyper_mask(). Because __kvm_pmu_event_mask() does not handle
-ID_AA64DFR0_EL1_PMUVer_NI, it triggers a WARN_ONCE("Unknown PMU version
-0").
+pmu_visibility() currently checks kvm_vcpu_has_pmu(), which only tests
+whether the vCPU was initialized with KVM_ARM_VCPU_PMU_V3. If userspace
+initializes a vCPU with KVM_ARM_VCPU_PMU_V3 and subsequently hides
+FEAT_PMUv3 via ID_AA64DFR0_EL1.PMUVer, KVM continues to expose the PMU
+system registers instead of emulating guest accesses as UNDEF.
 
-Explicitly handle ID_AA64DFR0_EL1_PMUVer_NI in __kvm_pmu_event_mask() by
-returning an event mask of 0, and drop the redundant kvm_vcpu_has_pmu()
-check in reset_pmevtyper().
+Check ID_AA64DFR0_EL1.PMUVer directly via kvm_has_feat() in
+pmu_visibility() so that PMU system registers are marked REG_HIDDEN
+whenever FEAT_PMUv3 is not advertised in the ID registers.
 
-Fixes: bc512d6a9b92 ("KVM: arm64: Make PMEVTYPER<n>_EL0.NSH RES0 if EL2 isn't advertised")
 Suggested-by: Oliver Upton <oupton@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Colton Lewis <coltonlewis@google.com>
 ---
- arch/arm64/kvm/pmu-emul.c | 5 ++++-
- arch/arm64/kvm/sys_regs.c | 4 ----
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ arch/arm64/kvm/sys_regs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
-index 5b1af7e2176fa..e2b28dbc0451b 100644
---- a/arch/arm64/kvm/pmu-emul.c
-+++ b/arch/arm64/kvm/pmu-emul.c
-@@ -50,8 +50,11 @@ static u32 __kvm_pmu_event_mask(unsigned int pmuver)
- 	case ID_AA64DFR0_EL1_PMUVer_V3P5:
- 	case ID_AA64DFR0_EL1_PMUVer_V3P7:
- 		return GENMASK(15, 0);
--	default:		/* Shouldn't be here, just for sanity */
-+	default:
-+		/* Shouldn't be here, just for sanity */
- 		WARN_ONCE(1, "Unknown PMU version %d\n", pmuver);
-+		fallthrough;
-+	case ID_AA64DFR0_EL1_PMUVer_NI:
- 		return 0;
- 	}
- }
 diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index a2f4e769a4282..e4ad9c171c7ca 100644
+index e4ad9c171c7ca..46dd6e16de28e 100644
 --- a/arch/arm64/kvm/sys_regs.c
 +++ b/arch/arm64/kvm/sys_regs.c
-@@ -1059,10 +1059,6 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
- 
- static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+@@ -1029,7 +1029,7 @@ static unsigned int hidden_visibility(const struct kvm_vcpu *vcpu,
+ static unsigned int pmu_visibility(const struct kvm_vcpu *vcpu,
+ 				   const struct sys_reg_desc *r)
  {
--	/* This thing will UNDEF, who cares about the reset value? */
--	if (!kvm_vcpu_has_pmu(vcpu))
--		return 0;
--
- 	reset_unknown(vcpu, r);
- 	__vcpu_rmw_sys_reg(vcpu, r->reg, &=, kvm_pmu_evtyper_mask(vcpu->kvm));
+-	if (kvm_vcpu_has_pmu(vcpu))
++	if (kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
+ 		return 0;
  
+ 	return REG_HIDDEN;
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
