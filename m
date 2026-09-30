@@ -1,64 +1,41 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE2D518128
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F0E517BD9;
+	Wed, 30 Sep 2026 17:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788007; cv=none; b=qFXjtLH+loRGyx+GpoA1QeklU/jHjHQuAszg6/Wj8xo6w1tqWItEXvq0Otbx+lL6PHHKa3sU2i4+/5atzPXK0NpYbvSL/XxZLo4Ud28LhgE6qMnoWNzYzp5BqUfe8HbHpPIihg12xonT7QCm8xr+2p5wml1zPR4EP2VPNEjw3lo=
+	t=1790788027; cv=none; b=IYYpHeO5W4yRz0T9NGeqjYVu6JvWPov4nPT2TxTWT1sgQGLaaVzuRgCW2KKQNqcbOkIs163SCxtKUEdedoh/TnWB6Pz8FvwyJCSCJ8YMCfFxbA6NbiedXr431AwJujveY6N4GlGbKuuurgtF8Sgcx0yVsVJ5MqMIwvnawEJtJ5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788007; c=relaxed/simple;
-	bh=bzzLqRQcL4j4/jI3tSMnmdNfOyLhafsT7mEkAT529mE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AIS1yJGkiicWG5hx+X/zSebq0mUEJm0lVQZJiq6zKQPPkMVNLxzslZ9J8+rdEkcApt9g9sVLQNnIkpqD1Qbg85ZLGRNvX3i0ORhc+Jk2rUD47yNosmguy7QRiGFWFZT+vTONBCeXZ17VGu4HcP8yPJ3+QUlNJ6jR99ea5eBiCOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mvAq3BLn; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790788027; c=relaxed/simple;
+	bh=Eje0GkhqlVuGoHPUffeu/Os8V+rmoQVwPj57/NuhmXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fB2kCkL3gyb2ZzPGYElI7W0Xk3i2VqRm/pR6DfVLN9vgiTozHDUCxm0/21ApeHUPbnmdwU5mjGQfU1LBmn78vVJJc6PpQBEkHbX9dek9S2KOlML1qOi5ptAIlzhNNQibNz35RAHHaLCz3tNI4aJxOezZB7ejm+vE/EHyY6dpmSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A90IL+PJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mvAq3BLn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790788005; x=1822324005;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=bzzLqRQcL4j4/jI3tSMnmdNfOyLhafsT7mEkAT529mE=;
-  b=mvAq3BLnGb/fKd/ATSXX4gOU1i7DwhBJOPiq8SsF+bKzcbNTzU8fyfw+
-   uVdiuvb97qxeyvenuMLZbkRcpmthSrU2hzPJAlzs2zQjdWYsGDejvtEVP
-   Z0ISVRSY+tnSeS1lwQGjmssOpwzHthzP85hH8iKETbgQU/Tn3tiq9KR/J
-   QkhgebCLSOjuTj2FMKbccNB9t/0TVgnlpigPVIvrHerJniAflG9IwBRBd
-   4wz39S0kiYgvhnfnH6KHVf4LMTTNdl8axWrLdt04dy++k/J90b1G2PoJ7
-   YzHBag5hXPJlURa9SCxGLrVuYCwg+SOn/GjfN0S6eiQlvOZvBaNuZgpSQ
-   A==;
-X-CSE-ConnectionGUID: rJjcWLZ9Q6OkjmaUyzhcgQ==
-X-CSE-MsgGUID: GJ6r0kaZS2aWwI/inAnT0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90299473"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90299473"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:06:44 -0700
-X-CSE-ConnectionGUID: 9cwheulbS56BJXe4zmjZmQ==
-X-CSE-MsgGUID: 50l3AmTIQzCBk8FPSqoLNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="275292858"
-Received: from lstrano-mobl6.amr.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.50])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:05:30 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: Fenghua Yu <fenghuay@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <dfustini@baylibre.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Chen Yu <yu.c.chen@intel.com>
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v3] x86,fs/resctrl: Add event group descriptions for Intel Diamond Rapids
-Date: Wed, 30 Sep 2026 10:05:22 -0700
-Message-ID: <20260930170522.12522-1-tony.luck@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A90IL+PJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C101F000FF;
+	Wed, 30 Sep 2026 17:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790788026;
+	bh=gV1VZo5ChHO2fSyCyOJqPRlEK6//5s/BjQbyvHz21vw=;
+	h=From:To:Cc:Subject:Date;
+	b=A90IL+PJqzP+WdwF/zaT/g2pFgC4XgPOvn6pfIJUwBflbRHMskuNE6C83nBhPKGiw
+	 g/63LPFZigZIaPNrLCnvfqg9/w2c+Y5eXwREtVzDQKypLh0xtn0EY9o03v92qdtSOE
+	 uEW/EFXujNtxyWClkkg33Q5mB2rzq/XE+JF4VwZuY6pI5QP4dfs+gjSlkjQdU9vrFC
+	 pNYtXdTo8aeD+GPX7/LqsuUbHA3T90uzuyBqRzPIPddgVn57LEiwqm51fT+AYznvyK
+	 9U+9Ws+FZx1YU5WsQEij6ezbVY0TLQL+DcRFtcc9gg59b6WtxCeE/PKdardNRAwfx2
+	 Q2aNZtK74qcaA==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	x86@kernel.org,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 0/3] AES library fixups
+Date: Wed, 30 Sep 2026 10:05:39 -0700
+Message-ID: <20260930170542.140403-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,106 +45,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Intel Diamond Rapids exposes Application Energy Telemetry through two
-new PMT aggregator GUIDs: one covering the "energy" feature, and one
-covering the "perf" feature, both documented in the Intel-PMT XML
-repository [1].
+A few small fixups on top of
+https://lore.kernel.org/linux-crypto/20260927224418.109759-1-ebiggers@kernel.org/
 
-The "perf" aggregator references two events not previously enumerated
-by resctrl: retired instructions (INST_RETIRED), and a count of
-unhalted core clock cycles perceived by hardware as contributing to
-instruction execution (PCNT).
+Eric Biggers (3):
+  lib/crypto: x86/aes: Set RNDKEY in aes_cbc_encrypt_aesni()
+  crypto: aes - Boost priority of encryption modes further
+  crypto: x86/aesni-intel - Add transitional selections
 
-Add definitions for both aggregators, and add the two new events to
-the resctrl filesystem so they can be exposed to user space.
+ arch/x86/crypto/Kconfig    | 12 ++++++++++--
+ crypto/aes.c               | 12 ++++++------
+ lib/crypto/x86/aes-aesni.S | 25 +++++++++++++------------
+ 3 files changed, 29 insertions(+), 20 deletions(-)
 
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Link: https://github.com/intel/Intel-PMT # [1]
----
-v3:
-	Use lower case for GUIDs containing hex
-	Add Reinette RB tag
----
- include/linux/resctrl_types.h           |  2 ++
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 34 +++++++++++++++++++++++++
- fs/resctrl/monitor.c                    |  2 ++
- 3 files changed, 38 insertions(+)
 
-diff --git a/include/linux/resctrl_types.h b/include/linux/resctrl_types.h
-index a5f56faa18d2..e2e2cf3d9ff6 100644
---- a/include/linux/resctrl_types.h
-+++ b/include/linux/resctrl_types.h
-@@ -60,6 +60,8 @@ enum resctrl_event_id {
- 	PMT_EVENT_AUTO_C6_RES,
- 	PMT_EVENT_UNHALTED_REF_CYCLES,
- 	PMT_EVENT_UOPS_RETIRED,
-+	PMT_EVENT_INST_RETIRED,
-+	PMT_EVENT_PCNT,
- 
- 	/* Must be the last */
- 	QOS_NUM_EVENTS,
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-index c22c3cf5167d..79876443a622 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -125,9 +125,43 @@ static struct event_group perf_0x26557651 = {
- 	}
- };
- 
-+/*
-+ * Link: https://github.com/intel/Intel-PMT/blob/main/xml/DMR/OOBMSM/RMID-ENERGY/dmr_aggregator.xml
-+ */
-+static struct event_group energy_0x47903099 = {
-+	.pfname		= "energy",
-+	.guid		= 0x47903099,
-+	.num_rmid	= 256,
-+	.mmio_size	= XML_MMIO_SIZE(256, 2, 3),
-+	.num_events	= 2,
-+	.evts		= {
-+		EVT(PMT_EVENT_ENERGY, 0, 18),
-+		EVT(PMT_EVENT_ACTIVITY, 1, 18),
-+	}
-+};
-+
-+/*
-+ * Link: https://github.com/intel/Intel-PMT/blob/main/xml/DMR/OOBMSM/RMID-PERF/dmr_aggregator.xml
-+ */
-+static struct event_group perf_0x1415910a = {
-+	.pfname		= "perf",
-+	.guid		= 0x1415910a,
-+	.num_rmid	= 256,
-+	.mmio_size	= XML_MMIO_SIZE(256, 4, 3),
-+	.num_events	= 4,
-+	.evts		= {
-+		EVT(PMT_EVENT_UNHALTED_REF_CYCLES, 0, 0),
-+		EVT(PMT_EVENT_UNHALTED_CORE_CYCLES, 1, 0),
-+		EVT(PMT_EVENT_INST_RETIRED, 2, 0),
-+		EVT(PMT_EVENT_PCNT, 3, 0),
-+	}
-+};
-+
- static struct event_group *known_event_groups[] = {
- 	&energy_0x26696143,
-+	&energy_0x47903099,
- 	&perf_0x26557651,
-+	&perf_0x1415910A,
- };
- 
- #define for_each_event_group(_peg)						\
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 73413cb128ea..04e4ea612b7c 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -1041,6 +1041,8 @@ struct mon_evt mon_event_all[QOS_NUM_EVENTS] = {
- 	MON_EVENT(PMT_EVENT_AUTO_C6_RES,		"c6_res",		RDT_RESOURCE_PERF_PKG,	false),
- 	MON_EVENT(PMT_EVENT_UNHALTED_REF_CYCLES,	"unhalted_ref_cycles",	RDT_RESOURCE_PERF_PKG,	false),
- 	MON_EVENT(PMT_EVENT_UOPS_RETIRED,		"uops_retired",		RDT_RESOURCE_PERF_PKG,	false),
-+	MON_EVENT(PMT_EVENT_INST_RETIRED,		"inst_retired",		RDT_RESOURCE_PERF_PKG,	false),
-+	MON_EVENT(PMT_EVENT_PCNT,			"pcnt",			RDT_RESOURCE_PERF_PKG,	false),
- };
- 
- bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
+base-commit: 69897f5e8552af8835a2c8a36aa7d597e1cf6689
 -- 
 2.55.0
 
