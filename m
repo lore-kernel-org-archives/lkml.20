@@ -1,113 +1,171 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61724BF92A
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768132; cv=pass; b=Gl4dr0279DU/uZ+MTABQ3SY4JLG2aWFxAK0aQVJ9bjfMtYdVN2+E/ntewcAcbOowHPHvhNcdlBzL+z4qU3OES0UyYlLrQfbmU11Z4yBewKucoo+TCuihgr/SHsloIA6yoAMKj1IaGEYMDd7LN2EV9W5rYp3/ruiw9m8/S61kUdM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768132; c=relaxed/simple;
-	bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NDv9vkV6URRf0Db5NL9jxXDh66RQkuZhr34Lvr8FxTUn4s5QoJoyuQV6clTHqyzTyJaKkuAz3NpSSwOcgEPfnmrrETyb8bdJrqiEjtBZcHBtePC9Y4I7iNV0GwGrqUekck19gG7qbm9ejhOBhhlCktJFczY0leg11VLfHtIeMH8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HdddWs63; arc=pass smtp.client-ip=74.125.231.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB28547074;
+	Wed, 30 Sep 2026 11:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790768156; cv=none; b=o4817ahjDDwO9RCbs2Szdy5ExRrfM5Dv4cYw31ADoIZ4oK3NMGynzN1BBOxJ5kvWtAkkXt1bL47vBpOZLhUTlEqBflo90muVzh2XS1TjycOUeDRRGfcFnh6MJ8G4NrTFGgQ9/g6YyZyaiWbqTAdHpPHBqeyntIruD79v+Ro6RQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790768156; c=relaxed/simple;
+	bh=GQfdl1fD6ETiZvCgZxVhwOOYjJ3r/8URl41sHVMxb3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ovFzKYIWyLL31CIlh+EvsL8wlHz4YqE+fF5upbHyffIRuDn1lGfedSwmWP+1ITv2XhTdlasYb+PF9J4QeJimhI7SsDcnX1kseTESFiYIE6L9BTIHGGt54JAEqaGjX2hX3cibdxv5C50me9gCKfiaGJK2OT6sNGQrMLMGe1Yd9Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ww5xsU4o; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=mSjP4dXB; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=3GA3Uw5K; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RbSHjcYH; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HdddWs63"
-Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c2613d80fbso3123296eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:35:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790768129; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A/UTPey8lodb+Ovl6tTiZ22GcXex/RptIKnaeeEk8plccnCUFXBLaEn0HJdjqgUlE6
-         l0lECPR96Y7o08Uvr0YgCE/U3SrOJy1E7bnKh45gE91qhQKCE6uQqfZloTcJB3BhU621
-         2KFobaVo7PoLpfVvoZGhL33OQBXHm5A7DL2fGL75XqW8GAQ++V2oY+jlTjx/1uyhYA1e
-         sEeNR/Z4TL8RhUc59fE+3U0wrI0yQ+yw83gjipnR+cMs77b5SfGcmfasM4uqJsiKY0ws
-         vvbdarUQkRcnn/EN2rCx0wDNCMzAjmCsZF4wQdRbDuBMpUanu/UgdmuP5FcgYNh81I0l
-         9+Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
-        fh=PoYK9nxLBJf+9btWBUFtgpvT0/Kgd33Q3gaGxR/sksE=;
-        b=YdIdcIxL5B5kk4Zft93v7cBdslBZkAdUC3c7AlVa8AMUsAQHDJg4spNXQ1JJaRNbtt
-         JA9Uxt4RRFbhMbH02XbprKAG8rmK2aDjgc1DK9FSZcIXWT7cDmbn+6NYTfBvTgQSHYGk
-         ORJ12Ee5m7gRloEGKeoXJu22OLlW7m/wKRgj6uBRS71M8+p7C6NoTnuC8U9/B/0M5c6p
-         CZvWTh+Q7m/zjS8v3e5Jr4ixp1s3CA+5k+w+ehKFXLpkzyCd5v5aNwYrxXUavwvZHOmP
-         y4tO9GFrudcpUHYsGewdep0CrJOQqzpi0Tky9Tl5Dp2H6ktZNA7WqZXkcN3hWQAt0WxH
-         iTkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790768129; x=1791372929; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
-        b=HdddWs632Rj73PqM+qaWPqerAlxbkA7jCCfT7PyN/fSPH1zqNwLYIKTgFVXaFuTVos
-         fmotyEKoR1KMjKh/1NJZw1q15XRCC2EA/H+yJeI3s2OO0JHmZLcSrghRoF3qSPzV9s/i
-         p5wfiklKsQtDW42GxqF0XoCTj+lTpui3g+0v/7GtDZ6Hfc1Da/CdWrBHYSo0RyHal+oI
-         pGzo64gUftbPOBmyLIlELJ8dcJSlTuG96KZlA2ydJEWfkjGWkGlfIab7de+7aKRuRbGv
-         rD3gQ8k/0KqJ2t7+Phaa5wAyT1BwWqmqFpmZ3wf25AZyGvtZSfo/l8EbI2L4ImTo22hk
-         G6yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768129; x=1791372929;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ai/Jf8BwEUO5H8StrVs1vR9aM5EMKcYU9MwuHF4t1kQ=;
-        b=ve5pJ0EreTJKLZ4vGDXMO6sIVMWWWbGe2gPPg2/jQ1HO6hKZaVKQ4rMFRNZcg4zwDQ
-         qbSezNx8RqcyS5Qe7I6qdZABGYjokIMx9aBcQbME+5rYYYLCwD7MZOCgdf6l9QJpPBLS
-         iuz2RC0wtEa9kDxUm5hZze3huDdZkte5ZReoYK7GaMV616MiiYB74ojB7gcGfZuOS5ov
-         B3V8P2SyUHt5zW/H+uj/9qkchDDjRMqe4jVzk+YN1itm+DNz4RouoIjtIUOj6rjMFrud
-         owBSLPumNPu/rxUNgk5AvQO1YRBcM6JC3xvywwhgU0MJOQQ8OaKDqJki23ywYmxUgCky
-         yLIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNy86bWe4UdZDiXGpHEtt901r8UEViDoCoU6enmQFMQjrrEK8UPN8MQ3xCLf3AFMab9OOVPq355a4Hw6s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZoKrnme+svlip0d2908A5p47htJeVlaD5UaFfx3bvXcH+bEZd
-	AFdKRrmhSdJUPBC8RQJY/r3PyYO82zm6Wz81FUTLbmQqkehgHJYJSOBT7a7IcUt6PjeMlrF7ozw
-	bVvHM10jx70NeSSAI4moRe1H3YZiPf3o=
-X-Gm-Gg: AYBFou0JA3Dj/lfqj4DDGv9Ub++XaehKQL1t4YDH/4H2S8bkyhn1hyS0d874enuqMHB
-	lKkPpGzmrzkrT+Re3Q77WNUFVvLY4yRy7aFQZkR9HMhxF3ubtmFWX/SiGzOMRV4jfjab5tgzqOg
-	c+Zg+8qzZDw1DrugDi85aIi5TMb3kg2j/WNlnN3AwPRTKc7Jb+fsa4cVy1ytBlVSNxrSvWHVUS+
-	TKHw6IVp+fBM+WC63muSXnqPx/aeU08+CiiasQQ+vJo+AVnWXPg8VOLDSYInXHDRAy8TSFexXRN
-	iaA/3YdqxV3cbV9+YAnuR8XJ2i8gjyWYuha47VzYlUDY36vbQLrGurGUNw==
-X-Received: by 2002:a05:6820:4df3:b0:6ae:8fc0:dbaf with SMTP id
- 006d021491bc7-6dcf1fa7093mr1040549eaf.1.1790768129547; Wed, 30 Sep 2026
- 04:35:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ww5xsU4o";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mSjP4dXB";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="3GA3Uw5K";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RbSHjcYH"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1A09821D6E;
+	Wed, 30 Sep 2026 11:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790768148; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iXI58kVKGHKbCjMpYt+Leu/5KRXymy9PQ/dRuuwjnLg=;
+	b=ww5xsU4oLekq2MdM6Jah08ODQJb2MtBEKENsVNrwl7qOpXsfWyTafhQYatCUEIHOM3I9YA
+	nSOjdXv0/iLdWYjMyg3aUvF9QHC4hhl6hSshrtbDCBNdr+zITq8rKXybauR7NGkYeBQHA3
+	6yzPocAHFdYFbSsypivctQgYmUQF13Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790768148;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iXI58kVKGHKbCjMpYt+Leu/5KRXymy9PQ/dRuuwjnLg=;
+	b=mSjP4dXBNFwpl0aXEF7/O45ovdC+ho1/Bmfx1AKmR/I/I1x2ugFgtSQZGel59eClPVU2o8
+	8S/nKV6wFBxZ6qDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=3GA3Uw5K;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=RbSHjcYH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790768144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iXI58kVKGHKbCjMpYt+Leu/5KRXymy9PQ/dRuuwjnLg=;
+	b=3GA3Uw5KOozg6FMeTUmmVYLUJ9od9VyPtt8SZB6olmFGxXQaTW0w+3eZBYJAZAlcu8mxmB
+	e8zvOP/4JhnLThsTSh/4vVmZSE5NzF5dfIsZK/kRi4ihsX9eB2DyQygDc4A5hb9zF4SDMe
+	vWwxKmppP9xUfEcsTqL/ApLyzthnzNI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790768144;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iXI58kVKGHKbCjMpYt+Leu/5KRXymy9PQ/dRuuwjnLg=;
+	b=RbSHjcYHnKxo1PI8WZEcNWudA7UkpC6PePaNw8/dvNGYVpD8DGjAm/P6QLaU6aul/ctIaN
+	iZI+FzY7odf37RBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E533613722;
+	Wed, 30 Sep 2026 11:35:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2q0ULw/0vGqiPwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 11:35:43 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 879C5A13AD; Wed, 30 Sep 2026 13:35:39 +0200 (CEST)
+Date: Wed, 30 Sep 2026 13:35:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, NeilBrown <neil@brown.name>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] VFS: d_duplicate: repair comments to avoid kernel-doc
+ warnings
+Message-ID: <nlqvldcyutesquh6s3ysgxt5ume4m6jvr3k4yqitvmhcmc3tph@hqzpuocxpty2>
+References: <20260928211000.1539250-1-rdunlap@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
- <20260929184900.39515-3-abdelnasserhussein11@gmail.com> <20260930085640.00000377@gmail.com>
-In-Reply-To: <20260930085640.00000377@gmail.com>
-From: nasser <abdelnasserhussein11@gmail.com>
-Date: Wed, 30 Sep 2026 14:35:18 +0300
-X-Gm-Features: AclHuK8untSyrCd6-KRO0IrW6AMVzxM1NtGbJFcEt_bom4eFkclVEvnnxJY74KM
-Message-ID: <CANpqX3bDL-C_w1ttuarPyUvOysCPYOsoLMS6Ri24oFnYmzjOVw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] staging: iio: accel: adis16203: add missing
- spi_device_id table
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
-	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
-	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, error27@gmail.com, narcisaanamaria12@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928211000.1539250-1-rdunlap@infradead.org>
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,infradead.org:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,linux.org.uk:email,brown.name:email];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -4.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 1A09821D6E
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-Hi Joshua,
+On Mon 28-09-26 14:10:00, Randy Dunlap wrote:
+> Use a typical list style for comments to prevent kernel-doc warnings:
+> 
+> Documentation/filesystems/api-summary:20: ../fs/dcache.c:2029: ERROR: Unexpected indentation. [docutils]
+> Documentation/filesystems/api-summary:20: ../fs/dcache.c:2030: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
+> 
+> Also, modify the spelling of "whiteout" to match all other uses in
+> the kernel source tree and to be consistent on the same line.
+> 
+> Fixes: 33d76519f0cc ("VFS: add d_duplicate()")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-Thank you for taking the time to review this.
+Looks good. Feel free to add:
 
-> No need for mod_devicetable.h, this is imported using spi.h
-> C99 initializers please.
-> Additionally, you should delete the MODULE_ALIAS("spi:adis16203") line.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-I will drop the unnecessary header, update the spi_device_id array to
-use C99 initializers, and remove the redundant MODULE_ALIAS in the
-upcoming v2.
+								Honza
 
-Best regards,
-Abdelnasser
+> ---
+> Cc: NeilBrown <neil@brown.name>
+> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: linux-fsdevel@vger.kernel.org
+> 
+>  fs/dcache.c |    7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> --- linux-next-20260928.orig/fs/dcache.c
+> +++ linux-next-20260928/fs/dcache.c
+> @@ -2025,10 +2025,11 @@ EXPORT_SYMBOL(d_alloc);
+>   * @dentry: the dentry to duplicate
+>   *
+>   * Some rename operations need to be combined with another operation
+> - * inside the filesystem.
+> - * 1/ A cluster filesystem when renaming to an in-use file might need to
+> + * inside the filesystem::
+> + *
+> + * 1. A cluster filesystem when renaming to an in-use file might need to
+>   *   first "silly-rename" that target out of the way before the main rename
+> - * 2/ A filesystem that supports white-out might want to create a whiteout
+> + * 2. A filesystem that supports whiteout might want to create a whiteout
+>   *   in place of the file being moved.
+>   *
+>   * For this they need two dentries which temporarily have the same name,
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
