@@ -1,238 +1,137 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618E24B0493;
-	Wed, 30 Sep 2026 10:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC034A99C3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765614; cv=none; b=c0eWKhZclWnqJpFptdDJqMmlfYHSjbK3h2u+vbTNPWIbgGJ710UPyY2UGl7htNBhshbfTUHEd2il6MKhJM22wFI59sImQXzpMvpWhFg4KgnT7zUPqZ+Xqh65Rj+C2j8YIMsDWatxMLda/XrqXwU6/R83wLW66pZdMD0suyYG150=
+	t=1790765635; cv=none; b=Z0XzoXKnGKuTPiIMR4M4T8EpYejg39clehC/ws0/hPNcwM5CWCfiG0CAUY1WTYYha7O8qUYDyRGddR92U+lUfJ1JQmbW0WdGUQGHzUU1tsUDsCiaJR8uO7foBAf5rp7FaCw1yTjKBQNDuTNFT92g+o7BohTpN0R5klS2NkyjOWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765614; c=relaxed/simple;
-	bh=tludWhuI7KWuPh9oQDoX76PQGtABhCCxsjAEb5GJ0qk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kXelWoKScJuIp+tLgviYfaCgHBBW7WId8HxEUgs485JIGa50SlmjHkNwkhdt1Ffnivw3tAc7i02uO/G1FkwWVWFd0WDDUraO98ujqQPqETjSCZvjphSLaPlBynEpi5HII+qiSZzp9imYhngEVq/nXyIAN29dHHihjHWsU472L8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=atRSPYh1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790765635; c=relaxed/simple;
+	bh=lb6gEf/21kZKV9cz1QriYTYSED2/a97q5K/C9CtoXSE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hETBUHbmKqU7RwnlUk8x7y4cCs8S2d43nj3nZy/6r4RBpTCZdTxjMUxaBV4QS3491KY1p1hR/OALfDl+F5CscoNvBcb6UMJBYpDvMsUuNv5FfPwjWVBLjdcnvOsJ/KOSE8woqGpMPXE2mA3xpa5it8li/pdspZokRotaNYPDcCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4h+mXXp; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="atRSPYh1"
-Received: from [192.168.1.7] (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6973DB07;
-	Wed, 30 Sep 2026 12:51:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790765491;
-	bh=tludWhuI7KWuPh9oQDoX76PQGtABhCCxsjAEb5GJ0qk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=atRSPYh1+w6W5iZDpjKJIlzlHqbNpBEb72gzr0Ey+xF3G7d+/j4ey1FAhGMaFby+o
-	 M/XAkcRkb9VyiBP2xipR3PdjP75sbHHaCl4tubbRkLRrdF9zlWrnznVkyasuW2hRFq
-	 jFfsg2EFt7fEeLKgLyEngG6wHXPDNWYkZfyTe1LA=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Wed, 30 Sep 2026 12:53:14 +0200
-Subject: [PATCH v12 1/2] dt-bindings: media: i2c: Add mira220 image sensor
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4h+mXXp"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4c0da0145so381135a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:53:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790765624; x=1791370424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GgJIB0bMoo4nkNRzK+zBMt7lqFO3N9sH9lPeSDZw+pw=;
+        b=k4h+mXXpVNYQ/d2DntWMg4GDrZbGsyufzXP3/HTN52WVmM9M3EYRDi8sNgaWFi47G4
+         d+gV9v9LTYIb7dmX0jvTEIG+lb5wSgmxzyN0Spa6FfxH6T9X241uZkU+bUtgA1S+vrdC
+         UCncZU7ni4DorD6g4MUOzb0JpChYqSghxAMZssgDGJ8s933++Mz/DW15BWqyeklmdAWs
+         yTrkh7pIzD0SS2ihAMyzklFriS6ZbxRCul4iBS8m8ygha6NOB4zxZO6robT7bHMMj4vw
+         6fml3jF//iif8JaT2n8xKvQnDdna2I11QqBtnwoVoozN1l1Rx83Sj3K49/em5g0ge5Tt
+         WA2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790765624; x=1791370424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GgJIB0bMoo4nkNRzK+zBMt7lqFO3N9sH9lPeSDZw+pw=;
+        b=0jjyFnqPhImVQnm3sxiHmbZl+R4ThPYoIAXw3zusBWOiMomNVvxzcBIkVRe1eNSw6n
+         hc3x8veGGGc0GhJWq8FHjEhmHShO4EeCao4dnRli/aKKVbG5/KzH9TQfkpuLXFok8VQ9
+         aKCoPimUjcc5rJJpZXbA3GSyU6TQFvfldPBYABvAYniLZHF+7zWdc0KCLD0JvLpzOp2f
+         pK3N7pTvbBOdXp/rMt4LdfsHGLy+esTl2KCgHCz8eW+Mnb4lTuo219aJy3JzTKcRM/3P
+         1E01zmutNcMEkS8qaS+iGsTu6YqGueRNj7XzlXRlEzz6RQikU8mbXaBggllGURNvEFvQ
+         nNUg==
+X-Gm-Message-State: AFq9FYLH7oapoffL3PrioNAgtzKwBGCa7HF1mRtxcY7PCBbPjVljSzfp
+	MDoBP3M1ShnOA1U1kCb3SHJ945poE/Uxo55FJNVk9R/39K3iXnntgViU
+X-Gm-Gg: AYBFou0quoJ18B6KYfVMl7kcj6mupUzbhJnsJRnGcqkjtBxi5n9XYlrnT5EQBIV7Fsg
+	vuA08jKhJd8mLf1VJH4LnD9QLcHYNdXxDMc4UKvCgUC2bSZu8ovR3cF81VKiMBOTP/RKJav1Rv/
+	HZB7Dkacpn8FFFs9abt05wzptuItNdOJWF9gaXP5tWXjexW8rO7abF+Lvh5xd1Tu2yxzp5FxSih
+	/FcjHv7Lu2hpdq0JWfKR5doNnCXGDHSiZNU/F3MSquH3+bucUUhc+Dy6F8uYp7N5IZXttEq8MBc
+	g/2sqHH11quFFdlSj2kzlKcjVZQhkDXkL16Q8SyGkbxgJgViqxsMEZWnb8EqX+NRQ+f4RiFo+ki
+	dgSlHVKC3YVriCXaijE9NR8NbGomkh/E/qdoKsfDor9JhOd1T0NrwHGbXgPUn8GvWkhTTPJlD9G
+	HJ1MBRKYlMApmI8wekqiZdiXuUDQWKsBbecfxHX6SQn6U+ekeMoKAIYyAHoeM+6lSwRhwqK/3DE
+	jBpo02E4SK10B7jegc=
+X-Received: by 2002:a17:90b:2b44:b0:39d:b1bd:b384 with SMTP id 98e67ed59e1d1-3a4d1510453mr765358a91.17.1790765624466;
+        Wed, 30 Sep 2026 03:53:44 -0700 (PDT)
+Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce1c5972sm2799185a91.11.2026.09.30.03.53.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 03:53:44 -0700 (PDT)
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	Nirmala Devi Mal Nadar <m.nirmaladevi@ltts.com>,
+	Bhargav Raviprakash <bhargav.r@ltts.com>,
+	Lee Jones <lee@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	Ridham Khurana <khurana.ridham222@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
+Date: Wed, 30 Sep 2026 10:53:25 +0000
+Message-ID: <20260930105333.3522412-1-khurana.ridham222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-mira220-v12-1-07061064cd7b@ideasonboard.com>
-References: <20260930-mira220-v12-0-07061064cd7b@ideasonboard.com>
-In-Reply-To: <20260930-mira220-v12-0-07061064cd7b@ideasonboard.com>
-To: Philippe Baetens <philippebaetens@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4484;
- i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=R360zkA1nKcFrybNyyU2mixAnWiG5Z5Vw4TKNrHudLA=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqvOohEoh+IERWBq02pahNomFNGkHj3P2+AGabj
- QxU/+8xpjCJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCarzqIQAKCRByNAaPFqFW
- PK14D/9wJQZlNkCmVXwSbqe12jpGalZBD7oWyxOTQDS3/GKYfkggHuS04oWKorpcMoycvraosM0
- Sdtu37NaQD+GLUhfj3/Xh7XDK5i53JSUfKzNI3XSTGBBI4apG7vpc/DFCJJX0gsh0Cr21zLvWyg
- rtLZK3bghzX9aMKkTGK+KnN9YpCyyBoI0xwZxAndVXRqHexCQ1BTwMaRIuz8NHO7y9YTWQO+Nfe
- 1oTs/pU36l2yLaHfPuEBg5R2AxC0vpi+UCnjdtbZYM+E5UIAxNe/EHWck0Yt5B+Dm0cJkCn9nNC
- 2AoC817oZsNH7hTge3JAYOlgzJLhS7srwmR0BdVbcuPnvD5o/VGXJ6PlT2+9OC4wDS8aQ122LVC
- +19cxIeGKLv3QGZ/ENvFJM4FMaOxlAvL2TM4Jp6cWjTmJSp0uu/MwsytOaMI+ta9pp+WI9K3QKE
- KBGLnhjlsIikMVt+SfmOHjc4tQgSKKQTcuKJjGP7KcVuvFHhdRNpMuC4koQi0fZeYWeicPOxP5/
- 5MP+YLE8WOguAV7oBssUC5Yf98RFvJbLIvuZXKUxhl1qR0+flqcggHWvpBSmfmj9mOpzmp/LQaF
- 3DSElQ7SO0CbKG9+X0uxqwd7i8NYY+N7cq7kw06t+HWnZ92fFrtlVgYm/a6etBFdMZYwByBriKJ
- xweFNOYsmRstTTQ==
-X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
- fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
+Content-Transfer-Encoding: 8bit
 
-From: Philippe Baetens <philippebaetens@gmail.com>
+The TPS65224 BUCK2, BUCK3 and BUCK4 descriptors pass 4 as
+n_linear_ranges, but tps65224_bucks_2_3_4_ranges[] only has two
+entries, covering selectors 0x00-0x45.
 
-Add bindings for the AMSOSRAM Mira220 image sensor.
+The linear range helpers loop over n_linear_ranges entries, so any
+lookup of a selector above 0x45 reads past the end of the array and
+treats whatever follows it as two more ranges. This happens on the
+normal registration path when the core checks the voltage constraints
+against every selector. TPS652G1 uses the same descriptors and is
+affected too.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Use ARRAY_SIZE() so the count always matches the table.
 
+Fixes: 00c826525fba ("regulator: tps6594-regulator: Add TI TPS65224 PMIC regulators")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
 ---
-v11->v12:
-- Remove labels from examples
-- Add myself as co-maintainer
+Build-tested on arm64 with W=1. Not tested on hardware.
 
-v8->v9:
-- Make link-frequencies required
+ drivers/regulator/tps6594-regulator.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-v7->v8:
-- Add Conor's tag
-
-v5->v6:
-- sashiko: use 'unevaluatedProperties: false' at the top level to allow
-  properties from video-interface-devices.yaml
-
-v4->v5:
-- reflow description to 80 cols and drop |-
-- remove 'reg' description
-- remove 'anyOf' from data-lanes
-- remove 'link-frequencies' from required properties
-- remove 'clock-continuous: true' as we already allow all properties
-  from 'video-interfaces.yaml'
-- remove tabs from the example
----
- .../devicetree/bindings/media/i2c/ams,mira220.yaml | 103 +++++++++++++++++++++
- MAINTAINERS                                        |   7 ++
- 2 files changed, 110 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-new file mode 100644
-index 000000000000..f809530ee660
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-@@ -0,0 +1,103 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 2.2 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  Mira220 is a 2.2 MP NIR enhanced global shutter image sensor designed for 2D
-+  and 3D consumer and industrial machine vision applications. Due to its small
-+  size, configurability and high sensitivity both in visual as well as NIR, the
-+  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
-+  Vision, Structured Light Vision for Robotics and AR/VR.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira220
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdig-supply:
-+    description:
-+      Digital I/O voltage supply, 1.35 volts
-+
-+  vana-supply:
-+    description:
-+      Analog1 voltage supply, 2.8 volts
-+
-+  vddl-supply:
-+    description:
-+      Digital core voltage supply, 1.8 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (XCLR) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdig-supply
-+  - vana-supply
-+  - vddl-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@54 {
-+            compatible = "ams,mira220";
-+            reg = <0x54>;
-+            clocks = <&cam1_clk>;
-+            vana-supply = <&cam1_reg>;
-+            vdig-supply = <&cam_dummy_reg>;
-+            vddl-supply = <&cam_dummy_reg>;
-+            port {
-+                endpoint {
-+                    clock-lanes = <0>;
-+                    data-lanes = <1 2>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4cc4a2dc6d30..d61d664aa459 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1454,6 +1454,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
+diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
+index a54d88c58e7b..84974531822e 100644
+--- a/drivers/regulator/tps6594-regulator.c
++++ b/drivers/regulator/tps6594-regulator.c
+@@ -242,21 +242,21 @@ static const struct regulator_desc tps65224_buck_regs[] = {
+ 			  TPS65224_MASK_BUCKS_VSET,
+ 			  TPS6594_REG_BUCKX_CTRL(1),
+ 			  TPS6594_BIT_BUCK_EN, 0, 0, tps65224_bucks_2_3_4_ranges,
+-			  4, 0, 0, NULL, 0, 0),
++			  ARRAY_SIZE(tps65224_bucks_2_3_4_ranges), 0, 0, NULL, 0, 0),
+ 	TPS6594_REGULATOR("BUCK3", "buck3", TPS6594_BUCK_3,
+ 			  REGULATOR_VOLTAGE, tps6594_bucks_ops, TPS65224_MASK_BUCKS_VSET,
+ 			  TPS6594_REG_BUCKX_VOUT_1(2),
+ 			  TPS65224_MASK_BUCKS_VSET,
+ 			  TPS6594_REG_BUCKX_CTRL(2),
+ 			  TPS6594_BIT_BUCK_EN, 0, 0, tps65224_bucks_2_3_4_ranges,
+-			  4, 0, 0, NULL, 0, 0),
++			  ARRAY_SIZE(tps65224_bucks_2_3_4_ranges), 0, 0, NULL, 0, 0),
+ 	TPS6594_REGULATOR("BUCK4", "buck4", TPS6594_BUCK_4,
+ 			  REGULATOR_VOLTAGE, tps6594_bucks_ops, TPS65224_MASK_BUCKS_VSET,
+ 			  TPS6594_REG_BUCKX_VOUT_1(3),
+ 			  TPS65224_MASK_BUCKS_VSET,
+ 			  TPS6594_REG_BUCKX_CTRL(3),
+ 			  TPS6594_BIT_BUCK_EN, 0, 0, tps65224_bucks_2_3_4_ranges,
+-			  4, 0, 0, NULL, 0, 0),
++			  ARRAY_SIZE(tps65224_bucks_2_3_4_ranges), 0, 0, NULL, 0, 0),
+ };
  
-+AMS MIRA220 DRIVER
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
-
+ static const struct tps6594_regulator_irq_type tps6594_buck1_irq_types[] = {
 -- 
-2.55.0
+2.47.3
 
