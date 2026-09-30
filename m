@@ -1,79 +1,175 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35F15013BC;
-	Wed, 30 Sep 2026 14:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6424DE728
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778301; cv=none; b=aEVu/sGgTSHBF88lE45zKwE2bUEJNoLgeY2r+gQ25ZkmDDxZKsD9yupoIWqJSKTd4DQ4JgYO3qe/IGPgWxFPuDXEcS769B7nb9ydaRhYLkyQ1r3VBA1gGrvdyIj4U1JqGS/RRYAqEI8ev7Wm9xGMSleeKG9sOb8vAk8eet2HLd8=
+	t=1790778311; cv=none; b=UY0RXcV01O9arNecTE1DYY+L5PfCsY60th4175wtcQK0piy2LZDiXnR+wIf6F3dZ6SFmFFaSVaxPPNi+hQOTpeVWnKZoZiYLf9p3lMeiDbXBqzuK67j51s/99Ey18d0TcwK153KYBuWQIXGBnUHr4L7wZuX9MlSrBzpm3P7HtHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778301; c=relaxed/simple;
-	bh=Ob/WFEhtiG/vySjXgXqfPfTA9ToAjDkVPZeXU4RVCNg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=MWg1XzsWckuHqbX18lWmRBemEBHVslPyOnyA0zAxDwyAtCSSHfNL9iHY8Fgq7ZVGftP4BhHAbApeHI5zVLgDvYGtQv7GzIu+S9CuJExXtA99lEZqEmiODnIXfd4c2UMd1ik/SYlcjgdaSPQZYiaJ89KEINUj7yic9J+Cmjp7RIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=vH5BTQLo; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1790778311; c=relaxed/simple;
+	bh=6XX/mbi7gy8/2ofVApvgqfPc7bRQKgya0ZaSKKV+QfI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=YYgZ+q+CVIeCwL7zkt2M8wWVaqILw/I/iW/SIrTF/6xgtizFJ5BUa42cMsl2AuMTSeMlVW0NNFzcZIFjf2Us6jy0GKosjKYtkbk941RItGCw1M4RCUVC9YUm8QsMZVxZ3GZ7bdp/CuY5zjiwq1UOcUBfOdGsG02eHy2t0wP6GUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cHKsg/zH; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="vH5BTQLo"
-Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
-	by smtp6-g21.free.fr (Postfix) with ESMTP id F1AC2780375;
-	Wed, 30 Sep 2026 16:24:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1790778285;
-	bh=Ob/WFEhtiG/vySjXgXqfPfTA9ToAjDkVPZeXU4RVCNg=;
-	h=Date:From:To:Cc:In-Reply-To:Subject:From;
-	b=vH5BTQLo8DAko0GSLaTlt/8Ab5sLu1CdmBTiTgFtajB4TMJ0VCOMW5eXDfgR3EAKW
-	 KGHEfBcwkHZuG6yZ5cB0j8EcLUQ0CQqEXo6NLcwp84Hg2n1ZKaMhOSuQ3NWnbykjrr
-	 HS+WVNmD5j3fPKUOwJ7pwxhh1MiBH1R/RXqDwjvXVyqpZMXy5xqxZSEjihMvYwemPy
-	 0wXEX33gH2oqZ/9LjGJ6Ci5bjtKQCWSlFqL2cipmtDJxM4W6iZnhsAmSu27203cqQ+
-	 ckX/w7hTjS/Jv1HAtEuZvea90S1duyPPwPvNh3BnFSh/L1a7+t1efNtclU0xHzV2aX
-	 EE7AAnPdr7G1A==
-Date: Wed, 30 Sep 2026 16:24:44 +0200 (CEST)
-From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	=?utf-8?Q?St=C3=A9phane?= Grosjean <s.grosjean@peak-system.fr>
-Message-ID: <700277696.812114266.1790778284780.JavaMail.root@zimbra65-e11.priv.proxad.net>
-In-Reply-To: <20260930-foamy-nostalgic-elk-30d429-mkl@pengutronix.de>
-Subject: Re: [PATCH] can: peak_usb: Add support of loopback mode to the
- PCAN-USB FD family
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cHKsg/zH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790778293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qrMOOS/D9EUBGZMO6OeW7Lw5PFy3M+31Pwt16QAA64Y=;
+	b=cHKsg/zHTbYUkQm6YEeIYnNrOKsEwZ0UnXgeAwa4PJnqc0nZXgHaB4kXiB7E6sfbbiBhct
+	A2/4oq0Zk+81rn3VuXM8qj/y9blAVVOdRJ3NVAIdTGciPnNt9YqNKo6rf6PT2gwJQg8ssX
+	6cXLqGsEwodeXaBA3UUIm1X+2+OSKHE=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-380-zugMvPWqPcqTA-G4QDcUeA-1; Wed,
+ 30 Sep 2026 10:24:47 -0400
+X-MC-Unique: zugMvPWqPcqTA-G4QDcUeA-1
+X-Mimecast-MFC-AGG-ID: zugMvPWqPcqTA-G4QDcUeA_1790778285
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DF85C195399C;
+	Wed, 30 Sep 2026 14:24:44 +0000 (UTC)
+Received: from [100.90.87.156] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B674030000E7;
+	Wed, 30 Sep 2026 14:24:41 +0000 (UTC)
+Message-ID: <cd768cab-78b7-4269-9e86-2bd49d261e1c@redhat.com>
+Date: Wed, 30 Sep 2026 16:24:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC151 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: stephane.grosjean@free.fr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 1/6] dpll: zl3073x: notify sibling pin when
+ shared output config changes
+From: Ivan Vecera <ivecera@redhat.com>
+To: netdev-bot+sashiko@kernel.org, Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Chris.duQuesnay@microchip.com,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, min.li@microchip.com,
+ pabeni@redhat.com, poros@redhat.com, richardcochran@gmail.com,
+ vadim.fedorenko@linux.dev, linux-kernel@vger.kernel.org
+References: <20260928185552.1103515-2-ivecera@redhat.com>
+ <179075143120.434549.1576015918203645155@kernel.org>
+ <d631d2ed-63b5-4785-80ae-b16deb3edd1a@redhat.com>
+Content-Language: en-US
+In-Reply-To: <d631d2ed-63b5-4785-80ae-b16deb3edd1a@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-> > @@ -1266,7 +1272,7 @@ const struct peak_usb_adapter pcan_usb_fd =3D {
-> >  =09.ctrlmode_supported =3D CAN_CTRLMODE_FD |
-> >  =09=09=09CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
-> >  =09=09=09CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
-> > -=09=09=09CAN_CTRLMODE_BERR_REPORTING,
-> > +=09=09=09CAN_CTRLMODE_BERR_REPORTING | CAN_CTRLMODE_LOOPBACK,
->=20
-> Can you keep the CAN_CTRLMODE sorted by their value?
->=20
-> Please make an incremental patch for the CAN_CTRLMODE_BERR_REPORTING,
-> I'll squash that...and add CAN_CTRLMODE_LOOPBACK in the appropriate
-> place.
->=20
-Hello Marc,
+On 9/30/26 9:49 AM, Ivan Vecera wrote:
+>> [Severity: High]
+>> Can sibling->dpll_pin be NULL, or the sibling already freed, by the time
+>> it is dereferenced here?
+>>
+>> zl3073x_dpll_output_pin_sibling_get() returns any output pin on
+>> zldpll->pins with the matching id. It does not check that
+>> sibling->dpll_pin is still set. The lookup runs under zldpll->lock, but
+>> the dereference happens after mutex_unlock().
+>>
+>> The teardown path does not take zldpll->lock:
+>>
+>> drivers/dpll/zl3073x/dpll.c:zl3073x_dpll_pins_unregister() {
+>>     list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
+>>         zl3073x_dpll_pin_unregister(pin);
+>>         list_del(&pin->list);
+>>         zl3073x_dpll_pin_free(pin);
+>>     }
+>> }
+>>
+>> zl3073x_dpll_pin_unregister() ends with:
+>>
+>>     dpll_pin_put(pin->dpll_pin, &pin->tracker);
+>>     pin->dpll_pin = NULL;
+>>
+>> and dpll_pin_put() has already dropped dpll_lock at that point.
+>>
+>> zl3073x_dpll_pins_register() uses list_add(), so the N pin (2k+1) sits
+>> before its P pin (2k) on the list. That means N is torn down while P is
+>> still registered and reachable over netlink.
+>>
+>> One possible interleaving:
+>>
+>> CPU1 (devlink reload, flash_prepare or unbind)
+>> zl3073x_dev_stop()
+>>    zl3073x_dpll_unregister()
+>>      zl3073x_dpll_pins_unregister()
+>>        dpll_pin_put(N)          /* dpll_lock released */
+>>
+>> CPU0 (DPLL_CMD_PIN_SET on P, dpll_lock held)
+>> dpll_pin_freq_set()
+>>    zl3073x_dpll_output_pin_frequency_set(P)
+>>      mutex_lock(&zldpll->lock)
+>>      sibling = zl3073x_dpll_output_pin_sibling_get(P)  /* finds N */
+>>      mutex_unlock(&zldpll->lock)
+>>
+>> CPU1
+>>        N->dpll_pin = NULL
+>>        list_del(&N->list)
+>>        zl3073x_dpll_pin_free(N)
+>>
+>> CPU0
+>>      __dpll_pin_change_ntf(sibling->dpll_pin)
+>>
+>> In that case, would __dpll_pin_change_ntf() get NULL and oops on
+>> pin->id and pin->clock_id in dpll_pin_notify()? Or would CPU0 read the
+>> freed zl3073x_dpll_pin?
+>>
+>> The list walk in zl3073x_dpll_output_pin_sibling_get() can also run
+>> while list_del() is in progress, because the writer never takes
+>> zldpll->lock.
+>>
+>> zl3073x_dpll_output_pin_frequency_set() and
+>> zl3073x_dpll_output_pin_phase_adjust_set() have the same pattern.
+>>
+>> The later patch "dpll: zl3073x: add PTP periodic output support" also
+>> calls zl3073x_dpll_output_pin_sibling_get() from
+>> zl3073x_dpll_ptp_enable() without holding zldpll->lock at all.
+> 
+> This cannot happen; the notification is already serialized against pin
+> teardown.
+> 
+> The output setters (esync_set / frequency_set / phase_adjust_set) run
+> with dpll_lock held: the dpll core invokes the pin ops under dpll_lock,
+> and they use __dpll_pin_change_ntf(), whose contract is exactly "caller
+> must hold dpll_lock" (dpll_netlink.c: lockdep_assert_held(&dpll_lock),
+> "suitable for use inside pin callbacks which are already invoked under
+> dpll_lock"). So sibling_get() and the __dpll_pin_change_ntf() call - even
+> though it runs after mutex_unlock(&zldpll->lock) - are all covered by
+> dpll_lock.
+> 
+> Pin teardown frees the sibling via zl3073x_dpll_pin_unregister() ->
+> dpll_pin_unregister(), which takes dpll_lock. While a setter holds
+> dpll_lock for the whole callback, teardown cannot even reach
+> dpll_pin_unregister(N), let alone the following list_del()/kfree(). The
+> proposed interleaving (CPU1 freeing N while CPU0 notifies) is therefore
+> impossible: CPU0 holds dpll_lock throughout.
+> 
+> The PTP enable() path (zl3073x_dpll_ptp_enable(), added in patch 6) does
+> call sibling_get() outside dpll_lock, but it is serialized differently:
+> zl3073x_dpll_unregister() unregisters the PTP clock *before* the pins
+> (zl3073x_dpll_ptp_unregister() then zl3073x_dpll_pins_unregister()), and
+> ptp_clock_unregister() quiesces in-flight enable() callbacks. No
+> enable() can run while the pins are being freed.
+> 
 
-Do you want me to post a v2 of this patch with the CAN_CTRLMODE flags sorte=
-d by value, or do you prefer a separate incremental patch on top of the bus=
- error reporting series?
+More thinking about it... and yes this can happen :-(
+The pin removal from the list must be performed prior its unregistration
+and also the list management has to be protected by zldpll->lock.
 
-> Marc
->=20
-> --
-> Pengutronix e.K.                 | Marc Kleine-Budde          |
-> Embedded Linux                   | https://www.pengutronix.de |
-> Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-> Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
->=20
+Will fix and send as bugfix to net branch with proper Fixes: tags.
+
+Thanks,
+Ivan
+
