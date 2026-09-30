@@ -1,209 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8C93C10BF;
-	Wed, 30 Sep 2026 19:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCC53C09F5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794885; cv=none; b=tD1mKiJQrv+1Dv5F3ZBXK7MRzjHav9YP9VV2S7se7YQeByWpDf1yG8XCOJFHQFj2jg5o/yres8sCV2l+AYuqwgE1QhvSFSGVZ0/os9Z9jUN6QlE3C2Y5MAY/CiZDKvCjRFWaStPiaeXtddY1caCtMfU9F6B1lKguuJ+cNLHEbX8=
+	t=1790794900; cv=none; b=S5Cuw+7q6m+JctwriKR0kEpTPPHSnscxpdFWj0bUTLeeUCMSL7z2SabcxtiNpYzBsPkalgY2zzu3xTOWVd/vpPColpR6bebEQw4QiEle6782rQ3TaQpjjWskUtSJsYtOkQ4R4RCy8q3IP/Qg7756dUZAJupTaP2Wb38FDe/OYhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794885; c=relaxed/simple;
-	bh=KjIuQEjLYXT0dJKTl5NO8AML+BaDM/a1zdfKbin2LF0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=mct5/4yI/NnWHChDBNtFaEXnN5LpjyjDVEbR0XD58SKs0dPRxgYrNcGTsZU5V+EFaKBPUeTFwnYcwqrZav2R5nM3SVdDasjMyD0aa22OTb79l9iUmi8hhIg2xIWx/oudPDIMb5hTtwlvjzuwKPevI7khrDY78n5Fl5K1XVpwZSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AfOugEP9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AfOugEP9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617E41F008A1;
-	Wed, 30 Sep 2026 19:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790794872;
-	bh=XZ9p+0TXsTapVE0fUDcxcrxFDfTJp6cr+bt+UngMYk0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AfOugEP91NYVCmPmVOD6zXRVsG4tpdYvKHH57PQ0NhP32hoFVSp1mwVpKuJGcbMxk
-	 IVSyP/V5SJfJtM+kNKQQES/oP7r4sOtjDeBVT04Y6h8Pa9lfdAvwu2qn4YVNUMYTjK
-	 xoz1+LkQVNjPzQr88ZznUqCs7RO5t9ViwPP+3GVQ=
-Date: Wed, 30 Sep 2026 12:01:10 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador
- <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
- Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org, Muchun Song
- <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
- <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Randy
- Dunlap <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v6 00/12] mm: Switch device DAX to section-based vmemmap
- optimization
-Message-Id: <20260930120110.3ace5f23b7530e179272fac4@linux-foundation.org>
-In-Reply-To: <20260930140627.57431-1-songmuchun@bytedance.com>
-References: <20260930140627.57431-1-songmuchun@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1790794900; c=relaxed/simple;
+	bh=3lx/w9pnmPDAskzdtj39rTa8lt8/KLUU44H4nGdIoFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=eQO75bVPlgYhfM1evCZmT+Z2HwrP+MKhwVYRnUUn7ioASNAoTpFTu5J6bm3S1WmzhTvmNmeqmJgXaU/linZGeQ/rvOgeqUIgoqbTF62sGSXGVqKa2/Na6TGP8K3jzhSNcuQVprpaqF16KPWsI0sTQAIcb4l8uFvMHPs5ujYgAqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.23.234) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 30 Sep
+ 2026 22:01:26 +0300
+Message-ID: <d95d424c-77a7-4c59-a7cb-9e547af7461c@auroraos.dev>
+Date: Wed, 30 Sep 2026 22:01:25 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tick/sched: check skew_tick kernel parameter's validity
+To: Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen
+	<anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, Ingo
+ Molnar <mingo@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260829202535.46470-1-s.shtylyov@auroraos.dev>
+ <87ecebj080.ffs@fw13>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <87ecebj080.ffs@fw13>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-On Wed, 30 Sep 2026 22:06:15 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
-
-> This version is based on mm-new commit a878c908dc92.
+On 9/29/26 11:01 PM, Thomas Gleixner wrote:
+[...]>> In skew_tick(), the result of get_option() call is ignored, so even if a
+>> value of the skew_tick kernel parameter was not specified (or specified
+>> as a list or range), the kernel won't complain. Add the missing check...
+>>
+>> Found by Linux Verification Center (linuxtesting.org) with the Svace static
+>> analysis tool.
+>>
+>> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+>>
+>> ---
+>> The patch is against the timers/nohz branch of the tip.git repo...
+>>
+>>  kernel/time/tick-sched.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+>> index c1ee0b256445..34ceccdd49b5 100644
+>> --- a/kernel/time/tick-sched.c
+>> +++ b/kernel/time/tick-sched.c
+>> @@ -1483,7 +1483,8 @@ static int sched_skew_tick;
+>>
+>>  static int __init skew_tick(char *str)
+>>  {
+>> -     get_option(&str, &sched_skew_tick);
+>> +     if (get_option(&str, &sched_skew_tick) != 1)
+>> +             return -EINVAL;
+>>
+>>       return 0;
+>>  }
 > 
-> This series is split out from the earlier, larger series "mm: Generalize
-> HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
-> vmemmap optimization across HugeTLB and device DAX, this subset addresses
-> a single, self-contained step: switching device DAX to the section-based
-> sparse-vmemmap optimization infrastructure introduced for HugeTLB.
+> sched_skew_tick should be converted to bool and this function should
+> simply do:
 > 
-> After the HugeTLB conversion, optimized vmemmap state is described by
-> the memory section and the sparse-vmemmap population path can allocate or
-> reuse shared tail vmemmap pages based on that metadata. Device DAX still
-> uses the older DAX-specific population model, including a separate tail
-> vmemmap page reservation and architecture-specific logic to locate or
-> populate reusable tail pages.
+>        return kstrtobool(str, &sched_skew_tick);
+
+   Thanks for your comment!
+   OK, I'll do that (and add the Suggested-by: tag, of/c)...
+
+> And to make it complete, sched_skew_tick should be annotated with
+> ro_after_init.
+
+   I guess you meant __ro_after_init? Would it then be OK adding it
+in the same patch?
+
+> Thanks,
 > 
-> This series makes device DAX use the same section-based model. Device DAX
-> records the compound page order from pgmap->vmemmap_shift in section
-> metadata before vmemmap population, uses the common per-zone shared tail
-> vmemmap page, and drops the extra reserved tail page. The powerpc radix
-> path is updated to use the same shared tail-page helper, so the generic
-> and powerpc DAX paths follow the same reservation model.
-> 
+>         tglx
 
-Thanks.  I updated mm-unstable to this version.
-
-> 
-> v6:
-> - Use try_get_page() to prevent the shared device DAX tail-page
->   reference count from overflowing (suggested by Andrew Morton,
->   reported by Sashiko)
-> - Move constant declarations to the top of their functions and fold
->   the shared tail-page array lookup into vmemmap_tails() (suggested by
->   David Hildenbrand)
-> - Clarify the DAX population flag description and why optimized tail
->   pages must not be poisoned (suggested by David Hildenbrand)
-> - Collect Acked-by tags from David Hildenbrand
-> - Rebase onto mm/mm-new
-
-
-Here's how v6 altered mm.git:
-
-
- arch/powerpc/mm/book3s64/radix_pgtable.c |    8 +++--
- mm/sparse-vmemmap.c                      |   32 ++++++++++++---------
- 2 files changed, 25 insertions(+), 15 deletions(-)
-
---- a/arch/powerpc/mm/book3s64/radix_pgtable.c~b
-+++ a/arch/powerpc/mm/book3s64/radix_pgtable.c
-@@ -1042,13 +1042,17 @@ static pte_t * __meminit radix__vmemmap_
- 			/*
- 			 * When a PTE/PMD entry is freed from the init_mm
- 			 * there's a free_pages() call to this page allocated
--			 * above. Thus this get_page() is paired with the
-+			 * above. Thus this try_get_page() is paired with the
- 			 * put_page_testzero() on the freeing path.
- 			 * This can only called by certain ZONE_DEVICE path,
- 			 * and through vmemmap_populate_compound_pages() when
- 			 * slab is available.
-+			 *
-+			 * Use try_get_page() to prevent the shared page refcount
-+			 * from overflowing.
- 			 */
--			get_page(reuse);
-+			if (!try_get_page(reuse))
-+				return NULL;
- 			p = page_to_virt(reuse);
- 			pr_debug("Tail page reuse vmemmap mapping\n");
- 		}
---- a/mm/sparse-vmemmap.c~b
-+++ a/mm/sparse-vmemmap.c
-@@ -170,10 +170,14 @@ static void * __meminit vmemmap_alloc_bl
- #ifdef CONFIG_VMEMMAP_OPTIMIZATION
- #define VMEMMAP_OPTIMIZATION_NR_ORDERS	(MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
- 
--static __ref struct page **vmemmap_tails_alloc(struct zone *zone)
-+static __ref struct page **vmemmap_tails(struct zone *zone)
- {
--	struct page **pages;
--	const size_t size = array_size(VMEMMAP_OPTIMIZATION_NR_ORDERS, sizeof(*pages));
-+	const size_t size = array_size(VMEMMAP_OPTIMIZATION_NR_ORDERS,
-+				       sizeof(*zone->vmemmap_tails));
-+	struct page **pages = READ_ONCE(zone->vmemmap_tails);
-+
-+	if (pages)
-+		return pages;
- 
- 	pages = slab_is_available() ? kzalloc_objs(*pages, VMEMMAP_OPTIMIZATION_NR_ORDERS) :
- 		memblock_alloc(size, __alignof__(*pages));
-@@ -193,19 +197,19 @@ static __ref struct page **vmemmap_tails
- 
- struct page __ref *vmemmap_shared_tail_page(unsigned int order, struct zone *zone)
- {
--	void *addr;
--	struct page *page, **pages;
- 	const unsigned int idx = order - VMEMMAP_OPTIMIZATION_MIN_ORDER;
-+	struct page *page, **pages;
-+	void *addr;
- 
- 	if (WARN_ON_ONCE(idx >= VMEMMAP_OPTIMIZATION_NR_ORDERS))
- 		return NULL;
- 
--	pages = READ_ONCE(zone->vmemmap_tails) ? : vmemmap_tails_alloc(zone);
-+	pages = vmemmap_tails(zone);
- 	if (!pages)
- 		return NULL;
- 
- 	page = READ_ONCE(pages[idx]);
--	if (likely(page))
-+	if (page)
- 		return page;
- 
- 	addr = vmemmap_alloc_block(PAGE_SIZE, zone_to_nid(zone));
-@@ -218,9 +222,9 @@ struct page __ref *vmemmap_shared_tail_p
- 		atomic_set(&page->_mapcount, -1);
- 		set_page_node(page, zone_to_nid(zone));
- 		set_page_zone(page, zone_idx(zone));
--		prep_compound_tail(page, NULL, order);
- 		if (zone_is_zone_device(zone))
- 			__SetPageReserved(page);
-+		prep_compound_tail(page, NULL, order);
- 	}
- 
- 	page = virt_to_page(addr);
-@@ -528,12 +532,12 @@ static int __meminit vmemmap_populate_co
- 						     unsigned long end, int node,
- 						     struct dev_pagemap *pgmap)
- {
-+	const unsigned long flags = VMEMMAP_POPULATE_DAX;
-+	const unsigned int order = pfn_to_section_compound_order(start_pfn);
- 	unsigned long size, addr;
- 	pte_t *pte;
--	int rc;
--	unsigned long flags = VMEMMAP_POPULATE_DAX;
- 	struct page *page;
--	unsigned int order = pfn_to_section_compound_order(start_pfn);
-+	int rc;
- 
- 	page = vmemmap_shared_tail_page(order, device_zone(node));
- 	if (!page)
-@@ -891,8 +895,10 @@ int __meminit sparse_add_section(int nid
- 
- 	ms = __nr_to_section(section_nr);
- 	/*
--	 * Poison uninitialized struct pages in order to catch invalid flags
--	 * combinations.
-+	 * Poison uninitialized struct pages to catch invalid flag combinations.
-+	 *
-+	 * Tail struct pages in a vmemmap-optimized section are initialized and
-+	 * shared during vmemmap population, so they must not be overwritten here.
- 	 */
- 	if (!section_vmemmap_optimizable(ms))
- 		page_init_poison(memmap, sizeof(struct page) * nr_pages);
-_
+MBR, Sergey
 
