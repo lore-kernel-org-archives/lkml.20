@@ -1,139 +1,168 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7980501F4B;
-	Wed, 30 Sep 2026 15:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32722503BEF;
+	Wed, 30 Sep 2026 15:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783719; cv=none; b=lG4Rls2OMSfsk1frOs1+0PO+RxHWMe1Ql3Gl62335GMm526Ajiiluicy78w9bt5EVqMyC3vTA2VbCKKEFjFYJCsRejfFfBwiTWEh9N1ga/9760hmWUVWUZP+tKdDZ5iO6iPnURxoOUJui8HNUS1tCuR9RHat3Mek2tjsPUL6GU4=
+	t=1790783751; cv=none; b=R190P4N8/MoDi0VIPFl1zqwDYlGZVFjikLAyGyOiFQIYFgp/XqJq6l37xLzxoZqDxmxL/Ucc+hv5aozQ6hnsXNCfFzpgZPjfp6QK2N7NajaqCajW+XKFl+emDNtpujip2f4kZu47fNqsqVYHcdOiAVzDjGvaQu6CaKkBfxPyZsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783719; c=relaxed/simple;
-	bh=rOmg/zuZJLziALrOxUDMmPUvxWPLLGbfLfH+4a06eks=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JzB2ucK8j/HatLmusAXNuik87QIMzTo+v08yQS3Si8o/0/uhlorwBROknIjx2sDUK05TlwfsktHjPembnE8LvyHc5O4R7SCMKLOOJByHqJNHcCaHKIcdW2X3znf+TPrP4wSdpdX7cXWzGTSu/ccCIouczIGfIdfS9cnerPC3rZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1EPT5ymw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FH6Hbv49; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xXEjFxHj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z3YfDuTf; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790783751; c=relaxed/simple;
+	bh=Bc5mWey1FMzal2RQfaDFWEDiyRbRNQu+XKVSnU+udT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IUD/P989HLAJZN0e32ncs0s7RRvEUS06WQ/M0+QjKwv8zc/DahMZrDjSJgEU7z9A3Zi8QROtf9U+M4siD2HmXvur4Me2W63vsiL1IJ5Wp166uKd3lndofnVv+HUt/j4zwO4UfZSyoA5VhkEa7xNCByVJ/rXlLe0YJV80AU3bA2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pTyBwWCd; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1EPT5ymw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FH6Hbv49";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xXEjFxHj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z3YfDuTf"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AE11721C4D;
-	Wed, 30 Sep 2026 15:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790783707; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37nsKjN389F86zefc+/8/JYTfxzCQ5MZ9OZrsTbxoik=;
-	b=1EPT5ymwPRccGZhLQcIc71EBsDCjlI0XdzrBtC32PyPm4tUEnGgHJVmxXdQSjPZ5a9P8Kv
-	18G/Yp/7xJ8k1qNCgR55+MNjunPwWu6jQ5FUgRDQ878JnRqP1/UKQC6eEPqBb6pnZf0yj3
-	bcuziKh4i7MLyY7inDJ+CuOMs5sk1QA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790783707;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37nsKjN389F86zefc+/8/JYTfxzCQ5MZ9OZrsTbxoik=;
-	b=FH6Hbv49bi1W2dOTP5hKldK+TjNumazaRh6tpWr6zZQnGMxyolItXJVhregzvXkXJmepxL
-	A10hQ2JKpQGq4HAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xXEjFxHj;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=z3YfDuTf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790783703; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37nsKjN389F86zefc+/8/JYTfxzCQ5MZ9OZrsTbxoik=;
-	b=xXEjFxHjJiY3jxBMFUCYBSUosU0veaDAJuuUiwJFE/aWlHkesJd78AbalLTAR6/2SNbC5W
-	8ATRqFCgfRznOhi/RAB9Ud2Icdp7sO5lOfio+wk1hLVhNzt7mADyYpSvrSDL91JA5Ad9lb
-	Kpw0te6NlDI4VHCGYWDAVBJ0wCEyvGw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790783703;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37nsKjN389F86zefc+/8/JYTfxzCQ5MZ9OZrsTbxoik=;
-	b=z3YfDuTfa5dPfQ8JlMbnzJPKYF23+lpWUQG3zlXb/qBa95SjlCwvt7TVjG5IQIj5HNpCm3
-	JmZ5+XSqXjbyr0Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6247013722;
-	Wed, 30 Sep 2026 15:55:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Wa1oDtcwvWoNVgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 30 Sep 2026 15:55:03 +0000
-Date: Wed, 30 Sep 2026 17:55:02 +0200
-Message-ID: <87bj9e4tux.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jakub Gawlik <jakubgawlik13@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add micmute LED quirk for Acer Swift SFG16-72
-In-Reply-To: <20260930145839.374762-1-jakubgawlik13@gmail.com>
-References: <20260930145839.374762-1-jakubgawlik13@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pTyBwWCd"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A554C2F;
+	Wed, 30 Sep 2026 08:55:39 -0700 (PDT)
+Received: from [10.57.9.178] (unknown [10.57.9.178])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ADFAF3F86F;
+	Wed, 30 Sep 2026 08:55:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790783743; bh=Bc5mWey1FMzal2RQfaDFWEDiyRbRNQu+XKVSnU+udT4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pTyBwWCdjrYPTJJSYO92B4a1mS3MpLniYzgmdympuLvTm1K6xYAkgDEYfr1yvjVgt
+	 q/y+ffzRccdbw11Z4sxKlJWU2Z8rQwyBLJiTwd+lucIgdcuxmmZI6Y/vMdyE6KYcHB
+	 0dgbg4WFuEyRcOmFkUu0RPcCwQ1GUN6EPm+GPTis=
+Message-ID: <210c0b27-c7cb-447a-b6ee-bf6b3fb63acc@arm.com>
+Date: Wed, 30 Sep 2026 16:55:38 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: AE11721C4D
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 6/9] firmware: arm_rmm: Ensure the RMM has GPT entries
+ for memory
+Content-Language: en-GB
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ jonathan.cameron@oss.qualcomm.com
+References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
+ <20260929221623.1342076-7-suzuki.poulose@arm.com>
+ <20260930-judicious-loris-of-will-dea0a3@sudeepholla>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260930-judicious-loris-of-will-dea0a3@sudeepholla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 30 Sep 2026 16:58:39 +0200,
-Jakub Gawlik wrote:
+Hi Sudeep
+
+On 30/09/2026 15:44, Sudeep Holla wrote:
+> On Tue, Sep 29, 2026 at 11:16:20PM +0100, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> The RMM maintains the state of all the granules in the system to make
+>> sure that the host is abiding by the rules. This state can be maintained
+>> at different granularity, per page (TRACKING_FINE) or per region
+>> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+>> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
+>> all pages in the region must be of the same state, this implies we need to
+>> have "fine" tracking for DRAM, so that we can delegate individual pages.
+>>
+>> For now we only support a statically carved out memory for tracking
+>> granules for the "fine" regions. This can be extended in the future to
+>> allow modifying the tracking granularity and remove the need for a
+>> static allocation by the firmware.
+>>
+>> Similarly, the firmware may create L0 GPT entries describing the total
+>> address space. But if we change the "PAS" (Physical Address Space) of a
+>> granule, then the firmware may need to create L1 tables to track the PAS
+>> at a finer granularity. Linux therefore checks if the platform firmware
+>> manages the PAR region. i.e., the firmware is in charge of managing the
+>> L1 GPTs (creation and the required memory for the GPT tables - via static
+>> carveouts) without host intervention. Support for dynamic GPT creation by
+>> the host will be added later.
+>>
+>> If the firmware requires us to manage the tracking or GPT memory,
+>> deactivate the RMM and reclaim any memory donated at RMM activation.
+>>
+>> Apply the same checks when hotplugged memory is brought online.
+>>
+...
+
+>> ---
+>>   drivers/firmware/arm_rmm/rmi.c | 247 ++++++++++++++++++++++++++++++++-
+>>   include/linux/arm-rmi-cmds.h   |  18 +++
+>>   2 files changed, 264 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+>> index d982cf158f8da..d4d098448e46e 100644
+>> --- a/drivers/firmware/arm_rmm/rmi.c
+>> +++ b/drivers/firmware/arm_rmm/rmi.c
 > 
-> The Acer Swift SFG16-72 (1025:173b) uses the ALC245 codec, but its
-> mic-mute LED is not enabled by default. Apply the existing
-> ALC245_FIXUP_ACER_MICMUTE_LED quirk to enable the mic-mute LED.
+> [...]
 > 
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jakub Gawlik <jakubgawlik13@gmail.com>
+>> +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+>> +{
+>> +	unsigned long l0gpt_sz;
+>> +	unsigned long next, par_state;
+>> +
+>> +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+>> +					  rmi_feat_reg(1)));
+>> +	start = ALIGN_DOWN(start, l0gpt_sz);
+>> +	end = ALIGN(end, l0gpt_sz);
+>> +
+> 
+> Is it guaranteed that end with not be = PASZ ? The spec says RMI_GPT_INFO
+> will return RMI_GPT_INFO when top >= pasz. Unlike start, end for good
+> reason is aligned up(ceil) instead of aligned down, but that also means
+> end will become PASZ when we reach end of memory, no ?
 
-Applied now.  Thanks.
+Good point. The RMM spec needs to be fixed to make the condition
+
+  top > pasz
+
+as the top, is really the top the region and is not inclusive.
+
+This is already a known issue, tracked by FENIMORE-1807. The proposed
+fix is :
+
+pre: UInt(top) > rmm.static.pasz
 
 
-Takashi
+> 
+> Sorry if I am missing something, trying to understand bits and piece of
+> RME still, just getting started.
+
+Thanks for looking !
+
+Cheers
+Suzuki
+
+> 
+>> +	while (start < end) {
+>> +		long ret = rmi_gpt_info(start, end, &next, &par_state);
+>> +
+>> +		if (ret != RMI_SUCCESS) {
+>> +			pr_err("RMI_GPT_INFO failed for %llx-%llx: (%ld)\n",
+>> +				start, end, ret);
+>> +			return -ENXIO;
+>> +		}
+>> +
+>> +		if (WARN_ON(next <= start))
+>> +			return -ENXIO;
+>> +
+>> +		if (par_state != RMI_GPT_PAR_PLAT) {
+>> +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
+>> +				start, next);
+>> +			return -ENODEV;
+>> +		}
+>> +		start = next;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+> 
+
