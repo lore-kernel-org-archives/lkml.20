@@ -1,119 +1,95 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED5A3F1643
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C993F44C9;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750531; cv=none; b=eyMoSd/i8alWnmYWsMDi/ISOWIyotLiTpI7atobude08gmmugU68YB4JahjT50PrcfZf4xMihWfNx5FYEs3jCTIcMMNVmmVNdr/sxWqs+9uyM9rrOHZ1sd3hFh4XkJL2Sb4gfkr33Oec9Ye8wRnqrl0PgbZzzq3J/bd84HbZJJk=
+	t=1790750570; cv=none; b=EnsThVHVoiH+5g154K719vcaFxVy9FNWnXXRiKSPXlNDwhJwgXqQK4r+ZJ2dkPkLZ3iA1Fd386qD1kl4XAOYASmVtgkL/0cATqnkkYOkhctA50DP8G9PigUHaEff7TR7DmvUvZpnrWz8XkcjoJA5IRxtOSCjMiqU6KG6Vr91kbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750531; c=relaxed/simple;
-	bh=GfgIRFKZNhh0/z1g3l0O4prYCqwm9q6Fgf0MfRZNg/0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=El9rqy8gaVZQV4WSKmsLGsfVrq+2SysIsxqS772FaXy005MVPU94vnoiQ0hlNVOsDsqyyB2xcWgVqlflUqHmhggQv09r1DkniuSyD+mL1PVRuPZwRY0D2ZjGO1ZXkBNH7mPila3VQgrrnknGAwhw2ciTbIAw+GCGXDk4QOaKAmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=huaqin.corp-partner.google.com; spf=pass smtp.mailfrom=huaqin.corp-partner.google.com; dkim=pass (2048-bit key) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b=TuI6ccIN; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=huaqin.corp-partner.google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaqin.corp-partner.google.com
+	s=arc-20240116; t=1790750570; c=relaxed/simple;
+	bh=qqBc5eXs9JcVBir3iJDtFfbZkzcUTtSm00qiggjsgEw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Oh7F99XAx8ejxQFupUulqn7DDVNRR3/oHrqnS6urFguMD7tHAnkVa6IEjOtTX2zkxfHk4RV55FpLajCJRReqam6HW5L8rucM1L2I/QCQlWmzBS8Kveoec6I38jnSpkSgljAFemZI2dTFDK/JOw7t1jsfhgtVAIUJ4Zi3NlEAG4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iqgwb7hP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b="TuI6ccIN"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso23614805ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=huaqin-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1790750528; x=1791355328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2bOGTFWV9+cmfJzIAoMh3VDHw7N/QaGZFxNBjbDgjpY=;
-        b=TuI6ccINWr6nJxabQ22G8ckYxuMbjl3ZZ3iwZKHsI0zDVtprEqnXwhC0HByzz2WlqA
-         NNbq3QNoJo19dxEHu6HYVUr3HUxR2yt1J9hstzIj/OkPdWJu7hFMu5hAE7nvv3gqEtNn
-         FcPaGJh94fGcPMoFhz2XIUkHIF+FihNe82dgGEvT2jGiEIyQjxdLoENMtqE89dQCkG4O
-         9B7tscRw0am7aK3DKRrnTVbr0ooJrFYNcdFB73S/nwIFEDYgmIqgx6SDqVSWcl5451qW
-         GROjX8WKzclFXYwCRAaIGHIda7n/LqZw2LD6mBFGin+mbvOhtx/99Xxp2mdVN2LIe8MY
-         Numg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790750528; x=1791355328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2bOGTFWV9+cmfJzIAoMh3VDHw7N/QaGZFxNBjbDgjpY=;
-        b=ljqVRVAafN1H0/KbddCtV4l3KF7GuK5PDYj5m9/WUFeAN8yfOUpZXudE8kYCrQzlY3
-         Q1RJc/cOjIv9R/2/9tbcTXpd0Wd8L/uXUcT1soccDhSeVAEQ+Nk3Q4DQWmK22aD5t1qN
-         AmJl8qJJftQLGyPbntfXpNF2hC/1XbbjwAKGeV64QOSkdCD5ZAPjqyk7JEqOc61sjLPA
-         1as+AL9XPAErM/PZFe/NiXScm2/8EoNUtobM1OtTASHgt6rLlaefqGjbsqmnEvbMpdYi
-         Xad6soSIa+mbYJybkvvue6lc8hPkA4OiU9lKUpCUdOx59VXhRxhPFc2S8UhGSJ3IewrQ
-         ad3w==
-X-Forwarded-Encrypted: i=1; AKwUvByxUJzaIMmoNtxoBpWrZQwR/do6L4LUU1+6O08otPxd0w70tX65cmKbVgmY7Q10mHseYo0i3i2fmtWe+VQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpjdwLpLOWYFrI4K7J9ePNyBRFp4p/9qEnRDUjkF0gNAu17l67
-	xoOG7YMEkrOb6YRPwTezCN6Ztb0YCkDa41kjYFiSwMVTGFLXHtMbCNy2RJD58NBjnlI=
-X-Gm-Gg: AYBFou3BIXzqc3NoaEbIiWXIuP9drGe6MEzya1ScRUfZjB/qNXvh3N9wu6Ju9o174qx
-	mv6LQuJpcMvfPqQ94V6HTs1O2+z9sjBdbO4Wk8QaHBoK9B7KGcMa2yfiiFkCeQGQ6dvua3UKW1S
-	j4FVFs8MlYF3gboD/pIAVDwV+wZT1qEDP7CFSYu9I33oMh5G8IC6Qmky1JOIMgKu9UOvnp+Ykdm
-	rSlQnTs3KOYYeDEDIGh1snGbgccDiY+W2cpifp2oG1QGqGg7KUxC6wUin/DMCl5/6kbd8YLpZWu
-	ILp0MyK1dvpaT68qAhs6iQvFwlcOXvAVOEqFQQZUj3X3+K9O4cOvL3RZVwrTlzgS5ZuVVIC6mf2
-	BTL0fkhmD6BQAkPzDT50ZJ5yV0Ze1uszFqcR3jT5erv6VmvR/KM43UiQVEYN23PH2/4GWIV9OmV
-	qCQlT6QK29gizXl1vedxrUky5AxsxEMSdS7iXvEdjAl77Y39JVBu2e06fKxy/Od/zggzxI26Kno
-	t/edOcm4sJEzLhZ51FFvwabBm6yBwWG/acppZdg4Y5/Hhb7dkg=
-X-Received: by 2002:a17:903:3708:b0:2dd:c100:80c3 with SMTP id d9443c01a7336-2e2e4ba957fmr4040605ad.62.1790750528322;
-        Tue, 29 Sep 2026 23:42:08 -0700 (PDT)
-Received: from zhk-cbg100025892.huaqin.com ([103.117.77.121])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5be5d55sm1940075ad.50.2026.09.29.23.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:42:08 -0700 (PDT)
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-To: dianders@chromium.org,
-	neil.armstrong@linaro.org,
-	sam@ravnborg.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	daniel@ffwll.ch,
-	airlied@gmail.com,
-	Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Subject: [PATCH] drm/panel-edp: Support NV140WU2-M70 edp panel
-Date: Wed, 30 Sep 2026 14:38:56 +0800
-Message-Id: <20260930063856.183763-1-zhouhaikun5@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iqgwb7hP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 14776C4AF1B;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790750570;
+	bh=qqBc5eXs9JcVBir3iJDtFfbZkzcUTtSm00qiggjsgEw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Iqgwb7hPQkfHdfvRNmD9HVy/dFV18MmQFnG/QL743UK7VVw0/L9sz5/VSLWitJX8I
+	 qmYH3EMq/MVfliKUpC6HHRtfw04n3M3Ep1m7Y4sZSphj+yebdmjoL/K2wxjXOLryWA
+	 Unbv2JLvLt8NLIqehvfeIbi1Dxu5Hr1vmLxjdjmY2glBQ0CbALbA7TWAVZDoyLNAuW
+	 QEQE31NgXN/raqzWUbQYO/+Zvt2lJeUfk/zDsJtv7cgX2tvciTYs6B+0XWEB7m38qf
+	 h6R126ytw5wMnkMRwIgtOL3/9e9ZaXefqv0YUd/gzEjCKv3ibV6wPV56BDCNtEAIxf
+	 kFnNiwS5vu6Yg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02C1FCA5FBD;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 30 Sep 2026 14:41:22 +0800
+Subject: [PATCH v2 04/21] media: i2c: it6625: drop unused bus field from
+ struct it6625
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-4-e353f887e7fa@ite.com.tw>
+References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
+In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=822;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=k9VvBoEJz+7QdNYx+hA2cckZ/HnZLYyg1rBLK+vgdfw=;
+ b=wgLsMrnlSl+sYJw4cmLITLHha8AGuLbpeQRc7YMd9NoYfBF424NF1JC79opzpp+uEWvhVzd6w
+ LAq5K16QzolB89y9y0/oD1+Pl0xs97goYqjgNsEBNPuSId9M8xigM+d
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-NV140WU2-M70 raw edid:
-00 ff ff ff ff ff ff 00 09 e5 ae 38 00 00 00 00
-14 24 01 04 a5 1e 13 78 07 7a 95 97 5d 59 95 29
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 24 31 80 a0 70 b0 3c 40 30 20
-36 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
-4c 10 01 0a 20 20 20 20 20 20 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
-00 4e 56 31 34 30 57 55 32 2d 4d 37 30 0a 01 35
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-70 20 79 02 00 20 00 0c 9a 0e 00 ae 38 00 00 00
-00 14 1a 00 21 01 1d c8 0b 5d 07 80 07 b0 04 88
-74 b9 5d 99 85 95 97 42 20 02 35 54 b0 5c b0 5c
-66 32 12 78 22 00 14 3f 66 02 85 7f 07 9f 00 2f
-00 1f 00 af 04 3b 00 02 00 05 00 81 00 15 74 1a
-00 00 03 01 28 3c 00 00 53 42 53 42 3c 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 8d 90
+struct it6625::bus has no reader anywhere in the driver -- the mipi_csi2
+configuration is produced fresh in it6625_get_mbus_config() and parsed
+locally in it6625_parse_endpoint(), neither of which touches this field.
 
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/i2c/it6625.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 251e22ba90adf..cb2707cd98790 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2179,6 +2179,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x3879, &delay_200_500_e80, "NT116WHM-N21"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388b, &delay_200_500_e80, "NV116FH1-M31"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388c, &delay_200_500_e80, "NV116FH1-M30"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x38ae, &delay_200_500_e50, "NV140WU2-M70"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x38ea, &delay_200_500_e50, "NV140FHM-T0A"),
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index 7cc2ba0d26b8dbc439807e350434137f102d9d9f..b09b331b20364a8e169429bb309d1112ec83d919 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -268,7 +268,6 @@ struct it6625 {
+ 	struct mutex if_state_lock;
  
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1130, &delay_200_500_e50, "N116BGE-EB2"),
+ 	struct v4l2_subdev sd;
+-	struct v4l2_mbus_config_mipi_csi2 bus;
+ 	struct video_device *vdev;
+ 	struct media_pad pad;
+ 	struct v4l2_ctrl_handler hdl;
+
 -- 
 2.34.1
+
 
