@@ -1,61 +1,61 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798EB346ADB
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117BE36B92C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790736666; cv=none; b=Y+zG9bu35hYm3FjOrOtfL8zn6xInyWT+8p2ChgNO3mgnxRUadVhye8xK+I6MYZ97xaSvk2f9r8UoH0BFE48RyBOAoaX9XpVjxl+R4fK1bgVLMOY6Dteuk8uOrH+RGfe3isxshcLpC9E7Qg50VQfXRtHU0shZ4E2UKejbLrQfqIw=
+	t=1790736670; cv=none; b=uXiQz4+4Fb36IFsIzxUaaX4fQ9n8ztviEX4DAdITT8nDrek2uJpFbnPbws5VRbINI+4vSBZiHu+oDPvaNAVHBHKktttLna1g8omRMake09FYf5yIFsOrBHfLtAoC8L7YnnAsbBbH4ohoBV4hsIzuO4zVqyjcUIQ7oflw8RMjec8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790736666; c=relaxed/simple;
-	bh=CEvQSVd9fcBWsFlrSUx992wsWzAaElAKnFEAug49VOk=;
+	s=arc-20240116; t=1790736670; c=relaxed/simple;
+	bh=WQs5In3pWprR3zrRnTgoo/qUfCjyLE6wU00tTJoQt20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=loGBPj7dBc77j0D7330IhGqtmpdhgxvDDGRjxWWJ3KGL5lafhpUASBQEU1jt0OwTieXoyNSOmY+YMoFlFOuZsKLJC4Caeepokx1W5OIpBstXWfwZbhBEBd6g2IxbAuLK/OmdpHGEBx5Rx0yNem494sxbth0BswEfiG9ubaTOGS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=GNJh7COz; arc=none smtp.client-ip=74.125.229.169
+	 MIME-Version; b=Pt5fjCun0ctr9cOg6SYZt26QhBucnmbmlFSuCdFGcVNACN2lAg3iRgze0ZAEvOqGWon1Fs6KOwxpqG2Vh3RwqgpODkjKxX3lf+6s4uZSrxtr8GwY3FnB2kYhlTgkmOyUXkNg7T0fWWmBZH8cbWvJHEyAhfMeELZ7GzquB3froGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kXokne2Z; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GNJh7COz"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-1473f265b82so1304164c88.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:51:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kXokne2Z"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4420344c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:51:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790736663; x=1791341463; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1790736666; x=1791341466; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PNuyZkHjXDfl54OwZ1Afy6yUiGFdxCu/3F6vGj9C4zU=;
-        b=GNJh7COzmxgVm3qY+r/0zPSnndPN61/aT9TfEwN+/pEgDCvsol9t7lwl8Y709kNyxk
-         HZaoM63szGD8salow2uU9iDE/9NXVAil4E6iFW61ZI5fJK95JFy6FbZRlmw9T3SSjJGJ
-         bEy9f2pwFU92YC/GRrNkqSELhkEMsGTYWGUe0=
+        bh=z9PQZ/RdlGnjkaRoa0q1K5xoYon3f3vH5dZxAKS9M00=;
+        b=kXokne2Zgt4gTNadDfRkTKi4dBhJCeZFUPGewtkm5xHDQOgw8qKQNXtCw7zZY0nFA8
+         WbnIHhMP+pYUoLzTPqbUxBzHvW/UaOlv/Upg9o0Glky/qqze0+BRm9S3p4pFTx0ryghP
+         bMWoJmckzIFbXMZ/zsa3Ynv3HmlZjUtlIw/vY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790736663; x=1791341463;
+        d=1e100.net; s=20260707; t=1790736666; x=1791341466;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PNuyZkHjXDfl54OwZ1Afy6yUiGFdxCu/3F6vGj9C4zU=;
-        b=uCSwDHWTjd6dCHyWd/l47kXRQkDgcRKWconV2G3tLh3vPkIjoS86oRf2lerouUMKxk
-         6M4ceLZaujP+zeiFqRrochebyCDRrZdferXnPu15P37ZG6wPC8gutAIriSm/fRl41CrJ
-         +4idkm7aqHruWSWbvaN9wNGyZjo96+izO8JvZCijwOxQ/sNWrKOCr6JPSwNwQjzDs7On
-         MRfcBTxOfs/iObQjNYZmqQ0bDw/kydCX5t7KfF6/mh9IFYp/XnpTVWYh/v0YxKSeqK7f
-         muspBl5rcK84mN6JstX3qlhod+fA3oyxvmeoZIFR2eN/zeXvDMT3Ln7pT1tv50i2fWsc
-         e4pg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/Cx83hBAbkxYBjX420ysjHzzMx4QWJdcZTbJF9fVbESQI6D1ISuKBtB9/kaUvwU++MTrMTj/Hq4QF2JM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBo81duMUyyEPa0HFXFfRhtZ2ph/8MuGM1585T4TPOWEvVSTWs
-	L0c0FPW0DVR8glMoJJ/Qf8lAS1xFPLrw28GRKvDzMNgh0Y7CLfjXjOqKvdWZfxgcKQ==
-X-Gm-Gg: AYBFou1KktEvzkLYTWyDyZ07kHQBPJeBsZufW2OBwZbfVLfSUARE9DRvsP12e109xJ3
-	63T0nRQw3BMsL6dYrffrSHMx5n9clNglTPzTHUaKWMHF1logLFke+983FePOzHS2ZyVcrcZrvOz
-	BfnZnAbUv3577IjTCU3fj9WAk0ZF5+QDnSNU7dnkoGmQk4dXI6Ga7N31Tc7uZ5ijEDqvz2V7o5y
-	xw01Lj0hyat0pYjCUwZP47nazyDYos3gBA0c51DDLOVmeKzw3d4tatdB8tNOyY0p5gvp4jRKqnp
-	OXHLvcjzMrgPMPRrV+yCjhxFkGr1AievfAPnG2BzBM6dnPGQCVYZW9uWETCHSvhB4oCBNS5PGsP
-	IlF2+TBhOYDvnjFl7iSjmJCQgR6AiZnaLlLYifjm0iOxR3AV0GCqgKHXIl0vtu+l3wTlp5cB4MS
-	KPXgAYkfTprGcTACdMCxDNR+uO9mMK53l4J9aw97WlW/zC5UlaOv+Y8xxhOREtzlqFm4toVkPKu
-	/SSxhnBRteLWmYb+i9qY+m6gembs1GD4/x/
-X-Received: by 2002:a05:7022:28a:b0:145:152:b547 with SMTP id a92af1059eb24-14c9be70a84mr1517330c88.1.1790736663479;
-        Tue, 29 Sep 2026 19:51:03 -0700 (PDT)
+        bh=z9PQZ/RdlGnjkaRoa0q1K5xoYon3f3vH5dZxAKS9M00=;
+        b=YPqEhCefePAIvJwloVmGqv4HjttN1URIucxTwsi3Jm9HbOYRsk10oMZvtVqfPyEi7a
+         lB2fAoSy09ueSlA87fBcD5q/WL3crclWtxQvp/yyCCXFT5wtNhbxxfoZJwWaSrbqMA2m
+         YFmPdG3L1ajFj9k1AIvbcO/bxs8L4nrSGjoTa+Y64Rw/FaSrcqozP3YEsaLgilUXhlEM
+         gHwscowQ3CAU3KJSpJU0e3UzltLwPJ+rFsLGV9Z0BnZ7iSdXXm3RjYcJTHPcNr7bXWNm
+         Hvf8sOVh3D82XyY+rztEF3oW89wPrilLHZ8fVHE3y9lCjM9PyLOaGt6Cc/9gH2RpqxaX
+         rwYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvh5m9DScDu5bMm2+xkNUHiNPYbCK4ltJX8QM4bPUQdUGHoX7ybN9H3EtAtVD0FArrBr7jWZ74T3LlXkM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4D4IREZ1QrP3Lh+WI8tGuOVq+tvmI8/TFpKRP9lG83g1trxu9
+	YqnQ4rxXKhCtHUU6mC/c8a+P/6NcRZb8mh1/Px/oVPvl3zN4IBOJfyysEbw0iqTEoA==
+X-Gm-Gg: AYBFou38mVGM0iJfQculIrRr+XIyXQwBgwBvisQbsHXH5zK0INmqHMu56MkZAU3pev1
+	/iSPFQc5XNm+dDxKvUH93OLWz/BDDekncNep/C6my6jd0EMd9OzaNLwrAz7nJYfvyHhhPybQ6qm
+	KS1+5og5ENsfXXARe2GmoDLx5kRHaE/ET4lt8SJK8IIc/lX8gCSMcOwpteKGYtxqjBCGtKzyllN
+	QqOIioAnpRpXhM3osUKHYdmwoToe/NKHl92A7iJPhsBiVhx36R/PM23b5QgmhMGXocx6BjCpqUv
+	v3B75dJFwcH9eJMbS20Mt5Pq0o/IJ7OTrn32bW/p8Hlhx0BRHT7WcVZ8AJ2Hp26sGfESNdTKhBy
+	nurpvSR5Y7bqjJ4IB4vx4ZcOKNAgTXNWqmzyfPNeMiie/A743UjZscLDxiresXUkdokfCgeLfOw
+	o3BrHgH8F5Q2hS99jaRVHf1nyAxcCOas6Tn6WjoceMz5nJ8oKMMZk/jjdX7ZG5nQ/f7iK7UtDGG
+	El9pOg2RHb1vkL4AcL8+Hvn3pVpJ9Y1WcVg
+X-Received: by 2002:a05:7022:3f07:b0:143:26ea:371c with SMTP id a92af1059eb24-14c9f218abfmr1529002c88.28.1790736665960;
+        Tue, 29 Sep 2026 19:51:05 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:5f5a:aa9:d06d:b4a7])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-14d08fb4f9fsm197376c88.11.2026.09.29.19.51.02
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34c38bea1bbsm2713158eec.23.2026.09.29.19.51.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 19:51:02 -0700 (PDT)
+        Tue, 29 Sep 2026 19:51:05 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>
 Cc: Pavel Machek <pavel@kernel.org>,
@@ -66,9 +66,9 @@ Cc: Pavel Machek <pavel@kernel.org>,
 	Len Brown <lenb@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH v3 1/8] PM: runtime: Correct pm_runtime_autosuspend_expiration() doc
-Date: Tue, 29 Sep 2026 19:49:49 -0700
-Message-ID: <20260929194956.v3.1.Ifc8b2d1742729cc82f46220d85c6382fdee1fc8b@changeid>
+Subject: [PATCH v3 2/8] PM: runtime: More kerneldoc formatting
+Date: Tue, 29 Sep 2026 19:49:50 -0700
+Message-ID: <20260929194956.v3.2.Ia1cae8a40a24662df11553c225f4438eab65b7db@changeid>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260930025044.104824-1-briannorris@chromium.org>
 References: <20260930025044.104824-1-briannorris@chromium.org>
@@ -80,34 +80,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The "adjusted to be nonzero" comment may be a relic from when this API
-previously used jiffies, although I'm not quite sure about that either.
-In any case, it doesn't seem correct today.
+In taking another pass at these docs, I found some more inconsistencies.
 
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
 
-(no changes since v2)
+Changes in v3:
+ * Wrap/shorten differently
+ * Resolve a few other inconsistencies with a similar pattern
 
 Changes in v2:
-* New in v2
+ * New in v2
 
- drivers/base/power/runtime.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/base/power/runtime.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-index bb008dfe85a1..7e75f6d5df07 100644
+index 7e75f6d5df07..00d1981763b6 100644
 --- a/drivers/base/power/runtime.c
 +++ b/drivers/base/power/runtime.c
-@@ -169,7 +169,7 @@ static void pm_runtime_cancel_pending(struct device *dev)
-  * Compute the autosuspend-delay expiration time based on the device's
-  * power.last_busy time.  If the delay has already expired or is disabled
-  * (negative) or the power.use_autosuspend flag isn't set, return 0.
-- * Otherwise return the expiration time in nanoseconds (adjusted to be nonzero).
-+ * Otherwise return the expiration time in nanoseconds.
+@@ -1254,12 +1254,11 @@ static int pm_runtime_get_conditional(struct device *dev, bool ign_usage_count)
+ }
+ 
+ /**
+- * pm_runtime_get_if_active - Bump up runtime PM usage counter if the device is
+- *			      in active state
++ * pm_runtime_get_if_active - Conditionally bump up runtime PM usage counter.
+  * @dev: Target device.
   *
-  * This function may be called either with or without dev->power.lock held.
-  * Either way it can be racy, since power.last_busy may be updated at any time.
+  * Increment the runtime PM usage counter of @dev if its runtime PM status is
+- * already %RPM_ACTIVE
++ * already %RPM_ACTIVE.
+  *
+  * Return:
+  * * %-EINVAL: Runtime PM is disabled for @dev. The usage counter is not incremented.
+@@ -1607,7 +1606,6 @@ static void pm_runtime_set_suspended_action(void *data)
+ 
+ /**
+  * devm_pm_runtime_set_active_enabled - set_active version of devm_pm_runtime_enable.
+- *
+  * @dev: Device to handle.
+  */
+ int devm_pm_runtime_set_active_enabled(struct device *dev)
+@@ -1634,11 +1632,10 @@ static void pm_runtime_disable_action(void *data)
+ 
+ /**
+  * devm_pm_runtime_enable - devres-enabled version of pm_runtime_enable.
++ * @dev: Device to handle.
+  *
+  * NOTE: this will also handle calling pm_runtime_dont_use_autosuspend() for
+  * you at driver exit time if needed.
+- *
+- * @dev: Device to handle.
+  */
+ int devm_pm_runtime_enable(struct device *dev)
+ {
+@@ -1655,7 +1652,6 @@ static void pm_runtime_put_noidle_action(void *data)
+ 
+ /**
+  * devm_pm_runtime_get_noresume - devres-enabled version of pm_runtime_get_noresume.
+- *
+  * @dev: Device to handle.
+  */
+ int devm_pm_runtime_get_noresume(struct device *dev)
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
